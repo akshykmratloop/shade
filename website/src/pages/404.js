@@ -1,10 +1,12 @@
-// pages/404.js
 import Link from 'next/link';
 import styles from '@/styles/Error.module.scss';
-import LoaderData from "@/common/404.json";
-import Lottie from 'react-lottie';
+import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
+
+// Dynamically import Lottie with ssr: false to prevent SSR issues
+const Lottie = dynamic(() => import('react-lottie'), { ssr: false });
+import LoaderData from "@/common/404.json";
 
 const Custom404 = () => {
     const route = useRouter();
@@ -14,8 +16,8 @@ const Custom404 = () => {
         autoplay: true,
         animationData: LoaderData,
         rendererSettings: {
-            preserveAspectRatio: "xMidYMid slice"
-        }
+            preserveAspectRatio: "xMidYMid slice",
+        },
     };
 
     useEffect(() => {
@@ -36,6 +38,6 @@ const Custom404 = () => {
             <Link href="/" className={styles.homeLink}>العودة إلى الصفحة الرئيسية</Link>
         </div>
     );
-}
+};
 
 export default Custom404;

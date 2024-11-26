@@ -1,9 +1,12 @@
+import dynamic from 'next/dynamic';
 import Layout from "@/components/Layout";
 import "@/styles/globals.scss";
 import { useRouter } from "next/router";
 import localFont from "next/font/local";
 import { Suspense, useEffect, useState } from "react";
-import Loader from "@/common/Loader";
+
+// Dynamically import Loader component to avoid SSR issues
+const Loader = dynamic(() => import('@/common/Loader'), { ssr: false });
 
 // Font files can be colocated inside of `app`
 const BankGothic = localFont({
@@ -21,7 +24,6 @@ export default function App({ Component, pageProps }) {
   // Check if the current route matches any route in noLayoutRoutes
   const isNoLayoutRoute = noLayoutRoutes.includes(router.pathname);
 
-
   useEffect(() => {
     const handleStart = () => setIsPageLoading(true);
     const handleComplete = () => setIsPageLoading(false);
@@ -37,7 +39,6 @@ export default function App({ Component, pageProps }) {
     };
   }, [router]);
 
-  // console.log(BankGothic.className, "font")
   return (
     <div className={BankGothic.className}>
       {isPageLoading && <Loader />}
