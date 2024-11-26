@@ -1,0 +1,204 @@
+.project_banner_wrap {
+  height: 715px;
+  background: url("https://frequencyimage.s3.ap-south-1.amazonaws.com/a4a2a992-c11e-448b-bdfe-54b14574958d-Hero%20%281%29%20%281%29.png")
+    no-repeat center / cover;
+  width: 100%;
+  position: relative;
+
+  &.leftAlign {
+    transform: scaleX(-1);
+    .content {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      left: 185px;
+      .title,
+      .description {
+        transform: scaleX(-1);
+        text-align: left;
+      }
+      .view_btn {
+        padding: 10px 40px 10px 10px;
+        transform: scaleX(-1);
+      }
+      .arrow_btn {
+        position: absolute;
+        top: 30% !important;
+        left: 165px !important;
+        transform: scaleX(-1) !important;
+      }
+    }
+  }
+
+  .content {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+
+    .title {
+      color: var(--black);
+      font-size: 70px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 77px;
+      /* 110% */
+      letter-spacing: -3.5px;
+      margin-bottom: 16px;
+      text-align: right;
+    }
+
+    .description {
+      color: var(--para-light);
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: 28px;
+      margin-bottom: 24px;
+      width: 55%;
+      text-align: right;
+      margin-left: auto;
+    }
+
+    .view_btn {
+      padding: 16px 28px 5px 60px;
+      font-size: 18px;
+      font-weight: 500;
+      margin-left: auto;
+      position: relative;
+
+      .arrow_btn {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        left: 32px;
+      }
+    }
+  }
+}
+
+.market_tab_container {
+  padding: 88px 0 112px 0;
+
+  .tabContainer {
+    .tabs {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 32px;
+
+      .tabButton {
+        color: var(--black);
+        font-family: Arial;
+        font-size: 20px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 30px;
+        // padding: 5px;
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+        text-transform: uppercase;
+        position: relative;
+
+        &::after {
+          content: "";
+          height: 1px;
+          background-color: transparent;
+          width: 0;
+          border: 4px;
+          bottom: 0;
+          left: 0;
+          position: absolute;
+          transition: all 0.3s ease-in-out;
+        }
+
+        &.activeTab {
+          color: var(--primary);
+
+          &::after {
+            width: 100%;
+            background-color: var(--primary);
+          }
+        }
+      }
+    }
+
+    .card_group {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      // align-items: center;
+      // justify-content: center;
+      column-gap: 64px;
+      row-gap: 24px;
+      margin-top: 46px;
+      flex-wrap: wrap;
+
+      .card {
+        border-radius: 4px;
+        padding: 12px;
+        // width: 319px;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+
+        .card_image {
+          // background: url;
+        }
+
+        .title {
+          color: var(--black);
+          text-align: right;
+          font-size: 20px;
+          font-style: normal;
+          font-weight: 700;
+          line-height: normal;
+          margin-top: 16px;
+        }
+
+        .description {
+          color: var(--Text, rgba(14, 23, 47, 0.7));
+          text-align: right;
+          font-size: 14px;
+          font-style: normal;
+          font-weight: 300;
+          line-height: normal;
+          margin-top: 10px;
+        }
+
+        .button {
+          color: var(--primary);
+          text-align: center;
+          font-size: 16px;
+          font-style: normal;
+          font-weight: 400;
+          line-height: normal;
+          background: transparent;
+          border: none;
+          display: flex;
+          align-items: center;
+          gap: 10px;
+          margin-top: 14px;
+          cursor: pointer;
+          .icon{
+              &.leftAlign{
+                transform: scaleX(-1);
+            }
+        }
+        }
+      
+      }
+    }
+
+    .button_wrap {
+      align-items: center;
+      justify-content: center;
+      display: flex;
+      margin-top: 44px;
+
+      .view_more_btn {
+        gap: 8px;
+      }
+    }
+  }
+}

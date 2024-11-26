@@ -1,0 +1,3346 @@
+{
+  "header": {
+    "solution": {
+      "en": "Solutions",
+      "ar": "خبر"
+    },
+    "about": {
+      "en": "About",
+      "ar": "معلومات عنا"
+    },
+    "services": {
+      "en": "Services",
+      "ar": "المشاريع"
+    },
+    "market": {
+      "en": "Market",
+      "ar": "سوق"
+    },
+    "project": {
+      "en": "Project",
+      "ar": "خدمة"
+    },
+    "career": {
+      "en": "Career",
+      "ar": "مهنة"
+    },
+    "news": {
+      "en": "News",
+      "ar": "حل"
+    },
+    "contact": {
+      "en": "Contact Us",
+      "ar": "اتصل بنا"
+    }
+  },
+  "home": {
+    "homeBanner": {
+      "title": {
+        "en": "Building a Stronger Future",
+        "ar": "بناء مستقبل أقوى"
+      },
+      "description": {
+        "en": "Our unwavering commitment that forge partnerships and strong collaborations with visionary leaders to take their most critical challenges, capture their greatest opportunities, and create engineering feats and breakthroughs that are transformative and coincides with the Kingdom’s Vision 2030.",
+        "ar": "التزامنا الثابت الذي يعزز الشراكات والتعاونات القوية مع القادة الرؤوساء لمواجهة أصعب التحديات واستغلال أعظم الفرص، وخلق إنجازات هندسية واختراقات تحولية تتوافق مع رؤية المملكة ٢٠٣٠."
+      },
+      "buttonText": {
+        "en": "View Our Work",
+        "ar": "أعمالنا"
+      }
+    },
+    "aboutUsSection": {
+      "title": {
+        "en": "Driven by excellence in execution",
+        "ar": "مدفوعون بالتميز في التنفيذ"
+      },
+      "description": {
+        "en": "With our clients, we adopt a transformational approach by empowering organizations to build a sustainable competitive advantage and help drive growth",
+        "ar": "مع عملائنا، نعتمد نهجًا تحوليًا من خلال تمكين المؤسسات لبناء ميزة تنافسية مستدامة والمساعدة في دفع النمو."
+      },
+      "description2": {
+        "en": "We work with the most dynamic organizations and have helped them by mobilizing change, accelerating value engineering with creative solutions, and partnering them towards achieving global prominence.",
+        "ar": "نعمل مع أكثر المنظمات ديناميكية وقد ساعدناها من خلال تحفيز التغيير، وتسريع هندسة القيمة بحلول مبتكرة، وشراكتها نحو تحقيق مكانة عالمية بارزة."
+      },
+      "buttonText": {
+        "en": "Know About Us",
+        "ar": "اعرف عنا"
+      }
+    },
+
+    "serviceSection": {
+      "title": {
+        "en": "OUR SERVICES",
+        "ar": "خدماتنا"
+      },
+      "cards": [
+        {
+          "title": {
+            "en": "Construction Management",
+            "ar": "إدارة البناء"
+          },
+          "iconName": "construction"
+        },
+        {
+          "title": {
+            "en": "Project Services",
+            "ar": "خدمات المشاريع"
+          },
+          "iconName": "projectService"
+        },
+        {
+          "title": {
+            "en": "Operation & Maintenance",
+            "ar": "التشغيل والصيانة"
+          },
+          "iconName": "operationGate"
+        },
+        {
+          "title": {
+            "en": "Fabrication",
+            "ar": "التصنيع"
+          },
+          "iconName": "fabrication"
+        },
+        {
+          "title": {
+            "en": "Equipment Rental",
+            "ar": "تأجير المعدات"
+          },
+          "iconName": "eqRental"
+        }
+      ]
+    },
+
+    "experienceSection": {
+      "title": {
+        "en": "32 Years of Experience",
+        "ar": "٣٢ عاماً من الخبرة"
+      },
+      "description": {
+        "en": "Our company has been the leading provided construction services to clients throughout the Dubai since 1992.",
+        "ar": "كانت شركتنا رائدة في تقديم خدمات البناء للعملاء في جميع أنحاء دبي منذ عام 1992."
+      },
+      "cards": [
+        {
+          "count": "123",
+          "title": {
+            "en": "Projects Completed",
+            "ar": "المشاريع المنجزة"
+          },
+          "iconName": "projectCompleted"
+        },
+        {
+          "count": "84",
+          "title": {
+            "en": "Happy Clients",
+            "ar": "عملاء سعداء"
+          },
+          "iconName": "happyClient"
+        },
+        {
+          "count": "32",
+          "title": {
+            "en": "Years in Business",
+            "ar": "سنوات في العمل"
+          },
+          "iconName": "yearOfBusiness"
+        },
+        {
+          "count": "42",
+          "title": {
+            "en": "Awards Won",
+            "ar": "الفوز بالجوائز"
+          },
+          "iconName": "awardWin"
+        }
+      ],
+      "button": {
+        "text": {
+          "en": "Contact Us",
+          "ar": "اتصل بنا"
+        }
+      }
+    },
+
+    "recentProjectsSection": {
+      "subtitle1": {
+        "en": "Markets",
+        "ar": "أسواقنا"
+      },
+      "subtitle2": {
+        "en": "Safety: Our Responsibility",
+        "ar": "السلامة: مسؤوليتنا"
+      },
+      "buttons": [
+        {
+          "text": {
+            "en": "View All",
+            "ar": "عرض الكل"
+          }
+        },
+        {
+          "text": {
+            "en": "Back",
+            "ar": "العودة"
+          }
+        },
+        {
+          "text": {
+            "en": "Next",
+            "ar": "التالي"
+          }
+        }
+      ],
+
+      "sections": [
+        {
+          "title": {
+            "en": "Recent Projects",
+            "ar": "المشاريع الأخيرة"
+          },
+          "description": {
+            "en": "Shade Corporation boasts a continually growing portfolio of satisfied clients, both global and local, who have derived tremendous benefits from their engagement with us. Our solutions are sought after by companies of all sizes – large, mid-sized, and small. We firmly believe in establishing strategic partnerships with diversed organizations, delivering solutions that provide tangible business value. Among our recent and notable projects are:",
+            "ar": "تفتخر شركة شيد بمحفظة متزايدة من العملاء الراضين، سواء على الصعيد العالمي أو المحلي، الذين استفادوا بشكل كبير من تعاونهم معنا. تُعتبر حلولنا مطلوبة من قبل الشركات بمختلف أحجامها – الكبيرة، والمتوسطة، والصغيرة. نحن نؤمن بشدة بضرورة إقامة شراكات استراتيجية مع منظمات متنوعة، وتقديم حلول توفر قيمة تجارية ملموسة. من بين مشاريعنا الأخيرة والبارزة:"
+          },
+          "projects": [
+            {
+              "title": {
+                "en": "IT Excellence Lab",
+                "ar": "مختبر تكنولوجيا المعلومات للتميز"
+              },
+              "subtitle": {
+                "en": "Spark - Dhahran, Saudi Arabia",
+                "ar": "سبارك - الظهران، المملكة العربية السعودية"
+              },
+              "image": "itLab"
+            },
+            {
+              "title": {
+                "en": "Business Gate",
+                "ar": "بوابة الأعمال"
+              },
+              "subtitle": {
+                "en": "Dammam, Saudi Arabia",
+                "ar": "الدمام، المملكة العربية السعودية"
+              },
+              "image": "business"
+            },
+            {
+              "title": {
+                "en": "Psychiatric Facility",
+                "ar": "مختبر تكنولوجيا المعلومات للتميز"
+              },
+              "subtitle": {
+                "en": "Dhahran, Saudi Arabia",
+                "ar": "سبارك - الظهران، المملكة العربية السعودية"
+              },
+              "image": "psychiatric"
+            },
+            {
+              "title": {
+                "en": "Renovation of Building 175",
+                "ar": "تجديد المبنى 175"
+              },
+              "subtitle": {
+                "en": "Dhahran, Saudi Arabia",
+                "ar": "سبارك - الظهران، المملكة العربية السعودية"
+              },
+              "image": "renovation"
+            }
+          ]
+        },
+        {
+          "title": {
+            "en": "Our Markets",
+            "ar": "أسواقنا"
+          },
+          "description": {
+            "en": "Navigating a tapestry of markets, Shade Corporation draws from a wealth of experience, cultivating a strategic advantage. Our journey through diverse industries provides profound insights, shaping an approach that is both seasoned, creative and forward-thinking. From understanding unique challenges to anticipating market trends, we leverage our collective wisdom to drive success in every venture.",
+            "ar": "التنقل عبر شبكة من الأسواق، تستفيد شركة شيد من ثروة من الخبرة، مما يتيح لها تحقيق ميزة استراتيجية. إن رحلتنا عبر صناعات متنوعة توفر رؤى عميقة، مما يشكل نهجًا يجمع بين الخبرة والإبداع والرؤية المستقبلية. من فهم التحديات الفريدة إلى توقع اتجاهات السوق، نستفيد من حكمتنا الجماعية لتحقيق النجاح في كل مشروع."
+          },
+          "projects": [
+            {
+              "title": {
+                "en": "Buildings",
+                "ar": "المباني"
+              },
+              "subtitle": {
+                "en": "Spark - Dhahran, Saudi Arabia",
+                "ar": "سبارك - الظهران، المملكة العربية السعودية"
+              },
+              "description": {
+                "en": "High-rise building construction project.",
+                "ar": "مشروع بناء ناطحات سحاب."
+              },
+              "image": ""
+            },
+            {
+              "title": {
+                "en": "Industrial",
+                "ar": "الصناعة"
+              },
+              "subtitle": {
+                "en": "Location 2",
+                "ar": "موقع 2"
+              },
+              "description": {
+                "en": "Industrial complex development project.",
+                "ar": "مشروع تطوير مجمع صناعي."
+              },
+              "image": ""
+            },
+            {
+              "title": {
+                "en": "Infrastructure",
+                "ar": "البنية التحتية"
+              },
+              "subtitle": {
+                "en": "Location 3",
+                "ar": "موقع 3"
+              },
+              "description": {
+                "en": "Infrastructure expansion and upgrade.",
+                "ar": "توسعة وتحديث البنية التحتية."
+              },
+              "image": ""
+            },
+            {
+              "title": {
+                "en": "Repair & Retrofit",
+                "ar": "الصيانة والتجديد"
+              },
+              "subtitle": {
+                "en": "Location 4",
+                "ar": "موقع 4"
+              },
+              "description": {
+                "en": "Renovation of aging facilities.",
+                "ar": "تجديد المنشآت القديمة."
+              },
+              "image": ""
+            },
+            {
+              "title": {
+                "en": "IT Excellence Lab",
+                "ar": "مختبر تكنولوجيا المعلومات للتميز"
+              },
+              "subtitle": {
+                "en": "Spark - Dhahran, Saudi Arabia",
+                "ar": "سبارك - الظهران، المملكة العربية السعودية"
+              },
+              "description": {
+                "en": "IT infrastructure and innovation hub.",
+                "ar": "مركز بنية تحتية لتكنولوجيا المعلومات والابتكار."
+              },
+              "image": ""
+            },
+            {
+              "title": {
+                "en": "Project 2",
+                "ar": "مشروع 2"
+              },
+              "subtitle": {
+                "en": "Location 2",
+                "ar": "موقع 2"
+              },
+              "description": {
+                "en": "Large-scale development project.",
+                "ar": "مشروع تطوير واسع النطاق."
+              },
+              "image": ""
+            },
+            {
+              "title": {
+                "en": "Project 3",
+                "ar": "مشروع 3"
+              },
+              "subtitle": {
+                "en": "Location 3",
+                "ar": "موقع 3"
+              },
+              "description": {
+                "en": "Residential and commercial spaces.",
+                "ar": "مساحات سكنية وتجارية."
+              },
+              "image": ""
+            },
+            {
+              "title": {
+                "en": "Project 4",
+                "ar": "مشروع 4"
+              },
+              "subtitle": {
+                "en": "Location 4",
+                "ar": "موقع 4"
+              },
+              "description": {
+                "en": "Modern architecture and facilities.",
+                "ar": "عمارة حديثة ومرافق."
+              },
+              "image": ""
+            }
+          ]
+        },
+        {
+          "title": {
+            "en": "Safety: Our Responsibility",
+            "ar": "السلامة: مسؤوليتنا"
+          },
+          "description": {
+            "en": "At Shade Corporation, safety isn't just a policy—it's a core value that we instill in every project. Through meticulous planning, advanced technology, and strict adherence to safety protocols, we ensure that every stakeholder is protected and every operation is conducted with the highest level of safety standards.",
+            "ar": "في شركة شيد، السلامة ليست مجرد سياسة، بل هي قيمة أساسية نزرعها في كل مشروع. من خلال التخطيط الدقيق، والتكنولوجيا المتقدمة، والالتزام الصارم ببروتوكولات السلامة، نضمن حماية جميع الأطراف المعنية وتنفيذ كل عملية بأعلى معايير السلامة."
+          },
+          "projects": [
+            {
+              "title": {
+                "en": "Safety Training Facility",
+                "ar": "منشأة تدريب السلامة"
+              },
+              "subtitle": {
+                "en": "Location 1",
+                "ar": "موقع 1"
+              },
+              "description": {
+                "en": "A state-of-the-art facility for safety training.",
+                "ar": "منشأة حديثة لتدريب السلامة."
+              },
+              "image": ""
+            },
+            {
+              "title": {
+                "en": "Emergency Response Systems",
+                "ar": "أنظمة الاستجابة للطوارئ"
+              },
+              "subtitle": {
+                "en": "Location 2",
+                "ar": "موقع 2"
+              },
+              "description": {
+                "en": "Design and implementation of emergency response systems.",
+                "ar": "تصميم وتنفيذ أنظمة الاستجابة للطوارئ."
+              },
+              "image": ""
+            },
+            {
+              "title": {
+                "en": "Construction Safety Standards",
+                "ar": "معايير السلامة في البناء"
+              },
+              "subtitle": {
+                "en": "Building Site 3",
+                "ar": "موقع البناء 3"
+              },
+              "description": {
+                "en": "Ensuring safety standards on construction sites.",
+                "ar": "ضمان معايير السلامة في مواقع البناء."
+              },
+              "image": ""
+            },
+            {
+              "title": {
+                "en": "Hazardous Materials Handling",
+                "ar": "مناولة المواد الخطرة"
+              },
+              "subtitle": {
+                "en": "Facility 4",
+                "ar": "المرافق 4"
+              },
+              "description": {
+                "en": "Proper handling and disposal of hazardous materials.",
+                "ar": "التعامل الصحيح والتخلص من المواد الخطرة."
+              },
+              "image": ""
+            },
+            {
+              "title": {
+                "en": "Fire Safety and Prevention",
+                "ar": "السلامة من الحرائق والوقاية"
+              },
+              "subtitle": {
+                "en": "Building 5",
+                "ar": "المبنى 5"
+              },
+              "description": {
+                "en": "Installation of fire safety systems and prevention protocols.",
+                "ar": "تركيب أنظمة السلامة من الحرائق وبروتوكولات الوقاية."
+              },
+              "image": ""
+            },
+            {
+              "title": {
+                "en": "Workplace Safety Audits",
+                "ar": "تدقيق السلامة في مكان العمل"
+              },
+              "subtitle": {
+                "en": "Location 6",
+                "ar": "موقع 6"
+              },
+              "description": {
+                "en": "Routine safety audits to ensure compliance.",
+                "ar": "التدقيق الروتيني للسلامة لضمان الامتثال."
+              },
+              "image": ""
+            }
+          ]
+        }
+      ]
+    },
+
+    "clientSection": {
+      "title": {
+        "en": "Our Happy Clients",
+        "ar": "عملائنا السعداء"
+      },
+      "description": {
+        "en": "Trusted Partners in Success",
+        "ar": "شركاء موثوقون في النجاح"
+      },
+      "clients": [
+        {
+          "image": "client1",
+          "alt": {
+            "en": "Client 1",
+            "ar": "عميل 1"
+          }
+        },
+        {
+          "image": "client2",
+          "alt": {
+            "en": "Client 2",
+            "ar": "عميل 2"
+          }
+        },
+        {
+          "image": "client3",
+          "alt": {
+            "en": "Client 3",
+            "ar": "عميل 3"
+          }
+        },
+        {
+          "image": "client4",
+          "alt": {
+            "en": "Client 4",
+            "ar": "عميل 4"
+          }
+        }
+      ]
+    },
+
+    "testimonialSection": {
+      "title": {
+        "en": "What Our Clients Say About Us?",
+        "ar": "ماذا يقول عملاؤنا عنا؟"
+      },
+      "testimonials": [
+        {
+          "name": {
+            "en": "Dr. Engr. Salah Attia Abdelzaher",
+            "ar": "د. مهندس صلاح عطيه عبد الظاهر"
+          },
+          "position": {
+            "en": "Director Projects JODC (Director of infrastructure and MEP)",
+            "ar": "مدير المشاريع في شركة جبل عمر للتطوير (مدير البنية التحتية والميكانيكا والكهرباء)"
+          },
+          "quote": {
+            "en": "Excellent planning, coordination and execution. Successful scheduling. Strong management and reporting. HSE representative excelled. Conclusion: Performance exceeds expectations.",
+            "ar": "تخطيط وتنسيق وتنفيذ ممتاز. جدولة ناجحة. إدارة وإعداد التقارير قوية. تميز ممثل الصحة والسلامة والبيئة. الخلاصة: الأداء يتجاوز التوقعات."
+          },
+          "company": {
+            "en": "Jabal Omar Development Company",
+            "ar": "شركة جبل عمر للتطوير"
+          },
+          "image": "testimonial1"
+        },
+        {
+          "name": {
+            "en": "Ahmed Basiony",
+            "ar": "أحمد بسيوني"
+          },
+          "position": {
+            "en": "Project Manager",
+            "ar": "مدير مشروع"
+          },
+          "quote": {
+            "en": "Always delighted to work with Shade team; our trusted EPC partner. Their proactive approach has added value to each stage of the development and we have always been able to rely on their team to provide a very high quality, cost effective and robust results.",
+            "ar": "دائمًا سعيد بالعمل مع فريق شيد؛ شريكنا الموثوق في مشاريع الهندسة والمشتريات والبناء. لقد أضاف نهجهم الاستباقي قيمة إلى كل مرحلة من مراحل التطوير، وتمكنا دائمًا من الاعتماد على فريقهم لتقديم نتائج قوية عالية الجودة وفعالة من حيث التكلفة."
+          },
+          "company": {
+            "en": "Nesma & Partners",
+            "ar": "نسما وشركاها"
+          },
+          "image": "testimonial1"
+        },
+        {
+          "name": {
+            "en": "Khaled El Kholy",
+            "ar": "خالد الخولي"
+          },
+          "position": {
+            "en": "Project Engineer",
+            "ar": "مهندس مشروع"
+          },
+          "quote": {
+            "en": "Impressed with the project team’s expertise and hands on experience with road projects. They have consistently delivered against project objectives and proved as most reliable construction partner.",
+            "ar": "مُعجب بخبرة فريق المشروع وتجربته العملية في مشاريع الطرق. لقد قدموا باستمرار نتائج تتماشى مع أهداف المشروع وأثبتوا أنهم أكثر شركاء البناء موثوقية."
+          },
+          "company": {
+            "en": "Umm Al Qura for Development & Construction",
+            "ar": "شركة أم القرى للتطوير والبناء"
+          },
+          "image": "testimonial2"
+        },
+        {
+          "name": {
+            "en": "Mostafa Sayed",
+            "ar": "سيد مصطفى"
+          },
+          "position": {
+            "en": "Project Manager",
+            "ar": "مدير مشروع"
+          },
+          "quote": {
+            "en": "The staff employed by Shade for the project, have supported us to deliver a challenging scheme on time, budget, quality and specification, which has resulted in us keeping promise of delivering key infrastructure for Makkah on time & budget.",
+            "ar": "لقد دعمنا الموظفون الذين عينتهم شركة شيد للمشروع لتقديم مخطط مليء بالتحديات في الوقت المحدد والميزانية والجودة والمواصفات، مما أدى إلى وفائنا بوعدنا بتسليم البنية التحتية الرئيسية لمكة المكرمة في الوقت المحدد وضمن الميزانية."
+          },
+          "company": {
+            "en": "Jabal Omar Development Authority",
+            "ar": "هيئة تطوير جبل عمر"
+          },
+          "image": "dummyUser"
+        },
+        {
+          "name": {
+            "en": "Amro Khatab",
+            "ar": "عمرو خطاب"
+          },
+          "position": {
+            "en": "Project Manager",
+            "ar": "مدير مشروع"
+          },
+          "quote": {
+            "en": "To have qualified construction partner as Shade, is key for the success of the project, especially something as complicated as Bridge road E. Their competent site team supported us in execution as well as their planning process contribute to on time delivery.",
+            "ar": "وجود شريك بناء مؤهل ك شيد هو مفتاح لنجاح المشروع، خاصة في شيء معقد مثل طريق الجسر E. لقد دعمنا فريق الموقع المختص في التنفيذ بالإضافة إلى مساهمة عملية التخطيط الخاصة بهم في التسليم في الوقت المحدد."
+          },
+          "company": {
+            "en": "Khatib & Alami",
+            "ar": "خطيب وعلمي"
+          },
+          "image": "dummyUser"
+        },
+        {
+          "name": {
+            "en": "Sherif Mekky",
+            "ar": "شريف مكي"
+          },
+          "position": {
+            "en": "Design Manager",
+            "ar": "مدير التصميم"
+          },
+          "quote": {
+            "en": "As a design consultant, it is most important to have experienced construction partner who is prompt, efficient, supportive and professional in all elements of their work. Shade is one of such partners, who is committed to deliver required output with excellent quality.",
+            "ar": "كمستشار تصميم، من المهم جدًا أن يكون لديك شريك بناء ذو خبرة وسريع وفعال وداعم ومحترف في جميع جوانب عمله. شيد هي واحدة من هؤلاء الشركاء، الذين يلتزمون بتقديم النتائج المطلوبة بجودة ممتازة."
+          },
+          "company": {
+            "en": "Parsons",
+            "ar": "بارسون"
+          },
+          "image": "dummyUser"
+        }
+      ]
+    },
+
+    "newProjectSection": {
+      "title": {
+        "ar": "هل تريد بدء مشروع جديد أو التعاون معنا؟",
+        "en": "Want to Start a New Project OR Collaborate with us?"
+      },
+      "description1": {
+        "ar": "وفقًا لفلسفتنا المتمثلة في “بناء مستقبل أقوى”، تؤمن شركة شيد بشراكات مربحة للجانبين مع جميع أصحاب المصلحة، وتهدف باستمرار إلى إنشاء علاقات مستدامة وطويلة الأمد لخلق القيمة. يتضمن نموذج المشاركة الخاص بنا منهجيات خاصة وحلولًا شاملة من شأنها تحويل اقتصاديات مشروعك وفتح إمكانيات جديدة ودعم أهداف النمو التنظيمي لديك.",
+        "en": "True to our philosophy of “Building a Stronger Future”, Shade Corporation believes in win-win partnerships with all stakeholders, and continually aims at creating sustainable and long-term relationships for value creation. Our engagement model includes proprietary methodologies and comprehensive solutions that will transform your project economics, unlock new possibilities and support your organizational growth goals."
+      },
+      "description2": {
+        "ar": "في العقود القليلة الماضية، قمنا بخدمة العديد من الشركات والمؤسسات العامة الرائدة في السعودية لوضع استراتيجيات رابحة، وحل بعض المشاكل المعقدة، وتحقيق نتائج متسقة. إذا كنت تتطلع إلى تعزيز الأداء وتنفيذ استراتيجيات النمو وبناء قدرات جديدة، فتعاون معنا الآن.",
+        "en": "In the last few decades, we have served many of Saudi's leading companies and public institutions to create winning strategies, solve some of the complex problems, and deliver consistent outcomes. If you're looking to drive performance, execute growth strategies, and build new capabilities, collaborate with us now."
+      },
+      "highlightedText": {
+        "ar": "بناء مستقبل أقوى",
+        "en": "Building a Stronger Future"
+      },
+      "button": {
+        "text": {
+          "ar": "اتصل بنا",
+          "en": "Contact Us"
+        }
+      }
+    }
+  },
+
+  "footer": {
+    "companyInfo": {
+      "address": {
+        "ar": "شركة الظل المحدودة.\nص.ب. ص.ب 7027 الدمام 31462 المملكة العربية السعودية مبنى رقم 5222 الدمام 32414-6124.",
+        "en": "Shade Corporation Ltd.\nP.O. Box 7027 Dammam 31462 Saudi Arabia Building No. 5222 Dammam 32414-6124."
+      }
+    },
+    "aboutUs": {
+      "title": {
+        "ar": "معلومات عنا",
+        "en": "About Us"
+      },
+      "links": [
+        {
+          "ar": "تاريخ",
+          "en": "History",
+          "url": "#"
+        },
+        {
+          "ar": "الرؤية/الرسالة",
+          "en": "Vision/Mission",
+          "url": "#"
+        },
+        {
+          "ar": "المخطط التنظيمي",
+          "en": "Organization Chart",
+          "url": "#"
+        },
+        {
+          "ar": "مالي",
+          "en": "Financial",
+          "url": "#"
+        },
+        {
+          "ar": "الصحة والسلامة والبيئة",
+          "en": "HSE",
+          "url": "#"
+        },
+        {
+          "ar": "الشركات التابعة",
+          "en": "Subsidiaries",
+          "url": "#"
+        }
+      ]
+    },
+    "markets": {
+      "title": {
+        "ar": "الأسواق",
+        "en": "Markets"
+      },
+      "links": [
+        {
+          "ar": "المباني",
+          "en": "Buildings",
+          "url": "#"
+        },
+        {
+          "ar": "صناعي",
+          "en": "Industrial",
+          "url": "#"
+        },
+        {
+          "ar": "بنية تحتية",
+          "en": "Infrastructure",
+          "url": "#"
+        },
+        {
+          "ar": "الإصلاح والتحديث",
+          "en": "Repair & Modernization",
+          "url": "#"
+        }
+      ]
+    },
+    "services": {
+      "title": {
+        "ar": "جميع الخدمات",
+        "en": "All Services"
+      },
+      "links": [
+        {
+          "ar": "خدمات المشاريع",
+          "en": "Project Services",
+          "url": "#"
+        },
+        {
+          "ar": "مدير البناء",
+          "en": "Construction Manager",
+          "url": "#"
+        },
+        {
+          "ar": "التشغيل والصيانة",
+          "en": "Operation & Maintenance",
+          "url": "#"
+        },
+        {
+          "ar": "تأجير المعدات",
+          "en": "Equipment Rental",
+          "url": "#"
+        },
+        {
+          "ar": "تلفيق",
+          "en": "Fabrication",
+          "url": "#"
+        }
+      ]
+    },
+    "contact": {
+      "title": {
+        "ar": "اتصال",
+        "en": "Contact"
+      },
+      "phone": {
+        "ar": "الهاتف: +966 13 8350100",
+        "en": "Phone: +966 13 8350100"
+      },
+      "fax": {
+        "ar": "فاكس: +966 13 8343910",
+        "en": "Fax: +966 13 8343910"
+      },
+      "helpText": {
+        "ar": "بحاجة الى مساعدة؟ نحن متاحون للحديث",
+        "en": "Need Help? We're Available to Talk"
+      },
+      "button": {
+        "ar": "اتصل بنا",
+        "en": "Contact Us"
+      }
+    },
+    "copyright": {
+      "text": {
+        "ar": "@2024 جميع الحقوق محفوظة",
+        "en": "@2024 All Rights reserved"
+      }
+    },
+    "security": {
+      "links": [
+        {
+          "ar": "سياسة الخصوصية",
+          "en": "Privacy Policy",
+          "url": "#"
+        },
+        {
+          "ar": "شروط الاستخدام",
+          "en": "Terms of Use",
+          "url": "#"
+        },
+        {
+          "ar": "خريطة الموقع",
+          "en": "Site Map",
+          "url": "#"
+        }
+      ]
+    }
+  },
+
+
+
+
+
+
+
+
+
+
+
+
+
+  "solution": {
+    "banner": {
+      "title": {
+        "ar": "الحلول",
+        "en": "Solutions"
+      },
+      "description": {
+        "ar": "اكتشف التميز الاستثنائي لشركة Shade Corporation، الشركة الرائدة في مجالات الهندسة والمشتريات والبناء في المملكة العربية السعودية.",
+        "en": "Discover the exceptional excellence of Shade Corporation, the leading company in engineering, procurement, and construction in Saudi Arabia."
+      },
+      "button": {
+        "text": {
+          "ar": "عرض عملنا",
+          "en": "View Our Work"
+        }
+      }
+    },
+    "whatWeDo": {
+      "title": {
+        "ar": "ماذا نفعل",
+        "en": "What We Do"
+      },
+      "description1": {
+        "ar": "استمتع بتجربة التآزر بين التصميم والتنفيذ من خلال خدمات التصميم/البناء لدينا، وهو نهج متناغم يدمج الإبداع مع الدقة. ثق بخبرتنا في مجال المقاولات العامة والهندسة العامة للتغلب على التعقيدات وتقديم الحلول التي تصمد أمام اختبار الزمن.",
+        "en": "Experience the synergy between design and execution through our design/build services, a harmonious approach that combines creativity with precision. Trust our expertise in general contracting and general engineering to overcome complexities and deliver solutions that stand the test of time."
+      },
+      "description2": {
+        "ar": "انغمس في هندسة القيمة لدينا، وهو النظام الذي يتقاطع فيه الابتكار والكفاءة، مما يضمن أن مشاريعك ليست عملية فحسب، بل مُحسّنة أيضًا لتحقيق أقصى قيمة.",
+        "en": "Immerse yourself in our value engineering, a system where innovation intersects with efficiency, ensuring your projects are not just functional but optimized for maximum value."
+      }
+    },
+    "howWeDo": {
+      "title": {
+        "ar": "كيف نفعل",
+        "en": "How We Do It"
+      },
+      "description": {
+        "ar": "استمتع بالدقة في المسح، وبراعة التصنيع، وقوة رفع الأثقال، كل ذلك تحت مظلة Shade's Construction Services. سواء كان مشروعك يتطلب قوة هيكلية، أو تفاصيل معقدة، أو نشر التكنولوجيا المتقدمة، فنحن مجهزون لتجاوز توقعاتك.",
+        "en": "Experience precision in surveying, manufacturing expertise, and heavy lifting capabilities, all under Shade's Construction Services umbrella. Whether your project demands structural strength, intricate details, or advanced technology deployment, we're equipped to exceed your expectations."
+      }
+    },
+    "newProject": {
+      "title": {
+        "ar": "هل تريد بدء مشروع جديد أو التعاون معنا؟",
+        "en": "Want to start a new project or collaborate with us?"
+      },
+      "description1": {
+        "ar": "التزامًا بفلسفتنا المتمثلة في \"بناء مستقبل أقوى\"، تؤمن شركة Shade Corporation بالشراكات المربحة للجانبين مع جميع أصحاب المصلحة، وتهدف باستمرار إلى إنشاء علاقات مستدامة وطويلة الأمد لخلق القيمة. يشتمل نموذج المشاركة الخاص بنا على منهجيات خاصة وحلول شاملة من شأنها أن تحول اقتصاديات مشروعك وتفتح إمكانيات جديدة وتدعم أهداف النمو التنظيمي لديك.",
+        "en": "Committed to our philosophy of \"Building a Stronger Future\", Shade Corporation believes in win-win partnerships with all stakeholders and continuously aims to create sustainable, long-term relationships to create value. Our engagement model includes proprietary methodologies and comprehensive solutions that will transform your project economics, unlock new possibilities, and support your organizational growth objectives."
+      },
+      "description2": {
+        "ar": "في العقود القليلة الماضية، قدمنا خدماتنا للعديد من الشركات السعودية الرائدة والمؤسسات العامة لإنشاء استراتيجيات ناجحة، وحل بعض المشكلات المعقدة، وتحقيق نتائج متسقة. إذا كنت تتطلع إلى تعزيز الأداء وتنفيذ استراتيجيات النمو وبناء قدرات جديدة، فتعاون معنا الآن.",
+        "en": "Over the past few decades, we have served numerous leading Saudi companies and public institutions to create successful strategies, solve complex problems, and deliver consistent results. If you are looking to enhance performance, implement growth strategies, and build new capabilities, collaborate with us now."
+      },
+      "highlightedText": {
+        "ar": "بناء مستقبل أقوى",
+        "en": "Building a Stronger Future"
+      },
+      "button": {
+        "text": {
+          "ar": "اتصل بنا",
+          "en": "Contact Us"
+        }
+      }
+    },
+    "gallery": {
+      "images": [
+        {
+          "url": "https://frequencyimage.s3.ap-south-1.amazonaws.com/851e35b5-9b3b-4d9f-91b4-9b60ef2a102c-Rectangle%2034624110.png",
+          "width": 280,
+          "height": 440
+        },
+        {
+          "url": "https://frequencyimage.s3.ap-south-1.amazonaws.com/ae1cee6e-f695-4e06-8e0b-983b8cb94209-Rectangle%2034624111.jpg",
+          "width": 384,
+          "height": 316
+        },
+        {
+          "url": "https://frequencyimage.s3.ap-south-1.amazonaws.com/be6992a3-4390-42c1-b807-b1a04f48b0e6-Rectangle%2034624112.jpg",
+          "width": 488,
+          "height": 194
+        }
+      ],
+      "showcase": [
+        {
+          "url": "https://frequencyimage.s3.ap-south-1.amazonaws.com/53c27025-f61a-4a57-ad20-bf1f26c1c550-Rectangle%2034624115.png",
+          "width": 488,
+          "height": 396
+        },
+        {
+          "url": "https://frequencyimage.s3.ap-south-1.amazonaws.com/5cd72b35-f719-40af-bc46-e994164239cc-Rectangle%2034624114.png",
+          "width": 432,
+          "height": 232
+        },
+        {
+          "url": "https://frequencyimage.s3.ap-south-1.amazonaws.com/02a98512-a0f4-4297-8c55-b84b66f54b6b-Rectangle%2034624113.png",
+          "width": 488,
+          "height": 396
+        }
+      ]
+    }
+  },
+
+
+
+
+
+
+
+
+
+
+
+
+  "aboutUs": {
+    "services": {
+      "title": {
+        "ar": "Shade Corporation Ltd",
+        "en": "Shade Corporation Ltd"
+      },
+      "subtitle": {
+        "ar": "مستقبل البناء",
+        "en": "Future of Construction"
+      },
+      "cards": [
+        {
+          "icon": "ourMission",
+          "title": {
+            "ar": "مهمتنا",
+            "en": "Our Mission"
+          },
+          "description": {
+            "ar": "نحن نسعى جاهدين لتقديم أعلى مستوى من الخدمات عالية الجودة مع الالتزام الاستثنائي بالصحة والسلامة والبيئة باستخدام أحدث تقنيات البناء الناشئة.",
+            "en": "We strive to deliver the highest level of quality services with exceptional commitment to health, safety, and environment using the latest emerging construction technologies."
+          }
+        },
+        {
+          "icon": "ourVision",
+          "title": {
+            "ar": "مهمتنا",
+            "en": "Our Vision"
+          },
+          "description": {
+            "ar": "أن نكون الشركة الرائدة في قطاع البناء والتوريد والإنشاء في المنطقة مع التزام قوي بـ بناء مستقبل أقوى",
+            "en": "To be the leading Company in the region's EPC construction sector with a solid commitment to 'Building a Stronger Future'"
+          }
+        },
+        {
+          "icon": "ourGoal",
+          "title": {
+            "ar": "مهمتنا",
+            "en": "Our Goal"
+          },
+          "description": {
+            "ar": "توجه قيمنا الأساسية قراراتنا، وتغرس الالتزام بالقيادة والنزاهة والعمل بأمانة لا تتزعزع.",
+            "en": "Our core values guide our decisions, instilling a commitment to leadership, integrity, and operating with unwavering honesty."
+          }
+        }
+      ]
+    },
+    "main": {
+      "video": "https://loopwebsite.s3.ap-south-1.amazonaws.com/8f90049bc01f593220af2e6d1e978b40834eb07b+(2).mp4",
+      "title": {
+        "ar": "معلومات عنا",
+        "en": "About Us"
+      },
+      "descriptions": [
+        {
+          "ar": "تأسست شركة Shade Corporation، الرائدة في هذه الصناعة، في عام 1992 بهدف واحد هو \"بناء مستقبل أقوى\".",
+          "en": "Shade Corporation, a leader in the industry, was established in 1992 with a single goal of \"Building a Stronger Future\"."
+        },
+        {
+          "ar": "إن أفكارنا، التي شكلتها المنهجيات المتطورة وعقود من الخبرة، تخدم أكبر الشركات في العالم. نحن متحمسون لإطلاق الإمكانات وتقديم الحلول لعملائنا.",
+          "en": "Our ideas, shaped by advanced methodologies and decades of experience, serve the world's largest companies. We are passionate about unlocking potential and delivering solutions for our clients."
+        }
+      ],
+      "button": {
+        "text": {
+          "ar": "دعونا نتواصل",
+          "en": "Let's Connect"
+        }
+      }
+    },
+    "newProject": {
+      "title": {
+        "ar": "هل تريد بدء مشروع جديد أو التعاون معنا؟",
+        "en": "Want to start a new project or collaborate with us?"
+      },
+      "description": {
+        "ar": "التزامًا بفلسفتنا المتمثلة في \"بناء مستقبل أقوى\"، تؤمن شركة Shade Corporation بالشراكات المربحة للجانبين مع جميع أصحاب المصلحة، وتهدف باستمرار إلى إنشاء علاقات مستدامة وطويلة الأمد لخلق القيمة. يشتمل نموذج المشاركة الخاص بنا على منهجيات خاصة وحلول شاملة من شأنها أن تحول اقتصاديات مشروعك وتفتح إمكانيات جديدة وتدعم أهداف النمو التنظيمي لديك.",
+        "en": "Committed to our philosophy of \"Building a Stronger Future\", Shade Corporation believes in win-win partnerships with all stakeholders and continuously aims to create sustainable, long-term relationships to create value. Our engagement model includes proprietary methodologies and comprehensive solutions that will transform your project economics, unlock new possibilities, and support your organizational growth objectives."
+      },
+      "description2": {
+        "ar": "في العقود القليلة الماضية، قدمنا خدماتنا للعديد من الشركات السعودية الرائدة والمؤسسات العامة لإنشاء استراتيجيات ناجحة، وحل بعض المشكلات المعقدة، وتحقيق نتائج متسقة. إذا كنت تتطلع إلى تعزيز الأداء وتنفيذ استراتيجيات النمو وبناء قدرات جديدة، فتعاون معنا الآن.",
+        "en": "Over the past few decades, we have served numerous leading Saudi companies and public institutions to create successful strategies, solve complex problems, and deliver consistent results. If you are looking to enhance performance, implement growth strategies, and build new capabilities, collaborate with us now."
+      },
+      "highlightedText": {
+        "ar": "بناء مستقبل أقوى",
+        "en": "Building a Stronger Future"
+      },
+      "button": {
+        "text": {
+          "ar": "اتصل بنا",
+          "en": "Contact Us"
+        }
+      }
+    }
+  },
+  "services": {
+    "banner": {
+      "title": {
+        "ar": "خدماتنا",
+        "en": "Our Services"
+      },
+      "description": {
+        "ar": "اكتشف التميز الاستثنائي لشركة Shade Corporation، الشركة الرائدة في مجال الهندسة والمشتريات والبناء في المملكة العربية السعودية.",
+        "en": "Discover the exceptional excellence of Shade Corporation, the leading company in engineering, procurement, and construction in Saudi Arabia."
+      },
+      "button": {
+        "text": {
+          "ar": "عرض المشاريع",
+          "en": "View Projects"
+        }
+      }
+    },
+    "serviceCards": [
+      {
+        "title": {
+          "ar": "خدمات المشروع",
+          "en": "Project Services"
+        },
+        "subtitle": {
+          "ar": "نحن نستفيد من سنوات خبرتنا في صناعة البناء والتشييد للعملاء من خلال الحفاظ أيضًا على مرافقهم وبنيتهم التحتية.",
+          "en": "We leverage our years of experience in the construction industry for clients by also maintaining their facilities and infrastructure."
+        },
+        "listTitle": {
+          "ar": "خبرتنا تغطي:",
+          "en": "Our expertise covers:"
+        },
+        "listItems": [
+          {
+            "ar": "خدمات المرافق",
+            "en": "Facility Services"
+          },
+          {
+            "ar": "خدمات الطرق",
+            "en": "Road Services"
+          },
+          {
+            "ar": "خدمات الجسور / الأنفاق",
+            "en": "Bridge/Tunnel Services"
+          },
+          {
+            "ar": "خدمات المصانع / المصانع",
+            "en": "Plant/Factory Services"
+          },
+          {
+            "ar": "خدمات تنسيق الحدائق",
+            "en": "Landscaping Services"
+          }
+        ],
+        "image": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(2).png"
+      },
+      {
+        "title": {
+          "ar": "إدارة البناء",
+          "en": "Construction Management"
+        },
+        "subtitle": {
+          "ar": "تزدهر شركة Shade من خلال تقديم خدمة عملاء استثنائية ومشاركة معرفتنا بالمنتجات المتخصصة المتوفرة في الصناعة.",
+          "en": "Shade thrives by delivering exceptional customer service and sharing our knowledge of specialized products available in the industry."
+        },
+        "listTitle": {
+          "ar": "خبرتنا تغطي:",
+          "en": "Our expertise covers:"
+        },
+        "listItems": [
+          {
+            "ar": "التشطيبات المعمارية",
+            "en": "Architectural Finishes"
+          },
+          {
+            "ar": "المدنية الثقيلة",
+            "en": "Heavy Civil"
+          },
+          {
+            "ar": "التدفئة والتهوية وتكييف الهواء والهندسة الكهربائية والميكانيكية",
+            "en": "HVAC & MEP"
+          },
+          {
+            "ar": "المسح",
+            "en": "Surveying"
+          },
+          {
+            "ar": "الاتصالات والأجهزة",
+            "en": "Communications & Instrumentation"
+          }
+        ],
+        "image": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+140.png"
+      },
+      {
+        "title": {
+          "ar": "التشغيل والصيانة",
+          "en": "Operation & Maintenance"
+        },
+        "subtitle": {
+          "ar": "نحن نستفيد من سنوات خبرتنا في صناعة البناء والتشييد للعملاء من خلال الحفاظ أيضًا على مرافقهم وبنيتهم التحتية.",
+          "en": "We leverage our years of experience in the construction industry for clients by also maintaining their facilities and infrastructure."
+        },
+        "description": {
+          "ar": "سواء تم تقديمها كخدمات مستقلة، أو جزء من مجموعة من الخدمات التي تدعم تسليم المشاريع وتشغيلها، فإن خدمات التشغيل والصيانة التي تقدمها SHADE تساعد العملاء في حماية أصول البنية التحتية الحيوية والمكلفة وإطالة عمرها التشغيلي.",
+          "en": "Whether delivered as standalone services, or part of a suite of services supporting project delivery and operations, SHADE's O&M services help clients protect vital and costly infrastructure assets and extend their operational life."
+        },
+        "image": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(3).png"
+      },
+      {
+        "title": {
+          "ar": "تأجير المعدات",
+          "en": "Equipment Rental"
+        },
+        "subtitle": {
+          "ar": "تعد شركة Shade Corporation واحدة من أكبر شركات البناء وتأجير البنية التحتية في المنطقة.",
+          "en": "Shade Corporation is one of the largest construction and infrastructure rental companies in the region."
+        },
+        "description": {
+          "ar": "نحن نقدم حلاً شاملاً لتأجير المعدات ذات المستوى العالمي والخدمات المرتبطة بها. نحن نمكن من استخدام المصانع والآلات لإنجاز المشاريع بسلاسة. يعد أسطولنا الشامل من حيث العمر والأداء من بين الأفضل في الصناعة. تمتلك شركة Shade مجموعة من الرافعات، والمضخات، ومعدات توليد الطاقة، ودعم الخنادق وتدريعها، والسقالات، والتحكم في المناخ، ومعدات المعالجة والترميم، والمزيد.",
+          "en": "We provide a comprehensive solution for world-class equipment rental and associated services. We enable the use of plants and machinery to complete projects seamlessly. Our fleet is comprehensive in terms of age and performance among the best in the industry. Shade owns a range of cranes, pumps, power generation equipment, trench support and shoring, scaffolding, climate control, handling and remediation equipment, and more."
+        },
+        "image": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(4).png"
+      },
+      {
+        "title": {
+          "ar": "تلفيق",
+          "en": "Fabrication"
+        },
+        "subtitle": {
+          "ar": "تتيح لنا المعرفة الشاملة لشركة Shade Corporation في مجال EPC وإدارة المشاريع تحسين التصنيع الشامل للعميل وتكلفة البناء ومزايا الجدول الزمني.",
+          "en": "Shade Corporation's comprehensive knowledge in EPC and project management allows us to optimize the client's overall fabrication, construction cost, and schedule advantages."
+        },
+        "description": {
+          "ar": "يعمل خبراؤنا الفنيون على تبسيط طرق التسليم لتحسين كفاءة رأس المال لعملائنا، بغض النظر عن الصناعة. نحن نعتمد نهجًا مرنًا ونقدم مجموعة من الخيارات التي تم تخصيصها لتناسب متطلبات العميل المحددة.",
+          "en": "Our technical experts work to streamline delivery methods to optimize our clients' capital efficiency, regardless of industry. We take a flexible approach and offer a range of options tailored to meet specific client requirements."
+        },
+        "image": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(5).png"
+      }
+    ],
+    "newProject": {
+      "title": {
+        "ar": "هل تريد بدء مشروع جديد أو التعاون معنا؟",
+        "en": "Want to start a new project or collaborate with us?"
+      },
+      "description1": {
+        "ar": "التزامًا بفلسفتنا المتمثلة في \"بناء مستقبل أقوى\"، تؤمن شركة Shade Corporation بالشراكات المربحة للجانبين مع جميع أصحاب المصلحة، وتهدف باستمرار إلى إنشاء علاقات مستدامة وطويلة الأمد لخلق القيمة. يشتمل نموذج المشاركة الخاص بنا على منهجيات خاصة وحلول شاملة من شأنها أن تحول اقتصاديات مشروعك وتفتح إمكانيات جديدة وتدعم أهداف النمو التنظيمي لديك.",
+        "en": "Committed to our philosophy of \"Building a Stronger Future\", Shade Corporation believes in win-win partnerships with all stakeholders and continuously aims to create sustainable, long-term relationships to create value. Our engagement model includes proprietary methodologies and comprehensive solutions that will transform your project economics, unlock new possibilities, and support your organizational growth objectives."
+      },
+      "description2": {
+        "ar": "في العقود القليلة الماضية، قدمنا خدماتنا للعديد من الشركات السعودية الرائدة والمؤسسات العامة لإنشاء استراتيجيات ناجحة، وحل بعض المشكلات المعقدة، وتحقيق نتائج متسقة. إذا كنت تتطلع إلى تعزيز الأداء وتنفيذ استراتيجيات النمو وبناء قدرات جديدة، فتعاون معنا الآن.",
+        "en": "Over the past few decades, we have served numerous leading Saudi companies and public institutions to create successful strategies, solve complex problems, and deliver consistent results. If you are looking to enhance performance, implement growth strategies, and build new capabilities, collaborate with us now."
+      },
+      "highlightedText": {
+        "ar": "بناء مستقبل أقوى",
+        "en": "Building a Stronger Future"
+      },
+      "button": {
+        "text": {
+          "ar": "اتصل بنا",
+          "en": "Contact Us"
+        }
+      }
+    }
+  },
+  "market": {
+    "banner": {
+      "title": {
+        "ar": "سوق",
+        "en": "Market"
+      },
+      "description": {
+        "ar": "اكتشف التميز الاستثنائي لشركة Shade Corporation، الشركة الرائدة في مجالات الهندسة والمشتريات والبناء في المملكة العربية السعودية.",
+        "en": "Discover the exceptional excellence of Shade Corporation, the premier Engineering, Procurement, and Construction powerhouse in Saudi Arabia."
+      },
+      "button": {
+        "text": {
+          "ar": "خدماتنا",
+          "en": "Our Services"
+        }
+      }
+    },
+    "quote": {
+      "text": {
+        "ar": "وفي مسيرتنا نحو التقدم والتطور، يجب ألا ننسى العنصر البشري. قد ترتفع المباني والمنشآت، لكن الناس هم من يبثون الحياة فيها.",
+        "en": "In our march towards progress and development, we must not forget the human element. Buildings and structures may rise, but it is the people who breathe life into them."
+      },
+      "author": {
+        "ar": "غازي القصيبي",
+        "en": "-Ghazi Al Gosaibi"
+      }
+    },
+    "tabSection": {
+      "tabs": [
+        {
+          "title": {
+            "ar": "المباني",
+            "en": "Buildings"
+          },
+          "projects": [
+            {
+              "title": {
+                "ar": "مختبرات تكنولوجيا المعلومات للتميز",
+                "en": "IT Labs of Excellence"
+              },
+              "url": "https://frequencyimage.s3.ap-south-1.amazonaws.com/79273d2e-3d58-4615-a65c-c3472fdaf393-Frame%2044.png"
+            },
+            {
+              "title": {
+                "ar": "مختبرات تكنولوجيا المعلومات للتميز",
+                "en": "IT Labs of Excellence"
+              },
+              "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
+            },
+            {
+              "title": {
+                "ar": "مختبرات تكنولوجيا المعلومات للتميز",
+                "en": "IT Labs of Excellence"
+              },
+              "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(2).jpg"
+            },
+            {
+              "title": {
+                "ar": "مختبرات تكنولوجيا المعلومات للتميز",
+                "en": "IT Labs of Excellence"
+              },
+              "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(3).jpg"
+            },
+            {
+              "title": {
+                "ar": "مختبرات تكنولوجيا المعلومات للتميز",
+                "en": "IT Labs of Excellence"
+              },
+              "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).jpg"
+            },
+            {
+              "title": {
+                "ar": "مختبرات تكنولوجيا المعلومات للتميز",
+                "en": "IT Labs of Excellence"
+              },
+              "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44.jpg"
+            }
+          ]
+        },
+        {
+          "title": {
+            "ar": "صناعي",
+            "en": "Industrial"
+          },
+          "projects": [
+            {
+              "title": {
+                "ar": "مختبرات تكنولوجيا المعلومات للتميز",
+                "en": "IT Labs of Excellence"
+              },
+              "url": "https://frequencyimage.s3.ap-south-1.amazonaws.com/79273d2e-3d58-4615-a65c-c3472fdaf393-Frame%2044.png"
+            },
+            {
+              "title": {
+                "ar": "مختبرات تكنولوجيا المعلومات للتميز",
+                "en": "IT Labs of Excellence"
+              },
+              "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
+            },
+            {
+              "title": {
+                "ar": "مختبرات تكنولوجيا المعلومات للتميز",
+                "en": "IT Labs of Excellence"
+              },
+              "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(2).jpg"
+            },
+            {
+              "title": {
+                "ar": "مختبرات تكنولوجيا المعلومات للتميز",
+                "en": "IT Labs of Excellence"
+              },
+              "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(3).jpg"
+            },
+            {
+              "title": {
+                "ar": "مختبرات تكنولوجيا المعلومات للتميز",
+                "en": "IT Labs of Excellence"
+              },
+              "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).jpg"
+            },
+            {
+              "title": {
+                "ar": "مختبرات تكنولوجيا المعلومات للتميز",
+                "en": "IT Labs of Excellence"
+              },
+              "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44.jpg"
+            }
+          ]
+        },
+        {
+          "title": {
+            "ar": "بنية تحتية",
+            "en": "Infrastructure"
+          },
+          "projects": [
+            {
+              "title": {
+                "ar": "مختبرات تكنولوجيا المعلومات للتميز",
+                "en": "IT Labs of Excellence"
+              },
+              "url": "https://frequencyimage.s3.ap-south-1.amazonaws.com/79273d2e-3d58-4615-a65c-c3472fdaf393-Frame%2044.png"
+            },
+            {
+              "title": {
+                "ar": "مختبرات تكنولوجيا المعلومات للتميز",
+                "en": "IT Labs of Excellence"
+              },
+              "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
+            },
+            {
+              "title": {
+                "ar": "مختبرات تكنولوجيا المعلومات للتميز",
+                "en": "IT Labs of Excellence"
+              },
+              "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(2).jpg"
+            },
+            {
+              "title": {
+                "ar": "مختبرات تكنولوجيا المعلومات للتميز",
+                "en": "IT Labs of Excellence"
+              },
+              "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(3).jpg"
+            },
+            {
+              "title": {
+                "ar": "مختبرات تكنولوجيا المعلومات للتميز",
+                "en": "IT Labs of Excellence"
+              },
+              "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).jpg"
+            },
+            {
+              "title": {
+                "ar": "مختبرات تكنولوجيا المعلومات للتميز",
+                "en": "IT Labs of Excellence"
+              },
+              "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44.jpg"
+            }
+          ]
+        },
+        {
+          "title": {
+            "ar": "الإصلاح والتحديث",
+            "en": "Renovation and Upgrading"
+          },
+          "projects": [
+            {
+              "title": {
+                "ar": "مختبرات تكنولوجيا المعلومات للتميز",
+                "en": "IT Labs of Excellence"
+              },
+              "url": "https://frequencyimage.s3.ap-south-1.amazonaws.com/79273d2e-3d58-4615-a65c-c3472fdaf393-Frame%2044.png"
+            },
+            {
+              "title": {
+                "ar": "مختبرات تكنولوجيا المعلومات للتميز",
+                "en": "IT Labs of Excellence"
+              },
+              "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
+            },
+            {
+              "title": {
+                "ar": "مختبرات تكنولوجيا المعلومات للتميز",
+                "en": "IT Labs of Excellence"
+              },
+              "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(2).jpg"
+            },
+            {
+              "title": {
+                "ar": "مختبرات تكنولوجيا المعلومات للتميز",
+                "en": "IT Labs of Excellence"
+              },
+              "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(3).jpg"
+            },
+            {
+              "title": {
+                "ar": "مختبرات تكنولوجيا المعلومات للتميز",
+                "en": "IT Labs of Excellence"
+              },
+              "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).jpg"
+            },
+            {
+              "title": {
+                "ar": "مختبرات تكنولوجيا المعلومات للتميز",
+                "en": "IT Labs of Excellence"
+              },
+              "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44.jpg"
+            }
+          ]
+        }
+      ],
+      "button": {
+        "text": {
+          "ar": "عرض التفاصيل",
+          "en": "View Details"
+        }
+      }
+    },
+    "testimonialSection": {
+      "title": {
+        "ar": "ماذا يقول عملاؤنا عنا؟",
+        "en": "What Our Clients Say About Us?"
+      },
+      "testimonials": [
+        {
+          "name": {
+            "ar": "د. عنجر. صالح عطية عبد الظاهر",
+            "en": "Dr. Eng. Saleh Atiyah Abdul Zahir"
+          },
+          "position": {
+            "ar": "مدير المشاريع",
+            "en": "Project Manager"
+          },
+          "company": {
+            "ar": "شركة جبل عمر للتطوير",
+            "en": "Jabal Omar Development Company"
+          },
+          "quote": {
+            "ar": "تخطيط وتنسيق وتنفيذ ممتاز. جدولة ناجحة. إدارة قوية وإعداد التقارير، برج ممثل الصحة والسلامة والبيئة. الخلاصة: الأداء يفوق التوقعات.",
+            "en": "Excellent planning, coordination, and execution. Successful scheduling. Strong management and reporting, HSE representative tower. Bottom line: Performance exceeds expectations."
+          },
+          "image": "https://frequencyimage.s3.ap-south-1.amazonaws.com/c2fab440-f7f4-4657-865d-3a5ab7a0d557-Ellipse%201.svg"
+        },
+        {
+          "name": {
+            "ar": "عمرو خطاب",
+            "en": "Amr Khattab"
+          },
+          "position": {
+            "ar": "مطوّر الواجهة الخلفية",
+            "en": "Backend Developer"
+          },
+          "company": {
+            "ar": "شركة جبل عمر للتطوير",
+            "en": "Jabal Omar Development Company"
+          },
+          "quote": {
+            "ar": "تخطيط وتنسيق وتنفيذ ممتاز. جدولة ناجحة. إدارة قوية وإعداد التقارير، برج ممثل الصحة والسلامة والبيئة. الخلاصة: الأداء يفوق التوقعات.",
+            "en": "Excellent planning, coordination, and execution. Successful scheduling. Strong management and reporting, HSE representative tower. Bottom line: Performance exceeds expectations."
+          },
+          "image": "https://frequencyimage.s3.ap-south-1.amazonaws.com/c2fab440-f7f4-4657-865d-3a5ab7a0d557-Ellipse%201.svg"
+        },
+        {
+          "name": {
+            "ar": "سارة العلي",
+            "en": "Sara Al Ali"
+          },
+          "position": {
+            "ar": "مديرة التسويق",
+            "en": "Marketing Manager"
+          },
+          "company": {
+            "ar": "شركة تطوير المشاريع",
+            "en": "Project Development Company"
+          },
+          "quote": {
+            "ar": "فريق محترف للغاية. كانت تجربتي معهم رائعة، وأوصي بهم بشدة.",
+            "en": "An extremely professional team. My experience with them was fantastic, and I highly recommend them."
+          },
+          "image": "https://frequencyimage.s3.ap-south-1.amazonaws.com/79273d2e-3d58-4615-a65c-c3472fdaf393-Frame%2044.png"
+        },
+        {
+          "name": {
+            "ar": "أحمد السالم",
+            "en": "Ahmed Al Salem"
+          },
+          "position": {
+            "ar": "مهندس مدني",
+            "en": "Civil Engineer"
+          },
+          "company": {
+            "ar": "شركة البناء الحديثة",
+            "en": "Modern Construction Company"
+          },
+          "quote": {
+            "ar": "عمل رائع! كانت النتائج تتجاوز توقعاتي.",
+            "en": "Great work! The results exceeded my expectations."
+          },
+          "image": "https://frequencyimage.s3.ap-south-1.amazonaws.com/79273d2e-3d58-4615-a65c-c3472fdaf393-Frame%2044.png"
+        },
+        {
+          "name": {
+            "ar": "ليلى النعيمي",
+            "en": "Laila Al Naimi"
+          },
+          "position": {
+            "ar": "مديرة المشاريع",
+            "en": "Project Director"
+          },
+          "company": {
+            "ar": "شركة النعيمي للتطوير",
+            "en": "Al Naimi Development Company"
+          },
+          "quote": {
+            "ar": "تجربة رائعة مع هذا الفريق. كانوا دائمًا متاحين لدعمي.",
+            "en": "A wonderful experience with this team. They were always available to support me."
+          },
+          "image": "https://frequencyimage.s3.ap-south-1.amazonaws.com/79273d2e-3d58-4615-a65c-c3472fdaf393-Frame%2044.png"
+        },
+        {
+          "name": {
+            "ar": "فهد القحطاني",
+            "en": "Fahad Al Qahtani"
+          },
+          "position": {
+            "ar": "مدير العمليات",
+            "en": "Operations Manager"
+          },
+          "company": {
+            "ar": "شركة القحطاني للبناء",
+            "en": "Al Qahtani Construction Company"
+          },
+          "quote": {
+            "ar": "أداء ممتاز واحترافية عالية. سأعمل معهم مرة أخرى بالتأكيد.",
+            "en": "Excellent performance and high professionalism. I will definitely work with them again."
+          },
+          "image": "https://frequencyimage.s3.ap-south-1.amazonaws.com/79273d2e-3d58-4615-a65c-c3472fdaf393-Frame%2044.png"
+        },
+        {
+          "name": {
+            "ar": "منى الشمري",
+            "en": "Mona Al Shammari"
+          },
+          "position": {
+            "ar": "مديرة المشاريع",
+            "en": "Project Manager"
+          },
+          "company": {
+            "ar": "شركة الشمري للتطوير",
+            "en": "Al Shammari Development Company"
+          },
+          "quote": {
+            "ar": "فريق عمل رائع، دائمًا ملتزمون بالمواعيد النهائية.",
+            "en": "A great team, always committed to deadlines."
+          },
+          "image": "https://frequencyimage.s3.ap-south-1.amazonaws.com/79273d2e-3d58-4615-a65c-c3472fdaf393-Frame%2044.png"
+        }
+      ]
+    },
+    "newProject": {
+      "title": {
+        "ar": "هل تريد بدء مشروع جديد أو التعاون معنا؟",
+        "en": "Want to start a new project or collaborate with us?"
+      },
+      "description1": {
+        "ar": "التزامًا بفلسفتنا المتمثلة في \"بناء مستقبل أقوى\"، تؤمن شركة Shade Corporation بالشراكات المربحة للجانبين مع جميع أصحاب المصلحة، وتهدف باستمرار إلى إنشاء علاقات مستدامة وطويلة الأمد لخلق القيمة. يشتمل نموذج المشاركة الخاص بنا على منهجيات خاصة وحلول شاملة من شأنها أن تحول اقتصاديات مشروعك وتفتح إمكانيات جديدة وتدعم أهداف النمو التنظيمي لديك.",
+        "en": "Committed to our philosophy of \"Building a Stronger Future\", Shade Corporation believes in win-win partnerships with all stakeholders and continuously aims to create sustainable, long-term relationships to create value. Our engagement model includes proprietary methodologies and comprehensive solutions that will transform your project economics, unlock new possibilities, and support your organizational growth objectives."
+      },
+      "description2": {
+        "ar": "في العقود القليلة الماضية، قدمنا خدماتنا للعديد من الشركات السعودية الرائدة والمؤسسات العامة لإنشاء استراتيجيات ناجحة، وحل بعض المشكلات المعقدة، وتحقيق نتائج متسقة. إذا كنت تتطلع إلى تعزيز الأداء وتنفيذ استراتيجيات النمو وبناء قدرات جديدة، فتعاون معنا الآن.",
+        "en": "Over the past few decades, we have served numerous leading Saudi companies and public institutions to create successful strategies, solve complex problems, and deliver consistent results. If you are looking to enhance performance, implement growth strategies, and build new capabilities, collaborate with us now."
+      },
+      "highlightedText": {
+        "ar": "بناء مستقبل أقوى",
+        "en": "Building a Stronger Future"
+      },
+      "button": {
+        "text": {
+          "ar": "اتصل بنا",
+          "en": "Contact Us"
+        }
+      }
+    }
+  },
+  "projects": {
+    "bannerSection": {
+      "title": {
+        "ar": ">مشروعنا",
+        "en": "Our Projects"
+      },
+      "description": {
+        "ar": "اكتشف التميز الاستثنائي لشركة Shade Corporation، الشركة الرائدة في مجالات الهندسة والمشتريات والبناء في المملكة العربية السعودية.",
+        "en": "Discover the exceptional excellence of Shade Corporation, a leading company in the fields of engineering, procurement, and construction in Saudi Arabia."
+      },
+      "button": {
+        "text": {
+          "ar": "دعونا نتواصل",
+          "en": "Let's Connect"
+        }
+      }
+    },
+    "projectsSection": {
+      "tabs": [
+        {
+          "id": "1",
+          "title": {
+            "en": "All",
+            "ar": "الكل"
+          },
+          "projects": [
+            {
+              "title": {
+                "en": "IT Excellence Lab",
+                "ar": "مختبرات تكنولوجيا المعلومات للتميز"
+              },
+              "description": {
+                "en": "Spark - Dhahran, Saudi Arabia",
+                "ar": "سبارك - الظهران، المملكة العربية السعودية"
+              },
+              "button": {
+                "text": {
+                  "ar": " عرض التفاصيل",
+                  "en": "View Details"
+                }
+              },
+              "url": "https://frequencyimage.s3.ap-south-1.amazonaws.com/79273d2e-3d58-4615-a65c-c3472fdaf393-Frame%2044.png"
+            },
+            {
+              "title": {
+                "en": "IT Excellence Lab",
+                "ar": "مختبرات تكنولوجيا المعلومات للتميز"
+              },
+              "description": {
+                "en": "Spark - Dhahran, Saudi Arabia",
+                "ar": "سبارك - الظهران، المملكة العربية السعودية"
+              },
+              "button": {
+                "text": {
+                  "ar": " عرض التفاصيل",
+                  "en": "View Details"
+                }
+              },
+              "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
+            },
+            {
+              "title": {
+                "en": "IT Excellence Lab",
+                "ar": "مختبرات تكنولوجيا المعلومات للتميز"
+              },
+              "description": {
+                "en": "Spark - Dhahran, Saudi Arabia",
+                "ar": "سبارك - الظهران، المملكة العربية السعودية"
+              },
+              "button": {
+                "text": {
+                  "ar": " عرض التفاصيل",
+                  "en": "View Details"
+                }
+              },
+              "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(2).jpg"
+            },
+            {
+              "title": {
+                "en": "IT Excellence Lab",
+                "ar": "مختبرات تكنولوجيا المعلومات للتميز"
+              },
+              "description": {
+                "en": "Spark - Dhahran, Saudi Arabia",
+                "ar": "سبارك - الظهران، المملكة العربية السعودية"
+              },
+              "button": {
+                "text": {
+                  "ar": " عرض التفاصيل",
+                  "en": "View Details"
+                }
+              },
+              "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(3).jpg"
+            },
+            {
+              "title": {
+                "en": "IT Excellence Lab",
+                "ar": "مختبرات تكنولوجيا المعلومات للتميز"
+              },
+              "description": {
+                "en": "Spark - Dhahran, Saudi Arabia",
+                "ar": "سبارك - الظهران، المملكة العربية السعودية"
+              },
+              "button": {
+                "text": {
+                  "ar": " عرض التفاصيل",
+                  "en": "View Details"
+                }
+              },
+              "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).jpg"
+            },
+            {
+              "title": {
+                "en": "IT Excellence Lab",
+                "ar": "مختبرات تكنولوجيا المعلومات للتميز"
+              },
+              "description": {
+                "en": "Spark - Dhahran, Saudi Arabia",
+                "ar": "سبارك - الظهران، المملكة العربية السعودية"
+              },
+              "button": {
+                "text": {
+                  "ar": " عرض التفاصيل",
+                  "en": "View Details"
+                }
+              },
+              "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44.jpg"
+            }
+          ]
+        },
+        {
+          "id": "2",
+          "title": {
+            "en": "Ongoing",
+            "ar": "مستمر"
+          },
+          "projects": [
+            {
+              "title": {
+                "en": "IT Excellence Lab",
+                "ar": "مختبرات تكنولوجيا المعلومات للتميز"
+              },
+              "description": {
+                "en": "Spark - Dhahran, Saudi Arabia",
+                "ar": "سبارك - الظهران، المملكة العربية السعودية"
+              },
+              "button": {
+                "text": {
+                  "ar": " عرض التفاصيل",
+                  "en": "View Details"
+                }
+              },
+              "url": "https://frequencyimage.s3.ap-south-1.amazonaws.com/79273d2e-3d58-4615-a65c-c3472fdaf393-Frame%2044.png"
+            },
+            {
+              "title": {
+                "en": "IT Excellence Lab",
+                "ar": "مختبرات تكنولوجيا المعلومات للتميز"
+              },
+              "description": {
+                "en": "Spark - Dhahran, Saudi Arabia",
+                "ar": "سبارك - الظهران، المملكة العربية السعودية"
+              },
+              "button": {
+                "text": {
+                  "ar": " عرض التفاصيل",
+                  "en": "View Details"
+                }
+              },
+              "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
+            },
+            {
+              "title": {
+                "en": "IT Excellence Lab",
+                "ar": "مختبرات تكنولوجيا المعلومات للتميز"
+              },
+              "description": {
+                "en": "Spark - Dhahran, Saudi Arabia",
+                "ar": "سبارك - الظهران، المملكة العربية السعودية"
+              },
+              "button": {
+                "text": {
+                  "ar": " عرض التفاصيل",
+                  "en": "View Details"
+                }
+              },
+              "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(2).jpg"
+            },
+            {
+              "title": {
+                "en": "IT Excellence Lab",
+                "ar": "مختبرات تكنولوجيا المعلومات للتميز"
+              },
+              "description": {
+                "en": "Spark - Dhahran, Saudi Arabia",
+                "ar": "سبارك - الظهران، المملكة العربية السعودية"
+              },
+              "button": {
+                "text": {
+                  "ar": " عرض التفاصيل",
+                  "en": "View Details"
+                }
+              },
+              "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(3).jpg"
+            },
+            {
+              "title": {
+                "en": "IT Excellence Lab",
+                "ar": "مختبرات تكنولوجيا المعلومات للتميز"
+              },
+              "description": {
+                "en": "Spark - Dhahran, Saudi Arabia",
+                "ar": "سبارك - الظهران، المملكة العربية السعودية"
+              },
+              "button": {
+                "text": {
+                  "ar": " عرض التفاصيل",
+                  "en": "View Details"
+                }
+              },
+              "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).jpg"
+            },
+            {
+              "title": {
+                "en": "IT Excellence Lab",
+                "ar": "مختبرات تكنولوجيا المعلومات للتميز"
+              },
+              "description": {
+                "en": "Spark - Dhahran, Saudi Arabia",
+                "ar": "سبارك - الظهران، المملكة العربية السعودية"
+              },
+              "button": {
+                "text": {
+                  "ar": " عرض التفاصيل",
+                  "en": "View Details"
+                }
+              },
+              "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44.jpg"
+            }
+          ]
+        },
+        {
+          "id": "3",
+          "title": {
+            "en": "Completed",
+            "ar": "مكتمل"
+          },
+          "projects": [
+            {
+              "title": {
+                "en": "IT Excellence Lab",
+                "ar": "مختبرات تكنولوجيا المعلومات للتميز"
+              },
+              "description": {
+                "en": "Spark - Dhahran, Saudi Arabia",
+                "ar": "سبارك - الظهران، المملكة العربية السعودية"
+              },
+              "button": {
+                "text": {
+                  "ar": " عرض التفاصيل",
+                  "en": "View Details"
+                }
+              },
+              "url": "https://frequencyimage.s3.ap-south-1.amazonaws.com/79273d2e-3d58-4615-a65c-c3472fdaf393-Frame%2044.png"
+            },
+            {
+              "title": {
+                "en": "IT Excellence Lab",
+                "ar": "مختبرات تكنولوجيا المعلومات للتميز"
+              },
+              "description": {
+                "en": "Spark - Dhahran, Saudi Arabia",
+                "ar": "سبارك - الظهران، المملكة العربية السعودية"
+              },
+              "button": {
+                "text": {
+                  "ar": " عرض التفاصيل",
+                  "en": "View Details"
+                }
+              },
+              "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
+            },
+            {
+              "title": {
+                "en": "IT Excellence Lab",
+                "ar": "مختبرات تكنولوجيا المعلومات للتميز"
+              },
+              "description": {
+                "en": "Spark - Dhahran, Saudi Arabia",
+                "ar": "سبارك - الظهران، المملكة العربية السعودية"
+              },
+              "button": {
+                "text": {
+                  "ar": " عرض التفاصيل",
+                  "en": "View Details"
+                }
+              },
+              "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(2).jpg"
+            },
+            {
+              "title": {
+                "en": "IT Excellence Lab",
+                "ar": "مختبرات تكنولوجيا المعلومات للتميز"
+              },
+              "description": {
+                "en": "Spark - Dhahran, Saudi Arabia",
+                "ar": "سبارك - الظهران، المملكة العربية السعودية"
+              },
+              "button": {
+                "text": {
+                  "ar": " عرض التفاصيل",
+                  "en": "View Details"
+                }
+              },
+              "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(3).jpg"
+            },
+            {
+              "title": {
+                "en": "IT Excellence Lab",
+                "ar": "مختبرات تكنولوجيا المعلومات للتميز"
+              },
+              "description": {
+                "en": "Spark - Dhahran, Saudi Arabia",
+                "ar": "سبارك - الظهران، المملكة العربية السعودية"
+              },
+              "button": {
+                "text": {
+                  "ar": " عرض التفاصيل",
+                  "en": "View Details"
+                }
+              },
+              "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).jpg"
+            },
+            {
+              "title": {
+                "en": "IT Excellence Lab",
+                "ar": "مختبرات تكنولوجيا المعلومات للتميز"
+              },
+              "description": {
+                "en": "Spark - Dhahran, Saudi Arabia",
+                "ar": "سبارك - الظهران، المملكة العربية السعودية"
+              },
+              "button": {
+                "text": {
+                  "ar": " عرض التفاصيل",
+                  "en": "View Details"
+                }
+              },
+              "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44.jpg"
+            }
+          ]
+        }
+      ],
+      "button": {
+        "text": {
+          "ar": " عرض المزيد",
+          "en": "View More"
+        }
+      }
+    }
+  },
+  "career": {
+    "bannerSection": {
+      "title": {
+        "ar": "مهنة",
+        "en": "Career"
+      },
+      "description": {
+        "ar": "اكتشف التميز الاستثنائي لشركة Shade Corporation، الشركة الرائدة في مجال الهندسة والمشتريات والبناء في المملكة العربية السعودية.",
+        "en": "Discover the exceptional excellence of Shade Corporation, the premier Engineering, Procurement, and Construction powerhouse in Saudi Arabia."
+      },
+      "button": {
+        "text": {
+          "ar": "تقدم بطلبك الآن",
+          "en": "Apply Now"
+        }
+      }
+    },
+    "filterSection": {
+      "inputBox": {
+        "placeholder": {
+          "en": "Search by job title, location, or skills",
+          "ar": "بحث عن \"مدير المشروع\""
+        },
+        "aria_label": {
+          "en": "Search",
+          "ar": "بحث"
+        }
+      },
+      "filtersSelections": [
+        {
+          "title": {
+            "en": "Job Type",
+            "ar": "نوع الوظيفة"
+          },
+          "options": [
+            {
+              "value": "full-time",
+              "title": {
+                "en": "Full-time",
+                "ar": "دوام كامل"
+              },
+              "selected": false
+            },
+            {
+              "value": "part-time",
+              "title": {
+                "en": "Part-time",
+                "ar": "دوام جزئي"
+              },
+              "selected": false
+            },
+            {
+              "value": "freelance",
+              "title": {
+                "en": "Freelance",
+                "ar": "عمل حر"
+              },
+              "selected": false
+            }
+          ]
+        },
+        {
+          "title": {
+            "en": "Skills & Qualifications",
+            "ar": "المهارة والمؤهلات"
+          },
+          "options": [
+            {
+              "value": "it",
+              "title": {
+                "en": "Information Technology",
+                "ar": "تكنولوجيا المعلومات"
+              },
+              "selected": false
+            },
+            {
+              "value": "marketing",
+              "title": {
+                "en": "Marketing",
+                "ar": "التسويق"
+              },
+              "selected": false
+            },
+            {
+              "value": "finance",
+              "title": {
+                "en": "Finance",
+                "ar": "المالية"
+              },
+              "selected": false
+            }
+          ]
+        },
+        {
+          "title": {
+            "en": "Experience Level",
+            "ar": "المستوى الوظيفي"
+          },
+          "options": [
+            {
+              "value": "entry",
+              "title": {
+                "en": "Entry Level",
+                "ar": "مبتدئ"
+              },
+              "selected": false
+            },
+            {
+              "value": "mid",
+              "title": {
+                "en": "Mid-Level",
+                "ar": "متوسط"
+              },
+              "selected": false
+            },
+            {
+              "value": "senior",
+              "title": {
+                "en": "Senior",
+                "ar": "خبير"
+              },
+              "selected": false
+            }
+          ]
+        }
+      ]
+    },
+    "jobListSection": {
+      "title": {
+        "en": "Job Listings",
+        "ar": "قائمة الوظائف"
+      },
+      "jobs": [
+        {
+          "id": 1,
+          "title": {
+            "key": {
+              "en": "Job Name",
+              "ar": "اسم الوظيفة"
+            },
+            "value": {
+              "en": "Software Engineer",
+              "ar": "مهندس برمجيات"
+            }
+          },
+          "location": {
+            "key": {
+              "en": "Location",
+              "ar": "الموقع"
+            },
+            "value": {
+              "en": "Riyadh, SA",
+              "ar": "الرياض، السعودية"
+            }
+          },
+          "deadline": {
+            "key": {
+              "en": "Apply Till",
+              "ar": "موعد التقديم"
+            },
+            "value": {
+              "en": "DD/MM/YYYY",
+              "ar": "DD/MM/YYYY"
+            }
+          },
+          "descriptionList": [
+            {
+              "en": "Bachelor's degree in Computer Science or a related technical field, or equivalent practical experience.",
+              "ar": "درجة البكالوريوس في علوم الكمبيوتر، أو مجال تقني ذي صلة، أو خبرة عملية معادلة."
+            },
+            {
+              "en": "8 years of experience in software development with one or more programming languages (e.g., Python, C, C++, Java, JavaScript).",
+              "ar": "8 سنوات من الخبرة في تطوير البرمجيات بلغة برمجة واحدة أو أكثر (مثل Python وC وC++ وJava وJavaScript)."
+            },
+            {
+              "en": "3 years of experience in a technical leadership role; overseeing projects, with 2 years of experience managing people and team leadership roles.",
+              "ar": "3 سنوات من الخبرة في دور القيادة التقنية؛ الإشراف على المشاريع، مع خبرة سنتين في إدارة الأفراد والإشراف/دور قيادة الفريق."
+            },
+            {
+              "en": "Experience with front-end frameworks (e.g., AngularJS, ReactJS, etc.).",
+              "ar": "خبرة في أطر الواجهة الأمامية (مثل AngularJS وReactJS وما إلى ذلك)."
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "title": {
+            "key": {
+              "en": "Job Name",
+              "ar": "اسم الوظيفة"
+            },
+            "value": {
+              "en": "Project Manager",
+              "ar": "مدير المشروع"
+            }
+          },
+          "location": {
+            "key": {
+              "en": "Location",
+              "ar": "الموقع"
+            },
+            "value": {
+              "en": "Jeddah, SA",
+              "ar": "جدة، السعودية"
+            }
+          },
+          "deadline": {
+            "key": {
+              "en": "Apply Till",
+              "ar": "موعد التقديم"
+            },
+            "value": {
+              "en": "DD/MM/YYYY",
+              "ar": "DD/MM/YYYY"
+            }
+          },
+          "descriptionList": [
+            {
+              "en": "Bachelor's degree in Computer Science or a related technical field, or equivalent practical experience.",
+              "ar": "درجة البكالوريوس في علوم الكمبيوتر، أو مجال تقني ذي صلة، أو خبرة عملية معادلة."
+            },
+            {
+              "en": "8 years of experience in software development with one or more programming languages (e.g., Python, C, C++, Java, JavaScript).",
+              "ar": "8 سنوات من الخبرة في تطوير البرمجيات بلغة برمجة واحدة أو أكثر (مثل Python وC وC++ وJava وJavaScript)."
+            },
+            {
+              "en": "3 years of experience in a technical leadership role; overseeing projects, with 2 years of experience managing people and team leadership roles.",
+              "ar": "3 سنوات من الخبرة في دور القيادة التقنية؛ الإشراف على المشاريع، مع خبرة سنتين في إدارة الأفراد والإشراف/دور قيادة الفريق."
+            },
+            {
+              "en": "Experience with front-end frameworks (e.g., AngularJS, ReactJS, etc.).",
+              "ar": "خبرة في أطر الواجهة الأمامية (مثل AngularJS وReactJS وما إلى ذلك)."
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "title": {
+            "key": {
+              "en": "Data Analyst",
+              "ar": "محلل بيانات"
+            },
+            "value": { "en": "Data Analyst", "ar": "محلل بيانات" }
+          },
+          "location": {
+            "key": {
+              "en": "Location",
+              "ar": "الموقع"
+            },
+            "value": {
+              "en": "Jeddah, SA",
+              "ar": "جدة، السعودية"
+            }
+          },
+          "deadline": {
+            "key": {
+              "en": "Apply Till",
+              "ar": "موعد التقديم"
+            },
+            "value": {
+              "en": "DD/MM/YYYY",
+              "ar": "DD/MM/YYYY"
+            }
+          },
+          "descriptionList": [
+            {
+              "en": "Bachelor's degree in Computer Science or a related technical field, or equivalent practical experience.",
+              "ar": "درجة البكالوريوس في علوم الكمبيوتر، أو مجال تقني ذي صلة، أو خبرة عملية معادلة."
+            },
+            {
+              "en": "Experience in data analysis and visualization tools (e.g., SQL, Tableau, Excel).",
+              "ar": "خبرة في أدوات تحليل البيانات والتصور (مثل SQL و Tableau و Excel)."
+            },
+            {
+              "en": "Proven ability to work with large datasets and derive meaningful insights from them.",
+              "ar": "إثبات القدرة على العمل مع مجموعات البيانات الكبيرة واستخلاص رؤى ذات مغزى منها."
+            },
+            {
+              "en": "Experience working with data wrangling, ETL, and reporting tools.",
+              "ar": "خبرة في التعامل مع البيانات، ETL، وأدوات التقارير."
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "title": {
+            "key": {
+              "en": "Product Designer",
+              "ar": "مصمم المنتجات"
+            },
+            "value": {
+              "en": "Product Designer",
+              "ar": "مصمم المنتجات"
+            }
+          },
+          "location": {
+            "key": {
+              "en": "Location",
+              "ar": "الموقع"
+            },
+            "value": {
+              "en": "Riyadh, SA",
+              "ar": "الرياض، السعودية"
+            }
+          },
+          "deadline": {
+            "key": {
+              "en": "Apply Till",
+              "ar": "موعد التقديم"
+            },
+            "value": {
+              "en": "31/12/2023",
+              "ar": "31/12/2023"
+            }
+          },
+          "descriptionList": [
+            {
+              "en": "Bachelor's degree in Design, Computer Science, or related field, or equivalent practical experience.",
+              "ar": "درجة البكالوريوس في التصميم أو علوم الكمبيوتر أو مجال ذي صلة، أو خبرة عملية معادلة."
+            },
+            {
+              "en": "5+ years of experience in UX/UI design, including proficiency in wireframing and prototyping tools (e.g., Sketch, Figma).",
+              "ar": "أكثر من 5 سنوات من الخبرة في تصميم تجربة المستخدم/واجهة المستخدم، بما في ذلك إجادة أدوات تصميم الإطارات والنماذج الأولية (مثل Sketch و Figma)."
+            },
+            {
+              "en": "Strong portfolio of design work demonstrating user-centered design solutions.",
+              "ar": "محفظة قوية من الأعمال التصميمية التي تُظهر حلول التصميم الموجهة نحو المستخدم."
+            },
+            {
+              "en": "Experience with user research, usability testing, and iterative design processes.",
+              "ar": "خبرة في أبحاث المستخدم واختبار قابلية الاستخدام وعمليات التصميم التكرارية."
+            }
+          ]
+        }
+      ],
+      "buttons": [
+        {
+          "text": {
+            "en": "Apply Now",
+            "ar": "تقدم ال��ن"
+          }
+        },
+        {
+          "text": {
+            "en": "Details",
+            "ar": "تفاصيل"
+          }
+        }
+      ]
+    }
+  },
+  "newsBlogs": {
+    "bannerSection": {
+      "title": {
+        "ar": "خبر & المدونات",
+        "en": "News & Blogs"
+      },
+      "description": {
+        "ar": "اكتشف التميز الاستثنائي لشركة Shade Corporation، الشركة الرائدة في مجال الهندسة والمشتريات والبناء في المملكة العربية السعودية.",
+        "en": "Discover the exceptional excellence of Shade Corporation, a leader in engineering, procurement, and construction in Saudi Arabia."
+      }
+    },
+    "mainCard": {
+      "title": {
+        "ar": "شباب يتحدون الإعاقة",
+        "en": "Youth Overcoming Disability"
+      },
+      "description": {
+        "ar": "على الرغم من التحديات الكبيرة التي يعيشها ذوو الإعاقة في منطقة الشرق الأوسط وشمال أفريقيا بسبب الأزمات والحروب إلا أن قسما منهم أراد صنع التغيير وترك بصمة.",
+        "en": "Despite the major challenges faced by people with disabilities in the Middle East and North Africa due to crises and wars, some of them wanted to make a change and leave a mark."
+      },
+      "date": {
+        "ar": "20 مايو 2020",
+        "en": "May 20, 2020"
+      },
+      "image": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+1+(2).png",
+      "readMore": {
+        "ar": "اقرأ المزيد",
+        "en": "Read More"
+      }
+    },
+    "latestNewCards": {
+      "heading": {
+        "ar": "آخر الأخبار",
+        "en": "Latest News & Blogs"
+      },
+      "cards": [
+        {
+          "title": {
+            "ar": "شباب يتحدون الإعاقة",
+            "en": "Youth Overcoming Disability"
+          },
+          "description": {
+            "ar": "على الرغم من التحديات الكبيرة التي يعيشها ذوو الإعاقة في منطقة الشرق الأوسط وشمال أفريقيا بسبب الأزمات والحروب إلا أن قسما منهم أراد صنع التغيير وترك بصمة.",
+            "en": "Despite the major challenges faced by people with disabilities in the Middle East and North Africa due to crises and wars, some of them wanted to make a change and leave a mark.Despite the major challenges faced by people with disabilities in the Middle East and North Africa due to crises and wars, some of them wanted to make a change and leave a mark."
+          },
+          "date": {
+            "ar": "20 مايو 2020",
+            "en": "May 20, 2020"
+          },
+          "image": "news1",
+          "readMore": {
+            "ar": "اقرأ المزيد",
+            "en": "Read More"
+          }
+        },
+        {
+          "title": {
+            "ar": "الروبوتات السعودية تنضم إلى الملايين في أداء فريضة الحج",
+            "en": "Saudi Robots Join Millions in Performing the Hajj"
+          },
+          "description": {
+            "ar": "على الرغم من التحديات الكبيرة التي يعيشها ذوو الإعاقة في منطقة الشرق الأوسط وشمال أفريقيا بسبب الأزمات والحروب إلا أن قسما منهم أراد صنع التغيير وترك بصمة.",
+            "en": "Despite the major challenges faced by people with disabilities in the Middle East and North Africa due to crises and wars, some of them wanted to make a change and leave a mark."
+          },
+          "date": {
+            "ar": "20 مايو 2020",
+            "en": "May 20, 2020"
+          },
+          "image": "news2",
+          "readMore": {
+            "ar": "اقرأ المزيد",
+            "en": "Read More"
+          }
+        },
+        {
+          "title": {
+            "ar": "التكنولوجيا في خدمة ذوي الإعاقة",
+            "en": "Technology Serving People with Disabilities"
+          },
+          "description": {
+            "ar": "تسهم التكنولوجيا الحديثة في تحسين حياة ذوي الإعاقة من خلال توفير أدوات مساعدة.",
+            "en": "Modern technology contributes to improving the lives of people with disabilities by providing assistive tools."
+          },
+          "date": {
+            "ar": "15 يونيو 2021",
+            "en": "June 15, 2021"
+          },
+          "image": "news3",
+          "readMore": {
+            "ar": "اقرأ المزيد",
+            "en": "Read More"
+          }
+        },
+        {
+          "title": {
+            "ar": "قصص نجاح ملهمة",
+            "en": "Inspiring Success Stories"
+          },
+          "description": {
+            "ar": "قصص ملهمة لأشخاص تغلبوا على التحديات وحققوا أحلامهم.",
+            "en": "Inspiring stories of individuals who overcame challenges and achieved their dreams."
+          },
+          "date": {
+            "ar": "10 يوليو 2021",
+            "en": "July 10, 2021"
+          },
+          "image": "news4",
+          "readMore": {
+            "ar": "اقرأ المزيد",
+            "en": "Read More"
+          }
+        },
+        {
+          "title": {
+            "ar": "مبادرات دعم ذوي الإعاقة",
+            "en": "Initiatives Supporting People with Disabilities"
+          },
+          "description": {
+            "ar": "مبادرات تهدف إلى دعم وتمكين ذوي الإعاقة في المجتمع.",
+            "en": "Initiatives aimed at supporting and empowering people with disabilities in society."
+          },
+          "date": {
+            "ar": "5 أغسطس 2021",
+            "en": "August 5, 2021"
+          },
+          "image": "news2",
+
+          "readMore": {
+            "ar": "اقرأ المزيد",
+            "en": "Read More"
+          }
+        },
+        {
+          "title": {
+            "ar": "التحديات التي تواجه ذوي الإعاقة",
+            "en": "Challenges Faced by People with Disabilities"
+          },
+          "description": {
+            "ar": "استعراض للتحديات اليومية التي يواجهها ذوو الإعاقة وكيفية التغلب عليها.",
+            "en": "An overview of the daily challenges faced by people with disabilities and how to overcome them."
+          },
+          "date": {
+            "ar": "20 سبتمبر 2021",
+            "en": "September 20, 2021"
+          },
+          "image": "news1",
+
+          "readMore": {
+            "ar": "اقرأ المزيد",
+            "en": "Read More"
+          }
+        }
+      ]
+    },
+    "trendingCard": {
+      "button": {
+        "text": {
+          "ar": "تتجه",
+          "en": "Trending"
+        }
+      },
+      "title": {
+        "ar": "الروبوتات السعودية تنضم إلى الملايين في أداء فريضة الحج",
+        "en": "Saudi Robots Join Millions in Performing the Hajj"
+      },
+      "description": {
+        "ar": "على الرغم من التحديات الكبيرة التي يعيشها ذوو الإعاقة في منطقة الشرق الأوسط وشمال أفريقيا بسبب الأزمات والحروب إلا أن قسما منهم أراد صنع التغيير وترك بصمة.",
+        "en": "Despite the major challenges faced by people with disabilities in the Middle East and North Africa due to crises and wars, some of them wanted to make a change and leave a mark."
+      },
+      "date": {
+        "ar": "20 مايو 2020",
+        "en": "May 20, 2020"
+      },
+      "image": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+2+(2).png",
+      "readMore": {
+        "ar": "اقرأ المزيد",
+        "en": "Read More"
+      }
+    }
+  },
+  "projectDetail": {
+    "project_wrapper": {
+      "title": {
+        "ar": "مختبر تكنولوجيا المعلومات للتميز",
+        "en": "IT Labs for Excellence"
+      },
+      "subtitle": {
+        "ar": "العميل: أرامكو السعودية",
+        "en": "Client: Saudi Aramco"
+      },
+      "url": "https://www.aramco.com",
+      "backButton": {
+        "ar": "خلف",
+        "en": "Back"
+      },
+     "projectInforCard": [
+  {
+    "key": {
+      "ar": "الموقع",
+      "en": "location"
+    },
+    "value": {
+      "ar": "وادي الظهران للتقنية، المملكة العربية السعودية",
+      "en": "Dhahran Techno Valley, Saudi Arabia"
+    },
+    "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/ion_location-sharp.svg"
+  },
+  
+  {
+    "key": {
+      "ar": "تاريخ البدء",
+      "en": "Start Date"
+    },
+    "value": {
+      "ar": "فبراير 2021",
+      "en": "February 2021"
+    },
+    "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/solar_calendar-bold+(1).svg"
+  },
+  {
+    "key": {
+      "ar": "تاريخ الانتهاء",
+      "en": "End Date"
+    },
+    "value": {
+      "ar": "فبراير 2023",
+      "en": "February 2023"
+    },
+    "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/solar_calendar-bold.svg"
+  },{
+    "key": {
+      "ar": "حالة",
+      "en": "status"
+    },
+    "value": {
+      "ar": "مكتمل",
+      "en": "Completed"
+    },
+    "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/pajamas_status-neutral.svg"
+  }
+]
+    },
+
+    "solution_Content": {
+      "projectDescription": {
+        "title": {
+          "ar": "وصف المشروع",
+          "en": "Project Description"
+        },
+        "description": {
+          "ar": "نطاق العمل في المشروع هو هدم وشراء وبناء مختبر تكنولوجيا المعلومات في برج المدرة الواقع في الظهران.",
+          "en": "The scope of work for the project is to demolish, procure and Construct an IT Lab in Al-Midra Tower located in Dhahran."
+        }
+      },
+      "demolitionWorks": {
+        "title": {
+          "ar": "أعمال الهدم",
+          "en": "Demolition Works"
+        },
+        "description": {
+          "ar": "العناصر المدنية (إزالة القسم المنخفض والزجاجي، وجدار CMU، ومخلفات الأرضيات، والأثاث، والسقف)...",
+          "en": "Civil items (Remove low and glass partition, CMU wall, Floor tailing, furniture and Ceiling) HVAC Items Plumbing Items Fire protection Electrical (remove lighting fixture, wiring devices, disconnect switches, etc.,) Telecom (remove telecom system)"
+        }
+      },
+      "newNetworks": {
+        "title": {
+          "ar": "شبكات جديدة",
+          "en": "New Networks"
+        },
+        "description": {
+          "ar": "مدني (الإنهاء الأرضي، السقف، الجدران، الأثاث)...",
+          "en": "Civil (floor finishes, ceiling finishes, wall finishes, furniture) Mechanical ( HVAC, fire protection, plumbing) Electrical (fire detection and alarm system, lighting, wiring devices) Instrumentation (building management system) Telecom (cable routing, data voice system, wireless LAN, AV system, data network)"
+        }
+      },
+      "workIncludes": {
+        "title": {
+          "ar": "العمل يشمل",
+          "en": "Work Includes"
+        },
+        "description": {
+          "ar": "تشمل تسليمات المشروع الرئيسية: ورشة البناء، المنطقة المكتبية، المباني المساندة للورشة، المرافق الخارجية...",
+          "en": "The key deliverables of project are : Workshop Building Office Area Workshop support buildings External Utilities Site development works Telecom & Security works"
+        }
+      }
+    },
+
+    "showcase_gallery_wrap": {
+      "images": [
+        {
+          "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Rectangle+34624115+(1).png",
+          "alt": {
+            "ar": "صورة المعرض 1",
+            "en": "Gallery Image 1"
+          }
+        },
+        {
+          "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Rectangle+34624114+(1).png",
+          "alt": {
+            "ar": "صورة المعرض 2",
+            "en": "Gallery Image 2"
+          }
+        },
+        {
+          "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Rectangle+34624113+(1).png",
+          "alt": {
+            "ar": "صورة المعرض 3",
+            "en": "Gallery Image 3"
+          }
+        }
+      ]
+    },
+    "latest_new_card_wrap": {
+      "title": {
+        "ar": "المزيد من المشاريع",
+        "en": "More Projects"
+      },
+      "projects": [
+        {
+          "title": {
+            "ar": "مختبرات تكنولوجيا المعلومات للتميز",
+            "en": "IT Labs for Excellence"
+          },
+          "description": {
+            "ar": "سبارك - الظهران، المملكة العربية السعودية",
+            "en": "Dhahran Techno Valley, Saudi Arabia"
+          },
+          "imageUrl": "https://frequencyimage.s3.ap-south-1.amazonaws.com/79273d2e-3d58-4615-a65c-c3472fdaf393-Frame%2044.png"
+        },
+        {
+          "title": {
+            "ar": "مختبرات تكنولوجيا المعلومات للتميز",
+            "en": "IT Labs for Excellence"
+          },
+          "description": {
+            "ar": "سبارك - الظهران، المملكة العربية السعودية",
+            "en": "Dhahran Techno Valley, Saudi Arabia"
+          },
+          "imageUrl": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
+        },
+        {
+          "title": {
+            "ar": "مختبرات تكنولوجيا المعلومات للتميز",
+            "en": "IT Labs for Excellence"
+          },
+          "description": {
+            "ar": "سبارك - الظهران، المملكة العربية السعودية",
+            "en": "Dhahran Techno Valley, Saudi Arabia"
+          },
+          "imageUrl": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(2).jpg"
+        },
+        {
+          "title": {
+            "ar": "مختبرات تكنولوجيا المعلومات للتميز",
+            "en": "IT Labs for Excellence"
+          },
+          "description": {
+            "ar": "سبارك - الظهران، المملكة العربية السعودية",
+            "en": "Dhahran Techno Valley, Saudi Arabia"
+          },
+          "imageUrl": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(3).jpg"
+        },
+        {
+          "title": {
+            "ar": "مختبرات تكنولوجيا المعلومات للتميز",
+            "en": "IT Labs for Excellence"
+          },
+          "description": {
+            "ar": "سبارك - الظهران، المملكة العربية السعودية",
+            "en": "Dhahran Techno Valley, Saudi Arabia"
+          },
+          "imageUrl": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).jpg"
+        },
+        {
+          "title": {
+            "ar": "مختبرات تكنولوجيا المعلومات للتميز",
+            "en": "IT Labs for Excellence"
+          },
+          "description": {
+            "ar": "سبارك - الظهران، المملكة العربية السعودية",
+            "en": "Dhahran Techno Valley, Saudi Arabia"
+          },
+          "imageUrl": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44.jpg"
+        }
+      ],
+      "button": {
+        "text": {
+          "en": "View Details",
+          "ar": " عرض التفاصيل"
+        }
+      }
+    }
+  },
+  "careerDetails": {
+    "banner": {
+      "title": {
+        "en": "Project Manager",
+        "ar": "مدير المشروع"
+      },
+      "subTitle": {
+        "en": "Closing on 28 Aug, 2024",
+        "ar": "يتم الإغلاق في 28 أغسطس 2024"
+      },
+      "bannerImage": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+13.jpg",
+      "button": {
+        "text": {
+          "en": "Back",
+          "ar": "خلف"
+        }
+      }
+    },
+    "jobDetails": {
+      "leftPanel": {
+        "sections": [
+          {
+            "title": {
+              "ar": "من الذي نبحث عنه؟",
+              "en": "Who Are We Looking For?"
+            },
+            "content": {
+              "ar": [
+                "المحتوى) ويُستخدم في صناعات المطابع ودور النشر. كان لوريم إيبسوم ولايزال المعيار للنص",
+                "المحتوى) ويُستخدم في صناعات المطابع ودور النشر. كان",
+                "المحتوى) ويُستخدم في صناعات المطابع ودور النشر. كان لوريم إيبسوم",
+                "المحتوى) ويُستخدم في صناعات المطابع ودور",
+                "المحتوى) ويُستخدم في صناعات المطابع",
+                "المحتوى) ويُستخدم في صناعات المطابع ودور",
+                "المحتوى) ويُستخدم في صن",
+                "المحتوى) ويُستخدم في",
+                "المحتوى) ويُستخدم في صناعات المطابع ودور"
+              ],
+              "en": [
+                "Content) is used in the printing and publishing industries. Lorem Ipsum has been the standard text",
+                "Content) is used in the printing and publishing industries.",
+                "Content) is used in the printing and publishing industries. Lorem Ipsum",
+                "Content) is used in the printing and publishing industries.",
+                "Content) is used in the printing and publishing industries.",
+                "Content) is used in the printing and publishing industries.",
+                "Content) is used in printing industries.",
+                "Content) is used in the industries.",
+                "Content) is used in the printing and publishing industries."
+              ]
+            }
+          },
+          {
+            "title": {
+              "ar": "ماذا ستفعل",
+              "en": "What Will You Do?"
+            },
+            "content": {
+              "ar": [
+                "المحتوى) ويُستخدم في صناعات المطابع ودور النشر. كان لوريم إيبسوم ولايزال المعيار للنص",
+                "المحتوى) ويُستخدم في صناعات المطابع ودور النشر. كان",
+                "المحتوى) ويُستخدم في صناعات المطابع ودور النشر. كان لوريم إيبسوم",
+                "المحتوى) ويُستخدم في صناعات المطابع ودور",
+                "المحتوى) ويُستخدم في صناعات المطابع",
+                "المحتوى) ويُستخدم في صناعات المطابع ودور",
+                "المحتوى) ويُستخدم في صن",
+                "المحتوى) ويُستخدم في",
+                "المحتوى) ويُستخدم في صناعات المطابع ودور"
+              ],
+              "en": [
+                "Content) is used in the printing and publishing industries. Lorem Ipsum has been the standard text",
+                "Content) is used in the printing and publishing industries.",
+                "Content) is used in the printing and publishing industries. Lorem Ipsum",
+                "Content) is used in the printing and publishing industries.",
+                "Content) is used in the printing and publishing industries.",
+                "Content) is used in the printing and publishing industries.",
+                "Content) is used in printing industries.",
+                "Content) is used in the industries.",
+                "Content) is used in the printing and publishing industries."
+              ]
+            }
+          },
+          {
+            "title": {
+              "ar": "نقاط المكافأة للتعرف على",
+              "en": "Bonus Points to Recognize"
+            },
+            "content": {
+              "ar": [
+                "المحتوى) ويُستخدم في صناعات المطابع ودور النشر. كان لوريم إيبسوم ولايزال المعيار للنص",
+                "المحتوى) ويُستخدم في صناعات المطابع ودور النشر. كان",
+                "المحتوى) ويُستخدم في صناعات المطابع ودور النشر. كان لوريم إيبسوم"
+              ],
+              "en": [
+                "Content) is used in the printing and publishing industries. Lorem Ipsum has been the standard text",
+                "Content) is used in the printing and publishing industries.",
+                "Content) is used in the printing and publishing industries. Lorem Ipsum"
+              ]
+            }
+          },
+          {
+            "title": {
+              "ar": "المتطلبات التعليمية",
+              "en": "Educational Requirements"
+            },
+            "content": {
+              "ar": [
+                "خلافاً للاعتقاد السائد، فإن لوريم إيبسوم ليس نصاً عشوائياً بالمرة. بل إن له جذور في الأدب اللاتيني الكلاسيكي منذ العام 45 قبل الميلاد، مما يجعله أكثر من 2000 عام في القدم. قام ريتشارد ماكلينتوك، وهو بروفيسور اللغة اللاتينية في كلية هامبدن-سيدني في فيرجينيا، بالبحث عن أصل كلمة لاتينية غامضة، consectetur، من نص لوريم إيبسوم"
+              ],
+              "en": [
+                "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going"
+              ]
+            }
+          },
+          {
+            "title": {
+              "ar": "راتب",
+              "en": "Salary"
+            },
+            "content": {
+              "ar": [
+                "الراتب: 18,000 إلى 35,000 BDT (حسب المهارة والخبرة)",
+                "مراجعة الراتب: سنوي"
+              ],
+              "en": [
+                "Salary: 18,000 to 35,000 BDT (Depends on Skill and Experience)",
+                "Salary Review: Yearly"
+              ]
+            }
+          },
+          {
+            "title": {
+              "ar": "ساعات العمل",
+              "en": "Working Hours"
+            },
+            "content": {
+              "ar": ["8 صباحًا – 5 مساءً"],
+              "en": ["8 AM – 5 PM"]
+            }
+          },
+          {
+            "title": {
+              "ar": "أيام العمل",
+              "en": "Working Days"
+            },
+            "content": {
+              "ar": ["أسبوعيًا: 5 أيام.", "نهاية الأسبوع: الجمعة. السبت"],
+              "en": ["Weekly: 5 days.", "Weekend: Friday.Saturday"]
+            }
+          },
+          {
+            "title": {
+              "ar": "الامتيازات والفوائد التي ستحصل عليها",
+              "en": "Perks and Benefits You Will Get"
+            },
+            "content": {
+              "ar": [
+                "المحتوى) ويُستخدم في صناعات المطابع ودور النشر. كان لوريم إيبسوم ولايزال المعيار للنص",
+                "المحتوى) ويُستخدم في صناعات المطابع ودور النشر. كان",
+                "المحتوى) ويُستخدم في صناعات المطابع ودور النشر. كان لوريم إيبسوم",
+                "المحتوى) ويُستخدم في صناعات المطابع ودور",
+                "المحتوى) ويُستخدم في صناعات المطابع",
+                "المحتوى) ويُستخدم في صناعات المطابع ودور",
+                "المحتوى) ويُستخدم في صن",
+                "المحتوى) ويُستخدم في",
+                "المحتوى) ويُستخدم في صناعات المطابع ودور"
+              ],
+              "en": [
+                "Content) is used in the printing and publishing industries. Lorem Ipsum has been the standard text",
+                "Content) is used in the printing and publishing industries.",
+                "Content) is used in the printing and publishing industries. Lorem Ipsum",
+                "Content) is used in the printing and publishing industries.",
+                "Content) is used in the printing and publishing industries.",
+                "Content) is used in the printing and publishing industries.",
+                "Content) is used in printing industries.",
+                "Content) is used in the industries.",
+                "Content) is used in the printing and publishing industries."
+              ]
+            }
+          }
+        ]
+      },
+      "rightPanel": {
+        "button": {
+          "text": {
+            "ar": "يتقدم",
+            "en": "Apply"
+          }
+        },
+        "title": {
+          "ar": "ملخص الوظيفة",
+          "en": "Job Summary"
+        },
+        "tailwraps": [
+          {
+            "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/subway_location.svg",
+            "title": {
+              "ar": "موقع",
+              "en": "Location"
+            },
+            "description": {
+              "ar": "مركز شوث بريز، بناني11",
+              "en": "Shouth Breeze Center, Banani11"
+            }
+          },
+          {
+            "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/material-symbols_business-center-outline.svg",
+            "title": {
+              "ar": "نوع الوظيفة",
+              "en": "Job Type"
+            },
+            "description": {
+              "ar": "دوام كامل",
+              "en": "Full-Time"
+            }
+          },
+          {
+            "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/mdi_calendar-outline.svg",
+            "title": {
+              "ar": "تاريخ النشر",
+              "en": "Posted Date"
+            },
+            "description": {
+              "ar": "تم النشر منذ شهر واحد",
+              "en": "Posted 1 month ago"
+            }
+          },
+          {
+            "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/codicon_book.svg",
+            "title": {
+              "ar": "خبرة",
+              "en": "Experience"
+            },
+            "description": {
+              "ar": "1-3 سنة",
+              "en": "1-3 Years"
+            }
+          },
+          {
+            "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/teenyicons_clock-outline.svg",
+            "title": {
+              "ar": "ساعات العمل",
+              "en": "Working Hours"
+            },
+            "description": {
+              "ar": "9 صباحًا - 6 مساءً",
+              "en": "9 AM - 6 PM"
+            }
+          },
+          {
+            "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/solar_book-outline.svg",
+            "title": {
+              "ar": "أيام العمل",
+              "en": "Working Days"
+            },
+            "description": {
+              "ar": "أسبوعي: 5 أيام عطلة نهاية الأسبوع: السبت، الأحد",
+              "en": "Weekly: 5 days. Weekend: Saturday, Sunday"
+            }
+          },
+          {
+            "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/arcticons_emoji-chair.svg",
+            "title": {
+              "ar": "خالي",
+              "en": "Vacancy"
+            },
+            "description": {
+              "ar": "عدد الوظائف الشاغرة: 3",
+              "en": "Number of vacancies: 3"
+            }
+          }
+        ],
+        "viewAllButton": {
+          "text": {
+            "ar": "عرض جميع الوظائف",
+            "en": "View All Jobs"
+          },
+          "link": "#"
+        },
+        "socialShare": {
+          "title": {
+            "ar": "شارك هذا:",
+            "en": "Share this:"
+          },
+          "socialLinks": [
+            {
+              "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Facebook.svg",
+              "link": "#"
+            },
+            {
+              "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Twiter.svg",
+              "link": "#"
+            },
+            {
+              "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Linkedin.svg",
+              "link": "#"
+            },
+            {
+              "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/logos_whatsapp-icon+(1).svg",
+              "link": "#"
+            }
+          ]
+        }
+      },
+      "button": {
+        "text": {
+          "en": "Apply Now",
+          "ar": " تقدم بطلبك الآن"
+        }
+      }
+    }
+  },
+  "newsBlogsDetails": {
+    "banner": {
+      "title": {
+        "en": "Finibus Bonorum et Malorum",
+        "ar": "شباب يتحدون الإعاقة"
+      },
+      "subTitle": {
+        "en": "Monday  May 20",
+        "ar": "20 مايو 2020"
+      },
+      "bannerImage": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+2+(3).png",
+      "button": {
+        "text": {
+          "en": "Back",
+          "ar": "خلف"
+        }
+      }
+    },
+    "newsBlogDetails": [
+      {
+        "title": {
+          "ar": "شباب يتحدون الإعاقة",
+          "en": "Youth Overcoming Disability"
+        },
+        "content": {
+          "ar": "على الرغم من التحديات الكبيرة التي يعيشها ذوو الإعاقة في منطقة الشرق الأوسط وشمال أفريقيا بسبب الأزمات والحروب إلا أن قسما منهم أراد صنع التغيير وترك بصمة. في حلقة بي بي سي اكسترا هذا الأسبوع نلقي الضوء على هؤلاء الشباب الذين رفضوا أن تعيقهم إعاقتهم سواء تلك التي ولدوا معها أو المستجدة.",
+          "en": "Despite the significant challenges faced by people with disabilities in the Middle East and North Africa due to crises and wars, some have decided to make a change and leave a mark. In this week's BBC Extra episode, we shine a light on these young individuals who refused to let their disabilities, whether congenital or acquired, stop them."
+        }
+      },
+      {
+        "title": {
+          "ar": "شباب يتحدون الإعاقة",
+          "en": "Youth Overcoming Disability"
+        },
+        "content": {
+          "ar": "على الرغم من التحديات الكبيرة التي يعيشها ذوو الإعاقة في منطقة الشرق الأوسط وشمال أفريقيا بسبب الأزمات والحروب إلا أن قسما منهم أراد صنع التغيير وترك بصمة. في حلقة بي بي سي اكسترا هذا الأسبوع نلقي الضوء على هؤلاء الشباب الذين رفضوا أن تعيقهم إعاقتهم سواء تلك التي ولدوا معها أو المستجدة.",
+          "en": "Despite the significant challenges faced by people with disabilities in the Middle East and North Africa due to crises and wars, some have decided to make a change and leave a mark. In this week's BBC Extra episode, we shine a light on these young individuals who refused to let their disabilities, whether congenital or acquired, stop them."
+        }
+      },
+      {
+        "title": {
+          "ar": "شباب يتحدون الإعاقة",
+          "en": "Youth Overcoming Disability"
+        },
+        "content": {
+          "ar": "على الرغم من التحديات الكبيرة التي يعيشها ذوو الإعاقة في منطقة الشرق الأوسط وشمال أفريقيا بسبب الأزمات والحروب إلا أن قسما منهم أراد صنع التغيير وترك بصمة. في حلقة بي بي سي اكسترا هذا الأسبوع نلقي الضوء على هؤلاء الشباب الذين رفضوا أن تعيقهم إعاقتهم سواء تلك التي ولدوا معها أو المستجدة.",
+          "en": "Despite the significant challenges faced by people with disabilities in the Middle East and North Africa due to crises and wars, some have decided to make a change and leave a mark. In this week's BBC Extra episode, we shine a light on these young individuals who refused to let their disabilities, whether congenital or acquired, stop them."
+        }
+      }
+    ],
+    "latestNewCards": {
+      "heading": {
+        "ar": "آخر الأخبار",
+        "en": "Latest News & Blogs"
+      },
+      "cards": [
+        {
+          "title": {
+            "ar": "شباب يتحدون الإعاقة",
+            "en": "Youth Overcoming Disability"
+          },
+          "description": {
+            "ar": "على الرغم من التحديات الكبيرة التي يعيشها ذوو الإعاقة في منطقة الشرق الأوسط وشمال أفريقيا بسبب الأزمات والحروب إلا أن قسما منهم أراد صنع التغيير وترك بصمة.",
+            "en": "Despite the major challenges faced by people with disabilities in the Middle East and North Africa due to crises and wars, some of them wanted to make a change and leave a mark."
+          },
+          "date": {
+            "ar": "20 مايو 2020",
+            "en": "May 20, 2020"
+          },
+          "image": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+(7).png",
+          "readMore": {
+            "ar": "اقرأ المزيد",
+            "en": "Read More"
+          }
+        },
+        {
+          "title": {
+            "ar": "الروبوتات السعودية تنضم إلى الملايين في أداء فريضة الحج",
+            "en": "Saudi Robots Join Millions in Performing the Hajj"
+          },
+          "description": {
+            "ar": "على الرغم من التحديات الكبيرة التي يعيشها ذوو الإعاقة في منطقة الشرق الأوسط وشمال أفريقيا بسبب الأزمات والحروب إلا أن قسما منهم أراد صنع التغيير وترك بصمة.",
+            "en": "Despite the major challenges faced by people with disabilities in the Middle East and North Africa due to crises and wars, some of them wanted to make a change and leave a mark."
+          },
+          "date": {
+            "ar": "20 مايو 2020",
+            "en": "May 20, 2020"
+          },
+          "image": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+(7).png",
+          "readMore": {
+            "ar": "اقرأ المزيد",
+            "en": "Read More"
+          }
+        },
+        {
+          "title": {
+            "ar": "التكنولوجيا في خدمة ذوي الإعاقة",
+            "en": "Technology Serving People with Disabilities"
+          },
+          "description": {
+            "ar": "تسهم التكنولوجيا الحديثة في تحسين حياة ذوي الإعاقة من خلال توفير أدوات مساعدة.",
+            "en": "Modern technology contributes to improving the lives of people with disabilities by providing assistive tools."
+          },
+          "date": {
+            "ar": "15 يونيو 2021",
+            "en": "June 15, 2021"
+          },
+          "image": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+(7).png",
+          "readMore": {
+            "ar": "اقرأ المزيد",
+            "en": "Read More"
+          }
+        },
+        {
+          "title": {
+            "ar": "قصص نجاح ملهمة",
+            "en": "Inspiring Success Stories"
+          },
+          "description": {
+            "ar": "قصص ملهمة لأشخاص تغلبوا على التحديات وحققوا أحلامهم.",
+            "en": "Inspiring stories of individuals who overcame challenges and achieved their dreams."
+          },
+          "date": {
+            "ar": "10 يوليو 2021",
+            "en": "July 10, 2021"
+          },
+          "image": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+(7).png",
+          "readMore": {
+            "ar": "اقرأ المزيد",
+            "en": "Read More"
+          }
+        },
+        {
+          "title": {
+            "ar": "مبادرات دعم ذوي الإعاقة",
+            "en": "Initiatives Supporting People with Disabilities"
+          },
+          "description": {
+            "ar": "مبادرات تهدف إلى دعم وتمكين ذوي الإعاقة في المجتمع.",
+            "en": "Initiatives aimed at supporting and empowering people with disabilities in society."
+          },
+          "date": {
+            "ar": "5 أغسطس 2021",
+            "en": "August 5, 2021"
+          },
+          "image": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+(7).png",
+
+          "readMore": {
+            "ar": "اقرأ المزيد",
+            "en": "Read More"
+          }
+        },
+        {
+          "title": {
+            "ar": "التحديات التي تواجه ذوي الإعاقة",
+            "en": "Challenges Faced by People with Disabilities"
+          },
+          "description": {
+            "ar": "استعراض للتحديات اليومية التي يواجهها ذوو الإعاقة وكيفية التغلب عليها.",
+            "en": "An overview of the daily challenges faced by people with disabilities and how to overcome them."
+          },
+          "date": {
+            "ar": "20 سبتمبر 2021",
+            "en": "September 20, 2021"
+          },
+          "image": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+(7).png",
+
+          "readMore": {
+            "ar": "اقرأ المزيد",
+            "en": "Read More"
+          }
+        }
+      ]
+    }
+  },
+  "contactUsModal": {
+    "title": {
+      "en": "Contact Us",
+      "ar": ">اتصل بنا"
+    },
+    "modalBody": {
+      "inputs": [
+        {
+          "type": "text",
+          "name": "name",
+          "placeholder": {
+            "en": "Enter your name",
+            "ar": "أدخل الاسم"
+          }
+        },
+        {
+          "type": "email",
+          "name": "email",
+          "placeholder": {
+            "en": "Enter your email",
+            "ar": "أدخل البريد الإلكتروني"
+          }
+        },
+        {
+          "type": "number",
+          "name": "phone",
+          "placeholder": {
+            "en": "Enter your phone number",
+            "ar": "أدخل رقم الجوال"
+          }
+        }
+      ],
+      "textArea": [
+        {
+          "type": "text",
+          "name": "walletLink",
+          "placeholder": {
+            "en": "Wallet link",
+            "ar": "رابط المحفظة"
+          }
+        }
+      ],
+      "buttons": [
+        {
+          "text": {
+            "en": "Submit",
+            "ar": "رسال"
+          },
+          "className": "apply_btn"
+        },
+        {
+          "text": {
+            "en": "Reset",
+            "ar": "عادة تعيين"
+          },
+          "className": "close_btn"
+        }
+      ]
+    }
+  },
+  "ApplyModal": {
+    "title": {
+      "en": " Apply for : Project Manager",
+      "ar": ">اتصل بنا"
+    },
+    "modalBody": {
+      "inputs": [
+        {
+          "type": "text",
+          "name": "name",
+          "placeholder": {
+            "en": "Enter your name",
+            "ar": "أدخل الاسم"
+          }
+        },
+        {
+          "type": "email",
+          "name": "email",
+          "placeholder": {
+            "en": "Enter your email",
+            "ar": "أدخل البريد الإلكتروني"
+          }
+        },
+        {
+          "type": "number",
+          "name": "phone",
+          "placeholder": {
+            "en": "Enter your phone number",
+            "ar": "أدخل رقم الجوال"
+          }
+        },
+        {
+          "type": "pLink",
+          "name": "pLink",
+          "placeholder": {
+            "en": "Poftfolio Link",
+            "ar": "رابط المحفظة"
+          }
+        }
+      ],
+      "fileUpload": {
+        "title": {
+          "en": "CVResume",
+          "ar": "رفع ��لبك السريع"
+        },
+        "instruction1": {
+          "en": "Click to upload",
+          "ar": "يمكنك رفع كيف بك السريع بوا��طة ملف.pdf أو.doc."
+        },
+        "instruction2": {
+          "en": "or drag and drop",
+          "ar": "يمكنك رفع كيف بك السريع بوا��طة ملف.pdf أو.doc."
+        },
+        "instruction3": {
+          "en": "Only pdf, doc, docx Accepted.",
+          "ar": "حجم الملف لا يجب أن يتجاوز 5 ميغابايت."
+        }
+      },
+      "buttons": [
+        {
+          "text": {
+            "en": "Submit",
+            "ar": "رسال"
+          },
+          "className": "apply_btn"
+        },
+        {
+          "text": {
+            "en": "Reset",
+            "ar": "عادة تعيين"
+          },
+          "className": "close_btn"
+        }
+      ]
+    }
+  }
+}

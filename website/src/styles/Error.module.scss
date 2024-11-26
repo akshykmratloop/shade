@@ -1,0 +1,42 @@
+/* pages/404.module.css */
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f4f4f4;
+    text-align: right;
+    /* Align text to the right for Arabic */
+    direction: rtl;
+
+    /* Enable right-to-left layout */
+    .title {
+        font-size: 3rem;
+        color: var(--secondary);
+        font-weight: 300;
+        margin-bottom: 28px;
+    }
+    
+    .description {
+        margin-top: 28px;
+        font-size: 1.5rem;
+        color: var(--black);
+        margin-bottom: 24px;
+    }
+
+    .homeLink {
+        padding: 18px 20px 10px 20px;
+        background-color: var(--primary);
+        color: var(--white);
+        border-radius: 5px;
+        text-decoration: none;
+        font-size: 1rem;
+        transition: all .3s linear;
+    }
+
+    .homeLink:hover {
+        background-color: var(--secondary);
+    }
+}

@@ -1,0 +1,106 @@
+import projectService from "./icons/projectService.png";
+import operationGate from "./icons/operation.png";
+import fabrication from "./icons/fabrication.png";
+import architecture from "./icons/architecture.png";
+import eqRental from "./icons/eqRental.png";
+import construction from "./icons/construction.png";
+
+// experieceIcons
+import projectCompleted from "./icons/projectComplete.png";
+import happyClient from "./icons/happyClients.png"
+import yearOfBusiness from "./icons/yearOfBusiness.png"
+import awardWin from "./icons/awardWin.png"
+
+// recentProjects
+import itLab from "./images/itLab.png";
+import business from "./images/businessGate.png"
+import psychiatric from "./images/psychiatriFacility.png";
+import renovation from "./images/renovation.png" 
+
+
+//client
+import client1 from "./icons/client 1.png"
+import client2 from "./icons/client 2.png"
+import client3 from "./icons/client 3.png"
+import client4 from "./icons/client 4.png"
+
+//testmonials
+
+import testimonial1 from "./icons/user1.png"
+import testimonial2 from "./icons/usre2.png"
+import dummyUser from "./icons/dummyuser.jpg"
+
+
+// aboutUs icons
+import ourMission from "./icons/ourMission.png"
+import ourGoal from "./icons/ourGoal.png"
+
+// news-blogs
+
+import news1 from "./images/news1.png"
+import news2 from "./images/news2.png"
+import news3 from "./images/news3.png"
+import news4 from "./images/news4.png"
+
+
+
+const services = {
+  construction,
+  architecture,
+  operationGate,
+  eqRental,
+  fabrication,
+  projectService,
+};
+
+const experience = {
+projectCompleted,
+  happyClient,
+  yearOfBusiness,
+  awardWin
+}
+
+const recentProjects = {
+    itLab,
+    business,
+    psychiatric,
+    renovation
+}
+
+const clients = {
+    client1,
+    client2,
+    client3,
+    client4
+}
+
+const testimonials = {
+    testimonial1,
+    testimonial2,
+    dummyUser
+}
+
+const aboutUsIcons = {
+    ourMission,
+    ourGoal,
+    ourVision : "https://frequencyimage.s3.ap-south-1.amazonaws.com/627b0116-56a2-4300-bb8c-31cfab0bf0ee-lucide_goal.svg"
+}
+
+const newsBlogs = {
+
+    news1,
+    news2,
+    news3,
+    news4
+}
+
+module.exports = {
+    services,
+    experience,
+    recentProjects,
+    clients,
+    testimonials,
+    aboutUsIcons,
+    newsBlogs
+  
+};
