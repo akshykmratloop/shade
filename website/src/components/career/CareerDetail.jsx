@@ -14,14 +14,31 @@ const BankGothic = localFont({
   display: "swap",
 });
 
-import { useLanguage } from "../../contexts/LanguageContext";
+import { useGlobalContext } from "../../contexts/GlobalContext";
 
 const CareerDetailPage = () => {
   const router = useRouter();
   const [isModal, setIsModal] = useState(false);
-  const { language, content } = useLanguage();
-  const currentContent = content?.careerDetails;
+  const { careerId } = router.query;
 
+  const { language, content } = useGlobalContext();
+  const currentContent = content?.careerDetails?.filter(
+    (item) => item?.id == careerId
+  )[0];
+
+
+
+  if (!currentContent) { // of project not found 
+    return (
+      <div style={{height : "700px", width : "100%",
+        display : "flex",
+        justifyContent : "center",
+        alignItems : "center",
+      }}>
+        <h1>{language === "en" ? "This page is under development and will be updated soon..." : "هذه الصفحة قيد التطوير وسوف يتم تحديثها قريبا..."}</h1>
+      </div>);
+  }
+  
   const { banner, jobDetails } = currentContent;
 
   const handleApply = () => {

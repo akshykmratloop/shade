@@ -13,9 +13,9 @@ const BankGothic = localFont({
   display: "swap",
 });
 
-import { useLanguage } from "../../contexts/LanguageContext";
+import { useGlobalContext } from "../../contexts/GlobalContext";
 
-const ContactUsModal = ({ isModal, onClose }) => {
+const ContactUsModal = ({ isModal, jobTitle, onClose }) => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -39,7 +39,7 @@ const ContactUsModal = ({ isModal, onClose }) => {
     }));
   };
 
-  const { language, content } = useLanguage();
+  const { language, content } = useGlobalContext();
   const currentContent = content?.ApplyModal;
 
   return (
@@ -53,7 +53,7 @@ const ContactUsModal = ({ isModal, onClose }) => {
         className={styles.header_wrap}
       >
         <h1 className={`${styles.heading} ${BankGothic.className}`}>
-          {currentContent?.title[language]}
+          {currentContent?.title[language]} : {jobTitle}
         </h1>
         <button className={styles.close_btn} onClick={onClose}>
           <Image

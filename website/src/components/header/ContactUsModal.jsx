@@ -13,7 +13,7 @@ const BankGothic = localFont({
   display: "swap",
 });
 
-import { useLanguage } from "../../contexts/LanguageContext";
+import { useGlobalContext } from "../../contexts/GlobalContext";
 
 const ContactUsModal = ({ isModal, onClose }) => {
   const [formData, setFormData] = useState({
@@ -39,7 +39,7 @@ const ContactUsModal = ({ isModal, onClose }) => {
     }));
   };
 
-  const { language, content } = useLanguage();
+  const { language, content } = useGlobalContext();
   const currentContent = content?.contactUsModal;
 
   return (

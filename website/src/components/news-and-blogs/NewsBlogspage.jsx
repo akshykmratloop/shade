@@ -15,10 +15,10 @@ import { useTruncate } from "@/common/useTruncate";
 import { useRouter } from "next/router";
 
 // const AnimatedText = dynamic(() => import('@/common/AnimatedText'), { ssr: false });
-import { useLanguage } from "../../contexts/LanguageContext";
+import { useGlobalContext } from "../../contexts/GlobalContext";
 import {newsBlogs} from "../../assets/index"
 const NewsBlogspage = () => {
-  const { language, content } = useLanguage();
+  const { language, content } = useGlobalContext();
   const currentContent = content?.newsBlogs;
 
   const bannerTitle = currentContent?.bannerSection?.title[language];
@@ -45,10 +45,10 @@ const NewsBlogspage = () => {
         }`}
       >
 
-        <div className="container">
+        <div className="container" style={{position :"relative" , height :"100%"}}>
           <div className={styles.content}>
             {/* <AnimatedText text="خبر & المدونات" Wrapper="h1" repeatDelay={0.04} className={`${styles.title} ${BankGothic.className}`} /> */}
-            <h1 className={`${styles.title} ${BankGothic.className}`}>
+            <h1 className={`${styles.title} `}>
               {bannerTitle}
             </h1>
             <p className={`${styles.description} ${BankGothic.className}`}>

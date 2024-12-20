@@ -6,7 +6,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import localFont from "next/font/local";
 import ContactUsModal from "./ContactUsModal";
-import { useLanguage } from "../../contexts/LanguageContext";
+import { useGlobalContext } from "../../contexts/GlobalContext";
 
 // Font files can be colocated inside of `app`
 const BankGothic = localFont({
@@ -15,7 +15,7 @@ const BankGothic = localFont({
 });
 
 const Header = ({ isOpenNavbar, setIsOpenNavbar }) => {
-  const { language, toggleLanguage, content } = useLanguage();
+  const { language, toggleLanguage, content } = useGlobalContext();
   const currentContent = content?.header;
   // const router = useRouter()
   const pathname = usePathname();
@@ -101,7 +101,7 @@ const Header = ({ isOpenNavbar, setIsOpenNavbar }) => {
               <Link
                 href="/market"
                 className={`${styles.menuItem} ${
-                  pathname === "/market" ? styles.active : ""
+                  pathname === "/market" || pathname?.startsWith("/market/") ? styles.active : ""
                 }`}
               >
                 {currentContent?.market[language]}
@@ -109,7 +109,7 @@ const Header = ({ isOpenNavbar, setIsOpenNavbar }) => {
               <Link
                 href="/project"
                 className={`${styles.menuItem} ${
-                  pathname === "/project" ? styles.active : ""
+                  pathname === "/project" || pathname?.startsWith("/project/") ? styles.active : ""
                 }`}
               >
                 {currentContent?.project[language]}
@@ -117,7 +117,7 @@ const Header = ({ isOpenNavbar, setIsOpenNavbar }) => {
               <Link
                 href="/career"
                 className={`${styles.menuItem} ${
-                  pathname === "/career" ? styles.active : ""
+                  pathname === "/career" || pathname?.startsWith("/career/") ? styles.active : ""
                 }`}
               >
                 {currentContent?.career[language]}
@@ -125,7 +125,7 @@ const Header = ({ isOpenNavbar, setIsOpenNavbar }) => {
               <Link
                 href="/news-and-blogs"
                 className={`${styles.menuItem} ${
-                  pathname === "/news-and-blogs" ? styles.active : ""
+                  pathname === "/news-and-blogs" || pathname?.startsWith("/news-and-blogs/") ? styles.active : ""
                 }`}
               >
                 {currentContent?.news[language]}

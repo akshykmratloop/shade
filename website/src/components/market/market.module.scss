@@ -11,7 +11,7 @@
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
-      left: 260px;
+      right: 20px;
       .title,
       .description {
         transform: scaleX(-1);
@@ -49,12 +49,13 @@
 
     .description {
       color: var(--para-light);
-      font-size: 14px;
+      font-size: 16px;
       font-style: normal;
-      font-weight: 700;
+      font-weight: 600;
       line-height: 28px;
-      margin-bottom: 24px;
+      margin-bottom: 26px;
       width: 55%;
+      word-spacing: 5px;
       // text-align: right;
       margin-left: auto;
     }
@@ -214,19 +215,23 @@
         flex-direction: column;
         align-items: flex-start;
         gap: 8px;
+        overflow: hidden;
 
         .card_image {
           // background: url;
+          width: 100%;
+          overflow: hidden;
         }
 
         .title {
           color: var(--black);
-          text-align: right;
+          // text-align: right;
           font-size: 20px;
           font-style: normal;
           font-weight: 700;
           line-height: normal;
           margin-top: 16px;
+          height: 40px;
         }
 
         .button {
@@ -249,6 +254,16 @@
           }
       }
         }
+      }
+    }
+    .button_wrap {
+      align-items: center;
+      justify-content: center;
+      display: flex;
+      margin-top: 44px;
+
+      .view_more_btn {
+        gap: 8px;
       }
     }
   }

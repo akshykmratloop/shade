@@ -53,14 +53,22 @@
 
     .description {
       color: var(--para-light);
-      font-size: 14px;
-      font-style: normal;
-      font-weight: 700;
-      line-height: 14.5px;
-      margin-bottom: 24px;
-      width: 44%;
+      // font-size: 14px;
+      // font-style: normal;
+      // font-weight: 700;
+      // line-height: 14.5px;
+      // margin-bottom: 24px;
+      // width: 44%;
       //   text-align: right;
       //   margin-left: auto;
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 26px;
+      margin-bottom: 26px;
+      width: 50%;
+      word-spacing: 5px;
+      display: block;
     }
 
     .view_btn {
@@ -513,6 +521,10 @@
       bottom: 40px;
       z-index: 1;
 
+      &.hide_btn_wrapper{
+        display: none;
+      }
+
       .custom_prev,
       .custom_next {
         padding: 16px 26px 16px 26px;
@@ -583,11 +595,12 @@
 
           .title {
             color: var(--white);
-            text-align: right;
+            // text-align: right;
             font-size: 20px;
             font-style: normal;
             font-weight: 600;
             line-height: normal;
+            height: 40px;
           }
 
           .subtitle {
@@ -641,7 +654,7 @@
       .description {
         color: #292e3d;
         // text-align: right;
-        font-family: "Bank Gothic Light";
+        // font-family: "Bank Gothic Light";
         font-size: 16px;
         font-style: normal;
         font-weight: 300;

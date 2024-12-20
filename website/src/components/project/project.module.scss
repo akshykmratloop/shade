@@ -11,7 +11,7 @@
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
-      left: 185px;
+      right: 20px;
       .title,
       .description {
         transform: scaleX(-1);
@@ -34,6 +34,7 @@
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
+    right: 20px;
 
     .title {
       color: var(--black);
@@ -49,14 +50,15 @@
 
     .description {
       color: var(--para-light);
-      font-size: 14px;
+      font-size: 16px;
       font-style: normal;
       font-weight: 700;
       line-height: 28px;
-      margin-bottom: 24px;
+      margin-bottom: 26px;
       width: 55%;
       text-align: right;
       margin-left: auto;
+      word-spacing: 5px;
     }
 
     .view_btn {
@@ -141,19 +143,22 @@
         flex-direction: column;
         align-items: flex-start;
         gap: 8px;
-
+        overflow: hidden;
         .card_image {
           // background: url;
+          overflow: hidden;
+          width: 100%;
         }
 
         .title {
           color: var(--black);
-          text-align: right;
+          // text-align: right;
           font-size: 20px;
           font-style: normal;
           font-weight: 700;
           line-height: normal;
           margin-top: 16px;
+          height: 40px;
         }
 
         .description {
@@ -180,13 +185,12 @@
           gap: 10px;
           margin-top: 14px;
           cursor: pointer;
-          .icon{
-              &.leftAlign{
-                transform: scaleX(-1);
+          .icon {
+            &.leftAlign {
+              transform: scaleX(-1);
             }
+          }
         }
-        }
-      
       }
     }
 

@@ -11,7 +11,7 @@
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
-      left: 273px;
+     
       .title,
       .description {
         transform: scaleX(-1);
@@ -35,7 +35,7 @@
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-
+right: 20px;
     .title {
       color: var(--black);
       font-size: 70px;
@@ -50,14 +50,22 @@
 
     .description {
       color: var(--para-light);
-      font-size: 14px;
-      font-style: normal;
-      font-weight: 700;
-      line-height: 28px;
-      margin-bottom: 24px;
-      width: 55%;
-      text-align: right;
+      // font-size: 14px;
+      // font-style: normal;
+      // font-weight: 700;
+      // line-height: 28px;
+      // margin-bottom: 24px;
+      // width: 55%;
+      // text-align: right;
       margin-left: auto;
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 26px;
+      margin-bottom: 26px;
+      width: 50%;
+      word-spacing: 5px;
+      display: block;
     }
 
     .view_btn {
@@ -238,7 +246,8 @@
     display: flex;
     align-items: flex-start;
     flex-wrap: wrap;
-    gap: 32px;
+    // gap: 32px;
+    justify-content: space-between;
 
    
   }
@@ -253,7 +262,8 @@
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
-    gap: 32px;
+    // gap: 32px;
+    justify-content: space-between;
     position: relative;
 
     .showcase_gallery_img_wrap {

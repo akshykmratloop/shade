@@ -10,12 +10,12 @@ const BankGothic = localFont({
   src: "../../../public/font/BankGothicLtBTLight.ttf",
   display: "swap",
 });
-import { useLanguage } from "../../contexts/LanguageContext";
+import { useGlobalContext } from "../../contexts/GlobalContext";
 
 const NewsBlogDetailPage = () => {
   const router = useRouter();
 
-  const { language, content } = useLanguage();
+  const { language, content } = useGlobalContext();
   const currentContent = content?.newsBlogsDetails;
 
   const { banner, newsBlogDetails, latestNewCards } = currentContent;
@@ -42,7 +42,7 @@ const NewsBlogDetailPage = () => {
             />
             <button
               className={styles.back_btn}
-              onClick={() => router.push(`/career`)}
+              onClick={() => router.push(`/news-and-blogs`)}
             >
               <Image
                 src="https://loopwebsite.s3.ap-south-1.amazonaws.com/bx_arrow-back.svg"

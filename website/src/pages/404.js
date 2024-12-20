@@ -7,10 +7,15 @@ import { useEffect } from 'react';
 // Dynamically import Lottie with ssr: false to prevent SSR issues
 const Lottie = dynamic(() => import('react-lottie'), { ssr: false });
 import LoaderData from "@/common/404.json";
+import { useGlobalContext } from "../contexts/GlobalContext";
 
 const Custom404 = () => {
     const route = useRouter();
+    const globalContext = useGlobalContext(); // Store the context in a variable
+    const { language, content } = globalContext || {}; // Destructure safely
 
+    // Check if content is available
+    const currentContent = content?.notFound;
     const defaultOptions = {
         loop: true,
         autoplay: true,
@@ -23,7 +28,7 @@ const Custom404 = () => {
     useEffect(() => {
         const timer = setTimeout(() => {
             route.push("/");
-        }, 10000);
+        }, 1000000);
 
         // Cleanup the timeout if the component unmounts before it executes
         return () => clearTimeout(timer);
@@ -33,9 +38,11 @@ const Custom404 = () => {
         <div className={styles.container}>
             <Lottie options={defaultOptions} height={200} width={500} />
             <p className={styles.description}>
-                عذرًا! الصفحة التي تبحث عنها غير موجودة.
+            {currentContent?.description[language]}
             </p>
-            <Link href="/" className={styles.homeLink}>العودة إلى الصفحة الرئيسية</Link>
+            <Link href="/" className={`${styles.homeLink} ${language === "en" && styles.enVersion}`}>
+            {currentContent?.button?.text[language]}
+            </Link>
         </div>
     );
 };
