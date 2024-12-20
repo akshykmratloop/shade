@@ -4,6 +4,7 @@ import Image from "next/image";
 import localFont from "next/font/local";
 import { useTruncate } from "@/common/useTruncate";
 import { useRouter } from "next/router";
+import { newsBlogs } from "../../assets/index";
 
 // Font files can be colocated inside of `app`
 const BankGothic = localFont({
@@ -14,23 +15,47 @@ import { useGlobalContext } from "../../contexts/GlobalContext";
 
 const NewsBlogDetailPage = () => {
   const router = useRouter();
+  const { newsId } = router.query;
+  console.log(newsId, "blogId");
 
   const { language, content } = useGlobalContext();
-  const currentContent = content?.newsBlogsDetails;
 
-  const { banner, newsBlogDetails, latestNewCards } = currentContent;
+  const currentContent = content?.newsBlogsDetails?.filter(
+    (item) => item?.id == newsId
+  )[0];
+
+  if (!currentContent) {
+    // of project not found
+    return (
+      <div
+        style={{
+          height: "700px",
+          width: "100%",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <h1>
+          {language === "en"
+            ? "News Not Found"
+            : "هذه الصفحة قيد التطوير وسوف يتم تحديثها قريبا..."}
+        </h1>
+      </div>
+    );
+  }
+
+  const { banner, newsPoints } = currentContent;
 
   const TruncateText = (text, length) => useTruncate(text, length || 200);
 
-
   return (
     <>
-     <section
+      <section
         className={` ${language === "ar" && styles.rightAlign}   ${
           styles.news_blog_details_wrapper
         }`}
       >
-
         <div className={`container`}>
           <div className={styles.details_content}>
             <Image
@@ -62,7 +87,7 @@ const NewsBlogDetailPage = () => {
             </p>
           </div>
 
-          {newsBlogDetails?.map((item, index) => (
+          {newsPoints?.map((item, index) => (
             <div key={index} className={styles.news_blog_details_content}>
               {/* Title */}
               <h2 className={`${styles.title} ${BankGothic.className}`}>
@@ -116,45 +141,54 @@ const NewsBlogDetailPage = () => {
           </div>
         </div>
       </section> */}
-       <section
+      <section
         className={` ${language === "en" && styles.leftAlign}   ${
           styles.latest_new_card_wrap
         }`}
       >
         <div className="container">
           <h2 className={`${BankGothic.className} ${styles.main_heading}`}>
-            {latestNewCards?.heading[language]}
+            {content?.newsBlogs?.latestNewCards?.heading[language]}
           </h2>
           <div className={styles.card_group}>
-            {latestNewCards?.cards?.slice(0, 4)?.map((card, index) => (
-              <div className={styles.card} key={index}>
-                <Image
-                  src={card.image}
-                  alt=""
-                  className={styles.card_image}
-                  width={280}
-                  height={154}
-                />
-                <div className={styles.card_body}>
-                <h2 className={`${BankGothic.className} ${styles.title}`}>
-                    {TruncateText(card.title[language],40)}
-                  </h2>
-                  <p className={`${BankGothic.className} ${styles.subTitle}`}>
-                    {TruncateText(card.description[language],140)}
-                  </p>
-                  <div className={styles.date_wrap}>
-                    <h6 className={`${BankGothic.className} ${styles.date}`}>
-                      {card.date[language]}
-                    </h6>
-                    <button
-                      className={`${BankGothic.className} ${styles.seeMore}`}
+            {content?.newsBlogs?.latestNewCards?.cards
+              ?.slice(0, 4)
+              ?.map((card, index) => (
+                <div className={styles.card} key={index}>
+                  <Image
+                    src={newsBlogs[card.image]}
+                    alt=""
+                    className={styles.card_image}
+                    width={280}
+                    height={154}
+                  />
+                  <div className={styles.card_body}>
+                    <h2
+                      title={card.title[language]}
+                      className={`${BankGothic.className} ${styles.title}`}
                     >
-                      {card.readMore[language]}
-                    </button>
+                      {TruncateText(card.title[language], 40)}
+                    </h2>
+                    <p
+                      title={card.description[language]}
+                      className={`${BankGothic.className} ${styles.subTitle}`}
+                    >
+                      {TruncateText(card.description[language], 140)}
+                    </p>
+                    <div className={styles.date_wrap}>
+                      <h6 className={`${BankGothic.className} ${styles.date}`}>
+                        {card.date[language]}
+                      </h6>
+                      <button
+                        onClick={() => router.push(`/blog/${card.id}`)}
+                        className={`${BankGothic.className} ${styles.seeMore}`}
+                      >
+                        {card.readMore[language]}
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))}
           </div>
         </div>
       </section>

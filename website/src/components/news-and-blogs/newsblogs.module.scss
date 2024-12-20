@@ -144,10 +144,10 @@
         }
       }
     }
-     .image {
-        border-radius: 5px;
-        margin-right: 4px;
-      }
+    .image {
+      border-radius: 5px;
+      margin-right: 4px;
+    }
   }
 }
 
@@ -164,90 +164,96 @@
     margin-bottom: 24px;
   }
 
-  .card_group {
-    display: flex;
-    align-items: center;
-    gap: 32px;
-    flex-wrap: wrap;
+    .card_group {
+      // display: flex;
+      // align-items: center;
+      // gap: 32px;
+      // flex-wrap: wrap;
+      // border: 1px solid;
+      // width: fit-content;
 
-    .card {
-      border-radius: 5px;
-      border: 1px solid #e2e2e2;
-      background: var(--white);
-      box-shadow: 0px 5px 4px 0px rgba(221, 221, 221, 0.25);
-      width: 280px;
-    //   height: 420px;
-      overflow: hidden;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-row-gap: 24px;
+      justify-items: center;
 
-      .card_image {
-        object-fit: cover;
-        object-position: center;
-        height: 154px;
-        width: 100%;
-      }
+      .card {
+        border-radius: 5px;
+        border: 1px solid #e2e2e2;
+        background: var(--white);
+        box-shadow: 0px 5px 4px 0px rgba(221, 221, 221, 0.25);
+        width: 280px;
+        //   height: 420px;
+        overflow: hidden;
 
-      .card_body {
-        display: flex;
-        padding: 16px 12px;
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 16px;
-        align-self: stretch;
-
-        .title {
-          color: var(--black);
-        //   text-align: right;
-          font-size: 18px;
-          font-style: normal;
-          font-weight: 700;
-          line-height: normal;
-          margin-bottom: 8px;
-        height: 37px;
-
-        }
-
-        .subTitle {
-          color: var(--text-fade, rgba(0, 26, 88, 0.51));
-        //   text-align: right;
-          font-size: 13px;
-          font-style: normal;
-          font-weight: 300;
-          line-height: 16px;
-          margin-bottom: 20px;
-          height: 80px;
-        }
-
-        .date_wrap {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          gap: 20px;
+        .card_image {
+          object-fit: cover;
+          object-position: center;
+          height: 154px;
           width: 100%;
+        }
 
-          .seeMore {
-            color: var(--Accent, #00b9f2);
-            // text-align: right;
-            font-size: 14px;
+        .card_body {
+          display: flex;
+          padding: 16px 12px;
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 16px;
+          align-self: stretch;
+
+          .title {
+            color: var(--black);
+            //   text-align: right;
+            font-size: 18px;
             font-style: normal;
             font-weight: 700;
-            line-height: 20px;
-            background-color: transparent;
-            border: none;
-            cursor: pointer;
+            line-height: normal;
+            margin-bottom: 8px;
+            height: 37px;
           }
 
-          .date {
-            color: var(--600, #718096);
-            text-align: right;
-            font-size: 12px;
+          .subTitle {
+            color: var(--text-fade, rgba(0, 26, 88, 0.51));
+            //   text-align: right;
+            font-size: 13px;
             font-style: normal;
             font-weight: 300;
-            line-height: normal;
+            line-height: 16px;
+            margin-bottom: 20px;
+            height: 80px;
+          }
+
+          .date_wrap {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            width: 100%;
+
+            .seeMore {
+              color: var(--Accent, #00b9f2);
+              // text-align: right;
+              font-size: 14px;
+              font-style: normal;
+              font-weight: 700;
+              line-height: 20px;
+              background-color: transparent;
+              border: none;
+              cursor: pointer;
+            }
+
+            .date {
+              color: var(--600, #718096);
+              text-align: right;
+              font-size: 12px;
+              font-style: normal;
+              font-weight: 300;
+              line-height: normal;
+            }
           }
         }
       }
     }
-  }
 }
 
 .trending_card_wrap {
@@ -294,7 +300,6 @@
         font-weight: 700;
         line-height: 40px;
         margin-bottom: 16px;
-
       }
 
       .subTitle {
@@ -316,7 +321,7 @@
 
         .seeMore {
           color: var(--primary);
-        //   text-align: right;
+          //   text-align: right;
           font-size: 14px;
           font-style: normal;
           font-weight: 700;
@@ -328,7 +333,7 @@
 
         .date {
           color: var(--600, #718096);
-        //   text-align: right;
+          //   text-align: right;
           font-size: 12px;
           font-style: normal;
           font-weight: 300;

@@ -18,6 +18,7 @@ const ProjectDetailPage = () => {
   const router = useRouter();
   const { projectId } = router.query;
   const { language, content } = useGlobalContext();
+
   const currentContent = content?.projectDetail?.filter(
     (item) => item?.id == projectId
   )[0];
@@ -32,6 +33,7 @@ const ProjectDetailPage = () => {
         <h1>{language === "en" ? "This page is under development and will be updated soon..." : "هذه الصفحة قيد التطوير وسوف يتم تحديثها قريبا..."}</h1>
       </div>);
   }
+  
   const { introSection, descriptionSection, gallerySection, moreProjects } =
     currentContent;
 

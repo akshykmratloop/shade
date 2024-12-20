@@ -26,24 +26,32 @@ const CareerDetailPage = () => {
     (item) => item?.id == careerId
   )[0];
 
-
-
-  if (!currentContent) { // of project not found 
+  if (!currentContent) {
+    // of project not found
     return (
-      <div style={{height : "700px", width : "100%",
-        display : "flex",
-        justifyContent : "center",
-        alignItems : "center",
-      }}>
-        <h1>{language === "en" ? "This page is under development and will be updated soon..." : "هذه الصفحة قيد التطوير وسوف يتم تحديثها قريبا..."}</h1>
-      </div>);
+      <div
+        style={{
+          height: "700px",
+          width: "100%",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <h1>
+          {language === "en"
+            ? "This page is under development and will be updated soon..."
+            : "هذه الصفحة قيد التطوير وسوف يتم تحديثها قريبا..."}
+        </h1>
+      </div>
+    );
   }
-  
+
   const { banner, jobDetails } = currentContent;
 
   const handleApply = () => {
     setIsModal(true);
-  };  
+  };
   const handleApplyClose = () => {
     setIsModal(false);
   };
@@ -86,7 +94,6 @@ const CareerDetailPage = () => {
           </div>
         </div>
       </section>
-
 
       <section
         className={` ${language === "en" && styles.rightAlign}   ${
@@ -182,13 +189,22 @@ const CareerDetailPage = () => {
             </div>
           </div>
 
-          <Button className={`${styles.apply_now_btn} ${language === 'en' && styles.leftAlign}`} onClick={handleApply}>
+          <Button
+            className={`${styles.apply_now_btn} ${
+              language === "en" && styles.leftAlign
+            }`}
+            onClick={handleApply}
+          >
             {jobDetails?.button?.text[language]}
           </Button>
         </div>
       </section>
 
-      <ApplyModal isModal={isModal} onClose={handleApplyClose} />
+      <ApplyModal
+        isModal={isModal}
+        jobTitle={banner?.title[language]}
+        onClose={handleApplyClose}
+      />
     </>
   );
 };

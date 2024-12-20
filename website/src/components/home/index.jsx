@@ -495,7 +495,11 @@ const HomePage = () => {
         </div>
       </section>
       {/* testomonials section  */}
-      <section className={styles.testimonial_wrapper}>
+      <section
+        className={` ${styles.testimonial_wrapper} ${
+          language !== "en" && styles.rightAlignment
+        }`}
+      >
         <div className={`container ${styles.main_container}`}>
           <div className={styles.testimonials_content}>
             {/* <AnimatedText text="ماذا يقول عملاؤنا عنا؟" Wrapper="h2" repeatDelay={0.04} className={`${styles.title} ${BankGothic.className}`} /> */}
@@ -538,7 +542,7 @@ const HomePage = () => {
                 724: { slidesPerView: 2.2 }, // Adjust for bigger screens
                 500: { slidesPerView: 1 }, // For smaller screens
               }}
-              rtl={true} // Enable RTL for Arabic layout
+              // rtl={true} // Enable RTL for Arabic layout
             >
               {currentContent?.testimonialSection?.testimonials?.map(
                 (testimonial, index) => (
@@ -547,13 +551,6 @@ const HomePage = () => {
                     className={`${styles.swiperSlide} ${styles.testimonial_slide}`}
                   >
                     <div className={styles.testimonial_card}>
-                      <Image
-                        src={testimonials?.[testimonial?.image]}
-                        height={70}
-                        width={70}
-                        alt={testimonial.name}
-                        className={styles.testimonial_image}
-                      />
                       <div className={styles.testimonial_content}>
                         <h3 className={styles.name}>
                           {testimonial.name[language]}
@@ -565,6 +562,9 @@ const HomePage = () => {
                           {testimonial.quote[language]}
                         </p>
                         <div className={styles.company_wrap}>
+                          <p className={styles.company}>
+                            {testimonial.company[language]}
+                          </p>
                           <Image
                             src="https://frequencyimage.s3.ap-south-1.amazonaws.com/a813959c-7b67-400b-a0b7-f806e63339e5-ph_building%20%281%29.svg"
                             height={18}
@@ -572,11 +572,15 @@ const HomePage = () => {
                             alt={testimonial.name}
                             className={styles.company_icon}
                           />
-                          <p className={styles.company}>
-                            {testimonial.company[language]}
-                          </p>
                         </div>
                       </div>
+                      <Image
+                        src={testimonials?.[testimonial?.image]}
+                        height={70}
+                        width={70}
+                        alt={testimonial.name}
+                        className={styles.testimonial_image}
+                      />
                     </div>
                   </SwiperSlide>
                 )
@@ -585,7 +589,7 @@ const HomePage = () => {
 
             {/* Custom buttons */}
             <div className={styles.testimonial_wrapper_btn}>
-              <button ref={testimonialNextRef} className={styles.custom_next}>
+              <button ref={testimonialPrevRef} className={styles.custom_next}>
                 <Image
                   src="https://frequencyimage.s3.ap-south-1.amazonaws.com/b2872383-e9d5-4dd7-ae00-8ae00cc4e87e-Vector%20%286%29.svg"
                   width="22"
@@ -596,7 +600,7 @@ const HomePage = () => {
                   }`}
                 />{" "}
               </button>
-              <button ref={testimonialPrevRef} className={styles.custom_prev}>
+              <button ref={testimonialNextRef} className={styles.custom_prev}>
                 <Image
                   src="https://frequencyimage.s3.ap-south-1.amazonaws.com/de8581fe-4796-404c-a956-8e951ccb355a-Vector%20%287%29.svg"
                   width="22"

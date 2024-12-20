@@ -113,10 +113,11 @@
     }
   
     .card_group {
-      display: flex;
-      align-items: center;
-      gap: 32px;
-      flex-wrap: wrap;
+    
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-row-gap: 24px;
+      justify-items: center;
   
       .card {
         border-radius: 5px;

@@ -1573,8 +1573,6 @@
     }
   },
 
-
-
   "projectsPage": {
     "bannerSection": {
       "title": {
@@ -2803,7 +2801,6 @@
     }
   ],
 
-
   "career": {
     "bannerSection": {
       "title": {
@@ -3041,7 +3038,7 @@
         },
 
         {
-                "id": "de1",
+          "id": "de1",
 
           "title": {
             "key": {
@@ -3094,7 +3091,7 @@
         },
 
         {
-               "id": "pd1",
+          "id": "pd1",
 
           "title": {
             "key": {
@@ -3145,7 +3142,7 @@
             }
           ]
         },
-        
+
         {
           "id": 5,
           "title": {
@@ -3248,7 +3245,6 @@
             }
           ]
         },
-
 
         {
           "id": 7,
@@ -3660,7 +3656,7 @@
           ]
         },
         {
-                "id": "se2",
+          "id": "se2",
 
           "title": {
             "key": {
@@ -3779,7 +3775,6 @@
       ]
     }
   },
-
 
   "careerDetails": [
     {
@@ -4160,9 +4155,7 @@
                 "en": "Educational Requirements"
               },
               "content": {
-                "ar": [
-                  "خبرة في التعامل مع البيانات، ETL، وأدوات التقارير."
-                ],
+                "ar": ["خبرة في التعامل مع البيانات، ETL، وأدوات التقارير."],
                 "en": [
                   "Experience working with data wrangling, ETL, and reporting tools."
                 ]
@@ -4625,12 +4618,8 @@
                 "en": "Educational Requirements"
               },
               "content": {
-                "ar": [
-                  "مهارات تحليلية قوية وحل المشكلات."
-                ],
-                "en": [
-                  "Strong analytical and problem-solving skills."
-                ]
+                "ar": ["مهارات تحليلية قوية وحل المشكلات."],
+                "en": ["Strong analytical and problem-solving skills."]
               }
             }
           ]
@@ -4708,7 +4697,6 @@
         }
       }
     },
-
 
     {
       "id": "csa1",
@@ -4866,7 +4854,6 @@
     }
   ],
 
-
   "newsBlogs": {
     "bannerSection": {
       "title": {
@@ -4879,6 +4866,7 @@
       }
     },
     "mainCard": {
+      "id": "news1",
       "title": {
         "ar": "شباب يتحدون الإعاقة",
         "en": "Youth Overcoming Disability"
@@ -4897,6 +4885,7 @@
         "en": "Read More"
       }
     },
+
     "latestNewCards": {
       "heading": {
         "ar": "آخر الأخبار",
@@ -4904,6 +4893,8 @@
       },
       "cards": [
         {
+          "id": "news1",
+
           "title": {
             "ar": "شباب يتحدون الإعاقة",
             "en": "Youth Overcoming Disability"
@@ -4923,6 +4914,8 @@
           }
         },
         {
+          "id": "news2",
+
           "title": {
             "ar": "الروبوتات السعودية تنضم إلى الملايين في أداء فريضة الحج",
             "en": "Saudi Robots Join Millions in Performing the Hajj"
@@ -4942,6 +4935,8 @@
           }
         },
         {
+          "id": "news3",
+
           "title": {
             "ar": "التكنولوجيا في خدمة ذوي الإعاقة",
             "en": "Technology Serving People with Disabilities"
@@ -4961,6 +4956,8 @@
           }
         },
         {
+          "id": "news4",
+
           "title": {
             "ar": "قصص نجاح ملهمة",
             "en": "Inspiring Success Stories"
@@ -4980,6 +4977,8 @@
           }
         },
         {
+          "id": "news5",
+
           "title": {
             "ar": "مبادرات دعم ذوي الإعاقة",
             "en": "Initiatives Supporting People with Disabilities"
@@ -5000,6 +4999,8 @@
           }
         },
         {
+          "id": "news6",
+
           "title": {
             "ar": "التحديات التي تواجه ذوي الإعاقة",
             "en": "Challenges Faced by People with Disabilities"
@@ -5021,7 +5022,9 @@
         }
       ]
     },
+
     "trendingCard": {
+      "id": "news2",
       "button": {
         "text": {
           "ar": "تتجه",
@@ -5047,183 +5050,207 @@
       }
     }
   },
-  "newsBlogsDetails": {
-    "banner": {
-      "title": {
-        "en": "Finibus Bonorum et Malorum",
-        "ar": "شباب يتحدون الإعاقة"
-      },
-      "subTitle": {
-        "en": "Monday  May 20",
-        "ar": "20 مايو 2020"
-      },
-      "bannerImage": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+2+(3).png",
-      "button": {
-        "text": {
-          "en": "Back",
-          "ar": "خلف"
+
+  "newsBlogsDetails": [
+    {
+      "id": "news1",
+      "banner": {
+        "title": {
+          "en": "Youth Overcoming Disability",
+          "ar": "شباب يتحدون الإعاقة"
+        },
+        "subTitle": {
+          "en": "Monday May 20",
+          "ar": "20 مايو 2020"
+        },
+        "bannerImage": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+2+(3).png",
+        "button": {
+          "text": {
+            "en": "Back",
+            "ar": "خلف"
+          }
         }
-      }
+      },
+      "newsPoints": [
+        {
+          "title": {
+            "ar": "تحديات ذوي الإعاقة في الشرق الأوسط",
+            "en": "Challenges Faced by People with Disabilities in the Middle East"
+          },
+          "content": {
+            "ar": "يواجه ذوو الإعاقة في منطقة الشرق الأوسط العديد من التحديات التي تتراوح بين الأزمات الاقتصادية والحروب المستمرة، مما يجعل حياتهم اليومية أكثر صعوبة. بالرغم من ذلك، يسعى العديد منهم لتحدي هذه الصعوبات والمساهمة في تغيير مجتمعاتهم.",
+            "en": "People with disabilities in the Middle East face many challenges, ranging from economic crises to ongoing wars, which make their daily lives more difficult. Despite this, many of them strive to overcome these difficulties and contribute to the betterment of their communities."
+          }
+        },
+        {
+          "title": {
+            "ar": "الشباب ودورهم في التغيير",
+            "en": "The Role of Youth in Making a Change"
+          },
+          "content": {
+            "ar": "الشباب هم القوة الدافعة وراء التغيير في منطقة الشرق الأوسط. هؤلاء الشبان الذين يواجهون إعاقات جسدية أو عقلية، يعملون على تحدي الواقع وابتكار طرق جديدة لتحقيق طموحاتهم.",
+            "en": "Youth are the driving force behind change in the Middle East. These young people, who face physical or mental disabilities, work to challenge the status quo and create new ways to achieve their dreams."
+          }
+        },
+        {
+          "title": {
+            "ar": "قصص ملهمة من الشباب",
+            "en": "Inspiring Stories from the Youth"
+          },
+          "content": {
+            "ar": "تستعرض هذه الحلقة العديد من القصص الملهمة لشباب تمكنوا من التغلب على التحديات التي فرضتها إعاقتهم. هذه القصص تثبت أن العزيمة والإرادة يمكن أن تتغلب على أي عقبة.",
+            "en": "This episode highlights many inspiring stories of young people who have overcome the challenges posed by their disabilities. These stories prove that determination and willpower can overcome any obstacle."
+          }
+        }
+      ]
     },
-    "newsBlogDetails": [
-      {
+    {
+      "id": "news2",
+      "banner": {
         "title": {
-          "ar": "شباب يتحدون الإعاقة",
-          "en": "Youth Overcoming Disability"
+          "en": "Saudi Robots Join Millions in Performing the Hajj",
+          "ar": "الروبوتات السعودية تنضم إلى الملايين في أداء فريضة الحج"
         },
-        "content": {
-          "ar": "على الرغم من التحديات الكبيرة التي يعيشها ذوو الإعاقة في منطقة الشرق الأوسط وشمال أفريقيا بسبب الأزمات والحروب إلا أن قسما منهم أراد صنع التغيير وترك بصمة. في حلقة بي بي سي اكسترا هذا الأسبوع نلقي الضوء على هؤلاء الشباب الذين رفضوا أن تعيقهم إعاقتهم سواء تلك التي ولدوا معها أو المستجدة.",
-          "en": "Despite the significant challenges faced by people with disabilities in the Middle East and North Africa due to crises and wars, some have decided to make a change and leave a mark. In this week's BBC Extra episode, we shine a light on these young individuals who refused to let their disabilities, whether congenital or acquired, stop them."
+        "subTitle": {
+          "en": "Monday May 20",
+          "ar": "20 مايو 2020"
+        },
+        "bannerImage": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+2+(3).png",
+        "button": {
+          "text": {
+            "en": "Back",
+            "ar": "خلف"
+          }
         }
       },
-      {
-        "title": {
-          "ar": "شباب يتحدون الإعاقة",
-          "en": "Youth Overcoming Disability"
+      "newsPoints": [
+        {
+          "title": {
+            "ar": "استخدام الروبوتات في مناسك الحج",
+            "en": "Use of Robots in Hajj Rituals"
+          },
+          "content": {
+            "ar": "في خطوة مبتكرة، تستخدم المملكة العربية السعودية الروبوتات لمساعدة الحجاج في أداء مناسكهم. هذه الروبوتات تقدم خدمات مثل الإرشاد وتوفير المياه، مما يسهم في تسهيل أداء المناسك.",
+            "en": "In an innovative move, Saudi Arabia uses robots to assist pilgrims in performing their rituals. These robots provide services such as guidance and water distribution, contributing to the ease of performing the rites."
+          }
         },
-        "content": {
-          "ar": "على الرغم من التحديات الكبيرة التي يعيشها ذوو الإعاقة في منطقة الشرق الأوسط وشمال أفريقيا بسبب الأزمات والحروب إلا أن قسما منهم أراد صنع التغيير وترك بصمة. في حلقة بي بي سي اكسترا هذا الأسبوع نلقي الضوء على هؤلاء الشباب الذين رفضوا أن تعيقهم إعاقتهم سواء تلك التي ولدوا معها أو المستجدة.",
-          "en": "Despite the significant challenges faced by people with disabilities in the Middle East and North Africa due to crises and wars, some have decided to make a change and leave a mark. In this week's BBC Extra episode, we shine a light on these young individuals who refused to let their disabilities, whether congenital or acquired, stop them."
+        {
+          "title": {
+            "ar": "تحسين تجربة الحج باستخدام التكنولوجيا",
+            "en": "Enhancing the Hajj Experience with Technology"
+          },
+          "content": {
+            "ar": "التكنولوجيا تلعب دورًا مهمًا في تحسين تجربة الحج من خلال تسهيل التنقل وتقديم المعلومات لحجاج بيت الله الحرام. الروبوتات توفر تجربة أكثر سلاسة وأمانًا.",
+            "en": "Technology plays an important role in enhancing the Hajj experience by facilitating movement and providing information to the pilgrims. Robots offer a smoother and safer experience."
+          }
+        },
+        {
+          "title": {
+            "ar": "تقنيات جديدة لمساعدة الحجاج",
+            "en": "New Technologies to Assist Pilgrims"
+          },
+          "content": {
+            "ar": "إضافة الروبوتات لمرافق الحج تعد إضافة هامة، فهي تساهم في الحد من الازدحام وتحسين فعالية الخدمات المقدمة للحجاج.",
+            "en": "The addition of robots to Hajj facilities is an important step as they help reduce congestion and improve the effectiveness of services provided to pilgrims."
+          }
+        }
+      ]
+    },
+    {
+      "id": "news3",
+      "banner": {
+        "title": {
+          "en": "Technology Serving People with Disabilities",
+          "ar": "التكنولوجيا في خدمة ذوي الإعاقة"
+        },
+        "subTitle": {
+          "en": "Tuesday June 15",
+          "ar": "15 يونيو 2021"
+        },
+        "bannerImage": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+2+(3).png",
+        "button": {
+          "text": {
+            "en": "Back",
+            "ar": "خلف"
+          }
         }
       },
-      {
-        "title": {
-          "ar": "شباب يتحدون الإعاقة",
-          "en": "Youth Overcoming Disability"
+      "newsPoints": [
+        {
+          "title": {
+            "ar": "دور التكنولوجيا في حياة ذوي الإعاقة",
+            "en": "The Role of Technology in the Lives of People with Disabilities"
+          },
+          "content": {
+            "ar": "تلعب التكنولوجيا دورًا حيويًا في تحسين حياة الأشخاص ذوي الإعاقة من خلال تقديم حلول مبتكرة مثل الأطراف الصناعية، وبرامج التدريب، والتطبيقات الذكية التي تسهل حياتهم اليومية.",
+            "en": "Technology plays a vital role in improving the lives of people with disabilities by providing innovative solutions such as prosthetics, training programs, and smart apps that make daily life easier."
+          }
         },
-        "content": {
-          "ar": "على الرغم من التحديات الكبيرة التي يعيشها ذوو الإعاقة في منطقة الشرق الأوسط وشمال أفريقيا بسبب الأزمات والحروب إلا أن قسما منهم أراد صنع التغيير وترك بصمة. في حلقة بي بي سي اكسترا هذا الأسبوع نلقي الضوء على هؤلاء الشباب الذين رفضوا أن تعيقهم إعاقتهم سواء تلك التي ولدوا معها أو المستجدة.",
-          "en": "Despite the significant challenges faced by people with disabilities in the Middle East and North Africa due to crises and wars, some have decided to make a change and leave a mark. In this week's BBC Extra episode, we shine a light on these young individuals who refused to let their disabilities, whether congenital or acquired, stop them."
+        {
+          "title": {
+            "ar": "التقنيات المساعدة لتمكين ذوي الإعاقة",
+            "en": "Assistive Technologies Empowering People with Disabilities"
+          },
+          "content": {
+            "ar": "التقنيات المساعدة مثل الأجهزة السمعية، وأجهزة التنقل، وأدوات الترجمة تساعد ذوي الإعاقة على التواصل والمشاركة في المجتمع بشكل أفضل.",
+            "en": "Assistive technologies like hearing aids, mobility devices, and translation tools help people with disabilities communicate and participate more effectively in society."
+          }
+        },
+        {
+          "title": {
+            "ar": "فوائد التكنولوجيا للأشخاص ذوي الإعاقة",
+            "en": "Benefits of Technology for People with Disabilities"
+          },
+          "content": {
+            "ar": "التكنولوجيا لا تقتصر على توفير الراحة فقط، بل تسهم أيضًا في تعزيز الاستقلالية، وتحقيق فرص أفضل للتعليم والعمل.",
+            "en": "Technology not only provides convenience but also contributes to enhancing independence and creating better opportunities for education and employment."
+          }
         }
-      }
-    ],
-    "latestNewCards": {
-      "heading": {
-        "ar": "آخر الأخبار",
-        "en": "Latest News & Blogs"
+      ]
+    },
+    {
+      "id": "news4",
+      "banner": {
+        "title": {
+          "en": "Inspiring Success Stories",
+          "ar": "قصص نجاح ملهمة"
+        },
+        "subTitle": {
+          "en": "Saturday July 10",
+          "ar": "10 يوليو 2021"
+        },
+        "bannerImage": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+2+(3).png",
+        "button": {
+          "text": {
+            "en": "Back",
+            "ar": "خلف"
+          }
+        }
       },
-      "cards": [
+      "newsPoints": [
         {
           "title": {
-            "ar": "شباب يتحدون الإعاقة",
-            "en": "Youth Overcoming Disability"
+            "ar": "قصص النجاح الملهمة حول العالم",
+            "en": "Inspiring Success Stories Around the World"
           },
-          "description": {
-            "ar": "على الرغم من التحديات الكبيرة التي يعيشها ذوو الإعاقة في منطقة الشرق الأوسط وشمال أفريقيا بسبب الأزمات والحروب إلا أن قسما منهم أراد صنع التغيير وترك بصمة.",
-            "en": "Despite the major challenges faced by people with disabilities in the Middle East and North Africa due to crises and wars, some of them wanted to make a change and leave a mark."
-          },
-          "date": {
-            "ar": "20 مايو 2020",
-            "en": "May 20, 2020"
-          },
-          "image": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+(7).png",
-          "readMore": {
-            "ar": "اقرأ المزيد",
-            "en": "Read More"
+          "content": {
+            "ar": "من جميع أنحاء العالم، هناك العديد من الأشخاص الذين تغلبوا على تحديات كبيرة لتحقيق نجاحاتهم. تتنوع هذه القصص من التغلب على إصابات جسدية إلى التغلب على الظروف الاجتماعية الصعبة.",
+            "en": "From around the world, there are many people who have overcome significant challenges to achieve their success. These stories range from overcoming physical injuries to conquering difficult social circumstances."
           }
         },
         {
           "title": {
-            "ar": "الروبوتات السعودية تنضم إلى الملايين في أداء فريضة الحج",
-            "en": "Saudi Robots Join Millions in Performing the Hajj"
+            "ar": "الإصرار لتحقيق الأحلام",
+            "en": "Determination to Achieve Dreams"
           },
-          "description": {
-            "ar": "على الرغم من التحديات الكبيرة التي يعيشها ذوو الإعاقة في منطقة الشرق الأوسط وشمال أفريقيا بسبب الأزمات والحروب إلا أن قسما منهم أراد صنع التغيير وترك بصمة.",
-            "en": "Despite the major challenges faced by people with disabilities in the Middle East and North Africa due to crises and wars, some of them wanted to make a change and leave a mark."
-          },
-          "date": {
-            "ar": "20 مايو 2020",
-            "en": "May 20, 2020"
-          },
-          "image": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+(7).png",
-          "readMore": {
-            "ar": "اقرأ المزيد",
-            "en": "Read More"
-          }
-        },
-        {
-          "title": {
-            "ar": "التكنولوجيا في خدمة ذوي الإعاقة",
-            "en": "Technology Serving People with Disabilities"
-          },
-          "description": {
-            "ar": "تسهم التكنولوجيا الحديثة في تحسين حياة ذوي الإعاقة من خلال توفير أدوات مساعدة.",
-            "en": "Modern technology contributes to improving the lives of people with disabilities by providing assistive tools."
-          },
-          "date": {
-            "ar": "15 يونيو 2021",
-            "en": "June 15, 2021"
-          },
-          "image": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+(7).png",
-          "readMore": {
-            "ar": "اقرأ المزيد",
-            "en": "Read More"
-          }
-        },
-        {
-          "title": {
-            "ar": "قصص نجاح ملهمة",
-            "en": "Inspiring Success Stories"
-          },
-          "description": {
-            "ar": "قصص ملهمة لأشخاص تغلبوا على التحديات وحققوا أحلامهم.",
-            "en": "Inspiring stories of individuals who overcame challenges and achieved their dreams."
-          },
-          "date": {
-            "ar": "10 يوليو 2021",
-            "en": "July 10, 2021"
-          },
-          "image": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+(7).png",
-          "readMore": {
-            "ar": "اقرأ المزيد",
-            "en": "Read More"
-          }
-        },
-        {
-          "title": {
-            "ar": "مبادرات دعم ذوي الإعاقة",
-            "en": "Initiatives Supporting People with Disabilities"
-          },
-          "description": {
-            "ar": "مبادرات تهدف إلى دعم وتمكين ذوي الإعاقة في المجتمع.",
-            "en": "Initiatives aimed at supporting and empowering people with disabilities in society."
-          },
-          "date": {
-            "ar": "5 أغسطس 2021",
-            "en": "August 5, 2021"
-          },
-          "image": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+(7).png",
-
-          "readMore": {
-            "ar": "اقرأ المزيد",
-            "en": "Read More"
-          }
-        },
-        {
-          "title": {
-            "ar": "التحديات التي تواجه ذوي الإعاقة",
-            "en": "Challenges Faced by People with Disabilities"
-          },
-          "description": {
-            "ar": "استعراض للتحديات اليومية التي يواجهها ذوو الإعاقة وكيفية التغلب عليها.",
-            "en": "An overview of the daily challenges faced by people with disabilities and how to overcome them."
-          },
-          "date": {
-            "ar": "20 سبتمبر 2021",
-            "en": "September 20, 2021"
-          },
-          "image": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+(7).png",
-
-          "readMore": {
-            "ar": "اقرأ المزيد",
-            "en": "Read More"
+          "content": {
+            "ar": "إصرار هؤلاء الأشخاص على النجاح والتغلب على العقبات يعد مصدر إلهام للكثيرين. هذه القصص تبرز كيف يمكن للإرادة الصلبة أن تحقق المستحيل.",
+            "en": "The determination of these individuals to succeed and overcome obstacles is an inspiration to many. These stories highlight how a strong will can achieve the impossible."
           }
         }
       ]
     }
-  },
-
-
+  ],
   "contactUsModal": {
     "title": {
       "en": "Contact Us",
