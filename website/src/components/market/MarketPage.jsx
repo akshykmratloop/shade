@@ -207,9 +207,10 @@ const MarketPage = () => {
           </div>
         </div>
       </section>
+      {/* testomonials section  */}
 
       <section
-        className={` ${language === "en" && styles.leftAlign}   ${
+        className={` ${language !== "en" && styles.rightAlignment}   ${
           styles.testimonial_wrapper
         }`}
       >
@@ -262,13 +263,7 @@ const MarketPage = () => {
                     className={`${styles.swiperSlide} ${styles.testimonial_slide}`}
                   >
                     <div className={styles.testimonial_card}>
-                      <Image
-                        src={testimonials?.[testimonial?.image]}
-                        height={70}
-                        width={70}
-                        alt={testimonial.name[language]}
-                        className={styles.testimonial_image}
-                      />
+                     
                       <div className={styles.testimonial_content}>
                         <h3 className={styles.name}>
                           {testimonial.name[language]}
@@ -280,6 +275,9 @@ const MarketPage = () => {
                           {testimonial.quote[language]}
                         </p>
                         <div className={styles.company_wrap}>
+                        <p className={styles.company}>
+                            {testimonial.company[language]}
+                          </p>
                           <Image
                             src="https://frequencyimage.s3.ap-south-1.amazonaws.com/a813959c-7b67-400b-a0b7-f806e63339e5-ph_building%20%281%29.svg"
                             height={18}
@@ -287,11 +285,16 @@ const MarketPage = () => {
                             alt={testimonial.name[language]}
                             className={styles.company_icon}
                           />
-                          <p className={styles.company}>
-                            {testimonial.company[language]}
-                          </p>
+                        
                         </div>
                       </div>
+                      <Image
+                        src={testimonials?.[testimonial?.image]}
+                        height={70}
+                        width={70}
+                        alt={testimonial.name[language]}
+                        className={styles.testimonial_image}
+                      />
                     </div>
                   </SwiperSlide>
                 )

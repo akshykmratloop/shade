@@ -1414,136 +1414,117 @@
       "testimonials": [
         {
           "name": {
-            "ar": "د. عنجر. صالح عطية عبد الظاهر",
-            "en": "Dr. Eng. Saleh Atiyah Abdul Zahir"
+            "en": "Dr. Engr. Salah Attia Abdelzaher",
+            "ar": "د. مهندس صلاح عطيه عبد الظاهر"
           },
           "position": {
-            "ar": "مدير المشاريع",
-            "en": "Project Manager"
-          },
-          "company": {
-            "ar": "شركة جبل عمر للتطوير",
-            "en": "Jabal Omar Development Company"
+            "en": "Director Projects JODC (Director of infrastructure and MEP)",
+            "ar": "مدير المشاريع في شركة جبل عمر للتطوير (مدير البنية التحتية والميكانيكا والكهرباء)"
           },
           "quote": {
-            "ar": "تخطيط وتنسيق وتنفيذ ممتاز. جدولة ناجحة. إدارة قوية وإعداد التقارير، برج ممثل الصحة والسلامة والبيئة. الخلاصة: الأداء يفوق التوقعات.",
-            "en": "Excellent planning, coordination, and execution. Successful scheduling. Strong management and reporting, HSE representative tower. Bottom line: Performance exceeds expectations."
+            "en": "Excellent planning, coordination and execution. Successful scheduling. Strong management and reporting. HSE representative excelled. Conclusion: Performance exceeds expectations.Excellent planning, coordination and execution. Successful scheduling. Strong management and reporting. HSE representative excelled. Conclusion: Performance exceeds expectations.",
+            "ar": "تخطيط وتنسيق وتنفيذ ممتاز. جدولة ناجحة. إدارة وإعداد التقارير قوية. تميز ممثل الصحة والسلامة والبيئة. الخلاصة: الأداء يتجاوز التوقعات."
+          },
+          "company": {
+            "en": "Jabal Omar Development Company",
+            "ar": "شركة جبل عمر للتطوير"
           },
           "image": "testimonial1"
         },
         {
           "name": {
-            "ar": "عمرو خطاب",
-            "en": "Amr Khattab"
+            "en": "Ahmed Basiony",
+            "ar": "أحمد بسيوني"
           },
           "position": {
-            "ar": "مطوّر الواجهة الخلفية",
-            "en": "Backend Developer"
-          },
-          "company": {
-            "ar": "شركة جبل عمر للتطوير",
-            "en": "Jabal Omar Development Company"
+            "en": "Project Manager",
+            "ar": "مدير مشروع"
           },
           "quote": {
-            "ar": "تخطيط وتنسيق وتنفيذ ممتاز. جدولة ناجحة. إدارة قوية وإعداد التقارير، برج ممثل الصحة والسلامة والبيئة. الخلاصة: الأداء يفوق التوقعات.",
-            "en": "Excellent planning, coordination, and execution. Successful scheduling. Strong management and reporting, HSE representative tower. Bottom line: Performance exceeds expectations."
+            "en": "Always delighted to work with Shade team; our trusted EPC partner. Their proactive approach has added value to each stage of the development and we have always been able to rely on their team to provide a very high quality, cost effective and robust results.",
+            "ar": "دائمًا سعيد بالعمل مع فريق شيد؛ شريكنا الموثوق في مشاريع الهندسة والمشتريات والبناء. لقد أضاف نهجهم الاستباقي قيمة إلى كل مرحلة من مراحل التطوير، وتمكنا دائمًا من الاعتماد على فريقهم لتقديم نتائج قوية عالية الجودة وفعالة من حيث التكلفة."
+          },
+          "company": {
+            "en": "Nesma & Partners",
+            "ar": "نسما وشركاها"
           },
           "image": "testimonial2"
         },
         {
           "name": {
-            "ar": "سارة العلي",
-            "en": "Sara Al Ali"
+            "en": "Khaled El Kholy",
+            "ar": "خالد الخولي"
           },
           "position": {
-            "ar": "مديرة التسويق",
-            "en": "Marketing Manager"
-          },
-          "company": {
-            "ar": "شركة تطوير المشاريع",
-            "en": "Project Development Company"
+            "en": "Project Engineer",
+            "ar": "مهندس مشروع"
           },
           "quote": {
-            "ar": "فريق محترف للغاية. كانت تجربتي معهم رائعة، وأوصي بهم بشدة.",
-            "en": "An extremely professional team. My experience with them was fantastic, and I highly recommend them."
+            "en": "Impressed with the project team’s expertise and hands on experience with road projects. They have consistently delivered against project objectives and proved as most reliable construction partner.",
+            "ar": "مُعجب بخبرة فريق المشروع وتجربته العملية في مشاريع الطرق. لقد قدموا باستمرار نتائج تتماشى مع أهداف المشروع وأثبتوا أنهم أكثر شركاء البناء موثوقية."
+          },
+          "company": {
+            "en": "Umm Al Qura for Development & Construction",
+            "ar": "شركة أم القرى للتطوير والبناء"
           },
           "image": "userIcon"
         },
         {
           "name": {
-            "ar": "أحمد السالم",
-            "en": "Ahmed Al Salem"
+            "en": "Mostafa Sayed",
+            "ar": "سيد مصطفى"
           },
           "position": {
-            "ar": "مهندس مدني",
-            "en": "Civil Engineer"
-          },
-          "company": {
-            "ar": "شركة البناء الحديثة",
-            "en": "Modern Construction Company"
+            "en": "Project Manager",
+            "ar": "مدير مشروع"
           },
           "quote": {
-            "ar": "عمل رائع! كانت النتائج تتجاوز توقعاتي.",
-            "en": "Great work! The results exceeded my expectations."
+            "en": "The staff employed by Shade for the project, have supported us to deliver a challenging scheme on time, budget, quality and specification, which has resulted in us keeping promise of delivering key infrastructure for Makkah on time & budget.",
+            "ar": "لقد دعمنا الموظفون الذين عينتهم شركة شيد للمشروع لتقديم مخطط مليء بالتحديات في الوقت المحدد والميزانية والجودة والمواصفات، مما أدى إلى وفائنا بوعدنا بتسليم البنية التحتية الرئيسية لمكة المكرمة في الوقت المحدد وضمن الميزانية."
+          },
+          "company": {
+            "en": "Jabal Omar Development Authority",
+            "ar": "هيئة تطوير جبل عمر"
+          },
+          "image": "dummyUser"
+        },
+        {
+          "name": {
+            "en": "Amro Khatab",
+            "ar": "عمرو خطاب"
+          },
+          "position": {
+            "en": "Project Manager",
+            "ar": "مدير مشروع"
+          },
+          "quote": {
+            "en": "To have qualified construction partner as Shade, is key for the success of the project, especially something as complicated as Bridge road E. Their competent site team supported us in execution as well as their planning process contribute to on time delivery.",
+            "ar": "وجود شريك بناء مؤهل ك شيد هو مفتاح لنجاح المشروع، خاصة في شيء معقد مثل طريق الجسر E. لقد دعمنا فريق الموقع المختص في التنفيذ بالإضافة إلى مساهمة عملية التخطيط الخاصة بهم في التسليم في الوقت المحدد."
+          },
+          "company": {
+            "en": "Khatib & Alami",
+            "ar": "خطيب وعلمي"
           },
           "image": "userIcon"
         },
         {
           "name": {
-            "ar": "ليلى النعيمي",
-            "en": "Laila Al Naimi"
+            "en": "Sherif Mekky",
+            "ar": "شريف مكي"
           },
           "position": {
-            "ar": "مديرة المشاريع",
-            "en": "Project Director"
-          },
-          "company": {
-            "ar": "شركة النعيمي للتطوير",
-            "en": "Al Naimi Development Company"
+            "en": "Design Manager",
+            "ar": "مدير التصميم"
           },
           "quote": {
-            "ar": "تجربة رائعة مع هذا الفريق. كانوا دائمًا متاحين لدعمي.",
-            "en": "A wonderful experience with this team. They were always available to support me."
-          },
-          "image": "userIcon"
-        },
-        {
-          "name": {
-            "ar": "فهد القحطاني",
-            "en": "Fahad Al Qahtani"
-          },
-          "position": {
-            "ar": "مدير العمليات",
-            "en": "Operations Manager"
+            "en": "As a design consultant, it is most important to have experienced construction partner who is prompt, efficient, supportive and professional in all elements of their work. Shade is one of such partners, who is committed to deliver required output with excellent quality.",
+            "ar": "كمستشار تصميم، من المهم جدًا أن يكون لديك شريك بناء ذو خبرة وسريع وفعال وداعم ومحترف في جميع جوانب عمله. شيد هي واحدة من هؤلاء الشركاء، الذين يلتزمون بتقديم النتائج المطلوبة بجودة ممتازة."
           },
           "company": {
-            "ar": "شركة القحطاني للبناء",
-            "en": "Al Qahtani Construction Company"
+            "en": "Parsons",
+            "ar": "بارسون"
           },
-          "quote": {
-            "ar": "أداء ممتاز واحترافية عالية. سأعمل معهم مرة أخرى بالتأكيد.",
-            "en": "Excellent performance and high professionalism. I will definitely work with them again."
-          },
-          "image": "userIcon"
-        },
-        {
-          "name": {
-            "ar": "منى الشمري",
-            "en": "Mona Al Shammari"
-          },
-          "position": {
-            "ar": "مديرة المشاريع",
-            "en": "Project Manager"
-          },
-          "company": {
-            "ar": "شركة الشمري للتطوير",
-            "en": "Al Shammari Development Company"
-          },
-          "quote": {
-            "ar": "فريق عمل رائع، دائمًا ملتزمون بالمواعيد النهائية.",
-            "en": "A great team, always committed to deadlines."
-          },
-          "image": "userIcon"
+          "image": "dummyUser"
         }
       ]
     },
