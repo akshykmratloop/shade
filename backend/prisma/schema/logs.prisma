@@ -1,0 +1,12 @@
+model Log {
+  id          String   @id @default(uuid())
+  user_id     String
+  userName    String
+  action      String
+  content     Json
+  description String
+  createdAt   DateTime @default(now())
+  user        User     @relation(fields: [user_id], references: [id]) // Corrected the relation field
+
+   @@index([user_id])
+}

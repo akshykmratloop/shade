@@ -1,0 +1,56 @@
+// Represents the many-to-many relationship between Roles and Permissions
+model RolePermission {
+    role_id       String // Foreign key referencing the Role model
+    permission_id String // Foreign key referencing the Permission model
+    role          Role       @relation(fields: [role_id], references: [id]) // Relation to the Role model
+    permission    Permission @relation(fields: [permission_id], references: [id]) // Relation to the Permission model
+
+    @@id([role_id, permission_id]) // Composite primary key
+    @@index([role_id]) // Index on role_id for faster queries
+    @@index([permission_id]) // Index on permission_id for faster queries
+}
+
+// ==============================================================================================================
+
+// Represents the many-to-many relationship between Users and Roles
+model UserRole {
+    user_id String // Foreign key referencing the User model
+    role_id String // Foreign key referencing the Role model
+    user    User   @relation(fields: [user_id], references: [id]) // Relation to the User model
+    role    Role   @relation(fields: [role_id], references: [id]) // Relation to the Role model
+
+    @@id([user_id, role_id]) // Composite primary key
+    @@index([user_id]) // Index on user_id for faster queries
+    @@index([role_id]) // Index on role_id for faster queries
+}
+
+// ==============================================================================================================
+
+// Represents the many-to-many relationship between Pages and Roles
+model PageRole {
+    page_id String // Foreign key referencing the Page model
+    role_id String // Foreign key referencing the Role model
+    page    Page @relation(fields: [page_id], references: [id]) // Relation to the Page model
+    role    Role @relation(fields: [role_id], references: [id]) // Relation to the Role model
+
+    @@id([page_id, role_id]) // Composite primary key
+    @@index([page_id]) // Index on page_id for faster queries
+    @@index([role_id]) // Index on role_id for faster queries
+}
+
+// ==============================================================================================================
+
+// Represents the many-to-many relationship between Users, Pages, and Roles
+model UserPageRole {
+    user_id String // Foreign key referencing the User model
+    page_id String // Foreign key referencing the Page model
+    role_id String // Foreign key referencing the Role model
+    user    User   @relation(fields: [user_id], references: [id]) // Relation to the User model
+    page    Page   @relation(fields: [page_id], references: [id]) // Relation to the Page model
+    role    Role   @relation(fields: [role_id], references: [id]) // Relation to the Role model
+
+    @@id([user_id, page_id, role_id]) // Composite primary key
+    @@index([user_id]) // Index on user_id for faster queries
+    @@index([page_id]) // Index on page_id for faster queries
+    @@index([role_id]) // Index on role_id for faster queries
+}

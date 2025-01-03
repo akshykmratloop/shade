@@ -1,0 +1,16 @@
+// Enum for defining the status of a page
+enum PageStatus {
+    DRAFT 
+    REVIEW 
+    PUBLISHED 
+    ARCHIVED 
+    REJECTED 
+    TRASHED 
+}
+
+// Enum for defining the general status of an entity
+enum Status {
+    ACTIVE 
+    INACTIVE 
+    TRASHED 
+}

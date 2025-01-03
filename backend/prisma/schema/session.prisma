@@ -1,0 +1,12 @@
+// Represents a user in the system
+
+model Session {
+  id          String   @id @default(uuid())
+  sid         String   @unique
+  data        String
+  expiresAt   DateTime
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+
