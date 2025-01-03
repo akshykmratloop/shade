@@ -1,13 +1,8 @@
-<<<<<<< HEAD
 import React,  { Suspense } from 'react';
-=======
-import React from 'react';
->>>>>>> 7d699876cde70410a01ed299fc29f1995d60b8c5
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-<<<<<<< HEAD
 import store from './app/store'
 import { Provider } from 'react-redux'
 import SuspenseContent from './containers/SuspenseContent';
@@ -21,14 +16,6 @@ root.render(
         </Provider>
     </Suspense>
   // </React.StrictMode>
-=======
-
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
->>>>>>> 7d699876cde70410a01ed299fc29f1995d60b8c5
 );
 
 // If you want to start measuring performance in your app, pass a function

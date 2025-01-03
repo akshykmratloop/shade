@@ -9,10 +9,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-<<<<<<< HEAD
-    "axios": "^1.7.9",
-=======
->>>>>>> 7d699876cde70410a01ed299fc29f1995d60b8c5
     "framer-motion": "^11.11.9",
     "lottie-web": "^5.12.2",
     "next": "14.2.6",

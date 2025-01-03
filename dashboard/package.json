@@ -1,31 +1,13 @@
 {
-<<<<<<< HEAD
   "name": "shade-content-management-system",
   "version": "1.0.0",
   "description": "This is the Content Management System (CMS) for Shade Corporation, designed to manage content on the Shade website. It features a role-based management system, user creation, and page content update capabilities. The system supports multiple roles, with a workflow that includes editing, verification, and publishing stages.",
-=======
-  "name": "shade_dashboard",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "@testing-library/jest-dom": "^5.17.0",
-    "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^13.5.0",
-    "dashboard": "file:",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "react-scripts": "5.0.1",
-    "shade_dashboard": "file:",
-    "web-vitals": "^2.1.4"
-  },
->>>>>>> 7d699876cde70410a01ed299fc29f1995d60b8c5
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-<<<<<<< HEAD
   "dependencies": {
     "@heroicons/react": "^2.0.13",
     "@reduxjs/toolkit": "^1.9.0",
@@ -62,8 +44,6 @@
   "author": "akshayKmr",
   "license": "ISC",
   "homepage": "",
-=======
->>>>>>> 7d699876cde70410a01ed299fc29f1995d60b8c5
   "eslintConfig": {
     "extends": [
       "react-app",
@@ -81,14 +61,11 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-<<<<<<< HEAD
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.8",
     "autoprefixer": "^10.4.13",
     "postcss": "^8.4.19",
     "tailwindcss": "^3.2.4"
-=======
->>>>>>> 7d699876cde70410a01ed299fc29f1995d60b8c5
   }
 }

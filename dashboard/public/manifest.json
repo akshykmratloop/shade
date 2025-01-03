@@ -1,11 +1,6 @@
 {
-<<<<<<< HEAD
   "short_name": "Shade-CMS",
   "name": "SHADE-CMS",
-=======
-  "short_name": "React App",
-  "name": "Create React App Sample",
->>>>>>> 7d699876cde70410a01ed299fc29f1995d60b8c5
   "icons": [
     {
       "src": "favicon.ico",
