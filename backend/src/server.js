@@ -1,5 +1,5 @@
 import { createApp, finishApp } from "./app.js";
-import { useModules } from "./config/init.js";
+import { useModules } from "./config/index.js";
 (async () => {
   const app = createApp();
 
@@ -13,7 +13,7 @@ import { useModules } from "./config/init.js";
     console.log(
       `Server running in ${process.env.MODE} mode on port ${process.env.BACKEND_PORT}`
     );
-    await import("./config/dbConnection.js"); // Ensure DB connection is logged
+    await import("./config/dbConfig.js"); // Ensure DB connection is logged
     // await import('../prisma/seed.js'); // Call the seed function after DB connection
   });
 })();

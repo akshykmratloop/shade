@@ -1,11 +1,14 @@
-import prismaClient from '../config/dbConnection.js';
+import prismaClient from '../config/dbConfig.js';
 
-// Find a user by email
-export const findUserByEmail = async (email) => {
+export const findUserByEmail = async (input) => {
+  const field = input.includes('@') ? 'email' : 'username'; // Check if input contains '@', if so, it's an email
   return await prismaClient.user.findUnique({
-    where: { email },
+    where: {
+      [field]: input, // Dynamically use either 'email' or 'username'
+    },
   });
 };
+
 
 // Save a session
 export const saveSession = async (sid, sessionData) => {

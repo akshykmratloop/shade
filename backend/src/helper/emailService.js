@@ -1,4 +1,4 @@
-import nodemailer from 'nodemailer';
+import nodemailer from "nodemailer";
 
 // Create a transporter object using SMTP transport
 const transporter = nodemailer.createTransport({
@@ -12,7 +12,7 @@ const transporter = nodemailer.createTransport({
 });
 
 // Function to send an email
-export const sendEmail = async (to, subject, text, html) => {
+const sendEmail = async (to, subject, text, html) => {
   const mailOptions = {
     from: process.env.EMAIL_FROM, // sender address
     to, // list of receivers
@@ -23,18 +23,20 @@ export const sendEmail = async (to, subject, text, html) => {
 
   try {
     const info = await transporter.sendMail(mailOptions);
-    console.log('Email sent: ' + info.response);
+    console.log("Email sent: " + info.response);
   } catch (error) {
-    console.error('Error sending email:', error);
-    throw new Error('Email sending failed');
+    console.error("Error sending email:", error);
+    throw new Error("Email sending failed");
   }
 };
 
 // Function to send a password reset email
-export const sendResetEmail = async (to, resetLink) => {
-  const subject = 'Password Reset Request';
+const sendResetEmail = async (to, resetLink) => {
+  const subject = "Password Reset Request";
   const text = `You requested a password reset. Click the link to reset your password: ${resetLink}`;
   const html = `<p>You requested a password reset. Click the link to reset your password: <a href="${resetLink}">${resetLink}</a></p>`;
 
   await sendEmail(to, subject, text, html);
-}; 
+};
+
+export { sendEmail, sendResetEmail };

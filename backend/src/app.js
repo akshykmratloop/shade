@@ -2,33 +2,10 @@ import express from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
 import { serverStatus } from "./other/serverStatus.js";
-import morgan from "morgan";
 import * as path from "path";
-import { errorHandler } from "./helper/expressMiddleware.js"; // Custom error handler
-import { notFoundHandler } from "./helper/expressMiddleware.js"; // Not found handler
-import winston from "winston";
-
-// Set up Winston logger
-const logger = winston.createLogger({
-  level: "info", // Minimum log level
-  format: winston.format.combine(
-    winston.format.colorize(), // Add color to logs in the console
-    winston.format.timestamp(), // Add timestamps to logs
-    winston.format.printf(({ timestamp, level, message }) => {
-      return `${timestamp} ${level}: ${message}`;
-    })
-  ),
-  transports: [
-    new winston.transports.Console(), // Log to the console
-    new winston.transports.File({ filename: "logs/app.log" }) // Log to a file
-  ]
-});
-
-// Morgan setup with Winston for logging HTTP requests
-morgan.token("custom", (req, res) => {
-  return `Method: ${req.method} | URL: ${req.originalUrl} | Status: ${res.statusCode}`;
-});
-const morganFormat = ':custom';
+import { errorHandler, notFoundHandler } from "./errors/index.js"; // Custom error handler
+import { logger, morganMiddleware, sessionConfig } from "./config/index.js";
+import cookieParser from 'cookie-parser';
 
 export const createApp = () => {
   const app = express();
@@ -41,19 +18,25 @@ export const createApp = () => {
       credentials: true,
     })
   );
-  
+
   // Body parser
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: true }));
-  
-  // HTTP request logging using Morgan with Winston
-  app.use(morgan(morganFormat, { stream: { write: (msg) => logger.info(msg.trim()) } }));
+
+  // Use the Morgan middleware for logging HTTP requests
+  app.use(morganMiddleware);
 
   // Serve static files
   app.use(express.static(path.resolve("public")));
 
   // Health check route
   app.use("/healthy", (req, res) => res.send(serverStatus()));
+
+  // Use cookie parser
+  app.use(cookieParser()); 
+
+  // Use session middleware
+  app.use(sessionConfig); 
 
   return app;
 };
@@ -71,6 +54,6 @@ export const finishApp = (app) => {
   });
 
   // Custom error handler for routes inside the app
-  app.use(errorHandler); // Logs errors and sends a 500 response
   app.use(notFoundHandler); // Handles undefined routes and sends a 404 response
+  app.use(errorHandler); // Logs errors and sends a 500 response
 };

@@ -21,7 +21,4 @@ const authenticateSession = (req, res, next) => {
   next();
 };
 
-export const Middlewares = {
-  authenticateJWT,
-  authenticateSession,
-};
+export { authenticateJWT, authenticateSession };
