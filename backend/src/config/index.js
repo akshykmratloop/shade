@@ -1,6 +1,6 @@
 import dbConfig from "./dbConfig.js";
 import useModules from "./init.js";
 import { logger, morganMiddleware } from "./logconfig.js";
-import sessionConfig from "./sessionConfig.js";
+import emailTransporter from "./emailConfig.js";
 
-export { dbConfig, useModules, logger, morganMiddleware, sessionConfig };
+export { dbConfig, useModules, logger, morganMiddleware, emailTransporter };

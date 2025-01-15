@@ -6,6 +6,7 @@ enum PageStatus {
     ARCHIVED 
     REJECTED 
     TRASHED 
+    HOLD
 }
 
 // Enum for defining the general status of an entity
@@ -13,4 +14,11 @@ enum Status {
     ACTIVE 
     INACTIVE 
     TRASHED 
+}
+
+
+enum Stage {
+    Stage_1
+    Stage_2
+    Stage_3
 }

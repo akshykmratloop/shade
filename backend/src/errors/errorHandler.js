@@ -10,8 +10,8 @@ export const errorHandler = (err, req, res, next) => {
 
   // Log full stack trace only in development
   if (process.env.MODE === "development") {
-    logger.error(err);
-    // console.log(err);
+    logger.error(err.stack);
+    // console.log(err, "Error : ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
   } else {
     logger.error(err.message);
   }
@@ -20,7 +20,7 @@ export const errorHandler = (err, req, res, next) => {
     status: "error",
     errorType: errorType || err.error,
     statusCode,
-    message: err.isOperational ? message : "Internal Server Error",
+    message: message || "Internal Server Error",
     errorDetails: errorDetails || "",
   });
 };

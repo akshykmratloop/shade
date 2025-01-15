@@ -2,32 +2,55 @@ import {
   login,
   logout,
   refreshToken,
-  forgotPass,
+  generateAndSendOTP,
+  resendOTP,
+  verifyOTP,
   resetPass,
 } from "./auth.service.js";
 
+import {
+  setCookie,
+  getCookie,
+  clearCookie,
+} from "../../helper/cookiesManager.js";
+
 const Login = async (req, res) => {
   const { userId, password } = req.body;
-  const result = await login({ userId, password });
-  res.status(200).json(result);
+  const { token, user } = await login({ userId, password });
+  //cookies wil be set in production mode only for https req
+  setCookie(res, token);
+  res.status(200).json(user);
 };
 
 const Logout = async (req, res) => {
-  const { data } = req.body;
-  const result = await logout({ data });
-  res.status(201).json(result);
+  const result = await logout(req.user);
+  clearCookie(res);
+  res.status(200).json(result);
 };
 
 const RefreshToken = async (req, res) => {
-  const { data } = req.body;
-  const result = await refreshToken({ data });
+  const oldToken = getCookie(req);
+  const { newToken, message } = await refreshToken(oldToken);
+  setCookie(res, newToken);
+  res.status(200).json({ message });
+};
+
+const GenerateOTP = async (req, res) => {
+  const { userId, deviceId } = req.body;
+  const result = await generateAndSendOTP ({ userId, deviceId });
   res.status(201).json(result);
 };
 
-const ForgotPass = async (req, res) => {
-  const { data } = req.body;
-  const result = await forgotPass({ data });
+const ResendOTP = async (req, res) => {
+  const { userId, deviceId } = req.body;
+  const result = await resendOTP ({ userId, deviceId });
   res.status(201).json(result);
+};
+
+const VerifyOTP = async (req, res) => {
+  const { userId, otp } = req.body;
+  const result = await verifyOTP({ userId, otp });
+  res.status(200).json(result);
 };
 
 const ResetPass = async (req, res) => {
@@ -40,6 +63,8 @@ export default {
   Login,
   Logout,
   RefreshToken,
-  ForgotPass,
+  GenerateOTP,
+  ResendOTP,
+  VerifyOTP,
   ResetPass,
 };

@@ -1,12 +1,17 @@
- // backend/src/helper/jwt.js
- import jwt from 'jsonwebtoken';
+import jwt from "jsonwebtoken";
 
- const SECRET_KEY = process.env.JWT_SECRET || 'your_secret_key';
+const JWT_SECRET = process.env.JWT_SECRET;
+const JWT_EXPIRY = process.env.JWT_AGE_HOURS || "24h";
+//  Returns the Generated JWT token for the given user
+const generateToken = (user) => {
+  return jwt.sign({ id: user.id, email: user.email }, JWT_SECRET, {
+    expiresIn: JWT_EXPIRY,
+  });
+};
 
- export const generateToken = (user) => {
-     return jwt.sign({ id: user.id, email: user.email }, SECRET_KEY, { expiresIn: '1h' });
- };
+// Verifies the given JWT token and returns the decoded payload
+const verifyToken = (token) => {
+  return jwt.verify(token, JWT_SECRET);
+};
 
- export const verifyToken = (token) => {
-     return jwt.verify(token, SECRET_KEY);
- };
+export { generateToken, verifyToken };

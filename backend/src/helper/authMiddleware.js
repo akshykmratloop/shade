@@ -1,24 +1,13 @@
-import { verifyToken } from "../helper/jwtManager.js";
+import { verifyToken } from "../helper/index.js";
+import { assert } from "../errors/assertError.js";
 
-const authenticateJWT = (req, res, next) => {
+const authenticateUser = (req, res, next) => {
   const token = req.cookies.authToken;
-
-  if (!token) {
-    return res.status(401).json({ message: "Token missing" });
-  }
-
-  try {
-    req.user = verifyToken(token);
-    next();
-  } catch (err) {
-    res.status(403).json({ message: "Invalid token" });
-  }
-};
-const authenticateSession = (req, res, next) => {
-  if (!req.session.user) {
-    return res.status(401).json({ message: "Session missing" });
-  }
+  // if token not found
+  assert(token, "UNAUTHORIZED", "Token Missing");
+  const user = verifyToken(token);
+  req.user = user;
   next();
 };
 
-export { authenticateJWT, authenticateSession };
+export { authenticateUser };

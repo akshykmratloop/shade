@@ -6,9 +6,13 @@ const assert = (condition, errorName, message) => {
   throw new AppError(errorName, message);
 };
 
-// Function to assert every condition in an array, if any condition is not met, it throws an error
-const assertEvery = (conditionArray) => {
-  conditionArray.forEach((condition) => assert(condition.condition, condition.errorName, condition.message));
+// Function to assert every condition in an array, if any condition is not met, it throws an error with a single message
+const assertEvery = (conditionArray, errorName, message) => {
+  const allTrue = conditionArray.every(condition => condition);
+  if (!allTrue) {
+    throw new AppError(errorName, message);
+  }
+  return true;
 };
 
 export { assert, assertEvery };

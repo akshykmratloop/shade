@@ -1,0 +1,13 @@
+model Otp {
+  id           String   @id @default(uuid()) 
+  userId       String   // ID of the user to whom the OTP is associated
+  deviceId     String   @unique() // Unique identifier for the device (e.g., UUID or token)
+  otpCode      String   
+  createdAt    DateTime @default(now()) 
+  expiresAt    DateTime 
+  isUsed       Boolean  @default(false) // Whether the OTP has been used
+  isExpired    Boolean  @default(false) // Whether the OTP has been expired
+  updatedAt    DateTime @updatedAt // Automatically update on modification
+
+  @@index([userId, deviceId], name: "user_device_idx") // Ensure unique OTP per user-device combination
+}

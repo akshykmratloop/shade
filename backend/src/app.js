@@ -4,8 +4,9 @@ import bodyParser from "body-parser";
 import { serverStatus } from "./other/serverStatus.js";
 import * as path from "path";
 import { errorHandler, notFoundHandler } from "./errors/index.js"; // Custom error handler
-import { logger, morganMiddleware, sessionConfig } from "./config/index.js";
-import cookieParser from 'cookie-parser';
+import { logger, morganMiddleware } from "./config/index.js";
+import cookieParser from "cookie-parser";
+import { globalRateLimiter } from "./helper/index.js";
 
 export const createApp = () => {
   const app = express();
@@ -26,17 +27,17 @@ export const createApp = () => {
   // Use the Morgan middleware for logging HTTP requests
   app.use(morganMiddleware);
 
+  // Rate limiter middleware
+  app.use(globalRateLimiter);
+
+  // Use cookie parser
+  app.use(cookieParser());
+
   // Serve static files
   app.use(express.static(path.resolve("public")));
 
   // Health check route
   app.use("/healthy", (req, res) => res.send(serverStatus()));
-
-  // Use cookie parser
-  app.use(cookieParser()); 
-
-  // Use session middleware
-  app.use(sessionConfig); 
 
   return app;
 };

@@ -1,3 +1,6 @@
+
+// Store the action performed by user 
+
 model Log {
   id          String   @id @default(uuid())
   user_id     String

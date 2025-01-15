@@ -1,67 +1,145 @@
-import bcrypt from "bcrypt";
-import jwt from "jsonwebtoken";
 import { logger } from "../../config/index.js";
+import { assert, assertEvery } from "../../errors/assertError.js";
 import {
-  findUserByEmail,
-  saveSession,
-  deleteSession,
+  findUserByUserId,
   updateUserPassword,
+  createOrUpdateOTP,
+  findOTP,
 } from "../../repository/user.repository.js";
-import { sendEmail, sendResetEmail } from "../../helper/emailService.js"; // Ensure the correct file extension is included
-import { assert } from "../../errors/assertError.js"; // Ensure the correct file extension is included
+import {
+  EncryptData,
+  compareEncryptedData,
+  sendEmail,
+  generateToken,
+  verifyToken,
+  generateRandomOTP,
+} from "../../helper/index.js";
 
-const JWT_SECRET = process.env.JWT_SECRET; // Ensure you have this in your environment variables
-
-const login = async ({userId, password}) => {
-
-  const isUserExist = await findUserByEmail(userId);
-  // console.log(isUserExist,"isuser Exiet")
-
+const login = async ({ userId, password }) => {
+  const isUserExist = await findUserByUserId(userId);
+  // if user not exist throw an error
   assert(isUserExist, "NOT_FOUND", "invalid userId");
-
-  return isUserExist;
-
-  // if (!user || !(await bcrypt.compare(password, user.password))) {
-  //   throw new Error("Invalid email or password");
-  // }
-
-  // const token = jwt.sign({ userId: user.id }, JWT_SECRET, {
-  //   expiresIn: "1h",
-  // });
-  // req.session.user = { id: user.id, email: user.email };
-  // await saveSession(req.session.id, req.session);
-
-  // return { message: "Logged in successfully", token };
+  // if user is blocked throw an error
+  assert(
+    isUserExist.status === "ACTIVE",
+    "UNAUTHORIZED",
+    "User is blocked by the super admin."
+  );
+  // if invalid password throw an error
+  assert(
+    compareEncryptedData(password, isUserExist.password),
+    "NOT_FOUND",
+    "invalid password"
+  );
+  const token = generateToken(isUserExist);
+  // this line removes the password from the userdata object
+  const { password: userPassword, ...userData } = isUserExist;
+  logger.info({ ...userData, response: "logged in successfully" });
+  return {
+    token,
+    user: {
+      message: "Logged in successfully",
+      ...userData,
+    },
+  };
 };
 
-const logout = async (sessionId) => {
-  await deleteSession(sessionId); // Clear session from the database
+const logout = async (user) => {
+  // add any functionality here
+  logger.info(`user: ${user.id} has logged out`);
   return { message: "Logged out successfully" };
 };
 
-const refreshToken = async (oldToken) => {
-  try {
-    const decoded = jwt.verify(oldToken, JWT_SECRET);
-    const newToken = jwt.sign({ userId: decoded.userId }, JWT_SECRET, {
-      expiresIn: "1h",
-    });
-    return { token: newToken };
-  } catch (error) {
-    throw new Error("Invalid token");
-  }
+const refreshToken = async ({ oldToken }) => {
+  const decode = verifyToken(oldToken);
+  const newToken = generateToken(decode);
+  logger.info(`token has been refreshed for user : ${decode?.id}`);
+  return { newToken, message: "Token updated successfully" };
 };
 
-const forgotPass = async (data) => {
-  const { email } = data;
-  const user = await findUserByEmail(email);
+const generateOTP = async (userId, deviceId) => {
 
-  if (!user) {
-    throw new Error("User not found");
-  }
+  const isUserExist = await findUserByUserId(userId);
+  // if user not exist throw an error
+  assert(isUserExist, "NOT_FOUND", "invalid Email");
+  // if user is blocked throw an error
+  assert(
+    isUserExist.status === "ACTIVE",
+    "UNAUTHORIZED",
+    "User is blocked by the super admin."
+  );
+  // Generate OTP
+  const otpCode = generateRandomOTP();
 
-  // Send reset password email
-  await sendResetEmail(user.email);
-  return { message: "Password reset link sent" };
+  // Send otp on email
+  const emailPayload = {
+    to: isUserExist.email,
+    subject: "Shade Corporation: OTP for password reset request",
+    text: `Please use the following OTP to reset your password: ${otpCode}. This OTP will expire in 5 minutes.`,
+    html: `<p>Please use the following OTP to reset your password: <strong>${otpCode}</strong></p><p>This OTP will expire in 5 minutes.</p>`,
+  };
+
+  const isEmailSend = await sendEmail(emailPayload);
+
+  // if email not sent throw an error
+  assert(isEmailSend, "EXPECTATION_FAILED", "Unable to send otp");
+
+  // Store otp in database
+  const expiresAt = new Date(Date.now() + 5 * 60 * 1000); // 5 minutes from now
+  await createOrUpdateOTP(
+    userId,
+    deviceId,
+    await EncryptData(otpCode, 6), // encrypting otp before storing it with 6 rounds of salt
+    expiresAt
+  );
+  logger.info(`Otp has been successfully sent on this email ${userId}`);
+  return { message: "Email has been successfully sent" };
+};
+
+const generateAndSendOTP = async ({ userId, deviceId }) => {
+  return await generateOTP(userId, deviceId);
+};
+
+const resendOTP = async ({ userId, deviceId }) => {
+
+  const isOTPExist = await findOTP(userId, deviceId);
+
+  // logger.info({isExpired, expiresAt, isUsed});
+  // if (!isOTPExist) { //if otp is not exist generate and send
+  //   logger.info(`ResendOT : OPT not found generating...new otp`)
+  //   return await generateOTP(userId, deviceId);
+  // }
+
+  // if otp exist check expiry time and generate
+
+  // function isOTPExpired(expireAt) {
+  //   const now = new Date();
+  //   return now > expireAt;
+  // }
+
+  // // Add this function to check if OTP is valid
+  // const isValidOTP =(otpCode, expireAt) => {
+  //   if (isOTPExpired(expireAt)) {
+  //     throw new Error("OTP has expired. Please try again after 1 minute.");
+  //   }
+
+    // Additional checks can be added here if needed
+  //   return true;
+  // }
+  
+  assertEvery(
+    [isOTPExist, !isOTPExist?.isUsed, !isOTPExist?.isExpired ],
+    "UNAUTHORIZED",
+    "Request Time out. Please request a new OTP."
+  );
+return true
+  await generateOTP(userId, deviceId);
+};
+
+const verifyOTP = async (req, res) => {
+  const { userId, otp } = req.body;
+  const result = await verifyOTP({ userId, otp });
+  res.status(200).json(result);
 };
 
 const resetPass = async (data) => {
@@ -78,11 +156,19 @@ const resetPass = async (data) => {
   return { message: "Password reset successfully" };
 };
 
-export { login, logout, refreshToken, forgotPass, resetPass };
+export {
+  login,
+  logout,
+  refreshToken,
+  generateAndSendOTP,
+  resendOTP,
+  verifyOTP,
+  resetPass,
+};
 
 // const bcrypt = require('bcryptjs');
 // const jwt = require('jsonwebtoken');
-// const { findUserByEmail, createUser } = require('../services/userService');
+// const { findUserByUserId, createUser } = require('../services/userService');
 // const { saveSession } = require('../services/authService');
 
 // const JWT_SECRET = 'your_jwt_secret';
@@ -96,14 +182,14 @@ export { login, logout, refreshToken, forgotPass, resetPass };
 
 // exports.login = async (req, res) => {
 //   const { email, password } = req.body;
-//   const user = await findUserByEmail(email);
+//   const isUserExist = await findUserByUserId(email);
 
-//   if (!user || !(await bcrypt.compare(password, user.password))) {
+//   if (!isUserExist || !(await bcrypt.compare(password, isUserExist.password))) {
 //     return res.status(401).json({ message: 'Invalid email or password' });
 //   }
 
-//   const token = jwt.sign({ userId: user.id }, JWT_SECRET, { expiresIn: '1h' });
-//   req.session.user = { id: user.id, email: user.email };
+//   const token = jwt.sign({ userId: isUserExist.id }, JWT_SECRET, { expiresIn: '1h' });
+//   req.session.isUserExist = { id: isUserExist.id, email: isUserExist.email };
 //   await saveSession(req.session.id, req.session);
 
 //   res.cookie('authToken', token, { httpOnly: true });
@@ -118,5 +204,5 @@ export { login, logout, refreshToken, forgotPass, resetPass };
 // };
 
 // exports.protectedRoute = (req, res) => {
-//   res.status(200).json({ message: `Welcome ${req.session.user.email}` });
+//   res.status(200).json({ message: `Welcome ${req.session.isUserExist.email}` });
 // };

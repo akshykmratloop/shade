@@ -1,39 +1,54 @@
 import { Router } from "express";
 import AuthController from "./auth.controller.js";
-import {authenticateJWT, authenticateSession} from "../../helper/authMiddleware.js";
+import { authenticateUser } from "../../helper/authMiddleware.js";
 import validator from "../../validation/validator.js";
-import { authSchema } from "../../validation/index.js";
+import { loginSchema, generateOtpSchema, verifyOtp } from "../../validation/index.js";
 import tryCatchWrap from "../../errors/tryCatchWrap.js";
-const router = Router();
+import { rateLimitMiddleware } from "../../helper/index.js";
 
+const router = Router();
 
 router.post(
   "/login",
-  validator(authSchema),
+  validator(loginSchema),
   tryCatchWrap(AuthController.Login)
 );
-router.post(
-  "/logout",
-  authenticateSession,
-  validator(authSchema),
-  tryCatchWrap(AuthController.Logout)
-);
+router.post("/logout", authenticateUser, tryCatchWrap(AuthController.Logout));
+
 router.post(
   "/refreshToken",
-  validator(authSchema),
+  authenticateUser,
   tryCatchWrap(AuthController.RefreshToken)
 );
-router.post(
-  "/forgotPass",
-  validator(authSchema),
-  tryCatchWrap(AuthController.ForgotPass)
+
+router.post( // forgot pass
+  "/generateOtp",
+  rateLimitMiddleware, // Rate limiter for OTP requests
+  validator(generateOtpSchema),
+  tryCatchWrap(AuthController.GenerateOTP)
 );
+
+router.post( // forgot pass
+  "/resendOtp",
+  rateLimitMiddleware, // Rate limiter for OTP requests
+  validator(generateOtpSchema),
+  tryCatchWrap(AuthController.ResendOTP)
+);
+
+router.post(
+  "/verifyOtp",
+  rateLimitMiddleware, // Rate limiter for OTP requests
+  validator(verifyOtp),
+  authenticateUser,
+  tryCatchWrap(AuthController.VerifyOTP)
+);
+
 router.post(
   "/resetPass",
-  validator(authSchema),
+  validator(loginSchema),
   tryCatchWrap(AuthController.ResetPass)
 );
 
 export default router;
 
-// router.get('/protected', authenticateJWT, authenticateSession, protectedRoute);
+// router.get('/protected', authenticateUser, protectedRoute);
