@@ -1,11 +1,10 @@
 import prismaClient from "../config/dbConfig.js";
 
 // Find and return the user object
-export const findUserByUserId = async (input) => {
-  const field = input.includes("@") ? "email" : "username"; // Check if input contains '@', if so, it's an email
+export const findUserByEmail = async (email) => {
   const user = await prismaClient.user.findUnique({
     where: {
-      [field]: input, // Dynamically use either 'email' or 'username'
+    email,
     },
     include: {
       roles: {
@@ -64,9 +63,9 @@ export const createOrUpdateOTP = async (
 };
 
 // find existing otp
-export const findOTP = async (userId, deviceId, otpCode) => {
+export const findOTP = async (userId, deviceId) => {
   return await prismaClient.otp.findFirst({
-    where: { userId, deviceId, otpCode, isUsed: false },
+    where: { userId, deviceId },
   });
 };
 

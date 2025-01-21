@@ -44,3 +44,8 @@ docker-compose restart: Restarts all services in the docker-compose.yml.
 docker-compose stop: Stops all running services in the docker-compose.yml.
 docker network ls: Lists all Docker networks.
 docker volume ls: Lists all Docker volumes.
+
+
+# docker exec -it postgres-service bash
+
+#  psql postgresql://akshykmr:akshykmr@postgres-service/shadeDB_dev

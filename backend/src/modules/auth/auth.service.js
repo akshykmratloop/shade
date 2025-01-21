@@ -1,7 +1,7 @@
 import { logger } from "../../config/index.js";
 import { assert, assertEvery } from "../../errors/assertError.js";
 import {
-  findUserByUserId,
+  findUserByEmail,
   updateUserPassword,
   createOrUpdateOTP,
   findOTP,
@@ -15,25 +15,30 @@ import {
   generateRandomOTP,
 } from "../../helper/index.js";
 
-const login = async ({ userId, password }) => {
-  const isUserExist = await findUserByUserId(userId);
+const getUser = async (email) => {
+  const user = await findUserByEmail(email);
   // if user not exist throw an error
-  assert(isUserExist, "NOT_FOUND", "invalid userId");
+  assert(user, "NOT_FOUND", "invalid email");
   // if user is blocked throw an error
   assert(
-    isUserExist.status === "ACTIVE",
+    user.status === "ACTIVE",
     "UNAUTHORIZED",
     "User is blocked by the super admin."
   );
+  return user;
+};
+
+const login = async ({ email, password }) => {
+  const user = await getUser(email);
   // if invalid password throw an error
   assert(
-    compareEncryptedData(password, isUserExist.password),
+    compareEncryptedData(password, user.password),
     "NOT_FOUND",
     "invalid password"
   );
-  const token = generateToken(isUserExist);
+  const token = generateToken(user);
   // this line removes the password from the userdata object
-  const { password: userPassword, ...userData } = isUserExist;
+  const { password: userPassword, ...userData } = user;
   logger.info({ ...userData, response: "logged in successfully" });
   return {
     token,
@@ -44,9 +49,26 @@ const login = async ({ userId, password }) => {
   };
 };
 
+const mfa_login = async ({ email, deviceId }) => {
+  const user = await getUser(email);
+  const response = await generateOtpAndSendOnEmail(user, deviceId);
+  const mfa_token = generateToken(user);
+  return {
+    mfa_token,
+    message: response,
+  };
+};
+
+const verify_mfa_login = async ({  email, otp, mfa_token }) => {
+  const user = await getUser(email);
+  verifyToken(mfa_token)
+  
+ 
+};
+
 const logout = async (user) => {
   // add any functionality here
-  logger.info(`user: ${user.id} has logged out`);
+  logger.info(`user: ${user.name} has logged out`);
   return { message: "Logged out successfully" };
 };
 
@@ -57,26 +79,14 @@ const refreshToken = async ({ oldToken }) => {
   return { newToken, message: "Token updated successfully" };
 };
 
-const generateOTP = async (userId, deviceId) => {
-
-  const isUserExist = await findUserByUserId(userId);
-  // if user not exist throw an error
-  assert(isUserExist, "NOT_FOUND", "invalid Email");
-  // if user is blocked throw an error
-  assert(
-    isUserExist.status === "ACTIVE",
-    "UNAUTHORIZED",
-    "User is blocked by the super admin."
-  );
-  // Generate OTP
-  const otpCode = generateRandomOTP();
-
+const generateOtpAndSendOnEmail = async (user, deviceId) => {
+  const otp = generateRandomOTP();
   // Send otp on email
   const emailPayload = {
-    to: isUserExist.email,
+    to: user.email,
     subject: "Shade Corporation: OTP for password reset request",
-    text: `Please use the following OTP to reset your password: ${otpCode}. This OTP will expire in 5 minutes.`,
-    html: `<p>Please use the following OTP to reset your password: <strong>${otpCode}</strong></p><p>This OTP will expire in 5 minutes.</p>`,
+    text: `Please use the following OTP to reset your password: ${otp}. This OTP will expire in 5 minutes.`,
+    html: `<p>Please use the following OTP to reset your password: <strong>${otp}</strong></p><p>This OTP will expire in 5 minutes.</p>`,
   };
 
   const isEmailSend = await sendEmail(emailPayload);
@@ -87,27 +97,26 @@ const generateOTP = async (userId, deviceId) => {
   // Store otp in database
   const expiresAt = new Date(Date.now() + 5 * 60 * 1000); // 5 minutes from now
   await createOrUpdateOTP(
-    userId,
+    user.id,
     deviceId,
-    await EncryptData(otpCode, 6), // encrypting otp before storing it with 6 rounds of salt
+    await EncryptData(otp, 6), // encrypting otp before storing it with 6 rounds of salt
     expiresAt
   );
-  logger.info(`Otp has been successfully sent on this email ${userId}`);
+  logger.info(`Otp has been successfully sent on this email ${user.email}`);
   return { message: "Email has been successfully sent" };
 };
 
 const generateAndSendOTP = async ({ userId, deviceId }) => {
-  return await generateOTP(userId, deviceId);
+  return await generateOtpAndSendOnEmail(userId, deviceId);
 };
 
 const resendOTP = async ({ userId, deviceId }) => {
-
   const isOTPExist = await findOTP(userId, deviceId);
 
   // logger.info({isExpired, expiresAt, isUsed});
   // if (!isOTPExist) { //if otp is not exist generate and send
   //   logger.info(`ResendOT : OPT not found generating...new otp`)
-  //   return await generateOTP(userId, deviceId);
+  //   return await generateOtpAndSendOnEmail(userId, deviceId);
   // }
 
   // if otp exist check expiry time and generate
@@ -118,22 +127,22 @@ const resendOTP = async ({ userId, deviceId }) => {
   // }
 
   // // Add this function to check if OTP is valid
-  // const isValidOTP =(otpCode, expireAt) => {
+  // const isValidOTP =(otp, expireAt) => {
   //   if (isOTPExpired(expireAt)) {
   //     throw new Error("OTP has expired. Please try again after 1 minute.");
   //   }
 
-    // Additional checks can be added here if needed
+  // Additional checks can be added here if needed
   //   return true;
   // }
-  
+
   assertEvery(
-    [isOTPExist, !isOTPExist?.isUsed, !isOTPExist?.isExpired ],
+    [isOTPExist, !isOTPExist?.isUsed, !isOTPExist?.isExpired],
     "UNAUTHORIZED",
     "Request Time out. Please request a new OTP."
   );
-return true
-  await generateOTP(userId, deviceId);
+  return true;
+  await generateOtpAndSendOnEmail(userId, deviceId);
 };
 
 const verifyOTP = async (req, res) => {
@@ -158,6 +167,8 @@ const resetPass = async (data) => {
 
 export {
   login,
+  mfa_login,
+  verify_mfa_login,
   logout,
   refreshToken,
   generateAndSendOTP,
@@ -168,7 +179,7 @@ export {
 
 // const bcrypt = require('bcryptjs');
 // const jwt = require('jsonwebtoken');
-// const { findUserByUserId, createUser } = require('../services/userService');
+// const { findUserByEmail, createUser } = require('../services/userService');
 // const { saveSession } = require('../services/authService');
 
 // const JWT_SECRET = 'your_jwt_secret';
@@ -182,7 +193,7 @@ export {
 
 // exports.login = async (req, res) => {
 //   const { email, password } = req.body;
-//   const isUserExist = await findUserByUserId(email);
+//   const isUserExist = await findUserByEmail(email);
 
 //   if (!isUserExist || !(await bcrypt.compare(password, isUserExist.password))) {
 //     return res.status(401).json({ message: 'Invalid email or password' });

@@ -13,6 +13,22 @@ router.post(
   validator(loginSchema),
   tryCatchWrap(AuthController.Login)
 );
+
+// takes email and generates otp
+router.post(
+  "login/mfa",
+  validator(generateOtpSchema),
+  tryCatchWrap(AuthController.MFALogin)
+);
+
+// takes otp and verifies it to login
+router.post(
+  "verify/mfa",
+  validator(verifyOtp),
+  authenticateUser,
+  tryCatchWrap(AuthController.VerifyMFALogin)
+);
+
 router.post("/logout", authenticateUser, tryCatchWrap(AuthController.Logout));
 
 router.post(
@@ -22,7 +38,7 @@ router.post(
 );
 
 router.post( // forgot pass
-  "/generateOtp",
+  "/forgotPassword",
   rateLimitMiddleware, // Rate limiter for OTP requests
   validator(generateOtpSchema),
   tryCatchWrap(AuthController.GenerateOTP)

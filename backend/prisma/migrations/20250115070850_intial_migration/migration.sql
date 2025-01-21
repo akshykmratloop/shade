@@ -1,8 +1,11 @@
 -- CreateEnum
-CREATE TYPE "PageStatus" AS ENUM ('DRAFT', 'REVIEW', 'PUBLISHED', 'ARCHIVED', 'REJECTED', 'TRASHED');
+CREATE TYPE "PageStatus" AS ENUM ('DRAFT', 'REVIEW', 'PUBLISHED', 'ARCHIVED', 'REJECTED', 'TRASHED', 'HOLD');
 
 -- CreateEnum
 CREATE TYPE "Status" AS ENUM ('ACTIVE', 'INACTIVE', 'TRASHED');
+
+-- CreateEnum
+CREATE TYPE "Stage" AS ENUM ('Stage_1', 'Stage_2', 'Stage_3');
 
 -- CreateTable
 CREATE TABLE "Log" (
@@ -15,6 +18,21 @@ CREATE TABLE "Log" (
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
     CONSTRAINT "Log_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "Otp" (
+    "id" TEXT NOT NULL,
+    "userId" TEXT NOT NULL,
+    "deviceId" TEXT NOT NULL,
+    "otpCode" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "expiresAt" TIMESTAMP(3) NOT NULL,
+    "isUsed" BOOLEAN NOT NULL DEFAULT false,
+    "isExpired" BOOLEAN NOT NULL DEFAULT false,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "Otp_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -38,6 +56,18 @@ CREATE TABLE "Permission" (
     "updated_at" TIMESTAMP(3) NOT NULL,
 
     CONSTRAINT "Permission_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "RateLimit" (
+    "id" TEXT NOT NULL,
+    "userId" TEXT NOT NULL,
+    "attempts" INTEGER NOT NULL DEFAULT 0,
+    "failures" INTEGER NOT NULL DEFAULT 0,
+    "lastAttempt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "blockUntil" TIMESTAMP(3),
+
+    CONSTRAINT "RateLimit_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -85,18 +115,6 @@ CREATE TABLE "Role" (
 );
 
 -- CreateTable
-CREATE TABLE "Session" (
-    "id" TEXT NOT NULL,
-    "sid" TEXT NOT NULL,
-    "data" TEXT NOT NULL,
-    "expiresAt" TIMESTAMP(3) NOT NULL,
-    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMP(3) NOT NULL,
-
-    CONSTRAINT "Session_pkey" PRIMARY KEY ("id")
-);
-
--- CreateTable
 CREATE TABLE "User" (
     "id" TEXT NOT NULL,
     "username" TEXT NOT NULL,
@@ -116,6 +134,12 @@ CREATE TABLE "User" (
 CREATE INDEX "Log_user_id_idx" ON "Log"("user_id");
 
 -- CreateIndex
+CREATE UNIQUE INDEX "Otp_deviceId_key" ON "Otp"("deviceId");
+
+-- CreateIndex
+CREATE INDEX "user_device_idx" ON "Otp"("userId", "deviceId");
+
+-- CreateIndex
 CREATE INDEX "Page_name_idx" ON "Page"("name");
 
 -- CreateIndex
@@ -123,6 +147,9 @@ CREATE UNIQUE INDEX "Permission_name_key" ON "Permission"("name");
 
 -- CreateIndex
 CREATE INDEX "Permission_name_idx" ON "Permission"("name");
+
+-- CreateIndex
+CREATE INDEX "RateLimit_userId_idx" ON "RateLimit"("userId");
 
 -- CreateIndex
 CREATE INDEX "RolePermission_role_id_idx" ON "RolePermission"("role_id");
@@ -156,9 +183,6 @@ CREATE UNIQUE INDEX "Role_name_key" ON "Role"("name");
 
 -- CreateIndex
 CREATE INDEX "Role_name_idx" ON "Role"("name");
-
--- CreateIndex
-CREATE UNIQUE INDEX "Session_sid_key" ON "Session"("sid");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "User_username_key" ON "User"("username");

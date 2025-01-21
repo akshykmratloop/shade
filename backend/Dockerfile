@@ -22,7 +22,6 @@ ARG DATABASE_URL
 ENV DATABASE_URL=${DATABASE_URL}
 
 RUN npm run prisma:generate
-RUN npm run prisma:migrate
 
 #Expose the port used by the app
 EXPOSE 3000

@@ -1,5 +1,7 @@
 import {
   login,
+  mfa_login,
+  verify_mfa_login,
   logout,
   refreshToken,
   generateAndSendOTP,
@@ -15,9 +17,28 @@ import {
 } from "../../helper/cookiesManager.js";
 
 const Login = async (req, res) => {
-  const { userId, password } = req.body;
-  const { token, user } = await login({ userId, password });
+  const { email, password } = req.body;
+  const { token, user } = await login({ email, password });
   //cookies wil be set in production mode only for https req
+  setCookie(res, token);
+  res.status(200).json(user);
+};
+
+const MFALogin = async (req, res) => {
+  const { email, deviceId } = req.body;
+  const { mfa_token, user } = await mfa_login({ email, deviceId });
+  // mfa token will be verified with otp
+  setCookie(res, mfa_token, "mfa_token");
+  res.status(200).json(user);
+};
+
+const VerifyMFALogin = async (req, res) => {
+  const { email, otp } = req.body;
+  // get the mfa token
+  const { mfa_token } = await getCookie(req, "mfa_token");
+  const { token, user } = await verify_mfa_login({ email, otp, mfa_token });
+  // remove mfa token from cookies and set new token
+  clearCookie(res, "mfa_token");
   setCookie(res, token);
   res.status(200).json(user);
 };
@@ -36,20 +57,20 @@ const RefreshToken = async (req, res) => {
 };
 
 const GenerateOTP = async (req, res) => {
-  const { userId, deviceId } = req.body;
-  const result = await generateAndSendOTP ({ userId, deviceId });
+  const { email, deviceId } = req.body;
+  const result = await generateAndSendOTP({ email, deviceId });
   res.status(201).json(result);
 };
 
 const ResendOTP = async (req, res) => {
-  const { userId, deviceId } = req.body;
-  const result = await resendOTP ({ userId, deviceId });
+  const { email, deviceId } = req.body;
+  const result = await resendOTP({ email, deviceId });
   res.status(201).json(result);
 };
 
 const VerifyOTP = async (req, res) => {
-  const { userId, otp } = req.body;
-  const result = await verifyOTP({ userId, otp });
+  const { email, otp } = req.body;
+  const result = await verifyOTP({ email, otp });
   res.status(200).json(result);
 };
 
@@ -61,6 +82,8 @@ const ResetPass = async (req, res) => {
 
 export default {
   Login,
+  MFALogin,
+  VerifyMFALogin,
   Logout,
   RefreshToken,
   GenerateOTP,

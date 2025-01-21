@@ -1,5 +1,5 @@
 
-import prismaClient from "../src/config/dbConnection.js"; // Updated import to match default export
+import prismaClient from "../src/config/dbConfig.js"; // Updated import to match default export
 import bcrypt from "bcryptjs";
 
 const email = process.env.SUPER_ADMIN_EMAIL;

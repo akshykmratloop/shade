@@ -1,7 +1,7 @@
 import Joi from "joi";
 
 const loginSchema = Joi.object({
-  userId: Joi.alternatives()
+  email: Joi.alternatives()
     .try(
       Joi.string().email().required(), // Allow valid email format
       Joi.string()
@@ -18,13 +18,17 @@ const loginSchema = Joi.object({
   password: Joi.string().min(8).required(),
 });
 
+
 const generateOtpSchema = Joi.object({
-  userId: Joi.string().email().min(3).max(30).required(),
+  email: Joi.string().email().min(3).max(30).required(),
   deviceId: Joi.string().min(6).max(20).required(),
 });
 
+
 const verifyOtp = Joi.object({
+  email: Joi.string().email().min(3).max(30).required(),
   otp: Joi.number().integer().min(100000).max(999999).required(),
+  deviceId: Joi.string().min(6).max(20).required(),
 });
 
 export { loginSchema, generateOtpSchema, verifyOtp };

@@ -2,7 +2,6 @@
 
 model User {
   id          String         @id @default(cuid())
-  username    String         @unique
   name        String
   image       String         @default("")
   email       String         @unique
@@ -15,5 +14,5 @@ model User {
   pageRoles   UserPageRole[] // Relations to UserPageRole (not defined here, but assumed to exist)
   log         Log[] // Corrected to indicate a one-to-many relationship with Log
 
-  @@index([username])
+  @@index([email])
 }
