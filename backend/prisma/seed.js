@@ -1,7 +1,6 @@
 
 import prismaClient from "../src/config/dbConfig.js"; // Updated import to match default export
-import bcrypt from "bcryptjs";
-
+import EncryptData from "../src/helper/index.js"
 const email = process.env.SUPER_ADMIN_EMAIL;
 const pass = process.env.SUPER_ADMIN_PASSWORD;
 
@@ -97,7 +96,7 @@ const seedDB = async () => {
     }
 
     // Hash the password
-    const hashedPassword = await bcrypt.hash(pass, 10);
+    const hashedPassword = await EncryptData(pass, 10);
 
     // Use upsert for super admin user
     await prismaClient.user.upsert({

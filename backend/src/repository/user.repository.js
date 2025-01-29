@@ -58,7 +58,7 @@ export const createOrUpdateOTP = async (
   return await prismaClient.otp.upsert({
     where: { userId, deviceId },
     create: { userId, deviceId, otpCode, expiresAt },
-    update: { otpCode, expiresAt, isUsed: false, isExpired: false },
+    update: { otpCode, expiresAt, isUsed: false},
   });
 };
 
@@ -73,26 +73,9 @@ export const findOTP = async (userId, deviceId) => {
 export const markOTPUsed = async (otpId) => {
   return await prismaClient.otp.update({
     where: { id: otpId },
-    data: { used: true },
+    data: { isUsed: true },
   });
 };
-
-// delete expired otp
-export const cleanupExpiredOTPs = async () => {
-  const now = new Date();
-  return await prismaClient.otp.updateMany({
-    where: { expiresAt: { lte: now }, used: false },
-    data: { used: true },
-  });
-};
-
-export const deleteOldOTPs = async () => {
-  const oneDayAgo = new Date(new Date().getTime() - 24 * 60 * 60 * 1000);
-  return await prismaClient.otp.deleteMany({
-    where: { createdAt: { lte: oneDayAgo } },
-  });
-};
-
 
 
 

@@ -91,6 +91,10 @@ export const statusCodes = {
     code: 511,
     message: "Network Authentication Required",
   },
+  DATABASE_ERROR: {
+    code: 400,
+    message: "Database operation failed",
+  },
 };
 
 export default statusCodes;

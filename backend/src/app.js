@@ -7,7 +7,7 @@ import { errorHandler, notFoundHandler } from "./errors/index.js"; // Custom err
 import { logger, morganMiddleware } from "./config/index.js";
 import cookieParser from "cookie-parser";
 import { globalRateLimiter } from "./helper/index.js";
-
+import helmet from "helmet";
 export const createApp = () => {
   const app = express();
 
@@ -32,6 +32,9 @@ export const createApp = () => {
 
   // Use cookie parser
   app.use(cookieParser());
+  
+  // Helmet secure Express apps by setting various HTTP headers
+  app.use(helmet());
 
   // Serve static files
   app.use(express.static(path.resolve("public")));

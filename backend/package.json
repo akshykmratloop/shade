@@ -27,6 +27,7 @@
     "dotenv-cli": "^8.0.0",
     "express": "^4.21.2",
     "express-rate-limit": "^7.5.0",
+    "helmet": "^8.0.0",
     "http-errors-lite": "^2.0.2",
     "http-status-codes": "^2.3.0",
     "joi": "^17.13.3",
