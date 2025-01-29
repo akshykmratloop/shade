@@ -6,7 +6,6 @@ model Otp {
   createdAt    DateTime @default(now()) 
   expiresAt    DateTime 
   isUsed       Boolean  @default(false) // Whether the OTP has been used
-  isExpired    Boolean  @default(false) // Whether the OTP has been expired
   updatedAt    DateTime @updatedAt // Automatically update on modification
 
   @@index([userId, deviceId], name: "user_device_idx") // Ensure unique OTP per user-device combination

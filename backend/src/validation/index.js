@@ -1,3 +1,3 @@
-import { loginSchema, generateOtpSchema, verifyOtp } from "./authSchema.js";
+import { loginSchema, generateOtpSchema, verifyOtpSchema, resetPassSchema } from "./authSchema.js";
 
-export { loginSchema, generateOtpSchema, verifyOtp };
+export { loginSchema, generateOtpSchema, verifyOtpSchema, resetPassSchema };

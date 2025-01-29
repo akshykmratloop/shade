@@ -1,34 +1,33 @@
 import Joi from "joi";
 
-const loginSchema = Joi.object({
-  email: Joi.alternatives()
-    .try(
-      Joi.string().email().required(), // Allow valid email format
-      Joi.string()
-        .pattern(/^[a-zA-Z0-9._@-]+$/) // Allow alphanumeric, dot (.), underscore (_), and hyphen (-)
-        .min(3)
-        .max(30)
-        .required()
-    )
-    .required()
-    .messages({
-      "string.pattern.base":
-        "User ID can contain only alphanumeric characters, dots (.), underscores (_), or hyphens (-).",
-    }),
-  password: Joi.string().min(8).required(),
-});
+const emailRule = Joi.string().email().min(3).max(30).required();
+const passwordRule = Joi.string().min(8).max(30).pattern(/^[a-zA-Z0-9@._-]+$/).required();
+const deviceIdRule = Joi.string().min(6).max(20).required();
+const otpRule = Joi.number().integer().min(100000).max(999999).required();
 
+
+
+const loginSchema = Joi.object({
+  email: emailRule,
+  password: passwordRule,
+});
 
 const generateOtpSchema = Joi.object({
-  email: Joi.string().email().min(3).max(30).required(),
-  deviceId: Joi.string().min(6).max(20).required(),
+  email: emailRule,
+  deviceId: deviceIdRule,
 });
 
-
-const verifyOtp = Joi.object({
-  email: Joi.string().email().min(3).max(30).required(),
-  otp: Joi.number().integer().min(100000).max(999999).required(),
-  deviceId: Joi.string().min(6).max(20).required(),
+const verifyOtpSchema = Joi.object({
+  email: emailRule,
+  otp: otpRule,
+  deviceId: deviceIdRule,
 });
 
-export { loginSchema, generateOtpSchema, verifyOtp };
+const resetPassSchema = Joi.object({
+  email: emailRule,
+  old_password: passwordRule,
+  new_password: passwordRule,
+  repeat_password: passwordRule,
+});
+
+export { loginSchema, generateOtpSchema, verifyOtpSchema, resetPassSchema };
