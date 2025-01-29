@@ -16,20 +16,8 @@ import {
   generateRandomOTP,
 } from "../../helper/index.js";
 
-//Returns user data if found and error if not found
-const getUser = async (email) => {
-  const user = await findUserByEmail(email);
-  // if user not exist throw an error
-  assert(user, "NOT_FOUND", "invalid email");
-  // if user is blocked throw an error
-  assert(
-    user.status === "ACTIVE",
-    "UNAUTHORIZED",
-    "User is blocked by the super admin."
-  );
-  return user;
-};
 
+// MAIN SERVICE FUNCTIONS
 const login = async (email, password) => {
   const user = await getUser(email);
   // if invalid password throw an error
@@ -53,7 +41,8 @@ const login = async (email, password) => {
 
 const mfa_login = async (email, deviceId) => {
   const user = await getUser(email);
-  return await generateOtpAndSendOnEmail(user, deviceId);
+  const otp = await generateOtpAndSendOnEmail(user, deviceId);
+  return { message: `OTP has been sent ${otp}` };
 };
 
 const verify_mfa_login = async (email, deviceId, otp) => {
@@ -73,34 +62,6 @@ const verify_mfa_login = async (email, deviceId, otp) => {
   };
 };
 
-const verifyOTP = async (userId, deviceId, otp) => {
-  // Find OTP in the database
-  const isOTPExist = await findOTP(userId, deviceId);
-  // Check if OTP exists
-  assert(isOTPExist, "NOT_FOUND", "Otp not found, please regenerate");
-  // Check if OTP is used
-  assert(
-    !isOTPExist.isUsed,
-    "BAD_REQUEST",
-    "Invalid OTP or have been already used"
-  );
-  // Check if expiry date is greater than current date in milliseconds
-  assert(
-    new Date(isOTPExist.expiresAt).getTime() > Date.now(),
-    "GONE",
-    "OTP has been expired"
-  );
-  // Validate the OTP
-  assert(
-    await compareEncryptedData(otp, isOTPExist?.otpCode),
-    "UNAUTHORIZED",
-    "Invalid OTP"
-  );
-  // Mark OTP as used
-  await markOTPUsed(isOTPExist.id);
-  return true; // OTP verification successful
-};
-
 const logout = async (user) => {
   // add any functionality here
   logger.info(`user: ${user.name} has logged out`);
@@ -114,36 +75,10 @@ const refreshToken = async (oldToken) => {
   return { newToken, message: "Token updated successfully" };
 };
 
-const generateOtpAndSendOnEmail = async (user, deviceId) => {
-  const otp = generateRandomOTP();
-  // Send otp on email
-  const emailPayload = {
-    to: user.email,
-    subject: "Shade Corporation: OTP for password reset request",
-    text: `Please use the following OTP to reset your password: ${otp}. This OTP will expire in 5 minutes.`,
-    html: `<p>Please use the following OTP to reset your password: <strong>${otp}</strong></p><p>This OTP will expire in 5 minutes.</p>`,
-  };
-
-  const isEmailSend = await sendEmail(emailPayload);
-
-  // if email not sent throw an error
-  assert(isEmailSend, "EXPECTATION_FAILED", "Unable to send otp");
-
-  // Store otp in database
-  const expiresAt = new Date(Date.now() + 5 * 60 * 1000); // 5 minutes from now
-  await createOrUpdateOTP(
-    user.id,
-    deviceId,
-    await EncryptData(otp, 6), // encrypting otp before storing it with 6 rounds of salt
-    expiresAt
-  );
-  logger.info(`Otp has been successfully sent on this email ${user.email}`);
-  return { message: `OTP has been successfully sent ${otp}` };
-};
-
 const forgotPassword = async (email, deviceId) => {
   const user = await getUser(email);
-  return await generateOtpAndSendOnEmail(user, deviceId);
+  const otp = await generateOtpAndSendOnEmail(user, deviceId);
+  return { message: `OTP has been sent ${otp}` };
 };
 
 const forgotPasswordVerify = async (email, deviceId, otp) => {
@@ -159,9 +94,9 @@ const forgotPasswordVerify = async (email, deviceId, otp) => {
 const updatePassword = async (email, deviceId) => {
   const user = await getUser(email);
   const token = generateToken(user, "300s");
-  console.log(token);
+  const otp = await generateOtpAndSendOnEmail(user, deviceId);
   return {
-    message: await generateOtpAndSendOnEmail(user, deviceId),
+    message: `OTP has been successfully sent ${otp}`,
     token: token,
   };
 };
@@ -236,6 +171,77 @@ const resetPass = async (
 
   assert(result, "BAD_REQUEST", "Something went wrong");
   return { message: "Passwords has been updated successfully" };
+};
+
+
+// SUPPORT FUNCTIONS
+//Returns user data if found and error if not found
+const getUser = async (email) => {
+  const user = await findUserByEmail(email);
+  // if user not exist throw an error
+  assert(user, "NOT_FOUND", "invalid email");
+  // if user is blocked throw an error
+  assert(
+    user.status === "ACTIVE",
+    "UNAUTHORIZED",
+    "User is blocked by the super admin."
+  );
+  return user;
+};
+
+const verifyOTP = async (userId, deviceId, otp) => {
+  // Find OTP in the database
+  const isOTPExist = await findOTP(userId, deviceId);
+  // Check if OTP exists
+  assert(isOTPExist, "NOT_FOUND", "Otp not found, please regenerate");
+  // Check if OTP is used
+  assert(
+    !isOTPExist.isUsed,
+    "BAD_REQUEST",
+    "Invalid OTP or have been already used"
+  );
+  // Check if expiry date is greater than current date in milliseconds
+  assert(
+    new Date(isOTPExist.expiresAt).getTime() > Date.now(),
+    "GONE",
+    "OTP has been expired"
+  );
+  // Validate the OTP
+  assert(
+    await compareEncryptedData(otp, isOTPExist?.otpCode),
+    "UNAUTHORIZED",
+    "Invalid OTP"
+  );
+  // Mark OTP as used
+  await markOTPUsed(isOTPExist.id);
+  return true; // OTP verification successful
+};
+
+const generateOtpAndSendOnEmail = async (user, deviceId) => {
+  const otp = generateRandomOTP();
+  // Send otp on email
+  const emailPayload = {
+    to: user.email,
+    subject: "Shade Corporation: OTP for password reset request",
+    text: `Please use the following OTP to reset your password: ${otp}. This OTP will expire in 5 minutes.`,
+    html: `<p>Please use the following OTP to reset your password: <strong>${otp}</strong></p><p>This OTP will expire in 5 minutes.</p>`,
+  };
+
+  const isEmailSend = await sendEmail(emailPayload);
+
+  // if email not sent throw an error
+  assert(isEmailSend, "EXPECTATION_FAILED", "Unable to send otp");
+
+  // Store otp in database
+  const expiresAt = new Date(Date.now() + 5 * 60 * 1000); // 5 minutes from now
+  await createOrUpdateOTP(
+    user.id,
+    deviceId,
+    await EncryptData(otp, 6), // encrypting otp before storing it with 6 rounds of salt
+    expiresAt
+  );
+  logger.info(`Otp has been successfully sent on this email ${user.email}`);
+  return otp;
 };
 
 export {
