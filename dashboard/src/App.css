@@ -11,7 +11,7 @@
 .l-bg{
   background-position: center;
   background-size: cover;
-  transition: .2s linear background;
+  transition: .2s linear all;
 }
 /* carousel status */
 .carouselStatus{
@@ -26,7 +26,7 @@
   height: .91rem;
   width: .91rem;
   border-radius: 50%;
-  transition: .2s linear background-color;
+  transition: .1s linear background-color;
 }
 
 
