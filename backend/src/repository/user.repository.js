@@ -52,20 +52,27 @@ export const updateUserPassword = async (userId, newPassword) => {
 export const createOrUpdateOTP = async (
   userId,
   deviceId,
+  otpOrigin,
   otpCode,
   expiresAt
 ) => {
   return await prismaClient.otp.upsert({
-    where: { userId, deviceId },
-    create: { userId, deviceId, otpCode, expiresAt },
-    update: { otpCode, expiresAt, isUsed: false},
+    where: {
+      userId_deviceId_otpOrigin: {
+        userId,
+        deviceId,
+        otpOrigin,
+      },
+    },
+    create: { userId, deviceId, otpOrigin, otpCode, expiresAt },
+    update: { otpCode, expiresAt, isUsed: false },
   });
 };
 
 // find existing otp
-export const findOTP = async (userId, deviceId) => {
+export const findOTP = async (userId, deviceId, otpOrigin) => {
   return await prismaClient.otp.findFirst({
-    where: { userId, deviceId },
+    where: { userId, deviceId, otpOrigin },
   });
 };
 
@@ -77,49 +84,65 @@ export const markOTPUsed = async (otpId) => {
   });
 };
 
-
-
-// Function to find or create the user rate limit data
-export const findOrCreateRateLimit = async (userId) => {
-  const now = new Date();
-
-  let user = await prismaClient.rateLimit.findUnique({
-    where: { userId },
+// delete otp
+export const deleteOTP = async (otpId) => {
+  return await prismaClient.otp.delete({
+    where: { id: otpId },
   });
-
-  if (!user) {
-    // If the user doesn't exist, create a new rate-limiting record
-    user = await prismaClient.rateLimit.create({
-      data: {
-        userId,
-        attempts: 0,
-        failures: 0,
-        lastAttempt: now,
-        blockUntil: null,
-      },
-    });
-  }
-  return user;
 };
 
-// Function to update user rate-limiting data (attempts, last attempt)
-export const updateRateLimit = async (userId, attempts, failures, lastAttempt) => {
-  return await prismaClient.rateLimit.update({
+
+// Track OTP attempts
+export const trackOtpAttempts = async (userId) => {
+  const now = new Date();
+
+  return await prismaClient.rateLimit.upsert({
     where: { userId },
-    data: {
-      attempts,
-      failures,
-      lastAttempt,
+    update: {
+      attempts: { increment: 1 },
+      lastAttempt: now,
+    },
+    create: {
+      userId,
+      attempts: 1,
+      failures: 0,
+      lastAttempt: now,
+      blockUntil: null,
     },
   });
 };
 
-// Function to update the blockUntil field (block user temporarily)
+// Block a user temporarily
 export const blockUser = async (userId, blockUntil) => {
   return await prismaClient.rateLimit.update({
     where: { userId },
+    data: { blockUntil },
+  });
+};
+
+// Reset attempts after 24 hours (Cron Job)
+export const resetOtpAttempts = async () => {
+  const now = new Date();
+  await prismaClient.rateLimit.updateMany({
+    where: { blockUntil: { lte: now } },
+    data: { attempts: 0, failures: 0, blockUntil: null },
+  });
+};
+
+export const resetUserOtpAttempts = async () => {
+  const now = new Date();
+  
+  // Find users whose last attempt was more than 24 hours ago
+  await prismaClient.rateLimit.updateMany({
+    where: {
+      blockUntil: null,
+      lastAttempt: {
+        lte: new Date(now.getTime() - 24 * 60 * 60 * 1000), // 24 hours
+      },
+    },
     data: {
-      blockUntil,
+      attempts: 0,  // Reset attempts
+      failures: 0,  // Reset failures
     },
   });
 };

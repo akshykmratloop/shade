@@ -1,24 +1,29 @@
 // Enum for defining the status of a page
 enum PageStatus {
-    DRAFT 
-    REVIEW 
-    PUBLISHED 
-    ARCHIVED 
-    REJECTED 
-    TRASHED 
+    DRAFT
+    REVIEW
+    PUBLISHED
+    ARCHIVED
+    REJECTED
+    TRASHED
     HOLD
 }
 
 // Enum for defining the general status of an entity
 enum Status {
-    ACTIVE 
-    INACTIVE 
-    TRASHED 
+    ACTIVE
+    INACTIVE
+    TRASHED
 }
-
 
 enum Stage {
     Stage_1
     Stage_2
     Stage_3
+}
+
+enum otpOrigin {
+    MFA_Login
+    forgot_Pass
+    NULL
 }
