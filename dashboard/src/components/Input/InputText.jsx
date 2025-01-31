@@ -11,7 +11,7 @@ function InputText({ labelTitle, labelStyle, type, containerStyle, defaultValue,
     }
 
     return (
-        <div className={`form-control w-full ${containerStyle}`} style={{ display: display ? "none" : "block" }}>
+        <div className={`form-control w-full ${containerStyle}`} style={{ display: display ? "none" : "" }}>
             <label className="label">
                 <span className={"label-text font-semibold text-base-content " + labelStyle}>{labelTitle}</span>
             </label>

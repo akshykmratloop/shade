@@ -1,12 +1,11 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-// import LandingIntro from './LandingIntro'
 import ErrorText from '../../components/Typography/ErrorText'
 import InputText from '../../components/Input/InputText';
 import Button from '../../components/Button/Button';
 import BackroundImage from './components/BackroundImg';
 import emailRegex from '../../app/emailregex';
-
+import { ToastContainer, toast } from 'react-toastify';
 
 function Login() {
     const INITIAL_LOGIN_OBJ = {
@@ -17,7 +16,7 @@ function Login() {
     const [errorMessage, setErrorMessage] = useState("")
     const [loginObj, setLoginObj] = useState(INITIAL_LOGIN_OBJ)
     const [loginWithOtp, setLoginWithOtp] = useState(false)
-    
+
     function LoginWithOTP() {
         setLoginWithOtp(prev => !prev)
     }
@@ -32,9 +31,19 @@ function Login() {
         else {
             setLoading(true)
             // Call API to check user credentials and save token in localstorage
+            const loadingToastId = toast.loading("login successful", { autoClose: 1000 })
             localStorage.setItem("token", "DumyTokenHere")
             setLoading(false)
-            window.location.href = '/app/welcome'
+            // window.location.href = '/app/welcome'
+            setTimeout(() => {
+
+                toast.update(loadingToastId, {
+                    render: "Request successful! 🎉",
+                    type: "success",
+                    isLoading: false,
+                    autoClose: 3000,
+                });
+            }, 2000)
         }
     }
 
@@ -71,6 +80,8 @@ function Login() {
                     <Button functioning={LoginWithOTP} text={loginWithOtp ? "Sing In with Password" : "Sing In With OTP"} classes={"btn mt-2 w-full btn-stone hover:text-stone-50 hover:bg-stone-700 border-stone-700 bg-stone-50 text-stone-800" + (loading ? " loading" : "")} />
                 </div>
             </div>
+            <ToastContainer theme="colored"
+             />
         </div>
     )
 }
