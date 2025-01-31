@@ -1,12 +1,14 @@
 model Otp {
-  id           String   @id @default(uuid()) 
-  userId       String   // ID of the user to whom the OTP is associated
-  deviceId     String   @unique() // Unique identifier for the device (e.g., UUID or token)
-  otpCode      String   
-  createdAt    DateTime @default(now()) 
-  expiresAt    DateTime 
-  isUsed       Boolean  @default(false) // Whether the OTP has been used
-  updatedAt    DateTime @updatedAt // Automatically update on modification
+  id        String    @id @default(uuid())
+  userId    String // ID of the user to whom the OTP is associated
+  deviceId  String   
+  otpCode   String
+  createdAt DateTime  @default(now())
+  expiresAt DateTime
+  isUsed    Boolean   @default(false) // Whether the OTP has been used
+  otpOrigin otpOrigin  @default(NULL) // Origin of the OTP (mfa Login or Forgot Password)
+  updatedAt DateTime  @updatedAt // Automatically update on modification
 
-  @@index([userId, deviceId], name: "user_device_idx") // Ensure unique OTP per user-device combination
+  @@index([userId, deviceId, otpOrigin], name: "user_device_origin_idx") // Ensure unique OTP per user-device-origin combination
+  @@unique([userId, deviceId, otpOrigin]) // Unique constraint for user-device-origin combination
 }

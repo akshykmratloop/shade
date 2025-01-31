@@ -7,9 +7,10 @@ import {
   generateOtpSchema,
   verifyOtpSchema,
   resetPassSchema,
+  updatePasswordSchema
 } from "../../validation/index.js";
 import tryCatchWrap from "../../errors/tryCatchWrap.js";
-import { rateLimitMiddleware } from "../../helper/index.js";
+import { resendOtpRateLimiter, generateOtpRateLimiter} from "../../helper/index.js";
 
 const router = Router();
 
@@ -22,6 +23,7 @@ router.post(
 // takes email and generates otp
 router.post(
   "/mfa/login",
+  generateOtpRateLimiter,
   validator(generateOtpSchema),
   tryCatchWrap(AuthController.MFALogin)
 );
@@ -31,14 +33,6 @@ router.post(
   "/mfa/verify",
   validator(verifyOtpSchema),
   tryCatchWrap(AuthController.VerifyMFALogin)
-);
-
-router.post(
-  // forgot pass
-  "/resendOtp",
-  rateLimitMiddleware, // Rate limiter for OTP requests
-  validator(generateOtpSchema),
-  tryCatchWrap(AuthController.ResendOTP)
 );
 
 router.post("/logout", authenticateUser, tryCatchWrap(AuthController.Logout));
@@ -52,22 +46,20 @@ router.post(
 router.post(
   // forgot pass
   "/forgotPassword",
-  // rateLimitMiddleware, // Rate limiter for OTP requests
+  generateOtpRateLimiter,
   validator(generateOtpSchema),
   tryCatchWrap(AuthController.ForgotPassword)
 );
 
 router.post(
   "/forgotPassword/verify",
-  rateLimitMiddleware, // Rate limiter for OTP requests
   validator(verifyOtpSchema),
   tryCatchWrap(AuthController.ForgotPasswordVerify)
 );
 
 router.post(
   "/forgotPassword/updatePassword",
-  rateLimitMiddleware, // Rate limiter for OTP requests
-  validator(verifyOtpSchema),
+  validator(updatePasswordSchema),
   tryCatchWrap(AuthController.UpdatePassword)
 );
 
@@ -76,6 +68,13 @@ router.post(
   authenticateUser,
   validator(resetPassSchema),
   tryCatchWrap(AuthController.ResetPass)
+);
+router.post(
+  // forgot pass
+  "/resendOtp",
+  resendOtpRateLimiter, // Rate limiter for OTP requests
+  validator(generateOtpSchema),
+  tryCatchWrap(AuthController.ResendOTP)
 );
 
 export default router;

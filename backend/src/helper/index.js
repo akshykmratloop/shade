@@ -3,7 +3,7 @@ import { EncryptData, compareEncryptedData } from "./bcryptManager.js";
 import { setCookie, getCookie, clearCookie } from "./cookiesManager.js";
 import { generateRandomOTP } from "./generateOtp.js";
 import { generateToken, verifyToken } from "./jwtManager.js";
-import { globalRateLimiter, rateLimitMiddleware } from "./rateLimiter.js";
+import { globalRateLimiter, generateOtpRateLimiter, resendOtpRateLimiter } from "./rateLimiter.js";
 import { sendEmail } from "./sendEmail.js";
 export {
   //User Authentication
@@ -30,5 +30,6 @@ export {
 
   // Rate Limiter
   globalRateLimiter,
-  rateLimitMiddleware,
+  generateOtpRateLimiter,
+  resendOtpRateLimiter,
 };

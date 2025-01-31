@@ -6,6 +6,7 @@ import {
   createOrUpdateOTP,
   findOTP,
   markOTPUsed,
+  deleteOTP,
 } from "../../repository/user.repository.js";
 import {
   EncryptData,
@@ -15,7 +16,6 @@ import {
   verifyToken,
   generateRandomOTP,
 } from "../../helper/index.js";
-
 
 // MAIN SERVICE FUNCTIONS
 const login = async (email, password) => {
@@ -39,16 +39,15 @@ const login = async (email, password) => {
   };
 };
 
-const mfa_login = async (email, deviceId) => {
+const mfa_login = async (email, deviceId, otpOrigin) => {
   const user = await getUser(email);
-  const otp = await generateOtpAndSendOnEmail(user, deviceId);
+  const otp = await generateOtpAndSendOnEmail(user, deviceId, otpOrigin);
   return { message: `OTP has been sent ${otp}` };
 };
 
-const verify_mfa_login = async (email, deviceId, otp) => {
+const verify_mfa_login = async (email, deviceId, otp, otpOrigin) => {
   const user = await getUser(email);
-  await verifyOTP(user?.id, deviceId, otp);
-
+  await verifyOTP(user?.id, deviceId, otp, otpOrigin);
   const token = generateToken(user);
   // this line removes the password from the userdata object
   const { password: userPassword, ...userData } = user;
@@ -75,30 +74,47 @@ const refreshToken = async (oldToken) => {
   return { newToken, message: "Token updated successfully" };
 };
 
-const forgotPassword = async (email, deviceId) => {
+const forgotPassword = async (email, deviceId, otpOrigin) => {
   const user = await getUser(email);
-  const otp = await generateOtpAndSendOnEmail(user, deviceId);
+  const otp = await generateOtpAndSendOnEmail(user, deviceId, otpOrigin);
   return { message: `OTP has been sent ${otp}` };
 };
 
-const forgotPasswordVerify = async (email, deviceId, otp) => {
+const forgotPasswordVerify = async (email, deviceId, otp, otpOrigin) => {
   const user = await getUser(email);
-  await verifyOTP(user?.id, deviceId, otp);
-  const token = generateToken(user);
+  await verifyOTP(user?.id, deviceId, otp, otpOrigin);
+  const token = generateToken(user, "300s");
   return {
-    message: "Otp is correct",
+    message: "OTP verified successfully",
     token: token,
   };
 };
 
-const updatePassword = async (email, deviceId) => {
+const updatePassword = async (
+  email,
+  deviceId,
+  otpOrigin,
+  new_password,
+  repeat_password
+) => {
   const user = await getUser(email);
-  const token = generateToken(user, "300s");
-  const otp = await generateOtpAndSendOnEmail(user, deviceId);
-  return {
-    message: `OTP has been successfully sent ${otp}`,
-    token: token,
-  };
+  // return error if new password and old password are same
+  const otp = await findOTP(user.id, deviceId, otpOrigin);
+  assert(otp && otp.isUsed, "UNAUTHORIZED", "Invalid request");
+  assert(
+    !(await compareEncryptedData(new_password, user?.password)),
+    "BAD_REQUEST",
+    "New password cannot be the same as previously used password"
+  );
+  assert(
+    new_password === repeat_password,
+    "BAD_REQUEST",
+    "New password and repeat password do not match"
+  );
+  // if everything is OK, update password
+  await updateUserPassword(user?.id, await EncryptData(new_password, 10));
+  await deleteOTP(otp.id);
+  return { message: "Passwords has been updated successfully" };
 };
 const resendOTP = async (userId, deviceId) => {
   const isOTPExist = await findOTP(userId, deviceId);
@@ -164,15 +180,10 @@ const resetPass = async (
     "New password and repeat password do not match"
   );
   // if everything is OK, update password
-  const result = await updateUserPassword(
-    user?.id,
-    await EncryptData(new_password, 10)
-  );
+  await updateUserPassword(user?.id, await EncryptData(new_password, 10));
 
-  assert(result, "BAD_REQUEST", "Something went wrong");
   return { message: "Passwords has been updated successfully" };
 };
-
 
 // SUPPORT FUNCTIONS
 //Returns user data if found and error if not found
@@ -189,22 +200,22 @@ const getUser = async (email) => {
   return user;
 };
 
-const verifyOTP = async (userId, deviceId, otp) => {
+const verifyOTP = async (userId, deviceId, otp, otpOrigin) => {
   // Find OTP in the database
-  const isOTPExist = await findOTP(userId, deviceId);
+  const isOTPExist = await findOTP(userId, deviceId, otpOrigin);
   // Check if OTP exists
   assert(isOTPExist, "NOT_FOUND", "Otp not found, please regenerate");
-  // Check if OTP is used
-  assert(
-    !isOTPExist.isUsed,
-    "BAD_REQUEST",
-    "Invalid OTP or have been already used"
-  );
   // Check if expiry date is greater than current date in milliseconds
   assert(
     new Date(isOTPExist.expiresAt).getTime() > Date.now(),
     "GONE",
     "OTP has been expired"
+  );
+  // Check if OTP is used
+  assert(
+    !isOTPExist.isUsed,
+    "BAD_REQUEST",
+    "Invalid OTP or has been already used"
   );
   // Validate the OTP
   assert(
@@ -217,7 +228,7 @@ const verifyOTP = async (userId, deviceId, otp) => {
   return true; // OTP verification successful
 };
 
-const generateOtpAndSendOnEmail = async (user, deviceId) => {
+const generateOtpAndSendOnEmail = async (user, deviceId, otpOrigin) => {
   const otp = generateRandomOTP();
   // Send otp on email
   const emailPayload = {
@@ -237,6 +248,7 @@ const generateOtpAndSendOnEmail = async (user, deviceId) => {
   await createOrUpdateOTP(
     user.id,
     deviceId,
+    otpOrigin,
     await EncryptData(otp, 6), // encrypting otp before storing it with 6 rounds of salt
     expiresAt
   );
