@@ -1,5 +1,5 @@
 /** Icons are imported separatly to reduce build time */
-import BellIcon from '@heroicons/react/24/outline/BellIcon'
+// import BellIcon from '@heroicons/react/24/outline/BellIcon'
 import DocumentTextIcon from '@heroicons/react/24/outline/DocumentTextIcon'
 import Squares2X2Icon from '@heroicons/react/24/outline/Squares2X2Icon'
 import TableCellsIcon from '@heroicons/react/24/outline/TableCellsIcon'
