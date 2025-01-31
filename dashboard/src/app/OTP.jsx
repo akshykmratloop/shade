@@ -12,10 +12,10 @@ export const OtpInputField = ({
     renderSeparator,
   }) => {
     return (
-      <div className={`flex flex-col  ${inputContainerClassName}`}>
+      <div className={`flex flex-col w-[300px] ${inputContainerClassName}`}>
         <label
           for="phone-input"
-          className={`mb-1 [font-family:'Mulish-Regular',Helvetica] font-normal text-[#3B3B3B] text-[16px] tracking-[0] leading-[24px]  ml-[6px] "${labelClassName}`}
+          className={`mb-1 w-64 dark:text-stone-50 [font-family:'Mulish-Regular',Helvetica] font-normal text-[#3B3B3B] text-[16px] tracking-[0] leading-[24px]  ml-[6px] "${labelClassName}`}
         >
           {label}
         </label>

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+// import { Link } from 'react-router-dom'
 import ErrorText from '../../components/Typography/ErrorText'
 import InputText from '../../components/Input/InputText'
 import CheckCircleIcon from '@heroicons/react/24/solid/CheckCircleIcon'
@@ -7,7 +7,8 @@ import BackroundImage from './components/BackroundImg';
 import emailRegex from '../../app/emailregex'
 import Button from '../../components/Button/Button';
 import InputOTP from '../../components/Input/InputOTP';
-import { OtpInputField } from '../../app/OTP'
+import { OtpInputField } from '../../app/OTP';
+import xSign from "../../assets/x-close.png"
 
 function ForgotPassword() {
     const INITIAL_USER_OBJ = {
@@ -17,14 +18,14 @@ function ForgotPassword() {
     const [errorMessage, setErrorMessage] = useState("")
     const [linkSent, setLinkSent] = useState(false)
     const [userObj, setUserObj] = useState(INITIAL_USER_OBJ)
-    const [page1Data, setPage1Data] = useState({otp:""})
+    const [otp, setOtp] = useState({ otp: "" })
 
     const submitForm = (e) => {
         e.preventDefault()
         setErrorMessage("")
 
         if (userObj.emailId.trim() === "") return setErrorMessage("Email Id is required! (use any value)")
-        if (!(emailRegex.checkRegex(userObj.emailId))) return setErrorMessage("Email format is invalid! (please provide a valid email)")
+        if (!(emailRegex.checkRegex(userObj.emailId))) return setErrorMessage("Email format is invalid!")
         else {
             setLoading(true)
             // Call API to send password reset link
@@ -36,6 +37,11 @@ function ForgotPassword() {
     const updateFormValue = ({ updateType, value }) => {
         setErrorMessage("")
         setUserObj({ ...userObj, [updateType]: value })
+    }
+
+    const SubmitOTP = () => {
+        if(!otp.otp || otp.otp.length<=5){ setErrorMessage("Please enter OTP first")}
+        else { setErrorMessage("")}
     }
 
     const inputArr = []
@@ -56,24 +62,27 @@ function ForgotPassword() {
                         <div className='text-center mt-8'><CheckCircleIcon className='inline-block w-32 text-success' /></div>
                         <p className='my-4 text-xl font-bold '>OTP has been Sent</p>
                         <p className='mt-4 mb-8 font-semibold '>Check your email and enter OTP</p>
-                        <div className='flex gap-2'>
+                        <div className='flex gap-2 flex-col justify-center items-center'>
                             {/* {inputArr} */}
                             <OtpInputField
                                 label="Enter 6 digit Otp sent to your email"
-                                value={page1Data.otp}
+                                value={otp.otp}
                                 onChange={(otpValue) =>
-                                    setPage1Data((preData) => ({
+                                    setOtp((preData) => ({
                                         ...preData,
                                         otp: otpValue,
                                     }))
                                 }
                                 numInputs={6}
-                                inputContainerClassName="w-1/2 "
-                                inputClassName=" bg-white rounded-[8px] border border-solid border-transparent cursor-pointer shadow-custom flex justify-center items-center pl-[20px] text-lg"
+                                inputContainerClassName="w-1/2"
+                                inputClassName="bg-white rounded-[8px] border border-solid border-transparent cursor-pointer shadow-custom flex justify-center items-center pl-[20px] text-lg"
                                 labelClassName=""
                             />
+                            <ErrorText styleClass={`${errorMessage ? "visible" : "invisible"} flex mt-6 text-sm gap-1 justify-center`}>
+                                <img src={xSign} className='h-3 translate-y-[4px]' />
+                                {errorMessage}</ErrorText>
                         </div>
-                        <div className='text-center mt-4'><Link to="/login" ><button className="btn border-none btn-block btn-primary dark:bg-primary bg-stone-700 hover:bg-stone-700">Submit</button></Link></div>
+                        <div className='text-center mt-4'><button onClick={SubmitOTP} className="btn border-none btn-block btn-primary dark:bg-primary bg-stone-700 hover:bg-stone-700">Submit</button></div>
                     </>
                 }
 
@@ -85,7 +94,9 @@ function ForgotPassword() {
                             <div className="mb-4">
                                 <InputText placeholder={"Enter your email id"} type="emailId" defaultValue={userObj.emailId} updateType="emailId" containerStyle="mt-4" labelTitle="Email Id" updateFormValue={updateFormValue} />
                             </div>
-                            <ErrorText styleClass="mt-12">{errorMessage}</ErrorText>
+                            <ErrorText styleClass={`${errorMessage ? "visible" : "invisible"} flex mt-6 text-sm gap-1 justify-center `}>
+                                <img src={xSign} className='h-3 translate-y-[4px]' />
+                                {errorMessage}</ErrorText>
                             <Button type={"submit"} classes={"btn mt-2 w-full dark:bg-primary bg-stone-700 hover:bg-stone-700 border-none" + (loading ? " loading" : "")} text={"Get OTP"} />
                         </form>
                     </>
