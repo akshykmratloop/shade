@@ -47,11 +47,11 @@ function Header() {
             <Link to={'/app/welcome'} className='flex gap-3 items-center px-3 font-bold h-100vh w-[320px]'><img className="mask mask-squircle w-10" src="/logo192.png" alt="SHADE-CMS Logo" />SHADE-CMS</Link>
 
             {/* Menu toogle for mobile view or small screen */}
-            {/* <div className="">
-                <label htmlFor="left-sidebar-drawer" className="btn btn-primary drawer-button lg:hidden">
+            <div className="">
+                <label htmlFor="left-sidebar-drawer" className=" drawer-button">
                     <Bars3Icon className="h-5 inline-block w-5" /></label>
                 <h1 className="text-2xl font-semibold ml-2">{pageTitle}</h1>
-            </div> */}
+            </div>
 
 
 

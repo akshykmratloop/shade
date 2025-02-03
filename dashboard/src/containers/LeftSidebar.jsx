@@ -15,7 +15,7 @@ function LeftSidebar() {
     }
 
     return (
-        <div className="drawer-side w-[200px] overflow-x-hidden">
+        <div className="drawer-side overflow-x-hidden">
             <label htmlFor="left-sidebar-drawer" className="drawer-overlay"></label>
             <ul className="menu pt-1 w-80 bg-base-100 text-base-content">
                 <button className="btn btn-ghost bg-base-300  btn-circle z-50 top-0 right-0 mt-4 mr-2 absolute lg:hidden" onClick={() => close()}>
@@ -32,9 +32,9 @@ function LeftSidebar() {
                                             end
                                             to={route.path}
                                             className={({ isActive }) => `${isActive ? 'font-semibold  bg-base-200 ' : 'font-normal'}`} >
-                                            {route.icon} {route.name}
+                                            {route.icon} <p className={`sm:hidden lg:block`}>{route.name}</p>
                                             {
-                                                location.pathname === route.path ? (<span className="absolute inset-y-0 left-0 w-1 rounded-tr-md rounded-br-md bg-primary "
+                                                location.pathname === route.path ? (<span className="absolute sm:hidden inset-y-0 left-0 w-1 rounded-tr-md rounded-br-md bg-primary "
                                                     aria-hidden="true"></span>) : null
                                             }
                                         </NavLink>)

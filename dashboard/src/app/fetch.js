@@ -1,4 +1,4 @@
-const makerequest = async (uri, method = 'GET', headers = {}, body = undefined) => {
+const makerequest = async (uri, method = 'GET',body = undefined, headers = {}) => {
     // Only add body for non-GET requests
 
     method = method.toUpperCase();
@@ -10,10 +10,22 @@ const makerequest = async (uri, method = 'GET', headers = {}, body = undefined) 
     if (body && method !== 'GET') {
         options.body = body;  // Add body only if it's not a GET request
     }
+    console.log(body)
 
-    const response = await fetch(uri, options);
-    const result = await response.json();
-    return result;
+    let result
+
+    try {
+        const response = await fetch(uri, options);
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        result = await response.json();
+        console.log(result)
+    } catch (err) {
+        console.log(err)
+    } finally {
+        return result;
+    }
 }
 
 export default makerequest;

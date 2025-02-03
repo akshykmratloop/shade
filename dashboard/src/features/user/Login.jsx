@@ -6,12 +6,14 @@ import Button from '../../components/Button/Button';
 import BackroundImage from './components/BackroundImg';
 import emailRegex from '../../app/emailregex';
 import { ToastContainer, toast } from 'react-toastify';
-import xSign from "../../assets/x-close.png"
+import xSign from "../../assets/x-close.png";
+import makerequest from '../../app/fetch';
+import apiRoutes from '../../routes/backend';
 
 function Login() {
     const INITIAL_LOGIN_OBJ = {
         password: "",
-        emailId: ""
+        email: ""
     }
     const [errorMessage, setErrorMessage] = useState("")
     const [errorEmailMessage, setErrorEmailMessage] = useState("")
@@ -23,38 +25,41 @@ function Login() {
         setLoginWithOtp(prev => !prev)
     }
 
-    const submitForm = (e) => {
+    const submitForm = async (e) => {
         e.preventDefault()
         setErrorMessage("")
 
-        if (loginObj.emailId.trim() === "") return setErrorMessage("Email Id is required! (use any value)");
-        if (!(emailRegex.checkRegex(loginObj.emailId))) return setErrorEmailMessage("Invalid email format!");
+        if (loginObj.email.trim() === "") return setErrorMessage("Email Id is required! (use any value)");
+        if (!(emailRegex.checkRegex(loginObj.email))) return setErrorEmailMessage("Invalid email format!");
         if (loginObj.password.trim() === "") return setErrorMessage("Password is required! (use any value)")
         else {
+            const response = await makerequest(apiRoutes.login, "Post", JSON.stringify(loginObj), {"Content-Type" : "application/json"})
+
+            // console.log(response)
             setLoading(true)
             // Call API to check user credentials and save token in localstorage
-            const loadingToastId = toast.loading("login successful", { autoClose: 1000 })
+            // const loadingToastId = toast.loading("login successful", { autoClose: 1000 })
             localStorage.setItem("token", "DumyTokenHere")
-            setLoading(false)
+            // setLoading(false)
             window.location.href = '/app/welcome'
-            setTimeout(() => {
+            // setTimeout(() => {
 
-                toast.update(loadingToastId, {
-                    render: "Request successful! 🎉",
-                    type: "success",
-                    isLoading: false,
-                    autoClose: 3000,
-                });
-            }, 2000)
+            //     toast.update(loadingToastId, {
+            //         render: "Request successful! 🎉",
+            //         type: "success",
+            //         isLoading: false,
+            //         autoClose: 3000,
+            //     });
+            // }, 2000)
         }
     }
 
-    const updateFormValue = ({ updateType, value }) => {
+    const updateFormValue = ({ name, value }) => {
         // Handling the login Object
         setErrorMessage("")
         setErrorEmailMessage("")
         setLoginObj(prev => {
-            return { ...prev, [updateType]: value } // key == [updateType], value == value
+            return { ...prev, [name]: value } // key == [updateType], value == value
         })
     }
 
@@ -67,11 +72,11 @@ function Login() {
                     <h2 className='text-2xl font-semibold mb-2'>Sign in to Dashboard</h2>
                     <form onSubmit={(e) => submitForm(e)}>
                         <div className="mb-4 relative">
-                            <InputText placeholder={"Email/Phone Number"} type="emailId" defaultValue={loginObj.emailId} updateType="emailId" containerStyle="mt-4" labelTitle="Email Id" updateFormValue={updateFormValue} />
+                            <InputText placeholder={"Email/Phone Number"} type="email" name={"email"} defaultValue={loginObj.email} updateType="emailId" containerStyle="mt-4" labelTitle="Email Id" updateFormValue={updateFormValue} />
                             <ErrorText styleClass={`text-xs absolute left-[86px] gap-1 top-[87px] ${errorEmailMessage ? "flex" : "hidden"}`}>
                                 <img src={xSign} className='h-3 translate-y-[2px]' />
                                 {errorEmailMessage}</ErrorText>
-                            <InputText display={loginWithOtp} defaultValue={loginObj.password} placeholder={"Password"} type="password" updateType="password" containerStyle="mt-4" labelTitle="Password" updateFormValue={updateFormValue} />
+                            <InputText display={loginWithOtp} defaultValue={loginObj.password} name={"password"} placeholder={"Password"} type="password" updateType="password" containerStyle="mt-4" labelTitle="Password" updateFormValue={updateFormValue} />
                         </div>
 
                         <div className='text-right text-primary' style={{ display: loginWithOtp ? "none" : "block" }}>
