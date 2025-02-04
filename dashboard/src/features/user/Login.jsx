@@ -43,7 +43,11 @@ function Login() {
         let response;
         if (loginWithOtp) {
             const validEmail = checkRegex(loginObj.email, setErrorEmailMessage) // checks if email is under valid format
-            if (validEmail) return;
+            if (validEmail) {
+                setLoading(false)
+                updateToasify(loadingToastId, "Request unsuccessful!", "failure", 2000) // updating the toaster
+                return
+            };
             payload = { //payload for otp login
                 email: loginObj.email,
                 otpOrigin: loginObj.otpOrigin,
@@ -53,12 +57,17 @@ function Login() {
         } else {
             const validation = validator(loginObj, setErrorMessage) // checks if any field is empty
             const validEmail = checkRegex(loginObj.email, setErrorEmailMessage) // checks if email is under valid format
-            if (!validation || validEmail) return;
+            if (!validation || validEmail) {
+                setLoading(false)
+                updateToasify(loadingToastId, "Request unsuccessful!", "failure", 2000) // updating the toaster
+                return
+            };
             payload = { // payload for login
                 email: loginObj.email,
                 password: loginObj.password
             }
             response = await login(payload)
+            console.log('wqeroiu')
         }
 
         if (response.token) {
