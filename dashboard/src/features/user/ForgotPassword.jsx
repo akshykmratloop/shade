@@ -1,35 +1,36 @@
 import { useState } from 'react'
-// import { Link } from 'react-router-dom'
 import ErrorText from '../../components/Typography/ErrorText'
 import InputText from '../../components/Input/InputText'
-import CheckCircleIcon from '@heroicons/react/24/solid/CheckCircleIcon'
 import BackroundImage from './components/BackroundImg';
-import emailRegex from '../../app/emailregex'
+import { checkRegex } from '../../app/emailregex'
 import Button from '../../components/Button/Button';
-import InputOTP from '../../components/Input/InputOTP';
-import { OtpInputField } from '../../app/OTP';
 import xSign from "../../assets/x-close.png";
-import OTP from './components/OTP';
+import OTPpage from './components/OTP';
+import { forgotPassReqVerify, forgotPassReq } from '../../app/fetch';
+import validator from '../../app/valid';
+import { } from '../../app/fetch';
 
 function ForgotPassword() {
-    const INITIAL_USER_OBJ = {
-        emailId: ""
-    }
     const [loading, setLoading] = useState(false)
     const [errorMessage, setErrorMessage] = useState("")
     const [linkSent, setLinkSent] = useState(false)
-    const [userObj, setUserObj] = useState(INITIAL_USER_OBJ)
-    const [otp, setOtp] = useState({ otp: "" })
+    const [userObj, setUserObj] = useState({
+        email: "",
+        otpOrigin: "forgot_Pass",
+        deviceId: String(Math.floor(Math.random() * 1000000)),
+    })
 
-    const submitForm = (e) => {
+    const submitForm = async (e) => {
         e.preventDefault()
         setErrorMessage("")
-
-        if (userObj.emailId.trim() === "") return setErrorMessage("Email Id is required! (use any value)")
-        if (!(emailRegex.checkRegex(userObj.emailId))) return setErrorMessage("Email format is invalid!")
+        const validation = validator(userObj, setErrorMessage) // checks if any field is empty
+        const validEmail = checkRegex(userObj.email, setErrorMessage) // checks if email is under valid format
+        if (!validation || validEmail) return;
         else {
             setLoading(true)
             // Call API to send password reset link
+            const response = await forgotPassReq()
+
             setLoading(false)
             setLinkSent(true)
         }
@@ -41,11 +42,6 @@ function ForgotPassword() {
         console.log(userObj)
     }
 
-    const SubmitOTP = () => {
-        if (!otp.otp || otp.otp.length <= 5) { setErrorMessage("Please enter OTP first") }
-        else { setErrorMessage("") }
-    }
-
     return (
         <div className="min-h-screen bg-base-200 flex">
             <BackroundImage />
@@ -53,7 +49,7 @@ function ForgotPassword() {
                 <h2 className='text-2xl font-semibold mb-2'>Forgot Password</h2>
 
                 {
-                    linkSent && <OTP />
+                    linkSent && <OTPpage loginObj={userObj} request={forgotPassReqVerify} />
                     // <>
                     //     <div className='text-center mt-8'><CheckCircleIcon className='inline-block w-32 text-success' /></div>
                     //     <p className='my-4 text-xl font-bold '>OTP has been Sent</p>
@@ -90,8 +86,8 @@ function ForgotPassword() {
                                 <InputText
                                     placeholder={"Enter your email id"}
                                     type="emailId"
-                                    defaultValue={userObj.emailId}
-                                    updateType="emailId"
+                                    defaultValue={userObj.email}
+                                    updateType="email"
                                     containerStyle="mt-4"
                                     labelTitle="Email Id"
                                     updateFormValue={updateFormValue}

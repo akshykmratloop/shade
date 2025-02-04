@@ -15,7 +15,7 @@ const UpdatePassword = ({ userObj }) => {
         repeat_password: ""
     })
 
-    const passwordValidateObject = [
+    const passwordValidationObject = [
         {
             text: "Password must be at least 8 characters long.",
             status: true
