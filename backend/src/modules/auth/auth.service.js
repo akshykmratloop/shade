@@ -7,6 +7,7 @@ import {
   findOTP,
   markOTPUsed,
   deleteOTP,
+  createOrUpdateOtpAttempts,
 } from "../../repository/user.repository.js";
 import {
   EncryptData,
@@ -42,7 +43,7 @@ const login = async (email, password) => {
 const mfa_login = async (email, deviceId, otpOrigin) => {
   const user = await getUser(email);
   const otp = await generateOtpAndSendOnEmail(user, deviceId, otpOrigin);
-  return { message: `OTP has been sent ${otp}` };
+  return { message: `OTP has been sent on ${email} : otp is ${otp}` };
 };
 
 const verify_mfa_login = async (email, deviceId, otp, otpOrigin) => {
@@ -116,39 +117,11 @@ const updatePassword = async (
   await deleteOTP(otp.id);
   return { message: "Passwords has been updated successfully" };
 };
-const resendOTP = async (userId, deviceId) => {
-  const isOTPExist = await findOTP(userId, deviceId);
-
-  // logger.info({isExpired, expiresAt, isUsed});
-  // if (!isOTPExist) { //if otp is not exist generate and send
-  //   logger.info(`ResendOT : OPT not found generating...new otp`)
-  //   return await generateOtpAndSendOnEmail(userId, deviceId);
-  // }
-
-  // if otp exist check expiry time and generate
-
-  // function isOTPExpired(expireAt) {
-  //   const now = new Date();
-  //   return now > expireAt;
-  // }
-
-  // // Add this function to check if OTP is valid
-  // const isValidOTP =(otp, expireAt) => {
-  //   if (isOTPExpired(expireAt)) {
-  //     throw new Error("OTP has expired. Please try again after 1 minute.");
-  //   }
-
-  // Additional checks can be added here if needed
-  //   return true;
-  // }
-
-  assertEvery(
-    [isOTPExist, !isOTPExist?.isUsed, !isOTPExist?.isExpired],
-    "UNAUTHORIZED",
-    "Request Time out. Please request a new OTP."
-  );
-  return true;
-  await generateOtpAndSendOnEmail(userId, deviceId);
+const resendOTP = async (email, deviceId, otpOrigin, userId) => {
+  const user = await getUser(email);
+  const otp = await generateOtpAndSendOnEmail(user, deviceId, otpOrigin);
+  await createOrUpdateOtpAttempts(userId)
+  return { message: `OTP has been sent on ${email} : otp is ${otp}` };
 };
 
 const resetPass = async (
@@ -204,18 +177,18 @@ const verifyOTP = async (userId, deviceId, otp, otpOrigin) => {
   // Find OTP in the database
   const isOTPExist = await findOTP(userId, deviceId, otpOrigin);
   // Check if OTP exists
-  assert(isOTPExist, "NOT_FOUND", "Otp not found, please regenerate");
+  assert(isOTPExist, "NOT_FOUND", "Otp not found, Please request a new OTP.");
   // Check if expiry date is greater than current date in milliseconds
   assert(
     new Date(isOTPExist.expiresAt).getTime() > Date.now(),
     "GONE",
-    "OTP has been expired"
+    "Request Time out. Please request a new OTP."
   );
   // Check if OTP is used
   assert(
     !isOTPExist.isUsed,
     "BAD_REQUEST",
-    "Invalid OTP or has been already used"
+    "OTP is used. Please request a new OTP."
   );
   // Validate the OTP
   assert(

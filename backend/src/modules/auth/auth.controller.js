@@ -86,14 +86,15 @@ const UpdatePassword = async (req, res) => {
     new_password,
     repeat_password
   );
+  clearCookie(res, "forgotPassToken");
   res.status(200).json(result);
 };
 
 const ResendOTP = async (req, res) => {
-  const { email, deviceId } = req.body;
-  res.status(201).json("result");
-  // const result = await resendOTP(email, deviceId);
-  // res.status(201).json(result);
+  const { email, deviceId, otpOrigin } = req.body;
+  const userId = req.ip.replace(/^.*:/, ""); // Extract IP as user ID
+  const message = await resendOTP(email, deviceId, otpOrigin, userId);
+  res.status(201).json(message);
 };
 
 const ResetPass = async (req, res) => {

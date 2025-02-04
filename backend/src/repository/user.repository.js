@@ -1,10 +1,11 @@
 import prismaClient from "../config/dbConfig.js";
 
+/// USER QUERIES====================================================
 // Find and return the user object
 export const findUserByEmail = async (email) => {
   const user = await prismaClient.user.findUnique({
     where: {
-    email,
+      email,
     },
     include: {
       roles: {
@@ -47,6 +48,8 @@ export const updateUserPassword = async (userId, newPassword) => {
     data: { password: newPassword },
   });
 };
+
+/// OPT RELATED QUERIES====================================================
 
 // Create or update the otp
 export const createOrUpdateOTP = async (
@@ -91,9 +94,17 @@ export const deleteOTP = async (otpId) => {
   });
 };
 
+/// RATE LIMITER RELATED QUERIES====================================================
 
-// Track OTP attempts
-export const trackOtpAttempts = async (userId) => {
+// Find OTP attempts
+export const findOtpAttempts = async (userId) => {
+  return await prismaClient.rateLimit.findFirst({
+    where: { userId },
+  });
+};
+
+// Create OTP attempts
+export const createOrUpdateOtpAttempts = async (userId) => {
   const now = new Date();
 
   return await prismaClient.rateLimit.upsert({
@@ -104,7 +115,7 @@ export const trackOtpAttempts = async (userId) => {
     },
     create: {
       userId,
-      attempts: 1,
+      attempts: 0,
       failures: 0,
       lastAttempt: now,
       blockUntil: null,
@@ -131,18 +142,33 @@ export const resetOtpAttempts = async () => {
 
 export const resetUserOtpAttempts = async () => {
   const now = new Date();
-  
-  // Find users whose last attempt was more than 24 hours ago
+
+  // Find users whose last attempt was more than 24 hours ago but not blocked
   await prismaClient.rateLimit.updateMany({
     where: {
-      blockUntil: null,
+      blockUntil: null, // Only update users who are not blocked
       lastAttempt: {
         lte: new Date(now.getTime() - 24 * 60 * 60 * 1000), // 24 hours
       },
     },
     data: {
-      attempts: 0,  // Reset attempts
-      failures: 0,  // Reset failures
+      attempts: 0, // Reset attempts
+      failures: 0, // Reset failures
+    },
+  });
+
+  // For users who are still blocked but need an updated block time:
+  await prismaClient.rateLimit.updateMany({
+    where: {
+      blockUntil: { // Users who are blocked and should be updated
+        lte: now,
+      },  
+    },
+    data: {
+      attempts: 0, // Reset attempts after block period has ended
+      failures: 0, // Reset failures
+      blockUntil: null, // Clear block time after reset
     },
   });
 };
+

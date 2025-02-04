@@ -1,6 +1,5 @@
-
 import prismaClient from "../src/config/dbConfig.js"; // Updated import to match default export
-import EncryptData from "../src/helper/index.js"
+import {EncryptData} from "../src/helper/index.js"
 const email = process.env.SUPER_ADMIN_EMAIL;
 const pass = process.env.SUPER_ADMIN_PASSWORD;
 
@@ -10,26 +9,24 @@ const seedDB = async () => {
     const permissions = [
       { name: "CREATE", description: "Grants the user to create new resources." },
       { name: "READ", description: "Grants the user read-only access to view resources." },
-      { name: "UPDATE", description: "Grants the user permission to modify existing resources." },
+      { name: "EDIT/UPDATE", description: "Grants the user permission to modify existing resources." },
       { name: "DISCARD", description: "Permits the user to discard (soft delete or move to trash) resources." },
       { name: "PUBLISH", description: "Allows the user to publish resources, making them publicly accessible." },
       { name: "RESTORE", description: "Grants the user the ability to restore previously version of resources." },
       { name: "EDIT_REQUEST", description: "Grants the user the ability to view and modify requests." },
       { name: "ARCHIVE", description: "Grants the user the ability to archive resources, making them inactive but preserved." },
+      { name: "ACTIVATE/DEACTIVATE", description: "Activate or Deactivate the resources." },
+      { name: "APPROVE/REJECT", description: "Grants the user to approve or reject the requests." },
+      { name: "VERIFICATION", description: "Allow user to access the requests." },
+      { name: "HOLD", description: "Pause ongoing actions or content." },
     ];
 
     const roles = [
       { name: "SUPER_ADMIN" },
-      { name: "TASK_INITIATOR" },
-      { name: "PMO" },
-      { name: "DESIGNER" },
     ];
 
     const rolePermissionsMap = {
-      SUPER_ADMIN: ["CREATE", "READ", "UPDATE", "DISCARD", "PUBLISH", "RESTORE", "EDIT_REQUEST", "ARCHIVE"],
-      TASK_INITIATOR: ["CREATE", "READ", "UPDATE", "DISCARD"],
-      PMO: ["READ", "DISCARD", "EDIT_REQUEST"],
-      DESIGNER: ["READ", "DISCARD", "PUBLISH", "RESTORE", "EDIT_REQUEST", "ARCHIVE"],
+      SUPER_ADMIN: ["CREATE", "READ", "EDIT/UPDATE", "DISCARD", "PUBLISH", "RESTORE", "EDIT_REQUEST", "ARCHIVE","ACTIVATE/DEACTIVATE","APPROVE/REJECT","VERIFICATION","HOLD"],
     };
 
     // Create or update permissions
@@ -107,7 +104,6 @@ const seedDB = async () => {
       },
       create: {
         name: "Super Admin",
-        username: "super_Admin",
         email: email,
         password: hashedPassword,
         isSuperUser: true,
