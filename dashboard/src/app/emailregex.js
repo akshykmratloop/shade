@@ -5,4 +5,13 @@ const emailRegex = {
     }
 }
 
+function checkRegex(email, setter) {
+    if (!(emailRegex.checkRegex(email))) {
+        setter("Invalid email format!");
+        return true
+    }
+    return false
+}
+
 export default emailRegex
+export { checkRegex }

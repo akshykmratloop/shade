@@ -7,7 +7,7 @@ function InputText({ labelTitle, labelStyle, type, containerStyle, defaultValue,
 
     const updateInputValue = (val) => {
         setValue(val)
-        updateFormValue({ name, value: val })
+        updateFormValue({ updateType, value: val })
     }
 
     return (
@@ -15,7 +15,12 @@ function InputText({ labelTitle, labelStyle, type, containerStyle, defaultValue,
             <label className="label">
                 <span className={"label-text font-semibold text-base-content " + labelStyle}>{labelTitle}</span>
             </label>
-            <input type={type || "text"} name={name} value={value} placeholder={placeholder || ""} onChange={(e) => updateInputValue(e.target.value)} className="input w-full border border-1 border-stone-700 focus:border-none" />
+            <input type={type || "text"}
+                name={name}
+                value={value}
+                placeholder={placeholder || ""}
+                onChange={(e) => updateInputValue(e.target.value)}
+                className="input w-full border border-1 border-stone-700 focus:border-none" />
         </div>
     )
 }

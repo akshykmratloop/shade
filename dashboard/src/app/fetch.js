@@ -1,4 +1,6 @@
-const makerequest = async (uri, method = 'GET',body = undefined, headers = {}) => {
+import api from "../routes/backend"
+
+const makerequest = async (uri, method = 'GET', body = undefined, headers = {}) => {
     // Only add body for non-GET requests
 
     method = method.toUpperCase();
@@ -17,15 +19,31 @@ const makerequest = async (uri, method = 'GET',body = undefined, headers = {}) =
     try {
         const response = await fetch(uri, options);
         if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`);
+            throw response;
         }
         result = await response.json();
-        console.log(result)
     } catch (err) {
-        console.log(err)
+        result = err;
     } finally {
         return result;
     }
 }
 
+const ContentType = {
+    json: { "Content-Type": "application/json" }
+}
+
+async function login(data) {
+    return await makerequest(api.route("login"), "POST", JSON.stringify(data), ContentType.json)
+}
+
+async function mfaLogin(data) {
+    return await makerequest(api.route("mfa_login"), "POST", JSON.stringify(data), ContentType.json);
+}
+
+async function mfaVerify(data) {
+    return await makerequest(api.route("mfa_verify"), "POST", JSON.stringify(data), ContentType.json);
+}
+
 export default makerequest;
+export { login, mfaLogin, mfaVerify }
