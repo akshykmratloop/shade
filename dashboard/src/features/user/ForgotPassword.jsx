@@ -8,7 +8,8 @@ import xSign from "../../assets/x-close.png";
 import OTPpage from './components/OTP';
 import { forgotPassReqVerify, forgotPassReq } from '../../app/fetch';
 import validator from '../../app/valid';
-import { } from '../../app/fetch';
+import updateToasify from '../../app/toastify';
+import { toast, ToastContainer } from 'react-toastify';
 
 function ForgotPassword() {
     const [loading, setLoading] = useState(false)
@@ -28,12 +29,21 @@ function ForgotPassword() {
         if (!validation || validEmail) return;
         else {
             setLoading(true)
+            const loadingToastId = toast.loading("loging in", { autoClose: 2000 }); // starting the loading in toaster
+
             // Call API to send password reset link
             const response = await forgotPassReq(userObj);
-            
 
+            console.log('werqqwer3')
+            console.log(response)
+            if (response.message.ok) {
+                setLoading(false)
+                setLinkSent(true)
+                updateToasify(loadingToastId, "Request successful!", "success", 2000) // updating the toaster
+                return;
+            }
             setLoading(false)
-            setLinkSent(true)
+            updateToasify(loadingToastId, "Request unsuccessful!", "failure", 2000) // updating the toaster
         }
     }
 
@@ -51,31 +61,7 @@ function ForgotPassword() {
 
                 {
                     linkSent && <OTPpage loginObj={userObj} request={forgotPassReqVerify} />
-                    // <>
-                    //     <div className='text-center mt-8'><CheckCircleIcon className='inline-block w-32 text-success' /></div>
-                    //     <p className='my-4 text-xl font-bold '>OTP has been Sent</p>
-                    //     <p className='mt-4 mb-8 font-semibold '>Check your email and enter OTP</p>
-                    //     <div className='flex gap-2 flex-col justify-center items-center'>
-                    //         <OtpInputField
-                    //             label="Enter 6 digit Otp sent to your email"
-                    //             value={otp.otp}
-                    //             onChange={(otpValue) =>
-                    //                 setOtp((preData) => ({
-                    //                     ...preData,
-                    //                     otp: otpValue,
-                    //                 }))
-                    //             }
-                    //             numInputs={6}
-                    //             inputContainerClassName="w-1/2"
-                    //             inputClassName="bg-white rounded-[8px] border border-solid border-transparent cursor-pointer shadow-custom flex justify-center items-center pl-[20px] text-lg"
-                    //             labelClassName=""
-                    //         />
-                    //         <ErrorText styleClass={`${errorMessage ? "visible" : "invisible"} flex mt-6 text-sm gap-1 justify-center`}>
-                    //             <img src={xSign} className='h-3 translate-y-[4px]' />
-                    //             {errorMessage}</ErrorText>
-                    //     </div>
-                    //     <div className='text-center mt-4'><button onClick={SubmitOTP} className="btn border-none btn-block btn-primary dark:bg-primary bg-stone-700 hover:bg-stone-700">Submit</button></div>
-                    // </>
+
                 }
 
                 {
@@ -104,8 +90,68 @@ function ForgotPassword() {
                 }
 
             </div>
+            <ToastContainer theme="colored" />
         </div>
     )
 }
 
 export default ForgotPassword
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// <>
+//     <div className='text-center mt-8'><CheckCircleIcon className='inline-block w-32 text-success' /></div>
+//     <p className='my-4 text-xl font-bold '>OTP has been Sent</p>
+//     <p className='mt-4 mb-8 font-semibold '>Check your email and enter OTP</p>
+//     <div className='flex gap-2 flex-col justify-center items-center'>
+//         <OtpInputField
+//             label="Enter 6 digit Otp sent to your email"
+//             value={otp.otp}
+//             onChange={(otpValue) =>
+//                 setOtp((preData) => ({
+//                     ...preData,
+//                     otp: otpValue,
+//                 }))
+//             }
+//             numInputs={6}
+//             inputContainerClassName="w-1/2"
+//             inputClassName="bg-white rounded-[8px] border border-solid border-transparent cursor-pointer shadow-custom flex justify-center items-center pl-[20px] text-lg"
+//             labelClassName=""
+//         />
+//         <ErrorText styleClass={`${errorMessage ? "visible" : "invisible"} flex mt-6 text-sm gap-1 justify-center`}>
+//             <img src={xSign} className='h-3 translate-y-[4px]' />
+//             {errorMessage}</ErrorText>
+//     </div>
+//     <div className='text-center mt-4'><button onClick={SubmitOTP} className="btn border-none btn-block btn-primary dark:bg-primary bg-stone-700 hover:bg-stone-700">Submit</button></div>
+// </>

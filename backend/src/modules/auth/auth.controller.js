@@ -59,7 +59,7 @@ const RefreshToken = async (req, res) => {
 const ForgotPassword = async (req, res) => {
   const { email, deviceId, otpOrigin } = req.body;
   const message = await forgotPassword(email, deviceId, otpOrigin);
-  res.status(201).json(message);
+  res.status(201).json({message});
 };
 
 const ForgotPasswordVerify = async (req, res) => {
@@ -71,7 +71,7 @@ const ForgotPasswordVerify = async (req, res) => {
     otpOrigin
   );
   setCookie(res, token, "forgotPassToken");
-  res.status(200).json({message, updatePassword: true});
+  res.status(200).json(message);
 };
 
 const UpdatePassword = async (req, res) => {

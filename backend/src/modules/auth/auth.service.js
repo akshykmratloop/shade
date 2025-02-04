@@ -86,7 +86,7 @@ const forgotPasswordVerify = async (email, deviceId, otp, otpOrigin) => {
   await verifyOTP(user?.id, deviceId, otp, otpOrigin);
   const token = generateToken(user, "300s");
   return {
-    message: "OTP verified successfully",
+    message: {msg:"OTP verified successfully", ok: true},
     token: token,
   };
 };
