@@ -19,10 +19,12 @@ const makerequest = async (uri, method = 'GET', body = undefined, headers = {}) 
     try {
         const response = await fetch(uri, options);
         if (!response.ok) {
-            throw response;
+            const err = await response.json();
+            throw err;
         }
         result = await response.json();
     } catch (err) {
+        console.log(err)
         result = err;
     } finally {
         return result;

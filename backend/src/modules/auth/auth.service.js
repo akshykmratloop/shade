@@ -43,7 +43,7 @@ const login = async (email, password) => {
 const mfa_login = async (email, deviceId, otpOrigin) => {
   const user = await getUser(email);
   const otp = await generateOtpAndSendOnEmail(user, deviceId, otpOrigin);
-  return { message: `OTP has been sent on ${email} : otp is ${otp}` };
+  return { message: `OTP has been sent on ${email} : otp is ${otp}`, otp:true };
 };
 
 const verify_mfa_login = async (email, deviceId, otp, otpOrigin) => {

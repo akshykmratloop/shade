@@ -44,7 +44,7 @@ const OTPpage = ({ loginObj, request, updatePage}) => {
     }
 
     return (
-        <div className="sm:px-10 lg:flex-1 sm:flex-3">
+        <div className="lg:pt-[15vh] sm:py-20 w-[24rem]">
             <div className='text-center mt-8'><CheckCircleIcon className='inline-block w-32 text-success' /></div>
             <p className='my-4 text-xl font-bold '>OTP has been Sent</p>
             <p className='mt-4 mb-8 font-semibold '>Check your email and enter OTP</p>

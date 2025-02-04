@@ -14,7 +14,7 @@ export const createApp = () => {
   // Middleware setup
   app.use(
     cors({
-      origin: [process.env.CORS_ORIGIN],
+      origin: ["http://localhost:3001"],
       methods: "GET,POST,PUT,DELETE",
       credentials: true,
     })

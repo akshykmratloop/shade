@@ -26,7 +26,7 @@ function Login() {
     const [loginObj, setLoginObj] = useState({
         email: "",
         otpOrigin: "MFA_Login",
-        deviceId: String(Math.floor(Math.random() * 1000000)),
+        deviceId: String(Math.floor(100000 + Math.random() * 900000)),
         password: "",
     })
 
@@ -53,6 +53,7 @@ function Login() {
                 otpOrigin: loginObj.otpOrigin,
                 deviceId: loginObj.deviceId
             }
+            console.log(payload)
             response = await mfaLogin(payload)
         } else {
             const validation = validator(loginObj, setErrorMessage) // checks if any field is empty
@@ -76,13 +77,13 @@ function Login() {
             setTimeout(() => {
                 navigate('/app/welcome')
             }, 1000)
-        } else if (response.message) {
-            console.log(response.message)
+        } else if (response.otp) {
+            console.log(response)
             setOtpSent(true)
             updateToasify(loadingToastId, "OTP has been sent", "success", 800);
         }
         else {
-            updateToasify(loadingToastId, "Request unsuccessful!", "failure", 2000) // updating the toaster
+            updateToasify(loadingToastId, `Request unsuccessful! ${response.message}`, "failure", 2000) // updating the toaster
         }
         setLoading(false)
 
@@ -103,12 +104,13 @@ function Login() {
     }
 
     return (
-        <div className="min-h-screen bg-base-200 flex">
+        <div className="min-h-screen bg-base-200 flex h-[100vh]">
             <BackroundImage />
 
-            {otpSent ? <OTPpage loginObj={loginObj} request={mfaVerify} /> :
-                <div className="mx-auto flex justify-center flex-1 bg-base-200">
-                    <div className='lg:py-32 px-10 sm:py-20' style={{ width: "24rem" }}>
+            <div className="flex justify-center w-full lg:flex-1 md:flex-2 px-20 sm:flex-2 bg-base-200">
+                {otpSent ? <OTPpage loginObj={loginObj} request={mfaVerify} /> :
+
+                    <div className='sm:pt-[25vh] sm:py-20 w-[24rem]'>
                         <h2 className='text-2xl font-semibold mb-2'>Sign in to Dashboard</h2>
                         <form onSubmit={proceedLogin}>
                             <div className="mb-4 relative">
@@ -132,8 +134,8 @@ function Login() {
                         </form>
                         <Button functioning={LoginWithOTP} text={loginWithOtp ? "Sign In with Password" : "Sign In With OTP"} classes={"btn mt-2 w-full btn-stone hover:text-stone-50 hover:bg-stone-700 border-stone-700 bg-stone-50 text-stone-800"} />
                     </div>
-                </div>
-            }
+                }
+            </div>
             <ToastContainer theme="colored" />
         </div>
     )
