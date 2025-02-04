@@ -45,5 +45,17 @@ async function mfaVerify(data) {
     return await makerequest(api.route("mfa_verify"), "POST", JSON.stringify(data), ContentType.json);
 }
 
+async function forgotPassReq(data) {
+    return await makerequest(api.route("forgotPassword"), "POST", JSON.stringify(data), ContentType.json);
+}
+
+async function forgotPassReqVerify(data) {
+    return await makerequest(api.route("forgotPassword_verify"), "POST", JSON.stringify(data), ContentType.json);
+}
+
+async function PassUpdate(data) {
+    return await makerequest(api.route("forgotPassword_update"), "POST", JSON.stringify(data), ContentType.json);
+}
+
 export default makerequest;
-export { login, mfaLogin, mfaVerify }
+export { login, mfaLogin, mfaVerify, forgotPassReq, forgotPassReqVerify, PassUpdate }

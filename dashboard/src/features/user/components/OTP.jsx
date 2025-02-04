@@ -10,7 +10,7 @@ import { toast } from "react-toastify";
 
 
 
-const OTPpage = ({ loginObj, request }) => {
+const OTPpage = ({ loginObj, request, updatePage}) => {
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const [otp, setOtp] = useState({ otp: "" });
@@ -29,6 +29,7 @@ const OTPpage = ({ loginObj, request }) => {
         }
 
         const response = await request(payload) // making request for both either verifying mfa or forgot password auth
+        console.log(response)
         if (response.user && response.token) {
             dispatch(updateUser(response.user))
             localStorage.setItem("token", response.token)
@@ -36,11 +37,14 @@ const OTPpage = ({ loginObj, request }) => {
             setTimeout(() => {
                 navigate('/app/welcome')
             }, 1000)
+        } else if (response.updatePassword) {
+            updatePage.setOtpVerified(true)
+            updatePage.setLinkSent(false)
         }
     }
 
     return (
-        <div className="py-24 lg:px-32 sm:px-10 lg:flex-1 sm:flex-3">
+        <div className="sm:px-10 lg:flex-1 sm:flex-3">
             <div className='text-center mt-8'><CheckCircleIcon className='inline-block w-32 text-success' /></div>
             <p className='my-4 text-xl font-bold '>OTP has been Sent</p>
             <p className='mt-4 mb-8 font-semibold '>Check your email and enter OTP</p>

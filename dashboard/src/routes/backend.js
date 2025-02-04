@@ -7,6 +7,7 @@ const api = {
     mfa_verify: "auth/mfa/verify",
     forgotPassword:"auth/forgotPassword",
     forgotPassword_verify:"auth/forgotPassword/verify",
+    forgotPassword_update: "auth/forgotPassword/updatePassword",
     
     route(route) {
         if (this[route]) {

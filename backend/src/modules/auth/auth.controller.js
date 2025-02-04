@@ -71,7 +71,7 @@ const ForgotPasswordVerify = async (req, res) => {
     otpOrigin
   );
   setCookie(res, token, "forgotPassToken");
-  res.status(200).json(message);
+  res.status(200).json({message, updatePassword: true});
 };
 
 const UpdatePassword = async (req, res) => {
