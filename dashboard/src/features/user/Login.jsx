@@ -67,7 +67,6 @@ function Login() {
                 password: loginObj.password
             }
             response = await login(payload)
-            console.log('wqeroiu')
         }
 
         if (response.token) {

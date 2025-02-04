@@ -29,7 +29,8 @@ function ForgotPassword() {
         else {
             setLoading(true)
             // Call API to send password reset link
-            const response = await forgotPassReq()
+            const response = await forgotPassReq(userObj);
+            
 
             setLoading(false)
             setLinkSent(true)
