@@ -10,15 +10,17 @@ import { forgotPassReqVerify, forgotPassReq } from '../../app/fetch';
 import validator from '../../app/valid';
 import updateToasify from '../../app/toastify';
 import { toast, ToastContainer } from 'react-toastify';
+import UpdatePassword from './components/UpdatePassword';
 
 function ForgotPassword() {
     const [loading, setLoading] = useState(false)
     const [errorMessage, setErrorMessage] = useState("")
     const [linkSent, setLinkSent] = useState(false)
+    const [otpVerified, setOtpVerified] = useState(false)
     const [userObj, setUserObj] = useState({
         email: "",
         otpOrigin: "forgot_Pass",
-        deviceId: String(Math.floor(Math.random() * 1000000)),
+        deviceId: String(Math.floor(100000 + Math.random() * 900000)),
     })
 
     const submitForm = async (e) => {
@@ -54,40 +56,46 @@ function ForgotPassword() {
     }
 
     return (
-        <div className="min-h-screen bg-base-200 flex">
+        <div className="min-h-screen h-[100vh] bg-base-200 flex">
             <BackroundImage />
-            <div className='py-24 lg:px-32 sm:px-10 lg:flex-1 sm:flex-3'>
-                <h2 className='text-2xl font-semibold mb-2'>Forgot Password</h2>
+            <div className='flex justify-center w-full lg:flex-1 md:flex-2 px-20 sm:flex-2 bg-base-200'>
+                <div className='sm:py-[20vh] sm:py-20 w-[24rem]'>
 
-                {
-                    linkSent && <OTPpage loginObj={userObj} request={forgotPassReqVerify} />
+                    <h2 className='text-2xl font-semibold mb-2'>Forgot Password</h2>
 
-                }
+                    {
+                        linkSent && <OTPpage loginObj={userObj} request={forgotPassReqVerify} stateUpdater={{ setOtpVerified, setLinkSent }} />
 
-                {
-                    !linkSent &&
-                    <>
-                        <p className='my-8 text-stone-500'>Enter the email address you used when you joined and we’ll send you instructions to reset your password.</p>
-                        <form onSubmit={(e) => submitForm(e)}>
-                            <div className="mb-4">
-                                <InputText
-                                    placeholder={"Enter your email id"}
-                                    type="emailId"
-                                    defaultValue={userObj.email}
-                                    updateType="email"
-                                    containerStyle="mt-4"
-                                    labelTitle="Email Id"
-                                    updateFormValue={updateFormValue}
-                                    name={"emailId"}
-                                />
-                            </div>
-                            <ErrorText styleClass={`${errorMessage ? "visible" : "invisible"} flex mt-6 text-sm gap-1 justify-center `}>
-                                <img src={xSign} className='h-3 translate-y-[4px]' />
-                                {errorMessage}</ErrorText>
-                            <Button type={"submit"} classes={"btn mt-2 w-full dark:bg-primary bg-stone-700 hover:bg-stone-700 border-none" + (loading ? " loading" : "")} text={"Get OTP"} />
-                        </form>
-                    </>
-                }
+                    }
+
+                    {
+                        (!linkSent && !otpVerified) &&
+                        <div className='w-[24rem]'>
+                            <p className='my-8 text-stone-500'>Enter the email address you used when you joined and we’ll send you instructions to reset your password.</p>
+                            <form onSubmit={(e) => submitForm(e)}>
+                                <div className="mb-4">
+                                    <InputText
+                                        placeholder={"Enter your email id"}
+                                        type="emailId"
+                                        defaultValue={userObj.email}
+                                        updateType="email"
+                                        containerStyle="mt-4"
+                                        labelTitle="Email Id"
+                                        updateFormValue={updateFormValue}
+                                        name={"emailId"}
+                                    />
+                                </div>
+                                <ErrorText styleClass={`${errorMessage ? "visible" : "invisible"} flex mt-6 text-sm gap-1 justify-center `}>
+                                    <img src={xSign} alt="" className='h-3 translate-y-[4px]' />
+                                    {errorMessage}</ErrorText>
+                                <Button type={"submit"} classes={"btn mt-2 w-full dark:bg-primary bg-stone-700 hover:bg-stone-700 border-none" + (loading ? " loading" : "")} text={"Get OTP"} />
+                            </form>
+                        </div>
+                    }
+                    {
+                        otpVerified && <UpdatePassword />
+                    }
+                </div>
 
             </div>
             <ToastContainer theme="colored" />

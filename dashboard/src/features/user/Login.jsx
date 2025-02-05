@@ -104,13 +104,13 @@ function Login() {
     }
 
     return (
-        <div className="min-h-screen bg-base-200 flex h-[100vh]">
+        <div className="min-h-screen h-screen bg-base-200 flex sm:h-[100vh]">
             <BackroundImage />
 
-            <div className="flex justify-center w-full lg:flex-1 md:flex-2 px-20 sm:flex-2 bg-base-200">
+            <div className="flex justify-center w-full h-[100vh] lg:flex-1 md:flex-2 px-20 sm:flex-2 bg-base-200">
                 {otpSent ? <OTPpage loginObj={loginObj} request={mfaVerify} /> :
 
-                    <div className='sm:pt-[25vh] sm:py-20 w-[24rem]'>
+                    <div className='sm:pt-[20vh] sm:py-20 w-[24rem]'>
                         <h2 className='text-2xl font-semibold mb-2'>Sign in to Dashboard</h2>
                         <form onSubmit={proceedLogin}>
                             <div className="mb-4 relative">
