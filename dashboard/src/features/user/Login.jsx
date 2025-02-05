@@ -72,7 +72,10 @@ function Login() {
         if (response.token) {
             updateToasify(loadingToastId, "Request successful! 🎉", "success", 2000) // updating the toaster
             dispatch(updateUser(response.user))
-            localStorage.setItem("token", response.token)
+            localStorage.setItem("user", JSON.stringify(response.user))
+            localStorage.setItem("token", response.token);
+            console.log(response.token)
+            document.cookie = `token=${response.token}; path=/; HttpOnly; Secure"`
             setTimeout(() => {
                 navigate('/app/welcome')
             }, 1000)

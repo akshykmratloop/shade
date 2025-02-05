@@ -1,21 +1,24 @@
 import api from "../routes/backend"
 
 const makerequest = async (uri, method = 'GET', body = undefined, headers = {}, cookie = false) => {
-    // Only add body for non-GET requests
+    // const token = localStorage.getItem("authToken"); // Or wherever your token is stored
+    // if (token) {
+    //     headers['Authorization'] = `Bearer ${token}`;  // Add token to the headers
+    // }
 
     method = method.toUpperCase();
-    const options = { // additional options
+    const options = { 
         method,
         headers,
         credentials: cookie ? "include" : "same-origin"
     };
 
     if (body && method !== 'GET') {
-        options.body = body;  // Add body only if it's not a GET request
+        options.body = body;
     }
 
-    let result
-
+    console.log(body)
+    let result;
     try {
         const response = await fetch(uri, options);
         if (!response.ok) {
@@ -29,6 +32,7 @@ const makerequest = async (uri, method = 'GET', body = undefined, headers = {}, 
         return result;
     }
 }
+
 
 const ContentType = {
     json: { "Content-Type": "application/json" }
@@ -59,7 +63,7 @@ async function PassUpdate(data) {
 }
 
 async function resetPassword(data) {
-    return await makerequest(api.route("resetPassword"), "POST", JSON.stringify(data), ContentType.json);
+    return await makerequest(api.route("resetPassword"), "POST", JSON.stringify(data), ContentType.json, true);
 }
 
 export default makerequest;

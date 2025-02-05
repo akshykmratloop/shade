@@ -10,17 +10,18 @@ import validator from "../app/valid";
 import ErrorText from "../components/Typography/ErrorText";
 import updateToasify from "../app/toastify";
 import xSign from "../assets/x-close.png"
+import { useNavigate } from "react-router-dom";
 
 
 const ResetPass = ({ display, close }) => {
+    const navigate = useNavigate()
     const email = useSelector(state => {
-        console.log(state)
-        return state
+        return state.user.user.email
     })
     const [passwordForm, setPasswordForm] = useState({
         old_password: "",
         new_password: "",
-        repeat_password: ""
+        repeat_password: "",
     })
     const [errorMessage, setErrorMessage] = useState("")
 
@@ -30,9 +31,10 @@ const ResetPass = ({ display, close }) => {
         setPasswordForm(prev => {
             return { ...prev, [updateType]: value } // key == [updateType], value == value
         })
+        console.log(passwordForm)
     }
 
-    const submitForm = (e) => {
+    const submitForm = async (e) => {
         e.preventDefault();
         const loadingToastId = toast.loading("Reseting Password", { autoClose: 2000 })
         const validation = validator(passwordForm, setErrorMessage) // checks if any field is empty
@@ -41,9 +43,30 @@ const ResetPass = ({ display, close }) => {
             return
         };
         if (passwordForm.new_password !== passwordForm.repeat_password) {
+            updateToasify(loadingToastId, "Request unsuccessful!", "failure", 2000) // updating the toaster
             return setErrorMessage(
                 "The passwords do not match. Please make sure both password fields are the same."
             );
+        }
+
+        const payload = {
+            email,
+            old_password: passwordForm.old_password,
+            new_password: passwordForm.new_password,
+            repeat_password: passwordForm.repeat_password,
+        }
+
+        console.log("payload", payload);
+        const response = await resetPassword(payload);
+        if (response.ok) {
+            updateToasify(loadingToastId, "Request successful!", "success", 2000) // updating the toaster
+            document.cookie = "authToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
+            localStorage.clear()
+            setTimeout(() => {
+                navigate("/login")
+            }, 1500)
+        } else {
+            updateToasify(loadingToastId, "Request unsuccessful!", "failure", 2000) // updating the toaster
         }
 
     }
@@ -61,9 +84,9 @@ const ResetPass = ({ display, close }) => {
 
                 <h1 className="text-lg font-semibold mb-6 text-center">Reset Password</h1>
 
-                <form onSubmit={submitForm}>
+                <form>
                     <InputText placeholder="Enter current password"
-                        type={"password"}
+                        type={"password"} e
                         name={"currentPassword"}
                         defaultValue={passwordForm.old_password}
                         updateType="old_password"
@@ -88,7 +111,7 @@ const ResetPass = ({ display, close }) => {
                     <ErrorText styleClass={`${errorMessage ? "visible" : "invisible"} flex mt-6 text-sm gap-1 justify-center `}>
                         <img src={xSign} alt="" className='h-3 translate-y-[4px]' />
                         {errorMessage}</ErrorText>
-                    <Button text="Reset" classes={"btn mt-4 w-full btn-stone hover:text-stone-50 hover:bg-stone-700 border-stone-700 bg-stone-50 text-stone-800"} />
+                    <Button functioning={submitForm} text="Reset" classes={"btn mt-4 w-full btn-stone hover:text-stone-50 hover:bg-stone-700 border-stone-700 bg-stone-50 text-stone-800"} />
                 </form>
             </div>
             <ToastContainer />
