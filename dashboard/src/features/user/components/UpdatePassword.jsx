@@ -3,33 +3,10 @@ import InputText from "../../../components/Input/InputText";
 import ErrorText from "../../../components/Typography/ErrorText";
 import Button from "../../../components/Button/Button";
 import xSign from "../../../assets/x-close.png";
-import checkSign from "../../../assets/check.png"
 import { PassUpdate } from "../../../app/fetch";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-
-const passwordValidationRules = [
-    {
-        text: "Password must be at least 8 characters long.",
-        test: (password) => password.length >= 8,
-    },
-    {
-        text: "Password must contain at least one uppercase letter.",
-        test: (password) => /[A-Z]/.test(password),
-    },
-    {
-        text: "Password must contain at least one lowercase letter.",
-        test: (password) => /[a-z]/.test(password),
-    },
-    {
-        text: "Password must contain at least one digit.",
-        test: (password) => /\d/.test(password),
-    },
-    {
-        text: "Password must contain at least one special character (@, $, !, %, *, ?, &).",
-        test: (password) => /[@$!%*?&]/.test(password),
-    },
-];
+import PasswordValidation from "./PasswordValidation";
 
 const UpdatePassword = ({ userObj }) => {
     const navigate = useNavigate()
@@ -40,23 +17,14 @@ const UpdatePassword = ({ userObj }) => {
         repeat_password: "",
     });
 
-    const [validationStatus, setValidationStatus] = useState(
-        passwordValidationRules.map(() => false)
-    );
-
-    const validatePassword = (password) => {
-        const status = passwordValidationRules.map((rule) => rule.test(password));
-        setValidationStatus(status);
-    };
-
     const updateFormValue = ({ updateType, value }) => {
         setErrorMessage("");
         setPasswords((prev) => ({ ...prev, [updateType]: value }));
-        if (updateType === "new_password") validatePassword(value);
     };
 
     const submitForm = async (e) => {
         e.preventDefault();
+        setLoading(true)
         if (passwords.new_password !== passwords.repeat_password) {
             return setErrorMessage(
                 "The passwords do not match. Please make sure both password fields are the same."
@@ -75,6 +43,9 @@ const UpdatePassword = ({ userObj }) => {
             setTimeout(() => {
                 navigate("/login")
             }, 1000)
+        }else{
+            setLoading(false)
+            toast.error(response.message);
         }
     };
 
@@ -106,17 +77,7 @@ const UpdatePassword = ({ userObj }) => {
             </div>
 
             {/* Password Validation Checklist */}
-            <ul className={`${passwords.new_password.length>0?"block":"hidden"}`}>
-                {passwordValidationRules.map((rule, index) => (
-                    <li
-                        key={index}
-                        className={`text-sm flex gap-1 ${validationStatus[index] ? "text-green-600" : "text-red-600"
-                            }`}
-                    >
-                        <img src={validationStatus[index]?checkSign:xSign} className="h-3 translate-y-[4px]" /> {rule.text}
-                    </li>
-                ))}
-            </ul>
+            <PasswordValidation new_password={passwords.new_password} />
 
             <ErrorText
                 styleClass={`${errorMessage ? "visible" : "invisible"

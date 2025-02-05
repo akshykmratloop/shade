@@ -101,7 +101,7 @@ function Header({openResetPass}) {
                             </Link>
                         </li>
                         <li className=''><Link to={'/app/settings-billing'}>Bill History</Link></li>
-                        <li className='' onClick={openResetPass}><a href="#">Reset Password</a></li>
+                        <li className='' onClick={openResetPass}><button className=''>Reset Password</button></li>
                         <div className="divider mt-0 mb-0"></div>
                         <li><a onClick={logoutUser}>Logout</a></li>
                     </ul>
