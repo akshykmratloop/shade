@@ -5,6 +5,8 @@ import Button from "../../../components/Button/Button";
 import xSign from "../../../assets/x-close.png";
 import checkSign from "../../../assets/check.png"
 import { PassUpdate } from "../../../app/fetch";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const passwordValidationRules = [
     {
@@ -30,6 +32,7 @@ const passwordValidationRules = [
 ];
 
 const UpdatePassword = ({ userObj }) => {
+    const navigate = useNavigate()
     const [loading, setLoading] = useState(false);
     const [errorMessage, setErrorMessage] = useState("");
     const [passwords, setPasswords] = useState({
@@ -67,7 +70,12 @@ const UpdatePassword = ({ userObj }) => {
             deviceId: userObj.deviceId,
         };
         const response = await PassUpdate(paylaod);
-        console.log(response);
+        if(response.ok){
+            toast.success(response.message);
+            setTimeout(() => {
+                navigate("/login")
+            }, 1000)
+        }
     };
 
     return (
@@ -78,8 +86,8 @@ const UpdatePassword = ({ userObj }) => {
 
             <div className="mb-4 relative">
                 <InputText
-                    placeholder={"Enter Your New Password"}
                     name={"password"}
+                    placeholder={"Enter Your New Password"}
                     type="password"
                     updateType="new_password"
                     containerStyle="mt-4"

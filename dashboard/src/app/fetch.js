@@ -1,18 +1,18 @@
 import api from "../routes/backend"
 
-const makerequest = async (uri, method = 'GET', body = undefined, headers = {}) => {
+const makerequest = async (uri, method = 'GET', body = undefined, headers = {}, cookie = false) => {
     // Only add body for non-GET requests
 
     method = method.toUpperCase();
     const options = { // additional options
         method,
-        headers
+        headers,
+        credentials: cookie ? "include" : "same-origin"
     };
 
     if (body && method !== 'GET') {
         options.body = body;  // Add body only if it's not a GET request
     }
-    console.log(body)
 
     let result
 
@@ -24,7 +24,6 @@ const makerequest = async (uri, method = 'GET', body = undefined, headers = {}) 
         }
         result = await response.json();
     } catch (err) {
-        console.log(err)
         result = err;
     } finally {
         return result;
@@ -52,11 +51,11 @@ async function forgotPassReq(data) {
 }
 
 async function forgotPassReqVerify(data) {
-    return await makerequest(api.route("forgotPassword_verify"), "POST", JSON.stringify(data), ContentType.json);
+    return await makerequest(api.route("forgotPassword_verify"), "POST", JSON.stringify(data), ContentType.json, true);
 }
 
 async function PassUpdate(data) {
-    return await makerequest(api.route("forgotPassword_update"), "POST", JSON.stringify(data), ContentType.json);
+    return await makerequest(api.route("forgotPassword_update"), "POST", JSON.stringify(data), ContentType.json, true);
 }
 
 export default makerequest;

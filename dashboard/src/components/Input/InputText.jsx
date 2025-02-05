@@ -3,7 +3,7 @@ import { useState } from "react"
 
 function InputText({ labelTitle, labelStyle, type, containerStyle, defaultValue, placeholder, updateFormValue, updateType, display, name }) {
 
-    const [value, setValue] = useState(defaultValue)
+    const [value, setValue] = useState(defaultValue || "")
 
     const updateInputValue = (val) => {
         setValue(val)

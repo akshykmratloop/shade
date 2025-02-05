@@ -53,7 +53,6 @@ function Login() {
                 otpOrigin: loginObj.otpOrigin,
                 deviceId: loginObj.deviceId
             }
-            console.log(payload)
             response = await mfaLogin(payload)
         } else {
             const validation = validator(loginObj, setErrorMessage) // checks if any field is empty
@@ -78,7 +77,6 @@ function Login() {
                 navigate('/app/welcome')
             }, 1000)
         } else if (response.otp) {
-            console.log(response)
             setOtpSent(true)
             updateToasify(loadingToastId, "OTP has been sent", "success", 800);
         }

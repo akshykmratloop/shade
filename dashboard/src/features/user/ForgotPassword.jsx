@@ -36,8 +36,6 @@ function ForgotPassword() {
             // Call API to send password reset link
             const response = await forgotPassReq(userObj);
 
-            console.log('werqqwer3')
-            console.log(response)
             if (response.message.ok) {
                 setLoading(false)
                 setLinkSent(true)
@@ -52,7 +50,6 @@ function ForgotPassword() {
     const updateFormValue = ({ updateType, value }) => {
         setErrorMessage("")
         setUserObj({ ...userObj, [updateType]: value })
-        console.log(userObj)
     }
 
     return (
@@ -93,7 +90,7 @@ function ForgotPassword() {
                         </div>
                     }
                     {
-                        otpVerified && <UpdatePassword />
+                        otpVerified && <UpdatePassword userObj={userObj} />
                     }
                 </div>
 
