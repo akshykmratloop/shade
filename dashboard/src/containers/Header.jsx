@@ -11,7 +11,7 @@ import { RIGHT_DRAWER_TYPES } from '../utils/globalConstantUtil'
 import { NavLink, Routes, Link, useLocation } from 'react-router-dom'
 
 
-function Header() {
+function Header({openResetPass}) {
 
     const dispatch = useDispatch()
     const { noOfNotifications, pageTitle } = useSelector(state => state.header)
@@ -101,6 +101,7 @@ function Header() {
                             </Link>
                         </li>
                         <li className=''><Link to={'/app/settings-billing'}>Bill History</Link></li>
+                        <li className='' onClick={openResetPass}><a href="#">Reset Password</a></li>
                         <div className="divider mt-0 mb-0"></div>
                         <li><a onClick={logoutUser}>Logout</a></li>
                     </ul>

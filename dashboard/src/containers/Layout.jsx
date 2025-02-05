@@ -2,17 +2,21 @@ import PageContent from "./PageContent"
 import LeftSidebar from "./LeftSidebar"
 import { useSelector, useDispatch } from 'react-redux'
 import RightSidebar from './RightSidebar'
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import  {  removeNotificationMessage } from "../features/common/headerSlice"
 import {NotificationContainer, NotificationManager} from 'react-notifications';
 import 'react-notifications/lib/notifications.css';
 import ModalLayout from "./ModalLayout"
 import Header from "./Header"
+import ResetPass from "./ResetPass"
 
 
 function Layout(){
   const dispatch = useDispatch()
   const {newNotificationMessage, newNotificationStatus} = useSelector(state => state.header)
+  const [resetPass, setResetPass] = useState(false);
+
+  const resetPassDisplay = () => setResetPass(prev => !prev)
 
 
   useEffect(() => {
@@ -24,9 +28,10 @@ function Layout(){
   }, [newNotificationMessage])
 
     return(
-      <>
+      <div className="relative">
+        <ResetPass display={resetPass?"block":"hidden"} close={resetPassDisplay} />
         { /* Left drawer - containing page content and side bar (always open) */ }
-        <Header />
+        <Header openResetPass={resetPassDisplay} />
         <div className="drawer drawer-mobile">
             <input id="left-sidebar-drawer" type="checkbox" className="drawer-toggle" />
             <PageContent/>
@@ -42,8 +47,7 @@ function Layout(){
 
       {/* Modal layout container */}
         <ModalLayout />
-
-      </>
+      </div>
     )
 }
 
