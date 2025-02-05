@@ -58,5 +58,9 @@ async function PassUpdate(data) {
     return await makerequest(api.route("forgotPassword_update"), "POST", JSON.stringify(data), ContentType.json, true);
 }
 
+async function resetPassword(data) {
+    return await makerequest(api.route("resetPassword"), "POST", JSON.stringify(data), ContentType.json);
+}
+
 export default makerequest;
-export { login, mfaLogin, mfaVerify, forgotPassReq, forgotPassReqVerify, PassUpdate }
+export { login, mfaLogin, mfaVerify, forgotPassReq, forgotPassReqVerify, PassUpdate, resetPassword }

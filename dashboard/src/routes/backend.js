@@ -8,6 +8,7 @@ const api = {
     forgotPassword:"auth/forgotPassword",
     forgotPassword_verify:"auth/forgotPassword/verify",
     forgotPassword_update: "auth/forgotPassword/updatePassword",
+    resetPassword: "auth/resetPass",
     
     route(route) {
         if (this[route]) {
