@@ -29,7 +29,6 @@ function Layout() {
 
   useEffect(() => {
     const userObj = JSON.parse(localStorage.getItem("user"));
-    console.log(userObj)
     dispatch(updateUser(userObj));
   }, [dispatch]);
 

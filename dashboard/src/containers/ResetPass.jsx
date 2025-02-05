@@ -31,7 +31,6 @@ const ResetPass = ({ display, close }) => {
         setPasswordForm(prev => {
             return { ...prev, [updateType]: value } // key == [updateType], value == value
         })
-        console.log(passwordForm)
     }
 
     const submitForm = async (e) => {
@@ -56,9 +55,9 @@ const ResetPass = ({ display, close }) => {
             repeat_password: passwordForm.repeat_password,
         }
 
-        console.log("payload", payload);
-        const response = await resetPassword(payload);
-        if (response.ok) {
+        const response = await resetPassword(payload); // making the request for reseting password
+
+        if (response.ok) { // handling the successful response of the reset password
             updateToasify(loadingToastId, "Request successful!", "success", 2000) // updating the toaster
             document.cookie = "authToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
             localStorage.clear()
