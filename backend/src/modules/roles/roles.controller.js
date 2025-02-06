@@ -4,9 +4,9 @@ import { createRole, getRoles } from './roles.service.js';
 const CreateRole = async (req, res) => {
     const { name, description } = req.body;
 
-    const { message } = await createRole({ name, description })
+    const { message, newRole } = await createRole({ name, description })
 
-    res.status(201).json(message);
+    res.status(201).json({ message, role: newRole });
 };
 
 const FetchRoles = async (req, res) => {
