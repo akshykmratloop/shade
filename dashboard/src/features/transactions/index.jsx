@@ -113,7 +113,7 @@ function Roles() {
                             </tr>
                         </thead>
                         <tbody>
-                            {roles.map((role, index) => (
+                            {roles?.map((role, index) => (
                                 <tr key={index}>
                                     <td>{role.id}</td>
                                     <td>{role.name}</td>

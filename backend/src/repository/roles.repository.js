@@ -8,3 +8,16 @@ export const findRoles = async () => {
 
     return { roles }
 }
+
+export const createNewRoles = async (name, description) => {
+    // making the query to create role
+    const roles = await prismaClient.role.create({
+        data: {
+            name, description
+        }
+    });
+
+    if (!roles) return false; // for handling the assert through false
+
+    return { roles }
+}

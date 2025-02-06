@@ -15,12 +15,12 @@ router.get(
   tryCatchWrap(RolesController.FetchRoles)
 );
 
-// router.post(
-//   "/create",
-//   authenticateUser,
-//   validator(createRoleSchema),
-//   tryCatchWrap()
-// );
+router.post(
+  "/create",
+  authenticateUser,
+  // validator(createRoleSchema),
+  tryCatchWrap(RolesController.CreateRole)
+);
 
 // router.put(
 //   "/update",
