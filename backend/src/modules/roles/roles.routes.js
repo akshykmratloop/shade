@@ -12,25 +12,25 @@ const router = Router();
 router.get(
   "/roles",
   authenticateUser,
-  tryCatchWrap()
+  tryCatchWrap(RolesController.FetchRoles)
 );
 
-router.post(
-  "/create",
-  authenticateUser,
-  validator(createRoleSchema),
-  tryCatchWrap()
-);
+// router.post(
+//   "/create",
+//   authenticateUser,
+//   validator(createRoleSchema),
+//   tryCatchWrap()
+// );
 
-router.put(
-  "/update",
-  authenticateUser,
-  // validator(updatePasswordSchema),
-  tryCatchWrap()
-);
+// router.put(
+//   "/update",
+//   authenticateUser,
+//   // validator(updatePasswordSchema),
+//   tryCatchWrap()
+// );
 
-router.post("/activate", authenticateUser, tryCatchWrap());
-router.post("/deActivate", authenticateUser, tryCatchWrap());
+// router.post("/activate", authenticateUser, tryCatchWrap());
+// router.post("/deActivate", authenticateUser, tryCatchWrap());
 
 
 export default router;
