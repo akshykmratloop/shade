@@ -12,7 +12,14 @@ import { createRole, getRoles } from './roles.service.js';
 
 const FetchRoles = async (req, res) => {
     const roles = await getRoles();
-    res.status(200).json(roles);
+    // res.set({
+    //     'Cache-Control': 'no-store',
+    //     'Pragma': 'no-cache',
+    //     'Expires': '0'
+    // });
+
+    console.log(roles)
+    res.status(200).json(roles.roles);
 };
 
 export default { FetchRoles };
