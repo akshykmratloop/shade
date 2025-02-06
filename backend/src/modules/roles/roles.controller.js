@@ -9,13 +9,9 @@ const createRoleHandler = async (req, res) => {
     }
 };
 
-const getRolesHandler = async (req, res) => {
-    try {
+const FetchRoles = async (req, res) => {
         const roles = await getRoles();
         res.status(200).json(roles);
-    } catch (error) {
-        res.status(400).json({ error: error.message });
-    }
 };
 
-export { createRoleHandler, getRolesHandler };
+export default { createRoleHandler, FetchRoles };
