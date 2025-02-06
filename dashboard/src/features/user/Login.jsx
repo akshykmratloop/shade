@@ -118,7 +118,7 @@ function Login() {
                             <div className="mb-4 relative">
                                 <InputText placeholder={"Email/Phone Number"} name={"email"} defaultValue={loginObj.email} updateType="email" containerStyle="mt-4" labelTitle="Email Id" updateFormValue={updateFormValue} />
                                 <ErrorText styleClass={`text-xs absolute left-[86px] gap-1 top-[87px] ${errorEmailMessage ? "flex" : "hidden"}`}>
-                                    <img src={xSign} className='h-3 translate-y-[2px]' />
+                                    <img src={xSign} alt="" className='h-3 translate-y-[2px]' />
                                     {errorEmailMessage}</ErrorText>
                                 <InputText display={loginWithOtp} defaultValue={loginObj.password} name={"password"} placeholder={"Password"} type="password" updateType="password" containerStyle="mt-4" labelTitle="Password" updateFormValue={updateFormValue} />
                             </div>
@@ -130,7 +130,7 @@ function Login() {
                             </div>
 
                             <ErrorText styleClass={`${errorMessage ? "visible" : "invisible"} flex mt-6 text-sm gap-1 justify-center `}>
-                                <img src={xSign} className='h-3 translate-y-[4px]' />
+                                <img src={xSign} alt="" className='h-3 translate-y-[4px]' />
                                 {errorMessage}</ErrorText>
                             <Button text={loginWithOtp ? "Generate OTP" : "Login"} type="submit" classes={"btn mt-2 w-full btn-primary dark:bg-primary bg-stone-700 hover:bg-stone-700 border-none" + (loading ? " loading" : "")} />
                         </form>

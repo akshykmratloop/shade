@@ -49,7 +49,7 @@ const ResetPass = ({ display, close }) => {
         }
 
         const payload = {
-            email,
+            email:email || "",
             old_password: passwordForm.old_password,
             new_password: passwordForm.new_password,
             repeat_password: passwordForm.repeat_password,

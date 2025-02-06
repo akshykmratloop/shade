@@ -6,13 +6,13 @@ import Bars3Icon from '@heroicons/react/24/outline/Bars3Icon'
 import MoonIcon from '@heroicons/react/24/outline/MoonIcon'
 import SunIcon from '@heroicons/react/24/outline/SunIcon'
 import { openRightDrawer } from '../features/common/rightDrawerSlice';
-import { RIGHT_DRAWER_TYPES } from '../utils/globalConstantUtil'
+import { RIGHT_DRAWER_TYPES } from '../utils/globalConstantUtil';
+import { refreshToken } from '../app/fetch'
+import { Link, useNavigate } from 'react-router-dom'
 
-import { NavLink, Routes, Link, useLocation } from 'react-router-dom'
 
-
-function Header({openResetPass}) {
-
+function Header({ openResetPass }) {
+    const navigate = useNavigate()
     const dispatch = useDispatch()
     const { noOfNotifications, pageTitle } = useSelector(state => state.header)
     const [currentTheme, setCurrentTheme] = useState(localStorage.getItem("theme"))
@@ -35,10 +35,17 @@ function Header({openResetPass}) {
         dispatch(openRightDrawer({ header: "Notifications", bodyType: RIGHT_DRAWER_TYPES.NOTIFICATION }))
     }
 
+    const renewSession = async (e) => {
+        e.preventDefault();
+        const response = await refreshToken()
+        console.log(response)
+    }
+
 
     function logoutUser() {
         localStorage.clear();
-        window.location.href = '/'
+        document.cookie = "authToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
+        navigate("/login")
     }
 
     return (
@@ -102,6 +109,7 @@ function Header({openResetPass}) {
                         </li>
                         <li className=''><Link to={'/app/settings-billing'}>Bill History</Link></li>
                         <li className='' onClick={openResetPass}><button className=''>Reset Password</button></li>
+                        <li className='' onClick={renewSession}><button className=''>Renew Session</button></li>
                         <div className="divider mt-0 mb-0"></div>
                         <li><a onClick={logoutUser}>Logout</a></li>
                     </ul>

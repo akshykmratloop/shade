@@ -7,7 +7,7 @@ const makerequest = async (uri, method = 'GET', body = undefined, headers = {}, 
     // }
 
     method = method.toUpperCase();
-    const options = { 
+    const options = {
         method,
         headers,
         credentials: cookie ? "include" : "same-origin"
@@ -66,5 +66,14 @@ async function resetPassword(data) {
     return await makerequest(api.route("resetPassword"), "POST", JSON.stringify(data), ContentType.json, true);
 }
 
+async function refreshToken() {
+    return await makerequest(api.route("refreshToken"), "POST", JSON.stringify({}), {}, true);
+}
+
+async function resendOTP(data) {
+    return await makerequest(api.route("resendOTP"), "POST", JSON.stringify(data), ContentType.json, true);
+}
+
+
 export default makerequest;
-export { login, mfaLogin, mfaVerify, forgotPassReq, forgotPassReqVerify, PassUpdate, resetPassword }
+export { login, mfaLogin, mfaVerify, forgotPassReq, forgotPassReqVerify, PassUpdate, resetPassword, refreshToken, resendOTP }

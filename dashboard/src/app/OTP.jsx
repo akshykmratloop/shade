@@ -32,23 +32,3 @@ export const OtpInputField = ({
       </div>
     );
   };
-  
-  
-  
-  
-
-//   <OtpInputField
-//                     label="Enter 6 digit Otp sent to your email"
-//                     value={page1Data.otp}
-//                     onChange={(otpValue) =>
-//                       setPage1Data((preData) => ({
-//                         ...preData,
-//                         otp: otpValue,
-//                       }))
-//                     }
-//                     numInputs={6}
-//                     inputContainerClassName="w-1/2 "
-//                     inputClassName=" bg-white rounded-[8px] border border-solid border-transparent cursor-pointer shadow-custom flex justify-center items-center pl-[20px] text-lg"
-//                     labelClassName=""
-//                   />
-  
