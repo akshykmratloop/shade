@@ -106,7 +106,7 @@ const OTPpage = ({ loginObj, request, stateUpdater }) => {
                     styleClass={`${errorMessage ? "visible" : "invisible"
                         } flex mt-6 text-sm gap-1 justify-center`}
                 >
-                    <img src={xSign} className="h-3 translate-y-[4px]" />
+                    <img src={xSign} alt="" className="h-3 translate-y-[4px]" />
                     {errorMessage}
                 </ErrorText>
             </div>

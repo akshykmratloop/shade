@@ -17,7 +17,6 @@ const makerequest = async (uri, method = 'GET', body = undefined, headers = {}, 
         options.body = body;
     }
 
-    console.log(body)
     let result;
     try {
         const response = await fetch(uri, options);
@@ -74,6 +73,20 @@ async function resendOTP(data) {
     return await makerequest(api.route("resendOTP"), "POST", JSON.stringify(data), ContentType.json, true);
 }
 
+async function fetchRoles() {
+    return await makerequest(api.route("fetchRoles"), "GET", JSON.stringify({}), {}, true);
+}
 
 export default makerequest;
-export { login, mfaLogin, mfaVerify, forgotPassReq, forgotPassReqVerify, PassUpdate, resetPassword, refreshToken, resendOTP }
+export {
+    login,
+    mfaLogin,
+    mfaVerify,
+    forgotPassReq,
+    forgotPassReqVerify,
+    PassUpdate,
+    resetPassword,
+    refreshToken,
+    resendOTP,
+    fetchRoles
+}

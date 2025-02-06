@@ -27,7 +27,7 @@ function InputText({
 
   return (
     <div
-      className={`form-control w-full ${containerStyle}`}
+      className={`form-control mb-4 w-full ${containerStyle}`}
       style={{ display: display ? "none" : "" }}
     >
       <label className="label">
@@ -44,7 +44,7 @@ function InputText({
           value={value}
           placeholder={placeholder || ""}
           onChange={(e) => updateInputValue(e.target.value)}
-          className="input w-full border border-1 border-stone-700 focus:border-none"
+          className="input w-full input input-bordered border-stone-700 focus:border-none"
         />
         {type === "password" && value && (
           <button
