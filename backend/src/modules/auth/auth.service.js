@@ -43,7 +43,7 @@ const login = async (email, password) => {
 const mfa_login = async (email, deviceId, otpOrigin) => {
   const user = await getUser(email);
   const otp = await generateOtpAndSendOnEmail(user, deviceId, otpOrigin);
-  return { message: `OTP has been sent on ${email} : otp is ${otp}`, otp:true };
+  return { message: `OTP has been sent on ${email} : otp is ${otp}`, otp: true };
 };
 
 const verify_mfa_login = async (email, deviceId, otp, otpOrigin) => {
@@ -78,7 +78,7 @@ const refreshToken = async (oldToken) => {
 const forgotPassword = async (email, deviceId, otpOrigin) => {
   const user = await getUser(email);
   const otp = await generateOtpAndSendOnEmail(user, deviceId, otpOrigin);
-  return { message: `OTP has been sent ${otp}` };
+  return { message: `OTP has been sent ${otp}`, ok: true };
 };
 
 const forgotPasswordVerify = async (email, deviceId, otp, otpOrigin) => {
@@ -86,7 +86,7 @@ const forgotPasswordVerify = async (email, deviceId, otp, otpOrigin) => {
   await verifyOTP(user?.id, deviceId, otp, otpOrigin);
   const token = generateToken(user, "300s");
   return {
-    message: {msg:"OTP verified successfully", ok: true},
+    message: { msg: "OTP verified successfully", ok: true },
     token: token,
   };
 };
@@ -115,7 +115,7 @@ const updatePassword = async (
   // if everything is OK, update password
   await updateUserPassword(user?.id, await EncryptData(new_password, 10));
   await deleteOTP(otp.id);
-  return { message: "Passwords has been updated successfully" };
+  return { message: "Passwords has been updated successfully", ok: true };
 };
 const resendOTP = async (email, deviceId, otpOrigin, userId) => {
   const user = await getUser(email);
@@ -155,7 +155,7 @@ const resetPass = async (
   // if everything is OK, update password
   await updateUserPassword(user?.id, await EncryptData(new_password, 10));
 
-  return { message: "Passwords has been updated successfully" };
+  return { message: "Passwords has been updated successfully", ok:true };
 };
 
 // SUPPORT FUNCTIONS
