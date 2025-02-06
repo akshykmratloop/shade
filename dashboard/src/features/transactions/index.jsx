@@ -71,6 +71,7 @@ function Roles() {
     const [roles, setRoles] = useState([]);
     const [originalRoles, setOriginalRoles] = useState([]);
     const [showAddForm, setShowAddForm] = useState(false);
+    const [ChangesInRole, setChangesInRole] = useState(false)
 
     const removeFilter = () => {
         setRoles([...originalRoles]);
@@ -95,7 +96,7 @@ function Roles() {
             setOriginalRoles(response); // Store the original unfiltered data
         }
         fetchRoleData();
-    }, []);
+    }, [ChangesInRole]);
 
     return (
         <>
@@ -113,7 +114,7 @@ function Roles() {
                             </tr>
                         </thead>
                         <tbody>
-                            {roles?.map((role, index) => (
+                            { Array.isArray(roles) && roles?.map((role, index) => (
                                 <tr key={index}>
                                     <td>{role.id}</td>
                                     <td>{role.name}</td>
@@ -129,7 +130,7 @@ function Roles() {
             </TitleCard>
 
             {/* Add Role Modal */}
-            <AddRoleModal show={showAddForm} onClose={() => setShowAddForm(false)} />
+            <AddRoleModal show={showAddForm} onClose={() => setShowAddForm(false)} updateRole={setChangesInRole} />
         </>
     );
 }

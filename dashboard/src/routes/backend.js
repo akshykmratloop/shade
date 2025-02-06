@@ -16,6 +16,7 @@ const api = {
     resendOTP: `${auth}/resendOtp`,
     
     fetchRoles: `${role}/roles`, // API for role start from here
+    createRole: `${role}/create`,
 
     route(route) {
         if (this[route]) {

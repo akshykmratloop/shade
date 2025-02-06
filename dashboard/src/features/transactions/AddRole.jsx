@@ -1,24 +1,46 @@
 import { useState } from "react";
 import InputText from "../../components/Input/InputText";
+import { createRole } from "../../app/fetch";
+import { toast, ToastContainer } from "react-toastify";
+import validator from "../../app/valid";
+import updateToasify from "../../app/toastify";
 
-const AddRoleModal = ({ show, onClose }) => {
+
+const AddRoleModal = ({ show, onClose, updateRole }) => {
+    const [errorMessage, setErrorMessage] = useState("")
     const [roleData, setRoleData] = useState({
         name: "",
         description: "",
-        status: "",
     });
 
     const updateFormValue = ({ updateType, value }) => {
+        setErrorMessage("")
         setRoleData((prevState) => ({
             ...prevState,
             [updateType]: value,
         }));
     };
 
-    const handleFormSubmit = (event) => {
-        event.preventDefault();
-        console.log("Form Data Submitted:", roleData);
-        // Placeholder for your submission logic
+    const handleFormSubmit = async (e) => {
+        e.preventDefault();
+        const loadingToastId = toast.loading("loging in", { autoClose: 2000 }); // starting the loading in toaster
+
+        // send the data through fetch
+        const validation = validator(roleData, setErrorMessage) // checks if any field is empty
+        if (!validation) return updateToasify(loadingToastId, "Request failed!", "failure", 1700); // updating the toaster
+
+        const response = await createRole(roleData);
+        console.log(response)
+        if (response.ok) {
+            updateToasify(loadingToastId, "Request successful! 🎉", "success", 1000) // updating the toaster
+            onClose()
+            setTimeout(() => {
+                updateRole(prev => !prev)
+            }, 1000)
+        } else {
+            updateToasify(loadingToastId, `Request failed. ${response.message}`, "failure", 2000) // updating the toaster
+        }
+
     };
 
     if (!show) return null;
@@ -50,8 +72,57 @@ const AddRoleModal = ({ show, onClose }) => {
                         updateFormValue={updateFormValue}
                     />
 
-                    {/* Status Select */}
-                    <div className="form-control mb-4">
+
+                    {/* Button to submit */}
+                    <div className="modal-action">
+                        <button type="button" className="btn btn-ghost" onClick={onClose}>
+                            Cancel
+                        </button>
+                        <button type="submit" className="btn btn-primary">
+                            Submit
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <ToastContainer />
+        </div>
+    );
+};
+
+export default AddRoleModal;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{/* Status Select*/ }
+{/* <div className="form-control mb-4">
                         <label className="label">
                             <span className="label-text">Status</span>
                         </label>
@@ -65,21 +136,4 @@ const AddRoleModal = ({ show, onClose }) => {
                             <option value="ACTIVE">Active</option>
                             <option value="INACTIVE">Inactive</option>
                         </select>
-                    </div>
-
-                    {/* Button to submit */}
-                    <div className="modal-action">
-                        <button type="button" className="btn btn-ghost" onClick={onClose}>
-                            Cancel
-                        </button>
-                        <button type="submit" className="btn btn-primary">
-                            Submit
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    );
-};
-
-export default AddRoleModal;
+                    </div> */}
