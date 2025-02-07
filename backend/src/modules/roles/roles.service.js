@@ -23,27 +23,27 @@ const getRoles = async () => {
     // log info
     logger.info({ response: "roles fetched successfully! through get roles" });
 
-    return roles // if everything goes fine
+    return { message: "Role fetched successfully", roles, ok: true } // if everything goes fine
 };
 
 const activateRoles = async (id) => {
-    const  roles = await roleActivation(id);
+    const  role = await roleActivation(id);
 
-    assert(roles, "ROLE_INVALID", "Role not found")
+    assert(role, "ROLE_INVALID", "Role not found")
 
     logger.info({ response: `role ${id} is active now` });
 
-    return roles
+    return { message: "Role activated successfully", ok: true } // if everything goes fine
 }
 
 const deactivateRoles = async (id) => {
-    const roles = await roleDeactivation(id);
+    const role = await roleDeactivation(id);
 
-    assert(roles, "ROLE_INVALID", "Role not found")
+    assert(role, "ROLE_INVALID", "Role not found")
 
     logger.info({ response: `role ${id} is inactive now` });
 
-    return roles
+    return { message: "Role deactivated successfully", ok: true } // if everything goes fine
 }
 
 export { createRole, getRoles, activateRoles, deactivateRoles };
