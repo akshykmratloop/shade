@@ -1,6 +1,6 @@
 import { logger } from "../../config/index.js";
 import { assert, assertEvery } from "../../errors/assertError.js";
-import { findRoles, createNewRoles, roleActivation, roleDeactivation } from "../../repository/roles.repository.js";
+import { findRoles, createNewRoles, roleActivation, roleDeactivation, updateRoleinDB } from "../../repository/roles.repository.js";
 
 const createRole = async (data) => {
     const newRole = await createNewRoles(data.name, data.description)
@@ -27,7 +27,7 @@ const getRoles = async () => {
 };
 
 const activateRoles = async (id) => {
-    const  role = await roleActivation(id);
+    const role = await roleActivation(id);
 
     assert(role, "ROLE_INVALID", "Role not found")
 
@@ -46,4 +46,14 @@ const deactivateRoles = async (id) => {
     return { message: "Role deactivated successfully", ok: true } // if everything goes fine
 }
 
-export { createRole, getRoles, activateRoles, deactivateRoles };
+const updateRole = async (id, updateObject) => {
+    const role = await updateRoleinDB(id, updateObject);
+
+    assert(role, "ROLE_INVALID", "Role not found")
+
+    logger.info({ response: `role ${id} is inactive now` });
+
+    return { message: "Role updated successfully", role, ok: true }
+}
+
+export { createRole, getRoles, activateRoles, deactivateRoles, updateRole };

@@ -1,4 +1,4 @@
-import { createRole, getRoles, activateRoles, deactivateRoles } from './roles.service.js';
+import { createRole, getRoles, activateRoles, deactivateRoles, updateRole } from './roles.service.js';
 
 
 const CreateRole = async (req, res) => {
@@ -15,6 +15,13 @@ const FetchRoles = async (req, res) => {
     res.status(200).json(roles.roles);
 };
 
+const UpdateRole = async (req, res) => {
+    const { id } = req.body;
+    const result = await updateRole(id, req.body)
+
+    res.status(202).json(result)
+}
+
 const ActivateRole = async (req, res) => {
     const { id } = req.body;
     const result = await activateRoles(id)
@@ -29,4 +36,4 @@ const DeactivateRole = async (req, res) => {
     res.status(200).json(result)
 }
 
-export default { FetchRoles, CreateRole, ActivateRole, DeactivateRole };
+export default { FetchRoles, CreateRole, ActivateRole, DeactivateRole, UpdateRole };

@@ -25,8 +25,7 @@ router.post(
 router.put(
   "/update",
   authenticateUser,
-  // validator(updatePasswordSchema),
-  tryCatchWrap()
+  tryCatchWrap(RolesController.UpdateRole)
 );
 
 router.put("/activate",

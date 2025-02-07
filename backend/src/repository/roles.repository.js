@@ -1,3 +1,4 @@
+import { PrismaClient } from "@prisma/client";
 import prismaClient from "../config/dbConfig.js";
 
 
@@ -32,7 +33,7 @@ export const roleActivation = async (id) => {
         }
     })
 
-    return role 
+    return role
 }
 
 export const roleDeactivation = async (id) => {
@@ -43,6 +44,27 @@ export const roleDeactivation = async (id) => {
         data: {
             status: "INACTIVE"
         }
+    })
+
+    return role
+}
+
+const findRoleById = async (id) => {
+    const result = await PrismaClient.role.findUnique({
+        where: { id: id }
+    })
+
+    return result
+}
+
+export const updateRoleinDB = async (id, updateObj) => {
+    const confirmRole = await findRoleById(id);
+    
+    if(!confirmRole) return false;
+
+    const role = PrismaClient.role.update({
+        where: {id: id},
+        data: updateObj
     })
 
     return role
