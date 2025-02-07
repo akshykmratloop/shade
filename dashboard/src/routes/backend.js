@@ -17,6 +17,8 @@ const api = {
     
     fetchRoles: `${role}/roles`, // API for role start from here
     createRole: `${role}/create`,
+    activateRole: `${role}/activate`,
+    deactivateRole: `${role}/deactivate`,
 
     route(route) {
         if (this[route]) {

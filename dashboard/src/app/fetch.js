@@ -83,4 +83,12 @@ export async function createRole(data) {
     return await makerequest(api.route("createRole"), "POST", JSON.stringify(data), ContentType.json, true);
 }
 
+export async function activateRole(data) {
+    return await makerequest(api.route("activateRole"), "POST", JSON.stringify(data), ContentType.json, true);
+}
+
+export async function deactivateRole(data) {
+    return await makerequest(api.route("deactivateRole"), "POST", JSON.stringify(data), ContentType.json, true);
+}
+
 export default makerequest;

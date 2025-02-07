@@ -9,6 +9,7 @@
     "eject": "react-scripts eject"
   },
   "dependencies": {
+    "@headlessui/react": "^2.2.0",
     "@heroicons/react": "^2.0.13",
     "@reduxjs/toolkit": "^1.9.0",
     "@testing-library/jest-dom": "^5.16.5",

@@ -4,11 +4,11 @@ import FunnelIcon from '@heroicons/react/24/outline/FunnelIcon';
 import XMarkIcon from '@heroicons/react/24/outline/XMarkIcon';
 import PlusIcon from '@heroicons/react/24/outline/PlusIcon';
 import PencilIcon from '@heroicons/react/24/outline/PencilIcon';
-import TrashIcon from '@heroicons/react/24/outline/TrashIcon';
 import SearchBar from "../../components/Input/SearchBar";
-import { fetchRoles } from "../../app/fetch";
+import { fetchRoles, activateRole, deactivateRole } from "../../app/fetch";
 import TitleCard from "../../components/Cards/TitleCard";
 import AddRoleModal from "./AddRole";
+import RoleDetailsModal from "./ShowRole";
 
 const TopSideButtons = ({ removeFilter, applyFilter, applySearch, openAddForm }) => {
     const [filterParam, setFilterParam] = useState("");
@@ -74,8 +74,8 @@ function Roles() {
     const [originalRoles, setOriginalRoles] = useState([]);
     const [showAddForm, setShowAddForm] = useState(false);
     const [changesInRole, setChangesInRole] = useState(false);
-    const [showDeleteDialog, setShowDeleteDialog] = useState(false);
-    const [selectedRoleId, setSelectedRoleId] = useState(null);
+    const [selectedRole, setSelectedRole] = useState(null);
+    const [showDetailsModal, setShowDetailsModal] = useState(false);
 
     const removeFilter = () => {
         setRoles([...originalRoles]);
@@ -93,18 +93,14 @@ function Roles() {
         setRoles(filteredRoles);
     };
 
-    const handleStatusClick = (status) => {
-        // Empty function for now
-        console.log(`Status clicked: ${status}`);
-    };
+    const statusChange = async (role) => {
+        let response;
+        if (role.status === "ACTIVE") response = deactivateRole(role)
+        else response = activateRole(role)
 
-    // const handleDeleteRole = async () => {
-    //     if (selectedRoleId) {
-    //         await deleteRoleById(selectedRoleId); // Placeholder request function
-    //         setChangesInRole(prev => !prev);
-    //         setShowDeleteDialog(false);
-    //     }
-    // };
+        console.log(response)
+    }
+
 
     useEffect(() => {
         async function fetchRoleData() {
@@ -122,7 +118,7 @@ function Roles() {
                     <table className="table w-full text-center">
                         <thead>
                             <tr>
-                                <th>Id</th>
+                                <th style={{ position: "static" }}>Id</th>
                                 <th>Name</th>
                                 <th>Description</th>
                                 <th>Status</th>
@@ -135,13 +131,15 @@ function Roles() {
                             {Array.isArray(roles) && roles?.map((role, index) => (
                                 <tr key={index}>
                                     <td>{role.id}</td>
-                                    <td>{role.name}</td>
+                                    <td className="cursor-pointer" onClick={() => {
+                                        setSelectedRole(role);
+                                        setShowDetailsModal(true);
+                                    }}>{role.name}</td>
                                     <td>{role.description}</td>
                                     <td>
                                         <button
-                                            onClick={() => handleStatusClick(role.status)}
-                                            className={`px-3 py-1 rounded text-white ${role.status === 'ACTIVE' ? 'bg-green-500' : 'bg-red-500'
-                                                }`}
+                                            className={`px-3 py-1 rounded text-white ${role.status === 'ACTIVE' ? 'bg-green-500' : 'bg-red-500'}`}
+                                            onClick={(e) => { e.preventDefault(); statusChange(role) }}
                                         >
                                             {role.status}
                                         </button>
@@ -149,17 +147,12 @@ function Roles() {
                                     <td>{format(new Date(role.created_at), 'dd/MM/yyyy')}</td>
                                     <td>{format(new Date(role.updated_at), 'dd/MM/yyyy')}</td>
                                     <td className="flex justify-center space-x-2">
-                                        <button className="btn btn-xs btn-primary">
-                                            <PencilIcon className="w-4" />
-                                        </button>
-                                        <button
-                                            className="btn btn-xs btn-error"
+                                        <button className="btn btn-xs btn-primary"
                                             onClick={() => {
-                                                setSelectedRoleId(role.id);
-                                                setShowDeleteDialog(true);
-                                            }}
-                                        >
-                                            <TrashIcon className="w-4" />
+                                                // setSelectedRole(role);
+                                                // setShowDetailsModal(true);
+                                            }}>
+                                            <PencilIcon className="w-4" />
                                         </button>
                                     </td>
                                 </tr>
@@ -172,19 +165,8 @@ function Roles() {
             {/* Add Role Modal */}
             <AddRoleModal show={showAddForm} onClose={() => setShowAddForm(false)} updateRole={setChangesInRole} />
 
-            {/* Delete Confirmation Dialog */}
-            {showDeleteDialog && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-                    <div className="bg-base-200 p-4 rounded-lg w-96">
-                        <h2 className="text-lg font-bold">Confirm Deletion</h2>
-                        <p>Are you sure you want to delete this role?</p>
-                        <div className="flex justify-end space-x-2 mt-4">
-                            <button className="btn btn-ghost" onClick={() => setShowDeleteDialog(false)}>Cancel</button>
-                            <button className="btn btn-error" >Delete</button>
-                        </div>
-                    </div>
-                </div>
-            )}
+            {/* Role Details Modal */}
+            <RoleDetailsModal role={selectedRole} show={showDetailsModal} onClose={() => setShowDetailsModal(false)} />
         </>
     );
 }
