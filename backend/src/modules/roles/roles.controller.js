@@ -17,6 +17,8 @@ const FetchRoles = async (req, res) => {
 
 const UpdateRole = async (req, res) => {
     const { id } = req.body;
+    delete req.body.id
+
     const result = await updateRole(id, req.body)
 
     res.status(202).json(result)
