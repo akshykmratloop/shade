@@ -124,7 +124,7 @@ function Roles() {
     return (
         <>
             <TitleCard title="Recent Roles" topMargin="mt-2" TopSideButtons={<TopSideButtons applySearch={applySearch} applyFilter={applyFilter} removeFilter={removeFilter} openAddForm={() => setShowAddForm(true)} />}>
-    <div className="overflow-x-auto w-full">
+    <div className="overflow-x-auto">
         <table className="table w-full text-center">
             <thead>
                 <tr>
