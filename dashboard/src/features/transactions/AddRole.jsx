@@ -19,7 +19,7 @@ const AddRoleModal = ({ show, onClose, updateRoles, role }) => {
         const loadingToastId = toast.loading("Processing request...", { autoClose: 2000 });
 
         const validation = validator(roleData, setErrorMessage);
-        if (!validation) return updateToasify(loadingToastId, "Request failed!", "failure", 1700);
+        if (!validation) return updateToasify(loadingToastId, `Request failed! ${errorMessage}`, "failure", 1700);
 
         let response;
         if (role) {
@@ -28,7 +28,6 @@ const AddRoleModal = ({ show, onClose, updateRoles, role }) => {
             response = await createRole(roleData);
         }
 
-        console.log(response)
         if (response.ok) {
             updateToasify(loadingToastId, `Request successful!🎉. ${response.message}`, "success", 1000);
             setTimeout(() => {

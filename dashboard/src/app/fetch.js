@@ -1,16 +1,15 @@
 import api from "../routes/backend"
 
-const makerequest = async (uri, method = 'GET', body = undefined, headers = {}, cookie = false) => {
-    // const token = localStorage.getItem("authToken"); // Or wherever your token is stored
-    // if (token) {
-    //     headers['Authorization'] = `Bearer ${token}`;  // Add token to the headers
-    // }
+const makerequest = async (uri, method = 'GET', body = undefined, headers = {}, cookie = false, timeout = 10000) => { // Timeout set to 5000ms (5 seconds)
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), timeout); // Set the timeout for the request
 
     method = method.toUpperCase();
     const options = {
         method,
         headers,
-        credentials: cookie ? "include" : "same-origin"
+        credentials: cookie ? "include" : "same-origin",
+        signal: controller.signal // Attach the abort signal
     };
 
     if (body && method !== 'GET') {
@@ -26,11 +25,17 @@ const makerequest = async (uri, method = 'GET', body = undefined, headers = {}, 
         }
         result = await response.json();
     } catch (err) {
-        result = err;
+        if (err.name === 'AbortError') {
+            result = { error: "Request timed out" };
+        } else {
+            result = err;
+        }
     } finally {
+        clearTimeout(timeoutId); // Clear the timeout once the request finishes
         return result;
     }
-}
+};
+
 
 
 const ContentType = {
