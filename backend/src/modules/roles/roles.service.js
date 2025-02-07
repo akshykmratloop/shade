@@ -11,7 +11,7 @@ const createRole = async (data) => {
     //log information
     logger.info({ response: "logged in successfully" });
 
-    return { message: "Role created successfully", newRole } // if everything goes fine
+    return { message: "Role created successfully", newRole, ok: true } // if everything goes fine
 };
 
 const getRoles = async () => {

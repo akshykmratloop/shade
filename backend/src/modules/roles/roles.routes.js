@@ -18,7 +18,7 @@ router.get(
 router.post(
   "/create",
   authenticateUser,
-  // validator(createRoleSchema),
+  validator(createRoleSchema),
   tryCatchWrap(RolesController.CreateRole)
 );
 
