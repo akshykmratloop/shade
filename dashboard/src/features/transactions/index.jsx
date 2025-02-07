@@ -157,11 +157,13 @@ function Roles() {
                                     <td>{format(new Date(role.created_at), 'dd/MM/yyyy')}</td>
                                     <td>{format(new Date(role.updated_at), 'dd/MM/yyyy')}</td>
                                     <td className="flex justify-center space-x-2">
-                                        <button className="btn btn-xs btn-primary"
+                                        <button
+                                            className="btn btn-sm btn-primary"
                                             onClick={() => {
-                                                // setSelectedRole(role);
-                                                // setShowDetailsModal(true);
-                                            }}>
+                                                setSelectedRole(role);
+                                                setShowAddForm(true);
+                                            }}
+                                        >
                                             <PencilIcon className="w-4" />
                                         </button>
                                     </td>
@@ -173,7 +175,16 @@ function Roles() {
             </TitleCard>
 
             {/* Add Role Modal */}
-            <AddRoleModal show={showAddForm} onClose={() => setShowAddForm(false)} updateRole={setChangesInRole} />
+            <AddRoleModal
+                show={showAddForm}
+                onClose={() => {
+                    setShowAddForm(false);
+                    setSelectedRole(null);
+                }}
+                updateRole={setChangesInRole}
+                role={selectedRole}
+            />
+            {/* <AddRoleModal show={showAddForm} onClose={() => setShowAddForm(false)} updateRole={setChangesInRole} /> */}
 
             {/* Role Details Modal */}
             <RoleDetailsModal role={selectedRole} show={showDetailsModal} onClose={() => setShowDetailsModal(false)} />

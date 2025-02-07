@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
 
 function InputText({
@@ -13,8 +13,8 @@ function InputText({
   display,
   name,
 }) {
-  const [value, setValue] = useState(defaultValue || "");
   const [showPassword, setShowPassword] = useState(false);
+  const [value, setValue] = useState(defaultValue || "");
 
   const updateInputValue = (val) => {
     setValue(val);
@@ -24,7 +24,10 @@ function InputText({
   const togglePasswordVisibility = () => {
     setShowPassword((prev) => !prev);
   };
-
+  
+  useEffect(() => {
+    setValue(defaultValue)
+  }, [defaultValue])
   return (
     <div
       className={`form-control mb-4 w-full ${containerStyle}`}
@@ -41,7 +44,7 @@ function InputText({
         <input
           type={showPassword && type === "password" ? "text" : type || "text"}
           name={name}
-          value={value}
+          value={value || ""}
           placeholder={placeholder || ""}
           onChange={(e) => updateInputValue(e.target.value)}
           className="input w-full input input-bordered border-stone-700 focus:border-none"

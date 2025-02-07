@@ -55,8 +55,8 @@ function Header({ openResetPass }) {
 
             {/* Menu toogle for mobile view or small screen */}
             <div className="">
-                <label htmlFor="left-sidebar-drawer" className=" drawer-button">
-                    <Bars3Icon className="h-5 inline-block w-5" /></label>
+                {/* <label htmlFor="left-sidebar-drawer" className=" drawer-button">
+                    <Bars3Icon className="h-5 inline-block w-5" /></label> */}
                 <h1 className="text-2xl font-semibold ml-2">{pageTitle}</h1>
             </div>
 

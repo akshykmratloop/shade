@@ -1,46 +1,62 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import InputText from "../../components/Input/InputText";
-import { createRole } from "../../app/fetch";
+import { createRole, updateRole } from "../../app/fetch";
 import { toast, ToastContainer } from "react-toastify";
 import validator from "../../app/valid";
 import updateToasify from "../../app/toastify";
 
-
-const AddRoleModal = ({ show, onClose, updateRole }) => {
-    const [errorMessage, setErrorMessage] = useState("")
+const AddRoleModal = ({ show, onClose, updateRole, role }) => {
+    const [errorMessage, setErrorMessage] = useState("");
     const [roleData, setRoleData] = useState({
         name: "",
         description: "",
     });
 
+
+
+    const handleFormSubmit = async (e) => {
+        e.preventDefault();
+        const loadingToastId = toast.loading("Processing request...", { autoClose: 2000 });
+
+        const validation = validator(roleData, setErrorMessage);
+        if (!validation) return updateToasify(loadingToastId, "Request failed!", "failure", 1700);
+
+        let response;
+        if (role) {
+            response = await updateRole({ ...roleData, id: role.id });
+        } else {
+            response = await createRole(roleData);
+        }
+
+        if (response.ok) {
+            updateToasify(loadingToastId, "Request successful! 🎉", "success", 1000);
+            onClose();
+            setTimeout(() => {
+                updateRole((prev) => !prev);
+            }, 1000);
+        } else {
+            updateToasify(loadingToastId, `Request failed. ${response.message}`, "failure", 2000);
+        }
+    };
+
+    useEffect(() => {
+        if (role) {
+            setRoleData({
+                name: role.name || "",
+                description: role.description || "",
+            });
+        } else {
+            setRoleData({ name: "", description: "" });
+        }
+    }, [role]);
+
     const updateFormValue = ({ updateType, value }) => {
-        setErrorMessage("")
+        setErrorMessage("");
         setRoleData((prevState) => ({
             ...prevState,
             [updateType]: value,
         }));
-    };
-
-    const handleFormSubmit = async (e) => {
-        e.preventDefault();
-        const loadingToastId = toast.loading("loging in", { autoClose: 2000 }); // starting the loading in toaster
-
-        // send the data through fetch
-        const validation = validator(roleData, setErrorMessage) // checks if any field is empty
-        if (!validation) return updateToasify(loadingToastId, "Request failed!", "failure", 1700); // updating the toaster
-
-        const response = await createRole(roleData);
-        console.log(response)
-        if (response.ok) {
-            updateToasify(loadingToastId, "Request successful! 🎉", "success", 1000) // updating the toaster
-            onClose()
-            setTimeout(() => {
-                updateRole(prev => !prev)
-            }, 1000)
-        } else {
-            updateToasify(loadingToastId, `Request failed. ${response.message}`, "failure", 2000) // updating the toaster
-        }
-
+        console.log(roleData)
     };
 
     if (!show) return null;
@@ -48,7 +64,7 @@ const AddRoleModal = ({ show, onClose, updateRole }) => {
     return (
         <div className="modal modal-open">
             <div className="modal-box">
-                <h3 className="font-bold text-lg">Add New Role</h3>
+                <h3 className="font-bold text-lg">{role ? "Edit Role" : "Add New Role"}</h3>
                 <form onSubmit={handleFormSubmit}>
                     {/* Name Field */}
                     <InputText
@@ -72,8 +88,6 @@ const AddRoleModal = ({ show, onClose, updateRole }) => {
                         updateFormValue={updateFormValue}
                     />
 
-
-                    {/* Button to submit */}
                     <div className="modal-action">
                         <button type="button" className="btn btn-ghost" onClick={onClose}>
                             Cancel
@@ -90,6 +104,8 @@ const AddRoleModal = ({ show, onClose, updateRole }) => {
 };
 
 export default AddRoleModal;
+
+
 
 
 
