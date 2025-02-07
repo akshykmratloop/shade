@@ -84,11 +84,11 @@ export async function createRole(data) {
 }
 
 export async function activateRole(data) {
-    return await makerequest(api.route("activateRole"), "POST", JSON.stringify(data), ContentType.json, true);
+    return await makerequest(api.route("activateRole"), "PUT", JSON.stringify(data), ContentType.json, true);
 }
 
 export async function deactivateRole(data) {
-    return await makerequest(api.route("deactivateRole"), "POST", JSON.stringify(data), ContentType.json, true);
+    return await makerequest(api.route("deactivateRole"), "PUT", JSON.stringify(data), ContentType.json, true);
 }
 
 export default makerequest;

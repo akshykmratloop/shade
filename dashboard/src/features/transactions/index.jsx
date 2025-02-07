@@ -9,6 +9,8 @@ import { fetchRoles, activateRole, deactivateRole } from "../../app/fetch";
 import TitleCard from "../../components/Cards/TitleCard";
 import AddRoleModal from "./AddRole";
 import RoleDetailsModal from "./ShowRole";
+import { toast, ToastContainer } from "react-toastify";
+import updateToasify from "../../app/toastify";
 
 const TopSideButtons = ({ removeFilter, applyFilter, applySearch, openAddForm }) => {
     const [filterParam, setFilterParam] = useState("");
@@ -94,19 +96,27 @@ function Roles() {
     };
 
     const statusChange = async (role) => {
+        const loadingToastId = toast.loading("loging in", { autoClose: 2000 }); // starting the loading in toaster
+
         let response;
-        if (role.status === "ACTIVE") response = deactivateRole(role)
-        else response = activateRole(role)
+        if (role.status === "ACTIVE") response = await deactivateRole(role)
+        else response = await activateRole(role)
 
         console.log(response)
+        if (response.ok) {
+            updateToasify(loadingToastId, `Request successful. ${response.message}`, "success", 1000) // updating the toaster
+            setChangesInRole(prev => !prev)
+        } else {
+            updateToasify(loadingToastId, `Request failed. ${response.message}`, "failure", 2000) // updating the toaster
+        }
     }
 
 
     useEffect(() => {
         async function fetchRoleData() {
             const response = await fetchRoles();
-            setRoles(response);
-            setOriginalRoles(response); // Store the original unfiltered data
+            setRoles(response.roles);
+            setOriginalRoles(response.roles); // Store the original unfiltered data
         }
         fetchRoleData();
     }, [changesInRole]);
@@ -167,6 +177,7 @@ function Roles() {
 
             {/* Role Details Modal */}
             <RoleDetailsModal role={selectedRole} show={showDetailsModal} onClose={() => setShowDetailsModal(false)} />
+            <ToastContainer />
         </>
     );
 }
