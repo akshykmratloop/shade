@@ -124,55 +124,61 @@ function Roles() {
     return (
         <>
             <TitleCard title="Recent Roles" topMargin="mt-2" TopSideButtons={<TopSideButtons applySearch={applySearch} applyFilter={applyFilter} removeFilter={removeFilter} openAddForm={() => setShowAddForm(true)} />}>
-                <div className="overflow-x-auto w-full">
-                    <table className="table w-full text-center">
-                        <thead>
-                            <tr>
-                                <th style={{ position: "static" }}>Id</th>
-                                <th>Name</th>
-                                <th>Description</th>
-                                <th>Status</th>
-                                <th>Created At</th>
-                                <th>Updated At</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {Array.isArray(roles) && roles?.map((role, index) => (
-                                <tr key={index}>
-                                    <td>{role.id}</td>
-                                    <td className="cursor-pointer" onClick={() => {
-                                        setSelectedRole(role);
-                                        setShowDetailsModal(true);
-                                    }}>{role.name}</td>
-                                    <td>{role.description}</td>
-                                    <td>
-                                        <button
-                                            className={`px-3 py-1 rounded text-white ${role.status === 'ACTIVE' ? 'bg-green-500' : 'bg-red-500'}`}
-                                            onClick={(e) => { e.preventDefault(); statusChange(role) }}
-                                        >
-                                            {role.status}
-                                        </button>
-                                    </td>
-                                    <td>{format(new Date(role.created_at), 'dd/MM/yyyy')}</td>
-                                    <td>{format(new Date(role.updated_at), 'dd/MM/yyyy')}</td>
-                                    <td className="flex justify-center space-x-2">
-                                        <button
-                                            className="btn btn-sm btn-primary"
-                                            onClick={() => {
-                                                setSelectedRole(role);
-                                                setShowAddForm(true);
-                                            }}
-                                        >
-                                            <PencilIcon className="w-4" />
-                                        </button>
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                </div>
-            </TitleCard>
+    <div className="overflow-x-auto w-full">
+        <table className="table w-full text-center">
+            <thead>
+                <tr>
+                    <th style={{ position: "static" }}>Id</th>
+                    <th>Name</th>
+                    <th>Description</th>
+                    <th>Status</th>
+                    <th>Created At</th>
+                    <th>Updated At</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {Array.isArray(roles) && roles?.map((role, index) => (
+                    <tr key={index}>
+                        <td>{role.id}</td>
+                        <td className="cursor-pointer" onClick={() => {
+                            setSelectedRole(role);
+                            setShowDetailsModal(true);
+                        }}>{role.name}</td>
+                        <td>
+                            {/* Truncate description to 25 characters */}
+                            {role.description.length > 25 
+                                ? `${role.description.substring(0, 25)}...` 
+                                : role.description}
+                        </td>
+                        <td>
+                            <button
+                                className={`px-3 py-1 rounded text-white ${role.status === 'ACTIVE' ? 'bg-green-500' : 'bg-red-500'}`}
+                                onClick={(e) => { e.preventDefault(); statusChange(role) }}
+                            >
+                                {role.status}
+                            </button>
+                        </td>
+                        <td>{format(new Date(role.created_at), 'dd/MM/yyyy')}</td>
+                        <td>{format(new Date(role.updated_at), 'dd/MM/yyyy')}</td>
+                        <td className="flex justify-center space-x-2">
+                            <button
+                                className="btn btn-sm btn-primary"
+                                onClick={() => {
+                                    setSelectedRole(role);
+                                    setShowAddForm(true);
+                                }}
+                            >
+                                <PencilIcon className="w-4" />
+                            </button>
+                        </td>
+                    </tr>
+                ))}
+            </tbody>
+        </table>
+    </div>
+</TitleCard>
+
 
             {/* Add Role Modal */}
             <AddRoleModal
@@ -181,7 +187,7 @@ function Roles() {
                     setShowAddForm(false);
                     setSelectedRole(null);
                 }}
-                updateRole={setChangesInRole}
+                updateRoles={setChangesInRole}
                 role={selectedRole}
             />
             {/* <AddRoleModal show={showAddForm} onClose={() => setShowAddForm(false)} updateRole={setChangesInRole} /> */}

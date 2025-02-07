@@ -19,6 +19,7 @@ const api = {
     createRole: `${role}/create`,
     activateRole: `${role}/activate`,
     deactivateRole: `${role}/deactivate`,
+    updateRole: `${role}/update`,
 
     route(route) {
         if (this[route]) {

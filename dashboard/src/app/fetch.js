@@ -91,4 +91,8 @@ export async function deactivateRole(data) {
     return await makerequest(api.route("deactivateRole"), "PUT", JSON.stringify(data), ContentType.json, true);
 }
 
+export async function updateRole(data) {
+    return await makerequest(api.route("updateRole"), "PUT", JSON.stringify(data), ContentType.json, true);
+}
+
 export default makerequest;

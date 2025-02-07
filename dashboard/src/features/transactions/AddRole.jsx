@@ -5,7 +5,7 @@ import { toast, ToastContainer } from "react-toastify";
 import validator from "../../app/valid";
 import updateToasify from "../../app/toastify";
 
-const AddRoleModal = ({ show, onClose, updateRole, role }) => {
+const AddRoleModal = ({ show, onClose, updateRoles, role }) => {
     const [errorMessage, setErrorMessage] = useState("");
     const [roleData, setRoleData] = useState({
         name: "",
@@ -28,12 +28,14 @@ const AddRoleModal = ({ show, onClose, updateRole, role }) => {
             response = await createRole(roleData);
         }
 
+        console.log(response)
         if (response.ok) {
-            updateToasify(loadingToastId, "Request successful! 🎉", "success", 1000);
-            onClose();
+            updateToasify(loadingToastId, `Request successful!🎉. ${response.message}`, "success", 1000);
             setTimeout(() => {
-                updateRole((prev) => !prev);
-            }, 1000);
+                onClose();
+                updateRoles((prev) => !prev);
+            }, 1500);
+            console.log("reply")
         } else {
             updateToasify(loadingToastId, `Request failed. ${response.message}`, "failure", 2000);
         }
