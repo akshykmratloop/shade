@@ -29,8 +29,13 @@ router.post(
 //   tryCatchWrap()
 // );
 
-// router.post("/activate", authenticateUser, tryCatchWrap());
-// router.post("/deActivate", authenticateUser, tryCatchWrap());
+router.put("/activate",
+  authenticateUser,
+  tryCatchWrap(RolesController.ActivateRole));
+
+router.put("/deactivate",
+  authenticateUser,
+  tryCatchWrap(RolesController.DeactivateRole));
 
 
 export default router;

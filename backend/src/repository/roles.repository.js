@@ -21,3 +21,29 @@ export const createNewRoles = async (name, description) => {
 
     return { roles }
 }
+
+export const roleActivation = async (id) => {
+    const role = await prismaClient.role.update({
+        where: {
+            id: id
+        },
+        data: {
+            status: "ACTIVE"
+        }
+    })
+
+    return role 
+}
+
+export const roleDeactivation = async (id) => {
+    const role = await prismaClient.role.update({
+        where: {
+            id: id
+        },
+        data: {
+            status: "INACTIVE"
+        }
+    })
+
+    return role
+}
