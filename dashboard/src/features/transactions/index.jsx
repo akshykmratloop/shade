@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { format } from 'date-fns';
 import FunnelIcon from '@heroicons/react/24/outline/FunnelIcon';
 import XMarkIcon from '@heroicons/react/24/outline/XMarkIcon';
 import PlusIcon from '@heroicons/react/24/outline/PlusIcon';
@@ -12,7 +13,7 @@ import AddRoleModal from "./AddRole";
 const TopSideButtons = ({ removeFilter, applyFilter, applySearch, openAddForm }) => {
     const [filterParam, setFilterParam] = useState("");
     const [searchText, setSearchText] = useState("");
-    const statusFilters = ["ACTIVE", "Inactive", "Pending"];
+    const statusFilters = ["ACTIVE", "INACTIVE"];
 
     const showFiltersAndApply = (status) => {
         applyFilter(status);
@@ -92,6 +93,11 @@ function Roles() {
         setRoles(filteredRoles);
     };
 
+    const handleStatusClick = (status) => {
+        // Empty function for now
+        console.log(`Status clicked: ${status}`);
+    };
+
     // const handleDeleteRole = async () => {
     //     if (selectedRoleId) {
     //         await deleteRoleById(selectedRoleId); // Placeholder request function
@@ -113,7 +119,7 @@ function Roles() {
         <>
             <TitleCard title="Recent Roles" topMargin="mt-2" TopSideButtons={<TopSideButtons applySearch={applySearch} applyFilter={applyFilter} removeFilter={removeFilter} openAddForm={() => setShowAddForm(true)} />}>
                 <div className="overflow-x-auto w-full">
-                    <table className="table w-full">
+                    <table className="table w-full text-center">
                         <thead>
                             <tr>
                                 <th>Id</th>
@@ -131,10 +137,18 @@ function Roles() {
                                     <td>{role.id}</td>
                                     <td>{role.name}</td>
                                     <td>{role.description}</td>
-                                    <td>{role.status}</td>
-                                    <td>{role.created_at}</td>
-                                    <td>{role.updated_at}</td>
-                                    <td className="flex space-x-2">
+                                    <td>
+                                        <button
+                                            onClick={() => handleStatusClick(role.status)}
+                                            className={`px-3 py-1 rounded text-white ${role.status === 'ACTIVE' ? 'bg-green-500' : 'bg-red-500'
+                                                }`}
+                                        >
+                                            {role.status}
+                                        </button>
+                                    </td>
+                                    <td>{format(new Date(role.created_at), 'dd/MM/yyyy')}</td>
+                                    <td>{format(new Date(role.updated_at), 'dd/MM/yyyy')}</td>
+                                    <td className="flex justify-center space-x-2">
                                         <button className="btn btn-xs btn-primary">
                                             <PencilIcon className="w-4" />
                                         </button>
@@ -161,7 +175,7 @@ function Roles() {
             {/* Delete Confirmation Dialog */}
             {showDeleteDialog && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-                    <div className="bg-white p-4 rounded-lg w-96">
+                    <div className="bg-base-200 p-4 rounded-lg w-96">
                         <h2 className="text-lg font-bold">Confirm Deletion</h2>
                         <p>Are you sure you want to delete this role?</p>
                         <div className="flex justify-end space-x-2 mt-4">
