@@ -22,12 +22,12 @@ router.post(
   tryCatchWrap(RolesController.CreateRole)
 );
 
-// router.put(
-//   "/update",
-//   authenticateUser,
-//   // validator(updatePasswordSchema),
-//   tryCatchWrap()
-// );
+router.put(
+  "/update",
+  authenticateUser,
+  // validator(updatePasswordSchema),
+  tryCatchWrap()
+);
 
 router.put("/activate",
   authenticateUser,
