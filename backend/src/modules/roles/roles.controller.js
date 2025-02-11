@@ -1,21 +1,41 @@
-import { createRole, getRoles } from './roles.service';
+import { createRole, getRoles, activateRoles, deactivateRoles, updateRole } from './roles.service.js';
 
-const createRoleHandler = async (req, res) => {
-    try {
-        const role = await createRole(req.body);
-        res.status(201).json(role);
-    } catch (error) {
-        res.status(400).json({ error: error.message });
-    }
+
+const CreateRole = async (req, res) => {
+    const { name, description } = req.body;
+
+    const result = await createRole({ name, description })
+
+    res.status(201).json(result);
 };
 
-const getRolesHandler = async (req, res) => {
-    try {
-        const roles = await getRoles();
-        res.status(200).json(roles);
-    } catch (error) {
-        res.status(400).json({ error: error.message });
-    }
+const FetchRoles = async (req, res) => {
+    const roles = await getRoles();
+
+    res.status(200).json(roles.roles);
 };
 
-export { createRoleHandler, getRolesHandler };
+const UpdateRole = async (req, res) => {
+    const { id } = req.body;
+    delete req.body.id
+
+    const result = await updateRole(id, req.body)
+
+    res.status(202).json(result)
+}
+
+const ActivateRole = async (req, res) => {
+    const { id } = req.body;
+    const result = await activateRoles(id)
+
+    res.status(200).json(result)
+}
+
+const DeactivateRole = async (req, res) => {
+    const { id } = req.body;
+    const result = await deactivateRoles(id)
+
+    res.status(200).json(result)
+}
+
+export default { FetchRoles, CreateRole, ActivateRole, DeactivateRole, UpdateRole };

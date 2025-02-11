@@ -3,8 +3,8 @@ import RolesController from "./roles.controller.js";
 import { authenticateUser } from "../../helper/authMiddleware.js";
 import validator from "../../validation/validator.js";
 import {
-  updatePasswordSchema
-} from "../../validation/index.js";
+  createRoleSchema
+} from "../../validation/rolesSchema.js";
 import tryCatchWrap from "../../errors/tryCatchWrap.js";
 
 const router = Router();
@@ -25,12 +25,16 @@ router.post(
 router.put(
   "/update",
   authenticateUser,
-  validator(updatePasswordSchema),
   tryCatchWrap(RolesController.UpdateRole)
 );
 
-router.post("/activate", authenticateUser, tryCatchWrap(RolesController.ActivateRole));
-router.post("/deActivate", authenticateUser, tryCatchWrap(RolesController.DeactivateRole));
+router.put("/activate",
+  authenticateUser,
+  tryCatchWrap(RolesController.ActivateRole));
+
+router.put("/deactivate",
+  authenticateUser,
+  tryCatchWrap(RolesController.DeactivateRole));
 
 
 export default router;
