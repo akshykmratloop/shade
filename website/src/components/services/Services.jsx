@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import styles from "@/components/services/services.module.scss";
 import Arrow from "../../assets/icons/right-wrrow.svg";
 
@@ -7,7 +7,7 @@ const BankGothic = localFont({
   src: "../../../public/font/BankGothicLtBTLight.ttf",
   display: "swap",
 });
-// import dynamic from 'next/dynamic';
+import dynamic from 'next/dynamic';
 import localFont from "next/font/local";
 import Button from "@/common/Button";
 import Image from "next/image";
@@ -15,12 +15,19 @@ import Image from "next/image";
 import patch from "../../contexts/svg/path.jsx";
 
 // const AnimatedText = dynamic(() => import('@/common/AnimatedText'), { ssr: false });
-import { useLanguage } from "../../contexts/LanguageContext";
+import { useGlobalContext } from "../../contexts/GlobalContext";
+import { useRouter } from "next/router";
+const ContactUsModal = dynamic(() => import('../header/ContactUsModal'), { ssr: false });
 
 const Services = () => {
-  const { language, content } = useLanguage();
-  const currentContent = content?.services;
+  const router = useRouter();
 
+  const { language, content } = useGlobalContext();
+  const currentContent = content?.services;
+  const [isModal, setIsModal] = useState(false);
+  const handleContactUSClose = () => {
+    setIsModal(false);
+  };
   return (
     <>
       <section
@@ -28,16 +35,18 @@ const Services = () => {
           styles.services_banner_wrap
         }`}
       >
-        <div className="container">
+        <div className="container" style={{ height :"100%", position :"relative"}} >
           <div className={styles.content}>
             {/* <AnimatedText text={currentContent?.banner?.title[language]} Wrapper="h1" repeatDelay={0.04} className={`${styles.title} ${BankGothic.className}`} /> */}
-            <h1 className={`${styles.title} ${BankGothic.className}`}>
+            <h1 className={`${styles.title} `}>
               {currentContent?.banner?.title[language]}
             </h1>
             <p className={`${styles.description} ${BankGothic.className}`}>
               {currentContent?.banner?.description[language]}
             </p>
-            <Button className={styles.view_btn}>
+            <Button className={styles.view_btn}
+            onClick={() => router.push('/project')}
+            >
               <Image
                 src={Arrow}
                 width="18"
@@ -122,6 +131,8 @@ const Services = () => {
               {currentContent?.newProject?.description2[language]}
             </p>
             <Button
+              onClick={() => setIsModal(true)}
+
               className={` ${language === "en" && styles.leftAlign}   ${
                 styles.view_btn
               }`}
@@ -131,6 +142,8 @@ const Services = () => {
           </div>
         </div>
       </section>
+      <ContactUsModal isModal={isModal} onClose={handleContactUSClose} />
+
     </>
   );
 };

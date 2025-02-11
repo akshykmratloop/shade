@@ -1,0 +1,18 @@
+// Represents a user in the system
+
+model User {
+  id          String         @id @default(cuid())
+  name        String
+  image       String         @default("")
+  email       String         @unique
+  password    String
+  isSuperUser Boolean        @default(false)
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+  status      Status         @default(ACTIVE)
+  roles       UserRole[] // Relations to UserRole (not defined here, but assumed to exist)
+  pageRoles   UserPageRole[] // Relations to UserPageRole (not defined here, but assumed to exist)
+  log         Log[] // Corrected to indicate a one-to-many relationship with Log
+
+  @@index([email])
+}

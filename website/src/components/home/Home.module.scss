@@ -53,14 +53,22 @@
 
     .description {
       color: var(--para-light);
-      font-size: 14px;
-      font-style: normal;
-      font-weight: 700;
-      line-height: 14.5px;
-      margin-bottom: 24px;
-      width: 44%;
+      // font-size: 14px;
+      // font-style: normal;
+      // font-weight: 700;
+      // line-height: 14.5px;
+      // margin-bottom: 24px;
+      // width: 44%;
       //   text-align: right;
       //   margin-left: auto;
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 26px;
+      margin-bottom: 26px;
+      width: 50%;
+      word-spacing: 5px;
+      display: block;
     }
 
     .view_btn {
@@ -513,6 +521,10 @@
       bottom: 40px;
       z-index: 1;
 
+      &.hide_btn_wrapper {
+        display: none;
+      }
+
       .custom_prev,
       .custom_next {
         padding: 16px 26px 16px 26px;
@@ -583,11 +595,12 @@
 
           .title {
             color: var(--white);
-            text-align: right;
+            // text-align: right;
             font-size: 20px;
             font-style: normal;
             font-weight: 600;
             line-height: normal;
+            height: 40px;
           }
 
           .subtitle {
@@ -641,7 +654,7 @@
       .description {
         color: #292e3d;
         // text-align: right;
-        font-family: "Bank Gothic Light";
+        // font-family: "Bank Gothic Light";
         font-size: 16px;
         font-style: normal;
         font-weight: 300;
@@ -815,6 +828,35 @@
 
 .testimonial_wrapper {
   padding: 130px 0 55px 0;
+  // transform: scaleX(1) !important;
+
+  &.rightAlignment {
+    .mySwiper_testimonial {
+      .testimonial_card {
+        flex-direction: row-reverse;
+
+        .testimonial_content {
+          .name,
+          .position,
+          .quote {
+            text-align: right;
+          }
+          .company_wrap {
+            justify-content: start;
+            flex-direction: row-reverse;
+
+            .company {
+              text-align: left;
+            }
+          }
+        }
+      }
+    }
+    .testimonial_wrapper_btn {
+      // flex-direction: row-reverse;
+      transform: scale(-1);
+    }
+  }
 
   .title {
     color: var(--black);
@@ -904,8 +946,8 @@
       border-radius: 20px;
       background: var(--white);
       padding: 52px 20px;
-      display: grid;
-      grid-template-columns: 70px 1fr;
+      display: flex;
+      // grid-template-columns: 70px 1fr;
       gap: 20px;
       filter: drop-shadow(0px 2.382px 6.351px rgba(0, 0, 0, 0.12));
       width: 546px;
@@ -917,7 +959,7 @@
       .testimonial_content {
         .name {
           color: #292e3d;
-          text-align: right;
+          text-align: left;
           font-size: 20px;
           font-weight: 700;
           margin-bottom: 8px;
@@ -925,7 +967,7 @@
 
         .position {
           color: rgba(41, 46, 61, 0.5);
-          text-align: right;
+          text-align: left;
           font-size: 12px;
           font-weight: 300;
           margin-bottom: 16px;
@@ -933,7 +975,7 @@
 
         .quote {
           color: #292e3d;
-          text-align: right;
+          text-align: left;
           font-size: 14px;
           font-weight: 300;
           line-height: 20px;
@@ -944,12 +986,12 @@
         .company_wrap {
           display: flex;
           align-items: center;
-          justify-content: flex-start;
+          justify-content: end;
           gap: 10px;
 
           .company {
             color: rgba(41, 46, 61, 0.5);
-            text-align: right;
+            text-align: left;
             font-size: 16px;
             font-weight: 700;
           }

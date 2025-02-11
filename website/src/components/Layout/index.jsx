@@ -2,23 +2,23 @@ import { useState } from "react";
 import Footer from "../footer/Footer";
 import Header from "../header/Header";
 import SideBarNavigation from "../sidebar";
-import { LanguageProvider, useLanguage } from "../../contexts/LanguageContext";
+import { GlobalContextProvider, useGlobalContext } from "../../contexts/GlobalContext";
 import Loader from "@/common/Loader";
 
 const Layout = ({ children }) => {
   const [isOpenNavbar, setIsOpenNavbar] = useState(false);
 
   return (
-    <LanguageProvider>
+    <GlobalContextProvider>
       <ContentWrapper isOpenNavbar={isOpenNavbar} setIsOpenNavbar={setIsOpenNavbar}>
         {children}
       </ContentWrapper>
-    </LanguageProvider>
+    </GlobalContextProvider>
   );
 };
 
 const ContentWrapper = ({ children, isOpenNavbar, setIsOpenNavbar }) => {
-  const { language, content } = useLanguage(); // Access the current language and content
+  const { language, content } = useGlobalContext(); // Access the current language and content
 
   if (!content) return <Loader/>; // Render loading state
 

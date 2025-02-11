@@ -11,7 +11,7 @@
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
-      left: 260px;
+      right: 20px;
       .title,
       .description {
         transform: scaleX(-1);
@@ -49,12 +49,13 @@
 
     .description {
       color: var(--para-light);
-      font-size: 14px;
+      font-size: 16px;
       font-style: normal;
-      font-weight: 700;
+      font-weight: 600;
       line-height: 28px;
-      margin-bottom: 24px;
+      margin-bottom: 26px;
       width: 55%;
+      word-spacing: 5px;
       // text-align: right;
       margin-left: auto;
     }
@@ -214,19 +215,23 @@
         flex-direction: column;
         align-items: flex-start;
         gap: 8px;
+        overflow: hidden;
 
         .card_image {
           // background: url;
+          width: 100%;
+          overflow: hidden;
         }
 
         .title {
           color: var(--black);
-          text-align: right;
+          // text-align: right;
           font-size: 20px;
           font-style: normal;
           font-weight: 700;
           line-height: normal;
           margin-top: 16px;
+          height: 40px;
         }
 
         .button {
@@ -251,11 +256,50 @@
         }
       }
     }
+    .button_wrap {
+      align-items: center;
+      justify-content: center;
+      display: flex;
+      margin-top: 44px;
+
+      .view_more_btn {
+        gap: 8px;
+      }
+    }
   }
 }
 
 .testimonial_wrapper {
   padding: 130px 0 55px 0;
+  // transform: scaleX(1) !important;
+
+  &.rightAlignment {
+    .mySwiper_testimonial {
+      .testimonial_card {
+        flex-direction: row-reverse;
+
+        .testimonial_content {
+          .name,
+          .position,
+          .quote {
+            text-align: right;
+          }
+          .company_wrap {
+            justify-content: start;
+            flex-direction: row-reverse;
+
+            .company {
+              text-align: left;
+            }
+          }
+        }
+      }
+    }
+    .testimonial_wrapper_btn {
+      // flex-direction: row-reverse;
+      transform: scale(-1);
+    }
+  }
 
   .title {
     color: var(--black);
@@ -345,8 +389,8 @@
       border-radius: 20px;
       background: var(--white);
       padding: 52px 20px;
-      display: grid;
-      grid-template-columns: 70px 1fr;
+      display: flex;
+      // grid-template-columns: 70px 1fr;
       gap: 20px;
       filter: drop-shadow(0px 2.382px 6.351px rgba(0, 0, 0, 0.12));
       width: 546px;
@@ -358,7 +402,7 @@
       .testimonial_content {
         .name {
           color: #292e3d;
-          text-align: right;
+          text-align: left;
           font-size: 20px;
           font-weight: 700;
           margin-bottom: 8px;
@@ -366,7 +410,7 @@
 
         .position {
           color: rgba(41, 46, 61, 0.5);
-          text-align: right;
+          text-align: left;
           font-size: 12px;
           font-weight: 300;
           margin-bottom: 16px;
@@ -374,7 +418,7 @@
 
         .quote {
           color: #292e3d;
-          text-align: right;
+          text-align: left;
           font-size: 14px;
           font-weight: 300;
           line-height: 20px;
@@ -385,12 +429,12 @@
         .company_wrap {
           display: flex;
           align-items: center;
-          justify-content: flex-start;
+          justify-content: end;
           gap: 10px;
 
           .company {
             color: rgba(41, 46, 61, 0.5);
-            text-align: right;
+            text-align: left;
             font-size: 16px;
             font-weight: 700;
           }
@@ -424,6 +468,7 @@
     }
   }
 }
+
 
 .about_new_project_wrapper {
   padding: 100px 0 112px 0;

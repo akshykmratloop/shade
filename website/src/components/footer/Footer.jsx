@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import styles from "@/components/footer/Footer.module.scss";
 import Link from "next/link";
 import Logo from "@/assets/brand-logo/foot-logo.svg";
@@ -9,7 +9,8 @@ import Linkedin from "@/assets/icons/linkedin.svg";
 import Image from "next/image";
 import Button from "@/common/Button";
 import localFont from "next/font/local";
-import { useLanguage } from "../../contexts/LanguageContext";
+import { useGlobalContext } from "../../contexts/GlobalContext";
+import ContactUsModal from "../header/ContactUsModal";
 
 // Font files can be colocated inside of `app`
 const BankGothic = localFont({
@@ -19,9 +20,13 @@ const BankGothic = localFont({
 
 const Footer = () => {
 
-  const { language, content } = useLanguage();
+  const { language, content } = useGlobalContext();
   const currentContent = content?.footer;
+  const [isModal, setIsModal] = useState(false);
 
+  const handleContactUSClose = () => {
+    setIsModal(false);
+  };
   return (
     <footer className={styles.footerWrapper}>
       <span className={styles.bubble1}></span>
@@ -107,24 +112,24 @@ const Footer = () => {
               {currentContent?.contact?.helpText[language]}
             </h6>
 
-            <Button className={styles.contact_btn}>
+            <Button className={`${styles.contact_btn} ${language === 'en' && styles.center}` } onClick={()=>setIsModal(true)}>
               {currentContent?.contact?.button[language]}
             </Button>
 
             <ul className={styles.socialMedia}>
               <li className={styles.socialMediaItem}>
-                <Link href="#" className={styles.socialMediaLink}>
+                <a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer" className={styles.socialMediaLink}>
                   <Image
                     src={Linkedin}
-                    alt="Youtube"
+                    alt="Linkedin"
                     className={styles.Icon}
                     width={24}
                     height={24}
                   />
-                </Link>
+                </a>
               </li>
               <li className={styles.socialMediaItem}>
-                <Link href="#" className={styles.socialMediaLink}>
+                <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" className={styles.socialMediaLink}>
                   <Image
                     src={Instagram}
                     alt="Instagram"
@@ -132,10 +137,10 @@ const Footer = () => {
                     width={24}
                     height={24}
                   />
-                </Link>
+                </a>
               </li>
               <li className={styles.socialMediaItem}>
-                <Link href="#" className={styles.socialMediaLink}>
+                <a href="https://twitter.com/" target="_blank" rel="noopener noreferrer" className={styles.socialMediaLink}>
                   <Image
                     src={Twitter}
                     alt="Twitter"
@@ -143,10 +148,10 @@ const Footer = () => {
                     width={24}
                     height={24}
                   />
-                </Link>
+                </a>
               </li>
               <li className={styles.socialMediaItem}>
-                <Link href="#" className={styles.socialMediaLink}>
+                <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" className={styles.socialMediaLink}>
                   <Image
                     src={Facebook}
                     alt="Facebook"
@@ -154,7 +159,7 @@ const Footer = () => {
                     width={24}
                     height={24}
                   />
-                </Link>
+                </a>
               </li>
             </ul>
           </div>
@@ -177,6 +182,7 @@ const Footer = () => {
           </ul>
         </div> */}
       </div>
+      <ContactUsModal isModal={isModal} onClose={handleContactUSClose} />
     </footer>
   );
 };

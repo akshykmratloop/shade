@@ -1,3 +1,45 @@
+<<<<<<< HEAD
+<<<<<<< HEAD
+![Logo](.\public\logo.png)
+
+# Shade-Content Management System
+
+# This is the Content Management System (CMS) for Shade Corporation, designed to manage content on the Shade website. It features a role-based management system, user creation, and page content update capabilities. The system supports multiple roles, with a workflow that includes editing, verification, and publishing stages.
+
+## Features
+
+- **Light/dark** mode toggle
+- Token based user **authentication**
+- **Submenu support** in sidebar
+- Store management using **redux toolkit**
+- **Daisy UI** components and **Tailwind** support
+- **Right and left sidebar**, Universal loader, notifications
+- **Calendar**, global modal, **chart js 2**  and other components
+
+## Installation
+
+Go to project directory and run (make sure you have node installed first)
+
+```bash
+  npm install
+  npm start
+
+```
+
+## Core Libraries Used
+
+- [React JS v18.2.0](https://reactjs.org/)
+- [React Router v6.4.3](https://reactrouter.com/en/main)
+- [Tailwind CSS v3.2.4](https://tailwindcss.com/)
+- [Daisy UI v2.41.0](https://daisyui.com/)
+- [HeroIcons](https://heroicons.com/)
+- [Redux toolkit v1.9](https://redux-toolkit.js.org/)
+- [React ChartJS 2 v5](https://react-chartjs-2.js.org/)
+
+=======
+
+=======
+>>>>>>> 780f68e5d63528954f4c85063f6785fa020c9aa9
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
@@ -8,23 +50,41 @@ In the project directory, you can run:
 
 ### `npm start`
 
+<<<<<<< HEAD
+Runs the app in the development mode.  
+Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+
+The page will reload when you make changes.  
+=======
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
 The page will reload when you make changes.\
+>>>>>>> 780f68e5d63528954f4c85063f6785fa020c9aa9
 You may also see any lint errors in the console.
 
 ### `npm test`
 
+<<<<<<< HEAD
+Launches the test runner in the interactive watch mode.  
+=======
 Launches the test runner in the interactive watch mode.\
+>>>>>>> 780f68e5d63528954f4c85063f6785fa020c9aa9
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
 ### `npm run build`
 
+<<<<<<< HEAD
+Builds the app for production to the `build` folder.  
+It correctly bundles React in production mode and optimizes the build for the best performance.
+
+The build is minified and the filenames include the hashes.  
+=======
 Builds the app for production to the `build` folder.\
 It correctly bundles React in production mode and optimizes the build for the best performance.
 
 The build is minified and the filenames include the hashes.\
+>>>>>>> 780f68e5d63528954f4c85063f6785fa020c9aa9
 Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.

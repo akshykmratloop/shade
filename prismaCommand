@@ -1,0 +1,10 @@
+npx prisma --version : -- to check the version of prisma
+npx prisma migrate dev : -- to migrate the schema in devDB
+npx prisma migrate dev --create-only : -- to create the schema without applying it
+npx prisma db pull : -- to pull the schema from the database
+npx prisma db push : -- to push the schema to the database
+npx prisma generate : -- to generate the prisma client
+npx prisma studio : -- to open the prisma studio
+npm run prisma:migrate:dev : -- to migrate the schema in devDB
+npx prisma migrate dev --create-only : -- to create the schema without applying it
+npm run prisma:migrate:prod : -- 

@@ -7,6 +7,40 @@
   pointer-events: none;
 }
 
+/* login background */
+.l-bg{
+  background-position: center;
+  background-size: cover;
+  transition: .2s linear all;
+}
+/* carousel status */
+.carouselStatus{
+  position: fixed;
+  left: 6vw;
+  bottom: 10vh;
+  display: flex;
+  gap: .5rem;
+}
+.carouselDot{
+  background-color: rgb(80, 80, 80);
+  height: .91rem;
+  width: .91rem;
+  border-radius: 50%;
+  transition: .1s linear background-color;
+}
+
+/* removing the spinners */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+/* input[type="number"] {
+  -moz-appearance: textfield;
+} */
+
+
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;

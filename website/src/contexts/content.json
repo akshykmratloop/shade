@@ -272,7 +272,7 @@
                 "en": "High-rise building construction project.",
                 "ar": "مشروع بناء ناطحات سحاب."
               },
-              "image": ""
+              "image": "buildings"
             },
             {
               "title": {
@@ -280,14 +280,14 @@
                 "ar": "الصناعة"
               },
               "subtitle": {
-                "en": "Location 2",
-                "ar": "موقع 2"
+                "en": "Dammam, Saudi Arabia",
+                "ar": "الدمام، المملكة العربية السعودية"
               },
               "description": {
                 "en": "Industrial complex development project.",
                 "ar": "مشروع تطوير مجمع صناعي."
               },
-              "image": ""
+              "image": "industrial"
             },
             {
               "title": {
@@ -295,14 +295,14 @@
                 "ar": "البنية التحتية"
               },
               "subtitle": {
-                "en": "Location 3",
-                "ar": "موقع 3"
+                "en": "Dammam, Saudi Arabia",
+                "ar": "الدمام، المملكة العربية السعودية"
               },
               "description": {
                 "en": "Infrastructure expansion and upgrade.",
                 "ar": "توسعة وتحديث البنية التحتية."
               },
-              "image": ""
+              "image": "infrastructure"
             },
             {
               "title": {
@@ -310,74 +310,14 @@
                 "ar": "الصيانة والتجديد"
               },
               "subtitle": {
-                "en": "Location 4",
-                "ar": "موقع 4"
+                "en": "Dammam, Saudi Arabia",
+                "ar": "الدمام، المملكة العربية السعودية"
               },
               "description": {
                 "en": "Renovation of aging facilities.",
                 "ar": "تجديد المنشآت القديمة."
               },
-              "image": ""
-            },
-            {
-              "title": {
-                "en": "IT Excellence Lab",
-                "ar": "مختبر تكنولوجيا المعلومات للتميز"
-              },
-              "subtitle": {
-                "en": "Spark - Dhahran, Saudi Arabia",
-                "ar": "سبارك - الظهران، المملكة العربية السعودية"
-              },
-              "description": {
-                "en": "IT infrastructure and innovation hub.",
-                "ar": "مركز بنية تحتية لتكنولوجيا المعلومات والابتكار."
-              },
-              "image": ""
-            },
-            {
-              "title": {
-                "en": "Project 2",
-                "ar": "مشروع 2"
-              },
-              "subtitle": {
-                "en": "Location 2",
-                "ar": "موقع 2"
-              },
-              "description": {
-                "en": "Large-scale development project.",
-                "ar": "مشروع تطوير واسع النطاق."
-              },
-              "image": ""
-            },
-            {
-              "title": {
-                "en": "Project 3",
-                "ar": "مشروع 3"
-              },
-              "subtitle": {
-                "en": "Location 3",
-                "ar": "موقع 3"
-              },
-              "description": {
-                "en": "Residential and commercial spaces.",
-                "ar": "مساحات سكنية وتجارية."
-              },
-              "image": ""
-            },
-            {
-              "title": {
-                "en": "Project 4",
-                "ar": "مشروع 4"
-              },
-              "subtitle": {
-                "en": "Location 4",
-                "ar": "موقع 4"
-              },
-              "description": {
-                "en": "Modern architecture and facilities.",
-                "ar": "عمارة حديثة ومرافق."
-              },
-              "image": ""
+              "image": "repair"
             }
           ]
         },
@@ -397,14 +337,14 @@
                 "ar": "منشأة تدريب السلامة"
               },
               "subtitle": {
-                "en": "Location 1",
-                "ar": "موقع 1"
+                "en": "Dammam, Saudi Arabia",
+                "ar": "الدمام، المملكة العربية السعودية"
               },
               "description": {
                 "en": "A state-of-the-art facility for safety training.",
                 "ar": "منشأة حديثة لتدريب السلامة."
               },
-              "image": ""
+              "image": "safetyTraining"
             },
             {
               "title": {
@@ -412,14 +352,14 @@
                 "ar": "أنظمة الاستجابة للطوارئ"
               },
               "subtitle": {
-                "en": "Location 2",
-                "ar": "موقع 2"
+                "en": "Dammam, Saudi Arabia",
+                "ar": "الدمام، المملكة العربية السعودية"
               },
               "description": {
                 "en": "Design and implementation of emergency response systems.",
                 "ar": "تصميم وتنفيذ أنظمة الاستجابة للطوارئ."
               },
-              "image": ""
+              "image": "emergencyResponse"
             },
             {
               "title": {
@@ -427,14 +367,14 @@
                 "ar": "معايير السلامة في البناء"
               },
               "subtitle": {
-                "en": "Building Site 3",
-                "ar": "موقع البناء 3"
+                "en": "Dammam, Saudi Arabia",
+                "ar": "الدمام، المملكة العربية السعودية"
               },
               "description": {
                 "en": "Ensuring safety standards on construction sites.",
                 "ar": "ضمان معايير السلامة في مواقع البناء."
               },
-              "image": ""
+              "image": "constructionSafety"
             },
             {
               "title": {
@@ -442,14 +382,14 @@
                 "ar": "مناولة المواد الخطرة"
               },
               "subtitle": {
-                "en": "Facility 4",
-                "ar": "المرافق 4"
+                "en": "Dammam, Saudi Arabia",
+                "ar": "الدمام، المملكة العربية السعودية"
               },
               "description": {
                 "en": "Proper handling and disposal of hazardous materials.",
                 "ar": "التعامل الصحيح والتخلص من المواد الخطرة."
               },
-              "image": ""
+              "image": "hazardousMaterials"
             },
             {
               "title": {
@@ -457,14 +397,14 @@
                 "ar": "السلامة من الحرائق والوقاية"
               },
               "subtitle": {
-                "en": "Building 5",
-                "ar": "المبنى 5"
+                "en": "Dammam, Saudi Arabia",
+                "ar": "الدمام، المملكة العربية السعودية"
               },
               "description": {
                 "en": "Installation of fire safety systems and prevention protocols.",
                 "ar": "تركيب أنظمة السلامة من الحرائق وبروتوكولات الوقاية."
               },
-              "image": ""
+              "image": "fireSafety"
             },
             {
               "title": {
@@ -472,14 +412,14 @@
                 "ar": "تدقيق السلامة في مكان العمل"
               },
               "subtitle": {
-                "en": "Location 6",
-                "ar": "موقع 6"
+                "en": "Dammam, Saudi Arabia",
+                "ar": "الدمام، المملكة العربية السعودية"
               },
               "description": {
                 "en": "Routine safety audits to ensure compliance.",
                 "ar": "التدقيق الروتيني للسلامة لضمان الامتثال."
               },
-              "image": ""
+              "image": "workplaceSafety"
             }
           ]
         }
@@ -569,7 +509,7 @@
             "en": "Nesma & Partners",
             "ar": "نسما وشركاها"
           },
-          "image": "testimonial1"
+          "image": "testimonial2"
         },
         {
           "name": {
@@ -588,7 +528,7 @@
             "en": "Umm Al Qura for Development & Construction",
             "ar": "شركة أم القرى للتطوير والبناء"
           },
-          "image": "testimonial2"
+          "image": "userIcon"
         },
         {
           "name": {
@@ -626,7 +566,7 @@
             "en": "Khatib & Alami",
             "ar": "خطيب وعلمي"
           },
-          "image": "dummyUser"
+          "image": "userIcon"
         },
         {
           "name": {
@@ -692,32 +632,32 @@
         {
           "ar": "تاريخ",
           "en": "History",
-          "url": "#"
+          "url": "/about-us"
         },
         {
           "ar": "الرؤية/الرسالة",
           "en": "Vision/Mission",
-          "url": "#"
+          "url": "/about-us"
         },
         {
           "ar": "المخطط التنظيمي",
           "en": "Organization Chart",
-          "url": "#"
+          "url": "/about-us"
         },
         {
           "ar": "مالي",
           "en": "Financial",
-          "url": "#"
+          "url": "/about-us"
         },
         {
           "ar": "الصحة والسلامة والبيئة",
           "en": "HSE",
-          "url": "#"
+          "url": "/about-us"
         },
         {
           "ar": "الشركات التابعة",
           "en": "Subsidiaries",
-          "url": "#"
+          "url": "/about-us"
         }
       ]
     },
@@ -730,22 +670,22 @@
         {
           "ar": "المباني",
           "en": "Buildings",
-          "url": "#"
+          "url": "/market"
         },
         {
           "ar": "صناعي",
           "en": "Industrial",
-          "url": "#"
+          "url": "/market"
         },
         {
           "ar": "بنية تحتية",
           "en": "Infrastructure",
-          "url": "#"
+          "url": "/market"
         },
         {
           "ar": "الإصلاح والتحديث",
           "en": "Repair & Modernization",
-          "url": "#"
+          "url": "/market"
         }
       ]
     },
@@ -758,27 +698,27 @@
         {
           "ar": "خدمات المشاريع",
           "en": "Project Services",
-          "url": "#"
+          "url": "/services"
         },
         {
           "ar": "مدير البناء",
           "en": "Construction Manager",
-          "url": "#"
+          "url": "/services"
         },
         {
           "ar": "التشغيل والصيانة",
           "en": "Operation & Maintenance",
-          "url": "#"
+          "url": "/services"
         },
         {
           "ar": "تأجير المعدات",
           "en": "Equipment Rental",
-          "url": "#"
+          "url": "/services"
         },
         {
           "ar": "تلفيق",
           "en": "Fabrication",
-          "url": "#"
+          "url": "/services"
         }
       ]
     },
@@ -830,18 +770,6 @@
       ]
     }
   },
-
-
-
-
-
-
-
-
-
-
-
-
 
   "solution": {
     "banner": {
@@ -945,17 +873,6 @@
       ]
     }
   },
-
-
-
-
-
-
-
-
-
-
-
 
   "aboutUs": {
     "services": {
@@ -1071,43 +988,6 @@
     "serviceCards": [
       {
         "title": {
-          "ar": "خدمات المشروع",
-          "en": "Project Services"
-        },
-        "subtitle": {
-          "ar": "نحن نستفيد من سنوات خبرتنا في صناعة البناء والتشييد للعملاء من خلال الحفاظ أيضًا على مرافقهم وبنيتهم التحتية.",
-          "en": "We leverage our years of experience in the construction industry for clients by also maintaining their facilities and infrastructure."
-        },
-        "listTitle": {
-          "ar": "خبرتنا تغطي:",
-          "en": "Our expertise covers:"
-        },
-        "listItems": [
-          {
-            "ar": "خدمات المرافق",
-            "en": "Facility Services"
-          },
-          {
-            "ar": "خدمات الطرق",
-            "en": "Road Services"
-          },
-          {
-            "ar": "خدمات الجسور / الأنفاق",
-            "en": "Bridge/Tunnel Services"
-          },
-          {
-            "ar": "خدمات المصانع / المصانع",
-            "en": "Plant/Factory Services"
-          },
-          {
-            "ar": "خدمات تنسيق الحدائق",
-            "en": "Landscaping Services"
-          }
-        ],
-        "image": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(2).png"
-      },
-      {
-        "title": {
           "ar": "إدارة البناء",
           "en": "Construction Management"
         },
@@ -1145,6 +1025,44 @@
       },
       {
         "title": {
+          "ar": "خدمات المشروع",
+          "en": "Project Services"
+        },
+        "subtitle": {
+          "ar": "نحن نستفيد من سنوات خبرتنا في صناعة البناء والتشييد للعملاء من خلال الحفاظ أيضًا على مرافقهم وبنيتهم التحتية.",
+          "en": "We leverage our years of experience in the construction industry for clients by also maintaining their facilities and infrastructure."
+        },
+        "listTitle": {
+          "ar": "خبرتنا تغطي:",
+          "en": "Our expertise covers:"
+        },
+        "listItems": [
+          {
+            "ar": "خدمات المرافق",
+            "en": "Facility Services"
+          },
+          {
+            "ar": "خدمات الطرق",
+            "en": "Road Services"
+          },
+          {
+            "ar": "خدمات الجسور / الأنفاق",
+            "en": "Bridge/Tunnel Services"
+          },
+          {
+            "ar": "خدمات المصانع / المصانع",
+            "en": "Plant/Factory Services"
+          },
+          {
+            "ar": "خدمات تنسيق الحدائق",
+            "en": "Landscaping Services"
+          }
+        ],
+        "image": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(2).png"
+      },
+
+      {
+        "title": {
           "ar": "التشغيل والصيانة",
           "en": "Operation & Maintenance"
         },
@@ -1160,21 +1078,6 @@
       },
       {
         "title": {
-          "ar": "تأجير المعدات",
-          "en": "Equipment Rental"
-        },
-        "subtitle": {
-          "ar": "تعد شركة Shade Corporation واحدة من أكبر شركات البناء وتأجير البنية التحتية في المنطقة.",
-          "en": "Shade Corporation is one of the largest construction and infrastructure rental companies in the region."
-        },
-        "description": {
-          "ar": "نحن نقدم حلاً شاملاً لتأجير المعدات ذات المستوى العالمي والخدمات المرتبطة بها. نحن نمكن من استخدام المصانع والآلات لإنجاز المشاريع بسلاسة. يعد أسطولنا الشامل من حيث العمر والأداء من بين الأفضل في الصناعة. تمتلك شركة Shade مجموعة من الرافعات، والمضخات، ومعدات توليد الطاقة، ودعم الخنادق وتدريعها، والسقالات، والتحكم في المناخ، ومعدات المعالجة والترميم، والمزيد.",
-          "en": "We provide a comprehensive solution for world-class equipment rental and associated services. We enable the use of plants and machinery to complete projects seamlessly. Our fleet is comprehensive in terms of age and performance among the best in the industry. Shade owns a range of cranes, pumps, power generation equipment, trench support and shoring, scaffolding, climate control, handling and remediation equipment, and more."
-        },
-        "image": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(4).png"
-      },
-      {
-        "title": {
           "ar": "تلفيق",
           "en": "Fabrication"
         },
@@ -1187,6 +1090,21 @@
           "en": "Our technical experts work to streamline delivery methods to optimize our clients' capital efficiency, regardless of industry. We take a flexible approach and offer a range of options tailored to meet specific client requirements."
         },
         "image": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(5).png"
+      },
+      {
+        "title": {
+          "ar": "تأجير المعدات",
+          "en": "Equipment Rental"
+        },
+        "subtitle": {
+          "ar": "تعد شركة Shade Corporation واحدة من أكبر شركات البناء وتأجير البنية التحتية في المنطقة.",
+          "en": "Shade Corporation is one of the largest construction and infrastructure rental companies in the region."
+        },
+        "description": {
+          "ar": "نحن نقدم حلاً شاملاً لتأجير المعدات ذات المستوى العالمي والخدمات المرتبطة بها. نحن نمكن من استخدام المصانع والآلات لإنجاز المشاريع بسلاسة. يعد أسطولنا الشامل من حيث العمر والأداء من بين الأفضل في الصناعة. تمتلك شركة Shade مجموعة من الرافعات، والمضخات، ومعدات توليد الطاقة، ودعم الخنادق وتدريعها، والسقالات، والتحكم في المناخ، ومعدات المعالجة والترميم، والمزيد.",
+          "en": "We provide a comprehensive solution for world-class equipment rental and associated services. We enable the use of plants and machinery to complete projects seamlessly. Our fleet is comprehensive in terms of age and performance among the best in the industry. Shade owns a range of cranes, pumps, power generation equipment, trench support and shoring, scaffolding, climate control, handling and remediation equipment, and more."
+        },
+        "image": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(4).png"
       }
     ],
     "newProject": {
@@ -1214,6 +1132,7 @@
       }
     }
   },
+
   "market": {
     "banner": {
       "title": {
@@ -1244,212 +1163,248 @@
     "tabSection": {
       "tabs": [
         {
+          "id": "buildings",
           "title": {
             "ar": "المباني",
             "en": "Buildings"
-          },
-          "projects": [
-            {
-              "title": {
-                "ar": "مختبرات تكنولوجيا المعلومات للتميز",
-                "en": "IT Labs of Excellence"
-              },
-              "url": "https://frequencyimage.s3.ap-south-1.amazonaws.com/79273d2e-3d58-4615-a65c-c3472fdaf393-Frame%2044.png"
-            },
-            {
-              "title": {
-                "ar": "مختبرات تكنولوجيا المعلومات للتميز",
-                "en": "IT Labs of Excellence"
-              },
-              "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
-            },
-            {
-              "title": {
-                "ar": "مختبرات تكنولوجيا المعلومات للتميز",
-                "en": "IT Labs of Excellence"
-              },
-              "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(2).jpg"
-            },
-            {
-              "title": {
-                "ar": "مختبرات تكنولوجيا المعلومات للتميز",
-                "en": "IT Labs of Excellence"
-              },
-              "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(3).jpg"
-            },
-            {
-              "title": {
-                "ar": "مختبرات تكنولوجيا المعلومات للتميز",
-                "en": "IT Labs of Excellence"
-              },
-              "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).jpg"
-            },
-            {
-              "title": {
-                "ar": "مختبرات تكنولوجيا المعلومات للتميز",
-                "en": "IT Labs of Excellence"
-              },
-              "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44.jpg"
-            }
-          ]
+          }
         },
         {
+          "id": "industrial",
           "title": {
             "ar": "صناعي",
             "en": "Industrial"
-          },
-          "projects": [
-            {
-              "title": {
-                "ar": "مختبرات تكنولوجيا المعلومات للتميز",
-                "en": "IT Labs of Excellence"
-              },
-              "url": "https://frequencyimage.s3.ap-south-1.amazonaws.com/79273d2e-3d58-4615-a65c-c3472fdaf393-Frame%2044.png"
-            },
-            {
-              "title": {
-                "ar": "مختبرات تكنولوجيا المعلومات للتميز",
-                "en": "IT Labs of Excellence"
-              },
-              "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
-            },
-            {
-              "title": {
-                "ar": "مختبرات تكنولوجيا المعلومات للتميز",
-                "en": "IT Labs of Excellence"
-              },
-              "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(2).jpg"
-            },
-            {
-              "title": {
-                "ar": "مختبرات تكنولوجيا المعلومات للتميز",
-                "en": "IT Labs of Excellence"
-              },
-              "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(3).jpg"
-            },
-            {
-              "title": {
-                "ar": "مختبرات تكنولوجيا المعلومات للتميز",
-                "en": "IT Labs of Excellence"
-              },
-              "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).jpg"
-            },
-            {
-              "title": {
-                "ar": "مختبرات تكنولوجيا المعلومات للتميز",
-                "en": "IT Labs of Excellence"
-              },
-              "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44.jpg"
-            }
-          ]
+          }
         },
         {
+          "id": "infrastructure",
           "title": {
             "ar": "بنية تحتية",
             "en": "Infrastructure"
-          },
-          "projects": [
-            {
-              "title": {
-                "ar": "مختبرات تكنولوجيا المعلومات للتميز",
-                "en": "IT Labs of Excellence"
-              },
-              "url": "https://frequencyimage.s3.ap-south-1.amazonaws.com/79273d2e-3d58-4615-a65c-c3472fdaf393-Frame%2044.png"
-            },
-            {
-              "title": {
-                "ar": "مختبرات تكنولوجيا المعلومات للتميز",
-                "en": "IT Labs of Excellence"
-              },
-              "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
-            },
-            {
-              "title": {
-                "ar": "مختبرات تكنولوجيا المعلومات للتميز",
-                "en": "IT Labs of Excellence"
-              },
-              "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(2).jpg"
-            },
-            {
-              "title": {
-                "ar": "مختبرات تكنولوجيا المعلومات للتميز",
-                "en": "IT Labs of Excellence"
-              },
-              "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(3).jpg"
-            },
-            {
-              "title": {
-                "ar": "مختبرات تكنولوجيا المعلومات للتميز",
-                "en": "IT Labs of Excellence"
-              },
-              "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).jpg"
-            },
-            {
-              "title": {
-                "ar": "مختبرات تكنولوجيا المعلومات للتميز",
-                "en": "IT Labs of Excellence"
-              },
-              "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44.jpg"
-            }
-          ]
+          }
         },
         {
+          "id": "renovationAndUpgrading",
           "title": {
             "ar": "الإصلاح والتحديث",
             "en": "Renovation and Upgrading"
-          },
-          "projects": [
-            {
-              "title": {
-                "ar": "مختبرات تكنولوجيا المعلومات للتميز",
-                "en": "IT Labs of Excellence"
-              },
-              "url": "https://frequencyimage.s3.ap-south-1.amazonaws.com/79273d2e-3d58-4615-a65c-c3472fdaf393-Frame%2044.png"
-            },
-            {
-              "title": {
-                "ar": "مختبرات تكنولوجيا المعلومات للتميز",
-                "en": "IT Labs of Excellence"
-              },
-              "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
-            },
-            {
-              "title": {
-                "ar": "مختبرات تكنولوجيا المعلومات للتميز",
-                "en": "IT Labs of Excellence"
-              },
-              "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(2).jpg"
-            },
-            {
-              "title": {
-                "ar": "مختبرات تكنولوجيا المعلومات للتميز",
-                "en": "IT Labs of Excellence"
-              },
-              "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(3).jpg"
-            },
-            {
-              "title": {
-                "ar": "مختبرات تكنولوجيا المعلومات للتميز",
-                "en": "IT Labs of Excellence"
-              },
-              "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).jpg"
-            },
-            {
-              "title": {
-                "ar": "مختبرات تكنولوجيا المعلومات للتميز",
-                "en": "IT Labs of Excellence"
-              },
-              "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44.jpg"
-            }
-          ]
+          }
         }
       ],
-      "button": {
-        "text": {
-          "ar": "عرض التفاصيل",
-          "en": "View Details"
+      "marketItems": [
+        {
+          "id": 1,
+          "title": {
+            "en": "IT Lab of Excellence",
+            "ar": "مختبرات تكنولوجيا المعلومات للتميز"
+          },
+          "type": "buildings",
+          "imgUrl": "itLabExcellence"
+        },
+        {
+          "id": 2,
+          "title": {
+            "en": "Non-Metallic Manufacturing Plant",
+            "ar": "مصنع المواد غير المعدنية"
+          },
+          "type": "industrial",
+          "imgUrl": "nonMetallic"
+        },
+        {
+          "id": 3,
+          "title": {
+            "en": "Business Gate",
+            "ar": "بوابة الأعمال"
+          },
+          "type": "infrastructure",
+          "imgUrl": "businessGate"
+        },
+        {
+          "id": 4,
+          "title": {
+            "en": "Construction of OME Building - NAPD Khursaniyah",
+            "ar": "بناء مبنى OME - NAPD خورصانيه"
+          },
+          "type": "renovationAndUpgrading",
+          "imgUrl": "constructionOfOME"
+        },
+        {
+          "id": 5,
+          "title": {
+            "en": "Psychiatric Facility",
+            "ar": "مرفق الطب النفسي"
+          },
+          "type": "buildings",
+          "imgUrl": "psychiatriFacility"
+        },
+        {
+          "id": 6,
+          "title": {
+            "en": "Safwa-Rahima Sea Bridge",
+            "ar": "جسر صفوى-رحيمة البحري"
+          },
+          "type": "industrial",
+          "imgUrl": "safwaRahima"
+        },
+        {
+          "id": 7,
+          "title": {
+            "en": "Renovation of Building 175 and 176",
+            "ar": "تجديد المباني 175 و 176"
+          },
+          "type": "infrastructure",
+          "imgUrl": "renovation"
+        },
+        {
+          "id": 8,
+          "title": {
+            "en": "SWCC Plant Jeddah and Haqil",
+            "ar": "محطة SWCC جدة وحقيل"
+          },
+          "type": "renovationAndUpgrading",
+          "imgUrl": "swccPlant"
+        },
+        {
+          "id": 9,
+          "title": {
+            "en": "Renovation of Al Salam Tunnel in Jeddah",
+            "ar": "تجديد نفق السلام في جدة"
+          },
+          "type": "buildings",
+          "imgUrl": "renovationOfAi"
+        },
+        {
+          "id": 10,
+          "title": {
+            "en": "Asphalt Works – TCF Pkg 1, 2 & 3",
+            "ar": "أعمال الأسفلت - TCF الحزمة 1، 2 و 3"
+          },
+          "type": "industrial",
+          "imgUrl": "asphaltWork"
+        },
+        {
+          "id": 11,
+          "title": {
+            "en": "SPARK - Waste Water Connection to MODON",
+            "ar": "سبارك - ربط مياه الصرف الصحي مع مدن"
+          },
+          "type": "infrastructure",
+          "imgUrl": "sprakWasteWater"
+        },
+        {
+          "id": 12,
+          "title": {
+            "en": "Construct an underpass at the intersection of Prince Mohamed Bin Fahd road and Imam Ali Bin Taleb road in Dammam",
+            "ar": "بناء نفق في تقاطع طريق الأمير محمد بن فهد وطريق الإمام علي بن طالب في الدمام"
+          },
+          "type": "renovationAndUpgrading",
+          "imgUrl": "constructAnUnderpass"
+        },
+        {
+          "id": 13,
+          "title": {
+            "en": "Development of HO Lots Ar-Rabiyah Phase V",
+            "ar": "تطوير قطع الأراضي في الربيع - المرحلة الخامسة"
+          },
+          "type": "buildings",
+          "imgUrl": "developmentOfHo"
+        },
+        {
+          "id": 14,
+          "title": {
+            "en": "Procedure Areas Expansion Project Phase – 1 KFCA Bahrain Side",
+            "ar": "مشروع توسيع مناطق الإجراءات - المرحلة 1 من جانب البحرين"
+          },
+          "type": "industrial",
+          "imgUrl": "procedureAreaExpansion"
+        },
+        {
+          "id": 15,
+          "title": {
+            "en": "Replace & Automate Water Wells in Dhahran",
+            "ar": "استبدال وأتمتة آبار المياه في الظهران"
+          },
+          "type": "infrastructure",
+          "imgUrl": "replaceAndAutomate"
+        },
+        {
+          "id": 16,
+          "title": {
+            "en": "Al Khobar Tunnel - Upgrading of King Abdulaziz Road Phase 1 & 2",
+            "ar": "نفق الخبر - تطوير طريق الملك عبد العزيز - المرحلة 1 و 2"
+          },
+          "type": "renovationAndUpgrading",
+          "imgUrl": "aiKhobarTunnel"
+        },
+        {
+          "id": 17,
+          "title": {
+            "en": "Bridges & Tunnel for Haramain High Speed Rail",
+            "ar": "الجسور والنفق لقطار الحرمين السريع"
+          },
+          "type": "buildings",
+          "imgUrl": "bridgeAndTunnelForHumair"
+        },
+        {
+          "id": 18,
+          "title": {
+            "en": "Crossroad Bridge of Prince Naif Road with Imam Ali Bin Abu Talib Road - Dammam",
+            "ar": "جسر تقاطع طريق الأمير نايف مع طريق الإمام علي بن أبي طالب - الدمام"
+          },
+          "type": "industrial",
+          "imgUrl": "crossroadBridgee"
+        },
+        {
+          "id": 19,
+          "title": {
+            "en": "Secondary Roads at Eastern Province Group – 5 (Khaladiyah)",
+            "ar": "الطرق الثانوية في مجموعة المنطقة الشرقية - 5 (الخلالدية)"
+          },
+          "type": "infrastructure",
+          "imgUrl": "secondaryRaad"
+        },
+        {
+          "id": 20,
+          "title": {
+            "en": "Secondary Roads at Eastern Province Group – 9 (Abqaiq & Al-Hassa)",
+            "ar": "الطرق الثانوية في مجموعة المنطقة الشرقية - 9 (الأحساء وبقيق)"
+          },
+          "type": "renovationAndUpgrading",
+          "imgUrl": "secondaryRoads"
+        },
+        {
+          "id": 21,
+          "title": {
+            "en": "SWCC Water Supply Connection in Dhahran",
+            "ar": "ربط إمدادات مياه SWCC في الظهران"
+          },
+          "type": "buildings",
+          "imgUrl": "swccWaterSupply"
+        },
+        {
+          "id": 22,
+          "title": {
+            "en": "Other Projects",
+            "ar": "مشاريع أخرى"
+          },
+          "type": "industrial",
+          "imgUrl": "otherProjects"
         }
-      }
+      ],
+      "button": [
+        {
+          "text": {
+            "ar": "عرض التفاصيل",
+            "en": "View Details"
+          }
+        },
+        {
+          "text": {
+            "ar": "عرض المزيد",
+            "en": "View More"
+          }
+        }
+      ]
     },
     "testimonialSection": {
       "title": {
@@ -1459,136 +1414,117 @@
       "testimonials": [
         {
           "name": {
-            "ar": "د. عنجر. صالح عطية عبد الظاهر",
-            "en": "Dr. Eng. Saleh Atiyah Abdul Zahir"
+            "en": "Dr. Engr. Salah Attia Abdelzaher",
+            "ar": "د. مهندس صلاح عطيه عبد الظاهر"
           },
           "position": {
-            "ar": "مدير المشاريع",
-            "en": "Project Manager"
-          },
-          "company": {
-            "ar": "شركة جبل عمر للتطوير",
-            "en": "Jabal Omar Development Company"
+            "en": "Director Projects JODC (Director of infrastructure and MEP)",
+            "ar": "مدير المشاريع في شركة جبل عمر للتطوير (مدير البنية التحتية والميكانيكا والكهرباء)"
           },
           "quote": {
-            "ar": "تخطيط وتنسيق وتنفيذ ممتاز. جدولة ناجحة. إدارة قوية وإعداد التقارير، برج ممثل الصحة والسلامة والبيئة. الخلاصة: الأداء يفوق التوقعات.",
-            "en": "Excellent planning, coordination, and execution. Successful scheduling. Strong management and reporting, HSE representative tower. Bottom line: Performance exceeds expectations."
+            "en": "Excellent planning, coordination and execution. Successful scheduling. Strong management and reporting. HSE representative excelled. Conclusion: Performance exceeds expectations.Excellent planning, coordination and execution. Successful scheduling. Strong management and reporting. HSE representative excelled. Conclusion: Performance exceeds expectations.",
+            "ar": "تخطيط وتنسيق وتنفيذ ممتاز. جدولة ناجحة. إدارة وإعداد التقارير قوية. تميز ممثل الصحة والسلامة والبيئة. الخلاصة: الأداء يتجاوز التوقعات."
           },
-          "image": "https://frequencyimage.s3.ap-south-1.amazonaws.com/c2fab440-f7f4-4657-865d-3a5ab7a0d557-Ellipse%201.svg"
+          "company": {
+            "en": "Jabal Omar Development Company",
+            "ar": "شركة جبل عمر للتطوير"
+          },
+          "image": "testimonial1"
         },
         {
           "name": {
-            "ar": "عمرو خطاب",
-            "en": "Amr Khattab"
+            "en": "Ahmed Basiony",
+            "ar": "أحمد بسيوني"
           },
           "position": {
-            "ar": "مطوّر الواجهة الخلفية",
-            "en": "Backend Developer"
-          },
-          "company": {
-            "ar": "شركة جبل عمر للتطوير",
-            "en": "Jabal Omar Development Company"
+            "en": "Project Manager",
+            "ar": "مدير مشروع"
           },
           "quote": {
-            "ar": "تخطيط وتنسيق وتنفيذ ممتاز. جدولة ناجحة. إدارة قوية وإعداد التقارير، برج ممثل الصحة والسلامة والبيئة. الخلاصة: الأداء يفوق التوقعات.",
-            "en": "Excellent planning, coordination, and execution. Successful scheduling. Strong management and reporting, HSE representative tower. Bottom line: Performance exceeds expectations."
+            "en": "Always delighted to work with Shade team; our trusted EPC partner. Their proactive approach has added value to each stage of the development and we have always been able to rely on their team to provide a very high quality, cost effective and robust results.",
+            "ar": "دائمًا سعيد بالعمل مع فريق شيد؛ شريكنا الموثوق في مشاريع الهندسة والمشتريات والبناء. لقد أضاف نهجهم الاستباقي قيمة إلى كل مرحلة من مراحل التطوير، وتمكنا دائمًا من الاعتماد على فريقهم لتقديم نتائج قوية عالية الجودة وفعالة من حيث التكلفة."
           },
-          "image": "https://frequencyimage.s3.ap-south-1.amazonaws.com/c2fab440-f7f4-4657-865d-3a5ab7a0d557-Ellipse%201.svg"
+          "company": {
+            "en": "Nesma & Partners",
+            "ar": "نسما وشركاها"
+          },
+          "image": "testimonial2"
         },
         {
           "name": {
-            "ar": "سارة العلي",
-            "en": "Sara Al Ali"
+            "en": "Khaled El Kholy",
+            "ar": "خالد الخولي"
           },
           "position": {
-            "ar": "مديرة التسويق",
-            "en": "Marketing Manager"
-          },
-          "company": {
-            "ar": "شركة تطوير المشاريع",
-            "en": "Project Development Company"
+            "en": "Project Engineer",
+            "ar": "مهندس مشروع"
           },
           "quote": {
-            "ar": "فريق محترف للغاية. كانت تجربتي معهم رائعة، وأوصي بهم بشدة.",
-            "en": "An extremely professional team. My experience with them was fantastic, and I highly recommend them."
+            "en": "Impressed with the project team’s expertise and hands on experience with road projects. They have consistently delivered against project objectives and proved as most reliable construction partner.",
+            "ar": "مُعجب بخبرة فريق المشروع وتجربته العملية في مشاريع الطرق. لقد قدموا باستمرار نتائج تتماشى مع أهداف المشروع وأثبتوا أنهم أكثر شركاء البناء موثوقية."
           },
-          "image": "https://frequencyimage.s3.ap-south-1.amazonaws.com/79273d2e-3d58-4615-a65c-c3472fdaf393-Frame%2044.png"
+          "company": {
+            "en": "Umm Al Qura for Development & Construction",
+            "ar": "شركة أم القرى للتطوير والبناء"
+          },
+          "image": "userIcon"
         },
         {
           "name": {
-            "ar": "أحمد السالم",
-            "en": "Ahmed Al Salem"
+            "en": "Mostafa Sayed",
+            "ar": "سيد مصطفى"
           },
           "position": {
-            "ar": "مهندس مدني",
-            "en": "Civil Engineer"
-          },
-          "company": {
-            "ar": "شركة البناء الحديثة",
-            "en": "Modern Construction Company"
+            "en": "Project Manager",
+            "ar": "مدير مشروع"
           },
           "quote": {
-            "ar": "عمل رائع! كانت النتائج تتجاوز توقعاتي.",
-            "en": "Great work! The results exceeded my expectations."
+            "en": "The staff employed by Shade for the project, have supported us to deliver a challenging scheme on time, budget, quality and specification, which has resulted in us keeping promise of delivering key infrastructure for Makkah on time & budget.",
+            "ar": "لقد دعمنا الموظفون الذين عينتهم شركة شيد للمشروع لتقديم مخطط مليء بالتحديات في الوقت المحدد والميزانية والجودة والمواصفات، مما أدى إلى وفائنا بوعدنا بتسليم البنية التحتية الرئيسية لمكة المكرمة في الوقت المحدد وضمن الميزانية."
           },
-          "image": "https://frequencyimage.s3.ap-south-1.amazonaws.com/79273d2e-3d58-4615-a65c-c3472fdaf393-Frame%2044.png"
+          "company": {
+            "en": "Jabal Omar Development Authority",
+            "ar": "هيئة تطوير جبل عمر"
+          },
+          "image": "dummyUser"
         },
         {
           "name": {
-            "ar": "ليلى النعيمي",
-            "en": "Laila Al Naimi"
+            "en": "Amro Khatab",
+            "ar": "عمرو خطاب"
           },
           "position": {
-            "ar": "مديرة المشاريع",
-            "en": "Project Director"
-          },
-          "company": {
-            "ar": "شركة النعيمي للتطوير",
-            "en": "Al Naimi Development Company"
+            "en": "Project Manager",
+            "ar": "مدير مشروع"
           },
           "quote": {
-            "ar": "تجربة رائعة مع هذا الفريق. كانوا دائمًا متاحين لدعمي.",
-            "en": "A wonderful experience with this team. They were always available to support me."
+            "en": "To have qualified construction partner as Shade, is key for the success of the project, especially something as complicated as Bridge road E. Their competent site team supported us in execution as well as their planning process contribute to on time delivery.",
+            "ar": "وجود شريك بناء مؤهل ك شيد هو مفتاح لنجاح المشروع، خاصة في شيء معقد مثل طريق الجسر E. لقد دعمنا فريق الموقع المختص في التنفيذ بالإضافة إلى مساهمة عملية التخطيط الخاصة بهم في التسليم في الوقت المحدد."
           },
-          "image": "https://frequencyimage.s3.ap-south-1.amazonaws.com/79273d2e-3d58-4615-a65c-c3472fdaf393-Frame%2044.png"
+          "company": {
+            "en": "Khatib & Alami",
+            "ar": "خطيب وعلمي"
+          },
+          "image": "userIcon"
         },
         {
           "name": {
-            "ar": "فهد القحطاني",
-            "en": "Fahad Al Qahtani"
+            "en": "Sherif Mekky",
+            "ar": "شريف مكي"
           },
           "position": {
-            "ar": "مدير العمليات",
-            "en": "Operations Manager"
-          },
-          "company": {
-            "ar": "شركة القحطاني للبناء",
-            "en": "Al Qahtani Construction Company"
+            "en": "Design Manager",
+            "ar": "مدير التصميم"
           },
           "quote": {
-            "ar": "أداء ممتاز واحترافية عالية. سأعمل معهم مرة أخرى بالتأكيد.",
-            "en": "Excellent performance and high professionalism. I will definitely work with them again."
-          },
-          "image": "https://frequencyimage.s3.ap-south-1.amazonaws.com/79273d2e-3d58-4615-a65c-c3472fdaf393-Frame%2044.png"
-        },
-        {
-          "name": {
-            "ar": "منى الشمري",
-            "en": "Mona Al Shammari"
-          },
-          "position": {
-            "ar": "مديرة المشاريع",
-            "en": "Project Manager"
+            "en": "As a design consultant, it is most important to have experienced construction partner who is prompt, efficient, supportive and professional in all elements of their work. Shade is one of such partners, who is committed to deliver required output with excellent quality.",
+            "ar": "كمستشار تصميم، من المهم جدًا أن يكون لديك شريك بناء ذو خبرة وسريع وفعال وداعم ومحترف في جميع جوانب عمله. شيد هي واحدة من هؤلاء الشركاء، الذين يلتزمون بتقديم النتائج المطلوبة بجودة ممتازة."
           },
           "company": {
-            "ar": "شركة الشمري للتطوير",
-            "en": "Al Shammari Development Company"
+            "en": "Parsons",
+            "ar": "بارسون"
           },
-          "quote": {
-            "ar": "فريق عمل رائع، دائمًا ملتزمون بالمواعيد النهائية.",
-            "en": "A great team, always committed to deadlines."
-          },
-          "image": "https://frequencyimage.s3.ap-south-1.amazonaws.com/79273d2e-3d58-4615-a65c-c3472fdaf393-Frame%2044.png"
+          "image": "dummyUser"
         }
       ]
     },
@@ -1617,7 +1553,8 @@
       }
     }
   },
-  "projects": {
+
+  "projectsPage": {
     "bannerSection": {
       "title": {
         "ar": ">مشروعنا",
@@ -1637,337 +1574,445 @@
     "projectsSection": {
       "tabs": [
         {
-          "id": "1",
+          "id": "all",
           "title": {
             "en": "All",
             "ar": "الكل"
-          },
-          "projects": [
-            {
-              "title": {
-                "en": "IT Excellence Lab",
-                "ar": "مختبرات تكنولوجيا المعلومات للتميز"
-              },
-              "description": {
-                "en": "Spark - Dhahran, Saudi Arabia",
-                "ar": "سبارك - الظهران، المملكة العربية السعودية"
-              },
-              "button": {
-                "text": {
-                  "ar": " عرض التفاصيل",
-                  "en": "View Details"
-                }
-              },
-              "url": "https://frequencyimage.s3.ap-south-1.amazonaws.com/79273d2e-3d58-4615-a65c-c3472fdaf393-Frame%2044.png"
-            },
-            {
-              "title": {
-                "en": "IT Excellence Lab",
-                "ar": "مختبرات تكنولوجيا المعلومات للتميز"
-              },
-              "description": {
-                "en": "Spark - Dhahran, Saudi Arabia",
-                "ar": "سبارك - الظهران، المملكة العربية السعودية"
-              },
-              "button": {
-                "text": {
-                  "ar": " عرض التفاصيل",
-                  "en": "View Details"
-                }
-              },
-              "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
-            },
-            {
-              "title": {
-                "en": "IT Excellence Lab",
-                "ar": "مختبرات تكنولوجيا المعلومات للتميز"
-              },
-              "description": {
-                "en": "Spark - Dhahran, Saudi Arabia",
-                "ar": "سبارك - الظهران، المملكة العربية السعودية"
-              },
-              "button": {
-                "text": {
-                  "ar": " عرض التفاصيل",
-                  "en": "View Details"
-                }
-              },
-              "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(2).jpg"
-            },
-            {
-              "title": {
-                "en": "IT Excellence Lab",
-                "ar": "مختبرات تكنولوجيا المعلومات للتميز"
-              },
-              "description": {
-                "en": "Spark - Dhahran, Saudi Arabia",
-                "ar": "سبارك - الظهران، المملكة العربية السعودية"
-              },
-              "button": {
-                "text": {
-                  "ar": " عرض التفاصيل",
-                  "en": "View Details"
-                }
-              },
-              "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(3).jpg"
-            },
-            {
-              "title": {
-                "en": "IT Excellence Lab",
-                "ar": "مختبرات تكنولوجيا المعلومات للتميز"
-              },
-              "description": {
-                "en": "Spark - Dhahran, Saudi Arabia",
-                "ar": "سبارك - الظهران، المملكة العربية السعودية"
-              },
-              "button": {
-                "text": {
-                  "ar": " عرض التفاصيل",
-                  "en": "View Details"
-                }
-              },
-              "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).jpg"
-            },
-            {
-              "title": {
-                "en": "IT Excellence Lab",
-                "ar": "مختبرات تكنولوجيا المعلومات للتميز"
-              },
-              "description": {
-                "en": "Spark - Dhahran, Saudi Arabia",
-                "ar": "سبارك - الظهران، المملكة العربية السعودية"
-              },
-              "button": {
-                "text": {
-                  "ar": " عرض التفاصيل",
-                  "en": "View Details"
-                }
-              },
-              "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44.jpg"
-            }
-          ]
+          }
         },
         {
-          "id": "2",
+          "id": "ongoing",
           "title": {
             "en": "Ongoing",
             "ar": "مستمر"
-          },
-          "projects": [
-            {
-              "title": {
-                "en": "IT Excellence Lab",
-                "ar": "مختبرات تكنولوجيا المعلومات للتميز"
-              },
-              "description": {
-                "en": "Spark - Dhahran, Saudi Arabia",
-                "ar": "سبارك - الظهران، المملكة العربية السعودية"
-              },
-              "button": {
-                "text": {
-                  "ar": " عرض التفاصيل",
-                  "en": "View Details"
-                }
-              },
-              "url": "https://frequencyimage.s3.ap-south-1.amazonaws.com/79273d2e-3d58-4615-a65c-c3472fdaf393-Frame%2044.png"
-            },
-            {
-              "title": {
-                "en": "IT Excellence Lab",
-                "ar": "مختبرات تكنولوجيا المعلومات للتميز"
-              },
-              "description": {
-                "en": "Spark - Dhahran, Saudi Arabia",
-                "ar": "سبارك - الظهران، المملكة العربية السعودية"
-              },
-              "button": {
-                "text": {
-                  "ar": " عرض التفاصيل",
-                  "en": "View Details"
-                }
-              },
-              "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
-            },
-            {
-              "title": {
-                "en": "IT Excellence Lab",
-                "ar": "مختبرات تكنولوجيا المعلومات للتميز"
-              },
-              "description": {
-                "en": "Spark - Dhahran, Saudi Arabia",
-                "ar": "سبارك - الظهران، المملكة العربية السعودية"
-              },
-              "button": {
-                "text": {
-                  "ar": " عرض التفاصيل",
-                  "en": "View Details"
-                }
-              },
-              "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(2).jpg"
-            },
-            {
-              "title": {
-                "en": "IT Excellence Lab",
-                "ar": "مختبرات تكنولوجيا المعلومات للتميز"
-              },
-              "description": {
-                "en": "Spark - Dhahran, Saudi Arabia",
-                "ar": "سبارك - الظهران، المملكة العربية السعودية"
-              },
-              "button": {
-                "text": {
-                  "ar": " عرض التفاصيل",
-                  "en": "View Details"
-                }
-              },
-              "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(3).jpg"
-            },
-            {
-              "title": {
-                "en": "IT Excellence Lab",
-                "ar": "مختبرات تكنولوجيا المعلومات للتميز"
-              },
-              "description": {
-                "en": "Spark - Dhahran, Saudi Arabia",
-                "ar": "سبارك - الظهران، المملكة العربية السعودية"
-              },
-              "button": {
-                "text": {
-                  "ar": " عرض التفاصيل",
-                  "en": "View Details"
-                }
-              },
-              "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).jpg"
-            },
-            {
-              "title": {
-                "en": "IT Excellence Lab",
-                "ar": "مختبرات تكنولوجيا المعلومات للتميز"
-              },
-              "description": {
-                "en": "Spark - Dhahran, Saudi Arabia",
-                "ar": "سبارك - الظهران، المملكة العربية السعودية"
-              },
-              "button": {
-                "text": {
-                  "ar": " عرض التفاصيل",
-                  "en": "View Details"
-                }
-              },
-              "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44.jpg"
-            }
-          ]
+          }
         },
         {
-          "id": "3",
+          "id": "completed",
           "title": {
             "en": "Completed",
             "ar": "مكتمل"
+          }
+        }
+      ],
+      "projects": [
+        {
+          "id": 1,
+          "title": {
+            "en": "IT Lab of Excellence",
+            "ar": "مختبرات تكنولوجيا المعلومات للتميز"
           },
-          "projects": [
-            {
-              "title": {
-                "en": "IT Excellence Lab",
-                "ar": "مختبرات تكنولوجيا المعلومات للتميز"
-              },
-              "description": {
-                "en": "Spark - Dhahran, Saudi Arabia",
-                "ar": "سبارك - الظهران، المملكة العربية السعودية"
-              },
-              "button": {
-                "text": {
-                  "ar": " عرض التفاصيل",
-                  "en": "View Details"
-                }
-              },
-              "url": "https://frequencyimage.s3.ap-south-1.amazonaws.com/79273d2e-3d58-4615-a65c-c3472fdaf393-Frame%2044.png"
-            },
-            {
-              "title": {
-                "en": "IT Excellence Lab",
-                "ar": "مختبرات تكنولوجيا المعلومات للتميز"
-              },
-              "description": {
-                "en": "Spark - Dhahran, Saudi Arabia",
-                "ar": "سبارك - الظهران، المملكة العربية السعودية"
-              },
-              "button": {
-                "text": {
-                  "ar": " عرض التفاصيل",
-                  "en": "View Details"
-                }
-              },
-              "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
-            },
-            {
-              "title": {
-                "en": "IT Excellence Lab",
-                "ar": "مختبرات تكنولوجيا المعلومات للتميز"
-              },
-              "description": {
-                "en": "Spark - Dhahran, Saudi Arabia",
-                "ar": "سبارك - الظهران، المملكة العربية السعودية"
-              },
-              "button": {
-                "text": {
-                  "ar": " عرض التفاصيل",
-                  "en": "View Details"
-                }
-              },
-              "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(2).jpg"
-            },
-            {
-              "title": {
-                "en": "IT Excellence Lab",
-                "ar": "مختبرات تكنولوجيا المعلومات للتميز"
-              },
-              "description": {
-                "en": "Spark - Dhahran, Saudi Arabia",
-                "ar": "سبارك - الظهران، المملكة العربية السعودية"
-              },
-              "button": {
-                "text": {
-                  "ar": " عرض التفاصيل",
-                  "en": "View Details"
-                }
-              },
-              "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(3).jpg"
-            },
-            {
-              "title": {
-                "en": "IT Excellence Lab",
-                "ar": "مختبرات تكنولوجيا المعلومات للتميز"
-              },
-              "description": {
-                "en": "Spark - Dhahran, Saudi Arabia",
-                "ar": "سبارك - الظهران، المملكة العربية السعودية"
-              },
-              "button": {
-                "text": {
-                  "ar": " عرض التفاصيل",
-                  "en": "View Details"
-                }
-              },
-              "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).jpg"
-            },
-            {
-              "title": {
-                "en": "IT Excellence Lab",
-                "ar": "مختبرات تكنولوجيا المعلومات للتميز"
-              },
-              "description": {
-                "en": "Spark - Dhahran, Saudi Arabia",
-                "ar": "سبارك - الظهران، المملكة العربية السعودية"
-              },
-              "button": {
-                "text": {
-                  "ar": " عرض التفاصيل",
-                  "en": "View Details"
-                }
-              },
-              "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44.jpg"
+          "address": {
+            "en": "Dhahran, Saudi Arabia",
+            "ar": "الظهران، المملكة العربية السعودية"
+          },
+          "status": "completed",
+          "button": {
+            "text": {
+              "ar": "عرض التفاصيل",
+              "en": "View Details"
             }
-          ]
+          },
+          "url": "itLabExcellence"
+        },
+        {
+          "id": 2,
+          "title": {
+            "en": "Non-Metallic Manufacturing Plant",
+            "ar": "مصنع المواد غير المعدنية"
+          },
+          "address": {
+            "en": "Dhahran, Saudi Arabia",
+            "ar": "الظهران، المملكة العربية السعودية"
+          },
+          "status": "completed",
+          "button": {
+            "text": {
+              "ar": "عرض التفاصيل",
+              "en": "View Details"
+            }
+          },
+          "url": "nonMetallic"
+        },
+        {
+          "id": 3,
+          "title": {
+            "en": "Business Gate",
+            "ar": "بوابة الأعمال"
+          },
+          "address": {
+            "en": "Dhahran, Saudi Arabia",
+            "ar": "الظهران، المملكة العربية السعودية"
+          },
+          "status": "ongoing",
+          "button": {
+            "text": {
+              "ar": "عرض التفاصيل",
+              "en": "View Details"
+            }
+          },
+          "url": "businessGate"
+        },
+        {
+          "id": 4,
+          "title": {
+            "en": "Construction of OME Building - NAPD Khursaniyah",
+            "ar": "بناء مبنى OME - NAPD خورصانيه"
+          },
+          "address": {
+            "en": "Khursaniyah, Saudi Arabia",
+            "ar": "خورصانية، المملكة العربية السعودية"
+          },
+          "status": "ongoing",
+          "button": {
+            "text": {
+              "ar": "عرض التفاصيل",
+              "en": "View Details"
+            }
+          },
+          "url": "constructionOfOME"
+        },
+        {
+          "id": 5,
+          "title": {
+            "en": "Psychiatric Facility",
+            "ar": "مرفق الطب النفسي"
+          },
+          "address": {
+            "en": "Jeddah, Saudi Arabia",
+            "ar": "جدة، المملكة العربية السعودية"
+          },
+          "status": "completed",
+          "button": {
+            "text": {
+              "ar": "عرض التفاصيل",
+              "en": "View Details"
+            }
+          },
+          "url": "psychiatriFacility"
+        },
+        {
+          "id": 6,
+          "title": {
+            "en": "Safwa-Rahima Sea Bridge",
+            "ar": "جسر صفوى-رحيمة البحري"
+          },
+          "address": {
+            "en": "Safwa, Saudi Arabia",
+            "ar": "صفوى، المملكة العربية السعودية"
+          },
+          "status": "ongoing",
+          "button": {
+            "text": {
+              "ar": "عرض التفاصيل",
+              "en": "View Details"
+            }
+          },
+          "url": "safwaRahima"
+        },
+        {
+          "id": 7,
+          "title": {
+            "en": "Renovation of Building 175 and 176",
+            "ar": "تجديد المباني 175 و 176"
+          },
+          "address": {
+            "en": "Dhahran, Saudi Arabia",
+            "ar": "الظهران، المملكة العربية السعودية"
+          },
+          "status": "completed",
+          "button": {
+            "text": {
+              "ar": "عرض التفاصيل",
+              "en": "View Details"
+            }
+          },
+          "url": "renovation"
+        },
+        {
+          "id": 8,
+          "title": {
+            "en": "SWCC Plant Jeddah and Haqil",
+            "ar": "محطة SWCC جدة وحقيل"
+          },
+          "address": {
+            "en": "Jeddah, Saudi Arabia",
+            "ar": "جدة، المملكة العربية السعودية"
+          },
+          "status": "completed",
+          "button": {
+            "text": {
+              "ar": "عرض التفاصيل",
+              "en": "View Details"
+            }
+          },
+          "url": "swccPlant"
+        },
+        {
+          "id": 9,
+          "title": {
+            "en": "Renovation of Al Salam Tunnel in Jeddah",
+            "ar": "تجديد نفق السلام في جدة"
+          },
+          "address": {
+            "en": "Jeddah, Saudi Arabia",
+            "ar": "جدة، المملكة العربية السعودية"
+          },
+          "status": "completed",
+          "button": {
+            "text": {
+              "ar": "عرض التفاصيل",
+              "en": "View Details"
+            }
+          },
+          "url": "renovationOfAi"
+        },
+        {
+          "id": 10,
+          "title": {
+            "en": "Asphalt Works – TCF Pkg 1, 2 & 3",
+            "ar": "أعمال الأسفلت - TCF الحزمة 1، 2 و 3"
+          },
+          "address": {
+            "en": "Dhahran, Saudi Arabia",
+            "ar": "الظهران، المملكة العربية السعودية"
+          },
+          "status": "completed",
+          "button": {
+            "text": {
+              "ar": "عرض التفاصيل",
+              "en": "View Details"
+            }
+          },
+          "url": "asphaltWork"
+        },
+        {
+          "id": 11,
+          "title": {
+            "en": "SPARK - Waste Water Connection to MODON",
+            "ar": "سبارك - ربط مياه الصرف الصحي مع مدن"
+          },
+          "address": {
+            "en": "Dhahran, Saudi Arabia",
+            "ar": "الظهران، المملكة العربية السعودية"
+          },
+          "status": "completed",
+          "button": {
+            "text": {
+              "ar": "عرض التفاصيل",
+              "en": "View Details"
+            }
+          },
+          "url": "sprakWasteWater"
+        },
+        {
+          "id": 12,
+          "title": {
+            "en": "Construct an underpass at the intersection of Prince Mohamed Bin Fahd road and Imam Ali Bin Taleb road in Dammam",
+            "ar": "بناء نفق في تقاطع طريق الأمير محمد بن فهد وطريق الإمام علي بن طالب في الدمام"
+          },
+          "address": {
+            "en": "Dammam, Saudi Arabia",
+            "ar": "الدمام، المملكة العربية السعودية"
+          },
+          "status": "completed",
+          "button": {
+            "text": {
+              "ar": "عرض التفاصيل",
+              "en": "View Details"
+            }
+          },
+          "url": "constructAnUnderpass"
+        },
+        {
+          "id": 13,
+          "title": {
+            "en": "Development of HO Lots Ar-Rabiyah Phase V",
+            "ar": "تطوير قطع الأراضي في الربيع - المرحلة الخامسة"
+          },
+          "address": {
+            "en": "Ar-Rabiyah, Saudi Arabia",
+            "ar": "الربيعية، المملكة العربية السعودية"
+          },
+          "status": "completed",
+          "button": {
+            "text": {
+              "ar": "عرض التفاصيل",
+              "en": "View Details"
+            }
+          },
+          "url": "developmentOfHo"
+        },
+        {
+          "id": 14,
+          "title": {
+            "en": "Procedure Areas Expansion Project Phase – 1 KFCA Bahrain Side",
+            "ar": "مشروع توسيع مناطق الإجراءات - المرحلة 1 من جانب البحرين"
+          },
+          "address": {
+            "en": "Bahrain Side, Saudi Arabia",
+            "ar": "جانب البحرين، المملكة العربية السعودية"
+          },
+          "status": "ongoing",
+          "button": {
+            "text": {
+              "ar": "عرض التفاصيل",
+              "en": "View Details"
+            }
+          },
+          "url": "procedureAreaExpansion"
+        },
+        {
+          "id": 15,
+          "title": {
+            "en": "Replace & Automate Water Wells in Dhahran",
+            "ar": "استبدال وأتمتة آبار المياه في الظهران"
+          },
+          "address": {
+            "en": "Dhahran, Saudi Arabia",
+            "ar": "الظهران، المملكة العربية السعودية"
+          },
+          "status": "completed",
+          "button": {
+            "text": {
+              "ar": "عرض التفاصيل",
+              "en": "View Details"
+            }
+          },
+          "url": "replaceAndAutomate"
+        },
+        {
+          "id": 16,
+          "title": {
+            "en": "Al Khobar Tunnel - Upgrading of King Abdulaziz Road Phase 1 & 2",
+            "ar": "نفق الخبر - تطوير طريق الملك عبد العزيز - المرحلة 1 و 2"
+          },
+          "address": {
+            "en": "Al Khobar, Saudi Arabia",
+            "ar": "الخبر، المملكة العربية السعودية"
+          },
+          "status": "completed",
+          "button": {
+            "text": {
+              "ar": "عرض التفاصيل",
+              "en": "View Details"
+            }
+          },
+          "url": "aiKhobarTunnel"
+        },
+        {
+          "id": 17,
+          "title": {
+            "en": "Bridges & Tunnel for Haramain High Speed Rail",
+            "ar": "الجسور والنفق لقطار الحرمين السريع"
+          },
+          "address": {
+            "en": "Saudi Arabia",
+            "ar": "المملكة العربية السعودية"
+          },
+          "status": "completed",
+          "button": {
+            "text": {
+              "ar": "عرض التفاصيل",
+              "en": "View Details"
+            }
+          },
+          "url": "bridgeAndTunnelForHumair"
+        },
+        {
+          "id": 18,
+          "title": {
+            "en": "Crossroad Bridge of Prince Naif Road with Imam Ali Bin Abu Talib Road - Dammam",
+            "ar": "جسر تقاطع طريق الأمير نايف مع طريق الإمام علي بن أبي طالب - الدمام"
+          },
+          "address": {
+            "en": "Dammam, Saudi Arabia",
+            "ar": "الدمام، المملكة العربية السعودية"
+          },
+          "status": "completed",
+          "button": {
+            "text": {
+              "ar": "عرض التفاصيل",
+              "en": "View Details"
+            }
+          },
+          "url": "crossroadBridgee"
+        },
+        {
+          "id": 19,
+          "title": {
+            "en": "Secondary Roads at Eastern Province Group – 5 (Khaladiyah)",
+            "ar": "الطرق الثانوية في مجموعة المنطقة الشرقية - 5 (الخلالدية)"
+          },
+          "address": {
+            "en": "Eastern Province, Saudi Arabia",
+            "ar": "المنطقة الشرقية، المملكة العربية السعودية"
+          },
+          "status": "completed",
+          "button": {
+            "text": {
+              "ar": "عرض التفاصيل",
+              "en": "View Details"
+            }
+          },
+          "url": "secondaryRaad"
+        },
+        {
+          "id": 20,
+          "title": {
+            "en": "Secondary Roads at Eastern Province Group – 9 (Abqaiq & Al-Hassa)",
+            "ar": "الطرق الثانوية في مجموعة المنطقة الشرقية - 9 (الأحساء وبقيق)"
+          },
+          "address": {
+            "en": "Eastern Province, Saudi Arabia",
+            "ar": "المنطقة الشرقية، المملكة العربية السعودية"
+          },
+          "status": "completed",
+          "button": {
+            "text": {
+              "ar": "عرض التفاصيل",
+              "en": "View Details"
+            }
+          },
+          "url": "secondaryRoads"
+        },
+        {
+          "id": 21,
+          "title": {
+            "en": "SWCC Water Supply Connection in Dhahran",
+            "ar": "ربط إمدادات مياه SWCC في الظهران"
+          },
+          "address": {
+            "en": "Dhahran, Saudi Arabia",
+            "ar": "الظهران، المملكة العربية السعودية"
+          },
+          "status": "completed",
+          "button": {
+            "text": {
+              "ar": "عرض التفاصيل",
+              "en": "View Details"
+            }
+          },
+          "url": "swccWaterSupply"
+        },
+        {
+          "id": 22,
+          "title": {
+            "en": "Other Projects",
+            "ar": "مشاريع أخرى"
+          },
+          "address": {
+            "en": "Various Locations, Saudi Arabia",
+            "ar": "مواقع مختلفة، المملكة العربية السعودية"
+          },
+          "status": "completed",
+          "button": {
+            "text": {
+              "ar": "عرض التفاصيل",
+              "en": "View Details"
+            }
+          },
+          "url": "otherProjects"
         }
       ],
       "button": {
@@ -1978,6 +2023,765 @@
       }
     }
   },
+  "projectDetail": [
+    {
+      "id": 1,
+      "introSection": {
+        "title": {
+          "ar": "مختبر تكنولوجيا المعلومات للتميز",
+          "en": "IT Labs for Excellence"
+        },
+        "subtitle": {
+          "ar": "العميل: أرامكو السعودية",
+          "en": "Client: Saudi Aramco"
+        },
+        "url": "https://www.aramco.com",
+        "backButton": {
+          "ar": "خلف",
+          "en": "Back"
+        },
+        "projectInforCard": [
+          {
+            "key": {
+              "ar": "الموقع",
+              "en": "location"
+            },
+            "value": {
+              "ar": "وادي الظهران للتقنية، المملكة العربية السعودية",
+              "en": "Dhahran Techno Valley, Saudi Arabia"
+            },
+            "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/ion_location-sharp.svg"
+          },
+
+          {
+            "key": {
+              "ar": "تاريخ البدء",
+              "en": "Start Date"
+            },
+            "value": {
+              "ar": "فبراير 2021",
+              "en": "February 2021"
+            },
+            "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/solar_calendar-bold+(1).svg"
+          },
+          {
+            "key": {
+              "ar": "تاريخ الانتهاء",
+              "en": "End Date"
+            },
+            "value": {
+              "ar": "فبراير 2023",
+              "en": "February 2023"
+            },
+            "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/solar_calendar-bold.svg"
+          },
+          {
+            "key": {
+              "ar": "حالة",
+              "en": "status"
+            },
+            "value": {
+              "ar": "مكتمل",
+              "en": "Completed"
+            },
+            "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/pajamas_status-neutral.svg"
+          }
+        ]
+      },
+
+      "descriptionSection": [
+        {
+          "title": {
+            "ar": "وصف المشروع",
+            "en": "Project Description"
+          },
+          "description": {
+            "ar": "نطاق العمل في المشروع هو هدم وشراء وبناء مختبر تكنولوجيا المعلومات في برج المدرة الواقع في الظهران.",
+            "en": "The scope of work for the project is to demolish, procure and Construct an IT Lab in Al-Midra Tower located in Dhahran."
+          }
+        },
+        {
+          "title": {
+            "ar": "أعمال الهدم",
+            "en": "Demolition Works"
+          },
+          "description": {
+            "ar": "العناصر المدنية (إزالة القسم المنخفض والزجاجي، وجدار CMU، ومخلفات الأرضيات، والأثاث، والسقف)...",
+            "en": "Civil items (Remove low and glass partition, CMU wall, Floor tailing, furniture and Ceiling) HVAC Items Plumbing Items Fire protection Electrical (remove lighting fixture, wiring devices, disconnect switches, etc.,) Telecom (remove telecom system)"
+          }
+        },
+        {
+          "title": {
+            "ar": "شبكات جديدة",
+            "en": "New Networks"
+          },
+          "description": {
+            "ar": "مدني (الإنهاء الأرضي، السقف، الجدران، الأثاث)...",
+            "en": "Civil (floor finishes, ceiling finishes, wall finishes, furniture) Mechanical ( HVAC, fire protection, plumbing) Electrical (fire detection and alarm system, lighting, wiring devices) Instrumentation (building management system) Telecom (cable routing, data voice system, wireless LAN, AV system, data network)"
+          }
+        },
+        {
+          "title": {
+            "ar": "العمل يشمل",
+            "en": "Work Includes"
+          },
+          "description": {
+            "ar": "تشمل تسليمات المشروع الرئيسية: ورشة البناء، المنطقة المكتبية، المباني المساندة للورشة، المرافق الخارجية...",
+            "en": "The key deliverables of project are : Workshop Building Office Area Workshop support buildings External Utilities Site development works Telecom & Security works"
+          }
+        }
+      ],
+
+      "gallerySection": {
+        "images": [
+          {
+            "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Rectangle+34624115+(1).png",
+            "alt": {
+              "ar": "صورة المعرض 1",
+              "en": "Gallery Image 1"
+            }
+          },
+          {
+            "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Rectangle+34624114+(1).png",
+            "alt": {
+              "ar": "صورة المعرض 2",
+              "en": "Gallery Image 2"
+            }
+          },
+          {
+            "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Rectangle+34624113+(1).png",
+            "alt": {
+              "ar": "صورة المعرض 3",
+              "en": "Gallery Image 3"
+            }
+          }
+        ]
+      },
+      "moreProjects": {
+        "title": {
+          "ar": "المزيد من المشاريع",
+          "en": "More Projects"
+        },
+        "projects": [
+          {
+            "id": 1,
+            "title": {
+              "en": "IT Lab of Excellence",
+              "ar": "مختبرات تكنولوجيا المعلومات للتميز"
+            },
+            "address": {
+              "en": "Dhahran, Saudi Arabia",
+              "ar": "الظهران، المملكة العربية السعودية"
+            },
+            "status": "completed",
+            "button": {
+              "text": {
+                "ar": "عرض التفاصيل",
+                "en": "View Details"
+              }
+            },
+            "url": "itLabExcellence"
+          },
+          {
+            "id": 2,
+            "title": {
+              "en": "Non-Metallic Manufacturing Plant",
+              "ar": "مصنع المواد غير المعدنية"
+            },
+            "address": {
+              "en": "Dhahran, Saudi Arabia",
+              "ar": "الظهران، المملكة العربية السعودية"
+            },
+            "status": "completed",
+            "button": {
+              "text": {
+                "ar": "عرض التفاصيل",
+                "en": "View Details"
+              }
+            },
+            "url": "nonMetallic"
+          },
+          {
+            "id": 3,
+            "title": {
+              "en": "Business Gate",
+              "ar": "بوابة الأعمال"
+            },
+            "address": {
+              "en": "Dhahran, Saudi Arabia",
+              "ar": "الظهران، المملكة العربية السعودية"
+            },
+            "status": "ongoing",
+            "button": {
+              "text": {
+                "ar": "عرض التفاصيل",
+                "en": "View Details"
+              }
+            },
+            "url": "businessGate"
+          }
+        ],
+        "button": {
+          "text": {
+            "en": "View Details",
+            "ar": " عرض التفاصيل"
+          }
+        }
+      }
+    },
+    {
+      "id": 2,
+      "introSection": {
+        "title": {
+          "ar": "مصنع المواد غير المعدنية",
+          "en": "Non-Metallic Manufacturing Plant"
+        },
+        "subtitle": {
+          "ar": "العميل: حلول المواد غير المعدنية",
+          "en": "Client: Non-Metallic Solutions"
+        },
+        "url": "https://www.spark.sa",
+        "backButton": {
+          "ar": "خلف",
+          "en": "Back"
+        },
+        "projectInforCard": [
+          {
+            "key": {
+              "ar": "الموقع",
+              "en": "Location"
+            },
+            "value": {
+              "ar": "مدينة الملك سلمان للطاقة، أبقيق، المملكة العربية السعودية",
+              "en": "King Salman Energy Park (SPARK), Abqaiq, KSA"
+            },
+            "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/ion_location-sharp.svg"
+          },
+          {
+            "key": {
+              "ar": "تاريخ البدء",
+              "en": "Start Date"
+            },
+            "value": {
+              "ar": "مارس 2021",
+              "en": "March 2021"
+            },
+            "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/solar_calendar-bold+(1).svg"
+          },
+          {
+            "key": {
+              "ar": "تاريخ الانتهاء",
+              "en": "End Date"
+            },
+            "value": {
+              "ar": "فبراير 2023",
+              "en": "February 2023"
+            },
+            "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/solar_calendar-bold.svg"
+          },
+          {
+            "key": {
+              "ar": "حالة",
+              "en": "Status"
+            },
+            "value": {
+              "ar": "مكتمل",
+              "en": "Completed"
+            },
+            "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/pajamas_status-neutral.svg"
+          }
+        ]
+      },
+
+      "descriptionSection": [
+        {
+          "title": {
+            "ar": "وصف المشروع",
+            "en": "Project Description"
+          },
+          "description": {
+            "ar": "نطاق العمل في المشروع هو تصميم وشراء وبناء مصنع لتصنيع المواد غير المعدنية في \"مدينة الملك سلمان للطاقة\" (SPARK).",
+            "en": "The scope of work of the project is to Design, Procure & Construct a Non-Metallic Manufacturing plant in \"King Salman Energy Park\" (SPARK)."
+          }
+        },
+        {
+          "title": {
+            "ar": "العمل يشمل",
+            "en": "Work Includes"
+          },
+          "description": {
+            "ar": "المشروع يتكون من مبنى الورشة الرئيسي، منطقة المكاتب، والمباني الداعمة بمساحة إجمالية تبلغ 17,000 متر مربع.\n• غرف الحراسة\n• سور أمني\n• بركة احتجاز\n• ساحة ميكانيكية\n• نظام الطاقة\n• أعمال البنية التحتية تحت الأرض\n• نظام تصريف مياه الأمطار\n• نظام الاتصالات والأمن\n• تجهيز الموقع وأعمال الرصف الصلبة\n• أعمال التشجير",
+            "en": "The project comprises the Main Workshop building, Office area, and Support building with a total built-up area of 17,000 sqm.\n• Guard houses\n• Security fence\n• Retention pond\n• Mechanical yard\n• Power system\n• Underground utilities work\n• Storm water system\n• Telecom & security system\n• Site preparation and hard paving works\n• Soft scaping work"
+          }
+        }
+      ],
+
+      "gallerySection": {
+        "images": [
+          {
+            "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Rectangle+34624115+(1).png",
+            "alt": {
+              "ar": "صورة المعرض 1",
+              "en": "Gallery Image 1"
+            }
+          },
+          {
+            "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Rectangle+34624114+(1).png",
+            "alt": {
+              "ar": "صورة المعرض 2",
+              "en": "Gallery Image 2"
+            }
+          },
+          {
+            "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Rectangle+34624113+(1).png",
+            "alt": {
+              "ar": "صورة المعرض 3",
+              "en": "Gallery Image 3"
+            }
+          }
+        ]
+      },
+
+      "moreProjects": {
+        "title": {
+          "ar": "المزيد من المشاريع",
+          "en": "More Projects"
+        },
+        "projects": [
+          {
+            "id": 1,
+            "title": {
+              "en": "IT Lab of Excellence",
+              "ar": "مختبرات تكنولوجيا المعلومات للتميز"
+            },
+            "address": {
+              "en": "Dhahran, Saudi Arabia",
+              "ar": "الظهران، المملكة العربية السعودية"
+            },
+            "status": "completed",
+            "button": {
+              "text": {
+                "ar": "عرض التفاصيل",
+                "en": "View Details"
+              }
+            },
+            "url": "itLabExcellence"
+          },
+          {
+            "id": 2,
+            "title": {
+              "en": "Non-Metallic Manufacturing Plant",
+              "ar": "مصنع المواد غير المعدنية"
+            },
+            "address": {
+              "en": "King Salman Energy Park, Saudi Arabia",
+              "ar": "مدينة الملك سلمان للطاقة، المملكة العربية السعودية"
+            },
+            "status": "completed",
+            "button": {
+              "text": {
+                "ar": "عرض التفاصيل",
+                "en": "View Details"
+              }
+            },
+            "url": "nonMetallic"
+          },
+          {
+            "id": 3,
+            "title": {
+              "en": "Business Gate",
+              "ar": "بوابة الأعمال"
+            },
+            "address": {
+              "en": "Dhahran, Saudi Arabia",
+              "ar": "الظهران، المملكة العربية السعودية"
+            },
+            "status": "ongoing",
+            "button": {
+              "text": {
+                "ar": "عرض التفاصيل",
+                "en": "View Details"
+              }
+            },
+            "url": "businessGate"
+          }
+        ],
+        "button": {
+          "text": {
+            "en": "View Details",
+            "ar": " عرض التفاصيل"
+          }
+        }
+      }
+    },
+    {
+      "id": 3,
+      "introSection": {
+        "title": {
+          "ar": "بوابة الأعمال",
+          "en": "Business Gate"
+        },
+        "subtitle": {
+          "ar": "العميل: شركة صالح الصبيعي",
+          "en": "Client: Saleh Al Subeaei Company"
+        },
+        "url": null,
+        "backButton": {
+          "ar": "خلف",
+          "en": "Back"
+        },
+        "projectInforCard": [
+          {
+            "key": {
+              "ar": "الموقع",
+              "en": "Location"
+            },
+            "value": {
+              "ar": "الدمام، المملكة العربية السعودية",
+              "en": "Dammam, Saudi Arabia"
+            },
+            "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/ion_location-sharp.svg"
+          },
+          {
+            "key": {
+              "ar": "تاريخ البدء",
+              "en": "Start Date"
+            },
+            "value": {
+              "ar": "أكتوبر 2008",
+              "en": "October 2008"
+            },
+            "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/solar_calendar-bold+(1).svg"
+          },
+          {
+            "key": {
+              "ar": "تاريخ الانتهاء",
+              "en": "End Date"
+            },
+            "value": {
+              "ar": "مايو 2011",
+              "en": "May 2011"
+            },
+            "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/solar_calendar-bold.svg"
+          },
+          {
+            "key": {
+              "ar": "حالة",
+              "en": "Status"
+            },
+            "value": {
+              "ar": "مكتمل",
+              "en": "Completed"
+            },
+            "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/pajamas_status-neutral.svg"
+          }
+        ]
+      },
+      "descriptionSection": [
+        {
+          "title": {
+            "ar": "وصف المشروع",
+            "en": "Project Description"
+          },
+          "description": {
+            "ar": "إنشاء مبنى مكاتب مكون من 11 طابقًا بمساحة 6,000 متر مربع لكل طابق بمساحة إجمالية قدرها 50,000 متر مربع.",
+            "en": "Construction of an 11-storey office building with an area of 6,000m² each floor, totaling 50,000m²."
+          }
+        },
+        {
+          "title": {
+            "ar": "العمل يشمل",
+            "en": "Work Includes"
+          },
+          "description": {
+            "ar": "تشمل الخرسانة المسلحة، الأساسات، الأعمدة، الأسقف، جدران المصاعد، وجدران القص لجميع الطوابق. بالإضافة إلى الجدران المكسوة بالملاط، والبلاط، والتمددات.",
+            "en": "Reinforced concrete, raft foundation, columns, slabs, elevator shafts walls, shear walls for all floors. Masonry walls including cement plastering, tiling works, cladding, expansion joints."
+          }
+        }
+      ],
+      "gallerySection": {
+        "images": [
+          {
+            "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Rectangle+34624115+(1).png",
+            "alt": {
+              "ar": "صورة المعرض 1",
+              "en": "Gallery Image 1"
+            }
+          },
+          {
+            "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Rectangle+34624114+(1).png",
+            "alt": {
+              "ar": "صورة المعرض 2",
+              "en": "Gallery Image 2"
+            }
+          },
+          {
+            "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Rectangle+34624113+(1).png",
+            "alt": {
+              "ar": "صورة المعرض 3",
+              "en": "Gallery Image 3"
+            }
+          }
+        ]
+      },
+
+      "moreProjects": {
+        "title": {
+          "ar": "المزيد من المشاريع",
+          "en": "More Projects"
+        },
+        "projects": [
+          {
+            "id": 1,
+            "title": {
+              "en": "IT Lab of Excellence",
+              "ar": "مختبرات تكنولوجيا المعلومات للتميز"
+            },
+            "address": {
+              "en": "Dhahran, Saudi Arabia",
+              "ar": "الظهران، المملكة العربية السعودية"
+            },
+            "status": "completed",
+            "button": {
+              "text": {
+                "ar": "عرض التفاصيل",
+                "en": "View Details"
+              }
+            },
+            "url": "itLabExcellence"
+          },
+          {
+            "id": 2,
+            "title": {
+              "en": "Non-Metallic Manufacturing Plant",
+              "ar": "مصنع المواد غير المعدنية"
+            },
+            "address": {
+              "en": "King Salman Energy Park, Saudi Arabia",
+              "ar": "مدينة الملك سلمان للطاقة، المملكة العربية السعودية"
+            },
+            "status": "completed",
+            "button": {
+              "text": {
+                "ar": "عرض التفاصيل",
+                "en": "View Details"
+              }
+            },
+            "url": "nonMetallic"
+          },
+          {
+            "id": 3,
+            "title": {
+              "en": "Business Gate",
+              "ar": "بوابة الأعمال"
+            },
+            "address": {
+              "en": "Dhahran, Saudi Arabia",
+              "ar": "الظهران، المملكة العربية السعودية"
+            },
+            "status": "ongoing",
+            "button": {
+              "text": {
+                "ar": "عرض التفاصيل",
+                "en": "View Details"
+              }
+            },
+            "url": "businessGate"
+          }
+        ],
+        "button": {
+          "text": {
+            "en": "View Details",
+            "ar": " عرض التفاصيل"
+          }
+        }
+      }
+    },
+    {
+      "id": 4,
+      "introSection": {
+        "title": {
+          "ar": "مبنى OME - خطوط أنابيب المنطقة الشمالية",
+          "en": "OME Building - Northern Area Pipelines"
+        },
+        "subtitle": {
+          "ar": "العميل: أرامكو السعودية",
+          "en": "Client: Saudi Aramco"
+        },
+        "url": "https://www.aramco.com/",
+        "backButton": {
+          "ar": "خلف",
+          "en": "Back"
+        },
+        "projectInforCard": [
+          {
+            "key": {
+              "ar": "الموقع",
+              "en": "Location"
+            },
+            "value": {
+              "ar": "خرسانية، المملكة العربية السعودية",
+              "en": "Khursaniyah, Saudi Arabia"
+            },
+            "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/ion_location-sharp.svg"
+          },
+          {
+            "key": {
+              "ar": "تاريخ البدء",
+              "en": "Start Date"
+            },
+            "value": {
+              "ar": "أغسطس 2017",
+              "en": "August 2017"
+            },
+            "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/solar_calendar-bold+(1).svg"
+          },
+          {
+            "key": {
+              "ar": "تاريخ الانتهاء",
+              "en": "End Date"
+            },
+            "value": {
+              "ar": "فبراير 2020",
+              "en": "February 2020"
+            },
+            "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/solar_calendar-bold.svg"
+          },
+          {
+            "key": {
+              "ar": "حالة",
+              "en": "Status"
+            },
+            "value": {
+              "ar": "مكتمل",
+              "en": "Completed"
+            },
+            "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/pajamas_status-neutral.svg"
+          }
+        ]
+      },
+      "descriptionSection": [
+        {
+          "title": {
+            "ar": "وصف المشروع",
+            "en": "Project Description"
+          },
+          "description": {
+            "ar": "الهدف من المشروع هو إنشاء مبنى OME لخطوط أنابيب المنطقة الشمالية في مصنع الغاز في خرسانية.",
+            "en": "The project objective is to construct OME Building for Northern Area Pipelines Dept at Khursaniyah Gas Plant."
+          }
+        },
+        {
+          "title": {
+            "ar": "العمل يشمل",
+            "en": "Work Includes"
+          },
+          "description": {
+            "ar": "تشمل البنية التحتية اللازمة للمرافق الجديدة التي تشمل الكهرباء، والاتصالات، وإمدادات المياه، ونظام الصرف الصحي.",
+            "en": "Includes all necessary utilities for the new facility such as power, telecommunication, water supply, and sanitary sewer system."
+          }
+        }
+      ],
+      "gallerySection": {
+        "images": [
+          {
+            "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Rectangle+34624115+(1).png",
+            "alt": {
+              "ar": "صورة المعرض 1",
+              "en": "Gallery Image 1"
+            }
+          },
+          {
+            "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Rectangle+34624114+(1).png",
+            "alt": {
+              "ar": "صورة المعرض 2",
+              "en": "Gallery Image 2"
+            }
+          },
+          {
+            "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Rectangle+34624113+(1).png",
+            "alt": {
+              "ar": "صورة المعرض 3",
+              "en": "Gallery Image 3"
+            }
+          }
+        ]
+      },
+
+      "moreProjects": {
+        "title": {
+          "ar": "المزيد من المشاريع",
+          "en": "More Projects"
+        },
+        "projects": [
+          {
+            "id": 1,
+            "title": {
+              "en": "IT Lab of Excellence",
+              "ar": "مختبرات تكنولوجيا المعلومات للتميز"
+            },
+            "address": {
+              "en": "Dhahran, Saudi Arabia",
+              "ar": "الظهران، المملكة العربية السعودية"
+            },
+            "status": "completed",
+            "button": {
+              "text": {
+                "ar": "عرض التفاصيل",
+                "en": "View Details"
+              }
+            },
+            "url": "itLabExcellence"
+          },
+          {
+            "id": 2,
+            "title": {
+              "en": "Non-Metallic Manufacturing Plant",
+              "ar": "مصنع المواد غير المعدنية"
+            },
+            "address": {
+              "en": "King Salman Energy Park, Saudi Arabia",
+              "ar": "مدينة الملك سلمان للطاقة، المملكة العربية السعودية"
+            },
+            "status": "completed",
+            "button": {
+              "text": {
+                "ar": "عرض التفاصيل",
+                "en": "View Details"
+              }
+            },
+            "url": "nonMetallic"
+          },
+          {
+            "id": 3,
+            "title": {
+              "en": "Business Gate",
+              "ar": "بوابة الأعمال"
+            },
+            "address": {
+              "en": "Dhahran, Saudi Arabia",
+              "ar": "الظهران، المملكة العربية السعودية"
+            },
+            "status": "ongoing",
+            "button": {
+              "text": {
+                "ar": "عرض التفاصيل",
+                "en": "View Details"
+              }
+            },
+            "url": "businessGate"
+          }
+        ],
+        "button": {
+          "text": {
+            "en": "View Details",
+            "ar": " عرض التفاصيل"
+          }
+        }
+      }
+    }
+  ],
+
   "career": {
     "bannerSection": {
       "title": {
@@ -2112,11 +2916,11 @@
       },
       "jobs": [
         {
-          "id": 1,
+          "id": "se1",
           "title": {
             "key": {
-              "en": "Job Name",
-              "ar": "اسم الوظيفة"
+              "en": "Software Engineer ",
+              "ar": "مهندس برمجيات"
             },
             "value": {
               "en": "Software Engineer",
@@ -2139,8 +2943,8 @@
               "ar": "موعد التقديم"
             },
             "value": {
-              "en": "DD/MM/YYYY",
-              "ar": "DD/MM/YYYY"
+              "en": "31/12/2024",
+              "ar": "31/12/2024"
             }
           },
           "descriptionList": [
@@ -2163,11 +2967,11 @@
           ]
         },
         {
-          "id": 2,
+          "id": "pm1",
           "title": {
             "key": {
-              "en": "Job Name",
-              "ar": "اسم الوظيفة"
+              "en": "Project Manager",
+              "ar": "مدير المشروع"
             },
             "value": {
               "en": "Project Manager",
@@ -2190,8 +2994,8 @@
               "ar": "موعد التقديم"
             },
             "value": {
-              "en": "DD/MM/YYYY",
-              "ar": "DD/MM/YYYY"
+              "en": "15/01/2025",
+              "ar": "15/01/2025"
             }
           },
           "descriptionList": [
@@ -2213,14 +3017,19 @@
             }
           ]
         },
+
         {
-          "id": 2,
+          "id": "de1",
+
           "title": {
             "key": {
               "en": "Data Analyst",
               "ar": "محلل بيانات"
             },
-            "value": { "en": "Data Analyst", "ar": "محلل بيانات" }
+            "value": {
+              "en": "Data Analyst",
+              "ar": "محلل بيانات"
+            }
           },
           "location": {
             "key": {
@@ -2238,8 +3047,8 @@
               "ar": "موعد التقديم"
             },
             "value": {
-              "en": "DD/MM/YYYY",
-              "ar": "DD/MM/YYYY"
+              "en": "31/01/2025",
+              "ar": "31/01/2025"
             }
           },
           "descriptionList": [
@@ -2261,8 +3070,10 @@
             }
           ]
         },
+
         {
-          "id": 2,
+          "id": "pd1",
+
           "title": {
             "key": {
               "en": "Product Designer",
@@ -2311,6 +3122,622 @@
               "ar": "خبرة في أبحاث المستخدم واختبار قابلية الاستخدام وعمليات التصميم التكرارية."
             }
           ]
+        },
+
+        {
+          "id": 5,
+          "title": {
+            "key": {
+              "en": "Marketing Manager",
+              "ar": "مدير تسويق"
+            },
+            "value": {
+              "en": "Marketing Manager",
+              "ar": "مدير تسويق"
+            }
+          },
+          "location": {
+            "key": {
+              "en": "Location",
+              "ar": "الموقع"
+            },
+            "value": {
+              "en": "Dubai, AE",
+              "ar": "دبي، الإمارات العربية المتحدة"
+            }
+          },
+          "deadline": {
+            "key": {
+              "en": "Apply Till",
+              "ar": "موعد التقديم"
+            },
+            "value": {
+              "en": "15/02/2025",
+              "ar": "15/02/2025"
+            }
+          },
+          "descriptionList": [
+            {
+              "en": "Bachelor's degree in Marketing, Business Administration, or related field, or equivalent practical experience.",
+              "ar": "درجة البكالوريوس في التسويق، إدارة الأعمال، أو مجال ذي صلة، أو خبرة عملية معادلة."
+            },
+            {
+              "en": "5+ years of experience in marketing, including digital marketing, social media strategies, and content marketing.",
+              "ar": "أكثر من 5 سنوات من الخبرة في التسويق، بما في ذلك التسويق الرقمي، استراتيجيات وسائل التواصل الاجتماعي، وتسويق المحتوى."
+            },
+            {
+              "en": "Proven experience in managing campaigns across multiple channels (e.g., email, social media, paid ads).",
+              "ar": "خبرة مثبتة في إدارة الحملات عبر قنوات متعددة (مثل البريد الإلكتروني، وسائل التواصل الاجتماعي، الإعلانات المدفوعة)."
+            },
+            {
+              "en": "Strong analytical skills with the ability to measure and report on campaign performance.",
+              "ar": "مهارات تحليلية قوية مع القدرة على قياس وتقديم تقارير حول أداء الحملات."
+            }
+          ]
+        },
+        {
+          "id": "fse1",
+          "title": {
+            "key": {
+              "en": "Full Stack Developer",
+              "ar": "مطور كامل الواجهة"
+            },
+            "value": {
+              "en": "Full Stack Developer",
+              "ar": "مطور كامل الواجهة"
+            }
+          },
+          "location": {
+            "key": {
+              "en": "Location",
+              "ar": "الموقع"
+            },
+            "value": {
+              "en": "Cairo, EG",
+              "ar": "القاهرة، مصر"
+            }
+          },
+          "deadline": {
+            "key": {
+              "en": "Apply Till",
+              "ar": "موعد التقديم"
+            },
+            "value": {
+              "en": "28/02/2025",
+              "ar": "28/02/2025"
+            }
+          },
+          "descriptionList": [
+            {
+              "en": "Bachelor's degree in Computer Science, Software Engineering, or related field.",
+              "ar": "درجة البكالوريوس في علوم الكمبيوتر، هندسة البرمجيات، أو مجال ذي صلة."
+            },
+            {
+              "en": "4+ years of experience in full-stack development, with proficiency in front-end and back-end technologies (e.g., React, Node.js, Express, MongoDB).",
+              "ar": "أكثر من 4 سنوات من الخبرة في تطوير الواجهة الكاملة، مع إجادة تقنيات الواجهة الأمامية والخلفية (مثل React و Node.js و Express و MongoDB)."
+            },
+            {
+              "en": "Experience with cloud services (e.g., AWS, Azure, Google Cloud).",
+              "ar": "خبرة في خدمات السحابة (مثل AWS و Azure و Google Cloud)."
+            },
+            {
+              "en": "Strong problem-solving skills and the ability to work well under pressure.",
+              "ar": "مهارات حل المشكلات القوية والقدرة على العمل بشكل جيد تحت الضغط."
+            }
+          ]
+        },
+
+        {
+          "id": 7,
+          "title": {
+            "key": {
+              "en": "DevOps Engineer",
+              "ar": "مهندس DevOps"
+            },
+            "value": {
+              "en": "DevOps Engineer",
+              "ar": "مهندس DevOps"
+            }
+          },
+          "location": {
+            "key": {
+              "en": "Location",
+              "ar": "الموقع"
+            },
+            "value": {
+              "en": "Dubai, AE",
+              "ar": "دبي، الإمارات العربية المتحدة"
+            }
+          },
+          "deadline": {
+            "key": {
+              "en": "Apply Till",
+              "ar": "موعد التقديم"
+            },
+            "value": {
+              "en": "28/02/2025",
+              "ar": "28/02/2025"
+            }
+          },
+          "descriptionList": [
+            {
+              "en": "Bachelor's degree in Computer Science, Information Technology, or related field.",
+              "ar": "درجة البكالوريوس في علوم الكمبيوتر، تكنولوجيا المعلومات، أو مجال ذي صلة."
+            },
+            {
+              "en": "3+ years of experience in a DevOps role, with experience in CI/CD pipelines, infrastructure as code (e.g., Terraform, AWS CloudFormation).",
+              "ar": "خبرة لا تقل عن 3 سنوات في دور DevOps، مع خبرة في سير العمل CI/CD، والبنية الأساسية كرمز (مثل Terraform و AWS CloudFormation)."
+            },
+            {
+              "en": "Experience with containerization technologies (e.g., Docker, Kubernetes).",
+              "ar": "خبرة في تقنيات التكامل (مثل Docker و Kubernetes)."
+            },
+            {
+              "en": "Strong understanding of cloud platforms (AWS, Azure, Google Cloud) and networking concepts.",
+              "ar": "فهم قوي لمنصات السحابة (AWS و Azure و Google Cloud) ومفاهيم الشبكات."
+            }
+          ]
+        },
+        {
+          "id": 8,
+          "title": {
+            "key": {
+              "en": "Data Scientist",
+              "ar": "عالِم بيانات"
+            },
+            "value": {
+              "en": "Data Scientist",
+              "ar": "عالِم بيانات"
+            }
+          },
+          "location": {
+            "key": {
+              "en": "Location",
+              "ar": "الموقع"
+            },
+            "value": {
+              "en": "Cairo, EG",
+              "ar": "القاهرة، مصر"
+            }
+          },
+          "deadline": {
+            "key": {
+              "en": "Apply Till",
+              "ar": "موعد التقديم"
+            },
+            "value": {
+              "en": "15/03/2025",
+              "ar": "15/03/2025"
+            }
+          },
+          "descriptionList": [
+            {
+              "en": "Master's degree in Data Science, Statistics, Mathematics, Computer Science, or related field.",
+              "ar": "درجة الماجستير في علم البيانات، الإحصاء، الرياضيات، علوم الكمبيوتر، أو مجال ذي صلة."
+            },
+            {
+              "en": "3+ years of experience in data analysis, predictive modeling, and machine learning.",
+              "ar": "3 سنوات أو أكثر من الخبرة في تحليل البيانات، النمذجة التنبؤية، والتعلم الآلي."
+            },
+            {
+              "en": "Experience with data mining, data visualization, and statistical analysis tools (e.g., Python, R, Tableau).",
+              "ar": "خبرة في التنقيب عن البيانات، التصور البياني للبيانات، وأدوات التحليل الإحصائي (مثل Python و R و Tableau)."
+            },
+            {
+              "en": "Strong programming skills with Python, SQL, and other data manipulation languages.",
+              "ar": "مهارات برمجة قوية مع Python و SQL ولغات أخرى لتلاعب البيانات."
+            }
+          ]
+        },
+        {
+          "id": "csa1",
+
+          "title": {
+            "key": {
+              "en": "Cybersecurity Analyst",
+              "ar": "محلل الأمن السيبراني"
+            },
+            "value": {
+              "en": "Cybersecurity Analyst",
+              "ar": "محلل الأمن السيبراني"
+            }
+          },
+          "location": {
+            "key": {
+              "en": "Location",
+              "ar": "الموقع"
+            },
+            "value": {
+              "en": "Dubai, AE",
+              "ar": "دبي، الإمارات العربية المتحدة"
+            }
+          },
+          "deadline": {
+            "key": {
+              "en": "Apply Till",
+              "ar": "موعد التقديم"
+            },
+            "value": {
+              "en": "15/02/2025",
+              "ar": "15/02/2025"
+            }
+          },
+          "descriptionList": [
+            {
+              "en": "Bachelor's degree in Computer Science, Information Security, or related field.",
+              "ar": "درجة البكالوريوس في علوم الكمبيوتر، الأمن المعلوماتي، أو مجال ذي صلة."
+            },
+            {
+              "en": "2+ years of experience in cybersecurity, including experience with network security, vulnerability assessments, and incident response.",
+              "ar": "خبرة لا تقل عن 2 سنوات في الأمن السيبراني، بما في ذلك خبرة في الأمان الشبكي، التقييمات الضعيفة، والاستجابة للحوادث."
+            },
+            {
+              "en": "Certifications such as CISSP, CEH, or similar.",
+              "ar": "شهادات مثل CISSP و CEH أو ما يعادلها."
+            },
+            {
+              "en": "Strong analytical and problem-solving skills.",
+              "ar": "مهارات تحليلية قوية وحل المشكلات."
+            }
+          ]
+        },
+        {
+          "id": 10,
+          "title": {
+            "key": {
+              "en": "Frontend Developer",
+              "ar": "مطور واجهة المستخدم الأمامية"
+            },
+            "value": {
+              "en": "Frontend Developer",
+              "ar": "مطور واجهة المستخدم الأمامية"
+            }
+          },
+          "location": {
+            "key": {
+              "en": "Location",
+              "ar": "الموقع"
+            },
+            "value": {
+              "en": "Riyadh, SA",
+              "ar": "الرياض، السعودية"
+            }
+          },
+          "deadline": {
+            "key": {
+              "en": "Apply Till",
+              "ar": "موعد التقديم"
+            },
+            "value": {
+              "en": "31/01/2025",
+              "ar": "31/01/2025"
+            }
+          },
+          "descriptionList": [
+            {
+              "en": "Bachelor's degree in Computer Science, Information Technology, or related field.",
+              "ar": "درجة البكالوريوس في علوم الكمبيوتر، تكنولوجيا المعلومات، أو مجال ذي صلة."
+            },
+            {
+              "en": "2+ years of experience in front-end development using JavaScript, HTML, CSS, React.js, and related libraries.",
+              "ar": "خبرة لا تقل عن 2 سنوات في تطوير الواجهة الأمامية باستخدام JavaScript و HTML و CSS و React.js وغيرها من المكتبات ذات الصلة."
+            },
+            {
+              "en": "Experience with responsive design and cross-browser compatibility.",
+              "ar": "خبرة في التصميم المتجاوب و التوافق عبر المتصفحات."
+            },
+            {
+              "en": "Strong understanding of UI/UX principles and best practices.",
+              "ar": "فهم قوي لمبادئ واجهة المستخدم / تجربة المستخدم وأفضل الممارسات."
+            }
+          ]
+        },
+        {
+          "id": 11,
+          "title": {
+            "key": {
+              "en": "Cloud Solutions Architect",
+              "ar": "مهندس حلول السحابة"
+            },
+            "value": {
+              "en": "Cloud Solutions Architect",
+              "ar": "مهندس حلول السحابة"
+            }
+          },
+          "location": {
+            "key": {
+              "en": "Location",
+              "ar": "الموقع"
+            },
+            "value": {
+              "en": "Manama, BH",
+              "ar": "المنامة، البحرين"
+            }
+          },
+          "deadline": {
+            "key": {
+              "en": "Apply Till",
+              "ar": "موعد التقديم"
+            },
+            "value": {
+              "en": "10/02/2025",
+              "ar": "10/02/2025"
+            }
+          },
+          "descriptionList": [
+            {
+              "en": "Bachelor's degree in Computer Science, Information Technology, or related field.",
+              "ar": "درجة البكالوريوس في علوم الكمبيوتر، تكنولوجيا المعلومات، أو مجال ذي صلة."
+            },
+            {
+              "en": "5+ years of experience in cloud architecture and cloud-native development (AWS, Azure, Google Cloud).",
+              "ar": "أكثر من 5 سنوات من الخبرة في هندسة السحابة وتطوير السحابة الأصلية (AWS و Azure و Google Cloud)."
+            },
+            {
+              "en": "Experience in designing and implementing scalable, high-performance solutions.",
+              "ar": "خبرة في تصميم وتنفيذ حلول قابلة للتوسع وعالية الأداء."
+            },
+            {
+              "en": "Strong understanding of network architecture and security best practices.",
+              "ar": "فهم قوي لهندسة الشبكة وأفضل ممارسات الأمان."
+            }
+          ]
+        },
+        {
+          "id": 12,
+          "title": {
+            "key": {
+              "en": "UI/UX Designer",
+              "ar": "مصمم واجهة المستخدم وتجربة المستخدم"
+            },
+            "value": {
+              "en": "UI/UX Designer",
+              "ar": "مصمم واجهة المستخدم وتجربة المستخدم"
+            }
+          },
+          "location": {
+            "key": {
+              "en": "Location",
+              "ar": "الموقع"
+            },
+            "value": {
+              "en": "Cairo, EG",
+              "ar": "القاهرة، مصر"
+            }
+          },
+          "deadline": {
+            "key": {
+              "en": "Apply Till",
+              "ar": "موعد التقديم"
+            },
+            "value": {
+              "en": "28/02/2025",
+              "ar": "28/02/2025"
+            }
+          },
+          "descriptionList": [
+            {
+              "en": "Bachelor's degree in Graphic Design, Interaction Design, Human-Computer Interaction, or related field.",
+              "ar": "درجة البكالوريوس في التصميم الجرافيكي، تصميم التفاعل، التفاعل بين الإنسان والحاسوب، أو مجال ذي صلة."
+            },
+            {
+              "en": "3+ years of experience in UI/UX design with a strong portfolio of past work.",
+              "ar": "خبرة لا تقل عن 3 سنوات في تصميم واجهة المستخدم وتجربة المستخدم مع محفظة قوية من الأعمال السابقة."
+            },
+            {
+              "en": "Proficiency in design tools (e.g., Adobe Creative Suite, Figma, Sketch).",
+              "ar": "إجادة أدوات التصميم (مثل Adobe Creative Suite و Figma و Sketch)."
+            },
+            {
+              "en": "Strong understanding of user-centered design principles.",
+              "ar": "فهم قوي لمبادئ التصميم المحور على المستخدم."
+            }
+          ]
+        },
+        {
+          "id": 13,
+          "title": {
+            "key": {
+              "en": "ERP Consultant",
+              "ar": "استشاري تخطيط الموارد المؤسسية"
+            },
+            "value": {
+              "en": "ERP Consultant",
+              "ar": "استشاري تخطيط الموارد المؤسسية"
+            }
+          },
+          "location": {
+            "key": {
+              "en": "Location",
+              "ar": "الموقع"
+            },
+            "value": {
+              "en": "Riyadh, SA",
+              "ar": "الرياض، السعودية"
+            }
+          },
+          "deadline": {
+            "key": {
+              "en": "Apply Till",
+              "ar": "موعد التقديم"
+            },
+            "value": {
+              "en": "31/01/2025",
+              "ar": "31/01/2025"
+            }
+          },
+          "descriptionList": [
+            {
+              "en": "Bachelor's degree in Business Administration, Computer Science, or related field.",
+              "ar": "درجة البكالوريوس في إدارة الأعمال، علوم الكمبيوتر، أو مجال ذي صلة."
+            },
+            {
+              "en": "5+ years of experience in ERP systems (e.g., SAP, Oracle, Microsoft Dynamics).",
+              "ar": "أكثر من 5 سنوات من الخبرة في أنظمة ERP (مثل SAP و Oracle و Microsoft Dynamics)."
+            },
+            {
+              "en": "Experience in ERP implementation, customization, and support.",
+              "ar": "خبرة في تنفيذ وتخصيص ودعم ERP."
+            },
+            {
+              "en": "Strong analytical skills and the ability to communicate effectively with technical and non-technical stakeholders.",
+              "ar": "مهارات تحليلية قوية والقدرة على التواصل بفعالية مع أصحاب المصلحة الفنيين وغير الفنيين."
+            }
+          ]
+        },
+        {
+          "id": 14,
+          "title": {
+            "key": {
+              "en": "Full Stack Engineer",
+              "ar": "مهندس كامل الواجهة"
+            },
+            "value": {
+              "en": "Full Stack Engineer",
+              "ar": "مهندس كامل الواجهة"
+            }
+          },
+          "location": {
+            "key": {
+              "en": "Location",
+              "ar": "الموقع"
+            },
+            "value": {
+              "en": "Manama, BH",
+              "ar": "المنامة، البحرين"
+            }
+          },
+          "deadline": {
+            "key": {
+              "en": "Apply Till",
+              "ar": "موعد التقديم"
+            },
+            "value": {
+              "en": "15/03/2025",
+              "ar": "15/03/2025"
+            }
+          },
+          "descriptionList": [
+            {
+              "en": "Bachelor's degree in Computer Science, Information Technology, or related field.",
+              "ar": "درجة البكالوريوس في علوم الكمبيوتر، تكنولوجيا المعلومات، أو مجال ذي صلة."
+            },
+            {
+              "en": "3+ years of experience in full-stack development with expertise in React, Node.js, Express, and MongoDB.",
+              "ar": "3 سنوات أو أكثر من الخبرة في تطوير الواجهة الكاملة مع خبرة في React و Node.js و Express و MongoDB."
+            },
+            {
+              "en": "Experience with cloud services (e.g., AWS, Azure, Google Cloud).",
+              "ar": "خبرة في خدمات السحابة (مثل AWS و Azure و Google Cloud)."
+            },
+            {
+              "en": "Strong problem-solving skills and the ability to work well under pressure.",
+              "ar": "مهارات حل المشكلات القوية والقدرة على العمل بشكل جيد تحت الضغط."
+            }
+          ]
+        },
+        {
+          "id": "se2",
+
+          "title": {
+            "key": {
+              "en": "Software Engineer",
+              "ar": "مهندس البرمجيات"
+            },
+            "value": {
+              "en": "Software Engineer",
+              "ar": "مهندس البرمجيات"
+            }
+          },
+          "location": {
+            "key": {
+              "en": "Location",
+              "ar": "الموقع"
+            },
+            "value": {
+              "en": "Cairo, EG",
+              "ar": "القاهرة، مصر"
+            }
+          },
+          "deadline": {
+            "key": {
+              "en": "Apply Till",
+              "ar": "موعد التقديم"
+            },
+            "value": {
+              "en": "31/01/2025",
+              "ar": "31/01/2025"
+            }
+          },
+          "descriptionList": [
+            {
+              "en": "Bachelor's degree in Computer Science, Software Engineering, or related field.",
+              "ar": "درجة البكالوريوس في علوم الكمبيوتر، هندسة البرمجيات، أو مجال ذي صلة."
+            },
+            {
+              "en": "2+ years of experience in software development with proficiency in Java, Python, or C++.",
+              "ar": "خبرة لا تقل عن سنتين في تطوير البرمجيات مع اتقان Java أو Python أو C++."
+            },
+            {
+              "en": "Experience with agile methodologies and version control systems (e.g., Git).",
+              "ar": "خبرة في منهجيات العمل المرنة ونظم التحكم في الإصدارات (مثل Git)."
+            },
+            {
+              "en": "Strong analytical and problem-solving skills.",
+              "ar": "مهارات تحليلية قوية وحل المشكلات."
+            }
+          ]
+        },
+        {
+          "id": 16,
+          "title": {
+            "key": {
+              "en": "Cyber Security Analyst",
+              "ar": "محلل الأمن السيبراني"
+            },
+            "value": {
+              "en": "Cyber Security Analyst",
+              "ar": "محلل الأمن السيبراني"
+            }
+          },
+          "location": {
+            "key": {
+              "en": "Location",
+              "ar": "الموقع"
+            },
+            "value": {
+              "en": "Riyadh, SA",
+              "ar": "الرياض، السعودية"
+            }
+          },
+          "deadline": {
+            "key": {
+              "en": "Apply Till",
+              "ar": "موعد التقديم"
+            },
+            "value": {
+              "en": "15/02/2025",
+              "ar": "15/02/2025"
+            }
+          },
+          "descriptionList": [
+            {
+              "en": "Bachelor's degree in Information Security, Computer Science, or related field.",
+              "ar": "درجة البكالوريوس في أمن المعلومات، علوم الكمبيوتر، أو مجال ذي صلة."
+            },
+            {
+              "en": "3+ years of experience in cybersecurity with knowledge of network security, penetration testing, and incident response.",
+              "ar": "خبرة لا تقل عن 3 سنوات في الأمن السيبراني مع معرفة في أمان الشبكة واختبار الاختراق والاستجابة للحوادث."
+            },
+            {
+              "en": "Certifications in cybersecurity (e.g., CISSP, CEH, CompTIA Security+).",
+              "ar": "شهادات في الأمن السيبراني (مثل CISSP و CEH و CompTIA Security+)."
+            },
+            {
+              "en": "Strong understanding of threat management, risk assessment, and mitigation strategies.",
+              "ar": "فهم قوي لإدارة التهديدات وتقييم المخاطر واستراتيجيات التخفيف."
+            }
+          ]
         }
       ],
       "buttons": [
@@ -2329,6 +3756,1085 @@
       ]
     }
   },
+
+  "careerDetails": [
+    {
+      "id": "se1",
+      "banner": {
+        "title": {
+          "en": "Software Engineer",
+          "ar": "مهندس برمجيات"
+        },
+        "subTitle": {
+          "en": "Closing on 31/12/2024",
+          "ar": "يتم الإغلاق في 31/12/2024"
+        },
+        "bannerImage": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+13.jpg",
+        "button": {
+          "text": {
+            "en": "Back",
+            "ar": "خلف"
+          }
+        }
+      },
+      "jobDetails": {
+        "leftPanel": {
+          "sections": [
+            {
+              "title": {
+                "ar": "من الذي نبحث عنه؟",
+                "en": "Who Are We Looking For?"
+              },
+              "content": {
+                "ar": [
+                  "درجة البكالوريوس في علوم الكمبيوتر، أو مجال تقني ذي صلة، أو خبرة عملية معادلة."
+                ],
+                "en": [
+                  "Bachelor's degree in Computer Science or a related technical field, or equivalent practical experience."
+                ]
+              }
+            },
+            {
+              "title": {
+                "ar": "ماذا ستفعل",
+                "en": "What Will You Do?"
+              },
+              "content": {
+                "ar": [
+                  "8 سنوات من الخبرة في تطوير البرمجيات بلغة برمجة واحدة أو أكثر (مثل Python وC وC++ وJava وJavaScript)."
+                ],
+                "en": [
+                  "8 years of experience in software development with one or more programming languages (e.g., Python, C, C++, Java, JavaScript)."
+                ]
+              }
+            },
+            {
+              "title": {
+                "ar": "نقاط المكافأة للتعرف على",
+                "en": "Bonus Points to Recognize"
+              },
+              "content": {
+                "ar": [
+                  "خبرة في أطر الواجهة الأمامية (مثل AngularJS وReactJS وما إلى ذلك)."
+                ],
+                "en": [
+                  "Experience with front-end frameworks (e.g., AngularJS, ReactJS, etc.)."
+                ]
+              }
+            },
+            {
+              "title": {
+                "ar": "المتطلبات التعليمية",
+                "en": "Educational Requirements"
+              },
+              "content": {
+                "ar": [
+                  "3 سنوات من الخبرة في دور القيادة التقنية؛ الإشراف على المشاريع، مع خبرة سنتين في إدارة الأفراد والإشراف/دور قيادة الفريق."
+                ],
+                "en": [
+                  "3 years of experience in a technical leadership role; overseeing projects, with 2 years of experience managing people and team leadership roles."
+                ]
+              }
+            }
+          ]
+        },
+        "rightPanel": {
+          "button": {
+            "text": {
+              "ar": "يتقدم",
+              "en": "Apply"
+            }
+          },
+          "title": {
+            "ar": "ملخص الوظيفة",
+            "en": "Job Summary"
+          },
+          "tailwraps": [
+            {
+              "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/subway_location.svg",
+              "title": {
+                "ar": "موقع",
+                "en": "Location"
+              },
+              "description": {
+                "ar": "الرياض، السعودية",
+                "en": "Riyadh, SA"
+              }
+            },
+            {
+              "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/material-symbols_business-center-outline.svg",
+              "title": {
+                "ar": "نوع الوظيفة",
+                "en": "Job Type"
+              },
+              "description": {
+                "ar": "دوام كامل",
+                "en": "Full-Time"
+              }
+            },
+            {
+              "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/mdi_calendar-outline.svg",
+              "title": {
+                "ar": "تاريخ النشر",
+                "en": "Posted Date"
+              },
+              "description": {
+                "ar": "تم النشر منذ شهر واحد",
+                "en": "Posted 1 month ago"
+              }
+            },
+            {
+              "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/codicon_book.svg",
+              "title": {
+                "ar": "خبرة",
+                "en": "Experience"
+              },
+              "description": {
+                "ar": "8 سنوات",
+                "en": "8 Years"
+              }
+            }
+          ],
+          "viewAllButton": {
+            "text": {
+              "ar": "عرض جميع الوظائف",
+              "en": "View All Jobs"
+            },
+            "link": "#"
+          }
+        },
+        "button": {
+          "text": {
+            "en": "Apply Now",
+            "ar": " تقدم بطلبك الآن"
+          }
+        }
+      }
+    },
+    {
+      "id": "pm1",
+
+      "banner": {
+        "title": {
+          "en": "Project Manager",
+          "ar": "مدير المشروع"
+        },
+        "subTitle": {
+          "en": "Closing on 15/01/2025",
+          "ar": "يتم الإغلاق في 15/01/2025"
+        },
+        "bannerImage": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+13.jpg",
+        "button": {
+          "text": {
+            "en": "Back",
+            "ar": "خلف"
+          }
+        }
+      },
+      "jobDetails": {
+        "leftPanel": {
+          "sections": [
+            {
+              "title": {
+                "ar": "من الذي نبحث عنه؟",
+                "en": "Who Are We Looking For?"
+              },
+              "content": {
+                "ar": [
+                  "درجة البكالوريوس في علوم الكمبيوتر، أو مجال تقني ذي صلة، أو خبرة عملية معادلة."
+                ],
+                "en": [
+                  "Bachelor's degree in Computer Science or a related technical field, or equivalent practical experience."
+                ]
+              }
+            },
+            {
+              "title": {
+                "ar": "ماذا ستفعل",
+                "en": "What Will You Do?"
+              },
+              "content": {
+                "ar": [
+                  "8 سنوات من الخبرة في تطوير البرمجيات بلغة برمجة واحدة أو أكثر (مثل Python وC وC++ وJava وJavaScript)."
+                ],
+                "en": [
+                  "8 years of experience in software development with one or more programming languages (e.g., Python, C, C++, Java, JavaScript)."
+                ]
+              }
+            },
+            {
+              "title": {
+                "ar": "نقاط المكافأة للتعرف على",
+                "en": "Bonus Points to Recognize"
+              },
+              "content": {
+                "ar": [
+                  "خبرة في أطر الواجهة الأمامية (مثل AngularJS وReactJS وما إلى ذلك)."
+                ],
+                "en": [
+                  "Experience with front-end frameworks (e.g., AngularJS, ReactJS, etc.)."
+                ]
+              }
+            },
+            {
+              "title": {
+                "ar": "المتطلبات التعليمية",
+                "en": "Educational Requirements"
+              },
+              "content": {
+                "ar": [
+                  "3 سنوات من الخبرة في دور القيادة التقنية؛ الإشراف على المشاريع، مع خبرة سنتين في إدارة الأفراد والإشراف/دور قيادة الفريق."
+                ],
+                "en": [
+                  "3 years of experience in a technical leadership role; overseeing projects, with 2 years of experience managing people and team leadership roles."
+                ]
+              }
+            }
+          ]
+        },
+        "rightPanel": {
+          "button": {
+            "text": {
+              "ar": "يتقدم",
+              "en": "Apply"
+            }
+          },
+          "title": {
+            "ar": "ملخص الوظيفة",
+            "en": "Job Summary"
+          },
+          "tailwraps": [
+            {
+              "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/subway_location.svg",
+              "title": {
+                "ar": "موقع",
+                "en": "Location"
+              },
+              "description": {
+                "ar": "جدة، السعودية",
+                "en": "Jeddah, SA"
+              }
+            },
+            {
+              "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/material-symbols_business-center-outline.svg",
+              "title": {
+                "ar": "نوع الوظيفة",
+                "en": "Job Type"
+              },
+              "description": {
+                "ar": "دوام كامل",
+                "en": "Full-Time"
+              }
+            },
+            {
+              "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/mdi_calendar-outline.svg",
+              "title": {
+                "ar": "تاريخ النشر",
+                "en": "Posted Date"
+              },
+              "description": {
+                "ar": "تم النشر منذ شهر واحد",
+                "en": "Posted 1 month ago"
+              }
+            },
+            {
+              "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/codicon_book.svg",
+              "title": {
+                "ar": "خبرة",
+                "en": "Experience"
+              },
+              "description": {
+                "ar": "8 سنوات",
+                "en": "8 Years"
+              }
+            }
+          ],
+          "viewAllButton": {
+            "text": {
+              "ar": "عرض جميع الوظائف",
+              "en": "View All Jobs"
+            },
+            "link": "#"
+          }
+        },
+        "button": {
+          "text": {
+            "en": "Apply Now",
+            "ar": " تقدم بطلبك الآن"
+          }
+        }
+      }
+    },
+    {
+      "id": "de1",
+
+      "banner": {
+        "title": {
+          "en": "Data Analyst",
+          "ar": "محلل بيانات"
+        },
+        "subTitle": {
+          "en": "Closing on 31/01/2025",
+          "ar": "يتم الإغلاق في 31/01/2025"
+        },
+        "bannerImage": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+13.jpg",
+        "button": {
+          "text": {
+            "en": "Back",
+            "ar": "خلف"
+          }
+        }
+      },
+      "jobDetails": {
+        "leftPanel": {
+          "sections": [
+            {
+              "title": {
+                "ar": "من الذي نبحث عنه؟",
+                "en": "Who Are We Looking For?"
+              },
+              "content": {
+                "ar": [
+                  "درجة البكالوريوس في علوم الكمبيوتر، أو مجال تقني ذي صلة، أو خبرة عملية معادلة."
+                ],
+                "en": [
+                  "Bachelor's degree in Computer Science or a related technical field, or equivalent practical experience."
+                ]
+              }
+            },
+            {
+              "title": {
+                "ar": "ماذا ستفعل",
+                "en": "What Will You Do?"
+              },
+              "content": {
+                "ar": [
+                  "خبرة في أدوات تحليل البيانات والتصور (مثل SQL و Tableau و Excel)."
+                ],
+                "en": [
+                  "Experience in data analysis and visualization tools (e.g., SQL, Tableau, Excel)."
+                ]
+              }
+            },
+            {
+              "title": {
+                "ar": "نقاط المكافأة للتعرف على",
+                "en": "Bonus Points to Recognize"
+              },
+              "content": {
+                "ar": [
+                  "إثبات القدرة على العمل مع مجموعات البيانات الكبيرة واستخلاص رؤى ذات مغزى منها."
+                ],
+                "en": [
+                  "Proven ability to work with large datasets and derive meaningful insights from them."
+                ]
+              }
+            },
+            {
+              "title": {
+                "ar": "المتطلبات التعليمية",
+                "en": "Educational Requirements"
+              },
+              "content": {
+                "ar": ["خبرة في التعامل مع البيانات، ETL، وأدوات التقارير."],
+                "en": [
+                  "Experience working with data wrangling, ETL, and reporting tools."
+                ]
+              }
+            }
+          ]
+        },
+        "rightPanel": {
+          "button": {
+            "text": {
+              "ar": "يتقدم",
+              "en": "Apply"
+            }
+          },
+          "title": {
+            "ar": "ملخص الوظيفة",
+            "en": "Job Summary"
+          },
+          "tailwraps": [
+            {
+              "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/subway_location.svg",
+              "title": {
+                "ar": "موقع",
+                "en": "Location"
+              },
+              "description": {
+                "ar": "جدة، السعودية",
+                "en": "Jeddah, SA"
+              }
+            },
+            {
+              "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/material-symbols_business-center-outline.svg",
+              "title": {
+                "ar": "نوع الوظيفة",
+                "en": "Job Type"
+              },
+              "description": {
+                "ar": "دوام كامل",
+                "en": "Full-Time"
+              }
+            },
+            {
+              "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/mdi_calendar-outline.svg",
+              "title": {
+                "ar": "تاريخ النشر",
+                "en": "Posted Date"
+              },
+              "description": {
+                "ar": "تم النشر منذ شهر واحد",
+                "en": "Posted 1 month ago"
+              }
+            },
+            {
+              "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/codicon_book.svg",
+              "title": {
+                "ar": "خبرة",
+                "en": "Experience"
+              },
+              "description": {
+                "ar": "1-3 سنوات",
+                "en": "1-3 Years"
+              }
+            }
+          ],
+          "viewAllButton": {
+            "text": {
+              "ar": "عرض جميع الوظائف",
+              "en": "View All Jobs"
+            },
+            "link": "#"
+          }
+        },
+        "button": {
+          "text": {
+            "en": "Apply Now",
+            "ar": " تقدم بطلبك الآن"
+          }
+        }
+      }
+    },
+
+    {
+      "id": "pd1",
+
+      "banner": {
+        "title": {
+          "en": "Product Designer",
+          "ar": "مصمم المنتجات"
+        },
+        "subTitle": {
+          "en": "Closing on 31/12/2023",
+          "ar": "يتم الإغلاق في 31/12/2023"
+        },
+        "bannerImage": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+13.jpg",
+        "button": {
+          "text": {
+            "en": "Back",
+            "ar": "خلف"
+          }
+        }
+      },
+      "jobDetails": {
+        "leftPanel": {
+          "sections": [
+            {
+              "title": {
+                "ar": "من الذي نبحث عنه؟",
+                "en": "Who Are We Looking For?"
+              },
+              "content": {
+                "ar": [
+                  "درجة البكالوريوس في التصميم أو علوم الكمبيوتر أو مجال ذي صلة، أو خبرة عملية معادلة."
+                ],
+                "en": [
+                  "Bachelor's degree in Design, Computer Science, or related field, or equivalent practical experience."
+                ]
+              }
+            },
+            {
+              "title": {
+                "ar": "ماذا ستفعل",
+                "en": "What Will You Do?"
+              },
+              "content": {
+                "ar": [
+                  "أكثر من 5 سنوات من الخبرة في تصميم تجربة المستخدم/واجهة المستخدم، بما في ذلك إجادة أدوات تصميم الإطارات والنماذج الأولية (مثل Sketch و Figma)."
+                ],
+                "en": [
+                  "5+ years of experience in UX/UI design, including proficiency in wireframing and prototyping tools (e.g., Sketch, Figma)."
+                ]
+              }
+            },
+            {
+              "title": {
+                "ar": "نقاط المكافأة للتعرف على",
+                "en": "Bonus Points to Recognize"
+              },
+              "content": {
+                "ar": [
+                  "محفظة قوية من الأعمال التصميمية التي تُظهر حلول التصميم الموجهة نحو المستخدم."
+                ],
+                "en": [
+                  "Strong portfolio of design work demonstrating user-centered design solutions."
+                ]
+              }
+            },
+            {
+              "title": {
+                "ar": "المتطلبات التعليمية",
+                "en": "Educational Requirements"
+              },
+              "content": {
+                "ar": [
+                  "خبرة في أبحاث المستخدم واختبار قابلية الاستخدام وعمليات التصميم التكرارية."
+                ],
+                "en": [
+                  "Experience with user research, usability testing, and iterative design processes."
+                ]
+              }
+            }
+          ]
+        },
+        "rightPanel": {
+          "button": {
+            "text": {
+              "ar": "يتقدم",
+              "en": "Apply"
+            }
+          },
+          "title": {
+            "ar": "ملخص الوظيفة",
+            "en": "Job Summary"
+          },
+          "tailwraps": [
+            {
+              "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/subway_location.svg",
+              "title": {
+                "ar": "موقع",
+                "en": "Location"
+              },
+              "description": {
+                "ar": "الرياض، السعودية",
+                "en": "Riyadh, SA"
+              }
+            },
+            {
+              "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/material-symbols_business-center-outline.svg",
+              "title": {
+                "ar": "نوع الوظيفة",
+                "en": "Job Type"
+              },
+              "description": {
+                "ar": "دوام كامل",
+                "en": "Full-Time"
+              }
+            },
+            {
+              "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/mdi_calendar-outline.svg",
+              "title": {
+                "ar": "تاريخ النشر",
+                "en": "Posted Date"
+              },
+              "description": {
+                "ar": "تم النشر منذ شهر واحد",
+                "en": "Posted 1 month ago"
+              }
+            },
+            {
+              "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/codicon_book.svg",
+              "title": {
+                "ar": "خبرة",
+                "en": "Experience"
+              },
+              "description": {
+                "ar": "5+ سنوات",
+                "en": "5+ Years"
+              }
+            }
+          ],
+          "viewAllButton": {
+            "text": {
+              "ar": "عرض جميع الوظائف",
+              "en": "View All Jobs"
+            },
+            "link": "#"
+          }
+        },
+        "button": {
+          "text": {
+            "en": "Apply Now",
+            "ar": " تقدم بطلبك الآن"
+          }
+        }
+      }
+    },
+
+    {
+      "id": "fse1",
+
+      "banner": {
+        "title": {
+          "en": "Full Stack Engineer",
+          "ar": "مهندس كامل الواجهة"
+        },
+        "subTitle": {
+          "en": "Closing on 15/03/2025",
+          "ar": "يتم الإغلاق في 15/03/2025"
+        },
+        "bannerImage": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+13.jpg",
+        "button": {
+          "text": {
+            "en": "Back",
+            "ar": "خلف"
+          }
+        }
+      },
+      "jobDetails": {
+        "leftPanel": {
+          "sections": [
+            {
+              "title": {
+                "ar": "من الذي نبحث عنه؟",
+                "en": "Who Are We Looking For?"
+              },
+              "content": {
+                "ar": [
+                  "درجة البكالوريوس في علوم الكمبيوتر، تكنولوجيا المعلومات، أو مجال ذي صلة."
+                ],
+                "en": [
+                  "Bachelor's degree in Computer Science, Information Technology, or related field."
+                ]
+              }
+            },
+            {
+              "title": {
+                "ar": "ماذا ستفعل",
+                "en": "What Will You Do?"
+              },
+              "content": {
+                "ar": [
+                  "3 سنوات أو أكثر من الخبرة في تطوير الواجهة الكاملة مع خبرة في React و Node.js و Express و MongoDB."
+                ],
+                "en": [
+                  "3+ years of experience in full-stack development with expertise in React, Node.js, Express, and MongoDB."
+                ]
+              }
+            },
+            {
+              "title": {
+                "ar": "نقاط المكافأة للتعرف على",
+                "en": "Bonus Points to Recognize"
+              },
+              "content": {
+                "ar": [
+                  "خبرة في خدمات السحابة (مثل AWS و Azure و Google Cloud)."
+                ],
+                "en": [
+                  "Experience with cloud services (e.g., AWS, Azure, Google Cloud)."
+                ]
+              }
+            },
+            {
+              "title": {
+                "ar": "المتطلبات التعليمية",
+                "en": "Educational Requirements"
+              },
+              "content": {
+                "ar": [
+                  "مهارات حل المشكلات القوية والقدرة على العمل بشكل جيد تحت الضغط."
+                ],
+                "en": [
+                  "Strong problem-solving skills and the ability to work well under pressure."
+                ]
+              }
+            }
+          ]
+        },
+        "rightPanel": {
+          "button": {
+            "text": {
+              "ar": "يتقدم",
+              "en": "Apply"
+            }
+          },
+          "title": {
+            "ar": "ملخص الوظيفة",
+            "en": "Job Summary"
+          },
+          "tailwraps": [
+            {
+              "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/subway_location.svg",
+              "title": {
+                "ar": "موقع",
+                "en": "Location"
+              },
+              "description": {
+                "ar": "المنامة، البحرين",
+                "en": "Manama, BH"
+              }
+            },
+            {
+              "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/material-symbols_business-center-outline.svg",
+              "title": {
+                "ar": "نوع الوظيفة",
+                "en": "Job Type"
+              },
+              "description": {
+                "ar": "دوام كامل",
+                "en": "Full-Time"
+              }
+            },
+            {
+              "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/mdi_calendar-outline.svg",
+              "title": {
+                "ar": "تاريخ النشر",
+                "en": "Posted Date"
+              },
+              "description": {
+                "ar": "تم النشر منذ شهر واحد",
+                "en": "Posted 1 month ago"
+              }
+            },
+            {
+              "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/codicon_book.svg",
+              "title": {
+                "ar": "خبرة",
+                "en": "Experience"
+              },
+              "description": {
+                "ar": "3+ سنوات",
+                "en": "3+ Years"
+              }
+            }
+          ],
+          "viewAllButton": {
+            "text": {
+              "ar": "عرض جميع الوظائف",
+              "en": "View All Jobs"
+            },
+            "link": "#"
+          }
+        },
+        "button": {
+          "text": {
+            "en": "Apply Now",
+            "ar": " تقدم بطلبك الآن"
+          }
+        }
+      }
+    },
+
+    {
+      "id": "se2",
+
+      "banner": {
+        "title": {
+          "en": "Software Engineer",
+          "ar": "مهندس البرمجيات"
+        },
+        "subTitle": {
+          "en": "Closing on 31/01/2025",
+          "ar": "يتم الإغلاق في 31/01/2025"
+        },
+        "bannerImage": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+13.jpg",
+        "button": {
+          "text": {
+            "en": "Back",
+            "ar": "خلف"
+          }
+        }
+      },
+      "jobDetails": {
+        "leftPanel": {
+          "sections": [
+            {
+              "title": {
+                "ar": "من الذي نبحث عنه؟",
+                "en": "Who Are We Looking For?"
+              },
+              "content": {
+                "ar": [
+                  "درجة البكالوريوس في علوم الكمبيوتر، هندسة البرمجيات، أو مجال ذي صلة."
+                ],
+                "en": [
+                  "Bachelor's degree in Computer Science, Software Engineering, or related field."
+                ]
+              }
+            },
+            {
+              "title": {
+                "ar": "ماذا ستفعل",
+                "en": "What Will You Do?"
+              },
+              "content": {
+                "ar": [
+                  "خبرة لا تقل عن سنتين في تطوير البرمجيات مع اتقان Java أو Python أو C++."
+                ],
+                "en": [
+                  "2+ years of experience in software development with proficiency in Java, Python, or C++."
+                ]
+              }
+            },
+            {
+              "title": {
+                "ar": "نقاط المكافأة للتعرف على",
+                "en": "Bonus Points to Recognize"
+              },
+              "content": {
+                "ar": [
+                  "خبرة في منهجيات العمل المرنة ونظم التحكم في الإصدارات (مثل Git)."
+                ],
+                "en": [
+                  "Experience with agile methodologies and version control systems (e.g., Git)."
+                ]
+              }
+            },
+            {
+              "title": {
+                "ar": "المتطلبات التعليمية",
+                "en": "Educational Requirements"
+              },
+              "content": {
+                "ar": ["مهارات تحليلية قوية وحل المشكلات."],
+                "en": ["Strong analytical and problem-solving skills."]
+              }
+            }
+          ]
+        },
+        "rightPanel": {
+          "button": {
+            "text": {
+              "ar": "يتقدم",
+              "en": "Apply"
+            }
+          },
+          "title": {
+            "ar": "ملخص الوظيفة",
+            "en": "Job Summary"
+          },
+          "tailwraps": [
+            {
+              "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/subway_location.svg",
+              "title": {
+                "ar": "موقع",
+                "en": "Location"
+              },
+              "description": {
+                "ar": "القاهرة، مصر",
+                "en": "Cairo, EG"
+              }
+            },
+            {
+              "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/material-symbols_business-center-outline.svg",
+              "title": {
+                "ar": "نوع الوظيفة",
+                "en": "Job Type"
+              },
+              "description": {
+                "ar": "دوام كامل",
+                "en": "Full-Time"
+              }
+            },
+            {
+              "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/mdi_calendar-outline.svg",
+              "title": {
+                "ar": "تاريخ النشر",
+                "en": "Posted Date"
+              },
+              "description": {
+                "ar": "تم النشر منذ شهر واحد",
+                "en": "Posted 1 month ago"
+              }
+            },
+            {
+              "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/codicon_book.svg",
+              "title": {
+                "ar": "خبرة",
+                "en": "Experience"
+              },
+              "description": {
+                "ar": "2+ سنوات",
+                "en": "2+ Years"
+              }
+            }
+          ],
+          "viewAllButton": {
+            "text": {
+              "ar": "عرض جميع الوظائف",
+              "en": "View All Jobs"
+            },
+            "link": "#"
+          }
+        },
+        "button": {
+          "text": {
+            "en": "Apply Now",
+            "ar": " تقدم بطلبك الآن"
+          }
+        }
+      }
+    },
+
+    {
+      "id": "csa1",
+
+      "banner": {
+        "title": {
+          "en": "Cyber Security Analyst",
+          "ar": "محلل الأمن السيبراني"
+        },
+        "subTitle": {
+          "en": "Closing on 15/02/2025",
+          "ar": "يتم الإغلاق في 15/02/2025"
+        },
+        "bannerImage": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+13.jpg",
+        "button": {
+          "text": {
+            "en": "Back",
+            "ar": "خلف"
+          }
+        }
+      },
+      "jobDetails": {
+        "leftPanel": {
+          "sections": [
+            {
+              "title": {
+                "ar": "من الذي نبحث عنه؟",
+                "en": "Who Are We Looking For?"
+              },
+              "content": {
+                "ar": [
+                  "درجة البكالوريوس في أمن المعلومات، علوم الكمبيوتر، أو مجال ذي صلة."
+                ],
+                "en": [
+                  "Bachelor's degree in Information Security, Computer Science, or related field."
+                ]
+              }
+            },
+            {
+              "title": {
+                "ar": "ماذا ستفعل",
+                "en": "What Will You Do?"
+              },
+              "content": {
+                "ar": [
+                  "خبرة لا تقل عن 3 سنوات في الأمن السيبراني مع معرفة في أمان الشبكة واختبار الاختراق والاستجابة للحوادث."
+                ],
+                "en": [
+                  "3+ years of experience in cybersecurity with knowledge of network security, penetration testing, and incident response."
+                ]
+              }
+            },
+            {
+              "title": {
+                "ar": "نقاط المكافأة للتعرف على",
+                "en": "Bonus Points to Recognize"
+              },
+              "content": {
+                "ar": [
+                  "شهادات في الأمن السيبراني (مثل CISSP و CEH و CompTIA Security+)."
+                ],
+                "en": [
+                  "Certifications in cybersecurity (e.g., CISSP, CEH, CompTIA Security+)."
+                ]
+              }
+            },
+            {
+              "title": {
+                "ar": "المتطلبات التعليمية",
+                "en": "Educational Requirements"
+              },
+              "content": {
+                "ar": [
+                  "فهم قوي لإدارة التهديدات وتقييم المخاطر واستراتيجيات التخفيف."
+                ],
+                "en": [
+                  "Strong understanding of threat management, risk assessment, and mitigation strategies."
+                ]
+              }
+            }
+          ]
+        },
+        "rightPanel": {
+          "button": {
+            "text": {
+              "ar": "يتقدم",
+              "en": "Apply"
+            }
+          },
+          "title": {
+            "ar": "ملخص الوظيفة",
+            "en": "Job Summary"
+          },
+          "tailwraps": [
+            {
+              "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/subway_location.svg",
+              "title": {
+                "ar": "موقع",
+                "en": "Location"
+              },
+              "description": {
+                "ar": "الرياض، السعودية",
+                "en": "Riyadh, SA"
+              }
+            },
+            {
+              "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/material-symbols_business-center-outline.svg",
+              "title": {
+                "ar": "نوع الوظيفة",
+                "en": "Job Type"
+              },
+              "description": {
+                "ar": "دوام كامل",
+                "en": "Full-Time"
+              }
+            },
+            {
+              "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/mdi_calendar-outline.svg",
+              "title": {
+                "ar": "تاريخ النشر",
+                "en": "Posted Date"
+              },
+              "description": {
+                "ar": "تم النشر منذ شهر واحد",
+                "en": "Posted 1 month ago"
+              }
+            },
+            {
+              "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/codicon_book.svg",
+              "title": {
+                "ar": "خبرة",
+                "en": "Experience"
+              },
+              "description": {
+                "ar": "3+ سنوات",
+                "en": "3+ Years"
+              }
+            }
+          ],
+          "viewAllButton": {
+            "text": {
+              "ar": "عرض جميع الوظائف",
+              "en": "View All Jobs"
+            },
+            "link": "#"
+          }
+        },
+        "button": {
+          "text": {
+            "en": "Apply Now",
+            "ar": " تقدم بطلبك الآن"
+          }
+        }
+      }
+    }
+  ],
+
   "newsBlogs": {
     "bannerSection": {
       "title": {
@@ -2341,6 +4847,7 @@
       }
     },
     "mainCard": {
+      "id": "news1",
       "title": {
         "ar": "شباب يتحدون الإعاقة",
         "en": "Youth Overcoming Disability"
@@ -2359,6 +4866,7 @@
         "en": "Read More"
       }
     },
+
     "latestNewCards": {
       "heading": {
         "ar": "آخر الأخبار",
@@ -2366,6 +4874,8 @@
       },
       "cards": [
         {
+          "id": "news1",
+
           "title": {
             "ar": "شباب يتحدون الإعاقة",
             "en": "Youth Overcoming Disability"
@@ -2385,6 +4895,8 @@
           }
         },
         {
+          "id": "news2",
+
           "title": {
             "ar": "الروبوتات السعودية تنضم إلى الملايين في أداء فريضة الحج",
             "en": "Saudi Robots Join Millions in Performing the Hajj"
@@ -2404,6 +4916,8 @@
           }
         },
         {
+          "id": "news3",
+
           "title": {
             "ar": "التكنولوجيا في خدمة ذوي الإعاقة",
             "en": "Technology Serving People with Disabilities"
@@ -2423,6 +4937,8 @@
           }
         },
         {
+          "id": "news4",
+
           "title": {
             "ar": "قصص نجاح ملهمة",
             "en": "Inspiring Success Stories"
@@ -2442,6 +4958,8 @@
           }
         },
         {
+          "id": "news5",
+
           "title": {
             "ar": "مبادرات دعم ذوي الإعاقة",
             "en": "Initiatives Supporting People with Disabilities"
@@ -2462,6 +4980,8 @@
           }
         },
         {
+          "id": "news6",
+
           "title": {
             "ar": "التحديات التي تواجه ذوي الإعاقة",
             "en": "Challenges Faced by People with Disabilities"
@@ -2483,7 +5003,9 @@
         }
       ]
     },
+
     "trendingCard": {
+      "id": "news2",
       "button": {
         "text": {
           "ar": "تتجه",
@@ -2509,704 +5031,207 @@
       }
     }
   },
-  "projectDetail": {
-    "project_wrapper": {
-      "title": {
-        "ar": "مختبر تكنولوجيا المعلومات للتميز",
-        "en": "IT Labs for Excellence"
-      },
-      "subtitle": {
-        "ar": "العميل: أرامكو السعودية",
-        "en": "Client: Saudi Aramco"
-      },
-      "url": "https://www.aramco.com",
-      "backButton": {
-        "ar": "خلف",
-        "en": "Back"
-      },
-     "projectInforCard": [
-  {
-    "key": {
-      "ar": "الموقع",
-      "en": "location"
-    },
-    "value": {
-      "ar": "وادي الظهران للتقنية، المملكة العربية السعودية",
-      "en": "Dhahran Techno Valley, Saudi Arabia"
-    },
-    "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/ion_location-sharp.svg"
-  },
-  
-  {
-    "key": {
-      "ar": "تاريخ البدء",
-      "en": "Start Date"
-    },
-    "value": {
-      "ar": "فبراير 2021",
-      "en": "February 2021"
-    },
-    "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/solar_calendar-bold+(1).svg"
-  },
-  {
-    "key": {
-      "ar": "تاريخ الانتهاء",
-      "en": "End Date"
-    },
-    "value": {
-      "ar": "فبراير 2023",
-      "en": "February 2023"
-    },
-    "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/solar_calendar-bold.svg"
-  },{
-    "key": {
-      "ar": "حالة",
-      "en": "status"
-    },
-    "value": {
-      "ar": "مكتمل",
-      "en": "Completed"
-    },
-    "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/pajamas_status-neutral.svg"
-  }
-]
-    },
 
-    "solution_Content": {
-      "projectDescription": {
+  "newsBlogsDetails": [
+    {
+      "id": "news1",
+      "banner": {
         "title": {
-          "ar": "وصف المشروع",
-          "en": "Project Description"
+          "en": "Youth Overcoming Disability",
+          "ar": "شباب يتحدون الإعاقة"
         },
-        "description": {
-          "ar": "نطاق العمل في المشروع هو هدم وشراء وبناء مختبر تكنولوجيا المعلومات في برج المدرة الواقع في الظهران.",
-          "en": "The scope of work for the project is to demolish, procure and Construct an IT Lab in Al-Midra Tower located in Dhahran."
-        }
-      },
-      "demolitionWorks": {
-        "title": {
-          "ar": "أعمال الهدم",
-          "en": "Demolition Works"
+        "subTitle": {
+          "en": "Monday May 20",
+          "ar": "20 مايو 2020"
         },
-        "description": {
-          "ar": "العناصر المدنية (إزالة القسم المنخفض والزجاجي، وجدار CMU، ومخلفات الأرضيات، والأثاث، والسقف)...",
-          "en": "Civil items (Remove low and glass partition, CMU wall, Floor tailing, furniture and Ceiling) HVAC Items Plumbing Items Fire protection Electrical (remove lighting fixture, wiring devices, disconnect switches, etc.,) Telecom (remove telecom system)"
-        }
-      },
-      "newNetworks": {
-        "title": {
-          "ar": "شبكات جديدة",
-          "en": "New Networks"
-        },
-        "description": {
-          "ar": "مدني (الإنهاء الأرضي، السقف، الجدران، الأثاث)...",
-          "en": "Civil (floor finishes, ceiling finishes, wall finishes, furniture) Mechanical ( HVAC, fire protection, plumbing) Electrical (fire detection and alarm system, lighting, wiring devices) Instrumentation (building management system) Telecom (cable routing, data voice system, wireless LAN, AV system, data network)"
-        }
-      },
-      "workIncludes": {
-        "title": {
-          "ar": "العمل يشمل",
-          "en": "Work Includes"
-        },
-        "description": {
-          "ar": "تشمل تسليمات المشروع الرئيسية: ورشة البناء، المنطقة المكتبية، المباني المساندة للورشة، المرافق الخارجية...",
-          "en": "The key deliverables of project are : Workshop Building Office Area Workshop support buildings External Utilities Site development works Telecom & Security works"
-        }
-      }
-    },
-
-    "showcase_gallery_wrap": {
-      "images": [
-        {
-          "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Rectangle+34624115+(1).png",
-          "alt": {
-            "ar": "صورة المعرض 1",
-            "en": "Gallery Image 1"
-          }
-        },
-        {
-          "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Rectangle+34624114+(1).png",
-          "alt": {
-            "ar": "صورة المعرض 2",
-            "en": "Gallery Image 2"
-          }
-        },
-        {
-          "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Rectangle+34624113+(1).png",
-          "alt": {
-            "ar": "صورة المعرض 3",
-            "en": "Gallery Image 3"
-          }
-        }
-      ]
-    },
-    "latest_new_card_wrap": {
-      "title": {
-        "ar": "المزيد من المشاريع",
-        "en": "More Projects"
-      },
-      "projects": [
-        {
-          "title": {
-            "ar": "مختبرات تكنولوجيا المعلومات للتميز",
-            "en": "IT Labs for Excellence"
-          },
-          "description": {
-            "ar": "سبارك - الظهران، المملكة العربية السعودية",
-            "en": "Dhahran Techno Valley, Saudi Arabia"
-          },
-          "imageUrl": "https://frequencyimage.s3.ap-south-1.amazonaws.com/79273d2e-3d58-4615-a65c-c3472fdaf393-Frame%2044.png"
-        },
-        {
-          "title": {
-            "ar": "مختبرات تكنولوجيا المعلومات للتميز",
-            "en": "IT Labs for Excellence"
-          },
-          "description": {
-            "ar": "سبارك - الظهران، المملكة العربية السعودية",
-            "en": "Dhahran Techno Valley, Saudi Arabia"
-          },
-          "imageUrl": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
-        },
-        {
-          "title": {
-            "ar": "مختبرات تكنولوجيا المعلومات للتميز",
-            "en": "IT Labs for Excellence"
-          },
-          "description": {
-            "ar": "سبارك - الظهران، المملكة العربية السعودية",
-            "en": "Dhahran Techno Valley, Saudi Arabia"
-          },
-          "imageUrl": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(2).jpg"
-        },
-        {
-          "title": {
-            "ar": "مختبرات تكنولوجيا المعلومات للتميز",
-            "en": "IT Labs for Excellence"
-          },
-          "description": {
-            "ar": "سبارك - الظهران، المملكة العربية السعودية",
-            "en": "Dhahran Techno Valley, Saudi Arabia"
-          },
-          "imageUrl": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(3).jpg"
-        },
-        {
-          "title": {
-            "ar": "مختبرات تكنولوجيا المعلومات للتميز",
-            "en": "IT Labs for Excellence"
-          },
-          "description": {
-            "ar": "سبارك - الظهران، المملكة العربية السعودية",
-            "en": "Dhahran Techno Valley, Saudi Arabia"
-          },
-          "imageUrl": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).jpg"
-        },
-        {
-          "title": {
-            "ar": "مختبرات تكنولوجيا المعلومات للتميز",
-            "en": "IT Labs for Excellence"
-          },
-          "description": {
-            "ar": "سبارك - الظهران، المملكة العربية السعودية",
-            "en": "Dhahran Techno Valley, Saudi Arabia"
-          },
-          "imageUrl": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44.jpg"
-        }
-      ],
-      "button": {
-        "text": {
-          "en": "View Details",
-          "ar": " عرض التفاصيل"
-        }
-      }
-    }
-  },
-  "careerDetails": {
-    "banner": {
-      "title": {
-        "en": "Project Manager",
-        "ar": "مدير المشروع"
-      },
-      "subTitle": {
-        "en": "Closing on 28 Aug, 2024",
-        "ar": "يتم الإغلاق في 28 أغسطس 2024"
-      },
-      "bannerImage": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+13.jpg",
-      "button": {
-        "text": {
-          "en": "Back",
-          "ar": "خلف"
-        }
-      }
-    },
-    "jobDetails": {
-      "leftPanel": {
-        "sections": [
-          {
-            "title": {
-              "ar": "من الذي نبحث عنه؟",
-              "en": "Who Are We Looking For?"
-            },
-            "content": {
-              "ar": [
-                "المحتوى) ويُستخدم في صناعات المطابع ودور النشر. كان لوريم إيبسوم ولايزال المعيار للنص",
-                "المحتوى) ويُستخدم في صناعات المطابع ودور النشر. كان",
-                "المحتوى) ويُستخدم في صناعات المطابع ودور النشر. كان لوريم إيبسوم",
-                "المحتوى) ويُستخدم في صناعات المطابع ودور",
-                "المحتوى) ويُستخدم في صناعات المطابع",
-                "المحتوى) ويُستخدم في صناعات المطابع ودور",
-                "المحتوى) ويُستخدم في صن",
-                "المحتوى) ويُستخدم في",
-                "المحتوى) ويُستخدم في صناعات المطابع ودور"
-              ],
-              "en": [
-                "Content) is used in the printing and publishing industries. Lorem Ipsum has been the standard text",
-                "Content) is used in the printing and publishing industries.",
-                "Content) is used in the printing and publishing industries. Lorem Ipsum",
-                "Content) is used in the printing and publishing industries.",
-                "Content) is used in the printing and publishing industries.",
-                "Content) is used in the printing and publishing industries.",
-                "Content) is used in printing industries.",
-                "Content) is used in the industries.",
-                "Content) is used in the printing and publishing industries."
-              ]
-            }
-          },
-          {
-            "title": {
-              "ar": "ماذا ستفعل",
-              "en": "What Will You Do?"
-            },
-            "content": {
-              "ar": [
-                "المحتوى) ويُستخدم في صناعات المطابع ودور النشر. كان لوريم إيبسوم ولايزال المعيار للنص",
-                "المحتوى) ويُستخدم في صناعات المطابع ودور النشر. كان",
-                "المحتوى) ويُستخدم في صناعات المطابع ودور النشر. كان لوريم إيبسوم",
-                "المحتوى) ويُستخدم في صناعات المطابع ودور",
-                "المحتوى) ويُستخدم في صناعات المطابع",
-                "المحتوى) ويُستخدم في صناعات المطابع ودور",
-                "المحتوى) ويُستخدم في صن",
-                "المحتوى) ويُستخدم في",
-                "المحتوى) ويُستخدم في صناعات المطابع ودور"
-              ],
-              "en": [
-                "Content) is used in the printing and publishing industries. Lorem Ipsum has been the standard text",
-                "Content) is used in the printing and publishing industries.",
-                "Content) is used in the printing and publishing industries. Lorem Ipsum",
-                "Content) is used in the printing and publishing industries.",
-                "Content) is used in the printing and publishing industries.",
-                "Content) is used in the printing and publishing industries.",
-                "Content) is used in printing industries.",
-                "Content) is used in the industries.",
-                "Content) is used in the printing and publishing industries."
-              ]
-            }
-          },
-          {
-            "title": {
-              "ar": "نقاط المكافأة للتعرف على",
-              "en": "Bonus Points to Recognize"
-            },
-            "content": {
-              "ar": [
-                "المحتوى) ويُستخدم في صناعات المطابع ودور النشر. كان لوريم إيبسوم ولايزال المعيار للنص",
-                "المحتوى) ويُستخدم في صناعات المطابع ودور النشر. كان",
-                "المحتوى) ويُستخدم في صناعات المطابع ودور النشر. كان لوريم إيبسوم"
-              ],
-              "en": [
-                "Content) is used in the printing and publishing industries. Lorem Ipsum has been the standard text",
-                "Content) is used in the printing and publishing industries.",
-                "Content) is used in the printing and publishing industries. Lorem Ipsum"
-              ]
-            }
-          },
-          {
-            "title": {
-              "ar": "المتطلبات التعليمية",
-              "en": "Educational Requirements"
-            },
-            "content": {
-              "ar": [
-                "خلافاً للاعتقاد السائد، فإن لوريم إيبسوم ليس نصاً عشوائياً بالمرة. بل إن له جذور في الأدب اللاتيني الكلاسيكي منذ العام 45 قبل الميلاد، مما يجعله أكثر من 2000 عام في القدم. قام ريتشارد ماكلينتوك، وهو بروفيسور اللغة اللاتينية في كلية هامبدن-سيدني في فيرجينيا، بالبحث عن أصل كلمة لاتينية غامضة، consectetur، من نص لوريم إيبسوم"
-              ],
-              "en": [
-                "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going"
-              ]
-            }
-          },
-          {
-            "title": {
-              "ar": "راتب",
-              "en": "Salary"
-            },
-            "content": {
-              "ar": [
-                "الراتب: 18,000 إلى 35,000 BDT (حسب المهارة والخبرة)",
-                "مراجعة الراتب: سنوي"
-              ],
-              "en": [
-                "Salary: 18,000 to 35,000 BDT (Depends on Skill and Experience)",
-                "Salary Review: Yearly"
-              ]
-            }
-          },
-          {
-            "title": {
-              "ar": "ساعات العمل",
-              "en": "Working Hours"
-            },
-            "content": {
-              "ar": ["8 صباحًا – 5 مساءً"],
-              "en": ["8 AM – 5 PM"]
-            }
-          },
-          {
-            "title": {
-              "ar": "أيام العمل",
-              "en": "Working Days"
-            },
-            "content": {
-              "ar": ["أسبوعيًا: 5 أيام.", "نهاية الأسبوع: الجمعة. السبت"],
-              "en": ["Weekly: 5 days.", "Weekend: Friday.Saturday"]
-            }
-          },
-          {
-            "title": {
-              "ar": "الامتيازات والفوائد التي ستحصل عليها",
-              "en": "Perks and Benefits You Will Get"
-            },
-            "content": {
-              "ar": [
-                "المحتوى) ويُستخدم في صناعات المطابع ودور النشر. كان لوريم إيبسوم ولايزال المعيار للنص",
-                "المحتوى) ويُستخدم في صناعات المطابع ودور النشر. كان",
-                "المحتوى) ويُستخدم في صناعات المطابع ودور النشر. كان لوريم إيبسوم",
-                "المحتوى) ويُستخدم في صناعات المطابع ودور",
-                "المحتوى) ويُستخدم في صناعات المطابع",
-                "المحتوى) ويُستخدم في صناعات المطابع ودور",
-                "المحتوى) ويُستخدم في صن",
-                "المحتوى) ويُستخدم في",
-                "المحتوى) ويُستخدم في صناعات المطابع ودور"
-              ],
-              "en": [
-                "Content) is used in the printing and publishing industries. Lorem Ipsum has been the standard text",
-                "Content) is used in the printing and publishing industries.",
-                "Content) is used in the printing and publishing industries. Lorem Ipsum",
-                "Content) is used in the printing and publishing industries.",
-                "Content) is used in the printing and publishing industries.",
-                "Content) is used in the printing and publishing industries.",
-                "Content) is used in printing industries.",
-                "Content) is used in the industries.",
-                "Content) is used in the printing and publishing industries."
-              ]
-            }
-          }
-        ]
-      },
-      "rightPanel": {
+        "bannerImage": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+2+(3).png",
         "button": {
           "text": {
-            "ar": "يتقدم",
-            "en": "Apply"
+            "en": "Back",
+            "ar": "خلف"
           }
-        },
-        "title": {
-          "ar": "ملخص الوظيفة",
-          "en": "Job Summary"
-        },
-        "tailwraps": [
-          {
-            "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/subway_location.svg",
-            "title": {
-              "ar": "موقع",
-              "en": "Location"
-            },
-            "description": {
-              "ar": "مركز شوث بريز، بناني11",
-              "en": "Shouth Breeze Center, Banani11"
-            }
-          },
-          {
-            "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/material-symbols_business-center-outline.svg",
-            "title": {
-              "ar": "نوع الوظيفة",
-              "en": "Job Type"
-            },
-            "description": {
-              "ar": "دوام كامل",
-              "en": "Full-Time"
-            }
-          },
-          {
-            "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/mdi_calendar-outline.svg",
-            "title": {
-              "ar": "تاريخ النشر",
-              "en": "Posted Date"
-            },
-            "description": {
-              "ar": "تم النشر منذ شهر واحد",
-              "en": "Posted 1 month ago"
-            }
-          },
-          {
-            "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/codicon_book.svg",
-            "title": {
-              "ar": "خبرة",
-              "en": "Experience"
-            },
-            "description": {
-              "ar": "1-3 سنة",
-              "en": "1-3 Years"
-            }
-          },
-          {
-            "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/teenyicons_clock-outline.svg",
-            "title": {
-              "ar": "ساعات العمل",
-              "en": "Working Hours"
-            },
-            "description": {
-              "ar": "9 صباحًا - 6 مساءً",
-              "en": "9 AM - 6 PM"
-            }
-          },
-          {
-            "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/solar_book-outline.svg",
-            "title": {
-              "ar": "أيام العمل",
-              "en": "Working Days"
-            },
-            "description": {
-              "ar": "أسبوعي: 5 أيام عطلة نهاية الأسبوع: السبت، الأحد",
-              "en": "Weekly: 5 days. Weekend: Saturday, Sunday"
-            }
-          },
-          {
-            "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/arcticons_emoji-chair.svg",
-            "title": {
-              "ar": "خالي",
-              "en": "Vacancy"
-            },
-            "description": {
-              "ar": "عدد الوظائف الشاغرة: 3",
-              "en": "Number of vacancies: 3"
-            }
-          }
-        ],
-        "viewAllButton": {
-          "text": {
-            "ar": "عرض جميع الوظائف",
-            "en": "View All Jobs"
-          },
-          "link": "#"
-        },
-        "socialShare": {
+        }
+      },
+      "newsPoints": [
+        {
           "title": {
-            "ar": "شارك هذا:",
-            "en": "Share this:"
+            "ar": "تحديات ذوي الإعاقة في الشرق الأوسط",
+            "en": "Challenges Faced by People with Disabilities in the Middle East"
           },
-          "socialLinks": [
-            {
-              "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Facebook.svg",
-              "link": "#"
-            },
-            {
-              "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Twiter.svg",
-              "link": "#"
-            },
-            {
-              "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Linkedin.svg",
-              "link": "#"
-            },
-            {
-              "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/logos_whatsapp-icon+(1).svg",
-              "link": "#"
-            }
-          ]
+          "content": {
+            "ar": "يواجه ذوو الإعاقة في منطقة الشرق الأوسط العديد من التحديات التي تتراوح بين الأزمات الاقتصادية والحروب المستمرة، مما يجعل حياتهم اليومية أكثر صعوبة. بالرغم من ذلك، يسعى العديد منهم لتحدي هذه الصعوبات والمساهمة في تغيير مجتمعاتهم.",
+            "en": "People with disabilities in the Middle East face many challenges, ranging from economic crises to ongoing wars, which make their daily lives more difficult. Despite this, many of them strive to overcome these difficulties and contribute to the betterment of their communities."
+          }
+        },
+        {
+          "title": {
+            "ar": "الشباب ودورهم في التغيير",
+            "en": "The Role of Youth in Making a Change"
+          },
+          "content": {
+            "ar": "الشباب هم القوة الدافعة وراء التغيير في منطقة الشرق الأوسط. هؤلاء الشبان الذين يواجهون إعاقات جسدية أو عقلية، يعملون على تحدي الواقع وابتكار طرق جديدة لتحقيق طموحاتهم.",
+            "en": "Youth are the driving force behind change in the Middle East. These young people, who face physical or mental disabilities, work to challenge the status quo and create new ways to achieve their dreams."
+          }
+        },
+        {
+          "title": {
+            "ar": "قصص ملهمة من الشباب",
+            "en": "Inspiring Stories from the Youth"
+          },
+          "content": {
+            "ar": "تستعرض هذه الحلقة العديد من القصص الملهمة لشباب تمكنوا من التغلب على التحديات التي فرضتها إعاقتهم. هذه القصص تثبت أن العزيمة والإرادة يمكن أن تتغلب على أي عقبة.",
+            "en": "This episode highlights many inspiring stories of young people who have overcome the challenges posed by their disabilities. These stories prove that determination and willpower can overcome any obstacle."
+          }
         }
-      },
-      "button": {
-        "text": {
-          "en": "Apply Now",
-          "ar": " تقدم بطلبك الآن"
-        }
-      }
-    }
-  },
-  "newsBlogsDetails": {
-    "banner": {
-      "title": {
-        "en": "Finibus Bonorum et Malorum",
-        "ar": "شباب يتحدون الإعاقة"
-      },
-      "subTitle": {
-        "en": "Monday  May 20",
-        "ar": "20 مايو 2020"
-      },
-      "bannerImage": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+2+(3).png",
-      "button": {
-        "text": {
-          "en": "Back",
-          "ar": "خلف"
-        }
-      }
+      ]
     },
-    "newsBlogDetails": [
-      {
+    {
+      "id": "news2",
+      "banner": {
         "title": {
-          "ar": "شباب يتحدون الإعاقة",
-          "en": "Youth Overcoming Disability"
+          "en": "Saudi Robots Join Millions in Performing the Hajj",
+          "ar": "الروبوتات السعودية تنضم إلى الملايين في أداء فريضة الحج"
         },
-        "content": {
-          "ar": "على الرغم من التحديات الكبيرة التي يعيشها ذوو الإعاقة في منطقة الشرق الأوسط وشمال أفريقيا بسبب الأزمات والحروب إلا أن قسما منهم أراد صنع التغيير وترك بصمة. في حلقة بي بي سي اكسترا هذا الأسبوع نلقي الضوء على هؤلاء الشباب الذين رفضوا أن تعيقهم إعاقتهم سواء تلك التي ولدوا معها أو المستجدة.",
-          "en": "Despite the significant challenges faced by people with disabilities in the Middle East and North Africa due to crises and wars, some have decided to make a change and leave a mark. In this week's BBC Extra episode, we shine a light on these young individuals who refused to let their disabilities, whether congenital or acquired, stop them."
+        "subTitle": {
+          "en": "Monday May 20",
+          "ar": "20 مايو 2020"
+        },
+        "bannerImage": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+2+(3).png",
+        "button": {
+          "text": {
+            "en": "Back",
+            "ar": "خلف"
+          }
         }
       },
-      {
-        "title": {
-          "ar": "شباب يتحدون الإعاقة",
-          "en": "Youth Overcoming Disability"
+      "newsPoints": [
+        {
+          "title": {
+            "ar": "استخدام الروبوتات في مناسك الحج",
+            "en": "Use of Robots in Hajj Rituals"
+          },
+          "content": {
+            "ar": "في خطوة مبتكرة، تستخدم المملكة العربية السعودية الروبوتات لمساعدة الحجاج في أداء مناسكهم. هذه الروبوتات تقدم خدمات مثل الإرشاد وتوفير المياه، مما يسهم في تسهيل أداء المناسك.",
+            "en": "In an innovative move, Saudi Arabia uses robots to assist pilgrims in performing their rituals. These robots provide services such as guidance and water distribution, contributing to the ease of performing the rites."
+          }
         },
-        "content": {
-          "ar": "على الرغم من التحديات الكبيرة التي يعيشها ذوو الإعاقة في منطقة الشرق الأوسط وشمال أفريقيا بسبب الأزمات والحروب إلا أن قسما منهم أراد صنع التغيير وترك بصمة. في حلقة بي بي سي اكسترا هذا الأسبوع نلقي الضوء على هؤلاء الشباب الذين رفضوا أن تعيقهم إعاقتهم سواء تلك التي ولدوا معها أو المستجدة.",
-          "en": "Despite the significant challenges faced by people with disabilities in the Middle East and North Africa due to crises and wars, some have decided to make a change and leave a mark. In this week's BBC Extra episode, we shine a light on these young individuals who refused to let their disabilities, whether congenital or acquired, stop them."
+        {
+          "title": {
+            "ar": "تحسين تجربة الحج باستخدام التكنولوجيا",
+            "en": "Enhancing the Hajj Experience with Technology"
+          },
+          "content": {
+            "ar": "التكنولوجيا تلعب دورًا مهمًا في تحسين تجربة الحج من خلال تسهيل التنقل وتقديم المعلومات لحجاج بيت الله الحرام. الروبوتات توفر تجربة أكثر سلاسة وأمانًا.",
+            "en": "Technology plays an important role in enhancing the Hajj experience by facilitating movement and providing information to the pilgrims. Robots offer a smoother and safer experience."
+          }
+        },
+        {
+          "title": {
+            "ar": "تقنيات جديدة لمساعدة الحجاج",
+            "en": "New Technologies to Assist Pilgrims"
+          },
+          "content": {
+            "ar": "إضافة الروبوتات لمرافق الحج تعد إضافة هامة، فهي تساهم في الحد من الازدحام وتحسين فعالية الخدمات المقدمة للحجاج.",
+            "en": "The addition of robots to Hajj facilities is an important step as they help reduce congestion and improve the effectiveness of services provided to pilgrims."
+          }
+        }
+      ]
+    },
+    {
+      "id": "news3",
+      "banner": {
+        "title": {
+          "en": "Technology Serving People with Disabilities",
+          "ar": "التكنولوجيا في خدمة ذوي الإعاقة"
+        },
+        "subTitle": {
+          "en": "Tuesday June 15",
+          "ar": "15 يونيو 2021"
+        },
+        "bannerImage": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+2+(3).png",
+        "button": {
+          "text": {
+            "en": "Back",
+            "ar": "خلف"
+          }
         }
       },
-      {
-        "title": {
-          "ar": "شباب يتحدون الإعاقة",
-          "en": "Youth Overcoming Disability"
+      "newsPoints": [
+        {
+          "title": {
+            "ar": "دور التكنولوجيا في حياة ذوي الإعاقة",
+            "en": "The Role of Technology in the Lives of People with Disabilities"
+          },
+          "content": {
+            "ar": "تلعب التكنولوجيا دورًا حيويًا في تحسين حياة الأشخاص ذوي الإعاقة من خلال تقديم حلول مبتكرة مثل الأطراف الصناعية، وبرامج التدريب، والتطبيقات الذكية التي تسهل حياتهم اليومية.",
+            "en": "Technology plays a vital role in improving the lives of people with disabilities by providing innovative solutions such as prosthetics, training programs, and smart apps that make daily life easier."
+          }
         },
-        "content": {
-          "ar": "على الرغم من التحديات الكبيرة التي يعيشها ذوو الإعاقة في منطقة الشرق الأوسط وشمال أفريقيا بسبب الأزمات والحروب إلا أن قسما منهم أراد صنع التغيير وترك بصمة. في حلقة بي بي سي اكسترا هذا الأسبوع نلقي الضوء على هؤلاء الشباب الذين رفضوا أن تعيقهم إعاقتهم سواء تلك التي ولدوا معها أو المستجدة.",
-          "en": "Despite the significant challenges faced by people with disabilities in the Middle East and North Africa due to crises and wars, some have decided to make a change and leave a mark. In this week's BBC Extra episode, we shine a light on these young individuals who refused to let their disabilities, whether congenital or acquired, stop them."
+        {
+          "title": {
+            "ar": "التقنيات المساعدة لتمكين ذوي الإعاقة",
+            "en": "Assistive Technologies Empowering People with Disabilities"
+          },
+          "content": {
+            "ar": "التقنيات المساعدة مثل الأجهزة السمعية، وأجهزة التنقل، وأدوات الترجمة تساعد ذوي الإعاقة على التواصل والمشاركة في المجتمع بشكل أفضل.",
+            "en": "Assistive technologies like hearing aids, mobility devices, and translation tools help people with disabilities communicate and participate more effectively in society."
+          }
+        },
+        {
+          "title": {
+            "ar": "فوائد التكنولوجيا للأشخاص ذوي الإعاقة",
+            "en": "Benefits of Technology for People with Disabilities"
+          },
+          "content": {
+            "ar": "التكنولوجيا لا تقتصر على توفير الراحة فقط، بل تسهم أيضًا في تعزيز الاستقلالية، وتحقيق فرص أفضل للتعليم والعمل.",
+            "en": "Technology not only provides convenience but also contributes to enhancing independence and creating better opportunities for education and employment."
+          }
         }
-      }
-    ],
-    "latestNewCards": {
-      "heading": {
-        "ar": "آخر الأخبار",
-        "en": "Latest News & Blogs"
+      ]
+    },
+    {
+      "id": "news4",
+      "banner": {
+        "title": {
+          "en": "Inspiring Success Stories",
+          "ar": "قصص نجاح ملهمة"
+        },
+        "subTitle": {
+          "en": "Saturday July 10",
+          "ar": "10 يوليو 2021"
+        },
+        "bannerImage": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+2+(3).png",
+        "button": {
+          "text": {
+            "en": "Back",
+            "ar": "خلف"
+          }
+        }
       },
-      "cards": [
+      "newsPoints": [
         {
           "title": {
-            "ar": "شباب يتحدون الإعاقة",
-            "en": "Youth Overcoming Disability"
+            "ar": "قصص النجاح الملهمة حول العالم",
+            "en": "Inspiring Success Stories Around the World"
           },
-          "description": {
-            "ar": "على الرغم من التحديات الكبيرة التي يعيشها ذوو الإعاقة في منطقة الشرق الأوسط وشمال أفريقيا بسبب الأزمات والحروب إلا أن قسما منهم أراد صنع التغيير وترك بصمة.",
-            "en": "Despite the major challenges faced by people with disabilities in the Middle East and North Africa due to crises and wars, some of them wanted to make a change and leave a mark."
-          },
-          "date": {
-            "ar": "20 مايو 2020",
-            "en": "May 20, 2020"
-          },
-          "image": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+(7).png",
-          "readMore": {
-            "ar": "اقرأ المزيد",
-            "en": "Read More"
+          "content": {
+            "ar": "من جميع أنحاء العالم، هناك العديد من الأشخاص الذين تغلبوا على تحديات كبيرة لتحقيق نجاحاتهم. تتنوع هذه القصص من التغلب على إصابات جسدية إلى التغلب على الظروف الاجتماعية الصعبة.",
+            "en": "From around the world, there are many people who have overcome significant challenges to achieve their success. These stories range from overcoming physical injuries to conquering difficult social circumstances."
           }
         },
         {
           "title": {
-            "ar": "الروبوتات السعودية تنضم إلى الملايين في أداء فريضة الحج",
-            "en": "Saudi Robots Join Millions in Performing the Hajj"
+            "ar": "الإصرار لتحقيق الأحلام",
+            "en": "Determination to Achieve Dreams"
           },
-          "description": {
-            "ar": "على الرغم من التحديات الكبيرة التي يعيشها ذوو الإعاقة في منطقة الشرق الأوسط وشمال أفريقيا بسبب الأزمات والحروب إلا أن قسما منهم أراد صنع التغيير وترك بصمة.",
-            "en": "Despite the major challenges faced by people with disabilities in the Middle East and North Africa due to crises and wars, some of them wanted to make a change and leave a mark."
-          },
-          "date": {
-            "ar": "20 مايو 2020",
-            "en": "May 20, 2020"
-          },
-          "image": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+(7).png",
-          "readMore": {
-            "ar": "اقرأ المزيد",
-            "en": "Read More"
-          }
-        },
-        {
-          "title": {
-            "ar": "التكنولوجيا في خدمة ذوي الإعاقة",
-            "en": "Technology Serving People with Disabilities"
-          },
-          "description": {
-            "ar": "تسهم التكنولوجيا الحديثة في تحسين حياة ذوي الإعاقة من خلال توفير أدوات مساعدة.",
-            "en": "Modern technology contributes to improving the lives of people with disabilities by providing assistive tools."
-          },
-          "date": {
-            "ar": "15 يونيو 2021",
-            "en": "June 15, 2021"
-          },
-          "image": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+(7).png",
-          "readMore": {
-            "ar": "اقرأ المزيد",
-            "en": "Read More"
-          }
-        },
-        {
-          "title": {
-            "ar": "قصص نجاح ملهمة",
-            "en": "Inspiring Success Stories"
-          },
-          "description": {
-            "ar": "قصص ملهمة لأشخاص تغلبوا على التحديات وحققوا أحلامهم.",
-            "en": "Inspiring stories of individuals who overcame challenges and achieved their dreams."
-          },
-          "date": {
-            "ar": "10 يوليو 2021",
-            "en": "July 10, 2021"
-          },
-          "image": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+(7).png",
-          "readMore": {
-            "ar": "اقرأ المزيد",
-            "en": "Read More"
-          }
-        },
-        {
-          "title": {
-            "ar": "مبادرات دعم ذوي الإعاقة",
-            "en": "Initiatives Supporting People with Disabilities"
-          },
-          "description": {
-            "ar": "مبادرات تهدف إلى دعم وتمكين ذوي الإعاقة في المجتمع.",
-            "en": "Initiatives aimed at supporting and empowering people with disabilities in society."
-          },
-          "date": {
-            "ar": "5 أغسطس 2021",
-            "en": "August 5, 2021"
-          },
-          "image": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+(7).png",
-
-          "readMore": {
-            "ar": "اقرأ المزيد",
-            "en": "Read More"
-          }
-        },
-        {
-          "title": {
-            "ar": "التحديات التي تواجه ذوي الإعاقة",
-            "en": "Challenges Faced by People with Disabilities"
-          },
-          "description": {
-            "ar": "استعراض للتحديات اليومية التي يواجهها ذوو الإعاقة وكيفية التغلب عليها.",
-            "en": "An overview of the daily challenges faced by people with disabilities and how to overcome them."
-          },
-          "date": {
-            "ar": "20 سبتمبر 2021",
-            "en": "September 20, 2021"
-          },
-          "image": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+(7).png",
-
-          "readMore": {
-            "ar": "اقرأ المزيد",
-            "en": "Read More"
+          "content": {
+            "ar": "إصرار هؤلاء الأشخاص على النجاح والتغلب على العقبات يعد مصدر إلهام للكثيرين. هذه القصص تبرز كيف يمكن للإرادة الصلبة أن تحقق المستحيل.",
+            "en": "The determination of these individuals to succeed and overcome obstacles is an inspiration to many. These stories highlight how a strong will can achieve the impossible."
           }
         }
       ]
     }
-  },
+  ],
   "contactUsModal": {
     "title": {
       "en": "Contact Us",
@@ -3242,10 +5267,10 @@
       "textArea": [
         {
           "type": "text",
-          "name": "walletLink",
+          "name": "messagge",
           "placeholder": {
-            "en": "Wallet link",
-            "ar": "رابط المحفظة"
+            "en": "Enter your message here",
+            "ar": "أدخل رسالتك هنا"
           }
         }
       ],
@@ -3269,7 +5294,7 @@
   },
   "ApplyModal": {
     "title": {
-      "en": " Apply for : Project Manager",
+      "en": " Apply for",
       "ar": ">اتصل بنا"
     },
     "modalBody": {
@@ -3341,6 +5366,18 @@
           "className": "close_btn"
         }
       ]
+    }
+  },
+  "notFound": {
+    "description": {
+      "en": "Sorry! The page you are looking for does not exist",
+      "ar": "عذرًا! الصفحة التي تبحث عنها غير موجودة."
+    },
+    "button": {
+      "text": {
+        "en": "Return to Homepage",
+        "ar": "العودة إلى الصفحة الرئيسية"
+      }
     }
   }
 }

@@ -34,6 +34,9 @@
         text-decoration: none;
         font-size: 1rem;
         transition: all .3s linear;
+        &.enVersion{
+            padding: 13px 20px;
+        }
     }
 
     .homeLink:hover {

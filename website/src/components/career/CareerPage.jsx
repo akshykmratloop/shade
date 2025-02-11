@@ -5,45 +5,99 @@ import styles from "./Career.module.scss";
 import localFont from "next/font/local";
 import Image from "next/image";
 import Button from "@/common/Button";
-import Arrow from "../../assets/icons/right-wrrow.svg";
 import { motion } from "framer-motion";
 import { useRouter } from "next/router";
-// import dynamic from 'next/dynamic';
+import dynamic from "next/dynamic";
 import ApplyModal from "./ApplyModal";
-
+// import Pagination from "../../common/Pagination";
+const Pagination = dynamic(() => import("../../common/Pagination"), {
+  ssr: false,
+});
 // const AnimatedText = dynamic(() => import('@/common/AnimatedText'), { ssr: false });
 
 const BankGothic = localFont({
   src: "../../../public/font/BankGothicLtBTLight.ttf",
   display: "swap",
 });
-import { useLanguage } from "../../contexts/LanguageContext";
+import { useGlobalContext } from "../../contexts/GlobalContext";
 
 const CareerPage = () => {
   const contentRef = useRef([]);
   const router = useRouter();
-  const [activeIndex, setActiveIndex] = useState(null);
-  const [isModal, setIsModal] = useState(false);
 
-  const { language, content } = useLanguage();
+  const { language, content } = useGlobalContext();
+
   const currentContent = content?.career;
 
-  // const [height, setHeight] = useState(0);
+  const [activeIndex, setActiveIndex] = useState(null);
+  const [isModal, setIsModal] = useState(false);
+  const [selectedJob, setSelectedJob] = useState(null);
 
-  // useEffect(() => {
-  //     if (contentRef.current) {
-  //         setHeight(activeIndex ? contentRef.current.scrollHeight : 0);
-  //     }
-  // }, [activeIndex]);
+  const [selectedPage, setSelectedPage] = useState(1);
+
+  const [totalDocuments, setTotalDocuments] = useState(0);
+
+  const itemsPerPage = 10;
+
+  const [searchTerm, setSearchTerm] = useState(null);
+
+  const [filteredJobs, setFilteredJobs] = useState(
+    currentContent?.jobListSection?.jobs || []
+  );
 
   const toggleAccordion = (index) => {
     setActiveIndex(activeIndex === index ? null : index);
   };
 
-  const handleChange = (e, filterTitle) => {
-    console.log(`Selected ${e.target.value} for ${filterTitle}`);
-    // Handle the state update here (if you want to store selected values in state)
+  const debounce = (func, delay) => {
+    let timeoutId;
+    return (...args) => {
+      if (timeoutId) clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => {
+        func(...args);
+      }, delay);
+    };
   };
+
+  // Search function
+  const searchJobs = (term) => {
+    setSearchTerm(term);
+    if (term) {
+      const filtered = currentContent?.jobListSection?.jobs.filter((job) =>
+        job.title.value[language].toLowerCase().includes(term.toLowerCase())
+      );
+      setFilteredJobs(filtered);
+      setTotalDocuments(filtered?.length);
+      if (filtered?.length <= 10) {
+        setSelectedPage(1);
+      }
+    } else {
+      setFilteredJobs(currentContent?.jobListSection?.jobs);
+      setTotalDocuments(currentContent?.jobListSection?.jobs?.length);
+    }
+  };
+
+  const debouncedSearchJobs = debounce(searchJobs, 300);
+
+  const handleChange = (e) => {
+    const value = e.target.value;
+    debouncedSearchJobs(value);
+  };
+
+  // useEffect to reset filtered jobs when content changes
+  useEffect(() => {
+    setFilteredJobs(currentContent?.jobListSection?.jobs);
+    setTotalDocuments(currentContent?.jobListSection?.jobs?.length);
+  }, [currentContent]);
+
+  const handlePageChange = (result) => {
+    setSelectedPage(result);
+  };
+
+  const paginatedJobs = filteredJobs.slice(
+    (selectedPage - 1) * itemsPerPage,
+    selectedPage * itemsPerPage
+  );
 
   return (
     <>
@@ -52,17 +106,20 @@ const CareerPage = () => {
           styles.career_banner_wrap
         }`}
       >
-        <div className="container">
+        <div
+          className="container"
+          style={{ height: "100%", position: "relative" }}
+        >
           <div className={styles.content}>
             {/* <AnimatedText text="مهنة" Wrapper="h2" repeatDelay={0.04} className={`${styles.title} ${BankGothic.className}`} /> */}
 
-            <h1 className={`${styles.title} ${BankGothic.className} `}>
+            <h1 className={`${styles.title} `}>
               {currentContent?.bannerSection?.title[language]}
             </h1>
             <p className={`${styles.description} ${BankGothic.className}`}>
               {currentContent?.bannerSection?.description[language]}
             </p>
-            <Button
+            {/* <Button
               className={styles.view_btn}
               onClick={() => setIsModal(true)}
             >
@@ -74,7 +131,7 @@ const CareerPage = () => {
                 className={styles.arrow_btn}
               />
               {currentContent?.bannerSection?.button?.text[language]}
-            </Button>
+            </Button> */}
           </div>
         </div>
       </section>
@@ -95,6 +152,9 @@ const CareerPage = () => {
                 className={styles.icon}
               />
               <input
+                title={
+                  currentContent?.filterSection?.inputBox?.placeholder[language]
+                }
                 placeholder={
                   currentContent?.filterSection?.inputBox?.placeholder[language]
                 }
@@ -102,6 +162,7 @@ const CareerPage = () => {
                 aria-label={
                   currentContent?.filterSection?.inputBox?.aria_label[language]
                 }
+                onChange={(e) => handleChange(e, "Job Search")} // Update to call handleChange
               />
             </div>
             <div className={styles.select_filter_wrap}>
@@ -136,9 +197,28 @@ const CareerPage = () => {
           styles.job_List_container
         }`}
       >
+        {paginatedJobs?.length < 1 && (
+          <>
+            <div
+              style={{
+                height: "100px",
+                width: "100%",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <h1>
+                {language === "en"
+                  ? "Oops... Not found !"
+                  : "Oops... Not found !"}
+              </h1>
+            </div>
+          </>
+        )}
         <div className="container">
           <div className={styles.accordion}>
-            {currentContent?.jobListSection?.jobs?.map((job, index) => (
+            {paginatedJobs?.map((job, index) => (
               <div key={job.id} className={styles.accordion_item}>
                 <div className={styles.accordion_title}>
                   <div
@@ -190,7 +270,10 @@ const CareerPage = () => {
                   <div className={styles.button_group}>
                     <Button
                       className={styles.primary}
-                      onClick={() => setIsModal(true)}
+                      onClick={() => {
+                        setIsModal(true);
+                        setSelectedJob(job?.title?.value[language]);
+                      }}
                     >
                       {
                         currentContent?.jobListSection?.buttons[0]?.text[
@@ -200,7 +283,7 @@ const CareerPage = () => {
                     </Button>
                     <Button
                       className={styles.outline}
-                      onClick={() => router.push(`/career/${35354}`)}
+                      onClick={() => router.push(`/career/${job.id}`)}
                     >
                       {
                         currentContent?.jobListSection?.buttons[1]?.text[
@@ -240,7 +323,19 @@ const CareerPage = () => {
         </div>
       </section>
 
-      <ApplyModal isModal={isModal} onClose={() => setIsModal(false)} />
+      <section className={styles.paginationSection}>
+        <Pagination
+          totalDocuments={totalDocuments}
+          handlePageChange={handlePageChange}
+          selectedPage={selectedPage}
+        />
+      </section>
+
+      <ApplyModal
+        isModal={isModal}
+        jobTitle={selectedJob}
+        onClose={() => setIsModal(false)}
+      />
     </>
   );
 };

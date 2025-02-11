@@ -1,0 +1,51 @@
+- docker ps: To check all running services.
+- docker-compose up: To start the `docker-compose` file without building.
+- docker-compose up --build: To build and start all services defined in the `docker-compose` file.
+- docker-compose up <service_name>: To start the individual service without building.
+- docker-compose up --build <service_name>: To build and start the individual service.
+- MODE=development docker-compose up --build: To build and run all services in `development` mode.
+- MODE=development docker-compose up --build <service_name>: To build and run the individual service in `development` mode.
+- docker-compose down: To stop all running containers defined in the `docker-compose` file.
+- docker-compose down -v: To stop and remove containers, networks, and volumes created by `docker-compose`.
+- docker-compose logs: To view logs of all services.
+- docker-compose logs backend : To view logs of the `backend` service.
+- docker system prune -a: To remove all unused Docker images, containers, volumes, and networks.
+- docker exec -it <container_name> sh: To access a running container’s shell.
+
+
+
+MAIN COMMNANDS
+
+- MODE=development docker-compose up --build backend: To build and run all services in `development` mode.
+- MODE=development docker-compose up backend: To build and run all services in `development` mode.
+
+
+
+docker ps -a: Lists all containers, including stopped ones.
+docker-compose up: Starts containers defined in docker-compose.yml without rebuilding.
+docker-compose up --build: Builds and starts containers defined in docker-compose.yml.
+docker-compose down: Stops and removes containers, networks, and volumes defined in docker-compose.yml.
+docker build .: Builds an image from the Dockerfile in the current directory.
+docker build --no-cache .: Builds an image without using cache for layers.
+docker stop <container_id>: Stops a running container.
+docker rm <container_id>: Removes a stopped container.
+docker rmi <image_id>: Removes an image by its ID.
+docker images: Lists all images on the system.
+docker image prune -f: Removes dangling (unused) images.
+docker image prune -a -f: Removes all unused images.
+docker container prune -f: Removes all stopped containers.
+docker volume prune -f: Deletes unused volumes.
+docker builder prune -f: Cleans up unused build caches.
+docker builder prune --all -f: Cleans up all build caches, including used ones.
+docker logs <container_id>: Shows logs from a specific container.
+docker exec -it <container_id> bash: Accesses a running container via terminal.
+docker-compose logs: Displays logs for all containers in the docker-compose.yml.
+docker-compose restart: Restarts all services in the docker-compose.yml.
+docker-compose stop: Stops all running services in the docker-compose.yml.
+docker network ls: Lists all Docker networks.
+docker volume ls: Lists all Docker volumes.
+
+
+# docker exec -it postgres-service bash
+
+#  psql postgresql://akshykmr:akshykmr@postgres-service/shadeDB_dev

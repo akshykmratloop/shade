@@ -15,10 +15,12 @@ import { useTruncate } from "@/common/useTruncate";
 import { useRouter } from "next/router";
 
 // const AnimatedText = dynamic(() => import('@/common/AnimatedText'), { ssr: false });
-import { useLanguage } from "../../contexts/LanguageContext";
-import {newsBlogs} from "../../assets/index"
+import { useGlobalContext } from "../../contexts/GlobalContext";
+import { newsBlogs } from "../../assets/index";
 const NewsBlogspage = () => {
-  const { language, content } = useLanguage();
+  const router = useRouter();
+
+  const { language, content } = useGlobalContext();
   const currentContent = content?.newsBlogs;
 
   const bannerTitle = currentContent?.bannerSection?.title[language];
@@ -29,28 +31,26 @@ const NewsBlogspage = () => {
   const latestNews = currentContent?.latestNewCards;
   const trendingCard = currentContent?.trendingCard;
 
-  const roter = useRouter();
-
   const TruncateText = (text, length) => useTruncate(text, length || 200);
 
   const handleNavigate = (id) => {
-    roter.push(`blog/${2}`);
+    router.push(`blog/${id}`);
   };
 
   return (
     <>
-     <section
+      <section
         className={` ${language === "en" && styles.leftAlign}   ${
           styles.news_blogs_banner_wrap
         }`}
       >
-
-        <div className="container">
+        <div
+          className="container"
+          style={{ position: "relative", height: "100%" }}
+        >
           <div className={styles.content}>
             {/* <AnimatedText text="خبر & المدونات" Wrapper="h1" repeatDelay={0.04} className={`${styles.title} ${BankGothic.className}`} /> */}
-            <h1 className={`${styles.title} ${BankGothic.className}`}>
-              {bannerTitle}
-            </h1>
+            <h1 className={`${styles.title} `}>{bannerTitle}</h1>
             <p className={`${styles.description} ${BankGothic.className}`}>
               {bannerDescription}
             </p>
@@ -64,17 +64,20 @@ const NewsBlogspage = () => {
           styles.main_card_wrap
         }`}
       >
-
-
         <div className="container">
           <div className={styles.card}>
             <div className={styles.card_body}>
-              <h2 className={`${BankGothic.className} ${styles.title}`}>
+              <h2
+                title={mainCard.title[language]}
+                className={`${BankGothic.className} ${styles.title}`}
+              >
                 {mainCard.title[language]}
               </h2>
-              <p className={`${BankGothic.className} ${styles.subTitle}`}>
+              <p
+                title={mainCard.description[language]}
+                className={`${BankGothic.className} ${styles.subTitle}`}
+              >
                 {TruncateText(mainCard.description[language])}
-                
               </p>
               <div className={styles.date_wrap}>
                 <h6 className={`${BankGothic.className} ${styles.date}`}>
@@ -82,13 +85,19 @@ const NewsBlogspage = () => {
                 </h6>
                 <button
                   className={`${BankGothic.className} ${styles.seeMore}`}
-                  onClick={() => handleNavigate(2)}
+                  onClick={() => handleNavigate(mainCard.id)}
                 >
                   {mainCard.readMore[language]}
                 </button>
               </div>
             </div>
-            <Image src={mainCard.image} className={styles.image} alt="" width={433} height={224} />
+            <Image
+              src={mainCard.image}
+              className={styles.image}
+              alt=""
+              width={433}
+              height={224}
+            />
           </div>
         </div>
       </section>
@@ -99,7 +108,6 @@ const NewsBlogspage = () => {
           styles.latest_new_card_wrap
         }`}
       >
-
         <div className="container">
           <h2 className={`${BankGothic.className} ${styles.main_heading}`}>
             {latestNews?.heading[language]}
@@ -115,17 +123,24 @@ const NewsBlogspage = () => {
                   height={154}
                 />
                 <div className={styles.card_body}>
-                  <h2 className={`${BankGothic.className} ${styles.title}`}>
-                    {TruncateText(card.title[language],40)}
+                  <h2
+                    title={card.title[language]}
+                    className={`${BankGothic.className} ${styles.title}`}
+                  >
+                    {TruncateText(card.title[language], 40)}
                   </h2>
-                  <p className={`${BankGothic.className} ${styles.subTitle}`}>
-                    {TruncateText(card.description[language],150)}
+                  <p
+                    title={card.description[language]}
+                    className={`${BankGothic.className} ${styles.subTitle}`}
+                  >
+                    {TruncateText(card.description[language], 150)}
                   </p>
                   <div className={styles.date_wrap}>
                     <h6 className={`${BankGothic.className} ${styles.date}`}>
                       {card.date[language]}
                     </h6>
                     <button
+                      onClick={() => router.push(`blog/${card.id}`)}
                       className={`${BankGothic.className} ${styles.seeMore}`}
                     >
                       {card.readMore[language]}
@@ -144,24 +159,32 @@ const NewsBlogspage = () => {
           styles.trending_card_wrap
         }`}
       >
-
         <div className="container">
           <div className={styles.card}>
             <div className={styles.card_body}>
               <button className={styles.trending_btn}>
                 {trendingCard?.button?.text[language]}
               </button>
-              <h2 className={`${BankGothic.className} ${styles.title}`}>
-                {TruncateText(trendingCard.title[language],35)}
+              <h2
+                title={trendingCard.title[language]}
+                className={`${BankGothic.className} ${styles.title}`}
+              >
+                {TruncateText(trendingCard.title[language], 35)}
               </h2>
-              <p className={`${BankGothic.className} ${styles.subTitle}`}>
-                {TruncateText(trendingCard.description[language],150)}
+              <p
+                title={trendingCard.description[language]}
+                className={`${BankGothic.className} ${styles.subTitle}`}
+              >
+                {TruncateText(trendingCard.description[language], 150)}
               </p>
               <div className={styles.date_wrap}>
                 <h6 className={`${BankGothic.className} ${styles.date}`}>
                   {trendingCard.date[language]}
                 </h6>
-                <button className={`${BankGothic.className} ${styles.seeMore}`}>
+                <button
+                  className={`${BankGothic.className} ${styles.seeMore}`}
+                  onClick={() => handleNavigate(trendingCard.id)}
+                >
                   {trendingCard.readMore[language]}
                 </button>
               </div>

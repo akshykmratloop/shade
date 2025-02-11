@@ -3,10 +3,11 @@ import styles from "@/components/home/Home.module.scss";
 import Button from "@/common/Button";
 import Image from "next/image";
 import Arrow from "../../assets/icons/right-wrrow.svg";
-import Client from "../../assets/icons/client.svg";
+// import Client from "../../assets/icons/client.svg";
 import AboutUs from "../../assets/images/aboutus.png";
 import localFont from "next/font/local";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { useRouter } from "next/router";
 // import required modules
 import {
   Pagination,
@@ -17,15 +18,19 @@ import {
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
-import { useLanguage } from "../../contexts/LanguageContext";
+import { useGlobalContext } from "../../contexts/GlobalContext";
 import blankImage from "../../assets/images/blankImage.webp";
 import background from "../../assets/images/Hero.png";
 // import dynamic from 'next/dynamic';
 // const AnimatedText = dynamic(() => import('@/common/AnimatedText'), { ssr: false });
+import ContactUsModal from "../header/ContactUsModal";
+
 import {
   services,
   experience,
   recentProjects,
+  markets,
+  safety,
   clients,
   testimonials,
 } from "../../assets/index";
@@ -38,7 +43,8 @@ const BankGothic = localFont({
 });
 
 const HomePage = () => {
-  const { language, content } = useLanguage();
+  const router = useRouter();
+  const { language, content } = useGlobalContext();
   const currentContent = content?.home;
   // Create refs for the navigation buttons
   const prevRef = useRef(null);
@@ -47,6 +53,8 @@ const HomePage = () => {
   const testimonialNextRef = useRef(null);
   const [activeRecentProjectSection, setActiveRecentProjectSection] =
     useState(0);
+  const [isModal, setIsModal] = useState(false);
+  const redirectionUrlForRecentProject = ["/project", "/market", "/"];
   const [swiperInstance, setSwiperInstance] = useState(null);
   // Helper function to chunk array into groups of 4
   const chunkArray = (array, chunkSize) => {
@@ -55,6 +63,10 @@ const HomePage = () => {
       chunks.push(array.slice(i, i + chunkSize));
     }
     return chunks;
+  };
+
+  const handleContactUSClose = () => {
+    setIsModal(false);
   };
 
   // Inside your component, before the return statement:
@@ -66,18 +78,28 @@ const HomePage = () => {
     projectsPerSlide
   );
 
+  const ProjectSlider = { ...recentProjects, ...markets, ...safety };
+
   useEffect(() => {
     if (swiperInstance) {
       swiperInstance.update();
     }
   }, [language]);
 
+  const TruncateText = (text, length) => {
+    if (text.length > (length || 50)) {
+      return `${text.slice(0, length || 50)}...`;
+    }
+    return text;
+  };
+
   return (
     <>
+      {/* banner */}
       <section
-        className={` ${
-          styles.home_banner_wrap
-        } ${language === "en" && styles.leftAlign}`}
+        className={` ${styles.home_banner_wrap} ${
+          language === "en" && styles.leftAlign
+        }`}
       >
         <span
           className={`  ${language === "en" && styles.leftAlign} ${
@@ -104,6 +126,7 @@ const HomePage = () => {
               className={`${styles.view_btn}  ${
                 language === "en" && styles.noPadding
               }`}
+              onClick={() => router.push("/project")}
             >
               <Image
                 src={Arrow}
@@ -117,7 +140,7 @@ const HomePage = () => {
           </div>
         </div>
       </section>
-
+      {/* about us section */}
       <section
         className={`${styles.about_us_wrapper} ${
           language === "en" && styles.englishVersion
@@ -136,7 +159,10 @@ const HomePage = () => {
                 {currentContent?.aboutUsSection?.description2[language]}
               </p>
             </div>
-            <Button className={styles.view_btn}>
+            <Button
+              className={styles.view_btn}
+              onClick={() => router.push("/about-us")}
+            >
               {currentContent?.aboutUsSection?.buttonText[language]}
             </Button>
           </div>
@@ -152,7 +178,7 @@ const HomePage = () => {
           </div>
         </div>
       </section>
-
+      {/* service section */}
       <section className={styles.service_wrapper}>
         <div className={`container`}>
           <h2 className={`${styles.title}`}>
@@ -162,7 +188,11 @@ const HomePage = () => {
 
           <div className={styles.service_cards}>
             {currentContent?.serviceSection?.cards?.map((card, key) => (
-              <div className={styles.card} key={key}>
+              <div
+                className={styles.card}
+                key={key}
+                onClick={() => router.push("/services")}
+              >
                 <div className={styles.card_body}>
                   <Image
                     className={styles.icon}
@@ -180,7 +210,7 @@ const HomePage = () => {
           </div>
         </div>
       </section>
-
+      {/* experience section */}
       <section className={styles.experince_wrapper}>
         <div className={`container ${styles.main_container}`}>
           <div className={styles.experience_colums}>
@@ -223,6 +253,7 @@ const HomePage = () => {
                 className={`${styles.view_btn} ${
                   language === "ar" && styles.arabicVersion
                 }`}
+                onClick={() => setIsModal(true)}
               >
                 {currentContent?.experienceSection?.button?.text[language]}
               </Button>
@@ -231,26 +262,39 @@ const HomePage = () => {
         </div>
       </section>
 
-      {/* wrapper */}
-
+      {/* recent project section */}
       <section className={styles.recent_project_wrapper}>
         <div className={`container ${styles.main_container}`}>
           <div className={styles.back_btn_wrapper}>
-            <button type="button" className={styles.back_btn}>
-              {
-                currentContent?.recentProjectsSection?.buttons[0]?.text[
-                  language
-                ]
-              }{" "}
-              &nbsp;
-              <Image
-                src="https://frequencyimage.s3.ap-south-1.amazonaws.com/5d82e78b-cb95-4768-abfe-247369079ce6-bi_arrow-up.svg"
-                width="18"
-                height="17"
-                alt=""
-                className={`${styles.arrow_btn} ${language === 'en' && styles.leftAlign}`}
-              />{" "}
-            </button>
+            {activeRecentProjectSection === 2 ? (
+              ""
+            ) : (
+              <button
+                type="button"
+                className={styles.back_btn}
+                onClick={() =>
+                  router.push(
+                    redirectionUrlForRecentProject[activeRecentProjectSection]
+                  )
+                }
+              >
+                {
+                  currentContent?.recentProjectsSection?.buttons[0]?.text[
+                    language
+                  ]
+                }{" "}
+                &nbsp;
+                <Image
+                  src="https://frequencyimage.s3.ap-south-1.amazonaws.com/5d82e78b-cb95-4768-abfe-247369079ce6-bi_arrow-up.svg"
+                  width="18"
+                  height="17"
+                  alt=""
+                  className={`${styles.arrow_btn} ${
+                    language === "en" && styles.leftAlign
+                  }`}
+                />{" "}
+              </button>
+            )}
           </div>
           <div className={styles.recent_project}>
             <div className="leftDetails">
@@ -331,7 +375,7 @@ const HomePage = () => {
                               alt={project?.title[language]}
                               src={
                                 project.image
-                                  ? recentProjects?.[project?.image]
+                                  ? ProjectSlider?.[project?.image]
                                   : blankImage
                               }
                               height={247}
@@ -339,11 +383,17 @@ const HomePage = () => {
                             />
                           </div>
                           <div className={styles.card_body}>
-                            <h5 className={styles.title}>
-                              {project?.title[language]}
+                            <h5
+                              title={project?.title[language]}
+                              className={styles.title}
+                            >
+                              {TruncateText(project?.title[language], 45)}
                             </h5>
-                            <p className={styles.subtitle}>
-                              {project?.subtitle[language]}
+                            <p
+                              title={project?.subtitle[language]}
+                              className={styles.subtitle}
+                            >
+                              {TruncateText(project?.subtitle[language], 25)}
                             </p>
                           </div>
                         </div>
@@ -354,14 +404,21 @@ const HomePage = () => {
               </Swiper>
 
               {/* Custom buttons */}
-              <div className={styles.btn_wrapper}>
+
+              <div
+                className={`${styles.btn_wrapper} ${
+                  projectChunks?.length <= 1 && styles.hide_btn_wrapper
+                }`}
+              >
                 <button ref={prevRef} className={styles.custom_prev}>
                   <Image
                     src="https://frequencyimage.s3.ap-south-1.amazonaws.com/b2872383-e9d5-4dd7-ae00-8ae00cc4e87e-Vector%20%286%29.svg"
                     width="18"
                     height="17"
                     alt=""
-                    className={`${styles.arrow_btn} ${language === 'en' && styles.leftAlign}`}
+                    className={`${styles.arrow_btn} ${
+                      language === "en" && styles.leftAlign
+                    }`}
                   />
                   &nbsp;
                   {
@@ -383,7 +440,9 @@ const HomePage = () => {
                     width="18"
                     height="17"
                     alt=""
-                    className={`${styles.arrow_btn} ${language === 'en' && styles.leftAlign}`}
+                    className={`${styles.arrow_btn} ${
+                      language === "en" && styles.leftAlign
+                    }`}
                   />
                 </button>
               </div>
@@ -391,8 +450,7 @@ const HomePage = () => {
           </div>
         </div>
       </section>
-
-      {/* wrapper */}
+      {/* client section */}
       <section className={styles.Client_wrapper}>
         <Image
           src="https://frequencyimage.s3.ap-south-1.amazonaws.com/98d10161-fc9a-464f-86cb-7f69a0bebbd5-Group%2061%20%281%29.svg"
@@ -436,8 +494,12 @@ const HomePage = () => {
           </div>
         </div>
       </section>
-
-      <section className={styles.testimonial_wrapper}>
+      {/* testomonials section  */}
+      <section
+        className={` ${styles.testimonial_wrapper} ${
+          language !== "en" && styles.rightAlignment
+        }`}
+      >
         <div className={`container ${styles.main_container}`}>
           <div className={styles.testimonials_content}>
             {/* <AnimatedText text="ماذا يقول عملاؤنا عنا؟" Wrapper="h2" repeatDelay={0.04} className={`${styles.title} ${BankGothic.className}`} /> */}
@@ -480,7 +542,7 @@ const HomePage = () => {
                 724: { slidesPerView: 2.2 }, // Adjust for bigger screens
                 500: { slidesPerView: 1 }, // For smaller screens
               }}
-              rtl={true} // Enable RTL for Arabic layout
+              // rtl={true} // Enable RTL for Arabic layout
             >
               {currentContent?.testimonialSection?.testimonials?.map(
                 (testimonial, index) => (
@@ -489,13 +551,6 @@ const HomePage = () => {
                     className={`${styles.swiperSlide} ${styles.testimonial_slide}`}
                   >
                     <div className={styles.testimonial_card}>
-                      <Image
-                        src={testimonials?.[testimonial?.image]}
-                        height={70}
-                        width={70}
-                        alt={testimonial.name}
-                        className={styles.testimonial_image}
-                      />
                       <div className={styles.testimonial_content}>
                         <h3 className={styles.name}>
                           {testimonial.name[language]}
@@ -507,6 +562,9 @@ const HomePage = () => {
                           {testimonial.quote[language]}
                         </p>
                         <div className={styles.company_wrap}>
+                          <p className={styles.company}>
+                            {testimonial.company[language]}
+                          </p>
                           <Image
                             src="https://frequencyimage.s3.ap-south-1.amazonaws.com/a813959c-7b67-400b-a0b7-f806e63339e5-ph_building%20%281%29.svg"
                             height={18}
@@ -514,11 +572,15 @@ const HomePage = () => {
                             alt={testimonial.name}
                             className={styles.company_icon}
                           />
-                          <p className={styles.company}>
-                            {testimonial.company[language]}
-                          </p>
                         </div>
                       </div>
+                      <Image
+                        src={testimonials?.[testimonial?.image]}
+                        height={70}
+                        width={70}
+                        alt={testimonial.name}
+                        className={styles.testimonial_image}
+                      />
                     </div>
                   </SwiperSlide>
                 )
@@ -527,29 +589,33 @@ const HomePage = () => {
 
             {/* Custom buttons */}
             <div className={styles.testimonial_wrapper_btn}>
-              <button ref={testimonialNextRef} className={styles.custom_next}>
+              <button ref={testimonialPrevRef} className={styles.custom_next}>
                 <Image
                   src="https://frequencyimage.s3.ap-south-1.amazonaws.com/b2872383-e9d5-4dd7-ae00-8ae00cc4e87e-Vector%20%286%29.svg"
                   width="22"
                   height="17"
                   alt=""
-                  className={`${styles.arrow_btn} ${language === 'en' && styles.leftAlign}`}
+                  className={`${styles.arrow_btn} ${
+                    language === "en" && styles.leftAlign
+                  }`}
                 />{" "}
               </button>
-              <button ref={testimonialPrevRef} className={styles.custom_prev}>
+              <button ref={testimonialNextRef} className={styles.custom_prev}>
                 <Image
                   src="https://frequencyimage.s3.ap-south-1.amazonaws.com/de8581fe-4796-404c-a956-8e951ccb355a-Vector%20%287%29.svg"
                   width="22"
                   height="17"
                   alt=""
-                  className={`${styles.arrow_btn} ${language === 'en' && styles.leftAlign}`}
+                  className={`${styles.arrow_btn} ${
+                    language === "en" && styles.leftAlign
+                  }`}
                 />
               </button>
             </div>
           </div>
         </div>
       </section>
-
+      {/* new project section */}
       <section className={styles.new_project_wrapper}>
         <div className={`container ${styles.main_container}`}>
           <div className={styles.Client_content}>
@@ -573,12 +639,16 @@ const HomePage = () => {
               {currentContent?.newProjectSection?.description2[language]}
             </p>
 
-            <Button className={styles.view_btn}>
+            <Button
+              className={styles.view_btn}
+              onClick={() => setIsModal(true)}
+            >
               {currentContent?.newProjectSection?.button?.text[language]}
             </Button>
           </div>
         </div>
       </section>
+      <ContactUsModal isModal={isModal} onClose={handleContactUSClose} />
     </>
   );
 };

@@ -1,0 +1,16 @@
+// Represents a role in the system =================================================================
+
+model Role {
+    id            String         @id @default(cuid())
+    name          String           @unique
+    description String            @default("")
+    status        Status           @default(ACTIVE)
+    created_at    DateTime         @default(now())
+    updated_at    DateTime         @updatedAt
+    permissions   RolePermission[]
+    userRoles     UserRole[]
+    pageRoles     PageRole[]
+    userPageRoles UserPageRole[]
+
+    @@index([name])
+}
