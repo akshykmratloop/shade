@@ -3,7 +3,9 @@ import { MODAL_BODY_TYPES } from '../utils/globalConstantUtil'
 import { useSelector, useDispatch } from 'react-redux'
 import { closeModal } from '../features/common/modalSlice'
 import AddLeadModalBody from '../features/leads/components/AddLeadModalBody'
+
 import ConfirmationModalBody from '../features/common/components/ConfirmationModalBody'
+import ResetPasswordModalBody from '../features/user/ResetPasswordModalBody'
 
 
 function ModalLayout(){
@@ -32,7 +34,7 @@ function ModalLayout(){
                 {/* Loading modal body according to different modal type */}
                 {
                     {
-                             [MODAL_BODY_TYPES.LEAD_ADD_NEW] : <AddLeadModalBody closeModal={close} extraObject={extraObject}/>,
+                             [MODAL_BODY_TYPES.LEAD_ADD_NEW] : <ResetPasswordModalBody closeModal={close} extraObject={extraObject}/>,
                              [MODAL_BODY_TYPES.CONFIRMATION] : <ConfirmationModalBody extraObject={extraObject} closeModal={close}/>,
                              [MODAL_BODY_TYPES.DEFAULT] : <div></div>
                     }[bodyType]
