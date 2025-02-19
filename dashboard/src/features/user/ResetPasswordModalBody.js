@@ -1,12 +1,6 @@
-// import { useState } from "react";
-// import InputText from "../../components/Input/InputText";
-// import ErrorText from "../../components/Typography/ErrorText";
-// import Joi from "joi"; // Import Joi for validation
-
 import InputText from "../../components/Input/InputText";
 import Button from "../../components/Button/Button";
-import { X } from "lucide-react";
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import { useState } from "react";
 import { resetPassword } from "../../app/fetch";
 import { useSelector } from "react-redux";
@@ -17,25 +11,10 @@ import updateToasify from "../../app/toastify";
 import xSign from "../../assets/x-close.png"
 import { useNavigate } from "react-router-dom";
 
-// const passwordSchema = Joi.string()
-//   .min(8)
-//   .max(30)
-//   .pattern(
-//     /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/
-//   )
-//   .required()
-//   .messages({
-//     "string.empty": "Required",
-//     "string.min": "Password must be at least 8 characters",
-//     "string.max": "Password must be at most 30 characters",
-//     "string.pattern.base":
-//       "Password must contain at least one lowercase letter, one uppercase letter, one digit and one special character",
-//   });
 
 function ResetPasswordModalBody({ closeModal, close }) {
   const navigate = useNavigate()
   const email = useSelector(state => {
-    console.log(state)
     return state.user.user.email
   })
   const [passwordForm, setPasswordForm] = useState({
@@ -53,31 +32,28 @@ function ResetPasswordModalBody({ closeModal, close }) {
     })
   }
 
-  const submitForm = async (e) => {
+  const submitForm = async (e) => { // submission of the reset passwordings
     e.preventDefault();
     const loadingToastId = toast.loading("Reseting Password", { autoClose: 2000 })
     const validation = validator(passwordForm, setErrorMessage) // checks if any field is empty
-    if (!validation) {
-      
+    if (!validation) { // if the any field is empty
       updateToasify(loadingToastId, "Request unsuccessful!", "failure", 2000) // updating the toaster
-      return
+      return setErrorMessage("All feilds are mandatory");
     };
-    if (passwordForm.new_password !== passwordForm.repeat_password) {
+    if (passwordForm.new_password !== passwordForm.repeat_password) { // if password does not match
       updateToasify(loadingToastId, "Request unsuccessful!", "failure", 2000) // updating the toaster
-      return setErrorMessage(
-        "The passwords do not match. Please make sure both password fields are the same."
-      );
+      return setErrorMessage("The passwords do not match. Please make sure both password fields are the same.");
     }
-    
-    const payload = {
+
+    const payload = { // payload for fetch body 
       email: email || "",
       old_password: passwordForm.old_password,
       new_password: passwordForm.new_password,
       repeat_password: passwordForm.repeat_password,
     }
-    
+
     const response = await resetPassword(payload); // making the request for reseting password
-    
+
     if (response.ok) { // handling the successful response of the reset password
       updateToasify(loadingToastId, "Request successful!", "success", 2000) // updating the toaster
       document.cookie = "authToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;"
@@ -92,18 +68,7 @@ function ResetPasswordModalBody({ closeModal, close }) {
   }
 
   return (
-    <>
-      <div className="">
-
-        {/* Close Button */}
-        <button
-
-          className="absolute top-4 right-4 text-stone-500 hover:text-stone-700"
-        >
-          {/* <X onClick={close} size={24} /> */}
-        </button>
-
-
+      <div>
         <form>
           <InputText placeholder="Enter current password"
             type={"password"}
@@ -131,13 +96,12 @@ function ResetPasswordModalBody({ closeModal, close }) {
             updateFormValue={updateFormValue} />
           <PasswordValidation new_password={passwordForm.new_password} />
 
-          <ErrorText styleClass={`${errorMessage ? "visible" : "invisible"} flex mt-6 text-sm gap-1 justify-center `}>
+          <ErrorText error={errorMessage ? 1 : 0} styleClass={`${errorMessage ? "visible" : "invisible"} flex mt-6 text-sm gap-1 justify-center `}>
             <img src={xSign} alt="" className='h-3 translate-y-[4px]' />
             {errorMessage}</ErrorText>
           <Button functioning={submitForm} text="Reset" classes={"btn mt-4 w-full btn-stone hover:text-stone-50 hover:bg-stone-700 border-stone-700 bg-stone-50 text-stone-800"} />
         </form>
       </div>
-    </>
   );
 }
 

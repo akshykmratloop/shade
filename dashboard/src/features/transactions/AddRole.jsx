@@ -7,15 +7,13 @@ import updateToasify from "../../app/toastify";
 
 const AddRoleModal = ({ show, onClose, updateRoles, role }) => {
     const [errorMessage, setErrorMessage] = useState("");
-    const [roleData, setRoleData] = useState({
+    const [roleData, setRoleData] = useState({ // the object handling for role add for input fields
         name: "",
         description: "",
     });
 
-
-
     const handleFormSubmit = async (e) => {
-        e.preventDefault();
+        e.preventDefault(); // clearing the reloading
         const loadingToastId = toast.loading("Processing request...", { autoClose: 2000 });
 
         const validation = validator(roleData, setErrorMessage);
