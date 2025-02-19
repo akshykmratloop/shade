@@ -37,7 +37,7 @@ function LeftSidebar() {
           return (
             <li className="mt-2" key={k}>
               {route.submenu ? (
-                <SidebarSubmenu {...route} />
+                <SidebarSubmenu {...route} /> 
               ) : (
                 <NavLink
                   end

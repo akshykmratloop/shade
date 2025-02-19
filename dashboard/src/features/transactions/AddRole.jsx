@@ -64,7 +64,9 @@ const AddRoleModal = ({ show, onClose, updateRoles, role }) => {
 
     return (
         <div className="modal modal-open">
-            <div className="modal-box">
+
+            <div className="modal-box p-14 relative">
+                <button className="btn btn-md btn-circle bg-transparent border-none absolute right-2 top-2" onClick={onClose}>✕</button>
                 <h3 className="font-bold text-lg">{role ? "Edit Role" : "Add New Role"}</h3>
                 <form onSubmit={handleFormSubmit}>
                     {/* Name Field */}

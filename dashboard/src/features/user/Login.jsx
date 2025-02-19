@@ -74,9 +74,7 @@ function Login() {
             dispatch(updateUser(response.user))
             localStorage.setItem("user", JSON.stringify(response.user))
             localStorage.setItem("token", response.token);
-            console.log(response.token)
             document.cookie = `authToken=${response.token}; path=/; Secure`
-            console.log(document.cookie)
             setTimeout(() => {
                 navigate('/app/welcome')
             }, 1000)
