@@ -6,16 +6,21 @@ function validator(obj, setter) {
         return 0;  // other keys retain their order
     });
 
+    let flag = true;
+
     for (let key of keys) {
         // Check if value is empty, null, or undefined
         if (!obj[key] || obj[key].trim() === "") {
             const keyName = key.charAt(0).toUpperCase() + key.slice(1);
-            setter(`${keyName} is required`);
-            return false; // Exit early if validation fails
+            if (typeof (setter) === 'object') {
+                setter[(keyName.toLowerCase())](`${keyName} is required`)
+            } else {
+                setter(`${keyName} is required`)
+            }
+            flag = false; // Exit early if validation fails
         }
     }
-
-    return true; // Return true if all values are valid
+    return flag; // Return true if all values are valid
 }
 
 export default validator;

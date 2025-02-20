@@ -19,6 +19,7 @@ function Login() {
     const navigate = useNavigate()
     const [errorMessage, setErrorMessage] = useState("")
     const [errorEmailMessage, setErrorEmailMessage] = useState("")
+    const [errorPasswordMessage, setErrorPasswordMessage] = useState("")
     const [loading, setLoading] = useState(false)
     const [loginWithOtp, setLoginWithOtp] = useState(false) // state for login with otp
     const [otpSent, setOtpSent] = useState(false);
@@ -38,14 +39,15 @@ function Login() {
         setErrorMessage("")
 
         setLoading(true)
-        const loadingToastId = toast.loading("loging in", { autoClose: 2000 }); // starting the loading in toaster
+
+        const validEmail = checkRegex(loginObj.email, setErrorEmailMessage) // checks if email is under valid format
+
         let payload;
         let response;
-        if (loginWithOtp) {
-            const validEmail = checkRegex(loginObj.email, setErrorEmailMessage) // checks if email is under valid format
+        let loadingToastId;
+        if (loginWithOtp) { // proceeding with login with otp
             if (validEmail) {
                 setLoading(false)
-                updateToasify(loadingToastId, "Request unsuccessful!", "failure", 2000) // updating the toaster
                 return
             };
             payload = { //payload for otp login
@@ -54,14 +56,15 @@ function Login() {
                 deviceId: loginObj.deviceId
             }
             response = await mfaLogin(payload)
-        } else {
-            const validation = validator(loginObj, setErrorMessage) // checks if any field is empty
-            const validEmail = checkRegex(loginObj.email, setErrorEmailMessage) // checks if email is under valid format
+        } else { // proceeding with login with password
+            const validation = validator(loginObj, { email: setErrorEmailMessage, password: setErrorPasswordMessage }) // checks if any field is empty
             if (!validation || validEmail) {
+                console.log(validation, validEmail)
                 setLoading(false)
-                updateToasify(loadingToastId, "Request unsuccessful!", "failure", 2000) // updating the toaster
+                console.log('weqiopriqweotuh')
                 return
             };
+            loadingToastId = toast.loading("loging in", { autoClose: 2000 }); // starting the loading in toaster
             payload = { // payload for login
                 email: loginObj.email,
                 password: loginObj.password
@@ -93,6 +96,7 @@ function Login() {
         // Handling the login Object
         setErrorMessage("")
         setErrorEmailMessage("")
+        setErrorPasswordMessage("")
         setLoginObj(prev => {
             return { ...prev, [updateType]: value } // key == [updateType], value == value
         })
@@ -108,17 +112,20 @@ function Login() {
             <BackroundImage />
 
             <div className="flex justify-center w-full h-[100vh] lg:flex-1 md:flex-2 px-20 sm:flex-2 bg-base-200">
-                {otpSent ? <OTPpage loginObj={loginObj} request={mfaVerify} /> :
 
-                    <div className='sm:pt-[20vh] sm:py-20 w-[24rem]'>
-                        <h2 className='text-2xl font-semibold mb-2'>Sign in to Dashboard</h2>
+                <div className='sm:pt-[20vh] sm:py-20 w-[24rem]'>
+                    <h2 className='text-2xl font-semibold mb-2'>Sign in to Dashboard</h2>
+                    {otpSent ? <OTPpage loginObj={loginObj} request={mfaVerify} /> :
                         <form onSubmit={proceedLogin}>
                             <div className="mb-4 relative">
                                 <InputText placeholder={"Email/Phone Number"} name={"email"} defaultValue={loginObj.email} updateType="email" containerStyle="mt-4" labelTitle="Email Id" updateFormValue={updateFormValue} />
-                                <ErrorText styleClass={`text-xs absolute left-[86px] gap-1 top-[87px] ${errorEmailMessage ? "flex" : "hidden"}`}>
+                                <ErrorText styleClass={`text-xs absolute left-2 gap-1 top-[88px] ${errorEmailMessage ? "flex" : "hidden"}`}>
                                     <img src={xSign} alt="" className='h-3 translate-y-[2px]' />
                                     {errorEmailMessage}</ErrorText>
                                 <InputText display={loginWithOtp} defaultValue={loginObj.password} name={"password"} placeholder={"Password"} type="password" updateType="password" containerStyle="mt-4" labelTitle="Password" updateFormValue={updateFormValue} />
+                                <ErrorText styleClass={`text-xs absolute top-[189px] left-2 gap-1 top-[87px] ${errorPasswordMessage ? "flex" : "hidden"}`}>
+                                    <img src={xSign} alt="" className='h-3 translate-y-[2px]' />
+                                    {errorPasswordMessage}</ErrorText>
                             </div>
 
                             <div className='text-right text-primary' style={{ display: loginWithOtp ? "none" : "block" }}>
@@ -131,10 +138,10 @@ function Login() {
                                 <img src={xSign} alt="" className='h-3 translate-y-[4px]' />
                                 {errorMessage}</ErrorText>
                             <Button text={loginWithOtp ? "Generate OTP" : "Login"} type="submit" classes={"btn mt-2 w-full btn-primary dark:bg-primary bg-stone-700 hover:bg-stone-700 border-none" + (loading ? " loading" : "")} />
+                            <Button functioning={LoginWithOTP} text={loginWithOtp ? "Sign In with Password" : "Sign In With OTP"} classes={"btn mt-2 w-full btn-stone hover:text-stone-50 hover:bg-stone-700 border-stone-700 bg-stone-50 text-stone-800"} />
                         </form>
-                        <Button functioning={LoginWithOTP} text={loginWithOtp ? "Sign In with Password" : "Sign In With OTP"} classes={"btn mt-2 w-full btn-stone hover:text-stone-50 hover:bg-stone-700 border-stone-700 bg-stone-50 text-stone-800"} />
-                    </div>
-                }
+                    }
+                </div>
             </div>
             <ToastContainer theme="colored" />
         </div>

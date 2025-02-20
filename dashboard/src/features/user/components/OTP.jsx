@@ -82,9 +82,6 @@ const OTPpage = ({ loginObj, request, stateUpdater }) => {
 
     return (
         <div className="w-[24rem]">
-            <div className="text-center mt-8">
-                <CheckCircleIcon className="inline-block w-32 text-success" />
-            </div>
             <p className="my-4 text-xl font-bold ">OTP has been Sent</p>
             <p className="mt-4 mb-8 font-semibold ">Check your email and enter OTP</p>
             <div className="flex gap-2 flex-col justify-center items-center">
@@ -99,7 +96,7 @@ const OTPpage = ({ loginObj, request, stateUpdater }) => {
                     }
                     numInputs={6}
                     inputContainerClassName="w-1/2"
-                    inputClassName="bg-white rounded-[8px] border border-solid border-transparent cursor-pointer shadow-custom flex justify-center items-center pl-[20px] text-lg"
+                    inputClassName="bg-white rounded-[6px] border border-solid border-transparent cursor-pointer shadow-custom flex justify-center items-center pl-[20px] text-lg"
                     labelClassName=""
                 />
                 <ErrorText

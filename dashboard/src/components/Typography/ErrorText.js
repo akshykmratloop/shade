@@ -1,5 +1,4 @@
-function ErrorText({styleClass, children, error}){
-    if (!error) return null;
+function ErrorText({styleClass, children}){
     return(
         <p className={`text-center text-error ${styleClass}`}>{children}</p>
     )
