@@ -31,7 +31,7 @@ function ForgotPassword() {
         if (!validation || validEmail) return;
         else {
             setLoading(true)
-            const loadingToastId = toast.loading("loging in", { autoClose: 2000 }); // starting the loading in toaster
+            const loadingToastId = toast.loading("Processing your request... Please wait!", { autoClose: 2000 }); // starting the loading in toaster
 
             // Call API to send password reset link
             const response = await forgotPassReq(userObj);
@@ -70,7 +70,7 @@ function ForgotPassword() {
                         <div className='w-[24rem]'>
                             <p className='my-8 text-stone-500'>Enter the email address you used when you joined and we’ll send you instructions to reset your password.</p>
                             <form onSubmit={(e) => submitForm(e)}>
-                                <div className="mb-4">
+                                <div className="mb-4 relative">
                                     <InputText
                                         placeholder={"Enter your email id"}
                                         type="emailId"
@@ -81,11 +81,12 @@ function ForgotPassword() {
                                         updateFormValue={updateFormValue}
                                         name={"emailId"}
                                     />
-                                </div>
-                                <ErrorText styleClass={`${errorMessage ? "visible" : "invisible"} flex mt-6 text-sm gap-1 justify-center `}>
+                                    <ErrorText styleClass={`${errorMessage ? "visible" : "invisible"} absolute top-[63px] left-2 flex mt-6 text-xs gap-1 justify-center `}>
                                     <img src={xSign} alt="" className='h-3 translate-y-[4px]' />
                                     {errorMessage}</ErrorText>
-                                <Button type={"submit"} classes={"btn mt-2 w-full dark:bg-primary bg-stone-700 hover:bg-stone-700 border-none" + (loading ? " loading" : "")} text={"Get OTP"} />
+                                </div>
+                                
+                                <Button type={"submit"} classes={"btn mt-5 w-full dark:bg-primary bg-stone-700 hover:bg-stone-700 border-none" + (loading ? " loading" : "")} text={"Get OTP"} />
                             </form>
                         </div>
                     }

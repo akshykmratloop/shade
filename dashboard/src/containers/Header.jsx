@@ -39,8 +39,8 @@ function Header(){
 
 
     function logoutUser(){
-        localStorage.setItem("user", "")
-        localStorage.setItem("token", "")
+        localStorage.removeItem("user")
+        localStorage.removeItem("token")
         window.location.href = '/'
     }
 

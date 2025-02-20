@@ -61,10 +61,9 @@ function Login() {
             if (!validation || validEmail) {
                 console.log(validation, validEmail)
                 setLoading(false)
-                console.log('weqiopriqweotuh')
                 return
             };
-            loadingToastId = toast.loading("loging in", { autoClose: 2000 }); // starting the loading in toaster
+            loadingToastId = toast.loading("loging in", { autoClose: 2000, style: {backgroundColor: "#3B82F6", color:"#fff"} }); // starting the loading in toaster
             payload = { // payload for login
                 email: loginObj.email,
                 password: loginObj.password

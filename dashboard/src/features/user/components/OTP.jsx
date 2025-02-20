@@ -11,7 +11,7 @@ import { resendOTP } from "../../../app/fetch";
 
 const OTP_TIMEOUT_SECONDS = 60;
 
-const OTPpage = ({ loginObj, request, stateUpdater }) => {
+const   OTPpage = ({ loginObj, request, stateUpdater }) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [otp, setOtp] = useState({ otp: "" });

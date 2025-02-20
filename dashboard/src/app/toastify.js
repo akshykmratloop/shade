@@ -5,6 +5,10 @@ function updateToasify(toaster, message, type, close) {
     toast.update(toaster, {
         render: message,
         type,
+        style: {
+            background: type === "success"? "#22C55E": "#EF4444", // Green
+            color: "#fff",
+        },
         isLoading: false,
         autoClose: close,
     });
