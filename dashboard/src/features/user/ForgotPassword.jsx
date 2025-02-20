@@ -12,13 +12,14 @@ import updateToasify from '../../app/toastify';
 import { toast, ToastContainer } from 'react-toastify';
 import UpdatePassword from './components/UpdatePassword';
 import getFingerPrint from '../../app/deviceId';
+import { Link } from 'react-router-dom';
 
 function ForgotPassword() {
     const [loading, setLoading] = useState(false)
     const [errorMessage, setErrorMessage] = useState("")
     const [linkSent, setLinkSent] = useState(false)
     const [otpVerified, setOtpVerified] = useState(false)
-    const [userObj, setUserObj] = useState({
+    const [formObj, setFormObj] = useState({
         email: "",
         otpOrigin: "forgot_Pass",
         deviceId: "",
@@ -27,19 +28,20 @@ function ForgotPassword() {
     const submitForm = async (e) => {
         e.preventDefault()
         setErrorMessage("")
-        const validation = validator(userObj, setErrorMessage) // checks if any field is empty
-        const validEmail = checkRegex(userObj.email, setErrorMessage) // checks if email is under valid format
+        const validation = validator(formObj, setErrorMessage) // checks if any field is empty
+        const validEmail = checkRegex(formObj.email, setErrorMessage) // checks if email is under valid format
         if (!validation || validEmail) return;
         else {
             setLoading(true)
             const loadingToastId = toast.loading("Processing your request... Please wait!", { autoClose: 2000, style: { backgroundColor: "#3B82F6", color: "#fff" } }); // starting the loading in toaster
 
             // Call API to send password reset link
-            const response = await forgotPassReq(userObj);
+            const response = await forgotPassReq(formObj);
             console.log(response)
             if (response.message.ok) {
                 setLoading(false)
                 setLinkSent(true)
+                localStorage.setItem(formObj.otpOrigin, "true")
                 updateToasify(loadingToastId, "Request successful!", "success", 2000) // updating the toaster
                 return;
             }
@@ -50,15 +52,20 @@ function ForgotPassword() {
 
     const updateFormValue = ({ updateType, value }) => {
         setErrorMessage("")
-        setUserObj({ ...userObj, [updateType]: value })
+        setFormObj({ ...formObj, [updateType]: value })
     }
 
+    useEffect(() => {
+        localStorage.removeItem("MFA_Login")
+        const stateOfOTP = localStorage.getItem(formObj.otpOrigin)
+        setLinkSent(stateOfOTP)
+    }, [])
 
     useEffect(() => {
         async function FP() {
             const deviceId = await getFingerPrint()
-            setUserObj(prev => {
-                return { ...prev, deviceId:deviceId.slice(0,19) }
+            setFormObj(prev => {
+                return { ...prev, deviceId: deviceId }
             })
         }
         FP()
@@ -72,7 +79,7 @@ function ForgotPassword() {
                     <h2 className='text-2xl font-semibold mb-2'>Forgot Password</h2>
 
                     {
-                        linkSent && <OTPpage loginObj={userObj} request={forgotPassReqVerify} stateUpdater={{ setOtpVerified, setLinkSent }} />
+                        linkSent && <OTPpage loginObj={formObj} request={forgotPassReqVerify} stateUpdater={{ setOtpVerified, setLinkSent }} />
 
                     }
 
@@ -85,7 +92,7 @@ function ForgotPassword() {
                                     <InputText
                                         placeholder={"Enter your email id"}
                                         type="emailId"
-                                        defaultValue={userObj.email}
+                                        defaultValue={formObj.email}
                                         updateType="email"
                                         containerStyle="mt-4"
                                         labelTitle="Email Id"
@@ -99,12 +106,18 @@ function ForgotPassword() {
 
                                 <Button type={"submit"} classes={"btn mt-5 w-full dark:bg-primary bg-stone-700 hover:bg-stone-700 border-none" + (loading ? " loading" : "")} text={"Get OTP"} />
                             </form>
+                            <div className='text-center mt-6 text-primary'>
+                                <Link to="/login">
+                                    <span className="text-sm text-stone-500 hover:text-stone-700 dark:hover:text-stone-50 bg-base-200 inline-block hover:underline hover:cursor-pointer transition duration-200">Sign In</span>
+                                </Link>
+                            </div>
                         </div>
                     }
                     {
-                        otpVerified && <UpdatePassword userObj={userObj} />
+                        otpVerified && <UpdatePassword userObj={formObj} />
                     }
                 </div>
+
 
             </div>
             <ToastContainer theme="colored" />

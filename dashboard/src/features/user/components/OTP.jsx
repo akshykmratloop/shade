@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { OtpInputField } from "../../../app/OTP";
-import { CheckCircleIcon } from "@heroicons/react/24/solid";
 import ErrorText from "../../../components/Typography/ErrorText";
 import xSign from "../../../assets/x-close.png";
 import { useNavigate } from "react-router-dom";
@@ -9,9 +8,9 @@ import { updateUser } from "../../common/userSlice";
 import { toast } from "react-toastify";
 import { resendOTP } from "../../../app/fetch";
 
-const OTP_TIMEOUT_SECONDS = 60;
+const OTP_TIMEOUT_SECONDS = 60; // timeout for resending the otp
 
-const   OTPpage = ({ loginObj, request, stateUpdater }) => {
+const OTPpage = ({ loginObj, request, stateUpdater }) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [otp, setOtp] = useState({ otp: "" });
@@ -36,6 +35,12 @@ const   OTPpage = ({ loginObj, request, stateUpdater }) => {
         }
     }, [timer]);
 
+    const formatTimer = (seconds) => {
+        const minutes = Math.floor(seconds / 60);
+        const remainingSeconds = seconds % 60;
+        return `${minutes}:${remainingSeconds < 10 ? "0" : ""}${remainingSeconds}`;
+    };
+
     const handleResendOTP = async () => {
         // Reset the timer and request a new OTP
         localStorage.setItem("otpTimestamp", Date.now());
@@ -46,12 +51,20 @@ const   OTPpage = ({ loginObj, request, stateUpdater }) => {
             otpOrigin: loginObj.otpOrigin,
             deviceId: loginObj.deviceId,
         });
-        console.log(response)
     };
+
+    const inputHandler = (otpValue) => {
+        setErrorMessage("");
+        setOtp((preData) => ({
+            ...preData,
+            otp: otpValue,
+        }))
+    }
 
     const SubmitOTP = async () => {
         if (!otp.otp || otp.otp.length <= 5) {
             setErrorMessage("Please enter OTP first");
+            return
         } else {
             setErrorMessage("");
         }
@@ -68,68 +81,64 @@ const   OTPpage = ({ loginObj, request, stateUpdater }) => {
             dispatch(updateUser(response.user));
             localStorage.setItem("user", JSON.stringify(response.user))
             localStorage.setItem("token", response.token);
+            localStorage.removeItem(loginObj.otpOrigin)
             document.cookie = `authToken=${response.token}; path=/; Secure`
             toast.success("Login Successful!");
             setTimeout(() => {
                 navigate("/app/welcome");
             }, 1000);
-            return 
+            return
         } else if (response.ok) {
             toast.success("Verification complete!");
             setTimeout(() => {
                 stateUpdater.setOtpVerified(true);
                 stateUpdater.setLinkSent(false);
             }, 1000);
-        } else if (response.status === 'error'){
+        } else if (response.status === 'error') {
             toast.error(response.message);
         }
-
     };
 
     return (
-        <div className="w-[24rem]">
-            <p className="my-4 text-xl font-bold ">OTP has been Sent</p>
+        <div className="w-[24rem] my-16">
             <p className="mt-4 mb-8 font-semibold ">Check your email and enter OTP</p>
-            <div className="flex gap-2 flex-col justify-center items-center">
+            <div className="flex gap-2 flex-col justify-center items-center relative">
                 <OtpInputField
                     label="Enter 6 digit Otp sent to your email"
                     value={otp.otp}
-                    onChange={(otpValue) =>
-                        setOtp((preData) => ({
-                            ...preData,
-                            otp: otpValue,
-                        }))
-                    }
+                    onChange={inputHandler}
                     numInputs={6}
                     inputContainerClassName="w-1/2"
                     inputClassName="bg-white rounded-[6px] border border-solid border-transparent cursor-pointer shadow-custom flex justify-center items-center pl-[20px] text-lg"
                     labelClassName=""
                 />
                 <ErrorText
-                    styleClass={`${errorMessage ? "visible" : "invisible"
-                        } flex mt-6 text-sm gap-1 justify-center`}
+                    styleClass={`${errorMessage ? "visible" : "invisible"} absolute left-0 top-[32px] flex mt-6 text-sm gap-1 justify-right`}
                 >
                     <img src={xSign} alt="" className="h-3 translate-y-[4px]" />
                     {errorMessage}
                 </ErrorText>
             </div>
-            <div className="text-center mt-4">
+            <div className="text-center mt-16">
+                <div className="flex justify-between items-center mb-8">
+
+                    <button
+                        onClick={handleResendOTP}
+                        className={`${timer > 0 ? "btn-disabled" : ""} bg-transparent underline hover:text-primary`}
+                        disabled={timer > 0}
+                    >
+                        Resend OTP
+                    </button>
+                    <span className="text-sm font-semibold text-gray-700">
+                        {timer > 0 && formatTimer(timer)}
+                    </span>
+                </div>
                 <button
                     onClick={SubmitOTP}
                     className="btn border-none btn-block btn-primary dark:bg-primary bg-stone-700 hover:bg-stone-700"
                 >
                     Submit
                 </button>
-                <div className="mt-4">
-                    <button
-                        onClick={handleResendOTP}
-                        className={`btn mt-2 ${timer > 0 ? "btn-disabled" : "btn-primary"
-                            }`}
-                        disabled={timer > 0}
-                    >
-                        {timer > 0 ? `Resend OTP in ${timer}s` : "Resend OTP"}
-                    </button>
-                </div>
             </div>
         </div>
     );

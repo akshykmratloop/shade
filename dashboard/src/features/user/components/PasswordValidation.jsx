@@ -62,5 +62,5 @@ function validatePasswordMessage(password, setter) {
     }
 }
 
-export { passwordValidationRules, validatePasswordMessage }
+export { validatePasswordMessage }
 export default PasswordValidation;

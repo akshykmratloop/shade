@@ -13,7 +13,7 @@ import { useDispatch } from 'react-redux';
 import updateToasify from '../../app/toastify';
 import validator from '../../app/valid';
 import OTPpage from './components/OTP';
-import { passwordValidationRules, validatePasswordMessage } from './components/PasswordValidation';
+import { validatePasswordMessage } from './components/PasswordValidation';
 import getFingerPrint from '../../app/deviceId';
 
 function Login() {
@@ -26,8 +26,13 @@ function Login() {
     const [loginWithOtp, setLoginWithOtp] = useState(false) // state for login with otp
     const [otpSent, setOtpSent] = useState(false);
 
+    function clearingMessages() { // clearing the error messages 
+        setErrorMessage("")
+        setErrorEmailMessage("")
+        setErrorPasswordMessage("")
+    }
 
-    const [loginObj, setLoginObj] = useState({
+    const [formObj, setFormObj] = useState({
         email: "",
         otpOrigin: "MFA_Login",
         deviceId: "",
@@ -36,6 +41,7 @@ function Login() {
 
     function LoginWithOTP() {
         setLoginWithOtp(prev => !prev)
+        clearingMessages()
     }
 
     const submitForm = async () => {
@@ -43,7 +49,7 @@ function Login() {
 
         setLoading(true)
 
-        const validEmail = checkRegex(loginObj.email, setErrorEmailMessage) // checks if email is under valid format
+        const validEmail = checkRegex(formObj.email, setErrorEmailMessage) // checks if email is under valid format
 
         let payload;
         let response;
@@ -54,15 +60,16 @@ function Login() {
                 return
             };
             payload = { //payload for otp login
-                email: loginObj.email,
-                otpOrigin: loginObj.otpOrigin,
-                deviceId: loginObj.deviceId.slice(0, 19)
+                email: formObj.email,
+                otpOrigin: formObj.otpOrigin,
+                deviceId: formObj.deviceId
             }
+            loadingToastId = toast.loading("requesting OTP!", { autoClose: 2000, style: { backgroundColor: "#3B82F6", color: "#fff" } }); // starting the loading in toaster
             response = await mfaLogin(payload)
             console.log(response)
         } else { // proceeding with login with password
-            const validation = validator(loginObj, { email: setErrorEmailMessage, password: setErrorPasswordMessage }) // checks if any field is empty
-            const validatePassword = validatePasswordMessage(loginObj.password, setErrorPasswordMessage) // check the password validations
+            const validation = validator(formObj, { email: setErrorEmailMessage, password: setErrorPasswordMessage }) // checks if any field is empty
+            const validatePassword = validatePasswordMessage(formObj.password, setErrorPasswordMessage) // check the password validations
 
             if (!validation || validEmail || !validatePassword) { //if any field is empty or if email format is not valid or password validation failed
                 setLoading(false)
@@ -71,8 +78,8 @@ function Login() {
 
             loadingToastId = toast.loading("loging in", { autoClose: 2000, style: { backgroundColor: "#3B82F6", color: "#fff" } }); // starting the loading in toaster
             payload = { // payload for login
-                email: loginObj.email,
-                password: loginObj.password
+                email: formObj.email,
+                password: formObj.password
             }
             response = await login(payload)
         }
@@ -82,13 +89,16 @@ function Login() {
             dispatch(updateUser(response.user))
             localStorage.setItem("user", JSON.stringify(response.user))
             localStorage.setItem("token", response.token);
-            document.cookie = `authToken=${response.token}; path=/; Secure`
+            document.cookie = `authToken=${response.token}; path=/; Secure` // Saving token as cookie for Auth in backend queries
             setTimeout(() => {
                 navigate('/app/welcome')
             }, 1000)
         } else if (response.otp) {
-            setOtpSent(true)
             updateToasify(loadingToastId, "OTP has been sent", "success", 800);
+            localStorage.setItem(formObj.otpOrigin, "true")
+            setTimeout(() => {
+                setOtpSent(true)
+            }, 1000)
         }
         else {
             updateToasify(loadingToastId, `Request unsuccessful! ${response.message}`, "failure", 2000) // updating the toaster
@@ -99,10 +109,8 @@ function Login() {
 
     const updateFormValue = ({ updateType, value }) => {
         // Handling the login Object
-        setErrorMessage("")
-        setErrorEmailMessage("")
-        setErrorPasswordMessage("")
-        setLoginObj(prev => {
+        clearingMessages()
+        setFormObj(prev => {
             return { ...prev, [updateType]: value } // key == [updateType], value == value
         })
     }
@@ -115,11 +123,17 @@ function Login() {
     useEffect(() => {
         async function FP() {
             const deviceId = await getFingerPrint()
-            setLoginObj(prev => {
+            setFormObj(prev => {
                 return { ...prev, deviceId }
             })
         }
         FP()
+    }, [])
+
+    useEffect(() => {
+        localStorage.removeItem("forgot_Pass")
+        const stateOfOTP = localStorage.getItem(formObj.otpOrigin)
+        setOtpSent(stateOfOTP)
     }, [])
     return (
         <div className="min-h-screen h-screen bg-base-200 flex sm:h-[100vh]">
@@ -129,14 +143,14 @@ function Login() {
 
                 <div className='sm:pt-[20vh] sm:py-20 w-[24rem]'>
                     <h2 className='text-2xl font-semibold mb-2'>Sign in to Dashboard</h2>
-                    {otpSent ? <OTPpage loginObj={loginObj} request={mfaVerify} /> :
+                    {otpSent ? <OTPpage loginObj={formObj} request={mfaVerify} /> :
                         <form onSubmit={proceedLogin}>
                             <div className="mb-4 relative flex flex-col">
-                                <InputText placeholder={"Email/Phone Number"} name={"email"} defaultValue={loginObj.email} updateType="email" containerStyle="mt-4" labelTitle="Email Id" updateFormValue={updateFormValue} />
+                                <InputText placeholder={"Email/Phone Number"} name={"email"} defaultValue={formObj.email} updateType="email" containerStyle="mt-4" labelTitle="Email Id" updateFormValue={updateFormValue} />
                                 <ErrorText styleClass={`text-xs absolute gap-1 top-[105px] ${errorEmailMessage ? "flex" : "hidden"}`}>
                                     <img src={xSign} alt="" className='h-3 translate-y-[2px]' />
                                     {errorEmailMessage}</ErrorText>
-                                <InputText display={loginWithOtp} defaultValue={loginObj.password} name={"password"} placeholder={"Password"} type="password" updateType="password" containerStyle="mt-4" labelTitle="Password" updateFormValue={updateFormValue} />
+                                <InputText display={loginWithOtp} defaultValue={formObj.password} name={"password"} placeholder={"Password"} type="password" updateType="password" containerStyle="mt-4" labelTitle="Password" updateFormValue={updateFormValue} />
                                 <ErrorText styleClass={`text-xs absolute top-[221px] gap-1 top-[87px] ${errorPasswordMessage ? "flex" : "hidden"}`}>
                                     <img src={xSign} alt="" className='h-3 translate-y-[2px]' />
                                     {errorPasswordMessage}</ErrorText>

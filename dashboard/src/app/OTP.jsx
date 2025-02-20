@@ -13,12 +13,12 @@ export const OtpInputField = ({
   }) => {
     return (
       <div className={`flex flex-col gap-2 w-full ${inputContainerClassName}`}>
-        <label
+        {/* <label
           htmlFor="phone-input"
           className={`mb-1 w-64 text-base-600 [font-family:'Mulish-Regular',Helvetica] font-normal text-[#3B3B3B] text-[16px] tracking-[0] leading-[24px]  ml-[6px] "${labelClassName}`}
         >
           {label}
-        </label>
+        </label> */}
         <OtpInput
           value={value}
           onChange={onChange}
