@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import ErrorText from '../../components/Typography/ErrorText'
 import InputText from '../../components/Input/InputText'
 import BackroundImage from './components/BackroundImg';
@@ -11,6 +11,7 @@ import validator from '../../app/valid';
 import updateToasify from '../../app/toastify';
 import { toast, ToastContainer } from 'react-toastify';
 import UpdatePassword from './components/UpdatePassword';
+import getFingerPrint from '../../app/deviceId';
 
 function ForgotPassword() {
     const [loading, setLoading] = useState(false)
@@ -20,7 +21,7 @@ function ForgotPassword() {
     const [userObj, setUserObj] = useState({
         email: "",
         otpOrigin: "forgot_Pass",
-        deviceId: String(Math.floor(100000 + Math.random() * 900000)),
+        deviceId: "",
     })
 
     const submitForm = async (e) => {
@@ -31,7 +32,7 @@ function ForgotPassword() {
         if (!validation || validEmail) return;
         else {
             setLoading(true)
-            const loadingToastId = toast.loading("Processing your request... Please wait!", { autoClose: 2000 }); // starting the loading in toaster
+            const loadingToastId = toast.loading("Processing your request... Please wait!", { autoClose: 2000, style: { backgroundColor: "#3B82F6", color: "#fff" } }); // starting the loading in toaster
 
             // Call API to send password reset link
             const response = await forgotPassReq(userObj);
@@ -52,6 +53,16 @@ function ForgotPassword() {
         setUserObj({ ...userObj, [updateType]: value })
     }
 
+
+    useEffect(() => {
+        async function FP() {
+            const deviceId = await getFingerPrint()
+            setUserObj(prev => {
+                return { ...prev, deviceId:deviceId.slice(0,19) }
+            })
+        }
+        FP()
+    }, [])
     return (
         <div className="min-h-screen h-[100vh] bg-base-200 flex">
             <BackroundImage />
@@ -81,11 +92,11 @@ function ForgotPassword() {
                                         updateFormValue={updateFormValue}
                                         name={"emailId"}
                                     />
-                                    <ErrorText styleClass={`${errorMessage ? "visible" : "invisible"} absolute top-[63px] left-2 flex mt-6 text-xs gap-1 justify-center `}>
-                                    <img src={xSign} alt="" className='h-3 translate-y-[4px]' />
-                                    {errorMessage}</ErrorText>
+                                    <ErrorText styleClass={`${errorMessage ? "visible" : "invisible"} absolute top-[63px] flex mt-6 text-xs gap-1 justify-center `}>
+                                        <img src={xSign} alt="" className='h-3 translate-y-[4px]' />
+                                        {errorMessage}</ErrorText>
                                 </div>
-                                
+
                                 <Button type={"submit"} classes={"btn mt-5 w-full dark:bg-primary bg-stone-700 hover:bg-stone-700 border-none" + (loading ? " loading" : "")} text={"Get OTP"} />
                             </form>
                         </div>

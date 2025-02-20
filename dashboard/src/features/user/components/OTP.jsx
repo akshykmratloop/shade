@@ -73,11 +73,17 @@ const   OTPpage = ({ loginObj, request, stateUpdater }) => {
             setTimeout(() => {
                 navigate("/app/welcome");
             }, 1000);
-
+            return 
         } else if (response.ok) {
-            stateUpdater.setOtpVerified(true);
-            stateUpdater.setLinkSent(false);
+            toast.success("Verification complete!");
+            setTimeout(() => {
+                stateUpdater.setOtpVerified(true);
+                stateUpdater.setLinkSent(false);
+            }, 1000);
+        } else if (response.status === 'error'){
+            toast.error(response.message);
         }
+
     };
 
     return (

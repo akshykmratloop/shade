@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import ErrorText from '../../components/Typography/ErrorText'
 import InputText from '../../components/Input/InputText';
@@ -13,6 +13,8 @@ import { useDispatch } from 'react-redux';
 import updateToasify from '../../app/toastify';
 import validator from '../../app/valid';
 import OTPpage from './components/OTP';
+import { passwordValidationRules, validatePasswordMessage } from './components/PasswordValidation';
+import getFingerPrint from '../../app/deviceId';
 
 function Login() {
     const dispatch = useDispatch();
@@ -24,10 +26,11 @@ function Login() {
     const [loginWithOtp, setLoginWithOtp] = useState(false) // state for login with otp
     const [otpSent, setOtpSent] = useState(false);
 
+
     const [loginObj, setLoginObj] = useState({
         email: "",
         otpOrigin: "MFA_Login",
-        deviceId: String(Math.floor(100000 + Math.random() * 900000)),
+        deviceId: "",
         password: "",
     })
 
@@ -53,17 +56,20 @@ function Login() {
             payload = { //payload for otp login
                 email: loginObj.email,
                 otpOrigin: loginObj.otpOrigin,
-                deviceId: loginObj.deviceId
+                deviceId: loginObj.deviceId.slice(0, 19)
             }
             response = await mfaLogin(payload)
+            console.log(response)
         } else { // proceeding with login with password
             const validation = validator(loginObj, { email: setErrorEmailMessage, password: setErrorPasswordMessage }) // checks if any field is empty
-            if (!validation || validEmail) {
-                console.log(validation, validEmail)
+            const validatePassword = validatePasswordMessage(loginObj.password, setErrorPasswordMessage) // check the password validations
+
+            if (!validation || validEmail || !validatePassword) { //if any field is empty or if email format is not valid or password validation failed
                 setLoading(false)
                 return
             };
-            loadingToastId = toast.loading("loging in", { autoClose: 2000, style: {backgroundColor: "#3B82F6", color:"#fff"} }); // starting the loading in toaster
+
+            loadingToastId = toast.loading("loging in", { autoClose: 2000, style: { backgroundColor: "#3B82F6", color: "#fff" } }); // starting the loading in toaster
             payload = { // payload for login
                 email: loginObj.email,
                 password: loginObj.password
@@ -106,6 +112,15 @@ function Login() {
         submitForm(e)
     }
 
+    useEffect(() => {
+        async function FP() {
+            const deviceId = await getFingerPrint()
+            setLoginObj(prev => {
+                return { ...prev, deviceId }
+            })
+        }
+        FP()
+    }, [])
     return (
         <div className="min-h-screen h-screen bg-base-200 flex sm:h-[100vh]">
             <BackroundImage />
@@ -116,13 +131,13 @@ function Login() {
                     <h2 className='text-2xl font-semibold mb-2'>Sign in to Dashboard</h2>
                     {otpSent ? <OTPpage loginObj={loginObj} request={mfaVerify} /> :
                         <form onSubmit={proceedLogin}>
-                            <div className="mb-4 relative">
+                            <div className="mb-4 relative flex flex-col">
                                 <InputText placeholder={"Email/Phone Number"} name={"email"} defaultValue={loginObj.email} updateType="email" containerStyle="mt-4" labelTitle="Email Id" updateFormValue={updateFormValue} />
-                                <ErrorText styleClass={`text-xs absolute left-2 gap-1 top-[88px] ${errorEmailMessage ? "flex" : "hidden"}`}>
+                                <ErrorText styleClass={`text-xs absolute gap-1 top-[105px] ${errorEmailMessage ? "flex" : "hidden"}`}>
                                     <img src={xSign} alt="" className='h-3 translate-y-[2px]' />
                                     {errorEmailMessage}</ErrorText>
                                 <InputText display={loginWithOtp} defaultValue={loginObj.password} name={"password"} placeholder={"Password"} type="password" updateType="password" containerStyle="mt-4" labelTitle="Password" updateFormValue={updateFormValue} />
-                                <ErrorText styleClass={`text-xs absolute top-[189px] left-2 gap-1 top-[87px] ${errorPasswordMessage ? "flex" : "hidden"}`}>
+                                <ErrorText styleClass={`text-xs absolute top-[221px] gap-1 top-[87px] ${errorPasswordMessage ? "flex" : "hidden"}`}>
                                     <img src={xSign} alt="" className='h-3 translate-y-[2px]' />
                                     {errorPasswordMessage}</ErrorText>
                             </div>
@@ -136,8 +151,10 @@ function Login() {
                             <ErrorText styleClass={`${errorMessage ? "visible" : "invisible"} flex mt-6 text-sm gap-1 justify-center `}>
                                 <img src={xSign} alt="" className='h-3 translate-y-[4px]' />
                                 {errorMessage}</ErrorText>
-                            <Button text={loginWithOtp ? "Generate OTP" : "Login"} type="submit" classes={"btn mt-2 w-full btn-primary dark:bg-primary bg-stone-700 hover:bg-stone-700 border-none" + (loading ? " loading" : "")} />
-                            <Button functioning={LoginWithOTP} text={loginWithOtp ? "Sign In with Password" : "Sign In With OTP"} classes={"btn mt-2 w-full btn-stone hover:text-stone-50 hover:bg-stone-700 border-stone-700 bg-stone-50 text-stone-800"} />
+                            <div>
+                                <Button text={loginWithOtp ? "Generate OTP" : "Login"} type="submit" classes={"btn mt-2 w-full btn-primary dark:bg-primary bg-stone-700 hover:bg-stone-700 border-none" + (loading ? " loading" : "")} />
+                                <Button functioning={LoginWithOTP} text={loginWithOtp ? "Sign In with Password" : "Sign In With OTP"} classes={"btn mt-2 w-full btn-stone hover:text-stone-50 hover:bg-stone-700 border-stone-700 bg-stone-50 text-stone-800"} />
+                            </div>
                         </form>
                     }
                 </div>

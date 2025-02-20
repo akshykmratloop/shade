@@ -50,4 +50,17 @@ const PasswordValidation = ({ new_password }) => {
     );
 };
 
+function validatePasswordMessage(password, setter) {
+    if (password.length > 0) {
+        for (let rule of passwordValidationRules) {
+            if (!rule.test(password)) {
+                setter(rule.text);
+                return;
+            }
+        }
+        return 1
+    }
+}
+
+export { passwordValidationRules, validatePasswordMessage }
 export default PasswordValidation;

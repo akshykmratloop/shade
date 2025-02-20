@@ -12,7 +12,7 @@ import xSign from "../../assets/x-close.png"
 import { useNavigate } from "react-router-dom";
 
 
-function ResetPasswordModalBody({ closeModal, close }) {
+function ResetPasswordModalBody({closeModal}) {
   const navigate = useNavigate()
   const email = useSelector(state => {
     return state.user.user.email

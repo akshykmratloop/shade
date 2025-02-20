@@ -33,7 +33,7 @@ function InputText({
       className={`form-control mb-4 w-full ${containerStyle}`}
       style={{ display: display ? "none" : "" }}
     >
-      <label className="label">
+      <label className="label pl-0">
         <span
           className={"label-text font-semibold text-base-content " + labelStyle}
         >
