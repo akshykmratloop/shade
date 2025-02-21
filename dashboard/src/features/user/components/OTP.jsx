@@ -10,7 +10,7 @@ import { resendOTP } from "../../../app/fetch";
 
 const OTP_TIMEOUT_SECONDS = 60; // timeout for resending the otp
 
-const OTPpage = ({ formObj, request, stateUpdater }) => {
+const OTPpage = ({ formObj, request, stateUpdater, otpSent }) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [otp, setOtp] = useState({ otp: "" });
@@ -21,7 +21,7 @@ const OTPpage = ({ formObj, request, stateUpdater }) => {
 
     useEffect(() => {
         // Load remaining time from localStorage
-        const storedTimestamp = localStorage.getItem("otpTimestamp");
+        const storedTimestamp = localStorage.getItem(`otpTimestamp/${formObj.otpOrigin}`);
         if (storedTimestamp) {
             const elapsedTime = Math.floor((Date.now() - storedTimestamp) / 1000);
             if (elapsedTime < OTP_TIMEOUT_SECONDS) {
@@ -45,14 +45,16 @@ const OTPpage = ({ formObj, request, stateUpdater }) => {
 
     const handleResendOTP = async () => {
         // Reset the timer and request a new OTP
-        localStorage.setItem("otpTimestamp", Date.now());
+        localStorage.setItem(`otpTimestamp/${formObj.otpOrigin}`, Date.now());
         setTimer(OTP_TIMEOUT_SECONDS);
-        toast.info("A new OTP has been sent!");
         const response = await resendOTP({
             email: formObj.email,
             otpOrigin: formObj.otpOrigin,
             deviceId: formObj.deviceId,
         });
+        
+        console.log(response)
+        toast.info(response.message);
     };
 
     const inputHandler = (otpValue) => {
@@ -142,12 +144,25 @@ const OTPpage = ({ formObj, request, stateUpdater }) => {
                     >
                         Submit
                     </button>
+                    <div className="mt-3 flex flex-col gap-3 text-sm">
+                    <button onClick={() => { localStorage.removeItem("MFA_Login");localStorage.removeItem("forgot_pass"); localStorage.removeItem(`otpTimestamp/${formObj.otpOrigin}`); otpSent(false) }} className="text-stone-500 hover:text-stone-700 dark:hover:text-stone-50 bg-base-200 inline-block hover:underline hover:cursor-pointer transition duration-200">
+                            <span >Edit Email</span>
+                    </button>
                     {
-                        formObj.otpOrigin === "MFA_Login" &&
-                        <button onClick={() => {localStorage.removeItem("MFA_Login"); localStorage.removeItem("otpTimeStamp"); window.location.reload(true)}} className="btn mt-2 w-full btn-stone hover:text-stone-50 hover:bg-stone-700 border-stone-700 bg-stone-50 text-stone-800">
-                            Login With Password
-                        </button>
+                        formObj.otpOrigin === "MFA_Login" ?
+                            <button onClick={() => { localStorage.removeItem("MFA_Login"); localStorage.removeItem(`otpTimestamp/${formObj.otpOrigin}`); window.location.reload(true) }} className="text-stone-500 hover:text-stone-700 dark:hover:text-stone-50 bg-base-200 inline-block hover:underline hover:cursor-pointer transition duration-200">
+                                <Link to="/login">
+                                    <span >Sign In</span>
+                                </Link>
+                            </button> :
+                            <div className='text-center text-primary'
+                                onClick={() => { localStorage.removeItem("forgot_pass"); localStorage.removeItem(`otpTimestamp/${formObj.otpOrigin}`) }}>
+                                <Link to="/login">
+                                    <span className="text-stone-500 hover:text-stone-700 dark:hover:text-stone-50 bg-base-200 inline-block hover:underline hover:cursor-pointer transition duration-200">Sign In</span>
+                                </Link>
+                            </div>
                     }
+                    </div>
                 </div>
             </div>
         </div>

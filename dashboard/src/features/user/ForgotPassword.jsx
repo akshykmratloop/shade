@@ -17,7 +17,7 @@ import { Link } from 'react-router-dom';
 function ForgotPassword() {
     const [loading, setLoading] = useState(false)
     const [errorMessage, setErrorMessage] = useState("")
-    const [linkSent, setLinkSent] = useState(false)
+    const [otpSent, setOtpSent] = useState(false)
     const [otpVerified, setOtpVerified] = useState(false)
     const [formObj, setFormObj] = useState({
         email: "",
@@ -40,7 +40,7 @@ function ForgotPassword() {
             console.log(response)
             if (response.message.ok) {
                 setLoading(false)
-                setLinkSent(true)
+                setOtpSent(true)
                 localStorage.setItem(formObj.otpOrigin, "true")
                 updateToasify(loadingToastId, "Request successful!", "success", 2000) // updating the toaster
                 return;
@@ -57,9 +57,9 @@ function ForgotPassword() {
 
     useEffect(() => {
         localStorage.removeItem("MFA_Login")
-        localStorage.removeItem("otpTimestamp")
+        localStorage.removeItem("otpTimestamp/MFA_Login")
         const stateOfOTP = localStorage.getItem(formObj.otpOrigin)
-        setLinkSent(stateOfOTP)
+        setOtpSent(stateOfOTP)
     }, [])
 
     useEffect(() => {
@@ -80,12 +80,12 @@ function ForgotPassword() {
                     <h2 className='text-2xl font-semibold mb-2'>Forgot Password</h2>
 
                     {
-                        linkSent && <OTPpage formObj={formObj} request={forgotPassReqVerify} stateUpdater={{ setOtpVerified, setLinkSent }} />
+                        otpSent && <OTPpage otpSent={setOtpSent} formObj={formObj} request={forgotPassReqVerify} stateUpdater={{ setOtpVerified, setLinkSent: setOtpSent }} />
 
                     }
 
                     {
-                        (!linkSent && !otpVerified) &&
+                        (!otpSent && !otpVerified) &&
                         <div className='w-[24rem]'>
                             <p className='my-8 text-stone-500'>Enter the email address you used when you joined and we’ll send you instructions to reset your password.</p>
                             <form onSubmit={(e) => submitForm(e)}>

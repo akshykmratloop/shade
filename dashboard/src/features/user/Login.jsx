@@ -127,7 +127,7 @@ function Login() {
 
     useEffect(() => {
         localStorage.removeItem("forgot_Pass")
-        localStorage.removeItem("otpTimestamp")
+        localStorage.removeItem("otpTimestamp/forgot_Pass")
         const stateOfOTP = localStorage.getItem(formObj.otpOrigin)
         setOtpSent(stateOfOTP)
     }, [])
@@ -139,7 +139,7 @@ function Login() {
 
                 <div className='sm:pt-[20vh] sm:py-20 w-[24rem]'>
                     <h2 className='text-2xl font-semibold mb-2'>Sign in to Dashboard</h2>
-                    {otpSent ? <OTPpage formObj={formObj} request={mfaVerify} /> :
+                    {otpSent ? <OTPpage otpSent={setOtpSent}  formObj={formObj} request={mfaVerify} /> :
                         <form onSubmit={proceedLogin}>
                             <div className="mb-4 relative flex flex-col">
                                 <InputText placeholder={"Email/Phone Number"} errorMessage={errorEmailMessage} name={"email"} defaultValue={formObj.email} updateType="email" containerStyle="mt-4" labelTitle="Email Id" updateFormValue={updateFormValue} />
@@ -150,8 +150,8 @@ function Login() {
                                     <span className="text-sm text-stone-500 hover:text-stone-700 dark:hover:text-stone-50 bg-base-200 inline-block hover:underline hover:cursor-pointer transition duration-200">Forgot Password?</span>
                                 </Link>
                             </div>
-                            <div>
-                                <Button text={loginWithOtp ? "Generate OTP" : "Login"} type="submit" classes={"btn mt-2 w-full btn-primary dark:bg-primary bg-stone-700 hover:bg-stone-700 border-none" + (loading ? " loading" : "")} />
+                            <div className='mt-3'>
+                                <Button text={loginWithOtp ? "Generate OTP" : "Login"} type="submit" classes={"btn w-full btn-primary dark:bg-primary bg-stone-700 hover:bg-stone-700 border-none" + (loading ? " loading" : "")} />
                                 <Button functioning={LoginWithOTP} text={loginWithOtp ? "Sign In with Password" : "Sign In With OTP"} classes={"btn mt-2 w-full btn-stone hover:text-stone-50 hover:bg-stone-700 border-stone-700 bg-stone-50 text-stone-800"} />
                             </div>
                         </form>
