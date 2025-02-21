@@ -36,7 +36,7 @@ const PasswordValidation = ({ new_password }) => {
     }, [new_password]);
 
     return (
-        <ul className={`${new_password.length > 0 ? "block" : "hidden"}`}>
+        <ul className={`${new_password.length > 0 ? "block" : "hidden"} border border-1`}>
             {passwordValidationRules.map((rule, index) => (
                 <li
                     key={index}
@@ -50,16 +50,26 @@ const PasswordValidation = ({ new_password }) => {
     );
 };
 
+// function checkPasswordValidation(password) {
+//     for (let rule of passwordValidationRules) {
+//         if (!rule.test(password)) {
+//             return 0;
+//         }
+//     }
+//     return 1
+// }
+
 function validatePasswordMessage(password, setter) {
     if (password.length > 0) {
         for (let rule of passwordValidationRules) {
             if (!rule.test(password)) {
-                setter(rule.text);
-                return;
+                if(setter) setter(rule.text);
+                return 0;
             }
         }
         return 1
     }
+    return 0
 }
 
 export { validatePasswordMessage }

@@ -37,16 +37,15 @@ function ForgotPassword() {
 
             // Call API to send password reset link
             const response = await forgotPassReq(formObj);
-            console.log(response)
             if (response.message.ok) {
                 setLoading(false)
                 setOtpSent(true)
-                localStorage.setItem(formObj.otpOrigin, "true")
+                localStorage.setItem(formObj.otpOrigin, JSON.stringify(formObj))
                 updateToasify(loadingToastId, "Request successful!", "success", 2000) // updating the toaster
                 return;
             }
             setLoading(false)
-            updateToasify(loadingToastId, "Request unsuccessful!", "failure", 2000) // updating the toaster
+            updateToasify(loadingToastId, response.message, "failure", 2000) // updating the toaster
         }
     }
 

@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import { updateUser } from "../../common/userSlice";
 import { toast } from "react-toastify";
 import { resendOTP } from "../../../app/fetch";
+import updateToasify from "../../../app/toastify";
 
 const OTP_TIMEOUT_SECONDS = 60; // timeout for resending the otp
 
@@ -16,8 +17,7 @@ const OTPpage = ({ formObj, request, stateUpdater, otpSent }) => {
     const [otp, setOtp] = useState({ otp: "" });
     const [errorMessage, setErrorMessage] = useState("");
     const [timer, setTimer] = useState(0);
-
-    console.log(formObj)
+    const [payload, setPayload] = useState(null)
 
     useEffect(() => {
         // Load remaining time from localStorage
@@ -28,6 +28,7 @@ const OTPpage = ({ formObj, request, stateUpdater, otpSent }) => {
                 setTimer(OTP_TIMEOUT_SECONDS - elapsedTime);
             }
         }
+        setPayload(prev => JSON.parse(localStorage.getItem(formObj.otpOrigin)))
     }, []);
 
     useEffect(() => {
@@ -45,16 +46,18 @@ const OTPpage = ({ formObj, request, stateUpdater, otpSent }) => {
 
     const handleResendOTP = async () => {
         // Reset the timer and request a new OTP
-        localStorage.setItem(`otpTimestamp/${formObj.otpOrigin}`, Date.now());
-        setTimer(OTP_TIMEOUT_SECONDS);
-        const response = await resendOTP({
+        const loadingToastId = toast.loading("Processing your request... Please wait!", { autoClose: 2000, style: { backgroundColor: "#3B82F6", color: "#fff" } }); // starting the loading in toaster
+        const response = await resendOTP(payload ||
+        {
             email: formObj.email,
             otpOrigin: formObj.otpOrigin,
             deviceId: formObj.deviceId,
-        });
-        
-        console.log(response)
-        toast.info(response.message);
+
+        })
+
+        updateToasify(loadingToastId, response.message, "info", 2000) // updating the toaster
+        setTimer(OTP_TIMEOUT_SECONDS);
+        localStorage.setItem(`otpTimestamp/${formObj.otpOrigin}`, Date.now());
     };
 
     const inputHandler = (otpValue) => {
@@ -98,6 +101,8 @@ const OTPpage = ({ formObj, request, stateUpdater, otpSent }) => {
                 stateUpdater.setOtpVerified(true);
                 stateUpdater.setLinkSent(false);
             }, 1000);
+            localStorage.removeItem(`otpTimestamp/${formObj.otpOrigin}`);
+            // localStorage.removeItem(formObj.otpOrigin);
         } else if (response.status === 'error') {
             toast.error(response.message);
         }
@@ -145,23 +150,23 @@ const OTPpage = ({ formObj, request, stateUpdater, otpSent }) => {
                         Submit
                     </button>
                     <div className="mt-3 flex flex-col gap-3 text-sm">
-                    <button onClick={() => { localStorage.removeItem("MFA_Login");localStorage.removeItem("forgot_pass"); localStorage.removeItem(`otpTimestamp/${formObj.otpOrigin}`); otpSent(false) }} className="text-stone-500 hover:text-stone-700 dark:hover:text-stone-50 bg-base-200 inline-block hover:underline hover:cursor-pointer transition duration-200">
+                        <button onClick={() => { localStorage.removeItem("MFA_Login"); localStorage.removeItem("forgot_pass"); localStorage.removeItem(`otpTimestamp/${formObj.otpOrigin}`); otpSent(false) }} className="text-stone-500 hover:text-stone-700 dark:hover:text-stone-50 bg-base-200 inline-block hover:underline hover:cursor-pointer transition duration-200">
                             <span >Edit Email</span>
-                    </button>
-                    {
-                        formObj.otpOrigin === "MFA_Login" ?
-                            <button onClick={() => { localStorage.removeItem("MFA_Login"); localStorage.removeItem(`otpTimestamp/${formObj.otpOrigin}`); window.location.reload(true) }} className="text-stone-500 hover:text-stone-700 dark:hover:text-stone-50 bg-base-200 inline-block hover:underline hover:cursor-pointer transition duration-200">
-                                <Link to="/login">
-                                    <span >Sign In</span>
-                                </Link>
-                            </button> :
-                            <div className='text-center text-primary'
-                                onClick={() => { localStorage.removeItem("forgot_pass"); localStorage.removeItem(`otpTimestamp/${formObj.otpOrigin}`) }}>
-                                <Link to="/login">
-                                    <span className="text-stone-500 hover:text-stone-700 dark:hover:text-stone-50 bg-base-200 inline-block hover:underline hover:cursor-pointer transition duration-200">Sign In</span>
-                                </Link>
-                            </div>
-                    }
+                        </button>
+                        {
+                            formObj.otpOrigin === "MFA_Login" ?
+                                <button onClick={() => { localStorage.removeItem("MFA_Login"); localStorage.removeItem(`otpTimestamp/${formObj.otpOrigin}`); window.location.reload(true) }} className="text-stone-500 hover:text-stone-700 dark:hover:text-stone-50 bg-base-200 inline-block hover:underline hover:cursor-pointer transition duration-200">
+                                    <Link to="/login">
+                                        <span >Sign In</span>
+                                    </Link>
+                                </button> :
+                                <div className='text-center text-primary'
+                                    onClick={() => { localStorage.removeItem("forgot_pass"); localStorage.removeItem(`otpTimestamp/${formObj.otpOrigin}`) }}>
+                                    <Link to="/login">
+                                        <span className="text-stone-500 hover:text-stone-700 dark:hover:text-stone-50 bg-base-200 inline-block hover:underline hover:cursor-pointer transition duration-200">Sign In</span>
+                                    </Link>
+                                </div>
+                        }
                     </div>
                 </div>
             </div>

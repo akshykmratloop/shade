@@ -90,7 +90,7 @@ function Login() {
             }, 1000)
         } else if (response.otp) {
             updateToasify(loadingToastId, "OTP has been sent", "success", 800);
-            localStorage.setItem(formObj.otpOrigin, "true")
+            localStorage.setItem(formObj.otpOrigin, JSON.stringify(formObj))
             setTimeout(() => {
                 setOtpSent(true)
             }, 1000)

@@ -1,61 +1,98 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import InputText from "../../../components/Input/InputText";
-import ErrorText from "../../../components/Typography/ErrorText";
 import Button from "../../../components/Button/Button";
-import xSign from "../../../assets/x-close.png";
 import { PassUpdate } from "../../../app/fetch";
 import { useNavigate } from "react-router-dom";
+import PasswordValidation, { validatePasswordMessage } from "./PasswordValidation";
 import { toast } from "react-toastify";
-import PasswordValidation from "./PasswordValidation";
+import validator from "../../../app/valid";
 
 const UpdatePassword = ({ userObj }) => {
     const navigate = useNavigate()
     const [loading, setLoading] = useState(false);
-    const [errorMessage, setErrorMessage] = useState("");
+    const [errorPassMessage, setErrorPassMessage] = useState("");
+    const [errorConfPassMessage, setConfPassMessage] = useState("");
+    const [formObj, setFormObj] = useState(userObj);
     const [passwords, setPasswords] = useState({
         new_password: "",
         repeat_password: "",
     });
 
     const updateFormValue = ({ updateType, value }) => {
-        setErrorMessage("");
+        setConfPassMessage("");
+        setErrorPassMessage("")
         setPasswords((prev) => ({ ...prev, [updateType]: value }));
     };
 
     const submitForm = async (e) => {
         e.preventDefault();
         setLoading(true)
+
+        // check the empty fields
+        let emptyFields = validator(passwords, { new_password: setErrorPassMessage, repeat_password: setConfPassMessage })
+
+        // check if the both passwords match
         if (passwords.new_password !== passwords.repeat_password) {
-            return setErrorMessage(
-                "The passwords do not match. Please make sure both password fields are the same."
+            setConfPassMessage(
+                "The passwords do not match."
             );
+            return setLoading(false)
         }
-        const paylaod = {
+
+        // validate password if it met the requirements
+        let validatePassword = validatePasswordMessage(passwords.new_password)
+        if (!emptyFields || !validatePassword) {
+            return setLoading(false);
+        }
+
+        // payload for the request
+        const payload = {
             new_password: passwords.new_password,
             repeat_password: passwords.repeat_password,
-            email: userObj.email,
-            otpOrigin: userObj.otpOrigin,
-            deviceId: userObj.deviceId,
+            email: formObj?.email,
+            otpOrigin: formObj?.otpOrigin,
+            deviceId: formObj?.deviceId,
         };
-        const response = await PassUpdate(paylaod);
-        if(response.ok){
-            toast.success(response.message);
+        const response = await PassUpdate(payload); // request for new password
+        if (response.ok) { // if everything goes correctly
+            toast.success(response.message); // the success message
             setTimeout(() => {
-                navigate("/login")
+                navigate("/login") // navigating to the login page after 1 sec
             }, 1000)
-        }else{
-            setLoading(false)
+        } else {
+            setLoading(false) // if something went wrong
             toast.error(response.message);
         }
     };
 
+    useEffect(() => {
+        const Theme = localStorage.getItem("theme")
+        setFormObj(prev => JSON.parse(localStorage.getItem("forgot_Pass")))
+        localStorage.clear() // clearing the otp state
+        localStorage.setItem("theme", Theme)
+        
+    }, []);
+
+    useEffect(() => {
+        const handleBackButton = () => {
+            // toast.warn("Password reset was interrupted. Please try again!", { autoClose: 3000 });
+            alert("Password reset was interrupted. Please try again!")
+        };
+    
+        window.addEventListener("popstate", handleBackButton);
+    
+        return () => {
+            window.removeEventListener("popstate", handleBackButton);
+        };
+    }, []);
+
     return (
         <form>
-            <p className="my-8 text-stone-500">
+            <p className="my-2 text-stone-500">
                 Verification successful! Please set a new password. Use a strong password for better security.
             </p>
 
-            <div className="mb-4 relative">
+            <div className="mb-1 relative flex flex-col">
                 <InputText
                     name={"password"}
                     placeholder={"Enter Your New Password"}
@@ -64,6 +101,7 @@ const UpdatePassword = ({ userObj }) => {
                     containerStyle="mt-4"
                     labelTitle="New Password"
                     updateFormValue={updateFormValue}
+                    errorMessage={errorPassMessage} 
                 />
                 <InputText
                     name={"password"}
@@ -73,25 +111,18 @@ const UpdatePassword = ({ userObj }) => {
                     containerStyle="mt-4"
                     labelTitle="Confirm New Password"
                     updateFormValue={updateFormValue}
+                    errorMessage={errorConfPassMessage}
                 />
             </div>
 
             {/* Password Validation Checklist */}
             <PasswordValidation new_password={passwords.new_password} />
-
-            <ErrorText
-                styleClass={`${errorMessage ? "visible" : "invisible"
-                    } flex mt-6 text-sm gap-1 justify-center`}
-            >
-                <img src={xSign} className="h-3 translate-y-[4px]" />
-                {errorMessage}
-            </ErrorText>
             <Button
                 functioning={submitForm}
                 text={"Submit"}
                 type="submit"
                 classes={
-                    "btn mt-2 w-full btn-primary dark:bg-primary bg-stone-700 hover:bg-stone-700 border-none" +
+                    "btn mt-4 w-full btn-primary dark:bg-primary bg-stone-700 hover:bg-stone-700 border-none" +
                     (loading ? " loading" : "")
                 }
             />

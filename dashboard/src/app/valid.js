@@ -13,7 +13,7 @@ function validator(obj, setter) {
         if (!obj[key] || obj[key].trim() === "") {
             const keyName = key.charAt(0).toUpperCase() + key.slice(1);
             if (typeof (setter) === 'object') {
-                setter[(keyName.toLowerCase())](`${keyName} is required`)
+                setter[(keyName.toLowerCase())](`${keyName.replace("_", " ")} is required`)
             } else {
                 setter(`${keyName} is required`)
             }

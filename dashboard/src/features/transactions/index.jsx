@@ -162,7 +162,7 @@ function Roles() {
                                     <td>{format(new Date(role.updated_at), 'dd/MM/yyyy')}</td>
                                     <td className="flex justify-center space-x-2">
                                         <button
-                                            className="btn btn-sm btn-primary"
+                                            className="btn btn-sm btn-success"
                                             onClick={() => {
                                                 setSelectedRole(role);
                                                 setShowAddForm(true);
