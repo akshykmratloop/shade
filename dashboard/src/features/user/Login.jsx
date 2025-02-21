@@ -1,12 +1,10 @@
 import { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import ErrorText from '../../components/Typography/ErrorText'
 import InputText from '../../components/Input/InputText';
 import Button from '../../components/Button/Button';
 import BackroundImage from './components/BackroundImg';
 import { checkRegex } from '../../app/emailregex';
 import { ToastContainer, toast } from 'react-toastify';
-import xSign from "../../assets/x-close.png";
 import { login, mfaLogin, mfaVerify } from '../../app/fetch';
 import { updateUser } from '../common/userSlice';
 import { useDispatch } from 'react-redux';
@@ -19,7 +17,6 @@ import getFingerPrint from '../../app/deviceId';
 function Login() {
     const dispatch = useDispatch();
     const navigate = useNavigate()
-    const [errorMessage, setErrorMessage] = useState("")
     const [errorEmailMessage, setErrorEmailMessage] = useState("")
     const [errorPasswordMessage, setErrorPasswordMessage] = useState("")
     const [loading, setLoading] = useState(false)
@@ -27,7 +24,6 @@ function Login() {
     const [otpSent, setOtpSent] = useState(false);
 
     function clearingMessages() { // clearing the error messages 
-        setErrorMessage("")
         setErrorEmailMessage("")
         setErrorPasswordMessage("")
     }
@@ -45,8 +41,7 @@ function Login() {
     }
 
     const submitForm = async () => {
-        setErrorMessage("")
-
+        clearingMessages();
         setLoading(true)
 
         const validEmail = checkRegex(formObj.email, setErrorEmailMessage) // checks if email is under valid format
@@ -146,25 +141,14 @@ function Login() {
                     {otpSent ? <OTPpage loginObj={formObj} request={mfaVerify} /> :
                         <form onSubmit={proceedLogin}>
                             <div className="mb-4 relative flex flex-col">
-                                <InputText placeholder={"Email/Phone Number"} name={"email"} defaultValue={formObj.email} updateType="email" containerStyle="mt-4" labelTitle="Email Id" updateFormValue={updateFormValue} />
-                                <ErrorText styleClass={`text-xs absolute gap-1 top-[105px] ${errorEmailMessage ? "flex" : "hidden"}`}>
-                                    <img src={xSign} alt="" className='h-3 translate-y-[2px]' />
-                                    {errorEmailMessage}</ErrorText>
-                                <InputText display={loginWithOtp} defaultValue={formObj.password} name={"password"} placeholder={"Password"} type="password" updateType="password" containerStyle="mt-4" labelTitle="Password" updateFormValue={updateFormValue} />
-                                <ErrorText styleClass={`text-xs absolute top-[221px] gap-1 top-[87px] ${errorPasswordMessage ? "flex" : "hidden"}`}>
-                                    <img src={xSign} alt="" className='h-3 translate-y-[2px]' />
-                                    {errorPasswordMessage}</ErrorText>
+                                <InputText placeholder={"Email/Phone Number"} errorMessage={errorEmailMessage} name={"email"} defaultValue={formObj.email} updateType="email" containerStyle="mt-4" labelTitle="Email Id" updateFormValue={updateFormValue} />
+                                <InputText display={loginWithOtp} errorMessage={errorPasswordMessage} defaultValue={formObj.password} name={"password"} placeholder={"Password"} type="password" updateType="password" containerStyle="mt-4" labelTitle="Password" updateFormValue={updateFormValue} />
                             </div>
-
                             <div className='text-right text-primary' style={{ display: loginWithOtp ? "none" : "block" }}>
                                 <Link to="/forgot-password">
                                     <span className="text-sm text-stone-500 hover:text-stone-700 dark:hover:text-stone-50 bg-base-200 inline-block hover:underline hover:cursor-pointer transition duration-200">Forgot Password?</span>
                                 </Link>
                             </div>
-
-                            <ErrorText styleClass={`${errorMessage ? "visible" : "invisible"} flex mt-6 text-sm gap-1 justify-center `}>
-                                <img src={xSign} alt="" className='h-3 translate-y-[4px]' />
-                                {errorMessage}</ErrorText>
                             <div>
                                 <Button text={loginWithOtp ? "Generate OTP" : "Login"} type="submit" classes={"btn mt-2 w-full btn-primary dark:bg-primary bg-stone-700 hover:bg-stone-700 border-none" + (loading ? " loading" : "")} />
                                 <Button functioning={LoginWithOTP} text={loginWithOtp ? "Sign In with Password" : "Sign In With OTP"} classes={"btn mt-2 w-full btn-stone hover:text-stone-50 hover:bg-stone-700 border-stone-700 bg-stone-50 text-stone-800"} />

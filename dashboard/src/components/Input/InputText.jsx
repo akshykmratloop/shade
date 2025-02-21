@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
+import xSign from '../../assets/x-close.png'
+import ErrorText from "../Typography/ErrorText";
 
 function InputText({
   labelTitle,
@@ -12,6 +14,7 @@ function InputText({
   updateType,
   display,
   name,
+  errorMessage
 }) {
   const [showPassword, setShowPassword] = useState(false);
   const [value, setValue] = useState(defaultValue || "");
@@ -24,7 +27,7 @@ function InputText({
   const togglePasswordVisibility = () => {
     setShowPassword((prev) => !prev);
   };
-  
+
   useEffect(() => {
     setValue(defaultValue)
   }, [defaultValue])
@@ -40,7 +43,7 @@ function InputText({
           {labelTitle}
         </span>
       </label>
-      <div className="relative">
+      <div className="relative ">
         <input
           type={showPassword && type === "password" ? "text" : type || "text"}
           name={name}
@@ -58,6 +61,9 @@ function InputText({
             {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
           </button>
         )}
+        <ErrorText styleClass={`text-xs absolute top-[50px] gap-1 ${errorMessage ? "flex" : "hidden"}`}>
+          <img src={xSign} alt="" className='h-3 translate-y-[2px]' />
+          {errorMessage}</ErrorText>
       </div>
     </div>
   );
