@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { OtpInputField } from "../../../app/OTP";
 import ErrorText from "../../../components/Typography/ErrorText";
 import xSign from "../../../assets/x-close.png";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { updateUser } from "../../common/userSlice";
 import { toast } from "react-toastify";
@@ -10,12 +10,14 @@ import { resendOTP } from "../../../app/fetch";
 
 const OTP_TIMEOUT_SECONDS = 60; // timeout for resending the otp
 
-const OTPpage = ({ loginObj, request, stateUpdater }) => {
+const OTPpage = ({ formObj, request, stateUpdater }) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [otp, setOtp] = useState({ otp: "" });
     const [errorMessage, setErrorMessage] = useState("");
     const [timer, setTimer] = useState(0);
+
+    console.log(formObj)
 
     useEffect(() => {
         // Load remaining time from localStorage
@@ -47,9 +49,9 @@ const OTPpage = ({ loginObj, request, stateUpdater }) => {
         setTimer(OTP_TIMEOUT_SECONDS);
         toast.info("A new OTP has been sent!");
         const response = await resendOTP({
-            email: loginObj.email,
-            otpOrigin: loginObj.otpOrigin,
-            deviceId: loginObj.deviceId,
+            email: formObj.email,
+            otpOrigin: formObj.otpOrigin,
+            deviceId: formObj.deviceId,
         });
     };
 
@@ -70,9 +72,9 @@ const OTPpage = ({ loginObj, request, stateUpdater }) => {
         }
 
         const payload = {
-            email: loginObj.email,
-            otpOrigin: loginObj.otpOrigin,
-            deviceId: loginObj.deviceId,
+            email: formObj.email,
+            otpOrigin: formObj.otpOrigin,
+            deviceId: formObj.deviceId,
             otp: otp.otp,
         };
 
@@ -81,7 +83,7 @@ const OTPpage = ({ loginObj, request, stateUpdater }) => {
             dispatch(updateUser(response.user));
             localStorage.setItem("user", JSON.stringify(response.user))
             localStorage.setItem("token", response.token);
-            localStorage.removeItem(loginObj.otpOrigin)
+            localStorage.removeItem(formObj.otpOrigin)
             document.cookie = `authToken=${response.token}; path=/; Secure`
             toast.success("Login Successful!");
             setTimeout(() => {
@@ -129,16 +131,24 @@ const OTPpage = ({ loginObj, request, stateUpdater }) => {
                     >
                         Resend OTP
                     </button>
-                    <span className="text-sm font-semibold text-gray-700">
+                    <span className="text-sm font-semibold text-base-50">
                         {timer > 0 && formatTimer(timer)}
                     </span>
                 </div>
-                <button
-                    onClick={SubmitOTP}
-                    className="btn border-none btn-block btn-primary dark:bg-primary bg-stone-700 hover:bg-stone-700"
-                >
-                    Submit
-                </button>
+                <div className="flex flex-col gap-4 align-center">
+                    <button
+                        onClick={SubmitOTP}
+                        className="btn border-none btn-block btn-primary dark:bg-primary bg-stone-700 hover:bg-stone-700"
+                    >
+                        Submit
+                    </button>
+                    {
+                        formObj.otpOrigin === "MFA_Login" &&
+                        <button onClick={() => {localStorage.removeItem("MFA_Login"); localStorage.removeItem("otpTimeStamp"); window.location.reload(true)}} className="btn mt-2 w-full btn-stone hover:text-stone-50 hover:bg-stone-700 border-stone-700 bg-stone-50 text-stone-800">
+                            Login With Password
+                        </button>
+                    }
+                </div>
             </div>
         </div>
     );

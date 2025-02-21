@@ -57,6 +57,7 @@ function ForgotPassword() {
 
     useEffect(() => {
         localStorage.removeItem("MFA_Login")
+        localStorage.removeItem("otpTimestamp")
         const stateOfOTP = localStorage.getItem(formObj.otpOrigin)
         setLinkSent(stateOfOTP)
     }, [])
@@ -79,7 +80,7 @@ function ForgotPassword() {
                     <h2 className='text-2xl font-semibold mb-2'>Forgot Password</h2>
 
                     {
-                        linkSent && <OTPpage loginObj={formObj} request={forgotPassReqVerify} stateUpdater={{ setOtpVerified, setLinkSent }} />
+                        linkSent && <OTPpage formObj={formObj} request={forgotPassReqVerify} stateUpdater={{ setOtpVerified, setLinkSent }} />
 
                     }
 

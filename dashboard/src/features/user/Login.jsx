@@ -127,6 +127,7 @@ function Login() {
 
     useEffect(() => {
         localStorage.removeItem("forgot_Pass")
+        localStorage.removeItem("otpTimestamp")
         const stateOfOTP = localStorage.getItem(formObj.otpOrigin)
         setOtpSent(stateOfOTP)
     }, [])
@@ -138,7 +139,7 @@ function Login() {
 
                 <div className='sm:pt-[20vh] sm:py-20 w-[24rem]'>
                     <h2 className='text-2xl font-semibold mb-2'>Sign in to Dashboard</h2>
-                    {otpSent ? <OTPpage loginObj={formObj} request={mfaVerify} /> :
+                    {otpSent ? <OTPpage formObj={formObj} request={mfaVerify} /> :
                         <form onSubmit={proceedLogin}>
                             <div className="mb-4 relative flex flex-col">
                                 <InputText placeholder={"Email/Phone Number"} errorMessage={errorEmailMessage} name={"email"} defaultValue={formObj.email} updateType="email" containerStyle="mt-4" labelTitle="Email Id" updateFormValue={updateFormValue} />
