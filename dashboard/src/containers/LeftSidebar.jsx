@@ -3,25 +3,32 @@ import { NavLink, Routes, Link, useLocation, useNavigate } from "react-router-do
 import SidebarSubmenu from "./SidebarSubmenu";
 import XMarkIcon from "@heroicons/react/24/outline/XMarkIcon";
 import { LiaChevronCircleLeftSolid } from "react-icons/lia";
+import { useState } from "react";
 // import { useDispatch } from "react-redux";
 
 function LeftSidebar() {
   const location = useLocation();
+  const [isOpen, setIsOpen] = useState(false);
+
+  const toggleSidebar = () => {
+    setIsOpen(!isOpen);
+  };
+
 
   // const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const close = (e) => {
-    document.getElementById("left-sidebar-drawer").click();
-  };
+  // const close = (e) => {
+  //   document.getElementById("left-sidebar-drawer").click();
+  // };
 
   return (
-    <div className="drawer-side ">
-      <label htmlFor="left-sidebar-drawer" className="drawer-overlay"></label>
-      <ul className="menu  w-60 bg-base-100 text-base-content">
+    <div className=''>
+      <label htmlFor="" className="drawer-overlay"></label>
+      <ul className="menu w-60 bg-base-100 text-base-content">
         <button
           className="btn border-none btn-sm btn-circle z-50 top-[4.5rem] right-[-1.5rem] mt-2 mr-2 absolute lg:hidden transition-all duration-300"
-          onClick={() => close()}
+          onClick={() => toggleSidebar()}
           id="sidebar-close-btn"
         >
           <LiaChevronCircleLeftSolid className="h-5 inline-block w-10" />
