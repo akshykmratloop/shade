@@ -65,8 +65,8 @@ function Header(){
         <div className='py-4 px-2 pr-4'>
             <div className="navbar rounded-lg flex justify-between bg-base-200  z-10 pl-[15px] pr-[15px] ">
                 
-
-            <div className="flex flex-col items-start">
+            <div className="sm:block lg:hidden"></div>
+            <div className=" flex-col items-start sm:hidden lg:flex">
                 <h2 className='font-bold '>Hello {user.name} {`(${user.roles[0]?.replace("_", " ")})`}</h2>
                 <p className='text-base-700'>{greetings}</p>
             </div>
@@ -84,13 +84,6 @@ function Header(){
                 </select> */}
 
 
-            {/* Light and dark theme selection toogle **/}
-            {/* <label className="swap h-[35px] w-[35px] mx-1   hover:bg-base-300 rounded-md border-green-200">
-                <input type="checkbox"/>
-                <SunIcon data-set-theme="light" data-act-class="ACTIVECLASS" className={"fill-current w-6 h-6 "+(currentTheme === "dark" ? "swap-on" : "swap-off")}/>
-                <MoonIcon data-set-theme="dark" data-act-class="ACTIVECLASS" className={"fill-current w-6 h-6 "+(currentTheme === "light" ? "swap-on" : "swap-off")} />
-            </label> */}
-
                 <SearchBar />
 
                 {/* Notification icon */}
@@ -101,6 +94,12 @@ function Header(){
                     </div>
                 </button>
 
+ {/* Light and dark theme selection toogle **/}
+ <label className="swap h-[35px] w-[35px] mx-1   hover:bg-base-300 rounded-md border-green-200">
+                <input type="checkbox"/>
+                <SunIcon data-set-theme="light" data-act-class="ACTIVECLASS" className={"fill-current w-6 h-6 "+(currentTheme === "dark" ? "swap-on" : "swap-off")}/>
+                <MoonIcon data-set-theme="dark" data-act-class="ACTIVECLASS" className={"fill-current w-6 h-6 "+(currentTheme === "light" ? "swap-on" : "swap-off")} />
+            </label>
 
                 {/* Profile icon, opening menu on click */}
                 <div className="dropdown h-[45px] dropdown-end mx-1 w-[110px]  hover:bg-base-300  rounded-md border-green-200  ">

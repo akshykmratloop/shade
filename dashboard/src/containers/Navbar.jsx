@@ -15,12 +15,12 @@ const Navbar = () => {
 
     return (
         <div className="p-4 py-1">
-            <nav className="bg-[#29469C] w-full rounded-lg">
-                <ul className="flex w-full text-white py-2">
+            <nav className="bg-[#29469C] w-full rounded-lg overflow-x-auto customscroller">
+                <ul className="flex md:flex-nowrap lg:flex-nowrap md:w-full text-white py-2 whitespace-nowrap">
                     {navs.map((nav, index) => (
                         <li 
                             key={index} 
-                            className="w-full text-center px-4 relative flex items-center justify-center"
+                            className="lg:w-full sm:w-auto text-center px-4 relative flex items-center justify-center"
                         >
                             <Link 
                                 to={nav.location} 

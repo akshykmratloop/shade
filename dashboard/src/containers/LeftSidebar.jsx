@@ -30,16 +30,16 @@ function LeftSidebar() {
   }, []);
 
   return (
-    <div className="flex-1 p-4">
+    <div className="flex-1 p-4 sm:flex-2">
       <ul
-        className={`menu relative ${isCollapsed ? "w-16" : "w-60"} transition-all duration-500 bg-base-200 text-base-content rounded-lg`}
+        className={`menu relative ${isCollapsed ? "w-16" : "w-60"} transition-all duration-500 bg-base-200 text-base-content h-full rounded-lg`}
       >
         <button
-          className={`absolute z-50 top-14 right-[-.9rem] btn border-none btn-sm btn-circle lg:hidden transition-transform duration-300 ${isCollapsed ? "rotate-180" : "rotate-0"
+          className={`absolute z-50 top-14 right-[-.9rem] btn border-none btn-sm btn-circle dark:bg-stone-200 transition-transform duration-300 ${isCollapsed ? "rotate-180" : "rotate-0"
             }`}
           onClick={toggleSidebar}
         >
-          <LiaChevronCircleLeftSolid className="h-5 w-10" />
+          <LiaChevronCircleLeftSolid className="h-5 w-10 dark:text-stone-700" />
         </button>
 
         <li

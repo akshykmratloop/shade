@@ -24,7 +24,7 @@ function PageContent(){
       }, [pageTitle])
 
     return(
-        <div className="flex flex-col flex-8 w-full">
+        <div className="flex flex-col flex-8 w-full sm:w-auto md:flex-3 overflow-x-hidden border border-1 border-pink-700">
             <Header/>
             <Navbar />
             <main className="flex-1 overflow-y-auto pt-8 px-6 bg-base-100" ref={mainContentRef}>
