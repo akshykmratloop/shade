@@ -6,9 +6,10 @@ const globalRateLimiter = rateLimit({
   max: 100, // limit each IP to 100 requests per windowMs
   message: {
     message: "Too many requests from this IP, please try again after an hour",
-    blockedFor: `01:00:00`
+    blockedFor: `01:00:00`,
   },
 });
+
 // Rate limiter for generating OTP 15 otp per 15 minutes
 const generateOtpRateLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
@@ -16,7 +17,7 @@ const generateOtpRateLimiter = rateLimit({
   message: {
     message:
       "Too many OTP requests from this IP, please try again after 15 minutes",
-      blockedFor: `00:15:00`
+    blockedFor: `00:15:00`,
   },
 });
 const BLOCK_TIME_24H = 24 * 60 * 60 * 1000; // 24 hours
@@ -79,6 +80,7 @@ const resendOtpRateLimiter = async (req, res, next) => {
     );
     return res.status(429).json({
       message: `Wait ${remainingTime} seconds before requesting again.`,
+      blockedFor: `00:00:${remainingTime}`,
     });
   }
   next();

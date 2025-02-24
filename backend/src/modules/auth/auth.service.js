@@ -1,5 +1,8 @@
 import { logger } from "../../config/index.js";
-import { assert, assertEvery } from "../../errors/assertError.js";
+import {
+  assert,
+  //  assertEvery
+} from "../../errors/assertError.js";
 import {
   findUserByEmail,
   updateUserPassword,
@@ -14,7 +17,7 @@ import {
   compareEncryptedData,
   sendEmail,
   generateToken,
-  verifyToken,
+  // verifyToken,
   generateRandomOTP,
 } from "../../helper/index.js";
 
@@ -32,9 +35,9 @@ const login = async (email, password) => {
   const { password: userPassword, ...userData } = user;
   logger.info({ ...userData, response: "logged in successfully" });
   return {
-    token,
+    token: token,
+    message: "Log in successful",
     user: {
-      message: "Logged in successfully",
       ...userData,
     },
   };
@@ -43,7 +46,7 @@ const login = async (email, password) => {
 const mfa_login = async (email, deviceId, otpOrigin) => {
   const user = await getUser(email);
   const otp = await generateOtpAndSendOnEmail(user, deviceId, otpOrigin);
-  return { message: `OTP has been sent on ${email} : otp is ${otp}`, otp: true };
+  return { message: `OTP has been Sent`, otp: otp };
 };
 
 const verify_mfa_login = async (email, deviceId, otp, otpOrigin) => {
@@ -54,9 +57,9 @@ const verify_mfa_login = async (email, deviceId, otp, otpOrigin) => {
   const { password: userPassword, ...userData } = user;
   logger.info({ ...userData, response: "logged in successfully" });
   return {
-    token,
+    token: token,
+    message: "Log in successful",
     user: {
-      message: "Logged in successfully",
       ...userData,
     },
   };
@@ -68,26 +71,23 @@ const logout = async (user) => {
   return { message: "Logged out successfully" };
 };
 
-const refreshToken = async (oldToken) => {
-  const decode = verifyToken(oldToken);
-  const newToken = generateToken(decode);
-  logger.info(`token has been refreshed for user : ${decode?.id}`);
-  return { newToken, message: "Token updated successfully" };
+const refreshToken = async (user) => {
+  const newToken = generateToken(user);
+  logger.info(`token has been refreshed for user : ${user?.id}`);
+  return { token: newToken, message: "Token updated successfully" };
 };
 
 const forgotPassword = async (email, deviceId, otpOrigin) => {
   const user = await getUser(email);
   const otp = await generateOtpAndSendOnEmail(user, deviceId, otpOrigin);
-  return { message: `OTP has been sent ${otp}`, ok: true };
+  return { message: `OTP has been Sent`, otp: otp };
 };
 
 const forgotPasswordVerify = async (email, deviceId, otp, otpOrigin) => {
   const user = await getUser(email);
   await verifyOTP(user?.id, deviceId, otp, otpOrigin);
-  const token = generateToken(user, "300s");
   return {
-    message: { msg: "OTP verified successfully", ok: true },
-    token: token,
+    message: `OTP verified successfully`,
   };
 };
 
@@ -115,13 +115,13 @@ const updatePassword = async (
   // if everything is OK, update password
   await updateUserPassword(user?.id, await EncryptData(new_password, 10));
   await deleteOTP(otp.id);
-  return { message: "Passwords has been updated successfully", ok: true };
+  return { message: "Passwords has been updated successfully" };
 };
 const resendOTP = async (email, deviceId, otpOrigin, userId) => {
   const user = await getUser(email);
   const otp = await generateOtpAndSendOnEmail(user, deviceId, otpOrigin);
-  await createOrUpdateOtpAttempts(userId)
-  return { message: `OTP has been sent on ${email} : otp is ${otp}` };
+  await createOrUpdateOtpAttempts(userId);
+  return { message: `OTP has been Sent`, otp: otp };
 };
 
 const resetPass = async (
@@ -155,7 +155,7 @@ const resetPass = async (
   // if everything is OK, update password
   await updateUserPassword(user?.id, await EncryptData(new_password, 10));
 
-  return { message: "Passwords has been updated successfully", ok:true };
+  return { message: "Passwords has been updated successfully" };
 };
 
 // SUPPORT FUNCTIONS
@@ -211,10 +211,10 @@ const generateOtpAndSendOnEmail = async (user, deviceId, otpOrigin) => {
     html: `<p>Please use the following OTP to reset your password: <strong>${otp}</strong></p><p>This OTP will expire in 5 minutes.</p>`,
   };
 
-  const isEmailSend = await sendEmail(emailPayload);
+  // const isEmailSend = await sendEmail(emailPayload);
 
   // if email not sent throw an error
-  assert(isEmailSend, "EXPECTATION_FAILED", "Unable to send otp");
+  // assert(isEmailSend, "EXPECTATION_FAILED", "Unable to send otp");
 
   // Store otp in database
   const expiresAt = new Date(Date.now() + 5 * 60 * 1000); // 5 minutes from now
