@@ -38,6 +38,9 @@ input[type="number"]::-webkit-inner-spin-button {
 /* input[type="number"] {
   -moz-appearance: textfield;
 } */
+#left-sidebar-drawer:not(:checked) ~ .drawer-side #sidebar-close-btn {
+  display: none;
+}
 
 
 

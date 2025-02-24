@@ -36,7 +36,7 @@ const PasswordValidation = ({ new_password }) => {
     }, [new_password]);
 
     return (
-        <ul className={`${new_password.length > 0 ? "block" : "hidden"} border border-1`}>
+        <ul className={`${new_password.length > 0 ? "block" : "hidden"}`}>
             {passwordValidationRules.map((rule, index) => (
                 <li
                     key={index}

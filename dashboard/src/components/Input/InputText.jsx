@@ -14,7 +14,8 @@ function InputText({
   updateType,
   display,
   name,
-  errorMessage
+  errorMessage,
+  errorMessagePosition
 }) {
   const [showPassword, setShowPassword] = useState(false);
   const [value, setValue] = useState(defaultValue || "");

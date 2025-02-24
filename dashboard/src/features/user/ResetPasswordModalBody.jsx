@@ -6,13 +6,12 @@ import { resetPassword } from "../../app/fetch";
 import { useSelector } from "react-redux";
 import PasswordValidation from "./components/PasswordValidation";
 import validator from "../../app/valid";
-import ErrorText from "../../components/Typography/ErrorText";
 import updateToasify from "../../app/toastify";
-import xSign from "../../assets/x-close.png"
 import { useNavigate } from "react-router-dom";
+import { validatePasswordMessage } from "./components/PasswordValidation";
 
 
-function ResetPasswordModalBody({closeModal}) {
+function ResetPasswordModalBody() {
   const navigate = useNavigate()
   const email = useSelector(state => {
     return state.user.user.email
@@ -22,11 +21,20 @@ function ResetPasswordModalBody({closeModal}) {
     new_password: "",
     repeat_password: "",
   })
-  const [errorMessage, setErrorMessage] = useState("")
+  const [errorOldPasswordMessage, setOldPasswordMessage] = useState("")
+  const [errorNewPasswordMessage, setNewPasswordMessage] = useState("")
+  const [errorRepeatPasswordMessage, setRepeatPasswordMessage] = useState("")
+  const errorMessagePosition = "top-[-22px] right-0"
+
+  function clearingMessages() { // clearing the error messages 
+    setOldPasswordMessage("")
+    setNewPasswordMessage("")
+    setRepeatPasswordMessage("")
+}
 
   const updateFormValue = ({ updateType, value }) => {
     // Handling the password Object
-    setErrorMessage("")
+    clearingMessages()
     setPasswordForm(prev => {
       return { ...prev, [updateType]: value } // key == [updateType], value == value
     })
@@ -35,14 +43,17 @@ function ResetPasswordModalBody({closeModal}) {
   const submitForm = async (e) => { // submission of the reset passwordings
     e.preventDefault();
     const loadingToastId = toast.loading("Reseting Password", { autoClose: 2000 })
-    const validation = validator(passwordForm, setErrorMessage) // checks if any field is empty
+    const validation = validator(passwordForm, {old_password: setOldPasswordMessage,new_password: setNewPasswordMessage, repeat_password:setRepeatPasswordMessage }) // checks if any field is empty
     if (!validation) { // if the any field is empty
       updateToasify(loadingToastId, "Request unsuccessful!", "failure", 2000) // updating the toaster
-      return setErrorMessage("All feilds are mandatory");
+      return;
     };
+    if(!validatePasswordMessage(passwordForm.new_password, setNewPasswordMessage)) return
+    if(!validatePasswordMessage(passwordForm.old_password, setOldPasswordMessage)) return
+
     if (passwordForm.new_password !== passwordForm.repeat_password) { // if password does not match
       updateToasify(loadingToastId, "Request unsuccessful!", "failure", 2000) // updating the toaster
-      return setErrorMessage("The passwords do not match. Please make sure both password fields are the same.");
+      return setRepeatPasswordMessage("The passwords do not match.");
     }
 
     const payload = { // payload for fetch body 
@@ -77,6 +88,8 @@ function ResetPasswordModalBody({closeModal}) {
             updateType="old_password"
             containerStyle="my-2"
             labelTitle={"Old password"}
+            errorMessage={errorOldPasswordMessage}
+            errorMessagePosition={errorMessagePosition}
             updateFormValue={updateFormValue} />
           <InputText placeholder="Enter new password"
             type={"password"}
@@ -85,6 +98,8 @@ function ResetPasswordModalBody({closeModal}) {
             labelTitle={"New password"}
             updateType="new_password"
             containerStyle="my-2"
+            errorMessage={errorNewPasswordMessage}
+            errorMessagePosition={errorMessagePosition}
             updateFormValue={updateFormValue} />
           <InputText placeholder="Confirm new password"
             type={"password"}
@@ -93,12 +108,14 @@ function ResetPasswordModalBody({closeModal}) {
             updateType="repeat_password"
             labelTitle={"Repeat new password"}
             containerStyle="my-2"
+            errorMessage={errorRepeatPasswordMessage}
+            errorMessagePosition={errorMessagePosition}
             updateFormValue={updateFormValue} />
           <PasswordValidation new_password={passwordForm.new_password} />
-
+{/* 
           <ErrorText error={errorMessage ? 1 : 0} styleClass={`${errorMessage ? "visible" : "invisible"} flex mt-6 text-sm gap-1 justify-center `}>
             <img src={xSign} alt="" className='h-3 translate-y-[4px]' />
-            {errorMessage}</ErrorText>
+            {errorMessage}</ErrorText> */}
           <Button functioning={submitForm} text="Reset" classes={"btn mt-4 w-full btn-stone hover:text-stone-50 hover:bg-stone-700 border-stone-700 bg-stone-50 text-stone-800"} />
         </form>
       </div>

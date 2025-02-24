@@ -56,7 +56,8 @@ const OTPpage = ({ formObj, request, stateUpdater, otpSent }) => {
         })
 
         updateToasify(loadingToastId, response.message, "info", 2000) // updating the toaster
-        setTimer(OTP_TIMEOUT_SECONDS);
+        console.log(response.minutes)
+        setTimer(response.minutes ? (response.minutes * 60) + response.seconds : OTP_TIMEOUT_SECONDS);
         localStorage.setItem(`otpTimestamp/${formObj.otpOrigin}`, Date.now());
     };
 
