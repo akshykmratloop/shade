@@ -7,16 +7,18 @@ const globalRateLimiter = rateLimit({
   max: 100, // limit each IP to 100 requests per windowMs
   message: {
     message: "Too many requests from this IP, please try again after an hour",
+    blockedFor: `01:00:00`,
   },
 });
 
-// Rate limiter for generating OTP 5 otp per 15 minutes
+// Rate limiter for generating OTP 15 otp per 15 minutes
 const generateOtpRateLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 5, // limit each IP to 5 requests per windowMs
+  max: 15, // limit each IP to 15 requests per windowMs
   message: {
     message:
       "Too many OTP requests from this IP, please try again after 15 minutes",
+    blockedFor: `00:15:00`,
   },
 });
 
@@ -36,62 +38,59 @@ const resendOtpRateLimiter = async (req, res, next) => {
   }
 
   const blockUntilDate = new Date(user.blockUntil);
-  const lastAttemptDate = new Date(user.lastAttempt);
 
   if (blockUntilDate > now) {
+    // check if user is blocked and return the time
     const remainingTime = blockUntilDate - now;
     const totalSeconds = Math.ceil(remainingTime / 1000);
     const hours = Math.floor(totalSeconds / 3600);
-    const minutes = Math.floor((totalSeconds % 3600) / 60);
+    const minutes = Math.ceil((totalSeconds % 3600) / 60);
     const seconds = totalSeconds % 60;
     let message = `Too many requests. Try again after `;
     if (hours > 0) message += `${hours} hour${hours > 1 ? "s" : ""}`;
-    if (minutes > 0)
+    if (minutes > 0 && !hours > 0)
       message += `${hours > 0 ? " and " : ""}${minutes} minute${
         minutes > 1 ? "s" : ""
       }`;
-    if (seconds > 0)
-      message += `${hours > 0 || minutes > 0 ? " and " : ""}${seconds} second${
-        seconds > 1 ? "s" : ""
-      }`;
-    return res.status(429).json({ message });
+    // if (seconds > 0)
+    //   message += `${hours > 0 || minutes > 0 ? " and " : ""}${seconds} second${
+    //     seconds > 1 ? "s" : ""
+    //   }`;
+    return res
+      .status(429)
+      .json({ message, blockedFor: `${hours}:${minutes}:${seconds}` });
   }
   if (user.attempts >= 15) {
+    // block user after 15 attempts for 24 hours
     await blockUser(userId, new Date(now.getTime() + BLOCK_TIME_24H));
-    const remainingTime = Math.ceil(
-      (blockUntilDate.getTime() - now.getTime()) / 1000
-    );
-    const minutes = Math.floor(remainingTime / 60);
-    const seconds = remainingTime % 60;
+    const hours = 24;
     return res.status(429).json({
-      message: `Too many requests. Try again after ${minutes} minutes ${seconds} seconds`,
+      message: `Too many requests. Try again after ${hours} hours.`,
+      blockedFor: `${hours}:00:00`,
     });
   }
 
   if (user.attempts >= 5) {
+    // block user after 5 attempts for 15 minutes
     await blockUser(userId, new Date(now.getTime() + BLOCK_TIME_15M));
-    const remainingTime = Math.ceil(
-      (blockUntilDate.getTime() - now.getTime()) / 1000
-    );
-    const minutes = Math.floor(remainingTime / 60);
-    const seconds = remainingTime % 60;
+    const minutes = 15;
     return res.status(429).json({
-      message: `Too many requests. Try again after ${minutes} minutes ${seconds} seconds`,
+      message: `Too many requests. Try again after ${minutes} minutes.`,
+      blockedFor: `00:${minutes}:00`,
     });
   }
 
   if (
-    user.attempts >= 0 &&
+    user.attempts >= 0 && // allow user to regenerate the otp after 1 minutes
     lastAttemptDate.getTime() + BLOCK_TIME_1M > now.getTime()
   ) {
     const remainingTime = Math.ceil(
       (lastAttemptDate.getTime() + BLOCK_TIME_1M - now.getTime()) / 1000
     );
-    return res
-      .status(429)
-      .json({
-        message: `Wait ${remainingTime} seconds before requesting again.`,
-      });
+    return res.status(429).json({
+      message: `Wait ${remainingTime} seconds before requesting again.`,
+      blockedFor: `00:00:${remainingTime}`,
+    });
   }
 
   next();
