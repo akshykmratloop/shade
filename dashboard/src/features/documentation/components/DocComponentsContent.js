@@ -6,6 +6,7 @@ import Subtitle from '../../../components/Typography/Subtitle'
 import ErrorText from '../../../components/Typography/ErrorText'
 import HelperText from '../../../components/Typography/HelperText'
 
+import { setPageTitle, showNotification } from '../../common/headerSlice'
 import TitleCard from '../../../components/Cards/TitleCard'
 
 function DocComponentsContent(){

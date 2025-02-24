@@ -11,10 +11,11 @@ import helmet from "helmet";
 export const createApp = () => {
   const app = express();
 
+
   // Middleware setup
   app.use(
     cors({
-      origin: ["http://localhost:3001"],
+      origin: JSON.parse(process.env.CORS_ORIGIN),
       methods: "GET,POST,PUT,DELETE",
       credentials: true,
     })
