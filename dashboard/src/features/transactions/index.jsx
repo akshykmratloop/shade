@@ -142,7 +142,7 @@ function Roles() {
                         </thead>
                         <tbody>
                             {Array.isArray(roles) && roles?.map((role, index) => (
-                                <tr key={index}>
+                                <tr key={index} >
                                     <td>{role.name}</td>
                                     <td>
                                         <p className={`${role.status === 'ACTIVE' ? "text-green-600" : "text-red-600"}`}>{role.status}</p>

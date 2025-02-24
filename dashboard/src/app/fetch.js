@@ -1,15 +1,25 @@
 import api from "../routes/backend"
 
-const makerequest = async (uri, method = 'GET', body = undefined, headers = {}, cookie = false, timeout = 10000) => { // Timeout set to 5000ms (5 seconds)
+const makerequest = async (uri, method = 'GET', body = undefined, headers = {}, cookie = false, timeout = 10000) => {
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), timeout); // Set the timeout for the request
+    const timeoutId = setTimeout(() => controller.abort(), timeout);
 
     method = method.toUpperCase();
+
+    // Retrieve token from localStorage
+    const token = localStorage.getItem("token");
+
+    // Set headers, including Authorization if token is available
+    const finalHeaders = {
+        ...headers,
+        ...(token ? { Authorization: `Bearer ${token}` } : {})
+    };
+
     const options = {
         method,
-        headers,
+        headers: finalHeaders,
         credentials: cookie ? "include" : "same-origin",
-        signal: controller.signal // Attach the abort signal
+        signal: controller.signal
     };
 
     if (body && method !== 'GET') {
@@ -30,15 +40,13 @@ const makerequest = async (uri, method = 'GET', body = undefined, headers = {}, 
             result = { error: "Request timed out" };
         } else {
             result = err;
-            result.ok = false
+            result.ok = false;
         }
     } finally {
-        clearTimeout(timeoutId); // Clear the timeout once the request finishes
+        clearTimeout(timeoutId);
         return result;
     }
 };
-
-
 
 const ContentType = {
     json: { "Content-Type": "application/json" }
@@ -101,5 +109,3 @@ export async function deactivateRole(data) {
 export async function updateRole(data) {
     return await makerequest(api.route("updateRole"), "PUT", JSON.stringify(data), ContentType.json, true);
 }
-
-export default makerequest;

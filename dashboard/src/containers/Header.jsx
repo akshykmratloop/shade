@@ -2,34 +2,23 @@ import { themeChange } from 'theme-change'
 import React, {  useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import BellIcon  from '@heroicons/react/24/outline/BellIcon'
-import Bars3Icon  from '@heroicons/react/24/outline/Bars3Icon'
 import MoonIcon from '@heroicons/react/24/outline/MoonIcon'
 import SunIcon from '@heroicons/react/24/outline/SunIcon'
 import { openRightDrawer } from '../features/common/rightDrawerSlice';
 import { RIGHT_DRAWER_TYPES } from '../utils/globalConstantUtil'
 import { LiaUserCircleSolid  } from "react-icons/lia";
-import { NavLink,  Routes, Link , useLocation} from 'react-router-dom'
+import { Link} from 'react-router-dom'
 import { openModal } from "../features/common/modalSlice"
-import { CONFIRMATION_MODAL_CLOSE_TYPES, MODAL_BODY_TYPES } from '../utils/globalConstantUtil'
+import { MODAL_BODY_TYPES } from '../utils/globalConstantUtil'
+import SearchBar from '../components/Input/SearchBar'
 
 
 function Header(){
-
     const dispatch = useDispatch()
-    const {noOfNotifications, pageTitle} = useSelector(state => state.header)
+    const user = useSelector(state => state.user.user)
+    const {noOfNotifications} = useSelector(state => state.header)
     const [currentTheme, setCurrentTheme] = useState(localStorage.getItem("theme"))
-
-    useEffect(() => {
-        themeChange(false)
-        if(currentTheme === null){
-            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ) {
-                setCurrentTheme("dark")
-            }else{
-                setCurrentTheme("light")
-            }
-        }
-        // 👆 false parameter is required for react project
-      }, [])
+    const [greetings, setGreetings] = useState("Good Morning");
 
 
     // Opening right sidebar for notification
@@ -48,22 +37,40 @@ function Header(){
         dispatch(openModal({title : "Reset Your Password", bodyType : MODAL_BODY_TYPES.LEAD_ADD_NEW}))
     }
 
+    useEffect(() => {
+        themeChange(false)
+        if(currentTheme === null){
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ) {
+                setCurrentTheme("dark")
+            }else{
+                setCurrentTheme("light")
+            }
+        }
+        // 👆 false parameter is required for react project
+      }, [])
+
+    useEffect(() => {
+        const hour = new Date().getHours();
+    
+        if (hour >= 12 && hour < 17) {
+            setGreetings("Good Afternoon");
+        } else if (hour >= 17) {
+            setGreetings("Good Evening");
+        } else {
+            setGreetings("Good Morning");
+        }
+    }, []);
 
     return(
-        <>
-            <div className="navbar flex justify-between bg-base-100  z-10 pl-[15px] pr-[15px] ">
-
-
-                {/* Menu toogle for mobile view or small screen */}
-                {/* <div className="">
-                    <label htmlFor="" className="btn btn-primary drawer-button lg:hidden">
-                    <Bars3Icon className="h-5 inline-block w-5"/></label>
-                    <h1 className="text-2xl font-semibold ml-2">{pageTitle}</h1>
-                </div> */}
-
+        <div className='py-4 px-2 pr-4'>
+            <div className="navbar rounded-lg flex justify-between bg-base-200  z-10 pl-[15px] pr-[15px] ">
                 
 
-            <div className="order-last gap-[5px]">
+            <div className="flex flex-col items-start">
+                <h2 className='font-bold '>Hello {user.name} {`(${user.roles[0]?.replace("_", " ")})`}</h2>
+                <p className='text-base-700'>{greetings}</p>
+            </div>
+            <div className="order-last gap-[12px]">
 
                 {/* Multiple theme selection, uncomment this if you want to enable multiple themes selection, 
                 also includes corporate and retro themes in tailwind.config file */}
@@ -78,24 +85,25 @@ function Header(){
 
 
             {/* Light and dark theme selection toogle **/}
-            <label className="swap h-[35px] w-[35px] mx-1   hover:bg-base-300 rounded-md border-green-200">
+            {/* <label className="swap h-[35px] w-[35px] mx-1   hover:bg-base-300 rounded-md border-green-200">
                 <input type="checkbox"/>
                 <SunIcon data-set-theme="light" data-act-class="ACTIVECLASS" className={"fill-current w-6 h-6 "+(currentTheme === "dark" ? "swap-on" : "swap-off")}/>
                 <MoonIcon data-set-theme="dark" data-act-class="ACTIVECLASS" className={"fill-current w-6 h-6 "+(currentTheme === "light" ? "swap-on" : "swap-off")} />
-            </label>
+            </label> */}
 
+                <SearchBar />
 
                 {/* Notification icon */}
-                <button className="h-[35px] w-[35px] mx-1 flex items-center justify-center  hover:bg-base-300 rounded-md border-green-200" onClick={() => openNotification()}>
+                <button className="h-[45px] w-[45px] mx-1 flex items-center justify-center bg-base-300 rounded-md border-green-200" onClick={() => openNotification()}>
                     <div className="indicator">
                         <BellIcon className="h-6 w-6"/>
-                        {noOfNotifications > 0 ? <span className="indicator-item badge badge-secondary badge-sm">{noOfNotifications}</span> : null }
+                        {/* {noOfNotifications > 0 ? <span className="indicator-item badge badge-secondary badge-sm">{noOfNotifications}</span> : null } */}
                     </div>
                 </button>
 
 
                 {/* Profile icon, opening menu on click */}
-                <div className="dropdown h-[35px] dropdown-end mx-1 w-[110px]  hover:bg-base-300  rounded-md border-green-200  ">
+                <div className="dropdown h-[45px] dropdown-end mx-1 w-[110px]  hover:bg-base-300  rounded-md border-green-200  ">
                     <label tabIndex={0} className="">
                     <div className="flex h-[100%] items-center justify-center flex-row cursor-pointer">
                         <i className='text-[24px] '><LiaUserCircleSolid  /></i>
@@ -118,7 +126,7 @@ function Header(){
             
             </div>
 
-        </>
+        </div>
     )
 }
 

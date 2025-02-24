@@ -31,7 +31,7 @@ function Layout() {
   return (
     <>
       { /* Left drawer - containing page content and side bar (always open) */}
-      <div className="flex border border-1 border-pink-700 h-[100vh]">
+      <div className="flex h-[100vh]">
         <LeftSidebar />
         <PageContent />
       </div>
