@@ -24,11 +24,13 @@ const makerequest = async (uri, method = 'GET', body = undefined, headers = {}, 
             throw err;
         }
         result = await response.json();
+        result.ok = true;
     } catch (err) {
         if (err.name === 'AbortError') {
             result = { error: "Request timed out" };
         } else {
             result = err;
+            result.ok = false
         }
     } finally {
         clearTimeout(timeoutId); // Clear the timeout once the request finishes

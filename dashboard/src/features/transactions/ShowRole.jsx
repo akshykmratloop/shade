@@ -1,6 +1,7 @@
 // RoleDetailsModal.js
 import { Dialog } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
+import { format } from "date-fns";
 
 function RoleDetailsModal({ role, show, onClose }) {
     if (!role) return null;
@@ -20,10 +21,6 @@ function RoleDetailsModal({ role, show, onClose }) {
                         <table className="table-auto w-full text-left">
                             <tbody>
                                 <tr>
-                                    <th className="px-4 py-2">ID</th>
-                                    <td className="px-4 py-2">{role.id}</td>
-                                </tr>
-                                <tr>
                                     <th className="px-4 py-2">Name</th>
                                     <td className="px-4 py-2">{role.name}</td>
                                 </tr>
@@ -37,11 +34,11 @@ function RoleDetailsModal({ role, show, onClose }) {
                                 </tr>
                                 <tr>
                                     <th className="px-4 py-2">Created At</th>
-                                    <td className="px-4 py-2">{role.created_at}</td>
+                                    <td className="px-4 py-2">{format(new Date(role.created_at), 'dd/MM/yyyy')}</td>
                                 </tr>
                                 <tr>
                                     <th className="px-4 py-2">Updated At</th>
-                                    <td className="px-4 py-2">{role.updated_at}</td>
+                                    <td className="px-4 py-2">{format(new Date(role.created_at), 'dd/MM/yyyy')}</td>
                                 </tr>
                             </tbody>
                         </table>

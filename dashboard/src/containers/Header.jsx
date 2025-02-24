@@ -51,7 +51,7 @@ function Header(){
 
     return(
         <>
-            <div className="navbar  flex justify-between bg-base-100  z-10 shadow-md pl-[15px] pr-[15px] ">
+            <div className="navbar flex justify-between bg-base-100  z-10 pl-[15px] pr-[15px] ">
 
 
                 {/* Menu toogle for mobile view or small screen */}
