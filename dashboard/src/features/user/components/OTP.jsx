@@ -85,7 +85,7 @@ const OTPpage = ({ formObj, request, stateUpdater, otpSent }) => {
         };
 
         const response = await request(payload);
-        if (response.user && response.token) {
+        if (formObj.otpOrigin === "MFA_Login" || payload.otpOrigin === "MFA_Login") {
             dispatch(updateUser(response.user));
             localStorage.setItem("user", JSON.stringify(response.user))
             localStorage.setItem("token", response.token);
@@ -96,7 +96,7 @@ const OTPpage = ({ formObj, request, stateUpdater, otpSent }) => {
                 navigate("/app/welcome");
             }, 1000);
             return
-        } else if (response.ok) {
+        } else if (formObj.otpOrigin === "forgot_Pass" || payload.otpOrigin === "forgot_Pass") {
             toast.success("Verification complete!");
             setTimeout(() => {
                 stateUpdater.setOtpVerified(true);

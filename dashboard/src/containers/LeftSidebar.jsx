@@ -1,74 +1,80 @@
 import routes from "../routes/sidebar";
-import { NavLink, Routes, Link, useLocation, useNavigate } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import SidebarSubmenu from "./SidebarSubmenu";
-import XMarkIcon from "@heroicons/react/24/outline/XMarkIcon";
 import { LiaChevronCircleLeftSolid } from "react-icons/lia";
-import { useState } from "react";
-// import { useDispatch } from "react-redux";
+import { useState, useEffect } from "react";
 
 function LeftSidebar() {
   const location = useLocation();
-  const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
+  const [isCollapsed, setIsCollapsed] = useState(window.innerWidth < 900);
+  const [showText, setShowText] = useState(!isCollapsed);
 
+  // Toggle sidebar state
   const toggleSidebar = () => {
-    setIsOpen(!isOpen);
+    setIsCollapsed((prev) => !prev);
+    setTimeout(() => {
+      setShowText((prev) => !prev);
+    }, 300);
   };
 
+  useEffect(() => {
+    const handleResize = () => {
+      const shouldCollapse = window.innerWidth < 900;
+      setIsCollapsed(shouldCollapse);
+      setShowText(!shouldCollapse);
+    };
 
-  // const dispatch = useDispatch();
-  const navigate = useNavigate();
-
-  // const close = (e) => {
-  //   document.getElementById("left-sidebar-drawer").click();
-  // };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   return (
-    <div className=''>
-      <label htmlFor="" className="drawer-overlay"></label>
-      <ul className="menu w-60 bg-base-100 text-base-content">
+    <div className="flex-1 p-4">
+      <ul
+        className={`menu relative ${isCollapsed ? "w-16" : "w-60"} transition-all duration-500 bg-base-200 text-base-content rounded-lg`}
+      >
         <button
-          className="btn border-none btn-sm btn-circle z-50 top-[4.5rem] right-[-1.5rem] mt-2 mr-2 absolute lg:hidden transition-all duration-300"
-          onClick={() => toggleSidebar()}
-          id="sidebar-close-btn"
+          className={`absolute z-50 top-14 right-[-.9rem] btn border-none btn-sm btn-circle lg:hidden transition-transform duration-300 ${isCollapsed ? "rotate-180" : "rotate-0"
+            }`}
+          onClick={toggleSidebar}
         >
-          <LiaChevronCircleLeftSolid className="h-5 inline-block w-10" />
+          <LiaChevronCircleLeftSolid className="h-5 w-10" />
         </button>
 
-
-        <li className=" cursor-pointer shadow-md font-semibold text-xl flex flex-row items-center h-[64px] justify-start" onClick={() => navigate('/app/welcome')}>
+        <li
+          className="pt-2 cursor-pointer font-semibold text-xl flex items-center h-[64px]"
+          onClick={() => navigate("/app/welcome")}
+        >
           <img
-            className="w-[50px] h-[50px] p-0 mx-[15px] hover:bg-transparent border-0"
+            className="w-[50px] h-[50px]  p-0 border-0"
             src="/logo192.png"
             alt="SHADE-CMS Logo"
           />
-          SHADE-CMS
+          {showText && <span className={`${showText ? "truncate" : ""} translate-x-[-1rem]`}>SHADE-CMS</span>}
         </li>
-        {routes.map((route, k) => {
-          return (
-            <li className="mt-2" key={k}>
-              {route.submenu ? (
-                <SidebarSubmenu {...route} />
-              ) : (
-                <NavLink
-                  end
-                  to={route.path}
-                  className={({ isActive }) =>
-                    `${isActive ? "font-semibold  bg-base-200 " : "font-normal"
-                    }`
-                  }
-                >
-                  {route.icon} {route.name}
-                  {location.pathname === route.path ? (
-                    <span
-                      className="absolute inset-y-0 left-0 w-1 rounded-tr-md rounded-br-md bg-primary "
-                      aria-hidden="true"
-                    ></span>
-                  ) : null}
-                </NavLink>
-              )}
-            </li>
-          );
-        })}
+
+        {routes.map((route, k) => (
+          <li className="mt-2 w-full" key={k}>
+            
+              <NavLink
+                end
+                to={route.path}
+                className={({ isActive }) =>
+                  `${isActive ? "font-semibold bg-base-200" : "font-normal"} pl-5 w-full flex items-center gap-2`
+                }
+              >
+                {route.icon} {showText && route.name}
+                {location.pathname === route.path && (
+                  <span
+                    className="absolute inset-y-0 left-0 w-1 bg-primary"
+                    aria-hidden="true"
+                  ></span>
+                )}
+              </NavLink>
+            
+          </li>
+        ))}
       </ul>
     </div>
   );

@@ -55,11 +55,11 @@ function Header(){
 
 
                 {/* Menu toogle for mobile view or small screen */}
-                <div className="">
+                {/* <div className="">
                     <label htmlFor="" className="btn btn-primary drawer-button lg:hidden">
                     <Bars3Icon className="h-5 inline-block w-5"/></label>
-                    {/* <h1 className="text-2xl font-semibold ml-2">{pageTitle}</h1> */}
-                </div>
+                    <h1 className="text-2xl font-semibold ml-2">{pageTitle}</h1>
+                </div> */}
 
                 
 
