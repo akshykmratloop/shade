@@ -28,6 +28,7 @@ function Resources() {
     const divRef = useRef(null)
     const [isCollapsed, setIsCollapsed] = useState(false)
     const [isSmall, setIsSmall] = useState(false)
+    const [isNarrow, setIsNarrow] = useState(false)
 
     useEffect(() => {
         dispatch(getLeadsContent())
@@ -38,6 +39,7 @@ function Resources() {
             for (let entry of entries) {
                 setIsCollapsed(entry.contentRect.width < 1100);
                 setIsSmall(entry.contentRect.width < 1200);
+                setIsNarrow(entry.contentRect.width < 600);
             }
         });
 
@@ -62,7 +64,7 @@ function Resources() {
     return (
         <div className="customscroller" ref={divRef}>
             <Navbar />
-            <div className="grid grid-cols-2 mt-4 lg:grid-cols-3 gap-12 w-full px-8">
+            <div className={`grid ${isNarrow?"grid-cols-1":"grid-cols-2"} mt-4 lg:grid-cols-3 gap-12 w-full px-8`}>
                 {pages.map((page, index) => (
                     <div key={index} className="w-full">
                         <h3 className="font-bold mb-3">{page.heading}</h3>
@@ -83,7 +85,7 @@ function Resources() {
                                 {/* Iframe */}
                                 <iframe
                                     src="https://shade-six.vercel.app/"
-                                    className="absolute top-0 left-0 w-[1200px] h-[150vh] border-none scale-[0.4] origin-top-left"
+                                    className="absolute top-0 left-0 w-[1200px] h-[100rem] border-none scale-[0.4] origin-top-left"
                                 ></iframe>
 
                                 {/* Dark Gradient Overlay */}
@@ -119,55 +121,3 @@ function Resources() {
 }
 
 export default Resources
-
-
-
-
-
-
-// <TitleCard title="Current Leads" topMargin="mt-2" TopSideButtons={<TopSideButtons />}>
-
-// {/* Leads List in table format loaded from slice after api call */}
-// <div className="overflow-x-auto w-full">
-// <table className="table w-full">
-//     <thead>
-//     <tr>
-//         <th>Name</th>
-//         <th>Email Id</th>
-//         <th>Created At</th>
-//         <th>Status</th>
-//         <th>Assigned To</th>
-//         <th></th>
-//     </tr>
-//     </thead>
-//     <tbody>
-//         {
-//             leads.map((l, k) => {
-//                 return(
-//                     <tr key={k}>
-//                     <td>
-//                         <div className="flex items-center space-x-3">
-//                             <div className="avatar">
-//                                 <div className="mask mask-squircle w-12 h-12">
-//                                     <img src={l.avatar} alt="Avatar" />
-//                                 </div>
-//                             </div>
-//                             <div>
-//                                 <div className="font-bold">{l.first_name}</div>
-//                                 <div className="text-sm opacity-50">{l.last_name}</div>
-//                             </div>
-//                         </div>
-//                     </td>
-//                     <td>{l.email}</td>
-//                     <td>{moment(new Date()).add(-5*(k+2), 'days').format("DD MMM YY")}</td>
-//                     <td>{getDummyStatus(k)}</td>
-//                     <td>{l.last_name}</td>
-//                     <td><button className="btn btn-square btn-ghost" onClick={() => deleteCurrentLead(k)}><TrashIcon className="w-5"/></button></td>
-//                     </tr>
-//                 )
-//             })
-//         }
-//     </tbody>
-// </table>
-// </div>
-// </TitleCard>
