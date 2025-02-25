@@ -10,19 +10,6 @@ import { FiEdit } from "react-icons/fi";
 import { FiInfo } from "react-icons/fi";
 import { IoSettingsOutline } from "react-icons/io5";
 
-const TopSideButtons = () => {
-    const dispatch = useDispatch()
-    const openAddNewLeadModal = () => {
-        dispatch(openModal({ title: "Add New Lead", bodyType: MODAL_BODY_TYPES.LEAD_ADD_NEW }))
-    }
-
-    return (
-        <div className="inline-block float-right">
-            <button className="btn px-6 btn-sm normal-case btn-primary" onClick={() => openAddNewLeadModal()}>Add New</button>
-        </div>
-    )
-}
-
 function Resources() {
     const dispatch = useDispatch()
     const divRef = useRef(null)
@@ -91,9 +78,6 @@ function Resources() {
                                 {/* Dark Gradient Overlay */}
                                 <div className="absolute bottom-0 left-0 w-full h-1/3 bg-gradient-to-t from-black/100 via-black/40 to-transparent"></div>
                             </div>
-
-
-
 
                             {/* Bottom Text Options */}
                             <div className={`absolute bottom-2 left-0 w-full text-center text-white justify-center items-center flex  ${isCollapsed ? "gap-2" : "gap-6"} py-1`}>
