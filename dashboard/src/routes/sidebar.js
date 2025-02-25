@@ -30,9 +30,9 @@ const routes = [
     name: 'Dashboard',
   },
   {
-    path: '/app/leads', // url
+    path: '/app/resources', // url
     icon: <InboxArrowDownIcon className={iconClasses}/>, // icon component
-    name: 'Leads', // name that appear in Sidebar
+    name: 'Resources', // name that appear in Sidebar
   },
   {
     path: '/app/roles', // url

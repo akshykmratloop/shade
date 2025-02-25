@@ -41,7 +41,7 @@ const TopSideButtons = ({ removeFilter, applyFilter, applySearch, openAddForm })
 
     return (
         <div className="inline-block float-right">
-            <SearchBar searchText={searchText} styleClass="mr-4" setSearchText={setSearchText} />
+            <SearchBar searchText={searchText} styleClass="mr-4 border border-1 border-stone-300" setSearchText={setSearchText} />
             {filterParam && (
                 <button
                     onClick={() => removeAppliedFilter()}
@@ -51,7 +51,7 @@ const TopSideButtons = ({ removeFilter, applyFilter, applySearch, openAddForm })
                     <XMarkIcon className="w-4 ml-2" />
                 </button>
             )}
-            <div className="dropdown dropdown-bottom dropdown-end">
+            {/* <div className="dropdown dropdown-bottom dropdown-end">
                 <label tabIndex={0} className="btn btn-sm btn-outline">
                     <FunnelIcon className="w-5 mr-2" />
                     Filter
@@ -65,7 +65,7 @@ const TopSideButtons = ({ removeFilter, applyFilter, applySearch, openAddForm })
                     <div className="divider mt-0 mb-0"></div>
                     <li><a onClick={() => removeAppliedFilter()}>Remove Filter</a></li>
                 </ul>
-            </div>
+            </div> */}
             <button className="btn btn-sm btn-success ml-4" onClick={openAddForm}>
                 <PlusIcon className="w-4 mr-2" />
                 Add Role

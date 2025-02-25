@@ -14,8 +14,8 @@ const Navbar = () => {
     ];
 
     return (
-        <div className="p-4 py-1">
-            <nav className="bg-[#29469C] w-full rounded-lg overflow-x-auto customscroller">
+        <div className="">
+            <nav className="bg-[#29469C] w-full rounded-lg sm:overflow-x-hidden lg:overflow-x-visible customscroller">
                 <ul className="flex md:flex-nowrap lg:flex-nowrap md:w-full text-white py-2 whitespace-nowrap">
                     {navs.map((nav, index) => (
                         <li 

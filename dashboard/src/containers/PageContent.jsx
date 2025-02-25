@@ -5,7 +5,6 @@ import { Suspense, lazy } from 'react'
 import SuspenseContent from "./SuspenseContent"
 import { useSelector } from 'react-redux'
 import { useEffect, useRef } from "react"
-import Navbar from "./Navbar"
 
 const Page404 = lazy(() => import('../pages/protected/404'))
 
@@ -24,10 +23,9 @@ function PageContent(){
       }, [pageTitle])
 
     return(
-        <div className="flex flex-col flex-8 w-full sm:w-auto md:flex-3 overflow-x-hidden border border-1 border-pink-700">
+        <div className="flex flex-col flex-8 w-full overflow-x-hidden">
             <Header/>
-            <Navbar />
-            <main className="flex-1 overflow-y-auto pt-8 px-6 bg-base-100" ref={mainContentRef}>
+            <main className="flex-1 overflow-y-auto pt-2 px-3 bg-base-100" ref={mainContentRef}>
                 <Suspense fallback={<SuspenseContent />}>
                         <Routes>
                             {

@@ -24,7 +24,7 @@ const BackroundImage = () => {
     }, [bgImg.length])
 
     return (
-        <div className='w-full max-w-5xl l-bg lg:flex-5' ref={bgRef} style={{ backgroundImage: `linear-gradient(#333333d1,rgba(0, 0, 0, 0.2)),url(${bgImg[imgRepeator]})` }}> {/* the bg is set in app.css */}
+        <div className='w-full xl:max-w-6xl l-bg lg:flex-5' ref={bgRef} style={{ backgroundImage: `linear-gradient(#333333d1,rgba(0, 0, 0, 0.2)),url(${bgImg[imgRepeator]})` }}> {/* the bg is set in app.css */}
             <LandingIntro /> {/* for Logo and Headings*/}
             <div className='carouselStatus'>
                 {

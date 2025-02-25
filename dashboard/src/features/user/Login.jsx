@@ -116,6 +116,14 @@ function Login() {
     }
 
     useEffect(() => {
+        const token = localStorage.getItem("token")
+        const user = localStorage.getItem("user")
+        if(token && user){
+            navigate('/app/welcome')
+        }
+    }, [])
+
+    useEffect(() => {
         async function FP() {
             const deviceId = await getFingerPrint()
             setFormObj(prev => {
@@ -135,7 +143,7 @@ function Login() {
         <div className="min-h-screen h-screen bg-base-200 flex sm:h-[100vh]">
             <BackroundImage />
 
-            <div className="flex justify-center  w-full sm:w-3/5 md:w-3/5 lg:w-2/5 xl:w-1/3 px-6 sm:px-20 md:px-20 bg-base-200">
+            <div className="flex justify-center w-full sm:w-3/5 md:w-3/5 lg:w-3/5 xl:w-2/5 sm:px-20 md:px-20 lg:px-24 bg-base-200">
 
                 <div className='sm:pt-[20vh] sm:py-20 w-[24rem]'>
                     <h2 className='text-2xl font-semibold mb-2'>Sign in to Dashboard</h2>

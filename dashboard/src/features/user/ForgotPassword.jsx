@@ -12,9 +12,10 @@ import updateToasify from '../../app/toastify';
 import { toast, ToastContainer } from 'react-toastify';
 import UpdatePassword from './components/UpdatePassword';
 import getFingerPrint from '../../app/deviceId';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 function ForgotPassword() {
+    const navigate = useNavigate()
     const [loading, setLoading] = useState(false)
     const [errorMessage, setErrorMessage] = useState("")
     const [otpSent, setOtpSent] = useState(false)
@@ -55,6 +56,14 @@ function ForgotPassword() {
     }
 
     useEffect(() => {
+        const token = localStorage.getItem("token")
+        const user = localStorage.getItem("user")
+        if(token && user){
+            navigate('/app/welcome')
+        }
+    }, [])
+
+    useEffect(() => {
         localStorage.removeItem("MFA_Login")
         localStorage.removeItem("otpTimestamp/MFA_Login")
         const stateOfOTP = localStorage.getItem(formObj.otpOrigin)
@@ -73,7 +82,7 @@ function ForgotPassword() {
     return (
         <div className="min-h-screen h-[100vh] bg-base-200 flex">
             <BackroundImage />
-            <div className='flex justify-center w-full lg:flex-1 md:flex-2 px-20 sm:flex-2 bg-base-200'>
+            <div className='flex justify-center w-full sm:w-3/5 md:w-3/5 lg:w-3/5 xl:w-2/5 sm:px-20 md:px-20 lg:px-24 bg-base-200'>
                 <div className='sm:py-[20vh] sm:py-20 w-[24rem]'>
 
                     <h2 className='text-2xl font-semibold mb-2'>Forgot Password</h2>
@@ -86,7 +95,7 @@ function ForgotPassword() {
                     {
                         (!otpSent && !otpVerified) &&
                         <div className='w-[24rem]'>
-                            <p className='my-8 text-stone-500'>Enter the email address you used when you joined and we’ll send you instructions to reset your password.</p>
+                            <p className='my-8 text-stone-500'>Enter your email, and we'll send you an OTP to verify your identity. After verification, you can reset your password.</p>
                             <form onSubmit={(e) => submitForm(e)}>
                                 <div className="mb-4 relative">
                                     <InputText
