@@ -14,6 +14,7 @@ const Navbar = ({currentNav, setCurrentResource}) => {
 
     function settingResources (resource) {
         setCurrentResource(resource)
+        localStorage.setItem("resource", resource)
     }
 
     return (

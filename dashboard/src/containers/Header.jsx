@@ -95,7 +95,7 @@ function Header() {
                     </button>
 
                     {/* Light and dark theme selection toogle **/}
-                    <label className="swap h-[45px] w-[45px] mx-1  bg-base-300 rounded-md border-green-200">
+                    <label className="swap h-[45px] w-[45px] mx-1 bg-base-300 rounded-md border-green-200">
                         <input type="checkbox" />
                         <SunIcon data-set-theme="light" data-act-class="ACTIVECLASS" className={"fill-current w-6 h-6 " + (currentTheme === "dark" ? "swap-on" : "swap-off")} />
                         <MoonIcon data-set-theme="dark" data-act-class="ACTIVECLASS" className={"fill-current w-6 h-6 " + (currentTheme === "light" ? "swap-on" : "swap-off")} />

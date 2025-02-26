@@ -15,10 +15,14 @@ function Resources() {
     const [isCollapsed, setIsCollapsed] = useState(false)
     const [isSmall, setIsSmall] = useState(false)
     const [isNarrow, setIsNarrow] = useState(false)
-    const [currentResource, setCurrentResource] = useState("projects")
+    const [currentResource, setCurrentResource] = useState("pages")
 
     useEffect(() => {
         dispatch(getLeadsContent())
+
+        const currentResource = localStorage.getItem("resource")
+        if(currentResource) setCurrentResource(currentResource)
+
     }, [])
 
     useEffect(() => {
@@ -39,12 +43,12 @@ function Resources() {
         <div className="customscroller" ref={divRef}>
             <Navbar currentNav={currentResource} setCurrentResource={setCurrentResource}  />
             <div className={`grid ${isNarrow ? "grid-cols-1" : "grid-cols-2"} mt-4 lg:grid-cols-3 gap-12 w-full px-8`}>
-                {resources?.[currentResource].length === 0 ? <p className="w-full ">Sorry, No Resource available for {currentResource}</p>
+                {resources?.[currentResource].length === 0 ? <p className="">Sorry, No Resource available for {currentResource}</p>
                 :
                 resources?.[currentResource].map((page, index) => (
                     <div key={index} className="w-full ">
                         <h3 className="mb-1 font-poppins font-semibold">{page.heading}</h3>
-                        <div className="relative rounded-lg overflow-hidden border border-[1px] border-stone-900 shadow-xl-custom">
+                        <div className="relative rounded-lg overflow-hidden border border-[1px] border-base-300 shadow-xl-custom">
                             {/* Info Icon */}
                             <div className="absolute top-2 right-2 z-50 text-[1.5rem] p-2 rounded-full text-[blue]">
                                 <FiInfo />
