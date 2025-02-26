@@ -1,14 +1,13 @@
 import { useEffect, useRef, useState } from "react"
 import { useDispatch } from "react-redux"
-import { openModal } from "../common/modalSlice"
 import { getLeadsContent } from "./leadSlice"
-import { MODAL_BODY_TYPES } from '../../utils/globalConstantUtil'
 import Navbar from "../../containers/Navbar"
-import bgImg from "../../assets/homepage.png"
+// import bgImg from "../../assets/homepage.png"
 import { FaRegEye } from "react-icons/fa";
 import { FiEdit } from "react-icons/fi";
 import { FiInfo } from "react-icons/fi";
 import { IoSettingsOutline } from "react-icons/io5";
+import resources from "./Resources";
 
 function Resources() {
     const dispatch = useDispatch()
@@ -16,6 +15,7 @@ function Resources() {
     const [isCollapsed, setIsCollapsed] = useState(false)
     const [isSmall, setIsSmall] = useState(false)
     const [isNarrow, setIsNarrow] = useState(false)
+    const [currentResource, setCurrentResource] = useState("projects")
 
     useEffect(() => {
         dispatch(getLeadsContent())
@@ -35,60 +35,51 @@ function Resources() {
         return () => observer.disconnect();
     }, []);
 
-    const pages = [
-        { heading: "Home page", bgImg: bgImg, },
-        { heading: "About page", bgImg: bgImg, },
-        { heading: "Service page", bgImg: bgImg, },
-        { heading: "Home page", bgImg: bgImg, },
-        { heading: "About page", bgImg: bgImg, },
-        { heading: "Service page", bgImg: bgImg, },
-        { heading: "Home page", bgImg: bgImg, },
-        { heading: "About page", bgImg: bgImg, },
-        { heading: "Service page", bgImg: bgImg, },
-        { heading: "Service page", bgImg: bgImg, },
-    ]
-
     return (
         <div className="customscroller" ref={divRef}>
-            <Navbar />
-            <div className={`grid ${isNarrow?"grid-cols-1":"grid-cols-2"} mt-4 lg:grid-cols-3 gap-12 w-full px-8`}>
-                {pages.map((page, index) => (
-                    <div key={index} className="w-full">
-                        <h3 className="font-bold mb-3">{page.heading}</h3>
-                        <div className="relative rounded-lg overflow-hidden border border-[2px] border-primary">
+            <Navbar currentNav={currentResource} setCurrentResource={setCurrentResource}  />
+            <div className={`grid ${isNarrow ? "grid-cols-1" : "grid-cols-2"} mt-4 lg:grid-cols-3 gap-12 w-full px-8`}>
+                {resources?.[currentResource].length === 0 ? <p className="w-full ">Sorry, No Resource available for {currentResource}</p>
+                :
+                resources?.[currentResource].map((page, index) => (
+                    <div key={index} className="w-full ">
+                        <h3 className="mb-1 font-poppins font-semibold">{page.heading}</h3>
+                        <div className="relative rounded-lg overflow-hidden border border-[1px] border-stone-900 shadow-xl-custom">
                             {/* Info Icon */}
-                            <div className="absolute top-2 right-2 z-50 text-[1.5rem] p-2 rounded-full text-stone-600">
+                            <div className="absolute top-2 right-2 z-50 text-[1.5rem] p-2 rounded-full text-[blue]">
                                 <FiInfo />
                             </div>
 
                             {/* Background Image with Adjusted Dark Gradient */}
                             <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/50 to-black/90 via-60%"></div>
-                            {/* <img
-                                src={page.bgImg}
-                                alt={page.heading}
-                                className="w-[30vw]  object-cover  transition-all duration-300 ease-in-out"
-                            /> */}
                             <div className="relative aspect-[9/10] overflow-hidden">
+                                {/* Click-blocking transparent overlay */}
+                                {/* <div className="absolute top-0 left-0 w-full h-full z-10 bg-transparent"></div> */}
+
                                 {/* Iframe */}
                                 <iframe
-                                    src="https://shade-six.vercel.app/"
-                                    className="absolute top-0 left-0 w-[1200px] h-[100rem] border-none scale-[0.4] origin-top-left"
+                                    src={page.src}
+                                    className={`top-0 left-0 border-none transition-all duration-300 ease-in-out ${isNarrow ? "w-[1000px] scale-[0.5]" : "w-[1200px] scale-[0.4]"
+                                        } origin-top-left h-[80rem]`}
+                                // scrolling="no"
                                 ></iframe>
 
                                 {/* Dark Gradient Overlay */}
                                 <div className="absolute bottom-0 left-0 w-full h-1/3 bg-gradient-to-t from-black/100 via-black/40 to-transparent"></div>
+                                <div className="absolute top-0 left-0 w-full h-1/3  bg-gradient-to-b from-white/100 via-white/40 to-transparent"></div>
+                                {/* <div className="absolute top-[-5.2rem] right-[-5.2rem] w-full h-3/4 bg-gradient-to-bl from-black/45 via-transparent via-[15%] to-transparent before:absolute before:top-0 before:right-0 before:w-1/2 before:h-1/2 before:bg-[radial-gradient(circle,_rgba(0,0,0,0.45)_10%,_transparent_60%)]"></div> */}
+
                             </div>
 
+
                             {/* Bottom Text Options */}
-                            <div className={`absolute bottom-2 left-0 w-full text-center text-white justify-center items-center flex  ${isCollapsed ? "gap-2" : "gap-6"} py-1`}>
+                            <div className={`absolute bottom-2 left-0 w-full text-center text-white justify-center items-center flex  ${isNarrow ? "gap-2" : "gap-6"} py-1`}>
                                 {[
                                     { icon: <FaRegEye />, text: "View" },
-                                    { icon: null, text: "|" },
                                     { icon: <FiEdit />, text: "Edit" },
-                                    { icon: null, text: "|" },
                                     { icon: <IoSettingsOutline />, text: "Config" }
                                 ].map((item, i) => (
-                                    <span key={i} className={`flex ${isCollapsed ? "flex-col" : ""} gap-1 items-center text-center`}>
+                                    <span key={i} className={`flex ${isCollapsed ? "flex-col" : ""} ${i < 2 ? "border-r-2 pr-5" : ""} gap-1 items-center text-center`}>
                                         {item.icon}
                                         <span className={`${isSmall ? "text-sm" : "text-base"}`}>
                                             {item.text}

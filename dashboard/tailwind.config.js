@@ -6,7 +6,12 @@ module.exports = {
   ],
   darkMode: ["class", '[data-theme="dark"]'], // Supports class and data attributes for dark mode
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        poppins: ["Poppins", "sans-serif"],
+        lexend: ["Lexend", "sans-serif"],
+      },
+    }
   },
   plugins: [require("@tailwindcss/typography"), require("daisyui")],
   daisyui: {

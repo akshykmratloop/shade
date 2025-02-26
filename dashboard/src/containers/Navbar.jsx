@@ -1,33 +1,36 @@
 import { Link } from "react-router-dom";
 
-const Navbar = () => {
+const Navbar = ({currentNav, setCurrentResource}) => {
     const navs = [
-        { name: "Pages", location: "/pages" },
-        { name: "Services", location: "/services" },
-        { name: "Project", location: "/project" },
-        { name: "Testimonials", location: "/testimonials" },
-        { name: "Career Page", location: "/career" },
-        { name: "Blogs", location: "/blogs" },
-        { name: "News", location: "/news" },
-        { name: "Header", location: "/header" },
-        { name: "Footer", location: "/footer" }
-    ];
+           { name: "Pages", resources: "pages" },
+           { name: "Services", resources: "services" },
+           { name: "Project", resources: "projects" },
+           { name: "Testimonials", resources: "testimonials" },
+           { name: "Career Page", resources: "careers" },
+           { name: "Blogs & News", resources: "blogs" },
+           { name: "Header", resources: "header" },
+           { name: "Footer", resources: "footer" }
+       ];
+
+    function settingResources (resource) {
+        setCurrentResource(resource)
+    }
 
     return (
         <div className="">
-            <nav className="bg-[#29469C] w-full rounded-lg sm:overflow-x-hidden lg:overflow-x-visible customscroller">
+            <nav className="bg-[#29469C] text-[.9rem] w-full rounded-lg sm:overflow-x-hidden lg:overflow-x-visible customscroller">
                 <ul className="flex md:flex-nowrap lg:flex-nowrap md:w-full text-white py-2 whitespace-nowrap">
                     {navs.map((nav, index) => (
                         <li 
                             key={index} 
                             className="lg:w-full sm:w-auto text-center px-4 relative flex items-center justify-center"
                         >
-                            <Link 
-                                to={nav.location} 
-                                className="block w-full rounded-lg py-3 hover:bg-base-200 hover:text-stone-700 dark:hover:text-stone-50 transition"
+                            <button 
+                                onClick={() => settingResources(nav.resources)}
+                                className={`block w-full rounded-lg py-3 ${currentNav === nav.resources?"bg-base-200 text-stone-700 dark:text-stone-50":"hover:bg-base-200"} hover:text-stone-700 dark:hover:text-stone-50 transition`}
                             >
                                 {nav.name}
-                            </Link>
+                            </button>
                             {index !== navs.length - 1 && (
                                 <span className="absolute right-[-1px] top-1/2 -translate-y-1/2 h-1/2 w-[1px] bg-white"></span>
                             )}
