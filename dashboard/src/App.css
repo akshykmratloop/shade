@@ -48,11 +48,11 @@ nav.customscroller::-webkit-scrollbar, div.customscroller::-webkit-scrollbar {
   border-radius: 0px 0px 10px 10px ;
 }
 
-nav.customscroller::-webkit-scrollbar-thumb {
+nav.customscroller::-webkit-scrollbar-thumb, div.customscroller::-webkit-scrollbar-thumb {
   height: 10px; /* Use height instead of width */
   width: 5px;
-  background-color: #282c34;
-  border-radius: 0px 0px 10px 10px ;
+  background-color: #0e2b65;
+  border-radius: 10px;
 }
 
 nav.customscroller{
