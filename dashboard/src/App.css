@@ -8,20 +8,22 @@
 }
 
 /* login background */
-.l-bg{
+.l-bg {
   background-position: center;
   background-size: cover;
   transition: .2s linear all;
 }
+
 /* carousel status */
-.carouselStatus{
+.carouselStatus {
   position: fixed;
   left: 6vw;
   bottom: 10vh;
   display: flex;
   gap: .5rem;
 }
-.carouselDot{
+
+.carouselDot {
   background-color: rgb(80, 80, 80);
   height: .91rem;
   width: .91rem;
@@ -35,35 +37,50 @@ input[type="number"]::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
+
 /* input[type="number"] {
   -moz-appearance: textfield;
 } */
-#left-sidebar-drawer:not(:checked) ~ .drawer-side #sidebar-close-btn {
+#left-sidebar-drawer:not(:checked)~.drawer-side #sidebar-close-btn {
   display: none;
 }
 
-nav.customscroller::-webkit-scrollbar, div.customscroller::-webkit-scrollbar {
-  height: 5px; /* Use height instead of width for horizontal scrollbar */
-  width: 5px;
-  border-radius: 0px 0px 10px 10px ;
+
+div.customscroller::-webkit-scrollbar {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  height: 2px;
+  width: 10px;
 }
 
-nav.customscroller::-webkit-scrollbar-thumb, div.customscroller::-webkit-scrollbar-thumb {
-  height: 10px; /* Use height instead of width */
+div.customscroller::-webkit-scrollbar-thumb {
+  height: 10px;
+  /* Use height instead of width */
   width: 5px;
   background-color: #0e2b65;
   border-radius: 10px;
 }
 
-nav.customscroller{
+nav.customscroller {
   position: relative;
 }
 
-nav.customscroller::-webkit-scrollbar{
+nav.customscroller::-webkit-scrollbar {
   position: absolute;
   bottom: 0;
   left: 0;
-} 
+  height: 2px;
+}
+
+nav.customscroller::-webkit-scrollbar-thumb {
+  height: 2px;
+  /* Use height instead of width */
+  width: 5px;
+  background-color: #0e2b65;
+  border-radius: 10px;
+}
+
 .shadow-xl-custom {
   /* --tw-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
   --tw-shadow-colored: 0 20px 25px -5px var(--tw-shadow-color), 0 8px 10px -6px var(--tw-shadow-color);
@@ -99,6 +116,7 @@ nav.customscroller::-webkit-scrollbar{
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }

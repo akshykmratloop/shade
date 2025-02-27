@@ -4,6 +4,7 @@ const Navbar = ({currentNav, setCurrentResource}) => {
     const navs = [
            { name: "Pages", resources: "pages" },
            { name: "Services", resources: "services" },
+           { name: "Market", resources: "markets" },
            { name: "Project", resources: "projects" },
            { name: "Testimonials", resources: "testimonials" },
            { name: "Career Page", resources: "careers" },
@@ -19,12 +20,12 @@ const Navbar = ({currentNav, setCurrentResource}) => {
 
     return (
         <div className="">
-            <nav className="bg-[#29469C] text-[.9rem] w-full rounded-lg sm:overflow-x-hidden lg:overflow-x-visible customscroller">
+            <nav className="bg-[#29469C] text-[.9rem] w-full rounded-lg sm:overflow-x-scroll xl:overflow-x-visible customscroller">
                 <ul className="flex md:flex-nowrap lg:flex-nowrap md:w-full text-white py-2 whitespace-nowrap">
                     {navs.map((nav, index) => (
                         <li 
                             key={index} 
-                            className="lg:w-full sm:w-auto text-center px-4 relative flex items-center justify-center"
+                            className="lg:w-full sm:w-auto text-center px-2 relative flex items-center justify-center"
                         >
                             <button 
                                 onClick={() => settingResources(nav.resources)}

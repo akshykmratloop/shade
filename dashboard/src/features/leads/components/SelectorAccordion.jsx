@@ -52,7 +52,7 @@ const SelectorAccordion = () => {
                         <Select
                             setterOnChange={updateSelectorValue}
                             index={index}
-                            inputClass="px-2 border border-stone-300 w-[16rem] mt-1 rounded-md p-2 h-[2.5rem] outline-none"
+                            inputClass="px-2 bg-base-200 border border-stone-500 w-[16rem] mt-1 rounded-md p-2 h-[2.5rem] outline-none"
                             options={dummyData}
                             value={select.value}  // <-- Ensure the Select component gets the correct value
                         />
