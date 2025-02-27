@@ -8,9 +8,11 @@ import { FiInfo } from "react-icons/fi";
 import { IoSettingsOutline } from "react-icons/io5";
 import resources from "./resourcedata";
 import ConfigBar from "./components/ConfigBar";
+import { useNavigate } from "react-router-dom";
 
 function Resources() {
     const dispatch = useDispatch()
+    const navigate = useNavigate()
     const divRef = useRef(null)
     const [isCollapsed, setIsCollapsed] = useState(false)
     const [isSmall, setIsSmall] = useState(false)
@@ -78,7 +80,7 @@ function Resources() {
                                 {/* Bottom Text Options */}
                                 <div className={`absolute bottom-2 left-0 w-full text-center text-white justify-center items-center flex  ${isNarrow ? "gap-2" : "gap-6"} py-1`}>
                                     {[{ icon: <FaRegEye />, text: "View", onClick: () => { } },
-                                    { icon: <FiEdit />, text: "Edit", onClick: () => { } },
+                                    { icon: <FiEdit />, text: "Edit", onClick: () => {navigate("./edit")} },
                                     { icon: <IoSettingsOutline />, text: "Config", onClick: () => { setConfigBarOn(true); setConfigBarData(page) } }].map((item, i) => (
                                         <span key={i}
                                             onClick={item.onClick}
