@@ -7,7 +7,7 @@ const Welcome = lazy(() => import('../pages/protected/Welcome'))
 const Page404 = lazy(() => import('../pages/protected/404'))
 const Blank = lazy(() => import('../pages/protected/Blank'))
 const Charts = lazy(() => import('../pages/protected/Charts'))
-const Resources = lazy(() => import('../pages/protected/Leads'))
+const Resource = lazy(() => import('../pages/protected/Leads'))
 const Integration = lazy(() => import('../pages/protected/Integration'))
 const Calendar = lazy(() => import('../pages/protected/Calendar'))
 const Team = lazy(() => import('../pages/protected/Team'))
@@ -17,6 +17,7 @@ const ProfileSettings = lazy(() => import('../pages/protected/ProfileSettings'))
 const GettingStarted = lazy(() => import('../pages/GettingStarted'))
 const DocFeatures = lazy(() => import('../pages/DocFeatures'))
 const DocComponents = lazy(() => import('../pages/DocComponents'))
+// const IndexRouter = lazy(() => import('../pages/'))
 
 
 const routes = [
@@ -30,7 +31,7 @@ const routes = [
   },
   {
     path: '/resources',
-    component: Resources,
+    component: Resource,
   },
   {
     path: '/settings-team',

@@ -1,5 +1,5 @@
 import Header from "./Header"
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
 import routes from '../routes'
 import { Suspense, lazy } from 'react'
 import SuspenseContent from "./SuspenseContent"
@@ -34,7 +34,7 @@ function PageContent(){
                                         <Route
                                             key={key}
                                             exact={true}
-                                            path={`${route.path}`}
+                                            path={route.path === "/resources"?`${route.path}/*`:route.path}
                                             element={<route.component />}
                                         />
                                     )
