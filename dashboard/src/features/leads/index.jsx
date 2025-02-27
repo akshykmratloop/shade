@@ -84,7 +84,7 @@ function Resources() {
                                         { icon: <IoSettingsOutline />, text: "Config" }
                                     ].map((item, i) => (
                                         <span key={i}
-                                            onClick={() => {setConfigBarOn(true); setConfigBarData(page)}}
+                                            onClick={() => { setConfigBarOn(true); setConfigBarData(page) }}
                                             className={`flex ${isCollapsed ? "flex-col" : ""} ${i < 2 ? "border-r-2 pr-5" : ""} gap-1 items-center text-center cursor-pointer`}>
                                             {item.icon}
                                             <span className={`${isSmall ? "text-sm" : "text-base"}`}>
@@ -97,6 +97,8 @@ function Resources() {
                         </div>
                     ))}
             </div>
+
+            {/* right side bar for configuration */}
             <ConfigBar data={configBarData} display={configBarOn} setOn={setConfigBarOn} />
         </div>
     )
