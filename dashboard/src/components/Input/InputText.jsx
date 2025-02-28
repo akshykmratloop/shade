@@ -15,7 +15,8 @@ function InputText({
   display,
   name,
   errorMessage,
-  errorMessagePosition
+  errorMessagePosition,
+  InputClasses
 }) {
   const [showPassword, setShowPassword] = useState(false);
   const [value, setValue] = useState(defaultValue || "");
@@ -34,12 +35,12 @@ function InputText({
   }, [defaultValue])
   return (
     <div
-      className={`form-control mb-4 w-full ${containerStyle}`}
+      className={`form-control my-2 w-full ${containerStyle}`}
       style={{ display: display ? "none" : "" }}
     >
-      <label className="label pl-0">
+      <label className="pl-0">
         <span
-          className={"label-text font-semibold text-base-content " + labelStyle}
+          className={"label-text text-base-content " + labelStyle}
         >
           {labelTitle}
         </span>
@@ -51,7 +52,7 @@ function InputText({
           value={value || ""}
           placeholder={placeholder || ""}
           onChange={(e) => updateInputValue(e.target.value)}
-          className="input w-full input input-bordered border-stone-700 focus:border-none"
+          className={`input w-full input input-bordered border-stone-700 focus:border-none ${InputClasses || ""}`}
         />
         {type === "password" && value && (
           <button
