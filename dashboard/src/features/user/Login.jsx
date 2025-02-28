@@ -145,7 +145,7 @@ function Login() {
 
             <div className="flex justify-center w-full sm:w-3/5 md:w-3/5 lg:w-3/5 xl:w-2/5 sm:px-20 md:px-20 lg:px-24 bg-base-200">
 
-                <div className='sm:pt-[20vh] sm:py-20 w-[24rem]'>
+                <div className='sm:pt-[20vh] sm:py-20 w-[24rem] flex flex-col items-center'>
                     <h2 className='text-2xl font-semibold mb-2'>Sign in to Dashboard</h2>
                     {otpSent ? <OTPpage otpSent={setOtpSent}  formObj={formObj} request={mfaVerify} /> :
                         <form onSubmit={proceedLogin}>
@@ -158,9 +158,9 @@ function Login() {
                                     <span className="text-sm text-stone-500 hover:text-stone-700 dark:hover:text-stone-50 bg-base-200 inline-block hover:underline hover:cursor-pointer transition duration-200">Forgot Password?</span>
                                 </Link>
                             </div>
-                            <div className='mt-3'>
-                                <Button text={loginWithOtp ? "Generate OTP" : "Login"} type="submit" classes={"btn w-full btn-primary dark:bg-primary bg-stone-700 hover:bg-stone-700 border-none" + (loading ? " loading" : "")} />
-                                <Button functioning={LoginWithOTP} text={loginWithOtp ? "Sign In with Password" : "Sign In With OTP"} classes={"btn mt-2 w-full btn-stone hover:text-stone-50 hover:bg-stone-700 border-stone-700 bg-stone-50 text-stone-800"} />
+                            <div className={`${loginWithOtp?"mt-8":"mt-3"} w-[22rem] h-[2.3rem]`}>
+                                <Button text={loginWithOtp ? "Generate OTP" : "Login"} type="submit" classes={`rounded-md text-[.8rem] w-[22rem] h-[2.3rem] btn-primary dark:bg-primary bg-stone-700 hover:bg-stone-700 border-none` + (loading ? " loading" : "")} />
+                                <Button functioning={LoginWithOTP} text={loginWithOtp ? "Sign In with Password" : "Sign In With OTP"} classes={"rounded-md text-[.8rem] mt-2 w-[22rem] h-[2.3rem] btn-stone hover:text-stone-50 hover:bg-stone-700 border-stone-700 bg-stone-50 text-stone-800"} />
                             </div>
                         </form>
                     }

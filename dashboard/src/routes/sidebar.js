@@ -18,6 +18,8 @@ import UsersIcon from '@heroicons/react/24/outline/UsersIcon'
 import KeyIcon from '@heroicons/react/24/outline/KeyIcon'
 import DocumentDuplicateIcon from '@heroicons/react/24/outline/DocumentDuplicateIcon'
 import { ShieldCheckIcon } from '@heroicons/react/24/solid';
+import { GrUserSettings } from "react-icons/gr";
+import { HiOutlineClipboardDocumentList } from "react-icons/hi2";
 
 const iconClasses = `h-6 w-6`
 const submenuIconClasses = `h-5 w-5`
@@ -31,12 +33,12 @@ const routes = [
   },
   {
     path: '/app/resources', // url
-    icon: <InboxArrowDownIcon className={iconClasses}/>, // icon component
+    icon: <HiOutlineClipboardDocumentList className={iconClasses}/>, // icon component
     name: 'Resources', // name that appear in Sidebar
   },
   {
     path: '/app/roles', // url
-    icon: <ShieldCheckIcon className={iconClasses}/>, // icon component
+    icon: <GrUserSettings  className={`${iconClasses} translate-x-[4px]`}/>, // icon component
     name: 'roles', // name that appear in Sidebar
   },
   {

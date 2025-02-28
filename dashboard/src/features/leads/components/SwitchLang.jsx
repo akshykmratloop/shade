@@ -5,7 +5,7 @@ export default function LanguageSwitch() {
 
     return (
         <div
-            className="relative w-[22rem] h-12 bg-gray-300 rounded-md cursor-pointer flex-shrink-0 overflow-visible isolation-isolate"
+            className="relative w-[18rem] h-[2.5rem] text-[.8rem] font-light bg-gray-300 rounded-md cursor-pointer flex-shrink-0 overflow-visible isolation-isolate"
             onClick={() => setIsEnglish(!isEnglish)}
         >
             {/* Toggle Background */}
@@ -16,13 +16,13 @@ export default function LanguageSwitch() {
 
             {/* Language Labels */}
             <div
-                className={`absolute w-1/2 h-full flex items-center justify-center left-0 font-light pointer-events-none 
+                className={`absolute w-1/2 h-full flex items-center justify-center left-0  pointer-events-none 
                 ${isEnglish ? "text-white" : "text-black"}`}
             >
                 English
             </div>
             <div
-                className={`absolute w-1/2 h-full flex items-center justify-center right-0 font-light pointer-events-none 
+                className={`absolute w-1/2 h-full flex items-center justify-center right-0  pointer-events-none 
                 ${!isEnglish ? "text-white" : "text-black"}`}
             >
                 Arabic

@@ -24,13 +24,13 @@ function ResetPasswordModalBody() {
   const [errorOldPasswordMessage, setOldPasswordMessage] = useState("")
   const [errorNewPasswordMessage, setNewPasswordMessage] = useState("")
   const [errorRepeatPasswordMessage, setRepeatPasswordMessage] = useState("")
-  const errorMessagePosition = "top-[-22px] right-0"
+  // const errorMessagePosition = "top-[-22px] right-0"
 
   function clearingMessages() { // clearing the error messages 
     setOldPasswordMessage("")
     setNewPasswordMessage("")
     setRepeatPasswordMessage("")
-}
+  }
 
   const updateFormValue = ({ updateType, value }) => {
     // Handling the password Object
@@ -43,13 +43,13 @@ function ResetPasswordModalBody() {
   const submitForm = async (e) => { // submission of the reset passwordings
     e.preventDefault();
     const loadingToastId = toast.loading("Reseting Password", { autoClose: 2000 })
-    const validation = validator(passwordForm, {old_password: setOldPasswordMessage,new_password: setNewPasswordMessage, repeat_password:setRepeatPasswordMessage }) // checks if any field is empty
+    const validation = validator(passwordForm, { old_password: setOldPasswordMessage, new_password: setNewPasswordMessage, repeat_password: setRepeatPasswordMessage }) // checks if any field is empty
     if (!validation) { // if the any field is empty
       updateToasify(loadingToastId, "Request unsuccessful!", "failure", 2000) // updating the toaster
       return;
     };
-    if(!validatePasswordMessage(passwordForm.new_password, setNewPasswordMessage)) return
-    if(!validatePasswordMessage(passwordForm.old_password, setOldPasswordMessage)) return
+    if (!validatePasswordMessage(passwordForm.new_password, setNewPasswordMessage)) return
+    if (!validatePasswordMessage(passwordForm.old_password, setOldPasswordMessage)) return
 
     if (passwordForm.new_password !== passwordForm.repeat_password) { // if password does not match
       updateToasify(loadingToastId, "Request unsuccessful!", "failure", 2000) // updating the toaster
@@ -79,46 +79,43 @@ function ResetPasswordModalBody() {
   }
 
   return (
-      <div>
-        <form>
-          <InputText placeholder="Enter current password"
-            type={"password"}
-            name={"currentPassword"}
-            defaultValue={passwordForm.old_password}
-            updateType="old_password"
-            containerStyle="my-2"
-            labelTitle={"Old password"}
-            errorMessage={errorOldPasswordMessage}
-            errorMessagePosition={errorMessagePosition}
-            updateFormValue={updateFormValue} />
-          <InputText placeholder="Enter new password"
-            type={"password"}
-            name={"newPassword"}
-            defaultValue={passwordForm.new_password}
-            labelTitle={"New password"}
-            updateType="new_password"
-            containerStyle="my-2"
-            errorMessage={errorNewPasswordMessage}
-            errorMessagePosition={errorMessagePosition}
-            updateFormValue={updateFormValue} />
-          <InputText placeholder="Confirm new password"
-            type={"password"}
-            name={"reapeatPassword"}
-            defaultValue={passwordForm.repeat_password}
-            updateType="repeat_password"
-            labelTitle={"Repeat new password"}
-            containerStyle="my-2"
-            errorMessage={errorRepeatPasswordMessage}
-            errorMessagePosition={errorMessagePosition}
-            updateFormValue={updateFormValue} />
-          <PasswordValidation new_password={passwordForm.new_password} />
-{/* 
+    <div>
+      <form className="flex flex-col items-center">
+        <InputText placeholder="Enter current password"
+          type={"password"}
+          name={"currentPassword"}
+          defaultValue={passwordForm.old_password}
+          updateType="old_password"
+          containerStyle="my-2"
+          labelTitle={"Old password"}
+          errorMessage={errorOldPasswordMessage}
+          updateFormValue={updateFormValue} />
+        <InputText placeholder="Enter new password"
+          type={"password"}
+          name={"newPassword"}
+          defaultValue={passwordForm.new_password}
+          labelTitle={"New password"}
+          updateType="new_password"
+          containerStyle="my-2"
+          errorMessage={errorNewPasswordMessage}
+          updateFormValue={updateFormValue} />
+        <InputText placeholder="Confirm new password"
+          type={"password"}
+          name={"reapeatPassword"}
+          defaultValue={passwordForm.repeat_password}
+          updateType="repeat_password"
+          labelTitle={"Repeat new password"}
+          containerStyle="my-2"
+          errorMessage={errorRepeatPasswordMessage}
+          updateFormValue={updateFormValue} />
+        <PasswordValidation new_password={passwordForm.new_password} />
+        {/* 
           <ErrorText error={errorMessage ? 1 : 0} styleClass={`${errorMessage ? "visible" : "invisible"} flex mt-6 text-sm gap-1 justify-center `}>
             <img src={xSign} alt="" className='h-3 translate-y-[4px]' />
             {errorMessage}</ErrorText> */}
-          <Button functioning={submitForm} text="Reset" classes={"btn mt-4 w-full btn-stone hover:text-stone-50 hover:bg-stone-700 border-stone-700 bg-stone-50 text-stone-800"} />
-        </form>
-      </div>
+        <Button functioning={submitForm} text="Reset" classes={"h-[2.5rem] rounded-md w-[22rem] mt-4 text-sm btn-stone hover:text-stone-50 hover:bg-stone-700 border-stone-700 bg-stone-50 text-stone-800"} />
+      </form>
+    </div>
   );
 }
 

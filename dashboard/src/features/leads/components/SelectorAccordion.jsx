@@ -41,18 +41,20 @@ const SelectorAccordion = () => {
     }, [selector]);
 
     return (
-        <div className="mt-1 max-h-[12rem] overflow-y-scroll customscroller" ref={selectorRef}>
+        <div className="mt-1 max-h-[12.25rem] overflow-y-scroll customscroller-2 w-[22rem]" ref={selectorRef}>
             {selector.map((select, index) => {
                 const isLast = index === selector.length - 1;
                 return (
                     <div key={index} className="flex items-center my-1 gap-1">
-                        <p className="flex justify-center items-center rounded-lg translate-y-[2px] w-[5.5rem] h-[2.5rem] bg-[#DFDFDF] text-black font-light border-none">
+                        <p className="flex justify-center items-center rounded-lg translate-y-[2px] w-[5rem] h-[2.2rem] bg-[#DFDFDF] text-black text-xs font-light border-none">
                             {select.label}
                         </p>
                         <Select
                             setterOnChange={updateSelectorValue}
                             index={index}
-                            inputClass="px-2 bg-base-200 border border-stone-500 w-[16rem] mt-1 rounded-md p-2 h-[2.5rem] outline-none"
+                            selectClass="px-2 bg-base-200 mt-1 border border-stone-500 rounded-md p-2 outline-none"
+                            height={""}
+                            width={"w-[14rem]"}
                             options={dummyData}
                             value={select.value}  // <-- Ensure the Select component gets the correct value
                         />

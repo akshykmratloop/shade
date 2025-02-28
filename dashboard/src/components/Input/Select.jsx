@@ -1,6 +1,6 @@
 import React from "react";
 
-const Select = ({ options, inputClass, label, labelClass, baseClass, setterOnChange, index, value }) => {
+const Select = ({ options, selectClass, label, labelClass, baseClass, setterOnChange, index, value, height, width }) => {
     const handleSelectChange = (e) => {
         if (typeof index === "number") {
             setterOnChange(index, "value", e.target.value);
@@ -8,11 +8,11 @@ const Select = ({ options, inputClass, label, labelClass, baseClass, setterOnCha
     };
 
     return (
-        <div className={baseClass}>
+        <div className={`${baseClass} text-sm`}>
             {label && <label className={labelClass}>{label}</label>}
-            <select 
-                className={inputClass} 
-                onChange={handleSelectChange} 
+            <select
+                className={`${selectClass} ${width ? width : "w-[22rem]"} ${height ?? "h-[2.3rem]"} text-xs`}
+                onChange={handleSelectChange}
                 value={value} // <-- Ensure value is controlled
             >
                 <option value="">-- Select an option --</option>

@@ -14,8 +14,8 @@ function ModalLayout() {
     const { isOpen, bodyType, size, extraObject, title } = useSelector(state => state.modal)
     const dispatch = useDispatch()
 
-    const close = (e) => {
-        dispatch(closeModal(e))
+    const close = () => {
+        dispatch(closeModal())
     }
 
 
@@ -27,10 +27,11 @@ function ModalLayout() {
             {/* Put this part before </body> tag */}
             <div className={`modal ${isOpen ? "modal-open" : ""}`}>
                 <div className={`modal-box  ${size === 'lg' ? 'max-w-5xl' : ''} relative px-14 pt-10 pb-14 shadow-lg rounded-md w-full max-w-lg`}>
-                    
-                    <button className="btn btn-sm btn-circle dark:bg-transparent border-none absolute right-2 top-2" onClick={() => close()}>
-                    <X onClick={close} size={24} />
+
+                    <button className="btn btn-sm btn-circle dark:bg-transparent border-none absolute right-2 top-2" onClick={close}>
+                        <X size={24} />
                     </button>
+
                     <h3 className="font-semibold text-xl pb-6">{title}</h3>
 
 

@@ -15,8 +15,8 @@ function InputText({
   display,
   name,
   errorMessage,
-  errorMessagePosition,
-  InputClasses
+  InputClasses,
+  width
 }) {
   const [showPassword, setShowPassword] = useState(false);
   const [value, setValue] = useState(defaultValue || "");
@@ -35,10 +35,10 @@ function InputText({
   }, [defaultValue])
   return (
     <div
-      className={`form-control my-2 w-full ${containerStyle}`}
+      className={`form-control my-2 ${width ?? "w-[22rem]"} ${containerStyle}`}
       style={{ display: display ? "none" : "" }}
     >
-      <label className="pl-0">
+      <label className="pl-0 mb-1">
         <span
           className={"label-text text-base-content " + labelStyle}
         >
@@ -52,7 +52,7 @@ function InputText({
           value={value || ""}
           placeholder={placeholder || ""}
           onChange={(e) => updateInputValue(e.target.value)}
-          className={`input w-full input input-bordered border-stone-700 focus:border-none ${InputClasses || ""}`}
+          className={`input ${width ?? "w-[22rem]"}  h-[2.3rem] text-xs input input-bordered border-stone-500 focus:border-none ${InputClasses || ""}`}
         />
         {type === "password" && value && (
           <button
@@ -63,7 +63,7 @@ function InputText({
             {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
           </button>
         )}
-        <ErrorText styleClass={`text-xs absolute top-[50px] gap-1 ${errorMessage ? "flex" : "hidden"}`}>
+        <ErrorText styleClass={`text-[.7rem] absolute top-[40px] left-[1px] gap-1 ${errorMessage ? "flex" : "hidden"}`}>
           <img src={xSign} alt="" className='h-3 translate-y-[2px]' />
           {errorMessage}</ErrorText>
       </div>
