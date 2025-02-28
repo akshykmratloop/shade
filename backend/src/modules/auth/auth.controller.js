@@ -11,13 +11,6 @@ import {
   updatePassword,
 } from "./auth.service.js";
 
-// import {
-//   setCookie,
-//   getCookie,
-//   clearCookie,
-// } from "../../helper/cookiesManager.js";
-
-// import { verifyToken } from "../../helper/jwtManager.js";
 
 const Login = async (req, res) => {
   const { email, password } = req.body;

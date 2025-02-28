@@ -11,29 +11,30 @@ const router = Router();
 
 router.get(
   "/roles",
-  authenticateUser,
-  tryCatchWrap(RolesController.FetchRoles)
+  tryCatchWrap(RolesController.GetRoles)
+);
+
+
+router.get(
+  "/:id",
+  tryCatchWrap(RolesController.GetRoleById)
 );
 
 router.post(
   "/create",
-  authenticateUser,
   validator(createRoleSchema),
   tryCatchWrap(RolesController.CreateRole)
 );
 
 router.put(
   "/update",
-  authenticateUser,
   tryCatchWrap(RolesController.UpdateRole)
 );
 
 router.put("/activate",
-  authenticateUser,
   tryCatchWrap(RolesController.ActivateRole));
 
 router.put("/deactivate",
-  authenticateUser,
   tryCatchWrap(RolesController.DeactivateRole));
 
 
