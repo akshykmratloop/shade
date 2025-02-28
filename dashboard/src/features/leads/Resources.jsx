@@ -46,7 +46,7 @@ function Resources() {
     return (
         <div className="customscroller relative" ref={divRef}>
             <Navbar currentNav={currentResource} setCurrentResource={setCurrentResource} />
-            <div className={`${resNotAvail ? "" : "grid"} ${isNarrow ? "grid-cols-1" : "grid-cols-2"} mt-4 lg:grid-cols-3 gap-12 w-full px-8`}>
+            <div className={`${resNotAvail ? "" : "grid"} ${isNarrow ? "grid-cols-1" : "grid-cols-2"} mt-4 lg:grid-cols-3 gap-10 w-full px-10`}>
                 {resNotAvail ? <p className="">Sorry, No Resource available for {currentResource}</p>
                     :
                     resources?.[currentResource].map((page, index) => (
@@ -65,7 +65,7 @@ function Resources() {
 
                                 {/* Background Image with Adjusted Dark Gradient */}
                                 <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/50 to-black/90 via-60%"></div>
-                                <div className="relative aspect-[9/10] overflow-hidden">
+                                <div className="relative aspect-[10/11] overflow-hidden">
                                     <iframe
                                         src={page.src}
                                         className={`top-0 left-0 border-none transition-all duration-300 ease-in-out ${isNarrow ? "w-[1000px] scale-[0.5]" : "w-[1200px] scale-[0.4]"
@@ -78,15 +78,15 @@ function Resources() {
                                 </div>
 
                                 {/* Bottom Text Options */}
-                                <div className={`absolute bottom-2 left-0 w-full text-center text-white justify-center items-center flex  ${isNarrow ? "gap-2" : "gap-6"} py-1`}>
+                                <div className={`absolute bottom-3 left-0 w-full text-center text-white justify-center items-center flex ${isNarrow ? "gap-2" : "gap-6"} py-1`}>
                                     {[{ icon: <FaRegEye />, text: "View", onClick: () => { } },
-                                    { icon: <FiEdit />, text: "Edit", onClick: () => {navigate("./edit")} },
+                                    { icon: <FiEdit />, text: "Edit", onClick: () => { navigate("./edit") } },
                                     { icon: <IoSettingsOutline />, text: "Config", onClick: () => { setConfigBarOn(true); setConfigBarData(page) } }].map((item, i) => (
                                         <span key={i}
                                             onClick={item.onClick}
                                             className={`flex ${isCollapsed ? "flex-col" : ""} ${i < 2 ? "border-r-2 pr-5" : ""} gap-1 items-center text-center cursor-pointer`}>
                                             {item.icon}
-                                            <span className={`${isSmall ? "text-sm" : "text-base"}`}>
+                                            <span className={`${isSmall ? "text-xs" : "text-sm"}`}>
                                                 {item.text}
                                             </span>
                                         </span>

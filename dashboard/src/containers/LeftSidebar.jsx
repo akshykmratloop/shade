@@ -22,9 +22,9 @@ function LeftSidebar() {
   }, [dispatch]);
 
   return (
-    <div className="flex-1 p-4">
+    <div className="flex-1 p-4 text-sm">
       <ul
-        className={`menu relative ${isCollapsed ? "w-16" : "w-60"} transition-all duration-500 bg-[#fafaff] dark:bg-[#242933] text-base-content h-full rounded-lg`}
+        className={`menu relative ${isCollapsed ? "w-16" : "w-56"} transition-all duration-500 bg-[#fafaff] dark:bg-[#242933] text-base-content h-full rounded-lg`}
       >
         <button
           className={`absolute z-10 top-14 right-[-.9rem] drop-shadow-xl btn btn-sm btn-circle bg-stone-300 dark:bg-base-200 hover:bg-base-300 transition-transform duration-300 dark:border dark:border-stone-700 border-transparent`}

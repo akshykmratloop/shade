@@ -38,8 +38,8 @@ const routes = [
   },
   {
     path: '/app/roles', // url
-    icon: <GrUserSettings  className={`${iconClasses} translate-x-[4px]`}/>, // icon component
-    name: 'roles', // name that appear in Sidebar
+    icon: <GrUserSettings  className={`${submenuIconClasses} translate-x-[3px]`}/>, // icon component
+    name: 'Roles', // name that appear in Sidebar
   },
   {
     path: '/app/charts', // url

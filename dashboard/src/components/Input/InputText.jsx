@@ -35,7 +35,7 @@ function InputText({
   }, [defaultValue])
   return (
     <div
-      className={`form-control my-2 ${width ?? "w-[22rem]"} ${containerStyle}`}
+      className={`form-control my-2 ${width ?? "w-full"} ${containerStyle}`}
       style={{ display: display ? "none" : "" }}
     >
       <label className="pl-0 mb-1">
@@ -52,7 +52,7 @@ function InputText({
           value={value || ""}
           placeholder={placeholder || ""}
           onChange={(e) => updateInputValue(e.target.value)}
-          className={`input ${width ?? "w-[22rem]"}  h-[2.3rem] text-xs input input-bordered border-stone-500 focus:border-none ${InputClasses || ""}`}
+          className={`input ${width ?? "w-full"}  h-[2.3rem] text-xs input input-bordered border-stone-500 focus:border-none ${InputClasses || ""}`}
         />
         {type === "password" && value && (
           <button

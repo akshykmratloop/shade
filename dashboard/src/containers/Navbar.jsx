@@ -20,12 +20,12 @@ const Navbar = ({currentNav, setCurrentResource}) => {
 
     return (
         <div className="">
-            <nav className="bg-[#29469C] text-[.9rem] w-full rounded-lg sm:overflow-x-scroll xl:overflow-x-visible customscroller">
+            <nav className="bg-[#29469C] xl:text-[.9rem] sm:text-[.8rem] w-full rounded-lg sm:overflow-x-scroll xl:overflow-x-visible customscroller">
                 <ul className="flex md:flex-nowrap lg:flex-nowrap md:w-full text-white py-2 whitespace-nowrap">
                     {navs.map((nav, index) => (
                         <li 
                             key={index} 
-                            className="lg:w-full sm:w-auto text-center px-2 relative flex items-center justify-center"
+                            className="w-full text-center px-2 relative flex items-center justify-center"
                         >
                             <button 
                                 onClick={() => settingResources(nav.resources)}
