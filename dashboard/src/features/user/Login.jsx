@@ -160,7 +160,7 @@ function Login() {
                             </div>
                             <div className={`${loginWithOtp?"mt-8":"mt-3"} w-[22rem] h-[2.3rem]`}>
                                 <Button text={loginWithOtp ? "Generate OTP" : "Login"} type="submit" classes={`rounded-md text-[.8rem] w-[22rem] h-[2.3rem] btn-primary dark:bg-primary bg-stone-700 hover:bg-stone-700 border-none` + (loading ? " loading" : "")} />
-                                <Button functioning={LoginWithOTP} text={loginWithOtp ? "Sign In with Password" : "Sign In With OTP"} classes={"rounded-md text-[.8rem] mt-2 w-[22rem] h-[2.3rem] btn-stone hover:text-stone-50 hover:bg-stone-700 border-stone-700 bg-stone-50 text-stone-800"} />
+                                <Button functioning={LoginWithOTP} text={loginWithOtp ? "Sign In with Password" : "Sign In With OTP"} classes={"rounded-md text-[.8rem] mt-2 w-[22rem] h-[2.3rem] btn-stone hover:text-stone-50 hover:bg-stone-700 border border-stone-700 bg-stone-50 text-stone-800"} />
                             </div>
                         </form>
                     }
