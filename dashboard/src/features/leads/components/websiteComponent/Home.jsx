@@ -97,7 +97,7 @@ const HomePage = () => {
     };
 
     return (
-        <div className="w-[100%] relative text-left">
+        <div className="w-[100%] relative text-left" style={{ fontFamily: "Michroma" }}>
             {/* banner */}
             <section className="w-full relative border border-[red]">
                 <span
@@ -107,7 +107,7 @@ const HomePage = () => {
                     <img src={background} alt="about-us" className="w-[1000px] object-cover" style={{ objectPosition: "center", transform: "scaleX(-1)" }} />
                 </span>
                 <div
-                    style={{ fontFamily: "Michroma" }}
+                    
                     className="container mx-auto absolute top-[20%] left-0 right-0 px-4">
                     <div className="text-left flex flex-col items-start">
                         <h1 className="ml-[128px] text-black text-[40px] tracking-[.2rem] capitalize font-medium tracking-[-3.5px] mb-4 w-[500px] "
@@ -135,25 +135,25 @@ const HomePage = () => {
                 </div>
             </section>
             {/* about us section */}
-            <section className={`py-[120px] ${language === "en" ? "" : "scale-x-[-1] direction-rtl"}`}>
+            <section className={`py-[120px] px-10 ${language === "en" ? "" : " direction-rtl"}`}>
                 <div className="relative container mx-auto flex items-center">
                     {/* About content */}
-                    <div className="absolute top-1/2 left-0 transform -translate-y-1/2 bg-secondary shadow-lg p-[98px_60px_98px_40px] w-[488px] flex flex-col gap-[26px] rounded-sm">
-                        <h2 className="text-white text-[36px] font-normal text-right">
+                    <div className="absolute bg-blue-500 px-4 py-8 rounded-sm w-[23rem]">
+                        <h2 className="text-white text-[24px] font-normal text-right">
                             {currentContent?.aboutUsSection?.title[language]}
                         </h2>
-                        <p className="text-white text-[16px] font-light text-right leading-[26px] mb-4">
+                        <p className="text-white text-[12px] font-light text-right leading-[26px] mb-4">
                             {currentContent?.aboutUsSection?.description[language]}
                         </p>
-                        <p className="text-white text-[16px] font-light text-right leading-[26px] mb-4">
+                        <p className="text-white text-[12px] font-light text-right leading-[26px] mb-4">
                             {currentContent?.aboutUsSection?.description2[language]}
                         </p>
-                        <button className="px-[28px] py-[16px] bg-primary text-white text-[18px] rounded-sm hover:bg-opacity-90 text-right">
+                        <button className="px-[28px] py-[12px] bg-primary text-white text-[12px] rounded-sm hover:bg-opacity-90 text-right">
                             {currentContent?.aboutUsSection?.buttonText[language]}
                         </button>
                     </div>
                     {/* Image section */}
-                    <div className="ml-auto w-[877px] h-[629px] overflow-hidden rounded-sm shadow-lg">
+                    <div className="ml-auto w-[600px] h-[629px] overflow-hidden rounded-sm shadow-lg">
                         <img src={AboutUs} alt="about-us" className="w-full h-full object-cover" />
                     </div>
                 </div>
