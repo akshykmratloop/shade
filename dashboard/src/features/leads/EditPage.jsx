@@ -5,7 +5,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { setSidebarState } from "../common/SbStateSlice";
 import { useEffect } from "react";
 import ContentTopBar from "./components/ContentTopBar";
-import Home from "../../src/components/home/index"
 
 const EditPage = () => {
     const isCollapsed = useSelector((state) => state.sidebar.isCollapsed);
@@ -76,9 +75,9 @@ const EditPage = () => {
             {/* Content view */}
             <div className=" flex-[4]">
                 <ContentTopBar />
-                <div>
+                <div className="border border-2 h-[100%]">
                     <h4>Commented by {"Anukool (Super Admin)"}</h4>
-                    <Home />
+                    
                 </div>
             </div>
         </div>

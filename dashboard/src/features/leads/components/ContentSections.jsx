@@ -15,7 +15,7 @@ const ContentSection = ({ Heading,subHeading, inputs = [], inputFiles = [], isBo
     };
 
     return (
-        <div className={`w-full flex flex-col gap-1 ${!isBorder ? "" : "border-b border-b-2 border-neutral-300"} pb-6`}>
+        <div className={`w-full flex flex-col gap-1 ${!isBorder ? "" : "border-b border-b-1 border-neutral-300"} pb-6`}>
             <h3 className={`font-semibold ${subHeading?"text-[.9rem] mb-1":"text-[1.25rem] mb-4"}`}>{Heading || subHeading}</h3>
             {inputs.map((input, index) => {
                 return input.input === "textarea" ? (
