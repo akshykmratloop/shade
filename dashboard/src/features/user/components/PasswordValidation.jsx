@@ -40,7 +40,7 @@ const PasswordValidation = ({ new_password }) => {
             {passwordValidationRules.map((rule, index) => (
                 <li
                     key={index}
-                    className={`text-sm flex gap-1 ${validationStatus[index] ? "text-green-600" : "text-red-600"
+                    className={`text-xs flex gap-1 ${validationStatus[index] ? "text-green-600" : "text-red-600"
                         }`}
                 >
                     <img src={validationStatus[index] ? checkSign : xSign} className="h-3 translate-y-[4px]" /> {rule.text}

@@ -53,6 +53,7 @@ const UpdatePassword = ({ userObj }) => {
             otpOrigin: formObj?.otpOrigin,
             deviceId: formObj?.deviceId,
         };
+        console.log(payload)
         const response = await PassUpdate(payload); // request for new password
         if (response.ok) { // if everything goes correctly
             toast.success(response.message); // the success message

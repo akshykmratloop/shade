@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { setSidebarState } from "../common/SbStateSlice";
 import { useEffect } from "react";
 import ContentTopBar from "./components/ContentTopBar";
+import Home from "../../src/components/home/index"
 
 const EditPage = () => {
     const isCollapsed = useSelector((state) => state.sidebar.isCollapsed);
@@ -15,7 +16,7 @@ const EditPage = () => {
     }, [])
 
     return (
-        <div className="flex gap-[1.5rem] pr-1 h-[89vh]">
+        <div className="flex gap-[1.5rem] pr-1 h-[85.5vh]">
 
             {/* content manager */}
             <div className=" pt-8 bg-[#fafaff] dark:bg-[#242933] p-8 xl:w-[23rem] sm:w-[30vw] flex flex-col gap-4 items-center overflow-y-scroll customscroller">
@@ -73,8 +74,12 @@ const EditPage = () => {
                 </div>
             </div>
             {/* Content view */}
-            <div className="bg-[#fafaff] dark:bg-[#242933] flex-[4]">
+            <div className=" flex-[4]">
                 <ContentTopBar />
+                <div>
+                    <h4>Commented by {"Anukool (Super Admin)"}</h4>
+                    <Home />
+                </div>
             </div>
         </div>
     )

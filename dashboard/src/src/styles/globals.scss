@@ -1,0 +1,105 @@
+// @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+
+// @font-face {
+//   font-family: "Orbitron", sans-serif;
+//   src: url('/public/font/bankgothic-regular.ttf') format('truetype');
+//   font-weight: normal;
+//   font-style: normal;
+// }
+
+:root {
+  --max-width: 1246px;
+  // --font-Orbitron: "Orbitron", sans-serif;
+  --work: "Work Sans", sans-serif;
+  // --font-play: "Playfair Display", serif;
+  // --font-mulish: "Mulish", sans-serif;
+
+  --primary: #00b9f2;
+  --secondary: #145098;
+  // --purple: #870c6d;
+  --danger: #DA2C1E;
+  --white: #fff;
+  --black: #292e3d;
+  --dark: #062233;
+  --light: #292e3d80;
+  --para-light: #0e172fb3;
+  --bg-light: rgba(28, 181, 234, 0.09);
+  --secondary-light: #001a5882;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  direction: rtl;
+  // text-align: right;
+  color: rgb(var(--foreground-rgb));
+  background: var(--white);
+  font-size: 1rem;
+  scroll-behavior: smooth;
+}
+
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul {
+  list-style-type: none;
+}
+
+.swiper-button-prev,
+.swiper-button-next {
+  color: var(--black) !important;
+  // background-color: var(--bg-light) !important;
+
+  @media (max-width: 480px) {
+    display: none !important;
+  }
+
+  &:after {
+    font-size: 22px !important;
+  }
+}
+
+.swiper-pagination-bullet {
+  background-color: #b5b5b5 !important;
+
+  &.swiper-pagination-bullet-active {
+    background-color: var(--secondary) !important;
+  }
+}
+
+/* Total width */
+::-webkit-scrollbar {
+  width: 4px;
+  /* Change this to your preferred width */
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  /* Change this to your preferred track color */
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: var(--secondary);
+  /* Change this to your preferred thumb color */
+}
+
+// /* Handle on hover */
+// ::-webkit-scrollbar-thumb:hover {
+//   background: #555; /* Change this to your preferred hover color */
+// }

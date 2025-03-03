@@ -38,7 +38,7 @@ function ForgotPassword() {
 
             // Call API to send password reset link
             const response = await forgotPassReq(formObj);
-            if (response.message.ok) {
+            if (response.ok) {
                 setLoading(false)
                 setOtpSent(true)
                 localStorage.setItem(formObj.otpOrigin, JSON.stringify(formObj))
