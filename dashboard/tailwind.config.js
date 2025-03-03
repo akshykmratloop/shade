@@ -10,6 +10,7 @@ module.exports = {
       fontFamily: {
         poppins: ["Poppins", "sans-serif"],
         lexend: ["Lexend", "sans-serif"],
+        michroma: ["Michroma", "sans-serif"]
       },
     }
   },
