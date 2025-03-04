@@ -16,7 +16,8 @@ function InputText({
   name,
   errorMessage,
   InputClasses,
-  width
+  width,
+  language
 }) {
   const [showPassword, setShowPassword] = useState(false);
   const [value, setValue] = useState(defaultValue || "");
@@ -47,6 +48,7 @@ function InputText({
       </label>
       <div className="relative ">
         <input
+          dir={language === "ar" ? "rtl" : "ltr"}
           type={showPassword && type === "password" ? "text" : type || "text"}
           name={name}
           value={value || ""}

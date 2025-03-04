@@ -86,9 +86,9 @@ const HomePage = ({ language }) => {
     // );
 
     // // const ProjectSlider = { ...markets, ...safety };
+    let isEnglish = language === "en"
+    let textAlignment = isEnglish ? "text-left" : "text-right"
 
-    let textAlignment = language === "en" ?"text-left":"text-right"
-    
     useEffect(() => {
         if (swiperInstance) {
             swiperInstance.update();
@@ -118,7 +118,7 @@ const HomePage = ({ language }) => {
                 <div
 
                     className="container mx-auto absolute top-[20%] left-0 right-0 px-4">
-                    <div className={`text-left flex flex-col ${language === "en"?"items-start":"items-end"} ${textAlignment}`}>
+                    <div className={`text-left flex flex-col ${language === "en" ? "items-start" : "items-end"} ${textAlignment}`}>
                         <h1 className="ml-[128px] text-black text-[35px] tracking-[.2rem] leading-[2.5rem] capitalize font-medium mb-4 w-[450px] "
                         >
                             {currentContent?.homeBanner?.title[language]}
@@ -127,7 +127,7 @@ const HomePage = ({ language }) => {
                             {currentContent?.homeBanner?.description[language]}
                         </p>
                         <button
-                            className={`ml-[128px] relative items-center flex gap-1 text-[12px] font-medium px-[16px] py-[14px] ${language === "en" ? "py-[10px] px-[35px]" : ""
+                            className={`ml-[128px] relative items-center flex ${isEnglish?"":"flex-row-reverse"} gap-1 text-[12px] font-medium px-[16px] py-[14px] ${language === "en" ? "py-[10px] px-[35px]" : ""
                                 } bg-blue-500 text-white rounded-md`}
                             onClick={() => { }}
                         >
@@ -137,7 +137,7 @@ const HomePage = ({ language }) => {
                                 width="10"
                                 height="11"
                                 alt=""
-                                style={{ transform: "rotate(180deg)" }}
+                                style={{ transform: isEnglish ? "rotate(180deg)" :""  }}
                             />
                         </button>
                     </div>

@@ -35,10 +35,10 @@ function TextAreaInput({
       <textarea
         ref={textareaRef}
         value={value}
-        className="textarea textarea-bordered w-full min-h-[2.3rem] overflow-hidden resize-none border border-stone-500 text-xs"
+        className="textarea textarea-bordered w-full min-h-[5.3rem] overflow-hidden border border-stone-500 text-xs"
         placeholder={placeholder || ""}
         onChange={(e) => updateInputValue(e.target.value)}
-        style={{ height: "2.3rem" }} // Default height same as input
+        style={{ height: "2.3rem", whiteSpace:"pre" }} // Default height same as input
       ></textarea>
     </div>
   );

@@ -9,8 +9,7 @@ const ContentSection = ({ Heading, subHeading, inputs = [], inputFiles = [], isB
     // const [formData, setFormData] = useState({}); // Store input values
     const dispatch = useDispatch();
     const homeContent = useSelector((state) => {
-        console.log(state)
-        return state
+        return state.homeContent.home
     })
 
     // Function to update input values
@@ -21,6 +20,8 @@ const ContentSection = ({ Heading, subHeading, inputs = [], inputFiles = [], isB
         //     [updateType]: value,
         // }));
     };
+
+    console.log(homeContent)
 
     return (
         <div className={`w-full flex flex-col gap-1 ${!isBorder ? "" : "border-b border-b-1 border-neutral-300"} pb-6`}>
@@ -34,6 +35,8 @@ const ContentSection = ({ Heading, subHeading, inputs = [], inputFiles = [], isB
                         updateFormValue={updateFormValue}
                         updateType={input.updateType}
                         section={section}
+                        defaultValue={homeContent?.[section]?.[input.updateType][language]}
+                        language={language}
                     />
                 ) : (
                     <InputText
@@ -44,6 +47,8 @@ const ContentSection = ({ Heading, subHeading, inputs = [], inputFiles = [], isB
                         updateFormValue={updateFormValue}
                         updateType={input.updateType}
                         section={section}
+                        defaultValue={homeContent?.[section]?.[input.updateType][language]}
+                        language={language}
                     />
                 );
             })}
