@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import Card from "./Card"; // Adjust the path accordingly
 // import styles from "./Home.module.scss";
 // import button from "@/common/button";
 // import Image from "next/image";
@@ -7,7 +8,6 @@ import Arrow from "../../../../assets/icons/right-wrrow.svg";
 import AboutUs from "../../../../assets/images/aboutus.png";
 // import localFont from "next/font/local";
 import { Swiper, SwiperSlide } from "swiper/react";
-// import { useRouter } from "react-router-dom";
 // import required modules
 import {
     Pagination,
@@ -25,15 +25,15 @@ import background from "../../../../assets/images/Hero.png";
 // const AnimatedText = dynamic(() => import('@/common/AnimatedText'), { ssr: false });
 // import ContactUsModal from "../header/ContactUsModal";
 
-// import {
-//   services,
-//   experience,
-//   recentProjects,
-//   markets,
-//   safety,
-//   clients,
-//   testimonials,
-// } from "../../../assets/index";
+import {
+    services,
+    experience,
+    recentProjects,
+    markets,
+    safety,
+    clients,
+    testimonials,
+} from "../../../../assets/index";
 // import patch from "../../contexts/svg/path.jsx";
 
 // // Font files can be colocated inside of `app`
@@ -43,45 +43,48 @@ import background from "../../../../assets/images/Hero.png";
 // });
 import content from './content.json'
 
-const HomePage = () => {
+
+
+const HomePage = ({ language }) => {
     // const router = useRouter();
     //   const { language, content } = useGlobalContext();
-    const language = 'en'
-    const styles = ''
+    // const styles = ''
     const currentContent = content?.home;
-    // Create refs for the navigation buttons
-    const prevRef = useRef(null);
-    const nextRef = useRef(null);
-    const testimonialPrevRef = useRef(null);
-    const testimonialNextRef = useRef(null);
-    const [activeRecentProjectSection, setActiveRecentProjectSection] =
-        useState(0);
+    // // Create refs for the navigation buttons
+    // const prevRef = useRef(null);
+    // const nextRef = useRef(null);
+    // const testimonialPrevRef = useRef(null);
+    // const testimonialNextRef = useRef(null);
+    // const [activeRecentProjectSection, setActiveRecentProjectSection] =
+    //     useState(0);
     const [isModal, setIsModal] = useState(false);
-    const redirectionUrlForRecentProject = ["/project", "/market", "/"];
+    // const redirectionUrlForRecentProject = ["/project", "/market", "/"];
     const [swiperInstance, setSwiperInstance] = useState(null);
-    // Helper function to chunk array into groups of 4
-    const chunkArray = (array, chunkSize) => {
-        const chunks = [];
-        for (let i = 0; i < array.length; i += chunkSize) {
-            chunks.push(array.slice(i, i + chunkSize));
-        }
-        return chunks;
-    };
+    // // Helper function to chunk array into groups of 4
+    // const chunkArray = (array, chunkSize) => {
+    //     const chunks = [];
+    //     for (let i = 0; i < array.length; i += chunkSize) {
+    //         chunks.push(array.slice(i, i + chunkSize));
+    //     }
+    //     return chunks;
+    // };
 
-    const handleContactUSClose = () => {
-        setIsModal(false);
-    };
+    // const handleContactUSClose = () => {
+    //     setIsModal(false);
+    // };
 
-    // Inside your component, before the return statement:
-    const projectsPerSlide = 4;
+    // // Inside your component, before the return statement:
+    // const projectsPerSlide = 4;
 
-    const projectChunks = chunkArray(
-        currentContent?.recentProjectsSection?.sections[activeRecentProjectSection]
-            ?.projects || [],
-        projectsPerSlide
-    );
+    // const projectChunks = chunkArray(
+    //     currentContent?.recentProjectsSection?.sections[activeRecentProjectSection]
+    //         ?.projects || [],
+    //     projectsPerSlide
+    // );
 
-    // const ProjectSlider = { ...markets, ...safety };
+    // // const ProjectSlider = { ...markets, ...safety };
+
+    let textAlignment = language === "en" ? "text-left" : "text-right"
 
     useEffect(() => {
         if (swiperInstance) {
@@ -89,36 +92,34 @@ const HomePage = () => {
         }
     }, [language]);
 
-    const TruncateText = (text, length) => {
-        if (text.length > (length || 50)) {
-            return `${text.slice(0, length || 50)}...`;
-        }
-        return text;
-    };
+    // const TruncateText = (text, length) => {
+    //     if (text.length > (length || 50)) {
+    //         return `${text.slice(0, length || 50)}...`;
+    //     }
+    //     return text;
+    // };
 
     return (
-        <div className="w-[100%] relative text-left" style={{ fontFamily: "Michroma" }}>
+        <div className={`w-[100%] relative ${textAlignment}`} style={{ fontFamily: "Michroma" }}>
             {/* banner */}
             <section className="w-full relative border border-[red]">
                 <span
                     className={`w-full block ${language === "en" ? "scale-x-100" : "scale-x-[-1]"
                         }`}
                 >
-                    <img src={background} alt="about-us" className="w-[1000px] object-cover" style={{ objectPosition: "center", transform: "scaleX(-1)" }} />
+                    <img src={background} alt="about-us" className="w-[1050px] h-full object-cover" style={{ objectPosition: "center", transform: "scaleX(-1)" }} />
                 </span>
-                <div
-                    
-                    className="container mx-auto absolute top-[20%] left-0 right-0 px-4">
-                    <div className="text-left flex flex-col items-start">
-                        <h1 className="ml-[128px] text-black text-[40px] tracking-[.2rem] capitalize font-medium tracking-[-3.5px] mb-4 w-[500px] "
+                <div className="container mx-auto absolute top-[20%] left-0 right-0 px-4">
+                    <div className={`text-left flex flex-col ${language === "en" ? "items-start" : "items-end"} ${textAlignment}`}>
+                        <h1 className="border border-1 ml-[128px] text-black text-[40px] tracking-[.2rem] capitalize font-medium tracking-[-3.5px] mb-4 w-[500px] "
                         >
                             {currentContent?.homeBanner?.title[language]}
                         </h1>
-                        <p className="ml-[128px] text-gray-800 text-[10px] font-semibold leading-[16px] mb-6 w-1/2 tracking-[2px]">
+                        <p className="border border-1 ml-[128px] text-gray-800 text-[10px] font-semibold leading-[16px] mb-6 w-1/2 tracking-[2px]">
                             {currentContent?.homeBanner?.description[language]}
                         </p>
                         <button
-                            className={`ml-[128px] relative items-center flex gap-1 text-[12px] font-medium px-[16px] py-[14px] ${language === "en" ? "py-[10px] px-[35px]" : ""
+                            className={`border border-1 ml-[128px] relative items-center flex gap-1 text-[12px] font-medium px-[16px] py-[14px] ${language === "en" ? "py-[10px] px-[35px]" : ""
                                 } bg-blue-500 text-white rounded-md`}
                             onClick={() => { }}
                         >
@@ -135,7 +136,7 @@ const HomePage = () => {
                 </div>
             </section>
             {/* about us section */}
-            <section className={`py-[120px] px-10 ${language === "en" ? "" : " direction-rtl"}`}>
+            <section className={`py-[120px] px-10 ${language === "en" ? "" : " direction-rtl"} border border-1 border-stone-900`}>
                 <div className="relative container mx-auto flex items-center">
                     {/* About content */}
                     <div className="absolute bg-blue-500 px-4 py-8 rounded-sm w-[23rem]">
@@ -155,6 +156,64 @@ const HomePage = () => {
                     {/* Image section */}
                     <div className="ml-auto w-[600px] h-[629px] overflow-hidden rounded-sm shadow-lg">
                         <img src={AboutUs} alt="about-us" className="w-full h-full object-cover" />
+                    </div>
+                </div>
+            </section>
+            {/* service section */}
+            <section className="py-10 bg-gray-100">
+                <div className="container mx-auto px-6">
+                    <h2 className="text-center text-3xl font-light text-black mb-9">
+                        {currentContent?.serviceSection?.title[language]}
+                    </h2>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 px-8">
+                        {currentContent?.serviceSection?.cards?.map((card, key) => (
+                            <Card key={key} className="w-full h-44 flex items-center justify-center p-6 rounded-lg transition-transform duration-300 hover:scale-105 cursor-pointer bg-secondary odd:bg-white">
+                                <div className="flex flex-col items-center gap-4">
+                                    <img src={services?.[card.iconName]} width={40} height={40} alt="Icon" className="h-10 w-10" />
+                                    <h5 className="relative text-lg font-light text-center">
+                                        {card.title[language]}
+                                        <span className="block h-[2px] w-16 bg-gray-300 mt-2 mx-auto"></span>
+                                    </h5>
+                                </div>
+                            </Card>
+                        ))}
+                    </div>
+                </div>
+            </section>
+            {/* experience section */}
+            <section className="py-[115px] pb-[186px]">
+                <div className="container mx-auto grid grid-cols-1 lg:grid-cols-[1fr_369px] gap-12">
+                    <div className="grid grid-cols-2 gap-24">
+                        {currentContent?.experienceSection?.cards?.map((item, key) => (
+                            <div key={key} className="min-w-[305px] rounded-md border border-white bg-white shadow-lg p-6 relative">
+                                <img
+                                    className={`absolute ${key === 1 ? 'top-[-22px] right-[-32px]' : 'left-[-36px] top-[-37px]'}`}
+                                    src={""}
+                                    width={60}
+                                    height={key === 1 ? 47 : 60}
+                                    alt=""
+                                />
+                                <h3 className="text-black text-6xl font-semibold text-center">{item.count}</h3>
+                                <h5 className="text-black text-xl font-light relative pr-5 before:absolute before:left-[-10px] before:top-0 before:w-[5px] before:h-[25px] before:bg-secondary">
+                                    {item.title[language]}
+                                </h5>
+                            </div>
+                        ))}
+                    </div>
+                    <div className="max-w-[420px] pt-12">
+                        <h2 className="text-primary text-5xl font-bold leading-[75px] mb-6">
+                            {currentContent?.experienceSection?.title[language]}
+                        </h2>
+                        <p className="text-black text-base font-light leading-6 mb-8">
+                            {currentContent?.experienceSection?.description[language]}
+                        </p>
+                        <button
+                            className={`text-white bg-secondary px-6 py-3 text-lg rounded-md ${language === "ar" ? 'px-9 py-4' : ''}`}
+                            onClick={() => setIsModal(true)}
+                        >
+                            {currentContent?.experienceSection?.button?.text[language]}
+                        </button>
                     </div>
                 </div>
             </section>

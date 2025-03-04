@@ -79,7 +79,7 @@ import secondaryRoads from "./images/secondaryRoads.jpeg"
 import swccWaterSupply from "./images/swccWaterSupply.jpg"
 import otherProjects from "./images/otherProjects.png"
 
-const services = {
+export const services = {
   construction,
   architecture,
   operationGate,
@@ -88,28 +88,28 @@ const services = {
   projectService,
 };
 
-const experience = {
+export const experience = {
   projectCompleted,
   happyClient,
   yearOfBusiness,
   awardWin,
 };
 
-const recentProjects = {
+export const recentProjects = {
   itLab,
   business,
   psychiatric,
   renovation,
 };
 
-const markets = {
+export const markets = {
   buildings,
   industrial,
   infrastructure,
   repair,
 };
 
-const safety = {
+export const safety = {
   safetyTraining,
   emergencyResponse,
   constructionSafety,
@@ -117,21 +117,21 @@ const safety = {
   fireSafety,
   workplaceSafety,
 };
-const clients = {
+export const clients = {
   client1,
   client2,
   client3,
   client4,
 };
 
-const testimonials = {
+export const testimonials = {
   testimonial1,
   testimonial2,
   dummyUser,
   userIcon
 };
 
-const aboutUsIcons = {
+export const aboutUsIcons = {
   ourMission,
   ourGoal,
   ourVision:
@@ -139,7 +139,7 @@ const aboutUsIcons = {
 };
 
 
-const projectPageData = {
+export const projectPageData = {
 itLabExcellence,
   nonMetallic,
   businessGate,
@@ -164,22 +164,22 @@ itLabExcellence,
   otherProjects,
 }
 
-const newsBlogs = {
+export const newsBlogs = {
   news1,
   news2,
   news3,
   news4,
 };
 
-module.exports = {
-  services,
-  experience,
-  markets,
-  safety,
-  recentProjects,
-  clients,
-  testimonials,
-  aboutUsIcons,
-  projectPageData,
-  newsBlogs,
-};
+// module.exports = {
+//   services,
+//   experience,
+//   markets,
+//   safety,
+//   recentProjects,
+//   clients,
+//   testimonials,
+//   aboutUsIcons,
+//   projectPageData,
+//   newsBlogs,
+// };

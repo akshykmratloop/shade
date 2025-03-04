@@ -3,13 +3,14 @@ import ContentSection from "./components/ContentSections";
 import MultiSelect from "./components/MultiSelect";
 import { useSelector, useDispatch } from "react-redux";
 import { setSidebarState } from "../common/SbStateSlice";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import ContentTopBar from "./components/ContentTopBar";
 import HomePage from "./components/websiteComponent/Home";
 
 const EditPage = () => {
     const isCollapsed = useSelector((state) => state.sidebar.isCollapsed);
     const dispatch = useDispatch();
+    const [language, setLanguage] = useState('en')
 
     useEffect(() => {
         dispatch(setSidebarState(true))
@@ -20,7 +21,7 @@ const EditPage = () => {
 
             {/* content manager */}
             <div className=" pt-8 bg-[#fafaff] dark:bg-[#242933] p-8 xl:w-[23rem] sm:w-[30vw] flex flex-col gap-4 items-center overflow-y-scroll customscroller">
-                <LanguageSwitch />
+                <LanguageSwitch setLanguage={setLanguage} />
                 <ContentSection
                     Heading={"Hero Banner"}
                     inputs={[{ input: "input", label: "Heading/title" }, { input: "textarea", label: "Description" }]}
@@ -78,7 +79,7 @@ const EditPage = () => {
                 <ContentTopBar />
                 <div className=" overflow-y-scroll customscroller border-indigo-500 border">
                     <h4>Commented by {"Anukool (Super Admin)"}</h4>
-                    <HomePage/>
+                    <HomePage language={language}/>
                 </div>
             </div>
         </div>

@@ -1,12 +1,21 @@
 import { useState } from "react";
 
-export default function LanguageSwitch() {
+export default function LanguageSwitch({ setLanguage }) {
     const [isEnglish, setIsEnglish] = useState(true);
+
+    const changeLanguage = () => {
+        setIsEnglish(!isEnglish)
+        setLanguage(prev => {
+            if(prev === "en"){
+                return "ar"
+            }else return "en"
+        })
+    }
 
     return (
         <div
             className="relative w-full h-[2.5rem] text-[.8rem] font-light bg-gray-300 rounded-md cursor-pointer flex-shrink-0 overflow-visible isolation-isolate"
-            onClick={() => setIsEnglish(!isEnglish)}
+            onClick={changeLanguage}
         >
             {/* Toggle Background */}
             <div
