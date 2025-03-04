@@ -15,10 +15,6 @@ const ContentSection = ({ Heading, subHeading, inputs = [], inputFiles = [], isB
     // Function to update input values
     const updateFormValue = ({ updateType, value }) => {
         dispatch(updateSpecificContent({ section: section, title: updateType, lan: language, value }))
-        // setFormData((prev) => ({
-        //     ...prev,
-        //     [updateType]: value,
-        // }));
     };
 
     console.log(homeContent)
@@ -35,8 +31,8 @@ const ContentSection = ({ Heading, subHeading, inputs = [], inputFiles = [], isB
                         updateFormValue={updateFormValue}
                         updateType={input.updateType}
                         section={section}
-                        defaultValue={homeContent?.[section]?.[input.updateType][language]}
-                        language={language}
+                        defaultValue={homeContent?.[section]?.[input.updateType][language] || ""}
+                        language={language} 
                     />
                 ) : (
                     <InputText

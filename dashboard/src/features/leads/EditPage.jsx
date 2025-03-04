@@ -32,7 +32,7 @@ const EditPage = () => {
                 />
                 <ContentSection
                     Heading={"About Section"}
-                    inputs={[{ input: "input", label: "Heading/title", updateType: "title" }, { input: "input", label: "About section", updateType: "description" }, { input: "input", label: "Button Text", updateType: "buttonText" }]}
+                    inputs={[{ input: "input", label: "Heading/title", updateType: "title" }, { input: "textarea", label: "About section", updateType: "description" }, { input: "input", label: "Button Text", updateType: "buttonText" }]}
                     inputFiles={["Backround Image"]}
                     fileId={"aboutUsSection"}
                     section={"aboutUsSection"}
@@ -51,7 +51,7 @@ const EditPage = () => {
                 <div className="w-full">
                     <ContentSection
                         Heading={"Experience Section"}
-                        inputs={[{ input: "input", label: "Heading/title" }, { input: "textarea", label: "descritpion" }, { input: "input", label: "button Text" }]}
+                        inputs={[{ input: "input", label: "Heading/title" }, { input: "textarea", label: "Description" }, { input: "input", label: "button Text" }]}
                         isBorder={false}
                         language={language}
                     />
@@ -73,7 +73,7 @@ const EditPage = () => {
                 <div>
                     <ContentSection
                         Heading={"Project Section"}
-                        inputs={[{ input: "input", label: "Heading/title" }, { input: "textarea", label: "descritpion" }, { input: "input", label: "button Text" }]}
+                        inputs={[{ input: "input", label: "Heading/title" }, { input: "textarea", label: "Description" }, { input: "input", label: "button Text" }]}
                         isBorder={false}
                         language={language} 
                     />
