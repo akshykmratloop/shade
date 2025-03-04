@@ -119,15 +119,15 @@ const HomePage = ({ language }) => {
 
                     className="container mx-auto absolute top-[20%] left-0 right-0 px-4">
                     <div className={`text-left flex flex-col ${language === "en" ? "items-start" : "items-end"} ${textAlignment}`}>
-                        <h1 className="ml-[128px] text-black text-[35px] tracking-[.2rem] leading-[2.5rem] capitalize font-medium mb-4 w-[450px] "
+                        <h1 className="mx-[80px] text-black text-[35px] tracking-[.2rem] leading-[2.5rem] capitalize font-medium mb-4 w-[450px] "
                         >
                             {currentContent?.homeBanner?.title[language]}
                         </h1>
-                        <p className="ml-[128px] text-gray-800 text-[10px] font-semibold leading-[16px] mb-6 w-1/2 tracking-[2px]">
+                        <p className="mx-[80px] text-gray-800 text-[10px] font-semibold leading-[16px] mb-6 w-1/2 tracking-[2px]">
                             {currentContent?.homeBanner?.description[language]}
                         </p>
                         <button
-                            className={`ml-[128px] relative items-center flex ${isEnglish?"":"flex-row-reverse"} gap-1 text-[12px] font-medium px-[16px] py-[14px] ${language === "en" ? "py-[10px] px-[35px]" : ""
+                            className={`mx-[80px] relative items-center flex ${isEnglish ? "" : "flex-row-reverse"} gap-1 text-[12px] font-medium px-[16px] py-[14px] ${language === "en" ? "py-[10px] px-[35px]" : ""
                                 } bg-blue-500 text-white rounded-md`}
                             onClick={() => { }}
                         >
@@ -137,34 +137,35 @@ const HomePage = ({ language }) => {
                                 width="10"
                                 height="11"
                                 alt=""
-                                style={{ transform: isEnglish ? "rotate(180deg)" :""  }}
+                                style={{ transform: isEnglish ? "rotate(180deg)" : "" }}
                             />
                         </button>
                     </div>
                 </div>
             </section>
             {/* about us section */}
-            <section className={`py-[120px] px-10 ${language === "en" ? "" : " direction-rtl"} border border-1 border-stone-900`}>
-                <div className="relative container mx-auto flex items-center">
+            <section className={`py-[120px] px-10 ${language === "en" ? "" : " direction-rtl"} items-start`}>
+                <div className={`relative container mx-auto flex ${isEnglish ? "" : "flex-row-reverse"} items-center`}>
+                    {/* Image section */}
+                    <div className="w-[600px] h-[500px] overflow-hidden rounded-sm shadow-lg">
+                        <img src={AboutUs} alt="about-us" className="w-full h-[500px] object-cover" />
+                    </div>
                     {/* About content */}
-                    <div className="absolute bg-blue-500 px-4 py-8 rounded-sm w-[23rem]">
-                        <h2 className="text-white text-[24px] font-normal text-right">
+                    <div className={`absolute ${isEnglish ? "right-0 text-left" : "left-0 text-right"} bg-blue-500 px-8 py-8 rounded-sm w-[23rem]`} >
+                        <h2 className="text-white text-[24px] font-normal">
                             {currentContent?.aboutUsSection?.title[language]}
                         </h2>
-                        <p className="text-white text-[12px] font-light text-right leading-[26px] mb-4">
+                        <p className="text-white text-[12px] font-light leading-[26px] mb-4">
                             {currentContent?.aboutUsSection?.description[language]}
                         </p>
-                        <p className="text-white text-[12px] font-light text-right leading-[26px] mb-4">
+                        <p className="text-white text-[12px] font-light leading-[26px] mb-4">
                             {currentContent?.aboutUsSection?.description2[language]}
                         </p>
                         <button className="px-[28px] py-[12px] bg-primary text-white text-[12px] rounded-sm hover:bg-opacity-90 text-right">
                             {currentContent?.aboutUsSection?.buttonText[language]}
                         </button>
                     </div>
-                    {/* Image section */}
-                    <div className="ml-auto w-[600px] h-[629px] overflow-hidden rounded-sm shadow-lg">
-                        <img src={AboutUs} alt="about-us" className="w-full h-full object-cover" />
-                    </div>
+
                 </div>
             </section>
             {/* service section */}
@@ -176,7 +177,7 @@ const HomePage = ({ language }) => {
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 px-8">
                         {currentContent?.serviceSection?.cards?.map((card, key) => (
-                            <Card key={key} className="w-full h-44 flex items-center justify-center p-6 rounded-lg transition-transform duration-300 hover:scale-105 cursor-pointer bg-secondary odd:bg-white">
+                            <Card key={key} className="w-full h-44 flex items-center justify-center p-6 rounded-lg transition-transform duration-300 hover:scale-105 cursor-pointer bg-[#0b369c] text-[white] odd:bg-stone-200 odd:text-stone-700">
                                 <div className="flex flex-col items-center gap-4">
                                     <img src={services?.[card.iconName]} width={40} height={40} alt="Icon" className="h-10 w-10" />
                                     <h5 className="relative text-lg font-light text-center">
@@ -190,34 +191,47 @@ const HomePage = ({ language }) => {
                 </div>
             </section>
             {/* experience section */}
-            <section className="py-[115px] pb-[186px]">
+            <section className="py-[115px] pb-[186px] px-[100px]">
                 <div className="container mx-auto grid grid-cols-1 lg:grid-cols-[1fr_369px] gap-12">
-                    <div className="grid grid-cols-2 gap-24">
-                        {currentContent?.experienceSection?.cards?.map((item, key) => (
-                            <div key={key} className="min-w-[305px] rounded-md border border-white bg-white shadow-lg p-6 relative">
-                                <img
-                                    className={`absolute ${key === 1 ? 'top-[-22px] right-[-32px]' : 'left-[-36px] top-[-37px]'}`}
-                                    src={""}
-                                    width={60}
-                                    height={key === 1 ? 47 : 60}
-                                    alt=""
-                                />
-                                <h3 className="text-black text-6xl font-semibold text-center">{item.count}</h3>
-                                <h5 className="text-black text-xl font-light relative pr-5 before:absolute before:left-[-10px] before:top-0 before:w-[5px] before:h-[25px] before:bg-secondary">
-                                    {item.title[language]}
-                                </h5>
-                            </div>
-                        ))}
+                    <div className="relative top-[60px] left-[-50px]">
+                        {currentContent?.experienceSection?.cards?.map((item, key) => {
+                            // Set top position based on whether key is odd or even
+                            const topValue = Math.floor(key / 2) * 140 + (key % 2 !== 0 ? -25 : 25); // Odd = move up, Even = move down
+
+                            return (
+                                <div
+                                    key={key}
+                                    style={{ top: `${topValue}px`, left: key % 2 !== 0 ? "180px" : "0px" }}
+                                    className="w-[230px] h-[100px] absolute rounded-md bg-white shadow-lg p-6"
+                                >
+                                    <div className="relative">
+                                        <img
+                                            className={`absolute ${key === 1 ? "top-[-22px] right-[-32px]" : "left-[-36px] top-[-37px]"}`}
+                                            src={experience?.[item.iconName]}
+                                            width={60}
+                                            height={key === 1 ? 47 : 60}
+                                            alt=""
+                                        />
+                                    </div>
+                                    <h3 className="text-black text-lg font-semibold text-center">{item.count}</h3>
+                                    <h5 className="text-black text-xs font-light relative pr-5 before:absolute before:left-[-10px] before:top-0 before:w-[5px] before:h-[25px] before:bg-orange-500">
+                                        {item.title[language]}
+                                    </h5>
+                                </div>
+                            );
+                        })}
+
+
                     </div>
                     <div className="max-w-[420px] pt-12">
-                        <h2 className="text-primary text-5xl font-bold leading-[75px] mb-6">
+                        <h2 className="text-sky-500 text-xl font-bold leading-[75px] mb-6">
                             {currentContent?.experienceSection?.title[language]}
                         </h2>
-                        <p className="text-black text-base font-light leading-6 mb-8">
+                        <p className="text-black text-base text-md font-light leading-6 mb-8">
                             {currentContent?.experienceSection?.description[language]}
                         </p>
                         <button
-                            className={`text-white bg-secondary px-6 py-3 text-lg rounded-md ${language === "ar" ? 'px-9 py-4' : ''}`}
+                            className={`text-white bg-sky-500 px-6 py-3 text-lg rounded-md ${language === "ar" ? 'px-9 py-4' : ''}`}
                             onClick={() => setIsModal(true)}
                         >
                             {currentContent?.experienceSection?.button?.text[language]}

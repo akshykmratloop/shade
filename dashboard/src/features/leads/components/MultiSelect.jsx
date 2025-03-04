@@ -1,4 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
+import { useDispatch } from "react-redux";
+
 import {
   DndContext,
   closestCenter,
@@ -43,10 +45,15 @@ const SortableItem = ({ option, removeOption }) => {
   );
 };
 
-const MultiSelect = ({ heading, options, tabName, label }) => {
+const MultiSelect = ({ heading, options, tabName, label, language }) => {
   const [selectedOptions, setSelectedOptions] = useState([]);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
+
+
+  console.log(options?.[0].title[language])
+  const showOptions = options?.map(e =>  e.title[language])
+
 
   const toggleDropdown = () => {
     setIsDropdownOpen((prev) => !prev);
@@ -75,6 +82,7 @@ const MultiSelect = ({ heading, options, tabName, label }) => {
         return arrayMove(items, oldIndex, newIndex);
       });
     }
+    console.log(selectedOptions)
   };
 
   useEffect(() => {
@@ -90,6 +98,17 @@ const MultiSelect = ({ heading, options, tabName, label }) => {
     };
   }, []);
 
+  useEffect(() => {
+    if (showOptions && selectedOptions.length === 0) {
+      setSelectedOptions(showOptions?.map(e => {
+        if(e.display){
+          return e.title[language]
+        }
+      }).filter(e => e));
+    }
+  }, [showOptions]);
+
+
   return (
     <div className="relative w-full border-b border-b-2 border-neutral-300 pb-4" ref={dropdownRef}>
       <h3 className="font-semibold text-[1.25rem] mb-4">{heading}</h3>
@@ -103,7 +122,7 @@ const MultiSelect = ({ heading, options, tabName, label }) => {
 
       {isDropdownOpen && (
         <ul className="absolute text-xs left-0 xl:top-[-6.2rem] sm:top-[-3rem] md:top-[-6rem] z-10 w-full mt-2 bg-[#fafaff] dark:bg-[#242933] border rounded-md shadow-md overflow-y-scroll h-[10rem] customscroller">
-          {options.map((option) => (
+          {showOptions.map((option) => (
             <li
               key={option}
               onClick={() => handleSelect(option)}

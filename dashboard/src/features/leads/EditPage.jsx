@@ -11,6 +11,9 @@ const EditPage = () => {
     const isCollapsed = useSelector((state) => state.sidebar.isCollapsed);
     const dispatch = useDispatch();
     const [language, setLanguage] = useState('en')
+    const homeContent = useSelector((state) => state.homeContent.home)
+
+    
 
     useEffect(() => {
         dispatch(setSidebarState(true))
@@ -24,7 +27,7 @@ const EditPage = () => {
                 <LanguageSwitch setLanguage={setLanguage} />
                 <ContentSection
                     Heading={"Hero Banner"}
-                    inputs={[{ input: "input", label: "Heading/title", updateType: "title" }, { input: "textarea", label: "Description", updateType: "description" }]}
+                    inputs={[{ input: "input", label: "Heading/title", updateType: "title" }, { input: "textarea", label: "Description", updateType: "description" }, { input: "input", label: "Button Text", updateType: "buttonText" }]}
                     inputFiles={["Backround Image"]}
                     fileId={"heroBanner"}
                     section={"homeBanner"}
@@ -32,7 +35,7 @@ const EditPage = () => {
                 />
                 <ContentSection
                     Heading={"About Section"}
-                    inputs={[{ input: "input", label: "Heading/title", updateType: "title" }, { input: "textarea", label: "About section", updateType: "description" }, { input: "input", label: "Button Text", updateType: "buttonText" }]}
+                    inputs={[{ input: "input", label: "Heading/title", updateType: "title" }, { input: "textarea", label: "About section", updateType: "description" }, { input: "textarea", label: "Description 2", updateType: "description2" },, { input: "input", label: "Button Text", updateType: "buttonText" }]}
                     inputFiles={["Backround Image"]}
                     fileId={"aboutUsSection"}
                     section={"aboutUsSection"}
@@ -47,7 +50,7 @@ const EditPage = () => {
                         inputClass="px-2 bg-[white] border border-stone-500 w-[21.7rem] mt-1 rounded-md p-2 h-[2.5rem] outline-none"
                     />
                 </div> */}
-                <MultiSelect language={language} label={"Select Service List"} heading={"Serivces Section"} tabName={"Select Services"} options={["option 1", "option 2", "option 3", "option 4", "option 5", "option 6"]} />
+                <MultiSelect language={language} label={"Select Service List"} heading={"Serivces Section"} tabName={"Select Services"} options={homeContent?.serviceSection?.cards} />
                 <div className="w-full">
                     <ContentSection
                         Heading={"Experience Section"}
@@ -77,7 +80,7 @@ const EditPage = () => {
                         isBorder={false}
                         language={language} 
                     />
-                    <MultiSelect language={language}  label={"Select Project List (Page 1)"} tabName={"Select Projects"} options={["option 1", "option 2", "option 3", "option 4", "option 5", "option 6"]} />
+                    <MultiSelect language={language}  label={"Select Project List (Page 1)"} tabName={"Select Projects"} options={homeContent?.serviceSection?.cards} />
 
                 </div>
             </div>

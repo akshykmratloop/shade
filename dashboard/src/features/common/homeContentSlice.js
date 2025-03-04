@@ -11,9 +11,10 @@ const homeContentSlice = createSlice({
             state.home = action.payload;
         },
         updateSpecificContent: (state, action) => {
-            console.log(action.payload)
-            console.log(state.home)
             state.home[action?.payload.section][action?.payload?.title][action?.payload.lan] = action.payload.value
+        },
+        updateSelectedContent: (state, action) => {
+            // state.home?.[action?.payload.section]
         }
     }
 })

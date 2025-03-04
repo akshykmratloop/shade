@@ -17,17 +17,17 @@ function TextAreaInput({
     updateFormValue({ updateType, value: val });
   };
 
-  // Adjust height dynamically
   useEffect(() => {
     if (textareaRef.current) {
-      textareaRef.current.style.height = "auto"; // Reset height
-      textareaRef.current.style.height = textareaRef.current.scrollHeight + "px"; // Adjust height
+      textareaRef.current.style.height = "auto"; // Reset height to recalculate
+      const newHeight = textareaRef.current.scrollHeight;
+      textareaRef.current.style.minHeight = `${newHeight}px`; // Set height dynamically
     }
   }, [value]);
 
   useEffect(() => {
-    setValue(defaultValue || "")
-  }, [defaultValue])
+    setValue(defaultValue || "");
+  }, [defaultValue]);
 
   return (
     <div className={`form-control w-full ${containerStyle}`}>
@@ -39,10 +39,10 @@ function TextAreaInput({
       <textarea
         ref={textareaRef}
         value={value}
-        className="textarea textarea-bordered w-full min-h-[2.3rem] overflow-hidden resize-none border border-stone-500 text-xs"
+        className="textarea textarea-bordered w-full overflow-hidden border border-stone-500 text-xs"
         placeholder={placeholder || ""}
         onChange={(e) => updateInputValue(e.target.value)}
-        style={{ height: "2.3rem", whiteSpace:"pre-wrap" }} // Default height same as input
+        style={{ resize: "vertical", minHeight: "2.3rem", whiteSpace: "pre-wrap", }} // Allows only upward resizing
       ></textarea>
     </div>
   );

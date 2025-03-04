@@ -32,8 +32,9 @@ function InputText({
   };
 
   useEffect(() => {
-    setValue(defaultValue)
+    setValue(defaultValue || "")
   }, [defaultValue])
+
   return (
     <div
       className={`form-control my-2 ${width ?? "w-full"} ${containerStyle}`}
