@@ -24,15 +24,19 @@ const EditPage = () => {
                 <LanguageSwitch setLanguage={setLanguage} />
                 <ContentSection
                     Heading={"Hero Banner"}
-                    inputs={[{ input: "input", label: "Heading/title" }, { input: "textarea", label: "Description" }]}
+                    inputs={[{ input: "input", label: "Heading/title", updateType: "title" }, { input: "textarea", label: "Description", updateType: "description" }]}
                     inputFiles={["Backround Image"]}
                     fileId={"heroBanner"}
+                    section={"homeBanner"}
+                    language={language}
                 />
                 <ContentSection
                     Heading={"About Section"}
-                    inputs={[{ input: "input", label: "Heading/title" }, { input: "input", label: "About section" }, { input: "input", label: "Button Text" }]}
+                    inputs={[{ input: "input", label: "Heading/title", updateType: "title" }, { input: "input", label: "About section", updateType: "description" }, { input: "input", label: "Button Text", updateType: "buttonText" }]}
                     inputFiles={["Backround Image"]}
-                    fileId={"aboutSection"}
+                    fileId={"aboutUsSection"}
+                    section={"aboutUsSection"}
+                    language={language}
                 />
                 {/* <div className="w-[22rem] flex flex-col gap-1 border-b border-b-2 border-neutral-300 pb-6">
                     <h3 className="font-semibold text-[1.25rem] mb-4">Service Section</h3>
@@ -43,12 +47,13 @@ const EditPage = () => {
                         inputClass="px-2 bg-[white] border border-stone-500 w-[21.7rem] mt-1 rounded-md p-2 h-[2.5rem] outline-none"
                     />
                 </div> */}
-                <MultiSelect label={"Select Service List"} heading={"Serivces Section"} tabName={"Select Services"} options={["option 1", "option 2", "option 3", "option 4", "option 5", "option 6"]} />
+                <MultiSelect language={language} label={"Select Service List"} heading={"Serivces Section"} tabName={"Select Services"} options={["option 1", "option 2", "option 3", "option 4", "option 5", "option 6"]} />
                 <div className="w-full">
                     <ContentSection
                         Heading={"Experience Section"}
                         inputs={[{ input: "input", label: "Heading/title" }, { input: "textarea", label: "descritpion" }, { input: "input", label: "button Text" }]}
                         isBorder={false}
+                        language={language}
                     />
                     {["Item 1", "Item 2", "Item 3", "Item 4"].map((item, index, array) => {
                         const isLast = index === array.length - 1;
@@ -59,6 +64,7 @@ const EditPage = () => {
                                     { input: "input", label: "Item text 1" },
                                     { input: "input", label: "Item text 2" }]}
                                 inputFiles={["Item Icon"]}
+                                language={language}
                                 isBorder={isLast}
                             />
                         )
@@ -69,8 +75,9 @@ const EditPage = () => {
                         Heading={"Project Section"}
                         inputs={[{ input: "input", label: "Heading/title" }, { input: "textarea", label: "descritpion" }, { input: "input", label: "button Text" }]}
                         isBorder={false}
+                        language={language} 
                     />
-                    <MultiSelect label={"Select Project List (Page 1)"} tabName={"Select Projects"} options={["option 1", "option 2", "option 3", "option 4", "option 5", "option 6"]} />
+                    <MultiSelect language={language}  label={"Select Project List (Page 1)"} tabName={"Select Projects"} options={["option 1", "option 2", "option 3", "option 4", "option 5", "option 6"]} />
 
                 </div>
             </div>
@@ -79,7 +86,7 @@ const EditPage = () => {
                 <ContentTopBar />
                 <div className=" overflow-y-scroll customscroller border-indigo-500 border">
                     <h4>Commented by {"Anukool (Super Admin)"}</h4>
-                    <HomePage language={language}/>
+                    <HomePage language={language} />
                 </div>
             </div>
         </div>

@@ -5,7 +5,8 @@ import rightDrawerSlice from '../features/common/rightDrawerSlice'
 import leadsSlice from '../features/leads/leadSlice'
 import userSlice from "../features/common/userSlice"
 import debounceSlice from "../features/common/debounceSlice"
-import sidebarReducer from "../features/common/SbStateSlice"
+import sidebarReducer from "../features/common/SbStateSlice";
+import homeContentReducer from '../features/common/homeContentSlice'
 
 const combinedReducer = {
   header: headerSlice,
@@ -14,7 +15,8 @@ const combinedReducer = {
   lead: leadsSlice,
   user: userSlice,
   debounce: debounceSlice,
-  sidebar: sidebarReducer
+  sidebar: sidebarReducer,
+  homeContent: homeContentReducer
 }
 
 export default configureStore({

@@ -33,6 +33,7 @@
       "ar": "اتصل بنا"
     }
   },
+
   "home": {
     "homeBanner": {
       "title": {
@@ -968,6 +969,7 @@
       }
     }
   },
+
   "services": {
     "banner": {
       "title": {
@@ -2023,6 +2025,7 @@
       }
     }
   },
+
   "projectDetail": [
     {
       "id": 1,
@@ -5368,6 +5371,7 @@
       ]
     }
   },
+  
   "notFound": {
     "description": {
       "en": "Sorry! The page you are looking for does not exist",

@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import Card from "./Card"; // Adjust the path accordingly
 // import styles from "./Home.module.scss";
 // import button from "@/common/button";
@@ -42,6 +43,7 @@ import {
 //   display: "swap",
 // });
 import content from './content.json'
+import { updateContent } from "../../../common/homeContentSlice";
 
 
 
@@ -49,14 +51,15 @@ const HomePage = ({ language }) => {
     // const router = useRouter();
     //   const { language, content } = useGlobalContext();
     // const styles = ''
-    const currentContent = content?.home;
+    // const currentContent = content?.home;
+    const dispatch = useDispatch();
+    const currentContent = useSelector((state) => state.homeContent.home)
     // // Create refs for the navigation buttons
     // const prevRef = useRef(null);
     // const nextRef = useRef(null);
     // const testimonialPrevRef = useRef(null);
     // const testimonialNextRef = useRef(null);
-    // const [activeRecentProjectSection, setActiveRecentProjectSection] =
-    //     useState(0);
+    // const [activeRecentProjectSection, setActiveRecentProjectSection] = useState(0);
     const [isModal, setIsModal] = useState(false);
     // const redirectionUrlForRecentProject = ["/project", "/market", "/"];
     const [swiperInstance, setSwiperInstance] = useState(null);
@@ -84,8 +87,8 @@ const HomePage = ({ language }) => {
 
     // // const ProjectSlider = { ...markets, ...safety };
 
-    let textAlignment = language === "en" ? "text-left" : "text-right"
-
+    let textAlignment = language === "en" ?"text-left":"text-right"
+    
     useEffect(() => {
         if (swiperInstance) {
             swiperInstance.update();
@@ -99,27 +102,32 @@ const HomePage = ({ language }) => {
     //     return text;
     // };
 
+    useEffect(() => {
+        dispatch(updateContent((content?.home)))
+    }, [])
     return (
         <div className={`w-[100%] relative ${textAlignment}`} style={{ fontFamily: "Michroma" }}>
             {/* banner */}
-            <section className="w-full relative border border-[red]">
+            <section className="w-full relative">
                 <span
                     className={`w-full block ${language === "en" ? "scale-x-100" : "scale-x-[-1]"
                         }`}
                 >
                     <img src={background} alt="about-us" className="w-[1050px] h-full object-cover" style={{ objectPosition: "center", transform: "scaleX(-1)" }} />
                 </span>
-                <div className="container mx-auto absolute top-[20%] left-0 right-0 px-4">
-                    <div className={`text-left flex flex-col ${language === "en" ? "items-start" : "items-end"} ${textAlignment}`}>
-                        <h1 className="border border-1 ml-[128px] text-black text-[40px] tracking-[.2rem] capitalize font-medium tracking-[-3.5px] mb-4 w-[500px] "
+                <div
+
+                    className="container mx-auto absolute top-[20%] left-0 right-0 px-4">
+                    <div className={`text-left flex flex-col ${language === "en"?"items-start":"items-end"} ${textAlignment}`}>
+                        <h1 className="ml-[128px] text-black text-[35px] tracking-[.2rem] leading-[2.5rem] capitalize font-medium mb-4 w-[450px] "
                         >
                             {currentContent?.homeBanner?.title[language]}
                         </h1>
-                        <p className="border border-1 ml-[128px] text-gray-800 text-[10px] font-semibold leading-[16px] mb-6 w-1/2 tracking-[2px]">
+                        <p className="ml-[128px] text-gray-800 text-[10px] font-semibold leading-[16px] mb-6 w-1/2 tracking-[2px]">
                             {currentContent?.homeBanner?.description[language]}
                         </p>
                         <button
-                            className={`border border-1 ml-[128px] relative items-center flex gap-1 text-[12px] font-medium px-[16px] py-[14px] ${language === "en" ? "py-[10px] px-[35px]" : ""
+                            className={`ml-[128px] relative items-center flex gap-1 text-[12px] font-medium px-[16px] py-[14px] ${language === "en" ? "py-[10px] px-[35px]" : ""
                                 } bg-blue-500 text-white rounded-md`}
                             onClick={() => { }}
                         >
