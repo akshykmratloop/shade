@@ -30,7 +30,7 @@ export default function ContentTopBar() {
                     {deviceIcons.map((device, index) => (
                         <span 
                             key={index} 
-                            className={`cursor-pointer hover:text-[#64748B] ${selectedDevice === device.label ? 'bg-[#29469D] text-white rounded-md p-1' : ''}`} 
+                            className={`cursor-pointer ${selectedDevice === device.label ? 'bg-[#29469D] text-white rounded-md p-1' : ''}`} 
                             onClick={() => setSelectedDevice(device.label)}
                         >
                             {React.cloneElement(device.icon, { className: `${iconSize} ${smallIconSize}` })}
@@ -38,7 +38,7 @@ export default function ContentTopBar() {
                     ))}
                 </div>
                 <div className='sm:block md:hidden lg:hidden xl:hidden relative'>
-                    <button onClick={() => setMenuOpen(!menuOpen)} className='flex items-center gap-1 hover:text-[#64748B]'>
+                    <button onClick={() => setMenuOpen(!menuOpen)} className='flex items-center gap-1'>
                         {React.cloneElement(deviceIcons.find(d => d.label === selectedDevice).icon, { className: `${iconSize} ${smallIconSize}` })}
                     </button>
                     {menuOpen && (

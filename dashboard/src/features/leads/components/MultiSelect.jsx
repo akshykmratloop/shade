@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useDispatch } from "react-redux";
+import content from "./websiteComponent/content.json"
 
 import {
   DndContext,
@@ -53,18 +54,24 @@ const MultiSelect = ({ heading, options = [], tabName, label, language, section 
   const [random, setRandom] = useState(Math.random())
   const dispatch = useDispatch();
 
+  const actualListOfServices = content.home.serviceSection.cards
+
   const showOptions = options?.map(e => e.title[language])
 
   const toggleDropdown = () => {
     setIsDropdownOpen((prev) => !prev);
   };
 
-  const handleSelect = (optionToAdd) => {
-    console.log(optionToAdd)
-    if (optionToAdd.display) return
-    setSelectedOptions(prev => {
-      return [...prev, { ...optionToAdd, display: true }]
-    })
+  const handleSelect = (optionToAdd, index) => {
+    for (let i = 0; i < options.length; i++) {
+      if (optionToAdd.title === options[i].title) {
+        if (options[i].display) return
+        setSelectedOptions(prev => {
+          return [...prev, { ...optionToAdd, display: true }]
+        })
+        break;
+      }
+    }
     setRandom(Math.random())
   };
 
@@ -139,15 +146,17 @@ const MultiSelect = ({ heading, options = [], tabName, label, language, section 
 
       {isDropdownOpen && (
         <ul className="absolute text-xs left-0 xl:top-[-6.2rem] sm:top-[-3rem] md:top-[-6rem] z-10 w-full mt-2 bg-[#fafaff] dark:bg-[#242933] border rounded-md shadow-md overflow-y-scroll h-[10rem] customscroller">
-          {options.map((option) => (
-            <li
-              key={option.title[language]}
-              onClick={() => handleSelect(option)}
-              className="p-2 cursor-pointer hover:bg-gray-100"
-            >
-              {option.title[language]}
-            </li>
-          ))}
+          {actualListOfServices.map((option, index) => {
+            return (
+              <li
+                key={option.title[language]}
+                onClick={() => handleSelect(option, index)}
+                className="p-2 cursor-pointer hover:bg-gray-100"
+              >
+                {option.title[language]}
+              </li>
+            )
+          })}
         </ul>
       )}
 
