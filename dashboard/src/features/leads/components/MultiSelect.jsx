@@ -50,7 +50,7 @@ const MultiSelect = ({ heading, options = [], tabName, label, language, section 
   const [selectedOptions, setSelectedOptions] = useState([]);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
-  const [random, setRandom] = useState(Math.random()) 
+  const [random, setRandom] = useState(Math.random())
   const dispatch = useDispatch();
 
   const showOptions = options?.map(e => e.title[language])
@@ -59,12 +59,12 @@ const MultiSelect = ({ heading, options = [], tabName, label, language, section 
     setIsDropdownOpen((prev) => !prev);
   };
 
-  const handleSelect = (option) => {
-    if(option.display) return 
-    setSelectedOptions((prev) => {
-      const updated = [...prev, option];
-      return updated;
-    });
+  const handleSelect = (optionToAdd) => {
+    console.log(optionToAdd)
+    if (optionToAdd.display) return
+    setSelectedOptions(prev => {
+      return [...prev, { ...optionToAdd, display: true }]
+    })
     setRandom(Math.random())
   };
 
@@ -73,14 +73,12 @@ const MultiSelect = ({ heading, options = [], tabName, label, language, section 
       return prev.map(option => {
         console.log(option === optionToRemove)
         if (option === optionToRemove) {
-          console.log({...option, display: false})
           return { ...option, display: false }
         }
         return option
       })
     })
     setRandom(Math.random())
-    console.log(selectedOptions)
   };
 
   const sensors = useSensors(
@@ -111,7 +109,7 @@ const MultiSelect = ({ heading, options = [], tabName, label, language, section 
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
-  
+
   useEffect(() => {
     if (showOptions) {
       setSelectedOptions(options?.map(e => {
@@ -120,13 +118,13 @@ const MultiSelect = ({ heading, options = [], tabName, label, language, section 
         }
       }).filter(e => e));
     }
-  }, [showOptions]);
+  }, [options]);
 
   useEffect(() => {
     if (options.length > 0) {
       dispatch(updateSelectedContent({ section, newArray: [...options], selected: selectedOptions, language }));
     }
-  }, [random]); 
+  }, [random]);
 
   return (
     <div className="relative w-full border-b border-b-2 border-neutral-300 pb-4" ref={dropdownRef}>
@@ -143,7 +141,7 @@ const MultiSelect = ({ heading, options = [], tabName, label, language, section 
         <ul className="absolute text-xs left-0 xl:top-[-6.2rem] sm:top-[-3rem] md:top-[-6rem] z-10 w-full mt-2 bg-[#fafaff] dark:bg-[#242933] border rounded-md shadow-md overflow-y-scroll h-[10rem] customscroller">
           {options.map((option) => (
             <li
-              key={option}
+              key={option.title[language]}
               onClick={() => handleSelect(option)}
               className="p-2 cursor-pointer hover:bg-gray-100"
             >

@@ -178,7 +178,7 @@ const HomePage = ({ language }) => {
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 px-8">
                         {currentContent?.serviceSection?.cards?.map((card, key) => {
                             if(!card.display) return null
-                            return (<Card key={key} className="w-full h-44 flex items-center justify-center p-6 rounded-lg transition-transform duration-300 hover:scale-105 cursor-pointer bg-[blue] text-[white] odd:bg-stone-200 odd:text-stone-700">
+                            return (<Card key={key} className="w-full h-44 flex items-center justify-center p-6 rounded-lg transition-transform duration-300 hover:scale-105 cursor-pointer bg-[blue] odd:bg-stone-200 text-stone-600">
                                 <div className="flex flex-col items-center gap-4">
                                     <img src={services?.[card.iconName]} width={40} height={40} alt="Icon" className="h-10 w-10" />
                                     <h5 className="relative text-lg font-light text-center">

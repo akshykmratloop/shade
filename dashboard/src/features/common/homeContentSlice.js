@@ -14,6 +14,7 @@ const homeContentSlice = createSlice({
             state.home[action?.payload.section][action?.payload?.title][action?.payload.lan] = action.payload.value
         },
         updateSelectedContent: (state, action) => {
+            console.log(action.payload.selected)
             // Create a Set for quick lookup of selected items
             const selectedSet = new Set(
                 action.payload.selected?.filter(e => e.display).map(item => item.title[action.payload.language])
