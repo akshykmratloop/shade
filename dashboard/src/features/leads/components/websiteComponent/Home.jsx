@@ -175,18 +175,20 @@ const HomePage = ({ language }) => {
                         {currentContent?.serviceSection?.title[language]}
                     </h2>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 px-8">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 md:gap-12 sm:gap-6  px-8">
                         {currentContent?.serviceSection?.cards?.map((card, key) => {
-                            if(!card.display) return null
-                            return (<Card key={key} className="w-full h-44 flex items-center justify-center p-6 rounded-lg transition-transform duration-300 hover:scale-105 cursor-pointer bg-[blue] odd:bg-stone-200 text-stone-600">
-                                <div className="flex flex-col items-center gap-4">
-                                    <img src={services?.[card.iconName]} width={40} height={40} alt="Icon" className="h-10 w-10" />
-                                    <h5 className="relative text-lg font-light text-center">
-                                        {card.title[language]}
-                                        <span className="block h-[2px] w-16 bg-gray-300 mt-2 mx-auto"></span>
-                                    </h5>
-                                </div>
-                            </Card>)})}
+                            if (!card.display) return null
+                            return (
+                                <div key={key} className={`w-full h-44 flex items-center justify-center p-6 rounded-lg transition-transform duration-300 hover:scale-105 cursor-pointer ${key%2!==0?"bg-stone-200 ":"bg-blue-500 text-[white]"} `}>
+                                    <div className="flex flex-col items-center gap-4">
+                                        <img src={services?.[card.iconName]} width={40} height={40} alt="Icon" className="h-10 w-10" />
+                                        <h5 className="relative text-lg font-light text-center">
+                                            {card.title[language]}
+                                            <span className="block h-[2px] w-16 bg-gray-300 mt-2 mx-auto"></span>
+                                        </h5>
+                                    </div>
+                                </div>)
+                        })}
                     </div>
                 </div>
             </section>
