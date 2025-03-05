@@ -1,31 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import Card from "./Card"; // Adjust the path accordingly
-// import styles from "./Home.module.scss";
-// import button from "@/common/button";
-// import Image from "next/image";
 import Arrow from "../../../../assets/icons/right-wrrow.svg";
-// import Client from "../../assets/icons/client.svg";
 import AboutUs from "../../../../assets/images/aboutus.png";
-// import localFont from "next/font/local";
-import { Swiper, SwiperSlide } from "swiper/react";
-// import required modules
-import {
-    Pagination,
-    Navigation,
-    Autoplay,
-    EffectCoverflow,
-} from "swiper/modules";
-// Import Swiper styles
-// import "swiper/css";
-// import "swiper/css/pagination";
-// import { useGlobalContext } from "../../contexts/GlobalContext";
-import blankImage from "../../../../assets/images/blankImage.webp";
 import background from "../../../../assets/images/Hero.png";
-// import dynamic from 'next/dynamic';
-// const AnimatedText = dynamic(() => import('@/common/AnimatedText'), { ssr: false });
-// import ContactUsModal from "../header/ContactUsModal";
-
 import {
     services,
     experience,
@@ -35,15 +12,37 @@ import {
     clients,
     testimonials,
 } from "../../../../assets/index";
+import content from './content.json'
+import { updateContent } from "../../../common/homeContentSlice";
+// import Card from "./Card"; // Adjust the path accordingly
+// import styles from "./Home.module.scss";
+// import button from "@/common/button";
+// import Image from "next/image";
+// import Client from "../../assets/icons/client.svg";
+// import localFont from "next/font/local";
+// import { Swiper, SwiperSlide } from "swiper/react";
+// import required modules
+// import {
+//     Pagination,
+//     Navigation,
+//     Autoplay,
+//     EffectCoverflow,
+// } from "swiper/modules";
+// Import Swiper styles
+// import "swiper/css";
+// import "swiper/css/pagination";
+// import { useGlobalContext } from "../../contexts/GlobalContext";
+// import blankImage from "../../../../assets/images/blankImage.webp";
+// import dynamic from 'next/dynamic';
+// const AnimatedText = dynamic(() => import('@/common/AnimatedText'), { ssr: false });
+// import ContactUsModal from "../header/ContactUsModal";
 // import patch from "../../contexts/svg/path.jsx";
-
 // // Font files can be colocated inside of `app`
 // const BankGothic = localFont({
 //   src: "../../../public/font/BankGothicLtBTLight.ttf",
 //   display: "swap",
 // });
-import content from './content.json'
-import { updateContent } from "../../../common/homeContentSlice";
+
 
 
 
@@ -106,7 +105,7 @@ const HomePage = ({ language }) => {
         dispatch(updateContent((content?.home)))
     }, [])
     return (
-        <div className={`w-[100%] relative ${textAlignment}`} style={{ fontFamily: "Michroma" }}>
+        <div className={`w-[100%] relative ${textAlignment} bankgothic-regular-db`}>
             {/* banner */}
             <section className="w-full relative">
                 <span
@@ -179,7 +178,7 @@ const HomePage = ({ language }) => {
                         {currentContent?.serviceSection?.cards?.map((card, key) => {
                             if (!card.display) return null
                             return (
-                                <div key={key} className={`w-full h-44 flex items-center justify-center p-6 rounded-lg transition-transform duration-300 hover:scale-105 cursor-pointer ${key%2!==0?"bg-stone-200 ":"bg-blue-500 text-[white]"} `}>
+                                <div key={key} className={`w-full h-44 flex items-center justify-center p-6 rounded-lg transition-transform duration-300 hover:scale-105 cursor-pointer ${key % 2 !== 0 ? "bg-stone-200 " : "bg-blue-500 text-[white]"} `}>
                                     <div className="flex flex-col items-center gap-4">
                                         <img src={services?.[card.iconName]} width={40} height={40} alt="Icon" className="h-10 w-10" />
                                         <h5 className="relative text-lg font-light text-center">
@@ -203,8 +202,8 @@ const HomePage = ({ language }) => {
                             return (
                                 <div
                                     key={key}
-                                    style={{ top: `${topValue}px`, left: key % 2 !== 0 ? "180px" : "0px" }}
-                                    className="w-[230px] h-[100px] absolute rounded-md bg-white shadow-lg p-6"
+                                    style={{ top: `${topValue}px` }}
+                                    className={`w-[230px] h-[100px] absolute rounded-md bg-white shadow-lg p-6 ${key % 2 !== 0 ? "xl:left-[180px] " : "left-0"}`}
                                 >
                                     <div className="relative">
                                         <img

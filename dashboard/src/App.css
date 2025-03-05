@@ -1,3 +1,43 @@
+@font-face {
+  font-family: "BankGothic-Regular";
+  src: url("../public/font/bankgothic-regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "BankGothic-Regular-db";
+  src: url("../public/font/bankgothic-regulardb.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "BankGothic-Russ-Medium";
+  src: url("../public/font/BankGothicRUSSMedium.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "BankGothic-Regular-db";
+  src: url("../public/font/BankGothic_Md_BT.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "BankGothic-Medium-bt";
+  src: url("../public/font/BankGothicMediumBT.ttf") format("truetype");
+}
+
+.bankgothic-regular{
+  font-family: "BankGothic-Regular";
+}
+.bankgothic-regular-db{
+  font-family: "BankGothic-Regular-db";
+}
+.bankgothic-russ-medium{
+  font-family: "BankGothic-Russ-Medium";
+}
+.bankgothic-medium-dt{
+  font-family: "BankGothic-Medium-bt";
+}
+
 .App {
   text-align: center;
 }
