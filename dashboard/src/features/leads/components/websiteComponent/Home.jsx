@@ -47,21 +47,22 @@ import { updateContent } from "../../../common/homeContentSlice";
 
 
 const HomePage = ({ language }) => {
-    // const router = useRouter();
+    const dispatch = useDispatch();
+    const currentContent = useSelector((state) => state.homeContent.home)
+    const [isModal, setIsModal] = useState(false);
+    const [swiperInstance, setSwiperInstance] = useState(null);
+    let isEnglish = language === "en"
+    let textAlignment = isEnglish ? "text-left" : "text-right"
     //   const { language, content } = useGlobalContext();
     // const styles = ''
     // const currentContent = content?.home;
-    const dispatch = useDispatch();
-    const currentContent = useSelector((state) => state.homeContent.home)
     // // Create refs for the navigation buttons
     // const prevRef = useRef(null);
     // const nextRef = useRef(null);
     // const testimonialPrevRef = useRef(null);
     // const testimonialNextRef = useRef(null);
     // const [activeRecentProjectSection, setActiveRecentProjectSection] = useState(0);
-    const [isModal, setIsModal] = useState(false);
     // const redirectionUrlForRecentProject = ["/project", "/market", "/"];
-    const [swiperInstance, setSwiperInstance] = useState(null);
     // // Helper function to chunk array into groups of 4
     // const chunkArray = (array, chunkSize) => {
     //     const chunks = [];
@@ -85,14 +86,6 @@ const HomePage = ({ language }) => {
     // );
 
     // // const ProjectSlider = { ...markets, ...safety };
-    let isEnglish = language === "en"
-    let textAlignment = isEnglish ? "text-left" : "text-right"
-
-    useEffect(() => {
-        if (swiperInstance) {
-            swiperInstance.update();
-        }
-    }, [language]);
 
     // const TruncateText = (text, length) => {
     //     if (text.length > (length || 50)) {
@@ -102,10 +95,16 @@ const HomePage = ({ language }) => {
     // };
 
     useEffect(() => {
+        if (swiperInstance) {
+            swiperInstance.update();
+        }
+    }, [language]);
+
+    useEffect(() => {
         dispatch(updateContent((content?.home)))
     }, [])
     return (
-        <div className={`w-[100%] relative ${textAlignment} bankgothic-regular-db`}>
+        <div className={`w-[100%] relative ${textAlignment} bankgothic-medium-dt bg-[white]`}>
             {/* banner */}
             <section className="w-full relative">
                 <span
@@ -118,7 +117,7 @@ const HomePage = ({ language }) => {
 
                     className="container mx-auto absolute top-[20%] left-0 right-0 px-4">
                     <div className={`text-left flex flex-col ${language === "en" ? "items-start" : "items-end"} ${textAlignment}`}>
-                        <h1 className="mx-[80px] text-black text-[35px] tracking-[.2rem] leading-[2.5rem] capitalize font-medium mb-4 w-[450px] "
+                        <h1 className="mx-[80px] text-black text-[35px] tracking-[.2rem] leading-[2.5rem] capitalize font-semibold  mb-4 w-[450px] "
                         >
                             {currentContent?.homeBanner?.title[language]}
                         </h1>
@@ -193,39 +192,40 @@ const HomePage = ({ language }) => {
             </section>
             {/* experience section */}
             <section className="py-[115px] pb-[186px] px-[100px]">
-                <div className="container mx-auto grid grid-cols-1 lg:grid-cols-[1fr_369px] gap-12">
-                    <div className="relative top-[60px] left-[-50px]">
-                        {currentContent?.experienceSection?.cards?.map((item, key) => {
-                            // Set top position based on whether key is odd or even
-                            const topValue = Math.floor(key / 2) * 140 + (key % 2 !== 0 ? -25 : 25); // Odd = move up, Even = move down
+                <div className={`container mx-auto flex gap-12 ${isEnglish?"":"flex-row-reverse"}`}>
+                    <div className="border border-2 border-info-500 w-10 relative flex-1">
+                        <div className={`relative ${isEnglish?"left-[-25px]":"left-[10px]"} top-[50px]`}>
 
-                            return (
-                                <div
-                                    key={key}
-                                    style={{ top: `${topValue}px` }}
-                                    className={`w-[230px] h-[100px] absolute rounded-md bg-white shadow-lg p-6 ${key % 2 !== 0 ? "xl:left-[180px] " : "left-0"}`}
-                                >
-                                    <div className="relative">
-                                        <img
-                                            className={`absolute ${key === 1 ? "top-[-22px] right-[-32px]" : "left-[-36px] top-[-37px]"}`}
-                                            src={experience?.[item.iconName]}
-                                            width={60}
-                                            height={key === 1 ? 47 : 60}
-                                            alt=""
-                                        />
+                            {currentContent?.experienceSection?.cards?.map((item, key) => {
+                                // Set top position based on whether key is odd or even
+                                const topValue = Math.floor(key / 2) * 140 + (key % 2 !== 0 ? -35 : 25); // Odd = move up, Even = move down
+                                return (
+                                    <div
+                                        key={key}
+                                        style={{ top: `${topValue}px`, zIndex:key+1}}
+                                        className={`w-[180px] h-[100px] absolute rounded-md bg-white shadow-lg p-4 ${key % 2 !== 0 ? !isEnglish? "left-[170px]": "xl:left-[150px]" : "left-0"}`}
+                                    >
+                                        <div className="relative">
+                                            <img
+                                                className={`absolute ${key % 2 === 1 ? "top-[-22px] right-[-32px]" : "left-[-36px] top-[-27px]"}`}
+                                                src={experience?.[item.iconName]}
+                                                width={40}
+                                                height={key === 1 ? 47 : 60}
+                                                alt=""
+                                            />
+                                        </div>
+                                        <h3 className="text-black text-xl font-semibold pl-5">{item.count}</h3>
+                                        <h5 className={`text-black text-xs font-light relative before:absolute ${isEnglish?"before:left-[-10px]":"before:right-[-10px]"} before:top-0 before:w-[5px] before:h-[25px] before:bg-orange-500`}>
+                                            {item.title[language]}
+                                        </h5>
                                     </div>
-                                    <h3 className="text-black text-lg font-semibold text-center">{item.count}</h3>
-                                    <h5 className="text-black text-xs font-light relative pr-5 before:absolute before:left-[-10px] before:top-0 before:w-[5px] before:h-[25px] before:bg-orange-500">
-                                        {item.title[language]}
-                                    </h5>
-                                </div>
-                            );
-                        })}
-
-
+                                );
+                            })}
+                        </div>
                     </div>
-                    <div className="max-w-[420px] pt-12">
-                        <h2 className="text-sky-500 text-xl font-bold leading-[75px] mb-6">
+
+                    <div className="max-w-[420px] pt-12 flex-1">
+                        <h2 className="text-sky-500 text-4xl font-bold leading-[50px] mb-6 ">
                             {currentContent?.experienceSection?.title[language]}
                         </h2>
                         <p className="text-black text-base text-md font-light leading-6 mb-8">

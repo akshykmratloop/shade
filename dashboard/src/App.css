@@ -16,7 +16,7 @@
 }
 
 @font-face {
-  font-family: "BankGothic-Regular-db";
+  font-family: "BankGothic-Regular-MD-Bt";
   src: url("../public/font/BankGothic_Md_BT.ttf") format("truetype");
 }
 
@@ -30,6 +30,9 @@
 }
 .bankgothic-regular-db{
   font-family: "BankGothic-Regular-db";
+}
+.bankgothic-regular-db-mt{
+  font-family: "BankGothic-Regular-MD-Bt";
 }
 .bankgothic-russ-medium{
   font-family: "BankGothic-Russ-Medium";

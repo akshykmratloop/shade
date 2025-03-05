@@ -7,6 +7,7 @@ import userSlice from "../features/common/userSlice"
 import debounceSlice from "../features/common/debounceSlice"
 import sidebarReducer from "../features/common/SbStateSlice";
 import homeContentReducer from '../features/common/homeContentSlice'
+import imagesReducer from '../features/common/ImagesSlice'
 
 const combinedReducer = {
   header: headerSlice,
@@ -16,7 +17,8 @@ const combinedReducer = {
   user: userSlice,
   debounce: debounceSlice,
   sidebar: sidebarReducer,
-  homeContent: homeContentReducer
+  homeContent: homeContentReducer,
+  images: imagesReducer
 }
 
 export default configureStore({
