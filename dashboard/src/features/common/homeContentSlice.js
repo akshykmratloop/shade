@@ -14,23 +14,31 @@ const homeContentSlice = createSlice({
             state.home[action?.payload.section][action?.payload?.title][action?.payload.lan] = action.payload.value
         },
         updateSelectedContent: (state, action) => {
-            console.log(action.payload.selected)
-            // Create a Set for quick lookup of selected items
-            const selectedSet = new Set(
-                action.payload.selected?.filter(e => e.display).map(item => item.title[action.payload.language])
+            // Create a Map to store selected items with their index for ordering
+            const selectedMap = new Map(
+                action.payload.selected
+                    ?.filter(e => e.display)
+                    .map((item, index) => [item.title[action.payload.language], index])
             );
         
-            console.log(selectedSet)
             let newOptions = action.payload.newArray?.map((e) => {
                 const title = e.title[action.payload.language];
                 return {
                     ...e,
-                    display: selectedSet.has(title) // Check if title exists in selected
+                    display: selectedMap.has(title) // Check if title exists in selected
                 };
+            });
+        
+            // Sort newOptions based on the order of selected items
+            newOptions.sort((a, b) => {
+                const indexA = selectedMap.get(a.title[action.payload.language]) ?? Infinity;
+                const indexB = selectedMap.get(b.title[action.payload.language]) ?? Infinity;
+                return indexA - indexB;
             });
         
             state.home.serviceSection.cards = newOptions;
         }
+        
         
     }
 })

@@ -94,7 +94,7 @@ const MultiSelect = ({ heading, options = [], tabName, label, language, section 
         return arrayMove(items, oldIndex, newIndex);
       });
     }
-    console.log(selectedOptions)
+    setRandom(Math.random())
   };
 
   useEffect(() => {
