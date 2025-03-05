@@ -13,7 +13,7 @@ const EditPage = () => {
     const [language, setLanguage] = useState('en')
     const homeContent = useSelector((state) => state.homeContent.home)
 
-    
+
 
     useEffect(() => {
         dispatch(setSidebarState(true))
@@ -35,27 +35,21 @@ const EditPage = () => {
                 />
                 <ContentSection
                     Heading={"About Section"}
-                    inputs={[{ input: "input", label: "Heading/title", updateType: "title" }, { input: "textarea", label: "About section", updateType: "description" }, { input: "textarea", label: "Description 2", updateType: "description2" },, { input: "input", label: "Button Text", updateType: "buttonText" }]}
+                    inputs={[{ input: "input", label: "Heading/title", updateType: "title" }, { input: "textarea", label: "About section", updateType: "description" }, { input: "textarea", label: "Description 2", updateType: "description2" }, , { input: "input", label: "Button Text", updateType: "buttonText" }]}
                     inputFiles={["Backround Image"]}
                     fileId={"aboutUsSection"}
                     section={"aboutUsSection"}
                     language={language}
                 />
-                {/* <div className="w-[22rem] flex flex-col gap-1 border-b border-b-2 border-neutral-300 pb-6">
-                    <h3 className="font-semibold text-[1.25rem] mb-4">Service Section</h3>
-                    <Select
-                        baseClass="w-min"
-                        label="Select Service List"
-                        labelClass="font-[400] label-text"
-                        inputClass="px-2 bg-[white] border border-stone-500 w-[21.7rem] mt-1 rounded-md p-2 h-[2.5rem] outline-none"
-                    />
-                </div> */}
-                <MultiSelect language={language} label={"Select Service List"} heading={"Serivces Section"} tabName={"Select Services"} options={homeContent?.serviceSection?.cards} />
+
+                <MultiSelect section={"serviceSection"} language={language} label={"Select Service List"} heading={"Serivces Section"} tabName={"Select Services"} options={homeContent?.serviceSection?.cards} />
                 <div className="w-full">
                     <ContentSection
                         Heading={"Experience Section"}
-                        inputs={[{ input: "input", label: "Heading/title" }, { input: "textarea", label: "Description" }, { input: "input", label: "button Text" }]}
+                        inputs={[{ input: "input", label: "Heading/title", updateType: "title" }, { input: "textarea", label: "Description", updateType: "description" }, { input: "input", label: "button Text", updateType: "buttonText" }]}
                         isBorder={false}
+                        fileId={"experienceSection"}
+                        section={"experienceSection"}
                         language={language}
                     />
                     {["Item 1", "Item 2", "Item 3", "Item 4"].map((item, index, array) => {
@@ -78,9 +72,9 @@ const EditPage = () => {
                         Heading={"Project Section"}
                         inputs={[{ input: "input", label: "Heading/title" }, { input: "textarea", label: "Description" }, { input: "input", label: "button Text" }]}
                         isBorder={false}
-                        language={language} 
+                        language={language}
                     />
-                    <MultiSelect language={language}  label={"Select Project List (Page 1)"} tabName={"Select Projects"} options={homeContent?.serviceSection?.cards} />
+                    <MultiSelect language={language} label={"Select Project List (Page 1)"} tabName={"Select Projects"} options={homeContent?.serviceSection?.cards} />
 
                 </div>
             </div>

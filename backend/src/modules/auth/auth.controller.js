@@ -74,7 +74,9 @@ const UpdatePassword = async (req, res) => {
     new_password,
     repeat_password
   );
+  console.log("clearring") // hit this 
   clearCookie(res, "forgotPassToken");
+  console.log("clearring1") // did not hit
   res.status(200).json(response);
 };
 

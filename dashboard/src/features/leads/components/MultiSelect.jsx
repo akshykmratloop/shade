@@ -16,8 +16,9 @@ import {
   useSortable,
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
+import { updateSelectedContent } from "../../common/homeContentSlice";
 
-const SortableItem = ({ option, removeOption }) => {
+const SortableItem = ({ option, removeOption, language }) => {
   const { attributes, listeners, setNodeRef, transform, transition } =
     useSortable({ id: option });
 
@@ -34,7 +35,7 @@ const SortableItem = ({ option, removeOption }) => {
       {...listeners}
       className="flex items-center gap-1 px-3 py-1 text-xs bg-gray-200 h-[2.125rem] rounded-md cursor-move dark:text-[black]"
     >
-      {option}
+      {option.title?.[language]}
       <button
         onClick={() => removeOption(option)}
         className="text-gray-600 hover:text-red-500"
@@ -45,28 +46,41 @@ const SortableItem = ({ option, removeOption }) => {
   );
 };
 
-const MultiSelect = ({ heading, options, tabName, label, language }) => {
+const MultiSelect = ({ heading, options = [], tabName, label, language, section }) => {
   const [selectedOptions, setSelectedOptions] = useState([]);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
+  const [random, setRandom] = useState(Math.random()) 
+  const dispatch = useDispatch();
 
-
-  console.log(options?.[0].title[language])
-  const showOptions = options?.map(e =>  e.title[language])
-
+  const showOptions = options?.map(e => e.title[language])
 
   const toggleDropdown = () => {
     setIsDropdownOpen((prev) => !prev);
   };
 
   const handleSelect = (option) => {
-    if (!selectedOptions.includes(option)) {
-      setSelectedOptions([...selectedOptions, option]);
-    }
+    if(option.display) return 
+    setSelectedOptions((prev) => {
+      const updated = [...prev, option];
+      return updated;
+    });
+    setRandom(Math.random())
   };
 
   const removeOption = (optionToRemove) => {
-    setSelectedOptions(selectedOptions.filter((opt) => opt !== optionToRemove));
+    setSelectedOptions(prev => {
+      return prev.map(option => {
+        console.log(option === optionToRemove)
+        if (option === optionToRemove) {
+          console.log({...option, display: false})
+          return { ...option, display: false }
+        }
+        return option
+      })
+    })
+    setRandom(Math.random())
+    console.log(selectedOptions)
   };
 
   const sensors = useSensors(
@@ -97,17 +111,22 @@ const MultiSelect = ({ heading, options, tabName, label, language }) => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
-
+  
   useEffect(() => {
-    if (showOptions && selectedOptions.length === 0) {
-      setSelectedOptions(showOptions?.map(e => {
-        if(e.display){
-          return e.title[language]
+    if (showOptions) {
+      setSelectedOptions(options?.map(e => {
+        if (e.display) {
+          return e
         }
       }).filter(e => e));
     }
   }, [showOptions]);
 
+  useEffect(() => {
+    if (options.length > 0) {
+      dispatch(updateSelectedContent({ section, newArray: [...options], selected: selectedOptions, language }));
+    }
+  }, [random]); 
 
   return (
     <div className="relative w-full border-b border-b-2 border-neutral-300 pb-4" ref={dropdownRef}>
@@ -122,13 +141,13 @@ const MultiSelect = ({ heading, options, tabName, label, language }) => {
 
       {isDropdownOpen && (
         <ul className="absolute text-xs left-0 xl:top-[-6.2rem] sm:top-[-3rem] md:top-[-6rem] z-10 w-full mt-2 bg-[#fafaff] dark:bg-[#242933] border rounded-md shadow-md overflow-y-scroll h-[10rem] customscroller">
-          {showOptions.map((option) => (
+          {options.map((option) => (
             <li
               key={option}
               onClick={() => handleSelect(option)}
               className="p-2 cursor-pointer hover:bg-gray-100"
             >
-              {option}
+              {option.title[language]}
             </li>
           ))}
         </ul>
@@ -143,7 +162,7 @@ const MultiSelect = ({ heading, options, tabName, label, language }) => {
         <SortableContext items={selectedOptions} strategy={verticalListSortingStrategy}>
           <div className="flex flex-wrap gap-2 p-2 pl-4 border dark:border-stone-500 rounded-md ">
             {selectedOptions.map((option) => (
-              <SortableItem key={option} option={option} removeOption={removeOption} />
+              <SortableItem key={option.title?.[language]} option={option} removeOption={removeOption} language={language} />
             ))}
           </div>
         </SortableContext>

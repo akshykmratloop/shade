@@ -31,7 +31,7 @@ const ContentSection = ({ Heading, subHeading, inputs = [], inputFiles = [], isB
                         updateFormValue={updateFormValue}
                         updateType={input.updateType}
                         section={section}
-                        defaultValue={homeContent?.[section]?.[input.updateType][language] || ""}
+                        defaultValue={homeContent?.[section]?.[input.updateType]?.[language] || ""}
                         language={language} 
                     />
                 ) : (
@@ -43,7 +43,7 @@ const ContentSection = ({ Heading, subHeading, inputs = [], inputFiles = [], isB
                         updateFormValue={updateFormValue}
                         updateType={input.updateType}
                         section={section}
-                        defaultValue={homeContent?.[section]?.[input.updateType][language]}
+                        defaultValue={homeContent?.[section]?.[input.updateType]?.[language]}
                         language={language}
                     />
                 );

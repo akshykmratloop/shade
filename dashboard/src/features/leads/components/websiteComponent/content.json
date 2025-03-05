@@ -157,11 +157,9 @@
           "iconName": "awardWin"
         }
       ],
-      "button": {
-        "text": {
+      "buttonText": {
           "en": "Contact Us",
           "ar": "اتصل بنا"
-        }
       }
     },
     "recentProjectsSection": {

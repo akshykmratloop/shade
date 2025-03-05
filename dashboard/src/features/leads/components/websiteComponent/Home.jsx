@@ -176,8 +176,9 @@ const HomePage = ({ language }) => {
                     </h2>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12 px-8">
-                        {currentContent?.serviceSection?.cards?.map((card, key) => (
-                            <Card key={key} className="w-full h-44 flex items-center justify-center p-6 rounded-lg transition-transform duration-300 hover:scale-105 cursor-pointer bg-[#0b369c] text-[white] odd:bg-stone-200 odd:text-stone-700">
+                        {currentContent?.serviceSection?.cards?.map((card, key) => {
+                            if(!card.display) return null
+                            return (<Card key={key} className="w-full h-44 flex items-center justify-center p-6 rounded-lg transition-transform duration-300 hover:scale-105 cursor-pointer bg-[blue] text-[white] odd:bg-stone-200 odd:text-stone-700">
                                 <div className="flex flex-col items-center gap-4">
                                     <img src={services?.[card.iconName]} width={40} height={40} alt="Icon" className="h-10 w-10" />
                                     <h5 className="relative text-lg font-light text-center">
@@ -185,8 +186,7 @@ const HomePage = ({ language }) => {
                                         <span className="block h-[2px] w-16 bg-gray-300 mt-2 mx-auto"></span>
                                     </h5>
                                 </div>
-                            </Card>
-                        ))}
+                            </Card>)})}
                     </div>
                 </div>
             </section>
@@ -234,7 +234,7 @@ const HomePage = ({ language }) => {
                             className={`text-white bg-sky-500 px-6 py-3 text-lg rounded-md ${language === "ar" ? 'px-9 py-4' : ''}`}
                             onClick={() => setIsModal(true)}
                         >
-                            {currentContent?.experienceSection?.button?.text[language]}
+                            {currentContent?.experienceSection?.buttonText?.[language]}
                         </button>
                     </div>
                 </div>
