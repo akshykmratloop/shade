@@ -6,9 +6,6 @@ const imagesSlice = createSlice({
     initialState: {
         images: {
             
-        },
-        icons:{
-            
         }
     },
     reducers: {

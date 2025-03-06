@@ -16,8 +16,10 @@ const ContentSection = ({ Heading, subHeading, inputs = [], inputFiles = [], isB
     // Function to update input values
     const updateFormValue = ({ updateType, value }) => {
         if (!isNaN(Number(value))) {
-            dispatch(updateServicesNumber({ section: section, title: updateType, value, subSection, index }))
+            let val = value.slice(0,7)
+            dispatch(updateServicesNumber({ section: section, title: updateType, value: val, subSection, index }))
         } else {
+            if(updateType === "count") return 
             dispatch(updateSpecificContent({ section: section, title: updateType, lan: language, value, subSection, index }))
         }
     };

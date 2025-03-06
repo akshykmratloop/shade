@@ -18,7 +18,7 @@ const combinedReducer = {
   debounce: debounceSlice,
   sidebar: sidebarReducer,
   homeContent: homeContentReducer,
-  images: imagesReducer
+  // images: imagesReducer
 }
 
 export default configureStore({

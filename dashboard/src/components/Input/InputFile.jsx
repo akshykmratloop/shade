@@ -1,12 +1,13 @@
 import { useEffect, useRef, useState } from "react";
 import { Upload, X } from "lucide-react";
-import { useDispatch } from "react-redux";
-import { updateImages } from "../../features/common/ImagesSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { removeImages, updateImages } from "../../features/common/homeContentSlice";
 
 const InputFile = ({ label, baseClass, inputClass, id}) => {
   const dispatch = useDispatch();
   const [fileName, setFileName] = useState("");
   const [content, setContent] = useState("");
+  const ImageFromRedux = useSelector(state => state.homeContent.present.images)
   const fileInputRef = useRef(null); // Reference to input file
 
   const handleFileChange = (event) => {
@@ -22,7 +23,7 @@ const InputFile = ({ label, baseClass, inputClass, id}) => {
   const clearFile = () => {
     setContent("");
     setFileName("");
-    dispatch(updateImages({ section: id, src: "" }));
+    dispatch(removeImages({ section: id, src: "" }));
 
     if (fileInputRef.current) {
       fileInputRef.current.value = ""; // Reset input field
@@ -30,7 +31,9 @@ const InputFile = ({ label, baseClass, inputClass, id}) => {
   };
 
   useEffect(() => {
-    dispatch(updateImages({ section: id, src: content }));
+    if(content){
+      dispatch(updateImages({ section: id, src: content }));
+    }
   }, [content]);
 
   return (
@@ -55,7 +58,7 @@ const InputFile = ({ label, baseClass, inputClass, id}) => {
           <button className="absolute top-2 right-2 text-white bg-[#00000080] p-1 rounded-full shadow" onClick={clearFile}>
             <X className="w-4 h-4" />
           </button>
-          <img src={content} alt="Preview" className="w-full max-w-xs rounded-md" />
+          <img src={ImageFromRedux[id]} alt="Preview" className="w-full max-w-xs rounded-md" />
         </div>
       )}
     </div>

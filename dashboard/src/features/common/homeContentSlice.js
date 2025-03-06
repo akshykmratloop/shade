@@ -1,62 +1,79 @@
 import { createSlice } from "@reduxjs/toolkit";
-import undoable, { groupByActionTypes } from "redux-undo";
 
-const homeContentSlice = createSlice({
-    name: "HomeContent",
-    initialState: {
+const initialState = {
+    past: [],
+    present: {
+        images: {},
         home: {}
     },
+    future: []
+};
+
+const cmsSlice = createSlice({
+    name: "CMS",
+    initialState,
     reducers: {
+        updateImages: (state, action) => {
+            state.past.push(JSON.parse(JSON.stringify(state.present)));
+            state.present.images[action.payload.section] = action.payload.src;
+            state.future = [];
+        },
+        removeImages: (state, action) => {
+            state.past.push(JSON.parse(JSON.stringify(state.present)));
+            state.present.images[action.payload.section] = "";
+            state.future = [];
+        },
         updateContent: (state, action) => {
-            state.home = action.payload;
+            state.past.push(JSON.parse(JSON.stringify(state.present)));
+            state.present.home = action.payload;
+            state.future = [];
         },
         updateSpecificContent: (state, action) => {
+            state.past.push(JSON.parse(JSON.stringify(state.present)));
             if (action.payload.subSection) {
-                state.home[action.payload.section][action.payload.subSection][action.payload.index][action.payload.title][action.payload.lan] = action.payload.value;
+                state.present.home[action.payload.section][action.payload.subSection][action.payload.index][action.payload.title][action.payload.lan] = action.payload.value;
             } else {
-                state.home[action.payload.section][action.payload.title][action.payload.lan] = action.payload.value;
+                state.present.home[action.payload.section][action.payload.title][action.payload.lan] = action.payload.value;
             }
+            state.future = [];
         },
         updateServicesNumber: (state, action) => {
-            state.home[action.payload.section][action.payload.subSection][action.payload.index][action.payload.title] = action.payload.value;
+            state.past.push(JSON.parse(JSON.stringify(state.present)));
+            state.present.home[action.payload.section][action.payload.subSection][action.payload.index][action.payload.title] = action.payload.value;
+            state.future = [];
         },
         updateSelectedContent: (state, action) => {
+            state.past.push(JSON.parse(JSON.stringify(state.present)));
             const selectedMap = new Map(
-                action.payload.selected
-                    ?.filter((e) => e.display)
-                    .map((item, index) => [item.title[action.payload.language], index])
+                action.payload.selected?.filter(e => e.display).map((item, index) => [item.title[action.payload.language], index])
             );
-
-            let newOptions = action.payload.newArray?.map((e) => {
-                const title = e.title[action.payload.language];
-                return {
-                    ...e,
-                    display: selectedMap.has(title)
-                };
-            });
-
+            let newOptions = action.payload.newArray?.map(e => ({
+                ...e,
+                display: selectedMap.has(e.title[action.payload.language])
+            }));
             newOptions.sort((a, b) => {
                 const indexA = selectedMap.get(a.title[action.payload.language]) ?? Infinity;
                 const indexB = selectedMap.get(b.title[action.payload.language]) ?? Infinity;
                 return indexA - indexB;
             });
-
-            state.home.serviceSection.cards = newOptions;
+            state.present.home.serviceSection.cards = newOptions;
+            state.future = [];
+        },
+        undo: (state) => {
+            if (state.past.length > 0) {
+                if (state.past.length === 1) return; // Prevent undo beyond the first recorded change
+                state.future.push(JSON.parse(JSON.stringify(state.present)));
+                state.present = state.past.pop();
+            }
+        },
+        redo: (state) => {
+            if (state.future.length > 0) {
+                state.past.push(JSON.parse(JSON.stringify(state.present)));
+                state.present = state.future.pop();
+            }
         }
     }
 });
 
-// Custom function to group actions per word
-const groupByWord = (action, currentState, previousHistory) => {
-    if (action.type === "HomeContent/updateSpecificContent") {
-        // Group actions until a space is found
-        return action.payload.value.endsWith(" ") ? null : "typing";
-    }
-    return null;
-};
-
-export const { updateContent, updateSpecificContent, updateSelectedContent, updateServicesNumber } = homeContentSlice.actions;
-const homeContentReducer = homeContentSlice.reducer;
-
-// Apply undoable with groupBy
-export default undoable(homeContentReducer, { groupBy: groupByWord });
+export const { updateImages, removeImages, updateContent, updateSpecificContent, updateServicesNumber, updateSelectedContent, undo, redo } = cmsSlice.actions;
+export default cmsSlice.reducer;

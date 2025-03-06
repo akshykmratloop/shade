@@ -50,7 +50,7 @@ const HomePage = ({ language }) => {
     const dispatch = useDispatch();
     const currentContent = useSelector((state) => state.homeContent.present.home)
     const ImagesFromRedux = useSelector((state) => {
-        return state.images.present.images
+        return state.homeContent.present.images
     })
     const [isModal, setIsModal] = useState(false);
     const [swiperInstance, setSwiperInstance] = useState(null);

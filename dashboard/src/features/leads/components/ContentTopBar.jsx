@@ -7,8 +7,10 @@ import { RiShareForward2Fill } from "react-icons/ri";
 import { LuEye } from "react-icons/lu";
 import Button from '../../../components/Button/Button';
 import { RxCross1 } from "react-icons/rx";
-import { ActionCreators } from 'redux-undo';
+// import { ActionCreators } from 'redux-undo';
 import { useDispatch } from 'react-redux';
+import { redo, undo } from '../../common/homeContentSlice';
+
 
 export default function  ContentTopBar() {
     const dispatch = useDispatch()
@@ -23,14 +25,14 @@ export default function  ContentTopBar() {
         { icon: <FiSmartphone />, label: 'phone' }
     ];
 
-    const undo = () => {
-        dispatch(ActionCreators.undo())
-        dispatch(ActionCreators.undo())
+    const undos = () => {
+        dispatch(undo())
+        // dispatch(ActionCreators.undo())
     }
 
-    const redo = () => {
-        dispatch(ActionCreators.redo())
-        dispatch(ActionCreators.redo())
+    const redos = () => {
+        dispatch(redo())
+        // dispatch(ActionCreators.redo())
     }
 
     return (
@@ -73,8 +75,8 @@ export default function  ContentTopBar() {
             <div className='flex items-center gap-3 text-[#CBD5E1] md:flex-row'>
                 <div className='flex items-center gap-3'>
                     <div className='flex gap-2 border-r border-[#64748B] pr-2'>
-                        <span className={`cursor-pointer`} onClick={undo}><GrUndo className={`${iconSize} ${smallIconSize} hover:text-[#64748B]`} /></span>
-                        <span className={`cursor-pointer`} onClick={redo}><GrRedo className={`${iconSize} ${smallIconSize} hover:text-[#64748B]`} /></span>
+                        <span className={`cursor-pointer`} onClick={undos}><GrUndo className={`${iconSize} ${smallIconSize} hover:text-[#64748B]`} /></span>
+                        <span className={`cursor-pointer`} onClick={redos}><GrRedo className={`${iconSize} ${smallIconSize} hover:text-[#64748B]`} /></span>
                     </div>
                     <div className='flex gap-2 border-r border-[#64748B] pr-2'>
                         <span className={`cursor-pointer`}><RiShareForward2Fill className={`${iconSize} ${smallIconSize} hover:text-[#64748B]`} /></span>
