@@ -3,7 +3,7 @@ import { Upload, X } from "lucide-react";
 import { useDispatch } from "react-redux";
 import { updateImages } from "../../features/common/ImagesSlice";
 
-const InputFile = ({ label, baseClass, inputClass, id, section }) => {
+const InputFile = ({ label, baseClass, inputClass, id}) => {
   const dispatch = useDispatch();
   const [fileName, setFileName] = useState("");
   const [content, setContent] = useState("");
@@ -22,7 +22,7 @@ const InputFile = ({ label, baseClass, inputClass, id, section }) => {
   const clearFile = () => {
     setContent("");
     setFileName("");
-    dispatch(updateImages({ section, src: "" }));
+    dispatch(updateImages({ section: id, src: "" }));
 
     if (fileInputRef.current) {
       fileInputRef.current.value = ""; // Reset input field
@@ -30,7 +30,7 @@ const InputFile = ({ label, baseClass, inputClass, id, section }) => {
   };
 
   useEffect(() => {
-    dispatch(updateImages({ section, src: content }));
+    dispatch(updateImages({ section: id, src: content }));
   }, [content]);
 
   return (

@@ -29,7 +29,7 @@ const EditPage = () => {
                     Heading={"Hero Banner"}
                     inputs={[{ input: "input", label: "Heading/title", updateType: "title" }, { input: "textarea", label: "Description", updateType: "description" }, { input: "input", label: "Button Text", updateType: "buttonText" }]}
                     inputFiles={["Backround Image"]}
-                    fileId={"heroBanner"}
+                    fileId={"homeBanner"}
                     section={"homeBanner"}
                     language={language}
                 />
@@ -58,12 +58,16 @@ const EditPage = () => {
                             <ContentSection key={item + index}
                                 subHeading={item}
                                 inputs={[
-                                    { input: "input", label: "Item text 1" },
-                                    { input: "input", label: "Item text 2" }]}
+                                    { input: "input", label: "Item text 1", updateType: "count" },
+                                    { input: "input", label: "Item text 2", updateType:"title" }]}
                                 inputFiles={["Item Icon"]}
+                                fileId={item}
                                 language={language}
+                                section={"experienceSection"}
+                                subSection={"cards"}
+                                index={+index}
                                 isBorder={isLast}
-                            />
+                            /> 
                         )
                     })}
                 </div>

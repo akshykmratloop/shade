@@ -11,7 +11,14 @@ const homeContentSlice = createSlice({
             state.home = action.payload;
         },
         updateSpecificContent: (state, action) => {
-            state.home[action?.payload.section][action?.payload?.title][action?.payload.lan] = action.payload.value
+            if(action.payload.subSection){
+                state.home[action?.payload.section][action?.payload.subSection][action?.payload.index][action?.payload?.title][action?.payload.lan] = action.payload.value
+            }else{
+                state.home[action?.payload.section][action?.payload?.title][action?.payload.lan] = action.payload.value
+            }
+        },
+        updateServicesNumber : (state, action) => {
+            state.home[action?.payload.section][action?.payload.subSection][action?.payload.index][action?.payload?.title] = action.payload.value
         },
         updateSelectedContent: (state, action) => {
             // Create a Map to store selected items with their index for ordering
@@ -43,6 +50,6 @@ const homeContentSlice = createSlice({
     }
 })
 
-export const { updateContent, updateSpecificContent, updateSelectedContent } = homeContentSlice.actions;
+export const { updateContent, updateSpecificContent, updateSelectedContent, updateServicesNumber } = homeContentSlice.actions;
 const homeContentReducer = homeContentSlice.reducer
 export default homeContentReducer;

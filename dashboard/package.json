@@ -44,6 +44,7 @@
     "react-scripts": "5.0.1",
     "react-tailwindcss-datepicker": "^1.6.0",
     "react-toastify": "^11.0.3",
+    "redux-undo": "^1.1.0",
     "sass": "^1.85.1",
     "shade-co": "file:",
     "shade-co-website": "file:",

@@ -130,7 +130,8 @@
             "en": "Projects Completed",
             "ar": "المشاريع المنجزة"
           },
-          "iconName": "projectCompleted"
+          "iconName": "projectCompleted",
+          "items":"Item 1"
         },
         {
           "count": "84",
@@ -138,7 +139,8 @@
             "en": "Happy Clients",
             "ar": "عملاء سعداء"
           },
-          "iconName": "happyClient"
+          "iconName": "happyClient",
+          "items":"Item 2"
         },
         {
           "count": "32",
@@ -146,7 +148,8 @@
             "en": "Years in Business",
             "ar": "سنوات في العمل"
           },
-          "iconName": "yearOfBusiness"
+          "iconName": "yearOfBusiness",
+          "items":"Item 3"
         },
         {
           "count": "42",
@@ -154,7 +157,8 @@
             "en": "Awards Won",
             "ar": "الفوز بالجوائز"
           },
-          "iconName": "awardWin"
+          "iconName": "awardWin",
+          "items":"Item 4"
         }
       ],
       "buttonText": {

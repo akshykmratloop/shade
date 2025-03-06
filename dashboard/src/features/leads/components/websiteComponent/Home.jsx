@@ -120,7 +120,7 @@ const HomePage = ({ language }) => {
 
                     className="container mx-auto absolute top-[20%] left-0 right-0 px-4">
                     <div className={`text-left flex flex-col ${language === "en" ? "items-start" : "items-end"} ${textAlignment}`}>
-                        <h1 className="mx-[80px] text-black text-[35px] tracking-[.2rem] leading-[2.5rem] capitalize font-semibold  mb-4 w-[450px] "
+                        <h1 className="mx-[80px] text-[#292E3D] text-[35px] tracking-[.2rem] leading-[2.5rem] capitalize font-semibold  mb-4 w-[450px] "
                         >
                             {currentContent?.homeBanner?.title[language]}
                         </h1>
@@ -128,7 +128,7 @@ const HomePage = ({ language }) => {
                             {currentContent?.homeBanner?.description[language]}
                         </p>
                         <button
-                            className={`mx-[80px] relative items-center flex ${isEnglish ? "" : "flex-row-reverse"} gap-1 text-[12px] font-medium px-[16px] py-[14px] ${language === "en" ? "py-[10px] px-[35px]" : ""
+                            className={`mx-[80px] relative items-center flex ${isEnglish ? "" : "flex-row-reverse"} gap-1 text-[12px] font-medium px-[12px] py-[8px] ${language === "en" ? "py-[10px] px-[35px]" : ""
                                 } bg-blue-500 text-white rounded-md`}
                             onClick={() => { }}
                         >
@@ -152,7 +152,7 @@ const HomePage = ({ language }) => {
                         <img src={ImagesFromRedux.aboutUsSection|| AboutUs} alt="about-us" className="w-full h-[500px] object-cover" />
                     </div>
                     {/* About content */}
-                    <div className={`absolute ${isEnglish ? "right-0 text-left" : "left-0 text-right"} bg-blue-500 px-8 py-8 rounded-sm w-[23rem]`} >
+                    <div className={`absolute ${isEnglish ? "right-0 text-left" : "left-0 text-right"} bg-[#145098] px-8 py-8 rounded-sm w-[23rem]`} >
                         <h2 className="text-white text-[24px] font-normal">
                             {currentContent?.aboutUsSection?.title[language]}
                         </h2>
@@ -162,7 +162,7 @@ const HomePage = ({ language }) => {
                         <p className="text-white text-[12px] font-light leading-[26px] mb-4">
                             {currentContent?.aboutUsSection?.description2[language]}
                         </p>
-                        <button className="px-[28px] py-[12px] bg-primary text-white text-[12px] rounded-sm hover:bg-opacity-90 text-right">
+                        <button className="px-[28px] py-[12px] bg-[#00B9F2] text-white text-[12px] rounded-sm hover:bg-opacity-90 text-right">
                             {currentContent?.aboutUsSection?.buttonText[language]}
                         </button>
                     </div>
@@ -180,7 +180,7 @@ const HomePage = ({ language }) => {
                         {currentContent?.serviceSection?.cards?.map((card, key) => {
                             if (!card.display) return null
                             return (
-                                <div key={key} className={`w-full h-44 flex items-center justify-center p-6 rounded-lg transition-transform duration-300 hover:scale-105 cursor-pointer ${key % 2 !== 0 ? "bg-stone-200 " : "bg-blue-500 text-[white]"} `}>
+                                <div key={key} className={`w-full h-44 flex items-center justify-center p-6 rounded-md transition-transform duration-300 hover:scale-105 cursor-pointer ${key % 2 !== 0 ? "bg-stone-200 " : "bg-blue-900 text-[white]"} `}>
                                     <div className="flex flex-col items-center gap-4">
                                         <img src={services?.[card.iconName]} width={40} height={40} alt="Icon" className="h-10 w-10" />
                                         <h5 className="relative text-lg font-light text-center">
@@ -211,13 +211,13 @@ const HomePage = ({ language }) => {
                                         <div className="relative">
                                             <img
                                                 className={`absolute ${key % 2 === 1 ? "top-[-22px] right-[-32px]" : "left-[-36px] top-[-27px]"}`}
-                                                src={experience?.[item.iconName]}
+                                                src={ImagesFromRedux[item.items] || experience?.[item.iconName]}
                                                 width={40}
                                                 height={key === 1 ? 47 : 60}
                                                 alt=""
                                             />
                                         </div>
-                                        <h3 className="text-black text-xl font-semibold pl-5">{item.count}</h3>
+                                        <h3 className="text-[#292E3D] text-2xl font-semibold pl-2 font-sans">{item.count}</h3>
                                         <h5 className={`text-black text-xs font-light relative before:absolute ${isEnglish?"before:left-[-10px]":"before:right-[-10px]"} before:top-0 before:w-[5px] before:h-[25px] before:bg-orange-500`}>
                                             {item.title[language]}
                                         </h5>
@@ -235,7 +235,7 @@ const HomePage = ({ language }) => {
                             {currentContent?.experienceSection?.description[language]}
                         </p>
                         <button
-                            className={`text-white bg-sky-500 px-6 py-3 text-lg rounded-md ${language === "ar" ? 'px-9 py-4' : ''}`}
+                            className={`text-white bg-sky-500 px-[12px] py-1 text-lg rounded-md ${language === "ar" ? 'px-9 py-4' : ''}`}
                             onClick={() => setIsModal(true)}
                         >
                             {currentContent?.experienceSection?.buttonText?.[language]}

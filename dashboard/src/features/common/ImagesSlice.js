@@ -4,8 +4,10 @@ const imagesSlice = createSlice({
     name: "Images",
     initialState: {
         images: {
-            heroBanner: "",
-            abooutUsSection:""
+            
+        },
+        icons:{
+            
         }
     },
     reducers: {
@@ -14,7 +16,7 @@ const imagesSlice = createSlice({
         },
         removeImages: (state, action) => {
             state.images[action.payload.section] = ""
-        }
+        },
     }
 })
 
