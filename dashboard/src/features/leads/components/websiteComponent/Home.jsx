@@ -49,6 +49,9 @@ import { updateContent } from "../../../common/homeContentSlice";
 const HomePage = ({ language }) => {
     const dispatch = useDispatch();
     const currentContent = useSelector((state) => state.homeContent.home)
+    const ImagesFromRedux = useSelector((state) => {
+        return state.images.images
+    })
     const [isModal, setIsModal] = useState(false);
     const [swiperInstance, setSwiperInstance] = useState(null);
     let isEnglish = language === "en"
@@ -111,7 +114,7 @@ const HomePage = ({ language }) => {
                     className={`w-full block ${language === "en" ? "scale-x-100" : "scale-x-[-1]"
                         }`}
                 >
-                    <img src={background} alt="about-us" className="w-[1050px] h-full object-cover" style={{ objectPosition: "center", transform: "scaleX(-1)" }} />
+                    <img src={ImagesFromRedux.homeBanner || background} alt="about-us" className="w-[1050px] h-full object-cover" style={{ objectPosition: "center", transform: "scaleX(-1)" }} />
                 </span>
                 <div
 
@@ -146,7 +149,7 @@ const HomePage = ({ language }) => {
                 <div className={`relative container mx-auto flex ${isEnglish ? "" : "flex-row-reverse"} items-center`}>
                     {/* Image section */}
                     <div className="w-[600px] h-[500px] overflow-hidden rounded-sm shadow-lg">
-                        <img src={AboutUs} alt="about-us" className="w-full h-[500px] object-cover" />
+                        <img src={ImagesFromRedux.aboutUsSection|| AboutUs} alt="about-us" className="w-full h-[500px] object-cover" />
                     </div>
                     {/* About content */}
                     <div className={`absolute ${isEnglish ? "right-0 text-left" : "left-0 text-right"} bg-blue-500 px-8 py-8 rounded-sm w-[23rem]`} >
@@ -193,7 +196,7 @@ const HomePage = ({ language }) => {
             {/* experience section */}
             <section className="py-[115px] pb-[186px] px-[100px]">
                 <div className={`container mx-auto flex gap-12 ${isEnglish?"":"flex-row-reverse"}`}>
-                    <div className="border border-2 border-info-500 w-10 relative flex-1">
+                    <div className=" w-10 relative flex-1">
                         <div className={`relative ${isEnglish?"left-[-25px]":"left-[10px]"} top-[50px]`}>
 
                             {currentContent?.experienceSection?.cards?.map((item, key) => {

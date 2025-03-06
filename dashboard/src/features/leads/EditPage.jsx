@@ -74,7 +74,7 @@ const EditPage = () => {
                         isBorder={false}
                         language={language}
                     />
-                    <MultiSelect language={language} label={"Select Project List (Page 1)"} tabName={"Select Projects"} options={homeContent?.serviceSection?.cards} />
+                    <MultiSelect language={language} label={"Select Project List (Page 1)"} tabName={"Select Projects"} options={[]} />
 
                 </div>
             </div>

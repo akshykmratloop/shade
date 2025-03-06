@@ -8,7 +8,7 @@ import { LuEye } from "react-icons/lu";
 import Button from '../../../components/Button/Button';
 import { RxCross1 } from "react-icons/rx";
 
-export default function ContentTopBar() {
+export default function  ContentTopBar() {
     const iconSize = 'xl:h-[1.5rem] xl:w-[1.5rem]';
     const smallIconSize = 'sm:h-[1rem] sm:w-[1rem]';
     const [selectedDevice, setSelectedDevice] = useState("Desktop");
@@ -60,12 +60,12 @@ export default function ContentTopBar() {
             <div className='flex items-center gap-3 text-[#CBD5E1] md:flex-row'>
                 <div className='flex items-center gap-3'>
                     <div className='flex gap-2 border-r border-[#64748B] pr-2'>
-                        <span><GrUndo className={`${iconSize} ${smallIconSize} hover:text-[#64748B]`} /></span>
-                        <span><GrRedo className={`${iconSize} ${smallIconSize} hover:text-[#64748B]`} /></span>
+                        <span className={`cursor-pointer`}><GrUndo className={`${iconSize} ${smallIconSize} hover:text-[#64748B]`} /></span>
+                        <span className={`cursor-pointer`}><GrRedo className={`${iconSize} ${smallIconSize} hover:text-[#64748B]`} /></span>
                     </div>
                     <div className='flex gap-2 border-r border-[#64748B] pr-2'>
-                        <span><RiShareForward2Fill className={`${iconSize} ${smallIconSize} hover:text-[#64748B]`} /></span>
-                        <span><LuEye className={`${iconSize} ${smallIconSize} hover:text-[#64748B]`} /></span>
+                        <span className={`cursor-pointer`}><RiShareForward2Fill className={`${iconSize} ${smallIconSize} hover:text-[#64748B]`} /></span>
+                        <span className={`cursor-pointer`}><LuEye className={`${iconSize} ${smallIconSize} hover:text-[#64748B]`} /></span>
                     </div>
                 </div>
                 <div className='flex gap-3 sm:gap-1'>
