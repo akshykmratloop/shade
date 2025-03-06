@@ -7,8 +7,11 @@ import { RiShareForward2Fill } from "react-icons/ri";
 import { LuEye } from "react-icons/lu";
 import Button from '../../../components/Button/Button';
 import { RxCross1 } from "react-icons/rx";
+import { ActionCreators } from 'redux-undo';
+import { useDispatch } from 'react-redux';
 
 export default function  ContentTopBar() {
+    const dispatch = useDispatch()
     const iconSize = 'xl:h-[1.5rem] xl:w-[1.5rem]';
     const smallIconSize = 'sm:h-[1rem] sm:w-[1rem]';
     const [selectedDevice, setSelectedDevice] = useState("Desktop");
@@ -19,6 +22,16 @@ export default function  ContentTopBar() {
         { icon: <FiTablet />, label: 'Tablet' },
         { icon: <FiSmartphone />, label: 'phone' }
     ];
+
+    const undo = () => {
+        dispatch(ActionCreators.undo())
+        dispatch(ActionCreators.undo())
+    }
+
+    const redo = () => {
+        dispatch(ActionCreators.redo())
+        dispatch(ActionCreators.redo())
+    }
 
     return (
         <div className='flex justify-between gap-2 items-center xl:px-[2.36rem] xl:py-[1.5rem] sm:px-[.8rem] sm:py-[.5rem] lg:px-[.8rem] bg-[#fafaff] dark:bg-[#242933]'>
@@ -60,8 +73,8 @@ export default function  ContentTopBar() {
             <div className='flex items-center gap-3 text-[#CBD5E1] md:flex-row'>
                 <div className='flex items-center gap-3'>
                     <div className='flex gap-2 border-r border-[#64748B] pr-2'>
-                        <span className={`cursor-pointer`}><GrUndo className={`${iconSize} ${smallIconSize} hover:text-[#64748B]`} /></span>
-                        <span className={`cursor-pointer`}><GrRedo className={`${iconSize} ${smallIconSize} hover:text-[#64748B]`} /></span>
+                        <span className={`cursor-pointer`} onClick={undo}><GrUndo className={`${iconSize} ${smallIconSize} hover:text-[#64748B]`} /></span>
+                        <span className={`cursor-pointer`} onClick={redo}><GrRedo className={`${iconSize} ${smallIconSize} hover:text-[#64748B]`} /></span>
                     </div>
                     <div className='flex gap-2 border-r border-[#64748B] pr-2'>
                         <span className={`cursor-pointer`}><RiShareForward2Fill className={`${iconSize} ${smallIconSize} hover:text-[#64748B]`} /></span>

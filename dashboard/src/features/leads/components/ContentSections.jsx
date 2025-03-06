@@ -9,7 +9,7 @@ const ContentSection = ({ Heading, subHeading, inputs = [], inputFiles = [], isB
     // const [formData, setFormData] = useState({}); // Store input values
     const dispatch = useDispatch();
     const homeContent = useSelector((state) => {
-        return state.homeContent.home
+        return state.homeContent.present.home
     })
 
 

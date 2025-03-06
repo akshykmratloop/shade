@@ -6,8 +6,8 @@ import leadsSlice from '../features/leads/leadSlice'
 import userSlice from "../features/common/userSlice"
 import debounceSlice from "../features/common/debounceSlice"
 import sidebarReducer from "../features/common/SbStateSlice";
-import homeContentReducer from '../features/common/homeContentSlice'
 import imagesReducer from '../features/common/ImagesSlice'
+import homeContentReducer from '../features/common/homeContentSlice'
 
 const combinedReducer = {
   header: headerSlice,

@@ -8,10 +8,10 @@ import ContentTopBar from "./components/ContentTopBar";
 import HomePage from "./components/websiteComponent/Home";
 
 const EditPage = () => {
-    const isCollapsed = useSelector((state) => state.sidebar.isCollapsed);
+    // const isCollapsed = useSelector((state) => state.sidebar.isCollapsed);
     const dispatch = useDispatch();
     const [language, setLanguage] = useState('en')
-    const homeContent = useSelector((state) => state.homeContent.home)
+    const homeContent = useSelector((state) => state.homeContent.present.home)
 
 
 

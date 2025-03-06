@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
+import undoable from 'redux-undo'
 
 const imagesSlice = createSlice({
     name: "Images",
@@ -22,4 +23,4 @@ const imagesSlice = createSlice({
 
 export const { updateImages, removeImages } = imagesSlice.actions;
 const imagesReducer = imagesSlice.reducer
-export default imagesReducer;
+export default undoable(imagesReducer);
