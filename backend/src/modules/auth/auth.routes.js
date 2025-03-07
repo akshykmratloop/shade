@@ -72,8 +72,8 @@ router.post(
 router.post(
   // forgot pass
   "/resendOtp",
-  resendOtpRateLimiter, // Rate limiter for OTP requests
-  validator(generateOtpSchema),
+  // resendOtpRateLimiter, // Rate limiter for OTP requests
+  // validator(generateOtpSchema),
   tryCatchWrap(AuthController.ResendOTP)
 );
 

@@ -6,7 +6,10 @@ const emailRegex = {
 }
 
 function checkRegex(email, setter) {
-    if (!(emailRegex.checkRegex(email))) {
+    if (email.length === 0) {
+        setter("Email is required");
+        return true
+    }else if (!(emailRegex.checkRegex(email))) {
         setter("Invalid email format!");
         return true
     }

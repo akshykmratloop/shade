@@ -1,3 +1,46 @@
+@font-face {
+  font-family: "BankGothic-Regular";
+  src: url("../public/font/bankgothic-regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "BankGothic-Regular-db";
+  src: url("../public/font/bankgothic-regulardb.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "BankGothic-Russ-Medium";
+  src: url("../public/font/BankGothicRUSSMedium.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "BankGothic-Regular-MD-Bt";
+  src: url("../public/font/BankGothic_Md_BT.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "BankGothic-Medium-bt";
+  src: url("../public/font/BankGothicMediumBT.ttf") format("truetype");
+}
+
+.bankgothic-regular{
+  font-family: "BankGothic-Regular";
+}
+.bankgothic-regular-db{
+  font-family: "BankGothic-Regular-db";
+}
+.bankgothic-regular-db-mt{
+  font-family: "BankGothic-Regular-MD-Bt";
+}
+.bankgothic-russ-medium{
+  font-family: "BankGothic-Russ-Medium";
+}
+.bankgothic-medium-dt{
+  font-family: "BankGothic-Medium-bt";
+}
+
 .App {
   text-align: center;
 }
@@ -6,6 +49,110 @@
   height: 40vmin;
   pointer-events: none;
 }
+
+/* login background */
+.l-bg {
+  background-position: center;
+  background-size: cover;
+  transition: .2s linear all;
+}
+
+/* carousel status */
+.carouselStatus {
+  position: fixed;
+  left: 6vw;
+  bottom: 10vh;
+  display: flex;
+  gap: .5rem;
+}
+
+.carouselDot {
+  background-color: rgb(80, 80, 80);
+  height: .91rem;
+  width: .91rem;
+  border-radius: 50%;
+  transition: .1s linear background-color;
+}
+
+/* removing the spinners */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* input[type="number"] {
+  -moz-appearance: textfield;
+} */
+#left-sidebar-drawer:not(:checked)~.drawer-side #sidebar-close-btn {
+  display: none;
+}
+
+
+.customscroller::-webkit-scrollbar {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  height: 2px;
+  width: 5px;
+}
+
+.customscroller::-webkit-scrollbar-thumb {
+  height: 10px;
+  /* Use height instead of width */
+  width: 2px;
+  background-color: #0e2b65;
+  border-radius: 10px;
+}
+
+.customscroller-2::-webkit-scrollbar {
+  width: 2px;
+}
+.customscroller-2::-webkit-scrollbar-thumb {
+  background-color: #0e2b65;
+  width: 3px;
+
+}
+
+nav.customscroller {
+  position: relative;
+}
+
+nav.customscroller::-webkit-scrollbar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+}
+
+nav.customscroller::-webkit-scrollbar-thumb {
+  height: 2px;
+  /* Use height instead of width */
+  width: 5px;
+  background-color: #0e2b65;
+  border-radius: 10px;
+}
+
+.shadow-xl-custom {
+  /* --tw-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  --tw-shadow-colored: 0 20px 25px -5px var(--tw-shadow-color), 0 8px 10px -6px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow); */
+  /* box-shadow: 0px 8px 10px -6px rgba(0, 0, 0, .7); */
+  box-shadow: 0px 10px 20px -5px #00000080;
+}
+
+input[type="file"] {
+  width: 200px;
+  padding: 5px;
+  border: 2px solid #007bff;
+  border-radius: 5px;
+  background: #f8f9fa;
+  color: #333;
+  cursor: pointer;
+}
+
+
+
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
@@ -32,6 +179,7 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }

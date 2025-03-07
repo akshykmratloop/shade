@@ -12,6 +12,7 @@ import RoleDetailsModal from "./ShowRole";
 import { toast, ToastContainer } from "react-toastify";
 import updateToasify from "../../app/toastify";
 import { Switch } from '@headlessui/react';
+import { MdInfo } from "react-icons/md";
 
 
 const TopSideButtons = ({ removeFilter, applyFilter, applySearch, openAddForm }) => {
@@ -40,7 +41,7 @@ const TopSideButtons = ({ removeFilter, applyFilter, applySearch, openAddForm })
 
     return (
         <div className="inline-block float-right">
-            <SearchBar searchText={searchText} styleClass="mr-4" setSearchText={setSearchText} />
+            <SearchBar searchText={searchText} styleClass="mr-4 border border-1 border-stone-300" setSearchText={setSearchText} />
             {filterParam && (
                 <button
                     onClick={() => removeAppliedFilter()}
@@ -50,7 +51,7 @@ const TopSideButtons = ({ removeFilter, applyFilter, applySearch, openAddForm })
                     <XMarkIcon className="w-4 ml-2" />
                 </button>
             )}
-            <div className="dropdown dropdown-bottom dropdown-end">
+            {/* <div className="dropdown dropdown-bottom dropdown-end">
                 <label tabIndex={0} className="btn btn-sm btn-outline">
                     <FunnelIcon className="w-5 mr-2" />
                     Filter
@@ -64,7 +65,7 @@ const TopSideButtons = ({ removeFilter, applyFilter, applySearch, openAddForm })
                     <div className="divider mt-0 mb-0"></div>
                     <li><a onClick={() => removeAppliedFilter()}>Remove Filter</a></li>
                 </ul>
-            </div>
+            </div> */}
             <button className="btn btn-sm btn-success ml-4" onClick={openAddForm}>
                 <PlusIcon className="w-4 mr-2" />
                 Add Role
@@ -132,9 +133,7 @@ function Roles() {
                     <table className="table w-full text-center">
                         <thead>
                             <tr>
-                                <th style={{ position: "static" }}>Id</th>
-                                <th>Name</th>
-                                <th>Description</th>
+                                <th style={{ position: "static" }}>Name</th>
                                 <th>Status</th>
                                 <th>Created At</th>
                                 <th>Updated At</th>
@@ -143,26 +142,22 @@ function Roles() {
                         </thead>
                         <tbody>
                             {Array.isArray(roles) && roles?.map((role, index) => (
-                                <tr key={index}>
-                                    <td>{role.id}</td>
-                                    <td className="cursor-pointer" onClick={() => {
-                                        setSelectedRole(role);
-                                        setShowDetailsModal(true);
-                                    }}>{role.name}</td>
+                                <tr key={index} >
+                                    <td>{role.name}</td>
                                     <td>
-                                        {/* Truncate description to 25 characters */}
-                                        {role.description.length > 25
-                                            ? `${role.description.substring(0, 25)}...`
-                                            : role.description}
-                                    </td>
-                                    <td>
-                                        <p className={`${role.status === 'ACTIVE'? "text-green-600": "text-red-600"}`}>{role.status}</p>
+                                        <p className={`${role.status === 'ACTIVE' ? "text-green-600" : "text-red-600"}`}>{role.status}</p>
                                     </td>
                                     <td>{format(new Date(role.created_at), 'dd/MM/yyyy')}</td>
                                     <td>{format(new Date(role.updated_at), 'dd/MM/yyyy')}</td>
                                     <td className="flex justify-center space-x-2">
+                                        <button onClick={() => {
+                                        setSelectedRole(role);
+                                        setShowDetailsModal(true);
+                                    }}>
+                                            <MdInfo size={28} className="text-blue-500 dark:text-white" />
+                                        </button>
                                         <button
-                                            className="btn btn-sm btn-primary"
+                                            className="btn btn-sm btn-success"
                                             onClick={() => {
                                                 setSelectedRole(role);
                                                 setShowAddForm(true);
@@ -186,7 +181,7 @@ function Roles() {
                                         </div>
                                     </td>
                                     <td>
-                                        
+
 
                                     </td>
                                 </tr>

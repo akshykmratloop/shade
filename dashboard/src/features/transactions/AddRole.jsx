@@ -6,21 +6,26 @@ import validator from "../../app/valid";
 import updateToasify from "../../app/toastify";
 
 const AddRoleModal = ({ show, onClose, updateRoles, role }) => {
-    const [errorMessage, setErrorMessage] = useState("");
-    const [roleData, setRoleData] = useState({
+    const [errorMessageRole, setErrorMessageRole] = useState("");
+    const [errorMessageDescription, setErrorMessageDescription] = useState("");
+    const [roleData, setRoleData] = useState({ // the object handling for role add for input fields
         name: "",
         description: "",
     });
 
-
+    function clearErrorMessage() {
+        setErrorMessageRole("");
+        setErrorMessageDescription("");
+    }
 
     const handleFormSubmit = async (e) => {
-        e.preventDefault();
+        e.preventDefault(); // clearing the reloading
+        
+        const validation = validator(roleData, { name: setErrorMessageRole, description: setErrorMessageDescription });
+        if (!validation) {
+            return 
+        }
         const loadingToastId = toast.loading("Processing request...", { autoClose: 2000 });
-
-        const validation = validator(roleData, setErrorMessage);
-        if (!validation) return updateToasify(loadingToastId, `Request failed! ${errorMessage}`, "failure", 1700);
-
         let response;
         if (role) {
             response = await updateRole({ ...roleData, id: role.id });
@@ -52,7 +57,7 @@ const AddRoleModal = ({ show, onClose, updateRoles, role }) => {
     }, [role]);
 
     const updateFormValue = ({ updateType, value }) => {
-        setErrorMessage("");
+        clearErrorMessage()
         setRoleData((prevState) => ({
             ...prevState,
             [updateType]: value,
@@ -64,9 +69,11 @@ const AddRoleModal = ({ show, onClose, updateRoles, role }) => {
 
     return (
         <div className="modal modal-open">
-            <div className="modal-box">
+
+            <div className="modal-box p-14 relative flex items-center flex-col gap-6">
+                <button className="btn btn-md btn-circle bg-transparent border-none absolute right-2 top-2" onClick={onClose}>✕</button>
                 <h3 className="font-bold text-lg">{role ? "Edit Role" : "Add New Role"}</h3>
-                <form onSubmit={handleFormSubmit}>
+                <form onSubmit={handleFormSubmit} className="flex flex-col items-center w-[22rem] gap-4">
                     {/* Name Field */}
                     <InputText
                         placeholder="Role Name"
@@ -76,6 +83,7 @@ const AddRoleModal = ({ show, onClose, updateRoles, role }) => {
                         containerStyle="mt-4"
                         labelTitle="Role Name"
                         updateFormValue={updateFormValue}
+                        errorMessage={errorMessageRole}
                     />
 
                     {/* Description Field */}
@@ -87,13 +95,14 @@ const AddRoleModal = ({ show, onClose, updateRoles, role }) => {
                         containerStyle="mt-4"
                         labelTitle="Description"
                         updateFormValue={updateFormValue}
+                        errorMessage={errorMessageDescription}
                     />
 
-                    <div className="modal-action">
-                        <button type="button" className="btn btn-ghost" onClick={onClose}>
+                    <div className="modal-action self-end">
+                        <button type="button" className="rounded-md h-[2.5rem] px-4 text-sm btn-ghost" onClick={onClose}>
                             Cancel
                         </button>
-                        <button type="submit" className="btn btn-primary">
+                        <button type="submit" className="rounded-md h-[2.5rem] px-4 text-sm btn-primary">
                             Submit
                         </button>
                     </div>

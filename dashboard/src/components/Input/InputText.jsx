@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
+import xSign from '../../assets/x-close.png'
+import ErrorText from "../Typography/ErrorText";
 
 function InputText({
   labelTitle,
@@ -12,6 +14,10 @@ function InputText({
   updateType,
   display,
   name,
+  errorMessage,
+  InputClasses,
+  width,
+  language
 }) {
   const [showPassword, setShowPassword] = useState(false);
   const [value, setValue] = useState(defaultValue || "");
@@ -24,30 +30,32 @@ function InputText({
   const togglePasswordVisibility = () => {
     setShowPassword((prev) => !prev);
   };
-  
+
   useEffect(() => {
-    setValue(defaultValue)
+    setValue(defaultValue || "")
   }, [defaultValue])
+
   return (
     <div
-      className={`form-control mb-4 w-full ${containerStyle}`}
+      className={`form-control my-2 ${width ?? "w-full"} ${containerStyle}`}
       style={{ display: display ? "none" : "" }}
     >
-      <label className="label">
+      <label className="pl-0 mb-1">
         <span
-          className={"label-text font-semibold text-base-content " + labelStyle}
+          className={"label-text text-base-content " + labelStyle}
         >
           {labelTitle}
         </span>
       </label>
-      <div className="relative">
+      <div className="relative ">
         <input
+          dir={language === "ar" ? "rtl" : "ltr"}
           type={showPassword && type === "password" ? "text" : type || "text"}
           name={name}
           value={value || ""}
           placeholder={placeholder || ""}
           onChange={(e) => updateInputValue(e.target.value)}
-          className="input w-full input input-bordered border-stone-700 focus:border-none"
+          className={`input ${width ?? "w-full"}  h-[2.3rem] text-xs input input-bordered border-stone-500 focus:border-none ${InputClasses || ""}`}
         />
         {type === "password" && value && (
           <button
@@ -58,6 +66,9 @@ function InputText({
             {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
           </button>
         )}
+        <ErrorText styleClass={`text-[.7rem] absolute top-[40px] left-[1px] gap-1 ${errorMessage ? "flex" : "hidden"}`}>
+          <img src={xSign} alt="" className='h-3 translate-y-[2px]' />
+          {errorMessage}</ErrorText>
       </div>
     </div>
   );
