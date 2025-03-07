@@ -1,0 +1,39 @@
+model ResourceType {
+  id        String     @id @default(uuid())
+  name      String     @unique
+  resources Resource[]
+}
+
+model Resource {
+  id             String             @id @default(uuid())
+  name           String
+  type           ResourceType       @relation(fields: [ResourceTypeId], references: [id])
+  ResourceTypeId String
+  createdAt      DateTime           @default(now())
+  manager        ResourceManager?
+  editor         ResourceEditor?
+  verifiers      ResourceVerifier[]
+  publisher      ResourcePublisher?
+  pages          PageResource[]
+
+  @@index([id])
+  @@index([ResourceTypeId])
+}
+
+
+// Pages Model (Separate from Resource)
+model Page {
+  id        String     @id @default(uuid())
+  name      String     @unique
+  createdAt DateTime   @default(now())
+  resources PageResource[]
+}
+
+// Many-to-Many Relation Between Pages & Resources
+model PageResource {
+  id         String   @id @default(uuid())
+  page       Page     @relation(fields: [pageId], references: [id])
+  pageId     String
+  resource   Resource @relation(fields: [resourceId], references: [id])
+  resourceId String
+} 
