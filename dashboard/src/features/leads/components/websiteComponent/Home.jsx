@@ -110,7 +110,7 @@ const HomePage = ({ language }) => {
     return (
         <div className={`w-[100%] relative ${textAlignment} bankgothic-medium-dt bg-[white]`}>
             {/* banner */}
-            <section className="w-full relative">
+            <section className="w-full relative " >
                 <span
                     className={`w-full block ${language === "en" ? "scale-x-100" : "scale-x-[-1]"
                         }`}
@@ -171,9 +171,9 @@ const HomePage = ({ language }) => {
                 </div>
             </section>
             {/* service section */}
-            <section className="py-10 bg-gray-100">
+            <section className="py-10 bg-gray-100 ">
                 <div className="container mx-auto px-6">
-                    <h2 className="text-center text-3xl font-light text-black mb-9">
+                    <h2 className="text-center text-3xl font-light text-[#292E3D] mb-9">
                         {currentContent?.serviceSection?.title[language]}
                     </h2>
 
@@ -196,7 +196,7 @@ const HomePage = ({ language }) => {
             </section>
 
             {/* experience section */}
-            <section className="py-[115px] pb-[186px] px-[100px]">
+            <section className="py-[115px] pb-[186px] px-[100px] ">
                 <div className={`container mx-auto flex gap-12 ${isEnglish ? "" : "flex-row-reverse"}`}>
                     <div className=" w-10 relative flex-1">
                         <div className={`relative ${isEnglish ? "left-[-25px]" : "left-[10px]"} top-[50px]`}>
@@ -245,9 +245,9 @@ const HomePage = ({ language }) => {
             </section>
 
             {/* subProjects */}
-            <section className="py-[88px] border border-sky-600 px-10">
-                <div className="container mx-auto">
-                    <div className="mb-[18px] flex justify-end">
+            <section className="py-[88px] px-8 overflow-hidden">
+                <div className="container mx-auto ">
+                    <div className="flex justify-end">
                         {activeRecentProjectSection === 2 ? (
                             ""
                         ) : (
@@ -270,7 +270,7 @@ const HomePage = ({ language }) => {
                             </button>
                         )}
                     </div>
-                    <div className="grid grid-cols-[1fr_722px] gap-[70px]">
+                    <div className="flex gap-[70px]">
                         <div className="leftDetails">
                             {currentContent.recentProjectsSection?.sections?.map((section, index) => (
                                 <div
@@ -280,17 +280,13 @@ const HomePage = ({ language }) => {
                                     <span
                                         className={
                                             activeRecentProjectSection === index
-                                                ? 'text-[32px] font-bold leading-[36px] mb-[16px] cursor-pointer relative'
-                                                : 'text-[32px] font-bold leading-[36px] mb-[16px] cursor-pointer'
+                                                ? 'font-bold leading-[36px] mb-[16px] cursor-pointer relative'
+                                                : 'font-bold leading-[36px] mb-[16px] cursor-pointer'
                                         }
                                         onClick={() => setActiveRecentProjectSection(index)}
                                     >
                                         <h2
-                                            className={
-                                                activeRecentProjectSection === index
-                                                    ? 'text-[#292e3d]'
-                                                    : 'text-[#292e3d]'
-                                            }
+                                            className={`${activeRecentProjectSection === index ? 'text-[#292e3d]' : 'text-[#292e3d]'} text-md`}
                                         >
                                             {section?.title[language]}
                                         </h2>
@@ -298,8 +294,8 @@ const HomePage = ({ language }) => {
 
                                     <p
                                         className={`${activeRecentProjectSection === index
-                                            ? 'text-[#292e3d] text-[16px] leading-[25px] mb-[24px] opacity-100 transform translate-y-0 transition-opacity duration-300'
-                                            : 'text-[#292e3d] text-[16px] leading-[25px] mb-[24px] opacity-0 h-0 transform translate-y-[-20px] transition-opacity duration-300'
+                                            ? 'text-[#292e3d] text-xs leading-[25px] mb-[24px] opacity-100 transform translate-y-0 transition-opacity duration-300'
+                                            : 'text-[#292e3d] text-xs leading-[25px] mb-[24px] opacity-0 h-0 transform translate-y-[-20px] transition-opacity duration-300'
                                             }`}
                                     >
                                         {section?.description[language]}
@@ -308,14 +304,12 @@ const HomePage = ({ language }) => {
                             ))}
                         </div>
 
-                        <div>
+                        <div className="w-[600px]">
                             <Swiper
                                 key={language}
                                 modules={[Pagination, Navigation]}
                                 className="mySwiper w-[722px] pb-[65px]"
-                                pagination={{
-                                    clickable: true,
-                                }}
+
                                 navigation={{
                                     prevEl: prevRef.current,
                                     nextEl: nextRef.current,
@@ -330,39 +324,40 @@ const HomePage = ({ language }) => {
                             >
                                 {projectChunks?.map((chunk, slideIndex) => (
                                     <SwiperSlide key={slideIndex}>
-                                        <div className="grid grid-cols-2 gap-[24px]">
+                                        <div className="grid grid-cols-2 gap-[12px] w-[600px]">
                                             {chunk?.map((project, cardIndex) => {
                                                 console.log(project)
                                                 return (
-                                                <div className="overflow-hidden rounded-[4px]" key={cardIndex}>
-                                                    <div className="w-full h-[247px]">
-                                                        <img
-                                                            className={`w-full h-full object-cover object-center ${project.image
-                                                                ? ''
-                                                                : 'opacity-[0.1]'
-                                                                }`}
-                                                            alt={project?.title[language]}
-                                                            src={ project.image
-                                                                ? ProjectSlider?.[project?.image]
-                                                                : blankImage}
-                                                        />
+                                                    <div className=" rounded-[4px]" key={cardIndex}>
+                                                        <div className="w-full h-[200px]">
+                                                            <img
+                                                                className={`w-full h-full object-cover object-center ${project.image
+                                                                    ? ''
+                                                                    : 'opacity-[0.1]'
+                                                                    }`}
+                                                                alt={project?.title[language]}
+                                                                src={project.image
+                                                                    ? ProjectSlider?.[project?.image]
+                                                                    : blankImage}
+                                                            />
+                                                        </div>
+                                                        <div className="p-[18px_12px_12px_12px] flex flex-col justify-center items-start gap-[16px] bg-sky-500">
+                                                            <h5
+                                                                title={project?.title[language]}
+                                                                className="text-white text-[20px] font-semibold leading-[normal] h-[40px]"
+                                                            >
+                                                                {TruncateText(project?.title[language], 45)}
+                                                            </h5>
+                                                            <p
+                                                                title={project?.subtitle[language]}
+                                                                className="text-white text-[16px] font-light leading-[normal]"
+                                                            >
+                                                                {TruncateText(project?.subtitle[language], 25)}
+                                                            </p>
+                                                        </div>
                                                     </div>
-                                                    <div className="p-[18px_12px_12px_12px] flex flex-col justify-center items-start gap-[16px] bg-primary">
-                                                        <h5
-                                                            title={project?.title[language]}
-                                                            className="text-white text-[20px] font-semibold leading-[normal] h-[40px]"
-                                                        >
-                                                            {TruncateText(project?.title[language], 45)}
-                                                        </h5>
-                                                        <p
-                                                            title={project?.subtitle[language]}
-                                                            className="text-white text-[16px] font-light leading-[normal]"
-                                                        >
-                                                            {TruncateText(project?.subtitle[language], 25)}
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                            )}
+                                                )
+                                            }
                                             )}
                                         </div>
                                     </SwiperSlide>
@@ -371,9 +366,9 @@ const HomePage = ({ language }) => {
 
                             {/* Custom buttons */}
                             <div
-                                className={`flex items-center justify-between gap-[20px] relative ${projectChunks?.length <= 1 ? 'hidden' : ''}`}
+                                className={`flex items-center justify-between relative ${projectChunks?.length <= 1 ? 'hidden' : ''} mt-8 font-sans`}
                             >
-                                <button ref={prevRef} className="py-[16px] px-[26px] text-[18px] font-medium border-[1px] border-primary rounded-[6px] flex items-center min-w-[246px] justify-center bg-white text-primary transition-all duration-200">
+                                <button ref={prevRef} className="py-[12px] px-[20px] text-sky-500 text-md font-medium border-[1px] border-sky-500 rounded-[6px] flex items-center min-w-[246px] justify-center bg-white text-primary transition-all duration-200">
                                     <img
                                         src="https://frequencyimage.s3.ap-south-1.amazonaws.com/b2872383-e9d5-4dd7-ae00-8ae00cc4e87e-Vector%20%286%29.svg"
                                         width="18"
@@ -386,7 +381,7 @@ const HomePage = ({ language }) => {
                                         currentContent?.recentProjectsSection?.buttons[1]?.text[language]
                                     }
                                 </button>
-                                <button ref={nextRef} className="py-[16px] px-[26px] text-[18px] font-medium border-[1px] border-primary rounded-[6px] flex items-center min-w-[246px] justify-center bg-white text-primary transition-all duration-200">
+                                <button ref={nextRef} className="py-[12px] px-[20px] text-sky-500 text-md font-medium border-[1px] border-sky-500 rounded-[6px] flex items-center min-w-[246px] justify-center bg-white text-primary transition-all duration-200">
                                     {
                                         currentContent?.recentProjectsSection?.buttons[2]?.text[language]
                                     }{" "}
