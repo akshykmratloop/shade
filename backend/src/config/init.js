@@ -1,9 +1,10 @@
 import AuthModule from "../modules/auth/index.js";
 // import UserModule from '../modules/user';
 import RolesModule from '../modules/roles/index.js';
+import PermissionModule  from '../modules/permissions/index.js';
 // import PageModule from '../modules/page';
 
-const modules = [AuthModule, RolesModule];
+const modules = [AuthModule, RolesModule, PermissionModule];
 
 const useModules = (app) => {
   modules.forEach((module) => module.init(app));

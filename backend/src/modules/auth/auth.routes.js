@@ -8,7 +8,7 @@ import {
   verifyOtpSchema,
   resetPassSchema,
   updatePasswordSchema
-} from "../../validation/index.js";
+} from "../../validation/authSchema.js";
 import tryCatchWrap from "../../errors/tryCatchWrap.js";
 import { resendOtpRateLimiter, generateOtpRateLimiter} from "../../helper/index.js";
 

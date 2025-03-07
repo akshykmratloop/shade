@@ -1,16 +1,25 @@
-// Represents a role in the system =================================================================
+model RoleType {
+    id          String       @id @default(uuid())
+    name        String       @unique // USER or MANAGER
+    roles       Role[]
+    permissions Permission[]
+}
 
 model Role {
-    id            String         @id @default(cuid())
-    name          String           @unique
-    description String            @default("")
-    status        Status           @default(ACTIVE)
-    created_at    DateTime         @default(now())
-    updated_at    DateTime         @updatedAt
-    permissions   RolePermission[]
-    userRoles     UserRole[]
-    pageRoles     PageRole[]
-    userPageRoles UserPageRole[]
+    id     String @id @default(cuid())
+    name   String @unique
+    status Status @default(ACTIVE)
+
+    // relationship references
+    users       UserRole[]
+    permissions RolePermission[]
+
+    roleType   RoleType @relation(fields: [roleTypeId], references: [id])
+    roleTypeId String
+
+    created_at DateTime @default(now())
+    updated_at DateTime @updatedAt
 
     @@index([name])
+    @@index([roleTypeId])
 }
