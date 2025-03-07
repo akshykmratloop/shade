@@ -2099,7 +2099,7 @@
           },
           "description": {
             "ar": "العناصر المدنية (إزالة القسم المنخفض والزجاجي، وجدار CMU، ومخلفات الأرضيات، والأثاث، والسقف)...",
-            "en": "Civil items (Remove low and glass partition, CMU wall, Floor tailing, furniture and Ceiling) HVAC Items Plumbing Items Fire protection Electrical (remove lighting fixture, wiring devices, disconnect switches, etc.,) Telecom (remove telecom system)"
+            "en": "Civil items (Remove low and glass partition, CMU wall, Floor tailing, furniture and Ceiling)HVAC ItemsPlumbing ItemsFire protectionElectrical (remove lighting fixture, wiring devices, disconnect switches, etc.,)Telecom (remove telecom system)"
           }
         },
         {
@@ -2109,7 +2109,7 @@
           },
           "description": {
             "ar": "مدني (الإنهاء الأرضي، السقف، الجدران، الأثاث)...",
-            "en": "Civil (floor finishes, ceiling finishes, wall finishes, furniture) Mechanical ( HVAC, fire protection, plumbing) Electrical (fire detection and alarm system, lighting, wiring devices) Instrumentation (building management system) Telecom (cable routing, data voice system, wireless LAN, AV system, data network)"
+            "en": "Civil (floor finishes, ceiling finishes, wall finishes, furniture)Mechanical ( HVAC, fire protection, plumbing)Electrical (fire detection and alarm system, lighting, wiring devices)Instrumentation (building management system)Telecom (cable routing, data voice system, wireless LAN, AV system, data network)"
           }
         },
         {
@@ -2119,7 +2119,7 @@
           },
           "description": {
             "ar": "تشمل تسليمات المشروع الرئيسية: ورشة البناء، المنطقة المكتبية، المباني المساندة للورشة، المرافق الخارجية...",
-            "en": "The key deliverables of project are : Workshop Building Office Area Workshop support buildings External Utilities Site development works Telecom & Security works"
+            "en": "The key deliverables of project are :Workshop BuildingOffice AreaWorkshop support buildingsExternal UtilitiesSite development worksTelecom & Security works"
           }
         }
       ],

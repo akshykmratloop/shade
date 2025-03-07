@@ -20,14 +20,14 @@ import { updateContent } from "../../../common/homeContentSlice";
 // import Image from "next/image";
 // import Client from "../../assets/icons/client.svg";
 // import localFont from "next/font/local";
-// import { Swiper, SwiperSlide } from "swiper/react";
+import SwiperSlide, { Swiper } from "swiper";
 // import required modules
-// import {
-//     Pagination,
-//     Navigation,
+import {
+    Pagination,
+    Navigation,
 //     Autoplay,
 //     EffectCoverflow,
-// } from "swiper/modules";
+} from "swiper/modules";
 // Import Swiper styles
 // import "swiper/css";
 // import "swiper/css/pagination";
@@ -60,42 +60,46 @@ const HomePage = ({ language }) => {
     // const styles = ''
     // const currentContent = content?.home;
     // // Create refs for the navigation buttons
-    // const prevRef = useRef(null);
-    // const nextRef = useRef(null);
+    const prevRef = useRef(null);
+    const nextRef = useRef(null);
     // const testimonialPrevRef = useRef(null);
     // const testimonialNextRef = useRef(null);
-    // const [activeRecentProjectSection, setActiveRecentProjectSection] = useState(0);
+    const [activeRecentProjectSection, setActiveRecentProjectSection] = useState(0);
     // const redirectionUrlForRecentProject = ["/project", "/market", "/"];
     // // Helper function to chunk array into groups of 4
-    // const chunkArray = (array, chunkSize) => {
-    //     const chunks = [];
-    //     for (let i = 0; i < array.length; i += chunkSize) {
-    //         chunks.push(array.slice(i, i + chunkSize));
-    //     }
-    //     return chunks;
-    // };
+    const chunkArray = (array, chunkSize) => {
+        const chunks = [];
+        for (let i = 0; i < array.length; i += chunkSize) {
+            chunks.push(array.slice(i, i + chunkSize));
+        }
+        return chunks;
+    };
 
     // const handleContactUSClose = () => {
     //     setIsModal(false);
     // };
 
     // // Inside your component, before the return statement:
-    // const projectsPerSlide = 4;
-
-    // const projectChunks = chunkArray(
-    //     currentContent?.recentProjectsSection?.sections[activeRecentProjectSection]
-    //         ?.projects || [],
-    //     projectsPerSlide
-    // );
+    const projectsPerSlide = 4;
+    // console.log(currentContent?.recentProjectsSection);
+    let projectChunks
+    if(currentContent){
+        console.log(currentContent)
+            projectChunks = chunkArray(
+            currentContent?.recentProjectsSection?.sections[activeRecentProjectSection]
+            ?.projects || [],
+            projectsPerSlide
+        );
+    }
 
     // // const ProjectSlider = { ...markets, ...safety };
 
-    // const TruncateText = (text, length) => {
-    //     if (text.length > (length || 50)) {
-    //         return `${text.slice(0, length || 50)}...`;
-    //     }
-    //     return text;
-    // };
+    const TruncateText = (text, length) => {
+        if (text.length > (length || 50)) {
+            return `${text.slice(0, length || 50)}...`;
+        }
+        return text;
+    };
 
     useEffect(() => {
         if (swiperInstance) {
@@ -243,6 +247,163 @@ const HomePage = ({ language }) => {
                     </div>
                 </div>
             </section>
+            <section className="py-[88px]">
+    <div className="container mx-auto">
+        <div className="mb-[18px] flex justify-end">
+            {activeRecentProjectSection === 2 ? (
+                ""
+            ) : (
+                <button
+                    type="button"
+                    className="relative bg-transparent border-none text-[#667085] text-right text-[16px] leading-[24px] cursor-pointer flex items-center"
+                    onClick={() => {}}
+                >
+                    {
+                        currentContent?.recentProjectsSection?.buttons[0]?.text[language]
+                    }{" "}
+                    &nbsp;
+                    <img
+                        src="https://frequencyimage.s3.ap-south-1.amazonaws.com/5d82e78b-cb95-4768-abfe-247369079ce6-bi_arrow-up.svg"
+                        width="18"
+                        height="17"
+                        alt=""
+                        className={`w-[18px] h-[17px] ${language === "en" ? 'transform scale-x-[-1]' : ''}`}
+                    />
+                </button>
+            )}
+        </div>
+        <div className="grid grid-cols-[1fr_722px] gap-[70px]">
+            <div className="leftDetails">
+                {currentContent.recentProjectsSection?.sections?.map((section, index) => (
+                    <div
+                        key={index}
+                        className={`relative ${language === "ar" ? 'rtl' : ''}`}
+                    >
+                        <span
+                            className={
+                                activeRecentProjectSection === index
+                                    ? 'text-[32px] font-bold leading-[36px] mb-[16px] cursor-pointer relative'
+                                    : 'text-[32px] font-bold leading-[36px] mb-[16px] cursor-pointer'
+                            }
+                            onClick={() => setActiveRecentProjectSection(index)}
+                        >
+                            <h2
+                                className={
+                                    activeRecentProjectSection === index
+                                        ? 'text-[#292e3d]'
+                                        : 'text-[#292e3d]'
+                                }
+                            >
+                                {section?.title[language]}
+                            </h2>
+                        </span>
+
+                        <p
+                            className={`${
+                                activeRecentProjectSection === index
+                                    ? 'text-[#292e3d] text-[16px] leading-[25px] mb-[24px] opacity-100 transform translate-y-0 transition-opacity duration-300'
+                                    : 'text-[#292e3d] text-[16px] leading-[25px] mb-[24px] opacity-0 h-0 transform translate-y-[-20px] transition-opacity duration-300'
+                            }`}
+                        >
+                            {section?.description[language]}
+                        </p>
+                    </div>
+                ))}
+            </div>
+
+            <div>
+                <Swiper
+                    key={language}
+                    modules={[Pagination, Navigation]}
+                    className="mySwiper w-[722px] pb-[65px]"
+                    pagination={{
+                        clickable: true,
+                    }}
+                    navigation={{
+                        prevEl: prevRef.current,
+                        nextEl: nextRef.current,
+                    }}
+                    onSwiper={(swiper) => {
+                        setSwiperInstance(swiper);
+                        swiper.params.navigation.prevEl = prevRef.current;
+                        swiper.params.navigation.nextEl = nextRef.current;
+                        swiper.navigation.init();
+                        swiper.navigation.update();
+                    }}
+                >
+                    {projectChunks?.map((chunk, slideIndex) => (
+                        <SwiperSlide key={slideIndex}>
+                            <div className="grid grid-cols-2 gap-[24px]">
+                                {chunk?.map((project, cardIndex) => (
+                                    <div className="overflow-hidden rounded-[4px]" key={cardIndex}>
+                                        <div className="w-full h-[247px]">
+                                            <img
+                                                className={`w-full h-full object-cover object-center ${
+                                                    project.image
+                                                        ? ''
+                                                        : 'opacity-[0.1]'
+                                                }`}
+                                                alt={project?.title[language]}
+                                                src={""}
+                                            />
+                                        </div>
+                                        <div className="p-[18px_12px_12px_12px] flex flex-col justify-center items-start gap-[16px] bg-primary">
+                                            <h5
+                                                title={project?.title[language]}
+                                                className="text-white text-[20px] font-semibold leading-[normal] h-[40px]"
+                                            >
+                                                {TruncateText(project?.title[language], 45)}
+                                            </h5>
+                                            <p
+                                                title={project?.subtitle[language]}
+                                                className="text-white text-[16px] font-light leading-[normal]"
+                                            >
+                                                {TruncateText(project?.subtitle[language], 25)}
+                                            </p>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </SwiperSlide>
+                    ))}
+                </Swiper>
+
+                {/* Custom buttons */}
+                <div
+                    className={`flex items-center justify-between gap-[20px] relative ${projectChunks?.length <= 1 ? 'hidden' : ''}`}
+                >
+                    <button ref={prevRef} className="py-[16px] px-[26px] text-[18px] font-medium border-[1px] border-primary rounded-[6px] flex items-center min-w-[246px] justify-center bg-white text-primary transition-all duration-200">
+                        <img
+                            src="https://frequencyimage.s3.ap-south-1.amazonaws.com/b2872383-e9d5-4dd7-ae00-8ae00cc4e87e-Vector%20%286%29.svg"
+                            width="18"
+                            height="17"
+                            alt=""
+                            className={`w-[18px] h-[17px] ${language === "en" && 'transform scale-x-[-1]'}`}
+                        />
+                        &nbsp;
+                        {
+                            currentContent?.recentProjectsSection?.buttons[1]?.text[language]
+                        }
+                    </button>
+                    <button ref={nextRef} className="py-[16px] px-[26px] text-[18px] font-medium border-[1px] border-primary rounded-[6px] flex items-center min-w-[246px] justify-center bg-white text-primary transition-all duration-200">
+                        {
+                            currentContent?.recentProjectsSection?.buttons[2]?.text[language]
+                        }{" "}
+                        &nbsp;
+                        <img
+                            src="https://frequencyimage.s3.ap-south-1.amazonaws.com/de8581fe-4796-404c-a956-8e951ccb355a-Vector%20%287%29.svg"
+                            width="18"
+                            height="17"
+                            alt=""
+                            className={`w-[18px] h-[17px] ${language === "en" && 'transform scale-x-[-1]'}`}
+                        />
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
         </div>)
 }
 
@@ -329,179 +490,7 @@ const HomePage = ({ language }) => {
 //             </section>
 
 //             {/* recent project section */}
-//             <section className={styles.recent_project_wrapper}>
-//                 <div className={`container ${styles.main_container}`}>
-//                     <div className={styles.back_btn_wrapper}>
-//                         {activeRecentProjectSection === 2 ? (
-//                             ""
-//                         ) : (
-//                             <button
-//                                 type="button"
-//                                 className={styles.back_btn}
-//                                 onClick={() =>{}}
-//                             >
-//                                 {
-//                                     currentContent?.recentProjectsSection?.buttons[0]?.text[
-//                                     language
-//                                     ]
-//                                 }{" "}
-//                                 &nbsp;
-//                                 <img
-//                                     src="https://frequencyimage.s3.ap-south-1.amazonaws.com/5d82e78b-cb95-4768-abfe-247369079ce6-bi_arrow-up.svg"
-//                                     width="18"
-//                                     height="17"
-//                                     alt=""
-//                                     className={`${styles.arrow_btn} ${language === "en" && styles.leftAlign
-//                                         }`}
-//                                 />{" "}
-//                             </button>
-//                         )}
-//                     </div>
-//                     <div className={styles.recent_project}>
-//                         <div className="leftDetails">
-//                             {currentContent.recentProjectsSection.sections.map(
-//                                 (section, index) => (
-//                                     <div
-//                                         key={index}
-//                                         className={`${styles.recent_project_content}  ${language === "ar" && styles.arabicVersion
-//                                             }`}
-//                                     >
-//                                         <span
-//                                             className={
-//                                                 activeRecentProjectSection === index
-//                                                     ? styles.title
-//                                                     : styles.subtitle
-//                                             }
-//                                             onClick={() => setActiveRecentProjectSection(index)}
-//                                         >
-//                                             <h2
-//                                                 className={
-//                                                     activeRecentProjectSection === index
-//                                                         ? styles.title
-//                                                         : styles.subtitle
-//                                                 }
-//                                             >
-//                                                 {section?.title[language]}
-//                                             </h2>
-//                                         </span>
 
-//                                         <p
-//                                             className={`${activeRecentProjectSection === index
-//                                                     ? styles.description
-//                                                     : styles.descriptionHide
-//                                                 }  `}
-//                                         >
-//                                             {section?.description[language]}
-//                                         </p>
-//                                     </div>
-//                                 )
-//                             )}
-//                         </div>
-
-//                         <div>
-//                             <Swiper
-//                                 key={language}
-//                                 modules={[Pagination, Navigation]}
-//                                 className={styles.mySwiper}
-//                                 pagination={{
-//                                     clickable: true,
-//                                 }}
-//                                 navigation={{
-//                                     prevEl: prevRef.current,
-//                                     nextEl: nextRef.current,
-//                                 }}
-//                                 onSwiper={(swiper) => {
-//                                     setSwiperInstance(swiper);
-//                                     swiper.params.navigation.prevEl = prevRef.current;
-//                                     swiper.params.navigation.nextEl = nextRef.current;
-//                                     swiper.navigation.init();
-//                                     swiper.navigation.update();
-//                                 }}
-//                             >
-//                                 {projectChunks.map((chunk, slideIndex) => (
-//                                     <SwiperSlide key={slideIndex}>
-//                                         <div className={styles.recent_project_cards}>
-//                                             {chunk?.map((project, cardIndex) => (
-//                                                 <div className={styles.card} key={cardIndex}>
-//                                                     <div className={styles.card_img_wrap}>
-//                                                         <img
-//                                                             // className={styles.card_img}
-//                                                             className={
-//                                                                 project.image
-//                                                                     ? styles.card_img
-//                                                                     : styles.card_imgFade
-//                                                             }
-//                                                             alt={project?.title[language]}
-//                                                             src={""}
-//                                                             height={247}
-//                                                             width={350}
-//                                                         />
-//                                                     </div>
-//                                                     <div className={styles.card_body}>
-//                                                         <h5
-//                                                             title={project?.title[language]}
-//                                                             className={styles.title}
-//                                                         >
-//                                                             {TruncateText(project?.title[language], 45)}
-//                                                         </h5>
-//                                                         <p
-//                                                             title={project?.subtitle[language]}
-//                                                             className={styles.subtitle}
-//                                                         >
-//                                                             {TruncateText(project?.subtitle[language], 25)}
-//                                                         </p>
-//                                                     </div>
-//                                                 </div>
-//                                             ))}
-//                                         </div>
-//                                     </SwiperSlide>
-//                                 ))}
-//                             </Swiper>
-
-//                             {/* Custom buttons */}
-
-//                             <div
-//                                 className={`${styles.btn_wrapper} ${projectChunks?.length <= 1 && styles.hide_btn_wrapper
-//                                     }`}
-//                             >
-//                                 <button ref={prevRef} className={styles.custom_prev}>
-//                                     <img
-//                                         src="https://frequencyimage.s3.ap-south-1.amazonaws.com/b2872383-e9d5-4dd7-ae00-8ae00cc4e87e-Vector%20%286%29.svg"
-//                                         width="18"
-//                                         height="17"
-//                                         alt=""
-//                                         className={`${styles.arrow_btn} ${language === "en" && styles.leftAlign
-//                                             }`}
-//                                     />
-//                                     &nbsp;
-//                                     {
-//                                         currentContent?.recentProjectsSection?.buttons[1]?.text[
-//                                         language
-//                                         ]
-//                                     }
-//                                 </button>
-//                                 <button ref={nextRef} className={styles.custom_next}>
-//                                     {" "}
-//                                     {
-//                                         currentContent?.recentProjectsSection?.buttons[2]?.text[
-//                                         language
-//                                         ]
-//                                     }{" "}
-//                                     &nbsp;
-//                                     <img
-//                                         src="https://frequencyimage.s3.ap-south-1.amazonaws.com/de8581fe-4796-404c-a956-8e951ccb355a-Vector%20%287%29.svg"
-//                                         width="18"
-//                                         height="17"
-//                                         alt=""
-//                                         className={`${styles.arrow_btn} ${language === "en" && styles.leftAlign
-//                                             }`}
-//                                     />
-//                                 </button>
-//                             </div>
-//                         </div>
-//                     </div>
-//                 </div>
-//             </section>
 //             {/* client section */}
 //             <section className={styles.Client_wrapper}>
 //                 <img
