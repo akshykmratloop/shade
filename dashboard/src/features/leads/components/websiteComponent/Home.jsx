@@ -14,14 +14,7 @@ import {
 } from "../../../../assets/index";
 import content from './content.json'
 import { updateContent } from "../../../common/homeContentSlice";
-// import Card from "./Card"; // Adjust the path accordingly
-// import styles from "./Home.module.scss";
-// import button from "@/common/button";
-// import Image from "next/image";
-// import Client from "../../assets/icons/client.svg";
-// import localFont from "next/font/local";
 import { Swiper, SwiperSlide } from "swiper/react";
-// import required modules
 import {
     Pagination,
     Navigation,
@@ -43,7 +36,13 @@ import blankImage from "../../../../assets/images/blankImage.webp";
 //   src: "../../../public/font/BankGothicLtBTLight.ttf",
 //   display: "swap",
 // });
-
+// import Card from "./Card"; // Adjust the path accordingly
+// import styles from "./Home.module.scss";
+// import button from "@/common/button";
+// import Image from "next/image";
+// import Client from "../../assets/icons/client.svg";
+// import required modules
+// import localFont from "next/font/local";
 
 
 
@@ -57,17 +56,9 @@ const HomePage = ({ language }) => {
     const [swiperInstance, setSwiperInstance] = useState(null);
     let isEnglish = language === "en"
     let textAlignment = isEnglish ? "text-left" : "text-right"
-    //   const { language, content } = useGlobalContext();
-    // const styles = ''
-    // const currentContent = content?.home;
-    // // Create refs for the navigation buttons
     const prevRef = useRef(null);
     const nextRef = useRef(null);
-    // const testimonialPrevRef = useRef(null);
-    // const testimonialNextRef = useRef(null);
     const [activeRecentProjectSection, setActiveRecentProjectSection] = useState(0);
-    // const redirectionUrlForRecentProject = ["/project", "/market", "/"];
-    // // Helper function to chunk array into groups of 4
     let chunkArray = (array, chunkSize) => {
         const chunks = [];
         for (let i = 0; i < array.length; i += chunkSize) {
@@ -75,14 +66,7 @@ const HomePage = ({ language }) => {
         }
         return chunks;
     };
-
-    // const handleContactUSClose = () => {
-    //     setIsModal(false);
-    // };
-
-    // // Inside your component, before the return statement:
     const projectsPerSlide = 4;
-    // console.log(currentContent?.recentProjectsSection);
     let projectChunks = chunkArray(
         currentContent?.recentProjectsSection?.sections[activeRecentProjectSection]
             ?.projects || [],
@@ -107,6 +91,21 @@ const HomePage = ({ language }) => {
     useEffect(() => {
         dispatch(updateContent((content?.home)))
     }, [])
+    //   const { language, content } = useGlobalContext();
+    // const styles = ''
+    // const currentContent = content?.home;
+    // // Create refs for the navigation buttons
+    // const testimonialPrevRef = useRef(null);
+    // const testimonialNextRef = useRef(null);
+    // const redirectionUrlForRecentProject = ["/project", "/market", "/"];
+    // // Helper function to chunk array into groups of 4
+
+    // const handleContactUSClose = () => {
+    //     setIsModal(false);
+    // };
+
+    // // Inside your component, before the return statement:
+    // console.log(currentContent?.recentProjectsSection);
     return (
         <div className={`w-[100%] relative ${textAlignment} bankgothic-medium-dt bg-[white]`}>
             {/* banner */}
@@ -194,7 +193,6 @@ const HomePage = ({ language }) => {
                     </div>
                 </div>
             </section>
-
             {/* experience section */}
             <section className="py-[115px] pb-[186px] px-[100px] ">
                 <div className={`container mx-auto flex gap-12 ${isEnglish ? "" : "flex-row-reverse"}`}>
@@ -243,7 +241,6 @@ const HomePage = ({ language }) => {
                     </div>
                 </div>
             </section>
-
             {/* subProjects */}
             <section className="py-[88px] px-8 overflow-hidden">
                 <div className="container mx-auto ">

@@ -12,7 +12,6 @@ const ContentSection = ({ Heading, subHeading, inputs = [], inputFiles = [], isB
         return state.homeContent.present.home
     })
 
-
     // Function to update input values
     const updateFormValue = ({ updateType, value }) => {
         if (!isNaN(Number(value))) {
