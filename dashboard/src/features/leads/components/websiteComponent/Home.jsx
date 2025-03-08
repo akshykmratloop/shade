@@ -333,7 +333,7 @@ const HomePage = ({ language }) => {
                                                                     : 'opacity-[0.1]'
                                                                     }`}
                                                                 alt={project?.title[language]}
-                                                                src={project.image
+                                                                src={ImagesFromRedux[project.image]? ImagesFromRedux[project.image]: project.image
                                                                     ? ProjectSlider?.[project?.image]
                                                                     : blankImage}
                                                             />

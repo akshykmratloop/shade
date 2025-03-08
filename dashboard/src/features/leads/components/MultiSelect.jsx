@@ -47,14 +47,14 @@ const SortableItem = ({ option, removeOption, language }) => {
   );
 };
 
-const MultiSelect = ({ heading, options = [], tabName, label, language, section }) => {
+const MultiSelect = ({ heading, options = [], tabName, label, language, section, referencexpression }) => {
   const [selectedOptions, setSelectedOptions] = useState([]);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
   const [random, setRandom] = useState(Math.random())
   const dispatch = useDispatch();
 
-  const actualListOfServices = content.home.serviceSection.cards
+  const actualListOfServices = content.home.serviceSection.cards  //here 
 
   const showOptions = options?.map(e => e.title[language])
 

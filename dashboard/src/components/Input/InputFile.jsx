@@ -36,6 +36,7 @@ const InputFile = ({ label, baseClass, inputClass, id}) => {
     }
   }, [content]);
 
+
   return (
     <div className={`relative ${baseClass} mt-2`}>
       <label htmlFor={id} className="label-text sm:text-xs xl:text-sm">{label}</label>
@@ -53,7 +54,7 @@ const InputFile = ({ label, baseClass, inputClass, id}) => {
         <Upload className="w-5 h-5 text-gray-400 text-xs" />
         <span className="text-gray-400 text-xs">{fileName || "Upload Image"}</span>
       </label>
-      {content && (
+      {ImageFromRedux[id] && (
         <div className="relative mt-2">
           <button className="absolute top-2 right-2 text-white bg-[#00000080] p-1 rounded-full shadow" onClick={clearFile}>
             <X className="w-4 h-4" />
