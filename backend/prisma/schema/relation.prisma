@@ -1,56 +1,96 @@
-// Represents the many-to-many relationship between Roles and Permissions
-model RolePermission {
-    role_id       String // Foreign key referencing the Role model
-    permission_id String // Foreign key referencing the Permission model
-    role          Role       @relation(fields: [role_id], references: [id]) // Relation to the Role model
-    permission    Permission @relation(fields: [permission_id], references: [id]) // Relation to the Permission model
-
-    @@id([role_id, permission_id]) // Composite primary key
-    @@index([role_id]) // Index on role_id for faster queries
-    @@index([permission_id]) // Index on permission_id for faster queries
-}
-
-// ==============================================================================================================
-
-// Represents the many-to-many relationship between Users and Roles
 model UserRole {
-    user_id String // Foreign key referencing the User model
-    role_id String // Foreign key referencing the Role model
-    user    User   @relation(fields: [user_id], references: [id]) // Relation to the User model
-    role    Role   @relation(fields: [role_id], references: [id]) // Relation to the Role model
+    userId    String
+    roleId    String
+    user      User     @relation(fields: [userId], references: [id])
+    role      Role     @relation(fields: [roleId], references: [id])
+    createdAt DateTime @default(now())
 
-    @@id([user_id, role_id]) // Composite primary key
-    @@index([user_id]) // Index on user_id for faster queries
-    @@index([role_id]) // Index on role_id for faster queries
+    @@id([userId, roleId]) // primary key as combination of both id
+    @@index([userId])
+    @@index([roleId])
 }
 
-// ==============================================================================================================
+model UserAuditLog {
+    auditLogId String   @unique
+    userId     String
+    user       User     @relation(fields: [userId], references: [id])
+    auditLog   AuditLog @relation(fields: [auditLogId], references: [id])
+    createdAt  DateTime @default(now())
 
-// Represents the many-to-many relationship between Pages and Roles
-model PageRole {
-    page_id String // Foreign key referencing the Page model
-    role_id String // Foreign key referencing the Role model
-    page    Page @relation(fields: [page_id], references: [id]) // Relation to the Page model
-    role    Role @relation(fields: [role_id], references: [id]) // Relation to the Role model
-
-    @@id([page_id, role_id]) // Composite primary key
-    @@index([page_id]) // Index on page_id for faster queries
-    @@index([role_id]) // Index on role_id for faster queries
+    @@id([auditLogId, userId]) // primary key as combination of both id
+    @@index([auditLogId])
+    @@index([userId])
 }
 
-// ==============================================================================================================
+model RolePermission {
+    roleId       String
+    permissionId String
+    role         Role       @relation(fields: [roleId], references: [id])
+    permission   Permission @relation(fields: [permissionId], references: [id])
+    createdAt    DateTime   @default(now())
 
-// Represents the many-to-many relationship between Users, Pages, and Roles
-model UserPageRole {
-    user_id String // Foreign key referencing the User model
-    page_id String // Foreign key referencing the Page model
-    role_id String // Foreign key referencing the Role model
-    user    User   @relation(fields: [user_id], references: [id]) // Relation to the User model
-    page    Page   @relation(fields: [page_id], references: [id]) // Relation to the Page model
-    role    Role   @relation(fields: [role_id], references: [id]) // Relation to the Role model
+    @@id([roleId, permissionId]) // primary key as combination of both id
+    @@index([roleId])
+    @@index([permissionId])
+}
 
-    @@id([user_id, page_id, role_id]) // Composite primary key
-    @@index([user_id]) // Index on user_id for faster queries
-    @@index([page_id]) // Index on page_id for faster queries
-    @@index([role_id]) // Index on role_id for faster queries
+model PermissionSubPermission {
+    permissionId    String
+    subPermissionId String
+    permission      Permission    @relation(fields: [permissionId], references: [id])
+    subPermission   SubPermission @relation(fields: [subPermissionId], references: [id])
+    createdAt       DateTime      @default(now())
+
+    @@id([permissionId, subPermissionId]) // primary key as combination of both id
+    @@index([permissionId])
+    @@index([subPermissionId])
+}
+
+model ResourceManager {
+    resourceId String   @unique
+    userId     String
+    resource   Resource @relation(fields: [resourceId], references: [id])
+    user       User     @relation(fields: [userId], references: [id])
+    createdAt  DateTime @default(now())
+
+    @@id([resourceId, userId]) // primary key as combination of both id
+    @@index([resourceId])
+    @@index([userId])
+}
+
+model ResourceEditor {
+    resourceId String   @unique
+    userId     String
+    resource   Resource @relation(fields: [resourceId], references: [id])
+    user       User     @relation(fields: [userId], references: [id])
+    createdAt  DateTime @default(now())
+
+    @@id([resourceId, userId]) // primary key as combination of both id
+    @@index([resourceId])
+    @@index([userId])
+}
+
+model ResourceVerifier {
+    resourceId String
+    userId     String
+    stage      Int
+    resource   Resource @relation(fields: [resourceId], references: [id])
+    user       User     @relation(fields: [userId], references: [id])
+    createdAt  DateTime @default(now())
+
+    @@id([resourceId, userId]) // primary key as combination of both id
+    @@index([resourceId])
+    @@index([userId])
+}
+
+model ResourcePublisher {
+    resourceId String   @unique
+    userId     String
+    resource   Resource @relation(fields: [resourceId], references: [id])
+    user       User     @relation(fields: [userId], references: [id])
+    createdAt  DateTime @default(now())
+
+    @@id([resourceId, userId]) // primary key as combination of both id
+    @@index([resourceId])
+    @@index([userId])
 }

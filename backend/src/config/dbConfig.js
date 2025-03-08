@@ -25,7 +25,10 @@ const prismaClient = new PrismaClient({
 const connectDB = async () => {
   try {
     await prismaClient.$connect();
-    console.log("Database connected successfully");
+    const databaseUrl = process.env.DATABASE_URL;
+    const dbName = databaseUrl.split('/').pop().split('?')[0];
+    
+    console.log(`Database connected successfully to ${dbName}`);
   } catch (error) {
     console.error("Error connecting to the database:", error.message);
     process.exit(1);

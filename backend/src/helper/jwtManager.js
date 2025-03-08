@@ -11,7 +11,11 @@ const generateToken = (user, time) => {
 
 // Verifies the given JWT token and returns the decoded payload
 const verifyToken = (token) => {
-  return jwt.verify(token, JWT_SECRET);
+  try {
+    return jwt.verify(token, JWT_SECRET);
+  } catch (error) {
+    throw new Error("Invalid or expired token");
+  }
 };
 
 export { generateToken, verifyToken };

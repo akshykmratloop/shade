@@ -1,12 +1,8 @@
 // Enum for defining the status of a page
 enum PageStatus {
-    DRAFT
-    REVIEW
-    PUBLISHED
-    ARCHIVED
-    REJECTED
-    TRASHED
-    HOLD
+    PUBLISHED // ACTIVE
+    ARCHIVED  // INACTIVE
+    TRASHED   // REMOVED
 }
 
 // Enum for defining the general status of an entity
@@ -16,14 +12,16 @@ enum Status {
     TRASHED
 }
 
-enum Stage {
-    Stage_1
-    Stage_2
-    Stage_3
-}
 
-enum otpOrigin {
+enum otpOrigin {  // Enum for defining the origin of OTP
     MFA_Login
     forgot_Pass
     NULL
+}
+
+
+enum logOutcome {  // Enum for defining the log outcome
+    Success
+    Failure
+    Unknown
 }
