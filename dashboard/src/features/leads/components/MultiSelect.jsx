@@ -47,14 +47,14 @@ const SortableItem = ({ option, removeOption, language }) => {
   );
 };
 
-const MultiSelect = ({ heading, options = [], tabName, label, language, section, referencexpression }) => {
+const MultiSelect = ({ heading, options = [], tabName, label, language, section, referenceOriginal = {} }) => {
   const [selectedOptions, setSelectedOptions] = useState([]);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
   const [random, setRandom] = useState(Math.random())
   const dispatch = useDispatch();
 
-  const actualListOfServices = content.home.serviceSection.cards  //here 
+  let actualListOfServices; //content.home.serviceSection.cards
 
   const showOptions = options?.map(e => e.title[language])
 
@@ -62,7 +62,7 @@ const MultiSelect = ({ heading, options = [], tabName, label, language, section,
     setIsDropdownOpen((prev) => !prev);
   };
 
-  const handleSelect = (optionToAdd, index) => {
+  const handleSelect = (optionToAdd) => {
     for (let i = 0; i < options.length; i++) {
       if (optionToAdd.title === options[i].title) {
         if (options[i].display) return
@@ -168,7 +168,7 @@ const MultiSelect = ({ heading, options = [], tabName, label, language, section,
       >
         <SortableContext items={selectedOptions} strategy={verticalListSortingStrategy}>
           <div className="flex flex-wrap gap-2 p-2 pl-4 border dark:border-stone-500 rounded-md ">
-            {selectedOptions.map((option) => (
+            {selectedOptions?.map((option) => (
               <SortableItem key={option.title?.[language]} option={option} removeOption={removeOption} language={language} />
             ))}
           </div>

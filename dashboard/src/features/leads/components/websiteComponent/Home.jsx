@@ -178,6 +178,7 @@ const HomePage = ({ language }) => {
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 md:gap-12 sm:gap-6  px-8">
                         {currentContent?.serviceSection?.cards?.map((card, key) => {
+                            console.log("hi everyone")
                             if (!card.display) return null
                             return (
                                 <div key={key} className={`w-full h-44 flex items-center justify-center p-6 rounded-md transition-transform duration-300 hover:scale-105 cursor-pointer ${key % 2 !== 0 ? "bg-stone-200 " : "bg-blue-900 text-[white]"} `}>
@@ -323,7 +324,6 @@ const HomePage = ({ language }) => {
                                     <SwiperSlide key={slideIndex}>
                                         <div className="grid grid-cols-2 gap-[12px] w-[600px]">
                                             {chunk?.map((project, cardIndex) => {
-                                                console.log(project)
                                                 return (
                                                     <div className=" rounded-[4px]" key={cardIndex}>
                                                         <div className="w-full h-[200px]">

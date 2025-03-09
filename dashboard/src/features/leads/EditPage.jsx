@@ -48,15 +48,18 @@ const EditPage = () => {
                 />
 
                 {/* services  */}
-                <MultiSelect
-                    section={"serviceSection"}
-                    language={language}
-                    label={"Select Service List"}
-                    heading={"Serivces Section"}
-                    tabName={"Select Services"}
-                    options={homeContent?.serviceSection?.cards}
-                    referenceExpression={"serviceSection.cards"}
-                />
+                {
+                    <MultiSelect
+                        section={"serviceSection"}
+                        language={language}
+                        label={"Select Service List"}
+                        heading={"Services Section"}
+                        tabName={"Select Services"}
+                        options={homeContent?.serviceSection?.cards}
+                        referenceExpression={"contents.home.serviceSection.cards"}
+                    />
+                }
+
 
                 {/* exprerince */}
                 <div className="w-full">
@@ -114,7 +117,7 @@ const EditPage = () => {
                                         {
                                             section.projects.map((project, subSecIndex) => {
                                                 return (
-                                                    <div key={index}>
+                                                    <div key={subSecIndex + 1}>
                                                         <ContentSection
                                                             inputs={[
                                                                 { input: "input", label: "Project title", updateType: "title" },
@@ -129,17 +132,17 @@ const EditPage = () => {
                                                             index={+index}
                                                             subSecIndex={+subSecIndex}
                                                         />
-                                                        <MultiSelect
-                                                            language={language}
-                                                            label={"Select Project List" + (subSecIndex + 1)}
-                                                            tabName={"Select Projects"}
-                                                            options={section.projects}
-                                                            referenceExpression={"recentProjectsSection.sections.projects"}
-                                                        />
                                                     </div>
                                                 )
                                             })
                                         }
+                                        <MultiSelect
+                                            language={language}
+                                            label={"Select Project List" + (index + 1)}
+                                            tabName={"Select Projects"}
+                                            options={section.projects}
+                                            referenceExpression={`contents.home.recentProjectsSection?.sections[${index}].projects`}
+                                        />
                                     </div>
                                 )
                             })}
