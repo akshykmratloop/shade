@@ -30,8 +30,10 @@ const cmsSlice = createSlice({
         },
         updateSpecificContent: (state, action) => {
             state.past.push(JSON.parse(JSON.stringify(state.present)));
-            if (action.payload.subSection) {
-                state.present.home[action.payload.section][action.payload.subSection][action.payload.index][action.payload.title][action.payload.lan] = action.payload.value;
+            if(action.payload.subSectionsProMax){
+                state.present.home[action.payload.section][action.payload.subSection][action.payload?.index][action.payload.subSectionsProMax][action.payload.subSecIndex][action.payload.title][action.payload.lan] = action.payload.value;
+            }else if (action.payload.subSection) {
+                state.present.home[action.payload.section][action.payload.subSection][action.payload?.index][action.payload.title][action.payload.lan] = action.payload.value;
             } else {
                 state.present.home[action.payload.section][action.payload.title][action.payload.lan] = action.payload.value;
             }
