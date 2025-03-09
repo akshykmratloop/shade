@@ -46,6 +46,7 @@ const cmsSlice = createSlice({
         },
         updateSelectedContent: (state, action) => {
             state.past.push(JSON.parse(JSON.stringify(state.present)));
+            // console.log(action.payload.newArray)
             const selectedMap = new Map(
                 action.payload.selected?.filter(e => e.display).map((item, index) => [item.title[action.payload.language], index])
             );
@@ -58,7 +59,16 @@ const cmsSlice = createSlice({
                 const indexB = selectedMap.get(b.title[action.payload.language]) ?? Infinity;
                 return indexA - indexB;
             });
-            state.present.home.serviceSection.cards = newOptions;
+            switch(action.payload.origin) {
+                case "home":
+                    state.present.home.serviceSection.cards = newOptions; 
+                    break;
+                case "recentproject":
+                    state.present.home.recentProjectsSection.sections[action.payload.index].projects = newOptions;
+                    break;
+
+                default:
+            }
             state.future = [];
         },
         undo: (state) => {

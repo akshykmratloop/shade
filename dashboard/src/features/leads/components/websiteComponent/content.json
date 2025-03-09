@@ -215,7 +215,8 @@
                 "en": "Spark - Dhahran, Saudi Arabia",
                 "ar": "سبارك - الظهران، المملكة العربية السعودية"
               },
-              "image": "itLab"
+              "image": "itLab",
+              "display":true
             },
             {
               "title": {
@@ -226,7 +227,8 @@
                 "en": "Dammam, Saudi Arabia",
                 "ar": "الدمام، المملكة العربية السعودية"
               },
-              "image": "business"
+              "image": "business",
+              "display":true
             },
             {
               "title": {
@@ -237,7 +239,8 @@
                 "en": "Dhahran, Saudi Arabia",
                 "ar": "سبارك - الظهران، المملكة العربية السعودية"
               },
-              "image": "psychiatric"
+              "image": "psychiatric",
+              "display":true
             },
             {
               "title": {
@@ -248,7 +251,8 @@
                 "en": "Dhahran, Saudi Arabia",
                 "ar": "سبارك - الظهران، المملكة العربية السعودية"
               },
-              "image": "renovation"
+              "image": "renovation",
+              "display":true
             }
           ]
         },
@@ -275,7 +279,8 @@
                 "en": "High-rise building construction project.",
                 "ar": "مشروع بناء ناطحات سحاب."
               },
-              "image": "buildings"
+              "image": "buildings",
+              "display":true
             },
             {
               "title": {
@@ -290,7 +295,8 @@
                 "en": "Industrial complex development project.",
                 "ar": "مشروع تطوير مجمع صناعي."
               },
-              "image": "industrial"
+              "image": "industrial",
+              "display":true
             },
             {
               "title": {
@@ -305,7 +311,8 @@
                 "en": "Infrastructure expansion and upgrade.",
                 "ar": "توسعة وتحديث البنية التحتية."
               },
-              "image": "infrastructure"
+              "image": "infrastructure",
+              "display":true
             },
             {
               "title": {
@@ -320,7 +327,8 @@
                 "en": "Renovation of aging facilities.",
                 "ar": "تجديد المنشآت القديمة."
               },
-              "image": "repair"
+              "image": "repair",
+              "display":true
             }
           ]
         },
@@ -347,7 +355,8 @@
                 "en": "A state-of-the-art facility for safety training.",
                 "ar": "منشأة حديثة لتدريب السلامة."
               },
-              "image": "safetyTraining"
+              "image": "safetyTraining",
+              "display":true
             },
             {
               "title": {
@@ -362,7 +371,8 @@
                 "en": "Design and implementation of emergency response systems.",
                 "ar": "تصميم وتنفيذ أنظمة الاستجابة للطوارئ."
               },
-              "image": "emergencyResponse"
+              "image": "emergencyResponse",
+              "display":true
             },
             {
               "title": {
@@ -377,7 +387,8 @@
                 "en": "Ensuring safety standards on construction sites.",
                 "ar": "ضمان معايير السلامة في مواقع البناء."
               },
-              "image": "constructionSafety"
+              "image": "constructionSafety",
+              "display":true
             },
             {
               "title": {
@@ -392,7 +403,8 @@
                 "en": "Proper handling and disposal of hazardous materials.",
                 "ar": "التعامل الصحيح والتخلص من المواد الخطرة."
               },
-              "image": "hazardousMaterials"
+              "image": "hazardousMaterials",
+              "display":true
             },
             {
               "title": {
@@ -407,7 +419,8 @@
                 "en": "Installation of fire safety systems and prevention protocols.",
                 "ar": "تركيب أنظمة السلامة من الحرائق وبروتوكولات الوقاية."
               },
-              "image": "fireSafety"
+              "image": "fireSafety",
+              "display":true
             },
             {
               "title": {
@@ -422,7 +435,8 @@
                 "en": "Routine safety audits to ensure compliance.",
                 "ar": "التدقيق الروتيني للسلامة لضمان الامتثال."
               },
-              "image": "workplaceSafety"
+              "image": "workplaceSafety",
+              "display":true
             }
           ]
         }

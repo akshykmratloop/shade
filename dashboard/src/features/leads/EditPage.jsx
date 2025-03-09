@@ -56,7 +56,7 @@ const EditPage = () => {
                         heading={"Services Section"}
                         tabName={"Select Services"}
                         options={homeContent?.serviceSection?.cards}
-                        referenceExpression={"contents.home.serviceSection.cards"}
+                        referenceOriginal={{dir:"home", index:0}}
                     />
                 }
 
@@ -141,7 +141,7 @@ const EditPage = () => {
                                             label={"Select Project List" + (index + 1)}
                                             tabName={"Select Projects"}
                                             options={section.projects}
-                                            referenceExpression={`contents.home.recentProjectsSection?.sections[${index}].projects`}
+                                            referenceOriginal={{dir:"recentproject", index}}
                                         />
                                     </div>
                                 )
