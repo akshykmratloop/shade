@@ -31,8 +31,8 @@ const EditPage = () => {
                 <ContentSection
                     Heading={"Hero Banner"}
                     inputs={[{ input: "input", label: "Heading/title", updateType: "title" }, { input: "textarea", label: "Description", updateType: "description" }, { input: "input", label: "Button Text", updateType: "buttonText" }]}
-                    inputFiles={["Backround Image"]}
-                    fileId={"homeBanner"}
+                    inputFiles={[{label:"Backround Image", id:"homeBanner"}]}
+                    // fileId={"homeBanner"}
                     section={"homeBanner"}
                     language={language}
                 />
@@ -41,8 +41,8 @@ const EditPage = () => {
                 <ContentSection
                     Heading={"About Section"}
                     inputs={[{ input: "input", label: "Heading/title", updateType: "title" }, { input: "textarea", label: "About section", updateType: "description" }, { input: "textarea", label: "Description 2", updateType: "description2" }, , { input: "input", label: "Button Text", updateType: "buttonText" }]}
-                    inputFiles={["Backround Image"]}
-                    fileId={"aboutUsSection"}
+                    inputFiles={[{label:"Backround Image", id:"aboutUsSection"}]}
+                    // fileId={"aboutUsSection"}
                     section={"aboutUsSection"}
                     language={language}
                 />
@@ -79,8 +79,8 @@ const EditPage = () => {
                                 inputs={[
                                     { input: "input", label: "Item text 1", updateType: "count" },
                                     { input: "input", label: "Item text 2", updateType: "title" }]}
-                                inputFiles={["Item Icon"]}
-                                fileId={item}
+                                inputFiles={[{label:"Item Icon", id:item}]}
+                                // fileId={item}
                                 language={language}
                                 section={"experienceSection"}
                                 subSection={"cards"}
@@ -123,8 +123,8 @@ const EditPage = () => {
                                                                 { input: "input", label: "Project title", updateType: "title" },
                                                                 { input: "input", label: "Project Location", updateType: "subtitle" }
                                                             ]}
-                                                            inputFiles={["Image"]}
-                                                            fileId={project.image}
+                                                            inputFiles={[{label:"Image", id: project.image}]}
+                                                            // fileId={project.image}
                                                             language={language}
                                                             section={"recentProjectsSection"}
                                                             subSection={"sections"}
@@ -156,8 +156,8 @@ const EditPage = () => {
                         { input: "input", label: "Heading/title", updateType: "title" },
                         { input: "input", label: "Description", updateType: "description" }, 
                     ]}
-                    inputFiles={homeContent?.clientSection?.clients?.map(e => e.image)}
-                    fileId={"clientSection"}
+                    inputFiles={homeContent?.clientSection?.clients?.map(e => ({label:e.image, id: e.image}))}
+                    // fileId={"clientSection"}
                     section={"clientSection"}
                     language={language}
                 />

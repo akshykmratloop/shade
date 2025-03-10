@@ -65,8 +65,8 @@ const ContentSection = ({ Heading, subHeading, inputs = [], inputFiles = [], isB
                     />
                 );
             }) : ""}
-            {inputFiles?.map((fileLabel, index) => (
-                <InputFile key={index} label={fileLabel} id={fileId} />
+            {inputFiles?.map((file, index) => (
+                <InputFile key={index} label={file.label} id={file.id} />
             ))}
         </div>
     );

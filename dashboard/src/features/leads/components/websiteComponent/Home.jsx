@@ -94,8 +94,8 @@ const HomePage = ({ language }) => {
     // const styles = ''
     // const currentContent = content?.home;
     // // Create refs for the navigation buttons
-    // const testimonialPrevRef = useRef(null);
-    // const testimonialNextRef = useRef(null);
+    const testimonialPrevRef = useRef(null);
+    const testimonialNextRef = useRef(null);
     // const redirectionUrlForRecentProject = ["/project", "/market", "/"];
     // // Helper function to chunk array into groups of 4
 
@@ -363,10 +363,10 @@ const HomePage = ({ language }) => {
 
                             {/* Custom buttons */}
                             <div
-                                className={`flex items-center justify-between relative  mt-8 font-sans`}
+                                className={`flex items-center justify-between relative mt-8 font-sans ${language === "ar" && 'flex-row-reverse'}`}
                             // ${projectChunks?.length <= 1 ? 'hidden' : ''}
                             >
-                                <button ref={prevRef} className="py-[12px] px-[20px] text-sky-500 text-md font-medium border-[1px] border-sky-500 rounded-[6px] flex items-center min-w-[246px] justify-center bg-white text-primary transition-all duration-200">
+                                <button ref={prevRef} className={`py-[12px] px-[20px] text-sky-500 text-md font-medium border-[1px] border-sky-500 rounded-[6px] flex items-center min-w-[246px] justify-center ${language === "ar" && "flex-row-reverse"} bg-white text-primary transition-all duration-200`}>
                                     <img
                                         src="https://frequencyimage.s3.ap-south-1.amazonaws.com/b2872383-e9d5-4dd7-ae00-8ae00cc4e87e-Vector%20%286%29.svg"
                                         width="18"
@@ -379,7 +379,7 @@ const HomePage = ({ language }) => {
                                         currentContent?.recentProjectsSection?.buttons[1]?.text[language]
                                     }
                                 </button>
-                                <button ref={nextRef} className="py-[12px] px-[20px] text-sky-500 text-md font-medium border-[1px] border-sky-500 rounded-[6px] flex items-center min-w-[246px] justify-center bg-white text-primary transition-all duration-200">
+                                <button ref={nextRef} className={`py-[12px] px-[20px] text-sky-500 text-md font-medium border-[1px] border-sky-500 rounded-[6px] flex items-center min-w-[246px] justify-center ${language === "ar" && "flex-row-reverse"} bg-white text-primary transition-all duration-200`}>
                                     {
                                         currentContent?.recentProjectsSection?.buttons[2]?.text[language]
                                     }{" "}
@@ -430,7 +430,7 @@ const HomePage = ({ language }) => {
                                 className="w-[120px] h-[120px] bg-white rounded-full flex items-center justify-center p-5"
                             >
                                 <img
-                                    src={""}
+                                    src={ImagesFromRedux[client.image] || clients?.[client?.image]}
                                     width={key === 3 ? 100 : 66}
                                     height={key === 3 ? 30 : 66}
                                     alt="about-us"
@@ -438,6 +438,125 @@ const HomePage = ({ language }) => {
                                 />
                             </div>
                         ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* testomonials section  */}
+            <section
+                className={`py-[10px] pb-[10px] ${language !== "en" && 'rtl'} w-[1000px]`}
+            >
+                <div className="container mx-auto">
+                    <div className="text-center mb-5">
+                        <h2 className="text-black text-3xl font-medium">
+                            {currentContent?.testimonialSection?.title[language]}
+                        </h2>
+                    </div>
+
+                    <div className="relative w-full">
+                        <Swiper
+                            modules={[Navigation, Autoplay, EffectCoverflow]}
+                            grabCursor={true}
+                            centeredSlides={true}
+                            slidesPerView={2}
+                            loop={true}
+                            spaceBetween={10}
+                            effect="coverflow"
+                            navigation={{
+                                prevEl: testimonialPrevRef.current,
+                                nextEl: testimonialNextRef.current,
+                            }}
+                            onSwiper={(swiper) => {
+                                swiper.params.navigation.prevEl = testimonialPrevRef.current;
+                                swiper.params.navigation.nextEl = testimonialNextRef.current;
+                                swiper.navigation.init();
+                                swiper.navigation.update();
+                            }}
+                            coverflowEffect={{
+                                rotate: 0,
+                                stretch: 0,
+                                depth: 250,
+                                modifier: 2,
+                                slideShadows: false,
+                            }}
+                            autoplay={{ delay: 2500 }}
+                            breakpoints={{
+                                724: { slidesPerView: 2.2 },
+                                500: { slidesPerView: 1 },
+                            }}
+                        >
+                            {currentContent?.testimonialSection?.testimonials?.map(
+                                (testimonial, index) => (
+                                    <SwiperSlide
+                                        key={index}
+                                        // className={`bg-white rounded-xl flex shadow-md border border-red-400`}
+                                    >
+                                        <div className={`bg-white rounded-xl flex ${language === "en" ? "flex-row-reverse":""} shadow-md `}>
+
+                                            <div className="p-5 w-full">
+                                                <h3 className="text-gray-900 text-md font-bold">
+                                                    {testimonial.name[language]}
+                                                </h3>
+                                                <p className="text-gray-500 text-xs font-light mb-4">
+                                                    {testimonial.position[language]}
+                                                </p>
+                                                <p className="text-gray-900 text-xs font-light mb-6 leading-5">
+                                                    {testimonial.quote[language]}
+                                                </p>
+                                                <div className={`flex items-center justify-end gap-2 ${language === "en" ? "text-left flex-row-reverse" : "text-right"}`}>
+                                                    <p className={`text-gray-500 text-base font-bold ${language === "en" ? "text-left" : "text-right"}`}>
+                                                        {testimonial.company[language]}
+                                                    </p>
+                                                    <img
+                                                        src="https://frequencyimage.s3.ap-south-1.amazonaws.com/a813959c-7b67-400b-a0b7-f806e63339e5-ph_building%20%281%29.svg"
+                                                        height={18}
+                                                        width={18}
+                                                        alt={testimonial.name}
+                                                        className="h-[18px] w-[18px]"
+                                                    />
+                                                </div>
+                                            </div>
+                                            <div className="flex 1">
+                                                <img
+                                                    src={testimonials?.[testimonial?.image]}
+                                                    height={70}
+                                                    width={70}
+                                                    alt={testimonial.name}
+                                                    className="rounded-full h-[70px] w-[70px] object-cover"
+                                                />
+                                            </div>
+                                        </div>
+                                    </SwiperSlide>
+                                )
+                            )}
+                        </Swiper>
+
+                        <div className="flex justify-center items-center gap-7 mt-5">
+                            <button
+                                ref={testimonialPrevRef}
+                                className="w-[52px] h-[52px] rounded-full border border-sky-500 flex justify-center items-center cursor-pointer"
+                            >
+                                <img
+                                    src="https://frequencyimage.s3.ap-south-1.amazonaws.com/b2872383-e9d5-4dd7-ae00-8ae00cc4e87e-Vector%20%286%29.svg"
+                                    width="22"
+                                    height="17"
+                                    alt=""
+                                    className={`${language === "en" && 'scale-x-[-1]'}`}
+                                />
+                            </button>
+                            <button
+                                ref={testimonialNextRef}
+                                className="w-[52px] h-[52px] rounded-full border border-sky-500 flex justify-center items-center cursor-pointer"
+                            >
+                                <img
+                                    src="https://frequencyimage.s3.ap-south-1.amazonaws.com/de8581fe-4796-404c-a956-8e951ccb355a-Vector%20%287%29.svg"
+                                    width="22"
+                                    height="17"
+                                    alt=""
+                                    className={`${language === "en" && 'scale-x-[-1]'}`}
+                                />
+                            </button>
+                        </div>
                     </div>
                 </div>
             </section>
