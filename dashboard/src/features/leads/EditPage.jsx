@@ -56,7 +56,7 @@ const EditPage = () => {
                         heading={"Services Section"}
                         tabName={"Select Services"}
                         options={homeContent?.serviceSection?.cards}
-                        referenceOriginal={{dir:"home", index:0}}
+                        referenceOriginal={{ dir: "home", index: 0 }}
                     />
                 }
 
@@ -141,22 +141,28 @@ const EditPage = () => {
                                             label={"Select Project List" + (index + 1)}
                                             tabName={"Select Projects"}
                                             options={section.projects}
-                                            referenceOriginal={{dir:"recentproject", index}}
+                                            referenceOriginal={{ dir: "recentproject", index }}
                                         />
                                     </div>
                                 )
                             })}
                     </div>
-
-                    {/* <ContentSection
-                        Heading={"Project Section"}
-                        inputs={[{ input: "input", label: "Heading/title" }, { input: "textarea", label: "Description" }, { input: "input", label: "button Text" }]}
-                        isBorder={false}
-                        language={language}
-                    />
-                    <MultiSelect language={language} label={"Select Project List (Page 1)"} tabName={"Select Projects"} options={[]} /> */}
                 </div>
-            </div>
+
+                {/* client section */}
+                <ContentSection
+                    Heading={"Client Section"}
+                    inputs={[
+                        { input: "input", label: "Heading/title", updateType: "title" },
+                        { input: "input", label: "Description", updateType: "description" }, 
+                    ]}
+                    inputFiles={homeContent?.clientSection?.clients?.map(e => e.image)}
+                    fileId={"clientSection"}
+                    section={"clientSection"}
+                    language={language}
+                />
+
+            </div> {/* Content manager ends here */}
             {/* Content view */}
             <div className="flex-[4] h-[85.5vh] flex flex-col">
                 <ContentTopBar />

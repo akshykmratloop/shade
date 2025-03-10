@@ -72,7 +72,6 @@ const HomePage = ({ language }) => {
             ?.projects || [],
         projectsPerSlide
     );
-
     const ProjectSlider = { ...recentProjects, ...markets, ...safety };
 
     const TruncateText = (text, length) => {
@@ -178,7 +177,6 @@ const HomePage = ({ language }) => {
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 md:gap-12 sm:gap-6  px-8">
                         {currentContent?.serviceSection?.cards?.map((card, key) => {
-                            // console.log("hi everyone")
                             if (!card.display) return null
                             return (
                                 <div key={key} className={`w-full h-44 flex items-center justify-center p-6 rounded-md transition-transform duration-300 hover:scale-105 cursor-pointer ${key % 2 !== 0 ? "bg-stone-200 " : "bg-blue-900 text-[white]"} `}>
@@ -325,7 +323,7 @@ const HomePage = ({ language }) => {
                                         <div className="grid grid-cols-2 gap-[12px] w-[600px]">
                                             {chunk?.map((project, cardIndex) => {
                                                 // console.log(project.display)
-                                                if(!project.display) return null
+                                                if (!project.display) return null
                                                 return (
                                                     <div className=" rounded-[4px]" key={cardIndex}>
                                                         <div className="w-full h-[200px]">
@@ -335,7 +333,7 @@ const HomePage = ({ language }) => {
                                                                     : 'opacity-[0.1]'
                                                                     }`}
                                                                 alt={project?.title[language]}
-                                                                src={ImagesFromRedux[project.image]? ImagesFromRedux[project.image]: project.image
+                                                                src={ImagesFromRedux[project.image] ? ImagesFromRedux[project.image] : project.image
                                                                     ? ProjectSlider?.[project?.image]
                                                                     : blankImage}
                                                             />
@@ -365,7 +363,8 @@ const HomePage = ({ language }) => {
 
                             {/* Custom buttons */}
                             <div
-                                className={`flex items-center justify-between relative ${projectChunks?.length <= 1 ? 'hidden' : ''} mt-8 font-sans`}
+                                className={`flex items-center justify-between relative  mt-8 font-sans`}
+                            // ${projectChunks?.length <= 1 ? 'hidden' : ''}
                             >
                                 <button ref={prevRef} className="py-[12px] px-[20px] text-sky-500 text-md font-medium border-[1px] border-sky-500 rounded-[6px] flex items-center min-w-[246px] justify-center bg-white text-primary transition-all duration-200">
                                     <img
@@ -399,137 +398,95 @@ const HomePage = ({ language }) => {
                 </div>
             </section>
 
+            {/* client section */}
+            <section className="bg-sky-500 py-12 relative">
+                <img
+                    src="https://frequencyimage.s3.ap-south-1.amazonaws.com/98d10161-fc9a-464f-86cb-7f69a0bebbd5-Group%2061%20%281%29.svg"
+                    width="143"
+                    height="144"
+                    alt="about-us"
+                    className="absolute top-0 left-0"
+                />
+                <img
+                    src="https://frequencyimage.s3.ap-south-1.amazonaws.com/216c2752-9d74-4567-a5fc-b5df034eba6e-Group%2062%20%281%29.svg"
+                    width="180"
+                    height="181"
+                    alt="about-us"
+                    className="absolute bottom-0 right-0"
+                />
+                <div className="container mx-auto px-4">
+                    <div className="text-center mb-8">
+                        <h2 className="text-white text-3xl font-bold mb-4">
+                            {currentContent?.clientSection?.title[language]}
+                        </h2>
+                        <p className="text-white text-base font-light leading-6">
+                            {currentContent?.clientSection?.description[language]}
+                        </p>
+                    </div>
+                    <div className="flex items-center justify-between gap-5 flex-wrap">
+                        {currentContent?.clientSection?.clients?.map((client, key) => (
+                            <div
+                                key={key}
+                                className="w-[120px] h-[120px] bg-white rounded-full flex items-center justify-center p-5"
+                            >
+                                <img
+                                    src={""}
+                                    width={key === 3 ? 100 : 66}
+                                    height={key === 3 ? 30 : 66}
+                                    alt="about-us"
+                                    className="object-contain"
+                                />
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
         </div>)
-}
+};
 
-//             {/* service section */}
-//             <section className={styles.service_wrapper}>
-//                 <div className={`container`}>
-//                     <h2 className={`${styles.title}`}>
-//                         {currentContent?.serviceSection?.title[language]}{" "}
-//                         {/* Dynamic title */}
-//                     </h2>
-
-//                     <div className={styles.service_cards}>
-//                         {currentContent?.serviceSection?.cards?.map((card, key) => (
-//                             <div
-//                                 className={styles.card}
-//                                 key={key}
-//                                 onClick={() => {}}
-//                             >
-//                                 <div className={styles.card_body}>
-//                                     <img
-//                                         className={styles.icon}
-//                                         src={""}
-//                                         width={40}
-//                                         height={40}
-//                                         alt=""
-//                                     />
-
-//                                     <h5 className={styles.span}></h5>
-//                                     <h5 className={styles.card_title}>{card.title[language]} </h5>
-//                                 </div>
-//                             </div>
-//                         ))}
-//                     </div>
-//                 </div>
-//             </section>
-//             {/* experience section */}
-//             <section className={styles.experince_wrapper}>
-//                 <div className={`container ${styles.main_container}`}>
-//                     <div className={styles.experience_colums}>
-//                         <div
-//                             className={`${styles.experince_cards} ${language === "ar" && styles.arabicVersion
-//                                 }`}
-//                         >
-//                             {currentContent?.experienceSection?.cards?.map((item, key) => (
-//                                 <div className={styles.card} key={key}>
-//                                     <div className={styles.card_body}>
-//                                         {/* <Image src={item.url} width="66" height="66" alt="about-us" className={styles.icon} /> */}
-//                                         <img
-//                                             className={styles.icon}
-//                                             src={""}
-//                                             width={60}
-//                                             height={key === 1 ? 47 : 60}
-//                                             alt=""
-//                                         />
-//                                         <h3 className={styles.count}>{item.count}</h3>
-//                                         <h5 className={styles.card_title}>
-//                                             {item.title[language]}
-//                                         </h5>
-//                                     </div>
-//                                 </div>
-//                             ))}
-//                         </div>
-//                         <div className={styles.experince_content}>
-//                             {/* <AnimatedText text="32 عاما من الخبرة" Wrapper="h2" repeatDelay={0.04} className={`${styles.title}  `} /> */}
-
-//                             <h2 className={`${styles.title}`}>
-//                                 {" "}
-//                                 {currentContent?.experienceSection?.title[language]}
-//                             </h2>
-//                             <p className={`${styles.description}  `}>
-//                                 {currentContent?.experienceSection?.description[language]}
-//                             </p>
-
-//                             <button
-//                                 className={`${styles.view_btn} ${language === "ar" && styles.arabicVersion
-//                                     }`}
-//                                 onClick={() => setIsModal(true)}
-//                             >
-//                                 {currentContent?.experienceSection?.button?.text[language]}
-//                             </button>
-//                         </div>
-//                     </div>
-//                 </div>
-//             </section>
-
-//             {/* recent project section */}
-
-//             {/* client section */}
-//             <section className={styles.Client_wrapper}>
-//                 <img
-//                     src="https://frequencyimage.s3.ap-south-1.amazonaws.com/98d10161-fc9a-464f-86cb-7f69a0bebbd5-Group%2061%20%281%29.svg"
-//                     width="143"
-//                     height="144"
-//                     alt="about-us"
-//                     className={styles.ellips}
-//                 />
-//                 <img
-//                     src="https://frequencyimage.s3.ap-south-1.amazonaws.com/216c2752-9d74-4567-a5fc-b5df034eba6e-Group%2062%20%281%29.svg"
-//                     width="180"
-//                     height="181"
-//                     alt="about-us"
-//                     className={styles.ellips2}
-//                 />
-//                 <div className={`container ${styles.main_container}`}>
-//                     <div className={styles.Client_content}>
-//                         {/* <AnimatedText text="عملائنا السعداء" Wrapper="h2" repeatDelay={0.04} className={`${styles.title}  `} /> */}
-
-//                         <h2 className={`${styles.title}`}>
-//                             {currentContent?.clientSection?.title[language]}
-//                         </h2>
-//                         <p className={`${styles.description}  `}>
-//                             {currentContent?.clientSection?.description[language]}
-//                         </p>
-//                     </div>
-//                     <div className={styles.Client_cards}>
-//                         {currentContent?.clientSection?.clients?.map((client, key) => (
-//                             <div className={styles.card} key={key}>
-//                                 <div className={styles.card_body}>
-//                                     <img
-//                                         src={""}
-//                                         width={key === 3 ? 100 : 66}
-//                                         height={key === 3 ? 30 : 66}
-//                                         alt="about-us"
-//                                         className={styles.client}
-//                                     />
-//                                 </div>
-//                             </div>
-//                         ))}
-//                     </div>
-//                 </div>
-//             </section>
+// <section className={styles.Client_wrapper}>
+//  <img
+//    src="https://frequencyimage.s3.ap-south-1.amazonaws.com/98d10161-fc9a-464f-86cb-7f69a0bebbd5-Group%2061%20%281%29.svg"
+// width="143"
+//       height="144"
+//     alt="about-us"
+//   className={styles.ellips}
+// />
+//  <img
+//    src="https://frequencyimage.s3.ap-south-1.amazonaws.com/216c2752-9d74-4567-a5fc-b5df034eba6e-Group%2062%20%281%29.svg"
+//  width="180"
+//       height="181"
+//     alt="about-us"
+//   className={styles.ellips2}
+//   />
+// <div className={`container ${styles.main_container}`}>
+//   <div className={styles.Client_content}>
+//      {/* <AnimatedText text="عملائنا السعداء" Wrapper="h2" repeatDelay={0.04} className={`${styles.title}  `} /> */}
+//
+//          <h2 className={`${styles.title}`}>
+//            {currentContent?.clientSection?.title[language]}
+///      </h2>
+//   <p className={`${styles.description}  `}>
+//     {currentContent?.clientSection?.description[language]}
+//           </p>
+//     </div >
+//  <div className={styles.Client_cards}>
+//    {currentContent?.clientSection?.clients?.map((client, key) => (
+//      <div className={styles.card} key={key}>
+//        <div className={styles.card_body}>
+//          <img
+//            src={""}
+//          width={key === 3 ? 100 : 66}
+//        height={key === 3 ? 30 : 66}
+//      alt="about-us"
+//    className={styles.client}
+//         />
+//    </div>
+//    </div>
+//  ))}
+//</div>
+//  </div >
+//</section > 
 //             {/* testomonials section  */}
 //             <section
 //                 className={` ${styles.testimonial_wrapper} ${language !== "en" && styles.rightAlignment
