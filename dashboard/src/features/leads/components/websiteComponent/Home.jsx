@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import Arrow from "../../../../assets/icons/right-wrrow.svg";
 import AboutUs from "../../../../assets/images/aboutus.png";
 import background from "../../../../assets/images/Hero.png";
+import highlightsvg from "../../../../assets/highlight.svg"
 import {
     services,
     experience,
@@ -444,7 +445,7 @@ const HomePage = ({ language }) => {
 
             {/* testomonials section  */}
             <section
-                className={`py-[10px] pb-[10px] ${!isEnglish && 'rtl'} w-[1000px] relative overflow-hidden`}
+                className={`py-[40px] pb-[40px] ${!isEnglish && 'rtl'} w-[1000px] mx-auto relative overflow-hidden`}
             >
                 <div className="container mx-auto">
                     <div className="text-center mb-5">
@@ -535,7 +536,7 @@ const HomePage = ({ language }) => {
                         <div className={`flex justify-center items-center gap-7 mt-5 ${!isEnglish && "flex-row-reverse"}`}>
                             <button
                                 ref={testimonialPrevRef}
-                                className="w-[52px] h-[52px] rounded-full border border-sky-500 flex justify-center items-center cursor-pointer"
+                                className="w-[42px] h-[42px] rounded-full border border-sky-500 flex justify-center items-center cursor-pointer"
                             >
                                 <img
                                     src="https://frequencyimage.s3.ap-south-1.amazonaws.com/b2872383-e9d5-4dd7-ae00-8ae00cc4e87e-Vector%20%286%29.svg"
@@ -547,7 +548,7 @@ const HomePage = ({ language }) => {
                             </button>
                             <button
                                 ref={testimonialNextRef}
-                                className="w-[52px] h-[52px] rounded-full border border-sky-500 flex justify-center items-center cursor-pointer"
+                                className="w-[42px] h-[42px] rounded-full border border-sky-500 flex justify-center items-center cursor-pointer"
                             >
                                 <img
                                     src="https://frequencyimage.s3.ap-south-1.amazonaws.com/de8581fe-4796-404c-a956-8e951ccb355a-Vector%20%287%29.svg"
@@ -561,205 +562,82 @@ const HomePage = ({ language }) => {
                     </div>
                 </div>
             </section>
+
+
+            {/* new project section */}
+
+            <section className="py-16 w-[999px] border border-sky-red mx-auto bg-transparent">
+                <div className="container mx-auto">
+                    <div className="text-center bg-transparent">
+                        <h2 className="text-xl font-medium text-black mb-5">
+                            {currentContent?.newProjectSection?.title[language]}
+                        </h2>
+                        <p className="text-xs font-light text-black leading-7 mb-2 relative bg-transparent">
+                            {currentContent?.newProjectSection?.description1[language].replace(
+                                currentContent?.newProjectSection?.highlightedText[language],
+                                `"${currentContent?.newProjectSection?.highlightedText[language]}"`
+                            )}
+                            <i
+                                className={`absolute top-0 ${isEnglish ? "right-[250px]" : "right-[152px]"} opacity-70 z-10 
+                    ${language === 'ar' ? 'right-48' : ''}`}
+                                style={{
+                                    backgroundImage: `url(${highlightsvg})`,
+                                    backgroundRepeat: 'no-repeat',
+                                    backgroundSize: 'contain',
+                                    width: '120px',
+                                    height: '100%',
+                                    mixBlendMode: 'multiply',
+                                }}
+                            />
+                        </p>
+                        <p className="text-xs font-light text-black leading-7 mb-2">
+                            {currentContent?.newProjectSection?.description2[language]}
+                        </p>
+                        <button
+                            className="bg-sky-500 text-white px-6 py-4 text-lg mt-11 mx-auto block rounded"
+                            onClick={() => setIsModal(true)}
+                        >
+                            {currentContent?.newProjectSection?.button?.text[language]}
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+
         </div>)
 };
 
-// <section className={styles.Client_wrapper}>
-//  <img
-//    src="https://frequencyimage.s3.ap-south-1.amazonaws.com/98d10161-fc9a-464f-86cb-7f69a0bebbd5-Group%2061%20%281%29.svg"
-// width="143"
-//       height="144"
-//     alt="about-us"
-//   className={styles.ellips}
-// />
-//  <img
-//    src="https://frequencyimage.s3.ap-south-1.amazonaws.com/216c2752-9d74-4567-a5fc-b5df034eba6e-Group%2062%20%281%29.svg"
-//  width="180"
-//       height="181"
-//     alt="about-us"
-//   className={styles.ellips2}
-//   />
-// <div className={`container ${styles.main_container}`}>
-//   <div className={styles.Client_content}>
-//      {/* <AnimatedText text="عملائنا السعداء" Wrapper="h2" repeatDelay={0.04} className={`${styles.title}  `} /> */}
-//
-//          <h2 className={`${styles.title}`}>
-//            {currentContent?.clientSection?.title[language]}
-///      </h2>
-//   <p className={`${styles.description}  `}>
-//     {currentContent?.clientSection?.description[language]}
-//           </p>
-//     </div >
-//  <div className={styles.Client_cards}>
-//    {currentContent?.clientSection?.clients?.map((client, key) => (
-//      <div className={styles.card} key={key}>
-//        <div className={styles.card_body}>
-//          <img
-//            src={""}
-//          width={key === 3 ? 100 : 66}
-//        height={key === 3 ? 30 : 66}
-//      alt="about-us"
-//    className={styles.client}
-//         />
-//    </div>
-//    </div>
-//  ))}
-//</div>
-//  </div >
-//</section > 
-//             {/* testomonials section  */}
-//             <section
-//                 className={` ${styles.testimonial_wrapper} ${language !== "en" && styles.rightAlignment
-//                     }`}
+// <section className={styles.new_project_wrapper}>
+//     <div className={`container ${styles.main_container}`}>
+//         <div className={styles.Client_content}>
+//             <h2 className={`${styles.title}`}>
+//                 {currentContent?.newProjectSection?.title[language]}
+//             </h2>
+//             <p className={`${styles.description}  `}>
+//                 {currentContent?.newProjectSection?.description1[
+//                     language
+//                 ].replace(
+//                     currentContent?.newProjectSection?.highlightedText[language],
+//                     `"${currentContent?.newProjectSection?.highlightedText[language]}"`
+//                 )}
+
+//                 <i className={language === "ar" && styles.arabicVersion}>
+//                     {/* {patch()} */}
+//                 </i>
+//             </p>
+//             <p className={`${styles.description}  `}>
+//                 {currentContent?.newProjectSection?.description2[language]}
+//             </p>
+//             <button
+//                 className={styles.view_btn}
+//                 onClick={() => setIsModal(true)}
 //             >
-//                 <div className={`container ${styles.main_container}`}>
-//                     <div className={styles.testimonials_content}>
-//                         {/* <AnimatedText text="ماذا يقول عملاؤنا عنا؟" Wrapper="h2" repeatDelay={0.04} className={`${styles.title}  `} /> */}
-
-//                         <h2 className={`${styles.title}`}>
-//                             {currentContent?.testimonialSection?.title[language]}
-//                         </h2>
-//                     </div>
-
-//                     <div className={styles.testimonials_client}>
-//                         <Swiper
-//                             modules={[Navigation, Autoplay, EffectCoverflow]}
-//                             grabCursor={true}
-//                             centeredSlides={true}
-//                             slidesPerView={2} // Show 1 main slide and part of the other two
-//                             loop={true}
-//                             spaceBetween={10}
-//                             effect="coverflow"
-//                             className={styles.mySwiper_testimonial}
-//                             navigation={{
-//                                 prevEl: testimonialPrevRef.current,
-//                                 nextEl: testimonialNextRef.current,
-//                             }}
-//                             onSwiper={(swiper) => {
-//                                 // Override the navigation buttons
-//                                 swiper.params.navigation.prevEl = testimonialPrevRef.current;
-//                                 swiper.params.navigation.nextEl = testimonialNextRef.current;
-//                                 swiper.navigation.init();
-//                                 swiper.navigation.update();
-//                             }}
-//                             coverflowEffect={{
-//                                 rotate: 0,
-//                                 stretch: 0,
-//                                 depth: 250, // Adjust this for the depth effect
-//                                 modifier: 2, // Adjust the scale modifier
-//                                 slideShadows: false, // Optional: Enable/disable shadows
-//                             }}
-//                             autoplay={{ delay: 2500 }}
-//                             breakpoints={{
-//                                 724: { slidesPerView: 2.2 }, // Adjust for bigger screens
-//                                 500: { slidesPerView: 1 }, // For smaller screens
-//                             }}
-//                         // rtl={true} // Enable RTL for Arabic layout
-//                         >
-//                             {currentContent?.testimonialSection?.testimonials?.map(
-//                                 (testimonial, index) => (
-//                                     <SwiperSlide
-//                                         key={index}
-//                                         className={`${styles.swiperSlide} ${styles.testimonial_slide}`}
-//                                     >
-//                                         <div className={styles.testimonial_card}>
-//                                             <div className={styles.testimonial_content}>
-//                                                 <h3 className={styles.name}>
-//                                                     {testimonial.name[language]}
-//                                                 </h3>
-//                                                 <p className={styles.position}>
-//                                                     {testimonial.position[language]}
-//                                                 </p>
-//                                                 <p className={styles.quote}>
-//                                                     {testimonial.quote[language]}
-//                                                 </p>
-//                                                 <div className={styles.company_wrap}>
-//                                                     <p className={styles.company}>
-//                                                         {testimonial.company[language]}
-//                                                     </p>
-//                                                     <img
-//                                                         src="https://frequencyimage.s3.ap-south-1.amazonaws.com/a813959c-7b67-400b-a0b7-f806e63339e5-ph_building%20%281%29.svg"
-//                                                         height={18}
-//                                                         width={18}
-//                                                         alt={testimonial.name}
-//                                                         className={styles.company_icon}
-//                                                     />
-//                                                 </div>
-//                                             </div>
-//                                             <img
-//                                                 src={""}
-//                                                 height={70}
-//                                                 width={70}
-//                                                 alt={testimonial.name}
-//                                                 className={styles.testimonial_image}
-//                                             />
-//                                         </div>
-//                                     </SwiperSlide>
-//                                 )
-//                             )}
-//                         </Swiper>
-
-//                         {/* Custom buttons */}
-//                         <div className={styles.testimonial_wrapper_btn}>
-//                             <button ref={testimonialPrevRef} className={styles.custom_next}>
-//                                 <img
-//                                     src="https://frequencyimage.s3.ap-south-1.amazonaws.com/b2872383-e9d5-4dd7-ae00-8ae00cc4e87e-Vector%20%286%29.svg"
-//                                     width="22"
-//                                     height="17"
-//                                     alt=""
-//                                     className={`${styles.arrow_btn} ${language === "en" && styles.leftAlign
-//                                         }`}
-//                                 />{" "}
-//                             </button>
-//                             <button ref={testimonialNextRef} className={styles.custom_prev}>
-//                                 <img
-//                                     src="https://frequencyimage.s3.ap-south-1.amazonaws.com/de8581fe-4796-404c-a956-8e951ccb355a-Vector%20%287%29.svg"
-//                                     width="22"
-//                                     height="17"
-//                                     alt=""
-//                                     className={`${styles.arrow_btn} ${language === "en" && styles.leftAlign
-//                                         }`}
-//                                 />
-//                             </button>
-//                         </div>
-//                     </div>
-//                 </div>
-//             </section>
-//             {/* new project section */}
-//             <section className={styles.new_project_wrapper}>
-//                 <div className={`container ${styles.main_container}`}>
-//                     <div className={styles.Client_content}>
-//                         <h2 className={`${styles.title}`}>
-//                             {currentContent?.newProjectSection?.title[language]}
-//                         </h2>
-//                         <p className={`${styles.description}  `}>
-//                             {currentContent?.newProjectSection?.description1[
-//                                 language
-//                             ].replace(
-//                                 currentContent?.newProjectSection?.highlightedText[language],
-//                                 `"${currentContent?.newProjectSection?.highlightedText[language]}"`
-//                             )}
-
-//                             <i className={language === "ar" && styles.arabicVersion}>
-//                                 {/* {patch()} */}
-//                             </i>
-//                         </p>
-
-//                         <p className={`${styles.description}  `}>
-//                             {currentContent?.newProjectSection?.description2[language]}
-//                         </p>
-
-//                         <button
-//                             className={styles.view_btn}
-//                             onClick={() => setIsModal(true)}
-//                         >
-//                             {currentContent?.newProjectSection?.button?.text[language]}
-//                         </button>
-//                     </div>
-//                 </div>
-//             </section>
-//             {/* <ContactUsModal isModal={isModal} onClose={handleContactUSClose} /> */}
+//                 {currentContent?.newProjectSection?.button?.text[language]}
+//             </button>
 //         </div>
+//     </div>
+// </section>
+{/* <ContactUsModal isModal={isModal} onClose={handleContactUSClose} /> */ }
 //     );
 // };
 
