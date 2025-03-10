@@ -241,9 +241,9 @@ const HomePage = ({ language }) => {
                 </div>
             </section>
             {/* subProjects */}
-            <section className="py-[88px] px-8 overflow-hidden">
-                <div className="container mx-auto ">
-                    <div className="flex justify-end">
+            <section className="py-[58px] border border-sky-500 px-8 overflow-hidden relative">
+                <div className={`container mx-auto flex ${!isEnglish && "flex-row-reverse"}`}>
+                    <div className={`flex justify-end absolute top-[10px] right-7`}>
                         {activeRecentProjectSection === 2 ? (
                             ""
                         ) : (
@@ -271,7 +271,7 @@ const HomePage = ({ language }) => {
                             {currentContent.recentProjectsSection?.sections?.map((section, index) => (
                                 <div
                                     key={index}
-                                    className={`relative ${language === "ar" ? 'rtl' : ''}`}
+                                    className={`relative ${!isEnglish ? 'rtl' : ''}`}
                                 >
                                     <span
                                         className={
@@ -363,7 +363,7 @@ const HomePage = ({ language }) => {
 
                             {/* Custom buttons */}
                             <div
-                                className={`flex items-center justify-between relative mt-8 font-sans ${language === "ar" && 'flex-row-reverse'}`}
+                                className={`flex items-center justify-between relative mt-8 font-sans ${!isEnglish && 'flex-row-reverse'}`}
                             // ${projectChunks?.length <= 1 ? 'hidden' : ''}
                             >
                                 <button ref={prevRef} className={`py-[12px] px-[20px] text-sky-500 text-md font-medium border-[1px] border-sky-500 rounded-[6px] flex items-center min-w-[246px] justify-center ${language === "ar" && "flex-row-reverse"} bg-white text-primary transition-all duration-200`}>
@@ -389,7 +389,7 @@ const HomePage = ({ language }) => {
                                         width="18"
                                         height="17"
                                         alt=""
-                                        className={`w-[18px] h-[17px] ${language === "en" && 'transform scale-x-[-1]'}`}
+                                        className={`w-[18px] h-[17px] ${isEnglish && 'transform scale-x-[-1]'}`}
                                     />
                                 </button>
                             </div>
@@ -444,7 +444,7 @@ const HomePage = ({ language }) => {
 
             {/* testomonials section  */}
             <section
-                className={`py-[10px] pb-[10px] ${language !== "en" && 'rtl'} w-[1000px]`}
+                className={`py-[10px] pb-[10px] ${!isEnglish && 'rtl'} w-[1000px] relative overflow-hidden`}
             >
                 <div className="container mx-auto">
                     <div className="text-center mb-5">
@@ -454,6 +454,10 @@ const HomePage = ({ language }) => {
                     </div>
 
                     <div className="relative w-full">
+                        {/* Blur effect container */}
+                        <div className="absolute top-0 left-0 h-full w-[20%] bg-gradient-to-r from-white to-transparent pointer-events-none z-10"></div>
+                        <div className="absolute top-0 right-0 h-full w-[20%] bg-gradient-to-l from-white to-transparent pointer-events-none z-10"></div>
+
                         <Swiper
                             modules={[Navigation, Autoplay, EffectCoverflow]}
                             grabCursor={true}
@@ -487,11 +491,8 @@ const HomePage = ({ language }) => {
                         >
                             {currentContent?.testimonialSection?.testimonials?.map(
                                 (testimonial, index) => (
-                                    <SwiperSlide
-                                        key={index}
-                                        // className={`bg-white rounded-xl flex shadow-md border border-red-400`}
-                                    >
-                                        <div className={`bg-white rounded-xl flex ${language === "en" ? "flex-row-reverse":""} shadow-md `}>
+                                    <SwiperSlide key={index}>
+                                        <div className={`bg-white rounded-xl flex ${language === "en" ? "flex-row-reverse" : ""} shadow-md`}>
 
                                             <div className="p-5 w-full">
                                                 <h3 className="text-gray-900 text-md font-bold">
@@ -503,8 +504,8 @@ const HomePage = ({ language }) => {
                                                 <p className="text-gray-900 text-xs font-light mb-6 leading-5">
                                                     {testimonial.quote[language]}
                                                 </p>
-                                                <div className={`flex items-center justify-end gap-2 ${language === "en" ? "text-left flex-row-reverse" : "text-right"}`}>
-                                                    <p className={`text-gray-500 text-base font-bold ${language === "en" ? "text-left" : "text-right"}`}>
+                                                <div className={`flex items-center justify-end gap-2 ${isEnglish ? "text-left flex-row-reverse" : "text-right"}`}>
+                                                    <p className={`text-gray-500 text-base font-bold ${isEnglish ? "text-left" : "text-right"}`}>
                                                         {testimonial.company[language]}
                                                     </p>
                                                     <img
@@ -531,7 +532,7 @@ const HomePage = ({ language }) => {
                             )}
                         </Swiper>
 
-                        <div className="flex justify-center items-center gap-7 mt-5">
+                        <div className={`flex justify-center items-center gap-7 mt-5 ${!isEnglish && "flex-row-reverse"}`}>
                             <button
                                 ref={testimonialPrevRef}
                                 className="w-[52px] h-[52px] rounded-full border border-sky-500 flex justify-center items-center cursor-pointer"
@@ -541,7 +542,7 @@ const HomePage = ({ language }) => {
                                     width="22"
                                     height="17"
                                     alt=""
-                                    className={`${language === "en" && 'scale-x-[-1]'}`}
+                                    className={`${isEnglish && 'scale-x-[-1]'}`}
                                 />
                             </button>
                             <button
@@ -553,7 +554,7 @@ const HomePage = ({ language }) => {
                                     width="22"
                                     height="17"
                                     alt=""
-                                    className={`${language === "en" && 'scale-x-[-1]'}`}
+                                    className={`${isEnglish && 'scale-x-[-1]'}`}
                                 />
                             </button>
                         </div>
