@@ -157,8 +157,21 @@ const EditPage = () => {
                         { input: "input", label: "Description", updateType: "description" }, 
                     ]}
                     inputFiles={homeContent?.clientSection?.clients?.map(e => ({label:e.image, id: e.image}))}
-                    // fileId={"clientSection"}
                     section={"clientSection"}
+                    language={language}
+                />
+
+                {/* New Project */}
+                <ContentSection
+                    Heading={"New Project"}
+                    inputs={[
+                        { input: "input", label: "Heading/title", updateType: "title" },
+                        { input: "textarea", label: "Description 1", updateType: "description1" }, 
+                        { input: "textarea", label: "Description 2", updateType: "description2" }, 
+                        { input: "intpu", label: "Highlight Text", updateType: "highlightedText" }, 
+                        { input: "input", label: "Button Text", updateType: "button" }, 
+                    ]}
+                    section={"newProjectSection"}
                     language={language}
                 />
 

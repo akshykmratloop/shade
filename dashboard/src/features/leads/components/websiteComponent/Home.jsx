@@ -109,12 +109,12 @@ const HomePage = ({ language }) => {
     return (
         <div className={`w-[100%] relative ${textAlignment} bankgothic-medium-dt bg-[white]`}>
             {/* banner */}
-            <section className="w-full relative " >
+            <section className="w-full relative border border-sky-500" >
                 <span
                     className={`w-full block ${language === "en" ? "scale-x-100" : "scale-x-[-1]"
                         }`}
                 >
-                    <img src={ImagesFromRedux.homeBanner || background} alt="about-us" className="w-[1050px] h-full object-cover" style={{ objectPosition: "center", transform: "scaleX(-1)" }} />
+                    <img src={ImagesFromRedux.homeBanner || background} alt="about-us" className="w-[full] h-full object-cover" style={{ objectPosition: "center", transform: "scaleX(-1)" }} />
                 </span>
                 <div
 
@@ -148,7 +148,7 @@ const HomePage = ({ language }) => {
             <section className={`py-[120px] px-10 ${language === "en" ? "" : " direction-rtl"} items-start`}>
                 <div className={`relative container mx-auto flex ${isEnglish ? "" : "flex-row-reverse"} items-center`}>
                     {/* Image section */}
-                    <div className="w-[600px] h-[500px] overflow-hidden rounded-sm shadow-lg">
+                    <div className="w-[70%] h-[500px] overflow-hidden rounded-sm shadow-lg">
                         <img src={ImagesFromRedux.aboutUsSection || AboutUs} alt="about-us" className="w-full h-[500px] object-cover" />
                     </div>
                     {/* About content */}
@@ -424,7 +424,7 @@ const HomePage = ({ language }) => {
                             {currentContent?.clientSection?.description[language]}
                         </p>
                     </div>
-                    <div className="flex items-center justify-between gap-5 flex-wrap">
+                    <div className="flex items-center justify-around gap-2 flex-wrap">
                         {currentContent?.clientSection?.clients?.map((client, key) => (
                             <div
                                 key={key}
@@ -566,10 +566,10 @@ const HomePage = ({ language }) => {
 
             {/* new project section */}
 
-            <section className="py-16 w-[999px] border border-sky-red mx-auto bg-transparent">
+            <section className="py-16 w-[100%] px-[80px] bg-transparent">
                 <div className="container mx-auto">
                     <div className="text-center bg-transparent">
-                        <h2 className="text-xl font-medium text-black mb-5">
+                        <h2 className="text-3xl font-medium text-black mb-5">
                             {currentContent?.newProjectSection?.title[language]}
                         </h2>
                         <p className="text-xs font-light text-black leading-7 mb-2 relative bg-transparent">
@@ -597,11 +597,12 @@ const HomePage = ({ language }) => {
                             className="bg-sky-500 text-white px-6 py-4 text-lg mt-11 mx-auto block rounded"
                             onClick={() => setIsModal(true)}
                         >
-                            {currentContent?.newProjectSection?.button?.text[language]}
+                            {currentContent?.newProjectSection?.button?.[language]}
                         </button>
                     </div>
                 </div>
             </section>
+{/* <ContactUsModal isModal={isModal} onClose={handleContactUSClose} /> */ }
 
 
         </div>)
@@ -637,7 +638,6 @@ const HomePage = ({ language }) => {
 //         </div>
 //     </div>
 // </section>
-{/* <ContactUsModal isModal={isModal} onClose={handleContactUSClose} /> */ }
 //     );
 // };
 

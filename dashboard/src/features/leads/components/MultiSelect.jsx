@@ -129,7 +129,6 @@ const MultiSelect = ({ heading, options = [], tabName, label, language, section,
   }, []);
 
   useEffect(() => {
-    console.log(options.length, random);
     
     if (options.length > 0 && random !== 1) {
       console.log(options)
