@@ -3,7 +3,7 @@ import { Upload, X } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import { removeImages, updateImages } from "../../features/common/homeContentSlice";
 
-const InputFile = ({ label, baseClass, inputClass, id}) => {
+const InputFile = ({ label, baseClass, inputClass, id, currentPath}) => {
   const dispatch = useDispatch();
   const [fileName, setFileName] = useState("");
   const [content, setContent] = useState("");
@@ -23,7 +23,7 @@ const InputFile = ({ label, baseClass, inputClass, id}) => {
   const clearFile = () => {
     setContent("");
     setFileName("");
-    dispatch(removeImages({ section: id, src: "" }));
+    dispatch(removeImages({ section: id, src: "", currentPath }));
 
     if (fileInputRef.current) {
       fileInputRef.current.value = ""; // Reset input field
@@ -32,9 +32,10 @@ const InputFile = ({ label, baseClass, inputClass, id}) => {
 
   useEffect(() => {
     if(content){
-      dispatch(updateImages({ section: id, src: content }));
+      dispatch(updateImages({ section: id, src: content, currentPath }));
     }
   }, [content]);
+
 
   return (
     <div className={`relative ${baseClass} mt-2`}>
@@ -53,7 +54,7 @@ const InputFile = ({ label, baseClass, inputClass, id}) => {
         <Upload className="w-5 h-5 text-gray-400 text-xs" />
         <span className="text-gray-400 text-xs">{fileName || "Upload Image"}</span>
       </label>
-      {content && (
+      {ImageFromRedux[id] && (
         <div className="relative mt-2">
           <button className="absolute top-2 right-2 text-white bg-[#00000080] p-1 rounded-full shadow" onClick={clearFile}>
             <X className="w-4 h-4" />

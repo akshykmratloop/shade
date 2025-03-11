@@ -47,14 +47,26 @@ const SortableItem = ({ option, removeOption, language }) => {
   );
 };
 
-const MultiSelect = ({ heading, options = [], tabName, label, language, section }) => {
+const MultiSelect = ({ heading, options = [], tabName, label, language, section, referenceOriginal = { dir: "", index: 0 } , currentPath}) => {
   const [selectedOptions, setSelectedOptions] = useState([]);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
-  const [random, setRandom] = useState(Math.random())
+  const [random, setRandom] = useState(1)
   const dispatch = useDispatch();
 
-  const actualListOfServices = content.home.serviceSection.cards
+  let actualListOfServices; //content.home.serviceSection.cards
+  switch (referenceOriginal.dir) {
+    case "home":
+      actualListOfServices = content.home.serviceSection.cards;
+      break;
+
+    case "recentproject":
+      actualListOfServices = content.home.recentProjectsSection.sections[referenceOriginal.index].projects
+      break;
+
+    default:
+      actualListOfServices = []
+  }
 
   const showOptions = options?.map(e => e.title[language])
 
@@ -62,7 +74,7 @@ const MultiSelect = ({ heading, options = [], tabName, label, language, section 
     setIsDropdownOpen((prev) => !prev);
   };
 
-  const handleSelect = (optionToAdd, index) => {
+  const handleSelect = (optionToAdd) => {
     for (let i = 0; i < options.length; i++) {
       if (optionToAdd.title === options[i].title) {
         if (options[i].display) return
@@ -72,20 +84,19 @@ const MultiSelect = ({ heading, options = [], tabName, label, language, section 
         break;
       }
     }
-    setRandom(Math.random())
+    setRandom(prev => prev+1)
   };
 
   const removeOption = (optionToRemove) => {
     setSelectedOptions(prev => {
       return prev.map(option => {
-        console.log(option === optionToRemove)
         if (option === optionToRemove) {
           return { ...option, display: false }
         }
         return option
       })
     })
-    setRandom(Math.random())
+    setRandom(prev => prev+1)
   };
 
   const sensors = useSensors(
@@ -101,7 +112,7 @@ const MultiSelect = ({ heading, options = [], tabName, label, language, section 
         return arrayMove(items, oldIndex, newIndex);
       });
     }
-    setRandom(Math.random())
+    setRandom(prev => prev+1)
   };
 
   useEffect(() => {
@@ -118,20 +129,24 @@ const MultiSelect = ({ heading, options = [], tabName, label, language, section 
   }, []);
 
   useEffect(() => {
+    
+    if (options.length > 0 && random !== 1) {
+      console.log(section)
+      dispatch(updateSelectedContent({ origin: referenceOriginal.dir, index: referenceOriginal.index, section, newArray: [...options], selected: selectedOptions, language, currentPath }));
+    }
+  }, [random]);
+
+  useEffect(() => {
     if (showOptions) {
+      // console.log(options)
       setSelectedOptions(options?.map(e => {
         if (e.display) {
           return e
         }
       }).filter(e => e));
     }
+    // console.log(selectedOptions)
   }, [options]);
-
-  useEffect(() => {
-    if (options.length > 0) {
-      dispatch(updateSelectedContent({ section, newArray: [...options], selected: selectedOptions, language }));
-    }
-  }, [random]);
 
   return (
     <div className="relative w-full border-b border-b-2 border-neutral-300 pb-4" ref={dropdownRef}>
@@ -168,8 +183,8 @@ const MultiSelect = ({ heading, options = [], tabName, label, language, section 
       >
         <SortableContext items={selectedOptions} strategy={verticalListSortingStrategy}>
           <div className="flex flex-wrap gap-2 p-2 pl-4 border dark:border-stone-500 rounded-md ">
-            {selectedOptions.map((option) => (
-              <SortableItem key={option.title?.[language]} option={option} removeOption={removeOption} language={language} />
+            {selectedOptions?.map((option) => (
+              <SortableItem key={option.title?.[language] + String(Math.random())} option={option} removeOption={removeOption} language={language} />
             ))}
           </div>
         </SortableContext>

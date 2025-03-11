@@ -9,7 +9,7 @@ const Resource = () => {
         <Suspense fallback={<SuspenseContent />}>
             <Routes>
                 <Route index element={<Resources />} />
-                <Route path="edit" element={<EditPage />} />
+                <Route path="edit/*" element={<EditPage />} />
             </Routes>
         </Suspense>
     );
