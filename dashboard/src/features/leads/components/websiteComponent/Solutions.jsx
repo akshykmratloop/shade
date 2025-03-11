@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from "react";
-// import styles from "./solution.module.scss";
-// import localFont from "next/font/local";
-// import Button from "@/common/Button";
-// import Image from "next/image";
 import arrow from "../../../../assets/icons/right-wrrow.svg";  // ../../assets/icons/right-wrrow.svg
 import { useDispatch, useSelector } from "react-redux";
 import { updateContent } from "../../../common/homeContentSlice";
 import content from "./content.json"
+import { SwiperSlide } from "swiper/react";
+import { Swiper } from "swiper/react";
+import { Autoplay, EffectCoverflow, Navigation } from "swiper/modules";
+// import styles from "./solution.module.scss";
+// import localFont from "next/font/local";
+// import Button from "@/common/Button";
+// import Image from "next/image";
 // import { useGlobalContext } from "../../contexts/GlobalContext";
 // import { useRouter } from "next/router";
 
@@ -109,7 +112,7 @@ const SolutionPage = ({ language, screen }) => {
 
 
             {/** gallary wrap */}
-            <section className="max-w-[1180px] mx-auto pb-2 px-10">
+            {/* <section className="max-w-[1180px] mx-auto pb-2 px-10">
                 <div className="container">
                     <div className="flex flex-wrap items-start justify-between">
                         {currentContent?.gallery?.images.map((image, index) => (
@@ -124,7 +127,47 @@ const SolutionPage = ({ language, screen }) => {
                         ))}
                     </div>
                 </div>
-            </section>
+            </section> */}
+
+            <div className="w-[700px] mx-auto border border-red-700">
+                <Swiper
+                    modules={[Navigation, Autoplay, EffectCoverflow]}
+                    grabCursor={true}
+                    centeredSlides={true}
+                    slidesPerView={1}
+                    loop={true}
+                    autoplay={{ delay: 2500 }}
+                    effect="coverflow"
+                    coverflowEffect={{
+                        rotate: 0,
+                        stretch: 0,
+                        depth: 300,
+                        modifier: 1.5,
+                        slideShadows: true,
+                    }}
+                    breakpoints={{
+                        1024: { slidesPerView: 1 },
+                        768: { slidesPerView: 1 },
+                        500: { slidesPerView: 1 },
+                    }}
+                >
+                    {currentContent?.gallery?.images.map(
+                        (image, index) => (
+                            <SwiperSlide key={index}>
+                                <div className="border border-indigo-600 rounded-lg overflow-hidden shadow-lg transition-transform transform">
+                                    <img
+                                        src={ImageFromRedux[`Image ${index + 1}`] || image.url}
+                                        alt={`Image ${index + 1}`}
+                                        className="object-cover w-[40rem] h-[40rem]"
+                                    />
+                                </div>
+                            </SwiperSlide>
+                        )
+                    )}
+                </Swiper>
+            </div>
+
+
 
 
             {/** HowWeDo */}
@@ -158,7 +201,7 @@ const SolutionPage = ({ language, screen }) => {
                     <div className="flex items-center justify-between relative">
                         {currentContent?.gallery?.showcase.map((image, index) => (
                             <div
-                                key={image.url+index}
+                                key={image.url + index}
                                 className={` ${index === 0
                                     ? "relative before:content-[''] before:absolute before:top-[-24px] before:right-[-24px] before:border-t before:border-r before:border-[#97b3d8] before:h-[80px] before:w-[80px] before:z-[1] after:content-[''] after:absolute after:right-[-24px] after:bottom-[-24px] after:border-r after:border-b after:border-[#97b3d8] after:h-[80px] after:w-[80px] after:z-[1]"
                                     : index === currentContent.gallery.showcase.length - 1
@@ -170,7 +213,7 @@ const SolutionPage = ({ language, screen }) => {
                                 style={{ left: index === 1 ? isTablet ? "232px" : 300 / 1182 * screen : "" }}
                             >
                                 <img
-                                    src={ ImageFromRedux[`Image ${index + 4}`] ? ImageFromRedux[`Image ${index + 4}`] : image.url}
+                                    src={ImageFromRedux[`Image ${index + 4}`] ? ImageFromRedux[`Image ${index + 4}`] : image.url}
                                     width={(image.width / 1532) * screen}
                                     height={(image.height / 1532) * screen}
                                     alt=""
