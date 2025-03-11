@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, current } from "@reduxjs/toolkit";
 
 const initialState = {
     past: [],
@@ -25,23 +25,23 @@ const cmsSlice = createSlice({
         },
         updateContent: (state, action) => {
             state.past.push(JSON.parse(JSON.stringify(state.present)));
-            state.present.home = action.payload;
+            state.present[action.payload?.currentPath] = action.payload.payload;
             state.future = [];
         },
         updateSpecificContent: (state, action) => {
             state.past.push(JSON.parse(JSON.stringify(state.present)));
             if(action.payload.subSectionsProMax){
-                state.present.home[action.payload.section][action.payload.subSection][action.payload?.index][action.payload.subSectionsProMax][action.payload.subSecIndex][action.payload.title][action.payload.lan] = action.payload.value;
+                state.present[action.payload?.currentPath][action.payload.section][action.payload.subSection][action.payload?.index][action.payload.subSectionsProMax][action.payload.subSecIndex][action.payload.title][action.payload.lan] = action.payload.value;
             }else if (action.payload.subSection) {
-                state.present.home[action.payload.section][action.payload.subSection][action.payload?.index][action.payload.title][action.payload.lan] = action.payload.value;
+                state.present[action.payload?.currentPath][action.payload.section][action.payload.subSection][action.payload?.index][action.payload.title][action.payload.lan] = action.payload.value;
             } else {
-                state.present.home[action.payload.section][action.payload.title][action.payload.lan] = action.payload.value;
+                state.present[action.payload?.currentPath][action.payload.section][action.payload.title][action.payload.lan] = action.payload.value;
             }
             state.future = [];
         },
         updateServicesNumber: (state, action) => {
             state.past.push(JSON.parse(JSON.stringify(state.present)));
-            state.present.home[action.payload.section][action.payload.subSection][action.payload.index][action.payload.title] = action.payload.value;
+            state.present[action.payload?.currentPath][action.payload.section][action.payload.subSection][action.payload.index][action.payload.title] = action.payload.value;
             state.future = [];
         },
         updateSelectedContent: (state, action) => {
@@ -59,12 +59,13 @@ const cmsSlice = createSlice({
                 const indexB = selectedMap.get(b.title[action.payload.language]) ?? Infinity;
                 return indexA - indexB;
             });
+            console.log(action.payload.currentPath)
             switch(action.payload.origin) {
                 case "home":
-                    state.present.home.serviceSection.cards = newOptions; 
+                    state.present[action.payload?.currentPath].serviceSection.cards = newOptions; 
                     break;
                 case "recentproject":
-                    state.present.home.recentProjectsSection.sections[action.payload.index].projects = newOptions;
+                    state.present[action.payload?.currentPath].recentProjectsSection.sections[action.payload.index].projects = newOptions;
                     break;
 
                 default:

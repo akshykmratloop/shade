@@ -93,7 +93,7 @@ const HomePage = ({ language, screen }) => {
     }, [language]);
 
     useEffect(() => {
-        dispatch(updateContent((content?.home)))
+        dispatch(updateContent({currentPath:"home", payload:(content?.home)}))
     }, [])
     //   const { language, content } = useGlobalContext();
     // const styles = ''

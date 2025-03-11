@@ -5,7 +5,20 @@ import TextAreaInput from "../../../components/Input/TextAreaInput";
 import { useDispatch, useSelector } from "react-redux";
 import { updateSpecificContent, update, updateServicesNumber } from "../../common/homeContentSlice";
 
-const ContentSection = ({ Heading, subHeading, inputs = [], inputFiles = [], isBorder = true, fileId, section, language, subSection, subSectionsProMax, index, subSecIndex }) => {
+const ContentSection = ({
+    Heading,
+    subHeading,
+    inputs = [],
+    inputFiles = [],
+    isBorder = true,
+    currentPath,
+    section,
+    language,
+    subSection,
+    subSectionsProMax,
+    index,
+    subSecIndex,
+    currentContent }) => {
     // const [formData, setFormData] = useState({}); // Store input values
     const dispatch = useDispatch();
     const homeContent = useSelector((state) => {
@@ -15,12 +28,12 @@ const ContentSection = ({ Heading, subHeading, inputs = [], inputFiles = [], isB
     // Function to update input values
     const updateFormValue = ({ updateType, value }) => {
         if (updateType === 'count') {
-            if(!isNaN(value)){
+            if (!isNaN(value)) {
                 let val = value.slice(0, 7)
-                dispatch(updateServicesNumber({ section: section, title: updateType, value: val, subSection, index }))
+                dispatch(updateServicesNumber({ section: section, title: updateType, value: val, subSection, index, currentPath }))
             }
         } else {
-            dispatch(updateSpecificContent({ section: section, title: updateType, lan: language, value: value === "" ? "" : value, subSection, index, subSectionsProMax, subSecIndex }))
+            dispatch(updateSpecificContent({ section: section, title: updateType, lan: language, value: value === "" ? "" : value, subSection, index, subSectionsProMax, subSecIndex, currentPath }))
         }
     };
 
@@ -30,13 +43,14 @@ const ContentSection = ({ Heading, subHeading, inputs = [], inputFiles = [], isB
             {inputs.length > 0 ? inputs.map((input, i) => {
                 let valueExpression
                 if (subSectionsProMax) {
-                    valueExpression = homeContent?.[section]?.[subSection][index]?.[subSectionsProMax][subSecIndex]?.[input.updateType]?.[language]
-                } else if (subSection && typeof (homeContent?.[section]?.[subSection][index]?.[input.updateType]) !== "object") {
-                    valueExpression = homeContent?.[section]?.[subSection][index]?.[input.updateType]
+                    valueExpression = currentContent?.[section]?.[subSection][index]?.[subSectionsProMax][subSecIndex]?.[input.updateType]?.[language]
+                } else if (subSection && typeof (currentContent?.[section]?.[subSection][index]?.[input.updateType]) !== "object") {
+                    valueExpression = currentContent?.[section]?.[subSection][index]?.[input.updateType]
                 } else if (subSection) {
-                    valueExpression = homeContent?.[section]?.[subSection][index]?.[input.updateType]?.[language]
+                    valueExpression = currentContent?.[section]?.[subSection][index]?.[input.updateType]?.[language]
                 } else {
-                    valueExpression = homeContent?.[section]?.[input.updateType]?.[language]
+                    valueExpression = currentContent?.[section]?.[input.updateType]?.[language]
+                    console.log(valueExpression)
                 }
                 return input.input === "textarea" ? (
                     <TextAreaInput
@@ -66,7 +80,12 @@ const ContentSection = ({ Heading, subHeading, inputs = [], inputFiles = [], isB
                 );
             }) : ""}
             {inputFiles?.map((file, index) => (
-                <InputFile key={index} label={file.label} id={file.id} />
+                <InputFile
+                    key={index}
+                    label={file.label}
+                    id={file.id}
+                    currentPath={currentPath}
+                />
             ))}
         </div>
     );

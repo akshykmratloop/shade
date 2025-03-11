@@ -47,7 +47,7 @@ const SortableItem = ({ option, removeOption, language }) => {
   );
 };
 
-const MultiSelect = ({ heading, options = [], tabName, label, language, section, referenceOriginal = { dir: "", index: 0 } }) => {
+const MultiSelect = ({ heading, options = [], tabName, label, language, section, referenceOriginal = { dir: "", index: 0 } , currentPath}) => {
   const [selectedOptions, setSelectedOptions] = useState([]);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
@@ -131,8 +131,8 @@ const MultiSelect = ({ heading, options = [], tabName, label, language, section,
   useEffect(() => {
     
     if (options.length > 0 && random !== 1) {
-      console.log(options)
-      dispatch(updateSelectedContent({ origin: referenceOriginal.dir, index: referenceOriginal.index, section, newArray: [...options], selected: selectedOptions, language }));
+      console.log(section)
+      dispatch(updateSelectedContent({ origin: referenceOriginal.dir, index: referenceOriginal.index, section, newArray: [...options], selected: selectedOptions, language, currentPath }));
     }
   }, [random]);
 
@@ -184,7 +184,7 @@ const MultiSelect = ({ heading, options = [], tabName, label, language, section,
         <SortableContext items={selectedOptions} strategy={verticalListSortingStrategy}>
           <div className="flex flex-wrap gap-2 p-2 pl-4 border dark:border-stone-500 rounded-md ">
             {selectedOptions?.map((option) => (
-              <SortableItem key={option.title?.[language]} option={option} removeOption={removeOption} language={language} />
+              <SortableItem key={option.title?.[language] + String(Math.random())} option={option} removeOption={removeOption} language={language} />
             ))}
           </div>
         </SortableContext>
