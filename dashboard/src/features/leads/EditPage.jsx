@@ -8,9 +8,9 @@ import ContentTopBar from "./components/ContentTopBar";
 import HomePage from "./components/websiteComponent/Home";
 
 const EditPage = () => {
-    // const isCollapsed = useSelector((state) => state.sidebar.isCollapsed);
     const dispatch = useDispatch();
     const [language, setLanguage] = useState('en')
+    const [screen, setScreen] = useState(1180)
     const homeContent = useSelector((state) => state.homeContent.present.home)
 
 
@@ -22,8 +22,11 @@ const EditPage = () => {
         <div className="flex gap-[1.5rem] pr-1 h-[85.5vh] w-full">
 
             {/* content manager */}
-            <div className=" pt-8 bg-[#fafaff] dark:bg-[#242933] p-8 xl:w-[23rem] sm:w-[30vw] flex flex-col gap-4 items-center overflow-y-scroll customscroller">
-                <div className="w-full sticky top-[-30px] rounded-md p-5 bg-gray-100 z-30">
+            <div
+                className={`pt-8 bg-[#fafaff] dark:bg-[#242933] p-8 lg:w-[23rem] sm:w-[30vw] min-w-23rem flex flex-col gap-4 items-center overflow-y-scroll customscroller`}
+            >
+
+                <div className="w-full sticky top-[-30px] rounded-md p-5 bg-gray-100 dark:bg-cyan-800 z-30">
                     <LanguageSwitch setLanguage={setLanguage} />
                 </div>
 
@@ -31,7 +34,7 @@ const EditPage = () => {
                 <ContentSection
                     Heading={"Hero Banner"}
                     inputs={[{ input: "input", label: "Heading/title", updateType: "title" }, { input: "textarea", label: "Description", updateType: "description" }, { input: "input", label: "Button Text", updateType: "buttonText" }]}
-                    inputFiles={[{label:"Backround Image", id:"homeBanner"}]}
+                    inputFiles={[{ label: "Backround Image", id: "homeBanner" }]}
                     // fileId={"homeBanner"}
                     section={"homeBanner"}
                     language={language}
@@ -41,7 +44,7 @@ const EditPage = () => {
                 <ContentSection
                     Heading={"About Section"}
                     inputs={[{ input: "input", label: "Heading/title", updateType: "title" }, { input: "textarea", label: "About section", updateType: "description" }, { input: "textarea", label: "Description 2", updateType: "description2" }, , { input: "input", label: "Button Text", updateType: "buttonText" }]}
-                    inputFiles={[{label:"Backround Image", id:"aboutUsSection"}]}
+                    inputFiles={[{ label: "Backround Image", id: "aboutUsSection" }]}
                     // fileId={"aboutUsSection"}
                     section={"aboutUsSection"}
                     language={language}
@@ -79,7 +82,7 @@ const EditPage = () => {
                                 inputs={[
                                     { input: "input", label: "Item text 1", updateType: "count" },
                                     { input: "input", label: "Item text 2", updateType: "title" }]}
-                                inputFiles={[{label:"Item Icon", id:item}]}
+                                inputFiles={[{ label: "Item Icon", id: item }]}
                                 // fileId={item}
                                 language={language}
                                 section={"experienceSection"}
@@ -123,7 +126,7 @@ const EditPage = () => {
                                                                 { input: "input", label: "Project title", updateType: "title" },
                                                                 { input: "input", label: "Project Location", updateType: "subtitle" }
                                                             ]}
-                                                            inputFiles={[{label:"Image", id: project.image}]}
+                                                            inputFiles={[{ label: "Image", id: project.image }]}
                                                             // fileId={project.image}
                                                             language={language}
                                                             section={"recentProjectsSection"}
@@ -154,9 +157,9 @@ const EditPage = () => {
                     Heading={"Client Section"}
                     inputs={[
                         { input: "input", label: "Heading/title", updateType: "title" },
-                        { input: "input", label: "Description", updateType: "description" }, 
+                        { input: "input", label: "Description", updateType: "description" },
                     ]}
-                    inputFiles={homeContent?.clientSection?.clients?.map(e => ({label:e.image, id: e.image}))}
+                    inputFiles={homeContent?.clientSection?.clients?.map(e => ({ label: e.image, id: e.image }))}
                     section={"clientSection"}
                     language={language}
                 />
@@ -166,10 +169,10 @@ const EditPage = () => {
                     Heading={"New Project"}
                     inputs={[
                         { input: "input", label: "Heading/title", updateType: "title" },
-                        { input: "textarea", label: "Description 1", updateType: "description1" }, 
-                        { input: "textarea", label: "Description 2", updateType: "description2" }, 
-                        { input: "intpu", label: "Highlight Text", updateType: "highlightedText" }, 
-                        { input: "input", label: "Button Text", updateType: "button" }, 
+                        { input: "textarea", label: "Description 1", updateType: "description1" },
+                        { input: "textarea", label: "Description 2", updateType: "description2" },
+                        { input: "intpu", label: "Highlight Text", updateType: "highlightedText" },
+                        { input: "input", label: "Button Text", updateType: "button" },
                     ]}
                     section={"newProjectSection"}
                     language={language}
@@ -177,11 +180,16 @@ const EditPage = () => {
 
             </div> {/* Content manager ends here */}
             {/* Content view */}
-            <div className="flex-[4] h-[85.5vh] flex flex-col">
-                <ContentTopBar />
-                <div className=" overflow-y-scroll customscroller border-indigo-500 border">
-                    <h4>Commented by {"Anukool (Super Admin)"}</h4>
-                    <HomePage language={language} />
+            <div
+                className={`flex-[4] h-[85.5vh] flex flex-col `}
+                style={{ width: screen > 1000 ? "" : screen }}
+            >
+                <ContentTopBar setWidth={setScreen} />
+                <h4>Commented by {"Anukool (Super Admin)"}</h4>
+                <div className={`overflow-y-scroll customscroller border-black-500 border mx-auto`}
+                style={{ width: screen > 1000 ? "" : screen }}
+                >
+                    <HomePage language={language} screen={screen} />
                 </div>
             </div>
         </div>
