@@ -1,5 +1,5 @@
-import { logger } from "../../config/index.js";
-import { assert, assertEvery } from "../../errors/assertError.js";
+import {logger} from "../../config/index.js";
+import {assert, assertEvery} from "../../errors/assertError.js";
 import {
   findRoles,
   findRoleById,
@@ -7,31 +7,42 @@ import {
   roleActivation,
   roleDeactivation,
   updateRoleinDB,
+  findRoleType,
 } from "../../repository/role.repository.js";
 
 const getRoles = async () => {
   const roles = await findRoles(); // to bring the roles
-  logger.info({ response: "roles fetched successfully", roles: roles });
-  return { message: "Roles fetched successfully", roles };
+  logger.info({response: "roles fetched successfully", roles: roles});
+  return {message: "Roles fetched successfully", roles};
 };
 
 const getRoleById = async (id) => {
   const role = await findRoleById(id); // to bring the roles
   assert(role, "NOT_FOUND", "Role not found");
-  logger.info({ response: "roles fetched successfully", role: role });
-  return { message: "Role fetched successfully", role };
+  logger.info({response: "roles fetched successfully", role: role});
+  return {message: "Role fetched successfully", role};
 };
 
-const createRole = async (data) => {
-  const newRole = await createNewRoles(data.name, data.description);
+const getRoleType = async () => {
+  const roleType = await findRoleType();
+  assert(roleType, "NOT_FOUND", "Role type not found");
+  logger.info({
+    response: "roles types fetched successfully",
+    roleType: roleType,
+  });
+  return {message: "Role types fetched successfully", roleType};
+};
+
+const createRole = async (name, roleTypeId, permissions) => {
+  const newRole = await createNewRoles(name, roleTypeId, permissions);
 
   // if response is empty the throw error with assert
   assert(newRole, "CREATION_FAILED", "something went wrong");
 
   //log information
-  logger.info({ response: "logged in successfully" });
+  logger.info({response: "logged in successfully"});
 
-  return { message: "Role created successfully", newRole, ok: true }; // if everything goes fine
+  return {message: "Role created successfully", newRole, ok: true}; // if everything goes fine
 };
 
 const activateRoles = async (id) => {
@@ -39,9 +50,9 @@ const activateRoles = async (id) => {
 
   assert(role, "ROLE_INVALID", "Role not found");
 
-  logger.info({ response: `role ${id} is active now` });
+  logger.info({response: `role ${id} is active now`});
 
-  return { message: "Role activated successfully", ok: true }; // if everything goes fine
+  return {message: "Role activated successfully", ok: true}; // if everything goes fine
 };
 
 const deactivateRoles = async (id) => {
@@ -49,9 +60,9 @@ const deactivateRoles = async (id) => {
 
   assert(role, "ROLE_INVALID", "Role not found");
 
-  logger.info({ response: `role ${id} is inactive now` });
+  logger.info({response: `role ${id} is inactive now`});
 
-  return { message: "Role deactivated successfully", ok: true }; // if everything goes fine
+  return {message: "Role deactivated successfully", ok: true}; // if everything goes fine
 };
 
 const updateRole = async (id, updateObject) => {
@@ -59,14 +70,15 @@ const updateRole = async (id, updateObject) => {
 
   assert(role, "ROLE_INVALID", "Role not found");
 
-  logger.info({ response: `role ${id} is inactive now` });
+  logger.info({response: `role ${id} is inactive now`});
 
-  return { message: "Role updated successfully", role, ok: true };
+  return {message: "Role updated successfully", role, ok: true};
 };
 
 export {
   getRoles,
   getRoleById,
+  getRoleType,
   createRole,
   activateRoles,
   deactivateRoles,
