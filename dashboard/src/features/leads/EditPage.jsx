@@ -1,6 +1,4 @@
 import LanguageSwitch from "./components/SwitchLang";
-import ContentSection from "./components/ContentSections";
-import MultiSelect from "./components/MultiSelect";
 import { useSelector, useDispatch } from "react-redux";
 import { setSidebarState } from "../common/SbStateSlice";
 import React, { useEffect, useState } from "react";
