@@ -4,8 +4,28 @@ export const findRoles = async () => {
   return await prismaClient.role.findMany({
     where: {
       name: {
-        not: "SUPER_ADMIN", //excluding SUPER_ADMIN
+        not: "SUPER_ADMIN", // Exclude SUPER_ADMIN
       },
+    },
+    include: {
+      _count: {
+        select: {
+          permissions: true, // Count of permissions per role
+        },
+      },
+      // permissions: {
+      //   include: {
+      //     permission: {
+      //       select: {
+      //         _count: {
+      //           select: {
+      //             permissionSubPermission: true, // Count of subpermissions per permission
+      //           },
+      //         },
+      //       },
+      //     },
+      //   },
+      // },
     },
   });
 };
@@ -21,18 +41,30 @@ export const findRoleById = async (id) => {
   return role; // Otherwise, return the role
 };
 
-export const createNewRoles = async (name, description) => {
-  // making the query to create role
+export const findRoleType = async () => {
+  return await prismaClient.roleType.findMany({
+    where: {},
+  });
+};
+
+export const createNewRoles = async (name, roleTypeId, permissionsArray) => {
   const roles = await prismaClient.role.create({
     data: {
       name,
-      description,
+      roleTypeId,
+      permissions: {
+        // Ensure relation name is correct
+        create: permissionsArray.map((permissionId) => ({
+          permissionId: permissionId,
+        })),
+      },
     },
+    // include: {permissions: true},
   });
 
   if (!roles) return false; // for handling the assert through false
 
-  return { roles };
+  return {roles};
 };
 
 export const roleActivation = async (id) => {
@@ -69,7 +101,7 @@ export const updateRoleinDB = async (id, updateObj) => {
 
   console.log(updateObj);
   const role = prismaClient.role.update({
-    where: { id: id },
+    where: {id: id},
     data: updateObj,
   });
 
