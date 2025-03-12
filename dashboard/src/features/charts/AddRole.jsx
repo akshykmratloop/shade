@@ -5,7 +5,7 @@ import { toast, ToastContainer } from "react-toastify";
 import validator from "../../app/valid";
 import updateToasify from "../../app/toastify";
 import InputFileForm from "../../components/Input/InputFileForm";
-import { fetchRoles } from "../../app/fetch";
+import dummy from "../../assets/MOCK_DATA.json"
 
 const AddRoleModal = ({ show, onClose, updateRoles, user }) => {
     const [errorMessageRole, setErrorMessageRole] = useState("");
@@ -17,7 +17,8 @@ const AddRoleModal = ({ show, onClose, updateRoles, user }) => {
         image: "",
         roles: []
     });
-    const [roles, setRoles] = useState([])
+
+    // const [roles, setRoles] = useState([])
 
     function clearErrorMessage() {
         setErrorMessageRole("");
@@ -71,11 +72,6 @@ const AddRoleModal = ({ show, onClose, updateRoles, user }) => {
         }
     }, [user]);
 
-    useEffect(() => {
-        const retrievedRoles = fetchRoles()
-        setRoles(retrievedRoles)
-    }, [])
-
     const updateFormValue = ({ updateType, value }) => {
         clearErrorMessage()
         setUserData((prevState) => ({
@@ -96,7 +92,11 @@ const AddRoleModal = ({ show, onClose, updateRoles, user }) => {
 
                     <h3 className="font-bold text-lg">{user ? "Edit User" : "Add New User"}</h3>
                     <form onSubmit={handleFormSubmit} className="flex flex-col items-center w-full gap-1">
-                        <InputFileForm id={"userProfile"} label={"Profile photo"} updater={setUserData} />
+                        <InputFileForm
+                            id={"userProfile"}
+                            label={"Profile photo"}
+                            updater={setUserData}
+                        />
                         {/* Name Field */}
                         <InputText
                             placeholder="Name"
@@ -132,9 +132,28 @@ const AddRoleModal = ({ show, onClose, updateRoles, user }) => {
                             />
                         </div>
 
-                        <div>
+                        <ul className="flex flex-wrap">
+                            {
+                                dummy.map(element => {
+                                    return (
+                                        <li className="flex gap-2 w-[50%] px-1 text-sm" key={element.id}>
+                                            <input type="checkbox" name="name" id={element.id}
+                                                onChange={(e) => {
+                                                    setUserData((prevState) => {
+                                                        const updatedRoles = e.target.checked
+                                                            ? [...prevState.roles, element.id] // Add role if checked
+                                                            : prevState.roles.filter((role) => role !== element.id); // Remove role if unchecked
 
-                        </div>
+                                                        return { ...prevState, roles: updatedRoles };
+                                                    });
+                                                }}
+                                            />
+                                            <label htmlFor={element.id} className=" w-[70%]">{element.name}</label>
+                                        </li>
+                                    )
+                                })
+                            }
+                        </ul>
 
 
                         <div className="modal-action self-end">

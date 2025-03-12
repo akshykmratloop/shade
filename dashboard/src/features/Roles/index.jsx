@@ -81,7 +81,7 @@ function Roles() {
     const [changesInRole, setChangesInRole] = useState(false);
     const [selectedRole, setSelectedRole] = useState(null);
     const [showDetailsModal, setShowDetailsModal] = useState(false);
-    const [enabled, setEnabled] = useState(false);
+    // const [enabled, setEnabled] = useState(false);
 
     const removeFilter = () => {
         setRoles([...originalRoles]);

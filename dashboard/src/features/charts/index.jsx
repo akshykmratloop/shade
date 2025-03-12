@@ -12,9 +12,11 @@ import { toast, ToastContainer } from "react-toastify";
 import updateToasify from "../../app/toastify";
 import { Switch } from '@headlessui/react';
 import { MdInfo } from "react-icons/md";
+import dummyUser from "../../assets/Dummy_User.json"
 
 
 const TopSideButtons = ({ removeFilter, applyFilter, applySearch, openAddForm }) => {
+    console.log(dummyUser)
     const [filterParam, setFilterParam] = useState("");
     const [searchText, setSearchText] = useState("");
     const statusFilters = ["ACTIVE", "INACTIVE"];
@@ -75,14 +77,14 @@ const TopSideButtons = ({ removeFilter, applyFilter, applySearch, openAddForm })
     );
 };
 
-function Roles() {
+function Users() {
     const [roles, setRoles] = useState([]);
     const [originalRoles, setOriginalRoles] = useState([]);
     const [showAddForm, setShowAddForm] = useState(false);
-    const [changesInRole, setChangesInRole] = useState(false);
+    const [changesInUser, setChangesInUser] = useState(false);
     const [selectedRole, setSelectedRole] = useState(null);
     const [showDetailsModal, setShowDetailsModal] = useState(false);
-    const [enabled, setEnabled] = useState(false);
+    // const [enabled, setEnabled] = useState(false);
 
     const removeFilter = () => {
         setRoles([...originalRoles]);
@@ -110,21 +112,20 @@ function Roles() {
         console.log(response)
         if (response.ok) {
             updateToasify(loadingToastId, `Request successful. ${response.message}`, "success", 1000) // updating the toaster
-            setChangesInRole(prev => !prev)
+            setChangesInUser(prev => !prev)
         } else {
             updateToasify(loadingToastId, `Request failed. ${response.message}`, "failure", 2000) // updating the toaster
         }
     }
 
-
     useEffect(() => {
         async function fetchRoleData() {
-            const response = await fetchRoles();
-            setRoles(response.roles);
-            setOriginalRoles(response.roles); // Store the original unfiltered data
+            // const response = await fetchRoles();
+            // setRoles(response.roles);
+            setOriginalRoles(dummyUser); // Store the original unfiltered data
         }
         fetchRoleData();
-    }, [changesInRole]);
+    }, [changesInUser]);
 
 
     return (
@@ -134,7 +135,8 @@ function Roles() {
                     <table className="table w-full text-center">
                         <thead>
                             <tr>
-                                <th style={{ position: "static" }}>Name</th>
+                                <th style={{position: "static"}}>Name</th>
+                                <th>Role</th>
                                 <th>Status</th>
                                 <th>Created At</th>
                                 <th>Updated At</th>
@@ -142,51 +144,62 @@ function Roles() {
                             </tr>
                         </thead>
                         <tbody>
-                            {Array.isArray(roles) && roles?.map((role, index) => (
-                                <tr key={index} >
-                                    <td>{role.name}</td>
-                                    <td>
-                                        <p className={`${role.status === 'ACTIVE' ? "text-green-600" : "text-red-600"}`}>{role.status}</p>
-                                    </td>
-                                    <td>{format(new Date(role.created_at), 'dd/MM/yyyy')}</td>
-                                    <td>{format(new Date(role.updated_at), 'dd/MM/yyyy')}</td>
-                                    <td className="flex justify-center space-x-2">
-                                        <button onClick={() => {
-                                            setSelectedRole(role);
-                                            setShowDetailsModal(true);
-                                        }}>
-                                            <MdInfo size={28} className="text-blue-500 dark:text-white" />
-                                        </button>
-                                        <button
-                                            className="btn btn-sm btn-success"
-                                            onClick={() => {
-                                                setSelectedRole(role);
-                                                setShowAddForm(true);
-                                            }}
-                                        >
-                                            <PencilIcon className="w-4" />
-                                        </button>
-                                        <div className="flex items-center space-x-4">
-                                            <Switch
-                                                checked={role.status === 'ACTIVE'}
-                                                onChange={() => { statusChange(role) }}
-                                                className={`${role.status === 'ACTIVE' ? 'bg-blue-600' : 'bg-gray-300'
-                                                    } relative inline-flex h-6 w-11 items-center rounded-full`}
+                            {Array.isArray(roles) && dummyUser?.map((user, index) => {
+                                console.log(user)
+                                return (
+                                    <tr key={index} >
+                                        <td className="text-center pl-0 flex gap-5 pl-10 items-center w-[180px]">
+                                                <img src={user.image} alt={user.name} className="rounded-[50%] w-[70px] h-[70px]" />
+                                                {user.name}
+                                        </td>
+                                        <td className="">
+                                            {user.roles.length > 1 ? "multiple" : user.roles[0].name}
+                                        </td>
+
+                                        <td>
+                                            <p className={`${user.status === 'ACTIVE' ? "text-green-600" : "text-red-600"}`}>{user.status}</p>
+                                        </td>
+                                        <td>{format(new Date(user?.createdAt), 'dd/MM/yyyy')}</td>
+                                        <td>{format(new Date(user?.updatedAt), 'dd/MM/yyyy')}</td>
+                                        <td className="flex justify-center space-x-2">
+                                            <button onClick={() => {
+                                                setSelectedRole(user);
+                                                setShowDetailsModal(true);
+                                            }}>
+                                                <MdInfo size={28} className="text-blue-500 dark:text-white" />
+                                            </button>
+                                            <button
+                                                className="btn btn-sm btn-success"
+                                                onClick={() => {
+                                                    setSelectedRole(user);
+                                                    setShowAddForm(true);
+                                                }}
                                             >
-                                                <span
-                                                    className={`${role.status === 'ACTIVE' ? 'translate-x-6' : 'translate-x-1'
-                                                        } inline-block h-4 w-4 transform bg-white rounded-full transition`}
-                                                />
-                                            </Switch>
-                                            {/* <span>{role.status === 'ACTIVE' ? 'Enabled' : 'Disabled'}</span> */}
-                                        </div>
-                                    </td>
-                                    <td>
+                                                <PencilIcon className="w-4" />
+                                            </button>
+                                            <div className="flex items-center space-x-4">
+                                                <Switch
+                                                    checked={user.status === 'ACTIVE'}
+                                                    onChange={() => { statusChange(user) }}
+                                                    className={`${user.status === 'ACTIVE' ? 'bg-blue-600' : 'bg-gray-300'
+                                                        } relative inline-flex h-6 w-11 items-center rounded-full`}
+                                                >
+                                                    <span
+                                                        className={`${user.status === 'ACTIVE' ? 'translate-x-6' : 'translate-x-1'
+                                                            } inline-block h-4 w-4 transform bg-white rounded-full transition`}
+                                                    />
+                                                </Switch>
+                                                {/* <span>{role.status === 'ACTIVE' ? 'Enabled' : 'Disabled'}</span> */}
+                                            </div>
+                                        </td>
+                                        <td>
 
 
-                                    </td>
-                                </tr>
-                            ))}
+                                        </td>
+                                    </tr>
+                                )
+                            }
+                            )}
                         </tbody>
                     </table>
                 </div>
@@ -200,7 +213,7 @@ function Roles() {
                     setShowAddForm(false);
                     setSelectedRole(null);
                 }}
-                updateRoles={setChangesInRole}
+                updateUser={setChangesInUser}
                 role={selectedRole}
             />
             {/* <AddRoleModal show={showAddForm} onClose={() => setShowAddForm(false)} updateRole={setChangesInRole} /> */}
@@ -212,4 +225,4 @@ function Roles() {
     );
 }
 
-export default Roles;
+export default Users;

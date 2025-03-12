@@ -7,7 +7,7 @@ const InputFileForm = ({ label, baseClass, id, updater }) => {
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
-    updater(prev => ({...prev, file}))
+    updater(prev => ({...prev, image:file}))
     if (!file) return;
 
     const fileType = file.type.split("/")[0];

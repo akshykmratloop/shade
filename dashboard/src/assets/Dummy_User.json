@@ -1,0 +1,159 @@
+[
+    {
+      "id": 1,
+      "name": "Val",
+      "phone": "Exley",
+      "email": "vexley0@canalblog.com",
+      "image": "http://dummyimage.com/223x100.png/5fa2dd/ffffff",
+      "roles": [
+        {"id": 1, "name": "Admin"},
+        {"id": 2, "name": "Editor"},
+        {"id": 3, "name": "User"},
+        {"id": 4, "name": "Manager"},
+        {"id": 5, "name": "Viewer"}
+      ],
+      "createdAt": "2024-03-12T12:00:00Z",
+      "updatedAt": "2024-03-12T12:00:00Z",
+      "status": "ACTIVE"
+    },
+    {
+      "id": 2,
+      "name": "Flemming",
+      "phone": "Simm",
+      "email": "fsimm1@amazon.co.uk",
+      "image": "http://dummyimage.com/180x100.png/5fa2dd/ffffff",
+      "roles": [
+        {"id": 1, "name": "User"}
+      ],
+      "createdAt": "2024-03-12T12:00:00Z",
+      "updatedAt": "2024-03-12T12:00:00Z",
+      "status": "ACTIVE"
+    },
+    {
+      "id": 3,
+      "name": "Delmer",
+      "phone": "La Croce",
+      "email": "dlacroce2@hexun.com",
+      "image": "http://dummyimage.com/143x100.png/5fa2dd/ffffff",
+      "roles": [
+        {"id": 1, "name": "Admin"},
+        {"id": 2, "name": "Editor"},
+        {"id": 3, "name": "User"},
+        {"id": 4, "name": "Manager"},
+        {"id": 5, "name": "Viewer"}
+      ],
+      "createdAt": "2024-03-12T12:00:00Z",
+      "updatedAt": "2024-03-12T12:00:00Z",
+      "status": "ACTIVE"
+    },
+    {
+      "id": 4,
+      "name": "Sharity",
+      "phone": "Weatherall",
+      "email": "sweatherall3@fastcompany.com",
+      "image": "http://dummyimage.com/149x100.png/cc0000/ffffff",
+      "roles": [
+        {"id": 1, "name": "Admin"},
+        {"id": 2, "name": "Editor"},
+        {"id": 3, "name": "User"}
+      ],
+      "createdAt": "2024-03-12T12:00:00Z",
+      "updatedAt": "2024-03-12T12:00:00Z",
+      "status": "ACTIVE"
+    },
+    {
+      "id": 5,
+      "name": "Yard",
+      "phone": "Manvelle",
+      "email": "ymanvelle4@npr.org",
+      "image": "http://dummyimage.com/192x100.png/ff4444/ffffff",
+      "roles": [
+        {"id": 1, "name": "Admin"},
+        {"id": 2, "name": "Editor"},
+        {"id": 3, "name": "User"},
+        {"id": 4, "name": "Manager"}
+      ],
+      "createdAt": "2024-03-12T12:00:00Z",
+      "updatedAt": "2024-03-12T12:00:00Z",
+      "status": "ACTIVE"
+    },
+    {
+      "id": 6,
+      "name": "Hasty",
+      "phone": "Greenset",
+      "email": "hgreenset5@hhs.gov",
+      "image": "http://dummyimage.com/183x100.png/cc0000/ffffff",
+      "roles": [
+        {"id": 1, "name": "Admin"},
+        {"id": 2, "name": "Editor"},
+        {"id": 3, "name": "User"},
+        {"id": 4, "name": "Manager"},
+        {"id": 5, "name": "Viewer"}
+      ],
+      "createdAt": "2024-03-12T12:00:00Z",
+      "updatedAt": "2024-03-12T12:00:00Z",
+      "status": "ACTIVE"
+    },
+    {
+      "id": 7,
+      "name": "Barbara-anne",
+      "phone": "Zywicki",
+      "email": "bzywicki6@mapy.cz",
+      "image": "http://dummyimage.com/163x100.png/5fa2dd/ffffff",
+      "roles": [
+        {"id": 1, "name": "Admin"},
+        {"id": 2, "name": "Editor"},
+        {"id": 3, "name": "User"},
+        {"id": 4, "name": "Manager"}
+      ],
+      "createdAt": "2024-03-12T12:00:00Z",
+      "updatedAt": "2024-03-12T12:00:00Z",
+      "status": "INACTIVE"
+    },
+    {
+      "id": 8,
+      "name": "Debby",
+      "phone": "Speke",
+      "email": "dspeke7@theatlantic.com",
+      "image": "http://dummyimage.com/185x100.png/ff4444/ffffff",
+      "roles": [
+        {"id": 1, "name": "User"}
+      ],
+      "createdAt": "2024-03-12T12:00:00Z",
+      "updatedAt": "2024-03-12T12:00:00Z",
+      "status": "ACTIVE"
+    },
+    {
+      "id": 9,
+      "name": "Neel",
+      "phone": "Currall",
+      "email": "ncurrall8@hp.com",
+      "image": "http://dummyimage.com/186x100.png/dddddd/000000",
+      "roles": [
+        {"id": 1, "name": "Admin"},
+        {"id": 2, "name": "Editor"},
+        {"id": 3, "name": "User"}
+      ],
+      "createdAt": "2024-03-12T12:00:00Z",
+      "updatedAt": "2024-03-12T12:00:00Z",
+      "status": "ACTIVE"
+    },
+    {
+      "id": 10,
+      "name": "Jolee",
+      "phone": "Gissing",
+      "email": "jgissing9@studiopress.com",
+      "image": "http://dummyimage.com/135x100.png/5fa2dd/ffffff",
+      "roles": [
+        {"id": 1, "name": "Admin"},
+        {"id": 2, "name": "Editor"},
+        {"id": 3, "name": "User"},
+        {"id": 4, "name": "Manager"},
+        {"id": 5, "name": "Viewer"}
+      ],
+      "createdAt": "2024-03-12T12:00:00Z",
+      "updatedAt": "2024-03-12T12:00:00Z",
+      "status": "ACTIVE"
+    }
+  ]
+  
