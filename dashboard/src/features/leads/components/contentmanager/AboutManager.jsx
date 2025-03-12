@@ -43,6 +43,21 @@ const AboutManager = ({ currentContent, currentPath, language }) => {
                     })
                 }
             </div>
+
+            {/* main */}
+            <ContentSection
+                currentPath={currentPath}
+                Heading={"Main"}
+                inputs={[
+                    { input: "input", label: "Heading/title", updateType: "title" },
+                    { input: "textarea", label: "Description 1", updateType: "description1" },
+                    { input: "textarea", label: "Description 2", updateType: "description2" },
+                ]}
+                inputFiles={[{label:"Video", id:"video"}]}
+                section={"main"}
+                language={language}
+                currentContent={currentContent}
+            />
         </div>
     )
 }

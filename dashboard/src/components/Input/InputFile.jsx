@@ -12,11 +12,17 @@ const InputFile = ({ label, baseClass, inputClass, id, currentPath }) => {
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
-    setFileName(file ? file.name : "");
-    if (file) {
+    if (!file) return;
+
+    setFileName(file.name);
+    const fileType = file.type.split("/")[0];
+
+    if (fileType === "image") {
       const reader = new FileReader();
       reader.onload = (e) => setContent(e.target.result);
       reader.readAsDataURL(file);
+    } else if (fileType === "video") {
+      setContent(URL.createObjectURL(file)); // Only storing the URL/path for videos
     }
   };
 
@@ -24,7 +30,6 @@ const InputFile = ({ label, baseClass, inputClass, id, currentPath }) => {
     setContent("");
     setFileName("");
     dispatch(removeImages({ section: id, src: "", currentPath }));
-
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
     }
@@ -37,7 +42,7 @@ const InputFile = ({ label, baseClass, inputClass, id, currentPath }) => {
   }, [content]);
 
   return (
-    <div className={`relative ${baseClass} mt-2 flex flex-col items-center`}> 
+    <div className={`relative ${baseClass} mt-2 flex flex-col items-center`}>
       <label htmlFor={id} className="label-text sm:text-xs xl:text-sm mb-1">{label}</label>
       <div className="relative w-24 h-24 border border-stone-500 rounded-md overflow-hidden cursor-pointer bg-white dark:bg-[#2a303c]">
         <input
@@ -46,13 +51,18 @@ const InputFile = ({ label, baseClass, inputClass, id, currentPath }) => {
           className="hidden"
           ref={fileInputRef}
           onChange={handleFileChange}
+          accept="image/*,video/*"
         />
         <label
           htmlFor={id}
           className="w-full h-full flex items-center justify-center text-gray-400 text-xs"
         >
           {ImageFromRedux[id] ? (
-            <img src={ImageFromRedux[id]} alt="Preview" className="w-full h-full object-cover" />
+            ImageFromRedux[id].includes("blob:") || ImageFromRedux[id].includes("video") ? (
+              <video src={ImageFromRedux[id]} className="w-full h-full object-cover" controls />
+            ) : (
+              <img src={ImageFromRedux[id]} alt="Preview" className="w-full h-full object-cover" />
+            )
           ) : (
             <Upload className="w-6 h-6" />
           )}

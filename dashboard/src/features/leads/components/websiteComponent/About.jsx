@@ -85,8 +85,8 @@ const AboutUs = ({ language, screen }) => {
                     <div className={`flex items-center ${!isEnglish ? "flex-row-reverse" : ""} gap-8`}>
                         <div className="w-full mb-8 flex flex-[2]">
                             <video
-                                src={currentContent?.main?.video}
-                                autoPlay
+                                src={ImageFromRedux["video"] || currentContent?.main?.video}
+                                autoPlay    
                                 loop
                                 muted
                                 playsInline
@@ -99,11 +99,12 @@ const AboutUs = ({ language, screen }) => {
                                 {currentContent?.main?.title[language]}
                             </h2>
                             <div>
-                                {currentContent?.main?.descriptions.map((desc, index) => (
-                                    <p key={index} className="text-xs text-primary mb-4">
-                                        {desc[language]}
-                                    </p>
-                                ))}
+                                <p className="text-xs text-primary mb-4">
+                                    {currentContent?.main?.description1[language]}
+                                </p>
+                                <p className="text-xs text-primary mb-4">
+                                    {currentContent?.main?.description2[language]}
+                                </p>
                             </div>
                             <button
                                 className="mt-6 px-6 py-3 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600"
