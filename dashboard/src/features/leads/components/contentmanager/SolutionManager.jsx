@@ -33,6 +33,21 @@ const SolutionManager = ({ currentPath, language, currentContent }) => {
                 currentContent={currentContent}
             />
 
+            {/** Gallery */}
+            <ContentSection
+                currentPath={currentPath}
+                Heading={"Gallery 1"}
+                inputFiles={[
+                    { label: "Image 1", id: "Image 1" },
+                    { label: "Image 2", id: "Image 2" },
+                    { label: "Image 3", id: "Image 3" },
+                ]}
+                section={"gallery"}
+                language={language}
+                currentContent={currentContent}
+                allowExtraInput={true}
+            />
+
             {/**How We Do */}
             <ContentSection
                 currentPath={currentPath}
@@ -46,22 +61,18 @@ const SolutionManager = ({ currentPath, language, currentContent }) => {
                 currentContent={currentContent}
             />
 
-            {/** Gallery */}
             <ContentSection
                 currentPath={currentPath}
-                Heading={"Gallery"}
+                Heading={"Gallery 2"}
                 inputFiles={[
-                    { label: "Image 1", id: "Image 1" },
-                    { label: "Image 2", id: "Image 2" },
-                    { label: "Image 3", id: "Image 3" },
                     { label: "Image 4", id: "Image 4" },
                     { label: "Image 5", id: "Image 5" },
                     { label: "Image 6", id: "Image 6" },
-
                 ]}
                 section={"gallery"}
                 language={language}
                 currentContent={currentContent}
+                allowExtraInput={true}
             />
         </div>
     )

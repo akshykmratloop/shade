@@ -96,12 +96,12 @@ const SolutionPage = ({ language, screen }) => {
                         </div>
                         <div>
                             <p
-                                className={` font-light ${isPhone?"leading-[20px] text-xs":"leading-[40px]"} tracking-[-1.2px] mb-[32px] `}
+                                className={` font-light ${isPhone?"leading-[20px] text-sm":"leading-[40px]"} tracking-[-1.2px] mb-[32px] `}
                             >
                                 {currentContent?.whatWeDo?.description1[language]}
                             </p>
                             <p
-                                className={` font-light ${isPhone?"leading-[20px] text-xs":"leading-[40px]"} tracking-[-1.2px] mb-[32px] `}
+                                className={` font-light ${isPhone?"leading-[20px] text-sm":"leading-[40px]"} tracking-[-1.2px] mb-[32px] `}
                             >
                                 {currentContent?.whatWeDo?.description2[language]}
                             </p>
@@ -153,7 +153,7 @@ const SolutionPage = ({ language, screen }) => {
                     {currentContent?.gallery?.images.map(
                         (image, index) => (
                             <SwiperSlide key={index}>
-                                <div className={`rounded-lg overflow-hidden shadow-lg transition-transform transform border border-red-500 ${isPhone?"h-[50vh]":"h-[500px]"}`}>
+                                <div className={`rounded-lg overflow-hidden shadow-lg transition-transform transform ${isPhone?"h-[50vh]":"h-[500px]"}`}>
 
                                     <img
                                         src={ImageFromRedux[`Image ${index + 1}`] || image.url}
@@ -188,7 +188,7 @@ const SolutionPage = ({ language, screen }) => {
                         </div>
                         <div>
                             <p
-                                className={`${isPhone?"leading-[20px] text-xs":"leading-[40px]"} font-light tracking-[-1.2px] mb-[32px]`}
+                                className={`${isPhone?"leading-[20px] text-sm":"leading-[40px]"} font-light tracking-[-1.2px] mb-[32px]`}
                             >
                                 {currentContent?.howWeDo?.description[language]}
                             </p>
@@ -221,7 +221,7 @@ const SolutionPage = ({ language, screen }) => {
                     {currentContent?.gallery?.showcase.map(
                         (image, index) => (
                             <SwiperSlide key={index}>
-                                <div className={`rounded-lg overflow-hidden shadow-lg transition-transform transform border border-red-500 ${isPhone?"h-[50vh]":"h-[500px]"}`}>
+                                <div className={`rounded-lg overflow-hidden shadow-lg transition-transform transform ${isPhone?"h-[50vh]":"h-[500px]"}`}>
                                     <img
                                         src={ImageFromRedux[`Image ${index + 1}`] || image.url}
                                         alt={`Image ${index + 1}`}
