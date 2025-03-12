@@ -99,7 +99,7 @@ const ContentSection = ({
                     {extraFiles.map((file, index) => (
                         <div key={index} className="relative flex items-center justify-center">
                             <button
-                                className="absolute top-6 z-20 right-[-8px] bg-red-500 text-white px-1 rounded-full shadow"
+                                className="absolute top-6 z-0 right-[-8px] bg-red-500 text-white px-1 rounded-full shadow"
                                 onClick={() => removeExtraFileInput(file.id)}
                             >
                                 ✖

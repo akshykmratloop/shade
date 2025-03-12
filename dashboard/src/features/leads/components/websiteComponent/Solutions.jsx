@@ -31,12 +31,11 @@ const SolutionPage = ({ language, screen }) => {
     const ImageFromRedux = useSelector((state) => state.homeContent.present.images)
     const dispatch = useDispatch()
 
-    console.log(currentContent)
 
-    const [isModal, setIsModal] = useState(false);
-    const handleContactUSClose = () => {
-        setIsModal(false);
-    };
+    // const [isModal, setIsModal] = useState(false);
+    // const handleContactUSClose = () => {
+    //     setIsModal(false);
+    // };
 
     const isLeftAlign = language === 'en'
 

@@ -51,13 +51,13 @@ const EditPage = () => {
                 }
                 {
                     currentPath === "about" &&
-                    <AboutManager />
+                    <AboutManager language={language} currentContent={content.about} currentPath={currentPath}  />
                 }
 
             </div> {/* Content manager ends here */}
             {/* Content view */}
             <div
-                className={`flex-[4] h-[85.5vh] flex flex-col `}
+                className={`flex-[4] h-[85.5vh] flex flex-col bankgothic-medium-dt`}
                 style={{ width: screen > 1000 ? "" : screen }}
             >
                 <ContentTopBar setWidth={setScreen} />
@@ -75,7 +75,7 @@ const EditPage = () => {
                     }
                     {
                         currentPath === "about" &&
-                        <AboutUs />
+                        <AboutUs language={language} currentContent={content.solution} screen={screen}  />
                     }
                 </div>
             </div>
