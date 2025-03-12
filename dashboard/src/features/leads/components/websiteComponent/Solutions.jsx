@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
-import arrow from "../../../../assets/icons/right-wrrow.svg";  // ../../assets/icons/right-wrrow.svg
+import arrow from "../../../../assets/icons/right-wrrow.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { updateContent } from "../../../common/homeContentSlice";
 import content from "./content.json"
 import { SwiperSlide } from "swiper/react";
 import { Swiper } from "swiper/react";
 import { Autoplay, EffectCoverflow, Navigation } from "swiper/modules";
-// import styles from "./solution.module.scss";
 // import localFont from "next/font/local";
 // import Button from "@/common/Button";
 // import Image from "next/image";
@@ -28,8 +27,6 @@ const SolutionPage = ({ language, screen }) => {
     const isComputer = screen > 1100
     const isTablet = 1100 > screen && screen > 767
     const isPhone = screen < 767
-    // const router = useRouter();
-    // const currentContent = content?.solution;
     const currentContent = useSelector((state) => state.homeContent.present.solution)
     const ImageFromRedux = useSelector((state) => state.homeContent.present.images)
     const dispatch = useDispatch()
@@ -112,22 +109,6 @@ const SolutionPage = ({ language, screen }) => {
 
 
             {/** gallary wrap */}
-            {/* <section className="max-w-[1180px] mx-auto pb-2 px-10">
-                <div className="container">
-                    <div className="flex flex-wrap items-start justify-between">
-                        {currentContent?.gallery?.images.map((image, index) => (
-                            <img
-                                key={index}
-                                src={ImageFromRedux[`Image ${index + 1}`] || image.url}
-                                width={(image.width / 1532) * screen}
-                                height={(image.height / 1532) * screen}
-                                alt=""
-                                className="object-cover"
-                            />
-                        ))}
-                    </div>
-                </div>
-            </section> */}
 
             <div
                 className="w-[800px] mx-auto "
@@ -166,9 +147,6 @@ const SolutionPage = ({ language, screen }) => {
                     )}
                 </Swiper>
             </div>
-
-
-
 
             {/** HowWeDo */}
             <section
@@ -248,31 +226,6 @@ export default SolutionPage;
 
 // {/* 
 
-
-
-
-
-
-// <section className={styles.showcase_gallery_wrap}>
-// <div className="container">
-//     <div className={styles.showcase_gallery}>
-//         {currentContent?.gallery?.showcase.map((image, index) => (
-//             <div key={index} className={styles.showcase_gallery_img_wrap}>
-//                 <Image
-//                     src={image.url}
-//                     width={image.width}
-//                     height={image.height}
-//                     alt=""
-//                     className={styles.gallery_img}
-//                 />
-//             </div>
-//         ))}
-//     </div>
-// </div>
-// </section>
-
-///////////////////////////////////////////////////////////////////////////////////////////
-
 // <section
 // className={` ${language === "en" && styles.leftAlign}   ${styles.new_project_wrapper
 //     }`}
@@ -304,4 +257,6 @@ export default SolutionPage;
 //         </Button>
 //     </div>
 // </div>
-// </section> */}
+// </section> 
+// 
+// */}

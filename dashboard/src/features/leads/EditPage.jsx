@@ -10,6 +10,8 @@ import SolutionPage from "./components/websiteComponent/Solutions";
 import HomeManager from "./components/contentmanager/HomeManager";
 import { useLocation } from "react-router-dom";
 import SolutionManager from "./components/contentmanager/SolutionManager";
+import AboutUs from "./components/websiteComponent/About";
+import AboutManager from "./components/contentmanager/AboutManager";
 
 const EditPage = () => {
     const dispatch = useDispatch();
@@ -47,7 +49,10 @@ const EditPage = () => {
                     currentPath === "solution" &&
                     <SolutionManager language={language} currentContent={content.solution} currentPath={currentPath} />
                 }
-
+                {
+                    currentPath === "about" &&
+                    <AboutManager />
+                }
 
             </div> {/* Content manager ends here */}
             {/* Content view */}
@@ -67,6 +72,10 @@ const EditPage = () => {
                     {
                         currentPath === "solution" &&
                         <SolutionPage language={language} currentContent={content.solution} screen={screen} />
+                    }
+                    {
+                        currentPath === "about" &&
+                        <AboutUs />
                     }
                 </div>
             </div>
