@@ -33,7 +33,7 @@ const InputFileForm = ({ label, baseClass, id, updater, labelStyle, preImage }) 
       <label htmlFor={id} className={`label-text sm:text-xs xl:text-sm mb-1 ${labelStyle}`}>
         {label}
       </label>
-      <div className="relative w-24 h-24 border border-2 border-stone-300 rounded-md overflow-hidden cursor-pointer bg-white dark:bg-[#2a303c]">
+      <div className="relative w-24 h-24 border rounded-full border-stone-400 cursor-pointer bg-white dark:bg-[#2a303c]">
         <input
           type="file"
           id={id}
@@ -50,10 +50,10 @@ const InputFileForm = ({ label, baseClass, id, updater, labelStyle, preImage }) 
             content.includes("blob") ? (
               <video src={content} className="w-full h-full object-cover" controls />
             ) : (
-              <img src={content} alt="Preview" className="w-full h-full object-cover" />
+              <img src={content} alt="Preview" className="w-full h-full object-cover rounded-full" />
             )
           ) : preImage ?
-            <img src={preImage} alt="Preview" className="w-full h-full object-cover" />
+            <img src={preImage} alt="Preview" className="w-full h-full object-cover rounded-full" />
             :
             (
               <User className="w-6 h-6" />
@@ -61,7 +61,7 @@ const InputFileForm = ({ label, baseClass, id, updater, labelStyle, preImage }) 
         </label>
         {content && (
           <button
-            className="absolute top-1 right-1 bg-[#00000080] text-white p-1 rounded-full shadow"
+            className="absolute z-30 top-0 bg-stone-600 right-1 bg-[#00000080] text-white p-1 rounded-full shadow"
             onClick={clearFile}
           >
             <X className="w-4 h-4" />

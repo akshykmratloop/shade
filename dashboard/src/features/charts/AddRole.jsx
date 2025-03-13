@@ -19,7 +19,7 @@ const AddRoleModal = ({ show, onClose, updateRoles, user }) => {
         roles: [],
     });
 
-        useEffect(() => {
+    useEffect(() => {
         if (user?.roles?.length > 0) {
             setUserData((prev) => ({
                 ...prev,
@@ -95,7 +95,7 @@ const AddRoleModal = ({ show, onClose, updateRoles, user }) => {
 
     return (
         <div className="modal modal-open">
-            <div className="p-[3.4rem] relative flex flex-col gap-6 w-[600px] bg-white dark:bg-gray-800 rounded-md">
+            <div className="p-[2.5rem] relative flex flex-col gap-6 w-[600px] bg-white dark:bg-gray-800 rounded-md">
                 <button className="btn-circle text-stone-gray bg-none border-none absolute right-2 top-2" onClick={onClose}>
                     ✕
                 </button>
@@ -114,7 +114,7 @@ const AddRoleModal = ({ show, onClose, updateRoles, user }) => {
                         defaultValue={userData.name}
                         updateType="name"
                         labelTitle="Name"
-                        InputClasses="border-2 border-[#D0D5DD]"
+                        InputClasses="border-stone-400"
                         labelStyle="text-[#6B7888]"
                         updateFormValue={updateFormValue}
                         errorMessage={errorMessageRole}
@@ -126,7 +126,7 @@ const AddRoleModal = ({ show, onClose, updateRoles, user }) => {
                             defaultValue={userData.email}
                             updateType="email"
                             labelTitle="Email"
-                            InputClasses="border-2 border-[#D0D5DD]"
+                            InputClasses="border-stone-400"
                             labelStyle="text-[#6B7888]"
                             updateFormValue={updateFormValue}
                             errorMessage={errorMessageDescription}
@@ -137,40 +137,43 @@ const AddRoleModal = ({ show, onClose, updateRoles, user }) => {
                             defaultValue={userData.phone}
                             updateType="phone"
                             labelTitle="Phone"
-                            InputClasses="border-2 border-[#D0D5DD]"
+                            InputClasses="border-stone-400"
                             labelStyle="text-[#6B7888]"
                             updateFormValue={updateFormValue}
                             errorMessage={errorMessageDescription}
                         />
                     </div>
 
-                    <ul className="flex flex-wrap">
-                        {dummy.map((element) => {
-                            const isAvailable = userData.roles.includes(element.id);
+                    <div>
+                        <label className="label-text text-[#6B7888]">Select Role</label>
+                        <ul className="flex flex-wrap">
+                            {dummy.map((element) => {
+                                const isAvailable = userData.roles.includes(element.id);
 
-                            return (
-                                <li className="flex gap-2 w-[50%] px-1 text-sm" key={element.id}>
-                                    <input
-                                        type="checkbox"
-                                        id={element.id}
-                                        checked={isAvailable}
-                                        className="border-2 border-[#D0D5DD]"
-                                        onChange={(e) => {
-                                            setUserData((prevState) => {
-                                                const updatedRoles = e.target.checked
-                                                    ? [...prevState.roles, element.id]
-                                                    : prevState.roles.filter((role) => role !== element.id);
-                                                return { ...prevState, roles: updatedRoles };
-                                            });
-                                        }}
-                                    />
-                                    <label htmlFor={element.id} className="w-[70%] text-[#6B7888]">
-                                        {element.name}
-                                    </label>
-                                </li>
-                            );
-                        })}
-                    </ul>
+                                return (
+                                    <li className="flex gap-2 w-[50%] px-1 text-sm" key={element.id}>
+                                        <input
+                                            type="checkbox"
+                                            id={element.id}
+                                            checked={isAvailable}
+                                            className="border-2 border-[#D0D5DD]"
+                                            onChange={(e) => {
+                                                setUserData((prevState) => {
+                                                    const updatedRoles = e.target.checked
+                                                        ? [...prevState.roles, element.id]
+                                                        : prevState.roles.filter((role) => role !== element.id);
+                                                    return { ...prevState, roles: updatedRoles };
+                                                });
+                                            }}
+                                        />
+                                        <label htmlFor={element.id} className="w-[70%] text-[#6B7888]">
+                                            {element.name}
+                                        </label>
+                                    </li>
+                                );
+                            })}
+                        </ul>
+                    </div>
 
                     <div className="modal-action self-end flex gap-1 w-[200px]">
                         <button type="button" className="rounded-md h-[2.5rem] px-4 flex-[1] border border-stone-200 text-sm btn-ghost" onClick={onClose}>
