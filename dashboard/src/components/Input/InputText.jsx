@@ -1,6 +1,6 @@
-import {useEffect, useState} from "react";
-import {Eye, EyeOff} from "lucide-react";
-import xSign from "../../assets/x-close.png";
+import { useEffect, useState } from "react";
+import { Eye, EyeOff } from "lucide-react";
+import xSign from '../../assets/x-close.png'
 import ErrorText from "../Typography/ErrorText";
 
 function InputText({
@@ -17,17 +17,14 @@ function InputText({
   errorMessage,
   InputClasses,
   width,
-  language,
-  options = [], // Used for select dropdown & checkboxes
+  language
 }) {
   const [showPassword, setShowPassword] = useState(false);
-  const [value, setValue] = useState(
-    defaultValue || (type === "checkbox" ? [] : "")
-  );
+  const [value, setValue] = useState(defaultValue || "");
 
   const updateInputValue = (val) => {
     setValue(val);
-    updateFormValue({updateType, value: val});
+    updateFormValue({ updateType, value: val });
   };
 
   const togglePasswordVisibility = () => {
@@ -35,17 +32,17 @@ function InputText({
   };
 
   useEffect(() => {
-    setValue(defaultValue || (type === "checkbox" ? [] : ""));
-  }, [defaultValue]);
+    setValue(defaultValue || "")
+  }, [defaultValue])
 
   return (
     <div
       className={`form-control my-2 ${width ?? "w-full"} ${containerStyle}`}
-      style={{display: display ? "none" : ""}}
+      style={{ display: display ? "none" : "" }}
     >
       <label className="pl-0 mb-1">
         <span
-          className={"label-text text-base-content " + labelStyle}
+          className={"label-text  " + labelStyle}
         >
           {labelTitle}
         </span>
@@ -58,7 +55,7 @@ function InputText({
           value={value || ""}
           placeholder={placeholder || ""}
           onChange={(e) => updateInputValue(e.target.value)}
-          className={`input ${width ?? "w-full"}  h-[2.3rem] text-xs input input-bordered border-stone-500 focus:border-none ${InputClasses || ""}`}
+          className={`input ${width ?? "w-full"}  h-[2.3rem] text-xs input input-bordered focus:border-none ${InputClasses || "border-stone-500"}`}
         />
         {type === "password" && value && (
           <button
@@ -69,14 +66,9 @@ function InputText({
             {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
           </button>
         )}
-        <ErrorText
-          styleClass={`text-[.7rem] absolute top-[40px] left-[1px] gap-1 ${
-            errorMessage ? "flex" : "hidden"
-          }`}
-        >
-          <img src={xSign} alt="" className="h-3 translate-y-[2px]" />
-          {errorMessage}
-        </ErrorText>
+        <ErrorText styleClass={`text-[.7rem] absolute top-[40px] left-[1px] gap-1 ${errorMessage ? "flex" : "hidden"}`}>
+          <img src={xSign} alt="" className='h-3 translate-y-[2px]' />
+          {errorMessage}</ErrorText>
       </div>
     </div>
   );
