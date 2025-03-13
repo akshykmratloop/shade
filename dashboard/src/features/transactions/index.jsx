@@ -13,6 +13,8 @@ import {toast, ToastContainer} from "react-toastify";
 import updateToasify from "../../app/toastify";
 import {Switch} from "@headlessui/react";
 import {MdInfo} from "react-icons/md";
+import {FiEye} from "react-icons/fi";
+import {FaRegEdit} from "react-icons/fa";
 
 const TopSideButtons = ({
   removeFilter,
@@ -162,9 +164,9 @@ function Roles() {
       >
         <div className="overflow-x-auto w-full">
           <table className="table min-w-full text-left ">
-            <thead className="border-b border-[#EAECF0] ">
-              <tr>
-                <th className="font-medium text-[12px] font-poppins leading-normal bg-[#FAFBFB] text-[#42526D] px-[24px] py-[13px]">
+            <thead className="border-b border-[#EAECF0]">
+              <tr className="">
+                <th className="font-medium text-[12px] font-poppins leading-normal bg-[#FAFBFB]  text-[#42526D] px-[24px] py-[13px]">
                   Role Name
                 </th>
                 <th className="text-[#42526D] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB]  px-[24px] py-[13px]">
@@ -172,6 +174,9 @@ function Roles() {
                 </th>
                 <th className="text-[#42526D] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] px-[24px] py-[13px]">
                   Permission
+                </th>
+                <th className="text-[#42526D] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] px-[24px] py-[13px]">
+                  Sub permission
                 </th>
                 <th className="text-[#42526D] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] px-[24px] py-[13px]">
                   No. of Users Assigned
@@ -189,7 +194,7 @@ function Roles() {
                     <td className="font-poppins font-medium text-[14px] leading-normal text-[#101828] p-[26px]">
                       {role.name}
                     </td>
-                    <td>
+                    <td className="font-poppins font-medium text-[14px] leading-normal text-[#101828] p-[26px]">
                       <p
                         className={`${
                           role.status === "ACTIVE"
@@ -205,10 +210,15 @@ function Roles() {
                         {role?._count?.permissions}
                       </span>
                     </td>
+                    <td className="font-poppins font-medium text-[14px] leading-normal text-[#101828] p-[26px]">
+                      <span className="bg-[#F5F6F7] p-1 rounded-full ">
+                        {role?._count?.subPermissions || "3"}
+                      </span>
+                    </td>
 
                     <td className="font-poppins font-medium text-[14px] leading-normal text-[#101828] p-[26px]">
                       <span className="bg-[#F5F6F7] p-1  rounded-full">
-                        {format(new Date(role.updated_at), "dd/MM/yyyy")}
+                        {role?.usersAssigned || "1"}
                       </span>
                     </td>
                     <td className="flex justify-start space-x-2 font-poppins font-medium text-[14px] leading-normal text-[#101828] p-[26px]">
@@ -218,19 +228,24 @@ function Roles() {
                           setShowDetailsModal(true);
                         }}
                       >
-                        <MdInfo
+                        {/* <MdInfo
                           size={28}
                           className="text-blue-500 dark:text-white"
-                        />
+                        /> */}
+                        <span className="flex items-center gap-1 border rounded-md p-[5px]">
+                          <FiEye />
+                          View
+                        </span>
                       </button>
                       <button
-                        className="btn btn-sm btn-success"
+                        className="btn btn-sm"
                         onClick={() => {
                           setSelectedRole(role);
                           setShowAddForm(true);
                         }}
                       >
-                        <PencilIcon className="w-4" />
+                        {/* <PencilIcon className="w-4" /> */}
+                        <FaRegEdit />
                       </button>
                       <div className="flex items-center space-x-4">
                         <Switch
@@ -242,14 +257,14 @@ function Roles() {
                             role.status === "ACTIVE"
                               ? "bg-blue-600"
                               : "bg-gray-300"
-                          } relative inline-flex h-6 w-11 items-center rounded-full`}
+                          } relative inline-flex h-2 w-8 items-center rounded-full`}
                         >
                           <span
                             className={`${
                               role.status === "ACTIVE"
-                                ? "translate-x-6"
-                                : "translate-x-1"
-                            } inline-block h-4 w-4 transform bg-white rounded-full transition`}
+                                ? "translate-x-4"
+                                : "translate-x-0"
+                            } inline-block h-5 w-5 bg-white rounded-full shadow-2xl border border-gray-300 transition`}
                           />
                         </Switch>
                         {/* <span>{role.status === 'ACTIVE' ? 'Enabled' : 'Disabled'}</span> */}

@@ -7,7 +7,7 @@ function TitleCard({title, children, topMargin, TopSideButtons}) {
       <Subtitle
         styleClass={
           TopSideButtons
-            ? "inline-block font-[Poppins] font-medium text-[24px] leading-normal text-[#101828] text-white pb-4 px-4"
+            ? "inline-block font-[Poppins] font-medium text-[24px] leading-normal text-[#101828] text-black pb-4 px-4"
             : ""
         }
       >
