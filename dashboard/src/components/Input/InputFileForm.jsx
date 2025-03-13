@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { X, User } from "lucide-react";
 
-const InputFileForm = ({ label, baseClass, id, updater }) => {
+const InputFileForm = ({ label, baseClass, id, updater, labelStyle }) => {
   const [content, setContent] = useState("");
   const fileInputRef = useRef(null);
 
@@ -30,10 +30,10 @@ const InputFileForm = ({ label, baseClass, id, updater }) => {
 
   return (
     <div className={`relative ${baseClass} mt-2 flex flex-col items-center`}>
-      <label htmlFor={id} className="label-text sm:text-xs xl:text-sm mb-1">
+      <label htmlFor={id} className={`label-text sm:text-xs xl:text-sm mb-1 ${labelStyle}`}>
         {label}
       </label>
-      <div className="relative w-24 h-24 border border-stone-500 rounded-md overflow-hidden cursor-pointer bg-white dark:bg-[#2a303c]">
+      <div className="relative w-24 h-24 border border-2 border-stone-300 rounded-md overflow-hidden cursor-pointer bg-white dark:bg-[#2a303c]">
         <input
           type="file"
           id={id}

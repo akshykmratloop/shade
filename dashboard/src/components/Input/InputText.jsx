@@ -42,7 +42,7 @@ function InputText({
     >
       <label className="pl-0 mb-1">
         <span
-          className={"label-text text-base-content " + labelStyle}
+          className={"label-text  " + labelStyle}
         >
           {labelTitle}
         </span>
@@ -55,7 +55,7 @@ function InputText({
           value={value || ""}
           placeholder={placeholder || ""}
           onChange={(e) => updateInputValue(e.target.value)}
-          className={`input ${width ?? "w-full"}  h-[2.3rem] text-xs input input-bordered border-stone-500 focus:border-none ${InputClasses || ""}`}
+          className={`input ${width ?? "w-full"}  h-[2.3rem] text-xs input input-bordered focus:border-none ${InputClasses || "border-stone-500"}`}
         />
         {type === "password" && value && (
           <button

@@ -43,7 +43,7 @@ const routes = [
   },
   {
     path: '/app/users', // url
-    icon: <FaRegUser className={iconClasses}/>, // icon component
+    icon: <FaRegUser className={`w-4 h-5 translate-x-[3px]`}/>, // icon component
     name: 'Users', // name that appear in Sidebar
   },
   {

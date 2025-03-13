@@ -12,11 +12,12 @@ import { toast, ToastContainer } from "react-toastify";
 import updateToasify from "../../app/toastify";
 import { Switch } from '@headlessui/react';
 import { MdInfo } from "react-icons/md";
+import { FiEye } from "react-icons/fi";
 import dummyUser from "../../assets/Dummy_User.json"
+import { FaRegEdit } from "react-icons/fa";
 
 
 const TopSideButtons = ({ removeFilter, applyFilter, applySearch, openAddForm }) => {
-    console.log(dummyUser)
     const [filterParam, setFilterParam] = useState("");
     const [searchText, setSearchText] = useState("");
     const statusFilters = ["ACTIVE", "INACTIVE"];
@@ -42,7 +43,7 @@ const TopSideButtons = ({ removeFilter, applyFilter, applySearch, openAddForm })
 
     return (
         <div className="inline-block float-right">
-            <SearchBar searchText={searchText} styleClass="mr-4 border border-1 border-stone-300" setSearchText={setSearchText} />
+            {/* <SearchBar searchText={searchText} styleClass="mr-4 border border-1 border-stone-300" setSearchText={setSearchText} /> */}
             {filterParam && (
                 <button
                     onClick={() => removeAppliedFilter()}
@@ -82,7 +83,7 @@ function Users() {
     const [originalRoles, setOriginalRoles] = useState([]);
     const [showAddForm, setShowAddForm] = useState(false);
     const [changesInUser, setChangesInUser] = useState(false);
-    const [selectedRole, setSelectedRole] = useState(null);
+    const [selectedUser, setSelectedUser] = useState(null);
     const [showDetailsModal, setShowDetailsModal] = useState(false);
     // const [enabled, setEnabled] = useState(false);
 
@@ -109,7 +110,6 @@ function Users() {
         if (role.status === "ACTIVE") response = await deactivateRole(role)
         else response = await activateRole(role)
 
-        console.log(response)
         if (response.ok) {
             updateToasify(loadingToastId, `Request successful. ${response.message}`, "success", 1000) // updating the toaster
             setChangesInUser(prev => !prev)
@@ -130,73 +130,103 @@ function Users() {
 
     return (
         <>
-            <TitleCard title="User" topMargin="mt-2" TopSideButtons={<TopSideButtons applySearch={applySearch} applyFilter={applyFilter} removeFilter={removeFilter} openAddForm={() => setShowAddForm(true)} />}>
-                <div className="overflow-x-auto">
-                    <table className=" w-full text-center rounded-lg userRoleTable"
-                    style={{fontFamily:"system-ui", textAlign:"left"}}>
-                        <thead>
-                            <tr className="font-light bg-gray-500 p-2 custom" style={{}}>
-                                <th style={{position: "static"}} className="pl-4">Name</th>
-                                <th >Role</th>
-                                <th >Status</th>
-                                <th >Created At</th>
-                                <th >Updated At</th>
-                                <th >Actions</th>
+            <TitleCard title="User" topMargin="mt-2"
+                TopSideButtons={
+                    <TopSideButtons
+                        // applySearch={applySearch} 
+                        applyFilter={applyFilter}
+                        removeFilter={removeFilter}
+                        openAddForm={() => setShowAddForm(true)} />}>
+                <div className="overflow-x-auto w-full">
+                    <table className="table min-w-full ">
+                        <thead className="border-b border-[#EAECF0]">
+                            <tr className="capitalize" style={{textTransform:"capitalize"}}>
+                                <th className="font-medium text-[12px] font-poppins leading-normal bg-[#FAFBFB]  text-[#42526D] px-[24px] py-[13px]"
+                                style={{position:"static"}}>Name</th>
+                                <th className="text-[#42526D] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB]  px-[24px] py-[13px]">Role</th>
+                                <th className="text-[#42526D] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB]  px-[24px] py-[13px]">Page Assign</th>
+                                <th className="text-[#42526D] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB]  px-[24px] py-[13px] text-center">Status</th>
+                                <th className="text-[#42526D] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB]  px-[24px] py-[13px]">Task Assigned</th>
+                                <th className="text-[#42526D] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB]  px-[24px] py-[13px] text-center">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                             {Array.isArray(roles) && dummyUser?.map((user, index) => {
-                                console.log(user)
                                 return (
-                                    <tr key={index} className="font-light">
-                                        <td className="text-center flex gap-5 items-center w-[180px]">
-                                                <img src={user.image} alt={user.name} className="rounded-[50%] w-[70px] h-[70px]" />
-                                                {user.name}
+                                    <tr key={index} className="font-light ">
+                                        <td className="font-poppins font-normal text-[14px] leading-normal text-[#101828] p-[26px] flex ">
+                                            <img src={user.image} alt={user.name} className="rounded-[50%] w-[50px] h-[50px] mr-3" />
+                                            <div className="flex flex-col">
+                                                <p>{user.name}</p>
+                                                <p className="font-light text-[grey]">{user.email}</p>
+                                            </div>
                                         </td>
-                                        <td className="">
+                                        <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] p-[26px]">
                                             {user.roles.length > 1 ? "multiple" : user.roles[0].name}
                                         </td>
 
-                                        <td>
-                                            <p className={`${user.status === 'ACTIVE' ? "text-green-600" : "text-red-600"}`}>{user.status}</p>
+                                        <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] p-[26px]"> </td>
+                                        <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] p-[26px]">
+                                            <p
+                                                className={`before:content-['•'] before:text-2xl flex items-center capitalize justify-center gap-1 px-2 ${user.status === 'ACTIVE' ? "text-green-600 bg-green-100 before:text-green-600" : "text-red-600 bg-red-100 before:text-red-600"} text-center rounded-2xl`}
+                                            style={{textTransform:"capitalize"}}
+                                            >{user.status[0].toUpperCase() + user.status.slice(1).toLowerCase()}</p>
                                         </td>
-                                        <td>{format(new Date(user?.createdAt), 'dd/MM/yyyy')}</td>
-                                        <td>{format(new Date(user?.updatedAt), 'dd/MM/yyyy')}</td>
-                                        <td className="flex justify-center space-x-2">
-                                            <button onClick={() => {
-                                                setSelectedRole(user);
-                                                setShowDetailsModal(true);
-                                            }}>
-                                                <MdInfo size={28} className="text-blue-500 dark:text-white" />
-                                            </button>
-                                            <button
-                                                className="btn btn-sm btn-success"
-                                                onClick={() => {
-                                                    setSelectedRole(user);
-                                                    setShowAddForm(true);
-                                                }}
-                                            >
-                                                <PencilIcon className="w-4" />
-                                            </button>
-                                            <div className="flex items-center space-x-4">
-                                                <Switch
-                                                    checked={user.status === 'ACTIVE'}
-                                                    onChange={() => { statusChange(user) }}
-                                                    className={`${user.status === 'ACTIVE' ? 'bg-blue-600' : 'bg-gray-300'
-                                                        } relative inline-flex h-6 w-11 items-center rounded-full`}
+                                        <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] p-[26px]" style={{whiteSpace:"wrap"}}> asdfwerweq eqt eqfsadf qew</td>
+                                        <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] p-[26px]">
+                                            <div className="flex gap-2">
+
+                                                <button
+                                                    onClick={() => {
+                                                        setSelectedUser(user);
+                                                        setShowDetailsModal(true);
+                                                    }}
                                                 >
-                                                    <span
-                                                        className={`${user.status === 'ACTIVE' ? 'translate-x-6' : 'translate-x-1'
-                                                            } inline-block h-4 w-4 transform bg-white rounded-full transition`}
-                                                    />
-                                                </Switch>
-                                                {/* <span>{role.status === 'ACTIVE' ? 'Enabled' : 'Disabled'}</span> */}
+                                                    {/* <MdInfo
+                                                                  size={28}
+                                                                  className="text-blue-500 dark:text-white"
+                                                                /> */}
+                                                    <span className="flex items-center gap-1 border rounded-md p-[5px]">
+                                                        <FiEye />
+                                                        View
+                                                    </span>
+                                                </button>
+                                                <button
+                                                    className="btn btn-sm"
+                                                    onClick={() => {
+                                                        setSelectedUser(user);
+                                                        setShowAddForm(true);
+                                                    }}
+                                                >
+                                                    {/* <PencilIcon className="w-4" /> */}
+                                                    <FaRegEdit />
+                                                </button>
+                                                <div className="flex items-center space-x-4">
+                                                    <Switch
+                                                        checked={user.status === "ACTIVE"}
+                                                        onChange={() => {
+                                                            statusChange(user);
+                                                        }}
+                                                        className={`${user.status === "ACTIVE"
+                                                            ? "bg-blue-600"
+                                                            : "bg-gray-300"
+                                                            } relative inline-flex h-2 w-8 items-center rounded-full`}
+                                                    >
+                                                        <span
+                                                            className={`${user.status === "ACTIVE"
+                                                                ? "translate-x-4"
+                                                                : "translate-x-0"
+                                                                } inline-block h-5 w-5 bg-white rounded-full shadow-2xl border border-gray-300 transition`}
+                                                        />
+                                                    </Switch>
+                                                    {/* <span>{role.status === 'ACTIVE' ? 'Enabled' : 'Disabled'}</span> */}
+                                                </div>
                                             </div>
                                         </td>
-                                        <td>
+                                        {/* <td className="font-poppins font-medium text-[14px] leading-normal text-[#101828] p-[26px]">
 
 
-                                        </td>
+                                        </td> */}
                                     </tr>
                                 )
                             }
@@ -212,15 +242,15 @@ function Users() {
                 show={showAddForm}
                 onClose={() => {
                     setShowAddForm(false);
-                    setSelectedRole(null);
+                    setSelectedUser(null);
                 }}
                 updateUser={setChangesInUser}
-                role={selectedRole}
+                role={selectedUser}
             />
             {/* <AddRoleModal show={showAddForm} onClose={() => setShowAddForm(false)} updateRole={setChangesInRole} /> */}
 
             {/* Role Details Modal */}
-            <RoleDetailsModal role={selectedRole} show={showDetailsModal} onClose={() => setShowDetailsModal(false)} />
+            <RoleDetailsModal user={selectedUser} show={showDetailsModal} onClose={() => setShowDetailsModal(false)} />
             <ToastContainer />
         </>
     );

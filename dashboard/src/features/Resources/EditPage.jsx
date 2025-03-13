@@ -57,12 +57,12 @@ const EditPage = () => {
             </div> {/* Content manager ends here */}
             {/* Content view */}
             <div
-                className={`flex-[4] h-[85.5vh] flex flex-col bankgothic-medium-dt`}
+                className={`flex-[4] h-[85.5vh] flex flex-col `}
                 style={{ width: screen > 1000 ? "" : screen }}
             >
                 <ContentTopBar setWidth={setScreen} />
                 <h4>Commented by {"Anukool (Super Admin)"}</h4>
-                <div className={`overflow-y-scroll customscroller border-black-500 border mx-auto w-full`}
+                <div className={`overflow-y-scroll customscroller border-black-500 border mx-auto w-full bankgothic-medium-dt`}
                     style={{ width: screen > 1000 ? "" : screen }}
                 >
                     {

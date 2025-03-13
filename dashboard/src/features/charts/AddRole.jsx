@@ -90,9 +90,10 @@ const AddRoleModal = ({ show, onClose, updateRoles, user }) => {
                 <button className=" btn-circle text-stone-gray bg-none border-none absolute right-2 top-2" onClick={onClose}>✕</button>
                 <div className="">
 
-                    <h3 className="font-bold text-lg">{user ? "Edit User" : "Add New User"}</h3>
+                    <h3 className="font-semibold text-2xl">{user ? "Edit User" : "Add User"}</h3>
                     <form onSubmit={handleFormSubmit} className="flex flex-col items-center w-full gap-1">
                         <InputFileForm
+                            labelStyle={'text-[#6B7888]'}
                             id={"userProfile"}
                             label={"Profile photo"}
                             updater={setUserData}
@@ -105,6 +106,8 @@ const AddRoleModal = ({ show, onClose, updateRoles, user }) => {
                             updateType="name"
                             containerStyle=""
                             labelTitle="Name"
+                            InputClasses={"border-2 border-[#D0D5DD]"}
+                            labelStyle={"text-[#6B7888]"}
                             updateFormValue={updateFormValue}
                             errorMessage={errorMessageRole}
                         />
@@ -117,6 +120,9 @@ const AddRoleModal = ({ show, onClose, updateRoles, user }) => {
                                 updateType="email"
                                 containerStyle=""
                                 labelTitle="Email"
+
+                                InputClasses={"border-2"}
+                                labelStyle={"text-[#6B7888] border-[#D0D5DD]"}
                                 updateFormValue={updateFormValue}
                                 errorMessage={errorMessageDescription}
                             />
@@ -127,6 +133,8 @@ const AddRoleModal = ({ show, onClose, updateRoles, user }) => {
                                 updateType="phone"
                                 containerStyle=""
                                 labelTitle="Phone"
+                                InputClasses={"border-2"}
+                                labelStyle={"text-[#6B7888] border-[#D0D5DD]"}
                                 updateFormValue={updateFormValue}
                                 errorMessage={errorMessageDescription}
                             />
@@ -138,6 +146,7 @@ const AddRoleModal = ({ show, onClose, updateRoles, user }) => {
                                     return (
                                         <li className="flex gap-2 w-[50%] px-1 text-sm" key={element.id}>
                                             <input type="checkbox" name="name" id={element.id}
+                                                className="border-2 border-[#D0D5DD] border"
                                                 onChange={(e) => {
                                                     setUserData((prevState) => {
                                                         const updatedRoles = e.target.checked
@@ -148,7 +157,7 @@ const AddRoleModal = ({ show, onClose, updateRoles, user }) => {
                                                     });
                                                 }}
                                             />
-                                            <label htmlFor={element.id} className=" w-[70%]">{element.name}</label>
+                                            <label htmlFor={element.id} className=" w-[70%] text-[#6B7888]">{element.name}</label>
                                         </li>
                                     )
                                 })
@@ -156,11 +165,11 @@ const AddRoleModal = ({ show, onClose, updateRoles, user }) => {
                         </ul>
 
 
-                        <div className="modal-action self-end">
-                            <button type="button" className="rounded-md h-[2.5rem] px-4 border border-stone-200 text-sm btn-ghost" onClick={onClose}>
+                        <div className="modal-action self-end flex gap-1 w-[200px]">
+                            <button type="button" className="rounded-md h-[2.5rem] px-4 flex-[1] border border-stone-200 text-sm btn-ghost" onClick={onClose}>
                                 Cancel
                             </button>
-                            <button type="submit" className="rounded-md h-[2.5rem] px-4 text-sm bg-[#25439B] text-[white]">
+                            <button type="submit" className="rounded-md h-[2.5rem] px-4 flex-[1] text-sm bg-[#25439B] text-[white]">
                                 Save
                             </button>
                         </div>
