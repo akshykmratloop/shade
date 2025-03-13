@@ -1,13 +1,13 @@
 import { useEffect, useRef, useState } from "react";
 import { X, User } from "lucide-react";
 
-const InputFileForm = ({ label, baseClass, id, updater, labelStyle }) => {
+const InputFileForm = ({ label, baseClass, id, updater, labelStyle, preImage }) => {
   const [content, setContent] = useState("");
   const fileInputRef = useRef(null);
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
-    updater(prev => ({...prev, image:file}))
+    updater(prev => ({ ...prev, image: file }))
     if (!file) return;
 
     const fileType = file.type.split("/")[0];
@@ -52,9 +52,12 @@ const InputFileForm = ({ label, baseClass, id, updater, labelStyle }) => {
             ) : (
               <img src={content} alt="Preview" className="w-full h-full object-cover" />
             )
-          ) : (
-            <User className="w-6 h-6" />
-          )}
+          ) : preImage ?
+            <img src={preImage} alt="Preview" className="w-full h-full object-cover" />
+            :
+            (
+              <User className="w-6 h-6" />
+            )}
         </label>
         {content && (
           <button

@@ -140,9 +140,9 @@ function Users() {
                 <div className="overflow-x-auto w-full">
                     <table className="table min-w-full ">
                         <thead className="border-b border-[#EAECF0]">
-                            <tr className="capitalize" style={{textTransform:"capitalize"}}>
+                            <tr className="capitalize" style={{ textTransform: "capitalize" }}>
                                 <th className="font-medium text-[12px] font-poppins leading-normal bg-[#FAFBFB]  text-[#42526D] px-[24px] py-[13px]"
-                                style={{position:"static"}}>Name</th>
+                                    style={{ position: "static" }}>Name</th>
                                 <th className="text-[#42526D] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB]  px-[24px] py-[13px]">Role</th>
                                 <th className="text-[#42526D] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB]  px-[24px] py-[13px]">Page Assign</th>
                                 <th className="text-[#42526D] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB]  px-[24px] py-[13px] text-center">Status</th>
@@ -169,10 +169,10 @@ function Users() {
                                         <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] p-[26px]">
                                             <p
                                                 className={`before:content-['•'] before:text-2xl flex items-center capitalize justify-center gap-1 px-2 ${user.status === 'ACTIVE' ? "text-green-600 bg-green-100 before:text-green-600" : "text-red-600 bg-red-100 before:text-red-600"} text-center rounded-2xl`}
-                                            style={{textTransform:"capitalize"}}
+                                                style={{ textTransform: "capitalize" }}
                                             >{user.status[0].toUpperCase() + user.status.slice(1).toLowerCase()}</p>
                                         </td>
-                                        <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] p-[26px]" style={{whiteSpace:"wrap"}}> asdfwerweq eqt eqfsadf qew</td>
+                                        <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] p-[26px]" style={{ whiteSpace: "wrap" }}> asdfwerweq eqt eqfsadf qew</td>
                                         <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] p-[26px]">
                                             <div className="flex gap-2">
 
@@ -182,10 +182,6 @@ function Users() {
                                                         setShowDetailsModal(true);
                                                     }}
                                                 >
-                                                    {/* <MdInfo
-                                                                  size={28}
-                                                                  className="text-blue-500 dark:text-white"
-                                                                /> */}
                                                     <span className="flex items-center gap-1 border rounded-md p-[5px]">
                                                         <FiEye />
                                                         View
@@ -245,12 +241,16 @@ function Users() {
                     setSelectedUser(null);
                 }}
                 updateUser={setChangesInUser}
-                role={selectedUser}
+                user={selectedUser}
             />
             {/* <AddRoleModal show={showAddForm} onClose={() => setShowAddForm(false)} updateRole={setChangesInRole} /> */}
 
             {/* Role Details Modal */}
-            <RoleDetailsModal user={selectedUser} show={showDetailsModal} onClose={() => setShowDetailsModal(false)} />
+            <RoleDetailsModal
+                user={selectedUser}
+                show={showDetailsModal}
+                onClose={() => setShowDetailsModal(false)}
+            />
             <ToastContainer />
         </>
     );
