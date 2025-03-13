@@ -44,9 +44,8 @@ function InputText({
       style={{display: display ? "none" : ""}}
     >
       <label className="pl-0 mb-1">
-<<<<<<< HEAD
         <span
-          className={"label-text  " + labelStyle}
+          className={"label-text text-base-content " + labelStyle}
         >
           {labelTitle}
         </span>
@@ -59,75 +58,8 @@ function InputText({
           value={value || ""}
           placeholder={placeholder || ""}
           onChange={(e) => updateInputValue(e.target.value)}
-          className={`input ${width ?? "w-full"}  h-[2.3rem] text-xs input input-bordered focus:border-none ${InputClasses || "border-stone-500"}`}
+          className={`input ${width ?? "w-full"}  h-[2.3rem] text-xs input input-bordered border-stone-500 focus:border-none ${InputClasses || ""}`}
         />
-=======
-        <span className={"label-text text-base-content " + labelStyle}>
-          {labelTitle}
-        </span>
-      </label>
-      <div className="relative">
-        {type === "select" ? (
-          // **Select Dropdown**
-          <select
-            name={name}
-            value={value}
-            onChange={(e) => updateInputValue(e.target.value)}
-            className={`input ${
-              width ?? "w-full"
-            } h-[2.3rem] text-xs input input-bordered border-stone-500 focus:border-none ${
-              InputClasses || ""
-            }`}
-          >
-            <option value="" disabled>
-              {placeholder || "Select an option"}
-            </option>
-            {options.map((opt, index) => (
-              <option key={index} value={opt.value}>
-                {opt.label}
-              </option>
-            ))}
-          </select>
-        ) : type === "checkbox" ? (
-          // **Checkboxes**
-          <div className="flex flex-wrap gap-2">
-            {options.map((opt, index) => (
-              <label key={index} className="flex items-center space-x-2">
-                <input
-                  type="checkbox"
-                  name={name}
-                  value={opt.value}
-                  checked={value.includes(opt.value)}
-                  onChange={(e) => {
-                    const checked = e.target.checked;
-                    const newValue = checked
-                      ? [...value, opt.value]
-                      : value.filter((v) => v !== opt.value);
-                    updateInputValue(newValue);
-                  }}
-                  className="checkbox checkbox-primary"
-                />
-                <span className="text-sm">{opt.label}</span>
-              </label>
-            ))}
-          </div>
-        ) : (
-          // **Regular Input (Text, Password, etc.)**
-          <input
-            dir={language === "ar" ? "rtl" : "ltr"}
-            type={showPassword && type === "password" ? "text" : type || "text"}
-            name={name}
-            value={value || ""}
-            placeholder={placeholder || ""}
-            onChange={(e) => updateInputValue(e.target.value)}
-            className={`input ${
-              width ?? "w-full"
-            } h-[2.3rem] text-xs input input-bordered border-stone-500 focus:border-none ${
-              InputClasses || ""
-            }`}
-          />
-        )}
->>>>>>> 1650a38 (fetch permissions and role type api integrated in frontend)
         {type === "password" && value && (
           <button
             type="button"
