@@ -132,23 +132,24 @@ function Users() {
         <>
             <TitleCard title="User" topMargin="mt-2" TopSideButtons={<TopSideButtons applySearch={applySearch} applyFilter={applyFilter} removeFilter={removeFilter} openAddForm={() => setShowAddForm(true)} />}>
                 <div className="overflow-x-auto">
-                    <table className="table w-full text-center">
+                    <table className=" w-full text-center rounded-lg userRoleTable"
+                    style={{fontFamily:"system-ui", textAlign:"left"}}>
                         <thead>
-                            <tr>
-                                <th style={{position: "static"}}>Name</th>
-                                <th>Role</th>
-                                <th>Status</th>
-                                <th>Created At</th>
-                                <th>Updated At</th>
-                                <th>Actions</th>
+                            <tr className="font-light bg-gray-500 p-2 custom" style={{}}>
+                                <th style={{position: "static"}} className="pl-4">Name</th>
+                                <th >Role</th>
+                                <th >Status</th>
+                                <th >Created At</th>
+                                <th >Updated At</th>
+                                <th >Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                             {Array.isArray(roles) && dummyUser?.map((user, index) => {
                                 console.log(user)
                                 return (
-                                    <tr key={index} >
-                                        <td className="text-center pl-0 flex gap-5 pl-10 items-center w-[180px]">
+                                    <tr key={index} className="font-light">
+                                        <td className="text-center flex gap-5 items-center w-[180px]">
                                                 <img src={user.image} alt={user.name} className="rounded-[50%] w-[70px] h-[70px]" />
                                                 {user.name}
                                         </td>
