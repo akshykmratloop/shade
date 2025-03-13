@@ -3,11 +3,11 @@ import {
   getPermissionById,
   createPermission,
   updatePermission,
-
   getSubPermissions,
-  getSubPermissionById,
+  getSubpermissionByPermissionId,
   createSubPermission,
   updateSubPermission,
+  getPermissionsByRoleType,
 } from "./permission.service.js";
 
 const GetPermissions = async (req, res) => {
@@ -21,39 +21,62 @@ const GetSubPermissions = async (req, res) => {
 };
 
 const GetPermissionById = async (req, res) => {
-  const { id } = req.params;
+  const {id} = req.params;
   const response = await getPermissionById(id);
   res.status(200).json(response);
 };
 
-const GetSubPermissionById = async (req, res) => {
-  const { id } = req.params;
-  const response = await getSubPermissionById(id);
+const GetPermissionsByRoleType = async (req, res) => {
+  const {id} = req.params;
+  console.log(id);
+  const response = await getPermissionsByRoleType(id);
+  res.status(200).json(response);
+};
+
+const GetSubpermissionByPermissionId = async (req, res) => {
+  const {permissionId} = req.query;
+  const response = await getSubpermissionByPermissionId(permissionId);
   res.status(200).json(response);
 };
 
 const CreatePermission = async (req, res) => {
-  const { name, description, roleTypeId, subPermissions } = req.body;
-  const response = await createPermission(name, description, roleTypeId, subPermissions );
+  const {name, description, roleTypeId, subPermissions} = req.body;
+  const response = await createPermission(
+    name,
+    description,
+    roleTypeId,
+    subPermissions
+  );
   res.status(201).json(response);
 };
 
 const CreateSubPermission = async (req, res) => {
-  const { name, description } = req.body;
-  const response = await createSubPermission(name, description, roleTypeId, subPermissions );
+  const {name, description} = req.body;
+  const response = await createSubPermission(
+    name,
+    description,
+    roleTypeId,
+    subPermissions
+  );
   res.status(201).json(response);
 };
 
 const UpdatePermission = async (req, res) => {
-  const { id } = req.params;
-  const { name, description, roleTypeId, subPermissions } = req.body;
-  const response = await updatePermission(id, name, description, roleTypeId, subPermissions);
+  const {id} = req.params;
+  const {name, description, roleTypeId, subPermissions} = req.body;
+  const response = await updatePermission(
+    id,
+    name,
+    description,
+    roleTypeId,
+    subPermissions
+  );
   res.status(200).json(response);
 };
 
 const UpdateSubPermission = async (req, res) => {
-  const { id } = req.params;
-  const { name, description } = req.body;
+  const {id} = req.params;
+  const {name, description} = req.body;
   const response = await updateSubPermission(id, name, description);
   res.status(200).json(response);
 };
@@ -67,7 +90,9 @@ export default {
 
   // SubPermissions
   GetSubPermissions,
-  GetSubPermissionById,
+  GetSubpermissionByPermissionId,
   CreateSubPermission,
   UpdateSubPermission,
+
+  GetPermissionsByRoleType,
 };

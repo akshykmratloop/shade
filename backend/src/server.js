@@ -1,5 +1,5 @@
-import { createApp, finishApp } from "./app.js";
-import { useModules } from "./config/index.js";
+import {createApp, finishApp} from "./app.js";
+import {useModules} from "./config/index.js";
 (async () => {
   const app = createApp();
 
