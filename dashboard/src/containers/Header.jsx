@@ -68,7 +68,7 @@ function Header() {
                     <p className='text-base-700 font-light font-lexend text-[grey]'>{greetings}</p>
                 </div>
                 <div className="order-last gap-[12px]">
-                    <SearchBar setSearchText={() => {}} styleClass={"bg-transparent border border-2 border-stone-100"} />
+                    <SearchBar setSearchText={() => {}} styleClass={"bg-transparent border border-stone-300 dark:border-stone-600"} />
                     <button className="h-[45px] w-[45px] mx-1 flex items-center justify-center bg-base-300 rounded-md border-green-200" onClick={openNotification}>
                         <div className="indicator">
                             <BellIcon className="h-6 w-6" />

@@ -1,3 +1,4 @@
+import { RxQuestionMarkCircled } from "react-icons/rx"
 import Subtitle from "../Typography/Subtitle"
 
   
@@ -6,7 +7,7 @@ import Subtitle from "../Typography/Subtitle"
           <div className={"card w-full bg-base-100" + (topMargin || "mt-6")}>
 
             {/* Title for Card */}
-                <h3 className="text-[24px] font-[500] h-16 flex items-center pl-[25px]">{title}</h3>
+                <h3 className="text-[24px] font-[500] h-16 flex items-center gap-1 pl-[25px]">{title} <RxQuestionMarkCircled className="text-[gray] text-lg translate-y-[2px]" /></h3>
               <Subtitle styleClass={TopSideButtons ? "inline-block" : ""}>
 
                 {/* Top side button, show only if present */}

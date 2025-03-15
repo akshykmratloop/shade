@@ -18,6 +18,8 @@ import { FaRegEdit } from "react-icons/fa";
 import { FunnelIcon } from "@heroicons/react/24/outline";
 import { RxQuestionMarkCircled } from "react-icons/rx";
 import { LuListFilter } from "react-icons/lu";
+import { LuImport } from "react-icons/lu";
+
 
 
 
@@ -46,7 +48,7 @@ const TopSideButtons = ({ removeFilter, applyFilter, applySearch, openAddForm })
     }, [searchText]);
 
     return (
-        <div className="inline-block float-right w-full flex items-center gap-3 border rounded-lg p-1" style={{ textTransform: "capitalize" }}>
+        <div className="inline-block float-right w-full flex items-center gap-3 border dark:border-neutral-600 rounded-lg p-1" style={{ textTransform: "capitalize" }}>
             <SearchBar
                 searchText={searchText}
                 styleClass="w-700px border-none w-full flex-1"
@@ -64,7 +66,7 @@ const TopSideButtons = ({ removeFilter, applyFilter, applySearch, openAddForm })
                 </button>
             )}
             <div className="dropdown dropdown-bottom dropdown-end">
-                <label tabIndex={0} className="capitalize border text-[14px] self-center border-stone-300 rounded-lg h-[40px] w-[91px] flex items-center gap-1 font-[300] px-[14px] py-[10px]">
+                <label tabIndex={0} className="capitalize border text-[14px] self-center border-stone-300 dark:border-neutral-500 rounded-lg h-[40px] w-[91px] flex items-center gap-1 font-[300] px-[14px] py-[10px]">
                     <LuListFilter className="w-5 " />
                     Filter
                 </label>
@@ -135,59 +137,65 @@ function Users() {
 
     return (
         <div className="relative">
-            <button className="absolute top-3 right-2 z-20 btn btn-sm btn-success !capitalize ml-4 bg-[#25439B] text-[white] font-semibold py-[.9rem] pb-[1.8rem] px-4" onClick={() => setShowAddForm(true)}>
-                <PlusIcon className="w-4 mr-2 border border-1 rounded-full border-dotted " />
-                <span>
-                    Create User
-                </span>
-            </button>
-            <TitleCard title="User" topMargin="mt-2"
+            <div className="absolute top-3 right-2 flex">
+                <button className="border dark:border-neutral-400 flex justify-center items-center gap-2 px-3 rounded-lg text-[14px] text-[#0E2354] dark:text-stone-200">
+                    <LuImport />
+                    <span>Import</span>
+                </button>
+                <button className=" z-20 btn btn-sm hover:bg-[#25439B] border-none !capitalize ml-4 bg-[#25439B] text-[white] font-semibold py-[.9rem] pb-[1.8rem] px-4" onClick={() => setShowAddForm(true)}>
+                    <PlusIcon className="w-4 mr-2 border border-1 rounded-full border-dotted " />
+                    <span>
+                        Create User
+                    </span>
+                </button>
+            </div>
+            <TitleCard title={[<p>Users</p>, ]} topMargin="mt-2"
                 TopSideButtons={
                     <TopSideButtons
                         applySearch={applySearch}
                         applyFilter={applyFilter}
                         removeFilter={removeFilter}
-                    // openAddForm={() => setShowAddForm(true)}
+                    openAddForm={() => setShowAddForm(true)}
                     />
                 }>
-                <div className="overflow-x-auto w-full border rounded-2xl">
-                    <table className="table text-left min-w-full ">
-                        <thead className="" style={{borderRadius:""}}>
+                <div className="overflow-x-auto w-full border dark:border-stone-600 rounded-2xl">
+                    <table className="table text-left min-w-full dark:text-[white]">
+                        <thead className="" style={{ borderRadius: "" }}>
                             <tr className="!capitalize" style={{ textTransform: "capitalize" }}>
-                                <th className="font-medium text-[12px] font-poppins leading-normal bg-[#FAFBFB]  text-[#42526D] px-[24px] py-[13px] !capitalize"
+                                <th className="font-medium text-[12px] font-poppins leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white] text-[#42526D] px-[24px] py-[13px] !capitalize"
                                     style={{ position: "static" }}>Name</th>
-                                <th className="text-[#42526D] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB]  px-[24px] py-[13px] !capitalize flex items-center gap-1">Role <RxQuestionMarkCircled className="w-4 h-4 text-[gray] translate-y-[-1px]" /></th>
-                                <th className="text-[#42526D] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB]  px-[24px] py-[13px] !capitalize">Page Assign</th>
-                                <th className="text-[#42526D] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB]  px-[24px] py-[13px] text-center !capitalize">Status</th>
-                                <th className="text-[#42526D] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB]  px-[24px] py-[13px] !capitalize">Task Assigned</th>
-                                <th className="text-[#42526D] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB]  px-[24px] py-[13px] text-center !capitalize">Actions</th>
+                                <th className="text-[#42526D] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] !capitalize flex items-center gap-1">Role <RxQuestionMarkCircled className="w-4 h-4 text-[gray] translate-y-[-1px]" /></th>
+                                <th className="text-[#42526D] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] !capitalize">Page Assign</th>
+                                <th className="text-[#42526D] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] text-center !capitalize">Status</th>
+                                <th className="text-[#42526D] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] !capitalize">Task Assigned</th>
+                                <th className="text-[#42526D] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] text-center !capitalize">Actions</th>
                             </tr>
                         </thead>
                         <tbody className="">
                             {Array.isArray(roles) && dummyUser?.map((user, index) => {
                                 return (
-                                    <tr key={index} className="font-light ">
-                                        <td className="font-poppins font-normal text-[14px] leading-normal text-[#101828] p-[26px] pl-5 flex ">
-                                            <img src={user.image} alt={user.name} className="rounded-[50%] w-[50px] h-[50px] mr-3" />
+                                    <tr key={index} className="font-light">
+                                        <td className="font-poppins font-normal text-[14px] leading-normal text-[#101828] p-[26px] py-[15px] pl-5 flex ">
+                                            <img src={user.image} alt={user.name} className="rounded-[50%] w-[41px] h-[41px] mr-3" />
                                             <div className="flex flex-col">
-                                                <p>{user.name}</p>
+                                                <p className="dark:text-[white]">{user.name}</p>
                                                 <p className="font-light text-[grey]">{user.email}</p>
                                             </div>
                                         </td>
-                                        <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] p-[26px]">
+                                        <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] p-[26px] py-[15px] dark:text-[white]">
                                             {user.roles.length > 1 ? "multiple" : user.roles[0].name}
                                         </td>
 
-                                        <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] p-[26px]"> </td>
-                                        <td className="font-poppins font-light text-[12px] leading-normal text-[#101828] p-[26px]">
+                                        <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] p-[26px] py-[15px] dark:text-[white]"> </td>
+                                        <td className="font-poppins font-light text-[12px] leading-normal text-[#101828] p-[26px] py-[15px] dark:text-[white]">
                                             <p
                                                 className={`before:content-['•'] before:text-2xl flex items-center capitalize justify-center gap-1 px-1 font-[500] ${user.status === 'ACTIVE' ? "text-green-600 bg-green-100 before:text-green-600 px-1" : "text-red-600 bg-red-100 before:text-red-600 "} text-center rounded-2xl`}
                                                 style={{ textTransform: "capitalize" }}
                                             >{user.status[0].toUpperCase() + user.status.slice(1).toLowerCase()}</p>
                                         </td>
-                                        <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] p-[26px]" style={{ whiteSpace: "wrap" }}> asdfwerweq eqt eqfsadf qew</td>
-                                        <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] p-[26px]">
-                                            <div className="flex gap-[15px] border border border-[1px] border-[#E6E7EC] rounded-[8px] p-[13.6px] py-[11.6px]">
+                                        <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] p-[26px] py-[15px] dark:text-[white]" style={{ whiteSpace: "wrap" }}> asdfwerweq eqt eqfsadf qew</td>
+                                        <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] p-[26px] py-[15px] dark:text-[white]">
+                                            <div className="flex gap-[15px] justify-center border border border-[1px] border-[#E6E7EC] dark:border-stone-400 rounded-[8px] p-[13.6px] py-[11.6px]">
                                                 <button
                                                     onClick={() => {
                                                         setSelectedUser(user);

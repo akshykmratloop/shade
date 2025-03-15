@@ -8,21 +8,24 @@ function RoleDetailsModal({ user, show, onClose }) {
 
     if (!user) return null;
 
-
     return (
         <Dialog open={show} onClose={onClose} className="relative z-50">
             <div className="fixed inset-0 bg-black/30" aria-hidden="true" />
-            <div className="fixed inset-0 flex items-center justify-center p-4 border border-1px solid border border-1 border-red-500">
-                <Dialog.Panel className="w-full max-w-2xl shadow-lg shadow-stone rounded- bg-base-200 p-6">
+            <div className="fixed inset-0 flex items-center justify-center p-4">
+                <Dialog.Panel className="w-[853px] overflow-y-scroll customscroller shadow-lg shadow-stone rounded-lg bg-[white] dark:bg-slate-800 p-6">
                     <div className="flex justify-between items-center mb-4">
-                        <Dialog.Title className="text-lg font-semibold">User Detail</Dialog.Title>
+                        <Dialog.Title className="text-lg font-[500]">User Detail</Dialog.Title>
                         <button onClick={onClose} className="btn btn-ghost btn-xs">
                             <XMarkIcon className="w-5" />
                         </button>
                     </div>
                     <div className="overflow-x-auto">
-                        <div>
-                            <img src={user.image} alt="" className="w-[7rem] h-[7rem] rounded-lg" />
+                        <div className="flex items-center gap-4">
+                            <img src={user.image} alt="" className="w-[4.8rem] h-[4.8rem] rounded-lg" />
+                            <div>
+                                <p className="font-semibold text-[black] dark:text-[white]">{user.name}</p>
+                                <p className="text-[gray]">{user.email}</p>
+                            </div>
                         </div>
                         <table className="table-auto w-full text-left">
                             <thead>
@@ -30,16 +33,16 @@ function RoleDetailsModal({ user, show, onClose }) {
                                     <th colSpan={3} className="pt-4">Personal Details</th>
                                 </tr>
                             </thead>
-                            <tbody style={{borderBottom: "1px solid #E0E0E0"}}>
+                            <tbody style={{ borderBottom: "1px solid #E0E0E0" }}>
                                 <tr className="font-light text-sm ">
-                                    <td className="px-4 pt-2">Name</td>
-                                    <td className="px-4 pt-2">Email</td>
-                                    <td className="px-4 pt-2">Phone</td>
+                                    <td className="pt-2 pr-[60px]">Name</td>
+                                    <td className="pt-2">Email</td>
+                                    <td className="pt-2">Phone</td>
                                 </tr>
                                 <tr className="font-bold text-sm">
-                                    <td className="px-4 py-2 pb-6">{user.name}</td>
-                                    <td className="px-4 py-2 pb-6">{user.email}</td>
-                                    <td className="px-4 py-2 pb-6">{user.phone}</td>
+                                    <td className="py-2 pb-6">{user.name}</td>
+                                    <td className="py-2 pb-6">{user.email}</td>
+                                    <td className="py-2 pb-6">{user.phone}</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -49,40 +52,51 @@ function RoleDetailsModal({ user, show, onClose }) {
                                     <th colSpan={3} className="pt-4">Roles & Permissions</th>
                                 </tr>
                             </thead>
-                            <tbody style={{borderBottom: "1px solid #E0E0E0"}}>
+                            <tbody style={{ borderBottom: "1px solid #E0E0E0" }}>
                                 <tr className="font-light text-sm ">
-                                    <td className="px-4 pt-2">Name</td>
-                                    <td className="px-4 pt-2">Email</td>
+                                    <td className="pt-2 pr-[24px]">Roles</td>
+                                    <td className="pt-2">Permissions</td>
                                 </tr>
-                                <tr className="font-bold text-sm">
-                                    <td className="px-4 py-2 pb-6">{user.name}</td>
-                                    <td className="px-4 py-2 pb-6">{user.email}</td>
+                                <tr className="font-bold text-sm pb-7">
+                                    <td className="py-2 pb-7"
+                                    >
+                                        <div className="flex gap-2 flex-wrap w-[50px] relative">
+                                            <div className="absolute flex gap-2 flex-wrap w-[200px] top-[-14px]">
+                                                {user.roles.map((e, i, a) => {
+                                                    let lastElement = i === a.length - 1
+                                                    return (<span key={e.id} className="">{e.name}{!lastElement && ","}</span>)
+                                                })}
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td className="py-2 pb-10">{user.email}</td>
                                 </tr>
                             </tbody>
                         </table>
                         <table className=" w-full text-left">
-                            <thead>
-                                <tr>
+                            <thead className="mb-4">
+                                <tr className="mb-4 block">
                                     <th colSpan={3} className="pt-4">Associated Resources</th>
                                 </tr>
-                            </thead>
-                            <tbody>
                                 <tr className="font-light bg-[#25439B] text-[white] text-[14px] ">
                                     <td className="p-3"
-                                    style={{borderRadius:"10px 0px 0px 10px"}}>Resources Name</td>
-                                    <td className="p-3" style={{border:"1px solid grey", borderTop:"none", borderBottom:"none"}}>Role</td>
+                                        style={{ borderRadius: "10px 0px 0px 10px" }}>Resources Name</td>
+                                    <td className="p-3" style={{ border: "1px solid grey", borderTop: "none", borderBottom: "none" }}>Role</td>
                                     <td className="p-3"
-                                    style={{borderRadius:"0px 10px 10px 0px"}}>Permission</td>
+                                        style={{ borderRadius: "0px 10px 10px 0px" }}>Permission</td>
+                                </tr>
+                            </thead>
+                            <tbody className="bg-[#fcfcfc] dark:bg-transparent">
+
+                                <tr className="font-light text-[18px]">
+                                    <td className="px-4 py-2 border dark:border-[#232d3d]">Manager</td>
+                                    <td className="px-4 py-2 border dark:border-[#232d3d]">Edit, Create, Role</td>
+                                    <td className="px-4 py-2 border dark:border-[#232d3d]">Edit, Create, Role</td>
                                 </tr>
                                 <tr className="font-light text-[18px]">
-                                    <td className="px-4 py-2">Manager</td>
-                                    <td className="px-4 py-2">Edit, Create, Role</td>
-                                    <td className="px-4 py-2">Edit, Create, Role</td>
-                                </tr>
-                                <tr className="font-light text-[18px]">
-                                    <td className="px-4 py-2 pb-6">Manager</td>
-                                    <td className="px-4 py-2 pb-6">Delete, </td>
-                                    <td className="px-4 py-2 pb-6">Read</td>
+                                    <td className="px-4 py-2 pb-6 border dark:border-[#232d3d]">Manager</td>
+                                    <td className="px-4 py-2 pb-6 border dark:border-[#232d3d]">Delete, </td>
+                                    <td className="px-4 py-2 pb-6 border dark:border-[#232d3d]">Read</td>
                                 </tr>
                             </tbody>
                         </table>
