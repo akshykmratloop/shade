@@ -1,41 +1,42 @@
+// libraries import
 import { useEffect, useState } from "react";
-import XMarkIcon from '@heroicons/react/24/outline/XMarkIcon';
 import PlusIcon from '@heroicons/react/24/outline/PlusIcon';
+import { toast, ToastContainer } from "react-toastify";
+// self modules
 import SearchBar from "../../components/Input/SearchBar";
 import { activateRole, deactivateRole } from "../../app/fetch";
 import TitleCard from "../../components/Cards/TitleCard";
 import AddRoleModal from "./AddRole";
 import RoleDetailsModal from "./ShowRole";
-import { toast, ToastContainer } from "react-toastify";
 import updateToasify from "../../app/toastify";
-import { Switch } from '@headlessui/react';
-import { FiEye } from "react-icons/fi";
 import dummyUser from "../../assets/Dummy_User.json"
+// icons
+import { Switch } from '@headlessui/react';
+import XMarkIcon from '@heroicons/react/24/outline/XMarkIcon';
+import { FiEye } from "react-icons/fi";
 import { FaRegEdit } from "react-icons/fa";
 import { RxQuestionMarkCircled } from "react-icons/rx";
 import { LuListFilter } from "react-icons/lu";
 import { LuImport } from "react-icons/lu";
 
 
-
-
-const TopSideButtons = ({ removeFilter, applyFilter, applySearch, openAddForm }) => {
+const TopSideButtons = ({ removeFilter, applyFilter, applySearch }) => { // search and filter bar component
     const [filterParam, setFilterParam] = useState("");
     const [searchText, setSearchText] = useState("");
     const statusFilters = ["ACTIVE", "INACTIVE"];
 
-    const showFiltersAndApply = (status) => {
+    const showFiltersAndApply = (status) => { // apply filters 
         applyFilter(status);
         setFilterParam(status);
     };
 
-    const removeAppliedFilter = () => {
+    const removeAppliedFilter = () => { // the removing the filter and clearing the search
         removeFilter();
         setFilterParam("");
         setSearchText("");
     };
 
-    useEffect(() => {
+    useEffect(() => { // reflection on ui as per the state changes
         if (searchText === "") {
             removeAppliedFilter();
         } else {
@@ -45,7 +46,8 @@ const TopSideButtons = ({ removeFilter, applyFilter, applySearch, openAddForm })
     }, [searchText]);
 
     return (
-        <div className="inline-block float-right w-full flex items-center gap-3 border dark:border-neutral-600 rounded-lg p-1" style={{ textTransform: "capitalize" }}>
+        <div className="inline-block float-right w-full flex items-center gap-3 border dark:border-neutral-600 rounded-lg p-1"
+            style={{ textTransform: "capitalize" }}>
             <SearchBar
                 searchText={searchText}
                 styleClass="w-700px border-none w-full flex-1"
@@ -63,11 +65,15 @@ const TopSideButtons = ({ removeFilter, applyFilter, applySearch, openAddForm })
                 </button>
             )}
             <div className="dropdown dropdown-bottom dropdown-end">
-                <label tabIndex={0} className="capitalize border text-[14px] self-center border-stone-300 dark:border-neutral-500 rounded-lg h-[40px] w-[91px] flex items-center gap-1 font-[300] px-[14px] py-[10px]">
-                    <LuListFilter className="w-5 " />
+                <label
+                    tabIndex={0}
+                    className="capitalize border text-[14px] self-center border-stone-300 dark:border-neutral-500 rounded-lg h-[40px] w-[91px] flex items-center gap-1 font-[300] px-[14px] py-[10px]">
+                    <LuListFilter
+                        className="w-5 " />
                     Filter
                 </label>
-                <ul tabIndex={0} className="dropdown-content menu p-2 text-sm shadow bg-base-100 rounded-box w-52">
+                <ul tabIndex={0}
+                    className="dropdown-content menu p-2 text-sm shadow bg-base-100 rounded-box w-52">
                     {statusFilters.map((status, key) => (
                         <li key={key}>
                             <a onClick={() => showFiltersAndApply(status)}>{status}</a>
@@ -89,7 +95,6 @@ function Users() {
     const [changesInUser, setChangesInUser] = useState(false);
     const [selectedUser, setSelectedUser] = useState(null);
     const [showDetailsModal, setShowDetailsModal] = useState(false);
-    // const [enabled, setEnabled] = useState(false);
 
     const removeFilter = () => {
         setUsers([...originalUsers]);
@@ -100,7 +105,7 @@ function Users() {
         setUsers(filteredRoles);
     };
 
-    const applySearch = (value) => {
+    const applySearch = (value) => { // actual search application which is being sent to the topsidebar component
         const filteredRoles = originalUsers.filter(user =>
             user.name.toLowerCase().includes(value.toLowerCase())
         );
@@ -108,13 +113,11 @@ function Users() {
         setUsers(filteredRoles);
     };
 
-    const statusChange = async (role) => {
+    const statusChange = async (role) => { // Active or inactive application
         const loadingToastId = toast.loading("loging in", { autoClose: 2000 }); // starting the loading in toaster
-
         let response;
         if (role.status === "ACTIVE") response = await deactivateRole(role)
         else response = await activateRole(role)
-
         if (response.ok) {
             updateToasify(loadingToastId, `Request successful. ${response.message}`, "success", 1000) // updating the toaster
             setChangesInUser(prev => !prev)
@@ -146,13 +149,13 @@ function Users() {
                     </span>
                 </button>
             </div>
-            <TitleCard title={[<p>Users</p>, ]} topMargin="mt-2"
+            <TitleCard title={[<p>Users</p>,]} topMargin="mt-2"
                 TopSideButtons={
                     <TopSideButtons
                         applySearch={applySearch}
                         applyFilter={applyFilter}
                         removeFilter={removeFilter}
-                    openAddForm={() => setShowAddForm(true)}
+                        openAddForm={() => setShowAddForm(true)}
                     />
                 }>
                 <div className="overflow-x-auto w-full border dark:border-stone-600 rounded-2xl">
@@ -230,14 +233,9 @@ function Users() {
                                                                 } inline-block h-5 w-5 bg-white rounded-full shadow-2xl border border-gray-300 transition`}
                                                         />
                                                     </Switch>
-                                                    {/* <span>{role.status === 'ACTIVE' ? 'Enabled' : 'Disabled'}</span> */}
                                                 </div>
                                             </div>
                                         </td>
-                                        {/* <td className="font-poppins font-medium text-[14px] leading-normal text-[#101828] p-[26px]">
-
-
-                                        </td> */}
                                     </tr>
                                 )
                             }

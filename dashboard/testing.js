@@ -1,134 +1,163 @@
-import { useEffect, useState } from "react";
-import { format } from 'date-fns';
-import XMarkIcon from '@heroicons/react/24/outline/XMarkIcon';
-import PlusIcon from '@heroicons/react/24/outline/PlusIcon';
-import PencilIcon from '@heroicons/react/24/outline/PencilIcon';
-import SearchBar from "../../components/Input/SearchBar";
-import { fetchRoles, activateRole, deactivateRole } from "../../app/fetch";
-import TitleCard from "../../components/Cards/TitleCard";
-import AddRoleModal from "./AddRole";
-import RoleDetailsModal from "./ShowRole";
+import { useEffect, useState, useRef } from "react";
+import InputText from "../../components/Input/InputText";
+import { createRole, updateRole } from "../../app/fetch";
 import { toast, ToastContainer } from "react-toastify";
+import validator from "../../app/valid";
 import updateToasify from "../../app/toastify";
-import { Switch } from '@headlessui/react';
-import { MdInfo } from "react-icons/md";
-import { FiEye } from "react-icons/fi";
-import dummyUser from "../../assets/Dummy_User.json"
-import { FaRegEdit } from "react-icons/fa";
-import { FunnelIcon } from "@heroicons/react/24/outline";
-import { RxQuestionMarkCircled } from "react-icons/rx";
-import { LuListFilter } from "react-icons/lu";
-import { LuImport } from "react-icons/lu";
+import InputFileForm from "../../components/Input/InputFileForm";
+import dummy from "../../assets/MOCK_DATA.json";
+import { X } from "lucide-react";
 
+const AddRoleModal = ({ show, onClose, updateRoles, user }) => {
+    const [errorMessageRole, setErrorMessageRole] = useState("");
+    const [errorMessageDescription, setErrorMessageDescription] = useState("");
+    const modalRef = useRef(null);
 
-
-
-const TopSideButtons = ({ removeFilter, applyFilter, applySearch, openAddForm }) => {
-    const [filterParam, setFilterParam] = useState("");
-    const [searchText, setSearchText] = useState("");
-    const statusFilters = ["ACTIVE", "INACTIVE"];
-
-    const showFiltersAndApply = (status) => {
-        applyFilter(status);
-        setFilterParam(status);
-    };
-
-    const removeAppliedFilter = () => {
-        removeFilter();
-        setFilterParam("");
-    };
+    const [userData, setUserData] = useState({
+        name: "",
+        email: "",
+        phone: "",
+        image: "",
+        roles: [],
+    });
 
     useEffect(() => {
-        applySearch(searchText);
-    }, [searchText]);
+        if (user?.roles?.length > 0) {
+            setUserData((prev) => ({
+                ...prev,
+                roles: user.roles.map((role) => role.id),
+            }));
+        }
+    }, [user?.roles]);
+
+    useEffect(() => {
+        if (user) {
+            setUserData({
+                name: user.name || "",
+                email: user.email || "",
+                phone: user.phone || "",
+                image: user.image || "",
+                roles: user.roles?.map((role) => role.id) || [],
+            });
+        } else {
+            setUserData({
+                name: "",
+                email: "",
+                phone: "",
+                image: "",
+                roles: [],
+            });
+        }
+    }, [user]);
+
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (modalRef.current && !modalRef.current.contains(event.target)) {
+                onClose();
+            }
+        };
+        
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, [onClose]);
+
+    const clearErrorMessage = () => {
+        setErrorMessageRole("");
+        setErrorMessageDescription("");
+    };
+
+    const handleFormSubmit = async (e) => {
+        e.preventDefault();
+
+        const validation = validator(userData, {
+            name: setErrorMessageRole,
+            description: setErrorMessageDescription,
+        });
+
+        if (!validation) return;
+
+        const loadingToastId = toast.loading("Processing request...", { autoClose: 2000 });
+
+        let response;
+        if (user) {
+            response = await updateRole({ ...userData, id: user.id });
+        } else {
+            response = await createRole(userData);
+        }
+
+        if (response.ok) {
+            updateToasify(loadingToastId, `Request successful! 🎉 ${response.message}`, "success", 1000);
+            setTimeout(() => {
+                onClose();
+                updateRoles((prev) => !prev);
+            }, 1500);
+        } else {
+            updateToasify(loadingToastId, `Request failed. ${response.message}`, "failure", 2000);
+        }
+    };
+
+    const updateFormValue = ({ updateType, value }) => {
+        clearErrorMessage();
+        setUserData((prevState) => ({
+            ...prevState,
+            [updateType]: value,
+        }));
+    };
+
+    if (!show) return null;
 
     return (
-        <div className="inline-block float-right w-full flex items-center gap-3 border dark:border-neutral-600 rounded-lg p-1">
-            <SearchBar
-                searchText={searchText}
-                setSearchText={setSearchText}
-                placeholderText="Search Employee by name, role, ID or any related keywords"
-                outline={false}
-                styleClass="w-700px border-none w-full flex-1"
-            />
-            {filterParam && (
-                <button onClick={removeAppliedFilter} className="btn btn-xs mr-2 btn-active btn-ghost normal-case">
-                    {filterParam}
-                    <XMarkIcon className="w-4 ml-2" />
+        <div className="modal modal-open fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+            <div ref={modalRef} className="px-[3.3rem] py-[2.45rem] relative flex flex-col gap-6 w-[600px] bg-white dark:bg-gray-800 rounded-md">
+                <button className="bg-transparent hover:bg-stone-300 rounded-full border-none absolute right-4 top-4 p-2 py-2" onClick={onClose}>
+                    <X className="w-[20px] h-[20px]" />
                 </button>
-            )}
-            <div className="dropdown dropdown-bottom dropdown-end">
-                <label tabIndex={0} className="capitalize border text-[14px] rounded-lg h-[40px] w-[91px] flex items-center gap-1 px-[14px] py-[10px]">
-                    <LuListFilter className="w-5" /> Filter
-                </label>
-                <ul tabIndex={0} className="dropdown-content menu p-2 text-sm shadow bg-base-100 rounded-box w-52">
-                    {statusFilters.map((status, key) => (
-                        <li key={key}><a onClick={() => showFiltersAndApply(status)}>{status}</a></li>
-                    ))}
-                    <div className="divider mt-0 mb-0"></div>
-                    <li><a onClick={removeAppliedFilter}>Remove Filter</a></li>
-                </ul>
+                <h3 className="font-semibold text-2xl">{user ? "Edit User" : "Add User"}</h3>
+                <form onSubmit={handleFormSubmit} className="flex flex-col items-center w-full gap-1">
+                    <div className="self-start">
+                        <InputFileForm
+                            labelStyle="text-[#6B7888]"
+                            id="userProfile"
+                            label="Profile photo"
+                            updater={setUserData}
+                            preImage={user?.image}
+                        />
+                    </div>
+                    <div className="w-full flex gap-2">
+                        <InputText
+                            placeholder="Name"
+                            name="name"
+                            defaultValue={userData.name}
+                            updateType="name"
+                            labelTitle="Name"
+                            updateFormValue={updateFormValue}
+                            errorMessage={errorMessageRole}
+                        />
+                        <InputText
+                            placeholder="Email"
+                            name="email"
+                            defaultValue={userData.email}
+                            updateType="email"
+                            labelTitle="Email"
+                            updateFormValue={updateFormValue}
+                            errorMessage={errorMessageDescription}
+                        />
+                    </div>
+                    <div className="modal-action self-end flex gap-1 w-[200px]">
+                        <button type="button" className="rounded-md h-[2.5rem] px-4 flex-[1] border border-stone-200 text-sm btn-ghost" onClick={onClose}>
+                            Cancel
+                        </button>
+                        <button type="submit" className="rounded-md h-[2.5rem] px-4 flex-[1] text-sm bg-[#25439B] text-white">
+                            Save
+                        </button>
+                    </div>
+                </form>
             </div>
+            <ToastContainer />
         </div>
     );
 };
 
-function Users() {
-    const [roles, setRoles] = useState([]);
-    const [originalRoles, setOriginalRoles] = useState([]);
-    const [showAddForm, setShowAddForm] = useState(false);
-    const [changesInUser, setChangesInUser] = useState(false);
-    const [selectedUser, setSelectedUser] = useState(null);
-    const [showDetailsModal, setShowDetailsModal] = useState(false);
-    const [searchText, setSearchText] = useState("");
-    const [filterParam, setFilterParam] = useState("");
-
-    useEffect(() => {
-        async function fetchRoleData() {
-            setOriginalRoles(dummyUser);
-            setRoles(dummyUser);
-        }
-        fetchRoleData();
-    }, [changesInUser]);
-
-    const applyFilter = (status) => {
-        setFilterParam(status);
-        setRoles(originalRoles.filter(role => role.status === status));
-    };
-
-    const removeFilter = () => {
-        setFilterParam("");
-        setRoles(originalRoles);
-    };
-
-    const applySearch = (value) => {
-        setSearchText(value);
-        const filteredRoles = originalRoles.filter(role =>
-            role.name.toLowerCase().includes(value.toLowerCase())
-        );
-        setRoles(filteredRoles);
-    };
-
-    return (
-        <div className="relative">
-            <TitleCard title={<p>Users</p>} topMargin="mt-2"
-                TopSideButtons={<TopSideButtons applySearch={applySearch} applyFilter={applyFilter} removeFilter={removeFilter} openAddForm={() => setShowAddForm(true)} />}>
-                <div className="overflow-x-auto w-full border dark:border-stone-600 rounded-2xl">
-                    <table className="table text-left min-w-full dark:text-[white]">
-                        <tbody>
-                            {roles.map((user, index) => (
-                                <tr key={index}>
-                                    <td>{user.name}</td>
-                                    <td>{user.roles.length > 1 ? "Multiple" : user.roles[0].name}</td>
-                                    <td>{user.status}</td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                </div>
-            </TitleCard>
-        </div>
-    );
-}
-
-export default Users;
+export default AddRoleModal;

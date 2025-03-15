@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import InputText from "../../components/Input/InputText";
 import { createRole, updateRole } from "../../app/fetch";
 import { toast, ToastContainer } from "react-toastify";
@@ -11,6 +11,7 @@ import { X } from "lucide-react";
 const AddRoleModal = ({ show, onClose, updateRoles, user }) => {
     const [errorMessageRole, setErrorMessageRole] = useState("");
     const [errorMessageDescription, setErrorMessageDescription] = useState("");
+    const modalRef = useRef(null)
 
     const [userData, setUserData] = useState({
         name: "",
@@ -84,6 +85,19 @@ const AddRoleModal = ({ show, onClose, updateRoles, user }) => {
         }
     }, [user]);
 
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (modalRef.current && !modalRef.current.contains(event.target)) {
+                onClose();
+            }
+        };
+        
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, [onClose]);
+
     const updateFormValue = ({ updateType, value }) => {
         clearErrorMessage();
         setUserData((prevState) => ({
@@ -96,19 +110,21 @@ const AddRoleModal = ({ show, onClose, updateRoles, user }) => {
 
     return (
         <div className="modal modal-open">
-            <div className="px-[3.3rem] py-[2.45rem] relative flex flex-col gap-6 w-[600px] bg-white dark:bg-gray-800 rounded-md">
-                <button className="text-stone-gray bg-none absolute right-2 top-2 py-2 px-3" onClick={onClose}>
+            <div ref={modalRef} className="px-[3.3rem] py-[2.45rem] relative flex flex-col gap-6 w-[600px] bg-white dark:bg-gray-800 rounded-md">
+                <button className="bg-transparent hover:bg-stone-300 rounded-full border-none absolute right-4 top-4 p-2 py-2" onClick={onClose}>
                     <X className="w-[20px] h-[20px]" />
                 </button>
                 <h3 className="font-semibold text-2xl">{user ? "Edit User" : "Add User"}</h3>
                 <form onSubmit={handleFormSubmit} className="flex flex-col items-center w-full gap-1">
-                    <InputFileForm
-                        labelStyle="text-[#6B7888]"
-                        id="userProfile"
-                        label="Profile photo"
-                        updater={setUserData}
-                        preImage={user?.image}
-                    />
+                    <div className="self-start">
+                        <InputFileForm
+                            labelStyle="text-[#6B7888]"
+                            id="userProfile"
+                            label="Profile photo"
+                            updater={setUserData}
+                            preImage={user?.image}
+                        />
+                    </div>
                     <div className="w-full flex gap-2">
                         <InputText
                             placeholder="Name"
@@ -134,7 +150,7 @@ const AddRoleModal = ({ show, onClose, updateRoles, user }) => {
                         />
                     </div>
                     <div className="w-full flex gap-2">
-                    <InputText
+                        <InputText
                             placeholder="Phone"
                             name="phone"
                             defaultValue={userData.phone}

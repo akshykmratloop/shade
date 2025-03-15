@@ -6,6 +6,7 @@ import ConfirmationModalBody from '../features/common/components/ConfirmationMod
 import ResetPasswordModalBody from '../features/user/ResetPasswordModalBody'
 import { ToastContainer } from 'react-toastify'
 import { X } from 'lucide-react'
+import { XMarkIcon } from '@heroicons/react/24/outline'
 
 
 function ModalLayout() {
@@ -28,8 +29,8 @@ function ModalLayout() {
             <div className={`modal ${isOpen ? "modal-open" : ""}`}>
                 <div className={`modal-box  ${size === 'lg' ? 'max-w-5xl' : ''} relative px-14 pt-10 pb-14 shadow-lg rounded-md w-full max-w-lg`}>
 
-                    <button className="bg-transparent text-[gray] border-none absolute right-4 top-4" onClick={close}>
-                        <X size={24} />
+                    <button className="bg-transparent hover:bg-stone-300 rounded-full border-none absolute right-4 top-4 p-2 py-2" onClick={close}>
+                        <XMarkIcon className="w-5" />
                     </button>
 
                     <h3 className="font-semibold text-xl pb-6">{title}</h3>
