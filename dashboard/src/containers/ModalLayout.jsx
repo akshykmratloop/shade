@@ -28,7 +28,7 @@ function ModalLayout() {
             <div className={`modal ${isOpen ? "modal-open" : ""}`}>
                 <div className={`modal-box  ${size === 'lg' ? 'max-w-5xl' : ''} relative px-14 pt-10 pb-14 shadow-lg rounded-md w-full max-w-lg`}>
 
-                    <button className="btn btn-sm btn-circle dark:bg-transparent border-none absolute right-2 top-2" onClick={close}>
+                    <button className="bg-transparent text-[gray] border-none absolute right-4 top-4" onClick={close}>
                         <X size={24} />
                     </button>
 

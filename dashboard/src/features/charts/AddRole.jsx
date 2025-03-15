@@ -6,6 +6,7 @@ import validator from "../../app/valid";
 import updateToasify from "../../app/toastify";
 import InputFileForm from "../../components/Input/InputFileForm";
 import dummy from "../../assets/MOCK_DATA.json";
+import { X } from "lucide-react";
 
 const AddRoleModal = ({ show, onClose, updateRoles, user }) => {
     const [errorMessageRole, setErrorMessageRole] = useState("");
@@ -95,9 +96,9 @@ const AddRoleModal = ({ show, onClose, updateRoles, user }) => {
 
     return (
         <div className="modal modal-open">
-            <div className="p-[2.5rem] relative flex flex-col gap-6 w-[600px] bg-white dark:bg-gray-800 rounded-md">
-                <button className="btn-circle text-stone-gray bg-none border-none absolute right-2 top-2" onClick={onClose}>
-                    ✕
+            <div className="px-[3.3rem] py-[2.45rem] relative flex flex-col gap-6 w-[600px] bg-white dark:bg-gray-800 rounded-md">
+                <button className="text-stone-gray bg-none absolute right-2 top-2 py-2 px-3" onClick={onClose}>
+                    <X className="w-[20px] h-[20px]" />
                 </button>
                 <h3 className="font-semibold text-2xl">{user ? "Edit User" : "Add User"}</h3>
                 <form onSubmit={handleFormSubmit} className="flex flex-col items-center w-full gap-1">
@@ -108,18 +109,18 @@ const AddRoleModal = ({ show, onClose, updateRoles, user }) => {
                         updater={setUserData}
                         preImage={user?.image}
                     />
-                    <InputText
-                        placeholder="Name"
-                        name="name"
-                        defaultValue={userData.name}
-                        updateType="name"
-                        labelTitle="Name"
-                        InputClasses="border-stone-400"
-                        labelStyle="text-[#6B7888]"
-                        updateFormValue={updateFormValue}
-                        errorMessage={errorMessageRole}
-                    />
                     <div className="w-full flex gap-2">
+                        <InputText
+                            placeholder="Name"
+                            name="name"
+                            defaultValue={userData.name}
+                            updateType="name"
+                            labelTitle="Name"
+                            InputClasses="border-stone-400"
+                            labelStyle="text-[#6B7888]"
+                            updateFormValue={updateFormValue}
+                            errorMessage={errorMessageRole}
+                        />
                         <InputText
                             placeholder="Email"
                             name="email"
@@ -131,12 +132,25 @@ const AddRoleModal = ({ show, onClose, updateRoles, user }) => {
                             updateFormValue={updateFormValue}
                             errorMessage={errorMessageDescription}
                         />
-                        <InputText
+                    </div>
+                    <div className="w-full flex gap-2">
+                    <InputText
                             placeholder="Phone"
                             name="phone"
                             defaultValue={userData.phone}
                             updateType="phone"
                             labelTitle="Phone"
+                            InputClasses="border-stone-400"
+                            labelStyle="text-[#6B7888]"
+                            updateFormValue={updateFormValue}
+                            errorMessage={errorMessageDescription}
+                        />
+                        <InputText
+                            placeholder="Password"
+                            name="password"
+                            defaultValue={userData.email}
+                            updateType="password"
+                            labelTitle="Password"
                             InputClasses="border-stone-400"
                             labelStyle="text-[#6B7888]"
                             updateFormValue={updateFormValue}
@@ -151,7 +165,7 @@ const AddRoleModal = ({ show, onClose, updateRoles, user }) => {
                                 const isAvailable = userData.roles.includes(element.id);
 
                                 return (
-                                    <li className="flex gap-2 w-[50%] px-1 text-sm" key={element.id}>
+                                    <li className="flex gap-2 w-[50%] px-1 text-[12px]" key={element.id}>
                                         <input
                                             type="checkbox"
                                             id={element.id}

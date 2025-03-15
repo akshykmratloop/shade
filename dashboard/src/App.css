@@ -152,6 +152,15 @@ input[type="file"] {
   cursor: pointer;
 }
 
+.custom-placeholder::placeholder{
+  /* font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; */
+  /* font-weight: 300; */
+  /* font: lighter normal 14px/1.5 Calibri ; */
+  font: lighter normal 14px/1.5 "Sans";
+
+  /* font-weight: lighter; */
+}
+
 
 
 

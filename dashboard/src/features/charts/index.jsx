@@ -15,6 +15,10 @@ import { MdInfo } from "react-icons/md";
 import { FiEye } from "react-icons/fi";
 import dummyUser from "../../assets/Dummy_User.json"
 import { FaRegEdit } from "react-icons/fa";
+import { FunnelIcon } from "@heroicons/react/24/outline";
+import { RxQuestionMarkCircled } from "react-icons/rx";
+import { LuListFilter } from "react-icons/lu";
+
 
 
 const TopSideButtons = ({ removeFilter, applyFilter, applySearch, openAddForm }) => {
@@ -22,10 +26,10 @@ const TopSideButtons = ({ removeFilter, applyFilter, applySearch, openAddForm })
     const [searchText, setSearchText] = useState("");
     const statusFilters = ["ACTIVE", "INACTIVE"];
 
-    // const showFiltersAndApply = (status) => {
-    //     applyFilter(status);
-    //     setFilterParam(status);
-    // };
+    const showFiltersAndApply = (status) => {
+        applyFilter(status);
+        setFilterParam(status);
+    };
 
     const removeAppliedFilter = () => {
         removeFilter();
@@ -42,8 +46,14 @@ const TopSideButtons = ({ removeFilter, applyFilter, applySearch, openAddForm })
     }, [searchText]);
 
     return (
-        <div className="inline-block float-right">
-            {/* <SearchBar searchText={searchText} styleClass="mr-4 border border-1 border-stone-300" setSearchText={setSearchText} /> */}
+        <div className="inline-block float-right w-full flex items-center gap-3 border rounded-lg p-1" style={{ textTransform: "capitalize" }}>
+            <SearchBar
+                searchText={searchText}
+                styleClass="w-700px border-none w-full flex-1"
+                setSearchText={setSearchText}
+                placeholderText={"Search Employee by name, role, ID or any related keywords"}
+                outline={false}
+            />
             {filterParam && (
                 <button
                     onClick={() => removeAppliedFilter()}
@@ -53,9 +63,9 @@ const TopSideButtons = ({ removeFilter, applyFilter, applySearch, openAddForm })
                     <XMarkIcon className="w-4 ml-2" />
                 </button>
             )}
-            {/* <div className="dropdown dropdown-bottom dropdown-end">
-                <label tabIndex={0} className="btn btn-sm btn-outline">
-                    <FunnelIcon className="w-5 mr-2" />
+            <div className="dropdown dropdown-bottom dropdown-end">
+                <label tabIndex={0} className="capitalize border text-[14px] self-center border-stone-300 rounded-lg h-[40px] w-[91px] flex items-center gap-1 font-[300] px-[14px] py-[10px]">
+                    <LuListFilter className="w-5 " />
                     Filter
                 </label>
                 <ul tabIndex={0} className="dropdown-content menu p-2 text-sm shadow bg-base-100 rounded-box w-52">
@@ -67,13 +77,8 @@ const TopSideButtons = ({ removeFilter, applyFilter, applySearch, openAddForm })
                     <div className="divider mt-0 mb-0"></div>
                     <li><a onClick={() => removeAppliedFilter()}>Remove Filter</a></li>
                 </ul>
-            </div> */}
-            <button className="btn btn-sm btn-success ml-4 bg-[#25439B] text-[white] font-semibold py-4 pb-[1.8rem] px-4" onClick={openAddForm}>
-                <PlusIcon className="w-4 mr-2 border border-1 rounded-full border-dotted " />
-                <span>
-                    New User
-                </span>
-            </button>
+            </div>
+
         </div>
     );
 };
@@ -129,32 +134,40 @@ function Users() {
 
 
     return (
-        <>
+        <div className="relative">
+            <button className="absolute top-3 right-2 z-20 btn btn-sm btn-success !capitalize ml-4 bg-[#25439B] text-[white] font-semibold py-[.9rem] pb-[1.8rem] px-4" onClick={() => setShowAddForm(true)}>
+                <PlusIcon className="w-4 mr-2 border border-1 rounded-full border-dotted " />
+                <span>
+                    Create User
+                </span>
+            </button>
             <TitleCard title="User" topMargin="mt-2"
                 TopSideButtons={
                     <TopSideButtons
-                        // applySearch={applySearch} 
+                        applySearch={applySearch}
                         applyFilter={applyFilter}
                         removeFilter={removeFilter}
-                        openAddForm={() => setShowAddForm(true)} />}>
-                <div className="overflow-x-auto w-full">
-                    <table className="table min-w-full ">
-                        <thead className="border-b border-[#EAECF0]">
-                            <tr className="capitalize" style={{ textTransform: "capitalize" }}>
-                                <th className="font-medium text-[12px] font-poppins leading-normal bg-[#FAFBFB]  text-[#42526D] px-[24px] py-[13px]"
+                    // openAddForm={() => setShowAddForm(true)}
+                    />
+                }>
+                <div className="overflow-x-auto w-full border rounded-2xl">
+                    <table className="table text-left min-w-full ">
+                        <thead className="" style={{borderRadius:""}}>
+                            <tr className="!capitalize" style={{ textTransform: "capitalize" }}>
+                                <th className="font-medium text-[12px] font-poppins leading-normal bg-[#FAFBFB]  text-[#42526D] px-[24px] py-[13px] !capitalize"
                                     style={{ position: "static" }}>Name</th>
-                                <th className="text-[#42526D] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB]  px-[24px] py-[13px]">Role</th>
-                                <th className="text-[#42526D] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB]  px-[24px] py-[13px]">Page Assign</th>
-                                <th className="text-[#42526D] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB]  px-[24px] py-[13px] text-center">Status</th>
-                                <th className="text-[#42526D] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB]  px-[24px] py-[13px]">Task Assigned</th>
-                                <th className="text-[#42526D] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB]  px-[24px] py-[13px] text-center">Actions</th>
+                                <th className="text-[#42526D] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB]  px-[24px] py-[13px] !capitalize flex items-center gap-1">Role <RxQuestionMarkCircled className="w-4 h-4 text-[gray] translate-y-[-1px]" /></th>
+                                <th className="text-[#42526D] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB]  px-[24px] py-[13px] !capitalize">Page Assign</th>
+                                <th className="text-[#42526D] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB]  px-[24px] py-[13px] text-center !capitalize">Status</th>
+                                <th className="text-[#42526D] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB]  px-[24px] py-[13px] !capitalize">Task Assigned</th>
+                                <th className="text-[#42526D] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB]  px-[24px] py-[13px] text-center !capitalize">Actions</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody className="">
                             {Array.isArray(roles) && dummyUser?.map((user, index) => {
                                 return (
                                     <tr key={index} className="font-light ">
-                                        <td className="font-poppins font-normal text-[14px] leading-normal text-[#101828] p-[26px] flex ">
+                                        <td className="font-poppins font-normal text-[14px] leading-normal text-[#101828] p-[26px] pl-5 flex ">
                                             <img src={user.image} alt={user.name} className="rounded-[50%] w-[50px] h-[50px] mr-3" />
                                             <div className="flex flex-col">
                                                 <p>{user.name}</p>
@@ -166,45 +179,42 @@ function Users() {
                                         </td>
 
                                         <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] p-[26px]"> </td>
-                                        <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] p-[26px]">
+                                        <td className="font-poppins font-light text-[12px] leading-normal text-[#101828] p-[26px]">
                                             <p
-                                                className={`before:content-['•'] before:text-2xl flex items-center capitalize justify-center gap-1 px-2 ${user.status === 'ACTIVE' ? "text-green-600 bg-green-100 before:text-green-600" : "text-red-600 bg-red-100 before:text-red-600"} text-center rounded-2xl`}
+                                                className={`before:content-['•'] before:text-2xl flex items-center capitalize justify-center gap-1 px-1 font-[500] ${user.status === 'ACTIVE' ? "text-green-600 bg-green-100 before:text-green-600 px-1" : "text-red-600 bg-red-100 before:text-red-600 "} text-center rounded-2xl`}
                                                 style={{ textTransform: "capitalize" }}
                                             >{user.status[0].toUpperCase() + user.status.slice(1).toLowerCase()}</p>
                                         </td>
                                         <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] p-[26px]" style={{ whiteSpace: "wrap" }}> asdfwerweq eqt eqfsadf qew</td>
                                         <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] p-[26px]">
-                                            <div className="flex gap-2">
-
+                                            <div className="flex gap-[15px] border border border-[1px] border-[#E6E7EC] rounded-[8px] p-[13.6px] py-[11.6px]">
                                                 <button
                                                     onClick={() => {
                                                         setSelectedUser(user);
                                                         setShowDetailsModal(true);
                                                     }}
                                                 >
-                                                    <span className="flex items-center gap-1 border rounded-md p-[5px]">
-                                                        <FiEye />
-                                                        View
+                                                    <span className="flex items-center gap-1 rounded-md">
+                                                        <FiEye className="w-5 h-6" />
                                                     </span>
                                                 </button>
                                                 <button
-                                                    className="btn btn-sm"
+                                                    className=""
                                                     onClick={() => {
                                                         setSelectedUser(user);
                                                         setShowAddForm(true);
                                                     }}
                                                 >
-                                                    {/* <PencilIcon className="w-4" /> */}
-                                                    <FaRegEdit />
+                                                    <FaRegEdit className="w-5 h-6" />
                                                 </button>
-                                                <div className="flex items-center space-x-4">
+                                                <div className="flex items-center space-x-4 ">
                                                     <Switch
                                                         checked={user.status === "ACTIVE"}
                                                         onChange={() => {
                                                             statusChange(user);
                                                         }}
                                                         className={`${user.status === "ACTIVE"
-                                                            ? "bg-blue-600"
+                                                            ? "bg-[#1DC9A0]"
                                                             : "bg-gray-300"
                                                             } relative inline-flex h-2 w-8 items-center rounded-full`}
                                                     >
@@ -252,7 +262,7 @@ function Users() {
                 onClose={() => setShowDetailsModal(false)}
             />
             <ToastContainer />
-        </>
+        </div>
     );
 }
 

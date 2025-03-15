@@ -61,14 +61,14 @@ function Header() {
 
     return (
         <div className='py-4 px-2 pr-4'>
-            <div className="navbar rounded-lg flex justify-between bg-[#fafaff] dark:bg-[#242933] z-10 pl-[15px] pr-[15px] ">
+            <div className="navbar py-[20px] rounded-lg flex justify-between bg-[#fafaff] dark:bg-[#242933] z-10 pl-[15px] pr-[15px] ">
                 <div className="sm:block xl:hidden"></div>
                 <div className=" flex-col items-start sm:hidden xl:flex font-lexend">
                     <h2 className='font-semibold'>Hello {user.name} {`(${user.roles[0]?.replace("_", " ")})`}</h2>
                     <p className='text-base-700 font-light font-lexend text-[grey]'>{greetings}</p>
                 </div>
                 <div className="order-last gap-[12px]">
-                    <SearchBar />
+                    <SearchBar setSearchText={() => {}} styleClass={"bg-transparent border border-2 border-stone-100"} />
                     <button className="h-[45px] w-[45px] mx-1 flex items-center justify-center bg-base-300 rounded-md border-green-200" onClick={openNotification}>
                         <div className="indicator">
                             <BellIcon className="h-6 w-6" />
