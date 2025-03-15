@@ -1,21 +1,17 @@
 import { useEffect, useState } from "react";
-import { format } from 'date-fns';
 import XMarkIcon from '@heroicons/react/24/outline/XMarkIcon';
 import PlusIcon from '@heroicons/react/24/outline/PlusIcon';
-import PencilIcon from '@heroicons/react/24/outline/PencilIcon';
 import SearchBar from "../../components/Input/SearchBar";
-import { fetchRoles, activateRole, deactivateRole } from "../../app/fetch";
+import { activateRole, deactivateRole } from "../../app/fetch";
 import TitleCard from "../../components/Cards/TitleCard";
 import AddRoleModal from "./AddRole";
 import RoleDetailsModal from "./ShowRole";
 import { toast, ToastContainer } from "react-toastify";
 import updateToasify from "../../app/toastify";
 import { Switch } from '@headlessui/react';
-import { MdInfo } from "react-icons/md";
 import { FiEye } from "react-icons/fi";
 import dummyUser from "../../assets/Dummy_User.json"
 import { FaRegEdit } from "react-icons/fa";
-import { FunnelIcon } from "@heroicons/react/24/outline";
 import { RxQuestionMarkCircled } from "react-icons/rx";
 import { LuListFilter } from "react-icons/lu";
 import { LuImport } from "react-icons/lu";
@@ -43,6 +39,7 @@ const TopSideButtons = ({ removeFilter, applyFilter, applySearch, openAddForm })
         if (searchText === "") {
             removeAppliedFilter();
         } else {
+            console.log(searchText)
             applySearch(searchText);
         }
     }, [searchText]);
@@ -58,7 +55,7 @@ const TopSideButtons = ({ removeFilter, applyFilter, applySearch, openAddForm })
             />
             {filterParam && (
                 <button
-                    onClick={() => removeAppliedFilter()}
+                    onClick={removeAppliedFilter}
                     className="btn btn-xs mr-2 btn-active btn-ghost normal-case"
                 >
                     {filterParam}
@@ -86,8 +83,8 @@ const TopSideButtons = ({ removeFilter, applyFilter, applySearch, openAddForm })
 };
 
 function Users() {
-    const [roles, setRoles] = useState([]);
-    const [originalRoles, setOriginalRoles] = useState([]);
+    const [users, setUsers] = useState([]);
+    const [originalUsers, setOriginalUsers] = useState([]);
     const [showAddForm, setShowAddForm] = useState(false);
     const [changesInUser, setChangesInUser] = useState(false);
     const [selectedUser, setSelectedUser] = useState(null);
@@ -95,19 +92,20 @@ function Users() {
     // const [enabled, setEnabled] = useState(false);
 
     const removeFilter = () => {
-        setRoles([...originalRoles]);
+        setUsers([...originalUsers]);
     };
 
     const applyFilter = (status) => {
-        const filteredRoles = originalRoles.filter(role => role.status === status);
-        setRoles(filteredRoles);
+        const filteredRoles = originalUsers.filter(user => user.status === status);
+        setUsers(filteredRoles);
     };
 
     const applySearch = (value) => {
-        const filteredRoles = originalRoles.filter(role =>
-            role.name.toLowerCase().includes(value.toLowerCase())
+        const filteredRoles = originalUsers.filter(user =>
+            user.name.toLowerCase().includes(value.toLowerCase())
         );
-        setRoles(filteredRoles);
+        console.log(filteredRoles)
+        setUsers(filteredRoles);
     };
 
     const statusChange = async (role) => {
@@ -127,9 +125,8 @@ function Users() {
 
     useEffect(() => {
         async function fetchRoleData() {
-            // const response = await fetchRoles();
-            // setRoles(response.roles);
-            setOriginalRoles(dummyUser); // Store the original unfiltered data
+            setUsers(dummyUser) // save the fethched users here to apply filters
+            setOriginalUsers(dummyUser); // Store the original unfiltered data
         }
         fetchRoleData();
     }, [changesInUser]);
@@ -172,7 +169,7 @@ function Users() {
                             </tr>
                         </thead>
                         <tbody className="">
-                            {Array.isArray(roles) && dummyUser?.map((user, index) => {
+                            {Array.isArray(users) && users?.map((user, index) => {
                                 return (
                                     <tr key={index} className="font-light">
                                         <td className="font-poppins font-normal text-[14px] leading-normal text-[#101828] p-[26px] py-[15px] pl-5 flex ">
