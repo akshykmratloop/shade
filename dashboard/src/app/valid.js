@@ -1,26 +1,34 @@
 function validator(obj, setter) {
-    // Sort keys to make sure 'email' comes first
-    const keys = Object.keys(obj).sort((a, b) => {
-        if (a === 'email') return -1; // 'email' should come first
-        if (b === 'email') return 1;  // 'email' should come first
-        return 0;  // other keys retain their order
-    });
+  const keys = Object.keys(obj).sort((a, b) =>
+    a === "email" ? -1 : b === "email" ? 1 : 0
+  );
 
-    let flag = true;
+  let flag = true;
 
-    for (let key of keys) {
-        // Check if value is empty, null, or undefined
-        if (!obj[key] || obj[key].trim() === "") {
-            const keyName = key.charAt(0).toUpperCase() + key.slice(1);
-            if (typeof (setter) === 'object') {
-                setter[(keyName.toLowerCase())](`${keyName.replace("_", " ")} is required`)
-            } else {
-                setter(`${keyName} is required`)
-            }
-            flag = false; // Exit early if validation fails
-        }
+  for (let key of keys) {
+    const value = obj[key];
+
+    // Ensure value is a string before calling `trim()`
+    if (!value || (typeof value === "string" && value.trim() === "")) {
+      const keyName = key.charAt(0).toUpperCase() + key.slice(1);
+
+      // Ensure setter is an object and has a function before calling it
+      if (
+        typeof setter === "object" &&
+        typeof setter[keyName.toLowerCase()] === "function"
+      ) {
+        setter[keyName.toLowerCase()](
+          `${keyName.replace("_", " ")} is required`
+        );
+      } else if (typeof setter === "function") {
+        setter(`${keyName} is required`);
+      }
+
+      flag = false;
     }
-    return flag; // Return true if all values are valid
+  }
+
+  return flag;
 }
 
 export default validator;

@@ -1,6 +1,7 @@
 import {useEffect, useState} from "react";
 import {Eye, EyeOff} from "lucide-react";
 import xSign from "../../assets/x-close.png";
+import greenDot from "../../assets/icons/dot.svg";
 import ErrorText from "../Typography/ErrorText";
 
 function InputText({
@@ -38,13 +39,15 @@ function InputText({
     setValue(defaultValue || (type === "checkbox" ? [] : ""));
   }, [defaultValue]);
 
+  console.log("opts", options);
+
   return (
     <div
       className={`form-control my-2 ${width ?? "w-full"} ${containerStyle}`}
       style={{display: display ? "none" : ""}}
     >
-      <label className="pl-0 mb-1">
-        <span className={"label-text text-base-content " + labelStyle}>
+      <label className="pl-0 mb-1 ">
+        <span className={"label-text text-[#6B7888] " + labelStyle}>
           {labelTitle}
         </span>
       </label>
@@ -72,24 +75,39 @@ function InputText({
           </select>
         ) : type === "checkbox" ? (
           // **Checkboxes**
-          <div className="flex flex-wrap gap-2">
+          <div className="grid grid-cols-2 md:grid-cols-2 gap-2 w-full">
             {options.map((opt, index) => (
               <label key={index} className="flex items-center space-x-2">
                 <input
                   type="checkbox"
                   name={name}
-                  value={opt.value}
-                  checked={value.includes(opt.value)}
+                  value={opt.id}
+                  checked={value.includes(opt.id)}
                   onChange={(e) => {
                     const checked = e.target.checked;
-                    const newValue = checked
-                      ? [...value, opt.value]
-                      : value.filter((v) => v !== opt.value);
-                    updateInputValue(newValue);
+                    setValue((prev) => {
+                      const newValue = checked
+                        ? [...prev, opt.id] // Add to array if checked
+                        : prev.filter((v) => v !== opt.id); // Remove if unchecked
+
+                      updateFormValue({updateType, value: newValue});
+                      return newValue;
+                    });
                   }}
-                  className="checkbox checkbox-primary"
+                  className="hidden"
                 />
-                <span className="text-sm">{opt.label}</span>
+                <div
+                  className={`w-5 h-5 flex items-center justify-center rounded-full border-2 border-gray-300 transition-all ${
+                    value.includes(opt.id)
+                      ? "bg-[white] p-[2px] border-[#12B28C] text-white"
+                      : "bg-white border-gray-400 group-hover:border-primary"
+                  }`}
+                >
+                  {value.includes(opt.id) && (
+                    <div className="w-3 h-3 rounded-full bg-[#12B28C]"></div>
+                  )}
+                </div>
+                <span className="text-sm">{opt.name}</span>
               </label>
             ))}
           </div>

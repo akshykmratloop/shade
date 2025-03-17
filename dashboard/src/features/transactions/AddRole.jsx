@@ -28,23 +28,36 @@ const AddRoleModal = ({show, onClose, updateRoles, role}) => {
   }
 
   const handleFormSubmit = async (e) => {
-    e.preventDefault(); // clearing the reloading
+    e.preventDefault();
+
+    console.log(
+      "Selected Permissions before submission:",
+      roleData.selectedPermissions
+    );
 
     const validation = validator(roleData, {
       name: setErrorMessageRole,
       description: setErrorMessageDescription,
     });
-    if (!validation) {
-      return;
-    }
+    if (!validation) return;
+
     const loadingToastId = toast.loading("Processing request...", {
       autoClose: 2000,
     });
+
+    const rolePayload = {
+      name: roleData.name,
+      roleTypeId: roleData.selectedRoletype,
+      permissions: roleData.selectedPermissions, // Ensure this holds the correct values
+    };
+
+    console.log("Payload being sent:", rolePayload);
+
     let response;
     if (role) {
-      response = await updateRole({...roleData, id: role.id});
+      response = await updateRole({...rolePayload, id: role.id});
     } else {
-      response = await createRole(roleData);
+      response = await createRole(rolePayload);
     }
 
     if (response.ok) {
@@ -58,7 +71,6 @@ const AddRoleModal = ({show, onClose, updateRoles, role}) => {
         onClose();
         updateRoles((prev) => !prev);
       }, 1500);
-      console.log("reply");
     } else {
       updateToasify(
         loadingToastId,
@@ -89,23 +101,26 @@ const AddRoleModal = ({show, onClose, updateRoles, role}) => {
 
   const updateFormValue = async ({updateType, value}) => {
     clearErrorMessage();
-
-    // Update the roleData state
     setRoleData((prevState) => ({
       ...prevState,
-      [updateType]: value,
+      [updateType]: updateType === "selectedPermissions" ? [...value] : value,
     }));
 
-    // Fetch permissions immediately for the selected role
     if (updateType === "userRole") {
       console.log("Fetching permissions for Role ID:", value);
+      setRoleData((prevState) => ({
+        ...prevState,
+        selectedRoletype: value, // Store selected roleTypeId
+      }));
       try {
         const response = await fetchPermissionsByRoleType(value);
-        setRoleData({
-          ...roleData,
-          fetchedPermissions: response.permission,
-        });
-        console.log(roleData, "res");
+        if (response.ok) {
+          setRoleData((prevState) => ({
+            ...prevState,
+            fetchedPermissions: response.permission, // Store fetched permissions
+            selectedPermissions: [], // Ensure this gets reset properly
+          }));
+        }
       } catch (e) {
         console.log(e);
       }
@@ -115,7 +130,7 @@ const AddRoleModal = ({show, onClose, updateRoles, role}) => {
   //   const updateFormValue = async ({value}) => {
   //     try {
   //       const response = await fetchPermissionsByRoleType(value);
-  //       setRoleData({
+  //       setRoleData({q
   //         ...roleData,
   //         fetchedPermissions: response.permission,
   //       });
@@ -141,9 +156,10 @@ const AddRoleModal = ({show, onClose, updateRoles, role}) => {
   console.log(roleData, "permissions");
   if (!show) return null;
 
+  console.log("selectedpermissions", roleData);
   return (
     <div className="modal modal-open">
-      <div className="modal-box p-14 relative flex items-center flex-col gap-6">
+      <div className="modal-box !max-w-[45rem] p-14 relative flex items-start flex-col gap-6">
         <button
           className="btn btn-md btn-circle bg-transparent border-none absolute right-2 top-2"
           onClick={onClose}
@@ -155,11 +171,11 @@ const AddRoleModal = ({show, onClose, updateRoles, role}) => {
         </h3>
         <form
           onSubmit={handleFormSubmit}
-          className="flex flex-col items-center w-[22rem] gap-4"
+          className="flex flex-col items-start w-full gap-4"
         >
           {/* Name Field */}
           <InputText
-            placeholder="Ex. John Doe"
+            placeholder="Ex. John Doee"
             name="name"
             defaultValue={roleData.name}
             updateType="name"
@@ -179,31 +195,29 @@ const AddRoleModal = ({show, onClose, updateRoles, role}) => {
             defaultValue={roleData.selectedRoletype}
             options={roleData.fetchedRoletype}
             updateFormValue={(value) => {
-              handleSelectRoleType(value);
+              updateFormValue({updateType: "userRole", value: value.value});
             }}
             errorMessage={errorMessageRole}
           />
 
-          {/* <InputText
+          <InputText
             type="checkbox"
-            name="fetchedPermissions"
+            name="permissions"
             labelTitle="Permissions"
-            updateType="permissions"
+            updateType="selectedPermissions"
             defaultValue={roleData.selectedPermissions}
             options={roleData.fetchedPermissions}
-            // updateFormValue={(value) => {
-            //   setSelectedPermissions(value.value); // Handle selected permissions
-            // }}
+            updateFormValue={updateFormValue}
             errorMessage={errorMessageRole}
-          /> */}
+          />
 
-          <div className="permissions">
+          {/* <div className="permissions">
             {roleData.fetchedPermissions.map((permission) => (
               <div key={permission.id} className="permission-card">
                 {permission.name}
               </div>
             ))}
-          </div>
+          </div> */}
 
           <div className="modal-action self-end">
             <button
@@ -215,9 +229,9 @@ const AddRoleModal = ({show, onClose, updateRoles, role}) => {
             </button>
             <button
               type="submit"
-              className="rounded-md h-[2.5rem] px-4 text-sm btn-primary"
+              className="rounded-md h-[2.5rem]  px-4 text-sm bg-[#25439B] text-[white]"
             >
-              Submit
+              Save
             </button>
           </div>
         </form>
