@@ -15,9 +15,13 @@ import { Switch } from '@headlessui/react';
 import XMarkIcon from '@heroicons/react/24/outline/XMarkIcon';
 import { FiEye } from "react-icons/fi";
 import { FaRegEdit } from "react-icons/fa";
+import { FiEdit } from "react-icons/fi";
 import { RxQuestionMarkCircled } from "react-icons/rx";
 import { LuListFilter } from "react-icons/lu";
 import { LuImport } from "react-icons/lu";
+import { LuCircleUser } from "react-icons/lu";
+import userIcon from "../../assets/user.png"
+
 
 
 const TopSideButtons = ({ removeFilter, applyFilter, applySearch }) => { // search and filter bar component
@@ -175,8 +179,8 @@ function Users() {
                             {Array.isArray(users) && users?.map((user, index) => {
                                 return (
                                     <tr key={index} className="font-light">
-                                        <td className={`font-poppins font-normal text-[14px] leading-normal text-[#101828] p-[26px] ${index%2 === 0? "py-[11px]":"py-[10px]"} pl-5 flex `}>
-                                            <img src={user.image} alt={user.name} className="rounded-[50%] w-[41px] h-[41px] mr-2" />
+                                        <td className={`font-poppins font-normal text-[14px] leading-normal text-[#101828] p-[26px] ${index % 2 === 0 ? "py-[11px]" : "py-[10px]"} pl-5 flex `}>
+                                            <img src={user.image ? user.image : userIcon} alt={user.name} className="rounded-[50%] w-[41px] h-[41px] mr-2" />
                                             <div className="flex flex-col">
                                                 <p className="dark:text-[white]">{user.name}</p>
                                                 <p className="font-light text-[grey]">{user.email}</p>
@@ -203,7 +207,7 @@ function Users() {
                                                     }}
                                                 >
                                                     <span className="flex items-center gap-1 rounded-md text-[#101828]">
-                                                        <FiEye className="w-5 h-6  custom-forced-color" />
+                                                        <FiEye className="w-5 h-6  custom-forced-color" strokeWidth={1} />
                                                     </span>
                                                 </button>
                                                 <button
@@ -213,7 +217,7 @@ function Users() {
                                                         setShowAddForm(true);
                                                     }}
                                                 >
-                                                    <FaRegEdit className="w-5 h-6 custom-forced-color" />
+                                                    <FiEdit className="w-5 h-6 custom-forced-color" strokeWidth={1} />
                                                 </button>
                                                 <div className="flex items-center space-x-4 ">
                                                     <Switch

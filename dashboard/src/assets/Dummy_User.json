@@ -4,7 +4,7 @@
       "name": "Val",
       "phone": "787956471325",
       "email": "vexley0@canalblog.com",
-      "image": "http://dummyimage.com/223x100.png/5fa2dd/ffffff",
+      "image": "",
       "roles": [
         {"id": 1, "name": "Admin"},
         {"id": 2, "name": "Editor"},
@@ -21,7 +21,7 @@
       "name": "Flemming",
       "phone": "787956471325",
       "email": "fsimm1@amazon.co.uk",
-      "image": "http://dummyimage.com/180x100.png/5fa2dd/ffffff",
+      "image": "",
       "roles": [
         {"id": 1, "name": "User"}
       ],
