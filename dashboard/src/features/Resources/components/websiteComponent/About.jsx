@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import content from "./content.json"
 import { useDispatch, useSelector } from "react-redux";
 import { updateContent } from "../../../common/homeContentSlice";
@@ -22,7 +22,6 @@ const AboutUs = ({ language, screen }) => {
     const isEnglish = language === "en"
     const dispatch = useDispatch()
     const currentContent = useSelector((state) => state.homeContent.present.about)
-    console.log(currentContent?.services?.title[language])
     const ImageFromRedux = useSelector((state) => state.homeContent.present.images)
 
 

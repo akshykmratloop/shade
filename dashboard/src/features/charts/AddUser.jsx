@@ -58,7 +58,7 @@ const AddUserModal = ({ show, onClose, updateRoles, user }) => {
         });
 
         const validEmail = checkRegex(userData.email, setErrorMessageEmail) // checks if email is under valid format
-        
+
         if (!validation) return;
         if (validEmail) return;
         console.log("here")

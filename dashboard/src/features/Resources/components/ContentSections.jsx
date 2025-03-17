@@ -32,6 +32,7 @@ const ContentSection = ({
         setExtraFiles(extraFiles.filter(file => file.id !== id));
     };
 
+    console.log('here')
     const updateFormValue = ({ updateType, value }) => {
         if (updateType === 'count') {
             if (!isNaN(value)) {

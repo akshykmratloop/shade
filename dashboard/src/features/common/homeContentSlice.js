@@ -1,10 +1,10 @@
-import { createSlice, current } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     past: [],
     present: {
         images: {},
-        home: {}
+        // home: {}
     },
     future: []
 };

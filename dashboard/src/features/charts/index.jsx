@@ -10,6 +10,7 @@ import AddUserModal from "./AddUser";
 import RoleDetailsModal from "./ShowRole";
 import updateToasify from "../../app/toastify";
 import dummyUser from "../../assets/Dummy_User.json"
+import capitalizeword from "../../app/capitalizeword";
 // icons
 import { Switch } from '@headlessui/react';
 import XMarkIcon from '@heroicons/react/24/outline/XMarkIcon';
@@ -19,7 +20,6 @@ import { RxQuestionMarkCircled } from "react-icons/rx";
 import { LuListFilter } from "react-icons/lu";
 import { LuImport } from "react-icons/lu";
 import userIcon from "../../assets/user.png"
-
 
 
 const TopSideButtons = ({ removeFilter, applyFilter, applySearch }) => { // search and filter bar component
@@ -75,10 +75,10 @@ const TopSideButtons = ({ removeFilter, applyFilter, applySearch }) => { // sear
                     Filter
                 </label>
                 <ul tabIndex={0}
-                    className="dropdown-content menu p-2 text-sm shadow bg-base-100 rounded-box w-52">
+                    className="dropdown-content menu p-2 text-sm shadow bg-base-100 rounded-box w-52 text-[#0E2354] font-[400]">
                     {statusFilters.map((status, key) => (
                         <li key={key}>
-                            <a onClick={() => showFiltersAndApply(status)}>{status}</a>
+                            <a onClick={() => showFiltersAndApply(status)} style={{textTransform:"capitalize"}}>{capitalizeword(status)}</a>
                         </li>
                     ))}
                     <div className="divider mt-0 mb-0"></div>
@@ -193,7 +193,7 @@ function Users() {
                                             <p
                                                 className={`before:content-['•'] before:text-2xl flex h-7 items-center capitalize justify-center gap-1 px-1 py-0 font-[500] ${user.status === 'ACTIVE' ? "text-green-600 bg-green-100 before:text-green-600 px-1" : "text-red-600 bg-red-100 before:text-red-600 "} text-center rounded-2xl`}
                                                 style={{ textTransform: "capitalize", }}
-                                            >{user.status[0].toUpperCase() + user.status.slice(1).toLowerCase()}</p>
+                                            >{capitalizeword(user.status)}</p>
                                         </td>
                                         <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]" style={{ whiteSpace: "wrap" }}> asdfwerweq eqt eqfsadf qew</td>
                                         <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[8px] dark:text-[white]">
