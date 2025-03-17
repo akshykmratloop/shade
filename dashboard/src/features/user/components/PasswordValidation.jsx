@@ -40,7 +40,7 @@ const PasswordValidation = ({ new_password }) => {
             {passwordValidationRules.map((rule, index) => (
                 <li
                     key={index}
-                    className={`text-xs flex gap-1 ${validationStatus[index] ? "text-green-600" : "text-red-600"
+                    className={`text-[10px] flex gap-1 ${validationStatus[index] ? "text-green-600" : "text-red-600"
                         }`}
                 >
                     <img src={validationStatus[index] ? checkSign : xSign} className="h-3 translate-y-[4px]" /> {rule.text}
@@ -49,15 +49,6 @@ const PasswordValidation = ({ new_password }) => {
         </ul>
     );
 };
-
-// function checkPasswordValidation(password) {
-//     for (let rule of passwordValidationRules) {
-//         if (!rule.test(password)) {
-//             return 0;
-//         }
-//     }
-//     return 1
-// }
 
 function validatePasswordMessage(password, setter) {
     if (password.length > 0) {

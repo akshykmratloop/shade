@@ -85,9 +85,8 @@ const ContentSection = ({
                 );
             }) : ""}
 
-            <div className="flex justify-center">
-
-                <div className="flex flex-wrap gap-10 w-[80%]">
+            <div className={`flex ${inputFiles.length>1?"justify-center":""}`}>
+                <div className={`flex ${inputFiles.length>1?"flex-wrap":""} gap-10 w-[80%]`}>
                     {inputFiles.map((file, index) => (
                         <InputFile
                             key={index}

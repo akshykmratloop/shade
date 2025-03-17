@@ -66,6 +66,10 @@
   gap: .5rem;
 }
 
+.custom-forced-color{
+  color: #3b4152 !important;
+}
+
 .carouselDot {
   background-color: rgb(80, 80, 80);
   height: .91rem;

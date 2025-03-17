@@ -17,14 +17,23 @@ function InputText({
   errorMessage,
   InputClasses,
   width,
-  language
+  language,
+  customType
 }) {
   const [showPassword, setShowPassword] = useState(false);
   const [value, setValue] = useState(defaultValue || "");
 
   const updateInputValue = (val) => {
-    setValue(val);
-    updateFormValue({ updateType, value: val });
+    if (customType === "number" && isNaN(parseInt(val))) {
+      if (val === "") {
+        setValue(val);
+        updateFormValue({ updateType, value: val });
+      }
+      return
+    } else {
+      setValue(val);
+      updateFormValue({ updateType, value: val });
+    }
   };
 
   const togglePasswordVisibility = () => {
@@ -40,7 +49,7 @@ function InputText({
       className={`form-control my-2 ${width ?? "w-full"} ${containerStyle}`}
       style={{ display: display ? "none" : "" }}
     >
-      <label className="pl-0 mb-1">
+      <label className="pl-0 mb-2">
         <span
           className={"label-text  " + labelStyle}
         >

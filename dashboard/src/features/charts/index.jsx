@@ -6,7 +6,7 @@ import { toast, ToastContainer } from "react-toastify";
 import SearchBar from "../../components/Input/SearchBar";
 import { activateRole, deactivateRole } from "../../app/fetch";
 import TitleCard from "../../components/Cards/TitleCard";
-import AddRoleModal from "./AddRole";
+import AddUserModal from "./AddUser";
 import RoleDetailsModal from "./ShowRole";
 import updateToasify from "../../app/toastify";
 import dummyUser from "../../assets/Dummy_User.json"
@@ -149,7 +149,7 @@ function Users() {
                     </span>
                 </button>
             </div>
-            <TitleCard title={[<p>Users</p>,]} topMargin="mt-2"
+            <TitleCard title={"Users"} topMargin="mt-2"
                 TopSideButtons={
                     <TopSideButtons
                         applySearch={applySearch}
@@ -175,35 +175,35 @@ function Users() {
                             {Array.isArray(users) && users?.map((user, index) => {
                                 return (
                                     <tr key={index} className="font-light">
-                                        <td className="font-poppins font-normal text-[14px] leading-normal text-[#101828] p-[26px] py-[15px] pl-5 flex ">
-                                            <img src={user.image} alt={user.name} className="rounded-[50%] w-[41px] h-[41px] mr-3" />
+                                        <td className={`font-poppins font-normal text-[14px] leading-normal text-[#101828] p-[26px] ${index%2 === 0? "py-[11px]":"py-[10px]"} pl-5 flex `}>
+                                            <img src={user.image} alt={user.name} className="rounded-[50%] w-[41px] h-[41px] mr-2" />
                                             <div className="flex flex-col">
                                                 <p className="dark:text-[white]">{user.name}</p>
                                                 <p className="font-light text-[grey]">{user.email}</p>
                                             </div>
                                         </td>
-                                        <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] p-[26px] py-[15px] dark:text-[white]">
+                                        <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]">
                                             {user.roles.length > 1 ? "multiple" : user.roles[0].name}
                                         </td>
 
-                                        <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] p-[26px] py-[15px] dark:text-[white]"> </td>
-                                        <td className="font-poppins font-light text-[12px] leading-normal text-[#101828] p-[26px] py-[15px] dark:text-[white]">
+                                        <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]"> </td>
+                                        <td className="font-poppins font-light text-[12px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]">
                                             <p
-                                                className={`before:content-['•'] before:text-2xl flex items-center capitalize justify-center gap-1 px-1 font-[500] ${user.status === 'ACTIVE' ? "text-green-600 bg-green-100 before:text-green-600 px-1" : "text-red-600 bg-red-100 before:text-red-600 "} text-center rounded-2xl`}
-                                                style={{ textTransform: "capitalize" }}
+                                                className={`before:content-['•'] before:text-2xl flex h-7 items-center capitalize justify-center gap-1 px-1 py-0 font-[500] ${user.status === 'ACTIVE' ? "text-green-600 bg-green-100 before:text-green-600 px-1" : "text-red-600 bg-red-100 before:text-red-600 "} text-center rounded-2xl`}
+                                                style={{ textTransform: "capitalize", }}
                                             >{user.status[0].toUpperCase() + user.status.slice(1).toLowerCase()}</p>
                                         </td>
-                                        <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] p-[26px] py-[15px] dark:text-[white]" style={{ whiteSpace: "wrap" }}> asdfwerweq eqt eqfsadf qew</td>
-                                        <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] p-[26px] py-[15px] dark:text-[white]">
-                                            <div className="flex gap-[15px] justify-center border border border-[1px] border-[#E6E7EC] dark:border-stone-400 rounded-[8px] p-[13.6px] py-[11.6px]">
+                                        <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]" style={{ whiteSpace: "wrap" }}> asdfwerweq eqt eqfsadf qew</td>
+                                        <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[8px] dark:text-[white]">
+                                            <div className="flex gap-[15px] justify-center border border border-[1px] border-[#E6E7EC] dark:border-stone-400 rounded-[8px] p-[13.6px] py-[10px]">
                                                 <button
                                                     onClick={() => {
                                                         setSelectedUser(user);
                                                         setShowDetailsModal(true);
                                                     }}
                                                 >
-                                                    <span className="flex items-center gap-1 rounded-md">
-                                                        <FiEye className="w-5 h-6" />
+                                                    <span className="flex items-center gap-1 rounded-md text-[#101828]">
+                                                        <FiEye className="w-5 h-6  custom-forced-color" />
                                                     </span>
                                                 </button>
                                                 <button
@@ -213,7 +213,7 @@ function Users() {
                                                         setShowAddForm(true);
                                                     }}
                                                 >
-                                                    <FaRegEdit className="w-5 h-6" />
+                                                    <FaRegEdit className="w-5 h-6 custom-forced-color" />
                                                 </button>
                                                 <div className="flex items-center space-x-4 ">
                                                     <Switch
@@ -247,7 +247,7 @@ function Users() {
 
 
             {/* Add Role Modal */}
-            <AddRoleModal
+            <AddUserModal
                 show={showAddForm}
                 onClose={() => {
                     setShowAddForm(false);
