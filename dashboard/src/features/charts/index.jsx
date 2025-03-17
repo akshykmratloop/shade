@@ -14,12 +14,10 @@ import dummyUser from "../../assets/Dummy_User.json"
 import { Switch } from '@headlessui/react';
 import XMarkIcon from '@heroicons/react/24/outline/XMarkIcon';
 import { FiEye } from "react-icons/fi";
-import { FaRegEdit } from "react-icons/fa";
 import { FiEdit } from "react-icons/fi";
 import { RxQuestionMarkCircled } from "react-icons/rx";
 import { LuListFilter } from "react-icons/lu";
 import { LuImport } from "react-icons/lu";
-import { LuCircleUser } from "react-icons/lu";
 import userIcon from "../../assets/user.png"
 
 
