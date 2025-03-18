@@ -54,8 +54,8 @@ function LeftSidebar() {
                 `${isActive ? "font-semibold bg-base-200" : "font-normal"} pl-7 w-full flex items-center gap-2`
               }
             >
-              {route.icon} {!isCollapsed && route.name}
-              {location.pathname === route.path && (
+              {route?.icon} {!isCollapsed && route?.name}
+              {location?.pathname === route.path && (
                 <span
                   className="absolute inset-y-0 left-0 w-1 bg-primary"
                   aria-hidden="true"

@@ -5,6 +5,7 @@ import content from "./content.json"
 import Arrow from "../../../../assets/icons/right-wrrow.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { projectPageData } from "../../../../assets/index";
+import { updateContent } from "../../../common/homeContentSlice";
 // Font files can be colocated inside of `app`
 // const BankGothic = localFont({
 //     src: "../../../public/font/BankGothicLtBTLight.ttf",
@@ -16,22 +17,27 @@ import { projectPageData } from "../../../../assets/index";
 // const AnimatedText = dynamic(() => import('@/common/AnimatedText'), { ssr: false });
 // import { useGlobalContext } from "../../contexts/GlobalContext";
 // const ContactUsModal = dynamic(() => import("../header/ContactUsModal"), {
-    // ssr: false,
+// ssr: false,
 // });
 
 const ProjectPage = ({ language, screen }) => {
     const isLeftAlign = language = "en"
-    // const router = useRouter();
+    const dispatch = useDispatch()
     const [activeTab, setActiveTab] = useState("all");
-    // const { language, content } = useGlobalContext();
-    const currentContent = content?.projectsPage;
-    // const [isModal, setIsModal] = useState(false);
     const [filteredProject, setFilteredProject] = useState([]);
     const [visibleProjectsCount, setVisibleProjectsCount] = useState(6);
-
+    const currentContent = useSelector((state) => state.homeContent.present.projects)
+    const ImageFromRedux = useSelector((state) => state.homeContent.present.images)
+    // const { language, content } = useGlobalContext();
+    // const currentContent = content?.projectsPage;
+    // const [isModal, setIsModal] = useState(false);
     // const handleContactUSClose = () => {
     //     setIsModal(false);
     // };
+
+    console.log(language)
+    console.log(currentContent?.bannerSection?.title[language])
+
     useEffect(() => {
         if (activeTab === "all") {
             setFilteredProject(currentContent?.projectsSection.projects);
@@ -54,6 +60,10 @@ const ProjectPage = ({ language, screen }) => {
         return text;
     };
 
+    useEffect(() => {
+        dispatch(updateContent({ currentPath: "projects", payload: content.projectsPage }))
+    }, [])
+
     return (
         <div>
             <section
@@ -69,7 +79,7 @@ const ProjectPage = ({ language, screen }) => {
                         className={`absolute top-1/2 transform -translate-y-1/2 right-5 ${isLeftAlign ? "scale-x-[-1] text-left" : "text-right"
                             }`}
                     >
-                        <h1 className="text-black text-[70px] font-medium leading-[77px] tracking-[-3.5px] mb-4">
+                        <h1 className={`text-black ${"text-[50px]"} font-medium leading-[77px] tracking-[-3.5px] mb-4`}>
                             {currentContent?.bannerSection?.title[language]}
                         </h1>
                         <p className="text-gray-500 text-[16px] font-bold leading-[28px] mb-6 w-[55%] ml-auto word-spacing-[5px]">
@@ -77,7 +87,7 @@ const ProjectPage = ({ language, screen }) => {
                         </p>
                         <button
                             className="relative px-[60px] py-[16px] text-[18px] font-medium text-white bg-sky-500 rounded-md flex items-center"
-                            // onClick={() => setIsModal(true)}
+                        // onClick={() => setIsModal(true)}
                         >
                             <img
                                 src={Arrow}

@@ -89,7 +89,6 @@ const EditPage = () => {
                         currentPath === "projects" &&
                         <ProjectPage language={language} currentContent={content.projects} screen={screen} />
                     }
-
                 </div>
             </div>
         </div>

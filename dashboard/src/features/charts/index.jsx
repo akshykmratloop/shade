@@ -78,7 +78,7 @@ const TopSideButtons = ({ removeFilter, applyFilter, applySearch }) => { // sear
                     className="dropdown-content menu p-2 text-sm shadow bg-base-100 rounded-box w-52 text-[#0E2354] font-[400]">
                     {statusFilters.map((status, key) => (
                         <li key={key}>
-                            <a onClick={() => showFiltersAndApply(status)} style={{textTransform:"capitalize"}}>{capitalizeword(status)}</a>
+                            <a onClick={() => showFiltersAndApply(status)} style={{ textTransform: "capitalize" }}>{capitalizeword(status)}</a>
                         </li>
                     ))}
                     <div className="divider mt-0 mb-0"></div>

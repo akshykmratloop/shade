@@ -28,10 +28,10 @@ const Navbar = ({currentNav, setCurrentResource}) => {
                             className="w-full text-center px-2 relative flex items-center justify-center"
                         >
                             <button 
-                                onClick={() => settingResources(nav.resources)}
-                                className={`block w-full rounded-lg py-3 ${currentNav === nav.resources?"bg-base-200 text-stone-700 dark:text-stone-50":"hover:bg-base-200"} hover:text-stone-700 dark:hover:text-stone-50 transition`}
+                                onClick={() => settingResources(nav?.resources)}
+                                className={`block w-full rounded-lg py-3 ${currentNav === nav?.resources?"bg-base-200 text-stone-700 dark:text-stone-50":"hover:bg-base-200"} hover:text-stone-700 dark:hover:text-stone-50 transition`}
                             >
-                                {nav.name}
+                                {nav?.name}
                             </button>
                             {index !== navs.length - 1 && (
                                 <span className="absolute right-[-1px] top-1/2 -translate-y-1/2 h-1/2 w-[1px] bg-white"></span>
