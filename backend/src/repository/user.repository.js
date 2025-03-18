@@ -1,6 +1,70 @@
 import prismaClient from "../config/dbConfig.js";
+import {EncryptData} from "../helper/bcryptManager.js";
 
 /// USER QUERIES====================================================
+// Create User
+export const createUserHandler = async (name, email, password, roles) => {
+  const hashedPassword = await EncryptData(password, 10);
+  const newUser = await prismaClient.user.create({
+    data: {
+      name,
+      email,
+      password: hashedPassword,
+      roles: {
+        create:
+          roles?.map((roleId) => ({
+            role: {
+              connect: {id: roleId},
+            },
+          })) || [],
+      },
+    },
+    include: {
+      roles: {
+        include: {role: true},
+      },
+    },
+  });
+  return newUser;
+};
+
+//Fetch all users
+export const fetchAllUsers = async () => {
+  const allUsers = await prismaClient.user.findMany({
+    where: {name: {not: "Super Admin"}},
+  });
+  return allUsers;
+};
+
+// Update User
+export const updateUser = async (userId, name, email, password, roles) => {
+  try {
+    const updatedUser = await prismaClient.user.update({
+      where: {id: userId},
+      data: {
+        name,
+        email,
+        password,
+        roles: {
+          // Remove all existing role associations for the user
+          deleteMany: {},
+          // Create new associations for each provided role ID
+          create:
+            roles?.map((roleId) => ({
+              role: {connect: {id: roleId}},
+            })) || [],
+        },
+      },
+      include: {roles: {include: {role: true}}},
+    });
+
+    return updatedUser;
+  } catch (error) {
+    console.error("Error updating user:", error);
+    throw new Error("Failed to update user");
+  }
+};
+
 // Find and return the user object
 export const findUserByEmail = async (email) => {
   const user = await prismaClient.user.findUnique({
@@ -44,8 +108,8 @@ export const findUserByEmail = async (email) => {
 // Update user password
 export const updateUserPassword = async (userId, newPassword) => {
   return await prismaClient.user.update({
-    where: { id: userId },
-    data: { password: newPassword },
+    where: {id: userId},
+    data: {password: newPassword},
   });
 };
 
@@ -67,30 +131,30 @@ export const createOrUpdateOTP = async (
         otpOrigin,
       },
     },
-    create: { userId, deviceId, otpOrigin, otpCode, expiresAt },
-    update: { otpCode, expiresAt, isUsed: false },
+    create: {userId, deviceId, otpOrigin, otpCode, expiresAt},
+    update: {otpCode, expiresAt, isUsed: false},
   });
 };
 
 // find existing otp
 export const findOTP = async (userId, deviceId, otpOrigin) => {
   return await prismaClient.otp.findFirst({
-    where: { userId, deviceId, otpOrigin },
+    where: {userId, deviceId, otpOrigin},
   });
 };
 
 // mark otp as used
 export const markOTPUsed = async (otpId) => {
   return await prismaClient.otp.update({
-    where: { id: otpId },
-    data: { isUsed: true },
+    where: {id: otpId},
+    data: {isUsed: true},
   });
 };
 
 // delete otp
 export const deleteOTP = async (otpId) => {
   return await prismaClient.otp.delete({
-    where: { id: otpId },
+    where: {id: otpId},
   });
 };
 
@@ -99,7 +163,7 @@ export const deleteOTP = async (otpId) => {
 // Find OTP attempts
 export const findOtpAttempts = async (userId) => {
   return await prismaClient.rateLimit.findFirst({
-    where: { userId },
+    where: {userId},
   });
 };
 
@@ -108,9 +172,9 @@ export const createOrUpdateOtpAttempts = async (userId) => {
   const now = new Date();
 
   return await prismaClient.rateLimit.upsert({
-    where: { userId },
+    where: {userId},
     update: {
-      attempts: { increment: 1 },
+      attempts: {increment: 1},
       lastAttempt: now,
     },
     create: {
@@ -126,8 +190,8 @@ export const createOrUpdateOtpAttempts = async (userId) => {
 // Block a user temporarily
 export const blockUser = async (userId, blockUntil) => {
   return await prismaClient.rateLimit.update({
-    where: { userId },
-    data: { blockUntil },
+    where: {userId},
+    data: {blockUntil},
   });
 };
 
@@ -135,8 +199,8 @@ export const blockUser = async (userId, blockUntil) => {
 export const resetOtpAttempts = async () => {
   const now = new Date();
   await prismaClient.rateLimit.updateMany({
-    where: { blockUntil: { lte: now } },
-    data: { attempts: 0, failures: 0, blockUntil: null },
+    where: {blockUntil: {lte: now}},
+    data: {attempts: 0, failures: 0, blockUntil: null},
   });
 };
 
@@ -160,9 +224,10 @@ export const resetUserOtpAttempts = async () => {
   // For users who are still blocked but need an updated block time:
   await prismaClient.rateLimit.updateMany({
     where: {
-      blockUntil: { // Users who are blocked and should be updated
+      blockUntil: {
+        // Users who are blocked and should be updated
         lte: now,
-      },  
+      },
     },
     data: {
       attempts: 0, // Reset attempts after block period has ended
@@ -171,4 +236,3 @@ export const resetUserOtpAttempts = async () => {
     },
   });
 };
-
