@@ -39,7 +39,7 @@ const SortableItem = ({ option, removeOption, language }) => {
             style={style}
             {...attributes}
             {...listeners}
-            className={`flex items-center gap-1 px-3 py-1 text-xs bg-gray-200 min-h-[2.125rem] rounded-md cursor-move dark:text-[black] transition-transform`}
+            className={`flex items-center ${language === 'ar' && "flex-row-reverse text-right"} gap-1 px-3 py-1 text-xs bg-gray-200 min-h-[2.125rem] rounded-md cursor-move dark:text-[black] transition-transform`}
         >
             {option.title?.[language]}
             <button
@@ -195,7 +195,7 @@ const MultiSelectPro = ({ heading, options = [], tabName, label, language, secti
                 onDragEnd={onDragEnd}
             >
                 <SortableContext items={selectedOptions} strategy={verticalListSortingStrategy}>
-                    <div className="flex flex-wrap gap-2 p-2 pl-4 border dark:border-stone-500 rounded-md ">
+                    <div className={`flex flex-wrap gap-2 p-2 pl-4 border dark:border-stone-500 rounded-md ${language === 'ar' && "flex-row-reverse"}`}>
                         {selectedOptions?.map((option) => (
                             <SortableItem key={option.title?.[language] + String(Math.random())} option={option} removeOption={removeOption} language={language} />
                         ))}

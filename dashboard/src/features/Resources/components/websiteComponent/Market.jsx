@@ -76,7 +76,7 @@ const MarketPage = ({ language, screen }) => {
             {/* hero banner  */}
             <section className={`relative h-full w-full bg-cover bg-center ${isLeftAlign ? 'scale-x-[-1]' : ''}`}
                 style={{
-                    backgroundImage: ImageFromRedux.marketBanner? `url(${ImageFromRedux.marketBanner})`:
+                    backgroundImage: ImageFromRedux.marketBanner ? `url(${ImageFromRedux.marketBanner})` :
                         "url('https://frequencyimage.s3.ap-south-1.amazonaws.com/b9961a33-e840-4982-bd19-a7dcc52fdd95-Hero.jpg')"
                 }}>
                 <div className={`container h-full relative px-20 flex items-center ${isLeftAlign ? "justify-end" : "justify-end"}`}>
@@ -148,7 +148,7 @@ const MarketPage = ({ language, screen }) => {
                 <div className="container mx-auto px-4">
                     <div>
                         {/* Tabs */}
-                        <div className="flex items-center justify-center gap-8">
+                        <div className={`flex items-center justify-center gap-8 ${!isLeftAlign && "flex-row-reverse"}`}>
                             {currentContent?.tabSection?.tabs.map((tab, index) => (
                                 <button
                                     key={index}
@@ -162,34 +162,40 @@ const MarketPage = ({ language, screen }) => {
                         </div>
 
                         {/* Cards */}
-                        <div className="grid grid-cols-3 gap-x-16 gap-y-6 mt-12">
-                            {filterMarketItems?.slice(0, visibleMarketItemsCount)?.map((item, index) => (
-                                <div key={index} className="rounded-md p-3 flex flex-col items-start gap-2 overflow-hidden">
-                                    <img
-                                        src={projectPageData[item.imgUrl]}
-                                        width="339"
-                                        height="190"
-                                        alt={item.title[language]}
-                                        className="object-cover w-full h-[50%]"
-                                    />
-                                    <h5
-                                        title={item?.title[language]}
-                                        className="text-black text-lg font-bold mt-4 h-10 truncate"
+                        <div
+                            className={`grid grid-cols-3 gap-x-16 gap-y-6 mt-12 ${language === "ar" ? "rtl" : ""}`}
+                            style={language === "ar" ? { direction: "rtl" } : {}}
+                        >
+                            {filterMarketItems
+                                ?.slice(0, visibleMarketItemsCount)
+                                ?.map((item, index) => (
+                                    <div
+                                        key={index}
+                                        className="rounded-md p-3 flex flex-col items-start gap-2 overflow-hidden"
                                     >
-                                        {TruncateText(item.title[language], 45)}
-                                    </h5>
-                                    <button
-                                        //   onClick={() => router.push(`/market/${index + 1}`)}
-                                        className="text-sky-500 text-center text-base font-normal flex items-center gap-2 mt-2"
-                                    >
-                                        {currentContent?.tabSection?.button[0]?.text[language]}
-                                        <p className="text-[1.6em] -translate-y-[2px]">
-                                            →
-                                        </p>
-                                    </button>
-                                </div>
-                            ))}
+                                        <img
+                                            src={projectPageData[item.imgUrl]}
+                                            width="339"
+                                            height="190"
+                                            alt={item.title[language]}
+                                            className="object-cover w-full h-[50%]"
+                                        />
+                                        <h5
+                                            title={item?.title[language]}
+                                            className="text-black text-lg font-bold mt-4 h-10 truncate"
+                                        >
+                                            {TruncateText(item.title[language], 45)}
+                                        </h5>
+                                        <button
+                                            className="text-sky-500 text-center text-base font-normal flex items-center gap-2 mt-2"
+                                        >
+                                            {currentContent?.tabSection?.button[0]?.text[language]}
+                                            <p className={`text-[1.6em] -translate-y-[2px] ${language === "ar" && "scale-x-[-1]"}`}>→</p>
+                                        </button>
+                                    </div>
+                                ))}
                         </div>
+
 
                         {/* View More Button */}
                         {visibleMarketItemsCount < filterMarketItems.length && (

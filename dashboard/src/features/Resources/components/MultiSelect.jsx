@@ -40,7 +40,7 @@ const SortableItem = ({ option, removeOption, language }) => {
       style={style}
       {...attributes}
       {...listeners}
-      className={`flex items-center gap-1 px-3 py-1 text-xs bg-gray-200 min-h-[2.125rem] rounded-md cursor-move dark:text-[black] transition-transform`}
+      className={`flex items-center ${language === 'ar' && "flex-row-reverse text-right"} gap-1 px-3 py-1 text-xs bg-gray-200 min-h-[2.125rem] rounded-md cursor-move dark:text-[black] transition-transform`}
     >
       {option.title?.[language]}
       <button
