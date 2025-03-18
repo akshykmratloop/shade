@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
-// import styles from "./solution.module.scss";
-// import localFont from "next/font/local";
-// import Button from "@/common/Button";
-// import Image from "next/image";
-import arrow from "../../../../assets/icons/right-wrrow.svg";  // ../../assets/icons/right-wrrow.svg
+import arrow from "../../../../assets/icons/right-wrrow.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { updateContent } from "../../../common/homeContentSlice";
 import content from "./content.json"
+import { SwiperSlide } from "swiper/react";
+import { Swiper } from "swiper/react";
+import { Autoplay, EffectCoverflow, Navigation } from "swiper/modules";
+// import localFont from "next/font/local";
+// import Button from "@/common/Button";
+// import Image from "next/image";
 // import { useGlobalContext } from "../../contexts/GlobalContext";
 // import { useRouter } from "next/router";
 
@@ -25,18 +27,15 @@ const SolutionPage = ({ language, screen }) => {
     const isComputer = screen > 1100
     const isTablet = 1100 > screen && screen > 767
     const isPhone = screen < 767
-    // const router = useRouter();
-    // const currentContent = content?.solution;
     const currentContent = useSelector((state) => state.homeContent.present.solution)
     const ImageFromRedux = useSelector((state) => state.homeContent.present.images)
     const dispatch = useDispatch()
 
-    console.log(currentContent)
 
-    const [isModal, setIsModal] = useState(false);
-    const handleContactUSClose = () => {
-        setIsModal(false);
-    };
+    // const [isModal, setIsModal] = useState(false);
+    // const handleContactUSClose = () => {
+    //     setIsModal(false);
+    // };
 
     const isLeftAlign = language === 'en'
 
@@ -48,7 +47,7 @@ const SolutionPage = ({ language, screen }) => {
         <div className=" bankgothic-medium-dt">
             {/** banner */}
             <section
-                className={`relative py-[10rem] w-full bg-cover bg-center ${isLeftAlign ? 'scale-x-[-1]' : ''} px-12`}
+                className={`relative py-[10rem] w-full bg-cover bg-center ${isLeftAlign ? 'scale-x-[-1]' : ''} px-12 ${isPhone?"h-screen":""}`}
                 style={{ backgroundImage: ImageFromRedux.bannerBackground ? `url(${ImageFromRedux.bannerBackground})` : 'url("https://frequencyimage.s3.ap-south-1.amazonaws.com/310398e2-856d-4e59-b0b0-10e811ca1f82-solution%20%281%29.png")' }}
             >
                 <div className="container h-full relative flex">
@@ -82,8 +81,8 @@ const SolutionPage = ({ language, screen }) => {
                     }`}
             >
                 <div className="container bankgothic-regular-db-mt">
-                    <div className="grid grid-cols-[129px_1fr] gap-[67px]">
-                        <div className="flex justify-center w-[190px] py-[14px]">
+                    <div className={`${isPhone ? "flex flex-col" : "grid grid-cols-[129px_1fr] gap-[67px]"} `}>
+                        <div className={`flex justify-center w-[190px] py-[14px]`}>
                             <span className="relative w-[10px] h-[20px]">
                                 <span className="absolute top-[1px] w-[4px] h-[20px] bg-red-500 rotate-[-15deg]"></span>
                             </span>
@@ -93,12 +92,12 @@ const SolutionPage = ({ language, screen }) => {
                         </div>
                         <div>
                             <p
-                                className={`text-[18px] font-light leading-[40px] tracking-[-1.2px] mb-[32px] `}
+                                className={` font-light ${isPhone?"leading-[20px] text-sm":"leading-[40px]"} tracking-[-1.2px] mb-[32px] `}
                             >
                                 {currentContent?.whatWeDo?.description1[language]}
                             </p>
                             <p
-                                className={`text-[18px] font-light leading-[40px] tracking-[-1.2px] mb-[32px] `}
+                                className={` font-light ${isPhone?"leading-[20px] text-sm":"leading-[40px]"} tracking-[-1.2px] mb-[32px] `}
                             >
                                 {currentContent?.whatWeDo?.description2[language]}
                             </p>
@@ -109,30 +108,53 @@ const SolutionPage = ({ language, screen }) => {
 
 
             {/** gallary wrap */}
-            <section className="max-w-[1180px] mx-auto pb-2 px-10">
-                <div className="container">
-                    <div className="flex flex-wrap items-start justify-between">
-                        {currentContent?.gallery?.images.map((image, index) => (
-                            <img
-                                key={index}
-                                src={ImageFromRedux[`Image ${index + 1}`] || image.url}
-                                width={(image.width / 1532) * screen}
-                                height={(image.height / 1532) * screen}
-                                alt=""
-                                className="object-cover"
-                            />
-                        ))}
-                    </div>
-                </div>
-            </section>
 
+            <div
+                className="w-[800px] mx-auto "
+                style={{width:isComputer ? "30rem":`${screen-30}px`}}
+            >
+                <Swiper
+                    modules={[Navigation, Autoplay, EffectCoverflow]}
+                    grabCursor={true}
+                    centeredSlides={true}
+                    slidesPerView={1}
+                    loop={true}
+                    autoplay={{ delay: 2500 }}
+                    effect="coverflow"
+                    coverflowEffect={{
+                        rotate: 0,
+                        stretch: 0,
+                        depth: 300,
+                        modifier: 1.5,
+                        slideShadows: false,
+                    }}
+                   
+                >
+                    {currentContent?.gallery?.images.map(
+                        (image, index) => (
+                            <SwiperSlide key={index}>
+                                <div className={`rounded-lg overflow-hidden shadow-lg transition-transform transform ${isPhone?"h-[50vh]":"h-[500px]"}`}>
+
+                                    <img
+                                        src={ImageFromRedux[`Image ${index + 1}`] || image.url}
+                                        alt={`Image ${index + 1}`}
+                                        className="object-cover w-full h-full"
+                                    />
+                                </div>
+                            </SwiperSlide>
+                        )
+                    )}
+                </Swiper>
+            </div>
 
             {/** HowWeDo */}
             <section
                 className={`py-[88px] pb-[120px] px-10 ${language === "en" ? "text-left" : "text-right"}`}
             >
                 <div className="container">
-                    <div className="grid grid-cols-[129px_1fr] gap-[67px]">
+                    {/* <div className="grid grid-cols-[129px_1fr] gap-[67px]"> */}
+                    <div className={`${isPhone ? "flex flex-col" : "grid grid-cols-[129px_1fr] gap-[67px]"} `}>
+
                         <div className="flex justify-center  w-[190px] py-[14px]">
                             <span className="relative w-[10px] h-[20px]">
                                 <span className="absolute top-[1px] w-[4px] h-[20px] bg-red-500 rotate-[-15deg]"></span>
@@ -143,7 +165,7 @@ const SolutionPage = ({ language, screen }) => {
                         </div>
                         <div>
                             <p
-                                className={` font-light text-[18px] leading-[40px] tracking-[-1.2px] mb-[32px]`}
+                                className={`${isPhone?"leading-[20px] text-sm":"leading-[40px]"} font-light tracking-[-1.2px] mb-[32px]`}
                             >
                                 {currentContent?.howWeDo?.description[language]}
                             </p>
@@ -153,34 +175,42 @@ const SolutionPage = ({ language, screen }) => {
             </section>
 
             {/** Showcase gallery wrap */}
-            <section className="pb-2 relative px-10">
-                <div className="container">
-                    <div className="flex items-center justify-between relative">
-                        {currentContent?.gallery?.showcase.map((image, index) => (
-                            <div
-                                key={image.url+index}
-                                className={` ${index === 0
-                                    ? "relative before:content-[''] before:absolute before:top-[-24px] before:right-[-24px] before:border-t before:border-r before:border-[#97b3d8] before:h-[80px] before:w-[80px] before:z-[1] after:content-[''] after:absolute after:right-[-24px] after:bottom-[-24px] after:border-r after:border-b after:border-[#97b3d8] after:h-[80px] after:w-[80px] after:z-[1]"
-                                    : index === currentContent.gallery.showcase.length - 1
-                                        ? "relative before:content-[''] before:absolute before:top-[-24px] before:left-[-24px] before:border-t before:border-l before:border-[#97b3d8] before:h-[80px] before:w-[80px] before:z-[1] after:content-[''] after:absolute after:left-[-24px] after:bottom-[-24px] after:border-l after:border-b after:border-[#97b3d8] after:h-[80px] after:w-[80px] after:z-[1]"
-                                        : index === 1
-                                            ? "absolute z-20 shadow-[0px_0px_9px_2px_rgba(0,0,0,0.12)]"
-                                            : ""
-                                    }`}
-                                style={{ left: index === 1 ? isTablet ? "232px" : 300 / 1182 * screen : "" }}
-                            >
-                                <img
-                                    src={ ImageFromRedux[`Image ${index + 4}`] ? ImageFromRedux[`Image ${index + 4}`] : image.url}
-                                    width={(image.width / 1532) * screen}
-                                    height={(image.height / 1532) * screen}
-                                    alt=""
-                                    className={`${index === 1 ? "" : ""}`}
-                                />
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </section>
+            <div
+                className="w-[800px] mx-auto "
+                style={{width:isComputer ? "40rem":`${screen-30}px`}}
+            >
+                <Swiper
+                    modules={[Navigation, Autoplay, EffectCoverflow]}
+                    grabCursor={true}
+                    centeredSlides={true}
+                    slidesPerView={1}
+                    loop={true}
+                    autoplay={{ delay: 2500 }}
+                    effect="coverflow"
+                    coverflowEffect={{
+                        rotate: 0,
+                        stretch: 0,
+                        depth: 300,
+                        modifier: 1.5,
+                        slideShadows: false,
+                    }}
+                >
+                    {currentContent?.gallery?.showcase.map(
+                        (image, index) => (
+                            <SwiperSlide key={index}>
+                                <div className={`rounded-lg overflow-hidden shadow-lg transition-transform transform ${isPhone?"h-[50vh]":"h-[500px]"}`}>
+                                    <img
+                                        src={ImageFromRedux[`Image ${index + 1}`] || image.url}
+                                        alt={`Image ${index + 1}`}
+                                        className="object-cover w-full h-full"
+                                        style={{objectPosition:"center"}}
+                                    />
+                                </div>
+                            </SwiperSlide>
+                        )
+                    )}
+                </Swiper>
+            </div>
 
 
 
@@ -194,31 +224,6 @@ export default SolutionPage;
 
 
 // {/* 
-
-
-
-
-
-
-// <section className={styles.showcase_gallery_wrap}>
-// <div className="container">
-//     <div className={styles.showcase_gallery}>
-//         {currentContent?.gallery?.showcase.map((image, index) => (
-//             <div key={index} className={styles.showcase_gallery_img_wrap}>
-//                 <Image
-//                     src={image.url}
-//                     width={image.width}
-//                     height={image.height}
-//                     alt=""
-//                     className={styles.gallery_img}
-//                 />
-//             </div>
-//         ))}
-//     </div>
-// </div>
-// </section>
-
-///////////////////////////////////////////////////////////////////////////////////////////
 
 // <section
 // className={` ${language === "en" && styles.leftAlign}   ${styles.new_project_wrapper
@@ -251,4 +256,6 @@ export default SolutionPage;
 //         </Button>
 //     </div>
 // </div>
-// </section> */}
+// </section> 
+// 
+// */}

@@ -15,7 +15,6 @@ import {Switch} from "@headlessui/react";
 import {MdInfo} from "react-icons/md";
 import {FiEye} from "react-icons/fi";
 import {FaRegEdit} from "react-icons/fa";
-
 const TopSideButtons = ({
   removeFilter,
   applyFilter,
@@ -25,18 +24,15 @@ const TopSideButtons = ({
   const [filterParam, setFilterParam] = useState("");
   const [searchText, setSearchText] = useState("");
   const statusFilters = ["ACTIVE", "INACTIVE"];
-
   const showFiltersAndApply = (status) => {
     applyFilter(status);
     setFilterParam(status);
   };
-
   const removeAppliedFilter = () => {
     removeFilter();
     setFilterParam("");
     setSearchText("");
   };
-
   useEffect(() => {
     if (searchText === "") {
       removeAppliedFilter();
@@ -44,7 +40,6 @@ const TopSideButtons = ({
       applySearch(searchText);
     }
   }, [searchText]);
-
   return (
     <div className="inline-block float-right">
       {/* <SearchBar
@@ -85,7 +80,6 @@ const TopSideButtons = ({
     </div>
   );
 };
-
 function Roles() {
   const [roles, setRoles] = useState([]);
   const [originalRoles, setOriginalRoles] = useState([]);
@@ -94,32 +88,26 @@ function Roles() {
   const [selectedRole, setSelectedRole] = useState(null);
   const [showDetailsModal, setShowDetailsModal] = useState(false);
   const [enabled, setEnabled] = useState(false);
-
   const removeFilter = () => {
     setRoles([...originalRoles]);
   };
-
   const applyFilter = (status) => {
     const filteredRoles = originalRoles.filter(
       (role) => role.status === status
     );
     setRoles(filteredRoles);
   };
-
   const applySearch = (value) => {
     const filteredRoles = originalRoles.filter((role) =>
       role.name.toLowerCase().includes(value.toLowerCase())
     );
     setRoles(filteredRoles);
   };
-
   const statusChange = async (role) => {
     const loadingToastId = toast.loading("loging in", {autoClose: 2000}); // starting the loading in toaster
-
     let response;
     if (role.status === "ACTIVE") response = await deactivateRole(role);
     else response = await activateRole(role);
-
     console.log(response);
     if (response.ok) {
       updateToasify(
@@ -138,7 +126,6 @@ function Roles() {
       ); // updating the toaster
     }
   };
-
   useEffect(() => {
     async function fetchRoleData() {
       const response = await fetchRoles();
@@ -147,7 +134,6 @@ function Roles() {
     }
     fetchRoleData();
   }, [changesInRole]);
-
   return (
     <>
       <TitleCard
@@ -190,7 +176,7 @@ function Roles() {
             <tbody>
               {Array.isArray(roles) &&
                 roles?.map((role, index) => (
-                  <tr key={index} className="border-b border-[#EAECF0]">
+                  <tr key={index} className="font-light">
                     <td className="font-poppins font-medium text-[14px] leading-normal text-[#101828] p-[26px]">
                       {role.name}
                     </td>
@@ -215,7 +201,6 @@ function Roles() {
                         {role?._count?.subPermissions || "3"}
                       </span>
                     </td>
-
                     <td className="font-poppins font-medium text-[14px] leading-normal text-[#101828] p-[26px]">
                       <span className="bg-[#F5F6F7] p-1  rounded-full">
                         {role?.usersAssigned || "1"}
@@ -277,7 +262,6 @@ function Roles() {
           </table>
         </div>
       </TitleCard>
-
       {/* Add Role Modal */}
       <AddRoleModal
         show={showAddForm}
@@ -289,7 +273,6 @@ function Roles() {
         role={selectedRole}
       />
       {/* <AddRoleModal show={showAddForm} onClose={() => setShowAddForm(false)} updateRole={setChangesInRole} /> */}
-
       {/* Role Details Modal */}
       <RoleDetailsModal
         role={selectedRole}
@@ -300,5 +283,4 @@ function Roles() {
     </>
   );
 }
-
 export default Roles;

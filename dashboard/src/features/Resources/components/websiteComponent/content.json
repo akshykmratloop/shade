@@ -131,7 +131,7 @@
             "ar": "المشاريع المنجزة"
           },
           "iconName": "projectCompleted",
-          "items":"Item 1"
+          "items": "Item 1"
         },
         {
           "count": "84",
@@ -140,7 +140,7 @@
             "ar": "عملاء سعداء"
           },
           "iconName": "happyClient",
-          "items":"Item 2"
+          "items": "Item 2"
         },
         {
           "count": "32",
@@ -149,7 +149,7 @@
             "ar": "سنوات في العمل"
           },
           "iconName": "yearOfBusiness",
-          "items":"Item 3"
+          "items": "Item 3"
         },
         {
           "count": "42",
@@ -158,12 +158,12 @@
             "ar": "الفوز بالجوائز"
           },
           "iconName": "awardWin",
-          "items":"Item 4"
+          "items": "Item 4"
         }
       ],
       "buttonText": {
-          "en": "Contact Us",
-          "ar": "اتصل بنا"
+        "en": "Contact Us",
+        "ar": "اتصل بنا"
       }
     },
     "recentProjectsSection": {
@@ -216,7 +216,7 @@
                 "ar": "سبارك - الظهران، المملكة العربية السعودية"
               },
               "image": "itLab",
-              "display":true
+              "display": true
             },
             {
               "title": {
@@ -228,7 +228,7 @@
                 "ar": "الدمام، المملكة العربية السعودية"
               },
               "image": "business",
-              "display":true
+              "display": true
             },
             {
               "title": {
@@ -240,7 +240,7 @@
                 "ar": "سبارك - الظهران، المملكة العربية السعودية"
               },
               "image": "psychiatric",
-              "display":true
+              "display": true
             },
             {
               "title": {
@@ -252,7 +252,7 @@
                 "ar": "سبارك - الظهران، المملكة العربية السعودية"
               },
               "image": "renovation",
-              "display":true
+              "display": true
             }
           ]
         },
@@ -280,7 +280,7 @@
                 "ar": "مشروع بناء ناطحات سحاب."
               },
               "image": "buildings",
-              "display":true
+              "display": true
             },
             {
               "title": {
@@ -296,7 +296,7 @@
                 "ar": "مشروع تطوير مجمع صناعي."
               },
               "image": "industrial",
-              "display":true
+              "display": true
             },
             {
               "title": {
@@ -312,7 +312,7 @@
                 "ar": "توسعة وتحديث البنية التحتية."
               },
               "image": "infrastructure",
-              "display":true
+              "display": true
             },
             {
               "title": {
@@ -328,7 +328,7 @@
                 "ar": "تجديد المنشآت القديمة."
               },
               "image": "repair",
-              "display":true
+              "display": true
             }
           ]
         },
@@ -356,7 +356,7 @@
                 "ar": "منشأة حديثة لتدريب السلامة."
               },
               "image": "safetyTraining",
-              "display":true
+              "display": true
             },
             {
               "title": {
@@ -372,7 +372,7 @@
                 "ar": "تصميم وتنفيذ أنظمة الاستجابة للطوارئ."
               },
               "image": "emergencyResponse",
-              "display":true
+              "display": true
             },
             {
               "title": {
@@ -388,7 +388,7 @@
                 "ar": "ضمان معايير السلامة في مواقع البناء."
               },
               "image": "constructionSafety",
-              "display":true
+              "display": true
             },
             {
               "title": {
@@ -404,7 +404,7 @@
                 "ar": "التعامل الصحيح والتخلص من المواد الخطرة."
               },
               "image": "hazardousMaterials",
-              "display":true
+              "display": true
             },
             {
               "title": {
@@ -420,7 +420,7 @@
                 "ar": "تركيب أنظمة السلامة من الحرائق وبروتوكولات الوقاية."
               },
               "image": "fireSafety",
-              "display":true
+              "display": true
             },
             {
               "title": {
@@ -436,7 +436,7 @@
                 "ar": "التدقيق الروتيني للسلامة لضمان الامتثال."
               },
               "image": "workplaceSafety",
-              "display":true
+              "display": true
             }
           ]
         }
@@ -622,8 +622,8 @@
         "en": "Building a Stronger Future"
       },
       "button": {
-          "ar": "اتصل بنا",
-          "en": "Contact Us"
+        "ar": "اتصل بنا",
+        "en": "Contact Us"
       }
     }
   },
@@ -792,8 +792,8 @@
         "en": "Discover the exceptional excellence of Shade Corporation, the leading company in engineering, procurement, and construction in Saudi Arabia."
       },
       "button": {
-          "ar": "عرض عملنا",
-          "en": "View Our Work"
+        "ar": "عرض عملنا",
+        "en": "View Our Work"
       }
     },
     "whatWeDo": {
@@ -881,7 +881,7 @@
       ]
     }
   },
-  "aboutUs": {
+  "about": {
     "services": {
       "title": {
         "ar": "Shade Corporation Ltd",
@@ -933,16 +933,14 @@
         "ar": "معلومات عنا",
         "en": "About Us"
       },
-      "descriptions": [
-        {
-          "ar": "تأسست شركة Shade Corporation، الرائدة في هذه الصناعة، في عام 1992 بهدف واحد هو \"بناء مستقبل أقوى\".",
-          "en": "Shade Corporation, a leader in the industry, was established in 1992 with a single goal of \"Building a Stronger Future\"."
-        },
-        {
-          "ar": "إن أفكارنا، التي شكلتها المنهجيات المتطورة وعقود من الخبرة، تخدم أكبر الشركات في العالم. نحن متحمسون لإطلاق الإمكانات وتقديم الحلول لعملائنا.",
-          "en": "Our ideas, shaped by advanced methodologies and decades of experience, serve the world's largest companies. We are passionate about unlocking potential and delivering solutions for our clients."
-        }
-      ],
+      "description1": {
+        "ar": "تأسست شركة Shade Corporation، الرائدة في هذه الصناعة، في عام 1992 بهدف واحد هو \"بناء مستقبل أقوى\".",
+        "en": "Shade Corporation, a leader in the industry, was established in 1992 with a single goal of \"Building a Stronger Future\"."
+      },
+      "description2": {
+        "ar": "إن أفكارنا، التي شكلتها المنهجيات المتطورة وعقود من الخبرة، تخدم أكبر الشركات في العالم. نحن متحمسون لإطلاق الإمكانات وتقديم الحلول لعملائنا.",
+        "en": "Our ideas, shaped by advanced methodologies and decades of experience, serve the world's largest companies. We are passionate about unlocking potential and delivering solutions for our clients."
+      },
       "button": {
         "text": {
           "ar": "دعونا نتواصل",
@@ -1149,10 +1147,8 @@
         "en": "Discover the exceptional excellence of Shade Corporation, the premier Engineering, Procurement, and Construction powerhouse in Saudi Arabia."
       },
       "button": {
-        "text": {
           "ar": "خدماتنا",
           "en": "Our Services"
-        }
       }
     },
     "quote": {

@@ -1,7 +1,7 @@
 import {useDispatch, useSelector} from 'react-redux'
 import axios from 'axios'
 import { CONFIRMATION_MODAL_CLOSE_TYPES, MODAL_CLOSE_TYPES } from '../../../utils/globalConstantUtil'
-import { deleteLead } from '../../leads/leadSlice'
+import { deleteLead } from '../../Resources/leadSlice'
 import { showNotification } from '../headerSlice'
 
 function ConfirmationModalBody({ extraObject, closeModal}){
