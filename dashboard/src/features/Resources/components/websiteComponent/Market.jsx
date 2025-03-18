@@ -108,7 +108,7 @@ const MarketPage = ({ language, screen }) => {
 
             {/* qoutes */}
             <section
-                className={`${isLeftAlign && "text-left"} py-[16px] h-[400px] flex justify-center items-center`}
+                className={`${isLeftAlign && "text-left"} py-[256px] h-[400px] flex justify-center items-center`}
             >
                 <div className="container flex justify-center items-center">
                     <div className="relative w-[634px] p-[45px] h-[327px] flex flex-col items-center justify-center bg-white rounded-lg">
