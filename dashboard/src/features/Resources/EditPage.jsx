@@ -12,7 +12,7 @@ import HomeManager from "./components/contentmanager/HomeManager";
 import SolutionManager from "./components/contentmanager/SolutionManager";
 import AboutUs from "./components/websiteComponent/About";
 import AboutManager from "./components/contentmanager/AboutManager";
-import Services from "./components/websiteComponent/Service";
+// import Services from "./components/websiteComponent/Service";
 import MarketPage from "./components/websiteComponent/Market";
 import MarketManager from "./components/contentmanager/MarketManager";
 
@@ -59,12 +59,12 @@ const EditPage = () => {
             </div> {/* Content manager ends here */}
             {/* Content view */}
             <div
-                className={`flex-[4] h-[83.5vh] flex flex-col `}
+                className={`flex-[4] h-[83.5vh] flex flex-col`}
                 style={{ width: screen > 1000 ? "" : screen }}
             >
                 <ContentTopBar setWidth={setScreen} />
                 <h4>Commented by {"Anukool (Super Admin)"}</h4>
-                <div className={`overflow-y-scroll customscroller border-black-500 border mx-auto w-full bankgothic-medium-dt`}
+                <div className={`overflow-y-scroll customscroller border-black-500  mx-auto w-full bankgothic-medium-dt bg-[white]`}
                     style={{ width: screen > 1000 ? "" : screen }}
                 >
                     {
@@ -77,11 +77,11 @@ const EditPage = () => {
                     }
                     {
                         currentPath === "about" &&
-                        <AboutUs language={language} currentContent={content.solution} screen={screen} />
+                        <AboutUs language={language} currentContent={content.about} screen={screen} />
                     }
                     {
                         currentPath === "markets" &&
-                        <MarketPage language={language} currentContent={content.solution} screen={screen} />
+                        <MarketPage language={language} currentContent={content.markets} screen={screen} />
                     }
 
                 </div>

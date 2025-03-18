@@ -30,9 +30,9 @@ const cmsSlice = createSlice({
         },
         updateSpecificContent: (state, action) => {
             state.past.push(JSON.parse(JSON.stringify(state.present)));
-            if(action.payload.subSectionsProMax){
+            if (action.payload.subSectionsProMax) {
                 state.present[action.payload?.currentPath][action.payload.section][action.payload.subSection][action.payload?.index][action.payload.subSectionsProMax][action.payload.subSecIndex][action.payload.title][action.payload.lan] = action.payload.value;
-            }else if (action.payload.subSection) {
+            } else if (action.payload.subSection) {
                 state.present[action.payload?.currentPath][action.payload.section][action.payload.subSection][action.payload?.index][action.payload.title][action.payload.lan] = action.payload.value;
             } else {
                 state.present[action.payload?.currentPath][action.payload.section][action.payload.title][action.payload.lan] = action.payload.value;
@@ -58,9 +58,9 @@ const cmsSlice = createSlice({
                 const indexB = selectedMap.get(b.title[action.payload.language]) ?? Infinity;
                 return indexA - indexB;
             });
-            switch(action.payload.origin) {
+            switch (action.payload.origin) {
                 case "home":
-                    state.present[action.payload?.currentPath].serviceSection.cards = newOptions; 
+                    state.present[action.payload?.currentPath].serviceSection.cards = newOptions;
                     break;
                 case "recentproject":
                     state.present[action.payload?.currentPath].recentProjectsSection.sections[action.payload.index].projects = newOptions;
@@ -69,6 +69,29 @@ const cmsSlice = createSlice({
                 default:
             }
             state.future = [];
+        },
+        updateMarketSelectedContent: (state, action) => {
+            state.past.push(JSON.parse(JSON.stringify(state.present)));
+            const selectedMap = new Map(
+                action.payload.selected?.filter(e => e.type).map((item, index) => [item.title[action.payload.language], index])
+            );
+            let newOptions = action.payload.newArray?.map(e => ({
+                ...e,
+                type: selectedMap.has(e.title[action.payload.language])
+            }));
+            newOptions.sort((a, b) => {
+                const indexA = selectedMap.get(a.title[action.payload.language]) ?? Infinity;
+                const indexB = selectedMap.get(b.title[action.payload.language]) ?? Infinity;
+                return indexA - indexB;
+            })
+            switch (action.payload.origin) {
+                case "markets":
+                    state.present[action.payload?.currentPath].tabSection.marketItems = newOptions;
+                    break;
+
+                default:
+            }
+            state.future = []
         },
         undo: (state) => {
             if (state.past.length > 0) {

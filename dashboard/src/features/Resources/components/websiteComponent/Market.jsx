@@ -88,7 +88,7 @@ const MarketPage = ({ language, screen }) => {
                             {currentContent?.banner?.description[language]}
                         </p>
                         <button
-                            className={`relative px-5 py-2  text-sm font-medium bg-sky-600 text-white rounded flex items-center justify-start gap-2 ${isLeftAlign ? "flex-row-reverse" : ""}`}
+                            className={`relative px-5 py-2 text-sm font-medium bg-sky-600 text-white rounded flex items-center justify-start gap-2 ${isLeftAlign ? "flex-row-reverse" : ""}`}
                         // onClick={() => router.push("/services")}
                         >
                             <img
