@@ -15,6 +15,7 @@ import AboutManager from "./components/contentmanager/AboutManager";
 // import Services from "./components/websiteComponent/Service";
 import MarketPage from "./components/websiteComponent/Market";
 import MarketManager from "./components/contentmanager/MarketManager";
+import ProjectPage from "./components/websiteComponent/Projects";
 
 const EditPage = () => {
     const dispatch = useDispatch();
@@ -56,6 +57,7 @@ const EditPage = () => {
                     <MarketManager language={language} currentContent={content.markets} currentPath={currentPath} />
                 }
 
+
             </div> {/* Content manager ends here */}
             {/* Content view */}
             <div
@@ -64,7 +66,7 @@ const EditPage = () => {
             >
                 <ContentTopBar setWidth={setScreen} />
                 <h4>Commented by {"Anukool (Super Admin)"}</h4>
-                <div className={`overflow-y-scroll customscroller border-black-500  mx-auto w-full bankgothic-medium-dt bg-[white]`}
+                <div className={`overflow-y-scroll customscroller border-stone-500 border mx-auto w-full bankgothic-medium-dt bg-[white]`}
                     style={{ width: screen > 1000 ? "" : screen }}
                 >
                     {
@@ -82,6 +84,10 @@ const EditPage = () => {
                     {
                         currentPath === "markets" &&
                         <MarketPage language={language} currentContent={content.markets} screen={screen} />
+                    }
+                    {
+                        currentPath === "projects" &&
+                        <ProjectPage language={language} currentContent={content.projects} screen={screen} />
                     }
 
                 </div>

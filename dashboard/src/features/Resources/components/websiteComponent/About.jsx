@@ -19,6 +19,7 @@ import { aboutUsIcons } from "../../../../assets/index"; // ../../assets/index
 // });
 
 const AboutUs = ({ language, screen }) => {
+    const isPhone = screen < 768
     const isEnglish = language === "en"
     const dispatch = useDispatch()
     const currentContent = useSelector((state) => state.homeContent.present.about)
@@ -42,14 +43,14 @@ const AboutUs = ({ language, screen }) => {
             <section className="py-12">
                 <div className="container mx-auto relative px-4">
                     <div className={`flex flex-col gap-6 items-center`}>
-                        <h2 className="text-black text-3xl font-normal leading-none">
+                        <h2 className={`text-black ${isPhone ? "text-2xl" : "text-3xl"} font-normal leading-none`}>
                             {currentContent?.services?.title[language]}
                         </h2>
                         <p className="text-black text-base font-light leading-7 mb-4 text-sky-500">
                             {currentContent?.services?.subtitle[language]}
                         </p>
                     </div>
-                    <div className={`${!isEnglish ? "flex flex-row-reverse " : "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3"} text-center gap-8 mt-8`}>
+                    <div className={`${!isEnglish ? `flex  ${isPhone ? "flex-col" : "flex-row-reverse"}` : `${isPhone?"flex flex-col":"grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3"}`} text-center gap-8 mt-8`}>
                         {currentContent?.services?.cards.map((card, index) => (
                             <div
                                 className={`p-6 bg-[#ebf8fd] rounded-lg shadow-md flex-1 flex flex-col items-center gap-4`}
@@ -81,11 +82,11 @@ const AboutUs = ({ language, screen }) => {
                     } py-24`}
             >
                 <div className="container mx-auto px-4">
-                    <div className={`flex items-center ${!isEnglish ? "flex-row-reverse" : ""} gap-8`}>
+                    <div className={`flex items-center ${!isEnglish ? `${isPhone?"flex-col":"flex-row-reverse"}` : `${isPhone && "flex-col"}`} gap-8`}>
                         <div className="w-full mb-8 flex flex-[2]">
                             <video
                                 src={ImageFromRedux["video"] || currentContent?.main?.video}
-                                autoPlay    
+                                autoPlay
                                 loop
                                 muted
                                 playsInline
