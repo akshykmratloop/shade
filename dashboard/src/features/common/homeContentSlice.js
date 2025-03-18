@@ -72,25 +72,27 @@ const cmsSlice = createSlice({
         },
         updateMarketSelectedContent: (state, action) => {
             state.past.push(JSON.parse(JSON.stringify(state.present)));
-            const selectedMap = new Map(
-                action.payload.selected?.filter(e => e.type).map((item, index) => [item.title[action.payload.language], index])
-            );
-            let newOptions = action.payload.newArray?.map(e => ({
-                ...e,
-                type: selectedMap.has(e.title[action.payload.language])
-            }));
-            newOptions.sort((a, b) => {
-                const indexA = selectedMap.get(a.title[action.payload.language]) ?? Infinity;
-                const indexB = selectedMap.get(b.title[action.payload.language]) ?? Infinity;
-                return indexA - indexB;
-            })
-            switch (action.payload.origin) {
-                case "markets":
-                    state.present[action.payload?.currentPath].tabSection.marketItems = newOptions;
-                    break;
+            const newSet = new Set(action.payload.selected.map(e => e.id))
+            let newArray;
+            // console.log(action.payload.selected)
+            if (action.payload.newOption === null) {
+                newArray = action.payload.newArray.filter(e => {
+                    return !(newSet.has(e.id))
+                })
 
-                default:
+                action.payload.selected.forEach(element => {
+                    newArray.push(element)
+                });
+
+            } else {
+                newArray = action.payload.newArray.map(option => {
+                    if (option.id === action.payload.newOption.id) {
+                        return action.payload.newOption
+                    } else return option
+                })
             }
+            state.present[action.payload.currentPath].tabSection.marketItems = newArray
+
             state.future = []
         },
         undo: (state) => {
@@ -109,5 +111,5 @@ const cmsSlice = createSlice({
     }
 });
 
-export const { updateImages, removeImages, updateContent, updateSpecificContent, updateServicesNumber, updateSelectedContent, undo, redo } = cmsSlice.actions;
+export const { updateImages, removeImages, updateContent, updateSpecificContent, updateServicesNumber, updateSelectedContent, updateMarketSelectedContent, undo, redo } = cmsSlice.actions;
 export default cmsSlice.reducer;

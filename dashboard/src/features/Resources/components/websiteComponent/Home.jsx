@@ -279,7 +279,7 @@ const HomePage = ({ language, screen }) => {
                     </div>
                     <div className={`flex ${isTablet ? isPhone ? "gap-[30px]" : "gap-[70px]" : "gap-[30px]"}`}>
                         <div className="leftDetails">
-                            {currentContent.recentProjectsSection?.sections?.map((section, index) => (
+                            {currentContent?.recentProjectsSection?.sections?.map((section, index) => (
                                 <div
                                     key={index}
                                     className={`relative ${!isEnglish ? 'rtl' : ''}`}
