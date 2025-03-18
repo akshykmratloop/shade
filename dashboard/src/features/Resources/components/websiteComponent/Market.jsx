@@ -41,7 +41,8 @@ const MarketPage = ({ language, screen }) => {
     // };
     // const [isModal, setIsModal] = useState(false);
     const dispatch = useDispatch()
-    const isPhone = screen < 768
+    const isPhone = screen < 760
+    const isTablet = screen > 761 && screen < 1100
     console.log(isPhone)
     const [activeTab, setActiveTab] = useState("buildings");
     const currentContent = useSelector((state) => state.homeContent.present.markets)
@@ -187,7 +188,7 @@ const MarketPage = ({ language, screen }) => {
 
                         {/* Cards */}
                         <div
-                            className={`${isPhone ? "flex flex-col" : "grid grid-cols-3 gap-x-16 gap-y-6 mt-12"} ${language === "ar" ? "rtl" : ""}`}
+                            className={`${isPhone ? "flex flex-col" : `grid ${isTablet?"grid-cols-2":"grid-cols-3"} gap-x-16 gap-y-6 mt-12`} ${language === "ar" ? "rtl" : ""}`}
                             style={language === "ar" ? { direction: "rtl" } : {}}
                         >
                             {filterMarketItems
