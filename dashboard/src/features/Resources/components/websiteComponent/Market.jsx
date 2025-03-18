@@ -41,6 +41,8 @@ const MarketPage = ({ language, screen }) => {
     // };
     // const [isModal, setIsModal] = useState(false);
     const dispatch = useDispatch()
+    const isPhone = screen < 768
+    console.log(isPhone)
     const [activeTab, setActiveTab] = useState("buildings");
     const currentContent = useSelector((state) => state.homeContent.present.markets)
     const ImageFromRedux = useSelector((state) => state.homeContent.present.images)
@@ -72,31 +74,30 @@ const MarketPage = ({ language, screen }) => {
     }, [])
 
     return (
-        <div style={{ height: screen ? screen * 0.436 : 1200 * 0.436 }}>
+        <div >
             {/* hero banner  */}
-            <section className={`relative h-full w-full bg-cover bg-center ${isLeftAlign ? 'scale-x-[-1]' : ''}`}
+            <section className={`relative h-full w-full bg-cover bg-center ${isLeftAlign ? 'scale-x-[-1]' : ''}  `}
                 style={{
+                    height: 1200 * 0.436,
                     backgroundImage: ImageFromRedux.marketBanner ? `url(${ImageFromRedux.marketBanner})` :
                         "url('https://frequencyimage.s3.ap-south-1.amazonaws.com/b9961a33-e840-4982-bd19-a7dcc52fdd95-Hero.jpg')"
                 }}>
-                <div className={`container h-full relative px-20 flex items-center ${isLeftAlign ? "justify-end" : "justify-end"}`}>
-                    <div className={`flex flex-col ${isLeftAlign ? 'right-5 text-left items-start ' : 'left-5 text-right items-end'} w-full max-w-[55%] ${isLeftAlign ? 'scale-x-[-1]' : ''}`}>
-                        <h1 className="text-black text-[50px] font-medium leading-[77px] tracking-[-3.5px] mb-4">
+                <div className={`container h-full relative ${isPhone ? "px-10" : "px-20"} flex items-center ${isLeftAlign ? "justify-end" : "justify-end"}   `}>
+                    <div className={`flex flex-col ${isLeftAlign ? 'right-5 text-left items-start ' : 'left-5 text-right items-end'} ${isPhone ? "max-w-[70%]" : "max-w-[55%]"} w-full ${isLeftAlign ? 'scale-x-[-1]' : ''}`}>
+                        <h1 className={`text-[#292E3D] ${isPhone ? "text-3xl" : "text-[50px] leading-[77px] tracking-[-3.5px]"} font-medium  mb-4`}>
                             {currentContent?.banner?.title[language]}
                         </h1>
-                        <p className="text-gray-500 text-sm font-semibold leading-[28px] mb-6 word-spacing-5">
+                        <p className={`text-[#0E172FB3] ${isPhone ? "" : "leading-[28px]"} text-sm font-semibold  mb-6 word-spacing-5`}>
                             {currentContent?.banner?.description[language]}
                         </p>
                         <button
-                            className={`relative px-5 py-2 text-sm font-medium bg-sky-600 text-white rounded flex items-center justify-start gap-2 ${isLeftAlign ? "flex-row-reverse" : ""}`}
+                            className={`relative px-5 py-2 ${isPhone ? "text-xs" : "text-sm"} font-medium bg-sky-600 text-white rounded flex items-center justify-start gap-2 ${isLeftAlign ? "flex-row-reverse" : ""}`}
                         // onClick={() => router.push("/services")}
                         >
                             <img
                                 src={Arrow}
-                                width="14"
-                                height="14"
                                 alt="Arrow"
-                                className={` ${isLeftAlign ? 'scale-x-[-1]' : ''}`}
+                                className={` ${isLeftAlign ? 'scale-x-[-1]' : ''} ${isPhone ? "w-[12px] h-[12px]" : "w-[14px] h-[14px]"}`}
                             />
                             <p>
                                 {currentContent?.banner?.button?.[language]}
@@ -113,14 +114,14 @@ const MarketPage = ({ language, screen }) => {
                 <div className="container flex justify-center items-center">
                     <div className="relative w-[634px] p-[45px] h-[327px] flex flex-col items-center justify-center bg-white rounded-lg">
                         <div
-                            className="absolute top-0 left-0 h-[327px] w-[154px] bg-no-repeat bg-center"
+                            className={`absolute top-0 ${isPhone ? "left-5" : "left-0"} ${isPhone ? "h-[350px]" : "h-[327px]"} w-[154px] bg-no-repeat bg-center`}
                             style={{
                                 backgroundImage:
                                     "url('https://frequencyimage.s3.ap-south-1.amazonaws.com/dedcd7a4-2f65-4cde-bbc3-008818e2581d-Pattern.svg')",
                             }}
                         ></div>
                         <div
-                            className="absolute top-0 right-0 h-[327px] w-[154px] bg-no-repeat bg-center"
+                            className={`absolute top-0 ${isPhone ? "right-5" : "right-0"} ${isPhone ? "h-[350px]" : "h-[327px]"} w-[154px] bg-no-repeat bg-center`}
                             style={{
                                 backgroundImage:
                                     "url('https://frequencyimage.s3.ap-south-1.amazonaws.com/ac99188b-3b99-4708-b075-8a660e9aac8f-Pattern%20%281%29.svg')",
@@ -131,9 +132,9 @@ const MarketPage = ({ language, screen }) => {
                             width="40"
                             height="40"
                             alt="asd"
-                            className="mb-[24px] rotate-180 opacity-[.3] "
+                            className="mb-[24px] rotate-180 opacity-[.3]"
                         />
-                        <p className="text-[#97b3d8] font-Arial text-[20px] font-normal leading-[30px] tracking-[0.02em] text-center mb-[20px]">
+                        <p className={`text-[#97b3d8] font-Arial ${isPhone ? "" : "text-[20px]"} font-normal leading-[30px] tracking-[0.02em] text-center mb-[20px]`}>
                             {currentContent?.quote?.text[language]}
                         </p>
                         <h5 className="text-[rgba(11,54,156,0.3)] font-Arial text-[18px] italic font-bold leading-[27px] tracking-[0.01em] text-center">
@@ -147,23 +148,46 @@ const MarketPage = ({ language, screen }) => {
             <section className={` pb-[45px] px-14 ${language === "en" ? "text-left" : "text-right"}`}>
                 <div className="container mx-auto px-4">
                     <div>
-                        {/* Tabs */}
-                        <div className={`flex items-center justify-center gap-8 ${!isLeftAlign && "flex-row-reverse"}`}>
-                            {currentContent?.tabSection?.tabs.map((tab, index) => (
-                                <button
-                                    key={index}
-                                    className={`text-black text-sm font-normal uppercase px-2 relative transition-all duration-300 
-                  ${activeTab === tab?.id ? "text-sky-500 border-b-4 border-sky-500" : "border-transparent"}`}
-                                    onClick={() => setActiveTab(tab?.id)}
-                                >
-                                    {tab.title[language]}
-                                </button>
-                            ))}
+                        {/* Tabs or Dropdown */}
+                        <div className="w-full flex flex-col items-center mb-10">
+                            {isPhone ? (
+                                // Dropdown for mobile view
+                                <div className="relative w-full max-w-xs">
+                                    <select
+                                        className="w-full p-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-sky-500 focus:border-sky-500"
+                                        value={activeTab}
+                                        onChange={(e) => setActiveTab(e.target.value)}
+                                    >
+                                        {currentContent?.tabSection?.tabs.map((tab, index) => (
+                                            <option key={index} value={tab?.id}>
+                                                {tab.title[language]}
+                                            </option>
+                                        ))}
+                                    </select>
+                                </div>
+                            ) : (
+                                // Tabs for larger screens
+                                <div className={`flex items-center justify-center gap-6 ${!isLeftAlign && "flex-row-reverse"}`}>
+                                    {currentContent?.tabSection?.tabs.map((tab, index) => (
+                                        <button
+                                            key={index}
+                                            className={`relative px-4 py-2 text-sm font-medium uppercase transition-all duration-300 ${activeTab === tab?.id
+                                                    ? "text-sky-500 border-b-2 border-sky-500"
+                                                    : "text-gray-600 hover:text-gray-800"
+                                                }`}
+                                            onClick={() => setActiveTab(tab?.id)}
+                                        >
+                                            {tab.title[language]}
+                                        </button>
+                                    ))}
+                                </div>
+                            )}
                         </div>
+
 
                         {/* Cards */}
                         <div
-                            className={`grid grid-cols-3 gap-x-16 gap-y-6 mt-12 ${language === "ar" ? "rtl" : ""}`}
+                            className={`${isPhone ? "flex flex-col" : "grid grid-cols-3 gap-x-16 gap-y-6 mt-12"} ${language === "ar" ? "rtl" : ""}`}
                             style={language === "ar" ? { direction: "rtl" } : {}}
                         >
                             {filterMarketItems
@@ -182,9 +206,9 @@ const MarketPage = ({ language, screen }) => {
                                         />
                                         <h5
                                             title={item?.title[language]}
-                                            className="text-black text-lg font-bold mt-4 h-10 truncate"
+                                            className="text-[#292E3D] text-lg font-bold mt-4 h-10"
                                         >
-                                            {TruncateText(item.title[language], 45)}
+                                            {TruncateText(item.title[language], (isPhone ? 20 : 25))}
                                         </h5>
                                         <button
                                             className="text-sky-500 text-center text-base font-normal flex items-center gap-2 mt-2"
