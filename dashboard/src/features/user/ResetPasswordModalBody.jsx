@@ -1,7 +1,7 @@
 import InputText from "../../components/Input/InputText";
 import Button from "../../components/Button/Button";
 import { toast } from "react-toastify";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { resetPassword } from "../../app/fetch";
 import { useSelector } from "react-redux";
 import PasswordValidation from "./components/PasswordValidation";
@@ -11,8 +11,10 @@ import { useNavigate } from "react-router-dom";
 import { validatePasswordMessage } from "./components/PasswordValidation";
 
 
-function ResetPasswordModalBody() {
+
+function ResetPasswordModalBody({ close }) {
   const navigate = useNavigate()
+  const divRef = useRef(null)
   const email = useSelector(state => {
     return state.user.user.email
   })
@@ -78,8 +80,20 @@ function ResetPasswordModalBody() {
 
   }
 
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (divRef.current && !divRef.current.contains(event.target)) {
+        close()
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside)
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside)
+    }
+  }, [])
+
   return (
-    <div>
+    <div ref={divRef}>
       <form className="flex flex-col items-center">
         <InputText placeholder="Enter current password"
           type={"password"}
@@ -113,7 +127,8 @@ function ResetPasswordModalBody() {
           <ErrorText error={errorMessage ? 1 : 0} styleClass={`${errorMessage ? "visible" : "invisible"} flex mt-6 text-sm gap-1 justify-center `}>
             <img src={xSign} alt="" className='h-3 translate-y-[4px]' />
             {errorMessage}</ErrorText> */}
-        <Button functioning={submitForm} text="Reset" classes={"h-[2.5rem] rounded-md w-[22rem] mt-4 text-sm btn-stone hover:text-stone-50 hover:bg-stone-700 border-stone-700 bg-stone-50 text-stone-800"} />
+        <Button functioning={submitForm} text="Reset"
+          classes={"h-[2.5rem] self-center rounded-md w-[4rem] mt-4 text-sm hover:text-stone-50 hover:bg-stone-700 border-stone-700 bg-stone-50 text-stone-800"} />
       </form>
     </div>
   );

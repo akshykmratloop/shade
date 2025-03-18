@@ -6,7 +6,6 @@ const HomeManager = ({ language, currentContent, currentPath }) => {
 
     return (
         <div>
-
             {/* homeBanner */}
             <ContentSection
                 currentPath={currentPath}
@@ -37,7 +36,6 @@ const HomeManager = ({ language, currentContent, currentPath }) => {
             />
 
             {/* services  */}
-
             <MultiSelect
                 currentPath={currentPath}
                 section={"serviceSection"}
@@ -49,8 +47,6 @@ const HomeManager = ({ language, currentContent, currentPath }) => {
                 referenceOriginal={{ dir: "home", index: 0 }}
                 currentContent={currentContent}
             />
-
-
 
             {/* exprerince */}
             <div className="w-full">

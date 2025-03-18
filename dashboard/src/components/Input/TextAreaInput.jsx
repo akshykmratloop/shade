@@ -8,6 +8,7 @@ function TextAreaInput({
   placeholder,
   updateFormValue,
   updateType,
+  language
 }) {
   const [value, setValue] = useState(defaultValue || "");
   const textareaRef = useRef(null);
@@ -37,6 +38,7 @@ function TextAreaInput({
         </span>
       </label>
       <textarea
+        dir={language === "ar" ? "rtl" : "ltr"}
         ref={textareaRef}
         value={value}
         className="textarea textarea-bordered w-full overflow-hidden border border-stone-500 text-xs"

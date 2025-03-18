@@ -6,12 +6,12 @@ const Dashboard = lazy(() => import('../pages/protected/Dashboard'))
 const Welcome = lazy(() => import('../pages/protected/Welcome'))
 const Page404 = lazy(() => import('../pages/protected/404'))
 const Blank = lazy(() => import('../pages/protected/Blank'))
-const Charts = lazy(() => import('../pages/protected/Charts'))
+const Users = lazy(() => import('../pages/protected/Users'))
 const Resource = lazy(() => import('../pages/protected/Resources'))
 const Integration = lazy(() => import('../pages/protected/Integration'))
 const Calendar = lazy(() => import('../pages/protected/Calendar'))
 const Team = lazy(() => import('../pages/protected/Team'))
-const Roles = lazy(() => import('../pages/protected/Transactions'))
+const Roles = lazy(() => import('../pages/protected/Roles'))
 const Bills = lazy(() => import('../pages/protected/Bills'))
 const ProfileSettings = lazy(() => import('../pages/protected/ProfileSettings'))
 const GettingStarted = lazy(() => import('../pages/GettingStarted'))
@@ -70,8 +70,8 @@ const routes = [
     component: Integration,
   },
   {
-    path: '/charts',
-    component: Charts,
+    path: '/users',
+    component: Users,
   },
   {
     path: '/404',

@@ -20,7 +20,7 @@ import DocumentDuplicateIcon from '@heroicons/react/24/outline/DocumentDuplicate
 import { ShieldCheckIcon } from '@heroicons/react/24/solid';
 import { GrUserSettings } from "react-icons/gr";
 import { HiOutlineClipboardDocumentList } from "react-icons/hi2";
-
+import { FaRegUser } from "react-icons/fa";
 const iconClasses = `h-6 w-6`
 const submenuIconClasses = `h-5 w-5`
 
@@ -42,9 +42,9 @@ const routes = [
     name: 'Roles', // name that appear in Sidebar
   },
   {
-    path: '/app/charts', // url
-    icon: <ChartBarIcon className={iconClasses}/>, // icon component
-    name: 'Analytics', // name that appear in Sidebar
+    path: '/app/users', // url
+    icon: <FaRegUser className={`w-4 h-5 translate-x-[3px]`}/>, // icon component
+    name: 'Users', // name that appear in Sidebar
   },
   {
     path: '/app/integration', // url

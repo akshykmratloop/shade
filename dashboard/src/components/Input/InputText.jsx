@@ -19,16 +19,23 @@ function InputText({
   InputClasses,
   width,
   language,
-  options = [], // Used for select dropdown & checkboxes
+  customType,
+  options = [],
 }) {
   const [showPassword, setShowPassword] = useState(false);
-  const [value, setValue] = useState(
-    defaultValue || (type === "checkbox" ? [] : "")
-  );
+  const [value, setValue] = useState(defaultValue || "");
 
   const updateInputValue = (val) => {
-    setValue(val);
-    updateFormValue({updateType, value: val});
+    if (customType === "number" && isNaN(parseInt(val))) {
+      if (val === "") {
+        setValue(val);
+        updateFormValue({updateType, value: val});
+      }
+      return;
+    } else {
+      setValue(val);
+      updateFormValue({updateType, value: val});
+    }
   };
 
   const togglePasswordVisibility = () => {
@@ -36,7 +43,7 @@ function InputText({
   };
 
   useEffect(() => {
-    setValue(defaultValue || (type === "checkbox" ? [] : ""));
+    setValue(defaultValue || "");
   }, [defaultValue]);
 
   console.log("opts", options);
@@ -104,7 +111,7 @@ function InputText({
                   }`}
                 >
                   {value.includes(opt.id) && (
-                    <div className="w-3 h-3 rounded-full bg-[#12B28C]"></div>
+                    <div className="w-3 h-3 rounded-full  border-[#12B28C] bg-[#12B28C]"></div>
                   )}
                 </div>
                 <span className="text-sm">{opt.name}</span>
