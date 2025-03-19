@@ -35,6 +35,16 @@ export const findRoleById = async (id) => {
     where: {
       id: id,
     },
+    include: {
+      permissions: {
+        include: {
+          permission: {
+            select: {subPermissions: {select: {subPermission: true}}},
+          },
+        },
+      },
+      users: {select: {user: true}},
+    },
   });
   // Check if the role is "SUPER_ADMIN"
   if (role && role.name === "SUPER_ADMIN") return null; // Return null if the role is "SUPER_ADMIN"

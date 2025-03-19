@@ -1,15 +1,23 @@
 import prismaClient from "../config/dbConfig.js";
 import {EncryptData} from "../helper/bcryptManager.js";
+import {sendEmail} from "../helper/sendEmail.js";
 
 /// USER QUERIES====================================================
 // Create User
-export const createUserHandler = async (name, email, password, roles) => {
+export const createUserHandler = async (
+  name,
+  email,
+  password,
+  phone,
+  roles
+) => {
   const hashedPassword = await EncryptData(password, 10);
   const newUser = await prismaClient.user.create({
     data: {
       name,
       email,
       password: hashedPassword,
+      phone,
       roles: {
         create:
           roles?.map((roleId) => ({
@@ -25,6 +33,38 @@ export const createUserHandler = async (name, email, password, roles) => {
       },
     },
   });
+  const emailPayload = {
+    to: email,
+    subject: "Your Account Details",
+    text: `Hello ${name}, your account has been created successfully. Username: ${name}, Password: ${password}. Please change your password after logging in.`,
+    html: `
+      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #ddd; border-radius: 8px; background-color: #f9f9f9;">
+        <h2 style="text-align: center; color: #333;">Welcome to Our Platform! 🎉</h2>
+        <p style="font-size: 16px; color: #555;">Hello <strong>${name}</strong>,</p>
+        <p style="font-size: 16px; color: #555;">
+          Your account has been successfully created. Here are your login details:
+        </p>
+        <div style="background-color: #fff; padding: 15px; border-radius: 6px; box-shadow: 0px 0px 10px rgba(0,0,0,0.1);">
+          <p style="font-size: 16px; margin: 0;"><strong>Username:</strong> ${name}</p>
+          <p style="font-size: 16px; margin: 0;"><strong>Password:</strong> ${password}</p>
+        </div>
+        <p style="font-size: 16px; color: #555; margin-top: 20px;">
+          Please change your password after logging in for security purposes.
+        </p>
+        <div style="text-align: center; margin-top: 20px;">
+          <a href="https://yourwebsite.com/login" style="display: inline-block; background-color: #007bff; color: #fff; padding: 12px 20px; font-size: 16px; text-decoration: none; border-radius: 5px;">Login Now</a>
+        </div>
+        <p style="font-size: 14px; color: #999; text-align: center; margin-top: 20px;">
+          If you didn't request this, please ignore this email.
+        </p>
+        <hr style="border: none; border-top: 1px solid #ddd;">
+        <p style="font-size: 14px; color: #999; text-align: center;">© 2025 Your Company. All rights reserved.</p>
+      </div>
+    `,
+  };
+
+  await sendEmail(emailPayload);
+
   return newUser;
 };
 
@@ -37,14 +77,23 @@ export const fetchAllUsers = async () => {
 };
 
 // Update User
-export const updateUser = async (userId, name, email, password, roles) => {
+export const updateUser = async (
+  userId,
+  name,
+  email,
+  password,
+  phone,
+  roles
+) => {
+  const hashedPassword = EncryptData(password, 10);
   try {
     const updatedUser = await prismaClient.user.update({
       where: {id: userId},
       data: {
         name,
         email,
-        password,
+        password: hashedPassword,
+        phone,
         roles: {
           // Remove all existing role associations for the user
           deleteMany: {},
@@ -103,6 +152,29 @@ export const findUserByEmail = async (email) => {
     roles,
     permissions,
   };
+};
+
+export const findUserById = async (id) => {
+  const user = await prismaClient.user.findUnique({
+    where: {id},
+    include: {
+      roles: {
+        include: {
+          role: {
+            include: {
+              permissions: {
+                select: {
+                  permission: true,
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+  });
+
+  return user;
 };
 
 // Update user password

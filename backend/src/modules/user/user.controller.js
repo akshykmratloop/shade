@@ -3,12 +3,13 @@ import {
   editUserDetails,
   findUserByEmail,
   getAllUsers,
+  getUserById,
 } from "./user.service.js";
 
 const createUserHandler = async (req, res) => {
-  const {name, email, password, roles} = req.body;
+  const {name, email, password, phone, roles} = req.body;
   try {
-    const user = await createUser(name, email, password, roles);
+    const user = await createUser(name, email, password, phone, roles);
     res.status(201).json(user);
   } catch (error) {
     res.status(400).json({error: error.message});
@@ -24,15 +25,22 @@ const GetAllUsers = async (req, res) => {
   }
 };
 
+const GetUserById = async (req, res) => {
+  const {id} = req.params;
+  const response = await getUserById(id);
+  res.status(200).json(response);
+};
+
 const EditUserDetails = async (req, res) => {
   const {userId} = req.params;
-  const {name, email, password, roles} = req.body;
+  const {name, email, password, phone, roles} = req.body;
   try {
     const updatedUser = await editUserDetails(
       userId,
       name,
       email,
       password,
+      phone,
       roles
     );
     res.status(201).json(updatedUser);
@@ -41,4 +49,4 @@ const EditUserDetails = async (req, res) => {
   }
 };
 
-export default {createUserHandler, GetAllUsers, EditUserDetails};
+export default {createUserHandler, GetAllUsers, GetUserById, EditUserDetails};
