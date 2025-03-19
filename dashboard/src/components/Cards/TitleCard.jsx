@@ -2,7 +2,7 @@ import { RxQuestionMarkCircled } from "react-icons/rx"
 import Subtitle from "../Typography/Subtitle"
 
   
-  function  TitleCard({title, children, topMargin, TopSideButtons}){
+  function TitleCard({title, children, topMargin, TopSideButtons}){
       return(
           <div className={"card w-full bg-base-100" + (topMargin || "mt-6")}>
 

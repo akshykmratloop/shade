@@ -14,7 +14,8 @@ import updateToasify from "../../app/toastify";
 import {Switch} from "@headlessui/react";
 import {MdInfo} from "react-icons/md";
 import {FiEye} from "react-icons/fi";
-import {FaRegEdit} from "react-icons/fa";
+import {FiEdit} from "react-icons/fi";
+
 const TopSideButtons = ({
   removeFilter,
   applyFilter,
@@ -71,7 +72,10 @@ const TopSideButtons = ({
                     <li><a onClick={() => removeAppliedFilter()}>Remove Filter</a></li>
                 </ul>
             </div> */}
-      <button className="btn btn-sm bg-[#25439B] ml-4" onClick={openAddForm}>
+      <button
+        className="btn bg-[#25439B] p-[12px_16px] ml-4"
+        onClick={openAddForm}
+      >
         <div className="border border-dashed rounded-full mr-2">
           <PlusIcon className="w-4" />
         </div>
@@ -167,9 +171,7 @@ function Roles() {
                 <th className="text-[#42526D] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] px-[24px] py-[13px]">
                   No. of Users Assigned
                 </th>
-                <th className="text-[#42526D] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] px-[24px] py-[13px]">
-                  Status
-                </th>
+                <th className="text-[#42526D] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] px-[24px] py-[13px]"></th>
                 {/* <th></th> */}
               </tr>
             </thead>
@@ -207,52 +209,53 @@ function Roles() {
                       </span>
                     </td>
                     <td className="flex justify-start space-x-2 font-poppins font-medium text-[14px] leading-normal text-[#101828] p-[26px]">
-                      <button
-                        onClick={() => {
-                          setSelectedRole(role);
-                          setShowDetailsModal(true);
-                        }}
-                      >
-                        {/* <MdInfo
+                      <div className="border-[1px] border-[#E6E7EC] rounded-[7px] flex gap-2 px-[12px] py-[8px]">
+                        <button
+                          onClick={() => {
+                            setSelectedRole(role);
+                            setShowDetailsModal(true);
+                          }}
+                        >
+                          {/* <MdInfo
                           size={28}
                           className="text-blue-500 dark:text-white"
                         /> */}
-                        <span className="flex items-center gap-1 border rounded-md p-[5px]">
-                          <FiEye />
-                          View
-                        </span>
-                      </button>
-                      <button
-                        className="btn btn-sm"
-                        onClick={() => {
-                          setSelectedRole(role);
-                          setShowAddForm(true);
-                        }}
-                      >
-                        {/* <PencilIcon className="w-4" /> */}
-                        <FaRegEdit />
-                      </button>
-                      <div className="flex items-center space-x-4">
-                        <Switch
-                          checked={role.status === "ACTIVE"}
-                          onChange={() => {
-                            statusChange(role);
+                          <span className="flex items-center gap-1 p-[5px]">
+                            <FiEye />
+                          </span>
+                        </button>
+                        <button
+                          // className="btn btn-sm"
+                          onClick={() => {
+                            setSelectedRole(role);
+                            setShowAddForm(true);
                           }}
-                          className={`${
-                            role.status === "ACTIVE"
-                              ? "bg-blue-600"
-                              : "bg-gray-300"
-                          } relative inline-flex h-2 w-8 items-center rounded-full`}
                         >
-                          <span
+                          {/* <PencilIcon className="w-4" /> */}
+                          <FiEdit />
+                        </button>
+                        <div className="flex items-center space-x-4">
+                          <Switch
+                            checked={role.status === "ACTIVE"}
+                            onChange={() => {
+                              statusChange(role);
+                            }}
                             className={`${
                               role.status === "ACTIVE"
-                                ? "translate-x-4"
-                                : "translate-x-0"
-                            } inline-block h-5 w-5 bg-white rounded-full shadow-2xl border border-gray-300 transition`}
-                          />
-                        </Switch>
-                        {/* <span>{role.status === 'ACTIVE' ? 'Enabled' : 'Disabled'}</span> */}
+                                ? "bg-[#1DC9A0]"
+                                : "bg-[#C7C7CC]"
+                            } relative inline-flex h-2 w-8 items-center rounded-full`}
+                          >
+                            <span
+                              className={`${
+                                role.status === "ACTIVE"
+                                  ? "translate-x-4"
+                                  : "translate-x-0"
+                              } inline-block h-4 w-4 bg-white rounded-full shadow-[0px_2px_8px_0px_#0000003D] border border-gray-300 transition`}
+                            />
+                          </Switch>
+                          {/* <span>{role.status === 'ACTIVE' ? 'Enabled' : 'Disabled'}</span> */}
+                        </div>
                       </div>
                     </td>
                     {/* <td></td> */}

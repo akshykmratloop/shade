@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
-import { Eye, EyeOff } from "lucide-react";
-import xSign from '../../assets/x-close.png'
+import {useEffect, useState} from "react";
+import {Eye, EyeOff} from "lucide-react";
+import xSign from "../../assets/x-close.png";
+import greenDot from "../../assets/icons/dot.svg";
 import ErrorText from "../Typography/ErrorText";
 
 function InputText({
@@ -18,7 +19,8 @@ function InputText({
   InputClasses,
   width,
   language,
-  customType
+  customType,
+  options = [],
 }) {
   const [showPassword, setShowPassword] = useState(false);
   const [value, setValue] = useState(defaultValue || "");
@@ -27,12 +29,12 @@ function InputText({
     if (customType === "number" && isNaN(parseInt(val))) {
       if (val === "") {
         setValue(val);
-        updateFormValue({ updateType, value: val });
+        updateFormValue({updateType, value: val});
       }
-      return
+      return;
     } else {
       setValue(val);
-      updateFormValue({ updateType, value: val });
+      updateFormValue({updateType, value: val});
     }
   };
 
@@ -41,31 +43,97 @@ function InputText({
   };
 
   useEffect(() => {
-    setValue(defaultValue || "")
-  }, [defaultValue])
+    setValue(defaultValue || "");
+  }, [defaultValue]);
+
+  console.log("opts", options);
 
   return (
     <div
       className={`form-control my-2 ${width ?? "w-full"} ${containerStyle}`}
-      style={{ display: display ? "none" : "" }}
+      style={{display: display ? "none" : ""}}
     >
-      <label className="pl-0 mb-2">
-        <span
-          className={"label-text  " + labelStyle}
-        >
+      <label className="pl-0 mb-1 ">
+        <span className={"label-text text-[#6B7888] " + labelStyle}>
           {labelTitle}
         </span>
       </label>
-      <div className="relative ">
-        <input
-          dir={language === "ar" ? "rtl" : "ltr"}
-          type={showPassword && type === "password" ? "text" : type || "text"}
-          name={name}
-          value={value || ""}
-          placeholder={placeholder || ""}
-          onChange={(e) => updateInputValue(e.target.value)}
-          className={`input ${width ?? "w-full"}  h-[2.3rem] text-xs input input-bordered focus:border-none ${InputClasses || "border-stone-500"}`}
-        />
+      <div className="relative">
+        {type === "select" ? (
+          // **Select Dropdown**
+          <select
+            name={name}
+            value={value}
+            onChange={(e) => updateInputValue(e.target.value)}
+            className={`input ${
+              width ?? "w-full"
+            } h-[2.3rem] text-xs input input-bordered border-stone-500 focus:border-none ${
+              InputClasses || ""
+            }`}
+          >
+            <option value="" disabled>
+              {placeholder || "Select an option"}
+            </option>
+            {options.map((opt, index) => (
+              <option key={index} value={opt.value}>
+                {opt.label}
+              </option>
+            ))}
+          </select>
+        ) : type === "checkbox" ? (
+          // **Checkboxes**
+          <div className="grid grid-cols-2 md:grid-cols-2 gap-2 w-full">
+            {options.map((opt, index) => (
+              <label key={index} className="flex items-center space-x-2">
+                <input
+                  type="checkbox"
+                  name={name}
+                  value={opt.id}
+                  checked={value.includes(opt.id)}
+                  onChange={(e) => {
+                    const checked = e.target.checked;
+                    setValue((prev) => {
+                      const newValue = checked
+                        ? [...prev, opt.id] // Add to array if checked
+                        : prev.filter((v) => v !== opt.id); // Remove if unchecked
+
+                      updateFormValue({updateType, value: newValue});
+                      return newValue;
+                    });
+                  }}
+                  className="hidden"
+                />
+                <div
+                  className={`w-5 h-5 flex items-center justify-center rounded-full border-2 border-gray-300 transition-all ${
+                    value.includes(opt.id)
+                      ? "bg-[white] p-[2px] border-[#12B28C] text-white"
+                      : "bg-white border-gray-400 group-hover:border-primary"
+                  }`}
+                >
+                  {value.includes(opt.id) && (
+                    <div className="w-3 h-3 rounded-full  border-[#12B28C] bg-[#12B28C]"></div>
+                  )}
+                </div>
+                <span className="text-sm">{opt.name}</span>
+              </label>
+            ))}
+          </div>
+        ) : (
+          // **Regular Input (Text, Password, etc.)**
+          <input
+            dir={language === "ar" ? "rtl" : "ltr"}
+            type={showPassword && type === "password" ? "text" : type || "text"}
+            name={name}
+            value={value || ""}
+            placeholder={placeholder || ""}
+            onChange={(e) => updateInputValue(e.target.value)}
+            className={`input ${
+              width ?? "w-full"
+            } h-[2.3rem] text-xs input input-bordered border-stone-500 focus:border-none ${
+              InputClasses || ""
+            }`}
+          />
+        )}
         {type === "password" && value && (
           <button
             type="button"
@@ -75,9 +143,14 @@ function InputText({
             {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
           </button>
         )}
-        <ErrorText styleClass={`text-[.7rem] absolute top-[40px] left-[1px] gap-1 ${errorMessage ? "flex" : "hidden"}`}>
-          <img src={xSign} alt="" className='h-3 translate-y-[2px]' />
-          {errorMessage}</ErrorText>
+        <ErrorText
+          styleClass={`text-[.7rem] absolute top-[40px] left-[1px] gap-1 ${
+            errorMessage ? "flex" : "hidden"
+          }`}
+        >
+          <img src={xSign} alt="" className="h-3 translate-y-[2px]" />
+          {errorMessage}
+        </ErrorText>
       </div>
     </div>
   );
