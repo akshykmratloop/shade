@@ -44,7 +44,7 @@ const SolutionPage = ({ language, screen }) => {
 
     }, [])
     return (
-        <div className=" bankgothic-medium-dt">
+        <div className=" bankgothic-medium-dt pb-8">
             {/** banner */}
             <section
                 className={`relative py-[10rem] w-full bg-cover bg-center ${isLeftAlign ? 'scale-x-[-1]' : ''} px-12 ${isPhone?"h-screen":""}`}

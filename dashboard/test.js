@@ -107,3 +107,19 @@
 //         {/* <td></td> */}
 //       </tr>
 //     ))}
+
+function capitalizeWords(str) {
+    return str
+        .toLowerCase() // Convert the whole string to lowercase
+        .replace(/(?:^|[\s_])\w/g, match => match.toUpperCase());
+}
+
+let str1 = 'THIS_IS_NOT_GOOG';
+let str2 = 'THIS IS_NOT_GOOG';
+let str3 = 'this_is not_goog';
+
+console.log(capitalizeWords(str1)); // Output: "This_Is_Not_Goog"
+console.log(capitalizeWords(str2)); // Output: "This Is_Not_Goog"
+console.log(capitalizeWords(str3)); // Output: "This_Is Not_Goog"
+
+

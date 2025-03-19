@@ -21,8 +21,10 @@ import { ShieldCheckIcon } from '@heroicons/react/24/solid';
 import { GrUserSettings } from "react-icons/gr";
 import { HiOutlineClipboardDocumentList } from "react-icons/hi2";
 import { FaRegUser } from "react-icons/fa";
+import { UserRound, UserRoundCog } from 'lucide-react'
 const iconClasses = `h-6 w-6`
 const submenuIconClasses = `h-5 w-5`
+
 
 const routes = [
 
@@ -38,12 +40,12 @@ const routes = [
   },
   {
     path: '/app/roles', // url
-    icon: <GrUserSettings  className={`${submenuIconClasses} translate-x-[3px]`}/>, // icon component
+    icon: <UserRoundCog strokeWidth={1.5} className={`${iconClasses}`}/>, // icon component
     name: 'Roles', // name that appear in Sidebar
   },
   {
     path: '/app/users', // url
-    icon: <FaRegUser className={`w-4 h-5 translate-x-[3px]`}/>, // icon component
+    icon: <UserRound strokeWidth={1.5} className={iconClasses}/>, // icon component
     name: 'Users', // name that appear in Sidebar
   },
   {

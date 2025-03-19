@@ -38,7 +38,7 @@ const AboutUs = ({ language, screen }) => {
         dispatch(updateContent({ currentPath: "about", payload: content.about }))
     }, [])
     return (
-        <div>
+        <div className="">
             {/** about us top section */}
             <section className="py-12">
                 <div className="container mx-auto relative px-4">

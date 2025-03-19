@@ -129,7 +129,7 @@ const AddUserModal = ({ show, onClose, updateRoles, user }) => {
 
     return (
         <div className="modal modal-open">
-            <div ref={modalRef} className="px-[3.3rem] py-[2.45rem] relative flex flex-col gap-6 w-[600px] bg-white dark:bg-gray-800 rounded-md">
+            <div ref={modalRef} className="p-[24px] relative flex flex-col gap-6 w-[600px] bg-white dark:bg-gray-800 rounded-md">
                 <button className="bg-transparent hover:bg-stone-300 rounded-full border-none absolute right-4 top-4 p-2 py-2"
                     onClick={onClose}>
                     <X className="w-[20px] h-[20px]" />

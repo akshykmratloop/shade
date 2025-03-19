@@ -109,6 +109,22 @@ input[type="number"]::-webkit-inner-spin-button {
   border-radius: 10px;
 }
 
+main.customscroller::-webkit-scrollbar {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  height: 2px;
+  width: 8px;
+}
+
+main.customscroller::-webkit-scrollbar-thumb {
+  height: 10px;
+  /* Use height instead of width */
+  width: 2px;
+  background-color: #0e2b65;
+  border-radius: 10px;
+}
+
 .customscroller-2::-webkit-scrollbar {
   width: 2px;
 }
@@ -178,7 +194,9 @@ select {
   cursor: pointer;
 }
 
-
+.transition-custom {
+  transition: width .1s linear;
+}
 
 
 

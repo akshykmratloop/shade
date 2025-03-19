@@ -1,9 +1,10 @@
-import {useEffect, useState} from "react";
-import {Eye, EyeOff} from "lucide-react";
+import { useEffect, useState } from "react";
+import { Eye, EyeOff } from "lucide-react";
 import xSign from "../../assets/x-close.png";
 import greenDot from "../../assets/icons/dot.svg";
 import ErrorText from "../Typography/ErrorText";
-import capitalizeword from "../../app/capitalizeword";
+// import capitalizeword from "../../app/capitalizeword";
+import capitalizeWords from "../../app/capitalizeword";
 
 function InputText({
   labelTitle,
@@ -22,6 +23,8 @@ function InputText({
   language,
   customType,
   options = [],
+  required = true,
+  errorClass
 }) {
   const [showPassword, setShowPassword] = useState(false);
   const [value, setValue] = useState(defaultValue || "");
@@ -30,12 +33,12 @@ function InputText({
     if (customType === "number" && isNaN(parseInt(val))) {
       if (val === "") {
         setValue(val);
-        updateFormValue({updateType, value: val});
+        updateFormValue({ updateType, value: val });
       }
       return;
     } else {
       setValue(val);
-      updateFormValue({updateType, value: val});
+      updateFormValue({ updateType, value: val });
     }
   };
 
@@ -52,11 +55,12 @@ function InputText({
   return (
     <div
       className={`form-control my-2 ${width ?? "w-full"} ${containerStyle}`}
-      style={{display: display ? "none" : ""}}
+      style={{ display: display ? "none" : "" }}
     >
-      <label className="pl-0 mb-1 ">
+      <label className={`pl-0 ${type === "checkbox" ? "mb-6" : "mb-1 "}`}>
         <span className={"label-text text-[#6B7888] " + labelStyle}>
           {labelTitle}
+          {required && (<span className="text-[red]">*</span>)}
         </span>
       </label>
       <div className="relative">
@@ -66,11 +70,9 @@ function InputText({
             name={name}
             value={value}
             onChange={(e) => updateInputValue(e.target.value)}
-            className={`input ${
-              width ?? "w-full"
-            } h-[2.3rem] text-xs input input-bordered border-stone-500 focus:border-none ${
-              InputClasses || ""
-            }`}
+            className={`input ${width ?? "w-full"
+              } h-[2.3rem] text-xs input input-bordered border-stone-500 focus:border-none ${InputClasses || ""
+              }`}
           >
             <option value="" disabled>
               {placeholder || "Select an option"}
@@ -98,7 +100,7 @@ function InputText({
                         ? [...prev, opt.id] // Add to array if checked
                         : prev.filter((v) => v !== opt.id); // Remove if unchecked
 
-                      updateFormValue({updateType, value: newValue});
+                      updateFormValue({ updateType, value: newValue });
                       return newValue;
                     });
                   }}
@@ -115,7 +117,7 @@ function InputText({
                     <div className="w-3 h-3 rounded-full  border-[#12B28C] bg-[#12B28C]"></div>
                   )}
                 </div> */}
-                <span className="text-xs">{capitalizeword(opt.name)}</span>
+                <span className="text-xs">{capitalizeWords(opt.name)}</span>
               </label>
             ))}
           </div>
@@ -128,11 +130,9 @@ function InputText({
             value={value || ""}
             placeholder={placeholder || ""}
             onChange={(e) => updateInputValue(e.target.value)}
-            className={`input ${
-              width ?? "w-full"
-            } h-[2.3rem] text-xs input input-bordered border-stone-500 focus:border-none ${
-              InputClasses || ""
-            }`}
+            className={`input ${width ?? "w-full"
+              } h-[2.3rem] text-xs input input-bordered border-stone-500 focus:border-none ${InputClasses || ""
+              }`}
           />
         )}
         {type === "password" && value && (
@@ -145,9 +145,8 @@ function InputText({
           </button>
         )}
         <ErrorText
-          styleClass={`text-[.7rem] absolute top-[40px] left-[1px] gap-1 ${
-            errorMessage ? "flex" : "hidden"
-          }`}
+          styleClass={`absolute ${errorClass ? errorClass : "text-[.7rem] top-[40px] left-[1px] gap-1"} ${errorMessage ? "flex" : "hidden"
+            }`}
         >
           <img src={xSign} alt="" className="h-3 translate-y-[2px]" />
           {errorMessage}

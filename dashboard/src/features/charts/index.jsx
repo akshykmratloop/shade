@@ -11,7 +11,7 @@ import RoleDetailsModal from "./ShowRole";
 import updateToasify from "../../app/toastify";
 import dummyUser from "../../assets/Dummy_User.json"
 import capitalizeword from "../../app/capitalizeword";
-import { TruncateText } from "../../app/capitalizeword";
+import capitalizeWords, { TruncateText } from "../../app/capitalizeword";
 // icons
 import { Switch } from '@headlessui/react';
 import XMarkIcon from '@heroicons/react/24/outline/XMarkIcon';
@@ -79,7 +79,7 @@ const TopSideButtons = ({ removeFilter, applyFilter, applySearch }) => { // sear
                     className="dropdown-content menu p-2 text-sm shadow bg-base-100 rounded-box w-52 text-[#0E2354] font-[400]">
                     {statusFilters.map((status, key) => (
                         <li key={key}>
-                            <a onClick={() => showFiltersAndApply(status)} style={{ textTransform: "capitalize" }}>{capitalizeword(status)}</a>
+                            <a onClick={() => showFiltersAndApply(status)} style={{ textTransform: "capitalize" }}>{capitalizeWords(status)}</a>
                         </li>
                     ))}
                     <div className="divider mt-0 mb-0"></div>
@@ -196,7 +196,7 @@ function Users() {
                                                 className={`w-[85px] mx-auto before:content-['•'] before:text-2xl flex h-7 items-center justify-center gap-1 px-1 py-0 font-[500] ${user.status === 'ACTIVE' ? "text-green-600 bg-green-100 before:text-green-600 px-1" : "text-red-600 bg-red-100 before:text-red-600 "} rounded-2xl`}
                                                 style={{ textTransform: "capitalize", }}
                                             >
-                                                {capitalizeword(user.status)}
+                                                {capitalizeWords(user.status)}
                                             </p>
                                         </td>
                                         <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[8px] dark:text-[white]">

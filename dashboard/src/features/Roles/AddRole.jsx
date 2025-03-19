@@ -12,21 +12,27 @@ import updateToasify from "../../app/toastify";
 import { X } from "lucide-react";
 
 const AddRoleModal = ({ show, onClose, updateRoles, role }) => {
-  const [errorMessageRole, setErrorMessageRole] = useState("");
-  const [errorMessageDescription, setErrorMessageDescription] = useState("");
-  const [roleData, setRoleData] = useState({
+  const freshObject = {
     name: "",
     selectedRoletype: "",
     roleTypes: [],
     selectedPermissions: [],
     fetchedPermissions: [],
     fetchedRoletype: [],
-  });
+  }
+  const [errorMessageRole, setErrorMessageRole] = useState("");
+  const [errorMessageRoleType, setErrorMessageRoleType] = useState("");
+  const [errorMessagePermission, setErrorMessagePermission] = useState("");
+
+  const [roleData, setRoleData] = useState(freshObject);
+
+
   const modalRef = useRef(null)
 
   function clearErrorMessage() {
     setErrorMessageRole("");
-    setErrorMessageDescription("");
+    setErrorMessageRoleType("");
+    setErrorMessagePermission("")
   }
 
   const handleFormSubmit = async (e) => {
@@ -37,9 +43,12 @@ const AddRoleModal = ({ show, onClose, updateRoles, role }) => {
       roleData.selectedPermissions
     );
 
+    console.log(roleData)
+
     const validation = validator(roleData, {
       name: setErrorMessageRole,
-      description: setErrorMessageDescription,
+      selectedRoletype: setErrorMessageRoleType,
+      selectedPermissions: setErrorMessagePermission
     });
     if (!validation) return;
 
@@ -82,6 +91,12 @@ const AddRoleModal = ({ show, onClose, updateRoles, role }) => {
       );
     }
   };
+
+  const modalClose = () => {
+    onClose()
+    setRoleData(freshObject)
+    clearErrorMessage()
+  }
 
   useEffect(() => {
     async function fetchRoleTypeData() {
@@ -156,9 +171,13 @@ const AddRoleModal = ({ show, onClose, updateRoles, role }) => {
   };
 
   useEffect(() => {
+    setErrorMessagePermission("")
+  }, [roleData.selectedPermissions])
+
+  useEffect(() => {
     const handleClickOutside = (e) => {
       if (modalRef.current && !modalRef.current.contains(e.target)) {
-        onClose();
+        modalClose();
       }
     };
     document.addEventListener("mousedown", handleClickOutside);
@@ -172,14 +191,14 @@ const AddRoleModal = ({ show, onClose, updateRoles, role }) => {
   if (!show) return null;
   return (
     <div className="modal-overlay fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-30"
-      onClick={onClose} // Clicking anywhere on the overlay will close the modal
+      onClick={modalClose} // Clicking anywhere on the overlay will close the modal
     >
       <div className="modal modal-open relative bg-white p-6 w-[35rem] rounded-lg shadow-lg flex flex-col" ref={modalRef}
         onClick={(e) => e.stopPropagation()} // Prevents closing when clicking inside the modal
       >
 
         <button className="bg-transparent hover:bg-stone-300 rounded-full border-none absolute right-4 top-4 p-2 py-2"
-          onClick={onClose}>
+          onClick={modalClose}>
           <X className="w-[20px] h-[20px]" />
         </button>
         <h3 className="font-semibold text-2xl w-full">{role ? "Edit Role" : "Add Role"}</h3>
@@ -188,34 +207,39 @@ const AddRoleModal = ({ show, onClose, updateRoles, role }) => {
           onSubmit={handleFormSubmit}
           className="flex flex-col items-start w-full gap-4"
         >
-          {/* Name Field */}
-          <InputText
-            placeholder="Ex. John Doee"
-            name="name"
-            defaultValue={roleData.name}
-            updateType="name"
-            containerStyle="mt-4"
-            labelTitle="Role Name"
-            updateFormValue={updateFormValue}
-            errorMessage={errorMessageRole}
-          />
+          <div className="flex justify-center w-full items-center gap-2">
+            {/* Name Field */}
+            <InputText
+              placeholder="Ex. John Doee"
+              name="name"
+              defaultValue={roleData.name}
+              updateType="name"
+              containerStyle="mt-4 flex-1"
+              labelTitle="Role Name"
+              updateFormValue={updateFormValue}
+              errorMessage={errorMessageRole}
+            />
 
-          {/* Role Type Field */}
-          <InputText
-            type="select"
-            name="userRole"
-            placeholder="Select Role"
-            updateType="userRole"
-            labelTitle="Role Type"
-            defaultValue={roleData.selectedRoletype}
-            options={roleData.fetchedRoletype}
-            updateFormValue={(value) => {
-              updateFormValue({ updateType: "userRole", value: value.value });
-            }}
-            errorMessage={errorMessageRole}
-          />
+            {/* Role Type Field */}
+            <div className="flex-1 translate-y-1">
+              <InputText
+                type="select"
+                name="userRole"
+                placeholder="Select Role"
+                updateType="userRole"
+                labelTitle="Role Type"
+                defaultValue={roleData.selectedRoletype}
+                options={roleData.fetchedRoletype}
+                updateFormValue={(value) => {
+                  updateFormValue({ updateType: "userRole", value: value.value });
+                }}
+                errorMessage={errorMessageRoleType}
+              />
+            </div>
+          </div>
 
           <InputText
+            display={!roleData.selectedRoletype}
             type="checkbox"
             name="permissions"
             labelTitle="Permissions"
@@ -223,7 +247,8 @@ const AddRoleModal = ({ show, onClose, updateRoles, role }) => {
             defaultValue={roleData.selectedPermissions}
             options={roleData.fetchedPermissions}
             updateFormValue={updateFormValue}
-            errorMessage={errorMessageRole}
+            errorMessage={errorMessagePermission}
+            errorClass={"-top-6 text-xs gap-1"}
           />
 
           {/* <div className="permissions">
@@ -238,7 +263,7 @@ const AddRoleModal = ({ show, onClose, updateRoles, role }) => {
             <button
               type="button"
               className="rounded-md h-[2.5rem] w-[8rem] px-4 text-sm bg-stone-300"
-              onClick={onClose}
+              onClick={modalClose}
             >
               Cancel
             </button>
