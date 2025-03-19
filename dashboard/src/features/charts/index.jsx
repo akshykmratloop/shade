@@ -245,7 +245,7 @@ function Users() {
                                 )
                             }
                             ) : (
-                                <tr>
+                                <tr className="">
                                     <td colSpan={6}>No Data Available</td>
                                 </tr>
                             )}

@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import { Dialog } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
+import userIcon from "../../assets/user.png"
 
 function RoleDetailsModal({ user, show, onClose }) {
     const modalRef = useRef(null)
@@ -23,7 +24,7 @@ function RoleDetailsModal({ user, show, onClose }) {
         <Dialog open={show} onClose={onClose} className="relative z-50">
             <div className="fixed inset-0 bg-black/50" aria-hidden="true" />
             <div className="fixed inset-0 flex items-center justify-center p-4">
-                <Dialog.Panel className="w-[853px] overflow-y-scroll customscroller shadow-lg shadow-stone rounded-lg bg-[white] dark:bg-slate-800 p-6">
+                <Dialog.Panel className="w-[753px] overflow-y-scroll customscroller shadow-lg shadow-stone rounded-lg bg-[white] dark:bg-slate-800 p-6">
                     <div ref={modalRef} className="flex justify-between items-center mb-4">
                         <Dialog.Title className="text-lg font-[500]">User Detail</Dialog.Title>
                         <button onClick={onClose} className="bg-transparent hover:bg-stone-300 rounded-full border-none p-2 py-2">
@@ -32,7 +33,7 @@ function RoleDetailsModal({ user, show, onClose }) {
                     </div>
                     <div className="overflow-x-auto">
                         <div className="flex items-center gap-4">
-                            <img src={user.image} alt="" className="w-[4.8rem] h-[4.8rem] rounded-lg" />
+                            <img src={user.image || userIcon} alt="" className="w-[4.8rem] h-[4.8rem] rounded-lg" />
                             <div>
                                 <p className="font-semibold text-[black] dark:text-[white]">{user.name}</p>
                                 <p className="text-[gray]">{user.email}</p>
@@ -46,7 +47,7 @@ function RoleDetailsModal({ user, show, onClose }) {
                             </thead>
                             <tbody style={{ borderBottom: "1px solid #E0E0E0" }}>
                                 <tr className="font-light text-sm ">
-                                    <td className="pt-2 pr-[60px]">Name</td>
+                                    <td className="pt-2 pr-[60px] w-[250px]">Name</td>
                                     <td className="pt-2">Email</td>
                                     <td className="pt-2">Phone</td>
                                 </tr>
@@ -65,7 +66,7 @@ function RoleDetailsModal({ user, show, onClose }) {
                             </thead>
                             <tbody style={{ borderBottom: "1px solid #E0E0E0" }}>
                                 <tr className="font-light text-sm ">
-                                    <td className="pt-2 pr-[24px]">Roles</td>
+                                    <td className="pt-2 pr-[24px] w-[250px]">Roles</td>
                                     <td className="pt-2">Permissions</td>
                                 </tr>
                                 <tr className="font-bold text-sm pb-7">

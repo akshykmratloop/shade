@@ -23,10 +23,10 @@ const ConfigBar = ({ display, setOn, data }) => {
 
     return (
         <div className={`${display ? "block" : "hidden"} fixed z-20 top-0 left-0 w-[100vw] h-screen bg-black bg-opacity-50`}>
-            <div ref={configRef} className="fixed p-[42px] z-30 top-0 right-0 w-[30rem] h-screen bg-base-200 shadow-xl-custom rounded-tl-3xl rounded-bl-3xl">
+            <div ref={configRef} className="fixed p-[30px]  z-30 top-0 right-0 w-[26rem] h-screen bg-base-200 shadow-xl-custom rounded-tl-3xl rounded-bl-3xl">
                 <h1 className="font-medium text-[1.1rem]">Assign User for Page {data.heading}</h1>
-                <form className="mt-5 flex flex-col justify-between h-[93%]">
-                    <div className="flex flex-col items-center gap-4 pt-6">
+                <form className="mt-5 flex flex-col justify-between h-[93%] ">
+                    <div className="flex flex-col gap-4 pt-6 ">
                         {/* Selected Page/Content */}
                         {/* <div className="dark:border dark:border-[1px] dark:border-stone-700 rounded-md">
                             <input
@@ -39,18 +39,18 @@ const ConfigBar = ({ display, setOn, data }) => {
 
                         {/* Select Manager */}
                         <Select
-                            baseClass="w-min"
+                            baseClass=""
                             label="Select Manager"
                             labelClass="font-[400] text-[#6B7888] text-[14px]"
-                            selectClass="px-2 bg-base-200 border border-stone-500 mt-1 rounded-md p-2 h-[2.5rem] outline-none"
+                            selectClass="bg-base-200 border border-[#cecbcb] mt-1 rounded-md py-2 h-[2.5rem] outline-none"
                         />
 
                         {/* Select Editor */}
                         <Select
-                            baseClass="w-min"
+                            baseClass=""
                             label="Select Editor"
                             labelClass="font-[400] text-[#6B7888] text-[14px]"
-                            selectClass="px-2 bg-base-200 border border-stone-500 mt-1 rounded-md p-2 h-[2.5rem] outline-none"
+                            selectClass="bg-base-200 border border-[#cecbcb] mt-1 rounded-md py-2 h-[2.5rem] outline-none"
                         />
 
                         {/* Selector Accordion */}
@@ -58,17 +58,17 @@ const ConfigBar = ({ display, setOn, data }) => {
 
                         {/* Select Publisher */}
                         <Select
-                            baseClass="w-min"
+                            baseClass=""
                             label="Select Publisher"
                             labelClass="font-[400] text-[#6B7888] text-[14px]"
-                            selectClass="px-2 bg-base-200 border border-stone-500 mt-1 rounded-md p-2 h-[2.5rem] outline-none"
+                            selectClass="bg-base-200 border border-[#cecbcb] mt-1 rounded-md py-2 h-[2.5rem] outline-none"
                         />
                     </div>
 
                     {/* Buttons */}
-                    <div className="flex justify-end gap-2">
-                        <button className="w-[8rem] h-[2.3rem] rounded-md text-xs bg-stone-700 text-white hover:bg-stone-900" onClick={(e) => { e.preventDefault(); setOn(false); }}>Cancel</button>
-                        <button className="w-[8rem] h-[2.3rem] rounded-md text-xs bg-blue-500 border-none hover:bg-blue-700 dark:bg-blue-600 dark:hover:bg-blue-900 text-[white]">Save</button>
+                    <div className="flex justify-center gap-2">
+                        <button className="w-[8rem] h-[2.3rem] rounded-md text-xs bg-stone-700 text-white" onClick={(e) => { e.preventDefault(); setOn(false); }}>Cancel</button>
+                        <button className="w-[8rem] h-[2.3rem] rounded-md text-xs bg-[#29469c] border-none hover:bg-[#29469c] text-[white]">Save</button>
                     </div>
                 </form>
             </div>

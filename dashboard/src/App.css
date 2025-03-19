@@ -165,6 +165,20 @@ input[type="file"] {
   /* font-weight: lighter; */
 }
 
+select {
+  appearance: none; /* Removes default styles */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  padding: 5px;
+  font-size: 16px;
+  color: #899197; /* Change text color */
+  background-color: yellow; /* Change background */
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+
 
 
 

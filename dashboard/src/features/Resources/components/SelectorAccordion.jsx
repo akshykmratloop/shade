@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import Select from "../../../components/Input/Select";
 import { RxCross2 } from "react-icons/rx";
-import { FaPlus } from "react-icons/fa6";
+import { GoPlus } from "react-icons/go";
 
 const SelectorAccordion = () => {
     const [selector, setSelector] = useState([{ label: "Level 1", value: "" }]);
@@ -45,14 +45,14 @@ const SelectorAccordion = () => {
             {selector.map((select, index) => {
                 const isLast = index === selector.length - 1;
                 return (
-                    <div key={index} className="flex items-center my-1 gap-1">
-                        <p className="flex justify-center items-center rounded-lg translate-y-[2px] w-[5rem] h-[2.2rem] bg-[#DFDFDF] text-black text-xs font-light border-none">
+                    <div key={index} className="flex items-center my-1 gap-2">
+                        <p className="flex justify-center items-center rounded-lg font-[400] translate-y-[2px] w-[5rem] h-[2.2rem] bg-[#DFDFDF] text-[#637888] text-xs border-none">
                             {select.label}
                         </p>
                         <Select
                             setterOnChange={updateSelectorValue}
                             index={index}
-                            selectClass="px-2 bg-base-200 mt-1 border border-stone-500 rounded-md p-2 outline-none"
+                            selectClass="px-2 bg-base-200 mt-1 border border-stone-300 rounded-md p-2 outline-none"
                             height={""}
                             width={"w-[14rem]"}
                             options={dummyData}
@@ -61,10 +61,9 @@ const SelectorAccordion = () => {
 
                         <button
                             onClick={isLast ? addSelector : (e) => { e.preventDefault(); removeSelector(index); }}
-                            className={`flex justify-center items-center translate-y-[2px] rounded-lg w-[3.7rem] h-[2.5rem] text-[1.2rem] ${isLast ? "bg-[#145098] text-white" : "bg-white border border-red-500 text-red-500"
-                                }`}
+                            className={`flex justify-center items-center translate-y-[2px] rounded-lg w-[2.2rem] h-[2.2rem] text-[1.2rem] text-[#637888] border border-[#cecbcb]`}
                         >
-                            {isLast ? <FaPlus /> : <RxCross2 />}
+                            {isLast ? <GoPlus className="w-4 h-4" /> : <RxCross2 className="w-3 h-3" />}
                         </button>
                     </div>
                 );

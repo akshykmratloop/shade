@@ -9,6 +9,7 @@ import Button from '../../../components/Button/Button';
 import { RxCross1 } from "react-icons/rx";
 import { useDispatch, useSelector } from 'react-redux';
 import { redo, undo } from '../../common/homeContentSlice';
+import { useNavigate } from 'react-router-dom';
 
 
 export default function ContentTopBar({ setWidth }) {
@@ -18,6 +19,7 @@ export default function ContentTopBar({ setWidth }) {
     const [selectedDevice, setSelectedDevice] = useState("Desktop");
     const [menuOpen, setMenuOpen] = useState(false);
     const ReduxState = useSelector(state => state.homeContent)
+    const navigate = useNavigate()
 
     const deviceIcons = [
         { icon: <MdOutlineDesktopWindows />, label: 'Desktop', width: 1180 },
@@ -41,7 +43,9 @@ export default function ContentTopBar({ setWidth }) {
     return (
         <div className='flex justify-between gap-2 items-center xl:px-[2.36rem] xl:py-[1.2rem] sm:px-[.8rem] sm:py-[.5rem] lg:px-[.8rem] bg-[#fafaff] dark:bg-[#242933]'>
             <div className='flex items-center gap-2'>
-                <span className='text-[black] dark:text-[#fafaff] flex items-center'>
+                <span className='text-[black] dark:text-[#fafaff] flex items-center cursor-pointer' 
+                onClick={() => navigate("../../resources")}>
+
                     <FaArrowLeftLong className={`h-[1.25rem] w-[1.19rem]`} />
                 </span>
                 <div className='xl:flex lg:flex hidden gap-1 items-center'>

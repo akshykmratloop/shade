@@ -46,7 +46,7 @@ function Resources() {
     return (
         <div className="customscroller relative" ref={divRef}>
             <Navbar currentNav={currentResource} setCurrentResource={setCurrentResource} />
-            <div className={`${resNotAvail ? "" : "grid"} ${isNarrow ? "grid-cols-1" : "grid-cols-2"} mt-4 lg:grid-cols-3 gap-10 w-full px-10`}>
+            <div className={`${resNotAvail ? "" : "grid"} ${isNarrow ? "grid-cols-1" : "grid-cols-2"} mt-4 lg:grid-cols-3 gap-10 w-full px-10 pb-8`}>
                 {resNotAvail ? <p className="">Sorry, No Resource available for {currentResource}</p>
                     :
                     resources?.[currentResource].map((page, index) => (

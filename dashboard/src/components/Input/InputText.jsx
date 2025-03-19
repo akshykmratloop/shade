@@ -3,6 +3,7 @@ import {Eye, EyeOff} from "lucide-react";
 import xSign from "../../assets/x-close.png";
 import greenDot from "../../assets/icons/dot.svg";
 import ErrorText from "../Typography/ErrorText";
+import capitalizeword from "../../app/capitalizeword";
 
 function InputText({
   labelTitle,
@@ -82,7 +83,7 @@ function InputText({
           </select>
         ) : type === "checkbox" ? (
           // **Checkboxes**
-          <div className="grid grid-cols-2 md:grid-cols-2 gap-2 w-full">
+          <div className="grid grid-cols-2 md:grid-cols-2 gap-x-10 gap-y-2 w-full items-center pl-2">
             {options.map((opt, index) => (
               <label key={index} className="flex items-center space-x-2">
                 <input
@@ -101,10 +102,10 @@ function InputText({
                       return newValue;
                     });
                   }}
-                  className="hidden"
+                  className=""
                 />
-                <div
-                  className={`w-5 h-5 flex items-center justify-center rounded-full border-2 border-gray-300 transition-all ${
+                {/* <div
+                  className={`w-5 h-5 flex items-center justify-center border-2 border-gray-300 transition-all ${
                     value.includes(opt.id)
                       ? "bg-[white] p-[2px] border-[#12B28C] text-white"
                       : "bg-white border-gray-400 group-hover:border-primary"
@@ -113,8 +114,8 @@ function InputText({
                   {value.includes(opt.id) && (
                     <div className="w-3 h-3 rounded-full  border-[#12B28C] bg-[#12B28C]"></div>
                   )}
-                </div>
-                <span className="text-sm">{opt.name}</span>
+                </div> */}
+                <span className="text-xs">{capitalizeword(opt.name)}</span>
               </label>
             ))}
           </div>
