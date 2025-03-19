@@ -1,5 +1,7 @@
 const BASE_URL = "http://localhost:3000/";
 
+// console.log(process.env)
+
 const auth = "auth";
 const role = "role";
 const permission = "permission";

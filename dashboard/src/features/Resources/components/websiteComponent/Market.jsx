@@ -31,6 +31,7 @@ import doubleQuotes from "../../../../assets/right-quote.png"
 //     ssr: false,
 // });
 import { projectPageData } from "../../../../assets/index";
+import { TruncateText } from "../../../../app/capitalizeword";
 
 const MarketPage = ({ language, screen }) => {
     // const testimonialPrevRef = useRef(null);
@@ -63,12 +64,6 @@ const MarketPage = ({ language, screen }) => {
     }, [activeTab, currentContent]); // Added currentContent as a dependency
 
 
-    const TruncateText = (text, length) => {
-        if (text.length > (length || 50)) {
-            return `${text.slice(0, length || 50)}...`;
-        }
-        return text;
-    };
 
     useEffect(() => {
         dispatch(updateContent({ currentPath: "markets", payload: content.market }))

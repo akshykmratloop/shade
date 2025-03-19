@@ -53,12 +53,6 @@ const ProjectPage = ({ language, screen }) => {
         }
     }, [activeTab, currentContent]); // Added currentContent as a dependency
 
-    const TruncateText = (text, length) => {
-        if (text.length > (length || 50)) {
-            return `${text.slice(0, length || 50)}...`;
-        }
-        return text;
-    };
 
     useEffect(() => {
         dispatch(updateContent({ currentPath: "projects", payload: content.projectsPage }))

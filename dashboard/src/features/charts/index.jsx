@@ -11,6 +11,7 @@ import RoleDetailsModal from "./ShowRole";
 import updateToasify from "../../app/toastify";
 import dummyUser from "../../assets/Dummy_User.json"
 import capitalizeword from "../../app/capitalizeword";
+import { TruncateText } from "../../app/capitalizeword";
 // icons
 import { Switch } from '@headlessui/react';
 import XMarkIcon from '@heroicons/react/24/outline/XMarkIcon';
@@ -54,7 +55,7 @@ const TopSideButtons = ({ removeFilter, applyFilter, applySearch }) => { // sear
                 searchText={searchText}
                 styleClass="w-700px border-none w-full flex-1"
                 setSearchText={setSearchText}
-                placeholderText={"Search Employee by name, role, ID or any related keywords"}
+                placeholderText={"Search Users by name, role, ID or any related keywords"}
                 outline={false}
             />
             {filterParam && (
@@ -165,23 +166,23 @@ function Users() {
                         <thead className="" style={{ borderRadius: "" }}>
                             <tr className="!capitalize" style={{ textTransform: "capitalize" }}>
                                 <th className="font-medium text-[12px] font-poppins leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white] text-[#42526D] px-[24px] py-[13px] !capitalize"
-                                    style={{ position: "static" }}>Name</th>
-                                <th className="text-[#42526D] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] !capitalize flex items-center gap-1">Role <RxQuestionMarkCircled className="w-4 h-4 text-[gray] translate-y-[-1px]" /></th>
-                                <th className="text-[#42526D] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] !capitalize">Page Assign</th>
-                                <th className="text-[#42526D] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] text-center !capitalize">Status</th>
-                                <th className="text-[#42526D] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] !capitalize">Task Assigned</th>
-                                <th className="text-[#42526D] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] text-center !capitalize">Actions</th>
+                                    style={{ position: "static", width: "363px" }}>Name</th>
+                                <th className="text-[#42526D] w-[140px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] !capitalize flex items-center gap-1">Role <RxQuestionMarkCircled className="w-4 h-4 text-[gray] translate-y-[-1px]" /></th>
+                                <th className="text-[#42526D] w-[159px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] !capitalize">Page Assign</th>
+                                <th className="text-[#42526D] w-[333px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] !capitalize">Task Assigned</th>
+                                <th className="text-[#42526D] w-[172px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] text-center !capitalize">Status</th>
+                                <th className="text-[#42526D] w-[240px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] text-center !capitalize">Actions</th>
                             </tr>
                         </thead>
                         <tbody className="">
-                            {Array.isArray(users) && users?.map((user, index) => {
+                            {Array.isArray(users) && users.length > 0 ? users?.map((user, index) => {
                                 return (
                                     <tr key={index} className="font-light">
-                                        <td className={`font-poppins font-normal text-[14px] leading-normal text-[#101828] p-[26px] ${index % 2 === 0 ? "py-[11px]" : "py-[10px]"} pl-5 flex `}>
+                                        <td className={`font-poppins truncate font-normal text-[14px] leading-normal text-[#101828] p-[26px] ${index % 2 === 0 ? "py-[11px]" : "py-[10px]"} pl-5 flex `}>
                                             <img src={user.image ? user.image : userIcon} alt={user.name} className="rounded-[50%] w-[41px] h-[41px] mr-2" />
-                                            <div className="flex flex-col">
+                                            <div className="flex truncate flex-col">
                                                 <p className="dark:text-[white]">{user.name}</p>
-                                                <p className="font-light text-[grey]">{user.email}</p>
+                                                <p className="font-light text-[grey]">{TruncateText(user.email, 20)}</p>
                                             </div>
                                         </td>
                                         <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]">
@@ -189,15 +190,17 @@ function Users() {
                                         </td>
 
                                         <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]"> </td>
+                                        <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]" style={{ whiteSpace: "wrap" }}> {TruncateText("asdfwerweq eqt eqfsadf qew", 20)}</td>
                                         <td className="font-poppins font-light text-[12px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]">
                                             <p
-                                                className={`before:content-['•'] before:text-2xl flex h-7 items-center capitalize justify-center gap-1 px-1 py-0 font-[500] ${user.status === 'ACTIVE' ? "text-green-600 bg-green-100 before:text-green-600 px-1" : "text-red-600 bg-red-100 before:text-red-600 "} text-center rounded-2xl`}
+                                                className={`w-[85px] mx-auto before:content-['•'] before:text-2xl flex h-7 items-center justify-center gap-1 px-1 py-0 font-[500] ${user.status === 'ACTIVE' ? "text-green-600 bg-green-100 before:text-green-600 px-1" : "text-red-600 bg-red-100 before:text-red-600 "} rounded-2xl`}
                                                 style={{ textTransform: "capitalize", }}
-                                            >{capitalizeword(user.status)}</p>
+                                            >
+                                                {capitalizeword(user.status)}
+                                            </p>
                                         </td>
-                                        <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]" style={{ whiteSpace: "wrap" }}> asdfwerweq eqt eqfsadf qew</td>
                                         <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[8px] dark:text-[white]">
-                                            <div className="flex gap-[15px] justify-center border border border-[1px] border-[#E6E7EC] dark:border-stone-400 rounded-[8px] p-[13.6px] py-[10px]">
+                                            <div className="max-w-[145px] mx-auto flex gap-[15px] justify-center border border border-[1px] border-[#E6E7EC] dark:border-stone-400 rounded-[8px] p-[13.6px] py-[10px]">
                                                 <button
                                                     onClick={() => {
                                                         setSelectedUser(user);
@@ -241,6 +244,10 @@ function Users() {
                                     </tr>
                                 )
                             }
+                            ) : (
+                                <tr>
+                                    <td colSpan={6}>No Data Available</td>
+                                </tr>
                             )}
                         </tbody>
                     </table>

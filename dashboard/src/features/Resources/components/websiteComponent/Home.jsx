@@ -29,6 +29,7 @@ import "swiper/css/pagination";
 // import { useGlobalContext } from "../../contexts/GlobalContext";
 import blankImage from "../../../../assets/images/blankImage.webp";
 import { isPlainObject } from "@reduxjs/toolkit";
+import { TruncateText } from "../../../../app/capitalizeword";
 // import dynamic from 'next/dynamic';
 // const AnimatedText = dynamic(() => import('@/common/AnimatedText'), { ssr: false });
 // import ContactUsModal from "../header/ContactUsModal";
@@ -79,12 +80,6 @@ const HomePage = ({ language, screen }) => {
     );
     const ProjectSlider = { ...recentProjects, ...markets, ...safety };
 
-    const TruncateText = (text, length) => {
-        if (text.length > (length || 50)) {
-            return `${text.slice(0, length || 50)}...`;
-        }
-        return text;
-    };
 
     useEffect(() => {
         if (swiperInstance) {

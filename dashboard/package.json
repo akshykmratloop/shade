@@ -25,6 +25,7 @@
     "daisyui": "^2.41.0",
     "date-fns": "^4.1.0",
     "dayjs": "^1.11.7",
+    "dotenv": "^16.4.7",
     "framer-motion": "^11.11.9",
     "joi": "^17.13.3",
     "lottie-web": "^5.12.2",
