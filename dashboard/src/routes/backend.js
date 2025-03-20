@@ -5,6 +5,7 @@ const BASE_URL = "http://localhost:3000/";
 const auth = "auth";
 const role = "role";
 const permission = "permission";
+const user = "user"
 
 const api = {
   login: `${auth}/login`, // API for Auth
@@ -25,8 +26,10 @@ const api = {
   deactivateRole: `${role}/deactivate`,
   updateRole: `${role}/update`,
 
-  //permisions
-  fetchPermissionsByRoleType: `${permission}/permissionsByRoleType/`,
+  fetchPermissionsByRoleType: `${permission}/permissionsByRoleType/`,  //permisions
+
+  getUsers: `${user}/getAllusers`, // API for users from here
+  createUser: `${user}/create`,
 
   route(route) {
     if (this[route]) {
