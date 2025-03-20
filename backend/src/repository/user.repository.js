@@ -1,6 +1,149 @@
 import prismaClient from "../config/dbConfig.js";
+import {EncryptData} from "../helper/bcryptManager.js";
+import {sendEmail} from "../helper/sendEmail.js";
 
 /// USER QUERIES====================================================
+// Create User
+export const createUserHandler = async (
+  name,
+  email,
+  password,
+  phone,
+  roles
+) => {
+  const hashedPassword = await EncryptData(password, 10);
+  const newUser = await prismaClient.user.create({
+    data: {
+      name,
+      email,
+      password: hashedPassword,
+      phone,
+      roles: {
+        create:
+          roles?.map((roleId) => ({
+            role: {
+              connect: {id: roleId},
+            },
+          })) || [],
+      },
+    },
+    include: {
+      roles: {
+        include: {role: true},
+      },
+    },
+  });
+  const emailPayload = {
+    to: email,
+    subject: "Your Account Details",
+    text: `Hello ${name}, your account has been created successfully. Username: ${email}, Password: ${password}. Please change your password after logging in.`,
+    html: `
+      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #ddd; border-radius: 8px; background-color: #f9f9f9;">
+        <h2 style="text-align: center; color: #333;">Welcome to Our Platform! 🎉</h2>
+        <p style="font-size: 16px; color: #555;">Hello <strong>${name}</strong>,</p>
+        <p style="font-size: 16px; color: #555;">
+          Your account has been successfully created. Here are your login details:
+        </p>
+        <div style="background-color: #fff; padding: 15px; border-radius: 6px; box-shadow: 0px 0px 10px rgba(0,0,0,0.1);">
+          <p style="font-size: 16px; margin: 0;"><strong>Username:</strong> ${email}</p>
+          <p style="font-size: 16px; margin: 0;"><strong>Password:</strong> ${password}</p>
+        </div>
+        <p style="font-size: 16px; color: #555; margin-top: 20px;">
+          Please change your password after logging in for security purposes.
+        </p>
+        <div style="text-align: center; margin-top: 20px;">
+          <a href="http://localhost:3001/login" style="display: inline-block; background-color: #007bff; color: #fff; padding: 12px 20px; font-size: 16px; text-decoration: none; border-radius: 5px;">Login Now</a>
+        </div>
+        <p style="font-size: 14px; color: #999; text-align: center; margin-top: 20px;">
+          If you didn't request this, please ignore this email.
+        </p>
+        <hr style="border: none; border-top: 1px solid #ddd;">
+        <p style="font-size: 14px; color: #999; text-align: center;">© 2025 Your Company. All rights reserved.</p>
+      </div>
+    `,
+  };
+
+  await sendEmail(emailPayload);
+
+  return newUser;
+};
+
+//Fetch all users
+export const fetchAllUsers = async (
+  name = "",
+  email = "",
+  phone = "",
+  status = "",
+  page = 1,
+  limit = 10
+) => {
+  const skip = (page - 1) * limit;
+
+  const allUsers = await prismaClient.user.findMany({
+    where: {
+      name: {
+        not: "Super Admin",
+        contains: name,
+        mode: "insensitive",
+      },
+      email: email ? {contains: email, mode: "insensitive"} : undefined,
+      phone: phone ? {contains: phone} : undefined,
+      ...(status ? {status: status} : {}),
+    },
+    orderBy: {createdAt: "asc"},
+    skip,
+    take: limit,
+  });
+
+  const totalUser = await prismaClient.user.count({
+    where: {
+      name: {
+        not: "Super Admin",
+        contains: name,
+        mode: "insensitive",
+      },
+      email: email ? {contains: email, mode: "insensitive"} : undefined,
+      phone: phone ? {contains: phone} : undefined,
+      ...(status ? {status: status} : {}),
+    },
+  });
+
+  return {
+    allUsers,
+    pagination: {
+      totalUser,
+      totalPages: Math.ceil(totalUser / limit),
+      currentPage: page,
+      limit,
+    },
+  };
+};
+
+// Update User
+export const updateUser = async (userId, name, password, phone, roles) => {
+  const hashedPassword = await EncryptData(password, 10);
+  const updatedUser = await prismaClient.user.update({
+    where: {id: userId},
+    data: {
+      name,
+      password: hashedPassword,
+      phone,
+      roles: {
+        // Remove all existing role associations for the user
+        deleteMany: {},
+        // Create new associations for each provided role ID
+        create:
+          roles?.map((roleId) => ({
+            role: {connect: {id: roleId}},
+          })) || [],
+      },
+    },
+    include: {roles: {include: {role: true}}},
+  });
+
+  return updatedUser;
+};
+
 // Find and return the user object
 export const findUserByEmail = async (email) => {
   const user = await prismaClient.user.findUnique({
@@ -41,11 +184,34 @@ export const findUserByEmail = async (email) => {
   };
 };
 
+export const findUserById = async (id) => {
+  const user = await prismaClient.user.findUnique({
+    where: {id},
+    include: {
+      roles: {
+        include: {
+          role: {
+            include: {
+              permissions: {
+                select: {
+                  permission: true,
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+  });
+
+  return user;
+};
+
 // Update user password
 export const updateUserPassword = async (userId, newPassword) => {
   return await prismaClient.user.update({
-    where: { id: userId },
-    data: { password: newPassword },
+    where: {id: userId},
+    data: {password: newPassword},
   });
 };
 
@@ -67,30 +233,30 @@ export const createOrUpdateOTP = async (
         otpOrigin,
       },
     },
-    create: { userId, deviceId, otpOrigin, otpCode, expiresAt },
-    update: { otpCode, expiresAt, isUsed: false },
+    create: {userId, deviceId, otpOrigin, otpCode, expiresAt},
+    update: {otpCode, expiresAt, isUsed: false},
   });
 };
 
 // find existing otp
 export const findOTP = async (userId, deviceId, otpOrigin) => {
   return await prismaClient.otp.findFirst({
-    where: { userId, deviceId, otpOrigin },
+    where: {userId, deviceId, otpOrigin},
   });
 };
 
 // mark otp as used
 export const markOTPUsed = async (otpId) => {
   return await prismaClient.otp.update({
-    where: { id: otpId },
-    data: { isUsed: true },
+    where: {id: otpId},
+    data: {isUsed: true},
   });
 };
 
 // delete otp
 export const deleteOTP = async (otpId) => {
   return await prismaClient.otp.delete({
-    where: { id: otpId },
+    where: {id: otpId},
   });
 };
 
@@ -99,7 +265,7 @@ export const deleteOTP = async (otpId) => {
 // Find OTP attempts
 export const findOtpAttempts = async (userId) => {
   return await prismaClient.rateLimit.findFirst({
-    where: { userId },
+    where: {userId},
   });
 };
 
@@ -108,9 +274,9 @@ export const createOrUpdateOtpAttempts = async (userId) => {
   const now = new Date();
 
   return await prismaClient.rateLimit.upsert({
-    where: { userId },
+    where: {userId},
     update: {
-      attempts: { increment: 1 },
+      attempts: {increment: 1},
       lastAttempt: now,
     },
     create: {
@@ -126,8 +292,8 @@ export const createOrUpdateOtpAttempts = async (userId) => {
 // Block a user temporarily
 export const blockUser = async (userId, blockUntil) => {
   return await prismaClient.rateLimit.update({
-    where: { userId },
-    data: { blockUntil },
+    where: {userId},
+    data: {blockUntil},
   });
 };
 
@@ -135,8 +301,8 @@ export const blockUser = async (userId, blockUntil) => {
 export const resetOtpAttempts = async () => {
   const now = new Date();
   await prismaClient.rateLimit.updateMany({
-    where: { blockUntil: { lte: now } },
-    data: { attempts: 0, failures: 0, blockUntil: null },
+    where: {blockUntil: {lte: now}},
+    data: {attempts: 0, failures: 0, blockUntil: null},
   });
 };
 
@@ -160,9 +326,10 @@ export const resetUserOtpAttempts = async () => {
   // For users who are still blocked but need an updated block time:
   await prismaClient.rateLimit.updateMany({
     where: {
-      blockUntil: { // Users who are blocked and should be updated
+      blockUntil: {
+        // Users who are blocked and should be updated
         lte: now,
-      },  
+      },
     },
     data: {
       attempts: 0, // Reset attempts after block period has ended
@@ -171,4 +338,3 @@ export const resetUserOtpAttempts = async () => {
     },
   });
 };
-

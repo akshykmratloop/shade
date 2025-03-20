@@ -9,7 +9,12 @@ import {
 } from "./roles.service.js";
 
 const GetRoles = async (req, res) => {
-  const response = await getRoles();
+  // const searchTerm = req.query.search || "";
+  // const status = req.query.status || "";
+  const {search, status, page, limit} = req.query;
+  const pageNum = parseInt(page) || 1;
+  const limitNum = parseInt(limit) || 10;
+  const response = await getRoles(search, status, pageNum, limitNum);
   res.status(200).json(response);
 };
 

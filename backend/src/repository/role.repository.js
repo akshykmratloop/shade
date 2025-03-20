@@ -1,11 +1,15 @@
 import prismaClient from "../config/dbConfig.js";
 
-export const findRoles = async () => {
-  return await prismaClient.role.findMany({
+export const findRoles = async (searchTerm = "", status = "", page, limit) => {
+  const skip = (page - 1) * limit;
+  const roles = await prismaClient.role.findMany({
     where: {
       name: {
         not: "SUPER_ADMIN", // Exclude SUPER_ADMIN
+        contains: searchTerm,
+        mode: "insensitive",
       },
+      ...(status ? {status: status} : {}),
     },
     include: {
       _count: {
@@ -27,13 +31,47 @@ export const findRoles = async () => {
       //   },
       // },
     },
+    orderBy: {created_at: "asc"},
+    skip,
+    take: limit,
   });
+
+  const totalRoles = await prismaClient.role.count({
+    where: {
+      name: {
+        not: "SUPER_ADMIN",
+        contains: searchTerm,
+        mode: "insensitive",
+      },
+      ...(status ? {status: status} : {}),
+    },
+  });
+
+  return {
+    roles,
+    pagination: {
+      totalRoles,
+      totalPages: Math.ceil(totalRoles / limit),
+      currentPage: page,
+      limit,
+    },
+  };
 };
 
 export const findRoleById = async (id) => {
   const role = await prismaClient.role.findUnique({
     where: {
       id: id,
+    },
+    include: {
+      permissions: {
+        include: {
+          permission: {
+            select: {subPermissions: {select: {subPermission: true}}},
+          },
+        },
+      },
+      users: {select: {user: true}},
     },
   });
   // Check if the role is "SUPER_ADMIN"
