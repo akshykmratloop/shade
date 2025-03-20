@@ -14,7 +14,6 @@ const Paginations = ({ currentPage, totalPages, setCurrentPage }) => {
         pages.push("...");
         pages = pages.concat([...Array(maxVisiblePages).keys()].map(i => totalPages - maxVisiblePages + 1 + i));
     } else {
-        pages.push("...");
         pages = pages.concat([...Array(maxVisiblePages).keys()].map(i => currentPage - Math.floor(maxVisiblePages / 2) + i));
         pages.push("...");
     }
@@ -48,7 +47,7 @@ const Paginations = ({ currentPage, totalPages, setCurrentPage }) => {
             <button
                 onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
                 disabled={currentPage === totalPages}
-                className={`w-[2rem] p-2 flex items-center justify-center  text-sm rounded-full ${currentPage === totalPages ? "bg-[#ededed] cursor-not-allowed" : "bg-[#29469C] text-white"}`}
+                className={`w-[2rem] p-2 flex items-center justify-center text-sm rounded-full ${currentPage === totalPages ? "bg-[#ededed] cursor-not-allowed" : "bg-[#29469C] text-white"}`}
             >
                 <FaAngleRight />
             </button>
