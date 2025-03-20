@@ -8,21 +8,23 @@ import {
 
 const createUserHandler = async (req, res) => {
   const {name, email, password, phone, roles} = req.body;
-  try {
-    const user = await createUser(name, email, password, phone, roles);
-    res.status(201).json(user);
-  } catch (error) {
-    res.status(400).json({error: error.message});
-  }
+  const user = await createUser(name, email, password, phone, roles);
+  res.status(201).json(user);
 };
 
 const GetAllUsers = async (req, res) => {
-  try {
-    const allUser = await getAllUsers();
-    res.status(201).json(allUser);
-  } catch (error) {
-    res.status(400).json({error: error.message});
-  }
+  const {name, email, phone, status, page = 1, limit = 10} = req.query;
+  const pageNum = parseInt(page) || 1;
+  const limitNum = parseInt(limit) || 10;
+  const allUser = await getAllUsers(
+    name,
+    email,
+    phone,
+    status,
+    pageNum,
+    limitNum
+  );
+  res.status(201).json(allUser);
 };
 
 const GetUserById = async (req, res) => {
@@ -33,20 +35,16 @@ const GetUserById = async (req, res) => {
 
 const EditUserDetails = async (req, res) => {
   const {userId} = req.params;
-  const {name, email, password, phone, roles} = req.body;
-  try {
-    const updatedUser = await editUserDetails(
-      userId,
-      name,
-      email,
-      password,
-      phone,
-      roles
-    );
-    res.status(201).json(updatedUser);
-  } catch (error) {
-    res.status(400).json({error: error.message});
-  }
+  const {name, password, phone, roles} = req.body;
+
+  const updatedUser = await editUserDetails(
+    userId,
+    name,
+    password,
+    phone,
+    roles
+  );
+  res.status(201).json(updatedUser);
 };
 
 export default {createUserHandler, GetAllUsers, GetUserById, EditUserDetails};

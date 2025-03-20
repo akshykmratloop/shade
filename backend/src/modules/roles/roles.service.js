@@ -10,8 +10,8 @@ import {
   findRoleType,
 } from "../../repository/role.repository.js";
 
-const getRoles = async () => {
-  const roles = await findRoles(); // to bring the roles
+const getRoles = async (searchTerm, status, page, limit) => {
+  const roles = await findRoles(searchTerm, status, page, limit); // to bring the roles
   logger.info({response: "roles fetched successfully", roles: roles});
   return {message: "Roles fetched successfully", roles};
 };

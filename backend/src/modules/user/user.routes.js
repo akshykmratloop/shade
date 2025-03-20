@@ -3,7 +3,7 @@ import UserController from "./user.controller.js";
 import {authenticateUser} from "../../helper/authMiddleware.js";
 import tryCatchWrap from "../../errors/tryCatchWrap.js";
 import validate from "../../validation/validator.js";
-import {userSchema} from "../../validation/userSchema.js";
+import {updateUserSchema, userSchema} from "../../validation/userSchema.js";
 
 const router = Router();
 
@@ -16,7 +16,7 @@ router.get("/getAllUsers", tryCatchWrap(UserController.GetAllUsers));
 router.get("/:id", tryCatchWrap(UserController.GetUserById));
 router.put(
   "/updateUser/:userId",
-  validate(userSchema),
+  validate(updateUserSchema),
   tryCatchWrap(UserController.EditUserDetails)
 );
 

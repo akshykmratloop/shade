@@ -26,4 +26,11 @@ const userSchema = Joi.object({
   roles: rolesRule,
 });
 
-export {userSchema};
+const updateUserSchema = Joi.object({
+  name: nameRule,
+  password: passwordRule,
+  phone: phoneRule,
+  roles: rolesRule,
+});
+
+export {userSchema, updateUserSchema};

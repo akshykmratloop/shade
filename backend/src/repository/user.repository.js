@@ -36,7 +36,7 @@ export const createUserHandler = async (
   const emailPayload = {
     to: email,
     subject: "Your Account Details",
-    text: `Hello ${name}, your account has been created successfully. Username: ${name}, Password: ${password}. Please change your password after logging in.`,
+    text: `Hello ${name}, your account has been created successfully. Username: ${email}, Password: ${password}. Please change your password after logging in.`,
     html: `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #ddd; border-radius: 8px; background-color: #f9f9f9;">
         <h2 style="text-align: center; color: #333;">Welcome to Our Platform! 🎉</h2>
@@ -45,14 +45,14 @@ export const createUserHandler = async (
           Your account has been successfully created. Here are your login details:
         </p>
         <div style="background-color: #fff; padding: 15px; border-radius: 6px; box-shadow: 0px 0px 10px rgba(0,0,0,0.1);">
-          <p style="font-size: 16px; margin: 0;"><strong>Username:</strong> ${name}</p>
+          <p style="font-size: 16px; margin: 0;"><strong>Username:</strong> ${email}</p>
           <p style="font-size: 16px; margin: 0;"><strong>Password:</strong> ${password}</p>
         </div>
         <p style="font-size: 16px; color: #555; margin-top: 20px;">
           Please change your password after logging in for security purposes.
         </p>
         <div style="text-align: center; margin-top: 20px;">
-          <a href="https://yourwebsite.com/login" style="display: inline-block; background-color: #007bff; color: #fff; padding: 12px 20px; font-size: 16px; text-decoration: none; border-radius: 5px;">Login Now</a>
+          <a href="http://localhost:3001/login" style="display: inline-block; background-color: #007bff; color: #fff; padding: 12px 20px; font-size: 16px; text-decoration: none; border-radius: 5px;">Login Now</a>
         </div>
         <p style="font-size: 14px; color: #999; text-align: center; margin-top: 20px;">
           If you didn't request this, please ignore this email.
@@ -69,49 +69,79 @@ export const createUserHandler = async (
 };
 
 //Fetch all users
-export const fetchAllUsers = async () => {
+export const fetchAllUsers = async (
+  name = "",
+  email = "",
+  phone = "",
+  status = "",
+  page = 1,
+  limit = 10
+) => {
+  const skip = (page - 1) * limit;
+
   const allUsers = await prismaClient.user.findMany({
-    where: {name: {not: "Super Admin"}},
+    where: {
+      name: {
+        not: "Super Admin",
+        contains: name,
+        mode: "insensitive",
+      },
+      email: email ? {contains: email, mode: "insensitive"} : undefined,
+      phone: phone ? {contains: phone} : undefined,
+      ...(status ? {status: status} : {}),
+    },
+    orderBy: {createdAt: "asc"},
+    skip,
+    take: limit,
   });
-  return allUsers;
+
+  const totalUser = await prismaClient.user.count({
+    where: {
+      name: {
+        not: "Super Admin",
+        contains: name,
+        mode: "insensitive",
+      },
+      email: email ? {contains: email, mode: "insensitive"} : undefined,
+      phone: phone ? {contains: phone} : undefined,
+      ...(status ? {status: status} : {}),
+    },
+  });
+
+  return {
+    allUsers,
+    pagination: {
+      totalUser,
+      totalPages: Math.ceil(totalUser / limit),
+      currentPage: page,
+      limit,
+    },
+  };
 };
 
 // Update User
-export const updateUser = async (
-  userId,
-  name,
-  email,
-  password,
-  phone,
-  roles
-) => {
-  const hashedPassword = EncryptData(password, 10);
-  try {
-    const updatedUser = await prismaClient.user.update({
-      where: {id: userId},
-      data: {
-        name,
-        email,
-        password: hashedPassword,
-        phone,
-        roles: {
-          // Remove all existing role associations for the user
-          deleteMany: {},
-          // Create new associations for each provided role ID
-          create:
-            roles?.map((roleId) => ({
-              role: {connect: {id: roleId}},
-            })) || [],
-        },
+export const updateUser = async (userId, name, password, phone, roles) => {
+  const hashedPassword = await EncryptData(password, 10);
+  const updatedUser = await prismaClient.user.update({
+    where: {id: userId},
+    data: {
+      name,
+      password: hashedPassword,
+      phone,
+      roles: {
+        // Remove all existing role associations for the user
+        deleteMany: {},
+        // Create new associations for each provided role ID
+        create:
+          roles?.map((roleId) => ({
+            role: {connect: {id: roleId}},
+          })) || [],
       },
-      include: {roles: {include: {role: true}}},
-    });
+    },
+    include: {roles: {include: {role: true}}},
+  });
 
-    return updatedUser;
-  } catch (error) {
-    console.error("Error updating user:", error);
-    throw new Error("Failed to update user");
-  }
+  return updatedUser;
 };
 
 // Find and return the user object
