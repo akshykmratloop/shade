@@ -138,8 +138,6 @@ function Roles() {
     }
   };
 
-  console.log(roles)
-
   // Pagination logic
   const indexOfLastUser = currentPage * rolesPerPage;
   const indexOfFirstUser = indexOfLastUser - rolesPerPage;
@@ -283,7 +281,7 @@ function Roles() {
             </table>
           </div>
           {/* Pagination Controls */}
-          <Paginations currentPage={currentPage} setCurrentPage={setCurrentPage} totalPages={totalPages} />
+          <Paginations data={roles} currentPage={currentPage} setCurrentPage={setCurrentPage} totalPages={totalPages} />
         </div>
       </TitleCard>
 

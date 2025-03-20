@@ -1,6 +1,6 @@
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa6";
 
-const Paginations = ({ currentPage, totalPages, setCurrentPage }) => {
+const Paginations = ({ currentPage, totalPages, setCurrentPage, data }) => {
 
     const maxVisiblePages = 5;
     let pages = [];
@@ -19,7 +19,7 @@ const Paginations = ({ currentPage, totalPages, setCurrentPage }) => {
     }
 
     return (
-        <div className="flex justify-center items-center mt-4 gap-2">
+        <div className="flex justify-center items-center mt-4 gap-2" style={{display:!(data?.length > 0) && "none"}}>
             <button
                 onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
                 disabled={currentPage === 1}

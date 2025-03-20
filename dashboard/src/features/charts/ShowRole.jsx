@@ -74,7 +74,7 @@ function RoleDetailsModal({ user, show, onClose }) {
                                     >
                                         <div className="flex gap-2 flex-wrap w-[50px] relative">
                                             <div className="absolute flex gap-2 flex-wrap w-[200px] top-[-14px]">
-                                                {user.roles.map((e, i, a) => {
+                                                {user?.roles?.map((e, i, a) => {
                                                     let lastElement = i === a.length - 1
                                                     return (<span key={e.id} className="">{e.name}{!lastElement && ","}</span>)
                                                 })}

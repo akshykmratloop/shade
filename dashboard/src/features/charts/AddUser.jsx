@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import InputText from "../../components/Input/InputText";
-import { createRole, updateRole } from "../../app/fetch";
+import { fetchRoles, createUser } from "../../app/fetch";
 import { toast, ToastContainer } from "react-toastify";
 import validator from "../../app/valid";
 import updateToasify from "../../app/toastify";
@@ -13,12 +13,13 @@ import CloseModalButton from "../../components/Button/CloseButton";
 import capitalizeWords from "../../app/capitalizeword";
 
 
-const AddUserModal = ({ show, onClose, updateRoles, user }) => {
+const AddUserModal = ({ show, onClose, updateUsers, user }) => {
     const [errorMessageName, setErrorMessageName] = useState("");
     const [errorMessageEmail, setErrorMessageEmail] = useState("");
     const [errorMessagePhone, setErrorMessagePhone] = useState("");
     const [errorMessageRoles, setErrorMessageRoles] = useState("");
     const [errorMessagePassword, setErrorMessagePassword] = useState("");
+    const [roles, setRoles] = useState([])
     const modalRef = useRef(null)
     const initialUserState = {
         name: "",
@@ -63,22 +64,23 @@ const AddUserModal = ({ show, onClose, updateRoles, user }) => {
 
         if (!validation) return;
         if (validEmail) return;
-        console.log("here")
+        console.log(userData)
 
         const loadingToastId = toast.loading("Processing request...", { autoClose: 2000 });
 
+
         let response;
         if (user) {
-            // response = await updateRole({ ...userData, id: user.id });
+            // response = await createUser({ ...userData, id: user.id });
         } else {
-            // response = await createRole(userData);
+            response = await createUser(userData);
         }
 
         if (response?.ok) {
             updateToasify(loadingToastId, `Request successful! 🎉 ${response.message}`, "success", 1000);
             setTimeout(() => {
                 onClose();
-                updateRoles((prev) => !prev);
+                updateUsers((prev) => !prev);
             }, 1500);
         } else {
             updateToasify(loadingToastId, `Request failed. ${response?.message ? response.message : "Something went wrong please try again later"}`, "failure", 2000);
@@ -105,6 +107,16 @@ const AddUserModal = ({ show, onClose, updateRoles, user }) => {
             setUserData(initialUserState);
         }
     }, [user]);
+
+    useEffect(() => {
+        async function fetchForForm() {
+            const response = await fetchRoles()
+
+            setRoles(response?.roles?.roles ?? [])
+        }
+
+        fetchForForm()
+    }, [])
 
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -206,7 +218,7 @@ const AddUserModal = ({ show, onClose, updateRoles, user }) => {
                     <div>
                         <label className="label-text text-[#6B7888]">Select Role</label>
                         <ul className="flex flex-wrap mt-2">
-                            {dummy.map((element) => {
+                            {roles?.map((element) => {
                                 const isAvailable = userData.roles.includes(element.id);
 
                                 return (

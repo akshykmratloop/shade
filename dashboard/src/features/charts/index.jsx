@@ -11,6 +11,7 @@ import RoleDetailsModal from "./ShowRole";
 import updateToasify from "../../app/toastify";
 import dummyUser from "../../assets/Dummy_User.json"
 import capitalizeWords, { TruncateText } from "../../app/capitalizeword";
+import { getAllusers } from "../../app/fetch";
 // icons
 import { Switch } from '@headlessui/react';
 import XMarkIcon from '@heroicons/react/24/outline/XMarkIcon';
@@ -136,11 +137,13 @@ function Users() {
     const totalPages = Math.ceil(users?.length / usersPerPage);
 
     useEffect(() => {
-        async function fetchRoleData() {
-            setUsers(dummyUser) // save the fethched users here to apply filters
-            setOriginalUsers(dummyUser); // Store the original unfiltered data
+
+        async function fetchUsersData() {
+            const response = await getAllusers();
+            setUsers(response?.users?.allUsers ?? []) // save the fethched users here to apply filters
+            setOriginalUsers(response?.users?.allUsers ?? []); // Store the original unfiltered data
         }
-        fetchRoleData();
+        fetchUsersData();
     }, [changesInUser]);
 
 
@@ -193,7 +196,7 @@ function Users() {
                                                 </div>
                                             </td>
                                             <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]">
-                                                {user.roles.length > 1 ? "multiple" : user.roles[0].name}
+                                                {user.roles?.length > 1 ? "multiple" : user?.roles?.[0].name}
                                             </td>
 
                                             <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]"> </td>
@@ -261,7 +264,7 @@ function Users() {
                     </div>
 
                     {/* Pagination Controls */}
-                    <Paginations setCurrentPage={setCurrentPage} currentPage={currentPage} totalPages={totalPages} />
+                    <Paginations data={users} setCurrentPage={setCurrentPage} currentPage={currentPage} totalPages={totalPages} />
                 </div>
             </TitleCard>
 
@@ -273,7 +276,7 @@ function Users() {
                     setShowAddForm(false);
                     setSelectedUser(null);
                 }}
-                updateUser={setChangesInUser}
+                updateUsers={setChangesInUser}
                 user={selectedUser}
             />
             {/* <AddRoleModal show={showAddForm} onClose={() => setShowAddForm(false)} updateRole={setChangesInRole} /> */}

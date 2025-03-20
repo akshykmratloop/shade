@@ -50,8 +50,6 @@ function InputText({
     setValue(defaultValue || "");
   }, [defaultValue]);
 
-  console.log("opts", options);
-
   return (
     <div
       className={`form-control my-2 ${width ?? "w-full"} ${containerStyle}`}
@@ -87,7 +85,7 @@ function InputText({
           // **Checkboxes**
           <div className="grid grid-cols-2 md:grid-cols-2 gap-x-10 gap-y-2 w-full items-center pl-2">
             {options.map((opt, index) => (
-              <label key={index} className="flex items-center space-x-2">
+              <label key={index} className="flex items-center space-x-2 label-text text-[#6B7888]">
                 <input
                   type="checkbox"
                   name={name}

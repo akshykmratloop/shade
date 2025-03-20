@@ -57,6 +57,7 @@ const makerequest = async (
 
   let result;
   try {
+    console.log(body)
     const response = await fetch(uri, options);
     if (!response.ok) {
       const err = await response.json();
@@ -241,9 +242,19 @@ export async function fetchPermissionsByRoleType(roleTypeId) {
 }
 
 // fetch for Users
-export async function getAllusers(payload){
+export async function getAllusers(){
   return await makerequest(
-    api.route("getAllusers"),
+    api.route("getUsers"),
     "GET",
+  )
+}
+
+export async function createUser(data){
+  console.log(data)
+  return await makerequest(
+    api.route("createUser"),
+    "POST",
+    JSON.stringify(data),
+    ContentType.json
   )
 }
