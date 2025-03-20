@@ -172,7 +172,7 @@ function Users() {
                             <thead className="" style={{ borderRadius: "" }}>
                                 <tr className="!capitalize" style={{ textTransform: "capitalize" }}>
                                     <th className="font-medium text-[12px] font-poppins leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white] text-[#42526D] px-[24px] py-[13px] !capitalize"
-                                        style={{ position: "static", width: "363px" }}>Name</th>
+                                        style={{ position: "static", width: "363px", minWidth:"315px" }}>Name</th>
                                     <th className="text-[#42526D] w-[140px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] !capitalize flex items-center gap-1">Role <RxQuestionMarkCircled className="w-4 h-4 text-[gray] translate-y-[-1px]" /></th>
                                     <th className="text-[#42526D] w-[159px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] !capitalize">Page Assign</th>
                                     <th className="text-[#42526D] w-[333px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] !capitalize">Task Assigned</th>
