@@ -10,16 +10,13 @@ import AddUserModal from "./AddUser";
 import RoleDetailsModal from "./ShowRole";
 import updateToasify from "../../app/toastify";
 import dummyUser from "../../assets/Dummy_User.json"
-import capitalizeword from "../../app/capitalizeword";
 import capitalizeWords, { TruncateText } from "../../app/capitalizeword";
 // icons
 import { Switch } from '@headlessui/react';
 import XMarkIcon from '@heroicons/react/24/outline/XMarkIcon';
-import { FiEye } from "react-icons/fi";
-import { FiEdit } from "react-icons/fi";
+import { FiEye, FiEdit } from "react-icons/fi";
 import { RxQuestionMarkCircled } from "react-icons/rx";
-import { LuListFilter } from "react-icons/lu";
-import { LuImport } from "react-icons/lu";
+import { LuListFilter, LuImport } from "react-icons/lu";
 import userIcon from "../../assets/user.png"
 
 
@@ -99,6 +96,10 @@ function Users() {
     const [selectedUser, setSelectedUser] = useState(null);
     const [showDetailsModal, setShowDetailsModal] = useState(false);
 
+    // Pagination state
+    const [currentPage, setCurrentPage] = useState(1);
+    const usersPerPage = 2;
+
     const removeFilter = () => {
         setUsers([...originalUsers]);
     };
@@ -116,18 +117,22 @@ function Users() {
         setUsers(filteredRoles);
     };
 
-    const statusChange = async (role) => { // Active or inactive application
-        const loadingToastId = toast.loading("loging in", { autoClose: 2000 }); // starting the loading in toaster
-        let response;
-        if (role.status === "ACTIVE") response = await deactivateRole(role)
-        else response = await activateRole(role)
+    const statusChange = async (role) => {
+        const loadingToastId = toast.loading("Processing...", { autoClose: 2000 });
+        let response = role.status === "ACTIVE" ? await deactivateRole(role) : await activateRole(role);
         if (response.ok) {
-            updateToasify(loadingToastId, `Request successful. ${response.message}`, "success", 1000) // updating the toaster
-            setChangesInUser(prev => !prev)
+            updateToasify(loadingToastId, `Request successful. ${response.message}`, "success", 1000);
+            setChangesInUser(prev => !prev);
         } else {
-            updateToasify(loadingToastId, `Request failed. ${response.message}`, "failure", 2000) // updating the toaster
+            updateToasify(loadingToastId, `Request failed. ${response.message}`, "failure", 2000);
         }
-    }
+    };
+
+    // Pagination logic
+    const indexOfLastUser = currentPage * usersPerPage;
+    const indexOfFirstUser = indexOfLastUser - usersPerPage;
+    const currentUsers = users.slice(indexOfFirstUser, indexOfLastUser);
+    const totalPages = Math.ceil(users.length / usersPerPage);
 
     useEffect(() => {
         async function fetchRoleData() {
@@ -139,7 +144,7 @@ function Users() {
 
 
     return (
-        <div className="relative">
+        <div className="relative min-h-full">
             <div className="absolute top-3 right-2 flex">
                 <button className="border dark:border-neutral-400 flex justify-center items-center gap-2 px-3 rounded-lg text-[14px] text-[#0E2354] dark:text-stone-200">
                     <LuImport />
@@ -161,96 +166,127 @@ function Users() {
                         openAddForm={() => setShowAddForm(true)}
                     />
                 }>
-                <div className="overflow-x-auto w-full border dark:border-stone-600 rounded-2xl">
-                    <table className="table text-left min-w-full dark:text-[white]">
-                        <thead className="" style={{ borderRadius: "" }}>
-                            <tr className="!capitalize" style={{ textTransform: "capitalize" }}>
-                                <th className="font-medium text-[12px] font-poppins leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white] text-[#42526D] px-[24px] py-[13px] !capitalize"
-                                    style={{ position: "static", width: "363px" }}>Name</th>
-                                <th className="text-[#42526D] w-[140px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] !capitalize flex items-center gap-1">Role <RxQuestionMarkCircled className="w-4 h-4 text-[gray] translate-y-[-1px]" /></th>
-                                <th className="text-[#42526D] w-[159px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] !capitalize">Page Assign</th>
-                                <th className="text-[#42526D] w-[333px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] !capitalize">Task Assigned</th>
-                                <th className="text-[#42526D] w-[172px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] text-center !capitalize">Status</th>
-                                <th className="text-[#42526D] w-[240px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] text-center !capitalize">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody className="">
-                            {Array.isArray(users) && users.length > 0 ? users?.map((user, index) => {
-                                return (
-                                    <tr key={index} className="font-light">
-                                        <td className={`font-poppins truncate font-normal text-[14px] leading-normal text-[#101828] p-[26px] ${index % 2 === 0 ? "py-[11px]" : "py-[10px]"} pl-5 flex `}>
-                                            <img src={user.image ? user.image : userIcon} alt={user.name} className="rounded-[50%] w-[41px] h-[41px] mr-2" />
-                                            <div className="flex truncate flex-col">
-                                                <p className="dark:text-[white]">{user.name}</p>
-                                                <p className="font-light text-[grey]">{TruncateText(user.email, 20)}</p>
-                                            </div>
-                                        </td>
-                                        <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]">
-                                            {user.roles.length > 1 ? "multiple" : user.roles[0].name}
-                                        </td>
-
-                                        <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]"> </td>
-                                        <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]" style={{ whiteSpace: "wrap" }}> {TruncateText("asdfwerweq eqt eqfsadf qew", 20)}</td>
-                                        <td className="font-poppins font-light text-[12px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]">
-                                            <p
-                                                className={`w-[85px] mx-auto before:content-['•'] before:text-2xl flex h-7 items-center justify-center gap-1 px-1 py-0 font-[500] ${user.status === 'ACTIVE' ? "text-green-600 bg-green-100 before:text-green-600 px-1" : "text-red-600 bg-red-100 before:text-red-600 "} rounded-2xl`}
-                                                style={{ textTransform: "capitalize", }}
-                                            >
-                                                {capitalizeWords(user.status)}
-                                            </p>
-                                        </td>
-                                        <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[8px] dark:text-[white]">
-                                            <div className="max-w-[145px] mx-auto flex gap-[15px] justify-center border border border-[1px] border-[#E6E7EC] dark:border-stone-400 rounded-[8px] p-[13.6px] py-[10px]">
-                                                <button
-                                                    onClick={() => {
-                                                        setSelectedUser(user);
-                                                        setShowDetailsModal(true);
-                                                    }}
-                                                >
-                                                    <span className="flex items-center gap-1 rounded-md text-[#3b4152] dark:text-stone-200">
-                                                        <FiEye className="w-5 h-6 " strokeWidth={1} />
-                                                    </span>
-                                                </button>
-                                                <button
-                                                    className="text-[#3b4152] dark:text-stone-200"
-                                                    onClick={() => {
-                                                        setSelectedUser(user);
-                                                        setShowAddForm(true);
-                                                    }}
-                                                >
-                                                    <FiEdit className="w-5 h-6 " strokeWidth={1} />
-                                                </button>
-                                                <div className="flex items-center space-x-4 ">
-                                                    <Switch
-                                                        checked={user.status === "ACTIVE"}
-                                                        onChange={() => {
-                                                            statusChange(user);
-                                                        }}
-                                                        className={`${user.status === "ACTIVE"
-                                                            ? "bg-[#1DC9A0]"
-                                                            : "bg-gray-300"
-                                                            } relative inline-flex h-2 w-8 items-center rounded-full`}
-                                                    >
-                                                        <span
-                                                            className={`${user.status === "ACTIVE"
-                                                                ? "translate-x-4"
-                                                                : "translate-x-0"
-                                                                } inline-block h-5 w-5 bg-white rounded-full shadow-2xl border border-gray-300 transition`}
-                                                        />
-                                                    </Switch>
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                )
-                            }
-                            ) : (
-                                <tr className="">
-                                    <td colSpan={6}>No Data Available</td>
+                <div className="min-h-[28.2rem] flex flex-col justify-between">
+                    <div className="overflow-x-auto w-full border dark:border-stone-600 rounded-2xl">
+                        <table className="table text-left min-w-full dark:text-[white]">
+                            <thead className="" style={{ borderRadius: "" }}>
+                                <tr className="!capitalize" style={{ textTransform: "capitalize" }}>
+                                    <th className="font-medium text-[12px] font-poppins leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white] text-[#42526D] px-[24px] py-[13px] !capitalize"
+                                        style={{ position: "static", width: "363px" }}>Name</th>
+                                    <th className="text-[#42526D] w-[140px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] !capitalize flex items-center gap-1">Role <RxQuestionMarkCircled className="w-4 h-4 text-[gray] translate-y-[-1px]" /></th>
+                                    <th className="text-[#42526D] w-[159px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] !capitalize">Page Assign</th>
+                                    <th className="text-[#42526D] w-[333px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] !capitalize">Task Assigned</th>
+                                    <th className="text-[#42526D] w-[172px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] text-center !capitalize">Status</th>
+                                    <th className="text-[#42526D] w-[240px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] text-center !capitalize">Actions</th>
                                 </tr>
-                            )}
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody className="">
+                                {Array.isArray(users) && currentUsers.length > 0 ? currentUsers.map((user, index) => {
+                                    return (
+                                        <tr key={index} className="font-light">
+                                            <td className={`font-poppins truncate font-normal text-[14px] leading-normal text-[#101828] p-[26px] ${index % 2 === 0 ? "py-[11px]" : "py-[10px]"} pl-5 flex `}>
+                                                <img src={user.image ? user.image : userIcon} alt={user.name} className="rounded-[50%] w-[41px] h-[41px] mr-2" />
+                                                <div className="flex truncate flex-col">
+                                                    <p className="dark:text-[white]">{user.name}</p>
+                                                    <p className="font-light text-[grey]">{TruncateText(user.email, 20)}</p>
+                                                </div>
+                                            </td>
+                                            <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]">
+                                                {user.roles.length > 1 ? "multiple" : user.roles[0].name}
+                                            </td>
+
+                                            <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]"> </td>
+                                            <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]" style={{ whiteSpace: "wrap" }}> {TruncateText("asdfwerweq eqt eqfsadf qew", 20)}</td>
+                                            <td className="font-poppins font-light text-[12px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]">
+                                                <p
+                                                    className={`w-[85px] mx-auto before:content-['•'] before:text-2xl flex h-7 items-center justify-center gap-1 px-1 py-0 font-[500] ${user.status === 'ACTIVE' ? "text-green-600 bg-green-100 before:text-green-600 px-1" : "text-red-600 bg-red-100 before:text-red-600 "} rounded-2xl`}
+                                                    style={{ textTransform: "capitalize", }}
+                                                >
+                                                    {capitalizeWords(user.status)}
+                                                </p>
+                                            </td>
+                                            <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[8px] dark:text-[white]">
+                                                <div className="max-w-[145px] mx-auto flex gap-[15px] justify-center border border border-[1px] border-[#E6E7EC] dark:border-stone-400 rounded-[8px] p-[13.6px] py-[10px]">
+                                                    <button
+                                                        onClick={() => {
+                                                            setSelectedUser(user);
+                                                            setShowDetailsModal(true);
+                                                        }}
+                                                    >
+                                                        <span className="flex items-center gap-1 rounded-md text-[#3b4152] dark:text-stone-200">
+                                                            <FiEye className="w-5 h-6 " strokeWidth={1} />
+                                                        </span>
+                                                    </button>
+                                                    <button
+                                                        className="text-[#3b4152] dark:text-stone-200"
+                                                        onClick={() => {
+                                                            setSelectedUser(user);
+                                                            setShowAddForm(true);
+                                                        }}
+                                                    >
+                                                        <FiEdit className="w-5 h-6 " strokeWidth={1} />
+                                                    </button>
+                                                    <div className="flex items-center space-x-4 ">
+                                                        <Switch
+                                                            checked={user.status === "ACTIVE"}
+                                                            onChange={() => {
+                                                                statusChange(user);
+                                                            }}
+                                                            className={`${user.status === "ACTIVE"
+                                                                ? "bg-[#1DC9A0]"
+                                                                : "bg-gray-300"
+                                                                } relative inline-flex h-2 w-8 items-center rounded-full`}
+                                                        >
+                                                            <span
+                                                                className={`${user.status === "ACTIVE"
+                                                                    ? "translate-x-4"
+                                                                    : "translate-x-0"
+                                                                    } inline-block h-5 w-5 bg-white rounded-full shadow-2xl border border-gray-300 transition`}
+                                                            />
+                                                        </Switch>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    )
+                                }
+                                ) : (
+                                    <tr className="">
+                                        <td colSpan={6}>No Data Available</td>
+                                    </tr>
+                                )}
+                            </tbody>
+                        </table>
+                    </div>
+
+                    {/* Pagination Controls */}
+                    <div className="flex justify-center items-center mt-4 gap-2">
+                        <button
+                            onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+                            disabled={currentPage === 1}
+                            className={`w-[6rem] px-4 py-2 text-sm rounded-lg ${currentPage === 1 ? "bg-gray-300 cursor-not-allowed" : "bg-[#29469c] text-white"}`}
+                        >
+                            Previous
+                        </button>
+
+                        {Array.from({ length: totalPages }, (_, i) => (
+                            <button
+                                key={i + 1}
+                                onClick={() => setCurrentPage(i + 1)}
+                                className={`px-3 py-1 rounded-full text-sm ${currentPage === i + 1 ? "bg-[#29469c] text-white" : "bg-gray-200"}`}
+                            >
+                                {i + 1}
+                            </button>
+                        ))}
+
+                        <button
+                            onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+                            disabled={currentPage === totalPages}
+                            className={`w-[6rem] px-4 py-2 text-sm rounded-lg ${currentPage === totalPages ? "bg-gray-300 cursor-not-allowed" : "bg-[#29469C] text-white"}`}
+                        >
+                            Next
+                        </button>
+                    </div>
                 </div>
             </TitleCard>
 
