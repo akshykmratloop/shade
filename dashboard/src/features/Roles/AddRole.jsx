@@ -193,7 +193,7 @@ const AddRoleModal = ({ show, onClose, updateRoles, role }) => {
     <div className="modal-overlay fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-30"
       onClick={modalClose} // Clicking anywhere on the overlay will close the modal
     >
-      <div className="modal modal-open relative bg-white p-6 w-[35rem] rounded-lg shadow-lg flex flex-col" ref={modalRef}
+      <div className="modal modal-open relative bg-white p-6 w-[35rem] min-h-[30rem] rounded-lg shadow-lg flex flex-col justify-start" ref={modalRef}
         onClick={(e) => e.stopPropagation()} // Prevents closing when clicking inside the modal
       >
 
@@ -205,7 +205,7 @@ const AddRoleModal = ({ show, onClose, updateRoles, role }) => {
 
         <form
           onSubmit={handleFormSubmit}
-          className="flex flex-col items-start w-full gap-4"
+          className="flex flex-col items-start w-full gap-4 h-[420px] justify-between"
         >
           <div className="flex justify-center w-full items-center gap-2">
             {/* Name Field */}

@@ -71,7 +71,7 @@ function InputText({
             value={value}
             onChange={(e) => updateInputValue(e.target.value)}
             className={`input ${width ?? "w-full"
-              } h-[2.3rem] text-xs input input-bordered border-stone-500 focus:border-none ${InputClasses || ""
+              } h-[2.3rem] text-xs input input-bordered border-[#cecbcb] focus:border-none ${InputClasses || ""
               }`}
           >
             <option value="" disabled>
@@ -131,7 +131,7 @@ function InputText({
             placeholder={placeholder || ""}
             onChange={(e) => updateInputValue(e.target.value)}
             className={`input ${width ?? "w-full"
-              } h-[2.3rem] text-xs input input-bordered border-stone-500 focus:border-none ${InputClasses || ""
+              } h-[2.3rem] text-xs input input-bordered border-[#cecbcb] focus:border-none ${InputClasses || ""
               }`}
           />
         )}
