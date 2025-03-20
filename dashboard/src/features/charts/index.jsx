@@ -273,7 +273,7 @@ function Users() {
                             <button
                                 key={i + 1}
                                 onClick={() => setCurrentPage(i + 1)}
-                                className={`px-3 py-1 rounded-full text-sm ${currentPage === i + 1 ? "bg-[#29469c] text-white" : "bg-gray-200"}`}
+                                className={`px-3 py-1 pt-2 rounded-full w-[2rem] h-[2rem] text-sm ${currentPage === i + 1 ? "bg-[#29469c] text-white" : "bg-gray-200"}`}
                             >
                                 {i + 1}
                             </button>

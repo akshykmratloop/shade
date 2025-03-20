@@ -94,6 +94,10 @@ function Roles() {
   const [selectedRole, setSelectedRole] = useState(null);
   const [showDetailsModal, setShowDetailsModal] = useState(false);
   const [enabled, setEnabled] = useState(false);
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const rolesPerPage = 4;
+
   const removeFilter = () => {
     setRoles([...originalRoles]);
   };
@@ -132,6 +136,13 @@ function Roles() {
       ); // updating the toaster
     }
   };
+
+  // Pagination logic
+  const indexOfLastUser = currentPage * rolesPerPage;
+  const indexOfFirstUser = indexOfLastUser - rolesPerPage;
+  const currentRoles = roles.slice(indexOfFirstUser, indexOfLastUser);
+  const totalPages = Math.ceil(roles.length / rolesPerPage);
+
   useEffect(() => {
     async function fetchRoleData() {
       const response = await fetchRoles();
@@ -141,7 +152,7 @@ function Roles() {
     fetchRoleData();
   }, [changesInRole]);
   return (
-    <div className="relative">
+    <div className="relative min-h-full">
       <div className="absolute top-3 right-2 flex">
         <button className="border dark:border-neutral-400 flex justify-center items-center gap-2 px-3 rounded-lg text-[14px] text-[#0E2354] dark:text-stone-200">
           <LuImport />
@@ -163,108 +174,138 @@ function Roles() {
             openAddForm={() => setShowAddForm(true)}
           />
         }>
-        <div className="overflow-x-auto w-full border dark:border-stone-600 rounded-2xl">
-          <table className="table text-center min-w-full dark:text-[white]">
-            <thead className="" style={{ borderRadius: "" }}>
-              <tr className="!capitalize" style={{ textTransform: "capitalize" }}>
-                <th className="font-medium text-[12px] text-left font-poppins leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white] text-[#42526D] px-[24px] py-[13px] !capitalize"
-                  style={{ position: "static", width: "363px" }}> Role Name</th>
-                <th className="text-[#42526D] w-[133px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] !capitalize">Permission</th>
-                <th className="text-[#42526D] w-[164px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] text-center !capitalize">Sub Permission</th>
-                <th className="text-[#42526D] w-[211px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] !capitalize">No. of Users Assigned</th>
-                <th className="text-[#42526D] w-[154px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] !capitalize text-center">Status</th>
-                <th className="text-[#42526D] w-[221px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] text-center !capitalize">Actions</th>
-              </tr>
-            </thead>
-            <tbody className="">
-              {
-                Array.isArray(roles) && roles.length > 0 ? roles?.map((role, index) => {
-                  return (
-                    <tr key={index} className="font-light " style={{ height: "65px" }}>
-                      <td className={`font-poppins h-[65px] truncate font-normal text-[14px] leading-normal text-[#101828] p-[26px] pl-5 flex`}>
-                        {/* <img src={user.image ? user.image : userIcon} alt={user.name} className="rounded-[50%] w-[41px] h-[41px] mr-2" /> */}
-                        <div className="flex flex-col">
-                          <p className="dark:text-[white]">{role.name}</p>
-                          {/* <p className="font-light text-[grey]">{user.email}</p> */}
-                        </div>
-                      </td>
-
-
-                      <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]">
-                        <span className="">
-                          {role?._count?.permissions}
-                        </span>
-                      </td>
-                      <td className="font-poppins font-light text-[12px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]">
-                        <span className="">
-                          {role?._count?.subPermissions || "3"}
-                        </span>
-                      </td>
-                      <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]" style={{ whiteSpace: "wrap" }}>
-                        <span className="">
-                          {role?.usersAssigned || "1"}
-                        </span>
-                      </td>
-                      <td className="font-poppins font-light text-[12px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]">
-                        <p
-                          className={`w-[85px] mx-auto before:content-['•'] before:text-2xl flex h-7 items-center justify-center gap-1 px-1 py-0 font-[500] ${role.status === 'ACTIVE' ? "text-green-600 bg-green-100 before:text-green-600 px-1" : "text-red-600 bg-red-100 before:text-red-600 "} rounded-2xl`}
-                          style={{ textTransform: "capitalize", }}
-                        >
-                          {capitalizeWords(role.status)}
-                        </p>
-                      </td>
-                      <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[8px] dark:text-[white]">
-                        <div className="w-[145px] mx-auto flex gap-[15px] justify-center border border border-[1px] border-[#E6E7EC] dark:border-stone-400 rounded-[8px] p-[13.6px] py-[10px]">
-                          <button
-                            onClick={() => {
-                              setSelectedRole(role);
-                              setShowDetailsModal(true);
-                            }}
-                          >
-                            <span className="flex items-center gap-1 rounded-md text-[#101828]">
-                              <FiEye className="w-5 h-6  text-[#3b4152] dark:text-stone-200" strokeWidth={1} />
-                            </span>
-                          </button>
-                          <button
-                            className=""
-                            onClick={() => {
-                              setSelectedRole(role);
-                              setShowAddForm(true);
-                            }}
-                          >
-                            <FiEdit className="w-5 h-6 text-[#3b4152] dark:text-stone-200" strokeWidth={1} />
-                          </button>
-                          <div className="flex items-center space-x-4 ">
-                            <Switch
-                              checked={role.status === "ACTIVE"}
-                              onChange={() => {
-                                statusChange(role);
-                              }}
-                              className={`${role.status === "ACTIVE"
-                                ? "bg-[#1DC9A0]"
-                                : "bg-gray-300"
-                                } relative inline-flex h-2 w-8 items-center rounded-full`}
-                            >
-                              <span
-                                className={`${role.status === "ACTIVE"
-                                  ? "translate-x-4"
-                                  : "translate-x-0"
-                                  } inline-block h-5 w-5 bg-white rounded-full shadow-2xl border border-gray-300 transition`}
-                              />
-                            </Switch>
+        <div className="min-h-[28.2rem] flex flex-col justify-between">
+          <div className="overflow-x-auto w-full border dark:border-stone-600 rounded-2xl">
+            <table className="table text-center min-w-full dark:text-[white]">
+              <thead className="" style={{ borderRadius: "" }}>
+                <tr className="!capitalize" style={{ textTransform: "capitalize" }}>
+                  <th className="font-medium text-[12px] text-left font-poppins leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white] text-[#42526D] px-[24px] py-[13px] !capitalize"
+                    style={{ position: "static", width: "363px" }}> Role Name</th>
+                  <th className="text-[#42526D] w-[133px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] !capitalize">Permission</th>
+                  <th className="text-[#42526D] w-[164px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] text-center !capitalize">Sub Permission</th>
+                  <th className="text-[#42526D] w-[211px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] !capitalize">No. of Users Assigned</th>
+                  <th className="text-[#42526D] w-[154px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] !capitalize text-center">Status</th>
+                  <th className="text-[#42526D] w-[221px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] text-center !capitalize">Actions</th>
+                </tr>
+              </thead>
+              <tbody className="">
+                {
+                  Array.isArray(roles) && currentRoles.length > 0 ? currentRoles?.map((role, index) => {
+                    return (
+                      <tr key={index} className="font-light " style={{ height: "65px" }}>
+                        <td className={`font-poppins h-[65px] truncate font-normal text-[14px] leading-normal text-[#101828] p-[26px] pl-5 flex`}>
+                          {/* <img src={user.image ? user.image : userIcon} alt={user.name} className="rounded-[50%] w-[41px] h-[41px] mr-2" /> */}
+                          <div className="flex flex-col">
+                            <p className="dark:text-[white]">{role.name}</p>
+                            {/* <p className="font-light text-[grey]">{user.email}</p> */}
                           </div>
-                        </div>
-                      </td>
+                        </td>
+
+
+                        <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]">
+                          <span className="">
+                            {role?._count?.permissions}
+                          </span>
+                        </td>
+                        <td className="font-poppins font-light text-[12px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]">
+                          <span className="">
+                            {role?._count?.subPermissions || "3"}
+                          </span>
+                        </td>
+                        <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]" style={{ whiteSpace: "wrap" }}>
+                          <span className="">
+                            {role?.usersAssigned || "1"}
+                          </span>
+                        </td>
+                        <td className="font-poppins font-light text-[12px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]">
+                          <p
+                            className={`w-[85px] mx-auto before:content-['•'] before:text-2xl flex h-7 items-center justify-center gap-1 px-1 py-0 font-[500] ${role.status === 'ACTIVE' ? "text-green-600 bg-green-100 before:text-green-600 px-1" : "text-red-600 bg-red-100 before:text-red-600 "} rounded-2xl`}
+                            style={{ textTransform: "capitalize", }}
+                          >
+                            {capitalizeWords(role.status)}
+                          </p>
+                        </td>
+                        <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[8px] dark:text-[white]">
+                          <div className="w-[145px] mx-auto flex gap-[15px] justify-center border border border-[1px] border-[#E6E7EC] dark:border-stone-400 rounded-[8px] p-[13.6px] py-[10px]">
+                            <button
+                              onClick={() => {
+                                setSelectedRole(role);
+                                setShowDetailsModal(true);
+                              }}
+                            >
+                              <span className="flex items-center gap-1 rounded-md text-[#101828]">
+                                <FiEye className="w-5 h-6  text-[#3b4152] dark:text-stone-200" strokeWidth={1} />
+                              </span>
+                            </button>
+                            <button
+                              className=""
+                              onClick={() => {
+                                setSelectedRole(role);
+                                setShowAddForm(true);
+                              }}
+                            >
+                              <FiEdit className="w-5 h-6 text-[#3b4152] dark:text-stone-200" strokeWidth={1} />
+                            </button>
+                            <div className="flex items-center space-x-4 ">
+                              <Switch
+                                checked={role.status === "ACTIVE"}
+                                onChange={() => {
+                                  statusChange(role);
+                                }}
+                                className={`${role.status === "ACTIVE"
+                                  ? "bg-[#1DC9A0]"
+                                  : "bg-gray-300"
+                                  } relative inline-flex h-2 w-8 items-center rounded-full`}
+                              >
+                                <span
+                                  className={`${role.status === "ACTIVE"
+                                    ? "translate-x-4"
+                                    : "translate-x-0"
+                                    } inline-block h-5 w-5 bg-white rounded-full shadow-2xl border border-gray-300 transition`}
+                                />
+                              </Switch>
+                            </div>
+                          </div>
+                        </td>
+                      </tr>
+                    )
+                  }
+                  ) : (
+                    <tr>
+                      <td colSpan={6}>No Data Available</td>
                     </tr>
-                  )
-                }
-                ):(
-                  <tr>
-                    <td colSpan={6}>No Data Available</td>
-                  </tr>
-                )}
-            </tbody>
-          </table>
+                  )}
+              </tbody>
+            </table>
+          </div>
+          {/* Pagination Controls */}
+          <div className="flex justify-center items-center mt-4 gap-2">
+            <button
+              onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+              disabled={currentPage === 1}
+              className={`w-[6rem] px-4 py-2 text-sm rounded-lg ${currentPage === 1 ? "bg-[#ededed] cursor-not-allowed" : "bg-[#29469c] text-white"}`}
+            >
+              Previous
+            </button>
+
+            {Array.from({ length: totalPages }, (_, i) => (
+              <button
+                key={i + 1}
+                onClick={() => setCurrentPage(i + 1)}
+                className={`px-3 py-1 pt-2 rounded-full w-[2rem] h-[2rem] text-sm ${currentPage === i + 1 ? "bg-[#29469c] text-white" : "bg-[#ededed]"}`}
+              >
+                {i + 1}
+              </button>
+            ))}
+
+            <button
+              onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+              disabled={currentPage === totalPages}
+              className={`w-[6rem] px-4 py-2 text-sm rounded-lg ${currentPage === totalPages ? "bg-[#ededed] cursor-not-allowed" : "bg-[#29469C] text-white"}`}
+            >
+              Next
+            </button>
+          </div>
         </div>
       </TitleCard>
 
