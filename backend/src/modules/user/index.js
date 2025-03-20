@@ -1,10 +1,10 @@
-import express from 'express';
-import { createUserHandler } from './user.controller';
+import {Router} from "express";
+import UserRoutes from "./user.routes.js";
+import {authenticateUser} from "../../helper/index.js";
 
-const router = express.Router();
-
-router.post('/', createUserHandler);
+const router = Router();
+router.use("/user", authenticateUser, UserRoutes);
 
 export default {
-    init: (app) => app.use('/user', router),
+  init: (app) => app.use(router),
 };
