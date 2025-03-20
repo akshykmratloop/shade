@@ -30,6 +30,8 @@ const api = {
 
   getUsers: `${user}/getAllusers`, // API for users from here
   createUser: `${user}/create`,
+  getUserById: `${user}/`,
+  updateUser: `${user}//updateUser/:userId`,
 
   route(route) {
     if (this[route]) {

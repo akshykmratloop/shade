@@ -239,3 +239,11 @@ export async function fetchPermissionsByRoleType(roleTypeId) {
     true
   );
 }
+
+// fetch for Users
+export async function getAllusers(payload){
+  return await makerequest(
+    api.route("getAllusers"),
+    "GET",
+  )
+}

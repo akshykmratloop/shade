@@ -97,7 +97,7 @@ function Roles() {
   const [enabled, setEnabled] = useState(false);
 
   const [currentPage, setCurrentPage] = useState(1);
-  const rolesPerPage = 1;
+  const rolesPerPage = 5;
 
   const removeFilter = () => {
     setRoles([...originalRoles]);
@@ -110,7 +110,7 @@ function Roles() {
   };
   const applySearch = (value) => {
     const filteredRoles = originalRoles?.filter((role) =>
-      role.name.toLowerCase().includes(value.toLowerCase())
+      role?.name.toLowerCase().includes(value.toLowerCase())
     );
     setRoles(filteredRoles);
   };
@@ -138,6 +138,8 @@ function Roles() {
     }
   };
 
+  console.log(roles)
+
   // Pagination logic
   const indexOfLastUser = currentPage * rolesPerPage;
   const indexOfFirstUser = indexOfLastUser - rolesPerPage;
@@ -147,8 +149,9 @@ function Roles() {
   useEffect(() => {
     async function fetchRoleData() {
       const response = await fetchRoles();
-      setRoles(response.roles);
-      setOriginalRoles(response.roles); // Store the original unfiltered data
+      console.log(response)
+      setRoles(response?.roles?.roles ?? []);
+      setOriginalRoles(response?.roles?.roles ?? []); // Store the original unfiltered data
     }
     fetchRoleData();
   }, [changesInRole]);
