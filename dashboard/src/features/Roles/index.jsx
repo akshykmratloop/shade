@@ -19,6 +19,7 @@ import { RxQuestionMarkCircled } from "react-icons/rx";
 import { LuListFilter } from "react-icons/lu";
 import { LuImport } from "react-icons/lu";
 import capitalizeWords from "../../app/capitalizeword";
+import Paginations from "../Component/Paginations";
 // import userIcon from "../../assets/user.png"
 
 const TopSideButtons = ({
@@ -96,7 +97,7 @@ function Roles() {
   const [enabled, setEnabled] = useState(false);
 
   const [currentPage, setCurrentPage] = useState(1);
-  const rolesPerPage = 4;
+  const rolesPerPage = 1;
 
   const removeFilter = () => {
     setRoles([...originalRoles]);
@@ -114,7 +115,7 @@ function Roles() {
     setRoles(filteredRoles);
   };
   const statusChange = async (role) => {
-    const loadingToastId = toast.loading("loging in", { autoClose: 2000 }); // starting the loading in toaster
+    const loadingToastId = toast.loading("Proceeding", { autoClose: 2000 }); // starting the loading in toaster
     let response;
     if (role.status === "ACTIVE") response = await deactivateRole(role);
     else response = await activateRole(role);
@@ -140,8 +141,8 @@ function Roles() {
   // Pagination logic
   const indexOfLastUser = currentPage * rolesPerPage;
   const indexOfFirstUser = indexOfLastUser - rolesPerPage;
-  const currentRoles = roles.slice(indexOfFirstUser, indexOfLastUser);
-  const totalPages = Math.ceil(roles.length / rolesPerPage);
+  const currentRoles = roles?.slice(indexOfFirstUser, indexOfLastUser);
+  const totalPages = Math.ceil(roles?.length / rolesPerPage);
 
   useEffect(() => {
     async function fetchRoleData() {
@@ -271,7 +272,7 @@ function Roles() {
                     )
                   }
                   ) : (
-                    <tr>
+                    <tr className="text-[14px]">
                       <td colSpan={6}>No Data Available</td>
                     </tr>
                   )}
@@ -279,33 +280,7 @@ function Roles() {
             </table>
           </div>
           {/* Pagination Controls */}
-          <div className="flex justify-center items-center mt-4 gap-2">
-            <button
-              onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
-              disabled={currentPage === 1}
-              className={`w-[6rem] px-4 py-2 text-sm rounded-lg ${currentPage === 1 ? "bg-[#ededed] cursor-not-allowed" : "bg-[#29469c] text-white"}`}
-            >
-              Previous
-            </button>
-
-            {Array.from({ length: totalPages }, (_, i) => (
-              <button
-                key={i + 1}
-                onClick={() => setCurrentPage(i + 1)}
-                className={`px-3 py-1 pt-2 rounded-full w-[2rem] h-[2rem] text-sm ${currentPage === i + 1 ? "bg-[#29469c] text-white" : "bg-[#ededed]"}`}
-              >
-                {i + 1}
-              </button>
-            ))}
-
-            <button
-              onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
-              disabled={currentPage === totalPages}
-              className={`w-[6rem] px-4 py-2 text-sm rounded-lg ${currentPage === totalPages ? "bg-[#ededed] cursor-not-allowed" : "bg-[#29469C] text-white"}`}
-            >
-              Next
-            </button>
-          </div>
+          <Paginations currentPage={currentPage} setCurrentPage={setCurrentPage} totalPages={totalPages} />
         </div>
       </TitleCard>
 

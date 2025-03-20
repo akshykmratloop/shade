@@ -234,12 +234,12 @@ const AddUserModal = ({ show, onClose, updateRoles, user }) => {
                         </ul>
                     </div>
 
-                    <div className="modal-action self-end flex gap-1 w-[200px]">
-                        <button type="button" className="rounded-md h-[2.5rem] px-4 flex-[1] border border-stone-200 text-sm btn-ghost"
+                    <div className="mt-4 self-end flex gap-1">
+                        <button type="button" className="rounded-md h-[2.5rem] w-[8rem] px-4 flex-[1] border border-stone-200 text-sm btn-ghost"
                             onClick={onCloseModal}>
                             Cancel
                         </button>
-                        <button type="submit" className="rounded-md h-[2.5rem] px-4 flex-[1] text-sm bg-[#25439B] text-white">
+                        <button type="submit" className="rounded-md h-[2.5rem] w-[8rem] px-4 flex-[1] text-sm bg-[#25439B] text-white">
                             Save
                         </button>
                     </div>

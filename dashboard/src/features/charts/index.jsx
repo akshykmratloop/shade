@@ -18,6 +18,7 @@ import { FiEye, FiEdit } from "react-icons/fi";
 import { RxQuestionMarkCircled } from "react-icons/rx";
 import { LuListFilter, LuImport } from "react-icons/lu";
 import userIcon from "../../assets/user.png"
+import Paginations from "../Component/Paginations";
 
 
 const TopSideButtons = ({ removeFilter, applyFilter, applySearch }) => { // search and filter bar component
@@ -98,7 +99,7 @@ function Users() {
 
     // Pagination state
     const [currentPage, setCurrentPage] = useState(1);
-    const usersPerPage = 2;
+    const usersPerPage = 1;
 
     const removeFilter = () => {
         setUsers([...originalUsers]);
@@ -131,8 +132,8 @@ function Users() {
     // Pagination logic
     const indexOfLastUser = currentPage * usersPerPage;
     const indexOfFirstUser = indexOfLastUser - usersPerPage;
-    const currentUsers = users.slice(indexOfFirstUser, indexOfLastUser);
-    const totalPages = Math.ceil(users.length / usersPerPage);
+    const currentUsers = users?.slice(indexOfFirstUser, indexOfLastUser);
+    const totalPages = Math.ceil(users?.length / usersPerPage);
 
     useEffect(() => {
         async function fetchRoleData() {
@@ -172,7 +173,7 @@ function Users() {
                             <thead className="" style={{ borderRadius: "" }}>
                                 <tr className="!capitalize" style={{ textTransform: "capitalize" }}>
                                     <th className="font-medium text-[12px] font-poppins leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white] text-[#42526D] px-[24px] py-[13px] !capitalize"
-                                        style={{ position: "static", width: "363px", minWidth:"315px" }}>Name</th>
+                                        style={{ position: "static", width: "363px", minWidth: "315px" }}>Name</th>
                                     <th className="text-[#42526D] w-[140px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] !capitalize flex items-center gap-1">Role <RxQuestionMarkCircled className="w-4 h-4 text-[gray] translate-y-[-1px]" /></th>
                                     <th className="text-[#42526D] w-[159px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] !capitalize">Page Assign</th>
                                     <th className="text-[#42526D] w-[333px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] !capitalize">Task Assigned</th>
@@ -251,7 +252,7 @@ function Users() {
                                     )
                                 }
                                 ) : (
-                                    <tr className="">
+                                    <tr className="text-[14px] text-center">
                                         <td colSpan={6}>No Data Available</td>
                                     </tr>
                                 )}
@@ -260,33 +261,7 @@ function Users() {
                     </div>
 
                     {/* Pagination Controls */}
-                    <div className="flex justify-center items-center mt-4 gap-2">
-                        <button
-                            onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
-                            disabled={currentPage === 1}
-                            className={`w-[6rem] px-4 py-2 text-sm rounded-lg ${currentPage === 1 ? "bg-gray-300 cursor-not-allowed" : "bg-[#29469c] text-white"}`}
-                        >
-                            Previous
-                        </button>
-
-                        {Array.from({ length: totalPages }, (_, i) => (
-                            <button
-                                key={i + 1}
-                                onClick={() => setCurrentPage(i + 1)}
-                                className={`px-3 py-1 pt-2 rounded-full w-[2rem] h-[2rem] text-sm ${currentPage === i + 1 ? "bg-[#29469c] text-white" : "bg-gray-200"}`}
-                            >
-                                {i + 1}
-                            </button>
-                        ))}
-
-                        <button
-                            onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
-                            disabled={currentPage === totalPages}
-                            className={`w-[6rem] px-4 py-2 text-sm rounded-lg ${currentPage === totalPages ? "bg-gray-300 cursor-not-allowed" : "bg-[#29469C] text-white"}`}
-                        >
-                            Next
-                        </button>
-                    </div>
+                    <Paginations setCurrentPage={setCurrentPage} currentPage={currentPage} totalPages={totalPages} />
                 </div>
             </TitleCard>
 
