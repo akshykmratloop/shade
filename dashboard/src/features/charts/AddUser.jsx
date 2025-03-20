@@ -9,6 +9,8 @@ import dummy from "../../assets/MOCK_DATA.json";
 import { X } from "lucide-react";
 import { checkRegex } from "../../app/emailregex";
 import PasswordValidation from "../user/components/PasswordValidation";
+import CloseModalButton from "../../components/Button/CloseButton";
+import capitalizeWords from "../../app/capitalizeword";
 
 
 const AddUserModal = ({ show, onClose, updateRoles, user }) => {
@@ -130,10 +132,11 @@ const AddUserModal = ({ show, onClose, updateRoles, user }) => {
     return (
         <div className="modal modal-open">
             <div ref={modalRef} className="p-[24px] relative flex flex-col gap-6 w-[600px] bg-white dark:bg-gray-800 rounded-md">
-                <button className="bg-transparent hover:bg-stone-300 rounded-full border-none absolute right-4 top-4 p-2 py-2"
+                {/* <button className="bg-transparent hover:bg-stone-300 rounded-full border-none absolute right-4 top-4 p-2 py-2"
                     onClick={onClose}>
                     <X className="w-[20px] h-[20px]" />
-                </button>
+                </button> */}
+                <CloseModalButton onClickClose={onClose} />
                 <h3 className="font-semibold text-2xl">{user ? "Edit User" : "Add User"}</h3>
                 <form onSubmit={handleFormSubmit} className="flex flex-col items-center w-full gap-7    ">
                     {/* <div className="self-start">
@@ -223,7 +226,7 @@ const AddUserModal = ({ show, onClose, updateRoles, user }) => {
                                             }}
                                         />
                                         <label htmlFor={element.id} className="w-[70%] text-[#6B7888]">
-                                            {element.name}
+                                            {capitalizeWords(element.name)}
                                         </label>
                                     </li>
                                 );

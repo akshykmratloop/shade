@@ -25,7 +25,7 @@ function PageContent(){
     return(
         <div className="flex flex-col flex-8 w-full overflow-x-hidden">
             <Header/>
-            <main className="flex-1 overflow-y-auto pt-0 px-3 pb-0 bg-base-100 customscroller" ref={mainContentRef}>
+            <main className="flex-1 overflow-y-scroll pt-0 px-3 pb-8 bg-base-100 customscroller" ref={mainContentRef}>
                 <Suspense fallback={<SuspenseContent />}>
                         <Routes>
                             {

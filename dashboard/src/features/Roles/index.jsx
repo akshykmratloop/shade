@@ -141,7 +141,7 @@ function Roles() {
     fetchRoleData();
   }, [changesInRole]);
   return (
-    <div className="relative mr-2">
+    <div className="relative">
       <div className="absolute top-3 right-2 flex">
         <button className="border dark:border-neutral-400 flex justify-center items-center gap-2 px-3 rounded-lg text-[14px] text-[#0E2354] dark:text-stone-200">
           <LuImport />
@@ -191,17 +191,17 @@ function Roles() {
 
 
                       <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]">
-                        <span className="bg-[#F5F6F7] p-1 rounded-full ">
+                        <span className="">
                           {role?._count?.permissions}
                         </span>
                       </td>
                       <td className="font-poppins font-light text-[12px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]">
-                        <span className="bg-[#F5F6F7] p-1 rounded-full ">
+                        <span className="">
                           {role?._count?.subPermissions || "3"}
                         </span>
                       </td>
                       <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]" style={{ whiteSpace: "wrap" }}>
-                        <span className="bg-[#F5F6F7] p-1  rounded-full">
+                        <span className="">
                           {role?.usersAssigned || "1"}
                         </span>
                       </td>
@@ -222,7 +222,7 @@ function Roles() {
                             }}
                           >
                             <span className="flex items-center gap-1 rounded-md text-[#101828]">
-                              <FiEye className="w-5 h-6  custom-forced-color" strokeWidth={1} />
+                              <FiEye className="w-5 h-6  text-[#3b4152] dark:text-stone-200" strokeWidth={1} />
                             </span>
                           </button>
                           <button
@@ -232,7 +232,7 @@ function Roles() {
                               setShowAddForm(true);
                             }}
                           >
-                            <FiEdit className="w-5 h-6 custom-forced-color" strokeWidth={1} />
+                            <FiEdit className="w-5 h-6 text-[#3b4152] dark:text-stone-200" strokeWidth={1} />
                           </button>
                           <div className="flex items-center space-x-4 ">
                             <Switch

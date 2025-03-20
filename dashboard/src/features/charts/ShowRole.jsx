@@ -27,7 +27,7 @@ function RoleDetailsModal({ user, show, onClose }) {
                 <Dialog.Panel className="w-[753px] overflow-y-scroll customscroller shadow-lg shadow-stone rounded-lg bg-[white] dark:bg-slate-800 p-6">
                     <div ref={modalRef} className="flex justify-between items-center mb-4">
                         <Dialog.Title className="text-lg font-[500]">User Detail</Dialog.Title>
-                        <button onClick={onClose} className="bg-transparent hover:bg-stone-300 rounded-full border-none p-2 py-2">
+                        <button onClick={onClose} className="bg-transparent hover:bg-stone-300 dark:hover:bg-stone-700 rounded-full border-none p-2 py-2">
                             <XMarkIcon className="w-5" />
                         </button>
                     </div>
@@ -51,7 +51,7 @@ function RoleDetailsModal({ user, show, onClose }) {
                                     <td className="pt-2">Email</td>
                                     <td className="pt-2">Phone</td>
                                 </tr>
-                                <tr className="font-bold text-sm">
+                                <tr className="font-[500] text-[#101828] dark:text-stone-100 text-sm">
                                     <td className="py-2 pb-6">{user.name}</td>
                                     <td className="py-2 pb-6">{user.email}</td>
                                     <td className="py-2 pb-6">{user.phone}</td>
@@ -69,7 +69,7 @@ function RoleDetailsModal({ user, show, onClose }) {
                                     <td className="pt-2 pr-[24px] w-[250px]">Roles</td>
                                     <td className="pt-2">Permissions</td>
                                 </tr>
-                                <tr className="font-bold text-sm pb-7">
+                                <tr className="font-[500] text-[#101828] dark:text-stone-100 text-sm pb-7">
                                     <td className="py-2 pb-7"
                                     >
                                         <div className="flex gap-2 flex-wrap w-[50px] relative">
@@ -101,14 +101,14 @@ function RoleDetailsModal({ user, show, onClose }) {
                             <tbody className="bg-[#fcfcfc] dark:bg-transparent">
 
                                 <tr className="font-light text-[18px]">
-                                    <td className="px-4 py-2 border dark:border-[#232d3d]">Manager</td>
-                                    <td className="px-4 py-2 border dark:border-[#232d3d]">Edit, Create, Role</td>
-                                    <td className="px-4 py-2 border dark:border-[#232d3d]">Edit, Create, Role</td>
+                                    <td className="px-4 py-2 dark:border dark:border-[#232d3d]">Manager</td>
+                                    <td className="px-4 py-2 dark:border dark:border-[#232d3d]">Edit, Create, Role</td>
+                                    <td className="px-4 py-2 dark:border dark:border-[#232d3d]">Edit, Create, Role</td>
                                 </tr>
                                 <tr className="font-light text-[18px]">
-                                    <td className="px-4 py-2 pb-6 border dark:border-[#232d3d]">Manager</td>
-                                    <td className="px-4 py-2 pb-6 border dark:border-[#232d3d]">Delete, </td>
-                                    <td className="px-4 py-2 pb-6 border dark:border-[#232d3d]">Read</td>
+                                    <td className="px-4 py-2 pb-6 dark:border dark:border-[#232d3d]">Manager</td>
+                                    <td className="px-4 py-2 pb-6 dark:border dark:border-[#232d3d]">Delete, </td>
+                                    <td className="px-4 py-2 pb-6 dark:border dark:border-[#232d3d]">Read</td>
                                 </tr>
                             </tbody>
                         </table>

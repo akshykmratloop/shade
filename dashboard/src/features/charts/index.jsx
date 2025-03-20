@@ -207,18 +207,18 @@ function Users() {
                                                         setShowDetailsModal(true);
                                                     }}
                                                 >
-                                                    <span className="flex items-center gap-1 rounded-md text-[#101828]">
-                                                        <FiEye className="w-5 h-6  custom-forced-color" strokeWidth={1} />
+                                                    <span className="flex items-center gap-1 rounded-md text-[#3b4152] dark:text-stone-200">
+                                                        <FiEye className="w-5 h-6 " strokeWidth={1} />
                                                     </span>
                                                 </button>
                                                 <button
-                                                    className=""
+                                                    className="text-[#3b4152] dark:text-stone-200"
                                                     onClick={() => {
                                                         setSelectedUser(user);
                                                         setShowAddForm(true);
                                                     }}
                                                 >
-                                                    <FiEdit className="w-5 h-6 custom-forced-color" strokeWidth={1} />
+                                                    <FiEdit className="w-5 h-6 " strokeWidth={1} />
                                                 </button>
                                                 <div className="flex items-center space-x-4 ">
                                                     <Switch

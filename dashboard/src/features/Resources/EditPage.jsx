@@ -16,12 +16,14 @@ import AboutManager from "./components/contentmanager/AboutManager";
 import MarketPage from "./components/websiteComponent/Market";
 import MarketManager from "./components/contentmanager/MarketManager";
 import ProjectPage from "./components/websiteComponent/Projects";
+import Popups from "./components/Popups";
 
 const EditPage = () => {
     const dispatch = useDispatch();
     const [language, setLanguage] = useState('en')
     const [screen, setScreen] = useState(1180)
     const location = useLocation();
+    const [Popup, setPopup] = useState(false)
 
     const currentPath = location.pathname.split('/')[4]
     const content = useSelector((state) => state.homeContent.present)
@@ -31,7 +33,7 @@ const EditPage = () => {
     }, [])
 
     return (
-        <div className="flex gap-[1.5rem] pr-1 h-[83.5vh] w-full">
+        <div className="flex gap-[1.5rem] pr-1 h-[83.5vh] w-full relative">
 
             {/* content manager */}
             <div
@@ -63,7 +65,7 @@ const EditPage = () => {
             <div
                 className={`flex-[4] h-[83.5vh] flex flex-col`}
             >
-                <ContentTopBar setWidth={setScreen} />
+                <ContentTopBar setWidth={setScreen} raisePopup={() => setPopup(true)} />
                 <h4>Commented by {"Anukool (Super Admin)"}</h4>
                 <div className={`overflow-y-scroll customscroller transition-custom border-stone-500 border mx-auto w-full bankgothic-medium-dt bg-[white]`}
                     style={{ width: screen > 1000 ? "" : screen }}
@@ -90,6 +92,7 @@ const EditPage = () => {
                     }
                 </div>
             </div>
+            <Popups display={Popup} setClose={() => setPopup(false)} />
         </div>
     )
 }

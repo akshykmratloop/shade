@@ -12,7 +12,7 @@ import { redo, undo } from '../../common/homeContentSlice';
 import { useNavigate } from 'react-router-dom';
 
 
-export default function ContentTopBar({ setWidth }) {
+export default function ContentTopBar({ setWidth, raisePopup }) {
     const dispatch = useDispatch();
     const iconSize = 'xl:h-[1.5rem] xl:w-[1.5rem]';
     const smallIconSize = 'sm:h-[1rem] sm:w-[1rem]';
@@ -86,16 +86,15 @@ export default function ContentTopBar({ setWidth }) {
                         <span className={`cursor-pointer`} onClick={redos}><GrRedo className={`${iconSize} ${smallIconSize} hover:text-[#64748B] ${ReduxState.future.length>=1&&"text-[black]"}`} /></span>
                     </div>
                     <div className='flex gap-2 border-r border-[#64748B] pr-2'>
-                        <span className={`cursor-pointer`}><RiShareForward2Fill className={`${iconSize} ${smallIconSize} hover:text-[#64748B]`} /></span>
                         <span className={`cursor-pointer`}><LuEye className={`${iconSize} ${smallIconSize} hover:text-[#64748B]`} /></span>
                     </div>
                 </div>
                 <div className='flex gap-3 sm:gap-1'>
-                    <button className='flex justify-center items-center gap-1 bg-[#FF0000] rounded-md xl:h-[2.68rem] sm:h-[2rem] xl:text-xs sm:text-[.6rem] xl:w-[5.58rem] w-[4rem] text-[white]'>
+                    <button onClick={raisePopup} className='flex justify-center items-center gap-1 bg-[#FF0000] rounded-md xl:h-[2.68rem] sm:h-[2rem] xl:text-xs sm:text-[.6rem] xl:w-[5.58rem] w-[4rem] text-[white]'>
                         <RxCross1 /> Reject
                     </button>
                     <Button text={'Draft'} classes='bg-[#26345C] rounded-md xl:h-[2.68rem] sm:h-[2rem] xl:text-xs sm:text-[.6rem] xl:w-[5.58rem] w-[4rem] text-[white]' />
-                    <Button text={'Submit'} classes='bg-[#29469D] rounded-md xl:h-[2.68rem] sm:h-[2rem] xl:text-xs sm:text-[.6rem] xl:w-[5.58rem] w-[4rem] text-[white]' />
+                    <Button text={'Submit'} functioning={raisePopup} classes='bg-[#29469D] rounded-md xl:h-[2.68rem] sm:h-[2rem] xl:text-xs sm:text-[.6rem] xl:w-[5.58rem] w-[4rem] text-[white]' />
                 </div>
             </div>
         </div>

@@ -22,7 +22,7 @@ function LeftSidebar() {
   }, [dispatch]);
 
   return (
-    <div className="flex-1 p-4 text-sm">
+    <div className="flex-1 p-4 text-sm pb-8">
       <ul
         className={`menu relative ${isCollapsed ? "w-[81px]" : "w-56"} transition-all duration-500 bg-[#fafaff] dark:bg-[#242933] text-base-content h-full rounded-lg`}
       >
