@@ -114,7 +114,7 @@ const ContentSection = ({
                     {
                         allowExtraInput &&
                         <button
-                            className="mt-2 px-3 py-2 bg-blue-500 text-white rounded-full self-center text-xl"
+                            className="mt-2 px-3 py-2 bg-blue-500 h-[95px] w-[95px] text-white rounded-lg translate-y-3 self-center text-xl"
                             onClick={addExtraFileInput}
                         >
                             +
