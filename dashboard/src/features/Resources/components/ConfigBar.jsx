@@ -54,7 +54,10 @@ const ConfigBar = ({ display, setOn, data }) => {
                         />
 
                         {/* Selector Accordion */}
-                        <SelectorAccordion />
+                        <div>
+                            <label className={"font-[400] text-[#6B7888] text-[14px]"}>Select Verifier</label>
+                            <SelectorAccordion />
+                        </div>
 
                         {/* Select Publisher */}
                         <Select

@@ -9,6 +9,7 @@ import { IoSettingsOutline } from "react-icons/io5";
 import resources from "./resourcedata";
 import ConfigBar from "./components/ConfigBar";
 import { useNavigate } from "react-router-dom";
+import PageDetails from "./components/PageDetails";
 
 function Resources() {
     const dispatch = useDispatch()
@@ -19,6 +20,7 @@ function Resources() {
     const [isNarrow, setIsNarrow] = useState(false)
     const [currentResource, setCurrentResource] = useState("pages")
     const [configBarOn, setConfigBarOn] = useState(false);
+    const [PageDetailsOn, setPageDetailsOn] = useState(true);
     const [configBarData, setConfigBarData] = useState({})
 
     const resNotAvail = resources?.[currentResource].length === 0
@@ -99,6 +101,7 @@ function Resources() {
 
             {/* right side bar for configuration */}
             <ConfigBar data={configBarData} display={configBarOn} setOn={setConfigBarOn} />
+            <PageDetails data={configBarData} display={PageDetailsOn} setOn={setPageDetailsOn} />
         </div>
     )
 }

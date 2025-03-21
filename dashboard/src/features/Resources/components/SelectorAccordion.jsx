@@ -41,11 +41,11 @@ const SelectorAccordion = () => {
     }, [selector]);
 
     return (
-        <div className="mt-1 max-h-[12.25rem] overflow-y-scroll customscroller-2 w-[22rem]" ref={selectorRef}>
+        <div className="mt- max-h-[12.25rem] overflow-y-scroll customscroller-2 w-[22rem]" ref={selectorRef}>
             {selector.map((select, index) => {
                 const isLast = index === selector.length - 1;
                 return (
-                    <div key={index} className="flex items-center my-1 gap-2">
+                    <div key={index} className="flex items-center my-1 mt-[2px] gap-2">
                         <p className="flex justify-center items-center rounded-lg font-[400] translate-y-[2px] w-[5rem] h-[2.2rem] bg-[#DFDFDF] text-[#637888] text-xs border-none">
                             {select.label}
                         </p>

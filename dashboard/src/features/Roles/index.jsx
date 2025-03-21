@@ -9,7 +9,6 @@ import SearchBar from "../../components/Input/SearchBar";
 import TitleCard from "../../components/Cards/TitleCard";
 import RoleDetailsModal from "./ShowRole";
 import updateToasify from "../../app/toastify";
-import capitalizeword from "../../app/capitalizeword";
 // icons
 import { Switch } from '@headlessui/react';
 import XMarkIcon from '@heroicons/react/24/outline/XMarkIcon';
@@ -95,7 +94,7 @@ function Roles() {
   const [selectedRole, setSelectedRole] = useState(null);
   const [showDetailsModal, setShowDetailsModal] = useState(false);
   const [enabled, setEnabled] = useState(false);
-
+  let loadingToastId;
   const [currentPage, setCurrentPage] = useState(1);
   const rolesPerPage = 5;
 
@@ -114,8 +113,10 @@ function Roles() {
     );
     setRoles(filteredRoles);
   };
+
   const statusChange = async (role) => {
-    const loadingToastId = toast.loading("Proceeding", { autoClose: 2000 }); // starting the loading in toaster
+    if (loadingToastId) return toast.warn("One Request is already in process, Please again after some time.")
+    loadingToastId = toast.loading("Proceeding", { autoClose: 2000 }); // starting the loading in toaster
     let response;
     if (role.status === "ACTIVE") response = await deactivateRole(role);
     else response = await activateRole(role);
@@ -135,6 +136,9 @@ function Roles() {
         "failure",
         2000
       ); // updating the toaster
+      setTimeout(() => {
+        toast.dismiss() // to deactivate to running taost
+      }, 2000)
     }
   };
 

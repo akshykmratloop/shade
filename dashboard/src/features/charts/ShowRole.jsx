@@ -35,7 +35,7 @@ function RoleDetailsModal({ user, show, onClose }) {
                         <div className="flex items-center gap-4">
                             <img src={user.image || userIcon} alt="" className="w-[4.8rem] h-[4.8rem] rounded-lg" />
                             <div>
-                                <p className="font-semibold text-[black] dark:text-[white]">{user.name}</p>
+                                <p className="font-semibold text-[#101828] dark:text-[white]">{user.name}</p>
                                 <p className="text-[gray]">{user.email}</p>
                             </div>
                         </div>
@@ -99,13 +99,12 @@ function RoleDetailsModal({ user, show, onClose }) {
                                 </tr>
                             </thead>
                             <tbody className="bg-[#fcfcfc] dark:bg-transparent">
-
-                                <tr className="font-light text-[18px]">
+                                <tr className="font-medium text-[14px] text-[#101828]">
                                     <td className="px-4 py-2 dark:border dark:border-[#232d3d]">Manager</td>
                                     <td className="px-4 py-2 dark:border dark:border-[#232d3d]">Edit, Create, Role</td>
                                     <td className="px-4 py-2 dark:border dark:border-[#232d3d]">Edit, Create, Role</td>
                                 </tr>
-                                <tr className="font-light text-[18px]">
+                                <tr className="font-medium text-[14px] text-[#101828]">
                                     <td className="px-4 py-2 pb-6 dark:border dark:border-[#232d3d]">Manager</td>
                                     <td className="px-4 py-2 pb-6 dark:border dark:border-[#232d3d]">Delete, </td>
                                     <td className="px-4 py-2 pb-6 dark:border dark:border-[#232d3d]">Read</td>
