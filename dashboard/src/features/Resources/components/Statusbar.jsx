@@ -13,8 +13,8 @@ export default function StatusBar() {
     }, []);
 
     return (
-        <div className="flex items-center justify-center bg-gray-100 p-4">
-            <div className="relative w-[96%] h-2 bg-gray-300 rounded-full">
+        <div className="flex items-center justify-center bg-gray-100 py-4 px-2">
+            <div className="relative w-[98%] h-2 bg-gray-300 rounded-full">
                 {/* Progress Bar */}
                 <div 
                     className="h-full bg-[#2947A9] transition-all duration-500 rounded-full" 
