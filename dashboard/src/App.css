@@ -25,19 +25,23 @@
   src: url("../public/font/BankGothicMediumBT.ttf") format("truetype");
 }
 
-.bankgothic-regular{
+.bankgothic-regular {
   font-family: "BankGothic-Regular";
 }
-.bankgothic-regular-db{
+
+.bankgothic-regular-db {
   font-family: "BankGothic-Regular-db";
 }
-.bankgothic-regular-db-mt{
+
+.bankgothic-regular-db-mt {
   font-family: "BankGothic-Regular-MD-Bt";
 }
-.bankgothic-russ-medium{
+
+.bankgothic-russ-medium {
   font-family: "BankGothic-Russ-Medium";
 }
-.bankgothic-medium-dt{
+
+.bankgothic-medium-dt {
   font-family: "BankGothic-Medium-bt";
 }
 
@@ -66,7 +70,7 @@
   gap: .5rem;
 }
 
-.custom-forced-color{
+.custom-forced-color {
   color: #3b4152 !important;
 }
 
@@ -128,6 +132,7 @@ main.customscroller::-webkit-scrollbar-thumb {
 .customscroller-2::-webkit-scrollbar {
   width: 2px;
 }
+
 .customscroller-2::-webkit-scrollbar-thumb {
   background-color: #0e2b65;
   width: 3px;
@@ -172,7 +177,7 @@ input[type="file"] {
   cursor: pointer;
 }
 
-.custom-placeholder::placeholder{
+.custom-placeholder::placeholder {
   /* font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; */
   /* font-weight: 300; */
   /* font: lighter normal 14px/1.5 Calibri ; */
@@ -182,13 +187,16 @@ input[type="file"] {
 }
 
 select {
-  appearance: none; /* Removes default styles */
+  appearance: none;
+  /* Removes default styles */
   -webkit-appearance: none;
   -moz-appearance: none;
   padding: 5px;
   font-size: 16px;
-  color: #899197; /* Change text color */
-  background-color: yellow; /* Change background */
+  color: #899197;
+  /* Change text color */
+  background-color: yellow;
+  /* Change background */
   border: 1px solid #ccc;
   border-radius: 5px;
   cursor: pointer;
@@ -215,6 +223,11 @@ select {
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+}
+
+.custom-text-color label {
+  color: #6B7888;
+  /* color: #979ca2; */
 }
 
 .App-link {
