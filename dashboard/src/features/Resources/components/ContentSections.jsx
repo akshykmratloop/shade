@@ -81,6 +81,7 @@ const ContentSection = ({
                         defaultValue={valueExpression || ""}
                         language={language}
                         id={input.updateType}
+                        required={false}
                     />
                 );
             }) : ""}
