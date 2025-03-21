@@ -83,7 +83,18 @@ const MultiSelectPro = ({ heading, options = [], tabName, label, language, secti
     };
 
     const handleSelect = (optionToAdd) => {
-        const newOption = { ...optionToAdd, type: id }
+        let newOption
+        switch (referenceOriginal.dir) {
+            case "markets":
+                newOption = { ...optionToAdd, type: id }
+                break;
+
+            case "projects":
+                newOption = { ...optionToAdd, status: id }
+                break;
+
+            default:
+        }
         dispatch(updateMarketSelectedContent({
             origin: referenceOriginal.dir,
             newArray: [...options],
@@ -95,8 +106,18 @@ const MultiSelectPro = ({ heading, options = [], tabName, label, language, secti
     };
 
     const removeOption = (optionToRemove) => {
-        console.log(options)
-        const newOption = { ...optionToRemove, type: "" }
+        let newOption
+        switch (referenceOriginal.dir) {
+            case "markets":
+                newOption = { ...optionToRemove, type: "" }
+                break;
+
+            case "projects":
+                newOption = { ...optionToRemove, status: "" }
+                break;
+
+            default:
+        }
         dispatch(updateMarketSelectedContent({
             origin: referenceOriginal.dir,
             newArray: [...options],
@@ -153,7 +174,7 @@ const MultiSelectPro = ({ heading, options = [], tabName, label, language, secti
                 console.log(e.status === id)
                 if (e.status === id) {
                     return e
-                } else if (id === "all"){
+                } else if (id === "all") {
                     return e
                 }
             }).filter(e => e));

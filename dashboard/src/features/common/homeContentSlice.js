@@ -74,7 +74,6 @@ const cmsSlice = createSlice({
             state.past.push(JSON.parse(JSON.stringify(state.present)));
             const newSet = new Set(action.payload.selected.map(e => e.id))
             let newArray;
-            // console.log(action.payload.selected)
             if (action.payload.newOption === null) {
                 newArray = action.payload.newArray.filter(e => {
                     return !(newSet.has(e.id))
@@ -91,7 +90,18 @@ const cmsSlice = createSlice({
                     } else return option
                 })
             }
-            state.present[action.payload.currentPath].tabSection.marketItems = newArray
+
+            switch (action.payload.origin) {
+                case "markets":
+                    state.present[action.payload.currentPath].tabSection.marketItems = newArray
+                    break;
+
+                case "projects":
+                    state.present[action.payload.currentPath].projectsSection.projects = newArray
+                    break;
+
+                default:
+            }
 
             state.future = []
         },
