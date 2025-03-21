@@ -3,7 +3,6 @@ import { FaArrowLeftLong } from "react-icons/fa6";
 import { MdOutlineDesktopWindows } from "react-icons/md";
 import { FiTablet, FiSmartphone } from "react-icons/fi";
 import { GrUndo, GrRedo } from "react-icons/gr";
-import { RiShareForward2Fill } from "react-icons/ri";
 import { LuEye } from "react-icons/lu";
 import Button from '../../../components/Button/Button';
 import { RxCross1 } from "react-icons/rx";

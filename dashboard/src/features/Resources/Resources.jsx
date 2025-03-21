@@ -1,19 +1,17 @@
+// library
 import { useEffect, useRef, useState } from "react"
 import { useDispatch } from "react-redux"
-import { getLeadsContent } from "./leadSlice"
-import Navbar from "../../containers/Navbar"
-// import { FaRegEye } from "react-icons/fa";
-import { CiCircleInfo } from "react-icons/ci";
-import { IoIosInformationCircleOutline } from "react-icons/io";
-import { AiOutlineInfoCircle } from "react-icons/ai";
-
-import { FiEdit } from "react-icons/fi";
-import { FiInfo } from "react-icons/fi";
-import { IoSettingsOutline } from "react-icons/io5";
+import { useNavigate } from "react-router-dom";
+// modules
 import resources from "./resourcedata";
 import ConfigBar from "./components/ConfigBar";
-import { useNavigate } from "react-router-dom";
 import PageDetails from "./components/PageDetails";
+import { getLeadsContent } from "./leadSlice"
+import Navbar from "../../containers/Navbar"
+// icon
+import { AiOutlineInfoCircle } from "react-icons/ai";
+import { FiEdit } from "react-icons/fi";
+import { IoSettingsOutline } from "react-icons/io5";
 
 function Resources() {
     const dispatch = useDispatch()

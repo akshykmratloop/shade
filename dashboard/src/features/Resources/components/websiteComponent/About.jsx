@@ -25,14 +25,12 @@ const AboutUs = ({ language, screen }) => {
     const currentContent = useSelector((state) => state.homeContent.present.about)
     const ImageFromRedux = useSelector((state) => state.homeContent.present.images)
 
-
     // const { language, content } = useGlobalContext();
     // const [isModal, setIsModal] = useState(false);
     // const currentContent = content?.aboutUs;
     // const handleContactUSClose = () => {
     //     setIsModal(false);
     // };
-
 
     useEffect(() => {
         dispatch(updateContent({ currentPath: "about", payload: content.about }))
@@ -46,7 +44,7 @@ const AboutUs = ({ language, screen }) => {
                         <h2 className={`text-black ${isPhone ? "text-2xl" : "text-3xl"} font-normal leading-none`}>
                             {currentContent?.services?.title[language]}
                         </h2>
-                        <p className="text-black text-base font-light leading-7 mb-4 text-sky-500">
+                        <p className="text-black text-base font-light leading-7 mb-4 text-[#00B9F2]">
                             {currentContent?.services?.subtitle[language]}
                         </p>
                     </div>
@@ -99,15 +97,15 @@ const AboutUs = ({ language, screen }) => {
                                 {currentContent?.main?.title[language]}
                             </h2>
                             <div>
-                                <p className="text-xs text-primary mb-4">
+                                <p className="text-xs text-[#292E3D] mb-4">
                                     {currentContent?.main?.description1[language]}
                                 </p>
-                                <p className="text-xs text-primary mb-4">
+                                <p className="text-xs text-[#292E3D] mb-4">
                                     {currentContent?.main?.description2[language]}
                                 </p>
                             </div>
                             <button
-                                className="mt-6 px-6 py-3 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600"
+                                className="mt-6 px-4 py-2 bg-[white] text-[#00B9F2] border border-[#00B9F2] text-xs font-semibold rounded-lg hover:bg-blue-600"
                             // onClick={() => setIsModal(true)}
                             >
                                 {currentContent?.main?.button?.text[language]}

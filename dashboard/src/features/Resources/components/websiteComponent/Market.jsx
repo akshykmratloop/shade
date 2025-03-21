@@ -87,7 +87,7 @@ const MarketPage = ({ language, screen }) => {
                             {currentContent?.banner?.description[language]}
                         </p>
                         <button
-                            className={`relative px-5 py-2 ${isPhone ? "text-xs" : "text-sm"} font-medium bg-sky-600 text-white rounded flex items-center justify-start gap-2 ${isLeftAlign ? "flex-row-reverse" : ""}`}
+                            className={`relative px-5 py-2 ${isPhone ? "text-xs" : "text-sm"} font-medium bg-[#00B9F2] text-white rounded flex items-center justify-start gap-2 ${isLeftAlign ? "flex-row-reverse" : ""}`}
                         // onClick={() => router.push("/services")}
                         >
                             <img
@@ -150,7 +150,7 @@ const MarketPage = ({ language, screen }) => {
                                 // Dropdown for mobile view
                                 <div className="relative w-full max-w-xs">
                                     <select
-                                        className="w-full p-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-sky-500 focus:border-sky-500"
+                                        className="w-full p-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-[#00B9F2] focus:border-[#00B9F2]"
                                         value={activeTab}
                                         onChange={(e) => setActiveTab(e.target.value)}
                                     >
@@ -168,7 +168,7 @@ const MarketPage = ({ language, screen }) => {
                                         <button
                                             key={index}
                                             className={`relative px-4 py-2 text-sm font-medium uppercase transition-all duration-300 ${activeTab === tab?.id
-                                                    ? "text-sky-500 border-b-2 border-sky-500"
+                                                    ? "text-[#00B9F2] border-b-2 border-[#00B9F2]"
                                                     : "text-gray-600 hover:text-gray-800"
                                                 }`}
                                             onClick={() => setActiveTab(tab?.id)}
@@ -207,7 +207,7 @@ const MarketPage = ({ language, screen }) => {
                                             {TruncateText(item.title[language], (isPhone ? 20 : 25))}
                                         </h5>
                                         <button
-                                            className="text-sky-500 text-center text-base font-normal flex items-center gap-2 mt-2"
+                                            className="text-[#00B9F2] text-center text-base font-normal flex items-center gap-2 mt-2"
                                         >
                                             {currentContent?.tabSection?.button[0]?.text[language]}
                                             <p className={`text-[1.6em] -translate-y-[2px] ${language === "ar" && "scale-x-[-1]"}`}>→</p>

@@ -90,6 +90,7 @@ const EditPage = () => {
                         currentPath === "projects" &&
                         <ProjectPage language={language} currentContent={content.projects} screen={screen} />
                     }
+                    {console.log(language)}
                 </div>
             </div>
             <Popups display={Popup} setClose={() => setPopup(false)} />
