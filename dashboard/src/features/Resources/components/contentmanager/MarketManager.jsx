@@ -16,7 +16,7 @@ const MarketManager = ({ language, currentContent, currentPath }) => {
                     { input: "input", label: "Button Text", updateType: "button" }
                 ]}
                 inputFiles={[{ label: "Backround Image", id: "marketBanner" }]}
-                section={"bannerSection"}
+                section={"banner"}
                 language={language}
                 currentContent={currentContent}
             />

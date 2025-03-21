@@ -14,7 +14,7 @@ const ProjectContentManager = ({ currentPath, currentContent, language }) => {
                     { input: "textarea", label: "Description", updateType: "description" },
                     { input: "input", label: "Button Text", updateType: "button" }
                 ]}
-                inputFiles={[{ label: "Backround Image", id: "marketBanner" }]}
+                inputFiles={[{ label: "Backround Image", id: "projectsBanner" }]}
                 section={"bannerSection"}
                 language={language}
                 currentContent={currentContent}
