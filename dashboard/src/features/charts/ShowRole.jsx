@@ -81,7 +81,7 @@ function RoleDetailsModal({ user, show, onClose }) {
                                             </div>
                                         </div>
                                     </td>
-                                    <td className="py-2 pb-10">{user.email}</td>
+                                    <td className="py-2 pb-10">{""}</td>
                                 </tr>
                             </tbody>
                         </table>

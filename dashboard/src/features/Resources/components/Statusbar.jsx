@@ -1,20 +1,21 @@
 import { useState, useEffect } from "react";
 import { FaCheck } from "react-icons/fa";
 
-export default function StatusBar() {
-    const [progress, setProgress] = useState(0);
-    const steps = [0, 33.3, 66.6, 100];
+export default function StatusBar({ stage}) {
+    const steps = [2, 33.3, 66.6, 100];
+    const progressMap = {0: 0, 1: 2, 2: 40, 3: 71, 4: 100 };
+    const progress = progressMap[stage] || 0;
 
-    useEffect(() => {
-        const interval = setInterval(() => {
-            setProgress(prev => (prev < 66.6 ? prev + 33.3 : 100));
-        }, 1000);
-        return () => clearInterval(interval);
-    }, []);
+    // useEffect(() => {
+    //     const interval = setInterval(() => {
+    //         setProgress(prev => (prev < 66.6 ? prev + 33.3 : 100));
+    //     }, 1000);
+    //     return () => clearInterval(interval);
+    // }, []);
 
     return (
         <div className="flex items-center justify-center bg-gray-100 py-4 px-2">
-            <div className="relative w-[98%] h-2 bg-gray-300 rounded-full">
+            <div className="relative w-[98%] h-[5px] bg-gray-300 rounded-full">
                 {/* Progress Bar */}
                 <div 
                     className="h-full bg-[#2947A9] transition-all duration-500 rounded-full" 
