@@ -1,8 +1,7 @@
-import ContentSection from "../ContentSections";
-import MultiSelectPro from "../MultiSelectPro";
+import ContentSection from "../ContentSections"
+import MultiSelectPro from "../MultiSelectPro"
 
-const MarketManager = ({ language, currentContent, currentPath }) => {
-    // console.log(language, currentContent, currentPath)
+const ProjectContentManager = ({ currentPath, currentContent, language }) => {
 
     return (
         <div>
@@ -21,36 +20,23 @@ const MarketManager = ({ language, currentContent, currentPath }) => {
                 currentContent={currentContent}
             />
 
-            {/* Quote */}
-            <ContentSection
-                currentPath={currentPath}
-                Heading={"Quote"}
-                inputs={[
-                    { input: "textarea", label: "Heading/title", updateType: "text" },
-                    { input: "input", label: "Description", updateType: "author" },
-                ]}
-                section={"quote"}
-                language={language}
-                currentContent={currentContent}
-            />
-
-            {/* Market Lists */}
             <div>
-                <h1>Market Lists</h1>
+                <h1>Projects</h1>
+                {console.log(currentContent)}
                 {
-                    currentContent?.tabSection?.tabs.map((element, index) => {
+                    currentContent?.projectsSection?.tabs?.map((element, index) => {
 
                         return (
                             <div key={index}>
                                 <MultiSelectPro
-                                    options={currentContent?.tabSection.marketItems}
+                                    options={currentContent?.projectsSection?.projects}
                                     currentPath={currentPath}
-                                    section={"tabSection"}
+                                    section={"projects"}
                                     language={language}
                                     label={element.title.en}
                                     id={element.id}
-                                    tabName={"Select Markets"}
-                                    referenceOriginal={{ dir: "markets", index: 0 }}
+                                    tabName={"Select Projects"}
+                                    referenceOriginal={{ dir: "projects", index: 0 }}
                                     currentContent={currentContent}
                                 />
                             </div>
@@ -59,9 +45,8 @@ const MarketManager = ({ language, currentContent, currentPath }) => {
                 }
             </div>
 
-
         </div>
     )
 }
 
-export default MarketManager
+export default ProjectContentManager

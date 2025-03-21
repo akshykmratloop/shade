@@ -17,6 +17,7 @@ import MarketPage from "./components/websiteComponent/Market";
 import MarketManager from "./components/contentmanager/MarketManager";
 import ProjectPage from "./components/websiteComponent/Projects";
 import Popups from "./components/Popups";
+import ProjectContentManager from "./components/contentmanager/ProjectContentManager";
 
 const EditPage = () => {
     const dispatch = useDispatch();
@@ -57,6 +58,10 @@ const EditPage = () => {
                 {
                     currentPath === 'markets' &&
                     <MarketManager language={language} currentContent={content.markets} currentPath={currentPath} />
+                }
+                {
+                    currentPath === 'projects' &&
+                    <ProjectContentManager language={language} currentContent={content.projects} currentPath={currentPath} />
                 }
 
 

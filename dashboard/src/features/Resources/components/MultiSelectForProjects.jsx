@@ -54,7 +54,7 @@ const SortableItem = ({ option, removeOption, language }) => {
 
 
 
-const MultiSelectPro = ({ heading, options = [], tabName, label, language, section, referenceOriginal = { dir: "", index: 0 }, currentPath, id }) => {
+const MultiSelectForProjects = ({ heading, options = [], tabName, label, language, section, referenceOriginal = { dir: "", index: 0 }, currentPath, id }) => {
     const [selectedOptions, setSelectedOptions] = useState([]);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const dropdownRef = useRef(null);
@@ -66,10 +66,6 @@ const MultiSelectPro = ({ heading, options = [], tabName, label, language, secti
     switch (referenceOriginal.dir) {
         case "markets":
             actualListOfServices = content.market.tabSection.marketItems;
-            break;
-
-        case "projects":
-            actualListOfServices = content.projectsPage.projectsSection.projects;
             break;
 
         default:
@@ -142,18 +138,9 @@ const MultiSelectPro = ({ heading, options = [], tabName, label, language, secti
     }, []);
 
     useEffect(() => {
-        if (showOptions && referenceOriginal.dir === "markets") {
+        if (showOptions) {
             setSelectedOptions(options?.map(e => {
                 if (e.type === id) {
-                    return e
-                }
-            }).filter(e => e));
-        } else if (showOptions && referenceOriginal.dir === "projects") {
-            setSelectedOptions(options?.map(e => {
-                console.log(e.status === id)
-                if (e.status === id) {
-                    return e
-                } else if (id === "all"){
                     return e
                 }
             }).filter(e => e));
@@ -229,4 +216,4 @@ const MultiSelectPro = ({ heading, options = [], tabName, label, language, secti
     );
 };
 
-export default MultiSelectPro;
+export default MultiSelectForProjects;

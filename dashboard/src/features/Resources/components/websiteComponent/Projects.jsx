@@ -87,7 +87,7 @@ const ProjectPage = ({ language, screen }) => {
                                 className={` ${isLeftAlign ? 'scale-x-[-1]' : ''} ${isPhone ? "w-[12px] h-[12px]" : "w-[14px] h-[14px]"}`}
                             />
                             <p>
-                                {currentContent?.bannerSection?.button?.text[language]}
+                                {currentContent?.bannerSection?.button?.[language]}
                             </p>
                         </button>
                     </div>
@@ -118,7 +118,7 @@ const ProjectPage = ({ language, screen }) => {
                                     <img
                                         src={projectPageData[item.url]}
                                         alt={item.title[language]}
-                                        className="w-full rounded-md h-[190px]"
+                                        className="w-full h-[190px]"
                                     />
                                     <h5 className="text-lg font-bold mt-2 truncate" title={item?.title[language]}>
                                         {TruncateText(item.title[language], 45)}

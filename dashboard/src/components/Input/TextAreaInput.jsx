@@ -41,7 +41,7 @@ function TextAreaInput({
         dir={language === "ar" ? "rtl" : "ltr"}
         ref={textareaRef}
         value={value}
-        className="textarea textarea-bordered w-full overflow-hidden border border-stone-500 text-xs"
+        className="textarea textarea-bordered w-full overflow-hidden border border-[#cecbcb] text-xs"
         placeholder={placeholder || ""}
         onChange={(e) => updateInputValue(e.target.value)}
         style={{ resize: "vertical", minHeight: "2.3rem", whiteSpace: "pre-wrap", }} // Allows only upward resizing
