@@ -1,10 +1,13 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Dialog } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
+import { getUserById } from "../../app/fetch";
 import userIcon from "../../assets/user.png"
+import capitalizeWords from "../../app/capitalizeword";
 
-function RoleDetailsModal({ user, show, onClose }) {
+function UserDetailsModal({ user, show, onClose }) {
     const modalRef = useRef(null)
+    const [fetchedUser, setFetchedUser] = useState({})
 
     useEffect(() => {
         const handleClickOutside = (e) => {
@@ -17,6 +20,14 @@ function RoleDetailsModal({ user, show, onClose }) {
             document.removeEventListener("mousedown", handleClickOutside);
         }
     }, [])
+
+    useEffect(() => {
+        async function getUser() {
+            const response = await getUserById(user?.id)
+            setFetchedUser(response.user)
+        }
+        getUser()
+    }, [user])
 
     if (!user) return null;
 
@@ -32,6 +43,7 @@ function RoleDetailsModal({ user, show, onClose }) {
                         </button>
                     </div>
                     <div className="overflow-x-auto">
+
                         <div className="flex items-center gap-4">
                             <img src={user.image || userIcon} alt="" className="w-[4.8rem] h-[4.8rem] rounded-lg" />
                             <div>
@@ -74,14 +86,33 @@ function RoleDetailsModal({ user, show, onClose }) {
                                     >
                                         <div className="flex gap-2 flex-wrap w-[50px] relative">
                                             <div className="absolute flex gap-2 flex-wrap w-[200px] top-[-14px]">
-                                                {user?.roles?.map((e, i, a) => {
+                                                {fetchedUser?.roles?.map((role, i, a) => {
+                                                    console.log(role)
                                                     let lastElement = i === a.length - 1
-                                                    return (<span key={e.id} className="">{e.name}{!lastElement && ","}</span>)
+                                                    return (<span key={role.role.id} className="">{role.role.name}{!lastElement && ","}</span>)
                                                 })}
                                             </div>
                                         </div>
                                     </td>
-                                    <td className="py-2 pb-10">{""}</td>
+                                    <td className="py-2 pb-10 border ">
+                                        {
+                                            fetchedUser?.roles?.map((role, i, a) => {
+                                                console.log(role.role)
+                                                return (
+                                                    <div key={role.role.id}>
+                                                        {
+                                                            role.role.permissions.map((permission, index, array) => {
+                                                                console.log(permission)
+                                                                return (
+                                                                    <span key={permission.permission.id} className="border">{capitalizeWords(permission?.permission?.name)}, </span>
+                                                                )
+                                                            })
+                                                        }
+                                                    </div>
+                                                )
+                                            })
+                                        }
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -118,4 +149,4 @@ function RoleDetailsModal({ user, show, onClose }) {
     );
 }
 
-export default RoleDetailsModal;
+export default UserDetailsModal;

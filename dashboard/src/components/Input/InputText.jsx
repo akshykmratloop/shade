@@ -24,7 +24,8 @@ function InputText({
   customType,
   options = [],
   required = true,
-  errorClass
+  errorClass,
+  disabled=false
 }) {
   const [showPassword, setShowPassword] = useState(false);
   const [value, setValue] = useState(defaultValue || "");
@@ -128,6 +129,7 @@ function InputText({
             value={value || ""}
             placeholder={placeholder || ""}
             onChange={(e) => updateInputValue(e.target.value)}
+            disabled={disabled}
             className={`input ${width ?? "w-full"
               } h-[2.3rem] text-xs input input-bordered border-[#cecbcb] focus:border-none ${InputClasses || ""
               }`}

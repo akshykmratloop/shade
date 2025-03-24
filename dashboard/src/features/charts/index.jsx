@@ -7,7 +7,7 @@ import SearchBar from "../../components/Input/SearchBar";
 import { activateRole, deactivateRole } from "../../app/fetch";
 import TitleCard from "../../components/Cards/TitleCard";
 import AddUserModal from "./AddUser";
-import RoleDetailsModal from "./ShowRole";
+import UserDetailsModal from "./ShowRole";
 import updateToasify from "../../app/toastify";
 import dummyUser from "../../assets/Dummy_User.json"
 import capitalizeWords, { TruncateText } from "../../app/capitalizeword";
@@ -283,7 +283,7 @@ function Users() {
             {/* <AddRoleModal show={showAddForm} onClose={() => setShowAddForm(false)} updateRole={setChangesInRole} /> */}
 
             {/* Role Details Modal */}
-            <RoleDetailsModal
+            <UserDetailsModal
                 user={selectedUser}
                 show={showDetailsModal}
                 onClose={() => setShowDetailsModal(false)}

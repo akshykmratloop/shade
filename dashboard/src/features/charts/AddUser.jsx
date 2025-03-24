@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import InputText from "../../components/Input/InputText";
-import { fetchRoles, createUser } from "../../app/fetch";
+import { fetchRoles, createUser, updateUser } from "../../app/fetch";
 import { toast, ToastContainer } from "react-toastify";
 import validator from "../../app/valid";
 import updateToasify from "../../app/toastify";
@@ -27,7 +27,7 @@ const AddUserModal = ({ show, onClose, updateUsers, user }) => {
         phone: "",
         password: "",
         // image: "",
-        roles: [], 
+        roles: [],
     }
 
     const [userData, setUserData] = useState(initialUserState);
@@ -56,22 +56,31 @@ const AddUserModal = ({ show, onClose, updateUsers, user }) => {
             name: setErrorMessageName,
             email: setErrorMessageEmail,
             phone: setErrorMessagePhone,
-            roles: setErrorMessageRoles,
-            password: setErrorMessagePassword
+            // roles: setErrorMessageRoles,
         });
 
         const validEmail = checkRegex(userData.email, setErrorMessageEmail) // checks if email is under valid format
+        const validPassword = userData.password.trim() === ""
+        if (validPassword && !user) {
+            setErrorMessagePassword("required")
+            return
+        }
 
         if (!validation) return;
         if (validEmail) return;
-        console.log(userData)
 
         const loadingToastId = toast.loading("Processing request...", { autoClose: 2000 });
 
 
         let response;
         if (user) {
-            // response = await createUser({ ...userData, id: user.id });
+            const payload = {
+                name: userData.name,
+                phone: userData.phone,
+                password: userData.password,
+                roles: userData.roles,
+            }
+            response = await updateUser({ payload, id: user.id });
         } else {
             response = await createUser(userData);
         }
@@ -181,6 +190,7 @@ const AddUserModal = ({ show, onClose, updateUsers, user }) => {
                             InputClasses="border-stone-400"
                             labelStyle="text-[#6B7888]"
                             updateFormValue={updateFormValue}
+                            disabled={user ? true : false}
                             errorMessage={errorMessageEmail}
                         />
                     </div>
@@ -210,6 +220,7 @@ const AddUserModal = ({ show, onClose, updateUsers, user }) => {
                                 updateFormValue={updateFormValue}
                                 errorMessage={errorMessagePassword}
                                 type={"password"}
+                                required={user ? false : true}
                             />
                             <PasswordValidation new_password={userData.password} display={""} />
                         </div>

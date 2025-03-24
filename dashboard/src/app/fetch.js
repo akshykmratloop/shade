@@ -242,19 +242,35 @@ export async function fetchPermissionsByRoleType(roleTypeId) {
 }
 
 // fetch for Users
-export async function getAllusers(){
+export async function getAllusers() {
   return await makerequest(
     api.route("getUsers"),
     "GET",
   )
 }
 
-export async function createUser(data){
-  console.log(data)
+export async function createUser(data) {
   return await makerequest(
     api.route("createUser"),
     "POST",
     JSON.stringify(data),
     ContentType.json
+  )
+}
+
+export async function updateUser(data) {
+  return await makerequest(
+    api.route("updateUser") + data.id,
+    "PUT",
+    JSON.stringify(data.payload),
+    ContentType.json
+  )
+}
+
+export async function getUserById(id) {
+  console.log(id)
+  return await makerequest(
+    api.route("getUserById") + id,
+    "GET",
   )
 }
