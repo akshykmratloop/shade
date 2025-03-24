@@ -1,5 +1,7 @@
 import {
+  activateUsers,
   createUser,
+  deactivateUsers,
   editUserDetails,
   findUserByEmail,
   getAllUsers,
@@ -47,4 +49,23 @@ const EditUserDetails = async (req, res) => {
   res.status(201).json(updatedUser);
 };
 
-export default {createUserHandler, GetAllUsers, GetUserById, EditUserDetails};
+const ActivateUser = async (req, res) => {
+  const {id} = req.body;
+  const result = await activateUsers(id);
+  res.status(200).json(result);
+};
+
+const DeactivateUser = async (req, res) => {
+  const {id} = req.body;
+  const result = await deactivateUsers(id);
+  res.status(200).json(result);
+};
+
+export default {
+  createUserHandler,
+  GetAllUsers,
+  GetUserById,
+  EditUserDetails,
+  ActivateUser,
+  DeactivateUser,
+};

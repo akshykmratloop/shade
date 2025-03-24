@@ -1,16 +1,16 @@
-import { Router } from "express";
+import {Router} from "express";
 import AuthController from "./auth.controller.js";
-import { authenticateUser } from "../../helper/authMiddleware.js";
+import {authenticateUser} from "../../helper/authMiddleware.js";
 import validator from "../../validation/validator.js";
 import {
   loginSchema,
   generateOtpSchema,
   verifyOtpSchema,
   resetPassSchema,
-  updatePasswordSchema
+  updatePasswordSchema,
 } from "../../validation/authSchema.js";
 import tryCatchWrap from "../../errors/tryCatchWrap.js";
-import { resendOtpRateLimiter, generateOtpRateLimiter} from "../../helper/index.js";
+import {generateOtpRateLimiter} from "../../helper/rateLimiter.js";
 
 const router = Router();
 
@@ -23,7 +23,12 @@ router.post(
 // takes email and generates otp
 router.post(
   "/mfa/login",
-  generateOtpRateLimiter,
+  async (req, res, next) => {
+    const {generateOtpRateLimiter} = await import(
+      "../../helper/rateLimiter.js"
+    );
+    return generateOtpRateLimiter(req, res, next);
+  },
   validator(generateOtpSchema),
   tryCatchWrap(AuthController.MFALogin)
 );
@@ -46,7 +51,12 @@ router.post(
 router.post(
   // forgot pass
   "/forgotPassword",
-  generateOtpRateLimiter,
+  async (req, res, next) => {
+    const {generateOtpRateLimiter} = await import(
+      "../../helper/rateLimiter.js"
+    );
+    return generateOtpRateLimiter(req, res, next);
+  },
   validator(generateOtpSchema),
   tryCatchWrap(AuthController.ForgotPassword)
 );

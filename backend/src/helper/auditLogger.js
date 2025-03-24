@@ -1,27 +1,27 @@
-const { PrismaClient } = require('@prisma/client');
+const {PrismaClient} = require("@prisma/client");
 const prisma = new PrismaClient();
 
 // This middleware will capture the action and store it in the database
 const auditLogger = async (req, res, next) => {
-  const { user } = req;  // Assuming user info is attached to the request (e.g. via authentication)
+  const {user} = req; // Assuming user info is attached to the request (e.g. via authentication)
   const actionType = req.method; // GET, POST, PUT, DELETE
-  const entity = req.baseUrl.split('/').pop(); // Extract the entity name from the route
+  const entity = req.baseUrl.split("/").pop(); // Extract the entity name from the route
   const entityId = req.params.id || null; // Get the entity ID from the route parameters
   const ipAddress = req.ip;
-  const browserInfo = req.headers['user-agent'];  // Browser info (optional)
+  const browserInfo = req.headers["user-agent"]; // Browser info (optional)
 
   // Capture old and new values only if needed (for example on UPDATE or DELETE)
   let oldValue = null;
   let newValue = null;
 
   // Example of capturing changes for a PUT or DELETE request (for resource modification)
-  if (actionType === 'PUT' || actionType === 'DELETE') {
+  if (actionType === "PUT" || actionType === "DELETE") {
     const entityData = req.body; // Assuming the new data is in the request body (POST or PUT)
     newValue = JSON.stringify(entityData);
 
-    if (actionType === 'DELETE') {
+    if (actionType === "DELETE") {
       const entityBeforeDeletion = await prisma[entity].findUnique({
-        where: { id: entityId },
+        where: {id: entityId},
       });
       oldValue = JSON.stringify(entityBeforeDeletion);
     }
@@ -38,7 +38,7 @@ const auditLogger = async (req, res, next) => {
       newValue: newValue ? newValue : null,
       ipAddress: ipAddress,
       browserInfo: browserInfo,
-      outcome: 'Success', // You can modify this based on the result of the action
+      outcome: "Success", // You can modify this based on the result of the action
       timestamp: new Date(),
     },
   });

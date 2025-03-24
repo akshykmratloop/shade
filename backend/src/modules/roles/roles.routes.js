@@ -7,6 +7,8 @@ import tryCatchWrap from "../../errors/tryCatchWrap.js";
 
 const router = Router();
 
+const requiredRoles = ["role"];
+
 router.get("/roles", tryCatchWrap(RolesController.GetRoles));
 
 router.get("/roleType", tryCatchWrap(RolesController.GetRoleType));
@@ -19,7 +21,7 @@ router.post(
   tryCatchWrap(RolesController.CreateRole)
 );
 
-router.put("/update", tryCatchWrap(RolesController.UpdateRole));
+router.put("/update/:id", tryCatchWrap(RolesController.UpdateRole));
 
 router.put("/activate", tryCatchWrap(RolesController.ActivateRole));
 

@@ -1,4 +1,3 @@
-
 services:
   postgres:
     image: postgres:latest
@@ -14,6 +13,7 @@ services:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
       POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_LISTEN_ADDRESS: 0.0.0.0
     volumes:
       - postgres-data:/var/lib/postgresql/data # Persist database data
 
@@ -30,8 +30,8 @@ services:
       - "${BACKEND_PORT}:3000" # Expose for development only
     networks:
       - cms_network
-    depends_on:
-      - postgres
+    # depends_on:
+    #   - postgres
     volumes:
       - ./backend:/app # Mount the source code for live updates
       - backend-data:/app/data # Persist backend data
