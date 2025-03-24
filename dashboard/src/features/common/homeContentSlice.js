@@ -47,7 +47,7 @@ const cmsSlice = createSlice({
         updateSelectedContent: (state, action) => {
             state.past.push(JSON.parse(JSON.stringify(state.present)));
             const selectedMap = new Map(
-                action.payload.selected?.filter(e => e.display).map((item, index) => [item.title[action.payload.language], index])
+                action.payload?.selected?.filter(e => e.display).map((item, index) => [item.title[action.payload.language], index])
             );
             let newOptions = action.payload.newArray?.map(e => ({
                 ...e,
@@ -70,16 +70,30 @@ const cmsSlice = createSlice({
             }
             state.future = [];
         },
+        updateAllProjectlisting: (state, action) => {
+            state.past.push(JSON.parse(JSON.stringify(state.present)))
+
+            if (action.payload.action === 'update') {
+                state.present.projects.projectsSection.allProjectsList = [...action.payload.selected]
+                console.log("action")
+            }
+            else if(action.payload.action === 'initial') {
+                console.log("action2")
+                state.present.projects.projectsSection.allProjectsList = action.payload.data ?? []
+            }
+
+            state.future = []
+        },
         updateMarketSelectedContent: (state, action) => {
             state.past.push(JSON.parse(JSON.stringify(state.present)));
-            const newSet = new Set(action.payload.selected.map(e => e.id))
+            const newSet = new Set(action.payload?.selected?.map(e => e.id))
             let newArray;
             if (action.payload.newOption === null) {
                 newArray = action.payload.newArray.filter(e => {
                     return !(newSet.has(e.id))
                 })
 
-                action.payload.selected.forEach(element => {
+                action.payload?.selected?.forEach(element => {
                     newArray.push(element)
                 });
 
@@ -121,5 +135,5 @@ const cmsSlice = createSlice({
     }
 });
 
-export const { updateImages, removeImages, updateContent, updateSpecificContent, updateServicesNumber, updateSelectedContent, updateMarketSelectedContent, undo, redo } = cmsSlice.actions;
+export const { updateImages, removeImages, updateContent, updateSpecificContent, updateServicesNumber, updateSelectedContent, updateMarketSelectedContent, updateAllProjectlisting, undo, redo } = cmsSlice.actions;
 export default cmsSlice.reducer;

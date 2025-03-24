@@ -18,6 +18,9 @@ import MarketManager from "./components/contentmanager/MarketManager";
 import ProjectPage from "./components/websiteComponent/Projects";
 import Popups from "./components/Popups";
 import ProjectContentManager from "./components/contentmanager/ProjectContentManager";
+import CareerPage from "./components/websiteComponent/CareersPage";
+import InputText from "../../components/Input/InputText";
+import TextAreaInput from "../../components/Input/TextAreaInput";
 
 const EditPage = () => {
     const dispatch = useDispatch();
@@ -72,7 +75,15 @@ const EditPage = () => {
             >
                 <ContentTopBar setWidth={setScreen} raisePopup={() => setPopup(true)} />
                 <h4>Commented by {"Anukool (Super Admin)"}</h4>
-                <div className={`overflow-y-scroll customscroller transition-custom border-stone-500 border mx-auto w-full bankgothic-medium-dt bg-[white]`}
+                <TextAreaInput
+                    updateFormValue={() => {}}
+                    placeholder={"Comments..."}
+                    required={false}
+                    textAreaStyle={""}
+                    containerStyle={"mb-4"}
+                    minHeight={"3.2rem"}
+                />
+                <div className={`overflow-y-scroll customscroller transition-custom border-stone-200 border mx-auto w-full bankgothic-medium-dt bg-[white]`}
                     style={{ width: screen > 1000 ? "" : screen }}
                 >
                     {
@@ -95,7 +106,10 @@ const EditPage = () => {
                         currentPath === "projects" &&
                         <ProjectPage language={language} currentContent={content.projects} screen={screen} />
                     }
-                    {console.log(language)}
+                    {
+                        currentPath === "career" &&
+                        <CareerPage language={language} currentContent={content.career} screen={screen} />
+                    }
                 </div>
             </div>
             <Popups display={Popup} setClose={() => setPopup(false)} />

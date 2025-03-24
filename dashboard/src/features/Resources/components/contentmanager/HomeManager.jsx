@@ -1,11 +1,16 @@
 // import { useSelector } from "react-redux";
+import FileUploader from "../../../../components/Input/InputFileUploader";
 import ContentSection from "../ContentSections";
 import MultiSelect from "../MultiSelect";
 
 const HomeManager = ({ language, currentContent, currentPath }) => {
 
+
+
     return (
         <div>
+            {/* reference doc */}
+            <FileUploader id={"homeReference"} label={"Rerference doc"} fileName={"Upload your file..."} />
             {/* homeBanner */}
             <ContentSection
                 currentPath={currentPath}

@@ -18,7 +18,7 @@ import {
     useSortable,
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { updateMarketSelectedContent } from "../../common/homeContentSlice";
+import { updateAllProjectlisting, updateMarketSelectedContent } from "../../common/homeContentSlice";
 
 const SortableItem = ({ option, removeOption, language }) => {
     const { attributes, listeners, setNodeRef, transform, transition, isDragging } =
@@ -171,7 +171,6 @@ const MultiSelectPro = ({ heading, options = [], tabName, label, language, secti
             }).filter(e => e));
         } else if (showOptions && referenceOriginal.dir === "projects") {
             setSelectedOptions(options?.map(e => {
-                console.log(e.status === id)
                 if (e.status === id) {
                     return e
                 } else if (id === "all") {
@@ -182,15 +181,28 @@ const MultiSelectPro = ({ heading, options = [], tabName, label, language, secti
     }, [options]);
 
     useEffect(() => {
+        console.log(selectedOptions)
         if (random > 1) {
-            dispatch(updateMarketSelectedContent({
-                origin: referenceOriginal.dir,
-                newArray: [...options],
-                selected: selectedOptions,
-                language,
-                currentPath,
-                newOption: null
-            }))
+            if (id === 'all') {
+                // dispatch(updateAllProjectlisting({
+                //     origin: referenceOriginal.dir,
+                //     newArray: [...options],
+                //     selected: selectedOptions,
+                //     language,
+                //     // currentPath,
+                //     action: "update"
+                // }))
+
+            } else {
+                dispatch(updateMarketSelectedContent({
+                    origin: referenceOriginal.dir,
+                    newArray: [...options],
+                    selected: [...selectedOptions],
+                    language,
+                    currentPath,
+                    newOption: null
+                }))
+            }
         }
     }, [random])
 

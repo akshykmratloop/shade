@@ -2,16 +2,16 @@ import { useEffect, useRef } from "react";
 import { Dialog } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import userIcon from "../../assets/user.png"
+import formatTimestamp from "../../app/TimeFormat";
 
 
 function RoleDetailsModal({ role, show, onClose }) {
 
-    console.log(role)
     const modalRef = useRef(null)
 
     useEffect(() => {
         const handleClickOutside = (e) => {
-            if (modalRef.current && modalRef.current.contains(e.target)) {
+            if (modalRef.current && !modalRef.current.contains(e.target)) {
                 onClose();
             };
         };
@@ -27,30 +27,25 @@ function RoleDetailsModal({ role, show, onClose }) {
         <Dialog open={show} onClose={onClose} className="relative z-50">
             <div className="fixed inset-0 bg-black/50" aria-hidden="true" />
             <div className="fixed inset-0 flex items-center justify-center p-4">
-                <Dialog.Panel className="w-[753px] overflow-y-scroll customscroller shadow-lg shadow-stone rounded-lg bg-[white] dark:bg-slate-800 p-6">
+                <Dialog.Panel className="w-[653px] h-[600px] overflow-y-scroll customscroller shadow-lg shadow-stone rounded-lg bg-[white] dark:bg-slate-800 p-6">
                     <div ref={modalRef} className="flex justify-between items-center mb-4">
-                        <Dialog.Title className="text-lg font-[500]">User Detail</Dialog.Title>
+                        <Dialog.Title className="text-lg font-[500]">Role Details</Dialog.Title>
                         <button onClick={onClose} className="bg-transparent hover:bg-stone-300 dark:hover:bg-stone-700 rounded-full border-none p-2 py-2">
                             <XMarkIcon className="w-5" />
                         </button>
                     </div>
                     <div className="overflow-x-auto">
-                        <div className="flex items-center gap-4">
-                            <div>
-                                <p className="font-semibold text-[#101828] dark:text-[white]">{role.name}</p>
-                                {/* <p className="text-[gray]">{role.email}</p> */}
-                            </div>
-                        </div>
+
                         <table className="table-auto w-full text-left">
                             <thead>
                                 <tr>
-                                    <th colSpan={3} className="pt-4">Personal Details</th>
+                                    <th colSpan={3} className="pt-4"> Details</th>
                                 </tr>
                             </thead>
                             <tbody style={{ borderBottom: "1px solid #E0E0E0" }}>
                                 <tr className="font-light text-sm ">
-                                    <td className="pt-2 pr-[60px] w-[250px]">Name</td>
-                                    <td className="pt-2">Status</td>
+                                    <td className="pt-2 pr-[60px] w-[188px]">Role Name</td>
+                                    <td className="pt-2 w-[188px]">Status</td>
                                     <td className="pt-2">Role Type</td>
                                 </tr>
                                 <tr className="font-[500] text-[#101828] dark:text-stone-100 text-sm">
@@ -63,18 +58,20 @@ function RoleDetailsModal({ role, show, onClose }) {
                         <table className="table-auto w-full text-left">
                             <thead>
                                 <tr>
-                                    <th colSpan={3} className="pt-4">Roles & Permissions</th>
+                                    <th colSpan={3} className="pt-4">Permissions</th>
                                 </tr>
                             </thead>
                             <tbody style={{ borderBottom: "1px solid #E0E0E0" }}>
                                 <tr className="font-light text-sm ">
-                                    <td className="pt-2 pr-[24px] w-[250px]">Updated At</td>
+                                    <td className="pt-2 pr-[24px] w-[188px]">Updated At</td>
                                     <td className="pt-2">Permissions</td>
                                 </tr>
                                 <tr className="font-[500] text-[#101828] dark:text-stone-100 text-sm pb-7">
                                     <td className="py-2 pb-7"
                                     >
-                                       {role.updated_at}
+                                        <p className="w-[100px]">
+                                            {formatTimestamp(role.updated_at)}
+                                        </p>
                                     </td>
                                     <td className="py-2 pb-10">{role._count?.permissions}</td>
                                 </tr>

@@ -6,6 +6,7 @@ function TextAreaInput({
   containerStyle,
   defaultValue,
   placeholder,
+  textAreaStyle,
   updateFormValue,
   updateType,
   language
@@ -18,33 +19,46 @@ function TextAreaInput({
     updateFormValue({ updateType, value: val });
   };
 
-  useEffect(() => {
+  // Function to adjust height dynamically
+  const adjustHeight = () => {
     if (textareaRef.current) {
-      textareaRef.current.style.height = "auto"; // Reset height to recalculate
-      const newHeight = textareaRef.current.scrollHeight;
-      textareaRef.current.style.minHeight = `${newHeight}px`; // Set height dynamically
+      textareaRef.current.style.height = "auto"; // Reset to calculate correct height
+      textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`; // Set height dynamically
     }
+  };
+
+  useEffect(() => {
+    adjustHeight(); // Adjust height on value change
   }, [value]);
 
   useEffect(() => {
     setValue(defaultValue || "");
+    adjustHeight(); // Ensure correct height when default value changes
   }, [defaultValue]);
 
   return (
     <div className={`form-control w-full ${containerStyle}`}>
-      <label className="label">
-        <span className={"label-text text-base-content " + labelStyle}>
-          {labelTitle}
-        </span>
-      </label>
+      {labelTitle && (
+        <label className="label-text text-[#6B7888]">
+          <span className={"label-text text-[#6B7888]" + labelStyle} style={{color:"#6B7888"}}>
+            {labelTitle}
+          </span>
+        </label>
+      )}
       <textarea
         dir={language === "ar" ? "rtl" : "ltr"}
         ref={textareaRef}
         value={value}
-        className="textarea textarea-bordered w-full overflow-hidden border border-[#cecbcb] text-xs"
+        className={`textarea textarea-bordered w-full border border-[#cecbcb] text-xs ${textAreaStyle}`}
         placeholder={placeholder || ""}
         onChange={(e) => updateInputValue(e.target.value)}
-        style={{ resize: "vertical", minHeight: "2.3rem", whiteSpace: "pre-wrap", }} // Allows only upward resizing
+        rows={2} // Initial height of 2 rows
+        style={{
+          resize: "none", // Prevent manual resizing
+          overflow: "hidden", // Avoid unnecessary scrollbars
+          minHeight: "3rem", // Ensures at least 2 rows height
+          whiteSpace: "pre-wrap", // Maintain text formatting
+        }}
       ></textarea>
     </div>
   );

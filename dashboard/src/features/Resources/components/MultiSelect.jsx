@@ -163,7 +163,7 @@ const MultiSelect = ({ heading, options = [], tabName, label, language, section,
   return (
     <div className="relative w-full border-b border-b-2 border-neutral-300 pb-4" ref={dropdownRef}>
       <h3 className="font-semibold text-[1.25rem] mb-4">{heading}</h3>
-      <label className="sm:text-xs xl:text-sm">{label}</label>
+      <label className="sm:text-xs xl:text-sm text-[#6B7888]">{label}</label>
       <button
         onClick={toggleDropdown}
         className="w-full mt-2 p-2 border border-stone-500 rounded-md bg-white hover:bg-gray-100 text-sm bg-[#fafaff] dark:bg-[#2a303c]"

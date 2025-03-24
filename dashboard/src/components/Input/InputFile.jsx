@@ -43,7 +43,7 @@ const InputFile = ({ label, baseClass, id, currentPath }) => {
 
   return (
     <div className={`relative ${baseClass} mt-2 flex flex-col`}>
-      <label htmlFor={id} className="label-text sm:text-xs xl:text-sm mb-1">{label}</label>
+      <label htmlFor={id} className="label-text sm:text-xs xl:text-sm mb-1 text-[#6B7888]">{label}</label>
       <div className="relative w-24 h-24 border border-[#cecbcb] rounded-md overflow-hidden cursor-pointer bg-white dark:bg-[#2a303c]">
         <input
           type="file"

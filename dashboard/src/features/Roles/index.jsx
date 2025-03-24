@@ -94,7 +94,6 @@ function Roles() {
   const [selectedRole, setSelectedRole] = useState(null);
   const [showDetailsModal, setShowDetailsModal] = useState(false);
   const [enabled, setEnabled] = useState(false);
-  let loadingToastId;
   const [currentPage, setCurrentPage] = useState(1);
   const rolesPerPage = 5;
 
@@ -115,8 +114,7 @@ function Roles() {
   };
 
   const statusChange = async (role) => {
-    if (loadingToastId) return toast.warn("One Request is already in process, Please again after some time.")
-    loadingToastId = toast.loading("Proceeding", { autoClose: 2000 }); // starting the loading in toaster
+    let loadingToastId = toast.loading("Proceeding..."); // starting the loading in toaster
     let response;
     if (role.status === "ACTIVE") response = await deactivateRole(role);
     else response = await activateRole(role);
@@ -126,8 +124,12 @@ function Roles() {
         loadingToastId,
         `Request successful. ${response.message}`,
         "success",
-        1000
+        2000
       ); // updating the toaster
+      // toast.dismiss(loadingToastId) // to deactivate to running taost
+      // setTimeout(() => {
+      //   loadingToastId = undefined
+      // }, 2000)
       setChangesInRole((prev) => !prev);
     } else {
       updateToasify(
@@ -136,10 +138,12 @@ function Roles() {
         "failure",
         2000
       ); // updating the toaster
-      setTimeout(() => {
-        toast.dismiss() // to deactivate to running taost
-      }, 2000)
-    }
+      // setTimeout(() => {
+        //   loadingToastId = undefined
+        //   toast.dismiss(loadingToastId) // to deactivate to running taost
+        // }, 2000)
+      }
+      toast.dismiss(loadingToastId) // to deactivate to running taost
   };
 
   // Pagination logic
@@ -188,7 +192,7 @@ function Roles() {
                   <th className="font-medium text-[12px] text-left font-poppins leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white] text-[#42526D] px-[24px] py-[13px] !capitalize"
                     style={{ position: "static", width: "363px" }}> Role Name</th>
                   <th className="text-[#42526D] w-[133px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] !capitalize">Permission</th>
-                  <th className="text-[#42526D] w-[164px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] text-center !capitalize">Sub Permission</th>
+                  {/* <th className="text-[#42526D] w-[164px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] text-center !capitalize">Sub Permission</th> */}
                   <th className="text-[#42526D] w-[211px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] !capitalize">No. of Users Assigned</th>
                   <th className="text-[#42526D] w-[154px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] !capitalize text-center">Status</th>
                   <th className="text-[#42526D] w-[221px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] text-center !capitalize">Actions</th>
@@ -213,11 +217,11 @@ function Roles() {
                             {role?._count?.permissions}
                           </span>
                         </td>
-                        <td className="font-poppins font-light text-[12px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]">
+                        {/* <td className="font-poppins font-light text-[12px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]">
                           <span className="">
                             {role?._count?.subPermissions || "3"}
                           </span>
-                        </td>
+                        </td> */}
                         <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]" style={{ whiteSpace: "wrap" }}>
                           <span className="">
                             {role?.usersAssigned || "1"}

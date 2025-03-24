@@ -5,8 +5,10 @@ import content from "./content.json"
 import Arrow from "../../../../assets/icons/right-wrrow.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { projectPageData } from "../../../../assets/index";
-import { updateContent } from "../../../common/homeContentSlice";
+import { updateContent, updateSelectedContent } from "../../../common/homeContentSlice";
 import { TruncateText } from "../../../../app/capitalizeword";
+import { updateAllProjectlisting } from "../../../common/homeContentSlice"
+
 // Font files can be colocated inside of `app`
 // const BankGothic = localFont({
 //     src: "../../../public/font/BankGothicLtBTLight.ttf",
@@ -38,12 +40,9 @@ const ProjectPage = ({ language, screen }) => {
     //     setIsModal(false);
     // };
 
-    console.log(language)
-    console.log(currentContent?.bannerSection?.title[language])
-
     useEffect(() => {
         if (activeTab === "all") {
-            setFilteredProject(currentContent?.projectsSection.projects);
+            setFilteredProject(currentContent?.projectsSection?.allProjectsList || []);
         } else {
             setFilteredProject(
                 currentContent?.projectsSection?.projects
@@ -58,8 +57,14 @@ const ProjectPage = ({ language, screen }) => {
 
 
     useEffect(() => {
-        dispatch(updateContent({ currentPath: "projects", payload: content.projectsPage }))
+        dispatch(updateContent({ currentPath: "projects", payload: content.projectsPage }));
     }, [])
+    
+    useEffect(() => {
+        if(currentContent){
+            dispatch(updateAllProjectlisting({data:currentContent?.projectsSection?.projects, action: "initial"}))
+        }
+    }, [currentContent])
 
     return (
         <div className="h-full border border-cyan-500">
@@ -144,7 +149,7 @@ const ProjectPage = ({ language, screen }) => {
                         </div>
 
                         {/* Load More Button */}
-                        {visibleProjectsCount < filteredProject.length && (
+                        {visibleProjectsCount < filteredProject?.length && (
                             <div className="flex justify-center mt-10">
                                 <button
                                     className="flex items-center gap-2"

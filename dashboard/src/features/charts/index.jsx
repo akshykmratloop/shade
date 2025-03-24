@@ -127,10 +127,8 @@ function Users() {
             setChangesInUser(prev => !prev);
         } else {
             updateToasify(loadingToastId, `Request failed. ${response.message}`, "failure", 2000);
-            setTimeout(() => {
-                toast.dismiss() // to deactivate to running taost
-            }, 2000)
         }
+        toast.dismiss(loadingToastId) // to deactivate to running taost
     };
 
     // Pagination logic

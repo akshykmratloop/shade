@@ -1,8 +1,21 @@
+import { useDispatch } from "react-redux"
 import ContentSection from "../ContentSections"
 import MultiSelectPro from "../MultiSelectPro"
+import { updateAllProjectlisting } from "../../../common/homeContentSlice"
+import { useEffect } from "react"
 
 const ProjectContentManager = ({ currentPath, currentContent, language }) => {
+    const dispatch = useDispatch()
 
+    
+
+    // useEffect(() => {
+
+    //     if(!currentContent?.projectsSection?.allProjectsList){   
+    //         dispatch(updateAllProjectlisting({ action: 'initial', data: currentContent?.projectsSection?.projects }))
+    //     }
+
+    // }, [])
     return (
         <div>
             {/** Hero Banner */}
@@ -22,14 +35,13 @@ const ProjectContentManager = ({ currentPath, currentContent, language }) => {
 
             <div>
                 <h1>Projects</h1>
-                {console.log(currentContent)}
                 {
                     currentContent?.projectsSection?.tabs?.map((element, index) => {
 
                         return (
                             <div key={index}>
                                 <MultiSelectPro
-                                    options={currentContent?.projectsSection?.projects}
+                                    options={element.id === "all" ? currentContent?.projectsSection?.allProjectsList : currentContent?.projectsSection?.projects}
                                     currentPath={currentPath}
                                     section={"projects"}
                                     language={language}
