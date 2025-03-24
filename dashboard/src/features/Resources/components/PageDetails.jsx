@@ -4,6 +4,7 @@ import Assigned from "../../../assets/image 13.svg"
 import Edit from "../../../assets/image 14.svg"
 import Verify from "../../../assets/image 15.svg"
 import Publisher from "../../../assets/image 16.svg"
+import { X } from "lucide-react";
 
 
 const PageDetails = ({ data, display, setOn }) => {
@@ -27,9 +28,13 @@ const PageDetails = ({ data, display, setOn }) => {
 
     return (
         <div className={`${display ? "block" : "hidden"} fixed z-20 top-0 left-0 w-[100vw] h-screen bg-black bg-opacity-50`}>
-            <div ref={pageRef} className="fixed p-[30px] z-30 top-0 right-0 w-[26rem] h-screen bg-base-200 shadow-xl-custom rounded-tl-3xl rounded-bl-3xl">
-                <h1 className="font-medium text-[1.1rem]">Page Details for {data.heading}</h1>
-                <div className="mt-5 flex flex-col h-[93%] text-[14px] custom-text-color">
+            <div ref={pageRef} className="fixed z-30 top-0 right-0 w-[26rem] h-screen bg-[white] shadow-xl-custom">
+                <button className="bg-transparent hover:bg-stone-900 hover:text-stone-200 dark:hover:bg-stone-300 rounded-full absolute top-7 border border-gray-500 left-4 p-2 py-2"
+                    onClick={() => setOn(false)}>
+                    <X className="w-[16px] h-[16px]" />
+                </button>
+                <h1 className="font-medium text-[1.1rem] shadow-md-custom p-[30px] text-center">Assign User for Page {data.heading}</h1>
+                <div className=" flex flex-col h-[93%] text-[14px] custom-text-color p-[30px] pt-0 mt-2">
                     <div className="flex py-[15px] justify-between border-b">
                         <label>Last Edited:</label>
                         <p>09/09/2025</p>
@@ -39,7 +44,7 @@ const PageDetails = ({ data, display, setOn }) => {
                         <div className={`w-min flex flex-col items-end gap-[2.5px]`}>
                             <p className="text py-0 my-0">V 1.1.00</p>
                             <button className="text-[#145098] underline font-[300] py-0 my-0" style={{ whiteSpace: "pre" }}>Restore Previous Version</button>
-                            <button className="text-[#145098] underline font-[300] py-0 my-0">View</button>
+                            <button className="text-[#145098] underline font-[300] py-0 my-0">View History</button>
                         </div>
                     </div>
                     <div className="flex flex-col py-[15px] pb-[2px] justify-between">
@@ -77,7 +82,7 @@ const PageDetails = ({ data, display, setOn }) => {
                             <p>Null</p>
                         </div>
                         <div className="flex flex-col gap-[15px] text-[11px]">
-                            <div className="bg-blue-500">
+                            <div className="">
                                 <StatusBar stage={2} />
                             </div>
                             <div className="flex justify-between">
@@ -85,17 +90,17 @@ const PageDetails = ({ data, display, setOn }) => {
                                     <img src={Assigned} alt="" className="w-[20px] h-[20px] " />
                                     <p>Assigned</p>
                                 </div>
-                                <div className="flex flex-col items-center translate-x-[18px]">
+                                <div className="flex flex-col items-center translate-x-[12px]">
                                     <img src={Edit} alt="" className="w-[20px] h-[20px]" />
                                     <p>Edit</p>
                                 </div>
-                                <div className="flex flex-col items-center translate-x-[24px]">
+                                <div className="flex flex-col items-center translate-x-[12px]">
                                     <img src={Verify} alt="" className="w-[20px] h-[20px]" />
                                     <p>Verify ({"Level 2"}) </p>
                                 </div>
-                                <div className="flex flex-col items-center translate-x-[10px]">
+                                <div className="flex flex-col items-center translate-x-[0px]">
                                     <img src={Publisher} alt="" className="w-[20px] h-[20px]" />
-                                    <p>Publisher</p>
+                                    <p>Publish</p>
                                 </div>
                             </div>
                         </div>

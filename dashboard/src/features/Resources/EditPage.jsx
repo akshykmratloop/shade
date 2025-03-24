@@ -27,7 +27,8 @@ const EditPage = () => {
     const [language, setLanguage] = useState('en')
     const [screen, setScreen] = useState(1180)
     const location = useLocation();
-    const [Popup, setPopup] = useState(false)
+    const [PopupReject, setPopupReject] = useState(false)
+    const [PopupSubmit, setPopupSubmit] = useState(false)
 
     const currentPath = location.pathname.split('/')[4]
     const content = useSelector((state) => state.homeContent.present)
@@ -73,10 +74,10 @@ const EditPage = () => {
             <div
                 className={`flex-[4] h-[83.5vh] flex flex-col`}
             >
-                <ContentTopBar setWidth={setScreen} raisePopup={() => setPopup(true)} />
+                <ContentTopBar setWidth={setScreen} raisePopup={{ reject: () => setPopupReject(true), submit: () => setPopupSubmit(true) }} />
                 <h4>Commented by {"Anukool (Super Admin)"}</h4>
                 <TextAreaInput
-                    updateFormValue={() => {}}
+                    updateFormValue={() => { }}
                     placeholder={"Comments..."}
                     required={false}
                     textAreaStyle={""}
@@ -112,7 +113,8 @@ const EditPage = () => {
                     }
                 </div>
             </div>
-            <Popups display={Popup} setClose={() => setPopup(false)} />
+            <Popups display={PopupReject} setClose={() => setPopupReject(false)} confirmationText={"Are you sure you want to reject"} />
+            <Popups display={PopupSubmit} setClose={() => setPopupSubmit(false)} confirmationText={"Are you sure you want to submit"} />
         </div>
     )
 }

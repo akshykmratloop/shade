@@ -14,7 +14,7 @@ export default function StatusBar({ stage}) {
     // }, []);
 
     return (
-        <div className="flex items-center justify-center bg-gray-100 py-4 px-2">
+        <div className="flex items-center justify-center py-4 px-2">
             <div className="relative w-[98%] h-[5px] bg-gray-300 rounded-full">
                 {/* Progress Bar */}
                 <div 

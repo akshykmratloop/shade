@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import Select from "../../../components/Input/Select";
 import SelectorAccordion from "./SelectorAccordion";
+import { X } from "lucide-react";
 
 const ConfigBar = ({ display, setOn, data }) => {
     const configRef = useRef(null);
@@ -23,9 +24,14 @@ const ConfigBar = ({ display, setOn, data }) => {
 
     return (
         <div className={`${display ? "block" : "hidden"} fixed z-20 top-0 left-0 w-[100vw] h-screen bg-black bg-opacity-50`}>
-            <div ref={configRef} className="fixed p-[30px]  z-30 top-0 right-0 w-[26rem] h-screen bg-base-200 shadow-xl-custom rounded-tl-3xl rounded-bl-3xl">
-                <h1 className="font-medium text-[1.1rem]">Assign User for Page {data.heading}</h1>
-                <form className="mt-5 flex flex-col justify-between h-[93%] ">
+
+            <div ref={configRef} className="fixed z-30 top-0 right-0 w-[26rem] h-screen bg-[white] dark:bg-[#242933]">
+                <button className="bg-transparent hover:bg-stone-900 hover:text-stone-200 dark:hover:bg-stone-300 rounded-full absolute top-7 border border-gray-500 left-4 p-2 py-2"
+                    onClick={() => setOn(false)}>
+                    <X className="w-[16px] h-[16px]" />
+                </button>
+                <h1 className="font-medium text-[1.1rem] shadow-md-custom p-[30px] text-center">Assign User for Page {data.heading}</h1>
+                <form className="mt-1 flex flex-col justify-between h-[88%] p-[30px] pt-[0px]">
                     <div className="flex flex-col gap-4 pt-6 ">
                         {/* Selected Page/Content */}
                         {/* <div className="dark:border dark:border-[1px] dark:border-stone-700 rounded-md">
@@ -42,7 +48,7 @@ const ConfigBar = ({ display, setOn, data }) => {
                             baseClass=""
                             label="Select Manager"
                             labelClass="font-[400] text-[#6B7888] text-[14px]"
-                            selectClass="bg-base-200 border border-[#cecbcb] mt-1 rounded-md py-2 h-[2.5rem] outline-none"
+                            selectClass="bg-transparent border border-[#cecbcb] dark:border-stone-600 mt-1 rounded-md py-2 h-[2.5rem] outline-none"
                         />
 
                         {/* Select Editor */}
@@ -50,12 +56,12 @@ const ConfigBar = ({ display, setOn, data }) => {
                             baseClass=""
                             label="Select Editor"
                             labelClass="font-[400] text-[#6B7888] text-[14px]"
-                            selectClass="bg-base-200 border border-[#cecbcb] mt-1 rounded-md py-2 h-[2.5rem] outline-none"
+                            selectClass="bg-transparent border border-[#cecbcb] dark:border-stone-600 mt-1 rounded-md py-2 h-[2.5rem] outline-none"
                         />
 
                         {/* Selector Accordion */}
                         <div>
-                            <label className={"font-[400] text-[#6B7888] text-[14px]"}>Select Verifier</label>
+                            <label className={"font-[400] text-[#6B7888] dark:border-stone-600 text-[14px]"}>Select Verifier</label>
                             <SelectorAccordion />
                         </div>
 
@@ -64,7 +70,7 @@ const ConfigBar = ({ display, setOn, data }) => {
                             baseClass=""
                             label="Select Publisher"
                             labelClass="font-[400] text-[#6B7888] text-[14px]"
-                            selectClass="bg-base-200 border border-[#cecbcb] mt-1 rounded-md py-2 h-[2.5rem] outline-none"
+                            selectClass="bg-transparent border border-[#cecbcb] dark:border-stone-600 mt-1 rounded-md py-2 h-[2.5rem] outline-none"
                         />
                     </div>
 

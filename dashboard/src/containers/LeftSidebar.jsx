@@ -46,7 +46,7 @@ function LeftSidebar() {
         </li>
 
         {routes.map((route, k) => (
-          <li className="mt-2 w-full flex justify-center " key={k}>
+          <li className="mt-2 w-full flex justify-center " key={k} title={route?.name}>
             <NavLink
               end
               to={route.path}

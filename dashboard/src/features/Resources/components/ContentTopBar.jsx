@@ -23,6 +23,7 @@ export default function ContentTopBar({ setWidth, raisePopup }) {
     const [info, setInfo] = useState(false)
     const infoRef = useRef(null)
 
+
     const deviceIcons = [
         { icon: <MdOutlineDesktopWindows />, label: 'Desktop', width: 1180 },
         { icon: <FiTablet />, label: 'Tablet', width: 768 },
@@ -44,15 +45,18 @@ export default function ContentTopBar({ setWidth, raisePopup }) {
 
     useEffect(() => {
         const handleClickOutside = (e) => {
-            if (infoRef.current && !infoRef.current.contains(e.target)) {
-                setInfo(false)
-            };
+            if (infoRef.current && !infoRef.current.contains(e.target) && e.target !== infoIconRef.current) {
+                setInfo(false);
+            }
         };
         document.addEventListener("mousedown", handleClickOutside);
         return () => {
             document.removeEventListener("mousedown", handleClickOutside);
-        }
-    }, [])
+        };
+    }, []);
+    
+    const infoIconRef = useRef(null); // Create a new ref for the info icon
+    
 
     return (
         <div className='flex justify-between gap-2 items-center xl:px-[2.36rem] xl:py-[1.2rem] sm:px-[.8rem] sm:py-[.5rem] lg:px-[.8rem] bg-[#fafaff] dark:bg-[#242933]'>
@@ -101,7 +105,7 @@ export default function ContentTopBar({ setWidth, raisePopup }) {
                     </div>
                     <div className='flex gap-2 border-r border-[#64748B] text-[black] pr-2 relative'>
                         <span className={`cursor-pointer`}><LuEye className={`${iconSize} ${smallIconSize} hover:text-[#64748B]`} /></span>
-                        <span className={`cursor-pointer`} onClick={() => setInfo(!info)}><IoIosInformationCircleOutline className={`${iconSize} ${smallIconSize} hover:text-[#64748B]`} /></span>
+                        <span ref={infoIconRef} className={`cursor-pointer`} onClick={() => info?setInfo(false):setInfo(true)}><IoIosInformationCircleOutline className={`${iconSize} ${smallIconSize} hover:text-[#64748B]`} /></span>
                         <div ref={infoRef} className={`absolute top-[100%] left-1/2 border bg-white w-[200px] shadow-xl rounded-lg text-xs p-2 ${info ? "block" : "hidden"}`} >
                             <p className='text-[#64748B]'>last saved:  <span className='text-[black]'>{"dd/mm/yyyy"}</span></p>  {/* last saved */}
                             <p className='text-[#64748B]'>status: <span className='text-[black]'> draft</span></p>   {/**status */}
@@ -109,13 +113,14 @@ export default function ContentTopBar({ setWidth, raisePopup }) {
                     </div>
                 </div>
                 <div className='flex gap-3 sm:gap-1'>
-                    <button onClick={raisePopup} className='flex justify-center items-center gap-1 bg-[#FF0000] rounded-md xl:h-[2.68rem] sm:h-[2rem] xl:text-xs sm:text-[.6rem] xl:w-[5.58rem] w-[4rem] text-[white]'>
+                    <button onClick={raisePopup.reject} className='flex justify-center items-center gap-1 bg-[#FF0000] rounded-md xl:h-[2.68rem] sm:h-[2rem] xl:text-xs sm:text-[.6rem] xl:w-[5.58rem] w-[4rem] text-[white]'>
                         <RxCross1 /> Reject
                     </button>
                     <Button text={'Draft'} classes='bg-[#26345C] rounded-md xl:h-[2.68rem] sm:h-[2rem] xl:text-xs sm:text-[.6rem] xl:w-[5.58rem] w-[4rem] text-[white]' />
-                    <Button text={'Submit'} functioning={raisePopup} classes='bg-[#29469D] rounded-md xl:h-[2.68rem] sm:h-[2rem] xl:text-xs sm:text-[.6rem] xl:w-[5.58rem] w-[4rem] text-[white]' />
+                    <Button text={'Submit'} functioning={raisePopup.submit} classes='bg-[#29469D] rounded-md xl:h-[2.68rem] sm:h-[2rem] xl:text-xs sm:text-[.6rem] xl:w-[5.58rem] w-[4rem] text-[white]' />
                 </div>
             </div>
+            
         </div>
     );
 }

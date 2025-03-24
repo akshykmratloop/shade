@@ -46,13 +46,13 @@ const SelectorAccordion = () => {
                 const isLast = index === selector.length - 1;
                 return (
                     <div key={index} className="flex items-center my-1 mt-[2px] gap-2">
-                        <p className="flex justify-center items-center rounded-lg font-[400] translate-y-[2px] w-[5rem] h-[2.2rem] bg-[#DFDFDF] text-[#637888] text-xs border-none">
+                        <p className="flex justify-center items-center rounded-lg font-[400] translate-y-[2px] w-[5rem] h-[2.2rem] bg-[#DFDFDF] dark:bg-[#29469c] text-[#637888] dark:text-[#cecece] text-xs border-none">
                             {select.label}
                         </p>
                         <Select
                             setterOnChange={updateSelectorValue}
                             index={index}
-                            selectClass="px-2 bg-base-200 mt-1 border border-stone-300 rounded-md p-2 outline-none"
+                            selectClass="px-2 bg-transparent mt-1 border border-stone-300 dark:border-stone-600 rounded-md p-2 outline-none"
                             height={""}
                             width={"w-[14rem]"}
                             options={dummyData}
@@ -61,7 +61,7 @@ const SelectorAccordion = () => {
 
                         <button
                             onClick={isLast ? addSelector : (e) => { e.preventDefault(); removeSelector(index); }}
-                            className={`flex justify-center items-center translate-y-[2px] rounded-lg w-[2.2rem] h-[2.2rem] text-[1.2rem] text-[#637888] border border-[#cecbcb]`}
+                            className={`flex justify-center items-center translate-y-[2px] rounded-lg w-[2.2rem] h-[2.2rem] text-[1.2rem] text-[#637888] border border-[#cecbcb] dark:border-stone-600`}
                         >
                             {isLast ? <GoPlus className="w-4 h-4" /> : <RxCross2 className="w-3 h-3" />}
                         </button>

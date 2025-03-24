@@ -66,6 +66,9 @@ function Resources() {
                                 <div className="absolute top-2 right-2 z-10 text-[1.5rem] p-2 rounded-full text-[blue]">
                                     <FiInfo />
                                 </div> */}
+                                <div className={` h-6 ${page.assign?'bg-[#29469c] w-[120px]':"bg-red-600 w-[140px]"} text-white flex items-center justify-center text-sm font-[300] clip-concave absolute top-3 left-0 z-30`}>
+                                    {page.assign?"Assigned":"Not assigned"}
+                                </div>
 
                                 {/* Background Image with Adjusted Dark Gradient */}
                                 <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/50 to-black/90 via-60%"></div>
