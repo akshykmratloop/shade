@@ -19,5 +19,7 @@ router.put(
   validate(updateUserSchema),
   tryCatchWrap(UserController.EditUserDetails)
 );
+router.put("/activate", tryCatchWrap(UserController.ActivateUser));
+router.put("/deactivate", tryCatchWrap(UserController.DeactivateUser));
 
 export default router;

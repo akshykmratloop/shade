@@ -21,7 +21,7 @@ router.post(
   tryCatchWrap(RolesController.CreateRole)
 );
 
-router.put("/update", tryCatchWrap(RolesController.UpdateRole));
+router.put("/update/:id", tryCatchWrap(RolesController.UpdateRole));
 
 router.put("/activate", tryCatchWrap(RolesController.ActivateRole));
 

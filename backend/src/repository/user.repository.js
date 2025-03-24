@@ -338,3 +338,29 @@ export const resetUserOtpAttempts = async () => {
     },
   });
 };
+
+export const userActivation = async (id) => {
+  const user = await prismaClient.user.update({
+    where: {
+      id: id,
+    },
+    data: {
+      status: "ACTIVE",
+    },
+  });
+
+  return user;
+};
+
+export const userDeactivation = async (id) => {
+  const user = await prismaClient.user.update({
+    where: {
+      id: id,
+    },
+    data: {
+      status: "INACTIVE",
+    },
+  });
+
+  return user;
+};
