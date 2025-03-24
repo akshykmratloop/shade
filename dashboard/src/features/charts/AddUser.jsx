@@ -27,7 +27,7 @@ const AddUserModal = ({ show, onClose, updateUsers, user }) => {
         phone: "",
         password: "",
         // image: "",
-        roles: [],
+        roles: [], 
     }
 
     const [userData, setUserData] = useState(initialUserState);
