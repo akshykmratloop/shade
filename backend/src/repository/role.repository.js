@@ -15,6 +15,7 @@ export const findRoles = async (searchTerm = "", status = "", page, limit) => {
       _count: {
         select: {
           permissions: true, // Count of permissions per role
+          users: true, // Count of users per role
         },
       },
       // permissions: {
@@ -67,11 +68,21 @@ export const findRoleById = async (id) => {
       permissions: {
         include: {
           permission: {
-            select: {subPermissions: {select: {subPermission: true}}},
+            include: {
+              subPermissions: {
+                select: {
+                  subPermission: true,
+                },
+              },
+            },
           },
         },
       },
-      users: {select: {user: true}},
+      users: {
+        select: {
+          user: true,
+        },
+      },
     },
   });
   // Check if the role is "SUPER_ADMIN"

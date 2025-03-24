@@ -7,6 +7,8 @@ import tryCatchWrap from "../../errors/tryCatchWrap.js";
 
 const router = Router();
 
+const requiredRoles = ["role"];
+
 router.get("/roles", tryCatchWrap(RolesController.GetRoles));
 
 router.get("/roleType", tryCatchWrap(RolesController.GetRoleType));

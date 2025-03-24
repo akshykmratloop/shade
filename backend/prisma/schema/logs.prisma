@@ -1,18 +1,19 @@
 // Store the action performed by user 
 model AuditLog {
-  id          String     @id @default(uuid())
-  actionType  String
-  entity      String
-  entityId    Int
-  oldValue    Json? // Stores old value as JSON (optional)
-  newValue    Json? // Stores new value as JSON (optional)
-  ipAddress   String?
-  browserInfo String?
-  outcome     logOutcome @default(Unknown) // E.g. 'Success' or 'Failure'
-  timestamp   DateTime   @default(now())
-  metadata    Json? // Any additional metadata (optional)
+  id               String     @id @default(uuid())
+  action_performed String
+  actionType       String
+  entity           String
+  entityId         Int
+  oldValue         Json? // Stores old value as JSON (optional)
+  newValue         Json? // Stores new value as JSON (optional)
+  ipAddress        String?
+  browserInfo      String?
+  outcome          logOutcome @default(Unknown) // E.g. 'Success' or 'Failure'
+  timestamp        DateTime   @default(now())
+  metadata         Json? // Any additional metadata (optional)
 
-  user        UserAuditLog?
+  user UserAuditLog?
 
   @@index([id])
 }
