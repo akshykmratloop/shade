@@ -1,5 +1,5 @@
 import rateLimit from "express-rate-limit";
-import { findOtpAttempts, blockUser } from "../repository/user.repository.js";
+import {findOtpAttempts, blockUser} from "../repository/user.repository.js";
 // Global rate limiter
 const globalRateLimiter = rateLimit({
   windowMs: 60 * 60 * 1000, // 1 hour
@@ -11,7 +11,7 @@ const globalRateLimiter = rateLimit({
 });
 
 // Rate limiter for generating OTP 15 otp per 15 minutes
-const generateOtpRateLimiter = rateLimit({
+export const generateOtpRateLimiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
   max: 15, // limit each IP to 15 requests per windowMs
   message: {
@@ -20,9 +20,11 @@ const generateOtpRateLimiter = rateLimit({
     blockedFor: `00:15:00`,
   },
 });
+
 const BLOCK_TIME_24H = 24 * 60 * 60 * 1000; // 24 hours
 const BLOCK_TIME_15M = 15 * 60 * 1000; // 15 minutes
 const BLOCK_TIME_1M = 1 * 60 * 1000; // 1 minute
+
 // Middleware for limiting resend opt and block user ip if limit exceeds
 const resendOtpRateLimiter = async (req, res, next) => {
   const userId = req.ip.replace(/^.*:/, ""); // Extract IP as user ID
@@ -51,7 +53,7 @@ const resendOtpRateLimiter = async (req, res, next) => {
     //   }`;
     return res
       .status(429)
-      .json({ message, blockedFor: `${hours}:${minutes}:${seconds}` });
+      .json({message, blockedFor: `${hours}:${minutes}:${seconds}`});
   }
   if (user.attempts >= 15) {
     // block user after 15 attempts for 24 hours
@@ -85,9 +87,5 @@ const resendOtpRateLimiter = async (req, res, next) => {
   }
   next();
 };
-export { globalRateLimiter, generateOtpRateLimiter, resendOtpRateLimiter };
 
-
-
-
-
+export {globalRateLimiter, resendOtpRateLimiter};

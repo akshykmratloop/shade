@@ -15,6 +15,7 @@ export const findRoles = async (searchTerm = "", status = "", page, limit) => {
       _count: {
         select: {
           permissions: true, // Count of permissions per role
+          users: true, // Count of users per role
         },
       },
       // permissions: {
@@ -67,11 +68,21 @@ export const findRoleById = async (id) => {
       permissions: {
         include: {
           permission: {
-            select: {subPermissions: {select: {subPermission: true}}},
+            include: {
+              subPermissions: {
+                select: {
+                  subPermission: true,
+                },
+              },
+            },
           },
         },
       },
-      users: {select: {user: true}},
+      users: {
+        select: {
+          user: true,
+        },
+      },
     },
   });
   // Check if the role is "SUPER_ADMIN"
@@ -105,6 +116,29 @@ export const createNewRoles = async (name, roleTypeId, permissionsArray) => {
   return {roles};
 };
 
+export const updateRoleById = async (
+  id,
+  roleName,
+  roleTypeId,
+  permissionsArray
+) => {
+  const role = await prismaClient.role.update({
+    where: {id},
+    data: {
+      name: roleName,
+      roleTypeId,
+      permissions: {
+        deleteMany: {},
+        create: permissionsArray.map((permissionId) => ({
+          permissionId: permissionId,
+        })),
+      },
+    },
+  });
+  if (!role) return false; // for handling the assert through false
+  return {role};
+};
+
 export const roleActivation = async (id) => {
   const role = await prismaClient.role.update({
     where: {
@@ -131,17 +165,17 @@ export const roleDeactivation = async (id) => {
   return role;
 };
 
-export const updateRoleinDB = async (id, updateObj) => {
-  // confirming the for the role to exist
-  const confirmRole = await findRoleById(id);
+// export const updateRoleinDB = async (id, updateObj) => {
+//   // confirming the for the role to exist
+//   const confirmRole = await findRoleById(id);
 
-  if (!confirmRole) return false;
+//   if (!confirmRole) return false;
 
-  console.log(updateObj);
-  const role = prismaClient.role.update({
-    where: {id: id},
-    data: updateObj,
-  });
+//   console.log(updateObj);
+//   const role = prismaClient.role.update({
+//     where: {id: id},
+//     data: updateObj,
+//   });
 
-  return role;
-};
+//   return role;
+// };

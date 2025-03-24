@@ -4,6 +4,8 @@ import {
   fetchAllUsers,
   updateUser,
   findUserById,
+  userActivation,
+  userDeactivation,
 } from "../../repository/user.repository.js";
 import {assert, assertEvery} from "../../errors/assertError.js";
 import {logger} from "../../config/logConfig.js";
@@ -33,4 +35,26 @@ const findUserByEmail = async (email) => {
   return prisma.user.findUnique({where: {email}});
 };
 
-export {createUser, findUserByEmail, getAllUsers, getUserById, editUserDetails};
+const activateUsers = async (id) => {
+  const user = await userActivation(id);
+  assert(user, "USER_INVALID", "user not found");
+  logger.info({response: `user ${id} is active now`});
+  return {message: "User activated successfully", ok: true}; // if everything goes fine
+};
+
+const deactivateUsers = async (id) => {
+  const user = await userDeactivation(id);
+  assert(user, "USER_INVALID", "user not found");
+  logger.info({response: `user ${id} is deactive now`});
+  return {message: "User deactivated successfully", ok: true}; // if everything goes fine
+};
+
+export {
+  createUser,
+  findUserByEmail,
+  getAllUsers,
+  getUserById,
+  editUserDetails,
+  activateUsers,
+  deactivateUsers,
+};

@@ -35,10 +35,16 @@ const CreateRole = async (req, res) => {
   res.status(201).json(result);
 };
 
+// const UpdateRole = async (req, res) => {
+//   const {id} = req.body;
+//   delete req.body.id;
+//   const result = await updateRole(id, req.body);
+//   res.status(202).json(result);
+// };
 const UpdateRole = async (req, res) => {
-  const {id} = req.body;
-  delete req.body.id;
-  const result = await updateRole(id, req.body);
+  const {id} = req.params;
+  const {roleName, roleTypeId, permissionsArray} = req.body;
+  const result = await updateRole(id, roleName, roleTypeId, permissionsArray);
   res.status(202).json(result);
 };
 
