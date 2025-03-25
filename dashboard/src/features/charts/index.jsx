@@ -4,7 +4,7 @@ import PlusIcon from '@heroicons/react/24/outline/PlusIcon';
 import { toast, ToastContainer } from "react-toastify";
 // self modules
 import SearchBar from "../../components/Input/SearchBar";
-import { activateRole, deactivateRole } from "../../app/fetch";
+import { activateUser, deactivateUser } from "../../app/fetch";
 import TitleCard from "../../components/Cards/TitleCard";
 import AddUserModal from "./AddUser";
 import UserDetailsModal from "./ShowRole";
@@ -115,13 +115,12 @@ function Users() {
         const filteredRoles = originalUsers.filter(user =>
             user.name.toLowerCase().includes(value.toLowerCase())
         );
-        console.log(filteredRoles)
         setUsers(filteredRoles);
     };
 
     const statusChange = async (role) => {
         const loadingToastId = toast.loading("Processing...", { autoClose: 2000 });
-        let response = role.status === "ACTIVE" ? await deactivateRole(role) : await activateRole(role);
+        let response = role.status === "ACTIVE" ? await deactivateUser(role) : await activateUser(role);
         if (response.ok) {
             updateToasify(loadingToastId, `Request successful. ${response.message}`, "success", 1000);
             setChangesInUser(prev => !prev);

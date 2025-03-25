@@ -268,9 +268,22 @@ export async function updateUser(data) {
 }
 
 export async function getUserById(id) {
-  console.log(id)
   return await makerequest(
     api.route("getUserById") + id,
     "GET",
+  )
+}
+
+export async function activateUser(id) {
+  return await makerequest(
+    api.route("activateUser") + id,
+    "PUT",
+  )
+}
+
+export async function deactivateUser(id) {
+  return await makerequest(
+    api.route("deactivateUser") + id,
+    "PUT",
   )
 }

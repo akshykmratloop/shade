@@ -32,6 +32,8 @@ const api = {
   createUser: `${user}/create`,
   getUserById: `${user}/`,
   updateUser: `${user}/updateUser/`,
+  activateUser: `${user}/activate/`,
+  deactivateUser: `${user}/deactivate/`,
 
   route(route) {
     if (this[route]) {

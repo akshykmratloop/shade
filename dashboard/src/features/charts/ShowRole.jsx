@@ -9,6 +9,14 @@ function UserDetailsModal({ user, show, onClose }) {
     const modalRef = useRef(null)
     const [fetchedUser, setFetchedUser] = useState({})
 
+    const permissions = [];
+
+    fetchedUser?.roles?.forEach((role) => {
+        role.role.permissions.forEach((permission) => {
+            permissions.push(permission.permission)
+        })
+    })
+
     useEffect(() => {
         const handleClickOutside = (e) => {
             if (modalRef.current && modalRef.current.contains(e.target)) {
@@ -59,7 +67,7 @@ function UserDetailsModal({ user, show, onClose }) {
                             </thead>
                             <tbody style={{ borderBottom: "1px solid #E0E0E0" }}>
                                 <tr className="font-light text-sm ">
-                                    <td className="pt-2 pr-[60px]">Name</td>
+                                    <td className="pt-2 pr-[60px] w-[188px]">Name</td>
                                     <td className="pt-2">Email</td>
                                     <td className="pt-2">Phone</td>
                                 </tr>
@@ -85,7 +93,7 @@ function UserDetailsModal({ user, show, onClose }) {
                                     <td className="py-2 pb-7"
                                     >
                                         <div className="flex gap-2 flex-wrap w-[50px] relative">
-                                            <div className="absolute flex gap-2 flex-wrap w-[200px] top-[-14px]">
+                                            <div className="absolute flex gap-2 flex-wrap w-[200px] top-[-26.5px]">
                                                 {fetchedUser?.roles?.map((role, i, a) => {
                                                     console.log(role)
                                                     let lastElement = i === a.length - 1
@@ -94,24 +102,18 @@ function UserDetailsModal({ user, show, onClose }) {
                                             </div>
                                         </div>
                                     </td>
-                                    <td className="py-2 pb-10 border ">
-                                        {
-                                            fetchedUser?.roles?.map((role, i, a) => {
-                                                console.log(role.role)
+                                    <td className="py-2 pb-10">
+                                        <div className="flex flex-wrap gap-1">
+                                            {permissions.map((permission, i, a) => {
+                                                let lastElement = i === a.length - 1;
                                                 return (
-                                                    <div key={role.role.id}>
-                                                        {
-                                                            role.role.permissions.map((permission, index, array) => {
-                                                                console.log(permission)
-                                                                return (
-                                                                    <span key={permission.permission.id} className="border">{capitalizeWords(permission?.permission?.name)}, </span>
-                                                                )
-                                                            })
-                                                        }
-                                                    </div>
-                                                )
-                                            })
-                                        }
+                                                    <span key={permission.id} className="mr-1">
+                                                        {capitalizeWords(permission.name)}{!lastElement && `, `}
+                                                    </span>
+                                                );
+                                            })}
+                                        </div>
+
                                     </td>
                                 </tr>
                             </tbody>
