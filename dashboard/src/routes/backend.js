@@ -1,8 +1,11 @@
 const BASE_URL = "http://localhost:3000/";
 
+// console.log(process.env)
+
 const auth = "auth";
 const role = "role";
 const permission = "permission";
+const user = "user"
 
 const api = {
   login: `${auth}/login`, // API for Auth
@@ -23,8 +26,14 @@ const api = {
   deactivateRole: `${role}/deactivate`,
   updateRole: `${role}/update`,
 
-  //permisions
-  fetchPermissionsByRoleType: `${permission}/permissionsByRoleType/`,
+  fetchPermissionsByRoleType: `${permission}/permissionsByRoleType/`,  //permisions
+
+  getUsers: `${user}/getAllUsers`, // API for users from here
+  createUser: `${user}/create`,
+  getUserById: `${user}/`,
+  updateUser: `${user}/updateUser/`,
+  activateUser: `${user}/activate/`,
+  deactivateUser: `${user}/deactivate/`,
 
   route(route) {
     if (this[route]) {

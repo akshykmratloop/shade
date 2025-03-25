@@ -29,6 +29,7 @@ import "swiper/css/pagination";
 // import { useGlobalContext } from "../../contexts/GlobalContext";
 import blankImage from "../../../../assets/images/blankImage.webp";
 import { isPlainObject } from "@reduxjs/toolkit";
+import { TruncateText } from "../../../../app/capitalizeword";
 // import dynamic from 'next/dynamic';
 // const AnimatedText = dynamic(() => import('@/common/AnimatedText'), { ssr: false });
 // import ContactUsModal from "../header/ContactUsModal";
@@ -79,12 +80,6 @@ const HomePage = ({ language, screen }) => {
     );
     const ProjectSlider = { ...recentProjects, ...markets, ...safety };
 
-    const TruncateText = (text, length) => {
-        if (text.length > (length || 50)) {
-            return `${text.slice(0, length || 50)}...`;
-        }
-        return text;
-    };
 
     useEffect(() => {
         if (swiperInstance) {
@@ -136,8 +131,7 @@ const HomePage = ({ language, screen }) => {
                             {currentContent?.homeBanner?.description[language]}
                         </p>
                         <button
-                            className={`relative items-center flex ${isEnglish ? "" : "flex-row-reverse"} gap-1 text-[12px] font-medium px-[12px] py-[8px] ${language === "en" ? "py-[10px] px-[35px]" : ""
-                                } bg-blue-500 text-white rounded-md`}
+                            className={`relative items-center flex ${isEnglish ? "" : "flex-row-reverse"} gap-1 text-[12px] font-medium px-[12px] py-[8px] px-[24px]  bg-blue-500 text-white rounded-md`}
                             onClick={() => { }}
                         >
                             <span>{currentContent?.homeBanner?.buttonText[language]}</span>
@@ -156,7 +150,7 @@ const HomePage = ({ language, screen }) => {
             <section className={` ${isPhone ? "px-2 py-[60px]" : "px-10 py-[120px]"} ${language === "en" ? "" : " direction-rtl"} items-start`}>
                 <div className={`relative container mx-auto flex ${isPhone ? "flex-col" : ""} ${isEnglish ? "" : "flex-row-reverse"} items-center`}>
                     {/* Image section */}
-                    <div className={`${isPhone ? "w-[90%]" : "w-[70%]"} border border-sky-800 h-[500px] overflow-hidden rounded-sm shadow-lg`}>
+                    <div className={`${isPhone ? "w-[90%]" : "w-[70%]"} border border-[#00B9F2] h-[500px] overflow-hidden rounded-sm shadow-lg`}>
                         <img src={ImagesFromRedux.aboutUsSection || AboutUs} alt="about-us" className="w-full h-[500px] object-cover" />
                     </div>
                     {/* About content */}
@@ -236,14 +230,14 @@ const HomePage = ({ language, screen }) => {
                         </div>
                     </div>
                     <div className={`max-w-[420px] ${isPhone ? "" : "pt-12"} flex-1`}>
-                        <h2 className="text-sky-500 text-4xl font-bold leading-[50px] mb-6 ">
+                        <h2 className="text-[#00B9F2] text-4xl font-bold leading-[50px] mb-6 ">
                             {currentContent?.experienceSection?.title[language]}
                         </h2>
                         <p className="text-black text-base text-md font-light leading-6 mb-8">
                             {currentContent?.experienceSection?.description[language]}
                         </p>
                         <button
-                            className={`text-white bg-sky-500 px-[12px] py-1 text-lg rounded-md ${language === "ar" ? 'px-9 py-4' : ''}`}
+                            className={`text-white bg-[#00B9F2] px-[12px] py-1 text-sm text-lg rounded-md ${language === "ar" ? '!px-4' : ''}`}
                             onClick={() => setIsModal(true)}
                         >
                             {currentContent?.experienceSection?.buttonText?.[language]}
@@ -279,7 +273,7 @@ const HomePage = ({ language, screen }) => {
                     </div>
                     <div className={`flex ${isTablet ? isPhone ? "gap-[30px]" : "gap-[70px]" : "gap-[30px]"}`}>
                         <div className="leftDetails">
-                            {currentContent.recentProjectsSection?.sections?.map((section, index) => (
+                            {currentContent?.recentProjectsSection?.sections?.map((section, index) => (
                                 <div
                                     key={index}
                                     className={`relative ${!isEnglish ? 'rtl' : ''}`}
@@ -351,7 +345,7 @@ const HomePage = ({ language, screen }) => {
                                                                     : blankImage}
                                                             />
                                                         </div>
-                                                        <div className="p-[18px_12px_12px_12px] flex flex-col justify-center items-start gap-[16px] bg-sky-500">
+                                                        <div className="p-[18px_12px_12px_12px] flex flex-col justify-center items-start gap-[16px] bg-[#00B9F2]">
                                                             <h5
                                                                 title={project?.title[language]}
                                                                 className="text-white text-[20px] font-semibold leading-[normal] h-[40px]"
@@ -380,7 +374,7 @@ const HomePage = ({ language, screen }) => {
                                 style={{ width: isComputer ? "" : isPhone ? "220px" : `${(400 / 1180) * screen}px` }}
                             // ${projectChunks?.length <= 1 ? 'hidden' : ''}
                             >
-                                <button ref={prevRef} className={`py-[12px] px-[20px] text-sky-500 text-md font-medium border-[1px] border-sky-500 rounded-[6px] flex items-center ${isPhone ? "w-[120px]" : "min-w-[246px]"} justify-center ${language === "ar" && "flex-row-reverse"} bg-white text-primary transition-all duration-200`}>
+                                <button ref={prevRef} className={`py-[12px] px-[20px] text-[#00B9F2] text-md font-medium border-[1px] border-[#00B9F2] rounded-[6px] flex items-center ${isPhone ? "w-[120px]" : "min-w-[246px]"} justify-center ${language === "ar" && "flex-row-reverse"} bg-white text-primary transition-all duration-200`}>
                                     <img
                                         src="https://frequencyimage.s3.ap-south-1.amazonaws.com/b2872383-e9d5-4dd7-ae00-8ae00cc4e87e-Vector%20%286%29.svg"
                                         width="18"
@@ -393,7 +387,7 @@ const HomePage = ({ language, screen }) => {
                                         currentContent?.recentProjectsSection?.buttons[1]?.text[language]
                                     }
                                 </button>
-                                <button ref={nextRef} className={`py-[12px] px-[20px] text-sky-500 text-md font-medium border-[1px] border-sky-500 rounded-[6px] flex items-center ${isPhone ? "w-[120px]" : "min-w-[246px]"} justify-center ${language === "ar" && "flex-row-reverse"} bg-white text-primary transition-all duration-200`}>
+                                <button ref={nextRef} className={`py-[12px] px-[20px] text-[#00B9F2] text-md font-medium border-[1px] border-[#00B9F2] rounded-[6px] flex items-center ${isPhone ? "w-[120px]" : "min-w-[246px]"} justify-center ${language === "ar" && "flex-row-reverse"} bg-white text-primary transition-all duration-200`}>
                                     {!isPhone &&
                                         currentContent?.recentProjectsSection?.buttons[2]?.text[language]
                                     }{" "}
@@ -413,7 +407,7 @@ const HomePage = ({ language, screen }) => {
             </section>
 
             {/* client section */}
-            <section className="bg-sky-500 py-12 relative">
+            <section className="bg-[#00B9F2] py-12 relative">
                 <img
                     src="https://frequencyimage.s3.ap-south-1.amazonaws.com/98d10161-fc9a-464f-86cb-7f69a0bebbd5-Group%2061%20%281%29.svg"
                     width="143"
@@ -556,7 +550,7 @@ const HomePage = ({ language, screen }) => {
                         <div className={`flex justify-center items-center gap-7 mt-5 ${!isEnglish && "flex-row-reverse"}`}>
                             <button
                                 ref={testimonialPrevRef}
-                                className="w-[42px] h-[42px] rounded-full border border-sky-500 flex justify-center items-center cursor-pointer"
+                                className="w-[42px] h-[42px] rounded-full border border-[#00B9F2] flex justify-center items-center cursor-pointer"
                             >
                                 <img
                                     src="https://frequencyimage.s3.ap-south-1.amazonaws.com/b2872383-e9d5-4dd7-ae00-8ae00cc4e87e-Vector%20%286%29.svg"
@@ -568,7 +562,7 @@ const HomePage = ({ language, screen }) => {
                             </button>
                             <button
                                 ref={testimonialNextRef}
-                                className="w-[42px] h-[42px] rounded-full border border-sky-500 flex justify-center items-center cursor-pointer"
+                                className="w-[42px] h-[42px] rounded-full border border-[#00B9F2] flex justify-center items-center cursor-pointer"
                             >
                                 <img
                                     src="https://frequencyimage.s3.ap-south-1.amazonaws.com/de8581fe-4796-404c-a956-8e951ccb355a-Vector%20%287%29.svg"
@@ -612,7 +606,7 @@ const HomePage = ({ language, screen }) => {
                             {currentContent?.newProjectSection?.description2[language]}
                         </p>
                         <button
-                            className="bg-sky-500 text-white px-6 py-4 text-lg mt-11 mx-auto block rounded"
+                            className="bg-[#00B9F2] text-xs text-white px-4 py-2 text-lg mt-11 mx-auto block rounded"
                             onClick={() => setIsModal(true)}
                         >
                             {currentContent?.newProjectSection?.button?.[language]}

@@ -22,7 +22,7 @@ function LeftSidebar() {
   }, [dispatch]);
 
   return (
-    <div className="flex-1 p-4 text-sm">
+    <div className="flex-1 p-4 text-sm pb-8">
       <ul
         className={`menu relative ${isCollapsed ? "w-[81px]" : "w-56"} transition-all duration-500 bg-[#fafaff] dark:bg-[#242933] text-base-content h-full rounded-lg`}
       >
@@ -46,7 +46,7 @@ function LeftSidebar() {
         </li>
 
         {routes.map((route, k) => (
-          <li className="mt-2 w-full flex justify-center " key={k}>
+          <li className="mt-2 w-full flex justify-center " key={k} title={route?.name}>
             <NavLink
               end
               to={route.path}
@@ -54,8 +54,8 @@ function LeftSidebar() {
                 `${isActive ? "font-semibold bg-base-200" : "font-normal"} pl-7 w-full flex items-center gap-2`
               }
             >
-              {route.icon} {!isCollapsed && route.name}
-              {location.pathname === route.path && (
+              {route?.icon} {!isCollapsed && route?.name}
+              {location?.pathname === route.path && (
                 <span
                   className="absolute inset-y-0 left-0 w-1 bg-primary"
                   aria-hidden="true"

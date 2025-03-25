@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import { useEffect, useState, useRef } from "react";
 import InputText from "../../components/Input/InputText";
 import {
   fetchRoleType,
@@ -6,25 +6,34 @@ import {
   createRole,
   updateRole,
 } from "../../app/fetch";
-import {toast, ToastContainer} from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import validator from "../../app/valid";
 import updateToasify from "../../app/toastify";
+import { X } from "lucide-react";
+import CloseModalButton from "../../components/Button/CloseButton";
 
-const AddRoleModal = ({show, onClose, updateRoles, role}) => {
-  const [errorMessageRole, setErrorMessageRole] = useState("");
-  const [errorMessageDescription, setErrorMessageDescription] = useState("");
-  const [roleData, setRoleData] = useState({
+const AddRoleModal = ({ show, onClose, updateRoles, role }) => {
+  const freshObject = {
     name: "",
     selectedRoletype: "",
     roleTypes: [],
     selectedPermissions: [],
     fetchedPermissions: [],
     fetchedRoletype: [],
-  });
+  }
+  const [errorMessageRole, setErrorMessageRole] = useState("");
+  const [errorMessageRoleType, setErrorMessageRoleType] = useState("");
+  const [errorMessagePermission, setErrorMessagePermission] = useState("");
+
+  const [roleData, setRoleData] = useState(freshObject);
+
+
+  const modalRef = useRef(null)
 
   function clearErrorMessage() {
     setErrorMessageRole("");
-    setErrorMessageDescription("");
+    setErrorMessageRoleType("");
+    setErrorMessagePermission("")
   }
 
   const handleFormSubmit = async (e) => {
@@ -35,9 +44,12 @@ const AddRoleModal = ({show, onClose, updateRoles, role}) => {
       roleData.selectedPermissions
     );
 
+    console.log(roleData)
+
     const validation = validator(roleData, {
       name: setErrorMessageRole,
-      description: setErrorMessageDescription,
+      selectedRoletype: setErrorMessageRoleType,
+      selectedPermissions: setErrorMessagePermission
     });
     if (!validation) return;
 
@@ -55,7 +67,7 @@ const AddRoleModal = ({show, onClose, updateRoles, role}) => {
 
     let response;
     if (role) {
-      response = await updateRole({...rolePayload, id: role.id});
+      response = await updateRole({ ...rolePayload, id: role.id });
     } else {
       response = await createRole(rolePayload);
     }
@@ -81,6 +93,12 @@ const AddRoleModal = ({show, onClose, updateRoles, role}) => {
     }
   };
 
+  const modalClose = () => {
+    onClose()
+    setRoleData(freshObject)
+    clearErrorMessage()
+  }
+
   useEffect(() => {
     async function fetchRoleTypeData() {
       const response = await fetchRoleType();
@@ -99,7 +117,7 @@ const AddRoleModal = ({show, onClose, updateRoles, role}) => {
 
   //   useEffect(() => {}, []);
 
-  const updateFormValue = async ({updateType, value}) => {
+  const updateFormValue = async ({ updateType, value }) => {
     clearErrorMessage();
     setRoleData((prevState) => ({
       ...prevState,
@@ -153,63 +171,85 @@ const AddRoleModal = ({show, onClose, updateRoles, role}) => {
     }
   };
 
-  console.log(roleData, "permissions");
-  if (!show) return null;
+  useEffect(() => {
+    setErrorMessagePermission("")
+  }, [roleData.selectedPermissions])
 
-  console.log("selectedpermissions", roleData);
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (modalRef.current && !modalRef.current.contains(e.target)) {
+        modalClose();
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+
+
+  if (!show) return null;
   return (
-    <div className="modal modal-open">
-      <div className="modal-box !max-w-[45rem] p-14 relative flex items-start flex-col gap-6">
-        <button
-          className="btn btn-md btn-circle bg-transparent border-none absolute right-2 top-2"
-          onClick={onClose}
-        >
-          ✕
-        </button>
-        <h3 className="font-bold text-lg">
-          {role ? "Edit Role" : "Add New Role"}
-        </h3>
+    <div className="modal-overlay fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-30"
+      onClick={modalClose} // Clicking anywhere on the overlay will close the modal
+    >
+      <div className="modal modal-open relative bg-white dark:bg-[#242933] p-6 w-[35rem] min-h-[30rem] rounded-lg shadow-lg flex flex-col justify-start" ref={modalRef}
+        onClick={(e) => e.stopPropagation()} // Prevents closing when clicking inside the modal
+      >
+
+        <CloseModalButton onClickClose={modalClose} />
+        <h3 className="font-semibold text-2xl w-full">{role ? "Edit Role" : "Add Role"}</h3>
+
         <form
           onSubmit={handleFormSubmit}
-          className="flex flex-col items-start w-full gap-4"
+          className="flex flex-col items-start w-full gap-4 h-[420px] justify-between"
         >
-          {/* Name Field */}
-          <InputText
-            placeholder="Ex. John Doee"
-            name="name"
-            defaultValue={roleData.name}
-            updateType="name"
-            containerStyle="mt-4"
-            labelTitle="Role Name"
-            updateFormValue={updateFormValue}
-            errorMessage={errorMessageRole}
-          />
+          <div className="w-full flex flex-col gap-3">
+            <div className="flex justify-center w-full items-center gap-2">
+              {/* Name Field */}
+              <InputText
+                placeholder="Ex. John Doee"
+                name="name"
+                defaultValue={roleData.name}
+                updateType="name"
+                containerStyle="mt-4 flex-1"
+                labelTitle="Role Name"
+                updateFormValue={updateFormValue}
+                errorMessage={errorMessageRole}
+              />
 
-          {/* Role Type Field */}
-          <InputText
-            type="select"
-            name="userRole"
-            placeholder="Select Role"
-            updateType="userRole"
-            labelTitle="Role Type"
-            defaultValue={roleData.selectedRoletype}
-            options={roleData.fetchedRoletype}
-            updateFormValue={(value) => {
-              updateFormValue({updateType: "userRole", value: value.value});
-            }}
-            errorMessage={errorMessageRole}
-          />
+              {/* Role Type Field */}
+              <div className="flex-1 translate-y-1">
+                <InputText
+                  type="select"
+                  name="userRole"
+                  placeholder="Select Role"
+                  updateType="userRole"
+                  labelTitle="Role Type"
+                  defaultValue={roleData.selectedRoletype}
+                  options={roleData.fetchedRoletype}
+                  updateFormValue={(value) => {
+                    updateFormValue({ updateType: "userRole", value: value.value });
+                  }}
+                  errorMessage={errorMessageRoleType}
+                />
+              </div>
+            </div>
 
-          <InputText
-            type="checkbox"
-            name="permissions"
-            labelTitle="Permissions"
-            updateType="selectedPermissions"
-            defaultValue={roleData.selectedPermissions}
-            options={roleData.fetchedPermissions}
-            updateFormValue={updateFormValue}
-            errorMessage={errorMessageRole}
-          />
+            <InputText
+              display={!roleData.selectedRoletype}
+              type="checkbox"
+              name="permissions"
+              labelTitle="Permissions"
+              updateType="selectedPermissions"
+              defaultValue={roleData.selectedPermissions}
+              options={roleData.fetchedPermissions}
+              updateFormValue={updateFormValue}
+              errorMessage={errorMessagePermission}
+              errorClass={"-top-6 text-xs gap-1"}
+            />
+          </div>
 
           {/* <div className="permissions">
             {roleData.fetchedPermissions.map((permission) => (
@@ -220,16 +260,13 @@ const AddRoleModal = ({show, onClose, updateRoles, role}) => {
           </div> */}
 
           <div className="modal-action self-end">
-            <button
-              type="button"
-              className="rounded-md h-[2.5rem] px-4 text-sm btn-ghost"
-              onClick={onClose}
-            >
+            <button type="button" className="rounded-md h-[2.5rem] w-[8rem] px-4 flex-[1] border border-stone-200 text-sm btn-ghost"
+              onClick={modalClose}>
               Cancel
             </button>
             <button
               type="submit"
-              className="rounded-md h-[2.5rem]  px-4 text-sm bg-[#25439B] text-[white]"
+              className="rounded-md h-[2.5rem] w-[8rem] px-4 text-sm bg-[#25439B] text-[white]"
             >
               Save
             </button>

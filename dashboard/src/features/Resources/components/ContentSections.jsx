@@ -81,6 +81,7 @@ const ContentSection = ({
                         defaultValue={valueExpression || ""}
                         language={language}
                         id={input.updateType}
+                        required={false}
                     />
                 );
             }) : ""}
@@ -98,7 +99,7 @@ const ContentSection = ({
                     {extraFiles.map((file, index) => (
                         <div key={index} className="relative flex items-center justify-center">
                             <button
-                                className="absolute top-6 z-0 right-[-8px] bg-red-500 text-white px-1 rounded-full shadow"
+                                className="absolute top-6 z-10 right-[-8px] bg-red-500 text-white px-1 rounded-full shadow"
                                 onClick={() => removeExtraFileInput(file.id)}
                             >
                                 ✖
@@ -113,7 +114,7 @@ const ContentSection = ({
                     {
                         allowExtraInput &&
                         <button
-                            className="mt-2 px-3 py-2 bg-blue-500 text-white rounded-full self-center text-xl"
+                            className="mt-2 px-3 py-2 bg-blue-500 h-[95px] w-[95px] text-white rounded-lg translate-y-3 self-center text-xl"
                             onClick={addExtraFileInput}
                         >
                             +

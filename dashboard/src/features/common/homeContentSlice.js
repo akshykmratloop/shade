@@ -47,7 +47,7 @@ const cmsSlice = createSlice({
         updateSelectedContent: (state, action) => {
             state.past.push(JSON.parse(JSON.stringify(state.present)));
             const selectedMap = new Map(
-                action.payload.selected?.filter(e => e.display).map((item, index) => [item.title[action.payload.language], index])
+                action.payload?.selected?.filter(e => e.display).map((item, index) => [item.title[action.payload.language], index])
             );
             let newOptions = action.payload.newArray?.map(e => ({
                 ...e,
@@ -70,27 +70,53 @@ const cmsSlice = createSlice({
             }
             state.future = [];
         },
+        updateAllProjectlisting: (state, action) => {
+            state.past.push(JSON.parse(JSON.stringify(state.present)))
+
+            if (action.payload.action === 'update') {
+                state.present.projects.projectsSection.allProjectsList = [...action.payload.selected]
+                console.log("action")
+            }
+            else if(action.payload.action === 'initial') {
+                console.log("action2")
+                state.present.projects.projectsSection.allProjectsList = action.payload.data ?? []
+            }
+
+            state.future = []
+        },
         updateMarketSelectedContent: (state, action) => {
             state.past.push(JSON.parse(JSON.stringify(state.present)));
-            const selectedMap = new Map(
-                action.payload.selected?.filter(e => e.type).map((item, index) => [item.title[action.payload.language], index])
-            );
-            let newOptions = action.payload.newArray?.map(e => ({
-                ...e,
-                type: selectedMap.has(e.title[action.payload.language])
-            }));
-            newOptions.sort((a, b) => {
-                const indexA = selectedMap.get(a.title[action.payload.language]) ?? Infinity;
-                const indexB = selectedMap.get(b.title[action.payload.language]) ?? Infinity;
-                return indexA - indexB;
-            })
+            const newSet = new Set(action.payload?.selected?.map(e => e.id))
+            let newArray;
+            if (action.payload.newOption === null) {
+                newArray = action.payload.newArray.filter(e => {
+                    return !(newSet.has(e.id))
+                })
+
+                action.payload?.selected?.forEach(element => {
+                    newArray.push(element)
+                });
+
+            } else {
+                newArray = action.payload.newArray.map(option => {
+                    if (option.id === action.payload.newOption.id) {
+                        return action.payload.newOption
+                    } else return option
+                })
+            }
+
             switch (action.payload.origin) {
                 case "markets":
-                    state.present[action.payload?.currentPath].tabSection.marketItems = newOptions;
+                    state.present[action.payload.currentPath].tabSection.marketItems = newArray
+                    break;
+
+                case "projects":
+                    state.present[action.payload.currentPath].projectsSection.projects = newArray
                     break;
 
                 default:
             }
+
             state.future = []
         },
         undo: (state) => {
@@ -109,5 +135,5 @@ const cmsSlice = createSlice({
     }
 });
 
-export const { updateImages, removeImages, updateContent, updateSpecificContent, updateServicesNumber, updateSelectedContent, undo, redo } = cmsSlice.actions;
+export const { updateImages, removeImages, updateContent, updateSpecificContent, updateServicesNumber, updateSelectedContent, updateMarketSelectedContent, updateAllProjectlisting, undo, redo } = cmsSlice.actions;
 export default cmsSlice.reducer;

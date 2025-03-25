@@ -7,7 +7,7 @@ const SolutionManager = ({ currentPath, language, currentContent }) => {
             {/* banner */}
             <ContentSection
                 currentPath={currentPath}
-                Heading={"About Banner"}
+                Heading={"Solution Banner"}
                 inputs={[
                     { input: "input", label: "Heading/title", updateType: "title" },
                     { input: "textarea", label: "Description", updateType: "description" },
@@ -22,7 +22,7 @@ const SolutionManager = ({ currentPath, language, currentContent }) => {
             {/**What We Do */}
             <ContentSection
                 currentPath={currentPath}
-                Heading={"About Section 2"}
+                Heading={"Solution Section 2"}
                 inputs={[
                     { input: "input", label: "Heading/title", updateType: "title" },
                     { input: "textarea", label: "Description 1", updateType: "description1" },
