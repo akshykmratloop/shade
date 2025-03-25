@@ -87,7 +87,7 @@ const AddRoleModal = ({ show, onClose, updateRoles, role }) => {
       updateToasify(
         loadingToastId,
         `Request failed. ${response.message}`,
-        "failure",
+        "error",
         2000
       );
     }

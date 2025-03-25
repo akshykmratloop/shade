@@ -1,11 +1,18 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Dialog } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import userIcon from "../../assets/user.png"
 import formatTimestamp from "../../app/TimeFormat";
+import { getRoleById } from "../../app/fetch";
+import capitalizeWords from "../../app/capitalizeword";
 
 
 function RoleDetailsModal({ role, show, onClose }) {
+    const [fetchedRole, setFetchedRole] = useState({})
+    const [loading, setLoading] = useState(true)
+    const [error, setError] = useState(true)
+
+    console.log(fetchedRole)
 
     const modalRef = useRef(null)
 
@@ -21,14 +28,36 @@ function RoleDetailsModal({ role, show, onClose }) {
         }
     }, [])
 
+    useEffect(() => {
+        async function getUser() {
+            if (!role?.id) return;
+            setLoading(true);
+            try {
+                const response = await getRoleById(role.id);
+                setTimeout(() => {
+                    setFetchedRole(response.role);
+                    setError(false);
+                }, 200)
+            } catch (err) {
+                setError(true);
+            } finally {
+                setTimeout(() => {
+
+                    setLoading(false);
+                }, 200)
+            }
+        }
+        getUser();
+    }, [role]);
+
     if (!role) return null;
 
     return (
         <Dialog open={show} onClose={onClose} className="relative z-50">
             <div className="fixed inset-0 bg-black/50" aria-hidden="true" />
-            <div className="fixed inset-0 flex items-center justify-center p-4">
+            <div ref={modalRef} className="fixed inset-0 flex items-center justify-center p-4">
                 <Dialog.Panel className="w-[653px] h-[600px] overflow-y-scroll customscroller shadow-lg shadow-stone rounded-lg bg-[white] dark:bg-slate-800 p-6">
-                    <div ref={modalRef} className="flex justify-between items-center mb-4">
+                    <div className="flex justify-between items-center mb-4">
                         <Dialog.Title className="text-lg font-[500]">Role Details</Dialog.Title>
                         <button onClick={onClose} className="bg-transparent hover:bg-stone-300 dark:hover:bg-stone-700 rounded-full border-none p-2 py-2">
                             <XMarkIcon className="w-5" />
@@ -38,9 +67,7 @@ function RoleDetailsModal({ role, show, onClose }) {
 
                         <table className="table-auto w-full text-left">
                             <thead>
-                                <tr>
-                                    <th colSpan={3} className="pt-4"> Details</th>
-                                </tr>
+
                             </thead>
                             <tbody style={{ borderBottom: "1px solid #E0E0E0" }}>
                                 <tr className="font-light text-sm ">
@@ -49,9 +76,16 @@ function RoleDetailsModal({ role, show, onClose }) {
                                     <td className="pt-2">Role Type</td>
                                 </tr>
                                 <tr className="font-[500] text-[#101828] dark:text-stone-100 text-sm">
-                                    <td className="py-2 pb-6">{role.name}</td>
-                                    <td className="py-2 pb-6">{role.status}</td>
-                                    <td className="py-2 pb-6">{role.roleTypeId}</td>
+                                    <td className="py-2 pb-6">{capitalizeWords(fetchedRole.name ?? "")}</td>
+                                    <td className={`py-2 pb-6`}>
+                                        <p
+                                            className={`w-[85px] before:content-['•'] before:text-2xl flex h-7 items-center justify-center gap-1 px-1 py-0 font-[500] ${fetchedRole.status === 'ACTIVE' ? "text-green-600 bg-green-100 before:text-green-600 px-1" : "text-red-600 bg-red-100 before:text-red-600 "} rounded-2xl`}
+                                            style={{ textTransform: "capitalize", }}
+                                        >
+                                            {capitalizeWords(fetchedRole.status ?? "")}
+                                        </p>
+                                    </td>
+                                    <td className="py-2 pb-6">{fetchedRole.roleTypeId}</td>
                                 </tr>
                             </tbody>
                         </table>

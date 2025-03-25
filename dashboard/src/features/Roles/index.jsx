@@ -135,7 +135,7 @@ function Roles() {
       updateToasify(
         loadingToastId,
         `Request failed. ${response.message}`,
-        "failure",
+        "error",
         2000
       ); // updating the toaster
       // setTimeout(() => {

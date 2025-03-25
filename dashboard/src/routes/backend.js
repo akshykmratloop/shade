@@ -20,6 +20,7 @@ const api = {
   resendOTP: `${auth}/resendOtp`,
 
   fetchRoles: `${role}/roles`, // API for role start from here
+  getRoleById: `${role}/`,
   fetchRoleType: `${role}/roleType`,
   createRole: `${role}/create`,
   activateRole: `${role}/activate`,

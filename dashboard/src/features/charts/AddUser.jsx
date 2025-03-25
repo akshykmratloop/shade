@@ -87,14 +87,17 @@ const AddUserModal = ({ show, onClose, updateUsers, user }) => {
         }
 
         if (response?.ok) {
+            console.log(loadingToastId)
             updateToasify(loadingToastId, `Request successful! 🎉 ${response.message}`, "success", 1000);
             setTimeout(() => {
                 onClose();
                 updateUsers((prev) => !prev);
             }, 1500);
         } else {
-            updateToasify(loadingToastId, `Request failed. ${response?.message ? response.message : "Something went wrong please try again later"}`, "failure", 2000);
+            console.log(loadingToastId)
+            updateToasify(loadingToastId, `Request failed. ${response?.message ? response.message : "Something went wrong please try again later"}`, "error", 2000);
         }
+        toast.dismiss(loadingToastId)
     };
 
     const onCloseModal = () => {
@@ -282,7 +285,7 @@ const AddUserModal = ({ show, onClose, updateUsers, user }) => {
                     </div>
                 </form>
             </div>
-            <ToastContainer />
+            {/* <ToastContainer /> */}
         </div>
     );
 };

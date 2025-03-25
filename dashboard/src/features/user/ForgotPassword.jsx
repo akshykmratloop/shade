@@ -46,7 +46,7 @@ function ForgotPassword() {
                 return;
             }
             setLoading(false)
-            updateToasify(loadingToastId, response.message, "failure", 2000) // updating the toaster
+            updateToasify(loadingToastId, response.message, "error", 2000) // updating the toaster
         }
     }
 

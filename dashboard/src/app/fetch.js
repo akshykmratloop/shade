@@ -179,6 +179,13 @@ export async function fetchRoles() {
   );
 }
 
+export async function getRoleById(id) {
+  return await makerequest(
+    api.route("getRoleById") + id,
+    "GET",
+  );
+}
+
 export async function fetchRoleType() {
   return await makerequest(
     api.route("fetchRoleType"),
