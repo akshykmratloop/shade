@@ -5,6 +5,7 @@ import userIcon from "../../assets/user.png"
 import formatTimestamp from "../../app/TimeFormat";
 import { getRoleById } from "../../app/fetch";
 import capitalizeWords from "../../app/capitalizeword";
+import SkeletonLoader from "../../components/Loader/SkeletonLoader";
 
 
 function RoleDetailsModal({ role, show, onClose }) {
@@ -63,82 +64,107 @@ function RoleDetailsModal({ role, show, onClose }) {
                             <XMarkIcon className="w-5" />
                         </button>
                     </div>
-                    <div className="overflow-x-auto">
 
-                        <table className="table-auto w-full text-left">
-                            <thead>
+                    {
+                        loading || error ? (<SkeletonLoader />
+                        ) : (
 
-                            </thead>
-                            <tbody style={{ borderBottom: "1px solid #E0E0E0" }}>
-                                <tr className="font-light text-sm ">
-                                    <td className="pt-2 pr-[60px] w-[188px]">Role Name</td>
-                                    <td className="pt-2 w-[188px]">Status</td>
-                                    <td className="pt-2">Role Type</td>
-                                </tr>
-                                <tr className="font-[500] text-[#101828] dark:text-stone-100 text-sm">
-                                    <td className="py-2 pb-6">{capitalizeWords(fetchedRole.name ?? "")}</td>
-                                    <td className={`py-2 pb-6`}>
-                                        <p
-                                            className={`w-[85px] before:content-['•'] before:text-2xl flex h-7 items-center justify-center gap-1 px-1 py-0 font-[500] ${fetchedRole.status === 'ACTIVE' ? "text-green-600 bg-green-100 before:text-green-600 px-1" : "text-red-600 bg-red-100 before:text-red-600 "} rounded-2xl`}
-                                            style={{ textTransform: "capitalize", }}
-                                        >
-                                            {capitalizeWords(fetchedRole.status ?? "")}
-                                        </p>
-                                    </td>
-                                    <td className="py-2 pb-6">{fetchedRole.roleTypeId}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <table className="table-auto w-full text-left">
-                            <thead>
-                                <tr>
-                                    <th colSpan={3} className="pt-4">Permissions</th>
-                                </tr>
-                            </thead>
-                            <tbody style={{ borderBottom: "1px solid #E0E0E0" }}>
-                                <tr className="font-light text-sm ">
-                                    <td className="pt-2 pr-[24px] w-[188px]">Updated At</td>
-                                    <td className="pt-2">Permissions</td>
-                                </tr>
-                                <tr className="font-[500] text-[#101828] dark:text-stone-100 text-sm pb-7">
-                                    <td className="py-2 pb-7"
-                                    >
-                                        <p className="w-[100px]">
-                                            {formatTimestamp(role.updated_at)}
-                                        </p>
-                                    </td>
-                                    <td className="py-2 pb-10">{role._count?.permissions}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        {/* <table className=" w-full text-left">
+                            <div className="overflow-x-auto">
+
+                                <table className="table-auto w-full text-left">
+                                    <thead>
+
+                                    </thead>
+                                    <tbody style={{ borderBottom: "1px solid #E0E0E0 " }}>
+                                        <tr className="font-light text-sm ">
+                                            <td className="pt-2  w-1/4">Role Name</td>
+                                            <td className="pt-2  w-1/4 pl-4">Status</td>
+                                            <td className="pt-2  w-1/4">Role Type</td>
+                                            <td className="pt-2  w-1/4">Updated At</td>
+                                        </tr>
+                                        <tr className="font-[500] text-[#101828] dark:text-stone-100 text-sm">
+                                            <td className="py-2 pb-6  w-1/4">{capitalizeWords(fetchedRole.name ?? "")}</td>
+                                            <td className={`py-2 pb-6  w-1/4`}>
+                                                <p
+                                                    className={`w-[86px] before:content-['•'] before:text-2xl flex h-7 items-center justify-center gap-1 px-1 py-0 font-[500] ${fetchedRole.status === 'ACTIVE' ? "text-green-600 bg-green-100 before:text-green-600 px-1" : "text-red-600 bg-red-100 before:text-red-600 "} rounded-2xl`}
+                                                    style={{ textTransform: "capitalize", }}
+                                                >
+                                                    {capitalizeWords(fetchedRole.status ?? "")}
+                                                </p>
+                                            </td>
+                                            <td className="py-2 pb-6  w-1/4">{!loading && fetchedRole.roleType.name}</td>
+                                            <td className="py-2 pb-6  w-1/4"
+                                            >
+                                                <p className="">
+                                                    {formatTimestamp(role.updated_at)}
+                                                </p>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                <div className="table-auto w-full text-left py-6 flex gap-[160px]">
+                                    <div>
+
+                                        <h3 className="text-sm font-[300]">Permissions</h3>
+                                        <ul className="text-sm font-[500] text-[#101828] flex flex-col gap-1 pt-4">
+                                            {!loading &&
+                                                fetchedRole.permissions.map(element => {
+
+                                                    return (
+                                                        <li>
+                                                            {capitalizeWords(element.permission.name ?? "")}
+                                                        </li>
+                                                    )
+                                                })
+                                            }
+                                        </ul>
+                                    </div>
+                                    <div>
+                                        <h3 className="text-sm font-[300]">Assigned Users</h3>
+                                        <ul className="text-sm font-[500] text-[#101828] flex flex-col gap-1 pt-4">
+                                            {!loading &&
+                                                fetchedRole.users.map(user => {
+
+                                                    return (
+                                                        <li>
+                                                            {capitalizeWords(user.user.name ?? "")}
+                                                        </li>
+                                                    )
+                                                })
+                                            }
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        )
+                    }
+                    {/* <table className=" w-full text-left">
                             <thead className="mb-4">
-                                <tr className="mb-4 block">
-                                    <th colSpan={3} className="pt-4">Associated Resources</th>
-                                </tr>
-                                <tr className="font-light bg-[#25439B] text-[white] text-[14px] ">
-                                    <td className="p-3"
-                                        style={{ borderRadius: "10px 0px 0px 10px" }}>Resources Name</td>
-                                    <td className="p-3" style={{ border: "1px solid grey", borderTop: "none", borderBottom: "none" }}>Role</td>
-                                    <td className="p-3"
-                                        style={{ borderRadius: "0px 10px 10px 0px" }}>Permission</td>
-                                </tr>
+                            <tr className="mb-4 block">
+                            <th colSpan={3} className="pt-4">Associated Resources</th>
+                            </tr>
+                            <tr className="font-light bg-[#25439B] text-[white] text-[14px] ">
+                            <td className="p-3"
+                            style={{ borderRadius: "10px 0px 0px 10px" }}>Resources Name</td>
+                            <td className="p-3" style={{ border: "1px solid grey", borderTop: "none", borderBottom: "none" }}>Role</td>
+                            <td className="p-3"
+                            style={{ borderRadius: "0px 10px 10px 0px" }}>Permission</td>
+                            </tr>
                             </thead>
                             <tbody className="bg-[#fcfcfc] dark:bg-transparent">
-
-                                <tr className="font-light text-[18px]">
-                                    <td className="px-4 py-2 dark:border dark:border-[#232d3d]">Manager</td>
-                                    <td className="px-4 py-2 dark:border dark:border-[#232d3d]">Edit, Create, Role</td>
-                                    <td className="px-4 py-2 dark:border dark:border-[#232d3d]">Edit, Create, Role</td>
-                                </tr>
-                                <tr className="font-light text-[18px]">
-                                    <td className="px-4 py-2 pb-6 dark:border dark:border-[#232d3d]">Manager</td>
-                                    <td className="px-4 py-2 pb-6 dark:border dark:border-[#232d3d]">Delete, </td>
-                                    <td className="px-4 py-2 pb-6 dark:border dark:border-[#232d3d]">Read</td>
-                                </tr>
+                            
+                            <tr className="font-light text-[18px]">
+                            <td className="px-4 py-2 dark:border dark:border-[#232d3d]">Manager</td>
+                            <td className="px-4 py-2 dark:border dark:border-[#232d3d]">Edit, Create, Role</td>
+                            <td className="px-4 py-2 dark:border dark:border-[#232d3d]">Edit, Create, Role</td>
+                            </tr>
+                            <tr className="font-light text-[18px]">
+                            <td className="px-4 py-2 pb-6 dark:border dark:border-[#232d3d]">Manager</td>
+                            <td className="px-4 py-2 pb-6 dark:border dark:border-[#232d3d]">Delete, </td>
+                            <td className="px-4 py-2 pb-6 dark:border dark:border-[#232d3d]">Read</td>
+                            </tr>
                             </tbody>
-                        </table> */}
-                    </div>
+                            </table> */}
                 </Dialog.Panel>
             </div>
         </Dialog>
