@@ -4,27 +4,53 @@ import {authenticateUser} from "../../helper/authMiddleware.js";
 import validator from "../../validation/validator.js";
 import {createRoleSchema} from "../../validation/rolesSchema.js";
 import tryCatchWrap from "../../errors/tryCatchWrap.js";
+import {checkPermission} from "../../helper/roleBasedAccess.js";
 
 const router = Router();
 
-const requiredRoles = ["role"];
+const requiredPermissionsForRole = ["ROLES_PERMISSION_MANAGEMENT"];
 
-router.get("/roles", tryCatchWrap(RolesController.GetRoles));
+router.get(
+  "/roles",
+  checkPermission(requiredPermissionsForRole),
+  tryCatchWrap(RolesController.GetRoles)
+);
 
-router.get("/roleType", tryCatchWrap(RolesController.GetRoleType));
+router.get(
+  "/roleType",
+  checkPermission(requiredPermissionsForRole),
+  tryCatchWrap(RolesController.GetRoleType)
+);
 
-router.get("/:id", tryCatchWrap(RolesController.GetRoleById));
+router.get(
+  "/:id",
+  checkPermission(requiredPermissionsForRole),
+  tryCatchWrap(RolesController.GetRoleById)
+);
 
 router.post(
   "/create",
+  checkPermission(requiredPermissionsForRole),
   validator(createRoleSchema),
   tryCatchWrap(RolesController.CreateRole)
 );
 
-router.put("/update/:id", tryCatchWrap(RolesController.UpdateRole));
+router.put(
+  "/update/:id",
+  checkPermission(requiredPermissionsForRole),
+  tryCatchWrap(RolesController.UpdateRole)
+);
 
-router.put("/activate", tryCatchWrap(RolesController.ActivateRole));
+router.put(
+  "/activate",
+  checkPermission(requiredPermissionsForRole),
+  tryCatchWrap(RolesController.ActivateRole)
+);
 
-router.put("/deactivate", tryCatchWrap(RolesController.DeactivateRole));
+router.put(
+  "/deactivate",
+  checkPermission(requiredPermissionsForRole),
+  tryCatchWrap(RolesController.DeactivateRole)
+);
 
 export default router;
