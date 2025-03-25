@@ -28,7 +28,8 @@ const getUserById = async (id) => {
 };
 
 const editUserDetails = async (userId, name, password, phone, roles) => {
-  return await updateUser(userId, name, password, phone, roles);
+  const updateResult = await updateUser(userId, name, password, phone, roles);
+  return {message: "User updated successfully!", updateResult} // added a message to display in frontend otherwise it was undefined
 };
 
 const findUserByEmail = async (email) => {
