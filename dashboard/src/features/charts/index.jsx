@@ -118,9 +118,9 @@ function Users() {
         setUsers(filteredRoles);
     };
 
-    const statusChange = async (role) => {
+    const statusChange = async (user) => {
         const loadingToastId = toast.loading("Processing...", { autoClose: 2000 });
-        let response = role.status === "ACTIVE" ? await deactivateUser(role) : await activateUser(role);
+        let response = user.status === "ACTIVE" ? await deactivateUser({id:user.id}) : await activateUser({id:user.id});
         if (response.ok) {
             updateToasify(loadingToastId, `Request successful. ${response.message}`, "success", 1000);
             setChangesInUser(prev => !prev);

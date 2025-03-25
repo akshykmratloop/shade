@@ -132,12 +132,12 @@ function UserDetailsModal({ user, show, onClose }) {
                                 </tr>
                             </thead>
                             <tbody className="bg-[#fcfcfc] dark:bg-transparent">
-                                <tr className="font-medium text-[14px] text-[#101828]">
+                                <tr className="font-medium text-[14px] text-[#101828] dark:text-[#f5f5f4]">
                                     <td className="px-4 py-2 dark:border dark:border-[#232d3d]">Manager</td>
                                     <td className="px-4 py-2 dark:border dark:border-[#232d3d]">Edit, Create, Role</td>
                                     <td className="px-4 py-2 dark:border dark:border-[#232d3d]">Edit, Create, Role</td>
                                 </tr>
-                                <tr className="font-medium text-[14px] text-[#101828]">
+                                <tr className="font-medium text-[14px] text-[#101828] dark:text-[#f5f5f4]">
                                     <td className="px-4 py-2 pb-6 dark:border dark:border-[#232d3d]">Manager</td>
                                     <td className="px-4 py-2 pb-6 dark:border dark:border-[#232d3d]">Delete, </td>
                                     <td className="px-4 py-2 pb-6 dark:border dark:border-[#232d3d]">Read</td>

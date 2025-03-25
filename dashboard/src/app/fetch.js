@@ -57,7 +57,6 @@ const makerequest = async (
 
   let result;
   try {
-    console.log(body)
     const response = await fetch(uri, options);
     if (!response.ok) {
       const err = await response.json();
@@ -276,14 +275,18 @@ export async function getUserById(id) {
 
 export async function activateUser(id) {
   return await makerequest(
-    api.route("activateUser") + id,
+    api.route("activateUser"),
     "PUT",
+    JSON.stringify(id),
+    ContentType.json
   )
 }
 
 export async function deactivateUser(id) {
   return await makerequest(
-    api.route("deactivateUser") + id,
+    api.route("deactivateUser"),
     "PUT",
+    JSON.stringify(id),
+    ContentType.json
   )
 }
