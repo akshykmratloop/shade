@@ -78,6 +78,7 @@ export const findRoleById = async (id) => {
           },
         },
       },
+      roleType: true,
       users: {
         select: {
           user: true,
