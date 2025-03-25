@@ -199,7 +199,7 @@ function Users() {
                                                 {user.roles?.length > 1 ? "multiple" : user?.roles?.[0].name}
                                             </td>
 
-                                            <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]"> </td>
+                                            <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]">N/A</td>
                                             <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]" style={{ whiteSpace: "wrap" }}> {TruncateText("asdfwerweq eqt eqfsadf qew", 20)}</td>
                                             <td className="font-poppins font-light text-[12px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]">
                                                 <p

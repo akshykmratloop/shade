@@ -1,6 +1,6 @@
 import prismaClient from "../config/dbConfig.js";
-import {EncryptData} from "../helper/bcryptManager.js";
-import {sendEmail} from "../helper/sendEmail.js";
+import { EncryptData } from "../helper/bcryptManager.js";
+import { sendEmail } from "../helper/sendEmail.js";
 
 /// USER QUERIES====================================================
 // Create User
@@ -22,14 +22,14 @@ export const createUserHandler = async (
         create:
           roles?.map((roleId) => ({
             role: {
-              connect: {id: roleId},
+              connect: { id: roleId },
             },
           })) || [],
       },
     },
     include: {
       roles: {
-        include: {role: true},
+        include: { role: true },
       },
     },
   });
@@ -79,21 +79,48 @@ export const fetchAllUsers = async (
 ) => {
   const skip = (page - 1) * limit;
 
-  const allUsers = await prismaClient.user.findMany({
+  let allUsers = await prismaClient.user.findMany({
     where: {
       name: {
         not: "Super Admin",
         contains: name,
         mode: "insensitive",
       },
-      email: email ? {contains: email, mode: "insensitive"} : undefined,
-      phone: phone ? {contains: phone} : undefined,
-      ...(status ? {status: status} : {}),
+      email: email ? { contains: email, mode: "insensitive" } : undefined,
+      phone: phone ? { contains: phone } : undefined,
+      ...(status ? { status: status } : {}),
     },
-    orderBy: {createdAt: "asc"},
+    orderBy: { createdAt: "asc" },
     skip,
     take: limit,
   });
+
+  const allUserRole = await prismaClient.userRole.findMany({
+    where: {
+      userId: {
+        not: "cm8797qxv000yo26cshi9p16r"
+      }
+    }
+  })
+
+  const allRoles = await prismaClient.role.findMany({
+    where: {
+      id: { not: "cm8797qsb000xo26c4v08g29p" }
+    }
+  })
+
+  // operation for the adding the roles in the users objects
+  allUsers = allUsers.map((Ue, Ui, Ua) => {
+    let roles = allRoles.map((Re, Ri, Ra) => {
+      for (let element of allUserRole) {
+        if (element.userId === Ue.id && element.roleId === Re.id) {
+          return Re
+        }
+      }
+    }).filter(e => e)
+
+    return { ...Ue, roles }
+  })
 
   const totalUser = await prismaClient.user.count({
     where: {
@@ -102,9 +129,9 @@ export const fetchAllUsers = async (
         contains: name,
         mode: "insensitive",
       },
-      email: email ? {contains: email, mode: "insensitive"} : undefined,
-      phone: phone ? {contains: phone} : undefined,
-      ...(status ? {status: status} : {}),
+      email: email ? { contains: email, mode: "insensitive" } : undefined,
+      phone: phone ? { contains: phone } : undefined,
+      ...(status ? { status: status } : {}),
     },
   });
 
@@ -190,7 +217,7 @@ export const findUserByEmail = async (email) => {
 
 export const findUserById = async (id) => {
   const user = await prismaClient.user.findUnique({
-    where: {id},
+    where: { id },
     include: {
       roles: {
         include: {
@@ -214,8 +241,8 @@ export const findUserById = async (id) => {
 // Update user password
 export const updateUserPassword = async (userId, newPassword) => {
   return await prismaClient.user.update({
-    where: {id: userId},
-    data: {password: newPassword},
+    where: { id: userId },
+    data: { password: newPassword },
   });
 };
 
@@ -237,30 +264,30 @@ export const createOrUpdateOTP = async (
         otpOrigin,
       },
     },
-    create: {userId, deviceId, otpOrigin, otpCode, expiresAt},
-    update: {otpCode, expiresAt, isUsed: false},
+    create: { userId, deviceId, otpOrigin, otpCode, expiresAt },
+    update: { otpCode, expiresAt, isUsed: false },
   });
 };
 
 // find existing otp
 export const findOTP = async (userId, deviceId, otpOrigin) => {
   return await prismaClient.otp.findFirst({
-    where: {userId, deviceId, otpOrigin},
+    where: { userId, deviceId, otpOrigin },
   });
 };
 
 // mark otp as used
 export const markOTPUsed = async (otpId) => {
   return await prismaClient.otp.update({
-    where: {id: otpId},
-    data: {isUsed: true},
+    where: { id: otpId },
+    data: { isUsed: true },
   });
 };
 
 // delete otp
 export const deleteOTP = async (otpId) => {
   return await prismaClient.otp.delete({
-    where: {id: otpId},
+    where: { id: otpId },
   });
 };
 
@@ -269,7 +296,7 @@ export const deleteOTP = async (otpId) => {
 // Find OTP attempts
 export const findOtpAttempts = async (userId) => {
   return await prismaClient.rateLimit.findFirst({
-    where: {userId},
+    where: { userId },
   });
 };
 
@@ -278,9 +305,9 @@ export const createOrUpdateOtpAttempts = async (userId) => {
   const now = new Date();
 
   return await prismaClient.rateLimit.upsert({
-    where: {userId},
+    where: { userId },
     update: {
-      attempts: {increment: 1},
+      attempts: { increment: 1 },
       lastAttempt: now,
     },
     create: {
@@ -296,8 +323,8 @@ export const createOrUpdateOtpAttempts = async (userId) => {
 // Block a user temporarily
 export const blockUser = async (userId, blockUntil) => {
   return await prismaClient.rateLimit.update({
-    where: {userId},
-    data: {blockUntil},
+    where: { userId },
+    data: { blockUntil },
   });
 };
 
@@ -305,8 +332,8 @@ export const blockUser = async (userId, blockUntil) => {
 export const resetOtpAttempts = async () => {
   const now = new Date();
   await prismaClient.rateLimit.updateMany({
-    where: {blockUntil: {lte: now}},
-    data: {attempts: 0, failures: 0, blockUntil: null},
+    where: { blockUntil: { lte: now } },
+    data: { attempts: 0, failures: 0, blockUntil: null },
   });
 };
 

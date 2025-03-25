@@ -90,10 +90,10 @@ function UserDetailsModal({ user, show, onClose }) {
                                     <td className="pt-2">Permissions</td>
                                 </tr>
                                 <tr className="font-[500] text-[#101828] dark:text-stone-100 text-sm pb-7">
-                                    <td className="py-2 pb-7"
+                                    <td className="py-2 pb-7 w-[118px]"
                                     >
-                                        <div className="flex gap-2 flex-wrap w-[50px] relative">
-                                            <div className="absolute flex gap-2 flex-wrap w-[200px] top-[-26.5px]">
+                                        <div className="flex gap-2 flex-wrap relative">
+                                            <div className="flex gap-2 flex-wrap top-[-26.5px]">
                                                 {fetchedUser?.roles?.map((role, i, a) => {
                                                     console.log(role)
                                                     let lastElement = i === a.length - 1
@@ -102,7 +102,7 @@ function UserDetailsModal({ user, show, onClose }) {
                                             </div>
                                         </div>
                                     </td>
-                                    <td className="py-2 pb-10">
+                                    <td className="flex items-start py-2">
                                         <div className="flex flex-wrap gap-1">
                                             {permissions.map((permission, i, a) => {
                                                 let lastElement = i === a.length - 1;
