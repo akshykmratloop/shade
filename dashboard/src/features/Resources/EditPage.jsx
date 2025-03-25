@@ -21,6 +21,7 @@ import ProjectContentManager from "./components/contentmanager/ProjectContentMan
 import CareerPage from "./components/websiteComponent/CareersPage";
 import InputText from "../../components/Input/InputText";
 import TextAreaInput from "../../components/Input/TextAreaInput";
+import CareersManager from "./components/contentmanager/CareersManager";
 
 const EditPage = () => {
     const dispatch = useDispatch();
@@ -69,7 +70,7 @@ const EditPage = () => {
                 }
                 {
                     currentPath === 'careers' &&
-                    <ProjectContentManager language={language} currentContent={content.projects} currentPath={currentPath} />
+                    <CareersManager language={language} currentContent={content.projects} currentPath={currentPath} />
                 }
 
             </div> {/* Content manager ends here */}
