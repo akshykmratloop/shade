@@ -100,12 +100,12 @@ export default function ContentTopBar({ setWidth, raisePopup }) {
             <div className='flex items-center gap-3 text-[#CBD5E1] md:flex-row'>
                 <div className='flex items-center gap-3'>
                     <div className='flex gap-2 border-r border-[#64748B] pr-2'>
-                        <span className={`cursor-pointer`} onClick={undos}><GrUndo className={`${iconSize} ${smallIconSize} hover:text-[#64748B] ${ReduxState.past.length > 1 && "text-[black]"}`} /></span>
-                        <span className={`cursor-pointer`} onClick={redos}><GrRedo className={`${iconSize} ${smallIconSize} hover:text-[#64748B] ${ReduxState.future.length >= 1 && "text-[black]"}`} /></span>
+                        <span className={`cursor-pointer`} onClick={undos}><GrUndo className={`${iconSize} ${smallIconSize} hover:text-[#64748B] ${ReduxState.past.length > 1 && "text-[#1f2937]"}`} /></span>
+                        <span className={`cursor-pointer`} onClick={redos}><GrRedo className={`${iconSize} ${smallIconSize} hover:text-[#64748B] ${ReduxState.future.length >= 1 && "text-[#1f2937]"}`} /></span>
                     </div>
-                    <div className='flex gap-2 border-r border-[#64748B] text-[black] pr-2 relative'>
-                        <span className={`cursor-pointer`}><LuEye className={`${iconSize} ${smallIconSize} hover:text-[#64748B]`} /></span>
-                        <span ref={infoIconRef} className={`cursor-pointer`} onClick={() => info?setInfo(false):setInfo(true)}><IoIosInformationCircleOutline className={`${iconSize} ${smallIconSize} hover:text-[#64748B]`} /></span>
+                    <div className='flex gap-2 border-r border-[#64748B] text-[#1f2937] pr-2 relative'>
+                        <span className={`cursor-pointer `}><LuEye className={`${iconSize} ${smallIconSize} hover:text-[#64748B]`} /></span>
+                        <span ref={infoIconRef} className={`cursor-pointer `} onClick={() => info?setInfo(false):setInfo(true)}><IoIosInformationCircleOutline className={`${iconSize} ${smallIconSize} hover:text-[#64748B]`} /></span>
                         <div ref={infoRef} className={`absolute top-[100%] left-1/2 border bg-white w-[200px] shadow-xl rounded-lg text-xs p-2 ${info ? "block" : "hidden"}`} >
                             <p className='text-[#64748B]'>last saved:  <span className='text-[black]'>{"dd/mm/yyyy"}</span></p>  {/* last saved */}
                             <p className='text-[#64748B]'>status: <span className='text-[black]'> draft</span></p>   {/**status */}

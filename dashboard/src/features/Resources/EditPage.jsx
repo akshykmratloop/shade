@@ -67,7 +67,10 @@ const EditPage = () => {
                     currentPath === 'projects' &&
                     <ProjectContentManager language={language} currentContent={content.projects} currentPath={currentPath} />
                 }
-
+                {
+                    currentPath === 'careers' &&
+                    <ProjectContentManager language={language} currentContent={content.projects} currentPath={currentPath} />
+                }
 
             </div> {/* Content manager ends here */}
             {/* Content view */}
@@ -75,7 +78,7 @@ const EditPage = () => {
                 className={`flex-[4] h-[83.5vh] flex flex-col`}
             >
                 <ContentTopBar setWidth={setScreen} raisePopup={{ reject: () => setPopupReject(true), submit: () => setPopupSubmit(true) }} />
-                <h4>Commented by {"Anukool (Super Admin)"}</h4>
+                <h4 className="text-[#6B7888] text-[14px] mt-1 mb-[2px]">Commented by {"Anukool (Super Admin)"}</h4>
                 <TextAreaInput
                     updateFormValue={() => { }}
                     placeholder={"Comments..."}
@@ -108,7 +111,7 @@ const EditPage = () => {
                         <ProjectPage language={language} currentContent={content.projects} screen={screen} />
                     }
                     {
-                        currentPath === "career" &&
+                        currentPath === "careers" &&
                         <CareerPage language={language} currentContent={content.career} screen={screen} />
                     }
                 </div>

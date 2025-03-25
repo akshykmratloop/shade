@@ -1,11 +1,14 @@
 import ContentSection from "../ContentSections";
 import MultiSelectPro from "../MultiSelectPro";
+import FileUploader from "../../../../components/Input/InputFileUploader";
 
 const MarketManager = ({ language, currentContent, currentPath }) => {
     // console.log(language, currentContent, currentPath)
 
     return (
         <div>
+            {/* reference doc */}
+            <FileUploader id={"marketReference"} label={"Rerference doc"} fileName={"Upload your file..."} />
             {/** Hero Banner */}
             <ContentSection
                 currentPath={currentPath}

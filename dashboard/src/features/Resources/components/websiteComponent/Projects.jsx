@@ -67,7 +67,7 @@ const ProjectPage = ({ language, screen }) => {
     }, [currentContent])
 
     return (
-        <div className="h-full border border-cyan-500">
+        <div className="h-full">
             <section className={`relative h-full w-full bg-cover bg-center ${isLeftAlign ? 'scale-x-[-1]' : ''}  `}
                 style={{
                     height: 1200 * 0.436,

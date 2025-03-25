@@ -27,7 +27,7 @@ const Pagination = ({ totalDocuments, handlePageChange, selectedPage, itemPerPag
       pages.push(
         <h5
           key={i}
-          className={`w-8 h-8 flex items-center justify-center rounded-lg cursor-pointer font-bold text-sm transition-all ${
+          className={`w-8 h-8 flex items-center justify-center rounded-full cursor-pointer font-bold text-sm transition-all ${
             selectedPage === i ? "text-blue-400 border border-blue-400" : "text-gray-500"
           }`}
           onClick={() => handlePageChange(i)}

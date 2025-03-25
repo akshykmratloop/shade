@@ -1,10 +1,13 @@
 import ContentSection from "../ContentSections"
+import FileUploader from "../../../../components/Input/InputFileUploader";
 
 const AboutManager = ({ currentContent, currentPath, language }) => {
 
 
     return (
         <div>
+            {/* reference doc */}
+            <FileUploader id={"aboutReference"} label={"Rerference doc"} fileName={"Upload your file..."} />
             {/* services */}
             <div className="w-full">
                 <ContentSection
@@ -53,7 +56,7 @@ const AboutManager = ({ currentContent, currentPath, language }) => {
                     { input: "textarea", label: "Description 1", updateType: "description1" },
                     { input: "textarea", label: "Description 2", updateType: "description2" },
                 ]}
-                inputFiles={[{label:"Video", id:"video"}]}
+                inputFiles={[{ label: "Video", id: "video" }]}
                 section={"main"}
                 language={language}
                 currentContent={currentContent}

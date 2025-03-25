@@ -92,7 +92,7 @@ const CareerPage = ({ language, screen }) => {
     )
 
     return (
-        <div>
+        <div className="w-full">
             <section className={`relative h-full w-full bg-cover bg-center ${isLeftAlign ? 'scale-x-[-1]' : ''}  `}
                 style={{
                     height: 1200 * 0.436,
@@ -125,10 +125,10 @@ const CareerPage = ({ language, screen }) => {
                 </div>
             </section>
 
-            <section className={`$ {language === "en" ? "text-left" : ""} py-28`}>
+            <section className={`${language === "en" ? "text-left" : ""} py-28 px-20`}>
                 <div className="container">
                     <div className="flex items-center justify-between gap-5">
-                        <div className="flex items-center gap-2.5 p-2 border rounded-lg border-gray-300 w-96">
+                        <div className="flex items-center gap-2.5 p-2 border rounded-lg border-gray-300">
                             <img
                                 src="https://loopwebsite.s3.ap-south-1.amazonaws.com/material-symbols_search+(1).svg"
                                 alt="icon"
@@ -168,7 +168,7 @@ const CareerPage = ({ language, screen }) => {
                 </div>
             </section>
 
-            <section className={`w-full ${language === "en" ? "text-left" : "text-right"}`}>
+            <section className={`w-full ${language === "en" ? "text-left" : "text-right"} px-12`}>
                 {paginatedJobs?.length < 1 && (
                     <div className="flex h-24 w-full items-center justify-center">
                         <h1>Oops... Not found !</h1>
@@ -177,9 +177,9 @@ const CareerPage = ({ language, screen }) => {
                 <div className="container mx-auto p-4">
                     <div className="space-y-8">
                         {paginatedJobs?.map((job, index) => (
-                            <div key={job.id} className="rounded-lg bg-gray-100 p-8 shadow-md">
+                            <div key={job.id} className="rounded-lg bg-gray-100 py-8 px-4 shadow-md">
                                 <div className="flex items-center justify-between cursor-pointer gap-5" onClick={() => toggleAccordion(index)}>
-                                    <div className="flex w-3/4 items-center gap-5 border-l border-gray-300 pl-5">
+                                    <div className="flex w-3/4 items-center gap-2">
                                         <img
                                             src="https://loopwebsite.s3.ap-south-1.amazonaws.com/weui_arrow-outlined+(1).svg"
                                             alt="icon"
@@ -187,36 +187,37 @@ const CareerPage = ({ language, screen }) => {
                                             height={28}
                                         />
                                         <div>
-                                            <h5 className="text-xl font-bold text-gray-800">{job?.title?.key[language]}</h5>
-                                            <p className="text-lg font-light text-gray-600">{job?.title?.value[language]}</p>
+                                            <h5 className="text-md font-bold text-gray-800">{job?.title?.key[language]}</h5>
+                                            <p className="text-sm font-light text-gray-600">{job?.title?.value[language]}</p>
                                         </div>
                                     </div>
                                     <div className="w-1/3 border-l border-gray-300 pl-5">
-                                        <h5 className="text-lg font-light text-gray-600">{job?.location?.key[language]}</h5>
-                                        <p className="text-xl font-bold text-gray-800">{job?.location?.value[language]}</p>
+                                        <h5 className="text-sm font-light text-gray-600">{job?.location?.key[language]}</h5>
+                                        <p className="text-md font-bold text-gray-800">{job?.location?.value[language]}</p>
                                     </div>
-                                    <div className="w-1/4">
-                                        <h5 className="text-lg font-light text-gray-600">{job?.deadline?.key[language]}</h5>
-                                        <p className="text-xl font-bold text-gray-800">{job?.deadline?.value[language]}</p>
+                                    <div className="w-1/4 border-l border-gray-300 border-r border-gray-300 px-5">
+                                        <h5 className="text-sm font-light text-gray-600">{job?.deadline?.key[language]}</h5>
+                                        <p className="text-md font-bold text-gray-800">{job?.deadline?.value[language]}</p>
                                     </div>
-                                </div>
-                                <div className="mt-4 flex items-center gap-6">
-                                    <button
-                                        className="rounded bg-blue-600 px-6 py-2 text-white"
-                                        onClick={() => {
-                                            setIsModal(true);
-                                            setSelectedJob(job?.title?.value[language]);
-                                        }}
-                                    >
-                                        {currentContent?.jobListSection?.buttons[0]?.text[language]}
-                                    </button>
-                                    <button
-                                        className="rounded border border-blue-600 px-6 py-2 text-blue-600"
+                                    <div className="mt-4 flex items-center gap-6 ">
+                                        <button
+                                            className="rounded bg-[#00b9f2] px-3 w-[102px] py-2 text-white text-xs"
+                                            onClick={() => {
+                                                setIsModal(true);
+                                                setSelectedJob(job?.title?.value[language]);
+                                            }}
+                                        >
+                                            {currentContent?.jobListSection?.buttons[0]?.text[language]}
+                                        </button>
+                                        <button
+                                            className="rounded border border-[#00b9f2] px-6 py-2 text-[#00b9f2] text-xs"
                                         // onClick={() => router.push(`/career/${job.id}`)}
-                                    >
-                                        {currentContent?.jobListSection?.buttons[1]?.text[language]}
-                                    </button>
+                                        >
+                                            {currentContent?.jobListSection?.buttons[1]?.text[language]}
+                                        </button>
+                                    </div>
                                 </div>
+
                                 <motion.div
                                     ref={(el) => (contentRef.current[index] = el)}
                                     initial={false}
@@ -240,7 +241,16 @@ const CareerPage = ({ language, screen }) => {
                 </div>
             </section>
 
-            
+            <section className="flex justify-end gap-5 h-[94px] pr-12">
+                <Pagination
+                    totalDocuments={totalDocuments}
+                    handlePageChange={handlePageChange}
+                    selectedPage={selectedPage}
+                />
+            </section>
+
+
+
 
         </div>
     );
