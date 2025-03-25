@@ -1,36 +1,66 @@
+import prismaClient from "../config/dbConfig.js";
+import {logger} from "../config/logConfig.js";
+import {assert} from "../errors/assertError.js";
+import statusCodes from "../errors/statusCodes.js";
+
 export const checkPermission = (requiredPermissions) => {
   return async (req, res, next) => {
-    const userId = req.user.id; // Assume JWT decoded user ID
-    const user = await prisma.user.findUnique({
-      where: {id: userId},
-      include: {
-        roles: {
-          include: {
-            role: {
-              include: {
-                permissions: {
-                  include: {
-                    permission: true,
+    try {
+      const userId = req.user?.id; // Assume JWT decoded user ID
+      const user = await prismaClient.user.findUnique({
+        where: {id: userId},
+        include: {
+          roles: {
+            include: {
+              role: {
+                include: {
+                  permissions: {
+                    include: {
+                      permission: true,
+                    },
                   },
                 },
               },
             },
           },
         },
-      },
-    });
+      });
 
-    if (!user) return res.status(403).json({message: "User not found"});
+      console.log(user, "userfound");
 
-    const userPermissions = user.roles.flatMap((role) =>
-      role.role.permissions.map((p) => p.permission.name)
-    );
+      assert(user, "NOT_FOUND", statusCodes.NOT_FOUND.message);
 
-    const hasPermission = requiredPermissions.every((p) =>
-      userPermissions.includes(p)
-    );
-    if (!hasPermission) return res.status(403).json({message: "Access denied"});
+      const userPermissions = user.roles.flatMap((role) =>
+        role.role.permissions.map((p) => p.permission.name)
+      );
 
-    next();
+      console.log(userPermissions, "userPermissions");
+
+      const hasPermission = requiredPermissions.every((p) =>
+        userPermissions.includes(p)
+      );
+
+      console.log(hasPermission, "hasPermission");
+
+      assert(hasPermission, "FORBIDDEN", statusCodes.FORBIDDEN.message);
+
+      console.log(true, "checkpassed");
+
+      logger.info(`User ${userId} accessed API successfully`, {
+        userId,
+        requiredPermissions,
+      });
+
+      next();
+    } catch (error) {
+      logger.error(
+        `Permission check failed for user ${req.user?.id || "Unknown"}`,
+        {
+          error: error.message,
+          requiredPermissions,
+        }
+      );
+      next(error);
+    }
   };
 };
