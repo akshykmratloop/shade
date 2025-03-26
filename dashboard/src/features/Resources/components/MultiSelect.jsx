@@ -21,7 +21,7 @@ import {
 import { CSS } from "@dnd-kit/utilities";
 import { updateSelectedContent } from "../../common/homeContentSlice";
 
-const SortableItem = ({ option, removeOption, language }) => {
+const SortableItem = ({ option, removeOption, language, reference }) => {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } =
     useSortable({ id: option, data: { option } });
 
@@ -42,7 +42,10 @@ const SortableItem = ({ option, removeOption, language }) => {
       {...listeners}
       className={`flex items-center ${language === 'ar' && "flex-row-reverse text-right"} gap-1 px-3 py-1 text-xs bg-gray-200 min-h-[2.125rem] rounded-md cursor-move dark:text-[black] transition-transform`}
     >
-      {option.title?.[language]}
+
+      {reference === "jobs" ?
+        option?.title?.value?.[language]
+        : option.title?.[language]}
       <button
         onClick={() => removeOption(option)}
         className="text-gray-600 hover:text-red-500"
@@ -72,6 +75,10 @@ const MultiSelect = ({ heading, options = [], tabName, label, language, section,
       actualListOfServices = content.home.recentProjectsSection.sections[referenceOriginal.index].projects
       break;
 
+    case "jobs":
+      actualListOfServices = content.careers.jobListSection.jobs;
+      break;
+
     default:
       actualListOfServices = []
   }
@@ -99,6 +106,7 @@ const MultiSelect = ({ heading, options = [], tabName, label, language, section,
     setSelectedOptions(prev => {
       return prev.map(option => {
         if (option === optionToRemove) {
+          console.log({...optionToRemove, display: false})
           return { ...option, display: false }
         }
         return option
@@ -150,14 +158,12 @@ const MultiSelect = ({ heading, options = [], tabName, label, language, section,
 
   useEffect(() => {
     if (showOptions) {
-      // console.log(options)
       setSelectedOptions(options?.map(e => {
         if (e.display) {
           return e
         }
       }).filter(e => e));
     }
-    // console.log(selectedOptions)
   }, [options]);
 
   return (
@@ -173,17 +179,21 @@ const MultiSelect = ({ heading, options = [], tabName, label, language, section,
 
       {isDropdownOpen && (
         <ul className="absolute text-xs left-0 xl:top-[-6.2rem] sm:top-[-3rem] md:top-[-6rem] z-10 w-full mt-2 bg-[#fafaff] dark:bg-[#242933] border rounded-md shadow-md overflow-y-scroll h-[10rem] customscroller">
-          {actualListOfServices.map((option, index) => {
-            return (
-              <li
-                key={option.title[language]}
-                onClick={() => handleSelect(option, index)}
-                className="p-2 cursor-pointer hover:bg-gray-100"
-              >
-                {option.title[language]}
-              </li>
-            )
-          })}
+          {
+            actualListOfServices.map((option, index) => {
+              return (
+                <li
+                  key={option.title[language]}
+                  onClick={() => handleSelect(option, index)}
+                  className="p-2 cursor-pointer hover:bg-gray-100"
+                >
+                  {referenceOriginal.dir === "jobs" ?
+                  option.title.key?.[language]
+                  : option.title[language]}
+                </li>
+              )
+            })
+          }
         </ul>
       )}
 
@@ -196,9 +206,15 @@ const MultiSelect = ({ heading, options = [], tabName, label, language, section,
       >
         <SortableContext items={selectedOptions} strategy={verticalListSortingStrategy}>
           <div className="flex flex-wrap gap-2 p-2 pl-4 border dark:border-stone-500 rounded-md ">
-            {selectedOptions?.map((option) => (
-              <SortableItem key={option.title?.[language] + String(Math.random())} option={option} removeOption={removeOption} language={language} />
-            ))}
+            {referenceOriginal.dir === "jobs" ?
+              selectedOptions?.map((option) => (
+                <SortableItem key={option.title?.key?.[language] + String(Math.random())} option={option} removeOption={removeOption} language={language} reference={referenceOriginal.dir} />
+              ))
+              :
+              selectedOptions?.map((option) => (
+                <SortableItem key={option.title?.[language] + String(Math.random())} option={option} removeOption={removeOption} language={language} />
+              ))
+            }
           </div>
         </SortableContext>
 

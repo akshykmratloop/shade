@@ -46,24 +46,39 @@ const cmsSlice = createSlice({
         },
         updateSelectedContent: (state, action) => {
             state.past.push(JSON.parse(JSON.stringify(state.present)));
+            console.log(action.payload)
             const selectedMap = new Map(
-                action.payload?.selected?.filter(e => e.display).map((item, index) => [item.title[action.payload.language], index])
+                action.payload.origin === "jobs" ?
+                    action.payload?.selected?.filter(e => e.display).map((item, index) => [item.title.key[action.payload.language], index])
+                    : action.payload?.selected?.filter(e => e.display).map((item, index) => [item.title[action.payload.language], index])
             );
+            console.log(selectedMap)
             let newOptions = action.payload.newArray?.map(e => ({
                 ...e,
-                display: selectedMap.has(e.title[action.payload.language])
+                display: action.payload.origin === "jobs" ? selectedMap.has(e.title.key[action.payload.language]) : selectedMap.has(e.title[action.payload.language])
             }));
-            newOptions.sort((a, b) => {
-                const indexA = selectedMap.get(a.title[action.payload.language]) ?? Infinity;
-                const indexB = selectedMap.get(b.title[action.payload.language]) ?? Infinity;
-                return indexA - indexB;
-            });
+            if (action.payload.origin === "jobs") {
+                newOptions.sort((a, b) => {
+                    const indexA = selectedMap.get(a.title.key[action.payload.language]) ?? Infinity;
+                    const indexB = selectedMap.get(b.title.key[action.payload.language]) ?? Infinity;
+                    return indexA - indexB;
+                });
+            } else {
+                newOptions.sort((a, b) => {
+                    const indexA = selectedMap.get(a.title[action.payload.language]) ?? Infinity;
+                    const indexB = selectedMap.get(b.title[action.payload.language]) ?? Infinity;
+                    return indexA - indexB;
+                });
+            }
             switch (action.payload.origin) {
                 case "home":
                     state.present[action.payload?.currentPath].serviceSection.cards = newOptions;
                     break;
                 case "recentproject":
                     state.present[action.payload?.currentPath].recentProjectsSection.sections[action.payload.index].projects = newOptions;
+                    break;
+                case "jobs":
+                    state.present[action.payload?.currentPath].jobListSection.jobs = newOptions;
                     break;
 
                 default:
@@ -77,7 +92,7 @@ const cmsSlice = createSlice({
                 state.present.projects.projectsSection.allProjectsList = [...action.payload.selected]
                 console.log("action")
             }
-            else if(action.payload.action === 'initial') {
+            else if (action.payload.action === 'initial') {
                 console.log("action2")
                 state.present.projects.projectsSection.allProjectsList = action.payload.data ?? []
             }

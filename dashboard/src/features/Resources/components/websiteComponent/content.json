@@ -1147,8 +1147,8 @@
         "en": "Discover the exceptional excellence of Shade Corporation, the premier Engineering, Procurement, and Construction powerhouse in Saudi Arabia."
       },
       "button": {
-          "ar": "خدماتنا",
-          "en": "Our Services"
+        "ar": "خدماتنا",
+        "en": "Our Services"
       }
     },
     "quote": {
@@ -1565,8 +1565,8 @@
         "en": "Discover the exceptional excellence of Shade Corporation, a leading company in the fields of engineering, procurement, and construction in Saudi Arabia."
       },
       "button": {
-          "ar": "دعونا نتواصل",
-          "en": "Let's Connect"
+        "ar": "دعونا نتواصل",
+        "en": "Let's Connect"
       }
     },
     "projectsSection": {
@@ -2771,7 +2771,7 @@
       }
     }
   ],
-  "career": {
+  "careers": {
     "bannerSection": {
       "title": {
         "ar": "مهنة",
@@ -2782,10 +2782,8 @@
         "en": "Discover the exceptional excellence of Shade Corporation, the premier Engineering, Procurement, and Construction powerhouse in Saudi Arabia."
       },
       "button": {
-        "text": {
-          "ar": "تقدم بطلبك الآن",
-          "en": "Apply Now"
-        }
+        "ar": "تقدم بطلبك الآن",
+        "en": "Apply Now"
       }
     },
     "filterSection": {
@@ -2906,6 +2904,7 @@
       "jobs": [
         {
           "id": "se1",
+          "display": false,
           "title": {
             "key": {
               "en": "Software Engineer ",
@@ -2957,6 +2956,7 @@
         },
         {
           "id": "pm1",
+          "display": true,
           "title": {
             "key": {
               "en": "Project Manager",
@@ -3008,6 +3008,7 @@
         },
         {
           "id": "de1",
+          "display": true,
           "title": {
             "key": {
               "en": "Data Analyst",
@@ -3059,6 +3060,7 @@
         },
         {
           "id": "pd1",
+          "display": true,
           "title": {
             "key": {
               "en": "Product Designer",
@@ -3110,6 +3112,7 @@
         },
         {
           "id": 5,
+          "display": true,
           "title": {
             "key": {
               "en": "Marketing Manager",
@@ -3161,6 +3164,7 @@
         },
         {
           "id": "fse1",
+          "display": true,
           "title": {
             "key": {
               "en": "Full Stack Developer",
@@ -3212,6 +3216,7 @@
         },
         {
           "id": 7,
+          "display": true,
           "title": {
             "key": {
               "en": "DevOps Engineer",
@@ -3263,6 +3268,7 @@
         },
         {
           "id": 8,
+          "display": true,
           "title": {
             "key": {
               "en": "Data Scientist",
@@ -3314,6 +3320,7 @@
         },
         {
           "id": "csa1",
+          "display": true,
           "title": {
             "key": {
               "en": "Cybersecurity Analyst",
@@ -3365,6 +3372,7 @@
         },
         {
           "id": 10,
+          "display": true,
           "title": {
             "key": {
               "en": "Frontend Developer",
@@ -3416,6 +3424,7 @@
         },
         {
           "id": 11,
+          "display": true,
           "title": {
             "key": {
               "en": "Cloud Solutions Architect",
@@ -3467,6 +3476,7 @@
         },
         {
           "id": 12,
+          "display": true,
           "title": {
             "key": {
               "en": "UI/UX Designer",
@@ -3518,6 +3528,7 @@
         },
         {
           "id": 13,
+          "display": true,
           "title": {
             "key": {
               "en": "ERP Consultant",
@@ -3569,6 +3580,7 @@
         },
         {
           "id": 14,
+          "display": true,
           "title": {
             "key": {
               "en": "Full Stack Engineer",
@@ -3620,6 +3632,7 @@
         },
         {
           "id": "se2",
+          "display": false,
           "title": {
             "key": {
               "en": "Software Engineer",
@@ -3671,6 +3684,7 @@
         },
         {
           "id": 16,
+          "display": true,
           "title": {
             "key": {
               "en": "Cyber Security Analyst",

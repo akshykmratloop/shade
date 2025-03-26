@@ -6,7 +6,7 @@ const resources = {
         { heading: "Service", src: "https://shade-six.vercel.app/services", assign: false },
         { heading: "Markets", src: "https://shade-six.vercel.app/market", assign: true },
         { heading: "Projects", src: "https://shade-six.vercel.app/project", assign: false },
-        { heading: "Career", src: "https://shade-six.vercel.app/career", assign: true },
+        { heading: "Careers", src: "https://shade-six.vercel.app/career", assign: true },
         { heading: "News", src: "https://shade-six.vercel.app/news-and-blogs", assign: true },
     ],
     services: [
@@ -16,7 +16,7 @@ const resources = {
         { heading: "Service", src: "https://shade-six.vercel.app/services", assign: true },
         { heading: "Market", src: "https://shade-six.vercel.app/market", assign: true },
         { heading: "Projects", src: "https://shade-six.vercel.app/project", assign: true },
-        { heading: "Career", src: "https://shade-six.vercel.app/career", assign: true },
+        { heading: "Careers", src: "https://shade-six.vercel.app/career", assign: true },
         { heading: "News", src: "https://shade-six.vercel.app/news-and-blogs", assign: false },
     ],
     markets: [
@@ -26,7 +26,7 @@ const resources = {
         { heading: "Service", src: "https://shade-six.vercel.app/services", assign: false },
         { heading: "Markets", src: "https://shade-six.vercel.app/market", assign: true },
         { heading: "Projects", src: "https://shade-six.vercel.app/project", assign: true },
-        { heading: "Career", src: "https://shade-six.vercel.app/career", assign: true },
+        { heading: "Careers", src: "https://shade-six.vercel.app/career", assign: true },
         { heading: "News", src: "https://shade-six.vercel.app/news-and-blogs", assign: true },
     ],
     projects: [

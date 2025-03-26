@@ -70,7 +70,7 @@ const EditPage = () => {
                 }
                 {
                     currentPath === 'careers' &&
-                    <CareersManager language={language} currentContent={content.projects} currentPath={currentPath} />
+                    <CareersManager language={language} currentContent={content.careers} currentPath={currentPath} />
                 }
 
             </div> {/* Content manager ends here */}

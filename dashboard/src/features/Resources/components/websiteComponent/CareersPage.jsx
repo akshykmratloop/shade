@@ -23,7 +23,7 @@ const CareerPage = ({ language, screen }) => {
     const isPhone = screen < 760
     const isTablet = screen > 761 && screen < 1100
     const ImageFromRedux = useSelector((state) => state.homeContent.present.images)
-    const currentContent = useSelector((state) => state.homeContent.present.career)
+    const currentContent = useSelector((state) => state.homeContent.present.careers)
     const [activeIndex, setActiveIndex] = useState(null);
     const [isModal, setIsModal] = useState(false);
     const [selectedJob, setSelectedJob] = useState(null);
@@ -73,7 +73,7 @@ const CareerPage = ({ language, screen }) => {
     };
 
     useEffect(() => {
-        dispatch(updateContent({ currentPath: "career", payload: content.career }))
+        dispatch(updateContent({ currentPath: "careers", payload: content.careers }))
     }, [])
 
     // useEffect to reset filtered jobs when content changes
@@ -86,7 +86,7 @@ const CareerPage = ({ language, screen }) => {
         setSelectedPage(result);
     };
 
-    const paginatedJobs = filteredJobs.slice(
+    const paginatedJobs = filteredJobs?.slice(
         (selectedPage - 1) * itemsPerPage,
         selectedPage * itemsPerPage
     )
@@ -96,7 +96,7 @@ const CareerPage = ({ language, screen }) => {
             <section className={`relative h-full w-full bg-cover bg-center ${isLeftAlign ? 'scale-x-[-1]' : ''}  `}
                 style={{
                     height: 1200 * 0.436,
-                    backgroundImage: ImageFromRedux.marketBanner ? `url(${ImageFromRedux.marketBanner})` :
+                    backgroundImage: ImageFromRedux.careersBanner ? `url(${ImageFromRedux.careersBanner})` :
                         "url('https://loopwebsite.s3.ap-south-1.amazonaws.com/Hero+(2).jpg')"
                 }}>
                 <div className={`container h-full relative ${isPhone ? "px-10" : "px-20"} flex items-center ${isLeftAlign ? "justify-end" : "justify-end"}   `}>
@@ -118,7 +118,7 @@ const CareerPage = ({ language, screen }) => {
                                 className={` ${isLeftAlign ? 'scale-x-[-1]' : ''} ${isPhone ? "w-[12px] h-[12px]" : "w-[14px] h-[14px]"}`}
                             />
                             <p>
-                                {currentContent?.bannerSection?.button?.text[language]}
+                                {currentContent?.bannerSection?.button?.[language]}
                             </p>
                         </button> */}
                     </div>
@@ -152,7 +152,7 @@ const CareerPage = ({ language, screen }) => {
                                         aria-label={filter?.title[language]}
                                         onChange={(e) => handleChange(e, filter.title[language])}
                                     >
-                                        <option value="" disabled selected>
+                                        <option value="" disabled defaultValue>
                                             {filter?.title[language]}
                                         </option>
                                         {filter.options.map((option, optIndex) => (
@@ -176,7 +176,9 @@ const CareerPage = ({ language, screen }) => {
                 )}
                 <div className="container mx-auto p-4">
                     <div className="space-y-8">
-                        {paginatedJobs?.map((job, index) => (
+                        {paginatedJobs?.map((job, index) => {
+                            if(!job.display) return null
+                            return (
                             <div key={job.id} className="rounded-lg bg-gray-100 py-8 px-4 shadow-md">
                                 <div className="flex items-center justify-between cursor-pointer gap-5" onClick={() => toggleAccordion(index)}>
                                     <div className="flex w-3/4 items-center gap-2">
@@ -236,7 +238,7 @@ const CareerPage = ({ language, screen }) => {
                                     </ul>
                                 </motion.div>
                             </div>
-                        ))}
+                        )})}
                     </div>
                 </div>
             </section>

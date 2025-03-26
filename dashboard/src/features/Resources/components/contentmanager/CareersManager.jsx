@@ -1,5 +1,6 @@
 import FileUploader from "../../../../components/Input/InputFileUploader";
 import ContentSection from "../ContentSections";
+import MultiSelect from "../MultiSelect";
 
 const CareersManager = ({ language, currentContent, currentPath }) => {
 
@@ -13,10 +14,24 @@ const CareersManager = ({ language, currentContent, currentPath }) => {
                 inputs={[
                     { input: "input", label: "Heading/title", updateType: "title" },
                     { input: "textarea", label: "Description", updateType: "description" },
-                    { input: "input", label: "Button Text", updateType: "buttonText" }]}
-                inputFiles={[{ label: "Backround Image", id: "homeBanner" }]}
+                    // { input: "input", label: "Button Text", updateType: "button" }
+                ]}
+                inputFiles={[{ label: "Backround Image", id: "careersBanner" }]}
                 section={"bannerSection"}
                 language={language}
+                currentContent={currentContent}
+            />
+
+            {/* services  */}
+            <MultiSelect
+                currentPath={currentPath}
+                section={"jobListSection"}
+                language={language}
+                label={"Select Jobs List"}
+                heading={"Jobs Section"}
+                tabName={"Select Jobs"}
+                options={currentContent?.jobListSection?.jobs}
+                referenceOriginal={{ dir: "jobs", index: 0 }}
                 currentContent={currentContent}
             />
         </div>
