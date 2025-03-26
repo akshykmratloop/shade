@@ -50,20 +50,26 @@ const CareerPage = ({ language, screen }) => {
     // Search function
     const searchJobs = (term) => {
         setSearchTerm(term);
+        let filtered = currentContent?.jobListSection?.jobs || [];
+    
         if (term) {
-            const filtered = currentContent?.jobListSection?.jobs.filter((job) =>
+            filtered = filtered.filter((job) =>
                 job.title.value[language].toLowerCase().includes(term.toLowerCase())
             );
-            setFilteredJobs(filtered);
-            setTotalDocuments(filtered?.length);
-            if (filtered?.length <= 10) {
-                setSelectedPage(1);
-            }
-        } else {
-            setFilteredJobs(currentContent?.jobListSection?.jobs);
-            setTotalDocuments(currentContent?.jobListSection?.jobs?.length);
+        }
+    
+        // Filter only displayed jobs
+        filtered = filtered.filter((job) => job.display);
+    
+        setFilteredJobs(filtered);
+        setTotalDocuments(filtered.length);
+    
+        // Reset page number if fewer than 10 jobs are displayed
+        if (filtered.length <= itemsPerPage) {
+            setSelectedPage(1);
         }
     };
+    
 
     const debouncedSearchJobs = debounce(searchJobs, 300);
 
@@ -78,18 +84,26 @@ const CareerPage = ({ language, screen }) => {
 
     // useEffect to reset filtered jobs when content changes
     useEffect(() => {
-        setFilteredJobs(currentContent?.jobListSection?.jobs);
-        setTotalDocuments(currentContent?.jobListSection?.jobs?.length);
+        const displayedJobs = currentContent?.jobListSection?.jobs?.filter(job => job.display) || [];
+        setFilteredJobs(displayedJobs);
+        setTotalDocuments(displayedJobs.length);
+    
+        // Reset pagination when job count is below 10
+        if (displayedJobs.length <= itemsPerPage) {
+            setSelectedPage(1);
+        }
     }, [currentContent]);
+    
 
     const handlePageChange = (result) => {
         setSelectedPage(result);
     };
 
-    const paginatedJobs = filteredJobs?.slice(
+    const paginatedJobs = filteredJobs.slice(
         (selectedPage - 1) * itemsPerPage,
         selectedPage * itemsPerPage
-    )
+    );
+    
 
     return (
         <div className="w-full">

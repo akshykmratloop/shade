@@ -44,7 +44,7 @@ const SortableItem = ({ option, removeOption, language, reference }) => {
     >
 
       {reference === "jobs" ?
-        option?.title?.value?.[language]
+        option.title.key?.[language] + ", " + option.location.value?.[language]
         : option.title?.[language]}
       <button
         onClick={() => removeOption(option)}
@@ -188,7 +188,7 @@ const MultiSelect = ({ heading, options = [], tabName, label, language, section,
                   className="p-2 cursor-pointer hover:bg-gray-100"
                 >
                   {referenceOriginal.dir === "jobs" ?
-                  option.title.key?.[language]
+                  option.title.key?.[language] + ", " + option.location.value?.[language]
                   : option.title[language]}
                 </li>
               )
