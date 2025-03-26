@@ -28,6 +28,12 @@ const cmsSlice = createSlice({
             state.present[action.payload?.currentPath] = action.payload.payload;
             state.future = [];
         },
+        selectMainNews: (state, action) => {
+            state.past.push(JSON.parse(JSON.stringify(state.present)));
+            state.present.newsBlogs.mainCard = action.payload.selected[0];
+            state.future = [];
+        }
+        ,
         updateSpecificContent: (state, action) => {
             state.past.push(JSON.parse(JSON.stringify(state.present)));
             if (action.payload.subSectionsProMax) {
@@ -150,5 +156,5 @@ const cmsSlice = createSlice({
     }
 });
 
-export const { updateImages, removeImages, updateContent, updateSpecificContent, updateServicesNumber, updateSelectedContent, updateMarketSelectedContent, updateAllProjectlisting, undo, redo } = cmsSlice.actions;
+export const { updateImages, removeImages, updateContent, updateSpecificContent, updateServicesNumber, updateSelectedContent, updateMarketSelectedContent, updateAllProjectlisting, selectMainNews, undo, redo } = cmsSlice.actions;
 export default cmsSlice.reducer;

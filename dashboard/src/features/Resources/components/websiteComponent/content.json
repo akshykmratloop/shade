@@ -4863,6 +4863,7 @@
       "cards": [
         {
           "id": "news1",
+          "display":true,
           "title": {
             "ar": "شباب يتحدون الإعاقة",
             "en": "Youth Overcoming Disability"
@@ -4875,7 +4876,7 @@
             "ar": "20 مايو 2020",
             "en": "May 20, 2020"
           },
-          "image": "news1",
+          "image": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+1+(2).png",
           "readMore": {
             "ar": "اقرأ المزيد",
             "en": "Read More"
@@ -4883,6 +4884,7 @@
         },
         {
           "id": "news2",
+          "display":true,
           "title": {
             "ar": "الروبوتات السعودية تنضم إلى الملايين في أداء فريضة الحج",
             "en": "Saudi Robots Join Millions in Performing the Hajj"
@@ -4903,6 +4905,7 @@
         },
         {
           "id": "news3",
+          "display":true,
           "title": {
             "ar": "التكنولوجيا في خدمة ذوي الإعاقة",
             "en": "Technology Serving People with Disabilities"
@@ -4923,6 +4926,7 @@
         },
         {
           "id": "news4",
+          "display":true,
           "title": {
             "ar": "قصص نجاح ملهمة",
             "en": "Inspiring Success Stories"
@@ -4943,6 +4947,7 @@
         },
         {
           "id": "news5",
+          "display":true,
           "title": {
             "ar": "مبادرات دعم ذوي الإعاقة",
             "en": "Initiatives Supporting People with Disabilities"
@@ -4963,6 +4968,7 @@
         },
         {
           "id": "news6",
+          "display":true,
           "title": {
             "ar": "التحديات التي تواجه ذوي الإعاقة",
             "en": "Challenges Faced by People with Disabilities"
@@ -4976,6 +4982,33 @@
             "en": "September 20, 2021"
           },
           "image": "news1",
+          "readMore": {
+            "ar": "اقرأ المزيد",
+            "en": "Read More"
+          }
+        },
+        {
+          "id": "news2",
+          "display":true,
+          "button": {
+            "text": {
+              "ar": "تتجه",
+              "en": "Trending"
+            }
+          },
+          "title": {
+            "ar": "الروبوتات السعودية تنضم إلى الملايين في أداء فريضة الحج",
+            "en": "Saudi Robots Join Millions in Performing the Hajj"
+          },
+          "description": {
+            "ar": "على الرغم من التحديات الكبيرة التي يعيشها ذوو الإعاقة في منطقة الشرق الأوسط وشمال أفريقيا بسبب الأزمات والحروب إلا أن قسما منهم أراد صنع التغيير وترك بصمة.",
+            "en": "Despite the major challenges faced by people with disabilities in the Middle East and North Africa due to crises and wars, some of them wanted to make a change and leave a mark."
+          },
+          "date": {
+            "ar": "20 مايو 2020",
+            "en": "May 20, 2020"
+          },
+          "image": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+2+(2).png",
           "readMore": {
             "ar": "اقرأ المزيد",
             "en": "Read More"

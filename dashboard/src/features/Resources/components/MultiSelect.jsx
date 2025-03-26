@@ -106,7 +106,6 @@ const MultiSelect = ({ heading, options = [], tabName, label, language, section,
     setSelectedOptions(prev => {
       return prev.map(option => {
         if (option === optionToRemove) {
-          console.log({...optionToRemove, display: false})
           return { ...option, display: false }
         }
         return option
@@ -141,23 +140,32 @@ const MultiSelect = ({ heading, options = [], tabName, label, language, section,
         setIsDropdownOpen(false);
       }
     };
-
+  
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, []);
+  }, []); // Empty array ensures the effect runs only once
+  
+  
 
   useEffect(() => {
-
     if (options.length > 0 && random !== 1) {
-      console.log(section)
-      dispatch(updateSelectedContent({ origin: referenceOriginal.dir, index: referenceOriginal.index, section, newArray: [...options], selected: selectedOptions, language, currentPath }));
+      dispatch(updateSelectedContent({ 
+        origin: referenceOriginal.dir, 
+        index: referenceOriginal.index, 
+        section, 
+        newArray: [...options], 
+        selected: selectedOptions, 
+        language, 
+        currentPath 
+      }));
     }
-  }, [random]);
+  }, [random]); // Minimize dependencies to prevent unnecessary runs
+  
 
   useEffect(() => {
-    if (showOptions) {
+    if (showOptions && selectedOptions.length === 0) {
       setSelectedOptions(options?.map(e => {
         if (e.display) {
           return e

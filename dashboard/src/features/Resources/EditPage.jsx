@@ -23,6 +23,7 @@ import InputText from "../../components/Input/InputText";
 import TextAreaInput from "../../components/Input/TextAreaInput";
 import CareersManager from "./components/contentmanager/CareersManager";
 import NewsPage from "./components/websiteComponent/NewsPage";
+import NewsManager from "./components/contentmanager/NewsManager";
 
 const EditPage = () => {
     const dispatch = useDispatch();
@@ -75,7 +76,7 @@ const EditPage = () => {
                 }
                 {
                     currentPath === 'news' &&
-                    <CareersManager language={language} currentContent={content.newsBlogs} currentPath={currentPath} />
+                    <NewsManager language={language} currentContent={content.newsBlogs} currentPath={"newsBlogs"} />
                 }
 
             </div> {/* Content manager ends here */}

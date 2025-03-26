@@ -4,8 +4,10 @@ import MultiSelect from "../MultiSelect";
 
 const CareersManager = ({ language, currentContent, currentPath }) => {
 
+    const jobs = currentContent?.jobListSection?.jobs.map(e => e)
+
     return (
-        <div>
+        <div className="w-full">
             <FileUploader id={"careersReference"} label={"Rerference doc"} fileName={"Upload your file..."} />
             {/* homeBanner */}
             <ContentSection
@@ -30,7 +32,7 @@ const CareersManager = ({ language, currentContent, currentPath }) => {
                 label={"Select Jobs List"}
                 heading={"Jobs Section"}
                 tabName={"Select Jobs"}
-                options={currentContent?.jobListSection?.jobs}
+                options={jobs}
                 referenceOriginal={{ dir: "jobs", index: 0 }}
                 currentContent={currentContent}
             />
