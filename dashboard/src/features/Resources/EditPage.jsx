@@ -22,6 +22,7 @@ import CareerPage from "./components/websiteComponent/CareersPage";
 import InputText from "../../components/Input/InputText";
 import TextAreaInput from "../../components/Input/TextAreaInput";
 import CareersManager from "./components/contentmanager/CareersManager";
+import NewsPage from "./components/websiteComponent/NewsPage";
 
 const EditPage = () => {
     const dispatch = useDispatch();
@@ -114,6 +115,10 @@ const EditPage = () => {
                     {
                         currentPath === "careers" &&
                         <CareerPage language={language} currentContent={content.career} screen={screen} />
+                    }
+                    {
+                        currentPath === "news" &&
+                        <NewsPage language={language} currentContent={content.newsBlogs} screen={screen} />
                     }
                 </div>
             </div>

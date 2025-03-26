@@ -7,10 +7,10 @@ const resources = {
         { heading: "Markets", src: "https://shade-six.vercel.app/market", assign: true },
         { heading: "Projects", src: "https://shade-six.vercel.app/project", assign: false },
         { heading: "Careers", src: "https://shade-six.vercel.app/career", assign: true },
-        { heading: "News", src: "https://shade-six.vercel.app/news-and-blogs", assign: true },
+        { heading: "News", src: "https://shade-six.vercel.app/news-and-blogs", assign: false },
     ],
     services: [
-        { heading: "Home", src: "https://shade-six.vercel.app/", assign: true },
+        { heading: "Home", src: "https://shade-six.vercel.app/", assign: false },
         { heading: "Solution", src: "https://shade-six.vercel.app/solution", assign: true },
         { heading: "About", src: "https://shade-six.vercel.app/about-us", assign: true },
         { heading: "Service", src: "https://shade-six.vercel.app/services", assign: true },
