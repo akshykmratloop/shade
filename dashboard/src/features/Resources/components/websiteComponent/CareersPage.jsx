@@ -51,25 +51,25 @@ const CareerPage = ({ language, screen }) => {
     const searchJobs = (term) => {
         setSearchTerm(term);
         let filtered = currentContent?.jobListSection?.jobs || [];
-    
+
         if (term) {
             filtered = filtered.filter((job) =>
                 job.title.value[language].toLowerCase().includes(term.toLowerCase())
             );
         }
-    
+
         // Filter only displayed jobs
         filtered = filtered.filter((job) => job.display);
-    
+
         setFilteredJobs(filtered);
         setTotalDocuments(filtered.length);
-    
+
         // Reset page number if fewer than 10 jobs are displayed
         if (filtered.length <= itemsPerPage) {
             setSelectedPage(1);
         }
     };
-    
+
 
     const debouncedSearchJobs = debounce(searchJobs, 300);
 
@@ -87,13 +87,13 @@ const CareerPage = ({ language, screen }) => {
         const displayedJobs = currentContent?.jobListSection?.jobs?.filter(job => job.display) || [];
         setFilteredJobs(displayedJobs);
         setTotalDocuments(displayedJobs.length);
-    
+
         // Reset pagination when job count is below 10
         if (displayedJobs.length <= itemsPerPage) {
             setSelectedPage(1);
         }
     }, [currentContent]);
-    
+
 
     const handlePageChange = (result) => {
         setSelectedPage(result);
@@ -103,7 +103,7 @@ const CareerPage = ({ language, screen }) => {
         (selectedPage - 1) * itemsPerPage,
         selectedPage * itemsPerPage
     );
-    
+
 
     return (
         <div className="w-full">
@@ -139,9 +139,9 @@ const CareerPage = ({ language, screen }) => {
                 </div>
             </section>
 
-            <section className={`${language === "en" ? "text-left" : ""} py-28 px-20`}>
+            <section className={`${language === "en" ? "text-left" : ""} py-8 pt-16 px-20`}>
                 <div className="container">
-                    <div className="flex items-center justify-between gap-5">
+                    <div className={`flex items-center justify-between gap-5 ${!isLeftAlign && "flex-row-reverse"}`}>
                         <div className="flex items-center gap-2.5 p-2 border rounded-lg border-gray-300">
                             <img
                                 src="https://loopwebsite.s3.ap-south-1.amazonaws.com/material-symbols_search+(1).svg"
@@ -160,13 +160,19 @@ const CareerPage = ({ language, screen }) => {
                         </div>
                         <div className="flex items-center gap-8">
                             {currentContent?.filterSection?.filtersSelections?.map((filter, index) => (
-                                <div key={index} className="relative">
+                                <div key={index} className="relative flex ">
+                                    <img
+                                        src="https://loopwebsite.s3.ap-south-1.amazonaws.com/weui_arrow-outlined+(1).svg"
+                                        alt="icon"
+                                        width={20}
+                                        height={20}
+                                    />
                                     <select
                                         className={`border-none bg-transparent text-gray-700 text-center text-sm font-light focus:outline-none `}
                                         aria-label={filter?.title[language]}
                                         onChange={(e) => handleChange(e, filter.title[language])}
                                     >
-                                        <option value="" disabled defaultValue>
+                                        <option value="">
                                             {filter?.title[language]}
                                         </option>
                                         {filter.options.map((option, optIndex) => (
@@ -182,7 +188,7 @@ const CareerPage = ({ language, screen }) => {
                 </div>
             </section>
 
-            <section className={`w-full ${language === "en" ? "text-left" : "text-right"} px-12`}>
+            <section className={`w-full ${isLeftAlign ? "text-left" : "text-right"} px-12`}>
                 {paginatedJobs?.length < 1 && (
                     <div className="flex h-24 w-full items-center justify-center">
                         <h1>Oops... Not found !</h1>
@@ -191,71 +197,77 @@ const CareerPage = ({ language, screen }) => {
                 <div className="container mx-auto p-4">
                     <div className="space-y-8">
                         {paginatedJobs?.map((job, index) => {
-                            if(!job.display) return null
+                            if (!job.display) return null;
                             return (
-                            <div key={job.id} className="rounded-lg bg-gray-100 py-8 px-4 shadow-md">
-                                <div className="flex items-center justify-between cursor-pointer gap-5" onClick={() => toggleAccordion(index)}>
-                                    <div className="flex w-3/4 items-center gap-2">
-                                        <img
-                                            src="https://loopwebsite.s3.ap-south-1.amazonaws.com/weui_arrow-outlined+(1).svg"
-                                            alt="icon"
-                                            width={28}
-                                            height={28}
-                                        />
-                                        <div>
-                                            <h5 className="text-md font-bold text-gray-800">{job?.title?.key[language]}</h5>
-                                            <p className="text-sm font-light text-gray-600">{job?.title?.value[language]}</p>
+                                <div key={job.id} className="rounded-lg bg-gray-100 py-8 px-4 shadow-md">
+                                    {/* Ensure flex-row-reverse for mirroring layout */}
+                                    <div
+                                        className={`flex items-center justify-between cursor-pointer gap-5 
+                            ${!isLeftAlign ? "flex-row-reverse" : ""}`}
+                                        onClick={() => toggleAccordion(index)}
+                                    >
+                                        <div className={`flex w-3/4 items-center gap-2 ${!isLeftAlign && "flex-row-reverse"}`}>
+                                            <img
+                                                src="https://loopwebsite.s3.ap-south-1.amazonaws.com/weui_arrow-outlined+(1).svg"
+                                                alt="icon"
+                                                width={28}
+                                                height={28}
+                                            />
+                                            <div>
+                                                <h5 className="text-md font-bold text-gray-800">{job?.title?.key[language]}</h5>
+                                                <p className="text-sm font-light text-gray-600">{job?.title?.value[language]}</p>
+                                            </div>
+                                        </div>
+                                        <div className="w-1/3 border-l border-gray-300 pl-5">
+                                            <h5 className="text-sm font-light text-gray-600">{job?.location?.key[language]}</h5>
+                                            <p className="text-md font-bold text-gray-800">{job?.location?.value[language]}</p>
+                                        </div>
+                                        <div className="w-1/4 border-l border-gray-300 border-r border-gray-300 px-5">
+                                            <h5 className="text-sm font-light text-gray-600">{job?.deadline?.key[language]}</h5>
+                                            <p className="text-md font-bold text-gray-800">{job?.deadline?.value[language]}</p>
+                                        </div>
+                                        <div className={`mt-4 flex items-center gap-6 ${!isLeftAlign && "flex-row-reverse"}`}>
+                                            <button
+                                                className="rounded bg-[#00b9f2] px-3 w-[102px] py-2 text-white text-xs"
+                                                onClick={() => {
+                                                    setIsModal(true);
+                                                    setSelectedJob(job?.title?.value[language]);
+                                                }}
+                                            >
+                                                {currentContent?.jobListSection?.buttons[0]?.text[language]}
+                                            </button>
+                                            <button
+                                                className="rounded border border-[#00b9f2] px-6 py-2 text-[#00b9f2] text-xs"
+                                            >
+                                                {currentContent?.jobListSection?.buttons[1]?.text[language]}
+                                            </button>
                                         </div>
                                     </div>
-                                    <div className="w-1/3 border-l border-gray-300 pl-5">
-                                        <h5 className="text-sm font-light text-gray-600">{job?.location?.key[language]}</h5>
-                                        <p className="text-md font-bold text-gray-800">{job?.location?.value[language]}</p>
-                                    </div>
-                                    <div className="w-1/4 border-l border-gray-300 border-r border-gray-300 px-5">
-                                        <h5 className="text-sm font-light text-gray-600">{job?.deadline?.key[language]}</h5>
-                                        <p className="text-md font-bold text-gray-800">{job?.deadline?.value[language]}</p>
-                                    </div>
-                                    <div className="mt-4 flex items-center gap-6 ">
-                                        <button
-                                            className="rounded bg-[#00b9f2] px-3 w-[102px] py-2 text-white text-xs"
-                                            onClick={() => {
-                                                setIsModal(true);
-                                                setSelectedJob(job?.title?.value[language]);
-                                            }}
-                                        >
-                                            {currentContent?.jobListSection?.buttons[0]?.text[language]}
-                                        </button>
-                                        <button
-                                            className="rounded border border-[#00b9f2] px-6 py-2 text-[#00b9f2] text-xs"
-                                        // onClick={() => router.push(`/career/${job.id}`)}
-                                        >
-                                            {currentContent?.jobListSection?.buttons[1]?.text[language]}
-                                        </button>
-                                    </div>
-                                </div>
 
-                                <motion.div
-                                    ref={(el) => (contentRef.current[index] = el)}
-                                    initial={false}
-                                    animate={
-                                        activeIndex === index
-                                            ? { height: contentRef.current[index]?.scrollHeight || "auto", opacity: 1 }
-                                            : { height: 0, opacity: 0 }
-                                    }
-                                    transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
-                                    className="overflow-hidden"
-                                >
-                                    <ul className="mt-5 list-disc space-y-3 pl-6 text-gray-700">
-                                        {job.descriptionList.map((desc, i) => (
-                                            <li key={i}>{desc[language]}</li>
-                                        ))}
-                                    </ul>
-                                </motion.div>
-                            </div>
-                        )})}
+                                    <motion.div
+                                        ref={(el) => (contentRef.current[index] = el)}
+                                        initial={false}
+                                        animate={
+                                            activeIndex === index
+                                                ? { height: contentRef.current[index]?.scrollHeight || "auto", opacity: 1 }
+                                                : { height: 0, opacity: 0 }
+                                        }
+                                        transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
+                                        className="overflow-hidden"
+                                    >
+                                        <ul className="mt-5 list-disc space-y-3 pl-6 text-gray-700">
+                                            {job.descriptionList.map((desc, i) => (
+                                                <li key={i}>{desc[language]}</li>
+                                            ))}
+                                        </ul>
+                                    </motion.div>
+                                </div>
+                            );
+                        })}
                     </div>
                 </div>
             </section>
+
 
             <section className="flex justify-end gap-5 h-[94px] pr-12">
                 <Pagination
