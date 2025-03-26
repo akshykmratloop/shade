@@ -118,7 +118,9 @@ const NewsBlogspage = ({ language, screen }) => {
                         {latestNews?.heading[language]}
                     </h2>
                     <div className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 justify-items-center ${isLeftAlign ? '' : 'scale-x-[-1]'}`}>
-                        {latestNews?.cards?.map((card, index) => (
+                        {latestNews?.cards?.map((card, index) => {
+                            if(!card.display) return null
+                            return (
                             <div key={index} className="rounded-md border border-gray-300 bg-white shadow-md overflow-hidden min-h-[390px]">
                                 <img
                                     src={card.image.slice(0, 5) === "https" ? card.image : newsBlogs[card.image]}
@@ -154,7 +156,7 @@ const NewsBlogspage = ({ language, screen }) => {
                                     </div>
                                 </div>
                             </div>
-                        ))}
+                        )})}
                     </div>
                 </div>
             </section>

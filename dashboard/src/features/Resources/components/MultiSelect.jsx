@@ -79,6 +79,10 @@ const MultiSelect = ({ heading, options = [], tabName, label, language, section,
       actualListOfServices = content.careers.jobListSection.jobs;
       break;
 
+    case "news":
+      actualListOfServices = content.newsBlogs.latestNewCards.cards;
+      break;
+
     default:
       actualListOfServices = []
   }
@@ -101,6 +105,7 @@ const MultiSelect = ({ heading, options = [], tabName, label, language, section,
     }
     setRandom(prev => prev + 1)
   };
+  
 
   const removeOption = (optionToRemove) => {
     setSelectedOptions(prev => {
@@ -140,32 +145,32 @@ const MultiSelect = ({ heading, options = [], tabName, label, language, section,
         setIsDropdownOpen(false);
       }
     };
-  
+
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []); // Empty array ensures the effect runs only once
-  
-  
+
+
 
   useEffect(() => {
     if (options.length > 0 && random !== 1) {
-      dispatch(updateSelectedContent({ 
-        origin: referenceOriginal.dir, 
-        index: referenceOriginal.index, 
-        section, 
-        newArray: [...options], 
-        selected: selectedOptions, 
-        language, 
-        currentPath 
+      dispatch(updateSelectedContent({
+        origin: referenceOriginal.dir,
+        index: referenceOriginal.index,
+        section,
+        newArray: [...options],
+        selected: selectedOptions,
+        language,
+        currentPath
       }));
     }
   }, [random]); // Minimize dependencies to prevent unnecessary runs
-  
+
 
   useEffect(() => {
-    if (showOptions && selectedOptions.length === 0) {
+    if (showOptions) {
       setSelectedOptions(options?.map(e => {
         if (e.display) {
           return e
@@ -196,8 +201,8 @@ const MultiSelect = ({ heading, options = [], tabName, label, language, section,
                   className="p-2 cursor-pointer hover:bg-gray-100"
                 >
                   {referenceOriginal.dir === "jobs" ?
-                  option.title.key?.[language] + ", " + option.location.value?.[language]
-                  : option.title[language]}
+                    option.title.key?.[language] + ", " + option.location.value?.[language]
+                    : option.title[language]}
                 </li>
               )
             })
@@ -215,12 +220,12 @@ const MultiSelect = ({ heading, options = [], tabName, label, language, section,
         <SortableContext items={selectedOptions} strategy={verticalListSortingStrategy}>
           <div className={`flex flex-wrap  gap-2 p-2 pl-4 border dark:border-stone-500 rounded-md ${language === 'ar' && "flex-row-reverse"}`}>
             {referenceOriginal.dir === "jobs" ?
-              selectedOptions?.map((option) => (
+              selectedOptions?.map((option, i) => (
                 <SortableItem key={option.title?.key?.[language] + String(Math.random())} option={option} removeOption={removeOption} language={language} reference={referenceOriginal.dir} />
               ))
               :
-              selectedOptions?.map((option) => (
-                <SortableItem key={option.title?.[language] + String(Math.random())} option={option} removeOption={removeOption} language={language} />
+              selectedOptions?.map((option, i) => (
+                <SortableItem key={option.title?.[language] + String(Math.random()+ i)} option={option} removeOption={removeOption} language={language} />
               ))
             }
           </div>

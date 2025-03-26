@@ -87,6 +87,9 @@ const cmsSlice = createSlice({
                     state.present[action.payload?.currentPath].jobListSection.jobs = newOptions;
                     break;
 
+                case "news":
+                    state.present[action.payload?.currentPath].latestNewCards.cards = newOptions
+
                 default:
             }
             state.future = [];
