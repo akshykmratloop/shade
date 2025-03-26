@@ -22,7 +22,7 @@ const CareersManager = ({ language, currentContent, currentPath }) => {
                 currentContent={currentContent}
             />
 
-            {/* services  */}
+            {/* Jobs  */}
             <MultiSelect
                 currentPath={currentPath}
                 section={"jobListSection"}

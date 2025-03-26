@@ -23,7 +23,7 @@ const NewsBlogspage = ({ language, screen }) => {
     const dispatch = useDispatch()
     const currentContent = useSelector((state) => state.homeContent.present.newsBlogs)
     const ImageFromRedux = useSelector((state) => state.homeContent.present.images)
-    const bannerTitle = currentContent?.bannerSection?.title[language];
+    const bannerTitle = currentContent?.bannerSection?.title?.[language];
     const bannerDescription = currentContent?.bannerSection?.description[language];
     const mainCard = currentContent?.mainCard;
     const latestNews = currentContent?.latestNewCards;
@@ -53,7 +53,7 @@ const NewsBlogspage = ({ language, screen }) => {
                 <div className={`container h-full relative ${isPhone ? "px-10" : "px-20"} flex items-center ${isLeftAlign ? "justify-end" : "justify-end"}   `}>
                     <div className={`flex flex-col ${isLeftAlign ? 'right-5 text-left items-start ' : 'left-5 text-right items-end'} ${isPhone ? "max-w-[70%]" : "max-w-[55%]"} w-full ${isLeftAlign ? 'scale-x-[-1]' : ''}`}>
                         <h1 className={`text-[#292E3D] ${isPhone ? "text-3xl" : "text-[50px] leading-[77px] tracking-[-3.5px]"} font-medium  mb-4`}>
-                            {bannerTitle}
+                            {/* {bannerTitle} */}
                         </h1>
                         <p className={`text-[#0E172FB3] ${isPhone ? "" : "leading-[28px]"} text-sm font-semibold w-[70%] mb-6 word-spacing-5`}>
                             {bannerDescription}
@@ -129,10 +129,10 @@ const NewsBlogspage = ({ language, screen }) => {
                                 <div className="p-2 flex-auto flex flex-col justify-between min-h-[68%]">
                                     <div>
                                         <h2
-                                            title={card.title[language]}
+                                            title={card?.title?.[language]}
                                             className={`text-[16px] font-bold mb-2`}
                                         >
-                                            {TruncateText(card.title[language], 40)}
+                                            {TruncateText(card?.title?.[language], 25)}
                                         </h2>
                                         <p
                                             title={card.description[language]}
@@ -168,13 +168,13 @@ const NewsBlogspage = ({ language, screen }) => {
                                 {trendingCard?.button?.text[language]}
                             </button>
                             <h2
-                                title={trendingCard.title[language]}
+                                title={trendingCard.title?.[language]}
                                 className="font-bold text-lg leading-6 text-black"
                             >
-                                {TruncateText(trendingCard.title[language], 35)}
+                                {TruncateText(trendingCard.title?.[language], 35)}
                             </h2>
                             <p
-                                title={trendingCard.description[language]}
+                                title={trendingCard?.description[language]}
                                 className="text-xs font-light leading-5 text-[rgba(0,26,88,0.51)] mb-6 h-[150px]"
                             >
                                 {TruncateText(trendingCard.description[language], 150)}

@@ -73,6 +73,10 @@ const EditPage = () => {
                     currentPath === 'careers' &&
                     <CareersManager language={language} currentContent={content.careers} currentPath={currentPath} />
                 }
+                {
+                    currentPath === 'news' &&
+                    <CareersManager language={language} currentContent={content.newsBlogs} currentPath={currentPath} />
+                }
 
             </div> {/* Content manager ends here */}
             {/* Content view */}
