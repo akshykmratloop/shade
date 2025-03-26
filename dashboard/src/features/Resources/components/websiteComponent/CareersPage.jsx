@@ -1,18 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
 import content from "./content.json"
 // import styles from "./Career.module.scss";
-import localFont from "next/font/local";
+// import localFont from "next/font/local";
 import { motion } from "framer-motion";
 // import ApplyModal from "./ApplyModal";
 // import Pagination from "../../common/Pagination";
 import Pagination from "./Pagination";
 // const AnimatedText = dynamic(() => import('@/common/AnimatedText'), { ssr: false });
 import Arrow from "../../../../assets/icons/right-wrrow.svg"
-
-// const BankGothic = localFont({
-//   src: "../../../public/font/BankGothicLtBTLight.ttf",
-//   display: "swap",
-// });
 import { useDispatch, useSelector } from "react-redux";
 import { updateContent } from "../../../common/homeContentSlice";
 
@@ -274,6 +269,7 @@ const CareerPage = ({ language, screen }) => {
                     totalDocuments={totalDocuments}
                     handlePageChange={handlePageChange}
                     selectedPage={selectedPage}
+                    language={language}
                 />
             </section>
 

@@ -205,7 +205,7 @@ const MultiSelect = ({ heading, options = [], tabName, label, language, section,
         onDragEnd={onDragEnd}
       >
         <SortableContext items={selectedOptions} strategy={verticalListSortingStrategy}>
-          <div className="flex flex-wrap gap-2 p-2 pl-4 border dark:border-stone-500 rounded-md ">
+          <div className={`flex flex-wrap  gap-2 p-2 pl-4 border dark:border-stone-500 rounded-md ${language === 'ar' && "flex-row-reverse"}`}>
             {referenceOriginal.dir === "jobs" ?
               selectedOptions?.map((option) => (
                 <SortableItem key={option.title?.key?.[language] + String(Math.random())} option={option} removeOption={removeOption} language={language} reference={referenceOriginal.dir} />
