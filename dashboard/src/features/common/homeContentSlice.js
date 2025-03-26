@@ -52,13 +52,11 @@ const cmsSlice = createSlice({
         },
         updateSelectedContent: (state, action) => {
             state.past.push(JSON.parse(JSON.stringify(state.present)));
-            console.log(action.payload)
             const selectedMap = new Map(
                 action.payload.origin === "jobs" ?
                     action.payload?.selected?.filter(e => e.display).map((item, index) => [item.title.key[action.payload.language], index])
                     : action.payload?.selected?.filter(e => e.display).map((item, index) => [item.title[action.payload.language], index])
             );
-            console.log(selectedMap)
             let newOptions = action.payload.newArray?.map(e => ({
                 ...e,
                 display: action.payload.origin === "jobs" ? selectedMap.has(e.title.key[action.payload.language]) : selectedMap.has(e.title[action.payload.language])
@@ -99,10 +97,8 @@ const cmsSlice = createSlice({
 
             if (action.payload.action === 'update') {
                 state.present.projects.projectsSection.allProjectsList = [...action.payload.selected]
-                console.log("action")
             }
             else if (action.payload.action === 'initial') {
-                console.log("action2")
                 state.present.projects.projectsSection.allProjectsList = action.payload.data ?? []
             }
 

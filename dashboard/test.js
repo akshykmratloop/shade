@@ -106,7 +106,6 @@ const MultiSelect = ({ heading, options = [], tabName, label, language, section,
     setSelectedOptions(prev => {
       return prev.map(option => {
         if (option === optionToRemove) {
-          console.log({...optionToRemove, display: false})
           return { ...option, display: false }
         }
         return option

@@ -5,7 +5,6 @@ import MultiSelectSM from "../MultiSelectSM"
 
 const NewsManager = ({ language, currentContent, currentPath }) => {
 
-    // console.log(currentPath)
 
     return (
         <div className="w-full">
