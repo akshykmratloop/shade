@@ -15,12 +15,20 @@ import AboutManager from "./components/contentmanager/AboutManager";
 // import Services from "./components/websiteComponent/Service";
 import MarketPage from "./components/websiteComponent/Market";
 import MarketManager from "./components/contentmanager/MarketManager";
+import ProjectPage from "./components/websiteComponent/Projects";
+import Popups from "./components/Popups";
+import ProjectContentManager from "./components/contentmanager/ProjectContentManager";
+import CareerPage from "./components/websiteComponent/CareersPage";
+import InputText from "../../components/Input/InputText";
+import TextAreaInput from "../../components/Input/TextAreaInput";
 
 const EditPage = () => {
     const dispatch = useDispatch();
     const [language, setLanguage] = useState('en')
     const [screen, setScreen] = useState(1180)
     const location = useLocation();
+    const [PopupReject, setPopupReject] = useState(false)
+    const [PopupSubmit, setPopupSubmit] = useState(false)
 
     const currentPath = location.pathname.split('/')[4]
     const content = useSelector((state) => state.homeContent.present)
@@ -30,7 +38,7 @@ const EditPage = () => {
     }, [])
 
     return (
-        <div className="flex gap-[1.5rem] pr-1 h-[83.5vh] w-full">
+        <div className="flex gap-[1.5rem] pr-1 h-[83.5vh] w-full relative">
 
             {/* content manager */}
             <div
@@ -55,16 +63,28 @@ const EditPage = () => {
                     currentPath === 'markets' &&
                     <MarketManager language={language} currentContent={content.markets} currentPath={currentPath} />
                 }
+                {
+                    currentPath === 'projects' &&
+                    <ProjectContentManager language={language} currentContent={content.projects} currentPath={currentPath} />
+                }
+
 
             </div> {/* Content manager ends here */}
             {/* Content view */}
             <div
                 className={`flex-[4] h-[83.5vh] flex flex-col`}
-                style={{ width: screen > 1000 ? "" : screen }}
             >
-                <ContentTopBar setWidth={setScreen} />
+                <ContentTopBar setWidth={setScreen} raisePopup={{ reject: () => setPopupReject(true), submit: () => setPopupSubmit(true) }} />
                 <h4>Commented by {"Anukool (Super Admin)"}</h4>
-                <div className={`overflow-y-scroll customscroller border-black-500  mx-auto w-full bankgothic-medium-dt bg-[white]`}
+                <TextAreaInput
+                    updateFormValue={() => { }}
+                    placeholder={"Comments..."}
+                    required={false}
+                    textAreaStyle={""}
+                    containerStyle={"mb-4"}
+                    minHeight={"3.2rem"}
+                />
+                <div className={`overflow-y-scroll customscroller transition-custom border-stone-200 border mx-auto w-full bankgothic-medium-dt bg-[white]`}
                     style={{ width: screen > 1000 ? "" : screen }}
                 >
                     {
@@ -83,9 +103,18 @@ const EditPage = () => {
                         currentPath === "markets" &&
                         <MarketPage language={language} currentContent={content.markets} screen={screen} />
                     }
-
+                    {
+                        currentPath === "projects" &&
+                        <ProjectPage language={language} currentContent={content.projects} screen={screen} />
+                    }
+                    {
+                        currentPath === "career" &&
+                        <CareerPage language={language} currentContent={content.career} screen={screen} />
+                    }
                 </div>
             </div>
+            <Popups display={PopupReject} setClose={() => setPopupReject(false)} confirmationText={"Are you sure you want to reject"} />
+            <Popups display={PopupSubmit} setClose={() => setPopupSubmit(false)} confirmationText={"Are you sure you want to submit"} />
         </div>
     )
 }

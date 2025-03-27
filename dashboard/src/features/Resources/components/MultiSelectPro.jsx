@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import content from "./websiteComponent/content.json"
+import { createPortal } from "react-dom";
 import {
     DndContext,
     closestCenter,
@@ -8,6 +9,7 @@ import {
     useSensors,
     PointerSensor,
     TouchSensor,
+    DragOverlay
 } from "@dnd-kit/core";
 import {
     SortableContext,
@@ -16,24 +18,28 @@ import {
     useSortable,
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { updateSelectedContent } from "../../common/homeContentSlice";
+import { updateAllProjectlisting, updateMarketSelectedContent } from "../../common/homeContentSlice";
 
 const SortableItem = ({ option, removeOption, language }) => {
-    const { attributes, listeners, setNodeRef, transform, transition } =
-        useSortable({ id: option });
+    const { attributes, listeners, setNodeRef, transform, transition, isDragging } =
+        useSortable({ id: option, data: { option } });
 
     const style = {
         transform: CSS.Transform.toString(transform),
         transition,
+        zIndex: isDragging ? 1000 : "auto",
+        opacity: isDragging ? 0.7 : 1,
+        boxShadow: isDragging ? "0px 5px 15px rgba(0,0,0,0.2)" : "none",
+        scale: isDragging ? "1.05" : "1",
     };
 
     return (
-        <span
+        <div
             ref={setNodeRef}
             style={style}
             {...attributes}
             {...listeners}
-            className="flex items-center gap-1 px-3 py-1 text-xs bg-gray-200 h-[2.125rem] rounded-md cursor-move dark:text-[black]"
+            className={`flex items-center ${language === 'ar' && "flex-row-reverse text-right"} gap-1 px-3 py-1 text-xs bg-gray-200 min-h-[2.125rem] rounded-md cursor-move dark:text-[black] transition-transform`}
         >
             {option.title?.[language]}
             <button
@@ -42,9 +48,11 @@ const SortableItem = ({ option, removeOption, language }) => {
             >
                 ✕
             </button>
-        </span>
+        </div>
     );
 };
+
+
 
 const MultiSelectPro = ({ heading, options = [], tabName, label, language, section, referenceOriginal = { dir: "", index: 0 }, currentPath, id }) => {
     const [selectedOptions, setSelectedOptions] = useState([]);
@@ -52,11 +60,16 @@ const MultiSelectPro = ({ heading, options = [], tabName, label, language, secti
     const dropdownRef = useRef(null);
     const [random, setRandom] = useState(1)
     const dispatch = useDispatch();
+    const [activeItem, setActiveItem] = useState(null);
 
-    let actualListOfServices;
+    let actualListOfServices; //content.home.serviceSection.cards
     switch (referenceOriginal.dir) {
         case "markets":
-            actualListOfServices = content.market.tabSection.marketItems
+            actualListOfServices = content.market.tabSection.marketItems;
+            break;
+
+        case "projects":
+            actualListOfServices = content.projectsPage.projectsSection.projects;
             break;
 
         default:
@@ -70,35 +83,59 @@ const MultiSelectPro = ({ heading, options = [], tabName, label, language, secti
     };
 
     const handleSelect = (optionToAdd) => {
-        for (let i = 0; i < options.length; i++) {
-            if (optionToAdd.title === options[i].title) {
-                if (options[i].display) return
-                setSelectedOptions(prev => {
-                    return [...prev, { ...optionToAdd, display: true }]
-                })
+        let newOption
+        switch (referenceOriginal.dir) {
+            case "markets":
+                newOption = { ...optionToAdd, type: id }
                 break;
-            }
+
+            case "projects":
+                newOption = { ...optionToAdd, status: id }
+                break;
+
+            default:
         }
-        setRandom(prev => prev + 1)
+        dispatch(updateMarketSelectedContent({
+            origin: referenceOriginal.dir,
+            newArray: [...options],
+            selected: selectedOptions,
+            language,
+            currentPath,
+            newOption
+        }))
     };
 
     const removeOption = (optionToRemove) => {
-        setSelectedOptions(prev => {
-            return prev.map(option => {
-                if (option.id === optionToRemove.id) {
-                    console.log(option)
-                    return { ...option, type: "" }
-                }
-                return option
-            })
-        })
-        setRandom(prev => prev + 1)
+        let newOption
+        switch (referenceOriginal.dir) {
+            case "markets":
+                newOption = { ...optionToRemove, type: "" }
+                break;
+
+            case "projects":
+                newOption = { ...optionToRemove, status: "" }
+                break;
+
+            default:
+        }
+        dispatch(updateMarketSelectedContent({
+            origin: referenceOriginal.dir,
+            newArray: [...options],
+            selected: selectedOptions,
+            language,
+            currentPath,
+            newOption
+        }))
     };
 
     const sensors = useSensors(
         useSensor(PointerSensor, { activationConstraint: { distance: 5 } }),
         useSensor(TouchSensor, { activationConstraint: { delay: 100, tolerance: 10 } })
     );
+
+    const onDragStart = ({ active }) => {
+        setActiveItem(active.data.current.option);
+    };
 
     const onDragEnd = ({ active, over }) => {
         if (active.id !== over?.id) {
@@ -108,6 +145,7 @@ const MultiSelectPro = ({ heading, options = [], tabName, label, language, secti
                 return arrayMove(items, oldIndex, newIndex);
             });
         }
+
         setRandom(prev => prev + 1)
     };
 
@@ -125,20 +163,48 @@ const MultiSelectPro = ({ heading, options = [], tabName, label, language, secti
     }, []);
 
     useEffect(() => {
-        if (options.length > 0 && random !== 1) {
-            dispatch(updateSelectedContent({ origin: referenceOriginal.dir, index: referenceOriginal.index, section, newArray: [...options], selected: selectedOptions, language, currentPath }));
-        }
-    }, [random]);
-
-    useEffect(() => {
-        if (showOptions) {
-            setSelectedOptions(options?.map(option => {
-                if (option.type === id) {
-                    return option
-                } 
+        if (showOptions && referenceOriginal.dir === "markets") {
+            setSelectedOptions(options?.map(e => {
+                if (e.type === id) {
+                    return e
+                }
+            }).filter(e => e));
+        } else if (showOptions && referenceOriginal.dir === "projects") {
+            setSelectedOptions(options?.map(e => {
+                if (e.status === id) {
+                    return e
+                } else if (id === "all") {
+                    return e
+                }
             }).filter(e => e));
         }
     }, [options]);
+
+    useEffect(() => {
+        console.log(selectedOptions)
+        if (random > 1) {
+            if (id === 'all') {
+                // dispatch(updateAllProjectlisting({
+                //     origin: referenceOriginal.dir,
+                //     newArray: [...options],
+                //     selected: selectedOptions,
+                //     language,
+                //     // currentPath,
+                //     action: "update"
+                // }))
+
+            } else {
+                dispatch(updateMarketSelectedContent({
+                    origin: referenceOriginal.dir,
+                    newArray: [...options],
+                    selected: [...selectedOptions],
+                    language,
+                    currentPath,
+                    newOption: null
+                }))
+            }
+        }
+    }, [random])
 
     return (
         <div className="relative w-full border-b border-b-2 border-neutral-300 pb-4" ref={dropdownRef}>
@@ -171,15 +237,26 @@ const MultiSelectPro = ({ heading, options = [], tabName, label, language, secti
             <DndContext
                 sensors={sensors}
                 collisionDetection={closestCenter}
+                onDragStart={onDragStart}
                 onDragEnd={onDragEnd}
             >
                 <SortableContext items={selectedOptions} strategy={verticalListSortingStrategy}>
-                    <div className="flex flex-wrap gap-2 p-2 pl-4 border dark:border-stone-500 rounded-md ">
+                    <div className={`flex flex-wrap gap-2 p-2 pl-4 border dark:border-stone-500 rounded-md ${language === 'ar' && "flex-row-reverse"}`}>
                         {selectedOptions?.map((option) => (
                             <SortableItem key={option.title?.[language] + String(Math.random())} option={option} removeOption={removeOption} language={language} />
                         ))}
                     </div>
                 </SortableContext>
+
+                {/* DragOverlay for smooth dragging */}
+                {createPortal(
+                    <DragOverlay>
+                        {activeItem ? (
+                            <SortableItem option={activeItem} removeOption={removeOption} language={language} />
+                        ) : null}
+                    </DragOverlay>,
+                    document.body
+                )}
             </DndContext>
         </div>
     );

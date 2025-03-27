@@ -34,7 +34,7 @@ const MarketManager = ({ language, currentContent, currentPath }) => {
                 currentContent={currentContent}
             />
 
-
+            {/* Market Lists */}
             <div>
                 <h1>Market Lists</h1>
                 {

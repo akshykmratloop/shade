@@ -1,23 +1,28 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { FaArrowLeftLong } from "react-icons/fa6";
 import { MdOutlineDesktopWindows } from "react-icons/md";
 import { FiTablet, FiSmartphone } from "react-icons/fi";
 import { GrUndo, GrRedo } from "react-icons/gr";
-import { RiShareForward2Fill } from "react-icons/ri";
 import { LuEye } from "react-icons/lu";
 import Button from '../../../components/Button/Button';
 import { RxCross1 } from "react-icons/rx";
 import { useDispatch, useSelector } from 'react-redux';
 import { redo, undo } from '../../common/homeContentSlice';
+import { useNavigate } from 'react-router-dom';
+import { IoIosInformationCircleOutline } from "react-icons/io";
 
 
-export default function ContentTopBar({ setWidth }) {
+export default function ContentTopBar({ setWidth, raisePopup }) {
     const dispatch = useDispatch();
     const iconSize = 'xl:h-[1.5rem] xl:w-[1.5rem]';
     const smallIconSize = 'sm:h-[1rem] sm:w-[1rem]';
     const [selectedDevice, setSelectedDevice] = useState("Desktop");
     const [menuOpen, setMenuOpen] = useState(false);
     const ReduxState = useSelector(state => state.homeContent)
+    const navigate = useNavigate()
+    const [info, setInfo] = useState(false)
+    const infoRef = useRef(null)
+
 
     const deviceIcons = [
         { icon: <MdOutlineDesktopWindows />, label: 'Desktop', width: 1180 },
@@ -38,13 +43,30 @@ export default function ContentTopBar({ setWidth }) {
         dispatch(redo());
     };
 
+    useEffect(() => {
+        const handleClickOutside = (e) => {
+            if (infoRef.current && !infoRef.current.contains(e.target) && e.target !== infoIconRef.current) {
+                setInfo(false);
+            }
+        };
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, []);
+    
+    const infoIconRef = useRef(null); // Create a new ref for the info icon
+    
+
     return (
         <div className='flex justify-between gap-2 items-center xl:px-[2.36rem] xl:py-[1.2rem] sm:px-[.8rem] sm:py-[.5rem] lg:px-[.8rem] bg-[#fafaff] dark:bg-[#242933]'>
             <div className='flex items-center gap-2'>
-                <span className='text-[black] dark:text-[#fafaff] flex items-center'>
+                <span className='text-[black] dark:text-[#fafaff] flex items-center cursor-pointer'
+                    onClick={() => navigate("../../resources")}>
+
                     <FaArrowLeftLong className={`h-[1.25rem] w-[1.19rem]`} />
                 </span>
-                <div className='xl:flex lg:flex hidden gap-1 items-center'>
+                <div className='xl:flex lg:flex hidden gap-4 items-center ml-3'>
                     {deviceIcons.map((device, index) => (
                         <span
                             key={index}
@@ -78,22 +100,27 @@ export default function ContentTopBar({ setWidth }) {
             <div className='flex items-center gap-3 text-[#CBD5E1] md:flex-row'>
                 <div className='flex items-center gap-3'>
                     <div className='flex gap-2 border-r border-[#64748B] pr-2'>
-                        <span className={`cursor-pointer`} onClick={undos}><GrUndo className={`${iconSize} ${smallIconSize} hover:text-[#64748B] ${ReduxState.past.length>1&&"text-[black]"}`} /></span>
-                        <span className={`cursor-pointer`} onClick={redos}><GrRedo className={`${iconSize} ${smallIconSize} hover:text-[#64748B] ${ReduxState.future.length>=1&&"text-[black]"}`} /></span>
+                        <span className={`cursor-pointer`} onClick={undos}><GrUndo className={`${iconSize} ${smallIconSize} hover:text-[#64748B] ${ReduxState.past.length > 1 && "text-[black]"}`} /></span>
+                        <span className={`cursor-pointer`} onClick={redos}><GrRedo className={`${iconSize} ${smallIconSize} hover:text-[#64748B] ${ReduxState.future.length >= 1 && "text-[black]"}`} /></span>
                     </div>
-                    <div className='flex gap-2 border-r border-[#64748B] pr-2'>
-                        <span className={`cursor-pointer`}><RiShareForward2Fill className={`${iconSize} ${smallIconSize} hover:text-[#64748B]`} /></span>
+                    <div className='flex gap-2 border-r border-[#64748B] text-[black] pr-2 relative'>
                         <span className={`cursor-pointer`}><LuEye className={`${iconSize} ${smallIconSize} hover:text-[#64748B]`} /></span>
+                        <span ref={infoIconRef} className={`cursor-pointer`} onClick={() => info?setInfo(false):setInfo(true)}><IoIosInformationCircleOutline className={`${iconSize} ${smallIconSize} hover:text-[#64748B]`} /></span>
+                        <div ref={infoRef} className={`absolute top-[100%] left-1/2 border bg-white w-[200px] shadow-xl rounded-lg text-xs p-2 ${info ? "block" : "hidden"}`} >
+                            <p className='text-[#64748B]'>last saved:  <span className='text-[black]'>{"dd/mm/yyyy"}</span></p>  {/* last saved */}
+                            <p className='text-[#64748B]'>status: <span className='text-[black]'> draft</span></p>   {/**status */}
+                        </div>
                     </div>
                 </div>
                 <div className='flex gap-3 sm:gap-1'>
-                    <button className='flex justify-center items-center gap-1 bg-[#FF0000] rounded-md xl:h-[2.68rem] sm:h-[2rem] xl:text-xs sm:text-[.6rem] xl:w-[5.58rem] w-[4rem] text-[white]'>
+                    <button onClick={raisePopup.reject} className='flex justify-center items-center gap-1 bg-[#FF0000] rounded-md xl:h-[2.68rem] sm:h-[2rem] xl:text-xs sm:text-[.6rem] xl:w-[5.58rem] w-[4rem] text-[white]'>
                         <RxCross1 /> Reject
                     </button>
                     <Button text={'Draft'} classes='bg-[#26345C] rounded-md xl:h-[2.68rem] sm:h-[2rem] xl:text-xs sm:text-[.6rem] xl:w-[5.58rem] w-[4rem] text-[white]' />
-                    <Button text={'Submit'} classes='bg-[#29469D] rounded-md xl:h-[2.68rem] sm:h-[2rem] xl:text-xs sm:text-[.6rem] xl:w-[5.58rem] w-[4rem] text-[white]' />
+                    <Button text={'Submit'} functioning={raisePopup.submit} classes='bg-[#29469D] rounded-md xl:h-[2.68rem] sm:h-[2rem] xl:text-xs sm:text-[.6rem] xl:w-[5.58rem] w-[4rem] text-[white]' />
                 </div>
             </div>
+            
         </div>
     );
 }

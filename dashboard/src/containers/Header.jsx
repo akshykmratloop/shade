@@ -64,7 +64,7 @@ function Header() {
             <div className="navbar py-[20px] rounded-lg flex justify-between bg-[#fafaff] dark:bg-[#242933] z-10 pl-[15px] pr-[15px] ">
                 <div className="sm:block xl:hidden"></div>
                 <div className=" flex-col items-start sm:hidden xl:flex font-lexend">
-                    <h2 className='font-semibold'>Hello {user.name} {`(${user.roles[0]?.replace("_", " ")})`}</h2>
+                    <h2 className='font-semibold'>Hello {user?.name} {`(${user?.roles[0]?.replace("_", " ")})`}</h2>
                     <p className='text-base-700 font-light font-lexend text-[grey]'>{greetings}</p>
                 </div>
                 <div className="order-last gap-[12px]">

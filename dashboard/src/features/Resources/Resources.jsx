@@ -1,14 +1,17 @@
+// library
 import { useEffect, useRef, useState } from "react"
 import { useDispatch } from "react-redux"
-import { getLeadsContent } from "./leadSlice"
-import Navbar from "../../containers/Navbar"
-import { FaRegEye } from "react-icons/fa";
-import { FiEdit } from "react-icons/fi";
-import { FiInfo } from "react-icons/fi";
-import { IoSettingsOutline } from "react-icons/io5";
+import { useNavigate } from "react-router-dom";
+// modules
 import resources from "./resourcedata";
 import ConfigBar from "./components/ConfigBar";
-import { useNavigate } from "react-router-dom";
+import PageDetails from "./components/PageDetails";
+import { getLeadsContent } from "./leadSlice"
+import Navbar from "../../containers/Navbar"
+// icon
+import { AiOutlineInfoCircle } from "react-icons/ai";
+import { FiEdit } from "react-icons/fi";
+import { IoSettingsOutline } from "react-icons/io5";
 
 function Resources() {
     const dispatch = useDispatch()
@@ -19,6 +22,7 @@ function Resources() {
     const [isNarrow, setIsNarrow] = useState(false)
     const [currentResource, setCurrentResource] = useState("pages")
     const [configBarOn, setConfigBarOn] = useState(false);
+    const [PageDetailsOn, setPageDetailsOn] = useState(false);
     const [configBarData, setConfigBarData] = useState({})
 
     const resNotAvail = resources?.[currentResource].length === 0
@@ -58,9 +62,12 @@ function Resources() {
                                 }
                             </h3>
                             <div className="relative rounded-lg overflow-hidden border border-[1px] border-base-300 shadow-xl-custom">
-                                {/* Info Icon */}
+                                {/* Info Icon
                                 <div className="absolute top-2 right-2 z-10 text-[1.5rem] p-2 rounded-full text-[blue]">
                                     <FiInfo />
+                                </div> */}
+                                <div className={` h-6 ${page.assign?'bg-[#29469c] w-[120px]':"bg-red-600 w-[140px]"} text-white flex items-center justify-center text-sm font-[300] clip-concave absolute top-3 left-0 z-30`}>
+                                    {page.assign?"Assigned":"Not assigned"}
                                 </div>
 
                                 {/* Background Image with Adjusted Dark Gradient */}
@@ -79,12 +86,12 @@ function Resources() {
 
                                 {/* Bottom Text Options */}
                                 <div className={`absolute bottom-3 left-0 w-full text-center text-white justify-center items-center flex ${isNarrow ? "gap-2" : "gap-6"} py-1`}>
-                                    {[{ icon: <FaRegEye />, text: "View", onClick: () => { } },
+                                    {[{ icon: <AiOutlineInfoCircle />, text: "Info", onClick: () => { setPageDetailsOn(true); setConfigBarData(page) } },
                                     { icon: <FiEdit />, text: "Edit", onClick: () => { navigate(`./edit/${page.heading?.toLowerCase()}`) } },
                                     { icon: <IoSettingsOutline />, text: "Config", onClick: () => { setConfigBarOn(true); setConfigBarData(page) } }].map((item, i) => (
                                         <span key={i}
                                             onClick={item.onClick}
-                                            className={`flex ${isCollapsed ? "flex-col" : ""} ${i < 2 ? "border-r-2 pr-5" : ""} gap-1 items-center text-center cursor-pointer`}>
+                                            className={`flex ${isCollapsed ? "flex-col" : ""} ${i < 2 ? "border-r-2 pr-5" : ""} gap-2 items-center text-center cursor-pointer`}>
                                             {item.icon}
                                             <span className={`${isSmall ? "text-xs" : "text-sm"}`}>
                                                 {item.text}
@@ -99,6 +106,7 @@ function Resources() {
 
             {/* right side bar for configuration */}
             <ConfigBar data={configBarData} display={configBarOn} setOn={setConfigBarOn} />
+            <PageDetails data={configBarData} display={PageDetailsOn} setOn={setPageDetailsOn} />
         </div>
     )
 }

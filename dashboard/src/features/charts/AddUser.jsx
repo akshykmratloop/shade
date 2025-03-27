@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import InputText from "../../components/Input/InputText";
-import { createRole, updateRole } from "../../app/fetch";
+import { fetchRoles, createUser, updateUser } from "../../app/fetch";
 import { toast, ToastContainer } from "react-toastify";
 import validator from "../../app/valid";
 import updateToasify from "../../app/toastify";
@@ -9,14 +9,17 @@ import dummy from "../../assets/MOCK_DATA.json";
 import { X } from "lucide-react";
 import { checkRegex } from "../../app/emailregex";
 import PasswordValidation from "../user/components/PasswordValidation";
+import CloseModalButton from "../../components/Button/CloseButton";
+import capitalizeWords from "../../app/capitalizeword";
 
 
-const AddUserModal = ({ show, onClose, updateRoles, user }) => {
+const AddUserModal = ({ show, onClose, updateUsers, user }) => {
     const [errorMessageName, setErrorMessageName] = useState("");
     const [errorMessageEmail, setErrorMessageEmail] = useState("");
     const [errorMessagePhone, setErrorMessagePhone] = useState("");
     const [errorMessageRoles, setErrorMessageRoles] = useState("");
     const [errorMessagePassword, setErrorMessagePassword] = useState("");
+    const [roles, setRoles] = useState([])
     const modalRef = useRef(null)
     const initialUserState = {
         name: "",
@@ -53,30 +56,40 @@ const AddUserModal = ({ show, onClose, updateRoles, user }) => {
             name: setErrorMessageName,
             email: setErrorMessageEmail,
             phone: setErrorMessagePhone,
-            roles: setErrorMessageRoles,
-            password: setErrorMessagePassword
+            // roles: setErrorMessageRoles,
         });
 
         const validEmail = checkRegex(userData.email, setErrorMessageEmail) // checks if email is under valid format
+        const validPassword = userData.password.trim() === ""
+        if (validPassword && !user) {
+            setErrorMessagePassword("required")
+            return
+        }
 
         if (!validation) return;
         if (validEmail) return;
-        console.log("here")
 
         const loadingToastId = toast.loading("Processing request...", { autoClose: 2000 });
 
+
         let response;
         if (user) {
-            // response = await updateRole({ ...userData, id: user.id });
+            const payload = {
+                name: userData.name,
+                phone: userData.phone,
+                password: userData.password,
+                roles: userData.roles,
+            }
+            response = await updateUser({ payload, id: user.id });
         } else {
-            // response = await createRole(userData);
+            response = await createUser(userData);
         }
 
         if (response?.ok) {
             updateToasify(loadingToastId, `Request successful! 🎉 ${response.message}`, "success", 1000);
             setTimeout(() => {
                 onClose();
-                updateRoles((prev) => !prev);
+                updateUsers((prev) => !prev);
             }, 1500);
         } else {
             updateToasify(loadingToastId, `Request failed. ${response?.message ? response.message : "Something went wrong please try again later"}`, "failure", 2000);
@@ -105,6 +118,16 @@ const AddUserModal = ({ show, onClose, updateRoles, user }) => {
     }, [user]);
 
     useEffect(() => {
+        async function fetchForForm() {
+            const response = await fetchRoles()
+
+            setRoles(response?.roles?.roles ?? [])
+        }
+
+        fetchForForm()
+    }, [])
+
+    useEffect(() => {
         const handleClickOutside = (event) => {
             if (modalRef.current && !modalRef.current.contains(event.target)) {
                 onCloseModal();
@@ -129,11 +152,12 @@ const AddUserModal = ({ show, onClose, updateRoles, user }) => {
 
     return (
         <div className="modal modal-open">
-            <div ref={modalRef} className="px-[3.3rem] py-[2.45rem] relative flex flex-col gap-6 w-[600px] bg-white dark:bg-gray-800 rounded-md">
-                <button className="bg-transparent hover:bg-stone-300 rounded-full border-none absolute right-4 top-4 p-2 py-2"
+            <div ref={modalRef} className="p-[24px] relative flex flex-col gap-6 w-[600px] bg-white dark:bg-gray-800 rounded-md">
+                {/* <button className="bg-transparent hover:bg-stone-300 rounded-full border-none absolute right-4 top-4 p-2 py-2"
                     onClick={onClose}>
                     <X className="w-[20px] h-[20px]" />
-                </button>
+                </button> */}
+                <CloseModalButton onClickClose={onClose} />
                 <h3 className="font-semibold text-2xl">{user ? "Edit User" : "Add User"}</h3>
                 <form onSubmit={handleFormSubmit} className="flex flex-col items-center w-full gap-7    ">
                     {/* <div className="self-start">
@@ -166,6 +190,7 @@ const AddUserModal = ({ show, onClose, updateRoles, user }) => {
                             InputClasses="border-stone-400"
                             labelStyle="text-[#6B7888]"
                             updateFormValue={updateFormValue}
+                            disabled={user ? true : false}
                             errorMessage={errorMessageEmail}
                         />
                     </div>
@@ -195,6 +220,7 @@ const AddUserModal = ({ show, onClose, updateRoles, user }) => {
                                 updateFormValue={updateFormValue}
                                 errorMessage={errorMessagePassword}
                                 type={"password"}
+                                required={user ? false : true}
                             />
                             <PasswordValidation new_password={userData.password} display={""} />
                         </div>
@@ -203,7 +229,7 @@ const AddUserModal = ({ show, onClose, updateRoles, user }) => {
                     <div>
                         <label className="label-text text-[#6B7888]">Select Role</label>
                         <ul className="flex flex-wrap mt-2">
-                            {dummy.map((element) => {
+                            {roles?.map((element) => {
                                 const isAvailable = userData.roles.includes(element.id);
 
                                 return (
@@ -223,7 +249,7 @@ const AddUserModal = ({ show, onClose, updateRoles, user }) => {
                                             }}
                                         />
                                         <label htmlFor={element.id} className="w-[70%] text-[#6B7888]">
-                                            {element.name}
+                                            {capitalizeWords(element.name)}
                                         </label>
                                     </li>
                                 );
@@ -231,12 +257,12 @@ const AddUserModal = ({ show, onClose, updateRoles, user }) => {
                         </ul>
                     </div>
 
-                    <div className="modal-action self-end flex gap-1 w-[200px]">
-                        <button type="button" className="rounded-md h-[2.5rem] px-4 flex-[1] border border-stone-200 text-sm btn-ghost"
+                    <div className="mt-4 self-end flex gap-1">
+                        <button type="button" className="rounded-md h-[2.5rem] w-[8rem] px-4 flex-[1] border border-stone-200 text-sm btn-ghost"
                             onClick={onCloseModal}>
                             Cancel
                         </button>
-                        <button type="submit" className="rounded-md h-[2.5rem] px-4 flex-[1] text-sm bg-[#25439B] text-white">
+                        <button type="submit" className="rounded-md h-[2.5rem] w-[8rem] px-4 flex-[1] text-sm bg-[#25439B] text-white">
                             Save
                         </button>
                     </div>

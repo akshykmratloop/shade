@@ -44,7 +44,7 @@ const SolutionPage = ({ language, screen }) => {
 
     }, [])
     return (
-        <div className=" bankgothic-medium-dt">
+        <div className=" bankgothic-medium-dt pb-8">
             {/** banner */}
             <section
                 className={`relative py-[10rem] w-full bg-cover bg-center ${isLeftAlign ? 'scale-x-[-1]' : ''} px-12 ${isPhone?"h-screen":""}`}
@@ -52,7 +52,7 @@ const SolutionPage = ({ language, screen }) => {
             >
                 <div className="container h-full relative flex">
                     <div className={`text-${isLeftAlign ? 'left' : 'right'} w-full transform ${isLeftAlign ? 'scale-x-[-1]' : ''}`}>
-                        <h1 className="text-black text-[40px] font-medium leading-[77px] tracking-[-3.5px] mb-4">
+                        <h1 className="text-[#292E3D] text-[40px] font-medium leading-[77px] tracking-[-3.5px] mb-4">
                             {currentContent?.banner?.title[language]}
                         </h1>
                         <p className={`text-para-light text-left text-xs font-semibold leading-[26px] mb-6 ${isLeftAlign ? "" : "ml-auto"} w-[50%] word-spacing-[5px]`}>

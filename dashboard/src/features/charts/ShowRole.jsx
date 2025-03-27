@@ -1,9 +1,21 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Dialog } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
+import { getUserById } from "../../app/fetch";
+import userIcon from "../../assets/user.png"
+import capitalizeWords from "../../app/capitalizeword";
 
-function RoleDetailsModal({ user, show, onClose }) {
+function UserDetailsModal({ user, show, onClose }) {
     const modalRef = useRef(null)
+    const [fetchedUser, setFetchedUser] = useState({})
+
+    const permissions = [];
+
+    fetchedUser?.roles?.forEach((role) => {
+        role.role.permissions.forEach((permission) => {
+            permissions.push(permission.permission)
+        })
+    })
 
     useEffect(() => {
         const handleClickOutside = (e) => {
@@ -17,24 +29,33 @@ function RoleDetailsModal({ user, show, onClose }) {
         }
     }, [])
 
+    useEffect(() => {
+        async function getUser() {
+            const response = await getUserById(user?.id)
+            setFetchedUser(response.user)
+        }
+        getUser()
+    }, [user])
+
     if (!user) return null;
 
     return (
         <Dialog open={show} onClose={onClose} className="relative z-50">
             <div className="fixed inset-0 bg-black/50" aria-hidden="true" />
             <div className="fixed inset-0 flex items-center justify-center p-4">
-                <Dialog.Panel className="w-[853px] overflow-y-scroll customscroller shadow-lg shadow-stone rounded-lg bg-[white] dark:bg-slate-800 p-6">
+                <Dialog.Panel className="w-[600px] h-[700px] customscroller shadow-lg shadow-stone rounded-lg bg-[white] dark:bg-slate-800 p-6">
                     <div ref={modalRef} className="flex justify-between items-center mb-4">
-                        <Dialog.Title className="text-lg font-[500]">User Detail</Dialog.Title>
-                        <button onClick={onClose} className="bg-transparent hover:bg-stone-300 rounded-full border-none p-2 py-2">
+                        <Dialog.Title className="text-lg font-[500]">User Details</Dialog.Title>
+                        <button onClick={onClose} className="bg-transparent hover:bg-stone-300 dark:hover:bg-stone-700 rounded-full border-none p-2 py-2">
                             <XMarkIcon className="w-5" />
                         </button>
                     </div>
                     <div className="overflow-x-auto">
+
                         <div className="flex items-center gap-4">
-                            <img src={user.image} alt="" className="w-[4.8rem] h-[4.8rem] rounded-lg" />
+                            <img src={user.image || userIcon} alt="" className="w-[4.8rem] h-[4.8rem] rounded-lg" />
                             <div>
-                                <p className="font-semibold text-[black] dark:text-[white]">{user.name}</p>
+                                <p className="font-semibold text-[#101828] dark:text-[white]">{user.name}</p>
                                 <p className="text-[gray]">{user.email}</p>
                             </div>
                         </div>
@@ -46,11 +67,11 @@ function RoleDetailsModal({ user, show, onClose }) {
                             </thead>
                             <tbody style={{ borderBottom: "1px solid #E0E0E0" }}>
                                 <tr className="font-light text-sm ">
-                                    <td className="pt-2 pr-[60px]">Name</td>
+                                    <td className="pt-2 pr-[60px] w-[188px]">Name</td>
                                     <td className="pt-2">Email</td>
                                     <td className="pt-2">Phone</td>
                                 </tr>
-                                <tr className="font-bold text-sm">
+                                <tr className="font-[500] text-[#101828] dark:text-stone-100 text-sm">
                                     <td className="py-2 pb-6">{user.name}</td>
                                     <td className="py-2 pb-6">{user.email}</td>
                                     <td className="py-2 pb-6">{user.phone}</td>
@@ -65,22 +86,35 @@ function RoleDetailsModal({ user, show, onClose }) {
                             </thead>
                             <tbody style={{ borderBottom: "1px solid #E0E0E0" }}>
                                 <tr className="font-light text-sm ">
-                                    <td className="pt-2 pr-[24px]">Roles</td>
+                                    <td className="pt-2 pr-[24px] w-[188px]">Roles</td>
                                     <td className="pt-2">Permissions</td>
                                 </tr>
-                                <tr className="font-bold text-sm pb-7">
+                                <tr className="font-[500] text-[#101828] dark:text-stone-100 text-sm pb-7">
                                     <td className="py-2 pb-7"
                                     >
                                         <div className="flex gap-2 flex-wrap w-[50px] relative">
-                                            <div className="absolute flex gap-2 flex-wrap w-[200px] top-[-14px]">
-                                                {user.roles.map((e, i, a) => {
+                                            <div className="absolute flex gap-2 flex-wrap w-[200px] top-[-26.5px]">
+                                                {fetchedUser?.roles?.map((role, i, a) => {
+                                                    console.log(role)
                                                     let lastElement = i === a.length - 1
-                                                    return (<span key={e.id} className="">{e.name}{!lastElement && ","}</span>)
+                                                    return (<span key={role.role.id} className="">{role.role.name}{!lastElement && ","}</span>)
                                                 })}
                                             </div>
                                         </div>
                                     </td>
-                                    <td className="py-2 pb-10">{user.email}</td>
+                                    <td className="py-2 pb-10">
+                                        <div className="flex flex-wrap gap-1">
+                                            {permissions.map((permission, i, a) => {
+                                                let lastElement = i === a.length - 1;
+                                                return (
+                                                    <span key={permission.id} className="mr-1">
+                                                        {capitalizeWords(permission.name)}{!lastElement && `, `}
+                                                    </span>
+                                                );
+                                            })}
+                                        </div>
+
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -98,16 +132,15 @@ function RoleDetailsModal({ user, show, onClose }) {
                                 </tr>
                             </thead>
                             <tbody className="bg-[#fcfcfc] dark:bg-transparent">
-
-                                <tr className="font-light text-[18px]">
-                                    <td className="px-4 py-2 border dark:border-[#232d3d]">Manager</td>
-                                    <td className="px-4 py-2 border dark:border-[#232d3d]">Edit, Create, Role</td>
-                                    <td className="px-4 py-2 border dark:border-[#232d3d]">Edit, Create, Role</td>
+                                <tr className="font-medium text-[14px] text-[#101828]">
+                                    <td className="px-4 py-2 dark:border dark:border-[#232d3d]">Manager</td>
+                                    <td className="px-4 py-2 dark:border dark:border-[#232d3d]">Edit, Create, Role</td>
+                                    <td className="px-4 py-2 dark:border dark:border-[#232d3d]">Edit, Create, Role</td>
                                 </tr>
-                                <tr className="font-light text-[18px]">
-                                    <td className="px-4 py-2 pb-6 border dark:border-[#232d3d]">Manager</td>
-                                    <td className="px-4 py-2 pb-6 border dark:border-[#232d3d]">Delete, </td>
-                                    <td className="px-4 py-2 pb-6 border dark:border-[#232d3d]">Read</td>
+                                <tr className="font-medium text-[14px] text-[#101828]">
+                                    <td className="px-4 py-2 pb-6 dark:border dark:border-[#232d3d]">Manager</td>
+                                    <td className="px-4 py-2 pb-6 dark:border dark:border-[#232d3d]">Delete, </td>
+                                    <td className="px-4 py-2 pb-6 dark:border dark:border-[#232d3d]">Read</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -118,4 +151,4 @@ function RoleDetailsModal({ user, show, onClose }) {
     );
 }
 
-export default RoleDetailsModal;
+export default UserDetailsModal;
