@@ -27,7 +27,7 @@ const NewsManager = ({ language, currentContent, currentPath }) => {
 
             {/* select main news */}
             <MultiSelectSM
-                referenceOriginal={{ dir: "news", index: 0 }}
+                referenceOriginal={{ dir: "MainNews", index: 0 }}
                 currentContent={currentContent}
                 currentPath={currentPath}
                 // section={"latestNewCards"}
@@ -50,6 +50,17 @@ const NewsManager = ({ language, currentContent, currentPath }) => {
                 currentContent={currentContent}
             />
 
+            <MultiSelectSM
+                referenceOriginal={{ dir: "TrendingNews", index: 0 }}
+                currentContent={currentContent}
+                currentPath={currentPath}
+                // section={"latestNewCards"}
+                language={language}
+                label={"Select Trend News"}
+                heading={"Trend News Section"}
+                tabName={"Select News"}
+                options={currentPath?.latestNewCards?.cards}
+            />
 
         </div>
     )

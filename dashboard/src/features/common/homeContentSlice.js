@@ -30,7 +30,18 @@ const cmsSlice = createSlice({
         },
         selectMainNews: (state, action) => {
             state.past.push(JSON.parse(JSON.stringify(state.present)));
-            state.present.newsBlogs.mainCard = action.payload.selected[0];
+
+            switch (action.payload.origin) {
+                case "MainNews":
+                    state.present.newsBlogs.mainCard = action.payload.selected[0];
+                    break;
+
+                case "TrendingNews":
+                    state.present.newsBlogs.trendingCard = action.payload.selected[0];
+                    break;
+
+                default:
+            }
             state.future = [];
         }
         ,

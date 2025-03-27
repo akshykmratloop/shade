@@ -67,11 +67,11 @@ const MultiSelectSM = ({ currentContent, heading, options = [], tabName, label, 
     let actualListOfServices;
     switch (referenceOriginal.dir) {
         case "news":
-            actualListOfServices = content.newsBlogs.latestNewCards.cards
             break;
 
         default:
-            actualListOfServices = []
+            actualListOfServices = content.newsBlogs.latestNewCards.cards
+        // actualListOfServices = []
     }
 
     // const showOptions = options?.map(e => e.title[language])
@@ -127,7 +127,7 @@ const MultiSelectSM = ({ currentContent, heading, options = [], tabName, label, 
     useEffect(() => {
         if (random !== 1) {
             dispatch(selectMainNews({
-                // origin: referenceOriginal.dir,
+                origin: referenceOriginal.dir,
                 // index: referenceOriginal.index,
                 // section,
                 // newArray: [...options],
@@ -140,7 +140,17 @@ const MultiSelectSM = ({ currentContent, heading, options = [], tabName, label, 
 
 
     useEffect(() => {
-            setSelectedOptions([currentContent?.mainCard]);
+        switch (referenceOriginal.dir) {
+            case "MainNews":
+                setSelectedOptions([currentContent?.mainCard]);
+                break;
+
+            case "TrendingNews":
+                setSelectedOptions([currentContent?.trendingCard]);
+                break;
+
+            default:
+        }
     }, [currentContent]);
 
     return (
@@ -160,7 +170,7 @@ const MultiSelectSM = ({ currentContent, heading, options = [], tabName, label, 
                         actualListOfServices.map((option, index) => {
                             return (
                                 <li
-                                    key={option.title[language]}
+                                    key={option?.title[language]}
                                     onClick={() => handleSelect(option, index)}
                                     className="p-2 cursor-pointer hover:bg-gray-100"
                                 >
@@ -185,7 +195,7 @@ const MultiSelectSM = ({ currentContent, heading, options = [], tabName, label, 
                     <div className={`flex flex-wrap  gap-2 p-2 pl-4 border dark:border-stone-500 rounded-md ${language === 'ar' && "flex-row-reverse"}`}>
                         {
                             selectedOptions?.map((option) => (
-                                <SortableItem key={option.title?.[language] + String(Math.random())} option={option} removeOption={removeOption} language={language} />
+                                <SortableItem key={option?.title?.[language] + String(Math.random()) + referenceOriginal.dir} option={option} removeOption={removeOption} language={language} />
                             ))
                         }
                     </div>
