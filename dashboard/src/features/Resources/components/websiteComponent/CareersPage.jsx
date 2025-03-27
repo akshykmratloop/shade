@@ -102,6 +102,7 @@ const CareerPage = ({ language, screen }) => {
 
     return (
         <div className="w-full">
+            {/* banner */}
             <section className={`relative h-full w-full bg-cover bg-center ${isLeftAlign ? 'scale-x-[-1]' : ''}  `}
                 style={{
                     height: 1200 * 0.436,
@@ -134,6 +135,7 @@ const CareerPage = ({ language, screen }) => {
                 </div>
             </section>
 
+            {/* filters and search */}
             <section className={`${language === "en" ? "text-left" : ""} py-8 pt-16 px-20`}>
                 <div className="container">
                     <div className={`flex items-center justify-between gap-5 ${!isLeftAlign && "flex-row-reverse"}`}>
@@ -183,25 +185,25 @@ const CareerPage = ({ language, screen }) => {
                 </div>
             </section>
 
+            {/* jobs */}
             <section className={`w-full ${isLeftAlign ? "text-left" : "text-right"} px-12`}>
                 {paginatedJobs?.length < 1 && (
                     <div className="flex h-24 w-full items-center justify-center">
                         <h1>Oops... Not found !</h1>
                     </div>
                 )}
-                <div className="container mx-auto p-4">
+                <div className={`container mx-auto p-4 ${isPhone&&"px-2"}`}>
                     <div className="space-y-8">
                         {paginatedJobs?.map((job, index) => {
                             if (!job.display) return null;
                             return (
-                                <div key={job.id} className="rounded-lg bg-gray-100 py-8 px-4 shadow-md">
+                                <div key={job.id} className={`rounded-lg bg-gray-100 py-8 ${isPhone?"px-2":"px-4"} shadow-md`}>
                                     {/* Ensure flex-row-reverse for mirroring layout */}
                                     <div
-                                        className={`flex items-center justify-between cursor-pointer gap-5 
-                            ${!isLeftAlign ? "flex-row-reverse" : ""}`}
+                                        className={`flex items-center justify-between cursor-pointer ${isPhone ?"flex-col gap-2": isTablet?"flex-wrap gap-1":"gap-5"} ${!isLeftAlign ? "flex-row-reverse" : ""}`}
                                         onClick={() => toggleAccordion(index)}
                                     >
-                                        <div className={`flex w-3/4 items-center gap-2 ${!isLeftAlign && "flex-row-reverse"}`}>
+                                        <div className={`flex ${isPhone?"" :isTablet?"":"w-3/4"} ${isPhone?"w-[80%] pl-2":""} items-center gap-2 ${!isLeftAlign && "flex-row-reverse"}`}>
                                             <img
                                                 src="https://loopwebsite.s3.ap-south-1.amazonaws.com/weui_arrow-outlined+(1).svg"
                                                 alt="icon"
@@ -213,15 +215,15 @@ const CareerPage = ({ language, screen }) => {
                                                 <p className="text-sm font-light text-gray-600">{job?.title?.value[language]}</p>
                                             </div>
                                         </div>
-                                        <div className="w-1/3 border-l border-gray-300 pl-5">
+                                        <div className={` ${isPhone?"" :isTablet?"":"w-1/2"} ${isPhone?" w-[70%] pl-5":"border-l pl-5"} border-gray-300`}>
                                             <h5 className="text-sm font-light text-gray-600">{job?.location?.key[language]}</h5>
                                             <p className="text-md font-bold text-gray-800">{job?.location?.value[language]}</p>
                                         </div>
-                                        <div className="w-1/4 border-l border-gray-300 border-r border-gray-300 px-5">
+                                        <div className={` ${isPhone?"" :isTablet?"":"w-1/2"} ${isPhone?" w-[70%] pl-5":"border-l border-r px-5"} border-gray-300 border-gray-300 `}>
                                             <h5 className="text-sm font-light text-gray-600">{job?.deadline?.key[language]}</h5>
                                             <p className="text-md font-bold text-gray-800">{job?.deadline?.value[language]}</p>
                                         </div>
-                                        <div className={`mt-4 flex items-center gap-6 ${!isLeftAlign && "flex-row-reverse"}`}>
+                                        <div className={`mt-4 ${isPhone?"" :isTablet?"":""} flex items-center gap-6 ${!isLeftAlign && "flex-row-reverse"} ${isTablet ? "w-" : ""}`}>
                                             <button
                                                 className="rounded bg-[#00b9f2] px-3 w-[102px] py-2 text-white text-xs"
                                                 onClick={() => {
@@ -263,7 +265,7 @@ const CareerPage = ({ language, screen }) => {
                 </div>
             </section>
 
-
+            {/* pagination */}
             <section className="flex justify-end gap-5 h-[94px] pr-12">
                 <Pagination
                     totalDocuments={totalDocuments}

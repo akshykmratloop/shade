@@ -117,21 +117,20 @@ const HomePage = ({ language, screen }) => {
                         src={ImagesFromRedux.homeBanner || background}
                         alt="about-us"
                         className="w-[full] h-full object-cover"
-                        style={{ objectPosition: "center", transform: "scaleX(-1)", height: isPhone && "500px" }} />
+                        style={{ objectPosition: "center", transform: "scaleX(-1)", height: isTablet? "500px": isPhone && "500px" }} />
                 </span>
                 <div
-
-                    className="container mx-auto absolute top-[20%] left-0 right-0 px-4">
+                    className={`container mx-auto absolute ${isComputer ? "top-[30%]" : "top-16"}  left-0 right-0 px-4`}>
                     <div className={`text-left flex flex-col ${language === "en" ? "items-start" : "items-end"} ${textAlignment} ${isPhone ? "px-[0px]" : "px-[80px]"}`}>
-                        <h1 className={`text-[#292E3D] text-[35px] tracking-[.2rem] leading-[2.5rem] capitalize font-semibold mb-4 ${(450 / 1182) * screen}`}
+                        <h1 className={`text-[#292E3D] text-[35px] tracking-[.2rem] leading-[2.5rem] capitalize font-semibold mb-4 w-1/2 ${(450 / 1182) * screen}`}
                         >
                             {currentContent?.homeBanner?.title[language]}
                         </h1>
-                        <p className={`text-gray-800 font-semibold leading-[16px] mb-6 ${isPhone ? "w-full text-[12px]" : "w-1/2 text-[10px]"} tracking-[2px]`}>
+                        <p className={`text-[#0E172FB3] font-semibold leading-[16px] mb-6 ${isPhone ? "w-full text-[12px]" : "w-1/2 text-[10px]"} tracking-[2px]`}>
                             {currentContent?.homeBanner?.description[language]}
                         </p>
                         <button
-                            className={`relative items-center flex ${isEnglish ? "" : "flex-row-reverse"} gap-1 text-[12px] font-medium px-[12px] py-[8px] px-[24px]  bg-blue-500 text-white rounded-md`}
+                            className={`relative items-center flex ${isEnglish ? "" : "flex-row-reverse"} gap-1 text-[12px] font-medium px-[12px] py-[8px] px-[24px] bg-[#00b9f2] text-white rounded-md`}
                             onClick={() => { }}
                         >
                             <span>{currentContent?.homeBanner?.buttonText[language]}</span>
@@ -147,24 +146,24 @@ const HomePage = ({ language, screen }) => {
                 </div>
             </section>
             {/* about us section */}
-            <section className={` ${isPhone ? "px-2 py-[60px]" : "px-10 py-[120px]"} ${language === "en" ? "" : " direction-rtl"} items-start`}>
+            <section className={` ${isPhone ? "px-2 py-[60px]" : "px-20 py-[120px]"} ${language === "en" ? "" : " direction-rtl"} items-start`}>
                 <div className={`relative container mx-auto flex ${isPhone ? "flex-col" : ""} ${isEnglish ? "" : "flex-row-reverse"} items-center`}>
                     {/* Image section */}
                     <div className={`${isPhone ? "w-[90%]" : "w-[70%]"} border border-[#00B9F2] h-[500px] overflow-hidden rounded-sm shadow-lg`}>
                         <img src={ImagesFromRedux.aboutUsSection || AboutUs} alt="about-us" className="w-full h-[500px] object-cover" />
                     </div>
                     {/* About content */}
-                    <div className={`${isPhone ? " " : "absolute"} ${isEnglish ? "right-0 text-left" : "left-0 text-right"} bg-[#145098] px-8 py-8 rounded-sm w-[23rem]`} >
-                        <h2 className="text-white text-[24px] font-normal">
+                    <div className={`${isPhone ? " " : "absolute "} ${isEnglish ? "right-0 text-left" : "left-0 text-right"} bg-[#145098] ${isTablet ?"p-10 py-14" :"p-14 py-20"} rounded-sm w-[23rem]`} >
+                        <h2 className="text-white text-[28px] leading-[1.8rem] mb-4 font-normal">
                             {currentContent?.aboutUsSection?.title[language]}
                         </h2>
-                        <p className="text-white text-[12px] font-light leading-[26px] mb-4">
+                        <p className="text-white text-[12px] font-light leading-[16px] mb-4">
                             {currentContent?.aboutUsSection?.description[language]}
                         </p>
-                        <p className="text-white text-[12px] font-light leading-[26px] mb-4">
+                        <p className="text-white text-[12px] font-light leading-[16px] mb-4">
                             {currentContent?.aboutUsSection?.description2[language]}
                         </p>
-                        <button className="px-[28px] py-[12px] bg-[#00B9F2] text-white text-[12px] rounded-sm hover:bg-opacity-90 text-right">
+                        <button className="px-[6px] py-[2px] bg-[#00B9F2] text-white text-[12px] rounded-md hover:bg-opacity-90 text-right">
                             {currentContent?.aboutUsSection?.buttonText[language]}
                         </button>
                     </div>
@@ -233,7 +232,7 @@ const HomePage = ({ language, screen }) => {
                         <h2 className="text-[#00B9F2] text-4xl font-bold leading-[50px] mb-6 ">
                             {currentContent?.experienceSection?.title[language]}
                         </h2>
-                        <p className="text-black text-base text-md font-light leading-6 mb-8">
+                        <p className="text-[#292E3D] text-sm font-[300] leading-4 mb-8" style={{fontWeight:"200"}}>
                             {currentContent?.experienceSection?.description[language]}
                         </p>
                         <button

@@ -145,7 +145,7 @@ const MarketPage = ({ language, screen }) => {
                     <div>
                         {/* Tabs or Dropdown */}
                         <div className="w-full flex flex-col items-center mb-10">
-                            {isPhone ? (
+                            {isPhone || isTablet ? (
                                 // Dropdown for mobile view
                                 <div className="relative w-full max-w-xs">
                                     <select
@@ -197,7 +197,7 @@ const MarketPage = ({ language, screen }) => {
                                             width="339"
                                             height="190"
                                             alt={item.title[language]}
-                                            className="object-cover w-full h-[50%]"
+                                            className={`object-cover w-full ${isPhone?"h-[150px]" :"h-[50%]"}`}
                                         />
                                         <h5
                                             title={item?.title[language]}
