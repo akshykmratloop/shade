@@ -59,17 +59,17 @@ const routes = [
     path: '/app/logs', // url
     icon: <Logs strokeWidth={1.5} />, // icon component
     name: 'Logs', // name that appear in Sidebar
-  }
-  // {
-  //   path: '/app/integration', // url
-  //   icon: <BoltIcon className={iconClasses}/>, // icon component
-  //   name: 'Integration', // name that appear in Sidebar
-  // },
-  // {
-  //   path: '/app/calendar', // url
-  //   icon: <CalendarDaysIcon className={iconClasses}/>, // icon component
-  //   name: 'Calendar', // name that appear in Sidebar
-  // },
+  },
+  {
+    path: '/app/integration', // url
+    icon: <BoltIcon className={iconClasses}/>, // icon component
+    name: 'Integration', // name that appear in Sidebar
+  },
+  {
+    path: '/app/calendar', // url
+    icon: <CalendarDaysIcon className={iconClasses}/>, // icon component
+    name: 'Calendar', // name that appear in Sidebar
+  },
 
   // {
   //   path: '', //no url needed as this has submenu

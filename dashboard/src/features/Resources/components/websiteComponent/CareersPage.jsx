@@ -74,7 +74,13 @@ const CareerPage = ({ language, screen }) => {
     };
 
     useEffect(() => {
-        dispatch(updateContent({ currentPath: "careers", payload: content.careers }))
+        let isMounted = true; // Flag to track if component is mounted
+
+        dispatch(updateContent({ currentPath: "careers", payload: content.careers }));
+
+        return () => {
+            isMounted = false; // Mark as unmounted when component unmounts
+        };
     }, [])
 
     // useEffect to reset filtered jobs when content changes
@@ -136,10 +142,19 @@ const CareerPage = ({ language, screen }) => {
             </section>
 
             {/* filters and search */}
-            <section className={`${language === "en" ? "text-left" : ""} py-8 pt-16 px-20`}>
+            <section
+                className={`${language === "en" ? "text-left" : ""} py-8 pt-16 px-20`}
+            >
                 <div className="container">
-                    <div className={`flex items-center justify-between gap-5 ${!isLeftAlign && "flex-row-reverse"}`}>
-                        <div className="flex items-center gap-2.5 p-2 border rounded-lg border-gray-300">
+                    <div
+                        className={`flex items-center gap-5 
+                ${isPhone ? "flex-col" : isTablet ? "gap-4 flex-col-reverse" : "justify-between"} 
+                ${!isLeftAlign && !isPhone && !isTablet ? "flex-row-reverse" : ""}`}
+                    >
+                        <div
+                            className={`flex items-center ${!isLeftAlign && "flex-row-reverse"} gap-2.5 p-2 border rounded-lg border-gray-300  
+                    ${isPhone ? "w-full" : isTablet ? "px-4" : "w-auto"}`}
+                        >
                             <img
                                 src="https://loopwebsite.s3.ap-south-1.amazonaws.com/material-symbols_search+(1).svg"
                                 alt="icon"
@@ -148,30 +163,34 @@ const CareerPage = ({ language, screen }) => {
                                 className="w-6 h-6"
                             />
                             <input
+                                dir={!isLeftAlign && "rtl"}
                                 title={currentContent?.filterSection?.inputBox?.placeholder[language]}
                                 placeholder={currentContent?.filterSection?.inputBox?.placeholder[language]}
-                                className={`w-full border-none focus:outline-none text-gray-700 text-base font-light `}
+                                className={`w-full border-none focus:outline-none text-gray-700 text-base font-light`}
                                 aria-label={currentContent?.filterSection?.inputBox?.aria_label[language]}
                                 onChange={(e) => handleChange(e, "Job Search")}
                             />
                         </div>
-                        <div className="flex items-center gap-8">
+                        <div
+                            className={`flex items-center gap-8 
+                    ${isPhone ? "flex-col w-full gap-4" : isTablet ? "gap-6" : ""} relative`}
+                        >
                             {currentContent?.filterSection?.filtersSelections?.map((filter, index) => (
-                                <div key={index} className="relative flex ">
+                                <div key={index} className={`relative flex ${isPhone ? "w-full justify-between" : ""} bg-transparent`}>
                                     <img
                                         src="https://loopwebsite.s3.ap-south-1.amazonaws.com/weui_arrow-outlined+(1).svg"
                                         alt="icon"
                                         width={20}
                                         height={20}
+                                        className={`${isPhone ? "absolute top-2 left-2 z-[1]" : ""} `}
                                     />
                                     <select
-                                        className={`border-none bg-transparent text-gray-700 text-center text-sm font-light focus:outline-none `}
+                                        className={`border-none z-[2] bg-transparent text-gray-700 text-center text-sm font-light focus:outline-none
+                                ${isPhone ? "w-full text-left p-2 border rounded-lg" : isTablet ? "px-2" : ""}`}
                                         aria-label={filter?.title[language]}
                                         onChange={(e) => handleChange(e, filter.title[language])}
                                     >
-                                        <option value="">
-                                            {filter?.title[language]}
-                                        </option>
+                                        <option value="">{filter?.title[language]}</option>
                                         {filter.options.map((option, optIndex) => (
                                             <option key={optIndex} value={option?.value}>
                                                 {option?.title[language]}
@@ -185,6 +204,7 @@ const CareerPage = ({ language, screen }) => {
                 </div>
             </section>
 
+
             {/* jobs */}
             <section className={`w-full ${isLeftAlign ? "text-left" : "text-right"} px-12`}>
                 {paginatedJobs?.length < 1 && (
@@ -192,18 +212,18 @@ const CareerPage = ({ language, screen }) => {
                         <h1>Oops... Not found !</h1>
                     </div>
                 )}
-                <div className={`container mx-auto p-4 ${isPhone&&"px-2"}`}>
+                <div className={`container mx-auto p-4 ${isPhone && "px-2"}`}>
                     <div className="space-y-8">
                         {paginatedJobs?.map((job, index) => {
                             if (!job.display) return null;
                             return (
-                                <div key={job.id} className={`rounded-lg bg-gray-100 py-8 ${isPhone?"px-2":"px-4"} shadow-md`}>
+                                <div key={job.id} className={`rounded-lg bg-gray-100 py-8 ${isPhone ? "px-2" : "px-4"} shadow-md`}>
                                     {/* Ensure flex-row-reverse for mirroring layout */}
                                     <div
-                                        className={`flex items-center justify-between cursor-pointer ${isPhone ?"flex-col gap-2": isTablet?"flex-wrap gap-1":"gap-5"} ${!isLeftAlign ? "flex-row-reverse" : ""}`}
+                                        className={`flex items-center justify-between cursor-pointer ${isPhone ? "flex-col gap-2" : isTablet ? "flex-wrap gap-1" : "gap-5"} ${!isLeftAlign ? "flex-row-reverse" : ""}`}
                                         onClick={() => toggleAccordion(index)}
                                     >
-                                        <div className={`flex ${isPhone?"" :isTablet?"":"w-3/4"} ${isPhone?"w-[80%] pl-2":""} items-center gap-2 ${!isLeftAlign && "flex-row-reverse"}`}>
+                                        <div className={`flex ${isPhone ? "" : isTablet ? "" : "w-3/4"} ${isPhone ? "w-[80%] pl-2" : ""} items-center gap-2 ${!isLeftAlign && "flex-row-reverse"}`}>
                                             <img
                                                 src="https://loopwebsite.s3.ap-south-1.amazonaws.com/weui_arrow-outlined+(1).svg"
                                                 alt="icon"
@@ -215,15 +235,15 @@ const CareerPage = ({ language, screen }) => {
                                                 <p className="text-sm font-light text-gray-600">{job?.title?.value[language]}</p>
                                             </div>
                                         </div>
-                                        <div className={` ${isPhone?"" :isTablet?"":"w-1/2"} ${isPhone?" w-[70%] pl-5":"border-l pl-5"} border-gray-300`}>
+                                        <div className={` ${isPhone ? "" : isTablet ? "" : "w-1/2"} ${isPhone ? " w-[70%] pl-5" : `${!isLeftAlign?"border-r pr-5":"border-l pl-5"} `} border-gray-300`}>
                                             <h5 className="text-sm font-light text-gray-600">{job?.location?.key[language]}</h5>
                                             <p className="text-md font-bold text-gray-800">{job?.location?.value[language]}</p>
                                         </div>
-                                        <div className={` ${isPhone?"" :isTablet?"":"w-1/2"} ${isPhone?" w-[70%] pl-5":"border-l border-r px-5"} border-gray-300 border-gray-300 `}>
+                                        <div className={` ${isPhone ? "" : isTablet ? "" : "w-1/2"} ${isPhone ? " w-[70%] pl-5" : "border-l border-r px-5"} border-gray-300 border-gray-300 `}>
                                             <h5 className="text-sm font-light text-gray-600">{job?.deadline?.key[language]}</h5>
                                             <p className="text-md font-bold text-gray-800">{job?.deadline?.value[language]}</p>
                                         </div>
-                                        <div className={`mt-4 ${isPhone?"" :isTablet?"":""} flex items-center gap-6 ${!isLeftAlign && "flex-row-reverse"} ${isTablet ? "w-" : ""}`}>
+                                        <div className={`mt-4 ${isPhone ? "" : isTablet ? "" : ""} flex items-center gap-6 ${!isLeftAlign && "flex-row-reverse"} ${isTablet ? "w-" : ""}`}>
                                             <button
                                                 className="rounded bg-[#00b9f2] px-3 w-[102px] py-2 text-white text-xs"
                                                 onClick={() => {
