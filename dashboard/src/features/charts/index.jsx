@@ -42,7 +42,6 @@ const TopSideButtons = ({ removeFilter, applyFilter, applySearch }) => { // sear
         if (searchText === "") {
             removeAppliedFilter();
         } else {
-            console.log(searchText)
             applySearch(searchText);
         }
     }, [searchText]);
@@ -122,11 +121,9 @@ function Users() {
         const loadingToastId = toast.loading("Processing...", { autoClose: 2000 });
         let response = user.status === "ACTIVE" ? await deactivateUser({id:user.id}) : await activateUser({id:user.id});
         if (response.ok) {
-            console.log("index", loadingToastId)
             updateToasify(loadingToastId, `Request successful. ${response.message}`, "success", 1000);
             setChangesInUser(prev => !prev);
         } else {
-            console.log("index", loadingToastId)
             updateToasify(loadingToastId, `Request failed. ${response.message}`, "error", 2000);
         }
         toast.dismiss(loadingToastId) // to deactivate to running taost

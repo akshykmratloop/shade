@@ -91,7 +91,6 @@ const MultiSelectForProjects = ({ heading, options = [], tabName, label, languag
     };
 
     const removeOption = (optionToRemove) => {
-        console.log(options)
         const newOption = { ...optionToRemove, type: "" }
         dispatch(updateMarketSelectedContent({
             origin: referenceOriginal.dir,

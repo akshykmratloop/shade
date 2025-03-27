@@ -3,7 +3,6 @@ import MultiSelectPro from "../MultiSelectPro";
 import FileUploader from "../../../../components/Input/InputFileUploader";
 
 const MarketManager = ({ language, currentContent, currentPath }) => {
-    // console.log(language, currentContent, currentPath)
 
     return (
         <div>

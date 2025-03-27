@@ -118,7 +118,6 @@ function UserDetailsModal({ user, show, onClose }) {
                                                     <div className="flex gap-2 flex-wrap relative">
                                                         <div className={`flex gap-2 flex-wrap top-[-26.5px]`}>
                                                             {fetchedUser?.roles?.map((role, i, a) => {
-                                                                console.log(role)
                                                                 let lastElement = i === a.length - 1
                                                                 return (<span key={role.role.id} className="">{role.role.name}{!lastElement && ","}</span>)
                                                             })}

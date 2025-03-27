@@ -118,7 +118,6 @@ function Roles() {
     let response;
     if (role.status === "ACTIVE") response = await deactivateRole(role);
     else response = await activateRole(role);
-    console.log(response);
     if (response.ok) {
       updateToasify(
         loadingToastId,

@@ -44,7 +44,6 @@ const MarketPage = ({ language, screen }) => {
     const dispatch = useDispatch()
     const isPhone = screen < 760
     const isTablet = screen > 761 && screen < 1100
-    console.log(isPhone)
     const [activeTab, setActiveTab] = useState("buildings");
     const currentContent = useSelector((state) => state.homeContent.present.markets)
     const ImageFromRedux = useSelector((state) => state.homeContent.present.images)

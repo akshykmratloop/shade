@@ -13,7 +13,6 @@ function RoleDetailsModal({ role, show, onClose }) {
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(true)
 
-    console.log(fetchedRole)
 
     const modalRef = useRef(null)
 

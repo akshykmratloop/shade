@@ -181,7 +181,6 @@ const MultiSelectPro = ({ heading, options = [], tabName, label, language, secti
     }, [options]);
 
     useEffect(() => {
-        console.log(selectedOptions)
         if (random > 1) {
             if (id === 'all') {
                 // dispatch(updateAllProjectlisting({

@@ -125,8 +125,6 @@ const MultiSelectSM = ({ currentContent, heading, options = [], tabName, label, 
 
 
     useEffect(() => {
-        console.log("qwerqwerfasdfa")
-        console.log(options)
         if (random !== 1) {
             dispatch(selectMainNews({
                 // origin: referenceOriginal.dir,
