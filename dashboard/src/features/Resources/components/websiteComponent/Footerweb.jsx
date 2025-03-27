@@ -1,13 +1,7 @@
 import React, { useEffect, useState } from "react";
-// import styles from "@/components/footer/Footer.module.scss";
-// import Link from "next/link";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import content from './content.json'
-// import Logo from "@/assets/brand-logo/foot-logo.svg";
-// import Facebook from "@/assets/icons/facebook.svg";
-// import Instagram from "@/assets/icons/instagram.svg";
-// import Twitter from "@/assets/icons/twitter.svg";
-// import Linkedin from "@/assets/icons/linkedin.svg";
 import Logo from "../../../../assets/brand-logo/foot-logo.svg"
 import Facebook from "../../../../assets/icons/facebook.svg"
 import Instagram from "../../../../assets/icons/instagram.svg"
@@ -15,21 +9,8 @@ import Twitter from "../../../../assets/icons/twitter.svg"
 import Linkedin from "../../../../assets/icons/linkedin.svg"
 import foot_layer from "../../../../assets/images/foot_layer.png"
 import foot_layer1 from "../../../../assets/images/foot_layer1.png"
-import { useDispatch, useSelector } from "react-redux";
 import { updateContent } from "../../../common/homeContentSlice";
-
-
-// import Image from "next/image";
-// import Button from "@/common/Button";
-// import localFont from "next/font/local";
-// import { useGlobalContext } from "../../contexts/GlobalContext";
-// import ContactUsModal from "../header/ContactUsModal";
-
-// Font files can be colocated inside of `app`
-// const BankGothic = localFont({
-//   src: "../../../public/font/BankGothicLtBTLight.ttf",
-//   display: "swap",
-// });
+    
 
 const Footer = ({ language }) => {
     const dispatch = useDispatch()

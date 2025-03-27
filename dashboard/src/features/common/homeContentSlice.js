@@ -52,6 +52,7 @@ const cmsSlice = createSlice({
             } else if (action.payload.subSection) {
                 state.present[action.payload?.currentPath][action.payload.section][action.payload.subSection][action.payload?.index][action.payload.title][action.payload.lan] = action.payload.value;
             } else {
+                console.log(action.payload?.currentPath,action.payload.section, action.payload.title)
                 state.present[action.payload?.currentPath][action.payload.section][action.payload.title][action.payload.lan] = action.payload.value;
             }
             state.future = [];

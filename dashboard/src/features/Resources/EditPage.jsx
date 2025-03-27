@@ -25,6 +25,7 @@ import CareersManager from "./components/contentmanager/CareersManager";
 import NewsPage from "./components/websiteComponent/NewsPage";
 import NewsManager from "./components/contentmanager/NewsManager";
 import Footer from "./components/websiteComponent/Footerweb";
+import FooterManager from "./components/contentmanager/FooterManager";
 
 const EditPage = () => {
     const dispatch = useDispatch();
@@ -78,6 +79,10 @@ const EditPage = () => {
                 {
                     currentPath === 'news' &&
                     <NewsManager language={language} currentContent={content.newsBlogs} currentPath={"newsBlogs"} />
+                }
+                {
+                    currentPath === 'footer' &&
+                    <FooterManager language={language} currentContent={content.footer} currentPath={currentPath} />
                 }
 
 
