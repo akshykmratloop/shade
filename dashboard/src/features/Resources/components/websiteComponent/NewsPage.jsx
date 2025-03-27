@@ -3,9 +3,9 @@ import content from "./content.json"
 import { newsBlogs } from "../../../../assets/index";
 import { useDispatch, useSelector } from "react-redux";
 import { TruncateText } from "../../../../app/capitalizeword";
-
 import Arrow from "../../../../assets/icons/right-wrrow.svg";
 import { updateContent } from "../../../common/homeContentSlice";
+import TruncateComponent from "../../../../components/Truncate.jsx/TruncateComponent";
 // import styles from "@/components/news-and-blogs/newsblogs.module.scss";
 // Font files can be colocated inside of `app`
 // const BankGothic = localFont({
@@ -80,13 +80,13 @@ const NewsBlogspage = ({ language, screen }) => {
                         <div className={`flex items-center ${!isLeftAlign && "flex-row-reverse text-right"} justify-center gap-[50px] p-2 mx-auto rounded-md border border-gray-300 bg-white shadow-md shadow-gray-200`}>
                             <div className="p-[30px]">
                                 <h2 title={mainCard?.title?.[language]} className="text-[#292E3D] text-[20px] font-bold mb-4">
-                                    {TruncateText(mainCard?.title?.[language], 20)}
+                                    <TruncateComponent string={mainCard?.title?.[language] ?? ""} truncAt={20} language={language} />
                                 </h2>
                                 <p
                                     title={mainCard?.description?.[language]}
                                     className="text-xs text-[rgba(0,26,88,0.51)] font-light leading-[22px] mb-6"
                                 >
-                                    {TruncateText(mainCard?.description?.[language], 150)}
+                                    <TruncateComponent string={mainCard?.description?.[language] ?? ""} truncAt={150} language={language} />
                                 </p>
                                 <div className="flex items-center justify-between gap-5">
                                     <h6 className="text-[12px] text-gray-600 font-light">
@@ -134,20 +134,21 @@ const NewsBlogspage = ({ language, screen }) => {
                                                 title={card?.title?.[language]}
                                                 className={`text-[16px] font-bold mb-2 text-[#292E3D] ${isLeftAlign ? '' : 'scale-x-[-1] text-right'}`}
                                             >
-                                                {TruncateText(card?.title?.[language], 25)}
+                                                <TruncateComponent string={card?.title?.[language] ?? ""} truncAt={25} language={language} />
                                             </h2>
                                             <p
                                                 title={card.description[language]}
                                                 className={`text-[13px] font-light text-[#001A58]/50 leading-4 mb-5 ${isLeftAlign ? '' : 'scale-x-[-1] text-right'}`}
                                             >
-                                                {TruncateText(card.description[language], 150)}
+                                                <TruncateComponent string={card.description[language] ?? ""} truncAt={150} language={language} />
                                             </p>
                                         </div>
                                         <div className="flex items-center justify-between">
-                                            <h6 className={`text-[10px] font-light text-gray-600 text- ${isLeftAlign ? '' : 'scale-x-[-1] text-right'}`}>
+                                            <h6 className={`text-[10px] font-light text-gray-600 text- ${isLeftAlign ? '' : 'scale-x-[-1] text-right'}`} dir={language == "ar" && "rtl"}>
                                                 {card.date[language]}
                                             </h6>
                                             <button
+                                                dir={language == "ar" && "rtl"}
                                                 // onClick={() => router.push(`blog/${card.id}`)}
                                                 className={`text-[10px] font-bold text-[#00B9F2] border-none bg-transparent cursor-pointer ${isLeftAlign ? '' : 'scale-x-[-1] text-right'}`}
                                             >
@@ -168,20 +169,20 @@ const NewsBlogspage = ({ language, screen }) => {
                     <div className="container mx-auto">
                         <div className={`flex p-0 items-start ${!isLeftAlign && "flex-row-reverse text-right"} gap-11 mx-auto rounded-md overflow-hidden bg-[rgba(20,80,152,0.06)]`}>
                             <div className="p-8 flex-1">
-                                { <button className={`px-8 py-2 ${!trendingCard?.button && "invisible"} flex justify-center items-center gap-2 rounded-3xl bg-[#145098] text-white text-sm font-normal tracking-wide mb-8 border-none cursor-pointer`}>
+                                {<button className={`px-8 py-2 ${!trendingCard?.button && "invisible"} flex justify-center items-center gap-2 rounded-3xl bg-[#145098] text-white text-sm font-normal tracking-wide mb-8 border-none cursor-pointer`}>
                                     {trendingCard?.button?.text[language]}
                                 </button>}
                                 <h2
                                     title={trendingCard?.title?.[language]}
                                     className="font-bold text-lg leading-6 text-[#292E3D]"
                                 >
-                                    {TruncateText(trendingCard?.title?.[language] ?? "", 35)}
+                                    <TruncateComponent string={trendingCard?.title?.[language] ?? ""} truncAt={35} language={language} />
                                 </h2>
                                 <p
                                     title={trendingCard?.description[language]}
                                     className="text-xs font-light leading- text-[rgba(0,26,88,0.51)] mb-6 h-[150px]"
                                 >
-                                    {TruncateText(trendingCard?.description[language] ?? "", 150)}
+                                    <TruncateComponent string={trendingCard?.description[language] ?? ""} truncAt={150} language={language} />
                                 </p>
                                 <div className="flex items-center justify-between gap-5">
                                     <h6 className="text-xs font-light text-gray-600">
