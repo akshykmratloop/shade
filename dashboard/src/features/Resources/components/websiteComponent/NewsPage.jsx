@@ -19,7 +19,8 @@ import TruncateComponent from "../../../../components/Truncate.jsx/TruncateCompo
 
 const NewsBlogspage = ({ language, screen }) => {
     const isLeftAlign = language === 'en'
-    const isPhone = screen > 768
+    const isPhone = screen < 761
+    const isTablet = screen > 760 && screen < 900
     const dispatch = useDispatch()
     const currentContent = useSelector((state) => state.homeContent.present.newsBlogs)
     const ImageFromRedux = useSelector((state) => state.homeContent.present.images)
@@ -30,11 +31,11 @@ const NewsBlogspage = ({ language, screen }) => {
     const trendingCard = currentContent?.trendingCard;
     // const TruncateText = (text, length) => TruncateText(text, length || 200);
 
-
     // const handleNavigate = (id) => {
     //     // router.push(`blog/${id}`);
     // };
 
+    console.log(isTablet)
 
     useEffect(() => {
         dispatch(updateContent({ currentPath: "newsBlogs", payload: content.newsBlogs }))
@@ -44,16 +45,16 @@ const NewsBlogspage = ({ language, screen }) => {
             {/**Banner Section */}
             <section className={`relative px-5 w-full bg-cover bg-center ${isLeftAlign ? 'scale-x-[-1]' : ''}  `}
                 style={{
-                    height: 1000 * 0.436,
+                    height: 1100 * 0.436,
                     backgroundImage: ImageFromRedux.newsBanner ? `url(${ImageFromRedux.newsBanner})` :
                         "url('https://loopwebsite.s3.ap-south-1.amazonaws.com/Hero+(2).png')"
                 }}>
-                <div className={`container h-full relative ${isPhone ? "px-10" : "px-20"} flex items-center ${isLeftAlign ? "justify-end" : "justify-end"}   `}>
-                    <div className={`flex flex-col ${isLeftAlign ? 'right-5 text-left items-start ' : 'left-5 text-right items-end'} ${isPhone ? "max-w-[70%]" : "max-w-[55%]"} w-full ${isLeftAlign ? 'scale-x-[-1]' : ''}`}>
+                <div className={`${isTablet && "py-[200px]"} container h-full relative ${isPhone ? "px-10" : "px-20"} flex items-center ${isLeftAlign ? "justify-end" : "justify-end"}`}>
+                    <div className={`flex flex-col ${isLeftAlign ? 'right-5 text-left items-start ' : 'left-5 text-right items-end'} ${isPhone ? "max-w-[90%]" : isTablet ? "max-w-[70%]" : "max-w-[50%]"} w-full ${isLeftAlign ? 'scale-x-[-1]' : ''}`}>
                         <h1 className={`text-[#292E3D] ${isPhone ? "text-3xl" : "text-[50px] leading-[77px] tracking-[-3.5px]"} font-medium  mb-4`}>
                             {bannerTitle}
                         </h1>
-                        <p className={`text-[#0E172FB3] ${isPhone ? "" : "leading-[28px]"} text-sm font-semibold w-[70%] mb-6 word-spacing-5`}>
+                        <p className={`text-[#0E172FB3] ${isPhone ? "" : "leading-[28px]"} text-sm font-semibold w-[70%] mb-6 word-spacing-5`} dir={isLeftAlign?"ltr":"rtl"}>
                             {bannerDescription}
                         </p>
                         {/* <button
@@ -75,9 +76,9 @@ const NewsBlogspage = ({ language, screen }) => {
 
             {/** main card */}
             {!mainCard?.id ? "" :
-                <section className={`py-[88px] px-[100px]`}>
+                <section className={`py-[88px] ${isPhone? 'px-4':"px-[100px]"}`}>
                     <div className="container">
-                        <div className={`flex items-center ${!isLeftAlign && "flex-row-reverse text-right"} justify-center gap-[50px] p-2 mx-auto rounded-md border border-gray-300 bg-white shadow-md shadow-gray-200`}>
+                        <div className={`flex items-center ${!isLeftAlign && "flex-row-reverse text-right"} ${isTablet || isPhone ? "flex-col pb-6" : ""} justify-center gap-[50px] p-2 mx-auto rounded-md border border-gray-300 bg-white shadow-md shadow-gray-200`}>
                             <div className="p-[30px]">
                                 <h2 title={mainCard?.title?.[language]} className="text-[#292E3D] text-[20px] font-bold mb-4">
                                     <TruncateComponent string={mainCard?.title?.[language] ?? ""} truncAt={20} language={language} />
@@ -117,18 +118,18 @@ const NewsBlogspage = ({ language, screen }) => {
                     <h2 className={`text-[28px] text-[#0E172F] opacity-70 font-normal mb-6`}>
                         {latestNews?.heading[language]}
                     </h2>
-                    <div className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 justify-items-center ${isLeftAlign ? '' : 'scale-x-[-1]'}`}>
+                    <div className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 ${isTablet?"lg:grid-cols-3":isPhone?"lg:grid-cols-1":"lg:grid-cols-4"} gap-3 justify-items-center ${isLeftAlign ? '' : 'scale-x-[-1]'}`}>
                         {latestNews?.cards?.map((card, index) => {
                             if (!card.display) return null
                             return (
-                                <div key={index} className="rounded-md border border-gray-300 bg-white shadow-md overflow-hidden min-h-[390px]">
+                                <div key={index} className={`rounded-md border border-gray-300 bg-white shadow-md overflow-hidden ${isPhone ? "min-h-[390px]" :"min-h-[390px]"}`}>
                                     <img
                                         src={card.image.slice(0, 5) === "https" ? card.image : newsBlogs[card.image]}
                                         alt=""
-                                        className="object-cover object-center w-full h-[130px]"
+                                        className={`object-cover object-center w-full ${isPhone ? "h-[200px]":"h-[130px]"}`}
                                         width={180}
                                     />
-                                    <div className="p-2 flex-auto flex flex-col justify-between min-h-[68%]">
+                                    <div className={`p-2 flex-auto flex flex-col justify-between ${isPhone?"min-h-[48%]":"min-h-[68%]"}`}>
                                         <div>
                                             <h2
                                                 title={card?.title?.[language]}
@@ -144,11 +145,11 @@ const NewsBlogspage = ({ language, screen }) => {
                                             </p>
                                         </div>
                                         <div className="flex items-center justify-between">
-                                            <h6 className={`text-[10px] font-light text-gray-600 text- ${isLeftAlign ? '' : 'scale-x-[-1] text-right'}`} dir={language == "ar" && "rtl"}>
+                                            <h6 className={`text-[10px] font-light text-gray-600 text- ${isLeftAlign ? '' : 'scale-x-[-1] text-right'}`} dir={language == "ar" ? "rtl" : "ltr"}>
                                                 {card.date[language]}
                                             </h6>
                                             <button
-                                                dir={language == "ar" && "rtl"}
+                                                dir={language == "ar" ? "rtl" : "ltr"}
                                                 // onClick={() => router.push(`blog/${card.id}`)}
                                                 className={`text-[10px] font-bold text-[#00B9F2] border-none bg-transparent cursor-pointer ${isLeftAlign ? '' : 'scale-x-[-1] text-right'}`}
                                             >
@@ -165,9 +166,11 @@ const NewsBlogspage = ({ language, screen }) => {
 
             {/* Trending Card */}
             {!trendingCard?.id ? "" :
-                <section className={`${language === "en" ? "text-left" : "text-right"} pb-20 px-20`}>
+                <section
+                dir={!isLeftAlign ? "rtl" : "ltr"}
+                 className={`${language === "en" ? "text-left" : "text-right"} pb-20 ${isPhone ? "px-4" :"px-20"}`}>
                     <div className="container mx-auto">
-                        <div className={`flex p-0 items-start ${!isLeftAlign && "flex-row-reverse text-right"} gap-11 mx-auto rounded-md overflow-hidden bg-[rgba(20,80,152,0.06)]`}>
+                        <div className={`flex p-0 items-start ${!isLeftAlign && "flex-row-reverse text-right"} ${isTablet || isPhone && "flex-col-reverse"} gap-11 mx-auto rounded-md overflow-hidden bg-[rgba(20,80,152,0.06)]`}>
                             <div className="p-8 flex-1">
                                 {<button className={`px-8 py-2 ${!trendingCard?.button && "invisible"} flex justify-center items-center gap-2 rounded-3xl bg-[#145098] text-white text-sm font-normal tracking-wide mb-8 border-none cursor-pointer`}>
                                     {trendingCard?.button?.text[language]}
@@ -200,8 +203,8 @@ const NewsBlogspage = ({ language, screen }) => {
                                 src={trendingCard?.image.slice(0, 5) === "https" ? trendingCard?.image : newsBlogs[trendingCard?.image]}
                                 alt="Trending Card Image"
                                 // width={439}
-                                // height={329}
-                                className=" w-[50%] h-[372px] self-center object-cover object-center"
+                                // height={329} 
+                                className={` w-[50%] h-[372px] self-center object-cover object-center ${isTablet || isPhone && "w-full"}`}
                             />
                         </div>
                     </div>

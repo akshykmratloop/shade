@@ -1,0 +1,104 @@
+import React, { useEffect, useState } from "react";
+// import styles from "@/components/footer/Footer.module.scss";
+// import Link from "next/link";
+import { Link } from "react-router-dom";
+import content from './content.json'
+// import Logo from "@/assets/brand-logo/foot-logo.svg";
+// import Facebook from "@/assets/icons/facebook.svg";
+// import Instagram from "@/assets/icons/instagram.svg";
+// import Twitter from "@/assets/icons/twitter.svg";
+// import Linkedin from "@/assets/icons/linkedin.svg";
+import Logo from "../../../../assets/brand-logo/foot-logo.svg"
+import Facebook from "../../../../assets/icons/facebook.svg"
+import Instagram from "../../../../assets/icons/instagram.svg"
+import Twitter from "../../../../assets/icons/twitter.svg"
+import Linkedin from "../../../../assets/icons/linkedin.svg"
+import foot_layer from "../../../../assets/images/foot_layer.png"
+import foot_layer1 from "../../../../assets/images/foot_layer1.png"
+import { useDispatch, useSelector } from "react-redux";
+import { updateContent } from "../../../common/homeContentSlice";
+
+
+// import Image from "next/image";
+// import Button from "@/common/Button";
+// import localFont from "next/font/local";
+// import { useGlobalContext } from "../../contexts/GlobalContext";
+// import ContactUsModal from "../header/ContactUsModal";
+
+// Font files can be colocated inside of `app`
+// const BankGothic = localFont({
+//   src: "../../../public/font/BankGothicLtBTLight.ttf",
+//   display: "swap",
+// });
+
+const Footer = ({ language }) => {
+    const dispatch = useDispatch()
+    const currentContent = useSelector((state) => state.homeContent.present.footer)
+    // const ImagesFromRedux = useSelector((state) => {
+    //     return state.homeContent.present.images
+    // })
+    // const { language, content } = useGlobalContext();
+    // const currentContent = content?.footer;
+    const [isModal, setIsModal] = useState(false);
+
+    const handleContactUSClose = () => {
+        setIsModal(false);
+    };
+
+    useEffect(() => {
+        dispatch(updateContent({ currentPath: "footer", payload: (content?.footer) }))
+    }, [])
+    return (
+        <footer className="relative overflow-hidden bg-[#062233] border-t border-primary ">
+
+
+            <div className="container relative mx-auto px-4 z-[2] p-6">
+                <span className="absolute right-[82px] top-0 w-[265px] h-[234px] bg-no-repeat bg-contain z-[-1]"
+                    style={{ backgroundImage: `url(${foot_layer1})` }} />
+                <span className="absolute bottom-0 left-0 w-[200px] h-[180px] bg-no-repeat bg-contain bg-full bg-center z-[-1] "
+                    style={{ backgroundImage: `url(${foot_layer})` }} />
+
+                <div className="flex flex-col items-center gap-6 text-center mb-10 ">
+                    <div>
+                        <img src={Logo} alt="Logo" width={138} height={138} />
+                    </div>
+                    <p className="text-white text-xs font-medium leading-8">{currentContent?.companyInfo?.address[language]}</p>
+                </div>
+
+                <div className="flex flex-wrap justify-between gap-4 px-8 mb-12">
+                    {["aboutUs", "markets", "services"].map((section) => (
+                        <div key={section} className="w-full md:w-auto">
+                            <h5 className="text-white text-lg font-light mb-4">{currentContent?.[section]?.title[language]}</h5>
+                            {currentContent?.[section]?.links?.map((link, index) => (
+                                <Link key={index} href={link.url} className="block text-white text-base font-light mb-4 text-xs">
+                                    {link[language]}
+                                </Link>
+                            ))}
+                        </div>
+                    ))}
+
+                    <div className="w-full md:w-auto">
+                        <h5 className="text-white text-lg font-light mb-4">{currentContent?.contact?.title[language]}</h5>
+                        <p className="text-white text-base text-xs font-light mb-2">{currentContent?.contact?.phone[language]}</p>
+                        <p className="text-white text-base text-xs font-light mb-4">{currentContent?.contact?.fax[language]}</p>
+                        <h6 className="text-white text-base text-xs font-medium mb-3">{currentContent?.contact?.helpText[language]}</h6>
+                        <button className="px-5 py-2 bg-[#00b9f2] text-white rounded-lg" onClick={() => setIsModal(true)}>
+                            {currentContent?.contact?.button[language]}
+                        </button>
+                        <div className="flex gap-4 mt-6">
+                            {[{ img: Linkedin, url: "https://www.linkedin.com/" }, { img: Instagram, url: "https://www.instagram.com/" }, { img: Twitter, url: "https://twitter.com/" }, { img: Facebook, url: "https://www.facebook.com/" }].map((social, index) => (
+                                <a key={index} href={social.url} target="_blank" rel="noopener noreferrer">
+                                    <img src={social.img} alt="social" width={20} height={20} />
+                                </a>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {/* <ContactUsModal isModal={isModal} onClose={() => setIsModal(false)} /> */}
+        </footer>
+    );
+};
+
+export default Footer;

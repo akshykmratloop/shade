@@ -25,7 +25,7 @@ const TopSideButtons = ({
   removeFilter,
   applyFilter,
   applySearch,
-  openAddForm,
+  // openAddForm,
 }) => {
   const [filterParam, setFilterParam] = useState("");
   const [searchText, setSearchText] = useState("");

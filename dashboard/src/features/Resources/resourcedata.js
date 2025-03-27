@@ -49,8 +49,8 @@ const resources = {
     header: [
     ],
     footer: [
+        { heading: "Footer", src: "", assign: true }
     ]
 }
-
 
 export default resources

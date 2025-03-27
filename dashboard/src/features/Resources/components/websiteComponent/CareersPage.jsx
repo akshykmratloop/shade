@@ -163,7 +163,7 @@ const CareerPage = ({ language, screen }) => {
                                 className="w-6 h-6"
                             />
                             <input
-                                dir={!isLeftAlign && "rtl"}
+                                dir={!isLeftAlign ? "rtl" : "ltr"}
                                 title={currentContent?.filterSection?.inputBox?.placeholder[language]}
                                 placeholder={currentContent?.filterSection?.inputBox?.placeholder[language]}
                                 className={`w-full border-none focus:outline-none text-gray-700 text-base font-light`}

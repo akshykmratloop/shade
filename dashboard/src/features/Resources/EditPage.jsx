@@ -24,6 +24,7 @@ import TextAreaInput from "../../components/Input/TextAreaInput";
 import CareersManager from "./components/contentmanager/CareersManager";
 import NewsPage from "./components/websiteComponent/NewsPage";
 import NewsManager from "./components/contentmanager/NewsManager";
+import Footer from "./components/websiteComponent/Footerweb";
 
 const EditPage = () => {
     const dispatch = useDispatch();
@@ -79,6 +80,8 @@ const EditPage = () => {
                     <NewsManager language={language} currentContent={content.newsBlogs} currentPath={"newsBlogs"} />
                 }
 
+
+
             </div> {/* Content manager ends here */}
             {/* Content view */}
             <div
@@ -124,6 +127,12 @@ const EditPage = () => {
                     {
                         currentPath === "news" &&
                         <NewsPage language={language} currentContent={content.newsBlogs} screen={screen} />
+                    }
+
+                    {/* sub pages */}
+                    {
+                        currentPath === "footer" &&
+                        <Footer language={language} currentContent={content.footer} screen={screen} />
                     }
                 </div>
             </div>
