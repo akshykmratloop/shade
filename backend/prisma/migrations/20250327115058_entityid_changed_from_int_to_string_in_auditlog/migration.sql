@@ -1,0 +1,2 @@
+-- AlterTable
+ALTER TABLE "AuditLog" ALTER COLUMN "entityId" SET DATA TYPE TEXT;

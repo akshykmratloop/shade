@@ -1,8 +1,8 @@
 // Enum for defining the status of a page
 enum PageStatus {
     PUBLISHED // ACTIVE
-    ARCHIVED  // INACTIVE
-    TRASHED   // REMOVED
+    ARCHIVED // INACTIVE
+    TRASHED // REMOVED
 }
 
 // Enum for defining the general status of an entity
@@ -12,16 +12,26 @@ enum Status {
     TRASHED
 }
 
-
-enum otpOrigin {  // Enum for defining the origin of OTP
+// Enum for defining the origin of OTP
+enum otpOrigin {
     MFA_Login
     forgot_Pass
     NULL
 }
 
-
-enum logOutcome {  // Enum for defining the log outcome
+// Enum for defining the log outcome
+enum logOutcome {
     Success
     Failure
     Unknown
+}
+
+// Enum for defining the action performed by user
+enum logAction {
+    CREATE
+    UPDATE
+    DELETE
+    LOGIN
+    LOGOUT
+    NULL
 }
