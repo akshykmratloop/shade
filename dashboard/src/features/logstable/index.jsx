@@ -96,7 +96,7 @@ function Roles() {
     const [showDetailsModal, setShowDetailsModal] = useState(false);
     const [enabled, setEnabled] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
-    const logsPerPage = 8;
+    const logsPerPage = 1;
 
     const removeFilter = () => {
         setLogs([...originalLogs]);
@@ -210,12 +210,12 @@ function Roles() {
                                                         {log?.actionType || "N/A"}
                                                     </span>
                                                 </td>
-                                                <td className="font-poppins font-light text-[12px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]">
+                                                <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]">
                                                     <span className="">
                                                         {log?.entity || "N/A"}
                                                     </span>
                                                 </td>
-                                                <td className="font-poppins font-light text-[12px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]">
+                                                <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]">
                                                     <span className="">
                                                         {log?.ipAddress || "N/A"}
                                                     </span>
@@ -228,7 +228,8 @@ function Roles() {
                                                                 before:content-['•'] 
                                                                 before:text-2xl 
                                                                 flex h-7 
-                                                                items-center 
+                                                                items-center
+                                                                text-[12px] 
                                                                 justify-center gap-1 
                                                                 px-1 py-0 font-[500] 
                                                                 ${log?.outcome === 'Success' ?
