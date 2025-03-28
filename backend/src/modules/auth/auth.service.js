@@ -1,4 +1,4 @@
-import { logger } from "../../config/index.js";
+import {logger} from "../../config/index.js";
 import {
   assert,
   //  assertEvery
@@ -11,6 +11,7 @@ import {
   markOTPUsed,
   deleteOTP,
   createOrUpdateOtpAttempts,
+  findAllLogs,
 } from "../../repository/user.repository.js";
 import {
   EncryptData,
@@ -32,8 +33,8 @@ const login = async (email, password) => {
   );
   const token = generateToken(user);
   // this line removes the password from the userdata object
-  const { password: userPassword, ...userData } = user;
-  logger.info({ ...userData, response: "logged in successfully" });
+  const {password: userPassword, ...userData} = user;
+  logger.info({...userData, response: "logged in successfully"});
   return {
     token: token,
     message: "Log in successful",
@@ -46,7 +47,7 @@ const login = async (email, password) => {
 const mfa_login = async (email, deviceId, otpOrigin) => {
   const user = await getUser(email);
   const otp = await generateOtpAndSendOnEmail(user, deviceId, otpOrigin);
-  return { message: `OTP has been Sent`, otp: otp };
+  return {message: `OTP has been Sent`, otp: otp};
 };
 
 const verify_mfa_login = async (email, deviceId, otp, otpOrigin) => {
@@ -54,8 +55,8 @@ const verify_mfa_login = async (email, deviceId, otp, otpOrigin) => {
   await verifyOTP(user?.id, deviceId, otp, otpOrigin);
   const token = generateToken(user);
   // this line removes the password from the userdata object
-  const { password: userPassword, ...userData } = user;
-  logger.info({ ...userData, response: "logged in successfully" });
+  const {password: userPassword, ...userData} = user;
+  logger.info({...userData, response: "logged in successfully"});
   return {
     token: token,
     message: "Log in successful",
@@ -68,19 +69,19 @@ const verify_mfa_login = async (email, deviceId, otp, otpOrigin) => {
 const logout = async (user) => {
   // add any functionality here
   logger.info(`user: ${user.name} has logged out`);
-  return { message: "Logged out successfully" };
+  return {message: "Logged out successfully"};
 };
 
 const refreshToken = async (user) => {
   const newToken = generateToken(user);
   logger.info(`token has been refreshed for user : ${user?.id}`);
-  return { token: newToken, message: "Token updated successfully" };
+  return {token: newToken, message: "Token updated successfully"};
 };
 
 const forgotPassword = async (email, deviceId, otpOrigin) => {
   const user = await getUser(email);
   const otp = await generateOtpAndSendOnEmail(user, deviceId, otpOrigin);
-  return { message: `OTP has been Sent`, otp: otp };
+  return {message: `OTP has been Sent`, otp: otp};
 };
 
 const forgotPasswordVerify = async (email, deviceId, otp, otpOrigin) => {
@@ -115,13 +116,13 @@ const updatePassword = async (
   // if everything is OK, update password
   await updateUserPassword(user?.id, await EncryptData(new_password, 10));
   await deleteOTP(otp.id);
-  return { message: "Passwords has been updated successfully" };
+  return {message: "Passwords has been updated successfully"};
 };
 const resendOTP = async (email, deviceId, otpOrigin, userId) => {
   const user = await getUser(email);
   const otp = await generateOtpAndSendOnEmail(user, deviceId, otpOrigin);
   await createOrUpdateOtpAttempts(userId);
-  return { message: `OTP has been Sent`, otp: otp };
+  return {message: `OTP has been Sent`, otp: otp};
 };
 
 const resetPass = async (
@@ -155,7 +156,7 @@ const resetPass = async (
   // if everything is OK, update password
   await updateUserPassword(user?.id, await EncryptData(new_password, 10));
 
-  return { message: "Passwords has been updated successfully" };
+  return {message: "Passwords has been updated successfully"};
 };
 
 // SUPPORT FUNCTIONS
@@ -229,6 +230,10 @@ const generateOtpAndSendOnEmail = async (user, deviceId, otpOrigin) => {
   return otp;
 };
 
+const getAllLogs = async () => {
+  return await findAllLogs();
+};
+
 export {
   login,
   mfa_login,
@@ -240,4 +245,5 @@ export {
   updatePassword,
   resendOTP,
   resetPass,
+  getAllLogs,
 };

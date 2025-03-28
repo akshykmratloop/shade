@@ -4,7 +4,7 @@ model AuditLog {
   action_performed String
   actionType       String
   entity           String
-  entityId         Int
+  entityId         String
   oldValue         Json? // Stores old value as JSON (optional)
   newValue         Json? // Stores new value as JSON (optional)
   ipAddress        String?

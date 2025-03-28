@@ -395,3 +395,7 @@ export const userDeactivation = async (id) => {
 
   return user;
 };
+
+export const findAllLogs = async () => {
+  return await prismaClient.auditLog.findMany({include: {user: true}});
+};
