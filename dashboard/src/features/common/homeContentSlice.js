@@ -43,16 +43,19 @@ const cmsSlice = createSlice({
                 default:
             }
             state.future = [];
-        }
-        ,
+        },
         updateSpecificContent: (state, action) => {
             state.past.push(JSON.parse(JSON.stringify(state.present)));
-            if (action.payload.subSectionsProMax) {
+            if (action.payload.subSectionsProMax === "Links") {
+                console.log(action.payload?.currentPath, action.payload.section, action.payload.subSection, action.payload?.index, action.payload.title)
+                state.present[action.payload?.currentPath][action.payload.section][action.payload.subSection][action.payload?.index][action.payload.title] = action.payload.value;
+             
+            } else if (action.payload.subSectionsProMax) {
                 state.present[action.payload?.currentPath][action.payload.section][action.payload.subSection][action.payload?.index][action.payload.subSectionsProMax][action.payload.subSecIndex][action.payload.title][action.payload.lan] = action.payload.value;
             } else if (action.payload.subSection) {
                 state.present[action.payload?.currentPath][action.payload.section][action.payload.subSection][action.payload?.index][action.payload.title][action.payload.lan] = action.payload.value;
             } else {
-                console.log(action.payload?.currentPath,action.payload.section, action.payload.title)
+                console.log(action.payload?.currentPath, action.payload.section, action.payload.title)
                 state.present[action.payload?.currentPath][action.payload.section][action.payload.title][action.payload.lan] = action.payload.value;
             }
             state.future = [];

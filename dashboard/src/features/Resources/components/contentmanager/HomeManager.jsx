@@ -121,6 +121,7 @@ const HomeManager = ({ language, currentContent, currentPath }) => {
                                                 <div key={subSecIndex + 1}>
                                                     <ContentSection
                                                         currentPath={currentPath}
+                                                        subHeading={"Project " + (subSecIndex + 1)}
                                                         inputs={[
                                                             { input: "input", label: "Project title", updateType: "title" },
                                                             { input: "input", label: "Project Location", updateType: "subtitle" }
@@ -134,6 +135,7 @@ const HomeManager = ({ language, currentContent, currentPath }) => {
                                                         index={+index}
                                                         subSecIndex={+subSecIndex}
                                                         currentContent={currentContent}
+                                                        isBorder={false}
                                                     />
                                                 </div>
                                             )

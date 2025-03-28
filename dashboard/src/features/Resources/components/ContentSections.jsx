@@ -44,11 +44,13 @@ const ContentSection = ({
     };
 
     return (
-        <div className={`w-full flex flex-col gap-1 ${!isBorder ? "" : "border-b border-b-1 border-neutral-300"} pb-6`}>
+        <div className={`w-full ${Heading?"mt-4": "mt-1"} flex flex-col gap-1 ${!isBorder ? "" : "border-b border-b-1 border-neutral-300"} pb-6`}>
             <h3 className={`font-semibold ${subHeading ? "text-[.9rem] mb-1" : "text-[1.25rem] mb-4"}`}>{Heading || subHeading}</h3>
             {inputs.length > 0 ? inputs.map((input, i) => {
                 let valueExpression;
-                if (subSectionsProMax) {
+                if (subSectionsProMax === "Links") {
+                    valueExpression = currentContent?.[section]?.[subSection]?.[index]?.[input.updateType];
+                } else if (subSectionsProMax) {
                     valueExpression = currentContent?.[section]?.[subSection]?.[index]?.[subSectionsProMax]?.[subSecIndex]?.[input.updateType]?.[language];
                 } else if (subSection && typeof (currentContent?.[section]?.[subSection]?.[index]?.[input.updateType]) !== "object") {
                     valueExpression = currentContent?.[section]?.[subSection]?.[index]?.[input.updateType];
@@ -86,8 +88,8 @@ const ContentSection = ({
                 );
             }) : ""}
 
-            <div className={`flex ${inputFiles.length>1?"justify-center":""}`}>
-                <div className={`flex ${inputFiles.length>1?"flex-wrap":""} gap-10 w-[80%]`}>
+            <div className={`flex ${inputFiles.length > 1 ? "justify-center" : ""}`}>
+                <div className={`flex ${inputFiles.length > 1 ? "flex-wrap" : ""} gap-10 w-[80%]`}>
                     {inputFiles.map((file, index) => (
                         <InputFile
                             key={index}
