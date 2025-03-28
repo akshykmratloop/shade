@@ -175,7 +175,7 @@ const FooterManager = ({ language, currentContent, currentPath }) => {
                     { label: "Image 2", id: "Image 2" },
                     { label: "Image 3", id: "Image 3" },
                 ]}
-                section={"icons"}
+                section={"socialIcons"}
                 language={language}
                 currentContent={currentContent}
                 allowExtraInput={true}

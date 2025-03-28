@@ -30,11 +30,11 @@ const submenuIconClasses = `h-5 w-5`
 
 const routes = [
 
-  {
-    path: '/app/dashboard',
-    icon: <Squares2X2Icon className={iconClasses} />,
-    name: 'Dashboard',
-  },
+  // {
+  //   path: '/app/dashboard',
+  //   icon: <Squares2X2Icon className={iconClasses} />,
+  //   name: 'Dashboard',
+  // },
   {
     path: '/app/resources', // url
     icon: <HiOutlineClipboardDocumentList className={iconClasses} />, // icon component

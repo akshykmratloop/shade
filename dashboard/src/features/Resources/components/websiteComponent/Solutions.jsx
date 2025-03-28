@@ -200,7 +200,7 @@ const SolutionPage = ({ language, screen }) => {
                             <SwiperSlide key={index}>
                                 <div className={`rounded-lg overflow-hidden shadow-lg transition-transform transform ${isPhone?"h-[50vh]":"h-[500px]"}`}>
                                     <img
-                                        src={ImageFromRedux[`Image ${index + 1}`] || image.url}
+                                        src={ImageFromRedux[`Image ${index + 4}`] || image.url}
                                         alt={`Image ${index + 1}`}
                                         className="object-cover w-full h-full"
                                         style={{objectPosition:"center"}}

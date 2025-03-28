@@ -4,6 +4,7 @@ import InputText from "../../../components/Input/InputText";
 import TextAreaInput from "../../../components/Input/TextAreaInput";
 import { useDispatch } from "react-redux";
 import { updateSpecificContent, updateServicesNumber } from "../../common/homeContentSlice";
+import InputFileWithText from "../../../components/Input/InputFileText";
 
 const ContentSection = ({
     Heading,
@@ -44,7 +45,7 @@ const ContentSection = ({
     };
 
     return (
-        <div className={`w-full ${Heading?"mt-4": "mt-1"} flex flex-col gap-1 ${!isBorder ? "" : "border-b border-b-1 border-neutral-300"} pb-6`}>
+        <div className={`w-full ${Heading ? "mt-4" : "mt-1"} flex flex-col gap-1 ${!isBorder ? "" : "border-b border-b-1 border-neutral-300"} pb-6`}>
             <h3 className={`font-semibold ${subHeading ? "text-[.9rem] mb-1" : "text-[1.25rem] mb-4"}`}>{Heading || subHeading}</h3>
             {inputs.length > 0 ? inputs.map((input, i) => {
                 let valueExpression;
@@ -89,40 +90,42 @@ const ContentSection = ({
             }) : ""}
 
             <div className={`flex ${inputFiles.length > 1 ? "justify-center" : ""}`}>
-                <div className={`flex ${inputFiles.length > 1 ? "flex-wrap" : ""} gap-10 w-[80%]`}>
-                    {inputFiles.map((file, index) => (
-                        <InputFile
-                            key={index}
-                            label={file.label}
-                            id={file.id}
-                            currentPath={currentPath}
-                        />
-                    ))}
-                    {extraFiles.map((file, index) => (
-                        <div key={index} className="relative flex items-center justify-center">
-                            <button
-                                className="absolute top-6 z-10 right-[-8px] bg-red-500 text-white px-1 rounded-full shadow"
-                                onClick={() => removeExtraFileInput(file.id)}
-                            >
-                                ✖
-                            </button>
+                {
+                    <div className={`flex ${inputFiles.length > 1 ? "flex-wrap" : ""} gap-10 w-[80%]`}>
+                        {inputFiles.map((file, index) => (
                             <InputFile
+                                key={index}
                                 label={file.label}
                                 id={file.id}
                                 currentPath={currentPath}
                             />
-                        </div>
-                    ))}
-                    {
-                        allowExtraInput &&
-                        <button
-                            className="mt-2 px-3 py-2 bg-blue-500 h-[95px] w-[95px] text-white rounded-lg translate-y-3 self-center text-xl"
-                            onClick={addExtraFileInput}
-                        >
-                            +
-                        </button>
-                    }
-                </div>
+                        ))}
+                        {extraFiles.map((file, index) => (
+                            <div key={index} className="relative flex items-center justify-center">
+                                <button
+                                    className="absolute top-6 z-10 right-[-8px] bg-red-500 text-white px-1 rounded-full shadow"
+                                    onClick={() => removeExtraFileInput(file.id)}
+                                >
+                                    ✖
+                                </button>
+                                <InputFile
+                                    label={file.label}
+                                    id={file.id}
+                                    currentPath={currentPath}
+                                    section={section}
+                                />
+                            </div>
+                        ))}
+                        {allowExtraInput &&
+                            <button
+                                className="mt-2 px-3 py-2 bg-blue-500 h-[95px] w-[95px] text-white rounded-lg translate-y-3 self-center text-xl"
+                                onClick={addExtraFileInput}
+                            >
+                                +
+                            </button>
+                        }
+                    </div>
+                }
             </div>
         </div>
     );

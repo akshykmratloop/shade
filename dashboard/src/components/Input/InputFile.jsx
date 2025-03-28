@@ -47,7 +47,7 @@ const InputFile = ({ label, baseClass, id, currentPath }) => {
         />
         <label htmlFor={id} className="w-full h-full flex items-center justify-center text-gray-400 text-xs">
           {fileURL ? (
-            fileURL.includes(".mp4") || fileURL.includes("video") || ImageFromRedux?.video ? (
+            fileURL.includes(".mp4") || fileURL.includes("video") || ImageFromRedux.video ? (
               <video src={fileURL} className="w-full h-full object-cover" controls />
             ) : (
               <img src={fileURL} alt="Preview" className="w-full h-full object-cover" />

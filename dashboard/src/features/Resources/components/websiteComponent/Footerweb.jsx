@@ -12,7 +12,9 @@ import foot_layer1 from "../../../../assets/images/foot_layer1.png"
 import { updateContent, updateImages } from "../../../common/homeContentSlice";
 
 
-const Footer = ({ language }) => {
+const Footer = ({ language, screen }) => {
+    const isPhone = screen < 600
+    const isLeftAlign = language === "en"
     const dispatch = useDispatch()
     const currentContent = useSelector((state) => state.homeContent.present.footer)
     const socialIcons = useSelector((state) => {
@@ -39,22 +41,18 @@ const Footer = ({ language }) => {
     }, [])
     return (
         <footer className="relative overflow-hidden bg-[#062233] border-t border-primary ">
-
-
             <div className="container relative mx-auto px-4 z-[2] p-6">
                 <span className="absolute right-[82px] top-0 w-[265px] h-[234px] bg-no-repeat bg-contain z-[-1]"
                     style={{ backgroundImage: `url(${foot_layer1})` }} />
                 <span className="absolute bottom-0 left-0 w-[200px] h-[180px] bg-no-repeat bg-contain bg-full bg-center z-[-1] "
                     style={{ backgroundImage: `url(${foot_layer})` }} />
-
                 <div className="flex flex-col items-center gap-6 text-center mb-10 ">
                     <div>
                         <img src={Logo} alt="Logo" width={138} height={138} />
                     </div>
                     <p className="text-white text-xs font-medium leading-8">{currentContent?.companyInfo?.address[language]}</p>
                 </div>
-
-                <div className="flex flex-wrap justify-between gap-4 px-8 mb-12">
+                <div dir={isLeftAlign?"ltr":"rtl"} className={`flex flex-wrap justify-between ${isPhone && "flex-col"} gap-4 px-8 mb-12`}>
                     {["Section 1", "Section 2", "Section 3"].map((section) => (
                         <div key={section} className="w-full md:w-auto">
                             <h5 className="text-white text-lg font-light mb-4">{currentContent?.[section]?.title[language]}</h5>
@@ -66,7 +64,7 @@ const Footer = ({ language }) => {
                         </div>
                     ))}
 
-                    <div className="w-full md:w-auto flex flex-col gap-4 items-start">
+                    <div dir={isLeftAlign?"ltr":"rtl"} className="w-full md:w-auto flex flex-col gap-4 items-start">
                         <h5 className="text-white text-lg font-light">
                             {currentContent?.["Section 4"]?.title[language]}
                         </h5>
