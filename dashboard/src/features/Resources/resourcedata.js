@@ -47,6 +47,7 @@ const resources = {
     blogs: [
     ],
     header: [
+        { heading: "Header", src: "", assign: true }
     ],
     footer: [
         { heading: "Footer", src: "", assign: true }

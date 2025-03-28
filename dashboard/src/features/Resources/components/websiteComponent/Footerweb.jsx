@@ -37,7 +37,7 @@ const Footer = ({ language, screen }) => {
 
     useEffect(() => {
         dispatch(updateContent({ currentPath: "footer", payload: (content?.footer) }))
-        dispatch(updateImages({ src: social, section: "socialIcons" }))
+        // dispatch(updateImages({ src: social, section: "socialIcons" }))
     }, [])
     return (
         <footer className="relative overflow-hidden bg-[#062233] border-t border-primary ">

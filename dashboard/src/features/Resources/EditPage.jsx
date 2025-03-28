@@ -26,6 +26,7 @@ import NewsPage from "./components/websiteComponent/NewsPage";
 import NewsManager from "./components/contentmanager/NewsManager";
 import Footer from "./components/websiteComponent/Footerweb";
 import FooterManager from "./components/contentmanager/FooterManager";
+import Header from "./components/websiteComponent/Headerweb";
 
 const EditPage = () => {
     const dispatch = useDispatch();
@@ -138,6 +139,10 @@ const EditPage = () => {
                     {
                         currentPath === "footer" &&
                         <Footer language={language} currentContent={content.footer} screen={screen} />
+                    }
+                    {
+                        currentPath === "header" &&
+                        <Header language={language} currentContent={content.header} screen={screen} setLanguage={setLanguage} />
                     }
                 </div>
             </div>
