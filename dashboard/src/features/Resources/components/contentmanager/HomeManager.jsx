@@ -5,8 +5,6 @@ import MultiSelect from "../MultiSelect";
 
 const HomeManager = ({ language, currentContent, currentPath }) => {
 
-
-
     return (
         <div>
             {/* reference doc */}

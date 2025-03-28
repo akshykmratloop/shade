@@ -1,36 +1,60 @@
 {
   "header": {
-    "solution": {
-      "en": "Solutions",
-      "ar": "خبر"
+    "section 1": {
+      "title": {
+        "en": "Solutions",
+        "ar": "خبر"
+      },
+      "url": ""
     },
-    "about": {
-      "en": "About",
-      "ar": "معلومات عنا"
+    "section 2": {
+      "title": {
+        "en": "About",
+        "ar": "معلومات عنا"
+      },
+      "url": ""
     },
-    "services": {
-      "en": "Services",
-      "ar": "المشاريع"
+    "section 3": {
+      "title": {
+        "en": "Services",
+        "ar": "المشاريع"
+      },
+      "url": ""
     },
-    "market": {
-      "en": "Market",
-      "ar": "سوق"
+    "section 4": {
+      "title": {
+        "en": "Market",
+        "ar": "سوق"
+      },
+      "url": ""
     },
-    "project": {
-      "en": "Project",
-      "ar": "خدمة"
+    "section 5": {
+      "title": {
+        "en": "Project",
+        "ar": "خدمة"
+      },
+      "url": ""
     },
-    "career": {
-      "en": "Career",
-      "ar": "مهنة"
+    "section 6": {
+      "title": {
+        "en": "Career",
+        "ar": "مهنة"
+      },
+      "url": ""
     },
-    "news": {
-      "en": "News",
-      "ar": "حل"
+    "section 7": {
+      "title": {
+        "en": "News",
+        "ar": "حل"
+      },
+      "url": ""
     },
-    "contact": {
-      "en": "Contact Us",
-      "ar": "اتصل بنا"
+    "section 8": {
+      "title": {
+        "en": "Contact Us",
+        "ar": "اتصل بنا"
+      },
+      "url": ""
     }
   },
   "home": {

@@ -91,20 +91,20 @@ const Header = ({ isOpenNavbar, setIsOpenNavbar, language, screen, setLanguage }
 
                         <nav className={`hidden lg:flex ${isLeftAlign? 'gap-6':"space-x-10"}`}>
                             {[
-                                "solution",
-                                "about",
-                                "services",
-                                "market",
-                                "project",
-                                "career",
-                                "news"
+                                "section 1",
+                                "section 2",
+                                "section 3",
+                                "section 4",
+                                "section 5",
+                                "section 6",
+                                "section 7"
                             ].map((item) => (
                                 <Link
                                     key={item}
                                     href={`/${item}`}
                                     className={`text-[#001A5882] text-xs transition duration-200 ${false ? "text-gray-800 font-semibold" : "hover:text-[#145098]"}`}
-                                >
-                                    {currentContent?.[item][language]}
+                                > 
+                                    {currentContent?.[item]?.title?.[language]}
                                 </Link>
                             ))}
                         </nav>
@@ -125,7 +125,7 @@ const Header = ({ isOpenNavbar, setIsOpenNavbar, language, screen, setLanguage }
                                 className="p-2 py-2 text-white text-sm bg-[#00b9f2] rounded-md shadow-md hover:bg-blue-700 transition-all"
                                 onClick={handleContactUS}
                             >
-                                {currentContent?.contact[language]}
+                                {currentContent?.["section 8"]?.title?.[language]}
                             </button>
 
                             <button className="lg:hidden flex flex-col items-center space-y-1" onClick={handleNavbar}>
