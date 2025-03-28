@@ -634,7 +634,7 @@
         "en": "Shade Corporation Ltd.\nP.O. Box 7027 Dammam 31462 Saudi Arabia Building No. 5222 Dammam 32414-6124."
       }
     },
-    "aboutUs": {
+    "Section 1": {
       "title": {
         "ar": "معلومات عنا",
         "en": "About Us"
@@ -669,10 +669,20 @@
           "ar": "الشركات التابعة",
           "en": "Subsidiaries",
           "url": "/about-us"
+        },
+        {
+          "ar": "",
+          "en": "",
+          "url": ""
+        },
+        {
+          "ar": "",
+          "en": "",
+          "url": ""
         }
       ]
     },
-    "markets": {
+    "Section 2": {
       "title": {
         "ar": "الأسواق",
         "en": "Markets"
@@ -697,10 +707,30 @@
           "ar": "الإصلاح والتحديث",
           "en": "Repair & Modernization",
           "url": "/market"
+        },
+        {
+          "ar": "",
+          "en": "",
+          "url": ""
+        },
+        {
+          "ar": "",
+          "en": "",
+          "url": ""
+        },
+        {
+          "ar": "",
+          "en": "",
+          "url": ""
+        },
+        {
+          "ar": "",
+          "en": "",
+          "url": ""
         }
       ]
     },
-    "services": {
+    "Section 3": {
       "title": {
         "ar": "جميع الخدمات",
         "en": "All Services"
@@ -730,30 +760,51 @@
           "ar": "تلفيق",
           "en": "Fabrication",
           "url": "/services"
+        },
+        {
+          "ar": "",
+          "en": "",
+          "url": ""
+        },
+        {
+          "ar": "",
+          "en": "",
+          "url": ""
+        },
+        {
+          "ar": "",
+          "en": "",
+          "url": ""
         }
       ]
     },
-    "contact": {
+    "Section 4": {
       "title": {
         "ar": "اتصال",
         "en": "Contact"
       },
-      "phone": {
-        "ar": "الهاتف: +966 13 8350100",
-        "en": "Phone: +966 13 8350100"
-      },
-      "fax": {
-        "ar": "فاكس: +966 13 8343910",
-        "en": "Fax: +966 13 8343910"
-      },
-      "helpText": {
-        "ar": "بحاجة الى مساعدة؟ نحن متاحون للحديث",
-        "en": "Need Help? We're Available to Talk"
-      },
-      "button": {
-        "ar": "اتصل بنا",
-        "en": "Contact Us"
-      }
+      "links": [
+        {
+          "ar": "الهاتف: +966 13 8350100",
+          "en": "Phone: +966 13 8350100",
+          "url": ""
+        },
+        {
+          "ar": "فاكس: +966 13 8343910",
+          "en": "Fax: +966 13 8343910",
+          "url": ""
+        },
+        {
+          "ar": "بحاجة الى مساعدة؟ نحن متاحون للحديث",
+          "en": "Need Help? We're Available to Talk",
+          "url": ""
+        },
+        {
+          "ar": "اتصل بنا",
+          "en": "Contact Us",
+          "url": ""
+        }
+      ]
     },
     "copyright": {
       "text": {

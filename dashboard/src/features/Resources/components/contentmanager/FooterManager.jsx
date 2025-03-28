@@ -15,41 +15,108 @@ const FooterManager = ({ language, currentContent, currentPath }) => {
                 inputs={[
                     { input: "textarea", label: "Address", updateType: "address" },
                 ]}
-                // inputFiles={[{ label: "Backround Image", id: "marketBanner" }]}
                 section={"companyInfo"}
                 language={language}
                 currentContent={currentContent}
             />
 
-
-
+            {/* About and its links */}
             <div className="w-full">
                 <ContentSection
                     currentPath={currentPath}
-                    Heading={"About Links"}
+                    Heading={"Section 1"}
                     inputs={[
                         { input: "input", label: "Title", updateType: "title" },
                     ]}
-                    // inputFiles={[{ label: "Backround Image", id: "marketBanner" }]}
-                    section={"aboutUs"}
+                    section={"Section 1"}
                     language={language}
                     isBorder={false}
                     currentContent={currentContent}
                 />
-                {currentContent?.aboutUs?.links?.map((item, index, array) => {
+                {currentContent?.["Section 1"]?.links?.map((item, index, array) => {
                     const isLast = index === array.length - 1;
                     return (
                         <ContentSection key={item + index}
                             currentPath={currentPath}
-                            subHeading={"item " + (index + 1)}
+                            subHeading={"Item " + (index + 1)}
                             inputs={[
-                                { input: "input", label: "label", updateType: language },
-                                { input: "input", label: "url", updateType: "url" }
+                                { input: "input", label: "Label", updateType: language },
+                                { input: "input", label: "Url", updateType: "url" }
                             ]}
-                            // inputFiles={[{ label: "Item Icon", id: item.url + item[language] + Math.floor(Math.random() * 20) }]}
-                            // fileId={item}
                             language={language}
-                            section={"aboutUs"}
+                            section={"Section 1"}
+                            subSection={"links"}
+                            subSectionsProMax={"Links"}
+                            index={+index}
+                            isBorder={isLast}
+                            currentContent={currentContent}
+                        />
+                    )
+                })}
+            </div>
+
+
+            {/* markets and its links */}
+            <div className="w-full">
+                <ContentSection
+                    currentPath={currentPath}
+                    Heading={"Section 2"}
+                    inputs={[
+                        { input: "input", label: "Title", updateType: "title" },
+                    ]}
+                    section={"Section 2"}
+                    language={language}
+                    isBorder={false}
+                    currentContent={currentContent}
+                />
+                {currentContent?.["Section 2"]?.links?.map((item, index, array) => {
+                    const isLast = index === array.length - 1;
+                    return (
+                        <ContentSection key={item + index}
+                            currentPath={currentPath}
+                            subHeading={"Item " + (index + 1)}
+                            inputs={[
+                                { input: "input", label: "Label", updateType: language },
+                                { input: "input", label: "Url", updateType: "url" }
+                            ]}
+                            language={language}
+                            section={"Section 2"}
+                            subSection={"links"}
+                            subSectionsProMax={"Links"}
+                            index={+index}
+                            isBorder={isLast}
+                            currentContent={currentContent}
+                        />
+                    )
+                })}
+            </div>
+
+
+            {/* services and its links */}
+            <div className="w-full">
+                <ContentSection
+                    currentPath={currentPath}
+                    Heading={"Sections 3"}
+                    inputs={[
+                        { input: "input", label: "Title", updateType: "title" },
+                    ]}
+                    section={"Section 3"}
+                    language={language}
+                    isBorder={false}
+                    currentContent={currentContent}
+                />
+                {currentContent?.["Section 3"]?.links?.map((item, index, array) => {
+                    const isLast = index === array.length - 1;
+                    return (
+                        <ContentSection key={item + index}
+                            currentPath={currentPath}
+                            subHeading={"Item " + (index + 1)}
+                            inputs={[
+                                { input: "input", label: "Label", updateType: language },
+                                { input: "input", label: "Url", updateType: "url" }
+                            ]}
+                            language={language}
+                            section={"Section 3"}
                             subSection={"links"}
                             subSectionsProMax={"Links"}
                             index={+index}
@@ -63,33 +130,29 @@ const FooterManager = ({ language, currentContent, currentPath }) => {
             <div className="w-full">
                 <ContentSection
                     currentPath={currentPath}
-                    Heading={"Markets Links"}
+                    Heading={"Sections 4"}
                     inputs={[
                         { input: "input", label: "Title", updateType: "title" },
                     ]}
-                    // inputFiles={[{ label: "Backround Image", id: "marketBanner" }]}
-                    section={"markets"}
+                    section={"Section 4"}
                     language={language}
                     isBorder={false}
                     currentContent={currentContent}
                 />
-                {currentContent?.markets?.links?.map((item, index, array) => {
+                {currentContent?.["Section 4"]?.links?.map((item, index, array) => {
                     const isLast = index === array.length - 1;
                     return (
                         <ContentSection key={item + index}
                             currentPath={currentPath}
-                            subHeading={"item " + (index + 1)}
+                            subHeading={"Item " + (index + 1)}
                             inputs={[
-                                { input: "input", label: "label", updateType: language },
-                                { input: "input", label: "url", updateType: "url" }
+                                { input: "input", label: "Label", updateType: language },
+                                { input: "input", label: "Url", updateType: "url" }
                             ]}
-                            // inputFiles={[{ label: "Item Icon", id: item.url + item[language] + Math.floor(Math.random() * 20) }]}
-                            // fileId={item}
                             language={language}
-                            section={"markets"}
+                            section={"Section 4"}
                             subSection={"links"}
                             subSectionsProMax={"Links"}
-                            
                             index={+index}
                             isBorder={isLast}
                             currentContent={currentContent}
@@ -97,45 +160,6 @@ const FooterManager = ({ language, currentContent, currentPath }) => {
                     )
                 })}
             </div>
-
-            <div className="w-full">
-                <ContentSection
-                    currentPath={currentPath}
-                    Heading={"Services Links"}
-                    inputs={[
-                        { input: "input", label: "Title", updateType: "title" },
-                    ]}
-                    // inputFiles={[{ label: "Backround Image", id: "marketBanner" }]}
-                    section={"services"}
-                    language={language}
-                    isBorder={false}
-                    currentContent={currentContent}
-                />
-                {currentContent?.services?.links?.map((item, index, array) => {
-                    const isLast = index === array.length - 1;
-                    return (
-                        <ContentSection key={item + index}
-                            currentPath={currentPath}
-                            subHeading={"item " + (index + 1)}
-                            inputs={[
-                                { input: "input", label: "label", updateType: language },
-                                { input: "input", label: "url", updateType: "url" }
-                            ]}
-                            // inputFiles={[{ label: "Item Icon", id: item.url + item[language] + Math.floor(Math.random() * 20) }]}
-                            // fileId={item}
-                            language={language}
-                            section={"services"}
-                            subSection={"links"}
-                            subSectionsProMax={"Links"}
-                            
-                            index={+index}
-                            isBorder={isLast}
-                            currentContent={currentContent}
-                        />
-                    )
-                })}
-            </div>
-
 
         </div>
     )

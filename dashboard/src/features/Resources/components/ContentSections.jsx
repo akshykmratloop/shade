@@ -35,7 +35,7 @@ const ContentSection = ({
     const updateFormValue = ({ updateType, value }) => {
         if (updateType === 'count') {
             if (!isNaN(value)) {
-                let val = value.slice(0, 7);
+                let val = value?.slice(0, 7);
                 dispatch(updateServicesNumber({ section, title: updateType, value: val, subSection, index, currentPath }));
             }
         } else {

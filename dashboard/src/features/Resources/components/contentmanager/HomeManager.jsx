@@ -61,7 +61,7 @@ const HomeManager = ({ language, currentContent, currentPath }) => {
                     inputs={[
                         { input: "input", label: "Heading/title", updateType: "title" },
                         { input: "textarea", label: "Description", updateType: "description" },
-                        { input: "input", label: "button Text", updateType: "buttonText" }]}
+                        { input: "input", label: "Button Text", updateType: "buttonText" }]}
                     isBorder={false}
                     fileId={"experienceSection"}
                     section={"experienceSection"}
@@ -105,8 +105,8 @@ const HomeManager = ({ language, currentContent, currentPath }) => {
                                         currentPath={currentPath}
                                         subHeading={section.title.en}
                                         inputs={[
-                                            { input: "input", label: section.title.en, updateType: "title" },
-                                            { input: "textarea", label: "description", updateType: "description" }
+                                            { input: "input", label: (section.title.en).toUpperCase(), updateType: "title" },
+                                            { input: "textarea", label: "Description", updateType: "description" }
                                         ]}
                                         language={language}
                                         section={"recentProjectsSection"}

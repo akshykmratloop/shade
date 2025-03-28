@@ -10,7 +10,7 @@ import Linkedin from "../../../../assets/icons/linkedin.svg"
 import foot_layer from "../../../../assets/images/foot_layer.png"
 import foot_layer1 from "../../../../assets/images/foot_layer1.png"
 import { updateContent } from "../../../common/homeContentSlice";
-    
+
 
 const Footer = ({ language }) => {
     const dispatch = useDispatch()
@@ -47,7 +47,7 @@ const Footer = ({ language }) => {
                 </div>
 
                 <div className="flex flex-wrap justify-between gap-4 px-8 mb-12">
-                    {["aboutUs", "markets", "services"].map((section) => (
+                    {["Section 1", "Section 2", "Section 3"].map((section) => (
                         <div key={section} className="w-full md:w-auto">
                             <h5 className="text-white text-lg font-light mb-4">{currentContent?.[section]?.title[language]}</h5>
                             {currentContent?.[section]?.links?.map((link, index) => (
@@ -59,15 +59,30 @@ const Footer = ({ language }) => {
                     ))}
 
                     <div className="w-full md:w-auto">
-                        <h5 className="text-white text-lg font-light mb-4">{currentContent?.contact?.title[language]}</h5>
-                        <p className="text-white text-base text-xs font-light mb-2">{currentContent?.contact?.phone[language]}</p>
-                        <p className="text-white text-base text-xs font-light mb-4">{currentContent?.contact?.fax[language]}</p>
-                        <h6 className="text-white text-base text-xs font-medium mb-3">{currentContent?.contact?.helpText[language]}</h6>
-                        <button className="px-5 py-2 bg-[#00b9f2] text-white rounded-lg" onClick={() => setIsModal(true)}>
-                            {currentContent?.contact?.button[language]}
+                        <h5 className="text-white text-lg font-light mb-4">
+                            {currentContent?.["Section 4"]?.title[language]}
+                        </h5>
+                        {currentContent?.["Section 4"]?.links.slice(0, 2).map((link, index) => (
+                            <p key={index} className="text-white text-base text-xs font-light mb-2">
+                                {link[language]}
+                            </p>
+                        ))}
+                        <h6 className="text-white text-base text-xs font-medium mb-3">
+                            {currentContent?.["Section 4"]?.links[2]?.[language]}
+                        </h6>
+                        <button
+                            className="px-5 py-2 bg-[#00b9f2] text-white rounded-lg"
+                            onClick={() => setIsModal(true)}
+                        >
+                            {currentContent?.["Section 4"]?.links[3]?.[language]}
                         </button>
                         <div className="flex gap-4 mt-6">
-                            {[{ img: Linkedin, url: "https://www.linkedin.com/" }, { img: Instagram, url: "https://www.instagram.com/" }, { img: Twitter, url: "https://twitter.com/" }, { img: Facebook, url: "https://www.facebook.com/" }].map((social, index) => (
+                            {[
+                                { img: Linkedin, url: "https://www.linkedin.com/" },
+                                { img: Instagram, url: "https://www.instagram.com/" },
+                                { img: Twitter, url: "https://twitter.com/" },
+                                { img: Facebook, url: "https://www.facebook.com/" },
+                            ].map((social, index) => (
                                 <a key={index} href={social.url} target="_blank" rel="noopener noreferrer">
                                     <img src={social.img} alt="social" width={20} height={20} />
                                 </a>
