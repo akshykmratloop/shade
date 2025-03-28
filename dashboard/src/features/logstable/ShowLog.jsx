@@ -8,7 +8,7 @@ import SkeletonLoader from "../../components/Loader/SkeletonLoader";
 import DummyData from "../../assets/Dummy_User.json"
 
 
-function ShowLogs({ role, show, onClose }) {
+function ShowLogs({ log, show, onClose }) {
     const [fetchedRole, setFetchedRole] = useState({})
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(true)
@@ -30,13 +30,13 @@ function ShowLogs({ role, show, onClose }) {
 
     useEffect(() => {
         async function getUser() {
-            if (!role?.id) return;
+            if (!log?.id) return;
             setLoading(true);
             try {
-                const response = await getRoleById(role?.id);
+                const response = await getRoleById(log?.id);
                 setTimeout(() => {
                     // setFetchedRole(response.role);
-                    setFetchedRole(DummyData[0])
+                    setFetchedRole(log)
                     setError(false);
                 }, 200)
             } catch (err) {
@@ -49,9 +49,9 @@ function ShowLogs({ role, show, onClose }) {
             }
         }
         getUser();
-    }, [role]);
+    }, [log]);
 
-    if (!role) return null;
+    if (!log) return null;
 
     return (
         <Dialog open={show} onClose={onClose} className="relative z-50">
@@ -79,24 +79,19 @@ function ShowLogs({ role, show, onClose }) {
                                         <tr className="font-light text-sm ">
                                             <td className="pt-2  w-1/4">Logs Action</td>
                                             <td className="pt-2  w-1/4">Action Type</td>
-                                            <td className="pt-2  w-1/4">Entity</td>
+                                            <td className="pt-2  w-1/4">Target</td>
                                             <td className="pt-2  w-1/4">IP Address</td>
                                         </tr>
                                         <tr className="font-[500] text-[#101828] dark:text-stone-100 text-sm">
-                                            <td className="py-2 pb-6 w-1/4">N/A</td>
+                                            <td className="py-2 pb-6 w-1/4">{log.action_performed ?? "N/A"}</td>
                                             <td className={`py-2 pb-6 w-1/4`}>
-                                                {/* <p
-                                                    className={`w-[86px] before:content-['•'] before:text-2xl flex h-7 items-center justify-center gap-1 px-1 py-0 font-[500] ${fetchedRole.status === 'ACTIVE' ? "text-green-600 bg-green-100 before:text-green-600 px-1" : "text-red-600 bg-red-100 before:text-red-600 "} rounded-2xl`}
-                                                    style={{ textTransform: "capitalize", }}
-                                                >
-                                                    {capitalizeWords(fetchedRole?.status ?? "")}
-                                                </p> */}N/A
+                                                {log.actionType ?? "N/A"}
                                             </td>
-                                            <td className="py-2 pb-6  w-1/4">{!loading && fetchedRole.roleType?.name} N/A</td>
+                                            <td className="py-2 pb-6  w-1/4">{log.entity ?? "N/A"}</td>
                                             <td className="py-2 pb-6  w-1/4"
                                             >
                                                 <p className="">
-                                                    {/* {formatTimestamp(role.updated_at)} */}N/A
+                                                    {(log.ipAddress) ?? "N/A"}
                                                 </p>
                                             </td>
                                         </tr>
@@ -114,11 +109,34 @@ function ShowLogs({ role, show, onClose }) {
                                             <td className="pt-2  w-1/4"></td>
                                         </tr>
                                         <tr className="font-[500] text-[#101828] dark:text-stone-100 text-sm h-30">
-                                            <td className="py-2 pb-6  w-1/4">N/A</td>
-                                            <td className={`py-2 pb-6  w-1/4`}>
-                                               N/A
+                                            <td className="py-2 pb-6  w-1/4">
+                                                <p
+                                                    className={`w-[85px] 
+                                                         
+                                                        before:content-['•'] 
+                                                        before:text-2xl 
+                                                        flex h-7 
+                                                        items-center
+                                                        justify-center gap-1 
+                                                        px-1 py-0 font-[500] 
+                                                        ${log?.outcome === 'Success' ?
+                                                            "text-green-600 bg-green-100 before:text-green-600 px-1" :
+                                                            log?.outcome === "Failed" ? "text-red-600 bg-red-100 before:text-red-600" :
+                                                                "text-stone-600 bg-stone-100 before:text-stone-600"
+                                                        } 
+                                                        rounded-2xl
+                                                        `}
+                                                    style={{ textTransform: "capitalize", }}
+                                                >
+                                                    {capitalizeWords(fetchedRole?.outcome ?? "N/A")}
+                                                </p>
                                             </td>
-                                            <td className="py-2 pb-6 w-1/4">{!loading && fetchedRole?.roleType?.name}</td>
+                                            <td className={`py-2 pb-6  w-1/4`}>
+                                                {formatTimestamp(log?.timestamp) || "N/A"}
+                                            </td>
+                                            <td className="py-2 pb-6 w-1/4">
+
+                                            </td>
                                             <td className="py-2 pb-6 w-1/4"
                                             >
                                                 {/* <p className="">

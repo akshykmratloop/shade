@@ -168,6 +168,14 @@ export async function resendOTP(data) {
   );
 }
 
+// fetch for Logs
+export async function userLogs(data) {
+  return await makerequest(
+    api.route("userLogs"),
+    "GET",
+  );
+}
+
 // fetch for roles
 export async function fetchRoles() {
   return await makerequest(

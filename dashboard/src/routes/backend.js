@@ -19,6 +19,9 @@ const api = {
   refreshToken: `${auth}/refreshToken`,
   resendOTP: `${auth}/resendOtp`,
 
+  userLogs: `${auth}/logs`,  // API for logs
+
+
   fetchRoles: `${role}/roles`, // API for role start from here
   getRoleById: `${role}/`,
   fetchRoleType: `${role}/roleType`,

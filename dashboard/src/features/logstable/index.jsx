@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import PlusIcon from '@heroicons/react/24/outline/PlusIcon';
 import { toast, ToastContainer } from "react-toastify";
 // self modules
-import { fetchRoles, activateRole, deactivateRole } from "../../app/fetch";
+import { userLogs } from "../../app/fetch";
 // import AddRoleModal from "./AddRole";
 import SearchBar from "../../components/Input/SearchBar";
 import TitleCard from "../../components/Cards/TitleCard";
@@ -19,6 +19,7 @@ import { LuListFilter } from "react-icons/lu";
 import { LuImport } from "react-icons/lu";
 import capitalizeWords from "../../app/capitalizeword";
 import Paginations from "../Component/Paginations";
+import formatTimestamp from "../../app/TimeFormat";
 // import userIcon from "../../assets/user.png"
 
 const TopSideButtons = ({
@@ -87,71 +88,70 @@ const TopSideButtons = ({
     );
 };
 function Roles() {
-    const [roles, setRoles] = useState([]);
-    const [originalRoles, setOriginalRoles] = useState([]);
+    const [logs, setLogs] = useState([]);
+    const [originalLogs, setOriginalLogs] = useState([]);
     const [showAddForm, setShowAddForm] = useState(false);
-    const [changesInRole, setChangesInRole] = useState(false);
-    const [selectedRole, setSelectedRole] = useState(null);
+    const [changesInLogs, setChangesInLogs] = useState(false);
+    const [selectedLogs, setSelectedLogs] = useState(null);
     const [showDetailsModal, setShowDetailsModal] = useState(false);
     const [enabled, setEnabled] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
-    const rolesPerPage = 8;
+    const logsPerPage = 8;
 
     const removeFilter = () => {
-        setRoles([...originalRoles]);
+        setLogs([...originalLogs]);
     };
     const applyFilter = (status) => {
-        const filteredRoles = originalRoles?.filter(
+        const filteredRoles = originalLogs?.filter(
             (role) => role.status === status
         );
-        setRoles(filteredRoles);
+        setLogs(filteredRoles);
     };
     const applySearch = (value) => {
-        const filteredRoles = originalRoles?.filter((role) =>
+        const filteredRoles = originalLogs?.filter((role) =>
             role?.name.toLowerCase().includes(value.toLowerCase())
         );
-        setRoles(filteredRoles);
+        setLogs(filteredRoles);
     };
 
-    const statusChange = async (role) => {
-        let loadingToastId = toast.loading("Proceeding..."); // starting the loading in toaster
-        let response;
-        if (role.status === "ACTIVE") response = await deactivateRole(role);
-        else response = await activateRole(role);
-        if (response.ok) {
-            updateToasify(
-                loadingToastId,
-                `Request successful. ${response.message}`,
-                "success",
-                2000
-            );
-            setChangesInRole((prev) => !prev);
-        } else {
-            updateToasify(
-                loadingToastId,
-                `Request failed. ${response.message}`,
-                "error",
-                2000
-            );
-        }
-        toast.dismiss(loadingToastId)
-    };
+    // const statusChange = async (role) => {
+    //     let loadingToastId = toast.loading("Proceeding..."); // starting the loading in toaster
+    //     let response;
+    //     if (role.status === "ACTIVE") response = await deactivateRole(role);
+    //     else response = await activateRole(role);
+    //     if (response.ok) {
+    //         updateToasify(
+    //             loadingToastId,
+    //             `Request successful. ${response.message}`,
+    //             "success",
+    //             2000
+    //         );
+    //         setChangesInRole((prev) => !prev);
+    //     } else {
+    //         updateToasify(
+    //             loadingToastId,
+    //             `Request failed. ${response.message}`,
+    //             "error",
+    //             2000
+    //         );
+    //     }
+    //     toast.dismiss(loadingToastId)
+    // };
 
     // Pagination logic
-    const indexOfLastUser = currentPage * rolesPerPage;
-    const indexOfFirstUser = indexOfLastUser - rolesPerPage;
-    const currentRoles = roles?.slice(indexOfFirstUser, indexOfLastUser);
-    const totalPages = Math.ceil(roles?.length / rolesPerPage);
+    const indexOfLastUser = currentPage * logsPerPage;
+    const indexOfFirstUser = indexOfLastUser - logsPerPage;
+    const currentLogs = logs?.slice(indexOfFirstUser, indexOfLastUser);
+    const totalPages = Math.ceil(logs?.length / logsPerPage);
 
     useEffect(() => {
         async function fetchRoleData() {
-            const response = await fetchRoles();
-            console.log(response)
-            setRoles(response?.roles?.roles ?? []);
-            setOriginalRoles(response?.roles?.roles ?? []); // Store the original unfiltered data
+            const response = await userLogs();
+            setLogs(response);
+            setOriginalLogs(response ?? []); // Store the original unfiltered data
         }
         fetchRoleData();
-    }, [changesInRole]);
+    }, [changesInLogs]);
     return (
         <div className="relative min-h-full">
             {/* <div className="absolute top-3 right-2 flex">
@@ -181,9 +181,9 @@ function Roles() {
                             <thead className="" style={{ borderRadius: "" }}>
                                 <tr className="!capitalize" style={{ textTransform: "capitalize" }}>
                                     <th className="font-medium text-[12px] text-left font-poppins leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white] text-[#42526D] px-[24px] py-[13px] !capitalize"
-                                        style={{ position: "static", width: "303px" }}> Logs Action</th>
+                                        style={{ position: "static", width: "303px" }}>Action Perfomed</th>
                                     <th className="text-[#42526D] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] !capitalize">Action Type</th>
-                                    <th className="text-[#42526D] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] !capitalize">Entity</th>
+                                    <th className="text-[#42526D] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] !capitalize">Target</th>
                                     <th className="text-[#42526D] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] !capitalize text-center">IP Address</th>
                                     <th className="text-[#42526D] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] text-center !capitalize">Outcome</th>
                                     <th className="text-[#42526D] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] text-center !capitalize">Date Time</th>
@@ -193,13 +193,13 @@ function Roles() {
                             </thead>
                             <tbody className="">
                                 {
-                                    Array.isArray(roles) && currentRoles.length > 0 ? currentRoles?.map((role, index) => {
+                                    Array.isArray(logs) && currentLogs.length > 0 ? currentLogs?.map((log, index) => {
                                         return (
                                             <tr key={index} className="font-light " style={{ height: "65px" }}>
                                                 <td className={`font-poppins h-[65px] truncate font-normal text-[14px] leading-normal text-[#101828] p-[26px] pl-5 flex`}>
                                                     {/* <img src={user.image ? user.image : userIcon} alt={user.name} className="rounded-[50%] w-[41px] h-[41px] mr-2" /> */}
                                                     <div className="flex flex-col">
-                                                        <p className="dark:text-[white]">{role.name}</p>
+                                                        <p className="dark:text-[white]">{log.action_performed}</p>
                                                         {/* <p className="font-light text-[grey]">{user.email}</p> */}
                                                     </div>
                                                 </td>
@@ -207,32 +207,52 @@ function Roles() {
 
                                                 <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]">
                                                     <span className="">
-                                                        N/A
+                                                        {log?.actionType || "N/A"}
                                                     </span>
                                                 </td>
                                                 <td className="font-poppins font-light text-[12px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]">
                                                     <span className="">
-                                                        {role?._count?.subPermissions || "N/A"}
+                                                        {log?.entity || "N/A"}
                                                     </span>
                                                 </td>
                                                 <td className="font-poppins font-light text-[12px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]">
                                                     <span className="">
-                                                        {role?._count?.subPermissions || "N/A"}
+                                                        {log?.ipAddress || "N/A"}
                                                     </span>
                                                 </td>
                                                 <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]" style={{ whiteSpace: "wrap" }}>
                                                     <span className="">
-                                                        {role?.usersAssigned || "N/A"}
+                                                        <p
+                                                            className={`w-[85px] 
+                                                                mx-auto 
+                                                                before:content-['•'] 
+                                                                before:text-2xl 
+                                                                flex h-7 
+                                                                items-center 
+                                                                justify-center gap-1 
+                                                                px-1 py-0 font-[500] 
+                                                                ${log?.outcome === 'Success' ?
+                                                                    "text-green-600 bg-green-100 before:text-green-600 px-1" :
+                                                                    log?.outcome === "Failed" ? "text-red-600 bg-red-100 before:text-red-600" :
+                                                                        "text-stone-600 bg-stone-100 before:text-stone-600"
+                                                                } 
+                                                                rounded-2xl
+                                                                `}
+                                                            style={{ textTransform: "capitalize", }}
+                                                        >
+                                                            {capitalizeWords(log?.outcome) || "N/A"}
+                                                        </p>
                                                     </span>
                                                 </td>
                                                 <td className="font-poppins font-light text-[12px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]">
-                                                    N/A
+                                                    {formatTimestamp(log?.timestamp) || "N/A"}
+
                                                 </td>
                                                 <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[8px] dark:text-[white]">
                                                     <div className="w-fit mx-auto flex gap-[15px] justify-center border border border-[1px] border-[#E6E7EC] dark:border-stone-400 rounded-[8px] p-[13.6px] py-[10px]">
                                                         <button
                                                             onClick={() => {
-                                                                setSelectedRole(role);
+                                                                setSelectedLogs(log);
                                                                 setShowDetailsModal(true);
                                                             }}
                                                         >
@@ -282,7 +302,7 @@ function Roles() {
                         </table>
                     </div>
                     {/* Pagination Controls */}
-                    <Paginations data={roles} currentPage={currentPage} setCurrentPage={setCurrentPage} totalPages={totalPages} />
+                    <Paginations data={logs} currentPage={currentPage} setCurrentPage={setCurrentPage} totalPages={totalPages} />
                 </div>
             </TitleCard>
 
@@ -301,10 +321,10 @@ function Roles() {
 
             {/* Role Details Modal */}
             <ShowLogs
-        role={selectedRole}
-        show={showDetailsModal}
-        onClose={() => setShowDetailsModal(false)}
-      />
+                log={selectedLogs}
+                show={showDetailsModal}
+                onClose={() => setShowDetailsModal(false)}
+            />
             <ToastContainer />
         </div>
     );
