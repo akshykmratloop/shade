@@ -9,15 +9,15 @@ import Twitter from "../../../../assets/icons/twitter.svg"
 import Linkedin from "../../../../assets/icons/linkedin.svg"
 import foot_layer from "../../../../assets/images/foot_layer.png"
 import foot_layer1 from "../../../../assets/images/foot_layer1.png"
-import { updateContent } from "../../../common/homeContentSlice";
+import { updateContent, updateImages } from "../../../common/homeContentSlice";
 
 
 const Footer = ({ language }) => {
     const dispatch = useDispatch()
     const currentContent = useSelector((state) => state.homeContent.present.footer)
-    // const ImagesFromRedux = useSelector((state) => {
-    //     return state.homeContent.present.images
-    // })
+    const socialIcons = useSelector((state) => {
+        return state.homeContent.present.images.socialIcons
+    })
     // const { language, content } = useGlobalContext();
     // const currentContent = content?.footer;
     const [isModal, setIsModal] = useState(false);
@@ -26,8 +26,16 @@ const Footer = ({ language }) => {
         setIsModal(false);
     };
 
+    const social = [
+        { img: Linkedin, url: "https://www.linkedin.com/" },
+        { img: Instagram, url: "https://www.instagram.com/" },
+        { img: Twitter, url: "https://twitter.com/" },
+        { img: Facebook, url: "https://www.facebook.com/" },
+    ]
+
     useEffect(() => {
         dispatch(updateContent({ currentPath: "footer", payload: (content?.footer) }))
+        dispatch(updateImages({ src: social, section: "socialIcons" }))
     }, [])
     return (
         <footer className="relative overflow-hidden bg-[#062233] border-t border-primary ">
@@ -58,16 +66,16 @@ const Footer = ({ language }) => {
                         </div>
                     ))}
 
-                    <div className="w-full md:w-auto">
-                        <h5 className="text-white text-lg font-light mb-4">
+                    <div className="w-full md:w-auto flex flex-col gap-4 items-start">
+                        <h5 className="text-white text-lg font-light">
                             {currentContent?.["Section 4"]?.title[language]}
                         </h5>
                         {currentContent?.["Section 4"]?.links.slice(0, 2).map((link, index) => (
-                            <p key={index} className="text-white text-base text-xs font-light mb-2">
+                            <p key={index} className="text-white text-base text-xs font-light">
                                 {link[language]}
                             </p>
                         ))}
-                        <h6 className="text-white text-base text-xs font-medium mb-3">
+                        <h6 className="text-white text-base text-xs font-medium">
                             {currentContent?.["Section 4"]?.links[2]?.[language]}
                         </h6>
                         <button
@@ -77,12 +85,7 @@ const Footer = ({ language }) => {
                             {currentContent?.["Section 4"]?.links[3]?.[language]}
                         </button>
                         <div className="flex gap-4 mt-6">
-                            {[
-                                { img: Linkedin, url: "https://www.linkedin.com/" },
-                                { img: Instagram, url: "https://www.instagram.com/" },
-                                { img: Twitter, url: "https://twitter.com/" },
-                                { img: Facebook, url: "https://www.facebook.com/" },
-                            ].map((social, index) => (
+                            {socialIcons?.map((social, index) => (
                                 <a key={index} href={social.url} target="_blank" rel="noopener noreferrer">
                                     <img src={social.img} alt="social" width={20} height={20} />
                                 </a>

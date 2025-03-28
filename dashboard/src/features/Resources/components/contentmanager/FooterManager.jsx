@@ -1,9 +1,12 @@
 import FileUploader from "../../../../components/Input/InputFileUploader"
 import ContentSection from "../ContentSections"
+import { useSelector } from "react-redux"
 
 const FooterManager = ({ language, currentContent, currentPath }) => {
+    const socialIcons = useSelector((state) => {
+        
+        return state.homeContent.present.images.socialIcons})
 
-    console.log(currentContent)
     return (
         <div>
             {/* reference doc */}
@@ -160,6 +163,23 @@ const FooterManager = ({ language, currentContent, currentPath }) => {
                     )
                 })}
             </div>
+
+            {/* social icons */}
+            <ContentSection
+                currentPath={currentPath}
+                Heading={"Social Media Icons"}
+                inputFiles={
+                    
+                    [
+                    { label: "Image 1", id: "Image 1" },
+                    { label: "Image 2", id: "Image 2" },
+                    { label: "Image 3", id: "Image 3" },
+                ]}
+                section={"icons"}
+                language={language}
+                currentContent={currentContent}
+                allowExtraInput={true}
+            />
 
         </div>
     )

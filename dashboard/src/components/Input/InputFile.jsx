@@ -5,30 +5,22 @@ import { removeImages, updateImages } from "../../features/common/homeContentSli
 
 const InputFile = ({ label, baseClass, id, currentPath }) => {
   const dispatch = useDispatch();
-  const [fileName, setFileName] = useState("");
-  const [content, setContent] = useState("");
-  const ImageFromRedux = useSelector(state => state.homeContent.present.images);
   const fileInputRef = useRef(null);
+  const ImageFromRedux = useSelector(state => state.homeContent.present.images);
+  const [fileURL, setFileURL] = useState("");
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     if (!file) return;
 
-    setFileName(file.name);
-    const fileType = file.type.split("/")[0];
-
-    if (fileType === "image") {
-      const reader = new FileReader();
-      reader.onload = (e) => setContent(e.target.result);
-      reader.readAsDataURL(file);
-    } else if (fileType === "video") {
-      setContent(URL.createObjectURL(file)); // Only storing the URL/path for videos
-    }
+    // Create a URL from the file and store it
+    const url = URL.createObjectURL(file);
+    setFileURL(url);
+    dispatch(updateImages({ section: id, src: url, currentPath }));
   };
 
   const clearFile = () => {
-    setContent("");
-    setFileName("");
+    setFileURL("");
     dispatch(removeImages({ section: id, src: "", currentPath }));
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
@@ -36,10 +28,10 @@ const InputFile = ({ label, baseClass, id, currentPath }) => {
   };
 
   useEffect(() => {
-    if (content) {
-      dispatch(updateImages({ section: id, src: content, currentPath }));
+    if (ImageFromRedux[id]) {
+      setFileURL(ImageFromRedux[id]);
     }
-  }, [content]);
+  }, [ImageFromRedux, id]);
 
   return (
     <div className={`relative ${baseClass} mt-2 flex flex-col`}>
@@ -53,21 +45,18 @@ const InputFile = ({ label, baseClass, id, currentPath }) => {
           onChange={handleFileChange}
           accept="image/*,video/*"
         />
-        <label
-          htmlFor={id}
-          className="w-full h-full flex items-center justify-center text-gray-400 text-xs"
-        >
-          {ImageFromRedux[id] ? (
-            ImageFromRedux[id].includes("blob:") || ImageFromRedux[id].includes("video") ? (
-              <video src={ImageFromRedux[id]} className="w-full h-full object-cover" controls />
+        <label htmlFor={id} className="w-full h-full flex items-center justify-center text-gray-400 text-xs">
+          {fileURL ? (
+            fileURL.includes(".mp4") || fileURL.includes("video") || ImageFromRedux?.video ? (
+              <video src={fileURL} className="w-full h-full object-cover" controls />
             ) : (
-              <img src={ImageFromRedux[id]} alt="Preview" className="w-full h-full object-cover" />
+              <img src={fileURL} alt="Preview" className="w-full h-full object-cover" />
             )
           ) : (
             <Upload className="w-6 h-6" />
           )}
         </label>
-        {ImageFromRedux[id] && (
+        {fileURL && (
           <button
             className="absolute top-1 right-1 bg-[#00000080] text-white p-1 rounded-full shadow"
             onClick={clearFile}
