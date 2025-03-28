@@ -1,10 +1,11 @@
-const {PrismaClient} = require("@prisma/client");
+import {PrismaClient} from "@prisma/client";
 const prisma = new PrismaClient();
 
 // This middleware will capture the action and store it in the database
-const auditLogger = async (req, res, next) => {
+export const auditLogger = async (req, res, next) => {
   const {user} = req; // Assuming user info is attached to the request (e.g. via authentication)
   const actionType = req.method; // GET, POST, PUT, DELETE
+  // const actionPerformed = "User performed an action"; // You can modify this based on the action
   const entity = req.baseUrl.split("/").pop(); // Extract the entity name from the route
   const entityId = req.params.id || null; // Get the entity ID from the route parameters
   const ipAddress = req.ip;
@@ -30,10 +31,11 @@ const auditLogger = async (req, res, next) => {
   // Now, we can store this log in the database after the action
   const log = await prisma.auditLog.create({
     data: {
-      userId: user.id, // Assuming user is authenticated and you have user info
+      // id: user || "232332", // Assuming user is authenticated and you have user info
       actionType: actionType,
+      action_performed: "User performed an action", // You can modify this based on the action
       entity: entity,
-      entityId: entityId,
+      entityId: entityId || 2323,
       oldValue: oldValue ? oldValue : null,
       newValue: newValue ? newValue : null,
       ipAddress: ipAddress,
@@ -44,7 +46,9 @@ const auditLogger = async (req, res, next) => {
   });
 
   // Proceed to the next middleware or handler
+  console.log(res, "res");
+
   next();
 };
 
-module.exports = auditLogger;
+export default auditLogger;

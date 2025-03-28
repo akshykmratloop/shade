@@ -11,11 +11,13 @@ import {
 } from "../../validation/authSchema.js";
 import tryCatchWrap from "../../errors/tryCatchWrap.js";
 import {generateOtpRateLimiter} from "../../helper/rateLimiter.js";
+import auditLogger from "../../helper/auditLogger.js";
 
 const router = Router();
 
 router.post(
   "/login",
+  // auditLogger,
   validator(loginSchema),
   tryCatchWrap(AuthController.Login)
 );
@@ -85,6 +87,14 @@ router.post(
   // resendOtpRateLimiter, // Rate limiter for OTP requests
   // validator(generateOtpSchema),
   tryCatchWrap(AuthController.ResendOTP)
+);
+
+router.get(
+  // forgot pass
+  "/logs",
+  // resendOtpRateLimiter, // Rate limiter for OTP requests
+  // validator(generateOtpSchema),
+  tryCatchWrap(AuthController.GetAllLogs)
 );
 
 export default router;
