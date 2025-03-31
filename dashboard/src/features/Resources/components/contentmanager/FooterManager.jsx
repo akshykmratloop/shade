@@ -3,9 +3,7 @@ import ContentSection from "../ContentSections"
 import { useSelector } from "react-redux"
 
 const FooterManager = ({ language, currentContent, currentPath }) => {
-    const socialIcons = useSelector((state) => {
-        
-        return state.homeContent.present.images.socialIcons})
+    const socialIcons = useSelector((state) => state.homeContent.present.images.socialIcons)
 
     return (
         <div>
@@ -168,13 +166,10 @@ const FooterManager = ({ language, currentContent, currentPath }) => {
             <ContentSection
                 currentPath={currentPath}
                 Heading={"Social Media Icons"}
-                inputFiles={
-                    
-                    [
-                    { label: "Image 1", id: "Image 1" },
-                    { label: "Image 2", id: "Image 2" },
-                    { label: "Image 3", id: "Image 3" },
-                ]}
+                inputFiles={socialIcons?.map(
+                    (e, i) =>
+                        ({ label: "Image " + (i + 1), id: "image " + e.id })
+                )}
                 section={"socialIcons"}
                 language={language}
                 currentContent={currentContent}

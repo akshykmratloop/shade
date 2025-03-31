@@ -1,0 +1,1 @@
+console.log("qwerqwer".slice(-1))

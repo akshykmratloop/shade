@@ -54,7 +54,7 @@ function Resources() {
                 {resNotAvail ? <p className="">Sorry, No Resource available for {currentResource}</p>
                     :
                     resources?.[currentResource].map((page, index) => (
-                        <div key={index} className="w-full ">
+                        <div key={index + Math.random()} className="w-full ">
                             <h3 className="mb-1 font-poppins font-semibold">
                                 {isSmall
                                     ? (page.heading.length > 20 ? page.heading.substring(0, 20) + "..." : page.heading)
@@ -89,7 +89,7 @@ function Resources() {
                                     {[{ icon: <AiOutlineInfoCircle />, text: "Info", onClick: () => { setPageDetailsOn(true); setConfigBarData(page) } },
                                     { icon: <FiEdit />, text: "Edit", onClick: () => { navigate(`./edit/${page.heading?.toLowerCase()}`) } },
                                     { icon: <IoSettingsOutline />, text: "Config", onClick: () => { setConfigBarOn(true); setConfigBarData(page) } }].map((item, i) => (
-                                        <span key={i}
+                                        <span key={i + Math.random()}
                                             onClick={item.onClick}
                                             className={`flex ${isCollapsed ? "flex-col" : ""} ${i < 2 ? "border-r-2 pr-5" : ""} gap-2 items-center text-center cursor-pointer`}>
                                             {item.icon}

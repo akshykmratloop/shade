@@ -2,9 +2,10 @@ import { useState } from "react";
 import InputFile from "../../../components/Input/InputFile";
 import InputText from "../../../components/Input/InputText";
 import TextAreaInput from "../../../components/Input/TextAreaInput";
-import { useDispatch } from "react-redux";
-import { updateSpecificContent, updateServicesNumber } from "../../common/homeContentSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { updateSpecificContent, updateServicesNumber, updateImages } from "../../common/homeContentSlice";
 import InputFileWithText from "../../../components/Input/InputFileText";
+import InputFileForm from "../../../components/Input/InputFileForm";
 
 const ContentSection = ({
     Heading,
@@ -24,12 +25,20 @@ const ContentSection = ({
 }) => {
     const dispatch = useDispatch();
     const [extraFiles, setExtraFiles] = useState([]);
+    const ImagesFromRedux = useSelector((state) => state.homeContent.present.images)
 
     const addExtraFileInput = () => {
+        if (section === 'socialIcons') {
+            console.log("wqerqwe")
+            dispatch(updateImages({ src: [...ImagesFromRedux.socialIcons, { img: "", url: "" }], section: "socialIcons" }))
+        }
         setExtraFiles([...extraFiles, { label: `Extra File ${extraFiles.length + 1}`, id: `extraFile${extraFiles.length + 1}` }]);
     };
 
     const removeExtraFileInput = (id) => {
+        if (section === 'socialIcons') {
+            dispatch(updateImages({ src: [...ImagesFromRedux.socialIcons, { img: "", url: "" }], section: "socialIcons" }))
+        }
         setExtraFiles(extraFiles.filter(file => file.id !== id));
     };
 
@@ -91,40 +100,79 @@ const ContentSection = ({
 
             <div className={`flex ${inputFiles.length > 1 ? "justify-center" : ""}`}>
                 {
-                    <div className={`flex ${inputFiles.length > 1 ? "flex-wrap" : ""} gap-10 w-[80%]`}>
-                        {inputFiles.map((file, index) => (
-                            <InputFile
-                                key={index}
-                                label={file.label}
-                                id={file.id}
-                                currentPath={currentPath}
-                            />
-                        ))}
-                        {extraFiles.map((file, index) => (
-                            <div key={index} className="relative flex items-center justify-center">
-                                <button
-                                    className="absolute top-6 z-10 right-[-8px] bg-red-500 text-white px-1 rounded-full shadow"
-                                    onClick={() => removeExtraFileInput(file.id)}
-                                >
-                                    ✖
-                                </button>
+                    section === 'socialIcons' ?
+                        <div>
+                            <div className={`flex ${inputFiles.length > 1 ? "flex-wrap" : ""} gap-10 w-[80%] relative`}>
+                                {inputFiles.map((file, index) => (
+                                    <InputFileForm
+                                        key={index}
+                                        label={file.label}
+                                        id={file.id}
+                                        currentPath={currentPath}
+                                        fileIndex={index}
+                                        section={section}
+                                    />
+                                ))}
+                               
+                                {/* {extraFiles.map((file, index) => (
+                                    <div key={index} className="relative flex items-center justify-center">
+
+                                        <InputFileForm
+                                            label={file.label}
+                                            id={file.id}
+                                            currentPath={currentPath}
+                                            section={section}
+                                            fileIndex={index}
+                                        />
+                                    </div>
+                                ))} */}
+                                {allowExtraInput &&
+                                    <button
+                                        className="mt-2 px-3 py-2 bg-blue-500 h-[95px] w-[95px] text-white rounded-lg translate-y-3 self-center text-xl"
+                                        onClick={addExtraFileInput}
+                                    >
+                                        +
+                                    </button>
+                                }
+                            </div>
+                        </div>
+                        : <div className={`flex ${inputFiles.length > 1 ? "flex-wrap" : ""} gap-10 w-[80%]`}>
+                            {inputFiles.map((file, index) => (
                                 <InputFile
+                                    key={index}
                                     label={file.label}
                                     id={file.id}
                                     currentPath={currentPath}
+                                    fileIndex={index}
                                     section={section}
                                 />
-                            </div>
-                        ))}
-                        {allowExtraInput &&
-                            <button
-                                className="mt-2 px-3 py-2 bg-blue-500 h-[95px] w-[95px] text-white rounded-lg translate-y-3 self-center text-xl"
-                                onClick={addExtraFileInput}
-                            >
-                                +
-                            </button>
-                        }
-                    </div>
+                            ))}
+                            {extraFiles.map((file, index) => (
+                                <div key={index} className="relative flex items-center justify-center">
+                                    <button
+                                        className="absolute top-6 z-10 right-[-8px] bg-red-500 text-white px-1 rounded-full shadow"
+                                        onClick={() => removeExtraFileInput(file.id)}
+                                    >
+                                        ✖
+                                    </button>
+                                    <InputFile
+                                        label={file.label}
+                                        id={file.id}
+                                        currentPath={currentPath}
+                                        section={section}
+                                        fileIndex={index}
+                                    />
+                                </div>
+                            ))}
+                            {allowExtraInput &&
+                                <button
+                                    className="mt-2 px-3 py-2 bg-blue-500 h-[95px] w-[95px] text-white rounded-lg translate-y-3 self-center text-xl"
+                                    onClick={addExtraFileInput}
+                                >
+                                    +
+                                </button>
+                            }
+                        </div>
                 }
             </div>
         </div>

@@ -15,6 +15,7 @@ const cmsSlice = createSlice({
     reducers: {
         updateImages: (state, action) => {
             state.past.push(JSON.parse(JSON.stringify(state.present)));
+            console.log('qwerqwe')
             state.present.images[action.payload.section] = action.payload.src;
             state.future = [];
         },

@@ -29,10 +29,10 @@ const Footer = ({ language, screen }) => {
     };
 
     const social = [
-        { img: Linkedin, url: "https://www.linkedin.com/" },
-        { img: Instagram, url: "https://www.instagram.com/" },
-        { img: Twitter, url: "https://twitter.com/" },
-        { img: Facebook, url: "https://www.facebook.com/" },
+        { id: 1, img: Linkedin, url: "https://www.linkedin.com/" },
+        { id: 2, img: Instagram, url: "https://www.instagram.com/" },
+        { id: 3, img: Twitter, url: "https://twitter.com/" },
+        { id: 4, img: Facebook, url: "https://www.facebook.com/" },
     ]
 
     useEffect(() => {
