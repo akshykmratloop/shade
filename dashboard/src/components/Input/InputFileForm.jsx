@@ -50,9 +50,8 @@ const InputFile = ({ label, baseClass, id, currentPath, section, fileIndex, isCl
       const newArray = ImageFromRedux.socialIcons.filter((e, i) => { return e.id !== parseInt(id.slice(-1)) })
       const newOriginalArray = ImageFromRedux.OriginalSocialIcons.filter((e, i) => { return e.id !== parseInt(id.slice(-1)) })
       dispatch(updateImages({ src: newArray, section: "socialIcons" }))
-      dispatch(updateImages({ src: newArray, section: "OriginalSocialIcons" }))
+      dispatch(updateImages({ src: newOriginalArray, section: "OriginalSocialIcons" }))
     }
-    // setExtraFiles(extraFiles.filter(file => file.id !== id));
   };
 
   useEffect(() => {
