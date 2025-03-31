@@ -37,7 +37,7 @@ const Footer = ({ language, screen }) => {
 
     useEffect(() => {
         dispatch(updateContent({ currentPath: "footer", payload: (content?.footer) }))
-        // dispatch(updateImages({ src: social, section: "socialIcons" }))
+        dispatch(updateImages({ src: social, section: "socialIcons" }))
     }, [])
     return (
         <footer className="relative overflow-hidden bg-[#062233] border-t border-primary ">
@@ -52,7 +52,7 @@ const Footer = ({ language, screen }) => {
                     </div>
                     <p className="text-white text-xs font-medium leading-8">{currentContent?.companyInfo?.address[language]}</p>
                 </div>
-                <div dir={isLeftAlign?"ltr":"rtl"} className={`flex flex-wrap justify-between ${isPhone && "flex-col"} gap-4 px-8 mb-12`}>
+                <div dir={isLeftAlign ? "ltr" : "rtl"} className={`flex flex-wrap justify-between ${isPhone && "flex-col"} gap-4 px-8 mb-12`}>
                     {["Section 1", "Section 2", "Section 3"].map((section) => (
                         <div key={section} className="w-full md:w-auto">
                             <h5 className="text-white text-lg font-light mb-4">{currentContent?.[section]?.title[language]}</h5>
@@ -64,7 +64,7 @@ const Footer = ({ language, screen }) => {
                         </div>
                     ))}
 
-                    <div dir={isLeftAlign?"ltr":"rtl"} className="w-full md:w-auto flex flex-col gap-4 items-start">
+                    <div dir={isLeftAlign ? "ltr" : "rtl"} className="w-full md:w-auto flex flex-col gap-4 items-start">
                         <h5 className="text-white text-lg font-light">
                             {currentContent?.["Section 4"]?.title[language]}
                         </h5>
@@ -82,7 +82,7 @@ const Footer = ({ language, screen }) => {
                         >
                             {currentContent?.["Section 4"]?.links[3]?.[language]}
                         </button>
-                        <div className="flex gap-4 mt-6">
+                        <div className="flex gap-4 mt-1">
                             {socialIcons?.map((social, index) => (
                                 <a key={index} href={social.url} target="_blank" rel="noopener noreferrer">
                                     <img src={social.img} alt="social" width={20} height={20} />
