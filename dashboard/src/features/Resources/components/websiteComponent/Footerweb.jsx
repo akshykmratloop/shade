@@ -82,10 +82,10 @@ const Footer = ({ language, screen }) => {
                         >
                             {currentContent?.["Section 4"]?.links[3]?.[language]}
                         </button>
-                        <div className="flex gap-4 mt-1">
+                        <div className="flex gap-4 mt-1 items-center">
                             {socialIcons?.map((social, index) => (
                                 <a key={index} href={social.url} target="_blank" rel="noopener noreferrer">
-                                    <img src={social.img} alt="social" width={20} height={20} />
+                                   {social.img && <img src={social.img} alt="social" width={20} height={20} />}
                                 </a>
                             ))}
                         </div>

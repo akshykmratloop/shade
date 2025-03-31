@@ -3,7 +3,7 @@ import { Upload, X } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import { removeImages, updateImages } from "../../features/common/homeContentSlice";
 
-const InputFile = ({ label, baseClass, id, currentPath, section, fileIndex }) => {
+const InputFile = ({ label, baseClass, id, currentPath, section, fileIndex, isCloseButton }) => {
   const dispatch = useDispatch();
   const fileInputRef = useRef(null);
   const ImageFromRedux = useSelector(state => state.homeContent.present.images);
@@ -24,7 +24,6 @@ const InputFile = ({ label, baseClass, id, currentPath, section, fileIndex }) =>
         } else {
           return element
         }
-
       })
       dispatch(updateImages({ section: "socialIcons", src: newArray, currentPath }));
     }
@@ -41,11 +40,19 @@ const InputFile = ({ label, baseClass, id, currentPath, section, fileIndex }) =>
         return e
       }
     })
-    console.log(newArray)
     dispatch(updateImages({ section: "socialIcons", src: newArray, currentPath }));
     if (fileInputRef.current) {
       fileInputRef.current.value = "";
     }
+  };
+  const removeFileInput = () => {
+    if (section === 'socialIcons') {
+      const newArray = ImageFromRedux.socialIcons.filter((e, i) => { return e.id !== parseInt(id.slice(-1)) })
+      const newOriginalArray = ImageFromRedux.OriginalSocialIcons.filter((e, i) => { return e.id !== parseInt(id.slice(-1)) })
+      dispatch(updateImages({ src: newArray, section: "socialIcons" }))
+      dispatch(updateImages({ src: newArray, section: "OriginalSocialIcons" }))
+    }
+    // setExtraFiles(extraFiles.filter(file => file.id !== id));
   };
 
   useEffect(() => {
@@ -60,12 +67,12 @@ const InputFile = ({ label, baseClass, id, currentPath, section, fileIndex }) =>
 
   return (
     <div className={`relative ${baseClass} mt-2 flex flex-col`}>
-      <button
+      {isCloseButton && <button
         className="absolute top-3 z-20 right-[-8px] bg-[#ff0000] text-white px-[5px] rounded-full shadow"
-        onClick={() => { }}
+        onClick={removeFileInput}
       >
         ✖
-      </button>
+      </button>}
       <label htmlFor={id} className="label-text sm:text-xs xl:text-sm mb-1 text-[#6B7888]">{label}</label>
       <div className="relative w-24 h-24 border border-[#cecbcb] rounded-md overflow-hidden cursor-pointer bg-white dark:bg-[#2a303c]">
 

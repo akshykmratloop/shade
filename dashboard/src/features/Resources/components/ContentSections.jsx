@@ -29,16 +29,13 @@ const ContentSection = ({
 
     const addExtraFileInput = () => {
         if (section === 'socialIcons') {
-            console.log("wqerqwe")
-            dispatch(updateImages({ src: [...ImagesFromRedux.socialIcons, { img: "", url: "" }], section: "socialIcons" }))
+            dispatch(updateImages({ src: [...ImagesFromRedux.socialIcons, { img: "", url: "", id: ImagesFromRedux.socialIcons.length + 1 }], section: "socialIcons" }))
+            dispatch(updateImages({ src: [...ImagesFromRedux.socialIcons, { img: "", url: "", id: ImagesFromRedux.socialIcons.length + 1 }], section: "socialIcons" }))
         }
         setExtraFiles([...extraFiles, { label: `Extra File ${extraFiles.length + 1}`, id: `extraFile${extraFiles.length + 1}` }]);
     };
 
     const removeExtraFileInput = (id) => {
-        if (section === 'socialIcons') {
-            dispatch(updateImages({ src: [...ImagesFromRedux.socialIcons, { img: "", url: "" }], section: "socialIcons" }))
-        }
         setExtraFiles(extraFiles.filter(file => file.id !== id));
     };
 
@@ -103,7 +100,9 @@ const ContentSection = ({
                     section === 'socialIcons' ?
                         <div>
                             <div className={`flex ${inputFiles.length > 1 ? "flex-wrap" : ""} gap-10 w-[80%] relative`}>
-                                {inputFiles.map((file, index) => (
+                                {inputFiles.map((file, index) => {
+                                    let allowClose = index > 3
+                                    return (
                                     <InputFileForm
                                         key={index}
                                         label={file.label}
@@ -111,8 +110,9 @@ const ContentSection = ({
                                         currentPath={currentPath}
                                         fileIndex={index}
                                         section={section}
+                                        isCloseButton={allowClose}
                                     />
-                                ))}
+                                )})}
                                
                                 {/* {extraFiles.map((file, index) => (
                                     <div key={index} className="relative flex items-center justify-center">
