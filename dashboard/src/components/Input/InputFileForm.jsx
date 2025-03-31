@@ -30,7 +30,8 @@ const InputFile = ({ label, baseClass, id, currentPath, section, fileIndex, isCl
     }
   };
 
-  function updateValue({ updateValue, value }) {
+  console.log(ImageFromRedux?.socialIcons?.[fileIndex])
+  function updateValue({ value }) {
     const newObj = { ...ImageFromRedux.socialIcons[fileIndex], url: value }
     const newArray = ImageFromRedux.socialIcons.map(element => {
       if (element.id === newObj.id) {
@@ -122,6 +123,7 @@ const InputFile = ({ label, baseClass, id, currentPath, section, fileIndex, isCl
         required={false}
         containerStyle={"translate-y-[12px]"}
         updateFormValue={updateValue}
+        defaultValue={ImageFromRedux?.socialIcons?.[fileIndex]?.url}
       />
     </div>
   );
