@@ -99,7 +99,7 @@ const ContentSection = ({
                 {
                     section === 'socialIcons' ?
                         <div>
-                            <div className={`flex ${inputFiles.length > 1 ? "flex-wrap" : ""} gap-10 w-[80%] relative`}>
+                            <div className={`flex ${inputFiles.length > 1 ? "flex-wrap" : ""} gap-10 w-[100%] relative`}>
                                 {inputFiles.map((file, index) => {
                                     let allowClose = index > 3
                                     return (
