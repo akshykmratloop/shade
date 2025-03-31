@@ -4,7 +4,6 @@ import React, { useEffect, useState } from "react";
 import Logo from "../../../../assets/brand-logo/logo.svg"
 import content from './content.json'
 import { useDispatch, useSelector } from "react-redux";
-
 // import Image from "next/image";
 // import Link from "next/link";
 import { Link, useLocation } from "react-router-dom";

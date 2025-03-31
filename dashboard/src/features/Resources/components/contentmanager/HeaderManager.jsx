@@ -1,19 +1,42 @@
 import ContentSection from "../ContentSections"
 
 const HeaderManager = ({ language, currentContent, currentPath }) => {
-
+    let contents
+    if (currentContent) {
+        contents = Object.keys(currentContent)
+    }
     return (
         <div>
-            <ContentSection
-                currentPath={currentPath}
-                Heading={"Section 1"}
-                inputs={[
-                    { input: "textarea", label: "Section 1", updateType: "section 1" },
-                ]}
-                section={"companyInfo"}
-                language={language}
-                currentContent={currentContent}
-            />
+
+            {contents?.map((section, i, a) => {
+                const lastIndex = i === a.length - 1
+                return (
+                    <div key={i}>
+                        <ContentSection
+                            currentPath={currentPath}
+                            subHeading={"Section " + (i + 1)}
+                            inputs={[
+                                { input: "input", label: "title", updateType: "title" },
+                            ]}
+                            section={section}
+                            language={language}
+                            currentContent={currentContent}
+                            isBorder={false}
+                            attachOne={true}
+                        />
+                        <ContentSection
+                            currentPath={currentPath}
+                            inputs={[
+                                { input: "input", label: "url", updateType: "url" },
+                            ]}
+                            subSection={'url'}
+                            section={section}
+                            currentContent={currentContent}
+                            isBorder={lastIndex}
+                        />
+                    </div>
+                )
+            })}
         </div>
     )
 }

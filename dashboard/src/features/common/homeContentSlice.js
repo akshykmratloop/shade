@@ -15,7 +15,6 @@ const cmsSlice = createSlice({
     reducers: {
         updateImages: (state, action) => {
             state.past.push(JSON.parse(JSON.stringify(state.present)));
-            console.log('qwerqwe')
             state.present.images[action.payload.section] = action.payload.src;
             state.future = [];
         },
@@ -51,6 +50,8 @@ const cmsSlice = createSlice({
                 state.present[action.payload?.currentPath][action.payload.section][action.payload.subSection][action.payload?.index][action.payload.title] = action.payload.value;
             } else if (action.payload.subSectionsProMax) {
                 state.present[action.payload?.currentPath][action.payload.section][action.payload.subSection][action.payload?.index][action.payload.subSectionsProMax][action.payload.subSecIndex][action.payload.title][action.payload.lan] = action.payload.value;
+            } else if (action.payload.subSection === 'url') {
+                state.present[action.payload?.currentPath][action.payload.section][action.payload.subSection] = action.payload.value;
             } else if (action.payload.subSection) {
                 state.present[action.payload?.currentPath][action.payload.section][action.payload.subSection][action.payload?.index][action.payload.title][action.payload.lan] = action.payload.value;
             } else {

@@ -30,8 +30,11 @@ const InputFile = ({ label, baseClass, id, currentPath, section, fileIndex, isCl
     }
   };
 
-  console.log(ImageFromRedux?.socialIcons?.[fileIndex])
   function updateValue({ value }) {
+    if(value.length <= 1){
+      value = "https://" + value
+      console.log(value)
+    }
     const newObj = { ...ImageFromRedux.socialIcons[fileIndex], url: value }
     const newArray = ImageFromRedux.socialIcons.map(element => {
       if (element.id === newObj.id) {

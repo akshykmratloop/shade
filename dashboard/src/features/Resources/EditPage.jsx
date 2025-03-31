@@ -87,7 +87,7 @@ const EditPage = () => {
                     <FooterManager language={language} currentContent={content.footer} currentPath={currentPath} />
                 }
                 {
-                    currentPath === 'Header' && 
+                    currentPath === 'header' && 
                     <HeaderManager language={language} currentContent={content.header} currentPath={currentPath} />
                 }
 

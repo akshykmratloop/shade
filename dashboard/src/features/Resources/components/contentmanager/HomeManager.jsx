@@ -90,7 +90,7 @@ const HomeManager = ({ language, currentContent, currentPath }) => {
 
             {/* project selection */}
             <div className="w-full">
-                <h3 className={`font-semibold text-[1.25rem] mb-4`} >
+                <h3 className={`font-semibold text-[1.25rem] mb-4 mt-4`} >
                     Project Section
                 </h3>
                 <div>
@@ -98,7 +98,7 @@ const HomeManager = ({ language, currentContent, currentPath }) => {
                         currentContent?.recentProjectsSection?.sections?.map((section, index, array) => {
                             const isLast = index === array.length - 1;
                             return (
-                                <div key={index}>
+                                <div key={index} className="mt-3 ">
                                     <ContentSection
                                         currentPath={currentPath}
                                         subHeading={section.title.en}
@@ -116,7 +116,7 @@ const HomeManager = ({ language, currentContent, currentPath }) => {
                                     {
                                         section.projects.map((project, subSecIndex) => {
                                             return (
-                                                <div key={subSecIndex + 1}>
+                                                <div key={subSecIndex + 1} className="mt-3">
                                                     <ContentSection
                                                         currentPath={currentPath}
                                                         subHeading={"Project " + (subSecIndex + 1)}

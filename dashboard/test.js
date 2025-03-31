@@ -1,1 +1,3 @@
-console.log("qwerqwer".slice(-1))
+let anything = undefined
+
+console.log(Object.keys(anything))

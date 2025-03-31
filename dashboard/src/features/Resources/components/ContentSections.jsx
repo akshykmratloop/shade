@@ -21,7 +21,8 @@ const ContentSection = ({
     index,
     subSecIndex,
     currentContent,
-    allowExtraInput = false // New prop to allow extra input
+    allowExtraInput = false, // New prop to allow extra input
+    attachOne = false
 }) => {
     const dispatch = useDispatch();
     const [extraFiles, setExtraFiles] = useState([]);
@@ -51,8 +52,8 @@ const ContentSection = ({
     };
 
     return (
-        <div className={`w-full ${Heading ? "mt-4" : "mt-1"} flex flex-col gap-1 ${!isBorder ? "" : "border-b border-b-1 border-neutral-300"} pb-6`}>
-            <h3 className={`font-semibold ${subHeading ? "text-[.9rem] mb-1" : "text-[1.25rem] mb-4"}`}>{Heading || subHeading}</h3>
+        <div className={`w-full ${Heading ? "mt-4" : subHeading ? "mt-1" : ""} flex flex-col gap-1 ${!isBorder ? "" : "border-b border-b-1 border-neutral-300"} ${attachOne? "pb-0" : (Heading || subHeading) ? "pb-6" : ""}`}>
+            <h3 className={`font-semibold ${subHeading ? "text-[.9rem] mb-1" : Heading?"text-[1.25rem] mb-4" : " mb-0"}`}>{Heading || subHeading}</h3>
             {inputs.length > 0 ? inputs.map((input, i) => {
                 let valueExpression;
                 if (subSectionsProMax === "Links") {
@@ -60,6 +61,8 @@ const ContentSection = ({
                 } else if (subSectionsProMax) {
                     valueExpression = currentContent?.[section]?.[subSection]?.[index]?.[subSectionsProMax]?.[subSecIndex]?.[input.updateType]?.[language];
                 } else if (subSection && typeof (currentContent?.[section]?.[subSection]?.[index]?.[input.updateType]) !== "object") {
+                    valueExpression = currentContent?.[section]?.[subSection]?.[index]?.[input.updateType];
+                } else if (subSection === 'url') {
                     valueExpression = currentContent?.[section]?.[subSection]?.[index]?.[input.updateType];
                 } else if (subSection) {
                     valueExpression = currentContent?.[section]?.[subSection]?.[index]?.[input.updateType]?.[language];
@@ -103,17 +106,18 @@ const ContentSection = ({
                                 {inputFiles.map((file, index) => {
                                     let allowClose = index > 3
                                     return (
-                                    <InputFileForm
-                                        key={index}
-                                        label={file.label}
-                                        id={file.id}
-                                        currentPath={currentPath}
-                                        fileIndex={index}
-                                        section={section}
-                                        isCloseButton={allowClose}
-                                    />
-                                )})}
-                               
+                                        <InputFileForm
+                                            key={index}
+                                            label={file.label}
+                                            id={file.id}
+                                            currentPath={currentPath}
+                                            fileIndex={index}
+                                            section={section}
+                                            isCloseButton={allowClose}
+                                        />
+                                    )
+                                })}
+
                                 {/* {extraFiles.map((file, index) => (
                                     <div key={index} className="relative flex items-center justify-center">
 
