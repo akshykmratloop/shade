@@ -87,7 +87,7 @@ function Resources() {
                                 {/* Bottom Text Options */}
                                 <div className={`absolute bottom-3 left-0 w-full text-center text-white justify-center items-center flex ${isNarrow ? "gap-2" : "gap-6"} py-1`}>
                                     {[{ icon: <AiOutlineInfoCircle />, text: "Info", onClick: () => { setPageDetailsOn(true); setConfigBarData(page) } },
-                                    { icon: <FiEdit />, text: "Edit", onClick: () => { navigate(`./edit/${page.heading?.toLowerCase()}`) } },
+                                    { icon: <FiEdit />, text: "Edit", onClick: () => { page.subPage ? navigate(`./edit/${currentResource}/${page.subPage}`) : navigate(`./edit/${page.heading?.toLowerCase()}`) } },
                                     { icon: <IoSettingsOutline />, text: "Config", onClick: () => { setConfigBarOn(true); setConfigBarData(page) } }].map((item, i) => (
                                         <span key={i + Math.random()}
                                             onClick={item.onClick}
