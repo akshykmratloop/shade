@@ -46,7 +46,6 @@ const EditPage = () => {
 
     return (
         <div className="flex gap-[1.5rem] pr-1 h-[83.5vh] w-full relative">
-
             {/* content manager */}
             <div
                 className={`pt-8 bg-[#fafaff] dark:bg-[#242933] p-8 lg:w-[23rem] sm:w-[30vw] min-w-23rem flex flex-col gap-4 items-center overflow-y-scroll customscroller`}
@@ -90,8 +89,6 @@ const EditPage = () => {
                     currentPath === 'header' && 
                     <HeaderManager language={language} currentContent={content.header} currentPath={currentPath} />
                 }
-
-
             </div> {/* Content manager ends here */}
             {/* Content view */}
             <div

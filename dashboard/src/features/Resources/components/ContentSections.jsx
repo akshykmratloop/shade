@@ -28,10 +28,13 @@ const ContentSection = ({
     const [extraFiles, setExtraFiles] = useState([]);
     const ImagesFromRedux = useSelector((state) => state.homeContent.present.images)
 
+
     const addExtraFileInput = () => {
         if (section === 'socialIcons') {
-            dispatch(updateImages({ src: [...ImagesFromRedux.socialIcons, { img: "", url: "", id: ImagesFromRedux.socialIcons.length + 1 }], section: "socialIcons" }))
-            dispatch(updateImages({ src: [...ImagesFromRedux.socialIcons, { img: "", url: "", id: ImagesFromRedux.socialIcons.length + 1 }], section: "socialIcons" }))
+            if (ImagesFromRedux.socialIcons.length < 8) {
+                dispatch(updateImages({ src: [...ImagesFromRedux.socialIcons, { img: "", url: "", id: ImagesFromRedux.socialIcons.length + 1 }], section: "socialIcons" }))
+                dispatch(updateImages({ src: [...ImagesFromRedux.socialIcons, { img: "", url: "", id: ImagesFromRedux.socialIcons.length + 1 }], section: "socialIcons" }))
+            }
         }
         setExtraFiles([...extraFiles, { label: `Extra File ${extraFiles.length + 1}`, id: `extraFile${extraFiles.length + 1}` }]);
     };
@@ -52,8 +55,8 @@ const ContentSection = ({
     };
 
     return (
-        <div className={`w-full ${Heading ? "mt-4" : subHeading ? "mt-1" : ""} flex flex-col gap-1 ${!isBorder ? "" : "border-b border-b-1 border-neutral-300"} ${attachOne? "pb-0" : (Heading || subHeading) ? "pb-6" : ""}`}>
-            <h3 className={`font-semibold ${subHeading ? "text-[.9rem] mb-1" : Heading?"text-[1.25rem] mb-4" : " mb-0"}`}>{Heading || subHeading}</h3>
+        <div className={`w-full ${Heading ? "mt-4" : subHeading ? "mt-1" : ""} flex flex-col gap-1 ${!isBorder ? "" : "border-b border-b-1 border-neutral-300"} ${attachOne ? "pb-0" : (Heading || subHeading) ? "pb-6" : ""}`}>
+            <h3 className={`font-semibold ${subHeading ? "text-[.9rem] mb-1" : Heading ? "text-[1.25rem] mb-4" : " mb-0"}`}>{Heading || subHeading}</h3>
             {inputs.length > 0 ? inputs.map((input, i) => {
                 let valueExpression;
                 if (subSectionsProMax === "Links") {
@@ -168,13 +171,21 @@ const ContentSection = ({
                                     />
                                 </div>
                             ))}
-                            {allowExtraInput &&
-                                <button
-                                    className="mt-2 px-3 py-2 bg-blue-500 h-[95px] w-[95px] text-white rounded-lg translate-y-3 self-center text-xl"
-                                    onClick={addExtraFileInput}
-                                >
-                                    +
-                                </button>
+                            {
+                                section === 'socialIcons' ? ImagesFromRedux?.socialIcons?.length < 8 ?
+                                    <button
+                                        className="mt-2 px-3 py-2 bg-blue-500 h-[95px] w-[95px] text-white rounded-lg translate-y-3 self-center text-xl"
+                                        onClick={addExtraFileInput}
+                                    >
+                                        +
+                                    </button> : "" :
+                                    allowExtraInput &&
+                                    <button
+                                        className="mt-2 px-3 py-2 bg-blue-500 h-[95px] w-[95px] text-white rounded-lg translate-y-3 self-center text-xl"
+                                        onClick={addExtraFileInput}
+                                    >
+                                        +
+                                    </button>
                             }
                         </div>
                 }

@@ -1,3 +1,4 @@
+import FileUploader from "../../../../components/Input/InputFileUploader"
 import ContentSection from "../ContentSections"
 
 const HeaderManager = ({ language, currentContent, currentPath }) => {
@@ -7,7 +8,8 @@ const HeaderManager = ({ language, currentContent, currentPath }) => {
     }
     return (
         <div>
-
+            {/* reference doc */}
+            <FileUploader id={"headerReference"} label={"Rerference doc"} fileName={"Upload your file..."} />
             {contents?.map((section, i, a) => {
                 const lastIndex = i === a.length - 1
                 return (

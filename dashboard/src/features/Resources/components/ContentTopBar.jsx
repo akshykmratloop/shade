@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { redo, undo } from '../../common/homeContentSlice';
 import { useNavigate } from 'react-router-dom';
 import { IoIosInformationCircleOutline } from "react-icons/io";
+import { toast } from 'react-toastify';
 
 
 export default function ContentTopBar({ setWidth, raisePopup }) {
@@ -22,13 +23,18 @@ export default function ContentTopBar({ setWidth, raisePopup }) {
     const navigate = useNavigate()
     const [info, setInfo] = useState(false)
     const infoRef = useRef(null)
-
+    const [savedChanges, setSavedChanges] = useState(false) 
 
     const deviceIcons = [
         { icon: <MdOutlineDesktopWindows />, label: 'Desktop', width: 1180 },
         { icon: <FiTablet />, label: 'Tablet', width: 768 },
         { icon: <FiSmartphone />, label: 'Phone', width: 425 }
     ];
+
+    function saveTheDraft() {
+        setSavedChanges(true)
+        toast.success("Changes has been saved")
+    }
 
     const handleDeviceChange = (device) => {
         setSelectedDevice(device.label);
@@ -116,7 +122,7 @@ export default function ContentTopBar({ setWidth, raisePopup }) {
                     <button onClick={raisePopup.reject} className='flex justify-center items-center gap-1 bg-[#FF0000] rounded-md xl:h-[2.68rem] sm:h-[2rem] xl:text-xs sm:text-[.6rem] xl:w-[5.58rem] w-[4rem] text-[white]'>
                         <RxCross1 /> Reject
                     </button>
-                    <Button text={'Draft'} classes='bg-[#26345C] rounded-md xl:h-[2.68rem] sm:h-[2rem] xl:text-xs sm:text-[.6rem] xl:w-[5.58rem] w-[4rem] text-[white]' />
+                    <Button text={'Draft'} classes={`bg-[#26345C] rounded-md xl:h-[2.68rem] sm:h-[2rem] xl:text-xs sm:text-[.6rem] xl:w-[5.58rem] w-[4rem] text-[white]`} />
                     <Button text={'Submit'} functioning={raisePopup.submit} classes='bg-[#29469D] rounded-md xl:h-[2.68rem] sm:h-[2rem] xl:text-xs sm:text-[.6rem] xl:w-[5.58rem] w-[4rem] text-[white]' />
                 </div>
             </div>

@@ -17,6 +17,7 @@ const Footer = ({ language, screen }) => {
     const isLeftAlign = language === "en"
     const dispatch = useDispatch()
     const currentContent = useSelector((state) => state.homeContent.present.footer)
+    const imageFromRedux = useSelector(state => state.homeContent.present.images)
     const socialIcons = useSelector((state) => {
         return state.homeContent.present.images.socialIcons
     })
@@ -48,7 +49,7 @@ const Footer = ({ language, screen }) => {
                     style={{ backgroundImage: `url(${foot_layer})` }} />
                 <div className="flex flex-col items-center gap-6 text-center mb-10 ">
                     <div>
-                        <img src={Logo} alt="Logo" width={138} height={138} />
+                        <img src={imageFromRedux.footerIcon ? imageFromRedux.footerIcon : Logo} alt="Logo" width={138} height={138} />
                     </div>
                     <p className="text-white text-xs font-medium leading-8">{currentContent?.companyInfo?.address[language]}</p>
                 </div>
@@ -85,7 +86,7 @@ const Footer = ({ language, screen }) => {
                         <div className="flex gap-4 mt-1 items-center">
                             {socialIcons?.map((social, index) => (
                                 <a key={index} href={social.url} target="_blank" rel="noopener noreferrer">
-                                   {social.img && <img src={social.img} alt="social" width={20} height={20} />}
+                                    {social.img && <img src={social.img} alt="social" width={20} height={20} />}
                                 </a>
                             ))}
                         </div>

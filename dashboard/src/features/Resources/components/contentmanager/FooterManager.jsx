@@ -10,12 +10,14 @@ const FooterManager = ({ language, currentContent, currentPath }) => {
             {/* reference doc */}
             <FileUploader id={"footerReference"} label={"Rerference doc"} fileName={"Upload your file..."} />
             {/** Hero Banner */}
+            
             <ContentSection
                 currentPath={currentPath}
                 Heading={"Footer top"}
                 inputs={[
                     { input: "textarea", label: "Address", updateType: "address" },
                 ]}
+                inputFiles={[{ label: "Main Icons Image", id: "footerIcon" }]}
                 section={"companyInfo"}
                 language={language}
                 currentContent={currentContent}
