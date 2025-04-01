@@ -44,7 +44,6 @@ export default function ContentTopBar({ setWidth, raisePopup }) {
             } else return true
         })
 
-        localStorage.setItem("autoSave", String(autoSave))
     }
 
     function saveTheDraft() {
@@ -95,6 +94,10 @@ export default function ContentTopBar({ setWidth, raisePopup }) {
 
         return () => clearTimeout(debounceTimer); // Reset timer if ReduxState changes before 3 seconds
     }, [ReduxState, autoSave]);
+
+    useEffect(() => {
+        localStorage.setItem("autoSave", String(autoSave))
+    }, [autoSave])
 
     const infoIconRef = useRef(null); // Create a new ref for the info icon
 
