@@ -22,7 +22,8 @@ const ContentSection = ({
     subSecIndex,
     currentContent,
     allowExtraInput = false, // New prop to allow extra input
-    attachOne = false
+    attachOne = false,
+    projectId
 }) => {
     const dispatch = useDispatch();
     const [extraFiles, setExtraFiles] = useState([]);
@@ -59,7 +60,10 @@ const ContentSection = ({
             <h3 className={`font-semibold ${subHeading ? "text-[.9rem] mb-1" : Heading ? "text-[1.25rem] mb-4" : " mb-0"}`}>{Heading || subHeading}</h3>
             {inputs.length > 0 ? inputs.map((input, i) => {
                 let valueExpression;
-                if (subSectionsProMax === "Links") {
+                if (projectId) {
+                    valueExpression = currentContent?.[projectId]?.[section]?.[subSection]?.[index]?.[input.updateType]?.[language];
+                }
+                else if (subSectionsProMax === "Links") {
                     valueExpression = currentContent?.[section]?.[subSection]?.[index]?.[input.updateType];
                 } else if (subSectionsProMax) {
                     valueExpression = currentContent?.[section]?.[subSection]?.[index]?.[subSectionsProMax]?.[subSecIndex]?.[input.updateType]?.[language];

@@ -120,7 +120,7 @@ const ProjectDetailPage = ({ contentOn, language, projectId, screen }) => {
                 <div className="container flex flex-col gap-10">
                     {/* Project Description */}
                     {descriptionSection?.map((item, index) => (
-                        <div className="container bankgothic-regular-db-mt">
+                        <div className="container bankgothic-regular-db-mt" key={index}>
                             <div className={`${isPhone ? "flex flex-col" : "grid grid-cols-[129px_1fr] gap-[90px]"} `}>
                                 <div className={`flex  w-[230px]`}>
                                     <span className="relative w-[10px] h-[20px]">
