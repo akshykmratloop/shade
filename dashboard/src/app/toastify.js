@@ -7,7 +7,7 @@ function updateToasify(toaster, message, type, close) {
         icon:false,
         type,
         style: type !== "info" ? {
-            background: type === "success"? "#22C55E": "#EF4444", // Green
+            background: type === "success"? "#187e3d": "#EF4444", // Green
             color: "#fff",
         }:{},
         isLoading: false,

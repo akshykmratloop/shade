@@ -253,3 +253,7 @@ select {
 .clip-concave {
   clip-path: polygon(0% 0%, 100% 0%, 90% 50%, 100% 100%, 0% 100%);
 }
+
+.test{
+color:#444444
+}
