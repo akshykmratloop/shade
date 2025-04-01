@@ -29,6 +29,7 @@ import FooterManager from "./components/contentmanager/FooterManager";
 import Header from "./components/websiteComponent/Headerweb";
 import HeaderManager from "./components/contentmanager/HeaderManager";
 import ProjectDetailPage from "./components/websiteComponent/ProjectDetails";
+import ProjectDetailManager from "./components/contentmanager/ProjectDetailManager";
 
 const EditPage = () => {
     const dispatch = useDispatch();
@@ -73,7 +74,8 @@ const EditPage = () => {
                     <MarketManager language={language} currentContent={content.markets} currentPath={currentPath} />
                 }
                 {
-                    currentPath === 'projects' ? subPath ? "" :
+                    currentPath === 'projects' ? subPath ?
+                        <ProjectDetailManager projectId={subPath} language={language} currentContent={content.projectDetail} currentPath={currentPath} /> :
                         <ProjectContentManager language={language} currentContent={content.projects} currentPath={currentPath} /> : ""
                 }
                 {

@@ -62,7 +62,7 @@ const ProjectDetailPage = ({ contentOn, language, projectId, screen }) => {
                     <div className={`${isPhone? "flex flex-col gap-[40px]":"grid grid-cols-2 gap-[52px] mb-16 items-center"}`}>
                         <div>
                             <div className="relative">
-                                <Link href="/project" className={`flex items-center gap-2 text-gray-700 font-bold text-lg ${isPhone&& isLeftAlign ? "absolute -top-[100px] -left-12 " : "absolute -top-[100px] -right-12"}`}>
+                                <Link href="/project" className={`flex items-center gap-2 text-gray-700 font-bold text-lg ${isPhone? isLeftAlign ? "absolute -top-[100px] -left-12 " : "absolute -top-[100px] -right-12" : ""}`}>
                                     <img
                                         src="https://loopwebsite.s3.ap-south-1.amazonaws.com/bx_arrow-back+(1).svg"
                                         alt="Back Icon"
