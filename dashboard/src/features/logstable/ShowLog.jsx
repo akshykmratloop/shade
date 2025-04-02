@@ -173,39 +173,8 @@ function ShowLogs({ log, show, onClose }) {
                                         </tr>
                                     </tbody>
                                 </table>
-                                {/* <div className="table-auto w-full text-left py-6 flex gap-[160px]">
-                                    <div>
-
-                                        <h3 className="text-sm font-[300]">Permissions</h3>
-                                        <ul className="text-sm font-[500] text-[#101828] flex flex-col gap-1 pt-4">
-                                            {!loading &&
-                                                fetchedRole.permissions.map(element => {
-
-                                                    return (
-                                                        <li>
-                                                            {capitalizeWords(element.permission.name ?? "")}
-                                                        </li>
-                                                    )
-                                                })
-                                            }
-                                        </ul>
-                                    </div>
-                                    <div>
-                                        <h3 className="text-sm font-[300]">Assigned Users</h3>
-                                        <ul className="text-sm font-[500] text-[#101828] flex flex-col gap-1 pt-4">
-                                            {!loading &&
-                                                fetchedRole.users.map(user => {
-
-                                                    return (
-                                                        <li>
-                                                            {capitalizeWords(user.user.name ?? "")}
-                                                        </li>
-                                                    )
-                                                })
-                                            }
-                                        </ul>
-                                    </div>
-                                </div> */}
+                                
+                                
                             </div>
                         )
                     }
