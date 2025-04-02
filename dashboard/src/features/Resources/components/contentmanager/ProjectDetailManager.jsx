@@ -23,13 +23,40 @@ const ProjectDetailManager = ({ projectId, currentContent, currentPath, language
                 currentContent={currentContent}
                 projectId={projectId}
             />
+            <div className="mt-4">
+                <h3 className={`font-semibold text-[1.25rem] mb-4`}>Cards</h3>
+                {
+                    currentContent?.[projectId - 1].introSection?.projectInforCard?.map((element, index, a) => {
+                        const lastIndex = index === (a.length - 1)
+                        return (
+                            <ContentSection
+                                currentPath={currentPath}
+                                subHeading={"Card " + (index + 1)}
+                                inputs={[
+                                    { input: "input", label: "Title", updateType: "key" },
+                                    { input: "input", label: "Description", updateType: "value" },
+                                ]}
+                                // inputFiles={[{ label: "Backround Image", id: "ProjectBanner" + (projectId) }]}
+                                section={"introSection"}
+                                subSection={"projectInforCard"}
+                                index={index}
+                                language={language}
+                                currentContent={currentContent}
+                                projectId={projectId}
+                                isBorder={lastIndex}
+                            />
+                        )
+                    })
+                }
+            </div>
+            {/* 
             {
                 currentContent?.[projectId - 1].introSection?.projectInforCard?.map((element, index) => {
                     console.log(element)
                     return (
                         <ContentSection
                             currentPath={currentPath}
-                            Heading={"Cards"}
+                            subHeading={"Cards"}
                             inputs={[
                                 { input: "input", label: "Title", updateType: "key" },
                                 { input: "input", label: "Description", updateType: "value" },
@@ -44,9 +71,7 @@ const ProjectDetailManager = ({ projectId, currentContent, currentPath, language
                         />
                     )
                 })
-            }
-
-
+            } */}
         </div>
     )
 }

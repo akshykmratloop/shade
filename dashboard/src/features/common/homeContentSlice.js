@@ -4,7 +4,6 @@ const initialState = {
     past: [],
     present: {
         images: {},
-        // home: {}
     },
     future: []
 };
