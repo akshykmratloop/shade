@@ -61,7 +61,10 @@ const ContentSection = ({
             {inputs.length > 0 ? inputs.map((input, i) => {
                 let valueExpression;
                 if (projectId) {
-                    if (input.updateType === 'url') {
+                    if (subSection) {
+                        valueExpression = currentContent?.[projectId - 1]?.[section]?.[subSection]?.[index]?.[input.updateType]?.[language];
+
+                    } else if (input.updateType === 'url') {
                         valueExpression = currentContent?.[projectId - 1]?.[section]?.[input.updateType];
                     } else {
                         valueExpression = currentContent?.[projectId - 1]?.[section]?.[input.updateType]?.[language];

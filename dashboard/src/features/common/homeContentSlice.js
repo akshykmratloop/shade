@@ -15,7 +15,6 @@ const cmsSlice = createSlice({
     reducers: {
         updateImages: (state, action) => {
             state.past.push(JSON.parse(JSON.stringify(state.present)));
-            console.log("qwer")
             console.log(action.payload.section)
             console.log(action.payload.src)
             state.present.images[action.payload.section] = action.payload.src;
@@ -50,7 +49,9 @@ const cmsSlice = createSlice({
         updateSpecificContent: (state, action) => {
             state.past.push(JSON.parse(JSON.stringify(state.present)));
             if (action.payload.projectId) {
-                if (action.payload.title === 'url') {
+                if (action.payload.subSection) {
+                    state.present["projectDetail"][action.payload.projectId - 1][action.payload?.section][action.payload.subSection][action.payload?.index][action.payload.title][action.payload.lan] = action.payload.value;
+                } else if (action.payload.title === 'url') {
                     state.present["projectDetail"][action.payload.projectId - 1][action.payload.section][action.payload.title] = action.payload.value
                 } else {
                     state.present["projectDetail"][action.payload.projectId - 1][action.payload.section][action.payload.title][action.payload.lan] = action.payload.value
@@ -64,7 +65,6 @@ const cmsSlice = createSlice({
             } else if (action.payload.subSection) {
                 state.present[action.payload?.currentPath][action.payload.section][action.payload.subSection][action.payload?.index][action.payload.title][action.payload.lan] = action.payload.value;
             } else {
-                console.log(action.payload?.currentPath, action.payload.section, action.payload.title)
                 state.present[action.payload?.currentPath][action.payload.section][action.payload.title][action.payload.lan] = action.payload.value;
             }
             state.future = [];

@@ -23,20 +23,21 @@ const ProjectDetailManager = ({ projectId, currentContent, currentPath, language
                 currentContent={currentContent}
                 projectId={projectId}
             />
-
             {
-                currentContent?.descriptionSection?.map((element, index) => {
+                currentContent?.[projectId - 1].introSection?.projectInforCard?.map((element, index) => {
+                    console.log(element)
                     return (
                         <ContentSection
                             currentPath={currentPath}
                             Heading={"Cards"}
                             inputs={[
-                                { input: "input", label: "Title", updateType: "title" },
-                                { input: "input", label: "Description", updateType: "description" },
+                                { input: "input", label: "Title", updateType: "key" },
+                                { input: "input", label: "Description", updateType: "value" },
                             ]}
                             // inputFiles={[{ label: "Backround Image", id: "ProjectBanner" + (projectId) }]}
-                            section={"descriptionSection"}
-                            subSection={index}
+                            section={"introSection"}
+                            subSection={"projectInforCard"}
+                            index={index}
                             language={language}
                             currentContent={currentContent}
                             projectId={projectId}

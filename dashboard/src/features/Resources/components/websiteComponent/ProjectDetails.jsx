@@ -64,13 +64,13 @@ const ProjectDetailPage = ({ contentOn, language, projectId, screen }) => {
                             <div className="relative">
                                 <Link href="/project" className={`flex items-center gap-2 text-gray-700 font-bold text-lg ${isPhone ? isLeftAlign ? "absolute -top-[100px] -left-12 " : "absolute -top-[100px] -right-12" : ""}`}>
                                     <img
-                                        src={ImageFromRedux?.[`ProjectBanner/${projectId}`] ? ImageFromRedux?.[`ProjectBanner/${projectId}`] : "https://loopwebsite.s3.ap-south-1.amazonaws.com/bx_arrow-back+(1).svg"}
+                                        src={"https://loopwebsite.s3.ap-south-1.amazonaws.com/bx_arrow-back+(1).svg"}
                                         alt="Back Icon"
                                         width={20}
                                         height={20}
                                         className={`${language === "en" ? 'scale-x-[-1]' : ''}`}
                                     />
-                                    {introSection?.backButton[language]}ProjectBanner/
+                                    {introSection?.backButton[language]}
                                 </Link>
                                 <h1 className={`text-[#062233] font-bold text-xl mt-7 mb-6 `}>
                                     {introSection?.title[language]}
@@ -85,7 +85,7 @@ const ProjectDetailPage = ({ contentOn, language, projectId, screen }) => {
                         </div>
                         <div>
                             <img
-                                src="https://loopwebsite.s3.ap-south-1.amazonaws.com/Project+hero.jpg"
+                                src={ImageFromRedux?.[`ProjectBanner/${projectId}`] ? ImageFromRedux?.[`ProjectBanner/${projectId}`] :"https://loopwebsite.s3.ap-south-1.amazonaws.com/Project+hero.jpg"}
                                 alt="Project Hero"
                                 className="w-full h-[250px]"
                             />
