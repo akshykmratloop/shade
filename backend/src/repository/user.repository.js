@@ -120,10 +120,10 @@ export const fetchAllUsers = async (
 };
 
 // Update User
-export const updateUser = async (userId, name, password, phone, roles) => {
+export const updateUser = async (id, name, password, phone, roles) => {
   const hashedPassword = await EncryptData(password, 10);
   const updatedUser = await prismaClient.user.update({
-    where: {id: userId},
+    where: {id},
     data: {
       name,
       password: hashedPassword,
@@ -366,5 +366,13 @@ export const userDeactivation = async (id) => {
 };
 
 export const findAllLogs = async () => {
-  return await prismaClient.auditLog.findMany({include: {user: true}});
+  return await prismaClient.auditLog.findMany({
+    include: {
+      user: {
+        include: {
+          user: true,
+        },
+      },
+    },
+  });
 };

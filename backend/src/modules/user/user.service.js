@@ -27,8 +27,8 @@ const getUserById = async (id) => {
   return {message: "user fetched successfully", user};
 };
 
-const editUserDetails = async (userId, name, password, phone, roles) => {
-  return await updateUser(userId, name, password, phone, roles);
+const editUserDetails = async (id, name, password, phone, roles) => {
+  return await updateUser(id, name, password, phone, roles);
 };
 
 const findUserByEmail = async (email) => {

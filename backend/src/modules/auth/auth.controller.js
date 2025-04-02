@@ -16,30 +16,30 @@ import {
 const Login = async (req, res) => {
   const {email, password} = req.body;
   const response = await login(email, password);
-
-  await prismaClient.auditLog.create({
-    data: {
-      actionType: "LOGIN",
-      action_performed: response.message,
-      // entity: "User",
-      entity: req.baseUrl.split("/").pop(),
-      // entityId: 55585, // Capturing user ID
-      entityId: response.user.id, // Capturing user ID
-      oldValue: null,
-      newValue: {user: response.user.id, email: response.user.email},
-      ipAddress: req.ip,
-      browserInfo: req.headers["user-agent"],
-      outcome: "Success",
-      timestamp: new Date(),
-      user: {
-        create: {
-          userId: response.user.id,
-        },
-      },
-    },
-  });
+  res.locals.entityId = response.user.id;
+  res.locals.action_performed = response.message;
+  // await prismaClient.auditLog.create({
+  //   data: {
+  //     actionType: "LOGIN",
+  //     action_performed: response.message,
+  //     // entity: "User",
+  //     entity: req.baseUrl.split("/").pop(),
+  //     // entityId: 55585, // Capturing user ID
+  //     entityId: response.user.id, // Capturing user ID
+  //     oldValue: null,
+  //     newValue: {user: response.user.id, email: response.user.email},
+  //     ipAddress: req.ip,
+  //     browserInfo: req.headers["user-agent"],
+  //     outcome: "Success",
+  //     timestamp: new Date(),
+  //     user: {
+  //       create: {
+  //         userId: response.user.id,
+  //       },
+  //     },
+  //   },
+  // });
   res.status(200).json(response);
-  // console.log(req, "res");
 };
 
 const MFALogin = async (req, res) => {
