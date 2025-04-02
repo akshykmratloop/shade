@@ -21,6 +21,7 @@ import {
   // verifyToken,
   generateRandomOTP,
 } from "../../helper/index.js";
+import {timeStamp} from "console";
 
 // MAIN SERVICE FUNCTIONS
 const login = async (email, password) => {
@@ -231,7 +232,11 @@ const generateOtpAndSendOnEmail = async (user, deviceId, otpOrigin) => {
 };
 
 const getAllLogs = async () => {
-  return await findAllLogs();
+  return await findAllLogs({
+    orderBy: {
+      timestamp: "desc",
+    },
+  });
 };
 
 export {

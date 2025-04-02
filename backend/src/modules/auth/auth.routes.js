@@ -18,7 +18,7 @@ const router = Router();
 router.post(
   "/login",
   validator(loginSchema),
-  auditLogger,
+  // auditLogger,
   tryCatchWrap(AuthController.Login)
 );
 
