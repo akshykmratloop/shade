@@ -13,6 +13,31 @@ function ShowLogs({ log, show, onClose }) {
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(true)
 
+    function getBrowserInfo(uaString) {
+        let browserMatch = uaString?.match(/(Chrome|Firefox|Safari|Edge|Opera|MSIE|Trident)\/?\s*(\d+)/i) || [];
+
+        // Special handling for older Edge and IE versions
+        if (/Trident/i.test(browserMatch[1])) {
+            let ieMatch = uaString?.match(/rv:(\d+)/);
+            return { browser: "Internet Explorer", version: ieMatch ? ieMatch[1] : "Unknown" };
+        }
+
+        if (browserMatch[1] === "Chrome") {
+            let edgeOrOpera = uaString?.match(/\b(Edg|OPR)\/(\d+)/);
+            if (edgeOrOpera) {
+                return { browser: edgeOrOpera[1] === "Edg" ? "Edge" : "Opera", version: edgeOrOpera[2] };
+            }
+        }
+
+        return {
+            browser: browserMatch[1] || "Unknown",
+            version: browserMatch[2] || "Unknown"
+        };
+    }
+
+    const browserInfoToRender = getBrowserInfo(log?.browserInfo) ?? undefined
+    console.log(log)
+
 
     const modalRef = useRef(null)
 
@@ -54,12 +79,12 @@ function ShowLogs({ log, show, onClose }) {
     if (!log) return null;
 
     return (
-        <Dialog open={show} onClose={onClose} className="relative z-50">
+        <Dialog open={show} onClose={onClose} className="relative z-50 font-poppins">
             <div className="fixed inset-0 bg-black/50" aria-hidden="true" />
             <div ref={modalRef} className="fixed inset-0 flex items-center justify-center p-4">
                 <Dialog.Panel className="w-[653px] h-[600px] overflow-y-scroll customscroller shadow-lg shadow-stone rounded-lg bg-[white] dark:bg-slate-800 p-6">
                     <div className="flex justify-between items-center mb-4">
-                        <Dialog.Title className="text-lg font-[500]">Role Details</Dialog.Title>
+                        <Dialog.Title className="text-lg font-[500]">Log Details</Dialog.Title>
                         <button onClick={onClose} className="bg-transparent hover:bg-stone-300 dark:hover:bg-stone-700 rounded-full border-none p-2 py-2">
                             <XMarkIcon className="w-5" />
                         </button>
@@ -82,7 +107,7 @@ function ShowLogs({ log, show, onClose }) {
                                             <td className="pt-2  w-1/4">Target</td>
                                             <td className="pt-2  w-1/4">IP Address</td>
                                         </tr>
-                                        <tr className="font-[500] text-[#101828] dark:text-stone-100 text-sm">
+                                        <tr className="font-[400] text-[#101828] dark:text-stone-100 text-sm">
                                             <td className="py-2 pb-6 w-1/4">{log.action_performed ?? "N/A"}</td>
                                             <td className={`py-2 pb-6 w-1/4`}>
                                                 {log.actionType ?? "N/A"}
@@ -105,10 +130,10 @@ function ShowLogs({ log, show, onClose }) {
                                         <tr className="font-light text-sm ">
                                             <td className="pt-2  w-1/4">Outcome</td>
                                             <td className="pt-2  w-1/4">Date & Time</td>
-                                            <td className="pt-2  w-1/4"></td>
+                                            <td className="pt-2  w-1/4">Browser Info</td>
                                             <td className="pt-2  w-1/4"></td>
                                         </tr>
-                                        <tr className="font-[500] text-[#101828] dark:text-stone-100 text-sm h-30">
+                                        <tr className="font-[400] text-[#101828] dark:text-stone-100 text-sm h-30">
                                             <td className="py-2 pb-6  w-1/4">
                                                 <p
                                                     className={`w-[85px] 
@@ -132,10 +157,12 @@ function ShowLogs({ log, show, onClose }) {
                                                 </p>
                                             </td>
                                             <td className={`py-2 pb-6  w-1/4`}>
-                                                {formatTimestamp(log?.timestamp) || "N/A"}
+                                                <p className="w-[120px] ">
+                                                    {formatTimestamp(log?.timestamp) || "N/A"}
+                                                </p>
                                             </td>
                                             <td className="py-2 pb-6 w-1/4">
-
+                                                {`${browserInfoToRender?.browser} ${browserInfoToRender?.version}`}
                                             </td>
                                             <td className="py-2 pb-6 w-1/4"
                                             >

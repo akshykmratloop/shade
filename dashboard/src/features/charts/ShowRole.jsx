@@ -57,7 +57,7 @@ function UserDetailsModal({ user, show, onClose }) {
     if (!user) return null;
 
     return (
-        <Dialog open={show} onClose={onClose} className="relative z-50">
+        <Dialog open={show} onClose={onClose} className="relative z-50 font-poppins">
             <div className="fixed inset-0 bg-black/50" aria-hidden="true" />
             <div className="fixed inset-0 flex items-center justify-center p-4">
                 <Dialog.Panel className="w-[600px] h-[700px] customscroller shadow-lg shadow-stone rounded-lg bg-[white] dark:bg-slate-800 p-6">
@@ -76,14 +76,14 @@ function UserDetailsModal({ user, show, onClose }) {
                                     <div className="flex items-center gap-4">
                                         <img src={user.image || userIcon} alt="" className="w-[4.8rem] h-[4.8rem] rounded-lg" />
                                         <div>
-                                            <p className="font-semibold text-[#101828] dark:text-[white]">{user.name}</p>
+                                            <p className="font-medium text-[#101828] dark:text-[white]">{user.name}</p>
                                             <p className="text-[gray]">{user.email}</p>
                                         </div>
                                     </div>
                                     <table className="table-auto w-full text-left">
                                         <thead>
                                             <tr>
-                                                <th colSpan={3} className="pt-4">Personal Details</th>
+                                                <th colSpan={3} className="pt-4 font-[500]">Personal Details</th>
                                             </tr>
                                         </thead>
                                         <tbody style={{ borderBottom: "1px solid #E0E0E0" }}>
@@ -92,7 +92,7 @@ function UserDetailsModal({ user, show, onClose }) {
                                                 <td className="pt-2">Email</td>
                                                 <td className="pt-2">Phone</td>
                                             </tr>
-                                            <tr className="font-[500] text-[#101828] dark:text-stone-100 text-sm">
+                                            <tr className="font-[400] text-[#101828] dark:text-stone-100 text-sm">
                                                 <td className="py-2 pb-6">{user.name}</td>
                                                 <td className="py-2 pb-6">{user.email}</td>
                                                 <td className="py-2 pb-6">{user.phone}</td>
@@ -102,7 +102,7 @@ function UserDetailsModal({ user, show, onClose }) {
                                     <table className="table-auto w-full text-left">
                                         <thead>
                                             <tr>
-                                                <th colSpan={3} className="pt-4">Roles & Permissions</th>
+                                                <th colSpan={3} className="pt-4 font-[500]">Roles & Permissions</th>
                                             </tr>
                                         </thead>
                                         <tbody style={{ borderBottom: "1px solid #E0E0E0" }}>
@@ -110,7 +110,7 @@ function UserDetailsModal({ user, show, onClose }) {
                                                 <td className="pt-2 pr-[24px] w-[188px]">Roles</td>
                                                 <td className="pt-2">Permissions</td>
                                             </tr>
-                                            <tr className="font-[500] text-[#101828] dark:text-stone-100 text-sm pb-7 ">
+                                            <tr className="font-[400] text-[#101828] dark:text-stone-100 text-sm pb-7 ">
                                                 <td className="py-2 pb-7 w-[118px]"
                                                 >
                                                     <div className="flex gap-2 flex-wrap relative">
@@ -142,7 +142,7 @@ function UserDetailsModal({ user, show, onClose }) {
                                     <table className=" w-full text-left">
                                         <thead className="mb-4">
                                             <tr className="mb-4 block">
-                                                <th colSpan={3} className="pt-4">Associated Resources</th>
+                                                <th colSpan={3} className="pt-4 font-[500]">Associated Resources</th>
                                             </tr>
                                             <tr className="font-light bg-[#25439B] text-[white] text-[14px] ">
                                                 <td className="p-3"
@@ -153,12 +153,12 @@ function UserDetailsModal({ user, show, onClose }) {
                                             </tr>
                                         </thead>
                                         <tbody className="bg-[#fcfcfc] dark:bg-transparent">
-                                            <tr className="font-medium text-[14px] text-[#101828] dark:text-[#f5f5f4]">
+                                            <tr className="font-light text-[14px] text-[#101828] dark:text-[#f5f5f4]">
                                                 <td className="px-4 py-2 dark:border dark:border-[#232d3d]">Manager</td>
                                                 <td className="px-4 py-2 dark:border dark:border-[#232d3d]">Edit, Create, Role</td>
                                                 <td className="px-4 py-2 dark:border dark:border-[#232d3d]">Edit, Create, Role</td>
                                             </tr>
-                                            <tr className="font-medium text-[14px] text-[#101828] dark:text-[#f5f5f4]">
+                                            <tr className="font-light text-[14px] text-[#101828] dark:text-[#f5f5f4]">
                                                 <td className="px-4 py-2 pb-6 dark:border dark:border-[#232d3d]">Manager</td>
                                                 <td className="px-4 py-2 pb-6 dark:border dark:border-[#232d3d]">Delete, </td>
                                                 <td className="px-4 py-2 pb-6 dark:border dark:border-[#232d3d]">Read</td>

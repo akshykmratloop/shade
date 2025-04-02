@@ -53,7 +53,7 @@ function RoleDetailsModal({ role, show, onClose }) {
     if (!role) return null;
 
     return (
-        <Dialog open={show} onClose={onClose} className="relative z-50">
+        <Dialog open={show} onClose={onClose} className="relative z-50 font-poppins">
             <div className="fixed inset-0 bg-black/50" aria-hidden="true" />
             <div ref={modalRef} className="fixed inset-0 flex items-center justify-center p-4">
                 <Dialog.Panel className="w-[653px] h-[600px] overflow-y-scroll customscroller shadow-lg shadow-stone rounded-lg bg-[white] dark:bg-slate-800 p-6">
@@ -81,7 +81,7 @@ function RoleDetailsModal({ role, show, onClose }) {
                                             <td className="pt-2  w-1/4">Role Type</td>
                                             <td className="pt-2  w-1/4">Updated At</td>
                                         </tr>
-                                        <tr className="font-[500] text-[#101828] dark:text-stone-100 text-sm">
+                                        <tr className="font-[400] text-[#101828] dark:text-stone-100 text-sm">
                                             <td className="py-2 pb-6  w-1/4">{capitalizeWords(fetchedRole.name ?? "")}</td>
                                             <td className={`py-2 pb-6  w-1/4`}>
                                                 <p
@@ -103,9 +103,8 @@ function RoleDetailsModal({ role, show, onClose }) {
                                 </table>
                                 <div className="table-auto w-full text-left py-6 flex gap-[160px]">
                                     <div>
-
                                         <h3 className="text-sm font-[300]">Permissions</h3>
-                                        <ul className="text-sm font-[500] text-[#101828] flex flex-col gap-1 pt-4">
+                                        <ul className="text-sm font-[400] text-[#101828] flex flex-col gap-1 pt-4">
                                             {!loading &&
                                                 fetchedRole.permissions.map(element => {
 
@@ -120,7 +119,7 @@ function RoleDetailsModal({ role, show, onClose }) {
                                     </div>
                                     <div>
                                         <h3 className="text-sm font-[300]">Assigned Users</h3>
-                                        <ul className="text-sm font-[500] text-[#101828] flex flex-col gap-1 pt-4">
+                                        <ul className="text-sm font-[400] text-[#101828] flex flex-col gap-1 pt-4">
                                             {!loading &&
                                                 fetchedRole.users.map(user => {
 

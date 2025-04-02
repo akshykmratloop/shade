@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 // import { useTruncate } from "@/common/useTruncate";
 import { projectPageData } from "../../../../assets/index";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { updateContent } from "../../../common/homeContentSlice";
 import content from './content.json'
 // import NotFound from "../../pages/404";
@@ -20,7 +20,7 @@ const ProjectDetailPage = ({ contentOn, language, projectId, screen }) => {
     const isPhone = screen < 767
     const isLeftAlign = language === 'en'
     const dispatch = useDispatch()
-
+    const ImageFromRedux = useSelector((state) => state.homeContent.present.images)
     const currentContent = contentOn?.[projectId - 1]
 
 
@@ -55,22 +55,22 @@ const ProjectDetailPage = ({ contentOn, language, projectId, screen }) => {
 
 
     return (
-        <div className="w-full " dir={isLeftAlign?"ltr":"rtl"}>
+        <div className="w-full " dir={isLeftAlign ? "ltr" : "rtl"}>
             {/* Intro Section */}
             <section className="mt-36 mb-10">
                 <div className="container mx-auto px-16">
-                    <div className={`${isPhone? "flex flex-col gap-[40px]":"grid grid-cols-2 gap-[52px] mb-16 items-center"}`}>
+                    <div className={`${isPhone ? "flex flex-col gap-[40px]" : "grid grid-cols-2 gap-[52px] mb-16 items-center"}`}>
                         <div>
                             <div className="relative">
-                                <Link href="/project" className={`flex items-center gap-2 text-gray-700 font-bold text-lg ${isPhone? isLeftAlign ? "absolute -top-[100px] -left-12 " : "absolute -top-[100px] -right-12" : ""}`}>
+                                <Link href="/project" className={`flex items-center gap-2 text-gray-700 font-bold text-lg ${isPhone ? isLeftAlign ? "absolute -top-[100px] -left-12 " : "absolute -top-[100px] -right-12" : ""}`}>
                                     <img
-                                        src="https://loopwebsite.s3.ap-south-1.amazonaws.com/bx_arrow-back+(1).svg"
+                                        src={ImageFromRedux?.[`ProjectBanner/${projectId}`] ? ImageFromRedux?.[`ProjectBanner/${projectId}`] : "https://loopwebsite.s3.ap-south-1.amazonaws.com/bx_arrow-back+(1).svg"}
                                         alt="Back Icon"
                                         width={20}
                                         height={20}
                                         className={`${language === "en" ? 'scale-x-[-1]' : ''}`}
                                     />
-                                    {introSection?.backButton[language]}
+                                    {introSection?.backButton[language]}ProjectBanner/
                                 </Link>
                                 <h1 className={`text-[#062233] font-bold text-xl mt-7 mb-6 `}>
                                     {introSection?.title[language]}
@@ -93,7 +93,7 @@ const ProjectDetailPage = ({ contentOn, language, projectId, screen }) => {
                     </div>
 
                     {/* Project Info List */}
-                    <div className={`flex ${isPhone&&"flex-col"} items-stretch justify-between gap-4 mt-10`}>
+                    <div className={`flex ${isPhone && "flex-col"} items-stretch justify-between gap-4 mt-10`}>
                         {introSection?.projectInforCard?.map((card, index) => (
                             <div key={index} className="p-3 flex flex-col bg-blue-100 rounded-md flex-1">
                                 <img src={card?.icon} alt="" width={28} height={28} className="w-7 h-7" />
@@ -146,29 +146,29 @@ const ProjectDetailPage = ({ contentOn, language, projectId, screen }) => {
             {/* gallery */}
             <section className="pb-[50px] ">
                 <div className="container">
-                    <div className={`flex justify-between items-center  relative ${isPhone? "px-1 gap-4" : "px-20 gap-16"}`}>
+                    <div className={`flex justify-between items-center  relative ${isPhone ? "px-1 gap-4" : "px-20 gap-16"}`}>
                         {gallerySection?.images?.map((image, index) => {
-                            const spanBordersSize = isPhone? "w-12 h-12" :"w-20 h-20"
+                            const spanBordersSize = isPhone ? "w-12 h-12" : "w-20 h-20"
 
                             return (
                                 <div key={index} className={` ${index === 1 ? 'absolute left-1/2 -translate-x-1/2 custom-position z-20 shadow-lg border border-lime-500' : 'relative'}`}>
                                     <img
                                         src={image.url}
-                                        width={index === 1 ? isPhone? 200 : 302 : 488}
+                                        width={index === 1 ? isPhone ? 200 : 302 : 488}
                                         // height={index === 1 ? 132 : 296}
                                         alt={image.alt[language]}
                                         className={`${index === 1 ? "aspect-[16/9]" : "aspect-[13/12]"}`}
                                     />
                                     {index === 0 && (
                                         <>
-                                            <span className={`absolute  ${isPhone? "-right-1 -top-1" :"-right-4 -top-6"} ${spanBordersSize} border-t border-r border-blue-400`} />
-                                            <span className={`absolute  ${isPhone? "-right-1 -bottom-1" :"-right-4 -bottom-6"} ${spanBordersSize} border-b border-r border-blue-400`} />
+                                            <span className={`absolute  ${isPhone ? "-right-1 -top-1" : "-right-4 -top-6"} ${spanBordersSize} border-t border-r border-blue-400`} />
+                                            <span className={`absolute  ${isPhone ? "-right-1 -bottom-1" : "-right-4 -bottom-6"} ${spanBordersSize} border-b border-r border-blue-400`} />
                                         </>
                                     )}
                                     {index === gallerySection?.images?.length - 1 && (
                                         <>
-                                            <span className={`absolute  ${isPhone ? "-left-1 -top-1" :"-left-4 -top-6"} ${spanBordersSize} border-t border-l border-blue-400`} />
-                                            <span className={`absolute  ${isPhone ? "-left-1 -bottom-1":"-left-4 -bottom-6"} ${spanBordersSize} border-b border-l border-blue-400`} />
+                                            <span className={`absolute  ${isPhone ? "-left-1 -top-1" : "-left-4 -top-6"} ${spanBordersSize} border-t border-l border-blue-400`} />
+                                            <span className={`absolute  ${isPhone ? "-left-1 -bottom-1" : "-left-4 -bottom-6"} ${spanBordersSize} border-b border-l border-blue-400`} />
                                         </>
                                     )}
                                 </div>
@@ -182,7 +182,7 @@ const ProjectDetailPage = ({ contentOn, language, projectId, screen }) => {
             <section className="pt-[70px] pb-[88px] px-[26px]">
                 <div className="container">
                     <h2 className={`text-gray-700 text-2xl font-normal mb-6 `}>{moreProjects?.title[language]}</h2>
-                    <div className={`${isPhone? "flex flex-col gap-10 ":`grid ${isTablet? "grid-cols-2":"grid-cols-3"} gap-x-8 gap-y-6 mt-12`}`}>
+                    <div className={`${isPhone ? "flex flex-col gap-10 " : `grid ${isTablet ? "grid-cols-2" : "grid-cols-3"} gap-x-8 gap-y-6 mt-12`}`}>
                         {moreProjects?.projects?.slice(0, 3).map((project, key) => (
                             <div key={key} className="rounded-md p-3 flex flex-col items-start gap-2 ">
                                 <img
@@ -193,7 +193,7 @@ const ProjectDetailPage = ({ contentOn, language, projectId, screen }) => {
                                     className="w-full aspect-[12/8]"
                                 />
                                 <h5 className={`text-[#292E23D] text-lg font-bold mt-4 h-11  ${language === 'ar' ? 'text-right' : ''}`}>{TruncateText(project?.title[language], 25)}</h5>
-                                <p className={`text-gray-700 text-sm font-light mt-2 ${!isLeftAlign&&"text-right"}`}>{project?.address[language]}</p>
+                                <p className={`text-gray-700 text-sm font-light mt-2 ${!isLeftAlign && "text-right"}`}>{project?.address[language]}</p>
                                 <button
                                     className="text-[#00b9f2] text-base font-normal flex items-center gap-2 mt-2 cursor-pointer bg-transparent border-none"
                                 // onClick={() => router.push("/project/56756757656")}

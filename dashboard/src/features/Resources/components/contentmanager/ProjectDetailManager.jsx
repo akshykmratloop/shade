@@ -17,12 +17,33 @@ const ProjectDetailManager = ({ projectId, currentContent, currentPath, language
                     { input: "input", label: "Description", updateType: "subtitle" },
                     { input: "input", label: "Url", updateType: "url" },
                 ]}
-                inputFiles={[{ label: "Backround Image", id: "ProjectBanner" + (projectId) }]}
+                inputFiles={[{ label: "Backround Image", id: "ProjectBanner/" + (projectId) }]}
                 section={"introSection"}
                 language={language}
                 currentContent={currentContent}
                 projectId={projectId}
             />
+
+            {
+                currentContent?.descriptionSection?.map((element, index) => {
+                    return (
+                        <ContentSection
+                            currentPath={currentPath}
+                            Heading={"Cards"}
+                            inputs={[
+                                { input: "input", label: "Title", updateType: "title" },
+                                { input: "input", label: "Description", updateType: "description" },
+                            ]}
+                            // inputFiles={[{ label: "Backround Image", id: "ProjectBanner" + (projectId) }]}
+                            section={"descriptionSection"}
+                            subSection={index}
+                            language={language}
+                            currentContent={currentContent}
+                            projectId={projectId}
+                        />
+                    )
+                })
+            }
 
 
         </div>
