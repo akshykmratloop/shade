@@ -499,7 +499,7 @@ const HomePage = ({ language, screen }) => {
                             }}
                             autoplay={{ delay: 2500 }}
                             breakpoints={{
-                                724: { slidesPerView: isPhone?1:2.2 },
+                                724: { slidesPerView: isPhone?1:2 },
                                 500: { slidesPerView: 1 },
                             }}
                         >

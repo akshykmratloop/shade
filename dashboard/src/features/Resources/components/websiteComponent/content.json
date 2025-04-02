@@ -2224,6 +2224,13 @@
               "ar": "صورة المعرض 3",
               "en": "Gallery Image 3"
             }
+          },
+          {
+            "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Rectangle+34624114+(1).png",
+            "alt": {
+              "ar": "صورة المعرض 2",
+              "en": "Gallery Image 2"
+            }
           }
         ]
       },
@@ -2406,6 +2413,13 @@
               "ar": "صورة المعرض 3",
               "en": "Gallery Image 3"
             }
+          },
+          {
+            "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Rectangle+34624114+(1).png",
+            "alt": {
+              "ar": "صورة المعرض 2",
+              "en": "Gallery Image 2"
+            }
           }
         ]
       },
@@ -2587,6 +2601,13 @@
             "alt": {
               "ar": "صورة المعرض 3",
               "en": "Gallery Image 3"
+            }
+          },
+          {
+            "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Rectangle+34624114+(1).png",
+            "alt": {
+              "ar": "صورة المعرض 2",
+              "en": "Gallery Image 2"
             }
           }
         ]

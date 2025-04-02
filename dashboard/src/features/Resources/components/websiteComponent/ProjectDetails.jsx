@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 // import styles from "./ProjectDetail.module.scss";
 import { Link } from "react-router-dom";
 // import { useTruncate } from "@/common/useTruncate";
@@ -6,6 +6,16 @@ import { projectPageData } from "../../../../assets/index";
 import { useDispatch, useSelector } from "react-redux";
 import { updateContent } from "../../../common/homeContentSlice";
 import content from './content.json'
+import { Swiper, SwiperSlide } from "swiper/react";
+import {
+    Navigation,
+    Autoplay,
+    EffectCoverflow,
+} from "swiper/modules";
+
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
 // import NotFound from "../../pages/404";
 // Import local font
 // const BankGothic = localFont({
@@ -15,6 +25,7 @@ import content from './content.json'
 // import { useGlobalContext } from "../../contexts/GlobalContext";
 
 const ProjectDetailPage = ({ contentOn, language, projectId, screen }) => {
+
     const isComputer = screen > 1100
     const isTablet = 1100 > screen && screen > 767
     const isPhone = screen < 767
@@ -22,6 +33,9 @@ const ProjectDetailPage = ({ contentOn, language, projectId, screen }) => {
     const dispatch = useDispatch()
     const ImageFromRedux = useSelector((state) => state.homeContent.present.images)
     const currentContent = contentOn?.[projectId - 1]
+
+    const testimonialPrevRef = useRef(null);
+    const testimonialNextRef = useRef(null);
 
 
     useEffect(() => {
@@ -85,7 +99,7 @@ const ProjectDetailPage = ({ contentOn, language, projectId, screen }) => {
                         </div>
                         <div>
                             <img
-                                src={ImageFromRedux?.[`ProjectBanner/${projectId}`] ? ImageFromRedux?.[`ProjectBanner/${projectId}`] :"https://loopwebsite.s3.ap-south-1.amazonaws.com/Project+hero.jpg"}
+                                src={ImageFromRedux?.[`ProjectBanner/${projectId}`] ? ImageFromRedux?.[`ProjectBanner/${projectId}`] : "https://loopwebsite.s3.ap-south-1.amazonaws.com/Project+hero.jpg"}
                                 alt="Project Hero"
                                 className="w-full h-[250px]"
                             />
@@ -144,39 +158,94 @@ const ProjectDetailPage = ({ contentOn, language, projectId, screen }) => {
             </section>
 
             {/* gallery */}
-            <section className="pb-[50px] ">
-                <div className="container">
-                    <div className={`flex justify-between items-center  relative ${isPhone ? "px-1 gap-4" : "px-20 gap-16"}`}>
-                        {gallerySection?.images?.map((image, index) => {
-                            const spanBordersSize = isPhone ? "w-12 h-12" : "w-20 h-20"
+            <div className="relative w-[778px] border mx-auto">
+                {/* Blur effect container
+                {
+                    !isPhone &&
+                    <div className="absolute top-0 left-0 h-full w-[20%] bg-gradient-to-r from-white to-transparent pointer-events-none z-10"></div>
+                }
+                {
+                    !isPhone &&
+                    <div className="absolute top-0 right-0 h-full w-[20%] bg-gradient-to-l from-white to-transparent pointer-events-none z-10"></div>
+                } */}
 
-                            return (
-                                <div key={index} className={` ${index === 1 ? 'absolute left-1/2 -translate-x-1/2 custom-position z-20 shadow-lg border border-lime-500' : 'relative'}`}>
+                <Swiper
+                    className=""
+                    modules={[Navigation, Autoplay, EffectCoverflow]}
+                    grabCursor={false}
+                    centeredSlides={true}
+                    slidesPerView={3}
+                    loop={true}
+                    spaceBetween={10}
+                    effect="coverflow"
+                    navigation={{
+                        prevEl: testimonialPrevRef.current,
+                        nextEl: testimonialNextRef.current,
+                    }}
+                    onSwiper={(swiper) => {
+                        swiper.params.navigation.prevEl = testimonialPrevRef.current;
+                        swiper.params.navigation.nextEl = testimonialNextRef.current;
+                        swiper.navigation.init();
+                        swiper.navigation.update();
+                    }}
+                    coverflowEffect={{
+                        rotate: 0,
+                        stretch: 0,
+                        depth: 250,
+                        modifier: 2,
+                        slideShadows: false,
+                    }}
+                    autoplay={{ delay: 2500 }}
+                    breakpoints={{
+                        724: { slidesPerView: isPhone ? 1 : 2 },
+                        500: { slidesPerView: 3 },
+                    }}
+                >
+                    {gallerySection?.images?.map(
+                        (image, index) => (
+                            <SwiperSlide key={index+Math}>
+                                <div className="flex justify-center ">
                                     <img
                                         src={image.url}
-                                        width={index === 1 ? isPhone ? 200 : 302 : 488}
-                                        // height={index === 1 ? 132 : 296}
-                                        alt={image.alt[language]}
-                                        className={`${index === 1 ? "aspect-[16/9]" : "aspect-[13/12]"}`}
+                                        height={400}
+                                        width={400}
+                                        alt={image.name}
+                                        className="rounded-lg h-[400px] w-[400px] object-cover"
                                     />
-                                    {index === 0 && (
-                                        <>
-                                            <span className={`absolute  ${isPhone ? "-right-1 -top-1" : "-right-4 -top-6"} ${spanBordersSize} border-t border-r border-blue-400`} />
-                                            <span className={`absolute  ${isPhone ? "-right-1 -bottom-1" : "-right-4 -bottom-6"} ${spanBordersSize} border-b border-r border-blue-400`} />
-                                        </>
-                                    )}
-                                    {index === gallerySection?.images?.length - 1 && (
-                                        <>
-                                            <span className={`absolute  ${isPhone ? "-left-1 -top-1" : "-left-4 -top-6"} ${spanBordersSize} border-t border-l border-blue-400`} />
-                                            <span className={`absolute  ${isPhone ? "-left-1 -bottom-1" : "-left-4 -bottom-6"} ${spanBordersSize} border-b border-l border-blue-400`} />
-                                        </>
-                                    )}
                                 </div>
-                            )
-                        })}
-                    </div>
+                            </SwiperSlide>
+                        )
+                    )}
+                </Swiper>
+
+                <div className={`flex justify-center items-center gap-7 mt-5 ${!isLeftAlign && "flex-row-reverse"}`}>
+                    <button
+                        ref={testimonialPrevRef}
+                        className="w-[42px] h-[42px] rounded-full border border-[#00B9F2] flex justify-center items-center cursor-pointer"
+                    >
+                        <img
+                            src="https://frequencyimage.s3.ap-south-1.amazonaws.com/b2872383-e9d5-4dd7-ae00-8ae00cc4e87e-Vector%20%286%29.svg"
+                            width="22"
+                            height="17"
+                            alt=""
+                            className={`${isLeftAlign && 'scale-x-[-1]'}`}
+                        />
+                    </button>
+                    <button
+                        ref={testimonialNextRef}
+                        className="w-[42px] h-[42px] rounded-full border border-[#00B9F2] flex justify-center items-center cursor-pointer"
+                    >
+                        <img
+                            src="https://frequencyimage.s3.ap-south-1.amazonaws.com/de8581fe-4796-404c-a956-8e951ccb355a-Vector%20%287%29.svg"
+                            width="22"
+                            height="17"
+                            alt=""
+                            className={`${isLeftAlign && 'scale-x-[-1]'}`}
+                        />
+                    </button>
                 </div>
-            </section>
+            </div>
+
 
             {/* More Projects */}
             <section className="pt-[70px] pb-[88px] px-[26px]">
@@ -217,3 +286,37 @@ const ProjectDetailPage = ({ contentOn, language, projectId, screen }) => {
 };
 
 export default ProjectDetailPage;
+
+{/* <section className="pb-[50px] ">
+                <div className="container">
+                    <div className={`flex justify-between items-center  relative ${isPhone ? "px-1 gap-4" : "px-20 gap-16"}`}>
+                        {gallerySection?.images?.map((image, index) => {
+                            const spanBordersSize = isPhone ? "w-12 h-12" : "w-20 h-20"
+
+                            return (
+                                <div key={index} className={` ${index === 1 ? 'absolute left-1/2 -translate-x-1/2 custom-position z-20 shadow-lg border border-lime-500' : 'relative'}`}>
+                                    <img
+                                        src={image.url}
+                                        width={index === 1 ? isPhone ? 200 : 302 : 488}
+                                        // height={index === 1 ? 132 : 296}
+                                        alt={image.alt[language]}
+                                        className={`${index === 1 ? "aspect-[16/9]" : "aspect-[13/12]"}`}
+                                    />
+                                    {index === 0 && (
+                                        <>
+                                            <span className={`absolute  ${isPhone ? "-right-1 -top-1" : "-right-4 -top-6"} ${spanBordersSize} border-t border-r border-blue-400`} />
+                                            <span className={`absolute  ${isPhone ? "-right-1 -bottom-1" : "-right-4 -bottom-6"} ${spanBordersSize} border-b border-r border-blue-400`} />
+                                        </>
+                                    )}
+                                    {index === gallerySection?.images?.length - 1 && (
+                                        <>
+                                            <span className={`absolute  ${isPhone ? "-left-1 -top-1" : "-left-4 -top-6"} ${spanBordersSize} border-t border-l border-blue-400`} />
+                                            <span className={`absolute  ${isPhone ? "-left-1 -bottom-1" : "-left-4 -bottom-6"} ${spanBordersSize} border-b border-l border-blue-400`} />
+                                        </>
+                                    )}
+                                </div>
+                            )
+                        })}
+                    </div>
+                </div>
+            </section> */}
