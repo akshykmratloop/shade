@@ -158,8 +158,8 @@ const ProjectDetailPage = ({ contentOn, language, projectId, screen }) => {
             </section>
 
             {/* gallery */}
-            <div className="relative w-[778px] border mx-auto">
-                {/* Blur effect container
+            <div className={`relative ${isPhone || isTablet ? "w-full " : "w-[770px]"} mx-auto`}>
+                {/* Blur effect container */}
                 {
                     !isPhone &&
                     <div className="absolute top-0 left-0 h-full w-[20%] bg-gradient-to-r from-white to-transparent pointer-events-none z-10"></div>
@@ -167,7 +167,7 @@ const ProjectDetailPage = ({ contentOn, language, projectId, screen }) => {
                 {
                     !isPhone &&
                     <div className="absolute top-0 right-0 h-full w-[20%] bg-gradient-to-l from-white to-transparent pointer-events-none z-10"></div>
-                } */}
+                }
 
                 <Swiper
                     className=""
@@ -198,19 +198,17 @@ const ProjectDetailPage = ({ contentOn, language, projectId, screen }) => {
                     autoplay={{ delay: 2500 }}
                     breakpoints={{
                         724: { slidesPerView: isPhone ? 1 : 2 },
-                        500: { slidesPerView: 3 },
+                        500: { slidesPerView: 2 },
                     }}
                 >
                     {gallerySection?.images?.map(
                         (image, index) => (
-                            <SwiperSlide key={index+Math}>
+                            <SwiperSlide key={index + Math}>
                                 <div className="flex justify-center ">
                                     <img
                                         src={image.url}
-                                        height={400}
-                                        width={400}
                                         alt={image.name}
-                                        className="rounded-lg h-[400px] w-[400px] object-cover"
+                                        className={`rounded-lg ${isPhone ? "h-[200px]":"h-[400px]"} w-[400px] object-cover`}
                                     />
                                 </div>
                             </SwiperSlide>
@@ -218,7 +216,7 @@ const ProjectDetailPage = ({ contentOn, language, projectId, screen }) => {
                     )}
                 </Swiper>
 
-                <div className={`flex justify-center items-center gap-7 mt-5 ${!isLeftAlign && "flex-row-reverse"}`}>
+                {/* <div className={`flex justify-center items-center gap-7 mt-5 ${!isLeftAlign && "flex-row-reverse"}`}>
                     <button
                         ref={testimonialPrevRef}
                         className="w-[42px] h-[42px] rounded-full border border-[#00B9F2] flex justify-center items-center cursor-pointer"
@@ -243,7 +241,7 @@ const ProjectDetailPage = ({ contentOn, language, projectId, screen }) => {
                             className={`${isLeftAlign && 'scale-x-[-1]'}`}
                         />
                     </button>
-                </div>
+                </div> */}
             </div>
 
 
