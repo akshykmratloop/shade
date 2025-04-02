@@ -35,7 +35,7 @@ const CreateRole = async (req, res) => {
   const result = await createRole(name, roleTypeId, permissions);
   await createNotification({
     userId: req.user.id,
-    role: "ADMIN",
+    role: "Admin",
     message: `A new role ${name} has been created`,
     io: res.app.locals.io,
   });
