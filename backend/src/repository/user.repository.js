@@ -147,6 +147,7 @@ export const fetchAllUsers = async (
 };
 
 // Update User
+<<<<<<< HEAD
 export const updateUser = async (userId, name, password, phone, roles) => {
   const data = {
     name,
@@ -158,6 +159,25 @@ export const updateUser = async (userId, name, password, phone, roles) => {
       create: roles?.map((roleId) => ({
         role: { connect: { id: roleId } },
       })) || [],
+=======
+export const updateUser = async (id, name, password, phone, roles) => {
+  const hashedPassword = await EncryptData(password, 10);
+  const updatedUser = await prismaClient.user.update({
+    where: {id},
+    data: {
+      name,
+      password: hashedPassword,
+      phone,
+      roles: {
+        // Remove all existing role associations for the user
+        deleteMany: {},
+        // Create new associations for each provided role ID
+        create:
+          roles?.map((roleId) => ({
+            role: {connect: {id: roleId}},
+          })) || [],
+      },
+>>>>>>> 46db75fe8ff87a85ef1dbd0db03ef7a359028bac
     },
   };
 
@@ -397,5 +417,13 @@ export const userDeactivation = async (id) => {
 };
 
 export const findAllLogs = async () => {
-  return await prismaClient.auditLog.findMany({include: {user: true}});
+  return await prismaClient.auditLog.findMany({
+    include: {
+      user: {
+        include: {
+          user: true,
+        },
+      },
+    },
+  });
 };

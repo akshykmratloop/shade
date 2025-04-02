@@ -27,9 +27,14 @@ const getUserById = async (id) => {
   return {message: "user fetched successfully", user};
 };
 
+<<<<<<< HEAD
 const editUserDetails = async (userId, name, password, phone, roles) => {
   const updateResult = await updateUser(userId, name, password, phone, roles);
   return {message: "User updated successfully!", updateResult} // added a message to display in frontend otherwise it was undefined
+=======
+const editUserDetails = async (id, name, password, phone, roles) => {
+  return await updateUser(id, name, password, phone, roles);
+>>>>>>> 46db75fe8ff87a85ef1dbd0db03ef7a359028bac
 };
 
 const findUserByEmail = async (email) => {
