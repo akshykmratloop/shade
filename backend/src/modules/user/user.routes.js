@@ -5,6 +5,7 @@ import tryCatchWrap from "../../errors/tryCatchWrap.js";
 import validate from "../../validation/validator.js";
 import {updateUserSchema, userSchema} from "../../validation/userSchema.js";
 import {checkPermission} from "../../helper/roleBasedAccess.js";
+import auditLogger from "../../helper/auditLogger.js";
 
 const router = Router();
 
@@ -14,6 +15,7 @@ router.post(
   "/create",
   checkPermission(requiredPermissionsForUser),
   validate(userSchema),
+  auditLogger,
   tryCatchWrap(UserController.createUserHandler)
 );
 router.get(
@@ -24,22 +26,26 @@ router.get(
 router.get(
   "/:id",
   checkPermission(requiredPermissionsForUser),
+  auditLogger,
   tryCatchWrap(UserController.GetUserById)
 );
 router.put(
-  "/updateUser/:userId",
+  "/updateUser/:id",
   checkPermission(requiredPermissionsForUser),
   validate(updateUserSchema),
+  auditLogger,
   tryCatchWrap(UserController.EditUserDetails)
 );
 router.put(
   "/activate",
   checkPermission(requiredPermissionsForUser),
+  auditLogger,
   tryCatchWrap(UserController.ActivateUser)
 );
 router.put(
   "/deactivate",
   checkPermission(requiredPermissionsForUser),
+  auditLogger,
   tryCatchWrap(UserController.DeactivateUser)
 );
 

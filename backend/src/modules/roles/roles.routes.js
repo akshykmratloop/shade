@@ -5,6 +5,7 @@ import validator from "../../validation/validator.js";
 import {createRoleSchema} from "../../validation/rolesSchema.js";
 import tryCatchWrap from "../../errors/tryCatchWrap.js";
 import {checkPermission} from "../../helper/roleBasedAccess.js";
+import auditLogger from "../../helper/auditLogger.js";
 
 const router = Router();
 
@@ -32,24 +33,28 @@ router.post(
   "/create",
   checkPermission(requiredPermissionsForRole),
   validator(createRoleSchema),
+  auditLogger,
   tryCatchWrap(RolesController.CreateRole)
 );
 
 router.put(
   "/update/:id",
   checkPermission(requiredPermissionsForRole),
+  auditLogger,
   tryCatchWrap(RolesController.UpdateRole)
 );
 
 router.put(
   "/activate",
   checkPermission(requiredPermissionsForRole),
+  auditLogger,
   tryCatchWrap(RolesController.ActivateRole)
 );
 
 router.put(
   "/deactivate",
   checkPermission(requiredPermissionsForRole),
+  auditLogger,
   tryCatchWrap(RolesController.DeactivateRole)
 );
 

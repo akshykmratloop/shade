@@ -11,6 +11,7 @@ import {
 const createUserHandler = async (req, res) => {
   const {name, email, password, phone, roles} = req.body;
   const user = await createUser(name, email, password, phone, roles);
+  res.locals.entityId = user.id;
   res.status(201).json(user);
 };
 
@@ -36,16 +37,10 @@ const GetUserById = async (req, res) => {
 };
 
 const EditUserDetails = async (req, res) => {
-  const {userId} = req.params;
+  const {id} = req.params;
   const {name, password, phone, roles} = req.body;
 
-  const updatedUser = await editUserDetails(
-    userId,
-    name,
-    password,
-    phone,
-    roles
-  );
+  const updatedUser = await editUserDetails(id, name, password, phone, roles);
   res.status(201).json(updatedUser);
 };
 
