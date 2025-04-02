@@ -57,7 +57,7 @@ const ProjectDetailPage = ({ contentOn, language, projectId, screen }) => {
     return (
         <div className="w-full " dir={isLeftAlign ? "ltr" : "rtl"}>
             {/* Intro Section */}
-            <section className="mt-36 mb-10">
+            <section className="mt-10 mb-10">
                 <div className="container mx-auto px-16">
                     <div className={`${isPhone ? "flex flex-col gap-[40px]" : "grid grid-cols-2 gap-[52px] mb-16 items-center"}`}>
                         <div>

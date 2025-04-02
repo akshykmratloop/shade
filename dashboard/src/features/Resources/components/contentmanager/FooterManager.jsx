@@ -6,7 +6,7 @@ const FooterManager = ({ language, currentContent, currentPath }) => {
     const socialIcons = useSelector((state) => state.homeContent.present.images.socialIcons)
 
     return (
-        <div>
+        <div className="w-full">
             {/* reference doc */}
             <FileUploader id={"footerReference"} label={"Rerference doc"} fileName={"Upload your file..."} />
             {/** Hero Banner */}

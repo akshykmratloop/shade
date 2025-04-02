@@ -18,7 +18,7 @@ const ProjectContentManager = ({ currentPath, currentContent, language }) => {
 
     // }, [])
     return (
-        <div>
+        <div className="w-full">
             {/* reference doc */}
             <FileUploader id={"projectReference"} label={"Rerference doc"} fileName={"Upload your file..."} />
             {/** Hero Banner */}

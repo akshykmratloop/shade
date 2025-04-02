@@ -7,7 +7,7 @@ const MarketManager = ({ language, currentContent, currentPath }) => {
 console.log(currentPath)
 
     return (
-        <div>
+        <div className="w-full">
             {/* reference doc */}
             <FileUploader id={"marketReference"} label={"Rerference doc"} fileName={"Upload your file..."} />
             {/** Hero Banner */}

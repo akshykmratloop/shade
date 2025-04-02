@@ -4,7 +4,7 @@ import ContentSection from "../ContentSections"
 const ProjectDetailManager = ({ projectId, currentContent, currentPath, language }) => {
 
     return (
-        <div>
+        <div className="w-full">
             {/* reference doc */}
             <FileUploader id={"ProjectIDReference" + projectId} label={"Rerference doc"} fileName={"Upload your file..."} />
             {/** Hero Banner */}
@@ -49,29 +49,30 @@ const ProjectDetailManager = ({ projectId, currentContent, currentPath, language
                     })
                 }
             </div>
-            {/* 
-            {
-                currentContent?.[projectId - 1].introSection?.projectInforCard?.map((element, index) => {
-                    console.log(element)
-                    return (
-                        <ContentSection
-                            currentPath={currentPath}
-                            subHeading={"Cards"}
-                            inputs={[
-                                { input: "input", label: "Title", updateType: "key" },
-                                { input: "input", label: "Description", updateType: "value" },
-                            ]}
-                            // inputFiles={[{ label: "Backround Image", id: "ProjectBanner" + (projectId) }]}
-                            section={"introSection"}
-                            subSection={"projectInforCard"}
-                            index={index}
-                            language={language}
-                            currentContent={currentContent}
-                            projectId={projectId}
-                        />
-                    )
-                })
-            } */}
+
+            <div className="mt-4">
+                <h3 className={`font-semibold text-[1.25rem] mb-4`}>Project Summaries</h3>
+                {
+                    currentContent?.[projectId - 1].descriptionSection?.map((element, index) => {
+                        console.log(element)
+                        return (
+                            <ContentSection
+                                currentPath={currentPath}
+                                subHeading={"Summary " + (index + 1)}
+                                inputs={[
+                                    { input: "input", label: "Title", updateType: "title" },
+                                    { input: "textarea", label: "Description", updateType: "description" },
+                                ]}
+                                section={"descriptionSection"}
+                                index={index}
+                                language={language}
+                                currentContent={currentContent}
+                                projectId={projectId}
+                            />
+                        )
+                    })
+                }
+            </div>
         </div>
     )
 }

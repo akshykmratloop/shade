@@ -7,7 +7,7 @@ const HeaderManager = ({ language, currentContent, currentPath }) => {
         contents = Object.keys(currentContent)
     }
     return (
-        <div>
+        <div className="w-full">
             {/* reference doc */}
             <FileUploader id={"headerReference"} label={"Rerference doc"} fileName={"Upload your file..."} />
             {contents?.map((section, i, a) => {

@@ -53,7 +53,11 @@ const cmsSlice = createSlice({
                 } else if (action.payload.title === 'url') {
                     state.present["projectDetail"][action.payload.projectId - 1][action.payload.section][action.payload.title] = action.payload.value
                 } else {
-                    state.present["projectDetail"][action.payload.projectId - 1][action.payload.section][action.payload.title][action.payload.lan] = action.payload.value
+                    if (action.payload.section === 'descriptionSection') {
+                        state.present["projectDetail"][action.payload.projectId - 1][action.payload.section][action.payload.index][action.payload.title][action.payload.lan] = action.payload.value
+                    } else {
+                        state.present["projectDetail"][action.payload.projectId - 1][action.payload.section][action.payload.title][action.payload.lan] = action.payload.value
+                    }
                 }
             } else if (action.payload.subSectionsProMax === "Links") {
                 state.present[action.payload?.currentPath][action.payload.section][action.payload.subSection][action.payload?.index][action.payload.title] = action.payload.value;

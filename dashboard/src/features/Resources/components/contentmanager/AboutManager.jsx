@@ -5,7 +5,7 @@ const AboutManager = ({ currentContent, currentPath, language }) => {
 
 
     return (
-        <div>
+        <div className="w-full">
             {/* reference doc */}
             <FileUploader id={"aboutReference"} label={"Rerference doc"} fileName={"Upload your file..."} />
             {/* services */}

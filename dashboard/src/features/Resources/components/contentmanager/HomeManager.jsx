@@ -6,7 +6,7 @@ import MultiSelect from "../MultiSelect";
 const HomeManager = ({ language, currentContent, currentPath }) => {
 
     return (
-        <div>
+        <div className="w-full">
             {/* reference doc */}
             <FileUploader id={"homeReference"} label={"Rerference doc"} fileName={"Upload your file..."} />
             {/* homeBanner */}
