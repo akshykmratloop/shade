@@ -193,7 +193,7 @@ const ProjectDetailPage = ({ contentOn, language, projectId, screen }) => {
                                     className="w-full aspect-[12/8]"
                                 />
                                 <h5 className={`text-[#292E23D] text-lg font-bold mt-4 h-11  ${language === 'ar' ? 'text-right' : ''}`}>{TruncateText(project?.title[language], 25)}</h5>
-                                <p className={`text-gray-700 text-sm font-light mt-2 text-right`}>{project?.address[language]}</p>
+                                <p className={`text-gray-700 text-sm font-light mt-2 ${!isLeftAlign&&"text-right"}`}>{project?.address[language]}</p>
                                 <button
                                     className="text-[#00b9f2] text-base font-normal flex items-center gap-2 mt-2 cursor-pointer bg-transparent border-none"
                                 // onClick={() => router.push("/project/56756757656")}

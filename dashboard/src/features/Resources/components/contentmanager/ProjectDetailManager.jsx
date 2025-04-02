@@ -2,7 +2,6 @@ import FileUploader from "../../../../components/Input/InputFileUploader"
 import ContentSection from "../ContentSections"
 
 const ProjectDetailManager = ({ projectId, currentContent, currentPath, language }) => {
-    console.log(currentContent)
 
     return (
         <div>
@@ -13,12 +12,13 @@ const ProjectDetailManager = ({ projectId, currentContent, currentPath, language
                 currentPath={currentPath}
                 Heading={"Banner"}
                 inputs={[
+                    { input: "input", label: "Button Text", updateType: "backButton" },
                     { input: "input", label: "Heading/title", updateType: "title" },
-                    { input: "textarea", label: "Description", updateType: "description" },
-                    { input: "input", label: "Button Text", updateType: "button" }
+                    { input: "input", label: "Description", updateType: "subtitle" },
+                    { input: "input", label: "Url", updateType: "url" },
                 ]}
-                inputFiles={[{ label: "Backround Image", id: "ProjectBanner" + projectId }]}
-                section={"banner"}
+                inputFiles={[{ label: "Backround Image", id: "ProjectBanner" + (projectId) }]}
+                section={"introSection"}
                 language={language}
                 currentContent={currentContent}
                 projectId={projectId}

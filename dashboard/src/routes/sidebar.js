@@ -59,7 +59,7 @@ const routes = [
     path: '/app/logs', // url
     icon: <Logs strokeWidth={1.5} />, // icon component
     name: 'Logs', // name that appear in Sidebar
-  },
+  }
   // {
   //   path: '/app/integration', // url
   //   icon: <BoltIcon className={iconClasses}/>, // icon component

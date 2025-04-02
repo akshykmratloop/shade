@@ -51,7 +51,7 @@ const ContentSection = ({
                 dispatch(updateServicesNumber({ section, title: updateType, value: val, subSection, index, currentPath }));
             }
         } else {
-            dispatch(updateSpecificContent({ section, title: updateType, lan: language, value: value === "" ? "" : value, subSection, index, subSectionsProMax, subSecIndex, currentPath }));
+            dispatch(updateSpecificContent({ section, title: updateType, lan: language, value: value === "" ? "" : value, subSection, index, subSectionsProMax, subSecIndex, currentPath, projectId }));
         }
     };
 
@@ -61,9 +61,12 @@ const ContentSection = ({
             {inputs.length > 0 ? inputs.map((input, i) => {
                 let valueExpression;
                 if (projectId) {
-                    valueExpression = currentContent?.[projectId]?.[section]?.[subSection]?.[index]?.[input.updateType]?.[language];
-                }
-                else if (subSectionsProMax === "Links") {
+                    if (input.updateType === 'url') {
+                        valueExpression = currentContent?.[projectId - 1]?.[section]?.[input.updateType];
+                    } else {
+                        valueExpression = currentContent?.[projectId - 1]?.[section]?.[input.updateType]?.[language];
+                    }
+                } else if (subSectionsProMax === "Links") {
                     valueExpression = currentContent?.[section]?.[subSection]?.[index]?.[input.updateType];
                 } else if (subSectionsProMax) {
                     valueExpression = currentContent?.[section]?.[subSection]?.[index]?.[subSectionsProMax]?.[subSecIndex]?.[input.updateType]?.[language];
