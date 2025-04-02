@@ -3,65 +3,44 @@ import prismaClient from "../config/dbConfig.js";
 // Middleware to log user actions in the database
 export const auditLogger = async (req, res, next) => {
   const {user, method} = req; // User info from authentication middleware
-  // const actionType = req.method; // HTTP method (GET, POST, PUT, DELETE)
   const entity = req.baseUrl.split("/").pop(); // Extract entity name from route
   let entityId = req.params.id || req.body.id || null; // Extract entity ID if available
   const ipAddress = req.ip;
   const browserInfo = req.headers["user-agent"];
 
-  let newValue = req.body;
   let oldValue = null;
+  let newValue = null;
 
   let actionType;
+  let action_performed;
   switch (method) {
     case "POST":
       actionType = "CREATE";
+      action_performed =
+        entity === "auth" ? `${entityId} logged in` : `${entity} created`;
       break;
     case "PUT":
     case "PATCH":
       actionType = "UPDATE";
+      action_performed = `${entity} updated`;
       break;
     case "DELETE":
       actionType = "DELETE";
+      action_performed = `${entityId} Deleted`;
       break;
     default:
       actionType = "ACCESS";
   }
 
-  // Capture the old record for PUT/DELETE actions
+  // Capture old record for UPDATE/DELETE actions
   if (["UPDATE", "DELETE"].includes(actionType) && entityId) {
     const oldRecord = await prismaClient[entity]?.findUnique({
       where: {id: entityId},
     });
+
     if (oldRecord) {
-      oldValue = JSON.stringify(oldRecord);
-
-      // For PUT, compute the differences between old and new values
-      if (actionType === "UPDATE") {
-        const diff = Object.keys(req.body).reduce((acc, key) => {
-          if (oldRecord[key] !== req.body[key]) {
-            acc[key] = {old: oldRecord[key], new: req.body[key]};
-          }
-          return acc;
-        }, {});
-
-        newValue =
-          Object.keys(diff).length > 0
-            ? JSON.stringify(
-                Object.fromEntries(
-                  Object.entries(diff).map(([key, change]) => [key, change.new])
-                )
-              )
-            : JSON.stringify(req.body);
-      }
+      oldValue = oldRecord;
     }
-  }
-
-  // Ensure oldValue is captured for DELETE actions
-  if (actionType === "DELETE" && entityId && !oldValue) {
-    oldValue = JSON.stringify(
-      await prismaClient[entity]?.findUnique({where: {id: entityId}})
-    );
   }
 
   res.on("finish", async () => {
@@ -69,15 +48,26 @@ export const auditLogger = async (req, res, next) => {
       entityId = res.locals.entityId || null;
     }
 
+    // Fetch the latest data from the DB after update
+    if (res.statusCode >= 400) {
+      console.log("Update failed, newValue remains unchanged.");
+      newValue = req.body; // Since the update didn't go through, no change happened
+    } else if (["CREATE", "UPDATE"].includes(actionType) && entityId) {
+      // Fetch latest data from the database only if the update was successful
+      newValue = await prismaClient[entity]?.findUnique({
+        where: {id: entityId},
+      });
+    }
+
     try {
       await prismaClient.auditLog.create({
         data: {
           actionType,
-          action_performed: `User ${entityId} performed ${actionType} on ${entity}`,
+          action_performed,
           entity,
           entityId,
-          oldValue: oldValue || null,
-          newValue: newValue ? JSON.stringify(newValue) : null,
+          oldValue: oldValue ? oldValue : null,
+          newValue: newValue ? newValue : null, // Fetch new value from DB
           ipAddress,
           browserInfo,
           outcome:
