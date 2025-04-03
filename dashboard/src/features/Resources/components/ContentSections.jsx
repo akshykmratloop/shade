@@ -37,14 +37,28 @@ const ContentSection = ({
                 dispatch(updateImages({ src: [...ImagesFromRedux.socialIcons, { img: "", url: "", id: ImagesFromRedux.socialIcons.length + 1 }], section: "socialIcons" }))
             }
         } else if (section === 'gallerySection') {
-            dispatch(updateImages({ src: { url: "", alt: { en: "", ar: "" } }, updateType: section, projectId }))
+            dispatch(updateImages({
+                src: { url: "", alt: { en: "", ar: "" } },
+                updateType: section,
+                projectId,
+                operation: 'add'
+            }))
         } else {
             setExtraFiles([...extraFiles, { label: `Extra File ${extraFiles.length + 1}`, id: `extraFile${extraFiles.length + 1}` }]);
         }
     };
 
     const removeExtraFileInput = (id) => {
-        setExtraFiles(extraFiles.filter(file => file.id !== id));
+        if (section === 'gallerySection') {
+            dispatch(updateImages({
+                src: id,
+                updateType: section,
+                projectId,
+                operation: 'remove'
+            }))
+        } else {
+            setExtraFiles(extraFiles.filter(file => file.id !== id));
+        }
     };
 
     const updateFormValue = ({ updateType, value }) => {
@@ -147,20 +161,20 @@ const ContentSection = ({
                             </div>
                         </div>
                         : <div className={`flex ${inputFiles.length > 1 ? "flex-wrap" : ""} gap-10 w-[80%]`}>
-                            {inputFiles.map((file, index) => (
+                            {inputFiles.map((file, i) => (
                                 <div className="relative">
-                                    {index > 3 && <button
+                                    {i > 3 && <button
                                         className="absolute top-6 z-10 right-[-12px] bg-red-500 text-white px-[5px] rounded-full shadow"
-                                        onClick={() => removeExtraFileInput(file.id)}
+                                        onClick={() => removeExtraFileInput(Number(file.id.slice(-1)))}
                                     >
                                         ✖
                                     </button>}
                                     <InputFile
-                                        key={index}
+                                        key={i}
                                         label={file.label}
                                         id={file.id}
                                         currentPath={currentPath}
-                                        fileIndex={index}
+                                        fileIndex={i}
                                         section={section}
                                     />
                                 </div>
