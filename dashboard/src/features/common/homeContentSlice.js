@@ -116,7 +116,35 @@ const cmsSlice = createSlice({
                     state.present[action.payload?.currentPath].latestNewCards.cards = newOptions
                     break;
                 case "projectDetail":
-                    console.log(newOptions)
+                    state.present.projectDetail[action.payload.projectId - 1].moreProjects.projects = newOptions
+                    break;
+
+                default:
+            }
+            state.future = [];
+        },
+        updateSelectedProject: (state, action) => {
+            console.log(action.payload.selected)
+            state.past.push(JSON.parse(JSON.stringify(state.present)));
+            const selectedMap = new Map(
+                action.payload?.selected?.filter(e => e.display).map((item, index) => [item.title[action.payload.language], index])
+            );
+            console.log(selectedMap)
+            let newOptions = action.payload.selected
+            if (action.payload.operation === 'remove') {
+                newOptions = action.payload.newArray?.map(e => ({
+                    ...e,
+                    display: selectedMap.has(e.title[action.payload.language])
+                }))
+            }
+            newOptions.sort((a, b) => {
+                const indexA = selectedMap.get(a.title[action.payload.language]) ?? Infinity;
+                const indexB = selectedMap.get(b.title[action.payload.language]) ?? Infinity;
+                return indexA - indexB;
+            });
+
+            switch (action.payload.origin) {
+                case "projectDetail":
                     state.present.projectDetail[action.payload.projectId - 1].moreProjects.projects = newOptions
                     break;
 
@@ -187,5 +215,5 @@ const cmsSlice = createSlice({
     }
 });
 
-export const { updateImages, removeImages, updateContent, updateSpecificContent, updateServicesNumber, updateSelectedContent, updateMarketSelectedContent, updateAllProjectlisting, selectMainNews, undo, redo } = cmsSlice.actions;
+export const { updateImages, removeImages, updateContent, updateSpecificContent, updateServicesNumber, updateSelectedContent, updateSelectedProject, updateMarketSelectedContent, updateAllProjectlisting, selectMainNews, undo, redo } = cmsSlice.actions;
 export default cmsSlice.reducer;

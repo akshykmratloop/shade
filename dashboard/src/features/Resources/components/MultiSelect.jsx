@@ -2,7 +2,6 @@ import React, { useState, useRef, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import content from "./websiteComponent/content.json"
 import { createPortal } from "react-dom";
-
 import {
   DndContext,
   closestCenter,
@@ -19,7 +18,7 @@ import {
   useSortable,
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { updateSelectedContent } from "../../common/homeContentSlice";
+import { updateSelectedContent, updateSelectedProject } from "../../common/homeContentSlice";
 
 const SortableItem = ({ option, removeOption, language, reference }) => {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } =
@@ -63,7 +62,7 @@ const MultiSelect = ({ heading, options = [], tabName, label, language, section,
   const [random, setRandom] = useState(1)
   const dispatch = useDispatch();
   const [activeItem, setActiveItem] = useState(null);
-
+  let operation = "";
 
   let actualListOfServices; //content.home.serviceSection.cards
   switch (referenceOriginal.dir) {
@@ -104,7 +103,7 @@ const MultiSelect = ({ heading, options = [], tabName, label, language, section,
       setSelectedOptions(prev => {
         return [...prev, { ...optionToAdd, display: true }]
       })
-      console.log('weqrqwer')
+      operation = 'add'
     } else {
       for (let i = 0; i < options.length; i++) {
         if (optionToAdd.title === options[i].title || optionToAdd.title[language] === options[i].title[language]) {
@@ -130,6 +129,7 @@ const MultiSelect = ({ heading, options = [], tabName, label, language, section,
         return option
       })
     })
+    operation = 'remove'
     setRandom(prev => prev + 1)
   };
 
@@ -170,16 +170,31 @@ const MultiSelect = ({ heading, options = [], tabName, label, language, section,
 
   useEffect(() => {
     if (options.length > 0 && random !== 1) {
-      dispatch(updateSelectedContent({
-        origin: referenceOriginal.dir,
-        index: referenceOriginal.index,
-        section,
-        newArray: [...options],
-        selected: selectedOptions,
-        language,
-        currentPath,
-        projectId
-      }));
+      if (referenceOriginal.dir === 'projectDetail') {
+        dispatch(updateSelectedProject({
+          origin: referenceOriginal.dir,
+          index: referenceOriginal.index,
+          section,
+          newArray: [...options],
+          selected: selectedOptions,
+          language,
+          currentPath,
+          projectId,
+          operation
+        }));
+      } else {
+
+        dispatch(updateSelectedContent({
+          origin: referenceOriginal.dir,
+          index: referenceOriginal.index,
+          section,
+          newArray: [...options],
+          selected: selectedOptions,
+          language,
+          currentPath,
+          projectId,
+        }));
+      }
     }
   }, [random]); // Minimize dependencies to prevent unnecessary runs
 
