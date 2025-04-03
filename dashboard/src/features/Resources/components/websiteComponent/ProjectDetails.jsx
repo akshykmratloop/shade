@@ -128,7 +128,11 @@ const ProjectDetailPage = ({ contentOn, language, projectId, screen }) => {
 
 
     useEffect(() => {
-        dispatch(updateContent({ currentPath: "projectDetail", payload: content.projectDetail }))
+        if(content.projectDetail[projectId - 1]){
+            dispatch(updateContent({ currentPath: "projectDetail", payload: [...content.projectDetail,structureOfPageDetails ]}))
+        }else{
+            dispatch(updateContent({ currentPath: "projectDetail", payload: content.projectDetail }))
+        }
     }, [])
 
     // if (!currentContent) { // of project not found 
