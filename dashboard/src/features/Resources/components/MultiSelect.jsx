@@ -206,7 +206,7 @@ const MultiSelect = ({ heading, options = [], tabName, label, language, section,
         }
       }).filter(e => e));
     }
-  }, []);
+  }, [options]);
 
   return (
     <div className="relative w-full border-b border-b-2 border-neutral-300 pb-4 mt-4" ref={dropdownRef}>

@@ -3,7 +3,7 @@ import InputFile from "../../../components/Input/InputFile";
 import InputText from "../../../components/Input/InputText";
 import TextAreaInput from "../../../components/Input/TextAreaInput";
 import { useDispatch, useSelector } from "react-redux";
-import { updateSpecificContent, updateServicesNumber, updateImages } from "../../common/homeContentSlice";
+import { updateSpecificContent, updateServicesNumber, updateImages, updateTheProjectSummaryList } from "../../common/homeContentSlice";
 import InputFileWithText from "../../../components/Input/InputFileText";
 import InputFileForm from "../../../components/Input/InputFileForm";
 
@@ -23,12 +23,12 @@ const DynamicContentSection = ({
     currentContent,
     allowExtraInput = false, // New prop to allow extra input
     attachOne = false,
-    projectId
+    projectId,
+    addMore
 }) => {
     const dispatch = useDispatch();
     const [extraFiles, setExtraFiles] = useState([]);
     const ImagesFromRedux = useSelector((state) => state.homeContent.present.images)
-
 
     const addExtraFileInput = () => {
         if (section === 'socialIcons') {
@@ -44,6 +44,16 @@ const DynamicContentSection = ({
         setExtraFiles(extraFiles.filter(file => file.id !== id));
     };
 
+  
+
+    const removeSummary = (index) => {
+        dispatch(updateTheProjectSummaryList({
+            index,
+            projectId,
+            operation: 'remove'
+        }))
+    }
+
     const updateFormValue = ({ updateType, value }) => {
         if (updateType === 'count') {
             if (!isNaN(value)) {
@@ -56,7 +66,13 @@ const DynamicContentSection = ({
     };
 
     return (
-        <div className={`w-full ${Heading ? "mt-4" : subHeading ? "mt-2" : ""} flex flex-col gap-1 ${!isBorder ? "" : "border-b border-b-1 border-neutral-300"} ${attachOne ? "pb-0" : (Heading || subHeading) ? "pb-6" : ""}`}>
+        <div className={`w-full relative ${Heading ? "mt-4" : subHeading ? "mt-2" : ""} flex flex-col gap-1 ${!isBorder ? "" : "border-b border-b-1 border-neutral-300"} ${attachOne ? "pb-0" : (Heading || subHeading) ? "pb-6" : ""}`}>
+            <button
+                className="absolute top-6 z-10 right-[-8px] bg-red-500 text-white px-[5px] rounded-full shadow"
+                onClick={() => { removeSummary(index) }}
+            >
+                ✖
+            </button>
             <h3 className={`font-semibold ${subHeading ? "text-[.9rem] mb-1" : Heading ? "text-[1.25rem] mb-4" : " mb-0"}`}>{Heading || subHeading}</h3>
             {inputs.length > 0 ? inputs.map((input, i) => {
                 let valueExpression;
@@ -66,9 +82,9 @@ const DynamicContentSection = ({
                     } else if (input.updateType === 'url') {
                         valueExpression = currentContent?.[projectId - 1]?.[section]?.[input.updateType];
                     } else {
-                        if(section === 'descriptionSection') {
+                        if (section === 'descriptionSection') {
                             valueExpression = currentContent?.[projectId - 1]?.[section]?.[index]?.[input.updateType]?.[language];
-                        }else{
+                        } else {
                             valueExpression = currentContent?.[projectId - 1]?.[section]?.[input.updateType]?.[language];
                         }
                     }

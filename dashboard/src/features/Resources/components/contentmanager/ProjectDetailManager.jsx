@@ -1,9 +1,30 @@
+import { useDispatch } from "react-redux"
 import FileUploader from "../../../../components/Input/InputFileUploader"
 import ContentSection from "../ContentSections"
 import DynamicContentSection from "../DynamicContentSection"
 import MultiSelect from "../MultiSelect"
+import { updateTheProjectSummaryList } from "../../../common/homeContentSlice"
 
 const ProjectDetailManager = ({ projectId, currentContent, currentPath, language }) => {
+    const dispatch = useDispatch()
+    const addExtraSummary = () => {
+        dispatch(updateTheProjectSummaryList(
+            {
+                insert: {
+                    title: {
+                        ar: "",
+                        en: ""
+                    },
+                    description: {
+                        ar: "",
+                        en: ""
+                    }
+                },
+                projectId,
+                operation: 'add'
+            }
+        ))
+    }
 
     return (
         <div className="w-full">
@@ -31,14 +52,14 @@ const ProjectDetailManager = ({ projectId, currentContent, currentPath, language
                     currentContent?.[projectId - 1]?.introSection?.projectInforCard?.map((element, index, a) => {
                         const lastIndex = index === (a.length - 1)
                         return (
-                            <DynamicContentSection key={index}
+                            <ContentSection key={index}
                                 currentPath={currentPath}
                                 subHeading={"Card " + (index + 1)}
                                 inputs={[
                                     { input: "input", label: "Title", updateType: "key" },
                                     { input: "input", label: "Description", updateType: "value" },
                                 ]}
-                                // inputFiles={[{ label: "Backround Image", id: "ProjectBanner" + (projectId) }]}
+                                inputFiles={[{ label: "Icon Image", id: `ProjectIcon/${index}/${projectId}` }]}
                                 section={"introSection"}
                                 subSection={"projectInforCard"}
                                 index={index}
@@ -52,14 +73,15 @@ const ProjectDetailManager = ({ projectId, currentContent, currentPath, language
                 }
             </div>
 
-            <div className="mt-4">
+            <div className="mt-4 border-b">
                 <h3 className={`font-semibold text-[1.25rem] mb-4`}>Project Summaries</h3>
                 {
-                    currentContent?.[projectId - 1]?.descriptionSection?.map((element, index) => {
+                    currentContent?.[projectId - 1]?.descriptionSection?.map((element, index, a) => {
+                        const isLast = index === a.length - 1
                         return (
-                            <ContentSection key={index}
+                            <DynamicContentSection key={index}
                                 currentPath={currentPath}
-                                subHeading={"Summary " + (index + 1)}
+                                subHeading={"Section " + (index + 1)}
                                 inputs={[
                                     { input: "input", label: "Title", updateType: "title" },
                                     { input: "textarea", label: "Description", updateType: "description" },
@@ -69,10 +91,12 @@ const ProjectDetailManager = ({ projectId, currentContent, currentPath, language
                                 language={language}
                                 currentContent={currentContent}
                                 projectId={projectId}
+                                isBorder={false}
                             />
                         )
                     })
                 }
+                <button className="text-blue-500 cursor-pointer mb-3" onClick={addExtraSummary}>Add More Section...</button>
             </div>
 
             <MultiSelect

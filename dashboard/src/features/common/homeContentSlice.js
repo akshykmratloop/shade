@@ -14,8 +14,6 @@ const cmsSlice = createSlice({
     reducers: {
         updateImages: (state, action) => {
             state.past.push(JSON.parse(JSON.stringify(state.present)));
-            console.log(action.payload.section)
-            console.log(action.payload.src)
             state.present.images[action.payload.section] = action.payload.src;
             state.future = [];
         },
@@ -43,6 +41,19 @@ const cmsSlice = createSlice({
 
                 default:
             }
+            state.future = [];
+        },
+        updateTheProjectSummaryList: (state, action) => {
+            state.past.push(JSON.parse(JSON.stringify(state.present)));
+            let newArray = []
+            if (action.payload.operation === 'add') {
+                newArray = [...state.present.projectDetail?.[action.payload.projectId - 1].descriptionSection, action.payload.insert]
+            } else {
+                newArray = state.present.projectDetail?.[action.payload.projectId - 1].descriptionSection.filter((e, i) => {
+                    return i !== action.payload.index
+                })
+            }
+            state.present.projectDetail[action.payload.projectId - 1].descriptionSection = newArray
             state.future = [];
         },
         updateSpecificContent: (state, action) => {
@@ -124,12 +135,10 @@ const cmsSlice = createSlice({
             state.future = [];
         },
         updateSelectedProject: (state, action) => {
-            console.log(action.payload.selected)
             state.past.push(JSON.parse(JSON.stringify(state.present)));
             const selectedMap = new Map(
                 action.payload?.selected?.filter(e => e.display).map((item, index) => [item.title[action.payload.language], index])
             );
-            console.log(selectedMap)
             let newOptions = action.payload.selected
             if (action.payload.operation === 'remove') {
                 newOptions = action.payload.newArray?.map(e => ({
@@ -215,5 +224,5 @@ const cmsSlice = createSlice({
     }
 });
 
-export const { updateImages, removeImages, updateContent, updateSpecificContent, updateServicesNumber, updateSelectedContent, updateSelectedProject, updateMarketSelectedContent, updateAllProjectlisting, selectMainNews, undo, redo } = cmsSlice.actions;
+export const { updateImages, removeImages, updateContent, updateSpecificContent, updateServicesNumber, updateSelectedContent, updateSelectedProject, updateMarketSelectedContent, updateAllProjectlisting, selectMainNews, undo, redo, updateTheProjectSummaryList } = cmsSlice.actions;
 export default cmsSlice.reducer;

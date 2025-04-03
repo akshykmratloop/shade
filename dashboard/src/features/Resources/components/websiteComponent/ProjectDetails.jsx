@@ -181,9 +181,9 @@ const ProjectDetailPage = ({ contentOn, language, projectId, screen }) => {
                                 <p className={`text-gray-700 font-bold text-lg mb-2 `}>
                                     {introSection?.subtitle[language]}
                                 </p>
-                                <Link href={introSection?.url || ""} className="text-[#00b9f2] underline font-medium text-md">
-                                    <span className={""}>{introSection?.url}</span>
-                                </Link>
+                                <a href={introSection?.url || ""} className="text-[#00b9f2] underline font-medium text-md">
+                                    {introSection?.url}
+                                </a>
                             </div>
                         </div>
                         <div>
@@ -197,9 +197,11 @@ const ProjectDetailPage = ({ contentOn, language, projectId, screen }) => {
 
                     {/* Project Info List */}
                     <div className={`flex ${isPhone && "flex-col"} items-stretch justify-between gap-4 mt-10`}>
-                        {introSection?.projectInforCard?.map((card, index) => (
+                        {introSection?.projectInforCard?.map((card, index) => {
+                            console.log(ImageFromRedux?.[`ProjectIcon/${index}/${projectId}`])
+                            return (
                             <div key={index} className="p-3 flex flex-col bg-blue-100 rounded-md flex-1">
-                                <img src={card?.icon} alt="" width={28} height={28} className="w-7 h-7" />
+                                <img src={ImageFromRedux?.[`ProjectIcon/${index}/${projectId}`] ? ImageFromRedux?.[`ProjectIcon/${index}/${projectId}`] : card?.icon} alt="" width={28} height={28} className="w-7 h-7" />
                                 <h5 className={`text-[#292E3D] font-bold text-lg mt-4`}>
                                     {card?.key[language]}
                                 </h5>
@@ -210,7 +212,7 @@ const ProjectDetailPage = ({ contentOn, language, projectId, screen }) => {
                                     {TruncateText(card?.value[language], 25)}
                                 </p>
                             </div>
-                        ))}
+                        )})}
                     </div>
                 </div>
             </section>
