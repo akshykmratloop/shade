@@ -107,6 +107,7 @@ function Resources() {
             {/* right side bar for configuration */}
             <ConfigBar data={configBarData} display={configBarOn} setOn={setConfigBarOn} />
             <PageDetails data={configBarData} display={PageDetailsOn} setOn={setPageDetailsOn} />
+            
         </div>
     )
 }

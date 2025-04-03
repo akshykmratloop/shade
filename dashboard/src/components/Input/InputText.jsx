@@ -133,6 +133,7 @@ function InputText({
             className={`input ${width ?? "w-full"
               } h-[2.3rem] text-xs input input-bordered border-[#cecbcb] focus:border-none ${InputClasses || ""
               }`}
+            
           />
         )}
         {type === "password" && value && (

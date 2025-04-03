@@ -187,7 +187,7 @@ function ShowLogs({ log, show, onClose }) {
                                             <td className="py-2 pb-6  w-1/4"
                                             >
                                                 <p className="">
-                                                    {(log.ipAddress) ?? "N/A"}
+                                                    {(log?.ipAddress?.slice(7, this?.length)) ?? "N/A"}
                                                 </p>
                                             </td>
                                         </tr>

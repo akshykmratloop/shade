@@ -1,1 +1,1 @@
-console.log("asdfv".slice(-1))
+console.log("asdfv".slice(2,this.length))
