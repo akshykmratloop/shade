@@ -18,7 +18,7 @@ function SearchBar({ searchText, styleClass, placeholderText, setSearchText, out
           value={searchText}
           placeholder={placeholderText || "Search"}
           onChange={(e) => updateSearchInput(e.target.value)}
-          className={`input rounded-lg  pl-10 text-sm ${styleClass} custom-placeholder font-[400] font-poppins`}
+          className={`input rounded-lg  pl-10 text-sm ${styleClass} custom-placeholder font-[400]`}
           style={{outline: !outline? "none": ""}}
         />
         <CiSearch className='absolute top-[.75rem] left-[.5rem] text-2xl' />
