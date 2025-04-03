@@ -7,7 +7,7 @@ import { updateSpecificContent, updateServicesNumber, updateImages } from "../..
 import InputFileWithText from "../../../components/Input/InputFileText";
 import InputFileForm from "../../../components/Input/InputFileForm";
 
-const ContentSection = ({
+const DynamicContentSection = ({
     Heading,
     subHeading,
     inputs = [],
@@ -194,4 +194,4 @@ const ContentSection = ({
     );
 };
 
-export default ContentSection;
+export default DynamicContentSection;

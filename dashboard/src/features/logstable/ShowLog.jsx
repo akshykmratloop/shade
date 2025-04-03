@@ -53,11 +53,15 @@ function ShowLogs({ log, show, onClose }) {
         delete log.newValue.roleTypeId;
         delete log.newValue.image;
         delete log.newValue.password;
+        delete log.newValue.isSuperUser
     }
 
     if (log?.oldValue) {
         delete log.oldValue.id;
+        delete log.oldValue.image;
+        delete log.oldValue.password;
         delete log.oldValue.roleTypeId;
+        delete log.oldValue.isSuperUser
     }
 
     useEffect(() => {
@@ -133,7 +137,7 @@ function ShowLogs({ log, show, onClose }) {
                                             </td>
                                             <td className="py-2 pb-6  w-1/4">{log.entity ?? "N/A"}</td>
                                             <td className="py-2 pb-6 w-1/4">{log?.user?.user?.name ?? "N/A"}</td>
-                                            <td className="py-2 pb-6  w-1/4">{log?.oldValue?.name ?? "N/A"}</td>
+                                            <td className="py-2 pb-6  w-1/4">{log?.oldValue?.name ?? log?.newValue?.name ?? "N/A"}</td>
                                         </tr>
                                     </tbody>
                                 </table>

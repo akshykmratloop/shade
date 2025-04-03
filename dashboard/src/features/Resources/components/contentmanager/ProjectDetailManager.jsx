@@ -1,6 +1,6 @@
 import FileUploader from "../../../../components/Input/InputFileUploader"
 import ContentSection from "../ContentSections"
-// import MultiSelectDetai from "../MultiSelectDetails"
+import DynamicContentSection from "../DynamicContentSection"
 import MultiSelect from "../MultiSelect"
 
 const ProjectDetailManager = ({ projectId, currentContent, currentPath, language }) => {
@@ -31,7 +31,7 @@ const ProjectDetailManager = ({ projectId, currentContent, currentPath, language
                     currentContent?.[projectId - 1]?.introSection?.projectInforCard?.map((element, index, a) => {
                         const lastIndex = index === (a.length - 1)
                         return (
-                            <ContentSection key={index}
+                            <DynamicContentSection key={index}
                                 currentPath={currentPath}
                                 subHeading={"Card " + (index + 1)}
                                 inputs={[
