@@ -51,11 +51,11 @@ input::placeholder {
   font-weight: 400 !important;
 }
 
-input,textarea{
+input[type="text"],textarea{
   border: .5px solid rgba(128, 128, 128, 0.266) !important;
 }
 
-textarea:focus, input:focus {
+textarea:focus, input[type="text"]:focus {
   outline: none !important;
   border: 1px solid #0000007e !important;
 }
