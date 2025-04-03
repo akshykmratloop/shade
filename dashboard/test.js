@@ -1,3 +1,3 @@
-let anything = undefined
-
-console.log(Object.keys(anything))
+["data"].forEach(ele => {
+    console.log(ele)
+})

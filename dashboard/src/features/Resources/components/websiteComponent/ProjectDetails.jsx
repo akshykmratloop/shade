@@ -250,7 +250,9 @@ const ProjectDetailPage = ({ contentOn, language, projectId, screen }) => {
                 <div className="container">
                     <h2 className={`text-gray-700 text-2xl font-normal mb-6 `}>{moreProjects?.title[language]}</h2>
                     <div className={`${isPhone ? "flex flex-col gap-10 " : `grid ${isTablet ? "grid-cols-2" : "grid-cols-3"} gap-x-8 gap-y-6 mt-12`}`}>
-                        {moreProjects?.projects?.slice(0, 3).map((project, key) => (
+                        {moreProjects?.projects?.slice(0, 3).map((project, key) => {
+                            if (!project.display) return null
+                            return (
                             <div key={key} className="rounded-md p-3 flex flex-col items-start gap-2 ">
                                 <img
                                     src={projectPageData[project?.url]}
@@ -275,7 +277,7 @@ const ProjectDetailPage = ({ contentOn, language, projectId, screen }) => {
                                     />
                                 </button>
                             </div>
-                        ))}
+                        )})}
                     </div>
                 </div>
             </section>

@@ -56,7 +56,7 @@ const SortableItem = ({ option, removeOption, language, reference }) => {
   );
 };
 
-const MultiSelect = ({ heading, options = [], tabName, label, language, section, referenceOriginal = { dir: "", index: 0 }, currentPath }) => {
+const MultiSelect = ({ heading, options = [], tabName, label, language, section, referenceOriginal = { dir: "", index: 0 }, currentPath, projectId }) => {
   const [selectedOptions, setSelectedOptions] = useState([]);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
@@ -83,9 +83,14 @@ const MultiSelect = ({ heading, options = [], tabName, label, language, section,
       actualListOfServices = content.newsBlogs.latestNewCards.cards;
       break;
 
+    case "projectDetail":
+      actualListOfServices = content.projectsPage.projectsSection.projects;
+      break;
+
     default:
       actualListOfServices = []
   }
+
 
   const showOptions = options?.map(e => e.title[language])
 
@@ -94,18 +99,27 @@ const MultiSelect = ({ heading, options = [], tabName, label, language, section,
   };
 
   const handleSelect = (optionToAdd) => {
-    for (let i = 0; i < options.length; i++) {
-      if (optionToAdd.title === options[i].title) {
-        if (options[i].display) return
-        setSelectedOptions(prev => {
-          return [...prev, { ...optionToAdd, display: true }]
-        })
-        break;
+    if (referenceOriginal.dir === 'projectDetail' && selectedOptions.length > 2) return
+    if (referenceOriginal.dir === 'projectDetail') {
+      setSelectedOptions(prev => {
+        return [...prev, { ...optionToAdd, display: true }]
+      })
+      console.log('weqrqwer')
+    } else {
+      for (let i = 0; i < options.length; i++) {
+        if (optionToAdd.title === options[i].title || optionToAdd.title[language] === options[i].title[language]) {
+          if (options[i].display) return
+          setSelectedOptions(prev => {
+            return [...prev, { ...optionToAdd, display: true }]
+          })
+          break;
+        }
       }
     }
     setRandom(prev => prev + 1)
+    console.log(optionToAdd)
   };
-  
+
 
   const removeOption = (optionToRemove) => {
     setSelectedOptions(prev => {
@@ -163,7 +177,8 @@ const MultiSelect = ({ heading, options = [], tabName, label, language, section,
         newArray: [...options],
         selected: selectedOptions,
         language,
-        currentPath
+        currentPath,
+        projectId
       }));
     }
   }, [random]); // Minimize dependencies to prevent unnecessary runs
@@ -225,7 +240,7 @@ const MultiSelect = ({ heading, options = [], tabName, label, language, section,
               ))
               :
               selectedOptions?.map((option, i) => (
-                <SortableItem key={option.title?.[language] + String(Math.random()+ i)} option={option} removeOption={removeOption} language={language} />
+                <SortableItem key={option.title?.[language] + String(Math.random() + i)} option={option} removeOption={removeOption} language={language} />
               ))
             }
           </div>

@@ -114,6 +114,11 @@ const cmsSlice = createSlice({
 
                 case "news":
                     state.present[action.payload?.currentPath].latestNewCards.cards = newOptions
+                    break;
+                case "projectDetail":
+                    console.log(newOptions)
+                    state.present.projectDetail[action.payload.projectId - 1].moreProjects.projects = newOptions
+                    break;
 
                 default:
             }

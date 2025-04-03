@@ -2257,7 +2257,8 @@
                 "en": "View Details"
               }
             },
-            "url": "itLabExcellence"
+            "url": "itLabExcellence",
+            "display":true
           },
           {
             "id": 2,
@@ -2276,7 +2277,8 @@
                 "en": "View Details"
               }
             },
-            "url": "nonMetallic"
+            "url": "nonMetallic",
+            "display":true
           },
           {
             "id": 3,
@@ -2295,7 +2297,8 @@
                 "en": "View Details"
               }
             },
-            "url": "businessGate"
+            "url": "businessGate",
+            "display":true
           }
         ],
         "button": {
@@ -2446,7 +2449,8 @@
                 "en": "View Details"
               }
             },
-            "url": "itLabExcellence"
+            "url": "itLabExcellence",
+            "display":true
           },
           {
             "id": 2,
@@ -2465,7 +2469,8 @@
                 "en": "View Details"
               }
             },
-            "url": "nonMetallic"
+            "url": "nonMetallic",
+            "display":true
           },
           {
             "id": 3,
@@ -2484,7 +2489,8 @@
                 "en": "View Details"
               }
             },
-            "url": "businessGate"
+            "url": "businessGate",
+            "display":true
           }
         ],
         "button": {
@@ -2635,7 +2641,8 @@
                 "en": "View Details"
               }
             },
-            "url": "itLabExcellence"
+            "url": "itLabExcellence",
+            "display":true
           },
           {
             "id": 2,
@@ -2654,7 +2661,8 @@
                 "en": "View Details"
               }
             },
-            "url": "nonMetallic"
+            "url": "nonMetallic",
+            "display":true
           },
           {
             "id": 3,
@@ -2673,7 +2681,8 @@
                 "en": "View Details"
               }
             },
-            "url": "businessGate"
+            "url": "businessGate",
+            "display":true
           }
         ],
         "button": {
@@ -2817,7 +2826,8 @@
                 "en": "View Details"
               }
             },
-            "url": "itLabExcellence"
+            "url": "itLabExcellence",
+            "display":true
           },
           {
             "id": 2,
@@ -2836,7 +2846,8 @@
                 "en": "View Details"
               }
             },
-            "url": "nonMetallic"
+            "url": "nonMetallic",
+            "display":true
           },
           {
             "id": 3,
@@ -2855,7 +2866,8 @@
                 "en": "View Details"
               }
             },
-            "url": "businessGate"
+            "url": "businessGate",
+            "display":true
           }
         ],
         "button": {

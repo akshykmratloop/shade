@@ -99,7 +99,7 @@ function Users() {
 
     // Pagination state
     const [currentPage, setCurrentPage] = useState(1);
-    const usersPerPage = 3;
+    const usersPerPage = 10;
 
     const removeFilter = () => {
         setUsers([...originalUsers]);
@@ -203,7 +203,7 @@ function Users() {
                                             <td className="font-poppins font-light text-[12px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]">
                                                 <p
                                                     className={`w-[85px] mx-auto before:content-['•'] before:text-2xl flex h-7 items-center justify-center gap-1 px-1 py-0 font-[500] ${user.status === 'ACTIVE' ? "text-green-600 bg-green-100 before:text-green-600 px-1" : "text-red-600 bg-red-100 before:text-red-600 "} rounded-2xl`}
-                                                    style={{ textTransform: "capitalize", }}
+                                                    style={{ textTransform: "capitalize" }}
                                                 >
                                                     {capitalizeWords(user.status)}
                                                 </p>

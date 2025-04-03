@@ -1,5 +1,6 @@
 import FileUploader from "../../../../components/Input/InputFileUploader"
 import ContentSection from "../ContentSections"
+import MultiSelect from "../MultiSelect"
 
 const ProjectDetailManager = ({ projectId, currentContent, currentPath, language }) => {
 
@@ -29,7 +30,7 @@ const ProjectDetailManager = ({ projectId, currentContent, currentPath, language
                     currentContent?.[projectId - 1].introSection?.projectInforCard?.map((element, index, a) => {
                         const lastIndex = index === (a.length - 1)
                         return (
-                            <ContentSection
+                            <ContentSection key={index}
                                 currentPath={currentPath}
                                 subHeading={"Card " + (index + 1)}
                                 inputs={[
@@ -54,9 +55,8 @@ const ProjectDetailManager = ({ projectId, currentContent, currentPath, language
                 <h3 className={`font-semibold text-[1.25rem] mb-4`}>Project Summaries</h3>
                 {
                     currentContent?.[projectId - 1].descriptionSection?.map((element, index) => {
-                        console.log(element)
                         return (
-                            <ContentSection
+                            <ContentSection key={index}
                                 currentPath={currentPath}
                                 subHeading={"Summary " + (index + 1)}
                                 inputs={[
@@ -73,6 +73,20 @@ const ProjectDetailManager = ({ projectId, currentContent, currentPath, language
                     })
                 }
             </div>
+
+            <MultiSelect
+                currentPath={currentPath}
+                section={"moreProjects"}
+                language={language}
+                // label={"Select More Project List"}
+                heading={"Projects Section"}
+                tabName={"Select Project"}
+                options={currentContent?.[projectId - 1]?.moreProjects?.projects}
+                referenceOriginal={{ dir: "projectDetail", index: 0 }}
+                currentContent={currentContent}
+                projectId={projectId}
+            />
+
         </div>
     )
 }

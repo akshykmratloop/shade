@@ -30,7 +30,7 @@ const TopSideButtons = ({
 }) => {
     const [filterParam, setFilterParam] = useState("");
     const [searchText, setSearchText] = useState("");
-    const statusFilters = ["ACTIVE", "INACTIVE"];
+    const statusFilters = ["SUCCESS", "FAILURE"];
     const showFiltersAndApply = (status) => {
         applyFilter(status);
         setFilterParam(status);
@@ -87,7 +87,7 @@ const TopSideButtons = ({
         </div>
     );
 };
-function Roles() {
+function Logs() {
     const [logs, setLogs] = useState([]);
     const [originalLogs, setOriginalLogs] = useState([]);
     const [showAddForm, setShowAddForm] = useState(false);
@@ -101,15 +101,15 @@ function Roles() {
     const removeFilter = () => {
         setLogs([...originalLogs]);
     };
-    const applyFilter = (status) => {
+    const applyFilter = (outcome) => {
         const filteredRoles = originalLogs?.filter(
-            (role) => role.status === status
+            (log) => log.outcome === outcome
         );
         setLogs(filteredRoles);
     };
     const applySearch = (value) => {
-        const filteredRoles = originalLogs?.filter((role) =>
-            role?.name.toLowerCase().includes(value.toLowerCase())
+        const filteredRoles = originalLogs?.filter((log) =>
+            log?.action_performed.toLowerCase().includes(value.toLowerCase())
         );
         setLogs(filteredRoles);
     };
@@ -141,7 +141,7 @@ function Roles() {
     // Pagination logic
     const indexOfLastUser = currentPage * logsPerPage;
     const indexOfFirstUser = indexOfLastUser - logsPerPage;
-    const currentLogs = logs?.slice(indexOfFirstUser, indexOfLastUser);
+    const currentLogs = Array.isArray(logs) ? logs?.slice(indexOfFirstUser, indexOfLastUser) : [];
     const totalPages = Math.ceil(logs?.length / logsPerPage);
 
     useEffect(() => {
@@ -302,7 +302,7 @@ function Roles() {
                                     }
                                     ) : (
                                         <tr className="text-[14px]">
-                                            <td colSpan={6}>No Data Available</td>
+                                            <td colSpan={8}>No Data Available</td>
                                         </tr>
                                     )}
                             </tbody>
@@ -336,4 +336,4 @@ function Roles() {
         </div>
     );
 }
-export default Roles;
+export default Logs;

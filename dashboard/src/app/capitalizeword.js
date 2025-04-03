@@ -16,7 +16,7 @@ import { useMemo } from 'react';
 export const useTruncate = (text, maxLength) => {
   const truncatedText = useMemo(() => {
     if (text.length > maxLength) {
-      return `${text.slice(0, maxLength)}...`;
+      return `${text?.slice(0, maxLength)}...`;
     }
     return text;
   }, [text, maxLength]);
