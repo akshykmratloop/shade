@@ -1,9 +1,12 @@
 import ContentSection from "../ContentSections"
+import FileUploader from "../../../../components/Input/InputFileUploader"
 
 const SolutionManager = ({ currentPath, language, currentContent }) => {
 
     return (
-        <div>
+        <div className="w-full">
+            {/* reference doc */}
+            <FileUploader id={"solutionReference"} label={"Rerference doc"} fileName={"Upload your file..."} />
             {/* banner */}
             <ContentSection
                 currentPath={currentPath}

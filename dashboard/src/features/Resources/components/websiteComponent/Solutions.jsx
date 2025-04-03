@@ -55,7 +55,7 @@ const SolutionPage = ({ language, screen }) => {
                         <h1 className="text-[#292E3D] text-[40px] font-medium leading-[77px] tracking-[-3.5px] mb-4">
                             {currentContent?.banner?.title[language]}
                         </h1>
-                        <p className={`text-para-light text-left text-xs font-semibold leading-[26px] mb-6 ${isLeftAlign ? "" : "ml-auto"} w-[50%] word-spacing-[5px]`}>
+                        <p className={`text-para-light text-left text-xs font-semibold leading-[26px] mb-6 ${isLeftAlign ? "" : "ml-auto"} ${isPhone? "w-[70%]":"w-[50%]"} word-spacing-[5px]`}>
                             {currentContent?.banner?.description[language]}
                         </p>
                         <button
@@ -110,8 +110,8 @@ const SolutionPage = ({ language, screen }) => {
             {/** gallary wrap */}
 
             <div
-                className="w-[800px] mx-auto "
-                style={{width:isComputer ? "30rem":`${screen-30}px`}}
+                className="w-[800px] mx-auto"
+                style={{width:isComputer ? "50rem":`${screen-30}px`}}
             >
                 <Swiper
                     modules={[Navigation, Autoplay, EffectCoverflow]}
@@ -177,7 +177,7 @@ const SolutionPage = ({ language, screen }) => {
             {/** Showcase gallery wrap */}
             <div
                 className="w-[800px] mx-auto "
-                style={{width:isComputer ? "40rem":`${screen-30}px`}}
+                style={{width:isComputer ? "50rem":`${screen-30}px`}}
             >
                 <Swiper
                     modules={[Navigation, Autoplay, EffectCoverflow]}
@@ -200,7 +200,7 @@ const SolutionPage = ({ language, screen }) => {
                             <SwiperSlide key={index}>
                                 <div className={`rounded-lg overflow-hidden shadow-lg transition-transform transform ${isPhone?"h-[50vh]":"h-[500px]"}`}>
                                     <img
-                                        src={ImageFromRedux[`Image ${index + 1}`] || image.url}
+                                        src={ImageFromRedux[`Image ${index + 4}`] || image.url}
                                         alt={`Image ${index + 1}`}
                                         className="object-cover w-full h-full"
                                         style={{objectPosition:"center"}}

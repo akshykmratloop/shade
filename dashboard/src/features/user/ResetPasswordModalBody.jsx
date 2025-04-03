@@ -75,7 +75,7 @@ function ResetPasswordModalBody({ close }) {
         navigate("/login")
       }, 1500)
     } else {
-      updateToasify(loadingToastId, "Request unsuccessful!", "failure", 2000) // updating the toaster
+      updateToasify(loadingToastId, "Request unsuccessful!", "error", 2000) // updating the toaster
     }
 
   }

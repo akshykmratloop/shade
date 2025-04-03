@@ -26,7 +26,7 @@ const ConfigBar = ({ display, setOn, data }) => {
         <div className={`${display ? "block" : "hidden"} fixed z-20 top-0 left-0 w-[100vw] h-screen bg-black bg-opacity-50`}>
 
             <div ref={configRef} className="fixed z-30 top-0 right-0 w-[26rem] h-screen bg-[white] dark:bg-[#242933]">
-                <button className="bg-transparent hover:bg-stone-900 hover:text-stone-200 dark:hover:bg-stone-300 rounded-full absolute top-7 border border-gray-500 left-4 p-2 py-2"
+                <button className="bg-transparent hover:bg-stone-900 hover:text-stone-200 dark:hover:bg-stone-900 rounded-full absolute top-7 border border-gray-500 left-4 p-2 py-2"
                     onClick={() => setOn(false)}>
                     <X className="w-[16px] h-[16px]" />
                 </button>

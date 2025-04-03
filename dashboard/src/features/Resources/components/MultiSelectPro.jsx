@@ -181,7 +181,6 @@ const MultiSelectPro = ({ heading, options = [], tabName, label, language, secti
     }, [options]);
 
     useEffect(() => {
-        console.log(selectedOptions)
         if (random > 1) {
             if (id === 'all') {
                 // dispatch(updateAllProjectlisting({
@@ -207,7 +206,7 @@ const MultiSelectPro = ({ heading, options = [], tabName, label, language, secti
     }, [random])
 
     return (
-        <div className="relative w-full border-b border-b-2 border-neutral-300 pb-4" ref={dropdownRef}>
+        <div className="relative w-full border-b border-b-2 border-neutral-300 pb-4 mt-4" ref={dropdownRef}>
             <h3 className="font-semibold text-[1.25rem] mb-4">{heading}</h3>
             <label className="sm:text-xs xl:text-sm">{label}</label>
             <button

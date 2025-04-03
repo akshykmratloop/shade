@@ -96,7 +96,7 @@ function Login() {
             }, 1000)
         }
         else {
-            updateToasify(loadingToastId, `Request unsuccessful! ${response.message}`, "failure", 2000) // updating the toaster
+            updateToasify(loadingToastId, `Request unsuccessful! ${response.message}`, "error", 2000) // updating the toaster
         }
         setLoading(false)
 

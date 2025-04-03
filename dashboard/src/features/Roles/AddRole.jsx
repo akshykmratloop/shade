@@ -39,13 +39,6 @@ const AddRoleModal = ({ show, onClose, updateRoles, role }) => {
   const handleFormSubmit = async (e) => {
     e.preventDefault();
 
-    console.log(
-      "Selected Permissions before submission:",
-      roleData.selectedPermissions
-    );
-
-    console.log(roleData)
-
     const validation = validator(roleData, {
       name: setErrorMessageRole,
       selectedRoletype: setErrorMessageRoleType,
@@ -63,7 +56,6 @@ const AddRoleModal = ({ show, onClose, updateRoles, role }) => {
       permissions: roleData.selectedPermissions, // Ensure this holds the correct values
     };
 
-    console.log("Payload being sent:", rolePayload);
 
     let response;
     if (role) {
@@ -87,7 +79,7 @@ const AddRoleModal = ({ show, onClose, updateRoles, role }) => {
       updateToasify(
         loadingToastId,
         `Request failed. ${response.message}`,
-        "failure",
+        "error",
         2000
       );
     }
@@ -125,7 +117,6 @@ const AddRoleModal = ({ show, onClose, updateRoles, role }) => {
     }));
 
     if (updateType === "userRole") {
-      console.log("Fetching permissions for Role ID:", value);
       setRoleData((prevState) => ({
         ...prevState,
         selectedRoletype: value, // Store selected roleTypeId
@@ -159,7 +150,6 @@ const AddRoleModal = ({ show, onClose, updateRoles, role }) => {
   //   };
 
   const handleSelectRoleType = async (value) => {
-    console.log(value.value, "selectedR");
     try {
       const response = await fetchPermissionsByRoleType(value.value);
       setRoleData({

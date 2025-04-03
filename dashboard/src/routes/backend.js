@@ -19,7 +19,11 @@ const api = {
   refreshToken: `${auth}/refreshToken`,
   resendOTP: `${auth}/resendOtp`,
 
+  userLogs: `${auth}/logs`,  // API for logs
+
+
   fetchRoles: `${role}/roles`, // API for role start from here
+  getRoleById: `${role}/`,
   fetchRoleType: `${role}/roleType`,
   createRole: `${role}/create`,
   activateRole: `${role}/activate`,
@@ -32,8 +36,8 @@ const api = {
   createUser: `${user}/create`,
   getUserById: `${user}/`,
   updateUser: `${user}/updateUser/`,
-  activateUser: `${user}/activate/`,
-  deactivateUser: `${user}/deactivate/`,
+  activateUser: `${user}/activate`,
+  deactivateUser: `${user}/deactivate`,
 
   route(route) {
     if (this[route]) {

@@ -1,36 +1,60 @@
 {
   "header": {
-    "solution": {
-      "en": "Solutions",
-      "ar": "خبر"
+    "section 1": {
+      "title": {
+        "en": "Solutions",
+        "ar": "خبر"
+      },
+      "url": ""
     },
-    "about": {
-      "en": "About",
-      "ar": "معلومات عنا"
+    "section 2": {
+      "title": {
+        "en": "About",
+        "ar": "معلومات عنا"
+      },
+      "url": ""
     },
-    "services": {
-      "en": "Services",
-      "ar": "المشاريع"
+    "section 3": {
+      "title": {
+        "en": "Services",
+        "ar": "المشاريع"
+      },
+      "url": ""
     },
-    "market": {
-      "en": "Market",
-      "ar": "سوق"
+    "section 4": {
+      "title": {
+        "en": "Market",
+        "ar": "سوق"
+      },
+      "url": ""
     },
-    "project": {
-      "en": "Project",
-      "ar": "خدمة"
+    "section 5": {
+      "title": {
+        "en": "Project",
+        "ar": "خدمة"
+      },
+      "url": ""
     },
-    "career": {
-      "en": "Career",
-      "ar": "مهنة"
+    "section 6": {
+      "title": {
+        "en": "Career",
+        "ar": "مهنة"
+      },
+      "url": ""
     },
-    "news": {
-      "en": "News",
-      "ar": "حل"
+    "section 7": {
+      "title": {
+        "en": "News",
+        "ar": "حل"
+      },
+      "url": ""
     },
-    "contact": {
-      "en": "Contact Us",
-      "ar": "اتصل بنا"
+    "section 8": {
+      "title": {
+        "en": "Contact Us",
+        "ar": "اتصل بنا"
+      },
+      "url": ""
     }
   },
   "home": {
@@ -634,7 +658,7 @@
         "en": "Shade Corporation Ltd.\nP.O. Box 7027 Dammam 31462 Saudi Arabia Building No. 5222 Dammam 32414-6124."
       }
     },
-    "aboutUs": {
+    "Section 1": {
       "title": {
         "ar": "معلومات عنا",
         "en": "About Us"
@@ -669,10 +693,20 @@
           "ar": "الشركات التابعة",
           "en": "Subsidiaries",
           "url": "/about-us"
+        },
+        {
+          "ar": "",
+          "en": "",
+          "url": ""
+        },
+        {
+          "ar": "",
+          "en": "",
+          "url": ""
         }
       ]
     },
-    "markets": {
+    "Section 2": {
       "title": {
         "ar": "الأسواق",
         "en": "Markets"
@@ -697,10 +731,30 @@
           "ar": "الإصلاح والتحديث",
           "en": "Repair & Modernization",
           "url": "/market"
+        },
+        {
+          "ar": "",
+          "en": "",
+          "url": ""
+        },
+        {
+          "ar": "",
+          "en": "",
+          "url": ""
+        },
+        {
+          "ar": "",
+          "en": "",
+          "url": ""
+        },
+        {
+          "ar": "",
+          "en": "",
+          "url": ""
         }
       ]
     },
-    "services": {
+    "Section 3": {
       "title": {
         "ar": "جميع الخدمات",
         "en": "All Services"
@@ -730,30 +784,51 @@
           "ar": "تلفيق",
           "en": "Fabrication",
           "url": "/services"
+        },
+        {
+          "ar": "",
+          "en": "",
+          "url": ""
+        },
+        {
+          "ar": "",
+          "en": "",
+          "url": ""
+        },
+        {
+          "ar": "",
+          "en": "",
+          "url": ""
         }
       ]
     },
-    "contact": {
+    "Section 4": {
       "title": {
         "ar": "اتصال",
-        "en": "Contact"
+        "en": "Contacts"
       },
-      "phone": {
-        "ar": "الهاتف: +966 13 8350100",
-        "en": "Phone: +966 13 8350100"
-      },
-      "fax": {
-        "ar": "فاكس: +966 13 8343910",
-        "en": "Fax: +966 13 8343910"
-      },
-      "helpText": {
-        "ar": "بحاجة الى مساعدة؟ نحن متاحون للحديث",
-        "en": "Need Help? We're Available to Talk"
-      },
-      "button": {
-        "ar": "اتصل بنا",
-        "en": "Contact Us"
-      }
+      "links": [
+        {
+          "ar": "الهاتف: +966 13 8350100",
+          "en": "Phone: +966 13 8350100",
+          "url": ""
+        },
+        {
+          "ar": "فاكس: +966 13 8343910",
+          "en": "Fax: +966 13 8343910",
+          "url": ""
+        },
+        {
+          "ar": "بحاجة الى مساعدة؟ نحن متاحون للحديث",
+          "en": "Need Help? We're Available to Talk",
+          "url": ""
+        },
+        {
+          "ar": "اتصل بنا",
+          "en": "Contact Us",
+          "url": ""
+        }
+      ]
     },
     "copyright": {
       "text": {
@@ -1147,8 +1222,8 @@
         "en": "Discover the exceptional excellence of Shade Corporation, the premier Engineering, Procurement, and Construction powerhouse in Saudi Arabia."
       },
       "button": {
-          "ar": "خدماتنا",
-          "en": "Our Services"
+        "ar": "خدماتنا",
+        "en": "Our Services"
       }
     },
     "quote": {
@@ -1565,8 +1640,8 @@
         "en": "Discover the exceptional excellence of Shade Corporation, a leading company in the fields of engineering, procurement, and construction in Saudi Arabia."
       },
       "button": {
-          "ar": "دعونا نتواصل",
-          "en": "Let's Connect"
+        "ar": "دعونا نتواصل",
+        "en": "Let's Connect"
       }
     },
     "projectsSection": {
@@ -2149,6 +2224,13 @@
               "ar": "صورة المعرض 3",
               "en": "Gallery Image 3"
             }
+          },
+          {
+            "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Rectangle+34624114+(1).png",
+            "alt": {
+              "ar": "صورة المعرض 2",
+              "en": "Gallery Image 2"
+            }
           }
         ]
       },
@@ -2175,7 +2257,8 @@
                 "en": "View Details"
               }
             },
-            "url": "itLabExcellence"
+            "url": "itLabExcellence",
+            "display":true
           },
           {
             "id": 2,
@@ -2194,7 +2277,8 @@
                 "en": "View Details"
               }
             },
-            "url": "nonMetallic"
+            "url": "nonMetallic",
+            "display":true
           },
           {
             "id": 3,
@@ -2213,7 +2297,8 @@
                 "en": "View Details"
               }
             },
-            "url": "businessGate"
+            "url": "businessGate",
+            "display":true
           }
         ],
         "button": {
@@ -2331,6 +2416,13 @@
               "ar": "صورة المعرض 3",
               "en": "Gallery Image 3"
             }
+          },
+          {
+            "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Rectangle+34624114+(1).png",
+            "alt": {
+              "ar": "صورة المعرض 2",
+              "en": "Gallery Image 2"
+            }
           }
         ]
       },
@@ -2357,7 +2449,8 @@
                 "en": "View Details"
               }
             },
-            "url": "itLabExcellence"
+            "url": "itLabExcellence",
+            "display":true
           },
           {
             "id": 2,
@@ -2376,7 +2469,8 @@
                 "en": "View Details"
               }
             },
-            "url": "nonMetallic"
+            "url": "nonMetallic",
+            "display":true
           },
           {
             "id": 3,
@@ -2395,7 +2489,8 @@
                 "en": "View Details"
               }
             },
-            "url": "businessGate"
+            "url": "businessGate",
+            "display":true
           }
         ],
         "button": {
@@ -2513,6 +2608,13 @@
               "ar": "صورة المعرض 3",
               "en": "Gallery Image 3"
             }
+          },
+          {
+            "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Rectangle+34624114+(1).png",
+            "alt": {
+              "ar": "صورة المعرض 2",
+              "en": "Gallery Image 2"
+            }
           }
         ]
       },
@@ -2539,7 +2641,8 @@
                 "en": "View Details"
               }
             },
-            "url": "itLabExcellence"
+            "url": "itLabExcellence",
+            "display":true
           },
           {
             "id": 2,
@@ -2558,7 +2661,8 @@
                 "en": "View Details"
               }
             },
-            "url": "nonMetallic"
+            "url": "nonMetallic",
+            "display":true
           },
           {
             "id": 3,
@@ -2577,7 +2681,8 @@
                 "en": "View Details"
               }
             },
-            "url": "businessGate"
+            "url": "businessGate",
+            "display":true
           }
         ],
         "button": {
@@ -2721,7 +2826,8 @@
                 "en": "View Details"
               }
             },
-            "url": "itLabExcellence"
+            "url": "itLabExcellence",
+            "display":true
           },
           {
             "id": 2,
@@ -2740,7 +2846,8 @@
                 "en": "View Details"
               }
             },
-            "url": "nonMetallic"
+            "url": "nonMetallic",
+            "display":true
           },
           {
             "id": 3,
@@ -2759,7 +2866,8 @@
                 "en": "View Details"
               }
             },
-            "url": "businessGate"
+            "url": "businessGate",
+            "display":true
           }
         ],
         "button": {
@@ -2771,21 +2879,19 @@
       }
     }
   ],
-  "career": {
+  "careers": {
     "bannerSection": {
       "title": {
         "ar": "مهنة",
-        "en": "Career"
+        "en": "Careers"
       },
       "description": {
         "ar": "اكتشف التميز الاستثنائي لشركة Shade Corporation، الشركة الرائدة في مجال الهندسة والمشتريات والبناء في المملكة العربية السعودية.",
         "en": "Discover the exceptional excellence of Shade Corporation, the premier Engineering, Procurement, and Construction powerhouse in Saudi Arabia."
       },
       "button": {
-        "text": {
-          "ar": "تقدم بطلبك الآن",
-          "en": "Apply Now"
-        }
+        "ar": "تقدم بطلبك الآن",
+        "en": "Apply Now"
       }
     },
     "filterSection": {
@@ -2906,6 +3012,7 @@
       "jobs": [
         {
           "id": "se1",
+          "display": false,
           "title": {
             "key": {
               "en": "Software Engineer ",
@@ -2957,6 +3064,7 @@
         },
         {
           "id": "pm1",
+          "display": true,
           "title": {
             "key": {
               "en": "Project Manager",
@@ -3008,6 +3116,7 @@
         },
         {
           "id": "de1",
+          "display": true,
           "title": {
             "key": {
               "en": "Data Analyst",
@@ -3059,6 +3168,7 @@
         },
         {
           "id": "pd1",
+          "display": true,
           "title": {
             "key": {
               "en": "Product Designer",
@@ -3110,6 +3220,7 @@
         },
         {
           "id": 5,
+          "display": true,
           "title": {
             "key": {
               "en": "Marketing Manager",
@@ -3161,6 +3272,7 @@
         },
         {
           "id": "fse1",
+          "display": true,
           "title": {
             "key": {
               "en": "Full Stack Developer",
@@ -3212,6 +3324,7 @@
         },
         {
           "id": 7,
+          "display": true,
           "title": {
             "key": {
               "en": "DevOps Engineer",
@@ -3263,6 +3376,7 @@
         },
         {
           "id": 8,
+          "display": true,
           "title": {
             "key": {
               "en": "Data Scientist",
@@ -3314,6 +3428,7 @@
         },
         {
           "id": "csa1",
+          "display": true,
           "title": {
             "key": {
               "en": "Cybersecurity Analyst",
@@ -3365,6 +3480,7 @@
         },
         {
           "id": 10,
+          "display": true,
           "title": {
             "key": {
               "en": "Frontend Developer",
@@ -3416,6 +3532,7 @@
         },
         {
           "id": 11,
+          "display": true,
           "title": {
             "key": {
               "en": "Cloud Solutions Architect",
@@ -3467,6 +3584,7 @@
         },
         {
           "id": 12,
+          "display": true,
           "title": {
             "key": {
               "en": "UI/UX Designer",
@@ -3518,6 +3636,7 @@
         },
         {
           "id": 13,
+          "display": true,
           "title": {
             "key": {
               "en": "ERP Consultant",
@@ -3569,6 +3688,7 @@
         },
         {
           "id": 14,
+          "display": true,
           "title": {
             "key": {
               "en": "Full Stack Engineer",
@@ -3620,6 +3740,7 @@
         },
         {
           "id": "se2",
+          "display": false,
           "title": {
             "key": {
               "en": "Software Engineer",
@@ -3671,6 +3792,7 @@
         },
         {
           "id": 16,
+          "display": true,
           "title": {
             "key": {
               "en": "Cyber Security Analyst",
@@ -4849,6 +4971,7 @@
       "cards": [
         {
           "id": "news1",
+          "display": true,
           "title": {
             "ar": "شباب يتحدون الإعاقة",
             "en": "Youth Overcoming Disability"
@@ -4861,27 +4984,7 @@
             "ar": "20 مايو 2020",
             "en": "May 20, 2020"
           },
-          "image": "news1",
-          "readMore": {
-            "ar": "اقرأ المزيد",
-            "en": "Read More"
-          }
-        },
-        {
-          "id": "news2",
-          "title": {
-            "ar": "الروبوتات السعودية تنضم إلى الملايين في أداء فريضة الحج",
-            "en": "Saudi Robots Join Millions in Performing the Hajj"
-          },
-          "description": {
-            "ar": "على الرغم من التحديات الكبيرة التي يعيشها ذوو الإعاقة في منطقة الشرق الأوسط وشمال أفريقيا بسبب الأزمات والحروب إلا أن قسما منهم أراد صنع التغيير وترك بصمة.",
-            "en": "Despite the major challenges faced by people with disabilities in the Middle East and North Africa due to crises and wars, some of them wanted to make a change and leave a mark."
-          },
-          "date": {
-            "ar": "20 مايو 2020",
-            "en": "May 20, 2020"
-          },
-          "image": "news2",
+          "image": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+1+(2).png",
           "readMore": {
             "ar": "اقرأ المزيد",
             "en": "Read More"
@@ -4889,6 +4992,7 @@
         },
         {
           "id": "news3",
+          "display": true,
           "title": {
             "ar": "التكنولوجيا في خدمة ذوي الإعاقة",
             "en": "Technology Serving People with Disabilities"
@@ -4909,6 +5013,7 @@
         },
         {
           "id": "news4",
+          "display": true,
           "title": {
             "ar": "قصص نجاح ملهمة",
             "en": "Inspiring Success Stories"
@@ -4929,6 +5034,7 @@
         },
         {
           "id": "news5",
+          "display": true,
           "title": {
             "ar": "مبادرات دعم ذوي الإعاقة",
             "en": "Initiatives Supporting People with Disabilities"
@@ -4949,6 +5055,7 @@
         },
         {
           "id": "news6",
+          "display": true,
           "title": {
             "ar": "التحديات التي تواجه ذوي الإعاقة",
             "en": "Challenges Faced by People with Disabilities"
@@ -4962,6 +5069,33 @@
             "en": "September 20, 2021"
           },
           "image": "news1",
+          "readMore": {
+            "ar": "اقرأ المزيد",
+            "en": "Read More"
+          }
+        },
+        {
+          "id": "news2",
+          "display": true,
+          "button": {
+            "text": {
+              "ar": "تتجه",
+              "en": "Trending"
+            }
+          },
+          "title": {
+            "ar": "الروبوتات السعودية تنضم إلى الملايين في أداء فريضة الحج",
+            "en": "Saudi Robots Join Millions in Performing the Hajj"
+          },
+          "description": {
+            "ar": "على الرغم من التحديات الكبيرة التي يعيشها ذوو الإعاقة في منطقة الشرق الأوسط وشمال أفريقيا بسبب الأزمات والحروب إلا أن قسما منهم أراد صنع التغيير وترك بصمة.",
+            "en": "Despite the major challenges faced by people with disabilities in the Middle East and North Africa due to crises and wars, some of them wanted to make a change and leave a mark."
+          },
+          "date": {
+            "ar": "20 مايو 2020",
+            "en": "May 20, 2020"
+          },
+          "image": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+2+(2).png",
           "readMore": {
             "ar": "اقرأ المزيد",
             "en": "Read More"

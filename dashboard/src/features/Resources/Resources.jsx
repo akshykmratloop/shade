@@ -54,7 +54,7 @@ function Resources() {
                 {resNotAvail ? <p className="">Sorry, No Resource available for {currentResource}</p>
                     :
                     resources?.[currentResource].map((page, index) => (
-                        <div key={index} className="w-full ">
+                        <div key={index + Math.random()} className="w-full ">
                             <h3 className="mb-1 font-poppins font-semibold">
                                 {isSmall
                                     ? (page.heading.length > 20 ? page.heading.substring(0, 20) + "..." : page.heading)
@@ -66,8 +66,8 @@ function Resources() {
                                 <div className="absolute top-2 right-2 z-10 text-[1.5rem] p-2 rounded-full text-[blue]">
                                     <FiInfo />
                                 </div> */}
-                                <div className={` h-6 ${page.assign?'bg-[#29469c] w-[120px]':"bg-red-600 w-[140px]"} text-white flex items-center justify-center text-sm font-[300] clip-concave absolute top-3 left-0 z-30`}>
-                                    {page.assign?"Assigned":"Not assigned"}
+                                <div className={` h-6 ${page.assign ? 'bg-[#29469c] w-[120px]' : "bg-red-600 w-[140px]"} text-white flex items-center justify-center text-sm font-[300] clip-concave absolute top-3 left-0 z-10`}>
+                                    {page.assign ? "Assigned" : "Not assigned"}
                                 </div>
 
                                 {/* Background Image with Adjusted Dark Gradient */}
@@ -87,9 +87,9 @@ function Resources() {
                                 {/* Bottom Text Options */}
                                 <div className={`absolute bottom-3 left-0 w-full text-center text-white justify-center items-center flex ${isNarrow ? "gap-2" : "gap-6"} py-1`}>
                                     {[{ icon: <AiOutlineInfoCircle />, text: "Info", onClick: () => { setPageDetailsOn(true); setConfigBarData(page) } },
-                                    { icon: <FiEdit />, text: "Edit", onClick: () => { navigate(`./edit/${page.heading?.toLowerCase()}`) } },
+                                    { icon: <FiEdit />, text: "Edit", onClick: () => { page.subPage ? navigate(`./edit/${currentResource}/${page.subPage}`) : navigate(`./edit/${page.heading?.toLowerCase()}`) } },
                                     { icon: <IoSettingsOutline />, text: "Config", onClick: () => { setConfigBarOn(true); setConfigBarData(page) } }].map((item, i) => (
-                                        <span key={i}
+                                        <span key={i + Math.random()}
                                             onClick={item.onClick}
                                             className={`flex ${isCollapsed ? "flex-col" : ""} ${i < 2 ? "border-r-2 pr-5" : ""} gap-2 items-center text-center cursor-pointer`}>
                                             {item.icon}

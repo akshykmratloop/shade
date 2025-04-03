@@ -45,8 +45,12 @@ function LeftSidebar() {
           {!isCollapsed && <span className="truncate translate-x-[-1rem]">SHADE-CMS</span>}
         </li>
 
-        {routes.map((route, k) => (
-          <li className="mt-2 w-full flex justify-center " key={k} title={route?.name}>
+        {routes.map((route, k, a) => {
+          let lastIndex = k === a.length-1
+          return (
+          <li className="mt-2 w-full flex justify-center " key={k} title={route?.name}
+          style={{borderRadius: lastIndex&&"0px 0px 0px 0px"}}
+          >
             <NavLink
               end
               to={route.path}
@@ -63,7 +67,7 @@ function LeftSidebar() {
               )}
             </NavLink>
           </li>
-        ))}
+        )})}
       </ul>
     </div>
   );

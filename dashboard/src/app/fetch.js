@@ -57,7 +57,6 @@ const makerequest = async (
 
   let result;
   try {
-    console.log(body)
     const response = await fetch(uri, options);
     if (!response.ok) {
       const err = await response.json();
@@ -169,6 +168,14 @@ export async function resendOTP(data) {
   );
 }
 
+// fetch for Logs
+export async function userLogs(data) {
+  return await makerequest(
+    api.route("userLogs"),
+    "GET",
+  );
+}
+
 // fetch for roles
 export async function fetchRoles() {
   return await makerequest(
@@ -177,6 +184,13 @@ export async function fetchRoles() {
     JSON.stringify({}),
     {},
     true
+  );
+}
+
+export async function getRoleById(id) {
+  return await makerequest(
+    api.route("getRoleById") + id,
+    "GET",
   );
 }
 
@@ -276,14 +290,18 @@ export async function getUserById(id) {
 
 export async function activateUser(id) {
   return await makerequest(
-    api.route("activateUser") + id,
+    api.route("activateUser"),
     "PUT",
+    JSON.stringify(id),
+    ContentType.json
   )
 }
 
 export async function deactivateUser(id) {
   return await makerequest(
-    api.route("deactivateUser") + id,
+    api.route("deactivateUser"),
     "PUT",
+    JSON.stringify(id),
+    ContentType.json
   )
 }

@@ -21,6 +21,15 @@ import ProjectContentManager from "./components/contentmanager/ProjectContentMan
 import CareerPage from "./components/websiteComponent/CareersPage";
 import InputText from "../../components/Input/InputText";
 import TextAreaInput from "../../components/Input/TextAreaInput";
+import CareersManager from "./components/contentmanager/CareersManager";
+import NewsPage from "./components/websiteComponent/NewsPage";
+import NewsManager from "./components/contentmanager/NewsManager";
+import Footer from "./components/websiteComponent/Footerweb";
+import FooterManager from "./components/contentmanager/FooterManager";
+import Header from "./components/websiteComponent/Headerweb";
+import HeaderManager from "./components/contentmanager/HeaderManager";
+import ProjectDetailPage from "./components/websiteComponent/ProjectDetails";
+import ProjectDetailManager from "./components/contentmanager/ProjectDetailManager";
 
 const EditPage = () => {
     const dispatch = useDispatch();
@@ -31,6 +40,8 @@ const EditPage = () => {
     const [PopupSubmit, setPopupSubmit] = useState(false)
 
     const currentPath = location.pathname.split('/')[4]
+    const subPath = location.pathname.split('/')[5]
+
     const content = useSelector((state) => state.homeContent.present)
 
     useEffect(() => {
@@ -39,7 +50,6 @@ const EditPage = () => {
 
     return (
         <div className="flex gap-[1.5rem] pr-1 h-[83.5vh] w-full relative">
-
             {/* content manager */}
             <div
                 className={`pt-8 bg-[#fafaff] dark:bg-[#242933] p-8 lg:w-[23rem] sm:w-[30vw] min-w-23rem flex flex-col gap-4 items-center overflow-y-scroll customscroller`}
@@ -64,18 +74,33 @@ const EditPage = () => {
                     <MarketManager language={language} currentContent={content.markets} currentPath={currentPath} />
                 }
                 {
-                    currentPath === 'projects' &&
-                    <ProjectContentManager language={language} currentContent={content.projects} currentPath={currentPath} />
+                    currentPath === 'projects' ? subPath ?
+                        <ProjectDetailManager projectId={subPath} language={language} currentContent={content.projectDetail} currentPath={currentPath} /> :
+                        <ProjectContentManager language={language} currentContent={content.projects} currentPath={currentPath} /> : ""
                 }
-
-
+                {
+                    currentPath === 'careers' &&
+                    <CareersManager language={language} currentContent={content.careers} currentPath={currentPath} />
+                }
+                {
+                    currentPath === 'news' &&
+                    <NewsManager language={language} currentContent={content.newsBlogs} currentPath={"newsBlogs"} />
+                }
+                {
+                    currentPath === 'footer' &&
+                    <FooterManager language={language} currentContent={content.footer} currentPath={currentPath} />
+                }
+                {
+                    currentPath === 'header' &&
+                    <HeaderManager language={language} currentContent={content.header} currentPath={currentPath} />
+                }
             </div> {/* Content manager ends here */}
             {/* Content view */}
             <div
                 className={`flex-[4] h-[83.5vh] flex flex-col`}
             >
                 <ContentTopBar setWidth={setScreen} raisePopup={{ reject: () => setPopupReject(true), submit: () => setPopupSubmit(true) }} />
-                <h4>Commented by {"Anukool (Super Admin)"}</h4>
+                <h4 className="text-[#6B7888] text-[14px] mt-1 mb-[2px]">Commented by {"Anukool (Super Admin)"}</h4>
                 <TextAreaInput
                     updateFormValue={() => { }}
                     placeholder={"Comments..."}
@@ -104,13 +129,29 @@ const EditPage = () => {
                         <MarketPage language={language} currentContent={content.markets} screen={screen} />
                     }
                     {
-                        currentPath === "projects" &&
-                        <ProjectPage language={language} currentContent={content.projects} screen={screen} />
+                        currentPath === 'projects' ? subPath ?
+                            <ProjectDetailPage language={language} contentOn={content.projectDetail} projectId={subPath} screen={screen} /> :
+                            <ProjectPage language={language} currentContent={content.projects} screen={screen} /> : ""
                     }
                     {
-                        currentPath === "career" &&
+                        currentPath === "careers" &&
                         <CareerPage language={language} currentContent={content.career} screen={screen} />
                     }
+                    {
+                        currentPath === "news" &&
+                        <NewsPage language={language} currentContent={content.newsBlogs} screen={screen} />
+                    }
+
+                    {/* sub pages */}
+                    {
+                        currentPath === "footer" &&
+                        <Footer language={language} currentContent={content.footer} screen={screen} />
+                    }
+                    {
+                        currentPath === "header" &&
+                        <Header language={language} currentContent={content.header} screen={screen} setLanguage={setLanguage} />
+                    }
+
                 </div>
             </div>
             <Popups display={PopupReject} setClose={() => setPopupReject(false)} confirmationText={"Are you sure you want to reject"} />
