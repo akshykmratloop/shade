@@ -12,7 +12,6 @@ import {
     Autoplay,
     EffectCoverflow,
 } from "swiper/modules";
-
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
@@ -24,6 +23,96 @@ import 'swiper/css/pagination';
 // });
 // import { useGlobalContext } from "../../contexts/GlobalContext";
 
+const structureOfPageDetails = {
+    "id": "",
+    "introSection": {
+        "title": {
+            "ar": "",
+            "en": ""
+        },
+        "subtitle": {
+            "ar": "",
+            "en": ""
+        },
+        "url": "",
+        "backButton": {
+            "ar": "",
+            "en": ""
+        },
+        "projectInforCard": [
+            {
+                "key": {
+                    "ar": "",
+                    "en": ""
+                },
+                "value": {
+                    "ar": "",
+                    "en": ""
+                },
+                "icon": ""
+            }
+        ]
+    },
+    "descriptionSection": [
+        {
+            "title": {
+                "ar": "",
+                "en": ""
+            },
+            "description": {
+                "ar": "",
+                "en": ""
+            }
+        }
+    ],
+    "gallerySection": {
+        "images": [
+            {
+                "url": "",
+                "alt": {
+                    "ar": "",
+                    "en": ""
+                }
+            }
+        ]
+    },
+    "moreProjects": {
+        "title": {
+            "ar": "",
+            "en": ""
+        },
+        "projects": [
+            {
+                "id": "",
+                "title": {
+                    "en": "",
+                    "ar": ""
+                },
+                "address": {
+                    "en": "",
+                    "ar": ""
+                },
+                "status": "",
+                "button": {
+                    "text": {
+                        "ar": "",
+                        "en": ""
+                    }
+                },
+                "url": "",
+                "display": false
+            }
+        ],
+        "button": {
+            "text": {
+                "en": "",
+                "ar": ""
+            }
+        }
+    }
+}
+
+
 const ProjectDetailPage = ({ contentOn, language, projectId, screen }) => {
 
     const isComputer = screen > 1100
@@ -32,7 +121,7 @@ const ProjectDetailPage = ({ contentOn, language, projectId, screen }) => {
     const isLeftAlign = language === 'en'
     const dispatch = useDispatch()
     const ImageFromRedux = useSelector((state) => state.homeContent.present.images)
-    const currentContent = contentOn?.[projectId - 1]
+    const currentContent = contentOn?.[projectId - 1] ?? structureOfPageDetails
 
     const testimonialPrevRef = useRef(null);
     const testimonialNextRef = useRef(null);
@@ -208,7 +297,7 @@ const ProjectDetailPage = ({ contentOn, language, projectId, screen }) => {
                                     <img
                                         src={image.url}
                                         alt={image.name}
-                                        className={`rounded-lg ${isPhone ? "h-[200px]":"h-[400px]"} w-[400px] object-cover`}
+                                        className={`rounded-lg ${isPhone ? "h-[200px]" : "h-[400px]"} w-[400px] object-cover`}
                                     />
                                 </div>
                             </SwiperSlide>
@@ -253,31 +342,32 @@ const ProjectDetailPage = ({ contentOn, language, projectId, screen }) => {
                         {moreProjects?.projects?.slice(0, 3).map((project, key) => {
                             if (!project.display) return null
                             return (
-                            <div key={key} className="rounded-md p-3 flex flex-col items-start gap-2 ">
-                                <img
-                                    src={projectPageData[project?.url]}
-                                    // width={339}
-                                    // height={0}
-                                    alt="icon"
-                                    className="w-full aspect-[12/8]"
-                                />
-                                <h5 className={`text-[#292E23D] text-lg font-bold mt-4 h-11  ${language === 'ar' ? 'text-right' : ''}`}>{TruncateText(project?.title[language], 25)}</h5>
-                                <p className={`text-gray-700 text-sm font-light mt-2 ${!isLeftAlign && "text-right"}`}>{project?.address[language]}</p>
-                                <button
-                                    className="text-[#00b9f2] text-base font-normal flex items-center gap-2 mt-2 cursor-pointer bg-transparent border-none"
-                                // onClick={() => router.push("/project/56756757656")}
-                                >
-                                    {moreProjects?.button?.text[language]}
+                                <div key={key} className="rounded-md p-3 flex flex-col items-start gap-2 ">
                                     <img
-                                        src="https://frequencyimage.s3.ap-south-1.amazonaws.com/61c0f0c2-6c90-42b2-a71e-27bc4c7446c2-mingcute_arrow-up-line.svg"
-                                        width={18}
-                                        height={18}
+                                        src={projectPageData[project?.url]}
+                                        // width={339}
+                                        // height={0}
                                         alt="icon"
-                                        className={`${language === 'en' ? 'scale-x-[-1]' : ''} `}
+                                        className="w-full aspect-[12/8]"
                                     />
-                                </button>
-                            </div>
-                        )})}
+                                    <h5 className={`text-[#292E23D] text-lg font-bold mt-4 h-11  ${language === 'ar' ? 'text-right' : ''}`}>{TruncateText(project?.title[language], 25)}</h5>
+                                    <p className={`text-gray-700 text-sm font-light mt-2 ${!isLeftAlign && "text-right"}`}>{project?.address[language]}</p>
+                                    <button
+                                        className="text-[#00b9f2] text-base font-normal flex items-center gap-2 mt-2 cursor-pointer bg-transparent border-none"
+                                    // onClick={() => router.push("/project/56756757656")}
+                                    >
+                                        {moreProjects?.button?.text[language]}
+                                        <img
+                                            src="https://frequencyimage.s3.ap-south-1.amazonaws.com/61c0f0c2-6c90-42b2-a71e-27bc4c7446c2-mingcute_arrow-up-line.svg"
+                                            width={18}
+                                            height={18}
+                                            alt="icon"
+                                            className={`${language === 'en' ? 'scale-x-[-1]' : ''} `}
+                                        />
+                                    </button>
+                                </div>
+                            )
+                        })}
                     </div>
                 </div>
             </section>

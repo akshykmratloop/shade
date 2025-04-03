@@ -28,7 +28,7 @@ const ProjectDetailManager = ({ projectId, currentContent, currentPath, language
             <div className="mt-4">
                 <h3 className={`font-semibold text-[1.25rem] mb-4`}>Cards</h3>
                 {
-                    currentContent?.[projectId - 1].introSection?.projectInforCard?.map((element, index, a) => {
+                    currentContent?.[projectId - 1]?.introSection?.projectInforCard?.map((element, index, a) => {
                         const lastIndex = index === (a.length - 1)
                         return (
                             <ContentSection key={index}
@@ -55,7 +55,7 @@ const ProjectDetailManager = ({ projectId, currentContent, currentPath, language
             <div className="mt-4">
                 <h3 className={`font-semibold text-[1.25rem] mb-4`}>Project Summaries</h3>
                 {
-                    currentContent?.[projectId - 1].descriptionSection?.map((element, index) => {
+                    currentContent?.[projectId - 1]?.descriptionSection?.map((element, index) => {
                         return (
                             <ContentSection key={index}
                                 currentPath={currentPath}
