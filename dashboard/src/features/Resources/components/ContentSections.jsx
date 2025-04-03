@@ -36,8 +36,11 @@ const ContentSection = ({
                 dispatch(updateImages({ src: [...ImagesFromRedux.socialIcons, { img: "", url: "", id: ImagesFromRedux.socialIcons.length + 1 }], section: "socialIcons" }))
                 dispatch(updateImages({ src: [...ImagesFromRedux.socialIcons, { img: "", url: "", id: ImagesFromRedux.socialIcons.length + 1 }], section: "socialIcons" }))
             }
+        } else if (section === 'gallerySection') {
+            dispatch(updateImages({ src: { url: "", alt: { en: "", ar: "" } }, updateType: section, projectId }))
+        } else {
+            setExtraFiles([...extraFiles, { label: `Extra File ${extraFiles.length + 1}`, id: `extraFile${extraFiles.length + 1}` }]);
         }
-        setExtraFiles([...extraFiles, { label: `Extra File ${extraFiles.length + 1}`, id: `extraFile${extraFiles.length + 1}` }]);
     };
 
     const removeExtraFileInput = (id) => {
@@ -66,9 +69,9 @@ const ContentSection = ({
                     } else if (input.updateType === 'url') {
                         valueExpression = currentContent?.[projectId - 1]?.[section]?.[input.updateType];
                     } else {
-                        if(section === 'descriptionSection') {
+                        if (section === 'descriptionSection') {
                             valueExpression = currentContent?.[projectId - 1]?.[section]?.[index]?.[input.updateType]?.[language];
-                        }else{
+                        } else {
                             valueExpression = currentContent?.[projectId - 1]?.[section]?.[input.updateType]?.[language];
                         }
                     }
@@ -145,14 +148,22 @@ const ContentSection = ({
                         </div>
                         : <div className={`flex ${inputFiles.length > 1 ? "flex-wrap" : ""} gap-10 w-[80%]`}>
                             {inputFiles.map((file, index) => (
-                                <InputFile
-                                    key={index}
-                                    label={file.label}
-                                    id={file.id}
-                                    currentPath={currentPath}
-                                    fileIndex={index}
-                                    section={section}
-                                />
+                                <div className="relative">
+                                    {index > 3 && <button
+                                        className="absolute top-6 z-10 right-[-12px] bg-red-500 text-white px-[5px] rounded-full shadow"
+                                        onClick={() => removeExtraFileInput(file.id)}
+                                    >
+                                        ✖
+                                    </button>}
+                                    <InputFile
+                                        key={index}
+                                        label={file.label}
+                                        id={file.id}
+                                        currentPath={currentPath}
+                                        fileIndex={index}
+                                        section={section}
+                                    />
+                                </div>
                             ))}
                             {extraFiles.map((file, index) => (
                                 <div key={index} className="relative flex items-center justify-center">

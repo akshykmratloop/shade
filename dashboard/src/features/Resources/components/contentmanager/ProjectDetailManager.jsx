@@ -108,7 +108,7 @@ const ProjectDetailManager = ({ projectId, currentContent, currentPath, language
                     currentContent?.[projectId - 1]?.gallerySection?.images?.map((e, i) => {
                         return { label: "Image " + (i + 1), id: `ProjectBanner/${projectId}/gallery/${i}` }
                     })}
-                section={"introSection"}
+                section={"gallerySection"}
                 language={language}
                 currentContent={currentContent}
                 projectId={projectId}

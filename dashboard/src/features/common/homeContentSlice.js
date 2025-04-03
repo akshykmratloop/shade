@@ -14,7 +14,12 @@ const cmsSlice = createSlice({
     reducers: {
         updateImages: (state, action) => {
             state.past.push(JSON.parse(JSON.stringify(state.present)));
-            state.present.images[action.payload.section] = action.payload.src;
+            if (action.payload.updateType === 'gallerySection') {
+                let newArray = [...state.present.projectDetail[action.payload.projectId - 1].gallerySection.images, action.payload.src]
+                state.present.projectDetail[action.payload.projectId - 1].gallerySection.images = newArray
+            } else {
+                state.present.images[action.payload.section] = action.payload.src;
+            }
             state.future = [];
         },
         removeImages: (state, action) => {
