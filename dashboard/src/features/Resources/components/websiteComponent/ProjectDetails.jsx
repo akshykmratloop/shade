@@ -198,7 +198,7 @@ const ProjectDetailPage = ({ contentOn, language, projectId, screen }) => {
                     {/* Project Info List */}
                     <div className={`flex ${isPhone && "flex-col"} items-stretch justify-between gap-4 mt-10`}>
                         {introSection?.projectInforCard?.map((card, index) => {
-                            console.log(ImageFromRedux?.[`ProjectIcon/${index}/${projectId}`])
+                            
                             return (
                             <div key={index} className="p-3 flex flex-col bg-blue-100 rounded-md flex-1">
                                 <img src={ImageFromRedux?.[`ProjectIcon/${index}/${projectId}`] ? ImageFromRedux?.[`ProjectIcon/${index}/${projectId}`] : card?.icon} alt="" width={28} height={28} className="w-7 h-7" />
@@ -297,7 +297,7 @@ const ProjectDetailPage = ({ contentOn, language, projectId, screen }) => {
                             <SwiperSlide key={index + Math}>
                                 <div className="flex justify-center ">
                                     <img
-                                        src={image.url}
+                                        src={ImageFromRedux?.[`ProjectBanner/${projectId}/gallery/${index}`]? ImageFromRedux?.[`ProjectBanner/${projectId}/gallery/${index}`] :image.url}
                                         alt={image.name}
                                         className={`rounded-lg ${isPhone ? "h-[200px]" : "h-[400px]"} w-[400px] object-cover`}
                                     />

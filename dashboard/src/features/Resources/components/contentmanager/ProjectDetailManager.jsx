@@ -99,6 +99,23 @@ const ProjectDetailManager = ({ projectId, currentContent, currentPath, language
                 <button className="text-blue-500 cursor-pointer mb-3" onClick={addExtraSummary}>Add More Section...</button>
             </div>
 
+
+
+            <ContentSection
+                currentPath={currentPath}
+                Heading={"Gallery"}
+                inputFiles={
+                    currentContent?.[projectId - 1]?.gallerySection?.images?.map((e, i) => {
+                        return { label: "Image " + (i + 1), id: `ProjectBanner/${projectId}/gallery/${i}` }
+                    })}
+                section={"introSection"}
+                language={language}
+                currentContent={currentContent}
+                projectId={projectId}
+                allowExtraInput={true}
+            />
+
+
             <MultiSelect
                 currentPath={currentPath}
                 section={"moreProjects"}
