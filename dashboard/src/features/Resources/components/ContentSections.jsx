@@ -162,7 +162,7 @@ const ContentSection = ({
                         </div>
                         : <div className={`flex ${inputFiles.length > 1 ? "flex-wrap" : ""} gap-10 w-[80%]`}>
                             {inputFiles.map((file, i) => (
-                                <div className="relative">
+                                <div className="relative" key={i}>
                                     {i > 3 && <button
                                         className="absolute top-6 z-10 right-[-12px] bg-red-500 text-white px-[5px] rounded-full shadow"
                                         onClick={() => removeExtraFileInput(Number(file.id.slice(-1)))}
@@ -170,7 +170,6 @@ const ContentSection = ({
                                         ✖
                                     </button>}
                                     <InputFile
-                                        key={i}
                                         label={file.label}
                                         id={file.id}
                                         currentPath={currentPath}

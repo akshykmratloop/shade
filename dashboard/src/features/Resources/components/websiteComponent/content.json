@@ -935,6 +935,11 @@
           "url": "https://frequencyimage.s3.ap-south-1.amazonaws.com/be6992a3-4390-42c1-b807-b1a04f48b0e6-Rectangle%2034624112.jpg",
           "width": 488,
           "height": 194
+        },
+        {
+          "url": "https://frequencyimage.s3.ap-south-1.amazonaws.com/ae1cee6e-f695-4e06-8e0b-983b8cb94209-Rectangle%2034624111.jpg",
+          "width": 384,
+          "height": 316
         }
       ],
       "showcase": [
@@ -952,6 +957,11 @@
           "url": "https://frequencyimage.s3.ap-south-1.amazonaws.com/02a98512-a0f4-4297-8c55-b84b66f54b6b-Rectangle%2034624113.png",
           "width": 488,
           "height": 396
+        },
+        {
+          "url": "https://frequencyimage.s3.ap-south-1.amazonaws.com/5cd72b35-f719-40af-bc46-e994164239cc-Rectangle%2034624114.png",
+          "width": 432,
+          "height": 232
         }
       ]
     }
@@ -2258,7 +2268,7 @@
               }
             },
             "url": "itLabExcellence",
-            "display":true
+            "display": true
           },
           {
             "id": 2,
@@ -2278,7 +2288,7 @@
               }
             },
             "url": "nonMetallic",
-            "display":true
+            "display": true
           },
           {
             "id": 3,
@@ -2298,7 +2308,7 @@
               }
             },
             "url": "businessGate",
-            "display":true
+            "display": true
           }
         ],
         "button": {
@@ -2450,7 +2460,7 @@
               }
             },
             "url": "itLabExcellence",
-            "display":true
+            "display": true
           },
           {
             "id": 2,
@@ -2470,7 +2480,7 @@
               }
             },
             "url": "nonMetallic",
-            "display":true
+            "display": true
           },
           {
             "id": 3,
@@ -2490,7 +2500,7 @@
               }
             },
             "url": "businessGate",
-            "display":true
+            "display": true
           }
         ],
         "button": {
@@ -2642,7 +2652,7 @@
               }
             },
             "url": "itLabExcellence",
-            "display":true
+            "display": true
           },
           {
             "id": 2,
@@ -2662,7 +2672,7 @@
               }
             },
             "url": "nonMetallic",
-            "display":true
+            "display": true
           },
           {
             "id": 3,
@@ -2682,7 +2692,7 @@
               }
             },
             "url": "businessGate",
-            "display":true
+            "display": true
           }
         ],
         "button": {
@@ -2827,7 +2837,7 @@
               }
             },
             "url": "itLabExcellence",
-            "display":true
+            "display": true
           },
           {
             "id": 2,
@@ -2847,7 +2857,7 @@
               }
             },
             "url": "nonMetallic",
-            "display":true
+            "display": true
           },
           {
             "id": 3,
@@ -2867,7 +2877,7 @@
               }
             },
             "url": "businessGate",
-            "display":true
+            "display": true
           }
         ],
         "button": {

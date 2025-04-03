@@ -198,21 +198,22 @@ const ProjectDetailPage = ({ contentOn, language, projectId, screen }) => {
                     {/* Project Info List */}
                     <div className={`flex ${isPhone && "flex-col"} items-stretch justify-between gap-4 mt-10`}>
                         {introSection?.projectInforCard?.map((card, index) => {
-                            
+
                             return (
-                            <div key={index} className="p-3 flex flex-col bg-blue-100 rounded-md flex-1">
-                                <img src={ImageFromRedux?.[`ProjectIcon/${index}/${projectId}`] ? ImageFromRedux?.[`ProjectIcon/${index}/${projectId}`] : card?.icon} alt="" width={28} height={28} className="w-7 h-7" />
-                                <h5 className={`text-[#292E3D] font-bold text-lg mt-4`}>
-                                    {card?.key[language]}
-                                </h5>
-                                <p
-                                    title={card?.value[language]}
-                                    className={`text-gray-700 font-light text-xs leading-2`}
-                                >
-                                    {TruncateText(card?.value[language], 25)}
-                                </p>
-                            </div>
-                        )})}
+                                <div key={index} className="p-3 flex flex-col bg-blue-100 rounded-md flex-1">
+                                    <img src={ImageFromRedux?.[`ProjectIcon/${index}/${projectId}`] ? ImageFromRedux?.[`ProjectIcon/${index}/${projectId}`] : card?.icon} alt="" width={28} height={28} className="w-7 h-7" />
+                                    <h5 className={`text-[#292E3D] font-bold text-lg mt-4`}>
+                                        {card?.key[language]}
+                                    </h5>
+                                    <p
+                                        title={card?.value[language]}
+                                        className={`text-gray-700 font-light text-xs leading-2`}
+                                    >
+                                        {TruncateText(card?.value[language], 25)}
+                                    </p>
+                                </div>
+                            )
+                        })}
                     </div>
                 </div>
             </section>
@@ -249,7 +250,7 @@ const ProjectDetailPage = ({ contentOn, language, projectId, screen }) => {
             </section>
 
             {/* gallery */}
-            <div className={`relative ${isPhone || isTablet ? "w-full " : "w-[770px]"} mx-auto`}>
+            <div className={`relative ${isPhone || isTablet ? "w-full " : "w-[800px]"} mx-auto`}>
                 {/* Blur effect container */}
                 {
                     !isPhone &&
@@ -265,8 +266,8 @@ const ProjectDetailPage = ({ contentOn, language, projectId, screen }) => {
                     modules={[Navigation, Autoplay, EffectCoverflow]}
                     grabCursor={false}
                     centeredSlides={true}
-                    slidesPerView={3}
-                    loop={true}
+                    slidesPerView={3} // Adjust dynamically
+                    loop={gallerySection?.images?.length > 3} // Enable loop only if enough slides exist
                     spaceBetween={10}
                     effect="coverflow"
                     navigation={{
@@ -288,24 +289,23 @@ const ProjectDetailPage = ({ contentOn, language, projectId, screen }) => {
                     }}
                     autoplay={{ delay: 2500 }}
                     breakpoints={{
-                        724: { slidesPerView: isPhone ? 1 : 2 },
+                        724: { slidesPerView: isPhone ? 1 : 2.2 },
                         500: { slidesPerView: 2 },
                     }}
                 >
-                    {gallerySection?.images?.map(
-                        (image, index) => (
-                            <SwiperSlide key={index + Math}>
-                                <div className="flex justify-center ">
-                                    <img
-                                        src={ImageFromRedux?.[`ProjectBanner/${projectId}/gallery/${index}`]? ImageFromRedux?.[`ProjectBanner/${projectId}/gallery/${index}`] :image.url}
-                                        alt={image.name}
-                                        className={`rounded-lg ${isPhone ? "h-[200px]" : "h-[400px]"} w-[400px] object-cover`}
-                                    />
-                                </div>
-                            </SwiperSlide>
-                        )
-                    )}
+                    {(gallerySection?.images?.length ? gallerySection.images : []).map((image, index) => (
+                        <SwiperSlide key={`slide-${index}`}>
+                            <div className="flex justify-center">
+                                <img
+                                    src={ImageFromRedux?.[`ProjectBanner/${projectId}/gallery/${index}`] || image.url}
+                                    alt={image.name}
+                                    className={`rounded-lg ${isPhone ? "h-[200px]" : "h-[400px]"} w-[400px] object-cover`}
+                                />
+                            </div>
+                        </SwiperSlide>
+                    ))}
                 </Swiper>
+
 
                 {/* <div className={`flex justify-center items-center gap-7 mt-5 ${!isLeftAlign && "flex-row-reverse"}`}>
                     <button
