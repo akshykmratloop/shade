@@ -12,7 +12,7 @@ function ShowLogs({ log, show, onClose }) {
     const [fetchedRole, setFetchedRole] = useState({})
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(true)
-
+    const emptyOfObject = { "N/A": "N/A" }
     function getBrowserInfo(uaString) {
         let browserMatch = uaString?.match(/(Chrome|Firefox|Safari|Edge|Opera|MSIE|Trident)\/?\s*(\d+)/i) || [];
 
@@ -36,7 +36,7 @@ function ShowLogs({ log, show, onClose }) {
     }
 
     const browserInfoToRender = getBrowserInfo(log?.browserInfo) ?? undefined
-    
+
     function isValidDateTime(str) {
         return !isNaN(Date.parse(str));
     }
@@ -45,7 +45,7 @@ function ShowLogs({ log, show, onClose }) {
     const data = []
 
     data.forEach(element => {
-        
+
     });
 
     if (log?.newValue) {
@@ -54,11 +54,11 @@ function ShowLogs({ log, show, onClose }) {
         delete log.newValue.image;
         delete log.newValue.password;
     }
-    
+
     if (log?.oldValue) {
         delete log.oldValue.id;
         delete log.oldValue.roleTypeId;
-    }    
+    }
 
     useEffect(() => {
         const handleClickOutside = (e) => {
@@ -189,7 +189,7 @@ function ShowLogs({ log, show, onClose }) {
                                         </tr>
                                     </tbody>
                                 </table>
-                                <div className="flex gap-3">
+                                <div className="flex gap-3 items-start">
 
                                     <table className=" border-collapse w-1/2">
                                         <thead>
@@ -198,13 +198,12 @@ function ShowLogs({ log, show, onClose }) {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            { log.oldValue &&
-                                                Object.keys(log?.oldValue ?? {})?.map((e, i, a) => {
-
+                                            {
+                                                Object.keys(log?.oldValue ?? emptyOfObject)?.map((e, i, a) => {
                                                     return (
                                                         <tr key={i} className="font-[300] text-[12px] border-b ">
-                                                            <td className=" font-[400] pr-1 w-1/3">{capitalizeWords(e)}: </td>
-                                                            <td className="">{log.oldValue !== null ? isValidDateTime(log.oldValue[e]) ? formatTimestamp(log.oldValue[e]) : log.oldValue[e] : ""}</td>
+                                                            <td className=" font-[400] pr-1 w-1/3 py-2">{e !== "N/A" ? capitalizeWords(e) : e}: </td>
+                                                            <td className="py-2">{log.oldValue !== null ? isValidDateTime(log.oldValue[e]) ? formatTimestamp(log.oldValue[e]) : log.oldValue[e] : emptyOfObject[e]}</td>
                                                         </tr>
                                                     )
                                                 })
@@ -224,7 +223,7 @@ function ShowLogs({ log, show, onClose }) {
                                                     return (
                                                         <tr key={i} className="font-[300] text-[12px] border-b">
                                                             <td className="font-[400] pr-1 w-1/3 py-2">{capitalizeWords(e)}: </td>
-                                                            <td className="py-2">{ isValidDateTime(log.newValue[e]) ? formatTimestamp(log.newValue[e]) : log.newValue[e]}</td>
+                                                            <td className="py-2">{isValidDateTime(log.newValue[e]) ? formatTimestamp(log.newValue[e]) : log.newValue[e]}</td>
                                                         </tr>
                                                     )
                                                 })
