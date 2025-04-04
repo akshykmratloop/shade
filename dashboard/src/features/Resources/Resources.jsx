@@ -104,9 +104,12 @@ function Resources() {
                     ))}
 
                 {
-                    resources?.[currentResource][0].subPage &&
-                    <div className="w-full pt-7">
-                        <div onClick={() => {navigate(`./edit/${currentResource}/${resources?.[currentResource].length + 1}`) }} className="border rounded-md justify-center cursor-pointer flex h-full items-center text-[50px] shadow-xl-custom border-[#29469c80]">
+                    resources?.[currentResource]?.[0]?.subPage &&
+                    <div className="w-full flex flex-col gap-[5px]">
+                        <h3 className=" font-poppins font-semibold">
+                                Add More Project Page
+                            </h3>
+                        <div onClick={() => {navigate(`./edit/${currentResource}/${resources?.[currentResource].length + 1}`) }} className="border rounded-md justify-center flex-grow cursor-pointer flex items-center text-[50px] shadow-xl-custom border-[#29469c80]">
                             <span className="">+</span>
                         </div>
                     </div>
