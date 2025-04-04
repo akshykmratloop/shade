@@ -78,7 +78,7 @@ const EditPage = () => {
                     }
                     {
                         currentPath === 'projects' ? subPath ?
-                            <ProjectDetailManager projectId={subPath} language={language} currentContent={content.projectDetail} currentPath={currentPath} /> :
+                            <ProjectDetailManager projectId={subPath} language={language} currentContent={isNaN(Number(subPath)) ? content.underDevelopment : content.projectDetail} currentPath={currentPath} /> :
                             <ProjectContentManager language={language} currentContent={content.projects} currentPath={currentPath} /> : ""
                     }
                     {
@@ -133,7 +133,7 @@ const EditPage = () => {
                         }
                         {
                             currentPath === 'projects' ? subPath ?
-                                <ProjectDetailPage language={language} contentOn={content.projectDetail} projectId={subPath} screen={screen} /> :
+                                <ProjectDetailPage language={language} contentOn={isNaN(Number(subPath)) ? content.underDevelopment : content.projectDetail} projectId={subPath} screen={screen} /> :
                                 <ProjectPage language={language} currentContent={content.projects} screen={screen} /> : ""
                         }
                         {
@@ -160,7 +160,7 @@ const EditPage = () => {
                 <Popups display={PopupReject} setClose={() => setPopupReject(false)} confirmationText={"Are you sure you want to reject"} />
                 <Popups display={PopupSubmit} setClose={() => setPopupSubmit(false)} confirmationText={"Are you sure you want to submit"} />
             </div>
-                <ToastContainer />
+            <ToastContainer />
         </div>
 
     )

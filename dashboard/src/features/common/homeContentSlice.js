@@ -105,6 +105,7 @@ const cmsSlice = createSlice({
             } else if (action.payload.type === 'rich') {
                 state.present[action.payload?.currentPath][action.payload.section][action.payload.index][action.payload.title][action.payload.lan] = action.payload.value;
             } else {
+                console.log("qwerqw")
                 state.present[action.payload?.currentPath][action.payload.section][action.payload.title][action.payload.lan] = action.payload.value;
             }
             state.future = [];

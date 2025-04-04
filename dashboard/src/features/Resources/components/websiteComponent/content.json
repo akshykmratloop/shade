@@ -883,16 +883,18 @@
         }
       }
     ],
-    "howWeDo": [{
-      "title": {
-        "ar": "كيف نفعل",
-        "en": "How We Do It"
-      },
-      "description": {
-        "ar": "استمتع بالدقة في المسح، وبراعة التصنيع، وقوة رفع الأثقال، كل ذلك تحت مظلة Shade's Construction Services. سواء كان مشروعك يتطلب قوة هيكلية، أو تفاصيل معقدة، أو نشر التكنولوجيا المتقدمة، فنحن مجهزون لتجاوز توقعاتك.",
-        "en": "Experience precision in surveying, manufacturing expertise, and heavy lifting capabilities, all under Shade's Construction Services umbrella. Whether your project demands structural strength, intricate details, or advanced technology deployment, we're equipped to exceed your expectations."
+    "howWeDo": [
+      {
+        "title": {
+          "ar": "كيف نفعل",
+          "en": "How We Do It"
+        },
+        "description": {
+          "ar": "استمتع بالدقة في المسح، وبراعة التصنيع، وقوة رفع الأثقال، كل ذلك تحت مظلة Shade's Construction Services. سواء كان مشروعك يتطلب قوة هيكلية، أو تفاصيل معقدة، أو نشر التكنولوجيا المتقدمة، فنحن مجهزون لتجاوز توقعاتك.",
+          "en": "Experience precision in surveying, manufacturing expertise, and heavy lifting capabilities, all under Shade's Construction Services umbrella. Whether your project demands structural strength, intricate details, or advanced technology deployment, we're equipped to exceed your expectations."
+        }
       }
-    }],
+    ],
     "newProject": {
       "title": {
         "ar": "هل تريد بدء مشروع جديد أو التعاون معنا؟",
@@ -5483,6 +5485,14 @@
       "text": {
         "en": "Return to Homepage",
         "ar": "العودة إلى الصفحة الرئيسية"
+      }
+    }
+  },
+  "underDevelopment": {
+    "banner": {
+      "title":{
+        "ar": "هذه الصفحة قيد التطوير وسوف يتم تحديثها قريبا...",
+        "en": "This page is under development and will be updated soon..."
       }
     }
   }

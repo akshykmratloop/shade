@@ -30,10 +30,30 @@ const ProjectDetailManager = ({ projectId, currentContent, currentPath, language
     }
 
     console.log(projectId)
-    
+
     useEffect(() => {
         dispatch(updateContent({ currentPath: "home", payload: (content?.home) }))
     }, [])
+
+    if (isNaN(Number(projectId))) {
+        return (
+            <div className="w-full">
+                {/* reference doc */}
+                <FileUploader id={"ProjectIDReference" + projectId} label={"Rerference doc"} fileName={"Upload your file..."} />
+
+                <ContentSection
+                    currentPath={"underDevelopment"}
+                    Heading={"Banner"}
+                    inputs={[
+                        { input: "textarea", label: "Text", updateType: "title" }
+                    ]}
+                    section={"banner"}
+                    language={language}
+                    currentContent={currentContent}
+                />
+            </div>
+        )
+    }
 
     return (
         <div className="w-full">
