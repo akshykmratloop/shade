@@ -50,7 +50,7 @@ const SolutionPage = ({ language, screen }) => {
 
     }, [])
     return (
-        <div className=" bankgothic-medium-dt pb-8">
+        <div className=" bankgothic-medium-dt pb-8" dir={language === 'en' ? 'ltr' : "rtl"}>
             {/** banner */}
             <section
                 className={`relative py-[10rem] w-full bg-cover bg-center ${isLeftAlign ? 'scale-x-[-1]' : ''} px-12 ${isPhone ? "h-screen" : ""}`}
@@ -99,9 +99,9 @@ const SolutionPage = ({ language, screen }) => {
                                         {e?.title[language]}
                                     </h1>
                                 </div>
-                                <div>
+                                <div className="text-[#2A303C]">
                                     <div
-                                        className={` font-light ${isPhone ? "leading-[20px] text-sm" : "leading-[40px]"} tracking-[-1.2px] mb-[32px] `}
+                                        className={`  ${isPhone ? "leading-[20px] text-sm" : "leading-[40px]"} tracking-[-1.2px] mb-[32px] `}
                                         // className={` font-light text-[#1F2937] ${isPhone ? "leading-[20px] text-sm" : "leading-[40px]"} tracking-[-1.2px] mb-[32px] `}
                                         dangerouslySetInnerHTML={{ __html: e?.description[language] }}
                                     />

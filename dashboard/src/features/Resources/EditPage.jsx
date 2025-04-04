@@ -55,7 +55,7 @@ const EditPage = () => {
             <div className="flex gap-[1.5rem] pr-1 h-[83.5vh] w-full relative">
                 {/* content manager */}
                 <div
-                    className={`pt-8 bg-[#fafaff] dark:bg-[#242933] p-8 lg:w-[23rem] sm:w-[30vw] min-w-23rem flex flex-col gap-4 items-center overflow-y-scroll customscroller`}
+                    className={`pt-8 bg-[#fafaff]  dark:bg-[#242933] p-8 lg:w-[23rem] sm:w-[30vw] min-w-23rem flex flex-col gap-4 items-center overflow-y-scroll customscroller`}
                 >
                     <div className="w-full sticky top-[-30px] rounded-md p-5 bg-gray-100 dark:bg-cyan-800 z-30">
                         <LanguageSwitch language={language} setLanguage={setLanguage} />
@@ -112,7 +112,7 @@ const EditPage = () => {
                         containerStyle={"mb-4"}
                         minHeight={"3.2rem"}
                     />
-                    <div className={`overflow-y-scroll customscroller transition-custom border-stone-200 border mx-auto w-full bankgothic-medium-dt bg-[white]`}
+                    <div className={`overflow-y-scroll dark:text-[#2A303C] customscroller transition-custom border-stone-200 border mx-auto w-full bankgothic-medium-dt bg-[white]`}
                         style={{ width: screen > 1000 ? "" : screen }}
                     >
                         {

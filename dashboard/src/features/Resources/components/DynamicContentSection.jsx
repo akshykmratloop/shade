@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useMemo } from "react";
 import InputFile from "../../../components/Input/InputFile";
 import InputText from "../../../components/Input/InputText";
 import TextAreaInput from "../../../components/Input/TextAreaInput";
@@ -6,7 +6,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateSpecificContent, updateServicesNumber, updateImages, updateTheProjectSummaryList, updateWhatWeDoList } from "../../common/homeContentSlice";
 import InputFileWithText from "../../../components/Input/InputFileText";
 import InputFileForm from "../../../components/Input/InputFileForm";
-import ReactQuill from "react-quill";
+// import ReactQuill from "react-quill";
+import JoditEditor from "jodit-react";
 
 const DynamicContentSection = ({
     Heading,
@@ -40,11 +41,11 @@ const DynamicContentSection = ({
         }
         setExtraFiles([...extraFiles, { label: `Extra File ${extraFiles.length + 1}`, id: `extraFile${extraFiles.length + 1}` }]);
     };
+    const editor = useRef(null);
 
     const removeExtraFileInput = (id) => {
         setExtraFiles(extraFiles.filter(file => file.id !== id));
     };
-
 
 
     const removeSummary = (index) => {
@@ -74,7 +75,7 @@ const DynamicContentSection = ({
         }
     };
 
-    const updateFormValueReactQuill = (updateType) => (value) => {
+    const updateFormValueReactQuill = (updateType, value) => {
         // console.log(`Updating field (ReactQuill): ${updateType}, Value:`, value);
 
         if (updateType === 'count') {
@@ -104,11 +105,36 @@ const DynamicContentSection = ({
             [{ color: [] }, { background: [] }], ,
             [{ header: [1, 2, false] }],
             ["bold", "italic", "underline"],
-            [{ list: "ordered" }, { list: "bullet" }],
+            // [{ list: "ordered" }, { list: "bullet" }],
             ["link", "image"],
             ['clean'] // Remove formatting
         ],
     };
+
+    const config = useMemo(() => ({
+        buttons: [
+            "bold", "italic", "underline", "strikethrough", "|",
+            "font", "fontsize", "lineHeight", "|",
+            "brush", "eraser", "image"
+        ],
+        buttonsXS: [
+            "bold", "italic", "underline", "strikethrough", "|",
+            "font", "fontsize", "lineHeight", "|",
+            "brush", "eraser"
+        ],
+        toolbarAdaptive: false, // Disables toolbar auto-resizing
+        toolbarSticky: false, // Prevents the toolbar from sticking when scrolling
+        removeButtons: [
+            "source", "ul", "ol", "indent", "outdent", "paragraph", "video", "table", "link", "unlink",
+            "align", "undo", "redo", "hr", "fullsize",
+            "copyformat", "selectall", "cut", "copy", "paste"
+        ],
+        showPlaceholder: false, // Hides placeholder text
+        showCharsCounter: false, // Hides character counter
+        showWordsCounter: false, // Hides word counter
+        showXPathInStatusbar: false, // Hides path at the bottom
+    }), []);
+
 
     return (
         <div className={`w-full relative ${Heading ? "mt-4" : subHeading ? "mt-2" : ""} flex flex-col gap-1 ${!isBorder ? "" : "border-b border-b-1 border-neutral-300"} ${attachOne ? "pb-0" : (Heading || subHeading) ? "pb-6" : ""}`}>
@@ -164,14 +190,16 @@ const DynamicContentSection = ({
                         );
                     } else if (input.input === "richtext") {
                         return (
-                            <ReactQuill
-                                key={i}
-                                className=""
-                                modules={modules}
-                                theme="snow"
-                                value={valueExpression}
-                                onChange={updateFormValueReactQuill(input.updateType)}
-                            />
+                            <div dir={language === 'en' ? 'ltr' : 'rtl'} key={i}>
+                                <JoditEditor
+                                    ref={editor}
+                                    value={valueExpression}
+                                    config={config}
+                                    onChange={(newContent) => updateFormValueReactQuill(input.updateType, newContent)}
+                                    onBlur={(newContent) => updateFormValueReactQuill(input.updateType, newContent)}
+
+                                />
+                            </div>
                         );
                     } else {
                         return (
@@ -275,3 +303,14 @@ const DynamicContentSection = ({
 };
 
 export default DynamicContentSection;
+
+
+
+// <ReactQuill
+//     key={i}
+//     className=""
+//     modules={modules}
+//     theme="snow"
+//     value={valueExpression}
+//     onChange={updateFormValueReactQuill(input.updateType)}
+// />

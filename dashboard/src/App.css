@@ -263,7 +263,7 @@ select {
   top: calc(50% - 132);
 }
 
-.ql-toolbar,
+/* .ql-toolbar,
 .ql-container {
   border: 1px solid #3e424c !important;
 }
@@ -284,5 +284,38 @@ select {
 }
 
 .custom-editor .ql-toolbar button {
-  color: white;
+  color: white; }*/
+
+/* Change toolbar background & border */
+
+
+.jodit-toolbar__box {
+  background-color: #a2a5ad !important; /* Dark background */
+  /* border-radius: 8px 8px 0px 0px !important; */
+  border: none !important;
+}
+
+.jodit-container {
+  /* border: 1px solid #808080 !important; Blue border */
+  border-radius: 8px !important;
+  overflow: hidden;
+}
+
+/* Style toolbar buttons */
+.jodit-toolbar-button {
+  color: white !important; /* Text color */
+  background-color: transparent !important;
+  border-radius: 5px;
+  transition: 0.3s;
+}
+
+.jodit-wysiwyg {
+  background-color: #f4f4f4 !important; /* Light Gray */
+  color: #333 !important; /* Dark text */
+  padding: 10px !important;
+  border-radius: 5px;
+}
+
+.jodit-toolbar-button:hover {
+  background-color: #017392 !important; /* Blue hover effect */
 }
