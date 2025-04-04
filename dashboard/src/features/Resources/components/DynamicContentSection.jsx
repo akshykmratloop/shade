@@ -75,7 +75,7 @@ const DynamicContentSection = ({
         }
     };
 
-    const updateFormValueReactQuill = (updateType, value) => {
+    const updateFormValueRichText = (updateType, value) => {
         // console.log(`Updating field (ReactQuill): ${updateType}, Value:`, value);
 
         if (updateType === 'count') {
@@ -195,8 +195,8 @@ const DynamicContentSection = ({
                                     ref={editor}
                                     value={valueExpression}
                                     config={config}
-                                    onChange={(newContent) => updateFormValueReactQuill(input.updateType, newContent)}
-                                    onBlur={(newContent) => updateFormValueReactQuill(input.updateType, newContent)}
+                                    onChange={(newContent) => updateFormValueRichText(input.updateType, newContent)}
+                                    onBlur={(newContent) => updateFormValueRichText(input.updateType, newContent)}
 
                                 />
                             </div>

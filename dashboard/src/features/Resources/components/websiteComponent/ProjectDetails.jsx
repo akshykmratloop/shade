@@ -50,6 +50,39 @@ const structureOfPageDetails = {
                     "en": ""
                 },
                 "icon": ""
+            },
+            {
+                "key": {
+                    "ar": "",
+                    "en": ""
+                },
+                "value": {
+                    "ar": "",
+                    "en": ""
+                },
+                "icon": ""
+            },
+            {
+                "key": {
+                    "ar": "",
+                    "en": ""
+                },
+                "value": {
+                    "ar": "",
+                    "en": ""
+                },
+                "icon": ""
+            },
+            {
+                "key": {
+                    "ar": "",
+                    "en": ""
+                },
+                "value": {
+                    "ar": "",
+                    "en": ""
+                },
+                "icon": ""
             }
         ]
     },
@@ -128,7 +161,7 @@ const ProjectDetailPage = ({ contentOn, language, projectId, screen }) => {
 
 
     useEffect(() => {
-        if (content.projectDetail[projectId - 1]) {
+        if (!content.projectDetail[projectId - 1]) {
             dispatch(updateContent({ currentPath: "projectDetail", payload: [...content.projectDetail, structureOfPageDetails] }))
         } else {
             dispatch(updateContent({ currentPath: "projectDetail", payload: content.projectDetail }))
@@ -345,6 +378,7 @@ const ProjectDetailPage = ({ contentOn, language, projectId, screen }) => {
                     <h2 className={`text-gray-700 text-2xl font-normal mb-6 `}>{moreProjects?.title[language]}</h2>
                     <div className={`${isPhone ? "flex flex-col gap-10 " : `grid ${isTablet ? "grid-cols-2" : "grid-cols-3"} gap-x-8 gap-y-6 mt-12`}`}>
                         {moreProjects?.projects?.slice(0, 3).map((project, key) => {
+                            console.log(moreProjects?.button?.text[language])
                             if (!project.display) return null
                             return (
                                 <div key={key} className="rounded-md p-3 flex flex-col items-start gap-2 ">
@@ -361,7 +395,7 @@ const ProjectDetailPage = ({ contentOn, language, projectId, screen }) => {
                                         className="text-[#00b9f2] text-base font-normal flex items-center gap-2 mt-2 cursor-pointer bg-transparent border-none"
                                     // onClick={() => router.push("/project/56756757656")}
                                     >
-                                        {moreProjects?.button?.text[language]}
+                                        {project?.button?.text[language]}
                                         <img
                                             src="https://frequencyimage.s3.ap-south-1.amazonaws.com/61c0f0c2-6c90-42b2-a71e-27bc4c7446c2-mingcute_arrow-up-line.svg"
                                             width={18}

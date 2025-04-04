@@ -6,8 +6,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateSpecificContent, updateServicesNumber, updateImages } from "../../common/homeContentSlice";
 import InputFileWithText from "../../../components/Input/InputFileText";
 import InputFileForm from "../../../components/Input/InputFileForm";
-import ReactQuill from "react-quill";
-import "react-quill/dist/quill.snow.css"; // Import styles
 
 const ContentSection = ({
     Heading,
@@ -74,29 +72,6 @@ const ContentSection = ({
         }
     };
 
-    const updateFormValueReactQuill = (updateType) => (value) => {
-        console.log(`Updating field (ReactQuill): ${updateType}, Value:`, value);
-
-        if (updateType === 'count') {
-            if (!isNaN(value)) {
-                let val = value?.slice(0, 7);
-                dispatch(updateServicesNumber({ section, title: updateType, value: val, subSection, index, currentPath }));
-            }
-        } else {
-            dispatch(updateSpecificContent({
-                section,
-                title: updateType,
-                lan: language,
-                value: value === "" ? "" : value,
-                subSection,
-                index,
-                subSectionsProMax,
-                subSecIndex,
-                currentPath,
-                projectId
-            }));
-        }
-    };
 
     return (
         <div className={`w-full ${Heading ? "mt-4" : subHeading ? "mt-2" : ""} flex flex-col gap-1 ${!isBorder ? "" : "border-b border-b-1 border-neutral-300"} ${attachOne ? "pb-0" : (Heading || subHeading) ? "pb-6" : ""}`}>
@@ -142,16 +117,7 @@ const ContentSection = ({
                                 id={input.updateType}
                             />
                         );
-                    } else if (input.input === "richtext") {
-                        return (
-                            <ReactQuill
-                                key={i}
-                                theme="snow"
-                                value={valueExpression}
-                                onChange={updateFormValueReactQuill(input.updateType)}
-                            />
-                        );
-                    } else {
+                    }  else {
                         return (
                             <InputText
                                 key={i}
