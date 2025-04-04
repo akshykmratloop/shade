@@ -1,0 +1,115 @@
+{
+    "id": "",
+    "introSection": {
+        "title": {
+            "ar": "",
+            "en": ""
+        },
+        "subtitle": {
+            "ar": "",
+            "en": ""
+        },
+        "url": "",
+        "backButton": {
+            "ar": "",
+            "en": ""
+        },
+        "projectInforCard": [
+            {
+                "key": {
+                    "ar": "",
+                    "en": ""
+                },
+                "value": {
+                    "ar": "",
+                    "en": ""
+                },
+                "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/ion_location-sharp.svg"
+            },
+            {
+                "key": {
+                    "ar": "",
+                    "en": ""
+                },
+                "value": {
+                    "ar": "",
+                    "en": ""
+                },
+                "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/solar_calendar-bold+(1).svg"
+            },
+            {
+                "key": {
+                    "ar": "",
+                    "en": ""
+                },
+                "value": {
+                    "ar": "",
+                    "en": ""
+                },
+                "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/solar_calendar-bold.svg"
+            },
+            {
+                "key": {
+                    "ar": "",
+                    "en": ""
+                },
+                "value": {
+                    "ar": "",
+                    "en": ""
+                },
+                "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/pajamas_status-neutral.svg"
+            }
+        ]
+    },
+    "descriptionSection": [
+        {
+            "title": {
+                "ar": "",
+                "en": ""
+            },
+            "description": {
+                "ar": "",
+                "en": ""
+            }
+        }
+    ],
+    "gallerySection": {
+        "images": [
+            {
+                "url": "",
+                "alt": {
+                    "ar": "",
+                    "en": ""
+                }
+            }
+        ]
+    },
+    "moreProjects": {
+        "title": {
+            "ar": "",
+            "en": ""
+        },
+        "projects": [
+            {
+                "id": "",
+                "title": {
+                    "en": "",
+                    "ar": ""
+                },
+                "address": {
+                    "en": "",
+                    "ar": ""
+                },
+                "status": "",
+                "url": "",
+                "display": true,
+                "button": {
+                    "text": {
+                        "en": "View Details",
+                        "ar": " عرض التفاصيل"
+                    }
+                }
+            }
+        ]
+    }
+}

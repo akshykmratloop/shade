@@ -102,12 +102,21 @@ function Resources() {
                             </div>
                         </div>
                     ))}
+
+                {
+                    resources?.[currentResource][0].subPage &&
+                    <div className="w-full pt-7">
+                        <div onClick={() => {navigate(`./edit/${currentResource}/${resources?.[currentResource].length + 1}`) }} className="border rounded-md justify-center cursor-pointer flex h-full items-center text-[50px] shadow-xl-custom border-[#29469c80]">
+                            <span className="">+</span>
+                        </div>
+                    </div>
+                }
             </div>
 
             {/* right side bar for configuration */}
             <ConfigBar data={configBarData} display={configBarOn} setOn={setConfigBarOn} />
             <PageDetails data={configBarData} display={PageDetailsOn} setOn={setPageDetailsOn} />
-            
+
         </div>
     )
 }

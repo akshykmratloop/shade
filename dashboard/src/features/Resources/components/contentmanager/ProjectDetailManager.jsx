@@ -29,6 +29,8 @@ const ProjectDetailManager = ({ projectId, currentContent, currentPath, language
         ))
     }
 
+    console.log(projectId)
+    
     useEffect(() => {
         dispatch(updateContent({ currentPath: "home", payload: (content?.home) }))
     }, [])

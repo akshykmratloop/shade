@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateContent } from "../../../common/homeContentSlice";
 import content from './content.json'
 import { Swiper, SwiperSlide } from "swiper/react";
+import structureOfPageDetails from "./structures/structureOFPageDetails.json"
 import {
     Navigation,
     Autoplay,
@@ -23,127 +24,127 @@ import 'swiper/css/pagination';
 // });
 // import { useGlobalContext } from "../../contexts/GlobalContext";
 
-const structureOfPageDetails = {
-    "id": "",
-    "introSection": {
-        "title": {
-            "ar": "",
-            "en": ""
-        },
-        "subtitle": {
-            "ar": "",
-            "en": ""
-        },
-        "url": "",
-        "backButton": {
-            "ar": "",
-            "en": ""
-        },
-        "projectInforCard": [
-            {
-                "key": {
-                    "ar": "",
-                    "en": ""
-                },
-                "value": {
-                    "ar": "",
-                    "en": ""
-                },
-                "icon": ""
-            },
-            {
-                "key": {
-                    "ar": "",
-                    "en": ""
-                },
-                "value": {
-                    "ar": "",
-                    "en": ""
-                },
-                "icon": ""
-            },
-            {
-                "key": {
-                    "ar": "",
-                    "en": ""
-                },
-                "value": {
-                    "ar": "",
-                    "en": ""
-                },
-                "icon": ""
-            },
-            {
-                "key": {
-                    "ar": "",
-                    "en": ""
-                },
-                "value": {
-                    "ar": "",
-                    "en": ""
-                },
-                "icon": ""
-            }
-        ]
-    },
-    "descriptionSection": [
-        {
-            "title": {
-                "ar": "",
-                "en": ""
-            },
-            "description": {
-                "ar": "",
-                "en": ""
-            }
-        }
-    ],
-    "gallerySection": {
-        "images": [
-            {
-                "url": "",
-                "alt": {
-                    "ar": "",
-                    "en": ""
-                }
-            }
-        ]
-    },
-    "moreProjects": {
-        "title": {
-            "ar": "",
-            "en": ""
-        },
-        "projects": [
-            {
-                "id": "",
-                "title": {
-                    "en": "",
-                    "ar": ""
-                },
-                "address": {
-                    "en": "",
-                    "ar": ""
-                },
-                "status": "",
-                "button": {
-                    "text": {
-                        "ar": "",
-                        "en": ""
-                    }
-                },
-                "url": "",
-                "display": false
-            }
-        ],
-        "button": {
-            "text": {
-                "en": "",
-                "ar": ""
-            }
-        }
-    }
-}
+// const structureOfPageDetails = {
+//     "id": "",
+//     "introSection": {
+//         "title": {
+//             "ar": "",
+//             "en": ""
+//         },
+//         "subtitle": {
+//             "ar": "",
+//             "en": ""
+//         },
+//         "url": "",
+//         "backButton": {
+//             "ar": "",
+//             "en": ""
+//         },
+//         "projectInforCard": [
+//             {
+//                 "key": {
+//                     "ar": "",
+//                     "en": ""
+//                 },
+//                 "value": {
+//                     "ar": "",
+//                     "en": ""
+//                 },
+//                 "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/ion_location-sharp.svg"
+//             },
+//             {
+//                 "key": {
+//                     "ar": "",
+//                     "en": ""
+//                 },
+//                 "value": {
+//                     "ar": "",
+//                     "en": ""
+//                 },
+//                 "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/solar_calendar-bold+(1).svg"
+//             },
+//             {
+//                 "key": {
+//                     "ar": "",
+//                     "en": ""
+//                 },
+//                 "value": {
+//                     "ar": "",
+//                     "en": ""
+//                 },
+//                 "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/solar_calendar-bold.svg"
+//             },
+//             {
+//                 "key": {
+//                     "ar": "",
+//                     "en": ""
+//                 },
+//                 "value": {
+//                     "ar": "",
+//                     "en": ""
+//                 },
+//                 "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/pajamas_status-neutral.svg"
+//             }
+//         ]
+//     },
+//     "descriptionSection": [
+//         {
+//             "title": {
+//                 "ar": "",
+//                 "en": ""
+//             },
+//             "description": {
+//                 "ar": "",
+//                 "en": ""
+//             }
+//         }
+//     ],
+//     "gallerySection": {
+//         "images": [
+//             {
+//                 "url": "",
+//                 "alt": {
+//                     "ar": "",
+//                     "en": ""
+//                 }
+//             }
+//         ]
+//     },
+//     "moreProjects": {
+//         "title": {
+//             "ar": "",
+//             "en": ""
+//         },
+//         "projects": [
+//             {
+//                 "id": "",
+//                 "title": {
+//                     "en": "",
+//                     "ar": ""
+//                 },
+//                 "address": {
+//                     "en": "",
+//                     "ar": ""
+//                 },
+//                 "status": "",
+//                 "button": {
+//                     "text": {
+//                         "ar": "",
+//                         "en": ""
+//                     }
+//                 },
+//                 "url": "",
+//                 "display": true
+//             }
+//         ],
+//         "button": {
+//             "text": {
+//                 "en": "View Details",
+//                 "ar": " عرض التفاصيل"
+//             }
+//         }
+//     }
+// }
 
 
 const ProjectDetailPage = ({ contentOn, language, projectId, screen }) => {
@@ -161,8 +162,8 @@ const ProjectDetailPage = ({ contentOn, language, projectId, screen }) => {
 
 
     useEffect(() => {
-        if (!content.projectDetail[projectId - 1]) {
-            dispatch(updateContent({ currentPath: "projectDetail", payload: [...content.projectDetail, structureOfPageDetails] }))
+        if (!currentContent[projectId - 1]) {
+            dispatch(updateContent({ currentPath: "projectDetail", payload: [...content.projectDetail, { ...structureOfPageDetails, id: content.projectDetail.length + 1 }] }))
         } else {
             dispatch(updateContent({ currentPath: "projectDetail", payload: content.projectDetail }))
         }
@@ -210,16 +211,16 @@ const ProjectDetailPage = ({ contentOn, language, projectId, screen }) => {
                                         height={20}
                                         className={`${language === "en" ? 'scale-x-[-1]' : ''}`}
                                     />
-                                    {introSection?.backButton[language]}
+                                    {introSection?.backButton[language] || "Button"}
                                 </Link>
                                 <h1 className={`text-[#062233] font-bold text-xl mt-7 mb-6 `}>
-                                    {introSection?.title[language]}
+                                    {introSection?.title[language] || "Heading/title"}
                                 </h1>
                                 <p className={`text-gray-700 font-bold text-lg mb-2 `}>
-                                    {introSection?.subtitle[language]}
+                                    {introSection?.subtitle[language] || "Description"}
                                 </p>
                                 <a href={introSection?.url || ""} className="text-[#00b9f2] underline font-medium text-md">
-                                    {introSection?.url}
+                                    {introSection?.url || "URL"}
                                 </a>
                             </div>
                         </div>
@@ -240,13 +241,13 @@ const ProjectDetailPage = ({ contentOn, language, projectId, screen }) => {
                                 <div key={index} className="p-3 flex flex-col bg-blue-100 rounded-md flex-1">
                                     <img src={ImageFromRedux?.[`ProjectIcon/${index}/${projectId}`] ? ImageFromRedux?.[`ProjectIcon/${index}/${projectId}`] : card?.icon} alt="" width={28} height={28} className="w-7 h-7" />
                                     <h5 className={`text-[#292E3D] font-bold text-lg mt-4`}>
-                                        {card?.key[language]}
+                                        {card?.key[language] || "title"}
                                     </h5>
                                     <p
                                         title={card?.value[language]}
                                         className={`text-gray-700 font-light text-xs leading-2`}
                                     >
-                                        {TruncateText(card?.value[language], 25)}
+                                        {TruncateText(card?.value[language], 25) || "description"}
                                     </p>
                                 </div>
                             )
@@ -270,13 +271,13 @@ const ProjectDetailPage = ({ contentOn, language, projectId, screen }) => {
                                         <span className="absolute top-[1px] w-[4px] h-[20px] bg-red-500 rotate-[15deg]"></span>
                                     </span>
                                     <h1 className="text-[18px] font-bold leading-[20px] pr-[20px]">
-                                        {item?.title[language]}
+                                        {item?.title[language] || "Description title"}
                                     </h1>
                                 </div>
                                 <div>
                                     <div className="font-[200] text-sm"
                                         // className={`text-[#707684] font-[200] ${isPhone ? "leading-[20px] text-sm" : "leading-[20px]"} tracking-[-1.2px] mb-[32px] `}
-                                        dangerouslySetInnerHTML={{ __html: item?.description[language] }}
+                                        dangerouslySetInnerHTML={{ __html: item?.description[language] || "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vel tempore a odit voluptatibus hic accusamus expedita libero sunt, quasi minus." }}
                                     />
                                 </div>
                             </div>
@@ -333,7 +334,7 @@ const ProjectDetailPage = ({ contentOn, language, projectId, screen }) => {
                         <SwiperSlide key={`slide-${index}`}>
                             <div className="flex justify-center">
                                 <img
-                                    src={ImageFromRedux?.[`ProjectBanner/${projectId}/gallery/${index}`] || image.url}
+                                    src={ImageFromRedux?.[`ProjectBanner/${projectId}/gallery/${index}`] || image.url || "https://loopwebsite.s3.ap-south-1.amazonaws.com/Project+hero.jpg"}
                                     alt={image.name}
                                     className={`rounded-lg ${isPhone ? "h-[200px]" : "h-[400px]"} w-[400px] object-cover`}
                                 />
@@ -378,19 +379,18 @@ const ProjectDetailPage = ({ contentOn, language, projectId, screen }) => {
                     <h2 className={`text-gray-700 text-2xl font-normal mb-6 `}>{moreProjects?.title[language]}</h2>
                     <div className={`${isPhone ? "flex flex-col gap-10 " : `grid ${isTablet ? "grid-cols-2" : "grid-cols-3"} gap-x-8 gap-y-6 mt-12`}`}>
                         {moreProjects?.projects?.slice(0, 3).map((project, key) => {
-                            console.log(moreProjects?.button?.text[language])
                             if (!project.display) return null
                             return (
                                 <div key={key} className="rounded-md p-3 flex flex-col items-start gap-2 ">
                                     <img
-                                        src={projectPageData[project?.url]}
+                                        src={projectPageData[project?.url] || "https://loopwebsite.s3.ap-south-1.amazonaws.com/Project+hero.jpg"}
                                         // width={339}
                                         // height={0}
                                         alt="icon"
                                         className="w-full aspect-[12/8]"
                                     />
-                                    <h5 className={`text-[#292E23D] text-lg font-bold mt-4 h-11  ${language === 'ar' ? 'text-right' : ''}`}>{TruncateText(project?.title[language], 25)}</h5>
-                                    <p className={`text-gray-700 text-sm font-light mt-2 ${!isLeftAlign && "text-right"}`}>{project?.address[language]}</p>
+                                    <h5 className={`text-[#292E23D] text-lg font-bold mt-4 h-11  ${language === 'ar' ? 'text-right' : ''}`}>{TruncateText(project?.title[language], 25) || "Project Name"}</h5>
+                                    <p className={`text-gray-700 text-sm font-light mt-2 ${!isLeftAlign && "text-right"}`}>{project?.address[language] || "Project Description"}</p>
                                     <button
                                         className="text-[#00b9f2] text-base font-normal flex items-center gap-2 mt-2 cursor-pointer bg-transparent border-none"
                                     // onClick={() => router.push("/project/56756757656")}
@@ -411,6 +411,7 @@ const ProjectDetailPage = ({ contentOn, language, projectId, screen }) => {
                 </div>
             </section>
         </div>
+
     );
 };
 
