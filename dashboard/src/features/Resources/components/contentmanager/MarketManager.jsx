@@ -2,9 +2,17 @@ import ContentSection from "../ContentSections";
 import MultiSelectPro from "../MultiSelectPro";
 import FileUploader from "../../../../components/Input/InputFileUploader";
 
-const MarketManager = ({ language, currentContent, currentPath }) => {
+import { useEffect } from "react";
+import { updateContent } from "../../../common/homeContentSlice";
+import content from "../websiteComponent/content.json"
+import { useDispatch } from "react-redux";
 
-console.log(currentPath)
+const MarketManager = ({ language, currentContent, currentPath }) => {
+    const dispatch = useDispatch()
+
+    useEffect(() => {
+        dispatch(updateContent({ currentPath: "home", payload: (content?.market) }))
+    }, [])
 
     return (
         <div className="w-full">

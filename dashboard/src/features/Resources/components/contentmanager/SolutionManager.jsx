@@ -1,8 +1,17 @@
-import ContentSection from "../ContentSections"
-import FileUploader from "../../../../components/Input/InputFileUploader"
+import { useEffect } from "react";
+import FileUploader from "../../../../components/Input/InputFileUploader";
+import ContentSection from "../ContentSections";
+import MultiSelect from "../MultiSelect";
+import { updateContent } from "../../../common/homeContentSlice";
+import content from "../websiteComponent/content.json"
+import { useDispatch } from "react-redux";
 
 const SolutionManager = ({ currentPath, language, currentContent }) => {
+    const dispatch = useDispatch()
 
+    useEffect(() => {
+        dispatch(updateContent({ currentPath: "home", payload: (content?.home) }))
+    }, [])
     return (
         <div className="w-full">
             {/* reference doc */}

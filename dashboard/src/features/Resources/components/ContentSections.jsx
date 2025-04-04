@@ -6,6 +6,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateSpecificContent, updateServicesNumber, updateImages } from "../../common/homeContentSlice";
 import InputFileWithText from "../../../components/Input/InputFileText";
 import InputFileForm from "../../../components/Input/InputFileForm";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css"; // Import styles
 
 const ContentSection = ({
     Heading,
@@ -72,64 +74,103 @@ const ContentSection = ({
         }
     };
 
+    const updateFormValueReactQuill = (updateType) => (value) => {
+        console.log(`Updating field (ReactQuill): ${updateType}, Value:`, value);
+
+        if (updateType === 'count') {
+            if (!isNaN(value)) {
+                let val = value?.slice(0, 7);
+                dispatch(updateServicesNumber({ section, title: updateType, value: val, subSection, index, currentPath }));
+            }
+        } else {
+            dispatch(updateSpecificContent({
+                section,
+                title: updateType,
+                lan: language,
+                value: value === "" ? "" : value,
+                subSection,
+                index,
+                subSectionsProMax,
+                subSecIndex,
+                currentPath,
+                projectId
+            }));
+        }
+    };
+
     return (
         <div className={`w-full ${Heading ? "mt-4" : subHeading ? "mt-2" : ""} flex flex-col gap-1 ${!isBorder ? "" : "border-b border-b-1 border-neutral-300"} ${attachOne ? "pb-0" : (Heading || subHeading) ? "pb-6" : ""}`}>
             <h3 className={`font-semibold ${subHeading ? "text-[.9rem] mb-1" : Heading ? "text-[1.25rem] mb-4" : " mb-0"}`}>{Heading || subHeading}</h3>
-            {inputs.length > 0 ? inputs.map((input, i) => {
-                let valueExpression;
-                if (projectId) {
-                    if (subSection) {
-                        valueExpression = currentContent?.[projectId - 1]?.[section]?.[subSection]?.[index]?.[input.updateType]?.[language];
-                    } else if (input.updateType === 'url') {
-                        valueExpression = currentContent?.[projectId - 1]?.[section]?.[input.updateType];
-                    } else {
-                        if (section === 'descriptionSection') {
+            {inputs.length > 0 &&
+                inputs.map((input, i) => {
+                    let valueExpression;
+                    if (projectId) {
+                        if (subSection) {
+                            valueExpression = currentContent?.[projectId - 1]?.[section]?.[subSection]?.[index]?.[input.updateType]?.[language];
+                        } else if (input.updateType === 'url') {
+                            valueExpression = currentContent?.[projectId - 1]?.[section]?.[input.updateType];
+                        } else if (section === 'descriptionSection') {
                             valueExpression = currentContent?.[projectId - 1]?.[section]?.[index]?.[input.updateType]?.[language];
                         } else {
                             valueExpression = currentContent?.[projectId - 1]?.[section]?.[input.updateType]?.[language];
                         }
+                    } else if (subSectionsProMax === "Links") {
+                        valueExpression = currentContent?.[section]?.[subSection]?.[index]?.[input.updateType];
+                    } else if (subSectionsProMax) {
+                        valueExpression = currentContent?.[section]?.[subSection]?.[index]?.[subSectionsProMax]?.[subSecIndex]?.[input.updateType]?.[language];
+                    } else if (subSection && typeof currentContent?.[section]?.[subSection]?.[index]?.[input.updateType] !== "object") {
+                        valueExpression = currentContent?.[section]?.[subSection]?.[index]?.[input.updateType];
+                    } else if (subSection === 'url') {
+                        valueExpression = currentContent?.[section]?.[subSection]?.[index]?.[input.updateType];
+                    } else if (subSection) {
+                        valueExpression = currentContent?.[section]?.[subSection]?.[index]?.[input.updateType]?.[language];
+                    } else {
+                        valueExpression = currentContent?.[section]?.[input.updateType]?.[language];
                     }
-                } else if (subSectionsProMax === "Links") {
-                    valueExpression = currentContent?.[section]?.[subSection]?.[index]?.[input.updateType];
-                } else if (subSectionsProMax) {
-                    valueExpression = currentContent?.[section]?.[subSection]?.[index]?.[subSectionsProMax]?.[subSecIndex]?.[input.updateType]?.[language];
-                } else if (subSection && typeof (currentContent?.[section]?.[subSection]?.[index]?.[input.updateType]) !== "object") {
-                    valueExpression = currentContent?.[section]?.[subSection]?.[index]?.[input.updateType];
-                } else if (subSection === 'url') {
-                    valueExpression = currentContent?.[section]?.[subSection]?.[index]?.[input.updateType];
-                } else if (subSection) {
-                    valueExpression = currentContent?.[section]?.[subSection]?.[index]?.[input.updateType]?.[language];
-                } else {
-                    valueExpression = currentContent?.[section]?.[input.updateType]?.[language];
-                }
-                return input.input === "textarea" ? (
-                    <TextAreaInput
-                        key={i}
-                        labelTitle={input.label}
-                        labelStyle="block sm:text-xs xl:text-sm"
-                        updateFormValue={updateFormValue}
-                        updateType={input.updateType}
-                        section={section}
-                        defaultValue={valueExpression || ""}
-                        language={language}
-                        id={input.updateType}
-                    />
-                ) : (
-                    <InputText
-                        key={i}
-                        InputClasses="h-[2.125rem]"
-                        labelTitle={input.label}
-                        labelStyle="block sm:text-xs xl:text-sm"
-                        updateFormValue={updateFormValue}
-                        updateType={input.updateType}
-                        section={section}
-                        defaultValue={valueExpression || ""}
-                        language={language}
-                        id={input.updateType}
-                        required={false}
-                    />
-                );
-            }) : ""}
+
+                    if (input.input === "textarea") {
+                        return (
+                            <TextAreaInput
+                                key={i}
+                                labelTitle={input.label}
+                                labelStyle="block sm:text-xs xl:text-sm"
+                                updateFormValue={updateFormValue}
+                                updateType={input.updateType}
+                                section={section}
+                                defaultValue={valueExpression || ""}
+                                language={language}
+                                id={input.updateType}
+                            />
+                        );
+                    } else if (input.input === "richtext") {
+                        return (
+                            <ReactQuill
+                                key={i}
+                                theme="snow"
+                                value={valueExpression}
+                                onChange={updateFormValueReactQuill(input.updateType)}
+                            />
+                        );
+                    } else {
+                        return (
+                            <InputText
+                                key={i}
+                                InputClasses="h-[2.125rem]"
+                                labelTitle={input.label}
+                                labelStyle="block sm:text-xs xl:text-sm"
+                                updateFormValue={updateFormValue}
+                                updateType={input.updateType}
+                                section={section}
+                                defaultValue={valueExpression || ""}
+                                language={language}
+                                id={input.updateType}
+                                required={false}
+                            />
+                        );
+                    }
+                })
+            }
+
 
             <div className={`flex ${inputFiles.length > 1 ? "justify-center" : ""}`}>
                 {
