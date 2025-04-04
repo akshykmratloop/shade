@@ -76,7 +76,7 @@ const ProjectDetailPage = ({ contentOn, language, projectId, screen }) => {
                 justifyContent: "center",
                 alignItems: "center",
             }}>
-                <h1>{currentContent?.banner?.title?.[language]}</h1>
+                <h1 className="text-[20px]">{currentContent?.banner?.title?.[language]}</h1>
             </div>);
     }
     return (
