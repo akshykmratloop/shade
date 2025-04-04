@@ -92,18 +92,18 @@ const SolutionPage = ({ language, screen }) => {
                             <span className="relative w-[10px] h-[20px]">
                                 <span className="absolute top-[1px] w-[4px] h-[20px] bg-red-500 rotate-[-15deg]"></span>
                             </span>
-                            <h1 className="text-[20px] font-bold leading-[20px] pr-[20px]">
+                            <h1 className="text-[20px] text-[#1F2937] font-bold leading-[20px] pr-[20px]">
                                 {currentContent?.whatWeDo?.title[language]}
                             </h1>
                         </div>
                         <div>
                             <p
-                                className={` font-light ${isPhone ? "leading-[20px] text-sm" : "leading-[40px]"} tracking-[-1.2px] mb-[32px] `}
+                                className={` font-light text-[#1F2937] ${isPhone ? "leading-[20px] text-sm" : "leading-[40px]"} tracking-[-1.2px] mb-[32px] `}
                             >
                                 {currentContent?.whatWeDo?.description1[language]}
                             </p>
                             <p
-                                className={` font-light ${isPhone ? "leading-[20px] text-sm" : "leading-[40px]"} tracking-[-1.2px] mb-[32px] `}
+                                className={` font-light text-[#1F2937] ${isPhone ? "leading-[20px] text-sm" : "leading-[40px]"} tracking-[-1.2px] mb-[32px] `}
                             >
                                 {currentContent?.whatWeDo?.description2[language]}
                             </p>
@@ -166,7 +166,7 @@ const SolutionPage = ({ language, screen }) => {
             <section
                 className={`py-[88px] pb-[120px] px-10 ${language === "en" ? "text-left" : "text-right"}`}
             >
-                <div className="container">
+                <div className="container text-[#1F2937]">
                     {/* <div className="grid grid-cols-[129px_1fr] gap-[67px]"> */}
                     <div className={`${isPhone ? "flex flex-col" : "grid grid-cols-[129px_1fr] gap-[67px]"} `}>
 

@@ -106,8 +106,6 @@ const ProjectDetailManager = ({ projectId, currentContent, currentPath, language
                 <button className="text-blue-500 cursor-pointer mb-3" onClick={addExtraSummary}>Add More Section...</button>
             </div>
 
-
-
             <ContentSection
                 currentPath={currentPath}
                 Heading={"Gallery"}
@@ -122,13 +120,12 @@ const ProjectDetailManager = ({ projectId, currentContent, currentPath, language
                 allowExtraInput={true}
             />
 
-
             <MultiSelect
                 currentPath={currentPath}
                 section={"moreProjects"}
                 language={language}
                 // label={"Select More Project List"}
-                heading={"Projects Section"}
+                heading={"More Projects"}
                 tabName={"Select Project"}
                 options={currentContent?.[projectId - 1]?.moreProjects?.projects || []}
                 referenceOriginal={{ dir: "projectDetail", index: 0 }}

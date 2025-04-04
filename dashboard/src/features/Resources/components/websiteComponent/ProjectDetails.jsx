@@ -230,13 +230,13 @@ const ProjectDetailPage = ({ contentOn, language, projectId, screen }) => {
                 <div className="container flex flex-col gap-10">
                     {/* Project Description */}
                     {descriptionSection?.map((item, index) => (
-                        <div className="container bankgothic-regular-db-mt" key={index}>
-                            <div className={`${isPhone ? "flex flex-col" : "grid grid-cols-[129px_1fr] gap-[90px]"} `}>
-                                <div className={`flex  w-[230px]`}>
+                        <div className="container bankgothic-regular-db-mt text-[#1F2937]" key={index}>
+                            <div className={`${isPhone ? "flex flex-col" : "grid grid-cols-[170px_1fr] gap-[90px]"} `}>
+                                <div className={`flex  w-[250px]`}>
                                     <span className="relative w-[10px] h-[20px]">
                                         <span className="absolute top-[1px] w-[4px] h-[20px] bg-red-500 rotate-[15deg]"></span>
                                     </span>
-                                    <h1 className="text-[16px] font-bold leading-[20px] pr-[20px]">
+                                    <h1 className="text-[18px] font-bold leading-[20px] pr-[20px]">
                                         {item?.title[language]}
                                     </h1>
                                 </div>
