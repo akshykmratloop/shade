@@ -262,3 +262,27 @@ select {
   /* left: calc(50% - 216px); */
   top: calc(50% - 132);
 }
+
+.ql-toolbar,
+.ql-container {
+  border: 1px solid #3e424c !important;
+}
+
+.ql-toolbar {
+  border-radius: 9px 9px 0px 0px;
+  background-color: #a3a3a3;
+  color: white;
+}
+
+.ql-container {
+  border-radius: 0px 0px 9px 9px;
+}
+
+.custom-editor .ql-toolbar {
+  background: #222;
+  color: white;
+}
+
+.custom-editor .ql-toolbar button {
+  color: white;
+}

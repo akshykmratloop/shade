@@ -91,7 +91,7 @@ const ProjectDetailManager = ({ projectId, currentContent, currentPath, language
                                 subHeading={"Section " + (index + 1)}
                                 inputs={[
                                     { input: "input", label: "Title", updateType: "title" },
-                                    { input: "textarea", label: "Description", updateType: "description" },
+                                    { input: "richtext", label: "Description", updateType: "description" },
                                 ]}
                                 section={"descriptionSection"}
                                 index={index}

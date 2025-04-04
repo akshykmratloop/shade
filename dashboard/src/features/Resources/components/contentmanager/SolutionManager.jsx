@@ -1,13 +1,32 @@
 import { useEffect } from "react";
 import FileUploader from "../../../../components/Input/InputFileUploader";
 import ContentSection from "../ContentSections";
-import MultiSelect from "../MultiSelect";
-import { updateContent } from "../../../common/homeContentSlice";
+import { updateContent, updateWhatWeDoList } from "../../../common/homeContentSlice";
 import content from "../websiteComponent/content.json"
 import { useDispatch } from "react-redux";
+import DynamicContentSection from "../DynamicContentSection";
 
 const SolutionManager = ({ currentPath, language, currentContent }) => {
     const dispatch = useDispatch()
+
+    const addExtraSummary = (section) => {
+        dispatch(updateWhatWeDoList(
+            {
+                insert: {
+                    title: {
+                        ar: "",
+                        en: ""
+                    },
+                    description: {
+                        ar: "",
+                        en: ""
+                    }
+                },
+                section,
+                operation: 'add'
+            }
+        ))
+    }
 
     useEffect(() => {
         dispatch(updateContent({ currentPath: "home", payload: (content?.home) }))
@@ -45,6 +64,33 @@ const SolutionManager = ({ currentPath, language, currentContent }) => {
                 currentContent={currentContent}
             />
 
+            <div className="mt-4 border-b">
+                <h3 className={`font-semibold text-[1.25rem] mb-4`}>Description</h3>
+                {
+                    currentContent?.whatWeDo?.map((element, index, a) => {
+                        const isLast = index === a.length - 1
+                        return (
+                            <DynamicContentSection key={index}
+                                currentPath={currentPath}
+                                subHeading={"Section " + (index + 1)}
+                                inputs={[
+                                    { input: "input", label: "Title", updateType: "title" },
+                                    { input: "richtext", label: "Description", updateType: "description" },
+                                ]}
+                                section={"whatWeDo"}
+                                index={index}
+                                language={language}
+                                currentContent={currentContent}
+                                isBorder={false}
+                                type={'rich'}
+
+                            />
+                        )
+                    })
+                }
+                <button className="text-blue-500 cursor-pointer mb-3" onClick={()=>addExtraSummary('whatWeDo')}>Add More Section...</button>
+            </div>
+
             {/** Gallery */}
             <ContentSection
                 currentPath={currentPath}
@@ -61,7 +107,7 @@ const SolutionManager = ({ currentPath, language, currentContent }) => {
             />
 
             {/**How We Do */}
-            <ContentSection
+            {/* <ContentSection
                 currentPath={currentPath}
                 Heading={"About Section 3"}
                 inputs={[
@@ -71,7 +117,33 @@ const SolutionManager = ({ currentPath, language, currentContent }) => {
                 section={"howWeDo"}
                 language={language}
                 currentContent={currentContent}
-            />
+            /> */}
+            <div className="mt-4 border-b">
+                <h3 className={`font-semibold text-[1.25rem] mb-4`}>Description 2</h3>
+                {
+                    currentContent?.howWeDo?.map((element, index, a) => {
+                        const isLast = index === a.length - 1
+                        return (
+                            <DynamicContentSection key={index}
+                                currentPath={currentPath}
+                                subHeading={"Section " + (index + 1)}
+                                inputs={[
+                                    { input: "input", label: "Title", updateType: "title" },
+                                    { input: "richtext", label: "Description", updateType: "description" },
+                                ]}
+                                section={"howWeDo"}
+                                index={index}
+                                language={language}
+                                currentContent={currentContent}
+                                isBorder={false}
+                                type={'rich'}
+
+                            />
+                        )
+                    })
+                }
+                <button className="text-blue-500 cursor-pointer mb-3" onClick={()=>addExtraSummary('howWeDo')}>Add More Section...</button>
+            </div>
 
             <ContentSection
                 currentPath={currentPath}

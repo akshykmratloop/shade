@@ -86,30 +86,31 @@ const SolutionPage = ({ language, screen }) => {
                 className={`py-[88px] pb-[120px] px-10 ${language === "en" ? "text-left" : "text-right"
                     }`}
             >
-                <div className="container bankgothic-regular-db-mt">
-                    <div className={`${isPhone ? "flex flex-col" : "grid grid-cols-[129px_1fr] gap-[67px]"} `}>
-                        <div className={`flex justify-center w-[190px] py-[14px]`}>
-                            <span className="relative w-[10px] h-[20px]">
-                                <span className="absolute top-[1px] w-[4px] h-[20px] bg-red-500 rotate-[-15deg]"></span>
-                            </span>
-                            <h1 className="text-[20px] text-[#1F2937] font-bold leading-[20px] pr-[20px]">
-                                {currentContent?.whatWeDo?.title[language]}
-                            </h1>
+                {currentContent?.whatWeDo?.map((e, i) => {
+
+                    return (
+                        <div className="container bankgothic-regular-db-mt" key={i}>
+                            <div className={`${isPhone ? "flex flex-col" : "grid grid-cols-[129px_1fr] gap-[67px]"} `}>
+                                <div className={`flex justify-start w-[190px] py-[14px]`}>
+                                    <span className="relative w-[10px] h-[20px]">
+                                        <span className="absolute top-[1px] w-[4px] h-[20px] bg-red-500 rotate-[-15deg]"></span>
+                                    </span>
+                                    <h1 className="text-[20px] text-[#1F2937] font-bold leading-[20px] pr-[20px]">
+                                        {e?.title[language]}
+                                    </h1>
+                                </div>
+                                <div>
+                                    <div
+                                        className={` font-light ${isPhone ? "leading-[20px] text-sm" : "leading-[40px]"} tracking-[-1.2px] mb-[32px] `}
+                                        // className={` font-light text-[#1F2937] ${isPhone ? "leading-[20px] text-sm" : "leading-[40px]"} tracking-[-1.2px] mb-[32px] `}
+                                        dangerouslySetInnerHTML={{ __html: e?.description[language] }}
+                                    />
+
+                                </div>
+                            </div>
                         </div>
-                        <div>
-                            <p
-                                className={` font-light text-[#1F2937] ${isPhone ? "leading-[20px] text-sm" : "leading-[40px]"} tracking-[-1.2px] mb-[32px] `}
-                            >
-                                {currentContent?.whatWeDo?.description1[language]}
-                            </p>
-                            <p
-                                className={` font-light text-[#1F2937] ${isPhone ? "leading-[20px] text-sm" : "leading-[40px]"} tracking-[-1.2px] mb-[32px] `}
-                            >
-                                {currentContent?.whatWeDo?.description2[language]}
-                            </p>
-                        </div>
-                    </div>
-                </div>
+                    )
+                })}
             </section>
 
 
@@ -166,27 +167,30 @@ const SolutionPage = ({ language, screen }) => {
             <section
                 className={`py-[88px] pb-[120px] px-10 ${language === "en" ? "text-left" : "text-right"}`}
             >
-                <div className="container text-[#1F2937]">
-                    {/* <div className="grid grid-cols-[129px_1fr] gap-[67px]"> */}
-                    <div className={`${isPhone ? "flex flex-col" : "grid grid-cols-[129px_1fr] gap-[67px]"} `}>
+                {currentContent?.howWeDo?.map((e, i) => {
+                    return (
+                        <div className="container bankgothic-regular-db-mt" key={i}>
+                            <div className={`${isPhone ? "flex flex-col" : "grid grid-cols-[129px_1fr] gap-[67px]"} `}>
+                                <div className={`flex justify-start w-[190px] py-[14px]`}>
+                                    <span className="relative w-[10px] h-[20px]">
+                                        <span className="absolute top-[1px] w-[4px] h-[20px] bg-red-500 rotate-[-15deg]"></span>
+                                    </span>
+                                    <h1 className="text-[20px] text-[#1F2937] font-bold leading-[20px] pr-[20px]">
+                                        {e?.title[language]}
+                                    </h1>
+                                </div>
+                                <div>
+                                    <div
+                                        className={` font-light ${isPhone ? "leading-[20px] text-sm" : "leading-[40px]"} tracking-[-1.2px] mb-[32px] `}
+                                        // className={` font-light text-[#1F2937] ${isPhone ? "leading-[20px] text-sm" : "leading-[40px]"} tracking-[-1.2px] mb-[32px] `}
+                                        dangerouslySetInnerHTML={{ __html: e?.description[language] }}
+                                    />
 
-                        <div className="flex justify-center  w-[190px] py-[14px]">
-                            <span className="relative w-[10px] h-[20px]">
-                                <span className="absolute top-[1px] w-[4px] h-[20px] bg-red-500 rotate-[-15deg]"></span>
-                            </span>
-                            <h1 className="text-right  font-bold text-[20px] leading-[20px] pr-[20px]">
-                                {currentContent?.howWeDo?.title[language]}
-                            </h1>
+                                </div>
+                            </div>
                         </div>
-                        <div>
-                            <p
-                                className={`${isPhone ? "leading-[20px] text-sm" : "leading-[40px]"} font-light tracking-[-1.2px] mb-[32px]`}
-                            >
-                                {currentContent?.howWeDo?.description[language]}
-                            </p>
-                        </div>
-                    </div>
-                </div>
+                    )
+                })}
             </section>
 
             {/** Showcase gallery wrap */}
@@ -194,7 +198,7 @@ const SolutionPage = ({ language, screen }) => {
                 className="w-[800px] mx-auto "
                 style={{ width: isComputer ? "50rem" : `${screen - 30}px` }}
             >
-                 <Swiper
+                <Swiper
                     className=""
                     modules={[Navigation, Autoplay, EffectCoverflow]}
                     grabCursor={true}
@@ -222,7 +226,7 @@ const SolutionPage = ({ language, screen }) => {
                         500: { slidesPerView: 2 },
                     }}
                 >
-                     {currentContent?.gallery?.showcase.map(
+                    {currentContent?.gallery?.showcase.map(
                         (image, index) => (
                             <SwiperSlide key={index}>
                                 <div className={`rounded-lg overflow-hidden  transition-transform transform ${isPhone ? "h-[50vh]" : "h-[400px]"}`}>

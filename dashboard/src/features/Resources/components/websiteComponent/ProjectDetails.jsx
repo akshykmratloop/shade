@@ -128,9 +128,9 @@ const ProjectDetailPage = ({ contentOn, language, projectId, screen }) => {
 
 
     useEffect(() => {
-        if(content.projectDetail[projectId - 1]){
-            dispatch(updateContent({ currentPath: "projectDetail", payload: [...content.projectDetail,structureOfPageDetails ]}))
-        }else{
+        if (content.projectDetail[projectId - 1]) {
+            dispatch(updateContent({ currentPath: "projectDetail", payload: [...content.projectDetail, structureOfPageDetails] }))
+        } else {
             dispatch(updateContent({ currentPath: "projectDetail", payload: content.projectDetail }))
         }
     }, [])
@@ -241,11 +241,10 @@ const ProjectDetailPage = ({ contentOn, language, projectId, screen }) => {
                                     </h1>
                                 </div>
                                 <div>
-                                    <p
-                                        className={`text-[#707684] font-[200] ${isPhone ? "leading-[20px] text-sm" : "leading-[20px]"} tracking-[-1.2px] mb-[32px] `}
-                                    >
-                                        {item?.description[language]}
-                                    </p>
+                                    <div className="font-[200] text-sm"
+                                        // className={`text-[#707684] font-[200] ${isPhone ? "leading-[20px] text-sm" : "leading-[20px]"} tracking-[-1.2px] mb-[32px] `}
+                                        dangerouslySetInnerHTML={{ __html: item?.description[language] }}
+                                    />
                                 </div>
                             </div>
                         </div>

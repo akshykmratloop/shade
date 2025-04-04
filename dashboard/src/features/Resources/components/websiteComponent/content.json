@@ -871,21 +871,19 @@
         "en": "View Our Work"
       }
     },
-    "whatWeDo": {
-      "title": {
-        "ar": "ماذا نفعل",
-        "en": "What We Do"
-      },
-      "description1": {
-        "ar": "استمتع بتجربة التآزر بين التصميم والتنفيذ من خلال خدمات التصميم/البناء لدينا، وهو نهج متناغم يدمج الإبداع مع الدقة. ثق بخبرتنا في مجال المقاولات العامة والهندسة العامة للتغلب على التعقيدات وتقديم الحلول التي تصمد أمام اختبار الزمن.",
-        "en": "Experience the synergy between design and execution through our design/build services, a harmonious approach that combines creativity with precision. Trust our expertise in general contracting and general engineering to overcome complexities and deliver solutions that stand the test of time."
-      },
-      "description2": {
-        "ar": "انغمس في هندسة القيمة لدينا، وهو النظام الذي يتقاطع فيه الابتكار والكفاءة، مما يضمن أن مشاريعك ليست عملية فحسب، بل مُحسّنة أيضًا لتحقيق أقصى قيمة.",
-        "en": "Immerse yourself in our value engineering, a system where innovation intersects with efficiency, ensuring your projects are not just functional but optimized for maximum value."
+    "whatWeDo": [
+      {
+        "title": {
+          "ar": "ماذا نفعل",
+          "en": "What We Do"
+        },
+        "description": {
+          "ar": "<p>استمتع بتجربة التآزر بين التصميم والتنفيذ من خلال خدمات التصميم/البناء لدينا، وهو نهج متناغم يدمج الإبداع مع الدقة. ثق بخبرتنا في مجال المقاولات العامة والهندسة العامة للتغلب على التعقيدات وتقديم الحلول التي تصمد أمام اختبار الزمن</p>. <p> انغمس في هندسة القيمة لدينا، وهو النظام الذي يتقاطع فيه الابتكار والكفاءة، مما يضمن أن مشاريعك ليست عملية فحسب، بل مُحسّنة أيضًا لتحقيق أقصى قيمة</p>",
+          "en": "<p>Experience the synergy between design and execution through our design/build services, a harmonious approach that combines creativity with precision. Trust our expertise in general contracting and general engineering to overcome complexities and deliver solutions that stand the test of time.</p> <br/> <p>Immerse yourself in our value engineering, a system where innovation intersects with efficiency, ensuring your projects are not just functional but optimized for maximum value. </p>"
+        }
       }
-    },
-    "howWeDo": {
+    ],
+    "howWeDo": [{
       "title": {
         "ar": "كيف نفعل",
         "en": "How We Do It"
@@ -894,7 +892,7 @@
         "ar": "استمتع بالدقة في المسح، وبراعة التصنيع، وقوة رفع الأثقال، كل ذلك تحت مظلة Shade's Construction Services. سواء كان مشروعك يتطلب قوة هيكلية، أو تفاصيل معقدة، أو نشر التكنولوجيا المتقدمة، فنحن مجهزون لتجاوز توقعاتك.",
         "en": "Experience precision in surveying, manufacturing expertise, and heavy lifting capabilities, all under Shade's Construction Services umbrella. Whether your project demands structural strength, intricate details, or advanced technology deployment, we're equipped to exceed your expectations."
       }
-    },
+    }],
     "newProject": {
       "title": {
         "ar": "هل تريد بدء مشروع جديد أو التعاون معنا؟",

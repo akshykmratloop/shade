@@ -20,11 +20,8 @@ const cmsSlice = createSlice({
                     newArray = [...state.present.projectDetail[action.payload.projectId - 1].gallerySection.images, action.payload.src]
                 } else {
                     newArray = state.present.projectDetail[action.payload.projectId - 1].gallerySection.images.filter((e, i) => {
-                        console.log(action.payload.src)
                         return i !== action.payload.src
                     })
-                    console.log('power ranger')
-                    console.log(newArray)
                 }
                 state.present.projectDetail[action.payload.projectId - 1].gallerySection.images = newArray
             } else {
@@ -70,6 +67,18 @@ const cmsSlice = createSlice({
             }
             state.present.projectDetail[action.payload.projectId - 1].descriptionSection = newArray
             state.future = [];
+        }, updateWhatWeDoList: (state, action) => {
+            state.past.push(JSON.parse(JSON.stringify(state.present)));
+            let newArray = []
+            if (action.payload.operation === 'add') {
+                newArray = [...state.present.solution?.[action.payload.section], action.payload.insert]
+            } else {
+                newArray = state.present.solution[action.payload.section].filter((e, i) => {
+                    return i !== action.payload.index
+                })
+            }
+            state.present.solution[action.payload.section] = newArray
+            state.future = [];
         },
         updateSpecificContent: (state, action) => {
             state.past.push(JSON.parse(JSON.stringify(state.present)));
@@ -93,8 +102,9 @@ const cmsSlice = createSlice({
                 state.present[action.payload?.currentPath][action.payload.section][action.payload.subSection] = action.payload.value;
             } else if (action.payload.subSection) {
                 state.present[action.payload?.currentPath][action.payload.section][action.payload.subSection][action.payload?.index][action.payload.title][action.payload.lan] = action.payload.value;
+            } else if (action.payload.type === 'rich') {
+                state.present[action.payload?.currentPath][action.payload.section][action.payload.index][action.payload.title][action.payload.lan] = action.payload.value;
             } else {
-                // console.log(action.payload.value)
                 state.present[action.payload?.currentPath][action.payload.section][action.payload.title][action.payload.lan] = action.payload.value;
             }
             state.future = [];
@@ -240,5 +250,5 @@ const cmsSlice = createSlice({
     }
 });
 
-export const { updateImages, removeImages, updateContent, updateSpecificContent, updateServicesNumber, updateSelectedContent, updateSelectedProject, updateMarketSelectedContent, updateAllProjectlisting, selectMainNews, undo, redo, updateTheProjectSummaryList } = cmsSlice.actions;
+export const { updateImages, removeImages, updateContent, updateSpecificContent, updateServicesNumber, updateSelectedContent, updateSelectedProject, updateMarketSelectedContent, updateWhatWeDoList, updateAllProjectlisting, selectMainNews, undo, redo, updateTheProjectSummaryList } = cmsSlice.actions;
 export default cmsSlice.reducer;
