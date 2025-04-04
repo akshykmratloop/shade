@@ -31,6 +31,7 @@ import HeaderManager from "./components/contentmanager/HeaderManager";
 import ProjectDetailPage from "./components/websiteComponent/ProjectDetails";
 import ProjectDetailManager from "./components/contentmanager/ProjectDetailManager";
 import { ToastContainer } from "react-toastify";
+import CareerDetailPage from "./components/websiteComponent/CareersDetails";
 
 const EditPage = () => {
     const dispatch = useDispatch();
@@ -137,8 +138,9 @@ const EditPage = () => {
                                 <ProjectPage language={language} currentContent={content.projects} screen={screen} /> : ""
                         }
                         {
-                            currentPath === "careers" &&
-                            <CareerPage language={language} currentContent={content.career} screen={screen} />
+                            currentPath === "careers" ? subPath ? 
+                            <CareerDetailPage language={language} contentOn={isNaN(Number(subPath)) ? content.underDevelopment : content.projectDetail} careerId={subPath} screen={screen} /> :
+                            <CareerPage language={language} currentContent={content.career} screen={screen} /> : ""
                         }
                         {
                             currentPath === "news" &&
