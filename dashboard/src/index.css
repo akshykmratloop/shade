@@ -51,11 +51,11 @@ input::placeholder {
   font-weight: 400 !important;
 }
 
-input[type="text"],textarea{
-  border: .5px solid rgba(128, 128, 128, 0.266) !important;
+input[type="text"],input[type="password"],textarea{
+  border: .5px solid #80808044 !important;
 }
 
-textarea:focus, input[type="text"]:focus {
+textarea:focus, input[type="text"]:focus, input[type="password"]:focus {
   outline: none !important;
   border: 1px solid #0000007e !important;
 }

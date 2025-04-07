@@ -51,6 +51,7 @@ const TopSideButtons = ({ removeFilter, applyFilter, applySearch }) => { // sear
             style={{ textTransform: "capitalize" }}>
             <SearchBar
                 searchText={searchText}
+                style={{border: "none"}}
                 styleClass="w-700px border-none w-full flex-1"
                 setSearchText={setSearchText}
                 placeholderText={"Search Users by name, role, ID or any related keywords"}
