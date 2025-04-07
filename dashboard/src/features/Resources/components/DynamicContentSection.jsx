@@ -27,6 +27,7 @@ const DynamicContentSection = ({
     attachOne = false,
     projectId,
     careerId,
+    careerIndex,
     type
 }) => {
     const dispatch = useDispatch();
@@ -54,7 +55,9 @@ const DynamicContentSection = ({
             dispatch(updateTheProjectSummaryList({
                 index,
                 projectId,
-                operation: 'remove'
+                careerIndex,
+                operation: 'remove',
+                context: currentPath
             }))
         } else {
             dispatch(updateWhatWeDoList({
@@ -72,7 +75,20 @@ const DynamicContentSection = ({
                 dispatch(updateServicesNumber({ section, title: updateType, value: val, subSection, index, currentPath }));
             }
         } else {
-            dispatch(updateSpecificContent({ section, title: updateType, lan: language, value: value === "" ? "" : value, subSection, index, subSectionsProMax, subSecIndex, currentPath, projectId, type }));
+            dispatch(updateSpecificContent({ 
+                section, 
+                title: updateType, 
+                lan: language, 
+                value: value === "" ? "" : value, 
+                subSection, 
+                index, 
+                subSectionsProMax, 
+                subSecIndex, 
+                currentPath, 
+                projectId, 
+                careerId,
+                type 
+            }));
         }
     };
 

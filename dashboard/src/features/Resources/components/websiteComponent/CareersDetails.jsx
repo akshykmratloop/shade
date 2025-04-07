@@ -85,7 +85,7 @@ const CareerDetailPage = ({ contentOn, language, careerId, screen }) => {
 
             <section className="py-5">
                 <div className="container mx-auto px-4 flex gap-[50px]">
-                    <div className="">
+                    <div className="min-w-[526px]">
                         {jobDetails?.leftPanel?.sections.map((section, index) => (
                             <div key={index} className="mb-[30px]">
                                 <h2 className="text-[#292E3D] text-[20px] font-bold mb-3">

@@ -2,7 +2,7 @@ import { useEffect } from "react"
 import FileUploader from "../../../../components/Input/InputFileUploader"
 import ContentSection from "../ContentSections"
 import { useDispatch } from "react-redux"
-import { updateContent } from "../../../common/homeContentSlice"
+import { updateContent, updateTheProjectSummaryList } from "../../../common/homeContentSlice"
 import content from "../websiteComponent/content.json"
 import DynamicContentSection from "../DynamicContentSection"
 
@@ -11,6 +11,26 @@ const CareerDetailManager = ({ careerId, currentContent, currentPath, language }
     console.log(careerId, currentContent, currentPath, language)
     const careerIndex = currentContent?.findIndex(e => e.id === careerId)
     console.log(careerIndex)
+
+    const addExtraSummary = () => {
+            dispatch(updateTheProjectSummaryList(
+                {
+                    insert: {
+                        title: {
+                            ar: "",
+                            en: ""
+                        },
+                        content: {
+                            ar: "",
+                            en: ""
+                        }
+                    },
+                    careerIndex,
+                    context: "careerDetails",
+                    operation: 'add'
+                }
+            ))
+        }
 
     useEffect(() => {
 
@@ -56,6 +76,7 @@ const CareerDetailManager = ({ careerId, currentContent, currentPath, language }
                                 language={language}
                                 currentContent={currentContent}
                                 projectId={careerIndex + 1}
+                                careerIndex={careerIndex}
                                 careerId={careerId}
                                 isBorder={false}
                             />
@@ -63,7 +84,7 @@ const CareerDetailManager = ({ careerId, currentContent, currentPath, language }
                     })
                 }
                 <button className="text-blue-500 cursor-pointer mb-3" 
-                // onClick={addExtraSummary}
+                onClick={addExtraSummary}
                 >Add More Section...</button>
             </div>
 

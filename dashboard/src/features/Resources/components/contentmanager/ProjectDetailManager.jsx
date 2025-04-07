@@ -24,6 +24,7 @@ const ProjectDetailManager = ({ projectId, currentContent, currentPath, language
                     }
                 },
                 projectId,
+                context: "projectDetail",
                 operation: 'add'
             }
         ))

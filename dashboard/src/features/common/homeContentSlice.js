@@ -58,14 +58,40 @@ const cmsSlice = createSlice({
         updateTheProjectSummaryList: (state, action) => {
             state.past.push(JSON.parse(JSON.stringify(state.present)));
             let newArray = []
+            let expression;
+
+            switch (action.payload.context) {
+                case "projectDetail":
+                    expression = state.present.projectDetail?.[action.payload.projectId - 1].descriptionSection;
+                    break;
+
+                case "careerDetails":
+                    expression = state.present.careerDetails?.[action.payload.careerIndex]?.jobDetails?.leftPanel?.sections;
+                    break;
+
+                default:
+            }
+
             if (action.payload.operation === 'add') {
-                newArray = [...state.present.projectDetail?.[action.payload.projectId - 1].descriptionSection, action.payload.insert]
+                newArray = [...expression, action.payload.insert]
             } else {
-                newArray = state.present.projectDetail?.[action.payload.projectId - 1].descriptionSection.filter((e, i) => {
+                newArray = expression?.filter((e, i) => {
                     return i !== action.payload.index
                 })
             }
-            state.present.projectDetail[action.payload.projectId - 1].descriptionSection = newArray
+
+            switch (action.payload.context) {
+                case "projectDetail":
+                    state.present.projectDetail[action.payload.projectId - 1].descriptionSection = newArray
+                    break;
+
+                case "careerDetails":
+                    console.log(action.payload.careerIndex)
+                    state.present.careerDetails[action.payload.careerIndex].jobDetails.leftPanel.sections = newArray
+                    break;
+
+                default:
+            }
             state.future = [];
         }, updateWhatWeDoList: (state, action) => {
             state.past.push(JSON.parse(JSON.stringify(state.present)));
@@ -98,6 +124,7 @@ const cmsSlice = createSlice({
                 state.present[action.payload?.currentPath][action.payload.section][action.payload.subSection][action.payload?.index][action.payload.title] = action.payload.value;
             } else if (action.payload.subSectionsProMax) {
                 if (action.payload.careerId) {
+                    console.log(action.payload?.currentPath, action.payload.projectId - 1, action.payload.section, action.payload.subSection, action.payload.subSectionsProMax, action.payload?.index, action.payload.title)
                     state.present[action.payload?.currentPath][action.payload.projectId - 1][action.payload.section][action.payload.subSection][action.payload.subSectionsProMax][action.payload?.index][action.payload.title][action.payload.lan] = action.payload.value;
                 } else {
                     state.present[action.payload?.currentPath][action.payload.section][action.payload.subSection][action.payload?.index][action.payload.subSectionsProMax][action.payload.subSecIndex][action.payload.title][action.payload.lan] = action.payload.value;
