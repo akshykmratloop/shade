@@ -134,12 +134,12 @@ const EditPage = () => {
                         }
                         {
                             currentPath === 'projects' ? subPath ?
-                                <ProjectDetailPage language={language} contentOn={isNaN(Number(subPath)) ? content.underDevelopment : content.projectDetail} projectId={subPath} screen={screen} /> :
+                                <ProjectDetailPage language={language} contentOn={content.projectDetail} projectId={subPath} screen={screen} /> :
                                 <ProjectPage language={language} currentContent={content.projects} screen={screen} /> : ""
                         }
                         {
                             currentPath === "careers" ? subPath ? 
-                            <CareerDetailPage language={language} contentOn={isNaN(Number(subPath)) ? content.underDevelopment : content.projectDetail} careerId={subPath} screen={screen} /> :
+                            <CareerDetailPage language={language} contentOn={content.careerDetails} careerId={subPath} screen={screen} /> :
                             <CareerPage language={language} currentContent={content.career} screen={screen} /> : ""
                         }
                         {

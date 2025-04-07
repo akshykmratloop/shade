@@ -34,7 +34,6 @@ const resources = {
         { subPage: 2, heading: "Non-Metallic Manufacturing Plant", src: "https://shade-six.vercel.app/project/2", assign: true },
         { subPage: 3, heading: "Business Gate", src: "https://shade-six.vercel.app/project/3", assign: false },
         { subPage: 4, heading: "Construction of OME Building - NAPD Khursaniy...", src: "https://shade-six.vercel.app/project/4", assign: true },
-        { subPage: "oops", heading: "Page is underdevelopment", src: "https://shade-six.vercel.app/project/oops", assign: true },
     ],
     testimonials: [
     ],
@@ -45,11 +44,13 @@ const resources = {
     ],
     blogs: [
     ],
+    subPage: [
+        { heading: "Header", src: "", assign: true },
+        { heading: "Footer", src: "", assign: true }
+    ],
     header: [
-        { heading: "Header", src: "", assign: true }
     ],
     footer: [
-        { heading: "Footer", src: "", assign: true }
     ]
 }
 

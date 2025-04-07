@@ -31,22 +31,14 @@ const ProjectDetailPage = ({ contentOn, language, projectId, screen }) => {
     const isLeftAlign = language === 'en'
     const dispatch = useDispatch()
     const ImageFromRedux = useSelector((state) => state.homeContent.present.images)
-    let currentContent = null
-    if (isNaN(Number(projectId))) {
-        currentContent = contentOn
-    } else {
-        currentContent = contentOn?.[projectId - 1] ?? structureOfPageDetails
-    }
+    let currentContent = contentOn?.[projectId - 1] ?? structureOfPageDetails
 
     const testimonialPrevRef = useRef(null);
     const testimonialNextRef = useRef(null);
 
 
     useEffect(() => {
-        if (isNaN(Number(projectId))) {
-            dispatch(updateContent({ currentPath: "underDevelopment", payload: content.underDevelopment }))
-
-        } else if (!currentContent[projectId - 1]) {
+      if (!currentContent[projectId - 1]) {
             dispatch(updateContent({ currentPath: "projectDetail", payload: [...content.projectDetail, { ...structureOfPageDetails, id: content.projectDetail.length + 1 }] }))
         } else {
             dispatch(updateContent({ currentPath: "projectDetail", payload: content.projectDetail }))
@@ -68,17 +60,6 @@ const ProjectDetailPage = ({ contentOn, language, projectId, screen }) => {
     };
 
 
-    if (isNaN(Number(projectId))) { // of project not found 
-        return (
-            <div style={{
-                height: "450px", width: "100%",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-            }}>
-                <h1 className="text-[20px]">{currentContent?.banner?.title?.[language]}</h1>
-            </div>);
-    }
     return (
         <div className="w-full " dir={isLeftAlign ? "ltr" : "rtl"}>
             {/* Intro Section */}
