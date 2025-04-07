@@ -82,7 +82,7 @@ const cmsSlice = createSlice({
         },
         updateSpecificContent: (state, action) => {
             state.past.push(JSON.parse(JSON.stringify(state.present)));
-            if (action.payload.projectId) {
+            if (action.payload.projectId && !action.payload.careerId) {
                 if (action.payload.subSection) {
                     state.present[action.payload.currentPath][action.payload.projectId - 1][action.payload?.section][action.payload.subSection][action.payload?.index][action.payload.title][action.payload.lan] = action.payload.value;
                 } else if (action.payload.title === 'url') {
@@ -97,7 +97,11 @@ const cmsSlice = createSlice({
             } else if (action.payload.subSectionsProMax === "Links") {
                 state.present[action.payload?.currentPath][action.payload.section][action.payload.subSection][action.payload?.index][action.payload.title] = action.payload.value;
             } else if (action.payload.subSectionsProMax) {
-                state.present[action.payload?.currentPath][action.payload.section][action.payload.subSection][action.payload?.index][action.payload.subSectionsProMax][action.payload.subSecIndex][action.payload.title][action.payload.lan] = action.payload.value;
+                if (action.payload.careerId) {
+                    state.present[action.payload?.currentPath][action.payload.projectId - 1][action.payload.section][action.payload.subSection][action.payload.subSectionsProMax][action.payload?.index][action.payload.title][action.payload.lan] = action.payload.value;
+                } else {
+                    state.present[action.payload?.currentPath][action.payload.section][action.payload.subSection][action.payload?.index][action.payload.subSectionsProMax][action.payload.subSecIndex][action.payload.title][action.payload.lan] = action.payload.value;
+                }
             } else if (action.payload.subSection === 'url') {
                 state.present[action.payload?.currentPath][action.payload.section][action.payload.subSection] = action.payload.value;
             } else if (action.payload.subSection) {
@@ -105,7 +109,6 @@ const cmsSlice = createSlice({
             } else if (action.payload.type === 'rich') {
                 state.present[action.payload?.currentPath][action.payload.section][action.payload.index][action.payload.title][action.payload.lan] = action.payload.value;
             } else {
-                console.log("qwerqw")
                 state.present[action.payload?.currentPath][action.payload.section][action.payload.title][action.payload.lan] = action.payload.value;
             }
             state.future = [];

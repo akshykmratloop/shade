@@ -26,6 +26,7 @@ const DynamicContentSection = ({
     allowExtraInput = false, // New prop to allow extra input
     attachOne = false,
     projectId,
+    careerId,
     type
 }) => {
     const dispatch = useDispatch();
@@ -76,7 +77,6 @@ const DynamicContentSection = ({
     };
 
     const updateFormValueRichText = (updateType, value) => {
-        // console.log(`Updating field (ReactQuill): ${updateType}, Value:`, value);
 
         if (updateType === 'count') {
             if (!isNaN(value)) {
@@ -95,6 +95,7 @@ const DynamicContentSection = ({
                 subSecIndex,
                 currentPath,
                 projectId,
+                careerId,
                 type
             }));
         }
@@ -115,25 +116,34 @@ const DynamicContentSection = ({
         buttons: [
             "bold", "italic", "underline", "strikethrough", "|",
             "font", "fontsize", "lineHeight", "|",
-            "brush", "eraser", "image"
+            "brush", "eraser", "image", "ul"
         ],
         buttonsXS: [
             "bold", "italic", "underline", "strikethrough", "|",
             "font", "fontsize", "lineHeight", "|",
-            "brush", "eraser"
+            "brush", "eraser", "ul"
         ],
-        toolbarAdaptive: false, // Disables toolbar auto-resizing
-        toolbarSticky: false, // Prevents the toolbar from sticking when scrolling
+        toolbarAdaptive: false,
+        toolbarSticky: false,
         removeButtons: [
-            "source", "ul", "ol", "indent", "outdent", "paragraph", "video", "table", "link", "unlink",
+            "source", "ol", "indent", "outdent", "paragraph", "video", "table", "link", "unlink",
             "align", "undo", "redo", "hr", "fullsize",
             "copyformat", "selectall", "cut", "copy", "paste"
         ],
-        showPlaceholder: false, // Hides placeholder text
-        showCharsCounter: false, // Hides character counter
-        showWordsCounter: false, // Hides word counter
-        showXPathInStatusbar: false, // Hides path at the bottom
+        showPlaceholder: false,
+        showCharsCounter: false,
+        showWordsCounter: false,
+        showXPathInStatusbar: false,
+        showEmptyParagraph: false,
+        allowEmptyTags: false,
+        useSplitMode: false,
+        showButtonPanel: true,
+        showTooltip: false,
+    
+        // 👇 Disable the plus "+" hover icon
+        disablePlugins: ['addNewLine']
     }), []);
+    
 
 
     return (
@@ -148,7 +158,7 @@ const DynamicContentSection = ({
             {inputs.length > 0 &&
                 inputs.map((input, i) => {
                     let valueExpression;
-                    if (projectId) {
+                    if (projectId && !careerId) {
                         if (subSection) {
                             valueExpression = currentContent?.[projectId - 1]?.[section]?.[subSection]?.[index]?.[input.updateType]?.[language];
                         } else if (input.updateType === 'url') {
@@ -161,7 +171,11 @@ const DynamicContentSection = ({
                     } else if (subSectionsProMax === "Links") {
                         valueExpression = currentContent?.[section]?.[subSection]?.[index]?.[input.updateType];
                     } else if (subSectionsProMax) {
-                        valueExpression = currentContent?.[section]?.[subSection]?.[index]?.[subSectionsProMax]?.[subSecIndex]?.[input.updateType]?.[language];
+                        if (careerId) {
+                            valueExpression = currentContent?.[projectId - 1]?.[section]?.[subSection]?.[subSectionsProMax]?.[index]?.[input.updateType]?.[language];
+                        } else {
+                            valueExpression = currentContent?.[section]?.[subSection]?.[index]?.[subSectionsProMax]?.[subSecIndex]?.[input.updateType]?.[language];
+                        }
                     } else if (subSection && typeof currentContent?.[section]?.[subSection]?.[index]?.[input.updateType] !== "object") {
                         valueExpression = currentContent?.[section]?.[subSection]?.[index]?.[input.updateType];
                     } else if (subSection === 'url') {
@@ -303,14 +317,3 @@ const DynamicContentSection = ({
 };
 
 export default DynamicContentSection;
-
-
-
-// <ReactQuill
-//     key={i}
-//     className=""
-//     modules={modules}
-//     theme="snow"
-//     value={valueExpression}
-//     onChange={updateFormValueReactQuill(input.updateType)}
-// />

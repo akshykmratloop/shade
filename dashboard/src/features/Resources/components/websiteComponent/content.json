@@ -3883,8 +3883,8 @@
         },
         "bannerImage": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+13.jpg",
         "button": {
-            "en": "Back",
-            "ar": "خلف"
+          "en": "Back",
+          "ar": "خلف"
         }
       },
       "jobDetails": {
@@ -3896,12 +3896,8 @@
                 "en": "Who Are We Looking For?"
               },
               "content": {
-                "ar": [
-                  "درجة البكالوريوس في علوم الكمبيوتر، أو مجال تقني ذي صلة، أو خبرة عملية معادلة."
-                ],
-                "en": [
-                  "Bachelor's degree in Computer Science or a related technical field, or equivalent practical experience."
-                ]
+                "ar": "درجة البكالوريوس في علوم الكمبيوتر، أو مجال تقني ذي صلة، أو خبرة عملية معادلة.",
+                "en": "Bachelor's degree in Computer Science or a related technical field, or equivalent practical experience."
               }
             },
             {
@@ -3910,12 +3906,8 @@
                 "en": "What Will You Do?"
               },
               "content": {
-                "ar": [
-                  "8 سنوات من الخبرة في تطوير البرمجيات بلغة برمجة واحدة أو أكثر (مثل Python وC وC++ وJava وJavaScript)."
-                ],
-                "en": [
-                  "8 years of experience in software development with one or more programming languages (e.g., Python, C, C++, Java, JavaScript)."
-                ]
+                "ar": "8 سنوات من الخبرة في تطوير البرمجيات بلغة برمجة واحدة أو أكثر (مثل Python وC وC++ وJava وJavaScript).",
+                "en": "8 years of experience in software development with one or more programming languages (e.g., Python, C, C++, Java, JavaScript)."
               }
             },
             {
@@ -3924,12 +3916,8 @@
                 "en": "Bonus Points to Recognize"
               },
               "content": {
-                "ar": [
-                  "خبرة في أطر الواجهة الأمامية (مثل AngularJS وReactJS وما إلى ذلك)."
-                ],
-                "en": [
-                  "Experience with front-end frameworks (e.g., AngularJS, ReactJS, etc.)."
-                ]
+                "ar": "خبرة في أطر الواجهة الأمامية (مثل AngularJS وReactJS وما إلى ذلك).",
+                "en": "Experience with front-end frameworks (e.g., AngularJS, ReactJS, etc.)."
               }
             },
             {
@@ -3938,12 +3926,8 @@
                 "en": "Educational Requirements"
               },
               "content": {
-                "ar": [
-                  "3 سنوات من الخبرة في دور القيادة التقنية؛ الإشراف على المشاريع، مع خبرة سنتين في إدارة الأفراد والإشراف/دور قيادة الفريق."
-                ],
-                "en": [
-                  "3 years of experience in a technical leadership role; overseeing projects, with 2 years of experience managing people and team leadership roles."
-                ]
+                "ar": "3 سنوات من الخبرة في دور القيادة التقنية؛ الإشراف على المشاريع، مع خبرة سنتين في إدارة الأفراد والإشراف/دور قيادة الفريق.",
+                "en": "3 years of experience in a technical leadership role; overseeing projects, with 2 years of experience managing people and team leadership roles."
               }
             }
           ]
@@ -4034,8 +4018,8 @@
         },
         "bannerImage": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+13.jpg",
         "button": {
-            "en": "Back",
-            "ar": "خلف"
+          "en": "Back",
+          "ar": "خلف"
         }
       },
       "jobDetails": {
@@ -4047,12 +4031,8 @@
                 "en": "Who Are We Looking For?"
               },
               "content": {
-                "ar": [
-                  "درجة البكالوريوس في علوم الكمبيوتر، أو مجال تقني ذي صلة، أو خبرة عملية معادلة."
-                ],
-                "en": [
-                  "Bachelor's degree in Computer Science or a related technical field, or equivalent practical experience."
-                ]
+                "ar": "درجة البكالوريوس في علوم الكمبيوتر، أو مجال تقني ذي صلة، أو خبرة عملية معادلة.",
+                "en": "Bachelor's degree in Computer Science or a related technical field, or equivalent practical experience."
               }
             },
             {
@@ -4061,12 +4041,8 @@
                 "en": "What Will You Do?"
               },
               "content": {
-                "ar": [
-                  "8 سنوات من الخبرة في تطوير البرمجيات بلغة برمجة واحدة أو أكثر (مثل Python وC وC++ وJava وJavaScript)."
-                ],
-                "en": [
-                  "8 years of experience in software development with one or more programming languages (e.g., Python, C, C++, Java, JavaScript)."
-                ]
+                "ar": "8 سنوات من الخبرة في تطوير البرمجيات بلغة برمجة واحدة أو أكثر (مثل Python وC وC++ وJava وJavaScript).",
+                "en": "8 years of experience in software development with one or more programming languages (e.g., Python, C, C++, Java, JavaScript)."
               }
             },
             {
@@ -4075,12 +4051,8 @@
                 "en": "Bonus Points to Recognize"
               },
               "content": {
-                "ar": [
-                  "خبرة في أطر الواجهة الأمامية (مثل AngularJS وReactJS وما إلى ذلك)."
-                ],
-                "en": [
-                  "Experience with front-end frameworks (e.g., AngularJS, ReactJS, etc.)."
-                ]
+                "ar": "خبرة في أطر الواجهة الأمامية (مثل AngularJS وReactJS وما إلى ذلك).",
+                "en": "Experience with front-end frameworks (e.g., AngularJS, ReactJS, etc.)."
               }
             },
             {
@@ -4089,12 +4061,8 @@
                 "en": "Educational Requirements"
               },
               "content": {
-                "ar": [
-                  "3 سنوات من الخبرة في دور القيادة التقنية؛ الإشراف على المشاريع، مع خبرة سنتين في إدارة الأفراد والإشراف/دور قيادة الفريق."
-                ],
-                "en": [
-                  "3 years of experience in a technical leadership role; overseeing projects, with 2 years of experience managing people and team leadership roles."
-                ]
+                "ar": "3 سنوات من الخبرة في دور القيادة التقنية؛ الإشراف على المشاريع، مع خبرة سنتين في إدارة الأفراد والإشراف/دور قيادة الفريق.",
+                "en": "3 years of experience in a technical leadership role; overseeing projects, with 2 years of experience managing people and team leadership roles."
               }
             }
           ]
@@ -4185,8 +4153,8 @@
         },
         "bannerImage": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+13.jpg",
         "button": {
-            "en": "Back",
-            "ar": "خلف"
+          "en": "Back",
+          "ar": "خلف"
         }
       },
       "jobDetails": {
@@ -4198,12 +4166,8 @@
                 "en": "Who Are We Looking For?"
               },
               "content": {
-                "ar": [
-                  "درجة البكالوريوس في علوم الكمبيوتر، أو مجال تقني ذي صلة، أو خبرة عملية معادلة."
-                ],
-                "en": [
-                  "Bachelor's degree in Computer Science or a related technical field, or equivalent practical experience."
-                ]
+                "ar": "درجة البكالوريوس في علوم الكمبيوتر، أو مجال تقني ذي صلة، أو خبرة عملية معادلة.",
+                "en": "Bachelor's degree in Computer Science or a related technical field, or equivalent practical experience."
               }
             },
             {
@@ -4212,12 +4176,8 @@
                 "en": "What Will You Do?"
               },
               "content": {
-                "ar": [
-                  "خبرة في أدوات تحليل البيانات والتصور (مثل SQL و Tableau و Excel)."
-                ],
-                "en": [
-                  "Experience in data analysis and visualization tools (e.g., SQL, Tableau, Excel)."
-                ]
+                "ar": "خبرة في أدوات تحليل البيانات والتصور (مثل SQL و Tableau و Excel).",
+                "en": "Experience in data analysis and visualization tools (e.g., SQL, Tableau, Excel)."
               }
             },
             {
@@ -4226,12 +4186,8 @@
                 "en": "Bonus Points to Recognize"
               },
               "content": {
-                "ar": [
-                  "إثبات القدرة على العمل مع مجموعات البيانات الكبيرة واستخلاص رؤى ذات مغزى منها."
-                ],
-                "en": [
-                  "Proven ability to work with large datasets and derive meaningful insights from them."
-                ]
+                "ar": "إثبات القدرة على العمل مع مجموعات البيانات الكبيرة واستخلاص رؤى ذات مغزى منها.",
+                "en": "Proven ability to work with large datasets and derive meaningful insights from them."
               }
             },
             {
@@ -4240,12 +4196,8 @@
                 "en": "Educational Requirements"
               },
               "content": {
-                "ar": [
-                  "خبرة في التعامل مع البيانات، ETL، وأدوات التقارير."
-                ],
-                "en": [
-                  "Experience working with data wrangling, ETL, and reporting tools."
-                ]
+                "ar": "خبرة في التعامل مع البيانات، ETL، وأدوات التقارير.",
+                "en": "Experience working with data wrangling, ETL, and reporting tools."
               }
             }
           ]
@@ -4336,8 +4288,8 @@
         },
         "bannerImage": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+13.jpg",
         "button": {
-            "en": "Back",
-            "ar": "خلف"
+          "en": "Back",
+          "ar": "خلف"
         }
       },
       "jobDetails": {
@@ -4349,12 +4301,8 @@
                 "en": "Who Are We Looking For?"
               },
               "content": {
-                "ar": [
-                  "درجة البكالوريوس في التصميم أو علوم الكمبيوتر أو مجال ذي صلة، أو خبرة عملية معادلة."
-                ],
-                "en": [
-                  "Bachelor's degree in Design, Computer Science, or related field, or equivalent practical experience."
-                ]
+                "ar": "درجة البكالوريوس في التصميم أو علوم الكمبيوتر أو مجال ذي صلة، أو خبرة عملية معادلة.",
+                "en": "Bachelor's degree in Design, Computer Science, or related field, or equivalent practical experience."
               }
             },
             {
@@ -4363,12 +4311,8 @@
                 "en": "What Will You Do?"
               },
               "content": {
-                "ar": [
-                  "أكثر من 5 سنوات من الخبرة في تصميم تجربة المستخدم/واجهة المستخدم، بما في ذلك إجادة أدوات تصميم الإطارات والنماذج الأولية (مثل Sketch و Figma)."
-                ],
-                "en": [
-                  "5+ years of experience in UX/UI design, including proficiency in wireframing and prototyping tools (e.g., Sketch, Figma)."
-                ]
+                "ar": "أكثر من 5 سنوات من الخبرة في تصميم تجربة المستخدم/واجهة المستخدم، بما في ذلك إجادة أدوات تصميم الإطارات والنماذج الأولية (مثل Sketch و Figma).",
+                "en": "5+ years of experience in UX/UI design, including proficiency in wireframing and prototyping tools (e.g., Sketch, Figma)."
               }
             },
             {
@@ -4377,12 +4321,8 @@
                 "en": "Bonus Points to Recognize"
               },
               "content": {
-                "ar": [
-                  "محفظة قوية من الأعمال التصميمية التي تُظهر حلول التصميم الموجهة نحو المستخدم."
-                ],
-                "en": [
-                  "Strong portfolio of design work demonstrating user-centered design solutions."
-                ]
+                "ar": "محفظة قوية من الأعمال التصميمية التي تُظهر حلول التصميم الموجهة نحو المستخدم.",
+                "en": "Strong portfolio of design work demonstrating user-centered design solutions."
               }
             },
             {
@@ -4391,12 +4331,8 @@
                 "en": "Educational Requirements"
               },
               "content": {
-                "ar": [
-                  "خبرة في أبحاث المستخدم واختبار قابلية الاستخدام وعمليات التصميم التكرارية."
-                ],
-                "en": [
-                  "Experience with user research, usability testing, and iterative design processes."
-                ]
+                "ar": "خبرة في أبحاث المستخدم واختبار قابلية الاستخدام وعمليات التصميم التكرارية.",
+                "en": "Experience with user research, usability testing, and iterative design processes."
               }
             }
           ]
@@ -4487,8 +4423,8 @@
         },
         "bannerImage": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+13.jpg",
         "button": {
-            "en": "Back",
-            "ar": "خلف"
+          "en": "Back",
+          "ar": "خلف"
         }
       },
       "jobDetails": {
@@ -4500,12 +4436,8 @@
                 "en": "Who Are We Looking For?"
               },
               "content": {
-                "ar": [
-                  "درجة البكالوريوس في علوم الكمبيوتر، تكنولوجيا المعلومات، أو مجال ذي صلة."
-                ],
-                "en": [
-                  "Bachelor's degree in Computer Science, Information Technology, or related field."
-                ]
+                "ar": "درجة البكالوريوس في علوم الكمبيوتر، تكنولوجيا المعلومات، أو مجال ذي صلة.",
+                "en": "Bachelor's degree in Computer Science, Information Technology, or related field."
               }
             },
             {
@@ -4514,12 +4446,8 @@
                 "en": "What Will You Do?"
               },
               "content": {
-                "ar": [
-                  "3 سنوات أو أكثر من الخبرة في تطوير الواجهة الكاملة مع خبرة في React و Node.js و Express و MongoDB."
-                ],
-                "en": [
-                  "3+ years of experience in full-stack development with expertise in React, Node.js, Express, and MongoDB."
-                ]
+                "ar": "3 سنوات أو أكثر من الخبرة في تطوير الواجهة الكاملة مع خبرة في React و Node.js و Express و MongoDB.",
+                "en": "3+ years of experience in full-stack development with expertise in React, Node.js, Express, and MongoDB."
               }
             },
             {
@@ -4528,12 +4456,8 @@
                 "en": "Bonus Points to Recognize"
               },
               "content": {
-                "ar": [
-                  "خبرة في خدمات السحابة (مثل AWS و Azure و Google Cloud)."
-                ],
-                "en": [
-                  "Experience with cloud services (e.g., AWS, Azure, Google Cloud)."
-                ]
+                "ar": "خبرة في خدمات السحابة (مثل AWS و Azure و Google Cloud).",
+                "en": "Experience with cloud services (e.g., AWS, Azure, Google Cloud)."
               }
             },
             {
@@ -4542,12 +4466,8 @@
                 "en": "Educational Requirements"
               },
               "content": {
-                "ar": [
-                  "مهارات حل المشكلات القوية والقدرة على العمل بشكل جيد تحت الضغط."
-                ],
-                "en": [
-                  "Strong problem-solving skills and the ability to work well under pressure."
-                ]
+                "ar": "مهارات حل المشكلات القوية والقدرة على العمل بشكل جيد تحت الضغط.",
+                "en": "Strong problem-solving skills and the ability to work well under pressure."
               }
             }
           ]
@@ -4638,8 +4558,8 @@
         },
         "bannerImage": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+13.jpg",
         "button": {
-            "en": "Back",
-            "ar": "خلف"
+          "en": "Back",
+          "ar": "خلف"
         }
       },
       "jobDetails": {
@@ -4651,12 +4571,8 @@
                 "en": "Who Are We Looking For?"
               },
               "content": {
-                "ar": [
-                  "درجة البكالوريوس في علوم الكمبيوتر، هندسة البرمجيات، أو مجال ذي صلة."
-                ],
-                "en": [
-                  "Bachelor's degree in Computer Science, Software Engineering, or related field."
-                ]
+                "ar": "درجة البكالوريوس في علوم الكمبيوتر، هندسة البرمجيات، أو مجال ذي صلة.",
+                "en": "Bachelor's degree in Computer Science, Software Engineering, or related field."
               }
             },
             {
@@ -4665,12 +4581,8 @@
                 "en": "What Will You Do?"
               },
               "content": {
-                "ar": [
-                  "خبرة لا تقل عن سنتين في تطوير البرمجيات مع اتقان Java أو Python أو C++."
-                ],
-                "en": [
-                  "2+ years of experience in software development with proficiency in Java, Python, or C++."
-                ]
+                "ar": "خبرة لا تقل عن سنتين في تطوير البرمجيات مع اتقان Java أو Python أو C++.",
+                "en": "2+ years of experience in software development with proficiency in Java, Python, or C++."
               }
             },
             {
@@ -4679,12 +4591,8 @@
                 "en": "Bonus Points to Recognize"
               },
               "content": {
-                "ar": [
-                  "خبرة في منهجيات العمل المرنة ونظم التحكم في الإصدارات (مثل Git)."
-                ],
-                "en": [
-                  "Experience with agile methodologies and version control systems (e.g., Git)."
-                ]
+                "ar": "خبرة في منهجيات العمل المرنة ونظم التحكم في الإصدارات (مثل Git).",
+                "en": "Experience with agile methodologies and version control systems (e.g., Git)."
               }
             },
             {
@@ -4693,12 +4601,8 @@
                 "en": "Educational Requirements"
               },
               "content": {
-                "ar": [
-                  "مهارات تحليلية قوية وحل المشكلات."
-                ],
-                "en": [
-                  "Strong analytical and problem-solving skills."
-                ]
+                "ar": "مهارات تحليلية قوية وحل المشكلات.",
+                "en": "Strong analytical and problem-solving skills."
               }
             }
           ]
@@ -4789,8 +4693,8 @@
         },
         "bannerImage": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+13.jpg",
         "button": {
-            "en": "Back",
-            "ar": "خلف"
+          "en": "Back",
+          "ar": "خلف"
         }
       },
       "jobDetails": {
@@ -4802,12 +4706,8 @@
                 "en": "Who Are We Looking For?"
               },
               "content": {
-                "ar": [
-                  "درجة البكالوريوس في أمن المعلومات، علوم الكمبيوتر، أو مجال ذي صلة."
-                ],
-                "en": [
-                  "Bachelor's degree in Information Security, Computer Science, or related field."
-                ]
+                "ar": "درجة البكالوريوس في أمن المعلومات، علوم الكمبيوتر، أو مجال ذي صلة.",
+                "en": "Bachelor's degree in Information Security, Computer Science, or related field."
               }
             },
             {
@@ -4816,12 +4716,8 @@
                 "en": "What Will You Do?"
               },
               "content": {
-                "ar": [
-                  "خبرة لا تقل عن 3 سنوات في الأمن السيبراني مع معرفة في أمان الشبكة واختبار الاختراق والاستجابة للحوادث."
-                ],
-                "en": [
-                  "3+ years of experience in cybersecurity with knowledge of network security, penetration testing, and incident response."
-                ]
+                "ar": "خبرة لا تقل عن 3 سنوات في الأمن السيبراني مع معرفة في أمان الشبكة واختبار الاختراق والاستجابة للحوادث.",
+                "en": "3+ years of experience in cybersecurity with knowledge of network security, penetration testing, and incident response."
               }
             },
             {
@@ -4830,12 +4726,8 @@
                 "en": "Bonus Points to Recognize"
               },
               "content": {
-                "ar": [
-                  "شهادات في الأمن السيبراني (مثل CISSP و CEH و CompTIA Security+)."
-                ],
-                "en": [
-                  "Certifications in cybersecurity (e.g., CISSP, CEH, CompTIA Security+)."
-                ]
+                "ar": "شهادات في الأمن السيبراني (مثل CISSP و CEH و CompTIA Security+).",
+                "en": "Certifications in cybersecurity (e.g., CISSP, CEH, CompTIA Security+)."
               }
             },
             {
@@ -4844,12 +4736,8 @@
                 "en": "Educational Requirements"
               },
               "content": {
-                "ar": [
-                  "فهم قوي لإدارة التهديدات وتقييم المخاطر واستراتيجيات التخفيف."
-                ],
-                "en": [
-                  "Strong understanding of threat management, risk assessment, and mitigation strategies."
-                ]
+                "ar": "فهم قوي لإدارة التهديدات وتقييم المخاطر واستراتيجيات التخفيف.",
+                "en": "Strong understanding of threat management, risk assessment, and mitigation strategies."
               }
             }
           ]
@@ -5476,7 +5364,7 @@
   },
   "underDevelopment": {
     "banner": {
-      "title":{
+      "title": {
         "ar": "هذه الصفحة قيد التطوير وسوف يتم تحديثها قريبا...",
         "en": "This page is under development and will be updated soon..."
       }

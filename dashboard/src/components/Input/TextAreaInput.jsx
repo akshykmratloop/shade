@@ -49,7 +49,7 @@ function TextAreaInput({
         dir={language === "ar" ? "rtl" : "ltr"}
         ref={textareaRef}
         value={value}
-        className={`rounded-lg p-4 py-2 w-full border border-[#cecbcb] dark:bg-[#2A303C] text-xs ${textAreaStyle}`}
+        className={`rounded-lg p-4 py-2 w-full border border-[#80808044] focus:border-[#0000007e] dark:focus:border-[#ffffff7e] dark:bg-[#2A303C] text-xs ${textAreaStyle}`}
         placeholder={placeholder || ""}
         onChange={(e) => updateInputValue(e.target.value)}
         rows={2} // Initial height of 2 rows

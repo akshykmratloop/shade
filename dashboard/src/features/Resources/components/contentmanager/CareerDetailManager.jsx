@@ -4,6 +4,7 @@ import ContentSection from "../ContentSections"
 import { useDispatch } from "react-redux"
 import { updateContent } from "../../../common/homeContentSlice"
 import content from "../websiteComponent/content.json"
+import DynamicContentSection from "../DynamicContentSection"
 
 const CareerDetailManager = ({ careerId, currentContent, currentPath, language }) => {
     const dispatch = useDispatch();
@@ -34,6 +35,38 @@ const CareerDetailManager = ({ careerId, currentContent, currentPath, language }
                 currentContent={currentContent}
                 projectId={careerIndex + 1}
             />
+
+            <div className="mt-4 border-b">
+                <h3 className={`font-semibold text-[1.25rem] mb-4`}>Job Details Left Panel</h3>
+                {
+                    currentContent?.[careerIndex]?.jobDetails?.leftPanel?.sections?.map((element, index, a) => {
+                        const isLast = index === a.length - 1
+                        return (
+                            <DynamicContentSection key={index}
+                                currentPath={currentPath}
+                                subHeading={"Section " + (index + 1)}
+                                inputs={[
+                                    { input: "input", label: "Title", updateType: "title" },
+                                    { input: "richtext", label: "Description", updateType: "content" },
+                                ]}
+                                section={"jobDetails"}
+                                subSection={"leftPanel"}
+                                subSectionsProMax={"sections"}
+                                index={index}
+                                language={language}
+                                currentContent={currentContent}
+                                projectId={careerIndex + 1}
+                                careerId={careerId}
+                                isBorder={false}
+                            />
+                        )
+                    })
+                }
+                <button className="text-blue-500 cursor-pointer mb-3" 
+                // onClick={addExtraSummary}
+                >Add More Section...</button>
+            </div>
+
         </div>
     )
 }

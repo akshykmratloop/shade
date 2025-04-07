@@ -319,3 +319,7 @@ select {
 .jodit-toolbar-button:hover {
   background-color: #017392 !important; /* Blue hover effect */
 }
+
+div.importantList ul{
+  list-style-type: disc !important;
+}

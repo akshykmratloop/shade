@@ -131,7 +131,7 @@ function InputText({
             onChange={(e) => updateInputValue(e.target.value)}
             disabled={disabled}
             className={`input ${width ?? "w-full"
-              } h-[2.3rem] text-xs input input-bordered border-[#cecbcb] focus:border-none ${InputClasses || ""
+              } h-[2.3rem] text-xs input input-bordered border-[#80808044] focus:border-[#0000007e] dark:focus:border-[#ffffff7e] ${InputClasses || ""
               }`}
             
           />

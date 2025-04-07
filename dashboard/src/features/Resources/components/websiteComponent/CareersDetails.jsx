@@ -22,6 +22,7 @@ const CareerDetailPage = ({ contentOn, language, careerId, screen }) => {
     const dispatch = useDispatch()
     const contentFromRedux = useSelector(state => state.homeContent.present.careerDetails)
     const ImageFromRedux = useSelector(state => state.homeContent.present.images)
+    const isLeftAlign = language === 'en'
     // const router = useRouter();
     //   const [isModal, setIsModal] = useState(false);
 
@@ -48,7 +49,7 @@ const CareerDetailPage = ({ contentOn, language, careerId, screen }) => {
     }, [])
 
     return (
-        <div className="px-10">
+        <div className="px-10" dir={isLeftAlign? "ltr" : "rtl"}>
             <section className={`mt-[50px] mb-[20px] ${language === "ar" ? "text-right" : ""}`}>
                 <div className="container mx-auto px-4">
                     <div className="relative mb-[20px]">
@@ -91,11 +92,8 @@ const CareerDetailPage = ({ contentOn, language, careerId, screen }) => {
                                     {section?.title[language]}
                                 </h2>
                                 <ul className="list-disc pl-5">
-                                    {section?.content[language]?.map((item, idx) => (
-                                        <li key={idx} className="text-[#0E172FB3] text-[12px] font-light mb-1">
-                                            {item}
-                                        </li>
-                                    ))}
+                                    <div className="text-[#0E172FB3] text-[12px] font-light mb-1 importantList" dangerouslySetInnerHTML={{__html: section?.content[language]}} />
+                                      
                                 </ul>
                             </div>
                         ))}
