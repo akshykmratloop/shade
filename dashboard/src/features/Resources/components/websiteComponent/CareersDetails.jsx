@@ -105,7 +105,7 @@ const CareerDetailPage = ({ contentOn, language, careerId, screen }) => {
                                 className="block mx-auto py-1 px-4 bg-[#00B9F2] text-white rounded-md"
                             // onClick={handleApply}
                             >
-                                {jobDetails?.rightPanel?.button?.text[language]}
+                                {jobDetails?.rightPanel?.button?.[language]}
                             </button>
                             <h3 className="text-[#292E3D] text-[24px] font-bold my-8">
                                 {jobDetails?.rightPanel?.title[language]}
@@ -161,7 +161,7 @@ const CareerDetailPage = ({ contentOn, language, careerId, screen }) => {
                     className="block mx-auto mt-[32px] mb-[50px] py-[6px] px-4 bg-[#00B9F2] text-white rounded-md"
                 // onClick={handleApply}
                 >
-                    {jobDetails?.button?.text[language]}
+                    {jobDetails?.button?.[language]}
                 </button>
             </section>
 

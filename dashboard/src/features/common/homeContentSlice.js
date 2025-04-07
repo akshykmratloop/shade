@@ -124,7 +124,6 @@ const cmsSlice = createSlice({
                 state.present[action.payload?.currentPath][action.payload.section][action.payload.subSection][action.payload?.index][action.payload.title] = action.payload.value;
             } else if (action.payload.subSectionsProMax) {
                 if (action.payload.careerId) {
-                    console.log(action.payload?.currentPath, action.payload.projectId - 1, action.payload.section, action.payload.subSection, action.payload.subSectionsProMax, action.payload?.index, action.payload.title)
                     state.present[action.payload?.currentPath][action.payload.projectId - 1][action.payload.section][action.payload.subSection][action.payload.subSectionsProMax][action.payload?.index][action.payload.title][action.payload.lan] = action.payload.value;
                 } else {
                     state.present[action.payload?.currentPath][action.payload.section][action.payload.subSection][action.payload?.index][action.payload.subSectionsProMax][action.payload.subSecIndex][action.payload.title][action.payload.lan] = action.payload.value;
@@ -132,7 +131,11 @@ const cmsSlice = createSlice({
             } else if (action.payload.subSection === 'url') {
                 state.present[action.payload?.currentPath][action.payload.section][action.payload.subSection] = action.payload.value;
             } else if (action.payload.subSection) {
-                state.present[action.payload?.currentPath][action.payload.section][action.payload.subSection][action.payload?.index][action.payload.title][action.payload.lan] = action.payload.value;
+                if (action.payload.careerId) {
+                    state.present[action.payload?.currentPath][action.payload.projectId - 1][action.payload.section][action.payload.subSection][action.payload.title][action.payload.lan] = action.payload.value;
+                } else {
+                    state.present[action.payload?.currentPath][action.payload.section][action.payload.subSection][action.payload?.index][action.payload.title][action.payload.lan] = action.payload.value;
+                }
             } else if (action.payload.type === 'rich') {
                 state.present[action.payload?.currentPath][action.payload.section][action.payload.index][action.payload.title][action.payload.lan] = action.payload.value;
             } else {

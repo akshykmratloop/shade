@@ -23,7 +23,8 @@ const ContentSection = ({
     currentContent,
     allowExtraInput = false, // New prop to allow extra input
     attachOne = false,
-    projectId
+    projectId,
+    careerId
 }) => {
     const dispatch = useDispatch();
     const [extraFiles, setExtraFiles] = useState([]);
@@ -68,7 +69,19 @@ const ContentSection = ({
                 dispatch(updateServicesNumber({ section, title: updateType, value: val, subSection, index, currentPath }));
             }
         } else {
-            dispatch(updateSpecificContent({ section, title: updateType, lan: language, value: value === "" ? "" : value, subSection, index, subSectionsProMax, subSecIndex, currentPath, projectId }));
+            dispatch(updateSpecificContent({
+                section,
+                title: updateType,
+                lan: language,
+                value: value === "" ? "" : value,
+                subSection,
+                index,
+                subSectionsProMax,
+                subSecIndex,
+                currentPath,
+                projectId,
+                careerId
+            }));
         }
     };
 
@@ -79,7 +92,9 @@ const ContentSection = ({
             {inputs.length > 0 &&
                 inputs.map((input, i) => {
                     let valueExpression;
-                    if (projectId) {
+                    if (careerId) {
+                        valueExpression = currentContent?.[projectId - 1]?.[section]?.[subSection]?.[input.updateType]?.[language];
+                    } else if (projectId) {
                         if (subSection) {
                             valueExpression = currentContent?.[projectId - 1]?.[section]?.[subSection]?.[index]?.[input.updateType]?.[language];
                         } else if (input.updateType === 'url') {
@@ -117,7 +132,7 @@ const ContentSection = ({
                                 id={input.updateType}
                             />
                         );
-                    }  else {
+                    } else {
                         return (
                             <InputText
                                 key={i}

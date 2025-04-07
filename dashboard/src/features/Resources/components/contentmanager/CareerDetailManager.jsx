@@ -8,29 +8,29 @@ import DynamicContentSection from "../DynamicContentSection"
 
 const CareerDetailManager = ({ careerId, currentContent, currentPath, language }) => {
     const dispatch = useDispatch();
-    console.log(careerId, currentContent, currentPath, language)
     const careerIndex = currentContent?.findIndex(e => e.id === careerId)
-    console.log(careerIndex)
 
     const addExtraSummary = () => {
-            dispatch(updateTheProjectSummaryList(
-                {
-                    insert: {
-                        title: {
-                            ar: "",
-                            en: ""
-                        },
-                        content: {
-                            ar: "",
-                            en: ""
-                        }
+        dispatch(updateTheProjectSummaryList(
+            {
+                insert: {
+                    title: {
+                        ar: "",
+                        en: ""
                     },
-                    careerIndex,
-                    context: "careerDetails",
-                    operation: 'add'
-                }
-            ))
-        }
+                    content: {
+                        ar: "",
+                        en: ""
+                    }
+                },
+                careerIndex,
+                context: "careerDetails",
+                operation: 'add'
+            }
+        ))
+    }
+
+    console.log(careerIndex)
 
     useEffect(() => {
 
@@ -83,9 +83,55 @@ const CareerDetailManager = ({ careerId, currentContent, currentPath, language }
                         )
                     })
                 }
-                <button className="text-blue-500 cursor-pointer mb-3" 
-                onClick={addExtraSummary}
+                <button className="text-blue-500 cursor-pointer mb-3"
+                    onClick={addExtraSummary}
                 >Add More Section...</button>
+            </div>
+
+            <div className="mt-4 border-b">
+                <h3 className={`font-semibold text-[1.25rem] mb-4`}>Job Details Right Panel</h3>
+
+                <ContentSection
+                    currentPath={currentPath}
+                    subHeading={"Top Section"}
+                    inputs={[
+                        { input: "input", label: "Heading/title", updateType: "title" },
+                        { input: "input", label: "Button Text", updateType: "button" },
+                        // { input: "input", label: "Url", updateType: "url" },
+                    ]}
+                    section={"jobDetails"}
+                    subSection={"rightPanel"}
+                    language={language}
+                    currentContent={currentContent}
+                    projectId={careerIndex + 1}
+                    careerId={careerId}
+                />
+                {/* {
+                    currentContent?.[careerIndex]?.jobDetails?.leftPanel?.sections?.map((element, index, a) => {
+                        const isLast = index === a.length - 1
+                        return (
+                            <DynamicContentSection key={index}
+                                currentPath={currentPath}
+                                subHeading={"Section " + (index + 1)}
+                                inputs={[
+                                    { input: "input", label: "Title", updateType: "title" },
+                                    { input: "richtext", label: "Description", updateType: "content" },
+                                ]}
+                                section={"jobDetails"}
+                                subSection={"leftPanel"}
+                                subSectionsProMax={"sections"}
+                                index={index}
+                                language={language}
+                                currentContent={currentContent}
+                                projectId={careerIndex + 1}
+                                careerIndex={careerIndex}
+                                careerId={careerId}
+                                isBorder={false}
+                            />
+                        )
+                    })
+                } */}
+              
             </div>
 
         </div>
