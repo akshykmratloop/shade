@@ -121,24 +121,26 @@ export const fetchAllUsers = async (
 
 // Update User
 export const updateUser = async (id, name, password, phone, roles) => {
-  const hashedPassword = await EncryptData(password, 10);
-  const updatedUser = await prismaClient.user.update({
-    where: {id},
-    data: {
-      name,
-      password: hashedPassword,
-      phone,
-      roles: {
-        // Remove all existing role associations for the user
-        deleteMany: {},
-        // Create new associations for each provided role ID
-        create:
-          roles?.map((roleId) => ({
-            role: {connect: {id: roleId}},
-          })) || [],
-      },
+  const dataToUpdate = {
+    name,
+    phone,
+    roles: {
+      deleteMany: {},
+      create: roles?.map((roleId) => ({
+        role: { connect: { id: roleId } },
+      })) || [],
     },
-    include: {roles: {include: {role: true}}},
+  };
+
+  if (password) { // "changes for making password optional" at apr 7 11:32
+    const hashedPassword = await EncryptData(password, 10);
+    dataToUpdate.password = hashedPassword;
+  }
+
+  const updatedUser = await prismaClient.user.update({
+    where: { id },
+    data: dataToUpdate,
+    include: { roles: { include: { role: true } } },
   });
 
   return updatedUser;

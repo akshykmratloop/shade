@@ -82,6 +82,9 @@ function ShowLogs({ log, show, onClose }) {
             setLoading(true);
             try {
                 const response = await getRoleById(log?.id);
+                if (response.statusCode >= 400) {
+                    throw `Error: status: ${response.statusCode}, type: ${response.errorType}`
+                }
                 setTimeout(() => {
                     // setFetchedRole(response.role);
                     setFetchedRole(log)

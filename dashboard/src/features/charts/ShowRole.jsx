@@ -38,6 +38,9 @@ function UserDetailsModal({ user, show, onClose }) {
             setLoading(true);
             try {
                 const response = await getUserById(user.id);
+                if (response.statusCode >= 400) {
+                    throw `Error: status: ${response.statusCode}, type: ${response.errorType}`
+                }
                 setTimeout(() => {
                     setFetchedUser(response.user);
                     setError(false);

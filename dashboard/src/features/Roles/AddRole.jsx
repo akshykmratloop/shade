@@ -72,7 +72,7 @@ const AddRoleModal = ({ show, onClose, updateRoles, role }) => {
         1000
       );
       setTimeout(() => {
-        onClose();
+        modalClose()
         updateRoles((prev) => !prev);
       }, 1500);
     } else {
@@ -85,7 +85,7 @@ const AddRoleModal = ({ show, onClose, updateRoles, role }) => {
     }
   };
 
-  const modalClose = () => {
+  function modalClose() {
     onClose()
     setRoleData(freshObject)
     clearErrorMessage()

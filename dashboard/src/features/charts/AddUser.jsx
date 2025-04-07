@@ -60,6 +60,7 @@ const AddUserModal = ({ show, onClose, updateUsers, user }) => {
             // roles: setErrorMessageRoles,
         });
 
+        console.log("QWEr")
         const validEmail = checkRegex(userData.email, setErrorMessageEmail) // checks if email is under valid format
         const validPassword = userData.password.trim() === ""
         if (validPassword && !user) {
@@ -173,8 +174,8 @@ const AddUserModal = ({ show, onClose, updateUsers, user }) => {
                     <X className="w-[20px] h-[20px]" />
                 </button> */}
                 <CloseModalButton onClickClose={onClose} />
-                <form onSubmit={handleFormSubmit} className="flex flex-col items-center w-full gap-7    ">
-                <h3 className="font-semibold text-2xl self-start">{user ? "Edit User" : "Add User"}</h3>
+                <form className="flex flex-col items-center w-full gap-7    ">
+                    <h3 className="font-semibold text-2xl self-start">{user ? "Edit User" : "Add User"}</h3>
                     {/* <div className="self-start">
                         <InputFileForm
                             labelStyle="text-[#6B7888]"
@@ -279,7 +280,7 @@ const AddUserModal = ({ show, onClose, updateUsers, user }) => {
                         onClick={onCloseModal}>
                         Cancel
                     </button>
-                    <button type="submit" className="rounded-md h-[2.5rem] w-[8rem] px-4 flex-[1] text-sm bg-[#25439B] text-white">
+                    <button onClick={handleFormSubmit} type="submit" className="rounded-md h-[2.5rem] w-[8rem] px-4 flex-[1] text-sm bg-[#25439B] text-white">
                         Save
                     </button>
                 </div>
