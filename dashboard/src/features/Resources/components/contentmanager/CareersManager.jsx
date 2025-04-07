@@ -1,11 +1,18 @@
 import FileUploader from "../../../../components/Input/InputFileUploader";
+import { useEffect } from "react";
 import ContentSection from "../ContentSections";
 import MultiSelect from "../MultiSelect";
+import { updateContent } from "../../../common/homeContentSlice";
+import content from "../websiteComponent/content.json"
+import { useDispatch } from "react-redux";
 
 const CareersManager = ({ language, currentContent, currentPath }) => {
-
     const jobs = currentContent?.jobListSection?.jobs.map(e => e)
+    const dispatch = useDispatch()
 
+    useEffect(() => {
+        dispatch(updateContent({ currentPath: "home", payload: (content?.careers) }))
+    }, [])
     return (
         <div className="w-full">
             <FileUploader id={"careersReference"} label={"Rerference doc"} fileName={"Upload your file..."} />

@@ -36,12 +36,29 @@ const ContentSection = ({
                 dispatch(updateImages({ src: [...ImagesFromRedux.socialIcons, { img: "", url: "", id: ImagesFromRedux.socialIcons.length + 1 }], section: "socialIcons" }))
                 dispatch(updateImages({ src: [...ImagesFromRedux.socialIcons, { img: "", url: "", id: ImagesFromRedux.socialIcons.length + 1 }], section: "socialIcons" }))
             }
+        } else if (section === 'gallerySection') {
+            dispatch(updateImages({
+                src: { url: "", alt: { en: "", ar: "" } },
+                updateType: section,
+                projectId,
+                operation: 'add'
+            }))
+        } else {
+            setExtraFiles([...extraFiles, { label: `Extra File ${extraFiles.length + 1}`, id: `extraFile${extraFiles.length + 1}` }]);
         }
-        setExtraFiles([...extraFiles, { label: `Extra File ${extraFiles.length + 1}`, id: `extraFile${extraFiles.length + 1}` }]);
     };
 
     const removeExtraFileInput = (id) => {
-        setExtraFiles(extraFiles.filter(file => file.id !== id));
+        if (section === 'gallerySection') {
+            dispatch(updateImages({
+                src: id,
+                updateType: section,
+                projectId,
+                operation: 'remove'
+            }))
+        } else {
+            setExtraFiles(extraFiles.filter(file => file.id !== id));
+        }
     };
 
     const updateFormValue = ({ updateType, value }) => {
@@ -55,64 +72,71 @@ const ContentSection = ({
         }
     };
 
+
     return (
         <div className={`w-full ${Heading ? "mt-4" : subHeading ? "mt-2" : ""} flex flex-col gap-1 ${!isBorder ? "" : "border-b border-b-1 border-neutral-300"} ${attachOne ? "pb-0" : (Heading || subHeading) ? "pb-6" : ""}`}>
             <h3 className={`font-semibold ${subHeading ? "text-[.9rem] mb-1" : Heading ? "text-[1.25rem] mb-4" : " mb-0"}`}>{Heading || subHeading}</h3>
-            {inputs.length > 0 ? inputs.map((input, i) => {
-                let valueExpression;
-                if (projectId) {
-                    if (subSection) {
-                        valueExpression = currentContent?.[projectId - 1]?.[section]?.[subSection]?.[index]?.[input.updateType]?.[language];
-                    } else if (input.updateType === 'url') {
-                        valueExpression = currentContent?.[projectId - 1]?.[section]?.[input.updateType];
-                    } else {
-                        if(section === 'descriptionSection') {
+            {inputs.length > 0 &&
+                inputs.map((input, i) => {
+                    let valueExpression;
+                    if (projectId) {
+                        if (subSection) {
+                            valueExpression = currentContent?.[projectId - 1]?.[section]?.[subSection]?.[index]?.[input.updateType]?.[language];
+                        } else if (input.updateType === 'url') {
+                            valueExpression = currentContent?.[projectId - 1]?.[section]?.[input.updateType];
+                        } else if (section === 'descriptionSection') {
                             valueExpression = currentContent?.[projectId - 1]?.[section]?.[index]?.[input.updateType]?.[language];
-                        }else{
+                        } else {
                             valueExpression = currentContent?.[projectId - 1]?.[section]?.[input.updateType]?.[language];
                         }
+                    } else if (subSectionsProMax === "Links") {
+                        valueExpression = currentContent?.[section]?.[subSection]?.[index]?.[input.updateType];
+                    } else if (subSectionsProMax) {
+                        valueExpression = currentContent?.[section]?.[subSection]?.[index]?.[subSectionsProMax]?.[subSecIndex]?.[input.updateType]?.[language];
+                    } else if (subSection && typeof currentContent?.[section]?.[subSection]?.[index]?.[input.updateType] !== "object") {
+                        valueExpression = currentContent?.[section]?.[subSection]?.[index]?.[input.updateType];
+                    } else if (subSection === 'url') {
+                        valueExpression = currentContent?.[section]?.[subSection]?.[index]?.[input.updateType];
+                    } else if (subSection) {
+                        valueExpression = currentContent?.[section]?.[subSection]?.[index]?.[input.updateType]?.[language];
+                    } else {
+                        valueExpression = currentContent?.[section]?.[input.updateType]?.[language];
                     }
-                } else if (subSectionsProMax === "Links") {
-                    valueExpression = currentContent?.[section]?.[subSection]?.[index]?.[input.updateType];
-                } else if (subSectionsProMax) {
-                    valueExpression = currentContent?.[section]?.[subSection]?.[index]?.[subSectionsProMax]?.[subSecIndex]?.[input.updateType]?.[language];
-                } else if (subSection && typeof (currentContent?.[section]?.[subSection]?.[index]?.[input.updateType]) !== "object") {
-                    valueExpression = currentContent?.[section]?.[subSection]?.[index]?.[input.updateType];
-                } else if (subSection === 'url') {
-                    valueExpression = currentContent?.[section]?.[subSection]?.[index]?.[input.updateType];
-                } else if (subSection) {
-                    valueExpression = currentContent?.[section]?.[subSection]?.[index]?.[input.updateType]?.[language];
-                } else {
-                    valueExpression = currentContent?.[section]?.[input.updateType]?.[language];
-                }
-                return input.input === "textarea" ? (
-                    <TextAreaInput
-                        key={i}
-                        labelTitle={input.label}
-                        labelStyle="block sm:text-xs xl:text-sm"
-                        updateFormValue={updateFormValue}
-                        updateType={input.updateType}
-                        section={section}
-                        defaultValue={valueExpression || ""}
-                        language={language}
-                        id={input.updateType}
-                    />
-                ) : (
-                    <InputText
-                        key={i}
-                        InputClasses="h-[2.125rem]"
-                        labelTitle={input.label}
-                        labelStyle="block sm:text-xs xl:text-sm"
-                        updateFormValue={updateFormValue}
-                        updateType={input.updateType}
-                        section={section}
-                        defaultValue={valueExpression || ""}
-                        language={language}
-                        id={input.updateType}
-                        required={false}
-                    />
-                );
-            }) : ""}
+
+                    if (input.input === "textarea") {
+                        return (
+                            <TextAreaInput
+                                key={i}
+                                labelTitle={input.label}
+                                labelStyle="block sm:text-xs xl:text-sm"
+                                updateFormValue={updateFormValue}
+                                updateType={input.updateType}
+                                section={section}
+                                defaultValue={valueExpression || ""}
+                                language={language}
+                                id={input.updateType}
+                            />
+                        );
+                    }  else {
+                        return (
+                            <InputText
+                                key={i}
+                                InputClasses="h-[2.125rem]"
+                                labelTitle={input.label}
+                                labelStyle="block sm:text-xs xl:text-sm"
+                                updateFormValue={updateFormValue}
+                                updateType={input.updateType}
+                                section={section}
+                                defaultValue={valueExpression || ""}
+                                language={language}
+                                id={input.updateType}
+                                required={false}
+                            />
+                        );
+                    }
+                })
+            }
+
 
             <div className={`flex ${inputFiles.length > 1 ? "justify-center" : ""}`}>
                 {
@@ -144,15 +168,22 @@ const ContentSection = ({
                             </div>
                         </div>
                         : <div className={`flex ${inputFiles.length > 1 ? "flex-wrap" : ""} gap-10 w-[80%]`}>
-                            {inputFiles.map((file, index) => (
-                                <InputFile
-                                    key={index}
-                                    label={file.label}
-                                    id={file.id}
-                                    currentPath={currentPath}
-                                    fileIndex={index}
-                                    section={section}
-                                />
+                            {inputFiles.map((file, i) => (
+                                <div className="relative" key={i}>
+                                    {i > 3 && <button
+                                        className="absolute top-6 z-10 right-[-12px] bg-red-500 text-white px-[5px] rounded-full shadow"
+                                        onClick={() => removeExtraFileInput(Number(file.id.slice(-1)))}
+                                    >
+                                        ✖
+                                    </button>}
+                                    <InputFile
+                                        label={file.label}
+                                        id={file.id}
+                                        currentPath={currentPath}
+                                        fileIndex={i}
+                                        section={section}
+                                    />
+                                </div>
                             ))}
                             {extraFiles.map((file, index) => (
                                 <div key={index} className="relative flex items-center justify-center">

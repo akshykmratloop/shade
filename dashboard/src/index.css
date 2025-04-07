@@ -45,3 +45,17 @@ input[type="password"] {
 input[type="password"]::-ms-reveal {
   display: none;
 }
+
+input::placeholder {
+  font-family: "Poppins" !important;
+  font-weight: 400 !important;
+}
+
+input[type="text"],textarea{
+  border: .5px solid rgba(128, 128, 128, 0.266) !important;
+}
+
+textarea:focus, input[type="text"]:focus {
+  outline: none !important;
+  border: 1px solid #0000007e !important;
+}

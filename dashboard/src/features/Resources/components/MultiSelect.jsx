@@ -101,7 +101,8 @@ const MultiSelect = ({ heading, options = [], tabName, label, language, section,
     if (referenceOriginal.dir === 'projectDetail' && selectedOptions.length > 2) return
     if (referenceOriginal.dir === 'projectDetail') {
       setSelectedOptions(prev => {
-        return [...prev, { ...optionToAdd, display: true }]
+        return [...prev, {
+          ...optionToAdd, display: true }]
       })
       operation = 'add'
     } else {

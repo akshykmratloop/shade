@@ -30,15 +30,18 @@ const resources = {
         { heading: "News", src: "https://shade-six.vercel.app/news-and-blogs", assign: true },
     ],
     projects: [
-        {subPage:1 , heading: "IT Lab of Excellence", src: "https://shade-six.vercel.app/project/1", assign: true },
-        {subPage:2 , heading: "Non-Metallic Manufacturing Plant", src: "https://shade-six.vercel.app/project/2", assign: true },
-        {subPage:3 , heading: "Business Gate", src: "https://shade-six.vercel.app/project/3", assign: false },
-        {subPage:4 , heading: "Construction of OME Building - NAPD Khursaniy...", src: "https://shade-six.vercel.app/project/4", assign: true },
-        {subPage:5 , heading: "Psychiatric Facility", src: "https://shade-six.vercel.app/project/5", assign: false },
+        { subPage: 1, heading: "IT Lab of Excellence", src: "https://shade-six.vercel.app/project/1", assign: true },
+        { subPage: 2, heading: "Non-Metallic Manufacturing Plant", src: "https://shade-six.vercel.app/project/2", assign: true },
+        { subPage: 3, heading: "Business Gate", src: "https://shade-six.vercel.app/project/3", assign: false },
+        { subPage: 4, heading: "Construction of OME Building - NAPD Khursaniy...", src: "https://shade-six.vercel.app/project/4", assign: true },
+        { subPage: "oops", heading: "Page is underdevelopment", src: "https://shade-six.vercel.app/project/oops", assign: true },
     ],
     testimonials: [
     ],
     careers: [
+        { subPage: "se1", heading: "Software Engineer", src: "https://shade-six.vercel.app/career/se1", assign: true },
+        { subPage: "pm1", heading: "Project Manager", src: "https://shade-six.vercel.app/career/pm1", assign: true },
+        { subPage: "da1", heading: "Data Analyst", src: "https://shade-six.vercel.app/career/de1", assign: true },
     ],
     blogs: [
     ],

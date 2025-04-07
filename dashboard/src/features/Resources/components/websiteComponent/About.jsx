@@ -3,6 +3,7 @@ import content from "./content.json"
 import { useDispatch, useSelector } from "react-redux";
 import { updateContent } from "../../../common/homeContentSlice";
 import { aboutUsIcons } from "../../../../assets/index"; // ../../assets/index
+import parse from 'html-react-parser'
 // import styles from "./about.module.scss";
 // import localFont from "next/font/local";
 // import Button from "@/common/Button";
@@ -45,7 +46,7 @@ const AboutUs = ({ language, screen }) => {
                             {currentContent?.services?.title[language]}
                         </h2>
                         <p className="text-black text-base font-light leading-7 mb-4 text-[#00B9F2]">
-                            {currentContent?.services?.subtitle[language]}
+                            {(currentContent?.services?.subtitle[language])}
                         </p>
                     </div>
                     <div className={`${!isEnglish ? `flex  ${isPhone ? "flex-col" : "flex-row-reverse"}` : `${isPhone?"flex flex-col":"grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3"}`} text-center gap-8 mt-8`}>

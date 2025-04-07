@@ -40,7 +40,7 @@ function TextAreaInput({
     <div className={`form-control w-full my-2 ${containerStyle}`}>
       {labelTitle && (
         <label className="label-text text-[#6B7888]">
-          <span className={"label-text text-[#6B7888]" + labelStyle} style={{color:"#6B7888"}}>
+          <span className={"label-text text-[#6B7888]" + labelStyle} style={{ color: "#6B7888" }}>
             {labelTitle}
           </span>
         </label>
@@ -49,7 +49,7 @@ function TextAreaInput({
         dir={language === "ar" ? "rtl" : "ltr"}
         ref={textareaRef}
         value={value}
-        className={`textarea textarea-bordered w-full border border-[#cecbcb] text-xs ${textAreaStyle}`}
+        className={`rounded-lg p-4 py-2 w-full border border-[#cecbcb] dark:bg-[#2A303C] text-xs ${textAreaStyle}`}
         placeholder={placeholder || ""}
         onChange={(e) => updateInputValue(e.target.value)}
         rows={2} // Initial height of 2 rows
@@ -58,6 +58,7 @@ function TextAreaInput({
           overflow: "hidden", // Avoid unnecessary scrollbars
           minHeight: "3rem", // Ensures at least 2 rows height
           whiteSpace: "pre-wrap", // Maintain text formatting
+          oultine: "none"
         }}
       ></textarea>
     </div>

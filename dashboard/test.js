@@ -1,3 +1,1 @@
-["data"].forEach(ele => {
-    console.log(ele)
-})
+console.log("asdfv".slice(2,this.length))
