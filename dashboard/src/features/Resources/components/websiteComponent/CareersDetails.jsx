@@ -55,10 +55,10 @@ const CareerDetailPage = ({ contentOn, language, careerId, screen }) => {
     //     setIsModal(false);
     //   };
     return (
-        <div>
-            <section className={`mt-[140px] mb-[20px] ${language === "ar" ? "text-right" : ""}`}>
+        <div className="px-10">
+            <section className={`mt-[50px] mb-[20px] ${language === "ar" ? "text-right" : ""}`}>
                 <div className="container mx-auto px-4">
-                    <div className="relative mb-[52px]">
+                    <div className="relative mb-[20px]">
                         <img
                             src={banner?.bannerImage}
                             alt=""
@@ -79,27 +79,27 @@ const CareerDetailPage = ({ contentOn, language, careerId, screen }) => {
                             />
                             {banner?.button?.text[language]}
                         </button>
-                        <h2 className="text-black text-[32px] font-bold mb-5">
+                        <h2 className="text-[#292E3D] text-[28px] font-bold mb-5">
                             {banner?.title[language]}
                         </h2>
-                        <p className="text-gray-500 text-[18px] font-light">
+                        <p className="text-[#0E172FB3] text-[16px] font-light">
                             {banner?.subTitle[language]}
                         </p>
                     </div>
                 </div>
             </section>
 
-            <section className="py-10">
-                <div className="container mx-auto px-4 grid grid-cols-1 lg:grid-cols-[1fr_384px] gap-[146px]">
-                    <div>
+            <section className="py-5">
+                <div className="container mx-auto px-4 flex gap-[50px]">
+                    <div className="">
                         {jobDetails?.leftPanel?.sections.map((section, index) => (
-                            <div key={index} className="mb-[72px]">
-                                <h2 className="text-black text-[24px] font-bold mb-6">
+                            <div key={index} className="mb-[30px]">
+                                <h2 className="text-[#292E3D] text-[20px] font-bold mb-3">
                                     {section?.title[language]}
                                 </h2>
                                 <ul className="list-disc pl-5">
                                     {section?.content[language]?.map((item, idx) => (
-                                        <li key={idx} className="text-gray-700 text-[16px] font-light mb-4">
+                                        <li key={idx} className="text-[#0E172FB3] text-[12px] font-light mb-1">
                                             {item}
                                         </li>
                                     ))}
@@ -108,19 +108,19 @@ const CareerDetailPage = ({ contentOn, language, careerId, screen }) => {
                         ))}
                     </div>
 
-                    <div>
-                        <div className="bg-gray-100 p-8 mb-6">
+                    <div className="min-w-[300px]">
+                        <div className="bg-gray-100 p-7 mb-6">
                             <button
-                                className="block mx-auto py-3 px-4 bg-blue-500 text-white rounded-md"
+                                className="block mx-auto py-1 px-4 bg-[#00B9F2] text-white rounded-md"
                                 // onClick={handleApply}
                             >
                                 {jobDetails?.rightPanel?.button?.text[language]}
                             </button>
-                            <h3 className="text-black text-[24px] font-bold my-10">
+                            <h3 className="text-[#292E3D] text-[24px] font-bold my-8">
                                 {jobDetails?.rightPanel?.title[language]}
                             </h3>
                             {jobDetails?.rightPanel?.tailwraps?.map((tail, index) => (
-                                <div className="flex items-center gap-4 mb-12" key={index}>
+                                <div className="flex items-center gap-4 mb-5" key={index}>
                                     <img
                                         src={tail.icon}
                                         alt={tail?.title[language]}
@@ -128,10 +128,10 @@ const CareerDetailPage = ({ contentOn, language, careerId, screen }) => {
                                         height={32}
                                     />
                                     <div>
-                                        <h5 className="text-gray-400 text-[17px] font-light mb-2">
+                                        <h5 className="text-[#B7B7B7] text-[15px] font-light">
                                             {tail?.description[language]}
                                         </h5>
-                                        <h6 className="text-black text-[17px] font-light">
+                                        <h6 className="text-[#292E3D] text-[15px] font-light">
                                             {tail?.title[language]}
                                         </h6>
                                     </div>
@@ -139,14 +139,14 @@ const CareerDetailPage = ({ contentOn, language, careerId, screen }) => {
                             ))}
                             <Link
                                 href={jobDetails?.rightPanel?.viewAllButton?.link}
-                                className="text-blue-500 underline mt-12 block"
+                                className="text-[#00B9F2] underline mt-12 block"
                             >
                                 {jobDetails?.rightPanel?.viewAllButton?.text[language]}
                             </Link>
                         </div>
 
                         <div>
-                            <h5 className="text-black text-[17px] font-light mb-4">
+                            <h5 className="text-[#292E3D] text-[17px] font-light mb-4">
                                 {jobDetails?.rightPanel?.socialShare?.title[language]}
                             </h5>
                             <div className="flex items-center gap-4">
@@ -167,7 +167,7 @@ const CareerDetailPage = ({ contentOn, language, careerId, screen }) => {
                 </div>
 
                 <button
-                    className="block mx-auto mt-[72px] mb-[199px] py-4 px-4 bg-blue-500 text-white rounded-md"
+                    className="block mx-auto mt-[32px] mb-[50px] py-[6px] px-4 bg-[#00B9F2] text-white rounded-md"
                     // onClick={handleApply}
                 >
                     {jobDetails?.button?.text[language]}
