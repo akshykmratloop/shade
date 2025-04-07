@@ -32,6 +32,7 @@ import ProjectDetailPage from "./components/websiteComponent/ProjectDetails";
 import ProjectDetailManager from "./components/contentmanager/ProjectDetailManager";
 import { ToastContainer } from "react-toastify";
 import CareerDetailPage from "./components/websiteComponent/CareersDetails";
+import CareerDetailManager from "./components/contentmanager/CareerDetailManager";
 
 const EditPage = () => {
     const dispatch = useDispatch();
@@ -79,12 +80,13 @@ const EditPage = () => {
                     }
                     {
                         currentPath === 'projects' ? subPath ?
-                            <ProjectDetailManager projectId={subPath} language={language} currentContent={isNaN(Number(subPath)) ? content.underDevelopment : content.projectDetail} currentPath={currentPath} /> :
+                            <ProjectDetailManager projectId={subPath} language={language} currentContent={content.projectDetail} currentPath={"projectDetail"} /> :
                             <ProjectContentManager language={language} currentContent={content.projects} currentPath={currentPath} /> : ""
                     }
                     {
-                        currentPath === 'careers' &&
-                        <CareersManager language={language} currentContent={content.careers} currentPath={currentPath} />
+                        currentPath === 'careers' ? subPath ?
+                            <CareerDetailManager careerId={subPath} language={language} currentContent={content.careerDetails} currentPath={"careerDetails"}/> :
+                            <CareersManager language={language} currentContent={content.careers} currentPath={currentPath} /> : ""
                     }
                     {
                         currentPath === 'news' &&
@@ -138,9 +140,9 @@ const EditPage = () => {
                                 <ProjectPage language={language} currentContent={content.projects} screen={screen} /> : ""
                         }
                         {
-                            currentPath === "careers" ? subPath ? 
-                            <CareerDetailPage language={language} contentOn={content.careerDetails} careerId={subPath} screen={screen} /> :
-                            <CareerPage language={language} currentContent={content.career} screen={screen} /> : ""
+                            currentPath === "careers" ? subPath ?
+                                <CareerDetailPage language={language} contentOn={content.careerDetails} careerId={subPath} screen={screen} /> :
+                                <CareerPage language={language} currentContent={content.career} screen={screen} /> : ""
                         }
                         {
                             currentPath === "news" &&

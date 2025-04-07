@@ -46,8 +46,6 @@ const ProjectDetailPage = ({ contentOn, language, projectId, screen }) => {
     }, [])
 
 
-
-
     const { introSection, descriptionSection, gallerySection, moreProjects } = currentContent ?? {};
 
     // const TruncateText = (text, length) => useTruncate(text, length || 200);

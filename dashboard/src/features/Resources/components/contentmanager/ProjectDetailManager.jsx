@@ -29,31 +29,9 @@ const ProjectDetailManager = ({ projectId, currentContent, currentPath, language
         ))
     }
 
-    console.log(projectId)
-
     useEffect(() => {
-        dispatch(updateContent({ currentPath: "home", payload: (content?.home) }))
+        dispatch(updateContent({ currentPath: "projectDetail", payload: (content?.projectDetail) }))
     }, [])
-
-    if (isNaN(Number(projectId))) {
-        return (
-            <div className="w-full">
-                {/* reference doc */}
-                <FileUploader id={"ProjectIDReference" + projectId} label={"Rerference doc"} fileName={"Upload your file..."} />
-
-                <ContentSection
-                    currentPath={"underDevelopment"}
-                    Heading={"Banner"}
-                    inputs={[
-                        { input: "textarea", label: "Text", updateType: "title" }
-                    ]}
-                    section={"banner"}
-                    language={language}
-                    currentContent={currentContent}
-                />
-            </div>
-        )
-    }
 
     return (
         <div className="w-full">
@@ -64,9 +42,9 @@ const ProjectDetailManager = ({ projectId, currentContent, currentPath, language
                 currentPath={currentPath}
                 Heading={"Banner"}
                 inputs={[
-                    { input: "input", label: "Button Text", updateType: "backButton" },
                     { input: "input", label: "Heading/title", updateType: "title" },
                     { input: "input", label: "Description", updateType: "subtitle" },
+                    { input: "input", label: "Button Text", updateType: "backButton" },
                     { input: "input", label: "Url", updateType: "url" },
                 ]}
                 inputFiles={[{ label: "Backround Image", id: "ProjectBanner/" + (projectId) }]}

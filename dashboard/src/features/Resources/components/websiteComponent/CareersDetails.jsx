@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 // import styles from "@/components/career/career_detail.module.scss";
 // import Image from "next/image";
 // import localFont from "next/font/local";
@@ -6,6 +6,8 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 // import { useRouter } from "next/router";
 import content from './content.json'
+import { useSelector, useDispatch } from "react-redux";
+import { updateContent } from "../../../common/homeContentSlice";
 // import ApplyModal from "./ApplyModal";
 
 // Font files can be colocated inside of `app`
@@ -17,36 +19,18 @@ import content from './content.json'
 // import { useGlobalContext } from "../../contexts/GlobalContext";
 
 const CareerDetailPage = ({ contentOn, language, careerId, screen }) => {
+    const dispatch = useDispatch()
+    const contentFromRedux = useSelector(state => state.homeContent.present.careerDetails)
+    const ImageFromRedux = useSelector(state => state.homeContent.present.images)
     // const router = useRouter();
     //   const [isModal, setIsModal] = useState(false);
-    
 
-    const currentContent = content?.careerDetails?.filter(
+
+    const currentContent = contentFromRedux?.filter(
         (item) => item?.id == careerId
     )[0];
 
-    //   if (!currentContent) {
-    //     // of project not found
-    //     return (
-    //       <div
-    //         style={{
-    //           height: "700px",
-    //           width: "100%",
-    //           display: "flex",
-    //           justifyContent: "center",
-    //           alignItems: "center",
-    //         }}
-    //       >
-    //         <h1>
-    //           {language === "en"
-    //             ? "This page is under development and will be updated soon..."
-    //             : "هذه الصفحة قيد التطوير وسوف يتم تحديثها قريبا..."}
-    //         </h1>
-    //       </div>
-    //     );
-    //   }
-
-    const { banner, jobDetails } = currentContent;
+    const { banner, jobDetails } = currentContent || {};
 
     //   const handleApply = () => {
     //     setIsModal(true);
@@ -54,13 +38,22 @@ const CareerDetailPage = ({ contentOn, language, careerId, screen }) => {
     //   const handleApplyClose = () => {
     //     setIsModal(false);
     //   };
+
+    useEffect(() => {
+        // if (!currentContent[projectId - 1]) {
+        //     dispatch(updateContent({ currentPath: "careerDetails", payload: [...content.careerDetails, { ...structureOfPageDetails, id: content.projectDetail.length + 1 }] }))
+        // } else {
+        dispatch(updateContent({ currentPath: "careerDetails", payload: content.careerDetails }))
+        // }
+    }, [])
+
     return (
         <div className="px-10">
             <section className={`mt-[50px] mb-[20px] ${language === "ar" ? "text-right" : ""}`}>
                 <div className="container mx-auto px-4">
                     <div className="relative mb-[20px]">
                         <img
-                            src={banner?.bannerImage}
+                            src={ImageFromRedux?.[`careerBanner/${careerId}`] || banner?.bannerImage}
                             alt=""
                             width={972}
                             height={380}
@@ -68,16 +61,16 @@ const CareerDetailPage = ({ contentOn, language, careerId, screen }) => {
                         />
                         <button
                             className="absolute top-[50px] flex items-center gap-2 text-gray-700 font-bold px-3 py-2 bg-white border-none cursor-pointer"
-                            // onClick={() => router.push(`/career`)}
+                        // onClick={() => router.push(`/career`)}
                         >
                             <img
-                                src="https://loopwebsite.s3.ap-south-1.amazonaws.com/bx_arrow-back.svg"
+                                src={"https://loopwebsite.s3.ap-south-1.amazonaws.com/bx_arrow-back.svg"}
                                 alt=""
                                 width={20}
                                 height={20}
                                 className="transform scale-x-[-1]"
                             />
-                            {banner?.button?.text[language]}
+                            {banner?.button?.[language]}
                         </button>
                         <h2 className="text-[#292E3D] text-[28px] font-bold mb-5">
                             {banner?.title[language]}
@@ -112,7 +105,7 @@ const CareerDetailPage = ({ contentOn, language, careerId, screen }) => {
                         <div className="bg-gray-100 p-7 mb-6">
                             <button
                                 className="block mx-auto py-1 px-4 bg-[#00B9F2] text-white rounded-md"
-                                // onClick={handleApply}
+                            // onClick={handleApply}
                             >
                                 {jobDetails?.rightPanel?.button?.text[language]}
                             </button>
@@ -168,7 +161,7 @@ const CareerDetailPage = ({ contentOn, language, careerId, screen }) => {
 
                 <button
                     className="block mx-auto mt-[32px] mb-[50px] py-[6px] px-4 bg-[#00B9F2] text-white rounded-md"
-                    // onClick={handleApply}
+                // onClick={handleApply}
                 >
                     {jobDetails?.button?.text[language]}
                 </button>

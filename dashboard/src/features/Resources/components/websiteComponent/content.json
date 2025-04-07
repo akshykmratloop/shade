@@ -3125,7 +3125,7 @@
           ]
         },
         {
-          "id": "de1",
+          "id": "da1",
           "display": true,
           "title": {
             "key": {
@@ -3883,10 +3883,8 @@
         },
         "bannerImage": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+13.jpg",
         "button": {
-          "text": {
             "en": "Back",
             "ar": "خلف"
-          }
         }
       },
       "jobDetails": {
@@ -4036,10 +4034,8 @@
         },
         "bannerImage": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+13.jpg",
         "button": {
-          "text": {
             "en": "Back",
             "ar": "خلف"
-          }
         }
       },
       "jobDetails": {
@@ -4177,7 +4173,7 @@
       }
     },
     {
-      "id": "de1",
+      "id": "da1",
       "banner": {
         "title": {
           "en": "Data Analyst",
@@ -4189,10 +4185,8 @@
         },
         "bannerImage": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+13.jpg",
         "button": {
-          "text": {
             "en": "Back",
             "ar": "خلف"
-          }
         }
       },
       "jobDetails": {
@@ -4342,10 +4336,8 @@
         },
         "bannerImage": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+13.jpg",
         "button": {
-          "text": {
             "en": "Back",
             "ar": "خلف"
-          }
         }
       },
       "jobDetails": {
@@ -4495,10 +4487,8 @@
         },
         "bannerImage": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+13.jpg",
         "button": {
-          "text": {
             "en": "Back",
             "ar": "خلف"
-          }
         }
       },
       "jobDetails": {
@@ -4648,10 +4638,8 @@
         },
         "bannerImage": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+13.jpg",
         "button": {
-          "text": {
             "en": "Back",
             "ar": "خلف"
-          }
         }
       },
       "jobDetails": {
@@ -4801,10 +4789,8 @@
         },
         "bannerImage": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+13.jpg",
         "button": {
-          "text": {
             "en": "Back",
             "ar": "خلف"
-          }
         }
       },
       "jobDetails": {
