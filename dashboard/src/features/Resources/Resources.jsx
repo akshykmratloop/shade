@@ -25,7 +25,7 @@ function Resources() {
     const [PageDetailsOn, setPageDetailsOn] = useState(false);
     const [configBarData, setConfigBarData] = useState({})
 
-    const resNotAvail = resources?.[currentResource].length === 0
+    const resNotAvail = resources?.[currentResource]?.length === 0
 
     useEffect(() => {
         dispatch(getLeadsContent())
