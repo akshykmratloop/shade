@@ -97,8 +97,10 @@ const ContentSection = ({
                             valueExpression = currentContent?.[projectId - 1]?.[section]?.[subSection]?.[subSectionsProMax]?.[input.updateType];
                         } else if (subSectionsProMax) {
                             valueExpression = currentContent?.[projectId - 1]?.[section]?.[subSection]?.[subSectionsProMax]?.[input.updateType]?.[language];
-                        } else {
+                        } else if (subSection) {
                             valueExpression = currentContent?.[projectId - 1]?.[section]?.[subSection]?.[input.updateType]?.[language];
+                        } else {
+                            valueExpression = currentContent?.[projectId - 1]?.[section]?.[input.updateType]?.[language];
                         }
                     } else if (projectId) {
                         if (subSection) {
@@ -121,7 +123,10 @@ const ContentSection = ({
                     } else if (subSection) {
                         valueExpression = currentContent?.[section]?.[subSection]?.[index]?.[input.updateType]?.[language];
                     } else {
-                        valueExpression = currentContent?.[section]?.[input.updateType]?.[language];
+                        if (careerId) {
+                        } else {
+                            valueExpression = currentContent?.[section]?.[input.updateType]?.[language];
+                        }
                     }
 
                     if (input.input === "textarea") {

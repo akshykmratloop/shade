@@ -155,9 +155,20 @@ const CareerDetailManager = ({ careerId, currentContent, currentPath, language }
                         careerId={careerId}
                     />
                 </div>
-
-
             </div>
+
+            <ContentSection
+                currentPath={currentPath}
+                subHeading={"Bottom Button"}
+                inputs={[
+                    { input: "input", label: "Button", updateType: "button" },
+                ]}
+                section={"jobDetails"}
+                language={language}
+                currentContent={currentContent}
+                projectId={careerIndex + 1}
+                careerId={careerId}
+            />
 
         </div>
     )

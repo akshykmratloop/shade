@@ -148,7 +148,11 @@ const cmsSlice = createSlice({
             } else if (action.payload.type === 'rich') {
                 state.present[action.payload?.currentPath][action.payload.section][action.payload.index][action.payload.title][action.payload.lan] = action.payload.value;
             } else {
-                state.present[action.payload?.currentPath][action.payload.section][action.payload.title][action.payload.lan] = action.payload.value;
+                if(action.payload.careerId) {
+                    state.present[action.payload?.currentPath][action.payload.projectId - 1][action.payload.section][action.payload.title][action.payload.lan] = action.payload.value;
+                } else{
+                    state.present[action.payload?.currentPath][action.payload.section][action.payload.title][action.payload.lan] = action.payload.value;
+                }
             }
             state.future = [];
         },
