@@ -31,6 +31,7 @@ const ContentSection = ({
     const ImagesFromRedux = useSelector((state) => state.homeContent.present.images)
 
 
+
     const addExtraFileInput = () => {
         if (section === 'socialIcons') {
             if (ImagesFromRedux.socialIcons.length < 8) {
@@ -102,7 +103,7 @@ const ContentSection = ({
                         } else {
                             valueExpression = currentContent?.[projectId - 1]?.[section]?.[input.updateType]?.[language];
                         }
-                    } else if (projectId) {
+                    } else if (projectId || projectId === 0) {
                         if (subSection) {
                             valueExpression = currentContent?.[projectId - 1]?.[section]?.[subSection]?.[index]?.[input.updateType]?.[language];
                         } else if (input.updateType === 'url') {
@@ -124,7 +125,9 @@ const ContentSection = ({
                         valueExpression = currentContent?.[section]?.[subSection]?.[index]?.[input.updateType]?.[language];
                     } else {
                         if (careerId) {
+
                         } else {
+
                             valueExpression = currentContent?.[section]?.[input.updateType]?.[language];
                         }
                     }

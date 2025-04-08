@@ -5035,6 +5035,71 @@
             "en": "This episode highlights many inspiring stories of young people who have overcome the challenges posed by their disabilities. These stories prove that determination and willpower can overcome any obstacle."
           }
         }
+      ],
+      "latestNews": [
+        {
+          "id": "news1",
+          "display": true,
+          "title": {
+            "ar": "شباب يتحدون الإعاقة",
+            "en": "Youth Overcoming Disability"
+          },
+          "description": {
+            "ar": "على الرغم من التحديات الكبيرة التي يعيشها ذوو الإعاقة في منطقة الشرق الأوسط وشمال أفريقيا بسبب الأزمات والحروب إلا أن قسما منهم أراد صنع التغيير وترك بصمة.",
+            "en": "Despite the major challenges faced by people with disabilities in the Middle East and North Africa due to crises and wars, some of them wanted to make a change and leave a mark.Despite the major challenges faced by people with disabilities in the Middle East and North Africa due to crises and wars, some of them wanted to make a change and leave a mark."
+          },
+          "date": {
+            "ar": "20 مايو 2020",
+            "en": "May 20, 2020"
+          },
+          "image": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+1+(2).png",
+          "readMore": {
+            "ar": "اقرأ المزيد",
+            "en": "Read More"
+          }
+        },
+        {
+          "id": "news3",
+          "display": true,
+          "title": {
+            "ar": "التكنولوجيا في خدمة ذوي الإعاقة",
+            "en": "Technology Serving People with Disabilities"
+          },
+          "description": {
+            "ar": "تسهم التكنولوجيا الحديثة في تحسين حياة ذوي الإعاقة من خلال توفير أدوات مساعدة.",
+            "en": "Modern technology contributes to improving the lives of people with disabilities by providing assistive tools."
+          },
+          "date": {
+            "ar": "15 يونيو 2021",
+            "en": "June 15, 2021"
+          },
+          "image": "news3",
+          "readMore": {
+            "ar": "اقرأ المزيد",
+            "en": "Read More"
+          }
+        },
+        {
+          "id": "news4",
+          "display": true,
+          "title": {
+            "ar": "قصص نجاح ملهمة",
+            "en": "Inspiring Success Stories"
+          },
+          "description": {
+            "ar": "قصص ملهمة لأشخاص تغلبوا على التحديات وحققوا أحلامهم.",
+            "en": "Inspiring stories of individuals who overcame challenges and achieved their dreams."
+          },
+          "date": {
+            "ar": "10 يوليو 2021",
+            "en": "July 10, 2021"
+          },
+          "image": "news4",
+          "readMore": {
+            "ar": "اقرأ المزيد",
+            "en": "Read More"
+          }
+        }
       ]
     },
     {
@@ -5083,6 +5148,71 @@
           "content": {
             "ar": "إضافة الروبوتات لمرافق الحج تعد إضافة هامة، فهي تساهم في الحد من الازدحام وتحسين فعالية الخدمات المقدمة للحجاج.",
             "en": "The addition of robots to Hajj facilities is an important step as they help reduce congestion and improve the effectiveness of services provided to pilgrims."
+          }
+        }
+      ],
+      "latestNews": [
+        {
+          "id": "news1",
+          "display": true,
+          "title": {
+            "ar": "شباب يتحدون الإعاقة",
+            "en": "Youth Overcoming Disability"
+          },
+          "description": {
+            "ar": "على الرغم من التحديات الكبيرة التي يعيشها ذوو الإعاقة في منطقة الشرق الأوسط وشمال أفريقيا بسبب الأزمات والحروب إلا أن قسما منهم أراد صنع التغيير وترك بصمة.",
+            "en": "Despite the major challenges faced by people with disabilities in the Middle East and North Africa due to crises and wars, some of them wanted to make a change and leave a mark.Despite the major challenges faced by people with disabilities in the Middle East and North Africa due to crises and wars, some of them wanted to make a change and leave a mark."
+          },
+          "date": {
+            "ar": "20 مايو 2020",
+            "en": "May 20, 2020"
+          },
+          "image": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+1+(2).png",
+          "readMore": {
+            "ar": "اقرأ المزيد",
+            "en": "Read More"
+          }
+        },
+        {
+          "id": "news3",
+          "display": true,
+          "title": {
+            "ar": "التكنولوجيا في خدمة ذوي الإعاقة",
+            "en": "Technology Serving People with Disabilities"
+          },
+          "description": {
+            "ar": "تسهم التكنولوجيا الحديثة في تحسين حياة ذوي الإعاقة من خلال توفير أدوات مساعدة.",
+            "en": "Modern technology contributes to improving the lives of people with disabilities by providing assistive tools."
+          },
+          "date": {
+            "ar": "15 يونيو 2021",
+            "en": "June 15, 2021"
+          },
+          "image": "news3",
+          "readMore": {
+            "ar": "اقرأ المزيد",
+            "en": "Read More"
+          }
+        },
+        {
+          "id": "news4",
+          "display": true,
+          "title": {
+            "ar": "قصص نجاح ملهمة",
+            "en": "Inspiring Success Stories"
+          },
+          "description": {
+            "ar": "قصص ملهمة لأشخاص تغلبوا على التحديات وحققوا أحلامهم.",
+            "en": "Inspiring stories of individuals who overcame challenges and achieved their dreams."
+          },
+          "date": {
+            "ar": "10 يوليو 2021",
+            "en": "July 10, 2021"
+          },
+          "image": "news4",
+          "readMore": {
+            "ar": "اقرأ المزيد",
+            "en": "Read More"
           }
         }
       ]
@@ -5135,6 +5265,71 @@
             "en": "Technology not only provides convenience but also contributes to enhancing independence and creating better opportunities for education and employment."
           }
         }
+      ],
+      "latestNews": [
+        {
+          "id": "news1",
+          "display": true,
+          "title": {
+            "ar": "شباب يتحدون الإعاقة",
+            "en": "Youth Overcoming Disability"
+          },
+          "description": {
+            "ar": "على الرغم من التحديات الكبيرة التي يعيشها ذوو الإعاقة في منطقة الشرق الأوسط وشمال أفريقيا بسبب الأزمات والحروب إلا أن قسما منهم أراد صنع التغيير وترك بصمة.",
+            "en": "Despite the major challenges faced by people with disabilities in the Middle East and North Africa due to crises and wars, some of them wanted to make a change and leave a mark.Despite the major challenges faced by people with disabilities in the Middle East and North Africa due to crises and wars, some of them wanted to make a change and leave a mark."
+          },
+          "date": {
+            "ar": "20 مايو 2020",
+            "en": "May 20, 2020"
+          },
+          "image": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+1+(2).png",
+          "readMore": {
+            "ar": "اقرأ المزيد",
+            "en": "Read More"
+          }
+        },
+        {
+          "id": "news3",
+          "display": true,
+          "title": {
+            "ar": "التكنولوجيا في خدمة ذوي الإعاقة",
+            "en": "Technology Serving People with Disabilities"
+          },
+          "description": {
+            "ar": "تسهم التكنولوجيا الحديثة في تحسين حياة ذوي الإعاقة من خلال توفير أدوات مساعدة.",
+            "en": "Modern technology contributes to improving the lives of people with disabilities by providing assistive tools."
+          },
+          "date": {
+            "ar": "15 يونيو 2021",
+            "en": "June 15, 2021"
+          },
+          "image": "news3",
+          "readMore": {
+            "ar": "اقرأ المزيد",
+            "en": "Read More"
+          }
+        },
+        {
+          "id": "news4",
+          "display": true,
+          "title": {
+            "ar": "قصص نجاح ملهمة",
+            "en": "Inspiring Success Stories"
+          },
+          "description": {
+            "ar": "قصص ملهمة لأشخاص تغلبوا على التحديات وحققوا أحلامهم.",
+            "en": "Inspiring stories of individuals who overcame challenges and achieved their dreams."
+          },
+          "date": {
+            "ar": "10 يوليو 2021",
+            "en": "July 10, 2021"
+          },
+          "image": "news4",
+          "readMore": {
+            "ar": "اقرأ المزيد",
+            "en": "Read More"
+          }
+        }
       ]
     },
     {
@@ -5173,6 +5368,71 @@
           "content": {
             "ar": "إصرار هؤلاء الأشخاص على النجاح والتغلب على العقبات يعد مصدر إلهام للكثيرين. هذه القصص تبرز كيف يمكن للإرادة الصلبة أن تحقق المستحيل.",
             "en": "The determination of these individuals to succeed and overcome obstacles is an inspiration to many. These stories highlight how a strong will can achieve the impossible."
+          }
+        }
+      ],
+      "latestNews": [
+        {
+          "id": "news1",
+          "display": true,
+          "title": {
+            "ar": "شباب يتحدون الإعاقة",
+            "en": "Youth Overcoming Disability"
+          },
+          "description": {
+            "ar": "على الرغم من التحديات الكبيرة التي يعيشها ذوو الإعاقة في منطقة الشرق الأوسط وشمال أفريقيا بسبب الأزمات والحروب إلا أن قسما منهم أراد صنع التغيير وترك بصمة.",
+            "en": "Despite the major challenges faced by people with disabilities in the Middle East and North Africa due to crises and wars, some of them wanted to make a change and leave a mark.Despite the major challenges faced by people with disabilities in the Middle East and North Africa due to crises and wars, some of them wanted to make a change and leave a mark."
+          },
+          "date": {
+            "ar": "20 مايو 2020",
+            "en": "May 20, 2020"
+          },
+          "image": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+1+(2).png",
+          "readMore": {
+            "ar": "اقرأ المزيد",
+            "en": "Read More"
+          }
+        },
+        {
+          "id": "news3",
+          "display": true,
+          "title": {
+            "ar": "التكنولوجيا في خدمة ذوي الإعاقة",
+            "en": "Technology Serving People with Disabilities"
+          },
+          "description": {
+            "ar": "تسهم التكنولوجيا الحديثة في تحسين حياة ذوي الإعاقة من خلال توفير أدوات مساعدة.",
+            "en": "Modern technology contributes to improving the lives of people with disabilities by providing assistive tools."
+          },
+          "date": {
+            "ar": "15 يونيو 2021",
+            "en": "June 15, 2021"
+          },
+          "image": "news3",
+          "readMore": {
+            "ar": "اقرأ المزيد",
+            "en": "Read More"
+          }
+        },
+        {
+          "id": "news4",
+          "display": true,
+          "title": {
+            "ar": "قصص نجاح ملهمة",
+            "en": "Inspiring Success Stories"
+          },
+          "description": {
+            "ar": "قصص ملهمة لأشخاص تغلبوا على التحديات وحققوا أحلامهم.",
+            "en": "Inspiring stories of individuals who overcame challenges and achieved their dreams."
+          },
+          "date": {
+            "ar": "10 يوليو 2021",
+            "en": "July 10, 2021"
+          },
+          "image": "news4",
+          "readMore": {
+            "ar": "اقرأ المزيد",
+            "en": "Read More"
           }
         }
       ]

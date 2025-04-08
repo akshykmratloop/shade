@@ -29,6 +29,7 @@ const DynamicContentSection = ({
     projectId,
     careerId,
     careerIndex,
+    newsId,
     type
 }) => {
     const dispatch = useDispatch();
@@ -52,7 +53,14 @@ const DynamicContentSection = ({
 
 
     const removeSummary = (index) => {
-        if (projectId) {
+        if (newsId) {
+            dispatch(updateTheProjectSummaryList({
+                index,
+                operation: 'remove',
+                newsIndex: projectId - 1,
+                context: currentPath
+            }))
+        } else if (projectId) {
             dispatch(updateTheProjectSummaryList({
                 index,
                 projectId,
@@ -64,7 +72,8 @@ const DynamicContentSection = ({
             dispatch(updateWhatWeDoList({
                 index,
                 operation: 'remove',
-                section
+                section,
+                context: currentPath
             }))
         }
     }
@@ -202,7 +211,12 @@ const DynamicContentSection = ({
                     } else if (type === 'rich') {
                         valueExpression = currentContent?.[section]?.[index]?.[input.updateType]?.[language];
                     } else {
-                        valueExpression = currentContent?.[section]?.[input.updateType]?.[language];
+                        if (careerId) {
+                            // console.log(currentContent?.[projectId - 1]?.[section]?.[index]?.[input.updateType]?.[language])
+                            valueExpression = currentContent?.[projectId - 1]?.[section]?.[index]?.[input.updateType]?.[language];
+                        } else {
+                            valueExpression = currentContent?.[section]?.[input.updateType]?.[language];
+                        }
                     }
 
                     if (input.input === "textarea") {

@@ -92,7 +92,7 @@ const EditPage = () => {
                     }
                     {
                         currentPath === 'news' ? subPath ?
-                            <NewsDetailManager careerId={subPath} language={language} currentContent={content.newsBlogsDetails} currentPath={"newsBlogsDetails"} /> :
+                            <NewsDetailManager newsId={subPath} language={language} currentContent={content.newsBlogsDetails} currentPath={"newsBlogsDetails"} /> :
                             <NewsManager language={language} currentContent={content.newsBlogs} currentPath={"newsBlogs"} /> : ""
                     }
                     {

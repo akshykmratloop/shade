@@ -1,10 +1,34 @@
+import { useDispatch } from "react-redux"
 import FileUploader from "../../../../components/Input/InputFileUploader"
 import ContentSection from "../ContentSections"
+import DynamicContentSection from "../DynamicContentSection"
+import { updateTheProjectSummaryList } from "../../../common/homeContentSlice"
 
 const NewsDetailManager = ({ newsId, currentContent, currentPath, language }) => {
-    const careerIndex = currentContent?.findIndex(e => e.id == newsId)
+    const dispatch = useDispatch();
+    const newsIndex = currentContent?.findIndex(e => e.id == newsId)
 
-    console.log(currentContent)
+    const addExtraSummary = () => {
+        dispatch(updateTheProjectSummaryList(
+            {
+                insert: {
+                    title: {
+                        ar: "",
+                        en: ""
+                    },
+                    content: {
+                        ar: "",
+                        en: ""
+                    }
+                },
+                newsId,
+                newsIndex,
+                context: "newsBlogsDetails",
+                operation: 'add'
+            }
+        ))
+    }
+
     return (
         <div>
             <FileUploader id={"NewsDetailsIDReference" + newsId} label={"Rerference doc"} fileName={"Upload your file..."} />
@@ -18,13 +42,43 @@ const NewsDetailManager = ({ newsId, currentContent, currentPath, language }) =>
                     { input: "input", label: "Button Text", updateType: "button" },
                     // { input: "input", label: "Url", updateType: "url" },
                 ]}
-                inputFiles={[{ label: "Backround Image", id: "newsBanner/" + (newsId) }]}
+                // inputFiles={[{ label: "Backround Image", id: "newsBanner/" + (newsId) }]}
                 section={"banner"}
                 language={language}
                 currentContent={currentContent}
-                projectId={careerIndex + 1}
+                projectId={newsIndex + 1}
             />
 
+            <div className="mt-4 border-b">
+                <h3 className={`font-semibold text-[1.25rem] mb-4`}>News Details</h3>
+                {
+                    currentContent?.[newsIndex]?.newsPoints?.map((element, index, a) => {
+                        return (
+                            <DynamicContentSection key={index}
+                                currentPath={currentPath}
+                                subHeading={"Section " + (index + 1)}
+                                inputs={[
+                                    { input: "input", label: "Title", updateType: "title" },
+                                    { input: "richtext", label: "Description", updateType: "content" },
+                                ]}
+                                section={"newsPoints"}
+                                isBorder={false}
+                                index={index}
+                                language={language}
+                                currentContent={currentContent}
+                                projectId={newsIndex + 1}
+                                careerIndex={newsIndex}
+                                careerId={newsId}
+                                newsId={newsId}
+                                allowRemoval={true}
+                            />
+                        )
+                    })
+                }
+                <button className="text-blue-500 cursor-pointer mb-3"
+                    onClick={addExtraSummary}
+                >Add More Section...</button>
+            </div>
         </div>
     )
 }

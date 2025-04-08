@@ -60,6 +60,9 @@ const cmsSlice = createSlice({
             let newArray = []
             let expression;
 
+            console.log(action.payload.index, action.payload.operation, action.payload.newIndex,action.payload.context
+            )
+
             switch (action.payload.context) {
                 case "projectDetail":
                     expression = state.present.projectDetail?.[action.payload.projectId - 1].descriptionSection;
@@ -67,6 +70,10 @@ const cmsSlice = createSlice({
 
                 case "careerDetails":
                     expression = state.present.careerDetails?.[action.payload.careerIndex]?.jobDetails?.leftPanel?.sections;
+                    break;
+
+                case "newsBlogsDetails":
+                    expression = state.present.newsBlogsDetails?.[action.payload.newsIndex]?.newsPoints;
                     break;
 
                 default:
@@ -86,8 +93,11 @@ const cmsSlice = createSlice({
                     break;
 
                 case "careerDetails":
-                    console.log(action.payload.careerIndex)
                     state.present.careerDetails[action.payload.careerIndex].jobDetails.leftPanel.sections = newArray
+                    break;
+
+                case "newsBlogsDetails":
+                    state.present.newsBlogsDetails[action.payload.newsIndex].newsPoints = newArray
                     break;
 
                 default:
@@ -149,7 +159,11 @@ const cmsSlice = createSlice({
                 state.present[action.payload?.currentPath][action.payload.section][action.payload.index][action.payload.title][action.payload.lan] = action.payload.value;
             } else {
                 if (action.payload.careerId) {
-                    state.present[action.payload?.currentPath][action.payload.projectId - 1][action.payload.section][action.payload.title][action.payload.lan] = action.payload.value;
+                    if (action.payload.section === "newsPoints") {
+                        state.present[action.payload.currentPath][action.payload.projectId - 1][action.payload.section][action.payload.index][action.payload.title][action.payload.lan] = action.payload.value
+                    } else {
+                        state.present[action.payload?.currentPath][action.payload.projectId - 1][action.payload.section][action.payload.title][action.payload.lan] = action.payload.value;
+                    }
                 } else {
                     state.present[action.payload?.currentPath][action.payload.section][action.payload.title][action.payload.lan] = action.payload.value;
                 }

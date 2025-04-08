@@ -8,7 +8,7 @@ import { newsBlogs } from "../../../../assets/index";
 import content from "./content.json"
 import { TruncateText } from "../../../../app/capitalizeword";
 import { updateContent } from "../../../common/homeContentSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 // Font files can be colocated inside of `app`
 // const BankGothic = localFont({
 //     src: "../../../public/font/BankGothicLtBTLight.ttf",
@@ -17,16 +17,15 @@ import { useDispatch } from "react-redux";
 // import { useGlobalContext } from "../../contexts/GlobalContext";
 
 const NewsBlogDetailPage = ({ language, newsId }) => {
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
+    const context = useSelector(state => state.homeContent.present)
     // const router = useRouter();
     // console.log(router.query)
     // const { newsId } = router.query;
 
     // const { language, content } = useGlobalContext();
 
-    const currentContent = content?.newsBlogsDetails?.filter(
-        (item) => item?.id == newsId
-    )[0];
+    const currentContent = context.newsBlogsDetails?.filter((item) => item?.id == newsId)[0];
 
     // if (!currentContent) {
     //     // of project not found
@@ -49,13 +48,13 @@ const NewsBlogDetailPage = ({ language, newsId }) => {
     //     );
     // }
 
-    const { banner, newsPoints } = currentContent;
+    const { banner, newsPoints } = currentContent ?? {};
 
     useEffect(() => {
         // if (!currentContent?.[newsId]) {
         //     dispatch(updateContent({ currentPath: "careerDetails", payload: [...content.careerDetails, { ...structureOfCareerDetails, id: 4 }] }))
         // } else {
-            dispatch(updateContent({ currentPath: "newsBlogsDetails", payload: content.newsBlogsDetails }))
+        dispatch(updateContent({ currentPath: "newsBlogsDetails", payload: content.newsBlogsDetails }))
         // }
     }, [])
 
@@ -102,9 +101,7 @@ const NewsBlogDetailPage = ({ language, newsId }) => {
                             <h2 className={`text-[20px] font-normal text-[#292E3D] mb-4`}>
                                 {item?.title[language]}
                             </h2>
-                            <p className={`text-[12px] font-light text-[rgba(0,26,88,0.51)] leading-6 mb-6`}>
-                                {item?.content[language]}
-                            </p>
+                            <div className={`text-[12px] font-light text-[rgba(0,26,88,0.51)] leading-6 mb-6`} dangerouslySetInnerHTML={{ __html: item?.content[language] }} />
                         </div>
                     ))}
                 </div>
@@ -118,7 +115,7 @@ const NewsBlogDetailPage = ({ language, newsId }) => {
                     </h2>
 
                     <div className="grid grid-cols-3 gap-y-6 justify-items-center">
-                        {content?.newsBlogs?.latestNewCards?.cards?.slice(0, 4)?.map((card, index) => (
+                        {currentContent?.latestNews?.map((card, index) => (
                             <div
                                 className="w-[240px] rounded border border-[#e2e2e2] bg-white shadow-[0_5px_4px_0_rgba(221,221,221,0.25)] overflow-hidden"
                                 key={index}
