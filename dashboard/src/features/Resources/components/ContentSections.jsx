@@ -93,7 +93,13 @@ const ContentSection = ({
                 inputs.map((input, i) => {
                     let valueExpression;
                     if (careerId) {
-                        valueExpression = currentContent?.[projectId - 1]?.[section]?.[subSection]?.[input.updateType]?.[language];
+                        if (subSectionsProMax && (input.updateType === "link")) {
+                            valueExpression = currentContent?.[projectId - 1]?.[section]?.[subSection]?.[subSectionsProMax]?.[input.updateType];
+                        } else if (subSectionsProMax) {
+                            valueExpression = currentContent?.[projectId - 1]?.[section]?.[subSection]?.[subSectionsProMax]?.[input.updateType]?.[language];
+                        } else {
+                            valueExpression = currentContent?.[projectId - 1]?.[section]?.[subSection]?.[input.updateType]?.[language];
+                        }
                     } else if (projectId) {
                         if (subSection) {
                             valueExpression = currentContent?.[projectId - 1]?.[section]?.[subSection]?.[index]?.[input.updateType]?.[language];

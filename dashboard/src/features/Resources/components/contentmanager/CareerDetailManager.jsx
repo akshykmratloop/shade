@@ -137,6 +137,26 @@ const CareerDetailManager = ({ careerId, currentContent, currentPath, language }
                     })
                 }
 
+                <div>
+                    <ContentSection
+                        currentPath={currentPath}
+                        subHeading={"Right panel redirection"}
+                        inputs={[
+                            { input: "input", label: "Heading/title", updateType: "text" },
+                            { input: "input", label: "Link", updateType: "link" },
+                            // { input: "input", label: "Url", updateType: "url" },
+                        ]}
+                        section={"jobDetails"}
+                        subSection={"rightPanel"}
+                        subSectionsProMax={"viewAllButton"}
+                        language={language}
+                        currentContent={currentContent}
+                        projectId={careerIndex + 1}
+                        careerId={careerId}
+                    />
+                </div>
+
+
             </div>
 
         </div>

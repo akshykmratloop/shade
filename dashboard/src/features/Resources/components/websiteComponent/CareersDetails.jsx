@@ -129,7 +129,7 @@ const CareerDetailPage = ({ contentOn, language, careerId, screen }) => {
                                 </div>
                             ))}
                             <Link
-                                href={jobDetails?.rightPanel?.viewAllButton?.link}
+                                to={jobDetails?.rightPanel?.viewAllButton?.link}
                                 className="text-[#00B9F2] underline mt-12 block"
                             >
                                 {jobDetails?.rightPanel?.viewAllButton?.text[language]}
