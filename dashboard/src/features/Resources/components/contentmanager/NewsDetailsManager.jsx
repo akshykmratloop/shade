@@ -7,7 +7,11 @@ import MultiSelect from "../MultiSelect"
 
 const NewsDetailManager = ({ newsId, currentContent, currentPath, language }) => {
     const dispatch = useDispatch();
-    const newsIndex = currentContent?.findIndex(e => e.id == newsId)
+    const newsIndex = currentContent?.findIndex(e =>{ 
+        console.log(e.id, newsId, e.id == newsId)
+        return e.id == newsId})
+
+    console.log(newsIndex)
 
     const addExtraSummary = () => {
         dispatch(updateTheProjectSummaryList(
@@ -43,7 +47,7 @@ const NewsDetailManager = ({ newsId, currentContent, currentPath, language }) =>
                     { input: "input", label: "Button Text", updateType: "button" },
                     // { input: "input", label: "Url", updateType: "url" },
                 ]}
-                // inputFiles={[{ label: "Backround Image", id: "newsBanner/" + (newsId) }]}
+                inputFiles={[{ label: "Backround Image", id: "newsBanner/" + (newsId) }]}
                 section={"banner"}
                 language={language}
                 currentContent={currentContent}

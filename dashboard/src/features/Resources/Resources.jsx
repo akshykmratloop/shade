@@ -12,6 +12,7 @@ import Navbar from "../../containers/Navbar"
 import { AiOutlineInfoCircle } from "react-icons/ai";
 import { FiEdit } from "react-icons/fi";
 import { IoSettingsOutline } from "react-icons/io5";
+import capitalizeWords from "../../app/capitalizeword";
 
 function Resources() {
     const dispatch = useDispatch()
@@ -107,7 +108,7 @@ function Resources() {
                     resources?.[currentResource]?.[0]?.subPage &&
                     <div className="w-full flex flex-col gap-[5px]">
                         <h3 className=" font-poppins font-semibold">
-                                Add More Project Page
+                                {`Add More ${capitalizeWords(currentResource)} Page`}
                             </h3>
                         <div onClick={() => {navigate(`./edit/${currentResource}/${resources?.[currentResource].length + 1}`) }} className="border rounded-md bg-[white] justify-center flex-grow cursor-pointer flex items-center text-[50px] shadow-xl-custom border-[#29469c80]">
                             <span className="text-[#1f2937]">+</span>

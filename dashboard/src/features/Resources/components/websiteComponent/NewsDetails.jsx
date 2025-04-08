@@ -9,6 +9,7 @@ import content from "./content.json"
 import { TruncateText } from "../../../../app/capitalizeword";
 import { updateContent } from "../../../common/homeContentSlice";
 import { useDispatch, useSelector } from "react-redux";
+import structureOfNewsDetails from '../websiteComponent/structures/structureOFNewsDetails.json'
 // Font files can be colocated inside of `app`
 // const BankGothic = localFont({
 //     src: "../../../public/font/BankGothicLtBTLight.ttf",
@@ -19,6 +20,7 @@ import { useDispatch, useSelector } from "react-redux";
 const NewsBlogDetailPage = ({ language, newsId }) => {
     const dispatch = useDispatch();
     const context = useSelector(state => state.homeContent.present)
+    const ImagesFromRedux = useSelector(state => state.homeContent.present.images)
     // const router = useRouter();
     // console.log(router.query)
     // const { newsId } = router.query;
@@ -51,11 +53,11 @@ const NewsBlogDetailPage = ({ language, newsId }) => {
     const { banner, newsPoints } = currentContent ?? {};
 
     useEffect(() => {
-        // if (!currentContent?.[newsId]) {
-        //     dispatch(updateContent({ currentPath: "careerDetails", payload: [...content.careerDetails, { ...structureOfCareerDetails, id: 4 }] }))
-        // } else {
-        dispatch(updateContent({ currentPath: "newsBlogsDetails", payload: content.newsBlogsDetails }))
-        // }
+        if (!currentContent?.[newsId]) {
+            dispatch(updateContent({ currentPath: "newsBlogsDetails", payload: [...content.newsBlogsDetails, { ...structureOfNewsDetails, id: content.newsBlogsDetails.length + 1 }] }))
+        } else {
+            dispatch(updateContent({ currentPath: "newsBlogsDetails", payload: content.newsBlogsDetails }))
+        }
     }, [])
 
     return (
@@ -66,9 +68,8 @@ const NewsBlogDetailPage = ({ language, newsId }) => {
                 <div className="container">
                     <div className="relative pb-8 border-b border-[#E8E7E7] mb-8 px-8">
                         <img
-                            src={banner?.bannerImage}
+                            src={ImagesFromRedux?.[`newsBanner/${newsId}`] || banner?.bannerImage}
                             alt=""
-                            width={972}
                             height={380}
                             className="w-full h-[380px] object-cover object-center mb-7"
                         />
@@ -116,50 +117,51 @@ const NewsBlogDetailPage = ({ language, newsId }) => {
 
                     <div className="grid grid-cols-3 gap-y-6 justify-items-center">
                         {currentContent?.latestNews?.map((card, index) => {
-                            if(!card.display) return
+                            if (!card.display) return
                             return (
-                            <div
-                                className="w-[240px] rounded border border-[#e2e2e2] bg-white shadow-[0_5px_4px_0_rgba(221,221,221,0.25)] overflow-hidden"
-                                key={index}
-                            >
-                                <img
-                                    src={newsBlogs[card.image]}
-                                    alt=""
-                                    className="w-full h-[154px] object-cover object-center"
-                                // width={280}
-                                // height={154}
-                                />
+                                <div
+                                    className="w-[240px] rounded border border-[#e2e2e2] bg-white shadow-[0_5px_4px_0_rgba(221,221,221,0.25)] overflow-hidden"
+                                    key={index}
+                                >
+                                    <img
+                                        src={newsBlogs[card.image] || newsBlogs["news3"]}
+                                        alt=""
+                                        className="w-full h-[154px] object-cover object-center"
+                                    // width={280}
+                                    // height={154}
+                                    />
 
-                                <div className="flex flex-col items-start gap-4 p-4">
-                                    <h2
-                                        title={card.title[language]}
-                                        className={`text-[16px] font-bold text-black h-[37px] mb-2 `}
-                                    >
-                                        {TruncateText(card.title[language], 30)}
-                                    </h2>
-
-                                    <p
-                                        title={card.description[language]}
-                                        className={`text-[11px] font-light leading-4 text-[rgba(0,26,88,0.51)] h-[80px] mb-5 `}
-                                    >
-                                        {TruncateText(card.description[language], 130)}
-                                    </p>
-
-                                    <div className="flex justify-between items-center gap-5 w-full">
-                                        <h6 className={`text-[10px] font-light text-[#718096] `}>
-                                            {card.date[language]}
-                                        </h6>
-
-                                        <button
-                                            // onClick={() => router.push(`/blog/${card.id}`)}
-                                            className={`text-[12px] font-bold text-[#00b9f2] bg-transparent border-none cursor-pointer `}
+                                    <div className="flex flex-col items-start gap-4 p-4">
+                                        <h2
+                                            title={card.title[language]}
+                                            className={`text-[16px] font-bold text-black h-[37px] mb-2 `}
                                         >
-                                            {card.readMore[language]}
-                                        </button>
+                                            {TruncateText(card.title[language], 30)}
+                                        </h2>
+
+                                        <p
+                                            title={card.description[language]}
+                                            className={`text-[11px] font-light leading-4 text-[rgba(0,26,88,0.51)] h-[80px] mb-5 `}
+                                        >
+                                            {TruncateText(card.description[language], 130)}
+                                        </p>
+
+                                        <div className="flex justify-between items-center gap-5 w-full">
+                                            <h6 className={`text-[10px] font-light text-[#718096] `}>
+                                                {card.date[language]}
+                                            </h6>
+
+                                            <button
+                                                // onClick={() => router.push(`/blog/${card.id}`)}
+                                                className={`text-[12px] font-bold text-[#00b9f2] bg-transparent border-none cursor-pointer `}
+                                            >
+                                                {card.readMore[language]}
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        )})}
+                            )
+                        })}
                     </div>
                 </div>
             </section>
