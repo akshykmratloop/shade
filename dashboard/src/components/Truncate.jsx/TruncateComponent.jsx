@@ -9,7 +9,7 @@ const TruncateComponent = ({string, truncAt,language}) => {
     const text = TruncateText(string, truncAt ?? 30)
 
     return (
-        <span className="inline-block" dir={isArabic && "rtl"}>
+        <span className="inline-block" dir={isArabic ? "rtl" : "ltr"}>
             {text}
         </span>
     )

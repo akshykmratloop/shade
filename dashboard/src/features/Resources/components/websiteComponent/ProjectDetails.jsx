@@ -38,7 +38,7 @@ const ProjectDetailPage = ({ contentOn, language, projectId, screen }) => {
 
 
     useEffect(() => {
-      if (!currentContent[projectId - 1]) {
+        if (!currentContent[projectId - 1]) {
             dispatch(updateContent({ currentPath: "projectDetail", payload: [...content.projectDetail, { ...structureOfPageDetails, id: content.projectDetail.length + 1 }] }))
         } else {
             dispatch(updateContent({ currentPath: "projectDetail", payload: content.projectDetail }))

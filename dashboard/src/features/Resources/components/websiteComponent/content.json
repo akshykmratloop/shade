@@ -3934,8 +3934,8 @@
         },
         "rightPanel": {
           "button": {
-              "ar": "يتقدم",
-              "en": "Apply"
+            "ar": "يتقدم",
+            "en": "Apply"
           },
           "title": {
             "ar": "ملخص الوظيفة",
@@ -3996,8 +3996,8 @@
           }
         },
         "button": {
-            "en": "Apply Now",
-            "ar": " تقدم بطلبك الآن"
+          "en": "Apply Now",
+          "ar": " تقدم بطلبك الآن"
         }
       }
     },
@@ -4065,8 +4065,8 @@
         },
         "rightPanel": {
           "button": {
-              "ar": "يتقدم",
-              "en": "Apply"
+            "ar": "يتقدم",
+            "en": "Apply"
           },
           "title": {
             "ar": "ملخص الوظيفة",
@@ -4127,8 +4127,8 @@
           }
         },
         "button": {
-            "en": "Apply Now",
-            "ar": " تقدم بطلبك الآن"
+          "en": "Apply Now",
+          "ar": " تقدم بطلبك الآن"
         }
       }
     },
@@ -4196,8 +4196,8 @@
         },
         "rightPanel": {
           "button": {
-              "ar": "يتقدم",
-              "en": "Apply"
+            "ar": "يتقدم",
+            "en": "Apply"
           },
           "title": {
             "ar": "ملخص الوظيفة",
@@ -4258,8 +4258,8 @@
           }
         },
         "button": {
-            "en": "Apply Now",
-            "ar": " تقدم بطلبك الآن"
+          "en": "Apply Now",
+          "ar": " تقدم بطلبك الآن"
         }
       }
     },
@@ -4327,8 +4327,8 @@
         },
         "rightPanel": {
           "button": {
-              "ar": "يتقدم",
-              "en": "Apply"
+            "ar": "يتقدم",
+            "en": "Apply"
           },
           "title": {
             "ar": "ملخص الوظيفة",
@@ -4389,8 +4389,8 @@
           }
         },
         "button": {
-            "en": "Apply Now",
-            "ar": " تقدم بطلبك الآن"
+          "en": "Apply Now",
+          "ar": " تقدم بطلبك الآن"
         }
       }
     },
@@ -4458,8 +4458,8 @@
         },
         "rightPanel": {
           "button": {
-              "ar": "يتقدم",
-              "en": "Apply"
+            "ar": "يتقدم",
+            "en": "Apply"
           },
           "title": {
             "ar": "ملخص الوظيفة",
@@ -4520,8 +4520,8 @@
           }
         },
         "button": {
-            "en": "Apply Now",
-            "ar": " تقدم بطلبك الآن"
+          "en": "Apply Now",
+          "ar": " تقدم بطلبك الآن"
         }
       }
     },
@@ -4589,8 +4589,8 @@
         },
         "rightPanel": {
           "button": {
-              "ar": "يتقدم",
-              "en": "Apply"
+            "ar": "يتقدم",
+            "en": "Apply"
           },
           "title": {
             "ar": "ملخص الوظيفة",
@@ -4651,8 +4651,8 @@
           }
         },
         "button": {
-            "en": "Apply Now",
-            "ar": " تقدم بطلبك الآن"
+          "en": "Apply Now",
+          "ar": " تقدم بطلبك الآن"
         }
       }
     },
@@ -4720,8 +4720,8 @@
         },
         "rightPanel": {
           "button": {
-              "ar": "يتقدم",
-              "en": "Apply"
+            "ar": "يتقدم",
+            "en": "Apply"
           },
           "title": {
             "ar": "ملخص الوظيفة",
@@ -4782,8 +4782,8 @@
           }
         },
         "button": {
-            "en": "Apply Now",
-            "ar": " تقدم بطلبك الآن"
+          "en": "Apply Now",
+          "ar": " تقدم بطلبك الآن"
         }
       }
     }
@@ -5000,10 +5000,8 @@
         },
         "bannerImage": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+2+(3).png",
         "button": {
-          "text": {
-            "en": "Back",
-            "ar": "خلف"
-          }
+          "en": "Back",
+          "ar": "خلف"
         }
       },
       "newsPoints": [
@@ -5052,10 +5050,8 @@
         },
         "bannerImage": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+2+(3).png",
         "button": {
-          "text": {
-            "en": "Back",
-            "ar": "خلف"
-          }
+          "en": "Back",
+          "ar": "خلف"
         }
       },
       "newsPoints": [
@@ -5104,10 +5100,8 @@
         },
         "bannerImage": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+2+(3).png",
         "button": {
-          "text": {
-            "en": "Back",
-            "ar": "خلف"
-          }
+          "en": "Back",
+          "ar": "خلف"
         }
       },
       "newsPoints": [
@@ -5156,10 +5150,8 @@
         },
         "bannerImage": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+2+(3).png",
         "button": {
-          "text": {
-            "en": "Back",
-            "ar": "خلف"
-          }
+          "en": "Back",
+          "ar": "خلف"
         }
       },
       "newsPoints": [

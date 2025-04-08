@@ -34,6 +34,7 @@ import { ToastContainer } from "react-toastify";
 import CareerDetailPage from "./components/websiteComponent/CareersDetails";
 import CareerDetailManager from "./components/contentmanager/CareerDetailManager";
 import NewsBlogDetailPage from "./components/websiteComponent/NewsDetails";
+import NewsDetailManager from "./components/contentmanager/NewsDetailsManager";
 
 const EditPage = () => {
     const dispatch = useDispatch();
@@ -86,12 +87,13 @@ const EditPage = () => {
                     }
                     {
                         currentPath === 'careers' ? subPath ?
-                            <CareerDetailManager careerId={subPath} language={language} currentContent={content.careerDetails} currentPath={"careerDetails"}/> :
+                            <CareerDetailManager careerId={subPath} language={language} currentContent={content.careerDetails} currentPath={"careerDetails"} /> :
                             <CareersManager language={language} currentContent={content.careers} currentPath={currentPath} /> : ""
                     }
                     {
-                        currentPath === 'news' &&
-                        <NewsManager language={language} currentContent={content.newsBlogs} currentPath={"newsBlogs"} />
+                        currentPath === 'news' ? subPath ?
+                            <NewsDetailManager careerId={subPath} language={language} currentContent={content.newsBlogsDetails} currentPath={"newsBlogsDetails"} /> :
+                            <NewsManager language={language} currentContent={content.newsBlogs} currentPath={"newsBlogs"} /> : ""
                     }
                     {
                         currentPath === 'footer' &&
@@ -147,8 +149,8 @@ const EditPage = () => {
                         }
                         {
                             currentPath === "news" ? subPath ?
-                            <NewsBlogDetailPage language={language} contentOn={content.newsBlogsDetails} newsId={subPath} screen={screen} /> :
-                            <NewsPage language={language} currentContent={content.newsBlogs} screen={screen} /> : ""
+                                <NewsBlogDetailPage language={language} contentOn={content.newsBlogsDetails} newsId={subPath} screen={screen} /> :
+                                <NewsPage language={language} currentContent={content.newsBlogs} screen={screen} /> : ""
                         }
 
                         {/* sub pages */}

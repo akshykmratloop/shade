@@ -8,10 +8,7 @@ import DynamicContentSection from "../DynamicContentSection"
 
 const CareerDetailManager = ({ careerId, currentContent, currentPath, language }) => {
     const dispatch = useDispatch();
-    console.log(careerId)
-    const careerIndex = currentContent?.findIndex(e => {
-        console.log(e.id, careerId, e.id === careerId)
-        return e.id == careerId}) 
+    const careerIndex = currentContent?.findIndex(e => e.id == careerId)
 
     const addExtraSummary = () => {
         dispatch(updateTheProjectSummaryList(
@@ -41,7 +38,7 @@ const CareerDetailManager = ({ careerId, currentContent, currentPath, language }
     }, [])
     return (
         <div>
-            <FileUploader id={"CareerIDReference" + careerId} label={"Rerference doc"} fileName={"Upload your file..."} />
+            <FileUploader id={"CareerDetailsIDReference" + careerId} label={"Rerference doc"} fileName={"Upload your file..."} />
             {/** Hero Banner */}
             <ContentSection
                 currentPath={currentPath}
