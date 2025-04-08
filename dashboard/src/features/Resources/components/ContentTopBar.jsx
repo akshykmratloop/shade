@@ -156,7 +156,7 @@ export default function ContentTopBar({ setWidth, raisePopup }) {
                     </div>
                 </div>
                 <div className='flex items-center gap-1'>
-                    <span className={`text-sm font-lexend dark:text-[#CBD5E1] text-[#202a38]`}>
+                    <span className={`text-sm font-lexend dark:text-[#CBD5E1] text-[#202a38] select-none`}>
                         Auto Save
                     </span>
 
