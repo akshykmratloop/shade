@@ -92,21 +92,24 @@ const CareerDetailManager = ({ careerId, currentContent, currentPath, language }
             <div className="mt-4 border-b">
                 <h3 className={`font-semibold text-[1.25rem] mb-4`}>Job Details Right Panel</h3>
 
-                <ContentSection
-                    currentPath={currentPath}
-                    subHeading={"Top Section"}
-                    inputs={[
-                        { input: "input", label: "Heading/title", updateType: "title" },
-                        { input: "input", label: "Button Text", updateType: "button" },
-                        // { input: "input", label: "Url", updateType: "url" },
-                    ]}
-                    section={"jobDetails"}
-                    subSection={"rightPanel"}
-                    language={language}
-                    currentContent={currentContent}
-                    projectId={careerIndex + 1}
-                    careerId={careerId}
-                />
+                <div className="mb-6">
+
+                    <ContentSection
+                        currentPath={currentPath}
+                        subHeading={"Top Section"}
+                        inputs={[
+                            { input: "input", label: "Heading/title", updateType: "title" },
+                            { input: "input", label: "Button Text", updateType: "button" },
+                            // { input: "input", label: "Url", updateType: "url" },
+                        ]}
+                        section={"jobDetails"}
+                        subSection={"rightPanel"}
+                        language={language}
+                        currentContent={currentContent}
+                        projectId={careerIndex + 1}
+                        careerId={careerId}
+                    />
+                </div>
                 {
                     currentContent?.[careerIndex]?.jobDetails?.rightPanel?.tailwraps?.map((element, index, a) => {
                         const isLast = index === a.length - 1
@@ -118,7 +121,7 @@ const CareerDetailManager = ({ careerId, currentContent, currentPath, language }
                                     { input: "input", label: "Title", updateType: "title" },
                                     { input: "input", label: "Description", updateType: "description" },
                                 ]}
-                                inputFiles={[{label: "icon", id:"careerLeftPanel/" + (careerId)}]}
+                                inputFiles={[{ label: "icon", id: `careerRightPanel/${careerId}/${index}` }]}
                                 section={"jobDetails"}
                                 subSection={"rightPanel"}
                                 subSectionsProMax={"tailwraps"}
@@ -133,7 +136,7 @@ const CareerDetailManager = ({ careerId, currentContent, currentPath, language }
                         )
                     })
                 }
-              
+
             </div>
 
         </div>

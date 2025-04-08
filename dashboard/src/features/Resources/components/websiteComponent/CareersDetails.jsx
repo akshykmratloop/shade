@@ -113,7 +113,7 @@ const CareerDetailPage = ({ contentOn, language, careerId, screen }) => {
                             {jobDetails?.rightPanel?.tailwraps?.map((tail, index) => (
                                 <div className="flex items-center gap-4 mb-5" key={index}>
                                     <img
-                                        src={tail.icon}
+                                        src={ImageFromRedux?.[`careerRightPanel/${careerId}/${index}`] || tail.icon}
                                         alt={tail?.title[language]}
                                         width={32}
                                         height={32}
