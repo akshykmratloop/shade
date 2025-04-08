@@ -8,7 +8,10 @@ import DynamicContentSection from "../DynamicContentSection"
 
 const CareerDetailManager = ({ careerId, currentContent, currentPath, language }) => {
     const dispatch = useDispatch();
-    const careerIndex = currentContent?.findIndex(e => e.id === careerId)
+    console.log(careerId)
+    const careerIndex = currentContent?.findIndex(e => {
+        console.log(e.id, careerId, e.id === careerId)
+        return e.id == careerId}) 
 
     const addExtraSummary = () => {
         dispatch(updateTheProjectSummaryList(

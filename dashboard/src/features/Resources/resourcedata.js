@@ -42,7 +42,11 @@ const resources = {
         { subPage: "pm1", heading: "Project Manager", src: "https://shade-six.vercel.app/career/pm1", assign: true },
         { subPage: "da1", heading: "Data Analyst", src: "https://shade-six.vercel.app/career/de1", assign: true },
     ],
-    blogs: [
+    news: [
+        { subPage: "news1", heading: "Youth Overcoming Disability", src: "https://shade-six.vercel.app/blog/news1", assign: true },
+        { subPage: "news2", heading: "Saudi Robots Join Millions in Performing the Hajj", src: "https://shade-six.vercel.app/blog/news2", assign: true },
+        { subPage: "news3", heading: "Technology Serving People with Disabilities", src: "https://shade-six.vercel.app/blog/news3", assign: true },
+        { subPage: "news4", heading: "Inspiring Success Stories", src: "https://shade-six.vercel.app/blog/news4", assign: true }
     ],
     subPage: [
         { heading: "Header", src: "", assign: true },

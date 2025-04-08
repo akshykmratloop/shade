@@ -125,9 +125,9 @@ const cmsSlice = createSlice({
             } else if (action.payload.subSectionsProMax) {
                 if (action.payload.careerId) {
                     if (action.payload.subSectionsProMax === "viewAllButton") {
-                        if(action.payload.title === 'link'){
+                        if (action.payload.title === 'link') {
                             state.present[action.payload?.currentPath][action.payload.projectId - 1][action.payload.section][action.payload.subSection][action.payload.subSectionsProMax][action.payload.title] = action.payload.value;
-                        }else{
+                        } else {
                             state.present[action.payload?.currentPath][action.payload.projectId - 1][action.payload.section][action.payload.subSection][action.payload.subSectionsProMax][action.payload.title][action.payload.lan] = action.payload.value;
                         }
 
@@ -148,9 +148,9 @@ const cmsSlice = createSlice({
             } else if (action.payload.type === 'rich') {
                 state.present[action.payload?.currentPath][action.payload.section][action.payload.index][action.payload.title][action.payload.lan] = action.payload.value;
             } else {
-                if(action.payload.careerId) {
+                if (action.payload.careerId) {
                     state.present[action.payload?.currentPath][action.payload.projectId - 1][action.payload.section][action.payload.title][action.payload.lan] = action.payload.value;
-                } else{
+                } else {
                     state.present[action.payload?.currentPath][action.payload.section][action.payload.title][action.payload.lan] = action.payload.value;
                 }
             }
@@ -297,5 +297,21 @@ const cmsSlice = createSlice({
     }
 });
 
-export const { updateImages, removeImages, updateContent, updateSpecificContent, updateServicesNumber, updateSelectedContent, updateSelectedProject, updateMarketSelectedContent, updateWhatWeDoList, updateAllProjectlisting, selectMainNews, undo, redo, updateTheProjectSummaryList } = cmsSlice.actions;
-export default cmsSlice.reducer;
+export const { // actions
+    updateImages,
+    removeImages,
+    updateContent,
+    updateSpecificContent,
+    updateServicesNumber,
+    updateSelectedContent,
+    updateSelectedProject,
+    updateMarketSelectedContent,
+    updateWhatWeDoList,
+    updateAllProjectlisting,
+    selectMainNews,
+    undo,
+    redo,
+    updateTheProjectSummaryList
+} = cmsSlice.actions;
+
+export default cmsSlice.reducer; // reducer

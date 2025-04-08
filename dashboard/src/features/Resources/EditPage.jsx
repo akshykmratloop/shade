@@ -33,6 +33,7 @@ import ProjectDetailManager from "./components/contentmanager/ProjectDetailManag
 import { ToastContainer } from "react-toastify";
 import CareerDetailPage from "./components/websiteComponent/CareersDetails";
 import CareerDetailManager from "./components/contentmanager/CareerDetailManager";
+import NewsBlogDetailPage from "./components/websiteComponent/NewsDetails";
 
 const EditPage = () => {
     const dispatch = useDispatch();
@@ -145,8 +146,9 @@ const EditPage = () => {
                                 <CareerPage language={language} currentContent={content.career} screen={screen} /> : ""
                         }
                         {
-                            currentPath === "news" &&
-                            <NewsPage language={language} currentContent={content.newsBlogs} screen={screen} />
+                            currentPath === "news" ? subPath ?
+                            <NewsBlogDetailPage language={language} contentOn={content.newsBlogsDetails} newsId={subPath} screen={screen} /> :
+                            <NewsPage language={language} currentContent={content.newsBlogs} screen={screen} /> : ""
                         }
 
                         {/* sub pages */}

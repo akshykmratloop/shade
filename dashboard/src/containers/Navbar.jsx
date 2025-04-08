@@ -8,7 +8,7 @@ const Navbar = ({currentNav, setCurrentResource}) => {
            { name: "Project", resources: "projects" },
            { name: "Testimonials", resources: "testimonials" },
            { name: "Career Page", resources: "careers" },
-           { name: "Blogs & News", resources: "blogs" },
+           { name: "Blogs & News", resources: "news" },
            { name: "Sub Page", resources: "subPage" },
         //    { name: "Footer", resources: "footer" }
        ];

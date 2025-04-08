@@ -1,13 +1,13 @@
+// libraries
 import { useState, useRef, useMemo } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import JoditEditor from "jodit-react";
+// custom module
+import TextAreaInput from "../../../components/Input/TextAreaInput";
 import InputFile from "../../../components/Input/InputFile";
 import InputText from "../../../components/Input/InputText";
-import TextAreaInput from "../../../components/Input/TextAreaInput";
-import { useDispatch, useSelector } from "react-redux";
 import { updateSpecificContent, updateServicesNumber, updateImages, updateTheProjectSummaryList, updateWhatWeDoList } from "../../common/homeContentSlice";
-import InputFileWithText from "../../../components/Input/InputFileText";
 import InputFileForm from "../../../components/Input/InputFileForm";
-// import ReactQuill from "react-quill";
-import JoditEditor from "jodit-react";
 
 const DynamicContentSection = ({
     Heading,
@@ -76,19 +76,19 @@ const DynamicContentSection = ({
                 dispatch(updateServicesNumber({ section, title: updateType, value: val, subSection, index, currentPath }));
             }
         } else {
-            dispatch(updateSpecificContent({ 
-                section, 
-                title: updateType, 
-                lan: language, 
-                value: value === "" ? "" : value, 
-                subSection, 
-                index, 
-                subSectionsProMax, 
-                subSecIndex, 
-                currentPath, 
-                projectId, 
+            dispatch(updateSpecificContent({
+                section,
+                title: updateType,
+                lan: language,
+                value: value === "" ? "" : value,
+                subSection,
+                index,
+                subSectionsProMax,
+                subSecIndex,
+                currentPath,
+                projectId,
                 careerId,
-                type 
+                type
             }));
         }
     };
@@ -156,16 +156,16 @@ const DynamicContentSection = ({
         useSplitMode: false,
         showButtonPanel: true,
         showTooltip: false,
-    
+
         // 👇 Disable the plus "+" hover icon
         disablePlugins: ['addNewLine']
     }), []);
-    
+
 
 
     return (
         <div className={`w-full relative ${Heading ? "mt-4" : subHeading ? "mt-2" : ""} flex flex-col gap-1 ${!isBorder ? "" : "border-b border-b-1 border-neutral-300"} ${attachOne ? "pb-0" : (Heading || subHeading) ? "pb-6" : ""}`}>
-           {allowRemoval && <button
+            {allowRemoval && <button
                 className="absolute top-6 z-10 right-[-8px] bg-red-500 text-white px-[5px] rounded-full shadow"
                 onClick={() => { removeSummary(index) }}
             >
