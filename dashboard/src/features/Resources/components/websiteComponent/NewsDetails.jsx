@@ -115,7 +115,9 @@ const NewsBlogDetailPage = ({ language, newsId }) => {
                     </h2>
 
                     <div className="grid grid-cols-3 gap-y-6 justify-items-center">
-                        {currentContent?.latestNews?.map((card, index) => (
+                        {currentContent?.latestNews?.map((card, index) => {
+                            if(!card.display) return
+                            return (
                             <div
                                 className="w-[240px] rounded border border-[#e2e2e2] bg-white shadow-[0_5px_4px_0_rgba(221,221,221,0.25)] overflow-hidden"
                                 key={index}
@@ -157,7 +159,7 @@ const NewsBlogDetailPage = ({ language, newsId }) => {
                                     </div>
                                 </div>
                             </div>
-                        ))}
+                        )})}
                     </div>
                 </div>
             </section>

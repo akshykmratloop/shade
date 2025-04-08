@@ -3,6 +3,7 @@ import FileUploader from "../../../../components/Input/InputFileUploader"
 import ContentSection from "../ContentSections"
 import DynamicContentSection from "../DynamicContentSection"
 import { updateTheProjectSummaryList } from "../../../common/homeContentSlice"
+import MultiSelect from "../MultiSelect"
 
 const NewsDetailManager = ({ newsId, currentContent, currentPath, language }) => {
     const dispatch = useDispatch();
@@ -79,6 +80,19 @@ const NewsDetailManager = ({ newsId, currentContent, currentPath, language }) =>
                     onClick={addExtraSummary}
                 >Add More Section...</button>
             </div>
+
+            <MultiSelect
+                currentPath={currentPath}
+                section={"newsPoints"}
+                language={language}
+                // label={"Select More Project List"}
+                heading={"More Projects"}
+                tabName={"Select Project"}
+                options={currentContent?.[newsIndex]?.latestNews || []}
+                referenceOriginal={{ dir: "newsBlogsDetails", index: 0 }}
+                currentContent={currentContent}
+                projectId={newsIndex + 1}
+            />
         </div>
     )
 }

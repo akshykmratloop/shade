@@ -60,7 +60,7 @@ const cmsSlice = createSlice({
             let newArray = []
             let expression;
 
-            console.log(action.payload.index, action.payload.operation, action.payload.newIndex,action.payload.context
+            console.log(action.payload.index, action.payload.operation, action.payload.newIndex, action.payload.context
             )
 
             switch (action.payload.context) {
@@ -242,6 +242,10 @@ const cmsSlice = createSlice({
             switch (action.payload.origin) {
                 case "projectDetail":
                     state.present.projectDetail[action.payload.projectId - 1].moreProjects.projects = newOptions
+                    break;
+
+                case "newsBlogsDetails":
+                    state.present.newsBlogsDetails[action.payload.projectId - 1].latestNews = newOptions
                     break;
 
                 default:
