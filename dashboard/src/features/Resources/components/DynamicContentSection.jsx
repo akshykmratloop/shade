@@ -23,6 +23,7 @@ const DynamicContentSection = ({
     index,
     subSecIndex,
     currentContent,
+    allowRemoval = false, // New prop to allow extra input
     allowExtraInput = false, // New prop to allow extra input
     attachOne = false,
     projectId,
@@ -164,12 +165,12 @@ const DynamicContentSection = ({
 
     return (
         <div className={`w-full relative ${Heading ? "mt-4" : subHeading ? "mt-2" : ""} flex flex-col gap-1 ${!isBorder ? "" : "border-b border-b-1 border-neutral-300"} ${attachOne ? "pb-0" : (Heading || subHeading) ? "pb-6" : ""}`}>
-            <button
+           {allowRemoval && <button
                 className="absolute top-6 z-10 right-[-8px] bg-red-500 text-white px-[5px] rounded-full shadow"
                 onClick={() => { removeSummary(index) }}
             >
                 ✖
-            </button>
+            </button>}
             <h3 className={`font-semibold ${subHeading ? "text-[.9rem] mb-1" : Heading ? "text-[1.25rem] mb-4" : " mb-0"}`}>{Heading || subHeading}</h3>
             {inputs.length > 0 &&
                 inputs.map((input, i) => {

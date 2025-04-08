@@ -78,6 +78,7 @@ const CareerDetailManager = ({ careerId, currentContent, currentPath, language }
                                 projectId={careerIndex + 1}
                                 careerIndex={careerIndex}
                                 careerId={careerId}
+                                allowRemoval={true}
                                 isBorder={false}
                             />
                         )
@@ -106,8 +107,8 @@ const CareerDetailManager = ({ careerId, currentContent, currentPath, language }
                     projectId={careerIndex + 1}
                     careerId={careerId}
                 />
-                {/* {
-                    currentContent?.[careerIndex]?.jobDetails?.leftPanel?.sections?.map((element, index, a) => {
+                {
+                    currentContent?.[careerIndex]?.jobDetails?.rightPanel?.tailwraps?.map((element, index, a) => {
                         const isLast = index === a.length - 1
                         return (
                             <DynamicContentSection key={index}
@@ -115,11 +116,12 @@ const CareerDetailManager = ({ careerId, currentContent, currentPath, language }
                                 subHeading={"Section " + (index + 1)}
                                 inputs={[
                                     { input: "input", label: "Title", updateType: "title" },
-                                    { input: "richtext", label: "Description", updateType: "content" },
+                                    { input: "input", label: "Description", updateType: "description" },
                                 ]}
+                                inputFiles={[{label: "icon", id:"careerLeftPanel/" + (careerId)}]}
                                 section={"jobDetails"}
-                                subSection={"leftPanel"}
-                                subSectionsProMax={"sections"}
+                                subSection={"rightPanel"}
+                                subSectionsProMax={"tailwraps"}
                                 index={index}
                                 language={language}
                                 currentContent={currentContent}
@@ -130,7 +132,7 @@ const CareerDetailManager = ({ careerId, currentContent, currentPath, language }
                             />
                         )
                     })
-                } */}
+                }
               
             </div>
 
