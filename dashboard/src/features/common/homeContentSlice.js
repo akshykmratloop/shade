@@ -223,35 +223,53 @@ const cmsSlice = createSlice({
         },
         updateSelectedProject: (state, action) => {
             state.past.push(JSON.parse(JSON.stringify(state.present)));
+        
             const selectedMap = new Map(
-                action.payload?.selected?.filter(e => e.display).map((item, index) => [item.title[action.payload.language], index])
+                action.payload?.selected
+                    ?.filter(e => e.display)
+                    .map((item, index) => [item.title[action.payload.language], index])
             );
-            let newOptions = action.payload.selected
+        
+            let newOptions = action.payload.selected;
+        
             if (action.payload.operation === 'remove') {
                 newOptions = action.payload.newArray?.map(e => ({
                     ...e,
                     display: selectedMap.has(e.title[action.payload.language])
-                }))
+                }));
             }
+        
+            // ❗ Remove duplicates based on title[language]
+            const uniqueTitles = new Set();
+            newOptions = newOptions.filter(item => {
+                const title = item.title[action.payload.language];
+                if (uniqueTitles.has(title)) return false;
+                uniqueTitles.add(title);
+                return true;
+            });
+        
+            // Sort based on original order
             newOptions.sort((a, b) => {
                 const indexA = selectedMap.get(a.title[action.payload.language]) ?? Infinity;
                 const indexB = selectedMap.get(b.title[action.payload.language]) ?? Infinity;
                 return indexA - indexB;
             });
-
+        
             switch (action.payload.origin) {
                 case "projectDetail":
-                    state.present.projectDetail[action.payload.projectId - 1].moreProjects.projects = newOptions
+                    state.present.projectDetail[action.payload.projectId - 1].moreProjects.projects = newOptions;
                     break;
-
+        
                 case "newsBlogsDetails":
-                    state.present.newsBlogsDetails[action.payload.projectId - 1].latestNews = newOptions
+                    state.present.newsBlogsDetails[action.payload.projectId - 1].latestNews = newOptions;
                     break;
-
+        
                 default:
             }
+        
             state.future = [];
         },
+        
         updateAllProjectlisting: (state, action) => {
             state.past.push(JSON.parse(JSON.stringify(state.present)))
 
