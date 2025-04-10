@@ -165,7 +165,7 @@ const EditPage = () => {
                         }
                         {
                             currentPath === "testimonials" &&
-                            <Testimonials language={language} currentContent={content.footer} screen={screen} />
+                            <Testimonials language={language} currentContent={content.footer} screen={screen} testimonyId={subPath} />
                         }
 
                     </div>
