@@ -50,7 +50,7 @@ const resources = {
     ],
     subPage: [
         { heading: "Header", src: "", assign: true },
-        { heading: "Footer", src: "", assign: true }
+        { heading: "Footer", src: "", assign: true },
     ],
     header: [
     ],
