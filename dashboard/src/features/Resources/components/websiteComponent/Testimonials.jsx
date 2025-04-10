@@ -47,7 +47,7 @@ const Testimonials = ({ language, testimonyId, screen }) => {
                         {testimonial?.name?.[language] || "Name"}
                     </h3>
                     <p className="text-gray-500 text-xs font-light mb-4">
-                        {testimonial?.position?.[language] || "Designation"}
+                        {testimonial?.position?.[language] || "Position"}
                     </p>
                     <p className="text-gray-900 text-xs font-light mb-6 leading-5">
                         {testimonial?.quote?.[language] || "Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur in aliquid delectus cupiditate at, labore ipsum unde, dignissimos ea voluptatibus id atque, quo animi? Laboriosam, quam? Hic necessitatibus vel id?"}

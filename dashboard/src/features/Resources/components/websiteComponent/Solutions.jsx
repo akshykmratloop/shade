@@ -53,7 +53,7 @@ const SolutionPage = ({ language, screen }) => {
         <div className=" bankgothic-medium-dt pb-8" dir={language === 'en' ? 'ltr' : "rtl"}>
             {/** banner */}
             <section
-                className={`relative py-[10rem] w-full bg-cover bg-center ${isLeftAlign ? 'scale-x-[-1]' : ''} px-12 ${isPhone ? "h-screen" : ""}`}
+                className={`relative py-[8rem] w-full bg-cover bg-center ${isLeftAlign ? 'scale-x-[-1]' : ''} px-12 ${isPhone ? "h-screen" : ""}`}
                 style={{ backgroundImage: ImageFromRedux.bannerBackground ? `url(${ImageFromRedux.bannerBackground})` : 'url("https://frequencyimage.s3.ap-south-1.amazonaws.com/310398e2-856d-4e59-b0b0-10e811ca1f82-solution%20%281%29.png")' }}
             >
                 <div className="container h-full relative flex">
@@ -61,21 +61,21 @@ const SolutionPage = ({ language, screen }) => {
                         <h1 className="text-[#292E3D] text-[40px] font-medium leading-[77px] tracking-[-3.5px] mb-4">
                             {currentContent?.banner?.title[language]}
                         </h1>
-                        <p className={`text-para-light text-left text-xs font-semibold leading-[26px] mb-6 ${isLeftAlign ? "" : "ml-auto"} ${isPhone ? "w-[70%]" : "w-[50%]"} word-spacing-[5px]`}>
+                        <p className={`text-[#0E172FB3] text-left text-xs font-semibold leading-[26px] mb-6 ${isLeftAlign ? "" : "ml-auto"} ${isPhone ? "w-[70%]" : "w-[50%]"} word-spacing-[5px]`}>
                             {currentContent?.banner?.description[language]}
                         </p>
                         <button
-                            className={`relative flex items-center text-xs text-[white] font-medium py-[12px] px-[48px] ${isLeftAlign ? "" : "ml-auto"} bg-sky-500 rounded-xl border-none cursor-pointer`}
+                            className={`relative flex gap-2 items-center text-xs text-[white] font-medium py-[6px] px-[12px] ${isLeftAlign ? "" : "ml-auto"} bg-[#00B9F2] rounded-[4px] border-none cursor-pointer`}
                         // onClick={() => router.push('/project')}
                         >
+                            {currentContent?.banner?.button?.[language]}
                             <img
                                 src={arrow}
-                                width={18}
-                                height={17}
+                                width={11}
+                                height={11}
                                 alt="arrow"
-                                className="absolute left-[32px] top-1/2 -translate-y-1/2"
+                                className="left-[32px] scale-x-[-1]"
                             />
-                            &nbsp;{currentContent?.banner?.button?.[language]}
                         </button>
                     </div>
                 </div>

@@ -37,6 +37,7 @@ import NewsBlogDetailPage from "./components/websiteComponent/NewsDetails";
 import NewsDetailManager from "./components/contentmanager/NewsDetailsManager";
 import Testimonials from "./components/websiteComponent/Testimonials";
 import TestimonyManager from "./components/contentmanager/TestimonyManager";
+import ContactUsModal from "./components/websiteComponent/ContactUsModal";
 
 const EditPage = () => {
     const dispatch = useDispatch();
@@ -171,6 +172,12 @@ const EditPage = () => {
                         {
                             currentPath === "testimonials" &&
                             <Testimonials language={language} currentContent={content.footer} screen={screen} testimonyId={subPath} />
+                        }
+                        {
+                            currentPath === 'contactus-modal' &&
+                            <> 
+                                <ContactUsModal language={language} currentContent={content.contactUsModal} screen={screen} />
+                            </>
                         }
 
                     </div>

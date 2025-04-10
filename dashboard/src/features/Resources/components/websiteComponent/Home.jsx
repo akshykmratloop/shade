@@ -122,7 +122,7 @@ const HomePage = ({ language, screen }) => {
                 <div
                     className={`container mx-auto absolute ${isComputer ? "top-[30%]" : "top-16"}  left-0 right-0 px-4`}>
                     <div className={`text-left flex flex-col ${language === "en" ? "items-start" : "items-end"} ${textAlignment} ${isPhone ? "px-[0px] py-10" : "px-[80px]"}`}>
-                        <h1 className={`text-[#292E3D] text-[35px] tracking-[.2rem] leading-[2.5rem] capitalize font-semibold mb-4 ${isPhone ? "w-full" : "w-1/2"} ${(450 / 1182) * screen} `}
+                        <h1 className={`text-[#292E3D] text-[35px]  leading-[2.5rem] capitalize font-[500] mb-4 ${isPhone ? "w-full" : "w-1/2"} ${(450 / 1182) * screen} `}
                         >
                             {currentContent?.homeBanner?.title[language]}
                         </h1>
@@ -246,8 +246,8 @@ const HomePage = ({ language, screen }) => {
             </section>
             {/* subProjects */}
             <section className={`py-[58px] ${isPhone ? "px-4" : "px-8"} overflow-hidden relative`}>
-                <div className={`container mx-auto flex`}>
-                    <div className={`flex justify-end absolute top-[10px] right-7`}>
+                <div className={`container mx-auto flex ${!isLeftAlign && 'flex-row-reverse'} border`}>
+                    <div className={`flex justify-end absolute top-[10px] ${isLeftAlign ? "right-7" : "left-7"}`}>
                         {activeRecentProjectSection === 2 ? (
                             ""
                         ) : (
@@ -327,7 +327,6 @@ const HomePage = ({ language, screen }) => {
                                             style={{ width: isComputer ? "" : isPhone ? `${(600 / 1180) * screen}px` : `${(750 / 1180) * screen}px`, gap: isComputer ? "" : `${(40 / 1180) * screen}px` }}
                                         >
                                             {chunk?.map((project, cardIndex) => {
-                                                // console.log(project.display)
                                                 if (!project.display) return null
                                                 return (
                                                     <div className=" rounded-[4px]" key={cardIndex}>

@@ -86,13 +86,13 @@ const MarketPage = ({ language, screen }) => {
                             {currentContent?.banner?.description[language]}
                         </p>
                         <button
-                            className={`relative px-5 py-2 ${isPhone ? "text-xs" : "text-sm"} font-medium bg-[#00B9F2] text-white rounded flex items-center justify-start gap-2 ${isLeftAlign ? "flex-row-reverse" : ""}`}
+                            className={`relative py-[6px] px-[12px] text-xs font-medium bg-[#00B9F2] text-white rounded flex items-center justify-start gap-2 ${isLeftAlign ? "flex-row-reverse" : ""}`}
                         // onClick={() => router.push("/services")}
                         >
                             <img
                                 src={Arrow}
                                 alt="Arrow"
-                                className={` ${isLeftAlign ? 'scale-x-[-1]' : ''} ${isPhone ? "w-[12px] h-[12px]" : "w-[14px] h-[14px]"}`}
+                                className={` ${isLeftAlign ? 'scale-x-[-1]' : ''}  w-[11px] h-[11px]`}
                             />
                             <p>
                                 {currentContent?.banner?.button?.[language]}

@@ -76,20 +76,20 @@ const ProjectPage = ({ language, screen }) => {
                 }}>
                 <div className={`container h-full relative ${isPhone ? "px-10" : "px-20"} flex items-center ${isLeftAlign ? "justify-end" : "justify-end"}   `}>
                     <div className={`flex flex-col ${isLeftAlign ? 'right-5 text-left items-start ' : 'left-5 text-right items-end'} ${isPhone ? "max-w-[70%]" : "max-w-[55%]"} w-full ${isLeftAlign ? 'scale-x-[-1]' : ''}`}>
-                        <h1 dir={language === 'ar' ? "rtl" : "ltr"} className={`text-[#292E3D] ${isPhone ? "text-3xl" : "text-[50px] leading-[77px] tracking-[-3.5px]"} font-medium  mb-4`}>
+                        <h1 dir={language === 'ar' ? "rtl" : "ltr"} className={`text-[#292E3D] ${isPhone ? "text-3xl" : "text-[40px] leading-[77px] tracking-[-3.5px]"} font-medium  mb-4`}>
                             {currentContent?.bannerSection?.title[language]}
                         </h1>
                         <p className={`text-[#0E172FB3] ${isPhone ? "" : "leading-[28px]"} text-sm font-semibold  mb-6 word-spacing-5`}>
                             {currentContent?.bannerSection?.description[language]}
                         </p>
                         <button
-                            className={`relative px-5 py-2 ${isPhone ? "text-xs" : "text-sm"} font-medium bg-[#00B9F2] text-white rounded flex items-center justify-start gap-2 ${isLeftAlign ? "flex-row-reverse" : ""}`}
+                            className={`relative px-[12px] py-[6px] text-xs font-medium bg-[#00B9F2] text-white rounded flex items-center justify-start gap-2 ${isLeftAlign ? "flex-row-reverse" : ""}`}
                         // onClick={() => router.push("/services")}
                         >
                             <img
                                 src={Arrow}
                                 alt="Arrow"
-                                className={` ${isLeftAlign ? 'scale-x-[-1]' : ''} ${isPhone ? "w-[12px] h-[12px]" : "w-[14px] h-[14px]"}`}
+                                className={` ${isLeftAlign ? 'scale-x-[-1]' : ''} w-[11px] h-[11px]`}
                             />
                             <p>
                                 {currentContent?.bannerSection?.button?.[language]}

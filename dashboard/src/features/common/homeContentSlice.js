@@ -351,35 +351,3 @@ export const { // actions
 } = cmsSlice.actions;
 
 export default cmsSlice.reducer; // reducer
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -57,6 +57,8 @@ const resources = {
     subPage: [
         { heading: "Header", src: "", assign: true },
         { heading: "Footer", src: "", assign: true },
+        { heading: "ContactUs-Modal", src: "", assign: false },
+        { heading: "ApplyJob-Modal", src: "", assign: false },
     ],
     header: [
     ],

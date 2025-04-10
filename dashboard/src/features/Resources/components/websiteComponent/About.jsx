@@ -3,7 +3,6 @@ import content from "./content.json"
 import { useDispatch, useSelector } from "react-redux";
 import { updateContent } from "../../../common/homeContentSlice";
 import { aboutUsIcons } from "../../../../assets/index"; // ../../assets/index
-import parse from 'html-react-parser'
 // import styles from "./about.module.scss";
 // import localFont from "next/font/local";
 // import Button from "@/common/Button";
@@ -37,7 +36,7 @@ const AboutUs = ({ language, screen }) => {
         dispatch(updateContent({ currentPath: "about", payload: content.about }))
     }, [])
     return (
-        <div className="">
+        <div className="px-8">
             {/** about us top section */}
             <section className="py-12">
                 <div className="container mx-auto relative px-4">
@@ -82,7 +81,7 @@ const AboutUs = ({ language, screen }) => {
             >
                 <div className="container mx-auto px-4">
                     <div className={`flex items-center ${!isEnglish ? `${isPhone?"flex-col":"flex-row-reverse"}` : `${isPhone && "flex-col"}`} gap-8`}>
-                        <div className="w-full mb-8 flex flex-[2]">
+                        <div className="w-full flex flex-[2] items-center">
                             <video
                                 src={ImageFromRedux["video"] || currentContent?.main?.video}
                                 autoPlay
@@ -97,16 +96,16 @@ const AboutUs = ({ language, screen }) => {
                             <h2 className="text-2xl font-bold text-black mb-5">
                                 {currentContent?.main?.title[language]}
                             </h2>
-                            <div>
-                                <p className="text-xs text-[#292E3D] mb-4">
+                            <div className="flex flex-col gap-4">
+                                <p className="text-xs text-[#292E3D]">
                                     {currentContent?.main?.description1[language]}
                                 </p>
-                                <p className="text-xs text-[#292E3D] mb-4">
+                                <p className="text-xs text-[#292E3D]">
                                     {currentContent?.main?.description2[language]}
                                 </p>
                             </div>
                             <button
-                                className="mt-6 px-4 py-2 bg-[white] text-[#00B9F2] border border-[#00B9F2] text-xs font-semibold rounded-lg hover:bg-blue-600"
+                                className="mt-6 px-4 py-2 bg-[white] text-[#00B9F2] border border-[#00B9F2] text-xs font-semibold rounded-[4px] shadow-md hover:none"
                             // onClick={() => setIsModal(true)}
                             >
                                 {currentContent?.main?.button?.text[language]}
