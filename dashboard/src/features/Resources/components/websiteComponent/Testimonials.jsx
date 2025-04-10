@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import content from './content.json'
 import { updateContent } from '../../../common/homeContentSlice';
 import { testimonials } from "../../../../assets/index";
+import userIcon from "../../../../assets/images/userIcon.jpg"
 
 
 const Testimonials = ({ language, testimonyId, screen }) => {
@@ -26,7 +27,7 @@ const Testimonials = ({ language, testimonyId, screen }) => {
 
                 <div className="flex 1">
                     <img
-                        src={ImagesFromRedux?.[`testimony/${testimonyId}`] || testimonials?.[testimonial?.image]}
+                        src={ImagesFromRedux?.[`testimony/${testimonyId}`] || testimonials?.[testimonial?.image] || userIcon}
                         height={70}
                         width={70}
                         alt={testimonial?.name}
@@ -36,13 +37,13 @@ const Testimonials = ({ language, testimonyId, screen }) => {
 
                 <div className="p-5 w-full">
                     <h3 className="text-gray-900 text-md font-bold">
-                        {testimonial?.name?.[language]}
+                        {testimonial?.name?.[language] || "Name"}
                     </h3>
                     <p className="text-gray-500 text-xs font-light mb-4">
-                        {testimonial?.position?.[language]}
+                        {testimonial?.position?.[language] || "Designation"}
                     </p>
                     <p className="text-gray-900 text-xs font-light mb-6 leading-5">
-                        {testimonial?.quote?.[language]}
+                        {testimonial?.quote?.[language] || "Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur in aliquid delectus cupiditate at, labore ipsum unde, dignissimos ea voluptatibus id atque, quo animi? Laboriosam, quam? Hic necessitatibus vel id?"}
                     </p>
                     <div className={`flex items-center justify- gap-2`}>
                         <img
@@ -53,7 +54,7 @@ const Testimonials = ({ language, testimonyId, screen }) => {
                             className="h-[18px] w-[18px]"
                         />
                         <p className={`text-gray-500 text-base font-bold ${isLeftAlign ? "text-left" : "text-right"}`}>
-                            {testimonial?.company?.[language]}
+                            {testimonial?.company?.[language] || "Company"}
                         </p>
                     </div>
                 </div>

@@ -1,1 +1,0 @@
-console.log("asdfv".slice(2,this.length))

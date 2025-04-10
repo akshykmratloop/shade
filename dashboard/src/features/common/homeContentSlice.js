@@ -60,9 +60,6 @@ const cmsSlice = createSlice({
             let newArray = []
             let expression;
 
-            console.log(action.payload.index, action.payload.operation, action.payload.newIndex, action.payload.context
-            )
-
             switch (action.payload.context) {
                 case "projectDetail":
                     expression = state.present.projectDetail?.[action.payload.projectId - 1].descriptionSection;
@@ -118,7 +115,6 @@ const cmsSlice = createSlice({
         },
         updateSpecificContent: (state, action) => {
             state.past.push(JSON.parse(JSON.stringify(state.present)));
-
             if (action.payload.projectId && !action.payload.careerId) {
                 if (action.payload.subSection) {
                     state.present[action.payload.currentPath][action.payload.projectId - 1][action.payload?.section][action.payload.subSection][action.payload?.index][action.payload.title][action.payload.lan] = action.payload.value;
@@ -143,7 +139,6 @@ const cmsSlice = createSlice({
                         } else {
                             state.present[action.payload?.currentPath][action.payload.projectId - 1][action.payload.section][action.payload.subSection][action.payload.subSectionsProMax][action.payload.title][action.payload.lan] = action.payload.value;
                         }
-
                     } else {
                         state.present[action.payload?.currentPath][action.payload.projectId - 1][action.payload.section][action.payload.subSection][action.payload.subSectionsProMax][action.payload?.index][action.payload.title][action.payload.lan] = action.payload.value;
                     }
@@ -354,3 +349,35 @@ export const { // actions
 } = cmsSlice.actions;
 
 export default cmsSlice.reducer; // reducer
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -39,7 +39,7 @@ function TextAreaInput({
   return (
     <div className={`form-control w-full my-2 ${containerStyle}`}>
       {labelTitle && (
-        <label className="label-text text-[#6B7888]">
+        <label className="label-text text-[#6B7888] mb-[5px]">
           <span className={"label-text text-[#6B7888]" + labelStyle} style={{ color: "#6B7888" }}>
             {labelTitle}
           </span>
