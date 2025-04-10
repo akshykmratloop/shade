@@ -5674,7 +5674,7 @@
           "en": "Jabal Omar Development Authority",
           "ar": "هيئة تطوير جبل عمر"
         },
-        "image": "dummyUser"
+        "image": "userIcon"
       },
       {
         "name": {
@@ -5712,7 +5712,7 @@
           "en": "Parsons",
           "ar": "بارسون"
         },
-        "image": "dummyUser"
+        "image": "userIcon"
       }
     ]
   }

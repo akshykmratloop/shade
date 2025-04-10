@@ -60,8 +60,8 @@ const HomePage = ({ language, screen }) => {
     })
     const [isModal, setIsModal] = useState(false);
     const [swiperInstance, setSwiperInstance] = useState(null);
-    let isEnglish = language === "en"
-    let textAlignment = isEnglish ? "text-left" : "text-right"
+    let isLeftAlign = language === "en"
+    let textAlignment = isLeftAlign ? "text-left" : "text-right"
     const prevRef = useRef(null);
     const nextRef = useRef(null);
     const [activeRecentProjectSection, setActiveRecentProjectSection] = useState(0);
@@ -130,7 +130,7 @@ const HomePage = ({ language, screen }) => {
                             {currentContent?.homeBanner?.description[language]}
                         </p>
                         <button
-                            className={`relative items-center flex ${isEnglish ? "" : "flex-row-reverse"} gap-1 text-[12px] font-medium px-[12px] py-[8px] px-[24px] bg-[#00b9f2] text-white rounded-md`}
+                            className={`relative items-center flex ${isLeftAlign ? "" : "flex-row-reverse"} gap-1 text-[12px] font-medium px-[12px] py-[8px] px-[24px] bg-[#00b9f2] text-white rounded-md`}
                             onClick={() => { }}
                         >
                             <span>{currentContent?.homeBanner?.buttonText[language]}</span>
@@ -139,7 +139,7 @@ const HomePage = ({ language, screen }) => {
                                 width="10"
                                 height="11"
                                 alt=""
-                                style={{ transform: isEnglish ? "rotate(180deg)" : "" }}
+                                style={{ transform: isLeftAlign ? "rotate(180deg)" : "" }}
                             />
                         </button>
                     </div>
@@ -147,13 +147,13 @@ const HomePage = ({ language, screen }) => {
             </section>
             {/* about us section */}
             <section className={` ${isPhone ? "px-2 py-[60px]" : "px-20 py-[120px]"} ${language === "en" ? "" : " direction-rtl"} items-start`}>
-                <div className={`relative container mx-auto flex ${isPhone ? "flex-col" : ""} ${isEnglish ? "" : "flex-row-reverse"} items-center`}>
+                <div className={`relative container mx-auto flex ${isPhone ? "flex-col" : ""} ${isLeftAlign ? "" : "flex-row-reverse"} items-center`}>
                     {/* Image section */}
                     <div className={`${isPhone ? "w-[90%]" : "w-[70%]"} border border-[#00B9F2] h-[500px] overflow-hidden rounded-sm shadow-lg`}>
                         <img src={ImagesFromRedux.aboutUsSection || AboutUs} alt="about-us" className="w-full h-[500px] object-cover" />
                     </div>
                     {/* About content */}
-                    <div className={`${isPhone ? " " : "absolute "} ${isEnglish ? "right-0 text-left" : "left-0 text-right"} bg-[#145098] ${isTablet ? "p-10 py-14" : "p-14 py-20"} rounded-sm w-[23rem]`} >
+                    <div className={`${isPhone ? " " : "absolute "} ${isLeftAlign ? "right-0 text-left" : "left-0 text-right"} bg-[#145098] ${isTablet ? "p-10 py-14" : "p-14 py-20"} rounded-sm w-[23rem]`} >
                         <h2 className="text-white text-[28px] leading-[1.8rem] mb-4 font-normal">
                             {currentContent?.aboutUsSection?.title[language]}
                         </h2>
@@ -197,10 +197,10 @@ const HomePage = ({ language, screen }) => {
             {/* experience section */}
             <section className={`py-[115px] "pb-[186px]" ${isComputer ? 'px-[100px]' : "px-[50px]"}`}>
                 <div
-                    className={`container mx-auto flex ${isPhone ? "flex-col" : isEnglish ? "" : "flex-row-reverse"} ${isComputer ? "gap-12" : isPhone ? "gap-1" : "gap-14"}`}>
+                    className={`container mx-auto flex ${isPhone ? "flex-col" : isLeftAlign ? "" : "flex-row-reverse"} ${isComputer ? "gap-12" : isPhone ? "gap-1" : "gap-14"}`}>
                     <div className={`w-10 ${isPhone ? 'h-[100px]' : ""} relative flex-1`}
                     >
-                        <div className={` ${isPhone ? "h-[290px]" : "relative"} ${isEnglish ? isTablet ? "left-[-1px]" : "left-[-25px]" : "left-[10px]"} top-[50px]`}>
+                        <div className={` ${isPhone ? "h-[290px]" : "relative"} ${isLeftAlign ? isTablet ? "left-[-1px]" : "left-[-25px]" : "left-[10px]"} top-[50px]`}>
                             {currentContent?.experienceSection?.cards?.map((item, key) => {
                                 // Set top position based on whether key is odd or even
                                 const topValue = Math.floor(key / 2) * 140 + (key % 2 !== 0 ? -35 : 25); // Odd = move up, Even = move down
@@ -208,7 +208,7 @@ const HomePage = ({ language, screen }) => {
                                     <div
                                         key={key}
                                         style={{ top: `${topValue}px`, zIndex: key + 1 }}
-                                        className={`w-[180px] h-[100px] absolute rounded-md bg-white shadow-lg p-4 ${key % 2 !== 0 ? !isEnglish ? "left-[170px]" : "xl:left-[150px]" : "left-0"}`}
+                                        className={`w-[180px] h-[100px] absolute rounded-md bg-white shadow-lg p-4 ${key % 2 !== 0 ? !isLeftAlign ? "left-[170px]" : "xl:left-[150px]" : "left-0"}`}
                                     >
                                         <div className="relative">
                                             <img
@@ -220,7 +220,7 @@ const HomePage = ({ language, screen }) => {
                                             />
                                         </div>
                                         <h3 className="text-[#292E3D] text-2xl font-semibold pl-2 font-sans">{item.count}</h3>
-                                        <h5 className={`text-black text-xs font-light relative before:absolute ${isEnglish ? "before:left-[-10px]" : "before:right-[-10px]"} before:top-0 before:w-[5px] before:h-[25px] before:bg-orange-500`}>
+                                        <h5 className={`text-black text-xs font-light relative before:absolute ${isLeftAlign ? "before:left-[-10px]" : "before:right-[-10px]"} before:top-0 before:w-[5px] before:h-[25px] before:bg-orange-500`}>
                                             {item.title[language]}
                                         </h5>
                                     </div>
@@ -253,7 +253,7 @@ const HomePage = ({ language, screen }) => {
                         ) : (
                             <button
                                 type="button"
-                                className={`relative bg-transparent border-none text-[#667085] text-right text-[16px] leading-[24px] cursor-pointer flex gap-2 items-center ${!isEnglish && "flex-row-reverse"}`}
+                                className={`relative bg-transparent border-none text-[#667085] text-right text-[16px] leading-[24px] cursor-pointer flex gap-2 items-center ${!isLeftAlign && "flex-row-reverse"}`}
                                 onClick={() => { }}
                             >
                                 {
@@ -264,7 +264,7 @@ const HomePage = ({ language, screen }) => {
                                     width="18"
                                     height="17"
                                     alt=""
-                                    className={`w-[18px] h-[17px] ${isEnglish ? 'transform scale-x-[-1]' : ''}`}
+                                    className={`w-[18px] h-[17px] ${isLeftAlign ? 'transform scale-x-[-1]' : ''}`}
                                 />
                             </button>
                         )}
@@ -368,7 +368,7 @@ const HomePage = ({ language, screen }) => {
 
                             {/* Custom buttons */}
                             <div
-                                className={`flex items-center justify-between relative mt-8 font-sans ${!isEnglish && 'flex-row-reverse'}`}
+                                className={`flex items-center justify-between relative mt-8 font-sans ${!isLeftAlign && 'flex-row-reverse'}`}
                                 style={{ width: isComputer ? "" : isPhone ? "220px" : `${(400 / 1180) * screen}px` }}
                             // ${projectChunks?.length <= 1 ? 'hidden' : ''}
                             >
@@ -395,7 +395,7 @@ const HomePage = ({ language, screen }) => {
                                         width="18"
                                         height="17"
                                         alt=""
-                                        className={`w-[18px] h-[17px] ${isEnglish && 'transform scale-x-[-1]'}`}
+                                        className={`w-[18px] h-[17px] ${isLeftAlign && 'transform scale-x-[-1]'}`}
                                     />
                                 </button>
                             </div>
@@ -450,17 +450,17 @@ const HomePage = ({ language, screen }) => {
 
             {/* testomonials section  */}
             <section
-                className={`py-[40px] pb-[40px] ${!isEnglish && 'rtl'} mx-auto relative overflow-hidden`}
-                style={{ width: isComputer ? "700px" : `${screen - 10}px` }}
+                className={`py-[40px] pb-[40px] ${!isLeftAlign && 'rtl'} mx-auto relative overflow-hidden`}
+                style={{ width: isComputer ? "800px" : `${screen - 10}px` }}
             >
-                <div className="container mx-auto">
+                <div className="container mx-auto" >
                     <div className="text-center mb-5">
                         <h2 className="text-black text-3xl font-medium">
                             {currentContent?.testimonialSection?.title[language]}
                         </h2>
                     </div>
 
-                    <div className="relative w-full">
+                    <div className="relative w-full" >
                         {/* Blur effect container */}
                         {
                             !isPhone &&
@@ -498,54 +498,58 @@ const HomePage = ({ language, screen }) => {
                             }}
                             autoplay={{ delay: 2500 }}
                             breakpoints={{
-                                724: { slidesPerView: isPhone ? 1 : 2.2 },
+                                724: { slidesPerView: isPhone ? 1 : 1.5 },
                                 500: { slidesPerView: 1 },
                             }}
                         >
                             {currentContent?.testimonialSection?.testimonials?.map(
                                 (testimonial, index) => (
-                                    <SwiperSlide key={index}>
-                                        <div className={`bg-white rounded-xl flex justify-center ${language === "en" ? "flex-row-reverse" : ""} shadow-md`}>
+                                    <SwiperSlide key={index}
+                                        dir={isLeftAlign ? "ltr" : "rtl"}
+                                    >
+                                        <div className={`border bg-white p-3 rounded-xl flex justify-center  shadow-md`}>
 
-                                            <div className="p-5 w-full">
-                                                <h3 className="text-gray-900 text-md font-bold">
-                                                    {testimonial.name[language]}
-                                                </h3>
-                                                <p className="text-gray-500 text-xs font-light mb-4">
-                                                    {testimonial.position[language]}
-                                                </p>
-                                                <p className="text-gray-900 text-xs font-light mb-6 leading-5">
-                                                    {testimonial.quote[language]}
-                                                </p>
-                                                <div className={`flex items-center justify-end gap-2 ${isEnglish ? "text-left flex-row-reverse" : "text-right"}`}>
-                                                    <p className={`text-gray-500 text-base font-bold ${isEnglish ? "text-left" : "text-right"}`}>
-                                                        {testimonial.company[language]}
-                                                    </p>
-                                                    <img
-                                                        src="https://frequencyimage.s3.ap-south-1.amazonaws.com/a813959c-7b67-400b-a0b7-f806e63339e5-ph_building%20%281%29.svg"
-                                                        height={18}
-                                                        width={18}
-                                                        alt={testimonial.name}
-                                                        className="h-[18px] w-[18px]"
-                                                    />
-                                                </div>
-                                            </div>
                                             <div className="flex 1">
                                                 <img
                                                     src={testimonials?.[testimonial?.image]}
                                                     height={70}
                                                     width={70}
-                                                    alt={testimonial.name}
-                                                    className="rounded-full h-[70px] w-[70px] object-cover"
+                                                    alt={testimonial?.name}
+                                                    className="rounded-full h-[70px] w-[75px] object-cover border border-gray-200"
                                                 />
                                             </div>
+
+                                            <div className="p-5 w-full">
+                                                <h3 className="text-gray-900 text-md font-bold">
+                                                    {testimonial?.name?.[language]}
+                                                </h3>
+                                                <p className="text-gray-500 text-xs font-light mb-4">
+                                                    {testimonial?.position?.[language]}
+                                                </p>
+                                                <p className="text-gray-900 text-xs font-light mb-6 leading-5">
+                                                    {testimonial?.quote?.[language]}
+                                                </p>
+                                                <div className={`flex items-center justify- gap-2`}>
+                                                    <img
+                                                        src="https://frequencyimage.s3.ap-south-1.amazonaws.com/a813959c-7b67-400b-a0b7-f806e63339e5-ph_building%20%281%29.svg"
+                                                        height={18}
+                                                        width={18}
+                                                        alt={testimonial?.name}
+                                                        className="h-[18px] w-[18px]"
+                                                    />
+                                                    <p className={`text-gray-500 text-base font-bold ${isLeftAlign ? "text-left" : "text-right"}`}>
+                                                        {testimonial?.company?.[language]}
+                                                    </p>
+                                                </div>
+                                            </div>
+
                                         </div>
                                     </SwiperSlide>
                                 )
                             )}
                         </Swiper>
 
-                        <div className={`flex justify-center items-center gap-7 mt-5 ${!isEnglish && "flex-row-reverse"}`}>
+                        <div className={`flex justify-center items-center gap-7 mt-5 ${!isLeftAlign && "flex-row-reverse"}`}>
                             <button
                                 ref={testimonialPrevRef}
                                 className="w-[42px] h-[42px] rounded-full border border-[#00B9F2] flex justify-center items-center cursor-pointer"
@@ -555,7 +559,7 @@ const HomePage = ({ language, screen }) => {
                                     width="22"
                                     height="17"
                                     alt=""
-                                    className={`${isEnglish && 'scale-x-[-1]'}`}
+                                    className={`${isLeftAlign && 'scale-x-[-1]'}`}
                                 />
                             </button>
                             <button
@@ -567,7 +571,7 @@ const HomePage = ({ language, screen }) => {
                                     width="22"
                                     height="17"
                                     alt=""
-                                    className={`${isEnglish && 'scale-x-[-1]'}`}
+                                    className={`${isLeftAlign && 'scale-x-[-1]'}`}
                                 />
                             </button>
                         </div>
@@ -588,7 +592,7 @@ const HomePage = ({ language, screen }) => {
                                 `"${currentContent?.newProjectSection?.highlightedText[language]}"`
                             )}
                             <i
-                                className={`absolute ${isEnglish ? isPhone ? "right-[130px] top-[55px]" : "right-[250px]" : "right-[152px]"} top-0  opacity-70 z-10 
+                                className={`absolute ${isLeftAlign ? isPhone ? "right-[130px] top-[55px]" : "right-[250px]" : "right-[152px]"} top-0  opacity-70 z-10 
                     ${language === 'ar' ? 'right-48' : ''}`}
                                 style={{
                                     backgroundImage: `url(${highlightsvg})`,

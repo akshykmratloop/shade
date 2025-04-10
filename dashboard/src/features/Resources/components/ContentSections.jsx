@@ -104,7 +104,9 @@ const ContentSection = ({
                             valueExpression = currentContent?.[projectId - 1]?.[section]?.[input.updateType]?.[language];
                         }
                     } else if (projectId || projectId === 0) {
-                        if (subSection) {
+                        if (section === 'testimonials') {
+                            valueExpression = currentContent?.[section]?.[projectId]?.[input.updateType]?.[language];
+                        } else if (subSection) {
                             valueExpression = currentContent?.[projectId - 1]?.[section]?.[subSection]?.[index]?.[input.updateType]?.[language];
                         } else if (input.updateType === 'url') {
                             valueExpression = currentContent?.[projectId - 1]?.[section]?.[input.updateType];
@@ -127,7 +129,6 @@ const ContentSection = ({
                         if (careerId) {
 
                         } else {
-
                             valueExpression = currentContent?.[section]?.[input.updateType]?.[language];
                         }
                     }

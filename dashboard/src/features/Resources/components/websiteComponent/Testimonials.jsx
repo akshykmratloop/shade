@@ -29,7 +29,7 @@ const Testimonials = ({ language, testimonyId, screen }) => {
                         height={70}
                         width={70}
                         alt={testimonial?.name}
-                        className="rounded-full h-[70px] w-[70px] object-cover"
+                        className="rounded-full h-[70px] w-[75px] object-cover border border-gray-200"
                     />
                 </div>
 

@@ -36,6 +36,7 @@ import CareerDetailManager from "./components/contentmanager/CareerDetailManager
 import NewsBlogDetailPage from "./components/websiteComponent/NewsDetails";
 import NewsDetailManager from "./components/contentmanager/NewsDetailsManager";
 import Testimonials from "./components/websiteComponent/Testimonials";
+import TestimonyManager from "./components/contentmanager/TestimonyManager";
 
 const EditPage = () => {
     const dispatch = useDispatch();
@@ -103,6 +104,10 @@ const EditPage = () => {
                     {
                         currentPath === 'header' &&
                         <HeaderManager language={language} currentContent={content.header} currentPath={currentPath} />
+                    }
+                    {
+                        currentPath === 'testimonials' &&
+                        <TestimonyManager language={language} currentContent={content.testimonialSection} testimonyId={subPath} currentPath={"testimonialSection"} />
                     }
                 </div>
                 {/* Content view */}
