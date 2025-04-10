@@ -24,7 +24,10 @@ const TestimonyManager = ({ testimonyId, currentContent, currentPath, language }
                     { input: "textarea", label: "Quote", updateType: "quote" },
                     { input: "input", label: "Company", updateType: "company" },
                 ]}
-                inputFiles={[{ label: "Backround Image", id: "testimony/" + (testimonyId) }]}
+                inputFiles={[
+                    { label: "Backround Image", id: "testimony/" + (testimonyId) },
+                ]}
+
                 section={"testimonials"}
                 language={language}
                 currentContent={currentContent}

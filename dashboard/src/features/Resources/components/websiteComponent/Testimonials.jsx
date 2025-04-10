@@ -11,6 +11,7 @@ const Testimonials = ({ language, testimonyId, screen }) => {
     const isLeftAlign = language === 'en';
     const dispatch = useDispatch();
     const currentContent = useSelector(state => state.homeContent.present.testimonialSection)
+    const ImagesFromRedux = useSelector(state => state.homeContent.present.images)
 
     const testimonial = currentContent?.testimonials?.filter((t, i) => {
         return i === Number(testimonyId)
@@ -25,7 +26,7 @@ const Testimonials = ({ language, testimonyId, screen }) => {
 
                 <div className="flex 1">
                     <img
-                        src={testimonials?.[testimonial?.image]}
+                        src={ImagesFromRedux?.[`testimony/${testimonyId}`] || testimonials?.[testimonial?.image]}
                         height={70}
                         width={70}
                         alt={testimonial?.name}
