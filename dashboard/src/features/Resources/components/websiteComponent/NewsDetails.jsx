@@ -1,15 +1,15 @@
 import React, { useEffect } from "react";
-// import styles from "@/components/news-and-blogs/NewsBlogDetail.module.scss";
-// import Image from "next/image";
-// import localFont from "next/font/local";
-// import { useTruncate } from "@/common/useTruncate";
-// import { useRouter } from "next/router";
 import { newsBlogs } from "../../../../assets/index";
 import content from "./content.json"
 import { TruncateText } from "../../../../app/capitalizeword";
 import { updateContent } from "../../../common/homeContentSlice";
 import { useDispatch, useSelector } from "react-redux";
 import structureOfNewsDetails from '../websiteComponent/structures/structureOFNewsDetails.json'
+// import styles from "@/components/news-and-blogs/NewsBlogDetail.module.scss";
+// import Image from "next/image";
+// import localFont from "next/font/local";
+// import { useTruncate } from "@/common/useTruncate";
+// import { useRouter } from "next/router";
 // Font files can be colocated inside of `app`
 // const BankGothic = localFont({
 //     src: "../../../public/font/BankGothicLtBTLight.ttf",
@@ -17,7 +17,10 @@ import structureOfNewsDetails from '../websiteComponent/structures/structureOFNe
 // });
 // import { useGlobalContext } from "../../contexts/GlobalContext";
 
-const NewsBlogDetailPage = ({ language, newsId }) => {
+const NewsBlogDetailPage = ({ language, newsId, screen }) => {
+    const isComputer = screen > 1100;
+    const isTablet = 1100 > screen && screen > 767;
+    const isPhone = screen < 767;
     const dispatch = useDispatch();
     const context = useSelector(state => state.homeContent.present)
     const ImagesFromRedux = useSelector(state => state.homeContent.present.images)
@@ -61,21 +64,21 @@ const NewsBlogDetailPage = ({ language, newsId }) => {
     }, [])
 
     return (
-        <div className="px-10">
+        <div className={`${isPhone ? "px-1" : `px-10`}`}>
             <section
                 className={`mt-[50px] mb-5 ${language === "ar" ? "text-right" : ""}`}
             >
                 <div className="container">
-                    <div className="relative pb-8 border-b border-[#E8E7E7] mb-8 px-8">
+                    <div className={`relative pb-8 border-b border-[#E8E7E7] mb-8 ${isPhone ? "px-1" : "px-8"}`}>
                         <img
                             src={ImagesFromRedux?.[`newsBanner/${newsId}`] || banner?.bannerImage || "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+2+(3).png"}
                             alt=""
                             height={380}
-                            className="w-full h-[380px] object-cover object-center mb-7"
+                            className={`w-full h-[380px] object-cover ${isPhone ? "object-[-40px]" : "object-center"} mb-7`}
                         />
 
                         <button
-                            className={`absolute top-[50px] bg-white p-3 flex items-center gap-2 text-[16px] font-bold text-[rgba(14,23,47,0.7)] ${language === "ar" ? "right-8" : "left-8"
+                            className={`absolute top-[50px] bg-white p-3 flex items-center gap-2 text-[16px] font-bold text-[rgba(14,23,47,0.7)] ${language === "ar" ? `${isPhone ? "right-0" : "right-8"}` : `${isPhone ? "left-0" : "left-8"}`
                                 }`}
                         // onClick={() => router.push(`/news-and-blogs`)}
                         >
@@ -84,21 +87,21 @@ const NewsBlogDetailPage = ({ language, newsId }) => {
                                 alt=""
                                 width={20}
                                 height={20}
-                                className={`${language === "ar" ? "scale-x-100" : "scale-x-[-1]"}`}
+                                className={`${language === "ar" ? "scale-x-100" : "scale-x-[-1]"} `}
                             />
                             {banner?.button?.[language] || "Back"}
                         </button>
 
-                        <h2 className={`text-[28px] font-bold text-black mb-5`}>
+                        <h2 className={`text-[28px] font-bold text-black mb-5 ${isPhone ? "px-6" : ""}`}>
                             {banner?.title[language] || "Heading"}
                         </h2>
-                        <p className={`text-[16px] font-light text-[#718096]`}>
+                        <p className={`text-[16px] font-light text-[#718096] ${isPhone ? "px-6" : ""}`}>
                             {banner?.subTitle[language] || "day Month date"}
                         </p>
                     </div>
 
                     {newsPoints?.map((item, index) => (
-                        <div key={index} className="mb-12">
+                        <div key={index} className={`${isPhone ? "px-10" : ""} mb-12`}>
                             <h2 className={`text-[20px] font-normal text-[#292E3D] mb-4`}>
                                 {item?.title[language] || "News Point"}
                             </h2>
@@ -111,11 +114,11 @@ const NewsBlogDetailPage = ({ language, newsId }) => {
 
             <section className={`${language === "en" ? "text-left" : "text-right"} pb-[88px]`}>
                 <div className="container">
-                    <h2 className={`text-[28px] font-normal text-[rgba(14,23,47,0.7)] mb-6 `}>
+                    <h2 className={`text-[28px] font-normal text-[rgba(14,23,47,0.7)] mb-6 ${isPhone?"px-6" : ""}`}>
                         {content?.newsBlogs?.latestNewCards?.heading[language]}
                     </h2>
 
-                    <div className="grid grid-cols-3 gap-y-6 justify-items-center">
+                    <div className={`grid ${isPhone ? "grid-cols-1" : isTablet ? "grid-cols-2" : "grid-cols-3"} gap-y-6 justify-items-center`}>
                         {currentContent?.latestNews?.map((card, index) => {
                             if (!card.display) return
                             return (

@@ -106,11 +106,13 @@ function Resources() {
 
                 {
                     resources?.[currentResource]?.[0]?.subPage &&
-                    <div className="w-full flex flex-col gap-[5px]">
+                    <div className="w-full flex flex-col gap-[5px] ">
                         <h3 className=" font-poppins font-semibold">
                                 {`Add More ${capitalizeWords(currentResource)} Page`}
                             </h3>
-                        <div onClick={() => {navigate(`./edit/${currentResource}/${resources?.[currentResource].length + 1}`) }} className="border rounded-md bg-[white] justify-center flex-grow cursor-pointer flex items-center text-[50px] shadow-xl-custom border-[#29469c80]">
+                        <div onClick={() => {navigate(`./edit/${currentResource}/${resources?.[currentResource].length + 1}`) }} 
+                        className="border rounded-md bg-[white] aspect-[10/11] justify-center flex-grow cursor-pointer flex items-center text-[50px] shadow-xl-custom border-[#29469c80]"
+                            > 
                             <span className="text-[#1f2937]">+</span>
                         </div>
                     </div>

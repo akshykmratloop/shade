@@ -62,7 +62,7 @@ const ProjectDetailPage = ({ contentOn, language, projectId, screen }) => {
         <div className="w-full " dir={isLeftAlign ? "ltr" : "rtl"}>
             {/* Intro Section */}
             <section className="mt-10 mb-10">
-                <div className="container mx-auto px-16">
+                <div className={`container mx-auto ${isPhone?"px-2" :"px-16"}`}>
                     <div className={`${isPhone ? "flex flex-col gap-[40px]" : "grid grid-cols-2 gap-[52px] mb-16 items-center"}`}>
                         <div>
                             <div className="relative">
@@ -76,13 +76,13 @@ const ProjectDetailPage = ({ contentOn, language, projectId, screen }) => {
                                     />
                                     {introSection?.backButton[language] || "Button"}
                                 </Link>
-                                <h1 className={`text-[#062233] font-bold text-xl mt-7 mb-6 `}>
+                                <h1 className={`text-[#062233] font-bold text-xl mt-7 mb-6 ${isPhone&& "px-4"}`}>
                                     {introSection?.title[language] || "Heading/title"}
                                 </h1>
-                                <p className={`text-gray-700 font-bold text-lg mb-2 `}>
+                                <p className={`text-gray-700 font-bold text-lg mb-2 ${isPhone&& "px-4"}`}>
                                     {introSection?.subtitle[language] || "Description"}
                                 </p>
-                                <a href={introSection?.url || ""} className="text-[#00b9f2] underline font-medium text-md">
+                                <a href={introSection?.url || ""} className={`text-[#00b9f2] underline font-medium text-md ${isPhone&& "px-4"}`}>
                                     {introSection?.url || "URL"}
                                 </a>
                             </div>
@@ -97,7 +97,7 @@ const ProjectDetailPage = ({ contentOn, language, projectId, screen }) => {
                     </div>
 
                     {/* Project Info List */}
-                    <div className={`flex ${isPhone && "flex-col"} items-stretch justify-between gap-4 mt-10`}>
+                    <div className={`flex ${isPhone && "flex-col"} items-stretch justify-between gap-4 mt-10 ${isPhone&& "px-12"}`}>
                         {introSection?.projectInforCard?.map((card, index) => {
 
                             return (
@@ -133,7 +133,7 @@ const ProjectDetailPage = ({ contentOn, language, projectId, screen }) => {
                                     <span className="relative w-[10px] h-[20px]">
                                         <span className="absolute top-[1px] w-[4px] h-[20px] bg-red-500 rotate-[15deg]"></span>
                                     </span>
-                                    <h1 className="text-[18px] font-bold leading-[20px] pr-[20px]">
+                                    <h1 className={`text-[18px] font-bold leading-[20px] pr-[20px] ${isPhone&&"mb-3"}`}>
                                         {item?.title[language] || "Description title"}
                                     </h1>
                                 </div>
@@ -199,7 +199,7 @@ const ProjectDetailPage = ({ contentOn, language, projectId, screen }) => {
                                 <img
                                     src={ImageFromRedux?.[`ProjectBanner/${projectId}/gallery/${index}`] || image.url || "https://loopwebsite.s3.ap-south-1.amazonaws.com/Project+hero.jpg"}
                                     alt={image.name}
-                                    className={`rounded-lg ${isPhone ? "h-[200px]" : "h-[400px]"} w-[400px] object-cover`}
+                                    className={`rounded-lg ${isPhone ? "h-[200px]" : "h-[320px]"} w-[400px] object-cover`}
                                 />
                             </div>
                         </SwiperSlide>
