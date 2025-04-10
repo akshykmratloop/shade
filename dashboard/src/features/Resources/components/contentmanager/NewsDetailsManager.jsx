@@ -11,8 +11,6 @@ const NewsDetailManager = ({ newsId, currentContent, currentPath, language }) =>
         console.log(e.id, newsId, e.id == newsId)
         return e.id == newsId})
 
-    console.log(newsIndex)
-
     const addExtraSummary = () => {
         dispatch(updateTheProjectSummaryList(
             {

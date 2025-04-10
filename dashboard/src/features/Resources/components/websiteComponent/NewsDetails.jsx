@@ -68,7 +68,7 @@ const NewsBlogDetailPage = ({ language, newsId }) => {
                 <div className="container">
                     <div className="relative pb-8 border-b border-[#E8E7E7] mb-8 px-8">
                         <img
-                            src={ImagesFromRedux?.[`newsBanner/${newsId}`] || banner?.bannerImage}
+                            src={ImagesFromRedux?.[`newsBanner/${newsId}`] || banner?.bannerImage || "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+2+(3).png"}
                             alt=""
                             height={380}
                             className="w-full h-[380px] object-cover object-center mb-7"
@@ -86,23 +86,23 @@ const NewsBlogDetailPage = ({ language, newsId }) => {
                                 height={20}
                                 className={`${language === "ar" ? "scale-x-100" : "scale-x-[-1]"}`}
                             />
-                            {banner?.button?.[language]}
+                            {banner?.button?.[language] || "Back"}
                         </button>
 
                         <h2 className={`text-[28px] font-bold text-black mb-5`}>
-                            {banner?.title[language]}
+                            {banner?.title[language] || "Heading"}
                         </h2>
                         <p className={`text-[16px] font-light text-[#718096]`}>
-                            {banner?.subTitle[language]}
+                            {banner?.subTitle[language] || "day Month date"}
                         </p>
                     </div>
 
                     {newsPoints?.map((item, index) => (
                         <div key={index} className="mb-12">
                             <h2 className={`text-[20px] font-normal text-[#292E3D] mb-4`}>
-                                {item?.title[language]}
+                                {item?.title[language] || "News Point"}
                             </h2>
-                            <div className={`text-[12px] font-light text-[rgba(0,26,88,0.51)] leading-6 mb-6`} dangerouslySetInnerHTML={{ __html: item?.content[language] }} />
+                            <div className={`text-[12px] font-light text-[rgba(0,26,88,0.51)] leading-6 mb-6`} dangerouslySetInnerHTML={{ __html: item?.content[language] || "News Point Description" }} />
                         </div>
                     ))}
                 </div>

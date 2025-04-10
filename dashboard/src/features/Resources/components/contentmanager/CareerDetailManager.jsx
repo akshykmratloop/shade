@@ -30,8 +30,6 @@ const CareerDetailManager = ({ careerId, currentContent, currentPath, language }
         ))
     }
 
-    console.log(careerIndex)
-
     useEffect(() => {
 
         dispatch(updateContent({ currentPath: "careerDetails", payload: (content?.careerDetails) }))

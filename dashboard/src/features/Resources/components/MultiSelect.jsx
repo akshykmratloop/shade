@@ -176,7 +176,6 @@ const MultiSelect = ({ heading, options = [], tabName, label, language, section,
 
   useEffect(() => {
     if (options.length > 0 && random !== 1) {
-      console.log("newsBlogDetails")
       if (referenceOriginal.dir === 'newsBlogsDetails') {
 
         dispatch(updateSelectedProject({
