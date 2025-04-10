@@ -6,21 +6,28 @@ import content from './content.json'
 import { updateContent } from '../../../common/homeContentSlice';
 import { testimonials } from "../../../../assets/index";
 import userIcon from "../../../../assets/images/userIcon.jpg"
+import structureOfTestimony from "../websiteComponent/structures/structureOfTestimony.json"
 
 
 const Testimonials = ({ language, testimonyId, screen }) => {
     const isLeftAlign = language === 'en';
     const dispatch = useDispatch();
-    const currentContent = useSelector(state => state.homeContent.present.testimonialSection)
-    const ImagesFromRedux = useSelector(state => state.homeContent.present.images)
+    const currentContent = useSelector(state => state.homeContent.present.testimonialSection);
+    const ImagesFromRedux = useSelector(state => state.homeContent.present.images);
 
     const testimonial = currentContent?.testimonials?.filter((t, i) => {
-        return i === Number(testimonyId)
+        return i === Number(testimonyId - 1)
     })[0]
 
     useEffect(() => {
-        dispatch(updateContent({ currentPath: "testimonialSection", payload: content.testimonialSection }))
+        if (!currentContent?.testimonials?.[testimonyId]) {
+            dispatch(updateContent({ currentPath: "testimonialSection", payload: { ...content.testimonialSection, testimonials: [...content.testimonialSection.testimonials, {...structureOfTestimony}] } }))
+        } else {
+            dispatch(updateContent({ currentPath: "testimonialSection", payload: content.testimonialSection }))
+        }
     }, [])
+
+
     return (
         <div dir={isLeftAlign ? "ltr" : "rtl"} className='p-10 border'>
             <div className={`border bg-white p-3 rounded-xl flex justify-center  shadow-md`}>

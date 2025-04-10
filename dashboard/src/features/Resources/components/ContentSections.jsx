@@ -105,7 +105,7 @@ const ContentSection = ({
                         }
                     } else if (projectId || projectId === 0) {
                         if (section === 'testimonials') {
-                            valueExpression = currentContent?.[section]?.[projectId]?.[input.updateType]?.[language];
+                            valueExpression = currentContent?.[section]?.[projectId - 1]?.[input.updateType]?.[language];
                         } else if (subSection) {
                             valueExpression = currentContent?.[projectId - 1]?.[section]?.[subSection]?.[index]?.[input.updateType]?.[language];
                         } else if (input.updateType === 'url') {
