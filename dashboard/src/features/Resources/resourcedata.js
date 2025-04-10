@@ -36,6 +36,12 @@ const resources = {
         { subPage: 4, heading: "Construction of OME Building - NAPD Khursaniy...", src: "https://shade-six.vercel.app/project/4", assign: true },
     ],
     testimonials: [
+        { subPage: 1, heading: "Testimony 1", src: "", assign: true },
+        { subPage: 2, heading: "Testimony 2", src: "", assign: true },
+        { subPage: 3, heading: "Testimony 3", src: "", assign: false },
+        { subPage: 4, heading: "Testimony 4", src: "", assign: false },
+        { subPage: 5, heading: "Testimony 5", src: "", assign: true },
+        { subPage: 6, heading: "Testimony 6", src: "", assign: false }
     ],
     careers: [
         { subPage: "se1", heading: "Software Engineer", src: "https://shade-six.vercel.app/career/se1", assign: true },
