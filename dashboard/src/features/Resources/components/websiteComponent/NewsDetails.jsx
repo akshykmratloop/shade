@@ -4,7 +4,8 @@ import content from "./content.json"
 import { TruncateText } from "../../../../app/capitalizeword";
 import { updateContent } from "../../../common/homeContentSlice";
 import { useDispatch, useSelector } from "react-redux";
-import structureOfNewsDetails from '../websiteComponent/structures/structureOFNewsDetails.json'
+import structureOfNewsDetails from '../websiteComponent/structures/structureOFNewsDetails.json';
+
 // import styles from "@/components/news-and-blogs/NewsBlogDetail.module.scss";
 // import Image from "next/image";
 // import localFont from "next/font/local";
@@ -22,15 +23,15 @@ const NewsBlogDetailPage = ({ language, newsId, screen }) => {
     const isTablet = 1100 > screen && screen > 767;
     const isPhone = screen < 767;
     const dispatch = useDispatch();
-    const context = useSelector(state => state.homeContent.present)
-    const ImagesFromRedux = useSelector(state => state.homeContent.present.images)
+    const context = useSelector(state => state.homeContent.present);
+    const ImagesFromRedux = useSelector(state => state.homeContent.present.images);
+    
+    const currentContent = context.newsBlogsDetails?.filter((item) => item?.id == newsId)[0];
+
     // const router = useRouter();
     // console.log(router.query)
     // const { newsId } = router.query;
-
     // const { language, content } = useGlobalContext();
-
-    const currentContent = context.newsBlogsDetails?.filter((item) => item?.id == newsId)[0];
 
     // if (!currentContent) {
     //     // of project not found
