@@ -21,10 +21,10 @@ const TestimonyManager = ({ testimonyId, currentContent, currentPath, language }
                 currentPath={currentPath}
                 Heading={"Testimony " + testimonyId}
                 inputs={[
-                    { input: "input", label: "Name", updateType: "name" },
-                    { input: "input", label: "Position", updateType: "position" },
-                    { input: "textarea", label: "Quote", updateType: "quote" },
-                    { input: "input", label: "Company", updateType: "company" },
+                    { input: "input", label: "Name", updateType: "name", maxLength: 20 },
+                    { input: "input", label: "Position", updateType: "position", maxLength: 25 },
+                    { input: "textarea", label: "Quote", updateType: "quote", maxLength: 400 },
+                    { input: "input", label: "Company", updateType: "company", maxLength: 30 },
                 ]}
                 inputFiles={[
                     { label: "Backround Image", id: "testimony/" + (testimonyId) },
