@@ -5,10 +5,8 @@ import MultiSelect from "../MultiSelect";
 
 const HomeManager = ({ language, currentContent, currentPath }) => {
 
-
-
     return (
-        <div>
+        <div className="w-full">
             {/* reference doc */}
             <FileUploader id={"homeReference"} label={"Rerference doc"} fileName={"Upload your file..."} />
             {/* homeBanner */}
@@ -61,7 +59,7 @@ const HomeManager = ({ language, currentContent, currentPath }) => {
                     inputs={[
                         { input: "input", label: "Heading/title", updateType: "title" },
                         { input: "textarea", label: "Description", updateType: "description" },
-                        { input: "input", label: "button Text", updateType: "buttonText" }]}
+                        { input: "input", label: "Button Text", updateType: "buttonText" }]}
                     isBorder={false}
                     fileId={"experienceSection"}
                     section={"experienceSection"}
@@ -92,7 +90,7 @@ const HomeManager = ({ language, currentContent, currentPath }) => {
 
             {/* project selection */}
             <div className="w-full">
-                <h3 className={`font-semibold text-[1.25rem] mb-4`} >
+                <h3 className={`font-semibold text-[1.25rem] mb-4 mt-4`} >
                     Project Section
                 </h3>
                 <div>
@@ -100,13 +98,13 @@ const HomeManager = ({ language, currentContent, currentPath }) => {
                         currentContent?.recentProjectsSection?.sections?.map((section, index, array) => {
                             const isLast = index === array.length - 1;
                             return (
-                                <div key={index}>
+                                <div key={index} className="mt-3 ">
                                     <ContentSection
                                         currentPath={currentPath}
                                         subHeading={section.title.en}
                                         inputs={[
-                                            { input: "input", label: section.title.en, updateType: "title" },
-                                            { input: "textarea", label: "description", updateType: "description" }
+                                            { input: "input", label: (section.title.en).toUpperCase(), updateType: "title" },
+                                            { input: "textarea", label: "Description", updateType: "description" }
                                         ]}
                                         language={language}
                                         section={"recentProjectsSection"}
@@ -118,9 +116,10 @@ const HomeManager = ({ language, currentContent, currentPath }) => {
                                     {
                                         section.projects.map((project, subSecIndex) => {
                                             return (
-                                                <div key={subSecIndex + 1}>
+                                                <div key={subSecIndex + 1} className="mt-3">
                                                     <ContentSection
                                                         currentPath={currentPath}
+                                                        subHeading={"Project " + (subSecIndex + 1)}
                                                         inputs={[
                                                             { input: "input", label: "Project title", updateType: "title" },
                                                             { input: "input", label: "Project Location", updateType: "subtitle" }
@@ -134,6 +133,7 @@ const HomeManager = ({ language, currentContent, currentPath }) => {
                                                         index={+index}
                                                         subSecIndex={+subSecIndex}
                                                         currentContent={currentContent}
+                                                        isBorder={false}
                                                     />
                                                 </div>
                                             )

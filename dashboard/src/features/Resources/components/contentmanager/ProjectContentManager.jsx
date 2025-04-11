@@ -3,11 +3,12 @@ import ContentSection from "../ContentSections"
 import MultiSelectPro from "../MultiSelectPro"
 import { updateAllProjectlisting } from "../../../common/homeContentSlice"
 import { useEffect } from "react"
+import FileUploader from "../../../../components/Input/InputFileUploader"
 
 const ProjectContentManager = ({ currentPath, currentContent, language }) => {
     const dispatch = useDispatch()
 
-    
+
 
     // useEffect(() => {
 
@@ -17,7 +18,9 @@ const ProjectContentManager = ({ currentPath, currentContent, language }) => {
 
     // }, [])
     return (
-        <div>
+        <div className="w-full">
+            {/* reference doc */}
+            <FileUploader id={"projectReference"} label={"Rerference doc"} fileName={"Upload your file..."} />
             {/** Hero Banner */}
             <ContentSection
                 currentPath={currentPath}

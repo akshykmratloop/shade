@@ -2,9 +2,10 @@ import React from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa6";
 import { PiDotsThreeOutlineThin } from "react-icons/pi";
 
-const Pagination = ({ totalDocuments, handlePageChange, selectedPage, itemPerPage }) => {
+const Pagination = ({ totalDocuments, handlePageChange, selectedPage, itemPerPage, language }) => {
   const itemsPerPage = itemPerPage ? itemPerPage : 10;
   const totalPages = Math.ceil(totalDocuments / itemsPerPage);
+  const isRTL = language === 'ar'
 
   const renderPages = () => {
     const pages = [];
@@ -27,7 +28,7 @@ const Pagination = ({ totalDocuments, handlePageChange, selectedPage, itemPerPag
       pages.push(
         <h5
           key={i}
-          className={`w-8 h-8 flex items-center justify-center rounded-lg cursor-pointer font-bold text-sm transition-all ${
+          className={`w-8 h-8 flex items-center justify-center rounded-full cursor-pointer font-bold text-sm transition-all ${
             selectedPage === i ? "text-blue-400 border border-blue-400" : "text-gray-500"
           }`}
           onClick={() => handlePageChange(i)}
@@ -65,21 +66,21 @@ const Pagination = ({ totalDocuments, handlePageChange, selectedPage, itemPerPag
   };
 
   return (
-    <div className="flex justify-end items-center gap-2">
-      <div
-        className="w-8 h-8 flex items-center justify-center cursor-pointer text-gray-500 text-sm hover:text-blue-400"
-        onClick={handlePrevPage}
-      >
-        <FaChevronLeft />
-      </div>
-      {renderPages()}
-      <div
-        className="w-8 h-8 flex items-center justify-center cursor-pointer text-gray-500 text-sm hover:text-blue-400"
-        onClick={handleNextPage}
-      >
-        <FaChevronRight />
-      </div>
+    <div className={`flex items-center gap-2 ${isRTL ? "flex-row-reverse" : "justify-end"}`}>
+    <div
+      className="w-8 h-8 flex items-center justify-center cursor-pointer text-gray-500 text-sm hover:text-blue-400"
+      onClick={isRTL ? handleNextPage : handlePrevPage}
+    >
+      {isRTL ? <FaChevronRight /> : <FaChevronLeft />}
     </div>
+    {renderPages()}
+    <div
+      className="w-8 h-8 flex items-center justify-center cursor-pointer text-gray-500 text-sm hover:text-blue-400"
+      onClick={isRTL ? handlePrevPage : handleNextPage}
+    >
+      {isRTL ? <FaChevronLeft /> : <FaChevronRight />}
+    </div>
+  </div>
   );
 };
 

@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import InputText from "../../components/Input/InputText";
-import { fetchRoles, createUser, updateUser } from "../../app/fetch";
+import { fetchRoles, createUser, updateUser, getUserById } from "../../app/fetch";
 import { toast, ToastContainer } from "react-toastify";
 import validator from "../../app/valid";
 import updateToasify from "../../app/toastify";
@@ -19,6 +19,7 @@ const AddUserModal = ({ show, onClose, updateUsers, user }) => {
     const [errorMessagePhone, setErrorMessagePhone] = useState("");
     const [errorMessageRoles, setErrorMessageRoles] = useState("");
     const [errorMessagePassword, setErrorMessagePassword] = useState("");
+    const [fetchedUser, setFetchedUser] = useState({})
     const [roles, setRoles] = useState([])
     const modalRef = useRef(null)
     const initialUserState = {
@@ -77,9 +78,9 @@ const AddUserModal = ({ show, onClose, updateUsers, user }) => {
             const payload = {
                 name: userData.name,
                 phone: userData.phone,
-                password: userData.password,
                 roles: userData.roles,
             }
+            if (!validPassword) payload.password = userData.password
             response = await updateUser({ payload, id: user.id });
         } else {
             response = await createUser(userData);
@@ -92,8 +93,9 @@ const AddUserModal = ({ show, onClose, updateUsers, user }) => {
                 updateUsers((prev) => !prev);
             }, 1500);
         } else {
-            updateToasify(loadingToastId, `Request failed. ${response?.message ? response.message : "Something went wrong please try again later"}`, "failure", 2000);
+            updateToasify(loadingToastId, `Request failed. ${response?.message ? response.message : "Something went wrong please try again later"}`, "error", 2000);
         }
+        toast.dismiss(loadingToastId)
     };
 
     const onCloseModal = () => {
@@ -126,6 +128,19 @@ const AddUserModal = ({ show, onClose, updateUsers, user }) => {
 
         fetchForForm()
     }, [])
+
+    useEffect(() => {
+        async function getUser() {
+            const response = await getUserById(user?.id)
+            setFetchedUser(response.user)
+            let roles = []
+            response?.user?.roles?.forEach((element) => {
+                roles.push(element.role.id)
+            })
+            setUserData(prev => ({ ...prev, roles: roles }))
+        }
+        getUser()
+    }, [user])
 
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -268,7 +283,7 @@ const AddUserModal = ({ show, onClose, updateUsers, user }) => {
                     </div>
                 </form>
             </div>
-            <ToastContainer />
+            {/* <ToastContainer /> */}
         </div>
     );
 };

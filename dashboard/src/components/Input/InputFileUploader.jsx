@@ -3,6 +3,7 @@ import { Upload, X, FileText } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import { removeImages, updateImages } from "../../features/common/homeContentSlice";
 import { FaFileUpload } from "react-icons/fa";
+import { TruncateText } from "../../app/capitalizeword";
 
 const FileUploader = ({ label, baseClass, id, currentPath }) => {
     const dispatch = useDispatch();
@@ -65,7 +66,7 @@ const FileUploader = ({ label, baseClass, id, currentPath }) => {
                 <label htmlFor={id} className="flex items-center gap-2 cursor-pointer w-full ">
                     <FaFileUpload className="w-4 h-4 text-gray-500" />
                     <span className="text-sm text-[#6B7888] dark:text-gray-300 truncate">
-                        {fileName || "Upload your file..."}
+                        {TruncateText(fileName, 20) || "Upload your file..."}
                     </span>
                 </label>
 
@@ -89,7 +90,7 @@ const FileUploader = ({ label, baseClass, id, currentPath }) => {
                     ) : (
                         <div className="flex items-center gap-2 text-gray-700 dark:text-gray-300">
                             <FileText className="w-5 h-5" />
-                            <span className="text-sm truncate">{fileName}</span>
+                            <span className="text-sm truncate">{TruncateText(fileName, 20) }</span>
                         </div>
                     )}
                 </div>

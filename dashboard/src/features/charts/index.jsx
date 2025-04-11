@@ -42,7 +42,6 @@ const TopSideButtons = ({ removeFilter, applyFilter, applySearch }) => { // sear
         if (searchText === "") {
             removeAppliedFilter();
         } else {
-            console.log(searchText)
             applySearch(searchText);
         }
     }, [searchText]);
@@ -100,7 +99,7 @@ function Users() {
 
     // Pagination state
     const [currentPage, setCurrentPage] = useState(1);
-    const usersPerPage = 3;
+    const usersPerPage = 10;
 
     const removeFilter = () => {
         setUsers([...originalUsers]);
@@ -118,14 +117,14 @@ function Users() {
         setUsers(filteredRoles);
     };
 
-    const statusChange = async (role) => {
+    const statusChange = async (user) => {
         const loadingToastId = toast.loading("Processing...", { autoClose: 2000 });
-        let response = role.status === "ACTIVE" ? await deactivateUser(role) : await activateUser(role);
+        let response = user.status === "ACTIVE" ? await deactivateUser({id:user.id}) : await activateUser({id:user.id});
         if (response.ok) {
             updateToasify(loadingToastId, `Request successful. ${response.message}`, "success", 1000);
             setChangesInUser(prev => !prev);
         } else {
-            updateToasify(loadingToastId, `Request failed. ${response.message}`, "failure", 2000);
+            updateToasify(loadingToastId, `Request failed. ${response.message}`, "error", 2000);
         }
         toast.dismiss(loadingToastId) // to deactivate to running taost
     };
@@ -199,12 +198,12 @@ function Users() {
                                                 {user.roles?.length > 1 ? "multiple" : user?.roles?.[0].name}
                                             </td>
 
-                                            <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]"> </td>
+                                            <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]">N/A</td>
                                             <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]" style={{ whiteSpace: "wrap" }}> {TruncateText("asdfwerweq eqt eqfsadf qew", 20)}</td>
                                             <td className="font-poppins font-light text-[12px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]">
                                                 <p
                                                     className={`w-[85px] mx-auto before:content-['•'] before:text-2xl flex h-7 items-center justify-center gap-1 px-1 py-0 font-[500] ${user.status === 'ACTIVE' ? "text-green-600 bg-green-100 before:text-green-600 px-1" : "text-red-600 bg-red-100 before:text-red-600 "} rounded-2xl`}
-                                                    style={{ textTransform: "capitalize", }}
+                                                    style={{ textTransform: "capitalize" }}
                                                 >
                                                     {capitalizeWords(user.status)}
                                                 </p>

@@ -25,7 +25,7 @@ const TopSideButtons = ({
   removeFilter,
   applyFilter,
   applySearch,
-  openAddForm,
+  // openAddForm,
 }) => {
   const [filterParam, setFilterParam] = useState("");
   const [searchText, setSearchText] = useState("");
@@ -118,7 +118,6 @@ function Roles() {
     let response;
     if (role.status === "ACTIVE") response = await deactivateRole(role);
     else response = await activateRole(role);
-    console.log(response);
     if (response.ok) {
       updateToasify(
         loadingToastId,
@@ -135,7 +134,7 @@ function Roles() {
       updateToasify(
         loadingToastId,
         `Request failed. ${response.message}`,
-        "failure",
+        "error",
         2000
       ); // updating the toaster
       // setTimeout(() => {

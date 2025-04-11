@@ -8,6 +8,7 @@ import debounceSlice from "../features/common/debounceSlice"
 import sidebarReducer from "../features/common/SbStateSlice";
 import imagesReducer from '../features/common/ImagesSlice'
 import homeContentReducer from '../features/common/homeContentSlice'
+import saveDraftReducer from "../features/common/saveContentSlice"
 
 const combinedReducer = {
   header: headerSlice,
@@ -18,7 +19,7 @@ const combinedReducer = {
   debounce: debounceSlice,
   sidebar: sidebarReducer,
   homeContent: homeContentReducer,
-  // images: imagesReducer
+  saveDraft: saveDraftReducer
 }
 
 export default configureStore({
