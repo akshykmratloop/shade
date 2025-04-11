@@ -1,5 +1,6 @@
 import prismaClient from "../config/dbConfig.js";
 import {createNotification} from "../repository/notification.repository.js";
+import {handleRoleCreationNotification} from "./notificationHelper.js";
 
 // Middleware to log user actions in the database
 export const auditLogger = async (req, res, next) => {
@@ -45,6 +46,8 @@ export const auditLogger = async (req, res, next) => {
   }
 
   res.on("finish", async () => {
+    const io = req.app.locals.io; // ✅ Add this
+
     if (actionType === "CREATE" && !entityId) {
       entityId = res.locals.entityId || null;
     }
@@ -83,16 +86,32 @@ export const auditLogger = async (req, res, next) => {
       });
 
       if (actionType === "CREATE" && ["role", "user"].includes(entity)) {
-        if (["user", "role"].includes(entity)) {
-          io.emit("role_created", {
-            userId: user?.id,
-            message: `${entity} '${entityId}' has been created`,
-          });
-          await createNotification(user?.Id, message);
-        }
-        console.log(
-          `🚀 Emitting event: role_created for userId=======================================================================: ${user?.id}`
-        );
+        // let message;
+
+        // if (["user", "role"].includes(entity)) {
+        //   if (entity === "role" && newValue?.name) {
+        //     message = `A new role '${newValue.name}' has been created`;
+        //   } else if (entity === "user" && newValue?.email) {
+        //     message = `A new user '${newValue.email}' has been created`;
+        //   } else {
+        //     message = `${entity} '${entityId}' has been created`;
+        //   }
+
+        //   io.emit("role_created", {
+        //     userId: user?.id,
+        //     message,
+        //   });
+        //   // ✅ Create Notification
+        //   await createNotification({
+        //     userId: user?.id,
+        //     message,
+        //   });
+        // }
+        await handleRoleCreationNotification({
+          io,
+          userId: user?.id,
+          newRole: newValue,
+        });
       }
     } catch (err) {
       console.error("Audit logging failed:", err);

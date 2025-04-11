@@ -35,13 +35,19 @@ const CreateRole = async (req, res) => {
   const {name, roleTypeId, permissions} = req.body;
   const result = await createRole(name, roleTypeId, permissions);
 
-  const io = req.app.locals.io; // Get socket.io instance
+  // const io = req.app.locals.io; // Get socket.io instance
 
-  // Emit role creation event
-  io.emit("role_created", {
-    userId: req.user.id,
-    message: `A new role '${name}' has been created`,
-  });
+  // // Create the notification in DB
+  // await createNotification({
+  //   userId: req.user.id,
+  //   message: `A new role '${name}' has been created`,
+  // });
+
+  // // Emit role creation event
+  // io.emit("role_created", {
+  //   userId: req.user.id,
+  //   message: `A new role '${name}' has been created`,
+  // });
   res.locals.entityId = result.newRole.roles.id;
   res.status(201).json(result);
 };
