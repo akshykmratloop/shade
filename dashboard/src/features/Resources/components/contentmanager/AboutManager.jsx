@@ -40,8 +40,8 @@ const AboutManager = ({ currentContent, currentPath, language }) => {
                                 currentPath={currentPath}
                                 subHeading={"card " + (index + 1)}
                                 inputs={[
-                                    { input: "input", label: "Item text 1", updateType: "title" },
-                                    { input: "textarea", label: "Item text 2", updateType: "description" }
+                                    { input: "input", label: "Item text 1", updateType: "title", maxLength: 20 },
+                                    { input: "textarea", label: "Item text 2", updateType: "description", maxLength: 200 }
                                 ]}
                                 inputFiles={[{ label: "Item Icon", id: item.icon }]}
                                 // fileId={item}
@@ -63,8 +63,8 @@ const AboutManager = ({ currentContent, currentPath, language }) => {
                 Heading={"Main"}
                 inputs={[
                     { input: "input", label: "Heading/title", updateType: "title" },
-                    { input: "textarea", label: "Description 1", updateType: "description1" },
-                    { input: "textarea", label: "Description 2", updateType: "description2" },
+                    { input: "textarea", label: "Description 1", updateType: "description1", maxLength: 400 },
+                    { input: "textarea", label: "Description 2", updateType: "description2" , maxLength: 400},
                 ]}
                 inputFiles={[{ label: "Video", id: "video" }]}
                 section={"main"}

@@ -145,6 +145,7 @@ const ContentSection = ({
                                 defaultValue={valueExpression || ""}
                                 language={language}
                                 id={input.updateType}
+                                maxLength={input.maxLength}
                             />
                         );
                     } else {
@@ -161,6 +162,7 @@ const ContentSection = ({
                                 language={language}
                                 id={input.updateType}
                                 required={false}
+                                maxLength={input.maxLength}
                             />
                         );
                     }

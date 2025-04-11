@@ -24,7 +24,7 @@ const MarketManager = ({ language, currentContent, currentPath }) => {
                 Heading={"Banner"}
                 inputs={[
                     { input: "input", label: "Heading/title", updateType: "title" },
-                    { input: "textarea", label: "Description", updateType: "description" },
+                    { input: "textarea", label: "Description", updateType: "description", maxLength: 300 },
                     { input: "input", label: "Button Text", updateType: "button" }
                 ]}
                 inputFiles={[{ label: "Backround Image", id: "marketBanner" }]}
@@ -38,7 +38,7 @@ const MarketManager = ({ language, currentContent, currentPath }) => {
                 currentPath={currentPath}
                 Heading={"Quote"}
                 inputs={[
-                    { input: "textarea", label: "Heading/title", updateType: "text" },
+                    { input: "textarea", label: "Heading/title", updateType: "text", maxLength: 300 },
                     { input: "input", label: "Description", updateType: "author" },
                 ]}
                 section={"quote"}

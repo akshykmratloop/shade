@@ -26,7 +26,7 @@ const ProjectContentManager = ({ currentPath, currentContent, language }) => {
                 Heading={"Banner"}
                 inputs={[
                     { input: "input", label: "Heading/title", updateType: "title" },
-                    { input: "textarea", label: "Description", updateType: "description" },
+                    { input: "textarea", label: "Description", updateType: "description", maxLength: 300 },
                     { input: "input", label: "Button Text", updateType: "button" }
                 ]}
                 inputFiles={[{ label: "Backround Image", id: "projectsBanner" }]}

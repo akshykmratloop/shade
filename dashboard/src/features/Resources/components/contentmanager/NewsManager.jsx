@@ -25,7 +25,7 @@ const NewsManager = ({ language, currentContent, currentPath }) => {
                 Heading={"News Hero Banner"}
                 inputs={[
                     { input: "input", label: "Heading/title", updateType: "title" },
-                    { input: "textarea", label: "Description", updateType: "description" },
+                    { input: "textarea", label: "Description", updateType: "description", maxLength: 300 },
                     // { input: "input", label: "Button Text", updateType: "button" }
                 ]}
                 inputFiles={[{ label: "Backround Image", id: "newsBanner" }]}
@@ -47,6 +47,18 @@ const NewsManager = ({ language, currentContent, currentPath }) => {
                 options={currentPath?.latestNewCards?.cards}
             />
 
+            <ContentSection
+                currentPath={currentPath}
+                Heading={currentContent?.latestNewCards?.heading?.en}
+                inputs={[
+                    { input: "input", label: "Heading/title", updateType: "heading" },
+                ]}
+                section={"latestNewCards"}
+                language={language}
+                currentContent={currentContent}
+            />
+
+            {/* select latest news */}
             <MultiSelect
                 currentPath={currentPath}
                 section={"latestNewCards"}
@@ -59,6 +71,7 @@ const NewsManager = ({ language, currentContent, currentPath }) => {
                 currentContent={currentContent}
             />
 
+            {/* select trending news */}
             <MultiSelectSM
                 referenceOriginal={{ dir: "TrendingNews", index: 0 }}
                 currentContent={currentContent}

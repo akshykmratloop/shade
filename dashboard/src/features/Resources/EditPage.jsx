@@ -126,7 +126,7 @@ const EditPage = () => {
                         minHeight={"3.2rem"}
                     />
                     <div className={`overflow-y-scroll dark:text-[#2A303C] customscroller transition-custom border-stone-200 border mx-auto w-full bankgothic-medium-dt bg-[white]`}
-                        style={{ width: screen > 1000 ? "" : screen }}
+                        style={{ width: screen > 1000 ? "" : screen, wordBreak: "break-word"}}
                     >
                         {
                             currentPath === "home" &&

@@ -9,14 +9,16 @@ function TextAreaInput({
   textAreaStyle,
   updateFormValue,
   updateType,
-  language
+  language,
+  maxLength
 }) {
   const [value, setValue] = useState(defaultValue || "");
   const textareaRef = useRef(null);
 
   const updateInputValue = (val) => {
-    setValue(val);
-    updateFormValue({ updateType, value: val });
+    const trimmedVal = val.slice(0, Number(maxLength) || 1000);
+    setValue(trimmedVal);
+    updateFormValue({ updateType, value: trimmedVal });
   };
 
   // Function to adjust height dynamically

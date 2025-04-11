@@ -41,8 +41,8 @@ const SolutionManager = ({ currentPath, language, currentContent }) => {
                 Heading={"Solution Banner"}
                 inputs={[
                     { input: "input", label: "Heading/title", updateType: "title" },
-                    { input: "textarea", label: "Description", updateType: "description" },
-                    { input: "input", label: "Button Text", updateType: "button" }
+                    { input: "textarea", label: "Description", updateType: "description", maxLength: 300 },
+                    { input: "input", label: "Button Text", updateType: "button", maxLength: 20 }
                 ]}
                 inputFiles={[{ label: "Background Image", id: "bannerBackground" },]}
                 section={"banner"}
@@ -51,7 +51,7 @@ const SolutionManager = ({ currentPath, language, currentContent }) => {
             />
 
             {/**What We Do */}
-            <ContentSection
+            {/* <ContentSection
                 currentPath={currentPath}
                 Heading={"Solution Section 2"}
                 inputs={[
@@ -62,7 +62,7 @@ const SolutionManager = ({ currentPath, language, currentContent }) => {
                 section={"whatWeDo"}
                 language={language}
                 currentContent={currentContent}
-            />
+            /> */}
 
             <div className="mt-4 border-b">
                 <h3 className={`font-semibold text-[1.25rem] mb-4`}>Description</h3>
@@ -74,8 +74,8 @@ const SolutionManager = ({ currentPath, language, currentContent }) => {
                                 currentPath={currentPath}
                                 subHeading={"Section " + (index + 1)}
                                 inputs={[
-                                    { input: "input", label: "Title", updateType: "title" },
-                                    { input: "richtext", label: "Description", updateType: "description" },
+                                    { input: "input", label: "Title", updateType: "title", maxLength: 35 },
+                                    { input: "richtext", label: "Description", updateType: "description"},
                                 ]}
                                 section={"whatWeDo"}
                                 index={index}
@@ -129,7 +129,7 @@ const SolutionManager = ({ currentPath, language, currentContent }) => {
                                 subHeading={"Section " + (index + 1)}
                                 inputs={[
                                     { input: "input", label: "Title", updateType: "title" },
-                                    { input: "richtext", label: "Description", updateType: "description" },
+                                    { input: "richtext", label: "Description", updateType: "description"},
                                 ]}
                                 section={"howWeDo"}
                                 index={index}

@@ -7,9 +7,10 @@ import MultiSelect from "../MultiSelect"
 
 const NewsDetailManager = ({ newsId, currentContent, currentPath, language }) => {
     const dispatch = useDispatch();
-    const newsIndex = currentContent?.findIndex(e =>{ 
+    const newsIndex = currentContent?.findIndex(e => {
         console.log(e.id, newsId, e.id == newsId)
-        return e.id == newsId})
+        return e.id == newsId
+    })
 
     const addExtraSummary = () => {
         dispatch(updateTheProjectSummaryList(
@@ -41,8 +42,8 @@ const NewsDetailManager = ({ newsId, currentContent, currentPath, language }) =>
                 Heading={"Banner"}
                 inputs={[
                     { input: "input", label: "Heading/title", updateType: "title" },
-                    { input: "input", label: "Description", updateType: "subTitle" },
-                    { input: "input", label: "Button Text", updateType: "button" },
+                    { input: "input", label: "Description", updateType: "subTitle", maxLength: 15 },
+                    { input: "input", label: "Button Text", updateType: "button", maxLength: 6 },
                     // { input: "input", label: "Url", updateType: "url" },
                 ]}
                 inputFiles={[{ label: "Backround Image", id: "newsBanner/" + (newsId) }]}
@@ -61,7 +62,7 @@ const NewsDetailManager = ({ newsId, currentContent, currentPath, language }) =>
                                 currentPath={currentPath}
                                 subHeading={"Section " + (index + 1)}
                                 inputs={[
-                                    { input: "input", label: "Title", updateType: "title" },
+                                    { input: "input", label: "Title", updateType: "title", maxLength: 100 },
                                     { input: "richtext", label: "Description", updateType: "content" },
                                 ]}
                                 section={"newsPoints"}

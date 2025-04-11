@@ -196,7 +196,7 @@ const HomePage = ({ language, screen }) => {
                 </div>
             </section>
             {/* experience section */}
-            <section className={`py-[115px] pb-[186px]  ${isComputer ? "px-20" : !isLeftAlign ? "px-8" : "px-10"}`} dir={isLeftAlign ? 'ltr' : "rtl"}>
+            <section className={`py-[115px]  ${isComputer ? "px-20" : !isLeftAlign ? "px-8" : "px-10"}`} dir={isLeftAlign ? 'ltr' : "rtl"}>
                 <div
                     className={`container mx-auto flex ${isPhone ? "flex-col gap-[350px]" : "gap-10"} `}>
                     <div className={`w-10 relative flex-1`}
@@ -229,7 +229,7 @@ const HomePage = ({ language, screen }) => {
                             })}
                         </div>
                     </div>
-                    <div className={`max-w-[420px] ${isPhone ? "" : "pt-12"} ${isTablet ? !isLeftAlign ? "pr-[64px]" : "pl-[40px]" : ""}  flex-1 `}>
+                    <div className={`max-w-[420px] ${isTablet ? !isLeftAlign ? "pr-[64px]" : "pl-[40px]" : ""}  flex-1 `}>
                         <h2 className="text-[#00B9F2] text-4xl font-bold leading-[50px] mb-6 ">
                             {currentContent?.experienceSection?.title[language]}
                         </h2>
@@ -272,8 +272,8 @@ const HomePage = ({ language, screen }) => {
                     </div>
 
 
-                    <div className={`flex ${isTablet ? isPhone ? "gap-[20px]" : "gap-[30px]" : "gap-[30px]"} ${isLeftAlign && "pr-20"}`}>
-                        <div className={`leftDetails min-w-[150px]  ${isTablet&&"w-[180px]"}`}>
+                    <div className={`flex ${isTablet ? isPhone ? "gap-[20px]" : "gap-[30px]" : "gap-[30px]"} ${isLeftAlign && !isComputer && "pr-20"}`}>
+                        <div className={`leftDetails min-w-[150px]   ${isTablet&&"w-[180px]"}`}>
                             {currentContent?.recentProjectsSection?.sections?.map((section, index) => (
                                 <div
                                     key={index}
@@ -326,7 +326,7 @@ const HomePage = ({ language, screen }) => {
                             >
                                 {projectChunks?.map((chunk, slideIndex) => (
                                     <SwiperSlide key={slideIndex}>
-                                        <div className={`${isPhone ? "flex flex-col" : `grid grid-cols-2 gap-[12px] ${isTablet ? "w-[350px] " : "w-[600px]"}`}`}
+                                        <div className={`${isPhone ? "flex flex-col" : `grid grid-cols-2 gap-[12px] ${isTablet ? "w-[350px]" : "w-[600px]"}`}`}
                                             style={{ width: isComputer ? "" : isPhone ? `${(600 / 1180) * screen}px` : `${(750 / 1180) * screen}px`, gap: isComputer ? "" : `${(40 / 1180) * screen}px` }}
                                         >
                                             {chunk?.map((project, cardIndex) => {

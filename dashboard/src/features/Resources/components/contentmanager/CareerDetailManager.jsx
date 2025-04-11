@@ -43,7 +43,7 @@ const CareerDetailManager = ({ careerId, currentContent, currentPath, language }
                 Heading={"Banner"}
                 inputs={[
                     { input: "input", label: "Heading/title", updateType: "title" },
-                    { input: "input", label: "Description", updateType: "subTitle" },
+                    { input: "input", label: "Description", updateType: "subTitle", maxLength: 23 },
                     { input: "input", label: "Button Text", updateType: "button" },
                     // { input: "input", label: "Url", updateType: "url" },
                 ]}
@@ -54,6 +54,7 @@ const CareerDetailManager = ({ careerId, currentContent, currentPath, language }
                 projectId={careerIndex + 1}
             />
 
+            {/* left panel */}
             <div className="mt-4 border-b">
                 <h3 className={`font-semibold text-[1.25rem] mb-4`}>Job Details Left Panel</h3>
                 {
@@ -87,17 +88,16 @@ const CareerDetailManager = ({ careerId, currentContent, currentPath, language }
                 >Add More Section...</button>
             </div>
 
+            {/* right panel */}
             <div className="mt-4 border-b">
                 <h3 className={`font-semibold text-[1.25rem] mb-4`}>Job Details Right Panel</h3>
-
                 <div className="mb-6">
-
                     <ContentSection
                         currentPath={currentPath}
                         subHeading={"Top Section"}
                         inputs={[
-                            { input: "input", label: "Heading/title", updateType: "title" },
-                            { input: "input", label: "Button Text", updateType: "button" },
+                            { input: "input", label: "Heading/title", updateType: "title", maxLength: 15 },
+                            { input: "input", label: "Button Text", updateType: "button", maxLength: 18 },
                             // { input: "input", label: "Url", updateType: "url" },
                         ]}
                         section={"jobDetails"}
@@ -116,8 +116,8 @@ const CareerDetailManager = ({ careerId, currentContent, currentPath, language }
                                 currentPath={currentPath}
                                 subHeading={"Section " + (index + 1)}
                                 inputs={[
-                                    { input: "input", label: "Title", updateType: "title" },
-                                    { input: "input", label: "Description", updateType: "description" },
+                                    { input: "input", label: "Title", updateType: "title", maxLength: 15 },
+                                    { input: "input", label: "Description", updateType: "description", maxLength: 19 },
                                 ]}
                                 inputFiles={[{ label: "icon", id: `careerRightPanel/${careerId}/${index}` }]}
                                 section={"jobDetails"}
@@ -135,6 +135,7 @@ const CareerDetailManager = ({ careerId, currentContent, currentPath, language }
                     })
                 }
 
+                {/* right panel redirection link */}
                 <div>
                     <ContentSection
                         currentPath={currentPath}
@@ -155,6 +156,7 @@ const CareerDetailManager = ({ careerId, currentContent, currentPath, language }
                 </div>
             </div>
 
+            {/* the last button */}
             <ContentSection
                 currentPath={currentPath}
                 subHeading={"Bottom Button"}

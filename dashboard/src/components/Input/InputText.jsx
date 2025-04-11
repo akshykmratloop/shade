@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Eye, EyeOff } from "lucide-react";
+import { Eye, EyeOff, UndoIcon } from "lucide-react";
 import xSign from "../../assets/x-close.png";
 import greenDot from "../../assets/icons/dot.svg";
 import ErrorText from "../Typography/ErrorText";
@@ -25,21 +25,23 @@ function InputText({
   options = [],
   required = true,
   errorClass,
-  disabled=false
+  disabled = false,
+  maxLength
 }) {
   const [showPassword, setShowPassword] = useState(false);
   const [value, setValue] = useState(defaultValue || "");
 
   const updateInputValue = (val) => {
-    if (customType === "number" && isNaN(parseInt(val))) {
-      if (val === "") {
-        setValue(val);
-        updateFormValue({ updateType, value: val });
+    const trimmedVal = val.slice(0, Number(maxLength) || 100);
+    if (customType === "number" && isNaN(parseInt(trimmedVal))) {
+      if (trimmedVal === "") {
+        setValue(trimmedVal);
+        updateFormValue({ updateType, value: trimmedVal });
       }
       return;
     } else {
-      setValue(val);
-      updateFormValue({ updateType, value: val });
+      setValue(trimmedVal);
+      updateFormValue({ updateType, value: trimmedVal });
     }
   };
 
@@ -130,10 +132,11 @@ function InputText({
             placeholder={placeholder || ""}
             onChange={(e) => updateInputValue(e.target.value)}
             disabled={disabled}
+            maxLength={35}
             className={`input ${width ?? "w-full"
               } h-[2.3rem] text-xs input input-bordered border-[#80808044] focus:border-[#0000007e] dark:focus:border-[#ffffff7e] ${InputClasses || ""
               }`}
-            
+
           />
         )}
         {type === "password" && value && (

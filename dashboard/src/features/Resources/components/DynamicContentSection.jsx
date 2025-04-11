@@ -231,6 +231,7 @@ const DynamicContentSection = ({
                                 defaultValue={valueExpression || ""}
                                 language={language}
                                 id={input.updateType}
+                                maxLength={input.maxLength}
                             />
                         );
                     } else if (input.input === "richtext") {
@@ -240,8 +241,16 @@ const DynamicContentSection = ({
                                     ref={editor}
                                     value={valueExpression}
                                     config={config}
-                                    onChange={(newContent) => updateFormValueRichText(input.updateType, newContent)}
-                                    onBlur={(newContent) => updateFormValueRichText(input.updateType, newContent)}
+                                    onChange={(newContent) => {
+                                        console.log(newContent)
+                                        const trimmedVal = newContent.slice(0, input.maxLength);
+                                        console.log(trimmedVal)
+                                        updateFormValueRichText(input.updateType, trimmedVal)
+                                    }}
+                                    onBlur={(newContent) => {
+                                        const trimmedVal = newContent.slice(0, input.maxLength);
+                                        updateFormValueRichText(input.updateType, trimmedVal)
+                                    }}
 
                                 />
                             </div>
@@ -260,6 +269,7 @@ const DynamicContentSection = ({
                                 language={language}
                                 id={input.updateType}
                                 required={false}
+                                maxLength={input.maxLength}
                             />
                         );
                     }
