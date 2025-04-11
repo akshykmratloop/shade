@@ -6,6 +6,7 @@ import {
   findUserById,
   userActivation,
   userDeactivation,
+  findRoleTypeByUserId,
 } from "../../repository/user.repository.js";
 import {assert, assertEvery} from "../../errors/assertError.js";
 import {logger} from "../../config/logConfig.js";
@@ -49,6 +50,13 @@ const deactivateUsers = async (id) => {
   return {message: "User deactivated successfully", ok: true}; // if everything goes fine
 };
 
+const userRoleType = async (id) => {
+  const roleType = await findRoleTypeByUserId(id);
+  assert(roleType, "ROLETYPE_INVALID", "roleType not found");
+  logger.info({response: `roleType fetched successfully`});
+  return {message: "RoleType fetched successfully", roleType}; // if everything goes fine
+};
+
 export {
   createUser,
   findUserByEmail,
@@ -57,4 +65,5 @@ export {
   editUserDetails,
   activateUsers,
   deactivateUsers,
+  userRoleType,
 };

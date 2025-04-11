@@ -1,3 +1,4 @@
+// import {eventEmitter} from "../../helper/event.js";
 import {createNotification} from "../../repository/notification.repository.js";
 import {
   getRoles,
@@ -33,19 +34,16 @@ const GetRoleType = async (req, res) => {
 const CreateRole = async (req, res) => {
   const {name, roleTypeId, permissions} = req.body;
   const result = await createRole(name, roleTypeId, permissions);
-  await createNotification({
-    userId: req.user.id,
-    role: "Admin",
-    message: `A new role ${name} has been created`,
-    io: res.app.locals.io,
-  });
 
+  const io = req.app.locals.io; // Get socket.io instance
+
+  // Emit role creation event
+  io.emit("role_created", {
+    userId: req.user.id,
+    message: `A new role '${name}' has been created`,
+  });
   res.locals.entityId = result.newRole.roles.id;
   res.status(201).json(result);
-  console.log(
-    "user ==================================================================",
-    req.user
-  );
 };
 
 // const UpdateRole = async (req, res) => {

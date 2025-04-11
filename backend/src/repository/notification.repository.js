@@ -1,19 +1,17 @@
 import prismaClient from "../config/dbConfig.js";
-import {findRoleById, findRoleType} from "./role.repository.js";
 
-export const createNotification = async ({userId, role, message, io}) => {
-  // const userrole = await findRoleById(userId);
+import {findRoleTypeByUserId} from "./user.repository.js";
+
+export const createNotification = async ({userId, message}) => {
+  const userrole = await findRoleTypeByUserId(userId);
+
   const notification = await prismaClient.notification.create({
     data: {
       userId,
-      role,
+      role: userrole?.roles[0]?.role?.roleType?.name,
       message,
     },
   });
-
-  if (io && userId) {
-    io.to(userId).emit("notification", notification);
-  }
 
   return notification;
 };

@@ -1,4 +1,5 @@
 import prismaClient from "../config/dbConfig.js";
+import {createNotification} from "../repository/notification.repository.js";
 
 // Middleware to log user actions in the database
 export const auditLogger = async (req, res, next) => {
@@ -80,6 +81,19 @@ export const auditLogger = async (req, res, next) => {
           },
         },
       });
+
+      if (actionType === "CREATE" && ["role", "user"].includes(entity)) {
+        if (["user", "role"].includes(entity)) {
+          io.emit("role_created", {
+            userId: user?.id,
+            message: `${entity} '${entityId}' has been created`,
+          });
+          await createNotification(user?.Id, message);
+        }
+        console.log(
+          `🚀 Emitting event: role_created for userId=======================================================================: ${user?.id}`
+        );
+      }
     } catch (err) {
       console.error("Audit logging failed:", err);
     }
