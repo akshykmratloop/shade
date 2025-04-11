@@ -141,7 +141,7 @@ const MarketPage = ({ language, screen }) => {
 
             {/* market projects */}
             <section className={` pb-[45px] px-14 ${language === "en" ? "text-left" : "text-right"}`}>
-                <div className="container mx-auto px-4">
+                <div className="container mx-auto px-4" style={{wordBreak: "normal"}}>
                     <div>
                         {/* Tabs or Dropdown */}
                         <div className="w-full flex flex-col items-center mb-10">
@@ -149,9 +149,10 @@ const MarketPage = ({ language, screen }) => {
                                 // Dropdown for mobile view
                                 <div className="relative w-full max-w-xs">
                                     <select
-                                        className="w-full p-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-[#00B9F2] focus:border-[#00B9F2]"
+                                        className="w-full custom-select p-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-[#00B9F2] focus:border-[#00B9F2]"
                                         value={activeTab}
                                         onChange={(e) => setActiveTab(e.target.value)}
+                                        style={{outline: "none"}}
                                     >
                                         {currentContent?.tabSection?.tabs.map((tab, index) => (
                                             <option key={index} value={tab?.id}>
@@ -182,7 +183,7 @@ const MarketPage = ({ language, screen }) => {
 
                         {/* Cards */}
                         <div
-                            className={`${isPhone ? "flex flex-col" : `grid ${isTablet?"grid-cols-2":"grid-cols-3"} gap-x-16 gap-y-6 mt-12`} ${language === "ar" ? "rtl" : ""}`}
+                            className={`${isPhone ? "flex flex-col" : `grid ${isTablet?"grid-cols-2":"grid-cols-3"} gap-x-4 gap-y-4 mt-12`} ${language === "ar" ? "rtl" : ""}`}
                             style={language === "ar" ? { direction: "rtl" } : {}}
                         >
                             {filterMarketItems

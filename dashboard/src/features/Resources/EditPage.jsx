@@ -38,6 +38,7 @@ import NewsDetailManager from "./components/contentmanager/NewsDetailsManager";
 import Testimonials from "./components/websiteComponent/Testimonials";
 import TestimonyManager from "./components/contentmanager/TestimonyManager";
 import ContactUsModal from "./components/websiteComponent/ContactUsModal";
+import CloseModalButton from "../../components/Button/CloseButton";
 
 const EditPage = () => {
     const dispatch = useDispatch();
@@ -46,6 +47,7 @@ const EditPage = () => {
     const location = useLocation();
     const [PopupReject, setPopupReject] = useState(false)
     const [PopupSubmit, setPopupSubmit] = useState(false)
+    const [fullScreen, setFullScreen] = useState(false)
 
     const currentPath = location.pathname.split('/')[4]
     const subPath = location.pathname.split('/')[5]
@@ -115,7 +117,7 @@ const EditPage = () => {
                 <div
                     className={`flex-[4] h-[83.5vh] flex flex-col`}
                 >
-                    <ContentTopBar setWidth={setScreen} raisePopup={{ reject: () => setPopupReject(true), submit: () => setPopupSubmit(true) }} />
+                    <ContentTopBar setWidth={setScreen} setFullScreen={setFullScreen} raisePopup={{ reject: () => setPopupReject(true), submit: () => setPopupSubmit(true) }} />
                     <h4 className="text-[#6B7888] text-[14px] mt-1 mb-[2px]">Commented by {"Anukool (Super Admin)"}</h4>
                     <TextAreaInput
                         updateFormValue={() => { }}
@@ -125,63 +127,67 @@ const EditPage = () => {
                         containerStyle={"mb-4"}
                         minHeight={"3.2rem"}
                     />
-                    <div className={`overflow-y-scroll dark:text-[#2A303C] customscroller transition-custom border-stone-200 border mx-auto w-full bankgothic-medium-dt bg-[white]`}
-                        style={{ width: screen > 1000 ? "" : screen, wordBreak: "break-word"}}
-                    >
-                        {
-                            currentPath === "home" &&
-                            <HomePage language={language} screen={screen} />
-                        }
-                        {
-                            currentPath === "solution" &&
-                            <SolutionPage language={language} currentContent={content.solution} screen={screen} />
-                        }
-                        {
-                            currentPath === "about" &&
-                            <AboutUs language={language} currentContent={content.about} screen={screen} />
-                        }
-                        {
-                            currentPath === "markets" &&
-                            <MarketPage language={language} currentContent={content.markets} screen={screen} />
-                        }
-                        {
-                            currentPath === 'projects' ? subPath ?
-                                <ProjectDetailPage language={language} contentOn={content.projectDetail} projectId={subPath} screen={screen} /> :
-                                <ProjectPage language={language} currentContent={content.projects} screen={screen} /> : ""
-                        }
-                        {
-                            currentPath === "careers" ? subPath ?
-                                <CareerDetailPage language={language} contentOn={content.careerDetails} careerId={subPath} screen={screen} /> :
-                                <CareerPage language={language} currentContent={content.career} screen={screen} /> : ""
-                        }
-                        {
-                            currentPath === "news" ? subPath ?
-                                <NewsBlogDetailPage language={language} contentOn={content.newsBlogsDetails} newsId={subPath} screen={screen} /> :
-                                <NewsPage language={language} currentContent={content.newsBlogs} screen={screen} /> : ""
-                        }
+                    <div className={`border border-cyan-500 w-full ${fullScreen && "fixed top-0 left-0 z-50 w-screen h-screen "} overflow-y-scroll customscroller`}>
+                        <CloseModalButton />
+                        <div className={` dark:text-[#2A303C]  transition-custom border-stone-200 border mx-auto w-full bankgothic-medium-dt bg-[white]`}
+                            style={{ width: screen > 1000 ? "" : screen, wordBreak: "break-word" }}
+                        >
+                            {
+                                currentPath === "home" &&
+                                <HomePage language={language} screen={screen} />
+                            }
+                            {
+                                currentPath === "solution" &&
+                                <SolutionPage language={language} currentContent={content.solution} screen={screen} />
+                            }
+                            {
+                                currentPath === "about" &&
+                                <AboutUs language={language} currentContent={content.about} screen={screen} />
+                            }
+                            {
+                                currentPath === "markets" &&
+                                <MarketPage language={language} currentContent={content.markets} screen={screen} />
+                            }
+                            {
+                                currentPath === 'projects' ? subPath ?
+                                    <ProjectDetailPage language={language} contentOn={content.projectDetail} projectId={subPath} screen={screen} /> :
+                                    <ProjectPage language={language} currentContent={content.projects} screen={screen} /> : ""
+                            }
+                            {
+                                currentPath === "careers" ? subPath ?
+                                    <CareerDetailPage language={language} contentOn={content.careerDetails} careerId={subPath} screen={screen} /> :
+                                    <CareerPage language={language} currentContent={content.career} screen={screen} /> : ""
+                            }
+                            {
+                                currentPath === "news" ? subPath ?
+                                    <NewsBlogDetailPage language={language} contentOn={content.newsBlogsDetails} newsId={subPath} screen={screen} /> :
+                                    <NewsPage language={language} currentContent={content.newsBlogs} screen={screen} /> : ""
+                            }
 
-                        {/* sub pages */}
-                        {
-                            currentPath === "footer" &&
-                            <Footer language={language} currentContent={content.footer} screen={screen} />
-                        }
-                        {
-                            currentPath === "header" &&
-                            <Header language={language} currentContent={content.header} screen={screen} setLanguage={setLanguage} />
-                        }
-                        {
-                            currentPath === "testimonials" &&
-                            <Testimonials language={language} currentContent={content.footer} screen={screen} testimonyId={subPath} />
-                        }
-                        {
-                            currentPath === 'contactus-modal' &&
-                            <> 
-                                <ContactUsModal language={language} currentContent={content.contactUsModal} screen={screen} />
-                            </>
-                        }
+                            {/* sub pages */}
+                            {
+                                currentPath === "footer" &&
+                                <Footer language={language} currentContent={content.footer} screen={screen} />
+                            }
+                            {
+                                currentPath === "header" &&
+                                <Header language={language} currentContent={content.header} screen={screen} setLanguage={setLanguage} />
+                            }
+                            {
+                                currentPath === "testimonials" &&
+                                <Testimonials language={language} currentContent={content.footer} screen={screen} testimonyId={subPath} />
+                            }
+                            {
+                                currentPath === 'contactus-modal' &&
+                                <>
+                                    <ContactUsModal language={language} currentContent={content.contactUsModal} screen={screen} />
+                                </>
+                            }
 
+                        </div>
                     </div>
                 </div>
+
                 <Popups display={PopupReject} setClose={() => setPopupReject(false)} confirmationText={"Are you sure you want to reject"} />
                 <Popups display={PopupSubmit} setClose={() => setPopupSubmit(false)} confirmationText={"Are you sure you want to submit"} />
             </div>

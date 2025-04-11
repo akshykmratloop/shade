@@ -53,7 +53,7 @@ const SolutionPage = ({ language, screen }) => {
         <div className=" bankgothic-medium-dt pb-8" dir={language === 'en' ? 'ltr' : "rtl"}>
             {/** banner */}
             <section
-                className={`relative py-[8rem] w-full bg-cover bg-center ${isLeftAlign ? 'scale-x-[-1]' : ''} px-12 ${isPhone ? "h-screen" : ""}`}
+                className={`relative py-[8rem] w-full bg-cover bg-center ${isLeftAlign ? 'scale-x-[-1]' : ''} px-12 ${isPhone ? "h-screen/2" : ""}`}
                 style={{ backgroundImage: ImageFromRedux.bannerBackground ? `url(${ImageFromRedux.bannerBackground})` : 'url("https://frequencyimage.s3.ap-south-1.amazonaws.com/310398e2-856d-4e59-b0b0-10e811ca1f82-solution%20%281%29.png")' }}
             >
                 <div className="container h-full relative flex">
@@ -125,8 +125,8 @@ const SolutionPage = ({ language, screen }) => {
                     modules={[Navigation, Autoplay, EffectCoverflow]}
                     grabCursor={true}
                     centeredSlides={true}
-                    slidesPerView={3} // Adjust dynamically
-                    loop={currentContent?.gallery?.images?.length > 3} // Enable loop only if enough slides exist
+                    slidesPerView={isPhone ? 1 : 2} // Adjust dynamically
+                    loop={true} // Enable loop only if enough slides exist
                     spaceBetween={10}
                     onSwiper={(swiper) => {
                         setTimeout(() => {
@@ -144,8 +144,8 @@ const SolutionPage = ({ language, screen }) => {
                     }}
                     autoplay={{ delay: 2500, disableOnInteraction: false }} // Ensure autoplay works
                     breakpoints={{
-                        724: { slidesPerView: isPhone ? 1 : 2.2 },
-                        500: { slidesPerView: 2 },
+                        724: { slidesPerView: isPhone ? 1 : 2 },
+                        500: { slidesPerView: isPhone ? 1 : 2 },
                     }}
                 >
                     {(currentContent?.gallery?.images || []).map((image, index) => (
@@ -203,7 +203,7 @@ const SolutionPage = ({ language, screen }) => {
                     modules={[Navigation, Autoplay, EffectCoverflow]}
                     grabCursor={true}
                     centeredSlides={true}
-                    slidesPerView={3} // Adjust dynamically
+                    slidesPerView={isPhone ? 1 : 2} // Adjust dynamically
                     loop={currentContent?.gallery?.images?.length > 3} // Enable loop only if enough slides exist
                     spaceBetween={10}
                     onSwiper={(swiper) => {
@@ -222,8 +222,8 @@ const SolutionPage = ({ language, screen }) => {
                     }}
                     autoplay={{ delay: 2500, disableOnInteraction: false }} // Ensure autoplay works
                     breakpoints={{
-                        724: { slidesPerView: isPhone ? 1 : 2.2 },
-                        500: { slidesPerView: 2 },
+                        724: { slidesPerView: isPhone ? 1 : 2 },
+                        500: { slidesPerView: isPhone ? 1 : 2 },
                     }}
                 >
                     {currentContent?.gallery?.showcase.map(
