@@ -51,8 +51,8 @@ import { TruncateText } from "../../../../app/capitalizeword";
 
 const HomePage = ({ language, screen }) => {
     const isComputer = screen > 1100;
-    const isTablet = screen < 1100;
-    const isPhone = screen < 768;
+    const isTablet = screen < 1100 && screen > 730;
+    const isPhone = screen < 738;
     const dispatch = useDispatch();
     const currentContent = useSelector((state) => state.homeContent.present.home)
     const ImagesFromRedux = useSelector((state) => {
@@ -108,7 +108,8 @@ const HomePage = ({ language, screen }) => {
     return (
         <div className={`w-[100%] relative ${textAlignment} bankgothic-medium-dt bg-[white]`}   >
             {/* banner */}
-            <section className="w-full relative" >
+            <section className="w-full relative"
+            >
                 <span
                     className={`w-full block ${language === "en" ? "scale-x-100" : "scale-x-[-1]"
                         }`}
@@ -120,17 +121,17 @@ const HomePage = ({ language, screen }) => {
                         style={{ objectPosition: "center", transform: "scaleX(-1)", height: isTablet ? "500px" : isPhone && "500px" }} />
                 </span>
                 <div
-                    className={`container mx-auto absolute ${isComputer ? "top-[30%]" : "top-16"}  left-0 right-0 px-4`}>
+                    className={`container mx-auto absolute ${isComputer ? "top-[20%]" : "top-16"}  left-0 right-0 px-4`}>
                     <div className={`text-left flex flex-col ${language === "en" ? "items-start" : "items-end"} ${textAlignment} ${isPhone ? "px-[0px] py-10" : "px-[80px]"}`}>
-                        <h1 className={`text-[#292E3D] text-[35px]  leading-[2.5rem] capitalize font-[500] mb-4 ${isPhone ? "w-full" : "w-1/2"} ${(450 / 1182) * screen} `}
+                        <h1 className={`text-[#292E3D] text-[35px] tracking-[0px] leading-[2.5rem] capitalize font-[500] mb-4 ${isPhone ? "w-full" : "w-1/2"} ${(450 / 1182) * screen} `}
                         >
                             {currentContent?.homeBanner?.title[language]}
                         </h1>
-                        <p className={`text-[#0E172FB3] font-semibold leading-[16px] mb-6 ${isPhone ? "w-full text-[12px]" : "w-1/2 text-[10px]"} tracking-[2px]`}>
+                        <p className={`text-[#0E172FB3] font-semibold leading-[16px] mb-6 ${isPhone ? "w-full text-[12px]" : "w-1/2 text-[10px]"} tracking-[1px]`}>
                             {currentContent?.homeBanner?.description[language]}
                         </p>
                         <button
-                            className={`relative items-center flex ${isLeftAlign ? "" : "flex-row-reverse"} gap-1 text-[12px] font-medium px-[12px] py-[8px] px-[24px] bg-[#00b9f2] text-white rounded-md`}
+                            className={`relative items-center flex ${isLeftAlign ? "" : "flex-row-reverse"} gap-1 text-[12px] font-medium px-[12px] py-[6px] px-[12px] bg-[#00b9f2] text-white rounded-md`}
                             onClick={() => { }}
                         >
                             <span>{currentContent?.homeBanner?.buttonText[language]}</span>
@@ -195,12 +196,12 @@ const HomePage = ({ language, screen }) => {
                 </div>
             </section>
             {/* experience section */}
-            <section className={`py-[115px] "pb-[186px]" ${isComputer ? 'px-[100px]' : "px-[50px]"}`}>
+            <section className={`py-[115px] pb-[186px]  ${isComputer ? "px-20" : !isLeftAlign ? "px-8" : "px-10"}`} dir={isLeftAlign ? 'ltr' : "rtl"}>
                 <div
-                    className={`container mx-auto flex ${isPhone ? "flex-col" : isLeftAlign ? "" : "flex-row-reverse"} ${isComputer ? "gap-12" : isPhone ? "gap-1" : "gap-14"}`}>
-                    <div className={`w-10 ${isPhone ? 'h-[100px]' : ""} relative flex-1`}
+                    className={`container mx-auto flex ${isPhone ? "flex-col gap-[350px]" : "gap-10"} `}>
+                    <div className={`w-10 relative flex-1`}
                     >
-                        <div className={` ${isPhone ? "h-[290px]" : "relative"} ${isLeftAlign ? isTablet ? "left-[-1px]" : "left-[-25px]" : "left-[10px]"} top-[50px]`}>
+                        <div className={`relative ${ isTablet ? (!isLeftAlign ? "left-[-70px]" : "left-[15px]") :""} ${!isLeftAlign && isPhone && "left-[-310px]"}`}>
                             {currentContent?.experienceSection?.cards?.map((item, key) => {
                                 // Set top position based on whether key is odd or even
                                 const topValue = Math.floor(key / 2) * 140 + (key % 2 !== 0 ? -35 : 25); // Odd = move up, Even = move down
@@ -228,7 +229,7 @@ const HomePage = ({ language, screen }) => {
                             })}
                         </div>
                     </div>
-                    <div className={`max-w-[420px] ${isPhone ? "" : "pt-12"} flex-1`}>
+                    <div className={`max-w-[420px] ${isPhone ? "" : "pt-12"} ${isTablet ? !isLeftAlign ? "pr-[64px]" : "pl-[40px]" : ""}  flex-1 `}>
                         <h2 className="text-[#00B9F2] text-4xl font-bold leading-[50px] mb-6 ">
                             {currentContent?.experienceSection?.title[language]}
                         </h2>
@@ -245,15 +246,15 @@ const HomePage = ({ language, screen }) => {
                 </div>
             </section>
             {/* subProjects */}
-            <section className={`py-[58px] ${isPhone ? "px-4" : "px-8"} overflow-hidden relative`}>
-                <div className={`container mx-auto flex ${!isLeftAlign && 'flex-row-reverse'} border`}>
-                    <div className={`flex justify-end absolute top-[10px] ${isLeftAlign ? "right-7" : "left-7"}`}>
+            <section className={`py-[58px] ${isPhone ? "px-2" : "px-8"} overflow-hidden relative `} dir={isLeftAlign? 'ltr' : 'rtl'}>
+                <div className={`container mx-auto flex  ${!isLeftAlign && 'flex-row-reverse'} ${!isLeftAlign && isTablet && "pl-[200px]"}`}>
+                    <div className={`flex justify-end absolute top-[10px]   ${isLeftAlign ? "right-7" : "left-7"}`}>
                         {activeRecentProjectSection === 2 ? (
                             ""
                         ) : (
                             <button
                                 type="button"
-                                className={`relative bg-transparent border-none text-[#667085] text-right text-[16px] leading-[24px] cursor-pointer flex gap-2 items-center ${!isLeftAlign && "flex-row-reverse"}`}
+                                className={`relative bg-transparent border-none text-[#667085] text-right text-[16px] leading-[24px] cursor-pointer flex gap-2 items-center `}
                                 onClick={() => { }}
                             >
                                 {
@@ -269,8 +270,10 @@ const HomePage = ({ language, screen }) => {
                             </button>
                         )}
                     </div>
-                    <div className={`flex ${isTablet ? isPhone ? "gap-[20px]" : "gap-[70px]" : "gap-[30px]"} `}>
-                        <div className="leftDetails min-w-[150px]">
+
+
+                    <div className={`flex ${isTablet ? isPhone ? "gap-[20px]" : "gap-[30px]" : "gap-[30px]"} ${isLeftAlign && "pr-20"}`}>
+                        <div className={`leftDetails min-w-[150px]  ${isTablet&&"w-[180px]"}`}>
                             {currentContent?.recentProjectsSection?.sections?.map((section, index) => (
                                 <div
                                     key={index}
@@ -303,11 +306,11 @@ const HomePage = ({ language, screen }) => {
                             ))}
                         </div>
 
-                        <div className="w-[600px]">
+                        <div className={`${isPhone ? "w-[220px]" : isTablet ? "w-[300px]" : "w-[600px]"} `}>
                             <Swiper
                                 key={language}
                                 modules={[Pagination, Navigation]}
-                                className="mySwiper w-[722px] pb-[65px]"
+                                className={`mySwiper w-[722px]  pb-[65px]`}
 
                                 navigation={{
                                     prevEl: prevRef.current,
@@ -323,7 +326,7 @@ const HomePage = ({ language, screen }) => {
                             >
                                 {projectChunks?.map((chunk, slideIndex) => (
                                     <SwiperSlide key={slideIndex}>
-                                        <div className={`${isPhone ? "flex flex-col" : "grid grid-cols-2 gap-[12px] w-[600px]"}`}
+                                        <div className={`${isPhone ? "flex flex-col" : `grid grid-cols-2 gap-[12px] ${isTablet ? "w-[350px] " : "w-[600px]"}`}`}
                                             style={{ width: isComputer ? "" : isPhone ? `${(600 / 1180) * screen}px` : `${(750 / 1180) * screen}px`, gap: isComputer ? "" : `${(40 / 1180) * screen}px` }}
                                         >
                                             {chunk?.map((project, cardIndex) => {
@@ -367,11 +370,11 @@ const HomePage = ({ language, screen }) => {
 
                             {/* Custom buttons */}
                             <div
-                                className={`flex items-center justify-between relative mt-8 font-sans ${!isLeftAlign && 'flex-row-reverse'}`}
+                                className={`flex items-center justify-between relative mt-8 font-sans`}
                                 style={{ width: isComputer ? "" : isPhone ? "220px" : `${(400 / 1180) * screen}px` }}
                             // ${projectChunks?.length <= 1 ? 'hidden' : ''}
                             >
-                                <button ref={prevRef} className={`py-[12px] px-[20px] text-[#00B9F2] text-md font-medium border-[1px] border-[#00B9F2] rounded-[6px] flex items-center ${isPhone ? "w-[120px]" : "min-w-[246px]"} justify-center ${language === "ar" && "flex-row-reverse"} bg-white text-primary transition-all duration-200`}>
+                                <button ref={prevRef} className={`py-[12px] px-[20px] text-[#00B9F2] text-md font-medium border-[1px] border-[#00B9F2] rounded-[6px] flex gap-2 items-center ${isPhone ? "w-[120px]" : "min-w-[246px]"} justify-center  bg-white transition-all duration-200`}>
                                     <img
                                         src="https://frequencyimage.s3.ap-south-1.amazonaws.com/b2872383-e9d5-4dd7-ae00-8ae00cc4e87e-Vector%20%286%29.svg"
                                         width="18"
@@ -379,16 +382,15 @@ const HomePage = ({ language, screen }) => {
                                         alt=""
                                         className={`w-[18px] h-[17px] ${language === "en" && 'transform scale-x-[-1]'}`}
                                     />
-                                    &nbsp;
+                                    
                                     {!isPhone &&
                                         currentContent?.recentProjectsSection?.buttons[1]?.text[language]
                                     }
                                 </button>
-                                <button ref={nextRef} className={`py-[12px] px-[20px] text-[#00B9F2] text-md font-medium border-[1px] border-[#00B9F2] rounded-[6px] flex items-center ${isPhone ? "w-[120px]" : "min-w-[246px]"} justify-center ${language === "ar" && "flex-row-reverse"} bg-white text-primary transition-all duration-200`}>
+                                <button ref={nextRef} className={`py-[12px] px-[20px] text-[#00B9F2] text-md font-medium border-[1px] border-[#00B9F2] rounded-[6px] flex gap-2 items-center ${isPhone ? "w-[120px]" : "min-w-[246px]"} justify-center bg-white transition-all duration-200`}>
                                     {!isPhone &&
                                         currentContent?.recentProjectsSection?.buttons[2]?.text[language]
-                                    }{" "}
-                                    &nbsp;
+                                    }
                                     <img
                                         src="https://frequencyimage.s3.ap-south-1.amazonaws.com/de8581fe-4796-404c-a956-8e951ccb355a-Vector%20%287%29.svg"
                                         width="18"

@@ -74,11 +74,11 @@ const Footer = ({ language, screen }) => {
                                 {link[language]}
                             </p>
                         ))}
-                        <h6 className="text-white text-base text-xs font-medium">
+                        <h6 className="text-white text-base text-xs font-medium w-[50%]">
                             {currentContent?.["Section 4"]?.links[2]?.[language]}
                         </h6>
                         <button
-                            className="px-5 py-2 bg-[#00b9f2] text-white rounded-lg"
+                            className="px-5 py-2 bg-[#00b9f2] text-white rounded-lg shadow-sm shadow-stone-100/50"
                             onClick={() => setIsModal(true)}
                         >
                             {currentContent?.["Section 4"]?.links[3]?.[language]}
