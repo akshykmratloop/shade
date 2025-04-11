@@ -47,11 +47,11 @@ const Footer = ({ language, screen }) => {
                     style={{ backgroundImage: `url(${foot_layer1})` }} />
                 <span className="absolute bottom-0 left-0 w-[200px] h-[180px] bg-no-repeat bg-contain bg-full bg-center z-[-1] "
                     style={{ backgroundImage: `url(${foot_layer})` }} />
-                <div className="flex flex-col items-center gap-6 text-center mb-10 ">
+                <div className="flex flex-col items-center gap-6 text-center mb-10 px-[80px]">
                     <div>
                         <img src={imageFromRedux.footerIcon ? imageFromRedux.footerIcon : Logo} alt="Logo" width={138} height={138} />
                     </div>
-                    <p className="text-white text-xs font-medium leading-8">{currentContent?.companyInfo?.address[language]}</p>
+                    <p className="text-white text-xs font-medium leading-5">{currentContent?.companyInfo?.address[language]}</p>
                 </div>
                 <div dir={isLeftAlign ? "ltr" : "rtl"} className={`flex flex-wrap justify-between ${isPhone && "flex-col"} gap-4 px-8 mb-12`}>
                     {["Section 1", "Section 2", "Section 3"].map((section) => (

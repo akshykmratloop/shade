@@ -39,7 +39,7 @@ const FooterManager = ({ language, currentContent, currentPath }) => {
                     currentPath={currentPath}
                     Heading={"Section 1"}
                     inputs={[
-                        { input: "input", label: "Title", updateType: "title" },
+                        { input: "input", label: "Title", updateType: "title",  maxLength: 25 },
                     ]}
                     section={"Section 1"}
                     language={language}
@@ -53,7 +53,7 @@ const FooterManager = ({ language, currentContent, currentPath }) => {
                             currentPath={currentPath}
                             subHeading={"Item " + (index + 1)}
                             inputs={[
-                                { input: "input", label: "Label", updateType: language },
+                                { input: "input", label: "Label", updateType: language, maxLength: 25 },
                                 { input: "input", label: "Url", updateType: "url" }
                             ]}
                             language={language}
@@ -75,7 +75,7 @@ const FooterManager = ({ language, currentContent, currentPath }) => {
                     currentPath={currentPath}
                     Heading={"Section 2"}
                     inputs={[
-                        { input: "input", label: "Title", updateType: "title" },
+                        { input: "input", label: "Title", updateType: "title",  maxLength: 25 },
                     ]}
                     section={"Section 2"}
                     language={language}
@@ -89,7 +89,7 @@ const FooterManager = ({ language, currentContent, currentPath }) => {
                             currentPath={currentPath}
                             subHeading={"Item " + (index + 1)}
                             inputs={[
-                                { input: "input", label: "Label", updateType: language },
+                                { input: "input", label: "Label", updateType: language,  maxLength: 25 },
                                 { input: "input", label: "Url", updateType: "url" }
                             ]}
                             language={language}
@@ -111,7 +111,7 @@ const FooterManager = ({ language, currentContent, currentPath }) => {
                     currentPath={currentPath}
                     Heading={"Sections 3"}
                     inputs={[
-                        { input: "input", label: "Title", updateType: "title" },
+                        { input: "input", label: "Title", updateType: "title",  maxLength: 22 },
                     ]}
                     section={"Section 3"}
                     language={language}
@@ -125,7 +125,7 @@ const FooterManager = ({ language, currentContent, currentPath }) => {
                             currentPath={currentPath}
                             subHeading={"Item " + (index + 1)}
                             inputs={[
-                                { input: "input", label: "Label", updateType: language },
+                                { input: "input", label: "Label", updateType: language,  maxLength: 22 },
                                 { input: "input", label: "Url", updateType: "url" }
                             ]}
                             language={language}
@@ -145,7 +145,7 @@ const FooterManager = ({ language, currentContent, currentPath }) => {
                     currentPath={currentPath}
                     Heading={"Sections 4"}
                     inputs={[
-                        { input: "input", label: "Title", updateType: "title" },
+                        { input: "input", label: "Title", updateType: "title",  maxLength: 22 },
                     ]}
                     section={"Section 4"}
                     language={language}
@@ -159,7 +159,7 @@ const FooterManager = ({ language, currentContent, currentPath }) => {
                             currentPath={currentPath}
                             subHeading={"Item " + (index + 1)}
                             inputs={[
-                                { input: "input", label: "Label", updateType: language },
+                                { input: "input", label: "Label", updateType: language,  maxLength: 22 },
                                 { input: "input", label: "Url", updateType: "url" }
                             ]}
                             language={language}
