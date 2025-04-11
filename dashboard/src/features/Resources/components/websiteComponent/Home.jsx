@@ -348,9 +348,9 @@ const HomePage = ({ language, screen }) => {
                                                         <div className="p-[18px_12px_12px_12px] flex flex-col justify-center items-start gap-[16px] bg-[#00B9F2]">
                                                             <h5
                                                                 title={project?.title[language]}
-                                                                className="text-white text-[20px] font-semibold leading-[normal] h-[40px]"
+                                                                className={`text-white text-[20px] font-semibold  h-[40px] ${!isComputer && "mb-2"}`}
                                                             >
-                                                                {TruncateText(project?.title[language], 45)}
+                                                                {TruncateText(project?.title[language], !isComputer? 20: 45)}
                                                             </h5>
                                                             <p
                                                                 title={project?.subtitle[language]}
