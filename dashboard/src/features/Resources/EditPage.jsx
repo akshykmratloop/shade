@@ -127,9 +127,11 @@ const EditPage = () => {
                         containerStyle={"mb-4"}
                         minHeight={"3.2rem"}
                     />
-                    <div className={`border border-cyan-500 w-full ${fullScreen && "fixed top-0 left-0 z-50 w-screen h-screen "} overflow-y-scroll customscroller`}>
-                        <CloseModalButton />
-                        <div className={` dark:text-[#2A303C]  transition-custom border-stone-200 border mx-auto w-full bankgothic-medium-dt bg-[white]`}
+                    <div className={`border border-cyan-500 ${fullScreen && "fixed bg-stone-800/70 top-0 left-0 z-50 h-screen"} overflow-y-scroll customscroller`}>
+                        <div className={`fixed z-50 top-2 right-2 ${!fullScreen&&"hidden"}`}>
+                            <CloseModalButton onClickClose={() => setFullScreen(false)} />
+                        </div>
+                        <div className={`dark:text-[#2A303C]${fullScreen && "scale-2"} transition-custom border-stone-200 border mx-auto w-full bankgothic-medium-dt bg-[white]`}
                             style={{ width: screen > 1000 ? "" : screen, wordBreak: "break-word" }}
                         >
                             {
@@ -183,7 +185,6 @@ const EditPage = () => {
                                     <ContactUsModal language={language} currentContent={content.contactUsModal} screen={screen} />
                                 </>
                             }
-
                         </div>
                     </div>
                 </div>

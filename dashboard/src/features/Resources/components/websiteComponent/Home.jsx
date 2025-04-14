@@ -4,61 +4,30 @@ import Arrow from "../../../../assets/icons/right-wrrow.svg";
 import AboutUs from "../../../../assets/images/aboutus.png";
 import background from "../../../../assets/images/Hero.png";
 import highlightsvg from "../../../../assets/highlight.svg"
-import {
-    services,
-    experience,
-    recentProjects,
-    markets,
-    safety,
-    clients,
-    testimonials,
-} from "../../../../assets/index";
+import { services, experience, recentProjects, markets, safety, clients, testimonials, } from "../../../../assets/index";
 import content from './content.json'
 import { updateContent } from "../../../common/homeContentSlice";
 import { Swiper, SwiperSlide } from "swiper/react";
-import {
-    Pagination,
-    Navigation,
-    Autoplay,
-    EffectCoverflow,
-} from "swiper/modules";
+import { Pagination, Navigation, Autoplay, EffectCoverflow, } from "swiper/modules";
 import "swiper/css/navigation";
-// Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
-// import { useGlobalContext } from "../../contexts/GlobalContext";
 import blankImage from "../../../../assets/images/blankImage.webp";
 import { isPlainObject } from "@reduxjs/toolkit";
 import { TruncateText } from "../../../../app/capitalizeword";
-// import dynamic from 'next/dynamic';
-// const AnimatedText = dynamic(() => import('@/common/AnimatedText'), { ssr: false });
-// import ContactUsModal from "../header/ContactUsModal";
-// import patch from "../../contexts/svg/path.jsx";
-// // Font files can be colocated inside of `app`
-// const BankGothic = localFont({
-//   src: "../../../public/font/BankGothicLtBTLight.ttf",
-//   display: "swap",
-// });
-// import Card from "./Card"; // Adjust the path accordingly
-// import styles from "./Home.module.scss";
-// import button from "@/common/button";
-// import Image from "next/image";
-// import Client from "../../assets/icons/client.svg";
-// import required modules
-// import localFont from "next/font/local";
 
 
 
 const HomePage = ({ language, screen }) => {
+    const FullContextRef = useRef(null)
     const isComputer = screen > 1100;
     const isTablet = screen < 1100 && screen > 730;
     const isPhone = screen < 738;
+    const [currentWidth, setCurrentWidth] = useState(0)
     const dispatch = useDispatch();
     const currentContent = useSelector((state) => state.homeContent.present.home)
-    const ImagesFromRedux = useSelector((state) => {
-        return state.homeContent.present.images
-    })
-    const [isModal, setIsModal] = useState(false);
+    const ImagesFromRedux = useSelector((state) => state.homeContent.present.images)
+    // const [isModal, setIsModal] = useState(false);
     const [swiperInstance, setSwiperInstance] = useState(null);
     let isLeftAlign = language === "en"
     let textAlignment = isLeftAlign ? "text-left" : "text-right"
@@ -90,23 +59,19 @@ const HomePage = ({ language, screen }) => {
     useEffect(() => {
         dispatch(updateContent({ currentPath: "home", payload: (content?.home) }))
     }, [])
-    //   const { language, content } = useGlobalContext();
-    // const styles = ''
-    // const currentContent = content?.home;
-    // // Create refs for the navigation buttons
+
+    useEffect(() => {
+        if (FullContextRef.current) {
+            const divWidth = FullContextRef.current.getBoundingClientRect().width;
+            setCurrentWidth(divWidth);
+        }
+    }, []);
+
     const testimonialPrevRef = useRef(null);
     const testimonialNextRef = useRef(null);
-    // const redirectionUrlForRecentProject = ["/project", "/market", "/"];
-    // // Helper function to chunk array into groups of 4
 
-    // const handleContactUSClose = () => {
-    //     setIsModal(false);
-    // };
-
-    // // Inside your component, before the return statement:
-    // console.log(currentContent?.recentProjectsSection);
     return (
-        <div className={`w-[100%] relative ${textAlignment} bankgothic-medium-dt bg-[white]`}   >
+        <div className={`w-[100%] relative ${textAlignment} bankgothic-medium-dt bg-[white]`} ref={FullContextRef}  >
             {/* banner */}
             <section className="w-full relative"
             >
@@ -201,7 +166,7 @@ const HomePage = ({ language, screen }) => {
                     className={`container mx-auto flex ${isPhone ? "flex-col gap-[350px]" : "gap-10"} `}>
                     <div className={`w-10 relative flex-1`}
                     >
-                        <div className={`relative ${ isTablet ? (!isLeftAlign ? "left-[-70px]" : "left-[15px]") :""} ${!isLeftAlign && isPhone && "left-[-310px]"}`}>
+                        <div className={`relative ${isTablet ? (!isLeftAlign ? "left-[-70px]" : "left-[15px]") : ""} ${!isLeftAlign && isPhone && "left-[-310px]"}`}>
                             {currentContent?.experienceSection?.cards?.map((item, key) => {
                                 // Set top position based on whether key is odd or even
                                 const topValue = Math.floor(key / 2) * 140 + (key % 2 !== 0 ? -35 : 25); // Odd = move up, Even = move down
@@ -238,7 +203,7 @@ const HomePage = ({ language, screen }) => {
                         </p>
                         <button
                             className={`text-white bg-[#00B9F2] px-[12px] py-1 text-sm text-lg rounded-md ${language === "ar" ? '!px-4' : ''}`}
-                            onClick={() => setIsModal(true)}
+                            // onClick={() => setIsModal(true)}
                         >
                             {currentContent?.experienceSection?.buttonText?.[language]}
                         </button>
@@ -246,7 +211,7 @@ const HomePage = ({ language, screen }) => {
                 </div>
             </section>
             {/* subProjects */}
-            <section className={`py-[58px] ${isPhone ? "px-2" : "px-8"} overflow-hidden relative `} dir={isLeftAlign? 'ltr' : 'rtl'}>
+            <section className={`py-[58px] ${isPhone ? "px-2" : "px-8"} overflow-hidden relative `} dir={isLeftAlign ? 'ltr' : 'rtl'}>
                 <div className={`container mx-auto flex  ${!isLeftAlign && 'flex-row-reverse'} ${!isLeftAlign && isTablet && "pl-[200px]"}`}>
                     <div className={`flex justify-end absolute top-[10px]   ${isLeftAlign ? "right-7" : "left-7"}`}>
                         {activeRecentProjectSection === 2 ? (
@@ -273,7 +238,7 @@ const HomePage = ({ language, screen }) => {
 
 
                     <div className={`flex ${isTablet ? isPhone ? "gap-[20px]" : "gap-[30px]" : "gap-[30px]"} ${isLeftAlign && !isComputer && "pr-20"}`}>
-                        <div className={`leftDetails min-w-[150px]   ${isTablet&&"w-[180px]"}`}>
+                        <div className={`leftDetails min-w-[150px]   ${isTablet && "w-[180px]"}`}>
                             {currentContent?.recentProjectsSection?.sections?.map((section, index) => (
                                 <div
                                     key={index}
@@ -350,7 +315,7 @@ const HomePage = ({ language, screen }) => {
                                                                 title={project?.title[language]}
                                                                 className={`text-white text-[20px] font-semibold  h-[40px] ${!isComputer && "mb-2"}`}
                                                             >
-                                                                {TruncateText(project?.title[language], !isComputer? 20: 45)}
+                                                                {TruncateText(project?.title[language], !isComputer ? 20 : 45)}
                                                             </h5>
                                                             <p
                                                                 title={project?.subtitle[language]}
@@ -382,7 +347,7 @@ const HomePage = ({ language, screen }) => {
                                         alt=""
                                         className={`w-[18px] h-[17px] ${language === "en" && 'transform scale-x-[-1]'}`}
                                     />
-                                    
+
                                     {!isPhone &&
                                         currentContent?.recentProjectsSection?.buttons[1]?.text[language]
                                     }
@@ -610,7 +575,7 @@ const HomePage = ({ language, screen }) => {
                         </p>
                         <button
                             className="bg-[#00B9F2] text-xs text-white px-4 py-2 text-lg mt-11 mx-auto block rounded"
-                            onClick={() => setIsModal(true)}
+                            // onClick={() => setIsModal(true)}
                         >
                             {currentContent?.newProjectSection?.button?.[language]}
                         </button>
