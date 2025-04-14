@@ -12,6 +12,7 @@ import CareerDetailPage from "./websiteComponent/CareersDetails";
 import NewsBlogDetailPage from "./websiteComponent/NewsDetails";
 import Testimonials from "./websiteComponent/Testimonials";
 import ContactUsModal from "./websiteComponent/ContactUsModal";
+import Services from "./websiteComponent/Service";
 
 const AllForOne = ({ language, screen, content, subPath, setLanguage, fullScreen, currentPath }) => {
     let translateForFullScreen = "translate-y-[950px]"
@@ -98,6 +99,10 @@ const AllForOne = ({ language, screen, content, subPath, setLanguage, fullScreen
             {
                 currentPath === "about" &&
                 <AboutUs language={language} currentContent={content.about} screen={screen} />
+            }
+            {
+                currentPath === "service" &&
+                <Services language={language} currentContent={content.services} screen={screen} />
             }
             {
                 currentPath === "markets" &&

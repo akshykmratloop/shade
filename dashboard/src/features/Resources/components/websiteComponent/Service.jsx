@@ -1,62 +1,46 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 // import styles from "@/components/services/services.module.scss";
 import Arrow from "../../../../assets/icons/right-wrrow.svg"; ///assets/icons/right-wrrow.svg
 import { useDispatch } from "react-redux";
+import content from "./content.json"
+import { updateContent } from "../../../common/homeContentSlice";
 
-// Font files can be colocated inside of `app`
-// const BankGothic = localFont({
-//   src: "../../../public/font/BankGothicLtBTLight.ttf",
-//   display: "swap",
-// });
-// import dynamic from 'next/dynamic';
-// import localFont from "next/font/local";
-// import Button from "@/common/Button";
-// import Image from "next/image";
-// import { useTruncate } from '@/common/useTruncate';
-// import patch from "../../contexts/svg/path.jsx";
-
-// const AnimatedText = dynamic(() => import('@/common/AnimatedText'), { ssr: false });
-// import { useGlobalContext } from "../../contexts/GlobalContext";
-// const ContactUsModal = dynamic(() => import('../header/ContactUsModal'), { ssr: false });
-
-const Services = ({currentContent, screen, language}) => {
-    const isLeftAligned = language === 'en'
+const Services = ({ currentContent, screen, language }) => {
+    const isLeftAlign = language === 'en'
     const dispatch = useDispatch()
-    // const { language, content } = useGlobalContext();
-    // const currentContent = content?.services;
-    // const [isModal, setIsModal] = useState(false);
-    // const handleContactUSClose = () => {currentPath
-    //     setIsModal(false);
-    // };
 
-    
+
+
+    useEffect(() => {
+        dispatch(updateContent({ currentPath: "services", payload: (content?.services) }))
+    }, [])
     return (
-        <div>
-
+        <div className="">
             <section
-                className={`relative w-full h-[715px] bg-cover bg-center ${isLeftAligned ? 'scale-x-[-1]' : ''}`}
+                className={`relative w-full py-[100px] px-10 bg-cover bg-center ${isLeftAlign ? 'scale-x-[-1]' : ''}`}
                 style={{ backgroundImage: "url('https://loopwebsite.s3.ap-south-1.amazonaws.com/Hero+(4).png')" }}
             >
                 <div className="container relative h-full flex items-center justify-end">
-                    <div className={`${isLeftAligned ? 'scale-x-[-1] text-left' : 'text-right'} w-1/2 space-y-4 p-6`}>
-                        <h1 className="text-black text-[70px] font-medium leading-[77px] tracking-[-3.5px] mb-4">
+                    <div className={`${isLeftAlign ? 'scale-x-[-1] text-left' : 'text-right'} w-1/2 space-y-4 p-6 flex flex-col ${isLeftAlign?"items-start":"items-end"}`}>
+                        <h1 className="text-black text-[45px] font-medium leading-[77px] tracking-[-3.5px] mb-4">
                             {currentContent?.banner?.title[language]}
                         </h1>
-                        <p className="text-para-light text-[16px] font-semibold leading-[26px] w-[50%] word-spacing-5">
+                        <p className="text-para-light text-[12px] font-semibold leading-[26px]  word-spacing-5">
                             {currentContent?.banner?.description[language]}
                         </p>
                         <button
-                            className={`relative flex items-center px-14 py-4 text-[18px] font-medium bg-gray-200 rounded ${isLeftAligned ? 'scale-x-[-1]' : ''}`}
-                        // onClick={() => router.push('/project')}
+                            className={`relative items-center flex ${isLeftAlign ? "" : "flex-row-reverse"} gap-1 text-[12px] font-medium px-[12px] py-[6px] px-[12px] bg-[#00b9f2] text-white rounded-md`}
+                            onClick={() => { }}
                         >
+                            {currentContent?.banner?.button?.text[language]}
+
                             <img
                                 src={Arrow}
-                                width={18}
-                                height={17}
-                                alt="Arrow"
-                                className="absolute left-8 top-1/2 transform -translate-y-1/2"
+                                width="10"
+                                height="11"
+                                alt=""
+                                style={{ transform: isLeftAlign ? "rotate(180deg)" : "" }}
                             />
-                            {currentContent?.banner?.button?.text[language]}
                         </button>
                     </div>
                 </div>

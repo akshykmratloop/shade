@@ -23,30 +23,10 @@ import {
     EffectCoverflow,
 } from "swiper/modules";
 import "swiper/css/navigation";
-// Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
-// import { useGlobalContext } from "../../contexts/GlobalContext";
 import blankImage from "../../../../assets/images/blankImage.webp";
-import { isPlainObject } from "@reduxjs/toolkit";
 import { TruncateText } from "../../../../app/capitalizeword";
-import font from "../../../../app/fontSizes";
-// import dynamic from 'next/dynamic';
-// const AnimatedText = dynamic(() => import('@/common/AnimatedText'), { ssr: false });
-// import ContactUsModal from "../header/ContactUsModal";
-// import patch from "../../contexts/svg/path.jsx";
-// // Font files can be colocated inside of `app`
-// const BankGothic = localFont({
-//   src: "../../../public/font/BankGothicLtBTLight.ttf",
-//   display: "swap",
-// });
-// import Card from "./Card"; // Adjust the path accordingly
-// import styles from "./Home.module.scss";
-// import button from "@/common/button";
-// import Image from "next/image";
-// import Client from "../../assets/icons/client.svg";
-// import required modules
-// import localFont from "next/font/local";
 
 
 
@@ -91,20 +71,8 @@ const HomePage = ({ language, screen, fullScreen }) => {
     useEffect(() => {
         dispatch(updateContent({ currentPath: "home", payload: (content?.home) }))
     }, [])
-    //   const { language, content } = useGlobalContext();
-    // const styles = ''
-    // const currentContent = content?.home;
-    // // Create refs for the navigation buttons
     const testimonialPrevRef = useRef(null);
     const testimonialNextRef = useRef(null);
-    // const redirectionUrlForRecentProject = ["/project", "/market", "/"];
-    // // Helper function to chunk array into groups of 4
-    // const handleContactUSClose = () => {
-    //     setIsModal(false);
-    // };
-
-    // // Inside your component, before the return statement:
-    // console.log(currentContent?.recentProjectsSection);
     return (
         <div className={`w-full relative ${textAlignment} bankgothic-medium-dt bg-[white]`}   >
             {/* banner */}
@@ -201,7 +169,7 @@ const HomePage = ({ language, screen, fullScreen }) => {
                     className={`container mx-auto flex ${isPhone ? "flex-col gap-[350px]" : "gap-10"} `}>
                     <div className={`w-10 relative flex-1`}
                     >
-                        <div className={`relative ${isTablet ? (!isLeftAlign ? "left-[-70px]" : "left-[15px]") : isComputer&&"left-[60px] scale-[1.2]"} ${!isLeftAlign && isPhone && "left-[-310px]"}`}>
+                        <div className={`relative ${isTablet ? (!isLeftAlign ? "left-[-70px]" : "left-[15px]") : isComputer && "left-[60px] scale-[1.2]"} ${!isLeftAlign && isPhone && "left-[-310px]"}`}>
                             {currentContent?.experienceSection?.cards?.map((item, key) => {
                                 // Set top position based on whether key is odd or even
                                 const topValue = Math.floor(key / 2) * 140 + (key % 2 !== 0 ? -35 : 25); // Odd = move up, Even = move down
@@ -619,43 +587,7 @@ const HomePage = ({ language, screen, fullScreen }) => {
                     </div>
                 </div>
             </section>
-            {/* <ContactUsModal isModal={isModal} onClose={handleContactUSClose} /> */}
-
-
         </div>)
 };
-
-// <section className={styles.new_project_wrapper}>
-//     <div className={`container ${styles.main_container}`}>
-//         <div className={styles.Client_content}>
-//             <h2 className={`${styles.title}`}>
-//                 {currentContent?.newProjectSection?.title[language]}
-//             </h2>
-//             <p className={`${styles.description}  `}>
-//                 {currentContent?.newProjectSection?.description1[
-//                     language
-//                 ].replace(
-//                     currentContent?.newProjectSection?.highlightedText[language],
-//                     `"${currentContent?.newProjectSection?.highlightedText[language]}"`
-//                 )}
-
-//                 <i className={language === "ar" && styles.arabicVersion}>
-//                     {/* {patch()} */}
-//                 </i>
-//             </p>
-//             <p className={`${styles.description}  `}>
-//                 {currentContent?.newProjectSection?.description2[language]}
-//             </p>
-//             <button
-//                 className={styles.view_btn}
-//                 onClick={() => setIsModal(true)}
-//             >
-//                 {currentContent?.newProjectSection?.button?.text[language]}
-//             </button>
-//         </div>
-//     </div>
-// </section>
-//     );
-// };
 
 export default HomePage;
