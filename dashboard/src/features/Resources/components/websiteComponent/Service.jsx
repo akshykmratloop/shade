@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
-// import styles from "@/components/services/services.module.scss";
 import Arrow from "../../../../assets/icons/right-wrrow.svg"; ///assets/icons/right-wrrow.svg
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import content from "./content.json"
 import { updateContent } from "../../../common/homeContentSlice";
 import { services, projectPageData } from "../../../../assets/index";
@@ -10,7 +9,8 @@ const Services = ({ currentContent, screen, language }) => {
     const isComputer = screen > 900;
     const isTablet = screen < 900 && screen > 730;
     const isPhone = screen < 738;
-    const isLeftAlign = language === 'en'
+    const isLeftAlign = language === 'en';
+    const ImagesFromRedux = useSelector(state => state.homeContent.present.images);
     const dispatch = useDispatch()
 
 
@@ -22,7 +22,7 @@ const Services = ({ currentContent, screen, language }) => {
         <div className="">
             <section
                 className={`relative w-full py-[100px] ${isPhone ? "px-8" : "px-10"} bg-cover bg-center ${isLeftAlign ? 'scale-x-[-1]' : ''}`}
-                style={{ backgroundImage: `linear-gradient(to right,#00000020 30%,#fffffffb 100%) ,url("${services.contructionTowerImage}")`, backgroundPosition: "bottom" }}
+                style={{ backgroundImage: `linear-gradient(to right,#00000020 30%,#fffffffb 100%) ,url("${ImagesFromRedux?.['ServiceBanner'] || services.contructionTowerImage}")`, backgroundPosition: "bottom" }}
             >
                 <div className="container relative h-full flex items-center justify-end">
                     <div className={`${isLeftAlign ? 'scale-x-[-1] text-left' : 'text-right'} ${isPhone ? "w-4/5" : isTablet ? "w-2/3" : "w-1/2"} space-y-4 p-6 flex flex-col ${isLeftAlign ? "items-start" : "items-end"}`}>
@@ -36,7 +36,7 @@ const Services = ({ currentContent, screen, language }) => {
                             className={`relative items-center flex ${isLeftAlign ? "" : "flex-row-reverse"} gap-1 text-[12px] font-medium px-[12px] py-[6px] px-[12px] bg-[#00b9f2] text-white rounded-md`}
                             onClick={() => { }}
                         >
-                            {currentContent?.banner?.button?.text[language]}
+                            {currentContent?.banner?.button?.[language]}
 
                             <img
                                 src={Arrow}
@@ -50,7 +50,7 @@ const Services = ({ currentContent, screen, language }) => {
                 </div>
             </section>
             <section dir={isLeftAlign ? 'ltr' : 'rtl'}
-                className={` grid ${isPhone ? " py-[80px] grid-cols-1" : "py-[20px] grid-cols-2"} ${isTablet ? "px-[60px]" : isPhone ? "px-[40px]" : "px-[100px]"} gap-x-[28px] gap-y-10 auto-rows-fr`}>
+                className={`grid ${isPhone ? " py-[80px] grid-cols-1" : "py-[20px] grid-cols-2"} ${isTablet ? "px-[60px]" : isPhone ? "px-[40px]" : "px-[100px]"} gap-x-[28px] gap-y-10 auto-rows-fr`}>
                 {currentContent?.serviceCards?.map((service, idx) => (
                     <article
                         key={idx}
@@ -77,11 +77,12 @@ const Services = ({ currentContent, screen, language }) => {
                 ))}
             </section>
 
-            <div className="flex justify-center py-10" >
-                <button className="bg-[#00B9F2] text-[#fff] p-[11px] rounded-[6px]">
-                    {currentContent?.button?.[language]}
-                </button>
-            </div>
+            {!(currentContent?.serviceCards.lenght > 6) &&
+                < div className="flex justify-center py-10" >
+                    <button className="bg-[#00B9F2] text-[#fff] p-[11px] rounded-[6px]">
+                        {currentContent?.button?.[language]}
+                    </button>
+                </div>}
 
         </div >
     );

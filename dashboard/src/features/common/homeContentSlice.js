@@ -165,6 +165,8 @@ const cmsSlice = createSlice({
                         state.present[action.payload?.currentPath][action.payload.projectId - 1][action.payload.section][action.payload.title][action.payload.lan] = action.payload.value;
                     }
                 } else {
+                    console.log("Qwerqwasvkmb hjdsavrweq")
+                    // console.log(currentContent)
                     state.present[action.payload?.currentPath][action.payload.section][action.payload.title][action.payload.lan] = action.payload.value;
                 }
             }

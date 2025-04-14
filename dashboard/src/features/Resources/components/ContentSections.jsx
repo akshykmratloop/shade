@@ -129,6 +129,7 @@ const ContentSection = ({
                         if (careerId) {
 
                         } else {
+                           
                             valueExpression = currentContent?.[section]?.[input.updateType]?.[language];
                         }
                     }

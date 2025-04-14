@@ -40,6 +40,7 @@ import TestimonyManager from "./components/contentmanager/TestimonyManager";
 import ContactUsModal from "./components/websiteComponent/ContactUsModal";
 import CloseModalButton from "../../components/Button/CloseButton";
 import AllForOne from "./components/AllForOne";
+import ServiceManager from "./components/contentmanager/ServiceManager";
 
 const EditPage = () => {
     const dispatch = useDispatch();
@@ -81,6 +82,10 @@ const EditPage = () => {
                     {
                         currentPath === "about" &&
                         <AboutManager language={language} currentContent={content.about} currentPath={currentPath} />
+                    }
+                    {
+                        currentPath === "services" &&
+                        <ServiceManager language={language} currentContent={content.services} currentPath={currentPath} />
                     }
                     {
                         currentPath === 'markets' &&
