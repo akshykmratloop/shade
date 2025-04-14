@@ -4,7 +4,7 @@ import Arrow from "../../../../assets/icons/right-wrrow.svg"; ///assets/icons/ri
 import { useDispatch } from "react-redux";
 import content from "./content.json"
 import { updateContent } from "../../../common/homeContentSlice";
-
+import { services, projectPageData } from "../../../../assets/index";
 const Services = ({ currentContent, screen, language }) => {
     const isLeftAlign = language === 'en'
     const dispatch = useDispatch()
@@ -18,14 +18,14 @@ const Services = ({ currentContent, screen, language }) => {
         <div className="">
             <section
                 className={`relative w-full py-[100px] px-10 bg-cover bg-center ${isLeftAlign ? 'scale-x-[-1]' : ''}`}
-                style={{ backgroundImage: "url('https://loopwebsite.s3.ap-south-1.amazonaws.com/Hero+(4).png')" }}
+                style={{ backgroundImage: `linear-gradient(to right,#00000020 30%,#fffffffb 100%) ,url("${services.contructionTowerImage}")`, backgroundPosition: "bottom" }}
             >
                 <div className="container relative h-full flex items-center justify-end">
-                    <div className={`${isLeftAlign ? 'scale-x-[-1] text-left' : 'text-right'} w-1/2 space-y-4 p-6 flex flex-col ${isLeftAlign?"items-start":"items-end"}`}>
-                        <h1 className="text-black text-[45px] font-medium leading-[77px] tracking-[-3.5px] mb-4">
+                    <div className={`${isLeftAlign ? 'scale-x-[-1] text-left' : 'text-right'} w-1/2 space-y-4 p-6 flex flex-col ${isLeftAlign ? "items-start" : "items-end"}`}>
+                        <h1 className="text-[#292E3D] text-[45px] font-medium leading-[77px] tracking-[-3.5px] mb-4">
                             {currentContent?.banner?.title[language]}
                         </h1>
-                        <p className="text-para-light text-[12px] font-semibold leading-[26px]  word-spacing-5">
+                        <p className="text-[#0E172FB2] text-[12px] font-semibold leading-[26px]  word-spacing-5">
                             {currentContent?.banner?.description[language]}
                         </p>
                         <button
@@ -45,7 +45,40 @@ const Services = ({ currentContent, screen, language }) => {
                     </div>
                 </div>
             </section>
-        </div>
+            <section className="px-[100px] py-[20px] grid grid-cols-2 gap-x-[28px] gap-y-10 auto-rows-fr">
+                {currentContent?.serviceCards?.map((service, idx) => (
+                    <article
+                        key={idx}
+                        className="flex flex-col h-full bg-white \ overflow-hidden shadow"
+                    >
+                        <img src={service.image} alt="img" className="w-full object-cover h-[176px]" />
+                        <section className="bg-[#F8F8F8] py-[14px] px-[21px] flex flex-col justify-between flex-1">
+                            <h1 className="text-[#292E3D] text-[22px] font-[400]">
+                                {service?.title?.[language]}
+                            </h1>
+                            <p className="text-[#292E3D] text-[10px] mb-2">
+                                {service?.subtitle?.[language]}
+                            </p>
+                            <button className="text-[#00B9F2] flex gap-1 items-center mt-auto">
+                                view detail
+                                <img
+                                    src="https://frequencyimage.s3.ap-south-1.amazonaws.com/61c0f0c2-6c90-42b2-a71e-27bc4c7446c2-mingcute_arrow-up-line.svg"
+                                    alt=""
+                                    className="rotate-[180deg] w-[16px] h-[16px]"
+                                />
+                            </button>
+                        </section>
+                    </article>
+                ))}
+            </section>
+
+            <div className="flex justify-center py-10">
+                <button className="bg-[#00B9F2] text-[#fff] p-[11px] rounded-[6px]">
+                    See More
+                </button>
+            </div>
+
+        </div >
     );
 };
 
