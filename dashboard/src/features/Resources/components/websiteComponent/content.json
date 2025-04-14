@@ -1075,6 +1075,10 @@
         }
       }
     },
+    "button": {
+      "en": "See More",
+      "ar": "عرض المزيد"
+    },
     "serviceCards": [
       {
         "title": {
@@ -1088,6 +1092,10 @@
         "listTitle": {
           "ar": "خبرتنا تغطي:",
           "en": "Our expertise covers:"
+        },
+        "button": {
+          "en": "View Details",
+          "ar": "عرض التفاصيل"
         },
         "listItems": [
           {
@@ -1126,6 +1134,10 @@
           "ar": "خبرتنا تغطي:",
           "en": "Our expertise covers:"
         },
+        "button": {
+          "en": "View Details",
+          "ar": "عرض التفاصيل"
+        },
         "listItems": [
           {
             "ar": "خدمات المرافق",
@@ -1163,6 +1175,10 @@
           "ar": "سواء تم تقديمها كخدمات مستقلة، أو جزء من مجموعة من الخدمات التي تدعم تسليم المشاريع وتشغيلها، فإن خدمات التشغيل والصيانة التي تقدمها SHADE تساعد العملاء في حماية أصول البنية التحتية الحيوية والمكلفة وإطالة عمرها التشغيلي.",
           "en": "Whether delivered as standalone services, or part of a suite of services supporting project delivery and operations, SHADE's O&M services help clients protect vital and costly infrastructure assets and extend their operational life."
         },
+        "button": {
+          "en": "View Details",
+          "ar": "عرض التفاصيل"
+        },
         "image": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(3).png"
       },
       {
@@ -1178,6 +1194,10 @@
           "ar": "يعمل خبراؤنا الفنيون على تبسيط طرق التسليم لتحسين كفاءة رأس المال لعملائنا، بغض النظر عن الصناعة. نحن نعتمد نهجًا مرنًا ونقدم مجموعة من الخيارات التي تم تخصيصها لتناسب متطلبات العميل المحددة.",
           "en": "Our technical experts work to streamline delivery methods to optimize our clients' capital efficiency, regardless of industry. We take a flexible approach and offer a range of options tailored to meet specific client requirements."
         },
+        "button": {
+          "en": "View Details",
+          "ar": "عرض التفاصيل"
+        },
         "image": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(5).png"
       },
       {
@@ -1192,6 +1212,10 @@
         "description": {
           "ar": "نحن نقدم حلاً شاملاً لتأجير المعدات ذات المستوى العالمي والخدمات المرتبطة بها. نحن نمكن من استخدام المصانع والآلات لإنجاز المشاريع بسلاسة. يعد أسطولنا الشامل من حيث العمر والأداء من بين الأفضل في الصناعة. تمتلك شركة Shade مجموعة من الرافعات، والمضخات، ومعدات توليد الطاقة، ودعم الخنادق وتدريعها، والسقالات، والتحكم في المناخ، ومعدات المعالجة والترميم، والمزيد.",
           "en": "We provide a comprehensive solution for world-class equipment rental and associated services. We enable the use of plants and machinery to complete projects seamlessly. Our fleet is comprehensive in terms of age and performance among the best in the industry. Shade owns a range of cranes, pumps, power generation equipment, trench support and shoring, scaffolding, climate control, handling and remediation equipment, and more."
+        },
+        "button": {
+          "en": "View Details",
+          "ar": "عرض التفاصيل"
         },
         "image": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(4).png"
       }
