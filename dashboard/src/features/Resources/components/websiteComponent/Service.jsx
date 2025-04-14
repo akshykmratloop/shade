@@ -51,30 +51,33 @@ const Services = ({ currentContent, screen, language }) => {
             </section>
             <section dir={isLeftAlign ? 'ltr' : 'rtl'}
                 className={`grid ${isPhone ? " py-[80px] grid-cols-1" : "py-[20px] grid-cols-2"} ${isTablet ? "px-[60px]" : isPhone ? "px-[40px]" : "px-[100px]"} gap-x-[28px] gap-y-10 auto-rows-fr`}>
-                {currentContent?.serviceCards?.map((service, idx) => (
-                    <article
-                        key={idx}
-                        className="flex flex-col h-full bg-white \ overflow-hidden shadow"
-                    >
-                        <img src={service.image} alt="img" className="w-full object-cover h-[176px]" />
-                        <section className="bg-[#F8F8F8] py-[14px] px-[18px] flex flex-col justify-between flex-1">
-                            <h1 className="text-[#292E3D] text-[22px] font-[400]">
-                                {TruncateText(service?.title?.[language], isTablet ? 15 : 23)}
-                            </h1>
-                            <p className="text-[#292E3D] text-[10px] mb-2">
-                                {service?.subtitle?.[language]}
-                            </p>
-                            <button className={`text-[#00B9F2] flex gap-1 items-center mt-auto ${!isLeftAlign && "flex-rows-reverse"}`}>
-                                {service?.button?.[language]}
-                                <img
-                                    src="https://frequencyimage.s3.ap-south-1.amazonaws.com/61c0f0c2-6c90-42b2-a71e-27bc4c7446c2-mingcute_arrow-up-line.svg"
-                                    alt=""
-                                    className={`${isLeftAlign && "rotate-[180deg]"} w-[16px] h-[16px]`}
-                                />
-                            </button>
-                        </section>
-                    </article>
-                ))}
+                {currentContent?.serviceCards?.map((service, idx) => {
+                    if(!service.display) return null
+                    return (
+                        <article
+                            key={idx}
+                            className="flex flex-col h-full bg-white \ overflow-hidden shadow"
+                        >
+                            <img src={service.image} alt="img" className="w-full object-cover h-[176px]" />
+                            <section className="bg-[#F8F8F8] py-[14px] px-[18px] flex flex-col justify-between flex-1">
+                                <h1 className="text-[#292E3D] text-[22px] font-[400]">
+                                    {TruncateText(service?.title?.[language], isTablet ? 15 : 23)}
+                                </h1>
+                                <p className="text-[#292E3D] text-[10px] mb-2">
+                                    {service?.subtitle?.[language]}
+                                </p>
+                                <button className={`text-[#00B9F2] flex gap-1 items-center mt-auto ${!isLeftAlign && "flex-rows-reverse"}`}>
+                                    {service?.button?.[language]}
+                                    <img
+                                        src="https://frequencyimage.s3.ap-south-1.amazonaws.com/61c0f0c2-6c90-42b2-a71e-27bc4c7446c2-mingcute_arrow-up-line.svg"
+                                        alt=""
+                                        className={`${isLeftAlign && "rotate-[180deg]"} w-[16px] h-[16px]`}
+                                    />
+                                </button>
+                            </section>
+                        </article>
+                    )
+                })}
             </section>
 
             {!(currentContent?.serviceCards.lenght > 6) &&

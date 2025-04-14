@@ -100,7 +100,8 @@ const cmsSlice = createSlice({
                 default:
             }
             state.future = [];
-        }, updateWhatWeDoList: (state, action) => {
+        },
+        updateWhatWeDoList: (state, action) => {
             state.past.push(JSON.parse(JSON.stringify(state.present)));
             let newArray = []
             if (action.payload.operation === 'add') {
@@ -218,6 +219,10 @@ const cmsSlice = createSlice({
                 case "projectDetail":
                     state.present.projectDetail[action.payload.projectId - 1].moreProjects.projects = newOptions
                     break;
+
+                case "serviceCards":
+                    state.present[action.payload?.currentPath].serviceCards = newOptions;
+
 
                 default:
             }

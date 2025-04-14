@@ -90,6 +90,10 @@ const MultiSelect = ({ heading, options = [], tabName, label, language, section,
       actualLists = content.newsBlogs.latestNewCards.cards;
       break;
 
+    case "serviceCards":
+      actualLists = content.services.serviceCards
+      break;
+
     default:
       actualLists = []
   }

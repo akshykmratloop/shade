@@ -1,7 +1,10 @@
 import FileUploader from "../../../../components/Input/InputFileUploader"
 import ContentSection from "../ContentSections"
+import MultiSelect from "../MultiSelect"
 
 const ServiceManager = ({ currentContent, currentPath, language }) => {
+
+    console.log(currentContent)
 
     return (
         <div>
@@ -19,6 +22,15 @@ const ServiceManager = ({ currentContent, currentPath, language }) => {
                 inputFiles={[{ label: "Backround Image", id: "ServiceBanner" }]}
                 section={"banner"}
                 language={language}
+                currentContent={currentContent}
+            />
+            <MultiSelect
+                currentPath={currentPath}
+                language={language}
+                label={"Select Services List"}
+                tabName={"Select Services"}
+                options={currentContent?.serviceCards}
+                referenceOriginal={{ dir: "serviceCards" }}
                 currentContent={currentContent}
             />
         </div>
