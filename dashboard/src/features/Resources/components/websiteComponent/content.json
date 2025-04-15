@@ -1079,6 +1079,7 @@
     },
     "serviceCards": [
       {
+        "id": 1,
         "title": {
           "ar": "إدارة البناء",
           "en": "Construction Management"
@@ -1121,6 +1122,7 @@
         "display": true
       },
       {
+        "id": 2,
         "title": {
           "ar": "خدمات المشروع",
           "en": "Project Services"
@@ -1163,6 +1165,7 @@
         "display": true
       },
       {
+        "id": 3,
         "title": {
           "ar": "التشغيل والصيانة",
           "en": "Operation & Maintenance"
@@ -1183,6 +1186,7 @@
         "display": true
       },
       {
+        "id": 4,
         "title": {
           "ar": "تلفيق",
           "en": "Fabrication"
@@ -1203,6 +1207,7 @@
         "display": true
       },
       {
+        "id": 5,
         "title": {
           "ar": "تأجير المعدات",
           "en": "Equipment Rental"
@@ -1248,6 +1253,148 @@
       }
     }
   },
+  "serviceDetails": [
+    {
+      "id": 1,
+      "banner": {
+        "title": {
+          "en": "Project Details",
+          "ar": "تفاصيل المشروع"
+        },
+        "description": {
+          "en": "Discover the exceptional excellence of Shade Corporation, the premier Engineering, Procurement, and Construction powerhouse in Saudi Arabia.",
+          "ar": "اكتشف التميز الاستثنائي لشركة شيد كوربوريشن، الرائدة في مجال الهندسة والمشتريات والإنشاءات في المملكة العربية السعودية."
+        },
+        "backgroundImage": ""
+      },
+      "subServices": [
+        {
+          "title": {
+            "en": "",
+            "ar": ""
+          },
+          "description": {
+            "en": "",
+            "ar": ""
+          },
+          "image": "",
+          "button": {
+            "en": "",
+            "ar": ""
+          }
+        }
+      ],
+      "button": {
+        "en": "",
+        "ar": ""
+      }
+    },
+    {
+      "id": 2,
+      "banner": {
+        "title": {
+          "en": "",
+          "ar": ""
+        },
+        "description": {
+          "en": "",
+          "ar": ""
+        },
+        "backgroundImage": ""
+      },
+      "subServices": [
+        {
+          "title": {
+            "en": "",
+            "ar": ""
+          },
+          "description": {
+            "en": "",
+            "ar": ""
+          },
+          "image": "",
+          "button": {
+            "en": "",
+            "ar": ""
+          }
+        }
+      ],
+      "button": {
+        "en": "",
+        "ar": ""
+      }
+    },
+    {
+      "id": 3,
+      "banner": {
+        "title": {
+          "en": "",
+          "ar": ""
+        },
+        "description": {
+          "en": "",
+          "ar": ""
+        },
+        "backgroundImage": ""
+      },
+      "subServices": [
+        {
+          "title": {
+            "en": "",
+            "ar": ""
+          },
+          "description": {
+            "en": "",
+            "ar": ""
+          },
+          "image": "",
+          "button": {
+            "en": "",
+            "ar": ""
+          }
+        }
+      ],
+      "button": {
+        "en": "",
+        "ar": ""
+      }
+    },
+    {
+      "id": 4,
+      "banner": {
+        "title": {
+          "en": "",
+          "ar": ""
+        },
+        "description": {
+          "en": "",
+          "ar": ""
+        },
+        "backgroundImage": ""
+      },
+      "subServices": [
+        {
+          "title": {
+            "en": "",
+            "ar": ""
+          },
+          "description": {
+            "en": "",
+            "ar": ""
+          },
+          "image": "",
+          "button": {
+            "en": "",
+            "ar": ""
+          }
+        }
+      ],
+      "button": {
+        "en": "",
+        "ar": ""
+      }
+    }
+  ],
   "market": {
     "banner": {
       "title": {

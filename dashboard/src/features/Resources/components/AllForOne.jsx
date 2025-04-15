@@ -13,6 +13,7 @@ import NewsBlogDetailPage from "./websiteComponent/NewsDetails";
 import Testimonials from "./websiteComponent/Testimonials";
 import ContactUsModal from "./websiteComponent/ContactUsModal";
 import Services from "./websiteComponent/Service";
+import ServiceDetails from "./websiteComponent/ServiceDetails";
 
 const AllForOne = ({ language, screen, content, subPath, setLanguage, fullScreen, currentPath }) => {
     let translateForFullScreen = "translate-y-[950px]"
@@ -101,8 +102,9 @@ const AllForOne = ({ language, screen, content, subPath, setLanguage, fullScreen
                 <AboutUs language={language} currentContent={content.about} screen={screen} />
             }
             {
-                currentPath === "services" &&
-                <Services language={language} currentContent={content.services} screen={screen} />
+                currentPath === "services" ? subPath ?
+                    <ServiceDetails language={language} contentOn={content.serviceDetails} serviceId={subPath} screen={screen} /> :
+                    <Services language={language} currentContent={content.services} screen={screen} /> : ""
             }
             {
                 currentPath === "markets" &&

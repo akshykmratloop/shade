@@ -2,6 +2,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { setSidebarState } from "../common/SbStateSlice";
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 // import for pages
 import ContentTopBar from "./components/ContentTopBar";
 import HomePage from "./components/websiteComponent/Home";
@@ -30,7 +31,6 @@ import Header from "./components/websiteComponent/Headerweb";
 import HeaderManager from "./components/contentmanager/HeaderManager";
 import ProjectDetailPage from "./components/websiteComponent/ProjectDetails";
 import ProjectDetailManager from "./components/contentmanager/ProjectDetailManager";
-import { ToastContainer } from "react-toastify";
 import CareerDetailPage from "./components/websiteComponent/CareersDetails";
 import CareerDetailManager from "./components/contentmanager/CareerDetailManager";
 import NewsBlogDetailPage from "./components/websiteComponent/NewsDetails";
@@ -41,6 +41,7 @@ import ContactUsModal from "./components/websiteComponent/ContactUsModal";
 import CloseModalButton from "../../components/Button/CloseButton";
 import AllForOne from "./components/AllForOne";
 import ServiceManager from "./components/contentmanager/ServiceManager";
+import ServiceDetailsManager from "./components/contentmanager/ServiceDetailsManager";
 
 const EditPage = () => {
     const dispatch = useDispatch();
@@ -84,8 +85,9 @@ const EditPage = () => {
                         <AboutManager language={language} currentContent={content.about} currentPath={currentPath} />
                     }
                     {
-                        currentPath === "services" &&
-                        <ServiceManager language={language} currentContent={content.services} currentPath={currentPath} />
+                        currentPath === "services" ? subPath ?
+                            <ServiceDetailsManager projectId={subPath} language={language} currentContent={content.serviceDetails} currentPath={"projectDetail"} /> :
+                            <ServiceManager language={language} currentContent={content.services} currentPath={currentPath} /> : ""
                     }
                     {
                         currentPath === 'markets' &&
