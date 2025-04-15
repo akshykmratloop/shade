@@ -68,37 +68,39 @@ const ServiceDetails = ({ serviceId, contentOn, language, screen }) => {
             </section>
 
             {/* Other Services */}
-            <section className="w-[988px] overflow-x-scroll rm-scroll py-10">
-
-                <section dir={isLeftAlign ? 'ltr' : 'rtl'}
-                    className={`flex gap-10 ml-[76px] w-fit items`}>
-                    {currentContent?.otherServices?.map((service, idx) => {
-                        if (!service.display) return null
-                        return (
-                            <article
-                                key={idx}
-                                className="flex flex-col h-full bg-white \ overflow-hidden shadow w-[300px]"
-                            >
-                                <img src={service.image} alt="img" className="w-full object-cover h-[176px]" />
-                                <section className="bg-[#F8F8F8] py-[14px] px-[18px] flex flex-col justify-between flex-1">
-                                    <h1 className="text-[#292E3D] text-[22px] font-[400]">
-                                        {TruncateText(service?.title?.[language], isTablet ? 15 : 23)}
-                                    </h1>
-                                    <p className="text-[#292E3D] text-[10px] mb-2">
-                                        {service?.subtitle?.[language]}
-                                    </p>
-                                    <button className={`text-[#00B9F2] flex gap-1 items-center mt-auto ${!isLeftAlign && "flex-rows-reverse"}`}>
-                                        {service?.button?.[language]}
-                                        <img
-                                            src="https://frequencyimage.s3.ap-south-1.amazonaws.com/61c0f0c2-6c90-42b2-a71e-27bc4c7446c2-mingcute_arrow-up-line.svg"
-                                            alt=""
-                                            className={`${isLeftAlign && "rotate-[180deg]"} w-[16px] h-[16px]`}
-                                        />
-                                    </button>
-                                </section>
-                            </article>
-                        )
-                    })}
+            <section>
+                <h3 className="text-[#292E3D] font-[400] text-[22px] mx-[76px] py-[20px]">Other Services</h3>
+                <section className="w-[988px] overflow-x-scroll rm-scroll py-5 pt-2">
+                    <section dir={isLeftAlign ? 'ltr' : 'rtl'}
+                        className={`flex gap-10 px-[76px] pr-[38px] w-fit items-stretch`}>
+                        {currentContent?.otherServices?.map((service, idx) => {
+                            if (!service.display) return null
+                            return (
+                                <article
+                                    key={idx}
+                                    className="flex flex-col bg-white overflow-hidden shadow w-[300px]"
+                                >
+                                    <img src={service.image} alt="img" className="w-full object-cover h-[176px]" />
+                                    <section className="bg-[#F8F8F8] py-[14px] px-[18px] flex flex-col justify-between flex-1">
+                                        <h1 className="text-[#292E3D] text-[22px] font-[400]">
+                                            {TruncateText(service?.title?.[language], isTablet ? 15 : 23)}
+                                        </h1>
+                                        <p className="text-[#292E3D] text-[10px] mb-2">
+                                            {service?.subtitle?.[language]}
+                                        </p>
+                                        <button className={`text-[#00B9F2] flex gap-1 items-center mt-auto ${!isLeftAlign && "flex-rows-reverse"}`}>
+                                            {service?.button?.[language]}
+                                            <img
+                                                src="https://frequencyimage.s3.ap-south-1.amazonaws.com/61c0f0c2-6c90-42b2-a71e-27bc4c7446c2-mingcute_arrow-up-line.svg"
+                                                alt=""
+                                                className={`${isLeftAlign && "rotate-[180deg]"} w-[16px] h-[16px]`}
+                                            />
+                                        </button>
+                                    </section>
+                                </article>
+                            )
+                        })}
+                    </section>
                 </section>
             </section>
         </div>
