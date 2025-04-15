@@ -54,7 +54,7 @@ const NewsBlogspage = ({ language, screen }) => {
                         <h1 className={`text-[#292E3D] ${isPhone ? "text-3xl" : "text-[50px] leading-[77px] tracking-[-3.5px]"} font-medium  mb-4`}>
                             {bannerTitle}
                         </h1>
-                        <p className={`text-[#0E172FB3] ${isPhone ? "" : "leading-[28px]"} text-sm font-semibold w-[70%] mb-6 word-spacing-5`} dir={isLeftAlign?"ltr":"rtl"}>
+                        <p className={`text-[#0E172FB3] ${isPhone ? "" : "leading-[28px]"} text-sm font-semibold w-[70%] mb-6 word-spacing-5`} dir={isLeftAlign ? "ltr" : "rtl"}>
                             {bannerDescription}
                         </p>
                         {/* <button
@@ -76,7 +76,7 @@ const NewsBlogspage = ({ language, screen }) => {
 
             {/** main card */}
             {!mainCard?.id ? "" :
-                <section className={`py-[88px] ${isPhone? 'px-4':"px-[100px]"}`}>
+                <section className={`py-[88px] ${isPhone ? 'px-4' : "px-[100px]"}`}>
                     <div className="container">
                         <div className={`flex items-center ${!isLeftAlign && "flex-row-reverse text-right"} ${isTablet || isPhone ? "flex-col pb-6" : ""} justify-center gap-[50px] p-2 mx-auto rounded-md border border-gray-300 bg-white shadow-md shadow-gray-200`}>
                             <div className="p-[30px]">
@@ -118,18 +118,18 @@ const NewsBlogspage = ({ language, screen }) => {
                     <h2 className={`text-[28px] text-[#0E172F] opacity-70 font-normal mb-6`}>
                         {latestNews?.heading[language]}
                     </h2>
-                    <div className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 ${isTablet?"lg:grid-cols-3":isPhone?"lg:grid-cols-1":"lg:grid-cols-4"} gap-3 justify-items-center ${isLeftAlign ? '' : 'scale-x-[-1]'}`}>
+                    <div className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 ${isTablet ? "lg:grid-cols-3" : isPhone ? "lg:grid-cols-1" : "lg:grid-cols-4"} gap-3 justify-items-center ${isLeftAlign ? '' : 'scale-x-[-1]'}`}>
                         {latestNews?.cards?.map((card, index) => {
                             if (!card.display) return null
                             return (
-                                <div key={index} className={`rounded-md border border-gray-300 bg-white shadow-md overflow-hidden ${isPhone ? "min-h-[390px]" :"min-h-[390px]"}`}>
+                                <div key={index} className={`rounded-md border border-gray-300 bg-white shadow-md overflow-hidden ${isPhone ? "min-h-[390px]" : "min-h-[390px]"}`}>
                                     <img
                                         src={card.image.slice(0, 5) === "https" ? card.image : newsBlogs[card.image]}
                                         alt=""
-                                        className={`object-cover object-center w-full ${isPhone ? "h-[200px]":"h-[130px]"}`}
+                                        className={`object-cover object-center w-full ${isPhone ? "h-[200px]" : "h-[130px]"}`}
                                         width={180}
                                     />
-                                    <div className={`p-2 flex-auto flex flex-col justify-between ${isPhone?"min-h-[48%]":"min-h-[68%]"}`}>
+                                    <div className={`p-2 flex-auto flex flex-col justify-between ${isPhone ? "min-h-[48%]" : "min-h-[68%]"}`}>
                                         <div>
                                             <h2
                                                 title={card?.title?.[language]}
@@ -167,8 +167,8 @@ const NewsBlogspage = ({ language, screen }) => {
             {/* Trending Card */}
             {!trendingCard?.id ? "" :
                 <section
-                dir={!isLeftAlign ? "rtl" : "ltr"}
-                 className={`${language === "en" ? "text-left" : "text-right"} pb-20 ${isPhone ? "px-4" :"px-20"}`}>
+                    dir={!isLeftAlign ? "rtl" : "ltr"}
+                    className={`${language === "en" ? "text-left" : "text-right"} pb-20 ${isPhone ? "px-4" : "px-20"}`}>
                     <div className="container mx-auto">
                         <div className={`flex p-0 items-start ${!isLeftAlign && "flex-row-reverse text-right"} ${isTablet || isPhone && "flex-col-reverse"} gap-11 mx-auto rounded-md overflow-hidden bg-[rgba(20,80,152,0.06)]`}>
                             <div className="p-8 flex-1">

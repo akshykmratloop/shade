@@ -2,21 +2,20 @@ import { useDispatch } from "react-redux"
 import ContentSection from "../ContentSections"
 import MultiSelectPro from "../MultiSelectPro"
 import { updateAllProjectlisting } from "../../../common/homeContentSlice"
-import { useEffect } from "react"
 import FileUploader from "../../../../components/Input/InputFileUploader"
+
+import { useEffect } from "react";
+import MultiSelect from "../MultiSelect";
+import { updateContent } from "../../../common/homeContentSlice";
+import content from "../websiteComponent/content.json"
+
 
 const ProjectContentManager = ({ currentPath, currentContent, language }) => {
     const dispatch = useDispatch()
 
-
-
-    // useEffect(() => {
-
-    //     if(!currentContent?.projectsSection?.allProjectsList){   
-    //         dispatch(updateAllProjectlisting({ action: 'initial', data: currentContent?.projectsSection?.projects }))
-    //     }
-
-    // }, [])
+    useEffect(() => {
+        dispatch(updateContent({ currentPath: "home", payload: (content?.home) }))
+    }, [])
     return (
         <div className="w-full">
             {/* reference doc */}
@@ -27,7 +26,7 @@ const ProjectContentManager = ({ currentPath, currentContent, language }) => {
                 Heading={"Banner"}
                 inputs={[
                     { input: "input", label: "Heading/title", updateType: "title" },
-                    { input: "textarea", label: "Description", updateType: "description" },
+                    { input: "textarea", label: "Description", updateType: "description", maxLength: 300 },
                     { input: "input", label: "Button Text", updateType: "button" }
                 ]}
                 inputFiles={[{ label: "Backround Image", id: "projectsBanner" }]}

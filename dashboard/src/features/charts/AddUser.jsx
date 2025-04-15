@@ -60,6 +60,7 @@ const AddUserModal = ({ show, onClose, updateUsers, user }) => {
             // roles: setErrorMessageRoles,
         });
 
+        console.log("QWEr")
         const validEmail = checkRegex(userData.email, setErrorMessageEmail) // checks if email is under valid format
         const validPassword = userData.password.trim() === ""
         if (validPassword && !user) {
@@ -167,14 +168,14 @@ const AddUserModal = ({ show, onClose, updateUsers, user }) => {
 
     return (
         <div className="modal modal-open">
-            <div ref={modalRef} className="p-[24px] relative flex flex-col gap-6 w-[600px] bg-white dark:bg-gray-800 rounded-md">
+            <div ref={modalRef} className="p-[24px] relative flex flex-col justify-between gap-6 w-[600px] bg-white dark:bg-gray-800 rounded-md min-h-[500px]">
                 {/* <button className="bg-transparent hover:bg-stone-300 rounded-full border-none absolute right-4 top-4 p-2 py-2"
                     onClick={onClose}>
                     <X className="w-[20px] h-[20px]" />
                 </button> */}
                 <CloseModalButton onClickClose={onClose} />
-                <h3 className="font-semibold text-2xl">{user ? "Edit User" : "Add User"}</h3>
-                <form onSubmit={handleFormSubmit} className="flex flex-col items-center w-full gap-7    ">
+                <form className="flex flex-col items-center w-full gap-7    ">
+                    <h3 className="font-semibold text-2xl self-start">{user ? "Edit User" : "Add User"}</h3>
                     {/* <div className="self-start">
                         <InputFileForm
                             labelStyle="text-[#6B7888]"
@@ -241,7 +242,7 @@ const AddUserModal = ({ show, onClose, updateUsers, user }) => {
                         </div>
                     </div>
 
-                    <div>
+                    <div className="self-start w-full">
                         <label className="label-text text-[#6B7888]">Select Role</label>
                         <ul className="flex flex-wrap mt-2">
                             {roles?.map((element) => {
@@ -272,16 +273,17 @@ const AddUserModal = ({ show, onClose, updateUsers, user }) => {
                         </ul>
                     </div>
 
-                    <div className="mt-4 self-end flex gap-1">
-                        <button type="button" className="rounded-md h-[2.5rem] w-[8rem] px-4 flex-[1] border border-stone-200 text-sm btn-ghost"
-                            onClick={onCloseModal}>
-                            Cancel
-                        </button>
-                        <button type="submit" className="rounded-md h-[2.5rem] w-[8rem] px-4 flex-[1] text-sm bg-[#25439B] text-white">
-                            Save
-                        </button>
-                    </div>
+
                 </form>
+                <div className="mt-4 self-end flex gap-1">
+                    <button type="button" className="rounded-md h-[2.5rem] w-[8rem] px-4 flex-[1] border border-stone-200 text-sm btn-ghost"
+                        onClick={onCloseModal}>
+                        Cancel
+                    </button>
+                    <button onClick={handleFormSubmit} type="submit" className="rounded-md h-[2.5rem] w-[8rem] px-4 flex-[1] text-sm bg-[#25439B] text-white">
+                        Save
+                    </button>
+                </div>
             </div>
             {/* <ToastContainer /> */}
         </div>

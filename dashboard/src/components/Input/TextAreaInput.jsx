@@ -9,14 +9,16 @@ function TextAreaInput({
   textAreaStyle,
   updateFormValue,
   updateType,
-  language
+  language,
+  maxLength
 }) {
   const [value, setValue] = useState(defaultValue || "");
   const textareaRef = useRef(null);
 
   const updateInputValue = (val) => {
-    setValue(val);
-    updateFormValue({ updateType, value: val });
+    const trimmedVal = val.slice(0, Number(maxLength) || 1000);
+    setValue(trimmedVal);
+    updateFormValue({ updateType, value: trimmedVal });
   };
 
   // Function to adjust height dynamically
@@ -39,8 +41,8 @@ function TextAreaInput({
   return (
     <div className={`form-control w-full my-2 ${containerStyle}`}>
       {labelTitle && (
-        <label className="label-text text-[#6B7888]">
-          <span className={"label-text text-[#6B7888]" + labelStyle} style={{color:"#6B7888"}}>
+        <label className="label-text text-[#6B7888] mb-[5px]">
+          <span className={"label-text text-[#6B7888]" + labelStyle} style={{ color: "#6B7888" }}>
             {labelTitle}
           </span>
         </label>
@@ -49,7 +51,7 @@ function TextAreaInput({
         dir={language === "ar" ? "rtl" : "ltr"}
         ref={textareaRef}
         value={value}
-        className={`textarea textarea-bordered w-full border border-[#cecbcb] text-xs ${textAreaStyle}`}
+        className={`rounded-lg p-4 py-2 w-full border border-[#80808044] focus:border-[#0000007e] dark:focus:border-[#ffffff7e] dark:bg-[#2A303C] text-xs ${textAreaStyle}`}
         placeholder={placeholder || ""}
         onChange={(e) => updateInputValue(e.target.value)}
         rows={2} // Initial height of 2 rows
@@ -58,6 +60,7 @@ function TextAreaInput({
           overflow: "hidden", // Avoid unnecessary scrollbars
           minHeight: "3rem", // Ensures at least 2 rows height
           whiteSpace: "pre-wrap", // Maintain text formatting
+          oultine: "none"
         }}
       ></textarea>
     </div>

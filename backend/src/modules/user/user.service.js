@@ -30,7 +30,8 @@ const getUserById = async (id) => {
 
 
 const editUserDetails = async (id, name, password, phone, roles) => {
-  return await updateUser(id, name, password, phone, roles);
+  let result = await updateUser(id, name, password, phone, roles);
+  return {message: "User updated Successfully" , result} // changed for message to show at frontend at apr 7 11:32
 };
 
 const findUserByEmail = async (email) => {

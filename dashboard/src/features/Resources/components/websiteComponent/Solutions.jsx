@@ -6,6 +6,12 @@ import content from "./content.json"
 import { SwiperSlide } from "swiper/react";
 import { Swiper } from "swiper/react";
 import { Autoplay, EffectCoverflow, Navigation } from "swiper/modules";
+
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/effect-coverflow';
+import 'swiper/css/autoplay';
+
 // import localFont from "next/font/local";
 // import Button from "@/common/Button";
 // import Image from "next/image";
@@ -44,10 +50,10 @@ const SolutionPage = ({ language, screen }) => {
 
     }, [])
     return (
-        <div className=" bankgothic-medium-dt pb-8">
+        <div className=" bankgothic-medium-dt pb-8" dir={language === 'en' ? 'ltr' : "rtl"}>
             {/** banner */}
             <section
-                className={`relative py-[10rem] w-full bg-cover bg-center ${isLeftAlign ? 'scale-x-[-1]' : ''} px-12 ${isPhone?"h-screen":""}`}
+                className={`relative py-[8rem] w-full bg-cover bg-center ${isLeftAlign ? 'scale-x-[-1]' : ''} px-12 ${isPhone ? "h-screen/2" : ""}`}
                 style={{ backgroundImage: ImageFromRedux.bannerBackground ? `url(${ImageFromRedux.bannerBackground})` : 'url("https://frequencyimage.s3.ap-south-1.amazonaws.com/310398e2-856d-4e59-b0b0-10e811ca1f82-solution%20%281%29.png")' }}
             >
                 <div className="container h-full relative flex">
@@ -55,21 +61,21 @@ const SolutionPage = ({ language, screen }) => {
                         <h1 className="text-[#292E3D] text-[40px] font-medium leading-[77px] tracking-[-3.5px] mb-4">
                             {currentContent?.banner?.title[language]}
                         </h1>
-                        <p className={`text-para-light text-left text-xs font-semibold leading-[26px] mb-6 ${isLeftAlign ? "" : "ml-auto"} ${isPhone? "w-[70%]":"w-[50%]"} word-spacing-[5px]`}>
+                        <p className={`text-[#0E172FB3] text-left text-xs font-semibold leading-[26px] mb-6 ${isLeftAlign ? "" : "ml-auto"} ${isPhone ? "w-[70%]" : "w-[50%]"} word-spacing-[5px]`}>
                             {currentContent?.banner?.description[language]}
                         </p>
                         <button
-                            className={`relative flex items-center text-xs text-[white] font-medium py-[12px] px-[48px] ${isLeftAlign ? "" : "ml-auto"} bg-sky-500 rounded-xl border-none cursor-pointer`}
+                            className={`relative flex gap-2 items-center text-xs text-[white] font-medium py-[6px] px-[12px] ${isLeftAlign ? "" : "ml-auto"} bg-[#00B9F2] rounded-[4px] border-none cursor-pointer`}
                         // onClick={() => router.push('/project')}
                         >
+                            {currentContent?.banner?.button?.[language]}
                             <img
                                 src={arrow}
-                                width={18}
-                                height={17}
+                                width={11}
+                                height={11}
                                 alt="arrow"
-                                className="absolute left-[32px] top-1/2 -translate-y-1/2"
+                                className="left-[32px] scale-x-[-1]"
                             />
-                            &nbsp;{currentContent?.banner?.button?.[language]}
                         </button>
                     </div>
                 </div>
@@ -80,30 +86,31 @@ const SolutionPage = ({ language, screen }) => {
                 className={`py-[88px] pb-[120px] px-10 ${language === "en" ? "text-left" : "text-right"
                     }`}
             >
-                <div className="container bankgothic-regular-db-mt">
-                    <div className={`${isPhone ? "flex flex-col" : "grid grid-cols-[129px_1fr] gap-[67px]"} `}>
-                        <div className={`flex justify-center w-[190px] py-[14px]`}>
-                            <span className="relative w-[10px] h-[20px]">
-                                <span className="absolute top-[1px] w-[4px] h-[20px] bg-red-500 rotate-[-15deg]"></span>
-                            </span>
-                            <h1 className="text-[20px] font-bold leading-[20px] pr-[20px]">
-                                {currentContent?.whatWeDo?.title[language]}
-                            </h1>
+                {currentContent?.whatWeDo?.map((e, i) => {
+
+                    return (
+                        <div className="container bankgothic-regular-db-mt" key={i}>
+                            <div className={`${isPhone ? "flex flex-col" : "grid grid-cols-[129px_1fr] gap-[67px]"} `}>
+                                <div className={`flex justify-start w-[190px] py-[14px]`}>
+                                    <span className="relative w-[10px] h-[20px]">
+                                        <span className="absolute top-[1px] w-[4px] h-[20px] bg-red-500 rotate-[-15deg]"></span>
+                                    </span>
+                                    <h1 className="text-[20px] text-[#1F2937] font-bold leading-[20px] pr-[20px]">
+                                        {e?.title[language]}
+                                    </h1>
+                                </div>
+                                <div className="text-[#2A303C]">
+                                    <div
+                                        className={`  ${isPhone ? "leading-[20px] text-sm" : "leading-[40px]"} tracking-[-1.2px] mb-[32px]`}
+                                        // className={` font-light text-[#1F2937] ${isPhone ? "leading-[20px] text-sm" : "leading-[40px]"} tracking-[-1.2px] mb-[32px] `}
+                                        dangerouslySetInnerHTML={{ __html: e?.description[language] }}
+                                    />
+
+                                </div>
+                            </div>
                         </div>
-                        <div>
-                            <p
-                                className={` font-light ${isPhone?"leading-[20px] text-sm":"leading-[40px]"} tracking-[-1.2px] mb-[32px] `}
-                            >
-                                {currentContent?.whatWeDo?.description1[language]}
-                            </p>
-                            <p
-                                className={` font-light ${isPhone?"leading-[20px] text-sm":"leading-[40px]"} tracking-[-1.2px] mb-[32px] `}
-                            >
-                                {currentContent?.whatWeDo?.description2[language]}
-                            </p>
-                        </div>
-                    </div>
-                </div>
+                    )
+                })}
             </section>
 
 
@@ -111,99 +118,123 @@ const SolutionPage = ({ language, screen }) => {
 
             <div
                 className="w-[800px] mx-auto"
-                style={{width:isComputer ? "50rem":`${screen-30}px`}}
+                style={{ width: isComputer ? "50rem" : `${screen - 30}px` }}
             >
                 <Swiper
+                    className=""
                     modules={[Navigation, Autoplay, EffectCoverflow]}
                     grabCursor={true}
                     centeredSlides={true}
-                    slidesPerView={1}
-                    loop={true}
-                    autoplay={{ delay: 2500 }}
+                    slidesPerView={isPhone ? 1 : 2} // Adjust dynamically
+                    loop={true} // Enable loop only if enough slides exist
+                    spaceBetween={10}
+                    onSwiper={(swiper) => {
+                        setTimeout(() => {
+                            swiper.autoplay.start();
+                        }, 500);
+                    }}
+
                     effect="coverflow"
                     coverflowEffect={{
                         rotate: 0,
                         stretch: 0,
-                        depth: 300,
-                        modifier: 1.5,
+                        depth: 250,
+                        modifier: 2,
                         slideShadows: false,
                     }}
-                   
+                    autoplay={{ delay: 2500, disableOnInteraction: false }} // Ensure autoplay works
+                    breakpoints={{
+                        724: { slidesPerView: isPhone ? 1 : 2 },
+                        500: { slidesPerView: isPhone ? 1 : 2 },
+                    }}
                 >
-                    {currentContent?.gallery?.images.map(
-                        (image, index) => (
-                            <SwiperSlide key={index}>
-                                <div className={`rounded-lg overflow-hidden shadow-lg transition-transform transform ${isPhone?"h-[50vh]":"h-[500px]"}`}>
-
-                                    <img
-                                        src={ImageFromRedux[`Image ${index + 1}`] || image.url}
-                                        alt={`Image ${index + 1}`}
-                                        className="object-cover w-full h-full"
-                                    />
-                                </div>
-                            </SwiperSlide>
-                        )
-                    )}
+                    {(currentContent?.gallery?.images || []).map((image, index) => (
+                        <SwiperSlide key={`slide-${index}`}>
+                            <div className="flex justify-center">
+                                <img
+                                    src={ImageFromRedux[`Image ${index + 1}`] || image.url}
+                                    alt={`Image ${index + 1}`}
+                                    className="object-cover w-[400px] h-[400px] rounded-md"
+                                />
+                            </div>
+                        </SwiperSlide>
+                    ))}
                 </Swiper>
+
             </div>
 
             {/** HowWeDo */}
             <section
                 className={`py-[88px] pb-[120px] px-10 ${language === "en" ? "text-left" : "text-right"}`}
             >
-                <div className="container">
-                    {/* <div className="grid grid-cols-[129px_1fr] gap-[67px]"> */}
-                    <div className={`${isPhone ? "flex flex-col" : "grid grid-cols-[129px_1fr] gap-[67px]"} `}>
+                {currentContent?.howWeDo?.map((e, i) => {
+                    return (
+                        <div className="container bankgothic-regular-db-mt" key={i}>
+                            <div className={`${isPhone ? "flex flex-col" : "grid grid-cols-[129px_1fr] gap-[67px]"} `}>
+                                <div className={`flex justify-start w-[190px] py-[14px]`}>
+                                    <span className="relative w-[10px] h-[20px]">
+                                        <span className="absolute top-[1px] w-[4px] h-[20px] bg-red-500 rotate-[-15deg]"></span>
+                                    </span>
+                                    <h1 className="text-[20px] text-[#1F2937] font-bold leading-[20px] pr-[20px]">
+                                        {e?.title[language]}
+                                    </h1>
+                                </div>
+                                <div>
+                                    <div
+                                        className={` font-light ${isPhone ? "leading-[20px] text-sm" : "leading-[40px]"} tracking-[-1.2px] mb-[32px] `}
+                                        // className={` font-light text-[#1F2937] ${isPhone ? "leading-[20px] text-sm" : "leading-[40px]"} tracking-[-1.2px] mb-[32px] `}
+                                        dangerouslySetInnerHTML={{ __html: e?.description[language] }}
+                                    />
 
-                        <div className="flex justify-center  w-[190px] py-[14px]">
-                            <span className="relative w-[10px] h-[20px]">
-                                <span className="absolute top-[1px] w-[4px] h-[20px] bg-red-500 rotate-[-15deg]"></span>
-                            </span>
-                            <h1 className="text-right  font-bold text-[20px] leading-[20px] pr-[20px]">
-                                {currentContent?.howWeDo?.title[language]}
-                            </h1>
+                                </div>
+                            </div>
                         </div>
-                        <div>
-                            <p
-                                className={`${isPhone?"leading-[20px] text-sm":"leading-[40px]"} font-light tracking-[-1.2px] mb-[32px]`}
-                            >
-                                {currentContent?.howWeDo?.description[language]}
-                            </p>
-                        </div>
-                    </div>
-                </div>
+                    )
+                })}
             </section>
 
             {/** Showcase gallery wrap */}
             <div
                 className="w-[800px] mx-auto "
-                style={{width:isComputer ? "50rem":`${screen-30}px`}}
+                style={{ width: isComputer ? "50rem" : `${screen - 30}px` }}
             >
                 <Swiper
+                    className=""
                     modules={[Navigation, Autoplay, EffectCoverflow]}
                     grabCursor={true}
                     centeredSlides={true}
-                    slidesPerView={1}
-                    loop={true}
-                    autoplay={{ delay: 2500 }}
+                    slidesPerView={isPhone ? 1 : 2} // Adjust dynamically
+                    loop={currentContent?.gallery?.images?.length > 3} // Enable loop only if enough slides exist
+                    spaceBetween={10}
+                    onSwiper={(swiper) => {
+                        setTimeout(() => {
+                            swiper.autoplay.start();
+                        }, 500);
+                    }}
+
                     effect="coverflow"
                     coverflowEffect={{
                         rotate: 0,
                         stretch: 0,
-                        depth: 300,
-                        modifier: 1.5,
+                        depth: 250,
+                        modifier: 2,
                         slideShadows: false,
+                    }}
+                    autoplay={{ delay: 2500, disableOnInteraction: false }} // Ensure autoplay works
+                    breakpoints={{
+                        724: { slidesPerView: isPhone ? 1 : 2 },
+                        500: { slidesPerView: isPhone ? 1 : 2 },
                     }}
                 >
                     {currentContent?.gallery?.showcase.map(
                         (image, index) => (
                             <SwiperSlide key={index}>
-                                <div className={`rounded-lg overflow-hidden shadow-lg transition-transform transform ${isPhone?"h-[50vh]":"h-[500px]"}`}>
+                                <div className={`rounded-lg overflow-hidden  transition-transform transform ${isPhone ? "h-[50vh]" : "h-[400px]"}`}>
                                     <img
                                         src={ImageFromRedux[`Image ${index + 4}`] || image.url}
                                         alt={`Image ${index + 1}`}
-                                        className="object-cover w-full h-full"
-                                        style={{objectPosition:"center"}}
+                                        className="object-cover w-[400px] h-[400px] rounded-md"
+                                        style={{ objectPosition: "center" }}
                                     />
                                 </div>
                             </SwiperSlide>

@@ -34,12 +34,16 @@ function RoleDetailsModal({ role, show, onClose }) {
             setLoading(true);
             try {
                 const response = await getRoleById(role.id);
+                if (response.statusCode >= 400) {
+                    throw `Error: status: ${response.statusCode}, type: ${response.errorType}`
+                }
                 setTimeout(() => {
                     setFetchedRole(response.role);
                     setError(false);
                 }, 200)
             } catch (err) {
                 setError(true);
+                console.log("catch")
             } finally {
                 setTimeout(() => {
 
@@ -82,20 +86,20 @@ function RoleDetailsModal({ role, show, onClose }) {
                                             <td className="pt-2  w-1/4">Updated At</td>
                                         </tr>
                                         <tr className="font-[400] text-[#101828] dark:text-stone-100 text-sm">
-                                            <td className="py-2 pb-6  w-1/4">{capitalizeWords(fetchedRole.name ?? "")}</td>
+                                            <td className="py-2 pb-6  w-1/4">{capitalizeWords(fetchedRole?.name ?? "")}</td>
                                             <td className={`py-2 pb-6  w-1/4`}>
                                                 <p
-                                                    className={`w-[86px] before:content-['•'] before:text-2xl flex h-7 items-center justify-center gap-1 px-1 py-0 font-[500] ${fetchedRole.status === 'ACTIVE' ? "text-green-600 bg-green-100 before:text-green-600 px-1" : "text-red-600 bg-red-100 before:text-red-600 "} rounded-2xl`}
+                                                    className={`w-[86px] before:content-['•'] before:text-2xl flex h-7 items-center justify-center gap-1 px-1 py-0 font-[500] ${fetchedRole?.status === 'ACTIVE' ? "text-green-600 bg-green-100 before:text-green-600 px-1" : "text-red-600 bg-red-100 before:text-red-600 "} rounded-2xl`}
                                                     style={{ textTransform: "capitalize", }}
                                                 >
-                                                    {capitalizeWords(fetchedRole.status ?? "")}
+                                                    {capitalizeWords(fetchedRole?.status ?? "")}
                                                 </p>
                                             </td>
-                                            <td className="py-2 pb-6  w-1/4">{!loading && fetchedRole.roleType.name}</td>
+                                            <td className="py-2 pb-6  w-1/4">{!loading && fetchedRole?.roleType?.name}</td>
                                             <td className="py-2 pb-6  w-1/4"
                                             >
                                                 <p className="">
-                                                    {formatTimestamp(role.updated_at)}
+                                                    {formatTimestamp(role?.updated_at)}
                                                 </p>
                                             </td>
                                         </tr>
@@ -106,7 +110,7 @@ function RoleDetailsModal({ role, show, onClose }) {
                                         <h3 className="text-sm font-[300]">Permissions</h3>
                                         <ul className="text-sm font-[400] text-[#101828] flex flex-col gap-1 pt-4">
                                             {!loading &&
-                                                fetchedRole.permissions.map(element => {
+                                                fetchedRole?.permissions?.map(element => {
 
                                                     return (
                                                         <li>
@@ -121,7 +125,7 @@ function RoleDetailsModal({ role, show, onClose }) {
                                         <h3 className="text-sm font-[300]">Assigned Users</h3>
                                         <ul className="text-sm font-[400] text-[#101828] flex flex-col gap-1 pt-4">
                                             {!loading &&
-                                                fetchedRole.users.map(user => {
+                                                fetchedRole?.users?.map(user => {
 
                                                     return (
                                                         <li>

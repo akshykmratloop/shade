@@ -12,6 +12,7 @@ import Navbar from "../../containers/Navbar"
 import { AiOutlineInfoCircle } from "react-icons/ai";
 import { FiEdit } from "react-icons/fi";
 import { IoSettingsOutline } from "react-icons/io5";
+import capitalizeWords from "../../app/capitalizeword";
 
 function Resources() {
     const dispatch = useDispatch()
@@ -25,7 +26,7 @@ function Resources() {
     const [PageDetailsOn, setPageDetailsOn] = useState(false);
     const [configBarData, setConfigBarData] = useState({})
 
-    const resNotAvail = resources?.[currentResource].length === 0
+    const resNotAvail = resources?.[currentResource]?.length === 0
 
     useEffect(() => {
         dispatch(getLeadsContent())
@@ -102,11 +103,26 @@ function Resources() {
                             </div>
                         </div>
                     ))}
+
+                {
+                    resources?.[currentResource]?.[0]?.subPage &&
+                    <div className="w-full flex flex-col gap-[5px] ">
+                        <h3 className=" font-poppins font-semibold">
+                                {`Add More ${capitalizeWords(currentResource)} Page`}
+                            </h3>
+                        <div onClick={() => {navigate(`./edit/${currentResource}/${resources?.[currentResource].length + 1}`) }} 
+                        className="border rounded-md bg-[white] aspect-[10/11] justify-center flex-grow cursor-pointer flex items-center text-[50px] shadow-xl-custom border-[#29469c80]"
+                            > 
+                            <span className="text-[#1f2937]">+</span>
+                        </div>
+                    </div>
+                }
             </div>
 
             {/* right side bar for configuration */}
             <ConfigBar data={configBarData} display={configBarOn} setOn={setConfigBarOn} />
             <PageDetails data={configBarData} display={PageDetailsOn} setOn={setPageDetailsOn} />
+
         </div>
     )
 }
