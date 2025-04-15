@@ -18,7 +18,7 @@ import {
     useSortable,
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { updateMarketSelectedContent } from "../../common/homeContentSlice";
+import { updateSelectedSubService } from "../../common/homeContentSlice";
 
 const SortableItem = ({ option, removeOption, language }) => {
     const { attributes, listeners, setNodeRef, transform, transition, isDragging } =
@@ -54,7 +54,7 @@ const SortableItem = ({ option, removeOption, language }) => {
 
 
 
-const MultiSelectForProjects = ({ heading, options = [], tabName, label, language, section, referenceOriginal = { dir: "", index: 0 }, currentPath, id }) => {
+const MultiSelectForProjects = ({ heading, options, tabName, label, language, referenceOriginal = { dir: "", index: 0 }, currentPath, id }) => {
     const [selectedOptions, setSelectedOptions] = useState([]);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const dropdownRef = useRef(null);
@@ -68,38 +68,47 @@ const MultiSelectForProjects = ({ heading, options = [], tabName, label, languag
             actualListOfServices = content.market.tabSection.marketItems;
             break;
 
+        case "subServices":
+            actualListOfServices = content.serviceDetails?.[id]?.subServices;
+            break;
+
+        case "otherServices":
+            actualListOfServices = content.serviceDetails?.[id]?.otherServices;
+            break;
+
         default:
             actualListOfServices = []
     }
 
-    const showOptions = options?.map(e => e.title[language])
+    const showOptions = options ? options?.map(e => e.title[language]) : undefined
 
     const toggleDropdown = () => {
         setIsDropdownOpen((prev) => !prev);
     };
 
     const handleSelect = (optionToAdd) => {
-        const newOption = { ...optionToAdd, type: id }
-        dispatch(updateMarketSelectedContent({
-            origin: referenceOriginal.dir,
-            newArray: [...options],
-            selected: selectedOptions,
-            language,
-            currentPath,
-            newOption
-        }))
+        for (let i = 0; i < options.length; i++) {
+            if (optionToAdd.title === options[i].title || optionToAdd.title[language] === options[i].title[language]) {
+                if (options[i].display) return
+                setSelectedOptions(prev => {
+                    return [...prev, { ...optionToAdd, display: true }]
+                })
+                break;
+            }
+        }
+        setRandom(random + 1)
     };
 
     const removeOption = (optionToRemove) => {
-        const newOption = { ...optionToRemove, type: "" }
-        dispatch(updateMarketSelectedContent({
-            origin: referenceOriginal.dir,
-            newArray: [...options],
-            selected: selectedOptions,
-            language,
-            currentPath,
-            newOption
-        }))
+        setSelectedOptions(prev => {
+            return prev.map(option => {
+                if (option === optionToRemove) {
+                    return { ...option, display: false }
+                }
+                return option
+            })
+        })
+        setRandom(random + 1)
     };
 
     const sensors = useSensors(
@@ -134,27 +143,24 @@ const MultiSelectForProjects = ({ heading, options = [], tabName, label, languag
         return () => {
             document.removeEventListener("mousedown", handleClickOutside);
         };
-    }, []);
+    }, [language]);
 
     useEffect(() => {
         if (showOptions) {
-            setSelectedOptions(options?.map(e => {
-                if (e.type === id) {
-                    return e
-                }
-            }).filter(e => e));
+            setSelectedOptions(options?.filter(e => e.display));
         }
     }, [options]);
 
     useEffect(() => {
         if (random > 1) {
-            dispatch(updateMarketSelectedContent({
+            dispatch(updateSelectedSubService({
                 origin: referenceOriginal.dir,
                 newArray: [...options],
                 selected: selectedOptions,
                 language,
                 currentPath,
-                newOption: null
+                newOption: null,
+                projectId: id
             }))
         }
     }, [random])

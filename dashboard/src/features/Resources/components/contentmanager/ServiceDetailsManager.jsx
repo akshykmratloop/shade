@@ -1,18 +1,25 @@
+import { useDispatch } from "react-redux"
 import FileUploader from "../../../../components/Input/InputFileUploader"
+import { updateContent } from "../../../common/homeContentSlice"
 import ContentSection from "../ContentSections"
 import DynamicContentSection from "../DynamicContentSection"
 import MultiSelect from "../MultiSelect"
+import MultiSelectForProjects from "../MultiSelectForProjects"
+import MultiSelectPro from "../MultiSelectPro"
+import content from "../websiteComponent/content.json"
+import { useEffect } from "react"
 
-const ServiceDetailsManager = ({ serviceId, currentContent, currentPath, language }) => {
+const ServiceDetailsManager = ({ serviceId, currentContent, currentPath, language, screen }) => {
+    const dispatch = useDispatch()
     const serviceIndex = currentContent?.findIndex(e => {
         return e.id == serviceId
     })
 
-
-    console.log(serviceIndex)
-
+    useEffect(() => {
+        dispatch(updateContent({ currentPath: "serviceDetails", payload: content.serviceDetails }))
+    }, [])
     return (
-        <div>
+        <div className={`w-[299px]`}>
             <FileUploader id={"ServiceDetailsIDReference" + serviceId} label={"Rerference doc"} fileName={"Upload your file..."} />
             {/** Hero Banner */}
             <ContentSection
@@ -27,6 +34,26 @@ const ServiceDetailsManager = ({ serviceId, currentContent, currentPath, languag
                 language={language}
                 currentContent={currentContent}
                 projectId={serviceIndex + 1}
+            />
+
+            <MultiSelectForProjects
+                heading={"Sub Services Section"}
+                tabName={"Select Sub Services"}
+                language={language}
+                referenceOriginal={{ dir: "subServices" }}
+                currentPath={currentPath}
+                options={currentContent?.[serviceId - 1]?.subServices}
+                id={serviceIndex}
+            />
+
+            <MultiSelectForProjects
+                heading={"Sub Services Section"}
+                tabName={"Select Sub Services"}
+                language={language}
+                referenceOriginal={{ dir: "otherServices" }}
+                currentPath={currentPath}
+                options={currentContent?.[serviceId - 1]?.otherServices}
+                id={serviceIndex}
             />
         </div>
     )

@@ -218,7 +218,45 @@ const cmsSlice = createSlice({
 
                 case "serviceCards":
                     state.present[action.payload?.currentPath].serviceCards = newOptions;
+                    break;
 
+                case "subServices":
+                    console.log(action.payload.currentPath, action.payload.projectId)
+                    state.present[action.payload?.currentPath][action.payload.projectId].subServices = newOptions
+                    break;
+
+                default:
+            }
+            state.future = [];
+        },
+        updateSelectedSubService: (state, action) => {
+            state.past.push(JSON.parse(JSON.stringify(state.present)));
+            const selectedMap = new Map(
+                action.payload?.selected?.filter(e => e.display).map((item, index) => [item.title[action.payload.language], index])
+            );
+
+            console.log(selectedMap)
+            console.log(action.payload.newArray)
+            let newOptions = action.payload.newArray?.map(e => ({
+                ...e,
+                display: selectedMap.has(e.title[action.payload.language])
+            }));
+
+            newOptions.sort((a, b) => {
+                const indexA = selectedMap.get(a.title[action.payload.language]) ?? Infinity;
+                const indexB = selectedMap.get(b.title[action.payload.language]) ?? Infinity;
+                return indexA - indexB;
+            });
+
+            console.log(newOptions)
+            switch (action.payload.origin) {
+                case "subServices":
+                    state.present[action.payload?.currentPath][action.payload.projectId].subServices = newOptions
+                    break;
+
+                case "otherServices":
+                    state.present[action.payload?.currentPath][action.payload.projectId].otherServices = newOptions
+                    break;
 
                 default:
             }
@@ -272,7 +310,6 @@ const cmsSlice = createSlice({
 
             state.future = [];
         },
-
         updateAllProjectlisting: (state, action) => {
             state.past.push(JSON.parse(JSON.stringify(state.present)))
 
@@ -350,7 +387,8 @@ export const { // actions
     selectMainNews,
     undo,
     redo,
-    updateTheProjectSummaryList
+    updateTheProjectSummaryList,
+    updateSelectedSubService
 } = cmsSlice.actions;
 
 export default cmsSlice.reducer; // reducer
