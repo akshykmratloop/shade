@@ -331,3 +331,12 @@ div.importantList ul{
   border: none !important;
   outline: none !important;
 }
+
+.rm-scroll::-webkit-scrollbar{
+  display: none;
+}
+
+.rm-scroll{
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
