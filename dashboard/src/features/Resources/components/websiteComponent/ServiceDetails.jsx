@@ -20,9 +20,10 @@ const ServiceDetails = ({ serviceId, contentOn, language, screen }) => {
         (item) => item?.id == serviceId
     )[0];
 
+
     useEffect(() => {
-        if (currentContent && !currentContent?.[serviceId - 1]) {
-            dispatch(updateContent({ currentPath: "serviceDetails", payload: [...content.serviceDetails, { ...structureOfServiceDetails, id: contentFromRedux?.length + 1 }] }))
+        if (!contentFromRedux?.[serviceId - 1]) {
+            dispatch(updateContent({ currentPath: "serviceDetails", payload: [...content.serviceDetails, { ...structureOfServiceDetails, id: content.serviceDetails?.length + 1 }] }))
         } else {
             dispatch(updateContent({ currentPath: "serviceDetails", payload: content.serviceDetails }))
         }

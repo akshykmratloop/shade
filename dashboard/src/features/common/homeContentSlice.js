@@ -221,7 +221,6 @@ const cmsSlice = createSlice({
                     break;
 
                 case "subServices":
-                    console.log(action.payload.currentPath, action.payload.projectId)
                     state.present[action.payload?.currentPath][action.payload.projectId].subServices = newOptions
                     break;
 
@@ -235,8 +234,6 @@ const cmsSlice = createSlice({
                 action.payload?.selected?.filter(e => e.display).map((item, index) => [item.title[action.payload.language], index])
             );
 
-            console.log(selectedMap)
-            console.log(action.payload.newArray)
             let newOptions = action.payload.newArray?.map(e => ({
                 ...e,
                 display: selectedMap.has(e.title[action.payload.language])
@@ -248,7 +245,6 @@ const cmsSlice = createSlice({
                 return indexA - indexB;
             });
 
-            console.log(newOptions)
             switch (action.payload.origin) {
                 case "subServices":
                     state.present[action.payload?.currentPath][action.payload.projectId].subServices = newOptions

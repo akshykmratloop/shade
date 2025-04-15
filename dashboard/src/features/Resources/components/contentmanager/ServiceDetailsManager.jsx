@@ -2,10 +2,7 @@ import { useDispatch } from "react-redux"
 import FileUploader from "../../../../components/Input/InputFileUploader"
 import { updateContent } from "../../../common/homeContentSlice"
 import ContentSection from "../ContentSections"
-import DynamicContentSection from "../DynamicContentSection"
-import MultiSelect from "../MultiSelect"
 import MultiSelectForProjects from "../MultiSelectForProjects"
-import MultiSelectPro from "../MultiSelectPro"
 import content from "../websiteComponent/content.json"
 import { useEffect } from "react"
 
@@ -20,6 +17,7 @@ const ServiceDetailsManager = ({ serviceId, currentContent, currentPath, languag
     }, [])
     return (
         <div className={`w-[299px]`}>
+            {/* file doc */}
             <FileUploader id={"ServiceDetailsIDReference" + serviceId} label={"Rerference doc"} fileName={"Upload your file..."} />
             {/** Hero Banner */}
             <ContentSection
@@ -36,6 +34,7 @@ const ServiceDetailsManager = ({ serviceId, currentContent, currentPath, languag
                 projectId={serviceIndex + 1}
             />
 
+            {/* sub services */}
             <MultiSelectForProjects
                 heading={"Sub Services Section"}
                 tabName={"Select Sub Services"}
@@ -46,6 +45,7 @@ const ServiceDetailsManager = ({ serviceId, currentContent, currentPath, languag
                 id={serviceIndex}
             />
 
+            {/* other services */}
             <MultiSelectForProjects
                 heading={"Sub Services Section"}
                 tabName={"Select Sub Services"}

@@ -69,11 +69,11 @@ const MultiSelectForProjects = ({ heading, options, tabName, label, language, re
             break;
 
         case "subServices":
-            actualListOfServices = content.serviceDetails?.[id]?.subServices;
+            actualListOfServices = content.serviceDetails?.[0]?.subServices;
             break;
 
         case "otherServices":
-            actualListOfServices = content.serviceDetails?.[id]?.otherServices;
+            actualListOfServices = content.serviceDetails?.[0]?.otherServices;
             break;
 
         default:
