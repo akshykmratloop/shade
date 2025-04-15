@@ -74,8 +74,8 @@ function Header() {
                             <BellIcon className="h-6 w-6" />
                         </div>
                     </button>
-                    <label className="swap swap-rotate h-[45px] w-[45px] mx-1 bg-base-300 rounded-md border-green-200">
-                        <input type="checkbox" onChange={toggleTheme} checked={currentTheme === "dark"} />
+                    <label className="swap swap-rotate h-[45px] w-[45px] mx-1 bg-base-300 rounded-md border-none">
+                        <input type="checkbox" onChange={toggleTheme} checked={currentTheme === "dark"} style={{}} />
                         <SunIcon className="fill-current w-6 h-6 swap-off" />
                         <MoonIcon className="fill-current w-6 h-6 swap-on" />
                     </label>

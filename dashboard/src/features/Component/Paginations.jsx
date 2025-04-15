@@ -23,7 +23,7 @@ const Paginations = ({ currentPage, totalPages, setCurrentPage, data }) => {
             <button
                 onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
                 disabled={currentPage === 1}
-                className={`w-[2rem] p-2 flex items-center justify-center  text-sm rounded-full ${currentPage === 1 ? "bg-[#ededed] cursor-not-allowed" : "bg-[#29469c] text-white"}`}
+                className={`w-[2rem] p-2 flex items-center justify-center  text-sm rounded-full ${currentPage === 1 ? "bg-[#ededed] cursor-not-allowed dark:text-[black]" : "bg-[#29469c] text-white"}`}
             >
                 <FaAngleLeft />
             </button>
@@ -38,7 +38,7 @@ const Paginations = ({ currentPage, totalPages, setCurrentPage, data }) => {
                             setCurrentPage(page);
                         }
                     }}
-                    className={`px-3 py-1 pt-2 ${page > 9 ? "pl-2 pr-2" : ""} rounded-full w-[2rem] h-[2rem] ${page === "..." ? "hover:underline text-[23px] -translate-x-1 -translate-y-1" : currentPage === page ? "bg-[#29469c] text-white text-sm" : "bg-[#ededed] text-sm"}`}
+                    className={`px-3 py-1 pt-2 ${page > 9 ? "pl-2 pr-2" : ""} rounded-full w-[2rem] h-[2rem] ${page === "..." ? "hover:underline text-[23px] -translate-x-1 -translate-y-1" : currentPage === page ? "bg-[#29469c] text-white text-sm" : "bg-[#ededed] dark:text-[black] text-sm"}`}
                 >
                     {page}
                 </button>
@@ -47,7 +47,7 @@ const Paginations = ({ currentPage, totalPages, setCurrentPage, data }) => {
             <button
                 onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
                 disabled={currentPage === totalPages}
-                className={`w-[2rem] p-2 flex items-center justify-center text-sm rounded-full ${currentPage === totalPages ? "bg-[#ededed] cursor-not-allowed" : "bg-[#29469C] text-white"}`}
+                className={`w-[2rem] p-2 flex items-center justify-center text-sm rounded-full ${currentPage === totalPages ? "bg-[#ededed] cursor-not-allowed dark:text-[black]" : "bg-[#29469C] text-white"}`}
             >
                 <FaAngleRight />
             </button>

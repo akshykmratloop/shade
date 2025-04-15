@@ -871,30 +871,30 @@
         "en": "View Our Work"
       }
     },
-    "whatWeDo": {
-      "title": {
-        "ar": "ماذا نفعل",
-        "en": "What We Do"
-      },
-      "description1": {
-        "ar": "استمتع بتجربة التآزر بين التصميم والتنفيذ من خلال خدمات التصميم/البناء لدينا، وهو نهج متناغم يدمج الإبداع مع الدقة. ثق بخبرتنا في مجال المقاولات العامة والهندسة العامة للتغلب على التعقيدات وتقديم الحلول التي تصمد أمام اختبار الزمن.",
-        "en": "Experience the synergy between design and execution through our design/build services, a harmonious approach that combines creativity with precision. Trust our expertise in general contracting and general engineering to overcome complexities and deliver solutions that stand the test of time."
-      },
-      "description2": {
-        "ar": "انغمس في هندسة القيمة لدينا، وهو النظام الذي يتقاطع فيه الابتكار والكفاءة، مما يضمن أن مشاريعك ليست عملية فحسب، بل مُحسّنة أيضًا لتحقيق أقصى قيمة.",
-        "en": "Immerse yourself in our value engineering, a system where innovation intersects with efficiency, ensuring your projects are not just functional but optimized for maximum value."
+    "whatWeDo": [
+      {
+        "title": {
+          "ar": "ماذا نفعل",
+          "en": "What We Do"
+        },
+        "description": {
+          "ar": "<p>استمتع بتجربة التآزر بين التصميم والتنفيذ من خلال خدمات التصميم/البناء لدينا، وهو نهج متناغم يدمج الإبداع مع الدقة. ثق بخبرتنا في مجال المقاولات العامة والهندسة العامة للتغلب على التعقيدات وتقديم الحلول التي تصمد أمام اختبار الزمن</p> <br/> <p> انغمس في هندسة القيمة لدينا، وهو النظام الذي يتقاطع فيه الابتكار والكفاءة، مما يضمن أن مشاريعك ليست عملية فحسب، بل مُحسّنة أيضًا لتحقيق أقصى قيمة</p>",
+          "en": "<p>Experience the synergy between design and execution through our design/build services, a harmonious approach that combines creativity with precision. Trust our expertise in general contracting and general engineering to overcome complexities and deliver solutions that stand the test of time.</p> <br/> <p>Immerse yourself in our value engineering, a system where innovation intersects with efficiency, ensuring your projects are not just functional but optimized for maximum value. </p>"
+        }
       }
-    },
-    "howWeDo": {
-      "title": {
-        "ar": "كيف نفعل",
-        "en": "How We Do It"
-      },
-      "description": {
-        "ar": "استمتع بالدقة في المسح، وبراعة التصنيع، وقوة رفع الأثقال، كل ذلك تحت مظلة Shade's Construction Services. سواء كان مشروعك يتطلب قوة هيكلية، أو تفاصيل معقدة، أو نشر التكنولوجيا المتقدمة، فنحن مجهزون لتجاوز توقعاتك.",
-        "en": "Experience precision in surveying, manufacturing expertise, and heavy lifting capabilities, all under Shade's Construction Services umbrella. Whether your project demands structural strength, intricate details, or advanced technology deployment, we're equipped to exceed your expectations."
+    ],
+    "howWeDo": [
+      {
+        "title": {
+          "ar": "كيف نفعل",
+          "en": "How We Do It"
+        },
+        "description": {
+          "ar": "استمتع بالدقة في المسح، وبراعة التصنيع، وقوة رفع الأثقال، كل ذلك تحت مظلة Shade's Construction Services. سواء كان مشروعك يتطلب قوة هيكلية، أو تفاصيل معقدة، أو نشر التكنولوجيا المتقدمة، فنحن مجهزون لتجاوز توقعاتك.",
+          "en": "Experience precision in surveying, manufacturing expertise, and heavy lifting capabilities, all under Shade's Construction Services umbrella. Whether your project demands structural strength, intricate details, or advanced technology deployment, we're equipped to exceed your expectations."
+        }
       }
-    },
+    ],
     "newProject": {
       "title": {
         "ar": "هل تريد بدء مشروع جديد أو التعاون معنا؟",
@@ -935,6 +935,11 @@
           "url": "https://frequencyimage.s3.ap-south-1.amazonaws.com/be6992a3-4390-42c1-b807-b1a04f48b0e6-Rectangle%2034624112.jpg",
           "width": 488,
           "height": 194
+        },
+        {
+          "url": "https://frequencyimage.s3.ap-south-1.amazonaws.com/ae1cee6e-f695-4e06-8e0b-983b8cb94209-Rectangle%2034624111.jpg",
+          "width": 384,
+          "height": 316
         }
       ],
       "showcase": [
@@ -952,6 +957,11 @@
           "url": "https://frequencyimage.s3.ap-south-1.amazonaws.com/02a98512-a0f4-4297-8c55-b84b66f54b6b-Rectangle%2034624113.png",
           "width": 488,
           "height": 396
+        },
+        {
+          "url": "https://frequencyimage.s3.ap-south-1.amazonaws.com/5cd72b35-f719-40af-bc46-e994164239cc-Rectangle%2034624114.png",
+          "width": 432,
+          "height": 232
         }
       ]
     }
@@ -1059,14 +1069,17 @@
         "en": "Discover the exceptional excellence of Shade Corporation, the leading company in engineering, procurement, and construction in Saudi Arabia."
       },
       "button": {
-        "text": {
-          "ar": "عرض المشاريع",
-          "en": "View Projects"
-        }
+        "ar": "عرض المشاريع",
+        "en": "View Projects"
       }
+    },
+    "button": {
+      "en": "See More",
+      "ar": "عرض المزيد"
     },
     "serviceCards": [
       {
+        "id": 1,
         "title": {
           "ar": "إدارة البناء",
           "en": "Construction Management"
@@ -1078,6 +1091,10 @@
         "listTitle": {
           "ar": "خبرتنا تغطي:",
           "en": "Our expertise covers:"
+        },
+        "button": {
+          "en": "View Details",
+          "ar": "عرض التفاصيل"
         },
         "listItems": [
           {
@@ -1101,9 +1118,11 @@
             "en": "Communications & Instrumentation"
           }
         ],
-        "image": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+140.png"
+        "image": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+140.png",
+        "display": true
       },
       {
+        "id": 2,
         "title": {
           "ar": "خدمات المشروع",
           "en": "Project Services"
@@ -1115,6 +1134,10 @@
         "listTitle": {
           "ar": "خبرتنا تغطي:",
           "en": "Our expertise covers:"
+        },
+        "button": {
+          "en": "View Details",
+          "ar": "عرض التفاصيل"
         },
         "listItems": [
           {
@@ -1138,9 +1161,11 @@
             "en": "Landscaping Services"
           }
         ],
-        "image": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(2).png"
+        "image": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(2).png",
+        "display": true
       },
       {
+        "id": 3,
         "title": {
           "ar": "التشغيل والصيانة",
           "en": "Operation & Maintenance"
@@ -1153,9 +1178,15 @@
           "ar": "سواء تم تقديمها كخدمات مستقلة، أو جزء من مجموعة من الخدمات التي تدعم تسليم المشاريع وتشغيلها، فإن خدمات التشغيل والصيانة التي تقدمها SHADE تساعد العملاء في حماية أصول البنية التحتية الحيوية والمكلفة وإطالة عمرها التشغيلي.",
           "en": "Whether delivered as standalone services, or part of a suite of services supporting project delivery and operations, SHADE's O&M services help clients protect vital and costly infrastructure assets and extend their operational life."
         },
-        "image": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(3).png"
+        "button": {
+          "en": "View Details",
+          "ar": "عرض التفاصيل"
+        },
+        "image": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(3).png",
+        "display": true
       },
       {
+        "id": 4,
         "title": {
           "ar": "تلفيق",
           "en": "Fabrication"
@@ -1168,9 +1199,15 @@
           "ar": "يعمل خبراؤنا الفنيون على تبسيط طرق التسليم لتحسين كفاءة رأس المال لعملائنا، بغض النظر عن الصناعة. نحن نعتمد نهجًا مرنًا ونقدم مجموعة من الخيارات التي تم تخصيصها لتناسب متطلبات العميل المحددة.",
           "en": "Our technical experts work to streamline delivery methods to optimize our clients' capital efficiency, regardless of industry. We take a flexible approach and offer a range of options tailored to meet specific client requirements."
         },
-        "image": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(5).png"
+        "button": {
+          "en": "View Details",
+          "ar": "عرض التفاصيل"
+        },
+        "image": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(5).png",
+        "display": true
       },
       {
+        "id": 5,
         "title": {
           "ar": "تأجير المعدات",
           "en": "Equipment Rental"
@@ -1183,7 +1220,12 @@
           "ar": "نحن نقدم حلاً شاملاً لتأجير المعدات ذات المستوى العالمي والخدمات المرتبطة بها. نحن نمكن من استخدام المصانع والآلات لإنجاز المشاريع بسلاسة. يعد أسطولنا الشامل من حيث العمر والأداء من بين الأفضل في الصناعة. تمتلك شركة Shade مجموعة من الرافعات، والمضخات، ومعدات توليد الطاقة، ودعم الخنادق وتدريعها، والسقالات، والتحكم في المناخ، ومعدات المعالجة والترميم، والمزيد.",
           "en": "We provide a comprehensive solution for world-class equipment rental and associated services. We enable the use of plants and machinery to complete projects seamlessly. Our fleet is comprehensive in terms of age and performance among the best in the industry. Shade owns a range of cranes, pumps, power generation equipment, trench support and shoring, scaffolding, climate control, handling and remediation equipment, and more."
         },
-        "image": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(4).png"
+        "button": {
+          "en": "View Details",
+          "ar": "عرض التفاصيل"
+        },
+        "image": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(4).png",
+        "display": true
       }
     ],
     "newProject": {
@@ -1211,6 +1253,310 @@
       }
     }
   },
+  "serviceDetails": [
+    {
+      "id": 1,
+      "banner": {
+        "title": {
+          "en": "Project Details",
+          "ar": "تفاصيل المشروع"
+        },
+        "description": {
+          "en": "Discover the exceptional excellence of Shade Corporation, the premier Engineering, Procurement, and Construction powerhouse in Saudi Arabia.",
+          "ar": "اكتشف التميز الاستثنائي لشركة شيد كوربوريشن، الرائدة في مجال الهندسة والمشتريات والإنشاءات في المملكة العربية السعودية."
+        },
+        "backgroundImage": ""
+      },
+      "subServices": [
+        {
+          "title": {
+            "en": "",
+            "ar": ""
+          },
+          "description": {
+            "en": "",
+            "ar": ""
+          },
+          "image": "",
+          "button": {
+            "en": "",
+            "ar": ""
+          }
+        },
+        {
+          "title": {
+            "en": "",
+            "ar": ""
+          },
+          "description": {
+            "en": "",
+            "ar": ""
+          },
+          "image": "",
+          "button": {
+            "en": "",
+            "ar": ""
+          }
+        },
+        {
+          "title": {
+            "en": "",
+            "ar": ""
+          },
+          "description": {
+            "en": "",
+            "ar": ""
+          },
+          "image": "",
+          "button": {
+            "en": "",
+            "ar": ""
+          }
+        },
+        {
+          "title": {
+            "en": "",
+            "ar": ""
+          },
+          "description": {
+            "en": "",
+            "ar": ""
+          },
+          "image": "",
+          "button": {
+            "en": "",
+            "ar": ""
+          }
+        },
+        {
+          "title": {
+            "en": "",
+            "ar": ""
+          },
+          "description": {
+            "en": "",
+            "ar": ""
+          },
+          "image": "",
+          "button": {
+            "en": "",
+            "ar": ""
+          }
+        },
+        {
+          "title": {
+            "en": "",
+            "ar": ""
+          },
+          "description": {
+            "en": "",
+            "ar": ""
+          },
+          "image": "",
+          "button": {
+            "en": "",
+            "ar": ""
+          }
+        }
+      ],
+      "button": {
+        "en": "",
+        "ar": ""
+      },
+      "otherServices": [
+        {
+          "id": 1,
+          "title": {
+            "ar": "إدارة البناء",
+            "en": "Construction Management"
+          },
+          "subtitle": {
+            "ar": "تزدهر شركة Shade من خلال تقديم خدمة عملاء استثنائية ومشاركة معرفتنا بالمنتجات المتخصصة المتوفرة في الصناعة.",
+            "en": "Shade thrives by delivering exceptional customer service and sharing our knowledge of specialized products available in the industry."
+          },
+          "button": {
+            "en": "View Details",
+            "ar": "عرض التفاصيل"
+          },
+          "image": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+140.png",
+          "display": true
+        },
+        {
+          "id": 2,
+          "title": {
+            "ar": "خدمات المشروع",
+            "en": "Project Services"
+          },
+          "subtitle": {
+            "ar": "نحن نستفيد من سنوات خبرتنا في صناعة البناء والتشييد للعملاء من خلال الحفاظ أيضًا على مرافقهم وبنيتهم التحتية.",
+            "en": "We leverage our years of experience in the construction industry for clients by also maintaining their facilities and infrastructure."
+          },
+          "button": {
+            "en": "View Details",
+            "ar": "عرض التفاصيل"
+          },
+          "image": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(2).png",
+          "display": true
+        },
+        {
+          "id": 3,
+          "title": {
+            "ar": "التشغيل والصيانة",
+            "en": "Operation & Maintenance"
+          },
+          "subtitle": {
+            "ar": "نحن نستفيد من سنوات خبرتنا في صناعة البناء والتشييد للعملاء من خلال الحفاظ أيضًا على مرافقهم وبنيتهم التحتية.",
+            "en": "We leverage our years of experience in the construction industry for clients by also maintaining their facilities and infrastructure."
+          },
+          "button": {
+            "en": "View Details",
+            "ar": "عرض التفاصيل"
+          },
+          "image": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(3).png",
+          "display": true
+        },
+        {
+          "id": 4,
+          "title": {
+            "ar": "تلفيق",
+            "en": "Fabrication"
+          },
+          "subtitle": {
+            "ar": "تتيح لنا المعرفة الشاملة لشركة Shade Corporation في مجال EPC وإدارة المشاريع تحسين التصنيع الشامل للعميل وتكلفة البناء ومزايا الجدول الزمني.",
+            "en": "Shade Corporation's comprehensive knowledge in EPC and project management allows us to optimize the client's overall fabrication, construction cost, and schedule advantages."
+          },
+          "button": {
+            "en": "View Details",
+            "ar": "عرض التفاصيل"
+          },
+          "image": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(5).png",
+          "display": true
+        },
+        {
+          "id": 5,
+          "title": {
+            "ar": "تأجير المعدات",
+            "en": "Equipment Rental"
+          },
+          "subtitle": {
+            "ar": "تعد شركة Shade Corporation واحدة من أكبر شركات البناء وتأجير البنية التحتية في المنطقة.",
+            "en": "Shade Corporation is one of the largest construction and infrastructure rental companies in the region."
+          },
+          "button": {
+            "en": "View Details",
+            "ar": "عرض التفاصيل"
+          },
+          "image": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(4).png",
+          "display": true
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "banner": {
+        "title": {
+          "en": "",
+          "ar": ""
+        },
+        "description": {
+          "en": "",
+          "ar": ""
+        },
+        "backgroundImage": ""
+      },
+      "subServices": [
+        {
+          "title": {
+            "en": "",
+            "ar": ""
+          },
+          "description": {
+            "en": "",
+            "ar": ""
+          },
+          "image": "",
+          "button": {
+            "en": "",
+            "ar": ""
+          }
+        }
+      ],
+      "button": {
+        "en": "",
+        "ar": ""
+      }
+    },
+    {
+      "id": 3,
+      "banner": {
+        "title": {
+          "en": "",
+          "ar": ""
+        },
+        "description": {
+          "en": "",
+          "ar": ""
+        },
+        "backgroundImage": ""
+      },
+      "subServices": [
+        {
+          "title": {
+            "en": "",
+            "ar": ""
+          },
+          "description": {
+            "en": "",
+            "ar": ""
+          },
+          "image": "",
+          "button": {
+            "en": "",
+            "ar": ""
+          }
+        }
+      ],
+      "button": {
+        "en": "",
+        "ar": ""
+      }
+    },
+    {
+      "id": 4,
+      "banner": {
+        "title": {
+          "en": "",
+          "ar": ""
+        },
+        "description": {
+          "en": "",
+          "ar": ""
+        },
+        "backgroundImage": ""
+      },
+      "subServices": [
+        {
+          "title": {
+            "en": "",
+            "ar": ""
+          },
+          "description": {
+            "en": "",
+            "ar": ""
+          },
+          "image": "",
+          "button": {
+            "en": "",
+            "ar": ""
+          }
+        }
+      ],
+      "button": {
+        "en": "",
+        "ar": ""
+      }
+    }
+  ],
   "market": {
     "banner": {
       "title": {
@@ -2258,7 +2604,7 @@
               }
             },
             "url": "itLabExcellence",
-            "display":true
+            "display": true
           },
           {
             "id": 2,
@@ -2278,7 +2624,7 @@
               }
             },
             "url": "nonMetallic",
-            "display":true
+            "display": true
           },
           {
             "id": 3,
@@ -2298,7 +2644,7 @@
               }
             },
             "url": "businessGate",
-            "display":true
+            "display": true
           }
         ],
         "button": {
@@ -2450,7 +2796,7 @@
               }
             },
             "url": "itLabExcellence",
-            "display":true
+            "display": true
           },
           {
             "id": 2,
@@ -2470,7 +2816,7 @@
               }
             },
             "url": "nonMetallic",
-            "display":true
+            "display": true
           },
           {
             "id": 3,
@@ -2490,7 +2836,7 @@
               }
             },
             "url": "businessGate",
-            "display":true
+            "display": true
           }
         ],
         "button": {
@@ -2642,7 +2988,7 @@
               }
             },
             "url": "itLabExcellence",
-            "display":true
+            "display": true
           },
           {
             "id": 2,
@@ -2662,7 +3008,7 @@
               }
             },
             "url": "nonMetallic",
-            "display":true
+            "display": true
           },
           {
             "id": 3,
@@ -2682,7 +3028,7 @@
               }
             },
             "url": "businessGate",
-            "display":true
+            "display": true
           }
         ],
         "button": {
@@ -2827,7 +3173,7 @@
               }
             },
             "url": "itLabExcellence",
-            "display":true
+            "display": true
           },
           {
             "id": 2,
@@ -2847,7 +3193,7 @@
               }
             },
             "url": "nonMetallic",
-            "display":true
+            "display": true
           },
           {
             "id": 3,
@@ -2867,7 +3213,7 @@
               }
             },
             "url": "businessGate",
-            "display":true
+            "display": true
           }
         ],
         "button": {
@@ -3115,7 +3461,7 @@
           ]
         },
         {
-          "id": "de1",
+          "id": "da1",
           "display": true,
           "title": {
             "key": {
@@ -3873,10 +4219,8 @@
         },
         "bannerImage": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+13.jpg",
         "button": {
-          "text": {
-            "en": "Back",
-            "ar": "خلف"
-          }
+          "en": "Back",
+          "ar": "خلف"
         }
       },
       "jobDetails": {
@@ -3888,12 +4232,8 @@
                 "en": "Who Are We Looking For?"
               },
               "content": {
-                "ar": [
-                  "درجة البكالوريوس في علوم الكمبيوتر، أو مجال تقني ذي صلة، أو خبرة عملية معادلة."
-                ],
-                "en": [
-                  "Bachelor's degree in Computer Science or a related technical field, or equivalent practical experience."
-                ]
+                "ar": "درجة البكالوريوس في علوم الكمبيوتر، أو مجال تقني ذي صلة، أو خبرة عملية معادلة.",
+                "en": "Bachelor's degree in Computer Science or a related technical field, or equivalent practical experience."
               }
             },
             {
@@ -3902,12 +4242,8 @@
                 "en": "What Will You Do?"
               },
               "content": {
-                "ar": [
-                  "8 سنوات من الخبرة في تطوير البرمجيات بلغة برمجة واحدة أو أكثر (مثل Python وC وC++ وJava وJavaScript)."
-                ],
-                "en": [
-                  "8 years of experience in software development with one or more programming languages (e.g., Python, C, C++, Java, JavaScript)."
-                ]
+                "ar": "8 سنوات من الخبرة في تطوير البرمجيات بلغة برمجة واحدة أو أكثر (مثل Python وC وC++ وJava وJavaScript).",
+                "en": "8 years of experience in software development with one or more programming languages (e.g., Python, C, C++, Java, JavaScript)."
               }
             },
             {
@@ -3916,12 +4252,8 @@
                 "en": "Bonus Points to Recognize"
               },
               "content": {
-                "ar": [
-                  "خبرة في أطر الواجهة الأمامية (مثل AngularJS وReactJS وما إلى ذلك)."
-                ],
-                "en": [
-                  "Experience with front-end frameworks (e.g., AngularJS, ReactJS, etc.)."
-                ]
+                "ar": "خبرة في أطر الواجهة الأمامية (مثل AngularJS وReactJS وما إلى ذلك).",
+                "en": "Experience with front-end frameworks (e.g., AngularJS, ReactJS, etc.)."
               }
             },
             {
@@ -3930,22 +4262,16 @@
                 "en": "Educational Requirements"
               },
               "content": {
-                "ar": [
-                  "3 سنوات من الخبرة في دور القيادة التقنية؛ الإشراف على المشاريع، مع خبرة سنتين في إدارة الأفراد والإشراف/دور قيادة الفريق."
-                ],
-                "en": [
-                  "3 years of experience in a technical leadership role; overseeing projects, with 2 years of experience managing people and team leadership roles."
-                ]
+                "ar": "3 سنوات من الخبرة في دور القيادة التقنية؛ الإشراف على المشاريع، مع خبرة سنتين في إدارة الأفراد والإشراف/دور قيادة الفريق.",
+                "en": "3 years of experience in a technical leadership role; overseeing projects, with 2 years of experience managing people and team leadership roles."
               }
             }
           ]
         },
         "rightPanel": {
           "button": {
-            "text": {
-              "ar": "يتقدم",
-              "en": "Apply"
-            }
+            "ar": "يتقدم",
+            "en": "Apply"
           },
           "title": {
             "ar": "ملخص الوظيفة",
@@ -4006,10 +4332,8 @@
           }
         },
         "button": {
-          "text": {
-            "en": "Apply Now",
-            "ar": " تقدم بطلبك الآن"
-          }
+          "en": "Apply Now",
+          "ar": " تقدم بطلبك الآن"
         }
       }
     },
@@ -4026,10 +4350,8 @@
         },
         "bannerImage": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+13.jpg",
         "button": {
-          "text": {
-            "en": "Back",
-            "ar": "خلف"
-          }
+          "en": "Back",
+          "ar": "خلف"
         }
       },
       "jobDetails": {
@@ -4041,12 +4363,8 @@
                 "en": "Who Are We Looking For?"
               },
               "content": {
-                "ar": [
-                  "درجة البكالوريوس في علوم الكمبيوتر، أو مجال تقني ذي صلة، أو خبرة عملية معادلة."
-                ],
-                "en": [
-                  "Bachelor's degree in Computer Science or a related technical field, or equivalent practical experience."
-                ]
+                "ar": "درجة البكالوريوس في علوم الكمبيوتر، أو مجال تقني ذي صلة، أو خبرة عملية معادلة.",
+                "en": "Bachelor's degree in Computer Science or a related technical field, or equivalent practical experience."
               }
             },
             {
@@ -4055,12 +4373,8 @@
                 "en": "What Will You Do?"
               },
               "content": {
-                "ar": [
-                  "8 سنوات من الخبرة في تطوير البرمجيات بلغة برمجة واحدة أو أكثر (مثل Python وC وC++ وJava وJavaScript)."
-                ],
-                "en": [
-                  "8 years of experience in software development with one or more programming languages (e.g., Python, C, C++, Java, JavaScript)."
-                ]
+                "ar": "8 سنوات من الخبرة في تطوير البرمجيات بلغة برمجة واحدة أو أكثر (مثل Python وC وC++ وJava وJavaScript).",
+                "en": "8 years of experience in software development with one or more programming languages (e.g., Python, C, C++, Java, JavaScript)."
               }
             },
             {
@@ -4069,12 +4383,8 @@
                 "en": "Bonus Points to Recognize"
               },
               "content": {
-                "ar": [
-                  "خبرة في أطر الواجهة الأمامية (مثل AngularJS وReactJS وما إلى ذلك)."
-                ],
-                "en": [
-                  "Experience with front-end frameworks (e.g., AngularJS, ReactJS, etc.)."
-                ]
+                "ar": "خبرة في أطر الواجهة الأمامية (مثل AngularJS وReactJS وما إلى ذلك).",
+                "en": "Experience with front-end frameworks (e.g., AngularJS, ReactJS, etc.)."
               }
             },
             {
@@ -4083,22 +4393,16 @@
                 "en": "Educational Requirements"
               },
               "content": {
-                "ar": [
-                  "3 سنوات من الخبرة في دور القيادة التقنية؛ الإشراف على المشاريع، مع خبرة سنتين في إدارة الأفراد والإشراف/دور قيادة الفريق."
-                ],
-                "en": [
-                  "3 years of experience in a technical leadership role; overseeing projects, with 2 years of experience managing people and team leadership roles."
-                ]
+                "ar": "3 سنوات من الخبرة في دور القيادة التقنية؛ الإشراف على المشاريع، مع خبرة سنتين في إدارة الأفراد والإشراف/دور قيادة الفريق.",
+                "en": "3 years of experience in a technical leadership role; overseeing projects, with 2 years of experience managing people and team leadership roles."
               }
             }
           ]
         },
         "rightPanel": {
           "button": {
-            "text": {
-              "ar": "يتقدم",
-              "en": "Apply"
-            }
+            "ar": "يتقدم",
+            "en": "Apply"
           },
           "title": {
             "ar": "ملخص الوظيفة",
@@ -4159,15 +4463,13 @@
           }
         },
         "button": {
-          "text": {
-            "en": "Apply Now",
-            "ar": " تقدم بطلبك الآن"
-          }
+          "en": "Apply Now",
+          "ar": " تقدم بطلبك الآن"
         }
       }
     },
     {
-      "id": "de1",
+      "id": "da1",
       "banner": {
         "title": {
           "en": "Data Analyst",
@@ -4179,10 +4481,8 @@
         },
         "bannerImage": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+13.jpg",
         "button": {
-          "text": {
-            "en": "Back",
-            "ar": "خلف"
-          }
+          "en": "Back",
+          "ar": "خلف"
         }
       },
       "jobDetails": {
@@ -4194,12 +4494,8 @@
                 "en": "Who Are We Looking For?"
               },
               "content": {
-                "ar": [
-                  "درجة البكالوريوس في علوم الكمبيوتر، أو مجال تقني ذي صلة، أو خبرة عملية معادلة."
-                ],
-                "en": [
-                  "Bachelor's degree in Computer Science or a related technical field, or equivalent practical experience."
-                ]
+                "ar": "درجة البكالوريوس في علوم الكمبيوتر، أو مجال تقني ذي صلة، أو خبرة عملية معادلة.",
+                "en": "Bachelor's degree in Computer Science or a related technical field, or equivalent practical experience."
               }
             },
             {
@@ -4208,12 +4504,8 @@
                 "en": "What Will You Do?"
               },
               "content": {
-                "ar": [
-                  "خبرة في أدوات تحليل البيانات والتصور (مثل SQL و Tableau و Excel)."
-                ],
-                "en": [
-                  "Experience in data analysis and visualization tools (e.g., SQL, Tableau, Excel)."
-                ]
+                "ar": "خبرة في أدوات تحليل البيانات والتصور (مثل SQL و Tableau و Excel).",
+                "en": "Experience in data analysis and visualization tools (e.g., SQL, Tableau, Excel)."
               }
             },
             {
@@ -4222,12 +4514,8 @@
                 "en": "Bonus Points to Recognize"
               },
               "content": {
-                "ar": [
-                  "إثبات القدرة على العمل مع مجموعات البيانات الكبيرة واستخلاص رؤى ذات مغزى منها."
-                ],
-                "en": [
-                  "Proven ability to work with large datasets and derive meaningful insights from them."
-                ]
+                "ar": "إثبات القدرة على العمل مع مجموعات البيانات الكبيرة واستخلاص رؤى ذات مغزى منها.",
+                "en": "Proven ability to work with large datasets and derive meaningful insights from them."
               }
             },
             {
@@ -4236,22 +4524,16 @@
                 "en": "Educational Requirements"
               },
               "content": {
-                "ar": [
-                  "خبرة في التعامل مع البيانات، ETL، وأدوات التقارير."
-                ],
-                "en": [
-                  "Experience working with data wrangling, ETL, and reporting tools."
-                ]
+                "ar": "خبرة في التعامل مع البيانات، ETL، وأدوات التقارير.",
+                "en": "Experience working with data wrangling, ETL, and reporting tools."
               }
             }
           ]
         },
         "rightPanel": {
           "button": {
-            "text": {
-              "ar": "يتقدم",
-              "en": "Apply"
-            }
+            "ar": "يتقدم",
+            "en": "Apply"
           },
           "title": {
             "ar": "ملخص الوظيفة",
@@ -4312,10 +4594,8 @@
           }
         },
         "button": {
-          "text": {
-            "en": "Apply Now",
-            "ar": " تقدم بطلبك الآن"
-          }
+          "en": "Apply Now",
+          "ar": " تقدم بطلبك الآن"
         }
       }
     },
@@ -4332,10 +4612,8 @@
         },
         "bannerImage": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+13.jpg",
         "button": {
-          "text": {
-            "en": "Back",
-            "ar": "خلف"
-          }
+          "en": "Back",
+          "ar": "خلف"
         }
       },
       "jobDetails": {
@@ -4347,12 +4625,8 @@
                 "en": "Who Are We Looking For?"
               },
               "content": {
-                "ar": [
-                  "درجة البكالوريوس في التصميم أو علوم الكمبيوتر أو مجال ذي صلة، أو خبرة عملية معادلة."
-                ],
-                "en": [
-                  "Bachelor's degree in Design, Computer Science, or related field, or equivalent practical experience."
-                ]
+                "ar": "درجة البكالوريوس في التصميم أو علوم الكمبيوتر أو مجال ذي صلة، أو خبرة عملية معادلة.",
+                "en": "Bachelor's degree in Design, Computer Science, or related field, or equivalent practical experience."
               }
             },
             {
@@ -4361,12 +4635,8 @@
                 "en": "What Will You Do?"
               },
               "content": {
-                "ar": [
-                  "أكثر من 5 سنوات من الخبرة في تصميم تجربة المستخدم/واجهة المستخدم، بما في ذلك إجادة أدوات تصميم الإطارات والنماذج الأولية (مثل Sketch و Figma)."
-                ],
-                "en": [
-                  "5+ years of experience in UX/UI design, including proficiency in wireframing and prototyping tools (e.g., Sketch, Figma)."
-                ]
+                "ar": "أكثر من 5 سنوات من الخبرة في تصميم تجربة المستخدم/واجهة المستخدم، بما في ذلك إجادة أدوات تصميم الإطارات والنماذج الأولية (مثل Sketch و Figma).",
+                "en": "5+ years of experience in UX/UI design, including proficiency in wireframing and prototyping tools (e.g., Sketch, Figma)."
               }
             },
             {
@@ -4375,12 +4645,8 @@
                 "en": "Bonus Points to Recognize"
               },
               "content": {
-                "ar": [
-                  "محفظة قوية من الأعمال التصميمية التي تُظهر حلول التصميم الموجهة نحو المستخدم."
-                ],
-                "en": [
-                  "Strong portfolio of design work demonstrating user-centered design solutions."
-                ]
+                "ar": "محفظة قوية من الأعمال التصميمية التي تُظهر حلول التصميم الموجهة نحو المستخدم.",
+                "en": "Strong portfolio of design work demonstrating user-centered design solutions."
               }
             },
             {
@@ -4389,22 +4655,16 @@
                 "en": "Educational Requirements"
               },
               "content": {
-                "ar": [
-                  "خبرة في أبحاث المستخدم واختبار قابلية الاستخدام وعمليات التصميم التكرارية."
-                ],
-                "en": [
-                  "Experience with user research, usability testing, and iterative design processes."
-                ]
+                "ar": "خبرة في أبحاث المستخدم واختبار قابلية الاستخدام وعمليات التصميم التكرارية.",
+                "en": "Experience with user research, usability testing, and iterative design processes."
               }
             }
           ]
         },
         "rightPanel": {
           "button": {
-            "text": {
-              "ar": "يتقدم",
-              "en": "Apply"
-            }
+            "ar": "يتقدم",
+            "en": "Apply"
           },
           "title": {
             "ar": "ملخص الوظيفة",
@@ -4465,10 +4725,8 @@
           }
         },
         "button": {
-          "text": {
-            "en": "Apply Now",
-            "ar": " تقدم بطلبك الآن"
-          }
+          "en": "Apply Now",
+          "ar": " تقدم بطلبك الآن"
         }
       }
     },
@@ -4485,10 +4743,8 @@
         },
         "bannerImage": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+13.jpg",
         "button": {
-          "text": {
-            "en": "Back",
-            "ar": "خلف"
-          }
+          "en": "Back",
+          "ar": "خلف"
         }
       },
       "jobDetails": {
@@ -4500,12 +4756,8 @@
                 "en": "Who Are We Looking For?"
               },
               "content": {
-                "ar": [
-                  "درجة البكالوريوس في علوم الكمبيوتر، تكنولوجيا المعلومات، أو مجال ذي صلة."
-                ],
-                "en": [
-                  "Bachelor's degree in Computer Science, Information Technology, or related field."
-                ]
+                "ar": "درجة البكالوريوس في علوم الكمبيوتر، تكنولوجيا المعلومات، أو مجال ذي صلة.",
+                "en": "Bachelor's degree in Computer Science, Information Technology, or related field."
               }
             },
             {
@@ -4514,12 +4766,8 @@
                 "en": "What Will You Do?"
               },
               "content": {
-                "ar": [
-                  "3 سنوات أو أكثر من الخبرة في تطوير الواجهة الكاملة مع خبرة في React و Node.js و Express و MongoDB."
-                ],
-                "en": [
-                  "3+ years of experience in full-stack development with expertise in React, Node.js, Express, and MongoDB."
-                ]
+                "ar": "3 سنوات أو أكثر من الخبرة في تطوير الواجهة الكاملة مع خبرة في React و Node.js و Express و MongoDB.",
+                "en": "3+ years of experience in full-stack development with expertise in React, Node.js, Express, and MongoDB."
               }
             },
             {
@@ -4528,12 +4776,8 @@
                 "en": "Bonus Points to Recognize"
               },
               "content": {
-                "ar": [
-                  "خبرة في خدمات السحابة (مثل AWS و Azure و Google Cloud)."
-                ],
-                "en": [
-                  "Experience with cloud services (e.g., AWS, Azure, Google Cloud)."
-                ]
+                "ar": "خبرة في خدمات السحابة (مثل AWS و Azure و Google Cloud).",
+                "en": "Experience with cloud services (e.g., AWS, Azure, Google Cloud)."
               }
             },
             {
@@ -4542,22 +4786,16 @@
                 "en": "Educational Requirements"
               },
               "content": {
-                "ar": [
-                  "مهارات حل المشكلات القوية والقدرة على العمل بشكل جيد تحت الضغط."
-                ],
-                "en": [
-                  "Strong problem-solving skills and the ability to work well under pressure."
-                ]
+                "ar": "مهارات حل المشكلات القوية والقدرة على العمل بشكل جيد تحت الضغط.",
+                "en": "Strong problem-solving skills and the ability to work well under pressure."
               }
             }
           ]
         },
         "rightPanel": {
           "button": {
-            "text": {
-              "ar": "يتقدم",
-              "en": "Apply"
-            }
+            "ar": "يتقدم",
+            "en": "Apply"
           },
           "title": {
             "ar": "ملخص الوظيفة",
@@ -4618,10 +4856,8 @@
           }
         },
         "button": {
-          "text": {
-            "en": "Apply Now",
-            "ar": " تقدم بطلبك الآن"
-          }
+          "en": "Apply Now",
+          "ar": " تقدم بطلبك الآن"
         }
       }
     },
@@ -4638,10 +4874,8 @@
         },
         "bannerImage": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+13.jpg",
         "button": {
-          "text": {
-            "en": "Back",
-            "ar": "خلف"
-          }
+          "en": "Back",
+          "ar": "خلف"
         }
       },
       "jobDetails": {
@@ -4653,12 +4887,8 @@
                 "en": "Who Are We Looking For?"
               },
               "content": {
-                "ar": [
-                  "درجة البكالوريوس في علوم الكمبيوتر، هندسة البرمجيات، أو مجال ذي صلة."
-                ],
-                "en": [
-                  "Bachelor's degree in Computer Science, Software Engineering, or related field."
-                ]
+                "ar": "درجة البكالوريوس في علوم الكمبيوتر، هندسة البرمجيات، أو مجال ذي صلة.",
+                "en": "Bachelor's degree in Computer Science, Software Engineering, or related field."
               }
             },
             {
@@ -4667,12 +4897,8 @@
                 "en": "What Will You Do?"
               },
               "content": {
-                "ar": [
-                  "خبرة لا تقل عن سنتين في تطوير البرمجيات مع اتقان Java أو Python أو C++."
-                ],
-                "en": [
-                  "2+ years of experience in software development with proficiency in Java, Python, or C++."
-                ]
+                "ar": "خبرة لا تقل عن سنتين في تطوير البرمجيات مع اتقان Java أو Python أو C++.",
+                "en": "2+ years of experience in software development with proficiency in Java, Python, or C++."
               }
             },
             {
@@ -4681,12 +4907,8 @@
                 "en": "Bonus Points to Recognize"
               },
               "content": {
-                "ar": [
-                  "خبرة في منهجيات العمل المرنة ونظم التحكم في الإصدارات (مثل Git)."
-                ],
-                "en": [
-                  "Experience with agile methodologies and version control systems (e.g., Git)."
-                ]
+                "ar": "خبرة في منهجيات العمل المرنة ونظم التحكم في الإصدارات (مثل Git).",
+                "en": "Experience with agile methodologies and version control systems (e.g., Git)."
               }
             },
             {
@@ -4695,22 +4917,16 @@
                 "en": "Educational Requirements"
               },
               "content": {
-                "ar": [
-                  "مهارات تحليلية قوية وحل المشكلات."
-                ],
-                "en": [
-                  "Strong analytical and problem-solving skills."
-                ]
+                "ar": "مهارات تحليلية قوية وحل المشكلات.",
+                "en": "Strong analytical and problem-solving skills."
               }
             }
           ]
         },
         "rightPanel": {
           "button": {
-            "text": {
-              "ar": "يتقدم",
-              "en": "Apply"
-            }
+            "ar": "يتقدم",
+            "en": "Apply"
           },
           "title": {
             "ar": "ملخص الوظيفة",
@@ -4771,10 +4987,8 @@
           }
         },
         "button": {
-          "text": {
-            "en": "Apply Now",
-            "ar": " تقدم بطلبك الآن"
-          }
+          "en": "Apply Now",
+          "ar": " تقدم بطلبك الآن"
         }
       }
     },
@@ -4791,10 +5005,8 @@
         },
         "bannerImage": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+13.jpg",
         "button": {
-          "text": {
-            "en": "Back",
-            "ar": "خلف"
-          }
+          "en": "Back",
+          "ar": "خلف"
         }
       },
       "jobDetails": {
@@ -4806,12 +5018,8 @@
                 "en": "Who Are We Looking For?"
               },
               "content": {
-                "ar": [
-                  "درجة البكالوريوس في أمن المعلومات، علوم الكمبيوتر، أو مجال ذي صلة."
-                ],
-                "en": [
-                  "Bachelor's degree in Information Security, Computer Science, or related field."
-                ]
+                "ar": "درجة البكالوريوس في أمن المعلومات، علوم الكمبيوتر، أو مجال ذي صلة.",
+                "en": "Bachelor's degree in Information Security, Computer Science, or related field."
               }
             },
             {
@@ -4820,12 +5028,8 @@
                 "en": "What Will You Do?"
               },
               "content": {
-                "ar": [
-                  "خبرة لا تقل عن 3 سنوات في الأمن السيبراني مع معرفة في أمان الشبكة واختبار الاختراق والاستجابة للحوادث."
-                ],
-                "en": [
-                  "3+ years of experience in cybersecurity with knowledge of network security, penetration testing, and incident response."
-                ]
+                "ar": "خبرة لا تقل عن 3 سنوات في الأمن السيبراني مع معرفة في أمان الشبكة واختبار الاختراق والاستجابة للحوادث.",
+                "en": "3+ years of experience in cybersecurity with knowledge of network security, penetration testing, and incident response."
               }
             },
             {
@@ -4834,12 +5038,8 @@
                 "en": "Bonus Points to Recognize"
               },
               "content": {
-                "ar": [
-                  "شهادات في الأمن السيبراني (مثل CISSP و CEH و CompTIA Security+)."
-                ],
-                "en": [
-                  "Certifications in cybersecurity (e.g., CISSP, CEH, CompTIA Security+)."
-                ]
+                "ar": "شهادات في الأمن السيبراني (مثل CISSP و CEH و CompTIA Security+).",
+                "en": "Certifications in cybersecurity (e.g., CISSP, CEH, CompTIA Security+)."
               }
             },
             {
@@ -4848,22 +5048,16 @@
                 "en": "Educational Requirements"
               },
               "content": {
-                "ar": [
-                  "فهم قوي لإدارة التهديدات وتقييم المخاطر واستراتيجيات التخفيف."
-                ],
-                "en": [
-                  "Strong understanding of threat management, risk assessment, and mitigation strategies."
-                ]
+                "ar": "فهم قوي لإدارة التهديدات وتقييم المخاطر واستراتيجيات التخفيف.",
+                "en": "Strong understanding of threat management, risk assessment, and mitigation strategies."
               }
             }
           ]
         },
         "rightPanel": {
           "button": {
-            "text": {
-              "ar": "يتقدم",
-              "en": "Apply"
-            }
+            "ar": "يتقدم",
+            "en": "Apply"
           },
           "title": {
             "ar": "ملخص الوظيفة",
@@ -4924,10 +5118,8 @@
           }
         },
         "button": {
-          "text": {
-            "en": "Apply Now",
-            "ar": " تقدم بطلبك الآن"
-          }
+          "en": "Apply Now",
+          "ar": " تقدم بطلبك الآن"
         }
       }
     }
@@ -5144,10 +5336,8 @@
         },
         "bannerImage": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+2+(3).png",
         "button": {
-          "text": {
-            "en": "Back",
-            "ar": "خلف"
-          }
+          "en": "Back",
+          "ar": "خلف"
         }
       },
       "newsPoints": [
@@ -5181,6 +5371,71 @@
             "en": "This episode highlights many inspiring stories of young people who have overcome the challenges posed by their disabilities. These stories prove that determination and willpower can overcome any obstacle."
           }
         }
+      ],
+      "latestNews": [
+        {
+          "id": "news1",
+          "display": true,
+          "title": {
+            "ar": "شباب يتحدون الإعاقة",
+            "en": "Youth Overcoming Disability"
+          },
+          "description": {
+            "ar": "على الرغم من التحديات الكبيرة التي يعيشها ذوو الإعاقة في منطقة الشرق الأوسط وشمال أفريقيا بسبب الأزمات والحروب إلا أن قسما منهم أراد صنع التغيير وترك بصمة.",
+            "en": "Despite the major challenges faced by people with disabilities in the Middle East and North Africa due to crises and wars, some of them wanted to make a change and leave a mark.Despite the major challenges faced by people with disabilities in the Middle East and North Africa due to crises and wars, some of them wanted to make a change and leave a mark."
+          },
+          "date": {
+            "ar": "20 مايو 2020",
+            "en": "May 20, 2020"
+          },
+          "image": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+1+(2).png",
+          "readMore": {
+            "ar": "اقرأ المزيد",
+            "en": "Read More"
+          }
+        },
+        {
+          "id": "news3",
+          "display": true,
+          "title": {
+            "ar": "التكنولوجيا في خدمة ذوي الإعاقة",
+            "en": "Technology Serving People with Disabilities"
+          },
+          "description": {
+            "ar": "تسهم التكنولوجيا الحديثة في تحسين حياة ذوي الإعاقة من خلال توفير أدوات مساعدة.",
+            "en": "Modern technology contributes to improving the lives of people with disabilities by providing assistive tools."
+          },
+          "date": {
+            "ar": "15 يونيو 2021",
+            "en": "June 15, 2021"
+          },
+          "image": "news3",
+          "readMore": {
+            "ar": "اقرأ المزيد",
+            "en": "Read More"
+          }
+        },
+        {
+          "id": "news4",
+          "display": true,
+          "title": {
+            "ar": "قصص نجاح ملهمة",
+            "en": "Inspiring Success Stories"
+          },
+          "description": {
+            "ar": "قصص ملهمة لأشخاص تغلبوا على التحديات وحققوا أحلامهم.",
+            "en": "Inspiring stories of individuals who overcame challenges and achieved their dreams."
+          },
+          "date": {
+            "ar": "10 يوليو 2021",
+            "en": "July 10, 2021"
+          },
+          "image": "news4",
+          "readMore": {
+            "ar": "اقرأ المزيد",
+            "en": "Read More"
+          }
+        }
       ]
     },
     {
@@ -5196,10 +5451,8 @@
         },
         "bannerImage": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+2+(3).png",
         "button": {
-          "text": {
-            "en": "Back",
-            "ar": "خلف"
-          }
+          "en": "Back",
+          "ar": "خلف"
         }
       },
       "newsPoints": [
@@ -5233,6 +5486,71 @@
             "en": "The addition of robots to Hajj facilities is an important step as they help reduce congestion and improve the effectiveness of services provided to pilgrims."
           }
         }
+      ],
+      "latestNews": [
+        {
+          "id": "news1",
+          "display": true,
+          "title": {
+            "ar": "شباب يتحدون الإعاقة",
+            "en": "Youth Overcoming Disability"
+          },
+          "description": {
+            "ar": "على الرغم من التحديات الكبيرة التي يعيشها ذوو الإعاقة في منطقة الشرق الأوسط وشمال أفريقيا بسبب الأزمات والحروب إلا أن قسما منهم أراد صنع التغيير وترك بصمة.",
+            "en": "Despite the major challenges faced by people with disabilities in the Middle East and North Africa due to crises and wars, some of them wanted to make a change and leave a mark.Despite the major challenges faced by people with disabilities in the Middle East and North Africa due to crises and wars, some of them wanted to make a change and leave a mark."
+          },
+          "date": {
+            "ar": "20 مايو 2020",
+            "en": "May 20, 2020"
+          },
+          "image": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+1+(2).png",
+          "readMore": {
+            "ar": "اقرأ المزيد",
+            "en": "Read More"
+          }
+        },
+        {
+          "id": "news3",
+          "display": true,
+          "title": {
+            "ar": "التكنولوجيا في خدمة ذوي الإعاقة",
+            "en": "Technology Serving People with Disabilities"
+          },
+          "description": {
+            "ar": "تسهم التكنولوجيا الحديثة في تحسين حياة ذوي الإعاقة من خلال توفير أدوات مساعدة.",
+            "en": "Modern technology contributes to improving the lives of people with disabilities by providing assistive tools."
+          },
+          "date": {
+            "ar": "15 يونيو 2021",
+            "en": "June 15, 2021"
+          },
+          "image": "news3",
+          "readMore": {
+            "ar": "اقرأ المزيد",
+            "en": "Read More"
+          }
+        },
+        {
+          "id": "news4",
+          "display": true,
+          "title": {
+            "ar": "قصص نجاح ملهمة",
+            "en": "Inspiring Success Stories"
+          },
+          "description": {
+            "ar": "قصص ملهمة لأشخاص تغلبوا على التحديات وحققوا أحلامهم.",
+            "en": "Inspiring stories of individuals who overcame challenges and achieved their dreams."
+          },
+          "date": {
+            "ar": "10 يوليو 2021",
+            "en": "July 10, 2021"
+          },
+          "image": "news4",
+          "readMore": {
+            "ar": "اقرأ المزيد",
+            "en": "Read More"
+          }
+        }
       ]
     },
     {
@@ -5248,10 +5566,8 @@
         },
         "bannerImage": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+2+(3).png",
         "button": {
-          "text": {
-            "en": "Back",
-            "ar": "خلف"
-          }
+          "en": "Back",
+          "ar": "خلف"
         }
       },
       "newsPoints": [
@@ -5285,6 +5601,71 @@
             "en": "Technology not only provides convenience but also contributes to enhancing independence and creating better opportunities for education and employment."
           }
         }
+      ],
+      "latestNews": [
+        {
+          "id": "news1",
+          "display": true,
+          "title": {
+            "ar": "شباب يتحدون الإعاقة",
+            "en": "Youth Overcoming Disability"
+          },
+          "description": {
+            "ar": "على الرغم من التحديات الكبيرة التي يعيشها ذوو الإعاقة في منطقة الشرق الأوسط وشمال أفريقيا بسبب الأزمات والحروب إلا أن قسما منهم أراد صنع التغيير وترك بصمة.",
+            "en": "Despite the major challenges faced by people with disabilities in the Middle East and North Africa due to crises and wars, some of them wanted to make a change and leave a mark.Despite the major challenges faced by people with disabilities in the Middle East and North Africa due to crises and wars, some of them wanted to make a change and leave a mark."
+          },
+          "date": {
+            "ar": "20 مايو 2020",
+            "en": "May 20, 2020"
+          },
+          "image": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+1+(2).png",
+          "readMore": {
+            "ar": "اقرأ المزيد",
+            "en": "Read More"
+          }
+        },
+        {
+          "id": "news3",
+          "display": true,
+          "title": {
+            "ar": "التكنولوجيا في خدمة ذوي الإعاقة",
+            "en": "Technology Serving People with Disabilities"
+          },
+          "description": {
+            "ar": "تسهم التكنولوجيا الحديثة في تحسين حياة ذوي الإعاقة من خلال توفير أدوات مساعدة.",
+            "en": "Modern technology contributes to improving the lives of people with disabilities by providing assistive tools."
+          },
+          "date": {
+            "ar": "15 يونيو 2021",
+            "en": "June 15, 2021"
+          },
+          "image": "news3",
+          "readMore": {
+            "ar": "اقرأ المزيد",
+            "en": "Read More"
+          }
+        },
+        {
+          "id": "news4",
+          "display": true,
+          "title": {
+            "ar": "قصص نجاح ملهمة",
+            "en": "Inspiring Success Stories"
+          },
+          "description": {
+            "ar": "قصص ملهمة لأشخاص تغلبوا على التحديات وحققوا أحلامهم.",
+            "en": "Inspiring stories of individuals who overcame challenges and achieved their dreams."
+          },
+          "date": {
+            "ar": "10 يوليو 2021",
+            "en": "July 10, 2021"
+          },
+          "image": "news4",
+          "readMore": {
+            "ar": "اقرأ المزيد",
+            "en": "Read More"
+          }
+        }
       ]
     },
     {
@@ -5300,10 +5681,8 @@
         },
         "bannerImage": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+2+(3).png",
         "button": {
-          "text": {
-            "en": "Back",
-            "ar": "خلف"
-          }
+          "en": "Back",
+          "ar": "خلف"
         }
       },
       "newsPoints": [
@@ -5325,6 +5704,71 @@
           "content": {
             "ar": "إصرار هؤلاء الأشخاص على النجاح والتغلب على العقبات يعد مصدر إلهام للكثيرين. هذه القصص تبرز كيف يمكن للإرادة الصلبة أن تحقق المستحيل.",
             "en": "The determination of these individuals to succeed and overcome obstacles is an inspiration to many. These stories highlight how a strong will can achieve the impossible."
+          }
+        }
+      ],
+      "latestNews": [
+        {
+          "id": "news1",
+          "display": true,
+          "title": {
+            "ar": "شباب يتحدون الإعاقة",
+            "en": "Youth Overcoming Disability"
+          },
+          "description": {
+            "ar": "على الرغم من التحديات الكبيرة التي يعيشها ذوو الإعاقة في منطقة الشرق الأوسط وشمال أفريقيا بسبب الأزمات والحروب إلا أن قسما منهم أراد صنع التغيير وترك بصمة.",
+            "en": "Despite the major challenges faced by people with disabilities in the Middle East and North Africa due to crises and wars, some of them wanted to make a change and leave a mark.Despite the major challenges faced by people with disabilities in the Middle East and North Africa due to crises and wars, some of them wanted to make a change and leave a mark."
+          },
+          "date": {
+            "ar": "20 مايو 2020",
+            "en": "May 20, 2020"
+          },
+          "image": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+1+(2).png",
+          "readMore": {
+            "ar": "اقرأ المزيد",
+            "en": "Read More"
+          }
+        },
+        {
+          "id": "news3",
+          "display": true,
+          "title": {
+            "ar": "التكنولوجيا في خدمة ذوي الإعاقة",
+            "en": "Technology Serving People with Disabilities"
+          },
+          "description": {
+            "ar": "تسهم التكنولوجيا الحديثة في تحسين حياة ذوي الإعاقة من خلال توفير أدوات مساعدة.",
+            "en": "Modern technology contributes to improving the lives of people with disabilities by providing assistive tools."
+          },
+          "date": {
+            "ar": "15 يونيو 2021",
+            "en": "June 15, 2021"
+          },
+          "image": "news3",
+          "readMore": {
+            "ar": "اقرأ المزيد",
+            "en": "Read More"
+          }
+        },
+        {
+          "id": "news4",
+          "display": true,
+          "title": {
+            "ar": "قصص نجاح ملهمة",
+            "en": "Inspiring Success Stories"
+          },
+          "description": {
+            "ar": "قصص ملهمة لأشخاص تغلبوا على التحديات وحققوا أحلامهم.",
+            "en": "Inspiring stories of individuals who overcame challenges and achieved their dreams."
+          },
+          "date": {
+            "ar": "10 يوليو 2021",
+            "en": "July 10, 2021"
+          },
+          "image": "news4",
+          "readMore": {
+            "ar": "اقرأ المزيد",
+            "en": "Read More"
           }
         }
       ]
@@ -5477,5 +5921,135 @@
         "ar": "العودة إلى الصفحة الرئيسية"
       }
     }
+  },
+  "underDevelopment": {
+    "banner": {
+      "title": {
+        "ar": "هذه الصفحة قيد التطوير وسوف يتم تحديثها قريبا...",
+        "en": "This page is under development and will be updated soon..."
+      }
+    }
+  },
+  "testimonialSection": {
+    "title": {
+      "en": "What Our Clients Say About Us?",
+      "ar": "ماذا يقول عملاؤنا عنا؟"
+    },
+    "testimonials": [
+      {
+        "name": {
+          "en": "Dr. Engr. Salah Attia Abdelzaher",
+          "ar": "د. مهندس صلاح عطيه عبد الظاهر"
+        },
+        "position": {
+          "en": "Director Projects JODC (Director of infrastructure and MEP)",
+          "ar": "مدير المشاريع في شركة جبل عمر للتطوير (مدير البنية التحتية والميكانيكا والكهرباء)"
+        },
+        "quote": {
+          "en": "Excellent planning, coordination and execution. Successful scheduling. Strong management and reporting. HSE representative excelled. Conclusion: Performance exceeds expectations.",
+          "ar": "تخطيط وتنسيق وتنفيذ ممتاز. جدولة ناجحة. إدارة وإعداد التقارير قوية. تميز ممثل الصحة والسلامة والبيئة. الخلاصة: الأداء يتجاوز التوقعات."
+        },
+        "company": {
+          "en": "Jabal Omar Development Company",
+          "ar": "شركة جبل عمر للتطوير"
+        },
+        "image": "testimonial1"
+      },
+      {
+        "name": {
+          "en": "Ahmed Basiony",
+          "ar": "أحمد بسيوني"
+        },
+        "position": {
+          "en": "Project Manager",
+          "ar": "مدير مشروع"
+        },
+        "quote": {
+          "en": "Always delighted to work with Shade team; our trusted EPC partner. Their proactive approach has added value to each stage of the development and we have always been able to rely on their team to provide a very high quality, cost effective and robust results.",
+          "ar": "دائمًا سعيد بالعمل مع فريق شيد؛ شريكنا الموثوق في مشاريع الهندسة والمشتريات والبناء. لقد أضاف نهجهم الاستباقي قيمة إلى كل مرحلة من مراحل التطوير، وتمكنا دائمًا من الاعتماد على فريقهم لتقديم نتائج قوية عالية الجودة وفعالة من حيث التكلفة."
+        },
+        "company": {
+          "en": "Nesma & Partners",
+          "ar": "نسما وشركاها"
+        },
+        "image": "testimonial2"
+      },
+      {
+        "name": {
+          "en": "Khaled El Kholy",
+          "ar": "خالد الخولي"
+        },
+        "position": {
+          "en": "Project Engineer",
+          "ar": "مهندس مشروع"
+        },
+        "quote": {
+          "en": "Impressed with the project team’s expertise and hands on experience with road projects. They have consistently delivered against project objectives and proved as most reliable construction partner.",
+          "ar": "مُعجب بخبرة فريق المشروع وتجربته العملية في مشاريع الطرق. لقد قدموا باستمرار نتائج تتماشى مع أهداف المشروع وأثبتوا أنهم أكثر شركاء البناء موثوقية."
+        },
+        "company": {
+          "en": "Umm Al Qura for Development & Construction",
+          "ar": "شركة أم القرى للتطوير والبناء"
+        },
+        "image": "userIcon"
+      },
+      {
+        "name": {
+          "en": "Mostafa Sayed",
+          "ar": "سيد مصطفى"
+        },
+        "position": {
+          "en": "Project Manager",
+          "ar": "مدير مشروع"
+        },
+        "quote": {
+          "en": "The staff employed by Shade for the project, have supported us to deliver a challenging scheme on time, budget, quality and specification, which has resulted in us keeping promise of delivering key infrastructure for Makkah on time & budget.",
+          "ar": "لقد دعمنا الموظفون الذين عينتهم شركة شيد للمشروع لتقديم مخطط مليء بالتحديات في الوقت المحدد والميزانية والجودة والمواصفات، مما أدى إلى وفائنا بوعدنا بتسليم البنية التحتية الرئيسية لمكة المكرمة في الوقت المحدد وضمن الميزانية."
+        },
+        "company": {
+          "en": "Jabal Omar Development Authority",
+          "ar": "هيئة تطوير جبل عمر"
+        },
+        "image": "userIcon"
+      },
+      {
+        "name": {
+          "en": "Amro Khatab",
+          "ar": "عمرو خطاب"
+        },
+        "position": {
+          "en": "Project Manager",
+          "ar": "مدير مشروع"
+        },
+        "quote": {
+          "en": "To have qualified construction partner as Shade, is key for the success of the project, especially something as complicated as Bridge road E. Their competent site team supported us in execution as well as their planning process contribute to on time delivery.",
+          "ar": "وجود شريك بناء مؤهل ك شيد هو مفتاح لنجاح المشروع، خاصة في شيء معقد مثل طريق الجسر E. لقد دعمنا فريق الموقع المختص في التنفيذ بالإضافة إلى مساهمة عملية التخطيط الخاصة بهم في التسليم في الوقت المحدد."
+        },
+        "company": {
+          "en": "Khatib & Alami",
+          "ar": "خطيب وعلمي"
+        },
+        "image": "userIcon"
+      },
+      {
+        "name": {
+          "en": "Sherif Mekky",
+          "ar": "شريف مكي"
+        },
+        "position": {
+          "en": "Design Manager",
+          "ar": "مدير التصميم"
+        },
+        "quote": {
+          "en": "As a design consultant, it is most important to have experienced construction partner who is prompt, efficient, supportive and professional in all elements of their work. Shade is one of such partners, who is committed to deliver required output with excellent quality.",
+          "ar": "كمستشار تصميم، من المهم جدًا أن يكون لديك شريك بناء ذو خبرة وسريع وفعال وداعم ومحترف في جميع جوانب عمله. شيد هي واحدة من هؤلاء الشركاء، الذين يلتزمون بتقديم النتائج المطلوبة بجودة ممتازة."
+        },
+        "company": {
+          "en": "Parsons",
+          "ar": "بارسون"
+        },
+        "image": "userIcon"
+      }
+    ]
   }
 }

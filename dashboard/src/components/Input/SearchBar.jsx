@@ -14,11 +14,11 @@ function SearchBar({ searchText, styleClass, placeholderText, setSearchText, out
     <div className={"flex-1 flex"}>
       <div className="relative flex-1 flex w-full">
         <input
-          type="text"
+          type="search"
           value={searchText}
           placeholder={placeholderText || "Search"}
           onChange={(e) => updateSearchInput(e.target.value)}
-          className={`input rounded-lg  pl-10 text-sm ${styleClass} custom-placeholder font-[400]`}
+          className={`input rounded-lg pl-10 text-sm ${styleClass} custom-placeholder font-[400]`}
           style={{outline: !outline? "none": ""}}
         />
         <CiSearch className='absolute top-[.75rem] left-[.5rem] text-2xl' />

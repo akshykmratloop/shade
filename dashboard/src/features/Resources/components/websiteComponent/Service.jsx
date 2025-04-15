@@ -1,183 +1,94 @@
-import React, { useState } from "react";
-// import styles from "@/components/services/services.module.scss";
+import React, { useEffect, useState } from "react";
 import Arrow from "../../../../assets/icons/right-wrrow.svg"; ///assets/icons/right-wrrow.svg
-import { useDispatch } from "react-redux";
-
-// Font files can be colocated inside of `app`
-// const BankGothic = localFont({
-//   src: "../../../public/font/BankGothicLtBTLight.ttf",
-//   display: "swap",
-// });
-// import dynamic from 'next/dynamic';
-// import localFont from "next/font/local";
-// import Button from "@/common/Button";
-// import Image from "next/image";
-// import { useTruncate } from '@/common/useTruncate';
-// import patch from "../../contexts/svg/path.jsx";
-
-// const AnimatedText = dynamic(() => import('@/common/AnimatedText'), { ssr: false });
-// import { useGlobalContext } from "../../contexts/GlobalContext";
-// const ContactUsModal = dynamic(() => import('../header/ContactUsModal'), { ssr: false });
-
-const Services = ({currentContent, screen, language}) => {
-    const isLeftAligned = language === 'en'
+import { useDispatch, useSelector } from "react-redux";
+import content from "./content.json"
+import { updateContent } from "../../../common/homeContentSlice";
+import { services, projectPageData } from "../../../../assets/index";
+import { TruncateText } from "../../../../app/capitalizeword";
+const Services = ({ currentContent, screen, language }) => {
+    const isComputer = screen > 900;
+    const isTablet = screen < 900 && screen > 730;
+    const isPhone = screen < 738;
+    const isLeftAlign = language === 'en';
+    const ImagesFromRedux = useSelector(state => state.homeContent.present.images);
     const dispatch = useDispatch()
-    // const { language, content } = useGlobalContext();
-    // const currentContent = content?.services;
-    // const [isModal, setIsModal] = useState(false);
-    // const handleContactUSClose = () => {currentPath
-    //     setIsModal(false);
-    // };
 
-    
+
+
+    useEffect(() => {
+        dispatch(updateContent({ currentPath: "services", payload: (content?.services) }))
+    }, [])
     return (
-        <div>
-
+        <div className="">
             <section
-                className={`relative w-full h-[715px] bg-cover bg-center ${isLeftAligned ? 'scale-x-[-1]' : ''}`}
-                style={{ backgroundImage: "url('https://loopwebsite.s3.ap-south-1.amazonaws.com/Hero+(4).png')" }}
+                className={`relative w-full py-[100px] ${isPhone ? "px-8" : "px-10"} bg-cover bg-center ${isLeftAlign ? 'scale-x-[-1]' : ''}`}
+                style={{ backgroundImage: `linear-gradient(to right,#00000020 30%,#fffffffb 100%) ,url("${ImagesFromRedux?.['ServiceBanner'] || services.contructionTowerImage}")`, backgroundPosition: "bottom" }}
             >
                 <div className="container relative h-full flex items-center justify-end">
-                    <div className={`${isLeftAligned ? 'scale-x-[-1] text-left' : 'text-right'} w-1/2 space-y-4 p-6`}>
-                        <h1 className="text-black text-[70px] font-medium leading-[77px] tracking-[-3.5px] mb-4">
+                    <div className={`${isLeftAlign ? 'scale-x-[-1] text-left' : 'text-right'} ${isPhone ? "w-4/5" : isTablet ? "w-2/3" : "w-1/2"} space-y-4 p-6 flex flex-col ${isLeftAlign ? "items-start" : "items-end"}`}>
+                        <h1 className={`text-[#292E3D]  font-medium ${isPhone ? "text-[40px] leading-[50px]" : isTablet ? "text-[45px] leading-[55px]" : "text-[45px] leading-[77px]"} tracking-[-3.5px] mb-4`}>
                             {currentContent?.banner?.title[language]}
                         </h1>
-                        <p className="text-para-light text-[16px] font-semibold leading-[26px] w-[50%] word-spacing-5">
+                        <p className="text-[#0E172FB2] text-[12px] font-semibold leading-[26px]  word-spacing-5">
                             {currentContent?.banner?.description[language]}
                         </p>
                         <button
-                            className={`relative flex items-center px-14 py-4 text-[18px] font-medium bg-gray-200 rounded ${isLeftAligned ? 'scale-x-[-1]' : ''}`}
-                        // onClick={() => router.push('/project')}
+                            className={`relative items-center flex ${isLeftAlign ? "" : "flex-row-reverse"} gap-1 text-[12px] font-medium px-[12px] py-[6px] px-[12px] bg-[#00b9f2] text-white rounded-md`}
+                            onClick={() => { }}
                         >
+                            {currentContent?.banner?.button?.[language]}
+
                             <img
                                 src={Arrow}
-                                width={18}
-                                height={17}
-                                alt="Arrow"
-                                className="absolute left-8 top-1/2 transform -translate-y-1/2"
+                                width="10"
+                                height="11"
+                                alt=""
+                                style={{ transform: isLeftAlign ? "rotate(180deg)" : "" }}
                             />
-                            {currentContent?.banner?.button?.text[language]}
                         </button>
                     </div>
                 </div>
             </section>
-        </div>
+            <section dir={isLeftAlign ? 'ltr' : 'rtl'}
+                className={`grid ${isPhone ? " py-[80px] grid-cols-1" : "py-[20px] grid-cols-2"} ${isTablet ? "px-[60px]" : isPhone ? "px-[40px]" : "px-[100px]"} gap-x-[28px] gap-y-10 auto-rows-fr`}>
+                {currentContent?.serviceCards?.map((service, idx) => {
+                    if(!service.display) return null
+                    return (
+                        <article
+                            key={idx}
+                            className="flex flex-col h-full bg-white \ overflow-hidden shadow"
+                        >
+                            <img src={service.image} alt="img" className="w-full object-cover h-[176px]" />
+                            <section className="bg-[#F8F8F8] py-[14px] px-[18px] flex flex-col justify-between flex-1">
+                                <h1 className="text-[#292E3D] text-[22px] font-[400]">
+                                    {TruncateText(service?.title?.[language], isTablet ? 15 : 23)}
+                                </h1>
+                                <p className="text-[#292E3D] text-[10px] mb-2">
+                                    {service?.subtitle?.[language]}
+                                </p>
+                                <button className={`text-[#00B9F2] flex gap-1 items-center mt-auto ${!isLeftAlign && "flex-rows-reverse"}`}>
+                                    {service?.button?.[language]}
+                                    <img
+                                        src="https://frequencyimage.s3.ap-south-1.amazonaws.com/61c0f0c2-6c90-42b2-a71e-27bc4c7446c2-mingcute_arrow-up-line.svg"
+                                        alt=""
+                                        className={`${isLeftAlign && "rotate-[180deg]"} w-[16px] h-[16px]`}
+                                    />
+                                </button>
+                            </section>
+                        </article>
+                    )
+                })}
+            </section>
+
+            {!(currentContent?.serviceCards.lenght > 6) &&
+                < div className="flex justify-center py-10" >
+                    <button className="bg-[#00B9F2] text-[#fff] p-[11px] rounded-[6px]">
+                        {currentContent?.button?.[language]}
+                    </button>
+                </div>}
+
+        </div >
     );
 };
 
 export default Services;
-
-
-//   <section
-//     className={` ${language === "en" && styles.leftAlign}   ${
-//       styles.services_banner_wrap
-//     }`}
-//   >
-//     <div className="container" style={{ height :"100%", position :"relative"}} >
-//       <div className={styles.content}>
-//         {/* <AnimatedText text={currentContent?.banner?.title[language]} Wrapper="h1" repeatDelay={0.04} className={`${styles.title} ${BankGothic.className}`} /> */}
-//         <h1 className={`${styles.title} `}>
-//           {currentContent?.banner?.title[language]}
-//         </h1>
-//         <p className={`${styles.description} ${BankGothic.className}`}>
-//           {currentContent?.banner?.description[language]}
-//         </p>
-//         <Button className={styles.view_btn}
-//         onClick={() => router.push('/project')}
-//         >
-//           <Image
-//             src={Arrow}
-//             width="18"
-//             height="17"
-//             alt=""
-//             className={styles.arrow_btn}
-//           />
-//           &nbsp;{currentContent?.banner?.button?.text[language]}
-//         </Button>
-//       </div>
-//     </div>
-//   </section>
-
-//   <section
-//     className={` ${language === "en" && styles.leftAlign}   ${
-//       styles.services_card_wrap
-//     }`}
-//   >
-//     <div className="container">
-//       <div className={styles.service_card_group}>
-//         {currentContent?.serviceCards.map((card, index) => (
-//           <div className={styles.service_card} key={index}>
-//             <div className={styles.card_body}>
-//               <h2 className={styles.title}>{card.title[language]}</h2>
-//               <p className={styles.subTitle}>{card.subtitle[language]}</p>
-
-//               {card.listTitle && (
-//                 <>
-//                   <h6 className={styles.des_title}>
-//                     {card.listTitle[language]}
-//                   </h6>
-//                   <ul className={styles.list_wrap}>
-//                     {card.listItems?.map((item, itemIndex) => (
-//                       <li key={itemIndex} className={styles.list_item}>
-//                         - {item[language]}
-//                       </li>
-//                     ))}
-//                   </ul>
-//                 </>
-//               )}
-
-//               {card.description && (
-//                 <p className={styles.subTitle}>
-//                   {card.description[language]}
-//                 </p>
-//               )}
-//             </div>
-//             <Image
-//               src={card.image}
-//               alt=""
-//               className={styles.card_image}
-//               width={463}
-//               height={250}
-//             />
-//           </div>
-//         ))}
-//       </div>
-//     </div>
-//   </section>
-
-//   <section
-//     className={` ${language === "en" && styles.leftAlign}   ${
-//       styles.new_project_wrapper
-//     }`}
-//   >
-//     <div className={`container ${styles.main_container}`}>
-//       <div className={styles.Client_content}>
-//         {/* <AnimatedText text={currentContent?.newProject?.title[language]} Wrapper="h2" repeatDelay={0.03} className={`${styles.title} ${BankGothic.className}`} /> */}
-//         <h2 className={`${styles.title}`}>
-//           {currentContent?.newProject?.title[language]}
-//         </h2>
-//         <p className={`${styles.description} ${BankGothic.className}`}>
-//           {currentContent?.newProject?.description1[language].replace(
-//             currentContent?.newProject?.highlightedText[language],
-//             `"${currentContent?.newProject?.highlightedText[language]}"`
-//           )}{" "}
-//           <i className={language === "ar" && styles.arabicVersion}>
-//             {patch()}
-//           </i>
-//         </p>
-//         <p className={`${styles.description} ${BankGothic.className}`}>
-//           {currentContent?.newProject?.description2[language]}
-//         </p>
-//         <Button
-//           onClick={() => setIsModal(true)}
-
-//           className={` ${language === "en" && styles.leftAlign}   ${
-//             styles.view_btn
-//           }`}
-//         >
-//           {currentContent?.newProject?.button?.text[language]}
-//         </Button>
-//       </div>
-//     </div>
-//   </section>
-//   <ContactUsModal isModal={isModal} onClose={handleContactUSClose} />

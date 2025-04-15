@@ -18,7 +18,7 @@ const HeaderManager = ({ language, currentContent, currentPath }) => {
                             currentPath={currentPath}
                             subHeading={"Section " + (i + 1)}
                             inputs={[
-                                { input: "input", label: "title", updateType: "title" },
+                                { input: "input", label: "title", updateType: "title", maxLength: 10 },
                             ]}
                             section={section}
                             language={language}

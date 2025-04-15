@@ -198,9 +198,6 @@ export async function fetchRoleType() {
   return await makerequest(
     api.route("fetchRoleType"),
     "GET",
-    JSON.stringify({}),
-    {},
-    true
   );
 }
 

@@ -228,7 +228,7 @@ function Logs() {
                                                 </td>
                                                 <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]">
                                                     <span className="">
-                                                        {log?.ipAddress || "N/A"}
+                                                        {(log?.ipAddress?.slice(7, this?.length)) || "N/A"}
                                                     </span>
                                                 </td>
                                                 <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]" style={{ whiteSpace: "wrap" }}>

@@ -1,7 +1,7 @@
 //libraries
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { toast } from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 // modules
 import Button from '../../../components/Button/Button';
@@ -18,7 +18,7 @@ import { RxCross1 } from "react-icons/rx";
 import { Switch } from '@headlessui/react';
 
 
-export default function ContentTopBar({ setWidth, raisePopup }) {
+export default function ContentTopBar({ setWidth, raisePopup, setFullScreen }) {
     const dispatch = useDispatch();
     const iconSize = 'xl:h-[1.5rem] xl:w-[1.5rem]';
     const smallIconSize = 'sm:h-[1rem] sm:w-[1rem]';
@@ -147,7 +147,7 @@ export default function ContentTopBar({ setWidth, raisePopup }) {
                         <span className={`cursor-pointer`} onClick={redos}><GrRedo className={`${iconSize} ${smallIconSize} hover:text-[#64748B] dark:hover:text-[#bbb] ${ReduxState.future.length >= 1 && "text-[#1f2937] dark:text-[#bbb]"}`} /></span>
                     </div>
                     <div className='flex gap-2 border-r border-[#64748B] text-[#1f2937] dark:text-[#808080]  pr-2 relative'>
-                        <span className={`cursor-pointer `}><LuEye className={`${iconSize} ${smallIconSize} dark:hover:text-[#bbbbbb]`} /></span>
+                        <span className={`cursor-pointer `} onClick={() => setFullScreen(true)}><LuEye className={`${iconSize} ${smallIconSize} dark:hover:text-[#bbbbbb]`} /></span>
                         <span ref={infoIconRef} className={`cursor-pointer `} onClick={() => info ? setInfo(false) : setInfo(true)}><IoIosInformationCircleOutline className={`${iconSize} ${smallIconSize} dark:hover:text-[#bbbbbb]`} /></span>
                         <div ref={infoRef} className={`absolute top-[100%] left-1/2 border bg-white w-[200px] shadow-xl rounded-lg text-xs p-2 ${info ? "block" : "hidden"}`} >
                             <p className='text-[#64748B]'>last saved:  <span className='text-[black]'>{"dd/mm/yyyy"}</span></p>  {/* last saved */}
@@ -156,7 +156,7 @@ export default function ContentTopBar({ setWidth, raisePopup }) {
                     </div>
                 </div>
                 <div className='flex items-center gap-1'>
-                    <span className={`text-sm font-lexend dark:text-[#CBD5E1] text-[#202a38]`}>
+                    <span className={`text-sm font-lexend dark:text-[#CBD5E1] text-[#202a38] select-none`}>
                         Auto Save
                     </span>
 
@@ -184,7 +184,6 @@ export default function ContentTopBar({ setWidth, raisePopup }) {
                     <Button text={'Submit'} functioning={raisePopup.submit} classes='bg-[#29469D] rounded-md xl:h-[2.68rem] sm:h-[2rem] xl:text-xs sm:text-[.6rem] xl:w-[5.58rem] w-[4rem] text-[white]' />
                 </div>
             </div>
-
         </div>
     );
 }

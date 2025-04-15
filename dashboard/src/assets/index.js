@@ -5,6 +5,8 @@ import architecture from "./icons/architecture.png";
 import eqRental from "./icons/eqRental.png";
 import construction from "./icons/construction.png";
 
+import contructionTowerImage from "./constructionBaseImage.jpeg"
+
 // experieceIcons
 import projectCompleted from "./icons/projectComplete.png";
 import happyClient from "./icons/happyClients.png";
@@ -18,7 +20,6 @@ import psychiatric from "./images/psychiatriFacility.png";
 import renovation from "./images/renovation.png";
 
 //markets
-
 import buildings from "./images/buildings.jpg";
 import industrial from "./images/industrial.jpg";
 import infrastructure from "./images/infrastructure.jpeg";
@@ -57,7 +58,7 @@ import news3 from "./images/news3.png";
 import news4 from "./images/news4.png";
 
 // projectPageData
-import itLabExcellence from "./images/itLabExcellence.png"; 
+import itLabExcellence from "./images/itLabExcellence.png";
 import nonMetallic from "./images/nonMetallic.jpg"
 import businessGate from "./images/businessGate.png"
 import constructionOfOME from "./images/constructionOfOME.jpg"
@@ -72,7 +73,7 @@ import developmentOfHo from "./images/developmentOfHo.jpg"
 import procedureAreaExpansion from "./images/procedureAreaExpansion.jpg"
 import replaceAndAutomate from "./images/replace&Automate.jpg"
 import aiKhobarTunnel from "./images/aiKhobarTunnel.jpg"
-import bridgeAndTunnelForHumair  from "./images/Bridge&TunnnelForHaramain.jpg"
+import bridgeAndTunnelForHumair from "./images/Bridge&TunnnelForHaramain.jpg"
 import crossroadBridgee from "./images/crossroadBridgee.jpg"
 import secondaryRaad from "./images/secondaryRaad.jpeg"
 import secondaryRoads from "./images/secondaryRoads.jpeg"
@@ -81,6 +82,7 @@ import otherProjects from "./images/otherProjects.png"
 
 export const services = {
   construction,
+  contructionTowerImage,
   architecture,
   operationGate,
   eqRental,
@@ -140,7 +142,7 @@ export const aboutUsIcons = {
 
 
 export const projectPageData = {
-itLabExcellence,
+  itLabExcellence,
   nonMetallic,
   businessGate,
   constructionOfOME,

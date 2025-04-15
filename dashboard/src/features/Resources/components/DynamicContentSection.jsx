@@ -1,10 +1,12 @@
-import { useState } from "react";
+// libraries
+import { useState, useRef, useMemo } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import JoditEditor from "jodit-react";
+// custom module
+import TextAreaInput from "../../../components/Input/TextAreaInput";
 import InputFile from "../../../components/Input/InputFile";
 import InputText from "../../../components/Input/InputText";
-import TextAreaInput from "../../../components/Input/TextAreaInput";
-import { useDispatch, useSelector } from "react-redux";
-import { updateSpecificContent, updateServicesNumber, updateImages, updateTheProjectSummaryList } from "../../common/homeContentSlice";
-import InputFileWithText from "../../../components/Input/InputFileText";
+import { updateSpecificContent, updateServicesNumber, updateImages, updateTheProjectSummaryList, updateWhatWeDoList } from "../../common/homeContentSlice";
 import InputFileForm from "../../../components/Input/InputFileForm";
 
 const DynamicContentSection = ({
@@ -21,10 +23,14 @@ const DynamicContentSection = ({
     index,
     subSecIndex,
     currentContent,
+    allowRemoval = false, // New prop to allow extra input
     allowExtraInput = false, // New prop to allow extra input
     attachOne = false,
     projectId,
-    addMore
+    careerId,
+    careerIndex,
+    newsId,
+    type
 }) => {
     const dispatch = useDispatch();
     const [extraFiles, setExtraFiles] = useState([]);
@@ -39,19 +45,37 @@ const DynamicContentSection = ({
         }
         setExtraFiles([...extraFiles, { label: `Extra File ${extraFiles.length + 1}`, id: `extraFile${extraFiles.length + 1}` }]);
     };
+    const editor = useRef(null);
 
     const removeExtraFileInput = (id) => {
         setExtraFiles(extraFiles.filter(file => file.id !== id));
     };
 
-  
 
     const removeSummary = (index) => {
-        dispatch(updateTheProjectSummaryList({
-            index,
-            projectId,
-            operation: 'remove'
-        }))
+        if (newsId) {
+            dispatch(updateTheProjectSummaryList({
+                index,
+                operation: 'remove',
+                newsIndex: projectId - 1,
+                context: currentPath
+            }))
+        } else if (projectId) {
+            dispatch(updateTheProjectSummaryList({
+                index,
+                projectId,
+                careerIndex,
+                operation: 'remove',
+                context: currentPath
+            }))
+        } else {
+            dispatch(updateWhatWeDoList({
+                index,
+                operation: 'remove',
+                section,
+                context: currentPath
+            }))
+        }
     }
 
     const updateFormValue = ({ updateType, value }) => {
@@ -61,74 +85,196 @@ const DynamicContentSection = ({
                 dispatch(updateServicesNumber({ section, title: updateType, value: val, subSection, index, currentPath }));
             }
         } else {
-            dispatch(updateSpecificContent({ section, title: updateType, lan: language, value: value === "" ? "" : value, subSection, index, subSectionsProMax, subSecIndex, currentPath, projectId }));
+            dispatch(updateSpecificContent({
+                section,
+                title: updateType,
+                lan: language,
+                value: value === "" ? "" : value,
+                subSection,
+                index,
+                subSectionsProMax,
+                subSecIndex,
+                currentPath,
+                projectId,
+                careerId,
+                type
+            }));
         }
     };
 
+    const updateFormValueRichText = (updateType, value) => {
+
+        if (updateType === 'count') {
+            if (!isNaN(value)) {
+                let val = value?.slice(0, 7);
+                dispatch(updateServicesNumber({ section, title: updateType, value: val, subSection, index, currentPath }));
+            }
+        } else {
+            dispatch(updateSpecificContent({
+                section,
+                title: updateType,
+                lan: language,
+                value: value === "" ? "" : value,
+                subSection,
+                index,
+                subSectionsProMax,
+                subSecIndex,
+                currentPath,
+                projectId,
+                careerId,
+                type
+            }));
+        }
+    };
+
+    const modules = {
+        toolbar: [
+            [{ color: [] }, { background: [] }], ,
+            [{ header: [1, 2, false] }],
+            ["bold", "italic", "underline"],
+            // [{ list: "ordered" }, { list: "bullet" }],
+            ["link", "image"],
+            ['clean'] // Remove formatting
+        ],
+    };
+
+    const config = useMemo(() => ({
+        buttons: [
+            "bold", "italic", "underline", "strikethrough", "|",
+            "font", "fontsize", "lineHeight", "|",
+            "brush", "eraser", "image", "ul"
+        ],
+        buttonsXS: [
+            "bold", "italic", "underline", "strikethrough", "|",
+            "font", "fontsize", "lineHeight", "|",
+            "brush", "eraser", "ul"
+        ],
+        toolbarAdaptive: false,
+        toolbarSticky: false,
+        removeButtons: [
+            "source", "ol", "indent", "outdent", "paragraph", "video", "table", "link", "unlink",
+            "align", "undo", "redo", "hr", "fullsize",
+            "copyformat", "selectall", "cut", "copy", "paste"
+        ],
+        showPlaceholder: false,
+        showCharsCounter: false,
+        showWordsCounter: false,
+        showXPathInStatusbar: false,
+        showEmptyParagraph: false,
+        allowEmptyTags: false,
+        useSplitMode: false,
+        showButtonPanel: true,
+        showTooltip: false,
+
+        // 👇 Disable the plus "+" hover icon
+        disablePlugins: ['addNewLine']
+    }), []);
+
+
+
     return (
         <div className={`w-full relative ${Heading ? "mt-4" : subHeading ? "mt-2" : ""} flex flex-col gap-1 ${!isBorder ? "" : "border-b border-b-1 border-neutral-300"} ${attachOne ? "pb-0" : (Heading || subHeading) ? "pb-6" : ""}`}>
-            <button
+            {allowRemoval && <button
                 className="absolute top-6 z-10 right-[-8px] bg-red-500 text-white px-[5px] rounded-full shadow"
                 onClick={() => { removeSummary(index) }}
             >
                 ✖
-            </button>
+            </button>}
             <h3 className={`font-semibold ${subHeading ? "text-[.9rem] mb-1" : Heading ? "text-[1.25rem] mb-4" : " mb-0"}`}>{Heading || subHeading}</h3>
-            {inputs.length > 0 ? inputs.map((input, i) => {
-                let valueExpression;
-                if (projectId) {
-                    if (subSection) {
-                        valueExpression = currentContent?.[projectId - 1]?.[section]?.[subSection]?.[index]?.[input.updateType]?.[language];
-                    } else if (input.updateType === 'url') {
-                        valueExpression = currentContent?.[projectId - 1]?.[section]?.[input.updateType];
-                    } else {
-                        if (section === 'descriptionSection') {
+            {inputs.length > 0 &&
+                inputs.map((input, i) => {
+                    let valueExpression;
+                    if (projectId && !careerId) {
+                        if (subSection) {
+                            valueExpression = currentContent?.[projectId - 1]?.[section]?.[subSection]?.[index]?.[input.updateType]?.[language];
+                        } else if (input.updateType === 'url') {
+                            valueExpression = currentContent?.[projectId - 1]?.[section]?.[input.updateType];
+                        } else if (section === 'descriptionSection') {
                             valueExpression = currentContent?.[projectId - 1]?.[section]?.[index]?.[input.updateType]?.[language];
                         } else {
                             valueExpression = currentContent?.[projectId - 1]?.[section]?.[input.updateType]?.[language];
                         }
+                    } else if (subSectionsProMax === "Links") {
+                        valueExpression = currentContent?.[section]?.[subSection]?.[index]?.[input.updateType];
+                    } else if (subSectionsProMax) {
+                        if (careerId) {
+                            valueExpression = currentContent?.[projectId - 1]?.[section]?.[subSection]?.[subSectionsProMax]?.[index]?.[input.updateType]?.[language];
+                        } else {
+                            valueExpression = currentContent?.[section]?.[subSection]?.[index]?.[subSectionsProMax]?.[subSecIndex]?.[input.updateType]?.[language];
+                        }
+                    } else if (subSection && typeof currentContent?.[section]?.[subSection]?.[index]?.[input.updateType] !== "object") {
+                        valueExpression = currentContent?.[section]?.[subSection]?.[index]?.[input.updateType];
+                    } else if (subSection === 'url') {
+                        valueExpression = currentContent?.[section]?.[subSection]?.[index]?.[input.updateType];
+                    } else if (subSection) {
+                        valueExpression = currentContent?.[section]?.[subSection]?.[index]?.[input.updateType]?.[language];
+                    } else if (type === 'rich') {
+                        valueExpression = currentContent?.[section]?.[index]?.[input.updateType]?.[language];
+                    } else {
+                        if (careerId) {
+                            // console.log(currentContent?.[projectId - 1]?.[section]?.[index]?.[input.updateType]?.[language])
+                            valueExpression = currentContent?.[projectId - 1]?.[section]?.[index]?.[input.updateType]?.[language];
+                        } else {
+                            valueExpression = currentContent?.[section]?.[input.updateType]?.[language];
+                        }
                     }
-                } else if (subSectionsProMax === "Links") {
-                    valueExpression = currentContent?.[section]?.[subSection]?.[index]?.[input.updateType];
-                } else if (subSectionsProMax) {
-                    valueExpression = currentContent?.[section]?.[subSection]?.[index]?.[subSectionsProMax]?.[subSecIndex]?.[input.updateType]?.[language];
-                } else if (subSection && typeof (currentContent?.[section]?.[subSection]?.[index]?.[input.updateType]) !== "object") {
-                    valueExpression = currentContent?.[section]?.[subSection]?.[index]?.[input.updateType];
-                } else if (subSection === 'url') {
-                    valueExpression = currentContent?.[section]?.[subSection]?.[index]?.[input.updateType];
-                } else if (subSection) {
-                    valueExpression = currentContent?.[section]?.[subSection]?.[index]?.[input.updateType]?.[language];
-                } else {
-                    valueExpression = currentContent?.[section]?.[input.updateType]?.[language];
-                }
-                return input.input === "textarea" ? (
-                    <TextAreaInput
-                        key={i}
-                        labelTitle={input.label}
-                        labelStyle="block sm:text-xs xl:text-sm"
-                        updateFormValue={updateFormValue}
-                        updateType={input.updateType}
-                        section={section}
-                        defaultValue={valueExpression || ""}
-                        language={language}
-                        id={input.updateType}
-                    />
-                ) : (
-                    <InputText
-                        key={i}
-                        InputClasses="h-[2.125rem]"
-                        labelTitle={input.label}
-                        labelStyle="block sm:text-xs xl:text-sm"
-                        updateFormValue={updateFormValue}
-                        updateType={input.updateType}
-                        section={section}
-                        defaultValue={valueExpression || ""}
-                        language={language}
-                        id={input.updateType}
-                        required={false}
-                    />
-                );
-            }) : ""}
+
+                    if (input.input === "textarea") {
+                        return (
+                            <TextAreaInput
+                                key={i}
+                                labelTitle={input.label}
+                                labelStyle="block sm:text-xs xl:text-sm"
+                                updateFormValue={updateFormValue}
+                                updateType={input.updateType}
+                                section={section}
+                                defaultValue={valueExpression || ""}
+                                language={language}
+                                id={input.updateType}
+                                maxLength={input.maxLength}
+                            />
+                        );
+                    } else if (input.input === "richtext") {
+                        return (
+                            <div dir={language === 'en' ? 'ltr' : 'rtl'} key={i}>
+                                <JoditEditor
+                                    ref={editor}
+                                    value={valueExpression}
+                                    config={config}
+                                    onChange={(newContent) => {
+                                        console.log(newContent)
+                                        const trimmedVal = newContent.slice(0, input.maxLength);
+                                        console.log(trimmedVal)
+                                        updateFormValueRichText(input.updateType, trimmedVal)
+                                    }}
+                                    onBlur={(newContent) => {
+                                        const trimmedVal = newContent.slice(0, input.maxLength);
+                                        updateFormValueRichText(input.updateType, trimmedVal)
+                                    }}
+
+                                />
+                            </div>
+                        );
+                    } else {
+                        return (
+                            <InputText
+                                key={i}
+                                InputClasses="h-[2.125rem]"
+                                labelTitle={input.label}
+                                labelStyle="block sm:text-xs xl:text-sm"
+                                updateFormValue={updateFormValue}
+                                updateType={input.updateType}
+                                section={section}
+                                defaultValue={valueExpression || ""}
+                                language={language}
+                                id={input.updateType}
+                                required={false}
+                                maxLength={input.maxLength}
+                            />
+                        );
+                    }
+                })
+            }
 
             <div className={`flex ${inputFiles.length > 1 ? "justify-center" : ""}`}>
                 {
@@ -160,7 +306,7 @@ const DynamicContentSection = ({
                             </div>
                         </div>
                         : <div className={`flex ${inputFiles.length > 1 ? "flex-wrap" : "flex-wrap"} gap-10 w-[80%]`}>
-                            
+
                             {inputFiles.map((file, index) => (
                                 <InputFile
                                     key={index}

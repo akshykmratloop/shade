@@ -86,13 +86,13 @@ const MarketPage = ({ language, screen }) => {
                             {currentContent?.banner?.description[language]}
                         </p>
                         <button
-                            className={`relative px-5 py-2 ${isPhone ? "text-xs" : "text-sm"} font-medium bg-[#00B9F2] text-white rounded flex items-center justify-start gap-2 ${isLeftAlign ? "flex-row-reverse" : ""}`}
+                            className={`relative py-[6px] px-[12px] text-xs font-medium bg-[#00B9F2] text-white rounded flex items-center justify-start gap-2 ${isLeftAlign ? "flex-row-reverse" : ""}`}
                         // onClick={() => router.push("/services")}
                         >
                             <img
                                 src={Arrow}
                                 alt="Arrow"
-                                className={` ${isLeftAlign ? 'scale-x-[-1]' : ''} ${isPhone ? "w-[12px] h-[12px]" : "w-[14px] h-[14px]"}`}
+                                className={` ${isLeftAlign ? 'scale-x-[-1]' : ''}  w-[11px] h-[11px]`}
                             />
                             <p>
                                 {currentContent?.banner?.button?.[language]}
@@ -141,7 +141,7 @@ const MarketPage = ({ language, screen }) => {
 
             {/* market projects */}
             <section className={` pb-[45px] px-14 ${language === "en" ? "text-left" : "text-right"}`}>
-                <div className="container mx-auto px-4">
+                <div className="container mx-auto px-4" style={{wordBreak: "normal"}}>
                     <div>
                         {/* Tabs or Dropdown */}
                         <div className="w-full flex flex-col items-center mb-10">
@@ -149,9 +149,10 @@ const MarketPage = ({ language, screen }) => {
                                 // Dropdown for mobile view
                                 <div className="relative w-full max-w-xs">
                                     <select
-                                        className="w-full p-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-[#00B9F2] focus:border-[#00B9F2]"
+                                        className="w-full custom-select p-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-[#00B9F2] focus:border-[#00B9F2]"
                                         value={activeTab}
                                         onChange={(e) => setActiveTab(e.target.value)}
+                                        style={{outline: "none"}}
                                     >
                                         {currentContent?.tabSection?.tabs.map((tab, index) => (
                                             <option key={index} value={tab?.id}>
@@ -182,7 +183,7 @@ const MarketPage = ({ language, screen }) => {
 
                         {/* Cards */}
                         <div
-                            className={`${isPhone ? "flex flex-col" : `grid ${isTablet?"grid-cols-2":"grid-cols-3"} gap-x-16 gap-y-6 mt-12`} ${language === "ar" ? "rtl" : ""}`}
+                            className={`${isPhone ? "flex flex-col" : `grid ${isTablet?"grid-cols-2":"grid-cols-3"} gap-x-4 gap-y-4 mt-12`} ${language === "ar" ? "rtl" : ""}`}
                             style={language === "ar" ? { direction: "rtl" } : {}}
                         >
                             {filterMarketItems

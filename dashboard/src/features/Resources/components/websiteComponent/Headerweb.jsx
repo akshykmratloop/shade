@@ -111,9 +111,9 @@ const Header = ({ isOpenNavbar, setIsOpenNavbar, language, screen, setLanguage }
                         <div className={`flex items-center ${!isLeftAlign && "flex-row-reverse"} gap-4`}>
                             <label className={`relative inline-flex items-center cursor-pointer `} >
                                 <input type="checkbox" checked={language === "en"} onChange={changeLangugage} className="sr-only peer" />
-                                <div className="w-[100px] h-8 bg-blue-200 rounded-md relative flex gap-4 items-center p-1 px-0">
+                                <div className="w-[100px] h-8 bg-blue-200 rounded-[3px] relative flex gap-4 items-center p-1 px-0">
                                     <div
-                                        className={`absolute left-[5px] top-1 h-6 w-11 bg-[#00b9f2] rounded-md transition-transform duration-500 ${language === "en" ? "translate-x-[45px]" : ""}`}
+                                        className={`absolute left-[5px] top-1 h-6 w-11 bg-[#00b9f2] rounded-[3px] transition-transform duration-500 ${language === "en" ? "translate-x-[45px]" : ""}`}
                                     ></div>
                                     <span className={`absolute left-3 text-xs font-medium ${isLeftAlign ? "text-[#001A5882]" : "text-white"}`}>ARB</span>
                                     <span className={`absolute right-3 text-xs font-medium ${isLeftAlign ? "text-white" : "text-[#001A5882]"}`}>ENG</span>

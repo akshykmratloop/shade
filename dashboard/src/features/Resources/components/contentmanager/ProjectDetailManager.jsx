@@ -3,7 +3,10 @@ import FileUploader from "../../../../components/Input/InputFileUploader"
 import ContentSection from "../ContentSections"
 import DynamicContentSection from "../DynamicContentSection"
 import MultiSelect from "../MultiSelect"
-import { updateTheProjectSummaryList } from "../../../common/homeContentSlice"
+import { updateContent, updateTheProjectSummaryList } from "../../../common/homeContentSlice"
+import { useEffect } from "react"
+import content from "../websiteComponent/content.json"
+
 
 const ProjectDetailManager = ({ projectId, currentContent, currentPath, language }) => {
     const dispatch = useDispatch()
@@ -21,10 +24,15 @@ const ProjectDetailManager = ({ projectId, currentContent, currentPath, language
                     }
                 },
                 projectId,
+                context: "projectDetail",
                 operation: 'add'
             }
         ))
     }
+
+    useEffect(() => {
+        dispatch(updateContent({ currentPath: "projectDetail", payload: (content?.projectDetail) }))
+    }, [])
 
     return (
         <div className="w-full">
@@ -35,9 +43,9 @@ const ProjectDetailManager = ({ projectId, currentContent, currentPath, language
                 currentPath={currentPath}
                 Heading={"Banner"}
                 inputs={[
-                    { input: "input", label: "Button Text", updateType: "backButton" },
                     { input: "input", label: "Heading/title", updateType: "title" },
                     { input: "input", label: "Description", updateType: "subtitle" },
+                    { input: "input", label: "Button Text", updateType: "backButton" },
                     { input: "input", label: "Url", updateType: "url" },
                 ]}
                 inputFiles={[{ label: "Backround Image", id: "ProjectBanner/" + (projectId) }]}
@@ -84,7 +92,7 @@ const ProjectDetailManager = ({ projectId, currentContent, currentPath, language
                                 subHeading={"Section " + (index + 1)}
                                 inputs={[
                                     { input: "input", label: "Title", updateType: "title" },
-                                    { input: "textarea", label: "Description", updateType: "description" },
+                                    { input: "richtext", label: "Description", updateType: "description" },
                                 ]}
                                 section={"descriptionSection"}
                                 index={index}
@@ -99,8 +107,6 @@ const ProjectDetailManager = ({ projectId, currentContent, currentPath, language
                 <button className="text-blue-500 cursor-pointer mb-3" onClick={addExtraSummary}>Add More Section...</button>
             </div>
 
-
-
             <ContentSection
                 currentPath={currentPath}
                 Heading={"Gallery"}
@@ -108,22 +114,21 @@ const ProjectDetailManager = ({ projectId, currentContent, currentPath, language
                     currentContent?.[projectId - 1]?.gallerySection?.images?.map((e, i) => {
                         return { label: "Image " + (i + 1), id: `ProjectBanner/${projectId}/gallery/${i}` }
                     })}
-                section={"introSection"}
+                section={"gallerySection"}
                 language={language}
                 currentContent={currentContent}
                 projectId={projectId}
                 allowExtraInput={true}
             />
 
-
             <MultiSelect
                 currentPath={currentPath}
                 section={"moreProjects"}
                 language={language}
                 // label={"Select More Project List"}
-                heading={"Projects Section"}
+                heading={"More Projects"}
                 tabName={"Select Project"}
-                options={currentContent?.[projectId - 1]?.moreProjects?.projects}
+                options={currentContent?.[projectId - 1]?.moreProjects?.projects || []}
                 referenceOriginal={{ dir: "projectDetail", index: 0 }}
                 currentContent={currentContent}
                 projectId={projectId}

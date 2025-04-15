@@ -64,30 +64,38 @@ const MultiSelect = ({ heading, options = [], tabName, label, language, section,
   const [activeItem, setActiveItem] = useState(null);
   let operation = "";
 
-  let actualListOfServices; //content.home.serviceSection.cards
+  let actualLists; //content.home.serviceSection.cards
   switch (referenceOriginal.dir) {
     case "home":
-      actualListOfServices = content.home.serviceSection.cards;
+      actualLists = content.home.serviceSection.cards;
       break;
 
     case "recentproject":
-      actualListOfServices = content.home.recentProjectsSection.sections[referenceOriginal.index].projects
+      actualLists = content.home.recentProjectsSection.sections[referenceOriginal.index].projects
       break;
 
     case "jobs":
-      actualListOfServices = content.careers.jobListSection.jobs;
+      actualLists = content.careers.jobListSection.jobs;
       break;
 
     case "news":
-      actualListOfServices = content.newsBlogs.latestNewCards.cards;
+      actualLists = content.newsBlogs.latestNewCards.cards;
       break;
 
     case "projectDetail":
-      actualListOfServices = content.projectsPage.projectsSection.projects;
+      actualLists = content.projectsPage.projectsSection.projects;
+      break;
+
+    case "newsBlogsDetails":
+      actualLists = content.newsBlogs.latestNewCards.cards;
+      break;
+
+    case "serviceCards":
+      actualLists = content.services.serviceCards
       break;
 
     default:
-      actualListOfServices = []
+      actualLists = []
   }
 
 
@@ -98,10 +106,13 @@ const MultiSelect = ({ heading, options = [], tabName, label, language, section,
   };
 
   const handleSelect = (optionToAdd) => {
-    if (referenceOriginal.dir === 'projectDetail' && selectedOptions.length > 2) return
-    if (referenceOriginal.dir === 'projectDetail') {
+
+    if ((referenceOriginal.dir === 'projectDetail' || referenceOriginal.dir === 'newsBlogsDetails') && selectedOptions.length > 2) return
+    if (referenceOriginal.dir === 'projectDetail' || referenceOriginal.dir === 'newsBlogsDetails') {
       setSelectedOptions(prev => {
-        return [...prev, { ...optionToAdd, display: true }]
+        return [...prev, {
+          ...optionToAdd, display: true
+        }]
       })
       operation = 'add'
     } else {
@@ -169,7 +180,20 @@ const MultiSelect = ({ heading, options = [], tabName, label, language, section,
 
   useEffect(() => {
     if (options.length > 0 && random !== 1) {
-      if (referenceOriginal.dir === 'projectDetail') {
+      if (referenceOriginal.dir === 'newsBlogsDetails') {
+
+        dispatch(updateSelectedProject({
+          origin: referenceOriginal.dir,
+          index: referenceOriginal.index,
+          section,
+          newArray: [...options],
+          selected: selectedOptions,
+          language,
+          currentPath,
+          projectId,
+          operation
+        }));
+      } else if (referenceOriginal.dir === 'projectDetail') {
         dispatch(updateSelectedProject({
           origin: referenceOriginal.dir,
           index: referenceOriginal.index,
@@ -222,7 +246,7 @@ const MultiSelect = ({ heading, options = [], tabName, label, language, section,
       {isDropdownOpen && (
         <ul className="absolute text-xs left-0 xl:top-[-6.2rem] sm:top-[-3rem] md:top-[-6rem] z-10 w-full mt-2 bg-[#fafaff] dark:bg-[#242933] border rounded-md shadow-md overflow-y-scroll h-[10rem] customscroller">
           {
-            actualListOfServices.map((option, index) => {
+            actualLists.map((option, index) => {
               return (
                 <li
                   key={option.title[language]}

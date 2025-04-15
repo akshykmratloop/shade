@@ -14,7 +14,19 @@ const cmsSlice = createSlice({
     reducers: {
         updateImages: (state, action) => {
             state.past.push(JSON.parse(JSON.stringify(state.present)));
-            state.present.images[action.payload.section] = action.payload.src;
+            if (action.payload.updateType === 'gallerySection') {
+                let newArray = []
+                if (action.payload.operation === 'add') {
+                    newArray = [...state.present.projectDetail[action.payload.projectId - 1].gallerySection.images, action.payload.src]
+                } else {
+                    newArray = state.present.projectDetail[action.payload.projectId - 1].gallerySection.images.filter((e, i) => {
+                        return i !== action.payload.src
+                    })
+                }
+                state.present.projectDetail[action.payload.projectId - 1].gallerySection.images = newArray
+            } else {
+                state.present.images[action.payload.section] = action.payload.src;
+            }
             state.future = [];
         },
         removeImages: (state, action) => {
@@ -46,40 +58,118 @@ const cmsSlice = createSlice({
         updateTheProjectSummaryList: (state, action) => {
             state.past.push(JSON.parse(JSON.stringify(state.present)));
             let newArray = []
+            let expression;
+
+            switch (action.payload.context) {
+                case "projectDetail":
+                    expression = state.present.projectDetail?.[action.payload.projectId - 1].descriptionSection;
+                    break;
+
+                case "careerDetails":
+                    expression = state.present.careerDetails?.[action.payload.careerIndex]?.jobDetails?.leftPanel?.sections;
+                    break;
+
+                case "newsBlogsDetails":
+                    expression = state.present.newsBlogsDetails?.[action.payload.newsIndex]?.newsPoints;
+                    break;
+
+                default:
+            }
+
             if (action.payload.operation === 'add') {
-                newArray = [...state.present.projectDetail?.[action.payload.projectId - 1].descriptionSection, action.payload.insert]
+                newArray = [...expression, action.payload.insert]
             } else {
-                newArray = state.present.projectDetail?.[action.payload.projectId - 1].descriptionSection.filter((e, i) => {
+                newArray = expression?.filter((e, i) => {
                     return i !== action.payload.index
                 })
             }
-            state.present.projectDetail[action.payload.projectId - 1].descriptionSection = newArray
+
+            switch (action.payload.context) {
+                case "projectDetail":
+                    state.present.projectDetail[action.payload.projectId - 1].descriptionSection = newArray
+                    break;
+
+                case "careerDetails":
+                    state.present.careerDetails[action.payload.careerIndex].jobDetails.leftPanel.sections = newArray
+                    break;
+
+                case "newsBlogsDetails":
+                    state.present.newsBlogsDetails[action.payload.newsIndex].newsPoints = newArray
+                    break;
+
+                default:
+            }
+            state.future = [];
+        },
+        updateWhatWeDoList: (state, action) => {
+            state.past.push(JSON.parse(JSON.stringify(state.present)));
+            let newArray = []
+            if (action.payload.operation === 'add') {
+                newArray = [...state.present.solution?.[action.payload.section], action.payload.insert]
+            } else {
+                newArray = state.present.solution[action.payload.section].filter((e, i) => {
+                    return i !== action.payload.index
+                })
+            }
+            state.present.solution[action.payload.section] = newArray
             state.future = [];
         },
         updateSpecificContent: (state, action) => {
             state.past.push(JSON.parse(JSON.stringify(state.present)));
-            if (action.payload.projectId) {
+            if (action.payload.projectId && !action.payload.careerId) {
                 if (action.payload.subSection) {
-                    state.present["projectDetail"][action.payload.projectId - 1][action.payload?.section][action.payload.subSection][action.payload?.index][action.payload.title][action.payload.lan] = action.payload.value;
+                    state.present[action.payload.currentPath][action.payload.projectId - 1][action.payload?.section][action.payload.subSection][action.payload?.index][action.payload.title][action.payload.lan] = action.payload.value;
                 } else if (action.payload.title === 'url') {
-                    state.present["projectDetail"][action.payload.projectId - 1][action.payload.section][action.payload.title] = action.payload.value
+                    state.present[action.payload.currentPath][action.payload.projectId - 1][action.payload.section][action.payload.title] = action.payload.value
                 } else {
-                    if (action.payload.section === 'descriptionSection') {
-                        state.present["projectDetail"][action.payload.projectId - 1][action.payload.section][action.payload.index][action.payload.title][action.payload.lan] = action.payload.value
+                    if (action.payload.section === 'testimonials') {
+                        console.log('power')
+                        console.log(action.payload.projectId)
+                        state.present[action.payload.currentPath][action.payload.section][action.payload.projectId - 1][action.payload.title][action.payload.lan] = action.payload.value
+                    } else if (action.payload.section === 'descriptionSection') {
+                        state.present[action.payload.currentPath][action.payload.projectId - 1][action.payload.section][action.payload.index][action.payload.title][action.payload.lan] = action.payload.value
                     } else {
-                        state.present["projectDetail"][action.payload.projectId - 1][action.payload.section][action.payload.title][action.payload.lan] = action.payload.value
+                        state.present[action.payload.currentPath][action.payload.projectId - 1][action.payload.section][action.payload.title][action.payload.lan] = action.payload.value
                     }
                 }
             } else if (action.payload.subSectionsProMax === "Links") {
                 state.present[action.payload?.currentPath][action.payload.section][action.payload.subSection][action.payload?.index][action.payload.title] = action.payload.value;
             } else if (action.payload.subSectionsProMax) {
-                state.present[action.payload?.currentPath][action.payload.section][action.payload.subSection][action.payload?.index][action.payload.subSectionsProMax][action.payload.subSecIndex][action.payload.title][action.payload.lan] = action.payload.value;
+                if (action.payload.careerId) {
+                    if (action.payload.subSectionsProMax === "viewAllButton") {
+                        if (action.payload.title === 'link') {
+                            state.present[action.payload?.currentPath][action.payload.projectId - 1][action.payload.section][action.payload.subSection][action.payload.subSectionsProMax][action.payload.title] = action.payload.value;
+                        } else {
+                            state.present[action.payload?.currentPath][action.payload.projectId - 1][action.payload.section][action.payload.subSection][action.payload.subSectionsProMax][action.payload.title][action.payload.lan] = action.payload.value;
+                        }
+                    } else {
+                        state.present[action.payload?.currentPath][action.payload.projectId - 1][action.payload.section][action.payload.subSection][action.payload.subSectionsProMax][action.payload?.index][action.payload.title][action.payload.lan] = action.payload.value;
+                    }
+                } else {
+                    state.present[action.payload?.currentPath][action.payload.section][action.payload.subSection][action.payload?.index][action.payload.subSectionsProMax][action.payload.subSecIndex][action.payload.title][action.payload.lan] = action.payload.value;
+                }
             } else if (action.payload.subSection === 'url') {
                 state.present[action.payload?.currentPath][action.payload.section][action.payload.subSection] = action.payload.value;
             } else if (action.payload.subSection) {
-                state.present[action.payload?.currentPath][action.payload.section][action.payload.subSection][action.payload?.index][action.payload.title][action.payload.lan] = action.payload.value;
+                if (action.payload.careerId) {
+                    state.present[action.payload?.currentPath][action.payload.projectId - 1][action.payload.section][action.payload.subSection][action.payload.title][action.payload.lan] = action.payload.value;
+                } else {
+                    state.present[action.payload?.currentPath][action.payload.section][action.payload.subSection][action.payload?.index][action.payload.title][action.payload.lan] = action.payload.value;
+                }
+            } else if (action.payload.type === 'rich') {
+                state.present[action.payload?.currentPath][action.payload.section][action.payload.index][action.payload.title][action.payload.lan] = action.payload.value;
             } else {
-                state.present[action.payload?.currentPath][action.payload.section][action.payload.title][action.payload.lan] = action.payload.value;
+                if (action.payload.careerId) {
+                    if (action.payload.section === "newsPoints") {
+                        state.present[action.payload.currentPath][action.payload.projectId - 1][action.payload.section][action.payload.index][action.payload.title][action.payload.lan] = action.payload.value
+                    } else {
+                        state.present[action.payload?.currentPath][action.payload.projectId - 1][action.payload.section][action.payload.title][action.payload.lan] = action.payload.value;
+                    }
+                } else {
+                    console.log("Qwerqwasvkmb hjdsavrweq")
+                    // console.log(currentContent)
+                    state.present[action.payload?.currentPath][action.payload.section][action.payload.title][action.payload.lan] = action.payload.value;
+                }
             }
             state.future = [];
         },
@@ -130,22 +220,42 @@ const cmsSlice = createSlice({
                     state.present.projectDetail[action.payload.projectId - 1].moreProjects.projects = newOptions
                     break;
 
+                case "serviceCards":
+                    state.present[action.payload?.currentPath].serviceCards = newOptions;
+
+
                 default:
             }
             state.future = [];
         },
         updateSelectedProject: (state, action) => {
             state.past.push(JSON.parse(JSON.stringify(state.present)));
+
             const selectedMap = new Map(
-                action.payload?.selected?.filter(e => e.display).map((item, index) => [item.title[action.payload.language], index])
+                action.payload?.selected
+                    ?.filter(e => e.display)
+                    .map((item, index) => [item.title[action.payload.language], index])
             );
-            let newOptions = action.payload.selected
+
+            let newOptions = action.payload.selected;
+
             if (action.payload.operation === 'remove') {
                 newOptions = action.payload.newArray?.map(e => ({
                     ...e,
                     display: selectedMap.has(e.title[action.payload.language])
-                }))
+                }));
             }
+
+            // ❗ Remove duplicates based on title[language]
+            const uniqueTitles = new Set();
+            newOptions = newOptions.filter(item => {
+                const title = item.title[action.payload.language];
+                if (uniqueTitles.has(title)) return false;
+                uniqueTitles.add(title);
+                return true;
+            });
+
+            // Sort based on original order
             newOptions.sort((a, b) => {
                 const indexA = selectedMap.get(a.title[action.payload.language]) ?? Infinity;
                 const indexB = selectedMap.get(b.title[action.payload.language]) ?? Infinity;
@@ -154,13 +264,19 @@ const cmsSlice = createSlice({
 
             switch (action.payload.origin) {
                 case "projectDetail":
-                    state.present.projectDetail[action.payload.projectId - 1].moreProjects.projects = newOptions
+                    state.present.projectDetail[action.payload.projectId - 1].moreProjects.projects = newOptions;
+                    break;
+
+                case "newsBlogsDetails":
+                    state.present.newsBlogsDetails[action.payload.projectId - 1].latestNews = newOptions;
                     break;
 
                 default:
             }
+
             state.future = [];
         },
+
         updateAllProjectlisting: (state, action) => {
             state.past.push(JSON.parse(JSON.stringify(state.present)))
 
@@ -224,5 +340,21 @@ const cmsSlice = createSlice({
     }
 });
 
-export const { updateImages, removeImages, updateContent, updateSpecificContent, updateServicesNumber, updateSelectedContent, updateSelectedProject, updateMarketSelectedContent, updateAllProjectlisting, selectMainNews, undo, redo, updateTheProjectSummaryList } = cmsSlice.actions;
-export default cmsSlice.reducer;
+export const { // actions
+    updateImages,
+    removeImages,
+    updateContent,
+    updateSpecificContent,
+    updateServicesNumber,
+    updateSelectedContent,
+    updateSelectedProject,
+    updateMarketSelectedContent,
+    updateWhatWeDoList,
+    updateAllProjectlisting,
+    selectMainNews,
+    undo,
+    redo,
+    updateTheProjectSummaryList
+} = cmsSlice.actions;
+
+export default cmsSlice.reducer; // reducer

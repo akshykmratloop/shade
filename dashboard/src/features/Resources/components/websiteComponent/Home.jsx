@@ -23,36 +23,17 @@ import {
     EffectCoverflow,
 } from "swiper/modules";
 import "swiper/css/navigation";
-// Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
-// import { useGlobalContext } from "../../contexts/GlobalContext";
 import blankImage from "../../../../assets/images/blankImage.webp";
-import { isPlainObject } from "@reduxjs/toolkit";
 import { TruncateText } from "../../../../app/capitalizeword";
-// import dynamic from 'next/dynamic';
-// const AnimatedText = dynamic(() => import('@/common/AnimatedText'), { ssr: false });
-// import ContactUsModal from "../header/ContactUsModal";
-// import patch from "../../contexts/svg/path.jsx";
-// // Font files can be colocated inside of `app`
-// const BankGothic = localFont({
-//   src: "../../../public/font/BankGothicLtBTLight.ttf",
-//   display: "swap",
-// });
-// import Card from "./Card"; // Adjust the path accordingly
-// import styles from "./Home.module.scss";
-// import button from "@/common/button";
-// import Image from "next/image";
-// import Client from "../../assets/icons/client.svg";
-// import required modules
-// import localFont from "next/font/local";
 
 
 
-const HomePage = ({ language, screen }) => {
-    const isComputer = screen > 1100;
-    const isTablet = screen < 1100;
-    const isPhone = screen < 768;
+const HomePage = ({ language, screen, fullScreen }) => {
+    const isComputer = screen > 900;
+    const isTablet = screen < 900 && screen > 730;
+    const isPhone = screen < 738;
     const dispatch = useDispatch();
     const currentContent = useSelector((state) => state.homeContent.present.home)
     const ImagesFromRedux = useSelector((state) => {
@@ -60,8 +41,8 @@ const HomePage = ({ language, screen }) => {
     })
     const [isModal, setIsModal] = useState(false);
     const [swiperInstance, setSwiperInstance] = useState(null);
-    let isEnglish = language === "en"
-    let textAlignment = isEnglish ? "text-left" : "text-right"
+    let isLeftAlign = language === "en"
+    let textAlignment = isLeftAlign ? "text-left" : "text-right"
     const prevRef = useRef(null);
     const nextRef = useRef(null);
     const [activeRecentProjectSection, setActiveRecentProjectSection] = useState(0);
@@ -88,27 +69,15 @@ const HomePage = ({ language, screen }) => {
     }, [language]);
 
     useEffect(() => {
-        dispatch(updateContent({currentPath:"home", payload:(content?.home)}))
+        dispatch(updateContent({ currentPath: "home", payload: (content?.home) }))
     }, [])
-    //   const { language, content } = useGlobalContext();
-    // const styles = ''
-    // const currentContent = content?.home;
-    // // Create refs for the navigation buttons
     const testimonialPrevRef = useRef(null);
     const testimonialNextRef = useRef(null);
-    // const redirectionUrlForRecentProject = ["/project", "/market", "/"];
-    // // Helper function to chunk array into groups of 4
-
-    // const handleContactUSClose = () => {
-    //     setIsModal(false);
-    // };
-
-    // // Inside your component, before the return statement:
-    // console.log(currentContent?.recentProjectsSection);
     return (
-        <div className={`w-[100%] relative ${textAlignment} bankgothic-medium-dt bg-[white]`}>
+        <div className={`w-full relative ${textAlignment} bankgothic-medium-dt bg-[white]`}   >
             {/* banner */}
-            <section className="w-full relative" >
+            <section className="w-full relative"
+            >
                 <span
                     className={`w-full block ${language === "en" ? "scale-x-100" : "scale-x-[-1]"
                         }`}
@@ -117,20 +86,20 @@ const HomePage = ({ language, screen }) => {
                         src={ImagesFromRedux.homeBanner || background}
                         alt="about-us"
                         className="w-[full] h-full object-cover"
-                        style={{ objectPosition: "center", transform: "scaleX(-1)", height: isTablet? "500px": isPhone && "500px" }} />
+                        style={{ objectPosition: "center", transform: "scaleX(-1)", height: isTablet ? "500px" : isPhone && "500px" }} />
                 </span>
                 <div
-                    className={`container mx-auto absolute ${isComputer ? "top-[30%]" : "top-16"}  left-0 right-0 px-4`}>
-                    <div className={`text-left flex flex-col ${language === "en" ? "items-start" : "items-end"} ${textAlignment} ${isPhone ? "px-[0px]" : "px-[80px]"}`}>
-                        <h1 className={`text-[#292E3D] text-[35px] tracking-[.2rem] leading-[2.5rem] capitalize font-semibold mb-4 w-1/2 ${(450 / 1182) * screen}`}
+                    className={`container mx-auto absolute ${isComputer ? "top-[20%]" : "top-16"}  left-0 right-0 px-4`}>
+                    <div className={`text-left flex flex-col ${language === "en" ? "items-start" : "items-end"} ${textAlignment} ${isPhone ? "px-[0px] py-10" : "px-[80px]"}`}>
+                        <h1 className={`text-[#292E3D] text-[45px] tracking-[0px] leading-[2.5rem] capitalize font-[500] mb-4 ${isPhone ? "w-full" : fullScreen ? "w-3/5" : "w-3/5"}  `}
                         >
                             {currentContent?.homeBanner?.title[language]}
                         </h1>
-                        <p className={`text-[#0E172FB3] font-semibold leading-[16px] mb-6 ${isPhone ? "w-full text-[12px]" : "w-1/2 text-[10px]"} tracking-[2px]`}>
+                        <p className={`text-[#0E172FB3] font-semibold leading-[16px] mb-6 ${isPhone ? "w-full text-[12px]" : "w-1/2 text-[10px]"} tracking-[1px]`}>
                             {currentContent?.homeBanner?.description[language]}
                         </p>
                         <button
-                            className={`relative items-center flex ${isEnglish ? "" : "flex-row-reverse"} gap-1 text-[12px] font-medium px-[12px] py-[8px] px-[24px] bg-[#00b9f2] text-white rounded-md`}
+                            className={`relative items-center flex ${isLeftAlign ? "" : "flex-row-reverse"} gap-1 text-[12px] font-medium px-[12px] py-[6px] px-[12px] bg-[#00b9f2] text-white rounded-md`}
                             onClick={() => { }}
                         >
                             <span>{currentContent?.homeBanner?.buttonText[language]}</span>
@@ -139,7 +108,7 @@ const HomePage = ({ language, screen }) => {
                                 width="10"
                                 height="11"
                                 alt=""
-                                style={{ transform: isEnglish ? "rotate(180deg)" : "" }}
+                                style={{ transform: isLeftAlign ? "rotate(180deg)" : "" }}
                             />
                         </button>
                     </div>
@@ -147,13 +116,13 @@ const HomePage = ({ language, screen }) => {
             </section>
             {/* about us section */}
             <section className={` ${isPhone ? "px-2 py-[60px]" : "px-20 py-[120px]"} ${language === "en" ? "" : " direction-rtl"} items-start`}>
-                <div className={`relative container mx-auto flex ${isPhone ? "flex-col" : ""} ${isEnglish ? "" : "flex-row-reverse"} items-center`}>
+                <div className={`relative container mx-auto flex ${isPhone ? "flex-col" : ""} ${isLeftAlign ? "" : "flex-row-reverse"} items-center`}>
                     {/* Image section */}
                     <div className={`${isPhone ? "w-[90%]" : "w-[70%]"} border border-[#00B9F2] h-[500px] overflow-hidden rounded-sm shadow-lg`}>
                         <img src={ImagesFromRedux.aboutUsSection || AboutUs} alt="about-us" className="w-full h-[500px] object-cover" />
                     </div>
                     {/* About content */}
-                    <div className={`${isPhone ? " " : "absolute "} ${isEnglish ? "right-0 text-left" : "left-0 text-right"} bg-[#145098] ${isTablet ?"p-10 py-14" :"p-14 py-20"} rounded-sm w-[23rem]`} >
+                    <div className={`${isPhone ? " " : "absolute "} ${isLeftAlign ? "right-0 text-left" : "left-0 text-right"} bg-[#145098] ${isTablet ? "p-10 py-14" : "p-14 py-20"} rounded-sm w-[23rem]`} >
                         <h2 className="text-white text-[28px] leading-[1.8rem] mb-4 font-normal">
                             {currentContent?.aboutUsSection?.title[language]}
                         </h2>
@@ -195,12 +164,12 @@ const HomePage = ({ language, screen }) => {
                 </div>
             </section>
             {/* experience section */}
-            <section className={`py-[115px] "pb-[186px]" ${isComputer ? 'px-[100px]' : "px-[50px]"}`}>
+            <section className={`py-[115px]  ${isComputer ? "px-20 pb-60" : !isLeftAlign ? "px-8" : "px-10"}`} dir={isLeftAlign ? 'ltr' : "rtl"}>
                 <div
-                    className={`container mx-auto flex ${isPhone ? "flex-col" : isEnglish ? "" : "flex-row-reverse"} ${isComputer ? "gap-12" : isPhone ? "gap-1" : "gap-14"}`}>
-                    <div className={`w-10 ${isPhone ? 'h-[100px]' : ""} relative flex-1`}
+                    className={`container mx-auto flex ${isPhone ? "flex-col gap-[350px]" : "gap-10"} `}>
+                    <div className={`w-10 relative flex-1`}
                     >
-                        <div className={` ${isPhone ? "h-[290px]" : "relative"} ${isEnglish ? isTablet ? "left-[-1px]" : "left-[-25px]" : "left-[10px]"} top-[50px]`}>
+                        <div className={`relative ${isTablet ? (!isLeftAlign ? "left-[-70px]" : "left-[15px]") : isComputer && "left-[60px] scale-[1.2]"} ${!isLeftAlign && isPhone && "left-[-310px]"}`}>
                             {currentContent?.experienceSection?.cards?.map((item, key) => {
                                 // Set top position based on whether key is odd or even
                                 const topValue = Math.floor(key / 2) * 140 + (key % 2 !== 0 ? -35 : 25); // Odd = move up, Even = move down
@@ -208,7 +177,7 @@ const HomePage = ({ language, screen }) => {
                                     <div
                                         key={key}
                                         style={{ top: `${topValue}px`, zIndex: key + 1 }}
-                                        className={`w-[180px] h-[100px] absolute rounded-md bg-white shadow-lg p-4 ${key % 2 !== 0 ? !isEnglish ? "left-[170px]" : "xl:left-[150px]" : "left-0"}`}
+                                        className={`w-[180px] h-[100px] absolute rounded-md bg-white shadow-lg p-4 ${key % 2 !== 0 ? !isLeftAlign ? "left-[170px]" : "xl:left-[150px]" : "left-0"}`}
                                     >
                                         <div className="relative">
                                             <img
@@ -220,7 +189,7 @@ const HomePage = ({ language, screen }) => {
                                             />
                                         </div>
                                         <h3 className="text-[#292E3D] text-2xl font-semibold pl-2 font-sans">{item.count}</h3>
-                                        <h5 className={`text-black text-xs font-light relative before:absolute ${isEnglish ? "before:left-[-10px]" : "before:right-[-10px]"} before:top-0 before:w-[5px] before:h-[25px] before:bg-orange-500`}>
+                                        <h5 className={`text-black text-xs font-light relative before:absolute ${isLeftAlign ? "before:left-[-10px]" : "before:right-[-10px]"} before:top-0 before:w-[3px] before:h-[18px] before:bg-[#F9995D]`}>
                                             {item.title[language]}
                                         </h5>
                                     </div>
@@ -228,11 +197,11 @@ const HomePage = ({ language, screen }) => {
                             })}
                         </div>
                     </div>
-                    <div className={`max-w-[420px] ${isPhone ? "" : "pt-12"} flex-1`}>
+                    <div className={`max-w-[420px] ${isTablet ? !isLeftAlign ? "pr-[64px]" : "pl-[40px]" : "pl-[50px]"}  flex-1 `}>
                         <h2 className="text-[#00B9F2] text-4xl font-bold leading-[50px] mb-6 ">
                             {currentContent?.experienceSection?.title[language]}
                         </h2>
-                        <p className="text-[#292E3D] text-sm font-[300] leading-4 mb-8" style={{fontWeight:"200"}}>
+                        <p className="text-[#292E3D] text-sm font-[300] leading-4 mb-8" style={{ fontWeight: "200" }}>
                             {currentContent?.experienceSection?.description[language]}
                         </p>
                         <button
@@ -245,37 +214,38 @@ const HomePage = ({ language, screen }) => {
                 </div>
             </section>
             {/* subProjects */}
-            <section className={`py-[58px] ${isPhone ? "px-4 !isPhone &&" : "px-8"} overflow-hidden relative`}>
-                <div className={`container mx-auto flex`}>
-                    <div className={`flex justify-end absolute top-[10px] right-7`}>
+            <section className={`py-[58px] ${isPhone ? "px-2" : "px-8"} overflow-hidden relative `} dir={isLeftAlign ? 'ltr' : 'rtl'}>
+                <div className={`container mx-auto flex  ${!isLeftAlign && 'flex-row-reverse'} ${!isLeftAlign && isTablet && "pl-[200px]"}`}>
+                    <div className={`flex justify-end absolute top-[10px]   ${isLeftAlign ? "right-7" : "left-7"}`}>
                         {activeRecentProjectSection === 2 ? (
                             ""
                         ) : (
                             <button
                                 type="button"
-                                className="relative bg-transparent border-none text-[#667085] text-right text-[16px] leading-[24px] cursor-pointer flex items-center"
+                                className={`relative bg-transparent border-none text-[#667085] text-right text-[16px] leading-[24px] cursor-pointer flex gap-2 items-center `}
                                 onClick={() => { }}
                             >
                                 {
                                     currentContent?.recentProjectsSection?.buttons[0]?.text[language]
-                                }{""}
-                                &nbsp;
+                                }
                                 <img
                                     src="https://frequencyimage.s3.ap-south-1.amazonaws.com/5d82e78b-cb95-4768-abfe-247369079ce6-bi_arrow-up.svg"
                                     width="18"
                                     height="17"
                                     alt=""
-                                    className={`w-[18px] h-[17px] ${language === "en" ? 'transform scale-x-[-1]' : ''}`}
+                                    className={`w-[18px] h-[17px] ${isLeftAlign ? 'transform scale-x-[-1]' : ''}`}
                                 />
                             </button>
                         )}
                     </div>
-                    <div className={`flex ${isTablet ? isPhone ? "gap-[30px]" : "gap-[70px]" : "gap-[30px]"}`}>
-                        <div className="leftDetails">
+
+
+                    <div className={`flex ${isTablet ? isPhone ? "gap-[20px]" : "gap-[30px]" : "gap-[30px]"} ${isLeftAlign && !isComputer && "pr-20"}`}>
+                        <div className={`leftDetails min-w-[150px]   ${isTablet && "w-[180px]"}`}>
                             {currentContent?.recentProjectsSection?.sections?.map((section, index) => (
                                 <div
                                     key={index}
-                                    className={`relative ${!isEnglish ? 'rtl' : ''}`}
+                                    className={`relative `}
                                 >
                                     <span
                                         className={
@@ -286,7 +256,9 @@ const HomePage = ({ language, screen }) => {
                                         onClick={() => setActiveRecentProjectSection(index)}
                                     >
                                         <h2
-                                            className={`${activeRecentProjectSection === index ? 'text-[#292e3d]' : 'text-[#292e3d]'} text-md`}
+                                            className={`${activeRecentProjectSection === index ? 'text-[#292e3d]' : 'text-[#292e3d]'} text-md cursor-pointer`}
+                                            onClick={() => setActiveRecentProjectSection(index)}
+
                                         >
                                             {section?.title[language]}
                                         </h2>
@@ -304,11 +276,11 @@ const HomePage = ({ language, screen }) => {
                             ))}
                         </div>
 
-                        <div className="w-[600px]">
+                        <div className={`${isPhone ? "w-[220px]" : isTablet ? "w-[300px]" : "w-[600px]"} `}>
                             <Swiper
                                 key={language}
                                 modules={[Pagination, Navigation]}
-                                className="mySwiper w-[722px] pb-[65px]"
+                                className={`mySwiper w-[722px]  pb-[65px]`}
 
                                 navigation={{
                                     prevEl: prevRef.current,
@@ -324,11 +296,10 @@ const HomePage = ({ language, screen }) => {
                             >
                                 {projectChunks?.map((chunk, slideIndex) => (
                                     <SwiperSlide key={slideIndex}>
-                                        <div className={`${isPhone ? "flex flex-col" : "grid grid-cols-2 gap-[12px] w-[600px]"}`}
+                                        <div className={`${isPhone ? "flex flex-col" : `grid grid-cols-2 gap-[12px] ${isTablet ? "w-[350px]" : "w-[600px]"}`}`}
                                             style={{ width: isComputer ? "" : isPhone ? `${(600 / 1180) * screen}px` : `${(750 / 1180) * screen}px`, gap: isComputer ? "" : `${(40 / 1180) * screen}px` }}
                                         >
                                             {chunk?.map((project, cardIndex) => {
-                                                // console.log(project.display)
                                                 if (!project.display) return null
                                                 return (
                                                     <div className=" rounded-[4px]" key={cardIndex}>
@@ -347,9 +318,9 @@ const HomePage = ({ language, screen }) => {
                                                         <div className="p-[18px_12px_12px_12px] flex flex-col justify-center items-start gap-[16px] bg-[#00B9F2]">
                                                             <h5
                                                                 title={project?.title[language]}
-                                                                className="text-white text-[20px] font-semibold leading-[normal] h-[40px]"
+                                                                className={`text-white text-[20px] font-semibold  h-[40px] ${!isComputer && "mb-2"}`}
                                                             >
-                                                                {TruncateText(project?.title[language], 45)}
+                                                                {TruncateText(project?.title[language], !isComputer ? 20 : 45)}
                                                             </h5>
                                                             <p
                                                                 title={project?.subtitle[language]}
@@ -369,11 +340,11 @@ const HomePage = ({ language, screen }) => {
 
                             {/* Custom buttons */}
                             <div
-                                className={`flex items-center justify-between relative mt-8 font-sans ${!isEnglish && 'flex-row-reverse'}`}
+                                className={`flex items-center justify-between relative mt-8 font-sans`}
                                 style={{ width: isComputer ? "" : isPhone ? "220px" : `${(400 / 1180) * screen}px` }}
                             // ${projectChunks?.length <= 1 ? 'hidden' : ''}
                             >
-                                <button ref={prevRef} className={`py-[12px] px-[20px] text-[#00B9F2] text-md font-medium border-[1px] border-[#00B9F2] rounded-[6px] flex items-center ${isPhone ? "w-[120px]" : "min-w-[246px]"} justify-center ${language === "ar" && "flex-row-reverse"} bg-white text-primary transition-all duration-200`}>
+                                <button ref={prevRef} className={`py-[12px] px-[20px] text-[#00B9F2] text-md font-medium border-[1px] border-[#00B9F2] rounded-[6px] flex gap-2 items-center ${isPhone ? "w-[120px]" : "min-w-[246px]"} justify-center  bg-white transition-all duration-200`}>
                                     <img
                                         src="https://frequencyimage.s3.ap-south-1.amazonaws.com/b2872383-e9d5-4dd7-ae00-8ae00cc4e87e-Vector%20%286%29.svg"
                                         width="18"
@@ -381,22 +352,21 @@ const HomePage = ({ language, screen }) => {
                                         alt=""
                                         className={`w-[18px] h-[17px] ${language === "en" && 'transform scale-x-[-1]'}`}
                                     />
-                                    &nbsp;
+
                                     {!isPhone &&
                                         currentContent?.recentProjectsSection?.buttons[1]?.text[language]
                                     }
                                 </button>
-                                <button ref={nextRef} className={`py-[12px] px-[20px] text-[#00B9F2] text-md font-medium border-[1px] border-[#00B9F2] rounded-[6px] flex items-center ${isPhone ? "w-[120px]" : "min-w-[246px]"} justify-center ${language === "ar" && "flex-row-reverse"} bg-white text-primary transition-all duration-200`}>
+                                <button ref={nextRef} className={`py-[12px] px-[20px] text-[#00B9F2] text-md font-medium border-[1px] border-[#00B9F2] rounded-[6px] flex gap-2 items-center ${isPhone ? "w-[120px]" : "min-w-[246px]"} justify-center bg-white transition-all duration-200`}>
                                     {!isPhone &&
                                         currentContent?.recentProjectsSection?.buttons[2]?.text[language]
-                                    }{" "}
-                                    &nbsp;
+                                    }
                                     <img
                                         src="https://frequencyimage.s3.ap-south-1.amazonaws.com/de8581fe-4796-404c-a956-8e951ccb355a-Vector%20%287%29.svg"
                                         width="18"
                                         height="17"
                                         alt=""
-                                        className={`w-[18px] h-[17px] ${isEnglish && 'transform scale-x-[-1]'}`}
+                                        className={`w-[18px] h-[17px] ${isLeftAlign && 'transform scale-x-[-1]'}`}
                                     />
                                 </button>
                             </div>
@@ -451,17 +421,17 @@ const HomePage = ({ language, screen }) => {
 
             {/* testomonials section  */}
             <section
-                className={`py-[40px] pb-[40px] ${!isEnglish && 'rtl'} mx-auto relative overflow-hidden`}
-                style={{ width: isComputer ? "700px" : `${screen - 10}px` }}
+                className={`py-[40px] pb-[40px] ${!isLeftAlign && 'rtl'} mx-auto relative overflow-hidden`}
+                style={{ width: isComputer ? "800px" : `${screen - 10}px` }}
             >
-                <div className="container mx-auto">
+                <div className="container mx-auto" >
                     <div className="text-center mb-5">
                         <h2 className="text-black text-3xl font-medium">
                             {currentContent?.testimonialSection?.title[language]}
                         </h2>
                     </div>
 
-                    <div className="relative w-full">
+                    <div className="relative w-full" >
                         {/* Blur effect container */}
                         {
                             !isPhone &&
@@ -499,54 +469,58 @@ const HomePage = ({ language, screen }) => {
                             }}
                             autoplay={{ delay: 2500 }}
                             breakpoints={{
-                                724: { slidesPerView: isPhone?1:2.2 },
+                                724: { slidesPerView: isPhone ? 1 : 1.5 },
                                 500: { slidesPerView: 1 },
                             }}
                         >
                             {currentContent?.testimonialSection?.testimonials?.map(
                                 (testimonial, index) => (
-                                    <SwiperSlide key={index}>
-                                        <div className={`bg-white rounded-xl flex justify-center ${language === "en" ? "flex-row-reverse" : ""} shadow-md`}>
+                                    <SwiperSlide key={index}
+                                        dir={isLeftAlign ? "ltr" : "rtl"}
+                                    >
+                                        <div className={`border bg-white p-3 rounded-xl flex justify-center  shadow-md`}>
 
-                                            <div className="p-5 w-full">
-                                                <h3 className="text-gray-900 text-md font-bold">
-                                                    {testimonial.name[language]}
-                                                </h3>
-                                                <p className="text-gray-500 text-xs font-light mb-4">
-                                                    {testimonial.position[language]}
-                                                </p>
-                                                <p className="text-gray-900 text-xs font-light mb-6 leading-5">
-                                                    {testimonial.quote[language]}
-                                                </p>
-                                                <div className={`flex items-center justify-end gap-2 ${isEnglish ? "text-left flex-row-reverse" : "text-right"}`}>
-                                                    <p className={`text-gray-500 text-base font-bold ${isEnglish ? "text-left" : "text-right"}`}>
-                                                        {testimonial.company[language]}
-                                                    </p>
-                                                    <img
-                                                        src="https://frequencyimage.s3.ap-south-1.amazonaws.com/a813959c-7b67-400b-a0b7-f806e63339e5-ph_building%20%281%29.svg"
-                                                        height={18}
-                                                        width={18}
-                                                        alt={testimonial.name}
-                                                        className="h-[18px] w-[18px]"
-                                                    />
-                                                </div>
-                                            </div>
                                             <div className="flex 1">
                                                 <img
                                                     src={testimonials?.[testimonial?.image]}
                                                     height={70}
                                                     width={70}
-                                                    alt={testimonial.name}
-                                                    className="rounded-full h-[70px] w-[70px] object-cover"
+                                                    alt={testimonial?.name}
+                                                    className="rounded-full h-[70px] w-[75px] object-cover border border-gray-200"
                                                 />
                                             </div>
+
+                                            <div className="p-5 w-full">
+                                                <h3 className="text-gray-900 text-md font-bold">
+                                                    {testimonial?.name?.[language]}
+                                                </h3>
+                                                <p className="text-gray-500 text-xs font-light mb-4">
+                                                    {testimonial?.position?.[language]}
+                                                </p>
+                                                <p className="text-gray-900 text-xs font-light mb-6 leading-5">
+                                                    {testimonial?.quote?.[language]}
+                                                </p>
+                                                <div className={`flex items-center justify- gap-2`}>
+                                                    <img
+                                                        src="https://frequencyimage.s3.ap-south-1.amazonaws.com/a813959c-7b67-400b-a0b7-f806e63339e5-ph_building%20%281%29.svg"
+                                                        height={18}
+                                                        width={18}
+                                                        alt={testimonial?.name}
+                                                        className="h-[18px] w-[18px]"
+                                                    />
+                                                    <p className={`text-gray-500 text-base font-bold ${isLeftAlign ? "text-left" : "text-right"}`}>
+                                                        {testimonial?.company?.[language]}
+                                                    </p>
+                                                </div>
+                                            </div>
+
                                         </div>
                                     </SwiperSlide>
                                 )
                             )}
                         </Swiper>
 
-                        <div className={`flex justify-center items-center gap-7 mt-5 ${!isEnglish && "flex-row-reverse"}`}>
+                        <div className={`flex justify-center items-center gap-7 mt-5 ${!isLeftAlign && "flex-row-reverse"}`}>
                             <button
                                 ref={testimonialPrevRef}
                                 className="w-[42px] h-[42px] rounded-full border border-[#00B9F2] flex justify-center items-center cursor-pointer"
@@ -556,7 +530,7 @@ const HomePage = ({ language, screen }) => {
                                     width="22"
                                     height="17"
                                     alt=""
-                                    className={`${isEnglish && 'scale-x-[-1]'}`}
+                                    className={`${isLeftAlign && 'scale-x-[-1]'}`}
                                 />
                             </button>
                             <button
@@ -568,7 +542,7 @@ const HomePage = ({ language, screen }) => {
                                     width="22"
                                     height="17"
                                     alt=""
-                                    className={`${isEnglish && 'scale-x-[-1]'}`}
+                                    className={`${isLeftAlign && 'scale-x-[-1]'}`}
                                 />
                             </button>
                         </div>
@@ -577,7 +551,7 @@ const HomePage = ({ language, screen }) => {
             </section>
 
             {/* new project section */}
-            <section className={`py-16 w-[100%] ${isPhone?"px-[30px]":"px-[80px]"} bg-transparent border border-info-500`}>
+            <section className={`py-16 w-[100%] ${isPhone ? "px-[30px]" : "px-[80px]"} bg-transparent`}>
                 <div className="container mx-auto">
                     <div className="text-center bg-transparent">
                         <h2 className="text-3xl font-medium text-black mb-5">
@@ -589,7 +563,7 @@ const HomePage = ({ language, screen }) => {
                                 `"${currentContent?.newProjectSection?.highlightedText[language]}"`
                             )}
                             <i
-                                className={`absolute ${isEnglish ? isPhone?"right-[130px] top-[55px]": "right-[250px]" : "right-[152px]"} top-0  opacity-70 z-10 
+                                className={`absolute ${isLeftAlign ? isPhone ? "right-[130px] top-[55px]" : "right-[250px]" : "right-[152px]"} top-0  opacity-70 z-10 
                     ${language === 'ar' ? 'right-48' : ''}`}
                                 style={{
                                     backgroundImage: `url(${highlightsvg})`,
@@ -613,43 +587,7 @@ const HomePage = ({ language, screen }) => {
                     </div>
                 </div>
             </section>
-            {/* <ContactUsModal isModal={isModal} onClose={handleContactUSClose} /> */}
-
-
         </div>)
 };
-
-// <section className={styles.new_project_wrapper}>
-//     <div className={`container ${styles.main_container}`}>
-//         <div className={styles.Client_content}>
-//             <h2 className={`${styles.title}`}>
-//                 {currentContent?.newProjectSection?.title[language]}
-//             </h2>
-//             <p className={`${styles.description}  `}>
-//                 {currentContent?.newProjectSection?.description1[
-//                     language
-//                 ].replace(
-//                     currentContent?.newProjectSection?.highlightedText[language],
-//                     `"${currentContent?.newProjectSection?.highlightedText[language]}"`
-//                 )}
-
-//                 <i className={language === "ar" && styles.arabicVersion}>
-//                     {/* {patch()} */}
-//                 </i>
-//             </p>
-//             <p className={`${styles.description}  `}>
-//                 {currentContent?.newProjectSection?.description2[language]}
-//             </p>
-//             <button
-//                 className={styles.view_btn}
-//                 onClick={() => setIsModal(true)}
-//             >
-//                 {currentContent?.newProjectSection?.button?.text[language]}
-//             </button>
-//         </div>
-//     </div>
-// </section>
-//     );
-// };
 
 export default HomePage;

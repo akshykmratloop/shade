@@ -82,6 +82,9 @@ function ShowLogs({ log, show, onClose }) {
             setLoading(true);
             try {
                 const response = await getRoleById(log?.id);
+                if (response.statusCode >= 400) {
+                    throw `Error: status: ${response.statusCode}, type: ${response.errorType}`
+                }
                 setTimeout(() => {
                     // setFetchedRole(response.role);
                     setFetchedRole(log)
@@ -187,7 +190,7 @@ function ShowLogs({ log, show, onClose }) {
                                             <td className="py-2 pb-6  w-1/4"
                                             >
                                                 <p className="">
-                                                    {(log.ipAddress) ?? "N/A"}
+                                                    {(log?.ipAddress?.slice(7, this?.length)) ?? "N/A"}
                                                 </p>
                                             </td>
                                         </tr>

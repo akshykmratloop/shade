@@ -1,0 +1,28 @@
+{
+    "banner": {
+        "title": {
+            "en": "",
+            "ar": ""
+        },
+        "description": {
+            "en": "",
+            "ar": ""
+        }
+    },
+    "subServices": [
+        {
+            "title": {
+                "en": "",
+                "ar": ""
+            },
+            "description": {
+                "en": "",
+                "ar": ""
+            }
+        }
+    ],
+    "button": {
+        "en": "",
+        "ar": ""
+    }
+}
