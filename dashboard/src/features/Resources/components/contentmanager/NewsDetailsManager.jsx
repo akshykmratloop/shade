@@ -8,7 +8,6 @@ import MultiSelect from "../MultiSelect"
 const NewsDetailManager = ({ newsId, currentContent, currentPath, language }) => {
     const dispatch = useDispatch();
     const newsIndex = currentContent?.findIndex(e => {
-        console.log(e.id, newsId, e.id == newsId)
         return e.id == newsId
     })
 

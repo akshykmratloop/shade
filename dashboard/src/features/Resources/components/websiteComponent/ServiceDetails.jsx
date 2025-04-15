@@ -30,10 +30,10 @@ const ServiceDetails = ({ serviceId, contentOn, language, screen }) => {
     return (
         <div dir={isLeftAlign ? "ltr" : "rtl"} className="w-full">
             {/* banner */}
-            <section className={`py-[120px] px-20 bg-center object-cover text-center flex flex-col items-center`}
+            <section className={`py-[120px]  ${isPhone ? "px-2" : "px-20"} bg-center object-cover text-center flex flex-col items-center`}
                 style={{ backgroundImage: `linear-gradient(to bottom,#00000020 ,#fffffffb 100%), url(${services.contructionTowerImage})`, backgroundPosition: "bottom" }}
             >
-                <h1 className={`text-[41px] text-[#292E3D]`}>
+                <h1 className={`text-[41px] text-[#292E3D] `}>
                     {currentContent?.banner?.title?.[language] || "Project Details"}
                 </h1>
                 <p className={`text-[#0E172FB2] text-[10px] w-2/3`}>
@@ -42,16 +42,16 @@ const ServiceDetails = ({ serviceId, contentOn, language, screen }) => {
             </section>
 
             {/* Sub services */}
-            <section className={`grid grid-cols-2 gap-y-[27px] gap-x-[25px] px-[76px] py-[34px]`}>
+            <section className={`grid ${isTablet || isPhone ? "grid-cols-1 items-center justify-center px-[20px]" : "grid-cols-2 px-[76px]"} gap-y-[27px] gap-x-[25px] py-[34px]`}>
                 {
                     currentContent?.subServices?.map((subService, index) => {
 
                         return (
                             <article singleService className={`border-b flex gap-4 pb-[12px]`}>
-                                <article className={` w-[197px] py-2`}>
-                                    <img src={projectPageData.developmentOfHo} alt="" className={`w-[196px] h-[135px]`} />
+                                <article className={`min-w-[197px] py-2`}>
+                                    <img src={projectPageData.developmentOfHo} alt="" className={`${isTablet || isTablet ? "w-[50vw] aspect-[4/3]" : "w-[196px] h-[135px]"} `} />
                                 </article>
-                                <article className="w-[194px]">
+                                <article className="">
                                     <h3 className="text-[17px]">Project Service {index + 1}</h3>
                                     <p className="text-[11px]">
                                         We capitalize on our years of experience in the construction industry to clients by also maintaining their facilities and infrastructure.
@@ -69,10 +69,10 @@ const ServiceDetails = ({ serviceId, contentOn, language, screen }) => {
 
             {/* Other Services */}
             <section>
-                <h3 className="text-[#292E3D] font-[400] text-[22px] mx-[76px] py-[20px]">Other Services</h3>
-                <section className="w-[988px] overflow-x-scroll rm-scroll py-5 pt-2">
+                <h3 className={`text-[#292E3D] font-[400] text-[22px] ${isPhone ? "mx-5" : "mx-[76px]"} py-[20px]`}>Other Services</h3>
+                <section className={`${isComputer ? "w-[988px]" : screen} overflow-x-scroll rm-scroll py-5 pt-2`}>
                     <section dir={isLeftAlign ? 'ltr' : 'rtl'}
-                        className={`flex gap-10 px-[76px] pr-[38px] w-fit items-stretch`}>
+                        className={`flex gap-7 ${isPhone ? "px-[38px]" : "px-[76px]"} pr-[38px] w-fit items-stretch`}>
                         {currentContent?.otherServices?.map((service, idx) => {
                             if (!service.display) return null
                             return (

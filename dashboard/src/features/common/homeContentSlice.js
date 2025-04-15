@@ -123,8 +123,6 @@ const cmsSlice = createSlice({
                     state.present[action.payload.currentPath][action.payload.projectId - 1][action.payload.section][action.payload.title] = action.payload.value
                 } else {
                     if (action.payload.section === 'testimonials') {
-                        console.log('power')
-                        console.log(action.payload.projectId)
                         state.present[action.payload.currentPath][action.payload.section][action.payload.projectId - 1][action.payload.title][action.payload.lan] = action.payload.value
                     } else if (action.payload.section === 'descriptionSection') {
                         state.present[action.payload.currentPath][action.payload.projectId - 1][action.payload.section][action.payload.index][action.payload.title][action.payload.lan] = action.payload.value
@@ -166,8 +164,6 @@ const cmsSlice = createSlice({
                         state.present[action.payload?.currentPath][action.payload.projectId - 1][action.payload.section][action.payload.title][action.payload.lan] = action.payload.value;
                     }
                 } else {
-                    console.log("Qwerqwasvkmb hjdsavrweq")
-                    // console.log(currentContent)
                     state.present[action.payload?.currentPath][action.payload.section][action.payload.title][action.payload.lan] = action.payload.value;
                 }
             }

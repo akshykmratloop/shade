@@ -11,10 +11,6 @@ const resources = {
     ],
     services: [
         { subPage: 1, heading: "Construction Management", src: "", assign: true },
-        { subPage: 2, heading: "Project Services", src: "", assign: true },
-        { subPage: 3, heading: "Operation & Maintenance", src: "", assign: true },
-        { subPage: 4, heading: "Fabrication", src: "", assign: true },
-        { subPage: 5, heading: "Equipment Rental", src: "", assign: true },
     ],
     markets: [
         { heading: "Home", src: "https://shade-six.vercel.app/", assign: true },

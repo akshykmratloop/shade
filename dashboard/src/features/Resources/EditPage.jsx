@@ -86,7 +86,7 @@ const EditPage = () => {
                     }
                     {
                         currentPath === "services" ? subPath ?
-                            <ServiceDetailsManager projectId={subPath} language={language} currentContent={content.serviceDetails} currentPath={"projectDetail"} /> :
+                            <ServiceDetailsManager serviceId={subPath} language={language} currentContent={content.serviceDetails} currentPath={"serviceDetails"} /> :
                             <ServiceManager language={language} currentContent={content.services} currentPath={currentPath} /> : ""
                     }
                     {
