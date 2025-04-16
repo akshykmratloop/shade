@@ -54,7 +54,16 @@ const DynamicContentSection = ({
 
 
     const removeSummary = (index) => {
-        if (newsId) {
+        if (deepPath) {
+            dispatch(updateTheProjectSummaryList({
+                index,
+                operation: 'remove',
+                // newsIndex: projectId - 1,
+                context: currentPath,
+                serviceId: projectId,
+                deepPath
+            }))
+        } else if (newsId) {
             dispatch(updateTheProjectSummaryList({
                 index,
                 operation: 'remove',
@@ -177,7 +186,7 @@ const DynamicContentSection = ({
 
     return (
         <div className={`w-full relative ${Heading ? "mt-4" : subHeading ? "mt-2" : ""} flex flex-col gap-1 ${!isBorder ? "" : "border-b border-b-1 border-neutral-300"} ${attachOne ? "pb-0" : (Heading || subHeading) ? "pb-6" : ""}`}
-        style={{wordBreak:"break-word"}}>
+            style={{ wordBreak: "break-word" }}>
             {allowRemoval && <button
                 className="absolute top-6 z-10 right-[-8px] bg-red-500 text-white px-[5px] rounded-full shadow"
                 onClick={() => { removeSummary(index) }}
