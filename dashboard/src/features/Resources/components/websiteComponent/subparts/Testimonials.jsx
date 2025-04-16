@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import content from '../content.json'
 import { updateContent } from '../../../../common/homeContentSlice';
 import { testimonials } from "../../../../../assets/index";
-import userIcon from "../../../../assets/images/userIcon.jpg"
+import userIcon from "../../../../../assets/images/userIcon.jpg"
 import structureOfTestimony from "../structures/structureOfTestimony.json"
 
 

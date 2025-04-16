@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 // import styles from "@/components/header/Header.module.scss";
 // import Logo from "@/assets/brand-logo/logo.svg";
-import Logo from "../../../../assets/brand-logo/logo.svg"
+import Logo from "../../../../../assets/brand-logo/logo.svg"
 import content from '../content.json'
 import { useDispatch, useSelector } from "react-redux";
 // import Image from "next/image";

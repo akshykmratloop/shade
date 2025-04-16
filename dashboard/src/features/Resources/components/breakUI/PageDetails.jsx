@@ -1,9 +1,9 @@
 import { useEffect, useRef } from "react";
 import StatusBar from "./Statusbar";
-import Assigned from "../../../assets/image 13.svg"
-import Edit from "../../../assets/image 14.svg"
-import Verify from "../../../assets/image 15.svg"
-import Publisher from "../../../assets/image 16.svg"
+import Assigned from "../../../../assets/image 13.png"
+import Edit from "../../../../assets/image 14.svg"
+import Verify from "../../../../assets/image 15.svg"
+import Publisher from "../../../../assets/image 16.svg"
 import { X } from "lucide-react";
 
 
