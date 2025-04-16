@@ -14,6 +14,7 @@ import Testimonials from "./websiteComponent/subparts/Testimonials";
 import ContactUsModal from "./websiteComponent/subparts/ContactUsModal";
 import Services from "./websiteComponent/Service";
 import ServiceDetails from "./websiteComponent/detailspages/ServiceDetails";
+import SubServiceDetails from "./websiteComponent/subDetailsPages/SubServiceDetails";
 
 const AllForOne = ({ language, screen, content, subPath, setLanguage, fullScreen, currentPath, deepPath }) => {
     let translateForFullScreen = "translate-y-[950px]"
@@ -103,7 +104,7 @@ const AllForOne = ({ language, screen, content, subPath, setLanguage, fullScreen
             }
             {
                 currentPath === "services" ? subPath ? deepPath ?
-                    <></> :
+                    <SubServiceDetails language={language} contentOn={content.subOfsubService} serviceId={subPath} screen={screen} deepPath={deepPath} /> :
                     <ServiceDetails language={language} contentOn={content.serviceDetails} serviceId={subPath} screen={screen} /> :
                     <Services language={language} currentContent={content.services} screen={screen} /> : ""
             }

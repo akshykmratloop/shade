@@ -4,7 +4,7 @@ import fabrication from "./icons/fabrication.png";
 import architecture from "./icons/architecture.png";
 import eqRental from "./icons/eqRental.png";
 import construction from "./icons/construction.png";
-
+import waterTank from './images/waterTank.png'
 import contructionTowerImage from "./constructionBaseImage.jpeg"
 
 // experieceIcons
@@ -88,6 +88,7 @@ export const services = {
   eqRental,
   fabrication,
   projectService,
+  waterTank
 };
 
 export const experience = {

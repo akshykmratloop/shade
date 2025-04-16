@@ -10,7 +10,7 @@ import { getLeadsContent } from "./leadSlice"
 import Navbar from "../../containers/Navbar"
 // icon
 import { AiOutlineInfoCircle } from "react-icons/ai";
-import { FiEdit, FiFacebook } from "react-icons/fi";
+import { FiEdit } from "react-icons/fi";
 import { IoSettingsOutline } from "react-icons/io5";
 import capitalizeWords from "../../app/capitalizeword";
 
