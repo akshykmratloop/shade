@@ -54,6 +54,7 @@ const EditPage = () => {
 
     const currentPath = location.pathname.split('/')[4]
     const subPath = location.pathname.split('/')[5]
+    const deepPath = location.pathname.split('/')[6]
 
     const content = useSelector((state) => state.homeContent.present)
 
@@ -94,7 +95,8 @@ const EditPage = () => {
                         <MarketManager language={language} currentContent={content.markets} currentPath={currentPath} />
                     }
                     {
-                        currentPath === 'projects' ? subPath ?
+                        currentPath === 'projects' ? subPath ? deepPath ?
+                            <></> :
                             <ProjectDetailManager projectId={subPath} language={language} currentContent={content.projectDetail} currentPath={"projectDetail"} /> :
                             <ProjectContentManager language={language} currentContent={content.projects} currentPath={currentPath} /> : ""
                     }
@@ -135,7 +137,7 @@ const EditPage = () => {
                         containerStyle={"mb-4"}
                         minHeight={"3.2rem"}
                     />
-                    <AllForOne language={language} screen={screen} content={content} subPath={subPath} setLanguage={setLanguage} fullScreen={fullScreen} currentPath={currentPath} />
+                    <AllForOne language={language} screen={screen} content={content} subPath={subPath} deepPath={deepPath} setLanguage={setLanguage} fullScreen={fullScreen} currentPath={currentPath} />
 
                     <div className={`border border-cyan-500 pt-0 px-60 ${fullScreen ? "fixed bg-stone-800/70 top-0 left-0 z-50 h-screen w-screen" : "hidden"} overflow-y-scroll customscroller`}>
                         <div className={`fixed z-50 top-2 right-2 ${!fullScreen && "hidden"} bg-stone-200`}>
