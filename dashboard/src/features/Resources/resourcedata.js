@@ -12,6 +12,9 @@ const resources = {
     services: [
         { subPage: 1, heading: "Construction Management", src: "", assign: true },
     ],
+    subServices: [
+        { subOfSubPage: 1, subPage: 1, supPage: "services", heading: "Sub Service 1", src: "", assign: true },
+    ],
     markets: [
         { heading: "Home", src: "https://shade-six.vercel.app/", assign: true },
         { heading: "Solution", src: "https://shade-six.vercel.app/solution", assign: true },
