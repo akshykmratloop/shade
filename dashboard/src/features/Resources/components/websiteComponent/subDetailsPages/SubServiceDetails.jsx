@@ -65,7 +65,7 @@ const SubServiceDetails = ({ serviceId, contentOn, language, screen, deepPath })
             </section>
 
             {/* Services */}
-            <section className='px-[75px] py-[20px] grid grid-cols-2 gap-x-[20px] gap-y-[30px]'>
+            <section className='px-[75px] py-[20px] grid grid-cols-2 gap-x-[20px] gap-y-[30px] auto-rows-fr'> 
                 {
                     currentContent?.descriptions?.map((description, i) => {
 
@@ -149,7 +149,7 @@ const SubServiceDetails = ({ serviceId, contentOn, language, screen, deepPath })
             <section className='px-[76px] py-[25px] pb-[50px] grid grid-cols-4 gap-y-[11px] gap-x-[11px]'>
                 {currentContent?.gallery2?.map(
                     (images, index) => (
-                        <div className="relative w-fit">
+                        <div className="relative w-fit" key={index}>
                             <img
                                 src={services?.[images.url]}
                                 height={""}

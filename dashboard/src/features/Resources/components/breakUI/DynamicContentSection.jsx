@@ -30,6 +30,7 @@ const DynamicContentSection = ({
     careerId,
     careerIndex,
     newsId,
+    deepPath,
     type
 }) => {
     const dispatch = useDispatch();
@@ -97,6 +98,7 @@ const DynamicContentSection = ({
                 currentPath,
                 projectId,
                 careerId,
+                deepPath,
                 type
             }));
         }
@@ -122,6 +124,7 @@ const DynamicContentSection = ({
                 currentPath,
                 projectId,
                 careerId,
+                deepPath,
                 type
             }));
         }
@@ -173,7 +176,8 @@ const DynamicContentSection = ({
 
 
     return (
-        <div className={`w-full relative ${Heading ? "mt-4" : subHeading ? "mt-2" : ""} flex flex-col gap-1 ${!isBorder ? "" : "border-b border-b-1 border-neutral-300"} ${attachOne ? "pb-0" : (Heading || subHeading) ? "pb-6" : ""}`}>
+        <div className={`w-full relative ${Heading ? "mt-4" : subHeading ? "mt-2" : ""} flex flex-col gap-1 ${!isBorder ? "" : "border-b border-b-1 border-neutral-300"} ${attachOne ? "pb-0" : (Heading || subHeading) ? "pb-6" : ""}`}
+        style={{wordBreak:"break-word"}}>
             {allowRemoval && <button
                 className="absolute top-6 z-10 right-[-8px] bg-red-500 text-white px-[5px] rounded-full shadow"
                 onClick={() => { removeSummary(index) }}
@@ -184,7 +188,9 @@ const DynamicContentSection = ({
             {inputs.length > 0 &&
                 inputs.map((input, i) => {
                     let valueExpression;
-                    if (projectId && !careerId) {
+                    if (deepPath) {
+                        valueExpression = currentContent?.[projectId]?.[deepPath - 1]?.[section]?.[index]?.[input.updateType]?.[language]
+                    } else if (projectId && !careerId) {
                         if (subSection) {
                             valueExpression = currentContent?.[projectId - 1]?.[section]?.[subSection]?.[index]?.[input.updateType]?.[language];
                         } else if (input.updateType === 'url') {
@@ -242,9 +248,7 @@ const DynamicContentSection = ({
                                     value={valueExpression}
                                     config={config}
                                     onChange={(newContent) => {
-                                        console.log(newContent)
                                         const trimmedVal = newContent.slice(0, input.maxLength);
-                                        console.log(trimmedVal)
                                         updateFormValueRichText(input.updateType, trimmedVal)
                                     }}
                                     onBlur={(newContent) => {

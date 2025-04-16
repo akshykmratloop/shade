@@ -73,6 +73,11 @@ const cmsSlice = createSlice({
                     expression = state.present.newsBlogsDetails?.[action.payload.newsIndex]?.newsPoints;
                     break;
 
+                case "subOfsubService":
+                    console.log(action.payload.serviceId)
+                    expression = state.present.subOfsubService[action.payload.serviceId][action.payload.deepPath - 1].descriptions
+                    break;
+
                 default:
             }
 
@@ -97,6 +102,10 @@ const cmsSlice = createSlice({
                     state.present.newsBlogsDetails[action.payload.newsIndex].newsPoints = newArray
                     break;
 
+                case "subOfsubService":
+                    state.present.subOfsubService[action.payload.serviceId][action.payload.deepPath - 1].descriptions = newArray
+                    break;
+
                 default:
             }
             state.future = [];
@@ -117,7 +126,11 @@ const cmsSlice = createSlice({
         updateSpecificContent: (state, action) => {
             state.past.push(JSON.parse(JSON.stringify(state.present)));
             if (action.payload.deepPath) {
-                state.present[action.payload.currentPath][action.payload.projectId][action.payload.deepPath - 1][action.payload?.section][action.payload.title][action.payload.lan] = action.payload.value;
+                if (action.payload.section === 'descriptions') {
+                    state.present[action.payload.currentPath][action.payload.projectId][action.payload.deepPath - 1][action.payload?.section][action.payload.index][action.payload.title][action.payload.lan] = action.payload.value;
+                } else {
+                    state.present[action.payload.currentPath][action.payload.projectId][action.payload.deepPath - 1][action.payload?.section][action.payload.title][action.payload.lan] = action.payload.value;
+                }
             } else if (action.payload.projectId && !action.payload.careerId) {
                 if (action.payload.subSection) {
                     state.present[action.payload.currentPath][action.payload.projectId - 1][action.payload?.section][action.payload.subSection][action.payload?.index][action.payload.title][action.payload.lan] = action.payload.value;
