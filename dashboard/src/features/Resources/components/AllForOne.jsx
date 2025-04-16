@@ -5,15 +5,15 @@ import MarketPage from "./websiteComponent/Market";
 import ProjectPage from "./websiteComponent/Projects";
 import CareerPage from "./websiteComponent/CareersPage";
 import NewsPage from "./websiteComponent/NewsPage";
-import Footer from "./websiteComponent/Footerweb";
-import Header from "./websiteComponent/Headerweb";
-import ProjectDetailPage from "./websiteComponent/ProjectDetails";
-import CareerDetailPage from "./websiteComponent/CareersDetails";
-import NewsBlogDetailPage from "./websiteComponent/NewsDetails";
-import Testimonials from "./websiteComponent/Testimonials";
-import ContactUsModal from "./websiteComponent/ContactUsModal";
+import Footer from "./websiteComponent/subparts/Footerweb";
+import Header from "./websiteComponent/subparts/Headerweb";
+import ProjectDetailPage from "./websiteComponent/detailspages/ProjectDetails";
+import CareerDetailPage from "./websiteComponent/detailspages/CareersDetails";
+import NewsBlogDetailPage from "./websiteComponent/detailspages/NewsDetails";
+import Testimonials from "./websiteComponent/subparts/Testimonials";
+import ContactUsModal from "./websiteComponent/subparts/ContactUsModal";
 import Services from "./websiteComponent/Service";
-import ServiceDetails from "./websiteComponent/ServiceDetails";
+import ServiceDetails from "./websiteComponent/detailspages/ServiceDetails";
 
 const AllForOne = ({ language, screen, content, subPath, setLanguage, fullScreen, currentPath, deepPath }) => {
     let translateForFullScreen = "translate-y-[950px]"

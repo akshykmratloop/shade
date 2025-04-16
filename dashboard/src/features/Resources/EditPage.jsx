@@ -4,11 +4,11 @@ import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 // import for pages
-import ContentTopBar from "./components/ContentTopBar";
+import ContentTopBar from "./components/breakUI/ContentTopBar";
 import HomePage from "./components/websiteComponent/Home";
 import SolutionPage from "./components/websiteComponent/Solutions";
 // import for content manager
-import LanguageSwitch from "./components/SwitchLang";
+import LanguageSwitch from "./components/breakUI/SwitchLang";
 import HomeManager from "./components/contentmanager/HomeManager";
 import SolutionManager from "./components/contentmanager/SolutionManager";
 import AboutUs from "./components/websiteComponent/About";
@@ -17,7 +17,7 @@ import AboutManager from "./components/contentmanager/AboutManager";
 import MarketPage from "./components/websiteComponent/Market";
 import MarketManager from "./components/contentmanager/MarketManager";
 import ProjectPage from "./components/websiteComponent/Projects";
-import Popups from "./components/Popups";
+import Popups from "./components/breakUI/Popups";
 import ProjectContentManager from "./components/contentmanager/ProjectContentManager";
 import CareerPage from "./components/websiteComponent/CareersPage";
 import InputText from "../../components/Input/InputText";
@@ -25,23 +25,23 @@ import TextAreaInput from "../../components/Input/TextAreaInput";
 import CareersManager from "./components/contentmanager/CareersManager";
 import NewsPage from "./components/websiteComponent/NewsPage";
 import NewsManager from "./components/contentmanager/NewsManager";
-import Footer from "./components/websiteComponent/Footerweb";
-import FooterManager from "./components/contentmanager/FooterManager";
-import Header from "./components/websiteComponent/Headerweb";
-import HeaderManager from "./components/contentmanager/HeaderManager";
-import ProjectDetailPage from "./components/websiteComponent/ProjectDetails";
-import ProjectDetailManager from "./components/contentmanager/ProjectDetailManager";
-import CareerDetailPage from "./components/websiteComponent/CareersDetails";
-import CareerDetailManager from "./components/contentmanager/CareerDetailManager";
-import NewsBlogDetailPage from "./components/websiteComponent/NewsDetails";
-import NewsDetailManager from "./components/contentmanager/NewsDetailsManager";
-import Testimonials from "./components/websiteComponent/Testimonials";
-import TestimonyManager from "./components/contentmanager/TestimonyManager";
-import ContactUsModal from "./components/websiteComponent/ContactUsModal";
+import Footer from "./components/websiteComponent/subparts/Footerweb";
+import FooterManager from "./components/contentmanager/CMforSubParts/FooterManager";
+import Header from "./components/websiteComponent/subparts/Headerweb";
+import HeaderManager from "./components/contentmanager/CMforSubParts/HeaderManager";
+import ProjectDetailPage from "./components/websiteComponent/detailspages/ProjectDetails";
+import ProjectDetailManager from "./components/contentmanager/CMforDetails/ProjectDetailManager";
+import CareerDetailPage from "./components/websiteComponent/detailspages/CareersDetails";
+import CareerDetailManager from "./components/contentmanager/CMforDetails/CareerDetailManager";
+import NewsBlogDetailPage from "./components/websiteComponent/detailspages/NewsDetails";
+import NewsDetailManager from "./components/contentmanager/CMforDetails/NewsDetailsManager";
+import Testimonials from "./components/websiteComponent/subparts/Testimonials";
+import TestimonyManager from "./components/contentmanager/CMforSubParts/TestimonyManager";
+import ContactUsModal from "./components/websiteComponent/subparts/ContactUsModal";
 import CloseModalButton from "../../components/Button/CloseButton";
 import AllForOne from "./components/AllForOne";
 import ServiceManager from "./components/contentmanager/ServiceManager";
-import ServiceDetailsManager from "./components/contentmanager/ServiceDetailsManager";
+import ServiceDetailsManager from "./components/contentmanager/CMforDetails/ServiceDetailsManager";
 
 const EditPage = () => {
     const dispatch = useDispatch();
@@ -86,7 +86,8 @@ const EditPage = () => {
                         <AboutManager language={language} currentContent={content.about} currentPath={currentPath} />
                     }
                     {
-                        currentPath === "services" ? subPath ?
+                        currentPath === "services" ? subPath ? deepPath ?
+                            <></> :
                             <ServiceDetailsManager serviceId={subPath} language={language} currentContent={content.serviceDetails} currentPath={"serviceDetails"} /> :
                             <ServiceManager language={language} currentContent={content.services} currentPath={currentPath} /> : ""
                     }
@@ -95,8 +96,8 @@ const EditPage = () => {
                         <MarketManager language={language} currentContent={content.markets} currentPath={currentPath} />
                     }
                     {
-                        currentPath === 'projects' ? subPath ? deepPath ?
-                            <></> :
+                        currentPath === 'projects' ? subPath ?
+
                             <ProjectDetailManager projectId={subPath} language={language} currentContent={content.projectDetail} currentPath={"projectDetail"} /> :
                             <ProjectContentManager language={language} currentContent={content.projects} currentPath={currentPath} /> : ""
                     }

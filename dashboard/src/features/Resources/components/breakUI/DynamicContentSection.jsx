@@ -3,11 +3,11 @@ import { useState, useRef, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import JoditEditor from "jodit-react";
 // custom module
-import TextAreaInput from "../../../components/Input/TextAreaInput";
-import InputFile from "../../../components/Input/InputFile";
-import InputText from "../../../components/Input/InputText";
-import { updateSpecificContent, updateServicesNumber, updateImages, updateTheProjectSummaryList, updateWhatWeDoList } from "../../common/homeContentSlice";
-import InputFileForm from "../../../components/Input/InputFileForm";
+import TextAreaInput from "../../../../components/Input/TextAreaInput";
+import InputFile from "../../../../components/Input/InputFile";
+import InputText from "../../../../components/Input/InputText";
+import { updateSpecificContent, updateServicesNumber, updateImages, updateTheProjectSummaryList, updateWhatWeDoList } from "../../../common/homeContentSlice";
+import InputFileForm from "../../../../components/Input/InputFileForm";
 
 const DynamicContentSection = ({
     Heading,

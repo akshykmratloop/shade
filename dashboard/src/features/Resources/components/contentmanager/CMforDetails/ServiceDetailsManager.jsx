@@ -1,9 +1,9 @@
 import { useDispatch } from "react-redux"
-import FileUploader from "../../../../components/Input/InputFileUploader"
-import { updateContent } from "../../../common/homeContentSlice"
-import ContentSection from "../ContentSections"
-import MultiSelectForProjects from "../MultiSelectForProjects"
-import content from "../websiteComponent/content.json"
+import FileUploader from "../../../../../components/Input/InputFileUploader"
+import { updateContent } from "../../../../common/homeContentSlice"
+import ContentSection from "../../breakUI/ContentSections"
+import MultiSelectForProjects from "../../breakUI/MultiSelectForProjects"
+import content from "../../websiteComponent/content.json"
 import { useEffect } from "react"
 
 const ServiceDetailsManager = ({ serviceId, currentContent, currentPath, language, screen }) => {

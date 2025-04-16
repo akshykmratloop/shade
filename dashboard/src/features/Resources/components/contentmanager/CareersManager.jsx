@@ -1,7 +1,7 @@
 import FileUploader from "../../../../components/Input/InputFileUploader";
 import { useEffect } from "react";
-import ContentSection from "../ContentSections";
-import MultiSelect from "../MultiSelect";
+import ContentSection from "../breakUI/ContentSections";
+import MultiSelect from "../breakUI/MultiSelect";
 import { updateContent } from "../../../common/homeContentSlice";
 import content from "../websiteComponent/content.json"
 import { useDispatch } from "react-redux";

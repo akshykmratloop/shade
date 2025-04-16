@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { updateContent } from "../../../common/homeContentSlice";
-import { services, projectPageData } from "../../../../assets/index";
-import content from './content.json'
-import structureOfServiceDetails from "./structures/structureOFServiceDetails.json";
-import { TruncateText } from "../../../../app/capitalizeword";
+import { updateContent } from "../../../../common/homeContentSlice";
+import { services, projectPageData } from "../../../../../assets/index";
+import content from '../content.json'
+import structureOfServiceDetails from "../structures/structureOFServiceDetails.json";
+import { TruncateText } from "../../../../../app/capitalizeword";
 
 const ServiceDetails = ({ serviceId, contentOn, language, screen }) => {
     const dispatch = useDispatch();

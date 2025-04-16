@@ -1,10 +1,10 @@
 import { useEffect } from "react";
 import FileUploader from "../../../../components/Input/InputFileUploader";
-import ContentSection from "../ContentSections";
+import ContentSection from "../breakUI/ContentSections";
 import { updateContent, updateWhatWeDoList } from "../../../common/homeContentSlice";
 import content from "../websiteComponent/content.json"
 import { useDispatch } from "react-redux";
-import DynamicContentSection from "../DynamicContentSection";
+import DynamicContentSection from "../breakUI/DynamicContentSection";
 
 const SolutionManager = ({ currentPath, language, currentContent }) => {
     const dispatch = useDispatch()

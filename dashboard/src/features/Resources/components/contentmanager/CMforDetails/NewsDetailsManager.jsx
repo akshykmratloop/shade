@@ -1,9 +1,9 @@
 import { useDispatch } from "react-redux"
-import FileUploader from "../../../../components/Input/InputFileUploader"
-import ContentSection from "../ContentSections"
-import DynamicContentSection from "../DynamicContentSection"
-import { updateTheProjectSummaryList } from "../../../common/homeContentSlice"
-import MultiSelect from "../MultiSelect"
+import FileUploader from "../../../../../components/Input/InputFileUploader"
+import ContentSection from "../../breakUI/ContentSections"
+import DynamicContentSection from "../../breakUI/DynamicContentSection"
+import { updateTheProjectSummaryList } from "../../../../common/homeContentSlice"
+import MultiSelect from "../../breakUI/MultiSelect"
 
 const NewsDetailManager = ({ newsId, currentContent, currentPath, language }) => {
     const dispatch = useDispatch();

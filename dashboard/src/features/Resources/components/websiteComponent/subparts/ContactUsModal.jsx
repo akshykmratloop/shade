@@ -1,7 +1,7 @@
 import ModalPortal from "./ModalPortal";
 import React, { useEffect, useState } from "react";
-import content from './content.json'
-import { updateContent } from "../../../common/homeContentSlice";
+import content from '../content.json'
+import { updateContent } from "../../../../common/homeContentSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 // import { useGlobalContext } from "../../contexts/GlobalContext";
