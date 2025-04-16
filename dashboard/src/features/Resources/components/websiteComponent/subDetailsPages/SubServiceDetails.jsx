@@ -52,20 +52,20 @@ const SubServiceDetails = ({ serviceId, contentOn, language, screen, deepPath })
                 <article className='flex flex-col gap-[34px]'>
                     <section className='flex gap-[30px]'>
                         <h2 className='text-[35px] w-1/2'>{currentContent?.banner?.title?.[language]}</h2>
-                        <p className='text-[9.5px] w-1/2'>{currentContent?.banner?.description?.[language]}</p>
+                        <div className='text-[9.5px] w-1/2' dangerouslySetInnerHTML={{ __html: currentContent?.banner?.description?.[language] }} />
                     </section>
                     <div>
                         <img src={ImagesFromRedux?.[`subServiceBanner/${serviceId}/${deepPath}`] || services?.[currentContent?.banner?.image]} alt="" className='aspect-[3.5/1] object-cover' />
                     </div>
                     <section className='flex gap-[30px]'>
                         <h2 className='text-[32px]  flex-1 leading-[28px]'>{currentContent?.subBanner?.title?.[language]}</h2>
-                        <p className='text-[9.5px] flex-1'>{currentContent?.subBanner?.description?.[language]}</p>
+                        <div className='text-[9.5px] flex-1' dangerouslySetInnerHTML={{ __html: currentContent?.subBanner?.description?.[language] }} />
                     </section>
                 </article>
             </section>
 
             {/* Services */}
-            <section className='px-[75px] py-[20px] grid grid-cols-2 gap-x-[20px] gap-y-[30px] auto-rows-fr'> 
+            <section className='px-[75px] py-[20px] grid grid-cols-2 gap-x-[20px] gap-y-[30px] auto-rows-fr'>
                 {
                     currentContent?.descriptions?.map((description, i) => {
 
@@ -85,7 +85,7 @@ const SubServiceDetails = ({ serviceId, contentOn, language, screen, deepPath })
                     <Swiper
                         modules={[Autoplay, EffectCoverflow]}
                         grabCursor={true}
-                        slidesPerView={3}
+                        slidesPerView={isPhone ? 1 : 3}
                         loop={true}
                         spaceBetween={2}
                         slidesOffsetBefore={isLeftAlign ? 15 : -10}
@@ -129,7 +129,7 @@ const SubServiceDetails = ({ serviceId, contentOn, language, screen, deepPath })
             </section>
 
             {/* description section */}
-            <section className='px-[75px] py-[25px]'>
+            <section className='px-[75px] py-[25px] flex flex-col gap-[25px]'>
                 {
                     currentContent?.descriptions2?.map((description, i) => {
 

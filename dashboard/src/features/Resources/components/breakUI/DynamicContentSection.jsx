@@ -61,6 +61,7 @@ const DynamicContentSection = ({
                 // newsIndex: projectId - 1,
                 context: currentPath,
                 serviceId: projectId,
+                subContext: section,
                 deepPath
             }))
         } else if (newsId) {
@@ -137,17 +138,6 @@ const DynamicContentSection = ({
                 type
             }));
         }
-    };
-
-    const modules = {
-        toolbar: [
-            [{ color: [] }, { background: [] }], ,
-            [{ header: [1, 2, false] }],
-            ["bold", "italic", "underline"],
-            // [{ list: "ordered" }, { list: "bullet" }],
-            ["link", "image"],
-            ['clean'] // Remove formatting
-        ],
     };
 
     const config = useMemo(() => ({
@@ -264,7 +254,6 @@ const DynamicContentSection = ({
                                         const trimmedVal = newContent.slice(0, input.maxLength);
                                         updateFormValueRichText(input.updateType, trimmedVal)
                                     }}
-
                                 />
                             </div>
                         );

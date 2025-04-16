@@ -75,7 +75,7 @@ const cmsSlice = createSlice({
 
                 case "subOfsubService":
                     console.log(action.payload.serviceId)
-                    expression = state.present.subOfsubService[action.payload.serviceId][action.payload.deepPath - 1].descriptions
+                    expression = state.present.subOfsubService[action.payload.serviceId][action.payload.deepPath - 1][action.payload.subContext]
                     break;
 
                 default:
@@ -103,7 +103,7 @@ const cmsSlice = createSlice({
                     break;
 
                 case "subOfsubService":
-                    state.present.subOfsubService[action.payload.serviceId][action.payload.deepPath - 1].descriptions = newArray
+                    state.present.subOfsubService[action.payload.serviceId][action.payload.deepPath - 1][action.payload.subContext] = newArray
                     break;
 
                 default:
@@ -126,7 +126,7 @@ const cmsSlice = createSlice({
         updateSpecificContent: (state, action) => {
             state.past.push(JSON.parse(JSON.stringify(state.present)));
             if (action.payload.deepPath) {
-                if (action.payload.section === 'descriptions') {
+                if (action.payload.section && (action.payload.index + 1)) {
                     state.present[action.payload.currentPath][action.payload.projectId][action.payload.deepPath - 1][action.payload?.section][action.payload.index][action.payload.title][action.payload.lan] = action.payload.value;
                 } else {
                     state.present[action.payload.currentPath][action.payload.projectId][action.payload.deepPath - 1][action.payload?.section][action.payload.title][action.payload.lan] = action.payload.value;

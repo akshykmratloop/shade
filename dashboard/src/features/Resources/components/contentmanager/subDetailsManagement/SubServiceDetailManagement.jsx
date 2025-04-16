@@ -7,7 +7,7 @@ import { updateTheProjectSummaryList } from "../../../../common/homeContentSlice
 const SubServiceDetailManager = ({ serviceId, currentContent, currentPath, language, deepPath }) => {
     const dispatch = useDispatch()
 
-    const addExtraSummary = () => {
+    const addExtraSummary = (subContext) => {
         dispatch(updateTheProjectSummaryList(
             {
                 insert: {
@@ -23,6 +23,7 @@ const SubServiceDetailManager = ({ serviceId, currentContent, currentPath, langu
                 serviceId,
                 deepPath,
                 context: "subOfsubService",
+                subContext,
                 operation: 'add'
             }
         ))
@@ -39,7 +40,7 @@ const SubServiceDetailManager = ({ serviceId, currentContent, currentPath, langu
                 Heading={"Banner"}
                 inputs={[
                     { input: "input", label: "Heading/title", updateType: "title", maxLength: 18 },
-                    { input: "textarea", label: "Description", updateType: "description", maxLength: 350 },
+                    { input: "richtext", label: "Description", updateType: "description", maxLength: 350 },
                 ]}
                 inputFiles={[{ label: "Backround Image", id: `subServiceBanner/${serviceId}/${deepPath}` }]}
                 section={"banner"}
@@ -54,7 +55,7 @@ const SubServiceDetailManager = ({ serviceId, currentContent, currentPath, langu
                 Heading={"Banner"}
                 inputs={[
                     { input: "input", label: "Heading/title", updateType: "title", maxLength: 34 },
-                    { input: "textarea", label: "Description", updateType: "description", maxLength: 350 },
+                    { input: "richtext", label: "Description", updateType: "description", maxLength: 350 },
                 ]}
                 section={"subBanner"}
                 language={language}
@@ -88,7 +89,36 @@ const SubServiceDetailManager = ({ serviceId, currentContent, currentPath, langu
                     })
                 }
                 <button className="text-blue-500 cursor-pointer mb-3"
-                    onClick={addExtraSummary}
+                    onClick={() => addExtraSummary("descriptions")}
+                >Add More Section...</button>
+            </div>
+
+            <div className="mt-4 border-b">
+                <h3 className={`font-semibold text-[1.25rem] mb-4`}>Details Sections</h3>
+                {
+                    currentContent?.[serviceId]?.[deepPath - 1]?.descriptions2?.map((element, index, a) => {
+                        return (
+                            <DynamicContentSection key={index}
+                                currentPath={currentPath}
+                                subHeading={"Section " + (index + 1)}
+                                inputs={[
+                                    { input: "input", label: "Title", updateType: "title", maxLength: 100 },
+                                    { input: "textarea", label: "Description", updateType: "description" },
+                                ]}
+                                section={"descriptions2"}
+                                isBorder={false}
+                                index={index}
+                                language={language}
+                                currentContent={currentContent}
+                                projectId={serviceId}
+                                deepPath={deepPath}
+                                allowRemoval={true}
+                            />
+                        )
+                    })
+                }
+                <button className="text-blue-500 cursor-pointer mb-3"
+                    onClick={() => addExtraSummary("descriptions2")}
                 >Add More Section...</button>
             </div>
         </div>

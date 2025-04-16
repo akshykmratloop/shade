@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import InputFile from "../../../../components/Input/InputFile";
 import InputText from "../../../../components/Input/InputText";
 import TextAreaInput from "../../../../components/Input/TextAreaInput";
@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateSpecificContent, updateServicesNumber, updateImages } from "../../../common/homeContentSlice";
 import InputFileWithText from "../../../../components/Input/InputFileText";
 import InputFileForm from "../../../../components/Input/InputFileForm";
+import JoditEditor from "jodit-react";
 
 const ContentSection = ({
     Heading,
@@ -30,6 +31,8 @@ const ContentSection = ({
     const dispatch = useDispatch();
     const [extraFiles, setExtraFiles] = useState([]);
     const ImagesFromRedux = useSelector((state) => state.homeContent.present.images)
+
+    const editor = useRef(null);
 
 
     const addExtraFileInput = () => {
@@ -86,6 +89,75 @@ const ContentSection = ({
             }));
         }
     };
+
+    const updateFormValueRichText = (updateType, value) => {
+
+        if (updateType === 'count') {
+            if (!isNaN(value)) {
+                let val = value?.slice(0, 7);
+                dispatch(updateServicesNumber({ section, title: updateType, value: val, subSection, index, currentPath }));
+            }
+        } else {
+            dispatch(updateSpecificContent({
+                section,
+                title: updateType,
+                lan: language,
+                value: value === "" ? "" : value,
+                subSection,
+                index,
+                subSectionsProMax,
+                subSecIndex,
+                currentPath,
+                projectId,
+                careerId,
+                deepPath,
+                // type
+            }));
+        }
+    };
+
+    // const modules = {
+    //     toolbar: [
+    //         [{ color: [] }, { background: [] }], ,
+    //         [{ header: [1, 2, false] }],
+    //         ["bold", "italic", "underline"],
+    //         // [{ list: "ordered" }, { list: "bullet" }],
+    //         ["link", "image"],
+    //         ['clean'] // Remove formatting
+    //     ],
+    // };
+
+    const config = useMemo(() => ({
+        buttons: [
+            "bold", "italic", "underline", "strikethrough", "|",
+            "font", "fontsize", "lineHeight", "|",
+            "brush", "eraser", "image", "ul"
+        ],
+        buttonsXS: [
+            "bold", "italic", "underline", "strikethrough", "|",
+            "font", "fontsize", "lineHeight", "|",
+            "brush", "eraser", "ul"
+        ],
+        toolbarAdaptive: false,
+        toolbarSticky: false,
+        removeButtons: [
+            "source", "ol", "indent", "outdent", "paragraph", "video", "table", "link", "unlink",
+            "align", "undo", "redo", "hr", "fullsize",
+            "copyformat", "selectall", "cut", "copy", "paste"
+        ],
+        showPlaceholder: false,
+        showCharsCounter: false,
+        showWordsCounter: false,
+        showXPathInStatusbar: false,
+        showEmptyParagraph: false,
+        allowEmptyTags: false,
+        useSplitMode: false,
+        showButtonPanel: true,
+        showTooltip: false,
+
+        // 👇 Disable the plus "+" hover icon
+        disablePlugins: ['addNewLine']
+    }), []);
 
 
     return (
@@ -150,6 +222,25 @@ const ContentSection = ({
                                 id={input.updateType}
                                 maxLength={input.maxLength}
                             />
+                        );
+                    } else if (input.input === "richtext") {
+                        return (
+                            <div dir={language === 'en' ? 'ltr' : 'rtl'} key={i}>
+                                <JoditEditor
+                                    ref={editor}
+                                    value={valueExpression}
+                                    config={config}
+                                    onChange={(newContent) => {
+                                        const trimmedVal = newContent.slice(0, input.maxLength);
+                                        updateFormValueRichText(input.updateType, trimmedVal)
+                                    }}
+                                    onBlur={(newContent) => {
+                                        const trimmedVal = newContent.slice(0, input.maxLength);
+                                        updateFormValueRichText(input.updateType, trimmedVal)
+                                    }}
+
+                                />
+                            </div>
                         );
                     } else {
                         return (
