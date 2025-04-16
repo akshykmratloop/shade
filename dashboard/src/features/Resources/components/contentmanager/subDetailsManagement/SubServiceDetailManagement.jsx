@@ -33,8 +33,8 @@ const SubServiceDetailManager = ({ serviceId, currentContent, currentPath, langu
         <div>
             {/* file doc */}
             <FileUploader id={"SubServiceDetailsIDReference" + serviceId + deepPath} label={"Rerference doc"} fileName={"Upload your file..."} />
-            {/** Hero Banner */}
 
+            {/** Hero Banner */}
             <ContentSection
                 currentPath={currentPath}
                 Heading={"Banner"}
@@ -50,6 +50,7 @@ const SubServiceDetailManager = ({ serviceId, currentContent, currentPath, langu
                 deepPath={deepPath}
             />
 
+            {/* sub banner */}
             <ContentSection
                 currentPath={currentPath}
                 Heading={"Banner"}
@@ -64,6 +65,22 @@ const SubServiceDetailManager = ({ serviceId, currentContent, currentPath, langu
                 deepPath={deepPath}
             />
 
+            {/* Gallery 1 */}
+            <ContentSection
+                currentPath={currentPath}
+                Heading={"Gallery"}
+                inputFiles={
+                    currentContent?.[serviceId]?.[deepPath - 1]?.gallery1?.map((e, i) => {
+                        return { label: "Image " + (i + 1), id: `subService/${serviceId}/gallery/${deepPath}/${i}` }
+                    })}
+                section={"gallery1"}
+                language={language}
+                currentContent={currentContent}
+                projectId={serviceId}
+                allowExtraInput={true}
+            />
+
+            {/* Details Sections */}
             <div className="mt-4 border-b">
                 <h3 className={`font-semibold text-[1.25rem] mb-4`}>Details Sections</h3>
                 {
@@ -93,8 +110,9 @@ const SubServiceDetailManager = ({ serviceId, currentContent, currentPath, langu
                 >Add More Section...</button>
             </div>
 
+            {/* Details Sections 2 */}
             <div className="mt-4 border-b">
-                <h3 className={`font-semibold text-[1.25rem] mb-4`}>Details Sections</h3>
+                <h3 className={`font-semibold text-[1.25rem] mb-4`}>Details Sections 2</h3>
                 {
                     currentContent?.[serviceId]?.[deepPath - 1]?.descriptions2?.map((element, index, a) => {
                         return (
@@ -121,6 +139,21 @@ const SubServiceDetailManager = ({ serviceId, currentContent, currentPath, langu
                     onClick={() => addExtraSummary("descriptions2")}
                 >Add More Section...</button>
             </div>
+
+            {/* Gallery 2 */}
+            <ContentSection
+                currentPath={currentPath}
+                Heading={"Gallery"}
+                inputFiles={
+                    currentContent?.[serviceId]?.[deepPath - 1]?.gallery2?.map((e, i) => {
+                        return { label: "Image " + (i + 1), id: `subService/${serviceId}/gallery2/${deepPath}/${i}` }
+                    })}
+                section={"gallery1"}
+                language={language}
+                currentContent={currentContent}
+                projectId={serviceId}
+                allowExtraInput={true}
+            />
         </div>
     )
 }

@@ -114,7 +114,7 @@ const SubServiceDetails = ({ serviceId, contentOn, language, screen, deepPath })
                                 >
                                     <div className="">
                                         <img
-                                            src={services?.[images.url]}
+                                            src={ImagesFromRedux?.[`subService/${serviceId}/gallery/${deepPath}/${index}`] || services?.[images.url]}
                                             height={""}
                                             width={""}
                                             alt={"slideder image " + index}
@@ -151,7 +151,7 @@ const SubServiceDetails = ({ serviceId, contentOn, language, screen, deepPath })
                     (images, index) => (
                         <div className="relative w-fit" key={index}>
                             <img
-                                src={services?.[images.url]}
+                                src={ImagesFromRedux?.[`subService/${serviceId}/gallery2/${deepPath}/${index}`] || services?.[images.url]}
                                 height={""}
                                 width={""}
                                 alt={"slideder image " + index}
