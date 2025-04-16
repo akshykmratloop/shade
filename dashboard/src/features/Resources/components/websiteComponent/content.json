@@ -1527,42 +1527,54 @@
       ],
       "gallary1": [
         {
-          "url": ""
+          "url": "waterTank"
         },
         {
-          "url": ""
+          "url": "waterTank"
         },
         {
-          "url": ""
+          "url": "waterTank"
         },
         {
-          "url": ""
+          "url": "waterTank"
+        }
+      ],
+      "descriptions2": [
+        {
+          "title": {
+            "en": "In House Services",
+            "ar": "خدمات المشروع ٤"
+          },
+          "description": {
+            "en": "We capitalize on our years of experience in the construction industry to clients by also maintaining their facilities and infrastructure. We capitalize on our years of experience in the construction industry to clients by also maintaining their facilities and infrastructure.",
+            "ar": "نستفيد من سنوات خبرتنا في صناعة البناء لتقديم الخدمات للعملاء من خلال الحفاظ على مرافقهم وبُناهم التحتية. نستفيد من سنوات خبرتنا في صناعة البناء لتقديم الخدمات للعملاء من خلال الحفاظ على مرافقهم وبُناهم التحتية."
+          }
         }
       ],
       "gallary2": [
         {
-          "url": ""
+          "url": "waterTank"
         },
         {
-          "url": ""
+          "url": "waterTank"
         },
         {
-          "url": ""
+          "url": "waterTank"
         },
         {
-          "url": ""
+          "url": "waterTank"
         },
         {
-          "url": ""
+          "url": "waterTank"
         },
         {
-          "url": ""
+          "url": "waterTank"
         },
         {
-          "url": ""
+          "url": "waterTank"
         },
         {
-          "url": ""
+          "url": "waterTank"
         }
       ]
     }

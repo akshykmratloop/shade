@@ -41,7 +41,7 @@ const HomePage = ({ language, screen, fullScreen }) => {
     })
     const [isModal, setIsModal] = useState(false);
     const [swiperInstance, setSwiperInstance] = useState(null);
-    let isLeftAlign = language === "en"
+    let isLeftAlign = language === "en";
     let textAlignment = isLeftAlign ? "text-left" : "text-right"
     const prevRef = useRef(null);
     const nextRef = useRef(null);

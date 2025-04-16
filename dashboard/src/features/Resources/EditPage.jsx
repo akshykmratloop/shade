@@ -127,6 +127,7 @@ const EditPage = () => {
                 {/* Content view */}
                 <div
                     className={`flex-[4] h-[83.5vh] flex flex-col`}
+                    style={{width: screen > 900 ? "60%" :""}}
                 >
                     <ContentTopBar setWidth={setScreen} setFullScreen={setFullScreen} raisePopup={{ reject: () => setPopupReject(true), submit: () => setPopupSubmit(true) }} />
                     <h4 className="text-[#6B7888] text-[14px] mt-1 mb-[2px]">Commented by {"Anukool (Super Admin)"}</h4>
@@ -144,7 +145,7 @@ const EditPage = () => {
                         <div className={`fixed z-50 top-2 right-2 ${!fullScreen && "hidden"} bg-stone-200`}>
                             <CloseModalButton className={"absolute z-40 right-4 top-4 bg-stone-200 hover:bg-stone-300 dark:hover:bg-stone-800 rounded-full border-none p-2 py-2"} onClickClose={() => setFullScreen(false)} />
                         </div>
-                        <AllForOne language={language} screen={screen} content={content} subPath={subPath} setLanguage={setLanguage} fullScreen={fullScreen} currentPath={currentPath} />
+                        <AllForOne language={language} screen={screen} content={content} subPath={subPath} deepPath={deepPath} setLanguage={setLanguage} fullScreen={fullScreen} currentPath={currentPath} />
                     </div>
                 </div>
 

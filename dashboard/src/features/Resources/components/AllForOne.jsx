@@ -143,9 +143,7 @@ const AllForOne = ({ language, screen, content, subPath, setLanguage, fullScreen
             }
             {
                 currentPath === 'contactus-modal' &&
-                <>
-                    <ContactUsModal language={language} currentContent={content.contactUsModal} screen={screen} />
-                </>
+                <ContactUsModal language={language} currentContent={content.contactUsModal} screen={screen} />
             }
         </div>
     )
