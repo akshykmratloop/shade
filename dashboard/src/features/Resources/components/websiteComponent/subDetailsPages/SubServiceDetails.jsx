@@ -16,20 +16,17 @@ const SubServiceDetails = ({ serviceId, contentOn, language, screen, deepPath })
     const isComputer = screen > 900;
     const isTablet = screen < 900 && screen > 730;
     const isPhone = screen < 738;
-
+    const ImagesFromRedux = useSelector(state => state.homeContent.present.images)
     let isLeftAlign = language === "en";
 
     const dispatch = useDispatch()
     let pageIndex
-    const currentContent = contentOn?.filter(
+    const currentContent = contentOn?.[serviceId]?.filter(
         (item, i) => {
             if (item?.id == deepPath) pageIndex = i
             return item?.id == deepPath
         }
     )[0];
-
-    const SwiperPrevRef = useRef(null);
-    const SwiperNextRef = useRef(null);
 
     const swiperRef = useRef(null);
 
@@ -49,7 +46,7 @@ const SubServiceDetails = ({ serviceId, contentOn, language, screen, deepPath })
         dispatch(updateContent({ currentPath: "subOfsubService", payload: content.subOfsubService }))
     }, [])
     return (
-        <div>
+        <div dir={isLeftAlign ? 'ltr' : "rtl"}>
             {/* banner */}
             <section className='px-[75px] py-[50px] pb-[25px]'>
                 <article className='flex flex-col gap-[34px]'>
@@ -58,7 +55,7 @@ const SubServiceDetails = ({ serviceId, contentOn, language, screen, deepPath })
                         <p className='text-[9.5px] w-1/2'>{currentContent?.banner?.description?.[language]}</p>
                     </section>
                     <div>
-                        <img src={services?.[currentContent?.banner?.image]} alt="" className='aspect-[3.5/1] object-cover' />
+                        <img src={ImagesFromRedux?.[`subServiceBanner/${serviceId}/${deepPath}`] || services?.[currentContent?.banner?.image]} alt="" className='aspect-[3.5/1] object-cover' />
                     </div>
                     <section className='flex gap-[30px]'>
                         <h2 className='text-[32px]  flex-1 leading-[28px]'>{currentContent?.subBanner?.title?.[language]}</h2>
@@ -84,14 +81,14 @@ const SubServiceDetails = ({ serviceId, contentOn, language, screen, deepPath })
 
             {/* gallery 1 and slider */}
             <section className='py-[25px]'>
-                <div className="relative w-[full]" >
+                <div className={`relative w-[full] ${!isLeftAlign && "scale-x-[-1]"}`} dir='ltr'>
                     <Swiper
                         modules={[Autoplay, EffectCoverflow]}
                         grabCursor={true}
                         slidesPerView={3}
                         loop={true}
                         spaceBetween={2}
-                        slidesOffsetBefore={15}
+                        slidesOffsetBefore={isLeftAlign ? 15 : -10}
                         autoplay={{
                             delay: 2400,
                             disableOnInteraction: false,
@@ -110,7 +107,7 @@ const SubServiceDetails = ({ serviceId, contentOn, language, screen, deepPath })
                         }}
                         onSwiper={(swiper) => (swiperRef.current = swiper)} // 👈 capture swiper instance
                     >
-                        {currentContent?.gallary1?.map(
+                        {currentContent?.gallery1?.map(
                             (images, index) => (
                                 <SwiperSlide key={index}
                                     dir={isLeftAlign ? "ltr" : "rtl"}
@@ -131,6 +128,7 @@ const SubServiceDetails = ({ serviceId, contentOn, language, screen, deepPath })
                 </div>
             </section>
 
+            {/* description section */}
             <section className='px-[75px] py-[25px]'>
                 {
                     currentContent?.descriptions2?.map((description, i) => {
@@ -147,8 +145,9 @@ const SubServiceDetails = ({ serviceId, contentOn, language, screen, deepPath })
                 }
             </section>
 
+            {/* gallery 2 */}
             <section className='px-[76px] py-[25px] pb-[50px] grid grid-cols-4 gap-y-[11px] gap-x-[11px]'>
-                {currentContent?.gallary2?.map(
+                {currentContent?.gallery2?.map(
                     (images, index) => (
                         <div className="relative w-fit">
                             <img

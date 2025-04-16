@@ -42,6 +42,7 @@ import CloseModalButton from "../../components/Button/CloseButton";
 import AllForOne from "./components/AllForOne";
 import ServiceManager from "./components/contentmanager/ServiceManager";
 import ServiceDetailsManager from "./components/contentmanager/CMforDetails/ServiceDetailsManager";
+import SubServiceDetailManager from "./components/contentmanager/subDetailsManagement/SubServiceDetailManagement";
 
 const EditPage = () => {
     const dispatch = useDispatch();
@@ -87,7 +88,7 @@ const EditPage = () => {
                     }
                     {
                         currentPath === "services" ? subPath ? deepPath ?
-                            <></> :
+                            <SubServiceDetailManager serviceId={subPath} deepPath={deepPath} language={language} currentContent={content.subOfsubService} currentPath={"subOfsubService"} /> :
                             <ServiceDetailsManager serviceId={subPath} language={language} currentContent={content.serviceDetails} currentPath={"serviceDetails"} /> :
                             <ServiceManager language={language} currentContent={content.services} currentPath={currentPath} /> : ""
                     }
@@ -127,7 +128,7 @@ const EditPage = () => {
                 {/* Content view */}
                 <div
                     className={`flex-[4] h-[83.5vh] flex flex-col`}
-                    style={{width: screen > 900 ? "60%" :""}}
+                    style={{ width: screen > 900 ? "60%" : "" }}
                 >
                     <ContentTopBar setWidth={setScreen} setFullScreen={setFullScreen} raisePopup={{ reject: () => setPopupReject(true), submit: () => setPopupSubmit(true) }} />
                     <h4 className="text-[#6B7888] text-[14px] mt-1 mb-[2px]">Commented by {"Anukool (Super Admin)"}</h4>

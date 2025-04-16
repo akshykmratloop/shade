@@ -6,7 +6,7 @@ import MultiSelectForProjects from "../../breakUI/MultiSelectForProjects"
 import content from "../../websiteComponent/content.json"
 import { useEffect } from "react"
 
-const ServiceDetailsManager = ({ serviceId, currentContent, currentPath, language, screen }) => {
+const ServiceDetailsManager = ({ serviceId, currentContent, currentPath, language,  }) => {
     const dispatch = useDispatch()
     const serviceIndex = currentContent?.findIndex(e => {
         return e.id == serviceId

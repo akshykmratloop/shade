@@ -24,12 +24,12 @@ const ContentSection = ({
     allowExtraInput = false, // New prop to allow extra input
     attachOne = false,
     projectId,
-    careerId
+    careerId,
+    deepPath
 }) => {
     const dispatch = useDispatch();
     const [extraFiles, setExtraFiles] = useState([]);
     const ImagesFromRedux = useSelector((state) => state.homeContent.present.images)
-
 
 
     const addExtraFileInput = () => {
@@ -81,7 +81,8 @@ const ContentSection = ({
                 subSecIndex,
                 currentPath,
                 projectId,
-                careerId
+                careerId,
+                deepPath
             }));
         }
     };
@@ -93,7 +94,9 @@ const ContentSection = ({
             {inputs.length > 0 &&
                 inputs.map((input, i) => {
                     let valueExpression;
-                    if (careerId) {
+                    if (deepPath) {
+                        valueExpression = currentContent?.[projectId]?.[deepPath - 1]?.[section]?.[input.updateType]?.[language]
+                    } else if (careerId) {
                         if (subSectionsProMax && (input.updateType === "link")) {
                             valueExpression = currentContent?.[projectId - 1]?.[section]?.[subSection]?.[subSectionsProMax]?.[input.updateType];
                         } else if (subSectionsProMax) {
