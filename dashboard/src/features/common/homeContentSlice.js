@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { cn } from "tailwind-variants";
 
 const initialState = {
     past: [],
@@ -14,7 +15,21 @@ const cmsSlice = createSlice({
     reducers: {
         updateImages: (state, action) => {
             state.past.push(JSON.parse(JSON.stringify(state.present)));
-            if (action.payload.updateType === 'gallerySection') {
+            if (action.payload.deepPath) {
+                const newArray = state.present[action.payload.currentPath][action.payload.projectId][action.payload.deepPath - 1][action.payload.section]
+                let finalArray = []
+                console.log(JSON.stringify(newArray))
+                if (action.payload.operation === 'add') {
+                    finalArray = [...newArray, action.payload.src]
+                } else {
+                    finalArray = newArray.filter((e, i) => {
+                        console.log(action.payload.src)
+                        return i !== action.payload.src
+                    })
+                    console.log(finalArray)
+                }
+                state.present[action.payload.currentPath][action.payload.projectId][action.payload.deepPath - 1][action.payload.section] = finalArray
+            } else if (action.payload.updateType === 'gallerySection') {
                 let newArray = []
                 if (action.payload.operation === 'add') {
                     newArray = [...state.present.projectDetail[action.payload.projectId - 1].gallerySection.images, action.payload.src]

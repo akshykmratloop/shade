@@ -77,6 +77,7 @@ const SubServiceDetailManager = ({ serviceId, currentContent, currentPath, langu
                 language={language}
                 currentContent={currentContent}
                 projectId={serviceId}
+                deepPath={deepPath}
                 allowExtraInput={true}
             />
 
@@ -143,15 +144,16 @@ const SubServiceDetailManager = ({ serviceId, currentContent, currentPath, langu
             {/* Gallery 2 */}
             <ContentSection
                 currentPath={currentPath}
-                Heading={"Gallery"}
+                Heading={"Gallery"} y
                 inputFiles={
                     currentContent?.[serviceId]?.[deepPath - 1]?.gallery2?.map((e, i) => {
                         return { label: "Image " + (i + 1), id: `subService/${serviceId}/gallery2/${deepPath}/${i}` }
                     })}
-                section={"gallery1"}
+                section={"gallery2"}
                 language={language}
                 currentContent={currentContent}
                 projectId={serviceId}
+                deepPath={deepPath}
                 allowExtraInput={true}
             />
         </div>

@@ -36,7 +36,10 @@ const ContentSection = ({
 
 
     const addExtraFileInput = () => {
-        if (section === 'socialIcons') {
+        console.log(deepPath)
+        if (deepPath) {
+            dispatch(updateImages({ src: { url: "" }, section, currentPath, deepPath, projectId, operation: "add"  }))
+        } else if (section === 'socialIcons') {
             if (ImagesFromRedux.socialIcons.length < 8) {
                 dispatch(updateImages({ src: [...ImagesFromRedux.socialIcons, { img: "", url: "", id: ImagesFromRedux.socialIcons.length + 1 }], section: "socialIcons" }))
                 dispatch(updateImages({ src: [...ImagesFromRedux.socialIcons, { img: "", url: "", id: ImagesFromRedux.socialIcons.length + 1 }], section: "socialIcons" }))
@@ -54,11 +57,14 @@ const ContentSection = ({
     };
 
     const removeExtraFileInput = (id) => {
-        if (section === 'gallerySection') {
+        if (section === 'gallerySection' || deepPath) {
             dispatch(updateImages({
                 src: id,
                 updateType: section,
                 projectId,
+                deepPath,
+                currentPath,
+                section,
                 operation: 'remove'
             }))
         } else {
