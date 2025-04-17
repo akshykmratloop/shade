@@ -45,7 +45,7 @@ const InputFile = ({ label, baseClass, id, currentPath }) => {
           onChange={handleFileChange}
           accept="image/*,video/*"
         />
-        <label htmlFor={id} className="w-full h-full flex items-center justify-center text-gray-400 text-xs">
+        <label htmlFor={id} className="w-full h-full flex items-center justify-center text-gray-400 text-xs cursor-pointer">
           {fileURL ? (
             fileURL.includes(".mp4") || fileURL.includes("video") || ImageFromRedux.video ? (
               <video src={fileURL} className="w-full h-full object-cover" controls />
