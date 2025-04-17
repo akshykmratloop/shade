@@ -34,9 +34,9 @@ function RoleDetailsModal({ role, show, onClose }) {
             setLoading(true);
             try {
                 const response = await getRoleById(role.id);
-                console.log(response.message)
-                console.log(response.error)
-                if (response.statusCode > 400 || response instanceof Error) {
+                console.log(response.statusCode)
+                console.log(response)
+                if (response.statusCode >= 400 || response instanceof Error) {
                     throw `Error: status: ${response.statusCode}, type: ${response.errorType}`
                 }
                 setTimeout(() => {

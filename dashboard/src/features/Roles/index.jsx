@@ -138,11 +138,11 @@ function Roles() {
         2000
       ); // updating the toaster
       // setTimeout(() => {
-        //   loadingToastId = undefined
-        //   toast.dismiss(loadingToastId) // to deactivate to running taost
-        // }, 2000)
-      }
-      toast.dismiss(loadingToastId) // to deactivate to running taost
+      //   loadingToastId = undefined
+      //   toast.dismiss(loadingToastId) // to deactivate to running taost
+      // }, 2000)
+    }
+    toast.dismiss(loadingToastId) // to deactivate to running taost
   };
 
   // Pagination logic
@@ -294,23 +294,27 @@ function Roles() {
 
 
       {/* Add Role Modal */}
-      <AddRoleModal
-        show={showAddForm}
-        onClose={() => {
-          setShowAddForm(false);
-          setSelectedRole(null);
-        }}
-        updateRoles={setChangesInRole}
-        role={selectedRole}
-      />
+      {showAddForm &&
+        <AddRoleModal
+          show={showAddForm}
+          onClose={() => {
+            setShowAddForm(false);
+            setSelectedRole(null);
+          }}
+          updateRoles={setChangesInRole}
+          role={selectedRole}
+        />}
       {/* <AddRoleModal show={showAddForm} onClose={() => setShowAddForm(false)} updateRole={setChangesInRole} /> */}
 
       {/* Role Details Modal */}
-      <RoleDetailsModal
-        role={selectedRole}
-        show={showDetailsModal}
-        onClose={() => setShowDetailsModal(false)}
-      />
+      {showDetailsModal &&
+        <RoleDetailsModal
+          role={selectedRole}
+          show={showDetailsModal}
+          updateRoles={setChangesInRole}
+          onClose={() => { setSelectedRole(false); setShowDetailsModal(false) }}
+        />
+      }
       <ToastContainer />
     </div>
   );

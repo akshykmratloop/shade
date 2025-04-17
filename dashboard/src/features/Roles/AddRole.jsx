@@ -13,6 +13,7 @@ import updateToasify from "../../app/toastify";
 import CloseModalButton from "../../components/Button/CloseButton";
 
 const AddRoleModal = ({ show, onClose, updateRoles, role }) => {
+  console.log(role)
   const freshObject = {
     name: "",
     selectedRoletype: "",
@@ -85,7 +86,6 @@ const AddRoleModal = ({ show, onClose, updateRoles, role }) => {
     }
   };
 
-  console.log(roleData?.selectedPermissions)
 
   function modalClose() {
     onClose()
@@ -150,6 +150,7 @@ const AddRoleModal = ({ show, onClose, updateRoles, role }) => {
 
   useEffect(() => {
     if (role) {
+      console.log(role)
       async function getRole() {
         try {
           const response = await getRoleById(role?.id);
@@ -161,7 +162,6 @@ const AddRoleModal = ({ show, onClose, updateRoles, role }) => {
               fetchedPermissions: permissions.permission, // Store fetched permissions
             }));
           }
-          console.log('qwer')
         } catch (error) {
           console.log(error)
         }
@@ -175,7 +175,7 @@ const AddRoleModal = ({ show, onClose, updateRoles, role }) => {
       setRoleData({
         name: currentRole?.name || "",
         roleTypes: [] || [],
-        selectedPermissions: currentRole?.permissions.map(e => e.permissionId) || [],
+        selectedPermissions: currentRole?.permissions?.map(e => e.permissionId) || [],
         fetchedPermissions: [],
         fetchedRoletype: [],
         selectedRoletype: currentRole?.roleTypeId || "",
