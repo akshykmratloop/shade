@@ -2,6 +2,7 @@ import {createServer} from "http";
 import {createApp, finishApp} from "./app.js";
 import {useModules} from "./config/index.js";
 import {Server} from "socket.io";
+
 (async () => {
   const app = createApp();
   const server = createServer(app);
@@ -17,6 +18,9 @@ import {Server} from "socket.io";
     cors: {origin: "*"},
   });
 
+  // Function to send notifications in real-time
+  app.locals.io = io;
+
   io.on("connection", (socket) => {
     console.log("User connected: ", socket.id);
 
@@ -29,9 +33,6 @@ import {Server} from "socket.io";
       console.log("User disconnected: ", socket.id);
     });
   });
-
-  // Function to send notifications in real-time
-  app.locals.io = io;
 
   server.listen(process.env.BACKEND_PORT, async () => {
     console.log(

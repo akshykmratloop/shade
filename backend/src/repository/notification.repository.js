@@ -1,19 +1,17 @@
 import prismaClient from "../config/dbConfig.js";
-import {findRoleById, findRoleType} from "./role.repository.js";
 
-export const createNotification = async ({userId, role, message, io}) => {
-  // const userrole = await findRoleById(userId);
+import {findRoleTypeByUserId} from "./user.repository.js";
+
+export const createNotification = async ({userId, message}) => {
+  const userrole = await findRoleTypeByUserId(userId);
+
   const notification = await prismaClient.notification.create({
     data: {
       userId,
-      role,
+      role: userrole?.roles[0]?.role?.roleType?.name,
       message,
     },
   });
-
-  if (io && userId) {
-    io.to(userId).emit("notification", notification);
-  }
 
   return notification;
 };
@@ -29,4 +27,33 @@ export const findAllNotification = async (userId) => {
   });
 
   return notification;
+};
+
+export const markNotificationAsRead = async (notificationId) => {
+  const notification = await prismaClient.notification.update({
+    where: {
+      id: notificationId,
+    },
+    data: {
+      isRead: true,
+    },
+  });
+
+  return notification;
+};
+
+export const markAllNotificationAsRead = async (userId) => {
+  const result = await prismaClient.notification.updateMany({
+    where: {
+      userId,
+      isRead: false,
+    },
+    data: {
+      isRead: true,
+    },
+  });
+
+  const notifications = await findAllNotification(userId);
+
+  return notifications; // contains { count: X }
 };

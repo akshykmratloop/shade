@@ -1,22 +1,22 @@
 // libraries import
-import { useEffect, useState } from "react";
-import PlusIcon from '@heroicons/react/24/outline/PlusIcon';
-import { toast, ToastContainer } from "react-toastify";
+import {useEffect, useState} from "react";
+import PlusIcon from "@heroicons/react/24/outline/PlusIcon";
+import {toast, ToastContainer} from "react-toastify";
 // self modules
-import { fetchRoles, activateRole, deactivateRole } from "../../app/fetch";
+import {fetchRoles, activateRole, deactivateRole} from "../../app/fetch";
 import AddRoleModal from "./AddRole";
 import SearchBar from "../../components/Input/SearchBar";
 import TitleCard from "../../components/Cards/TitleCard";
 import RoleDetailsModal from "./ShowRole";
 import updateToasify from "../../app/toastify";
 // icons
-import { Switch } from '@headlessui/react';
-import XMarkIcon from '@heroicons/react/24/outline/XMarkIcon';
-import { FiEye } from "react-icons/fi";
-import { FiEdit } from "react-icons/fi";
-import { RxQuestionMarkCircled } from "react-icons/rx";
-import { LuListFilter } from "react-icons/lu";
-import { LuImport } from "react-icons/lu";
+import {Switch} from "@headlessui/react";
+import XMarkIcon from "@heroicons/react/24/outline/XMarkIcon";
+import {FiEye} from "react-icons/fi";
+import {FiEdit} from "react-icons/fi";
+import {RxQuestionMarkCircled} from "react-icons/rx";
+import {LuListFilter} from "react-icons/lu";
+import {LuImport} from "react-icons/lu";
 import capitalizeWords from "../../app/capitalizeword";
 import Paginations from "../Component/Paginations";
 // import userIcon from "../../assets/user.png"
@@ -52,7 +52,9 @@ const TopSideButtons = ({
         searchText={searchText}
         styleClass="w-700px border-none w-full flex-1"
         setSearchText={setSearchText}
-        placeholderText={"Search Roles by name, role, ID or any related keywords"}
+        placeholderText={
+          "Search Roles by name, role, ID or any related keywords"
+        }
         outline={false}
       />
       {filterParam && (
@@ -67,20 +69,29 @@ const TopSideButtons = ({
       <div className="dropdown dropdown-bottom dropdown-end">
         <label
           tabIndex={0}
-          className="capitalize border text-[14px] self-center border-stone-300 dark:border-neutral-500 rounded-lg h-[40px] w-[91px] flex items-center gap-1 font-[300] px-[14px] py-[10px]">
-          <LuListFilter
-            className="w-5 " />
+          className="capitalize border text-[14px] self-center border-stone-300 dark:border-neutral-500 rounded-lg h-[40px] w-[91px] flex items-center gap-1 font-[300] px-[14px] py-[10px]"
+        >
+          <LuListFilter className="w-5 " />
           Filter
         </label>
-        <ul tabIndex={0}
-          className="dropdown-content menu p-2 text-sm shadow bg-base-100 rounded-box w-52 text-[#0E2354] font-[400]">
+        <ul
+          tabIndex={0}
+          className="dropdown-content menu p-2 text-sm shadow bg-base-100 rounded-box w-52 text-[#0E2354] font-[400]"
+        >
           {statusFilters.map((status, key) => (
             <li key={key}>
-              <a onClick={() => showFiltersAndApply(status)} style={{ textTransform: "capitalize" }}>{capitalizeWords(status)}</a>
+              <a
+                onClick={() => showFiltersAndApply(status)}
+                style={{textTransform: "capitalize"}}
+              >
+                {capitalizeWords(status)}
+              </a>
             </li>
           ))}
           <div className="divider mt-0 mb-0"></div>
-          <li><a onClick={() => removeAppliedFilter()}>Remove Filter</a></li>
+          <li>
+            <a onClick={() => removeAppliedFilter()}>Remove Filter</a>
+          </li>
         </ul>
       </div>
     </div>
@@ -138,11 +149,11 @@ function Roles() {
         2000
       ); // updating the toaster
       // setTimeout(() => {
-        //   loadingToastId = undefined
-        //   toast.dismiss(loadingToastId) // to deactivate to running taost
-        // }, 2000)
-      }
-      toast.dismiss(loadingToastId) // to deactivate to running taost
+      //   loadingToastId = undefined
+      //   toast.dismiss(loadingToastId) // to deactivate to running taost
+      // }, 2000)
+    }
+    toast.dismiss(loadingToastId); // to deactivate to running taost
   };
 
   // Pagination logic
@@ -167,14 +178,17 @@ function Roles() {
           <LuImport />
           <span>Import</span>
         </button> */}
-        <button className=" z-20 btn btn-sm hover:bg-[#25439B] border-none !capitalize ml-4 bg-[#25439B] text-[white] font-semibold py-[.9rem] pb-[1.8rem] px-4" onClick={() => setShowAddForm(true)}>
+        <button
+          className=" z-20 btn btn-sm hover:bg-[#25439B] border-none !capitalize ml-4 bg-[#25439B] text-[white] font-semibold py-[.9rem] pb-[1.8rem] px-4"
+          onClick={() => setShowAddForm(true)}
+        >
           <PlusIcon className="w-4 mr-2 border border-1 rounded-full border-dotted " />
-          <span>
-            Create Role
-          </span>
+          <span>Create Role</span>
         </button>
       </div>
-      <TitleCard title={"Roles"} topMargin="mt-2"
+      <TitleCard
+        title={"Roles"}
+        topMargin="mt-2"
         TopSideButtons={
           <TopSideButtons
             applySearch={applySearch}
@@ -182,27 +196,50 @@ function Roles() {
             removeFilter={removeFilter}
             openAddForm={() => setShowAddForm(true)}
           />
-        }>
+        }
+      >
         <div className="min-h-[28.2rem] flex flex-col justify-between">
           <div className="overflow-x-auto w-full border dark:border-stone-600 rounded-2xl">
             <table className="table text-center min-w-full dark:text-[white]">
-              <thead className="" style={{ borderRadius: "" }}>
-                <tr className="!capitalize" style={{ textTransform: "capitalize" }}>
-                  <th className="font-medium text-[12px] text-left font-poppins leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white] text-[#42526D] px-[24px] py-[13px] !capitalize"
-                    style={{ position: "static", width: "363px" }}> Role Name</th>
-                  <th className="text-[#42526D] w-[133px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] !capitalize">Permission</th>
+              <thead className="" style={{borderRadius: ""}}>
+                <tr
+                  className="!capitalize"
+                  style={{textTransform: "capitalize"}}
+                >
+                  <th
+                    className="font-medium text-[12px] text-left font-poppins leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white] text-[#42526D] px-[24px] py-[13px] !capitalize"
+                    style={{position: "static", width: "363px"}}
+                  >
+                    {" "}
+                    Role Name
+                  </th>
+                  <th className="text-[#42526D] w-[133px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] !capitalize">
+                    Permission
+                  </th>
                   {/* <th className="text-[#42526D] w-[164px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] text-center !capitalize">Sub Permission</th> */}
-                  <th className="text-[#42526D] w-[211px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] !capitalize">No. of Users Assigned</th>
-                  <th className="text-[#42526D] w-[154px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] !capitalize text-center">Status</th>
-                  <th className="text-[#42526D] w-[221px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] text-center !capitalize">Actions</th>
+                  <th className="text-[#42526D] w-[211px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] !capitalize">
+                    No. of Users Assigned
+                  </th>
+                  <th className="text-[#42526D] w-[154px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] !capitalize text-center">
+                    Status
+                  </th>
+                  <th className="text-[#42526D] w-[221px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] text-center !capitalize">
+                    Actions
+                  </th>
                 </tr>
               </thead>
               <tbody className="">
-                {
-                  Array.isArray(roles) && currentRoles.length > 0 ? currentRoles?.map((role, index) => {
+                {Array.isArray(roles) && currentRoles.length > 0 ? (
+                  currentRoles?.map((role, index) => {
                     return (
-                      <tr key={index} className="font-light " style={{ height: "65px" }}>
-                        <td className={`font-poppins h-[65px] truncate font-normal text-[14px] leading-normal text-[#101828] p-[26px] pl-5 flex`}>
+                      <tr
+                        key={index}
+                        className="font-light "
+                        style={{height: "65px"}}
+                      >
+                        <td
+                          className={`font-poppins h-[65px] truncate font-normal text-[14px] leading-normal text-[#101828] p-[26px] pl-5 flex`}
+                        >
                           {/* <img src={user.image ? user.image : userIcon} alt={user.name} className="rounded-[50%] w-[41px] h-[41px] mr-2" /> */}
                           <div className="flex flex-col">
                             <p className="dark:text-[white]">{role.name}</p>
@@ -210,26 +247,28 @@ function Roles() {
                           </div>
                         </td>
 
-
                         <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]">
-                          <span className="">
-                            {role?._count?.permissions}
-                          </span>
+                          <span className="">{role?._count?.permissions}</span>
                         </td>
                         {/* <td className="font-poppins font-light text-[12px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]">
                           <span className="">
                             {role?._count?.subPermissions || "3"}
                           </span>
                         </td> */}
-                        <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]" style={{ whiteSpace: "wrap" }}>
-                          <span className="">
-                            {role?.usersAssigned || "1"}
-                          </span>
+                        <td
+                          className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]"
+                          style={{whiteSpace: "wrap"}}
+                        >
+                          <span className="">{role?.usersAssigned || "1"}</span>
                         </td>
                         <td className="font-poppins font-light text-[12px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]">
                           <p
-                            className={`w-[85px] mx-auto before:content-['•'] before:text-2xl flex h-7 items-center justify-center gap-1 px-1 py-0 font-[500] ${role.status === 'ACTIVE' ? "text-green-600 bg-green-100 before:text-green-600 px-1" : "text-red-600 bg-red-100 before:text-red-600 "} rounded-2xl`}
-                            style={{ textTransform: "capitalize", }}
+                            className={`w-[85px] mx-auto before:content-['•'] before:text-2xl flex h-7 items-center justify-center gap-1 px-1 py-0 font-[500] ${
+                              role.status === "ACTIVE"
+                                ? "text-green-600 bg-green-100 before:text-green-600 px-1"
+                                : "text-red-600 bg-red-100 before:text-red-600 "
+                            } rounded-2xl`}
+                            style={{textTransform: "capitalize"}}
                           >
                             {capitalizeWords(role.status)}
                           </p>
@@ -243,7 +282,10 @@ function Roles() {
                               }}
                             >
                               <span className="flex items-center gap-1 rounded-md text-[#101828]">
-                                <FiEye className="w-5 h-6  text-[#3b4152] dark:text-stone-200" strokeWidth={1} />
+                                <FiEye
+                                  className="w-5 h-6  text-[#3b4152] dark:text-stone-200"
+                                  strokeWidth={1}
+                                />
                               </span>
                             </button>
                             <button
@@ -253,7 +295,10 @@ function Roles() {
                                 setShowAddForm(true);
                               }}
                             >
-                              <FiEdit className="w-5 h-6 text-[#3b4152] dark:text-stone-200" strokeWidth={1} />
+                              <FiEdit
+                                className="w-5 h-6 text-[#3b4152] dark:text-stone-200"
+                                strokeWidth={1}
+                              />
                             </button>
                             <div className="flex items-center space-x-4 ">
                               <Switch
@@ -261,37 +306,43 @@ function Roles() {
                                 onChange={() => {
                                   statusChange(role);
                                 }}
-                                className={`${role?.status === "ACTIVE"
-                                  ? "bg-[#1DC9A0]"
-                                  : "bg-gray-300"
-                                  } relative inline-flex h-2 w-8 items-center rounded-full`}
+                                className={`${
+                                  role?.status === "ACTIVE"
+                                    ? "bg-[#1DC9A0]"
+                                    : "bg-gray-300"
+                                } relative inline-flex h-2 w-8 items-center rounded-full`}
                               >
                                 <span
-                                  className={`${role?.status === "ACTIVE"
-                                    ? "translate-x-4"
-                                    : "translate-x-0"
-                                    } inline-block h-5 w-5 bg-white rounded-full shadow-2xl border border-gray-300 transition`}
+                                  className={`${
+                                    role?.status === "ACTIVE"
+                                      ? "translate-x-4"
+                                      : "translate-x-0"
+                                  } inline-block h-5 w-5 bg-white rounded-full shadow-2xl border border-gray-300 transition`}
                                 />
                               </Switch>
                             </div>
                           </div>
                         </td>
                       </tr>
-                    )
-                  }
-                  ) : (
-                    <tr className="text-[14px]">
-                      <td colSpan={6}>No Data Available</td>
-                    </tr>
-                  )}
+                    );
+                  })
+                ) : (
+                  <tr className="text-[14px]">
+                    <td colSpan={6}>No Data Available</td>
+                  </tr>
+                )}
               </tbody>
             </table>
           </div>
           {/* Pagination Controls */}
-          <Paginations data={roles} currentPage={currentPage} setCurrentPage={setCurrentPage} totalPages={totalPages} />
+          <Paginations
+            data={roles}
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+            totalPages={totalPages}
+          />
         </div>
       </TitleCard>
-
 
       {/* Add Role Modal */}
       <AddRoleModal
