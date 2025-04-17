@@ -1,6 +1,6 @@
 import FileUploader from "../../../../components/Input/InputFileUploader"
-import ContentSection from "../ContentSections"
-import MultiSelect from "../MultiSelect"
+import ContentSection from "../breakUI/ContentSections"
+import MultiSelect from "../breakUI/MultiSelect"
 
 const ServiceManager = ({ currentContent, currentPath, language }) => {
 

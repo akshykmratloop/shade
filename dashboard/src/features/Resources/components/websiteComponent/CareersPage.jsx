@@ -5,7 +5,7 @@ import content from "./content.json"
 import { motion } from "framer-motion";
 // import ApplyModal from "./ApplyModal";
 // import Pagination from "../../common/Pagination";
-import Pagination from "./Pagination";
+import Pagination from "./subparts/Pagination";
 // const AnimatedText = dynamic(() => import('@/common/AnimatedText'), { ssr: false });
 import Arrow from "../../../../assets/icons/right-wrrow.svg"
 import { useDispatch, useSelector } from "react-redux";

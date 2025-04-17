@@ -30,7 +30,7 @@ const TopSideButtons = ({
 }) => {
     const [filterParam, setFilterParam] = useState("");
     const [searchText, setSearchText] = useState("");
-    const statusFilters = ["SUCCESS", "FAILURE"];
+    const statusFilters = ["Success", "Failure"];
     const showFiltersAndApply = (status) => {
         applyFilter(status);
         setFilterParam(status);
@@ -102,6 +102,7 @@ function Logs() {
         setLogs([...originalLogs]);
     };
     const applyFilter = (outcome) => {
+        console.log(outcome)
         const filteredRoles = originalLogs?.filter(
             (log) => log.outcome === outcome
         );
@@ -113,30 +114,6 @@ function Logs() {
         );
         setLogs(filteredRoles);
     };
-
-    // const statusChange = async (role) => {
-    //     let loadingToastId = toast.loading("Proceeding..."); // starting the loading in toaster
-    //     let response;
-    //     if (role.status === "ACTIVE") response = await deactivateRole(role);
-    //     else response = await activateRole(role);
-    //     if (response.ok) {
-    //         updateToasify(
-    //             loadingToastId,
-    //             `Request successful. ${response.message}`,
-    //             "success",
-    //             2000
-    //         );
-    //         setChangesInRole((prev) => !prev);
-    //     } else {
-    //         updateToasify(
-    //             loadingToastId,
-    //             `Request failed. ${response.message}`,
-    //             "error",
-    //             2000
-    //         );
-    //     }
-    //     toast.dismiss(loadingToastId)
-    // };
 
     // Pagination logic
     const indexOfLastUser = currentPage * logsPerPage;
@@ -154,18 +131,6 @@ function Logs() {
     }, [changesInLogs]);
     return (
         <div className="relative min-h-full">
-            {/* <div className="absolute top-3 right-2 flex">
-                <button className="border dark:border-neutral-400 flex justify-center items-center gap-2 px-3 rounded-lg text-[14px] text-[#0E2354] dark:text-stone-200">
-                    <LuImport />
-                    <span>Import</span>
-                </button>
-                <button className=" z-20 btn btn-sm hover:bg-[#25439B] border-none !capitalize ml-4 bg-[#25439B] text-[white] font-semibold py-[.9rem] pb-[1.8rem] px-4" onClick={() => setShowAddForm(true)}>
-                    <PlusIcon className="w-4 mr-2 border border-1 rounded-full border-dotted " />
-                    <span>
-                        Create Role
-                    </span>
-                </button>
-            </div> */}
             <TitleCard title={"Logs"} topMargin="mt-2"
                 TopSideButtons={
                     <TopSideButtons

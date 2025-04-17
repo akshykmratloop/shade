@@ -1,5 +1,5 @@
-import FileUploader from "../../../../components/Input/InputFileUploader"
-import ContentSection from "../ContentSections"
+import FileUploader from "../../../../../components/Input/InputFileUploader"
+import ContentSection from "../../breakUI/ContentSections"
 
 const HeaderManager = ({ language, currentContent, currentPath }) => {
     let contents

@@ -10,8 +10,7 @@ import DummyData from "../../assets/Dummy_User.json"
 
 function ShowLogs({ log, show, onClose }) {
     const [fetchedRole, setFetchedRole] = useState({})
-    const [loading, setLoading] = useState(true)
-    const [error, setError] = useState(true)
+
     const emptyOfObject = { "N/A": "N/A" }
     function getBrowserInfo(uaString) {
         let browserMatch = uaString?.match(/(Chrome|Firefox|Safari|Edge|Opera|MSIE|Trident)\/?\s*(\d+)/i) || [];
@@ -44,10 +43,6 @@ function ShowLogs({ log, show, onClose }) {
     const modalRef = useRef(null);
     const data = []
 
-    data.forEach(element => {
-
-    });
-
     if (log?.newValue) {
         delete log.newValue.id;
         delete log.newValue.roleTypeId;
@@ -76,32 +71,6 @@ function ShowLogs({ log, show, onClose }) {
         }
     }, [])
 
-    useEffect(() => {
-        async function getUser() {
-            if (!log?.id) return;
-            setLoading(true);
-            try {
-                const response = await getRoleById(log?.id);
-                if (response.statusCode >= 400) {
-                    throw `Error: status: ${response.statusCode}, type: ${response.errorType}`
-                }
-                setTimeout(() => {
-                    // setFetchedRole(response.role);
-                    setFetchedRole(log)
-                    setError(false);
-                }, 200)
-            } catch (err) {
-                setError(true);
-            } finally {
-                setTimeout(() => {
-
-                    setLoading(false);
-                }, 200)
-            }
-        }
-        getUser();
-    }, [log]);
-
     if (!log) return null;
 
     return (
@@ -117,8 +86,7 @@ function ShowLogs({ log, show, onClose }) {
                     </div>
 
                     {
-                        loading || error ? (<SkeletonLoader />
-                        ) : (
+                         (
 
                             <div className="overflow-x-auto">
 

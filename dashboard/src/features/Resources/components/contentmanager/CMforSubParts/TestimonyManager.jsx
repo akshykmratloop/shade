@@ -1,9 +1,9 @@
 import { useEffect } from "react"
-import { updateContent } from "../../../common/homeContentSlice"
+import { updateContent } from "../../../../common/homeContentSlice"
 import { useDispatch } from "react-redux"
-import ContentSection from "../ContentSections"
-import FileUploader from "../../../../components/Input/InputFileUploader"
-import content from '../websiteComponent/content.json'
+import ContentSection from "../../breakUI/ContentSections"
+import FileUploader from "../../../../../components/Input/InputFileUploader"
+import content from '../../websiteComponent/content.json'
 
 const TestimonyManager = ({ testimonyId, currentContent, currentPath, language }) => {
     const dispatch = useDispatch()

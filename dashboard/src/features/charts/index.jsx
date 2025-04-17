@@ -51,7 +51,7 @@ const TopSideButtons = ({ removeFilter, applyFilter, applySearch }) => { // sear
             style={{ textTransform: "capitalize" }}>
             <SearchBar
                 searchText={searchText}
-                style={{border: "none"}}
+                style={{ border: "none" }}
                 styleClass="w-700px border-none w-full flex-1"
                 setSearchText={setSearchText}
                 placeholderText={"Search Users by name, role, ID or any related keywords"}
@@ -97,6 +97,8 @@ function Users() {
     const [changesInUser, setChangesInUser] = useState(false);
     const [selectedUser, setSelectedUser] = useState(null);
     const [showDetailsModal, setShowDetailsModal] = useState(false);
+    const [searchValue, setSearchValue] = useState('')
+    const [debouncedValue, setDebouncedValue] = useState("")
 
     // Pagination state
     const [currentPage, setCurrentPage] = useState(1);
@@ -111,16 +113,32 @@ function Users() {
         setUsers(filteredRoles);
     };
 
-    const applySearch = (value) => { // actual search application which is being sent to the topsidebar component
-        const filteredRoles = originalUsers.filter(user =>
-            user.name.toLowerCase().includes(value.toLowerCase())
-        );
-        setUsers(filteredRoles);
+    function handleSearchInput(value) {
+        if (value.length >= 3) {
+            console.log('qwer')
+            setSearchValue(value)
+        }
+    }
+
+    const applySearch = async (value) => { // actual search application which is being sent to the topsidebar component
+        let query = {}
+        if (value.includes("@")) {
+            query.email = value
+        } else if (!(isNaN(value))) {
+            query.phone = value
+        } else if (value.toLowerCase() === "active" || value.toLowerCase() === 'inactive') {
+            query.status = value.toUpperCase()
+        } else {
+            query.name = value
+        }
+
+        let users = await getAllusers(query)
+        setUsers(users?.users?.allUsers ?? [])
     };
 
     const statusChange = async (user) => {
         const loadingToastId = toast.loading("Processing...", { autoClose: 2000 });
-        let response = user.status === "ACTIVE" ? await deactivateUser({id:user.id}) : await activateUser({id:user.id});
+        let response = user.status === "ACTIVE" ? await deactivateUser({ id: user.id }) : await activateUser({ id: user.id });
         if (response.ok) {
             updateToasify(loadingToastId, `Request successful. ${response.message}`, "success", 1000);
             setChangesInUser(prev => !prev);
@@ -137,6 +155,22 @@ function Users() {
     const totalPages = Math.ceil(users?.length / usersPerPage);
 
     useEffect(() => {
+        const handler = setTimeout(() => {
+            setDebouncedValue(searchValue);
+        }, 700); // debounce delay
+
+        return () => {
+            clearTimeout(handler);
+        };
+    }, [searchValue])
+
+    useEffect(() => {
+        if (debouncedValue) {
+            applySearch(debouncedValue);
+        }
+    }, [debouncedValue]);
+
+    useEffect(() => {
 
         async function fetchUsersData() {
             const response = await getAllusers();
@@ -150,10 +184,11 @@ function Users() {
     return (
         <div className="relative min-h-full">
             <div className="absolute top-3 right-2 flex">
-                <button className="border dark:border-neutral-400 flex justify-center items-center gap-2 px-3 rounded-lg text-[14px] text-[#0E2354] dark:text-stone-200">
+                {/* button for import */}
+                {/* <button className="border dark:border-neutral-400 flex justify-center items-center gap-2 px-3 rounded-lg text-[14px] text-[#0E2354] dark:text-stone-200">
                     <LuImport />
                     <span>Import</span>
-                </button>
+                </button> */}
                 <button className=" z-20 btn btn-sm hover:bg-[#25439B] border-none !capitalize ml-4 bg-[#25439B] text-[white] font-semibold py-[.9rem] pb-[1.8rem] px-4" onClick={() => setShowAddForm(true)}>
                     <PlusIcon className="w-4 mr-2 border border-1 rounded-full border-dotted " />
                     <span>
@@ -164,7 +199,7 @@ function Users() {
             <TitleCard title={"Users"} topMargin="mt-2"
                 TopSideButtons={
                     <TopSideButtons
-                        applySearch={applySearch}
+                        applySearch={handleSearchInput}
                         applyFilter={applyFilter}
                         removeFilter={removeFilter}
                         openAddForm={() => setShowAddForm(true)}

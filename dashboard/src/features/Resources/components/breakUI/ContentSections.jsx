@@ -1,11 +1,12 @@
-import { useState } from "react";
-import InputFile from "../../../components/Input/InputFile";
-import InputText from "../../../components/Input/InputText";
-import TextAreaInput from "../../../components/Input/TextAreaInput";
+import { useMemo, useRef, useState } from "react";
+import InputFile from "../../../../components/Input/InputFile";
+import InputText from "../../../../components/Input/InputText";
+import TextAreaInput from "../../../../components/Input/TextAreaInput";
 import { useDispatch, useSelector } from "react-redux";
-import { updateSpecificContent, updateServicesNumber, updateImages } from "../../common/homeContentSlice";
-import InputFileWithText from "../../../components/Input/InputFileText";
-import InputFileForm from "../../../components/Input/InputFileForm";
+import { updateSpecificContent, updateServicesNumber, updateImages } from "../../../common/homeContentSlice";
+import InputFileWithText from "../../../../components/Input/InputFileText";
+import InputFileForm from "../../../../components/Input/InputFileForm";
+import JoditEditor from "jodit-react";
 
 const ContentSection = ({
     Heading,
@@ -24,16 +25,21 @@ const ContentSection = ({
     allowExtraInput = false, // New prop to allow extra input
     attachOne = false,
     projectId,
-    careerId
+    careerId,
+    deepPath
 }) => {
     const dispatch = useDispatch();
     const [extraFiles, setExtraFiles] = useState([]);
     const ImagesFromRedux = useSelector((state) => state.homeContent.present.images)
 
+    const editor = useRef(null);
 
 
     const addExtraFileInput = () => {
-        if (section === 'socialIcons') {
+        console.log(deepPath)
+        if (deepPath) {
+            dispatch(updateImages({ src: { url: "" }, section, currentPath, deepPath, projectId, operation: "add"  }))
+        } else if (section === 'socialIcons') {
             if (ImagesFromRedux.socialIcons.length < 8) {
                 dispatch(updateImages({ src: [...ImagesFromRedux.socialIcons, { img: "", url: "", id: ImagesFromRedux.socialIcons.length + 1 }], section: "socialIcons" }))
                 dispatch(updateImages({ src: [...ImagesFromRedux.socialIcons, { img: "", url: "", id: ImagesFromRedux.socialIcons.length + 1 }], section: "socialIcons" }))
@@ -51,11 +57,14 @@ const ContentSection = ({
     };
 
     const removeExtraFileInput = (id) => {
-        if (section === 'gallerySection') {
+        if (section === 'gallerySection' || deepPath) {
             dispatch(updateImages({
                 src: id,
                 updateType: section,
                 projectId,
+                deepPath,
+                currentPath,
+                section,
                 operation: 'remove'
             }))
         } else {
@@ -81,10 +90,80 @@ const ContentSection = ({
                 subSecIndex,
                 currentPath,
                 projectId,
-                careerId
+                careerId,
+                deepPath
             }));
         }
     };
+
+    const updateFormValueRichText = (updateType, value) => {
+
+        if (updateType === 'count') {
+            if (!isNaN(value)) {
+                let val = value?.slice(0, 7);
+                dispatch(updateServicesNumber({ section, title: updateType, value: val, subSection, index, currentPath }));
+            }
+        } else {
+            dispatch(updateSpecificContent({
+                section,
+                title: updateType,
+                lan: language,
+                value: value === "" ? "" : value,
+                subSection,
+                index,
+                subSectionsProMax,
+                subSecIndex,
+                currentPath,
+                projectId,
+                careerId,
+                deepPath,
+                // type
+            }));
+        }
+    };
+
+    // const modules = {
+    //     toolbar: [
+    //         [{ color: [] }, { background: [] }], ,
+    //         [{ header: [1, 2, false] }],
+    //         ["bold", "italic", "underline"],
+    //         // [{ list: "ordered" }, { list: "bullet" }],
+    //         ["link", "image"],
+    //         ['clean'] // Remove formatting
+    //     ],
+    // };
+
+    const config = useMemo(() => ({
+        buttons: [
+            "bold", "italic", "underline", "strikethrough", "|",
+            "font", "fontsize", "lineHeight", "|",
+            "brush", "eraser", "image", "ul"
+        ],
+        buttonsXS: [
+            "bold", "italic", "underline", "strikethrough", "|",
+            "font", "fontsize", "lineHeight", "|",
+            "brush", "eraser", "ul"
+        ],
+        toolbarAdaptive: false,
+        toolbarSticky: false,
+        removeButtons: [
+            "source", "ol", "indent", "outdent", "paragraph", "video", "table", "link", "unlink",
+            "align", "undo", "redo", "hr", "fullsize",
+            "copyformat", "selectall", "cut", "copy", "paste"
+        ],
+        showPlaceholder: false,
+        showCharsCounter: false,
+        showWordsCounter: false,
+        showXPathInStatusbar: false,
+        showEmptyParagraph: false,
+        allowEmptyTags: false,
+        useSplitMode: false,
+        showButtonPanel: true,
+        showTooltip: false,
+
+        // 👇 Disable the plus "+" hover icon
+        disablePlugins: ['addNewLine']
+    }), []);
 
 
     return (
@@ -93,7 +172,9 @@ const ContentSection = ({
             {inputs.length > 0 &&
                 inputs.map((input, i) => {
                     let valueExpression;
-                    if (careerId) {
+                    if (deepPath) {
+                        valueExpression = currentContent?.[projectId]?.[deepPath - 1]?.[section]?.[input.updateType]?.[language]
+                    } else if (careerId) {
                         if (subSectionsProMax && (input.updateType === "link")) {
                             valueExpression = currentContent?.[projectId - 1]?.[section]?.[subSection]?.[subSectionsProMax]?.[input.updateType];
                         } else if (subSectionsProMax) {
@@ -129,7 +210,6 @@ const ContentSection = ({
                         if (careerId) {
 
                         } else {
-                           
                             valueExpression = currentContent?.[section]?.[input.updateType]?.[language];
                         }
                     }
@@ -148,6 +228,25 @@ const ContentSection = ({
                                 id={input.updateType}
                                 maxLength={input.maxLength}
                             />
+                        );
+                    } else if (input.input === "richtext") {
+                        return (
+                            <div dir={language === 'en' ? 'ltr' : 'rtl'} key={i}>
+                                <JoditEditor
+                                    ref={editor}
+                                    value={valueExpression}
+                                    config={config}
+                                    onChange={(newContent) => {
+                                        const trimmedVal = newContent.slice(0, input.maxLength);
+                                        updateFormValueRichText(input.updateType, trimmedVal)
+                                    }}
+                                    onBlur={(newContent) => {
+                                        const trimmedVal = newContent.slice(0, input.maxLength);
+                                        updateFormValueRichText(input.updateType, trimmedVal)
+                                    }}
+
+                                />
+                            </div>
                         );
                     } else {
                         return (

@@ -3,13 +3,13 @@ const Navbar = ({currentNav, setCurrentResource}) => {
     const navs = [
            { name: "Pages", resources: "pages" },
            { name: "Services", resources: "services" },
+           { name: "Sub Services", resources: "subServices" },
            { name: "Market", resources: "markets" },
            { name: "Project", resources: "projects" },
            { name: "Testimonials", resources: "testimonials" },
            { name: "Career Page", resources: "careers" },
            { name: "Blogs & News", resources: "news" },
            { name: "Sub Page", resources: "subPage" },
-        //    { name: "Footer", resources: "footer" }
        ];
 
     function settingResources (resource) {

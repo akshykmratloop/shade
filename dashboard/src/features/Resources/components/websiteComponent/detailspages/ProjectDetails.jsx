@@ -2,12 +2,12 @@ import React, { useEffect, useRef } from "react";
 // import styles from "./ProjectDetail.module.scss";
 import { Link } from "react-router-dom";
 // import { useTruncate } from "@/common/useTruncate";
-import { projectPageData } from "../../../../assets/index";
+import { projectPageData } from "../../../../../assets/index";
 import { useDispatch, useSelector } from "react-redux";
-import { updateContent } from "../../../common/homeContentSlice";
-import content from './content.json'
+import { updateContent } from "../../../../common/homeContentSlice";
+import content from '../content.json'
 import { Swiper, SwiperSlide } from "swiper/react";
-import structureOfPageDetails from "./structures/structureOFPageDetails.json"
+import structureOfPageDetails from "../structures/structureOFPageDetails.json"
 import {
     Navigation,
     Autoplay,

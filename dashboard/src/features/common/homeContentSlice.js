@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { cn } from "tailwind-variants";
 
 const initialState = {
     past: [],
@@ -14,7 +15,21 @@ const cmsSlice = createSlice({
     reducers: {
         updateImages: (state, action) => {
             state.past.push(JSON.parse(JSON.stringify(state.present)));
-            if (action.payload.updateType === 'gallerySection') {
+            if (action.payload.deepPath) {
+                const newArray = state.present[action.payload.currentPath][action.payload.projectId][action.payload.deepPath - 1][action.payload.section]
+                let finalArray = []
+                console.log(JSON.stringify(newArray))
+                if (action.payload.operation === 'add') {
+                    finalArray = [...newArray, action.payload.src]
+                } else {
+                    finalArray = newArray.filter((e, i) => {
+                        console.log(action.payload.src)
+                        return i !== action.payload.src
+                    })
+                    console.log(finalArray)
+                }
+                state.present[action.payload.currentPath][action.payload.projectId][action.payload.deepPath - 1][action.payload.section] = finalArray
+            } else if (action.payload.updateType === 'gallerySection') {
                 let newArray = []
                 if (action.payload.operation === 'add') {
                     newArray = [...state.present.projectDetail[action.payload.projectId - 1].gallerySection.images, action.payload.src]
@@ -73,6 +88,11 @@ const cmsSlice = createSlice({
                     expression = state.present.newsBlogsDetails?.[action.payload.newsIndex]?.newsPoints;
                     break;
 
+                case "subOfsubService":
+                    console.log(action.payload.serviceId)
+                    expression = state.present.subOfsubService[action.payload.serviceId][action.payload.deepPath - 1][action.payload.subContext]
+                    break;
+
                 default:
             }
 
@@ -97,6 +117,10 @@ const cmsSlice = createSlice({
                     state.present.newsBlogsDetails[action.payload.newsIndex].newsPoints = newArray
                     break;
 
+                case "subOfsubService":
+                    state.present.subOfsubService[action.payload.serviceId][action.payload.deepPath - 1][action.payload.subContext] = newArray
+                    break;
+
                 default:
             }
             state.future = [];
@@ -116,15 +140,19 @@ const cmsSlice = createSlice({
         },
         updateSpecificContent: (state, action) => {
             state.past.push(JSON.parse(JSON.stringify(state.present)));
-            if (action.payload.projectId && !action.payload.careerId) {
+            if (action.payload.deepPath) {
+                if (action.payload.section && (action.payload.index + 1)) {
+                    state.present[action.payload.currentPath][action.payload.projectId][action.payload.deepPath - 1][action.payload?.section][action.payload.index][action.payload.title][action.payload.lan] = action.payload.value;
+                } else {
+                    state.present[action.payload.currentPath][action.payload.projectId][action.payload.deepPath - 1][action.payload?.section][action.payload.title][action.payload.lan] = action.payload.value;
+                }
+            } else if (action.payload.projectId && !action.payload.careerId) {
                 if (action.payload.subSection) {
                     state.present[action.payload.currentPath][action.payload.projectId - 1][action.payload?.section][action.payload.subSection][action.payload?.index][action.payload.title][action.payload.lan] = action.payload.value;
                 } else if (action.payload.title === 'url') {
                     state.present[action.payload.currentPath][action.payload.projectId - 1][action.payload.section][action.payload.title] = action.payload.value
                 } else {
                     if (action.payload.section === 'testimonials') {
-                        console.log('power')
-                        console.log(action.payload.projectId)
                         state.present[action.payload.currentPath][action.payload.section][action.payload.projectId - 1][action.payload.title][action.payload.lan] = action.payload.value
                     } else if (action.payload.section === 'descriptionSection') {
                         state.present[action.payload.currentPath][action.payload.projectId - 1][action.payload.section][action.payload.index][action.payload.title][action.payload.lan] = action.payload.value
@@ -166,8 +194,6 @@ const cmsSlice = createSlice({
                         state.present[action.payload?.currentPath][action.payload.projectId - 1][action.payload.section][action.payload.title][action.payload.lan] = action.payload.value;
                     }
                 } else {
-                    console.log("Qwerqwasvkmb hjdsavrweq")
-                    // console.log(currentContent)
                     state.present[action.payload?.currentPath][action.payload.section][action.payload.title][action.payload.lan] = action.payload.value;
                 }
             }
@@ -222,7 +248,41 @@ const cmsSlice = createSlice({
 
                 case "serviceCards":
                     state.present[action.payload?.currentPath].serviceCards = newOptions;
+                    break;
 
+                case "subServices":
+                    state.present[action.payload?.currentPath][action.payload.projectId].subServices = newOptions
+                    break;
+
+                default:
+            }
+            state.future = [];
+        },
+        updateSelectedSubService: (state, action) => {
+            state.past.push(JSON.parse(JSON.stringify(state.present)));
+            const selectedMap = new Map(
+                action.payload?.selected?.filter(e => e.display).map((item, index) => [item.title[action.payload.language], index])
+            );
+
+            let newOptions = action.payload.newArray?.map(e => ({
+                ...e,
+                display: selectedMap.has(e.title[action.payload.language])
+            }));
+
+            newOptions.sort((a, b) => {
+                const indexA = selectedMap.get(a.title[action.payload.language]) ?? Infinity;
+                const indexB = selectedMap.get(b.title[action.payload.language]) ?? Infinity;
+                return indexA - indexB;
+            });
+
+            switch (action.payload.origin) {
+                case "subServices":
+                    state.present[action.payload?.currentPath][action.payload.projectId].subServices = newOptions
+                    break;
+
+                case "otherServices":
+                    state.present[action.payload?.currentPath][action.payload.projectId].otherServices = newOptions
+                    break;
 
                 default:
             }
@@ -276,7 +336,6 @@ const cmsSlice = createSlice({
 
             state.future = [];
         },
-
         updateAllProjectlisting: (state, action) => {
             state.past.push(JSON.parse(JSON.stringify(state.present)))
 
@@ -354,7 +413,8 @@ export const { // actions
     selectMainNews,
     undo,
     redo,
-    updateTheProjectSummaryList
+    updateTheProjectSummaryList,
+    updateSelectedSubService
 } = cmsSlice.actions;
 
 export default cmsSlice.reducer; // reducer

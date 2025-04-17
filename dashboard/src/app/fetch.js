@@ -232,10 +232,11 @@ export async function deactivateRole(data) {
 }
 
 export async function updateRole(data) {
+  console.log(data)
   return await makerequest(
-    api.route("updateRole"),
+    api.route("updateRole") + `/${data.id}`,
     "PUT",
-    JSON.stringify(data),
+    JSON.stringify(data.rolePayload),
     ContentType.json,
     true
   );
@@ -253,11 +254,18 @@ export async function fetchPermissionsByRoleType(roleTypeId) {
 }
 
 // fetch for Users
-export async function getAllusers() {
+export async function getAllusers(query) {
+  if (!query || typeof query !== "object") {
+    return await makerequest(api.route("getUsers"), "GET");
+  }
+
+  const [key] = Object.keys(query);
+  const value = query[key];
+
   return await makerequest(
-    api.route("getUsers"),
-    "GET",
-  )
+    `${api.route("getUsers")}?${key}=${value}`,
+    "GET"
+  );
 }
 
 export async function createUser(data) {
