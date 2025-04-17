@@ -154,7 +154,6 @@ function Roles() {
   useEffect(() => {
     async function fetchRoleData() {
       const response = await fetchRoles();
-      console.log(response)
       setRoles(response?.roles?.roles ?? []);
       setOriginalRoles(response?.roles?.roles ?? []); // Store the original unfiltered data
     }
@@ -163,10 +162,11 @@ function Roles() {
   return (
     <div className="relative min-h-full">
       <div className="absolute top-3 right-2 flex">
-        <button className="border dark:border-neutral-400 flex justify-center items-center gap-2 px-3 rounded-lg text-[14px] text-[#0E2354] dark:text-stone-200">
+        {/* button for import */}
+        {/* <button className="border dark:border-neutral-400 flex justify-center items-center gap-2 px-3 rounded-lg text-[14px] text-[#0E2354] dark:text-stone-200">
           <LuImport />
           <span>Import</span>
-        </button>
+        </button> */}
         <button className=" z-20 btn btn-sm hover:bg-[#25439B] border-none !capitalize ml-4 bg-[#25439B] text-[white] font-semibold py-[.9rem] pb-[1.8rem] px-4" onClick={() => setShowAddForm(true)}>
           <PlusIcon className="w-4 mr-2 border border-1 rounded-full border-dotted " />
           <span>
@@ -257,17 +257,17 @@ function Roles() {
                             </button>
                             <div className="flex items-center space-x-4 ">
                               <Switch
-                                checked={role.status === "ACTIVE"}
+                                checked={role?.status === "ACTIVE"}
                                 onChange={() => {
                                   statusChange(role);
                                 }}
-                                className={`${role.status === "ACTIVE"
+                                className={`${role?.status === "ACTIVE"
                                   ? "bg-[#1DC9A0]"
                                   : "bg-gray-300"
                                   } relative inline-flex h-2 w-8 items-center rounded-full`}
                               >
                                 <span
-                                  className={`${role.status === "ACTIVE"
+                                  className={`${role?.status === "ACTIVE"
                                     ? "translate-x-4"
                                     : "translate-x-0"
                                     } inline-block h-5 w-5 bg-white rounded-full shadow-2xl border border-gray-300 transition`}

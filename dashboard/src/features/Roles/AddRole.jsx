@@ -5,11 +5,11 @@ import {
   fetchPermissionsByRoleType,
   createRole,
   updateRole,
+  getRoleById,
 } from "../../app/fetch";
 import { toast, ToastContainer } from "react-toastify";
 import validator from "../../app/valid";
 import updateToasify from "../../app/toastify";
-import { X } from "lucide-react";
 import CloseModalButton from "../../components/Button/CloseButton";
 
 const AddRoleModal = ({ show, onClose, updateRoles, role }) => {
@@ -24,9 +24,9 @@ const AddRoleModal = ({ show, onClose, updateRoles, role }) => {
   const [errorMessageRole, setErrorMessageRole] = useState("");
   const [errorMessageRoleType, setErrorMessageRoleType] = useState("");
   const [errorMessagePermission, setErrorMessagePermission] = useState("");
+  const [currentRole, setCurrentRole] = useState({})
 
   const [roleData, setRoleData] = useState(freshObject);
-
 
   const modalRef = useRef(null)
 
@@ -59,7 +59,7 @@ const AddRoleModal = ({ show, onClose, updateRoles, role }) => {
 
     let response;
     if (role) {
-      response = await updateRole({ ...rolePayload, id: role.id });
+      response = await updateRole({ rolePayload, id: role.id });
     } else {
       response = await createRole(rolePayload);
     }
@@ -85,6 +85,8 @@ const AddRoleModal = ({ show, onClose, updateRoles, role }) => {
     }
   };
 
+  console.log(roleData.selectedPermissions)
+
   function modalClose() {
     onClose()
     setRoleData(freshObject)
@@ -106,8 +108,6 @@ const AddRoleModal = ({ show, onClose, updateRoles, role }) => {
     }
     fetchRoleTypeData();
   }, [roleData.selectedRoletype]);
-
-  //   useEffect(() => {}, []);
 
   const updateFormValue = async ({ updateType, value }) => {
     clearErrorMessage();
@@ -136,19 +136,6 @@ const AddRoleModal = ({ show, onClose, updateRoles, role }) => {
     }
   };
 
-  //   const updateFormValue = async ({value}) => {
-  //     try {
-  //       const response = await fetchPermissionsByRoleType(value);
-  //       setRoleData({q
-  //         ...roleData,
-  //         fetchedPermissions: response.permission,
-  //       });
-  //       console.log(roleData, "res");
-  //     } catch (e) {
-  //       console.log(e);
-  //     }
-  //   };
-
   const handleSelectRoleType = async (value) => {
     try {
       const response = await fetchPermissionsByRoleType(value.value);
@@ -160,6 +147,43 @@ const AddRoleModal = ({ show, onClose, updateRoles, role }) => {
       console.log(e);
     }
   };
+
+  useEffect(() => {
+    if (role) {
+      async function getRole() {
+        try {
+          const response = await getRoleById(role.id);
+          setCurrentRole(response.role)
+          const permissions = await fetchPermissionsByRoleType(role.roleTypeId);
+          if (response.ok) {
+            setRoleData((prevState) => ({
+              ...prevState,
+              fetchedPermissions: permissions.permission, // Store fetched permissions
+            }));
+          }
+          console.log('qwer')
+        } catch (error) {
+          console.log(error)
+        }
+      }
+      getRole()
+    }
+  }, [role]);
+
+  useEffect(() => {
+    if (role) {
+      setRoleData({
+        name: currentRole.name || "",
+        roleTypes: [] || [],
+        selectedPermissions: currentRole.permissions.map(e => e.permissionId) || [],
+        fetchedPermissions: [],
+        fetchedRoletype: [],
+        selectedRoletype: currentRole.roleTypeId || "",
+      });
+    } else {
+      setRoleData(freshObject);
+    }
+  }, [currentRole])
 
   useEffect(() => {
     setErrorMessagePermission("")

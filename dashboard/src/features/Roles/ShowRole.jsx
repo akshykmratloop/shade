@@ -29,7 +29,7 @@ function RoleDetailsModal({ role, show, onClose }) {
     }, [])
 
     useEffect(() => {
-        async function getUser() {
+        async function getRole() {
             if (!role?.id) return;
             setLoading(true);
             try {
@@ -51,7 +51,7 @@ function RoleDetailsModal({ role, show, onClose }) {
                 }, 200)
             }
         }
-        getUser();
+        getRole();
     }, [role]);
 
     if (!role) return null;
@@ -110,11 +110,11 @@ function RoleDetailsModal({ role, show, onClose }) {
                                         <h3 className="text-sm font-[300]">Permissions</h3>
                                         <ul className="text-sm font-[400] text-[#101828] flex flex-col gap-1 pt-4">
                                             {!loading &&
-                                                fetchedRole?.permissions?.map(element => {
+                                                fetchedRole?.permissions?.map((element, i) => {
 
                                                     return (
-                                                        <li>
-                                                            {capitalizeWords(element.permission.name ?? "")}
+                                                        <li key={element?.permission?.name + i}>
+                                                            {capitalizeWords(element?.permission?.name ?? "")}
                                                         </li>
                                                     )
                                                 })
@@ -125,11 +125,11 @@ function RoleDetailsModal({ role, show, onClose }) {
                                         <h3 className="text-sm font-[300]">Assigned Users</h3>
                                         <ul className="text-sm font-[400] text-[#101828] flex flex-col gap-1 pt-4">
                                             {!loading &&
-                                                fetchedRole?.users?.map(user => {
+                                                fetchedRole?.users?.map((user, i) => {
 
                                                     return (
-                                                        <li>
-                                                            {capitalizeWords(user.user.name ?? "")}
+                                                        <li key={user?.user?.name + i}>
+                                                            {capitalizeWords(user?.user?.name ?? "")}
                                                         </li>
                                                     )
                                                 })

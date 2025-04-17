@@ -232,10 +232,11 @@ export async function deactivateRole(data) {
 }
 
 export async function updateRole(data) {
+  console.log(data)
   return await makerequest(
-    api.route("updateRole"),
+    api.route("updateRole") + `/${data.id}`,
     "PUT",
-    JSON.stringify(data),
+    JSON.stringify(data.rolePayload),
     ContentType.json,
     true
   );

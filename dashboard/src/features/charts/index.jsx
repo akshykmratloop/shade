@@ -184,10 +184,11 @@ function Users() {
     return (
         <div className="relative min-h-full">
             <div className="absolute top-3 right-2 flex">
-                <button className="border dark:border-neutral-400 flex justify-center items-center gap-2 px-3 rounded-lg text-[14px] text-[#0E2354] dark:text-stone-200">
+                {/* button for import */}
+                {/* <button className="border dark:border-neutral-400 flex justify-center items-center gap-2 px-3 rounded-lg text-[14px] text-[#0E2354] dark:text-stone-200">
                     <LuImport />
                     <span>Import</span>
-                </button>
+                </button> */}
                 <button className=" z-20 btn btn-sm hover:bg-[#25439B] border-none !capitalize ml-4 bg-[#25439B] text-[white] font-semibold py-[.9rem] pb-[1.8rem] px-4" onClick={() => setShowAddForm(true)}>
                     <PlusIcon className="w-4 mr-2 border border-1 rounded-full border-dotted " />
                     <span>

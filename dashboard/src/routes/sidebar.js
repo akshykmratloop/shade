@@ -31,7 +31,7 @@ const submenuIconClasses = `h-5 w-5`
 const routes = [
 
   {
-    path: '/app/welcome',
+    path: '/app/dashboard',
     icon: <Squares2X2Icon className={iconClasses} />,
     name: 'Dashboard',
   },

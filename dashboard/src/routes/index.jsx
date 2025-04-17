@@ -24,11 +24,11 @@ const DocComponents = lazy(() => import('../pages/DocComponents'))
 const routes = [
   {
     path: '/dashboard', // the url
-    component: Dashboard, // view rendered
+    component: Welcome, // view rendered
   },
   {
     path: '/welcome', // the url
-    component: Welcome, // view rendered
+    component: Dashboard, // view rendered
   },
   {
     path: '/resources',
