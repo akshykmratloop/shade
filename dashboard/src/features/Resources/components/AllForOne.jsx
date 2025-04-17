@@ -5,17 +5,18 @@ import MarketPage from "./websiteComponent/Market";
 import ProjectPage from "./websiteComponent/Projects";
 import CareerPage from "./websiteComponent/CareersPage";
 import NewsPage from "./websiteComponent/NewsPage";
-import Footer from "./websiteComponent/Footerweb";
-import Header from "./websiteComponent/Headerweb";
-import ProjectDetailPage from "./websiteComponent/ProjectDetails";
-import CareerDetailPage from "./websiteComponent/CareersDetails";
-import NewsBlogDetailPage from "./websiteComponent/NewsDetails";
-import Testimonials from "./websiteComponent/Testimonials";
-import ContactUsModal from "./websiteComponent/ContactUsModal";
+import Footer from "./websiteComponent/subparts/Footerweb";
+import Header from "./websiteComponent/subparts/Headerweb";
+import ProjectDetailPage from "./websiteComponent/detailspages/ProjectDetails";
+import CareerDetailPage from "./websiteComponent/detailspages/CareersDetails";
+import NewsBlogDetailPage from "./websiteComponent/detailspages/NewsDetails";
+import Testimonials from "./websiteComponent/subparts/Testimonials";
+import ContactUsModal from "./websiteComponent/subparts/ContactUsModal";
 import Services from "./websiteComponent/Service";
-import ServiceDetails from "./websiteComponent/ServiceDetails";
+import ServiceDetails from "./websiteComponent/detailspages/ServiceDetails";
+import SubServiceDetails from "./websiteComponent/subDetailsPages/SubServiceDetails";
 
-const AllForOne = ({ language, screen, content, subPath, setLanguage, fullScreen, currentPath }) => {
+const AllForOne = ({ language, screen, content, subPath, setLanguage, fullScreen, currentPath, deepPath }) => {
     let translateForFullScreen = "translate-y-[950px]"
 
     if (!subPath) {
@@ -102,7 +103,8 @@ const AllForOne = ({ language, screen, content, subPath, setLanguage, fullScreen
                 <AboutUs language={language} currentContent={content.about} screen={screen} />
             }
             {
-                currentPath === "services" ? subPath ?
+                currentPath === "services" ? subPath ? deepPath ?
+                    <SubServiceDetails language={language} contentOn={content.subOfsubService} serviceId={subPath} screen={screen} deepPath={deepPath} /> :
                     <ServiceDetails language={language} contentOn={content.serviceDetails} serviceId={subPath} screen={screen} /> :
                     <Services language={language} currentContent={content.services} screen={screen} /> : ""
             }
@@ -141,9 +143,7 @@ const AllForOne = ({ language, screen, content, subPath, setLanguage, fullScreen
             }
             {
                 currentPath === 'contactus-modal' &&
-                <>
-                    <ContactUsModal language={language} currentContent={content.contactUsModal} screen={screen} />
-                </>
+                <ContactUsModal language={language} currentContent={content.contactUsModal} screen={screen} />
             }
         </div>
     )

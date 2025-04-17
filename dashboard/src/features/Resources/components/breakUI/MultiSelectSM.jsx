@@ -1,7 +1,9 @@
 import React, { useState, useRef, useEffect } from "react";
-import { useDispatch } from "react-redux";
-import content from "./websiteComponent/content.json"
+import { useDispatch, useSelector } from "react-redux";
+import content from "../websiteComponent/content.json"
 import { createPortal } from "react-dom";
+import { selectMainNews } from "../../../common/homeContentSlice";
+
 import {
     DndContext,
     closestCenter,
@@ -18,9 +20,9 @@ import {
     useSortable,
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { updateMarketSelectedContent } from "../../common/homeContentSlice";
+// import { updateSelectedContent } from "../../common/homeContentSlice";
 
-const SortableItem = ({ option, removeOption, language }) => {
+const SortableItem = ({ option, removeOption, language, reference }) => {
     const { attributes, listeners, setNodeRef, transform, transition, isDragging } =
         useSortable({ id: option, data: { option } });
 
@@ -41,6 +43,7 @@ const SortableItem = ({ option, removeOption, language }) => {
             {...listeners}
             className={`flex items-center ${language === 'ar' && "flex-row-reverse text-right"} gap-1 px-3 py-1 text-xs bg-gray-200 min-h-[2.125rem] rounded-md cursor-move dark:text-[black] transition-transform`}
         >
+
             {option.title?.[language]}
             <button
                 onClick={() => removeOption(option)}
@@ -52,9 +55,7 @@ const SortableItem = ({ option, removeOption, language }) => {
     );
 };
 
-
-
-const MultiSelectForProjects = ({ heading, options = [], tabName, label, language, section, referenceOriginal = { dir: "", index: 0 }, currentPath, id }) => {
+const MultiSelectSM = ({ currentContent, heading, options = [], tabName, label, language, section, referenceOriginal = { dir: "", index: 0 }, currentPath }) => {
     const [selectedOptions, setSelectedOptions] = useState([]);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const dropdownRef = useRef(null);
@@ -62,44 +63,31 @@ const MultiSelectForProjects = ({ heading, options = [], tabName, label, languag
     const dispatch = useDispatch();
     const [activeItem, setActiveItem] = useState(null);
 
-    let actualListOfServices; //content.home.serviceSection.cards
+
+    let actualListOfServices;
     switch (referenceOriginal.dir) {
-        case "markets":
-            actualListOfServices = content.market.tabSection.marketItems;
+        case "news":
             break;
 
         default:
-            actualListOfServices = []
+            actualListOfServices = content.newsBlogs.latestNewCards.cards
+        // actualListOfServices = []
     }
 
-    const showOptions = options?.map(e => e.title[language])
+    // const showOptions = options?.map(e => e.title[language])
 
     const toggleDropdown = () => {
         setIsDropdownOpen((prev) => !prev);
     };
 
     const handleSelect = (optionToAdd) => {
-        const newOption = { ...optionToAdd, type: id }
-        dispatch(updateMarketSelectedContent({
-            origin: referenceOriginal.dir,
-            newArray: [...options],
-            selected: selectedOptions,
-            language,
-            currentPath,
-            newOption
-        }))
+        setSelectedOptions([optionToAdd])
+        setRandom(prev => prev + 1)
     };
 
-    const removeOption = (optionToRemove) => {
-        const newOption = { ...optionToRemove, type: "" }
-        dispatch(updateMarketSelectedContent({
-            origin: referenceOriginal.dir,
-            newArray: [...options],
-            selected: selectedOptions,
-            language,
-            currentPath,
-            newOption
-        }))
+    const removeOption = () => {
+        setSelectedOptions([{}])
+        setRandom(prev => prev + 1)
     };
 
     const sensors = useSensors(
@@ -119,8 +107,7 @@ const MultiSelectForProjects = ({ heading, options = [], tabName, label, languag
                 return arrayMove(items, oldIndex, newIndex);
             });
         }
-
-        setRandom(prev => prev + 1)
+        // setRandom(prev => prev + 1)
     };
 
     useEffect(() => {
@@ -134,35 +121,42 @@ const MultiSelectForProjects = ({ heading, options = [], tabName, label, languag
         return () => {
             document.removeEventListener("mousedown", handleClickOutside);
         };
-    }, []);
+    }, []); // Empty array ensures the effect runs only once
+
 
     useEffect(() => {
-        if (showOptions) {
-            setSelectedOptions(options?.map(e => {
-                if (e.type === id) {
-                    return e
-                }
-            }).filter(e => e));
-        }
-    }, [options]);
-
-    useEffect(() => {
-        if (random > 1) {
-            dispatch(updateMarketSelectedContent({
+        if (random !== 1) {
+            dispatch(selectMainNews({
                 origin: referenceOriginal.dir,
-                newArray: [...options],
+                // index: referenceOriginal.index,
+                // section,
+                // newArray: [...options],
                 selected: selectedOptions,
-                language,
-                currentPath,
-                newOption: null
-            }))
+                // language,
+                // currentPath
+            }));
         }
-    }, [random])
+    }, [random]); // Minimize dependencies to prevent unnecessary runs
+
+
+    useEffect(() => {
+        switch (referenceOriginal.dir) {
+            case "MainNews":
+                setSelectedOptions([currentContent?.mainCard]);
+                break;
+
+            case "TrendingNews":
+                setSelectedOptions([currentContent?.trendingCard]);
+                break;
+
+            default:
+        }
+    }, [currentContent]);
 
     return (
-        <div className="relative w-full border-b border-b-2 border-neutral-300 pb-4 mt-4" ref={dropdownRef}>
+        <div className="relative w-full border-b border-b-2 border-neutral-300 pb-4" ref={dropdownRef}>
             <h3 className="font-semibold text-[1.25rem] mb-4">{heading}</h3>
-            <label className="sm:text-xs xl:text-sm">{label}</label>
+            <label className="sm:text-xs xl:text-sm text-[#6B7888]">{label}</label>
             <button
                 onClick={toggleDropdown}
                 className="w-full mt-2 p-2 border border-stone-500 rounded-md bg-white hover:bg-gray-100 text-sm bg-[#fafaff] dark:bg-[#2a303c]"
@@ -172,17 +166,21 @@ const MultiSelectForProjects = ({ heading, options = [], tabName, label, languag
 
             {isDropdownOpen && (
                 <ul className="absolute text-xs left-0 xl:top-[-6.2rem] sm:top-[-3rem] md:top-[-6rem] z-10 w-full mt-2 bg-[#fafaff] dark:bg-[#242933] border rounded-md shadow-md overflow-y-scroll h-[10rem] customscroller">
-                    {actualListOfServices.map((option, index) => {
-                        return (
-                            <li
-                                key={option.title[language]}
-                                onClick={() => handleSelect(option, index)}
-                                className="p-2 cursor-pointer hover:bg-gray-100"
-                            >
-                                {option.title[language]}
-                            </li>
-                        )
-                    })}
+                    {
+                        actualListOfServices.map((option, index) => {
+                            return (
+                                <li
+                                    key={option?.title[language]}
+                                    onClick={() => handleSelect(option, index)}
+                                    className="p-2 cursor-pointer hover:bg-gray-100"
+                                >
+                                    {referenceOriginal.dir === "jobs" ?
+                                        option.title.key?.[language] + ", " + option.location.value?.[language]
+                                        : option.title[language]}
+                                </li>
+                            )
+                        })
+                    }
                 </ul>
             )}
 
@@ -194,10 +192,12 @@ const MultiSelectForProjects = ({ heading, options = [], tabName, label, languag
                 onDragEnd={onDragEnd}
             >
                 <SortableContext items={selectedOptions} strategy={verticalListSortingStrategy}>
-                    <div className={`flex flex-wrap gap-2 p-2 pl-4 border dark:border-stone-500 rounded-md ${language === 'ar' && "flex-row-reverse"}`}>
-                        {selectedOptions?.map((option) => (
-                            <SortableItem key={option.title?.[language] + String(Math.random())} option={option} removeOption={removeOption} language={language} />
-                        ))}
+                    <div className={`flex flex-wrap  gap-2 p-2 pl-4 border dark:border-stone-500 rounded-md ${language === 'ar' && "flex-row-reverse"}`}>
+                        {
+                            selectedOptions?.map((option) => (
+                                <SortableItem key={option?.title?.[language] + String(Math.random()) + referenceOriginal.dir} option={option} removeOption={removeOption} language={language} />
+                            ))
+                        }
                     </div>
                 </SortableContext>
 
@@ -215,4 +215,4 @@ const MultiSelectForProjects = ({ heading, options = [], tabName, label, languag
     );
 };
 
-export default MultiSelectForProjects;
+export default MultiSelectSM;

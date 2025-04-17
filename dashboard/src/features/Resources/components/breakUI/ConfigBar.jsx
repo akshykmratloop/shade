@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from "react";
-import Select from "../../../components/Input/Select";
+import Select from "../../../../components/Input/Select";
 import SelectorAccordion from "./SelectorAccordion";
 import { X } from "lucide-react";
 

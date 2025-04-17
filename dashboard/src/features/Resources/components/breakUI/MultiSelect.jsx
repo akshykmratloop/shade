@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import content from "./websiteComponent/content.json"
+import content from "../websiteComponent/content.json"
 import { createPortal } from "react-dom";
 import {
   DndContext,
@@ -18,7 +18,7 @@ import {
   useSortable,
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { updateSelectedContent, updateSelectedProject } from "../../common/homeContentSlice";
+import { updateSelectedContent, updateSelectedProject } from "../../../common/homeContentSlice";
 
 const SortableItem = ({ option, removeOption, language, reference }) => {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } =

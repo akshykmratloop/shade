@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import content from './content.json'
-import Logo from "../../../../assets/brand-logo/foot-logo.svg"
-import Facebook from "../../../../assets/icons/facebook.svg"
-import Instagram from "../../../../assets/icons/instagram.svg"
-import Twitter from "../../../../assets/icons/twitter.svg"
-import Linkedin from "../../../../assets/icons/linkedin.svg"
-import foot_layer from "../../../../assets/images/foot_layer.png"
-import foot_layer1 from "../../../../assets/images/foot_layer1.png"
-import { updateContent, updateImages } from "../../../common/homeContentSlice";
+import content from '../content.json'
+import Logo from "../../../../../assets/brand-logo/foot-logo.svg"
+import Facebook from "../../../../../assets/icons/facebook.svg"
+import Instagram from "../../../../../assets/icons/instagram.svg"
+import Twitter from "../../../../../assets/icons/twitter.svg"
+import Linkedin from "../../../../../assets/icons/linkedin.svg"
+import foot_layer from "../../../../../assets/images/foot_layer.png"
+import foot_layer1 from "../../../../../assets/images/foot_layer1.png"
+import { updateContent, updateImages } from "../../../../common/homeContentSlice";
 
 
 const Footer = ({ language, screen }) => {

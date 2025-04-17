@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
-import { newsBlogs } from "../../../../assets/index";
-import content from "./content.json"
-import { TruncateText } from "../../../../app/capitalizeword";
-import { updateContent } from "../../../common/homeContentSlice";
+import { newsBlogs } from "../../../../../assets/index";
+import content from "../content.json"
+import { TruncateText } from "../../../../../app/capitalizeword";
+import { updateContent } from "../../../../common/homeContentSlice";
 import { useDispatch, useSelector } from "react-redux";
-import structureOfNewsDetails from '../websiteComponent/structures/structureOFNewsDetails.json';
+import structureOfNewsDetails from '../structures/structureOFNewsDetails.json';
 
 // import styles from "@/components/news-and-blogs/NewsBlogDetail.module.scss";
 // import Image from "next/image";

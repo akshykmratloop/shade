@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import Select from "../../../components/Input/Select";
+import Select from "../../../../components/Input/Select";
 import { RxCross2 } from "react-icons/rx";
 import { GoPlus } from "react-icons/go";
 

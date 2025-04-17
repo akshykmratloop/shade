@@ -1,5 +1,5 @@
-import ContentSection from "../ContentSections";
-import MultiSelectPro from "../MultiSelectPro";
+import ContentSection from "../breakUI/ContentSections";
+import MultiSelectPro from "../breakUI/MultiSelectPro";
 import FileUploader from "../../../../components/Input/InputFileUploader";
 
 import { useEffect } from "react";

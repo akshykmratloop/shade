@@ -4,11 +4,11 @@ import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 // import for pages
-import ContentTopBar from "./components/ContentTopBar";
+import ContentTopBar from "./components/breakUI/ContentTopBar";
 import HomePage from "./components/websiteComponent/Home";
 import SolutionPage from "./components/websiteComponent/Solutions";
 // import for content manager
-import LanguageSwitch from "./components/SwitchLang";
+import LanguageSwitch from "./components/breakUI/SwitchLang";
 import HomeManager from "./components/contentmanager/HomeManager";
 import SolutionManager from "./components/contentmanager/SolutionManager";
 import AboutUs from "./components/websiteComponent/About";
@@ -17,7 +17,7 @@ import AboutManager from "./components/contentmanager/AboutManager";
 import MarketPage from "./components/websiteComponent/Market";
 import MarketManager from "./components/contentmanager/MarketManager";
 import ProjectPage from "./components/websiteComponent/Projects";
-import Popups from "./components/Popups";
+import Popups from "./components/breakUI/Popups";
 import ProjectContentManager from "./components/contentmanager/ProjectContentManager";
 import CareerPage from "./components/websiteComponent/CareersPage";
 import InputText from "../../components/Input/InputText";
@@ -25,23 +25,24 @@ import TextAreaInput from "../../components/Input/TextAreaInput";
 import CareersManager from "./components/contentmanager/CareersManager";
 import NewsPage from "./components/websiteComponent/NewsPage";
 import NewsManager from "./components/contentmanager/NewsManager";
-import Footer from "./components/websiteComponent/Footerweb";
-import FooterManager from "./components/contentmanager/FooterManager";
-import Header from "./components/websiteComponent/Headerweb";
-import HeaderManager from "./components/contentmanager/HeaderManager";
-import ProjectDetailPage from "./components/websiteComponent/ProjectDetails";
-import ProjectDetailManager from "./components/contentmanager/ProjectDetailManager";
-import CareerDetailPage from "./components/websiteComponent/CareersDetails";
-import CareerDetailManager from "./components/contentmanager/CareerDetailManager";
-import NewsBlogDetailPage from "./components/websiteComponent/NewsDetails";
-import NewsDetailManager from "./components/contentmanager/NewsDetailsManager";
-import Testimonials from "./components/websiteComponent/Testimonials";
-import TestimonyManager from "./components/contentmanager/TestimonyManager";
-import ContactUsModal from "./components/websiteComponent/ContactUsModal";
+import Footer from "./components/websiteComponent/subparts/Footerweb";
+import FooterManager from "./components/contentmanager/CMforSubParts/FooterManager";
+import Header from "./components/websiteComponent/subparts/Headerweb";
+import HeaderManager from "./components/contentmanager/CMforSubParts/HeaderManager";
+import ProjectDetailPage from "./components/websiteComponent/detailspages/ProjectDetails";
+import ProjectDetailManager from "./components/contentmanager/CMforDetails/ProjectDetailManager";
+import CareerDetailPage from "./components/websiteComponent/detailspages/CareersDetails";
+import CareerDetailManager from "./components/contentmanager/CMforDetails/CareerDetailManager";
+import NewsBlogDetailPage from "./components/websiteComponent/detailspages/NewsDetails";
+import NewsDetailManager from "./components/contentmanager/CMforDetails/NewsDetailsManager";
+import Testimonials from "./components/websiteComponent/subparts/Testimonials";
+import TestimonyManager from "./components/contentmanager/CMforSubParts/TestimonyManager";
+import ContactUsModal from "./components/websiteComponent/subparts/ContactUsModal";
 import CloseModalButton from "../../components/Button/CloseButton";
 import AllForOne from "./components/AllForOne";
 import ServiceManager from "./components/contentmanager/ServiceManager";
-import ServiceDetailsManager from "./components/contentmanager/ServiceDetailsManager";
+import ServiceDetailsManager from "./components/contentmanager/CMforDetails/ServiceDetailsManager";
+import SubServiceDetailManager from "./components/contentmanager/subDetailsManagement/SubServiceDetailManagement";
 
 const EditPage = () => {
     const dispatch = useDispatch();
@@ -54,6 +55,7 @@ const EditPage = () => {
 
     const currentPath = location.pathname.split('/')[4]
     const subPath = location.pathname.split('/')[5]
+    const deepPath = location.pathname.split('/')[6]
 
     const content = useSelector((state) => state.homeContent.present)
 
@@ -85,8 +87,9 @@ const EditPage = () => {
                         <AboutManager language={language} currentContent={content.about} currentPath={currentPath} />
                     }
                     {
-                        currentPath === "services" ? subPath ?
-                            <ServiceDetailsManager projectId={subPath} language={language} currentContent={content.serviceDetails} currentPath={"projectDetail"} /> :
+                        currentPath === "services" ? subPath ? deepPath ?
+                            <SubServiceDetailManager serviceId={subPath} deepPath={deepPath} language={language} currentContent={content.subOfsubService} currentPath={"subOfsubService"} /> :
+                            <ServiceDetailsManager serviceId={subPath} language={language} currentContent={content.serviceDetails} currentPath={"serviceDetails"} /> :
                             <ServiceManager language={language} currentContent={content.services} currentPath={currentPath} /> : ""
                     }
                     {
@@ -95,6 +98,7 @@ const EditPage = () => {
                     }
                     {
                         currentPath === 'projects' ? subPath ?
+
                             <ProjectDetailManager projectId={subPath} language={language} currentContent={content.projectDetail} currentPath={"projectDetail"} /> :
                             <ProjectContentManager language={language} currentContent={content.projects} currentPath={currentPath} /> : ""
                     }
@@ -124,6 +128,7 @@ const EditPage = () => {
                 {/* Content view */}
                 <div
                     className={`flex-[4] h-[83.5vh] flex flex-col`}
+                    style={{ width: screen > 900 ? "60%" : "" }}
                 >
                     <ContentTopBar setWidth={setScreen} setFullScreen={setFullScreen} raisePopup={{ reject: () => setPopupReject(true), submit: () => setPopupSubmit(true) }} />
                     <h4 className="text-[#6B7888] text-[14px] mt-1 mb-[2px]">Commented by {"Anukool (Super Admin)"}</h4>
@@ -135,13 +140,13 @@ const EditPage = () => {
                         containerStyle={"mb-4"}
                         minHeight={"3.2rem"}
                     />
-                    <AllForOne language={language} screen={screen} content={content} subPath={subPath} setLanguage={setLanguage} fullScreen={fullScreen} currentPath={currentPath} />
+                    <AllForOne language={language} screen={screen} content={content} subPath={subPath} deepPath={deepPath} setLanguage={setLanguage} fullScreen={fullScreen} currentPath={currentPath} />
 
                     <div className={`border border-cyan-500 pt-0 px-60 ${fullScreen ? "fixed bg-stone-800/70 top-0 left-0 z-50 h-screen w-screen" : "hidden"} overflow-y-scroll customscroller`}>
                         <div className={`fixed z-50 top-2 right-2 ${!fullScreen && "hidden"} bg-stone-200`}>
                             <CloseModalButton className={"absolute z-40 right-4 top-4 bg-stone-200 hover:bg-stone-300 dark:hover:bg-stone-800 rounded-full border-none p-2 py-2"} onClickClose={() => setFullScreen(false)} />
                         </div>
-                        <AllForOne language={language} screen={screen} content={content} subPath={subPath} setLanguage={setLanguage} fullScreen={fullScreen} currentPath={currentPath} />
+                        <AllForOne language={language} screen={screen} content={content} subPath={subPath} deepPath={deepPath} setLanguage={setLanguage} fullScreen={fullScreen} currentPath={currentPath} />
                     </div>
                 </div>
 

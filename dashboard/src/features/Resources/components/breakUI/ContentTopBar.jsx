@@ -4,10 +4,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { toast, ToastContainer } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 // modules
-import Button from '../../../components/Button/Button';
-import { redo, undo } from '../../common/homeContentSlice';
+import Button from '../../../../components/Button/Button';
+import { redo, undo } from '../../../common/homeContentSlice';
 import { IoIosInformationCircleOutline } from "react-icons/io";
-import { saveDraftAction } from '../../common/saveContentSlice';
+import { saveDraftAction } from '../../../common/saveContentSlice';
 //icons
 import { FaArrowLeftLong } from "react-icons/fa6";
 import { MdOutlineDesktopWindows } from "react-icons/md";

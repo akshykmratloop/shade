@@ -1,11 +1,11 @@
 import { useDispatch } from "react-redux"
-import ContentSection from "../ContentSections"
-import MultiSelectPro from "../MultiSelectPro"
+import ContentSection from "../breakUI/ContentSections"
+import MultiSelectPro from "../breakUI/MultiSelectPro"
 import { updateAllProjectlisting } from "../../../common/homeContentSlice"
 import FileUploader from "../../../../components/Input/InputFileUploader"
 
 import { useEffect } from "react";
-import MultiSelect from "../MultiSelect";
+import MultiSelect from "../breakUI/MultiSelect";
 import { updateContent } from "../../../common/homeContentSlice";
 import content from "../websiteComponent/content.json"
 

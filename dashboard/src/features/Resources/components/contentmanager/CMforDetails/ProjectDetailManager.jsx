@@ -1,11 +1,11 @@
 import { useDispatch } from "react-redux"
-import FileUploader from "../../../../components/Input/InputFileUploader"
-import ContentSection from "../ContentSections"
-import DynamicContentSection from "../DynamicContentSection"
-import MultiSelect from "../MultiSelect"
-import { updateContent, updateTheProjectSummaryList } from "../../../common/homeContentSlice"
+import FileUploader from "../../../../../components/Input/InputFileUploader"
+import ContentSection from "../../breakUI/ContentSections"
+import DynamicContentSection from "../../breakUI/DynamicContentSection"
+import MultiSelect from "../../breakUI/MultiSelect"
+import { updateContent, updateTheProjectSummaryList } from "../../../../common/homeContentSlice"
 import { useEffect } from "react"
-import content from "../websiteComponent/content.json"
+import content from "../../websiteComponent/content.json"
 
 
 const ProjectDetailManager = ({ projectId, currentContent, currentPath, language }) => {

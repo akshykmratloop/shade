@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { updateContent } from "../../../common/homeContentSlice";
-import content from './content.json'
-import structureOfCareerDetails from "../websiteComponent/structures/structureOFCareerDetails.json";
+import { updateContent } from "../../../../common/homeContentSlice";
+import content from '../content.json'
+import structureOfCareerDetails from "../structures/structureOFCareerDetails.json";
 
 // import styles from "@/components/career/career_detail.module.scss";
 // import Image from "next/image";

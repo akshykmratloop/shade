@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react"
-import CloseModalButton from "../../../components/Button/CloseButton";
+import CloseModalButton from "../../../../components/Button/CloseButton";
 
 const Popups = ({ confirmationText, display, setClose }) => {
     const modalRef = useRef(null)

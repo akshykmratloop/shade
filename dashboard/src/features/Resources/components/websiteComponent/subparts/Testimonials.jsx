@@ -2,11 +2,11 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 // modules
-import content from './content.json'
-import { updateContent } from '../../../common/homeContentSlice';
-import { testimonials } from "../../../../assets/index";
-import userIcon from "../../../../assets/images/userIcon.jpg"
-import structureOfTestimony from "../websiteComponent/structures/structureOfTestimony.json"
+import content from '../content.json'
+import { updateContent } from '../../../../common/homeContentSlice';
+import { testimonials } from "../../../../../assets/index";
+import userIcon from "../../../../../assets/images/userIcon.jpg"
+import structureOfTestimony from "../structures/structureOfTestimony.json"
 
 
 const Testimonials = ({ language, testimonyId, screen }) => {

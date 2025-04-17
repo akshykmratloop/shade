@@ -4,8 +4,8 @@ import { useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom";
 // modules
 import resources from "./resourcedata";
-import ConfigBar from "./components/ConfigBar";
-import PageDetails from "./components/PageDetails";
+import ConfigBar from "./components/breakUI/ConfigBar";
+import PageDetails from "./components/breakUI/PageDetails";
 import { getLeadsContent } from "./leadSlice"
 import Navbar from "../../containers/Navbar"
 // icon
@@ -27,6 +27,21 @@ function Resources() {
     const [configBarData, setConfigBarData] = useState({})
 
     const resNotAvail = resources?.[currentResource]?.length === 0
+
+
+    const settingRoute = (firstRoute, secRoute, thirdRoute) => {
+        let routeExpression = ''
+        if (thirdRoute) {
+            routeExpression = `./edit/${firstRoute}/${secRoute}/${thirdRoute}`
+        } else if (secRoute) {
+            routeExpression = `./edit/${firstRoute}/${secRoute}`
+        } else {
+            routeExpression = `./edit/${firstRoute}`
+        }
+
+        navigate(routeExpression)
+        return 0;
+    }
 
     useEffect(() => {
         dispatch(getLeadsContent())
@@ -88,7 +103,7 @@ function Resources() {
                                 {/* Bottom Text Options */}
                                 <div className={`absolute bottom-3 left-0 w-full text-center text-white justify-center items-center flex ${isNarrow ? "gap-2" : "gap-6"} py-1`}>
                                     {[{ icon: <AiOutlineInfoCircle />, text: "Info", onClick: () => { setPageDetailsOn(true); setConfigBarData(page) } },
-                                    { icon: <FiEdit />, text: "Edit", onClick: () => { page.subPage ? navigate(`./edit/${currentResource}/${page.subPage}`) : navigate(`./edit/${page.heading?.toLowerCase()}`) } },
+                                    { icon: <FiEdit />, text: "Edit", onClick: () => { page.subPage ? page.subOfSubPage ? settingRoute(page.supPage, page.subPage, page.subOfSubPage) : settingRoute(currentResource, page.subPage) : settingRoute(page.heading?.toLowerCase()) } },
                                     { icon: <IoSettingsOutline />, text: "Config", onClick: () => { setConfigBarOn(true); setConfigBarData(page) } }].map((item, i) => (
                                         <span key={i + Math.random()}
                                             onClick={item.onClick}
@@ -100,7 +115,7 @@ function Resources() {
                                         </span>
                                     ))}
                                 </div>
-                            </div>
+                            </div>  
                         </div>
                     ))}
 
@@ -108,11 +123,11 @@ function Resources() {
                     resources?.[currentResource]?.[0]?.subPage &&
                     <div className="w-full flex flex-col gap-[5px] ">
                         <h3 className=" font-poppins font-semibold">
-                                {`Add More ${capitalizeWords(currentResource)} Page`}
-                            </h3>
-                        <div onClick={() => {navigate(`./edit/${currentResource}/${resources?.[currentResource].length + 1}`) }} 
-                        className="border rounded-md bg-[white] aspect-[10/11] justify-center flex-grow cursor-pointer flex items-center text-[50px] shadow-xl-custom border-[#29469c80]"
-                            > 
+                            {`Add More ${capitalizeWords(currentResource)} Page`}
+                        </h3>
+                        <div onClick={() => { navigate(`./edit/${currentResource}/${resources?.[currentResource].length + 1}`) }}
+                            className="border rounded-md bg-[white] aspect-[10/11] justify-center flex-grow cursor-pointer flex items-center text-[50px] shadow-xl-custom border-[#29469c80]"
+                        >
                             <span className="text-[#1f2937]">+</span>
                         </div>
                     </div>
