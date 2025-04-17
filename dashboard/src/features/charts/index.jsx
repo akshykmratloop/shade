@@ -51,7 +51,7 @@ const TopSideButtons = ({ removeFilter, applyFilter, applySearch }) => { // sear
             style={{ textTransform: "capitalize" }}>
             <SearchBar
                 searchText={searchText}
-                style={{border: "none"}}
+                style={{ border: "none" }}
                 styleClass="w-700px border-none w-full flex-1"
                 setSearchText={setSearchText}
                 placeholderText={"Search Users by name, role, ID or any related keywords"}
@@ -111,16 +111,25 @@ function Users() {
         setUsers(filteredRoles);
     };
 
-    const applySearch = (value) => { // actual search application which is being sent to the topsidebar component
-        const filteredRoles = originalUsers.filter(user =>
-            user.name.toLowerCase().includes(value.toLowerCase())
-        );
-        setUsers(filteredRoles);
+    const applySearch = async (value) => { // actual search application which is being sent to the topsidebar component
+        let query = {}
+        if (value.includes("@")) {
+            query.email = value
+        } else if (!(isNaN(value))) {
+            query.phone = value
+        } else if (value.toLowerCase() === "active" || value.toLowerCase() === 'inactive') {
+            query.status = value
+        } else {
+            query.name = value
+        }
+
+        let users = await getAllusers(query)
+        setUsers(users?.users?.allUsers ?? [])
     };
 
     const statusChange = async (user) => {
         const loadingToastId = toast.loading("Processing...", { autoClose: 2000 });
-        let response = user.status === "ACTIVE" ? await deactivateUser({id:user.id}) : await activateUser({id:user.id});
+        let response = user.status === "ACTIVE" ? await deactivateUser({ id: user.id }) : await activateUser({ id: user.id });
         if (response.ok) {
             updateToasify(loadingToastId, `Request successful. ${response.message}`, "success", 1000);
             setChangesInUser(prev => !prev);
