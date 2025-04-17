@@ -205,7 +205,7 @@ function Roles() {
                         <td className={`font-poppins h-[65px] truncate font-normal text-[14px] leading-normal text-[#101828] p-[26px] pl-5 flex`}>
                           {/* <img src={user.image ? user.image : userIcon} alt={user.name} className="rounded-[50%] w-[41px] h-[41px] mr-2" /> */}
                           <div className="flex flex-col">
-                            <p className="dark:text-[white]">{role.name}</p>
+                            <p className="dark:text-[white]">{role?.name}</p>
                             {/* <p className="font-light text-[grey]">{user.email}</p> */}
                           </div>
                         </td>
@@ -231,7 +231,7 @@ function Roles() {
                             className={`w-[85px] mx-auto before:content-['•'] before:text-2xl flex h-7 items-center justify-center gap-1 px-1 py-0 font-[500] ${role.status === 'ACTIVE' ? "text-green-600 bg-green-100 before:text-green-600 px-1" : "text-red-600 bg-red-100 before:text-red-600 "} rounded-2xl`}
                             style={{ textTransform: "capitalize", }}
                           >
-                            {capitalizeWords(role.status)}
+                            {capitalizeWords(role?.status)}
                           </p>
                         </td>
                         <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[8px] dark:text-[white]">

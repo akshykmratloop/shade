@@ -59,7 +59,7 @@ const AddRoleModal = ({ show, onClose, updateRoles, role }) => {
 
     let response;
     if (role) {
-      response = await updateRole({ rolePayload, id: role.id });
+      response = await updateRole({ rolePayload, id: role?.id });
     } else {
       response = await createRole(rolePayload);
     }
@@ -85,7 +85,7 @@ const AddRoleModal = ({ show, onClose, updateRoles, role }) => {
     }
   };
 
-  console.log(roleData.selectedPermissions)
+  console.log(roleData?.selectedPermissions)
 
   function modalClose() {
     onClose()
@@ -152,9 +152,9 @@ const AddRoleModal = ({ show, onClose, updateRoles, role }) => {
     if (role) {
       async function getRole() {
         try {
-          const response = await getRoleById(role.id);
+          const response = await getRoleById(role?.id);
           setCurrentRole(response.role)
-          const permissions = await fetchPermissionsByRoleType(role.roleTypeId);
+          const permissions = await fetchPermissionsByRoleType(role?.roleTypeId);
           if (response.ok) {
             setRoleData((prevState) => ({
               ...prevState,
@@ -173,12 +173,12 @@ const AddRoleModal = ({ show, onClose, updateRoles, role }) => {
   useEffect(() => {
     if (role) {
       setRoleData({
-        name: currentRole.name || "",
+        name: currentRole?.name || "",
         roleTypes: [] || [],
-        selectedPermissions: currentRole.permissions.map(e => e.permissionId) || [],
+        selectedPermissions: currentRole?.permissions.map(e => e.permissionId) || [],
         fetchedPermissions: [],
         fetchedRoletype: [],
-        selectedRoletype: currentRole.roleTypeId || "",
+        selectedRoletype: currentRole?.roleTypeId || "",
       });
     } else {
       setRoleData(freshObject);
