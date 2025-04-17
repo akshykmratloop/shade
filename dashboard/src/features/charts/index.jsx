@@ -97,6 +97,8 @@ function Users() {
     const [changesInUser, setChangesInUser] = useState(false);
     const [selectedUser, setSelectedUser] = useState(null);
     const [showDetailsModal, setShowDetailsModal] = useState(false);
+    const [searchValue, setSearchValue] = useState('')
+    const [debouncedValue, setDebouncedValue] = useState("")
 
     // Pagination state
     const [currentPage, setCurrentPage] = useState(1);
@@ -111,6 +113,13 @@ function Users() {
         setUsers(filteredRoles);
     };
 
+    function handleSearchInput(value) {
+        if (value.length >= 3) {
+            console.log('qwer')
+            setSearchValue(value)
+        }
+    }
+
     const applySearch = async (value) => { // actual search application which is being sent to the topsidebar component
         let query = {}
         if (value.includes("@")) {
@@ -118,7 +127,7 @@ function Users() {
         } else if (!(isNaN(value))) {
             query.phone = value
         } else if (value.toLowerCase() === "active" || value.toLowerCase() === 'inactive') {
-            query.status = value
+            query.status = value.toUpperCase()
         } else {
             query.name = value
         }
@@ -144,6 +153,22 @@ function Users() {
     const indexOfFirstUser = indexOfLastUser - usersPerPage;
     const currentUsers = users?.slice(indexOfFirstUser, indexOfLastUser);
     const totalPages = Math.ceil(users?.length / usersPerPage);
+
+    useEffect(() => {
+        const handler = setTimeout(() => {
+            setDebouncedValue(searchValue);
+        }, 700); // debounce delay
+
+        return () => {
+            clearTimeout(handler);
+        };
+    }, [searchValue])
+
+    useEffect(() => {
+        if (debouncedValue) {
+            applySearch(debouncedValue);
+        }
+    }, [debouncedValue]);
 
     useEffect(() => {
 
@@ -173,7 +198,7 @@ function Users() {
             <TitleCard title={"Users"} topMargin="mt-2"
                 TopSideButtons={
                     <TopSideButtons
-                        applySearch={applySearch}
+                        applySearch={handleSearchInput}
                         applyFilter={applyFilter}
                         removeFilter={removeFilter}
                         openAddForm={() => setShowAddForm(true)}

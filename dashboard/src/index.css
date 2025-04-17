@@ -51,11 +51,28 @@ input::placeholder {
   font-weight: 400 !important;
 }
 
-input[type="text"],input[type="password"],textarea{
-  /* border: .5px solid #80808044 !important; */
-}
+/* input[type="text"],input[type="password"],textarea{
+  border: .5px solid #80808044 !important;
+} */
 
 textarea:focus, input[type="text"]:focus, input[type="password"]:focus {
   outline: none !important;
   /* border: 1px solid #0000007e !important; */
+}
+
+/* Chrome, Safari, Edge */
+input[type="search"]::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  appearance: none;
+  display: none;
+}
+
+/* Firefox */
+input[type="search"]::-moz-search-clear-button {
+  display: none;
+}
+
+/* Internet Explorer (very old versions) — doesn't support type="search" well, but just in case */
+input[type="search"]::-ms-clear {
+  display: none;
 }
