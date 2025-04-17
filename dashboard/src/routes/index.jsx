@@ -28,7 +28,7 @@ const routes = [
   },
   {
     path: '/welcome', // the url
-    component: Dashboard, // view rendered
+    component: Welcome, // view rendered
   },
   {
     path: '/resources',
