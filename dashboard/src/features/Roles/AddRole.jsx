@@ -296,7 +296,6 @@ const AddRoleModal = ({ show, onClose, updateRoles, role }) => {
           </div>
         </form>
       </div>
-      <ToastContainer />
     </div>
   );
 };
