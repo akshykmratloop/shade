@@ -161,7 +161,7 @@ const SubServiceDetails = ({ serviceId, contentOn, language, screen, deepPath })
                                 index === 0 &&
                                 <>
 
-                                    <div className="absolute z-20 inset-0 bg-gradient-to-t from-black/100 via-transparent to-transparent border border-cyan-600 grid">
+                                    <div className="absolute z-20 inset-0 bg-gradient-to-t from-black/100 via-transparent to-transparent grid">
                                         <h3 className='text-[#fff] self-end px-4 text-[15px]'>Work Include</h3>
                                     </div>
                                 </>
