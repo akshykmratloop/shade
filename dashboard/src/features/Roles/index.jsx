@@ -116,6 +116,7 @@ function Roles() {
     const filteredRoles = originalRoles?.filter((role) =>
       role?.name.toLowerCase().includes(value.toLowerCase())
     );
+    setCurrentPage(1)
     setRoles(filteredRoles);
   };
 
