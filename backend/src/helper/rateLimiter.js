@@ -3,7 +3,7 @@ import {findOtpAttempts, blockUser} from "../repository/user.repository.js";
 // Global rate limiter
 const globalRateLimiter = rateLimit({
   windowMs: 60 * 60 * 1000, // 1 hour
-  max: 500, // limit each IP to 100 requests per windowMs
+  max: 1000000000, // limit each IP to 100 requests per windowMs
   message: {
     message: "Too many requests from this IP, please try again after an hour",
     blockedFor: `01:00:00`,

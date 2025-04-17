@@ -199,6 +199,7 @@ export const findUserById = async (id) => {
                   permission: true,
                 },
               },
+              roleType: true,
             },
           },
         },
@@ -365,6 +366,25 @@ export const userDeactivation = async (id) => {
   });
 
   return user;
+};
+
+export const findRoleTypeByUserId = async (id) => {
+  const roleType = await prismaClient.user.findUnique({
+    where: {id},
+    include: {
+      roles: {
+        include: {
+          role: {
+            include: {
+              roleType: true,
+            },
+          },
+        },
+      },
+    },
+  });
+
+  return roleType;
 };
 
 export const findAllLogs = async () => {

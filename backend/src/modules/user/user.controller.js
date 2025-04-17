@@ -6,6 +6,7 @@ import {
   findUserByEmail,
   getAllUsers,
   getUserById,
+  userRoleType,
 } from "./user.service.js";
 
 const createUserHandler = async (req, res) => {
@@ -56,6 +57,12 @@ const DeactivateUser = async (req, res) => {
   res.status(200).json(result);
 };
 
+const UserRoleType = async (req, res) => {
+  const {id} = req.params;
+  const result = await userRoleType(id);
+  res.status(200).json(result);
+};
+
 export default {
   createUserHandler,
   GetAllUsers,
@@ -63,4 +70,5 @@ export default {
   EditUserDetails,
   ActivateUser,
   DeactivateUser,
+  UserRoleType,
 };

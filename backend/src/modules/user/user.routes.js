@@ -48,5 +48,10 @@ router.put(
   auditLogger,
   tryCatchWrap(UserController.DeactivateUser)
 );
+router.get(
+  "/userRoleType/:id",
+  auditLogger,
+  tryCatchWrap(UserController.UserRoleType)
+);
 
 export default router;

@@ -52,7 +52,9 @@ const TopSideButtons = ({
         searchText={searchText}
         styleClass="w-700px border-none w-full flex-1"
         setSearchText={setSearchText}
-        placeholderText={"Search Roles by name, role, ID or any related keywords"}
+        placeholderText={
+          "Search Roles by name, role, ID or any related keywords"
+        }
         outline={false}
       />
       {filterParam && (
@@ -67,20 +69,24 @@ const TopSideButtons = ({
       <div className="dropdown dropdown-bottom dropdown-end">
         <label
           tabIndex={0}
-          className="capitalize border text-[14px] self-center border-stone-300 dark:border-neutral-500 rounded-lg h-[40px] w-[91px] flex items-center gap-1 font-[300] px-[14px] py-[10px]">
-          <LuListFilter
-            className="w-5 " />
+          className="capitalize border text-[14px] self-center border-stone-300 dark:border-neutral-500 rounded-lg h-[40px] w-[91px] flex items-center gap-1 font-[300] px-[14px] py-[10px]"
+        >
+          <LuListFilter className="w-5 " />
           Filter
         </label>
-        <ul tabIndex={0}
-          className="dropdown-content menu p-2 text-sm shadow bg-base-100 rounded-box w-52 text-[#0E2354] font-[400]">
+        <ul
+          tabIndex={0}
+          className="dropdown-content menu p-2 text-sm shadow bg-base-100 rounded-box w-52 text-[#0E2354] font-[400]"
+        >
           {statusFilters.map((status, key) => (
             <li key={key}>
               <a onClick={() => showFiltersAndApply(status)} style={{ textTransform: "capitalize" }}>{capitalizeWords(status)}</a>
             </li>
           ))}
           <div className="divider mt-0 mb-0"></div>
-          <li><a onClick={() => removeAppliedFilter()}>Remove Filter</a></li>
+          <li>
+            <a onClick={() => removeAppliedFilter()}>Remove Filter</a>
+          </li>
         </ul>
       </div>
     </div>
@@ -167,14 +173,17 @@ function Roles() {
           <LuImport />
           <span>Import</span>
         </button> */}
-        <button className=" z-20 btn btn-sm hover:bg-[#25439B] border-none !capitalize ml-4 bg-[#25439B] text-[white] font-semibold py-[.9rem] pb-[1.8rem] px-4" onClick={() => setShowAddForm(true)}>
+        <button
+          className=" z-20 btn btn-sm hover:bg-[#25439B] border-none !capitalize ml-4 bg-[#25439B] text-[white] font-semibold py-[.9rem] pb-[1.8rem] px-4"
+          onClick={() => setShowAddForm(true)}
+        >
           <PlusIcon className="w-4 mr-2 border border-1 rounded-full border-dotted " />
-          <span>
-            Create Role
-          </span>
+          <span>Create Role</span>
         </button>
       </div>
-      <TitleCard title={"Roles"} topMargin="mt-2"
+      <TitleCard
+        title={"Roles"}
+        topMargin="mt-2"
         TopSideButtons={
           <TopSideButtons
             applySearch={applySearch}
@@ -182,7 +191,8 @@ function Roles() {
             removeFilter={removeFilter}
             openAddForm={() => setShowAddForm(true)}
           />
-        }>
+        }
+      >
         <div className="min-h-[28.2rem] flex flex-col justify-between">
           <div className="overflow-x-auto w-full border dark:border-stone-600 rounded-2xl">
             <table className="table text-center min-w-full dark:text-[white]">
@@ -192,14 +202,20 @@ function Roles() {
                     style={{ position: "static", width: "363px" }}> Role Name</th>
                   <th className="text-[#42526D] w-[133px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] !capitalize">Permission</th>
                   {/* <th className="text-[#42526D] w-[164px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] text-center !capitalize">Sub Permission</th> */}
-                  <th className="text-[#42526D] w-[211px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] !capitalize">No. of Users Assigned</th>
-                  <th className="text-[#42526D] w-[154px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] !capitalize text-center">Status</th>
-                  <th className="text-[#42526D] w-[221px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] text-center !capitalize">Actions</th>
+                  <th className="text-[#42526D] w-[211px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] !capitalize">
+                    No. of Users Assigned
+                  </th>
+                  <th className="text-[#42526D] w-[154px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] !capitalize text-center">
+                    Status
+                  </th>
+                  <th className="text-[#42526D] w-[221px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] text-center !capitalize">
+                    Actions
+                  </th>
                 </tr>
               </thead>
               <tbody className="">
-                {
-                  Array.isArray(roles) && currentRoles.length > 0 ? currentRoles?.map((role, index) => {
+                {Array.isArray(roles) && currentRoles.length > 0 ? (
+                  currentRoles?.map((role, index) => {
                     return (
                       <tr key={index} className="font-light " style={{ height: "65px" }}>
                         <td className={`font-poppins h-[65px] truncate font-normal text-[14px] leading-normal text-[#101828] p-[26px] pl-5 flex`}>
@@ -210,11 +226,8 @@ function Roles() {
                           </div>
                         </td>
 
-
                         <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]">
-                          <span className="">
-                            {role?._count?.permissions}
-                          </span>
+                          <span className="">{role?._count?.permissions}</span>
                         </td>
                         {/* <td className="font-poppins font-light text-[12px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]">
                           <span className="">
@@ -243,7 +256,10 @@ function Roles() {
                               }}
                             >
                               <span className="flex items-center gap-1 rounded-md text-[#101828]">
-                                <FiEye className="w-5 h-6  text-[#3b4152] dark:text-stone-200" strokeWidth={1} />
+                                <FiEye
+                                  className="w-5 h-6  text-[#3b4152] dark:text-stone-200"
+                                  strokeWidth={1}
+                                />
                               </span>
                             </button>
                             <button
@@ -253,7 +269,10 @@ function Roles() {
                                 setShowAddForm(true);
                               }}
                             >
-                              <FiEdit className="w-5 h-6 text-[#3b4152] dark:text-stone-200" strokeWidth={1} />
+                              <FiEdit
+                                className="w-5 h-6 text-[#3b4152] dark:text-stone-200"
+                                strokeWidth={1}
+                              />
                             </button>
                             <div className="flex items-center space-x-4 ">
                               <Switch
@@ -277,21 +296,25 @@ function Roles() {
                           </div>
                         </td>
                       </tr>
-                    )
-                  }
-                  ) : (
-                    <tr className="text-[14px]">
-                      <td colSpan={6}>No Data Available</td>
-                    </tr>
-                  )}
+                    );
+                  })
+                ) : (
+                  <tr className="text-[14px]">
+                    <td colSpan={6}>No Data Available</td>
+                  </tr>
+                )}
               </tbody>
             </table>
           </div>
           {/* Pagination Controls */}
-          <Paginations data={roles} currentPage={currentPage} setCurrentPage={setCurrentPage} totalPages={totalPages} />
+          <Paginations
+            data={roles}
+            currentPage={currentPage}
+            setCurrentPage={setCurrentPage}
+            totalPages={totalPages}
+          />
         </div>
       </TitleCard>
-
 
       {/* Add Role Modal */}
       {showAddForm &&
