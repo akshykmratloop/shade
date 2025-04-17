@@ -12,7 +12,6 @@ import validator from "../../app/valid";
 import updateToasify from "../../app/toastify";
 import CloseModalButton from "../../components/Button/CloseButton";
 
-const AddRoleModal = ({show, onClose, updateRoles, role}) => {
 const AddRoleModal = ({ show, onClose, updateRoles, role }) => {
   console.log(role)
   const freshObject = {
@@ -302,25 +301,4 @@ const AddRoleModal = ({ show, onClose, updateRoles, role }) => {
   );
 };
 
-export default AddRoleModal;
-
-{
-  /* Status Select*/
-}
-{
-  /* <div className="form-control mb-4">
-                        <label className="label">
-                            <span className="label-text">Status</span>
-                        </label>
-                        <select
-                            className="select select-bordered"
-                            value={roleData.status}
-                            onChange={(e) => updateFormValue({ updateType: "status", value: e.target.value })}
-                            required
-                        >
-                            <option value="">Select Status</option>
-                            <option value="ACTIVE">Active</option>
-                            <option value="INACTIVE">Inactive</option>
-                        </select>
-                    </div> */
-}
+export default AddRoleModal

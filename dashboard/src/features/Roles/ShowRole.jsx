@@ -34,8 +34,6 @@ function RoleDetailsModal({ role, show, onClose }) {
             setLoading(true);
             try {
                 const response = await getRoleById(role.id);
-                console.log(response.statusCode)
-                console.log(response)
                 if (response.statusCode >= 400 || response instanceof Error) {
                     throw `Error: status: ${response.statusCode}, type: ${response.errorType}`
                 }
@@ -62,7 +60,7 @@ function RoleDetailsModal({ role, show, onClose }) {
         <Dialog open={show} onClose={onClose} className="relative z-50 font-poppins">
             <div className="fixed inset-0 bg-black/50" aria-hidden="true" />
             <div ref={modalRef} className="fixed inset-0 flex items-center justify-center p-4">
-                <Dialog.Panel className="w-[653px] h-[600px] overflow-y-scroll customscroller shadow-lg shadow-stone rounded-lg bg-[white] dark:bg-slate-800 p-6">
+                <Dialog.Panel className="w-[653px] h-[600px] overflow-y-auto customscroller shadow-lg shadow-stone rounded-lg bg-[white] dark:bg-slate-800 p-6">
                     <div className="flex justify-between items-center mb-4">
                         <Dialog.Title className="text-lg font-[500]">Role Details</Dialog.Title>
                         <button onClick={onClose} className="bg-transparent hover:bg-stone-300 dark:hover:bg-stone-700 rounded-full border-none p-2 py-2">
