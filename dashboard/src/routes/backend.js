@@ -1,3 +1,5 @@
+// import {markNotificationAsRead} from "../features/common/headerSlice";
+
 const BASE_URL = "http://localhost:3000/";
 
 // console.log(process.env)
@@ -5,7 +7,8 @@ const BASE_URL = "http://localhost:3000/";
 const auth = "auth";
 const role = "role";
 const permission = "permission";
-const user = "user"
+const user = "user";
+const notification = "notification";
 
 const api = {
   login: `${auth}/login`, // API for Auth
@@ -19,8 +22,7 @@ const api = {
   refreshToken: `${auth}/refreshToken`,
   resendOTP: `${auth}/resendOtp`,
 
-  userLogs: `${auth}/logs`,  // API for logs
-
+  userLogs: `${auth}/logs`, // API for logs
 
   fetchRoles: `${role}/roles`, // API for role start from here
   getRoleById: `${role}/`,
@@ -30,7 +32,7 @@ const api = {
   deactivateRole: `${role}/deactivate`,
   updateRole: `${role}/update`,
 
-  fetchPermissionsByRoleType: `${permission}/permissionsByRoleType/`,  //permisions
+  fetchPermissionsByRoleType: `${permission}/permissionsByRoleType/`, //permisions
 
   getUsers: `${user}/getAllUsers`, // API for users from here
   createUser: `${user}/create`,
@@ -38,6 +40,9 @@ const api = {
   updateUser: `${user}/updateUser/`,
   activateUser: `${user}/activate`,
   deactivateUser: `${user}/deactivate`,
+
+  getNotifications: `${notification}/`, // API for notifications
+  markAllNotificationAsRead: `${notification}/read-all/`, // API for marking notification as read
 
   route(route) {
     if (this[route]) {

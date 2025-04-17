@@ -60,8 +60,8 @@ const CreateRole = async (req, res) => {
 // };
 const UpdateRole = async (req, res) => {
   const {id} = req.params;
-  const {roleName, roleTypeId, permissionsArray} = req.body;
-  const result = await updateRole(id, roleName, roleTypeId, permissionsArray);
+  const {roleName, roleTypeId, permissions} = req.body;
+  const result = await updateRole(id, roleName, roleTypeId, permissions);
   res.status(202).json(result);
 };
 

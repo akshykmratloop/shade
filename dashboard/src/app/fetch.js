@@ -31,7 +31,7 @@ const makerequest = async (
   // Check if token is expired and clear session if it is
   if (token && isTokenExpired(token)) {
     clearSession();
-    return { error: "Session expired. Please log in again.", ok: false };
+    return {error: "Session expired. Please log in again.", ok: false};
   }
 
   const controller = new AbortController();
@@ -41,7 +41,7 @@ const makerequest = async (
 
   const finalHeaders = {
     ...headers,
-    ...(token ? { Authorization: `Bearer ${token}` } : {}),
+    ...(token ? {Authorization: `Bearer ${token}`} : {}),
   };
 
   const options = {
@@ -66,7 +66,7 @@ const makerequest = async (
     result.ok = true;
   } catch (err) {
     if (err.name === "AbortError") {
-      result = { error: "Request timed out" };
+      result = {error: "Request timed out"};
     } else {
       result = err;
       result.ok = false;
@@ -78,7 +78,7 @@ const makerequest = async (
 };
 
 const ContentType = {
-  json: { "Content-Type": "application/json" },
+  json: {"Content-Type": "application/json"},
 };
 
 // fetch for auth
@@ -170,10 +170,7 @@ export async function resendOTP(data) {
 
 // fetch for Logs
 export async function userLogs(data) {
-  return await makerequest(
-    api.route("userLogs"),
-    "GET",
-  );
+  return await makerequest(api.route("userLogs"), "GET");
 }
 
 // fetch for roles
@@ -188,17 +185,11 @@ export async function fetchRoles() {
 }
 
 export async function getRoleById(id) {
-  return await makerequest(
-    api.route("getRoleById") + id,
-    "GET",
-  );
+  return await makerequest(api.route("getRoleById") + id, "GET");
 }
 
 export async function fetchRoleType() {
-  return await makerequest(
-    api.route("fetchRoleType"),
-    "GET",
-  );
+  return await makerequest(api.route("fetchRoleType"), "GET");
 }
 
 export async function createRole(data) {
@@ -254,10 +245,7 @@ export async function fetchPermissionsByRoleType(roleTypeId) {
 
 // fetch for Users
 export async function getAllusers() {
-  return await makerequest(
-    api.route("getUsers"),
-    "GET",
-  )
+  return await makerequest(api.route("getUsers"), "GET");
 }
 
 export async function createUser(data) {
@@ -266,7 +254,7 @@ export async function createUser(data) {
     "POST",
     JSON.stringify(data),
     ContentType.json
-  )
+  );
 }
 
 export async function updateUser(data) {
@@ -275,14 +263,11 @@ export async function updateUser(data) {
     "PUT",
     JSON.stringify(data.payload),
     ContentType.json
-  )
+  );
 }
 
 export async function getUserById(id) {
-  return await makerequest(
-    api.route("getUserById") + id,
-    "GET",
-  )
+  return await makerequest(api.route("getUserById") + id, "GET");
 }
 
 export async function activateUser(id) {
@@ -291,7 +276,7 @@ export async function activateUser(id) {
     "PUT",
     JSON.stringify(id),
     ContentType.json
-  )
+  );
 }
 
 export async function deactivateUser(id) {
@@ -300,5 +285,24 @@ export async function deactivateUser(id) {
     "PUT",
     JSON.stringify(id),
     ContentType.json
-  )
+  );
+}
+
+// fetch for Notifications
+export async function getNotificationsbyId(id) {
+  return await makerequest(
+    api.route("getNotifications") + id,
+    "GET",
+    JSON.stringify(id),
+    ContentType.json
+  );
+}
+
+export async function markAllNotificationAsRead(id) {
+  return await makerequest(
+    api.route("markAllNotificationAsRead") + id,
+    "PUT",
+    // JSON.stringify(id),
+    ContentType.json
+  );
 }

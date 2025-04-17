@@ -28,3 +28,32 @@ export const findAllNotification = async (userId) => {
 
   return notification;
 };
+
+export const markNotificationAsRead = async (notificationId) => {
+  const notification = await prismaClient.notification.update({
+    where: {
+      id: notificationId,
+    },
+    data: {
+      isRead: true,
+    },
+  });
+
+  return notification;
+};
+
+export const markAllNotificationAsRead = async (userId) => {
+  const result = await prismaClient.notification.updateMany({
+    where: {
+      userId,
+      isRead: false,
+    },
+    data: {
+      isRead: true,
+    },
+  });
+
+  const notifications = await findAllNotification(userId);
+
+  return notifications; // contains { count: X }
+};

@@ -76,8 +76,8 @@ const deactivateRoles = async (id) => {
 //   return {message: "Role updated successfully", role, ok: true};
 // };
 
-const updateRole = async (id, roleName, roleTypeId, permissionsArray) => {
-  const role = await updateRoleById(id, roleName, roleTypeId, permissionsArray);
+const updateRole = async (id, roleName, roleTypeId, permissions) => {
+  const role = await updateRoleById(id, roleName, roleTypeId, permissions);
 
   assert(role, "ROLE_INVALID", "Role not found");
 
