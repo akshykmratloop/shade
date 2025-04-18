@@ -45,10 +45,12 @@ const routes = [
   {
     path: '/roles',
     component: Roles,
+    permission: "ROLES_PERMISSION_MANAGEMENT"
   },
   {
     path: '/logs',
     component: Logs,
+    permission: "AUDIT_LOGS_MANAGEMENT"
   },
   {
     path: '/settings-profile',
@@ -77,6 +79,7 @@ const routes = [
   {
     path: '/users',
     component: Users,
+    permission: "USER_MANAGEMENT"
   },
   {
     path: '/404',

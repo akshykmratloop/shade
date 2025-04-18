@@ -10,6 +10,7 @@ function LeftSidebar() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const isCollapsed = useSelector((state) => state.sidebar.isCollapsed);
+  const user = useSelector((state) => state.user.user)
 
   useEffect(() => {
     const handleResize = () => {
@@ -46,28 +47,57 @@ function LeftSidebar() {
         </li>
 
         {routes.map((route, k, a) => {
-          let lastIndex = k === a.length-1
-          return (
-          <li className="mt-2 w-full flex justify-center " key={k} title={route?.name}
-          style={{borderRadius: lastIndex&&"0px 0px 0px 0px"}}
-          >
-            <NavLink
-              end
-              to={route.path}
-              className={({ isActive }) =>
-                `${isActive ? "font-semibold bg-base-200" : "font-normal"} pl-7 w-full flex items-center gap-2`
-              }
-            >
-              {route?.icon} {!isCollapsed && route?.name}
-              {location?.pathname === route.path && (
-                <span
-                  className="absolute inset-y-0 left-0 w-1 bg-primary"
-                  aria-hidden="true"
-                ></span>
-              )}
-            </NavLink>
-          </li>
-        )})}
+          let lastIndex = k === a.length - 1
+          if (route.permission) {
+            if (user.permissions.includes(route.permission)) {
+              return (
+                <li className="mt-2 w-full flex justify-center " key={k} title={route?.name}
+                  style={{ borderRadius: lastIndex && "0px 0px 0px 0px" }}
+                >
+                  <NavLink
+                    end
+                    to={route.path}
+                    className={({ isActive }) =>
+                      `${isActive ? "font-semibold bg-base-200" : "font-normal"} pl-7 w-full flex items-center gap-2`
+                    }
+                  >
+                    {route?.icon} {!isCollapsed && route?.name}
+                    {location?.pathname === route.path && (
+                      <span
+                        className="absolute inset-y-0 left-0 w-1 bg-primary"
+                        aria-hidden="true"
+                      ></span>
+                    )}
+                  </NavLink>
+                </li>
+              )
+            } else {
+              return null
+            }
+          } else {
+            return (
+              <li className="mt-2 w-full flex justify-center " key={k} title={route?.name}
+                style={{ borderRadius: lastIndex && "0px 0px 0px 0px" }}
+              >
+                <NavLink
+                  end
+                  to={route.path}
+                  className={({ isActive }) =>
+                    `${isActive ? "font-semibold bg-base-200" : "font-normal"} pl-7 w-full flex items-center gap-2`
+                  }
+                >
+                  {route?.icon} {!isCollapsed && route?.name}
+                  {location?.pathname === route.path && (
+                    <span
+                      className="absolute inset-y-0 left-0 w-1 bg-primary"
+                      aria-hidden="true"
+                    ></span>
+                  )}
+                </NavLink>
+              </li>
+            )
+          }
+        })}
       </ul>
     </div>
   );

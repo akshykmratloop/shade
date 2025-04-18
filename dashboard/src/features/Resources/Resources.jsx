@@ -69,7 +69,7 @@ function Resources() {
             <div className={`${resNotAvail ? "" : "grid"} ${isNarrow ? "grid-cols-1" : "grid-cols-2"} mt-4 lg:grid-cols-3 gap-10 w-full px-10`}>
                 {resNotAvail ? <p className="">Sorry, No Resource available for {currentResource}</p>
                     :
-                    resources?.[currentResource].map((page, index) => (
+                    resources?.[currentResource]?.map((page, index) => (
                         <div key={index + Math.random()} className="w-full ">
                             <h3 className="mb-1 font-poppins font-semibold">
                                 {isSmall
