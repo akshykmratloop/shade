@@ -108,7 +108,7 @@ const ProjectDetailManager = ({ projectId, currentContent, currentPath, language
                     currentContent?.[projectId - 1]?.gallerySection?.images?.map((e, i) => {
                         return { label: "Image " + (i + 1), id: `ProjectBanner/${projectId}/gallery/${i}` }
                     })}
-                section={"introSection"}
+                section={"gallerySection"}
                 language={language}
                 currentContent={currentContent}
                 projectId={projectId}
@@ -123,7 +123,7 @@ const ProjectDetailManager = ({ projectId, currentContent, currentPath, language
                 // label={"Select More Project List"}
                 heading={"Projects Section"}
                 tabName={"Select Project"}
-                options={currentContent?.[projectId - 1]?.moreProjects?.projects}
+                options={currentContent?.[projectId - 1]?.moreProjects?.projects || []}
                 referenceOriginal={{ dir: "projectDetail", index: 0 }}
                 currentContent={currentContent}
                 projectId={projectId}

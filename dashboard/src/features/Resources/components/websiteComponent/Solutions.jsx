@@ -6,6 +6,11 @@ import content from "./content.json"
 import { SwiperSlide } from "swiper/react";
 import { Swiper } from "swiper/react";
 import { Autoplay, EffectCoverflow, Navigation } from "swiper/modules";
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/effect-coverflow';
+import 'swiper/css/autoplay';
+
 // import localFont from "next/font/local";
 // import Button from "@/common/Button";
 // import Image from "next/image";
@@ -47,7 +52,7 @@ const SolutionPage = ({ language, screen }) => {
         <div className=" bankgothic-medium-dt pb-8">
             {/** banner */}
             <section
-                className={`relative py-[10rem] w-full bg-cover bg-center ${isLeftAlign ? 'scale-x-[-1]' : ''} px-12 ${isPhone?"h-screen":""}`}
+                className={`relative py-[10rem] w-full bg-cover bg-center ${isLeftAlign ? 'scale-x-[-1]' : ''} px-12 ${isPhone ? "h-screen" : ""}`}
                 style={{ backgroundImage: ImageFromRedux.bannerBackground ? `url(${ImageFromRedux.bannerBackground})` : 'url("https://frequencyimage.s3.ap-south-1.amazonaws.com/310398e2-856d-4e59-b0b0-10e811ca1f82-solution%20%281%29.png")' }}
             >
                 <div className="container h-full relative flex">
@@ -55,7 +60,7 @@ const SolutionPage = ({ language, screen }) => {
                         <h1 className="text-[#292E3D] text-[40px] font-medium leading-[77px] tracking-[-3.5px] mb-4">
                             {currentContent?.banner?.title[language]}
                         </h1>
-                        <p className={`text-para-light text-left text-xs font-semibold leading-[26px] mb-6 ${isLeftAlign ? "" : "ml-auto"} ${isPhone? "w-[70%]":"w-[50%]"} word-spacing-[5px]`}>
+                        <p className={`text-para-light text-left text-xs font-semibold leading-[26px] mb-6 ${isLeftAlign ? "" : "ml-auto"} ${isPhone ? "w-[70%]" : "w-[50%]"} word-spacing-[5px]`}>
                             {currentContent?.banner?.description[language]}
                         </p>
                         <button
@@ -92,12 +97,12 @@ const SolutionPage = ({ language, screen }) => {
                         </div>
                         <div>
                             <p
-                                className={` font-light ${isPhone?"leading-[20px] text-sm":"leading-[40px]"} tracking-[-1.2px] mb-[32px] `}
+                                className={` font-light ${isPhone ? "leading-[20px] text-sm" : "leading-[40px]"} tracking-[-1.2px] mb-[32px] `}
                             >
                                 {currentContent?.whatWeDo?.description1[language]}
                             </p>
                             <p
-                                className={` font-light ${isPhone?"leading-[20px] text-sm":"leading-[40px]"} tracking-[-1.2px] mb-[32px] `}
+                                className={` font-light ${isPhone ? "leading-[20px] text-sm" : "leading-[40px]"} tracking-[-1.2px] mb-[32px] `}
                             >
                                 {currentContent?.whatWeDo?.description2[language]}
                             </p>
@@ -111,40 +116,49 @@ const SolutionPage = ({ language, screen }) => {
 
             <div
                 className="w-[800px] mx-auto"
-                style={{width:isComputer ? "50rem":`${screen-30}px`}}
+                style={{ width: isComputer ? "50rem" : `${screen - 30}px` }}
             >
                 <Swiper
+                    className=""
                     modules={[Navigation, Autoplay, EffectCoverflow]}
                     grabCursor={true}
                     centeredSlides={true}
-                    slidesPerView={1}
-                    loop={true}
-                    autoplay={{ delay: 2500 }}
+                    slidesPerView={3} // Adjust dynamically
+                    loop={currentContent?.gallery?.images?.length > 3} // Enable loop only if enough slides exist
+                    spaceBetween={10}
+                    onSwiper={(swiper) => {
+                        setTimeout(() => {
+                            swiper.autoplay.start();
+                        }, 500);
+                    }}
+
                     effect="coverflow"
                     coverflowEffect={{
                         rotate: 0,
                         stretch: 0,
-                        depth: 300,
-                        modifier: 1.5,
+                        depth: 250,
+                        modifier: 2,
                         slideShadows: false,
                     }}
-                   
+                    autoplay={{ delay: 2500, disableOnInteraction: false }} // Ensure autoplay works
+                    breakpoints={{
+                        724: { slidesPerView: isPhone ? 1 : 2.2 },
+                        500: { slidesPerView: 2 },
+                    }}
                 >
-                    {currentContent?.gallery?.images.map(
-                        (image, index) => (
-                            <SwiperSlide key={index}>
-                                <div className={`rounded-lg overflow-hidden shadow-lg transition-transform transform ${isPhone?"h-[50vh]":"h-[500px]"}`}>
-
-                                    <img
-                                        src={ImageFromRedux[`Image ${index + 1}`] || image.url}
-                                        alt={`Image ${index + 1}`}
-                                        className="object-cover w-full h-full"
-                                    />
-                                </div>
-                            </SwiperSlide>
-                        )
-                    )}
+                    {(currentContent?.gallery?.images || []).map((image, index) => (
+                        <SwiperSlide key={`slide-${index}`}>
+                            <div className="flex justify-center">
+                                <img
+                                    src={ImageFromRedux[`Image ${index + 1}`] || image.url}
+                                    alt={`Image ${index + 1}`}
+                                    className="object-cover w-[400px] h-[400px] rounded-md"
+                                />
+                            </div>
+                        </SwiperSlide>
+                    ))}
                 </Swiper>
+
             </div>
 
             {/** HowWeDo */}
@@ -165,7 +179,7 @@ const SolutionPage = ({ language, screen }) => {
                         </div>
                         <div>
                             <p
-                                className={`${isPhone?"leading-[20px] text-sm":"leading-[40px]"} font-light tracking-[-1.2px] mb-[32px]`}
+                                className={`${isPhone ? "leading-[20px] text-sm" : "leading-[40px]"} font-light tracking-[-1.2px] mb-[32px]`}
                             >
                                 {currentContent?.howWeDo?.description[language]}
                             </p>
@@ -177,33 +191,45 @@ const SolutionPage = ({ language, screen }) => {
             {/** Showcase gallery wrap */}
             <div
                 className="w-[800px] mx-auto "
-                style={{width:isComputer ? "50rem":`${screen-30}px`}}
+                style={{ width: isComputer ? "50rem" : `${screen - 30}px` }}
             >
-                <Swiper
+                 <Swiper
+                    className=""
                     modules={[Navigation, Autoplay, EffectCoverflow]}
                     grabCursor={true}
                     centeredSlides={true}
-                    slidesPerView={1}
-                    loop={true}
-                    autoplay={{ delay: 2500 }}
+                    slidesPerView={3} // Adjust dynamically
+                    loop={currentContent?.gallery?.images?.length > 3} // Enable loop only if enough slides exist
+                    spaceBetween={10}
+                    onSwiper={(swiper) => {
+                        setTimeout(() => {
+                            swiper.autoplay.start();
+                        }, 500);
+                    }}
+
                     effect="coverflow"
                     coverflowEffect={{
                         rotate: 0,
                         stretch: 0,
-                        depth: 300,
-                        modifier: 1.5,
+                        depth: 250,
+                        modifier: 2,
                         slideShadows: false,
                     }}
+                    autoplay={{ delay: 2500, disableOnInteraction: false }} // Ensure autoplay works
+                    breakpoints={{
+                        724: { slidesPerView: isPhone ? 1 : 2.2 },
+                        500: { slidesPerView: 2 },
+                    }}
                 >
-                    {currentContent?.gallery?.showcase.map(
+                     {currentContent?.gallery?.showcase.map(
                         (image, index) => (
                             <SwiperSlide key={index}>
-                                <div className={`rounded-lg overflow-hidden shadow-lg transition-transform transform ${isPhone?"h-[50vh]":"h-[500px]"}`}>
+                                <div className={`rounded-lg overflow-hidden  transition-transform transform ${isPhone ? "h-[50vh]" : "h-[400px]"}`}>
                                     <img
                                         src={ImageFromRedux[`Image ${index + 4}`] || image.url}
                                         alt={`Image ${index + 1}`}
-                                        className="object-cover w-full h-full"
-                                        style={{objectPosition:"center"}}
+                                        className="object-cover w-[400px] h-[400px] rounded-md"
+                                        style={{ objectPosition: "center" }}
                                     />
                                 </div>
                             </SwiperSlide>

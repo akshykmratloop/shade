@@ -45,3 +45,8 @@ input[type="password"] {
 input[type="password"]::-ms-reveal {
   display: none;
 }
+
+input::placeholder {
+  font-family: "Poppins" !important;
+  font-weight: 400 !important;
+}

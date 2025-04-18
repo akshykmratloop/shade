@@ -11,7 +11,7 @@
 - docker-compose logs backend : To view logs of the `backend` service.
 - docker system prune -a: To remove all unused Docker images, containers, volumes, and networks.
 - docker exec -it <container_name> sh: To access a running container’s shell.
-
+- docker logs -f container name  : to see the log of any container
 
 
 MAIN COMMNANDS
