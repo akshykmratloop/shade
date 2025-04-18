@@ -33,7 +33,7 @@ const routes = [
   {
     path: '/app/dashboard',
     icon: <Squares2X2Icon className={iconClasses} />,
-    name: 'Dashboard',
+    name: 'Dashboard', 
   },
   {
     path: '/app/resources', // url
