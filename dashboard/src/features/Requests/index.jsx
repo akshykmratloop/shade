@@ -126,7 +126,15 @@ function Requests() {
     setRequests(filteredRoles);
   };
 
-  const isEditor = (!user?.permissions?.includes("EDIT") || user?.permissions?.some(element => element.slice(-10) === "MANAGEMENT"))
+  const isEditor = !user?.permissions?.includes("EDIT")
+  const isVerifier = !user?.permissions?.includes("VERIFY")
+  const isPublisher = !user?.permissions?.includes("PUBLISH")
+
+
+  const disAllowEditor = isEditor || user?.permissions?.length > 2 || user?.permissions?.some(element => element.slice(-10) === "MANAGEMENT")
+  const disAllowVerifier = isVerifier || user?.permissions?.length > 2 || user?.permissions?.some(element => element.slice(-10) === "MANAGEMENT")
+  const disAllowPublisher = isPublisher || user?.permissions?.length > 2 || user?.permissions?.some(element => element.slice(-10) === "MANAGEMENT")
+
 
   // Pagination logic
   const indexOfLastUser = currentPage * requestsPerPage;
@@ -176,17 +184,21 @@ function Requests() {
                     Status
                   </th>
                   {
-                    isEditor &&
+                    disAllowEditor &&
                     <th className="text-[#42526D] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[20px] py-[13px] !capitalize">
                       Editor
                     </th>}
                   {/* <th className="text-[#42526D] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[20px] py-[13px] !capitalize">Performed Over</th> */}
-                  <th className="text-[#42526D] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[20px] py-[13px] !capitalize">
-                    Verifier
-                  </th>
-                  <th className="text-[#42526D] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[20px] py-[13px] !capitalize text-center">
-                    Publisher
-                  </th>
+                  {
+                    disAllowVerifier &&
+                    <th className="text-[#42526D] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[20px] py-[13px] !capitalize">
+                      Verifier
+                    </th>}
+                  {
+                    disAllowPublisher &&
+                    <th className="text-[#42526D] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[20px] py-[13px] !capitalize text-center">
+                      Publisher
+                    </th>}
                   <th className="text-[#42526D] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[20px] py-[13px] text-center !capitalize">
                     Date Time
                   </th>
@@ -233,7 +245,7 @@ function Requests() {
                           </span>
                         </td>
                         {
-                          isEditor &&
+                          disAllowEditor &&
                           <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]">
                             {request.editor}
                           </td>}

@@ -13,7 +13,6 @@ import updateToasify from "../../app/toastify";
 import CloseModalButton from "../../components/Button/CloseButton";
 
 const AddRoleModal = ({ show, onClose, updateRoles, role }) => {
-  console.log(role)
   const freshObject = {
     name: "",
     selectedRoletype: "",
