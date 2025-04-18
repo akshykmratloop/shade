@@ -131,7 +131,6 @@ function Requests() {
   const isVerifier = !user?.permissions?.includes("VERIFY")
   const isPublisher = !user?.permissions?.includes("PUBLISH")
 
-
   const disAllowEditor = isEditor || user?.permissions?.length > 2 || user?.permissions?.some(element => element.slice(-10) === "MANAGEMENT")
   const disAllowVerifier = isVerifier || user?.permissions?.length > 2 || user?.permissions?.some(element => element.slice(-10) === "MANAGEMENT")
   const disAllowPublisher = isPublisher || user?.permissions?.length > 2 || user?.permissions?.some(element => element.slice(-10) === "MANAGEMENT")
@@ -183,7 +182,6 @@ function Requests() {
 
   useEffect(() => {
     const activeRef = raiseUser ? rightRef : leftRef;
-
     if (activeRef.current) {
       // Allow time for DOM to paint
       requestAnimationFrame(() => {
@@ -292,7 +290,8 @@ function Requests() {
                     disAllowPublisher &&
                     <th className="text-[#42526D] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[20px] py-[13px] !capitalize text-center">
                       Publisher
-                    </th>}
+                    </th>
+                  }
                   <th className="text-[#42526D] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[20px] py-[13px] text-center !capitalize">
                     Date Time
                   </th>
