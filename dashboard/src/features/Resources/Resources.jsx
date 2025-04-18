@@ -21,7 +21,7 @@ function Resources() {
     const [isCollapsed, setIsCollapsed] = useState(false)
     const [isSmall, setIsSmall] = useState(false)
     const [isNarrow, setIsNarrow] = useState(false)
-    const [currentResource, setCurrentResource] = useState("pages")
+    const [currentResource, setCurrentResource] = useState("")
     const [configBarOn, setConfigBarOn] = useState(false);
     const [PageDetailsOn, setPageDetailsOn] = useState(false);
     const [configBarData, setConfigBarData] = useState({})

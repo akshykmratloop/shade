@@ -1,5 +1,5 @@
 // libraries import
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import PlusIcon from "@heroicons/react/24/outline/PlusIcon";
 import { toast, ToastContainer } from "react-toastify";
 // self modules
@@ -104,8 +104,9 @@ function Requests() {
   const [selectedRequests, setSelectedRequests] = useState(null);
   const [showDetailsModal, setShowDetailsModal] = useState(false);
   const [enabled, setEnabled] = useState(false);
+  const [currentTD, setCurrentTD] = useState("EDIT");
   const [currentPage, setCurrentPage] = useState(1);
-  const user = useSelector(state => state.user.user)
+  const user = useSelector(state => state.user.user);
   const requestsPerPage = 5;
 
   const removeFilter = () => {
@@ -135,6 +136,7 @@ function Requests() {
   const disAllowVerifier = isVerifier || user?.permissions?.length > 2 || user?.permissions?.some(element => element.slice(-10) === "MANAGEMENT")
   const disAllowPublisher = isPublisher || user?.permissions?.length > 2 || user?.permissions?.some(element => element.slice(-10) === "MANAGEMENT")
 
+  const raiseUser = currentTD === "EDIT"
 
   // Pagination logic
   const indexOfLastUser = currentPage * requestsPerPage;
@@ -143,6 +145,55 @@ function Requests() {
     ? requests?.slice(indexOfFirstUser, indexOfLastUser)
     : [];
   const totalPages = Math.ceil(requests?.length / requestsPerPage);
+
+  const [sliderStyle, setSliderStyle] = useState({ width: 0, left: 0 });
+
+  const leftRef = useRef(null);
+  const rightRef = useRef(null);
+
+  let ToggleNames = []
+
+  for (let i = 0; i < user.permissions.length; i++) {
+    switch (user.permissions[i]) {
+      case "EDIT":
+        ToggleNames[i] = "Editor"
+        break;
+
+      case "PUBLISH":
+        ToggleNames[i] = "Publisher";
+        break;
+
+      case "VERIFY":
+        ToggleNames[i] = "Verifier"
+        break;
+
+      default:
+    }
+  }
+
+  const [toggleText1, toggleText2] = ToggleNames
+
+  useEffect(() => {
+    const ref = raiseUser ? leftRef.current : rightRef.current;
+    if (ref) {
+      const { offsetWidth, offsetLeft } = ref;
+      setSliderStyle({ width: offsetWidth, left: offsetLeft });
+    }
+  }, [raiseUser]);
+
+  useEffect(() => {
+    const activeRef = raiseUser ? rightRef : leftRef;
+
+    if (activeRef.current) {
+      // Allow time for DOM to paint
+      requestAnimationFrame(() => {
+        const { offsetWidth, offsetLeft } = activeRef.current;
+        setSliderStyle({ width: offsetWidth, left: offsetLeft });
+      });
+    }
+  }, [raiseUser, toggleText1, toggleText2]);
+
+
 
   useEffect(() => {
     async function fetchRequestsData() {
@@ -184,6 +235,49 @@ function Requests() {
                     Status
                   </th>
                   {
+                    user.permissions.length === 2 &&
+                    <th className="text-[#42526D] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[20px] py-[13px] !capitalize">
+                      <label className="relative inline-flex items-center cursor-pointer">
+                        <div
+                          className="inline-flex bg-blue-200 rounded-[3px] relative items-center justify-between select-none gap-[4px] px-1 h-8"
+                          onClick={() => setCurrentTD(prev => prev === "EDIT" ? "PUBLISH" : "EDIT")}
+                        >
+                          {/* Dynamic slider background */}
+                          {sliderStyle.width > 0 && (
+                            <div
+                              className="absolute top-1 h-6 bg-[#00b9f2] rounded-[3px] transition-all duration-300 ease-in-out"
+                              style={{
+                                width: `${sliderStyle.width}px`,
+                                left: `${sliderStyle.left}px`,
+                              }}
+                            ></div>
+                          )}
+
+
+                          {/* Left label */}
+                          <span
+                            ref={leftRef}
+                            className={`z-10 text-xs font-medium px-3 leading-[1.5rem] transition-colors duration-300 ${raiseUser ? "text-[#001A5882]" : "text-white"
+                              }`}
+                          >
+                            {toggleText1}
+                          </span>
+
+                          {/* Right label */}
+                          <span
+                            ref={rightRef}
+                            className={`z-10 text-xs font-medium px-3 leading-[1.5rem] transition-colors duration-300 ${raiseUser ? "text-white" : "text-[#001A5882]"
+                              }`}
+                          >
+                            {toggleText2}
+                          </span>
+                        </div>
+                      </label>
+
+
+                    </th>
+                  }
+                  {
                     disAllowEditor &&
                     <th className="text-[#42526D] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[20px] py-[13px] !capitalize">
                       Editor
@@ -210,7 +304,6 @@ function Requests() {
               <tbody className="">
                 {Array.isArray(requests) && currentRequests.length > 0 ? (
                   currentRequests?.map((request, index) => {
-                    console.log(request)
                     return (
                       <tr
                         key={index}
@@ -245,36 +338,62 @@ function Requests() {
                           </span>
                         </td>
                         {
+                          user?.permissions.length == 2 &&
+                          < td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]">
+                            <span className="">
+                              {raiseUser ? request.editor : request.verifier ? <button
+                                onClick={() => {
+                                  setSelectedRequests(request);
+                                  setShowDetailsModal(true);
+                                }}
+                              >
+                                <span className="flex items-center gap-1 rounded-md text-[#101828]">
+                                  <FiEye
+                                    className="w-5 h-6  text-[#3b4152] dark:text-stone-200"
+                                    strokeWidth={1}
+                                  />
+                                </span>
+                              </button> : ""}
+                            </span>
+                          </td>
+                        }
+                        {
                           disAllowEditor &&
                           <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]">
                             {request.editor}
                           </td>}
-                        <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]">
-                          {request.verifier.length > 1 ?
-                            <button
-                              onClick={() => {
-                                setSelectedRequests(request);
-                                setShowDetailsModal(true);
-                              }}
-                            >
-                              <span className="flex items-center gap-1 rounded-md text-[#101828]">
-                                <FiEye
-                                  className="w-5 h-6  text-[#3b4152] dark:text-stone-200"
-                                  strokeWidth={1}
-                                />
-                              </span>
-                            </button>
-                            : "Multiple"}
-                        </td>
-                        <td
-                          className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]"
-                          style={{ whiteSpace: "wrap" }}
-                        >
-                          <span className="">
+                        {
+                          disAllowVerifier &&
+                          <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]">
+                            {request.verifier.length > 1 ?
+                              <button
+                                onClick={() => {
+                                  setSelectedRequests(request);
+                                  setShowDetailsModal(true);
+                                }}
+                              >
+                                <span className="flex items-center gap-1 rounded-md text-[#101828]">
+                                  <FiEye
+                                    className="w-5 h-6  text-[#3b4152] dark:text-stone-200"
+                                    strokeWidth={1}
+                                  />
+                                </span>
+                              </button>
+                              : "Multiple"}
+                          </td>
+                        }
+                        {
+                          disAllowPublisher &&
+                          <td
+                            className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]"
+                            style={{ whiteSpace: "wrap" }}
+                          >
+                            <span className="">
 
-                            {request.publisher}
-                          </span>
-                        </td>
+                              {request.publisher}
+                            </span>
+                          </td>
+                        }
                         <td className="font-poppins font-light text-[12px] leading-normal text-[#101828] px-[16px] py-[10px] dark:text-[white]">
                           {formatTimestamp(request?.datetime) || "N/A"}
                         </td>
@@ -316,10 +435,10 @@ function Requests() {
             totalPages={totalPages}
           />
         </div>
-      </TitleCard>
+      </TitleCard >
 
       <ToastContainer />
-    </div>
+    </div >
   );
 }
 export default Requests;
