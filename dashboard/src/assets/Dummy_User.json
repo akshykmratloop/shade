@@ -1,11 +1,11 @@
 [
   {
-    "Resources": 1,
-    "Editor": "Val",
-    "Status": "Green",
+    "resource": 1,
+    "editor": "Val",
+    "status": "Green",
     "publisher": "OpenSource Inc.",
-    "dateTime": "2025-04-18T10:00:00Z",
-    "varifier": [
+    "datetime": "2025-04-18T10:00:00Z",
+    "verifier": [
       { "stage": 1, "name": "Admin" },
       { "stage": 2, "name": "Editor" },
       { "stage": 3, "name": "User" },
@@ -15,12 +15,12 @@
     "stage": "Green"
   },
   {
-    "Resources": 2,
-    "Editor": "Rina",
-    "Status": "Red",
+    "resource": 2,
+    "editor": "Rina",
+    "status": "Red",
     "publisher": "TechVerse",
-    "dateTime": "2025-04-18T10:05:00Z",
-    "varifier": [
+    "datetime": "2025-04-18T10:05:00Z",
+    "verifier": [
       { "stage": 1, "name": "Admin" },
       { "stage": 2, "name": "Editor" },
       { "stage": 3, "name": "User" },
@@ -30,12 +30,12 @@
     "stage": "Red"
   },
   {
-    "Resources": 3,
-    "Editor": "Leo",
-    "Status": "Blue",
+    "resource": 3,
+    "editor": "Leo",
+    "status": "Blue",
     "publisher": "Codex Group",
-    "dateTime": "2025-04-18T10:10:00Z",
-    "varifier": [
+    "datetime": "2025-04-18T10:10:00Z",
+    "verifier": [
       { "stage": 1, "name": "Admin" },
       { "stage": 2, "name": "Editor" },
       { "stage": 3, "name": "User" },
@@ -45,12 +45,12 @@
     "stage": "Blue"
   },
   {
-    "Resources": 4,
-    "Editor": "Mira",
-    "Status": "Green",
+    "resource": 4,
+    "editor": "Mira",
+    "status": "Green",
     "publisher": "DataTree",
-    "dateTime": "2025-04-18T10:15:00Z",
-    "varifier": [
+    "datetime": "2025-04-18T10:15:00Z",
+    "verifier": [
       { "stage": 1, "name": "Admin" },
       { "stage": 2, "name": "Editor" },
       { "stage": 3, "name": "User" },
@@ -60,12 +60,12 @@
     "stage": "Green"
   },
   {
-    "Resources": 5,
-    "Editor": "Jules",
-    "Status": "Red",
+    "resource": 5,
+    "editor": "Jules",
+    "status": "Red",
     "publisher": "CodeMint",
-    "dateTime": "2025-04-18T10:20:00Z",
-    "varifier": [
+    "datetime": "2025-04-18T10:20:00Z",
+    "verifier": [
       { "stage": 1, "name": "Admin" },
       { "stage": 2, "name": "Editor" },
       { "stage": 3, "name": "User" },
@@ -75,12 +75,12 @@
     "stage": "Red"
   },
   {
-    "Resources": 6,
-    "Editor": "Anya",
-    "Status": "Blue",
+    "resource": 6,
+    "editor": "Anya",
+    "status": "Blue",
     "publisher": "PixelSoft",
-    "dateTime": "2025-04-18T10:25:00Z",
-    "varifier": [
+    "datetime": "2025-04-18T10:25:00Z",
+    "verifier": [
       { "stage": 1, "name": "Admin" },
       { "stage": 2, "name": "Editor" },
       { "stage": 3, "name": "User" },
@@ -90,12 +90,12 @@
     "stage": "Blue"
   },
   {
-    "Resources": 7,
-    "Editor": "Nico",
-    "Status": "Green",
+    "resource": 7,
+    "editor": "Nico",
+    "status": "Green",
     "publisher": "DevEdge",
-    "dateTime": "2025-04-18T10:30:00Z",
-    "varifier": [
+    "datetime": "2025-04-18T10:30:00Z",
+    "verifier": [
       { "stage": 1, "name": "Admin" },
       { "stage": 2, "name": "Editor" },
       { "stage": 3, "name": "User" },
@@ -105,12 +105,12 @@
     "stage": "Green"
   },
   {
-    "Resources": 8,
-    "Editor": "Kai",
-    "Status": "Blue",
+    "resource": 8,
+    "editor": "Kai",
+    "status": "Blue",
     "publisher": "ByteBound",
-    "dateTime": "2025-04-18T10:35:00Z",
-    "varifier": [
+    "datetime": "2025-04-18T10:35:00Z",
+    "verifier": [
       { "stage": 1, "name": "Admin" },
       { "stage": 2, "name": "Editor" },
       { "stage": 3, "name": "User" },
@@ -120,12 +120,12 @@
     "stage": "Blue"
   },
   {
-    "Resources": 9,
-    "Editor": "Sana",
-    "Status": "Red",
+    "resource": 9,
+    "editor": "Sana",
+    "status": "Red",
     "publisher": "NextEra",
-    "dateTime": "2025-04-18T10:40:00Z",
-    "varifier": [
+    "datetime": "2025-04-18T10:40:00Z",
+    "verifier": [
       { "stage": 1, "name": "Admin" },
       { "stage": 2, "name": "Editor" },
       { "stage": 3, "name": "User" },
@@ -135,12 +135,12 @@
     "stage": "Red"
   },
   {
-    "Resources": 10,
-    "Editor": "Zane",
-    "Status": "Green",
+    "resource": 10,
+    "editor": "Zane",
+    "status": "Green",
     "publisher": "VisionWorks",
-    "dateTime": "2025-04-18T10:45:00Z",
-    "varifier": [
+    "datetime": "2025-04-18T10:45:00Z",
+    "verifier": [
       { "stage": 1, "name": "Admin" },
       { "stage": 2, "name": "Editor" },
       { "stage": 3, "name": "User" },

@@ -30,3 +30,6 @@ let array = [
 //   });
 
 // console.log(hasMatch); // true
+
+
+console.log( "MANAGEMENT" === "USER_MANAGEMENT".slice(-10))

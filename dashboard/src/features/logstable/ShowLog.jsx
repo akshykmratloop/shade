@@ -5,7 +5,6 @@ import formatTimestamp from "../../app/TimeFormat";
 import { getRoleById } from "../../app/fetch";
 import capitalizeWords from "../../app/capitalizeword";
 import SkeletonLoader from "../../components/Loader/SkeletonLoader";
-import DummyData from "../../assets/Dummy_User.json"
 
 
 function ShowLogs({ log, show, onClose }) {

@@ -18,6 +18,8 @@ import { LuImport } from "react-icons/lu";
 import capitalizeWords, { TruncateText } from "../../app/capitalizeword";
 import Paginations from "../Component/Paginations";
 import formatTimestamp from "../../app/TimeFormat";
+import DummyData from "../../assets/Dummy_User.json"
+import { useSelector } from "react-redux";
 // import userIcon from "../../assets/user.png"
 
 const TopSideButtons = ({
@@ -95,7 +97,7 @@ const TopSideButtons = ({
   );
 };
 function Requests() {
-  const [Requests, setLogs] = useState([]);
+  const [requests, setRequests] = useState([]);
   const [originalRequests, setOriginalsRequests] = useState([]);
   const [showAddForm, setShowAddForm] = useState(false);
   const [changesInRequests, setChangesInRequests] = useState(false);
@@ -103,41 +105,44 @@ function Requests() {
   const [showDetailsModal, setShowDetailsModal] = useState(false);
   const [enabled, setEnabled] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const logsPerPage = 5;
+  const user = useSelector(state => state.user.user)
+  const requestsPerPage = 5;
 
   const removeFilter = () => {
-    setLogs([...originalRequests]);
+    setRequests([...originalRequests]);
   };
   const applyFilter = (outcome) => {
     console.log(outcome);
     const filteredRoles = originalRequests?.filter(
       (log) => log.outcome === outcome
     );
-    setLogs(filteredRoles);
+    setRequests(filteredRoles);
   };
   const applySearch = (value) => {
     const filteredRoles = originalRequests?.filter((log) =>
       log?.action_performed.toLowerCase().includes(value.toLowerCase())
     );
     setCurrentPage(1)
-    setLogs(filteredRoles);
+    setRequests(filteredRoles);
   };
 
+  const isEditor = (!user?.permissions?.includes("EDIT") || user?.permissions?.some(element => element.slice(-10) === "MANAGEMENT"))
+
   // Pagination logic
-  const indexOfLastUser = currentPage * logsPerPage;
-  const indexOfFirstUser = indexOfLastUser - logsPerPage;
-  const currentLogs = Array.isArray(Requests)
-    ? Requests?.slice(indexOfFirstUser, indexOfLastUser)
+  const indexOfLastUser = currentPage * requestsPerPage;
+  const indexOfFirstUser = indexOfLastUser - requestsPerPage;
+  const currentRequests = Array.isArray(requests)
+    ? requests?.slice(indexOfFirstUser, indexOfLastUser)
     : [];
-  const totalPages = Math.ceil(Requests?.length / logsPerPage);
+  const totalPages = Math.ceil(requests?.length / requestsPerPage);
 
   useEffect(() => {
-    async function fetchRoleData() {
+    async function fetchRequestsData() {
       // const response = await userLogs();
-      // setLogs(response);
+      setRequests(DummyData);
       // setOriginalLogs(response ?? []); // Store the original unfiltered data
     }
-    fetchRoleData();
+    fetchRequestsData();
   }, [changesInRequests]);
   return (
     <div className="relative min-h-full">
@@ -170,9 +175,11 @@ function Requests() {
                   <th className="text-[#42526D] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[20px] py-[13px] !capitalize">
                     Status
                   </th>
-                  <th className="text-[#42526D] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[20px] py-[13px] !capitalize">
-                    Editor
-                  </th>
+                  {
+                    isEditor &&
+                    <th className="text-[#42526D] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[20px] py-[13px] !capitalize">
+                      Editor
+                    </th>}
                   {/* <th className="text-[#42526D] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[20px] py-[13px] !capitalize">Performed Over</th> */}
                   <th className="text-[#42526D] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[20px] py-[13px] !capitalize">
                     Verifier
@@ -189,8 +196,9 @@ function Requests() {
                 </tr>
               </thead>
               <tbody className="">
-                {Array.isArray(Requests) && currentLogs.length > 0 ? (
-                  currentLogs?.map((log, index) => {
+                {Array.isArray(requests) && currentRequests.length > 0 ? (
+                  currentRequests?.map((request, index) => {
+                    console.log(request)
                     return (
                       <tr
                         key={index}
@@ -200,37 +208,51 @@ function Requests() {
                         <td
                           className={`font-poppins h-[65px] truncate font-normal text-[14px] leading-normal text-[#101828] p-[26px] pl-5 flex`}
                         >
-                          <div className="flex flex-col">
+                          <div className="flex flex-col ">
                             <p className="dark:text-[white]">
-                              {/* Resource */}
+                              {request.resource}
                             </p>
                           </div>
                         </td>
 
-                        <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]">
-                          <span className="">{log?.actionType || "N/A"}</span>
-                        </td>
+
                         <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]">
                           <span className="">
                             <p
-                              className={`w-[85px] mx-auto before:content-['•'] before:text-2xl flex h-7 items-center text-[12px] justify-center gap-1 px-1 py-0 font-[500] 
-                                ${log?.outcome === "Success" ?
-                                  "text-green-600 bg-green-100 before:text-green-600 px-1"
-                                  : log?.outcome === "Failed"
-                                    ? "text-red-600 bg-red-100 before:text-red-600"
-                                    : "text-stone-600 bg-stone-100 before:text-stone-600"
+                              className={` mx-auto before:content-['•'] before:text-2xl flex h-7 items-center text-[12px] justify-center gap-1 px-3 py-0 font-[500] 
+                                ${request?.status === "Green" ?
+                                  "text-green-600 bg-green-200 before:text-green-600 px-1"
+                                  : request?.status === "Red"
+                                    ? "text-red-600 bg-red-200 before:text-red-600"
+                                    : "text-stone-600 bg-blue-200 before:text-blue-600"
                                 } rounded-2xl`}
                               style={{ textTransform: "capitalize" }}
                             >
-                              {/* status */}
+                              {/* {request.status} */}
                             </p>
                           </span>
                         </td>
+                        {
+                          isEditor &&
+                          <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]">
+                            {request.editor}
+                          </td>}
                         <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]">
-                          {/* Editor */}
-                        </td>
-                        <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]">
-                          {/* verifier */}
+                          {request.verifier.length > 1 ?
+                            <button
+                              onClick={() => {
+                                setSelectedRequests(request);
+                                setShowDetailsModal(true);
+                              }}
+                            >
+                              <span className="flex items-center gap-1 rounded-md text-[#101828]">
+                                <FiEye
+                                  className="w-5 h-6  text-[#3b4152] dark:text-stone-200"
+                                  strokeWidth={1}
+                                />
+                              </span>
+                            </button>
+                            : "Multiple"}
                         </td>
                         <td
                           className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]"
@@ -238,17 +260,17 @@ function Requests() {
                         >
                           <span className="">
 
-                            {/*  Publisher */}
+                            {request.publisher}
                           </span>
                         </td>
                         <td className="font-poppins font-light text-[12px] leading-normal text-[#101828] px-[16px] py-[10px] dark:text-[white]">
-                          {/* {formatTimestamp(log?.timestamp) || "N/A"}  --- date time */}
+                          {formatTimestamp(request?.datetime) || "N/A"}
                         </td>
                         <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[8px] dark:text-[white]">
                           <div className="w-fit mx-auto flex gap-[15px] justify-center border border border-[1px] border-[#E6E7EC] dark:border-stone-400 rounded-[8px] p-[13.6px] py-[10px]">
                             <button
                               onClick={() => {
-                                setSelectedRequests(log);
+                                setSelectedRequests(request);
                                 setShowDetailsModal(true);
                               }}
                             >
@@ -276,7 +298,7 @@ function Requests() {
           </div>
           {/* Pagination Controls */}
           <Paginations
-            data={Requests}
+            data={requests}
             currentPage={currentPage}
             setCurrentPage={setCurrentPage}
             totalPages={totalPages}
