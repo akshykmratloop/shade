@@ -8,6 +8,7 @@ const Page404 = lazy(() => import('../pages/protected/404'))
 const Blank = lazy(() => import('../pages/protected/Blank'))
 const Users = lazy(() => import('../pages/protected/Users'))
 const Resource = lazy(() => import('../pages/protected/Resources'))
+const Requests = lazy(() => import('../pages/protected/Requests'))
 const Integration = lazy(() => import('../pages/protected/Integration'))
 const Calendar = lazy(() => import('../pages/protected/Calendar'))
 const Team = lazy(() => import('../pages/protected/Team'))
@@ -33,6 +34,10 @@ const routes = [
   {
     path: '/resources',
     component: Resource,
+  },
+  {
+    path: '/requests',
+    component: Requests,
   },
   {
     path: '/settings-team',

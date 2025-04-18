@@ -1,299 +1,152 @@
 [
-    {
-      "id": 1,
-      "name": "Val",
-      "phone": "787956471325",
-      "email": "vexley0@canalblog.com",
-      "image": "",
-      "roles": [
-        {"id": 1, "name": "Admin"},
-        {"id": 2, "name": "Editor"},
-        {"id": 3, "name": "User"},
-        {"id": 4, "name": "Manager"},
-        {"id": 5, "name": "Viewer"}
-      ],
-      "createdAt": "2024-03-12T12:00:00Z",
-      "updatedAt": "2024-03-12T12:00:00Z",
-      "status": "ACTIVE"
-    },
-    {
-      "id": 2,
-      "name": "Flemming",
-      "phone": "787956471325",
-      "email": "fsimm1@amazon.co.uk",
-      "image": "",
-      "roles": [
-        {"id": 1, "name": "User"}
-      ],
-      "createdAt": "2024-03-12T12:00:00Z",
-      "updatedAt": "2024-03-12T12:00:00Z",
-      "status": "ACTIVE"
-    },
-    {
-      "id": 3,
-      "name": "Delmer",
-      "phone": "787956471325",
-      "email": "dlacroce2@hexun.com",
-      "image": "",
-      "roles": [
-        {"id": 1, "name": "Admin"},
-        {"id": 2, "name": "Editor"},
-        {"id": 3, "name": "User"},
-        {"id": 4, "name": "Manager"},
-        {"id": 5, "name": "Viewer"}
-      ],
-      "createdAt": "2024-03-12T12:00:00Z",
-      "updatedAt": "2024-03-12T12:00:00Z",
-      "status": "ACTIVE"
-    },
-    {
-      "id": 4,
-      "name": "Sharity",
-      "phone": "787956471325",
-      "email": "sweatherall3@fastcompany.com",
-      "image": "",
-      "roles": [
-        {"id": 1, "name": "Admin"},
-        {"id": 2, "name": "Editor"},
-        {"id": 3, "name": "User"}
-      ],
-      "createdAt": "2024-03-12T12:00:00Z",
-      "updatedAt": "2024-03-12T12:00:00Z",
-      "status": "ACTIVE"
-    },
-    {
-      "id": 5,
-      "name": "Yard",
-      "phone": "787956471325",
-      "email": "ymanvelle4@npr.org",
-      "image": "",
-      "roles": [
-        {"id": 1, "name": "Admin"},
-        {"id": 2, "name": "Editor"},
-        {"id": 3, "name": "User"},
-        {"id": 4, "name": "Manager"}
-      ],
-      "createdAt": "2024-03-12T12:00:00Z",
-      "updatedAt": "2024-03-12T12:00:00Z",
-      "status": "ACTIVE"
-    },
-    {
-      "id": 6,
-      "name": "Hasty",
-      "phone": "787956471325",
-      "email": "hgreenset5@hhs.gov",
-      "image": "",
-      "roles": [
-        {"id": 1, "name": "Admin"},
-        {"id": 2, "name": "Editor"},
-        {"id": 3, "name": "User"},
-        {"id": 4, "name": "Manager"},
-        {"id": 5, "name": "Viewer"}
-      ],
-      "createdAt": "2024-03-12T12:00:00Z",
-      "updatedAt": "2024-03-12T12:00:00Z",
-      "status": "ACTIVE"
-    },
-    {
-      "id": 7,
-      "name": "Barbara-anne",
-      "phone": "787956471325",
-      "email": "bzywicki6@mapy.cz",
-      "image": "",
-      "roles": [
-        {"id": 1, "name": "Admin"},
-        {"id": 2, "name": "Editor"},
-        {"id": 3, "name": "User"},
-        {"id": 4, "name": "Manager"}
-      ],
-      "createdAt": "2024-03-12T12:00:00Z",
-      "updatedAt": "2024-03-12T12:00:00Z",
-      "status": "INACTIVE"
-    },
-    {
-      "id": 8,
-      "name": "Debby",
-      "phone": "Speke",
-      "email": "dspeke7@theatlantic.com",
-      "image": "",
-      "roles": [
-        {"id": 1, "name": "User"}
-      ],
-      "createdAt": "2024-03-12T12:00:00Z",
-      "updatedAt": "2024-03-12T12:00:00Z",
-      "status": "ACTIVE"
-    },
-    {
-      "id": 9,
-      "name": "Neel",
-      "phone": "787956471325",
-      "email": "ncurrall8@hp.com",
-      "image": "",
-      "roles": [
-        {"id": 1, "name": "Admin"},
-        {"id": 2, "name": "Editor"},
-        {"id": 3, "name": "User"}
-      ],
-      "createdAt": "2024-03-12T12:00:00Z",
-      "updatedAt": "2024-03-12T12:00:00Z",
-      "status": "ACTIVE"
-    },
-    {
-      "id": 10,
-      "name": "Jolee",
-      "phone": "787956471325",
-      "email": "jgissing9@studiopress.com",
-      "image": "",
-      "roles": [
-        {"id": 1, "name": "Admin"},
-        {"id": 2, "name": "Editor"},
-        {"id": 3, "name": "User"},
-        {"id": 4, "name": "Manager"},
-        {"id": 5, "name": "Viewer"}
-      ],
-      "createdAt": "2024-03-12T12:00:00Z",
-      "updatedAt": "2024-03-12T12:00:00Z",
-      "status": "ACTIVE"
-    },
-    {
-      "id": 11,
-      "name": "Gavin",
-      "phone": "925874563210",
-      "email": "gavin11@example.com",
-      "image": "",
-      "roles": [
-        {"id": 1, "name": "User"}
-      ],
-      "createdAt": "2024-03-13T10:15:00Z",
-      "updatedAt": "2024-03-13T10:15:00Z",
-      "status": "ACTIVE"
-    },
-    {
-      "id": 12,
-      "name": "Isla",
-      "phone": "834756981234",
-      "email": "isla12@example.com",
-      "image": "",
-      "roles": [
-        {"id": 1, "name": "Admin"},
-        {"id": 2, "name": "Editor"}
-      ],
-      "createdAt": "2024-03-13T11:30:00Z",
-      "updatedAt": "2024-03-13T11:30:00Z",
-      "status": "ACTIVE"
-    },
-    {
-      "id": 13,
-      "name": "Oscar",
-      "phone": "734896521478",
-      "email": "oscar13@example.com",
-      "image": "",
-      "roles": [
-        {"id": 1, "name": "User"},
-        {"id": 2, "name": "Viewer"}
-      ],
-      "createdAt": "2024-03-14T08:45:00Z",
-      "updatedAt": "2024-03-14T08:45:00Z",
-      "status": "INACTIVE"
-    },
-    {
-      "id": 14,
-      "name": "Sophia",
-      "phone": "967854213689",
-      "email": "sophia14@example.com",
-      "image": "",
-      "roles": [
-        {"id": 1, "name": "Admin"},
-        {"id": 2, "name": "Manager"},
-        {"id": 3, "name": "User"}
-      ],
-      "createdAt": "2024-03-14T09:10:00Z",
-      "updatedAt": "2024-03-14T09:10:00Z",
-      "status": "ACTIVE"
-    },
-    {
-      "id": 15,
-      "name": "Leo",
-      "phone": "859746312587",
-      "email": "leo15@example.com",
-      "image": "",
-      "roles": [
-        {"id": 1, "name": "Editor"}
-      ],
-      "createdAt": "2024-03-14T10:20:00Z",
-      "updatedAt": "2024-03-14T10:20:00Z",
-      "status": "ACTIVE"
-    },
-    {
-      "id": 16,
-      "name": "Ava",
-      "phone": "798456321987",
-      "email": "ava16@example.com",
-      "image": "",
-      "roles": [
-        {"id": 1, "name": "Admin"},
-        {"id": 2, "name": "User"}
-      ],
-      "createdAt": "2024-03-14T12:00:00Z",
-      "updatedAt": "2024-03-14T12:00:00Z",
-      "status": "INACTIVE"
-    },
-    {
-      "id": 17,
-      "name": "Mason",
-      "phone": "854796321478",
-      "email": "mason17@example.com",
-      "image": "",
-      "roles": [
-        {"id": 1, "name": "Manager"}
-      ],
-      "createdAt": "2024-03-14T13:25:00Z",
-      "updatedAt": "2024-03-14T13:25:00Z",
-      "status": "ACTIVE"
-    },
-    {
-      "id": 18,
-      "name": "Emma",
-      "phone": "978645312487",
-      "email": "emma18@example.com",
-      "image": "",
-      "roles": [
-        {"id": 1, "name": "User"},
-        {"id": 2, "name": "Viewer"},
-        {"id": 3, "name": "Admin"}
-      ],
-      "createdAt": "2024-03-14T14:40:00Z",
-      "updatedAt": "2024-03-14T14:40:00Z",
-      "status": "ACTIVE"
-    },
-    {
-      "id": 19,
-      "name": "Lucas",
-      "phone": "915874632158",
-      "email": "lucas19@example.com",
-      "image": "",
-      "roles": [
-        {"id": 1, "name": "Editor"},
-        {"id": 2, "name": "Manager"}
-      ],
-      "createdAt": "2024-03-14T15:50:00Z",
-      "updatedAt": "2024-03-14T15:50:00Z",
-      "status": "INACTIVE"
-    },
-    {
-      "id": 20,
-      "name": "Mia",
-      "phone": "784521639874",
-      "email": "mia20@example.com",
-      "image": "",
-      "roles": [
-        {"id": 1, "name": "User"},
-        {"id": 2, "name": "Admin"},
-        {"id": 3, "name": "Editor"}
-      ],
-      "createdAt": "2024-03-14T16:30:00Z",
-      "updatedAt": "2024-03-14T16:30:00Z",
-      "status": "ACTIVE"
-    }
-  ]
-  
+  {
+    "Resources": 1,
+    "Editor": "Val",
+    "Status": "Green",
+    "publisher": "OpenSource Inc.",
+    "dateTime": "2025-04-18T10:00:00Z",
+    "varifier": [
+      { "stage": 1, "name": "Admin" },
+      { "stage": 2, "name": "Editor" },
+      { "stage": 3, "name": "User" },
+      { "stage": 4, "name": "Manager" },
+      { "stage": 5, "name": "Viewer" }
+    ],
+    "stage": "Green"
+  },
+  {
+    "Resources": 2,
+    "Editor": "Rina",
+    "Status": "Red",
+    "publisher": "TechVerse",
+    "dateTime": "2025-04-18T10:05:00Z",
+    "varifier": [
+      { "stage": 1, "name": "Admin" },
+      { "stage": 2, "name": "Editor" },
+      { "stage": 3, "name": "User" },
+      { "stage": 4, "name": "Manager" },
+      { "stage": 5, "name": "Viewer" }
+    ],
+    "stage": "Red"
+  },
+  {
+    "Resources": 3,
+    "Editor": "Leo",
+    "Status": "Blue",
+    "publisher": "Codex Group",
+    "dateTime": "2025-04-18T10:10:00Z",
+    "varifier": [
+      { "stage": 1, "name": "Admin" },
+      { "stage": 2, "name": "Editor" },
+      { "stage": 3, "name": "User" },
+      { "stage": 4, "name": "Manager" },
+      { "stage": 5, "name": "Viewer" }
+    ],
+    "stage": "Blue"
+  },
+  {
+    "Resources": 4,
+    "Editor": "Mira",
+    "Status": "Green",
+    "publisher": "DataTree",
+    "dateTime": "2025-04-18T10:15:00Z",
+    "varifier": [
+      { "stage": 1, "name": "Admin" },
+      { "stage": 2, "name": "Editor" },
+      { "stage": 3, "name": "User" },
+      { "stage": 4, "name": "Manager" },
+      { "stage": 5, "name": "Viewer" }
+    ],
+    "stage": "Green"
+  },
+  {
+    "Resources": 5,
+    "Editor": "Jules",
+    "Status": "Red",
+    "publisher": "CodeMint",
+    "dateTime": "2025-04-18T10:20:00Z",
+    "varifier": [
+      { "stage": 1, "name": "Admin" },
+      { "stage": 2, "name": "Editor" },
+      { "stage": 3, "name": "User" },
+      { "stage": 4, "name": "Manager" },
+      { "stage": 5, "name": "Viewer" }
+    ],
+    "stage": "Red"
+  },
+  {
+    "Resources": 6,
+    "Editor": "Anya",
+    "Status": "Blue",
+    "publisher": "PixelSoft",
+    "dateTime": "2025-04-18T10:25:00Z",
+    "varifier": [
+      { "stage": 1, "name": "Admin" },
+      { "stage": 2, "name": "Editor" },
+      { "stage": 3, "name": "User" },
+      { "stage": 4, "name": "Manager" },
+      { "stage": 5, "name": "Viewer" }
+    ],
+    "stage": "Blue"
+  },
+  {
+    "Resources": 7,
+    "Editor": "Nico",
+    "Status": "Green",
+    "publisher": "DevEdge",
+    "dateTime": "2025-04-18T10:30:00Z",
+    "varifier": [
+      { "stage": 1, "name": "Admin" },
+      { "stage": 2, "name": "Editor" },
+      { "stage": 3, "name": "User" },
+      { "stage": 4, "name": "Manager" },
+      { "stage": 5, "name": "Viewer" }
+    ],
+    "stage": "Green"
+  },
+  {
+    "Resources": 8,
+    "Editor": "Kai",
+    "Status": "Blue",
+    "publisher": "ByteBound",
+    "dateTime": "2025-04-18T10:35:00Z",
+    "varifier": [
+      { "stage": 1, "name": "Admin" },
+      { "stage": 2, "name": "Editor" },
+      { "stage": 3, "name": "User" },
+      { "stage": 4, "name": "Manager" },
+      { "stage": 5, "name": "Viewer" }
+    ],
+    "stage": "Blue"
+  },
+  {
+    "Resources": 9,
+    "Editor": "Sana",
+    "Status": "Red",
+    "publisher": "NextEra",
+    "dateTime": "2025-04-18T10:40:00Z",
+    "varifier": [
+      { "stage": 1, "name": "Admin" },
+      { "stage": 2, "name": "Editor" },
+      { "stage": 3, "name": "User" },
+      { "stage": 4, "name": "Manager" },
+      { "stage": 5, "name": "Viewer" }
+    ],
+    "stage": "Red"
+  },
+  {
+    "Resources": 10,
+    "Editor": "Zane",
+    "Status": "Green",
+    "publisher": "VisionWorks",
+    "dateTime": "2025-04-18T10:45:00Z",
+    "varifier": [
+      { "stage": 1, "name": "Admin" },
+      { "stage": 2, "name": "Editor" },
+      { "stage": 3, "name": "User" },
+      { "stage": 4, "name": "Manager" },
+      { "stage": 5, "name": "Viewer" }
+    ],
+    "stage": "Green"
+  }
+]
