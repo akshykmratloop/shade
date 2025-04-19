@@ -1,3 +1,4 @@
+
 let mainArray = [
     "PAGE_MANAGEMENT",
     "SERVICE_MANAGEMENT",
@@ -20,7 +21,6 @@ let array = [
 ]
 
 // let hasMatch = checkArray.some(item => mainArray.includes(item));
-
 // let isMatch = array.some(item => {
 //     if (Array.isArray(item)) {
 //       return item.some(subItem => mainArray.includes(subItem));
@@ -28,8 +28,5 @@ let array = [
 //       return mainArray.includes(item);
 //     }
 //   });
-
 // console.log(hasMatch); // true
-
-
-console.log( "MANAGEMENT" === "USER_MANAGEMENT".slice(-10))
+// console.log( "MANAGEMENT" === "USER_MANAGEMENT".slice(-10))

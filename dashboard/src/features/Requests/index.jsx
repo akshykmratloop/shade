@@ -19,6 +19,7 @@ import { LuImport } from "react-icons/lu";
 import capitalizeWords from "../../app/capitalizeword";
 import Paginations from "../Component/Paginations";
 import formatTimestamp from "../../app/TimeFormat";
+import { useSelector } from "react-redux";
 
 // import userIcon from "../../assets/user.png"
 
@@ -93,7 +94,8 @@ const TopSideButtons = ({
     </div>
   );
 };
-function Roles() {
+
+function Requests() {
   const [requests, setRequests] = useState([]);
   const [originalRequests, setOriginalRequests] = useState([]);
   const [showAddForm, setShowAddForm] = useState(false);
@@ -103,16 +105,21 @@ function Roles() {
   const [enabled, setEnabled] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const requestsPerPage = 5;
+  const user = useSelector(state => state.user.user);
+  const userPermissionsSet = new Set(["EDIT", "VERIFY", "PUBLISH"]) // SET FOR EACH USER LOGIC
 
+  // REMOVE FILTER
   const removeFilter = () => {
     setRequests([...originalRequests]);
   };
+  // APPLY FILTER
   const applyFilter = (status) => {
     const filteredRequests = originalRequests?.filter(
       (request) => request.status === status
     );
     setRequests(filteredRequests);
   };
+  // APPLY SEARCH
   const applySearch = (value) => {
     const filteredRequests = originalRequests?.filter((request) =>
       request?.name.toLowerCase().includes(value.toLowerCase())
@@ -121,43 +128,58 @@ function Roles() {
     setRequests(filteredRequests);
   };
 
-  const statusChange = async (request) => {
-    let loadingToastId = toast.loading("Proceeding..."); // starting the loading in toaster
-    let response;
-    if (request.status === "ACTIVE") response = await deactivateRole(request);
-    else response = await activateRole(request);
-    if (response.ok) {
-      updateToasify(
-        loadingToastId,
-        `Request successful. ${response.message}`,
-        "success",
-        2000
-      ); // updating the toaster
-      // toast.dismiss(loadingToastId) // to deactivate to running taost
-      // setTimeout(() => {
-      //   loadingToastId = undefined
-      // }, 2000)
-      setChangesInRequest((prev) => !prev);
-    } else {
-      updateToasify(
-        loadingToastId,
-        `Request failed. ${response.message}`,
-        "error",
-        2000
-      ); // updating the toaster
-      // setTimeout(() => {
-      //   loadingToastId = undefined
-      //   toast.dismiss(loadingToastId) // to deactivate to running taost
-      // }, 2000)
-    }
-    toast.dismiss(loadingToastId) // to deactivate to running taost
-  };
-
   // Pagination logic
   const indexOfLastUser = currentPage * requestsPerPage;
   const indexOfFirstUser = indexOfLastUser - requestsPerPage;
   const currentRequests = requests?.slice(indexOfFirstUser, indexOfLastUser);
   const totalPages = Math.ceil(requests?.length / requestsPerPage);
+
+  let allowAll = user?.permissions.some(e => e.slice(4) !== "USER" && e.slice(4) !== "ROLE" && e.slice(-10) === "MANAGEMENT");
+  let allowEditor = false;
+  let allowVerifier = false;
+  let allowPublisher = false;
+  let isToggle = false
+  let singleUserPermission = ""
+
+  let permissionsSet = new Set([...user?.permissions])
+  let userPermissionCount = 0;
+  // let eachPermissions = [...permissionsSet]
+  if (!allowAll) {
+    permissionsSet.forEach((e) => {
+      console.log(e)
+      if (userPermissionsSet.has(e)) {
+        userPermissionCount++
+        singleUserPermission = e
+      }
+    })
+    console.log(singleUserPermission)
+    switch (userPermissionCount) {
+      case 3:
+        allowAll = true
+        break;
+      case 2:
+        isToggle = true;
+        break;
+
+      case 1:
+        switch (singleUserPermission) {
+          case "PUBLISH":
+            allowEditor = true;
+            allowVerifier = true;
+            break;
+
+          case "VERIFY":
+            allowEditor = true;
+            allowPublisher = true;
+            break;
+
+          default:
+        }
+        break;
+
+      default:
+    }
+  }
 
   useEffect(() => {
     async function fetchRequestsData() {
@@ -167,6 +189,7 @@ function Roles() {
     }
     fetchRequestsData();
   }, [changesInRequest]);
+
   return (
     <div className="relative min-h-full">
       <TitleCard
@@ -192,15 +215,38 @@ function Roles() {
                   <th className="text-[#42526D] w-[211px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] !capitalize">
                     Status
                   </th>
-                  <th className="text-[#42526D] w-[154px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] !capitalize text-center">
-                    Editor
-                  </th>
-                  <th className="text-[#42526D] w-[221px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] text-center !capitalize">
-                    Verifier
-                  </th>
-                  <th className="text-[#42526D] w-[221px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] text-center !capitalize">
-                    Publisher
-                  </th>
+                  {
+                    (allowAll || allowEditor) &&
+                    <th className="text-[#42526D] w-[154px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] !capitalize text-center">
+                      Editor
+                    </th>
+                  }
+                  {
+                    (allowAll || allowVerifier) &&
+                    <th className="text-[#42526D] w-[221px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] text-center !capitalize">
+                      Verifier
+                    </th>
+                  }
+                  {
+                    (allowAll || allowPublisher) &&
+                    <th className="text-[#42526D] w-[221px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] text-center !capitalize">
+                      Publisher
+                    </th>
+                  }
+                  {
+                    isToggle &&
+                    <td>
+                      <label className={`relative inline-flex items-center cursor-pointer `} >
+                        <div className="w-[100px] h-8 bg-blue-200 rounded-[3px] relative flex gap-4 items-center p-1 px-0">
+                          <div
+                            className={`absolute left-[5px] top-1 h-6 w-11 bg-[#00b9f2] rounded-[3px] transition-transform duration-500 ${true ? "translate-x-[45px]" : ""}`}
+                          ></div>
+                          <span className={`absolute left-3 text-xs font-medium ${true ? "text-[#001A5882]" : "text-white"}`}>verifier</span>
+                          <span className={`absolute right-3 text-xs font-medium ${true ? "text-white" : "text-[#001A5882]"}`}>Publisher</span>
+                        </div>
+                      </label>
+                    </td>
+                  }
                   <th className="text-[#42526D] w-[221px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] text-center !capitalize">
                     Date Time
                   </th>
@@ -236,21 +282,45 @@ function Roles() {
                             {/* <span className="">{request?.status}</span> */}
                           </p>
                         </td>
-                        <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]" style={{ whiteSpace: "wrap" }}>
-                          <span className="">
-                            {request?.editor || "1"}
-                          </span>
-                        </td>
-                        <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]" style={{ whiteSpace: "wrap" }}>
-                          <span className="">
-                            {request?.verifier ? "multiple" : ""}
-                          </span>
-                        </td>
-                        <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]" style={{ whiteSpace: "wrap" }}>
-                          <span className="">
-                            {request?.publisher || "1"}
-                          </span>
-                        </td>
+                        {
+                          (allowAll || allowEditor) &&
+                          <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]" style={{ whiteSpace: "wrap" }}>
+                            <span className="">
+                              {request?.editor || "1"}
+                            </span>
+                          </td>
+                        }
+                        {
+                          (allowAll || allowVerifier) &&
+                          <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]" style={{ whiteSpace: "wrap" }}>
+                            <span className="">
+                              {request?.verifier ?
+                                <button
+                                  onClick={() => {
+                                    setSelectedRequest(request);
+                                    setShowDetailsModal(true);
+                                  }}
+                                >
+                                  <span className="flex items-center gap-1 rounded-md text-[#101828]">
+                                    <FiEye
+                                      className="w-5 h-6  text-[#3b4152] dark:text-stone-200"
+                                      strokeWidth={1}
+                                    />
+                                  </span>
+                                </button>
+                                : ""}
+                            </span>
+                          </td>
+                        }
+                        {
+                          (allowAll || allowPublisher) &&
+                          <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]" style={{ whiteSpace: "wrap" }}>
+                            <span className="">
+                              {request?.publisher || "1"}
+                            </span>
+                          </td>
+                        }
+
                         <td className="font-poppins font-light text-[12px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]">
                           {formatTimestamp(request?.datetime)}
                         </td>
@@ -281,7 +351,7 @@ function Roles() {
                                 strokeWidth={1}
                               />
                             </button>
-                            <div className="flex items-center space-x-4 ">
+                            {/* <div className="flex items-center space-x-4 ">
                               <Switch
                                 checked={request?.status === "ACTIVE"}
                                 onChange={() => {
@@ -299,7 +369,7 @@ function Roles() {
                                     } inline-block h-5 w-5 bg-white rounded-full shadow-2xl border border-gray-300 transition`}
                                 />
                               </Switch>
-                            </div>
+                            </div> */}
                           </div>
                         </td>
                       </tr>
@@ -327,4 +397,4 @@ function Roles() {
     </div>
   );
 }
-export default Roles;
+export default Requests;

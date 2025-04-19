@@ -1,6 +1,6 @@
 [
   {
-    "resource": 1,
+    "resource": "Header",
     "editor": "Val",
     "status": "Green",
     "publisher": "OpenSource Inc.",
@@ -15,7 +15,7 @@
     "stage": "Green"
   },
   {
-    "resource": 2,
+    "resource": "Home Page",
     "editor": "Rina",
     "status": "Red",
     "publisher": "TechVerse",
@@ -30,7 +30,7 @@
     "stage": "Red"
   },
   {
-    "resource": 3,
+    "resource": "Service",
     "editor": "Leo",
     "status": "Blue",
     "publisher": "Codex Group",
@@ -45,7 +45,7 @@
     "stage": "Blue"
   },
   {
-    "resource": 4,
+    "resource": "Project",
     "editor": "Mira",
     "status": "Green",
     "publisher": "DataTree",
@@ -60,7 +60,7 @@
     "stage": "Green"
   },
   {
-    "resource": 5,
+    "resource": "About",
     "editor": "Jules",
     "status": "Red",
     "publisher": "CodeMint",
@@ -75,7 +75,7 @@
     "stage": "Red"
   },
   {
-    "resource": 6,
+    "resource": "IT Services",
     "editor": "Anya",
     "status": "Blue",
     "publisher": "PixelSoft",
@@ -90,7 +90,7 @@
     "stage": "Blue"
   },
   {
-    "resource": 7,
+    "resource": "News And Blogs",
     "editor": "Nico",
     "status": "Green",
     "publisher": "DevEdge",
@@ -105,7 +105,7 @@
     "stage": "Green"
   },
   {
-    "resource": 8,
+    "resource": "Footer",
     "editor": "Kai",
     "status": "Blue",
     "publisher": "ByteBound",
@@ -120,7 +120,7 @@
     "stage": "Blue"
   },
   {
-    "resource": 9,
+    "resource": "Sub Service",
     "editor": "Sana",
     "status": "Red",
     "publisher": "NextEra",
@@ -135,7 +135,7 @@
     "stage": "Red"
   },
   {
-    "resource": 10,
+    "resource": "Markets",
     "editor": "Zane",
     "status": "Green",
     "publisher": "VisionWorks",
