@@ -1,5 +1,5 @@
 // libraries import
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import PlusIcon from '@heroicons/react/24/outline/PlusIcon';
 import { toast, ToastContainer } from "react-toastify";
 // self modules
@@ -95,6 +95,54 @@ const TopSideButtons = ({
   );
 };
 
+
+const ToggleSwitch = ({ options, switchToggles }) => {
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  const containerRef = useRef(null);
+  const [sliderStyle, setSliderStyle] = useState({});
+  const buttonRefs = useRef([]);
+
+  useEffect(() => {
+    if (buttonRefs.current[selectedIndex]) {
+      const button = buttonRefs.current[selectedIndex];
+      const { offsetLeft, offsetWidth } = button;
+      setSliderStyle({
+        left: offsetLeft,
+        width: offsetWidth,
+      });
+    }
+  }, [selectedIndex, options]);
+
+  return (
+    <div
+      ref={containerRef}
+      className="relative inline-flex bg-gray-300 p-1 rounded-md"
+    >
+      {/* Slider */}
+      <div
+        className="absolute top-1 bg-[#00b9f2] bottom-1 rounded-md shadow transition-all rounded duration-300 ease-in-out"
+        style={sliderStyle}
+      ></div>
+
+      {/* Options */}
+      {options.map((option, index) => (
+        <button
+          key={index}
+          ref={(el) => (buttonRefs.current[index] = el)}
+          onClick={() => { console.log(option); switchToggles(option); setSelectedIndex(index) }}
+          className={`relative z-10 px-4 py-1 text-sm font-medium transition-colors duration-200  ${selectedIndex === index
+            ? "text-white"
+            : "text-gray-500 hover:text-black"
+            }`}
+        >
+          {option}
+        </button>
+      ))}
+    </div>
+  );
+};
+
+
 function Requests() {
   const [requests, setRequests] = useState([]);
   const [originalRequests, setOriginalRequests] = useState([]);
@@ -143,16 +191,21 @@ function Requests() {
 
   let permissionsSet = new Set([...user?.permissions])
   let userPermissionCount = 0;
-  // let eachPermissions = [...permissionsSet]
+
+  const options = [
+    { permission: "EDIT", text: "Editor" },
+    { permission: "VERIFY", text: "Verifier" },
+    { permission: "PUBLISH", text: "Publisher" },
+    { permission: "MANAGEMENT", text: "Manager", }
+  ]
+
   if (!allowAll) {
     permissionsSet.forEach((e) => {
-      console.log(e)
       if (userPermissionsSet.has(e)) {
         userPermissionCount++
         singleUserPermission = e
       }
     })
-    console.log(singleUserPermission)
     switch (userPermissionCount) {
       case 3:
         allowAll = true
@@ -181,6 +234,39 @@ function Requests() {
     }
   }
 
+  const finalToggleOptions = options.map((option) => {
+    if (option === "MANAGEMENT" && allowAll) {
+      return option.text
+    } else if (option.permission !== "MANAGEMENT" && user?.permissions.includes(option.permission)) {
+      return option.text
+    }
+  }).filter(e => e)
+
+  const switchToggles = (option) => {
+    switch (option) {
+      case "Publisher":
+        console.log("from Publisher")
+        allowEditor = true;
+        allowVerifier = true;
+        allowPublisher = false;
+        break;
+
+      case "Verifier":
+        allowEditor = true;
+        allowVerifier = false;
+        allowPublisher = true;
+        break;
+
+      case "Editor":
+        allowEditor = false;
+        allowVerifier = false;
+        allowPublisher = false;
+        break;
+
+      default:
+    }
+  }
+
   useEffect(() => {
     async function fetchRequestsData() {
       // const response = await fetchRoles();
@@ -192,6 +278,15 @@ function Requests() {
 
   return (
     <div className="relative min-h-full">
+      <div className="absolute top-3 right-2 flex">
+        {
+          isToggle &&
+
+          <div className="flex justify-center items-center">
+            <ToggleSwitch options={finalToggleOptions} switchToggles={switchToggles} />
+          </div>
+        }
+      </div>
       <TitleCard
         title={"Requests"}
         topMargin="mt-2"
@@ -233,20 +328,7 @@ function Requests() {
                       Publisher
                     </th>
                   }
-                  {
-                    isToggle &&
-                    <td>
-                      <label className={`relative inline-flex items-center cursor-pointer `} >
-                        <div className="w-[100px] h-8 bg-blue-200 rounded-[3px] relative flex gap-4 items-center p-1 px-0">
-                          <div
-                            className={`absolute left-[5px] top-1 h-6 w-11 bg-[#00b9f2] rounded-[3px] transition-transform duration-500 ${true ? "translate-x-[45px]" : ""}`}
-                          ></div>
-                          <span className={`absolute left-3 text-xs font-medium ${true ? "text-[#001A5882]" : "text-white"}`}>verifier</span>
-                          <span className={`absolute right-3 text-xs font-medium ${true ? "text-white" : "text-[#001A5882]"}`}>Publisher</span>
-                        </div>
-                      </label>
-                    </td>
-                  }
+
                   <th className="text-[#42526D] w-[221px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] text-center !capitalize">
                     Date Time
                   </th>

@@ -30,3 +30,19 @@ let array = [
 //   });
 // console.log(hasMatch); // true
 // console.log( "MANAGEMENT" === "USER_MANAGEMENT".slice(-10))
+
+let testArray1 = ["PAGE_MANAGEMENT", "EDIT", "ROLES_MANAGEMENT", "USER_MANAGEMENT"]
+
+let testArray2 = [{ permission: "MANAGEMENT", text: "manager" }, { permission: "EDIT", text: "editor" }, { permission: "_MANAGEMENT", text: "Publisher" }]
+
+const finalArray = testArray2.map((e, i) => {
+    if (testArray1[i].slice(-10) === e.permission && testArray1[i].slice !== "ROLE") {
+        return e.text
+    } else if (testArray1[i] === e.permission) {
+        return e
+    } else {
+        return 0
+    }
+}).filter(e => e)
+
+console.log(finalArray)
