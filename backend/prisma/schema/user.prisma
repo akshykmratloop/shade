@@ -11,16 +11,21 @@ model User {
   phone       String  @default("")
 
   // relationship references
-  roles    UserRole[] // is a many-to-many relationship with Role, managed through UserRole
-  auditLog UserAuditLog[] // is a many-to-many relationship with Logs, managed through AuditLog
+  roles                  UserRole[] // is a many-to-many relationship with Role, managed through UserRole
+  auditLog               UserAuditLog[] // is a many-to-many relationship with Logs, managed through AuditLog
 
-  resourceManagers  ResourceManager[]
-  resourceEditor    ResourceEditor[]
-  resourceVerifier  ResourceVerifier[]
-  resourcePublisher ResourcePublisher[]
+  // Resource relations
+  lockedResourceVersions ResourceVersion[] @relation("UserToLockedResourceVersions")
+  resourceRoles          ResourceRole[]
+  resourceVersionRoles   ResourceVersionRole[]
+  resourceVerifiers      ResourceVerifier[]
+  resourceVersionVerifiers ResourceVersionVerifier[]
+  sentRequests           ResourceVersioningRequest[] @relation("sender")
+  approvals              RequestApproval[] @relation("approver")
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   @@index([email])
+  @@index([id])
 }

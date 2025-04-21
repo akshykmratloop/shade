@@ -1,0 +1,8 @@
+const ImageSourceGetter = (imageName) => {
+    // Correctly use require to dynamically import the image
+    const imageSrc = require(`./images/${imageName}.png`);
+
+    return (
+        <img src={imageSrc} alt={imageName} />
+    );
+} 

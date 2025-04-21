@@ -1,3 +1,30 @@
+# Stop all running containers
+docker stop $(docker ps -aq)
+
+# Remove all containers
+docker rm -f $(docker ps -aq)
+
+# Remove all images
+docker rmi -f $(docker images -q)
+
+# Remove all volumes
+docker volume rm -f $(docker volume ls -q)
+
+# Remove all build cache (Docker 17.06+)
+docker builder prune -af
+
+# Optionally remove unused networks
+docker network prune -f
+
+
+Single cmd : 
+docker stop $(docker ps -aq) && docker rm -f $(docker ps -aq) && docker rmi -f $(docker images -q) && docker volume rm -f $(docker volume ls -q) && docker builder prune -af && docker network prune -f
+
+
+
+
+
+
 - docker ps: To check all running services.
 - docker-compose up: To start the `docker-compose` file without building.
 - docker-compose up --build: To build and start all services defined in the `docker-compose` file.
@@ -11,7 +38,7 @@
 - docker-compose logs backend : To view logs of the `backend` service.
 - docker system prune -a: To remove all unused Docker images, containers, volumes, and networks.
 - docker exec -it <container_name> sh: To access a running container’s shell.
-
+- docker logs -f container name  : to see the log of any container
 
 
 MAIN COMMNANDS

@@ -2,7 +2,7 @@ services:
   postgres:
     image: postgres:latest
     container_name: postgres-service
-    restart: always
+    # restart: always
     env_file:
       - .env # Dynamically load the correct .env file
     ports:
