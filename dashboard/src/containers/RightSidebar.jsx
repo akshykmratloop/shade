@@ -10,6 +10,7 @@ import CalendarEventsBodyRightDrawer from "../features/calendar/CalendarEventsBo
 import {useEffect, useState} from "react";
 import {getNotificationsbyId, markAllNotificationAsRead} from "../app/fetch";
 import {setNotificationCount} from "../features/common/headerSlice";
+import useNotificationSocket from "../Socket/useNotificationSocket";
 
 function RightSidebar() {
   const [notificationData, setNotificationData] = useState([]);
@@ -56,6 +57,11 @@ function RightSidebar() {
       setLoading(false);
     }
   };
+
+  useNotificationSocket(extraObject.id, (data) => {
+    // Optionally push to redux or local state
+    setNotificationData((prev) => [data, ...prev]);
+  });
 
   return (
     <div

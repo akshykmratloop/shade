@@ -1,5 +1,3 @@
-// import {markNotificationAsRead} from "../features/common/headerSlice";
-
 const BASE_URL = "http://localhost:3000/";
 
 // console.log(process.env)
