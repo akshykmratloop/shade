@@ -88,11 +88,11 @@ const AllForOne = ({ language, screen, content, subPath, setLanguage, fullScreen
 
     return (
         <div className={`dark:text-[#2A303C] mt-0 ${fullScreen && screen > 900 ? "scale-[1.45] " + translateForFullScreen : ""} ${fullScreen ? "overflow-y-hidden" : "overflow-y-scroll"} customscroller transition-custom border-stone-200 border mx-auto w-full bankgothic-medium-dt bg-[white]`}
-            style={{ width: screen > 900 ? "100%" : screen, wordBreak: "break-word" }}
+            style={{ width: screen > 950 ? "100%" : screen, wordBreak: "break-word" }}
         >
             {
                 currentPath === "home" &&
-                <HomePage language={language} screen={screen} fullScreen={fullScreen} />
+                <HomePage language={language} screen={screen} fullScreen={fullScreen} currentContent={content.home} />
             }
             {
                 currentPath === "solution" &&

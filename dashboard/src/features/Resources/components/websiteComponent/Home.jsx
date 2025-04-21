@@ -30,12 +30,13 @@ import { TruncateText } from "../../../../app/capitalizeword";
 
 
 
-const HomePage = ({ language, screen, fullScreen }) => {
+const HomePage = ({ language, screen, fullScreen, currentContent }) => {
+    console.log(currentContent)
     const isComputer = screen > 900;
     const isTablet = screen < 900 && screen > 730;
     const isPhone = screen < 738;
     const dispatch = useDispatch();
-    const currentContent = useSelector((state) => state.homeContent.present.home)
+    // const currentContent = useSelector((state) => state.homeContent.present.home)
     const ImagesFromRedux = useSelector((state) => {
         return state.homeContent.present.images
     })
@@ -68,13 +69,13 @@ const HomePage = ({ language, screen, fullScreen }) => {
         }
     }, [language]);
 
-    useEffect(() => {
-        dispatch(updateContent({ currentPath: "home", payload: (content?.home) }))
-    }, [])
+    // useEffect(() => {
+    //     dispatch(updateContent({ currentPath: "home", payload: (content?.home) }))
+    // }, [])
     const testimonialPrevRef = useRef(null);
     const testimonialNextRef = useRef(null);
     return (
-        <div className={`w-full relative ${textAlignment} bankgothic-medium-dt bg-[white]`}   >
+        <div className={`w-full relative ${textAlignment} bankgothic-medium-dt bg-[white]`} >
             {/* banner */}
             <section className="w-full relative"
             >
@@ -140,7 +141,7 @@ const HomePage = ({ language, screen, fullScreen }) => {
                 </div>
             </section>
             {/* service section */}
-            <section className="py-10 bg-gray-100 ">
+            <section className="py-10 bg-gray-100 " style={{wordBreak:"normal"}}>
                 <div className="container mx-auto px-6">
                     <h2 className="text-center text-3xl font-light text-[#292E3D] mb-9">
                         {currentContent?.serviceSection?.title[language]}
@@ -154,7 +155,7 @@ const HomePage = ({ language, screen, fullScreen }) => {
                                     <div className="flex flex-col items-center gap-4">
                                         <img src={services?.[card.iconName]} width={40} height={40} alt="Icon" className="h-10 w-10" />
                                         <h5 className="relative text-lg font-light text-center">
-                                            {card.title[language]}
+                                            {card.title[language]} 
                                             <span className="block h-[2px] w-16 bg-gray-300 mt-2 mx-auto"></span>
                                         </h5>
                                     </div>
@@ -167,7 +168,7 @@ const HomePage = ({ language, screen, fullScreen }) => {
             <section className={`py-[115px]  ${isComputer ? "px-20 pb-60" : !isLeftAlign ? "px-8" : "px-10"}`} dir={isLeftAlign ? 'ltr' : "rtl"}>
                 <div
                     className={`container mx-auto flex ${isPhone ? "flex-col gap-[350px]" : "gap-10"} `}>
-                    <div className={`w-10 relative flex-1`}
+                    <div className={`w-[100%] flex-[3]`}
                     >
                         <div className={`relative ${isTablet ? (!isLeftAlign ? "left-[-70px]" : "left-[15px]") : isComputer && "left-[60px] scale-[1.2]"} ${!isLeftAlign && isPhone && "left-[-310px]"}`}>
                             {currentContent?.experienceSection?.cards?.map((item, key) => {
@@ -197,7 +198,7 @@ const HomePage = ({ language, screen, fullScreen }) => {
                             })}
                         </div>
                     </div>
-                    <div className={`max-w-[420px] ${isTablet ? !isLeftAlign ? "pr-[64px]" : "pl-[40px]" : "pl-[50px]"}  flex-1 `}>
+                    <div className={`max-w-[420px] ${isTablet ? !isLeftAlign ? "pr-[64px]" : "pl-[40px]" : "pl-[50px]"}  flex-[2] `}>
                         <h2 className="text-[#00B9F2] text-4xl font-bold leading-[50px] mb-6 ">
                             {currentContent?.experienceSection?.title[language]}
                         </h2>

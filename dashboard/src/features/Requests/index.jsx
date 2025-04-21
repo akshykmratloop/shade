@@ -21,6 +21,7 @@ import Paginations from "../Component/Paginations";
 import formatTimestamp from "../../app/TimeFormat";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import ShowDifference from "./Showdifference";
 
 // import userIcon from "../../assets/user.png"
 
@@ -481,7 +482,14 @@ function Requests() {
           />
         </div>
       </TitleCard>
-
+      {showDetailsModal &&
+        <ShowDifference
+          role={selectedRequest}
+          show={showDetailsModal}
+          updateRoles={setChangesInRequest}
+          onClose={() => { setSelectedRequest(false); setShowDetailsModal(false) }}
+        />
+      }
       <ToastContainer position="top-right" />
     </div>
   );
