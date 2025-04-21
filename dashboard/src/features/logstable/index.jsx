@@ -105,7 +105,7 @@ function Logs() {
   const [showDetailsModal, setShowDetailsModal] = useState(false);
   const [enabled, setEnabled] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const logsPerPage = 5;
+  const logsPerPage = 20;
 
   const removeFilter = () => {
     setLogs([...originalLogs]);

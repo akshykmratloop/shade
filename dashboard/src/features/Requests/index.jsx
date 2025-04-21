@@ -157,7 +157,7 @@ function Requests() {
   const [showDetailsModal, setShowDetailsModal] = useState(false);
   const [enabled, setEnabled] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const requestsPerPage = 5;
+  const requestsPerPage = 20;
   const user = useSelector(state => state.user.user);
   const userPermissionsSet = new Set(["EDIT", "VERIFY", "PUBLISH"]) // SET FOR EACH USER LOGIC
   const navigate = useNavigate()

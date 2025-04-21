@@ -101,7 +101,7 @@ function Roles() {
   const [showDetailsModal, setShowDetailsModal] = useState(false);
   const [enabled, setEnabled] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const rolesPerPage = 5;
+  const rolesPerPage = 20;
 
   const removeFilter = () => {
     setRoles([...originalRoles]);
