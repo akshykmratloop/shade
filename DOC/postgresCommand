@@ -171,3 +171,19 @@ psql -U postgres -d database_B  : to enter in the database
 \dt :  to show all the table
 
 
+
+
+
+EXMAPLE 
+docker ps
+docker exec -it postgres_container bash
+
+CMD 1 :
+pg_dump -U akshykmr -d shadeDB_dev -f /tmp/shadeDB_dev.dump
+
+CMD 2 :
+psql -U akshykmr -d shadeDB_test -f /tmp/shadeDB_dev.dump
+
+
+CLEAN THE DATA 
+rm /tmp/shadeDB_dev.dump

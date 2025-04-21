@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "This is the Content Management System (CMS) for Shade Corporation, designed to manage content on the Shade website. It features a role-based management system, user creation, and page content update capabilities. The system supports multiple roles, with a workflow that includes editing, verification, and publishing stages.",
   "scripts": {
-    "start": "react-scripts start",
+    "start": "cross-env PORT=3001 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
@@ -91,6 +91,7 @@
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.8",
     "autoprefixer": "^10.4.13",
+    "cross-env": "^7.0.3",
     "eslint": "^8",
     "eslint-config-next": "14.2.6",
     "postcss": "^8.4.19",
