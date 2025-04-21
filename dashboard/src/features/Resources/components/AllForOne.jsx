@@ -17,12 +17,12 @@ import ServiceDetails from "./websiteComponent/detailspages/ServiceDetails";
 import SubServiceDetails from "./websiteComponent/subDetailsPages/SubServiceDetails";
 
 const AllForOne = ({ language, screen, content, subPath, setLanguage, fullScreen, currentPath, deepPath }) => {
-    let translateForFullScreen = "translate-y-[950px]"
+    let translateForFullScreen = ""
 
     if (!subPath) {
         switch (currentPath) {
             case "home":
-                translateForFullScreen = "translate-y-[950px]"
+                translateForFullScreen = ""
                 break;
 
             case "solution":
@@ -87,7 +87,7 @@ const AllForOne = ({ language, screen, content, subPath, setLanguage, fullScreen
     }
 
     return (
-        <div className={`dark:text-[#2A303C] mt-0 ${fullScreen && screen > 900 ? "scale-[1.45] " + translateForFullScreen : ""} ${fullScreen ? "overflow-y-hidden" : "overflow-y-scroll"} customscroller transition-custom border-stone-200 border mx-auto w-full bankgothic-medium-dt bg-[white]`}
+        <div className={`dark:text-[#2A303C] mt-0 ${fullScreen && screen > 900 ? "" + translateForFullScreen : ""} ${fullScreen ? "overflow-y-hidden" : "overflow-y-scroll"} customscroller transition-custom border-stone-200 border mx-auto w-full bankgothic-medium-dt bg-[white]`}
             style={{ width: screen > 950 ? "100%" : screen, wordBreak: "break-word" }}
         >
             {

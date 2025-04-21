@@ -27,16 +27,15 @@ import "swiper/css";
 import "swiper/css/pagination";
 import blankImage from "../../../../assets/images/blankImage.webp";
 import { TruncateText } from "../../../../app/capitalizeword";
+import setFontSize from "../../../../app/fontSizes";
 
 
 
 const HomePage = ({ language, screen, fullScreen, currentContent }) => {
-    console.log(currentContent)
     const isComputer = screen > 900;
     const isTablet = screen < 900 && screen > 730;
     const isPhone = screen < 738;
     const dispatch = useDispatch();
-    // const currentContent = useSelector((state) => state.homeContent.present.home)
     const ImagesFromRedux = useSelector((state) => {
         return state.homeContent.present.images
     })
@@ -62,6 +61,28 @@ const HomePage = ({ language, screen, fullScreen, currentContent }) => {
     );
     const ProjectSlider = { ...recentProjects, ...markets, ...safety };
 
+    const divRef = useRef(null);
+    const [width, setWidth] = useState(0);
+
+    useEffect(() => {
+        const observer = new ResizeObserver(entries => {
+            for (let entry of entries) {
+                setWidth(entry.contentRect.width);
+            }
+        });
+
+        if (divRef.current) {
+            observer.observe(divRef.current);
+        }
+
+        return () => {
+            if (divRef.current) {
+                observer.unobserve(divRef.current);
+            }
+        };
+    }, []);
+
+
 
     useEffect(() => {
         if (swiperInstance) {
@@ -75,7 +96,7 @@ const HomePage = ({ language, screen, fullScreen, currentContent }) => {
     const testimonialPrevRef = useRef(null);
     const testimonialNextRef = useRef(null);
     return (
-        <div className={`w-full relative ${textAlignment} bankgothic-medium-dt bg-[white]`} >
+        <div className={`w-full relative ${textAlignment} bankgothic-medium-dt bg-[white]`} ref={divRef}>
             {/* banner */}
             <section className="w-full relative"
             >
@@ -91,16 +112,21 @@ const HomePage = ({ language, screen, fullScreen, currentContent }) => {
                 </span>
                 <div
                     className={`container mx-auto absolute ${isComputer ? "top-[20%]" : "top-16"}  left-0 right-0 px-4`}>
-                    <div className={`text-left flex flex-col ${language === "en" ? "items-start" : "items-end"} ${textAlignment} ${isPhone ? "px-[0px] py-10" : "px-[80px]"}`}>
-                        <h1 className={`text-[#292E3D] text-[45px] tracking-[0px] leading-[2.5rem] capitalize font-[500] mb-4 ${isPhone ? "w-full" : fullScreen ? "w-3/5" : "w-3/5"}  `}
+                    <div className={`text-left flex flex-col ${language === "en" ? "items-start" : "items-end"} ${textAlignment} ${isPhone ? "px-[0px] py-10" : "px-[80px]"}`}
+                     style={{paddingLeft: isComputer && setFontSize(140, width)}}>
+                        <h1 className={`text-[#292E3D] text-[45px] tracking-[0px]  leading-[2.5rem] capitalize font-[500] mb-4 ${isPhone ? "w-full" : fullScreen ? "w-3/5" : "w-3/5"}  `}
+                            style={{ fontSize: isComputer && setFontSize(70, width), lineHeight: isComputer && `${(width / 1526) * 4.5}rem`,  }}
                         >
                             {currentContent?.homeBanner?.title[language]}
                         </h1>
-                        <p className={`text-[#0E172FB3] font-semibold leading-[16px] mb-6 ${isPhone ? "w-full text-[12px]" : "w-1/2 text-[10px]"} tracking-[1px]`}>
+                        <p className={`text-[#0e172fb3] font-[500] leading-[16px] mb-6 ${isPhone ? "w-full text-[12px]" : "w-1/2 text-[10px]"} tracking-[0px]`}
+                            style={{ fontSize: isComputer && setFontSize(16, width), lineHeight: isComputer && `${width / 1526 * 24}px` }}
+                        >
                             {currentContent?.homeBanner?.description[language]}
                         </p>
                         <button
-                            className={`relative items-center flex ${isLeftAlign ? "" : "flex-row-reverse"} gap-1 text-[12px] font-medium px-[12px] py-[6px] px-[12px] bg-[#00b9f2] text-white rounded-md`}
+                            className={`relative items-center flex ${isLeftAlign ? "" : "flex-row-reverse"} gap-2 text-[12px] font-medium px-[12px] py-[6px] px-[12px] bg-[#00b9f2] text-white rounded-md`}
+                            style={{ fontSize: isComputer && setFontSize(18, width) }}
                             onClick={() => { }}
                         >
                             <span>{currentContent?.homeBanner?.buttonText[language]}</span>
@@ -109,7 +135,7 @@ const HomePage = ({ language, screen, fullScreen, currentContent }) => {
                                 width="10"
                                 height="11"
                                 alt=""
-                                style={{ transform: isLeftAlign ? "rotate(180deg)" : "" }}
+                                style={{ transform: isLeftAlign ? "rotate(180deg)" : "", width: isComputer && setFontSize(16, width) }}
                             />
                         </button>
                     </div>
@@ -141,7 +167,7 @@ const HomePage = ({ language, screen, fullScreen, currentContent }) => {
                 </div>
             </section>
             {/* service section */}
-            <section className="py-10 bg-gray-100 " style={{wordBreak:"normal"}}>
+            <section className="py-10 bg-gray-100 " style={{ wordBreak: "normal" }}>
                 <div className="container mx-auto px-6">
                     <h2 className="text-center text-3xl font-light text-[#292E3D] mb-9">
                         {currentContent?.serviceSection?.title[language]}
@@ -155,7 +181,7 @@ const HomePage = ({ language, screen, fullScreen, currentContent }) => {
                                     <div className="flex flex-col items-center gap-4">
                                         <img src={services?.[card.iconName]} width={40} height={40} alt="Icon" className="h-10 w-10" />
                                         <h5 className="relative text-lg font-light text-center">
-                                            {card.title[language]} 
+                                            {card.title[language]}
                                             <span className="block h-[2px] w-16 bg-gray-300 mt-2 mx-auto"></span>
                                         </h5>
                                     </div>

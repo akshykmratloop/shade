@@ -150,7 +150,7 @@ const EditPage = () => {
                             />
                             <AllForOne language={language} screen={screen} content={content} subPath={subPath} deepPath={deepPath} setLanguage={setLanguage} fullScreen={fullScreen} currentPath={currentPath} />
 
-                            <div className={`border border-cyan-500 pt-0 px-60 ${fullScreen ? "fixed bg-stone-800/70 top-0 left-0 z-50 h-screen w-screen" : "hidden"} overflow-y-scroll customscroller`}>
+                            <div className={`border border-cyan-500 pt-0 ${fullScreen ? "fixed bg-stone-800/70 top-0 left-0 z-50 h-screen w-screen" : "hidden"} overflow-y-scroll customscroller`}>
                                 <div className={`fixed z-50 top-2 right-2 ${!fullScreen && "hidden"} bg-stone-200`}>
                                     <CloseModalButton className={"absolute z-40 right-4 top-4 bg-stone-200 hover:bg-stone-300 dark:hover:bg-stone-800 rounded-full border-none p-2 py-2"} onClickClose={() => setFullScreen(false)} />
                                 </div>
