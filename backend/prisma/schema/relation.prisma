@@ -46,51 +46,196 @@ model PermissionSubPermission {
     @@index([subPermissionId])
 }
 
-model ResourceManager {
-    resourceId String   @unique
-    userId     String
-    resource   Resource @relation(fields: [resourceId], references: [id])
-    user       User     @relation(fields: [userId], references: [id])
-    createdAt  DateTime @default(now())
 
-    @@id([resourceId, userId]) // primary key as combination of both id
-    @@index([resourceId])
-    @@index([userId])
+
+// Junction table linking resource versions to section versions
+model ResourceVersionSection {
+  id    String @id @default(cuid())
+  order Int // Display sequence
+
+  // Relationships with cascading deletes
+  resourceVersion   ResourceVersion @relation(fields: [resourceVersionId], references: [id], onDelete: Cascade)
+  resourceVersionId String
+  sectionVersion    SectionVersion  @relation(fields: [sectionVersionId], references: [id], onDelete: Cascade)
+  sectionVersionId  String
+
+  // Composite constraints
+  @@unique([resourceVersionId, sectionVersionId]) // Prevent duplicate sections
+  @@index([resourceVersionId, order]) // For ordered retrieval
+  @@index([resourceVersionId])
+  @@index([sectionVersionId])
 }
 
-model ResourceEditor {
-    resourceId String   @unique
-    userId     String
-    resource   Resource @relation(fields: [resourceId], references: [id])
-    user       User     @relation(fields: [userId], references: [id])
-    createdAt  DateTime @default(now())
 
-    @@id([resourceId, userId]) // primary key as combination of both id
-    @@index([resourceId])
-    @@index([userId])
+
+// Content items within sections (e.g., cards in a grid)
+model SectionVersionItem {
+  id    String @id @default(cuid())
+  order Int // Display sequence
+
+  // Relationships with cascading deletes
+  sectionVersion   SectionVersion @relation(fields: [sectionVersionId], references: [id], onDelete: Cascade)
+  sectionVersionId String
+  resource         Resource       @relation(fields: [resourceId], references: [id], onDelete: Cascade)
+  resourceId       String
+
+  // Composite constraints
+  @@unique([sectionVersionId, resourceId]) // Prevent duplicates
+  @@index([sectionVersionId, order]) // For ordered retrieval
+  @@index([sectionVersionId])
+  @@index([resourceId])
 }
 
+// TO TRACK USER ROLES(EDITOR, PUBLISHER, MANAGER) FOR THIS RESOURCE
+// ROLES CAN BE CHANGED AT ANY TIME
+model ResourceRole {
+  id         String   @id @default(uuid())
+  resource   Resource @relation(fields: [resourceId], references: [id])
+  resourceId String
+  user       User     @relation(fields: [userId], references: [id])
+  userId     String
+  role       ResourceRoleType
+  createdAt  DateTime @default(now())
+
+  @@unique([resourceId, userId]) // ✅ one user can have only one role per resource
+  @@index([resourceId])
+  @@index([userId])
+}
+
+// STORE HISTORY OF ROLES FOR THIS RESOURCE VERSION
+// CAN NOT CHANGED AS THIS IS JUST TO STORE THE HISTORY
+// Historical permission snapshot for versions
+model ResourceVersionRole {
+  id   String   @id @default(uuid())
+  role ResourceRoleType // Permission level at version creation
+
+  // Relationships
+  resourceVersion   ResourceVersion @relation(fields: [resourceVersionId], references: [id], onDelete: Cascade)
+  resourceVersionId String
+  user              User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId            String
+
+  // Timestamps
+  createdAt DateTime @default(now())
+
+  // Composite constraints
+  @@unique([resourceVersionId, userId]) // One role per user per version
+  @@index([resourceVersionId]) // For version context
+  @@index([userId])
+}
+
+// TO TRACK VERIFIERS(MANY, ONE USER PER STAGE) FOR THIS RESOURCE
+// VERIFIERS CAN BE CHANGED AT ANY TIME
+// Current approval workflow configuration
 model ResourceVerifier {
-    resourceId String
-    userId     String
-    stage      Int
-    resource   Resource @relation(fields: [resourceId], references: [id])
-    user       User     @relation(fields: [userId], references: [id])
-    createdAt  DateTime @default(now())
+  id    String @id @default(uuid())
+  stage Int // Approval sequence (1 = first approver)
 
-    @@id([resourceId, userId]) // primary key as combination of both id
-    @@index([resourceId])
-    @@index([userId])
+  // Relationships
+  resource   Resource @relation(fields: [resourceId], references: [id], onDelete: Cascade)
+  resourceId String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId     String
+
+  // Timestamps
+  createdAt DateTime @default(now())
+
+  // Composite constraints
+  @@unique([resourceId, stage, userId]) // One verifier per stage
+  @@index([resourceId, stage]) // For workflow progression
+  @@index([userId]) // For user dashboard
+  @@index([resourceId])
 }
 
-model ResourcePublisher {
-    resourceId String   @unique
-    userId     String
-    resource   Resource @relation(fields: [resourceId], references: [id])
-    user       User     @relation(fields: [userId], references: [id])
-    createdAt  DateTime @default(now())
+// TO TRACK VERIFIERS(MANY, ONE USER PER STAGE) FOR THIS RESOURCE VERSION
+// CAN NOT CHANGED AS THIS IS JUST TO STORE THE HISTORY
+// Historical approval snapshot for versions
+model ResourceVersionVerifier {
+  id    String @id @default(uuid())
+  stage Int // Approval stage at version creation
 
-    @@id([resourceId, userId]) // primary key as combination of both id
-    @@index([resourceId])
-    @@index([userId])
+  // Relationships
+  resourceVersion   ResourceVersion @relation(fields: [resourceVersionId], references: [id], onDelete: Cascade)
+  resourceVersionId String
+  user              User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId            String
+
+  // Timestamps
+  createdAt DateTime @default(now())
+
+  // Composite constraints
+  @@unique([resourceVersionId, stage, userId]) // Historical record
+  @@index([resourceVersionId, stage]) // For version context
+  @@index([resourceVersionId])
+  @@index([userId])
+}
+
+// Content workflow requests
+model ResourceVersioningRequest {
+  id             String        @id @default(uuid())
+  status         RequestStatus @default(PENDING)
+  type           RequestType // VERIFICATION or PUBLICATION
+  editorComments String? // Context for reviewers
+
+  // Relationships
+  resourceVersion   ResourceVersion            @relation(fields: [resourceVersionId], references: [id], onDelete: Cascade)
+  resourceVersionId String
+  sender            User                       @relation("sender", fields: [senderId], references: [id], onDelete: Cascade)
+  senderId          String
+  previousRequest   ResourceVersioningRequest? @relation("PreviousRequest", fields: [previousRequestId], references: [id], onDelete: Restrict, onUpdate: Restrict)
+  previousRequestId String?
+  nextRequests      ResourceVersioningRequest[] @relation("PreviousRequest")
+  approvals         RequestApproval[] // Approval records
+
+  @@index([resourceVersionId])
+  @@index([senderId])
+  @@index([previousRequestId])
+
+  // Timestamps
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Indexes
+  @@index([resourceVersionId, status]) // For request tracking
+  @@index([status, type]) // For workflow processing
+}
+
+// Individual approval actions
+model RequestApproval {
+  id       String         @id @default(uuid())
+  stage    Int? // Verification stage (null for publisher)
+  status   ApprovalStatus @default(PENDING)
+  comments String? // Feedback from approver
+
+  // Relationships
+  request    ResourceVersioningRequest @relation(fields: [requestId], references: [id], onDelete: Cascade)
+  requestId  String
+  approver   User                      @relation("approver", fields: [approverId], references: [id], onDelete: Cascade)
+  approverId String
+
+  // Timestamps
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Composite constraints
+  @@unique([requestId, approverId, stage]) // Prevent duplicate approvals
+  @@index([requestId, status]) // For request progress
+  @@index([approverId]) // For user dashboard
+  @@index([requestId])
+}
+
+// State transition rules for workflow validation
+model WorkflowState {
+  id          String        @id @default(cuid())
+  fromState   VersionStatus
+  toState     VersionStatus
+  allowedRole ResourceRoleType // Changed from relation to direct enum reference
+
+  // Timestamps
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Corrected unique index - only scalar fields
+  @@unique([fromState, toState, allowedRole])
+  @@index([fromState])
 }

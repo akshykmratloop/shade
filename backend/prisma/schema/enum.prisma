@@ -35,3 +35,112 @@ enum logAction {
     LOGOUT
     NULL
 }
+
+
+
+// RESOURCE ENUM==================
+// Enum for defining type of the resource
+enum ResourceType {
+    MAIN_PAGE
+    PAGE_ITEM
+    FORM
+    HEADER
+    FOOTER
+    NULL
+}
+
+// Enum for defining page type
+enum ResourceTag {
+    HOME
+    ABOUT
+    SOLUTION
+    SERVICE
+    MARKET
+    PROJECT
+    CAREER
+    NEWS
+    TESTIMONIAL
+    CONTACT
+    HEADER
+    FOOTER
+    NULL
+}
+
+// Enum for defining the relation type
+enum RelationType {
+    PARENT
+    CHILD
+    NULL
+}
+
+
+// RESOURCE VERSION ENUM==================
+// Enum for defining the status of the version after assignment
+enum VersionStatus {
+    EDITING
+    DRAFT
+    VERIFICATION_PENDING
+    PUBLISH_PENDING
+    ARCHIVED
+    SCHEDULED
+    PUBLISHED
+    NULL
+}
+
+// SECTION ENUM==================
+// section enum
+enum SectionType {
+  HERO_BANNER
+  CARD_GRID
+  STATISTICS
+  TESTIMONIALS
+  CLIENT_LOGOS
+  CONTACT_FORM
+  MARKDOWN_CONTENT
+  SERVICE_CARDS
+  PROJECT_GRID
+  TEAM
+  CLIENTS
+  MARKETS
+  CAREER_LISTING
+  NEWS_FEED
+  FOOTER_COLUMNS
+  HEADER_NAV
+}
+
+
+enum ResourceRoleType {
+  MANAGER
+  EDITOR
+  PUBLISHER
+}
+
+
+
+
+
+enum RequestStatus {
+  PENDING
+  APPROVED
+  REJECTED
+  PUBLISHED
+}
+
+enum RequestType {
+  VERIFICATION
+  PUBLICATION
+}
+
+enum ApprovalStatus {
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+
+enum MediaType {
+  IMAGE
+  VIDEO
+  DOCUMENT
+  AUDIO
+}
