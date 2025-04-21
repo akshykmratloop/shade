@@ -134,17 +134,7 @@ const AddRoleModal = ({ show, onClose, updateRoles, role }) => {
     }
   };
 
-  const handleSelectRoleType = async (value) => {
-    try {
-      const response = await fetchPermissionsByRoleType(value.value);
-      setRoleData({
-        ...roleData,
-        fetchedPermissions: response?.permission,
-      });
-    } catch (e) {
-      console.log(e);
-    }
-  };
+
 
   useEffect(() => {
     if (role) {

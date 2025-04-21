@@ -160,7 +160,7 @@ function Roles() {
 
   useEffect(() => {
     async function fetchRoleData() {
-      const response = await fetchRoles();
+      const response = await fetchRoles({ limit: 100 });
       setRoles(response?.roles?.roles ?? []);
       setOriginalRoles(response?.roles?.roles ?? []); // Store the original unfiltered data
     }

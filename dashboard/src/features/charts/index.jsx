@@ -305,23 +305,25 @@ function Users() {
 
 
             {/* Add Role Modal */}
-            <AddUserModal
-                show={showAddForm}
-                onClose={() => {
-                    setShowAddForm(false);
-                    setSelectedUser(null);
-                }}
-                updateUsers={setChangesInUser}
-                user={selectedUser}
-            />
+            {showAddForm &&
+                <AddUserModal
+                    show={showAddForm}
+                    onClose={() => {
+                        setShowAddForm(false);
+                        setSelectedUser(null);
+                    }}
+                    updateUsers={setChangesInUser}
+                    user={selectedUser}
+                />}
             {/* <AddRoleModal show={showAddForm} onClose={() => setShowAddForm(false)} updateRole={setChangesInRole} /> */}
 
             {/* Role Details Modal */}
-            <UserDetailsModal
-                user={selectedUser}
-                show={showDetailsModal}
-                onClose={() => setShowDetailsModal(false)}
-            />
+            {showDetailsModal &&
+                <UserDetailsModal
+                    user={selectedUser}
+                    show={showDetailsModal}
+                    onClose={() => { setSelectedUser(null); setShowDetailsModal(false) }}
+                />}
             <ToastContainer />
         </div>
     );

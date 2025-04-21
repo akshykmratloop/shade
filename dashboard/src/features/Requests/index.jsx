@@ -20,6 +20,7 @@ import capitalizeWords from "../../app/capitalizeword";
 import Paginations from "../Component/Paginations";
 import formatTimestamp from "../../app/TimeFormat";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 // import userIcon from "../../assets/user.png"
 
@@ -113,14 +114,18 @@ const ToggleSwitch = ({ options, switchToggles }) => {
     }
   }, [selectedIndex, options]);
 
+  useEffect(() => {
+    switchToggles(options[0])
+  }, [])
+
   return (
     <div
       ref={containerRef}
-      className="relative inline-flex bg-gray-300 p-1 rounded-md"
+      className="relative inline-flex bg-gray-300 py-0 rounded-md"
     >
       {/* Slider */}
       <div
-        className="absolute top-1 bg-[#00b9f2] bottom-1 rounded-md shadow transition-all rounded duration-300 ease-in-out"
+        className="absolute top-0 bg-blue-500 bottom-1 h-full rounded-md shadow transition-all rounded duration-300 ease-in-out"
         style={sliderStyle}
       ></div>
 
@@ -129,8 +134,8 @@ const ToggleSwitch = ({ options, switchToggles }) => {
         <button
           key={index}
           ref={(el) => (buttonRefs.current[index] = el)}
-          onClick={() => { console.log(option); switchToggles(option); setSelectedIndex(index) }}
-          className={`relative z-10 px-4 py-1 text-sm font-medium transition-colors duration-200  ${selectedIndex === index
+          onClick={() => { switchToggles(option); setSelectedIndex(index) }}
+          className={`relative z-10 px-4 py-2 text-sm font-medium transition-colors duration-200  ${selectedIndex === index
             ? "text-white"
             : "text-gray-500 hover:text-black"
             }`}
@@ -155,7 +160,7 @@ function Requests() {
   const requestsPerPage = 5;
   const user = useSelector(state => state.user.user);
   const userPermissionsSet = new Set(["EDIT", "VERIFY", "PUBLISH"]) // SET FOR EACH USER LOGIC
-
+  const navigate = useNavigate()
   // REMOVE FILTER
   const removeFilter = () => {
     setRequests([...originalRequests]);
@@ -182,90 +187,92 @@ function Requests() {
   const currentRequests = requests?.slice(indexOfFirstUser, indexOfLastUser);
   const totalPages = Math.ceil(requests?.length / requestsPerPage);
 
-  let allowAll = user?.permissions.some(e => e.slice(4) !== "USER" && e.slice(4) !== "ROLE" && e.slice(-10) === "MANAGEMENT");
+  const [allowAll, setAllowAll] = useState(user?.permissions.some(e => {
+    return e.slice(0, 4) !== "USER" && e.slice(0, 4) !== "ROLE" && e.slice(-10) === "MANAGEMENT"
+  }))
   let allowEditor = false;
   let allowVerifier = false;
   let allowPublisher = false;
-  let isToggle = false
+  const [allowEditorState, setAllowEditor] = useState(false)
+  const [allowVerifierState, setAllowVerifier] = useState(false)
+  const [allowPublisherState, setAllowPublisher] = useState(false)
+  let isToggle = user.permissions.length > 1 && user?.permissions?.some(e => userPermissionsSet.has(e))
   let singleUserPermission = ""
 
   let permissionsSet = new Set([...user?.permissions])
   let userPermissionCount = 0;
 
   const options = [
+    { permission: "MANAGEMENT", text: "Manager", },
     { permission: "EDIT", text: "Editor" },
     { permission: "VERIFY", text: "Verifier" },
     { permission: "PUBLISH", text: "Publisher" },
-    { permission: "MANAGEMENT", text: "Manager", }
   ]
 
-  if (!allowAll) {
+  if (!allowAll && !isToggle) {
     permissionsSet.forEach((e) => {
       if (userPermissionsSet.has(e)) {
         userPermissionCount++
         singleUserPermission = e
       }
     })
-    switch (userPermissionCount) {
-      case 3:
-        allowAll = true
-        break;
-      case 2:
-        isToggle = true;
+    switch (singleUserPermission) {
+      case "PUBLISH":
+        allowEditor = true;
+        allowVerifier = true;
         break;
 
-      case 1:
-        switch (singleUserPermission) {
-          case "PUBLISH":
-            allowEditor = true;
-            allowVerifier = true;
-            break;
+      case "VERIFY":
+        allowEditor = true;
+        allowPublisher = true;
+        break;
 
-          case "VERIFY":
-            allowEditor = true;
-            allowPublisher = true;
-            break;
-
-          default:
-        }
+      case "EDIT":
         break;
 
       default:
+        navigate('/')
     }
   }
 
-  const finalToggleOptions = options.map((option) => {
-    if (option === "MANAGEMENT" && allowAll) {
+
+
+  const switchToggles = (option) => {
+    switch (option) {
+      case "Publisher":
+        setAllowEditor(true);
+        setAllowVerifier(true)
+        setAllowPublisher(false);
+        setAllowAll(false)
+        break;
+
+      case "Verifier":
+        setAllowEditor(true);
+        setAllowVerifier(false)
+        setAllowPublisher(true);
+        setAllowAll(false)
+        break;
+
+      case "Editor":
+        setAllowEditor(false);
+        setAllowVerifier(false)
+        setAllowPublisher(false);
+        setAllowAll(false)
+        break;
+
+      default:
+        setAllowAll(true)
+    }
+  }
+
+  const finalToggleOptions = options.map((option, i) => {
+    const isNotUserAndRole = option.permission.slice(4) !== "USER" && option.permission.slice(4) !== "ROLE"
+    if (option.permission === "MANAGEMENT" && isNotUserAndRole) {
       return option.text
     } else if (option.permission !== "MANAGEMENT" && user?.permissions.includes(option.permission)) {
       return option.text
     }
   }).filter(e => e)
-
-  const switchToggles = (option) => {
-    switch (option) {
-      case "Publisher":
-        console.log("from Publisher")
-        allowEditor = true;
-        allowVerifier = true;
-        allowPublisher = false;
-        break;
-
-      case "Verifier":
-        allowEditor = true;
-        allowVerifier = false;
-        allowPublisher = true;
-        break;
-
-      case "Editor":
-        allowEditor = false;
-        allowVerifier = false;
-        allowPublisher = false;
-        break;
-
-      default:
-    }
-  }
 
   useEffect(() => {
     async function fetchRequestsData() {
@@ -311,19 +318,19 @@ function Requests() {
                     Status
                   </th>
                   {
-                    (allowAll || allowEditor) &&
+                    (allowAll || allowEditorState || allowEditor) &&
                     <th className="text-[#42526D] w-[154px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] !capitalize text-center">
                       Editor
                     </th>
                   }
                   {
-                    (allowAll || allowVerifier) &&
+                    (allowAll || allowVerifier || allowVerifierState) &&
                     <th className="text-[#42526D] w-[221px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] text-center !capitalize">
                       Verifier
                     </th>
                   }
                   {
-                    (allowAll || allowPublisher) &&
+                    (allowAll || allowPublisher || allowPublisherState) &&
                     <th className="text-[#42526D] w-[221px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] text-center !capitalize">
                       Publisher
                     </th>
@@ -365,7 +372,7 @@ function Requests() {
                           </p>
                         </td>
                         {
-                          (allowAll || allowEditor) &&
+                          (allowAll || allowEditor || allowEditorState) &&
                           <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]" style={{ whiteSpace: "wrap" }}>
                             <span className="">
                               {request?.editor || "1"}
@@ -373,7 +380,7 @@ function Requests() {
                           </td>
                         }
                         {
-                          (allowAll || allowVerifier) &&
+                          (allowAll || allowVerifier || allowVerifierState) &&
                           <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]" style={{ whiteSpace: "wrap" }}>
                             <span className="">
                               {request?.verifier ?
@@ -395,7 +402,7 @@ function Requests() {
                           </td>
                         }
                         {
-                          (allowAll || allowPublisher) &&
+                          (allowAll || allowPublisher || allowPublisherState) &&
                           <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]" style={{ whiteSpace: "wrap" }}>
                             <span className="">
                               {request?.publisher || "1"}

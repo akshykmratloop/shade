@@ -12,6 +12,8 @@ function LeftSidebar() {
   const isCollapsed = useSelector((state) => state.sidebar.isCollapsed);
   const user = useSelector((state) => state.user.user)
 
+  const defineUserAndRoleManager = user?.permissions?.some(e => e.slice(0, 4) !== "USER" && e.slice(0, 4) !== "ROLE")
+
   useEffect(() => {
     const handleResize = () => {
       const shouldCollapse = window.innerWidth < 1200;
@@ -48,6 +50,12 @@ function LeftSidebar() {
 
         {routes.map((route, k, a) => {
           let lastIndex = k === a.length - 1
+          if (route.name === "Requests" && !defineUserAndRoleManager) {
+            return null
+          }
+          if (route.name === "Resources" && !defineUserAndRoleManager) {
+            return null
+          }
           if (route.permission) {
             if (user.permissions.includes(route.permission)) {
               return (
