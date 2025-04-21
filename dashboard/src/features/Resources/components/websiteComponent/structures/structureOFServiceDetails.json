@@ -1,0 +1,201 @@
+{
+    "banner": {
+        "title": {
+            "en": "",
+            "ar": ""
+        },
+        "description": {
+            "en": "",
+            "ar": ""
+        }
+    },
+    "subServices": [
+        {
+          "title": {
+            "en": "Project Service 1",
+            "ar": "خدمة المشروع ١"
+          },
+          "description": {
+            "en": "",
+            "ar": ""
+          },
+          "image": "",
+          "button": {
+            "en": "",
+            "ar": ""
+          },
+          "display": true
+        },
+        {
+          "title": {
+            "en": "Project Service 2",
+            "ar": "خدمة المشروع ٢"
+          },
+          "description": {
+            "en": "",
+            "ar": ""
+          },
+          "image": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(4).png",
+          "button": {
+            "en": "",
+            "ar": ""
+          },
+          "display": true
+        },
+        {
+          "title": {
+            "en": "Project Service 3",
+            "ar": "خدمة المشروع ٣"
+          },
+          "description": {
+            "en": "",
+            "ar": ""
+          },
+          "image": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(5).png",
+          "button": {
+            "en": "",
+            "ar": ""
+          },
+          "display": true
+        },
+        {
+          "title": {
+            "en": "Project Service 4",
+            "ar": "خدمة المشروع ٤"
+          },
+          "description": {
+            "en": "",
+            "ar": ""
+          },
+          "image": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(3).png",
+          "button": {
+            "en": "",
+            "ar": ""
+          },
+          "display": true
+        },
+        {
+          "title": {
+            "en": "Project Service 5",
+            "ar": "خدمة المشروع ٥"
+          },
+          "description": {
+            "en": "",
+            "ar": ""
+          },
+          "image": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(2).png",
+          "button": {
+            "en": "",
+            "ar": ""
+          },
+          "display": true
+        },
+        {
+          "title": {
+            "en": "Project Service 6",
+            "ar": "خدمة المشروع ٦"
+          },
+          "description": {
+            "en": "",
+            "ar": ""
+          },
+          "image": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+140.png",
+          "button": {
+            "en": "",
+            "ar": ""
+          },
+          "display": true
+        }
+      ],
+    "button": {
+        "en": "",
+        "ar": ""
+    },
+    "otherServices": [
+      {
+        "id": 1,
+        "title": {
+          "ar": "إدارة البناء",
+          "en": "Construction Management"
+        },
+        "subtitle": {
+          "ar": "تزدهر شركة Shade من خلال تقديم خدمة عملاء استثنائية ومشاركة معرفتنا بالمنتجات المتخصصة المتوفرة في الصناعة.",
+          "en": "Shade thrives by delivering exceptional customer service and sharing our knowledge of specialized products available in the industry."
+        },
+        "button": {
+          "en": "View Details",
+          "ar": "عرض التفاصيل"
+        },
+        "image": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+140.png",
+        "display": true
+      },
+      {
+        "id": 2,
+        "title": {
+          "ar": "خدمات المشروع",
+          "en": "Project Services"
+        },
+        "subtitle": {
+          "ar": "نحن نستفيد من سنوات خبرتنا في صناعة البناء والتشييد للعملاء من خلال الحفاظ أيضًا على مرافقهم وبنيتهم التحتية.",
+          "en": "We leverage our years of experience in the construction industry for clients by also maintaining their facilities and infrastructure."
+        },
+        "button": {
+          "en": "View Details",
+          "ar": "عرض التفاصيل"
+        },
+        "image": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(2).png",
+        "display": true
+      },
+      {
+        "id": 3,
+        "title": {
+          "ar": "التشغيل والصيانة",
+          "en": "Operation & Maintenance"
+        },
+        "subtitle": {
+          "ar": "نحن نستفيد من سنوات خبرتنا في صناعة البناء والتشييد للعملاء من خلال الحفاظ أيضًا على مرافقهم وبنيتهم التحتية.",
+          "en": "We leverage our years of experience in the construction industry for clients by also maintaining their facilities and infrastructure."
+        },
+        "button": {
+          "en": "View Details",
+          "ar": "عرض التفاصيل"
+        },
+        "image": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(3).png",
+        "display": true
+      },
+      {
+        "id": 4,
+        "title": {
+          "ar": "تلفيق",
+          "en": "Fabrication"
+        },
+        "subtitle": {
+          "ar": "تتيح لنا المعرفة الشاملة لشركة Shade Corporation في مجال EPC وإدارة المشاريع تحسين التصنيع الشامل للعميل وتكلفة البناء ومزايا الجدول الزمني.",
+          "en": "Shade Corporation's comprehensive knowledge in EPC and project management allows us to optimize the client's overall fabrication, construction cost, and schedule advantages."
+        },
+        "button": {
+          "en": "View Details",
+          "ar": "عرض التفاصيل"
+        },
+        "image": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(5).png",
+        "display": true
+      },
+      {
+        "id": 5,
+        "title": {
+          "ar": "تأجير المعدات",
+          "en": "Equipment Rental"
+        },
+        "subtitle": {
+          "ar": "تعد شركة Shade Corporation واحدة من أكبر شركات البناء وتأجير البنية التحتية في المنطقة.",
+          "en": "Shade Corporation is one of the largest construction and infrastructure rental companies in the region."
+        },
+        "button": {
+          "en": "View Details",
+          "ar": "عرض التفاصيل"
+        },
+        "image": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(4).png",
+        "display": true
+      }
+    ]
+}

@@ -1,0 +1,35 @@
+{
+    "banner": {
+        "title": {
+            "en": "",
+            "ar": ""
+        },
+        "description": {
+            "en": "",
+            "ar": ""
+        },
+        "image": ""
+    },
+    "subBanner": {
+        "title": {
+            "en": "",
+            "ar": ""
+        },
+        "description": {
+            "en": "",
+            "ar": ""
+        }
+    },
+    "descriptions": [
+        {
+            "title": {
+                "en": "",
+                "ar": ""
+            },
+            "description": {
+                "en": "",
+                "ar": ""
+            }
+        }
+    ]
+}

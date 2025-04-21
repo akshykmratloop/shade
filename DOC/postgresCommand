@@ -1,0 +1,189 @@
+
+-- ==============================================================================
+-- PostgreSQL (psql) Commands
+
+psql -U username: To connect to the PostgreSQL CLI.
+
+\list: List all databases in PostgreSQL.
+
+\dt: List all tables in the current database.
+
+\d tableName: Show the schema of a table.
+
+\c dbName: Connect to a database (switch between databases).
+
+\! cls: To clear the terminal screen.
+
+\q  : exit current
+
+\c database_name : Switch to another database
+
+SELECT current_database();: Shows the current database.
+
+SELECT pg_version();: Get the PostgreSQL version.
+
+-- -- ========================================================================
+-- Database Commands
+
+CREATE DATABASE dbName;: Create a new database.
+
+DROP DATABASE dbName;: Delete a database.
+
+SELECT datname FROM pg_database;: List all databases.
+
+-- -- ========================================================================
+-- Table Commands
+
+CREATE TABLE tableName (id SERIAL PRIMARY KEY, name VARCHAR(100), city VARCHAR(100));: Create a new table with specified columns.
+DROPT TABLE   tableName :  TO DELETE THE TABLE FROM THE DB
+INSERT INTO tableName(id, name, city) VALUES (101, 'Raju', 'Delhi');: Insert data into a table.
+INSERT INTO tableName VALUES (101, 'Raju', 'Delhi');: Insert data without specifying column names (be sure the order matches the table schema).
+SELECT * FROM tableName;: Select all data from a table.
+SELECT name, city FROM tableName;: Select specific columns from a table.
+UPDATE tableName SET columnName = 'newValue' WHERE columnName = 'existingValue';: Update specific data.
+DELETE FROM tableName WHERE columnName = 'value';: Delete specific rows
+DELETE FROM tableName;: Delete all rows from the table.
+ALTER TABLE tableName ADD COLUMN newColumnName datatype;: Add a new column to an existing table.
+ALTER TABLE tableName DROP COLUMN columnName;: Drop a column from a table.
+ALTER TABLE tableName RENAME COLUMN oldColumnName TO newColumnName;: Rename a column.
+RENAME TABLE oldTableName TO newTableName;: Rename a table.
+
+
+-- Query Clauses =================================================================
+WHERE columnName = 'value';: Filter data based on a condition.
+ORDER BY columnName ASC;: Sort results by a column in ascending order.
+ORDER BY columnName DESC;: Sort results by a column in descending order.
+LIMIT 5;: Limit the number of rows returned (e.g., return only 5 rows).
+OFFSET 10;: Skip the first 10 rows in a result set.
+GROUP BY columnName;: Group data by a specific column.
+HAVING COUNT(columnName) > 1;: Filter groups based on an aggregate condition.
+DISTINCT columnName;: Return unique values from a column.
+
+
+-- Operators =================================================================  =================
+IN: Allows for multiple values in a condition (e.g., WHERE dept IN ('IT', 'HR', 'Finance');).
+NOT IN: Opposite of IN (e.g., WHERE dept NOT IN ('IT', 'HR');).
+BETWEEN: Specify a range (e.g., WHERE salary BETWEEN 4000 AND 6000;).
+LIKE: Search for a pattern (e.g., WHERE name LIKE 'A%';).
+IS NULL: Checks for null values.
+IS NOT NULL: Checks for non-null values.
+=, !=, <, >, <=, >=: Comparison operators.
+AND: Combine multiple conditions.
+OR: Combine multiple conditions.
+
+
+
+-- Aggregate Functions =================================================================
+
+SUM(): Sum values in a column (e.g., SELECT SUM(salary) FROM employees;).
+AVG(): Calculate the average of a column (e.g., SELECT AVG(salary) FROM employees;).
+MIN(): Get the minimum value in a column (e.g., SELECT MIN(salary) FROM employees;).
+MAX(): Get the maximum value in a column (e.g., SELECT MAX(salary) FROM employees;).
+
+
+
+-- String Functions =================================================================
+
+CONCAT(): Concatenate strings (e.g., SELECT CONCAT(first_name, ' ', last_name) AS full_name FROM employees;).
+CONCAT_WS(): Concatenate with a separator (e.g., SELECT CONCAT_WS('-', first_name, last_name) FROM employees;).
+SUBSTR(): Extract part of a string (e.g., SELECT SUBSTR('Hello World', 1, 5);).
+REPLACE(): Replace part of a string (e.g., SELECT REPLACE('Hello World', 'World', 'Everyone');).
+LENGTH(): Get the length of a string (e.g., SELECT LENGTH('Hello');).
+UPPER(): Convert string to uppercase (e.g., SELECT UPPER(name) FROM employees;).
+LOWER(): Convert string to lowercase (e.g., SELECT LOWER(name) FROM employees;).
+TRIM(): Remove spaces from both ends of a string (e.g., SELECT TRIM(name) FROM employees;).
+POSITION(): Find the position of a substring (e.g., SELECT POSITION('o' IN 'Hello') FROM employees;).
+LEFT(), RIGHT(): Get a specified number of characters from the left or right side of a string.
+
+
+-- Conditional Statements =================================================================================
+
+CASE: Conditional logic (e.g., SELECT CASE WHEN salary > 5000 THEN 'High' ELSE 'Low' END 
+AS salary_status FROM employees;).
+
+
+-- Constraints =================================================================================
+
+PRIMARY KEY: Unique identifier for a record.
+NOT NULL: Prevents null values in a column.
+DEFAULT: Defines a default value for a column.
+UNIQUE: Ensures uniqueness of values in a column.
+CHECK: Enforces a condition on a column's value.
+FOREIGN KEY: Creates a relationship between tables (e.g., FOREIGN KEY (department_id) REFERENCES departments(id);).
+REFERENCES: Used to reference another table's primary key.
+
+-- Joins =================================================================================================
+
+INNER JOIN: Returns rows with matching values in both tables (e.g., SELECT * FROM employees INNER JOIN departments ON employees.dept_id = departments.dept_id;).
+LEFT JOIN: Returns all rows from the left table and matching rows from the right table (e.g., SELECT * FROM employees LEFT JOIN departments ON employees.dept_id = departments.dept_id;).
+RIGHT JOIN: Returns all rows from the right table and matching rows from the left table (e.g., SELECT * FROM employees RIGHT JOIN departments ON employees.dept_id = departments.dept_id;).
+CROSS JOIN: Returns the Cartesian product of the two tables (e.g., SELECT * FROM employees CROSS JOIN departments;).
+
+
+
+-- Index  ==================================================================   =   =
+
+CREATE INDEX indexName ON tableName(columnName);: Create an index on a column.
+DROP INDEX indexName;: Drop an index.
+
+
+-- Transactions === ==================================================================================================
+
+BEGIN TRANSACTION;: Start a transaction.
+COMMIT;: Commit the transaction.
+ROLLBACK;: Rollback a transaction.
+
+
+
+-- Views ================================================================= =================================================================
+
+CREATE VIEW viewName AS SELECT ...;: Create a view based on a query.
+DROP VIEW viewName;: Drop a view.
+Foreign Key Relationships
+CREATE TABLE tableName (id SERIAL PRIMARY KEY, dept_id INT, FOREIGN KEY (dept_id) REFERENCES departments(id));: Creating a foreign key constraint.
+Other Database Management Commands
+EXPLAIN SELECT * FROM tableName;: Get a query execution plan.
+VACUUM;: Reclaims storage space in PostgreSQL.
+ANALYZE;: Updates statistics for query optimization
+
+
+
+
+
+
+
+
+-- COPY DATA AND TABLE FROM database_A TO database_B USINNG DUMP 
+docker ps
+docker exec -it postgres_container bash
+pg_dump -U postgres -d database_A -f /tmp/database_A.dump
+
+-- -U postgres: Username to connect to the database (replace postgres with the correct user if necessary).
+-- -d database_A: The name of the database you're dumping from (database_A).
+-- -f /tmp/database_A.dump: Path to save the dump file inside the container.
+
+psql -U postgres -d database_B -f /tmp/database_A.dump
+
+-- Verify the Data: 
+
+psql -U postgres -d database_B  : to enter in the database
+
+\dt :  to show all the table
+
+
+
+
+
+EXMAPLE 
+docker ps
+docker exec -it postgres_container bash
+
+CMD 1 :
+pg_dump -U akshykmr -d shadeDB_dev -f /tmp/shadeDB_dev.dump
+
+CMD 2 :
+psql -U akshykmr -d shadeDB_test -f /tmp/shadeDB_dev.dump
+
+
+CLEAN THE DATA 
+rm /tmp/shadeDB_dev.dump

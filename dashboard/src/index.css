@@ -1,13 +1,78 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.loading-indicator:before {
+  content: '';
+  background: #00000080;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 1000;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.loading-indicator:after {
+  content: ' ';
+  position: fixed;
+  top: 40%;
+  left: 45%;
+  z-index: 10010;
+  color: white;
+  text-align: center;
+  font-weight: bold;
+  font-size: 1.2rem;
+  border: 16px solid #f3f3f3;
+  /* Light grey */
+  border-top: 16px solid #0474bf;
+  /* Blue */
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  animation: spin 2s linear infinite;
+}
+
+input[type="password"] {
+  -webkit-text-security: disc;
+}
+
+input[type="password"] {
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+input[type="password"]::-ms-reveal {
+  display: none;
+}
+
+input::placeholder {
+  font-family: "Poppins" !important;
+  font-weight: 400 !important;
+}
+
+/* input[type="text"],input[type="password"],textarea{
+  border: .5px solid #80808044 !important;
+} */
+
+textarea:focus, input[type="text"]:focus, input[type="password"]:focus {
+  outline: none !important;
+  /* border: 1px solid #0000007e !important; */
+}
+
+/* Chrome, Safari, Edge */
+input[type="search"]::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  appearance: none;
+  display: none;
+}
+
+/* Firefox */
+input[type="search"]::-moz-search-clear-button {
+  display: none;
+}
+
+/* Internet Explorer (very old versions) — doesn't support type="search" well, but just in case */
+input[type="search"]::-ms-clear {
+  display: none;
 }

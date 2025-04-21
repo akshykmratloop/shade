@@ -1,3 +1,50 @@
+@font-face {
+  font-family: "BankGothic-Regular";
+  src: url("../public/font/bankgothic-regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "BankGothic-Regular-db";
+  src: url("../public/font/bankgothic-regulardb.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "BankGothic-Russ-Medium";
+  src: url("../public/font/BankGothicRUSSMedium.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "BankGothic-Regular-MD-Bt";
+  src: url("../public/font/BankGothic_Md_BT.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "BankGothic-Medium-bt";
+  src: url("../public/font/BankGothicMediumBT.ttf") format("truetype");
+}
+
+.bankgothic-regular {
+  font-family: "BankGothic-Regular";
+}
+
+.bankgothic-regular-db {
+  font-family: "BankGothic-Regular-db";
+}
+
+.bankgothic-regular-db-mt {
+  font-family: "BankGothic-Regular-MD-Bt";
+} 
+
+.bankgothic-russ-medium {
+  font-family: "BankGothic-Russ-Medium";
+}
+
+.bankgothic-medium-dt {
+  font-family: "BankGothic-Medium-bt";
+}
+
 .App {
   text-align: center;
 }
@@ -6,6 +53,162 @@
   height: 40vmin;
   pointer-events: none;
 }
+
+/* login background */
+.l-bg {
+  background-position: center;
+  background-size: cover;
+  transition: .2s linear all;
+}
+
+/* carousel status */
+.carouselStatus {
+  position: fixed;
+  left: 6vw;
+  bottom: 10vh;
+  display: flex;
+  gap: .5rem;
+}
+
+.custom-forced-color {
+  color: #3b4152 !important;
+}
+
+.carouselDot {
+  background-color: rgb(80, 80, 80);
+  height: .91rem;
+  width: .91rem;
+  border-radius: 50%;
+  transition: .1s linear background-color;
+}
+
+/* removing the spinners */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* input[type="number"] {
+  -moz-appearance: textfield;
+} */
+#left-sidebar-drawer:not(:checked)~.drawer-side #sidebar-close-btn {
+  display: none;
+}
+.customscroller::-webkit-scrollbar-track{
+  background-color: #dbdbdb;
+}
+
+.customscroller::-webkit-scrollbar {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  height: 2px;
+  width: 5px;
+}
+
+.customscroller::-webkit-scrollbar-thumb {
+  height: 10px;
+  /* Use height instead of width */
+  width: 2px;
+  background-color: #0e2b65;
+  border-radius: 10px;
+}
+
+main.customscroller::-webkit-scrollbar {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  height: 2px;
+  width: 8px;
+}
+
+main.customscroller::-webkit-scrollbar-thumb {
+  height: 10px;
+  /* Use height instead of width */
+  width: 2px;
+  background-color: #0e2b65;
+  border-radius: 10px;
+}
+
+.customscroller-2::-webkit-scrollbar {
+  width: 2px;
+}
+
+.customscroller-2::-webkit-scrollbar-thumb {
+  background-color: #0e2b65;
+  width: 3px;
+
+}
+
+nav.customscroller {
+  position: relative;
+}
+
+nav.customscroller::-webkit-scrollbar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+}
+
+nav.customscroller::-webkit-scrollbar-thumb {
+  height: 2px;
+  /* Use height instead of width */
+  width: 5px;
+  background-color: #0e2b65;
+  border-radius: 10px;
+}
+
+
+.shadow-xl-custom {
+  box-shadow: 0px 10px 20px -5px #00000080;
+}
+
+.capitalize {
+  text-transform: capitalize !important;
+}
+
+input[type="file"] {
+  width: 200px;
+  padding: 5px;
+  border: 2px solid #007bff;
+  border-radius: 5px;
+  background: #f8f9fa;
+  color: #333;
+  cursor: pointer;
+}
+
+.custom-placeholder::placeholder {
+  /* font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; */
+  /* font-weight: 300; */
+  /* font: lighter normal 14px/1.5 Calibri ; */
+  font: lighter normal 14px/1.5 "Sans";
+
+  /* font-weight: lighter; */
+}
+
+select {
+  appearance: none;
+  /* Removes default styles */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  padding: 5px;
+  font-size: 16px;
+  color: #899197;
+  /* Change text color */
+  background-color: yellow;
+  /* Change background */
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.transition-custom {
+  transition: width .1s linear;
+}
+
+
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
@@ -24,6 +227,11 @@
   color: white;
 }
 
+.custom-text-color label {
+  color: #6B7888;
+  /* color: #979ca2; */
+}
+
 .App-link {
   color: #61dafb;
 }
@@ -32,7 +240,103 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
+}
+
+.shadow-md-custom {
+  --tw-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --tw-shadow-colored: 0 4px 6px -1px var(--tw-shadow-color), 0 2px 4px -2px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+.clip-concave {
+  clip-path: polygon(0% 0%, 100% 0%, 90% 50%, 100% 100%, 0% 100%);
+}
+
+.test {
+  color: #29469c80;
+}
+
+.custom-position {
+  /* left: calc(50% - 216px); */
+  top: calc(50% - 132);
+}
+
+/* .ql-toolbar,
+.ql-container {
+  border: 1px solid #3e424c !important;
+}
+
+.ql-toolbar {
+  border-radius: 9px 9px 0px 0px;
+  background-color: #a3a3a3;
+  color: white;
+}
+
+.ql-container {
+  border-radius: 0px 0px 9px 9px;
+}
+
+.custom-editor .ql-toolbar {
+  background: #222;
+  color: white;
+}
+
+.custom-editor .ql-toolbar button {
+  color: white; }*/
+
+/* Change toolbar background & border */
+
+
+.jodit-toolbar__box {
+  background-color: #a2a5ad !important; /* Dark background */
+  /* border-radius: 8px 8px 0px 0px !important; */
+  border: none !important;
+}
+
+.jodit-container {
+  /* border: 1px solid #808080 !important; Blue border */
+  border-radius: 8px !important;
+  overflow: hidden;
+}
+
+/* Style toolbar buttons */
+.jodit-toolbar-button {
+  color: white !important; /* Text color */
+  background-color: transparent !important;
+  border-radius: 5px;
+  transition: 0.3s;
+}
+
+.jodit-wysiwyg {
+  background-color: #f4f4f4 !important; /* Light Gray */
+  color: #333 !important; /* Dark text */
+  padding: 10px !important;
+  border-radius: 5px;
+}
+
+.jodit-toolbar-button:hover {
+  background-color: #017392 !important; /* Blue hover effect */
+}
+
+div.importantList ul{
+  list-style-type: disc !important;
+}
+
+
+.custom-select:focus{
+  border: none !important;
+  outline: none !important;
+}
+
+.rm-scroll::-webkit-scrollbar{
+  display: none;
+}
+
+.rm-scroll{
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
