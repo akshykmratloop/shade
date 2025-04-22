@@ -9,9 +9,10 @@ import { useEffect, useRef } from "react"
 const Page404 = lazy(() => import('../pages/protected/404'))
 
 
-function PageContent(){
+function PageContent() {
     const mainContentRef = useRef(null);
-    const {pageTitle} = useSelector(state => state.header)
+    const { pageTitle } = useSelector(state => state.header)
+    const user = useSelector(state => state.user.user)
 
 
     // Scroll back to top on new page load
@@ -19,35 +20,41 @@ function PageContent(){
         mainContentRef.current.scroll({
             top: 0,
             behavior: "smooth"
-          });
-      }, [pageTitle])
+        });
+    }, [pageTitle])
 
-    return(
+    return (
         <div className="flex flex-col flex-8 w-full overflow-x-hidden">
-            <Header/>
+            <Header />
             <main className="flex-1 overflow-y-scroll pt-0 px-3 pb-8 bg-base-100 customscroller" ref={mainContentRef}>
                 <Suspense fallback={<SuspenseContent />}>
-                        <Routes>
-                            {
-                                routes.map((route, key) => {
-                                    return(
-                                        <Route
-                                            key={key}
-                                            exact={true}
-                                            path={route.path === "/resources"?`${route.path}/*`:route.path}
-                                            element={<route.component />}
-                                        />
-                                    )
-                                })
-                            }
+                    <Routes>
+                        {
+                            routes.map((route, key) => {
+                                let path = route.path
+                                if (route.permission) {
+                                    if (!user.permissions.includes(route.permission)) {
+                                        return null
+                                    }
+                                }
+                                return (
+                                    <Route
+                                        key={key}
+                                        exact={true}
+                                        path={route.path === "/resources" ? `${route.path}/*` : path}
+                                        element={<route.component />}
+                                    />
+                                )
+                            })
+                        }
 
-                            {/* Redirecting unknown url to 404 page */}
-                            <Route path="*" element={<Page404 />} />
-                        </Routes>
+                        {/* Redirecting unknown url to 404 page */}
+                        <Route path="*" element={<Page404 />} />
+                    </Routes>
                 </Suspense>
                 <div className=""></div>
             </main>
-        </div> 
+        </div>
     )
 }
 

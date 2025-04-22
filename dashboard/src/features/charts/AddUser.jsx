@@ -122,7 +122,7 @@ const AddUserModal = ({ show, onClose, updateUsers, user }) => {
 
     useEffect(() => {
         async function fetchForForm() {
-            const response = await fetchRoles()
+            const response = await fetchRoles({ limit: 100 })
 
             setRoles(response?.roles?.roles ?? [])
         }

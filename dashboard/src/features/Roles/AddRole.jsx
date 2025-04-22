@@ -1,4 +1,4 @@
-import {useEffect, useState, useRef} from "react";
+import { useEffect, useState, useRef } from "react";
 import InputText from "../../components/Input/InputText";
 import {
   fetchRoleType,
@@ -7,12 +7,13 @@ import {
   updateRole,
   getRoleById,
 } from "../../app/fetch";
-import {toast, ToastContainer} from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import validator from "../../app/valid";
 import updateToasify from "../../app/toastify";
 import CloseModalButton from "../../components/Button/CloseButton";
 
-const AddRoleModal = ({show, onClose, updateRoles, role}) => {
+const AddRoleModal = ({ show, onClose, updateRoles, role }) => {
+
   const freshObject = {
     name: "",
     selectedRoletype: "",
@@ -24,6 +25,7 @@ const AddRoleModal = ({show, onClose, updateRoles, role}) => {
   const [errorMessageRole, setErrorMessageRole] = useState("");
   const [errorMessageRoleType, setErrorMessageRoleType] = useState("");
   const [errorMessagePermission, setErrorMessagePermission] = useState("");
+  const [PermissionOptions, setPermissionOptions] = useState([])
   const [currentRole, setCurrentRole] = useState({});
 
   const [roleData, setRoleData] = useState(freshObject);
@@ -58,7 +60,7 @@ const AddRoleModal = ({show, onClose, updateRoles, role}) => {
 
     let response;
     if (role) {
-      response = await updateRole({rolePayload, id: role.id});
+      response = await updateRole({ rolePayload, id: role?.id });
     } else {
       response = await createRole(rolePayload);
     }
@@ -84,8 +86,6 @@ const AddRoleModal = ({show, onClose, updateRoles, role}) => {
     }
   };
 
-  console.log(roleData.selectedPermissions);
-
   function modalClose() {
     onClose();
     setRoleData(freshObject);
@@ -96,24 +96,43 @@ const AddRoleModal = ({show, onClose, updateRoles, role}) => {
     async function fetchRoleTypeData() {
       const response = await fetchRoleType();
       if (response.ok) {
+
         setRoleData((preData) => ({
           ...preData,
           fetchedRoletype: response?.roleType.map((role) => ({
             value: role.id,
             label: role.name,
           })),
+          selectedPermissions: role.roleTypeId === roleData.selectedRoletype ? currentRole?.permissions?.map(e => e.permissionId) || [] : []
         }));
       }
     }
     fetchRoleTypeData();
   }, [roleData.selectedRoletype]);
 
-  const updateFormValue = async ({updateType, value}) => {
+  // function updateSelection(key, value) {
+  //   setTimeout(() => {
+
+  //     setPermissionOptions([])
+  //   }, 100)
+  // }
+
+  const updateFormValue = async ({ updateType, value }) => {
     clearErrorMessage();
-    setRoleData((prevState) => ({
-      ...prevState,
-      [updateType]: updateType === "selectedPermissions" ? [...value] : value,
-    }));
+    if (updateType !== "selectedPermissions") {
+      setRoleData((prevState) => ({
+        ...prevState,
+        [updateType]: updateType === "selectedPermissions" ? [...value] : value,
+      }));
+    } else {
+      setTimeout(() => {
+
+        setRoleData((prevState) => ({
+          ...prevState,
+          [updateType]: updateType === "selectedPermissions" ? [...value] : value,
+        }));
+      }, 100)
+    }
 
     if (updateType === "userRole") {
       setRoleData((prevState) => ({
@@ -135,34 +154,32 @@ const AddRoleModal = ({show, onClose, updateRoles, role}) => {
     }
   };
 
-  const handleSelectRoleType = async (value) => {
-    try {
-      const response = await fetchPermissionsByRoleType(value.value);
-      setRoleData({
-        ...roleData,
-        fetchedPermissions: response?.permission,
-      });
-    } catch (e) {
-      console.log(e);
-    }
-  };
+  // const handleSelectRoleType = async (value) => {
+  //   try {
+  //     const response = await fetchPermissionsByRoleType(value.value);
+  //     setRoleData({
+  //       ...roleData,
+  //       fetchedPermissions: response?.permission,
+  //     });
+  //   } catch (e) {
+  //     console.log(e);
+  //   }
+  // };
+
 
   useEffect(() => {
     if (role) {
       async function getRole() {
         try {
-          const response = await getRoleById(role.id);
-          setCurrentRole(response.role);
-          const permissions = await fetchPermissionsByRoleType(
-            role?.roleTypeId
-          );
+          const response = await getRoleById(role?.id);
+          setCurrentRole(response.role)
+          const permissions = await fetchPermissionsByRoleType(role?.roleTypeId);
           if (response.ok) {
             setRoleData((prevState) => ({
               ...prevState,
               fetchedPermissions: permissions?.permission, // Store fetched permissions
             }));
           }
-          console.log("qwer");
         } catch (error) {
           console.log(error);
         }
@@ -175,17 +192,26 @@ const AddRoleModal = ({show, onClose, updateRoles, role}) => {
     if (role) {
       setRoleData({
         name: currentRole?.name || "",
+        name: currentRole?.name || "",
         roleTypes: [] || [],
-        selectedPermissions:
-          currentRole?.permissions?.map((e) => e.permissionId) || [],
+        selectedPermissions: currentRole?.permissions?.map(e => e.permissionId) || [],
         fetchedPermissions: [],
         fetchedRoletype: [],
+        selectedRoletype: currentRole?.roleTypeId || "",
         selectedRoletype: currentRole?.roleTypeId || "",
       });
     } else {
       setRoleData(freshObject);
     }
   }, [currentRole]);
+
+  useEffect(() => {
+    if (role.roleTypeId === roleData.selectedRoletype) {
+      setRoleData(prev => {
+        return ({ ...prev, selectedPermissions: currentRole?.permissions?.map(e => e.permissionId) || [], })
+      });
+    }
+  }, [roleData.selectedRoletype]);
 
   useEffect(() => {
     setErrorMessagePermission("");
@@ -297,30 +323,8 @@ const AddRoleModal = ({show, onClose, updateRoles, role}) => {
           </div>
         </form>
       </div>
-      <ToastContainer />
     </div>
   );
 };
 
-export default AddRoleModal;
-
-{
-  /* Status Select*/
-}
-{
-  /* <div className="form-control mb-4">
-                        <label className="label">
-                            <span className="label-text">Status</span>
-                        </label>
-                        <select
-                            className="select select-bordered"
-                            value={roleData.status}
-                            onChange={(e) => updateFormValue({ updateType: "status", value: e.target.value })}
-                            required
-                        >
-                            <option value="">Select Status</option>
-                            <option value="ACTIVE">Active</option>
-                            <option value="INACTIVE">Inactive</option>
-                        </select>
-                    </div> */
-}
+export default AddRoleModal

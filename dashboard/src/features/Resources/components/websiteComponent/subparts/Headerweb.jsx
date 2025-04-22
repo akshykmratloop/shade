@@ -32,9 +32,9 @@ const Header = ({ isOpenNavbar, setIsOpenNavbar, language, screen, setLanguage }
 
     const changeLangugage = () => {
         setLanguage(prev => {
-            if(prev === "en"){
+            if (prev === "en") {
                 return "ar"
-            }else{
+            } else {
                 return "en"
             }
         })
@@ -83,12 +83,12 @@ const Header = ({ isOpenNavbar, setIsOpenNavbar, language, screen, setLanguage }
             <div className="container mx-auto px-4 relative h-[500px] border border-cyan-400 pt-6">
                 <header className={`w-full border transform bg-white z-50 transition-all duration-200 rounded-[40px] shadow-lg px-2 py-2 ${scrolled ? "bg-gray-300 bg-opacity-20 backdrop-blur-md shadow-none" : ""}`}
                 >
-                    <div className={` flex justify-between items-center ${!isLeftAlign && "flex-row-reverse"} px-6`}>
+                    <div className={`flex justify-between items-center ${!isLeftAlign && "flex-row-reverse"} px-6`}>
                         <Link href="/" className="flex items-center">
                             <img src={Logo} alt="Logo" width={50} height={50} className={`transition-all duration-200`} />
                         </Link>
 
-                        <nav className={`hidden lg:flex ${isLeftAlign? 'gap-6':"space-x-10"}`}>
+                        <nav className={`hidden lg:flex ${isLeftAlign ? 'gap-6' : "space-x-10"}`}>
                             {[
                                 "section 1",
                                 "section 2",
@@ -102,7 +102,7 @@ const Header = ({ isOpenNavbar, setIsOpenNavbar, language, screen, setLanguage }
                                     key={item}
                                     href={`/${item}`}
                                     className={`text-[#001A5882] text-xs transition duration-200 ${false ? "text-gray-800 font-semibold" : "hover:text-[#145098]"}`}
-                                > 
+                                >
                                     {currentContent?.[item]?.title?.[language]}
                                 </Link>
                             ))}

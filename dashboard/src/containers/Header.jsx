@@ -13,6 +13,7 @@ import {MODAL_BODY_TYPES} from "../utils/globalConstantUtil";
 import SearchBar from "../components/Input/SearchBar";
 import {getNotificationsbyId} from "../app/fetch";
 import {setNotificationCount} from "../features/common/headerSlice";
+import { TruncateText } from "../app/capitalizeword";
 
 function Header() {
   const dispatch = useDispatch();
@@ -152,7 +153,7 @@ function Header() {
                   <LiaUserCircleSolid />
                 </i>
                 <h6 className=" font-medium text-xs pl-[5px] text-center">
-                  Super Admin
+                  {TruncateText(user.name, 9)}
                 </h6>
               </div>
             </label>

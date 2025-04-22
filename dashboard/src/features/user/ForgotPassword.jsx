@@ -42,7 +42,7 @@ function ForgotPassword() {
                 setLoading(false)
                 setOtpSent(true)
                 localStorage.setItem(formObj.otpOrigin, JSON.stringify(formObj))
-                updateToasify(loadingToastId, "Request successful!", "success", 2000) // updating the toaster
+                updateToasify(loadingToastId, "Request successful! OTP has been sent.", "success", 2000) // updating the toaster
                 return;
             }
             setLoading(false)

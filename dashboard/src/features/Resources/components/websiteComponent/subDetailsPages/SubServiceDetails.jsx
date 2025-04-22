@@ -48,16 +48,16 @@ const SubServiceDetails = ({ serviceId, contentOn, language, screen, deepPath })
     return (
         <div dir={isLeftAlign ? 'ltr' : "rtl"}>
             {/* banner */}
-            <section className='px-[75px] py-[50px] pb-[25px]'>
-                <article className='flex flex-col gap-[34px]'>
-                    <section className='flex gap-[30px]'>
-                        <h2 className='text-[35px] w-1/2'>{currentContent?.banner?.title?.[language]}</h2>
-                        <div className='text-[9.5px] w-1/2' dangerouslySetInnerHTML={{ __html: currentContent?.banner?.description?.[language] }} />
+            <section className={`${isPhone ? "" : "px-[75px]"} py-[50px] pb-[25px]`}>
+                <article className={`flex flex-col gap-[34px] ${isPhone ? "" : ""}`}>
+                    <section className={`flex gap-[30px] ${isPhone ? "flex-col px-[30px]" : ""}`}>
+                        <h2 className={`text-[35px] ${isPhone ? "" : "w-1/2"}`}>{currentContent?.banner?.title?.[language]}</h2>
+                        <div className={`text-[9.5px] ${isPhone ? "" : "w-1/2"}`} dangerouslySetInnerHTML={{ __html: currentContent?.banner?.description?.[language] }} />
                     </section>
                     <div>
-                        <img src={ImagesFromRedux?.[`subServiceBanner/${serviceId}/${deepPath}`] || services?.[currentContent?.banner?.image]} alt="" className='aspect-[3.5/1] object-cover' />
+                        <img src={ImagesFromRedux?.[`subServiceBanner/${serviceId}/${deepPath}`] || services?.[currentContent?.banner?.image]} alt="" className={`${isPhone ? "aspect-[2/1]" : "aspect-[3.5/1]"} object-cover`} />
                     </div>
-                    <section className='flex gap-[30px]'>
+                    <section className={`flex gap-[30px]  ${isPhone ? "flex-col px-[30px]" : ""}`}>
                         <h2 className='text-[32px]  flex-1 leading-[28px]'>{currentContent?.subBanner?.title?.[language]}</h2>
                         <div className='text-[9.5px] flex-1' dangerouslySetInnerHTML={{ __html: currentContent?.subBanner?.description?.[language] }} />
                     </section>
@@ -65,7 +65,7 @@ const SubServiceDetails = ({ serviceId, contentOn, language, screen, deepPath })
             </section>
 
             {/* Services */}
-            <section className='px-[75px] py-[20px] grid grid-cols-2 gap-x-[20px] gap-y-[30px] auto-rows-fr'>
+            <section className={` py-[20px] grid ${isPhone ? "grid-cols-1 px-[30px]" : "grid-cols-2 px-[75px]"} gap-x-[20px] gap-y-[30px] auto-rows-fr`}>
                 {
                     currentContent?.descriptions?.map((description, i) => {
 
@@ -88,7 +88,7 @@ const SubServiceDetails = ({ serviceId, contentOn, language, screen, deepPath })
                         slidesPerView={isPhone ? 1 : 3}
                         loop={true}
                         spaceBetween={2}
-                        slidesOffsetBefore={isLeftAlign ? 15 : -10}
+                        slidesOffsetBefore={isLeftAlign ? isComputer ? 15 : 0 : -10}
                         autoplay={{
                             delay: 2400,
                             disableOnInteraction: false,
@@ -118,7 +118,7 @@ const SubServiceDetails = ({ serviceId, contentOn, language, screen, deepPath })
                                             height={""}
                                             width={""}
                                             alt={"slideder image " + index}
-                                            className="w-[374px] aspect-[2/1] object-cover border border-gray-200"
+                                            className={`${isPhone ? "w-full" : "w-[374px]"} aspect-[2/1] object-cover border border-gray-200`}
                                         />
                                     </div>
                                 </SwiperSlide>
@@ -129,15 +129,15 @@ const SubServiceDetails = ({ serviceId, contentOn, language, screen, deepPath })
             </section>
 
             {/* description section */}
-            <section className='px-[75px] py-[25px] flex flex-col gap-[25px]'>
+            <section className={`${!isPhone && "px-[75px]"} py-[25px] flex flex-col gap-[25px]`}>
                 {
                     currentContent?.descriptions2?.map((description, i) => {
 
                         return (
                             <article className='flex flex-col gap-[32px]' key={i}>
-                                <section className='flex gap-[30px]'>
-                                    <h2 className='text-[32px] w-1/2 grow-1 leading-[28px]'>{description?.title?.[language]}</h2>
-                                    <p className='text-[9.5px] w-1/2'>{description?.description?.[language]}</p>
+                                <section className={`flex gap-[30px] ${isPhone ? "flex-col px-[30px]" : ""}`}>
+                                    <h2 className={`text-[32px] ${!isPhone && "w-1/2"} grow-1 leading-[28px]`}>{description?.title?.[language]}</h2>
+                                    <p className={`text-[9.5px] ${!isPhone && "w-1/2"}`}>{description?.description?.[language]}</p>
                                 </section>
                             </article>
                         )
@@ -146,7 +146,7 @@ const SubServiceDetails = ({ serviceId, contentOn, language, screen, deepPath })
             </section>
 
             {/* gallery 2 */}
-            <section className='px-[76px] py-[25px] pb-[50px] grid grid-cols-4 gap-y-[11px] gap-x-[11px]'>
+            <section className={`py-[25px] pb-[50px] grid ${isPhone ? "grid-cols-2 px-3 gap-y-[12px] gap-x-[6px]" : "grid-cols-4 px-[76px] gap-y-[11px] gap-x-[11px]"} `}>
                 {currentContent?.gallery2?.map(
                     (images, index) => (
                         <div className="relative w-fit" key={index}>
@@ -161,7 +161,7 @@ const SubServiceDetails = ({ serviceId, contentOn, language, screen, deepPath })
                                 index === 0 &&
                                 <>
 
-                                    <div className="absolute z-20 inset-0 bg-gradient-to-t from-black/100 via-transparent to-transparent border border-cyan-600 grid">
+                                    <div className="absolute z-20 inset-0 bg-gradient-to-t from-black/100 via-transparent to-transparent grid">
                                         <h3 className='text-[#fff] self-end px-4 text-[15px]'>Work Include</h3>
                                     </div>
                                 </>

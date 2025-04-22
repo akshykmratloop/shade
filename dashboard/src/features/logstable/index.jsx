@@ -1,23 +1,23 @@
 // libraries import
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import PlusIcon from "@heroicons/react/24/outline/PlusIcon";
-import {toast, ToastContainer} from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 // self modules
-import {userLogs} from "../../app/fetch";
+import { userLogs } from "../../app/fetch";
 // import AddRoleModal from "./AddRole";
 import SearchBar from "../../components/Input/SearchBar";
 import TitleCard from "../../components/Cards/TitleCard";
 import ShowLogs from "./ShowLog";
 import updateToasify from "../../app/toastify";
 // icons
-import {Switch} from "@headlessui/react";
+import { Switch } from "@headlessui/react";
 import XMarkIcon from "@heroicons/react/24/outline/XMarkIcon";
-import {FiEye} from "react-icons/fi";
-import {FiEdit} from "react-icons/fi";
-import {RxQuestionMarkCircled} from "react-icons/rx";
-import {LuListFilter} from "react-icons/lu";
-import {LuImport} from "react-icons/lu";
-import capitalizeWords, {TruncateText} from "../../app/capitalizeword";
+import { FiEye } from "react-icons/fi";
+import { FiEdit } from "react-icons/fi";
+import { RxQuestionMarkCircled } from "react-icons/rx";
+import { LuListFilter } from "react-icons/lu";
+import { LuImport } from "react-icons/lu";
+import capitalizeWords, { TruncateText } from "../../app/capitalizeword";
 import Paginations from "../Component/Paginations";
 import formatTimestamp from "../../app/TimeFormat";
 // import userIcon from "../../assets/user.png"
@@ -81,7 +81,7 @@ const TopSideButtons = ({
             <li key={key}>
               <a
                 onClick={() => showFiltersAndApply(status)}
-                style={{textTransform: "capitalize"}}
+                style={{ textTransform: "capitalize" }}
               >
                 {capitalizeWords(status)}
               </a>
@@ -105,7 +105,7 @@ function Logs() {
   const [showDetailsModal, setShowDetailsModal] = useState(false);
   const [enabled, setEnabled] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const logsPerPage = 5;
+  const logsPerPage = 20;
 
   const removeFilter = () => {
     setLogs([...originalLogs]);
@@ -121,6 +121,7 @@ function Logs() {
     const filteredRoles = originalLogs?.filter((log) =>
       log?.action_performed.toLowerCase().includes(value.toLowerCase())
     );
+    setCurrentPage(1)
     setLogs(filteredRoles);
   };
 
@@ -157,14 +158,14 @@ function Logs() {
         <div className="min-h-[28.2rem] flex flex-col justify-between">
           <div className="overflow-x-auto w-full border dark:border-stone-600 rounded-2xl">
             <table className="table text-center min-w-full dark:text-[white]">
-              <thead className="" style={{borderRadius: ""}}>
+              <thead className="" style={{ borderRadius: "" }}>
                 <tr
                   className="!capitalize"
-                  style={{textTransform: "capitalize"}}
+                  style={{ textTransform: "capitalize" }}
                 >
                   <th
                     className="font-medium text-[12px] text-left font-poppins leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white] text-[#42526D] px-[20px] py-[13px] !capitalize"
-                    style={{position: "static", width: ""}}
+                    style={{ position: "static", width: "" }}
                   >
                     Action Perfomed
                   </th>
@@ -199,7 +200,7 @@ function Logs() {
                       <tr
                         key={index}
                         className="font-light "
-                        style={{height: "65px"}}
+                        style={{ height: "65px" }}
                       >
                         <td
                           className={`font-poppins h-[65px] truncate font-normal text-[14px] leading-normal text-[#101828] p-[26px] pl-5 flex`}
@@ -236,7 +237,7 @@ function Logs() {
                         </td>
                         <td
                           className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]"
-                          style={{whiteSpace: "wrap"}}
+                          style={{ whiteSpace: "wrap" }}
                         >
                           <span className="">
                             <p
@@ -249,18 +250,17 @@ function Logs() {
                                                                 text-[12px] 
                                                                 justify-center gap-1 
                                                                 px-1 py-0 font-[500] 
-                                                                ${
-                                                                  log?.outcome ===
-                                                                  "Success"
-                                                                    ? "text-green-600 bg-green-100 before:text-green-600 px-1"
-                                                                    : log?.outcome ===
-                                                                      "Failed"
-                                                                    ? "text-red-600 bg-red-100 before:text-red-600"
-                                                                    : "text-stone-600 bg-stone-100 before:text-stone-600"
-                                                                } 
+                                                                ${log?.outcome ===
+                                  "Success"
+                                  ? "text-green-600 bg-green-100 before:text-green-600 px-1"
+                                  : log?.outcome ===
+                                    "Failed"
+                                    ? "text-red-600 bg-red-100 before:text-red-600"
+                                    : "text-stone-600 bg-stone-100 before:text-stone-600"
+                                } 
                                                                 rounded-2xl
                                                                 `}
-                              style={{textTransform: "capitalize"}}
+                              style={{ textTransform: "capitalize" }}
                             >
                               {capitalizeWords(log?.outcome) || "N/A"}
                             </p>

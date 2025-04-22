@@ -33,7 +33,7 @@ const routes = [
   {
     path: '/app/dashboard',
     icon: <Squares2X2Icon className={iconClasses} />,
-    name: 'Dashboard',
+    name: 'Dashboard', 
   },
   {
     path: '/app/resources', // url
@@ -44,11 +44,13 @@ const routes = [
     path: '/app/roles', // url
     icon: <UserRoundCog strokeWidth={1.5} className={`${iconClasses}`} />, // icon component
     name: 'Roles', // name that appear in Sidebar
+    permission: "ROLES_PERMISSION_MANAGEMENT"
   },
   {
     path: '/app/users', // url
     icon: <UserRound strokeWidth={1.5} className={iconClasses} />, // icon component
     name: 'Users', // name that appear in Sidebar
+    permission: "USER_MANAGEMENT"
   },
   {
     path: '/app/requests', // url
@@ -59,6 +61,7 @@ const routes = [
     path: '/app/logs', // url
     icon: <Logs strokeWidth={1.5} />, // icon component
     name: 'Logs', // name that appear in Sidebar
+    permission: "AUDIT_LOGS_MANAGEMENT"
   }
   // {
   //   path: '/app/integration', // url
