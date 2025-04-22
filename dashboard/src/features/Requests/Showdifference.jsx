@@ -9,6 +9,8 @@ import SkeletonLoader from "../../components/Loader/SkeletonLoader";
 import AllForOne from "../Resources/components/AllForOne";
 import content from "../Resources/components/websiteComponent/content.json"
 import { useSelector } from "react-redux";
+import { RxCross1 } from "react-icons/rx";
+import Button from "../../components/Button/Button";
 
 
 function ShowDifference({ role, show, onClose }) {
@@ -67,14 +69,20 @@ function ShowDifference({ role, show, onClose }) {
                 <Dialog.Panel className="w-[98vw] h-[98vh] overflow-y-auto customscroller shadow-lg shadow-stone rounded-lg bg-[white] dark:bg-slate-800 p-6 px-0">
                     <div className="flex justify-between items-center mb-4 px-6">
                         <Dialog.Title className="text-lg font-[500]">Difference Preview</Dialog.Title>
-                        <button onClick={onClose} className="bg-transparent hover:bg-stone-300 dark:hover:bg-stone-700 rounded-full border-none p-2 py-2">
+                        <div className="pr-[50px] flex gap-5">
+                            <button onClick={() => { }} className='flex justify-center items-center gap-1 bg-[#FF0000] rounded-md xl:h-[2.68rem] sm:h-[2rem] xl:text-xs sm:text-[.6rem] xl:w-[5.58rem] w-[4rem] text-[white]'>
+                                <RxCross1 /> Reject
+                            </button>
+                            <Button text={'Approve'} functioning={() => {}} classes='bg-[#29469D] rounded-md xl:h-[2.68rem] sm:h-[2rem] xl:text-xs sm:text-[.6rem] xl:w-[5.58rem] w-[4rem] text-[white]' />
+                        </div>
+                        <button onClick={onClose} className="bg-transparent absolute top-4 right-10 z-20 hover:bg-stone-300 dark:hover:bg-stone-700 rounded-full border-none p-2 py-2">
                             <XMarkIcon className="w-5" />
                         </button>
                     </div>
 
                     <div className="flex scale-[.95] translate-x-[-15px] translate-y-[-100px]">
                         <div>
-                            <AllForOne currentPath={"home"} language={"en"} screen={760} content={content} fullScreen={""}/>
+                            <AllForOne currentPath={"home"} language={"en"} screen={760} content={content} fullScreen={""} />
                         </div>
                         <div>
                             <AllForOne currentPath={"home"} language={"en"} screen={760} content={contentFromRedux} fullScreen={""} />
