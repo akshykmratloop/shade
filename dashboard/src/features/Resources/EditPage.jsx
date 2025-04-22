@@ -62,7 +62,7 @@ const EditPage = () => {
 
     const content = useSelector((state) => state.homeContent.present)
 
-    const Routes = ['home', 'solution', 'about', "services", 'markets', 'projects', 'careers', 'news', 'footer', 'header', 'testimonials']
+    const Routes = ['home', 'solutions', 'about', "services", 'markets', 'projects', 'careers', 'news', 'footer', 'header', 'testimonials']
 
     useEffect(() => {
         dispatch(setSidebarState(true))
@@ -87,8 +87,8 @@ const EditPage = () => {
                                 <HomeManager language={language} currentContent={content.home} currentPath={currentPath} />
                             }
                             {
-                                currentPath === "solution" &&
-                                <SolutionManager language={language} currentContent={content.solution} currentPath={currentPath} />
+                                currentPath === "solutions" &&
+                                <SolutionManager language={language} currentContent={content.solutions} currentPath={currentPath} />
                             }
                             {
                                 currentPath === "about" &&

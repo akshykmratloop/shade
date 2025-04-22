@@ -19,6 +19,7 @@ import SubServiceDetails from "./websiteComponent/subDetailsPages/SubServiceDeta
 const AllForOne = ({ language, screen, content, subPath, setLanguage, fullScreen, currentPath, deepPath }) => {
     let translateForFullScreen = ""
 
+    console.log(currentPath)
     if (!subPath) {
         switch (currentPath) {
             case "home":
@@ -95,7 +96,7 @@ const AllForOne = ({ language, screen, content, subPath, setLanguage, fullScreen
                 <HomePage language={language} screen={screen} fullScreen={fullScreen} currentContent={content.home} />
             }
             {
-                currentPath === "solution" &&
+                currentPath === "solutions" &&
                 <SolutionPage language={language} currentContent={content.solution} screen={screen} />
             }
             {

@@ -5,7 +5,7 @@ const Navbar = ({ currentNav, setCurrentResource }) => {
     const permissionsSet = new Set(userPermissions);
 
     const navs = [
-        { name: "Pages", resources: "pages", permission: "PAGE_MANAGEMENT" },
+        { name: "Pages", resources: "mainPages", permission: "PAGE_MANAGEMENT" },
         { name: "Services", resources: "services", permission: "SERVICE_MANAGEMENT" },
         { name: "Sub Services", resources: "subServices", permission: "SERVICE_MANAGEMENT" },
         { name: "Market", resources: "markets", permission: "MARKET_MANAGEMENT" },

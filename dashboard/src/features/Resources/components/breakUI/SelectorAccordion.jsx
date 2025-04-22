@@ -3,11 +3,9 @@ import Select from "../../../../components/Input/Select";
 import { RxCross2 } from "react-icons/rx";
 import { GoPlus } from "react-icons/go";
 
-const SelectorAccordion = () => {
+const SelectorAccordion = ({ options, onChange, field }) => {
     const [selector, setSelector] = useState([{ label: "Level 1", value: "" }]);
     const selectorRef = useRef(null);
-
-    const dummyData = ["Option 1", "Option 2", "Option 3", "Option 4", "Option 5"];
 
     const addSelector = (e) => {
         e.preventDefault();
@@ -15,9 +13,12 @@ const SelectorAccordion = () => {
     };
 
     const updateSelectorValue = (index, label, value) => {
-        setSelector((prev) =>
-            prev.map((item, i) => (i === index ? { ...item, [label]: value } : item))
-        );
+        const valueExists = selector.some(e => e.value === value)
+        if (!valueExists) {
+            setSelector((prev) =>
+                prev.map((item, i) => (i === index ? { ...item, [label]: value } : item))
+            );
+        }
     };
 
     const removeSelector = (index) => {
@@ -40,6 +41,10 @@ const SelectorAccordion = () => {
         }
     }, [selector]);
 
+    useEffect(() => {
+        onChange(field, selector.map((e, i) => ({ stage: i + 1, id: e.value })))
+    }, [selector])
+
     return (
         <div className="mt- max-h-[12.25rem] overflow-y-scroll customscroller-2 w-[22rem]" ref={selectorRef}>
             {selector.map((select, index) => {
@@ -50,12 +55,12 @@ const SelectorAccordion = () => {
                             {select.label}
                         </p>
                         <Select
+                            options={options || []}
                             setterOnChange={updateSelectorValue}
                             index={index}
                             selectClass="px-2 bg-transparent mt-1 border border-stone-300 dark:border-stone-600 rounded-md p-2 outline-none"
                             height={""}
                             width={"w-[14rem]"}
-                            options={dummyData}
                             value={select.value}  // <-- Ensure the Select component gets the correct value
                         />
 

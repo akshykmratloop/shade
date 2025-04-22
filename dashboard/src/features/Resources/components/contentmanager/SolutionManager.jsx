@@ -29,7 +29,7 @@ const SolutionManager = ({ currentPath, language, currentContent }) => {
     }
 
     useEffect(() => {
-        dispatch(updateContent({ currentPath: "home", payload: (content?.home) }))
+        dispatch(updateContent({ currentPath: "solutions", payload: (content?.solutions) }))
     }, [])
     return (
         <div className="w-full">

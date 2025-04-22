@@ -7,6 +7,7 @@ const role = "role";
 const permission = "permission";
 const user = "user";
 const notification = "notification";
+const content = 'content';
 
 const api = {
   login: `${auth}/login`, // API for Auth
@@ -41,6 +42,10 @@ const api = {
 
   getNotifications: `${notification}/`, // API for notifications
   markAllNotificationAsRead: `${notification}/read-all/`, // API for marking notification as read
+
+  // Pages
+  getAllMainPages: `${content}/getAllMainPages`,
+  getEligibleUsers: `${content}/getEligibleUsers`,
 
   route(route) {
     if (this[route]) {
