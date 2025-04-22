@@ -103,7 +103,7 @@ const AddRoleModal = ({ show, onClose, updateRoles, role }) => {
             value: role.id,
             label: role.name,
           })),
-          selectedPermissions: role.roleTypeId === roleData.selectedRoletype ? currentRole?.permissions?.map(e => e.permissionId) || [] : []
+          selectedPermissions: role?.roleTypeId === roleData?.selectedRoletype ? currentRole?.permissions?.map(e => e.permissionId) || [] : []
         }));
       }
     }
@@ -154,17 +154,17 @@ const AddRoleModal = ({ show, onClose, updateRoles, role }) => {
     }
   };
 
-  // const handleSelectRoleType = async (value) => {
-  //   try {
-  //     const response = await fetchPermissionsByRoleType(value.value);
-  //     setRoleData({
-  //       ...roleData,
-  //       fetchedPermissions: response?.permission,
-  //     });
-  //   } catch (e) {
-  //     console.log(e);
-  //   }
-  // };
+  const handleSelectRoleType = async (value) => {
+    try {
+      const response = await fetchPermissionsByRoleType(value.value);
+      setRoleData({
+        ...roleData,
+        fetchedPermissions: response?.permission,
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
 
   useEffect(() => {

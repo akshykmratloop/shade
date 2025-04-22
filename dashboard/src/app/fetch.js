@@ -182,9 +182,9 @@ export async function fetchRoles(query) {
   const [key] = Object.keys(query);
   const value = query[key];
 
-  return await makerequest(`${api.route("fetchRoles")}?${key}=${value}`, "GET",  JSON.stringify({}),
-  {},
-  true);
+  return await makerequest(`${api.route("fetchRoles")}?${key}=${value}`, "GET", JSON.stringify({}),
+    {},
+    true);
 
 }
 
@@ -318,3 +318,32 @@ export async function markAllNotificationAsRead(id) {
     ContentType.json
   );
 }
+
+export async function getAllMainPages() {
+
+  return await makerequest(
+    api.route("getAllMainPages"),
+    "GET"
+  )
+}
+export async function getEligibleUsers(query) {
+  if (!query || typeof query !== "object") {
+    return await makerequest(api.route("getEligibleUsers"), "GET");
+  }
+
+    const [key] = Object.keys(query);
+    const value = query[key];
+
+    return await makerequest(`${api.route("getEligibleUsers")}?${key}=${value}`, "GET");
+}
+
+// export async function getAllusers(query) {
+//   if (!query || typeof query !== "object") {
+//     return await makerequest(api.route("getUsers"), "GET");
+//   }
+
+//   const [key] = Object.keys(query);
+//   const value = query[key];
+
+//   return await makerequest(`${api.route("getUsers")}?${key}=${value}`, "GET");
+// }

@@ -1,9 +1,11 @@
 import React from "react";
 
-const Select = ({ options, selectClass, label, labelClass, baseClass, setterOnChange, index, value, height, width }) => {
+const Select = ({ options, selectClass, label, labelClass, baseClass, setterOnChange, index, value, height, width, field }) => {
     const handleSelectChange = (e) => {
         if (typeof index === "number") {
             setterOnChange(index, "value", e.target.value);
+        } else {
+            setterOnChange(field, e.target.value)
         }
     };
 
@@ -17,8 +19,8 @@ const Select = ({ options, selectClass, label, labelClass, baseClass, setterOnCh
             >
                 <option value="" className=""> Select </option>
                 {options?.map((option, i) => (
-                    <option value={option} key={option + i}>
-                        {option}
+                    <option value={option.id} key={option + i}>
+                        {option.name}
                     </option>
                 ))}
             </select>
