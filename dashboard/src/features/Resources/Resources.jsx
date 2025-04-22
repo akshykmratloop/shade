@@ -12,7 +12,7 @@ import { AiOutlineInfoCircle } from "react-icons/ai";
 import { FiEdit } from "react-icons/fi";
 import { IoSettingsOutline } from "react-icons/io5";
 import capitalizeWords from "../../app/capitalizeword";
-import { getAllMainPages } from "../../app/fetch";
+import { getPages } from "../../app/fetch";
 
 // import resources from "./resourcedata";
 
@@ -30,7 +30,6 @@ function Resources() {
     const [resources, setResources] = useState({});
 
     const resNotAvail = resources?.[currentResource]?.length === 0
-
 
     const settingRoute = (firstRoute, secRoute, thirdRoute) => {
         let routeExpression = ''
@@ -57,8 +56,8 @@ function Resources() {
     useEffect(() => {
         const fetchResources = async () => {
             if (currentResource) {
-                const response = await getAllMainPages();
-                setResources(prev => ({ ...prev, mainPages: response.mainPages }))
+                const response = await getPages();
+                setResources(prev => ({ ...prev, mainPages: response.mainPages.resources }))
             }
         }
         fetchResources()
@@ -98,8 +97,8 @@ function Resources() {
                                 <div className="absolute top-2 right-2 z-10 text-[1.5rem] p-2 rounded-full text-[blue]">
                                     <FiInfo />
                                 </div> */}
-                                <div className={` h-6 ${page.assign ? 'bg-[#29469c] w-[120px]' : "bg-red-600 w-[140px]"} text-white flex items-center justify-center text-sm font-[300] clip-concave absolute top-3 left-0 z-10`}>
-                                    {page.assign ? "Assigned" : "Not assigned"}
+                                <div className={` h-6 ${page.isAssigned ? 'bg-[#29469c] w-[120px]' : "bg-red-500 w-[140px]"} text-white flex items-center justify-center text-sm font-[300] clip-concave absolute top-3 left-0 z-10`}>
+                                    {page.isAssigned ? "Assigned" : "Not assigned"}
                                 </div>
 
                                 {/* Background Image with Adjusted Dark Gradient */}
