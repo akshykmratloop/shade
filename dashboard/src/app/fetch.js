@@ -31,7 +31,7 @@ const makerequest = async (
   // Check if token is expired and clear session if it is
   if (token && isTokenExpired(token)) {
     clearSession();
-    return { error: "Session expired. Please log in again.", ok: false };
+    return {error: "Session expired. Please log in again.", ok: false};
   }
 
   const controller = new AbortController();
@@ -41,7 +41,7 @@ const makerequest = async (
 
   const finalHeaders = {
     ...headers,
-    ...(token ? { Authorization: `Bearer ${token}` } : {}),
+    ...(token ? {Authorization: `Bearer ${token}`} : {}),
   };
 
   const options = {
@@ -66,7 +66,7 @@ const makerequest = async (
     result.ok = true;
   } catch (err) {
     if (err.name === "AbortError") {
-      result = { error: "Request timed out" };
+      result = {error: "Request timed out"};
     } else {
       result = err;
       result.ok = false;
@@ -78,7 +78,7 @@ const makerequest = async (
 };
 
 const ContentType = {
-  json: { "Content-Type": "application/json" },
+  json: {"Content-Type": "application/json"},
 };
 
 // fetch for auth
@@ -182,10 +182,13 @@ export async function fetchRoles(query) {
   const [key] = Object.keys(query);
   const value = query[key];
 
-  return await makerequest(`${api.route("fetchRoles")}?${key}=${value}`, "GET", JSON.stringify({}),
+  return await makerequest(
+    `${api.route("fetchRoles")}?${key}=${value}`,
+    "GET",
+    JSON.stringify({}),
     {},
-    true);
-
+    true
+  );
 }
 
 export async function getRoleById(id) {
@@ -228,9 +231,9 @@ export async function deactivateRole(data) {
 
 export async function updateRole(data) {
   return await makerequest(
-    api.route("updateRole"),
+    api.route("updateRole") + `/${data.id}`,
     "PUT",
-    JSON.stringify(data),
+    JSON.stringify(data.rolePayload),
     ContentType.json,
     true
   );
@@ -312,21 +315,20 @@ export async function markAllNotificationAsRead(id) {
 }
 
 export async function getAllMainPages() {
-
-  return await makerequest(
-    api.route("getAllMainPages"),
-    "GET"
-  )
+  return await makerequest(api.route("getAllMainPages"), "GET");
 }
 export async function getEligibleUsers(query) {
   if (!query || typeof query !== "object") {
     return await makerequest(api.route("getEligibleUsers"), "GET");
   }
 
-    const [key] = Object.keys(query);
-    const value = query[key];
+  const [key] = Object.keys(query);
+  const value = query[key];
 
-    return await makerequest(`${api.route("getEligibleUsers")}?${key}=${value}`, "GET");
+  return await makerequest(
+    `${api.route("getEligibleUsers")}?${key}=${value}`,
+    "GET"
+  );
 }
 
 // export async function getAllusers(query) {
