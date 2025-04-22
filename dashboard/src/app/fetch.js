@@ -319,10 +319,10 @@ export async function markAllNotificationAsRead(id) {
   );
 }
 
-export async function getAllMainPages() {
+export async function getPages() {
 
   return await makerequest(
-    api.route("getAllMainPages"),
+    api.route("getPages"),
     "GET"
   )
 }

@@ -44,7 +44,7 @@ const api = {
   markAllNotificationAsRead: `${notification}/read-all/`, // API for marking notification as read
 
   // Pages
-  getAllMainPages: `${content}/getAllMainPages`,
+  getPages: `${content}/getPages`,
   getEligibleUsers: `${content}/getEligibleUsers`,
   assignUser: `${content}/assignUser`,
 

@@ -17,8 +17,6 @@ const ConfigBar = ({ display, setOn, data, resourceId }) => {
         publisher: ""
     })
 
-    console.log(formObj)
-
     function updateSelection(field, value) {
         setFormObj(prev => {
             return { ...prev, [field]: value }
@@ -31,7 +29,6 @@ const ConfigBar = ({ display, setOn, data, resourceId }) => {
         const valueArray = Object.values(formObj);
         const keyArray = Object.keys(formObj)
         let sameDoubledValue = false;
-        let emptyFields = false;
         const verifierSet = new Set(formObj.verifiers.map(e => e.id))
 
         for (let i = 0; i < valueArray.length; i++) {

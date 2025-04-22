@@ -12,7 +12,7 @@ import { AiOutlineInfoCircle } from "react-icons/ai";
 import { FiEdit } from "react-icons/fi";
 import { IoSettingsOutline } from "react-icons/io5";
 import capitalizeWords from "../../app/capitalizeword";
-import { getAllMainPages } from "../../app/fetch";
+import { getPages } from "../../app/fetch";
 
 // import resources from "./resourcedata";
 
@@ -56,8 +56,8 @@ function Resources() {
     useEffect(() => {
         const fetchResources = async () => {
             if (currentResource) {
-                const response = await getAllMainPages();
-                setResources(prev => ({ ...prev, mainPages: response.mainPages }))
+                const response = await getPages();
+                setResources(prev => ({ ...prev, mainPages: response.mainPages.resources }))
             }
         }
         fetchResources()
