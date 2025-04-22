@@ -206,7 +206,7 @@ const AddRoleModal = ({ show, onClose, updateRoles, role }) => {
   }, [currentRole]);
 
   useEffect(() => {
-    if (role.roleTypeId === roleData.selectedRoletype) {
+    if (role?.roleTypeId === roleData?.selectedRoletype) {
       setRoleData(prev => {
         return ({ ...prev, selectedPermissions: currentRole?.permissions?.map(e => e.permissionId) || [], })
       });
