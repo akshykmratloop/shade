@@ -7,10 +7,10 @@ import {
 } from "../features/common/rightDrawerSlice";
 import {RIGHT_DRAWER_TYPES} from "../utils/globalConstantUtil";
 import CalendarEventsBodyRightDrawer from "../features/calendar/CalendarEventsBodyRightDrawer";
-import {useEffect, useState} from "react";
+import {useCallback, useEffect, useState} from "react";
 import {getNotificationsbyId, markAllNotificationAsRead} from "../app/fetch";
 import {setNotificationCount} from "../features/common/headerSlice";
-import useNotificationSocket from "../Socket/useNotificationSocket";
+import socket from "../Socket/socket.js";
 
 function RightSidebar() {
   const [notificationData, setNotificationData] = useState([]);
@@ -20,16 +20,11 @@ function RightSidebar() {
   );
   const dispatch = useDispatch();
 
+  const userId = extraObject?.id;
+
   const close = (e) => {
     dispatch(closeRightDrawer(e));
   };
-
-  // Fetch notifications
-  useEffect(() => {
-    if (extraObject?.id && bodyType === RIGHT_DRAWER_TYPES.NOTIFICATION) {
-      fetchNotifications(extraObject.id);
-    }
-  }, [extraObject?.id, bodyType]);
 
   const fetchNotifications = async (id) => {
     setLoading(true);
@@ -43,13 +38,88 @@ function RightSidebar() {
     }
   };
 
+  // =========================================================================
+
+  useEffect(() => {
+    if (!userId) return;
+    socket.emit("join", userId);
+  }, [userId]);
+
+  useEffect(() => {
+    if (userId && bodyType === RIGHT_DRAWER_TYPES.NOTIFICATION) {
+      setLoading(true);
+      getNotificationsbyId(userId)
+        .then((res) => setNotificationData(res?.notifications || []))
+        .finally(() => setLoading(false));
+    }
+  }, [userId, bodyType]);
+
+  useEffect(() => {
+    if (!userId) return;
+
+    const handleNewNotification = (payload) => {
+      if (payload.userId !== userId) return; // only for this user
+
+      // Option A: simply re‑fetch from server
+      getNotificationsbyId(userId).then((res) => {
+        setNotificationData(res?.notifications || []);
+        dispatch(
+          setNotificationCount(
+            res?.notifications?.filter((n) => !n.isRead).length
+          )
+        );
+      });
+
+      // — OR —
+
+      // Option B: optimistic local update
+      // setNotificationData((prev) => [
+      //   { ...payload, createdAt: new Date().toISOString(), isRead: false },
+      //   ...prev,
+      // ]);
+      // dispatch((_, getState) => {
+      //   const count = getState().header.noOfNotifications + 1;
+      //   dispatch(setNotificationCount(count));
+      // });
+    };
+
+    socket.on("role_created", handleNewNotification);
+    socket.on("user_created", handleNewNotification);
+    // …listen for any other events you emit
+
+    return () => {
+      socket.off("role_created", handleNewNotification);
+      socket.off("user_created", handleNewNotification);
+    };
+  }, [userId, dispatch]);
+
+  // =========================================================================
+
+  // Fetch notifications
+  // useEffect(() => {
+  //   if (extraObject?.id && bodyType === RIGHT_DRAWER_TYPES.NOTIFICATION) {
+  //     fetchNotifications(extraObject.id);
+  //   }
+  // }, [extraObject?.id, bodyType]);
+
+  // useEffect(() => {
+  //   if (userId) {
+  //     setLoading(true);
+  //     getNotificationsbyId(userId)
+  //       .then((res) => {
+  //         setNotificationData(res?.notifications || []);
+  //       })
+  //       .finally(() => setLoading(false));
+  //   }
+  // }, [userId]);
+
   console.log("Right Sidebar Extra Object: ", extraObject.id);
 
   const handleMarkAllAsRead = async (id) => {
     try {
       setLoading(true);
       await markAllNotificationAsRead(id);
-      await fetchNotifications(id); // refetch after marking read
+      fetchNotifications(id); // refetch after marking read
       dispatch(setNotificationCount(0));
     } catch (err) {
       console.error("Error marking all as read", err);
@@ -57,11 +127,6 @@ function RightSidebar() {
       setLoading(false);
     }
   };
-
-  useNotificationSocket(extraObject.id, (data) => {
-    // Optionally push to redux or local state
-    setNotificationData((prev) => [data, ...prev]);
-  });
 
   return (
     <div
