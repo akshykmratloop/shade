@@ -33,7 +33,7 @@ const SolutionPage = ({ language, screen }) => {
     const isComputer = screen > 1100
     const isTablet = 1100 > screen && screen > 767
     const isPhone = screen < 767
-    const currentContent = useSelector((state) => state.homeContent.present.solution)
+    const currentContent = useSelector((state) => state.homeContent.present.solutions)
     const ImageFromRedux = useSelector((state) => state.homeContent.present.images)
     const dispatch = useDispatch()
 
@@ -46,8 +46,7 @@ const SolutionPage = ({ language, screen }) => {
     const isLeftAlign = language === 'en'
 
     useEffect(() => {
-        dispatch(updateContent({ currentPath: "solution", payload: content.solution }))
-
+        dispatch(updateContent({ currentPath: "solutions", payload: content.solutions }))
     }, [])
     return (
         <div className=" bankgothic-medium-dt pb-8" dir={language === 'en' ? 'ltr' : "rtl"}>

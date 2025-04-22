@@ -3,7 +3,6 @@ import { useEffect, useRef, useState } from "react"
 import { useDispatch } from "react-redux"
 import { useNavigate } from "react-router-dom";
 // modules
-import resources from "./resourcedata";
 import ConfigBar from "./components/breakUI/ConfigBar";
 import PageDetails from "./components/breakUI/PageDetails";
 import { getLeadsContent } from "./leadSlice"
@@ -13,6 +12,9 @@ import { AiOutlineInfoCircle } from "react-icons/ai";
 import { FiEdit } from "react-icons/fi";
 import { IoSettingsOutline } from "react-icons/io5";
 import capitalizeWords from "../../app/capitalizeword";
+import { getAllMainPages } from "../../app/fetch";
+
+// import resources from "./resourcedata";
 
 function Resources() {
     const dispatch = useDispatch()
@@ -24,7 +26,8 @@ function Resources() {
     const [currentResource, setCurrentResource] = useState("")
     const [configBarOn, setConfigBarOn] = useState(false);
     const [PageDetailsOn, setPageDetailsOn] = useState(false);
-    const [configBarData, setConfigBarData] = useState({})
+    const [configBarData, setConfigBarData] = useState({});
+    const [resources, setResources] = useState({});
 
     const resNotAvail = resources?.[currentResource]?.length === 0
 
@@ -47,7 +50,20 @@ function Resources() {
         dispatch(getLeadsContent())
         const currentResource = localStorage.getItem("resource")
         if (currentResource) setCurrentResource(currentResource)
+        if (currentResource) { setCurrentResource(currentResource) }
+
     }, [])
+
+    useEffect(() => {
+        const fetchResources = async () => {
+            if (currentResource) {
+                const response = await getAllMainPages();
+                setResources(prev => ({ ...prev, mainPages: response.mainPages }))
+            }
+        }
+        fetchResources()
+
+    }, [currentResource])
 
     useEffect(() => {
         const observer = new ResizeObserver(entries => {
@@ -73,8 +89,8 @@ function Resources() {
                         <div key={index + Math.random()} className="w-full ">
                             <h3 className="mb-1 font-poppins font-semibold">
                                 {isSmall
-                                    ? (page.heading.length > 20 ? page.heading.substring(0, 20) + "..." : page.heading)
-                                    : (page.heading.length > 35 ? page.heading.substring(0, 35) + "..." : page.heading)
+                                    ? (page.title?.length > 20 ? page.title?.substring(0, 20) + "..." : page?.title)
+                                    : (page.title?.length > 35 ? page.title?.substring(0, 35) + "..." : page?.title)
                                 }
                             </h3>
                             <div className="relative rounded-lg overflow-hidden border border-[1px] border-base-300 shadow-xl-custom">
@@ -103,7 +119,7 @@ function Resources() {
                                 {/* Bottom Text Options */}
                                 <div className={`absolute bottom-3 left-0 w-full text-center text-white justify-center items-center flex ${isNarrow ? "gap-2" : "gap-6"} py-1`}>
                                     {[{ icon: <AiOutlineInfoCircle />, text: "Info", onClick: () => { setPageDetailsOn(true); setConfigBarData(page) } },
-                                    { icon: <FiEdit />, text: "Edit", onClick: () => { page.subPage ? page.subOfSubPage ? settingRoute(page.supPage, page.subPage, page.subOfSubPage) : settingRoute(currentResource, page.subPage) : settingRoute(page.heading?.toLowerCase()) } },
+                                    { icon: <FiEdit />, text: "Edit", onClick: () => { page.subPage ? page.subOfSubPage ? settingRoute(page.supPage, page.subPage, page.subOfSubPage) : settingRoute(currentResource, page.subPage) : settingRoute(page.slug?.toLowerCase()) } },
                                     { icon: <IoSettingsOutline />, text: "Config", onClick: () => { setConfigBarOn(true); setConfigBarData(page) } }].map((item, i) => (
                                         <span key={i + Math.random()}
                                             onClick={item.onClick}
@@ -115,7 +131,7 @@ function Resources() {
                                         </span>
                                     ))}
                                 </div>
-                            </div>  
+                            </div>
                         </div>
                     ))}
 
@@ -135,7 +151,7 @@ function Resources() {
             </div>
 
             {/* right side bar for configuration */}
-            <ConfigBar data={configBarData} display={configBarOn} setOn={setConfigBarOn} />
+            <ConfigBar data={configBarData} display={configBarOn} setOn={setConfigBarOn} resourceId={configBarData.id} />
             <PageDetails data={configBarData} display={PageDetailsOn} setOn={setPageDetailsOn} />
 
         </div>

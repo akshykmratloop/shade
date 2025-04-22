@@ -1,10 +1,33 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Select from "../../../../components/Input/Select";
 import SelectorAccordion from "./SelectorAccordion";
 import { X } from "lucide-react";
+import { getEligibleUsers } from "../../../../app/fetch";
 
-const ConfigBar = ({ display, setOn, data }) => {
+const ConfigBar = ({ display, setOn, data, resourceId }) => {
     const configRef = useRef(null);
+    const [userList, setUserList] = useState({ managers: [], editors: [], verifiers: [], publishers: [] })
+    const [formObj, setFormObj] = useState({
+        resourceId,
+        manager: "",
+        editor: "",
+        verifiers: [{ id: "", stage: NaN }],
+        publisher: ""
+    })
+
+    console.log(formObj)
+
+    function updateSelection(field, value) {
+        setFormObj(prev => {
+            return { ...prev, [field]: value }
+        })
+    }
+
+    async function onSubmit(e) {
+        e.preventDefault();
+        
+
+    }
 
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -21,6 +44,29 @@ const ConfigBar = ({ display, setOn, data }) => {
 
         return () => document.removeEventListener("mousedown", handleClickOutside);
     }, [display, setOn]);
+
+    useEffect(() => {
+        setFormObj(prev => ({
+            ...prev,
+            resourceId: resourceId,
+        }))
+    }, [resourceId])
+
+    useEffect(() => {
+        async function getUser() {
+            const response1 = await getEligibleUsers({ permission: "EDIT" });
+            const response2 = await getEligibleUsers({ permission: "PUBLISH" });
+            const response3 = await getEligibleUsers({ permission: "VERIFY" });
+            const response4 = await getEligibleUsers({ permission: "SINGLE_RESOURCE_MANAGEMENT" });
+            setUserList({
+                managers: [...response4.eligibleUsers],
+                editors: [...response1.eligibleUsers],
+                verifiers: [...response2.eligibleUsers],
+                publishers: [...response3.eligibleUsers]
+            })
+        }
+        getUser()
+    }, [])
 
     return (
         <div className={`${display ? "block" : "hidden"} fixed z-20 top-0 left-0 w-[100vw] h-screen bg-black bg-opacity-50`}>
@@ -45,6 +91,9 @@ const ConfigBar = ({ display, setOn, data }) => {
 
                         {/* Select Manager */}
                         <Select
+                            options={userList.managers.map(e => ({ id: e.id, name: e.name }))}
+                            setterOnChange={updateSelection}
+                            field={"manager"}
                             baseClass=""
                             label="Select Manager"
                             labelClass="font-[400] text-[#6B7888] text-[14px]"
@@ -53,6 +102,9 @@ const ConfigBar = ({ display, setOn, data }) => {
 
                         {/* Select Editor */}
                         <Select
+                            options={userList.editors.map(e => ({ id: e.id, name: e.name }))}
+                            setterOnChange={updateSelection}
+                            field={"editor"}
                             baseClass=""
                             label="Select Editor"
                             labelClass="font-[400] text-[#6B7888] text-[14px]"
@@ -62,12 +114,19 @@ const ConfigBar = ({ display, setOn, data }) => {
                         {/* Selector Accordion */}
                         <div>
                             <label className={"font-[400] text-[#6B7888] dark:border-stone-600 text-[14px]"}>Select Verifier</label>
-                            <SelectorAccordion />
+                            <SelectorAccordion
+                                options={userList.verifiers.map(e => ({ id: e.id, name: e.name }))}
+                                field={"verifier"}
+                                onChange={updateSelection}
+                            />
                         </div>
 
                         {/* Select Publisher */}
                         <Select
+                            options={userList.publishers.map(e => ({ id: e.id, name: e.name }))}
+                            setterOnChange={updateSelection}
                             baseClass=""
+                            field={"publisher"}
                             label="Select Publisher"
                             labelClass="font-[400] text-[#6B7888] text-[14px]"
                             selectClass="bg-transparent border border-[#cecbcb] dark:border-stone-600 mt-1 rounded-md py-2 h-[2.5rem] outline-none"
