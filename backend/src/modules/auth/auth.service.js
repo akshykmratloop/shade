@@ -232,11 +232,7 @@ const generateOtpAndSendOnEmail = async (user, deviceId, otpOrigin) => {
 };
 
 const getAllLogs = async () => {
-  return await findAllLogs({
-    orderBy: {
-      timestamp: "desc",
-    },
-  });
+  return await findAllLogs();
 };
 
 export {

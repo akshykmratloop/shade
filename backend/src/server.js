@@ -39,6 +39,5 @@ import {Server} from "socket.io";
       `Server running in ${process.env.MODE} mode on port ${process.env.BACKEND_PORT}`
     );
     await import("./config/dbConfig.js"); // Ensure DB connection is logged
-    // await import('../prisma/seed.js'); // Call the seed function after DB connection
   });
 })();
