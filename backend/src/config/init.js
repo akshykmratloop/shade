@@ -4,6 +4,7 @@ import RolesModule from "../modules/roles/index.js";
 import PermissionModule from "../modules/permissions/index.js";
 import NotificationModule from "../modules/notification/index.js";
 import ContentModule from '../modules/content/index.js';
+import MediaModule from '../modules/media/index.js';
 
 const modules = [
   AuthModule,
@@ -12,6 +13,7 @@ const modules = [
   UserModule,
   NotificationModule,
   ContentModule,
+  MediaModule,
 ];
 
 const useModules = (app) => {
