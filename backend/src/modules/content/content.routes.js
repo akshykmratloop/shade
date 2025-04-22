@@ -1,10 +1,10 @@
-import {Router} from "express";
+import { Router } from "express";
 import ContentController from "./content.controller.js";
-import {authenticateUser} from "../../helper/authMiddleware.js";
+import { authenticateUser } from "../../helper/authMiddleware.js";
 import validator from "../../validation/validator.js";
 // import {ContentSchema} from "../../validation/contentSchema.js";
 import tryCatchWrap from "../../errors/tryCatchWrap.js";
-import {checkPermission} from "../../helper/roleBasedAccess.js";
+import { checkPermission } from "../../helper/roleBasedAccess.js";
 import auditLogger from "../../helper/auditLogger.js";
 
 const router = Router();
@@ -12,27 +12,41 @@ const router = Router();
 // const requiredPermissionsForContentManagement = ["ROLES_PERMISSION_MANAGEMENT"];
 
 router.get(
-  "/getAllMainPages",
-//   checkPermission(requiredPermissionsForContentManagement),
-  tryCatchWrap(ContentController.GetAllMainPages)
+  "/getPages",
+  //   checkPermission(requiredPermissionsForContentManagement),
+  tryCatchWrap(ContentController.GetPages)
 );
 
 router.get(
-    "/getPageInfo",
+  "/getPageInfo",
   //   checkPermission(requiredPermissionsForContentManagement),
-    tryCatchWrap(ContentController.GetPageInfo)
-  );
+  tryCatchWrap(ContentController.GetPageInfo)
+);
 
 router.get(
-    "/getEligibleUsers",
+  "/getAssignedUsers",
   //   checkPermission(requiredPermissionsForContentManagement),
-    tryCatchWrap(ContentController.GetEligibleUser)
-  );
+  tryCatchWrap(ContentController.GetAssignedUsers)
+);
 
-  router.post(
-    "/assignUser",
+router.get(
+  "/getEligibleUsers",
   //   checkPermission(requiredPermissionsForContentManagement),
-    tryCatchWrap(ContentController.AssignUser)
-  );
+  tryCatchWrap(ContentController.GetEligibleUser)
+);
+
+router.post(
+  "/assignUser",
+  //   checkPermission(requiredPermissionsForContentManagement),
+  tryCatchWrap(ContentController.AssignUser)
+);
+
+router.get(
+  "/getContent",
+  //   checkPermission(requiredPermissionsForContentManagement),
+  tryCatchWrap(ContentController.GetContent)
+);
+
+
 
 export default router;
