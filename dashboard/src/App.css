@@ -257,7 +257,11 @@ select {
 }
 
 .clip-concave {
-  clip-path: polygon(0% 0%, 100% 0%, 90% 50%, 100% 100%, 0% 100%);
+  /* clip-path: polygon(0% 0%, 100% 0%, 90% 50%, 100% 100%, 0% 100%); */
+  font-size: 12px !important;
+  width: fit-content !important;
+  padding: 2px 6px;
+  border-radius: 0px 5px 5px 0px;
 }
 
 .test {

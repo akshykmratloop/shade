@@ -326,15 +326,27 @@ export async function getAllMainPages() {
     "GET"
   )
 }
+
 export async function getEligibleUsers(query) {
   if (!query || typeof query !== "object") {
     return await makerequest(api.route("getEligibleUsers"), "GET");
   }
 
-    const [key] = Object.keys(query);
-    const value = query[key];
+  const [key] = Object.keys(query);
+  const value = query[key];
 
-    return await makerequest(`${api.route("getEligibleUsers")}?${key}=${value}`, "GET");
+  return await makerequest(`${api.route("getEligibleUsers")}?${key}=${value}`, "GET");
+}
+
+export async function assignUser(data) {
+
+  return await makerequest(
+    `${api.route("assignUser")}`,
+    "POST",
+    JSON.stringify(data),
+    ContentType.json,
+    true
+  );
 }
 
 // export async function getAllusers(query) {

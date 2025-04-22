@@ -2,7 +2,9 @@ import React, { useEffect, useRef, useState } from "react";
 import Select from "../../../../components/Input/Select";
 import SelectorAccordion from "./SelectorAccordion";
 import { X } from "lucide-react";
-import { getEligibleUsers } from "../../../../app/fetch";
+import { assignUser, getEligibleUsers } from "../../../../app/fetch";
+import { toast } from "react-toastify";
+import capitalizeWords from "../../../../app/capitalizeword";
 
 const ConfigBar = ({ display, setOn, data, resourceId }) => {
     const configRef = useRef(null);
@@ -26,7 +28,34 @@ const ConfigBar = ({ display, setOn, data, resourceId }) => {
     async function onSubmit(e) {
         e.preventDefault();
 
-        
+        const valueArray = Object.values(formObj);
+        const keyArray = Object.keys(formObj)
+        let sameDoubledValue = false;
+        let emptyFields = false;
+        const verifierSet = new Set(formObj.verifiers.map(e => e.id))
+
+        for (let i = 0; i < valueArray.length; i++) {
+            if (verifierSet.has(valueArray[i])) sameDoubledValue = true
+            for (let j = i + 1; j < valueArray.length; j++) {
+                if (valueArray[i] === valueArray[j]) sameDoubledValue = true
+            }
+            if (keyArray[i] !== 'manager' && valueArray[i] === "") {
+                return toast.error(`Please select ${capitalizeWords(keyArray[i])}`)
+            }
+        }
+
+        if (verifierSet.has("")) {
+            return toast.error(`Please select the empty Varifier`)
+        }
+
+        if (!sameDoubledValue) {
+            const response = await assignUser(formObj)
+            if (response.message === "Success") {
+                toast.success("Page assigned Successfully!")
+            }
+        } else {
+            return toast.error(`Error! duplicate selection has been found`)
+        }
     }
 
     useEffect(() => {
@@ -116,7 +145,7 @@ const ConfigBar = ({ display, setOn, data, resourceId }) => {
                             <label className={"font-[400] text-[#6B7888] dark:border-stone-600 text-[14px]"}>Select Verifier</label>
                             <SelectorAccordion
                                 options={userList.verifiers.map(e => ({ id: e.id, name: e.name }))}
-                                field={"verifier"}
+                                field={"verifiers"}
                                 onChange={updateSelection}
                             />
                         </div>
@@ -136,7 +165,7 @@ const ConfigBar = ({ display, setOn, data, resourceId }) => {
                     {/* Buttons */}
                     <div className="flex justify-center gap-2">
                         <button className="w-[8rem] h-[2.3rem] rounded-md text-xs bg-stone-700 text-white" onClick={(e) => { e.preventDefault(); setOn(false); }}>Cancel</button>
-                        <button className="w-[8rem] h-[2.3rem] rounded-md text-xs bg-[#29469c] border-none hover:bg-[#29469c] text-[white]">Save</button>
+                        <button onClick={onSubmit} className="w-[8rem] h-[2.3rem] rounded-md text-xs bg-[#29469c] border-none hover:bg-[#29469c] text-[white]">Save</button>
                     </div>
                 </form>
             </div>
