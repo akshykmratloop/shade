@@ -3,7 +3,7 @@ import UserModule from "../modules/user/index.js";
 import RolesModule from "../modules/roles/index.js";
 import PermissionModule from "../modules/permissions/index.js";
 import NotificationModule from "../modules/notification/index.js";
-// import PageModule from '../modules/page';
+import ContentModule from '../modules/content/index.js';
 
 const modules = [
   AuthModule,
@@ -11,6 +11,7 @@ const modules = [
   PermissionModule,
   UserModule,
   NotificationModule,
+  ContentModule,
 ];
 
 const useModules = (app) => {
