@@ -20,7 +20,7 @@ router.get("/:id", tryCatchWrap(PermissionController.GetPermissionById));
 
 router.get(
   "/subPermission",
-  tryCatchWrap(PermissionController.GetSubpermissionByPermissionId)
+  tryCatchWrap(PermissionController.GetSubPermissionByPermissionId)
 );
 
 router.get(

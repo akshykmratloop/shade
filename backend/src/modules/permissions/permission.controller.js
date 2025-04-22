@@ -4,7 +4,7 @@ import {
   createPermission,
   updatePermission,
   getSubPermissions,
-  getSubpermissionByPermissionId,
+  getSubPermissionByPermissionId,
   createSubPermission,
   updateSubPermission,
   getPermissionsByRoleType,
@@ -33,9 +33,9 @@ const GetPermissionsByRoleType = async (req, res) => {
   res.status(200).json(response);
 };
 
-const GetSubpermissionByPermissionId = async (req, res) => {
+const GetSubPermissionByPermissionId = async (req, res) => {
   const {permissionId} = req.query;
-  const response = await getSubpermissionByPermissionId(permissionId);
+  const response = await getSubPermissionByPermissionId(permissionId);
   res.status(200).json(response);
 };
 
@@ -90,7 +90,7 @@ export default {
 
   // SubPermissions
   GetSubPermissions,
-  GetSubpermissionByPermissionId,
+  GetSubPermissionByPermissionId,
   CreateSubPermission,
   UpdateSubPermission,
 
