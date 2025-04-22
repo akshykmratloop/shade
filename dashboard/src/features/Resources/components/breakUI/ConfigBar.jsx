@@ -25,8 +25,8 @@ const ConfigBar = ({ display, setOn, data, resourceId }) => {
 
     async function onSubmit(e) {
         e.preventDefault();
-        
 
+        
     }
 
     useEffect(() => {

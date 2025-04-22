@@ -53,9 +53,9 @@ const AddRoleModal = ({ show, onClose, updateRoles, role }) => {
     });
 
     const rolePayload = {
-      name: roleData.name,
-      roleTypeId: roleData.selectedRoletype,
-      permissions: roleData.selectedPermissions, // Ensure this holds the correct values
+      name: roleData?.name,
+      roleTypeId: roleData?.selectedRoletype,
+      permissions: roleData?.selectedPermissions, // Ensure this holds the correct values
     };
 
     let response;
@@ -99,11 +99,11 @@ const AddRoleModal = ({ show, onClose, updateRoles, role }) => {
 
         setRoleData((preData) => ({
           ...preData,
-          fetchedRoletype: response?.roleType.map((role) => ({
+          fetchedRoletype: response?.roleType?.map((role) => ({
             value: role.id,
             label: role.name,
           })),
-          selectedPermissions: role?.roleTypeId === roleData?.selectedRoletype ? currentRole?.permissions?.map(e => e.permissionId) || [] : []
+          selectedPermissions: role?.roleTypeId === roleData?.selectedRoletype ? currentRole?.permissions?.map(e => e?.permissionId) || [] : []
         }));
       }
     }
@@ -144,7 +144,7 @@ const AddRoleModal = ({ show, onClose, updateRoles, role }) => {
         if (response.ok) {
           setRoleData((prevState) => ({
             ...prevState,
-            fetchedPermissions: response.permission, // Store fetched permissions
+            fetchedPermissions: response?.permission, // Store fetched permissions
             selectedPermissions: [], // Ensure this gets reset properly
           }));
         }
@@ -211,11 +211,11 @@ const AddRoleModal = ({ show, onClose, updateRoles, role }) => {
         return ({ ...prev, selectedPermissions: currentRole?.permissions?.map(e => e.permissionId) || [], })
       });
     }
-  }, [roleData.selectedRoletype]);
+  }, [roleData?.selectedRoletype]);
 
   useEffect(() => {
     setErrorMessagePermission("");
-  }, [roleData.selectedPermissions]);
+  }, [roleData?.selectedPermissions]);
 
   useEffect(() => {
     const handleClickOutside = (e) => {
