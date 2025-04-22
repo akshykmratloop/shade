@@ -27,15 +27,15 @@ import "swiper/css";
 import "swiper/css/pagination";
 import blankImage from "../../../../assets/images/blankImage.webp";
 import { TruncateText } from "../../../../app/capitalizeword";
+import dynamicSize from "../../../../app/fontSizes";
 
 
 
-const HomePage = ({ language, screen, fullScreen }) => {
+const HomePage = ({ language, screen, fullScreen, currentContent }) => {
     const isComputer = screen > 900;
     const isTablet = screen < 900 && screen > 730;
     const isPhone = screen < 738;
     const dispatch = useDispatch();
-    const currentContent = useSelector((state) => state.homeContent.present.home)
     const ImagesFromRedux = useSelector((state) => {
         return state.homeContent.present.images
     })
@@ -61,6 +61,28 @@ const HomePage = ({ language, screen, fullScreen }) => {
     );
     const ProjectSlider = { ...recentProjects, ...markets, ...safety };
 
+    const divRef = useRef(null);
+    const [width, setWidth] = useState(0);
+
+    useEffect(() => {
+        const observer = new ResizeObserver(entries => {
+            for (let entry of entries) {
+                setWidth(entry.contentRect.width);
+            }
+        });
+
+        if (divRef.current) {
+            observer.observe(divRef.current);
+        }
+
+        return () => {
+            if (divRef.current) {
+                observer.unobserve(divRef.current);
+            }
+        };
+    }, []);
+
+
 
     useEffect(() => {
         if (swiperInstance) {
@@ -68,13 +90,13 @@ const HomePage = ({ language, screen, fullScreen }) => {
         }
     }, [language]);
 
-    useEffect(() => {
-        dispatch(updateContent({ currentPath: "home", payload: (content?.home) }))
-    }, [])
+    // useEffect(() => {
+    //     dispatch(updateContent({ currentPath: "home", payload: (content?.home) }))
+    // }, [])
     const testimonialPrevRef = useRef(null);
     const testimonialNextRef = useRef(null);
     return (
-        <div className={`w-full relative ${textAlignment} bankgothic-medium-dt bg-[white]`}   >
+        <div className={`w-full relative ${textAlignment} bankgothic-medium-dt bg-[white]`} ref={divRef}>
             {/* banner */}
             <section className="w-full relative"
             >
@@ -90,16 +112,21 @@ const HomePage = ({ language, screen, fullScreen }) => {
                 </span>
                 <div
                     className={`container mx-auto absolute ${isComputer ? "top-[20%]" : "top-16"}  left-0 right-0 px-4`}>
-                    <div className={`text-left flex flex-col ${language === "en" ? "items-start" : "items-end"} ${textAlignment} ${isPhone ? "px-[0px] py-10" : "px-[80px]"}`}>
-                        <h1 className={`text-[#292E3D] text-[45px] tracking-[0px] leading-[2.5rem] capitalize font-[500] mb-4 ${isPhone ? "w-full" : fullScreen ? "w-3/5" : "w-3/5"}  `}
+                    <div className={`text-left flex flex-col ${language === "en" ? "items-start" : "items-end"} ${textAlignment} ${isPhone ? "px-[0px] py-10" : "px-[80px]"}`}
+                        style={{ paddingLeft: isComputer && dynamicSize(140, width) }}>
+                        <h1 className={`text-[#292E3D] text-[45px] tracking-[0px]  leading-[2.5rem] capitalize font-[500] mb-4 ${isPhone ? "w-full" : fullScreen ? "w-3/5" : "w-3/5"}  `}
+                            style={{ fontSize: isComputer && dynamicSize(70, width), lineHeight: isComputer && `${(width / 1526) * 4.5}rem`, }}
                         >
                             {currentContent?.homeBanner?.title[language]}
                         </h1>
-                        <p className={`text-[#0E172FB3] font-semibold leading-[16px] mb-6 ${isPhone ? "w-full text-[12px]" : "w-1/2 text-[10px]"} tracking-[1px]`}>
+                        <p className={`text-[#0e172fb3] font-[500] leading-[16px] mb-6 ${isPhone ? "w-full text-[12px]" : "w-1/2 text-[10px]"} tracking-[0px]`}
+                            style={{ fontSize: isComputer && dynamicSize(16, width), lineHeight: isComputer && `${width / 1526 * 24}px` }}
+                        >
                             {currentContent?.homeBanner?.description[language]}
                         </p>
                         <button
-                            className={`relative items-center flex ${isLeftAlign ? "" : "flex-row-reverse"} gap-1 text-[12px] font-medium px-[12px] py-[6px] px-[12px] bg-[#00b9f2] text-white rounded-md`}
+                            className={`relative items-center flex ${isLeftAlign ? "" : "flex-row-reverse"} gap-2 text-[12px] font-medium px-[12px] py-[6px] px-[12px] bg-[#00b9f2] text-white rounded-md`}
+                            style={{ fontSize: isComputer && dynamicSize(18, width) }}
                             onClick={() => { }}
                         >
                             <span>{currentContent?.homeBanner?.buttonText[language]}</span>
@@ -108,52 +135,66 @@ const HomePage = ({ language, screen, fullScreen }) => {
                                 width="10"
                                 height="11"
                                 alt=""
-                                style={{ transform: isLeftAlign ? "rotate(180deg)" : "" }}
+                                style={{ transform: isLeftAlign ? "rotate(180deg)" : "", width: isComputer && dynamicSize(16, width) }}
                             />
                         </button>
                     </div>
                 </div>
             </section>
             {/* about us section */}
-            <section className={` ${isPhone ? "px-2 py-[60px]" : "px-20 py-[120px]"} ${language === "en" ? "" : " direction-rtl"} items-start`}>
+            <section className={` ${isPhone ? "px-2 py-[60px]" : isTablet ? "px-[80px] py-[120px]" : "px-[150px] py-[120px]"} ${language === "en" ? "" : " direction-rtl"} items-start`}>
                 <div className={`relative container mx-auto flex ${isPhone ? "flex-col" : ""} ${isLeftAlign ? "" : "flex-row-reverse"} items-center`}>
                     {/* Image section */}
-                    <div className={`${isPhone ? "w-[90%]" : "w-[70%]"} border border-[#00B9F2] h-[500px] overflow-hidden rounded-sm shadow-lg`}>
-                        <img src={ImagesFromRedux.aboutUsSection || AboutUs} alt="about-us" className="w-full h-[500px] object-cover" />
+                    <div className={`${isPhone ? "w-[90%]" : "w-[70%]"} h-[500px] overflow-hidden rounded-sm shadow-lg `}
+                        style={{ height: isComputer && dynamicSize(629, width), width: isComputer && dynamicSize(877, width) }}>
+                        <img src={ImagesFromRedux.aboutUsSection || AboutUs} alt="about-us" className="w-full h-[500px] object-cover"
+                            style={{ width: isComputer && dynamicSize(877, width), height: isComputer && '100%' }}
+                        />
                     </div>
                     {/* About content */}
-                    <div className={`${isPhone ? " " : "absolute "} ${isLeftAlign ? "right-0 text-left" : "left-0 text-right"} bg-[#145098] ${isTablet ? "p-10 py-14" : "p-14 py-20"} rounded-sm w-[23rem]`} >
-                        <h2 className="text-white text-[28px] leading-[1.8rem] mb-4 font-normal">
+                    <div className={`flex flex-col items-start ${isPhone ? " " : "absolute "} ${isLeftAlign ? "right-0 text-left" : "left-0 text-right"} bg-[#145098] ${isTablet ? "p-10 py-14" : "p-14 py-20"} rounded-sm w-[23rem]`}
+                        style={{ gap: isComputer ? dynamicSize(26, width) : "16px", width: isComputer && dynamicSize(488, width), padding: isComputer && `${dynamicSize(98, width)} ${dynamicSize(65, width)}` }}
+                    >
+                        <h2 className="text-white text-[28px] leading-[1.8rem]  font-normal"
+                            style={{ fontSize: isComputer && dynamicSize(36, width), lineHeight: isComputer && dynamicSize(32, width) }}>
                             {currentContent?.aboutUsSection?.title[language]}
                         </h2>
-                        <p className="text-white text-[12px] font-light leading-[16px] mb-4">
+                        <p className="text-white font-[100] text-[12px] leading-[16px] "
+                            style={{ fontSize: isComputer && dynamicSize(15, width), lineHeight: isComputer && dynamicSize(26, width) }}>
                             {currentContent?.aboutUsSection?.description[language]}
                         </p>
-                        <p className="text-white text-[12px] font-light leading-[16px] mb-4">
+                        <p className="text-white font-[100] text-[12px] leading-[16px] "
+                            style={{ fontSize: isComputer && dynamicSize(15, width), lineHeight: isComputer && dynamicSize(26, width) }}>
                             {currentContent?.aboutUsSection?.description2[language]}
                         </p>
-                        <button className="px-[6px] py-[2px] bg-[#00B9F2] text-white text-[12px] rounded-md hover:bg-opacity-90 text-right">
+                        <button className="px-[6px] py-[2px] bg-[#00B9F2] text-white text-[12px] rounded-md hover:bg-opacity-90 text-right"
+                            style={{ fontSize: isComputer && dynamicSize(18, width) }}
+                        >
                             {currentContent?.aboutUsSection?.buttonText[language]}
                         </button>
                     </div>
 
                 </div>
-            </section>
+            </section >
             {/* service section */}
-            <section className="py-10 bg-gray-100 ">
-                <div className="container mx-auto px-6">
-                    <h2 className="text-center text-3xl font-light text-[#292E3D] mb-9">
+            < section className="py-10 bg-gray-100" style={{ wordBreak: "normal" }}>
+                <div className="container mx-auto px-6"
+                    style={{ padding: isComputer && `${dynamicSize(44, width)} ${dynamicSize(220, width)}` }}>
+                    <h2 className="text-center text-3xl font-light text-[#292E3D] mb-9"
+                        style={{ fontSize: dynamicSize(36, width) }}>
                         {currentContent?.serviceSection?.title[language]}
                     </h2>
 
-                    <div className={`${isPhone ? "flex gap-4 flex-col" : "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 md:gap-12 sm:gap-6 px-8"}`}>
+                    <div className={`${isPhone ? "flex gap-4 flex-col" : "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 md:gap-12 sm:gap-6"}`}
+                        style={{ columnGap: isComputer && dynamicSize(96, width), rowGap: isComputer && dynamicSize(48, width) }}>
                         {currentContent?.serviceSection?.cards?.map((card, key) => {
                             if (!card.display) return null
                             return (
-                                <div key={key} className={`w-full h-44 flex items-center justify-center p-6 rounded-md transition-transform duration-300 hover:scale-105 cursor-pointer ${key % 2 !== 0 ? "bg-stone-200 " : "bg-blue-900 text-[white]"} `}>
+                                <div key={key} className={`w-full h-44 flex items-center justify-center p-6 rounded-md transition-transform duration-300 hover:scale-105 cursor-pointer ${key % 2 !== 0 ? "bg-blue-900 text-[white]" : " bg-stone-200"} `}>
                                     <div className="flex flex-col items-center gap-4">
                                         <img src={services?.[card.iconName]} width={40} height={40} alt="Icon" className="h-10 w-10" />
-                                        <h5 className="relative text-lg font-light text-center">
+                                        <h5 className="relative text-lg font-light text-center"
+                                            style={{ fontSize: isComputer && dynamicSize(20, width) }}>
                                             {card.title[language]}
                                             <span className="block h-[2px] w-16 bg-gray-300 mt-2 mx-auto"></span>
                                         </h5>
@@ -162,14 +203,16 @@ const HomePage = ({ language, screen, fullScreen }) => {
                         })}
                     </div>
                 </div>
-            </section>
+            </section >
             {/* experience section */}
-            <section className={`py-[115px]  ${isComputer ? "px-20 pb-60" : !isLeftAlign ? "px-8" : "px-10"}`} dir={isLeftAlign ? 'ltr' : "rtl"}>
+            < section className={`py-[115px]  ${isComputer ? "px-20 pb-60" : !isLeftAlign ? "px-8" : "px-10"}`} dir={isLeftAlign ? 'ltr' : "rtl"} >
                 <div
                     className={`container mx-auto flex ${isPhone ? "flex-col gap-[350px]" : "gap-10"} `}>
-                    <div className={`w-10 relative flex-1`}
+                    <div className={`w-[100%]  flex-[4]`}
                     >
-                        <div className={`relative ${isTablet ? (!isLeftAlign ? "left-[-70px]" : "left-[15px]") : isComputer && "left-[60px] scale-[1.2]"} ${!isLeftAlign && isPhone && "left-[-310px]"}`}>
+                        <div className={`relative ${isTablet ? (!isLeftAlign ? "left-[-70px]" : "left-[15px]") : isComputer && fullScreen ? "left-[450px] scale-[1.7]": "left-[50px] scale-[1.2]" } ${!isLeftAlign && isPhone && "left-[-310px]"}`}
+                            // style={{ width: isComputer && dynamicSize(200, width) }}
+                        >
                             {currentContent?.experienceSection?.cards?.map((item, key) => {
                                 // Set top position based on whether key is odd or even
                                 const topValue = Math.floor(key / 2) * 140 + (key % 2 !== 0 ? -35 : 25); // Odd = move up, Even = move down
@@ -197,8 +240,14 @@ const HomePage = ({ language, screen, fullScreen }) => {
                             })}
                         </div>
                     </div>
-                    <div className={`max-w-[420px] ${isTablet ? !isLeftAlign ? "pr-[64px]" : "pl-[40px]" : "pl-[50px]"}  flex-1 `}>
-                        <h2 className="text-[#00B9F2] text-4xl font-bold leading-[50px] mb-6 ">
+                    <div className={`max-w-[420px] ${isTablet ? !isLeftAlign ? "pr-[64px]" : "pl-[40px]" : "pl-[50px]"}  flex-[4]`}
+                        style={{
+                            // maxWidth: isComputer && dynamicSize(420, width)
+                            width: isComputer && dynamicSize(420, width)
+                        }}
+                    >
+                        <h2 className="text-[#00B9F2] text-4xl font-bold leading-[50px] mb-6 "
+                            style={{ fontSize: isComputer && dynamicSize(60, width) }}>
                             {currentContent?.experienceSection?.title[language]}
                         </h2>
                         <p className="text-[#292E3D] text-sm font-[300] leading-4 mb-8" style={{ fontWeight: "200" }}>
@@ -212,9 +261,9 @@ const HomePage = ({ language, screen, fullScreen }) => {
                         </button>
                     </div>
                 </div>
-            </section>
+            </section >
             {/* subProjects */}
-            <section className={`py-[58px] ${isPhone ? "px-2" : "px-8"} overflow-hidden relative `} dir={isLeftAlign ? 'ltr' : 'rtl'}>
+            < section className={`py-[58px] ${isPhone ? "px-2" : "px-8"} overflow-hidden relative `} dir={isLeftAlign ? 'ltr' : 'rtl'} >
                 <div className={`container mx-auto flex  ${!isLeftAlign && 'flex-row-reverse'} ${!isLeftAlign && isTablet && "pl-[200px]"}`}>
                     <div className={`flex justify-end absolute top-[10px]   ${isLeftAlign ? "right-7" : "left-7"}`}>
                         {activeRecentProjectSection === 2 ? (
@@ -373,10 +422,10 @@ const HomePage = ({ language, screen, fullScreen }) => {
                         </div>
                     </div>
                 </div>
-            </section>
+            </section >
 
             {/* client section */}
-            <section className="bg-[#00B9F2] py-12 relative">
+            < section className="bg-[#00B9F2] py-12 relative" >
                 <img
                     src="https://frequencyimage.s3.ap-south-1.amazonaws.com/98d10161-fc9a-464f-86cb-7f69a0bebbd5-Group%2061%20%281%29.svg"
                     width="143"
@@ -417,10 +466,10 @@ const HomePage = ({ language, screen, fullScreen }) => {
                         ))}
                     </div>
                 </div>
-            </section>
+            </section >
 
             {/* testomonials section  */}
-            <section
+            < section
                 className={`py-[40px] pb-[40px] ${!isLeftAlign && 'rtl'} mx-auto relative overflow-hidden`}
                 style={{ width: isComputer ? "800px" : `${screen - 10}px` }}
             >
@@ -548,10 +597,10 @@ const HomePage = ({ language, screen, fullScreen }) => {
                         </div>
                     </div>
                 </div>
-            </section>
+            </section >
 
             {/* new project section */}
-            <section className={`py-16 w-[100%] ${isPhone ? "px-[30px]" : "px-[80px]"} bg-transparent`}>
+            < section className={`py-16 w-[100%] ${isPhone ? "px-[30px]" : "px-[80px]"} bg-transparent`}>
                 <div className="container mx-auto">
                     <div className="text-center bg-transparent">
                         <h2 className="text-3xl font-medium text-black mb-5">
@@ -586,8 +635,8 @@ const HomePage = ({ language, screen, fullScreen }) => {
                         </button>
                     </div>
                 </div>
-            </section>
-        </div>)
+            </section >
+        </div >)
 };
 
 export default HomePage;

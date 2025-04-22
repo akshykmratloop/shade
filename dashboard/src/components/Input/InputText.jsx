@@ -36,14 +36,19 @@ function InputText({
     if (customType === "number" && isNaN(parseInt(trimmedVal))) {
       if (trimmedVal === "") {
         setValue(trimmedVal);
-        updateFormValue({ updateType, value: trimmedVal });
+        setTimeout(() => {
+          updateFormValue({ updateType, value: trimmedVal });
+        }, 0);
       }
       return;
     } else {
       setValue(trimmedVal);
-      updateFormValue({ updateType, value: trimmedVal });
+      setTimeout(() => {
+        updateFormValue({ updateType, value: trimmedVal });
+      }, 0);
     }
   };
+  
 
   const togglePasswordVisibility = () => {
     setShowPassword((prev) => !prev);

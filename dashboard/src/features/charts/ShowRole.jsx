@@ -63,7 +63,7 @@ function UserDetailsModal({ user, show, onClose }) {
         <Dialog open={show} onClose={onClose} className="relative z-50 font-poppins">
             <div className="fixed inset-0 bg-black/50" aria-hidden="true" />
             <div className="fixed inset-0 flex items-center justify-center p-4">
-                <Dialog.Panel className="w-[600px] h-[700px] customscroller shadow-lg shadow-stone rounded-lg bg-[white] dark:bg-slate-800 p-6">
+                <Dialog.Panel className="w-[600px] customscroller shadow-lg shadow-stone rounded-lg bg-[white] dark:bg-slate-800 p-6 pb-12">
                     <div ref={modalRef} className="flex justify-between items-center mb-4">
                         <Dialog.Title className="text-lg font-[500]">User Details</Dialog.Title>
                         <button onClick={onClose} className="bg-transparent hover:bg-stone-300 dark:hover:bg-stone-700 rounded-full border-none p-2 py-2">

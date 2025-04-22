@@ -31,7 +31,7 @@ const makerequest = async (
   // Check if token is expired and clear session if it is
   if (token && isTokenExpired(token)) {
     clearSession();
-    return {error: "Session expired. Please log in again.", ok: false};
+    return { error: "Session expired. Please log in again.", ok: false };
   }
 
   const controller = new AbortController();
@@ -41,7 +41,7 @@ const makerequest = async (
 
   const finalHeaders = {
     ...headers,
-    ...(token ? {Authorization: `Bearer ${token}`} : {}),
+    ...(token ? { Authorization: `Bearer ${token}` } : {}),
   };
 
   const options = {
@@ -66,7 +66,7 @@ const makerequest = async (
     result.ok = true;
   } catch (err) {
     if (err.name === "AbortError") {
-      result = {error: "Request timed out"};
+      result = { error: "Request timed out" };
     } else {
       result = err;
       result.ok = false;
@@ -78,7 +78,7 @@ const makerequest = async (
 };
 
 const ContentType = {
-  json: {"Content-Type": "application/json"},
+  json: { "Content-Type": "application/json" },
 };
 
 // fetch for auth
@@ -174,14 +174,18 @@ export async function userLogs(data) {
 }
 
 // fetch for roles
-export async function fetchRoles() {
-  return await makerequest(
-    api.route("fetchRoles"),
-    "GET",
-    JSON.stringify({}),
-    {},
-    true
-  );
+export async function fetchRoles(query) {
+  if (!query || typeof query !== "object") {
+    return await makerequest(api.route("fetchRoles"), "GET");
+  }
+
+  const [key] = Object.keys(query);
+  const value = query[key];
+
+  return await makerequest(`${api.route("fetchRoles")}?${key}=${value}`, "GET",  JSON.stringify({}),
+  {},
+  true);
+
 }
 
 export async function getRoleById(id) {

@@ -80,7 +80,7 @@ function Login() {
         }
 
         if (response.token) {
-            updateToasify(loadingToastId, "Request successful! 🎉", "success", 2000) // updating the toaster
+            updateToasify(loadingToastId, "Login successful! 🎉", "success", 2000) // updating the toaster
             dispatch(updateUser(response.user))
             localStorage.setItem("user", JSON.stringify(response.user))
             localStorage.setItem("token", response.token);

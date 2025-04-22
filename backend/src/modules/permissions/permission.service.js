@@ -38,7 +38,7 @@ const getPermissionById = async (id) => {
   return {message: "Role fetched successfully", role};
 };
 
-const getSubpermissionByPermissionId = async (permissionId) => {
+const getSubPermissionByPermissionId = async (permissionId) => {
   const subPermission = await findSubPermissionById(permissionId);
   assert(subPermission, "NOT_FOUND", "sub permission not found");
   logger.info({
@@ -112,7 +112,7 @@ export {
 
   // SubPermissions
   getSubPermissions,
-  getSubpermissionByPermissionId,
+  getSubPermissionByPermissionId,
   createSubPermission,
   updateSubPermission,
   // addPermission,

@@ -90,6 +90,22 @@ export const fetchAllUsers = async (
       phone: phone ? {contains: phone} : undefined,
       ...(status ? {status: status} : {}),
     },
+    include: {
+      roles: {
+        include: {
+          role: {
+            // include: {
+            //   permissions: {
+            //     include: {
+            //       permission: true,
+            //     },
+            //   },
+            //   roleType: true,
+            // },
+          },
+        },
+      },
+    },
     orderBy: {createdAt: "asc"},
     skip,
     take: limit,
@@ -396,5 +412,8 @@ export const findAllLogs = async () => {
         },
       },
     },
+    orderBy: {
+      timestamp: "desc"
+    }
   });
 };

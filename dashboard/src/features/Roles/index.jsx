@@ -1,22 +1,22 @@
 // libraries import
-import {useEffect, useState} from "react";
-import PlusIcon from "@heroicons/react/24/outline/PlusIcon";
-import {toast, ToastContainer} from "react-toastify";
+import { useEffect, useState } from "react";
+import PlusIcon from '@heroicons/react/24/outline/PlusIcon';
+import { toast, ToastContainer } from "react-toastify";
 // self modules
-import {fetchRoles, activateRole, deactivateRole} from "../../app/fetch";
+import { fetchRoles, activateRole, deactivateRole } from "../../app/fetch";
 import AddRoleModal from "./AddRole";
 import SearchBar from "../../components/Input/SearchBar";
 import TitleCard from "../../components/Cards/TitleCard";
 import RoleDetailsModal from "./ShowRole";
 import updateToasify from "../../app/toastify";
 // icons
-import {Switch} from "@headlessui/react";
-import XMarkIcon from "@heroicons/react/24/outline/XMarkIcon";
-import {FiEye} from "react-icons/fi";
-import {FiEdit} from "react-icons/fi";
-import {RxQuestionMarkCircled} from "react-icons/rx";
-import {LuListFilter} from "react-icons/lu";
-import {LuImport} from "react-icons/lu";
+import { Switch } from '@headlessui/react';
+import XMarkIcon from '@heroicons/react/24/outline/XMarkIcon';
+import { FiEye } from "react-icons/fi";
+import { FiEdit } from "react-icons/fi";
+import { RxQuestionMarkCircled } from "react-icons/rx";
+import { LuListFilter } from "react-icons/lu";
+import { LuImport } from "react-icons/lu";
 import capitalizeWords from "../../app/capitalizeword";
 import Paginations from "../Component/Paginations";
 // import userIcon from "../../assets/user.png"
@@ -80,12 +80,7 @@ const TopSideButtons = ({
         >
           {statusFilters.map((status, key) => (
             <li key={key}>
-              <a
-                onClick={() => showFiltersAndApply(status)}
-                style={{textTransform: "capitalize"}}
-              >
-                {capitalizeWords(status)}
-              </a>
+              <a onClick={() => showFiltersAndApply(status)} style={{ textTransform: "capitalize" }}>{capitalizeWords(status)}</a>
             </li>
           ))}
           <div className="divider mt-0 mb-0"></div>
@@ -106,7 +101,7 @@ function Roles() {
   const [showDetailsModal, setShowDetailsModal] = useState(false);
   const [enabled, setEnabled] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const rolesPerPage = 5;
+  const rolesPerPage = 20;
 
   const removeFilter = () => {
     setRoles([...originalRoles]);
@@ -121,6 +116,7 @@ function Roles() {
     const filteredRoles = originalRoles?.filter((role) =>
       role?.name.toLowerCase().includes(value.toLowerCase())
     );
+    setCurrentPage(1)
     setRoles(filteredRoles);
   };
 
@@ -153,7 +149,7 @@ function Roles() {
       //   toast.dismiss(loadingToastId) // to deactivate to running taost
       // }, 2000)
     }
-    toast.dismiss(loadingToastId); // to deactivate to running taost
+    toast.dismiss(loadingToastId) // to deactivate to running taost
   };
 
   // Pagination logic
@@ -164,7 +160,7 @@ function Roles() {
 
   useEffect(() => {
     async function fetchRoleData() {
-      const response = await fetchRoles();
+      const response = await fetchRoles({ limit: 100 });
       setRoles(response?.roles?.roles ?? []);
       setOriginalRoles(response?.roles?.roles ?? []); // Store the original unfiltered data
     }
@@ -201,21 +197,11 @@ function Roles() {
         <div className="min-h-[28.2rem] flex flex-col justify-between">
           <div className="overflow-x-auto w-full border dark:border-stone-600 rounded-2xl">
             <table className="table text-center min-w-full dark:text-[white]">
-              <thead className="" style={{borderRadius: ""}}>
-                <tr
-                  className="!capitalize"
-                  style={{textTransform: "capitalize"}}
-                >
-                  <th
-                    className="font-medium text-[12px] text-left font-poppins leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white] text-[#42526D] px-[24px] py-[13px] !capitalize"
-                    style={{position: "static", width: "363px"}}
-                  >
-                    {" "}
-                    Role Name
-                  </th>
-                  <th className="text-[#42526D] w-[133px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] !capitalize">
-                    Permission
-                  </th>
+              <thead className="" style={{ borderRadius: "" }}>
+                <tr className="!capitalize" style={{ textTransform: "capitalize" }}>
+                  <th className="font-medium text-[12px] text-left font-poppins leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white] text-[#42526D] px-[24px] py-[13px] !capitalize"
+                    style={{ position: "static", width: "363px" }}> Role Name</th>
+                  <th className="text-[#42526D] w-[133px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] !capitalize">Permission</th>
                   {/* <th className="text-[#42526D] w-[164px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] text-center !capitalize">Sub Permission</th> */}
                   <th className="text-[#42526D] w-[211px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] !capitalize">
                     No. of Users Assigned
@@ -232,17 +218,11 @@ function Roles() {
                 {Array.isArray(roles) && currentRoles.length > 0 ? (
                   currentRoles?.map((role, index) => {
                     return (
-                      <tr
-                        key={index}
-                        className="font-light "
-                        style={{height: "65px"}}
-                      >
-                        <td
-                          className={`font-poppins h-[65px] truncate font-normal text-[14px] leading-normal text-[#101828] p-[26px] pl-5 flex`}
-                        >
+                      <tr key={index} className="font-light " style={{ height: "65px" }}>
+                        <td className={`font-poppins h-[65px] truncate font-normal text-[14px] leading-normal text-[#101828] p-[26px] pl-5 flex`}>
                           {/* <img src={user.image ? user.image : userIcon} alt={user.name} className="rounded-[50%] w-[41px] h-[41px] mr-2" /> */}
                           <div className="flex flex-col">
-                            <p className="dark:text-[white]">{role.name}</p>
+                            <p className="dark:text-[white]">{role?.name}</p>
                             {/* <p className="font-light text-[grey]">{user.email}</p> */}
                           </div>
                         </td>
@@ -255,22 +235,17 @@ function Roles() {
                             {role?._count?.subPermissions || "3"}
                           </span>
                         </td> */}
-                        <td
-                          className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]"
-                          style={{whiteSpace: "wrap"}}
-                        >
-                          <span className="">{role?.usersAssigned || "1"}</span>
+                        <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]" style={{ whiteSpace: "wrap" }}>
+                          <span className="">
+                            {role?.usersAssigned || "1"}
+                          </span>
                         </td>
                         <td className="font-poppins font-light text-[12px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]">
                           <p
-                            className={`w-[85px] mx-auto before:content-['•'] before:text-2xl flex h-7 items-center justify-center gap-1 px-1 py-0 font-[500] ${
-                              role.status === "ACTIVE"
-                                ? "text-green-600 bg-green-100 before:text-green-600 px-1"
-                                : "text-red-600 bg-red-100 before:text-red-600 "
-                            } rounded-2xl`}
-                            style={{textTransform: "capitalize"}}
+                            className={`w-[85px] mx-auto before:content-['•'] before:text-2xl flex h-7 items-center justify-center gap-1 px-1 py-0 font-[500] ${role.status === 'ACTIVE' ? "text-green-600 bg-green-100 before:text-green-600 px-1" : "text-red-600 bg-red-100 before:text-red-600 "} rounded-2xl`}
+                            style={{ textTransform: "capitalize", }}
                           >
-                            {capitalizeWords(role.status)}
+                            {capitalizeWords(role?.status)}
                           </p>
                         </td>
                         <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[8px] dark:text-[white]">
@@ -306,18 +281,16 @@ function Roles() {
                                 onChange={() => {
                                   statusChange(role);
                                 }}
-                                className={`${
-                                  role?.status === "ACTIVE"
-                                    ? "bg-[#1DC9A0]"
-                                    : "bg-gray-300"
-                                } relative inline-flex h-2 w-8 items-center rounded-full`}
+                                className={`${role?.status === "ACTIVE"
+                                  ? "bg-[#1DC9A0]"
+                                  : "bg-gray-300"
+                                  } relative inline-flex h-2 w-8 items-center rounded-full`}
                               >
                                 <span
-                                  className={`${
-                                    role?.status === "ACTIVE"
-                                      ? "translate-x-4"
-                                      : "translate-x-0"
-                                  } inline-block h-5 w-5 bg-white rounded-full shadow-2xl border border-gray-300 transition`}
+                                  className={`${role?.status === "ACTIVE"
+                                    ? "translate-x-4"
+                                    : "translate-x-0"
+                                    } inline-block h-5 w-5 bg-white rounded-full shadow-2xl border border-gray-300 transition`}
                                 />
                               </Switch>
                             </div>
@@ -345,24 +318,28 @@ function Roles() {
       </TitleCard>
 
       {/* Add Role Modal */}
-      <AddRoleModal
-        show={showAddForm}
-        onClose={() => {
-          setShowAddForm(false);
-          setSelectedRole(null);
-        }}
-        updateRoles={setChangesInRole}
-        role={selectedRole}
-      />
+      {showAddForm &&
+        <AddRoleModal
+          show={showAddForm}
+          onClose={() => {
+            setShowAddForm(false);
+            setSelectedRole(null);
+          }}
+          updateRoles={setChangesInRole}
+          role={selectedRole}
+        />}
       {/* <AddRoleModal show={showAddForm} onClose={() => setShowAddForm(false)} updateRole={setChangesInRole} /> */}
 
       {/* Role Details Modal */}
-      <RoleDetailsModal
-        role={selectedRole}
-        show={showDetailsModal}
-        onClose={() => setShowDetailsModal(false)}
-      />
-      <ToastContainer />
+      {showDetailsModal &&
+        <RoleDetailsModal
+          role={selectedRole}
+          show={showDetailsModal}
+          updateRoles={setChangesInRole}
+          onClose={() => { setSelectedRole(false); setShowDetailsModal(false) }}
+        />
+      }
+      <ToastContainer position="top-right" />
     </div>
   );
 }
