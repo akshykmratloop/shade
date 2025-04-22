@@ -23,6 +23,12 @@ const ConfigBar = ({ display, setOn, data, resourceId }) => {
         })
     }
 
+    async function onSubmit(e) {
+        e.preventDefault();
+        
+
+    }
+
     useEffect(() => {
         const handleClickOutside = (event) => {
             if (configRef.current && !configRef.current.contains(event.target)) {
