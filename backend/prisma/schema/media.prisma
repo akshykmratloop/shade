@@ -1,7 +1,7 @@
-
 model Media {
   id         String    @id @default(uuid())
   url        String
+  publicId   String
   type       MediaType
   width      Int?
   height     Int?
