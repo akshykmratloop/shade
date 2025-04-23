@@ -319,12 +319,20 @@ export async function markAllNotificationAsRead(id) {
   );
 }
 
-export async function getPages() {
+export async function getPages(query) {
+  if (!query || typeof query !== "object") {
+    return await makerequest(api.route("getPages"), "GET");
+  }
 
-  return await makerequest(
-    api.route("getPages"),
-    "GET"
-  )
+  const [key1, key2] = Object.keys(query);
+  const [value1, value2] = [query[key1], query[key2]];
+
+  // return await makerequest(
+  //   api.route("getPages"),
+  //   "GET"
+  // )
+  return await makerequest(`${api.route("getPages")}?${key1}=${value1}&${key2}=${value2}`, "GET");
+
 }
 
 export async function getEligibleUsers(query) {

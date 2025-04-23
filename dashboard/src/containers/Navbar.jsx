@@ -1,7 +1,9 @@
 import { useSelector, useDispatch } from "react-redux";
+import { updateTag, updateType } from "../features/common/navbarSlice";
 
-const Navbar = ({ currentNav, setCurrentResource }) => {
+const Navbar = ({  setCurrentResource }) => {
     const userPermissions = useSelector(state => state.user.user?.permissions);
+    const currentNav = useSelector(state => state.navBar.pageTag)
     const dispatch = useDispatch();
     const permissionsSet = new Set(userPermissions);
 
@@ -26,7 +28,8 @@ const Navbar = ({ currentNav, setCurrentResource }) => {
     };
 
     const settingResources = (resource, tag) => {
-        dispatch(setCurrentResource(tag));
+        dispatch(updateType(resource));
+        dispatch(updateTag(tag));
         localStorage.setItem("pageType", resource);
         localStorage.setItem("pageTag", tag)
     };

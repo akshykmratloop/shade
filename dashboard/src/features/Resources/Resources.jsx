@@ -29,10 +29,12 @@ function Resources() {
     const [resources, setResources] = useState({});
     // const [currentResource, setCurrentResource] = useState("")
     // const [currentTag, setCurrentTag] = useState("")
-    const currentResource = useSelector(state => state.navBar.pageType)
-    const currentTag = useSelector(state => state.navBar.pageTag)
+    const pageType = useSelector(state => state.navBar.pageType)
+    const pageTag = useSelector(state => state.navBar.pageTag)
 
-    const resNotAvail = resources?.[currentResource]?.length === 0
+    const resNotAvail = resources?.[pageType]?.length === 0
+
+    console.log(resources)
 
     const settingRoute = (firstRoute, secRoute, thirdRoute) => {
         let routeExpression = ''
@@ -54,26 +56,31 @@ function Resources() {
         const currentTag = localStorage.getItem("pageTag")
         if (currentResource) {
             dispatch(updateType(currentResource))
-            // setCurrentResource(currentResource)
         }
         if (currentTag) {
             dispatch(updateTag(currentTag))
-            // setCurrentTag(currentTag)
         }
     }, [])
 
     useEffect(() => {
         const fetchResources = async () => {
-            if (currentResource) {
+            if (pageType) {
                 let payload = {};
 
+                if (pageTag === "MAIN") {
+                    payload = { pageType }
+                } else {
+                    payload = { pageTag, pageType }
+                }
+
                 const response = await getPages(payload);
-                setResources(prev => ({ ...prev, mainPages: response.mainPages.resources }))
+
+                setResources(prev => ({ ...prev, [pageType]: response.mainPages?.resources }))
             }
         }
         fetchResources()
 
-    }, [currentResource, currentTag])
+    }, [pageType, pageTag])
 
     useEffect(() => {
         const observer = new ResizeObserver(entries => {
@@ -91,11 +98,11 @@ function Resources() {
 
     return (
         <div className="customscroller relative" ref={divRef}>
-            <Navbar currentNav={currentResource} setCurrentResource={updateType} />
+            <Navbar currentNav={pageType} setCurrentResource={updateType} />
             <div className={`${resNotAvail ? "" : "grid"} ${isNarrow ? "grid-cols-1" : "grid-cols-2"} mt-4 lg:grid-cols-3 gap-10 w-full px-10`}>
-                {resNotAvail ? <p className="">Sorry, No Resource available for {currentResource}</p>
+                {resNotAvail ? <p className="">Sorry, No Resource available for {pageType}</p>
                     :
-                    resources?.[currentResource]?.map((page, index) => (
+                    resources?.[pageType]?.map((page, index) => (
                         <div key={index + Math.random()} className="w-full ">
                             <h3 className="mb-1 font-poppins font-semibold">
                                 {isSmall
@@ -129,7 +136,7 @@ function Resources() {
                                 {/* Bottom Text Options */}
                                 <div className={`absolute bottom-3 left-0 w-full text-center text-white justify-center items-center flex ${isNarrow ? "gap-2" : "gap-6"} py-1`}>
                                     {[{ icon: <AiOutlineInfoCircle />, text: "Info", onClick: () => { setPageDetailsOn(true); setConfigBarData(page) } },
-                                    { icon: <FiEdit />, text: "Edit", onClick: () => { page.subPage ? page.subOfSubPage ? settingRoute(page.supPage, page.subPage, page.subOfSubPage) : settingRoute(currentResource, page.subPage) : settingRoute(page.slug?.toLowerCase()) } },
+                                    { icon: <FiEdit />, text: "Edit", onClick: () => { page.subPage ? page.subOfSubPage ? settingRoute(page.supPage, page.subPage, page.subOfSubPage) : settingRoute(pageType, page.subPage) : settingRoute(page.slug?.toLowerCase()) } },
                                     { icon: <IoSettingsOutline />, text: "Config", onClick: () => { setConfigBarOn(true); setConfigBarData(page) } }].map((item, i) => (
                                         <span key={i + Math.random()}
                                             onClick={item.onClick}
@@ -146,12 +153,12 @@ function Resources() {
                     ))}
 
                 {
-                    resources?.[currentResource]?.[0]?.subPage &&
+                    resources?.[pageType]?.[0]?.subPage &&
                     <div className="w-full flex flex-col gap-[5px] ">
                         <h3 className=" font-poppins font-semibold">
-                            {`Add More ${capitalizeWords(currentResource)} Page`}
+                            {`Add More ${capitalizeWords(pageType)} Page`}
                         </h3>
-                        <div onClick={() => { navigate(`./edit/${currentResource}/${resources?.[currentResource].length + 1}`) }}
+                        <div onClick={() => { navigate(`./edit/${pageType}/${resources?.[pageType].length + 1}`) }}
                             className="border rounded-md bg-[white] aspect-[10/11] justify-center flex-grow cursor-pointer flex items-center text-[50px] shadow-xl-custom border-[#29469c80]"
                         >
                             <span className="text-[#1f2937]">+</span>
