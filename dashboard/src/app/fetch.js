@@ -319,12 +319,15 @@ export async function markAllNotificationAsRead(id) {
   );
 }
 
-export async function getPages() {
+export async function getResources(query) {
+  if (!query || typeof query !== "object") {
+    return await makerequest(api.route("getResources"), "GET");
+  }
 
-  return await makerequest(
-    api.route("getPages"),
-    "GET"
-  )
+  const [key1, key2, key3] = Object.keys(query);
+  const [value1, value2, value3] = [query[key1], query[key2], query[key3]];
+
+  return await makerequest(`${api.route("getResources")}?${key1}=${value1}&${key2}=${value2}&${key3}=${value3}`, "GET");
 }
 
 export async function getEligibleUsers(query) {
@@ -349,13 +352,15 @@ export async function assignUser(data) {
   );
 }
 
-// export async function getAllusers(query) {
-//   if (!query || typeof query !== "object") {
-//     return await makerequest(api.route("getUsers"), "GET");
-//   }
+export async function getAssignedUsers(query) {
+  if (!query || typeof query !== "object") {
+    return await makerequest(api.route("getAssignedUsers"), "GET");
+  }
 
-//   const [key] = Object.keys(query);
-//   const value = query[key];
+  const [key] = Object.keys(query);
+  const value = query[key];
 
-//   return await makerequest(`${api.route("getUsers")}?${key}=${value}`, "GET");
-// }
+  return await makerequest(`${api.route("getAssignedUsers")}?${key}=${value}`, "GET");
+}
+
+//getAssignedUsers

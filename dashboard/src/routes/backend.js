@@ -44,9 +44,10 @@ const api = {
   markAllNotificationAsRead: `${notification}/read-all/`, // API for marking notification as read
 
   // Pages
-  getPages: `${content}/getPages`,
+  getResources: `${content}/getResources`,
   getEligibleUsers: `${content}/getEligibleUsers`,
   assignUser: `${content}/assignUser`,
+  getAssignedUsers: `${content}/getAssignedUsers`,
 
   route(route) {
     if (this[route]) {

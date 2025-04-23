@@ -110,6 +110,10 @@ const AllForOne = ({ language, screen, content, subPath, setLanguage, fullScreen
                     <Services language={language} currentContent={content.services} screen={screen} /> : ""
             }
             {
+                (currentPath === "service" && subPath) &&
+                    <ServiceDetails language={language} contentOn={content.serviceDetails} serviceId={subPath} screen={screen} /> 
+            }
+            {
                 currentPath === "markets" &&
                 <MarketPage language={language} currentContent={content.markets} screen={screen} />
             }
