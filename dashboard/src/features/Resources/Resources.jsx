@@ -14,6 +14,7 @@ import { IoSettingsOutline } from "react-icons/io5";
 import capitalizeWords from "../../app/capitalizeword";
 import { getPages } from "../../app/fetch";
 import { updateTag, updateType } from "../common/navbarSlice";
+import unavailableIcon from "../../assets/no_data_found.svg"
 // import resources from "./resourcedata";
 
 function Resources() {
@@ -100,7 +101,10 @@ function Resources() {
         <div className="customscroller relative" ref={divRef}>
             <Navbar currentNav={pageType} setCurrentResource={updateType} />
             <div className={`${resNotAvail ? "" : "grid"} ${isNarrow ? "grid-cols-1" : "grid-cols-2"} mt-4 lg:grid-cols-3 gap-10 w-full px-10`}>
-                {resNotAvail ? <p className="">Sorry, No Resource available for {pageType}</p>
+                {resNotAvail ? 
+                <div className="border">
+                <div className="border flex justify-center py-16 "><img src={unavailableIcon} alt="" className="bg-zinc-300" /></div>
+                </div>
                     :
                     resources?.[pageType]?.map((page, index) => (
                         <div key={index + Math.random()} className="w-full ">
