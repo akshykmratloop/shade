@@ -13,21 +13,17 @@ const uploadMedia = async (mediaType, resourceId, uploadedMedia) => {
     resourceId,
     uploadedMedia,
   });
-  // Validate inputs
-  assert(mediaType, "Media type is required");
-  assert(resourceId, "Resource ID is required");
 
-  return { message: "Media upload request received" };
-  
   const createdMedia = await Promise.all(
     uploadedMedia.map(async (media) => {
       return await createMedia(
-        media.url,
-        mediaType,
-        resourceId,
-        null, // width - could be extracted from image metadata if needed
-        null, // height - could be extracted from image metadata if needed
-        null // altText - could be provided by the user if needed
+        media.public_id, // url
+        media.public_id, // publicId
+        mediaType, //  mediaType
+        media.width, // width
+        media.height, // height
+        media.public_id, // altText
+        resourceId, // resourceId
       );
     })
   );
@@ -44,27 +40,14 @@ const uploadMedia = async (mediaType, resourceId, uploadedMedia) => {
   };
 };
 
-/**
- * Delete media from Cloudinary and the database
- * @param {string} mediaId - The ID of the media to delete
- * @returns {object} Response with success message
- */
 const deleteMedia = async (mediaId) => {
-  // Validate input
-  assert(mediaId, "Media ID is required");
   const media = await findMediaById(mediaId);
-  assert(media, "Media not found");
-
-  // Extract public_id from the URL or use the whole URL if needed
-  // This assumes the public_id is stored or can be extracted from the URL
-  const publicId = media.url.split("/").pop().split(".")[0];
-
-  // Delete from Cloudinary
-  await deleteImageFromCloudinary(publicId);
+  assert(media, "NOT_FOUND", "Media not found");
 
   // Delete from database
-  await deleteMediaById(mediaId);
-
+  await deleteMediaById(media.id);
+  // Delete from Cloudinary
+  await deleteImageFromCloudinary(media.publicId);
   logger.info({
     message: "Media deleted successfully",
     mediaId,

@@ -8,7 +8,7 @@ const UploadMedia = async (req, res) => {
 };
 
 const DeleteMedia = async (req, res) => {
-  const mediaId = req.params.publicId;
+  const mediaId = req.params.id;
   const response = await deleteMedia(mediaId);
   res.status(200).json(response);
 };
