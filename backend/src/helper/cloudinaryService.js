@@ -1,7 +1,6 @@
 // services/cloudinaryService.js
 import cloudinary from '../config/cloudinary.js';
 import fs from 'fs';
-import { logger } from '../config/logConfig.js';
 
 export const uploadFileToCloudinary = async (filePath, fileName = null) => {
   try {
@@ -10,9 +9,11 @@ export const uploadFileToCloudinary = async (filePath, fileName = null) => {
       public_id: fileName || `image_${Date.now()}`
     });
 
-    logger.log('Cloudinary upload successful:', {
+    console.log('Cloudinary upload successful:', {
       url: result.secure_url,
-      public_id: result.public_id
+      public_id: result.public_id,
+      width: result.width,
+      height: result.height
     });
 
     // Remove the temporary file
@@ -20,7 +21,9 @@ export const uploadFileToCloudinary = async (filePath, fileName = null) => {
 
     return {
       url: result.secure_url,
-      public_id: result.public_id
+      public_id: result.public_id,
+      width: result.width,
+      height: result.height
     };
   } catch (error) {
     console.error('Cloudinary upload failed:', error);

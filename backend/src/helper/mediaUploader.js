@@ -10,11 +10,9 @@ const mediaUploader = async (req, res, next) => {
       return res.status(400).json({ error: 'No files provided' });
     }
 
-    console.log(`Processing ${req.files.length} files for upload to Cloudinary...`);
 
     const uploadedImages = await Promise.all(
       req.files.map(file => {
-        console.log('Uploading file:', file.originalname, 'from path:', file.path);
         return uploadFileToCloudinary(file.path);
       })
     );
