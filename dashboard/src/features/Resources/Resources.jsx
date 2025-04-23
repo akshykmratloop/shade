@@ -37,6 +37,7 @@ function Resources() {
     const resNotAvail = resources?.[resourceType]?.length === 0
 
     const settingRoute = (firstRoute, secRoute, thirdRoute) => {
+        console.log(secRoute)
         let routeExpression = ''
         if (thirdRoute) {
             routeExpression = `./edit/${firstRoute}/${secRoute}/${thirdRoute}`
@@ -82,7 +83,7 @@ function Resources() {
                 if (resourceTag === "MAIN") {
                     payload = { resourceType }
                 } else {
-                    payload = { ResourceType: resourceType, ResourceTag: resourceTag }
+                    payload = { ResourceType: resourceType, ResourceTag: resourceTag, relationType: "CHILD" }
                 }
 
                 const response = await getResources(payload);
@@ -116,11 +117,10 @@ function Resources() {
             <div className={`${resNotAvail ? "" : "grid"} ${isNarrow ? "grid-cols-1" : "grid-cols-2"} mt-4 lg:grid-cols-3 gap-10 w-full px-10`}>
                 {resNotAvail ?
                     <div className="border">
-                        <div className="border flex justify-center py-16 "><img src={unavailableIcon} alt="" className="bg-zinc-300" /></div>
+                        <div className="border flex justify-center py-16 bg-stone-50"><img src={unavailableIcon} alt="" className="" /></div>
                     </div>
                     :
                     resources?.[resourceType]?.map((page, index) => {
-                        console.log(page)
                         return (
                             <div key={index + Math.random()} className="w-full ">
                                 <h3 className="mb-1 font-poppins font-semibold">
@@ -160,7 +160,7 @@ function Resources() {
                                             text: "Edit",
                                             onClick: () => {
                                                 page.resourceType !== "MAIN_PAGE" ?
-                                                    page.resourceType !== "PAGE_ITEM" ?
+                                                    page.resourceType !== "SUB_PAGE" ?
                                                         settingRoute(page.resourceTag?.toLowerCase(), page.subPage, page.subOfSubPage) :
                                                         settingRoute(page.resourceTag?.toLowerCase(), page.id) :
                                                     settingRoute(page.slug?.toLowerCase())

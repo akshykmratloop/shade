@@ -324,10 +324,10 @@ export async function getResources(query) {
     return await makerequest(api.route("getResources"), "GET");
   }
 
-  const [key1, key2] = Object.keys(query);
-  const [value1, value2] = [query[key1], query[key2]];
+  const [key1, key2, key3] = Object.keys(query);
+  const [value1, value2, value3] = [query[key1], query[key2], query[key3]];
 
-  return await makerequest(`${api.route("getResources")}?${key1}=${value1}&${key2}=${value2}`, "GET");
+  return await makerequest(`${api.route("getResources")}?${key1}=${value1}&${key2}=${value2}&${key3}=${value3}`, "GET");
 }
 
 export async function getEligibleUsers(query) {
