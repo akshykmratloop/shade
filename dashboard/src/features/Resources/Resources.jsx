@@ -29,11 +29,10 @@ function Resources() {
     const [configBarOn, setConfigBarOn] = useState(false);
     const [PageDetailsOn, setPageDetailsOn] = useState(false);
     const [configBarData, setConfigBarData] = useState({});
-    const [resources, setResources] = useState({});
+    const [resources, setResources] = useState({ SUB_PAGE_ITEM: [], SUB_PAGE: [], MAIN_PAGE: [] });
     const resourceType = useSelector(state => state.navBar.resourceType)
     const resourceTag = useSelector(state => state.navBar.resourceTag)
 
-    console.log(resources)
     const resNotAvail = resources?.[resourceType]?.length === 0
 
     const settingRoute = (firstRoute, secRoute, thirdRoute) => {
@@ -96,6 +95,8 @@ function Resources() {
         fetchResources()
 
     }, [resourceType, resourceTag])
+
+    console.log(resNotAvail)
 
     useEffect(() => {
         const observer = new ResizeObserver(entries => {
