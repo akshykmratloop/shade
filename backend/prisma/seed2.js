@@ -127,25 +127,264 @@ async function main() {
     return resource;
   }
 
-  // 1. Create Header
+  // 1. Create Testimonials as standalone resources
+  for (const testimonial of content.home.testimonialSection.testimonials) {
+    const slug = generateSlug(testimonial.name, "testimonial-");
+
+    await createResource(
+      `${testimonial.name.en}`,
+      slug,
+      "SUB_PAGE",
+      "TESTIMONIAL",
+      "CHILD",
+      testimonial,
+      [
+        {
+          title: `Testimonial from ${testimonial.name}`,
+          SectionType: "TESTIMONIAL",
+          content: testimonial,
+        },
+      ]
+    );
+  }
+  // 2. Create Footer
   await createResource(
-    "Header",
-    "header",
-    "HEADER",
-    "HEADER",
+    "Footer",
+    "footer",
+    "FOOTER",
+    "NULL",
     "PARENT",
-    content.header,
+    content.footer,
     [
       {
-        title: "Main Navigation",
-        SectionType: "HEADER_NAV",
-        content: content.header,
+        title: "Footer Content",
+        SectionType: "FOOTER_COLUMNS",
+        content: content.footer,
         isGlobal: true,
       },
     ]
   );
+  // 3. Create individual News Items first
+  const newsSlugs = [];
+  //   for (const newsItem of content.newsBlogs.latestNewCards.newsItems) {
+  //     const slug = generateSlug(newsItem.title, "news-");
 
-  // 2. Create individual Services first (as subpages)
+  //     newsSlugs.push(slug);
+
+  //     await createResource(
+  //       newsItem.title.en,
+  //       slug,
+  //       "SUB_PAGE",
+  //       "NEWS",
+  //       "CHILD",
+  //       newsItem,
+  //       [
+  //         {
+  //           title: `${newsItem.title.en} Content`,
+  //           SectionType: "NEWS_DETAIL",
+  //           content: newsItem,
+  //         },
+  //       ]
+  //     );
+  //   }
+  // 4. Create News & Blogs Page
+  await createResource(
+    "News & Blogs",
+    "news",
+    "MAIN_PAGE",
+    "NEWS",
+    "PARENT",
+    content.newsBlogs,
+    [
+      {
+        title: "News Banner",
+        SectionType: "HERO_BANNER",
+        content: content.newsBlogs.bannerSection,
+        heading: content.newsBlogs.bannerSection.title?.en || null,
+        description: content.newsBlogs.bannerSection.description?.en || null,
+      },
+      {
+        title: "Featured Article",
+        SectionType: "NEWS_FEED",
+        content: content.newsBlogs.mainCard,
+        heading: content.newsBlogs.mainCard.title?.en || null,
+        description: content.newsBlogs.mainCard.description?.en || null,
+        items:
+          newsSlugs.length > 0
+            ? [
+                {
+                  resourceType: "SUB_PAGE",
+                  slug: newsSlugs[0], // Link first news item as featured
+                },
+              ]
+            : [],
+      },
+      {
+        title: "News Grid",
+        SectionType: "CARD_GRID",
+        content: content.newsBlogs.latestNewCards,
+        heading: content.newsBlogs.latestNewCards.title?.en || null,
+        description: content.newsBlogs.latestNewCards.subtitle?.en || null,
+        items: newsSlugs.map((slug) => ({
+          resourceType: "SUB_PAGE",
+          slug: slug,
+        })),
+      },
+    ]
+  );
+  // 5. Create individual Career Posts first
+  const careerSlugs = [];
+  for (const career of content.career.jobListSection.jobs) {
+    const jobTitle = career?.title?.value?.en || "Untitled Job Position";
+    const slug = generateSlug(career?.title?.value, "career-");
+
+    careerSlugs.push(slug);
+
+    await createResource(
+      jobTitle,
+      slug,
+      "SUB_PAGE",
+      "CAREER",
+      "CHILD",
+      career,
+      [
+        {
+          title: `${career.title.en} Details`,
+          SectionType: "CAREER_DETAILS",
+          content: career,
+        },
+      ]
+    );
+  }
+  // 6. Create Careers Page
+  await createResource(
+    "Careers Page",
+    "careers",
+    "MAIN_PAGE",
+    "CAREER",
+    "PARENT",
+    content.career,
+    [
+      {
+        title: "Careers Banner",
+        SectionType: "HERO_BANNER",
+        content: content.career.bannerSection,
+        heading: content.career.bannerSection.title?.en || null,
+        description: content.career.bannerSection.description?.en || null,
+      },
+      {
+        title: "Jobs List",
+        SectionType: "CAREER_LISTING",
+        content: content.career.jobListSection,
+        heading: content.career.jobListSection.title?.en || null,
+        description: content.career.jobListSection.subtitle?.en || null,
+        items: careerSlugs.map((slug) => ({
+          resourceType: "SUB_PAGE",
+          slug: slug,
+        })),
+      },
+    ]
+  );
+  // 7. Create Projects
+  const projectSlugs = [];
+  for (const project of content.projectDetail) {
+    const slug = generateSlug(project.introSection?.title, "project-");
+    projectSlugs.push(slug);
+
+    await createResource(
+      project.introSection.title.en,
+      slug,
+      "SUB_PAGE",
+      "PROJECT",
+      "CHILD",
+      project,
+      [
+        {
+          title: "Project Intro",
+          SectionType: "HERO_BANNER",
+          content: project.introSection,
+          heading: project.introSection.title?.en || null,
+          description: project.introSection.description?.en || null,
+        },
+        {
+          title: "Project Details",
+          SectionType: "MARKDOWN_CONTENT",
+          content: project.descriptionSection,
+          heading: project.descriptionSection.title?.en || null,
+          description: project.descriptionSection.subtitle?.en || null,
+        },
+        {
+          title: "Project Gallery",
+          SectionType: "PROJECT_GRID",
+          content: project.gallerySection,
+          heading: project.gallerySection.title?.en || null,
+          description: project.gallerySection.subtitle?.en || null,
+        },
+      ]
+    );
+  }
+  // 8. Create Projects Page
+  await createResource(
+    "Projects Page",
+    "projects",
+    "MAIN_PAGE",
+    "PROJECT",
+    "PARENT",
+    content.projectsPage,
+    [
+      {
+        title: "Projects Banner",
+        SectionType: "HERO_BANNER",
+        content: content.projectsPage.bannerSection,
+        heading: content.projectsPage.bannerSection.title?.en || null,
+        description: content.projectsPage.bannerSection.description?.en || null,
+      },
+      {
+        title: "Projects List",
+        SectionType: "PROJECT_GRID",
+        content: content.projectsPage.projectsSection,
+        heading: content.projectsPage.projectsSection.title?.en || null,
+        description: content.projectsPage.projectsSection.subtitle?.en || null,
+        items: projectSlugs.map((slug) => ({
+          resourceType: "SUB_PAGE",
+          slug: slug,
+        })),
+      },
+    ]
+  );
+  // 9. Create Market Page
+  await createResource(
+    "Market Page",
+    "market",
+    "MAIN_PAGE",
+    "MARKET",
+    "PARENT",
+    content.market,
+    [
+      {
+        title: "Market Banner",
+        SectionType: "HERO_BANNER",
+        content: content.market.banner,
+        heading: content.market.banner.title?.en || null,
+        description: content.market.banner.description?.en || null,
+      },
+      {
+        title: "Market Tabs",
+        SectionType: "MARKETS",
+        content: content.market.tabSection,
+        heading: content.market.tabSection.title?.en || null,
+        description: content.market.tabSection.subtitle?.en || null,
+      },
+      {
+        title: "Market Testimonials",
+        SectionType: "TESTIMONIALS",
+        content: content.market.testimonialSection,
+        heading: content.market.testimonialSection.title?.en || null,
+        description: content.market.testimonialSection.subtitle?.en || null,
+      },
+    ]
+  );
+  // 10. Create individual Services first (as subpages)
   const serviceSlugs = [];
   for (const service of content.services.serviceCards) {
     const slug = generateSlug(service.title, "service-");
@@ -169,8 +408,7 @@ async function main() {
       ]
     );
   }
-
-  // 3. Create Services Main Page
+  // 11. Create Services Main Page
   await createResource(
     "Services Page",
     "services",
@@ -197,8 +435,71 @@ async function main() {
       },
     ]
   );
-
-  // 3. Create Home Page
+  // 12. Create Solutions Page
+  await createResource(
+    "Solutions Page",
+    "solutions",
+    "MAIN_PAGE",
+    "SOLUTION",
+    "PARENT",
+    content.solution,
+    [
+      {
+        title: "Solutions Banner",
+        SectionType: "HERO_BANNER",
+        content: content.solution.banner,
+        heading: content.solution.banner.title?.en || null,
+        description: content.solution.banner.description?.en || null,
+      },
+      {
+        title: "What We Do",
+        SectionType: "MARKDOWN_CONTENT",
+        content: content.solution.whatWeDo,
+        heading: content.solution.whatWeDo.title?.en || null,
+        description: content.solution.whatWeDo.subtitle?.en || null,
+      },
+      {
+        title: "How We Do It",
+        SectionType: "MARKDOWN_CONTENT",
+        content: content.solution.howWeDo,
+        heading: content.solution.howWeDo.title?.en || null,
+        description: content.solution.howWeDo.subtitle?.en || null,
+      },
+      {
+        title: "Project Gallery",
+        SectionType: "PROJECT_GRID",
+        content: content.solution.gallery,
+        heading: content.solution.gallery.title?.en || null,
+        description: content.solution.gallery.subtitle?.en || null,
+      },
+    ]
+  );
+  // 13. Create About Us Page
+  await createResource(
+    "About Us Page",
+    "about",
+    "MAIN_PAGE",
+    "ABOUT",
+    "PARENT",
+    content.aboutUs,
+    [
+      {
+        title: "About Banner",
+        SectionType: "HERO_BANNER",
+        content: content.aboutUs.main,
+        heading: content.aboutUs.main.title?.en || null,
+        description: content.aboutUs.main.description?.en || null,
+      },
+      {
+        title: "Mission Vision",
+        SectionType: "CARD_GRID",
+        content: content.aboutUs.services,
+        heading: content.aboutUs.services.title?.en || null,
+        description: content.aboutUs.services.subtitle?.en || null,
+      },
+    ]
+  );
+  // 14. Create Home Page
   await createResource(
     "Home Page",
     "home",
@@ -261,338 +562,23 @@ async function main() {
       },
     ]
   );
-
-  // 4. Create Footer
+  // 15. Create Header
   await createResource(
-    "Footer",
-    "footer",
-    "FOOTER",
-    "NULL",
+    "Header",
+    "header",
+    "HEADER",
+    "HEADER",
     "PARENT",
-    content.footer,
+    content.header,
     [
       {
-        title: "Footer Content",
-        SectionType: "FOOTER_COLUMNS",
-        content: content.footer,
+        title: "Main Navigation",
+        SectionType: "HEADER_NAV",
+        content: content.header,
         isGlobal: true,
       },
     ]
   );
-
-  // 5. Create Solutions Page
-  await createResource(
-    "Solutions Page",
-    "solutions",
-    "MAIN_PAGE",
-    "SOLUTION",
-    "PARENT",
-    content.solution,
-    [
-      {
-        title: "Solutions Banner",
-        SectionType: "HERO_BANNER",
-        content: content.solution.banner,
-        heading: content.solution.banner.title?.en || null,
-        description: content.solution.banner.description?.en || null,
-      },
-      {
-        title: "What We Do",
-        SectionType: "MARKDOWN_CONTENT",
-        content: content.solution.whatWeDo,
-        heading: content.solution.whatWeDo.title?.en || null,
-        description: content.solution.whatWeDo.subtitle?.en || null,
-      },
-      {
-        title: "How We Do It",
-        SectionType: "MARKDOWN_CONTENT",
-        content: content.solution.howWeDo,
-        heading: content.solution.howWeDo.title?.en || null,
-        description: content.solution.howWeDo.subtitle?.en || null,
-      },
-      {
-        title: "Project Gallery",
-        SectionType: "PROJECT_GRID",
-        content: content.solution.gallery,
-        heading: content.solution.gallery.title?.en || null,
-        description: content.solution.gallery.subtitle?.en || null,
-      },
-    ]
-  );
-
-  // 6. Create About Us Page
-  await createResource(
-    "About Us Page",
-    "about",
-    "MAIN_PAGE",
-    "ABOUT",
-    "PARENT",
-    content.aboutUs,
-    [
-      {
-        title: "About Banner",
-        SectionType: "HERO_BANNER",
-        content: content.aboutUs.main,
-        heading: content.aboutUs.main.title?.en || null,
-        description: content.aboutUs.main.description?.en || null,
-      },
-      {
-        title: "Mission Vision",
-        SectionType: "CARD_GRID",
-        content: content.aboutUs.services,
-        heading: content.aboutUs.services.title?.en || null,
-        description: content.aboutUs.services.subtitle?.en || null,
-      },
-    ]
-  );
-
-  // 7. Create Market Page
-  await createResource(
-    "Market Page",
-    "market",
-    "MAIN_PAGE",
-    "MARKET",
-    "PARENT",
-    content.market,
-    [
-      {
-        title: "Market Banner",
-        SectionType: "HERO_BANNER",
-        content: content.market.banner,
-        heading: content.market.banner.title?.en || null,
-        description: content.market.banner.description?.en || null,
-      },
-      {
-        title: "Market Tabs",
-        SectionType: "MARKETS",
-        content: content.market.tabSection,
-        heading: content.market.tabSection.title?.en || null,
-        description: content.market.tabSection.subtitle?.en || null,
-      },
-      {
-        title: "Market Testimonials",
-        SectionType: "TESTIMONIALS",
-        content: content.market.testimonialSection,
-        heading: content.market.testimonialSection.title?.en || null,
-        description: content.market.testimonialSection.subtitle?.en || null,
-      },
-    ]
-  );
-
-  // 8. Create Projects
-  const projectSlugs = [];
-  for (const project of content.projectDetail) {
-    const slug = generateSlug(project.introSection?.title, "project-");
-    projectSlugs.push(slug);
-
-    await createResource(
-      project.introSection.title.en,
-      slug,
-      "SUB_PAGE",
-      "PROJECT",
-      "CHILD",
-      project,
-      [
-        {
-          title: "Project Intro",
-          SectionType: "HERO_BANNER",
-          content: project.introSection,
-          heading: project.introSection.title?.en || null,
-          description: project.introSection.description?.en || null,
-        },
-        {
-          title: "Project Details",
-          SectionType: "MARKDOWN_CONTENT",
-          content: project.descriptionSection,
-          heading: project.descriptionSection.title?.en || null,
-          description: project.descriptionSection.subtitle?.en || null,
-        },
-        {
-          title: "Project Gallery",
-          SectionType: "PROJECT_GRID",
-          content: project.gallerySection,
-          heading: project.gallerySection.title?.en || null,
-          description: project.gallerySection.subtitle?.en || null,
-        },
-      ]
-    );
-  }
-
-  // 9. Create Projects Page
-  await createResource(
-    "Projects Page",
-    "projects",
-    "MAIN_PAGE",
-    "PROJECT",
-    "PARENT",
-    content.projectsPage,
-    [
-      {
-        title: "Projects Banner",
-        SectionType: "HERO_BANNER",
-        content: content.projectsPage.bannerSection,
-        heading: content.projectsPage.bannerSection.title?.en || null,
-        description: content.projectsPage.bannerSection.description?.en || null,
-      },
-      {
-        title: "Projects List",
-        SectionType: "PROJECT_GRID",
-        content: content.projectsPage.projectsSection,
-        heading: content.projectsPage.projectsSection.title?.en || null,
-        description: content.projectsPage.projectsSection.subtitle?.en || null,
-        items: projectSlugs.map((slug) => ({
-          resourceType: "SUB_PAGE",
-          slug: slug,
-        })),
-      },
-    ]
-  );
-
-  // 10. Create individual Career Posts first
-  const careerSlugs = [];
-  for (const career of content.career.jobListSection.jobs) {
-    const jobTitle = career?.title?.value?.en || "Untitled Job Position";
-    const slug = generateSlug(career?.title?.value, "career-");
-
-    careerSlugs.push(slug);
-
-    await createResource(
-      jobTitle,
-      slug,
-      "SUB_PAGE",
-      "CAREER",
-      "CHILD",
-      career,
-      [
-        {
-          title: `${career.title.en} Details`,
-          SectionType: "CAREER_DETAILS",
-          content: career,
-        },
-      ]
-    );
-  }
-
-  // 11. Create Careers Page
-  await createResource(
-    "Careers Page",
-    "careers",
-    "MAIN_PAGE",
-    "CAREER",
-    "PARENT",
-    content.career,
-    [
-      {
-        title: "Careers Banner",
-        SectionType: "HERO_BANNER",
-        content: content.career.bannerSection,
-        heading: content.career.bannerSection.title?.en || null,
-        description: content.career.bannerSection.description?.en || null,
-      },
-      {
-        title: "Jobs List",
-        SectionType: "CAREER_LISTING",
-        content: content.career.jobListSection,
-        heading: content.career.jobListSection.title?.en || null,
-        description: content.career.jobListSection.subtitle?.en || null,
-        items: careerSlugs.map((slug) => ({
-          resourceType: "SUB_PAGE",
-          slug: slug,
-        })),
-      },
-    ]
-  );
-
-  // 12. Create individual News Items first
-  const newsSlugs = [];
-  //   for (const newsItem of content.newsBlogs.latestNewCards.newsItems) {
-  //     const slug = generateSlug(newsItem.title, "news-");
-
-  //     newsSlugs.push(slug);
-
-  //     await createResource(
-  //       newsItem.title.en,
-  //       slug,
-  //       "SUB_PAGE",
-  //       "NEWS",
-  //       "CHILD",
-  //       newsItem,
-  //       [
-  //         {
-  //           title: `${newsItem.title.en} Content`,
-  //           SectionType: "NEWS_DETAIL",
-  //           content: newsItem,
-  //         },
-  //       ]
-  //     );
-  //   }
-
-  // 13. Create News & Blogs Page
-  await createResource(
-    "News & Blogs",
-    "news",
-    "MAIN_PAGE",
-    "NEWS",
-    "PARENT",
-    content.newsBlogs,
-    [
-      {
-        title: "News Banner",
-        SectionType: "HERO_BANNER",
-        content: content.newsBlogs.bannerSection,
-        heading: content.newsBlogs.bannerSection.title?.en || null,
-        description: content.newsBlogs.bannerSection.description?.en || null,
-      },
-      {
-        title: "Featured Article",
-        SectionType: "NEWS_FEED",
-        content: content.newsBlogs.mainCard,
-        heading: content.newsBlogs.mainCard.title?.en || null,
-        description: content.newsBlogs.mainCard.description?.en || null,
-        items:
-          newsSlugs.length > 0
-            ? [
-                {
-                  resourceType: "SUB_PAGE",
-                  slug: newsSlugs[0], // Link first news item as featured
-                },
-              ]
-            : [],
-      },
-      {
-        title: "News Grid",
-        SectionType: "CARD_GRID",
-        content: content.newsBlogs.latestNewCards,
-        heading: content.newsBlogs.latestNewCards.title?.en || null,
-        description: content.newsBlogs.latestNewCards.subtitle?.en || null,
-        items: newsSlugs.map((slug) => ({
-          resourceType: "SUB_PAGE",
-          slug: slug,
-        })),
-      },
-    ]
-  );
-
-  // 15. Create Testimonials as standalone resources
-  for (const testimonial of content.home.testimonialSection.testimonials) {
-    const slug = generateSlug(testimonial.name, "testimonial-");
-
-    await createResource(
-      `Testimonial from ${testimonial.name}`,
-      slug,
-      "SUB_PAGE",
-      "TESTIMONIAL",
-      "CHILD",
-      testimonial,
-      [
-        {
-          title: `Testimonial from ${testimonial.name}`,
-          SectionType: "TESTIMONIAL",
-          content: testimonial,
-        },
-      ]
-    );
-  }
 
   console.log("All resources seeded successfully!");
 }

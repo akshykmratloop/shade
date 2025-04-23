@@ -13,8 +13,8 @@ router.post(
     tryCatchWrap(MediaController.UploadMedia)
   );
 
-  router.post(
-    '/deleteMedia/:publicId',
+  router.delete(
+    '/delete/:id',
     tryCatchWrap(MediaController.DeleteMedia)
   );
 
