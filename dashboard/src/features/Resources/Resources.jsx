@@ -68,9 +68,13 @@ function Resources() {
         const currentTag = localStorage.getItem("resourceTag")
         if (currentResource) {
             dispatch(updateType(currentResource))
+        } else {
+            dispatch(updateType("MAIN_PAGE"))
         }
         if (currentTag) {
             dispatch(updateTag(currentTag))
+        } else {
+            dispatch(updateTag("MAIN"))
         }
     }, [])
 
@@ -81,8 +85,10 @@ function Resources() {
 
                 if (resourceTag === "MAIN") {
                     payload = { resourceType }
+                } else if (resourceTag === "HEADER_FOOTER") {
+                    payload = { resourceType }
                 } else {
-                    payload = { ResourceType: resourceType, ResourceTag: resourceTag, relationType: "CHILD" }
+                    payload = { resourceType, ResourceTag: resourceTag, relationType: "CHILD" }
                 }
 
                 const response = await getResources(payload);
