@@ -88,7 +88,7 @@ const AddUserModal = ({ show, onClose, updateUsers, user }) => {
         }
 
         if (response?.ok) {
-            updateToasify(loadingToastId, `Request successful! 🎉 ${response.message}`, "success", 1000);
+            updateToasify(loadingToastId, `User Created successful! 🎉`, "success", 1000);
             setTimeout(() => {
                 onClose();
                 updateUsers((prev) => !prev);
