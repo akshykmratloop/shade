@@ -39,7 +39,6 @@ const Navbar = ({ setCurrentResource }) => {
             <nav className="bg-[#29469C] xl:text-[.9rem] sm:text-[.8rem] w-full rounded-lg sm:overflow-x-scroll xl:overflow-x-visible customscroller h-[61px]">
                 <ul className="flex md:flex-nowrap lg:flex-nowrap md:w-full text-white py-2 whitespace-nowrap">
                     {navs.map((nav, index) => {
-                        if (!hasPermission(nav.permission)) return null;
 
                         return (
                             <li

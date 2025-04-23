@@ -166,8 +166,8 @@ function Resources() {
                                             icon: <FiEdit />,
                                             text: "Edit",
                                             onClick: () => {
-                                                page.resourceType !== "MAIN_PAGE" ?
-                                                    page.resourceType !== "SUB_PAGE" ?
+                                                page.relationType !== "PARENT" ?
+                                                    page.relationType !== "CHILD" ?
                                                         settingRoute(page.resourceTag?.toLowerCase(), page.subPage, page.subOfSubPage) :
                                                         settingRoute(page.resourceTag?.toLowerCase(), page.id) :
                                                     settingRoute(page.slug?.toLowerCase())
