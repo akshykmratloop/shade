@@ -1,6 +1,6 @@
 // library
 import { useEffect, useRef, useState } from "react"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { useNavigate } from "react-router-dom";
 // modules
 import ConfigBar from "./components/breakUI/ConfigBar";
@@ -13,7 +13,7 @@ import { FiEdit } from "react-icons/fi";
 import { IoSettingsOutline } from "react-icons/io5";
 import capitalizeWords from "../../app/capitalizeword";
 import { getPages } from "../../app/fetch";
-
+import { updateTag, updateType } from "../common/navbarSlice";
 // import resources from "./resourcedata";
 
 function Resources() {
@@ -23,11 +23,14 @@ function Resources() {
     const [isCollapsed, setIsCollapsed] = useState(false)
     const [isSmall, setIsSmall] = useState(false)
     const [isNarrow, setIsNarrow] = useState(false)
-    const [currentResource, setCurrentResource] = useState("")
     const [configBarOn, setConfigBarOn] = useState(false);
     const [PageDetailsOn, setPageDetailsOn] = useState(false);
     const [configBarData, setConfigBarData] = useState({});
     const [resources, setResources] = useState({});
+    // const [currentResource, setCurrentResource] = useState("")
+    // const [currentTag, setCurrentTag] = useState("")
+    const currentResource = useSelector(state => state.navBar.pageType)
+    const currentTag = useSelector(state => state.navBar.pageTag)
 
     const resNotAvail = resources?.[currentResource]?.length === 0
 
@@ -47,22 +50,30 @@ function Resources() {
 
     useEffect(() => {
         dispatch(getLeadsContent())
-        const currentResource = localStorage.getItem("resource")
-        if (currentResource) setCurrentResource(currentResource)
-        if (currentResource) { setCurrentResource(currentResource) }
-
+        const currentResource = localStorage.getItem("pageType")
+        const currentTag = localStorage.getItem("pageTag")
+        if (currentResource) {
+            dispatch(updateType(currentResource))
+            // setCurrentResource(currentResource)
+        }
+        if (currentTag) {
+            dispatch(updateTag(currentTag))
+            // setCurrentTag(currentTag)
+        }
     }, [])
 
     useEffect(() => {
         const fetchResources = async () => {
             if (currentResource) {
-                const response = await getPages();
+                let payload = {};
+
+                const response = await getPages(payload);
                 setResources(prev => ({ ...prev, mainPages: response.mainPages.resources }))
             }
         }
         fetchResources()
 
-    }, [currentResource])
+    }, [currentResource, currentTag])
 
     useEffect(() => {
         const observer = new ResizeObserver(entries => {
@@ -80,7 +91,7 @@ function Resources() {
 
     return (
         <div className="customscroller relative" ref={divRef}>
-            <Navbar currentNav={currentResource} setCurrentResource={setCurrentResource} />
+            <Navbar currentNav={currentResource} setCurrentResource={updateType} />
             <div className={`${resNotAvail ? "" : "grid"} ${isNarrow ? "grid-cols-1" : "grid-cols-2"} mt-4 lg:grid-cols-3 gap-10 w-full px-10`}>
                 {resNotAvail ? <p className="">Sorry, No Resource available for {currentResource}</p>
                     :
