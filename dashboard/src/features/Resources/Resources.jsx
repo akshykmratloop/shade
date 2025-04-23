@@ -117,8 +117,8 @@ function Resources() {
             <Navbar currentNav={resourceType} setCurrentResource={updateType} />
             <div className={`${resNotAvail ? "" : "grid"} ${isNarrow ? "grid-cols-1" : "grid-cols-2"} mt-4 lg:grid-cols-3 gap-10 w-full px-10`}>
                 {resNotAvail ?
-                    <div className="border">
-                        <div className="border flex justify-center py-16 bg-stone-50"><img src={unavailableIcon} alt="" className="" /></div>
+                    <div className="">
+                        <div className="flex justify-center py-16"><img src={unavailableIcon} alt="" className="" /></div>
                     </div>
                     :
                     resources?.[resourceType]?.map((page, index) => {
