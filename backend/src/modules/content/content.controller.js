@@ -1,24 +1,24 @@
 // import {eventEmitter} from "../../helper/event.js";
 import { createNotification } from "../../repository/notification.repository.js";
 import {
-  getPages,
-  getPageInfo,
+  getResources,
+  getResourceInfo,
   getEligibleUser,
   assignUser,
   getAssignedUsers,
   getContent,
-
 } from "./content.service.js";
 
-const GetPages = async (req, res) => {
-  const { pageType, relationType, pageTag, search, status, page, limit } =
+const GetResources = async (req, res) => {
+  const { resourceType, ResourceTag, relationType, isAssigned, search, status, page, limit } =
     req.query;
   const pageNum = parseInt(page) || 1;
   const limitNum = parseInt(limit) || 100;
-  const response = await getPages(
-    pageType,
+  const response = await getResources(
+    resourceType,
+    ResourceTag,
     relationType,
-    pageTag,
+    isAssigned,
     search,
     status,
     pageNum,
@@ -27,9 +27,9 @@ const GetPages = async (req, res) => {
   res.status(200).json(response);
 };
 
-const GetPageInfo = async (req, res) => {
+const GetResourceInfo = async (req, res) => {
   const { resourceId } = req.query;
-  const response = await getPageInfo(resourceId);
+  const response = await getResourceInfo(resourceId);
   res.status(200).json(response);
 };
 
@@ -63,14 +63,11 @@ const GetContent = async (req, res) => {
   res.status(200).json(response);
 };
 
-
-
 export default {
-  GetPages,
-  GetPageInfo,
+  GetResources,
+  GetResourceInfo,
   GetEligibleUser,
   AssignUser,
   GetAssignedUsers,
   GetContent,
-
 };

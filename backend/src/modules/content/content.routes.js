@@ -12,15 +12,15 @@ const router = Router();
 // const requiredPermissionsForContentManagement = ["ROLES_PERMISSION_MANAGEMENT"];
 
 router.get(
-  "/getPages",
+  "/getResources",
   //   checkPermission(requiredPermissionsForContentManagement),
-  tryCatchWrap(ContentController.GetPages)
+  tryCatchWrap(ContentController.GetResources)
 );
 
 router.get(
-  "/getPageInfo",
+  "/getResourceInfo",
   //   checkPermission(requiredPermissionsForContentManagement),
-  tryCatchWrap(ContentController.GetPageInfo)
+  tryCatchWrap(ContentController.GetResourceInfo)
 );
 
 router.get(

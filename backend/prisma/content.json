@@ -1106,31 +1106,7 @@
         },
         "image": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(4).png"
       }
-    ],
-    "newProject": {
-      "title": {
-        "ar": "هل تريد بدء مشروع جديد أو التعاون معنا؟",
-        "en": "Want to start a new project or collaborate with us?"
-      },
-      "description1": {
-        "ar": "التزامًا بفلسفتنا المتمثلة في \"بناء مستقبل أقوى\"، تؤمن شركة Shade Corporation بالشراكات المربحة للجانبين مع جميع أصحاب المصلحة، وتهدف باستمرار إلى إنشاء علاقات مستدامة وطويلة الأمد لخلق القيمة. يشتمل نموذج المشاركة الخاص بنا على منهجيات خاصة وحلول شاملة من شأنها أن تحول اقتصاديات مشروعك وتفتح إمكانيات جديدة وتدعم أهداف النمو التنظيمي لديك.",
-        "en": "Committed to our philosophy of \"Building a Stronger Future\", Shade Corporation believes in win-win partnerships with all stakeholders and continuously aims to create sustainable, long-term relationships to create value. Our engagement model includes proprietary methodologies and comprehensive solutions that will transform your project economics, unlock new possibilities, and support your organizational growth objectives."
-      },
-      "description2": {
-        "ar": "في العقود القليلة الماضية، قدمنا خدماتنا للعديد من الشركات السعودية الرائدة والمؤسسات العامة لإنشاء استراتيجيات ناجحة، وحل بعض المشكلات المعقدة، وتحقيق نتائج متسقة. إذا كنت تتطلع إلى تعزيز الأداء وتنفيذ استراتيجيات النمو وبناء قدرات جديدة، فتعاون معنا الآن.",
-        "en": "Over the past few decades, we have served numerous leading Saudi companies and public institutions to create successful strategies, solve complex problems, and deliver consistent results. If you are looking to enhance performance, implement growth strategies, and build new capabilities, collaborate with us now."
-      },
-      "highlightedText": {
-        "ar": "بناء مستقبل أقوى",
-        "en": "Building a Stronger Future"
-      },
-      "button": {
-        "text": {
-          "ar": "اتصل بنا",
-          "en": "Contact Us"
-        }
-      }
-    }
+    ]
   },
 
   "market": {
@@ -3589,11 +3565,11 @@
           "id": 14,
           "title": {
             "key": {
-              "en": "Full Stack Engineer",
+              "en": "Full Stack Developer",
               "ar": "مهندس كامل الواجهة"
             },
             "value": {
-              "en": "Full Stack Engineer",
+              "en": "Full Stack Developer",
               "ar": "مهندس كامل الواجهة"
             }
           },

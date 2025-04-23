@@ -1,10 +1,11 @@
 import prismaClient from "../config/dbConfig.js";
 
-export const createMedia = async (url, type, resourceId, width = null, height = null, altText = null) => {
+export const createMedia = async (url, type, mediaType, resourceId, width = null, height = null, altText = null) => {
   return await prismaClient.media.create({
     data: {
       url,
       type,
+      mediaType,
       resourceId,
       width,
       height,
