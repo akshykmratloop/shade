@@ -2,20 +2,23 @@ import React, { useEffect, useRef, useState } from "react";
 import Select from "../../../../components/Input/Select";
 import SelectorAccordion from "./SelectorAccordion";
 import { X } from "lucide-react";
-import { assignUser, getEligibleUsers } from "../../../../app/fetch";
+import { assignUser, getAssignedUsers, getEligibleUsers } from "../../../../app/fetch";
 import { toast } from "react-toastify";
-import capitalizeWords from "../../../../app/capitalizeword";
+import capitalizeWords, { TruncateText } from "../../../../app/capitalizeword";
 
 const ConfigBar = ({ display, setOn, data, resourceId }) => {
-    const configRef = useRef(null);
-    const [userList, setUserList] = useState({ managers: [], editors: [], verifiers: [], publishers: [] })
-    const [formObj, setFormObj] = useState({
+    const initialObj = {
         resourceId,
         manager: "",
         editor: "",
         verifiers: [{ id: "", stage: NaN }],
         publisher: ""
-    })
+    }
+    const configRef = useRef(null);
+    const [userList, setUserList] = useState({ managers: [], editors: [], verifiers: [], publishers: [] })
+    const [formObj, setFormObj] = useState(initialObj)
+    const [preAssignedUsers, setPreAssignedUsers] = useState({ roles: {}, verifiers: [] })
+    const [fetchedData, setFetchedData] = useState(false)
 
     function updateSelection(field, value) {
         setFormObj(prev => {
@@ -48,17 +51,27 @@ const ConfigBar = ({ display, setOn, data, resourceId }) => {
         if (!sameDoubledValue) {
             const response = await assignUser(formObj)
             if (response.message === "Success") {
-                toast.success("Page assigned Successfully!")
+                toast.success("Page assigned Successfully!", {
+                    autoClose: 700
+                })
+                setTimeout(() => {
+                    closeButton()
+                }, 500)
             }
         } else {
             return toast.error(`Error! duplicate selection has been found`)
         }
     }
 
+    function closeButton() {
+        setOn(false);
+        setFormObj(initialObj)
+    }
+
     useEffect(() => {
         const handleClickOutside = (event) => {
             if (configRef.current && !configRef.current.contains(event.target)) {
-                setOn(false);
+                closeButton()
             }
         };
 
@@ -76,6 +89,44 @@ const ConfigBar = ({ display, setOn, data, resourceId }) => {
             ...prev,
             resourceId: resourceId,
         }))
+    }, [resourceId])
+
+    useEffect(() => {
+
+        setFormObj(prev => {
+            return {
+                resourceId,
+                manager: preAssignedUsers.roles?.MANAGER || "",
+                editor: preAssignedUsers.roles?.EDITOR || "",
+                verifiers: preAssignedUsers.verifiers.length > 0 ? preAssignedUsers.verifiers : [{ id: "", stage: NaN }],
+                publisher: preAssignedUsers.roles?.PUBLISHER || ""
+            }
+        })
+
+    }, [preAssignedUsers])
+
+    useEffect(() => {
+        async function GetAssingends() {
+            const payload = { resourceId }
+            if (resourceId) {
+
+                const response = await getAssignedUsers(payload)
+                setPreAssignedUsers(prev => {
+                    let roles = {}
+                    response.assignedUsers.roles.forEach(e => {
+                        roles[e.role] = e.userId
+                    })
+                    return {
+                        roles: roles,
+                        verifiers: response.assignedUsers.verifiers.map(e => ({ stage: e.stage, id: e.userId }))
+                    }
+                })
+                if (response.assignedUsers?.roles?.length > 0) { setFetchedData(true) }
+            }
+        }
+
+        GetAssingends()
+
     }, [resourceId])
 
     useEffect(() => {
@@ -99,10 +150,12 @@ const ConfigBar = ({ display, setOn, data, resourceId }) => {
 
             <div ref={configRef} className="fixed z-30 top-0 right-0 w-[26rem] h-screen bg-[white] dark:bg-[#242933]">
                 <button className="bg-transparent hover:bg-stone-900 hover:text-stone-200 dark:hover:bg-stone-900 rounded-full absolute top-7 border border-gray-500 left-4 p-2 py-2"
-                    onClick={() => setOn(false)}>
+                    onClick={() => closeButton()}>
                     <X className="w-[16px] h-[16px]" />
                 </button>
-                <h1 className="font-medium text-[1.1rem] shadow-md-custom p-[30px] text-center">Assign User for Page {data.heading}</h1>
+                <div className="font-medium shadow-md-custom p-[30px] px-[40px]">
+                    <h1 className="w-[90%] mx-auto text-[1rem] whitespace-pre" title={data.title}>Assign User for {TruncateText(data.title, 21)}</h1>
+                </div>
                 <form className="mt-1 flex flex-col justify-between h-[88%] p-[30px] pt-[0px]">
                     <div className="flex flex-col gap-4 pt-6 ">
                         {/* Selected Page/Content */}
@@ -120,6 +173,7 @@ const ConfigBar = ({ display, setOn, data, resourceId }) => {
                             options={userList.managers.map(e => ({ id: e.id, name: e.name }))}
                             setterOnChange={updateSelection}
                             field={"manager"}
+                            value={formObj.manager}
                             baseClass=""
                             label="Select Manager"
                             labelClass="font-[400] text-[#6B7888] text-[14px]"
@@ -131,6 +185,7 @@ const ConfigBar = ({ display, setOn, data, resourceId }) => {
                             options={userList.editors.map(e => ({ id: e.id, name: e.name }))}
                             setterOnChange={updateSelection}
                             field={"editor"}
+                            value={formObj.editor}
                             baseClass=""
                             label="Select Editor"
                             labelClass="font-[400] text-[#6B7888] text-[14px]"
@@ -143,6 +198,7 @@ const ConfigBar = ({ display, setOn, data, resourceId }) => {
                             <SelectorAccordion
                                 options={userList.verifiers.map(e => ({ id: e.id, name: e.name }))}
                                 field={"verifiers"}
+                                value={formObj.verifiers}
                                 onChange={updateSelection}
                             />
                         </div>
@@ -152,6 +208,7 @@ const ConfigBar = ({ display, setOn, data, resourceId }) => {
                             options={userList.publishers.map(e => ({ id: e.id, name: e.name }))}
                             setterOnChange={updateSelection}
                             baseClass=""
+                            value={formObj.publisher}
                             field={"publisher"}
                             label="Select Publisher"
                             labelClass="font-[400] text-[#6B7888] text-[14px]"
@@ -162,7 +219,7 @@ const ConfigBar = ({ display, setOn, data, resourceId }) => {
                     {/* Buttons */}
                     <div className="flex justify-center gap-2">
                         <button className="w-[8rem] h-[2.3rem] rounded-md text-xs bg-stone-700 text-white" onClick={(e) => { e.preventDefault(); setOn(false); }}>Cancel</button>
-                        <button onClick={onSubmit} className="w-[8rem] h-[2.3rem] rounded-md text-xs bg-[#29469c] border-none hover:bg-[#29469c] text-[white]">Save</button>
+                        <button onClick={onSubmit} className="w-[8rem] h-[2.3rem] rounded-md text-xs bg-[#29469c] border-none hover:bg-[#29469c] text-[white]">{fetchedData ? "Update" : "Save"}</button>
                     </div>
                 </form>
             </div>

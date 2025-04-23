@@ -47,6 +47,7 @@ const api = {
   getPages: `${content}/getPages`,
   getEligibleUsers: `${content}/getEligibleUsers`,
   assignUser: `${content}/assignUser`,
+  getAssignedUsers: `${content}/getAssignedUsers`,
 
   route(route) {
     if (this[route]) {

@@ -3,37 +3,47 @@ import Select from "../../../../components/Input/Select";
 import { RxCross2 } from "react-icons/rx";
 import { GoPlus } from "react-icons/go";
 
-const SelectorAccordion = ({ options, onChange, field }) => {
+const SelectorAccordion = ({ options, onChange, field, value }) => {
     const [selector, setSelector] = useState([{ label: "Level 1", value: "" }]);
     const selectorRef = useRef(null);
+    const prevSelectorRef = useRef(selector);
 
     const addSelector = (e) => {
         e.preventDefault();
         setSelector((prev) => [...prev, { label: `Level ${prev.length + 1}`, value: "" }]);
     };
 
-    const updateSelectorValue = (index, label, value) => {
-        const valueExists = selector.some(e => e.value === value)
-        if (!valueExists) {
-            setSelector((prev) =>
-                prev.map((item, i) => (i === index ? { ...item, [label]: value } : item))
-            );
-        }
+    const updateSelectorValue = (index, label, newValue) => {
+        setSelector((prev) => {
+            if (prev[index][label] === newValue) return prev; // Skip if value is unchanged
+            const valueExists = prev.some((e, i) => e.value === newValue && i !== index);
+            if (valueExists) return prev; // Skip if duplicate value
+            const updated = [...prev];
+            updated[index] = { ...updated[index], [label]: newValue };
+            return updated;
+        });
     };
 
     const removeSelector = (index) => {
         setSelector((prev) => {
-            const newSelectors = prev.filter((_, i) => i !== index);
-
-            // Shift values up
-            for (let i = index; i < newSelectors.length; i++) {
-                newSelectors[i].value = prev[i + 1]?.value || ""; // Assign next value or empty string
-            }
-
-            // Reassign labels
-            return newSelectors.map((item, i) => ({ ...item, label: `Level ${i + 1}` }));
+            const filtered = prev.filter((_, i) => i !== index);
+            return filtered.map((item, i) => ({
+                ...item,
+                label: `Level ${i + 1}`,
+            }));
         });
     };
+
+    useEffect(() => {
+        if (value?.length > 0) {
+            setSelector(
+                value.map((e, i) => ({
+                    label: `Level ${i + 1}`,
+                    value: e.id,
+                }))
+            );
+        }
+    }, [value]);
 
     useEffect(() => {
         if (selectorRef.current) {
@@ -42,11 +52,20 @@ const SelectorAccordion = ({ options, onChange, field }) => {
     }, [selector]);
 
     useEffect(() => {
-        onChange(field, selector.map((e, i) => ({ stage: i + 1, id: e.value })))
-    }, [selector])
+        const newValue = selector.map((e, i) => ({ stage: i + 1, id: e.value }));
+        const prevValue = prevSelectorRef.current.map((e, i) => ({ stage: i + 1, id: e.value }));
+        const isEqual = JSON.stringify(newValue) === JSON.stringify(prevValue);
+        if (!isEqual) {
+            onChange(field, newValue);
+            prevSelectorRef.current = selector;
+        }
+    }, [selector]);
 
     return (
-        <div className="mt- max-h-[12.25rem] overflow-y-scroll customscroller-2 w-[22rem]" ref={selectorRef}>
+        <div
+            ref={selectorRef}
+            className="mt- max-h-[12.25rem] overflow-y-scroll customscroller-2 w-[22rem]"
+        >
             {selector.map((select, index) => {
                 const isLast = index === selector.length - 1;
                 return (
@@ -61,12 +80,18 @@ const SelectorAccordion = ({ options, onChange, field }) => {
                             selectClass="px-2 bg-transparent mt-1 border border-stone-300 dark:border-stone-600 rounded-md p-2 outline-none"
                             height={""}
                             width={"w-[14rem]"}
-                            value={select.value}  // <-- Ensure the Select component gets the correct value
+                            value={select.value}
                         />
-
                         <button
-                            onClick={isLast ? addSelector : (e) => { e.preventDefault(); removeSelector(index); }}
-                            className={`flex justify-center items-center translate-y-[2px] rounded-lg w-[2.2rem] h-[2.2rem] text-[1.2rem] text-[#637888] border border-[#cecbcb] dark:border-stone-600`}
+                            onClick={
+                                isLast
+                                    ? addSelector
+                                    : (e) => {
+                                          e.preventDefault();
+                                          removeSelector(index);
+                                      }
+                            }
+                            className="flex justify-center items-center translate-y-[2px] rounded-lg w-[2.2rem] h-[2.2rem] text-[1.2rem] text-[#637888] border border-[#cecbcb] dark:border-stone-600"
                         >
                             {isLast ? <GoPlus className="w-4 h-4" /> : <RxCross2 className="w-3 h-3" />}
                         </button>

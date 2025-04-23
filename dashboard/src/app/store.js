@@ -10,6 +10,7 @@ import imagesReducer from '../features/common/ImagesSlice'
 import homeContentReducer from '../features/common/homeContentSlice'
 import saveDraftReducer from "../features/common/saveContentSlice"
 import navBarReducer from '../features/common/navbarSlice'
+import routeListsReducer from '../features/common/routeLists'
 
 const combinedReducer = {
   header: headerSlice,
@@ -22,7 +23,7 @@ const combinedReducer = {
   homeContent: homeContentReducer,
   saveDraft: saveDraftReducer,
   navBar: navBarReducer,
-  
+  routesList: routeListsReducer
 }
 
 export default configureStore({

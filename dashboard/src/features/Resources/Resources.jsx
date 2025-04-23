@@ -15,6 +15,8 @@ import capitalizeWords from "../../app/capitalizeword";
 import { getPages } from "../../app/fetch";
 import { updateTag, updateType } from "../common/navbarSlice";
 import unavailableIcon from "../../assets/no_data_found.svg"
+import { ToastContainer } from "react-toastify";
+import { updateRouteLists } from "../common/routeLists";
 // import resources from "./resourcedata";
 
 function Resources() {
@@ -28,14 +30,10 @@ function Resources() {
     const [PageDetailsOn, setPageDetailsOn] = useState(false);
     const [configBarData, setConfigBarData] = useState({});
     const [resources, setResources] = useState({});
-    // const [currentResource, setCurrentResource] = useState("")
-    // const [currentTag, setCurrentTag] = useState("")
     const pageType = useSelector(state => state.navBar.pageType)
     const pageTag = useSelector(state => state.navBar.pageTag)
 
     const resNotAvail = resources?.[pageType]?.length === 0
-
-    console.log(resources)
 
     const settingRoute = (firstRoute, secRoute, thirdRoute) => {
         let routeExpression = ''
@@ -49,6 +47,18 @@ function Resources() {
 
         navigate(routeExpression)
         return 0;
+    }
+
+    function setRouteList(payload) {
+        let list = payload?.map(e => {
+            if (e.resourceType === "MAIN_PAGE") {
+                return e.slug
+            } else {
+                return e.id
+            }
+        })
+
+        localStorage.setItem("subRoutes", JSON.stringify(list))
     }
 
     useEffect(() => {
@@ -71,12 +81,14 @@ function Resources() {
                 if (pageTag === "MAIN") {
                     payload = { pageType }
                 } else {
-                    payload = { pageTag, pageType }
+                    payload = { pageType, pageTag, }
                 }
 
                 const response = await getPages(payload);
-
-                setResources(prev => ({ ...prev, [pageType]: response.mainPages?.resources }))
+                if (response.message === "Success") {
+                    setRouteList(response.mainPages?.resources)
+                    setResources(prev => ({ ...prev, [pageType]: response.mainPages?.resources }))
+                }
             }
         }
         fetchResources()
@@ -101,10 +113,10 @@ function Resources() {
         <div className="customscroller relative" ref={divRef}>
             <Navbar currentNav={pageType} setCurrentResource={updateType} />
             <div className={`${resNotAvail ? "" : "grid"} ${isNarrow ? "grid-cols-1" : "grid-cols-2"} mt-4 lg:grid-cols-3 gap-10 w-full px-10`}>
-                {resNotAvail ? 
-                <div className="border">
-                <div className="border flex justify-center py-16 "><img src={unavailableIcon} alt="" className="bg-zinc-300" /></div>
-                </div>
+                {resNotAvail ?
+                    <div className="border">
+                        <div className="border flex justify-center py-16 "><img src={unavailableIcon} alt="" className="bg-zinc-300" /></div>
+                    </div>
                     :
                     resources?.[pageType]?.map((page, index) => (
                         <div key={index + Math.random()} className="w-full ">
@@ -140,7 +152,17 @@ function Resources() {
                                 {/* Bottom Text Options */}
                                 <div className={`absolute bottom-3 left-0 w-full text-center text-white justify-center items-center flex ${isNarrow ? "gap-2" : "gap-6"} py-1`}>
                                     {[{ icon: <AiOutlineInfoCircle />, text: "Info", onClick: () => { setPageDetailsOn(true); setConfigBarData(page) } },
-                                    { icon: <FiEdit />, text: "Edit", onClick: () => { page.subPage ? page.subOfSubPage ? settingRoute(page.supPage, page.subPage, page.subOfSubPage) : settingRoute(pageType, page.subPage) : settingRoute(page.slug?.toLowerCase()) } },
+                                    {
+                                        icon: <FiEdit />,
+                                        text: "Edit",
+                                        onClick: () => {
+                                            page.resourceType !== "MAIN_PAGE" ?
+                                                page.resourceType !== "PAGE_ITEM" ?
+                                                    settingRoute(page.resourceTag?.toLowerCase(), page.subPage, page.subOfSubPage) :
+                                                    settingRoute(page.resourceTag?.toLowerCase(), page.id) :
+                                                settingRoute(page.slug?.toLowerCase())
+                                        }
+                                    },
                                     { icon: <IoSettingsOutline />, text: "Config", onClick: () => { setConfigBarOn(true); setConfigBarData(page) } }].map((item, i) => (
                                         <span key={i + Math.random()}
                                             onClick={item.onClick}
@@ -172,9 +194,12 @@ function Resources() {
             </div>
 
             {/* right side bar for configuration */}
-            <ConfigBar data={configBarData} display={configBarOn} setOn={setConfigBarOn} resourceId={configBarData.id} />
+            {
+                configBarOn &&
+                <ConfigBar data={configBarData} display={configBarOn} setOn={setConfigBarOn} resourceId={configBarData.id} />
+            }
             <PageDetails data={configBarData} display={PageDetailsOn} setOn={setPageDetailsOn} />
-
+            <ToastContainer />
         </div>
     )
 }
