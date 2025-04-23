@@ -1,9 +1,10 @@
 import prismaClient from "../config/dbConfig.js";
 
-export const fetchPages = async (
-  pageType = "",
+export const fetchResources = async (
+  resourceType = "",
+  ResourceTag = "",
   relationType = "",
-  pageTag = "",
+  isAssigned,
   search = "",
   status = "",
   page = 1,
@@ -11,12 +12,27 @@ export const fetchPages = async (
 ) => {
   const skip = (page - 1) * limit;
 
+  // Determine the resourceType filter
+  let resourceTypeFilter = {};
+  if (resourceType === "HEADER_FOOTER") {
+    resourceTypeFilter = {
+      resourceType: {
+        in: ["HEADER", "FOOTER"],
+      },
+    };
+  } else if (resourceType) {
+    resourceTypeFilter = {
+      resourceType,
+    };
+  }
+
   // Build the where clause based on provided filters
   const whereClause = {
-    ...(pageType ? { resourceType: pageType } : {}),
-    ...(relationType ? { relationType: relationType } : {}),
-    ...(pageTag ? { resourceTag: pageTag } : {}),
-    ...(status ? { status: status } : {}),
+    ...resourceTypeFilter,
+    ...(ResourceTag ? { resourceTag: ResourceTag } : {}),
+    ...(relationType ? { relationType } : {}),
+    ...(typeof isAssigned === 'boolean' ? { isAssigned } : {}),
+    ...(status ? { status } : {}),
     ...(search
       ? {
           OR: [
@@ -74,77 +90,7 @@ export const fetchPages = async (
   };
 };
 
-export const fetchEligibleUsers = async (roleType = "", permission = "") => {
-  // Remove quotes from roleType and permission if they exist
-  const cleanRoleType = roleType.replace(/['"]+/g, "");
-  const cleanPermission = permission.replace(/['"]+/g, "");
-
-  const users = await prismaClient.user.findMany({
-    where: {
-      isSuperUser: false,
-      roles: {
-        some: {
-          role: {
-            AND: [
-              // RoleType condition (if provided)
-              cleanRoleType
-                ? {
-                    roleType: {
-                      name: cleanRoleType.toUpperCase(),
-                    },
-                  }
-                : {},
-              // Permission condition (if provided)
-              cleanPermission
-                ? {
-                    permissions: {
-                      some: {
-                        permission: {
-                          name: cleanPermission.toUpperCase(),
-                        },
-                      },
-                    },
-                  }
-                : {},
-            ],
-          },
-        },
-      },
-    },
-    include: {
-      roles: {
-        include: {
-          role: {
-            include: {
-              roleType: true,
-              permissions: {
-                include: {
-                  permission: true,
-                },
-              },
-            },
-          },
-        },
-      },
-    },
-  });
-
-  const formattedUsers = users.map((user) => ({
-    id: user.id,
-    name: user.name,
-    email: user.email,
-    phone: user.phone,
-    roles: user.roles.map((r) => ({
-      name: r.role.name,
-      type: r.role.roleType.name,
-      permissions: r.role.permissions.map((p) => p.permission.name),
-    })),
-  }));
-
-  return formattedUsers;
-};
-
-export const fetchPageInfo = async (resourceId) => {
+export const fetchResourceInfo = async (resourceId) => {
   const resources = await prismaClient.resource.findUnique({
     where: {
       id: resourceId,
@@ -229,6 +175,78 @@ export const fetchPageInfo = async (resourceId) => {
 
   return resources;
 };
+
+export const fetchEligibleUsers = async (roleType = "", permission = "") => {
+  // Remove quotes from roleType and permission if they exist
+  const cleanRoleType = roleType.replace(/['"]+/g, "");
+  const cleanPermission = permission.replace(/['"]+/g, "");
+
+  const users = await prismaClient.user.findMany({
+    where: {
+      isSuperUser: false,
+      roles: {
+        some: {
+          role: {
+            AND: [
+              // RoleType condition (if provided)
+              cleanRoleType
+                ? {
+                    roleType: {
+                      name: cleanRoleType.toUpperCase(),
+                    },
+                  }
+                : {},
+              // Permission condition (if provided)
+              cleanPermission
+                ? {
+                    permissions: {
+                      some: {
+                        permission: {
+                          name: cleanPermission.toUpperCase(),
+                        },
+                      },
+                    },
+                  }
+                : {},
+            ],
+          },
+        },
+      },
+    },
+    include: {
+      roles: {
+        include: {
+          role: {
+            include: {
+              roleType: true,
+              permissions: {
+                include: {
+                  permission: true,
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+  });
+
+  const formattedUsers = users.map((user) => ({
+    id: user.id,
+    name: user.name,
+    email: user.email,
+    phone: user.phone,
+    roles: user.roles.map((r) => ({
+      name: r.role.name,
+      type: r.role.roleType.name,
+      permissions: r.role.permissions.map((p) => p.permission.name),
+    })),
+  }));
+
+  return formattedUsers;
+};
+
+
 
 export const assignUserToResource = async (
   resourceId,

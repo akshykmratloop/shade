@@ -1,6 +1,7 @@
 // services/cloudinaryService.js
 import cloudinary from '../config/cloudinary.js';
 import fs from 'fs';
+import { logger } from '../config/logConfig.js';
 
 export const uploadFileToCloudinary = async (filePath, fileName = null) => {
   try {
@@ -9,7 +10,7 @@ export const uploadFileToCloudinary = async (filePath, fileName = null) => {
       public_id: fileName || `image_${Date.now()}`
     });
 
-    console.log('Cloudinary upload successful:', {
+    logger.log('Cloudinary upload successful:', {
       url: result.secure_url,
       public_id: result.public_id
     });

@@ -1,46 +1,48 @@
 import { logger } from "../../config/index.js";
 import { assert, assertEvery } from "../../errors/assertError.js";
 import {
+  fetchResources,
   assignUserToResource,
   fetchEligibleUsers,
-  fetchPages,
-  fetchPageInfo,
+  fetchResourceInfo,
   fetchAssignedUsers,
   fetchContent,
 } from "../../repository/content.repository.js";
 
-const getPages = async (
-  pageType,
+const getResources = async (
+  resourceType,
+  ResourceTag,
   relationType,
-  pageTag,
+  isAssigned,
   search,
   status,
   pageNum,
   limitNum
 ) => {
-  const mainPages = await fetchPages(
-    pageType,
+  const resources = await fetchResources(
+    resourceType,
+    ResourceTag,
     relationType,
-    pageTag,
+    isAssigned,
     search,
     status,
     pageNum,
     limitNum
   );
   logger.info({
-    response: "Main pages fetched successfully",
-    mainPages: mainPages,
+    response: "Resources fetched successfully",
+    resources: resources,
   });
-  return { message: "Success", mainPages };
+  return { message: "Success", resources };
 };
 
-const getPageInfo = async (resourceId) => {
-  const pageInfo = await fetchPageInfo(resourceId);
+const getResourceInfo = async (resourceId) => {
+  const resourceInfo = await fetchResourceInfo(resourceId);
   logger.info({
     response: "Page Info fetched successfully",
-    pageInfo: pageInfo,
+    resourceInfo: resourceInfo,
   });
-  return { message: "Success", pageInfo };
+  return { message: "Success", resourceInfo };
 };
 
 const getAssignedUsers = async (resourceId) => {
@@ -92,8 +94,8 @@ const getContent = async (resourceId) => {
 };
 
 export {
-  getPages,
-  getPageInfo,
+  getResources,
+  getResourceInfo,
   getEligibleUser,
   assignUser,
   getAssignedUsers,

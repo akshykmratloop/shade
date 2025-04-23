@@ -1,90 +1,88 @@
 // Enum for defining the status of a page
 enum PageStatus {
-    PUBLISHED // ACTIVE
-    ARCHIVED // INACTIVE
-    TRASHED // REMOVED
+  PUBLISHED // ACTIVE
+  ARCHIVED // INACTIVE
+  TRASHED // REMOVED
 }
 
 // Enum for defining the general status of an entity
 enum Status {
-    ACTIVE
-    INACTIVE
-    TRASHED
+  ACTIVE
+  INACTIVE
+  TRASHED
 }
 
 // Enum for defining the origin of OTP
 enum otpOrigin {
-    MFA_Login
-    forgot_Pass
-    NULL
+  MFA_Login
+  forgot_Pass
+  NULL
 }
 
 // Enum for defining the log outcome
 enum logOutcome {
-    Success
-    Failure
-    Unknown
+  Success
+  Failure
+  Unknown
 }
 
 // Enum for defining the action performed by user
 enum logAction {
-    CREATE
-    UPDATE
-    DELETE
-    LOGIN
-    LOGOUT
-    NULL
+  CREATE
+  UPDATE
+  DELETE
+  LOGIN
+  LOGOUT
+  NULL
 }
-
-
 
 // RESOURCE ENUM==================
 // Enum for defining type of the resource
 enum ResourceType {
-    MAIN_PAGE
-    PAGE_ITEM
-    FORM
-    HEADER
-    FOOTER
-    NULL
+  MAIN_PAGE
+  SUB_PAGE
+  SUB_PAGE_ITEM
+  FORM
+  HEADER
+  FOOTER
+  NULL
 }
 
 // Enum for defining page type
 enum ResourceTag {
-    HOME
-    ABOUT
-    SOLUTION
-    SERVICE
-    MARKET
-    PROJECT
-    CAREER
-    NEWS
-    TESTIMONIAL
-    CONTACT
-    HEADER
-    FOOTER
-    NULL
+  HOME
+  ABOUT
+  SOLUTION
+  SERVICE
+  MARKET
+  PROJECT
+  CAREER
+  NEWS
+  TESTIMONIAL
+  CONTACT
+  HEADER
+  FOOTER
+  NULL
 }
 
 // Enum for defining the relation type
 enum RelationType {
-    PARENT
-    CHILD
-    NULL
+  PARENT
+  CHILD
+  NULL
 }
-
 
 // RESOURCE VERSION ENUM==================
 // Enum for defining the status of the version after assignment
 enum VersionStatus {
-    EDITING
-    DRAFT
-    VERIFICATION_PENDING
-    PUBLISH_PENDING
-    ARCHIVED
-    SCHEDULED
-    PUBLISHED
-    NULL
+  EDITING
+  DRAFT
+  VERIFICATION_PENDING
+  PUBLISH_PENDING
+  ARCHIVED
+  SCHEDULED
+  PUBLISHED
+  NULL
 }
 
 // SECTION ENUM==================
@@ -106,18 +104,18 @@ enum SectionType {
   NEWS_FEED
   FOOTER_COLUMNS
   HEADER_NAV
+  SERVICE_DETAIL
+  CAREER_DETAILS
+  NEWS_DETAIL
+  CONTACT_INFO
+  TESTIMONIAL
 }
-
 
 enum ResourceRoleType {
   MANAGER
   EDITOR
   PUBLISHER
 }
-
-
-
-
 
 enum RequestStatus {
   PENDING
@@ -136,7 +134,6 @@ enum ApprovalStatus {
   APPROVED
   REJECTED
 }
-
 
 enum MediaType {
   IMAGE
