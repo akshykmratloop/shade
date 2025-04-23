@@ -3,17 +3,17 @@ import { createSlice } from '@reduxjs/toolkit'
 export const navBarSlice = createSlice({
     name: 'navbar',
     initialState: {
-        pageType: "",  // current  title state management
-        pageTag: "",   // right drawer state management for opening closing
+        resourceType: "",  // current  title state management
+        resourceTag: "",   // right drawer state management for opening closing
     },
     reducers: {
 
         updateType: (state, action) => {
-            state.pageType = action.payload
+            state.resourceType = action.payload
         },
 
         updateTag: (state, action) => {
-            state.pageTag = action.payload
+            state.resourceTag = action.payload
         },
 
     }
