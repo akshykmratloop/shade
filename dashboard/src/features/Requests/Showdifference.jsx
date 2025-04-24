@@ -96,7 +96,7 @@ function ShowDifference({ role, show, onClose }) {
                                     </span>
                                 </div>
                                 <div className='flex items-center gap-1'>
-                                    <span className={`text-[16px] font-lexend font-[600] dark:text-[#CBD5E1] text-[#202a38] select-none`}>
+                                    <span className={`text-[14px] font-lexend font-[400] dark:text-[#CBD5E1] text-[#202a38] select-none`}>
                                         Publish Schedule
                                     </span>
 
