@@ -31,7 +31,7 @@ import dynamicSize from "../../../../app/fontSizes";
 
 
 
-const HomePage = ({ language, screen, fullScreen, currentContent }) => {
+const HomePage = ({ language, screen, fullScreen, currentContent, highlight }) => {
     const isComputer = screen > 900;
     const isTablet = screen < 900 && screen > 730;
     const isPhone = screen < 738;

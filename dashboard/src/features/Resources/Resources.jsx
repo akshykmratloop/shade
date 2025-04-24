@@ -34,6 +34,7 @@ function Resources() {
     const [resources, setResources] = useState({ SUB_PAGE_ITEM: [], SUB_PAGE: [], MAIN_PAGE: [] });
     const resourceType = useSelector(state => state.navBar.resourceType)
     const resourceTag = useSelector(state => state.navBar.resourceTag)
+    const [randomRender, setRandomRender] = useState(Math.random())
 
     const resNotAvail = resources?.[resourceType]?.length === 0
 
@@ -66,6 +67,7 @@ function Resources() {
 
     useEffect(() => {
         dispatch(getLeadsContent())
+        console.log("times")
         const currentResource = localStorage.getItem("resourceType")
         const currentTag = localStorage.getItem("resourceTag")
         if (currentResource) {
@@ -90,7 +92,7 @@ function Resources() {
                 } else if (resourceTag === "HEADER_FOOTER") {
                     payload = { resourceType }
                 } else {
-                    payload = { resourceType, ResourceTag: resourceTag, relationType: "CHILD" }
+                    payload = { resourceType, resourceTag, relationType: "CHILD" }
                 }
 
                 const response = await getResources(payload);
@@ -102,7 +104,7 @@ function Resources() {
         }
         fetchResources()
 
-    }, [resourceType, resourceTag])
+    }, [resourceType, resourceTag, randomRender])
 
     useEffect(() => {
         const observer = new ResizeObserver(entries => {
@@ -211,7 +213,7 @@ function Resources() {
             {/* right side bar for configuration */}
             {
                 configBarOn &&
-                <ConfigBar data={configBarData} display={configBarOn} setOn={setConfigBarOn} resourceId={configBarData.id} />
+                <ConfigBar data={configBarData} display={configBarOn} setOn={setConfigBarOn} resourceId={configBarData.id} reRender={setRandomRender} />
             }
             <PageDetails data={configBarData} display={PageDetailsOn} setOn={setPageDetailsOn} />
             <ToastContainer />

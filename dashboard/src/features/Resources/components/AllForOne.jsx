@@ -16,7 +16,7 @@ import Services from "./websiteComponent/Service";
 import ServiceDetails from "./websiteComponent/detailspages/ServiceDetails";
 import SubServiceDetails from "./websiteComponent/subDetailsPages/SubServiceDetails";
 
-const AllForOne = ({ language, screen, content, subPath, setLanguage, fullScreen, currentPath, deepPath }) => {
+const AllForOne = ({ language, screen, content, subPath, setLanguage, fullScreen, currentPath, deepPath, showDifference = false }) => {
     let translateForFullScreen = ""
 
     console.log(currentPath)
@@ -93,7 +93,7 @@ const AllForOne = ({ language, screen, content, subPath, setLanguage, fullScreen
         >
             {
                 currentPath === "home" &&
-                <HomePage language={language} screen={screen} fullScreen={fullScreen} currentContent={content.home} />
+                <HomePage language={language} screen={screen} fullScreen={fullScreen} currentContent={content.home} highlight={showDifference} />
             }
             {
                 currentPath === "solutions" &&
@@ -111,7 +111,7 @@ const AllForOne = ({ language, screen, content, subPath, setLanguage, fullScreen
             }
             {
                 (currentPath === "service" && subPath) &&
-                    <ServiceDetails language={language} contentOn={content.serviceDetails} serviceId={subPath} screen={screen} /> 
+                <ServiceDetails language={language} contentOn={content.serviceDetails} serviceId={subPath} screen={screen} />
             }
             {
                 currentPath === "markets" &&

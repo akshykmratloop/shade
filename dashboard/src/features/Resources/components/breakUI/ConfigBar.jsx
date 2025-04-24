@@ -6,7 +6,7 @@ import { assignUser, getAssignedUsers, getEligibleUsers } from "../../../../app/
 import { toast } from "react-toastify";
 import capitalizeWords, { TruncateText } from "../../../../app/capitalizeword";
 
-const ConfigBar = ({ display, setOn, data, resourceId }) => {
+const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
     const initialObj = {
         resourceId,
         manager: "",
@@ -56,6 +56,7 @@ const ConfigBar = ({ display, setOn, data, resourceId }) => {
                 })
                 setTimeout(() => {
                     closeButton()
+                    reRender(Math.random())
                 }, 500)
             }
         } else {
