@@ -16,7 +16,7 @@ model Resource {
   newVersionEditModeId String?           @unique // Version being actively edited
   newVersionEditMode   ResourceVersion?  @relation(name: "EditModeVersion", fields: [newVersionEditModeId], references: [id], onDelete: Restrict, onUpdate: Restrict) //  version can not be deleted
   scheduledVersionId   String?           @unique // Future version to be published
-  scheduledVersion     ResourceVersion?  @relation(name: "ScheduledVersion", fields: [scheduledVersionId], references: [id], onDelete: Restrict, onUpdate: Restrict)//  version can not be deleted
+  scheduledVersion     ResourceVersion?  @relation(name: "ScheduledVersion", fields: [scheduledVersionId], references: [id], onDelete: Restrict, onUpdate: Restrict) //  version can not be deleted
 
   // Access control
   roles               ResourceRole[] // Current user permissions
@@ -44,18 +44,19 @@ model ResourceVersion {
   versionStatus VersionStatus @default(NULL) // Current lifecycle state
   notes         String? // Change description for auditors
   content       Json // Flexible content storage
-
+  icon          String?
+  Image         String?
   // Locking mechanism for concurrent edits
-  lockedBy     User?      @relation(name: "UserToLockedResourceVersions", fields: [lockedById], references: [id])
-  lockedById   String?
-  lockedAt     DateTime?
+  lockedBy      User?         @relation(name: "UserToLockedResourceVersions", fields: [lockedById], references: [id])
+  lockedById    String?
+  lockedAt      DateTime?
   // Relationships
-  resourceId   String
-  resource     Resource   @relation(fields: [resourceId], references: [id])
+  resourceId    String
+  resource      Resource      @relation(fields: [resourceId], references: [id])
   // Reverse relation mappings (used for multiple refs to ResourceVersion)
-  liveFor      Resource[] @relation(name: "LiveVersion")
-  editModeFor  Resource[] @relation(name: "EditModeVersion")
-  scheduledFor Resource[] @relation(name: "ScheduledVersion")
+  liveFor       Resource[]    @relation(name: "LiveVersion")
+  editModeFor   Resource[]    @relation(name: "EditModeVersion")
+  scheduledFor  Resource[]    @relation(name: "ScheduledVersion")
 
   sections        ResourceVersionSection[] // Version-specific sections
   roles           ResourceVersionRole[] // Historical permissions snapshot
