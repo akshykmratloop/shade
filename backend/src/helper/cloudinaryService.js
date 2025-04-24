@@ -11,7 +11,9 @@ export const uploadFileToCloudinary = async (filePath, fileName = null) => {
 
     console.log('Cloudinary upload successful:', {
       url: result.secure_url,
-      public_id: result.public_id
+      public_id: result.public_id,
+      width: result.width,
+      height: result.height
     });
 
     // Remove the temporary file
@@ -19,7 +21,9 @@ export const uploadFileToCloudinary = async (filePath, fileName = null) => {
 
     return {
       url: result.secure_url,
-      public_id: result.public_id
+      public_id: result.public_id,
+      width: result.width,
+      height: result.height
     };
   } catch (error) {
     console.error('Cloudinary upload failed:', error);

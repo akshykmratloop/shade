@@ -1,13 +1,11 @@
 const BASE_URL = "http://localhost:3000/";
 
-// console.log(process.env)
-
 const auth = "auth";
 const role = "role";
 const permission = "permission";
 const user = "user";
 const notification = "notification";
-const content = 'content';
+const content = "content";
 
 const api = {
   login: `${auth}/login`, // API for Auth
@@ -44,8 +42,11 @@ const api = {
   markAllNotificationAsRead: `${notification}/read-all/`, // API for marking notification as read
 
   // Pages
-  getAllMainPages: `${content}/getAllMainPages`,
+  getResources: `${content}/getResources`,
+  getResourceInfo: `${content}/getResourceInfo`,
   getEligibleUsers: `${content}/getEligibleUsers`,
+  assignUser: `${content}/assignUser`,
+  getAssignedUsers: `${content}/getAssignedUsers`,
 
   route(route) {
     if (this[route]) {

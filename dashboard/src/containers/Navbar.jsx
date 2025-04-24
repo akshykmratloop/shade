@@ -1,19 +1,23 @@
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { updateTag, updateType } from "../features/common/navbarSlice";
 
-const Navbar = ({ currentNav, setCurrentResource }) => {
+const Navbar = ({ setCurrentResource }) => {
     const userPermissions = useSelector(state => state.user.user?.permissions);
+    const currentNav = useSelector(state => state.navBar.resourceTag)
+    const dispatch = useDispatch();
     const permissionsSet = new Set(userPermissions);
 
+
     const navs = [
-        { name: "Pages", resources: "mainPages", permission: "PAGE_MANAGEMENT" },
-        { name: "Services", resources: "services", permission: "SERVICE_MANAGEMENT" },
-        { name: "Sub Services", resources: "subServices", permission: "SERVICE_MANAGEMENT" },
-        { name: "Market", resources: "markets", permission: "MARKET_MANAGEMENT" },
-        { name: "Project", resources: "projects", permission: "PROJECT_MANAGEMENT" },
-        { name: "Testimonials", resources: "testimonials", permission: "TESTIMONIAL_MANAGEMENT" },
-        { name: "Career Page", resources: "careers", permission: "CAREER_MANAGEMENT" },
-        { name: "Blogs & News", resources: "news", permission: "NEWS_BLOGS_MANAGEMENT" },
-        { name: "Sub Page", resources: "subPage", permission: ["HEADER_MANAGEMENT", "FOOTER_MANAGEMENT"] }, // ✅ fixed typo
+        { name: "Pages", resourceType: "MAIN_PAGE", resourceTag: "MAIN", permission: "PAGE_MANAGEMENT" },
+        { name: "Services", resourceType: "SUB_PAGE", resourceTag: "SERVICE", permission: "SERVICE_MANAGEMENT" },
+        { name: "Sub Services", resourceType: "SUB_PAGE_ITEM", resourceTag: "SUB_SERVICE", permission: "SERVICE_MANAGEMENT" },
+        { name: "Market", resourceType: "SUB_PAGE", resourceTag: "MARKET", permission: "MARKET_MANAGEMENT" },
+        { name: "Project", resourceType: "SUB_PAGE", resourceTag: "PROJECT", permission: "PROJECT_MANAGEMENT" },
+        { name: "Testimonials", resourceType: "SUB_PAGE", resourceTag: "TESTIMONIAL", permission: "TESTIMONIAL_MANAGEMENT" },
+        { name: "Career Page", resourceType: "SUB_PAGE", resourceTag: "CAREER", permission: "CAREER_MANAGEMENT" },
+        { name: "Blogs & News", resourceType: "SUB_PAGE", resourceTag: "NEWS", permission: "NEWS_BLOGS_MANAGEMENT" },
+        { name: "Sub Page", resourceType: "SUB_PAGE", resourceTag: "SUB_PAGE", permission: ["HEADER_MANAGEMENT", "FOOTER_MANAGEMENT"] },
     ];
 
     const hasPermission = (required) => {
@@ -23,9 +27,11 @@ const Navbar = ({ currentNav, setCurrentResource }) => {
         return permissionsSet.has(required);
     };
 
-    const settingResources = (resource) => {
-        setCurrentResource(resource);
-        localStorage.setItem("resource", resource);
+    const settingResources = (resource, tag) => {
+        dispatch(updateType(resource));
+        dispatch(updateTag(tag));
+        localStorage.setItem("resourceType", resource);
+        localStorage.setItem("resourceTag", tag)
     };
 
     return (
@@ -41,12 +47,11 @@ const Navbar = ({ currentNav, setCurrentResource }) => {
                                 className="max-w-[150px] w-full text-center px-2 relative flex items-center justify-center"
                             >
                                 <button
-                                    onClick={() => settingResources(nav.resources)}
-                                    className={`block w-full rounded-lg py-3 ${
-                                        currentNav === nav.resources
-                                            ? "bg-base-200 text-stone-700 dark:text-stone-50"
-                                            : "hover:bg-base-200"
-                                    } hover:text-stone-700 dark:hover:text-stone-50 transition`}
+                                    onClick={() => settingResources(nav.resourceType, nav.resourceTag)}
+                                    className={`block w-full rounded-lg py-3 ${currentNav === nav.resourceTag
+                                        ? "bg-base-200 text-stone-700 dark:text-stone-50"
+                                        : "hover:bg-base-200"
+                                        } hover:text-stone-700 dark:hover:text-stone-50 transition`}
                                 >
                                     {nav.name}
                                 </button>

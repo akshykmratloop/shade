@@ -55,6 +55,7 @@ const EditPage = () => {
     const [PopupReject, setPopupReject] = useState(false)
     const [PopupSubmit, setPopupSubmit] = useState(false)
     const [fullScreen, setFullScreen] = useState(false)
+    const [subRoutesList, setSubRouteList] = useState([])
 
     const currentPath = location.pathname.split('/')[4]
     const subPath = location.pathname.split('/')[5]
@@ -62,16 +63,17 @@ const EditPage = () => {
 
     const content = useSelector((state) => state.homeContent.present)
 
-    const Routes = ['home', 'solutions', 'about', "services", 'markets', 'projects', 'careers', 'news', 'footer', 'header', 'testimonials']
+    const Routes = ['home', 'solutions', 'about', "services", "service", 'markets', 'projects', 'careers', 'news', 'footer', 'header', 'testimonials']
 
     useEffect(() => {
         dispatch(setSidebarState(true))
+        setSubRouteList(JSON.parse(localStorage.getItem("subRoutes")))
     }, [])
 
     return (
         <div>
             {
-                !Routes.includes(currentPath) ?
+                !Routes.includes(currentPath) || (subPath && !subRoutesList.includes(subPath)) ?
                     <Page404 /> :
                     <div className="flex gap-[1.5rem] pr-1 h-[83.5vh] w-full relative">
 
@@ -99,6 +101,10 @@ const EditPage = () => {
                                     <SubServiceDetailManager serviceId={subPath} deepPath={deepPath} language={language} currentContent={content.subOfsubService} currentPath={"subOfsubService"} /> :
                                     <ServiceDetailsManager serviceId={subPath} language={language} currentContent={content.serviceDetails} currentPath={"serviceDetails"} /> :
                                     <ServiceManager language={language} currentContent={content.services} currentPath={currentPath} /> : ""
+                            }
+                            {
+                                (currentPath === "service" && subPath) &&
+                                    <ServiceDetailsManager serviceId={subPath} language={language} currentContent={content.serviceDetails} currentPath={"serviceDetails"} /> 
                             }
                             {
                                 currentPath === 'markets' &&

@@ -285,21 +285,21 @@ function Users() {
                           } pl-5 flex `}
                         >
                           <img
-                            src={user.image ? user.image : userIcon}
-                            alt={user.name}
+                            src={user?.image ? user?.image : userIcon}
+                            alt={user?.name}
                             className="rounded-[50%] w-[41px] h-[41px] mr-2"
                           />
                           <div className="flex truncate flex-col">
-                            <p className="dark:text-[white]">{user.name}</p>
+                            <p className="dark:text-[white]">{user?.name}</p>
                             <p className="font-light text-[grey]">
-                              {TruncateText(user.email, 20)}
+                              {TruncateText(user?.email, 20)}
                             </p>
                           </div>
                         </td>
                         <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]">
-                          {user.roles?.length > 1
+                          {user?.roles?.length > 1
                             ? "multiple"
-                            : user?.roles?.[0].name}
+                            : user?.roles?.[0]?.name}
                         </td>
 
                         <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]">
@@ -314,7 +314,7 @@ function Users() {
                             } rounded-2xl`}
                             style={{textTransform: "capitalize"}}
                           >
-                            {capitalizeWords(user.status)}
+                            {capitalizeWords(user?.status)}
                           </p>
                         </td>
                         <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[8px] dark:text-[white]">
@@ -340,19 +340,19 @@ function Users() {
                             </button>
                             <div className="flex items-center space-x-4 ">
                               <Switch
-                                checked={user.status === "ACTIVE"}
+                                checked={user?.status === "ACTIVE"}
                                 onChange={() => {
                                   statusChange(user);
                                 }}
                                 className={`${
-                                  user.status === "ACTIVE"
+                                  user?.status === "ACTIVE"
                                     ? "bg-[#1DC9A0]"
                                     : "bg-gray-300"
                                 } relative inline-flex h-2 w-8 items-center rounded-full`}
                               >
                                 <span
                                   className={`${
-                                    user.status === "ACTIVE"
+                                    user?.status === "ACTIVE"
                                       ? "translate-x-4"
                                       : "translate-x-0"
                                   } inline-block h-5 w-5 bg-white rounded-full shadow-2xl border border-gray-300 transition`}

@@ -90,7 +90,7 @@ const AddUserModal = ({show, onClose, updateUsers, user}) => {
     if (response?.ok) {
       updateToasify(
         loadingToastId,
-        `Request successful! 🎉 ${response.message}`,
+        `User Created successful! 🎉`,
         "success",
         1000
       );

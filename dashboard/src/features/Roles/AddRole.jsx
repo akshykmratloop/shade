@@ -53,7 +53,7 @@ const AddRoleModal = ({show, onClose, updateRoles, role}) => {
     });
 
     const rolePayload = {
-      name: roleData.name,
+      name: roleData?.name,
       roleTypeId: roleData?.selectedRoletype,
       permissions: roleData?.selectedPermissions, // Ensure this holds the correct values
     };
@@ -100,13 +100,13 @@ const AddRoleModal = ({show, onClose, updateRoles, role}) => {
       if (response.ok) {
         setRoleData((preData) => ({
           ...preData,
-          fetchedRoletype: response?.roleType.map((role) => ({
+          fetchedRoletype: response?.roleType?.map((role) => ({
             value: role.id,
             label: role.name,
           })),
           selectedPermissions:
             role?.roleTypeId === roleData?.selectedRoletype
-              ? currentRole?.permissions?.map((e) => e.permissionId) || []
+              ? currentRole?.permissions?.map((e) => e?.permissionId) || []
               : [],
         }));
       }
@@ -225,7 +225,7 @@ const AddRoleModal = ({show, onClose, updateRoles, role}) => {
 
   useEffect(() => {
     setErrorMessagePermission("");
-  }, [roleData.selectedPermissions]);
+  }, [roleData?.selectedPermissions]);
 
   useEffect(() => {
     const handleClickOutside = (e) => {

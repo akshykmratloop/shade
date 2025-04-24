@@ -1,13 +1,41 @@
-import {useEffect, useRef} from "react";
+import {useEffect, useRef, useState} from "react";
 import StatusBar from "./Statusbar";
 import Assigned from "../../../../assets/image 13.png";
 import Edit from "../../../../assets/image 14.svg";
 import Verify from "../../../../assets/image 15.svg";
 import Publisher from "../../../../assets/image 16.svg";
 import {X} from "lucide-react";
+import {getResourceInfo} from "../../../../app/fetch";
+import formatTimestamp from "../../../../app/TimeFormat";
 
 const PageDetails = ({data, display, setOn}) => {
   const pageRef = useRef(null);
+  const [pageInfo, setPageInfo] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    if (display && data?.id) {
+      setLoading(true);
+      getResourceInfo({resourceId: data.id})
+        .then((res) => {
+          setPageInfo(res);
+          setError(null);
+        })
+        .catch((err) => {
+          console.error("Failed to fetch resource info", err);
+          setError("Unable to load page details.");
+        })
+        .finally(() => {
+          setLoading(false);
+        });
+    }
+  }, [display, data?.id]);
+
+  console.log("pageInfo", pageInfo);
+  console.log("display", display);
+  console.log("data", data);
+  // console.log(, "data.resourceId");
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -28,7 +56,7 @@ const PageDetails = ({data, display, setOn}) => {
   return (
     <div
       className={`${
-        data ? "block" : "hidden"
+        display ? "block" : "hidden"
       } fixed z-20 top-0 left-0 w-[100vw] h-screen bg-black bg-opacity-50 `}
     >
       <div
@@ -44,19 +72,25 @@ const PageDetails = ({data, display, setOn}) => {
         <h1 className="font-medium text-[1.1rem] shadow-md-custom p-[30px] text-center">
           Assign User for Page {data?.heading}
         </h1>
-        <div className=" flex flex-col h-[93%] text-[14px] custom-text-color p-[30px] pt-0 mt-2 border overflow-y-scroll customscroller">
+        <div className=" flex flex-col h-[87%] text-[14px] custom-text-color p-[30px] py-0  mt-2 border overflow-y-scroll customscroller">
           <div className="flex py-[15px] justify-between border-b dark:border-stone-700">
+            <label>Total Versions:</label>
+            <p>{pageInfo?.resourceInfo?._count?.versions}</p>
+          </div>
+          {/* <div className="flex py-[15px] justify-between border-b dark:border-stone-700">
             <label>Request Number:</label>
             <p>2</p>
-          </div>
+          </div> */}
           <div className="flex py-[15px] justify-between border-b dark:border-stone-700">
             <label>Last Edited:</label>
-            <p>09/09/2025</p>
+            <p>{formatTimestamp(pageInfo?.resourceInfo?.updatedAt)}</p>
           </div>
           <div className="flex py-[15px] justify-between border-b dark:border-stone-700">
-            <label>Public Version:</label>
+            <label>Live Version:</label>
             <div className={`w-min flex flex-col items-end gap-[2.5px]`}>
-              <p className="text py-0 my-0">V 1.1.00</p>
+              <p className="text py-0 my-0">
+                V {pageInfo?.resourceInfo?.liveVersion?.versionNumber}
+              </p>
               <button
                 className="text-[#145098] dark:text-sky-500 underline font-[300] py-0 my-0"
                 style={{whiteSpace: "pre"}}
@@ -68,20 +102,28 @@ const PageDetails = ({data, display, setOn}) => {
               </button>
             </div>
           </div>
+          <div className="flex py-[15px] justify-between border-b-4 border-gray-400 dark:border-stone-700">
+            <label>Page Status:</label>
+            <p>{pageInfo?.resourceInfo?.status}</p>
+          </div>
           <div className="flex flex-col py-[15px] pb-[2px] justify-between">
             <label>Assigned Users:</label>
             <div className="">
               <div className="border-b dark:border-stone-700 flex justify-between py-2 h-[43px] items-center">
                 <label className="!text-[#5d5d5e]">Manager:</label>
-                <p>Warish</p>
+                <p>{pageInfo?.resourceInfo?.roles[0]?.user?.name}</p>
+              </div>
+              <div className="border-b dark:border-stone-700 flex justify-between py-2 h-[43px] items-center">
+                <label className="!text-[#5d5d5e]">Editor:</label>
+                <p>{pageInfo?.resourceInfo?.roles[1]?.user?.name}</p>
               </div>
               {/* <div className="border border-cyan-500 flex"> */}
               <div className="flex flex-col">
-                {["Akshay", "Akshay", "Akshay", "Akshay"].map((el, ind) => {
+                {pageInfo?.resourceInfo?.verifiers.map((verifier, ind) => {
                   let firstIndex = ind === 0;
                   return (
                     <div
-                      key={ind}
+                      key={verifier?.id}
                       className={`flex gap-[10px] items-center border-b dark:border-stone-700 ${
                         firstIndex ? "justify-between" : "justify-end"
                       }`}
@@ -93,25 +135,41 @@ const PageDetails = ({data, display, setOn}) => {
                         <p className="border px-[12px] w-[6rem] py-[2px] text-center rounded-3xl font-light text-[11px]">
                           {"level " + parseInt(ind + 1)}
                         </p>
-                        <p>{el}</p>
+                        <p>{verifier?.user?.name}</p>
                       </div>
                     </div>
                   );
                 })}
               </div>
-              <div className="border-b dark:border-stone-700 flex justify-between py-2 h-[43px] items-center">
+              <div className="border-b-4 border-gray-400 dark:border-stone-700 flex justify-between py-4 items-center">
                 <label className="!text-[#5d5d5e]">Publisher:</label>
-                <p>Warish Ahmad</p>
+                <p>{pageInfo?.resourceInfo?.roles[2]?.user?.name}</p>
               </div>
               {/* </div> */}
             </div>
           </div>
-          <div className="flex flex-col">
-            <div className="flex py-[15px] justify-between">
-              <label>Page Status:</label>
-              <p>Null</p>
+          <div className="flex flex-col py-4">
+            <label>New Version In Edit Mode:</label>
+            <div className="flex py-[15px] justify-between border-b dark:border-stone-700">
+              <label>Version Number:</label>
+              <div className={`w-max flex flex-col items-end gap-[2.5px]`}>
+                <p className="text py-0 my-0">V 1.1.00</p>
+                {/* <button
+                  className="text-[#145098] dark:text-sky-500 underline font-[300] py-0 my-0"
+                  style={{whiteSpace: "pre"}}
+                >
+                  Restore Previous Version
+                </button> */}
+                <button className="text-[#145098] dark:text-sky-500 underline font-[300] py-0 my-0">
+                  View
+                </button>
+              </div>
             </div>
-            <div className="flex flex-col gap-[15px] text-[11px]">
+            {/* <div className="flex py-[15px] justify-between border-b dark:border-stone-700">
+              <p>Null</p>
+            </div> */}
+            <div className="flex flex-col gap-[15px] text-[11px] py-4">
+              <label className="text-[15px]">Version Status:</label>
               <div className="">
                 <StatusBar stage={2} />
               </div>

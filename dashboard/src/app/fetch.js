@@ -314,9 +314,38 @@ export async function markAllNotificationAsRead(id) {
   );
 }
 
-export async function getAllMainPages() {
-  return await makerequest(api.route("getAllMainPages"), "GET");
+export async function getResources(query) {
+  if (!query || typeof query !== "object") {
+    return await makerequest(api.route("getResources"), "GET");
+  }
+
+  const [key1, key2, key3] = Object.keys(query);
+  const [value1, value2, value3] = [query[key1], query[key2], query[key3]];
+
+  return await makerequest(
+    `${api.route(
+      "getResources"
+    )}?${key1}=${value1}&${key2}=${value2}&${key3}=${value3}`,
+    "GET"
+  );
 }
+
+export async function getResourceInfo(query) {
+  if (!query || typeof query !== "object") {
+    return await makerequest(api.route("getResourceInfo"), "GET");
+  }
+
+  const [key1, key2, key3] = Object.keys(query);
+  const [value1, value2, value3] = [query[key1], query[key2], query[key3]];
+
+  return await makerequest(
+    `${api.route(
+      "getResourceInfo"
+    )}?${key1}=${value1}&${key2}=${value2}&${key3}=${value3}`,
+    "GET"
+  );
+}
+
 export async function getEligibleUsers(query) {
   if (!query || typeof query !== "object") {
     return await makerequest(api.route("getEligibleUsers"), "GET");
@@ -331,13 +360,28 @@ export async function getEligibleUsers(query) {
   );
 }
 
-// export async function getAllusers(query) {
-//   if (!query || typeof query !== "object") {
-//     return await makerequest(api.route("getUsers"), "GET");
-//   }
+export async function assignUser(data) {
+  return await makerequest(
+    `${api.route("assignUser")}`,
+    "POST",
+    JSON.stringify(data),
+    ContentType.json,
+    true
+  );
+}
 
-//   const [key] = Object.keys(query);
-//   const value = query[key];
+export async function getAssignedUsers(query) {
+  if (!query || typeof query !== "object") {
+    return await makerequest(api.route("getAssignedUsers"), "GET");
+  }
 
-//   return await makerequest(`${api.route("getUsers")}?${key}=${value}`, "GET");
-// }
+  const [key] = Object.keys(query);
+  const value = query[key];
+
+  return await makerequest(
+    `${api.route("getAssignedUsers")}?${key}=${value}`,
+    "GET"
+  );
+}
+
+//getAssignedUsers
