@@ -13,7 +13,8 @@ import {MODAL_BODY_TYPES} from "../utils/globalConstantUtil";
 import SearchBar from "../components/Input/SearchBar";
 import {getNotificationsbyId} from "../app/fetch";
 import {setNotificationCount} from "../features/common/headerSlice";
-import { TruncateText } from "../app/capitalizeword";
+import socket from "../Socket/socket";
+import {TruncateText} from "../app/capitalizeword";
 
 function Header() {
   const dispatch = useDispatch();
@@ -21,6 +22,45 @@ function Header() {
   const {noOfNotifications} = useSelector((state) => state.header);
   const [currentTheme, setCurrentTheme] = useState(null);
   const [greetings, setGreetings] = useState("Good Morning");
+
+  const userId = user.id;
+
+  //=========================================================================
+
+  useEffect(() => {
+    if (!userId) return;
+    (async () => {
+      const res = await getNotificationsbyId(userId);
+      const unread = res.notifications.filter((n) => !n.isRead).length;
+      dispatch(setNotificationCount(unread));
+    })();
+  }, [userId, dispatch]);
+
+  useEffect(() => {
+    if (!userId) return;
+
+    // join your room
+    socket.emit("join", userId);
+
+    // handler to re‑fetch the unread count
+    const handleNew = async (payload) => {
+      if (payload.userId !== userId) return;
+      const res = await getNotificationsbyId(userId);
+      const unread = res.notifications.filter((n) => !n.isRead).length;
+      dispatch(setNotificationCount(unread));
+    };
+
+    socket.on("role_created", handleNew);
+    socket.on("user_created", handleNew);
+    // …listen to any other event names you emit
+
+    return () => {
+      socket.off("role_created", handleNew);
+      socket.off("user_created", handleNew);
+    };
+  }, [userId, dispatch]);
+
+  //=========================================================================
 
   // Opening right sidebar for notification
   const openNotification = () => {
@@ -77,22 +117,22 @@ function Header() {
     }
   }, []);
 
-  useEffect(() => {
-    async function fetchUnreadCount() {
-      try {
-        const result = await getNotificationsbyId(user?.id);
-        const unreadCount =
-          result?.notifications?.filter((n) => !n.isRead).length || 0;
-        dispatch(setNotificationCount(unreadCount));
-      } catch (error) {
-        console.error("Failed to fetch notifications count", error);
-      }
-    }
+  // useEffect(() => {
+  //   async function fetchUnreadCount() {
+  //     try {
+  //       const result = await getNotificationsbyId(user?.id);
+  //       const unreadCount =
+  //         result?.notifications?.filter((n) => !n.isRead).length || 0;
+  //       dispatch(setNotificationCount(unreadCount));
+  //     } catch (error) {
+  //       console.error("Failed to fetch notifications count", error);
+  //     }
+  //   }
 
-    if (user?.id) {
-      fetchUnreadCount();
-    }
-  }, [user?.id]);
+  //   if (user?.id) {
+  //     fetchUnreadCount();
+  //   }
+  // }, [user?.id]);
 
   return (
     <div className="py-4 px-2 pr-4">
