@@ -10,13 +10,13 @@ import {
 } from "./content.service.js";
 
 const GetResources = async (req, res) => {
-  const { resourceType, ResourceTag, relationType, isAssigned, search, status, page, limit } =
+  const { resourceType, resourceTag, relationType, isAssigned, search, status, page, limit } =
     req.query;
   const pageNum = parseInt(page) || 1;
   const limitNum = parseInt(limit) || 100;
   const response = await getResources(
     resourceType,
-    ResourceTag,
+    resourceTag,
     relationType,
     isAssigned,
     search,

@@ -2,6 +2,7 @@ import {createServer} from "http";
 import {createApp, finishApp} from "./app.js";
 import {useModules} from "./config/index.js";
 import {Server} from "socket.io";
+import cors from "cors";
 
 (async () => {
   const app = createApp();
@@ -15,7 +16,10 @@ import {Server} from "socket.io";
 
   // Initialize Socket.io
   const io = new Server(server, {
-    cors: {origin: "*"},
+    cors: {
+      origin: "http://localhost:3001", // your frontend URL
+      credentials: true, // allow credentials
+    },
   });
 
   // Function to send notifications in real-time

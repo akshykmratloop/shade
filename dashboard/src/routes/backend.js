@@ -1,5 +1,3 @@
-// import {markNotificationAsRead} from "../features/common/headerSlice";
-
 const BASE_URL = "http://localhost:3000/";
 
 const auth = "auth";
@@ -7,7 +5,7 @@ const role = "role";
 const permission = "permission";
 const user = "user";
 const notification = "notification";
-const content = 'content';
+const content = "content";
 
 const api = {
   login: `${auth}/login`, // API for Auth
@@ -45,6 +43,7 @@ const api = {
 
   // Pages
   getResources: `${content}/getResources`,
+  getResourceInfo: `${content}/getResourceInfo`,
   getEligibleUsers: `${content}/getEligibleUsers`,
   assignUser: `${content}/assignUser`,
   getAssignedUsers: `${content}/getAssignedUsers`,

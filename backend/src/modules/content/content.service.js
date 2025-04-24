@@ -11,7 +11,7 @@ import {
 
 const getResources = async (
   resourceType,
-  ResourceTag,
+  resourceTag,
   relationType,
   isAssigned,
   search,
@@ -21,7 +21,7 @@ const getResources = async (
 ) => {
   const resources = await fetchResources(
     resourceType,
-    ResourceTag,
+    resourceTag,
     relationType,
     isAssigned,
     search,

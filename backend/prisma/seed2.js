@@ -59,7 +59,7 @@ async function main() {
         resourceId: resource.id,
         versionNumber: 1,
         versionStatus: "PUBLISHED",
-        content: contentData,
+        notes : "Initial version created",
       },
     });
 

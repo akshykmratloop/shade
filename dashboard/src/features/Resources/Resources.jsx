@@ -1,16 +1,16 @@
 // library
-import { useEffect, useRef, useState } from "react"
-import { useDispatch, useSelector } from "react-redux"
-import { useNavigate } from "react-router-dom";
+import {useEffect, useRef, useState} from "react";
+import {useDispatch, useSelector} from "react-redux";
+import {useNavigate} from "react-router-dom";
 // modules
 import ConfigBar from "./components/breakUI/ConfigBar";
 import PageDetails from "./components/breakUI/PageDetails";
-import { getLeadsContent } from "./leadSlice"
-import Navbar from "../../containers/Navbar"
+import {getLeadsContent} from "./leadSlice";
+import Navbar from "../../containers/Navbar";
 // icon
-import { AiOutlineInfoCircle } from "react-icons/ai";
-import { FiEdit } from "react-icons/fi";
-import { IoSettingsOutline } from "react-icons/io5";
+import {AiOutlineInfoCircle} from "react-icons/ai";
+import {FiEdit} from "react-icons/fi";
+import {IoSettingsOutline} from "react-icons/io5";
 import capitalizeWords from "../../app/capitalizeword";
 import { getResources } from "../../app/fetch";
 import { updateTag, updateType } from "../common/navbarSlice";
@@ -38,32 +38,32 @@ function Resources() {
 
     const resNotAvail = resources?.[resourceType]?.length === 0
 
-    const settingRoute = (firstRoute, secRoute, thirdRoute) => {
-        console.log(secRoute)
-        let routeExpression = ''
-        if (thirdRoute) {
-            routeExpression = `./edit/${firstRoute}/${secRoute}/${thirdRoute}`
-        } else if (secRoute) {
-            routeExpression = `./edit/${firstRoute}/${secRoute}`
-        } else {
-            routeExpression = `./edit/${firstRoute}`
-        }
-
-        navigate(routeExpression)
-        return 0;
+  const settingRoute = (firstRoute, secRoute, thirdRoute) => {
+    console.log(secRoute);
+    let routeExpression = "";
+    if (thirdRoute) {
+      routeExpression = `./edit/${firstRoute}/${secRoute}/${thirdRoute}`;
+    } else if (secRoute) {
+      routeExpression = `./edit/${firstRoute}/${secRoute}`;
+    } else {
+      routeExpression = `./edit/${firstRoute}`;
     }
 
-    function setRouteList(payload) {
-        let list = payload?.map(e => {
-            if (e.resourceType === "MAIN_PAGE") {
-                return e.slug
-            } else {
-                return e.id
-            }
-        })
+    navigate(routeExpression);
+    return 0;
+  };
 
-        localStorage.setItem("subRoutes", JSON.stringify(list))
-    }
+  function setRouteList(payload) {
+    let list = payload?.map((e) => {
+      if (e.resourceType === "MAIN_PAGE") {
+        return e.slug;
+      } else {
+        return e.id;
+      }
+    });
+
+    localStorage.setItem("subRoutes", JSON.stringify(list));
+  }
 
     useEffect(() => {
         dispatch(getLeadsContent())
@@ -82,10 +82,10 @@ function Resources() {
         }
     }, [])
 
-    useEffect(() => {
-        const fetchResources = async () => {
-            if (resourceType) {
-                let payload = {};
+  useEffect(() => {
+    const fetchResources = async () => {
+      if (resourceType) {
+        let payload = {};
 
                 if (resourceTag === "MAIN") {
                     payload = { resourceType }
@@ -116,37 +116,52 @@ function Resources() {
             }
         });
 
-        if (divRef.current) observer.observe(divRef.current);
+    if (divRef.current) observer.observe(divRef.current);
 
-        return () => observer.disconnect();
-    }, []);
+    return () => observer.disconnect();
+  }, []);
 
-    return (
-        <div className="customscroller relative" ref={divRef}>
-            <Navbar currentNav={resourceType} setCurrentResource={updateType} />
-            <div className={`${resNotAvail ? "" : "grid"} ${isNarrow ? "grid-cols-1" : "grid-cols-2"} mt-4 lg:grid-cols-3 gap-10 w-full px-10`}>
-                {resNotAvail ?
-                    <div className="">
-                        <div className="flex justify-center py-16"><img src={unavailableIcon} alt="" className="" /></div>
-                    </div>
-                    :
-                    resources?.[resourceType]?.map((page, index) => {
-                        return (
-                            <div key={index + Math.random()} className="w-full ">
-                                <h3 className="mb-1 font-poppins font-semibold">
-                                    {isSmall
-                                        ? (page.title?.length > 20 ? page.title?.substring(0, 20) + "..." : page?.title)
-                                        : (page.title?.length > 35 ? page.title?.substring(0, 35) + "..." : page?.title)
-                                    }
-                                </h3>
-                                <div className="relative rounded-lg overflow-hidden border border-[1px] border-base-300 shadow-xl-custom">
-                                    {/* Info Icon
+  return (
+    <div className="customscroller relative" ref={divRef}>
+      <Navbar currentNav={resourceType} setCurrentResource={updateType} />
+      <div
+        className={`${resNotAvail ? "" : "grid"} ${
+          isNarrow ? "grid-cols-1" : "grid-cols-2"
+        } mt-4 lg:grid-cols-3 gap-10 w-full px-10`}
+      >
+        {resNotAvail ? (
+          <div className="">
+            <div className="flex justify-center py-16">
+              <img src={unavailableIcon} alt="" className="" />
+            </div>
+          </div>
+        ) : (
+          resources?.[resourceType]?.map((page, index) => {
+            return (
+              <div key={index + Math.random()} className="w-full ">
+                <h3 className="mb-1 font-poppins font-semibold">
+                  {isSmall
+                    ? page.title?.length > 20
+                      ? page.title?.substring(0, 20) + "..."
+                      : page?.title
+                    : page.title?.length > 35
+                    ? page.title?.substring(0, 35) + "..."
+                    : page?.title}
+                </h3>
+                <div className="relative rounded-lg overflow-hidden border border-[1px] border-base-300 shadow-xl-custom">
+                  {/* Info Icon
                                 <div className="absolute top-2 right-2 z-10 text-[1.5rem] p-2 rounded-full text-[blue]">
                                     <FiInfo />
                                 </div> */}
-                                    <div className={` h-6 ${page.isAssigned ? 'bg-[#29469c] w-[120px]' : "bg-red-500 w-[140px]"} text-white flex items-center justify-center text-sm font-[300] clip-concave absolute top-3 left-0 z-10`}>
-                                        {page.isAssigned ? "Assigned" : "Not assigned"}
-                                    </div>
+                  <div
+                    className={` h-6 ${
+                      page.isAssigned
+                        ? "bg-[#29469c] w-[120px]"
+                        : "bg-red-500 w-[140px]"
+                    } text-white flex items-center justify-center text-sm font-[300] clip-concave absolute top-3 left-0 z-10`}
+                  >
+                    {page.isAssigned ? "Assigned" : "Not assigned"}
+                  </div>
 
                                     {/* Background Image with Adjusted Dark Gradient */}
                                     <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/50 to-black/90 via-60%"></div>
@@ -155,7 +170,7 @@ function Resources() {
                                             src={page.src}
                                             className={`top-0 left-0 border-none transition-all duration-300 ease-in-out ${isNarrow ? "w-[1000px] scale-[0.5]" : "w-[1200px] scale-[0.4]"
                                                 } origin-top-left h-[80rem]`}
-                                        ></iframe> */}start
+                                        ></iframe> */}
                                         <div className="h-full overflow-y-scroll customscroller">
                                             <AllForOne currentPath={page.slug} content={content} language={"en"} screen={screen} />
                                         </div>
@@ -195,20 +210,26 @@ function Resources() {
                         )
                     })}
 
-                {
-                    resources?.[resourceType]?.[0]?.subPage &&
-                    <div className="w-full flex flex-col gap-[5px] ">
-                        <h3 className=" font-poppins font-semibold">
-                            {`Add More ${capitalizeWords(resourceType)} Page`}
-                        </h3>
-                        <div onClick={() => { navigate(`./edit/${resourceType}/${resources?.[resourceType].length + 1}`) }}
-                            className="border rounded-md bg-[white] aspect-[10/11] justify-center flex-grow cursor-pointer flex items-center text-[50px] shadow-xl-custom border-[#29469c80]"
-                        >
-                            <span className="text-[#1f2937]">+</span>
-                        </div>
-                    </div>
-                }
+        {resources?.[resourceType]?.[0]?.subPage && (
+          <div className="w-full flex flex-col gap-[5px] ">
+            <h3 className=" font-poppins font-semibold">
+              {`Add More ${capitalizeWords(resourceType)} Page`}
+            </h3>
+            <div
+              onClick={() => {
+                navigate(
+                  `./edit/${resourceType}/${
+                    resources?.[resourceType].length + 1
+                  }`
+                );
+              }}
+              className="border rounded-md bg-[white] aspect-[10/11] justify-center flex-grow cursor-pointer flex items-center text-[50px] shadow-xl-custom border-[#29469c80]"
+            >
+              <span className="text-[#1f2937]">+</span>
             </div>
+          </div>
+        )}
+      </div>
 
             {/* right side bar for configuration */}
             {
@@ -221,4 +242,4 @@ function Resources() {
     )
 }
 
-export default Resources
+export default Resources;

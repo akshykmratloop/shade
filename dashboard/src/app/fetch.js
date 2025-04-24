@@ -31,7 +31,7 @@ const makerequest = async (
   // Check if token is expired and clear session if it is
   if (token && isTokenExpired(token)) {
     clearSession();
-    return { error: "Session expired. Please log in again.", ok: false };
+    return {error: "Session expired. Please log in again.", ok: false};
   }
 
   const controller = new AbortController();
@@ -41,7 +41,7 @@ const makerequest = async (
 
   const finalHeaders = {
     ...headers,
-    ...(token ? { Authorization: `Bearer ${token}` } : {}),
+    ...(token ? {Authorization: `Bearer ${token}`} : {}),
   };
 
   const options = {
@@ -66,7 +66,7 @@ const makerequest = async (
     result.ok = true;
   } catch (err) {
     if (err.name === "AbortError") {
-      result = { error: "Request timed out" };
+      result = {error: "Request timed out"};
     } else {
       result = err;
       result.ok = false;
@@ -78,7 +78,7 @@ const makerequest = async (
 };
 
 const ContentType = {
-  json: { "Content-Type": "application/json" },
+  json: {"Content-Type": "application/json"},
 };
 
 // fetch for auth
@@ -182,10 +182,13 @@ export async function fetchRoles(query) {
   const [key] = Object.keys(query);
   const value = query[key];
 
-  return await makerequest(`${api.route("fetchRoles")}?${key}=${value}`, "GET", JSON.stringify({}),
+  return await makerequest(
+    `${api.route("fetchRoles")}?${key}=${value}`,
+    "GET",
+    JSON.stringify({}),
     {},
-    true);
-
+    true
+  );
 }
 
 export async function getRoleById(id) {
@@ -227,7 +230,6 @@ export async function deactivateRole(data) {
 }
 
 export async function updateRole(data) {
-  console.log(data);
   return await makerequest(
     api.route("updateRole") + `/${data.id}`,
     "PUT",
@@ -249,15 +251,8 @@ export async function fetchPermissionsByRoleType(roleTypeId) {
 }
 
 // fetch for Users
-export async function getAllusers(query) {
-  if (!query || typeof query !== "object") {
-    return await makerequest(api.route("getUsers"), "GET");
-  }
-
-  const [key] = Object.keys(query);
-  const value = query[key];
-
-  return await makerequest(`${api.route("getUsers")}?${key}=${value}`, "GET");
+export async function getAllusers() {
+  return await makerequest(api.route("getUsers"), "GET");
 }
 
 export async function createUser(data) {
@@ -327,7 +322,28 @@ export async function getResources(query) {
   const [key1, key2, key3] = Object.keys(query);
   const [value1, value2, value3] = [query[key1], query[key2], query[key3]];
 
-  return await makerequest(`${api.route("getResources")}?${key1}=${value1}&${key2}=${value2}&${key3}=${value3}`, "GET");
+  return await makerequest(
+    `${api.route(
+      "getResources"
+    )}?${key1}=${value1}&${key2}=${value2}&${key3}=${value3}`,
+    "GET"
+  );
+}
+
+export async function getResourceInfo(query) {
+  if (!query || typeof query !== "object") {
+    return await makerequest(api.route("getResourceInfo"), "GET");
+  }
+
+  const [key1, key2, key3] = Object.keys(query);
+  const [value1, value2, value3] = [query[key1], query[key2], query[key3]];
+
+  return await makerequest(
+    `${api.route(
+      "getResourceInfo"
+    )}?${key1}=${value1}&${key2}=${value2}&${key3}=${value3}`,
+    "GET"
+  );
 }
 
 export async function getEligibleUsers(query) {
@@ -338,11 +354,13 @@ export async function getEligibleUsers(query) {
   const [key] = Object.keys(query);
   const value = query[key];
 
-  return await makerequest(`${api.route("getEligibleUsers")}?${key}=${value}`, "GET");
+  return await makerequest(
+    `${api.route("getEligibleUsers")}?${key}=${value}`,
+    "GET"
+  );
 }
 
 export async function assignUser(data) {
-
   return await makerequest(
     `${api.route("assignUser")}`,
     "POST",
@@ -360,7 +378,10 @@ export async function getAssignedUsers(query) {
   const [key] = Object.keys(query);
   const value = query[key];
 
-  return await makerequest(`${api.route("getAssignedUsers")}?${key}=${value}`, "GET");
+  return await makerequest(
+    `${api.route("getAssignedUsers")}?${key}=${value}`,
+    "GET"
+  );
 }
 
 //getAssignedUsers

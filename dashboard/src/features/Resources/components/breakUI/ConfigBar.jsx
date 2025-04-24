@@ -1,10 +1,14 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, {useEffect, useRef, useState} from "react";
 import Select from "../../../../components/Input/Select";
 import SelectorAccordion from "./SelectorAccordion";
-import { X } from "lucide-react";
-import { assignUser, getAssignedUsers, getEligibleUsers } from "../../../../app/fetch";
-import { toast } from "react-toastify";
-import capitalizeWords, { TruncateText } from "../../../../app/capitalizeword";
+import {X} from "lucide-react";
+import {
+  assignUser,
+  getAssignedUsers,
+  getEligibleUsers,
+} from "../../../../app/fetch";
+import {toast} from "react-toastify";
+import capitalizeWords, {TruncateText} from "../../../../app/capitalizeword";
 
 const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
     const initialObj = {
@@ -20,33 +24,33 @@ const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
     const [preAssignedUsers, setPreAssignedUsers] = useState({ roles: {}, verifiers: [] })
     const [fetchedData, setFetchedData] = useState(false)
 
-    function updateSelection(field, value) {
-        setFormObj(prev => {
-            return { ...prev, [field]: value }
-        })
+  function updateSelection(field, value) {
+    setFormObj((prev) => {
+      return {...prev, [field]: value};
+    });
+  }
+
+  async function onSubmit(e) {
+    e.preventDefault();
+
+    const valueArray = Object.values(formObj);
+    const keyArray = Object.keys(formObj);
+    let sameDoubledValue = false;
+    const verifierSet = new Set(formObj.verifiers.map((e) => e.id));
+
+    for (let i = 0; i < valueArray.length; i++) {
+      if (verifierSet.has(valueArray[i])) sameDoubledValue = true;
+      for (let j = i + 1; j < valueArray.length; j++) {
+        if (valueArray[i] === valueArray[j]) sameDoubledValue = true;
+      }
+      if (keyArray[i] !== "manager" && valueArray[i] === "") {
+        return toast.error(`Please select ${capitalizeWords(keyArray[i])}`);
+      }
     }
 
-    async function onSubmit(e) {
-        e.preventDefault();
-
-        const valueArray = Object.values(formObj);
-        const keyArray = Object.keys(formObj)
-        let sameDoubledValue = false;
-        const verifierSet = new Set(formObj.verifiers.map(e => e.id))
-
-        for (let i = 0; i < valueArray.length; i++) {
-            if (verifierSet.has(valueArray[i])) sameDoubledValue = true
-            for (let j = i + 1; j < valueArray.length; j++) {
-                if (valueArray[i] === valueArray[j]) sameDoubledValue = true
-            }
-            if (keyArray[i] !== 'manager' && valueArray[i] === "") {
-                return toast.error(`Please select ${capitalizeWords(keyArray[i])}`)
-            }
-        }
-
-        if (verifierSet.has("")) {
-            return toast.error(`Please select the empty Varifier`)
-        }
+    if (verifierSet.has("")) {
+      return toast.error(`Please select the empty Varifier`);
+    }
 
         if (!sameDoubledValue) {
             const response = await assignUser(formObj)
@@ -64,71 +68,75 @@ const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
         }
     }
 
-    function closeButton() {
-        setOn(false);
-        setFormObj(initialObj)
+  function closeButton() {
+    setOn(false);
+    setFormObj(initialObj);
+  }
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (configRef.current && !configRef.current.contains(event.target)) {
+        closeButton();
+      }
+    };
+
+    if (display) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
     }
 
-    useEffect(() => {
-        const handleClickOutside = (event) => {
-            if (configRef.current && !configRef.current.contains(event.target)) {
-                closeButton()
-            }
-        };
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [display, setOn]);
 
-        if (display) {
-            document.addEventListener("mousedown", handleClickOutside);
-        } else {
-            document.removeEventListener("mousedown", handleClickOutside);
+  useEffect(() => {
+    setFormObj((prev) => ({
+      ...prev,
+      resourceId: resourceId,
+    }));
+  }, [resourceId]);
+
+  useEffect(() => {
+    setFormObj((prev) => {
+      return {
+        resourceId,
+        manager: preAssignedUsers.roles?.MANAGER || "",
+        editor: preAssignedUsers.roles?.EDITOR || "",
+        verifiers:
+          preAssignedUsers.verifiers.length > 0
+            ? preAssignedUsers.verifiers
+            : [{id: "", stage: NaN}],
+        publisher: preAssignedUsers.roles?.PUBLISHER || "",
+      };
+    });
+  }, [preAssignedUsers]);
+
+  useEffect(() => {
+    async function GetAssingends() {
+      const payload = {resourceId};
+      if (resourceId) {
+        const response = await getAssignedUsers(payload);
+        setPreAssignedUsers((prev) => {
+          let roles = {};
+          response.assignedUsers.roles.forEach((e) => {
+            roles[e.role] = e.userId;
+          });
+          return {
+            roles: roles,
+            verifiers: response.assignedUsers.verifiers.map((e) => ({
+              stage: e.stage,
+              id: e.userId,
+            })),
+          };
+        });
+        if (response.assignedUsers?.roles?.length > 0) {
+          setFetchedData(true);
         }
+      }
+    }
 
-        return () => document.removeEventListener("mousedown", handleClickOutside);
-    }, [display, setOn]);
-
-    useEffect(() => {
-        setFormObj(prev => ({
-            ...prev,
-            resourceId: resourceId,
-        }))
-    }, [resourceId])
-
-    useEffect(() => {
-
-        setFormObj(prev => {
-            return {
-                resourceId,
-                manager: preAssignedUsers.roles?.MANAGER || "",
-                editor: preAssignedUsers.roles?.EDITOR || "",
-                verifiers: preAssignedUsers.verifiers.length > 0 ? preAssignedUsers.verifiers : [{ id: "", stage: NaN }],
-                publisher: preAssignedUsers.roles?.PUBLISHER || ""
-            }
-        })
-
-    }, [preAssignedUsers])
-
-    useEffect(() => {
-        async function GetAssingends() {
-            const payload = { resourceId }
-            if (resourceId) {
-
-                const response = await getAssignedUsers(payload)
-                setPreAssignedUsers(prev => {
-                    let roles = {}
-                    response.assignedUsers.roles.forEach(e => {
-                        roles[e.role] = e.userId
-                    })
-                    return {
-                        roles: roles,
-                        verifiers: response.assignedUsers.verifiers.map(e => ({ stage: e.stage, id: e.userId }))
-                    }
-                })
-                if (response.assignedUsers?.roles?.length > 0) { setFetchedData(true) }
-            }
-        }
-
-        GetAssingends()
-
-    }, [resourceId])
+    GetAssingends();
+  }, [resourceId]);
 
     useEffect(() => {
         async function getUser() {
@@ -146,21 +154,34 @@ const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
         getUser()
     }, [])
 
-    return (
-        <div className={`${display ? "block" : "hidden"} fixed z-20 top-0 left-0 w-[100vw] h-screen bg-black bg-opacity-50`}>
-
-            <div ref={configRef} className="fixed z-30 top-0 right-0 w-[26rem] h-screen bg-[white] dark:bg-[#242933]">
-                <button className="bg-transparent hover:bg-stone-900 hover:text-stone-200 dark:hover:bg-stone-900 rounded-full absolute top-7 border border-gray-500 left-4 p-2 py-2"
-                    onClick={() => closeButton()}>
-                    <X className="w-[16px] h-[16px]" />
-                </button>
-                <div className="font-medium shadow-md-custom p-[30px] px-[40px]">
-                    <h1 className="w-[90%] mx-auto text-[1rem] whitespace-pre" title={data.title}>Assign User for {TruncateText(data.title, 21)}</h1>
-                </div>
-                <form className="mt-1 flex flex-col justify-between h-[88%] p-[30px] pt-[0px]">
-                    <div className="flex flex-col gap-4 pt-6 ">
-                        {/* Selected Page/Content */}
-                        {/* <div className="dark:border dark:border-[1px] dark:border-stone-700 rounded-md">
+  return (
+    <div
+      className={`${
+        display ? "block" : "hidden"
+      } fixed z-20 top-0 left-0 w-[100vw] h-screen bg-black bg-opacity-50`}
+    >
+      <div
+        ref={configRef}
+        className="fixed z-30 top-0 right-0 w-[26rem] h-screen bg-[white] dark:bg-[#242933]"
+      >
+        <button
+          className="bg-transparent hover:bg-stone-900 hover:text-stone-200 dark:hover:bg-stone-900 rounded-full absolute top-7 border border-gray-500 left-4 p-2 py-2"
+          onClick={() => closeButton()}
+        >
+          <X className="w-[16px] h-[16px]" />
+        </button>
+        <div className="font-medium shadow-md-custom p-[30px] px-[40px]">
+          <h1
+            className="w-[90%] mx-auto text-[1rem] whitespace-pre"
+            title={data.title}
+          >
+            Assign User for {TruncateText(data.title, 21)}
+          </h1>
+        </div>
+        <form className="mt-1 flex flex-col justify-between h-[88%] p-[30px] pt-[0px]">
+          <div className="flex flex-col gap-4 pt-6 ">
+            {/* Selected Page/Content */}
+            {/* <div className="dark:border dark:border-[1px] dark:border-stone-700 rounded-md">
                             <input
                                 type="text"
                                 className="input px-3 bg-base-300 rounded-md w-[25rem] h-[2.5rem] outline-none disabled:pointer-events-none disabled:cursor-text"
@@ -169,63 +190,88 @@ const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
                             />
                         </div> */}
 
-                        {/* Select Manager */}
-                        <Select
-                            options={userList.managers.map(e => ({ id: e.id, name: e.name }))}
-                            setterOnChange={updateSelection}
-                            field={"manager"}
-                            value={formObj.manager}
-                            baseClass=""
-                            label="Select Manager"
-                            labelClass="font-[400] text-[#6B7888] text-[14px]"
-                            selectClass="bg-transparent border border-[#cecbcb] dark:border-stone-600 mt-1 rounded-md py-2 h-[2.5rem] outline-none"
-                        />
+            {/* Select Manager */}
+            <Select
+              options={userList.managers.map((e) => ({id: e.id, name: e.name}))}
+              setterOnChange={updateSelection}
+              field={"manager"}
+              value={formObj.manager}
+              baseClass=""
+              label="Select Manager"
+              labelClass="font-[400] text-[#6B7888] text-[14px]"
+              selectClass="bg-transparent border border-[#cecbcb] dark:border-stone-600 mt-1 rounded-md py-2 h-[2.5rem] outline-none"
+            />
 
-                        {/* Select Editor */}
-                        <Select
-                            options={userList.editors.map(e => ({ id: e.id, name: e.name }))}
-                            setterOnChange={updateSelection}
-                            field={"editor"}
-                            value={formObj.editor}
-                            baseClass=""
-                            label="Select Editor"
-                            labelClass="font-[400] text-[#6B7888] text-[14px]"
-                            selectClass="bg-transparent border border-[#cecbcb] dark:border-stone-600 mt-1 rounded-md py-2 h-[2.5rem] outline-none"
-                        />
+            {/* Select Editor */}
+            <Select
+              options={userList.editors.map((e) => ({id: e.id, name: e.name}))}
+              setterOnChange={updateSelection}
+              field={"editor"}
+              value={formObj.editor}
+              baseClass=""
+              label="Select Editor"
+              labelClass="font-[400] text-[#6B7888] text-[14px]"
+              selectClass="bg-transparent border border-[#cecbcb] dark:border-stone-600 mt-1 rounded-md py-2 h-[2.5rem] outline-none"
+            />
 
-                        {/* Selector Accordion */}
-                        <div>
-                            <label className={"font-[400] text-[#6B7888] dark:border-stone-600 text-[14px]"}>Select Verifier</label>
-                            <SelectorAccordion
-                                options={userList.verifiers.map(e => ({ id: e.id, name: e.name }))}
-                                field={"verifiers"}
-                                value={formObj.verifiers}
-                                onChange={updateSelection}
-                            />
-                        </div>
-
-                        {/* Select Publisher */}
-                        <Select
-                            options={userList.publishers.map(e => ({ id: e.id, name: e.name }))}
-                            setterOnChange={updateSelection}
-                            baseClass=""
-                            value={formObj.publisher}
-                            field={"publisher"}
-                            label="Select Publisher"
-                            labelClass="font-[400] text-[#6B7888] text-[14px]"
-                            selectClass="bg-transparent border border-[#cecbcb] dark:border-stone-600 mt-1 rounded-md py-2 h-[2.5rem] outline-none"
-                        />
-                    </div>
-
-                    {/* Buttons */}
-                    <div className="flex justify-center gap-2">
-                        <button className="w-[8rem] h-[2.3rem] rounded-md text-xs bg-stone-700 text-white" onClick={(e) => { e.preventDefault(); setOn(false); }}>Cancel</button>
-                        <button onClick={onSubmit} className="w-[8rem] h-[2.3rem] rounded-md text-xs bg-[#29469c] border-none hover:bg-[#29469c] text-[white]">{fetchedData ? "Update" : "Save"}</button>
-                    </div>
-                </form>
+            {/* Selector Accordion */}
+            <div>
+              <label
+                className={
+                  "font-[400] text-[#6B7888] dark:border-stone-600 text-[14px]"
+                }
+              >
+                Select Verifier
+              </label>
+              <SelectorAccordion
+                options={userList.verifiers.map((e) => ({
+                  id: e.id,
+                  name: e.name,
+                }))}
+                field={"verifiers"}
+                value={formObj.verifiers}
+                onChange={updateSelection}
+              />
             </div>
-        </div>
-    );
+
+            {/* Select Publisher */}
+            <Select
+              options={userList.publishers.map((e) => ({
+                id: e.id,
+                name: e.name,
+              }))}
+              setterOnChange={updateSelection}
+              baseClass=""
+              value={formObj.publisher}
+              field={"publisher"}
+              label="Select Publisher"
+              labelClass="font-[400] text-[#6B7888] text-[14px]"
+              selectClass="bg-transparent border border-[#cecbcb] dark:border-stone-600 mt-1 rounded-md py-2 h-[2.5rem] outline-none"
+            />
+          </div>
+
+          {/* Buttons */}
+          <div className="flex justify-center gap-2">
+            <button
+              className="w-[8rem] h-[2.3rem] rounded-md text-xs bg-stone-700 text-white"
+              onClick={(e) => {
+                e.preventDefault();
+                setOn(false);
+              }}
+            >
+              Cancel
+            </button>
+            <button
+              onClick={onSubmit}
+              className="w-[8rem] h-[2.3rem] rounded-md text-xs bg-[#29469c] border-none hover:bg-[#29469c] text-[white]"
+            >
+              {fetchedData ? "Update" : "Save"}
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
 };
 
 export default ConfigBar;
