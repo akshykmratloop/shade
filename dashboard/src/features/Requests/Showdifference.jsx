@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Dialog } from "@headlessui/react";
+import { Dialog, Switch } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import userIcon from "../../assets/user.png"
 import formatTimestamp from "../../app/TimeFormat";
@@ -13,6 +13,10 @@ import { RxCross1 } from "react-icons/rx";
 import Button from "../../components/Button/Button";
 import LanguageSwitch from "../Resources/components/breakUI/SwitchLang";
 import RequestPopup from "./RequestPopup";
+import { TfiComment } from "react-icons/tfi";
+
+import { IoDocumentOutline } from "react-icons/io5";
+
 
 
 function ShowDifference({ role, show, onClose }) {
@@ -69,16 +73,47 @@ function ShowDifference({ role, show, onClose }) {
         <Dialog open={show} onClose={onClose} className="relative z-50 font-poppins">
             <div className="fixed inset-0 bg-black/50" aria-hidden="true" />
             <div ref={modalRef} className="fixed inset-0 flex items-center justify-center p-4 px-0">
-                <Dialog.Panel className="w-[98vw] h-[98vh] overflow-y-auto customscroller shadow-lg shadow-stone rounded-lg bg-[white] dark:bg-slate-800 p-6 px-0">
+                <Dialog.Panel className="w-[98vw] h-[98vh] customscroller shadow-lg shadow-stone rounded-lg bg-[white] dark:bg-slate-800 p-6 px-0">
                     <div className="flex justify-between items-center mb-4 px-6 ">
-                        <Dialog.Title className="text-lg font-[500]">Difference Preview</Dialog.Title>
-                        <div className="flex gap-5 translate-x-[-300px]">
-                            <LanguageSwitch  setLanguage={setLanguage} language={language} />
+                        {/* <Dialog.Title className="text-lg font-[500]">Difference Preview</Dialog.Title> */}
+                        <div className="flex gap-5 justify-between w-[95%]">
+                            <LanguageSwitch w={'w-[20%]'} setLanguage={setLanguage} language={language} />
                             <div className="flex gap-2">
-                            <button onClick={() => { }} className='flex justify-center items-center gap-1 bg-[#FF0000] rounded-md xl:h-[2.68rem] sm:h-[2rem] xl:text-xs sm:text-[.6rem] xl:w-[5.58rem] w-[4rem] text-[white]'>
-                                <RxCross1 /> Reject
-                            </button>
-                            <Button text={'Approve'} functioning={() => { }} classes='bg-[#29469D] rounded-md xl:h-[2.68rem] sm:h-[2rem] xl:text-xs sm:text-[.6rem] xl:w-[5.58rem] w-[4rem] text-[white]' />
+                                <div className="flex gap-2 text-[25px] items-center border-r px-2 border-r-2">
+                                    <span className="text-[24px]">
+                                        <TfiComment />
+                                    </span>
+                                    <span>
+                                        <IoDocumentOutline />
+                                    </span>
+                                </div>
+                                <div className='flex items-center gap-1'>
+                                    <span className={`text-[16px] font-lexend font-[600] dark:text-[#CBD5E1] text-[#202a38] select-none`}>
+                                        Publish Schedule
+                                    </span>
+
+                                    <Switch
+                                        checked={true}
+                                        onChange={() => { }}
+                                        className={`${true
+                                            ? "bg-[#1DC9A0]"
+                                            : "bg-gray-300"
+                                            } relative inline-flex h-2 w-7 items-center rounded-full`}
+                                    >
+                                        <span
+                                            className={`${true
+                                                ? "translate-x-4"
+                                                : "translate-x-0"
+                                                } inline-block h-[17px] w-[17px] bg-white rounded-full shadow-2xl border border-gray-300 transition`}
+                                        />
+                                    </Switch>
+                                </div>
+                                <div className="flex gap-2 px-2">
+                                    <button onClick={() => { }} className='flex justify-center items-center gap-1 bg-[#FF0000] rounded-md xl:h-[2.68rem] sm:h-[2rem] xl:text-xs sm:text-[.6rem] xl:w-[5.58rem] w-[4rem] text-[white]'>
+                                        <RxCross1 /> Reject
+                                    </button>
+                                    <Button text={'Approve'} functioning={() => { }} classes='bg-[#29469D] rounded-md xl:h-[2.68rem] sm:h-[2rem] xl:text-xs sm:text-[.6rem] xl:w-[5.58rem] w-[4rem] text-[white]' />
+                                </div>
                             </div>
                         </div>
                         <button onClick={onClose} className="bg-transparent absolute top-4 right-10 z-20 hover:bg-stone-300 dark:hover:bg-stone-700 rounded-full border-none p-2 py-2">
@@ -86,18 +121,20 @@ function ShowDifference({ role, show, onClose }) {
                         </button>
                     </div>
 
-                    <div className="flex scale-[.95] translate-x-[-15px] translate-y-[-100px]">
+                    <div className="flex overflow-y-scroll h-[95%] customscroller">
                         <div>
-                            <AllForOne currentPath={"home"} language={language} screen={760} content={content} fullScreen={""} />
+                            <h3 className="font-[500] px-4">Live Version</h3>
+                            <AllForOne currentPath={"home"} language={language} screen={740} content={content} fullScreen={""} />
                         </div>
                         <div>
-                            <AllForOne currentPath={"home"} language={language} screen={760} content={contentFromRedux} fullScreen={""} />
+                            <h3 className="font-[500] px-4">Changed Version</h3>
+                            <AllForOne currentPath={"home"} language={language} screen={740} content={contentFromRedux} fullScreen={""} showDifference={true} />
                         </div>
                     </div>
                 </Dialog.Panel>
             </div>
             {
-                false && 
+                false &&
                 <RequestPopup />
             }
         </Dialog>

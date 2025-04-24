@@ -28,10 +28,12 @@ import "swiper/css/pagination";
 import blankImage from "../../../../assets/images/blankImage.webp";
 import { TruncateText } from "../../../../app/capitalizeword";
 import dynamicSize from "../../../../app/fontSizes";
+import { differentText } from "../../../../app/fontSizes";
 
 
 
 const HomePage = ({ language, screen, fullScreen, currentContent, highlight }) => {
+    const checkDifference = differentText.checkDifference.bind(differentText);
     const isComputer = screen > 900;
     const isTablet = screen < 900 && screen > 730;
     const isPhone = screen < 738;
@@ -61,6 +63,8 @@ const HomePage = ({ language, screen, fullScreen, currentContent, highlight }) =
     );
     const ProjectSlider = { ...recentProjects, ...markets, ...safety };
 
+    const liveContent = content.home
+
     const divRef = useRef(null);
     const [width, setWidth] = useState(0);
 
@@ -81,7 +85,6 @@ const HomePage = ({ language, screen, fullScreen, currentContent, highlight }) =
             }
         };
     }, []);
-
 
 
     useEffect(() => {
@@ -114,12 +117,12 @@ const HomePage = ({ language, screen, fullScreen, currentContent, highlight }) =
                     className={`container mx-auto absolute ${isComputer ? "top-[20%]" : "top-16"}  left-0 right-0 px-4`}>
                     <div className={`text-left flex flex-col ${language === "en" ? "items-start" : "items-end"} ${textAlignment} ${isPhone ? "px-[0px] py-10" : "px-[80px]"}`}
                         style={{ paddingLeft: isComputer && dynamicSize(140, width) }}>
-                        <h1 className={`text-[#292E3D] text-[45px] tracking-[0px]  leading-[2.5rem] capitalize font-[500] mb-4 ${isPhone ? "w-full" : fullScreen ? "w-3/5" : "w-3/5"}  `}
+                        <h1 className={`${(highlight && checkDifference(currentContent?.homeBanner?.title[language], liveContent?.homeBanner?.title[language]))} text-[#292E3D] text-[45px] tracking-[0px]  leading-[2.5rem] capitalize font-[500] mb-4 ${isPhone ? "w-full" : fullScreen ? "w-3/5" : "w-3/5"}  `}
                             style={{ fontSize: isComputer && dynamicSize(70, width), lineHeight: isComputer && `${(width / 1526) * 4.5}rem`, }}
                         >
                             {currentContent?.homeBanner?.title[language]}
                         </h1>
-                        <p className={`text-[#0e172fb3] font-[500] leading-[16px] mb-6 ${isPhone ? "w-full text-[12px]" : "w-1/2 text-[10px]"} tracking-[0px]`}
+                        <p className={`${(highlight && checkDifference(currentContent?.homeBanner?.description[language], liveContent?.homeBanner?.description[language]))} text-[#0e172fb3] font-[500] leading-[16px] mb-6 ${isPhone ? "w-full text-[12px]" : "w-1/2 text-[10px]"} tracking-[0px]`}
                             style={{ fontSize: isComputer && dynamicSize(16, width), lineHeight: isComputer && `${width / 1526 * 24}px` }}
                         >
                             {currentContent?.homeBanner?.description[language]}
@@ -129,7 +132,8 @@ const HomePage = ({ language, screen, fullScreen, currentContent, highlight }) =
                             style={{ fontSize: isComputer && dynamicSize(18, width) }}
                             onClick={() => { }}
                         >
-                            <span>{currentContent?.homeBanner?.buttonText[language]}</span>
+                            <span className={`${(highlight && checkDifference(currentContent?.homeBanner?.buttonText[language], liveContent?.homeBanner?.buttonText[language]))}`}>
+                                {currentContent?.homeBanner?.buttonText[language]}</span>
                             <img
                                 src={Arrow}
                                 width="10"
@@ -155,15 +159,15 @@ const HomePage = ({ language, screen, fullScreen, currentContent, highlight }) =
                     <div className={`flex flex-col items-start ${isPhone ? " " : "absolute "} ${isLeftAlign ? "right-0 text-left" : "left-0 text-right"} bg-[#145098] ${isTablet ? "p-10 py-14" : "p-14 py-20"} rounded-sm w-[23rem]`}
                         style={{ gap: isComputer ? dynamicSize(26, width) : "16px", width: isComputer && dynamicSize(488, width), padding: isComputer && `${dynamicSize(98, width)} ${dynamicSize(65, width)}` }}
                     >
-                        <h2 className="text-white text-[28px] leading-[1.8rem]  font-normal"
+                        <h2 className={`text-white text-[28px] leading-[1.8rem]  font-normal ${highlight && checkDifference(currentContent?.aboutUsSection?.title[language], liveContent?.aboutUsSection?.title[language])}`}
                             style={{ fontSize: isComputer && dynamicSize(36, width), lineHeight: isComputer && dynamicSize(32, width) }}>
                             {currentContent?.aboutUsSection?.title[language]}
                         </h2>
-                        <p className="text-white font-[100] text-[12px] leading-[16px] "
+                        <p className={`text-white font-[100] text-[12px] leading-[16px] ${highlight && checkDifference(currentContent?.aboutUsSection?.description?.[language], liveContent?.aboutUsSection?.description?.[language])}`}
                             style={{ fontSize: isComputer && dynamicSize(15, width), lineHeight: isComputer && dynamicSize(26, width) }}>
                             {currentContent?.aboutUsSection?.description[language]}
                         </p>
-                        <p className="text-white font-[100] text-[12px] leading-[16px] "
+                        <p className={`text-white font-[100] text-[12px] leading-[16px] ${highlight && checkDifference(currentContent?.aboutUsSection?.description2?.[language], liveContent?.aboutUsSection?.description2?.[language])}`}
                             style={{ fontSize: isComputer && dynamicSize(15, width), lineHeight: isComputer && dynamicSize(26, width) }}>
                             {currentContent?.aboutUsSection?.description2[language]}
                         </p>
@@ -180,7 +184,7 @@ const HomePage = ({ language, screen, fullScreen, currentContent, highlight }) =
             < section className="py-10 bg-gray-100" style={{ wordBreak: "normal" }}>
                 <div className="container mx-auto px-6"
                     style={{ padding: isComputer && `${dynamicSize(44, width)} ${dynamicSize(220, width)}` }}>
-                    <h2 className={`text-center text-3xl font-light text-[#292E3D] mb-9 ${isPhone ? "text-[30px]": "text-[45px]" }`}
+                    <h2 className={`text-center text-3xl font-light text-[#292E3D] mb-9 ${isPhone ? "text-[30px]" : "text-[45px]"}`}
                         style={{ fontSize: isComputer && dynamicSize(36, width) }}>
                         {currentContent?.serviceSection?.title[language]}
                     </h2>
@@ -210,8 +214,8 @@ const HomePage = ({ language, screen, fullScreen, currentContent, highlight }) =
                     className={`container mx-auto flex ${isPhone ? "flex-col gap-[350px]" : "gap-10"} `}>
                     <div className={`w-[100%]  flex-[4]`}
                     >
-                        <div className={`relative ${isTablet ? (!isLeftAlign ? "left-[-70px]" : "left-[15px]") : isComputer && fullScreen ? "left-[450px] scale-[1.7]": isPhone? screen < 370 ? "left-[-10px] scale-[.6]" : "left-[0px] scale-[1]" : "left-[50px] scale-[1.2]" } ${!isLeftAlign && isPhone && "left-[-310px]"}`}
-                            // style={{ width: isComputer && dynamicSize(200, width) }}
+                        <div className={`relative ${isTablet ? (!isLeftAlign ? "left-[-70px]" : "left-[15px]") : isComputer && fullScreen ? "left-[450px] scale-[1.7]" : isPhone ? screen < 370 ? "left-[-10px] scale-[.6]" : "left-[0px] scale-[1]" : "left-[50px] scale-[1.2]"} ${!isLeftAlign && isPhone && "left-[-310px]"}`}
+                        // style={{ width: isComputer && dynamicSize(200, width) }}
                         >
                             {currentContent?.experienceSection?.cards?.map((item, key) => {
                                 // Set top position based on whether key is odd or even
