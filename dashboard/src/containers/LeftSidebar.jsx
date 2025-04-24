@@ -14,6 +14,10 @@ function LeftSidebar() {
 
   const defineUserAndRoleManager = user?.permissions?.some(e => e.slice(0, 4) !== "USER" && e.slice(0, 4) !== "ROLE")
 
+  function setRouteOnStorage(route) {
+    localStorage.setItem("route", route)
+  }
+
   useEffect(() => {
     const handleResize = () => {
       const shouldCollapse = window.innerWidth < 1200;
@@ -65,6 +69,7 @@ function LeftSidebar() {
                   <NavLink
                     end
                     to={route.path}
+                    onClick={() => { setRouteOnStorage(route.path) }}
                     className={({ isActive }) =>
                       `${isActive ? "font-semibold bg-base-200" : "font-normal"} pl-7 w-full flex items-center gap-2`
                     }
@@ -90,6 +95,7 @@ function LeftSidebar() {
                 <NavLink
                   end
                   to={route.path}
+                  onClick={() => { setRouteOnStorage(route.path) }}
                   className={({ isActive }) =>
                     `${isActive ? "font-semibold bg-base-200" : "font-normal"} pl-7 w-full flex items-center gap-2`
                   }

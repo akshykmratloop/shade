@@ -35,7 +35,7 @@
 
 .bankgothic-regular-db-mt {
   font-family: "BankGothic-Regular-MD-Bt";
-} 
+}
 
 .bankgothic-russ-medium {
   font-family: "BankGothic-Russ-Medium";
@@ -99,7 +99,8 @@ input[type="number"]::-webkit-inner-spin-button {
 #left-sidebar-drawer:not(:checked)~.drawer-side #sidebar-close-btn {
   display: none;
 }
-.customscroller::-webkit-scrollbar-track{
+
+.customscroller::-webkit-scrollbar-track {
   background-color: #dbdbdb;
 }
 
@@ -273,7 +274,8 @@ select {
 }
 
 .jodit-toolbar__box {
-  background-color: #a2a5ad !important; /* Dark background */
+  background-color: #a2a5ad !important;
+  /* Dark background */
   /* border-radius: 8px 8px 0px 0px !important; */
   border: none !important;
 }
@@ -286,38 +288,199 @@ select {
 
 /* Style toolbar buttons */
 .jodit-toolbar-button {
-  color: white !important; /* Text color */
+  color: white !important;
+  /* Text color */
   background-color: transparent !important;
   border-radius: 5px;
   transition: 0.3s;
 }
 
 .jodit-wysiwyg {
-  background-color: #f4f4f4 !important; /* Light Gray */
-  color: #333 !important; /* Dark text */
+  background-color: #f4f4f4 !important;
+  /* Light Gray */
+  color: #333 !important;
+  /* Dark text */
   padding: 10px !important;
   border-radius: 5px;
 }
 
 .jodit-toolbar-button:hover {
-  background-color: #017392 !important; /* Blue hover effect */
+  background-color: #017392 !important;
+  /* Blue hover effect */
 }
 
-div.importantList ul{
+div.importantList ul {
   list-style-type: disc !important;
 }
 
 
-.custom-select:focus{
+.custom-select:focus {
   border: none !important;
   outline: none !important;
 }
 
-.rm-scroll::-webkit-scrollbar{
+.rm-scroll::-webkit-scrollbar {
   display: none;
 }
 
-.rm-scroll{
+.rm-scroll {
   scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+
+.react-datepicker__input-container input {
+  padding: 10px;
+  border: 2px solid #ccc;
+  border-radius: 6px;
+  font-size: 16px;
+  width: 100%;
+  outline: none;
+}
+
+.react-datepicker__input-container input:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 3px #007bff80;
+}
+
+/* Style for the input element */
+.react-datepicker__input-container input {
+  padding: 10px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  width: 100%;
+  outline: none;
+  box-shadow: 0px 1px 5px #00000050;
+}
+
+.react-datepicker__input-container input:focus {
+  /* border-color: #007bff; */
+  /* box-shadow: 0 0 3px #007bff80; */
+  border-radius: 8px;
+  font-size: 16px;
+  width: 100%;
+  outline: none;
+  /* box-shadow: 0px 2px 5px #00000088; */
+}
+
+/* Calendar container style */
+.react-datepicker {
+  font-family: 'Arial', sans-serif;
+  border-radius: 2px !important;
+  border: none !important;
+  background-color: #fdfdfd !important;
+  box-shadow: 0 4px 10px #00000056 !important;
+  padding: 20px !important;
+}
+
+/* Header (month, year, etc.) style */
+.react-datepicker__header {
+  background-color: white !important;
+  border: none !important;
+  padding: 10px !important;
+  color: white !important;
+}
+
+/* Style for selected date */
+/* .react-datepicker__day--selected,
+.react-datepicker__day--keyboard-selected {
+  background-color: #007bff !important;
+  color: white !important;
+} */
+
+/* Style for the day cells */
+.react-datepicker__day {
+  /* color: #ff0000 !important; */
+  cursor: pointer;
+}
+
+.react-datepicker__day:hover {
+  background-color: #ff0000;
+}
+
+.react-datepicker__day--selected:hover {
+  background-color: #0056b3 !important;
+}
+
+.react-datepicker__triangle {
+  display: none !important;
+}
+
+.react-datepicker__day--outside-month {
+  color: grey !important;
+}
+
+/* Base styles for both the hour and minute popups */
+.popup {
+  background-color: #fff;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  padding: 10px;
+  position: absolute;
+  z-index: 1000;
+  width: 20%;
+  top: 10 0px;
+  /* Adjust based on your design */
+  overflow-y: scroll;
+  height: 100%;
+}
+
+/* Style for the buttons inside the popup */
+.popup button {
+  background-color: transparent;
+  border: none;
+  padding: 8px 12px;
+  font-size: 16px;
+  cursor: pointer;
+  text-align: center;
+  width: 100%;
+}
+
+.popup button:hover {
+  background-color: #f0f0f0;
+}
+
+.popup button:focus {
+  /* background-color: #007bff; */
+  color: white;
+  outline: none;
+}
+
+.popup::-webkit-scrollbar {
+  display: none;
+}
+
+/* Styles to match DatePicker input fields */
+.time-input[type="text"] {
+  padding: 10px;
+  border-radius: 6px;
+  font-size: 16px;
+  width: 100%;
+  outline: none;
+  border: none;
+  box-shadow: 0px 1px 5px #00000050;
+}
+
+.time-input[type="text"]:focus {
+  box-shadow: 0 0 3px #007bff80;
+  border: none;
+}
+
+/* Popup header style */
+.popup h3 {
+  font-size: 16px;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.hideScroller::-webkit-scrollbar {
+  display: none;
+}
+
+.hideScroller {
+  scrollbar-width: none;
+  /* Firefox */
   -ms-overflow-style: none;
 }

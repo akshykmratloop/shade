@@ -13,9 +13,10 @@ import { RxCross1 } from "react-icons/rx";
 import Button from "../../components/Button/Button";
 import LanguageSwitch from "../Resources/components/breakUI/SwitchLang";
 import RequestPopup from "./RequestPopup";
-import { TfiComment } from "react-icons/tfi";
+import { LiaComment } from "react-icons/lia";
 
 import { IoDocumentOutline } from "react-icons/io5";
+import DateTime from "./DateTime";
 
 
 
@@ -25,6 +26,7 @@ function ShowDifference({ role, show, onClose }) {
     const [error, setError] = useState(true)
     const contentFromRedux = useSelector(state => state.homeContent.present)
     const [language, setLanguage] = useState("en")
+    const [showDateTime, setShowDateTime] = useState(false)
 
 
     const modalRef = useRef(null)
@@ -70,21 +72,27 @@ function ShowDifference({ role, show, onClose }) {
     if (!role) return null;
 
     return (
-        <Dialog open={show} onClose={onClose} className="relative z-50 font-poppins">
+        <Dialog open={show} onClose={onClose} className="relative z-40 font-poppins">
             <div className="fixed inset-0 bg-black/50" aria-hidden="true" />
             <div ref={modalRef} className="fixed inset-0 flex items-center justify-center p-4 px-0">
-                <Dialog.Panel className="w-[98vw] h-[98vh] customscroller shadow-lg shadow-stone rounded-lg bg-[white] dark:bg-slate-800 p-6 px-0">
+                <Dialog.Panel className="w-[98vw] h-[98vh] customscroller shadow-lg shadow-stone rounded-lg bg-[white] dark:bg-slate-800 p-6 px-0 relative">
                     <div className="flex justify-between items-center mb-4 px-6 ">
                         {/* <Dialog.Title className="text-lg font-[500]">Difference Preview</Dialog.Title> */}
                         <div className="flex gap-5 justify-between w-[95%]">
                             <LanguageSwitch w={'w-[20%]'} setLanguage={setLanguage} language={language} />
                             <div className="flex gap-2">
-                                <div className="flex gap-2 text-[25px] items-center border-r px-2 border-r-2">
-                                    <span className="text-[24px]">
-                                        <TfiComment />
+                                <div className="flex gap-3 text-[25px] items-center border-r px-2 border-r-2">
+                                    <span className=" flex flex-col gap-1 items-center">
+                                        <LiaComment strokeWidth={.0001} />
+                                        <span className="text-[12px]">
+                                            Comment
+                                        </span>
                                     </span>
-                                    <span>
-                                        <IoDocumentOutline />
+                                    <span className="flex flex-col gap-1 items-center translate-y-[1.5px]">
+                                        <IoDocumentOutline className="text-[23px]" width={10} />
+                                        <span className="text-[12px]">
+                                            Doc
+                                        </span>
                                     </span>
                                 </div>
                                 <div className='flex items-center gap-1'>
@@ -94,7 +102,7 @@ function ShowDifference({ role, show, onClose }) {
 
                                     <Switch
                                         checked={true}
-                                        onChange={() => { }}
+                                        onChange={() => setShowDateTime(true)}
                                         className={`${true
                                             ? "bg-[#1DC9A0]"
                                             : "bg-gray-300"
@@ -120,23 +128,30 @@ function ShowDifference({ role, show, onClose }) {
                             <XMarkIcon className="w-5" />
                         </button>
                     </div>
+                    <div className="flex w-[98.5%]">
+                        <h3 className="font-[500] px-4 flex-1">Live Version</h3>
+                        <h3 className="font-[500] px-4 flex-1">Changed Version</h3>
+                    </div>
 
-                    <div className="flex overflow-y-scroll h-[95%] customscroller">
+                    <div className="flex overflow-y-scroll h-[95%] customscroller relative">
                         <div>
-                            <h3 className="font-[500] px-4">Live Version</h3>
                             <AllForOne currentPath={"home"} language={language} screen={740} content={content} fullScreen={""} />
                         </div>
                         <div>
-                            <h3 className="font-[500] px-4">Changed Version</h3>
                             <AllForOne currentPath={"home"} language={language} screen={740} content={contentFromRedux} fullScreen={""} showDifference={true} />
                         </div>
                     </div>
+                    {
+                        showDateTime &&
+                        <DateTime onClose={setShowDateTime} display={showDateTime} />
+                    }
                 </Dialog.Panel>
             </div>
             {
                 false &&
                 <RequestPopup />
             }
+
         </Dialog>
     );
 }

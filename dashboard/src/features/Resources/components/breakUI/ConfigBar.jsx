@@ -139,8 +139,8 @@ const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
             setUserList({
                 managers: [...response4.eligibleUsers],
                 editors: [...response1.eligibleUsers],
-                verifiers: [...response2.eligibleUsers],
-                publishers: [...response3.eligibleUsers]
+                publishers: [...response2.eligibleUsers],
+                verifiers: [...response3.eligibleUsers]
             })
         }
         getUser()

@@ -5,11 +5,13 @@ import { Suspense, lazy } from 'react'
 import SuspenseContent from "./SuspenseContent"
 import { useSelector } from 'react-redux'
 import { useEffect, useRef } from "react"
+import { useNavigate } from "react-router-dom"
 
 const Page404 = lazy(() => import('../pages/protected/404'))
 
 
 function PageContent() {
+    const navigate = useNavigate()
     const mainContentRef = useRef(null);
     const { pageTitle } = useSelector(state => state.header)
     const user = useSelector(state => state.user.user)
@@ -22,6 +24,14 @@ function PageContent() {
             behavior: "smooth"
         });
     }, [pageTitle])
+
+    useEffect(() => {
+        let route = localStorage.getItem("route")
+
+        if (route) {
+            navigate(route)
+        }
+    }, [])
 
     return (
         <div className="flex flex-col flex-8 w-full overflow-x-hidden">
