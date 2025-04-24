@@ -85,35 +85,6 @@ export const auditLogger = async (req, res, next) => {
         },
       });
 
-      // if (actionType === "CREATE" && ["role", "user"].includes(entity)) {
-      //   // let message;
-
-      //   // if (["user", "role"].includes(entity)) {
-      //   //   if (entity === "role" && newValue?.name) {
-      //   //     message = `A new role '${newValue.name}' has been created`;
-      //   //   } else if (entity === "user" && newValue?.email) {
-      //   //     message = `A new user '${newValue.email}' has been created`;
-      //   //   } else {
-      //   //     message = `${entity} '${entityId}' has been created`;
-      //   //   }
-
-      //   //   io.emit("role_created", {
-      //   //     userId: user?.id,
-      //   //     message,
-      //   //   });
-      //   //   // ✅ Create Notification
-      //   //   await createNotification({
-      //   //     userId: user?.id,
-      //   //     message,
-      //   //   });
-      //   // }
-      //   await handleRoleCreationNotification({
-      //     io,
-      //     userId: user?.id,
-      //     newRole: newValue,
-      //   });
-      // }
-
       if (actionType === "CREATE" && newValue) {
         await handleEntityCreationNotification({
           io,

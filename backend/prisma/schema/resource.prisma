@@ -16,7 +16,7 @@ model Resource {
   newVersionEditModeId String?           @unique // Version being actively edited
   newVersionEditMode   ResourceVersion?  @relation(name: "EditModeVersion", fields: [newVersionEditModeId], references: [id], onDelete: Restrict, onUpdate: Restrict) //  version can not be deleted
   scheduledVersionId   String?           @unique // Future version to be published
-  scheduledVersion     ResourceVersion?  @relation(name: "ScheduledVersion", fields: [scheduledVersionId], references: [id], onDelete: Restrict, onUpdate: Restrict)//  version can not be deleted
+  scheduledVersion     ResourceVersion?  @relation(name: "ScheduledVersion", fields: [scheduledVersionId], references: [id], onDelete: Restrict, onUpdate: Restrict) //  version can not be deleted
 
   // Access control
   roles               ResourceRole[] // Current user permissions

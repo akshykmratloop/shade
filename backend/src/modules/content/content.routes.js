@@ -1,10 +1,10 @@
-import { Router } from "express";
+import {Router} from "express";
 import ContentController from "./content.controller.js";
-import { authenticateUser } from "../../helper/authMiddleware.js";
+import {authenticateUser} from "../../helper/authMiddleware.js";
 import validator from "../../validation/validator.js";
 // import {ContentSchema} from "../../validation/contentSchema.js";
 import tryCatchWrap from "../../errors/tryCatchWrap.js";
-import { checkPermission } from "../../helper/roleBasedAccess.js";
+import {checkPermission} from "../../helper/roleBasedAccess.js";
 import auditLogger from "../../helper/auditLogger.js";
 
 const router = Router();
@@ -46,7 +46,5 @@ router.get(
   //   checkPermission(requiredPermissionsForContentManagement),
   tryCatchWrap(ContentController.GetContent)
 );
-
-
 
 export default router;
