@@ -11,6 +11,7 @@ import {useCallback, useEffect, useState} from "react";
 import {getNotificationsbyId, markAllNotificationAsRead} from "../app/fetch";
 import {setNotificationCount} from "../features/common/headerSlice";
 import socket from "../Socket/socket.js";
+import RequestDetails from "../features/Requests/RequestDetails.jsx";
 
 function RightSidebar() {
   const [notificationData, setNotificationData] = useState([]);
@@ -197,7 +198,7 @@ function RightSidebar() {
                     //   {...extraObject}
                     //   closeRightDrawer={close}
                     // />
-                    <div>Details</div>
+                    <RequestDetails />
                   ),
 
                   [RIGHT_DRAWER_TYPES.DEFAULT]: <div></div>,

@@ -1,10 +1,5 @@
 const RequestPopup = () => {
+  return <div></div>;
+};
 
-    return (
-        <div>
-
-        </div>
-    )
-}
-
-export default RequestPopup
+export default RequestPopup;

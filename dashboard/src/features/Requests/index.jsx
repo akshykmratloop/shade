@@ -25,6 +25,7 @@ import ShowDifference from "./Showdifference";
 import ShowVerifierTooltip from "./ShowVerifierTooltip";
 import {openRightDrawer} from "../../features/common/rightDrawerSlice";
 import {RIGHT_DRAWER_TYPES} from "../../utils/globalConstantUtil";
+import {GoSidebarExpand} from "react-icons/go";
 
 // import userIcon from "../../assets/user.png"
 
@@ -206,7 +207,7 @@ function Requests() {
   const openNotification = () => {
     dispatch(
       openRightDrawer({
-        header: "Resource Details",
+        header: "Details",
         bodyType: RIGHT_DRAWER_TYPES.RESOURCE_DETAILS,
         extraObject: {id: user.id},
       })
@@ -551,12 +552,28 @@ function Requests() {
                               }}
                             >
                               <span className="flex items-center gap-1 rounded-md text-[#101828]">
+                                <GoSidebarExpand
+                                  className="w-5 h-6  text-[#3b4152] dark:text-stone-200"
+                                  strokeWidth={1}
+                                />
+                              </span>
+                            </button>
+
+                            <button
+                              onClick={() => {
+                                setSelectedRequest(request);
+                                setShowDetailsModal(true);
+                                // openNotification();
+                              }}
+                            >
+                              <span className="flex items-center gap-1 rounded-md text-[#101828]">
                                 <FiEye
                                   className="w-5 h-6  text-[#3b4152] dark:text-stone-200"
                                   strokeWidth={1}
                                 />
                               </span>
                             </button>
+
                             <button
                               className=""
                               onClick={() => {
