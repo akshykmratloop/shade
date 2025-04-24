@@ -145,7 +145,7 @@ function RightSidebar() {
       >
         <div className="relative  pb-5 flex flex-col  h-full">
           {/* Header */}
-          <div className="navbar   flex pl-4 pr-4   shadow-md ">
+          <div className="navbar   flex pl-4 pr-4    ">
             {/* <button
               className="float-left btn btn-circle btn-outline btn-sm"
               onClick={() => close()}
@@ -192,6 +192,14 @@ function RightSidebar() {
                       closeRightDrawer={close}
                     />
                   ),
+                  [RIGHT_DRAWER_TYPES.RESOURCE_DETAILS]: (
+                    // <CalendarEventsBodyRightDrawer
+                    //   {...extraObject}
+                    //   closeRightDrawer={close}
+                    // />
+                    <div>Details</div>
+                  ),
+
                   [RIGHT_DRAWER_TYPES.DEFAULT]: <div></div>,
                 }[bodyType]
               }
