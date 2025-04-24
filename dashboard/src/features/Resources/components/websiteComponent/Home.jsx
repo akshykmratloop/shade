@@ -180,8 +180,8 @@ const HomePage = ({ language, screen, fullScreen, currentContent }) => {
             < section className="py-10 bg-gray-100" style={{ wordBreak: "normal" }}>
                 <div className="container mx-auto px-6"
                     style={{ padding: isComputer && `${dynamicSize(44, width)} ${dynamicSize(220, width)}` }}>
-                    <h2 className="text-center text-3xl font-light text-[#292E3D] mb-9"
-                        style={{ fontSize: dynamicSize(36, width) }}>
+                    <h2 className={`text-center text-3xl font-light text-[#292E3D] mb-9 ${isPhone ? "text-[30px]": "text-[45px]" }`}
+                        style={{ fontSize: isComputer && dynamicSize(36, width) }}>
                         {currentContent?.serviceSection?.title[language]}
                     </h2>
 
@@ -210,7 +210,7 @@ const HomePage = ({ language, screen, fullScreen, currentContent }) => {
                     className={`container mx-auto flex ${isPhone ? "flex-col gap-[350px]" : "gap-10"} `}>
                     <div className={`w-[100%]  flex-[4]`}
                     >
-                        <div className={`relative ${isTablet ? (!isLeftAlign ? "left-[-70px]" : "left-[15px]") : isComputer && fullScreen ? "left-[450px] scale-[1.7]": "left-[50px] scale-[1.2]" } ${!isLeftAlign && isPhone && "left-[-310px]"}`}
+                        <div className={`relative ${isTablet ? (!isLeftAlign ? "left-[-70px]" : "left-[15px]") : isComputer && fullScreen ? "left-[450px] scale-[1.7]": isPhone? screen < 370 ? "left-[-10px] scale-[.6]" : "left-[0px] scale-[1]" : "left-[50px] scale-[1.2]" } ${!isLeftAlign && isPhone && "left-[-310px]"}`}
                             // style={{ width: isComputer && dynamicSize(200, width) }}
                         >
                             {currentContent?.experienceSection?.cards?.map((item, key) => {

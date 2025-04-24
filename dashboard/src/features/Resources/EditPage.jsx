@@ -63,7 +63,7 @@ const EditPage = () => {
 
     const content = useSelector((state) => state.homeContent.present)
 
-    const Routes = ['home', 'solutions', 'about', "services", "service", 'markets', 'projects', 'careers', 'news', 'footer', 'header', 'testimonials']
+    const Routes = ['home', 'solutions', 'about', "services", "service", 'markets', 'projects', "project", 'careers', "career", 'news', 'footer', 'header', 'testimonials', 'testimonial']
 
     useEffect(() => {
         dispatch(setSidebarState(true))
@@ -104,14 +104,14 @@ const EditPage = () => {
                             }
                             {
                                 (currentPath === "service" && subPath) &&
-                                    <ServiceDetailsManager serviceId={subPath} language={language} currentContent={content.serviceDetails} currentPath={"serviceDetails"} /> 
+                                <ServiceDetailsManager serviceId={subPath} language={language} currentContent={content.serviceDetails} currentPath={"serviceDetails"} />
                             }
                             {
                                 currentPath === 'markets' &&
                                 <MarketManager language={language} currentContent={content.markets} currentPath={currentPath} />
                             }
                             {
-                                currentPath === 'projects' ? subPath ?
+                                currentPath === 'projects' || currentPath === 'project' ? subPath ?
 
                                     <ProjectDetailManager projectId={subPath} language={language} currentContent={content.projectDetail} currentPath={"projectDetail"} /> :
                                     <ProjectContentManager language={language} currentContent={content.projects} currentPath={currentPath} /> : ""
@@ -135,7 +135,7 @@ const EditPage = () => {
                                 <HeaderManager language={language} currentContent={content.header} currentPath={currentPath} />
                             }
                             {
-                                currentPath === 'testimonials' &&
+                                currentPath === 'testimonials' || currentPath === 'testimonial' &&
                                 <TestimonyManager language={language} currentContent={content.testimonialSection} testimonyId={subPath} currentPath={"testimonialSection"} />
                             }
                         </div>

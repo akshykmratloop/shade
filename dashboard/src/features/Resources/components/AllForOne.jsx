@@ -118,7 +118,7 @@ const AllForOne = ({ language, screen, content, subPath, setLanguage, fullScreen
                 <MarketPage language={language} currentContent={content.markets} screen={screen} />
             }
             {
-                currentPath === 'projects' ? subPath ?
+                currentPath === 'projects' || currentPath === 'project' ? subPath ?
                     <ProjectDetailPage language={language} contentOn={content.projectDetail} projectId={subPath} screen={screen} /> :
                     <ProjectPage language={language} currentContent={content.projects} screen={screen} /> : ""
             }
@@ -143,7 +143,7 @@ const AllForOne = ({ language, screen, content, subPath, setLanguage, fullScreen
                 <Header language={language} currentContent={content.header} screen={screen} setLanguage={setLanguage} />
             }
             {
-                currentPath === "testimonials" &&
+                currentPath === "testimonials" || currentPath === "testimonial" &&
                 <Testimonials language={language} currentContent={content.footer} screen={screen} testimonyId={subPath} />
             }
             {

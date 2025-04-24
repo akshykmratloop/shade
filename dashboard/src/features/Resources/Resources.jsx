@@ -17,7 +17,8 @@ import { updateTag, updateType } from "../common/navbarSlice";
 import unavailableIcon from "../../assets/no_data_found.svg"
 import { ToastContainer } from "react-toastify";
 import { updateRouteLists } from "../common/routeLists";
-// import resources from "./resourcedata";
+import AllForOne from "./components/AllForOne"
+import content from "./components/websiteComponent/content.json"
 
 function Resources() {
     const dispatch = useDispatch()
@@ -27,6 +28,7 @@ function Resources() {
     const [isSmall, setIsSmall] = useState(false)
     const [isNarrow, setIsNarrow] = useState(false)
     const [configBarOn, setConfigBarOn] = useState(false);
+    const [screen, setScreen] = useState(359)
     const [PageDetailsOn, setPageDetailsOn] = useState(false);
     const [configBarData, setConfigBarData] = useState({});
     const [resources, setResources] = useState({ SUB_PAGE_ITEM: [], SUB_PAGE: [], MAIN_PAGE: [] });
@@ -102,14 +104,13 @@ function Resources() {
 
     }, [resourceType, resourceTag])
 
-    console.log(resNotAvail)
-
     useEffect(() => {
         const observer = new ResizeObserver(entries => {
             for (let entry of entries) {
                 setIsCollapsed(entry.contentRect.width < 1100);
                 setIsSmall(entry.contentRect.width < 1200);
                 setIsNarrow(entry.contentRect.width < 600);
+                setScreen(entry.contentRect.width)
             }
         });
 
@@ -148,19 +149,22 @@ function Resources() {
                                     {/* Background Image with Adjusted Dark Gradient */}
                                     <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/50 to-black/90 via-60%"></div>
                                     <div className="relative aspect-[10/11] overflow-hidden">
-                                        <iframe
+                                        {/* <iframe
                                             src={page.src}
                                             className={`top-0 left-0 border-none transition-all duration-300 ease-in-out ${isNarrow ? "w-[1000px] scale-[0.5]" : "w-[1200px] scale-[0.4]"
                                                 } origin-top-left h-[80rem]`}
-                                        ></iframe>
+                                        ></iframe> */}start
+                                        <div className="h-full overflow-y-scroll customscroller">
+                                            <AllForOne currentPath={page.slug} content={content} language={"en"} screen={screen} />
+                                        </div>
 
                                         {/* Dark Gradient Overlay */}
-                                        <div className="absolute bottom-0 left-0 w-full h-1/3 bg-gradient-to-t from-black/100 via-black/40 to-transparent"></div>
+                                        <div className="absolute z-[10] bottom-0 left-0 w-full h-1/3 bg-gradient-to-t from-black/100 via-black/40 to-transparent"></div>
                                         <div className="absolute top-0 left-0 w-full h-1/3  bg-gradient-to-b from-white/100 via-white/40 to-transparent"></div>
                                     </div>
 
                                     {/* Bottom Text Options */}
-                                    <div className={`absolute bottom-3 left-0 w-full text-center text-white justify-center items-center flex ${isNarrow ? "gap-2" : "gap-6"} py-1`}>
+                                    <div className={`absolute z-[10] bottom-3 left-0 w-full text-center text-white justify-center items-center flex ${isNarrow ? "gap-2" : "gap-6"} py-1`}>
                                         {[{ icon: <AiOutlineInfoCircle />, text: "Info", onClick: () => { setPageDetailsOn(true); setConfigBarData(page) } },
                                         {
                                             icon: <FiEdit />,

@@ -230,7 +230,7 @@ function Users() {
                                                 </div>
                                             </td>
                                             <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]">
-                                                {user?.roles?.length > 1 ? "multiple" : user?.roles?.[0].name}
+                                                {user?.roles?.length > 1 ? "multiple" : user?.roles?.[0]?.name}
                                             </td>
 
                                             <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]">{user.phone}</td>
