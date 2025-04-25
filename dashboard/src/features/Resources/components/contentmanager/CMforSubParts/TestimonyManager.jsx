@@ -8,8 +8,6 @@ import content from '../../websiteComponent/content.json'
 const TestimonyManager = ({ testimonyId, currentContent, currentPath, language }) => {
     const dispatch = useDispatch()
 
-    console.log(testimonyId)
-
     useEffect(() => {
         dispatch(updateContent({ currentPath: "testimonialSection", payload: content.testimonialSection }))
     }, [])

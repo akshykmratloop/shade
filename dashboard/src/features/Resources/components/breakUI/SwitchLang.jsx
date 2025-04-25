@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-export default function LanguageSwitch({ setLanguage, language, }) {
+export default function LanguageSwitch({ setLanguage, language, w}) {
     const [isEnglish, setIsEnglish] = useState(true);
 
     const changeLanguage = () => {
@@ -24,7 +24,7 @@ export default function LanguageSwitch({ setLanguage, language, }) {
 
     return (
         <div
-            className="sticky top-0 z-50 w-full h-[2.5rem] text-[.8rem] font-light bg-gray-300 rounded-md cursor-pointer flex-shrink-0 overflow-visible isolation-isolate"
+            className={`sticky top-0 z-50 ${w ?? "w-full"} h-[2.5rem] text-[.8rem] font-light bg-gray-300 rounded-md cursor-pointer flex-shrink-0 overflow-visible isolation-isolate`}
             onClick={changeLanguage}
         >
             {/* Toggle Background */}

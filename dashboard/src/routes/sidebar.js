@@ -36,11 +36,6 @@ const routes = [
     name: 'Dashboard', 
   },
   {
-    path: '/app/resources', // url
-    icon: <HiOutlineClipboardDocumentList className={iconClasses} />, // icon component
-    name: 'Resources', // name that appear in Sidebar
-  },
-  {
     path: '/app/roles', // url
     icon: <UserRoundCog strokeWidth={1.5} className={`${iconClasses}`} />, // icon component
     name: 'Roles', // name that appear in Sidebar
@@ -51,6 +46,11 @@ const routes = [
     icon: <UserRound strokeWidth={1.5} className={iconClasses} />, // icon component
     name: 'Users', // name that appear in Sidebar
     permission: "USER_MANAGEMENT"
+  },
+  {
+    path: '/app/resources', // url
+    icon: <HiOutlineClipboardDocumentList className={iconClasses} />, // icon component
+    name: 'Resources', // name that appear in Sidebar
   },
   {
     path: '/app/requests', // url

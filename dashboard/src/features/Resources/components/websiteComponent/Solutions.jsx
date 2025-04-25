@@ -129,7 +129,7 @@ const SolutionPage = ({ language, screen }) => {
                     spaceBetween={10}
                     onSwiper={(swiper) => {
                         setTimeout(() => {
-                            swiper.autoplay.start();
+                            swiper?.autoplay?.start();
                         }, 500);
                     }}
 
@@ -207,7 +207,7 @@ const SolutionPage = ({ language, screen }) => {
                     spaceBetween={10}
                     onSwiper={(swiper) => {
                         setTimeout(() => {
-                            swiper.autoplay.start();
+                            swiper?.autoplay?.start();
                         }, 500);
                     }}
 
