@@ -1,40 +1,33 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Select from "../../../../components/Input/Select";
 import SelectorAccordion from "./SelectorAccordion";
-import {X} from "lucide-react";
+import { X } from "lucide-react";
 import {
   assignUser,
   getAssignedUsers,
   getEligibleUsers,
 } from "../../../../app/fetch";
-import {toast} from "react-toastify";
-import capitalizeWords, {TruncateText} from "../../../../app/capitalizeword";
+import { toast } from "react-toastify";
+import capitalizeWords, { TruncateText } from "../../../../app/capitalizeword";
 
-const ConfigBar = ({display, setOn, data, resourceId}) => {
+const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
   const initialObj = {
     resourceId,
     manager: "",
     editor: "",
-    verifiers: [{id: "", stage: NaN}],
-    publisher: "",
-  };
+    verifiers: [{ id: "", stage: NaN }],
+    publisher: ""
+  }
   const configRef = useRef(null);
-  const [userList, setUserList] = useState({
-    managers: [],
-    editors: [],
-    verifiers: [],
-    publishers: [],
-  });
-  const [formObj, setFormObj] = useState(initialObj);
-  const [preAssignedUsers, setPreAssignedUsers] = useState({
-    roles: {},
-    verifiers: [],
-  });
-  const [fetchedData, setFetchedData] = useState(false);
+  const [userList, setUserList] = useState({ managers: [], editors: [], verifiers: [], publishers: [] })
+  const [formObj, setFormObj] = useState(initialObj)
+  const [preAssignedUsers, setPreAssignedUsers] = useState({ roles: {}, verifiers: [] })
+  const [fetchedData, setFetchedData] = useState(false)
+  const [clearPopup, setClearPopup] = useState(false)
 
   function updateSelection(field, value) {
     setFormObj((prev) => {
-      return {...prev, [field]: value};
+      return { ...prev, [field]: value };
     });
   }
 
@@ -61,17 +54,18 @@ const ConfigBar = ({display, setOn, data, resourceId}) => {
     }
 
     if (!sameDoubledValue) {
-      const response = await assignUser(formObj);
+      const response = await assignUser(formObj)
       if (response.message === "Success") {
         toast.success("Page assigned Successfully!", {
-          autoClose: 700,
-        });
+          autoClose: 700
+        })
         setTimeout(() => {
-          closeButton();
-        }, 500);
+          closeButton()
+          reRender(Math.random())
+        }, 500)
       }
     } else {
-      return toast.error(`Error! duplicate selection has been found`);
+      return toast.error(`Error! duplicate selection has been found`)
     }
   }
 
@@ -112,7 +106,7 @@ const ConfigBar = ({display, setOn, data, resourceId}) => {
         verifiers:
           preAssignedUsers.verifiers.length > 0
             ? preAssignedUsers.verifiers
-            : [{id: "", stage: NaN}],
+            : [{ id: "", stage: NaN }],
         publisher: preAssignedUsers.roles?.PUBLISHER || "",
       };
     });
@@ -120,7 +114,7 @@ const ConfigBar = ({display, setOn, data, resourceId}) => {
 
   useEffect(() => {
     async function GetAssingends() {
-      const payload = {resourceId};
+      const payload = { resourceId };
       if (resourceId) {
         const response = await getAssignedUsers(payload);
         setPreAssignedUsers((prev) => {
@@ -147,31 +141,28 @@ const ConfigBar = ({display, setOn, data, resourceId}) => {
 
   useEffect(() => {
     async function getUser() {
-      const response1 = await getEligibleUsers({permission: "EDIT"});
-      const response2 = await getEligibleUsers({permission: "PUBLISH"});
-      const response3 = await getEligibleUsers({permission: "VERIFY"});
-      const response4 = await getEligibleUsers({
-        permission: "SINGLE_RESOURCE_MANAGEMENT",
-      });
+      const response1 = await getEligibleUsers({ permission: "EDIT" });
+      const response2 = await getEligibleUsers({ permission: "PUBLISH" });
+      const response3 = await getEligibleUsers({ permission: "VERIFY" });
+      const response4 = await getEligibleUsers({ permission: "SINGLE_RESOURCE_MANAGEMENT" });
       setUserList({
         managers: [...response4.eligibleUsers],
         editors: [...response1.eligibleUsers],
         publishers: [...response2.eligibleUsers],
-        verifiers: [...response3.eligibleUsers],
-      });
+        verifiers: [...response3.eligibleUsers]
+      })
     }
-    getUser();
-  }, []);
+    getUser()
+  }, [])
 
   return (
     <div
-      className={`${
-        display ? "block" : "hidden"
-      } fixed z-20 top-0 left-0 w-[100vw] h-screen bg-black bg-opacity-50`}
+      className={`${display ? "block" : "hidden"
+        } fixed z-20 top-0 left-0 w-[100vw] h-screen bg-black bg-opacity-50`}
     >
       <div
         ref={configRef}
-        className="fixed z-30 top-0 right-0 w-[26rem] h-screen bg-[white] dark:bg-[#242933]"
+        className="fixed z-30 top-0 right-0 w-[26rem] customscroller h-screen overflow-y-auto bg-[white] dark:bg-[#242933]"
       >
         <button
           className="bg-transparent hover:bg-stone-900 hover:text-stone-200 dark:hover:bg-stone-900 rounded-full absolute top-7 border border-gray-500 left-4 p-2 py-2"
@@ -201,7 +192,7 @@ const ConfigBar = ({display, setOn, data, resourceId}) => {
 
             {/* Select Manager */}
             <Select
-              options={userList.managers.map((e) => ({id: e.id, name: e.name}))}
+              options={userList.managers.map((e) => ({ id: e.id, name: e.name }))}
               setterOnChange={updateSelection}
               field={"manager"}
               value={formObj.manager}
@@ -213,7 +204,7 @@ const ConfigBar = ({display, setOn, data, resourceId}) => {
 
             {/* Select Editor */}
             <Select
-              options={userList.editors.map((e) => ({id: e.id, name: e.name}))}
+              options={userList.editors.map((e) => ({ id: e.id, name: e.name }))}
               setterOnChange={updateSelection}
               field={"editor"}
               value={formObj.editor}
@@ -224,7 +215,7 @@ const ConfigBar = ({display, setOn, data, resourceId}) => {
             />
 
             {/* Selector Accordion */}
-            <div>
+            <div className="">
               <label
                 className={
                   "font-[400] text-[#6B7888] dark:border-stone-600 text-[14px]"
@@ -257,10 +248,24 @@ const ConfigBar = ({display, setOn, data, resourceId}) => {
               labelClass="font-[400] text-[#6B7888] text-[14px]"
               selectClass="bg-transparent border border-[#cecbcb] dark:border-stone-600 mt-1 rounded-md py-2 h-[2.5rem] outline-none"
             />
+
+            <div className="flex flex-col gap-4">
+              <div className="flex justify-end">
+                <button className="bg-red-600 text-white p-2 rounded-md text-[12px]" onClick={(e) => { e.preventDefault(); setClearPopup(true) }}>Clear All</button>
+              </div>
+              <div className="bg-stone-500/20 rounded-md text-[14px] text-zinc-700 dark:text-zinc-300 p-3 flex flex-col gap-4 animation-move-left"
+                style={{ display: clearPopup ? "flex" : "none" }}>
+                <p>Do you want to remove all assigned user?</p>
+                <div className="flex gap-2 justify-end">
+                  <button className="bg-red-600 text-white p-2 rounded-md text-[12px] w-[30%]" onClick={(e) => { e.preventDefault(); setClearPopup(false) }}>Cancel</button>
+                  <button className="bg-[#29469C] text-white p-2 rounded-md text-[12px] w-[30%]" onClick={(e) => { e.preventDefault() }}>Save</button>
+                </div>
+              </div>
+            </div>
           </div>
 
           {/* Buttons */}
-          <div className="flex justify-center gap-2">
+          <div className="flex justify-center gap-2 py-4 mt-3">
             <button
               className="w-[8rem] h-[2.3rem] rounded-md text-xs bg-stone-700 text-white"
               onClick={(e) => {

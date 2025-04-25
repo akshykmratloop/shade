@@ -108,6 +108,8 @@ function Roles() {
   const [currentPage, setCurrentPage] = useState(1);
   const rolesPerPage = 20;
 
+  console.log(roles)
+
   const removeFilter = () => {
     setRoles([...originalRoles]);
   };
@@ -259,11 +261,10 @@ function Roles() {
                             {role?._count?.subPermissions || "3"}
                           </span>
                         </td> */}
-                        <td
-                          className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]"
-                          style={{whiteSpace: "wrap"}}
-                        >
-                          <span className="">{role?._count?.users || "1"}</span>
+                        <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]" style={{ whiteSpace: "wrap" }}>
+                          <span className="">
+                            {role?._count?.users || "1"}
+                          </span>
                         </td>
                         <td className="font-poppins font-light text-[12px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]">
                           <p

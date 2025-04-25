@@ -12,9 +12,11 @@ function LeftSidebar() {
   const isCollapsed = useSelector((state) => state.sidebar.isCollapsed);
   const user = useSelector((state) => state.user.user);
 
-  const defineUserAndRoleManager = user?.permissions?.some(
-    (e) => e.slice(0, 4) !== "USER" && e.slice(0, 4) !== "ROLE"
-  );
+  const defineUserAndRoleManager = user?.permissions?.some(e => e.slice(0, 4) !== "USER" && e.slice(0, 4) !== "ROLE")
+
+  function setRouteOnStorage(route) {
+    localStorage.setItem("route", route)
+  }
 
   useEffect(() => {
     const handleResize = () => {
@@ -80,10 +82,9 @@ function LeftSidebar() {
                   <NavLink
                     end
                     to={route.path}
-                    className={({isActive}) =>
-                      `${
-                        isActive ? "font-semibold bg-base-200" : "font-normal"
-                      } pl-7 w-full flex items-center gap-2`
+                    onClick={() => { setRouteOnStorage(route.path) }}
+                    className={({ isActive }) =>
+                      `${isActive ? "font-semibold bg-base-200" : "font-normal"} pl-7 w-full flex items-center gap-2`
                     }
                   >
                     {route?.icon} {!isCollapsed && route?.name}
@@ -110,10 +111,9 @@ function LeftSidebar() {
                 <NavLink
                   end
                   to={route.path}
-                  className={({isActive}) =>
-                    `${
-                      isActive ? "font-semibold bg-base-200" : "font-normal"
-                    } pl-7 w-full flex items-center gap-2`
+                  onClick={() => { setRouteOnStorage(route.path) }}
+                  className={({ isActive }) =>
+                    `${isActive ? "font-semibold bg-base-200" : "font-normal"} pl-7 w-full flex items-center gap-2`
                   }
                 >
                   {route?.icon} {!isCollapsed && route?.name}

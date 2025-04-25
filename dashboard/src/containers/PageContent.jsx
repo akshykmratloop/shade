@@ -1,18 +1,23 @@
 import Header from "./Header"
-import { Route, Routes } from 'react-router-dom'
+import { Route, Routes, useLocation } from 'react-router-dom'
 import routes from '../routes'
 import { Suspense, lazy } from 'react'
 import SuspenseContent from "./SuspenseContent"
 import { useSelector } from 'react-redux'
 import { useEffect, useRef } from "react"
+import { useNavigate } from "react-router-dom"
 
 const Page404 = lazy(() => import('../pages/protected/404'))
 
 
 function PageContent() {
+    const navigate = useNavigate()
     const mainContentRef = useRef(null);
     const { pageTitle } = useSelector(state => state.header)
     const user = useSelector(state => state.user.user)
+    const location = useLocation()
+
+    console.log(location.pathname.split('/').length)
 
 
     // Scroll back to top on new page load
@@ -22,6 +27,14 @@ function PageContent() {
             behavior: "smooth"
         });
     }, [pageTitle])
+
+    useEffect(() => {
+        let route = localStorage.getItem("route")
+
+        if (route && location.pathname.split('/').length < 3) {
+            navigate(route)
+        }
+    }, [])
 
     return (
         <div className="flex flex-col flex-8 w-full overflow-x-hidden">

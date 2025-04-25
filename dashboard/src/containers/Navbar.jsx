@@ -17,7 +17,7 @@ const Navbar = ({ setCurrentResource }) => {
         { name: "Testimonials", resourceType: "SUB_PAGE", resourceTag: "TESTIMONIAL", permission: "TESTIMONIAL_MANAGEMENT" },
         { name: "Career Page", resourceType: "SUB_PAGE", resourceTag: "CAREER", permission: "CAREER_MANAGEMENT" },
         { name: "Blogs & News", resourceType: "SUB_PAGE", resourceTag: "NEWS", permission: "NEWS_BLOGS_MANAGEMENT" },
-        { name: "Sub Page", resourceType: "SUB_PAGE", resourceTag: "SUB_PAGE", permission: ["HEADER_MANAGEMENT", "FOOTER_MANAGEMENT"] },
+        { name: "Sub Page", resourceType: "HEADER_FOOTER", resourceTag: "HEADER_FOOTER", permission: ["HEADER_MANAGEMENT", "FOOTER_MANAGEMENT"] },
     ];
 
     const hasPermission = (required) => {
@@ -39,7 +39,6 @@ const Navbar = ({ setCurrentResource }) => {
             <nav className="bg-[#29469C] xl:text-[.9rem] sm:text-[.8rem] w-full rounded-lg sm:overflow-x-scroll xl:overflow-x-visible customscroller h-[61px]">
                 <ul className="flex md:flex-nowrap lg:flex-nowrap md:w-full text-white py-2 whitespace-nowrap">
                     {navs.map((nav, index) => {
-                        if (!hasPermission(nav.permission)) return null;
 
                         return (
                             <li
