@@ -1,15 +1,16 @@
 import routes from "../routes/sidebar";
-import {NavLink, useLocation, useNavigate} from "react-router-dom";
-import {LiaChevronCircleLeftSolid} from "react-icons/lia";
-import {useDispatch, useSelector} from "react-redux";
-import {toggleSidebar, setSidebarState} from "../features/common/SbStateSlice"; // Adjust path as needed
-import {useEffect} from "react";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { LiaChevronCircleLeftSolid } from "react-icons/lia";
+import { useDispatch, useSelector } from "react-redux";
+import { toggleSidebar, setSidebarState } from "../features/common/SbStateSlice"; // Adjust path as needed
+import { useEffect, useState } from "react";
 
 function LeftSidebar() {
   const location = useLocation();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const isCollapsed = useSelector((state) => state.sidebar.isCollapsed);
+  const [showText, setShowText] = useState(true)
   const user = useSelector((state) => state.user.user);
 
   const defineUserAndRoleManager = user?.permissions?.some(e => e.slice(0, 4) !== "USER" && e.slice(0, 4) !== "ROLE")
@@ -28,21 +29,29 @@ function LeftSidebar() {
     return () => window.removeEventListener("resize", handleResize);
   }, [dispatch]);
 
+  useEffect(() => {
+    if (isCollapsed === true) {
+      setShowText(true)
+    } else {
+      setTimeout(() => {
+        setShowText(false)
+      }, 300)
+    }
+  }, [isCollapsed])
+
   return (
     <div className="flex-1 p-4 text-sm pb-8">
       <ul
-        className={`menu relative ${
-          isCollapsed ? "w-[81px]" : "w-56"
-        } transition-all duration-500 bg-[#fafaff] dark:bg-[#242933] text-base-content h-full rounded-lg`}
+        className={`menu relative ${isCollapsed ? "w-[81px]" : "w-56"
+          } transition-all duration-500 bg-[#fafaff] dark:bg-[#242933] text-base-content h-full rounded-lg`}
       >
         <button
           className={`absolute z-10 top-14 right-[-.9rem] drop-shadow-xl btn btn-sm btn-circle bg-stone-300 dark:bg-base-200 hover:bg-base-300 transition-transform duration-300 dark:border dark:border-stone-700 border-transparent`}
           onClick={() => dispatch(toggleSidebar())}
         >
           <LiaChevronCircleLeftSolid
-            className={`h-5 w-10 dark:text-stone-50 text-stone-800 ${
-              isCollapsed ? "rotate-180" : "rotate-0"
-            }`}
+            className={`h-5 w-10 dark:text-stone-50 text-stone-800 ${isCollapsed ? "rotate-180" : "rotate-0"
+              }`}
           />
         </button>
 
@@ -55,7 +64,7 @@ function LeftSidebar() {
             src="/logo192.png"
             alt="SHADE-CMS Logo"
           />
-          {!isCollapsed && (
+          {!showText && (
             <span className="truncate translate-x-[-1rem] pointer-events-none">
               SHADE-CMS
             </span>
@@ -77,7 +86,7 @@ function LeftSidebar() {
                   className="mt-2 w-full flex justify-center "
                   key={k}
                   title={route?.name}
-                  style={{borderRadius: lastIndex && "0px 0px 0px 0px"}}
+                  style={{ borderRadius: lastIndex && "0px 0px 0px 0px" }}
                 >
                   <NavLink
                     end
@@ -87,7 +96,7 @@ function LeftSidebar() {
                       `${isActive ? "font-semibold bg-base-200" : "font-normal"} pl-7 w-full flex items-center gap-2`
                     }
                   >
-                    {route?.icon} {!isCollapsed && route?.name}
+                    {route?.icon} {!showText && route?.name}
                     {location?.pathname === route.path && (
                       <span
                         className="absolute inset-y-0 left-0 w-1 bg-primary"
@@ -106,7 +115,7 @@ function LeftSidebar() {
                 className="mt-2 w-full flex justify-center "
                 key={k}
                 title={route?.name}
-                style={{borderRadius: lastIndex && "0px 0px 0px 0px"}}
+                style={{ borderRadius: lastIndex && "0px 0px 0px 0px" }}
               >
                 <NavLink
                   end
@@ -116,7 +125,7 @@ function LeftSidebar() {
                     `${isActive ? "font-semibold bg-base-200" : "font-normal"} pl-7 w-full flex items-center gap-2`
                   }
                 >
-                  {route?.icon} {!isCollapsed && route?.name}
+                  {route?.icon} {!showText && route?.name}
                   {location?.pathname === route.path && (
                     <span
                       className="absolute inset-y-0 left-0 w-1 bg-primary"
