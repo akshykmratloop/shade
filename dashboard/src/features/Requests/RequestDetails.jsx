@@ -33,27 +33,6 @@ const RequestDetails = () => {
           <label>Status</label>
           <p>Edit Mode</p>
         </div>
-        {/* <div className="flex py-[15px] justify-between border-b dark:border-stone-700">
-          <label>Live Version:</label>
-          <div className={`w-min flex flex-col items-end gap-[2.5px]`}>
-            <p className="text py-0 my-0">
-              V {pageInfo?.resourceInfo?.liveVersion?.versionNumber}
-            </p>
-            <button
-              className="text-[#145098] dark:text-sky-500 underline font-[300] py-0 my-0"
-              style={{whiteSpace: "pre"}}
-            >
-              Restore Previous Version
-            </button>
-            <button className="text-[#145098] dark:text-sky-500 underline font-[300] py-0 my-0">
-              View History
-            </button>
-          </div>
-        </div> */}
-        {/* <div className="flex py-[15px] justify-between border-b-4 border-gray-400 dark:border-stone-700">
-          <label>Page Status:</label>
-          <p>{pageInfo?.resourceInfo?.status}</p>
-        </div> */}
         <div className="flex flex-col py-[15px] pb-[2px] justify-between">
           <label>Assigned Users:</label>
           <div className="">
@@ -65,7 +44,6 @@ const RequestDetails = () => {
               <label className="!text-[#5d5d5e]">Editor:</label>
               <p>Himanshu</p>
             </div>
-            {/* <div className="border border-cyan-500 flex"> */}
             <div className="flex flex-col">
               {["Akshay", "Akshay", "Akshay", "Akshay"].map((el, ind) => {
                 let firstIndex = ind === 0;
@@ -118,7 +96,6 @@ const RequestDetails = () => {
               <label className="!text-[#5d5d5e]">Version No.</label>
               <p>V 1.1.0</p>
             </div>
-            {/* </div> */}
           </div>
         </div>
         <div className="flex flex-col">
@@ -146,7 +123,7 @@ const RequestDetails = () => {
           <label className="!text-[#5d5d5e]">Previous Request</label>
           <p>Verifier | 0001</p>
         </div>
-        <div className="border-b dark:border-stone-700 flex flex-col justify-between py-2">
+        <div className="flex flex-col justify-between py-2">
           <label className="!text-[#5d5d5e] pt-1 pb-2">Approval Status</label>
           <table className="min-w-full bg-white rounded-lg shadow">
             <thead>
