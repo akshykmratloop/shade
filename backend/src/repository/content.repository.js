@@ -2,7 +2,7 @@ import prismaClient from "../config/dbConfig.js";
 
 export const fetchResources = async (
   resourceType = "",
-  ResourceTag = "",
+  resourceTag = "",
   relationType = "",
   isAssigned,
   search = "",
@@ -29,7 +29,7 @@ export const fetchResources = async (
   // Build the where clause based on provided filters
   const whereClause = {
     ...resourceTypeFilter,
-    ...(ResourceTag ? { resourceTag: ResourceTag } : {}),
+    ...(resourceTag ? { resourceTag: resourceTag } : {}),
     ...(relationType ? { relationType } : {}),
     ...(typeof isAssigned === 'boolean' ? { isAssigned } : {}),
     ...(status ? { status } : {}),
@@ -115,7 +115,7 @@ export const fetchResourceInfo = async (resourceId) => {
         select: {
           versionNumber: true,
         },
-      }, // Include the live version number
+      }, // Include the edit mode version number
       newVersionEditMode: {
         select: {
           versionNumber: true,
@@ -502,13 +502,241 @@ export const fetchAssignedUsers = async (resourceId) => {
 };
 
 export const fetchContent = async (resourceId) => {
-    return await prismaClient.resource.findUnique({
-      where: {
-        id: resourceId,
+  // Fetch the resource with all necessary relations
+  const resource = await prismaClient.resource.findUnique({
+    where: {
+      id: resourceId,
+    },
+    include: {
+      liveVersion: {
+        select: {
+          id: true,
+          versionNumber: true,
+          content: true,
+          icon: true,
+          Image: true,
+          sections: {
+            include: {
+              sectionVersion: true,
+            },
+            orderBy: {
+              order: 'asc',
+            },
+          },
+        },
       },
-      include: {
-        liveVersion: true,
-        newVersionEditMode: true,
+      newVersionEditMode: {
+        select: {
+          id: true,
+          versionNumber: true,
+          content: true,
+          icon: true,
+          Image: true,
+          sections: {
+            include: {
+              sectionVersion: true,
+            },
+            orderBy: {
+              order: 'asc',
+            },
+          },
+        },
       },
-    });
+    },
+  });
+
+  if (!resource) {
+    return null;
+  }
+
+  // Process both live version and edit version
+  const result = {
+    id: resource.id,
+    title: resource.title,
+    slug: resource.slug,
+    resourceType: resource.resourceType,
+    resourceTag: resource.resourceTag,
+    relationType: resource.relationType,
+  };
+
+  // Process live version if it exists
+  if (resource.liveVersion) {
+    result.liveVersion = await formatResourceVersion(resource.liveVersion);
+  }
+
+  // Process edit version if it exists
+  if (resource.newVersionEditMode) {
+    result.editVersion = await formatResourceVersion(resource.newVersionEditMode);
+  }
+
+  return result;
+};
+
+// Helper function to format a resource version with its sections
+async function formatResourceVersion(resourceVersion) {
+  if (!resourceVersion) return null;
+
+  // Get all section versions for this resource version
+  const sectionVersions = await prismaClient.sectionVersion.findMany({
+    where: {
+      resourceVersionId: resourceVersion.id,
+      // Only get parent sections (no parent version ID)
+      parentVersionId: null,
+    },
+    include: {
+      section: {
+        include: {
+          sectionType: true,
+        },
+      },
+      children: {
+        include: {
+          section: {
+            include: {
+              sectionType: true,
+            },
+          },
+          items: {
+            include: {
+              resource: {
+                select: {
+                  id: true,
+                  title: true,
+                  slug: true,
+                  resourceType: true,
+                  liveVersion: {
+                    select: {
+                      icon: true,
+                      Image: true,
+                    },
+                  },
+                },
+              },
+            },
+            orderBy: {
+              order: 'asc',
+            },
+          },
+        },
+      },
+      items: {
+        include: {
+          resource: {
+            select: {
+              id: true,
+              title: true,
+              slug: true,
+              resourceType: true,
+              liveVersion: {
+                select: {
+                  icon: true,
+                  Image: true,
+                },
+              },
+            },
+          },
+        },
+        orderBy: {
+          order: 'asc',
+        },
+      },
+    },
+  });
+
+  // Get the order of sections from ResourceVersionSection
+  const sectionOrder = await prismaClient.resourceVersionSection.findMany({
+    where: {
+      resourceVersionId: resourceVersion.id,
+    },
+    orderBy: {
+      order: 'asc',
+    },
+  });
+
+  // Map section IDs to their order
+  const sectionOrderMap = sectionOrder.reduce((map, section) => {
+    map[section.sectionVersionId] = section.order;
+    return map;
+  }, {});
+
+  // Sort section versions by their order
+  const sortedSectionVersions = [...sectionVersions].sort((a, b) => {
+    const orderA = sectionOrderMap[a.id] || 999;
+    const orderB = sectionOrderMap[b.id] || 999;
+    return orderA - orderB;
+  });
+
+  // Format each section
+  const formattedSections = sortedSectionVersions.map(sectionVersion => {
+    // Format the main section
+    const formattedSection = {
+      title: sectionVersion.section?.title || '',
+      SectionType: sectionVersion.section?.sectionType?.name || '',
+      heading: sectionVersion.heading || null,
+      description: sectionVersion.description || null,
+      content: sectionVersion.content || {},
+    };
+
+    // Add items if they exist
+    if (sectionVersion.items && sectionVersion.items.length > 0) {
+      formattedSection.items = sectionVersion.items.map(item => {
+        // Get the resource and its live version
+        const resource = item.resource;
+        const liveVersion = resource.liveVersion;
+
+        return {
+          resourceType: resource.resourceType || 'SUB_PAGE',
+          slug: resource.slug,
+          title: resource.title,
+          // Use icon from live version if available
+          icon: liveVersion?.icon || null,
+          image: liveVersion?.Image || null,
+        };
+      });
+    }
+
+    // Add child sections if they exist
+    if (sectionVersion.children && sectionVersion.children.length > 0) {
+      formattedSection.sections = sectionVersion.children.map(childSection => {
+        const formattedChild = {
+          title: childSection.section?.title || '',
+          SectionType: childSection.section?.sectionType?.name || '',
+          heading: childSection.heading || null,
+          description: childSection.description || null,
+          content: childSection.content || {},
+        };
+
+        // Add items to child section if they exist
+        if (childSection.items && childSection.items.length > 0) {
+          formattedChild.items = childSection.items.map(item => {
+            // Get the resource and its live version
+            const resource = item.resource;
+            const liveVersion = resource.liveVersion;
+
+            return {
+              resourceType: resource.resourceType || 'SUB_PAGE',
+              slug: resource.slug,
+              title: resource.title,
+              // Use icon from live version if available
+              icon: liveVersion?.icon || null,
+              image: liveVersion?.Image || null,
+            };
+          });
+        }
+
+        return formattedChild;
+      });
+    }
+
+    return formattedSection;
+  });
+
+  return {
+    id: resourceVersion.id,
+    versionNumber: resourceVersion.versionNumber,
+    content: resourceVersion.content || {},
+    icon: resourceVersion.icon || null,
+    image: resourceVersion.Image || null,
+    sections: formattedSections,
+  };
 };

@@ -46,7 +46,8 @@
       "buttonText": {
         "en": "View Our Work",
         "ar": "أعمالنا"
-      }
+      },
+      "image": ["https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"]
     },
     "aboutUsSection": {
       "title": {
@@ -54,17 +55,15 @@
         "ar": "مدفوعون بالتميز في التنفيذ"
       },
       "description": {
-        "en": "With our clients, we adopt a transformational approach by empowering organizations to build a sustainable competitive advantage and help drive growth",
+        "en": "With our clients, we adopt a transformational approach by empowering organizations to build a sustainable competitive advantage and help drive growth.We work with the most dynamic organizations and have helped them by mobilizing change, accelerating value engineering with creative solutions, and partnering them towards achieving global prominence.",
         "ar": "مع عملائنا، نعتمد نهجًا تحوليًا من خلال تمكين المؤسسات لبناء ميزة تنافسية مستدامة والمساعدة في دفع النمو."
-      },
-      "description2": {
-        "en": "We work with the most dynamic organizations and have helped them by mobilizing change, accelerating value engineering with creative solutions, and partnering them towards achieving global prominence.",
-        "ar": "نعمل مع أكثر المنظمات ديناميكية وقد ساعدناها من خلال تحفيز التغيير، وتسريع هندسة القيمة بحلول مبتكرة، وشراكتها نحو تحقيق مكانة عالمية بارزة."
       },
       "buttonText": {
         "en": "Know About Us",
         "ar": "اعرف عنا"
-      }
+      },
+      "image": ["https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"]
+
     },
 
     "serviceSection": {
@@ -163,14 +162,6 @@
     },
 
     "recentProjectsSection": {
-      "subtitle1": {
-        "en": "Markets",
-        "ar": "أسواقنا"
-      },
-      "subtitle2": {
-        "en": "Safety: Our Responsibility",
-        "ar": "السلامة: مسؤوليتنا"
-      },
       "buttons": [
         {
           "text": {
@@ -595,9 +586,9 @@
         "ar": "هل تريد بدء مشروع جديد أو التعاون معنا؟",
         "en": "Want to Start a New Project OR Collaborate with us?"
       },
-      "description1": {
+      "description": {
         "ar": "وفقًا لفلسفتنا المتمثلة في “بناء مستقبل أقوى”، تؤمن شركة شيد بشراكات مربحة للجانبين مع جميع أصحاب المصلحة، وتهدف باستمرار إلى إنشاء علاقات مستدامة وطويلة الأمد لخلق القيمة. يتضمن نموذج المشاركة الخاص بنا منهجيات خاصة وحلولًا شاملة من شأنها تحويل اقتصاديات مشروعك وفتح إمكانيات جديدة ودعم أهداف النمو التنظيمي لديك.",
-        "en": "True to our philosophy of “Building a Stronger Future”, Shade Corporation believes in win-win partnerships with all stakeholders, and continually aims at creating sustainable and long-term relationships for value creation. Our engagement model includes proprietary methodologies and comprehensive solutions that will transform your project economics, unlock new possibilities and support your organizational growth goals."
+        "en": "True to our philosophy of “Building a Stronger Future”, Shade Corporation believes in win-win partnerships with all stakeholders, and continually aims at creating sustainable and long-term relationships for value creation. Our engagement model includes proprietary methodologies and comprehensive solutions that will transform your project economics, unlock new possibilities and support your organizational growth goals. In the last few decades, we have served many of Saudi's leading companies and public institutions to create winning strategies, solve some of the complex problems, and deliver consistent outcomes. If you're looking to drive performance, execute growth strategies, and build new capabilities, collaborate with us now."
       },
       "description2": {
         "ar": "في العقود القليلة الماضية، قمنا بخدمة العديد من الشركات والمؤسسات العامة الرائدة في السعودية لوضع استراتيجيات رابحة، وحل بعض المشاكل المعقدة، وتحقيق نتائج متسقة. إذا كنت تتطلع إلى تعزيز الأداء وتنفيذ استراتيجيات النمو وبناء قدرات جديدة، فتعاون معنا الآن.",
