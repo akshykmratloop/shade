@@ -7,6 +7,7 @@ import {
   assignUser,
   getAssignedUsers,
   getContent,
+  updateContent
 } from "./content.service.js";
 
 const GetResources = async (req, res) => {
@@ -28,13 +29,13 @@ const GetResources = async (req, res) => {
 };
 
 const GetResourceInfo = async (req, res) => {
-  const { resourceId } = req.query;
+  const { resourceId } = req.params;
   const response = await getResourceInfo(resourceId);
   res.status(200).json(response);
 };
 
 const GetAssignedUsers = async (req, res) => {
-  const { resourceId } = req.query;
+  const { resourceId } = req.params;
   const response = await getAssignedUsers(resourceId);
   res.status(200).json(response);
 };
@@ -58,11 +59,17 @@ const AssignUser = async (req, res) => {
 };
 
 const GetContent = async (req, res) => {
-  const { resourceId } = req.query;
+  const { resourceId } = req.params;
   const response = await getContent(resourceId);
   res.status(200).json(response);
 };
 
+const UpdateContent = async (req, res) => {
+  const { content } = req.body;
+  console.log(content, "content");
+  const response = await updateContent(content);
+  res.status(200).json(response);
+};
 export default {
   GetResources,
   GetResourceInfo,
@@ -70,4 +77,5 @@ export default {
   AssignUser,
   GetAssignedUsers,
   GetContent,
+  UpdateContent
 };

@@ -93,6 +93,15 @@ const getContent = async (resourceId) => {
   return { message: "Success", content };
 };
 
+const updateContent = async (content) => {
+  // const content = await fetchContent(resourceId);
+  logger.info({
+    response: "Content Received successfully",
+    content: content,
+  });
+  return { message: "Success", content };
+};
+
 export {
   getResources,
   getResourceInfo,
@@ -100,4 +109,5 @@ export {
   assignUser,
   getAssignedUsers,
   getContent,
+  updateContent
 };
