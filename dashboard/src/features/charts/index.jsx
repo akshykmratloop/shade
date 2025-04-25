@@ -117,14 +117,14 @@ function Users() {
 
   // Pagination state
   const [currentPage, setCurrentPage] = useState(1);
-  const usersPerPage = 1;
+  const usersPerPage = 20;
 
   const removeFilter = () => {
     setUsers([...originalUsers]);
   };
 
   const applyFilter = (status) => {
-    const filteredRoles = originalUsers.filter(
+    const filteredRoles = originalUsers?.filter(
       (user) => user.status === status
     );
     setUsers(filteredRoles);
