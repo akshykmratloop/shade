@@ -2,7 +2,8 @@
 // Core content entity representing any type of content on the website
 model Resource {
   id                   String            @id @default(cuid())
-  title                String // Human-readable title
+  titleEn              String
+  titleAr              String
   slug                 String            @unique // URL-friendly identifier
   status               Status            @default(ACTIVE)
   resourceType         ResourceType      @default(NULL) // Content classification

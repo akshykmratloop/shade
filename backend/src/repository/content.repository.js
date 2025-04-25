@@ -31,12 +31,13 @@ export const fetchResources = async (
     ...resourceTypeFilter,
     ...(resourceTag ? { resourceTag: resourceTag } : {}),
     ...(relationType ? { relationType } : {}),
-    ...(typeof isAssigned === 'boolean' ? { isAssigned } : {}),
+    ...(typeof isAssigned === "boolean" ? { isAssigned } : {}),
     ...(status ? { status } : {}),
     ...(search
       ? {
           OR: [
-            { title: { contains: search, mode: "insensitive" } },
+            { titleEn: { contains: search, mode: "insensitive" } },
+            { titleAr: { contains: search, mode: "insensitive" } },
             { slug: { contains: search, mode: "insensitive" } },
           ],
         }
@@ -245,8 +246,6 @@ export const fetchEligibleUsers = async (roleType = "", permission = "") => {
 
   return formattedUsers;
 };
-
-
 
 export const assignUserToResource = async (
   resourceId,
@@ -520,7 +519,7 @@ export const fetchContent = async (resourceId) => {
               sectionVersion: true,
             },
             orderBy: {
-              order: 'asc',
+              order: "asc",
             },
           },
         },
@@ -537,7 +536,7 @@ export const fetchContent = async (resourceId) => {
               sectionVersion: true,
             },
             orderBy: {
-              order: 'asc',
+              order: "asc",
             },
           },
         },
@@ -552,7 +551,8 @@ export const fetchContent = async (resourceId) => {
   // Process both live version and edit version
   const result = {
     id: resource.id,
-    title: resource.title,
+    titleEn: resource.titleEn,
+    titleAr: resource.titleAr,
     slug: resource.slug,
     resourceType: resource.resourceType,
     resourceTag: resource.resourceTag,
@@ -566,7 +566,9 @@ export const fetchContent = async (resourceId) => {
 
   // Process edit version if it exists
   if (resource.newVersionEditMode) {
-    result.editVersion = await formatResourceVersion(resource.newVersionEditMode);
+    result.editVersion = await formatResourceVersion(
+      resource.newVersionEditMode
+    );
   }
 
   return result;
@@ -601,7 +603,8 @@ async function formatResourceVersion(resourceVersion) {
               resource: {
                 select: {
                   id: true,
-                  title: true,
+                  titleEn: true,
+                  titleAr: true,
                   slug: true,
                   resourceType: true,
                   liveVersion: {
@@ -614,7 +617,7 @@ async function formatResourceVersion(resourceVersion) {
               },
             },
             orderBy: {
-              order: 'asc',
+              order: "asc",
             },
           },
         },
@@ -624,7 +627,8 @@ async function formatResourceVersion(resourceVersion) {
           resource: {
             select: {
               id: true,
-              title: true,
+              titleEn: true,
+              titleAr: true,
               slug: true,
               resourceType: true,
               liveVersion: {
@@ -637,7 +641,7 @@ async function formatResourceVersion(resourceVersion) {
           },
         },
         orderBy: {
-          order: 'asc',
+          order: "asc",
         },
       },
     },
@@ -649,7 +653,7 @@ async function formatResourceVersion(resourceVersion) {
       resourceVersionId: resourceVersion.id,
     },
     orderBy: {
-      order: 'asc',
+      order: "asc",
     },
   });
 
@@ -667,27 +671,32 @@ async function formatResourceVersion(resourceVersion) {
   });
 
   // Format each section
-  const formattedSections = sortedSectionVersions.map(sectionVersion => {
+  const formattedSections = sortedSectionVersions.map((sectionVersion) => {
     // Format the main section
     const formattedSection = {
-      title: sectionVersion.section?.title || '',
-      SectionType: sectionVersion.section?.sectionType?.name || '',
+      id: sectionVersion.id,
+      order: sectionOrderMap[sectionVersion.id] || 999,
+      version: sectionVersion.version,
+      title: sectionVersion.section?.title || "",
+      SectionType: sectionVersion.section?.sectionType?.name || "",
       heading: sectionVersion.heading || null,
-      description: sectionVersion.description || null,
       content: sectionVersion.content || {},
     };
 
     // Add items if they exist
     if (sectionVersion.items && sectionVersion.items.length > 0) {
-      formattedSection.items = sectionVersion.items.map(item => {
+      formattedSection.items = sectionVersion.items.map((item) => {
         // Get the resource and its live version
         const resource = item.resource;
         const liveVersion = resource.liveVersion;
 
         return {
-          resourceType: resource.resourceType || 'SUB_PAGE',
+          resourceType: resource.resourceType || "SUB_PAGE",
+          order: item.order,
+          id: resource.id,
           slug: resource.slug,
-          title: resource.title,
+          titleEn: resource.titleEn,
+          titleAr: resource.titleAr,
           // Use icon from live version if available
           icon: liveVersion?.icon || null,
           image: liveVersion?.Image || null,
@@ -697,35 +706,39 @@ async function formatResourceVersion(resourceVersion) {
 
     // Add child sections if they exist
     if (sectionVersion.children && sectionVersion.children.length > 0) {
-      formattedSection.sections = sectionVersion.children.map(childSection => {
-        const formattedChild = {
-          title: childSection.section?.title || '',
-          SectionType: childSection.section?.sectionType?.name || '',
-          heading: childSection.heading || null,
-          description: childSection.description || null,
-          content: childSection.content || {},
-        };
+      formattedSection.sections = sectionVersion.children.map(
+        (childSection) => {
+          const formattedChild = {
+            title: childSection.section?.title || "",
+            SectionType: childSection.section?.sectionType?.name || "",
+            heading: childSection.heading || null,
+            content: childSection.content || {},
+          };
 
-        // Add items to child section if they exist
-        if (childSection.items && childSection.items.length > 0) {
-          formattedChild.items = childSection.items.map(item => {
-            // Get the resource and its live version
-            const resource = item.resource;
-            const liveVersion = resource.liveVersion;
+          // Add items to child section if they exist
+          if (childSection.items && childSection.items.length > 0) {
+            formattedChild.items = childSection.items.map((item) => {
+              // Get the resource and its live version
+              const resource = item.resource;
+              const liveVersion = resource.liveVersion;
 
-            return {
-              resourceType: resource.resourceType || 'SUB_PAGE',
-              slug: resource.slug,
-              title: resource.title,
-              // Use icon from live version if available
-              icon: liveVersion?.icon || null,
-              image: liveVersion?.Image || null,
-            };
-          });
+              return {
+                resourceType: resource.resourceType || "SUB_PAGE",
+                order: item.order,
+                id: resource.id,
+                slug: resource.slug,
+                titleEn: resource.titleEn,
+                titleAr: resource.titleAr,
+                // Use icon from live version if available
+                icon: liveVersion?.icon || null,
+                image: liveVersion?.Image || null,
+              };
+            });
+          }
+
+          return formattedChild;
         }
-
-        return formattedChild;
-      });
+      );
     }
 
     return formattedSection;
@@ -739,4 +752,4 @@ async function formatResourceVersion(resourceVersion) {
     image: resourceVersion.Image || null,
     sections: formattedSections,
   };
-};
+}
