@@ -117,7 +117,7 @@ function Users() {
 
   // Pagination state
   const [currentPage, setCurrentPage] = useState(1);
-  const usersPerPage = 20;
+  const usersPerPage = 1;
 
   const removeFilter = () => {
     setUsers([...originalUsers]);

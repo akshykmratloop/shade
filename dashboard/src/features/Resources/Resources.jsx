@@ -155,7 +155,7 @@ function Resources() {
                                             src={page.src}
                                             className={`top-0 left-0 border-none transition-all duration-300 ease-in-out ${isNarrow ? "w-[1000px] scale-[0.5]" : "w-[1200px] scale-[0.4]"
                                                 } origin-top-left h-[80rem]`}
-                                        ></iframe> */}start
+                                        ></iframe> */}
                                         <div className="h-full overflow-y-scroll customscroller">
                                             <AllForOne currentPath={page.slug} content={content} language={"en"} screen={screen} />
                                         </div>
@@ -179,7 +179,7 @@ function Resources() {
                                                     settingRoute(page.slug?.toLowerCase())
                                             }
                                         },
-                                        { icon: <IoSettingsOutline />, text: "Config", onClick: () => { setConfigBarOn(true); setConfigBarData(page) } }].map((item, i) => (
+                                        { icon: <IoSettingsOutline />, text: "Assign", onClick: () => { setConfigBarOn(true); setConfigBarData(page) } }].map((item, i) => (
                                             <span key={i + Math.random()}
                                                 onClick={item.onClick}
                                                 className={`flex ${isCollapsed ? "flex-col" : ""} ${i < 2 ? "border-r-2 pr-5" : ""} gap-2 items-center text-center cursor-pointer`}>

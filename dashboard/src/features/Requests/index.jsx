@@ -554,7 +554,7 @@ function Requests() {
                               <span className="flex items-center gap-1 rounded-md text-[#101828]">
                                 <GoSidebarExpand
                                   className="w-5 h-6  text-[#3b4152] dark:text-stone-200"
-                                  strokeWidth={1}
+                                  strokeWidth={0.9}
                                 />
                               </span>
                             </button>

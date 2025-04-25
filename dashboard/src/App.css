@@ -484,3 +484,17 @@ div.importantList ul {
   /* Firefox */
   -ms-overflow-style: none;
 }
+
+.animation-move-left {
+  animation: initiateleft .05s forwards 1 linear;
+}
+
+@keyframes initiateleft {
+  from {
+    transform: translateX(100px);
+  }
+
+  to {
+    transform: translateX(0px);
+  }
+}
