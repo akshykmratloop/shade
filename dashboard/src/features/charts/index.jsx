@@ -157,6 +157,8 @@ function Users() {
     setUsers(users?.users?.allUsers ?? []);
   };
 
+  console.log(users, "users");
+
   const statusChange = async (user) => {
     const loadingToastId = toast.loading("Processing...", {autoClose: 2000});
     let response =
@@ -296,12 +298,29 @@ function Users() {
                             </p>
                           </div>
                         </td>
-                        <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]">
-                          {user?.roles?.length > 1
-                            ? "multiple"
-                            : user?.roles?.[0]?.name}
-                        </td>
+                        <td className=" font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]">
+                          {user?.roles?.length > 1 ? (
+                            <>
+                              {user.roles[0].role.name}
+                              <div className="relative group inline-flex">
+                                <span className="ml-1 bg-gray-200 text-gray-600 dark:bg-gray-700 dark:text-gray-300 px-2 py-0.5 rounded-full text-[12px] font-medium cursor-pointer">
+                                  +{user.roles.length - 1}
+                                </span>
 
+                                <div className="absolute left-0 top-[120%] mt-1 bg-base-300 text-black text-sm rounded shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-150 pointer-events-none z-10">
+                                  <ul className="p-2 space-y-1 list-disc list-inside">
+                                    {user.roles.map((u, i) => (
+                                      <li key={i}>{u.role.name}</li>
+                                    ))}
+                                  </ul>
+                                  <div className="absolute left-3 -top-1 w-3 h-3 bg-base-300 rotate-45"></div>
+                                </div>
+                              </div>
+                            </>
+                          ) : (
+                            user.roles[0].role.name
+                          )}
+                        </td>
                         <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]">
                           {user.phone}
                         </td>
