@@ -27,9 +27,10 @@ const sectionTypes = [
   "NORMAL_CONTENT",
 ];
 
+
 function generateSlug(input, prefix = "") {
   const randomId = crypto.randomBytes(4).toString("hex");
-
+  
   const slugify = (str) =>
     `${prefix}${str}`
       .toLowerCase()
@@ -83,7 +84,8 @@ async function main() {
 
     // Helper function to create resources with nested sections
     async function createResource(
-      title,
+      titleEn,
+      titleAr,
       slug,
       resourceType,
       resourceTag,
@@ -94,7 +96,7 @@ async function main() {
       // Ensure sections is an array
       if (!Array.isArray(sections)) {
         console.warn(
-          `Sections for resource ${title} is not an array. Using empty array instead.`
+          `Sections for resource ${titleEn} is not an array. Using empty array instead.`
         );
         sections = [];
       }
@@ -105,7 +107,8 @@ async function main() {
           // Create main resource
           const resource = await tx.resource.create({
             data: {
-              title: title,
+              titleEn: titleEn,
+              titleAr: titleAr,
               slug: slug,
               resourceType: resourceType,
               resourceTag: resourceTag,
@@ -171,8 +174,8 @@ async function main() {
                 resourceVersionId: version.id,
                 version: 1,
                 content: sectionData.content,
-                heading: sectionData.heading || null,
-                description: sectionData.description || null,
+                sectionVersionTitle: sectionData.sectionVersionTitle || null,
+              
               },
             });
 
@@ -249,8 +252,7 @@ async function main() {
                     resourceVersionId: version.id,
                     version: 1,
                     content: childData.content,
-                    heading: childData.heading || null,
-                    description: childData.description || null,
+                    sectionVersionTitle: childData.sectionVersionTitle || null,
                     parentVersionId: sectionVersion.id, // Link to parent
                   },
                 });
@@ -307,12 +309,13 @@ async function main() {
 
     const testimonialSlug = [];
     // 1. Create Testimonials as standalone resources
-    for (const testimonial of content.home.testimonialSection.testimonials) {
+    for (const testimonial of content.testimonials) {
       const slug = generateSlug(testimonial.name, "testimonial-");
       testimonialSlug.push(slug);
 
       await createResource(
         `${testimonial.name.en}`,
+        `${testimonial.name.ar}`,
         slug,
         "SUB_PAGE",
         "TESTIMONIAL",
@@ -322,22 +325,20 @@ async function main() {
             title: `testimonialBodySection`,
             SectionType: "TESTIMONIAL",
             content: testimonial,
-            heading: testimonial.name?.en || null,
-            description: testimonial.quote?.en || null,
+            sectionVersionTitle: testimonial.name?.en || null,
           },
         ]
       );
     }
 
     // 2. Create Footer
-    await createResource("Footer", "footer", "FOOTER", "NULL", "PARENT", [
+    await createResource("Footer", "التذييل", "footer", "FOOTER", "NULL", "PARENT", [
       {
         title: "Footer Content",
         SectionType: "FOOTER_COLUMNS",
         content: content.footer,
         isGlobal: true,
-        heading: "Footer Body",
-        description: content.footer.description?.en || null,
+        sectionVersionTitle: "Footer Body",
       },
     ]);
 
@@ -350,6 +351,7 @@ async function main() {
 
     //     await createResource(
     //       newsItem.title.en,
+    //       newsItem.title.ar,
     //       slug,
     //       "SUB_PAGE",
     //       "NEWS",
@@ -368,6 +370,7 @@ async function main() {
     // 4. Create News & Blogs Page
     await createResource(
       "News & Blogs",
+      "الأخبار والمدونات",
       "news",
       "MAIN_PAGE",
       "NEWS",
@@ -377,15 +380,14 @@ async function main() {
           title: "News Banner",
           SectionType: "HERO_BANNER",
           content: content.newsBlogs.bannerSection,
-          heading: content.newsBlogs.bannerSection.title?.en || null,
-          description: content.newsBlogs.bannerSection.description?.en || null,
+          sectionVersionTitle:
+            content.newsBlogs.bannerSection.title?.en || null,
         },
         {
           title: "Featured Article",
           SectionType: "NEWS_FEED",
           content: content.newsBlogs.mainCard,
-          heading: content.newsBlogs.mainCard.title?.en || null,
-          description: content.newsBlogs.mainCard.description?.en || null,
+          sectionVersionTitle: content.newsBlogs.mainCard.title?.en || null,
           items:
             newsSlugs.length > 0
               ? [
@@ -400,8 +402,8 @@ async function main() {
           title: "News Grid",
           SectionType: "CARD_GRID",
           content: content.newsBlogs.latestNewCards,
-          heading: content.newsBlogs.latestNewCards.title?.en || null,
-          description: content.newsBlogs.latestNewCards.subtitle?.en || null,
+          sectionVersionTitle:
+            content.newsBlogs.latestNewCards.title?.en || null,
           items:
             newsSlugs.length > 0
               ? [
@@ -422,9 +424,10 @@ async function main() {
       const slug = generateSlug(career?.title?.value, "career-");
 
       careerSlugs.push(slug);
-
+      const randomId = crypto.randomBytes(4).toString("hex");
       await createResource(
-        jobTitle,
+        career?.title?.value?.en || `Job Position ${randomId}`,
+        career?.title?.value?.ar || `Job Position ${randomId}`,
         slug,
         "SUB_PAGE",
         "CAREER",
@@ -435,8 +438,7 @@ async function main() {
             title: `${career.title.en} Details`,
             SectionType: "CAREER_DETAILS",
             content: career,
-            heading: career.title?.en || null,
-            description: career.subtitle?.en || null,
+            sectionVersionTitle: career.title?.en || null,
           },
         ]
       );
@@ -445,6 +447,7 @@ async function main() {
     // 6. Create Careers Page
     await createResource(
       "Careers Page",
+      "الوظائف",
       "careers",
       "MAIN_PAGE",
       "CAREER",
@@ -454,15 +457,13 @@ async function main() {
           title: "Careers Banner",
           SectionType: "HERO_BANNER",
           content: content.career.bannerSection,
-          heading: content.career.bannerSection.title?.en || null,
-          description: content.career.bannerSection.description?.en || null,
+          sectionVersionTitle: content.career.bannerSection.title?.en || null,
         },
         {
           title: "Jobs List",
           SectionType: "CAREER_LISTING",
           content: content.career.jobListSection,
-          heading: content.career.jobListSection.title?.en || null,
-          description: content.career.jobListSection.subtitle?.en || null,
+          sectionVersionTitle: content.career.jobListSection.title?.en || null,
           items:
             careerSlugs.length > 0
               ? careerSlugs.map((slug) => ({
@@ -482,6 +483,7 @@ async function main() {
 
       await createResource(
         project.introSection.title.en,
+        project.introSection.title.ar,
         slug,
         "SUB_PAGE",
         "PROJECT",
@@ -491,22 +493,19 @@ async function main() {
             title: "Project Intro",
             SectionType: "HERO_BANNER",
             content: project.introSection,
-            heading: project.introSection.title?.en || null,
-            description: project.introSection.description?.en || null,
+            sectionVersionTitle: project.introSection.title?.en || null,
           },
           {
             title: "Project Details",
             SectionType: "MARKDOWN_CONTENT",
             content: project.descriptionSection,
-            heading: project.descriptionSection.title?.en || null,
-            description: project.descriptionSection.subtitle?.en || null,
+            sectionVersionTitle: project.descriptionSection.title?.en || null,
           },
           {
             title: "Project Gallery",
             SectionType: "PROJECT_GRID",
             content: project.gallerySection,
-            heading: project.gallerySection.title?.en || null,
-            description: project.gallerySection.subtitle?.en || null,
+            sectionVersionTitle: project.gallerySection.title?.en || null,
           },
         ]
       );
@@ -515,6 +514,7 @@ async function main() {
     // 8. Create Projects Page
     await createResource(
       "Projects Page",
+      "صفحة المشاريع",
       "projects",
       "MAIN_PAGE",
       "PROJECT",
@@ -525,17 +525,15 @@ async function main() {
           title: "Projects Banner",
           SectionType: "HERO_BANNER",
           content: content.projectsPage.bannerSection,
-          heading: content.projectsPage.bannerSection.title?.en || null,
-          description:
-            content.projectsPage.bannerSection.description?.en || null,
+          sectionVersionTitle:
+            content.projectsPage.bannerSection.title?.en || null,
         },
         {
           title: "Projects List",
           SectionType: "PROJECT_GRID",
           content: content.projectsPage.projectsSection,
-          heading: content.projectsPage.projectsSection.title?.en || null,
-          description:
-            content.projectsPage.projectsSection.subtitle?.en || null,
+          sectionVersionTitle:
+            content.projectsPage.projectsSection.title?.en || null,
           items: projectSlugs.map((slug) => ({
             resourceType: "SUB_PAGE",
             slug: slug,
@@ -546,6 +544,7 @@ async function main() {
     // 9. Create Market Page
     await createResource(
       "Market Page",
+      "صفحة السوق",
       "market",
       "MAIN_PAGE",
       "MARKET",
@@ -556,22 +555,20 @@ async function main() {
           title: "Market Banner",
           SectionType: "HERO_BANNER",
           content: content.market.banner,
-          heading: content.market.banner.title?.en || null,
-          description: content.market.banner.description?.en || null,
+          sectionVersionTitle: content.market.banner.title?.en || null,
         },
         {
           title: "Market Tabs",
           SectionType: "MARKETS",
           content: content.market.tabSection,
-          heading: content.market.tabSection.title?.en || null,
-          description: content.market.tabSection.subtitle?.en || null,
+          sectionVersionTitle: content.market.tabSection.title?.en || null,
         },
         {
           title: "Market Testimonials",
           SectionType: "TESTIMONIALS",
           content: content.market.testimonialSection,
-          heading: content.market.testimonialSection.title?.en || null,
-          description: content.market.testimonialSection.subtitle?.en || null,
+          sectionVersionTitle:
+            content.market.testimonialSection.title?.en || null,
         },
       ]
     );
@@ -584,6 +581,7 @@ async function main() {
 
       await createResource(
         service.title.en,
+        service.title.ar,
         slug,
         "SUB_PAGE",
         "SERVICE",
@@ -593,8 +591,7 @@ async function main() {
             title: `${service.title.en} Details`,
             SectionType: "SERVICE_DETAIL",
             content: service,
-            heading: service.title?.en || null,
-            description: service.subtitle?.en || null,
+            sectionVersionTitle: service.title?.en || null,
           },
         ]
       );
@@ -602,6 +599,7 @@ async function main() {
     // 11. Create Services Main Page
     await createResource(
       "Services Page",
+      "صفحة الخدمات",
       "services",
       "MAIN_PAGE",
       "SERVICE",
@@ -612,8 +610,7 @@ async function main() {
           title: "Services Banner",
           SectionType: "HERO_BANNER",
           content: content.services.banner,
-          heading: content.services.banner.title?.en || null,
-          description: content.services.banner.description?.en || null,
+          sectionVersionTitle: content.services.banner.title?.en || null,
         },
         {
           title: "Our Services",
@@ -629,6 +626,7 @@ async function main() {
     // 12. Create Solutions Page
     await createResource(
       "Solutions Page",
+      "صفحة الحلول",
       "solutions",
       "MAIN_PAGE",
       "SOLUTION",
@@ -639,35 +637,32 @@ async function main() {
           title: "Solutions Banner",
           SectionType: "HERO_BANNER",
           content: content.solution.banner,
-          heading: content.solution.banner.title?.en || null,
-          description: content.solution.banner.description?.en || null,
+          sectionVersionTitle: content.solution.banner.title?.en || null,
         },
         {
           title: "What We Do",
           SectionType: "MARKDOWN_CONTENT",
           content: content.solution.whatWeDo,
-          heading: content.solution.whatWeDo.title?.en || null,
-          description: content.solution.whatWeDo.subtitle?.en || null,
+          sectionVersionTitle: content.solution.whatWeDo.title?.en || null,
         },
         {
           title: "How We Do It",
           SectionType: "MARKDOWN_CONTENT",
           content: content.solution.howWeDo,
-          heading: content.solution.howWeDo.title?.en || null,
-          description: content.solution.howWeDo.subtitle?.en || null,
+          sectionVersionTitle: content.solution.howWeDo.title?.en || null,
         },
         {
           title: "Project Gallery",
           SectionType: "PROJECT_GRID",
           content: content.solution.gallery,
-          heading: content.solution.gallery.title?.en || null,
-          description: content.solution.gallery.subtitle?.en || null,
+          sectionVersionTitle: content.solution.gallery.title?.en || null,
         },
       ]
     );
     // 13. Create About Us Page
     await createResource(
       "About Us Page",
+      "صفحة من نحن",
       "about",
       "MAIN_PAGE",
       "ABOUT",
@@ -678,41 +673,36 @@ async function main() {
           title: "About Banner",
           SectionType: "HERO_BANNER",
           content: content.aboutUs.main,
-          heading: content.aboutUs.main.title?.en || null,
-          description: content.aboutUs.main.description?.en || null,
+          sectionVersionTitle: content.aboutUs.main.title?.en || null,
         },
         {
           title: "Mission Vision",
           SectionType: "CARD_GRID",
           content: content.aboutUs.services,
-          heading: content.aboutUs.services.title?.en || null,
-          description: content.aboutUs.services.subtitle?.en || null,
+          sectionVersionTitle: content.aboutUs.services.title?.en || null,
         },
       ]
     );
 
     // 14. Create Home Page
-    await createResource("Home Page", "home", "MAIN_PAGE", "HOME", "PARENT", [
+    await createResource("Home Page", "الصفحة الرئيسية", "home", "MAIN_PAGE", "HOME", "PARENT", [
       {
         title: "HeroSection",
         SectionType: "HERO_BANNER",
         content: content.home.homeBanner,
-        heading: content.home.homeBanner.title?.en || null,
-        description: content.home.homeBanner.description?.en || null,
+        sectionVersionTitle: content.home.homeBanner.title?.en || null,
       },
       {
         title: "aboutUsSection",
         SectionType: "MARKDOWN_CONTENT",
         content: content.home.aboutUsSection,
-        heading: content.home.aboutUsSection.title?.en || null,
-        description: content.home.aboutUsSection.description?.en || null,
+        sectionVersionTitle: content.home.aboutUsSection.title?.en || null,
       },
       {
         title: "serviceSection",
         SectionType: "SERVICE_CARDS",
         content: content.home.serviceSection,
-        heading: content.home.serviceSection.title?.en || null,
-        description: null,
+        sectionVersionTitle: content.home.serviceSection.title?.en || null,
         items: serviceSlugs.map((slug) => ({
           resourceType: "SUB_PAGE",
           slug: slug,
@@ -722,22 +712,19 @@ async function main() {
         title: "experienceSection",
         SectionType: "STATISTICS",
         content: content.home.experienceSection,
-        heading: content.home.experienceSection.title?.en || null,
-        description: content.home.experienceSection.description?.en || null,
+        sectionVersionTitle: content.home.experienceSection.title?.en || null,
       },
       {
         title: "recentProjectsSection",
         SectionType: "PROJECT_GRID",
         content: content.home.recentProjectsSection,
-        heading: "Recent Projects. Markets & Safety Grid",
-        description: null,
+        sectionVersionTitle: "Recent Projects. Markets & Safety Grid",
         sections:
           content.home.recentProjectsSection.sections?.map((section) => ({
             title: section.title?.en || null,
             SectionType: "PROJECT_GRID",
             content: section,
-            heading: section.title?.en || null,
-            description: section.description?.en || null,
+            sectionVersionTitle: section.title?.en || null,
             items: projectSlugs.map((slug) => ({
               resourceType: "SUB_PAGE",
               slug: slug,
@@ -748,15 +735,13 @@ async function main() {
         title: "clientSection",
         SectionType: "CLIENT_LOGOS",
         content: content.home.clientSection,
-        heading: content.home.clientSection.title?.en || null,
-        description: content.home.clientSection.subtitle?.en || null,
+        sectionVersionTitle: content.home.clientSection.title?.en || null,
       },
       {
         title: "testimonialSection",
         SectionType: "TESTIMONIALS",
         content: content.home.testimonialSection,
-        heading: content.home.testimonialSection.title?.en || null,
-        description: null,
+        sectionVersionTitle: content.home.testimonialSection.title?.en || null,
         items: testimonialSlug.map((slug) => ({
           resourceType: "SUB_PAGE",
           slug: slug,
@@ -766,8 +751,7 @@ async function main() {
         title: "newProjectSection",
         SectionType: "NORMAL_CONTENT",
         content: content.home.newProjectSection,
-        heading: content.home.newProjectSection.title?.en || null,
-        description: content.home.newProjectSection.description?.en || null,
+        sectionVersionTitle: content.home.newProjectSection.title?.en || null,
       },
     ]);
 
