@@ -162,7 +162,7 @@ const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
     >
       <div
         ref={configRef}
-        className="fixed z-30 top-0 right-0 w-[26rem] h-screen bg-[white] dark:bg-[#242933]"
+        className="fixed z-30 top-0 right-0 w-[26rem] customscroller h-screen overflow-y-auto bg-[white] dark:bg-[#242933]"
       >
         <button
           className="bg-transparent hover:bg-stone-900 hover:text-stone-200 dark:hover:bg-stone-900 rounded-full absolute top-7 border border-gray-500 left-4 p-2 py-2"
@@ -253,7 +253,7 @@ const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
               <div className="flex justify-end">
                 <button className="bg-red-600 text-white p-2 rounded-md text-[12px]" onClick={(e) => { e.preventDefault(); setClearPopup(true) }}>Clear All</button>
               </div>
-              <div className="bg-stone-500/20 rounded-md text-[14px] text-zinc-700 p-3 flex flex-col gap-4 animation-move-left"
+              <div className="bg-stone-500/20 rounded-md text-[14px] text-zinc-700 dark:text-zinc-300 p-3 flex flex-col gap-4 animation-move-left"
                 style={{ display: clearPopup ? "flex" : "none" }}>
                 <p>Do you want to remove all assigned user?</p>
                 <div className="flex gap-2 justify-end">
@@ -265,7 +265,7 @@ const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
           </div>
 
           {/* Buttons */}
-          <div className="flex justify-center gap-2">
+          <div className="flex justify-center gap-2 py-4 mt-3">
             <button
               className="w-[8rem] h-[2.3rem] rounded-md text-xs bg-stone-700 text-white"
               onClick={(e) => {

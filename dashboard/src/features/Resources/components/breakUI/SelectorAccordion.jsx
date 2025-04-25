@@ -84,23 +84,23 @@ const SelectorAccordion = ({ options, onChange, field, value }) => {
                                 value={select.value}
                             />
                             {isLast &&
-                                <span className="absolute top-[90%] right-[-1px] rounded-full bg-blue-700 text-white border" >
+                                <span onClick={addSelector} className="absolute top-[90%] right-[1px] rounded-full bg-blue-700 text-white" >
                                     <GoPlus />
                                 </span>}
                         </div>
-                       {/* { <button
-                            onClick={
-                                isLast
-                                    ? addSelector
-                                    : (e) => {
+                        {
+                            selector.length > 1 &&
+                            <button
+                                onClick={
+                                    (e) => {
                                         e.preventDefault();
                                         removeSelector(index);
                                     }
-                            }
-                            className="flex justify-center items-center translate-y-[2px] rounded-lg w-[2.2rem] h-[2.2rem] text-[1.2rem] text-[#637888] border border-[#cecbcb] dark:border-stone-600"
-                        >
-                            {<RxCross2 className="w-3 h-3" />}
-                        </button>} */}
+                                }
+                                className="flex justify-center items-center translate-y-[2px] rounded-lg w-[2.2rem] h-[2.2rem] text-[1.2rem] text-[#637888] border border-[#cecbcb] dark:border-stone-600"
+                            >
+                                {<RxCross2 className="w-3 h-3" />}
+                            </button>}
                     </div>
                 );
             })}

@@ -1,5 +1,5 @@
 import Header from "./Header"
-import { Route, Routes } from 'react-router-dom'
+import { Route, Routes, useLocation } from 'react-router-dom'
 import routes from '../routes'
 import { Suspense, lazy } from 'react'
 import SuspenseContent from "./SuspenseContent"
@@ -15,6 +15,9 @@ function PageContent() {
     const mainContentRef = useRef(null);
     const { pageTitle } = useSelector(state => state.header)
     const user = useSelector(state => state.user.user)
+    const location = useLocation()
+
+    console.log(location.pathname.split('/').length)
 
 
     // Scroll back to top on new page load
@@ -28,7 +31,7 @@ function PageContent() {
     useEffect(() => {
         let route = localStorage.getItem("route")
 
-        if (route) {
+        if (route && location.pathname.split('/').length < 3) {
             navigate(route)
         }
     }, [])

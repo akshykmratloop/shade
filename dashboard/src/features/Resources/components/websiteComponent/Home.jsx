@@ -184,7 +184,7 @@ const HomePage = ({ language, screen, fullScreen, currentContent, highlight }) =
             < section className="py-10 bg-gray-100" style={{ wordBreak: "normal" }}>
                 <div className="container mx-auto px-6"
                     style={{ padding: isComputer && `${dynamicSize(44, width)} ${dynamicSize(220, width)}` }}>
-                    <h2 className={`text-center text-3xl font-light text-[#292E3D] mb-9 ${isPhone ? "text-[30px]" : "text-[45px]"}`}
+                    <h2 className={`text-center text-3xl font-light text-[#292E3D] mb-9 ${isPhone ? "text-[30px]" : "text-[40px]"}`}
                         style={{ fontSize: isComputer && dynamicSize(36, width) }}>
                         {currentContent?.serviceSection?.title[language]}
                     </h2>
@@ -209,7 +209,7 @@ const HomePage = ({ language, screen, fullScreen, currentContent, highlight }) =
                 </div>
             </section >
             {/* experience section */}
-            < section className={`py-[115px]  ${isComputer ? "px-20 pb-60" : !isLeftAlign ? "px-8" : "px-10"}`} dir={isLeftAlign ? 'ltr' : "rtl"} >
+            < section className={`py-[115px]  ${isComputer ? fullScreen ? "px-20 pt-40 pb-60" : "px-20 pb-60" : !isLeftAlign ? "px-8" : "px-10"}`} dir={isLeftAlign ? 'ltr' : "rtl"} >
                 <div
                     className={`container mx-auto flex ${isPhone ? "flex-col gap-[350px]" : "gap-10"} `}>
                     <div className={`w-[100%]  flex-[4]`}
@@ -224,7 +224,7 @@ const HomePage = ({ language, screen, fullScreen, currentContent, highlight }) =
                                     <div
                                         key={key}
                                         style={{ top: `${topValue}px`, zIndex: key + 1 }}
-                                        className={`w-[180px] h-[100px] absolute rounded-md bg-white shadow-lg p-4 ${key % 2 !== 0 ? !isLeftAlign ? "left-[170px]" : "xl:left-[150px]" : "left-0"}`}
+                                        className={`w-[180px] absolute rounded-md bg-white shadow-lg p-4 ${key % 2 !== 0 ? !isLeftAlign ? "left-[170px]" : "xl:left-[150px]" : "left-0"}`}
                                     >
                                         <div className="relative">
                                             <img
@@ -235,8 +235,16 @@ const HomePage = ({ language, screen, fullScreen, currentContent, highlight }) =
                                                 alt=""
                                             />
                                         </div>
-                                        <h3 className="text-[#292E3D] text-2xl font-semibold pl-2 font-sans">{item.count}</h3>
-                                        <h5 className={`text-black text-xs font-light relative before:absolute ${isLeftAlign ? "before:left-[-10px]" : "before:right-[-10px]"} before:top-0 before:w-[3px] before:h-[18px] before:bg-[#F9995D]`}>
+                                        <h3 className="text-[#292E3D] text-2xl font-semibold pl-2 font-sans"
+                                            style={{
+                                                fontSize: isComputer && dynamicSize(40, width)
+                                            }}
+                                        >{item.count}</h3>
+                                        <h5 className={`text-[#292E3D] text-xs font-light relative before:absolute ${isLeftAlign ? "before:left-[-10px]" : "before:right-[-10px]"} before:top-0 before:w-[3px] before:h-[18px] before:bg-[#F9995D]`}
+                                            style={{
+                                                fontSize: isComputer && dynamicSize(12, width)
+                                            }}
+                                        >
                                             {item.title[language]}
                                         </h5>
                                     </div>
@@ -244,17 +252,25 @@ const HomePage = ({ language, screen, fullScreen, currentContent, highlight }) =
                             })}
                         </div>
                     </div>
-                    <div className={`max-w-[420px] ${isTablet ? !isLeftAlign ? "pr-[64px]" : "pl-[40px]" : "pl-[50px]"}  flex-[4]`}
+                    <div className={`max-w-[450xp] ${isTablet ? !isLeftAlign ? "pr-[64px]" : "pl-[40px]" : "pl-[40px]"}  ${fullScreen ? "flex-[2]" : "flex-[3]"}`}
                         style={{
                             // maxWidth: isComputer && dynamicSize(420, width)
-                            width: isComputer && dynamicSize(420, width)
+                            // width: isComputer && dynamicSize(420, width),
                         }}
                     >
-                        <h2 className="text-[#00B9F2] text-4xl font-bold leading-[50px] mb-6 "
-                            style={{ fontSize: isComputer && dynamicSize(60, width) }}>
+                        <h2 className="text-[#00B9F2] text-4xl font-bold leading-[50px] mb-6"
+                            style={{
+                                fontSize: isComputer && dynamicSize(60, width),
+                                lineHeight: isComputer && dynamicSize(70, width)
+                            }}>
                             {currentContent?.experienceSection?.title[language]}
                         </h2>
-                        <p className="text-[#292E3D] text-sm font-[300] leading-4 mb-8" style={{ fontWeight: "200" }}>
+                        <p className="text-[#292E3D] text-sm font-[200] leading-4 mb-8"
+                            style={{
+                                fontWeight: "100",
+                                fontSize: isComputer && dynamicSize(16, width)
+                            }}
+                        >
                             {currentContent?.experienceSection?.description[language]}
                         </p>
                         <button
@@ -267,15 +283,19 @@ const HomePage = ({ language, screen, fullScreen, currentContent, highlight }) =
                 </div>
             </section >
             {/* subProjects */}
-            < section className={`py-[58px] ${isPhone ? "px-2" : "px-8"} overflow-hidden relative `} dir={isLeftAlign ? 'ltr' : 'rtl'} >
-                <div className={`container mx-auto flex  ${!isLeftAlign && 'flex-row-reverse'} ${!isLeftAlign && isTablet && "pl-[200px]"}`}>
-                    <div className={`flex justify-end absolute top-[10px]   ${isLeftAlign ? "right-7" : "left-7"}`}>
+            < section className={`py-[58px] ${isPhone ? "px-2" : "px-8"} overflow-hidden relative `} dir={isLeftAlign ? 'ltr' : 'rtl'}
+                style={{ padding: isComputer && `50px ${dynamicSize(150, width)}` }}
+
+            >
+                <div className={`container mx-auto flex relative  ${!isLeftAlign && 'flex-row-reverse'} ${!isLeftAlign && isTablet && "pl-[200px]"}`}>
+                    <div className={`flex justify-end absolute top-[-30px]   ${isLeftAlign ? "right-1" : "left-1"}`}>
                         {activeRecentProjectSection === 2 ? (
                             ""
                         ) : (
                             <button
                                 type="button"
                                 className={`relative bg-transparent border-none text-[#667085] text-right text-[16px] leading-[24px] cursor-pointer flex gap-2 items-center `}
+                                style={{ fontSize: isComputer && dynamicSize(16, width) }}
                                 onClick={() => { }}
                             >
                                 {
@@ -311,7 +331,7 @@ const HomePage = ({ language, screen, fullScreen, currentContent, highlight }) =
                                         <h2
                                             className={`${activeRecentProjectSection === index ? 'text-[#292e3d]' : 'text-[#292e3d]'} text-md cursor-pointer`}
                                             onClick={() => setActiveRecentProjectSection(index)}
-
+                                            style={{ fontSize: isComputer && dynamicSize(32, width) }}
                                         >
                                             {section?.title[language]}
                                         </h2>
@@ -322,6 +342,7 @@ const HomePage = ({ language, screen, fullScreen, currentContent, highlight }) =
                                             ? 'text-[#292e3d] text-xs leading-[25px] mb-[24px] opacity-100 transform translate-y-0 transition-opacity duration-300'
                                             : 'text-[#292e3d] text-xs leading-[25px] mb-[24px] opacity-0 h-0 transform translate-y-[-20px] transition-opacity duration-300'
                                             }`}
+                                        style={{ fontSize: isComputer && dynamicSize(16, width) }}
                                     >
                                         {section?.description[language]}
                                     </p>
