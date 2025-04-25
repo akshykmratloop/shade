@@ -1,199 +1,216 @@
-import { useEffect, useRef, useState, useCallback } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useRef, useState, useCallback } from "react"
+import { useDispatch, useSelector } from "react-redux"
+import { useNavigate } from "react-router-dom"
 
 // Components
-import ConfigBar from "./components/breakUI/ConfigBar";
-import PageDetails from "./components/breakUI/PageDetails";
-import AllForOne from "./components/AllForOne";
-import Navbar from "../../containers/Navbar";
-
-// Redux + API
-import { getLeadsContent } from "./leadSlice";
-import { getResources } from "../../app/fetch";
-import { updateTag, updateType } from "../common/navbarSlice";
-import { updateRouteLists } from "../common/routeLists";
-
-// Utils + Assets
-import capitalizeWords from "../../app/capitalizeword";
-import unavailableIcon from "../../assets/no_data_found.svg";
-import content from "./components/websiteComponent/content.json";
+import ConfigBar from "./components/breakUI/ConfigBar"
+import PageDetails from "./components/breakUI/PageDetails"
+import Navbar from "../../containers/Navbar"
+import AllForOne from "./components/AllForOne"
+import { ToastContainer } from "react-toastify"
 
 // Icons
-import { AiOutlineInfoCircle } from "react-icons/ai";
-import { FiEdit } from "react-icons/fi";
-import { IoSettingsOutline } from "react-icons/io5";
+import { AiOutlineInfoCircle } from "react-icons/ai"
+import { FiEdit } from "react-icons/fi"
+import { IoSettingsOutline } from "react-icons/io5"
 
-// Notifications
-import { ToastContainer } from "react-toastify";
+// Assets & Utils
+import capitalizeWords, { TruncateText } from "../../app/capitalizeword"
+import unavailableIcon from "../../assets/no_data_found.svg"
+import content from "./components/websiteComponent/content.json"
+
+// Redux
+import { getLeadsContent } from "./leadSlice"
+import { getResources } from "../../app/fetch"
+import { updateTag, updateType } from "../common/navbarSlice"
+import { updateRouteLists } from "../common/routeLists"
 
 function Resources() {
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
-    const divRef = useRef(null);
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+    const divRef = useRef(null)
 
-    const [isCollapsed, setIsCollapsed] = useState(false);
-    const [isSmall, setIsSmall] = useState(false);
-    const [isNarrow, setIsNarrow] = useState(false);
-    const [screen, setScreen] = useState(359);
+    const [configBarOn, setConfigBarOn] = useState(false)
+    const [pageDetailsOn, setPageDetailsOn] = useState(false)
+    const [configBarData, setConfigBarData] = useState({})
+    const [resources, setResources] = useState({ SUB_PAGE_ITEM: [], SUB_PAGE: [], MAIN_PAGE: [] })
 
-    const [configBarOn, setConfigBarOn] = useState(false);
-    const [pageDetailsOn, setPageDetailsOn] = useState(false);
-    const [configBarData, setConfigBarData] = useState({});
+    const [screen, setScreen] = useState(359)
+    const [isCollapsed, setIsCollapsed] = useState(false)
+    const [isSmall, setIsSmall] = useState(false)
+    const [isNarrow, setIsNarrow] = useState(false)
 
-    const [resources, setResources] = useState({
-        SUB_PAGE_ITEM: [],
-        SUB_PAGE: [],
-        MAIN_PAGE: []
-    });
+    const [randomRender, setRandomRender] = useState(Date.now())
 
-    const [randomRender, setRandomRender] = useState(Math.random());
+    const resourceType = useSelector(state => state.navBar.resourceType)
+    const resourceTag = useSelector(state => state.navBar.resourceTag)
 
-    const resourceType = useSelector(state => state.navBar.resourceType);
-    const resourceTag = useSelector(state => state.navBar.resourceTag);
+    const resNotAvail = resources?.[resourceType]?.length === 0
 
-    const resNotAvailable = resources?.[resourceType]?.length === 0;
+    const setIdOnStorage = (id) => localStorage.setItem("contextId", id)
 
-    const handleRouteNavigation = useCallback((first, second, third) => {
+    const settingRoute = useCallback((first, second, third) => {
         const route = third
             ? `./edit/${first}/${second}/${third}`
             : second
                 ? `./edit/${first}/${second}`
-                : `./edit/${first}`;
-        navigate(route);
-    }, [navigate]);
+                : `./edit/${first}`
+        navigate(route)
+    }, [navigate])
 
-    const setRouteList = useCallback((payload) => {
-        const list = payload?.map(e =>
+    const setRouteList = useCallback((payload = []) => {
+        const list = payload.map(e =>
             e.resourceType === "MAIN_PAGE" ? e.slug : e.id
-        );
-        localStorage.setItem("subRoutes", JSON.stringify(list));
-    }, []);
+        )
+        localStorage.setItem("subRoutes", JSON.stringify(list))
+    }, [])
 
-    const fetchAndSetResources = useCallback(async () => {
-        if (!resourceType) return;
+    const handleResize = useCallback((entry) => {
+        const width = entry.contentRect.width
+        setIsCollapsed(width < 1100)
+        setIsSmall(width < 1200)
+        setIsNarrow(width < 600)
+        setScreen((width / 3) - 55)
+    }, [])
 
-        const payload = resourceTag === "MAIN" || resourceTag === "HEADER_FOOTER"
-            ? { resourceType }
-            : { resourceType, resourceTag, relationType: "CHILD" };
+    useEffect(() => {
+        dispatch(getLeadsContent())
 
-        const response = await getResources(payload);
-        if (response.message === "Success") {
-            setRouteList(response.resources?.resources);
-            setResources(prev => ({
-                ...prev,
-                [resourceType]: response.resources?.resources
-            }));
+        const currentResource = localStorage.getItem("resourceType") || "MAIN_PAGE"
+        const currentTag = localStorage.getItem("resourceTag") || "MAIN"
+
+        dispatch(updateType(currentResource))
+        dispatch(updateTag(currentTag))
+    }, [dispatch])
+
+    useEffect(() => {
+        const fetchResources = async () => {
+            if (!resourceType) return
+
+            const payload = ["MAIN", "HEADER_FOOTER"].includes(resourceTag)
+                ? { resourceType }
+                : { resourceType, resourceTag, relationType: "CHILD" }
+
+            const response = await getResources(payload)
+
+            if (response?.message === "Success") {
+                setRouteList(response.resources?.resources)
+                setResources(prev => ({
+                    ...prev,
+                    [resourceType]: response.resources?.resources,
+                }))
+            }
         }
-    }, [resourceType, resourceTag, setRouteList]);
 
-    useEffect(() => {
-        dispatch(getLeadsContent());
-
-        const currentType = localStorage.getItem("resourceType") || "MAIN_PAGE";
-        const currentTag = localStorage.getItem("resourceTag") || "MAIN";
-
-        dispatch(updateType(currentType));
-        dispatch(updateTag(currentTag));
-    }, [dispatch]);
-
-    useEffect(() => {
-        fetchAndSetResources();
-    }, [fetchAndSetResources, randomRender]);
+        fetchResources()
+    }, [resourceType, resourceTag, randomRender, setRouteList])
 
     useEffect(() => {
         const observer = new ResizeObserver(entries => {
-            for (const entry of entries) {
-                const width = entry.contentRect.width;
-                setIsCollapsed(width < 1100);
-                setIsSmall(width < 1200);
-                setIsNarrow(width < 600);
-                setScreen((width / 3) - 55);
-            }
-        });
+            entries.forEach(handleResize)
+        })
 
-        if (divRef.current) observer.observe(divRef.current);
-        return () => observer.disconnect();
-    }, []);
+        if (divRef.current) observer.observe(divRef.current)
+        return () => observer.disconnect()
+    }, [handleResize])
 
-    const handleIconClick = (action, page) => {
-        if (action === "info") {
-            setPageDetailsOn(true);
-            setConfigBarData(page);
-        } else if (action === "edit") {
-            const { relationType, resourceTag, subPage, subOfSubPage, slug, id } = page;
-            if (relationType !== "PARENT") {
-                relationType !== "CHILD"
-                    ? handleRouteNavigation(resourceTag?.toLowerCase(), subPage, subOfSubPage)
-                    : handleRouteNavigation(resourceTag?.toLowerCase(), id);
-            } else {
-                handleRouteNavigation(slug?.toLowerCase());
+    const ActionIcons = ({ page }) => {
+        const actions = [
+            {
+                icon: <AiOutlineInfoCircle />,
+                text: "Info",
+                onClick: () => {
+                    setPageDetailsOn(true)
+                    setConfigBarData(page)
+                }
+            },
+            {
+                icon: <FiEdit />,
+                text: "Edit",
+                onClick: () => {
+                    setIdOnStorage(page.id)
+                    const { relationType, resourceTag, subPage, subOfSubPage, slug } = page
+                    if (relationType === "CHILD") {
+                        settingRoute(resourceTag?.toLowerCase(), page.id)
+                    } else if (relationType !== "PARENT") {
+                        settingRoute(resourceTag?.toLowerCase(), subPage, subOfSubPage)
+                    } else {
+                        settingRoute(slug?.toLowerCase())
+                    }
+                }
+            },
+            {
+                icon: <IoSettingsOutline />,
+                text: "Assign",
+                onClick: () => {
+                    setConfigBarOn(true)
+                    setConfigBarData(page)
+                }
             }
-        } else if (action === "assign") {
-            setConfigBarOn(true);
-            setConfigBarData(page);
-        }
-    };
+        ]
+
+        return (
+            <div className={`absolute z-10 bottom-3 left-0 w-full text-white text-center flex justify-center items-center ${isNarrow ? "gap-2" : "gap-6"} py-1`}>
+                {actions.map((item, i) => (
+                    <span key={i}
+                        onClick={item.onClick}
+                        className={`flex ${isCollapsed ? "flex-col" : ""} ${i < 2 ? "border-r-2 pr-5" : ""} gap-2 items-center cursor-pointer`}>
+                        {item.icon}
+                        <span className={isSmall ? "text-xs" : "text-sm"}>{item.text}</span>
+                    </span>
+                ))}
+            </div>
+        )
+    }
 
     return (
         <div className="customscroller relative" ref={divRef}>
             <Navbar currentNav={resourceType} setCurrentResource={updateType} />
 
-            <div className={`mt-4 w-full px-10 gap-10 ${resNotAvailable ? "" : "grid"} ${isNarrow ? "grid-cols-1" : "grid-cols-2"} lg:grid-cols-3`}>
-                {resNotAvailable ? (
+            <div className={`${resNotAvail ? "" : "grid"} ${isNarrow ? "grid-cols-1" : "grid-cols-2"} mt-4 lg:grid-cols-3 gap-10 w-full px-10`}>
+                {resNotAvail ? (
                     <div className="flex justify-center py-16">
-                        <img src={unavailableIcon} alt="No data" />
+                        <img src={unavailableIcon} alt="Not Available" />
                     </div>
                 ) : (
                     resources?.[resourceType]?.map((page, index) => (
-                        <div key={`${page.id}-${index}`} className="w-full">
+                        <div key={page.id || index} className="w-full">
                             <h3 className="mb-1 font-poppins font-semibold">
-                                {page.title?.length > (isSmall ? 20 : 35)
-                                    ? `${page.title?.slice(0, isSmall ? 20 : 35)}...`
-                                    : page.title}
+                                {isSmall
+                                    ? (page.titleEn?.length > 20 ? `${TruncateText(page.titleEn, 20)}...` : page.titleEn)
+                                    : (page.titleEn?.length > 35 ? `${TruncateText(page.titleEn, 35)}...` : page.titleEn)
+                                }
                             </h3>
-                            <div className="relative rounded-lg border border-base-300 shadow-xl-custom overflow-hidden">
-                                <div className={`absolute top-3 left-0 z-10 h-6 text-white text-sm font-[300] flex items-center justify-center clip-concave ${page.isAssigned ? 'bg-[#29469c] w-[120px]' : 'bg-red-500 w-[140px]'}`}>
+
+                            <div className="relative rounded-lg overflow-hidden border border-base-300 shadow-xl-custom">
+                                <div className={`h-6 ${page.isAssigned ? 'bg-[#29469c] w-[120px]' : 'bg-red-500 w-[140px]'} text-white flex items-center justify-center text-sm font-light clip-concave absolute top-3 left-0 z-10`}>
                                     {page.isAssigned ? "Assigned" : "Not assigned"}
                                 </div>
 
-                                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/50 to-black/90 via-60%" />
+                                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/50 to-black/90 via-60%"></div>
+
                                 <div className="relative aspect-[10/11] overflow-hidden">
                                     <div className="h-full overflow-y-scroll customscroller">
                                         <AllForOne currentPath={page.slug} content={content} language="en" screen={screen} />
                                     </div>
-                                    <div className="absolute z-[10] bottom-0 left-0 w-full h-1/3 bg-gradient-to-t from-black/100 via-black/40 to-transparent" />
-                                    <div className="absolute top-0 left-0 w-full h-1/3 bg-gradient-to-b from-white/100 via-white/40 to-transparent" />
+
+                                    <div className="absolute z-10 bottom-0 left-0 w-full h-1/3 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
+                                    <div className="absolute top-0 left-0 w-full h-1/3 bg-gradient-to-b from-white via-white/40 to-transparent"></div>
                                 </div>
 
-                                <div className={`absolute bottom-3 left-0 z-[10] w-full text-white flex justify-center items-center py-1 ${isNarrow ? "gap-2" : "gap-6"}`}>
-                                    {[
-                                        { icon: <AiOutlineInfoCircle />, text: "Info", action: "info" },
-                                        { icon: <FiEdit />, text: "Edit", action: "edit" },
-                                        { icon: <IoSettingsOutline />, text: "Assign", action: "assign" }
-                                    ].map(({ icon, text, action }, i) => (
-                                        <span
-                                            key={action}
-                                            onClick={() => handleIconClick(action, page)}
-                                            className={`flex ${isCollapsed ? "flex-col" : ""} ${i < 2 ? "border-r-2 pr-5" : ""} gap-2 items-center text-center cursor-pointer`}>
-                                            {icon}
-                                            <span className={`${isSmall ? "text-xs" : "text-sm"}`}>{text}</span>
-                                        </span>
-                                    ))}
-                                </div>
+                                <ActionIcons page={page} />
                             </div>
                         </div>
                     ))
                 )}
 
+                {/* Add More Card */}
                 {resources?.[resourceType]?.[0]?.subPage && (
-                    <div className="w-full flex flex-col gap-1">
-                        <h3 className="font-poppins font-semibold">
-                            {`Add More ${capitalizeWords(resourceType)} Page`}
-                        </h3>
+                    <div className="w-full flex flex-col gap-[5px]">
+                        <h3 className="font-poppins font-semibold">{`Add More ${capitalizeWords(resourceType)} Page`}</h3>
                         <div
                             onClick={() => navigate(`./edit/${resourceType}/${resources?.[resourceType].length + 1}`)}
-                            className="border rounded-md bg-white aspect-[10/11] flex-grow flex justify-center items-center text-[50px] shadow-xl-custom border-[#29469c80] cursor-pointer"
+                            className="border rounded-md bg-white aspect-[10/11] flex-grow cursor-pointer flex items-center justify-center text-[50px] shadow-xl-custom border-[#29469c80]"
                         >
                             <span className="text-[#1f2937]">+</span>
                         </div>
@@ -207,14 +224,16 @@ function Resources() {
                     display={configBarOn}
                     setOn={setConfigBarOn}
                     resourceId={configBarData.id}
-                    reRender={setRandomRender}
+                    reRender={() => setRandomRender(Date.now())}
                 />
             )}
-
-            <PageDetails data={configBarData} display={pageDetailsOn} setOn={setPageDetailsOn} />
+            {
+                pageDetailsOn &&
+                <PageDetails data={configBarData} display={pageDetailsOn} setOn={setPageDetailsOn} />
+            }
             <ToastContainer />
         </div>
-    );
+    )
 }
 
-export default Resources;
+export default Resources

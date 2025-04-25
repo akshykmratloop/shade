@@ -114,8 +114,6 @@ function RightSidebar() {
   //   }
   // }, [userId]);
 
-  console.log("Right Sidebar Extra Object: ", extraObject.id);
-
   const handleMarkAllAsRead = async (id) => {
     try {
       setLoading(true);

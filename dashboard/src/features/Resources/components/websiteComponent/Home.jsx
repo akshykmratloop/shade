@@ -29,10 +29,11 @@ import blankImage from "../../../../assets/images/blankImage.webp";
 import { TruncateText } from "../../../../app/capitalizeword";
 import dynamicSize from "../../../../app/fontSizes";
 import { differentText } from "../../../../app/fontSizes";
+import { getContent } from "../../../../app/fetch";
 
 
 
-const HomePage = ({ language, screen, fullScreen, currentContent, highlight }) => {
+const HomePage = ({ language, screen, fullScreen, currentContent, highlight, id }) => {
     const checkDifference = differentText.checkDifference.bind(differentText);
     const isComputer = screen > 900;
     const isTablet = screen < 900 && screen > 730;
@@ -63,7 +64,8 @@ const HomePage = ({ language, screen, fullScreen, currentContent, highlight }) =
     );
     const ProjectSlider = { ...recentProjects, ...markets, ...safety };
 
-    const liveContent = content.home
+    const liveContent = currentContent?.liveVersion
+    const editVersion = currentContent?.editVersion ?? currentContent?.liveVersion
 
     const divRef = useRef(null);
     const [width, setWidth] = useState(0);
@@ -93,9 +95,7 @@ const HomePage = ({ language, screen, fullScreen, currentContent, highlight }) =
         }
     }, [language]);
 
-    // useEffect(() => {
-    //     dispatch(updateContent({ currentPath: "home", payload: (content?.home) }))
-    // }, [])
+
     const testimonialPrevRef = useRef(null);
     const testimonialNextRef = useRef(null);
     return (
@@ -120,12 +120,12 @@ const HomePage = ({ language, screen, fullScreen, currentContent, highlight }) =
                         <h1 className={`${(highlight && checkDifference(currentContent?.homeBanner?.title[language], liveContent?.homeBanner?.title[language]))} text-[#292E3D] text-[45px] tracking-[0px]  leading-[2.5rem] capitalize font-[500] mb-4 ${isPhone ? "w-full" : fullScreen ? "w-3/5" : "w-3/5"}  `}
                             style={{ fontSize: isComputer && dynamicSize(70, width), lineHeight: isComputer && `${(width / 1526) * 4.5}rem`, }}
                         >
-                            {currentContent?.homeBanner?.title[language]}
+                            {currentContent?.[0]?.content?.title[language]}
                         </h1>
                         <p className={`${(highlight && checkDifference(currentContent?.homeBanner?.description[language], liveContent?.homeBanner?.description[language]))} text-[#0e172fb3] font-[500] leading-[16px] mb-6 ${isPhone ? "w-full text-[12px]" : "w-1/2 text-[10px]"} tracking-[0px]`}
                             style={{ fontSize: isComputer && dynamicSize(16, width), lineHeight: isComputer && `${width / 1526 * 24}px` }}
                         >
-                            {currentContent?.homeBanner?.description[language]}
+                            {currentContent?.[0]?.content?.description[language]}
                         </p>
                         <button
                             className={`relative items-center flex ${isLeftAlign ? "" : "flex-row-reverse"} gap-2 text-[12px] font-medium px-[12px] py-[6px] px-[12px] bg-[#00b9f2] text-white rounded-md`}
@@ -133,7 +133,7 @@ const HomePage = ({ language, screen, fullScreen, currentContent, highlight }) =
                             onClick={() => { }}
                         >
                             <span className={`${(highlight && checkDifference(currentContent?.homeBanner?.buttonText[language], liveContent?.homeBanner?.buttonText[language]))}`}>
-                                {currentContent?.homeBanner?.buttonText[language]}</span>
+                                {currentContent?.[0]?.content?.buttonText[language]}</span>
                             <img
                                 src={Arrow}
                                 width="10"
@@ -161,20 +161,16 @@ const HomePage = ({ language, screen, fullScreen, currentContent, highlight }) =
                     >
                         <h2 className={`text-white text-[28px] leading-[1.8rem]  font-normal ${highlight && checkDifference(currentContent?.aboutUsSection?.title[language], liveContent?.aboutUsSection?.title[language])}`}
                             style={{ fontSize: isComputer && dynamicSize(36, width), lineHeight: isComputer && dynamicSize(32, width) }}>
-                            {currentContent?.aboutUsSection?.title[language]}
+                            {currentContent?.[1]?.content?.title[language]}
                         </h2>
                         <p className={`text-white font-[100] text-[12px] leading-[16px] ${highlight && checkDifference(currentContent?.aboutUsSection?.description?.[language], liveContent?.aboutUsSection?.description?.[language])}`}
                             style={{ fontSize: isComputer && dynamicSize(15, width), lineHeight: isComputer && dynamicSize(26, width) }}>
-                            {currentContent?.aboutUsSection?.description[language]}
-                        </p>
-                        <p className={`text-white font-[100] text-[12px] leading-[16px] ${highlight && checkDifference(currentContent?.aboutUsSection?.description2?.[language], liveContent?.aboutUsSection?.description2?.[language])}`}
-                            style={{ fontSize: isComputer && dynamicSize(15, width), lineHeight: isComputer && dynamicSize(26, width) }}>
-                            {currentContent?.aboutUsSection?.description2[language]}
+                            {currentContent?.[1]?.content?.description[language]}
                         </p>
                         <button className="px-[6px] py-[2px] bg-[#00B9F2] text-white text-[12px] rounded-md hover:bg-opacity-90 text-right"
                             style={{ fontSize: isComputer && dynamicSize(18, width) }}
                         >
-                            {currentContent?.aboutUsSection?.buttonText[language]}
+                            {currentContent?.[1]?.content?.buttonText[language]}
                         </button>
                     </div>
 
@@ -186,20 +182,19 @@ const HomePage = ({ language, screen, fullScreen, currentContent, highlight }) =
                     style={{ padding: isComputer && `${dynamicSize(44, width)} ${dynamicSize(220, width)}` }}>
                     <h2 className={`text-center text-3xl font-light text-[#292E3D] mb-9 ${isPhone ? "text-[30px]" : "text-[40px]"}`}
                         style={{ fontSize: isComputer && dynamicSize(36, width) }}>
-                        {currentContent?.serviceSection?.title[language]}
+                        {currentContent?.[2]?.content?.title[language]}
                     </h2>
 
                     <div className={`${isPhone ? "flex gap-4 flex-col" : "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 md:gap-12 sm:gap-6"}`}
                         style={{ columnGap: isComputer && dynamicSize(96, width), rowGap: isComputer && dynamicSize(48, width) }}>
-                        {currentContent?.serviceSection?.cards?.map((card, key) => {
-                            if (!card.display) return null
+                        {currentContent?.[2]?.items?.map((card, key) => {
                             return (
                                 <div key={key} className={`w-full h-44 flex items-center justify-center p-6 rounded-md transition-transform duration-300 hover:scale-105 cursor-pointer ${key % 2 !== 0 ? "bg-blue-900 text-[white]" : " bg-stone-200"} `}>
                                     <div className="flex flex-col items-center gap-4">
                                         <img src={services?.[card.iconName]} width={40} height={40} alt="Icon" className="h-10 w-10" />
                                         <h5 className="relative text-lg font-light text-center"
                                             style={{ fontSize: isComputer && dynamicSize(20, width) }}>
-                                            {card.title[language]}
+                                            { card?.[language === "en"? "titleEn" :  "titleAr"] }
                                             <span className="block h-[2px] w-16 bg-gray-300 mt-2 mx-auto"></span>
                                         </h5>
                                     </div>
@@ -217,7 +212,7 @@ const HomePage = ({ language, screen, fullScreen, currentContent, highlight }) =
                         <div className={`relative ${isTablet ? (!isLeftAlign ? "left-[-70px]" : "left-[15px]") : isComputer && fullScreen ? "left-[450px] scale-[1.7]" : isPhone ? screen < 370 ? "left-[-10px] scale-[.6]" : "left-[0px] scale-[1]" : "left-[50px] scale-[1.2]"} ${!isLeftAlign && isPhone && "left-[-310px]"}`}
                         // style={{ width: isComputer && dynamicSize(200, width) }}
                         >
-                            {currentContent?.experienceSection?.cards?.map((item, key) => {
+                            {currentContent?.[3]?.content?.cards?.map((item, key) => {
                                 // Set top position based on whether key is odd or even
                                 const topValue = Math.floor(key / 2) * 140 + (key % 2 !== 0 ? -35 : 25); // Odd = move up, Even = move down
                                 return (
@@ -263,7 +258,7 @@ const HomePage = ({ language, screen, fullScreen, currentContent, highlight }) =
                                 fontSize: isComputer && dynamicSize(60, width),
                                 lineHeight: isComputer && dynamicSize(70, width)
                             }}>
-                            {currentContent?.experienceSection?.title[language]}
+                            {currentContent?.[3]?.content?.title[language]}
                         </h2>
                         <p className="text-[#292E3D] text-sm font-[200] leading-4 mb-8"
                             style={{
@@ -271,13 +266,13 @@ const HomePage = ({ language, screen, fullScreen, currentContent, highlight }) =
                                 fontSize: isComputer && dynamicSize(16, width)
                             }}
                         >
-                            {currentContent?.experienceSection?.description[language]}
+                            {currentContent?.[3]?.content?.description[language]}
                         </p>
                         <button
                             className={`text-white bg-[#00B9F2] px-[12px] py-1 text-sm text-lg rounded-md ${language === "ar" ? '!px-4' : ''}`}
                             onClick={() => setIsModal(true)}
                         >
-                            {currentContent?.experienceSection?.buttonText?.[language]}
+                            {currentContent?.[3]?.content?.button?.text?.[language]}
                         </button>
                     </div>
                 </div>

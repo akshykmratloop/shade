@@ -1,24 +1,27 @@
-let j ={
+let j = {
     "message": "Success",
     "content": {
-        "id": "cm9w9s9ht009lpg6cbwssy0gf",
-        "title": "Home Page",
+        "id": "cm9whyhk0008zpg7ke1e197aq",
+        "titleEn": "Home Page",
+        "titleAr": "الصفحة الرئيسية",
         "slug": "home",
         "resourceType": "MAIN_PAGE",
         "resourceTag": "HOME",
         "relationType": "PARENT",
         "liveVersion": {
-            "id": "cm9w9s9hx009npg6cwndoid7l",
+            "id": "cm9whyhk30091pg7ksf7nazso",
             "versionNumber": 1,
             "content": {},
             "icon": null,
             "image": null,
             "sections": [
                 {
-                    "title": "HeroSection-home-d1ed",
+                    "id": "cm9whyhki0095pg7k3b3zidsv",
+                    "order": 1,
+                    "version": 1,
+                    "title": "HeroSection-home-94ac",
                     "SectionType": "HERO_BANNER",
-                    "heading": "Building a Stronger Future",
-                    "description": "Our unwavering commitment that forge partnerships and strong collaborations with visionary leaders to take their most critical challenges, capture their greatest opportunities, and create engineering feats and breakthroughs that are transformative and coincides with the Kingdom’s Vision 2030.",
+                    "heading": null,
                     "content": {
                         "image": [
                             "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
@@ -38,10 +41,12 @@ let j ={
                     }
                 },
                 {
-                    "title": "aboutUsSection-home-ae58",
+                    "id": "cm9whyhkw009bpg7klco2mczg",
+                    "order": 2,
+                    "version": 1,
+                    "title": "aboutUsSection-home-824d",
                     "SectionType": "MARKDOWN_CONTENT",
-                    "heading": "Driven by excellence in execution",
-                    "description": "With our clients, we adopt a transformational approach by empowering organizations to build a sustainable competitive advantage and help drive growth.We work with the most dynamic organizations and have helped them by mobilizing change, accelerating value engineering with creative solutions, and partnering them towards achieving global prominence.",
+                    "heading": null,
                     "content": {
                         "image": [
                             "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
@@ -61,48 +66,13 @@ let j ={
                     }
                 },
                 {
-                    "title": "serviceSection-home-91cc",
+                    "id": "cm9whyhla009hpg7k5b8f0yte",
+                    "order": 3,
+                    "version": 1,
+                    "title": "serviceSection-home-5774",
                     "SectionType": "SERVICE_CARDS",
-                    "heading": "OUR SERVICES",
-                    "description": null,
+                    "heading": null,
                     "content": {
-                        "cards": [
-                            {
-                                "title": {
-                                    "ar": "إدارة البناء",
-                                    "en": "Construction Management"
-                                },
-                                "iconName": "construction"
-                            },
-                            {
-                                "title": {
-                                    "ar": "خدمات المشاريع",
-                                    "en": "Project Services"
-                                },
-                                "iconName": "projectService"
-                            },
-                            {
-                                "title": {
-                                    "ar": "التشغيل والصيانة",
-                                    "en": "Operation & Maintenance"
-                                },
-                                "iconName": "operationGate"
-                            },
-                            {
-                                "title": {
-                                    "ar": "التصنيع",
-                                    "en": "Fabrication"
-                                },
-                                "iconName": "fabrication"
-                            },
-                            {
-                                "title": {
-                                    "ar": "تأجير المعدات",
-                                    "en": "Equipment Rental"
-                                },
-                                "iconName": "eqRental"
-                            }
-                        ],
                         "title": {
                             "ar": "خدماتنا",
                             "en": "OUR SERVICES"
@@ -111,46 +81,63 @@ let j ={
                     "items": [
                         {
                             "resourceType": "SUB_PAGE",
-                            "slug": "service-construction-management-33982fec",
-                            "title": "Construction Management",
+                            "order": 1,
+                            "id": "cm9whyhfc007hpg7kta912ewj",
+                            "slug": "service-construction-management-e1c8b365",
+                            "titleEn": "Construction Management",
+                            "titleAr": "إدارة البناء",
                             "icon": null,
                             "image": null
                         },
                         {
                             "resourceType": "SUB_PAGE",
-                            "slug": "service-project-services-21f3c039",
-                            "title": "Project Services",
+                            "order": 2,
+                            "id": "cm9whyhg3007qpg7kdqqqxidw",
+                            "slug": "service-project-services-5864bcbc",
+                            "titleEn": "Project Services",
+                            "titleAr": "خدمات المشروع",
                             "icon": null,
                             "image": null
                         },
                         {
                             "resourceType": "SUB_PAGE",
-                            "slug": "service-operation--maintenance-9f24d2b3",
-                            "title": "Operation & Maintenance",
+                            "order": 3,
+                            "id": "cm9whyhgs007zpg7kutwodprr",
+                            "slug": "service-operation--maintenance-f2de6f9b",
+                            "titleEn": "Operation & Maintenance",
+                            "titleAr": "التشغيل والصيانة",
                             "icon": null,
                             "image": null
                         },
                         {
                             "resourceType": "SUB_PAGE",
-                            "slug": "service-fabrication-d525ec5f",
-                            "title": "Fabrication",
+                            "order": 4,
+                            "id": "cm9whyhhi0088pg7kcfmx14xy",
+                            "slug": "service-fabrication-7df7d405",
+                            "titleEn": "Fabrication",
+                            "titleAr": "تلفيق",
                             "icon": null,
                             "image": null
                         },
                         {
                             "resourceType": "SUB_PAGE",
-                            "slug": "service-equipment-rental-2ec07e17",
-                            "title": "Equipment Rental",
+                            "order": 5,
+                            "id": "cm9whyhi6008hpg7kbha77vqq",
+                            "slug": "service-equipment-rental-bddc16a5",
+                            "titleEn": "Equipment Rental",
+                            "titleAr": "تأجير المعدات",
                             "icon": null,
                             "image": null
                         }
                     ]
                 },
                 {
-                    "title": "experienceSection-home-6e2b",
+                    "id": "cm9whyhmv009xpg7k3cwe2113",
+                    "order": 4,
+                    "version": 1,
+                    "title": "experienceSection-home-a6fe",
                     "SectionType": "STATISTICS",
-                    "heading": "32 Years of Experience",
-                    "description": "Our company has been the leading provided construction services to clients throughout the Dubai since 1992.",
+                    "heading": null,
                     "content": {
                         "cards": [
                             {
@@ -203,25 +190,30 @@ let j ={
                     }
                 },
                 {
-                    "title": "recentProjectsSection-home-9d8b",
+                    "id": "cm9whyhnh00a3pg7k4xtqgt1e",
+                    "order": 5,
+                    "version": 1,
+                    "title": "recentProjectsSection-home-9e51",
                     "SectionType": "PROJECT_GRID",
-                    "heading": "Recent Projects. Markets & Safety Grid",
-                    "description": null,
+                    "heading": null,
                     "content": {
                         "buttons": [
                             {
+                                "id": "btn1",
                                 "text": {
                                     "ar": "عرض الكل",
                                     "en": "View All"
                                 }
                             },
                             {
+                                "id": "btn2",
                                 "text": {
                                     "ar": "العودة",
                                     "en": "Back"
                                 }
                             },
                             {
+                                "id": "btn3",
                                 "text": {
                                     "ar": "التالي",
                                     "en": "Next"
@@ -230,230 +222,33 @@ let j ={
                         ],
                         "sections": [
                             {
+                                "id": "projectList",
                                 "title": {
                                     "ar": "المشاريع الأخيرة",
                                     "en": "Recent Projects"
                                 },
-                                "projects": [
-                                    {
-                                        "image": "itLab",
-                                        "title": {
-                                            "ar": "مختبر تكنولوجيا المعلومات للتميز",
-                                            "en": "IT Excellence Lab"
-                                        },
-                                        "subtitle": {
-                                            "ar": "سبارك - الظهران، المملكة العربية السعودية",
-                                            "en": "Spark - Dhahran, Saudi Arabia"
-                                        }
-                                    },
-                                    {
-                                        "image": "business",
-                                        "title": {
-                                            "ar": "بوابة الأعمال",
-                                            "en": "Business Gate"
-                                        },
-                                        "subtitle": {
-                                            "ar": "الدمام، المملكة العربية السعودية",
-                                            "en": "Dammam, Saudi Arabia"
-                                        }
-                                    },
-                                    {
-                                        "image": "psychiatric",
-                                        "title": {
-                                            "ar": "مختبر تكنولوجيا المعلومات للتميز",
-                                            "en": "Psychiatric Facility"
-                                        },
-                                        "subtitle": {
-                                            "ar": "سبارك - الظهران، المملكة العربية السعودية",
-                                            "en": "Dhahran, Saudi Arabia"
-                                        }
-                                    },
-                                    {
-                                        "image": "renovation",
-                                        "title": {
-                                            "ar": "تجديد المبنى 175",
-                                            "en": "Renovation of Building 175"
-                                        },
-                                        "subtitle": {
-                                            "ar": "سبارك - الظهران، المملكة العربية السعودية",
-                                            "en": "Dhahran, Saudi Arabia"
-                                        }
-                                    }
-                                ],
                                 "description": {
                                     "ar": "تفتخر شركة شيد بمحفظة متزايدة من العملاء الراضين، سواء على الصعيد العالمي أو المحلي، الذين استفادوا بشكل كبير من تعاونهم معنا. تُعتبر حلولنا مطلوبة من قبل الشركات بمختلف أحجامها – الكبيرة، والمتوسطة، والصغيرة. نحن نؤمن بشدة بضرورة إقامة شراكات استراتيجية مع منظمات متنوعة، وتقديم حلول توفر قيمة تجارية ملموسة. من بين مشاريعنا الأخيرة والبارزة:",
                                     "en": "Shade Corporation boasts a continually growing portfolio of satisfied clients, both global and local, who have derived tremendous benefits from their engagement with us. Our solutions are sought after by companies of all sizes – large, mid-sized, and small. We firmly believe in establishing strategic partnerships with diversed organizations, delivering solutions that provide tangible business value. Among our recent and notable projects are:"
                                 }
                             },
                             {
+                                "id": "markets",
                                 "title": {
                                     "ar": "أسواقنا",
                                     "en": "Our Markets"
                                 },
-                                "projects": [
-                                    {
-                                        "image": "buildings",
-                                        "title": {
-                                            "ar": "المباني",
-                                            "en": "Buildings"
-                                        },
-                                        "subtitle": {
-                                            "ar": "سبارك - الظهران، المملكة العربية السعودية",
-                                            "en": "Spark - Dhahran, Saudi Arabia"
-                                        },
-                                        "description": {
-                                            "ar": "مشروع بناء ناطحات سحاب.",
-                                            "en": "High-rise building construction project."
-                                        }
-                                    },
-                                    {
-                                        "image": "industrial",
-                                        "title": {
-                                            "ar": "الصناعة",
-                                            "en": "Industrial"
-                                        },
-                                        "subtitle": {
-                                            "ar": "الدمام، المملكة العربية السعودية",
-                                            "en": "Dammam, Saudi Arabia"
-                                        },
-                                        "description": {
-                                            "ar": "مشروع تطوير مجمع صناعي.",
-                                            "en": "Industrial complex development project."
-                                        }
-                                    },
-                                    {
-                                        "image": "infrastructure",
-                                        "title": {
-                                            "ar": "البنية التحتية",
-                                            "en": "Infrastructure"
-                                        },
-                                        "subtitle": {
-                                            "ar": "الدمام، المملكة العربية السعودية",
-                                            "en": "Dammam, Saudi Arabia"
-                                        },
-                                        "description": {
-                                            "ar": "توسعة وتحديث البنية التحتية.",
-                                            "en": "Infrastructure expansion and upgrade."
-                                        }
-                                    },
-                                    {
-                                        "image": "repair",
-                                        "title": {
-                                            "ar": "الصيانة والتجديد",
-                                            "en": "Repair & Retrofit"
-                                        },
-                                        "subtitle": {
-                                            "ar": "الدمام، المملكة العربية السعودية",
-                                            "en": "Dammam, Saudi Arabia"
-                                        },
-                                        "description": {
-                                            "ar": "تجديد المنشآت القديمة.",
-                                            "en": "Renovation of aging facilities."
-                                        }
-                                    }
-                                ],
                                 "description": {
                                     "ar": "التنقل عبر شبكة من الأسواق، تستفيد شركة شيد من ثروة من الخبرة، مما يتيح لها تحقيق ميزة استراتيجية. إن رحلتنا عبر صناعات متنوعة توفر رؤى عميقة، مما يشكل نهجًا يجمع بين الخبرة والإبداع والرؤية المستقبلية. من فهم التحديات الفريدة إلى توقع اتجاهات السوق، نستفيد من حكمتنا الجماعية لتحقيق النجاح في كل مشروع.",
                                     "en": "Navigating a tapestry of markets, Shade Corporation draws from a wealth of experience, cultivating a strategic advantage. Our journey through diverse industries provides profound insights, shaping an approach that is both seasoned, creative and forward-thinking. From understanding unique challenges to anticipating market trends, we leverage our collective wisdom to drive success in every venture."
                                 }
                             },
                             {
+                                "id": "safety",
                                 "title": {
                                     "ar": "السلامة: مسؤوليتنا",
                                     "en": "Safety: Our Responsibility"
                                 },
-                                "projects": [
-                                    {
-                                        "image": "safetyTraining",
-                                        "title": {
-                                            "ar": "منشأة تدريب السلامة",
-                                            "en": "Safety Training Facility"
-                                        },
-                                        "subtitle": {
-                                            "ar": "الدمام، المملكة العربية السعودية",
-                                            "en": "Dammam, Saudi Arabia"
-                                        },
-                                        "description": {
-                                            "ar": "منشأة حديثة لتدريب السلامة.",
-                                            "en": "A state-of-the-art facility for safety training."
-                                        }
-                                    },
-                                    {
-                                        "image": "emergencyResponse",
-                                        "title": {
-                                            "ar": "أنظمة الاستجابة للطوارئ",
-                                            "en": "Emergency Response Systems"
-                                        },
-                                        "subtitle": {
-                                            "ar": "الدمام، المملكة العربية السعودية",
-                                            "en": "Dammam, Saudi Arabia"
-                                        },
-                                        "description": {
-                                            "ar": "تصميم وتنفيذ أنظمة الاستجابة للطوارئ.",
-                                            "en": "Design and implementation of emergency response systems."
-                                        }
-                                    },
-                                    {
-                                        "image": "constructionSafety",
-                                        "title": {
-                                            "ar": "معايير السلامة في البناء",
-                                            "en": "Construction Safety Standards"
-                                        },
-                                        "subtitle": {
-                                            "ar": "الدمام، المملكة العربية السعودية",
-                                            "en": "Dammam, Saudi Arabia"
-                                        },
-                                        "description": {
-                                            "ar": "ضمان معايير السلامة في مواقع البناء.",
-                                            "en": "Ensuring safety standards on construction sites."
-                                        }
-                                    },
-                                    {
-                                        "image": "hazardousMaterials",
-                                        "title": {
-                                            "ar": "مناولة المواد الخطرة",
-                                            "en": "Hazardous Materials Handling"
-                                        },
-                                        "subtitle": {
-                                            "ar": "الدمام، المملكة العربية السعودية",
-                                            "en": "Dammam, Saudi Arabia"
-                                        },
-                                        "description": {
-                                            "ar": "التعامل الصحيح والتخلص من المواد الخطرة.",
-                                            "en": "Proper handling and disposal of hazardous materials."
-                                        }
-                                    },
-                                    {
-                                        "image": "fireSafety",
-                                        "title": {
-                                            "ar": "السلامة من الحرائق والوقاية",
-                                            "en": "Fire Safety and Prevention"
-                                        },
-                                        "subtitle": {
-                                            "ar": "الدمام، المملكة العربية السعودية",
-                                            "en": "Dammam, Saudi Arabia"
-                                        },
-                                        "description": {
-                                            "ar": "تركيب أنظمة السلامة من الحرائق وبروتوكولات الوقاية.",
-                                            "en": "Installation of fire safety systems and prevention protocols."
-                                        }
-                                    },
-                                    {
-                                        "image": "workplaceSafety",
-                                        "title": {
-                                            "ar": "تدقيق السلامة في مكان العمل",
-                                            "en": "Workplace Safety Audits"
-                                        },
-                                        "subtitle": {
-                                            "ar": "الدمام، المملكة العربية السعودية",
-                                            "en": "Dammam, Saudi Arabia"
-                                        },
-                                        "description": {
-                                            "ar": "التدقيق الروتيني للسلامة لضمان الامتثال.",
-                                            "en": "Routine safety audits to ensure compliance."
-                                        }
-                                    }
-                                ],
                                 "description": {
                                     "ar": "في شركة شيد، السلامة ليست مجرد سياسة، بل هي قيمة أساسية نزرعها في كل مشروع. من خلال التخطيط الدقيق، والتكنولوجيا المتقدمة، والالتزام الصارم ببروتوكولات السلامة، نضمن حماية جميع الأطراف المعنية وتنفيذ كل عملية بأعلى معايير السلامة.",
                                     "en": "At Shade Corporation, safety isn't just a policy—it's a core value that we instill in every project. Through meticulous planning, advanced technology, and strict adherence to safety protocols, we ensure that every stakeholder is protected and every operation is conducted with the highest level of safety standards."
@@ -463,61 +258,15 @@ let j ={
                     },
                     "sections": [
                         {
-                            "title": "Recent Projects-home-child-5056",
+                            "title": "Recent Projects-home-child-14bb",
                             "SectionType": "PROJECT_GRID",
-                            "heading": "Recent Projects",
-                            "description": "Shade Corporation boasts a continually growing portfolio of satisfied clients, both global and local, who have derived tremendous benefits from their engagement with us. Our solutions are sought after by companies of all sizes – large, mid-sized, and small. We firmly believe in establishing strategic partnerships with diversed organizations, delivering solutions that provide tangible business value. Among our recent and notable projects are:",
+                            "heading": null,
                             "content": {
+                                "id": "projectList",
                                 "title": {
                                     "ar": "المشاريع الأخيرة",
                                     "en": "Recent Projects"
                                 },
-                                "projects": [
-                                    {
-                                        "image": "itLab",
-                                        "title": {
-                                            "ar": "مختبر تكنولوجيا المعلومات للتميز",
-                                            "en": "IT Excellence Lab"
-                                        },
-                                        "subtitle": {
-                                            "ar": "سبارك - الظهران، المملكة العربية السعودية",
-                                            "en": "Spark - Dhahran, Saudi Arabia"
-                                        }
-                                    },
-                                    {
-                                        "image": "business",
-                                        "title": {
-                                            "ar": "بوابة الأعمال",
-                                            "en": "Business Gate"
-                                        },
-                                        "subtitle": {
-                                            "ar": "الدمام، المملكة العربية السعودية",
-                                            "en": "Dammam, Saudi Arabia"
-                                        }
-                                    },
-                                    {
-                                        "image": "psychiatric",
-                                        "title": {
-                                            "ar": "مختبر تكنولوجيا المعلومات للتميز",
-                                            "en": "Psychiatric Facility"
-                                        },
-                                        "subtitle": {
-                                            "ar": "سبارك - الظهران، المملكة العربية السعودية",
-                                            "en": "Dhahran, Saudi Arabia"
-                                        }
-                                    },
-                                    {
-                                        "image": "renovation",
-                                        "title": {
-                                            "ar": "تجديد المبنى 175",
-                                            "en": "Renovation of Building 175"
-                                        },
-                                        "subtitle": {
-                                            "ar": "سبارك - الظهران، المملكة العربية السعودية",
-                                            "en": "Dhahran, Saudi Arabia"
-                                        }
-                                    }
-                                ],
                                 "description": {
                                     "ar": "تفتخر شركة شيد بمحفظة متزايدة من العملاء الراضين، سواء على الصعيد العالمي أو المحلي، الذين استفادوا بشكل كبير من تعاونهم معنا. تُعتبر حلولنا مطلوبة من قبل الشركات بمختلف أحجامها – الكبيرة، والمتوسطة، والصغيرة. نحن نؤمن بشدة بضرورة إقامة شراكات استراتيجية مع منظمات متنوعة، وتقديم حلول توفر قيمة تجارية ملموسة. من بين مشاريعنا الأخيرة والبارزة:",
                                     "en": "Shade Corporation boasts a continually growing portfolio of satisfied clients, both global and local, who have derived tremendous benefits from their engagement with us. Our solutions are sought after by companies of all sizes – large, mid-sized, and small. We firmly believe in establishing strategic partnerships with diversed organizations, delivering solutions that provide tangible business value. Among our recent and notable projects are:"
@@ -526,106 +275,56 @@ let j ={
                             "items": [
                                 {
                                     "resourceType": "SUB_PAGE",
-                                    "slug": "project-it-labs-for-excellence-2264f218",
-                                    "title": "IT Labs for Excellence",
+                                    "order": 1,
+                                    "id": "cm9whyh8b004zpg7ku81dihev",
+                                    "slug": "project-it-labs-for-excellence-42c11944",
+                                    "titleEn": "IT Labs for Excellence",
+                                    "titleAr": "مختبر تكنولوجيا المعلومات للتميز",
                                     "icon": null,
                                     "image": null
                                 },
                                 {
                                     "resourceType": "SUB_PAGE",
-                                    "slug": "project-non-metallic-manufacturing-plant-18d9fccf",
-                                    "title": "Non-Metallic Manufacturing Plant",
+                                    "order": 2,
+                                    "id": "cm9whyha1005kpg7k7cjxe0lk",
+                                    "slug": "project-non-metallic-manufacturing-plant-e4eecbef",
+                                    "titleEn": "Non-Metallic Manufacturing Plant",
+                                    "titleAr": "مصنع المواد غير المعدنية",
                                     "icon": null,
                                     "image": null
                                 },
                                 {
                                     "resourceType": "SUB_PAGE",
-                                    "slug": "project-business-gate-031a082d",
-                                    "title": "Business Gate",
+                                    "order": 3,
+                                    "id": "cm9whyhbh0065pg7kge44w9or",
+                                    "slug": "project-business-gate-275e6259",
+                                    "titleEn": "Business Gate",
+                                    "titleAr": "بوابة الأعمال",
                                     "icon": null,
                                     "image": null
                                 },
                                 {
                                     "resourceType": "SUB_PAGE",
-                                    "slug": "project-ome-building---northern-area-pipelines-0b010cff",
-                                    "title": "OME Building - Northern Area Pipelines",
+                                    "order": 4,
+                                    "id": "cm9whyhd0006qpg7kudmf3txn",
+                                    "slug": "project-ome-building---northern-area-pipelines-3be6654e",
+                                    "titleEn": "OME Building - Northern Area Pipelines",
+                                    "titleAr": "مبنى OME - خطوط أنابيب المنطقة الشمالية",
                                     "icon": null,
                                     "image": null
                                 }
                             ]
                         },
                         {
-                            "title": "Our Markets-home-child-c768",
+                            "title": "Our Markets-home-child-8de5",
                             "SectionType": "PROJECT_GRID",
-                            "heading": "Our Markets",
-                            "description": "Navigating a tapestry of markets, Shade Corporation draws from a wealth of experience, cultivating a strategic advantage. Our journey through diverse industries provides profound insights, shaping an approach that is both seasoned, creative and forward-thinking. From understanding unique challenges to anticipating market trends, we leverage our collective wisdom to drive success in every venture.",
+                            "heading": null,
                             "content": {
+                                "id": "markets",
                                 "title": {
                                     "ar": "أسواقنا",
                                     "en": "Our Markets"
                                 },
-                                "projects": [
-                                    {
-                                        "image": "buildings",
-                                        "title": {
-                                            "ar": "المباني",
-                                            "en": "Buildings"
-                                        },
-                                        "subtitle": {
-                                            "ar": "سبارك - الظهران، المملكة العربية السعودية",
-                                            "en": "Spark - Dhahran, Saudi Arabia"
-                                        },
-                                        "description": {
-                                            "ar": "مشروع بناء ناطحات سحاب.",
-                                            "en": "High-rise building construction project."
-                                        }
-                                    },
-                                    {
-                                        "image": "industrial",
-                                        "title": {
-                                            "ar": "الصناعة",
-                                            "en": "Industrial"
-                                        },
-                                        "subtitle": {
-                                            "ar": "الدمام، المملكة العربية السعودية",
-                                            "en": "Dammam, Saudi Arabia"
-                                        },
-                                        "description": {
-                                            "ar": "مشروع تطوير مجمع صناعي.",
-                                            "en": "Industrial complex development project."
-                                        }
-                                    },
-                                    {
-                                        "image": "infrastructure",
-                                        "title": {
-                                            "ar": "البنية التحتية",
-                                            "en": "Infrastructure"
-                                        },
-                                        "subtitle": {
-                                            "ar": "الدمام، المملكة العربية السعودية",
-                                            "en": "Dammam, Saudi Arabia"
-                                        },
-                                        "description": {
-                                            "ar": "توسعة وتحديث البنية التحتية.",
-                                            "en": "Infrastructure expansion and upgrade."
-                                        }
-                                    },
-                                    {
-                                        "image": "repair",
-                                        "title": {
-                                            "ar": "الصيانة والتجديد",
-                                            "en": "Repair & Retrofit"
-                                        },
-                                        "subtitle": {
-                                            "ar": "الدمام، المملكة العربية السعودية",
-                                            "en": "Dammam, Saudi Arabia"
-                                        },
-                                        "description": {
-                                            "ar": "تجديد المنشآت القديمة.",
-                                            "en": "Renovation of aging facilities."
-                                        }
-                                    }
-                                ],
                                 "description": {
                                     "ar": "التنقل عبر شبكة من الأسواق، تستفيد شركة شيد من ثروة من الخبرة، مما يتيح لها تحقيق ميزة استراتيجية. إن رحلتنا عبر صناعات متنوعة توفر رؤى عميقة، مما يشكل نهجًا يجمع بين الخبرة والإبداع والرؤية المستقبلية. من فهم التحديات الفريدة إلى توقع اتجاهات السوق، نستفيد من حكمتنا الجماعية لتحقيق النجاح في كل مشروع.",
                                     "en": "Navigating a tapestry of markets, Shade Corporation draws from a wealth of experience, cultivating a strategic advantage. Our journey through diverse industries provides profound insights, shaping an approach that is both seasoned, creative and forward-thinking. From understanding unique challenges to anticipating market trends, we leverage our collective wisdom to drive success in every venture."
@@ -634,136 +333,56 @@ let j ={
                             "items": [
                                 {
                                     "resourceType": "SUB_PAGE",
-                                    "slug": "project-it-labs-for-excellence-2264f218",
-                                    "title": "IT Labs for Excellence",
+                                    "order": 1,
+                                    "id": "cm9whyh8b004zpg7ku81dihev",
+                                    "slug": "project-it-labs-for-excellence-42c11944",
+                                    "titleEn": "IT Labs for Excellence",
+                                    "titleAr": "مختبر تكنولوجيا المعلومات للتميز",
                                     "icon": null,
                                     "image": null
                                 },
                                 {
                                     "resourceType": "SUB_PAGE",
-                                    "slug": "project-non-metallic-manufacturing-plant-18d9fccf",
-                                    "title": "Non-Metallic Manufacturing Plant",
+                                    "order": 2,
+                                    "id": "cm9whyha1005kpg7k7cjxe0lk",
+                                    "slug": "project-non-metallic-manufacturing-plant-e4eecbef",
+                                    "titleEn": "Non-Metallic Manufacturing Plant",
+                                    "titleAr": "مصنع المواد غير المعدنية",
                                     "icon": null,
                                     "image": null
                                 },
                                 {
                                     "resourceType": "SUB_PAGE",
-                                    "slug": "project-business-gate-031a082d",
-                                    "title": "Business Gate",
+                                    "order": 3,
+                                    "id": "cm9whyhbh0065pg7kge44w9or",
+                                    "slug": "project-business-gate-275e6259",
+                                    "titleEn": "Business Gate",
+                                    "titleAr": "بوابة الأعمال",
                                     "icon": null,
                                     "image": null
                                 },
                                 {
                                     "resourceType": "SUB_PAGE",
-                                    "slug": "project-ome-building---northern-area-pipelines-0b010cff",
-                                    "title": "OME Building - Northern Area Pipelines",
+                                    "order": 4,
+                                    "id": "cm9whyhd0006qpg7kudmf3txn",
+                                    "slug": "project-ome-building---northern-area-pipelines-3be6654e",
+                                    "titleEn": "OME Building - Northern Area Pipelines",
+                                    "titleAr": "مبنى OME - خطوط أنابيب المنطقة الشمالية",
                                     "icon": null,
                                     "image": null
                                 }
                             ]
                         },
                         {
-                            "title": "Safety: Our Responsibility-home-child-9e79",
+                            "title": "Safety: Our Responsibility-home-child-57de",
                             "SectionType": "PROJECT_GRID",
-                            "heading": "Safety: Our Responsibility",
-                            "description": "At Shade Corporation, safety isn't just a policy—it's a core value that we instill in every project. Through meticulous planning, advanced technology, and strict adherence to safety protocols, we ensure that every stakeholder is protected and every operation is conducted with the highest level of safety standards.",
+                            "heading": null,
                             "content": {
+                                "id": "safety",
                                 "title": {
                                     "ar": "السلامة: مسؤوليتنا",
                                     "en": "Safety: Our Responsibility"
                                 },
-                                "projects": [
-                                    {
-                                        "image": "safetyTraining",
-                                        "title": {
-                                            "ar": "منشأة تدريب السلامة",
-                                            "en": "Safety Training Facility"
-                                        },
-                                        "subtitle": {
-                                            "ar": "الدمام، المملكة العربية السعودية",
-                                            "en": "Dammam, Saudi Arabia"
-                                        },
-                                        "description": {
-                                            "ar": "منشأة حديثة لتدريب السلامة.",
-                                            "en": "A state-of-the-art facility for safety training."
-                                        }
-                                    },
-                                    {
-                                        "image": "emergencyResponse",
-                                        "title": {
-                                            "ar": "أنظمة الاستجابة للطوارئ",
-                                            "en": "Emergency Response Systems"
-                                        },
-                                        "subtitle": {
-                                            "ar": "الدمام، المملكة العربية السعودية",
-                                            "en": "Dammam, Saudi Arabia"
-                                        },
-                                        "description": {
-                                            "ar": "تصميم وتنفيذ أنظمة الاستجابة للطوارئ.",
-                                            "en": "Design and implementation of emergency response systems."
-                                        }
-                                    },
-                                    {
-                                        "image": "constructionSafety",
-                                        "title": {
-                                            "ar": "معايير السلامة في البناء",
-                                            "en": "Construction Safety Standards"
-                                        },
-                                        "subtitle": {
-                                            "ar": "الدمام، المملكة العربية السعودية",
-                                            "en": "Dammam, Saudi Arabia"
-                                        },
-                                        "description": {
-                                            "ar": "ضمان معايير السلامة في مواقع البناء.",
-                                            "en": "Ensuring safety standards on construction sites."
-                                        }
-                                    },
-                                    {
-                                        "image": "hazardousMaterials",
-                                        "title": {
-                                            "ar": "مناولة المواد الخطرة",
-                                            "en": "Hazardous Materials Handling"
-                                        },
-                                        "subtitle": {
-                                            "ar": "الدمام، المملكة العربية السعودية",
-                                            "en": "Dammam, Saudi Arabia"
-                                        },
-                                        "description": {
-                                            "ar": "التعامل الصحيح والتخلص من المواد الخطرة.",
-                                            "en": "Proper handling and disposal of hazardous materials."
-                                        }
-                                    },
-                                    {
-                                        "image": "fireSafety",
-                                        "title": {
-                                            "ar": "السلامة من الحرائق والوقاية",
-                                            "en": "Fire Safety and Prevention"
-                                        },
-                                        "subtitle": {
-                                            "ar": "الدمام، المملكة العربية السعودية",
-                                            "en": "Dammam, Saudi Arabia"
-                                        },
-                                        "description": {
-                                            "ar": "تركيب أنظمة السلامة من الحرائق وبروتوكولات الوقاية.",
-                                            "en": "Installation of fire safety systems and prevention protocols."
-                                        }
-                                    },
-                                    {
-                                        "image": "workplaceSafety",
-                                        "title": {
-                                            "ar": "تدقيق السلامة في مكان العمل",
-                                            "en": "Workplace Safety Audits"
-                                        },
-                                        "subtitle": {
-                                            "ar": "الدمام، المملكة العربية السعودية",
-                                            "en": "Dammam, Saudi Arabia"
-                                        },
-                                        "description": {
-                                            "ar": "التدقيق الروتيني للسلامة لضمان الامتثال.",
-                                            "en": "Routine safety audits to ensure compliance."
-                                        }
-                                    }
-                                ],
                                 "description": {
                                     "ar": "في شركة شيد، السلامة ليست مجرد سياسة، بل هي قيمة أساسية نزرعها في كل مشروع. من خلال التخطيط الدقيق، والتكنولوجيا المتقدمة، والالتزام الصارم ببروتوكولات السلامة، نضمن حماية جميع الأطراف المعنية وتنفيذ كل عملية بأعلى معايير السلامة.",
                                     "en": "At Shade Corporation, safety isn't just a policy—it's a core value that we instill in every project. Through meticulous planning, advanced technology, and strict adherence to safety protocols, we ensure that every stakeholder is protected and every operation is conducted with the highest level of safety standards."
@@ -772,29 +391,41 @@ let j ={
                             "items": [
                                 {
                                     "resourceType": "SUB_PAGE",
-                                    "slug": "project-it-labs-for-excellence-2264f218",
-                                    "title": "IT Labs for Excellence",
+                                    "order": 1,
+                                    "id": "cm9whyh8b004zpg7ku81dihev",
+                                    "slug": "project-it-labs-for-excellence-42c11944",
+                                    "titleEn": "IT Labs for Excellence",
+                                    "titleAr": "مختبر تكنولوجيا المعلومات للتميز",
                                     "icon": null,
                                     "image": null
                                 },
                                 {
                                     "resourceType": "SUB_PAGE",
-                                    "slug": "project-non-metallic-manufacturing-plant-18d9fccf",
-                                    "title": "Non-Metallic Manufacturing Plant",
+                                    "order": 2,
+                                    "id": "cm9whyha1005kpg7k7cjxe0lk",
+                                    "slug": "project-non-metallic-manufacturing-plant-e4eecbef",
+                                    "titleEn": "Non-Metallic Manufacturing Plant",
+                                    "titleAr": "مصنع المواد غير المعدنية",
                                     "icon": null,
                                     "image": null
                                 },
                                 {
                                     "resourceType": "SUB_PAGE",
-                                    "slug": "project-business-gate-031a082d",
-                                    "title": "Business Gate",
+                                    "order": 3,
+                                    "id": "cm9whyhbh0065pg7kge44w9or",
+                                    "slug": "project-business-gate-275e6259",
+                                    "titleEn": "Business Gate",
+                                    "titleAr": "بوابة الأعمال",
                                     "icon": null,
                                     "image": null
                                 },
                                 {
                                     "resourceType": "SUB_PAGE",
-                                    "slug": "project-ome-building---northern-area-pipelines-0b010cff",
-                                    "title": "OME Building - Northern Area Pipelines",
+                                    "order": 4,
+                                    "id": "cm9whyhd0006qpg7kudmf3txn",
+                                    "slug": "project-ome-building---northern-area-pipelines-3be6654e",
+                                    "titleEn": "OME Building - Northern Area Pipelines",
+                                    "titleAr": "مبنى OME - خطوط أنابيب المنطقة الشمالية",
                                     "icon": null,
                                     "image": null
                                 }
@@ -803,10 +434,12 @@ let j ={
                     ]
                 },
                 {
-                    "title": "clientSection-home-4c5c",
+                    "id": "cm9whyhqn00bfpg7k05x4soge",
+                    "order": 6,
+                    "version": 1,
+                    "title": "clientSection-home-ae9e",
                     "SectionType": "CLIENT_LOGOS",
-                    "heading": "Our Happy Clients",
-                    "description": null,
+                    "heading": null,
                     "content": {
                         "title": {
                             "ar": "عملائنا السعداء",
@@ -849,182 +482,88 @@ let j ={
                     }
                 },
                 {
-                    "title": "testimonialSection-home-0c25",
+                    "id": "cm9whyhr000blpg7kfe2g25x8",
+                    "order": 7,
+                    "version": 1,
+                    "title": "testimonialSection-home-e31c",
                     "SectionType": "TESTIMONIALS",
-                    "heading": "What Our Clients Say About Us?",
-                    "description": null,
+                    "heading": null,
                     "content": {
                         "title": {
                             "ar": "ماذا يقول عملاؤنا عنا؟",
                             "en": "What Our Clients Say About Us?"
-                        },
-                        "testimonials": [
-                            {
-                                "name": {
-                                    "ar": "د. مهندس صلاح عطيه عبد الظاهر",
-                                    "en": "Dr. Engr. Salah Attia Abdelzaher"
-                                },
-                                "image": "testimonial1",
-                                "quote": {
-                                    "ar": "تخطيط وتنسيق وتنفيذ ممتاز. جدولة ناجحة. إدارة وإعداد التقارير قوية. تميز ممثل الصحة والسلامة والبيئة. الخلاصة: الأداء يتجاوز التوقعات.",
-                                    "en": "Excellent planning, coordination and execution. Successful scheduling. Strong management and reporting. HSE representative excelled. Conclusion: Performance exceeds expectations."
-                                },
-                                "company": {
-                                    "ar": "شركة جبل عمر للتطوير",
-                                    "en": "Jabal Omar Development Company"
-                                },
-                                "position": {
-                                    "ar": "مدير المشاريع في شركة جبل عمر للتطوير (مدير البنية التحتية والميكانيكا والكهرباء)",
-                                    "en": "Director Projects JODC (Director of infrastructure and MEP)"
-                                }
-                            },
-                            {
-                                "name": {
-                                    "ar": "أحمد بسيوني",
-                                    "en": "Ahmed Basiony"
-                                },
-                                "image": "testimonial2",
-                                "quote": {
-                                    "ar": "دائمًا سعيد بالعمل مع فريق شيد؛ شريكنا الموثوق في مشاريع الهندسة والمشتريات والبناء. لقد أضاف نهجهم الاستباقي قيمة إلى كل مرحلة من مراحل التطوير، وتمكنا دائمًا من الاعتماد على فريقهم لتقديم نتائج قوية عالية الجودة وفعالة من حيث التكلفة.",
-                                    "en": "Always delighted to work with Shade team; our trusted EPC partner. Their proactive approach has added value to each stage of the development and we have always been able to rely on their team to provide a very high quality, cost effective and robust results."
-                                },
-                                "company": {
-                                    "ar": "نسما وشركاها",
-                                    "en": "Nesma & Partners"
-                                },
-                                "position": {
-                                    "ar": "مدير مشروع",
-                                    "en": "Project Manager"
-                                }
-                            },
-                            {
-                                "name": {
-                                    "ar": "خالد الخولي",
-                                    "en": "Khaled El Kholy"
-                                },
-                                "image": "userIcon",
-                                "quote": {
-                                    "ar": "مُعجب بخبرة فريق المشروع وتجربته العملية في مشاريع الطرق. لقد قدموا باستمرار نتائج تتماشى مع أهداف المشروع وأثبتوا أنهم أكثر شركاء البناء موثوقية.",
-                                    "en": "Impressed with the project team’s expertise and hands on experience with road projects. They have consistently delivered against project objectives and proved as most reliable construction partner."
-                                },
-                                "company": {
-                                    "ar": "شركة أم القرى للتطوير والبناء",
-                                    "en": "Umm Al Qura for Development & Construction"
-                                },
-                                "position": {
-                                    "ar": "مهندس مشروع",
-                                    "en": "Project Engineer"
-                                }
-                            },
-                            {
-                                "name": {
-                                    "ar": "سيد مصطفى",
-                                    "en": "Mostafa Sayed"
-                                },
-                                "image": "dummyUser",
-                                "quote": {
-                                    "ar": "لقد دعمنا الموظفون الذين عينتهم شركة شيد للمشروع لتقديم مخطط مليء بالتحديات في الوقت المحدد والميزانية والجودة والمواصفات، مما أدى إلى وفائنا بوعدنا بتسليم البنية التحتية الرئيسية لمكة المكرمة في الوقت المحدد وضمن الميزانية.",
-                                    "en": "The staff employed by Shade for the project, have supported us to deliver a challenging scheme on time, budget, quality and specification, which has resulted in us keeping promise of delivering key infrastructure for Makkah on time & budget."
-                                },
-                                "company": {
-                                    "ar": "هيئة تطوير جبل عمر",
-                                    "en": "Jabal Omar Development Authority"
-                                },
-                                "position": {
-                                    "ar": "مدير مشروع",
-                                    "en": "Project Manager"
-                                }
-                            },
-                            {
-                                "name": {
-                                    "ar": "عمرو خطاب",
-                                    "en": "Amro Khatab"
-                                },
-                                "image": "userIcon",
-                                "quote": {
-                                    "ar": "وجود شريك بناء مؤهل ك شيد هو مفتاح لنجاح المشروع، خاصة في شيء معقد مثل طريق الجسر E. لقد دعمنا فريق الموقع المختص في التنفيذ بالإضافة إلى مساهمة عملية التخطيط الخاصة بهم في التسليم في الوقت المحدد.",
-                                    "en": "To have qualified construction partner as Shade, is key for the success of the project, especially something as complicated as Bridge road E. Their competent site team supported us in execution as well as their planning process contribute to on time delivery."
-                                },
-                                "company": {
-                                    "ar": "خطيب وعلمي",
-                                    "en": "Khatib & Alami"
-                                },
-                                "position": {
-                                    "ar": "مدير مشروع",
-                                    "en": "Project Manager"
-                                }
-                            },
-                            {
-                                "name": {
-                                    "ar": "شريف مكي",
-                                    "en": "Sherif Mekky"
-                                },
-                                "image": "dummyUser",
-                                "quote": {
-                                    "ar": "كمستشار تصميم، من المهم جدًا أن يكون لديك شريك بناء ذو خبرة وسريع وفعال وداعم ومحترف في جميع جوانب عمله. شيد هي واحدة من هؤلاء الشركاء، الذين يلتزمون بتقديم النتائج المطلوبة بجودة ممتازة.",
-                                    "en": "As a design consultant, it is most important to have experienced construction partner who is prompt, efficient, supportive and professional in all elements of their work. Shade is one of such partners, who is committed to deliver required output with excellent quality."
-                                },
-                                "company": {
-                                    "ar": "بارسون",
-                                    "en": "Parsons"
-                                },
-                                "position": {
-                                    "ar": "مدير التصميم",
-                                    "en": "Design Manager"
-                                }
-                            }
-                        ]
+                        }
                     },
                     "items": [
                         {
                             "resourceType": "SUB_PAGE",
-                            "slug": "testimonial-dr-engr-salah-attia-abdelzaher-4e36993b",
-                            "title": "Dr. Engr. Salah Attia Abdelzaher",
+                            "order": 1,
+                            "id": "cm9whygqb0000pg7kbzowzyx6",
+                            "slug": "testimonial-dr-engr-salah-attia-abdelzaher-421cca27",
+                            "titleEn": "Dr. Engr. Salah Attia Abdelzaher",
+                            "titleAr": "د. مهندس صلاح عطيه عبد الظاهر",
                             "icon": null,
                             "image": null
                         },
                         {
                             "resourceType": "SUB_PAGE",
-                            "slug": "testimonial-ahmed-basiony-b270eebc",
-                            "title": "Ahmed Basiony",
+                            "order": 2,
+                            "id": "cm9whygrn0009pg7knonj1thn",
+                            "slug": "testimonial-ahmed-basiony-f01b9039",
+                            "titleEn": "Ahmed Basiony",
+                            "titleAr": "أحمد بسيوني",
                             "icon": null,
                             "image": null
                         },
                         {
                             "resourceType": "SUB_PAGE",
-                            "slug": "testimonial-khaled-el-kholy-514e5349",
-                            "title": "Khaled El Kholy",
+                            "order": 3,
+                            "id": "cm9whygsk000ipg7k5b39mzt5",
+                            "slug": "testimonial-khaled-el-kholy-fa3a2440",
+                            "titleEn": "Khaled El Kholy",
+                            "titleAr": "خالد الخولي",
                             "icon": null,
                             "image": null
                         },
                         {
                             "resourceType": "SUB_PAGE",
-                            "slug": "testimonial-mostafa-sayed-274b401b",
-                            "title": "Mostafa Sayed",
+                            "order": 4,
+                            "id": "cm9whygth000rpg7kw9jriv1x",
+                            "slug": "testimonial-mostafa-sayed-5c6270a0",
+                            "titleEn": "Mostafa Sayed",
+                            "titleAr": "سيد مصطفى",
                             "icon": null,
                             "image": null
                         },
                         {
                             "resourceType": "SUB_PAGE",
-                            "slug": "testimonial-amro-khatab-60da49fd",
-                            "title": "Amro Khatab",
+                            "order": 5,
+                            "id": "cm9whyguc0010pg7k213pvlig",
+                            "slug": "testimonial-amro-khatab-991e6466",
+                            "titleEn": "Amro Khatab",
+                            "titleAr": "عمرو خطاب",
                             "icon": null,
                             "image": null
                         },
                         {
                             "resourceType": "SUB_PAGE",
-                            "slug": "testimonial-sherif-mekky-9ea46b0c",
-                            "title": "Sherif Mekky",
+                            "order": 6,
+                            "id": "cm9whygv30019pg7kthm9nxbb",
+                            "slug": "testimonial-sherif-mekky-e023318f",
+                            "titleEn": "Sherif Mekky",
+                            "titleAr": "شريف مكي",
                             "icon": null,
                             "image": null
                         }
                     ]
                 },
                 {
-                    "title": "newProjectSection-home-e4d9",
+                    "id": "cm9whyhs400c3pg7kk3e213ov",
+                    "order": 8,
+                    "version": 1,
+                    "title": "newProjectSection-home-31a9",
                     "SectionType": "NORMAL_CONTENT",
-                    "heading": "Want to Start a New Project OR Collaborate with us?",
-                    "description": "True to our philosophy of “Building a Stronger Future”, Shade Corporation believes in win-win partnerships with all stakeholders, and continually aims at creating sustainable and long-term relationships for value creation. Our engagement model includes proprietary methodologies and comprehensive solutions that will transform your project economics, unlock new possibilities and support your organizational growth goals. In the last few decades, we have served many of Saudi's leading companies and public institutions to create winning strategies, solve some of the complex problems, and deliver consistent outcomes. If you're looking to drive performance, execute growth strategies, and build new capabilities, collaborate with us now.",
+                    "heading": null,
                     "content": {
                         "title": {
                             "ar": "هل تريد بدء مشروع جديد أو التعاون معنا؟",

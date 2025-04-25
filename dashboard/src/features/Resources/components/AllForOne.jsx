@@ -25,7 +25,7 @@ const AllForOne = ({ language, screen, content, subPath, setLanguage, fullScreen
         >
             {
                 currentPath === "home" &&
-                <HomePage language={language} screen={screen} fullScreen={fullScreen} currentContent={content.home} highlight={showDifference} />
+                <HomePage language={language} screen={screen} fullScreen={fullScreen} currentContent={content.home?.editVersion?.sections} highlight={showDifference} />
             }
             {
                 currentPath === "solutions" &&

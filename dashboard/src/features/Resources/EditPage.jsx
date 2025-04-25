@@ -86,7 +86,7 @@ const EditPage = () => {
                             </div>
                             {
                                 currentPath === "home" &&
-                                <HomeManager language={language} currentContent={content.home} currentPath={currentPath} />
+                                <HomeManager language={language} currentContent={content.home?.editVersion?.sections} currentPath={currentPath} />
                             }
                             {
                                 currentPath === "solutions" &&

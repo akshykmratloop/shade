@@ -1,18 +1,51 @@
 // import { useSelector } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import FileUploader from "../../../../components/Input/InputFileUploader";
 import ContentSection from "../breakUI/ContentSections";
 import MultiSelect from "../breakUI/MultiSelect";
 import { updateContent } from "../../../common/homeContentSlice";
 import content from "../websiteComponent/content.json"
 import { useDispatch } from "react-redux";
+import { getContent } from "../../../../app/fetch";
 
 const HomeManager = ({ language, currentContent, currentPath }) => {
     const dispatch = useDispatch()
+    const [currentId, setCurrentId] = useState("")
 
     useEffect(() => {
-        dispatch(updateContent({ currentPath: "home", payload: (content?.home) }))
+        const currentId = localStorage.getItem("contextId");
+        if (currentId) {
+            setCurrentId(currentId)
+        }
     }, [])
+
+    useEffect(() => {
+        // dispatch(updateContent({ currentPath: "home", payload: (content?.home) }))
+        if (currentId) {
+            async function context() {
+                try {
+                    const response = await getContent({ resourceId: currentId })
+                    if (response.message === "Success") {
+                        const payload = {
+                            id: response.content.id,
+                            titleEn: response.content.titleEn,
+                            titleAr: response.content.titleAr,
+                            slug: response.content.slug,
+                            resourceType: response.content.resourceType,
+                            resourceTag: response.content.resourceTag,
+                            relationType: response.content.relationType,
+                            editVersion: response.content.editVersion ?? response.content.liveVersion
+                        }
+
+                        dispatch(updateContent({ currentPath: "home", payload }))
+                    }
+                } catch (err) {
+
+                }
+            }
+            context()
+        }
+    }, [currentId])
     return (
         <div className="w-full">
             {/* reference doc */}
