@@ -112,7 +112,7 @@ function Resources() {
                 setIsCollapsed(entry.contentRect.width < 1100);
                 setIsSmall(entry.contentRect.width < 1200);
                 setIsNarrow(entry.contentRect.width < 600);
-                setScreen(entry.contentRect.width)
+                setScreen((entry.contentRect.width/3) - 55 )
             }
         });
 
