@@ -29,8 +29,7 @@ model SectionVersion {
     id                      String                   @id @default(cuid())
     icon                    String?
     version                 Int
-    heading                 String?
-    description             String?
+    sectionVersionTitle     String?
     content                 Json
     // Relationships
     section                 Section                  @relation(fields: [sectionId], references: [id], onDelete: Cascade)

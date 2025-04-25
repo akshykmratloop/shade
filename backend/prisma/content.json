@@ -63,51 +63,13 @@
         "ar": "اعرف عنا"
       },
       "image": ["https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"]
-
     },
 
     "serviceSection": {
       "title": {
         "en": "OUR SERVICES",
         "ar": "خدماتنا"
-      },
-      "cards": [
-        {
-          "title": {
-            "en": "Construction Management",
-            "ar": "إدارة البناء"
-          },
-          "iconName": "construction"
-        },
-        {
-          "title": {
-            "en": "Project Services",
-            "ar": "خدمات المشاريع"
-          },
-          "iconName": "projectService"
-        },
-        {
-          "title": {
-            "en": "Operation & Maintenance",
-            "ar": "التشغيل والصيانة"
-          },
-          "iconName": "operationGate"
-        },
-        {
-          "title": {
-            "en": "Fabrication",
-            "ar": "التصنيع"
-          },
-          "iconName": "fabrication"
-        },
-        {
-          "title": {
-            "en": "Equipment Rental",
-            "ar": "تأجير المعدات"
-          },
-          "iconName": "eqRental"
-        }
-      ]
+      }
     },
 
     "experienceSection": {
@@ -163,19 +125,21 @@
 
     "recentProjectsSection": {
       "buttons": [
-        {
+        { "id" : "btn1",
           "text": {
             "en": "View All",
             "ar": "عرض الكل"
           }
         },
         {
+          "id" : "btn2",
           "text": {
             "en": "Back",
             "ar": "العودة"
           }
         },
         {
+          "id" : "btn3",
           "text": {
             "en": "Next",
             "ar": "التالي"
@@ -184,7 +148,7 @@
       ],
 
       "sections": [
-        {
+        {  "id" : "projectList",
           "title": {
             "en": "Recent Projects",
             "ar": "المشاريع الأخيرة"
@@ -192,55 +156,10 @@
           "description": {
             "en": "Shade Corporation boasts a continually growing portfolio of satisfied clients, both global and local, who have derived tremendous benefits from their engagement with us. Our solutions are sought after by companies of all sizes – large, mid-sized, and small. We firmly believe in establishing strategic partnerships with diversed organizations, delivering solutions that provide tangible business value. Among our recent and notable projects are:",
             "ar": "تفتخر شركة شيد بمحفظة متزايدة من العملاء الراضين، سواء على الصعيد العالمي أو المحلي، الذين استفادوا بشكل كبير من تعاونهم معنا. تُعتبر حلولنا مطلوبة من قبل الشركات بمختلف أحجامها – الكبيرة، والمتوسطة، والصغيرة. نحن نؤمن بشدة بضرورة إقامة شراكات استراتيجية مع منظمات متنوعة، وتقديم حلول توفر قيمة تجارية ملموسة. من بين مشاريعنا الأخيرة والبارزة:"
-          },
-          "projects": [
-            {
-              "title": {
-                "en": "IT Excellence Lab",
-                "ar": "مختبر تكنولوجيا المعلومات للتميز"
-              },
-              "subtitle": {
-                "en": "Spark - Dhahran, Saudi Arabia",
-                "ar": "سبارك - الظهران، المملكة العربية السعودية"
-              },
-              "image": "itLab"
-            },
-            {
-              "title": {
-                "en": "Business Gate",
-                "ar": "بوابة الأعمال"
-              },
-              "subtitle": {
-                "en": "Dammam, Saudi Arabia",
-                "ar": "الدمام، المملكة العربية السعودية"
-              },
-              "image": "business"
-            },
-            {
-              "title": {
-                "en": "Psychiatric Facility",
-                "ar": "مختبر تكنولوجيا المعلومات للتميز"
-              },
-              "subtitle": {
-                "en": "Dhahran, Saudi Arabia",
-                "ar": "سبارك - الظهران، المملكة العربية السعودية"
-              },
-              "image": "psychiatric"
-            },
-            {
-              "title": {
-                "en": "Renovation of Building 175",
-                "ar": "تجديد المبنى 175"
-              },
-              "subtitle": {
-                "en": "Dhahran, Saudi Arabia",
-                "ar": "سبارك - الظهران، المملكة العربية السعودية"
-              },
-              "image": "renovation"
-            }
-          ]
+          }
         },
         {
+          "id" : "markets",
           "title": {
             "en": "Our Markets",
             "ar": "أسواقنا"
@@ -248,71 +167,10 @@
           "description": {
             "en": "Navigating a tapestry of markets, Shade Corporation draws from a wealth of experience, cultivating a strategic advantage. Our journey through diverse industries provides profound insights, shaping an approach that is both seasoned, creative and forward-thinking. From understanding unique challenges to anticipating market trends, we leverage our collective wisdom to drive success in every venture.",
             "ar": "التنقل عبر شبكة من الأسواق، تستفيد شركة شيد من ثروة من الخبرة، مما يتيح لها تحقيق ميزة استراتيجية. إن رحلتنا عبر صناعات متنوعة توفر رؤى عميقة، مما يشكل نهجًا يجمع بين الخبرة والإبداع والرؤية المستقبلية. من فهم التحديات الفريدة إلى توقع اتجاهات السوق، نستفيد من حكمتنا الجماعية لتحقيق النجاح في كل مشروع."
-          },
-          "projects": [
-            {
-              "title": {
-                "en": "Buildings",
-                "ar": "المباني"
-              },
-              "subtitle": {
-                "en": "Spark - Dhahran, Saudi Arabia",
-                "ar": "سبارك - الظهران، المملكة العربية السعودية"
-              },
-              "description": {
-                "en": "High-rise building construction project.",
-                "ar": "مشروع بناء ناطحات سحاب."
-              },
-              "image": "buildings"
-            },
-            {
-              "title": {
-                "en": "Industrial",
-                "ar": "الصناعة"
-              },
-              "subtitle": {
-                "en": "Dammam, Saudi Arabia",
-                "ar": "الدمام، المملكة العربية السعودية"
-              },
-              "description": {
-                "en": "Industrial complex development project.",
-                "ar": "مشروع تطوير مجمع صناعي."
-              },
-              "image": "industrial"
-            },
-            {
-              "title": {
-                "en": "Infrastructure",
-                "ar": "البنية التحتية"
-              },
-              "subtitle": {
-                "en": "Dammam, Saudi Arabia",
-                "ar": "الدمام، المملكة العربية السعودية"
-              },
-              "description": {
-                "en": "Infrastructure expansion and upgrade.",
-                "ar": "توسعة وتحديث البنية التحتية."
-              },
-              "image": "infrastructure"
-            },
-            {
-              "title": {
-                "en": "Repair & Retrofit",
-                "ar": "الصيانة والتجديد"
-              },
-              "subtitle": {
-                "en": "Dammam, Saudi Arabia",
-                "ar": "الدمام، المملكة العربية السعودية"
-              },
-              "description": {
-                "en": "Renovation of aging facilities.",
-                "ar": "تجديد المنشآت القديمة."
-              },
-              "image": "repair"
-            }
-          ]
+          }
         },
         {
+          "id" : "safety",
           "title": {
             "en": "Safety: Our Responsibility",
             "ar": "السلامة: مسؤوليتنا"
@@ -320,99 +178,7 @@
           "description": {
             "en": "At Shade Corporation, safety isn't just a policy—it's a core value that we instill in every project. Through meticulous planning, advanced technology, and strict adherence to safety protocols, we ensure that every stakeholder is protected and every operation is conducted with the highest level of safety standards.",
             "ar": "في شركة شيد، السلامة ليست مجرد سياسة، بل هي قيمة أساسية نزرعها في كل مشروع. من خلال التخطيط الدقيق، والتكنولوجيا المتقدمة، والالتزام الصارم ببروتوكولات السلامة، نضمن حماية جميع الأطراف المعنية وتنفيذ كل عملية بأعلى معايير السلامة."
-          },
-          "projects": [
-            {
-              "title": {
-                "en": "Safety Training Facility",
-                "ar": "منشأة تدريب السلامة"
-              },
-              "subtitle": {
-                "en": "Dammam, Saudi Arabia",
-                "ar": "الدمام، المملكة العربية السعودية"
-              },
-              "description": {
-                "en": "A state-of-the-art facility for safety training.",
-                "ar": "منشأة حديثة لتدريب السلامة."
-              },
-              "image": "safetyTraining"
-            },
-            {
-              "title": {
-                "en": "Emergency Response Systems",
-                "ar": "أنظمة الاستجابة للطوارئ"
-              },
-              "subtitle": {
-                "en": "Dammam, Saudi Arabia",
-                "ar": "الدمام، المملكة العربية السعودية"
-              },
-              "description": {
-                "en": "Design and implementation of emergency response systems.",
-                "ar": "تصميم وتنفيذ أنظمة الاستجابة للطوارئ."
-              },
-              "image": "emergencyResponse"
-            },
-            {
-              "title": {
-                "en": "Construction Safety Standards",
-                "ar": "معايير السلامة في البناء"
-              },
-              "subtitle": {
-                "en": "Dammam, Saudi Arabia",
-                "ar": "الدمام، المملكة العربية السعودية"
-              },
-              "description": {
-                "en": "Ensuring safety standards on construction sites.",
-                "ar": "ضمان معايير السلامة في مواقع البناء."
-              },
-              "image": "constructionSafety"
-            },
-            {
-              "title": {
-                "en": "Hazardous Materials Handling",
-                "ar": "مناولة المواد الخطرة"
-              },
-              "subtitle": {
-                "en": "Dammam, Saudi Arabia",
-                "ar": "الدمام، المملكة العربية السعودية"
-              },
-              "description": {
-                "en": "Proper handling and disposal of hazardous materials.",
-                "ar": "التعامل الصحيح والتخلص من المواد الخطرة."
-              },
-              "image": "hazardousMaterials"
-            },
-            {
-              "title": {
-                "en": "Fire Safety and Prevention",
-                "ar": "السلامة من الحرائق والوقاية"
-              },
-              "subtitle": {
-                "en": "Dammam, Saudi Arabia",
-                "ar": "الدمام، المملكة العربية السعودية"
-              },
-              "description": {
-                "en": "Installation of fire safety systems and prevention protocols.",
-                "ar": "تركيب أنظمة السلامة من الحرائق وبروتوكولات الوقاية."
-              },
-              "image": "fireSafety"
-            },
-            {
-              "title": {
-                "en": "Workplace Safety Audits",
-                "ar": "تدقيق السلامة في مكان العمل"
-              },
-              "subtitle": {
-                "en": "Dammam, Saudi Arabia",
-                "ar": "الدمام، المملكة العربية السعودية"
-              },
-              "description": {
-                "en": "Routine safety audits to ensure compliance.",
-                "ar": "التدقيق الروتيني للسلامة لضمان الامتثال."
-              },
-              "image": "workplaceSafety"
-            }
-          ]
+          }
         }
       ]
     },
@@ -462,123 +228,7 @@
       "title": {
         "en": "What Our Clients Say About Us?",
         "ar": "ماذا يقول عملاؤنا عنا؟"
-      },
-      "testimonials": [
-        {
-          "name": {
-            "en": "Dr. Engr. Salah Attia Abdelzaher",
-            "ar": "د. مهندس صلاح عطيه عبد الظاهر"
-          },
-          "position": {
-            "en": "Director Projects JODC (Director of infrastructure and MEP)",
-            "ar": "مدير المشاريع في شركة جبل عمر للتطوير (مدير البنية التحتية والميكانيكا والكهرباء)"
-          },
-          "quote": {
-            "en": "Excellent planning, coordination and execution. Successful scheduling. Strong management and reporting. HSE representative excelled. Conclusion: Performance exceeds expectations.",
-            "ar": "تخطيط وتنسيق وتنفيذ ممتاز. جدولة ناجحة. إدارة وإعداد التقارير قوية. تميز ممثل الصحة والسلامة والبيئة. الخلاصة: الأداء يتجاوز التوقعات."
-          },
-          "company": {
-            "en": "Jabal Omar Development Company",
-            "ar": "شركة جبل عمر للتطوير"
-          },
-          "image": "testimonial1"
-        },
-        {
-          "name": {
-            "en": "Ahmed Basiony",
-            "ar": "أحمد بسيوني"
-          },
-          "position": {
-            "en": "Project Manager",
-            "ar": "مدير مشروع"
-          },
-          "quote": {
-            "en": "Always delighted to work with Shade team; our trusted EPC partner. Their proactive approach has added value to each stage of the development and we have always been able to rely on their team to provide a very high quality, cost effective and robust results.",
-            "ar": "دائمًا سعيد بالعمل مع فريق شيد؛ شريكنا الموثوق في مشاريع الهندسة والمشتريات والبناء. لقد أضاف نهجهم الاستباقي قيمة إلى كل مرحلة من مراحل التطوير، وتمكنا دائمًا من الاعتماد على فريقهم لتقديم نتائج قوية عالية الجودة وفعالة من حيث التكلفة."
-          },
-          "company": {
-            "en": "Nesma & Partners",
-            "ar": "نسما وشركاها"
-          },
-          "image": "testimonial2"
-        },
-        {
-          "name": {
-            "en": "Khaled El Kholy",
-            "ar": "خالد الخولي"
-          },
-          "position": {
-            "en": "Project Engineer",
-            "ar": "مهندس مشروع"
-          },
-          "quote": {
-            "en": "Impressed with the project team’s expertise and hands on experience with road projects. They have consistently delivered against project objectives and proved as most reliable construction partner.",
-            "ar": "مُعجب بخبرة فريق المشروع وتجربته العملية في مشاريع الطرق. لقد قدموا باستمرار نتائج تتماشى مع أهداف المشروع وأثبتوا أنهم أكثر شركاء البناء موثوقية."
-          },
-          "company": {
-            "en": "Umm Al Qura for Development & Construction",
-            "ar": "شركة أم القرى للتطوير والبناء"
-          },
-          "image": "userIcon"
-        },
-        {
-          "name": {
-            "en": "Mostafa Sayed",
-            "ar": "سيد مصطفى"
-          },
-          "position": {
-            "en": "Project Manager",
-            "ar": "مدير مشروع"
-          },
-          "quote": {
-            "en": "The staff employed by Shade for the project, have supported us to deliver a challenging scheme on time, budget, quality and specification, which has resulted in us keeping promise of delivering key infrastructure for Makkah on time & budget.",
-            "ar": "لقد دعمنا الموظفون الذين عينتهم شركة شيد للمشروع لتقديم مخطط مليء بالتحديات في الوقت المحدد والميزانية والجودة والمواصفات، مما أدى إلى وفائنا بوعدنا بتسليم البنية التحتية الرئيسية لمكة المكرمة في الوقت المحدد وضمن الميزانية."
-          },
-          "company": {
-            "en": "Jabal Omar Development Authority",
-            "ar": "هيئة تطوير جبل عمر"
-          },
-          "image": "dummyUser"
-        },
-        {
-          "name": {
-            "en": "Amro Khatab",
-            "ar": "عمرو خطاب"
-          },
-          "position": {
-            "en": "Project Manager",
-            "ar": "مدير مشروع"
-          },
-          "quote": {
-            "en": "To have qualified construction partner as Shade, is key for the success of the project, especially something as complicated as Bridge road E. Their competent site team supported us in execution as well as their planning process contribute to on time delivery.",
-            "ar": "وجود شريك بناء مؤهل ك شيد هو مفتاح لنجاح المشروع، خاصة في شيء معقد مثل طريق الجسر E. لقد دعمنا فريق الموقع المختص في التنفيذ بالإضافة إلى مساهمة عملية التخطيط الخاصة بهم في التسليم في الوقت المحدد."
-          },
-          "company": {
-            "en": "Khatib & Alami",
-            "ar": "خطيب وعلمي"
-          },
-          "image": "userIcon"
-        },
-        {
-          "name": {
-            "en": "Sherif Mekky",
-            "ar": "شريف مكي"
-          },
-          "position": {
-            "en": "Design Manager",
-            "ar": "مدير التصميم"
-          },
-          "quote": {
-            "en": "As a design consultant, it is most important to have experienced construction partner who is prompt, efficient, supportive and professional in all elements of their work. Shade is one of such partners, who is committed to deliver required output with excellent quality.",
-            "ar": "كمستشار تصميم، من المهم جدًا أن يكون لديك شريك بناء ذو خبرة وسريع وفعال وداعم ومحترف في جميع جوانب عمله. شيد هي واحدة من هؤلاء الشركاء، الذين يلتزمون بتقديم النتائج المطلوبة بجودة ممتازة."
-          },
-          "company": {
-            "en": "Parsons",
-            "ar": "بارسون"
-          },
-          "image": "dummyUser"
-        }
-      ]
+      }
     },
 
     "newProjectSection": {
@@ -606,6 +256,123 @@
       }
     }
   },
+
+  "testimonials": [
+    {
+      "name": {
+        "en": "Dr. Engr. Salah Attia Abdelzaher",
+        "ar": "د. مهندس صلاح عطيه عبد الظاهر"
+      },
+      "position": {
+        "en": "Director Projects JODC (Director of infrastructure and MEP)",
+        "ar": "مدير المشاريع في شركة جبل عمر للتطوير (مدير البنية التحتية والميكانيكا والكهرباء)"
+      },
+      "quote": {
+        "en": "Excellent planning, coordination and execution. Successful scheduling. Strong management and reporting. HSE representative excelled. Conclusion: Performance exceeds expectations.",
+        "ar": "تخطيط وتنسيق وتنفيذ ممتاز. جدولة ناجحة. إدارة وإعداد التقارير قوية. تميز ممثل الصحة والسلامة والبيئة. الخلاصة: الأداء يتجاوز التوقعات."
+      },
+      "company": {
+        "en": "Jabal Omar Development Company",
+        "ar": "شركة جبل عمر للتطوير"
+      },
+      "image": "testimonial1"
+    },
+    {
+      "name": {
+        "en": "Ahmed Basiony",
+        "ar": "أحمد بسيوني"
+      },
+      "position": {
+        "en": "Project Manager",
+        "ar": "مدير مشروع"
+      },
+      "quote": {
+        "en": "Always delighted to work with Shade team; our trusted EPC partner. Their proactive approach has added value to each stage of the development and we have always been able to rely on their team to provide a very high quality, cost effective and robust results.",
+        "ar": "دائمًا سعيد بالعمل مع فريق شيد؛ شريكنا الموثوق في مشاريع الهندسة والمشتريات والبناء. لقد أضاف نهجهم الاستباقي قيمة إلى كل مرحلة من مراحل التطوير، وتمكنا دائمًا من الاعتماد على فريقهم لتقديم نتائج قوية عالية الجودة وفعالة من حيث التكلفة."
+      },
+      "company": {
+        "en": "Nesma & Partners",
+        "ar": "نسما وشركاها"
+      },
+      "image": "testimonial2"
+    },
+    {
+      "name": {
+        "en": "Khaled El Kholy",
+        "ar": "خالد الخولي"
+      },
+      "position": {
+        "en": "Project Engineer",
+        "ar": "مهندس مشروع"
+      },
+      "quote": {
+        "en": "Impressed with the project team’s expertise and hands on experience with road projects. They have consistently delivered against project objectives and proved as most reliable construction partner.",
+        "ar": "مُعجب بخبرة فريق المشروع وتجربته العملية في مشاريع الطرق. لقد قدموا باستمرار نتائج تتماشى مع أهداف المشروع وأثبتوا أنهم أكثر شركاء البناء موثوقية."
+      },
+      "company": {
+        "en": "Umm Al Qura for Development & Construction",
+        "ar": "شركة أم القرى للتطوير والبناء"
+      },
+      "image": "userIcon"
+    },
+    {
+      "name": {
+        "en": "Mostafa Sayed",
+        "ar": "سيد مصطفى"
+      },
+      "position": {
+        "en": "Project Manager",
+        "ar": "مدير مشروع"
+      },
+      "quote": {
+        "en": "The staff employed by Shade for the project, have supported us to deliver a challenging scheme on time, budget, quality and specification, which has resulted in us keeping promise of delivering key infrastructure for Makkah on time & budget.",
+        "ar": "لقد دعمنا الموظفون الذين عينتهم شركة شيد للمشروع لتقديم مخطط مليء بالتحديات في الوقت المحدد والميزانية والجودة والمواصفات، مما أدى إلى وفائنا بوعدنا بتسليم البنية التحتية الرئيسية لمكة المكرمة في الوقت المحدد وضمن الميزانية."
+      },
+      "company": {
+        "en": "Jabal Omar Development Authority",
+        "ar": "هيئة تطوير جبل عمر"
+      },
+      "image": "dummyUser"
+    },
+    {
+      "name": {
+        "en": "Amro Khatab",
+        "ar": "عمرو خطاب"
+      },
+      "position": {
+        "en": "Project Manager",
+        "ar": "مدير مشروع"
+      },
+      "quote": {
+        "en": "To have qualified construction partner as Shade, is key for the success of the project, especially something as complicated as Bridge road E. Their competent site team supported us in execution as well as their planning process contribute to on time delivery.",
+        "ar": "وجود شريك بناء مؤهل ك شيد هو مفتاح لنجاح المشروع، خاصة في شيء معقد مثل طريق الجسر E. لقد دعمنا فريق الموقع المختص في التنفيذ بالإضافة إلى مساهمة عملية التخطيط الخاصة بهم في التسليم في الوقت المحدد."
+      },
+      "company": {
+        "en": "Khatib & Alami",
+        "ar": "خطيب وعلمي"
+      },
+      "image": "userIcon"
+    },
+    {
+      "name": {
+        "en": "Sherif Mekky",
+        "ar": "شريف مكي"
+      },
+      "position": {
+        "en": "Design Manager",
+        "ar": "مدير التصميم"
+      },
+      "quote": {
+        "en": "As a design consultant, it is most important to have experienced construction partner who is prompt, efficient, supportive and professional in all elements of their work. Shade is one of such partners, who is committed to deliver required output with excellent quality.",
+        "ar": "كمستشار تصميم، من المهم جدًا أن يكون لديك شريك بناء ذو خبرة وسريع وفعال وداعم ومحترف في جميع جوانب عمله. شيد هي واحدة من هؤلاء الشركاء، الذين يلتزمون بتقديم النتائج المطلوبة بجودة ممتازة."
+      },
+      "company": {
+        "en": "Parsons",
+        "ar": "بارسون"
+      },
+      "image": "dummyUser"
+    }
+  ],
 
   "footer": {
     "companyInfo": {
