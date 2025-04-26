@@ -8,9 +8,7 @@ import PageDetails from "./components/breakUI/PageDetails"
 import Navbar from "../../containers/Navbar"
 import AllForOne from "./components/AllForOne"
 import { ToastContainer } from "react-toastify"
-// import { ClipLoader } from "react-spinners"
 import { MoonLoader} from "react-spinners"
-
 
 // Icons
 import { AiOutlineInfoCircle } from "react-icons/ai"

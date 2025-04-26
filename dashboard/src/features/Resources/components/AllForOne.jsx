@@ -20,12 +20,20 @@ const AllForOne = ({ language, screen, content, subPath, setLanguage, fullScreen
     let translateForFullScreen = ""
 
     return (
-        <div className={`dark:text-[#2A303C] mt-0 ${fullScreen && screen > 900 ? "" + translateForFullScreen : ""} ${fullScreen ? "overflow-y-hidden" : "overflow-y-scroll"} customscroller transition-custom border-stone-200 border mx-auto w-full bankgothic-medium-dt bg-[white]`}
+        <div
+            className={`dark:text-[#2A303C] mt-0 
+            ${fullScreen ? "overflow-y-hidden" : "overflow-y-scroll"}
+             customscroller transition-custom border-stone-200 border mx-auto w-full bankgothic-medium-dt bg-[white]`}
             style={{ width: screen > 950 ? "100%" : screen, wordBreak: "break-word" }}
         >
             {
                 currentPath === "home" &&
-                <HomePage language={language} screen={screen} fullScreen={fullScreen} currentContent={content.home?.editVersion?.sections} highlight={showDifference} />
+                <HomePage language={language}
+                    screen={screen}
+                    fullScreen={fullScreen}
+                    currentContent={content.home?.editVersion?.sections}
+                    highlight={showDifference}
+                />
             }
             {
                 currentPath === "solutions" &&
