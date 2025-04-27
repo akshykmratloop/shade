@@ -34,29 +34,8 @@ import { constructFromSymbol } from "date-fns/constants";
 
 
 
-const HomePage = ({ language, screen, fullScreen, highlight, currentContent, liveContent }) => {
+const HomePage = ({ language, screen, fullScreen, highlight, content, currentContent, liveContent }) => {
 
-    const contentIndexes = {
-        homeBanner: currentContent?.findIndex(e => e.order === 1),
-        markDown: currentContent?.findIndex(e => e.order === 2),
-        serviceCards: currentContent?.findIndex(e => e.order === 3),
-        statistics: currentContent?.findIndex(e => e.order === 4),
-        projectGrid: currentContent?.findIndex(e => e.order === 5),
-        clientLogo: currentContent?.findIndex(e => e.order === 6),
-        testimonials: currentContent?.findIndex(e => e.order === 7),
-        normalContent: currentContent?.findIndex(e => e.order === 8),
-    }
-
-    const content = {
-        homeBanner: currentContent?.[contentIndexes.homeBanner],
-        markDown: currentContent?.[contentIndexes.markDown],
-        serviceCards: currentContent?.[contentIndexes.serviceCards],
-        statistics: currentContent?.[contentIndexes.statistics],
-        projectGrid: currentContent?.[contentIndexes.projectGrid],
-        clientLogo: currentContent?.[contentIndexes.clientLogo],
-        testimonials: currentContent?.[contentIndexes.testimonials],
-        normalContent: currentContent?.[contentIndexes.normalContent],
-    }
 
     const checkDifference = differentText.checkDifference.bind(differentText);
     const isComputer = screen > 900;
@@ -224,7 +203,7 @@ const HomePage = ({ language, screen, fullScreen, highlight, currentContent, liv
                 </div>
             </section >
             {/* experience section */}
-            < section className={`py-[115px]  ${isComputer ? fullScreen ? "px-20 pt-40 pb-60" : "px-20 pb-60" : !isLeftAlign ? "px-8" : "px-10"}`} dir={isLeftAlign ? 'ltr' : "rtl"} >
+            < section className={`py-[115px] overflow-hidden ${isComputer ? fullScreen ? "px-20 pt-40 pb-60" : "px-20 pb-60" : !isLeftAlign ? "px-8" : "px-10"}`} dir={isLeftAlign ? 'ltr' : "rtl"} >
                 <div
                     className={`container mx-auto flex ${isPhone ? "flex-col gap-[350px]" : "gap-10"} `}>
                     <div className={`w-[100%]  flex-[4]`}
@@ -297,11 +276,13 @@ const HomePage = ({ language, screen, fullScreen, highlight, currentContent, liv
                 </div>
             </section >
             {/* subProjects */}
-            < section className={`py-[58px] ${isPhone ? "px-2" : "px-8"} overflow-hidden relative `} dir={isLeftAlign ? 'ltr' : 'rtl'}
-                style={{ padding: isComputer && `50px ${dynamicSize(150, width)}` }}
+            < section className={`py-[58px] ${isPhone ? "px-2" : "px-8"}  relative`} dir={isLeftAlign ? 'ltr' : 'rtl'}
+                style={{ padding: isComputer && `50px ${dynamicSize(150, width)}`, }}
 
             >
-                <div className={`container mx-auto flex relative  ${!isLeftAlign && 'flex-row-reverse'} ${!isLeftAlign && isTablet && "pl-[200px]"}`}>
+                <div className={`container mx-auto flex relative  ${!isLeftAlign && 'flex-row-reverse'} ${!isLeftAlign && isTablet && "pl-[200px]"}`}
+                // style={{width: isComputer && dynamicSize(1227, width)}}
+                >
                     <div className={`flex justify-end absolute top-[-30px]   ${isLeftAlign ? "right-1" : "left-1"}`}>
                         {activeRecentProjectSection === 2 ? (
                             ""
@@ -327,10 +308,10 @@ const HomePage = ({ language, screen, fullScreen, highlight, currentContent, liv
                     </div>
 
 
-                    <div className={`flex ${isTablet ? isPhone ? "gap-[20px]" : "gap-[30px]" : "gap-[30px]"} ${isLeftAlign && !isComputer && "pr-20"}`}
-                    style={{gap: isComputer && dynamicSize(70, width)}}>
+                    <div className={`flex ${isTablet ? isPhone ? "gap-[20px]" : "gap-[30px]" : "gap-[30px]"} ${isLeftAlign && !isComputer && "pr-20"} `}
+                        style={{ gap: isComputer && dynamicSize(70, width), width: isComputer && dynamicSize(1230, width) }}>
                         <div className={`leftDetails min-w-[150px]   ${isTablet && "w-[180px]"}`}
-                            style={{ width: isComputer && dynamicSize(424, width)}}>
+                            style={{ width: isComputer && dynamicSize(424, width) }}>
                             {content?.projectGrid?.sections?.map((section, index) => (
                                 <div
                                     key={index}
@@ -366,7 +347,9 @@ const HomePage = ({ language, screen, fullScreen, highlight, currentContent, liv
                             ))}
                         </div>
 
-                        <div className={`${isPhone ? "w-[220px]" : isTablet ? "w-[300px]" : "w-[600px]"} `}>
+                        <div className={`${isPhone ? "w-[220px]" : isTablet ? "w-[300px]" : ""} overflow-hidden`}
+                            style={{ width: isComputer && dynamicSize(800, width) }}
+                        >
                             <Swiper
                                 key={language}
                                 modules={[Pagination, Navigation]}
@@ -390,15 +373,15 @@ const HomePage = ({ language, screen, fullScreen, highlight, currentContent, liv
 
                                     return (
                                         <SwiperSlide key={slideIndex}>
-                                            <div className={`${isPhone ? "flex flex-col" : `grid grid-cols-2 gap-[12px] auto-rows-auto ${isTablet ? "w-[350px]" : "w-[600px]"}`}`}
+                                            <div className={`${isPhone ? "flex flex-col" : `grid grid-cols-2 gap-[12px] auto-rows-auto ${isTablet ? "w-[350px]" : "w-[600px]"}`} `}
                                                 style={{ width: isComputer ? dynamicSize(722, width) : isPhone ? `${(600 / 1180) * screen}px` : `${(750 / 1180) * screen}px`, gap: isComputer ? "" : `${(40 / 1180) * screen}px` }}
                                             >
                                                 {chunk?.map((project, cardIndex) => {
                                                     return (
                                                         <div className="flex flex-col rounded-[4px]" key={cardIndex}>
-                                                            <div className={`w-full ${isComputer ? "h-[200px]" : "h-[150px]"}`} >
+                                                            <div className={`w-full aspect-[1.4/1]`} >
                                                                 <img
-                                                                    className={`w-full h-full object-cover object-center ${project.image
+                                                                    className={`w-full  aspect-[1.4/1] object-cover object-center ${project.image
                                                                         ? ''
                                                                         : 'opacity-[0.1]'
                                                                         }`}
@@ -406,6 +389,7 @@ const HomePage = ({ language, screen, fullScreen, highlight, currentContent, liv
                                                                     src={ImagesFromRedux?.[project.image] ? ImagesFromRedux?.[project.image] : project?.image
                                                                         ? ProjectSlider?.[project?.image]
                                                                         : blankImage}
+                                                                    style={{ width: isComputer && dynamicSize(349, width) }}
                                                                 />
                                                             </div>
                                                             <div className="p-[18px_12px_12px_12px] flex flex-col justify-center items-start gap-[16px] bg-[#00B9F2] flex-1">
@@ -413,14 +397,14 @@ const HomePage = ({ language, screen, fullScreen, highlight, currentContent, liv
                                                                 <h5
                                                                     title={project?.[language === "en" ? "titleEn" : "titleAr"]}
                                                                     className={`text-white text-[20px] font-semibold  h-[40px] ${!isComputer && "mb-2"}`}
-                                                                    style={{fontSize: isComputer && dynamicSize(20, width)}}
+                                                                    style={{ fontSize: isComputer && dynamicSize(20, width) }}
                                                                 >
                                                                     {TruncateText(project?.[language === "en" ? "titleEn" : "titleAr"], !isComputer ? 20 : 35)}
                                                                 </h5>
                                                                 <p
                                                                     title={project?.[language === "en" ? "titleEn" : "titleAr"]}
                                                                     className="text-white text-[16px] font-light leading-[normal]"
-                                                                    style={{fontSize: isComputer && dynamicSize(16, width)}}
+                                                                    style={{ fontSize: isComputer && dynamicSize(16, width) }}
                                                                 >
                                                                     {TruncateText(project?.[language === "en" ? "titleEn" : "titleAr"], (isTablet ? 16 : 25))}
                                                                 </p>
@@ -441,7 +425,8 @@ const HomePage = ({ language, screen, fullScreen, highlight, currentContent, liv
                                 style={{ width: isComputer ? "" : isPhone ? "220px" : `${(400 / 1180) * screen}px` }}
                             // ${projectChunks?.length <= 1 ? 'hidden' : ''}
                             >
-                                <button ref={prevRef} className={`py-[12px] px-[20px] text-[#00B9F2] text-md font-medium border-[1px] border-[#00B9F2] rounded-[6px] flex gap-2 items-center ${isPhone ? "w-[120px]" : "min-w-[246px]"} justify-center  bg-white transition-all duration-200`}>
+                                <button ref={prevRef} className={`py-[12px] px-[20px] text-[#00B9F2] text-md font-medium border-[1px] border-[#00B9F2] rounded-[6px] flex gap-2 items-center ${isPhone ? "w-[120px]" : "min-w-[246px]"} justify-center  bg-white transition-all duration-200`}
+                                    style={{ fontSize: isComputer && dynamicSize(18, width) }}>
                                     <img
                                         src="https://frequencyimage.s3.ap-south-1.amazonaws.com/b2872383-e9d5-4dd7-ae00-8ae00cc4e87e-Vector%20%286%29.svg"
                                         width="18"
@@ -454,7 +439,8 @@ const HomePage = ({ language, screen, fullScreen, highlight, currentContent, liv
                                         currentContent?.recentProjectsSection?.buttons[1]?.text[language]
                                     }
                                 </button>
-                                <button ref={nextRef} className={`py-[12px] px-[20px] text-[#00B9F2] text-md font-medium border-[1px] border-[#00B9F2] rounded-[6px] flex gap-2 items-center ${isPhone ? "w-[120px]" : "min-w-[246px]"} justify-center bg-white transition-all duration-200`}>
+                                <button ref={nextRef} className={`py-[12px] px-[20px] text-[#00B9F2] text-md font-medium border-[1px] border-[#00B9F2] rounded-[6px] flex gap-2 items-center ${isPhone ? "w-[120px]" : "min-w-[246px]"} justify-center bg-white transition-all duration-200`}
+                                    style={{ fontSize: isComputer && dynamicSize(18, width) }}>
                                     {!isPhone &&
                                         currentContent?.recentProjectsSection?.buttons[2]?.text[language]
                                     }
@@ -490,10 +476,14 @@ const HomePage = ({ language, screen, fullScreen, highlight, currentContent, liv
                 />
                 <div className="container mx-auto px-4">
                     <div className="text-center mb-8">
-                        <h2 className="text-white text-3xl font-bold mb-4">
+                        <h2 className="text-white text-3xl font-bold mb-4"
+                            style={{ fontSize: isComputer && dynamicSize(36, width) }}
+                        >
                             {content?.clientLogo?.content?.title[language]}
                         </h2>
-                        <p className="text-white text-base font-light leading-6">
+                        <p className="text-white text-base font-light leading-6"
+                            style={{ fontSize: isComputer && dynamicSize(16, width) }}
+                        >
                             {content?.clientLogo?.content?.description[language]}
                         </p>
                     </div>
@@ -519,11 +509,15 @@ const HomePage = ({ language, screen, fullScreen, highlight, currentContent, liv
             {/* testomonials section  */}
             < section
                 className={`py-[40px] pb-[40px] ${!isLeftAlign && 'rtl'} mx-auto relative overflow-hidden`}
-                style={{ width: isComputer ? "800px" : `${screen - 10}px` }}
+                style={{
+                    width: isComputer ? "800px" : `${screen - 10}px`,
+                }}
             >
                 <div className="container mx-auto" >
                     <div className="text-center mb-5">
-                        <h2 className="text-black text-3xl font-medium">
+                        <h2 className="text-black text-3xl font-medium"
+                            style={{ fontSize: isComputer && dynamicSize(36, width) }}
+                        >
                             {content?.testimonials?.content?.title[language]}
                         </h2>
                     </div>
@@ -588,13 +582,19 @@ const HomePage = ({ language, screen, fullScreen, highlight, currentContent, liv
                                             </div>
 
                                             <div className="p-5 w-full">
-                                                <h3 className="text-gray-900 text-md font-bold">
+                                                <h3 className="text-gray-900 text-md font-bold"
+                                                    style={{ fontSize: isComputer && dynamicSize(20, width) }}
+                                                >
                                                     {testimonial?.[language === "en" ? "titleEn" : "titleAr"]}
                                                 </h3>
-                                                <p className="text-gray-500 text-xs font-light mb-4">
+                                                <p className="text-gray-500 text-xs font-light mb-4"
+                                                    style={{ fontSize: isComputer && dynamicSize(12, width) }}
+                                                >
                                                     {testimonial?.position?.[language]}
                                                 </p>
-                                                <p className="text-gray-900 text-xs font-light mb-6 leading-5">
+                                                <p className="text-gray-900 text-xs font-light mb-6 leading-5"
+                                                    style={{ fontSize: isComputer && dynamicSize(14, width) }}
+                                                >
                                                     {testimonial?.quote?.[language]}
                                                 </p>
                                                 <div className={`flex items-center justify- gap-2`}>
@@ -605,7 +605,9 @@ const HomePage = ({ language, screen, fullScreen, highlight, currentContent, liv
                                                         alt={testimonial?.name}
                                                         className="h-[18px] w-[18px]"
                                                     />
-                                                    <p className={`text-gray-500 text-base font-bold ${isLeftAlign ? "text-left" : "text-right"}`}>
+                                                    <p className={`text-gray-500 text-base font-bold ${isLeftAlign ? "text-left" : "text-right"}`}
+                                                        style={{ fontSize: isComputer && dynamicSize(16, width) }}
+                                                    >
                                                         {testimonial?.company?.[language]}
                                                     </p>
                                                 </div>
@@ -648,13 +650,19 @@ const HomePage = ({ language, screen, fullScreen, highlight, currentContent, liv
             </section >
 
             {/* new project section */}
-            < section className={`py-16 w-[100%] ${isPhone ? "px-[30px]" : "px-[80px]"} bg-transparent`}>
+            <section className={`py-16 w-[100%] ${isPhone ? "px-[30px]" : "px-[80px]"} bg-transparent`}
+                style={{ padding: `64px ${isComputer && dynamicSize(143, width)}` }}
+            >
                 <div className="container mx-auto">
                     <div className="text-center bg-transparent">
-                        <h2 className="text-3xl font-medium text-black mb-5">
+                        <h2 className="text-3xl font-medium text-black mb-5"
+                            style={{ fontSize: isComputer && dynamicSize(36, width) }}
+                        >
                             {content?.normalContent?.content?.title?.[language]}
                         </h2>
-                        <p className="text-xs font-light text-black leading-7 mb-2 relative bg-transparent">
+                        <p className="text-xs font-light text-black leading-7 mb-2 relative bg-transparent"
+                            style={{ fontSize: isComputer && dynamicSize(16, width) }}
+                        >
                             {content?.normalContent?.content?.description?.[language].replace(
                                 content?.normalContent?.content?.highlightedText?.[language],
                                 `"${content?.normalContent?.content?.highlightedText?.[language]}"`
@@ -672,11 +680,14 @@ const HomePage = ({ language, screen, fullScreen, highlight, currentContent, liv
                                 }}
                             />
                         </p>
-                        <p className="text-xs font-light text-black leading-7 mb-2">
+                        <p className="text-xs font-light text-black leading-7 mb-2"
+                            style={{ fontSize: isComputer && dynamicSize(16, width) }}
+                        >
                             {content?.normalContent?.content?.description2?.[language]}
                         </p>
                         <button
                             className="bg-[#00B9F2] text-xs text-white px-4 py-2 text-lg mt-11 mx-auto block rounded"
+                            style={{ fontSize: isComputer && dynamicSize(18, width) }}
                         >
                             {content?.normalContent?.content?.button?.text?.[language]}
                         </button>

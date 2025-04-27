@@ -23,7 +23,7 @@ const AllForOneManager = ({ currentPath, language, subPath, deepPath, content })
 
     switch (currentPath) {
         case "home":
-            manager = <HomeManager language={language} currentContent={content.home?.editVersion?.sections} currentPath={currentPath} />
+            manager = <HomeManager language={language} content={content} currentPath={currentPath} />
             break;
 
         case "solutions":

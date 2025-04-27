@@ -249,7 +249,7 @@ const MultiSelect = ({ heading, options = [], tabName, label, language, section,
             actualLists.map((option, index) => {
               return (
                 <li
-                  key={option.title[language]}
+                  key={option?.[language === 'en'? "titleEn" : "titleAr"]}
                   onClick={() => handleSelect(option, index)}
                   className="p-2 cursor-pointer hover:bg-gray-100"
                 >

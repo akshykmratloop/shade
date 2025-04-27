@@ -38,7 +38,7 @@ const ContentSection = ({
     const addExtraFileInput = () => {
         console.log(deepPath)
         if (deepPath) {
-            dispatch(updateImages({ src: { url: "" }, section, currentPath, deepPath, projectId, operation: "add"  }))
+            dispatch(updateImages({ src: { url: "" }, section, currentPath, deepPath, projectId, operation: "add" }))
         } else if (section === 'socialIcons') {
             if (ImagesFromRedux.socialIcons.length < 8) {
                 dispatch(updateImages({ src: [...ImagesFromRedux.socialIcons, { img: "", url: "", id: ImagesFromRedux.socialIcons.length + 1 }], section: "socialIcons" }))
@@ -168,52 +168,10 @@ const ContentSection = ({
 
     return (
         <div className={`w-full ${Heading ? "mt-4" : subHeading ? "mt-2" : ""} flex flex-col gap-1 ${!isBorder ? "" : "border-b border-b-1 border-neutral-300"} ${attachOne ? "pb-0" : (Heading || subHeading) ? "pb-6" : ""}`}>
-            <h3 className={`font-semibold ${subHeading ? "text-[.9rem] mb-1" : Heading ? "text-[1.25rem] mb-4" : " mb-0"}`} style={{wordBreak:"break-word"}}>{Heading || subHeading}</h3>
+            <h3 className={`font-semibold ${subHeading ? "text-[.9rem] mb-1" : Heading ? "text-[1.25rem] mb-4" : " mb-0"}`} style={{ wordBreak: "break-word" }}>{Heading || subHeading}</h3>
             {inputs.length > 0 &&
                 inputs.map((input, i) => {
                     let valueExpression;
-                    if (deepPath) {
-                        valueExpression = currentContent?.[projectId]?.[deepPath - 1]?.[section]?.[input.updateType]?.[language]
-                    } else if (careerId) {
-                        if (subSectionsProMax && (input.updateType === "link")) {
-                            valueExpression = currentContent?.[projectId - 1]?.[section]?.[subSection]?.[subSectionsProMax]?.[input.updateType];
-                        } else if (subSectionsProMax) {
-                            valueExpression = currentContent?.[projectId - 1]?.[section]?.[subSection]?.[subSectionsProMax]?.[input.updateType]?.[language];
-                        } else if (subSection) {
-                            valueExpression = currentContent?.[projectId - 1]?.[section]?.[subSection]?.[input.updateType]?.[language];
-                        } else {
-                            valueExpression = currentContent?.[projectId - 1]?.[section]?.[input.updateType]?.[language];
-                        }
-                    } else if (projectId || projectId === 0) {
-                        if (section === 'testimonials') {
-                            valueExpression = currentContent?.[section]?.[projectId - 1]?.[input.updateType]?.[language];
-                        } else if (subSection) {
-                            valueExpression = currentContent?.[projectId - 1]?.[section]?.[subSection]?.[index]?.[input.updateType]?.[language];
-                        } else if (input.updateType === 'url') {
-                            valueExpression = currentContent?.[projectId - 1]?.[section]?.[input.updateType];
-                        } else if (section === 'descriptionSection') {
-                            valueExpression = currentContent?.[projectId - 1]?.[section]?.[index]?.[input.updateType]?.[language];
-                        } else {
-                            valueExpression = currentContent?.[projectId - 1]?.[section]?.[input.updateType]?.[language];
-                        }
-                    } else if (subSectionsProMax === "Links") {
-                        valueExpression = currentContent?.[section]?.[subSection]?.[index]?.[input.updateType];
-                    } else if (subSectionsProMax) {
-                        valueExpression = currentContent?.[section]?.[subSection]?.[index]?.[subSectionsProMax]?.[subSecIndex]?.[input.updateType]?.[language];
-                    } else if (subSection && typeof currentContent?.[section]?.[subSection]?.[index]?.[input.updateType] !== "object") {
-                        valueExpression = currentContent?.[section]?.[subSection]?.[index]?.[input.updateType];
-                    } else if (subSection === 'url') {
-                        valueExpression = currentContent?.[section]?.[subSection]?.[index]?.[input.updateType];
-                    } else if (subSection) {
-                        valueExpression = currentContent?.[section]?.[subSection]?.[index]?.[input.updateType]?.[language];
-                    } else {
-                        if (careerId) {
-
-                        } else {
-                            valueExpression = currentContent?.[section]?.[input.updateType]?.[language];
-                        }
-                    }
-
                     if (input.input === "textarea") {
                         return (
                             <TextAreaInput
@@ -223,7 +181,7 @@ const ContentSection = ({
                                 updateFormValue={updateFormValue}
                                 updateType={input.updateType}
                                 section={section}
-                                defaultValue={valueExpression || ""}
+                                defaultValue={input.value || ""}
                                 language={language}
                                 id={input.updateType}
                                 maxLength={input.maxLength}
@@ -258,7 +216,7 @@ const ContentSection = ({
                                 updateFormValue={updateFormValue}
                                 updateType={input.updateType}
                                 section={section}
-                                defaultValue={valueExpression || ""}
+                                defaultValue={input.value || ""}
                                 language={language}
                                 id={input.updateType}
                                 required={false}

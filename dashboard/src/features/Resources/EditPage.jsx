@@ -14,6 +14,7 @@ import TextAreaInput from "../../components/Input/TextAreaInput";
 // import for content manager
 import AllForOne from "./components/AllForOne";
 import AllForOneManager from "./components/AllForOneManager";
+import createContent from "./defineContent";
 
 const Page404 = lazy(() => import('../../pages/protected/404'))
 
@@ -32,7 +33,7 @@ const EditPage = () => {
     const subPath = location.pathname.split('/')[5]
     const deepPath = location.pathname.split('/')[6]
 
-    const content = useSelector((state) => state.homeContent.present)
+    const content = createContent(useSelector((state) => state.homeContent.present), currentPath)
 
     const Routes = ['home', 'solutions', 'about', "services", "service", 'markets', 'projects', "project", 'careers', "career", 'news', 'footer', 'header', 'testimonials', 'testimonial']
 

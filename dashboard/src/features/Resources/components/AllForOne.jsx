@@ -31,7 +31,7 @@ const AllForOne = ({ language, screen, content, subPath, setLanguage, fullScreen
                 <HomePage language={language}
                     screen={screen}
                     fullScreen={fullScreen}
-                    currentContent={content.home?.editVersion?.sections}
+                    content={content}
                     highlight={showDifference}
                 />
             }
