@@ -29,10 +29,35 @@ import { TruncateText } from "../../../../app/capitalizeword";
 import dynamicSize from "../../../../app/fontSizes";
 import { differentText } from "../../../../app/fontSizes";
 import { getContent } from "../../../../app/fetch";
+import contentJSON from './content.json'
+import { constructFromSymbol } from "date-fns/constants";
 
 
 
 const HomePage = ({ language, screen, fullScreen, highlight, currentContent, liveContent }) => {
+
+    const contentIndexes = {
+        homeBanner: currentContent?.findIndex(e => e.order === 1),
+        markDown: currentContent?.findIndex(e => e.order === 2),
+        serviceCards: currentContent?.findIndex(e => e.order === 3),
+        statistics: currentContent?.findIndex(e => e.order === 4),
+        projectGrid: currentContent?.findIndex(e => e.order === 5),
+        clientLogo: currentContent?.findIndex(e => e.order === 6),
+        testimonials: currentContent?.findIndex(e => e.order === 7),
+        normalContent: currentContent?.findIndex(e => e.order === 8),
+    }
+
+    const content = {
+        homeBanner: currentContent?.[contentIndexes.homeBanner],
+        markDown: currentContent?.[contentIndexes.markDown],
+        serviceCards: currentContent?.[contentIndexes.serviceCards],
+        statistics: currentContent?.[contentIndexes.statistics],
+        projectGrid: currentContent?.[contentIndexes.projectGrid],
+        clientLogo: currentContent?.[contentIndexes.clientLogo],
+        testimonials: currentContent?.[contentIndexes.testimonials],
+        normalContent: currentContent?.[contentIndexes.normalContent],
+    }
+
     const checkDifference = differentText.checkDifference.bind(differentText);
     const isComputer = screen > 900;
     const isTablet = screen < 900 && screen > 730;
@@ -51,38 +76,16 @@ const HomePage = ({ language, screen, fullScreen, highlight, currentContent, liv
         for (let i = 0; i < array.length; i += chunkSize) {
             chunks.push(array.slice(i, i + chunkSize));
         }
+        console.log(chunks)
         return chunks;
     };
     const projectsPerSlide = 4;
     let projectChunks = chunkArray(
-        currentContent?.recentProjectsSection?.sections[activeRecentProjectSection]
-            ?.projects || [],
+        content?.projectGrid?.sections?.[activeRecentProjectSection]?.items || [],
         projectsPerSlide
     );
     const ProjectSlider = { ...recentProjects, ...markets, ...safety };
 
-    const contentIndexes = {
-        homeBanner: currentContent?.findIndex(e => e.order === 1),
-        markDown: currentContent?.findIndex(e => e.order === 2),
-        serviceCards: currentContent?.findIndex(e => e.order === 3),
-        statistics: currentContent?.findIndex(e => e.order === 4),
-        projectGrid: currentContent?.findIndex(e => e.order === 5),
-        clientLogo: currentContent?.findIndex(e => e.order === 6),
-        testimonials: currentContent?.findIndex(e => e.order === 7),
-        normalContent: currentContent?.findIndex(e => e.order === 8),
-    }
-
-
-    const content = {
-        homeBanner: currentContent?.[contentIndexes.homeBanner],
-        markDown: currentContent?.[contentIndexes.markDown],
-        serviceCards: currentContent?.[contentIndexes.serviceCards],
-        statistics: currentContent?.[contentIndexes.statistics],
-        projectGrid: currentContent?.[contentIndexes.projectGrid],
-        clientLogo: currentContent?.[contentIndexes.clientLogo],
-        testimonials: currentContent?.[contentIndexes.testimonials],
-        normalContent: currentContent?.[contentIndexes.normalContent],
-    }
 
     const divRef = useRef(null);
     const [width, setWidth] = useState(0);
@@ -324,9 +327,11 @@ const HomePage = ({ language, screen, fullScreen, highlight, currentContent, liv
                     </div>
 
 
-                    <div className={`flex ${isTablet ? isPhone ? "gap-[20px]" : "gap-[30px]" : "gap-[30px]"} ${isLeftAlign && !isComputer && "pr-20"}`}>
-                        <div className={`leftDetails min-w-[150px]   ${isTablet && "w-[180px]"}`}>
-                            {currentContent?.recentProjectsSection?.sections?.map((section, index) => (
+                    <div className={`flex ${isTablet ? isPhone ? "gap-[20px]" : "gap-[30px]" : "gap-[30px]"} ${isLeftAlign && !isComputer && "pr-20"}`}
+                    style={{gap: isComputer && dynamicSize(70, width)}}>
+                        <div className={`leftDetails min-w-[150px]   ${isTablet && "w-[180px]"}`}
+                            style={{ width: isComputer && dynamicSize(424, width)}}>
+                            {content?.projectGrid?.sections?.map((section, index) => (
                                 <div
                                     key={index}
                                     className={`relative `}
@@ -344,7 +349,7 @@ const HomePage = ({ language, screen, fullScreen, highlight, currentContent, liv
                                             onClick={() => setActiveRecentProjectSection(index)}
                                             style={{ fontSize: isComputer && dynamicSize(32, width) }}
                                         >
-                                            {section?.title[language]}
+                                            {section?.content?.title?.[language]}
                                         </h2>
                                     </span>
 
@@ -355,7 +360,7 @@ const HomePage = ({ language, screen, fullScreen, highlight, currentContent, liv
                                             }`}
                                         style={{ fontSize: isComputer && dynamicSize(16, width) }}
                                     >
-                                        {section?.description[language]}
+                                        {section?.content?.description?.[language]}
                                     </p>
                                 </div>
                             ))}
@@ -379,48 +384,55 @@ const HomePage = ({ language, screen, fullScreen, highlight, currentContent, liv
                                     swiper.navigation.update();
                                 }}
                             >
-                                {projectChunks?.map((chunk, slideIndex) => (
-                                    <SwiperSlide key={slideIndex}>
-                                        <div className={`${isPhone ? "flex flex-col" : `grid grid-cols-2 gap-[12px] ${isTablet ? "w-[350px]" : "w-[600px]"}`}`}
-                                            style={{ width: isComputer ? "" : isPhone ? `${(600 / 1180) * screen}px` : `${(750 / 1180) * screen}px`, gap: isComputer ? "" : `${(40 / 1180) * screen}px` }}
-                                        >
-                                            {chunk?.map((project, cardIndex) => {
-                                                if (!project.display) return null
-                                                return (
-                                                    <div className=" rounded-[4px]" key={cardIndex}>
-                                                        <div className={`w-full ${isComputer ? "h-[200px]" : "h-[150px]"}`} >
-                                                            <img
-                                                                className={`w-full h-full object-cover object-center ${project.image
-                                                                    ? ''
-                                                                    : 'opacity-[0.1]'
-                                                                    }`}
-                                                                alt={project?.title[language]}
-                                                                src={ImagesFromRedux[project.image] ? ImagesFromRedux[project.image] : project.image
-                                                                    ? ProjectSlider?.[project?.image]
-                                                                    : blankImage}
-                                                            />
+                                {projectChunks?.map((chunk, slideIndex) => {
+                                    console.log(chunk)
+                                    console.log(projectChunks)
+
+                                    return (
+                                        <SwiperSlide key={slideIndex}>
+                                            <div className={`${isPhone ? "flex flex-col" : `grid grid-cols-2 gap-[12px] auto-rows-auto ${isTablet ? "w-[350px]" : "w-[600px]"}`}`}
+                                                style={{ width: isComputer ? dynamicSize(722, width) : isPhone ? `${(600 / 1180) * screen}px` : `${(750 / 1180) * screen}px`, gap: isComputer ? "" : `${(40 / 1180) * screen}px` }}
+                                            >
+                                                {chunk?.map((project, cardIndex) => {
+                                                    return (
+                                                        <div className="flex flex-col rounded-[4px]" key={cardIndex}>
+                                                            <div className={`w-full ${isComputer ? "h-[200px]" : "h-[150px]"}`} >
+                                                                <img
+                                                                    className={`w-full h-full object-cover object-center ${project.image
+                                                                        ? ''
+                                                                        : 'opacity-[0.1]'
+                                                                        }`}
+                                                                    alt={project?.[language]}
+                                                                    src={ImagesFromRedux?.[project.image] ? ImagesFromRedux?.[project.image] : project?.image
+                                                                        ? ProjectSlider?.[project?.image]
+                                                                        : blankImage}
+                                                                />
+                                                            </div>
+                                                            <div className="p-[18px_12px_12px_12px] flex flex-col justify-center items-start gap-[16px] bg-[#00B9F2] flex-1">
+
+                                                                <h5
+                                                                    title={project?.[language === "en" ? "titleEn" : "titleAr"]}
+                                                                    className={`text-white text-[20px] font-semibold  h-[40px] ${!isComputer && "mb-2"}`}
+                                                                    style={{fontSize: isComputer && dynamicSize(20, width)}}
+                                                                >
+                                                                    {TruncateText(project?.[language === "en" ? "titleEn" : "titleAr"], !isComputer ? 20 : 35)}
+                                                                </h5>
+                                                                <p
+                                                                    title={project?.[language === "en" ? "titleEn" : "titleAr"]}
+                                                                    className="text-white text-[16px] font-light leading-[normal]"
+                                                                    style={{fontSize: isComputer && dynamicSize(16, width)}}
+                                                                >
+                                                                    {TruncateText(project?.[language === "en" ? "titleEn" : "titleAr"], (isTablet ? 16 : 25))}
+                                                                </p>
+                                                            </div>
                                                         </div>
-                                                        <div className="p-[18px_12px_12px_12px] flex flex-col justify-center items-start gap-[16px] bg-[#00B9F2]">
-                                                            <h5
-                                                                title={project?.title[language]}
-                                                                className={`text-white text-[20px] font-semibold  h-[40px] ${!isComputer && "mb-2"}`}
-                                                            >
-                                                                {TruncateText(project?.title[language], !isComputer ? 20 : 45)}
-                                                            </h5>
-                                                            <p
-                                                                title={project?.subtitle[language]}
-                                                                className="text-white text-[16px] font-light leading-[normal]"
-                                                            >
-                                                                {TruncateText(project?.subtitle[language], (isTablet ? 16 : 25))}
-                                                            </p>
-                                                        </div>
-                                                    </div>
-                                                )
-                                            }
-                                            )}
-                                        </div>
-                                    </SwiperSlide>
-                                ))}
+                                                    )
+                                                }
+                                                )}
+                                            </div>
+                                        </SwiperSlide>
+                                    )
+                                })}
                             </Swiper>
 
                             {/* Custom buttons */}
