@@ -39,9 +39,9 @@ const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
     let sameDoubledValue = false;
     const verifierSet = new Set(formObj.verifiers.map((e) => e.id));
 
-    for (let i = 0; i < valueArray.length; i++) {
+    for (let i = 0; i < valueArray?.length; i++) {
       if (verifierSet.has(valueArray[i])) sameDoubledValue = true;
-      for (let j = i + 1; j < valueArray.length; j++) {
+      for (let j = i + 1; j < valueArray?.length; j++) {
         if (valueArray[i] === valueArray[j]) sameDoubledValue = true;
       }
       if (keyArray[i] !== "manager" && valueArray[i] === "") {
@@ -104,7 +104,7 @@ const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
         manager: preAssignedUsers?.roles?.MANAGER || "",
         editor: preAssignedUsers?.roles?.EDITOR || "",
         verifiers:
-          preAssignedUsers?.verifiers.length > 0
+          preAssignedUsers?.verifiers?.length > 0
             ? preAssignedUsers?.verifiers
             : [{ id: "", stage: NaN }],
         publisher: preAssignedUsers?.roles?.PUBLISHER || "",
@@ -114,24 +114,28 @@ const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
 
   useEffect(() => {
     async function GetAssingends() {
-      const payload = { resourceId };
+      const payload = resourceId ;
       if (resourceId) {
-        const response = await getAssignedUsers(payload);
-        setPreAssignedUsers((prev) => {
-          let roles = {};
-          response?.assignedUsers?.roles?.forEach((e) => {
-            roles[e?.role] = e?.userId;
+        try {
+          const response = await getAssignedUsers(payload+"a");
+          setPreAssignedUsers((prev) => {
+            let roles = {};
+            response?.assignedUsers?.roles?.forEach((e) => {
+              roles[e?.role] = e?.userId;
+            });
+            return {
+              roles: roles,
+              verifiers: response?.assignedUsers?.verifiers?.map((e) => ({
+                stage: e?.stage,
+                id: e?.userId,
+              })),
+            };
           });
-          return {
-            roles: roles,
-            verifiers: response.assignedUsers.verifiers.map((e) => ({
-              stage: e.stage,
-              id: e.userId,
-            })),
-          };
-        });
-        if (response.assignedUsers?.roles?.length > 0) {
-          setFetchedData(true);
+          if (response.assignedUsers?.roles?.length > 0) {
+            setFetchedData(true);
+          }
+        } catch (err) {
+
         }
       }
     }

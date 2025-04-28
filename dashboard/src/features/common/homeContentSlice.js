@@ -154,16 +154,16 @@ const cmsSlice = createSlice({
         },
         updateSelectedContent: (state, action) => {
             state.past.push(JSON.parse(JSON.stringify(state.present)));
-            const selectedMap = new Map(
-                action.payload?.selected?.filter(e => e.display).map((item, index) => [item[action.payload.titleLan], index])
-            );
-            let newOptions = action.payload.selected.map((e, i) => ({ ...e, order: i + 1 }))
+            // const selectedMap = new Map(
+            //     action.payload?.selected?.filter(e => e.display).map((item, index) => [item[action.payload.titleLan], index])
+            // );
+            let newOptions = action.payload.data
 
-            newOptions.sort((a, b) => {
-                const indexA = selectedMap.get(a[action.payload.titleLan]) ?? Infinity;
-                const indexB = selectedMap.get(b[action.payload.titleLan]) ?? Infinity;
-                return indexA - indexB;
-            });
+            // newOptions.sort((a, b) => {
+            //     const indexA = selectedMap.get(a[action.payload.titleLan]) ?? Infinity;
+            //     const indexB = selectedMap.get(b[action.payload.titleLan]) ?? Infinity;
+            //     return indexA - indexB;
+            // });
 
             switch (action.payload.origin) {
                 case "home":

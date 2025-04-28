@@ -371,15 +371,10 @@ export async function assignUser(data) {
 }
 
 export async function getAssignedUsers(query) {
-  if (!query || typeof query !== "object") {
-    return await makerequest(api.route("getAssignedUsers"), "GET");
-  }
 
-  const [key] = Object.keys(query);
-  const value = query[key];
 
   return await makerequest(
-    `${api.route("getAssignedUsers")}?${key}=${value}`,
+    `${api.route("getAssignedUsers")}/${query}`,
     "GET"
   );
 }
@@ -389,5 +384,16 @@ export async function getContent(query) {
   return await makerequest(
     `${api.route("getContent")}/${query}`,
     "GET"
+  );
+}
+
+export async function updateContent(data) {
+
+  return await makerequest(
+    `${api.route("updateContent")}?saveAs=DRAFT`,
+    "PUT",
+    JSON.stringify(data),
+    ContentType.json,
+    true
   );
 }

@@ -19,6 +19,7 @@ import {
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 import { updateSelectedContent, updateSelectedProject } from "../../../common/homeContentSlice";
+import { updateSelectedContentAndSaveDraft } from "../../../common/thunk/smsThunk";
 
 const SortableItem = ({ option, removeOption, language, reference, titleLan, contentIndex }) => {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } =
@@ -164,7 +165,7 @@ const MultiSelect = ({ heading, options, tabName, label, language, section, refe
   useEffect(() => {
     if (Array.isArray(options) && random !== 1) {
 
-      dispatch(updateSelectedContent({
+      dispatch(updateSelectedContentAndSaveDraft({
         origin: referenceOriginal.dir,
         index: referenceOriginal.index,
         section,

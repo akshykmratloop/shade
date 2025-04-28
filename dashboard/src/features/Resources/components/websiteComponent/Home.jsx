@@ -185,7 +185,6 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
 
                     <div className={`${isPhone ? "flex gap-4 flex-col" : "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 md:gap-12 sm:gap-6"}`}
                         style={{ columnGap: isComputer && dynamicSize(96, width), rowGap: isComputer && dynamicSize(48, width) }}>
-                        {console.log(content?.serviceCards?.items)}
                         {content?.serviceCards?.items?.map((card, key) => {
                             return (
                                 <div key={key} className={`w-full h-44 flex items-center justify-center p-6 rounded-md transition-transform duration-300 hover:scale-105 cursor-pointer ${key % 2 !== 0 ? "bg-blue-900 text-[white]" : " bg-stone-200"} `}>

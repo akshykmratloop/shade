@@ -1,4 +1,4 @@
-let a = {
+let input = {
     "message": "Success",
     "content": {
         "id": "cm9wilven008znxaf4p2rio4s",
@@ -2846,3 +2846,99 @@ let a = {
         }
     }
 }
+
+function transformContent(input) {
+    if (!input || !input.content) return null;
+
+    const { content } = input;
+    const { liveVersion } = content;
+
+    // Transform sections
+    const transformedSections = liveVersion.sections.map(section => {
+        const baseSection = {
+            sectionId: section.sectionId,
+            order: section.order,
+            content: section.content
+        };
+
+        // Handle different section types
+        switch (section.SectionType) {
+            case 'SERVICE_CARDS':
+                return {
+                    ...baseSection,
+                    items: section.items ? section.items.map(item => ({
+                        resourceType: "SUB_PAGE",
+                        order: item.order,
+                        id: item.id
+                    })) : []
+                };
+
+            case 'PROJECT_GRID':
+                // Handle nested sections in PROJECT_GRID
+                if (section.sections) {
+                    return {
+                        ...baseSection,
+                        content: section.content,
+                        sections: section.sections.map(subSection => ({
+                            sectionId: subSection.sectionId,
+                            order: subSection.order,
+                            content: subSection.content,
+                            items: subSection.items ? subSection.items.map(item => ({
+                                resourceType: "SUB_PAGE",
+                                order: item.order,
+                                id: item.id
+                            })) : []
+                        }))
+                    };
+                }
+                return baseSection;
+
+            case 'TESTIMONIALS':
+                return {
+                    ...baseSection,
+                    items: section.items ? section.items.map(item => ({
+                        resourceType: "SUB_PAGE",
+                        order: item.order,
+                        id: item.id
+                    })) : []
+                };
+
+            default:
+                return baseSection;
+        }
+    });
+
+    // Create the transformed content
+    const transformedContent = {
+        content: {
+            resourceId: content.id,
+            titleEn: content.titleEn,
+            titleAr: content.titleAr,
+            slug: content.slug,
+            resourceType: content.resourceType,
+            resourceTag: content.resourceTag,
+            relationType: content.relationType,
+            newVersionEditMode: {
+                versionStatus: "",
+                comments: "",
+                referenceDoc: "",
+                content: liveVersion.content,
+                icon: liveVersion.icon,
+                image: liveVersion.image,
+                sections: transformedSections
+            }
+        }
+    };
+
+    return transformedContent;
+}
+
+// Usage:
+// const formattedContent = transformContent(input);
+// console.log(formattedContent);
+
+console.log(JSON.stringify(transformContent(input)))
+
+// Usage:
+// const formattedContent = transformContent(a);
+// console.log(formattedContent);
