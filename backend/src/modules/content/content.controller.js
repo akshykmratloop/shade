@@ -11,7 +11,7 @@ import {
 } from "./content.service.js";
 
 const GetResources = async (req, res) => {
-  const { resourceType, resourceTag, relationType, isAssigned, search, status, page, limit } =
+  const { resourceType, resourceTag, relationType, isAssigned, search, status, page, limit, fetchType } =
     req.query;
   const pageNum = parseInt(page) || 1;
   const limitNum = parseInt(limit) || 100;
@@ -23,7 +23,8 @@ const GetResources = async (req, res) => {
     search,
     status,
     pageNum,
-    limitNum
+    limitNum,
+    fetchType
   );
   res.status(200).json(response);
 };
@@ -65,9 +66,10 @@ const GetContent = async (req, res) => {
 };
 
 const UpdateContent = async (req, res) => {
+  const { saveAs } = req.query;
   const { content } = req.body;
   console.log(content, "content");
-  const response = await updateContent(content);
+  const response = await updateContent(saveAs,content);
   res.status(200).json(response);
 };
 export default {

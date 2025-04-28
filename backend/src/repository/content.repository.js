@@ -91,6 +91,142 @@ export const fetchResources = async (
   };
 };
 
+export const fetchAllResourcesWithContent = async (
+  resourceType = "",
+  resourceTag = "",
+  relationType = "",
+  isAssigned,
+  search = "",
+  status = "",
+  page = 1,
+  limit = 10
+) => {
+  const skip = (page - 1) * limit;
+
+  // Determine the resourceType filter
+  let resourceTypeFilter = {};
+  if (resourceType === "HEADER_FOOTER") {
+    resourceTypeFilter = {
+      resourceType: {
+        in: ["HEADER", "FOOTER"],
+      },
+    };
+  } else if (resourceType) {
+    resourceTypeFilter = {
+      resourceType,
+    };
+  }
+
+  // Build the where clause based on provided filters
+  const whereClause = {
+    ...resourceTypeFilter,
+    ...(resourceTag ? { resourceTag: resourceTag } : {}),
+    ...(relationType ? { relationType } : {}),
+    ...(typeof isAssigned === "boolean" ? { isAssigned } : {}),
+    ...(status ? { status } : {}),
+    ...(search
+      ? {
+          OR: [
+            { titleEn: { contains: search, mode: "insensitive" } },
+            { titleAr: { contains: search, mode: "insensitive" } },
+            { slug: { contains: search, mode: "insensitive" } },
+          ],
+        }
+      : {}),
+  };
+
+  // Fetch the resources with all necessary relations
+  const resources = await prismaClient.resource.findMany({
+    where: whereClause,
+    include: {
+      liveVersion: {
+        select: {
+          id: true,
+          versionNumber: true,
+          content: true,
+          icon: true,
+          Image: true,
+          sections: {
+            include: {
+              sectionVersion: true,
+            },
+            orderBy: {
+              order: "asc",
+            },
+          },
+        },
+      },
+      // newVersionEditMode: {
+      //   select: {
+      //     id: true,
+      //     versionNumber: true,
+      //     content: true,
+      //     icon: true,
+      //     Image: true,
+      //     sections: {
+      //       include: {
+      //         sectionVersion: true,
+      //       },
+      //       orderBy: {
+      //         order: "asc",
+      //       },
+      //     },
+      //   },
+      // },
+    },
+    orderBy: { createdAt: "desc" },
+    skip,
+    take: parseInt(limit),
+  });
+
+  if (!resources || resources.length === 0) {
+    return null;
+  }
+
+  // Process each resource with its versions
+  const formattedResources = await Promise.all(resources.map(async (resource) => {
+    // Create the base resource object
+    const formattedResource = {
+      id: resource.id,
+      titleEn: resource.titleEn,
+      titleAr: resource.titleAr,
+      slug: resource.slug,
+      resourceType: resource.resourceType,
+      resourceTag: resource.resourceTag,
+      relationType: resource.relationType,
+    };
+
+    // Process live version if it exists
+    if (resource.liveVersion) {
+      formattedResource.liveVersion = await formatResourceVersion(resource.liveVersion);
+    }
+
+    // Process edit version if it exists
+    if (resource.newVersionEditMode) {
+      formattedResource.editVersion = await formatResourceVersion(
+        resource.newVersionEditMode
+      );
+    }
+
+    return formattedResource;
+  }));
+
+  // Get total count for pagination
+  const totalResources = await prismaClient.resource.count({
+    where: whereClause,
+  });
+
+  return {
+    resources: formattedResources,
+    pagination: {
+      totalResources,
+      totalPages: Math.ceil(totalResources / limit),
+      currentPage: page,
+      limit,
+    },
+  };
+};
+
 export const fetchResourceInfo = async (resourceId) => {
   const resources = await prismaClient.resource.findUnique({
     where: {
@@ -574,7 +710,6 @@ export const fetchContent = async (resourceId) => {
   return result;
 };
 
-// Helper function to format a resource version with its sections
 async function formatResourceVersion(resourceVersion) {
   if (!resourceVersion) return null;
 
@@ -671,10 +806,10 @@ async function formatResourceVersion(resourceVersion) {
   });
 
   // Format each section
-  const formattedSections = sortedSectionVersions.map((sectionVersion) => {
+  const formattedSections = await Promise.all(sortedSectionVersions.map(async (sectionVersion) => {
     // Format the main section
     const formattedSection = {
-      sectionId : sectionVersion.sectionId,
+      sectionId: sectionVersion.sectionId,
       sectionVersionId: sectionVersion.id,
       order: sectionOrderMap[sectionVersion.id] || 999,
       version: sectionVersion.version,
@@ -685,32 +820,31 @@ async function formatResourceVersion(resourceVersion) {
 
     // Add items if they exist
     if (sectionVersion.items && sectionVersion.items.length > 0) {
-      formattedSection.items = sectionVersion.items.map((item) => {
+      formattedSection.items = await Promise.all(sectionVersion.items.map(async (item) => {
         // Get the resource and its live version
         const resource = item.resource;
-        const liveVersion = resource.liveVersion;
+
+        // Fetch the full content of the item resource
+        const itemContent = await fetchContent(resource.id);
 
         return {
-          resourceType: resource.resourceType || "SUB_PAGE",
+          // resourceType: resource.resourceType || "SUB_PAGE",
           order: item.order,
-          id: resource.id,
-          slug: resource.slug,
-          titleEn: resource.titleEn,
-          titleAr: resource.titleAr,
-          // Use icon from live version if available
-          icon: liveVersion?.icon || null,
-          image: liveVersion?.Image || null,
-          // data: formatResourceVersion(),
+          id: itemContent.id,
+          slug: itemContent.slug,
+          titleEn: itemContent.titleEn,
+          titleAr: itemContent.titleAr,
+          liveVersion: itemContent.liveVersion // Include the full formatted content of the item
         };
-      });
+      }));
     }
 
     // Add child sections if they exist
     if (sectionVersion.children && sectionVersion.children.length > 0) {
-      formattedSection.sections = sectionVersion.children.map(
-        (childSection) => {
+      formattedSection.sections = await Promise.all(sectionVersion.children.map(
+        async (childSection) => {
           const formattedChild = {
-            sectionId : childSection.sectionId,
+            sectionId: childSection.sectionId,
             sectionVersionId: childSection.id,
             order: sectionOrderMap[childSection.id] || 999,
             title: childSection.section?.title || "",
@@ -720,10 +854,13 @@ async function formatResourceVersion(resourceVersion) {
 
           // Add items to child section if they exist
           if (childSection.items && childSection.items.length > 0) {
-            formattedChild.items = childSection.items.map((item) => {
+            formattedChild.items = await Promise.all(childSection.items.map(async (item) => {
               // Get the resource and its live version
               const resource = item.resource;
               const liveVersion = resource.liveVersion;
+
+              // Fetch the full content of the item resource
+              const itemContent = await fetchContent(resource.id);
 
               return {
                 resourceType: resource.resourceType || "SUB_PAGE",
@@ -732,20 +869,20 @@ async function formatResourceVersion(resourceVersion) {
                 slug: resource.slug,
                 titleEn: resource.titleEn,
                 titleAr: resource.titleAr,
-                // Use icon from live version if available
                 icon: liveVersion?.icon || null,
                 image: liveVersion?.Image || null,
+                data: itemContent // Include the full formatted content of the item
               };
-            });
+            }));
           }
 
           return formattedChild;
         }
-      );
+      ));
     }
 
     return formattedSection;
-  });
+  }));
 
   return {
     id: resourceVersion.id,
@@ -758,6 +895,47 @@ async function formatResourceVersion(resourceVersion) {
 }
 
 
+
+export const findResourceById = async (id) => {
+  return await prismaClient.resource.findUnique({
+    where: {
+      id,
+    },
+  });
+};
+
+
+export const updateContent = async (resourceId, content) => {
+  const resource = await prismaClient.resource.findUnique({
+    where: {
+      id: resourceId,
+    },
+    include: {
+      newVersionEditMode: true,
+    },
+  });
+
+  if (!resource) {
+    return null;
+  }
+
+  const version = resource.newVersionEditMode;
+
+  if (!version) {
+    return null;
+  }
+
+  const updatedVersion = await prismaClient.resourceVersion.update({
+    where: {
+      id: version.id,
+    },
+    data: {
+      content: content,
+    },
+  });
+
+  return updatedVersion;
+};
 
 // {
 //   "content": {
@@ -1120,25 +1298,25 @@ async function formatResourceVersion(resourceVersion) {
 //                           "resourceType": "SUB_PAGE",
 //                           "order": 3,
 //                           "id": "cm9wm4rkc000ilq0i2j1p9x40"
-                      
+
 //                       },
 //                       {
 //                           "resourceType": "SUB_PAGE",
 //                           "order": 4,
 //                           "id": "cm9wm4rkw000rlq0i08m07i87"
-                      
+
 //                       },
 //                       {
 //                           "resourceType": "SUB_PAGE",
 //                           "order": 5,
 //                           "id": "cm9wm4rlg0010lq0iftb59a9s"
-                         
+
 //                       },
 //                       {
 //                           "resourceType": "SUB_PAGE",
 //                           "order": 6,
 //                           "id": "cm9wm4rm70019lq0ia929g0bj"
-                     
+
 //                       }
 //                   ]
 //               },
