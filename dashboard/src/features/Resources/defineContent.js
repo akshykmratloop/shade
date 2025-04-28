@@ -27,9 +27,9 @@ export default function createContent(content, path, subPath) {
 
 
 
+    return { content: contentHome, index: contentIndexes }
     switch (path) {
         case "home":
-            return { content: contentHome, index: contentIndexes }
             break;
 
         default:

@@ -86,7 +86,7 @@ const TopSideButtons = ({
           tabIndex={0}
           className="dropdown-content menu p-2 text-sm shadow bg-base-100 rounded-box w-52 text-[#0E2354] font-[400]"
         >
-          {statusFilters.map((status, key) => (
+          {statusFilters?.map((status, key) => (
             <li key={key}>
               <a
                 onClick={() => showFiltersAndApply(status)}

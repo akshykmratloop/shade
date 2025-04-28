@@ -28,14 +28,38 @@ import blankImage from "../../../../assets/images/blankImage.webp";
 import { TruncateText } from "../../../../app/capitalizeword";
 import dynamicSize from "../../../../app/fontSizes";
 import { differentText } from "../../../../app/fontSizes";
-import { getContent } from "../../../../app/fetch";
 import contentJSON from './content.json'
-import { constructFromSymbol } from "date-fns/constants";
 
+const fontSize = (condition, fn, w) => {
+    let obj = {}
+    if(condition){
+        obj = {
+            mainHeading: fn(70, w),
+            mainPara: fn(16, w),
+            mainButton: fn(18, w),
+
+            markDownHead: fn(36, w),
+            markDownPara: fn(15, w),
+            markDownButton: fn(70, w),
+
+            serviceHeading: fn(36, w),
+            services: fn(20, w),
+
+            experienceCount: fn(40, w),
+            experienceTitle: fn(12, w),
+            
+            mainHeading: fn(70, w),
+            mainHeading: fn(70, w),
+            mainHeading: fn(70, w),
+            mainHeading: fn(70, w),
+            mainHeading: fn(70, w),
+            mainHeading: fn(70, w),
+        }
+    }
+}
 
 
 const HomePage = ({ language, screen, fullScreen, highlight, content, currentContent, liveContent }) => {
-    const titleLan = language === "en" ? "titleEn" : "titleAr"
 
     const checkDifference = differentText.checkDifference.bind(differentText);
     const isComputer = screen > 900;
@@ -47,6 +71,7 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
     const [swiperInstance, setSwiperInstance] = useState(null);
     let isLeftAlign = language === "en";
     let textAlignment = isLeftAlign ? "text-left" : "text-right"
+    const titleLan = isLeftAlign ? "titleEn" : "titleAr"
     const prevRef = useRef(null);
     const nextRef = useRef(null);
     const [activeRecentProjectSection, setActiveRecentProjectSection] = useState(0);
@@ -163,8 +188,8 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                         </h2>
                         <div className={`text-white font-[100] text-[12px] leading-[16px] ${highlight && checkDifference(currentContent?.aboutUsSection?.description?.[language], liveContent?.aboutUsSection?.description?.[language])}`}
                             style={{ fontSize: isComputer && dynamicSize(15, width), lineHeight: isComputer && dynamicSize(26, width) }}
-                            dangerouslySetInnerHTML={{__html: content?.markDown?.content?.description[language]}}
-                           />
+                            dangerouslySetInnerHTML={{ __html: content?.markDown?.content?.description[language] }}
+                        />
                         <button className="px-[6px] py-[2px] bg-[#00B9F2] text-white text-[12px] rounded-md hover:bg-opacity-90 text-right"
                             style={{ fontSize: isComputer && dynamicSize(18, width) }}
                         >

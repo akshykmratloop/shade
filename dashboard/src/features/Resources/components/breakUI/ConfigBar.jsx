@@ -117,7 +117,7 @@ const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
       const payload = resourceId ;
       if (resourceId) {
         try {
-          const response = await getAssignedUsers(payload+"a");
+          const response = await getAssignedUsers(payload);
           setPreAssignedUsers((prev) => {
             let roles = {};
             response?.assignedUsers?.roles?.forEach((e) => {
@@ -131,7 +131,7 @@ const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
               })),
             };
           });
-          if (response.assignedUsers?.roles?.length > 0) {
+          if (response?.assignedUsers?.roles?.length > 0) {
             setFetchedData(true);
           }
         } catch (err) {
