@@ -515,10 +515,13 @@ function Requests() {
                                   isVisible={activeIndex === request?.id}
                                   onToggle={() => toggleTooltip(request?.id)}
                                 >
-                                  <FiEye
+                                  {/* <FiEye
                                     className="w-5 h-6  text-[#3b4152] dark:text-stone-200"
                                     strokeWidth={1}
-                                  />
+                                  /> */}
+                                  <span className="underline w-5 h-6 text-[#3b4152] cursor-pointer dark:text-stone-200">
+                                    View
+                                  </span>
                                 </ShowVerifierTooltip>
                               ) : (
                                 ""

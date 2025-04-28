@@ -137,10 +137,14 @@ function RightSidebar() {
       }
     >
       <section
-        className={
-          "w-80 md:w-96  right-0 absolute bg-base-100 h-full shadow-xl delay-400 duration-500 ease-in-out transition-all transform  " +
-          (isOpen ? " translate-x-0 " : " translate-x-full ")
+        className={`${
+          bodyType === RIGHT_DRAWER_TYPES.RESOURCE_DETAILS
+            ? "w-[34rem]"
+            : "w-80 md:w-96"
         }
+          right-0 absolute bg-base-100 h-full shadow-xl delay-400 duration-500 ease-in-out transition-all transform 
+          ${isOpen ? "translate-x-0" : "translate-x-full"}
+          `}
       >
         <div className="relative  pb-5 flex flex-col  h-full">
           {/* Header */}
