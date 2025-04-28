@@ -19,81 +19,21 @@ import SubServiceDetails from "./websiteComponent/subDetailsPages/SubServiceDeta
 const AllForOne = ({ language, screen, content, subPath, setLanguage, fullScreen, currentPath, deepPath, showDifference = false }) => {
     let translateForFullScreen = ""
 
-    console.log(currentPath)
-    if (!subPath) {
-        switch (currentPath) {
-            case "home":
-                translateForFullScreen = ""
-                break;
-
-            case "solution":
-                translateForFullScreen = "translate-y-[505px]";
-                break;
-
-            case "about":
-                translateForFullScreen = "translate-y-[255px]";
-                break;
-
-            case "markets":
-                translateForFullScreen = "translate-y-[410px]";
-                break;
-
-            case "projects":
-                translateForFullScreen = "translate-y-[351px]"
-                break;
-            case "careers":
-                translateForFullScreen = "translate-y-[545px]"
-                break;
-
-            case "news":
-                translateForFullScreen = "translate-y-[520px]"
-                break;
-            case "footer":
-                translateForFullScreen = "translate-y-[130px]"
-                break;
-        }
-    } else {
-        switch (currentPath) {
-            case "home":
-                translateForFullScreen = "translate-y-[950px]"
-                break;
-
-            case "solution":
-                translateForFullScreen = "translate-y-[505px]";
-                break;
-
-            case "about":
-                translateForFullScreen = "translate-y-[255px]";
-                break;
-
-            case "markets":
-                translateForFullScreen = "translate-y-[410px]";
-                break;
-
-            case "projects":
-                translateForFullScreen = "translate-y-[420px]"
-                break;
-            case "careers":
-                translateForFullScreen = "translate-y-[285px]"
-                break;
-
-            case "news":
-                translateForFullScreen = "translate-y-[360px]"
-                break;
-
-            case "testimonials":
-                translateForFullScreen = "translate-y-[220px]"
-                break;
-        }
-    }
-
     return (
-        <div className={`dark:text-[#2A303C] mt-0 ${fullScreen && screen > 900 ? "" + translateForFullScreen : ""} ${fullScreen ? "overflow-y-hidden" : "overflow-y-scroll"} customscroller transition-custom border-stone-200 border mx-auto w-full bankgothic-medium-dt bg-[white]`}
+        <div
+            className={`dark:text-[#2A303C] mt-0 
+            ${fullScreen ? "overflow-y-hidden" : "overflow-y-scroll"}
+             customscroller transition-custom border-stone-200 border mx-auto w-full bankgothic-medium-dt bg-[white]`}
             style={{ width: screen > 950 ? "100%" : screen, wordBreak: "break-word" }}
         >
             {
                 currentPath === "home" &&
-                <HomePage language={language} screen={screen} fullScreen={fullScreen} currentContent={content.home} highlight={showDifference} />
+                <HomePage language={language}
+                    screen={screen}
+                    fullScreen={fullScreen}
+                    content={content}
+                    highlight={showDifference}
+                />
             }
             {
                 currentPath === "solutions" &&

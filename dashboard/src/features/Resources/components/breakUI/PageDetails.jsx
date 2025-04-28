@@ -32,11 +32,6 @@ const PageDetails = ({data, display, setOn}) => {
     }
   }, [display, data?.id]);
 
-  console.log("pageInfo", pageInfo);
-  console.log("display", display);
-  console.log("data", data);
-  // console.log(, "data.resourceId");
-
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (pageRef.current && !pageRef.current.contains(event.target)) {

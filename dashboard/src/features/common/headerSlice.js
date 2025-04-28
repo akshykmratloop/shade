@@ -28,7 +28,6 @@ export const headerSlice = createSlice({
     },
     setNotificationCount: (state, action) => {
       let count = (state.noOfNotifications = action.payload);
-      console.log(count, "count notif");
     },
   },
 });

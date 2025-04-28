@@ -1,18 +1,90 @@
 // import { useSelector } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import FileUploader from "../../../../components/Input/InputFileUploader";
 import ContentSection from "../breakUI/ContentSections";
 import MultiSelect from "../breakUI/MultiSelect";
 import { updateContent } from "../../../common/homeContentSlice";
 import content from "../websiteComponent/content.json"
 import { useDispatch } from "react-redux";
+import { getContent, getResources } from "../../../../app/fetch";
+import { testimonials } from "../../../../assets";
 
-const HomeManager = ({ language, currentContent, currentPath }) => {
+const HomeManager = ({ language, content, currentPath, indexes }) => {
     const dispatch = useDispatch()
+    const [currentId, setCurrentId] = useState("")
+    const [ServicesOptions, setServicesOptions] = useState([])
+    const [ProjectOptions, setProjectOptions] = useState([])
+
+
 
     useEffect(() => {
-        dispatch(updateContent({ currentPath: "home", payload: (content?.home) }))
+        const currentId = localStorage.getItem("contextId");
+        if (currentId) {
+            setCurrentId(currentId)
+        }
     }, [])
+
+    useEffect(() => {
+        async function getOptionsforServices() {
+            const response = await getResources({ resourceType: "SUB_PAGE", resourceTag: "SERVICE" })
+            const response2 = await getResources({ resourceType: "SUB_PAGE", resourceTag: "PROJECT" })
+            if (response.message === "Success") {
+                let options = response.resources.resources.map((e, i) => ({
+                    id: e.id,
+                    order: i + 1,
+                    slug: e.slug,
+                    titleEn: e.titleEn,
+                    titleAr: e.titleAr,
+                    // icon: e.icon,
+                    // image: e.image
+                }))
+                setServicesOptions(options)
+            }
+            if (response2.message === "Success") {
+                let options = response2.resources.resources.map((e, i) => ({
+                    id: e.id,
+                    order: i + 1,
+                    slug: e.slug,
+                    titleEn: e.titleEn,
+                    titleAr: e.titleAr,
+                    // icon: e.icon,
+                    // image: e.image
+                }))
+                setProjectOptions(options)
+            }
+        }
+
+        getOptionsforServices()
+    }, [])
+
+    useEffect(() => {
+        // dispatch(updateContent({ currentPath: "home", payload: (content?.home) }))
+        if (currentId) {
+            async function context() {
+                try {
+                    const response = await getContent(currentId)
+                    if (response.message === "Success") {
+                        const payload = {
+                            id: response.content.id,
+                            titleEn: response.content.titleEn,
+                            titleAr: response.content.titleAr,
+                            slug: response.content.slug,
+                            resourceType: response.content.resourceType,
+                            resourceTag: response.content.resourceTag,
+                            relationType: response.content.relationType,
+                            editVersion: response.content.editVersion ?? response.content.liveVersion
+                        }
+
+                        dispatch(updateContent({ currentPath: "home", payload }))
+                    }
+                } catch (err) {
+
+                }
+            }
+            context()
+        }
+    }, [currentId])
+
     return (
         <div className="w-full">
             {/* reference doc */}
@@ -22,13 +94,14 @@ const HomeManager = ({ language, currentContent, currentPath }) => {
                 currentPath={currentPath}
                 Heading={"Hero Banner"}
                 inputs={[
-                    { input: "input", label: "Heading/title", updateType: "title" },
-                    { input: "textarea", label: "Description", updateType: "description", maxLength: 500 },
-                    { input: "input", label: "Button Text", updateType: "buttonText", maxLength: 20 }]}
+                    { input: "input", label: "Heading/title", updateType: "title", value: content?.homeBanner?.content?.title[language] },
+                    { input: "textarea", label: "Description", updateType: "description", maxLength: 500, value: content?.homeBanner?.content?.description[language] },
+                    { input: "input", label: "Button Text", updateType: "buttonText", maxLength: 20, value: content?.homeBanner?.content?.buttonText[language] }]}
                 inputFiles={[{ label: "Backround Image", id: "homeBanner" }]}
                 section={"homeBanner"}
                 language={language}
-                currentContent={currentContent}
+                currentContent={content}
+                contentIndex={indexes.homeBanner}
             />
 
             {/* about section */}
@@ -36,14 +109,14 @@ const HomeManager = ({ language, currentContent, currentPath }) => {
                 currentPath={currentPath}
                 Heading={"About Section"}
                 inputs={[
-                    { input: "input", label: "Heading/title", updateType: "title" },
-                    { input: "textarea", label: "About section", updateType: "description", maxLength: 400 },
-                    { input: "textarea", label: "Description 2", updateType: "description2", maxLength: 400 },
-                    { input: "input", label: "Button Text", updateType: "buttonText" }]}
+                    { input: "input", label: "Heading/title", updateType: "title", value: content?.markDown?.content?.title[language] },
+                    { input: "richtext", label: "About section", updateType: "description", maxLength: 800, value: content?.markDown?.content?.description[language] },
+                    { input: "input", label: "Button Text", updateType: "buttonText", value: content?.markDown?.content?.buttonText[language] }]}
                 inputFiles={[{ label: "Backround Image", id: "aboutUsSection" }]}
                 section={"aboutUsSection"}
                 language={language}
-                currentContent={currentContent}
+                currentContent={content}
+                contentIndex={indexes.markDown}
             />
 
             {/* services  */}
@@ -54,9 +127,11 @@ const HomeManager = ({ language, currentContent, currentPath }) => {
                 label={"Select Service List"}
                 heading={"Services Section"}
                 tabName={"Select Services"}
-                options={currentContent?.serviceSection?.cards}
+                options={content?.serviceCards?.items}
+                listOptions={ServicesOptions}
                 referenceOriginal={{ dir: "home", index: 0 }}
-                currentContent={currentContent}
+                currentContent={content}
+                contentIndex={indexes.serviceCards}
             />
 
             {/* exprerince */}
@@ -65,14 +140,15 @@ const HomeManager = ({ language, currentContent, currentPath }) => {
                     currentPath={currentPath}
                     Heading={"Experience Section"}
                     inputs={[
-                        { input: "input", label: "Heading/title", updateType: "title" },
-                        { input: "textarea", label: "Description", updateType: "description" },
-                        { input: "input", label: "Button Text", updateType: "buttonText" }]}
+                        { input: "input", label: "Heading/title", updateType: "title", value: content?.statistics?.content?.title[language] },
+                        { input: "textarea", label: "Description", updateType: "description", value: content?.statistics?.content?.description[language] },
+                        { input: "input", label: "Button Text", updateType: "buttonText", value: content?.statistics?.content?.button?.text?.[language] }]}
                     isBorder={false}
                     fileId={"experienceSection"}
                     section={"experienceSection"}
                     language={language}
-                    currentContent={currentContent}
+                    currentContent={content}
+                    contentIndex={indexes.statistics}
                 />
                 {["Item 1", "Item 2", "Item 3", "Item 4"].map((item, index, array) => {
                     const isLast = index === array.length - 1;
@@ -81,8 +157,8 @@ const HomeManager = ({ language, currentContent, currentPath }) => {
                             currentPath={currentPath}
                             subHeading={item}
                             inputs={[
-                                { input: "input", label: "Item text 1", updateType: "count" },
-                                { input: "input", label: "Item text 2", updateType: "title" }]}
+                                { input: "input", label: "Item text 1", updateType: "count", value: content?.statistics?.content?.cards?.[index]?.count },
+                                { input: "input", label: "Item text 2", updateType: "title", value: content?.statistics?.content?.cards?.[index]?.title?.[language] }]}
                             inputFiles={[{ label: "Item Icon", id: item }]}
                             // fileId={item}
                             language={language}
@@ -90,7 +166,8 @@ const HomeManager = ({ language, currentContent, currentPath }) => {
                             subSection={"cards"}
                             index={+index}
                             isBorder={isLast}
-                            currentContent={currentContent}
+                            currentContent={content}
+                            contentIndex={indexes.statistics}
                         />
                     )
                 })}
@@ -103,58 +180,35 @@ const HomeManager = ({ language, currentContent, currentPath }) => {
                 </h3>
                 <div>
                     {
-                        currentContent?.recentProjectsSection?.sections?.map((section, index, array) => {
+                        content?.projectGrid?.sections?.map((section, index, array) => {
                             const isLast = index === array.length - 1;
                             return (
                                 <div key={index} className="mt-3 ">
                                     <ContentSection
                                         currentPath={currentPath}
-                                        subHeading={section.title.en}
+                                        subHeading={'section ' + (index + 1)}
                                         inputs={[
-                                            { input: "input", label: (section.title.en).toUpperCase(), updateType: "title" },
-                                            { input: "textarea", label: "Description", updateType: "description", maxLength: 500 }
+                                            { input: "input", label: (section?.title?.en)?.toUpperCase(), updateType: "title", value: section?.content?.title?.[language] },
+                                            { input: "textarea", label: "Description", updateType: "description", maxLength: 500, value: section?.content?.description?.[language] }
                                         ]}
                                         language={language}
                                         section={"recentProjectsSection"}
                                         subSection={"sections"}
                                         index={+index}
                                         isBorder={isLast}
-                                        currentContent={currentContent}
+                                        currentContent={content}
+                                        contentIndex={indexes.projectGrid}
                                     />
-                                    {/* {
-                                        section.projects.map((project, subSecIndex) => {
-                                            return (
-                                                <div key={subSecIndex + 1} className="mt-3">
-                                                    <ContentSection
-                                                        currentPath={currentPath}
-                                                        subHeading={"Project " + (subSecIndex + 1)}
-                                                        inputs={[
-                                                            { input: "input", label: "Project title", updateType: "title" },
-                                                            { input: "input", label: "Project Location", updateType: "subtitle" }
-                                                        ]}
-                                                        inputFiles={[{ label: "Image", id: project.image }]}
-                                                        // fileId={project.image}
-                                                        language={language}
-                                                        section={"recentProjectsSection"}
-                                                        subSection={"sections"}
-                                                        subSectionsProMax={"projects"}
-                                                        index={+index}
-                                                        subSecIndex={+subSecIndex}
-                                                        currentContent={currentContent}
-                                                        isBorder={false}
-                                                    />
-                                                </div>
-                                            )
-                                        })
-                                    } */}
                                     <MultiSelect
                                         currentPath={currentPath}
                                         language={language}
-                                        label={"Select Project List" + (index + 1)}
+                                        label={"Select Project List " + (index + 1)}
                                         tabName={"Select Projects"}
-                                        options={section.projects}
+                                        options={content.projectGrid.sections[index].items}
                                         referenceOriginal={{ dir: "recentproject", index }}
-                                        currentContent={currentContent}
+                                        currentContent={content}
+                                        contentIndex={indexes.projectGrid}
+                                        listOptions={ProjectOptions}
                                     />
                                 </div>
                             )
@@ -167,13 +221,26 @@ const HomeManager = ({ language, currentContent, currentPath }) => {
                 currentPath={currentPath}
                 Heading={"Client Section"}
                 inputs={[
-                    { input: "input", label: "Heading/title", updateType: "title" },
-                    { input: "input", label: "Description", updateType: "description" },
+                    { input: "input", label: "Heading/title", updateType: "title", value: content?.clientLogo?.content?.title[language] },
+                    { input: "input", label: "Description", updateType: "description", value: content?.clientLogo?.content?.description[language] },
                 ]}
-                inputFiles={currentContent?.clientSection?.clients?.map(e => ({ label: e.image, id: e.image }))}
+                inputFiles={content?.clientLogo?.content?.clients?.map(e => ({ label: e.image, id: e.image }))}
                 section={"clientSection"}
                 language={language}
-                currentContent={currentContent}
+                currentContent={content}
+                contentIndex={indexes.clientLogo}
+            />
+
+            <ContentSection
+                currentPath={currentPath}
+                Heading={"Testimonials"}
+                inputs={[
+                    { input: "input", label: "Heading/title", updateType: "title", value: content?.testimonials?.content?.title[language] },
+                ]}
+                section={"Testimonials heading"}
+                language={language}
+                currentContent={content}
+                contentIndex={indexes.testimonials}
             />
 
             {/* New Project */}
@@ -181,15 +248,16 @@ const HomeManager = ({ language, currentContent, currentPath }) => {
                 currentPath={currentPath}
                 Heading={"New Project"}
                 inputs={[
-                    { input: "input", label: "Heading/title", updateType: "title" },
-                    { input: "textarea", label: "Description 1", updateType: "description1" },
-                    { input: "textarea", label: "Description 2", updateType: "description2" },
-                    { input: "intpu", label: "Highlight Text", updateType: "highlightedText" },
-                    { input: "input", label: "Button Text", updateType: "button" },
+                    { input: "input", label: "Heading/title", updateType: "title", value: content?.normalContent?.content?.title?.[language] },
+                    { input: "textarea", label: "Description 1", updateType: "description", value: content?.normalContent?.content?.description?.[language] },
+                    { input: "textarea", label: "Description 2", updateType: "description2", value: content?.normalContent?.content?.description2?.[language] },
+                    { input: "intpu", label: "Highlight Text", updateType: "highlightedText", value: content?.normalContent?.content?.highlightedText?.[language] },
+                    { input: "input", label: "Button Text", updateType: "button", value: content?.normalContent?.content?.button?.text?.[language] },
                 ]}
                 section={"newProjectSection"}
                 language={language}
-                currentContent={currentContent}
+                currentContent={content}
+                contentIndex={indexes.normalContent}
             />
 
         </div>

@@ -6,18 +6,6 @@ import { updateContent } from "../../../../common/homeContentSlice";
 import { useDispatch, useSelector } from "react-redux";
 import structureOfNewsDetails from '../structures/structureOFNewsDetails.json';
 
-// import styles from "@/components/news-and-blogs/NewsBlogDetail.module.scss";
-// import Image from "next/image";
-// import localFont from "next/font/local";
-// import { useTruncate } from "@/common/useTruncate";
-// import { useRouter } from "next/router";
-// Font files can be colocated inside of `app`
-// const BankGothic = localFont({
-//     src: "../../../public/font/BankGothicLtBTLight.ttf",
-//     display: "swap",
-// });
-// import { useGlobalContext } from "../../contexts/GlobalContext";
-
 const NewsBlogDetailPage = ({ language, newsId, screen }) => {
     const isComputer = screen > 1100;
     const isTablet = 1100 > screen && screen > 767;
@@ -25,34 +13,8 @@ const NewsBlogDetailPage = ({ language, newsId, screen }) => {
     const dispatch = useDispatch();
     const context = useSelector(state => state.homeContent.present);
     const ImagesFromRedux = useSelector(state => state.homeContent.present.images);
-    
+
     const currentContent = context.newsBlogsDetails?.filter((item) => item?.id == newsId)[0];
-
-    // const router = useRouter();
-    // console.log(router.query)
-    // const { newsId } = router.query;
-    // const { language, content } = useGlobalContext();
-
-    // if (!currentContent) {
-    //     // of project not found
-    //     return (
-    //         <div
-    //             style={{
-    //                 height: "700px",
-    //                 width: "100%",
-    //                 display: "flex",
-    //                 justifyContent: "center",
-    //                 alignItems: "center",
-    //             }}
-    //         >
-    //             <h1>
-    //                 {language === "en"
-    //                     ? "News Not Found"
-    //                     : "هذه الصفحة قيد التطوير وسوف يتم تحديثها قريبا..."}
-    //             </h1>
-    //         </div>
-    //     );
-    // }
 
     const { banner, newsPoints } = currentContent ?? {};
 
@@ -81,7 +43,6 @@ const NewsBlogDetailPage = ({ language, newsId, screen }) => {
                         <button
                             className={`absolute top-[50px] bg-white p-3 flex items-center gap-2 text-[16px] font-bold text-[rgba(14,23,47,0.7)] ${language === "ar" ? `${isPhone ? "right-0" : "right-8"}` : `${isPhone ? "left-0" : "left-8"}`
                                 }`}
-                        // onClick={() => router.push(`/news-and-blogs`)}
                         >
                             <img
                                 src="https://loopwebsite.s3.ap-south-1.amazonaws.com/bx_arrow-back.svg"
@@ -115,7 +76,7 @@ const NewsBlogDetailPage = ({ language, newsId, screen }) => {
 
             <section className={`${language === "en" ? "text-left" : "text-right"} pb-[88px]`}>
                 <div className="container">
-                    <h2 className={`text-[28px] font-normal text-[rgba(14,23,47,0.7)] mb-6 ${isPhone?"px-6" : ""}`}>
+                    <h2 className={`text-[28px] font-normal text-[rgba(14,23,47,0.7)] mb-6 ${isPhone ? "px-6" : ""}`}>
                         {content?.newsBlogs?.latestNewCards?.heading[language]}
                     </h2>
 
@@ -131,8 +92,6 @@ const NewsBlogDetailPage = ({ language, newsId, screen }) => {
                                         src={newsBlogs[card.image] || newsBlogs["news3"]}
                                         alt=""
                                         className="w-full h-[154px] object-cover object-center"
-                                    // width={280}
-                                    // height={154}
                                     />
 
                                     <div className="flex flex-col items-start gap-4 p-4">
@@ -156,7 +115,6 @@ const NewsBlogDetailPage = ({ language, newsId, screen }) => {
                                             </h6>
 
                                             <button
-                                                // onClick={() => router.push(`/blog/${card.id}`)}
                                                 className={`text-[12px] font-bold text-[#00b9f2] bg-transparent border-none cursor-pointer `}
                                             >
                                                 {card.readMore[language]}
