@@ -14,7 +14,7 @@ function UserDetailsModal({user, show, onClose}) {
 
   const permissions = [];
 
-  console.log("fetchedUser", fetchedUser);
+  // console.log("fetchedUser", fetchedUser);
 
   fetchedUser?.roles?.forEach((role) => {
     role.role.permissions.forEach((permission) => {
@@ -76,12 +76,12 @@ function UserDetailsModal({user, show, onClose}) {
     >
       <div className="fixed inset-0 bg-black/50" aria-hidden="true" />
       <div className="fixed inset-0 flex items-center justify-center p-4">
-        <Dialog.Panel className="w-[600px] customscroller shadow-lg shadow-stone rounded-lg bg-[white] dark:bg-slate-800 p-6 pb-12">
+        <Dialog.Panel className="w-[600px] customscroller shadow-lg shadow-stone rounded-lg bg-[white] dark:bg-slate-800 p-6 pb-12  ">
           <div
             ref={modalRef}
             className="flex justify-between items-center mb-4"
           >
-            <Dialog.Title className="text-lg font-[500]">
+            <Dialog.Title className="text-lg font-[500] ">
               User Details
             </Dialog.Title>
             <button
@@ -94,7 +94,7 @@ function UserDetailsModal({user, show, onClose}) {
           {loading || error ? (
             <SkeletonLoader />
           ) : (
-            <div className="overflow-x-auto">
+            <div className="overflow-x-hidden  max-h-[450px] !scrollbar-hide">
               <div className="flex items-center gap-4">
                 <img
                   src={user.image || userIcon}
@@ -129,7 +129,7 @@ function UserDetailsModal({user, show, onClose}) {
                   </tr>
                 </tbody>
               </table>
-              <table className="table-auto w-full text-left">
+              {/* <table className="table-auto w-full text-left">
                 <thead>
                   <tr>
                     <th colSpan={3} className="pt-4 font-[500]">
@@ -173,7 +173,70 @@ function UserDetailsModal({user, show, onClose}) {
                     </td>
                   </tr>
                 </tbody>
-              </table>
+              </table> */}
+
+              <label className="mb-4 block pt-4 font-[500]">
+                {/* <th colSpan={3} className="pt-4 font-[500]"> */}
+                Roles & Permissions
+                {/* </th> */}
+              </label>
+              <div className="w-full overflow-hidden">
+                <table className="w-full text-left">
+                  <thead className="mb-4">
+                    <tr className="font-light bg-[#25439B] text-[white] text-[14px] ">
+                      <td
+                        className="p-3 w-1/3"
+                        style={{borderRadius: "10px 0px 0px 10px"}}
+                      >
+                        Role
+                      </td>
+                      <td
+                        className="p-3"
+                        style={{
+                          border: "1px solid grey",
+                          borderTop: "none",
+                          borderBottom: "none",
+                          borderRight: "none",
+                          borderRadius: "0px 10px 10px 0px",
+                        }}
+                      >
+                        Permissions
+                      </td>
+                    </tr>
+                  </thead>
+                </table>
+                <table className="w-full text-left">
+                  <tbody className="bg-[#fcfcfc] dark:bg-transparent">
+                    {fetchedUser?.roles?.map((role) => {
+                      // console.log("role", role);
+
+                      return (
+                        <tr
+                          key={role?.role?.id}
+                          className="font-light text-[14px] text-[#101828] dark:text-[#f5f5f4]"
+                        >
+                          <td className="px-4 py-2 dark:border dark:border-[#232d3d] w-1/3">
+                            {capitalizeWords(role?.role?.name)}
+                          </td>
+                          <td className="px-4 py-2 dark:border dark:border-[#232d3d] ">
+                            {role?.role?.permissions.map((permission) => {
+                              // console.log("permission", permission);
+                              return (
+                                <span key={permission.id} className="mr-1">
+                                  {capitalizeWords(
+                                    permission?.permission?.name
+                                  )}
+                                </span>
+                              );
+                            })}
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </div>
+
               <label className="mb-4 block pt-4 font-[500]">
                 {/* <th colSpan={3} className="pt-4 font-[500]"> */}
                 Associated Resources
@@ -184,13 +247,13 @@ function UserDetailsModal({user, show, onClose}) {
                   <thead className="mb-4">
                     <tr className="font-light bg-[#25439B] text-[white] text-[14px] ">
                       <td
-                        className="p-3"
+                        className="p-3 w-1/3"
                         style={{borderRadius: "10px 0px 0px 10px"}}
                       >
                         Resources Name
                       </td>
                       <td
-                        className="p-3"
+                        className="p-3 w-1/3"
                         style={{
                           border: "1px solid grey",
                           borderTop: "none",
@@ -201,7 +264,7 @@ function UserDetailsModal({user, show, onClose}) {
                         Resources Type
                       </td>
                       <td
-                        className="p-3"
+                        className="p-3 w-1/3"
                         style={{
                           border: "1px solid grey",
                           borderTop: "none",
@@ -216,7 +279,7 @@ function UserDetailsModal({user, show, onClose}) {
                   </thead>
                 </table>
               </div>
-              <div className="max-h-[200px] overflow-y-auto customscroller">
+              <div className="w-full">
                 <table className="w-full text-left">
                   <tbody className="bg-[#fcfcfc] dark:bg-transparent">
                     {(!fetchedUser.resourceVerifiers ||
@@ -226,14 +289,14 @@ function UserDetailsModal({user, show, onClose}) {
                           key={resRol.resource.title}
                           className="font-light text-[14px] text-[#101828] dark:text-[#f5f5f4]"
                         >
-                          <td className="px-4 py-2 dark:border dark:border-[#232d3d]">
+                          <td className="px-4 py-2 dark:border dark:border-[#232d3d] w-1/3">
                             {resRol.resource.title}
                           </td>
-                          <td className="px-4 py-2 dark:border dark:border-[#232d3d]">
+                          <td className="px-4 py-2 dark:border dark:border-[#232d3d] w-1/3">
                             {convertToReadable(resRol.resource.resourceType)} /{" "}
                             {convertToReadable(resRol.resource.resourceTag)}
                           </td>
-                          <td className="px-4 py-2 dark:border dark:border-[#232d3d]">
+                          <td className="px-4 py-2 dark:border dark:border-[#232d3d] w-1/3">
                             {convertToReadable(resRol.role)}
                           </td>
                         </tr>
@@ -245,21 +308,29 @@ function UserDetailsModal({user, show, onClose}) {
                           key={`${verifier.resource.title}-${idx}`}
                           className="font-light text-[14px] text-[#101828] dark:text-[#f5f5f4]"
                         >
-                          <td className="px-4 py-2 dark:border dark:border-[#232d3d]">
+                          <td className="px-4 py-2 dark:border dark:border-[#232d3d]  w-1/3">
                             {verifier.resource.title}
                           </td>
-                          <td className="px-4 py-2 dark:border dark:border-[#232d3d]">
+                          <td className="px-4 py-2 dark:border dark:border-[#232d3d]  w-1/3">
                             {convertToReadable(verifier.resource.resourceType)}
                           </td>
-                          <td className="flex items-center gap-1 px-4 py-2 dark:border dark:border-[#232d3d]">
+                          <td className=" px-4 py-2 dark:border dark:border-[#232d3d]  w-1/3">
                             Verifier{" "}
-                            <span className="text-[11px]">
+                            <span className="text-[11px] ">
                               {" "}
                               {`(Level ${verifier.stage})`}
                             </span>
                           </td>
                         </tr>
                       ))}
+                    {fetchedUser.resourceVerifiers?.length === 0 &&
+                      fetchedUser.resourceRoles?.length === 0 && (
+                        <tr>
+                          <td colSpan="3" className="text-center py-4">
+                            No associated resources found.
+                          </td>
+                        </tr>
+                      )}
                   </tbody>
                 </table>
               </div>
