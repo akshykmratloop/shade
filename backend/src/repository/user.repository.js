@@ -1,6 +1,7 @@
 import prismaClient from "../config/dbConfig.js";
 import {EncryptData} from "../helper/bcryptManager.js";
 import {sendEmail} from "../helper/sendEmail.js";
+import user from "../modules/user/index.js";
 
 /// USER QUERIES====================================================
 // Create User
@@ -142,21 +143,23 @@ export const updateUser = async (id, name, password, phone, roles) => {
     phone,
     roles: {
       deleteMany: {},
-      create: roles?.map((roleId) => ({
-        role: { connect: { id: roleId } },
-      })) || [],
+      create:
+        roles?.map((roleId) => ({
+          role: {connect: {id: roleId}},
+        })) || [],
     },
   };
 
-  if (password) { // "changes for making password optional" at apr 7 11:32
+  if (password) {
+    // "changes for making password optional" at apr 7 11:32
     const hashedPassword = await EncryptData(password, 10);
     dataToUpdate.password = hashedPassword;
   }
 
   const updatedUser = await prismaClient.user.update({
-    where: { id },
+    where: {id},
     data: dataToUpdate,
-    include: { roles: { include: { role: true } } },
+    include: {roles: {include: {role: true}}},
   });
 
   return updatedUser;
@@ -218,6 +221,31 @@ export const findUserById = async (id) => {
               roleType: true,
             },
           },
+        },
+      },
+      resourceRoles: {
+        select: {
+          role: true,
+          userId: true,
+          resource: {
+            select: {
+              title: true,
+              resourceType: true,
+              resourceTag: true,
+            },
+          },
+        },
+      },
+      resourceVerifiers: {
+        select: {
+          resource: {
+            select: {
+              title: true,
+              resourceType: true,
+            },
+          },
+          userId: true,
+          stage: true,
         },
       },
     },
@@ -413,10 +441,7 @@ export const findAllLogs = async () => {
       },
     },
     orderBy: {
-      timestamp: "desc"
-    }
+      timestamp: "desc",
+    },
   });
 };
-
-
-  
