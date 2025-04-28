@@ -571,7 +571,7 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
 
                                             <div className="flex 1">
                                                 <img
-                                                    src={testimonials?.[testimonial?.image]}
+                                                    src={testimonials?.[testimonial?.liveVersion?.image]}
                                                     height={70}
                                                     width={70}
                                                     alt={testimonial?.name}
@@ -588,12 +588,12 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                                                 <p className="text-gray-500 text-xs font-light mb-4"
                                                     style={{ fontSize: isComputer && dynamicSize(12, width) }}
                                                 >
-                                                    {testimonial?.position?.[language]}
+                                                    {testimonial?.liveVersion?.sections?.[0]?.content?.position?.[language]}
                                                 </p>
                                                 <p className="text-gray-900 text-xs font-light mb-6 leading-5"
                                                     style={{ fontSize: isComputer && dynamicSize(14, width) }}
                                                 >
-                                                    {testimonial?.quote?.[language]}
+                                                    {testimonial?.liveVersion?.sections?.[0]?.content?.quote?.[language]}
                                                 </p>
                                                 <div className={`flex items-center justify- gap-2`}>
                                                     <img
@@ -606,7 +606,7 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                                                     <p className={`text-gray-500 text-base font-bold ${isLeftAlign ? "text-left" : "text-right"}`}
                                                         style={{ fontSize: isComputer && dynamicSize(16, width) }}
                                                     >
-                                                        {testimonial?.company?.[language]}
+                                                        {testimonial?.liveVersion?.sections?.[0]?.content?.company?.[language]}
                                                     </p>
                                                 </div>
                                             </div>

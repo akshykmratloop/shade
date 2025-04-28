@@ -40,7 +40,7 @@ const HomeManager = ({ language, content, currentPath, indexes }) => {
                 }))
                 setServicesOptions(options)
             }
-            if(response2.message === "Success"){
+            if (response2.message === "Success") {
                 let options = response.resources.resources.map((e, i) => ({
                     id: e.id,
                     order: i + 1,
@@ -61,7 +61,7 @@ const HomeManager = ({ language, content, currentPath, indexes }) => {
         if (currentId) {
             async function context() {
                 try {
-                    const response = await getContent({ resourceId: currentId })
+                    const response = await getContent(currentId)
                     if (response.message === "Success") {
                         const payload = {
                             id: response.content.id,
@@ -227,7 +227,7 @@ const HomeManager = ({ language, content, currentPath, indexes }) => {
                                     <MultiSelect
                                         currentPath={currentPath}
                                         language={language}
-                                        label={"Select Project List" + (index + 1)}
+                                        label={"Select Project List " + (index + 1)}
                                         tabName={"Select Projects"}
                                         options={content.projectGrid.sections[index].items}
                                         referenceOriginal={{ dir: "recentproject", index }}

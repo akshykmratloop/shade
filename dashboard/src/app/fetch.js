@@ -385,15 +385,9 @@ export async function getAssignedUsers(query) {
 }
 
 export async function getContent(query) {
-  if (!query || typeof query !== "object") {
-    return await makerequest(api.route("getContent"), "GET");
-  }
-
-  const [key] = Object.keys(query);
-  const value = query[key];
 
   return await makerequest(
-    `${api.route("getContent")}?${key}=${value}`,
+    `${api.route("getContent")}/${query}`,
     "GET"
   );
 }
