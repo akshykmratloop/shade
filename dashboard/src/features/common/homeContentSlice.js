@@ -138,11 +138,10 @@ const cmsSlice = createSlice({
             state.past.push(JSON.parse(JSON.stringify(state.present)));
 
             if (action.payload.section === "recentProjectsSection") {
-                console.log(action.payload.currentPath, action.payload.contentIndex, action.payload.index,action.payload.title, action.payload.lan)
                 state.present[action.payload.currentPath].editVersion.sections[action.payload.contentIndex].sections[action.payload.index].content[action.payload.title][action.payload.lan] = action.payload.value
             } else if (action.payload.subSection === "cards") {
                 state.present[action.payload.currentPath].editVersion.sections[action.payload.contentIndex].content.cards[action.payload.index][action.payload.title][action.payload.lan] = action.payload.value
-            }else {
+            } else {
                 state.present[action.payload.currentPath].editVersion.sections[action.payload.contentIndex].content[action.payload.title][action.payload.lan] = action.payload.value
             }
 
@@ -156,9 +155,9 @@ const cmsSlice = createSlice({
         updateSelectedContent: (state, action) => {
             state.past.push(JSON.parse(JSON.stringify(state.present)));
             const selectedMap = new Map(
-                    action.payload?.selected?.filter(e => e.display).map((item, index) => [item[action.payload.titleLan], index])
+                action.payload?.selected?.filter(e => e.display).map((item, index) => [item[action.payload.titleLan], index])
             );
-            let newOptions = action.payload.selected
+            let newOptions = action.payload.selected.map((e, i) => ({ ...e, order: i + 1 }))
 
             newOptions.sort((a, b) => {
                 const indexA = selectedMap.get(a[action.payload.titleLan]) ?? Infinity;
@@ -170,10 +169,11 @@ const cmsSlice = createSlice({
                 case "home":
                     state.present[action.payload.currentPath].editVersion.sections[action.payload.contentIndex].items = newOptions
                     break;
+                    
                 case "recentproject":
                     state.present[action.payload.currentPath].editVersion.sections[action.payload.contentIndex].sections[action.payload.index].items = newOptions
-
                     break;
+
                 case "jobs":
                     state.present[action.payload?.currentPath].jobListSection.jobs = newOptions;
                     break;
