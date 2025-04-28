@@ -57,7 +57,7 @@ const EditPage = () => {
                             <div className="w-full sticky top-[-30px] rounded-md p-5 bg-gray-100 dark:bg-cyan-800 z-30">
                                 <LanguageSwitch language={language} setLanguage={setLanguage} />
                             </div>
-                            <AllForOneManager currentPath={currentPath} subPath={subPath} deepPath={deepPath} language={language} content={content} />
+                            <AllForOneManager currentPath={currentPath} subPath={subPath} deepPath={deepPath} language={language} content={content.content} contentIndex={content.index} />
                         </div>
 
                         {/* Content view */}
@@ -75,13 +75,19 @@ const EditPage = () => {
                                 containerStyle={"mb-4"}
                                 minHeight={"3.2rem"}
                             />
-                            <AllForOne language={language} screen={screen} content={content} subPath={subPath} deepPath={deepPath} setLanguage={setLanguage} fullScreen={fullScreen} currentPath={currentPath} />
+                            <AllForOne language={language} screen={screen} content={content.content} subPath={subPath} deepPath={deepPath} setLanguage={setLanguage} fullScreen={fullScreen} currentPath={currentPath} />
 
                             <div className={`border border-cyan-500 pt-0 ${fullScreen ? "fixed bg-stone-800/70 top-0 left-0 z-50 h-screen w-screen" : "hidden"} overflow-y-scroll customscroller`}>
                                 <div className={`fixed z-50 top-2 right-2 ${!fullScreen && "hidden"} bg-stone-200`}>
                                     <CloseModalButton className={"absolute z-40 right-4 top-4 bg-stone-200 hover:bg-stone-300 dark:hover:bg-stone-800 rounded-full border-none p-2 py-2"} onClickClose={() => setFullScreen(false)} />
                                 </div>
-                                <AllForOne language={language} screen={screen} content={content} subPath={subPath} deepPath={deepPath} setLanguage={setLanguage} fullScreen={fullScreen} currentPath={currentPath} />
+                                {
+                                    fullScreen &&
+                                    <AllForOne
+                                        language={language}
+                                        screen={screen}
+                                        content={content.content} contentIndex={content.index} subPath={subPath} deepPath={deepPath} setLanguage={setLanguage} fullScreen={fullScreen} currentPath={currentPath} />
+                                }
                             </div>
                         </div>
 

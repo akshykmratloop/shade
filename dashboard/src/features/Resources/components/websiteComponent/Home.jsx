@@ -35,7 +35,7 @@ import { constructFromSymbol } from "date-fns/constants";
 
 
 const HomePage = ({ language, screen, fullScreen, highlight, content, currentContent, liveContent }) => {
-
+    const titleLan = language === "en" ? "titleEn" : "titleAr"
 
     const checkDifference = differentText.checkDifference.bind(differentText);
     const isComputer = screen > 900;
@@ -55,7 +55,6 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
         for (let i = 0; i < array.length; i += chunkSize) {
             chunks.push(array.slice(i, i + chunkSize));
         }
-        console.log(chunks)
         return chunks;
     };
     const projectsPerSlide = 4;
@@ -186,6 +185,7 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
 
                     <div className={`${isPhone ? "flex gap-4 flex-col" : "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 md:gap-12 sm:gap-6"}`}
                         style={{ columnGap: isComputer && dynamicSize(96, width), rowGap: isComputer && dynamicSize(48, width) }}>
+                        {console.log(content?.serviceCards?.items)}
                         {content?.serviceCards?.items?.map((card, key) => {
                             return (
                                 <div key={key} className={`w-full h-44 flex items-center justify-center p-6 rounded-md transition-transform duration-300 hover:scale-105 cursor-pointer ${key % 2 !== 0 ? "bg-blue-900 text-[white]" : " bg-stone-200"} `}>
@@ -193,7 +193,7 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                                         <img src={services?.[card.iconName]} width={40} height={40} alt="Icon" className="h-10 w-10" />
                                         <h5 className="relative text-lg font-light text-center"
                                             style={{ fontSize: isComputer && dynamicSize(20, width) }}>
-                                            {card?.[language === "en" ? "titleEn" : "titleAr"]}
+                                            {card?.[titleLan]}
                                             <span className="block h-[2px] w-16 bg-gray-300 mt-2 mx-auto"></span>
                                         </h5>
                                     </div>
@@ -368,8 +368,6 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                                 }}
                             >
                                 {projectChunks?.map((chunk, slideIndex) => {
-                                    console.log(chunk)
-                                    console.log(projectChunks)
 
                                     return (
                                         <SwiperSlide key={slideIndex}>
@@ -395,18 +393,18 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                                                             <div className="p-[18px_12px_12px_12px] flex flex-col justify-center items-start gap-[16px] bg-[#00B9F2] flex-1">
 
                                                                 <h5
-                                                                    title={project?.[language === "en" ? "titleEn" : "titleAr"]}
+                                                                    title={project?.[titleLan]}
                                                                     className={`text-white text-[20px] font-semibold  h-[40px] ${!isComputer && "mb-2"}`}
                                                                     style={{ fontSize: isComputer && dynamicSize(20, width) }}
                                                                 >
-                                                                    {TruncateText(project?.[language === "en" ? "titleEn" : "titleAr"], !isComputer ? 20 : 35)}
+                                                                    {TruncateText(project?.[titleLan], !isComputer ? 20 : 35)}
                                                                 </h5>
                                                                 <p
-                                                                    title={project?.[language === "en" ? "titleEn" : "titleAr"]}
+                                                                    title={project?.[titleLan]}
                                                                     className="text-white text-[16px] font-light leading-[normal]"
                                                                     style={{ fontSize: isComputer && dynamicSize(16, width) }}
                                                                 >
-                                                                    {TruncateText(project?.[language === "en" ? "titleEn" : "titleAr"], (isTablet ? 16 : 25))}
+                                                                    {TruncateText(project?.[titleLan], (isTablet ? 16 : 25))}
                                                                 </p>
                                                             </div>
                                                         </div>
@@ -585,7 +583,7 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                                                 <h3 className="text-gray-900 text-md font-bold"
                                                     style={{ fontSize: isComputer && dynamicSize(20, width) }}
                                                 >
-                                                    {testimonial?.[language === "en" ? "titleEn" : "titleAr"]}
+                                                    {testimonial?.[titleLan]}
                                                 </h3>
                                                 <p className="text-gray-500 text-xs font-light mb-4"
                                                     style={{ fontSize: isComputer && dynamicSize(12, width) }}

@@ -26,7 +26,8 @@ const ContentSection = ({
     attachOne = false,
     projectId,
     careerId,
-    deepPath
+    deepPath,
+    contentIndex
 }) => {
     const dispatch = useDispatch();
     const [extraFiles, setExtraFiles] = useState([]);
@@ -36,7 +37,6 @@ const ContentSection = ({
 
 
     const addExtraFileInput = () => {
-        console.log(deepPath)
         if (deepPath) {
             dispatch(updateImages({ src: { url: "" }, section, currentPath, deepPath, projectId, operation: "add" }))
         } else if (section === 'socialIcons') {
@@ -76,32 +76,7 @@ const ContentSection = ({
         if (updateType === 'count') {
             if (!isNaN(value)) {
                 let val = value?.slice(0, 7);
-                dispatch(updateServicesNumber({ section, title: updateType, value: val, subSection, index, currentPath }));
-            }
-        } else {
-            dispatch(updateSpecificContent({
-                section,
-                title: updateType,
-                lan: language,
-                value: value === "" ? "" : value,
-                subSection,
-                index,
-                subSectionsProMax,
-                subSecIndex,
-                currentPath,
-                projectId,
-                careerId,
-                deepPath
-            }));
-        }
-    };
-
-    const updateFormValueRichText = (updateType, value) => {
-
-        if (updateType === 'count') {
-            if (!isNaN(value)) {
-                let val = value?.slice(0, 7);
-                dispatch(updateServicesNumber({ section, title: updateType, value: val, subSection, index, currentPath }));
+                dispatch(updateServicesNumber({ section, title: updateType, value: val, subSection, index, currentPath, contentIndex }));
             }
         } else {
             dispatch(updateSpecificContent({
@@ -117,6 +92,33 @@ const ContentSection = ({
                 projectId,
                 careerId,
                 deepPath,
+                contentIndex
+            }));
+        }
+    };
+
+    const updateFormValueRichText = (updateType, value) => {
+
+        if (updateType === 'count') {
+            if (!isNaN(value)) {
+                let val = value?.slice(0, 7);
+                dispatch(updateServicesNumber({ section, title: updateType, value: val, subSection, index, currentPath, contentIndex }));
+            }
+        } else {
+            dispatch(updateSpecificContent({
+                section,
+                title: updateType,
+                lan: language,
+                value: value === "" ? "" : value,
+                subSection,
+                index,
+                subSectionsProMax,
+                subSecIndex,
+                currentPath,
+                projectId,
+                careerId,
+                deepPath,
+                contentIndex
                 // type
             }));
         }

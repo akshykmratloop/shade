@@ -101,13 +101,13 @@ const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
     setFormObj((prev) => {
       return {
         resourceId,
-        manager: preAssignedUsers.roles?.MANAGER || "",
-        editor: preAssignedUsers.roles?.EDITOR || "",
+        manager: preAssignedUsers?.roles?.MANAGER || "",
+        editor: preAssignedUsers?.roles?.EDITOR || "",
         verifiers:
-          preAssignedUsers.verifiers.length > 0
-            ? preAssignedUsers.verifiers
+          preAssignedUsers?.verifiers.length > 0
+            ? preAssignedUsers?.verifiers
             : [{ id: "", stage: NaN }],
-        publisher: preAssignedUsers.roles?.PUBLISHER || "",
+        publisher: preAssignedUsers?.roles?.PUBLISHER || "",
       };
     });
   }, [preAssignedUsers]);
@@ -119,8 +119,8 @@ const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
         const response = await getAssignedUsers(payload);
         setPreAssignedUsers((prev) => {
           let roles = {};
-          response.assignedUsers.roles.forEach((e) => {
-            roles[e.role] = e.userId;
+          response?.assignedUsers?.roles?.forEach((e) => {
+            roles[e?.role] = e?.userId;
           });
           return {
             roles: roles,

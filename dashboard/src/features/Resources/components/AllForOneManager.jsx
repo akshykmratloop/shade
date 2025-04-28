@@ -17,13 +17,13 @@ import ServiceDetailsManager from "./contentmanager/CMforDetails/ServiceDetailsM
 import SubServiceDetailManager from "./contentmanager/subDetailsManagement/SubServiceDetailManagement";
 
 
-const AllForOneManager = ({ currentPath, language, subPath, deepPath, content }) => {
+const AllForOneManager = ({ currentPath, language, subPath, deepPath, content , contentIndex}) => {
 
     let manager = null
 
     switch (currentPath) {
         case "home":
-            manager = <HomeManager language={language} content={content} currentPath={currentPath} />
+            manager = <HomeManager language={language} content={content} indexes={contentIndex} currentPath={currentPath} />
             break;
 
         case "solutions":
