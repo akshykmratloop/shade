@@ -161,10 +161,10 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                             style={{ fontSize: isComputer && dynamicSize(36, width), lineHeight: isComputer && dynamicSize(32, width) }}>
                             {content?.markDown?.content?.title[language]}
                         </h2>
-                        <p className={`text-white font-[100] text-[12px] leading-[16px] ${highlight && checkDifference(currentContent?.aboutUsSection?.description?.[language], liveContent?.aboutUsSection?.description?.[language])}`}
-                            style={{ fontSize: isComputer && dynamicSize(15, width), lineHeight: isComputer && dynamicSize(26, width) }}>
-                            {content?.markDown?.content?.description[language]}
-                        </p>
+                        <div className={`text-white font-[100] text-[12px] leading-[16px] ${highlight && checkDifference(currentContent?.aboutUsSection?.description?.[language], liveContent?.aboutUsSection?.description?.[language])}`}
+                            style={{ fontSize: isComputer && dynamicSize(15, width), lineHeight: isComputer && dynamicSize(26, width) }}
+                            dangerouslySetInnerHTML={{__html: content?.markDown?.content?.description[language]}}
+                           />
                         <button className="px-[6px] py-[2px] bg-[#00B9F2] text-white text-[12px] rounded-md hover:bg-opacity-90 text-right"
                             style={{ fontSize: isComputer && dynamicSize(18, width) }}
                         >

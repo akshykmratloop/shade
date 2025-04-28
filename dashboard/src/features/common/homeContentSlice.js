@@ -138,10 +138,11 @@ const cmsSlice = createSlice({
             state.past.push(JSON.parse(JSON.stringify(state.present)));
 
             if (action.payload.section === "recentProjectsSection") {
+                console.log(action.payload.currentPath, action.payload.contentIndex, action.payload.index,action.payload.title, action.payload.lan)
                 state.present[action.payload.currentPath].editVersion.sections[action.payload.contentIndex].sections[action.payload.index].content[action.payload.title][action.payload.lan] = action.payload.value
             } else if (action.payload.subSection === "cards") {
                 state.present[action.payload.currentPath].editVersion.sections[action.payload.contentIndex].content.cards[action.payload.index][action.payload.title][action.payload.lan] = action.payload.value
-            } {
+            }else {
                 state.present[action.payload.currentPath].editVersion.sections[action.payload.contentIndex].content[action.payload.title][action.payload.lan] = action.payload.value
             }
 

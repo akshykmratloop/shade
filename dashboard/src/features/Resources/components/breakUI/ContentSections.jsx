@@ -194,7 +194,7 @@ const ContentSection = ({
                             <div dir={language === 'en' ? 'ltr' : 'rtl'} key={i}>
                                 <JoditEditor
                                     ref={editor}
-                                    value={valueExpression}
+                                    value={input.value}
                                     config={config}
                                     onChange={(newContent) => {
                                         const trimmedVal = newContent.slice(0, input.maxLength);

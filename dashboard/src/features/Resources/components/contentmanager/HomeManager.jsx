@@ -41,7 +41,7 @@ const HomeManager = ({ language, content, currentPath, indexes }) => {
                 setServicesOptions(options)
             }
             if (response2.message === "Success") {
-                let options = response.resources.resources.map((e, i) => ({
+                let options = response2.resources.resources.map((e, i) => ({
                     id: e.id,
                     order: i + 1,
                     slug: e.slug,
@@ -50,6 +50,7 @@ const HomeManager = ({ language, content, currentPath, indexes }) => {
                     // icon: e.icon,
                     // image: e.image
                 }))
+                setProjectOptions(options)
             }
         }
 
@@ -185,7 +186,7 @@ const HomeManager = ({ language, content, currentPath, indexes }) => {
                                 <div key={index} className="mt-3 ">
                                     <ContentSection
                                         currentPath={currentPath}
-                                        subHeading={section.title.en}
+                                        subHeading={'section ' + (index + 1)}
                                         inputs={[
                                             { input: "input", label: (section?.title?.en)?.toUpperCase(), updateType: "title", value: section?.content?.title?.[language] },
                                             { input: "textarea", label: "Description", updateType: "description", maxLength: 500, value: section?.content?.description?.[language] }
@@ -198,32 +199,6 @@ const HomeManager = ({ language, content, currentPath, indexes }) => {
                                         currentContent={content}
                                         contentIndex={indexes.projectGrid}
                                     />
-                                    {/* {
-                                        section.projects.map((project, subSecIndex) => {
-                                            return (
-                                                <div key={subSecIndex + 1} className="mt-3">
-                                                    <ContentSection
-                                                        currentPath={currentPath}
-                                                        subHeading={"Project " + (subSecIndex + 1)}
-                                                        inputs={[
-                                                            { input: "input", label: "Project title", updateType: "title" },
-                                                            { input: "input", label: "Project Location", updateType: "subtitle" }
-                                                        ]}
-                                                        inputFiles={[{ label: "Image", id: project.image }]}
-                                                        // fileId={project.image}
-                                                        language={language}
-                                                        section={"recentProjectsSection"}
-                                                        subSection={"sections"}
-                                                        subSectionsProMax={"projects"}
-                                                        index={+index}
-                                                        subSecIndex={+subSecIndex}
-                                                        currentContent={currentContent}
-                                                        isBorder={false}
-                                                    />
-                                                </div>
-                                            )
-                                        })
-                                    } */}
                                     <MultiSelect
                                         currentPath={currentPath}
                                         language={language}
@@ -233,6 +208,7 @@ const HomeManager = ({ language, content, currentPath, indexes }) => {
                                         referenceOriginal={{ dir: "recentproject", index }}
                                         currentContent={content}
                                         contentIndex={indexes.projectGrid}
+                                        listOptions={ProjectOptions}
                                     />
                                 </div>
                             )
