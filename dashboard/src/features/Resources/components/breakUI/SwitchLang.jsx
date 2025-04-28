@@ -1,23 +1,21 @@
 import { useEffect, useState } from "react";
 
-export default function LanguageSwitch({ setLanguage, language, w}) {
+export default function LanguageSwitch({ setLanguage, language, w }) {
     const [isEnglish, setIsEnglish] = useState(true);
 
     const changeLanguage = () => {
         setIsEnglish(!isEnglish)
         setLanguage(prev => {
-            if(prev === "en"){
+            if (prev === "en") {
                 return "ar"
-            }else return "en"
+            } else return "en"
         })
     }
-    
-    console.log(isEnglish)
 
     useEffect(() => {
-        if(language === 'en'){
+        if (language === 'en') {
             setIsEnglish(true)
-        }else {
+        } else {
             setIsEnglish(false)
         }
     }, [language])

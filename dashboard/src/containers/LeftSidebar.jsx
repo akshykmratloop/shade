@@ -1,9 +1,9 @@
 import routes from "../routes/sidebar";
-import {NavLink, useLocation, useNavigate} from "react-router-dom";
-import {LiaChevronCircleLeftSolid} from "react-icons/lia";
-import {useDispatch, useSelector} from "react-redux";
-import {toggleSidebar, setSidebarState} from "../features/common/SbStateSlice"; // Adjust path as needed
-import {useEffect} from "react";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
+import { LiaChevronCircleLeftSolid } from "react-icons/lia";
+import { useDispatch, useSelector } from "react-redux";
+import { toggleSidebar, setSidebarState } from "../features/common/SbStateSlice";
+import { useEffect, useState, useCallback, useMemo } from "react";
 
 function LeftSidebar() {
   const location = useLocation();
@@ -11,38 +11,73 @@ function LeftSidebar() {
   const dispatch = useDispatch();
   const isCollapsed = useSelector((state) => state.sidebar.isCollapsed);
   const user = useSelector((state) => state.user.user);
+  const [showText, setShowText] = useState(false);
 
-  const defineUserAndRoleManager = user?.permissions?.some(e => e.slice(0, 4) !== "USER" && e.slice(0, 4) !== "ROLE")
+  const defineUserAndRoleManager = useMemo(() => 
+    user?.permissions?.some(e => !e.startsWith("USER") && !e.startsWith("ROLE")),
+    [user?.permissions]
+  );
 
-  function setRouteOnStorage(route) {
-    localStorage.setItem("route", route)
-  }
+  const handleResize = useCallback(() => {
+    const shouldCollapse = window.innerWidth < 1200;
+    dispatch(setSidebarState(shouldCollapse));
+  }, [dispatch]);
+
+  const setRouteOnStorage = useCallback((route) => {
+    localStorage.setItem("route", route);
+  }, []);
 
   useEffect(() => {
-    const handleResize = () => {
-      const shouldCollapse = window.innerWidth < 1200;
-      dispatch(setSidebarState(shouldCollapse));
-    };
-
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
-  }, [dispatch]);
+  }, [handleResize]);
+
+  useEffect(() => {
+    if (isCollapsed) {
+      setShowText(true);
+    } else {
+      const timer = setTimeout(() => setShowText(false), 300);
+      return () => clearTimeout(timer);
+    }
+  }, [isCollapsed]);
+
+  const renderRouteItem = (route, index, lastIndex) => (
+    <li
+      key={index}
+      className="mt-2 w-full flex justify-center"
+      title={route.name}
+      style={{ borderRadius: lastIndex ? "0px 0px 0px 0px" : undefined }}
+    >
+      <NavLink
+        end
+        to={route.path}
+        onClick={() => setRouteOnStorage(route.path)}
+        className={({ isActive }) =>
+          `${isActive ? "font-semibold bg-base-200" : "font-normal"} pl-7 w-full flex items-center gap-2`
+        }
+      >
+        {route.icon} {!showText && route.name}
+        {location.pathname === route.path && (
+          <span
+            className="absolute inset-y-0 left-0 w-1 bg-primary"
+            aria-hidden="true"
+          ></span>
+        )}
+      </NavLink>
+    </li>
+  );
 
   return (
     <div className="flex-1 p-4 text-sm pb-8">
       <ul
-        className={`menu relative ${
-          isCollapsed ? "w-[81px]" : "w-56"
-        } transition-all duration-500 bg-[#fafaff] dark:bg-[#242933] text-base-content h-full rounded-lg`}
+        className={`menu relative ${isCollapsed ? "w-[81px]" : "w-56"} transition-all duration-500 bg-[#fafaff] dark:bg-[#242933] text-base-content h-full rounded-lg`}
       >
         <button
-          className={`absolute z-10 top-14 right-[-.9rem] drop-shadow-xl btn btn-sm btn-circle bg-stone-300 dark:bg-base-200 hover:bg-base-300 transition-transform duration-300 dark:border dark:border-stone-700 border-transparent`}
+          className="absolute z-10 top-14 right-[-.9rem] drop-shadow-xl btn btn-sm btn-circle bg-stone-300 dark:bg-base-200 hover:bg-base-300 transition-transform duration-300 dark:border dark:border-stone-700 border-transparent"
           onClick={() => dispatch(toggleSidebar())}
         >
           <LiaChevronCircleLeftSolid
-            className={`h-5 w-10 dark:text-stone-50 text-stone-800 ${
-              isCollapsed ? "rotate-180" : "rotate-0"
-            }`}
+            className={`h-5 w-10 dark:text-stone-50 text-stone-800 ${isCollapsed ? "rotate-180" : "rotate-0"}`}
           />
         </button>
 
@@ -51,82 +86,29 @@ function LeftSidebar() {
           onClick={() => navigate("/app/welcome")}
         >
           <img
-            className="w-[50px] h-[50px]  p-0 border-0 pointer-events-none"
+            className="w-[50px] h-[50px] p-0 border-0 pointer-events-none"
             src="/logo192.png"
             alt="SHADE-CMS Logo"
           />
-          {!isCollapsed && (
+          {!showText && (
             <span className="truncate translate-x-[-1rem] pointer-events-none">
               SHADE-CMS
             </span>
           )}
         </li>
 
-        {routes.map((route, k, a) => {
-          let lastIndex = k === a.length - 1;
-          if (route.name === "Requests" && !defineUserAndRoleManager) {
+        {routes.map((route, index, array) => {
+          const lastIndex = index === array.length - 1;
+          if (
+            (route.name === "Requests" || route.name === "Resources") &&
+            !defineUserAndRoleManager
+          ) {
             return null;
           }
-          if (route.name === "Resources" && !defineUserAndRoleManager) {
+          if (route.permission && !user?.permissions?.includes(route.permission)) {
             return null;
           }
-          if (route.permission) {
-            if (user.permissions.includes(route.permission)) {
-              return (
-                <li
-                  className="mt-2 w-full flex justify-center "
-                  key={k}
-                  title={route?.name}
-                  style={{borderRadius: lastIndex && "0px 0px 0px 0px"}}
-                >
-                  <NavLink
-                    end
-                    to={route.path}
-                    onClick={() => { setRouteOnStorage(route.path) }}
-                    className={({ isActive }) =>
-                      `${isActive ? "font-semibold bg-base-200" : "font-normal"} pl-7 w-full flex items-center gap-2`
-                    }
-                  >
-                    {route?.icon} {!isCollapsed && route?.name}
-                    {location?.pathname === route.path && (
-                      <span
-                        className="absolute inset-y-0 left-0 w-1 bg-primary"
-                        aria-hidden="true"
-                      ></span>
-                    )}
-                  </NavLink>
-                </li>
-              );
-            } else {
-              return null;
-            }
-          } else {
-            return (
-              <li
-                className="mt-2 w-full flex justify-center "
-                key={k}
-                title={route?.name}
-                style={{borderRadius: lastIndex && "0px 0px 0px 0px"}}
-              >
-                <NavLink
-                  end
-                  to={route.path}
-                  onClick={() => { setRouteOnStorage(route.path) }}
-                  className={({ isActive }) =>
-                    `${isActive ? "font-semibold bg-base-200" : "font-normal"} pl-7 w-full flex items-center gap-2`
-                  }
-                >
-                  {route?.icon} {!isCollapsed && route?.name}
-                  {location?.pathname === route.path && (
-                    <span
-                      className="absolute inset-y-0 left-0 w-1 bg-primary"
-                      aria-hidden="true"
-                    ></span>
-                  )}
-                </NavLink>
-              </li>
-            );
-          }
+          return renderRouteItem(route, index, lastIndex);
         })}
       </ul>
     </div>

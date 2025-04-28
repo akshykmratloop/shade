@@ -108,7 +108,7 @@ function RoleDetailsModal({ role, show, onClose }) {
                                 <div className="table-auto w-full text-left py-6 flex gap-[160px]">
                                     <div>
                                         <h3 className="text-sm font-[300]">Permissions</h3>
-                                        <ul className="text-sm font-[400] text-[#101828] flex flex-col gap-1 pt-4">
+                                        <ul className="text-sm font-[400] text-[#101828] dark:text-gray-300 flex flex-col gap-1 pt-4">
                                             {!loading &&
                                                 fetchedRole?.permissions?.map((element, i) => {
 
@@ -123,7 +123,7 @@ function RoleDetailsModal({ role, show, onClose }) {
                                     </div>
                                     <div>
                                         <h3 className="text-sm font-[300]">Assigned Users</h3>
-                                        <ul className="text-sm font-[400] text-[#101828] flex flex-col gap-1 pt-4">
+                                        <ul className="text-sm font-[400] text-[#101828] dark:text-gray-300 flex flex-col gap-1 pt-4">
                                             {!loading &&
                                                 fetchedRole?.users?.map((user, i) => {
 

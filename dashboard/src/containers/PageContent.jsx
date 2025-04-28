@@ -17,10 +17,6 @@ function PageContent() {
     const user = useSelector(state => state.user.user)
     const location = useLocation()
 
-    console.log(location.pathname.split('/').length)
-
-
-    // Scroll back to top on new page load
     useEffect(() => {
         mainContentRef.current.scroll({
             top: 0,

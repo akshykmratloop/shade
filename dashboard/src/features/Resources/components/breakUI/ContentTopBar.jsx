@@ -16,6 +16,8 @@ import { GrUndo, GrRedo } from "react-icons/gr";
 import { LuEye } from "react-icons/lu";
 import { RxCross1 } from "react-icons/rx";
 import { Switch } from '@headlessui/react';
+import transformContent from '../../../../app/convertContent';
+import { updateContent } from '../../../../app/fetch';
 
 
 export default function ContentTopBar({ setWidth, raisePopup, setFullScreen }) {
@@ -46,14 +48,32 @@ export default function ContentTopBar({ setWidth, raisePopup, setFullScreen }) {
 
     }
 
-    function saveTheDraft() {
-        dispatch(saveDraftAction(ReduxState.present))
+    async function saveTheDraft() {
+        const paylaod = transformContent(ReduxState.present.home)
+
+        dispatch(saveDraftAction(paylaod))
         setSavedChanges(true)
-        toast.success("Changes has been saved", {
-            style: { backgroundColor: "#187e3d", color: "white" },
-            autoClose: 1000, // Closes after 1 second
-            pauseOnHover: false, // Does not pause on hover
-        })
+        try {
+
+            const response = await updateContent(paylaod)
+
+            if (response.message === "Success") {
+                toast.success("Changes has been saved", {
+                    style: { backgroundColor: "#187e3d", color: "white" },
+                    autoClose: 1000, // Closes after 1 second
+                    pauseOnHover: false, // Does not pause on hover
+                })
+            }
+        } catch (err) {
+            console.log('ppppppppppppppppppppppppppppppppp')
+            console.log(err)
+            toast.error("failed", {
+                style: { backgroundColor: "#187e3d", color: "white" },
+                autoClose: 1000, // Closes after 1 second
+                pauseOnHover: false, // Does not pause on hover
+            })
+        }
+
     }
 
     const handleDeviceChange = (device) => {
@@ -177,7 +197,7 @@ export default function ContentTopBar({ setWidth, raisePopup, setFullScreen }) {
                     </Switch>
                 </div>
                 <div className='flex gap-3 sm:gap-1'>
-                    
+
                     <Button text={savedChanges ? 'Saved' : 'Draft'} functioning={saveTheDraft} classes={`${savedChanges ? "bg-[#26c226]" : "bg-[#26345C]"}  rounded-md xl:h-[2.68rem] sm:h-[2rem] xl:text-xs sm:text-[.6rem] xl:w-[5.58rem] w-[4rem] text-[white]`} />
                     <Button text={'Submit'} functioning={raisePopup.submit} classes='bg-[#29469D] rounded-md xl:h-[2.68rem] sm:h-[2rem] xl:text-xs sm:text-[.6rem] xl:w-[5.58rem] w-[4rem] text-[white]' />
                 </div>
