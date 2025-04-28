@@ -20,7 +20,7 @@ import {
 import { CSS } from "@dnd-kit/utilities";
 import { updateSelectedContent, updateSelectedProject } from "../../../common/homeContentSlice";
 
-const SortableItem = ({ option, removeOption, language, reference }) => {
+const SortableItem = ({ option, removeOption, language, reference, titleLan, contentIndex }) => {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } =
     useSortable({ id: option, data: { option } });
 
@@ -44,7 +44,7 @@ const SortableItem = ({ option, removeOption, language, reference }) => {
 
       {reference === "jobs" ?
         option.title.key?.[language] + ", " + option.location.value?.[language]
-        : option.title?.[language]}
+        : option?.[titleLan]}
       <button
         onClick={() => removeOption(option)}
         className="text-gray-600 hover:text-red-500"
@@ -55,20 +55,19 @@ const SortableItem = ({ option, removeOption, language, reference }) => {
   );
 };
 
-const MultiSelect = ({ heading, options = [], tabName, label, language, section, referenceOriginal = { dir: "", index: 0 }, currentPath, projectId }) => {
+const MultiSelect = ({ heading, options, tabName, label, language, section, referenceOriginal = { dir: "", index: 0 }, currentPath, projectId, contentIndex, listOptions }) => {
+  const titleLan = language === "en" ? "titleEn" : "titleAr"
   const [selectedOptions, setSelectedOptions] = useState([]);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
   const [random, setRandom] = useState(1)
   const dispatch = useDispatch();
   const [activeItem, setActiveItem] = useState(null);
+
   let operation = "";
 
   let actualLists; //content.home.serviceSection.cards
   switch (referenceOriginal.dir) {
-    case "home":
-      actualLists = content.home.serviceSection.cards;
-      break;
 
     case "recentproject":
       actualLists = content.home.recentProjectsSection.sections[referenceOriginal.index].projects
@@ -99,46 +98,30 @@ const MultiSelect = ({ heading, options = [], tabName, label, language, section,
   }
 
 
-  const showOptions = options?.map(e => e.title[language])
+  const showOptions = options?.map(e => e?.[titleLan])
 
   const toggleDropdown = () => {
     setIsDropdownOpen((prev) => !prev);
   };
 
   const handleSelect = (optionToAdd) => {
-
-    if ((referenceOriginal.dir === 'projectDetail' || referenceOriginal.dir === 'newsBlogsDetails') && selectedOptions.length > 2) return
-    if (referenceOriginal.dir === 'projectDetail' || referenceOriginal.dir === 'newsBlogsDetails') {
-      setSelectedOptions(prev => {
-        return [...prev, {
-          ...optionToAdd, display: true
-        }]
-      })
-      operation = 'add'
+    const existedInList = selectedOptions.some(e => e.id === optionToAdd.id)
+    if (existedInList) {
+      return
     } else {
-      for (let i = 0; i < options.length; i++) {
-        if (optionToAdd.title === options[i].title || optionToAdd.title[language] === options[i].title[language]) {
-          if (options[i].display) return
-          setSelectedOptions(prev => {
-            return [...prev, { ...optionToAdd, display: true }]
-          })
-          break;
-        }
-      }
+      console.log('qwerjwkh')
+      setSelectedOptions(prev => {
+        return [...prev, { ...optionToAdd }]
+      })
     }
+
     setRandom(prev => prev + 1)
   };
 
 
   const removeOption = (optionToRemove) => {
-    setSelectedOptions(prev => {
-      return prev.map(option => {
-        if (option === optionToRemove) {
-          return { ...option, display: false }
-        }
-        return option
-      })
-    })
+    let deductedArray = selectedOptions.filter(e => e !== optionToRemove)
+    setSelectedOptions(deductedArray)
     operation = 'remove'
     setRandom(prev => prev + 1)
   };
@@ -179,45 +162,20 @@ const MultiSelect = ({ heading, options = [], tabName, label, language, section,
 
 
   useEffect(() => {
-    if (options.length > 0 && random !== 1) {
-      if (referenceOriginal.dir === 'newsBlogsDetails') {
+    if (Array.isArray(options) && random !== 1) {
 
-        dispatch(updateSelectedProject({
-          origin: referenceOriginal.dir,
-          index: referenceOriginal.index,
-          section,
-          newArray: [...options],
-          selected: selectedOptions,
-          language,
-          currentPath,
-          projectId,
-          operation
-        }));
-      } else if (referenceOriginal.dir === 'projectDetail') {
-        dispatch(updateSelectedProject({
-          origin: referenceOriginal.dir,
-          index: referenceOriginal.index,
-          section,
-          newArray: [...options],
-          selected: selectedOptions,
-          language,
-          currentPath,
-          projectId,
-          operation
-        }));
-      } else {
-
-        dispatch(updateSelectedContent({
-          origin: referenceOriginal.dir,
-          index: referenceOriginal.index,
-          section,
-          newArray: [...options],
-          selected: selectedOptions,
-          language,
-          currentPath,
-          projectId,
-        }));
-      }
+      dispatch(updateSelectedContent({
+        origin: referenceOriginal.dir,
+        index: referenceOriginal.index,
+        section,
+        newArray: [...options],
+        selected: selectedOptions,
+        language,
+        currentPath,
+        projectId,
+        titleLan,
+        contentIndex
+      }));
     }
   }, [random]); // Minimize dependencies to prevent unnecessary runs
 
@@ -225,9 +183,7 @@ const MultiSelect = ({ heading, options = [], tabName, label, language, section,
   useEffect(() => {
     if (showOptions) {
       setSelectedOptions(options?.map(e => {
-        if (e.display) {
-          return e
-        }
+        return e
       }).filter(e => e));
     }
   }, [options]);
@@ -246,16 +202,14 @@ const MultiSelect = ({ heading, options = [], tabName, label, language, section,
       {isDropdownOpen && (
         <ul className="absolute text-xs left-0 xl:top-[-6.2rem] sm:top-[-3rem] md:top-[-6rem] z-10 w-full mt-2 bg-[#fafaff] dark:bg-[#242933] border rounded-md shadow-md overflow-y-scroll h-[10rem] customscroller">
           {
-            actualLists.map((option, index) => {
+            listOptions?.map((option, index) => {
               return (
                 <li
-                  key={option.title[language]}
+                  key={option?.[titleLan] + index}
                   onClick={() => handleSelect(option, index)}
                   className="p-2 cursor-pointer hover:bg-gray-100"
                 >
-                  {referenceOriginal.dir === "jobs" ?
-                    option.title.key?.[language] + ", " + option.location.value?.[language]
-                    : option.title[language]}
+                  {option[titleLan]}
                 </li>
               )
             })
@@ -278,7 +232,7 @@ const MultiSelect = ({ heading, options = [], tabName, label, language, section,
               ))
               :
               selectedOptions?.map((option, i) => (
-                <SortableItem key={option.title?.[language] + String(Math.random() + i)} option={option} removeOption={removeOption} language={language} />
+                <SortableItem key={option?.[titleLan] + String(Math.random() + i)} option={option} removeOption={removeOption} language={language} titleLan={titleLan} />
               ))
             }
           </div>

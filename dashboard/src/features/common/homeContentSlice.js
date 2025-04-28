@@ -18,15 +18,12 @@ const cmsSlice = createSlice({
             if (action.payload.deepPath) {
                 const newArray = state.present[action.payload.currentPath][action.payload.projectId][action.payload.deepPath - 1][action.payload.section]
                 let finalArray = []
-                console.log(JSON.stringify(newArray))
                 if (action.payload.operation === 'add') {
                     finalArray = [...newArray, action.payload.src]
                 } else {
                     finalArray = newArray.filter((e, i) => {
-                        console.log(action.payload.src)
                         return i !== action.payload.src
                     })
-                    console.log(finalArray)
                 }
                 state.present[action.payload.currentPath][action.payload.projectId][action.payload.deepPath - 1][action.payload.section] = finalArray
             } else if (action.payload.updateType === 'gallerySection') {
@@ -89,7 +86,6 @@ const cmsSlice = createSlice({
                     break;
 
                 case "subOfsubService":
-                    console.log(action.payload.serviceId)
                     expression = state.present.subOfsubService[action.payload.serviceId][action.payload.deepPath - 1][action.payload.subContext]
                     break;
 
@@ -140,100 +136,42 @@ const cmsSlice = createSlice({
         },
         updateSpecificContent: (state, action) => {
             state.past.push(JSON.parse(JSON.stringify(state.present)));
-            if (action.payload.deepPath) {
-                if (action.payload.section && (action.payload.index + 1)) {
-                    state.present[action.payload.currentPath][action.payload.projectId][action.payload.deepPath - 1][action.payload?.section][action.payload.index][action.payload.title][action.payload.lan] = action.payload.value;
-                } else {
-                    state.present[action.payload.currentPath][action.payload.projectId][action.payload.deepPath - 1][action.payload?.section][action.payload.title][action.payload.lan] = action.payload.value;
-                }
-            } else if (action.payload.projectId && !action.payload.careerId) {
-                if (action.payload.subSection) {
-                    state.present[action.payload.currentPath][action.payload.projectId - 1][action.payload?.section][action.payload.subSection][action.payload?.index][action.payload.title][action.payload.lan] = action.payload.value;
-                } else if (action.payload.title === 'url') {
-                    state.present[action.payload.currentPath][action.payload.projectId - 1][action.payload.section][action.payload.title] = action.payload.value
-                } else {
-                    if (action.payload.section === 'testimonials') {
-                        state.present[action.payload.currentPath][action.payload.section][action.payload.projectId - 1][action.payload.title][action.payload.lan] = action.payload.value
-                    } else if (action.payload.section === 'descriptionSection') {
-                        state.present[action.payload.currentPath][action.payload.projectId - 1][action.payload.section][action.payload.index][action.payload.title][action.payload.lan] = action.payload.value
-                    } else {
-                        state.present[action.payload.currentPath][action.payload.projectId - 1][action.payload.section][action.payload.title][action.payload.lan] = action.payload.value
-                    }
-                }
-            } else if (action.payload.subSectionsProMax === "Links") {
-                state.present[action.payload?.currentPath][action.payload.section][action.payload.subSection][action.payload?.index][action.payload.title] = action.payload.value;
-            } else if (action.payload.subSectionsProMax) {
-                if (action.payload.careerId) {
-                    if (action.payload.subSectionsProMax === "viewAllButton") {
-                        if (action.payload.title === 'link') {
-                            state.present[action.payload?.currentPath][action.payload.projectId - 1][action.payload.section][action.payload.subSection][action.payload.subSectionsProMax][action.payload.title] = action.payload.value;
-                        } else {
-                            state.present[action.payload?.currentPath][action.payload.projectId - 1][action.payload.section][action.payload.subSection][action.payload.subSectionsProMax][action.payload.title][action.payload.lan] = action.payload.value;
-                        }
-                    } else {
-                        state.present[action.payload?.currentPath][action.payload.projectId - 1][action.payload.section][action.payload.subSection][action.payload.subSectionsProMax][action.payload?.index][action.payload.title][action.payload.lan] = action.payload.value;
-                    }
-                } else {
-                    state.present[action.payload?.currentPath][action.payload.section][action.payload.subSection][action.payload?.index][action.payload.subSectionsProMax][action.payload.subSecIndex][action.payload.title][action.payload.lan] = action.payload.value;
-                }
-            } else if (action.payload.subSection === 'url') {
-                state.present[action.payload?.currentPath][action.payload.section][action.payload.subSection] = action.payload.value;
-            } else if (action.payload.subSection) {
-                if (action.payload.careerId) {
-                    state.present[action.payload?.currentPath][action.payload.projectId - 1][action.payload.section][action.payload.subSection][action.payload.title][action.payload.lan] = action.payload.value;
-                } else {
-                    state.present[action.payload?.currentPath][action.payload.section][action.payload.subSection][action.payload?.index][action.payload.title][action.payload.lan] = action.payload.value;
-                }
-            } else if (action.payload.type === 'rich') {
-                state.present[action.payload?.currentPath][action.payload.section][action.payload.index][action.payload.title][action.payload.lan] = action.payload.value;
-            } else {
-                if (action.payload.careerId) {
-                    if (action.payload.section === "newsPoints") {
-                        state.present[action.payload.currentPath][action.payload.projectId - 1][action.payload.section][action.payload.index][action.payload.title][action.payload.lan] = action.payload.value
-                    } else {
-                        state.present[action.payload?.currentPath][action.payload.projectId - 1][action.payload.section][action.payload.title][action.payload.lan] = action.payload.value;
-                    }
-                } else {
-                    state.present[action.payload?.currentPath][action.payload.section][action.payload.title][action.payload.lan] = action.payload.value;
-                }
+
+            if (action.payload.section === "recentProjectsSection") {
+                state.present[action.payload.currentPath].editVersion.sections[action.payload.contentIndex].sections[action.payload.index].content[action.payload.title][action.payload.lan] = action.payload.value
+            } else if (action.payload.subSection === "cards") {
+                state.present[action.payload.currentPath].editVersion.sections[action.payload.contentIndex].content.cards[action.payload.index][action.payload.title][action.payload.lan] = action.payload.value
+            } {
+                state.present[action.payload.currentPath].editVersion.sections[action.payload.contentIndex].content[action.payload.title][action.payload.lan] = action.payload.value
             }
+
             state.future = [];
         },
         updateServicesNumber: (state, action) => {
             state.past.push(JSON.parse(JSON.stringify(state.present)));
-            state.present[action.payload?.currentPath][action.payload.section][action.payload.subSection][action.payload.index][action.payload.title] = action.payload.value;
+            state.present[action.payload.currentPath].editVersion.sections[action.payload.contentIndex].content.cards[action.payload.index][action.payload.title] = action.payload.value
             state.future = [];
         },
         updateSelectedContent: (state, action) => {
             state.past.push(JSON.parse(JSON.stringify(state.present)));
             const selectedMap = new Map(
-                action.payload.origin === "jobs" ?
-                    action.payload?.selected?.filter(e => e.display).map((item, index) => [item.title.key[action.payload.language], index])
-                    : action.payload?.selected?.filter(e => e.display).map((item, index) => [item.title[action.payload.language], index])
+                    action.payload?.selected?.filter(e => e.display).map((item, index) => [item[action.payload.titleLan], index])
             );
-            let newOptions = action.payload.newArray?.map(e => ({
-                ...e,
-                display: action.payload.origin === "jobs" ? selectedMap.has(e.title.key[action.payload.language]) : selectedMap.has(e.title[action.payload.language])
-            }));
-            if (action.payload.origin === "jobs") {
-                newOptions.sort((a, b) => {
-                    const indexA = selectedMap.get(a.title.key[action.payload.language]) ?? Infinity;
-                    const indexB = selectedMap.get(b.title.key[action.payload.language]) ?? Infinity;
-                    return indexA - indexB;
-                });
-            } else {
-                newOptions.sort((a, b) => {
-                    const indexA = selectedMap.get(a.title[action.payload.language]) ?? Infinity;
-                    const indexB = selectedMap.get(b.title[action.payload.language]) ?? Infinity;
-                    return indexA - indexB;
-                });
-            }
+            let newOptions = action.payload.selected
+
+            newOptions.sort((a, b) => {
+                const indexA = selectedMap.get(a[action.payload.titleLan]) ?? Infinity;
+                const indexB = selectedMap.get(b[action.payload.titleLan]) ?? Infinity;
+                return indexA - indexB;
+            });
+
             switch (action.payload.origin) {
                 case "home":
-                    state.present[action.payload?.currentPath].serviceSection.cards = newOptions;
+                    state.present[action.payload.currentPath].editVersion.sections[action.payload.contentIndex].items = newOptions
                     break;
                 case "recentproject":
-                    state.present[action.payload?.currentPath].recentProjectsSection.sections[action.payload.index].projects = newOptions;
+                    state.present[action.payload.currentPath].editVersion.sections[action.payload.contentIndex].sections[action.payload.index].items = newOptions
+
                     break;
                 case "jobs":
                     state.present[action.payload?.currentPath].jobListSection.jobs = newOptions;
@@ -418,3 +356,63 @@ export const { // actions
 } = cmsSlice.actions;
 
 export default cmsSlice.reducer; // reducer
+
+
+
+// if (action.payload.deepPath) {
+//     if (action.payload.section && (action.payload.index + 1)) {
+//         state.present[action.payload.currentPath][action.payload.projectId][action.payload.deepPath - 1][action.payload?.section][action.payload.index][action.payload.title][action.payload.lan] = action.payload.value;
+//     } else {
+//         state.present[action.payload.currentPath][action.payload.projectId][action.payload.deepPath - 1][action.payload?.section][action.payload.title][action.payload.lan] = action.payload.value;
+//     }
+// } else if (action.payload.projectId && !action.payload.careerId) {
+//     if (action.payload.subSection) {
+//         state.present[action.payload.currentPath][action.payload.projectId - 1][action.payload?.section][action.payload.subSection][action.payload?.index][action.payload.title][action.payload.lan] = action.payload.value;
+//     } else if (action.payload.title === 'url') {
+//         state.present[action.payload.currentPath][action.payload.projectId - 1][action.payload.section][action.payload.title] = action.payload.value
+//     } else {
+//         if (action.payload.section === 'testimonials') {
+//             state.present[action.payload.currentPath][action.payload.section][action.payload.projectId - 1][action.payload.title][action.payload.lan] = action.payload.value
+//         } else if (action.payload.section === 'descriptionSection') {
+//             state.present[action.payload.currentPath][action.payload.projectId - 1][action.payload.section][action.payload.index][action.payload.title][action.payload.lan] = action.payload.value
+//         } else {
+//             state.present[action.payload.currentPath][action.payload.projectId - 1][action.payload.section][action.payload.title][action.payload.lan] = action.payload.value
+//         }
+//     }
+// } else if (action.payload.subSectionsProMax === "Links") {
+//     state.present[action.payload?.currentPath][action.payload.section][action.payload.subSection][action.payload?.index][action.payload.title] = action.payload.value;
+// } else if (action.payload.subSectionsProMax) {
+//     if (action.payload.careerId) {
+//         if (action.payload.subSectionsProMax === "viewAllButton") {
+//             if (action.payload.title === 'link') {
+//                 state.present[action.payload?.currentPath][action.payload.projectId - 1][action.payload.section][action.payload.subSection][action.payload.subSectionsProMax][action.payload.title] = action.payload.value;
+//             } else {
+//                 state.present[action.payload?.currentPath][action.payload.projectId - 1][action.payload.section][action.payload.subSection][action.payload.subSectionsProMax][action.payload.title][action.payload.lan] = action.payload.value;
+//             }
+//         } else {
+//             state.present[action.payload?.currentPath][action.payload.projectId - 1][action.payload.section][action.payload.subSection][action.payload.subSectionsProMax][action.payload?.index][action.payload.title][action.payload.lan] = action.payload.value;
+//         }
+//     } else {
+//         state.present[action.payload?.currentPath][action.payload.section][action.payload.subSection][action.payload?.index][action.payload.subSectionsProMax][action.payload.subSecIndex][action.payload.title][action.payload.lan] = action.payload.value;
+//     }
+// } else if (action.payload.subSection === 'url') {
+//     state.present[action.payload?.currentPath][action.payload.section][action.payload.subSection] = action.payload.value;
+// } else if (action.payload.subSection) {
+//     if (action.payload.careerId) {
+//         state.present[action.payload?.currentPath][action.payload.projectId - 1][action.payload.section][action.payload.subSection][action.payload.title][action.payload.lan] = action.payload.value;
+//     } else {
+//         state.present[action.payload?.currentPath][action.payload.section][action.payload.subSection][action.payload?.index][action.payload.title][action.payload.lan] = action.payload.value;
+//     }
+// } else if (action.payload.type === 'rich') {
+//     state.present[action.payload?.currentPath][action.payload.section][action.payload.index][action.payload.title][action.payload.lan] = action.payload.value;
+// } else {
+//     if (action.payload.careerId) {
+//         if (action.payload.section === "newsPoints") {
+//             state.present[action.payload.currentPath][action.payload.projectId - 1][action.payload.section][action.payload.index][action.payload.title][action.payload.lan] = action.payload.value
+//         } else {
+//             state.present[action.payload?.currentPath][action.payload.projectId - 1][action.payload.section][action.payload.title][action.payload.lan] = action.payload.value;
+//         }
+//     } else {
+//         state.present[action.payload?.currentPath][action.payload.section][action.payload.title][action.payload.lan] = action.payload.value;
+//     }
+// }
