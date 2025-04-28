@@ -7,6 +7,8 @@ import {
   fetchResourceInfo,
   fetchAssignedUsers,
   fetchContent,
+  findResourceById,
+  fetchAllResourcesWithContent,
 } from "../../repository/content.repository.js";
 
 const getResources = async (
@@ -17,8 +19,26 @@ const getResources = async (
   search,
   status,
   pageNum,
-  limitNum
+  limitNum,
+  fetchType
 ) => {
+  if (fetchType === "CONTENT") {
+    const resources = await fetchAllResourcesWithContent(
+      resourceType,
+      resourceTag,
+      relationType,
+      isAssigned,
+      search,
+      status,
+      pageNum,
+      limitNum
+    );
+    logger.info({
+      response: "Resources fetched successfully with content",
+      // resources: resources,
+    });
+    return { message: "Success", resources };
+  }
   const resources = await fetchResources(
     resourceType,
     resourceTag,
@@ -30,7 +50,7 @@ const getResources = async (
     limitNum
   );
   logger.info({
-    response: "Resources fetched successfully",
+    response: "Resources fetched successfully without content",
     // resources: resources,
   });
   return { message: "Success", resources };
@@ -93,6 +113,19 @@ const getContent = async (resourceId) => {
   return { message: "Success", content };
 };
 
+const updateContent = async (saveAs, content) => {
+  const { resourceId } = content;
+  const isResourceExist = await findResourceById(resourceId);
+  assert(isResourceExist, "NOT_FOUND", "Resource not found");
+
+  const updatedContent = await updateContent(resourceId, content);
+  logger.info({
+    response: "Content updated successfully",
+    updatedContent: updatedContent,
+  });
+  return { message: "Success", isResourceExist };
+};
+
 export {
   getResources,
   getResourceInfo,
@@ -100,4 +133,5 @@ export {
   assignUser,
   getAssignedUsers,
   getContent,
+  updateContent,
 };
