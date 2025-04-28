@@ -118,6 +118,8 @@ async function main() {
             },
           });
 
+
+          
           // Create initial version
           const version = await tx.resourceVersion.create({
             data: {

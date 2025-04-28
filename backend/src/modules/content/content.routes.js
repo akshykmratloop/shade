@@ -18,13 +18,13 @@ router.get(
 );
 
 router.get(
-  "/getResourceInfo",
+  "/getResourceInfo/:resourceId",
   //   checkPermission(requiredPermissionsForContentManagement),
   tryCatchWrap(ContentController.GetResourceInfo)
 );
 
 router.get(
-  "/getAssignedUsers",
+  "/getAssignedUsers/:resourceId",
   //   checkPermission(requiredPermissionsForContentManagement),
   tryCatchWrap(ContentController.GetAssignedUsers)
 );
@@ -42,9 +42,15 @@ router.post(
 );
 
 router.get(
-  "/getContent",
+  "/getContent/:resourceId",
   //   checkPermission(requiredPermissionsForContentManagement),
   tryCatchWrap(ContentController.GetContent)
+);
+
+router.put(
+  "/updateContent",
+  //   checkPermission(requiredPermissionsForContentManagement),
+  tryCatchWrap(ContentController.UpdateContent)
 );
 
 export default router;

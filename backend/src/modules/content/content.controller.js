@@ -7,10 +7,11 @@ import {
   assignUser,
   getAssignedUsers,
   getContent,
+  updateContent
 } from "./content.service.js";
 
 const GetResources = async (req, res) => {
-  const { resourceType, resourceTag, relationType, isAssigned, search, status, page, limit } =
+  const { resourceType, resourceTag, relationType, isAssigned, search, status, page, limit, fetchType } =
     req.query;
   const pageNum = parseInt(page) || 1;
   const limitNum = parseInt(limit) || 100;
@@ -22,19 +23,20 @@ const GetResources = async (req, res) => {
     search,
     status,
     pageNum,
-    limitNum
+    limitNum,
+    fetchType
   );
   res.status(200).json(response);
 };
 
 const GetResourceInfo = async (req, res) => {
-  const { resourceId } = req.query;
+  const { resourceId } = req.params;
   const response = await getResourceInfo(resourceId);
   res.status(200).json(response);
 };
 
 const GetAssignedUsers = async (req, res) => {
-  const { resourceId } = req.query;
+  const { resourceId } = req.params;
   const response = await getAssignedUsers(resourceId);
   res.status(200).json(response);
 };
@@ -58,11 +60,18 @@ const AssignUser = async (req, res) => {
 };
 
 const GetContent = async (req, res) => {
-  const { resourceId } = req.query;
+  const { resourceId } = req.params;
   const response = await getContent(resourceId);
   res.status(200).json(response);
 };
 
+const UpdateContent = async (req, res) => {
+  const { saveAs } = req.query;
+  const { content } = req.body;
+  console.log(content, "content");
+  const response = await updateContent(saveAs,content);
+  res.status(200).json(response);
+};
 export default {
   GetResources,
   GetResourceInfo,
@@ -70,4 +79,5 @@ export default {
   AssignUser,
   GetAssignedUsers,
   GetContent,
+  UpdateContent
 };
