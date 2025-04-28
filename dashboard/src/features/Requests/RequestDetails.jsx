@@ -2,9 +2,14 @@ import React from "react";
 import formatTimestamp from "../../app/TimeFormat";
 import {RxQuestionMarkCircled} from "react-icons/rx";
 import {CheckCircle, XCircle} from "lucide-react";
+import {TruncateText} from "../../app/capitalizeword";
 
 const data = [
-  {role: "Editor", status: "Approved", comment: "Edit, View, Delete"},
+  {
+    role: "Editor",
+    status: "Approved",
+    comment: "Edit, View, Delete",
+  },
   {role: "Verifier", status: "Rejected", comment: "Edit, View, Delete"},
 ];
 
@@ -125,16 +130,16 @@ const RequestDetails = () => {
         </div>
         <div className="flex flex-col justify-between py-2">
           <label className="!text-[#5d5d5e] pt-1 pb-2">Approval Status</label>
-          <table className="min-w-full bg-white rounded-lg shadow">
+          <table className="w-full bg-white rounded-lg shadow">
             <thead>
               <tr className="bg-blue-800 text-white">
-                <th className="px-3 py-2 text-sm font-light text-center rounded-tl-lg">
+                <th className="px-3 py-2 text-sm  text-left font-light rounded-tl-lg">
                   Role
                 </th>
-                <th className="px-3 py-2 text-sm font-light text-center">
+                <th className="px-3 py-2 text-sm  text-left font-light ">
                   Status
                 </th>
-                <th className="px-3 py-2 text-sm font-light text-center rounded-tr-lg">
+                <th className="px-3 py-2 text-sm  text-left font-light  rounded-tr-lg">
                   Comment
                 </th>
               </tr>
@@ -153,7 +158,10 @@ const RequestDetails = () => {
                         {status}
                       </span>
                     </td>
-                    <td className="px-3 py-2 text-sm">{comment}</td>
+
+                    <td title={comment} className="px-3 py-2 text-sm">
+                      {TruncateText(comment, 20)}
+                    </td>
                   </tr>
                 );
               })}
