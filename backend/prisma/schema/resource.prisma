@@ -44,6 +44,7 @@ model ResourceVersion {
   versionNumber Int           @default(1) // Sequential version identifier
   versionStatus VersionStatus @default(NULL) // Current lifecycle state
   notes         String? // Change description for auditors
+  referenceDoc  String?  // Reference to external documentation
   content       Json // Flexible content storage
   icon          String?
   Image         String?

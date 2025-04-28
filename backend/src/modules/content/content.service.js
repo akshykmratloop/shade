@@ -9,6 +9,7 @@ import {
   fetchContent,
   findResourceById,
   fetchAllResourcesWithContent,
+  createOrUpdateVersion,
 } from "../../repository/content.repository.js";
 
 const getResources = async (
@@ -118,12 +119,17 @@ const updateContent = async (saveAs, content) => {
   const isResourceExist = await findResourceById(resourceId);
   assert(isResourceExist, "NOT_FOUND", "Resource not found");
 
-  const updatedContent = await updateContent(resourceId, content);
+  // If saveAs is provided, update the version status in the content
+  if (saveAs && content.newVersionEditMode) {
+    content.newVersionEditMode.versionStatus = saveAs;
+  }
+
+  const updatedContent = await createOrUpdateVersion(resourceId, content);
   logger.info({
     response: "Content updated successfully",
     updatedContent: updatedContent,
   });
-  return { message: "Success", isResourceExist };
+  return { message: "Success", content: updatedContent };
 };
 
 export {
