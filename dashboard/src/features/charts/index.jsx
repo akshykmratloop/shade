@@ -124,7 +124,7 @@ function Users() {
   };
 
   const applyFilter = (status) => {
-    const filteredRoles = originalUsers.filter(
+    const filteredRoles = originalUsers?.filter(
       (user) => user.status === status
     );
     setUsers(filteredRoles);
@@ -244,7 +244,7 @@ function Users() {
         }
       >
         <div className="min-h-[28.2rem] flex flex-col justify-between">
-          <div className="overflow-x-auto w-full border dark:border-stone-600 rounded-2xl">
+          <div className=" w-full border dark:border-stone-600 rounded-2xl">
             <table className="table text-left min-w-full dark:text-[white]">
               <thead className="" style={{borderRadius: ""}}>
                 <tr
@@ -298,16 +298,16 @@ function Users() {
                             </p>
                           </div>
                         </td>
-                        <td className=" font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]">
+                        <td className="relative font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]">
                           {user?.roles?.length > 1 ? (
-                            <>
+                            <div className="">
                               {user.roles[0].role.name}
-                              <div className="relative group inline-flex">
-                                <span className="ml-1 bg-gray-200 text-gray-600 dark:bg-gray-700 dark:text-gray-300 px-2 py-0.5 rounded-full text-[12px] font-medium cursor-pointer">
+                              <div className="relative group inline-flex ">
+                                <span className="ml-1 bg-gray-200 text-gray-600 dark:bg-gray-700 dark:text-stone-300 px-2 py-0.5 rounded-full text-[12px] font-medium cursor-pointer">
                                   +{user.roles.length - 1}
                                 </span>
 
-                                <div className="absolute left-0 top-[120%] mt-1 bg-base-300 text-black text-sm rounded shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-150 pointer-events-none z-10">
+                                <div className="absolute left-0 top-[120%] mt-1 bg-base-300 text-black dark:text-gray-300 text-sm rounded shadow-lg opacity-0 group-hover:opacity-100 transition-opacity duration-150 pointer-events-none z-10">
                                   <ul className="p-2 space-y-1 list-disc list-inside">
                                     {user.roles.map((u, i) => (
                                       <li key={i}>{u.role.name}</li>
@@ -316,7 +316,7 @@ function Users() {
                                   <div className="absolute left-3 -top-1 w-3 h-3 bg-base-300 rotate-45"></div>
                                 </div>
                               </div>
-                            </>
+                            </div>
                           ) : (
                             user.roles[0].role.name
                           )}

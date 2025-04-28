@@ -16,7 +16,7 @@ import Services from "./websiteComponent/Service";
 import ServiceDetails from "./websiteComponent/detailspages/ServiceDetails";
 import SubServiceDetails from "./websiteComponent/subDetailsPages/SubServiceDetails";
 
-const AllForOne = ({ language, screen, content, subPath, setLanguage, fullScreen, currentPath, deepPath }) => {
+const AllForOne = ({ language, screen, content, subPath, setLanguage, fullScreen, currentPath, deepPath, showDifference = false }) => {
     let translateForFullScreen = ""
 
     console.log(currentPath)
@@ -93,7 +93,7 @@ const AllForOne = ({ language, screen, content, subPath, setLanguage, fullScreen
         >
             {
                 currentPath === "home" &&
-                <HomePage language={language} screen={screen} fullScreen={fullScreen} currentContent={content.home} />
+                <HomePage language={language} screen={screen} fullScreen={fullScreen} currentContent={content.home} highlight={showDifference} />
             }
             {
                 currentPath === "solutions" &&
@@ -111,14 +111,14 @@ const AllForOne = ({ language, screen, content, subPath, setLanguage, fullScreen
             }
             {
                 (currentPath === "service" && subPath) &&
-                    <ServiceDetails language={language} contentOn={content.serviceDetails} serviceId={subPath} screen={screen} /> 
+                <ServiceDetails language={language} contentOn={content.serviceDetails} serviceId={subPath} screen={screen} />
             }
             {
                 currentPath === "markets" &&
                 <MarketPage language={language} currentContent={content.markets} screen={screen} />
             }
             {
-                currentPath === 'projects' ? subPath ?
+                currentPath === 'projects' || currentPath === 'project' ? subPath ?
                     <ProjectDetailPage language={language} contentOn={content.projectDetail} projectId={subPath} screen={screen} /> :
                     <ProjectPage language={language} currentContent={content.projects} screen={screen} /> : ""
             }
@@ -143,7 +143,7 @@ const AllForOne = ({ language, screen, content, subPath, setLanguage, fullScreen
                 <Header language={language} currentContent={content.header} screen={screen} setLanguage={setLanguage} />
             }
             {
-                currentPath === "testimonials" &&
+                currentPath === "testimonials" || currentPath === "testimonial" &&
                 <Testimonials language={language} currentContent={content.footer} screen={screen} testimonyId={subPath} />
             }
             {

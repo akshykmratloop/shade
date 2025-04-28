@@ -13,7 +13,7 @@ const Select = ({ options, defaultValue, selectClass, label, labelClass, baseCla
         <div className={`${baseClass} text-sm`}>
             {label && <label className={labelClass}>{label}</label>}
             <select
-                className={`${selectClass} ${width ? width : "w-[22rem]"} ${height ?? "h-[2.3rem]"} text-xs pl-2 ${value === "" ? "":"text-zinc-700" }`}
+                className={`${selectClass} ${width ? width : "w-[22rem]"} ${height ?? "h-[2.3rem]"} text-xs pl-2 ${value === "" ? "" : "text-zinc-700 dark:text-zinc-300"}`}
                 onChange={handleSelectChange}
                 value={value} // <-- Ensure value is controlled
             >
