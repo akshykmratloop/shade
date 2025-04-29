@@ -226,7 +226,7 @@ function UserDetailsModal({ user, show, onClose }) {
                             >
                               <td className="px-4 py-2 align-top dark:border dark:border-[#232d3d] w-1/3">
                                 <div className="h-full">
-                                  <span className="font-[500] relative  inline-flex items-center before:content-['•'] before:text-stone-800 before:mr-2">
+                                  <span className="font-[500] relative  inline-flex items-center before:content-['•'] before:text-stone-800 dark:before:text-stone-200 before:mr-2">
                                     {capitalizeWords(role?.role?.name)}
                                   </span>
                                 </div>
@@ -237,7 +237,7 @@ function UserDetailsModal({ user, show, onClose }) {
                                   return (
                                     <span
                                       key={permission.id}
-                                      className="relative pl-2 inline-flex items-center before:content-['•'] before:text-stone-800 before:mr-2"
+                                      className="relative pl-2 inline-flex items-center before:content-['•'] dark:before:text-stone-300 before:text-stone-800 before:mr-2"
                                     >
                                       {capitalizeWords(permission?.permission?.name)}
                                       {!lastElement && (

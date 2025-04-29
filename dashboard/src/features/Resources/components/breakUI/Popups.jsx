@@ -18,7 +18,7 @@ const Popups = ({ confirmationText, display, setClose }) => {
     }, [])
     return (
         <div className={`fixed inset-0 flex items-center justify-center z-30 bg-black/50 ${display ? "block" : "hidden"}`}>
-            <div ref={modalRef} className="bg-white flex flex-col items-center justify-center gap-5 p-6 rounded-lg shadow-lg w-[300px] relative">
+            <div ref={modalRef} className="bg-white dark:bg-[#242933] flex flex-col items-center justify-center gap-5 p-6 rounded-lg shadow-lg w-[300px] relative">
                 <CloseModalButton onClickClose={setClose} />
                 <p className="text-lg font-semibold">Confirm</p>
                 <p className="text-sm">{confirmationText}</p>

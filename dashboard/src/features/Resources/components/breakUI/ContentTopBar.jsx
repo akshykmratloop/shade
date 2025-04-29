@@ -32,6 +32,11 @@ export default function ContentTopBar({ setWidth, raisePopup, setFullScreen }) {
     const infoRef = useRef(null)
     const [savedChanges, setSavedChanges] = useState(false)
     const [autoSave, setAutoSave] = useState(JSON.parse(localStorage.getItem("autoSave")))
+    const user = useSelector(state => state.user.user)
+
+    const permissionSet = new Set(user.permission)
+
+    const isManager = user.permissions?.some(e => e.slice(-10) === "MANAGEMENT" && e.slice(0, 4) !== "USER" && e.slice(0, 4) !== "ROLE" && e.slice(0, 4) !== "AUDI")
 
     const deviceIcons = [
         { icon: <MdOutlineDesktopWindows />, label: 'Desktop', width: 1180 },
@@ -65,8 +70,6 @@ export default function ContentTopBar({ setWidth, raisePopup, setFullScreen }) {
                 })
             }
         } catch (err) {
-            console.log('ppppppppppppppppppppppppppppppppp')
-            console.log(err)
             toast.error("failed", {
                 style: { backgroundColor: "#187e3d", color: "white" },
                 autoClose: 1000, // Closes after 1 second
@@ -175,32 +178,39 @@ export default function ContentTopBar({ setWidth, raisePopup, setFullScreen }) {
                         </div>
                     </div>
                 </div>
-                <div className='flex items-center gap-1'>
-                    <span className={`text-sm font-lexend dark:text-[#CBD5E1] text-[#202a38] select-none`}>
-                        Auto Save
-                    </span>
-
-                    <Switch
-                        checked={autoSave}
-                        onChange={autoSaveToggle}
-                        className={`${autoSave
-                            ? "bg-[#26c226]"
-                            : "bg-gray-300"
-                            } relative inline-flex h-2 w-7 items-center rounded-full`}
-                    >
-                        <span
-                            className={`${autoSave
-                                ? "translate-x-4"
-                                : "translate-x-0"
-                                } inline-block h-[17px] w-[17px] bg-white rounded-full shadow-2xl border border-gray-300 transition`}
-                        />
-                    </Switch>
-                </div>
-                <div className='flex gap-3 sm:gap-1'>
-
-                    <Button text={savedChanges ? 'Saved' : 'Draft'} functioning={saveTheDraft} classes={`${savedChanges ? "bg-[#26c226]" : "bg-[#26345C]"}  rounded-md xl:h-[2.68rem] sm:h-[2rem] xl:text-xs sm:text-[.6rem] xl:w-[5.58rem] w-[4rem] text-[white]`} />
-                    <Button text={'Submit'} functioning={raisePopup.submit} classes='bg-[#29469D] rounded-md xl:h-[2.68rem] sm:h-[2rem] xl:text-xs sm:text-[.6rem] xl:w-[5.58rem] w-[4rem] text-[white]' />
-                </div>
+                {
+                    !isManager ?
+                        <div className='flex gap-3'>
+                            <div className='flex items-center gap-1'>
+                                <span className={`text-sm font-lexend dark:text-[#CBD5E1] text-[#202a38] select-none`}>
+                                    Auto Save
+                                </span>
+                                <Switch
+                                    checked={autoSave}
+                                    onChange={autoSaveToggle}
+                                    className={`${autoSave
+                                        ? "bg-[#26c226]"
+                                        : "bg-gray-300"
+                                        } relative inline-flex h-2 w-7 items-center rounded-full`}
+                                >
+                                    <span
+                                        className={`${autoSave
+                                            ? "translate-x-4"
+                                            : "translate-x-0"
+                                            } inline-block h-[17px] w-[17px] bg-white rounded-full shadow-2xl border border-gray-300 transition`}
+                                    />
+                                </Switch>
+                            </div>
+                            <div className='flex gap-2'>
+                                <Button text={savedChanges ? 'Saved' : 'Draft'} functioning={saveTheDraft} classes={`${savedChanges ? "bg-[#26c226]" : "bg-[#26345C]"}  rounded-md xl:h-[2.68rem] sm:h-[2rem] xl:text-xs sm:text-[.6rem] xl:w-[5.58rem] w-[4rem] text-[white]`} />
+                                <Button text={'Submit'} functioning={raisePopup.submit} classes='bg-[#29469D] rounded-md xl:h-[2.68rem] sm:h-[2rem] xl:text-xs sm:text-[.6rem] xl:w-[5.58rem] w-[4rem] text-[white]' />
+                            </div>
+                        </div>
+                        :
+                        <div className='flex gap-3 sm:gap-1'>
+                            <Button text={'Pulish'} functioning={raisePopup.publish} classes='bg-[#29469D] rounded-md xl:h-[2.68rem] sm:h-[2rem] xl:text-xs sm:text-[.6rem] xl:w-[5.58rem] w-[4rem] text-[white]' />
+                        </div>
+                }
             </div>
         </div>
     );
