@@ -1,18 +1,18 @@
 {
   "content": {
-    "resourceId": "cma27lqrl008zohrfbd2vyd0a",
+    "resourceId": "cma22z6tz009lry6seiglw05l",
     "titleEn": "Home Page",
     "titleAr": "الصفحة الرئيسية",
     "slug": "home",
     "newVersionEditMode": {
-      "comments": "version 2 ",
-      "referenceDoc": "doc 2",
+      "comments": "Initial version created",
+      "referenceDoc": null,
       "content": {},
       "icon": null,
       "image": null,
       "sections": [
         {
-          "sectionId": "cma27lqrv0093ohrf3mnw8ald",
+          "sectionId": "cma22z6u6009pry6sskiud2gl",
           "order": 1,
           "content": {
             "image": [
@@ -20,7 +20,7 @@
             ],
             "title": {
               "ar": "بناء مستقبل أقوى",
-              "en": "i am building"
+              "en": "Building a Stronger Future"
             },
             "buttonText": {
               "ar": "أعمالنا",
@@ -33,7 +33,7 @@
           }
         },
         {
-          "sectionId": "cma27lqs40099ohrftml559gc",
+          "sectionId": "cma22z6uf009vry6spzt12d84",
           "order": 2,
           "content": {
             "image": [
@@ -54,7 +54,7 @@
           }
         },
         {
-          "sectionId": "cma27lqsj009fohrf6j21h45q",
+          "sectionId": "cma22z6us00a1ry6sqrv6u4hz",
           "order": 3,
           "content": {
             "title": {
@@ -64,34 +64,34 @@
           },
           "items": [
             {
-              "order": 4,
-              "id": "cma27lqo1007hohrfcjtn0n0i",
+              "order": 1,
+              "id": "cma22z6pb0083ry6s54qyklru",
+              "resourceType": "SUB_PAGE"
+            },
+            {
+              "order": 2,
+              "id": "cma22z6qb008cry6scvnqcztl",
+              "resourceType": "SUB_PAGE"
+            },
+            {
+              "order": 3,
+              "id": "cma22z6r6008lry6sucnwkip1",
               "resourceType": "SUB_PAGE"
             },
             {
               "order": 4,
-              "id": "cma27lqpo0088ohrfqgj6uow8",
+              "id": "cma22z6rz008ury6snisbodq9",
               "resourceType": "SUB_PAGE"
             },
             {
               "order": 5,
-              "id": "cma27lqoh007qohrfnwaw4soo",
-              "resourceType": "SUB_PAGE"
-            },
-            {
-              "order": 5,
-              "id": "cma27lqqa008hohrf81w8hw3f",
-              "resourceType": "SUB_PAGE"
-            },
-            {
-              "order": 6,
-              "id": "cma27lqp0007zohrfxfc4b48x",
+              "id": "cma22z6so0093ry6s2o9vjabn",
               "resourceType": "SUB_PAGE"
             }
           ]
         },
         {
-          "sectionId": "cma27lqtc009vohrf5pqvpwjx",
+          "sectionId": "cma22z6vd00ahry6shu909967",
           "order": 4,
           "content": {
             "cards": [
@@ -145,7 +145,7 @@
           }
         },
         {
-          "sectionId": "cma27lqtl00a1ohrfbprfigmk",
+          "sectionId": "cma22z6vl00anry6sdmay6hqk",
           "order": 5,
           "content": {
             "buttons": [
@@ -209,7 +209,7 @@
           },
           "sections": [
             {
-              "sectionId": "cma27lqtt00a7ohrfx8sjch3w",
+              "sectionId": "cma22z6w200atry6s80gwi7n8",
               "order": 1,
               "content": {
                 "id": "projectList",
@@ -225,28 +225,28 @@
               "items": [
                 {
                   "order": 1,
-                  "id": "cma27lqim004zohrfailxn9zs",
+                  "id": "cma22z6im005lry6sooybh9vv",
                   "resourceType": "SUB_PAGE"
                 },
                 {
                   "order": 2,
-                  "id": "cma27lqjk005kohrf7dzh62y5",
+                  "id": "cma22z6k60066ry6s4sduhk2k",
                   "resourceType": "SUB_PAGE"
                 },
                 {
                   "order": 3,
-                  "id": "cma27lqkt0065ohrfg3kf8z74",
+                  "id": "cma22z6lq006rry6saqzpakoc",
                   "resourceType": "SUB_PAGE"
                 },
                 {
                   "order": 4,
-                  "id": "cma27lqm5006qohrf2ufpmjxp",
+                  "id": "cma22z6n1007cry6s41iq9vsy",
                   "resourceType": "SUB_PAGE"
                 }
               ]
             },
             {
-              "sectionId": "cma27lquf00alohrf4urkwj0s",
+              "sectionId": "cma22z6wv00b7ry6sb76kto71",
               "order": 2,
               "content": {
                 "id": "markets",
@@ -262,28 +262,28 @@
               "items": [
                 {
                   "order": 1,
-                  "id": "cma27lqim004zohrfailxn9zs",
+                  "id": "cma22z6im005lry6sooybh9vv",
                   "resourceType": "SUB_PAGE"
                 },
                 {
                   "order": 2,
-                  "id": "cma27lqjk005kohrf7dzh62y5",
+                  "id": "cma22z6k60066ry6s4sduhk2k",
                   "resourceType": "SUB_PAGE"
                 },
                 {
                   "order": 3,
-                  "id": "cma27lqkt0065ohrfg3kf8z74",
+                  "id": "cma22z6lq006rry6saqzpakoc",
                   "resourceType": "SUB_PAGE"
                 },
                 {
                   "order": 4,
-                  "id": "cma27lqm5006qohrf2ufpmjxp",
+                  "id": "cma22z6n1007cry6s41iq9vsy",
                   "resourceType": "SUB_PAGE"
                 }
               ]
             },
             {
-              "sectionId": "cma27lqvh00azohrfxlfqdikc",
+              "sectionId": "cma22z6xp00blry6sp2uiuugh",
               "order": 3,
               "content": {
                 "id": "safety",
@@ -299,22 +299,22 @@
               "items": [
                 {
                   "order": 1,
-                  "id": "cma27lqim004zohrfailxn9zs",
+                  "id": "cma22z6im005lry6sooybh9vv",
                   "resourceType": "SUB_PAGE"
                 },
                 {
                   "order": 2,
-                  "id": "cma27lqjk005kohrf7dzh62y5",
+                  "id": "cma22z6k60066ry6s4sduhk2k",
                   "resourceType": "SUB_PAGE"
                 },
                 {
                   "order": 3,
-                  "id": "cma27lqkt0065ohrfg3kf8z74",
+                  "id": "cma22z6lq006rry6saqzpakoc",
                   "resourceType": "SUB_PAGE"
                 },
                 {
                   "order": 4,
-                  "id": "cma27lqm5006qohrf2ufpmjxp",
+                  "id": "cma22z6n1007cry6s41iq9vsy",
                   "resourceType": "SUB_PAGE"
                 }
               ]
@@ -322,7 +322,7 @@
           ]
         },
         {
-          "sectionId": "cma27lqw600bdohrf4l5lcv7e",
+          "sectionId": "cma22z6yy00bzry6s9fwz9wtg",
           "order": 6,
           "content": {
             "title": {
@@ -366,7 +366,7 @@
           }
         },
         {
-          "sectionId": "cma27lqwh00bjohrfb8ttip47",
+          "sectionId": "cma22z6z900c5ry6stj6vnqsg",
           "order": 7,
           "content": {
             "title": {
@@ -377,38 +377,38 @@
           "items": [
             {
               "order": 1,
-              "id": "cma27lq5t0000ohrf2g3myd5f",
+              "id": "cma22z640000mry6siap0g360",
               "resourceType": "SUB_PAGE"
             },
             {
               "order": 2,
-              "id": "cma27lq720009ohrfkr5pn51s",
+              "id": "cma22z654000vry6sx8lrmanj",
               "resourceType": "SUB_PAGE"
             },
             {
               "order": 3,
-              "id": "cma27lq7k000iohrfc209ow1r",
+              "id": "cma22z65u0014ry6sxe881t60",
               "resourceType": "SUB_PAGE"
             },
             {
               "order": 4,
-              "id": "cma27lq81000rohrfede7jjnb",
+              "id": "cma22z66f001dry6sm2lb9khp",
               "resourceType": "SUB_PAGE"
             },
             {
               "order": 5,
-              "id": "cma27lq8j0010ohrfn7xfktz2",
+              "id": "cma22z676001mry6sroj6uz3x",
               "resourceType": "SUB_PAGE"
             },
             {
               "order": 6,
-              "id": "cma27lq950019ohrfo9ks7h6g",
+              "id": "cma22z67q001vry6snisdxsch",
               "resourceType": "SUB_PAGE"
             }
           ]
         },
         {
-          "sectionId": "cma27lqx700c1ohrfxa9285jj",
+          "sectionId": "cma22z70q00cnry6s1yjusabz",
           "order": 8,
           "content": {
             "title": {

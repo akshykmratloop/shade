@@ -290,49 +290,61 @@ function UserDetailsModal({ user, show, onClose }) {
               <div className="w-full">
                 <table className="w-full text-left">
                   <tbody className="bg-[#fcfcfc] dark:bg-transparent">
-                    {(!fetchedUser.resourceVerifiers ||
-                      fetchedUser.resourceVerifiers.length === 0) &&
-                      fetchedUser.resourceRoles?.map((resRol) => (
-                        <tr
-                          key={resRol.resource.title}
-                          className="font-light text-[14px] text-[#101828] dark:text-[#f5f5f4]"
-                        >
-                          <td className="px-4 py-2 dark:border dark:border-[#232d3d] w-1/3">
-                            {resRol.resource.title}
-                          </td>
-                          <td className="px-4 py-2 dark:border dark:border-[#232d3d] w-1/3">
-                            {convertToReadable(resRol.resource.resourceType)} /{" "}
-                            {convertToReadable(resRol.resource.resourceTag)}
-                          </td>
-                          <td className="px-4 py-2 dark:border dark:border-[#232d3d] w-1/3">
-                            {convertToReadable(resRol.role)}
-                          </td>
-                        </tr>
-                      ))}
+                    {(!fetchedUser?.resourceVerifiers ||
+                      fetchedUser?.resourceVerifiers?.length === 0) &&
+                      fetchedUser?.resourceRoles?.map(
+                        (resRol) => (
+                          console.log("resRol", resRol),
+                          (
+                            <tr
+                              key={resRol?.resource?.titleEn}
+                              className="font-light text-[14px] text-[#101828] dark:text-[#f5f5f4]"
+                            >
+                              <td className="px-4 py-2 dark:border dark:border-[#232d3d] w-1/3">
+                                {resRol?.resource?.titleEn}
+                              </td>
+                              <td className="px-4 py-2 dark:border dark:border-[#232d3d] w-1/3">
+                                {convertToReadable(
+                                  resRol?.resource?.resourceType
+                                )}{" "}
+                                /{" "}
+                                {convertToReadable(
+                                  resRol?.resource?.resourceTag
+                                )}
+                              </td>
+                              <td className="px-4 py-2 dark:border dark:border-[#232d3d] w-1/3">
+                                {convertToReadable(resRol?.role)}
+                              </td>
+                            </tr>
+                          )
+                        )
+                      )}
 
-                    {fetchedUser.resourceVerifiers?.length > 0 &&
-                      fetchedUser.resourceVerifiers.map((verifier, idx) => (
+                    {fetchedUser?.resourceVerifiers?.length > 0 &&
+                      fetchedUser?.resourceVerifiers.map((verifier, idx) => (
                         <tr
-                          key={`${verifier.resource.title}-${idx}`}
+                          key={`${verifier?.resource?.title}-${idx}`}
                           className="font-light text-[14px] text-[#101828] dark:text-[#f5f5f4]"
                         >
                           <td className="px-4 py-2 dark:border dark:border-[#232d3d]  w-1/3">
-                            {verifier.resource.title}
+                            {verifier?.resource?.titleEn}
                           </td>
                           <td className="px-4 py-2 dark:border dark:border-[#232d3d]  w-1/3">
-                            {convertToReadable(verifier.resource.resourceType)}
+                            {convertToReadable(
+                              verifier?.resource?.resourceType
+                            )}
                           </td>
                           <td className=" px-4 py-2 dark:border dark:border-[#232d3d]  w-1/3">
                             Verifier{" "}
                             <span className="text-[11px] ">
                               {" "}
-                              {`(Level ${verifier.stage})`}
+                              {`(Level ${verifier?.stage})`}
                             </span>
                           </td>
                         </tr>
                       ))}
-                    {fetchedUser.resourceVerifiers?.length === 0 &&
-                      fetchedUser.resourceRoles?.length === 0 && (
+                    {fetchedUser?.resourceVerifiers?.length === 0 &&
+                      fetchedUser?.resourceRoles?.length === 0 && (
                         <tr>
                           <td colSpan="3" className="text-center py-4">
                             No associated resources found.
