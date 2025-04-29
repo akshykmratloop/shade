@@ -397,3 +397,14 @@ export async function updateContent(data) {
     true
   );
 }
+
+export async function uploadMedia(data) {
+
+  return await makerequest(
+    `${api.route("uploadMedia")}`,
+    "POST",
+    data,
+    {},
+    true
+  )
+}

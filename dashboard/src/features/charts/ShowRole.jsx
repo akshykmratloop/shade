@@ -207,7 +207,7 @@ function UserDetailsModal({ user, show, onClose }) {
                 </table>
                 <table className="w-full text-left">
                   <tbody className="bg-[#fcfcfc] dark:bg-transparent">
-                    {fetchedUser?.roles?.map((role) => {
+                    {fetchedUser?.roles?.map((role, i) => {
                       // console.log("role", role);
 
                       return (
@@ -215,10 +215,12 @@ function UserDetailsModal({ user, show, onClose }) {
                           key={role?.role?.id}
                           className="font-light text-[14px] text-[#101828] dark:text-[#f5f5f4]"
                         >
-                          <td className="px-4 py-2 dark:border dark:border-[#232d3d] w-1/3 border">
-                          <div className="border h-full">
-                            {capitalizeWords(role?.role?.name)}
-                          </div>
+                          <td className="px-4 py-2 align-top dark:border dark:border-[#232d3d] w-1/3">
+                            <div className="h-full">
+                              <span className="font-[500] relative  inline-flex items-center before:content-['•'] before:text-stone-800 before:mr-2">
+                                {capitalizeWords(role?.role?.name)}
+                              </span>
+                            </div>
                           </td>
                           <td className="px-4 py-2 dark:border dark:border-[#232d3d] ">
                             {role?.role?.permissions.map((permission, i, a) => {
@@ -226,7 +228,7 @@ function UserDetailsModal({ user, show, onClose }) {
                               return (
                                 <span
                                   key={permission.id}
-                                  className="relative pl-4 inline-flex items-center before:content-['•'] before:text-stone-800 before:mr-2"
+                                  className="relative pl-2 inline-flex items-center before:content-['•'] before:text-stone-800 before:mr-2"
                                 >
                                   {capitalizeWords(permission?.permission?.name)}
                                   {!lastElement && (

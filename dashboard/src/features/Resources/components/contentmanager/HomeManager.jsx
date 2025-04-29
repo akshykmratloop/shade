@@ -251,7 +251,7 @@ const HomeManager = ({ language, content, currentPath, indexes }) => {
                     { input: "input", label: "Heading/title", updateType: "title", value: content?.normalContent?.content?.title?.[language] },
                     { input: "textarea", label: "Description 1", updateType: "description", value: content?.normalContent?.content?.description?.[language] },
                     { input: "textarea", label: "Description 2", updateType: "description2", value: content?.normalContent?.content?.description2?.[language] },
-                    { input: "intpu", label: "Highlight Text", updateType: "highlightedText", value: content?.normalContent?.content?.highlightedText?.[language] },
+                    // { input: "intpu", label: "Highlight Text", updateType: "highlightedText", value: content?.normalContent?.content?.highlightedText?.[language] },
                     { input: "input", label: "Button Text", updateType: "button", value: content?.normalContent?.content?.button?.text?.[language] },
                 ]}
                 section={"newProjectSection"}

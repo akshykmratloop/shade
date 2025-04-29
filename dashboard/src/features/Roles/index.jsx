@@ -259,7 +259,7 @@ function Roles() {
                         </td>
 
                         <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]">
-                          <span className="">{role?._count?.permissions}</span>
+                          <span className="">{role?._count?.permissions ?? "N/A"}</span>
                         </td>
                         {/* <td className="font-poppins font-light text-[12px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]">
                           <span className="">
@@ -268,7 +268,7 @@ function Roles() {
                         </td> */}
                         <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]" style={{ whiteSpace: "wrap" }}>
                           <span className="">
-                            {role?._count?.users || "1"}
+                            {role?._count?.users ?? "N/A"}
                           </span>
                         </td>
                         <td className="font-poppins font-light text-[12px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]">

@@ -25,7 +25,8 @@ import ShowDifference from "./Showdifference";
 import ShowVerifierTooltip from "./ShowVerifierTooltip";
 import {openRightDrawer} from "../../features/common/rightDrawerSlice";
 import {RIGHT_DRAWER_TYPES} from "../../utils/globalConstantUtil";
-import {GoSidebarExpand} from "react-icons/go";
+import { PiInfoThin } from "react-icons/pi";
+import { VscInfo } from "react-icons/vsc";
 
 // import userIcon from "../../assets/user.png"
 
@@ -555,9 +556,9 @@ function Requests() {
                               }}
                             >
                               <span className="flex items-center gap-1 rounded-md text-[#101828]">
-                                <GoSidebarExpand
+                                <PiInfoThin
                                   className="w-5 h-6  text-[#3b4152] dark:text-stone-200"
-                                  strokeWidth={0.9}
+                                  strokeWidth={2}
                                 />
                               </span>
                             </button>
@@ -577,7 +578,7 @@ function Requests() {
                               </span>
                             </button>
 
-                            <button
+                            {/* <button
                               className=""
                               onClick={() => {
                                 setSelectedRequest(request);
@@ -588,7 +589,7 @@ function Requests() {
                                 className="w-5 h-6 text-[#3b4152] dark:text-stone-200"
                                 strokeWidth={1}
                               />
-                            </button>
+                            </button> */}
                             {/* <div className="flex items-center space-x-4 ">
                               <Switch
                                 checked={request?.status === "ACTIVE"}
