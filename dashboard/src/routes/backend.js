@@ -1,3 +1,4 @@
+export const Img_url = "https://res.cloudinary.com/dmcxybhjm/image/upload/v1745838647/"
 const BASE_URL = "http://localhost:3000/";
 
 const auth = "auth";
@@ -6,6 +7,8 @@ const permission = "permission";
 const user = "user";
 const notification = "notification";
 const content = "content";
+const media = "media"
+
 
 const api = {
   login: `${auth}/login`, // API for Auth
@@ -49,6 +52,10 @@ const api = {
   getAssignedUsers: `${content}/getAssignedUsers`,
   getContent: `${content}/getContent`,
   updateContent: `${content}/updateContent`,
+
+  // Media
+  uploadMedia: `${media}/upload`,
+  deleteMedia: `${media}/delete`,
 
   route(route) {
     if (this[route]) {

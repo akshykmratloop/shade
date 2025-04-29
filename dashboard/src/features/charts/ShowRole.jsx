@@ -1,12 +1,12 @@
-import {useEffect, useRef, useState} from "react";
-import {Dialog} from "@headlessui/react";
-import {XMarkIcon} from "@heroicons/react/24/outline";
-import {getUserById} from "../../app/fetch";
+import { useEffect, useRef, useState } from "react";
+import { Dialog } from "@headlessui/react";
+import { XMarkIcon } from "@heroicons/react/24/outline";
+import { getUserById } from "../../app/fetch";
 import userIcon from "../../assets/user.png";
 import capitalizeWords from "../../app/capitalizeword";
 import SkeletonLoader from "../../components/Loader/SkeletonLoader";
 
-function UserDetailsModal({user, show, onClose}) {
+function UserDetailsModal({ user, show, onClose }) {
   const modalRef = useRef(null);
   const [fetchedUser, setFetchedUser] = useState({});
   const [loading, setLoading] = useState(true);
@@ -94,7 +94,7 @@ function UserDetailsModal({user, show, onClose}) {
           {loading || error ? (
             <SkeletonLoader />
           ) : (
-            <div className="overflow-x-hidden  max-h-[450px] !scrollbar-hide">
+            <div className="overflow-y-scroll hideScroller max-h-[80vh] ">
               <div className="flex items-center gap-4">
                 <img
                   src={user.image || userIcon}
@@ -116,7 +116,7 @@ function UserDetailsModal({user, show, onClose}) {
                     </th>
                   </tr>
                 </thead>
-                <tbody style={{borderBottom: "1px solid #E0E0E0"}}>
+                <tbody style={{ borderBottom: "1px solid #E0E0E0" }}>
                   <tr className="font-light text-sm ">
                     <td className="pt-2 pr-[60px] w-[188px]">Name</td>
                     <td className="pt-2">Email</td>
@@ -186,7 +186,7 @@ function UserDetailsModal({user, show, onClose}) {
                     <tr className="font-light bg-[#25439B] text-[white] text-[14px] ">
                       <td
                         className="p-3 w-1/3"
-                        style={{borderRadius: "10px 0px 0px 10px"}}
+                        style={{ borderRadius: "10px 0px 0px 10px" }}
                       >
                         Role
                       </td>
@@ -207,7 +207,7 @@ function UserDetailsModal({user, show, onClose}) {
                 </table>
                 <table className="w-full text-left">
                   <tbody className="bg-[#fcfcfc] dark:bg-transparent">
-                    {fetchedUser?.roles?.map((role) => {
+                    {fetchedUser?.roles?.map((role, i) => {
                       // console.log("role", role);
 
                       return (
@@ -215,16 +215,24 @@ function UserDetailsModal({user, show, onClose}) {
                           key={role?.role?.id}
                           className="font-light text-[14px] text-[#101828] dark:text-[#f5f5f4]"
                         >
-                          <td className="px-4 py-2 dark:border dark:border-[#232d3d] w-1/3">
-                            {capitalizeWords(role?.role?.name)}
+                          <td className="px-4 py-2 align-top dark:border dark:border-[#232d3d] w-1/3">
+                            <div className="h-full">
+                              <span className="font-[500] relative  inline-flex items-center before:content-['•'] before:text-stone-800 before:mr-2">
+                                {capitalizeWords(role?.role?.name)}
+                              </span>
+                            </div>
                           </td>
                           <td className="px-4 py-2 dark:border dark:border-[#232d3d] ">
-                            {role?.role?.permissions.map((permission) => {
-                              // console.log("permission", permission);
+                            {role?.role?.permissions.map((permission, i, a) => {
+                              const lastElement = i === a.length - 1;
                               return (
-                                <span key={permission.id} className="mr-1">
-                                  {capitalizeWords(
-                                    permission?.permission?.name
+                                <span
+                                  key={permission.id}
+                                  className="relative pl-2 inline-flex items-center before:content-['•'] before:text-stone-800 before:mr-2"
+                                >
+                                  {capitalizeWords(permission?.permission?.name)}
+                                  {!lastElement && (
+                                    <span className="font-[500] px-1">,</span>
                                   )}
                                 </span>
                               );
@@ -248,7 +256,7 @@ function UserDetailsModal({user, show, onClose}) {
                     <tr className="font-light bg-[#25439B] text-[white] text-[14px] ">
                       <td
                         className="p-3 w-1/3"
-                        style={{borderRadius: "10px 0px 0px 10px"}}
+                        style={{ borderRadius: "10px 0px 0px 10px" }}
                       >
                         Resources Name
                       </td>
