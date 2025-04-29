@@ -930,6 +930,8 @@ export const createOrUpdateVersion = async (resourceId, contentData) => {
     },
   });
 
+  console.log(resource, 'resource1');
+
   if (!resource) {
     throw new Error(`Resource with ID ${resourceId} not found`);
   }
@@ -937,6 +939,7 @@ export const createOrUpdateVersion = async (resourceId, contentData) => {
   // Extract the content from the request
   const { newVersionEditMode } = contentData;
   const saveAs = newVersionEditMode?.versionStatus || "DRAFT";
+  console.log(resource, 'resource2');
 
   // Start a transaction to ensure all operations succeed or fail together
   return await prismaClient.$transaction(async (tx) => {
@@ -982,13 +985,21 @@ export const createOrUpdateVersion = async (resourceId, contentData) => {
             include: {
               _count: {
                 select: {
-                  versions: true, // Count of versions
+                  versions: true,
                 },
               },
             },
           });
+          
+          if (!section) {
+            throw new Error(`Section not found for id: ${sectionId}`);
+          }
+          
+          console.log('Version count:', section._count.versions);
 
           const nextVersionNumber = section._count.versions + 1;
+
+          console.log(nextVersionNumber, 'nextVersionNumber');
 
           // Create a new section version
           const sectionVersion = await tx.sectionVersion.create({
