@@ -17,7 +17,7 @@ const PageDetails = ({data, display, setOn}) => {
   useEffect(() => {
     if (display && data?.id) {
       setLoading(true);
-      getResourceInfo({resourceId: data.id})
+      getResourceInfo(data?.id)
         .then((res) => {
           setPageInfo(res);
           setError(null);

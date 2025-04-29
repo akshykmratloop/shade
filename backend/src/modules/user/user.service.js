@@ -12,7 +12,9 @@ import {assert, assertEvery} from "../../errors/assertError.js";
 import {logger} from "../../config/logConfig.js";
 
 const createUser = async (name, email, password, phone, roles) => {
-  return await createUserHandler(name, email, password, phone, roles);
+  const user = await createUserHandler(name, email, password, phone, roles);
+  logger.info({response: "user created successfully", user: user});
+  return {message: "user created successfully", user};
 };
 
 const getAllUsers = async (name, email, phone, status, page, limit) => {
@@ -28,10 +30,9 @@ const getUserById = async (id) => {
   return {message: "user fetched successfully", user};
 };
 
-
 const editUserDetails = async (id, name, password, phone, roles) => {
   let result = await updateUser(id, name, password, phone, roles);
-  return {message: "User updated Successfully" , result} // changed for message to show at frontend at apr 7 11:32
+  return {message: "User updated Successfully", result}; // changed for message to show at frontend at apr 7 11:32
 };
 
 const findUserByEmail = async (email) => {

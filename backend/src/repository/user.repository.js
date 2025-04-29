@@ -12,6 +12,14 @@ export const createUserHandler = async (
   phone,
   roles
 ) => {
+  const existingUser = await prismaClient.user.findUnique({
+    where: {email},
+  });
+
+  if (existingUser) {
+    throw new Error("Email already exists. Please use a different email.");
+  }
+
   const hashedPassword = await EncryptData(password, 10);
   const newUser = await prismaClient.user.create({
     data: {
