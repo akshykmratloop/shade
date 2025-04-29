@@ -184,32 +184,36 @@ export const fetchAllResourcesWithContent = async (
   }
 
   // Process each resource with its versions
-  const formattedResources = await Promise.all(resources.map(async (resource) => {
-    // Create the base resource object
-    const formattedResource = {
-      id: resource.id,
-      titleEn: resource.titleEn,
-      titleAr: resource.titleAr,
-      slug: resource.slug,
-      resourceType: resource.resourceType,
-      resourceTag: resource.resourceTag,
-      relationType: resource.relationType,
-    };
+  const formattedResources = await Promise.all(
+    resources.map(async (resource) => {
+      // Create the base resource object
+      const formattedResource = {
+        id: resource.id,
+        titleEn: resource.titleEn,
+        titleAr: resource.titleAr,
+        slug: resource.slug,
+        resourceType: resource.resourceType,
+        resourceTag: resource.resourceTag,
+        relationType: resource.relationType,
+      };
 
-    // Process live version if it exists
-    if (resource.liveVersion) {
-      formattedResource.liveVersion = await formatResourceVersion(resource.liveVersion);
-    }
+      // Process live version if it exists
+      if (resource.liveVersion) {
+        formattedResource.liveVersion = await formatResourceVersion(
+          resource.liveVersion
+        );
+      }
 
-    // Process edit version if it exists
-    if (resource.newVersionEditMode) {
-      formattedResource.editVersion = await formatResourceVersion(
-        resource.newVersionEditMode
-      );
-    }
+      // // Process edit version if it exists
+      // if (resource.newVersionEditMode) {
+      //   formattedResource.editVersion = await formatResourceVersion(
+      //     resource.newVersionEditMode
+      //   );
+      // }
 
-    return formattedResource;
-  }));
+      return formattedResource;
+    })
+  );
 
   // Get total count for pagination
   const totalResources = await prismaClient.resource.count({
@@ -806,83 +810,91 @@ async function formatResourceVersion(resourceVersion) {
   });
 
   // Format each section
-  const formattedSections = await Promise.all(sortedSectionVersions.map(async (sectionVersion) => {
-    // Format the main section
-    const formattedSection = {
-      sectionId: sectionVersion.sectionId,
-      sectionVersionId: sectionVersion.id,
-      order: sectionOrderMap[sectionVersion.id] || 999,
-      version: sectionVersion.version,
-      title: sectionVersion.section?.title || "",
-      SectionType: sectionVersion.section?.sectionType?.name || "",
-      content: sectionVersion.content || {},
-    };
+  const formattedSections = await Promise.all(
+    sortedSectionVersions.map(async (sectionVersion) => {
+      // Format the main section
+      const formattedSection = {
+        sectionId: sectionVersion.sectionId,
+        sectionVersionId: sectionVersion.id,
+        order: sectionOrderMap[sectionVersion.id] || 999,
+        version: sectionVersion.version,
+        title: sectionVersion.section?.title || "",
+        SectionType: sectionVersion.section?.sectionType?.name || "",
+        content: sectionVersion.content || {},
+      };
 
-    // Add items if they exist
-    if (sectionVersion.items && sectionVersion.items.length > 0) {
-      formattedSection.items = await Promise.all(sectionVersion.items.map(async (item) => {
-        // Get the resource and its live version
-        const resource = item.resource;
+      // Add items if they exist
+      if (sectionVersion.items && sectionVersion.items.length > 0) {
+        formattedSection.items = await Promise.all(
+          sectionVersion.items.map(async (item) => {
+            // Get the resource and its live version
+            const resource = item.resource;
 
-        // Fetch the full content of the item resource
-        const itemContent = await fetchContent(resource.id);
+            // Fetch the full content of the item resource
+            const itemContent = await fetchContent(resource.id);
 
-        return {
-          // resourceType: resource.resourceType || "SUB_PAGE",
-          order: item.order,
-          id: itemContent.id,
-          slug: itemContent.slug,
-          titleEn: itemContent.titleEn,
-          titleAr: itemContent.titleAr,
-          liveVersion: itemContent.liveVersion // Include the full formatted content of the item
-        };
-      }));
-    }
+            return {
+              // resourceType: resource.resourceType || "SUB_PAGE",
+              order: item.order,
+              id: itemContent.id,
+              slug: itemContent.slug,
+              titleEn: itemContent.titleEn,
+              titleAr: itemContent.titleAr,
+              resourceType: itemContent.resourceType,
+              resourceTag: itemContent.resourceTag,
+              liveVersion: itemContent.liveVersion, // Include the full formatted content of the item
+            };
+          })
+        );
+      }
 
-    // Add child sections if they exist
-    if (sectionVersion.children && sectionVersion.children.length > 0) {
-      formattedSection.sections = await Promise.all(sectionVersion.children.map(
-        async (childSection) => {
-          const formattedChild = {
-            sectionId: childSection.sectionId,
-            sectionVersionId: childSection.id,
-            order: sectionOrderMap[childSection.id] || 999,
-            title: childSection.section?.title || "",
-            SectionType: childSection.section?.sectionType?.name || "",
-            content: childSection.content || {},
-          };
+      // Add child sections if they exist
+      if (sectionVersion.children && sectionVersion.children.length > 0) {
+        formattedSection.sections = await Promise.all(
+          sectionVersion.children.map(async (childSection) => {
+            const formattedChild = {
+              sectionId: childSection.sectionId,
+              sectionVersionId: childSection.id,
+              order: sectionOrderMap[childSection.id] || 999,
+              title: childSection.section?.title || "",
+              SectionType: childSection.section?.sectionType?.name || "",
+              content: childSection.content || {},
+            };
 
-          // Add items to child section if they exist
-          if (childSection.items && childSection.items.length > 0) {
-            formattedChild.items = await Promise.all(childSection.items.map(async (item) => {
-              // Get the resource and its live version
-              const resource = item.resource;
-              const liveVersion = resource.liveVersion;
+            // Add items to child section if they exist
+            if (childSection.items && childSection.items.length > 0) {
+              formattedChild.items = await Promise.all(
+                childSection.items.map(async (item) => {
+                  // Get the resource and its live version
+                  const resource = item.resource;
+                  const liveVersion = resource.liveVersion;
 
-              // Fetch the full content of the item resource
-              const itemContent = await fetchContent(resource.id);
+                  // Fetch the full content of the item resource
+                  const itemContent = await fetchContent(resource.id);
 
-              return {
-                resourceType: resource.resourceType || "SUB_PAGE",
-                order: item.order,
-                id: resource.id,
-                slug: resource.slug,
-                titleEn: resource.titleEn,
-                titleAr: resource.titleAr,
-                icon: liveVersion?.icon || null,
-                image: liveVersion?.Image || null,
-                data: itemContent // Include the full formatted content of the item
-              };
-            }));
-          }
+                  return {
+                    resourceType: resource.resourceType || "SUB_PAGE",
+                    order: item.order,
+                    id: resource.id,
+                    slug: resource.slug,
+                    titleEn: resource.titleEn,
+                    titleAr: resource.titleAr,
+                    icon: liveVersion?.icon || null,
+                    image: liveVersion?.Image || null,
+                    data: itemContent, // Include the full formatted content of the item
+                  };
+                })
+              );
+            }
 
-          return formattedChild;
-        }
-      ));
-    }
+            return formattedChild;
+          })
+        );
+      }
 
-    return formattedSection;
-  }));
+      return formattedSection;
+    })
+  );
 
   return {
     id: resourceVersion.id,
@@ -894,8 +906,6 @@ async function formatResourceVersion(resourceVersion) {
   };
 }
 
-
-
 export const findResourceById = async (id) => {
   return await prismaClient.resource.findUnique({
     where: {
@@ -904,451 +914,311 @@ export const findResourceById = async (id) => {
   });
 };
 
-
-export const updateContent = async (resourceId, content) => {
+export const createOrUpdateVersion = async (resourceId, contentData) => {
+  // Find the resource with version counts
   const resource = await prismaClient.resource.findUnique({
     where: {
       id: resourceId,
     },
     include: {
-      newVersionEditMode: true,
+      _count: {
+        select: {
+          versions: true, // Count of versions
+        },
+      },
+      newVersionEditMode: true, // Get the current edit mode version if it exists
     },
   });
+
+  console.log(resource, 'resource1');
 
   if (!resource) {
-    return null;
+    throw new Error(`Resource with ID ${resourceId} not found`);
   }
 
-  const version = resource.newVersionEditMode;
+  // Extract the content from the request
+  const { newVersionEditMode } = contentData;
+  const saveAs = newVersionEditMode?.versionStatus || "DRAFT";
+  console.log(resource, 'resource2');
 
-  if (!version) {
-    return null;
-  }
+  // Start a transaction to ensure all operations succeed or fail together
+  return await prismaClient.$transaction(async (tx) => {
+    let resourceVersion;
 
-  const updatedVersion = await prismaClient.resourceVersion.update({
-    where: {
-      id: version.id,
-    },
-    data: {
-      content: content,
-    },
+    // Check if we need to create a new version or update an existing one
+    if (!resource.newVersionEditModeId) {
+      // No edit version exists, create a new one
+      const nextVersionNumber = resource._count.versions + 1;
+
+      // Create a new resource version
+      resourceVersion = await tx.resourceVersion.create({
+        data: {
+          resourceId: resource.id,
+          versionNumber: nextVersionNumber,
+          versionStatus: saveAs,
+          notes: newVersionEditMode?.comments || "Version created",
+          // referenceDoc: newVersionEditMode?.referenceDoc || null,
+          content: newVersionEditMode?.content || {},
+          icon: newVersionEditMode?.icon || null,
+          Image: newVersionEditMode?.image || null,
+        },
+      });
+
+      // Update the resource to point to the new version as the edit mode version
+      await tx.resource.update({
+        where: { id: resource.id },
+        data: { newVersionEditModeId: resourceVersion.id },
+      });
+
+      // Process sections if they exist
+      if (Array.isArray(newVersionEditMode?.sections)) {
+        for (let i = 0; i < newVersionEditMode.sections.length; i++) {
+          const sectionData = newVersionEditMode.sections[i];
+          const sectionId = sectionData.sectionId;
+          const order = sectionData.order || i + 1;
+
+          // Check if the section already exists in this resource version
+          const section = await tx.section.findUnique({
+            where: {
+              id: sectionId,
+            },
+            include: {
+              _count: {
+                select: {
+                  versions: true,
+                },
+              },
+            },
+          });
+          
+          if (!section) {
+            throw new Error(`Section not found for id: ${sectionId}`);
+          }
+          
+          console.log('Version count:', section._count.versions);
+
+          const nextVersionNumber = section._count.versions + 1;
+
+          console.log(nextVersionNumber, 'nextVersionNumber');
+
+          // Create a new section version
+          const sectionVersion = await tx.sectionVersion.create({
+            data: {
+              sectionId: sectionId,
+              resourceId: resource.id,
+              resourceVersionId: resourceVersion.id,
+              version: nextVersionNumber, // First version for this section in this resource version
+              content: sectionData.content || {},
+              sectionVersionTitle: null, // Can be updated if needed
+            },
+          });
+
+          // Link to ResourceVersion
+          await tx.resourceVersionSection.create({
+            data: {
+              order: order,
+              resourceVersionId: resourceVersion.id,
+              sectionVersionId: sectionVersion.id,
+            },
+          });
+
+          // Process items if they exist
+          if (Array.isArray(sectionData.items)) {
+            for (let j = 0; j < sectionData.items.length; j++) {
+              const item = sectionData.items[j];
+              const itemOrder = item.order || j + 1;
+
+              await tx.sectionVersionItem.create({
+                data: {
+                  order: itemOrder,
+                  sectionVersionId: sectionVersion.id,
+                  resourceId: item.id,
+                },
+              });
+            }
+          }
+
+          // Process child sections if they exist
+          if (Array.isArray(sectionData.sections)) {
+            for (let k = 0; k < sectionData.sections.length; k++) {
+              const childData = sectionData.sections[k];
+              const childOrder = childData.order || k + 1;
+
+              // Create child section version with parent reference
+              const childSectionVersion = await tx.sectionVersion.create({
+                data: {
+                  sectionId: childData.sectionId,
+                  resourceId: resource.id,
+                  resourceVersionId: resourceVersion.id,
+                  version: 1,
+                  content: childData.content || {},
+                  sectionVersionTitle: null,
+                  parentVersionId: sectionVersion.id, // Link to parent
+                },
+              });
+
+              // Link child to ResourceVersion
+              await tx.resourceVersionSection.create({
+                data: {
+                  order: childOrder,
+                  resourceVersionId: resourceVersion.id,
+                  sectionVersionId: childSectionVersion.id,
+                },
+              });
+
+              // Process items in child section
+              if (Array.isArray(childData.items)) {
+                for (let l = 0; l < childData.items.length; l++) {
+                  const childItem = childData.items[l];
+                  const childItemOrder = childItem.order || l + 1;
+
+                  await tx.sectionVersionItem.create({
+                    data: {
+                      order: childItemOrder,
+                      sectionVersionId: childSectionVersion.id,
+                      resourceId: childItem.id,
+                    },
+                  });
+                }
+              }
+            }
+          }
+        }
+      }
+    } else {
+      // Edit version already exists, update it
+      resourceVersion = await tx.resourceVersion.update({
+        where: { id: resource.newVersionEditModeId },
+        data: {
+          versionStatus: saveAs,
+          notes:
+            newVersionEditMode?.comments || resource.newVersionEditMode.notes,
+            notes:
+            newVersionEditMode?.comments || resource.newVersionEditMode.notes,
+            // referenceDoc:newVersionEditMode?.referenceDoc,
+          icon: newVersionEditMode?.icon || resource.newVersionEditMode.icon,
+          Image: newVersionEditMode?.image || resource.newVersionEditMode.Image,
+        },
+      });
+
+      // Process sections if they exist
+      if (Array.isArray(newVersionEditMode?.sections)) {
+        // Get existing section versions for this resource version
+        const existingSectionVersions = await tx.sectionVersion.findMany({
+          where: { resourceVersionId: resourceVersion.id },
+          include: { items: true },
+        });
+
+        // Create a map of section IDs to section versions for quick lookup
+        const sectionVersionMap = existingSectionVersions.reduce((map, sv) => {
+          map[sv.sectionId] = sv;
+          return map;
+        }, {});
+
+        // Process each section in the request
+        for (let i = 0; i < newVersionEditMode.sections.length; i++) {
+          const sectionData = newVersionEditMode.sections[i];
+          const sectionId = sectionData.sectionId;
+          const order = sectionData.order || i + 1;
+
+          // Check if we already have a version for this section
+          const existingSectionVersion = sectionVersionMap[sectionId];
+
+          if (existingSectionVersion) {
+            // Update existing section version
+            await tx.sectionVersion.update({
+              where: { id: existingSectionVersion.id },
+              data: { content: sectionData.content || {} },
+            });
+
+            // Update the order if needed
+            const existingLink = await tx.resourceVersionSection.findUnique({
+              where: {
+                resourceVersionId_sectionVersionId: {
+                  resourceVersionId: resourceVersion.id,
+                  sectionVersionId: existingSectionVersion.id,
+                },
+              },
+            });
+
+            if (existingLink && existingLink.order !== order) {
+              await tx.resourceVersionSection.update({
+                where: {
+                  resourceVersionId_sectionVersionId: {
+                    resourceVersionId: resourceVersion.id,
+                    sectionVersionId: existingSectionVersion.id,
+                  },
+                },
+                data: { order },
+              });
+            }
+
+            // Process items if they exist
+            if (Array.isArray(sectionData.items)) {
+              // Delete existing items
+              await tx.sectionVersionItem.deleteMany({
+                where: { sectionVersionId: existingSectionVersion.id },
+              });
+
+              // Create new items
+              for (let j = 0; j < sectionData.items.length; j++) {
+                const item = sectionData.items[j];
+                const itemOrder = item.order || j + 1;
+
+                await tx.sectionVersionItem.create({
+                  data: {
+                    order: itemOrder,
+                    sectionVersionId: existingSectionVersion.id,
+                    resourceId: item.id,
+                  },
+                });
+              }
+            }
+          } else {
+            // Create a new section version
+            const sectionVersion = await tx.sectionVersion.create({
+              data: {
+                sectionId: sectionId,
+                resourceId: resource.id,
+                resourceVersionId: resourceVersion.id,
+                version: 1,
+                content: sectionData.content || {},
+                sectionVersionTitle: null,
+              },
+            });
+
+            // Link to ResourceVersion
+            await tx.resourceVersionSection.create({
+              data: {
+                order: order,
+                resourceVersionId: resourceVersion.id,
+                sectionVersionId: sectionVersion.id,
+              },
+            });
+
+            // Process items if they exist
+            if (Array.isArray(sectionData.items)) {
+              for (let j = 0; j < sectionData.items.length; j++) {
+                const item = sectionData.items[j];
+                const itemOrder = item.order || j + 1;
+
+                await tx.sectionVersionItem.create({
+                  data: {
+                    order: itemOrder,
+                    sectionVersionId: sectionVersion.id,
+                    resourceId: item.id,
+                  },
+                });
+              }
+            }
+          }
+
+          // Process child sections if they exist
+          // Similar logic as above for child sections...
+        }
+      }
+    }
+
+    return resourceVersion;
   });
-
-  return updatedVersion;
 };
-
-// {
-//   "content": {
-//       "resourceId": "cm9wm4s4m008zlq0i6t2r7rub",
-//       "titleEn": "Home Page",
-//       "titleAr": "الصفحة الرئيسية",
-//       "slug": "home",
-//       "resourceType": "MAIN_PAGE",
-//       "resourceTag": "HOME",
-//       "relationType": "PARENT",
-//       "newVersionEditMode": {
-//           "versionStatus": "",
-//           "comments" : "",
-//           "referenceDoc" : "",
-//           "content": {},
-//           "icon": null,
-//           "image": null,
-//           "sections": [
-//               {
-//                   "sectionId": "cm9wm4s4u0093lq0ifykodj04",
-//                   "order": 1,
-//                   "content": {
-//                       "image": [
-//                           "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
-//                       ],
-//                       "title": {
-//                           "ar": "بناء مستقبل أقوى",
-//                           "en": "Building a Stronger Future"
-//                       },
-//                       "buttonText": {
-//                           "ar": "أعمالنا",
-//                           "en": "View Our Work"
-//                       },
-//                       "description": {
-//                           "ar": "التزامنا الثابت الذي يعزز الشراكات والتعاونات القوية مع القادة الرؤوساء لمواجهة أصعب التحديات واستغلال أعظم الفرص، وخلق إنجازات هندسية واختراقات تحولية تتوافق مع رؤية المملكة ٢٠٣٠.",
-//                           "en": "Our unwavering commitment that forge partnerships and strong collaborations with visionary leaders to take their most critical challenges, capture their greatest opportunities, and create engineering feats and breakthroughs that are transformative and coincides with the Kingdom’s Vision 2030."
-//                       }
-//                   }
-//               },
-//               {
-//                   "sectionId": "cm9wm4s540099lq0ile0a8gnd",
-//                   "order": 2,
-//                   "content": {
-//                       "image": [
-//                           "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
-//                       ],
-//                       "title": {
-//                           "ar": "مدفوعون بالتميز في التنفيذ",
-//                           "en": "Driven by excellence in execution"
-//                       },
-//                       "buttonText": {
-//                           "ar": "اعرف عنا",
-//                           "en": "Know About Us"
-//                       },
-//                       "description": {
-//                           "ar": "مع عملائنا، نعتمد نهجًا تحوليًا من خلال تمكين المؤسسات لبناء ميزة تنافسية مستدامة والمساعدة في دفع النمو.",
-//                           "en": "With our clients, we adopt a transformational approach by empowering organizations to build a sustainable competitive advantage and help drive growth.We work with the most dynamic organizations and have helped them by mobilizing change, accelerating value engineering with creative solutions, and partnering them towards achieving global prominence."
-//                       }
-//                   }
-//               },
-//               {
-//                   "sectionId": "cm9wm4s5o009flq0itibw3lrf",
-//                   "order": 3,
-//                   "content": {
-//                       "title": {
-//                           "ar": "خدماتنا",
-//                           "en": "OUR SERVICES"
-//                       }
-//                   },
-//                   "items": [
-//                       {
-//                           "resourceType": "SUB_PAGE",
-//                           "order": 1,
-//                           "id": "cm9wm4s0n007hlq0iv78rn7ya"
-//                       },
-//                       {
-//                           "resourceType": "SUB_PAGE",
-//                           "order": 2,
-//                           "id": "cm9wm4s15007qlq0irib8w0i7"
-//                       },
-//                       {
-//                           "resourceType": "SUB_PAGE",
-//                           "order": 3,
-//                           "id": "cm9wm4s1p007zlq0iy263u2nw"
-//                       },
-//                       {
-//                           "resourceType": "SUB_PAGE",
-//                           "order": 4,
-//                           "id": "cm9wm4s2a0088lq0id4p6itaf"
-//                       },
-//                       {
-//                           "resourceType": "SUB_PAGE",
-//                           "order": 5,
-//                           "id": "cm9wm4s33008hlq0izitv0mr1"
-//                       }
-//                   ]
-//               },
-//               {
-//                   "sectionId": "cm9wm4s6r009vlq0irk2aerlt",
-//                   "order": 4,
-//                   "content": {
-//                       "cards": [
-//                           {
-//                               "count": "123",
-//                               "title": {
-//                                   "ar": "المشاريع المنجزة",
-//                                   "en": "Projects Completed"
-//                               },
-//                               "iconName": "projectCompleted"
-//                           },
-//                           {
-//                               "count": "84",
-//                               "title": {
-//                                   "ar": "عملاء سعداء",
-//                                   "en": "Happy Clients"
-//                               },
-//                               "iconName": "happyClient"
-//                           },
-//                           {
-//                               "count": "32",
-//                               "title": {
-//                                   "ar": "سنوات في العمل",
-//                                   "en": "Years in Business"
-//                               },
-//                               "iconName": "yearOfBusiness"
-//                           },
-//                           {
-//                               "count": "42",
-//                               "title": {
-//                                   "ar": "الفوز بالجوائز",
-//                                   "en": "Awards Won"
-//                               },
-//                               "iconName": "awardWin"
-//                           }
-//                       ],
-//                       "title": {
-//                           "ar": "٣٢ عاماً من الخبرة",
-//                           "en": "32 Years of Experience"
-//                       },
-//                       "button": {
-//                           "text": {
-//                               "ar": "اتصل بنا",
-//                               "en": "Contact Us"
-//                           }
-//                       },
-//                       "description": {
-//                           "ar": "كانت شركتنا رائدة في تقديم خدمات البناء للعملاء في جميع أنحاء دبي منذ عام 1992.",
-//                           "en": "Our company has been the leading provided construction services to clients throughout the Dubai since 1992."
-//                       }
-//                   }
-//               },
-//               {
-//                   "sectionId": "cm9wm4s7100a1lq0i19yw2zcw",
-//                   "order": 5,
-//                   "content": {
-//                       "buttons": [
-//                           {
-//                               "id": "btn1",
-//                               "text": {
-//                                   "ar": "عرض الكل",
-//                                   "en": "View All"
-//                               }
-//                           },
-//                           {
-//                               "id": "btn2",
-//                               "text": {
-//                                   "ar": "العودة",
-//                                   "en": "Back"
-//                               }
-//                           },
-//                           {
-//                               "id": "btn3",
-//                               "text": {
-//                                   "ar": "التالي",
-//                                   "en": "Next"
-//                               }
-//                           }
-//                       ]
-//                   },
-//                   "sections": [
-//                       {
-//                           "sectionId": "cm9wm4s7900a7lq0i442itc4o",
-//                           "order": 1,
-//                           "content": {
-//                               "id": "projectList",
-//                               "title": {
-//                                   "ar": "المشاريع الأخيرة",
-//                                   "en": "Recent Projects"
-//                               },
-//                               "description": {
-//                                   "ar": "تفتخر شركة شيد بمحفظة متزايدة من العملاء الراضين، سواء على الصعيد العالمي أو المحلي، الذين استفادوا بشكل كبير من تعاونهم معنا. تُعتبر حلولنا مطلوبة من قبل الشركات بمختلف أحجامها – الكبيرة، والمتوسطة، والصغيرة. نحن نؤمن بشدة بضرورة إقامة شراكات استراتيجية مع منظمات متنوعة، وتقديم حلول توفر قيمة تجارية ملموسة. من بين مشاريعنا الأخيرة والبارزة:",
-//                                   "en": "Shade Corporation boasts a continually growing portfolio of satisfied clients, both global and local, who have derived tremendous benefits from their engagement with us. Our solutions are sought after by companies of all sizes – large, mid-sized, and small. We firmly believe in establishing strategic partnerships with diversed organizations, delivering solutions that provide tangible business value. Among our recent and notable projects are:"
-//                               }
-//                           },
-//                           "items": [
-//                               {
-//                                   "resourceType": "SUB_PAGE",
-//                                   "order": 1,
-//                                   "id": "cm9wm4rw3004zlq0issn28sqk"
-//                               },
-//                               {
-//                                   "resourceType": "SUB_PAGE",
-//                                   "order": 2,
-//                                   "id": "cm9wm4rx9005klq0iehj5dmbb"
-//                               },
-//                               {
-//                                   "resourceType": "SUB_PAGE",
-//                                   "order": 3,
-//                                   "id": "cm9wm4ry30065lq0iwld328mn"
-//                               },
-//                               {
-//                                   "resourceType": "SUB_PAGE",
-//                                   "order": 4,
-//                                   "id": "cm9wm4rz0006qlq0i6hm35gvu"
-//                               }
-//                           ]
-//                       },
-//                       {
-//                           "sectionId": "cm9wm4s7x00allq0iiwt8wboa",
-//                           "order": 2,
-//                           "content": {
-//                               "id": "markets",
-//                               "title": {
-//                                   "ar": "أسواقنا",
-//                                   "en": "Our Markets"
-//                               },
-//                               "description": {
-//                                   "ar": "التنقل عبر شبكة من الأسواق، تستفيد شركة شيد من ثروة من الخبرة، مما يتيح لها تحقيق ميزة استراتيجية. إن رحلتنا عبر صناعات متنوعة توفر رؤى عميقة، مما يشكل نهجًا يجمع بين الخبرة والإبداع والرؤية المستقبلية. من فهم التحديات الفريدة إلى توقع اتجاهات السوق، نستفيد من حكمتنا الجماعية لتحقيق النجاح في كل مشروع.",
-//                                   "en": "Navigating a tapestry of markets, Shade Corporation draws from a wealth of experience, cultivating a strategic advantage. Our journey through diverse industries provides profound insights, shaping an approach that is both seasoned, creative and forward-thinking. From understanding unique challenges to anticipating market trends, we leverage our collective wisdom to drive success in every venture."
-//                               }
-//                           },
-//                           "items": [
-//                               {
-//                                   "resourceType": "SUB_PAGE",
-//                                   "order": 1,
-//                                   "id": "cm9wm4rw3004zlq0issn28sqk"
-//                               },
-//                               {
-//                                   "resourceType": "SUB_PAGE",
-//                                   "order": 2,
-//                                   "id": "cm9wm4rx9005klq0iehj5dmbb"
-//                               },
-//                               {
-//                                   "resourceType": "SUB_PAGE",
-//                                   "order": 3,
-//                                   "id": "cm9wm4ry30065lq0iwld328mn"
-//                               },
-//                               {
-//                                   "resourceType": "SUB_PAGE",
-//                                   "order": 4,
-//                                   "id": "cm9wm4rz0006qlq0i6hm35gvu"
-//                               }
-//                           ]
-//                       },
-//                       {
-//                           "sectionId": "cm9wm4s8j00azlq0iquen8v64",
-//                           "order": 3,
-//                           "content": {
-//                               "id": "safety",
-//                               "title": {
-//                                   "ar": "السلامة: مسؤوليتنا",
-//                                   "en": "Safety: Our Responsibility"
-//                               },
-//                               "description": {
-//                                   "ar": "في شركة شيد، السلامة ليست مجرد سياسة، بل هي قيمة أساسية نزرعها في كل مشروع. من خلال التخطيط الدقيق، والتكنولوجيا المتقدمة، والالتزام الصارم ببروتوكولات السلامة، نضمن حماية جميع الأطراف المعنية وتنفيذ كل عملية بأعلى معايير السلامة.",
-//                                   "en": "At Shade Corporation, safety isn't just a policy—it's a core value that we instill in every project. Through meticulous planning, advanced technology, and strict adherence to safety protocols, we ensure that every stakeholder is protected and every operation is conducted with the highest level of safety standards."
-//                               }
-//                           },
-//                           "items": [
-//                               {
-//                                   "resourceType": "SUB_PAGE",
-//                                   "order": 1,
-//                                   "id": "cm9wm4rw3004zlq0issn28sqk"
-//                               },
-//                               {
-//                                   "resourceType": "SUB_PAGE",
-//                                   "order": 2,
-//                                   "id": "cm9wm4rx9005klq0iehj5dmbb",
-//                                   "slug": "project-non-metallic-manufacturing-plant-3520666a"
-//                               },
-//                               {
-//                                   "resourceType": "SUB_PAGE",
-//                                   "order": 3,
-//                                   "id": "cm9wm4ry30065lq0iwld328mn"
-//                               },
-//                               {
-//                                   "resourceType": "SUB_PAGE",
-//                                   "order": 4,
-//                                   "id": "cm9wm4rz0006qlq0i6hm35gvu"
-//                               }
-//                           ]
-//                       }
-//                   ]
-//               },
-//               {
-//                   "sectionId": "cm9wm4s9600bdlq0i8tpoiehr",
-//                   "order": 6,
-//                   "content": {
-//                       "title": {
-//                           "ar": "عملائنا السعداء",
-//                           "en": "Our Happy Clients"
-//                       },
-//                       "clients": [
-//                           {
-//                               "alt": {
-//                                   "ar": "عميل 1",
-//                                   "en": "Client 1"
-//                               },
-//                               "image": "client1"
-//                           },
-//                           {
-//                               "alt": {
-//                                   "ar": "عميل 2",
-//                                   "en": "Client 2"
-//                               },
-//                               "image": "client2"
-//                           },
-//                           {
-//                               "alt": {
-//                                   "ar": "عميل 3",
-//                                   "en": "Client 3"
-//                               },
-//                               "image": "client3"
-//                           },
-//                           {
-//                               "alt": {
-//                                   "ar": "عميل 4",
-//                                   "en": "Client 4"
-//                               },
-//                               "image": "client4"
-//                           }
-//                       ],
-//                       "description": {
-//                           "ar": "شركاء موثوقون في النجاح",
-//                           "en": "Trusted Partners in Success"
-//                       }
-//                   }
-//               },
-//               {
-//                   "sectionId": "cm9wm4s9e00bjlq0iezf3zrx5",
-//                   "order": 7,
-//                   "content": {
-//                       "title": {
-//                           "ar": "ماذا يقول عملاؤنا عنا؟",
-//                           "en": "What Our Clients Say About Us?"
-//                       }
-//                   },
-//                   "items": [
-//                       {
-//                           "resourceType": "SUB_PAGE",
-//                           "order": 1,
-//                           "id": "cm9wm4ri70000lq0if7n4lzma"
-//                       },
-//                       {
-//                           "resourceType": "SUB_PAGE",
-//                           "order": 2,
-//                           "id": "cm9wm4rjt0009lq0ivhu0bb7z"
-//                       },
-//                       {
-//                           "resourceType": "SUB_PAGE",
-//                           "order": 3,
-//                           "id": "cm9wm4rkc000ilq0i2j1p9x40"
-
-//                       },
-//                       {
-//                           "resourceType": "SUB_PAGE",
-//                           "order": 4,
-//                           "id": "cm9wm4rkw000rlq0i08m07i87"
-
-//                       },
-//                       {
-//                           "resourceType": "SUB_PAGE",
-//                           "order": 5,
-//                           "id": "cm9wm4rlg0010lq0iftb59a9s"
-
-//                       },
-//                       {
-//                           "resourceType": "SUB_PAGE",
-//                           "order": 6,
-//                           "id": "cm9wm4rm70019lq0ia929g0bj"
-
-//                       }
-//                   ]
-//               },
-//               {
-//                   "sectionId": "cm9wm4sa400c1lq0i2ji152j6",
-//                   "order": 8,
-//                   "content": {
-//                       "title": {
-//                           "ar": "هل تريد بدء مشروع جديد أو التعاون معنا؟",
-//                           "en": "Want to Start a New Project OR Collaborate with us?"
-//                       },
-//                       "button": {
-//                           "text": {
-//                               "ar": "اتصل بنا",
-//                               "en": "Contact Us"
-//                           }
-//                       },
-//                       "description": {
-//                           "ar": "وفقًا لفلسفتنا المتمثلة في “بناء مستقبل أقوى”، تؤمن شركة شيد بشراكات مربحة للجانبين مع جميع أصحاب المصلحة، وتهدف باستمرار إلى إنشاء علاقات مستدامة وطويلة الأمد لخلق القيمة. يتضمن نموذج المشاركة الخاص بنا منهجيات خاصة وحلولًا شاملة من شأنها تحويل اقتصاديات مشروعك وفتح إمكانيات جديدة ودعم أهداف النمو التنظيمي لديك.",
-//                           "en": "True to our philosophy of “Building a Stronger Future”, Shade Corporation believes in win-win partnerships with all stakeholders, and continually aims at creating sustainable and long-term relationships for value creation. Our engagement model includes proprietary methodologies and comprehensive solutions that will transform your project economics, unlock new possibilities and support your organizational growth goals. In the last few decades, we have served many of Saudi's leading companies and public institutions to create winning strategies, solve some of the complex problems, and deliver consistent outcomes. If you're looking to drive performance, execute growth strategies, and build new capabilities, collaborate with us now."
-//                       },
-//                       "description2": {
-//                           "ar": "في العقود القليلة الماضية، قمنا بخدمة العديد من الشركات والمؤسسات العامة الرائدة في السعودية لوضع استراتيجيات رابحة، وحل بعض المشاكل المعقدة، وتحقيق نتائج متسقة. إذا كنت تتطلع إلى تعزيز الأداء وتنفيذ استراتيجيات النمو وبناء قدرات جديدة، فتعاون معنا الآن.",
-//                           "en": "In the last few decades, we have served many of Saudi's leading companies and public institutions to create winning strategies, solve some of the complex problems, and deliver consistent outcomes. If you're looking to drive performance, execute growth strategies, and build new capabilities, collaborate with us now."
-//                       },
-//                       "highlightedText": {
-//                           "ar": "بناء مستقبل أقوى",
-//                           "en": "Building a Stronger Future"
-//                       }
-//                   }
-//               }
-//           ]
-//       }
-//   }
-// }

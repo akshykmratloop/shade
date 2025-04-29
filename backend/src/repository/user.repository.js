@@ -229,7 +229,7 @@ export const findUserById = async (id) => {
           userId: true,
           resource: {
             select: {
-              title: true,
+              titleEn: true,
               resourceType: true,
               resourceTag: true,
             },
@@ -240,7 +240,7 @@ export const findUserById = async (id) => {
         select: {
           resource: {
             select: {
-              title: true,
+              titleEn: true,
               resourceType: true,
             },
           },
