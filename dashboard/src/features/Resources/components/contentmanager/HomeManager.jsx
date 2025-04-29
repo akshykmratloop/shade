@@ -72,7 +72,7 @@ const HomeManager = ({ language, content, currentPath, indexes }) => {
                             resourceType: response.content.resourceType,
                             resourceTag: response.content.resourceTag,
                             relationType: response.content.relationType,
-                            editVersion: response.content.editVersion ?? response.content.liveVersion
+                            editVersion: response.content.editModeVersionData ?? response.content.liveModeVersionData
                         }
 
                         dispatch(updateContent({ currentPath: "home", payload }))

@@ -4,7 +4,6 @@ import InputText from "../../../../components/Input/InputText";
 import TextAreaInput from "../../../../components/Input/TextAreaInput";
 import { useDispatch, useSelector } from "react-redux";
 import { updateSpecificContent, updateServicesNumber, updateImages } from "../../../common/homeContentSlice";
-import InputFileWithText from "../../../../components/Input/InputFileText";
 import InputFileForm from "../../../../components/Input/InputFileForm";
 import JoditEditor from "jodit-react";
 

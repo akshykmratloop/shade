@@ -169,7 +169,9 @@ const AddUserModal = ({ show, onClose, updateUsers, user }) => {
       });
       setUserData((prev) => ({ ...prev, roles: roles }));
     }
-    getUser();
+    if(user?.id){
+      getUser();
+    }
   }, [user]);
 
   useEffect(() => {
