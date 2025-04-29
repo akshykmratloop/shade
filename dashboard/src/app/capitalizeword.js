@@ -26,9 +26,9 @@ export const useTruncate = (text, maxLength) => {
 
 export default function capitalizeWords(str) {
     return str
-        .toLowerCase() // Convert the whole string to lowercase
-        .replace(/_/g, " ") // Replace underscores with spaces
-        .replace(/(?:^|[\s])\w/g, match => match.toUpperCase()); // Capitalize words
+        ?.toLowerCase() // Convert the whole string to lowercase
+        ?.replace(/_/g, " ") // Replace underscores with spaces
+        ?.replace(/(?:^|[\s])\w/g, match => match.toUpperCase()); // Capitalize words
 }
 
 export function TruncateText(text, length = 50, locale = "en") {
