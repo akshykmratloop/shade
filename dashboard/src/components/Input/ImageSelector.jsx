@@ -1,49 +1,39 @@
 import { useEffect, useRef, useState } from "react";
 import { Upload, X } from "lucide-react";
-import { uploadMedia } from "../../app/fetch";
+import { useImageUpload } from "./useImageUpload"; // import the hook
 
-const ImageSelector = ({ onSelectImage, onClose }) => {
+const ImageSelector = ({ onSelectImage, onClose, resourceId }) => {
     const fileInputRef = useRef(null);
     const modalRef = useRef(null);
 
     const [selectedImage, setSelectedImage] = useState(null);
     const [metadata, setMetadata] = useState(null);
+    const [uploading, setUploading] = useState(false); // Local uploading state for UI
+    const [error, setError] = useState(null); // For any upload errors
+    const [uploadCancel, setUploadCancel] = useState(false); // To track cancel status
+
+    const { uploadImage } = useImageUpload(resourceId); // hook for uploading images
 
     const images = [
         "https://images.pexels.com/photos/1012216/pexels-photo-1012216.jpeg",
         "https://images.unsplash.com/photo-1601278963628-7b7b7cbdfe96",
         "https://plus.unsplash.com/premium_photo-1671245156908-61e26926cef9",
         "https://as2.ftcdn.net/v2/jpg/03/74/44/27/1000_F_374442717_Qg4mjeIjxMvOzr4oVxP4oYRN228kM6ac.jpg",
-        "https://images.pexels.com/photos/1012216/pexels-photo-1012216.jpeg",
-        "https://images.unsplash.com/photo-1601278963628-7b7b7cbdfe96",
-        "https://plus.unsplash.com/premium_photo-1671245156908-61e26926cef9",
-        "https://as2.ftcdn.net/v2/jpg/03/74/44/27/1000_F_374442717_Qg4mjeIjxMvOzr4oVxP4oYRN228kM6ac.jpg", "https://images.pexels.com/photos/1012216/pexels-photo-1012216.jpeg",
-        "https://images.unsplash.com/photo-1601278963628-7b7b7cbdfe96",
-        "https://plus.unsplash.com/premium_photo-1671245156908-61e26926cef9",
-        "https://as2.ftcdn.net/v2/jpg/03/74/44/27/1000_F_374442717_Qg4mjeIjxMvOzr4oVxP4oYRN228kM6ac.jpg", "https://images.pexels.com/photos/1012216/pexels-photo-1012216.jpeg",
-        "https://images.unsplash.com/photo-1601278963628-7b7b7cbdfe96",
-        "https://plus.unsplash.com/premium_photo-1671245156908-61e26926cef9",
-        "https://as2.ftcdn.net/v2/jpg/03/74/44/27/1000_F_374442717_Qg4mjeIjxMvOzr4oVxP4oYRN228kM6ac.jpg",
+        // additional image URLs...
     ];
 
     // ========== HANDLERS ==========
 
     const handleFileUpload = async (event) => {
         const file = event.target.files[0];
-        if (!file) return;
+        if (!file || uploading) return; // Prevent uploading if already uploading
 
-        const formData = new FormData();
-        formData.append("file", file);
+        setUploading(true);
+        setUploadCancel(false);
 
-        try {
-            const response = await uploadMedia(formData);
-            if (response.message !== "Success") throw new Error("Upload failed");
-
-            const result = await response.json();
-            const uploadedImageURL = result?.imageUrl || URL.createObjectURL(file);
+        const uploadedImageURL = await uploadImage(file);
+        if (uploadedImageURL) {
             setSelectedImage(uploadedImageURL);
-
-            // Extract dimensions
             const img = new Image();
             img.onload = () => {
                 const sizeKB = file.size / 1024;
@@ -61,12 +51,13 @@ const ImageSelector = ({ onSelectImage, onClose }) => {
                 });
             };
             img.src = uploadedImageURL;
-        } catch (err) {
-            console.error("Upload error:", err);
         }
+
+        setUploading(false);
     };
 
     const handleImageSelect = (src, index) => {
+        if (uploading) return; // Prevent image selection if uploading
         const img = new Image();
         img.onload = () => {
             setSelectedImage(src);
@@ -132,7 +123,12 @@ const ImageSelector = ({ onSelectImage, onClose }) => {
                     {/* Preview Panel */}
                     <div className="flex-[1_0_auto] h-full bg-[#F3F3F3] p-4 rounded w-1/3 dark:bg-[#242941]">
                         <h3 className="font-semibold mb-2">Attachment Details</h3>
-                        {selectedImage ? (
+                        {uploading ? (
+                            <div className="flex justify-center items-center w-full h-full">
+                                <div className="spinner-border animate-spin border-4 border-blue-500 rounded-full w-12 h-12" />
+                                <p className="text-gray-500 ml-4">Uploading...</p>
+                            </div>
+                        ) : selectedImage ? (
                             <div className="flex flex-col">
                                 <div className=" w-full relative flex gap-2 border-b border-b-2 pb-4">
                                     <div className="h-[20vh] w-[18vw] relative border">
@@ -153,15 +149,6 @@ const ImageSelector = ({ onSelectImage, onClose }) => {
                                         <p>{metadata?.uploadedAt}</p>
                                     </div>
                                 </div>
-                                <div className="mt-4">
-                                    <div className="flex gap-4">
-                                        <label htmlFor="altText" className="w-[50%] text-right">Alt text</label>
-                                        <div className="flex flex-col gap-2">
-                                            <input type="text" className="w-full rounded-md h-[5vh] dark:bg-[#fff]"  id="altText"/>
-                                            <p className="text-[10px]"><span className="text-blue-500">Describe the purpose of the image.</span> Leave empty if the image is purely decorative</p>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                         ) : (
                             <p className="text-gray-500">No image selected</p>
@@ -172,7 +159,7 @@ const ImageSelector = ({ onSelectImage, onClose }) => {
                 {/* Actions */}
                 <div className="flex justify-end gap-4 items-center mt-6">
                     <div className="flex gap-4">
-                        {selectedImage && (
+                        {selectedImage && !uploading && (
                             <button
                                 onClick={() => onSelectImage(selectedImage)}
                                 className="bg-blue-800 text-white px-4 py-2 rounded shadow"
@@ -185,6 +172,7 @@ const ImageSelector = ({ onSelectImage, onClose }) => {
                         <button
                             onClick={() => fileInputRef.current.click()}
                             className="flex items-center gap-2 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded shadow"
+                            disabled={uploading}
                         >
                             <Upload className="w-4 h-4" /> Upload Image
                         </button>

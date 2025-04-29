@@ -102,6 +102,7 @@ const HomeManager = ({ language, content, currentPath, indexes }) => {
                 language={language}
                 currentContent={content}
                 contentIndex={indexes.homeBanner}
+                resourceId={currentId}
             />
 
             {/* about section */}
@@ -117,6 +118,7 @@ const HomeManager = ({ language, content, currentPath, indexes }) => {
                 language={language}
                 currentContent={content}
                 contentIndex={indexes.markDown}
+                resourceId={currentId}
             />
 
             {/* services  */}
@@ -149,6 +151,7 @@ const HomeManager = ({ language, content, currentPath, indexes }) => {
                     language={language}
                     currentContent={content}
                     contentIndex={indexes.statistics}
+                    resourceId={currentId}
                 />
                 {["Item 1", "Item 2", "Item 3", "Item 4"].map((item, index, array) => {
                     const isLast = index === array.length - 1;
@@ -168,6 +171,7 @@ const HomeManager = ({ language, content, currentPath, indexes }) => {
                             isBorder={isLast}
                             currentContent={content}
                             contentIndex={indexes.statistics}
+                            resourceId={currentId}
                         />
                     )
                 })}
@@ -198,6 +202,7 @@ const HomeManager = ({ language, content, currentPath, indexes }) => {
                                         isBorder={isLast}
                                         currentContent={content}
                                         contentIndex={indexes.projectGrid}
+                                        resourceId={currentId}
                                     />
                                     <MultiSelect
                                         currentPath={currentPath}
@@ -229,6 +234,7 @@ const HomeManager = ({ language, content, currentPath, indexes }) => {
                 language={language}
                 currentContent={content}
                 contentIndex={indexes.clientLogo}
+                resourceId={currentId}
             />
 
             <ContentSection
@@ -241,6 +247,7 @@ const HomeManager = ({ language, content, currentPath, indexes }) => {
                 language={language}
                 currentContent={content}
                 contentIndex={indexes.testimonials}
+                resourceId={currentId}
             />
 
             {/* New Project */}
@@ -258,6 +265,7 @@ const HomeManager = ({ language, content, currentPath, indexes }) => {
                 language={language}
                 currentContent={content}
                 contentIndex={indexes.normalContent}
+                resourceId={currentId}
             />
 
         </div>

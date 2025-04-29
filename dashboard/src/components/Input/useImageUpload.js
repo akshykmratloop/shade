@@ -23,7 +23,7 @@ export function useImageUpload(resourceId) {
             const response = await uploadMedia(formData);
 
             console.log(response)
-            if (response.message !== "Media uploaded successfully") {
+            if (!response.ok) {
                 throw new Error("Upload failed");
             }
 

@@ -27,7 +27,8 @@ const ContentSection = ({
     projectId,
     careerId,
     deepPath,
-    contentIndex
+    contentIndex,
+    resourceId
 }) => {
     const dispatch = useDispatch();
     const [extraFiles, setExtraFiles] = useState([]);
@@ -246,6 +247,7 @@ const ContentSection = ({
                                             fileIndex={index}
                                             section={section}
                                             isCloseButton={allowClose}
+                                            resourceId={resourceId}
                                         />
                                     )
                                 })}
@@ -274,6 +276,7 @@ const ContentSection = ({
                                         currentPath={currentPath}
                                         fileIndex={i}
                                         section={section}
+                                        resourceId={resourceId}
                                     />
                                 </div>
                             ))}
@@ -291,6 +294,7 @@ const ContentSection = ({
                                         currentPath={currentPath}
                                         section={section}
                                         fileIndex={index}
+                                        resourceId={resourceId}
                                     />
                                 </div>
                             ))}
