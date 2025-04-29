@@ -189,7 +189,7 @@ const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
         <div className="font-medium shadow-md-custom p-[30px] px-[40px]">
           <h1
             className="w-[90%] mx-auto text-[1rem] whitespace-pre"
-            title={data.title}
+            title={data.titleEn}
           >
             Assign User for {TruncateText(data.titleEn, 21)}
           </h1>

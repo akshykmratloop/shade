@@ -68,7 +68,7 @@ const PageDetails = ({ data, display, setOn }) => {
           title={data?.titleEn}>
           Page Details for {TruncateText(data?.titleEn, 12)}
         </h1>
-        <div className=" flex flex-col h-[87%] text-[14px] custom-text-color p-[30px] py-0  mt-2 border overflow-y-scroll customscroller">
+        <div className=" flex flex-col h-[87%] text-[14px] custom-text-color p-[30px] py-0  mt-2 overflow-y-scroll customscroller">
           <div className="flex py-[15px] justify-between border-b dark:border-stone-700">
             <label>Total Versions:</label>
             <p>{pageInfo?.resourceInfo?._count?.versions}</p>

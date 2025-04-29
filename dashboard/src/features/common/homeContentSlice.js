@@ -5,6 +5,7 @@ const initialState = {
     past: [],
     present: {
         images: {},
+        loading: true
     },
     future: []
 };
@@ -49,6 +50,7 @@ const cmsSlice = createSlice({
         updateContent: (state, action) => {
             state.past.push(JSON.parse(JSON.stringify(state.present)));
             state.present[action.payload?.currentPath] = action.payload.payload;
+            state.present.loading = false
             state.future = [];
         },
         selectMainNews: (state, action) => {
@@ -169,7 +171,7 @@ const cmsSlice = createSlice({
                 case "home":
                     state.present[action.payload.currentPath].editVersion.sections[action.payload.contentIndex].items = newOptions
                     break;
-                    
+
                 case "recentproject":
                     state.present[action.payload.currentPath].editVersion.sections[action.payload.contentIndex].sections[action.payload.index].items = newOptions
                     break;

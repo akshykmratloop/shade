@@ -43,11 +43,18 @@
         "en": "Our unwavering commitment that forge partnerships and strong collaborations with visionary leaders to take their most critical challenges, capture their greatest opportunities, and create engineering feats and breakthroughs that are transformative and coincides with the Kingdom’s Vision 2030.",
         "ar": "التزامنا الثابت الذي يعزز الشراكات والتعاونات القوية مع القادة الرؤوساء لمواجهة أصعب التحديات واستغلال أعظم الفرص، وخلق إنجازات هندسية واختراقات تحولية تتوافق مع رؤية المملكة ٢٠٣٠."
       },
-      "buttonText": {
-        "en": "View Our Work",
-        "ar": "أعمالنا"
-      },
-      "image": ["https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"]
+      "buttonText": [
+        {
+          "text": {
+            "en": "View Our Work",
+            "ar": "أعمالنا"
+          },
+          "icon": null
+        }
+      ],
+      "image": [
+        "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
+      ]
     },
     "aboutUsSection": {
       "title": {
@@ -58,20 +65,25 @@
         "en": "With our clients, we adopt a transformational approach by empowering organizations to build a sustainable competitive advantage and help drive growth.We work with the most dynamic organizations and have helped them by mobilizing change, accelerating value engineering with creative solutions, and partnering them towards achieving global prominence.",
         "ar": "مع عملائنا، نعتمد نهجًا تحوليًا من خلال تمكين المؤسسات لبناء ميزة تنافسية مستدامة والمساعدة في دفع النمو."
       },
-      "buttonText": {
-        "en": "Know About Us",
-        "ar": "اعرف عنا"
-      },
-      "image": ["https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"]
+      "buttonText": [
+        {
+          "text": {
+            "en": "Know About Us",
+            "ar": "اعرف عنا"
+          },
+          "icon": null
+        }
+      ],
+      "image": [
+        "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
+      ]
     },
-
     "serviceSection": {
       "title": {
         "en": "OUR SERVICES",
         "ar": "خدماتنا"
       }
     },
-
     "experienceSection": {
       "title": {
         "en": "32 Years of Experience",
@@ -115,40 +127,46 @@
           "iconName": "awardWin"
         }
       ],
-      "button": {
-        "text": {
-          "en": "Contact Us",
-          "ar": "اتصل بنا"
+      "button": [
+        {
+          "text": {
+            "en": "Contact Us",
+            "ar": "اتصل بنا"
+          },
+          "icon": null
         }
-      }
+      ]
     },
-
     "recentProjectsSection": {
       "buttons": [
-        { "id" : "btn1",
+        {
+          "id": "btn1",
           "text": {
             "en": "View All",
             "ar": "عرض الكل"
-          }
+          },
+          "icon": null
         },
         {
-          "id" : "btn2",
+          "id": "btn2",
           "text": {
             "en": "Back",
             "ar": "العودة"
-          }
+          },
+          "icon": null
         },
         {
-          "id" : "btn3",
+          "id": "btn3",
           "text": {
             "en": "Next",
             "ar": "التالي"
-          }
+          },
+          "icon": null
         }
       ],
-
       "sections": [
-        {  "id" : "projectList",
+        {
+          "id": "projectList",
           "title": {
             "en": "Recent Projects",
             "ar": "المشاريع الأخيرة"
@@ -159,7 +177,7 @@
           }
         },
         {
-          "id" : "markets",
+          "id": "markets",
           "title": {
             "en": "Our Markets",
             "ar": "أسواقنا"
@@ -170,7 +188,7 @@
           }
         },
         {
-          "id" : "safety",
+          "id": "safety",
           "title": {
             "en": "Safety: Our Responsibility",
             "ar": "السلامة: مسؤوليتنا"
@@ -182,7 +200,6 @@
         }
       ]
     },
-
     "clientSection": {
       "title": {
         "en": "Our Happy Clients",
@@ -223,14 +240,12 @@
         }
       ]
     },
-
     "testimonialSection": {
       "title": {
         "en": "What Our Clients Say About Us?",
         "ar": "ماذا يقول عملاؤنا عنا؟"
       }
     },
-
     "newProjectSection": {
       "title": {
         "ar": "هل تريد بدء مشروع جديد أو التعاون معنا؟",
@@ -248,15 +263,17 @@
         "ar": "بناء مستقبل أقوى",
         "en": "Building a Stronger Future"
       },
-      "button": {
-        "text": {
-          "ar": "اتصل بنا",
-          "en": "Contact Us"
+      "button": [
+        {
+          "text": {
+            "ar": "اتصل بنا",
+            "en": "Contact Us"
+          },
+          "icon": null
         }
-      }
+      ]
     }
   },
-
   "testimonials": [
     {
       "name": {
@@ -373,7 +390,6 @@
       "image": "dummyUser"
     }
   ],
-
   "footer": {
     "companyInfo": {
       "address": {
@@ -497,10 +513,15 @@
         "ar": "بحاجة الى مساعدة؟ نحن متاحون للحديث",
         "en": "Need Help? We're Available to Talk"
       },
-      "button": {
-        "ar": "اتصل بنا",
-        "en": "Contact Us"
-      }
+      "button": [
+        {
+          "text": {
+            "ar": "اتصل بنا",
+            "en": "Contact Us"
+          },
+          "icon": null
+        }
+      ]
     },
     "copyright": {
       "text": {
@@ -528,7 +549,6 @@
       ]
     }
   },
-
   "solution": {
     "banner": {
       "title": {
@@ -539,12 +559,15 @@
         "ar": "اكتشف التميز الاستثنائي لشركة Shade Corporation، الشركة الرائدة في مجالات الهندسة والمشتريات والبناء في المملكة العربية السعودية.",
         "en": "Discover the exceptional excellence of Shade Corporation, the leading company in engineering, procurement, and construction in Saudi Arabia."
       },
-      "button": {
-        "text": {
-          "ar": "عرض عملنا",
-          "en": "View Our Work"
+      "button": [
+        {
+          "text": {
+            "ar": "عرض عملنا",
+            "en": "View Our Work"
+          },
+          "icon": null
         }
-      }
+      ]
     },
     "whatWeDo": {
       "title": {
@@ -587,12 +610,15 @@
         "ar": "بناء مستقبل أقوى",
         "en": "Building a Stronger Future"
       },
-      "button": {
-        "text": {
-          "ar": "اتصل بنا",
-          "en": "Contact Us"
+      "button": [
+        {
+          "text": {
+            "ar": "اتصل بنا",
+            "en": "Contact Us"
+          },
+          "icon": null
         }
-      }
+      ]
     },
     "gallery": {
       "images": [
@@ -631,7 +657,6 @@
       ]
     }
   },
-
   "aboutUs": {
     "services": {
       "title": {
@@ -694,12 +719,15 @@
           "en": "Our ideas, shaped by advanced methodologies and decades of experience, serve the world's largest companies. We are passionate about unlocking potential and delivering solutions for our clients."
         }
       ],
-      "button": {
-        "text": {
-          "ar": "دعونا نتواصل",
-          "en": "Let's Connect"
+      "button": [
+        {
+          "text": {
+            "ar": "دعونا نتواصل",
+            "en": "Let's Connect"
+          },
+          "icon": null
         }
-      }
+      ]
     },
     "newProject": {
       "title": {
@@ -718,12 +746,15 @@
         "ar": "بناء مستقبل أقوى",
         "en": "Building a Stronger Future"
       },
-      "button": {
-        "text": {
-          "ar": "اتصل بنا",
-          "en": "Contact Us"
+      "button": [
+        {
+          "text": {
+            "ar": "اتصل بنا",
+            "en": "Contact Us"
+          },
+          "icon": null
         }
-      }
+      ]
     }
   },
   "services": {
@@ -736,12 +767,15 @@
         "ar": "اكتشف التميز الاستثنائي لشركة Shade Corporation، الشركة الرائدة في مجال الهندسة والمشتريات والبناء في المملكة العربية السعودية.",
         "en": "Discover the exceptional excellence of Shade Corporation, the leading company in engineering, procurement, and construction in Saudi Arabia."
       },
-      "button": {
-        "text": {
-          "ar": "عرض المشاريع",
-          "en": "View Projects"
+      "button": [
+        {
+          "text": {
+            "ar": "عرض المشاريع",
+            "en": "View Projects"
+          },
+          "icon": null
         }
-      }
+      ]
     },
     "serviceCards": [
       {
@@ -818,7 +852,6 @@
         ],
         "image": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(2).png"
       },
-
       {
         "title": {
           "ar": "التشغيل والصيانة",
@@ -866,7 +899,6 @@
       }
     ]
   },
-
   "market": {
     "banner": {
       "title": {
@@ -877,12 +909,15 @@
         "ar": "اكتشف التميز الاستثنائي لشركة Shade Corporation، الشركة الرائدة في مجالات الهندسة والمشتريات والبناء في المملكة العربية السعودية.",
         "en": "Discover the exceptional excellence of Shade Corporation, the premier Engineering, Procurement, and Construction powerhouse in Saudi Arabia."
       },
-      "button": {
-        "text": {
-          "ar": "خدماتنا",
-          "en": "Our Services"
+      "button": [
+        {
+          "text": {
+            "ar": "خدماتنا",
+            "en": "Our Services"
+          },
+          "icon": null
         }
-      }
+      ]
     },
     "quote": {
       "text": {
@@ -1130,13 +1165,15 @@
           "text": {
             "ar": "عرض التفاصيل",
             "en": "View Details"
-          }
+          },
+          "icon": null
         },
         {
           "text": {
             "ar": "عرض المزيد",
             "en": "View More"
-          }
+          },
+          "icon": null
         }
       ]
     },
@@ -1279,15 +1316,17 @@
         "ar": "بناء مستقبل أقوى",
         "en": "Building a Stronger Future"
       },
-      "button": {
-        "text": {
-          "ar": "اتصل بنا",
-          "en": "Contact Us"
+      "button": [
+        {
+          "text": {
+            "ar": "اتصل بنا",
+            "en": "Contact Us"
+          },
+          "icon": null
         }
-      }
+      ]
     }
   },
-
   "projectsPage": {
     "bannerSection": {
       "title": {
@@ -1298,12 +1337,15 @@
         "ar": "اكتشف التميز الاستثنائي لشركة Shade Corporation، الشركة الرائدة في مجالات الهندسة والمشتريات والبناء في المملكة العربية السعودية.",
         "en": "Discover the exceptional excellence of Shade Corporation, a leading company in the fields of engineering, procurement, and construction in Saudi Arabia."
       },
-      "button": {
-        "text": {
-          "ar": "دعونا نتواصل",
-          "en": "Let's Connect"
+      "button": [
+        {
+          "text": {
+            "ar": "دعونا نتواصل",
+            "en": "Let's Connect"
+          },
+          "icon": null
         }
-      }
+      ]
     },
     "projectsSection": {
       "tabs": [
@@ -1341,12 +1383,15 @@
             "ar": "الظهران، المملكة العربية السعودية"
           },
           "status": "completed",
-          "button": {
-            "text": {
-              "ar": "عرض التفاصيل",
-              "en": "View Details"
+          "button": [
+            {
+              "text": {
+                "ar": "عرض التفاصيل",
+                "en": "View Details"
+              },
+              "icon": null
             }
-          },
+          ],
           "url": "itLabExcellence"
         },
         {
@@ -1360,12 +1405,15 @@
             "ar": "الظهران، المملكة العربية السعودية"
           },
           "status": "completed",
-          "button": {
-            "text": {
-              "ar": "عرض التفاصيل",
-              "en": "View Details"
+          "button": [
+            {
+              "text": {
+                "ar": "عرض التفاصيل",
+                "en": "View Details"
+              },
+              "icon": null
             }
-          },
+          ],
           "url": "nonMetallic"
         },
         {
@@ -1379,12 +1427,15 @@
             "ar": "الظهران، المملكة العربية السعودية"
           },
           "status": "ongoing",
-          "button": {
-            "text": {
-              "ar": "عرض التفاصيل",
-              "en": "View Details"
+          "button": [
+            {
+              "text": {
+                "ar": "عرض التفاصيل",
+                "en": "View Details"
+              },
+              "icon": null
             }
-          },
+          ],
           "url": "businessGate"
         },
         {
@@ -1398,12 +1449,15 @@
             "ar": "خورصانية، المملكة العربية السعودية"
           },
           "status": "ongoing",
-          "button": {
-            "text": {
-              "ar": "عرض التفاصيل",
-              "en": "View Details"
+          "button": [
+            {
+              "text": {
+                "ar": "عرض التفاصيل",
+                "en": "View Details"
+              },
+              "icon": null
             }
-          },
+          ],
           "url": "constructionOfOME"
         },
         {
@@ -1417,12 +1471,15 @@
             "ar": "جدة، المملكة العربية السعودية"
           },
           "status": "completed",
-          "button": {
-            "text": {
-              "ar": "عرض التفاصيل",
-              "en": "View Details"
+          "button": [
+            {
+              "text": {
+                "ar": "عرض التفاصيل",
+                "en": "View Details"
+              },
+              "icon": null
             }
-          },
+          ],
           "url": "psychiatriFacility"
         },
         {
@@ -1436,12 +1493,15 @@
             "ar": "صفوى، المملكة العربية السعودية"
           },
           "status": "ongoing",
-          "button": {
-            "text": {
-              "ar": "عرض التفاصيل",
-              "en": "View Details"
+          "button": [
+            {
+              "text": {
+                "ar": "عرض التفاصيل",
+                "en": "View Details"
+              },
+              "icon": null
             }
-          },
+          ],
           "url": "safwaRahima"
         },
         {
@@ -1455,12 +1515,15 @@
             "ar": "الظهران، المملكة العربية السعودية"
           },
           "status": "completed",
-          "button": {
-            "text": {
-              "ar": "عرض التفاصيل",
-              "en": "View Details"
+          "button": [
+            {
+              "text": {
+                "ar": "عرض التفاصيل",
+                "en": "View Details"
+              },
+              "icon": null
             }
-          },
+          ],
           "url": "renovation"
         },
         {
@@ -1474,12 +1537,15 @@
             "ar": "جدة، المملكة العربية السعودية"
           },
           "status": "completed",
-          "button": {
-            "text": {
-              "ar": "عرض التفاصيل",
-              "en": "View Details"
+          "button": [
+            {
+              "text": {
+                "ar": "عرض التفاصيل",
+                "en": "View Details"
+              },
+              "icon": null
             }
-          },
+          ],
           "url": "swccPlant"
         },
         {
@@ -1493,12 +1559,15 @@
             "ar": "جدة، المملكة العربية السعودية"
           },
           "status": "completed",
-          "button": {
-            "text": {
-              "ar": "عرض التفاصيل",
-              "en": "View Details"
+          "button": [
+            {
+              "text": {
+                "ar": "عرض التفاصيل",
+                "en": "View Details"
+              },
+              "icon": null
             }
-          },
+          ],
           "url": "renovationOfAi"
         },
         {
@@ -1512,12 +1581,15 @@
             "ar": "الظهران، المملكة العربية السعودية"
           },
           "status": "completed",
-          "button": {
-            "text": {
-              "ar": "عرض التفاصيل",
-              "en": "View Details"
+          "button": [
+            {
+              "text": {
+                "ar": "عرض التفاصيل",
+                "en": "View Details"
+              },
+              "icon": null
             }
-          },
+          ],
           "url": "asphaltWork"
         },
         {
@@ -1531,12 +1603,15 @@
             "ar": "الظهران، المملكة العربية السعودية"
           },
           "status": "completed",
-          "button": {
-            "text": {
-              "ar": "عرض التفاصيل",
-              "en": "View Details"
+          "button": [
+            {
+              "text": {
+                "ar": "عرض التفاصيل",
+                "en": "View Details"
+              },
+              "icon": null
             }
-          },
+          ],
           "url": "sprakWasteWater"
         },
         {
@@ -1550,12 +1625,15 @@
             "ar": "الدمام، المملكة العربية السعودية"
           },
           "status": "completed",
-          "button": {
-            "text": {
-              "ar": "عرض التفاصيل",
-              "en": "View Details"
+          "button": [
+            {
+              "text": {
+                "ar": "عرض التفاصيل",
+                "en": "View Details"
+              },
+              "icon": null
             }
-          },
+          ],
           "url": "constructAnUnderpass"
         },
         {
@@ -1569,12 +1647,15 @@
             "ar": "الربيعية، المملكة العربية السعودية"
           },
           "status": "completed",
-          "button": {
-            "text": {
-              "ar": "عرض التفاصيل",
-              "en": "View Details"
+          "button": [
+            {
+              "text": {
+                "ar": "عرض التفاصيل",
+                "en": "View Details"
+              },
+              "icon": null
             }
-          },
+          ],
           "url": "developmentOfHo"
         },
         {
@@ -1588,12 +1669,15 @@
             "ar": "جانب البحرين، المملكة العربية السعودية"
           },
           "status": "ongoing",
-          "button": {
-            "text": {
-              "ar": "عرض التفاصيل",
-              "en": "View Details"
+          "button": [
+            {
+              "text": {
+                "ar": "عرض التفاصيل",
+                "en": "View Details"
+              },
+              "icon": null
             }
-          },
+          ],
           "url": "procedureAreaExpansion"
         },
         {
@@ -1607,12 +1691,15 @@
             "ar": "الظهران، المملكة العربية السعودية"
           },
           "status": "completed",
-          "button": {
-            "text": {
-              "ar": "عرض التفاصيل",
-              "en": "View Details"
+          "button": [
+            {
+              "text": {
+                "ar": "عرض التفاصيل",
+                "en": "View Details"
+              },
+              "icon": null
             }
-          },
+          ],
           "url": "replaceAndAutomate"
         },
         {
@@ -1626,12 +1713,15 @@
             "ar": "الخبر، المملكة العربية السعودية"
           },
           "status": "completed",
-          "button": {
-            "text": {
-              "ar": "عرض التفاصيل",
-              "en": "View Details"
+          "button": [
+            {
+              "text": {
+                "ar": "عرض التفاصيل",
+                "en": "View Details"
+              },
+              "icon": null
             }
-          },
+          ],
           "url": "aiKhobarTunnel"
         },
         {
@@ -1645,12 +1735,15 @@
             "ar": "المملكة العربية السعودية"
           },
           "status": "completed",
-          "button": {
-            "text": {
-              "ar": "عرض التفاصيل",
-              "en": "View Details"
+          "button": [
+            {
+              "text": {
+                "ar": "عرض التفاصيل",
+                "en": "View Details"
+              },
+              "icon": null
             }
-          },
+          ],
           "url": "bridgeAndTunnelForHumair"
         },
         {
@@ -1664,12 +1757,15 @@
             "ar": "الدمام، المملكة العربية السعودية"
           },
           "status": "completed",
-          "button": {
-            "text": {
-              "ar": "عرض التفاصيل",
-              "en": "View Details"
+          "button": [
+            {
+              "text": {
+                "ar": "عرض التفاصيل",
+                "en": "View Details"
+              },
+              "icon": null
             }
-          },
+          ],
           "url": "crossroadBridgee"
         },
         {
@@ -1683,12 +1779,15 @@
             "ar": "المنطقة الشرقية، المملكة العربية السعودية"
           },
           "status": "completed",
-          "button": {
-            "text": {
-              "ar": "عرض التفاصيل",
-              "en": "View Details"
+          "button": [
+            {
+              "text": {
+                "ar": "عرض التفاصيل",
+                "en": "View Details"
+              },
+              "icon": null
             }
-          },
+          ],
           "url": "secondaryRaad"
         },
         {
@@ -1702,12 +1801,15 @@
             "ar": "المنطقة الشرقية، المملكة العربية السعودية"
           },
           "status": "completed",
-          "button": {
-            "text": {
-              "ar": "عرض التفاصيل",
-              "en": "View Details"
+          "button": [
+            {
+              "text": {
+                "ar": "عرض التفاصيل",
+                "en": "View Details"
+              },
+              "icon": null
             }
-          },
+          ],
           "url": "secondaryRoads"
         },
         {
@@ -1721,12 +1823,15 @@
             "ar": "الظهران، المملكة العربية السعودية"
           },
           "status": "completed",
-          "button": {
-            "text": {
-              "ar": "عرض التفاصيل",
-              "en": "View Details"
+          "button": [
+            {
+              "text": {
+                "ar": "عرض التفاصيل",
+                "en": "View Details"
+              },
+              "icon": null
             }
-          },
+          ],
           "url": "swccWaterSupply"
         },
         {
@@ -1740,21 +1845,27 @@
             "ar": "مواقع مختلفة، المملكة العربية السعودية"
           },
           "status": "completed",
-          "button": {
-            "text": {
-              "ar": "عرض التفاصيل",
-              "en": "View Details"
+          "button": [
+            {
+              "text": {
+                "ar": "عرض التفاصيل",
+                "en": "View Details"
+              },
+              "icon": null
             }
-          },
+          ],
           "url": "otherProjects"
         }
       ],
-      "button": {
-        "text": {
-          "ar": " عرض المزيد",
-          "en": "View More"
+      "button": [
+        {
+          "text": {
+            "ar": " عرض المزيد",
+            "en": "View More"
+          },
+          "icon": null
         }
-      }
+      ]
     }
   },
   "projectDetail": [
@@ -1770,10 +1881,15 @@
           "en": "Client: Saudi Aramco"
         },
         "url": "https://www.aramco.com",
-        "backButton": {
-          "ar": "خلف",
-          "en": "Back"
-        },
+        "backButton": [
+          {
+            "text": {
+              "ar": "خلف",
+              "en": "Back"
+            },
+            "icon": null
+          }
+        ],
         "projectInforCard": [
           {
             "key": {
@@ -1786,7 +1902,6 @@
             },
             "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/ion_location-sharp.svg"
           },
-
           {
             "key": {
               "ar": "تاريخ البدء",
@@ -1822,7 +1937,6 @@
           }
         ]
       },
-
       "descriptionSection": [
         {
           "title": {
@@ -1865,7 +1979,6 @@
           }
         }
       ],
-
       "gallerySection": {
         "images": [
           {
@@ -1908,12 +2021,15 @@
               "ar": "الظهران، المملكة العربية السعودية"
             },
             "status": "completed",
-            "button": {
-              "text": {
-                "ar": "عرض التفاصيل",
-                "en": "View Details"
+            "button": [
+              {
+                "text": {
+                  "ar": "عرض التفاصيل",
+                  "en": "View Details"
+                },
+                "icon": null
               }
-            },
+            ],
             "url": "itLabExcellence"
           },
           {
@@ -1927,12 +2043,15 @@
               "ar": "الظهران، المملكة العربية السعودية"
             },
             "status": "completed",
-            "button": {
-              "text": {
-                "ar": "عرض التفاصيل",
-                "en": "View Details"
+            "button": [
+              {
+                "text": {
+                  "ar": "عرض التفاصيل",
+                  "en": "View Details"
+                },
+                "icon": null
               }
-            },
+            ],
             "url": "nonMetallic"
           },
           {
@@ -1946,21 +2065,27 @@
               "ar": "الظهران، المملكة العربية السعودية"
             },
             "status": "ongoing",
-            "button": {
-              "text": {
-                "ar": "عرض التفاصيل",
-                "en": "View Details"
+            "button": [
+              {
+                "text": {
+                  "ar": "عرض التفاصيل",
+                  "en": "View Details"
+                },
+                "icon": null
               }
-            },
+            ],
             "url": "businessGate"
           }
         ],
-        "button": {
-          "text": {
-            "en": "View Details",
-            "ar": " عرض التفاصيل"
+        "button": [
+          {
+            "text": {
+              "en": "View Details",
+              "ar": " عرض التفاصيل"
+            },
+            "icon": null
           }
-        }
+        ]
       }
     },
     {
@@ -1975,10 +2100,15 @@
           "en": "Client: Non-Metallic Solutions"
         },
         "url": "https://www.spark.sa",
-        "backButton": {
-          "ar": "خلف",
-          "en": "Back"
-        },
+        "backButton": [
+          {
+            "text": {
+              "ar": "خلف",
+              "en": "Back"
+            },
+            "icon": null
+          }
+        ],
         "projectInforCard": [
           {
             "key": {
@@ -2026,7 +2156,6 @@
           }
         ]
       },
-
       "descriptionSection": [
         {
           "title": {
@@ -2049,7 +2178,6 @@
           }
         }
       ],
-
       "gallerySection": {
         "images": [
           {
@@ -2075,7 +2203,6 @@
           }
         ]
       },
-
       "moreProjects": {
         "title": {
           "ar": "المزيد من المشاريع",
@@ -2093,12 +2220,15 @@
               "ar": "الظهران، المملكة العربية السعودية"
             },
             "status": "completed",
-            "button": {
-              "text": {
-                "ar": "عرض التفاصيل",
-                "en": "View Details"
+            "button": [
+              {
+                "text": {
+                  "ar": "عرض التفاصيل",
+                  "en": "View Details"
+                },
+                "icon": null
               }
-            },
+            ],
             "url": "itLabExcellence"
           },
           {
@@ -2112,12 +2242,15 @@
               "ar": "مدينة الملك سلمان للطاقة، المملكة العربية السعودية"
             },
             "status": "completed",
-            "button": {
-              "text": {
-                "ar": "عرض التفاصيل",
-                "en": "View Details"
+            "button": [
+              {
+                "text": {
+                  "ar": "عرض التفاصيل",
+                  "en": "View Details"
+                },
+                "icon": null
               }
-            },
+            ],
             "url": "nonMetallic"
           },
           {
@@ -2131,21 +2264,27 @@
               "ar": "الظهران، المملكة العربية السعودية"
             },
             "status": "ongoing",
-            "button": {
-              "text": {
-                "ar": "عرض التفاصيل",
-                "en": "View Details"
+            "button": [
+              {
+                "text": {
+                  "ar": "عرض التفاصيل",
+                  "en": "View Details"
+                },
+                "icon": null
               }
-            },
+            ],
             "url": "businessGate"
           }
         ],
-        "button": {
-          "text": {
-            "en": "View Details",
-            "ar": " عرض التفاصيل"
+        "button": [
+          {
+            "text": {
+              "en": "View Details",
+              "ar": " عرض التفاصيل"
+            },
+            "icon": null
           }
-        }
+        ]
       }
     },
     {
@@ -2160,10 +2299,15 @@
           "en": "Client: Saleh Al Subeaei Company"
         },
         "url": null,
-        "backButton": {
-          "ar": "خلف",
-          "en": "Back"
-        },
+        "backButton": [
+          {
+            "text": {
+              "ar": "خلف",
+              "en": "Back"
+            },
+            "icon": null
+          }
+        ],
         "projectInforCard": [
           {
             "key": {
@@ -2258,7 +2402,6 @@
           }
         ]
       },
-
       "moreProjects": {
         "title": {
           "ar": "المزيد من المشاريع",
@@ -2276,12 +2419,15 @@
               "ar": "الظهران، المملكة العربية السعودية"
             },
             "status": "completed",
-            "button": {
-              "text": {
-                "ar": "عرض التفاصيل",
-                "en": "View Details"
+            "button": [
+              {
+                "text": {
+                  "ar": "عرض التفاصيل",
+                  "en": "View Details"
+                },
+                "icon": null
               }
-            },
+            ],
             "url": "itLabExcellence"
           },
           {
@@ -2295,12 +2441,15 @@
               "ar": "مدينة الملك سلمان للطاقة، المملكة العربية السعودية"
             },
             "status": "completed",
-            "button": {
-              "text": {
-                "ar": "عرض التفاصيل",
-                "en": "View Details"
+            "button": [
+              {
+                "text": {
+                  "ar": "عرض التفاصيل",
+                  "en": "View Details"
+                },
+                "icon": null
               }
-            },
+            ],
             "url": "nonMetallic"
           },
           {
@@ -2314,21 +2463,27 @@
               "ar": "الظهران، المملكة العربية السعودية"
             },
             "status": "ongoing",
-            "button": {
-              "text": {
-                "ar": "عرض التفاصيل",
-                "en": "View Details"
+            "button": [
+              {
+                "text": {
+                  "ar": "عرض التفاصيل",
+                  "en": "View Details"
+                },
+                "icon": null
               }
-            },
+            ],
             "url": "businessGate"
           }
         ],
-        "button": {
-          "text": {
-            "en": "View Details",
-            "ar": " عرض التفاصيل"
+        "button": [
+          {
+            "text": {
+              "en": "View Details",
+              "ar": " عرض التفاصيل"
+            },
+            "icon": null
           }
-        }
+        ]
       }
     },
     {
@@ -2343,10 +2498,15 @@
           "en": "Client: Saudi Aramco"
         },
         "url": "https://www.aramco.com/",
-        "backButton": {
-          "ar": "خلف",
-          "en": "Back"
-        },
+        "backButton": [
+          {
+            "text": {
+              "ar": "خلف",
+              "en": "Back"
+            },
+            "icon": null
+          }
+        ],
         "projectInforCard": [
           {
             "key": {
@@ -2441,7 +2601,6 @@
           }
         ]
       },
-
       "moreProjects": {
         "title": {
           "ar": "المزيد من المشاريع",
@@ -2459,12 +2618,15 @@
               "ar": "الظهران، المملكة العربية السعودية"
             },
             "status": "completed",
-            "button": {
-              "text": {
-                "ar": "عرض التفاصيل",
-                "en": "View Details"
+            "button": [
+              {
+                "text": {
+                  "ar": "عرض التفاصيل",
+                  "en": "View Details"
+                },
+                "icon": null
               }
-            },
+            ],
             "url": "itLabExcellence"
           },
           {
@@ -2478,12 +2640,15 @@
               "ar": "مدينة الملك سلمان للطاقة، المملكة العربية السعودية"
             },
             "status": "completed",
-            "button": {
-              "text": {
-                "ar": "عرض التفاصيل",
-                "en": "View Details"
+            "button": [
+              {
+                "text": {
+                  "ar": "عرض التفاصيل",
+                  "en": "View Details"
+                },
+                "icon": null
               }
-            },
+            ],
             "url": "nonMetallic"
           },
           {
@@ -2497,25 +2662,30 @@
               "ar": "الظهران، المملكة العربية السعودية"
             },
             "status": "ongoing",
-            "button": {
-              "text": {
-                "ar": "عرض التفاصيل",
-                "en": "View Details"
+            "button": [
+              {
+                "text": {
+                  "ar": "عرض التفاصيل",
+                  "en": "View Details"
+                },
+                "icon": null
               }
-            },
+            ],
             "url": "businessGate"
           }
         ],
-        "button": {
-          "text": {
-            "en": "View Details",
-            "ar": " عرض التفاصيل"
+        "button": [
+          {
+            "text": {
+              "en": "View Details",
+              "ar": " عرض التفاصيل"
+            },
+            "icon": null
           }
-        }
+        ]
       }
     }
   ],
-
   "career": {
     "bannerSection": {
       "title": {
@@ -2526,12 +2696,15 @@
         "ar": "اكتشف التميز الاستثنائي لشركة Shade Corporation، الشركة الرائدة في مجال الهندسة والمشتريات والبناء في المملكة العربية السعودية.",
         "en": "Discover the exceptional excellence of Shade Corporation, the premier Engineering, Procurement, and Construction powerhouse in Saudi Arabia."
       },
-      "button": {
-        "text": {
-          "ar": "تقدم بطلبك الآن",
-          "en": "Apply Now"
+      "button": [
+        {
+          "text": {
+            "ar": "تقدم بطلبك الآن",
+            "en": "Apply Now"
+          },
+          "icon": null
         }
-      }
+      ]
     },
     "filterSection": {
       "inputBox": {
@@ -2751,10 +2924,8 @@
             }
           ]
         },
-
         {
           "id": "de1",
-
           "title": {
             "key": {
               "en": "Data Analyst",
@@ -2804,10 +2975,8 @@
             }
           ]
         },
-
         {
           "id": "pd1",
-
           "title": {
             "key": {
               "en": "Product Designer",
@@ -2857,7 +3026,6 @@
             }
           ]
         },
-
         {
           "id": 5,
           "title": {
@@ -2960,7 +3128,6 @@
             }
           ]
         },
-
         {
           "id": 7,
           "title": {
@@ -3065,7 +3232,6 @@
         },
         {
           "id": "csa1",
-
           "title": {
             "key": {
               "en": "Cybersecurity Analyst",
@@ -3372,7 +3538,6 @@
         },
         {
           "id": "se2",
-
           "title": {
             "key": {
               "en": "Software Engineer",
@@ -3479,18 +3644,19 @@
           "text": {
             "en": "Apply Now",
             "ar": "تقدم ال��ن"
-          }
+          },
+          "icon": null
         },
         {
           "text": {
             "en": "Details",
             "ar": "تفاصيل"
-          }
+          },
+          "icon": null
         }
       ]
     }
   },
-
   "careerDetails": [
     {
       "id": "se1",
@@ -3504,12 +3670,15 @@
           "ar": "يتم الإغلاق في 31/12/2024"
         },
         "bannerImage": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+13.jpg",
-        "button": {
-          "text": {
-            "en": "Back",
-            "ar": "خلف"
+        "button": [
+          {
+            "text": {
+              "en": "Back",
+              "ar": "خلف"
+            },
+            "icon": null
           }
-        }
+        ]
       },
       "jobDetails": {
         "leftPanel": {
@@ -3573,12 +3742,15 @@
           ]
         },
         "rightPanel": {
-          "button": {
-            "text": {
-              "ar": "يتقدم",
-              "en": "Apply"
+          "button": [
+            {
+              "text": {
+                "ar": "يتقدم",
+                "en": "Apply"
+              },
+              "icon": null
             }
-          },
+          ],
           "title": {
             "ar": "ملخص الوظيفة",
             "en": "Job Summary"
@@ -3629,25 +3801,29 @@
               }
             }
           ],
-          "viewAllButton": {
-            "text": {
-              "ar": "عرض جميع الوظائف",
-              "en": "View All Jobs"
-            },
-            "link": "#"
-          }
+          "viewAllButton": [
+            {
+              "text": {
+                "ar": "عرض جميع الوظائف",
+                "en": "View All Jobs"
+              },
+              "link": "#"
+            }
+          ]
         },
-        "button": {
-          "text": {
-            "en": "Apply Now",
-            "ar": " تقدم بطلبك الآن"
+        "button": [
+          {
+            "text": {
+              "en": "Apply Now",
+              "ar": " تقدم بطلبك الآن"
+            },
+            "icon": null
           }
-        }
+        ]
       }
     },
     {
       "id": "pm1",
-
       "banner": {
         "title": {
           "en": "Project Manager",
@@ -3658,12 +3834,15 @@
           "ar": "يتم الإغلاق في 15/01/2025"
         },
         "bannerImage": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+13.jpg",
-        "button": {
-          "text": {
-            "en": "Back",
-            "ar": "خلف"
+        "button": [
+          {
+            "text": {
+              "en": "Back",
+              "ar": "خلف"
+            },
+            "icon": null
           }
-        }
+        ]
       },
       "jobDetails": {
         "leftPanel": {
@@ -3727,12 +3906,15 @@
           ]
         },
         "rightPanel": {
-          "button": {
-            "text": {
-              "ar": "يتقدم",
-              "en": "Apply"
+          "button": [
+            {
+              "text": {
+                "ar": "يتقدم",
+                "en": "Apply"
+              },
+              "icon": null
             }
-          },
+          ],
           "title": {
             "ar": "ملخص الوظيفة",
             "en": "Job Summary"
@@ -3783,25 +3965,30 @@
               }
             }
           ],
-          "viewAllButton": {
-            "text": {
-              "ar": "عرض جميع الوظائف",
-              "en": "View All Jobs"
-            },
-            "link": "#"
-          }
+          "viewAllButton": [
+            {
+              "text": {
+                "ar": "عرض جميع الوظائف",
+                "en": "View All Jobs"
+              },
+              "link": "#",
+              "icon": null
+            }
+          ]
         },
-        "button": {
-          "text": {
-            "en": "Apply Now",
-            "ar": " تقدم بطلبك الآن"
+        "button": [
+          {
+            "text": {
+              "en": "Apply Now",
+              "ar": " تقدم بطلبك الآن"
+            },
+            "icon": null
           }
-        }
+        ]
       }
     },
     {
       "id": "de1",
-
       "banner": {
         "title": {
           "en": "Data Analyst",
@@ -3812,12 +3999,15 @@
           "ar": "يتم الإغلاق في 31/01/2025"
         },
         "bannerImage": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+13.jpg",
-        "button": {
-          "text": {
-            "en": "Back",
-            "ar": "خلف"
+        "button": [
+          {
+            "text": {
+              "en": "Back",
+              "ar": "خلف"
+            },
+            "icon": null
           }
-        }
+        ]
       },
       "jobDetails": {
         "leftPanel": {
@@ -3870,7 +4060,9 @@
                 "en": "Educational Requirements"
               },
               "content": {
-                "ar": ["خبرة في التعامل مع البيانات، ETL، وأدوات التقارير."],
+                "ar": [
+                  "خبرة في التعامل مع البيانات، ETL، وأدوات التقارير."
+                ],
                 "en": [
                   "Experience working with data wrangling, ETL, and reporting tools."
                 ]
@@ -3879,12 +4071,15 @@
           ]
         },
         "rightPanel": {
-          "button": {
-            "text": {
-              "ar": "يتقدم",
-              "en": "Apply"
+          "button": [
+            {
+              "text": {
+                "ar": "يتقدم",
+                "en": "Apply"
+              },
+              "icon": null
             }
-          },
+          ],
           "title": {
             "ar": "ملخص الوظيفة",
             "en": "Job Summary"
@@ -3935,26 +4130,30 @@
               }
             }
           ],
-          "viewAllButton": {
-            "text": {
-              "ar": "عرض جميع الوظائف",
-              "en": "View All Jobs"
-            },
-            "link": "#"
-          }
+          "viewAllButton": [
+            {
+              "text": {
+                "ar": "عرض جميع الوظائف",
+                "en": "View All Jobs"
+              },
+              "link": "#",
+              "icon": null
+            }
+          ]
         },
-        "button": {
-          "text": {
-            "en": "Apply Now",
-            "ar": " تقدم بطلبك الآن"
+        "button": [
+          {
+            "text": {
+              "en": "Apply Now",
+              "ar": " تقدم بطلبك الآن"
+            },
+            "icon": null
           }
-        }
+        ]
       }
     },
-
     {
       "id": "pd1",
-
       "banner": {
         "title": {
           "en": "Product Designer",
@@ -3965,12 +4164,15 @@
           "ar": "يتم الإغلاق في 31/12/2023"
         },
         "bannerImage": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+13.jpg",
-        "button": {
-          "text": {
-            "en": "Back",
-            "ar": "خلف"
+        "button": [
+          {
+            "text": {
+              "en": "Back",
+              "ar": "خلف"
+            },
+            "icon": null
           }
-        }
+        ]
       },
       "jobDetails": {
         "leftPanel": {
@@ -4034,12 +4236,15 @@
           ]
         },
         "rightPanel": {
-          "button": {
-            "text": {
-              "ar": "يتقدم",
-              "en": "Apply"
+          "button": [
+            {
+              "text": {
+                "ar": "يتقدم",
+                "en": "Apply"
+              },
+              "icon": null
             }
-          },
+          ],
           "title": {
             "ar": "ملخص الوظيفة",
             "en": "Job Summary"
@@ -4090,26 +4295,30 @@
               }
             }
           ],
-          "viewAllButton": {
-            "text": {
-              "ar": "عرض جميع الوظائف",
-              "en": "View All Jobs"
-            },
-            "link": "#"
-          }
+          "viewAllButton": [
+            {
+              "text": {
+                "ar": "عرض جميع الوظائف",
+                "en": "View All Jobs"
+              },
+              "link": "#",
+              "icon": null
+            }
+          ]
         },
-        "button": {
-          "text": {
-            "en": "Apply Now",
-            "ar": " تقدم بطلبك الآن"
+        "button": [
+          {
+            "text": {
+              "en": "Apply Now",
+              "ar": " تقدم بطلبك الآن"
+            },
+            "icon": null
           }
-        }
+        ]
       }
     },
-
     {
       "id": "fse1",
-
       "banner": {
         "title": {
           "en": "Full Stack Engineer",
@@ -4120,12 +4329,15 @@
           "ar": "يتم الإغلاق في 15/03/2025"
         },
         "bannerImage": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+13.jpg",
-        "button": {
-          "text": {
-            "en": "Back",
-            "ar": "خلف"
+        "button": [
+          {
+            "text": {
+              "en": "Back",
+              "ar": "خلف"
+            },
+            "icon": null
           }
-        }
+        ]
       },
       "jobDetails": {
         "leftPanel": {
@@ -4189,12 +4401,15 @@
           ]
         },
         "rightPanel": {
-          "button": {
-            "text": {
-              "ar": "يتقدم",
-              "en": "Apply"
+          "button": [
+            {
+              "text": {
+                "ar": "يتقدم",
+                "en": "Apply"
+              },
+              "icon": null
             }
-          },
+          ],
           "title": {
             "ar": "ملخص الوظيفة",
             "en": "Job Summary"
@@ -4245,26 +4460,30 @@
               }
             }
           ],
-          "viewAllButton": {
-            "text": {
-              "ar": "عرض جميع الوظائف",
-              "en": "View All Jobs"
-            },
-            "link": "#"
-          }
+          "viewAllButton": [
+            {
+              "text": {
+                "ar": "عرض جميع الوظائف",
+                "en": "View All Jobs"
+              },
+              "link": "#",
+              "icon": null
+            }
+          ]
         },
-        "button": {
-          "text": {
-            "en": "Apply Now",
-            "ar": " تقدم بطلبك الآن"
+        "button": [
+          {
+            "text": {
+              "en": "Apply Now",
+              "ar": " تقدم بطلبك الآن"
+            },
+            "icon": null
           }
-        }
+        ]
       }
     },
-
     {
       "id": "se2",
-
       "banner": {
         "title": {
           "en": "Software Engineer",
@@ -4275,12 +4494,15 @@
           "ar": "يتم الإغلاق في 31/01/2025"
         },
         "bannerImage": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+13.jpg",
-        "button": {
-          "text": {
-            "en": "Back",
-            "ar": "خلف"
+        "button": [
+          {
+            "text": {
+              "en": "Back",
+              "ar": "خلف"
+            },
+            "icon": null
           }
-        }
+        ]
       },
       "jobDetails": {
         "leftPanel": {
@@ -4333,19 +4555,26 @@
                 "en": "Educational Requirements"
               },
               "content": {
-                "ar": ["مهارات تحليلية قوية وحل المشكلات."],
-                "en": ["Strong analytical and problem-solving skills."]
+                "ar": [
+                  "مهارات تحليلية قوية وحل المشكلات."
+                ],
+                "en": [
+                  "Strong analytical and problem-solving skills."
+                ]
               }
             }
           ]
         },
         "rightPanel": {
-          "button": {
-            "text": {
-              "ar": "يتقدم",
-              "en": "Apply"
+          "button": [
+            {
+              "text": {
+                "ar": "يتقدم",
+                "en": "Apply"
+              },
+              "icon": null
             }
-          },
+          ],
           "title": {
             "ar": "ملخص الوظيفة",
             "en": "Job Summary"
@@ -4396,26 +4625,30 @@
               }
             }
           ],
-          "viewAllButton": {
-            "text": {
-              "ar": "عرض جميع الوظائف",
-              "en": "View All Jobs"
-            },
-            "link": "#"
-          }
+          "viewAllButton": [
+            {
+              "text": {
+                "ar": "عرض جميع الوظائف",
+                "en": "View All Jobs"
+              },
+              "link": "#",
+              "icon": null
+            }
+          ]
         },
-        "button": {
-          "text": {
-            "en": "Apply Now",
-            "ar": " تقدم بطلبك الآن"
+        "button": [
+          {
+            "text": {
+              "en": "Apply Now",
+              "ar": " تقدم بطلبك الآن"
+            },
+            "icon": null
           }
-        }
+        ]
       }
     },
-
     {
       "id": "csa1",
-
       "banner": {
         "title": {
           "en": "Cyber Security Analyst",
@@ -4426,12 +4659,15 @@
           "ar": "يتم الإغلاق في 15/02/2025"
         },
         "bannerImage": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+13.jpg",
-        "button": {
-          "text": {
-            "en": "Back",
-            "ar": "خلف"
+        "button": [
+          {
+            "text": {
+              "en": "Back",
+              "ar": "خلف"
+            },
+            "icon": null
           }
-        }
+        ]
       },
       "jobDetails": {
         "leftPanel": {
@@ -4495,12 +4731,15 @@
           ]
         },
         "rightPanel": {
-          "button": {
-            "text": {
-              "ar": "يتقدم",
-              "en": "Apply"
+          "button": [
+            {
+              "text": {
+                "ar": "يتقدم",
+                "en": "Apply"
+              },
+              "icon": null
             }
-          },
+          ],
           "title": {
             "ar": "ملخص الوظيفة",
             "en": "Job Summary"
@@ -4551,24 +4790,29 @@
               }
             }
           ],
-          "viewAllButton": {
-            "text": {
-              "ar": "عرض جميع الوظائف",
-              "en": "View All Jobs"
-            },
-            "link": "#"
-          }
+          "viewAllButton": [
+            {
+              "text": {
+                "ar": "عرض جميع الوظائف",
+                "en": "View All Jobs"
+              },
+              "link": "#",
+              "icon": null
+            }
+          ]
         },
-        "button": {
-          "text": {
-            "en": "Apply Now",
-            "ar": " تقدم بطلبك الآن"
+        "button": [
+          {
+            "text": {
+              "en": "Apply Now",
+              "ar": " تقدم بطلبك الآن"
+            },
+            "icon": null
           }
-        }
+        ]
       }
     }
   ],
-
   "newsBlogs": {
     "bannerSection": {
       "title": {
@@ -4600,7 +4844,6 @@
         "en": "Read More"
       }
     },
-
     "latestNewCards": {
       "heading": {
         "ar": "آخر الأخبار",
@@ -4609,7 +4852,6 @@
       "cards": [
         {
           "id": "news1",
-
           "title": {
             "ar": "شباب يتحدون الإعاقة",
             "en": "Youth Overcoming Disability"
@@ -4630,7 +4872,6 @@
         },
         {
           "id": "news2",
-
           "title": {
             "ar": "الروبوتات السعودية تنضم إلى الملايين في أداء فريضة الحج",
             "en": "Saudi Robots Join Millions in Performing the Hajj"
@@ -4651,7 +4892,6 @@
         },
         {
           "id": "news3",
-
           "title": {
             "ar": "التكنولوجيا في خدمة ذوي الإعاقة",
             "en": "Technology Serving People with Disabilities"
@@ -4672,7 +4912,6 @@
         },
         {
           "id": "news4",
-
           "title": {
             "ar": "قصص نجاح ملهمة",
             "en": "Inspiring Success Stories"
@@ -4693,7 +4932,6 @@
         },
         {
           "id": "news5",
-
           "title": {
             "ar": "مبادرات دعم ذوي الإعاقة",
             "en": "Initiatives Supporting People with Disabilities"
@@ -4707,7 +4945,6 @@
             "en": "August 5, 2021"
           },
           "image": "news2",
-
           "readMore": {
             "ar": "اقرأ المزيد",
             "en": "Read More"
@@ -4715,7 +4952,6 @@
         },
         {
           "id": "news6",
-
           "title": {
             "ar": "التحديات التي تواجه ذوي الإعاقة",
             "en": "Challenges Faced by People with Disabilities"
@@ -4729,7 +4965,6 @@
             "en": "September 20, 2021"
           },
           "image": "news1",
-
           "readMore": {
             "ar": "اقرأ المزيد",
             "en": "Read More"
@@ -4737,15 +4972,17 @@
         }
       ]
     },
-
     "trendingCard": {
       "id": "news2",
-      "button": {
-        "text": {
-          "ar": "تتجه",
-          "en": "Trending"
+      "button": [
+        {
+          "text": {
+            "ar": "تتجه",
+            "en": "Trending"
+          },
+          "icon": null
         }
-      },
+      ],
       "title": {
         "ar": "الروبوتات السعودية تنضم إلى الملايين في أداء فريضة الحج",
         "en": "Saudi Robots Join Millions in Performing the Hajj"
@@ -4765,7 +5002,6 @@
       }
     }
   },
-
   "newsBlogsDetails": [
     {
       "id": "news1",
@@ -4779,12 +5015,15 @@
           "ar": "20 مايو 2020"
         },
         "bannerImage": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+2+(3).png",
-        "button": {
-          "text": {
-            "en": "Back",
-            "ar": "خلف"
+        "button": [
+          {
+            "text": {
+              "en": "Back",
+              "ar": "خلف"
+            },
+            "icon": null
           }
-        }
+        ]
       },
       "newsPoints": [
         {
@@ -4831,12 +5070,15 @@
           "ar": "20 مايو 2020"
         },
         "bannerImage": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+2+(3).png",
-        "button": {
-          "text": {
-            "en": "Back",
-            "ar": "خلف"
+        "button": [
+          {
+            "text": {
+              "en": "Back",
+              "ar": "خلف"
+            },
+            "icon": null
           }
-        }
+        ]
       },
       "newsPoints": [
         {
@@ -4883,12 +5125,15 @@
           "ar": "15 يونيو 2021"
         },
         "bannerImage": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+2+(3).png",
-        "button": {
-          "text": {
-            "en": "Back",
-            "ar": "خلف"
+        "button": [
+          {
+            "text": {
+              "en": "Back",
+              "ar": "خلف"
+            },
+            "icon": null
           }
-        }
+        ]
       },
       "newsPoints": [
         {
@@ -4935,12 +5180,15 @@
           "ar": "10 يوليو 2021"
         },
         "bannerImage": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+2+(3).png",
-        "button": {
-          "text": {
-            "en": "Back",
-            "ar": "خلف"
+        "button": [
+          {
+            "text": {
+              "en": "Back",
+              "ar": "خلف"
+            },
+            "icon": null
           }
-        }
+        ]
       },
       "newsPoints": [
         {
@@ -5014,14 +5262,16 @@
             "en": "Submit",
             "ar": "رسال"
           },
-          "className": "apply_btn"
+          "className": "apply_btn",
+          "icon": null
         },
         {
           "text": {
             "en": "Reset",
             "ar": "عادة تعيين"
           },
-          "className": "close_btn"
+          "className": "close_btn",
+          "icon": null
         }
       ]
     }
@@ -5090,14 +5340,16 @@
             "en": "Submit",
             "ar": "رسال"
           },
-          "className": "apply_btn"
+          "className": "apply_btn",
+          "icon": null
         },
         {
           "text": {
             "en": "Reset",
             "ar": "عادة تعيين"
           },
-          "className": "close_btn"
+          "className": "close_btn",
+          "icon": null
         }
       ]
     }
@@ -5107,11 +5359,14 @@
       "en": "Sorry! The page you are looking for does not exist",
       "ar": "عذرًا! الصفحة التي تبحث عنها غير موجودة."
     },
-    "button": {
-      "text": {
-        "en": "Return to Homepage",
-        "ar": "العودة إلى الصفحة الرئيسية"
+    "button": [
+      {
+        "text": {
+          "en": "Return to Homepage",
+          "ar": "العودة إلى الصفحة الرئيسية"
+        },
+        "icon": null
       }
-    }
+    ]
   }
 }
