@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { cn } from "tailwind-variants";
+import { set } from "lodash";
 
 const initialState = {
     past: [],
@@ -9,6 +9,8 @@ const initialState = {
     },
     future: []
 };
+
+const basePath = 'present.home';
 
 const cmsSlice = createSlice({
     name: "CMS",
@@ -139,13 +141,17 @@ const cmsSlice = createSlice({
         updateSpecificContent: (state, action) => {
             state.past.push(JSON.parse(JSON.stringify(state.present)));
 
-            if (action.payload.section === "recentProjectsSection") {
-                state.present[action.payload.currentPath].editVersion.sections[action.payload.contentIndex].sections[action.payload.index].content[action.payload.title][action.payload.lan] = action.payload.value
-            } else if (action.payload.subSection === "cards") {
-                state.present[action.payload.currentPath].editVersion.sections[action.payload.contentIndex].content.cards[action.payload.index][action.payload.title][action.payload.lan] = action.payload.value
-            } else {
-                state.present[action.payload.currentPath].editVersion.sections[action.payload.contentIndex].content[action.payload.title][action.payload.lan] = action.payload.value
-            }
+
+            const { path, value } = action.payload;
+            console.log(`${basePath}.${path}`, value)
+            set(state, `${basePath}.${path}`, value);
+            // if (action.payload.section === "recentProjectsSection") {
+            //     state.present[action.payload.currentPath].editVersion.sections[action.payload.contentIndex].sections[action.payload.index].content[action.payload.title][action.payload.lan] = action.payload.value
+            // } else if (action.payload.subSection === "cards") {
+            //     state.present[action.payload.currentPath].editVersion.sections[action.payload.contentIndex].content.cards[action.payload.index][action.payload.title][action.payload.lan] = action.payload.value
+            // } else {
+            //     state.present[action.payload.currentPath].editVersion.sections[action.payload.contentIndex].content[action.payload.title][action.payload.lan] = action.payload.value
+            // }
 
             state.future = [];
         },

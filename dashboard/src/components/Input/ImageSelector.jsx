@@ -22,7 +22,7 @@ const ImageSelector = ({ onSelectImage, onClose, resourceId }) => {
         // additional image URLs...
     ];
 
-    // ========== HANDLERS ==========
+    // HANDLERS 
 
     const handleFileUpload = async (event) => {
         const file = event.target.files[0];
@@ -77,7 +77,17 @@ const ImageSelector = ({ onSelectImage, onClose, resourceId }) => {
         setMetadata(null);
     };
 
-    // ========== OUTSIDE CLICK ==========
+    useEffect(() => {
+        async function getAllImages() {
+            try {
+                
+            } catch (err) {
+
+            }
+        }
+    }, [])
+
+    // OUTSIDE CLICK 
 
     useEffect(() => {
         const handleOutsideClick = (event) => {
@@ -89,7 +99,7 @@ const ImageSelector = ({ onSelectImage, onClose, resourceId }) => {
         return () => document.removeEventListener("mousedown", handleOutsideClick);
     }, [onClose]);
 
-    // ========== RENDER ==========
+    // RENDER 
 
     return (
         <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50">
