@@ -11,6 +11,8 @@ import { checkRegex } from "../../app/emailregex";
 import PasswordValidation from "../user/components/PasswordValidation";
 import CloseModalButton from "../../components/Button/CloseButton";
 import capitalizeWords from "../../app/capitalizeword";
+import { useDispatch, useSelector } from "react-redux";
+import { switchDebounce } from "../common/debounceSlice";
 
 const AddUserModal = ({ show, onClose, updateUsers, user }) => {
   const [errorMessageName, setErrorMessageName] = useState("");
@@ -20,6 +22,8 @@ const AddUserModal = ({ show, onClose, updateUsers, user }) => {
   const [errorMessagePassword, setErrorMessagePassword] = useState("");
   const [fetchedUser, setFetchedUser] = useState({});
   const [roles, setRoles] = useState([]);
+  const debouncingState = useSelector(state => state.debounce.debounce)
+  const dispatch = useDispatch()
   const modalRef = useRef(null);
   const initialUserState = {
     name: "",
@@ -50,6 +54,7 @@ const AddUserModal = ({ show, onClose, updateUsers, user }) => {
   };
 
   const handleFormSubmit = async (e) => {
+    if (debouncingState) return
     e.preventDefault();
 
     const validation = validator(userData, {
@@ -59,7 +64,6 @@ const AddUserModal = ({ show, onClose, updateUsers, user }) => {
       // roles: setErrorMessageRoles,
     });
 
-    console.log("QWEr");
     const validEmail = checkRegex(userData.email, setErrorMessageEmail); // checks if email is under valid format
     const validPassword = userData.password.trim() === "";
     if (validPassword && !user) {
@@ -70,44 +74,56 @@ const AddUserModal = ({ show, onClose, updateUsers, user }) => {
     if (!validation) return;
     if (validEmail) return;
 
-    const loadingToastId = toast.loading("Processing request...", {
-      autoClose: 2000,
-    });
+    let loadingToastId = null
 
-    let response;
-    if (user) {
-      const payload = {
-        name: userData.name,
-        phone: userData.phone,
-        roles: userData.roles,
-      };
-      if (!validPassword) payload.password = userData.password;
-      response = await updateUser({ payload, id: user.id });
-    } else {
-      response = await createUser(userData);
-    }
+    try {
 
-    if (response?.ok) {
-      updateToasify(
-        loadingToastId,
-        `User Created successful! 🎉`,
-        "success",
-        1000
-      );
-      setTimeout(() => {
-        onClose();
-        updateUsers((prev) => !prev);
-      }, 1500);
-    } else {
-      updateToasify(
-        loadingToastId,
-        `Request failed. ${response?.message
-          ? response.message
-          : "Something went wrong please try again later"
-        }`,
-        "error",
-        2000
-      );
+      dispatch(switchDebounce(true))
+
+      loadingToastId = toast.loading("Processing request...", {
+        autoClose: 2000,
+      });
+
+      let response;
+      if (user) {
+        const payload = {
+          name: userData.name,
+          phone: userData.phone,
+          roles: userData.roles,
+        };
+        if (!validPassword) payload.password = userData.password;
+        response = await updateUser({ payload, id: user.id });
+      } else {
+        response = await createUser(userData);
+      }
+
+      if (response?.ok) {
+        updateToasify(
+          loadingToastId,
+          `User Created successful! 🎉`,
+          "success",
+          1000
+        );
+        setTimeout(() => {
+          onClose();
+          updateUsers((prev) => !prev);
+        }, 1500);
+      } else {
+        updateToasify(
+          loadingToastId,
+          `Request failed. ${response?.message
+            ? response.message
+            : "Something went wrong please try again later"
+          }`,
+          "error",
+          2000
+        );
+      }
+
+    } catch (err) {
+
+    } finally {
+      dispatch(switchDebounce(false))
     }
     toast.dismiss(loadingToastId);
   };
