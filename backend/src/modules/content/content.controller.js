@@ -68,8 +68,11 @@ const GetContent = async (req, res) => {
 const UpdateContent = async (req, res) => {
   const { saveAs } = req.query;
   const { content } = req.body;
-  console.log(content, "content");
-  const response = await updateContent(saveAs,content);
+
+  // Log the content for debugging purposes
+  console.log("Updating content with saveAs:", saveAs);
+
+  const response = await updateContent(saveAs, content);
   res.status(200).json(response);
 };
 export default {
