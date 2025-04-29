@@ -3,6 +3,7 @@ import { assert, assertEvery } from "../../errors/assertError.js";
 import {
   createMedia,
   deleteMediaById,
+  fetchMedia,
   findMediaById,
 } from "../../repository/media.repository.js";
 import { deleteImageFromCloudinary } from "../../helper/cloudinaryService.js";
@@ -40,6 +41,19 @@ const uploadMedia = async (mediaType, resourceId, uploadedMedia) => {
   };
 };
 
+const getMedia = async ( resourceId,
+    mediaType,
+    search,
+    pageNum,
+    limitNum) => {
+  const media = await fetchMedia( resourceId,
+    mediaType,
+    search,
+    pageNum,
+    limitNum);
+  return { message: "Media fetched successfully", media:media };
+};
+
 const deleteMedia = async (mediaId) => {
   const media = await findMediaById(mediaId);
   assert(media, "NOT_FOUND", "Media not found");
@@ -56,4 +70,4 @@ const deleteMedia = async (mediaId) => {
   return { message: "Media deleted successfully" };
 };
 
-export { uploadMedia, deleteMedia };
+export { uploadMedia, getMedia, deleteMedia };
