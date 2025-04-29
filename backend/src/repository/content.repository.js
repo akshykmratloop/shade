@@ -29,16 +29,16 @@ export const fetchResources = async (
   // Build the where clause based on provided filters
   const whereClause = {
     ...resourceTypeFilter,
-    ...(resourceTag ? { resourceTag: resourceTag } : {}),
-    ...(relationType ? { relationType } : {}),
-    ...(typeof isAssigned === "boolean" ? { isAssigned } : {}),
-    ...(status ? { status } : {}),
+    ...(resourceTag ? {resourceTag: resourceTag} : {}),
+    ...(relationType ? {relationType} : {}),
+    ...(typeof isAssigned === "boolean" ? {isAssigned} : {}),
+    ...(status ? {status} : {}),
     ...(search
       ? {
           OR: [
-            { titleEn: { contains: search, mode: "insensitive" } },
-            { titleAr: { contains: search, mode: "insensitive" } },
-            { slug: { contains: search, mode: "insensitive" } },
+            {titleEn: {contains: search, mode: "insensitive"}},
+            {titleAr: {contains: search, mode: "insensitive"}},
+            {slug: {contains: search, mode: "insensitive"}},
           ],
         }
       : {}),
@@ -69,7 +69,7 @@ export const fetchResources = async (
         },
       },
     },
-    orderBy: { createdAt: "desc" },
+    orderBy: {createdAt: "desc"},
     skip,
     take: parseInt(limit),
   });
@@ -120,16 +120,16 @@ export const fetchAllResourcesWithContent = async (
   // Build the where clause based on provided filters
   const whereClause = {
     ...resourceTypeFilter,
-    ...(resourceTag ? { resourceTag: resourceTag } : {}),
-    ...(relationType ? { relationType } : {}),
-    ...(typeof isAssigned === "boolean" ? { isAssigned } : {}),
-    ...(status ? { status } : {}),
+    ...(resourceTag ? {resourceTag: resourceTag} : {}),
+    ...(relationType ? {relationType} : {}),
+    ...(typeof isAssigned === "boolean" ? {isAssigned} : {}),
+    ...(status ? {status} : {}),
     ...(search
       ? {
           OR: [
-            { titleEn: { contains: search, mode: "insensitive" } },
-            { titleAr: { contains: search, mode: "insensitive" } },
-            { slug: { contains: search, mode: "insensitive" } },
+            {titleEn: {contains: search, mode: "insensitive"}},
+            {titleAr: {contains: search, mode: "insensitive"}},
+            {slug: {contains: search, mode: "insensitive"}},
           ],
         }
       : {}),
@@ -174,7 +174,7 @@ export const fetchAllResourcesWithContent = async (
       //   },
       // },
     },
-    orderBy: { createdAt: "desc" },
+    orderBy: {createdAt: "desc"},
     skip,
     take: parseInt(limit),
   });
@@ -199,14 +199,14 @@ export const fetchAllResourcesWithContent = async (
 
       // Process live version if it exists
       if (resource.liveVersion) {
-        formattedResource.liveVersion = await formatResourceVersion(
+        formattedResource.liveModeVersionData = await formatResourceVersion(
           resource.liveVersion
         );
       }
 
       // // Process edit version if it exists
       // if (resource.newVersionEditMode) {
-      //   formattedResource.editVersion = await formatResourceVersion(
+      //   formattedResource.editModeVersionData = await formatResourceVersion(
       //     resource.newVersionEditMode
       //   );
       // }
@@ -396,7 +396,7 @@ export const assignUserToResource = async (
 ) => {
   // First, get the current resource and its active version (if any)
   const currentResource = await prismaClient.resource.findUnique({
-    where: { id: resourceId },
+    where: {id: resourceId},
     include: {
       newVersionEditMode: true,
       roles: true,
@@ -412,11 +412,11 @@ export const assignUserToResource = async (
   return await prismaClient.$transaction(async (prisma) => {
     // 1. Clear existing roles and verifiers for this resource
     await prisma.resourceRole.deleteMany({
-      where: { resourceId },
+      where: {resourceId},
     });
 
     await prisma.resourceVerifier.deleteMany({
-      where: { resourceId },
+      where: {resourceId},
     });
 
     // 2. Create new resource roles
@@ -486,11 +486,11 @@ export const assignUserToResource = async (
     if (currentResource.newVersionEditModeId) {
       // Clear existing roles and verifiers for this version
       await prisma.resourceVersionRole.deleteMany({
-        where: { resourceVersionId: currentResource.newVersionEditModeId },
+        where: {resourceVersionId: currentResource.newVersionEditModeId},
       });
 
       await prisma.resourceVersionVerifier.deleteMany({
-        where: { resourceVersionId: currentResource.newVersionEditModeId },
+        where: {resourceVersionId: currentResource.newVersionEditModeId},
       });
 
       // Create version roles
@@ -556,8 +556,8 @@ export const assignUserToResource = async (
 
     // 5. Update the resource to mark it as assigned
     const updatedResource = await prisma.resource.update({
-      where: { id: resourceId },
-      data: { isAssigned: true },
+      where: {id: resourceId},
+      data: {isAssigned: true},
       include: {
         roles: {
           include: {
@@ -654,6 +654,10 @@ export const fetchContent = async (resourceId) => {
           content: true,
           icon: true,
           Image: true,
+          notes: true,
+          referenceDoc: true,
+          updatedAt: true,
+          versionStatus: true,
           sections: {
             include: {
               sectionVersion: true,
@@ -671,6 +675,10 @@ export const fetchContent = async (resourceId) => {
           content: true,
           icon: true,
           Image: true,
+          notes: true,
+          referenceDoc: true,
+          updatedAt: true,
+          versionStatus: true,
           sections: {
             include: {
               sectionVersion: true,
@@ -701,12 +709,14 @@ export const fetchContent = async (resourceId) => {
 
   // Process live version if it exists
   if (resource.liveVersion) {
-    result.liveVersion = await formatResourceVersion(resource.liveVersion);
+    result.liveModeVersionData = await formatResourceVersion(
+      resource.liveVersion
+    );
   }
 
   // Process edit version if it exists
   if (resource.newVersionEditMode) {
-    result.editVersion = await formatResourceVersion(
+    result.editModeVersionData = await formatResourceVersion(
       resource.newVersionEditMode
     );
   }
@@ -902,6 +912,10 @@ async function formatResourceVersion(resourceVersion) {
     content: resourceVersion.content || {},
     icon: resourceVersion.icon || null,
     image: resourceVersion.Image || null,
+    comments: resourceVersion.notes,
+    referenceDoc: resourceVersion.referenceDoc,
+    updatedAt: resourceVersion.updatedAt,
+    status: resourceVersion.versionStatus,
     sections: formattedSections,
   };
 }
@@ -930,16 +944,17 @@ export const createOrUpdateVersion = async (resourceId, contentData) => {
     },
   });
 
-  console.log(resource, 'resource1');
+  console.log(resource, "resource1");
 
   if (!resource) {
     throw new Error(`Resource with ID ${resourceId} not found`);
   }
 
   // Extract the content from the request
-  const { newVersionEditMode } = contentData;
+  const {newVersionEditMode} = contentData;
   const saveAs = newVersionEditMode?.versionStatus || "DRAFT";
-  console.log(resource, 'resource2');
+  console.log(saveAs, "resource2");
+  // return resource
 
   // Start a transaction to ensure all operations succeed or fail together
   return await prismaClient.$transaction(async (tx) => {
@@ -947,274 +962,61 @@ export const createOrUpdateVersion = async (resourceId, contentData) => {
 
     // Check if we need to create a new version or update an existing one
     if (!resource.newVersionEditModeId) {
-      // No edit version exists, create a new one
-      const nextVersionNumber = resource._count.versions + 1;
-
-      // Create a new resource version
-      resourceVersion = await tx.resourceVersion.create({
+      const resourceVersion = await tx.resourceVersion.create({
         data: {
           resourceId: resource.id,
-          versionNumber: nextVersionNumber,
+          versionNumber: resource._count.versions + 1,
           versionStatus: saveAs,
           notes: newVersionEditMode?.comments || "Version created",
-          // referenceDoc: newVersionEditMode?.referenceDoc || null,
+          referenceDoc: newVersionEditMode?.referenceDoc || null,
           content: newVersionEditMode?.content || {},
           icon: newVersionEditMode?.icon || null,
           Image: newVersionEditMode?.image || null,
         },
       });
 
-      // Update the resource to point to the new version as the edit mode version
       await tx.resource.update({
-        where: { id: resource.id },
-        data: { newVersionEditModeId: resourceVersion.id },
+        where: {id: resource.id},
+        data: {newVersionEditModeId: resourceVersion.id},
       });
 
-      // Process sections if they exist
+      console.log("Resource version created:", resourceVersion);
+
       if (Array.isArray(newVersionEditMode?.sections)) {
         for (let i = 0; i < newVersionEditMode.sections.length; i++) {
           const sectionData = newVersionEditMode.sections[i];
-          const sectionId = sectionData.sectionId;
-          const order = sectionData.order || i + 1;
-
-          // Check if the section already exists in this resource version
-          const section = await tx.section.findUnique({
-            where: {
-              id: sectionId,
-            },
-            include: {
-              _count: {
-                select: {
-                  versions: true,
-                },
-              },
-            },
+          await createSectionVersionWithChildren(tx, {
+            sectionData,
+            resource,
+            resourceVersion,
+            order: sectionData.order || i + 1,
           });
-          
-          if (!section) {
-            throw new Error(`Section not found for id: ${sectionId}`);
-          }
-          
-          console.log('Version count:', section._count.versions);
-
-          const nextVersionNumber = section._count.versions + 1;
-
-          console.log(nextVersionNumber, 'nextVersionNumber');
-
-          // Create a new section version
-          const sectionVersion = await tx.sectionVersion.create({
-            data: {
-              sectionId: sectionId,
-              resourceId: resource.id,
-              resourceVersionId: resourceVersion.id,
-              version: nextVersionNumber, // First version for this section in this resource version
-              content: sectionData.content || {},
-              sectionVersionTitle: null, // Can be updated if needed
-            },
-          });
-
-          // Link to ResourceVersion
-          await tx.resourceVersionSection.create({
-            data: {
-              order: order,
-              resourceVersionId: resourceVersion.id,
-              sectionVersionId: sectionVersion.id,
-            },
-          });
-
-          // Process items if they exist
-          if (Array.isArray(sectionData.items)) {
-            for (let j = 0; j < sectionData.items.length; j++) {
-              const item = sectionData.items[j];
-              const itemOrder = item.order || j + 1;
-
-              await tx.sectionVersionItem.create({
-                data: {
-                  order: itemOrder,
-                  sectionVersionId: sectionVersion.id,
-                  resourceId: item.id,
-                },
-              });
-            }
-          }
-
-          // Process child sections if they exist
-          if (Array.isArray(sectionData.sections)) {
-            for (let k = 0; k < sectionData.sections.length; k++) {
-              const childData = sectionData.sections[k];
-              const childOrder = childData.order || k + 1;
-
-              // Create child section version with parent reference
-              const childSectionVersion = await tx.sectionVersion.create({
-                data: {
-                  sectionId: childData.sectionId,
-                  resourceId: resource.id,
-                  resourceVersionId: resourceVersion.id,
-                  version: 1,
-                  content: childData.content || {},
-                  sectionVersionTitle: null,
-                  parentVersionId: sectionVersion.id, // Link to parent
-                },
-              });
-
-              // Link child to ResourceVersion
-              await tx.resourceVersionSection.create({
-                data: {
-                  order: childOrder,
-                  resourceVersionId: resourceVersion.id,
-                  sectionVersionId: childSectionVersion.id,
-                },
-              });
-
-              // Process items in child section
-              if (Array.isArray(childData.items)) {
-                for (let l = 0; l < childData.items.length; l++) {
-                  const childItem = childData.items[l];
-                  const childItemOrder = childItem.order || l + 1;
-
-                  await tx.sectionVersionItem.create({
-                    data: {
-                      order: childItemOrder,
-                      sectionVersionId: childSectionVersion.id,
-                      resourceId: childItem.id,
-                    },
-                  });
-                }
-              }
-            }
-          }
         }
       }
     } else {
       // Edit version already exists, update it
       resourceVersion = await tx.resourceVersion.update({
-        where: { id: resource.newVersionEditModeId },
+        where: {id: resource.newVersionEditModeId},
         data: {
           versionStatus: saveAs,
           notes:
             newVersionEditMode?.comments || resource.newVersionEditMode.notes,
-            notes:
-            newVersionEditMode?.comments || resource.newVersionEditMode.notes,
-            // referenceDoc:newVersionEditMode?.referenceDoc,
+          referenceDoc:
+            newVersionEditMode?.referenceDoc ||
+            resource.newVersionEditMode.referenceDoc,
+          content:
+            newVersionEditMode?.content || resource.newVersionEditMode.content,
           icon: newVersionEditMode?.icon || resource.newVersionEditMode.icon,
           Image: newVersionEditMode?.image || resource.newVersionEditMode.Image,
         },
       });
 
-      // Process sections if they exist
+      console.log("Updated resource version:", resourceVersion);
+
+      // Update sections recursively
       if (Array.isArray(newVersionEditMode?.sections)) {
-        // Get existing section versions for this resource version
-        const existingSectionVersions = await tx.sectionVersion.findMany({
-          where: { resourceVersionId: resourceVersion.id },
-          include: { items: true },
-        });
-
-        // Create a map of section IDs to section versions for quick lookup
-        const sectionVersionMap = existingSectionVersions.reduce((map, sv) => {
-          map[sv.sectionId] = sv;
-          return map;
-        }, {});
-
-        // Process each section in the request
-        for (let i = 0; i < newVersionEditMode.sections.length; i++) {
-          const sectionData = newVersionEditMode.sections[i];
-          const sectionId = sectionData.sectionId;
-          const order = sectionData.order || i + 1;
-
-          // Check if we already have a version for this section
-          const existingSectionVersion = sectionVersionMap[sectionId];
-
-          if (existingSectionVersion) {
-            // Update existing section version
-            await tx.sectionVersion.update({
-              where: { id: existingSectionVersion.id },
-              data: { content: sectionData.content || {} },
-            });
-
-            // Update the order if needed
-            const existingLink = await tx.resourceVersionSection.findUnique({
-              where: {
-                resourceVersionId_sectionVersionId: {
-                  resourceVersionId: resourceVersion.id,
-                  sectionVersionId: existingSectionVersion.id,
-                },
-              },
-            });
-
-            if (existingLink && existingLink.order !== order) {
-              await tx.resourceVersionSection.update({
-                where: {
-                  resourceVersionId_sectionVersionId: {
-                    resourceVersionId: resourceVersion.id,
-                    sectionVersionId: existingSectionVersion.id,
-                  },
-                },
-                data: { order },
-              });
-            }
-
-            // Process items if they exist
-            if (Array.isArray(sectionData.items)) {
-              // Delete existing items
-              await tx.sectionVersionItem.deleteMany({
-                where: { sectionVersionId: existingSectionVersion.id },
-              });
-
-              // Create new items
-              for (let j = 0; j < sectionData.items.length; j++) {
-                const item = sectionData.items[j];
-                const itemOrder = item.order || j + 1;
-
-                await tx.sectionVersionItem.create({
-                  data: {
-                    order: itemOrder,
-                    sectionVersionId: existingSectionVersion.id,
-                    resourceId: item.id,
-                  },
-                });
-              }
-            }
-          } else {
-            // Create a new section version
-            const sectionVersion = await tx.sectionVersion.create({
-              data: {
-                sectionId: sectionId,
-                resourceId: resource.id,
-                resourceVersionId: resourceVersion.id,
-                version: 1,
-                content: sectionData.content || {},
-                sectionVersionTitle: null,
-              },
-            });
-
-            // Link to ResourceVersion
-            await tx.resourceVersionSection.create({
-              data: {
-                order: order,
-                resourceVersionId: resourceVersion.id,
-                sectionVersionId: sectionVersion.id,
-              },
-            });
-
-            // Process items if they exist
-            if (Array.isArray(sectionData.items)) {
-              for (let j = 0; j < sectionData.items.length; j++) {
-                const item = sectionData.items[j];
-                const itemOrder = item.order || j + 1;
-
-                await tx.sectionVersionItem.create({
-                  data: {
-                    order: itemOrder,
-                    sectionVersionId: sectionVersion.id,
-                    resourceId: item.id,
-                  },
-                });
-              }
-            }
-          }
-
-          // Process child sections if they exist
-          // Similar logic as above for child sections...
+        for (const sectionData of newVersionEditMode.sections) {
+          await updateSectionVersion(tx, sectionData, resourceVersion.id);
         }
       }
     }
@@ -1222,3 +1024,128 @@ export const createOrUpdateVersion = async (resourceId, contentData) => {
     return resourceVersion;
   });
 };
+
+async function createSectionVersionWithChildren(
+  tx,
+  {sectionData, resource, resourceVersion, parentVersionId = null, order = 1}
+) {
+  const sectionId = sectionData.sectionId;
+
+  const section = await tx.section.findUnique({
+    where: {id: sectionId},
+    include: {
+      _count: {
+        select: {versions: true},
+      },
+    },
+  });
+
+  if (!section) {
+    throw new Error(`Section not found for id: ${sectionId}`);
+  }
+
+  const nextVersionNumber = section._count.versions + 1;
+
+  // Create section version
+  const sectionVersion = await tx.sectionVersion.create({
+    data: {
+      sectionId,
+      resourceId: resource.id,
+      resourceVersionId: resourceVersion.id,
+      version: nextVersionNumber,
+      content: sectionData.content || {},
+      parentVersionId,
+      sectionVersionTitle: sectionData.sectionVersionTitle || null,
+    },
+  });
+
+  // Link section to resource version
+  await tx.resourceVersionSection.create({
+    data: {
+      order,
+      resourceVersionId: resourceVersion.id,
+      sectionVersionId: sectionVersion.id,
+    },
+  });
+
+  // Add items
+  if (Array.isArray(sectionData.items)) {
+    for (let j = 0; j < sectionData.items.length; j++) {
+      const item = sectionData.items[j];
+      await tx.sectionVersionItem.create({
+        data: {
+          order: item.order || j + 1,
+          sectionVersionId: sectionVersion.id,
+          resourceId: item.id,
+        },
+      });
+    }
+  }
+
+  // Recursively add child sections
+  if (Array.isArray(sectionData.sections)) {
+    for (let k = 0; k < sectionData.sections.length; k++) {
+      await createSectionVersionWithChildren(tx, {
+        sectionData: sectionData.sections[k],
+        resource,
+        resourceVersion,
+        parentVersionId: sectionVersion.id,
+        order: sectionData.sections[k].order || k + 1,
+      });
+    }
+  }
+}
+
+async function updateSectionVersion(tx, sectionData, resourceVersionId) {
+  const sectionId = sectionData.sectionId;
+  const order = sectionData.order;
+
+  // Check if sectionVersion already exists
+  let sectionVersion = await tx.sectionVersion.findFirst({
+    where: {
+      sectionId: sectionId,
+      resourceVersionId: resourceVersionId,
+    },
+  });
+
+  if (sectionVersion) {
+    sectionVersion = await tx.sectionVersion.update({
+      where: {id: sectionVersion.id},
+      data: {
+        ...(sectionData.content !== undefined
+          ? {content: sectionData.content}
+          : {}),
+      },
+    });
+  }
+
+  // Delete existing items
+  await tx.sectionVersionItem.deleteMany({
+    where: {sectionVersionId: sectionVersion.id},
+  });
+
+  // Insert new items
+  if (Array.isArray(sectionData.items)) {
+    for (let j = 0; j < sectionData.items.length; j++) {
+      const item = sectionData.items[j];
+      await tx.sectionVersionItem.create({
+        data: {
+          order: item.order || j + 1,
+          sectionVersionId: sectionVersion.id,
+          resourceId: item.id,
+        },
+      });
+    }
+  }
+
+  // Recursively handle nested sections
+  if (Array.isArray(sectionData.sections)) {
+    for (let k = 0; k < sectionData.sections.length; k++) {
+      await updateSectionVersion(
+        tx,
+        sectionData.sections[k],
+        resourceVersionId
+      );
+    }
+  }
+}

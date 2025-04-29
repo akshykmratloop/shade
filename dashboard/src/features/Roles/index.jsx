@@ -1,22 +1,22 @@
 // libraries import
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import PlusIcon from "@heroicons/react/24/outline/PlusIcon";
-import {toast, ToastContainer} from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 // self modules
-import {fetchRoles, activateRole, deactivateRole} from "../../app/fetch";
+import { fetchRoles, activateRole, deactivateRole } from "../../app/fetch";
 import AddRoleModal from "./AddRole";
 import SearchBar from "../../components/Input/SearchBar";
 import TitleCard from "../../components/Cards/TitleCard";
 import RoleDetailsModal from "./ShowRole";
 import updateToasify from "../../app/toastify";
 // icons
-import {Switch} from "@headlessui/react";
+import { Switch } from "@headlessui/react";
 import XMarkIcon from "@heroicons/react/24/outline/XMarkIcon";
-import {FiEye} from "react-icons/fi";
-import {FiEdit} from "react-icons/fi";
-import {RxQuestionMarkCircled} from "react-icons/rx";
-import {LuListFilter} from "react-icons/lu";
-import {LuImport} from "react-icons/lu";
+import { FiEye } from "react-icons/fi";
+import { FiEdit } from "react-icons/fi";
+import { RxQuestionMarkCircled } from "react-icons/rx";
+import { LuListFilter } from "react-icons/lu";
+import { LuImport } from "react-icons/lu";
 import capitalizeWords from "../../app/capitalizeword";
 import Paginations from "../Component/Paginations";
 // import userIcon from "../../assets/user.png"
@@ -82,7 +82,7 @@ const TopSideButtons = ({
             <li key={key}>
               <a
                 onClick={() => showFiltersAndApply(status)}
-                style={{textTransform: "capitalize"}}
+                style={{ textTransform: "capitalize" }}
               >
                 {capitalizeWords(status)}
               </a>
@@ -118,13 +118,13 @@ function Roles() {
 
   const applyFilter = (status) => {
     const filteredRoles = originalRoles?.filter(
-      (role) => role.status === status
+      (role) => role?.status === status
     );
     setRoles(filteredRoles);
   };
   const applySearch = (value) => {
     const filteredRoles = originalRoles?.filter((role) =>
-      role?.name.toLowerCase().includes(value.toLowerCase())
+      role?.name?.toLowerCase().includes(value.toLowerCase())
     );
     setCurrentPage(1);
     setRoles(filteredRoles);
@@ -132,32 +132,37 @@ function Roles() {
 
   const statusChange = async (role) => {
     let loadingToastId = toast.loading("Proceeding..."); // starting the loading in toaster
-    let response;
-    if (role.status === "ACTIVE") response = await deactivateRole(role);
-    else response = await activateRole(role);
-    if (response.ok) {
-      updateToasify(
-        loadingToastId,
-        `Request successful. ${response.message}`,
-        "success",
-        2000
-      ); // updating the toaster
-      // toast.dismiss(loadingToastId) // to deactivate to running taost
-      // setTimeout(() => {
-      //   loadingToastId = undefined
-      // }, 2000)
-      setChangesInRole((prev) => !prev);
-    } else {
-      updateToasify(
-        loadingToastId,
-        `Request failed. ${response.message}`,
-        "error",
-        2000
-      ); // updating the toaster
-      // setTimeout(() => {
-      //   loadingToastId = undefined
-      //   toast.dismiss(loadingToastId) // to deactivate to running taost
-      // }, 2000)
+    try {
+
+      let response;
+      if (role?.status === "ACTIVE") response = await deactivateRole(role);
+      else response = await activateRole(role);
+      if (response?.ok) {
+        updateToasify(
+          loadingToastId,
+          `Request successful. ${response.message}`,
+          "success",
+          2000
+        ); // updating the toaster
+        // toast.dismiss(loadingToastId) // to deactivate to running taost
+        // setTimeout(() => {
+        //   loadingToastId = undefined
+        // }, 2000)
+        setChangesInRole((prev) => !prev);
+      } else {
+        updateToasify(
+          loadingToastId,
+          `Request failed. ${response.message}`,
+          "error",
+          2000
+        ); // updating the toaster
+        // setTimeout(() => {
+        //   loadingToastId = undefined
+        //   toast.dismiss(loadingToastId) // to deactivate to running taost
+        // }, 2000)
+      }
+    } catch (err) {
+      console.log(err)
     }
     toast.dismiss(loadingToastId); // to deactivate to running taost
   };
@@ -170,7 +175,7 @@ function Roles() {
 
   useEffect(() => {
     async function fetchRoleData() {
-      const response = await fetchRoles({limit: 100});
+      const response = await fetchRoles({ limit: 100 });
       setRoles(response?.roles?.roles ?? []);
       setOriginalRoles(response?.roles?.roles ?? []); // Store the original unfiltered data
     }
@@ -207,14 +212,14 @@ function Roles() {
         <div className="min-h-[28.2rem] flex flex-col justify-between">
           <div className="overflow-x-auto w-full border dark:border-stone-600 rounded-2xl">
             <table className="table text-center min-w-full dark:text-[white]">
-              <thead className="" style={{borderRadius: ""}}>
+              <thead className="" style={{ borderRadius: "" }}>
                 <tr
                   className="!capitalize"
-                  style={{textTransform: "capitalize"}}
+                  style={{ textTransform: "capitalize" }}
                 >
                   <th
                     className="font-medium text-[12px] text-left font-poppins leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white] text-[#42526D] px-[24px] py-[13px] !capitalize"
-                    style={{position: "static", width: "363px"}}
+                    style={{ position: "static", width: "363px" }}
                   >
                     {" "}
                     Role Name
@@ -241,7 +246,7 @@ function Roles() {
                       <tr
                         key={index}
                         className="font-light "
-                        style={{height: "65px"}}
+                        style={{ height: "65px" }}
                       >
                         <td
                           className={`font-poppins h-[65px] truncate font-normal text-[14px] leading-normal text-[#101828] p-[26px] pl-5 flex`}
@@ -254,7 +259,7 @@ function Roles() {
                         </td>
 
                         <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]">
-                          <span className="">{role?._count?.permissions}</span>
+                          <span className="">{role?._count?.permissions ?? "N/A"}</span>
                         </td>
                         {/* <td className="font-poppins font-light text-[12px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]">
                           <span className="">
@@ -263,17 +268,16 @@ function Roles() {
                         </td> */}
                         <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]" style={{ whiteSpace: "wrap" }}>
                           <span className="">
-                            {role?._count?.users || "1"}
+                            {role?._count?.users ?? "N/A"}
                           </span>
                         </td>
                         <td className="font-poppins font-light text-[12px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]">
                           <p
-                            className={`w-[85px] mx-auto before:content-['•'] before:text-2xl flex h-7 items-center justify-center gap-1 px-1 py-0 font-[500] ${
-                              role.status === "ACTIVE"
-                                ? "text-green-600 bg-green-100 before:text-green-600 px-1"
-                                : "text-red-600 bg-red-100 before:text-red-600 "
-                            } rounded-2xl`}
-                            style={{textTransform: "capitalize"}}
+                            className={`w-[85px] mx-auto before:content-['•'] before:text-2xl flex h-7 items-center justify-center gap-1 px-1 py-0 font-[500] ${role.status === "ACTIVE"
+                              ? "text-green-600 bg-green-100 before:text-green-600 px-1"
+                              : "text-red-600 bg-red-100 before:text-red-600 "
+                              } rounded-2xl`}
+                            style={{ textTransform: "capitalize" }}
                           >
                             {capitalizeWords(role?.status)}
                           </p>
@@ -311,18 +315,16 @@ function Roles() {
                                 onChange={() => {
                                   statusChange(role);
                                 }}
-                                className={`${
-                                  role?.status === "ACTIVE"
-                                    ? "bg-[#1DC9A0]"
-                                    : "bg-gray-300"
-                                } relative inline-flex h-2 w-8 items-center rounded-full`}
+                                className={`${role?.status === "ACTIVE"
+                                  ? "bg-[#1DC9A0]"
+                                  : "bg-gray-300"
+                                  } relative inline-flex h-2 w-8 items-center rounded-full`}
                               >
                                 <span
-                                  className={`${
-                                    role?.status === "ACTIVE"
-                                      ? "translate-x-4"
-                                      : "translate-x-0"
-                                  } inline-block h-5 w-5 bg-white rounded-full shadow-2xl border border-gray-300 transition`}
+                                  className={`${role?.status === "ACTIVE"
+                                    ? "translate-x-4"
+                                    : "translate-x-0"
+                                    } inline-block h-5 w-5 bg-white rounded-full shadow-2xl border border-gray-300 transition`}
                                 />
                               </Switch>
                             </div>

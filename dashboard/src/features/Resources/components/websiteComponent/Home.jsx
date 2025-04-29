@@ -26,16 +26,12 @@ import "swiper/css";
 import "swiper/css/pagination";
 import blankImage from "../../../../assets/images/blankImage.webp";
 import { TruncateText } from "../../../../app/capitalizeword";
-import dynamicSize from "../../../../app/fontSizes";
+import dynamicSize, { generatefontSize } from "../../../../app/fontSizes";
 import { differentText } from "../../../../app/fontSizes";
-import { getContent } from "../../../../app/fetch";
 import contentJSON from './content.json'
-import { constructFromSymbol } from "date-fns/constants";
-
 
 
 const HomePage = ({ language, screen, fullScreen, highlight, content, currentContent, liveContent }) => {
-    const titleLan = language === "en" ? "titleEn" : "titleAr"
 
     const checkDifference = differentText.checkDifference.bind(differentText);
     const isComputer = screen > 900;
@@ -47,6 +43,7 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
     const [swiperInstance, setSwiperInstance] = useState(null);
     let isLeftAlign = language === "en";
     let textAlignment = isLeftAlign ? "text-left" : "text-right"
+    const titleLan = isLeftAlign ? "titleEn" : "titleAr"
     const prevRef = useRef(null);
     const nextRef = useRef(null);
     const [activeRecentProjectSection, setActiveRecentProjectSection] = useState(0);
@@ -64,9 +61,10 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
     );
     const ProjectSlider = { ...recentProjects, ...markets, ...safety };
 
-
+    
     const divRef = useRef(null);
     const [width, setWidth] = useState(0);
+    const fontSize = generatefontSize(isComputer, dynamicSize, width)
 
     useEffect(() => {
         const observer = new ResizeObserver(entries => {
@@ -116,18 +114,18 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                     <div className={`text-left flex flex-col ${language === "en" ? "items-start" : "items-end"} ${textAlignment} ${isPhone ? "px-[0px] py-10" : "px-[80px]"}`}
                         style={{ paddingLeft: isComputer && dynamicSize(140, width) }}>
                         <h1 className={`${(highlight && checkDifference(currentContent?.homeBanner?.title[language], liveContent?.homeBanner?.title[language]))} text-[#292E3D] text-[45px] tracking-[0px]  leading-[2.5rem] capitalize font-[500] mb-4 ${isPhone ? "w-full" : fullScreen ? "w-3/5" : "w-3/5"}  `}
-                            style={{ fontSize: isComputer && dynamicSize(70, width), lineHeight: isComputer && `${(width / 1526) * 4.5}rem`, }}
+                            style={{ fontSize: fontSize.mainHeading, lineHeight: isComputer && `${(width / 1526) * 4.5}rem`, }}
                         >
                             {content?.homeBanner?.content?.title[language]}
                         </h1>
                         <p className={`${(highlight && checkDifference(currentContent?.homeBanner?.description[language], liveContent?.homeBanner?.description[language]))} text-[#0e172fb3] font-[500] leading-[16px] mb-6 ${isPhone ? "w-full text-[12px]" : "w-1/2 text-[10px]"} tracking-[0px]`}
-                            style={{ fontSize: isComputer && dynamicSize(16, width), lineHeight: isComputer && `${width / 1526 * 24}px` }}
+                            style={{ fontSize: fontSize.mainPara, lineHeight: isComputer && `${width / 1526 * 24}px` }}
                         >
                             {content?.homeBanner?.content?.description[language]}
                         </p>
                         <button
                             className={`relative items-center flex ${isLeftAlign ? "" : "flex-row-reverse"} gap-2 text-[12px] font-medium px-[12px] py-[6px] px-[12px] bg-[#00b9f2] text-white rounded-md`}
-                            style={{ fontSize: isComputer && dynamicSize(18, width) }}
+                            style={{ fontSize: fontSize.mainButton }}
                             onClick={() => { }}
                         >
                             <span className={`${(highlight && checkDifference(currentContent?.homeBanner?.buttonText[language], liveContent?.homeBanner?.buttonText[language]))}`}>
@@ -163,8 +161,8 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                         </h2>
                         <div className={`text-white font-[100] text-[12px] leading-[16px] ${highlight && checkDifference(currentContent?.aboutUsSection?.description?.[language], liveContent?.aboutUsSection?.description?.[language])}`}
                             style={{ fontSize: isComputer && dynamicSize(15, width), lineHeight: isComputer && dynamicSize(26, width) }}
-                            dangerouslySetInnerHTML={{__html: content?.markDown?.content?.description[language]}}
-                           />
+                            dangerouslySetInnerHTML={{ __html: content?.markDown?.content?.description[language] }}
+                        />
                         <button className="px-[6px] py-[2px] bg-[#00B9F2] text-white text-[12px] rounded-md hover:bg-opacity-90 text-right"
                             style={{ fontSize: isComputer && dynamicSize(18, width) }}
                         >
@@ -267,7 +265,7 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                             {content?.statistics?.content?.description[language]}
                         </p>
                         <button
-                            className={`text-white bg-[#00B9F2] px-[12px] py-1 text-sm text-lg rounded-md ${language === "ar" ? '!px-4' : ''}`}
+                            className={`text-white bg-[#00B9F2] px-[12px] py-1 text-sm text-lg rounded-md ${!isLeftAlign ? '!px-4' : ''}`}
                         >
                             {content?.statistics?.content?.button?.text?.[language]}
                         </button>

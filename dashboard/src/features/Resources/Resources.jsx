@@ -1,12 +1,12 @@
 import {useEffect, useRef, useState, useCallback} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
-
+import {lazy} from "react";
 // Components
 import ConfigBar from "./components/breakUI/ConfigBar";
 import PageDetails from "./components/breakUI/PageDetails";
 import Navbar from "../../containers/Navbar";
-import AllForOne from "./components/AllForOne";
+// import AllForOne from "./components/AllForOne"
 import {ToastContainer} from "react-toastify";
 import {MoonLoader} from "react-spinners";
 
@@ -21,10 +21,12 @@ import unavailableIcon from "../../assets/no_data_found.svg";
 import content from "./components/websiteComponent/content.json";
 
 // Redux
-import {getLeadsContent} from "./leadSlice";
+// import { getLeadsContent } from "./leadSlice"
 import {getResources} from "../../app/fetch";
 import {updateTag, updateType} from "../common/navbarSlice";
 import {updateRouteLists} from "../common/routeLists";
+
+const AllForOne = lazy(() => import("./components/AllForOne"));
 
 function Resources() {
   const dispatch = useDispatch();
@@ -83,7 +85,7 @@ function Resources() {
   }, []);
 
   useEffect(() => {
-    dispatch(getLeadsContent());
+    // dispatch(getLeadsContent())
 
     const currentResource = localStorage.getItem("resourceType") || "MAIN_PAGE";
     const currentTag = localStorage.getItem("resourceTag") || "MAIN";
@@ -227,12 +229,7 @@ function Resources() {
 
                 <div className="relative aspect-[10/11] overflow-hidden">
                   <div className="h-full overflow-y-scroll customscroller">
-                    <AllForOne
-                      currentPath={page.slug}
-                      content={content}
-                      language="en"
-                      screen={screen}
-                    />
+                    {/* <AllForOne currentPath={page.slug} content={content} language="en" screen={screen} /> */}
                   </div>
 
                   <div className="absolute z-10 bottom-0 left-0 w-full h-1/3 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
