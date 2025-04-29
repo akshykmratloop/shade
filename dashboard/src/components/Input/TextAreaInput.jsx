@@ -10,7 +10,8 @@ function TextAreaInput({
   updateFormValue,
   updateType,
   language,
-  maxLength
+  maxLength,
+  style
 }) {
   const [value, setValue] = useState(defaultValue || "");
   const textareaRef = useRef(null);
@@ -39,7 +40,8 @@ function TextAreaInput({
   }, [defaultValue]);
 
   return (
-    <div className={`form-control w-full my-2 ${containerStyle}`}>
+    <div className={`form-control w-full my-2 ${containerStyle}`}
+      style={style}>
       {labelTitle && (
         <label className="label-text text-[#6B7888] mb-[5px]">
           <span className={"label-text text-[#6B7888]" + labelStyle} style={{ color: "#6B7888" }}>

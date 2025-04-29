@@ -207,40 +207,49 @@ function UserDetailsModal({ user, show, onClose }) {
                 </table>
                 <table className="w-full text-left">
                   <tbody className="bg-[#fcfcfc] dark:bg-transparent">
-                    {fetchedUser?.roles?.map((role, i) => {
-                      // console.log("role", role);
-
-                      return (
-                        <tr
-                          key={role?.role?.id}
-                          className="font-light text-[14px] text-[#101828] dark:text-[#f5f5f4]"
-                        >
-                          <td className="px-4 py-2 align-top dark:border dark:border-[#232d3d] w-1/3">
+                    {
+                      fetchedUser?.roles?.length === 0 ?
+                        (<tr>
+                          <td className="px-4 py-2 align-top text-center dark:border dark:border-[#232d3d] w-1/3 " colSpan={2}>
                             <div className="h-full">
-                              <span className="font-[500] relative  inline-flex items-center before:content-['•'] before:text-stone-800 before:mr-2">
-                                {capitalizeWords(role?.role?.name)}
-                              </span>
+                                No associated roles and permission found.
                             </div>
                           </td>
-                          <td className="px-4 py-2 dark:border dark:border-[#232d3d] ">
-                            {role?.role?.permissions.map((permission, i, a) => {
-                              const lastElement = i === a.length - 1;
-                              return (
-                                <span
-                                  key={permission.id}
-                                  className="relative pl-2 inline-flex items-center before:content-['•'] before:text-stone-800 before:mr-2"
-                                >
-                                  {capitalizeWords(permission?.permission?.name)}
-                                  {!lastElement && (
-                                    <span className="font-[500] px-1">,</span>
-                                  )}
-                                </span>
-                              );
-                            })}
-                          </td>
-                        </tr>
-                      );
-                    })}
+                        </tr>) :
+                        fetchedUser?.roles?.map((role, i) => {
+                          // console.log("role", role);
+
+                          return (
+                            <tr
+                              key={role?.role?.id}
+                              className="font-light text-[14px] text-[#101828] dark:text-[#f5f5f4]"
+                            >
+                              <td className="px-4 py-2 align-top dark:border dark:border-[#232d3d] w-1/3">
+                                <div className="h-full">
+                                  <span className="font-[500] relative  inline-flex items-center before:content-['•'] before:text-stone-800 before:mr-2">
+                                    {capitalizeWords(role?.role?.name)}
+                                  </span>
+                                </div>
+                              </td>
+                              <td className="px-4 py-2 dark:border dark:border-[#232d3d] ">
+                                {role?.role?.permissions.map((permission, i, a) => {
+                                  const lastElement = i === a.length - 1;
+                                  return (
+                                    <span
+                                      key={permission.id}
+                                      className="relative pl-2 inline-flex items-center before:content-['•'] before:text-stone-800 before:mr-2"
+                                    >
+                                      {capitalizeWords(permission?.permission?.name)}
+                                      {!lastElement && (
+                                        <span className="font-[500] px-1">,</span>
+                                      )}
+                                    </span>
+                                  );
+                                })}
+                              </td>
+                            </tr>
+                          );
+                        })}
                   </tbody>
                 </table>
               </div>

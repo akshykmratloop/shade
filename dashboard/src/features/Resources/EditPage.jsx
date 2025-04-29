@@ -76,7 +76,7 @@ const EditPage = () => {
                                 style={{ width: screen > 900 ? "60%" : "" }}
                             >
                                 <ContentTopBar setWidth={setScreen} setFullScreen={setFullScreen} raisePopup={{ reject: () => setPopupReject(true), submit: () => setPopupSubmit(true) }} />
-                                <h4 className="text-[#6B7888] text-[14px] mt-1 mb-[2px]">Commented by {"Anukool (Super Admin)"}</h4>
+                                <h4 className="text-[#6B7888] text-[14px] mt-2 mb-[1px]">Add Note</h4>
                                 <TextAreaInput
                                     updateFormValue={() => { }}
                                     placeholder={"Comments..."}
@@ -84,6 +84,7 @@ const EditPage = () => {
                                     textAreaStyle={""}
                                     containerStyle={"mb-4"}
                                     minHeight={"3.2rem"}
+                                    style={{marginTop:"4px"}}
                                 />
                                 <AllForOne language={language} screen={screen} content={content.content} subPath={subPath} deepPath={deepPath} setLanguage={setLanguage} fullScreen={fullScreen} currentPath={currentPath} />
 
