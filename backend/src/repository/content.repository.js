@@ -29,16 +29,16 @@ export const fetchResources = async (
   // Build the where clause based on provided filters
   const whereClause = {
     ...resourceTypeFilter,
-    ...(resourceTag ? { resourceTag: resourceTag } : {}),
-    ...(relationType ? { relationType } : {}),
-    ...(typeof isAssigned === "boolean" ? { isAssigned } : {}),
-    ...(status ? { status } : {}),
+    ...(resourceTag ? {resourceTag: resourceTag} : {}),
+    ...(relationType ? {relationType} : {}),
+    ...(typeof isAssigned === "boolean" ? {isAssigned} : {}),
+    ...(status ? {status} : {}),
     ...(search
       ? {
           OR: [
-            { titleEn: { contains: search, mode: "insensitive" } },
-            { titleAr: { contains: search, mode: "insensitive" } },
-            { slug: { contains: search, mode: "insensitive" } },
+            {titleEn: {contains: search, mode: "insensitive"}},
+            {titleAr: {contains: search, mode: "insensitive"}},
+            {slug: {contains: search, mode: "insensitive"}},
           ],
         }
       : {}),
@@ -69,7 +69,7 @@ export const fetchResources = async (
         },
       },
     },
-    orderBy: { createdAt: "desc" },
+    orderBy: {createdAt: "desc"},
     skip,
     take: parseInt(limit),
   });
@@ -120,16 +120,16 @@ export const fetchAllResourcesWithContent = async (
   // Build the where clause based on provided filters
   const whereClause = {
     ...resourceTypeFilter,
-    ...(resourceTag ? { resourceTag: resourceTag } : {}),
-    ...(relationType ? { relationType } : {}),
-    ...(typeof isAssigned === "boolean" ? { isAssigned } : {}),
-    ...(status ? { status } : {}),
+    ...(resourceTag ? {resourceTag: resourceTag} : {}),
+    ...(relationType ? {relationType} : {}),
+    ...(typeof isAssigned === "boolean" ? {isAssigned} : {}),
+    ...(status ? {status} : {}),
     ...(search
       ? {
           OR: [
-            { titleEn: { contains: search, mode: "insensitive" } },
-            { titleAr: { contains: search, mode: "insensitive" } },
-            { slug: { contains: search, mode: "insensitive" } },
+            {titleEn: {contains: search, mode: "insensitive"}},
+            {titleAr: {contains: search, mode: "insensitive"}},
+            {slug: {contains: search, mode: "insensitive"}},
           ],
         }
       : {}),
@@ -174,7 +174,7 @@ export const fetchAllResourcesWithContent = async (
       //   },
       // },
     },
-    orderBy: { createdAt: "desc" },
+    orderBy: {createdAt: "desc"},
     skip,
     take: parseInt(limit),
   });
@@ -396,7 +396,7 @@ export const assignUserToResource = async (
 ) => {
   // First, get the current resource and its active version (if any)
   const currentResource = await prismaClient.resource.findUnique({
-    where: { id: resourceId },
+    where: {id: resourceId},
     include: {
       newVersionEditMode: true,
       roles: true,
@@ -412,11 +412,11 @@ export const assignUserToResource = async (
   return await prismaClient.$transaction(async (prisma) => {
     // 1. Clear existing roles and verifiers for this resource
     await prisma.resourceRole.deleteMany({
-      where: { resourceId },
+      where: {resourceId},
     });
 
     await prisma.resourceVerifier.deleteMany({
-      where: { resourceId },
+      where: {resourceId},
     });
 
     // 2. Create new resource roles
@@ -486,11 +486,11 @@ export const assignUserToResource = async (
     if (currentResource.newVersionEditModeId) {
       // Clear existing roles and verifiers for this version
       await prisma.resourceVersionRole.deleteMany({
-        where: { resourceVersionId: currentResource.newVersionEditModeId },
+        where: {resourceVersionId: currentResource.newVersionEditModeId},
       });
 
       await prisma.resourceVersionVerifier.deleteMany({
-        where: { resourceVersionId: currentResource.newVersionEditModeId },
+        where: {resourceVersionId: currentResource.newVersionEditModeId},
       });
 
       // Create version roles
@@ -556,8 +556,8 @@ export const assignUserToResource = async (
 
     // 5. Update the resource to mark it as assigned
     const updatedResource = await prisma.resource.update({
-      where: { id: resourceId },
-      data: { isAssigned: true },
+      where: {id: resourceId},
+      data: {isAssigned: true},
       include: {
         roles: {
           include: {
@@ -656,8 +656,8 @@ export const fetchContent = async (resourceId) => {
           Image: true,
           notes: true,
           referenceDoc: true,
-          updatedAt:true,
-          versionStatus : true,
+          updatedAt: true,
+          versionStatus: true,
           sections: {
             include: {
               sectionVersion: true,
@@ -677,8 +677,8 @@ export const fetchContent = async (resourceId) => {
           Image: true,
           notes: true,
           referenceDoc: true,
-          updatedAt:true,
-          versionStatus : true,
+          updatedAt: true,
+          versionStatus: true,
           sections: {
             include: {
               sectionVersion: true,
@@ -709,7 +709,9 @@ export const fetchContent = async (resourceId) => {
 
   // Process live version if it exists
   if (resource.liveVersion) {
-    result.liveModeVersionData = await formatResourceVersion(resource.liveVersion);
+    result.liveModeVersionData = await formatResourceVersion(
+      resource.liveVersion
+    );
   }
 
   // Process edit version if it exists
@@ -912,10 +914,9 @@ async function formatResourceVersion(resourceVersion) {
     image: resourceVersion.Image || null,
     comments: resourceVersion.notes,
     referenceDoc: resourceVersion.referenceDoc,
-    updatedAt : resourceVersion.updatedAt,
+    updatedAt: resourceVersion.updatedAt,
     status: resourceVersion.versionStatus,
     sections: formattedSections,
-
   };
 }
 
@@ -950,7 +951,7 @@ export const createOrUpdateVersion = async (resourceId, contentData) => {
   }
 
   // Extract the content from the request
-  const { newVersionEditMode } = contentData;
+  const {newVersionEditMode} = contentData;
   const saveAs = newVersionEditMode?.versionStatus || "DRAFT";
   console.log(saveAs, "resource2");
   // return resource
@@ -973,14 +974,14 @@ export const createOrUpdateVersion = async (resourceId, contentData) => {
           Image: newVersionEditMode?.image || null,
         },
       });
-    
+
       await tx.resource.update({
-        where: { id: resource.id },
-        data: { newVersionEditModeId: resourceVersion.id },
+        where: {id: resource.id},
+        data: {newVersionEditModeId: resourceVersion.id},
       });
-    
+
       console.log("Resource version created:", resourceVersion);
-    
+
       if (Array.isArray(newVersionEditMode?.sections)) {
         for (let i = 0; i < newVersionEditMode.sections.length; i++) {
           const sectionData = newVersionEditMode.sections[i];
@@ -992,23 +993,26 @@ export const createOrUpdateVersion = async (resourceId, contentData) => {
           });
         }
       }
-    }
-     else {
+    } else {
       // Edit version already exists, update it
       resourceVersion = await tx.resourceVersion.update({
-        where: { id: resource.newVersionEditModeId },
+        where: {id: resource.newVersionEditModeId},
         data: {
           versionStatus: saveAs,
-          notes: newVersionEditMode?.comments || resource.newVersionEditMode.notes,
-          referenceDoc: newVersionEditMode?.referenceDoc || resource.newVersionEditMode.referenceDoc,
-          content: newVersionEditMode?.content || resource.newVersionEditMode.content,
+          notes:
+            newVersionEditMode?.comments || resource.newVersionEditMode.notes,
+          referenceDoc:
+            newVersionEditMode?.referenceDoc ||
+            resource.newVersionEditMode.referenceDoc,
+          content:
+            newVersionEditMode?.content || resource.newVersionEditMode.content,
           icon: newVersionEditMode?.icon || resource.newVersionEditMode.icon,
           Image: newVersionEditMode?.image || resource.newVersionEditMode.Image,
         },
       });
-    
+
       console.log("Updated resource version:", resourceVersion);
-    
+
       // Update sections recursively
       if (Array.isArray(newVersionEditMode?.sections)) {
         for (const sectionData of newVersionEditMode.sections) {
@@ -1021,20 +1025,17 @@ export const createOrUpdateVersion = async (resourceId, contentData) => {
   });
 };
 
-async function createSectionVersionWithChildren(tx, {
-  sectionData,
-  resource,
-  resourceVersion,
-  parentVersionId = null,
-  order = 1,
-}) {
+async function createSectionVersionWithChildren(
+  tx,
+  {sectionData, resource, resourceVersion, parentVersionId = null, order = 1}
+) {
   const sectionId = sectionData.sectionId;
 
   const section = await tx.section.findUnique({
-    where: { id: sectionId },
+    where: {id: sectionId},
     include: {
       _count: {
-        select: { versions: true },
+        select: {versions: true},
       },
     },
   });
@@ -1095,7 +1096,6 @@ async function createSectionVersionWithChildren(tx, {
   }
 }
 
-
 async function updateSectionVersion(tx, sectionData, resourceVersionId) {
   const sectionId = sectionData.sectionId;
   const order = sectionData.order;
@@ -1110,16 +1110,18 @@ async function updateSectionVersion(tx, sectionData, resourceVersionId) {
 
   if (sectionVersion) {
     sectionVersion = await tx.sectionVersion.update({
-      where: { id: sectionVersion.id },
+      where: {id: sectionVersion.id},
       data: {
-        ...(sectionData.content !== undefined ? { content: sectionData.content } : {}),
+        ...(sectionData.content !== undefined
+          ? {content: sectionData.content}
+          : {}),
       },
     });
-  } 
+  }
 
   // Delete existing items
   await tx.sectionVersionItem.deleteMany({
-    where: { sectionVersionId: sectionVersion.id },
+    where: {sectionVersionId: sectionVersion.id},
   });
 
   // Insert new items
@@ -1139,7 +1141,11 @@ async function updateSectionVersion(tx, sectionData, resourceVersionId) {
   // Recursively handle nested sections
   if (Array.isArray(sectionData.sections)) {
     for (let k = 0; k < sectionData.sections.length; k++) {
-      await updateSectionVersion(tx, sectionData.sections[k], resourceVersionId);
+      await updateSectionVersion(
+        tx,
+        sectionData.sections[k],
+        resourceVersionId
+      );
     }
   }
 }

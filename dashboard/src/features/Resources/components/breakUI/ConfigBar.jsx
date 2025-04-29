@@ -38,7 +38,7 @@ const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
   async function onSubmit(e) {
     e.preventDefault();
     if (debouncingState) return
-
+    console.log("qwer")
 
     const valueArray = Object.values(formObj);
     const keyArray = Object.keys(formObj);
@@ -77,7 +77,7 @@ const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
     } finally {
       closeButton()
       reRender(Math.random())
-      dispatch(switchDebounce(true))
+      dispatch(switchDebounce(false))
     }
   }
 
