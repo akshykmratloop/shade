@@ -53,8 +53,11 @@ function LeftSidebar() {
         to={route.path}
         onClick={() => setRouteOnStorage(route.path)}
         className={({ isActive }) =>
-          `${isActive ? "font-semibold bg-base-200" : "font-normal"} pl-7 w-full flex items-center gap-2`
+          `${isActive
+            ? "font-semibold bg-base-200 dark:bg-stone-300/20 dark:text-white"
+            : "font-normal"} pl-7 w-full flex items-center gap-2 relative`
         }
+        
       >
         {route.icon} {!showText && route.name}
         {location.pathname === route.path && (
