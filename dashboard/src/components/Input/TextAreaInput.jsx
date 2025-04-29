@@ -56,7 +56,7 @@ function TextAreaInput({
         onChange={(e) => updateInputValue(e.target.value)}
         rows={2} // Initial height of 2 rows
         style={{
-          resize: "none", // Prevent manual resizing
+          resize: "", // Prevent manual resizing
           overflow: "hidden", // Avoid unnecessary scrollbars
           minHeight: "3rem", // Ensures at least 2 rows height
           whiteSpace: "pre-wrap", // Maintain text formatting

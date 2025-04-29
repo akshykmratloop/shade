@@ -90,6 +90,7 @@ const TopSideButtons = ({
           {statusFilters?.map((status, key) => (
             <li key={key}>
               <a
+              className="dark:text-gray-300"
                 onClick={() => showFiltersAndApply(status)}
                 style={{textTransform: "capitalize"}}
               >
@@ -99,7 +100,7 @@ const TopSideButtons = ({
           ))}
           <div className="divider mt-0 mb-0"></div>
           <li>
-            <a onClick={() => removeAppliedFilter()}>Remove Filter</a>
+            <a className="dark:text-gray-300" onClick={() => removeAppliedFilter()}>Remove Filter</a>
           </li>
         </ul>
       </div>
