@@ -37,7 +37,7 @@ const EditPage = () => {
     const subPath = location.pathname.split('/')[5]
     const deepPath = location.pathname.split('/')[6]
 
-    const content = createContent(useSelector((state) => state.homeContent.present), currentPath)
+    const content = createContent(useSelector((state) => state.homeContent.present), "edit",currentPath)
 
     const Routes = ['home', 'solutions', 'about', "services", "service", 'markets', 'projects', "project", 'careers', "career", 'news', 'footer', 'header', 'testimonials', 'testimonial']
 

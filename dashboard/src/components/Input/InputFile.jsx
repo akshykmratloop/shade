@@ -39,14 +39,14 @@ const InputFile = ({ label, baseClass, id, currentPath, resourceId }) => {
             <Upload className="w-6 h-6" />
           </div>
         )}
-        {fileURL && (
+        {/* {fileURL && (
           <button
             className="absolute top-1 right-1 bg-[#00000080] text-white p-1 rounded-full shadow"
             onClick={(e) => { e.stopPropagation(); clearFile(); }}
           >
             <X className="w-4 h-4" />
           </button>
-        )}
+        )} */}
       </div>
 
       {isSelectorOpen && (
