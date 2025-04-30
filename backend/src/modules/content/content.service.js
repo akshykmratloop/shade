@@ -10,6 +10,7 @@ import {
   findResourceById,
   fetchAllResourcesWithContent,
   createOrUpdateVersion,
+  publishContent,
 } from "../../repository/content.repository.js";
 
 const getResources = async (
@@ -99,10 +100,10 @@ const assignUser = async (
     publisher
   );
   logger.info({
-    response: `users assigned successfully`,
+    response: `Users assigned successfully`,
     // assignedUsers: assignedUsers,
   });
-  return { message: "Success", assignedUsers };
+  return { message: "Users assigned successfully", assignedUsers };
 };
 
 const getContent = async (resourceId) => {
@@ -115,21 +116,25 @@ const getContent = async (resourceId) => {
 };
 
 const updateContent = async (saveAs, content) => {
-  const { resourceId } = content;
-  const isResourceExist = await findResourceById(resourceId);
-  assert(isResourceExist, "NOT_FOUND", "Resource not found");
-
   // If saveAs is provided, update the version status in the content
   if (saveAs && content.newVersionEditMode) {
     content.newVersionEditMode.versionStatus = saveAs;
   }
-
-  const updatedContent = await createOrUpdateVersion(resourceId, content);
+  const updatedContent = await createOrUpdateVersion(content);
   logger.info({
     response: "Content updated successfully",
     updatedContent: updatedContent,
   });
-  return { message: "Success", content: updatedContent };
+  return { message: updatedContent.message, resource: updatedContent.resource };
+};
+
+const directPublishContent = async (content, userId) => {
+  const publishedContent = await publishContent(content, userId);
+  logger.info({
+    response: "Content published successfully",
+    publishedContent: publishedContent,
+  });
+  return { message: "Success", content: publishedContent };
 };
 
 export {
@@ -140,4 +145,5 @@ export {
   getAssignedUsers,
   getContent,
   updateContent,
+  directPublishContent
 };
