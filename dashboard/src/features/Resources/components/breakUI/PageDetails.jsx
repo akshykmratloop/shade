@@ -7,12 +7,16 @@ import Publisher from "../../../../assets/image 16.svg";
 import {X} from "lucide-react";
 import {getResourceInfo} from "../../../../app/fetch";
 import formatTimestamp from "../../../../app/TimeFormat";
+import {useDispatch, useSelector} from "react-redux";
 
 const PageDetails = ({data, display, setOn}) => {
   const pageRef = useRef(null);
   const [pageInfo, setPageInfo] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const user = useSelector((state) => state.user.user);
+  console.log(user, "user datta");
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (display && data?.id) {
@@ -47,6 +51,22 @@ const PageDetails = ({data, display, setOn}) => {
 
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [display, setOn]);
+
+  console.log("pageInfo", pageInfo);
+
+  //status bar stages
+  const computeStage = () => {
+    const roles = pageInfo?.resourceInfo?.roles || [];
+    const hasRoles = roles.length > 0;
+    const newVersion = pageInfo?.resourceInfo?.newVersionEditMode;
+    const versionMode = newVersion?.versionMode;
+
+    if (!hasRoles) return 0;
+    if (versionMode === "editMode") return 2;
+    if (versionMode === "verificationMode") return 3;
+    if (versionMode === "publishMode") return 4;
+    return 1;
+  };
 
   return (
     <div
@@ -83,18 +103,23 @@ const PageDetails = ({data, display, setOn}) => {
           <div className="flex py-[15px] justify-between border-b dark:border-stone-700">
             <label>Live Version:</label>
             <div className={`w-min flex flex-col items-end gap-[2.5px]`}>
-              <p className="text py-0 my-0">
-                V {pageInfo?.resourceInfo?.liveVersion?.versionNumber}
+              <p className="text py-0 my-0 w-full">
+                {`V ${pageInfo?.resourceInfo?.liveVersion?.versionNumber}`}
               </p>
-              <button
-                className="text-[#145098] dark:text-sky-500 underline font-[300] py-0 my-0"
-                style={{whiteSpace: "pre"}}
-              >
-                Restore Previous Version
-              </button>
-              <button className="text-[#145098] dark:text-sky-500 underline font-[300] py-0 my-0">
-                View History
-              </button>
+              {(user?.roles?.includes("SUPER_ADMIN") ||
+                user?.permissions?.includes("PAGE_MANAGEMENT")) && (
+                <>
+                  <button
+                    className="text-[#145098] dark:text-sky-500 underline font-[300] py-0 my-0"
+                    style={{whiteSpace: "pre"}}
+                  >
+                    Restore Previous Version
+                  </button>
+                  <button className="text-[#145098] dark:text-sky-500 underline font-[300] py-0 my-0">
+                    View History
+                  </button>
+                </>
+              )}
             </div>
           </div>
           <div className="flex py-[15px] justify-between border-b-4 border-gray-400 dark:border-stone-700">
@@ -155,9 +180,12 @@ const PageDetails = ({data, display, setOn}) => {
                 >
                   Restore Previous Version
                 </button> */}
-                <button className="text-[#145098] dark:text-sky-500 underline font-[300] py-0 my-0">
-                  View
-                </button>
+                {(user?.roles?.includes("SUPER_ADMIN") ||
+                  user?.permissions?.includes("PAGE_MANAGEMENT")) && (
+                  <button className="text-[#145098] dark:text-sky-500 underline font-[300] py-0 my-0">
+                    View
+                  </button>
+                )}
               </div>
             </div>
             {/* <div className="flex py-[15px] justify-between border-b dark:border-stone-700">
@@ -166,7 +194,7 @@ const PageDetails = ({data, display, setOn}) => {
             <div className="flex flex-col gap-[15px] text-[11px] py-4">
               <label className="text-[15px]">Version Status:</label>
               <div className="">
-                <StatusBar stage={2} />
+                <StatusBar stage={computeStage()} />
               </div>
               <div className="flex justify-between">
                 <div className="flex flex-col translate-x-[14px]">
