@@ -8,6 +8,7 @@ import {X} from "lucide-react";
 import {getResourceInfo} from "../../../../app/fetch";
 import formatTimestamp from "../../../../app/TimeFormat";
 import {useDispatch, useSelector} from "react-redux";
+import {TruncateText} from "../../../../app/capitalizeword";
 
 const PageDetails = ({data, display, setOn}) => {
   const pageRef = useRef(null);
@@ -84,8 +85,11 @@ const PageDetails = ({data, display, setOn}) => {
         >
           <X className="w-[16px] h-[16px]" />
         </button>
-        <h1 className="font-medium text-[1.1rem] shadow-md-custom p-[30px] text-center">
-          Assign User for Page {data?.heading}
+        <h1
+          className="font-medium text-[1.1rem] shadow-md-custom p-[30px] text-center"
+          title={data?.titleEn}
+        >
+          Page Details for {TruncateText(data?.titleEn, 12)}
         </h1>
         <div className="dark:border-none flex flex-col h-[87%] text-[14px] custom-text-color p-[30px] py-0  mt-2 border overflow-y-scroll customscroller">
           <div className="flex py-[15px] justify-between border-b dark:border-stone-700">

@@ -56,6 +56,7 @@ const api = {
   // Media
   uploadMedia: `${media}/upload`,
   deleteMedia: `${media}/delete`,
+  getMedia: `${media}/getMedia`,
 
   route(route) {
     if (this[route]) {

@@ -9,6 +9,8 @@ import {
 } from "../../../../app/fetch";
 import { toast } from "react-toastify";
 import capitalizeWords, { TruncateText } from "../../../../app/capitalizeword";
+import { useDispatch, useSelector } from "react-redux";
+import { switchDebounce } from "../../../common/debounceSlice";
 
 const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
   const initialObj = {
@@ -24,6 +26,8 @@ const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
   const [preAssignedUsers, setPreAssignedUsers] = useState({ roles: {}, verifiers: [] })
   const [fetchedData, setFetchedData] = useState(false)
   const [clearPopup, setClearPopup] = useState(false)
+  const debouncingState = useSelector(state => state.debounce.debounce)
+  const dispatch = useDispatch()
 
   function updateSelection(field, value) {
     setFormObj((prev) => {
@@ -33,6 +37,8 @@ const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
 
   async function onSubmit(e) {
     e.preventDefault();
+    if (debouncingState) return
+    console.log("qwer")
 
     const valueArray = Object.values(formObj);
     const keyArray = Object.keys(formObj);
@@ -53,19 +59,25 @@ const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
       return toast.error(`Please select the empty Varifier`);
     }
 
-    if (!sameDoubledValue) {
-      const response = await assignUser(formObj)
-      if (response.message === "Success") {
-        toast.success("Page assigned Successfully!", {
-          autoClose: 700
-        })
-        setTimeout(() => {
-          closeButton()
-          reRender(Math.random())
-        }, 500)
+    try {
+      dispatch(switchDebounce(true))
+
+      if (!sameDoubledValue) {
+        const response = await assignUser(formObj)
+        if (response.message === "Success") {
+          toast.success("Page assigned Successfully!", {
+            autoClose: 700
+          })
+        }
+      } else {
+        return toast.error(`Error! duplicate selection has been found`)
       }
-    } else {
-      return toast.error(`Error! duplicate selection has been found`)
+    } catch (err) {
+      console.log(err?.message)
+    } finally {
+      closeButton()
+      reRender(Math.random())
+      dispatch(switchDebounce(false))
     }
   }
 
@@ -114,7 +126,7 @@ const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
 
   useEffect(() => {
     async function GetAssingends() {
-      const payload = resourceId ;
+      const payload = resourceId;
       if (resourceId) {
         try {
           const response = await getAssignedUsers(payload);
@@ -177,9 +189,9 @@ const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
         <div className="font-medium shadow-md-custom p-[30px] px-[40px]">
           <h1
             className="w-[90%] mx-auto text-[1rem] whitespace-pre"
-            title={data.title}
+            title={data.titleEn}
           >
-            Assign User for {TruncateText(data.title, 21)}
+            Assign User for {TruncateText(data.titleEn, 21)}
           </h1>
         </div>
         <form className="mt-1 flex flex-col justify-between h-[88%] p-[30px] pt-[0px]">

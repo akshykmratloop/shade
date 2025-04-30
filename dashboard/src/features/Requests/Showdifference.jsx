@@ -3,7 +3,7 @@ import { Dialog, Switch } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import userIcon from "../../assets/user.png"
 import formatTimestamp from "../../app/TimeFormat";
-import { getRoleById } from "../../app/fetch";
+import { getContent, getRoleById } from "../../app/fetch";
 import capitalizeWords from "../../app/capitalizeword";
 import SkeletonLoader from "../../components/Loader/SkeletonLoader";
 import AllForOne from "../Resources/components/AllForOne";
@@ -17,16 +17,24 @@ import { LiaComment } from "react-icons/lia";
 
 import { IoDocumentOutline } from "react-icons/io5";
 import DateTime from "./DateTime";
+import createContent from "../Resources/defineContent";
 
 
 
-function ShowDifference({ role, show, onClose }) {
+function ShowDifference({ role, show, onClose, resourceId }) {
     const [fetchedRole, setFetchedRole] = useState({})
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState(true)
-    const contentFromRedux = useSelector(state => state.homeContent.present)
+    // const contentFromRedux = useSelector(state => state.homeContent.present)
+    const [liveVersion, setLiveVersion] = useState({})
+    const [editVersion, setEditVersion] = useState({})
     const [language, setLanguage] = useState("en")
     const [showDateTime, setShowDateTime] = useState(false)
+
+    const editedContent = createContent(editVersion, "difference", "home")
+    const LiveContent = createContent(liveVersion, "difference", "home")
+    console.log(editedContent)
+    console.log(LiveContent)
 
 
     const modalRef = useRef(null)
@@ -41,6 +49,30 @@ function ShowDifference({ role, show, onClose }) {
         return () => {
             document.removeEventListener("mousedown", handleClickOutside);
         }
+    }, [])
+
+    useEffect(() => {
+        async function fetchContent() {
+            try {
+                const response = await getContent("cma2pwt1p008zmn7lxtwpiyfm")
+
+                const payload = {
+                    id: response.content.id,
+                    titleEn: response.content.titleEn,
+                    titleAr: response.content.titleAr,
+                    slug: response.content.slug,
+                    resourceType: response.content.resourceType,
+                    resourceTag: response.content.resourceTag,
+                    relationType: response.content.relationType,
+                }
+                setLiveVersion({ ...payload, editVersion: response.content.liveModeVersionData })
+                setEditVersion({ ...payload, editVersion: response.content.editModeVersionData ?? response.content.liveModeVersionData })
+
+            } catch (err) {
+                console.log(err)
+            }
+        }
+        fetchContent()
     }, [])
 
     useEffect(() => {
@@ -135,10 +167,10 @@ function ShowDifference({ role, show, onClose }) {
 
                     <div className="flex overflow-y-scroll h-[95%] customscroller relative">
                         <div>
-                            <AllForOne currentPath={"home"} language={language} screen={740} content={content} fullScreen={""} />
+                            <AllForOne currentPath={"home"} language={language} screen={740} content={LiveContent.content} fullScreen={""} />
                         </div>
                         <div>
-                            <AllForOne currentPath={"home"} language={language} screen={740} content={contentFromRedux} fullScreen={""} showDifference={true} />
+                            <AllForOne currentPath={"home"} language={language} screen={740} content={editedContent.content} live={LiveContent.content} showDifference={true} fullScreen={""} />
                         </div>
                     </div>
                     {

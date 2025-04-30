@@ -60,23 +60,21 @@ export default function transformContent(input) {
 
     // Create the transformed content
     const transformedContent = {
-        content: {
-            resourceId: input.id,
-            titleEn: input.titleEn,
-            titleAr: input.titleAr,
-            slug: input.slug,
-            resourceType: input.resourceType,
-            resourceTag: input.resourceTag,
-            relationType: input.relationType,
-            newVersionEditMode: {
-                versionStatus: "",
-                comments: "",
-                referenceDoc: "",
-                content: editVersion.content,
-                icon: editVersion.icon,
-                image: editVersion.image,
-                sections: transformedSections
-            }
+        resourceId: input.id,
+        titleEn: input.titleEn,
+        titleAr: input.titleAr,
+        slug: input.slug,
+        resourceType: input.resourceType,
+        resourceTag: input.resourceTag,
+        relationType: input.relationType,
+        newVersionEditMode: {
+            versionStatus: "",
+            comments: "",
+            referenceDoc: "",
+            content: editVersion.content,
+            icon: editVersion.icon,
+            image: editVersion.image,
+            sections: transformedSections
         }
     };
 

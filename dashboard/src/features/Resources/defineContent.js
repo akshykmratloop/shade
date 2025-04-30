@@ -1,6 +1,12 @@
-export default function createContent(content, path, subPath) {
+export default function createContent(content, purpose, path, subPath) {
 
-    const currentContent = content?.home?.editVersion?.sections
+
+    let currentContent = {}
+    if (purpose === "edit") {
+        currentContent = content?.home?.editVersion?.sections
+    } else {
+        currentContent = content?.editVersion?.sections
+    }
     const contentIndexes = {
         homeBanner: currentContent?.findIndex(e => e.order === 1),
         markDown: currentContent?.findIndex(e => e.order === 2),
