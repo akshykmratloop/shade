@@ -7,7 +7,8 @@ import {
   assignUser,
   getAssignedUsers,
   getContent,
-  updateContent
+  updateContent,
+  directPublishContent
 } from "./content.service.js";
 
 const GetResources = async (req, res) => {
@@ -67,14 +68,18 @@ const GetContent = async (req, res) => {
 
 const UpdateContent = async (req, res) => {
   const { saveAs } = req.query;
-  const { content } = req.body;
-
-  // Log the content for debugging purposes
-  console.log("Updating content with saveAs:", saveAs);
-
+  const  content  = req.body;
   const response = await updateContent(saveAs, content);
   res.status(200).json(response);
 };
+
+// Direct Publish by super admin or managers
+const DirectPublishContent = async (req, res) => {
+  const  content  = req.body;
+  const response = await directPublishContent(content, req.user.id);
+  res.status(200).json(response);
+};
+
 export default {
   GetResources,
   GetResourceInfo,
@@ -82,5 +87,6 @@ export default {
   AssignUser,
   GetAssignedUsers,
   GetContent,
-  UpdateContent
+  UpdateContent,
+  DirectPublishContent
 };
