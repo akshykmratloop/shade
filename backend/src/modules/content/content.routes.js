@@ -53,4 +53,10 @@ router.put(
   tryCatchWrap(ContentController.UpdateContent)
 );
 
+router.post(
+  "/directPublishContent",
+  //   checkPermission(requiredPermissionsForContentManagement),
+  tryCatchWrap(ContentController.DirectPublishContent)
+);
+
 export default router;
