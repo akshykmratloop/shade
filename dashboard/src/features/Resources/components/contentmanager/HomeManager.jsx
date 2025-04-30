@@ -8,6 +8,7 @@ import content from "../websiteComponent/content.json"
 import { useDispatch } from "react-redux";
 import { getContent, getResources } from "../../../../app/fetch";
 import { testimonials } from "../../../../assets";
+import { update } from "lodash";
 
 const HomeManager = ({ language, content, currentPath, indexes }) => {
     const dispatch = useDispatch()
@@ -91,12 +92,12 @@ const HomeManager = ({ language, content, currentPath, indexes }) => {
             <FileUploader id={"homeReference"} label={"Rerference doc"} fileName={"Upload your file..."} />
             {/* homeBanner */}
             <ContentSection
-                currentPath={currentPath}
+                currentPath={currentPath}title
                 Heading={"Hero Banner"}
                 inputs={[
-                    { input: "input", label: "Heading/title", updateType: "title", value: content?.homeBanner?.content?.title[language] },
-                    { input: "textarea", label: "Description", updateType: "description", maxLength: 500, value: content?.homeBanner?.content?.description[language] },
-                    { input: "input", label: "Button Text", updateType: "buttonText", maxLength: 20, value: content?.homeBanner?.content?.buttonText[language] }]}
+                    { input: "input", label: "Heading/title", updateType: "title", value: content?.homeBanner?.content?.title[language], update: `editVersion.sections[${indexes.homeBanner}].content.title.${language}` },
+                    { input: "textarea", label: "Description", updateType: "description", maxLength: 500, value: content?.homeBanner?.content?.description[language], update: `sections.${indexes.homeBanner}.description.${language}` },
+                    { input: "input", label: "Button Text", updateType: "buttonText", maxLength: 20, value: content?.homeBanner?.content?.buttonText[0]?.text?.[language], update: `sections.${indexes.homeBanner}.buttonText[0]/${language}` }]}
                 inputFiles={[{ label: "Backround Image", id: "homeBanner" }]}
                 section={"homeBanner"}
                 language={language}
@@ -112,7 +113,7 @@ const HomeManager = ({ language, content, currentPath, indexes }) => {
                 inputs={[
                     { input: "input", label: "Heading/title", updateType: "title", value: content?.markDown?.content?.title[language] },
                     { input: "richtext", label: "About section", updateType: "description", maxLength: 800, value: content?.markDown?.content?.description[language] },
-                    { input: "input", label: "Button Text", updateType: "buttonText", value: content?.markDown?.content?.buttonText[language] }]}
+                    { input: "input", label: "Button Text", updateType: "buttonText", value: content?.markDown?.content?.buttonText[0]?.text?.[language] }]}
                 inputFiles={[{ label: "Backround Image", id: "aboutUsSection" }]}
                 section={"aboutUsSection"}
                 language={language}

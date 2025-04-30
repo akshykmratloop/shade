@@ -1,4 +1,4 @@
-import {useEffect, useState, useRef} from "react";
+import { useEffect, useState, useRef } from "react";
 import InputText from "../../components/Input/InputText";
 import {
   fetchRoleType,
@@ -7,12 +7,14 @@ import {
   updateRole,
   getRoleById,
 } from "../../app/fetch";
-import {toast, ToastContainer} from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import validator from "../../app/valid";
 import updateToasify from "../../app/toastify";
 import CloseModalButton from "../../components/Button/CloseButton";
+import { useDispatch, useSelector } from "react-redux";
+import { switchDebounce } from "../common/debounceSlice";
 
-const AddRoleModal = ({show, onClose, updateRoles, role}) => {
+const AddRoleModal = ({ show, onClose, updateRoles, role }) => {
   console.log(role);
   const freshObject = {
     name: "",
@@ -27,6 +29,9 @@ const AddRoleModal = ({show, onClose, updateRoles, role}) => {
   const [errorMessagePermission, setErrorMessagePermission] = useState("");
   const [PermissionOptions, setPermissionOptions] = useState([]);
   const [currentRole, setCurrentRole] = useState({});
+  const debouncingState = useSelector(state => state.debounce.debounce)
+  const dispatch = useDispatch()
+
 
   const [roleData, setRoleData] = useState(freshObject);
 
@@ -40,6 +45,8 @@ const AddRoleModal = ({show, onClose, updateRoles, role}) => {
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
+    if (debouncingState) return
+
 
     const validation = validator(roleData, {
       name: setErrorMessageRole,
@@ -48,43 +55,49 @@ const AddRoleModal = ({show, onClose, updateRoles, role}) => {
     });
     if (!validation) return;
 
-    const loadingToastId = toast.loading("Processing request...", {
-      autoClose: 2000,
-    });
+    let loadingToastId = null
 
-    const rolePayload = {
-      name: roleData?.name,
-      roleTypeId: roleData?.selectedRoletype,
-      permissions: roleData?.selectedPermissions, // Ensure this holds the correct values
-    };
+    try {
+      dispatch(switchDebounce(true))
 
-    console.log(rolePayload);
+      loadingToastId = toast.loading("Processing request...", {
+        autoClose: 2000,
+      });
 
-    let response;
-    if (role) {
-      response = await updateRole({rolePayload, id: role?.id});
-    } else {
-      response = await createRole(rolePayload);
-    }
+      const rolePayload = {
+        name: roleData?.name,
+        roleTypeId: roleData?.selectedRoletype,
+        permissions: roleData?.selectedPermissions, // Ensure this holds the correct values
+      };
 
-    if (response.ok) {
-      updateToasify(
-        loadingToastId,
-        `Request successful!🎉. ${response.message}`,
-        "success",
-        1000
-      );
-      setTimeout(() => {
-        modalClose();
-        updateRoles((prev) => !prev);
-      }, 1500);
-    } else {
-      updateToasify(
-        loadingToastId,
-        `Request failed. ${response.message}`,
-        "error",
-        2000
-      );
+      let response;
+      if (role) {
+        response = await updateRole({ rolePayload, id: role?.id });
+      } else {
+        response = await createRole(rolePayload);
+      }
+
+      if (response.ok) {
+        updateToasify(
+          loadingToastId,
+          `Request successful!🎉. ${response.message}`,
+          "success",
+          1000
+        );
+      } else {
+        updateToasify(
+          loadingToastId,
+          `Request failed. ${response.message}`,
+          "error",
+          2000
+        );
+      }
+    } catch (err) {
+      console.log(err?.message)
+    } finally {
+      modalClose();
+      updateRoles((prev) => !prev);
+      dispatch(switchDebounce(false))
     }
   };
 
@@ -121,7 +134,7 @@ const AddRoleModal = ({show, onClose, updateRoles, role}) => {
   //   }, 100)
   // }
 
-  const updateFormValue = async ({updateType, value}) => {
+  const updateFormValue = async ({ updateType, value }) => {
     clearErrorMessage();
     if (updateType !== "selectedPermissions") {
       setRoleData((prevState) => ({

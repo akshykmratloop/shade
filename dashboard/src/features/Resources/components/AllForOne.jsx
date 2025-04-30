@@ -16,7 +16,7 @@ import Services from "./websiteComponent/Service";
 import ServiceDetails from "./websiteComponent/detailspages/ServiceDetails";
 import SubServiceDetails from "./websiteComponent/subDetailsPages/SubServiceDetails";
 
-const AllForOne = ({ language, screen, content, subPath, setLanguage, fullScreen, currentPath, deepPath, showDifference = false }) => {
+const AllForOne = ({ language, screen, content, subPath, setLanguage, fullScreen, currentPath, deepPath, showDifference = false, live }) => {
     let translateForFullScreen = ""
 
     return (
@@ -33,6 +33,7 @@ const AllForOne = ({ language, screen, content, subPath, setLanguage, fullScreen
                     fullScreen={fullScreen}
                     content={content}
                     highlight={showDifference}
+                    liveContent={live}
                 />
             }
             {

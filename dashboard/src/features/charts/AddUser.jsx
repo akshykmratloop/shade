@@ -54,8 +54,8 @@ const AddUserModal = ({ show, onClose, updateUsers, user }) => {
   };
 
   const handleFormSubmit = async (e) => {
-    if (debouncingState) return
     e.preventDefault();
+    if (debouncingState) return
 
     const validation = validator(userData, {
       name: setErrorMessageName,
@@ -104,10 +104,6 @@ const AddUserModal = ({ show, onClose, updateUsers, user }) => {
           "success",
           1000
         );
-        setTimeout(() => {
-          onClose();
-          updateUsers((prev) => !prev);
-        }, 1500);
       } else {
         updateToasify(
           loadingToastId,
@@ -121,8 +117,10 @@ const AddUserModal = ({ show, onClose, updateUsers, user }) => {
       }
 
     } catch (err) {
-
+      console.log(err?.message)
     } finally {
+      onClose();
+      updateUsers((prev) => !prev);
       dispatch(switchDebounce(false))
     }
     toast.dismiss(loadingToastId);
@@ -169,7 +167,7 @@ const AddUserModal = ({ show, onClose, updateUsers, user }) => {
       });
       setUserData((prev) => ({ ...prev, roles: roles }));
     }
-    if(user?.id){
+    if (user?.id) {
       getUser();
     }
   }, [user]);

@@ -1,14 +1,15 @@
-import {useEffect, useRef, useState} from "react";
+import { useEffect, useRef, useState } from "react";
 import StatusBar from "./Statusbar";
 import Assigned from "../../../../assets/image 13.png";
 import Edit from "../../../../assets/image 14.svg";
 import Verify from "../../../../assets/image 15.svg";
 import Publisher from "../../../../assets/image 16.svg";
-import {X} from "lucide-react";
-import {getResourceInfo} from "../../../../app/fetch";
+import { X } from "lucide-react";
+import { getResourceInfo } from "../../../../app/fetch";
 import formatTimestamp from "../../../../app/TimeFormat";
+import capitalizeWords, { TruncateText } from "../../../../app/capitalizeword";
 
-const PageDetails = ({data, display, setOn}) => {
+const PageDetails = ({ data, display, setOn }) => {
   const pageRef = useRef(null);
   const [pageInfo, setPageInfo] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -50,9 +51,8 @@ const PageDetails = ({data, display, setOn}) => {
 
   return (
     <div
-      className={`${
-        display ? "block" : "hidden"
-      } fixed z-20 top-0 left-0 w-[100vw] h-screen bg-black bg-opacity-50 `}
+      className={`${display ? "block" : "hidden"
+        } fixed z-20 top-0 left-0 w-[100vw] h-screen bg-black bg-opacity-50 `}
     >
       <div
         ref={pageRef}
@@ -64,10 +64,11 @@ const PageDetails = ({data, display, setOn}) => {
         >
           <X className="w-[16px] h-[16px]" />
         </button>
-        <h1 className="font-medium text-[1.1rem] shadow-md-custom p-[30px] text-center">
-          Assign User for Page {data?.heading}
+        <h1 className="font-medium text-[1.1rem] shadow-md-custom p-[30px] text-center"
+          title={data?.titleEn}>
+          Page Details for {TruncateText(data?.titleEn, 12)}
         </h1>
-        <div className=" flex flex-col h-[87%] text-[14px] custom-text-color p-[30px] py-0  mt-2 border overflow-y-scroll customscroller">
+        <div className=" flex flex-col h-[87%] text-[14px] custom-text-color p-[30px] py-0  mt-2 overflow-y-scroll customscroller">
           <div className="flex py-[15px] justify-between border-b dark:border-stone-700">
             <label>Total Versions:</label>
             <p>{pageInfo?.resourceInfo?._count?.versions}</p>
@@ -88,7 +89,7 @@ const PageDetails = ({data, display, setOn}) => {
               </p>
               <button
                 className="text-[#145098] dark:text-sky-500 underline font-[300] py-0 my-0"
-                style={{whiteSpace: "pre"}}
+                style={{ whiteSpace: "pre" }}
               >
                 Restore Previous Version
               </button>
@@ -119,9 +120,8 @@ const PageDetails = ({data, display, setOn}) => {
                   return (
                     <div
                       key={verifier?.id}
-                      className={`flex gap-[10px] items-center border-b dark:border-stone-700 ${
-                        firstIndex ? "justify-between" : "justify-end"
-                      }`}
+                      className={`flex gap-[10px] items-center border-b dark:border-stone-700 ${firstIndex ? "justify-between" : "justify-end"
+                        }`}
                     >
                       {firstIndex && (
                         <label className="!text-[#5d5d5e]">Verifiers:</label>

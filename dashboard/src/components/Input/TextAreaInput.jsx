@@ -10,7 +10,8 @@ function TextAreaInput({
   updateFormValue,
   updateType,
   language,
-  maxLength
+  maxLength,
+  style
 }) {
   const [value, setValue] = useState(defaultValue || "");
   const textareaRef = useRef(null);
@@ -39,7 +40,8 @@ function TextAreaInput({
   }, [defaultValue]);
 
   return (
-    <div className={`form-control w-full my-2 ${containerStyle}`}>
+    <div className={`form-control w-full my-2 ${containerStyle}`}
+      style={style}>
       {labelTitle && (
         <label className="label-text text-[#6B7888] mb-[5px]">
           <span className={"label-text text-[#6B7888]" + labelStyle} style={{ color: "#6B7888" }}>
@@ -56,7 +58,7 @@ function TextAreaInput({
         onChange={(e) => updateInputValue(e.target.value)}
         rows={2} // Initial height of 2 rows
         style={{
-          resize: "none", // Prevent manual resizing
+          resize: "", // Prevent manual resizing
           overflow: "hidden", // Avoid unnecessary scrollbars
           minHeight: "3rem", // Ensures at least 2 rows height
           whiteSpace: "pre-wrap", // Maintain text formatting

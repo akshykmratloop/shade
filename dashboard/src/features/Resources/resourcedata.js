@@ -1,8 +1,8 @@
 const resources = {
     pages: [
         { heading: "Home", src: "https://shade-six.vercel.app/", assign: true },
-        { heading: "Solution", src: "https://shade-six.vercel.app/solution", assign: true },
         { heading: "About", src: "https://shade-six.vercel.app/about-us", assign: false },
+        { heading: "Solution", src: "https://shade-six.vercel.app/solution", assign: true },
         { heading: "Services", src: "https://shade-six.vercel.app/services", assign: false },
         { heading: "Markets", src: "https://shade-six.vercel.app/market", assign: true },
         { heading: "Projects", src: "https://shade-six.vercel.app/project", assign: false },
