@@ -98,7 +98,7 @@ const ContentSection = ({
         }
     };
 
-    const updateFormValueRichText = (updateType, value) => {
+    const updateFormValueRichText = ({updateType, value}) => {
 
         if (updateType === 'count') {
             if (!isNaN(value)) {
@@ -216,7 +216,7 @@ const ContentSection = ({
                                 InputClasses="h-[2.125rem]"
                                 labelTitle={input.label}
                                 labelStyle="block sm:text-xs xl:text-sm"
-                                updateFormValue={({ updateType, value }) => updateFormValue(updateType, value, input.update)}
+                                updateFormValue={updateFormValue}
                                 updateType={input.updateType}
                                 section={section}
                                 defaultValue={input.value || ""}

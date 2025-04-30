@@ -43,7 +43,7 @@
         "en": "Our unwavering commitment that forge partnerships and strong collaborations with visionary leaders to take their most critical challenges, capture their greatest opportunities, and create engineering feats and breakthroughs that are transformative and coincides with the Kingdom’s Vision 2030.",
         "ar": "التزامنا الثابت الذي يعزز الشراكات والتعاونات القوية مع القادة الرؤوساء لمواجهة أصعب التحديات واستغلال أعظم الفرص، وخلق إنجازات هندسية واختراقات تحولية تتوافق مع رؤية المملكة ٢٠٣٠."
       },
-      "buttonText": [
+      "button": [
         {
           "text": {
             "en": "View Our Work",
@@ -65,7 +65,7 @@
         "en": "With our clients, we adopt a transformational approach by empowering organizations to build a sustainable competitive advantage and help drive growth.We work with the most dynamic organizations and have helped them by mobilizing change, accelerating value engineering with creative solutions, and partnering them towards achieving global prominence.",
         "ar": "مع عملائنا، نعتمد نهجًا تحوليًا من خلال تمكين المؤسسات لبناء ميزة تنافسية مستدامة والمساعدة في دفع النمو."
       },
-      "buttonText": [
+      "button": [
         {
           "text": {
             "en": "Know About Us",
@@ -3801,7 +3801,7 @@
               }
             }
           ],
-          "viewAllButton": [
+          "buttons": [
             {
               "text": {
                 "ar": "عرض جميع الوظائف",
@@ -3965,7 +3965,7 @@
               }
             }
           ],
-          "viewAllButton": [
+          "buttons": [
             {
               "text": {
                 "ar": "عرض جميع الوظائف",
@@ -4130,7 +4130,7 @@
               }
             }
           ],
-          "viewAllButton": [
+          "buttons": [
             {
               "text": {
                 "ar": "عرض جميع الوظائف",
@@ -4295,7 +4295,7 @@
               }
             }
           ],
-          "viewAllButton": [
+          "buttons": [
             {
               "text": {
                 "ar": "عرض جميع الوظائف",
@@ -4460,7 +4460,7 @@
               }
             }
           ],
-          "viewAllButton": [
+          "buttons": [
             {
               "text": {
                 "ar": "عرض جميع الوظائف",
@@ -4625,7 +4625,7 @@
               }
             }
           ],
-          "viewAllButton": [
+          "buttons": [
             {
               "text": {
                 "ar": "عرض جميع الوظائف",
@@ -4790,7 +4790,7 @@
               }
             }
           ],
-          "viewAllButton": [
+          "buttons": [
             {
               "text": {
                 "ar": "عرض جميع الوظائف",
