@@ -72,7 +72,7 @@ const ContentSection = ({
         }
     };
 
-    const updateFormValue = (updateType, value, path) => {
+    const updateFormValue = ({ updateType, value, path }) => {
         if (updateType === 'count') {
             if (!isNaN(value)) {
                 let val = value?.slice(0, 7);
@@ -98,7 +98,7 @@ const ContentSection = ({
         }
     };
 
-    const updateFormValueRichText = ({updateType, value}) => {
+    const updateFormValueRichText = (updateType, value) => {
 
         if (updateType === 'count') {
             if (!isNaN(value)) {

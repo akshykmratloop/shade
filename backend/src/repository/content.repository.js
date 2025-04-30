@@ -843,7 +843,7 @@ async function formatResourceVersionData(resourceVersion) {
             // Fetch the full content of the item resource
             const itemContent = await fetchContent(resource.id);
 
-            return itemContent;
+             return { ...itemContent, order: item.order };;
           })
         );
       }
@@ -872,7 +872,7 @@ async function formatResourceVersionData(resourceVersion) {
                   // Fetch the full content of the item resource
                   const itemContent = await fetchContent(resource.id);
 
-                  return itemContent;
+                  return { ...itemContent, order: item.order };
                 })
               );
             }

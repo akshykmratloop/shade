@@ -18,11 +18,13 @@ const Select = ({ options, defaultValue, selectClass, label, labelClass, baseCla
                 value={value} // <-- Ensure value is controlled
             >
                 <option value="" className=""> Select </option>
-                {options?.map((option, i) => (
-                    <option value={option.id} key={option + i} className="text-stone-700">
+                {options?.map((option, i) => {
+                    // console.log(option)
+                    return (
+                    <option value={option.id} hidden={option.hidden} key={option + i} className="text-stone-700">
                         {option.name}
                     </option>
-                ))}
+                )})}
             </select>
         </div>
     );

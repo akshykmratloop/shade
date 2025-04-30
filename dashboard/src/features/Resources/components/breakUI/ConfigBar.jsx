@@ -27,6 +27,7 @@ const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
   const [fetchedData, setFetchedData] = useState(false)
   const [clearPopup, setClearPopup] = useState(false)
   const debouncingState = useSelector(state => state.debounce.debounce)
+  const [assignedUsersState, setAssignedUsersState] = useState({ roles: {}, verfiers: [] })
   const dispatch = useDispatch()
 
   function updateSelection(field, value) {
@@ -38,7 +39,6 @@ const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
   async function onSubmit(e) {
     e.preventDefault();
     if (debouncingState) return
-    console.log("qwer")
 
     const valueArray = Object.values(formObj);
     const keyArray = Object.keys(formObj);
@@ -86,6 +86,21 @@ const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
     setFormObj(initialObj);
   }
 
+  const managerIsAvailable = assignedUsersState?.roles?.MANAGER === undefined ? true : userList.managers.some(e => {
+    return e.id === assignedUsersState?.roles?.MANAGER?.userId
+  })
+  const publisherIsAvailable = assignedUsersState?.roles?.PUBLISHER === undefined ? true : userList.publishers.some(e => e.id === assignedUsersState?.roles?.PUBLISHER?.userId)
+  const editorIsAvailable = assignedUsersState?.roles?.EDITOR === undefined ? true : userList.editors.some(e => e.id === assignedUsersState?.roles?.EDITOR?.userId)
+
+
+  const optionsForManagers = userList.managers.map((e) => ({ id: e.id, name: e.name }))
+  const optionsForEditor = userList.editors.map((e) => ({ id: e.id, name: e.name }))
+  const optionsForPublisher = userList.publishers.map((e) => ({ id: e.id, name: e.name }))
+
+  if (!managerIsAvailable) optionsForManagers.push({ ...assignedUsersState?.roles?.MANAGER?.user, hidden: true })
+  if (!publisherIsAvailable) optionsForPublisher.push({ ...assignedUsersState?.roles?.PUBLISHER?.user, hidden: true })
+  if (!editorIsAvailable) optionsForEditor.push({ ...assignedUsersState?.roles?.EDITOR?.user, hidden: true })
+
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (configRef.current && !configRef.current.contains(event.target)) {
@@ -130,6 +145,18 @@ const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
       if (resourceId) {
         try {
           const response = await getAssignedUsers(payload);
+          setAssignedUsersState((prev) => {
+            let roles = {}
+            response?.assignedUsers?.roles?.forEach((e) => {
+              roles[e.role] = e
+            })
+
+            return {
+              roles: roles,
+              verfiers: response?.assignedUsers?.verifiers
+            }
+          })
+
           setPreAssignedUsers((prev) => {
             let roles = {};
             response?.assignedUsers?.roles?.forEach((e) => {
@@ -208,7 +235,7 @@ const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
 
             {/* Select Manager */}
             <Select
-              options={userList.managers.map((e) => ({ id: e.id, name: e.name }))}
+              options={optionsForManagers}
               setterOnChange={updateSelection}
               field={"manager"}
               value={formObj.manager}
@@ -216,11 +243,12 @@ const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
               label="Select Manager"
               labelClass="font-[400] text-[#6B7888] text-[14px]"
               selectClass="bg-transparent border border-[#cecbcb] dark:border-stone-600 mt-1 rounded-md py-2 h-[2.5rem] outline-none"
+              defaultState={assignedUsersState.roles.MANAGER}
             />
 
             {/* Select Editor */}
             <Select
-              options={userList.editors.map((e) => ({ id: e.id, name: e.name }))}
+              options={optionsForEditor}
               setterOnChange={updateSelection}
               field={"editor"}
               value={formObj.editor}
@@ -228,6 +256,7 @@ const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
               label="Select Editor"
               labelClass="font-[400] text-[#6B7888] text-[14px]"
               selectClass="bg-transparent border border-[#cecbcb] dark:border-stone-600 mt-1 rounded-md py-2 h-[2.5rem] outline-none"
+              defaultState={assignedUsersState?.roles?.EDITOR}
             />
 
             {/* Selector Accordion */}
@@ -247,15 +276,13 @@ const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
                 field={"verifiers"}
                 value={formObj.verifiers}
                 onChange={updateSelection}
+                defaultState={assignedUsersState?.verfiers}
               />
             </div>
 
             {/* Select Publisher */}
             <Select
-              options={userList.publishers.map((e) => ({
-                id: e.id,
-                name: e.name,
-              }))}
+              options={optionsForPublisher}
               setterOnChange={updateSelection}
               baseClass=""
               value={formObj.publisher}
@@ -263,6 +290,7 @@ const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
               label="Select Publisher"
               labelClass="font-[400] text-[#6B7888] text-[14px]"
               selectClass="bg-transparent border border-[#cecbcb] dark:border-stone-600 mt-1 rounded-md py-2 h-[2.5rem] outline-none"
+              defaultState={assignedUsersState?.roles?.PUBLISHER}
             />
 
             <div className="flex flex-col gap-4">

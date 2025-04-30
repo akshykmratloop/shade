@@ -1,6 +1,6 @@
 {
   "content": {
-    "resourceId": "cma22z6tz009lry6seiglw05l",
+    "resourceId": "cma3t2xmm009lmnlebrrq53o1",
     "titleEn": "Home Page",
     "titleAr": "الصفحة الرئيسية",
     "slug": "home",
@@ -12,7 +12,7 @@
       "image": null,
       "sections": [
         {
-          "sectionId": "cma22z6u6009pry6sskiud2gl",
+          "sectionId": "cma3t2xn8009pmnlep0vlmk6o",
           "order": 1,
           "content": {
             "image": [
@@ -22,10 +22,15 @@
               "ar": "بناء مستقبل أقوى",
               "en": "Building a Stronger Future"
             },
-            "buttonText": {
-              "ar": "أعمالنا",
-              "en": "View Our Work"
-            },
+            "button": [
+              {
+                "icon": null,
+                "text": {
+                  "ar": "أعمالنا",
+                  "en": "View Our Work"
+                }
+              }
+            ],
             "description": {
               "ar": "التزامنا الثابت الذي يعزز الشراكات والتعاونات القوية مع القادة الرؤوساء لمواجهة أصعب التحديات واستغلال أعظم الفرص، وخلق إنجازات هندسية واختراقات تحولية تتوافق مع رؤية المملكة ٢٠٣٠.",
               "en": "Our unwavering commitment that forge partnerships and strong collaborations with visionary leaders to take their most critical challenges, capture their greatest opportunities, and create engineering feats and breakthroughs that are transformative and coincides with the Kingdom’s Vision 2030."
@@ -33,7 +38,7 @@
           }
         },
         {
-          "sectionId": "cma22z6uf009vry6spzt12d84",
+          "sectionId": "cma3t2xns009vmnlels9blsfc",
           "order": 2,
           "content": {
             "image": [
@@ -43,10 +48,15 @@
               "ar": "مدفوعون بالتميز في التنفيذ",
               "en": "Driven by excellence in execution"
             },
-            "buttonText": {
-              "ar": "اعرف عنا",
-              "en": "Know About Us"
-            },
+            "button": [
+              {
+                "icon": null,
+                "text": {
+                  "ar": "اعرف عنا",
+                  "en": "Know About Us"
+                }
+              }
+            ],
             "description": {
               "ar": "مع عملائنا، نعتمد نهجًا تحوليًا من خلال تمكين المؤسسات لبناء ميزة تنافسية مستدامة والمساعدة في دفع النمو.",
               "en": "With our clients, we adopt a transformational approach by empowering organizations to build a sustainable competitive advantage and help drive growth.We work with the most dynamic organizations and have helped them by mobilizing change, accelerating value engineering with creative solutions, and partnering them towards achieving global prominence."
@@ -54,7 +64,7 @@
           }
         },
         {
-          "sectionId": "cma22z6us00a1ry6sqrv6u4hz",
+          "sectionId": "cma3t2xod00a1mnleakfw7317",
           "order": 3,
           "content": {
             "title": {
@@ -65,33 +75,33 @@
           "items": [
             {
               "order": 1,
-              "id": "cma22z6pb0083ry6s54qyklru",
+              "id": "cma3t2xf30083mnley1bua32h",
               "resourceType": "SUB_PAGE"
             },
             {
               "order": 2,
-              "id": "cma22z6qb008cry6scvnqcztl",
+              "id": "cma3t2xg9008cmnle6wbav4hc",
               "resourceType": "SUB_PAGE"
             },
             {
               "order": 3,
-              "id": "cma22z6r6008lry6sucnwkip1",
+              "id": "cma3t2xhf008lmnleoybpfeje",
               "resourceType": "SUB_PAGE"
             },
             {
               "order": 4,
-              "id": "cma22z6rz008ury6snisbodq9",
+              "id": "cma3t2xik008umnleknaepny4",
               "resourceType": "SUB_PAGE"
             },
             {
               "order": 5,
-              "id": "cma22z6so0093ry6s2o9vjabn",
+              "id": "cma3t2xjt0093mnleeafevb9g",
               "resourceType": "SUB_PAGE"
             }
           ]
         },
         {
-          "sectionId": "cma22z6vd00ahry6shu909967",
+          "sectionId": "cma3t2xpr00ahmnlevdp3vquv",
           "order": 4,
           "content": {
             "cards": [
@@ -132,12 +142,15 @@
               "ar": "٣٢ عاماً من الخبرة",
               "en": "32 Years of Experience"
             },
-            "button": {
-              "text": {
-                "ar": "اتصل بنا",
-                "en": "Contact Us"
+            "button": [
+              {
+                "icon": null,
+                "text": {
+                  "ar": "اتصل بنا",
+                  "en": "Contact Us"
+                }
               }
-            },
+            ],
             "description": {
               "ar": "كانت شركتنا رائدة في تقديم خدمات البناء للعملاء في جميع أنحاء دبي منذ عام 1992.",
               "en": "Our company has been the leading provided construction services to clients throughout the Dubai since 1992."
@@ -145,12 +158,13 @@
           }
         },
         {
-          "sectionId": "cma22z6vl00anry6sdmay6hqk",
+          "sectionId": "cma3t2xqa00anmnlercx3gpko",
           "order": 5,
           "content": {
             "buttons": [
               {
                 "id": "btn1",
+                "icon": null,
                 "text": {
                   "ar": "عرض الكل",
                   "en": "View All"
@@ -158,6 +172,7 @@
               },
               {
                 "id": "btn2",
+                "icon": null,
                 "text": {
                   "ar": "العودة",
                   "en": "Back"
@@ -165,6 +180,7 @@
               },
               {
                 "id": "btn3",
+                "icon": null,
                 "text": {
                   "ar": "التالي",
                   "en": "Next"
@@ -209,7 +225,7 @@
           },
           "sections": [
             {
-              "sectionId": "cma22z6w200atry6s80gwi7n8",
+              "sectionId": "cma3t2xqv00atmnleopk7rw8x",
               "order": 1,
               "content": {
                 "id": "projectList",
@@ -225,28 +241,28 @@
               "items": [
                 {
                   "order": 1,
-                  "id": "cma22z6im005lry6sooybh9vv",
+                  "id": "cma3t2x59005lmnle5hx01xt6",
                   "resourceType": "SUB_PAGE"
                 },
                 {
                   "order": 2,
-                  "id": "cma22z6k60066ry6s4sduhk2k",
+                  "id": "cma3t2x7o0066mnle1q5ekibe",
                   "resourceType": "SUB_PAGE"
                 },
                 {
                   "order": 3,
-                  "id": "cma22z6lq006rry6saqzpakoc",
+                  "id": "cma3t2xa3006rmnle1kpdfq93",
                   "resourceType": "SUB_PAGE"
                 },
                 {
                   "order": 4,
-                  "id": "cma22z6n1007cry6s41iq9vsy",
+                  "id": "cma3t2xcd007cmnle88zxoked",
                   "resourceType": "SUB_PAGE"
                 }
               ]
             },
             {
-              "sectionId": "cma22z6wv00b7ry6sb76kto71",
+              "sectionId": "cma3t2xsc00b7mnlelgsakx2m",
               "order": 2,
               "content": {
                 "id": "markets",
@@ -262,28 +278,28 @@
               "items": [
                 {
                   "order": 1,
-                  "id": "cma22z6im005lry6sooybh9vv",
+                  "id": "cma3t2x59005lmnle5hx01xt6",
                   "resourceType": "SUB_PAGE"
                 },
                 {
                   "order": 2,
-                  "id": "cma22z6k60066ry6s4sduhk2k",
+                  "id": "cma3t2x7o0066mnle1q5ekibe",
                   "resourceType": "SUB_PAGE"
                 },
                 {
                   "order": 3,
-                  "id": "cma22z6lq006rry6saqzpakoc",
+                  "id": "cma3t2xa3006rmnle1kpdfq93",
                   "resourceType": "SUB_PAGE"
                 },
                 {
                   "order": 4,
-                  "id": "cma22z6n1007cry6s41iq9vsy",
+                  "id": "cma3t2xcd007cmnle88zxoked",
                   "resourceType": "SUB_PAGE"
                 }
               ]
             },
             {
-              "sectionId": "cma22z6xp00blry6sp2uiuugh",
+              "sectionId": "cma3t2xtn00blmnlergbtpb76",
               "order": 3,
               "content": {
                 "id": "safety",
@@ -299,22 +315,22 @@
               "items": [
                 {
                   "order": 1,
-                  "id": "cma22z6im005lry6sooybh9vv",
+                  "id": "cma3t2x59005lmnle5hx01xt6",
                   "resourceType": "SUB_PAGE"
                 },
                 {
                   "order": 2,
-                  "id": "cma22z6k60066ry6s4sduhk2k",
+                  "id": "cma3t2x7o0066mnle1q5ekibe",
                   "resourceType": "SUB_PAGE"
                 },
                 {
                   "order": 3,
-                  "id": "cma22z6lq006rry6saqzpakoc",
+                  "id": "cma3t2xa3006rmnle1kpdfq93",
                   "resourceType": "SUB_PAGE"
                 },
                 {
                   "order": 4,
-                  "id": "cma22z6n1007cry6s41iq9vsy",
+                  "id": "cma3t2xcd007cmnle88zxoked",
                   "resourceType": "SUB_PAGE"
                 }
               ]
@@ -322,7 +338,7 @@
           ]
         },
         {
-          "sectionId": "cma22z6yy00bzry6s9fwz9wtg",
+          "sectionId": "cma3t2xv000bzmnleic23xy6q",
           "order": 6,
           "content": {
             "title": {
@@ -366,7 +382,7 @@
           }
         },
         {
-          "sectionId": "cma22z6z900c5ry6stj6vnqsg",
+          "sectionId": "cma3t2xvj00c5mnle4agi1alf",
           "order": 7,
           "content": {
             "title": {
@@ -377,50 +393,53 @@
           "items": [
             {
               "order": 1,
-              "id": "cma22z640000mry6siap0g360",
+              "id": "cma3t2wgu000mmnlefvasf1xg",
               "resourceType": "SUB_PAGE"
             },
             {
               "order": 2,
-              "id": "cma22z654000vry6sx8lrmanj",
+              "id": "cma3t2wik000vmnlegq1gim0s",
               "resourceType": "SUB_PAGE"
             },
             {
               "order": 3,
-              "id": "cma22z65u0014ry6sxe881t60",
+              "id": "cma3t2wjt0014mnledt5h688w",
               "resourceType": "SUB_PAGE"
             },
             {
               "order": 4,
-              "id": "cma22z66f001dry6sm2lb9khp",
+              "id": "cma3t2wky001dmnle4nfj9uos",
               "resourceType": "SUB_PAGE"
             },
             {
               "order": 5,
-              "id": "cma22z676001mry6sroj6uz3x",
+              "id": "cma3t2wm6001mmnle6f4xpxk1",
               "resourceType": "SUB_PAGE"
             },
             {
               "order": 6,
-              "id": "cma22z67q001vry6snisdxsch",
+              "id": "cma3t2wng001vmnle4162pe89",
               "resourceType": "SUB_PAGE"
             }
           ]
         },
         {
-          "sectionId": "cma22z70q00cnry6s1yjusabz",
+          "sectionId": "cma3t2xx800cnmnlebp6raxkp",
           "order": 8,
           "content": {
             "title": {
               "ar": "هل تريد بدء مشروع جديد أو التعاون معنا؟",
               "en": "Want to Start a New Project OR Collaborate with us?"
             },
-            "button": {
-              "text": {
-                "ar": "اتصل بنا",
-                "en": "Contact Us"
+            "button": [
+              {
+                "icon": null,
+                "text": {
+                  "ar": "اتصل بنا",
+                  "en": "Contact Us"
+                }
               }
-            },
+            ],
             "description": {
               "ar": "وفقًا لفلسفتنا المتمثلة في “بناء مستقبل أقوى”، تؤمن شركة شيد بشراكات مربحة للجانبين مع جميع أصحاب المصلحة، وتهدف باستمرار إلى إنشاء علاقات مستدامة وطويلة الأمد لخلق القيمة. يتضمن نموذج المشاركة الخاص بنا منهجيات خاصة وحلولًا شاملة من شأنها تحويل اقتصاديات مشروعك وفتح إمكانيات جديدة ودعم أهداف النمو التنظيمي لديك.",
               "en": "True to our philosophy of “Building a Stronger Future”, Shade Corporation believes in win-win partnerships with all stakeholders, and continually aims at creating sustainable and long-term relationships for value creation. Our engagement model includes proprietary methodologies and comprehensive solutions that will transform your project economics, unlock new possibilities and support your organizational growth goals. In the last few decades, we have served many of Saudi's leading companies and public institutions to create winning strategies, solve some of the complex problems, and deliver consistent outcomes. If you're looking to drive performance, execute growth strategies, and build new capabilities, collaborate with us now."
