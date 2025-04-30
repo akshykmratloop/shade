@@ -843,17 +843,7 @@ async function formatResourceVersionData(resourceVersion) {
             // Fetch the full content of the item resource
             const itemContent = await fetchContent(resource.id);
 
-            return {
-              // resourceType: resource.resourceType || "SUB_PAGE",
-              order: item.order,
-              id: itemContent.id,
-              slug: itemContent.slug,
-              titleEn: itemContent.titleEn,
-              titleAr: itemContent.titleAr,
-              resourceType: itemContent.resourceType,
-              resourceTag: itemContent.resourceTag,
-              liveVersion: itemContent.liveVersion, // Include the full formatted content of the item
-            };
+            return itemContent;
           })
         );
       }
@@ -882,17 +872,7 @@ async function formatResourceVersionData(resourceVersion) {
                   // Fetch the full content of the item resource
                   const itemContent = await fetchContent(resource.id);
 
-                  return {
-                    resourceType: resource.resourceType || "SUB_PAGE",
-                    order: item.order,
-                    id: resource.id,
-                    slug: resource.slug,
-                    titleEn: resource.titleEn,
-                    titleAr: resource.titleAr,
-                    icon: liveVersion?.icon || null,
-                    image: liveVersion?.Image || null,
-                    data: itemContent, // Include the full formatted content of the item
-                  };
+                  return itemContent;
                 })
               );
             }
@@ -919,6 +899,23 @@ async function formatResourceVersionData(resourceVersion) {
     sections: formattedSections,
   };
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 export const findResourceById = async (id) => {
   return await prismaClient.resource.findUnique({
