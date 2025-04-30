@@ -25,8 +25,8 @@ import ShowDifference from "./Showdifference";
 import ShowVerifierTooltip from "./ShowVerifierTooltip";
 import {openRightDrawer} from "../../features/common/rightDrawerSlice";
 import {RIGHT_DRAWER_TYPES} from "../../utils/globalConstantUtil";
-import { PiInfoThin } from "react-icons/pi";
-import { VscInfo } from "react-icons/vsc";
+import {PiInfoThin} from "react-icons/pi";
+import {VscInfo} from "react-icons/vsc";
 
 // import userIcon from "../../assets/user.png"
 
@@ -466,17 +466,17 @@ function Requests() {
                                     <div>
                                       {/* <div className="text-left ">Verifier</div> */}
                                       <table className="p-3">
-                                        <thead className="bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white] text-[#FFFFFF] font-poppins font-medium text-[10px] leading-normal px-[24px] py-[13px] text-left !rounded-none !capitalize">
-                                          <tr className="bg-[#25439B] !rounded-none">
-                                            <th className="bg-[#25439B] w-[100px] px-5 py-1 !rounded-none">
+                                        <thead className="bg-[#FAFBFB] dark:bg-slate-700  text-[#FFFFFF] font-poppins font-medium text-[10px] leading-normal px-[24px] py-[13px] text-left !rounded-none !capitalize">
+                                          <tr className="bg-[#25439B]  dark:bg-slate-700 !rounded-none">
+                                            <th className="bg-[#25439B]  dark:bg-slate-700 w-[100px] px-5 py-1 !rounded-none">
                                               Stage
                                             </th>
-                                            <th className="bg-[#25439B] w-[100px] px-5 py-1 !rounded-none">
+                                            <th className="bg-[#25439B]  dark:bg-slate-700 w-[100px] px-5 py-1 !rounded-none">
                                               Name
                                             </th>
                                           </tr>
                                         </thead>
-                                        <tbody className="text-left border rounded">
+                                        <tbody className="text-left dark:border-gray-800  border rounded">
                                           {request?.verifier.map((v) => (
                                             <tr
                                               key={v.stage}

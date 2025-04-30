@@ -87,7 +87,7 @@ const PageDetails = ({data, display, setOn}) => {
         <h1 className="font-medium text-[1.1rem] shadow-md-custom p-[30px] text-center">
           Assign User for Page {data?.heading}
         </h1>
-        <div className=" flex flex-col h-[87%] text-[14px] custom-text-color p-[30px] py-0  mt-2 border overflow-y-scroll customscroller">
+        <div className="dark:border-none flex flex-col h-[87%] text-[14px] custom-text-color p-[30px] py-0  mt-2 border overflow-y-scroll customscroller">
           <div className="flex py-[15px] justify-between border-b dark:border-stone-700">
             <label>Total Versions:</label>
             <p>{pageInfo?.resourceInfo?._count?.versions}</p>
@@ -102,9 +102,11 @@ const PageDetails = ({data, display, setOn}) => {
           </div>
           <div className="flex py-[15px] justify-between border-b dark:border-stone-700">
             <label>Live Version:</label>
-            <div className={`w-min flex flex-col items-end gap-[2.5px]`}>
-              <p className="text py-0 my-0 w-full">
-                {`V ${pageInfo?.resourceInfo?.liveVersion?.versionNumber}`}
+            <div className={`flex flex-col items-end gap-[2.5px]`}>
+              <p className="text-right py-0 my-0 !w-full">
+                <span>
+                  {`V ${pageInfo?.resourceInfo?.liveVersion?.versionNumber}`}
+                </span>
               </p>
               {(user?.roles?.includes("SUPER_ADMIN") ||
                 user?.permissions?.includes("PAGE_MANAGEMENT")) && (

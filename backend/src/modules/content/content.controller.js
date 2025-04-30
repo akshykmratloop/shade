@@ -1,5 +1,5 @@
 // import {eventEmitter} from "../../helper/event.js";
-import { createNotification } from "../../repository/notification.repository.js";
+import {createNotification} from "../../repository/notification.repository.js";
 import {
   getResources,
   getResourceInfo,
@@ -7,12 +7,21 @@ import {
   assignUser,
   getAssignedUsers,
   getContent,
-  updateContent
+  updateContent,
 } from "./content.service.js";
 
 const GetResources = async (req, res) => {
-  const { resourceType, resourceTag, relationType, isAssigned, search, status, page, limit, fetchType } =
-    req.query;
+  const {
+    resourceType,
+    resourceTag,
+    relationType,
+    isAssigned,
+    search,
+    status,
+    page,
+    limit,
+    fetchType,
+  } = req.query;
   const pageNum = parseInt(page) || 1;
   const limitNum = parseInt(limit) || 100;
   const response = await getResources(
@@ -30,25 +39,25 @@ const GetResources = async (req, res) => {
 };
 
 const GetResourceInfo = async (req, res) => {
-  const { resourceId } = req.params;
+  const {resourceId} = req.params;
   const response = await getResourceInfo(resourceId);
   res.status(200).json(response);
 };
 
 const GetAssignedUsers = async (req, res) => {
-  const { resourceId } = req.params;
+  const {resourceId} = req.params;
   const response = await getAssignedUsers(resourceId);
   res.status(200).json(response);
 };
 
 const GetEligibleUser = async (req, res) => {
-  const { roleType, permission } = req.query;
+  const {roleType, permission} = req.query;
   const response = await getEligibleUser(roleType, permission);
   res.status(200).json(response);
 };
 
 const AssignUser = async (req, res) => {
-  const { resourceId, manager, editor, verifiers, publisher } = req.body;
+  const {resourceId, manager, editor, verifiers, publisher} = req.body;
   const response = await assignUser(
     resourceId,
     manager,
@@ -56,18 +65,19 @@ const AssignUser = async (req, res) => {
     verifiers,
     publisher
   );
+
   res.status(200).json(response);
 };
 
 const GetContent = async (req, res) => {
-  const { resourceId } = req.params;
+  const {resourceId} = req.params;
   const response = await getContent(resourceId);
   res.status(200).json(response);
 };
 
 const UpdateContent = async (req, res) => {
-  const { saveAs } = req.query;
-  const { content } = req.body;
+  const {saveAs} = req.query;
+  const {content} = req.body;
 
   // Log the content for debugging purposes
   console.log("Updating content with saveAs:", saveAs);
@@ -82,5 +92,5 @@ export default {
   AssignUser,
   GetAssignedUsers,
   GetContent,
-  UpdateContent
+  UpdateContent,
 };
