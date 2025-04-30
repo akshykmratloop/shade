@@ -38,6 +38,7 @@ router.get(
 router.post(
   "/assignUser",
   //   checkPermission(requiredPermissionsForContentManagement),
+  auditLogger,
   tryCatchWrap(ContentController.AssignUser)
 );
 

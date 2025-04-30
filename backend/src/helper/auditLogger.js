@@ -5,8 +5,9 @@ import {handleEntityCreationNotification} from "./notificationHelper.js";
 // Middleware to log user actions in the database
 export const auditLogger = async (req, res, next) => {
   const {user, method} = req; // User info from authentication middleware
-  const entity = req.baseUrl.split("/").pop(); // Extract entity name from route
-  let entityId = req.params.id || req.body.id || null; // Extract entity ID if available
+  const endPoint = req.baseUrl.split("/").pop(); // Extract entity name from route
+  let entity = endPoint === "content" ? "resource" : endPoint;
+  let entityId = req.params.id || req.body.id || req.body.resourceId || null; // Extract entity ID if available
   const ipAddress = req.ip;
   const browserInfo = req.headers["user-agent"];
 

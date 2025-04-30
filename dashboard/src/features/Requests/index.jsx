@@ -1,32 +1,32 @@
 // libraries import
-import { useEffect, useRef, useState } from "react";
+import {useEffect, useRef, useState} from "react";
 import PlusIcon from "@heroicons/react/24/outline/PlusIcon";
-import { toast, ToastContainer } from "react-toastify";
+import {toast, ToastContainer} from "react-toastify";
 // self modules
-import { fetchRoles, activateRole, deactivateRole } from "../../app/fetch";
+import {fetchRoles, activateRole, deactivateRole} from "../../app/fetch";
 import SearchBar from "../../components/Input/SearchBar";
 import TitleCard from "../../components/Cards/TitleCard";
 import updateToasify from "../../app/toastify";
 import Dummyuser from "../../assets/Dummy_User.json";
 // icons
-import { Switch } from "@headlessui/react";
+import {Switch} from "@headlessui/react";
 import XMarkIcon from "@heroicons/react/24/outline/XMarkIcon";
-import { FiEye } from "react-icons/fi";
-import { FiEdit } from "react-icons/fi";
-import { RxQuestionMarkCircled } from "react-icons/rx";
-import { LuListFilter } from "react-icons/lu";
-import { LuImport } from "react-icons/lu";
+import {FiEye} from "react-icons/fi";
+import {FiEdit} from "react-icons/fi";
+import {RxQuestionMarkCircled} from "react-icons/rx";
+import {LuListFilter} from "react-icons/lu";
+import {LuImport} from "react-icons/lu";
 import capitalizeWords from "../../app/capitalizeword";
 import Paginations from "../Component/Paginations";
 import formatTimestamp from "../../app/TimeFormat";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import {useDispatch, useSelector} from "react-redux";
+import {useNavigate} from "react-router-dom";
 import ShowDifference from "./Showdifference";
 import ShowVerifierTooltip from "./ShowVerifierTooltip";
-import { openRightDrawer } from "../../features/common/rightDrawerSlice";
-import { RIGHT_DRAWER_TYPES } from "../../utils/globalConstantUtil";
-import { PiInfoThin } from "react-icons/pi";
-import { VscInfo } from "react-icons/vsc";
+import {openRightDrawer} from "../../features/common/rightDrawerSlice";
+import {RIGHT_DRAWER_TYPES} from "../../utils/globalConstantUtil";
+import {PiInfoThin} from "react-icons/pi";
+import {VscInfo} from "react-icons/vsc";
 
 // import userIcon from "../../assets/user.png"
 
@@ -92,7 +92,7 @@ const TopSideButtons = ({
               <a
                 className="dark:text-gray-300"
                 onClick={() => showFiltersAndApply(status)}
-                style={{ textTransform: "capitalize" }}
+                style={{textTransform: "capitalize"}}
               >
                 {capitalizeWords(status)}
               </a>
@@ -100,7 +100,12 @@ const TopSideButtons = ({
           ))}
           <div className="divider mt-0 mb-0"></div>
           <li>
-            <a className="dark:text-gray-300" onClick={() => removeAppliedFilter()}>Remove Filter</a>
+            <a
+              className="dark:text-gray-300"
+              onClick={() => removeAppliedFilter()}
+            >
+              Remove Filter
+            </a>
           </li>
         </ul>
       </div>
@@ -108,7 +113,7 @@ const TopSideButtons = ({
   );
 };
 
-const ToggleSwitch = ({ options, switchToggles }) => {
+const ToggleSwitch = ({options, switchToggles}) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const containerRef = useRef(null);
   const [sliderStyle, setSliderStyle] = useState({});
@@ -117,7 +122,7 @@ const ToggleSwitch = ({ options, switchToggles }) => {
   useEffect(() => {
     if (buttonRefs.current[selectedIndex]) {
       const button = buttonRefs.current[selectedIndex];
-      const { offsetLeft, offsetWidth } = button;
+      const {offsetLeft, offsetWidth} = button;
       setSliderStyle({
         left: offsetLeft,
         width: offsetWidth,
@@ -149,10 +154,11 @@ const ToggleSwitch = ({ options, switchToggles }) => {
             switchToggles(option);
             setSelectedIndex(index);
           }}
-          className={`relative z-10 px-4 py-2 text-sm font-medium transition-colors duration-200  ${selectedIndex === index
+          className={`relative z-10 px-4 py-2 text-sm font-medium transition-colors duration-200  ${
+            selectedIndex === index
               ? "text-white"
               : "text-gray-500 hover:text-black"
-            }`}
+          }`}
         >
           {option}
         </button>
@@ -174,7 +180,7 @@ function Requests() {
   const requestsPerPage = 20;
   const user = useSelector((state) => state.user.user);
   const userPermissionsSet = new Set(["EDIT", "VERIFY", "PUBLISH"]); // SET FOR EACH USER LOGIC
-  const { isOpen, bodyType, extraObject, header } = useSelector(
+  const {isOpen, bodyType, extraObject, header} = useSelector(
     (state) => state.rightDrawer
   );
   const navigate = useNavigate();
@@ -210,7 +216,7 @@ function Requests() {
       openRightDrawer({
         header: "Details",
         bodyType: RIGHT_DRAWER_TYPES.RESOURCE_DETAILS,
-        extraObject: { id: user.id },
+        extraObject: {id: user.id},
       })
     );
   };
@@ -245,10 +251,10 @@ function Requests() {
   let userPermissionCount = 0;
 
   const options = [
-    { permission: "MANAGEMENT", text: "Manager" },
-    { permission: "EDIT", text: "Editor" },
-    { permission: "VERIFY", text: "Verifier" },
-    { permission: "PUBLISH", text: "Publisher" },
+    {permission: "MANAGEMENT", text: "Manager"},
+    {permission: "EDIT", text: "Editor"},
+    {permission: "VERIFY", text: "Verifier"},
+    {permission: "PUBLISH", text: "Publisher"},
   ];
 
   if (!allowAll && !isToggle) {
@@ -357,14 +363,14 @@ function Requests() {
         <div className="min-h-[28.2rem] flex flex-col justify-between">
           <div className="overflow-x-auto w-full border dark:border-stone-600 rounded-2xl">
             <table className="table text-center min-w-full dark:text-[white]">
-              <thead className="" style={{ borderRadius: "" }}>
+              <thead className="" style={{borderRadius: ""}}>
                 <tr
                   className="!capitalize"
-                  style={{ textTransform: "capitalize" }}
+                  style={{textTransform: "capitalize"}}
                 >
                   <th
                     className="font-medium text-[12px] text-left font-poppins leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white] text-[#42526D] px-[24px] py-[13px] !capitalize"
-                    style={{ position: "static", width: "363px" }}
+                    style={{position: "static", width: "363px"}}
                   >
                     {" "}
                     Resource{" "}
@@ -404,7 +410,7 @@ function Requests() {
                       <tr
                         key={index}
                         className="font-light "
-                        style={{ height: "65px" }}
+                        style={{height: "65px"}}
                       >
                         <td
                           className={`font-poppins h-[65px] truncate font-normal text-[14px] leading-normal text-[#101828] p-[26px] pl-5 flex`}
@@ -420,7 +426,7 @@ function Requests() {
                         {(allowAll || allowEditor || allowEditorState) && (
                           <td
                             className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]"
-                            style={{ whiteSpace: "wrap" }}
+                            style={{whiteSpace: "wrap"}}
                           >
                             <span className="">{request?.editor || "1"}</span>
                           </td>
@@ -428,7 +434,7 @@ function Requests() {
                         {(allowAll || allowVerifier || allowVerifierState) && (
                           <td
                             className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]"
-                            style={{ whiteSpace: "wrap" }}
+                            style={{whiteSpace: "wrap"}}
                           >
                             <span className="">
                               {request?.verifier ? (
@@ -449,17 +455,17 @@ function Requests() {
                                     <div>
                                       {/* <div className="text-left ">Verifier</div> */}
                                       <table className="p-3">
-                                        <thead className="bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white] text-[#FFFFFF] font-poppins font-medium text-[10px] leading-normal px-[24px] py-[13px] text-left !rounded-none !capitalize">
-                                          <tr className="bg-[#25439B] !rounded-none">
-                                            <th className="bg-[#25439B] w-[100px] px-5 py-1 !rounded-none">
+                                        <thead className="bg-[#FAFBFB] dark:bg-slate-700  text-[#FFFFFF] font-poppins font-medium text-[10px] leading-normal px-[24px] py-[13px] text-left !rounded-none !capitalize">
+                                          <tr className="bg-[#25439B]  dark:bg-slate-700 !rounded-none">
+                                            <th className="bg-[#25439B]  dark:bg-slate-700 w-[100px] px-5 py-1 !rounded-none">
                                               Stage
                                             </th>
-                                            <th className="bg-[#25439B] w-[100px] px-5 py-1 !rounded-none">
+                                            <th className="bg-[#25439B]  dark:bg-slate-700 w-[100px] px-5 py-1 !rounded-none">
                                               Name
                                             </th>
                                           </tr>
                                         </thead>
-                                        <tbody className="text-left border rounded">
+                                        <tbody className="text-left dark:border-gray-800  border rounded">
                                           {request?.verifier.map((v) => (
                                             <tr
                                               key={v.stage}
@@ -516,26 +522,27 @@ function Requests() {
                         {(allowAll ||
                           allowPublisher ||
                           allowPublisherState) && (
-                            <td
-                              className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]"
-                              style={{ whiteSpace: "wrap" }}
-                            >
-                              <span className="">
-                                {request?.publisher || "1"}
-                              </span>
-                            </td>
-                          )}
+                          <td
+                            className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]"
+                            style={{whiteSpace: "wrap"}}
+                          >
+                            <span className="">
+                              {request?.publisher || "1"}
+                            </span>
+                          </td>
+                        )}
                         <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]">
                           <p
                             className={`w-[85px] mx-auto before:content-['•'] before:text-2xl flex h-7 items-center justify-center gap-1 px-1 py-0 font-[500] 
-                              ${request.status === "Green"
-                                ? "text-green-600 bg-lime-200 before:text-green-600 px-1"
-                                : request.status === "Blue"
+                              ${
+                                request.status === "Green"
+                                  ? "text-green-600 bg-lime-200 before:text-green-600 px-1"
+                                  : request.status === "Blue"
                                   ? "text-blue-600 bg-sky-200 before:text-blue-600 "
                                   : "text-red-600 bg-pink-200 before:text-red-600 "
                               } 
                                 rounded-2xl`}
-                            style={{ textTransform: "capitalize" }}
+                            style={{textTransform: "capitalize"}}
                           >
                             {/* <span className="">{request?.status}</span> */}
                           </p>
