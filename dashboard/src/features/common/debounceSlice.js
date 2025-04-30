@@ -7,12 +7,12 @@ const debounce = createSlice({
     },
     reducers: {
         // update user reducer, (the user who is logging in)
-        stopButtons: (state, action) => {
+        switchDebounce: (state, action) => {
             state.debounce = action.payload;
         }
     }
 })
 
-export const { stopButtons } = debounce.actions;
+export const { switchDebounce } = debounce.actions;
 
 export default debounce.reducer;

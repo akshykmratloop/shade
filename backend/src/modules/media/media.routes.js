@@ -13,6 +13,11 @@ router.post(
     tryCatchWrap(MediaController.UploadMedia)
   );
 
+  router.get(
+    '/getMedia',
+    tryCatchWrap(MediaController.GetMedia)
+  );
+
   router.delete(
     '/delete/:id',
     tryCatchWrap(MediaController.DeleteMedia)
