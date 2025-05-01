@@ -60,4 +60,28 @@ router.post(
   tryCatchWrap(ContentController.DirectPublishContent)
 );
 
+router.post(
+  "/directPublishContent",
+  //   checkPermission(requiredPermissionsForContentManagement),
+  tryCatchWrap(ContentController.DirectPublishContent)
+);
+
+router.put(
+  "/generateRequest",
+  //   checkPermission(requiredPermissionsForContentManagement),
+  tryCatchWrap(ContentController.GenerateRequest)
+);
+
+router.get(
+  "/getRequests",
+  //   checkPermission(requiredPermissionsForContentManagement),
+  tryCatchWrap(ContentController.GetRequest)
+);
+
+router.get(
+  "/getRequestInfo/:requestId",
+  //   checkPermission(requiredPermissionsForContentManagement),
+  tryCatchWrap(ContentController.GetRequestInfo)
+);
+
 export default router;
