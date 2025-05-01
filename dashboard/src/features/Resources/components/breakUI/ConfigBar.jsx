@@ -86,6 +86,8 @@ const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
     setFormObj(initialObj);
   }
 
+  console.log(assignedUsersState.verfiers)
+
   const managerIsAvailable = assignedUsersState?.roles?.MANAGER === undefined ? true : userList.managers.some(e => {
     return e.id === assignedUsersState?.roles?.MANAGER?.userId
   })

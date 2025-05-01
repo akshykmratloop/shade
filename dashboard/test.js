@@ -206,6 +206,7 @@ let obj = {
                     "sectionVersionId": "cma3q6qlj00a3mn7ajhzmnkuq",
                     "order": 5,
                     "version": 1,
+   
                     "title": "recentProjectsSection-home-6b8d",
                     "SectionType": "PROJECT_GRID",
                     "content": {
