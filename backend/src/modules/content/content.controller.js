@@ -9,6 +9,9 @@ import {
   getContent,
   updateContent,
   directPublishContent,
+  generateRequest,
+  getRequest,
+  getRequestInfo,
 } from "./content.service.js";
 
 const GetResources = async (req, res) => {
@@ -90,6 +93,42 @@ const DirectPublishContent = async (req, res) => {
   res.status(200).json(response);
 };
 
+const GenerateRequest = async (req, res) => {
+  const content = req.body;
+  const response = await generateRequest(content, req.user.id);
+  res.status(200).json(response);
+};
+
+
+const GetRequest = async (req, res) => {
+  const {
+    userRole,
+    search,
+    status,
+    page,
+    limit,
+  } = req.query;
+  const userId = req.user.id;
+
+  const pageNum = parseInt(page) || 1;
+  const limitNum = parseInt(limit) || 100;
+  const response = await getRequest(
+    userId,
+    userRole,
+    search,
+    status,
+    pageNum,
+    limitNum
+  );
+  res.status(200).json(response);
+};
+
+const GetRequestInfo = async (req, res) => {
+  const {requestId} = req.params;
+  const response = await getRequestInfo(requestId);
+  res.status(200).json(response);
+};
+
 export default {
   GetResources,
   GetResourceInfo,
@@ -99,4 +138,7 @@ export default {
   GetContent,
   UpdateContent,
   DirectPublishContent,
+  GenerateRequest,
+  GetRequest,
+  GetRequestInfo
 };
