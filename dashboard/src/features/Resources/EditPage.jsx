@@ -16,7 +16,7 @@ import TextAreaInput from "../../components/Input/TextAreaInput";
 import AllForOneManager from "./components/AllForOneManager";
 import createContent from "./defineContent";
 import { MoonLoader } from "react-spinners";
-
+import FallBackLoader from "../../components/fallbackLoader/FallbackLoader";
 
 const Page404 = lazy(() => import('../../pages/protected/404'))
 const AllForOne = lazy(() => import("./components/AllForOne"));
@@ -42,10 +42,6 @@ const EditPage = () => {
 
     const Routes = ['home', 'solutions', 'about', "services", "service", 'markets', 'projects', "project", 'careers', "career", 'news', 'footer', 'header', 'testimonials', 'testimonial']
 
-    const fallBackElemnet = (<div className="flex justify-center items-center h-[70vh] w-full fixed">
-        <MoonLoader size={60} color="#29469c" className="" />
-    </div>)
-
     useEffect(() => {
         dispatch(setSidebarState(true))
         setSubRouteList(JSON.parse(localStorage.getItem("subRoutes")))
@@ -54,7 +50,7 @@ const EditPage = () => {
     return (
         <div>
             <Suspense
-                fallback={fallBackElemnet}
+                fallback={<FallBackLoader />}
             >
                 {
                     !Routes.includes(currentPath) || (subPath && !subRoutesList.includes(subPath)) ?

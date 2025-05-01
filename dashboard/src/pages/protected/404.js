@@ -12,7 +12,7 @@ function InternalPage() {
     }, [])
 
     return (
-        <div className="hero h-4/5 ">
+        <div className="hero h-4/5 border h-full">
             {/* <div className="hero-content text-accent text-center">
                 <div className="max-w-md">
                 <FaceFrownIcon className="h-48 w-48 inline-block"/>
@@ -20,7 +20,7 @@ function InternalPage() {
                 </div>
             </div> */}
             <div className="">
-                <div className="flex justify-center py-16"><img src={unavailableIcon} alt="" className="" /></div>
+                <div className="flex justify-center py-16"><img src={unavailableIcon} alt="" className="w-[200px]" /></div>
             </div>
         </div>
     )

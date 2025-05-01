@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { removeImages, updateImages } from "../../features/common/homeContentSlice";
 import ImageSelector from "./ImageSelector"; // Import here
 
-const InputFile = ({ label, baseClass, id, currentPath, resourceId }) => {
+const InputFile = ({ label, baseClass, id, currentPath, resourceId, contentIndex }) => {
   const dispatch = useDispatch();
   const ImageFromRedux = useSelector(state => state.homeContent.present.images);
   const [fileURL, setFileURL] = useState("");
@@ -17,7 +17,8 @@ const InputFile = ({ label, baseClass, id, currentPath, resourceId }) => {
 
   const handleImageSelect = (url) => {
     setFileURL(url);
-    dispatch(updateImages({ section: id, src: url, currentPath }));
+    console.log(url)
+    dispatch(updateImages({ section: id, src: url, currentPath, index: contentIndex }));
     setIsSelectorOpen(false);
   };
 

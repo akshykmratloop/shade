@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, useCallback } from "react";
+import { useEffect, useRef, useState, useCallback, Suspense } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { lazy } from "react";
@@ -29,13 +29,16 @@ import { updateRouteLists } from "../common/routeLists";
 import resourcesContent from "./resourcedata";
 import CloseModalButton from "../../components/Button/CloseButton";
 import createContent from "./defineContent";
+import FallBackLoader from "../../components/fallbackLoader/FallbackLoader";
 
 const AllForOne = lazy(() => import("./components/AllForOne"));
+const Page404 = lazy(() => import("../../pages/protected/404"));
 
 function Resources() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const divRef = useRef(null);
+  const isManager = useSelector(state => state.user.isManager)
 
   const [configBarOn, setConfigBarOn] = useState(false);
   const [pageDetailsOn, setPageDetailsOn] = useState(false);
@@ -169,7 +172,7 @@ function Resources() {
               resourceType: response.content.resourceType,
               resourceTag: response.content.resourceTag,
               relationType: response.content.relationType,
-              editVersion: response.content.editModeVersionData ?? response.content.liveModeVersionData
+              editVersion: isManager ? response.content.liveModeVersionData : response.content.editModeVersionData ?? response.content.liveModeVersionData
             }
 
             setRawContent(createContent(payload))
@@ -272,8 +275,9 @@ function Resources() {
             <MoonLoader size={60} color="#29469c" className="" />
           </div>
         ) : resNotAvail ? (
-          <div className="flex justify-center py-16">
-            <img src={unavailableIcon} alt="Not Available" />
+          <div className="flex justify-center py-24 h-full border border-cyan-400">
+          {/* //   <img src={unavailableIcon} alt="Not Available" /> */}
+            <Page404 />
           </div>
         ) : (
           resources?.[resourceType]?.map((page, index) => (
@@ -368,21 +372,24 @@ function Resources() {
       )}
       {
         preview &&
-        <div className="fixed top-0 left-0 z-[55] h-screen overflow-y-scroll">
-          <div className="">
-            <CloseModalButton onClickClose={() => setPreview(false)} className={"fixed top-4 right-8 z-[56]"} />
-          </div>
-          <AllForOne
-            language={language}
-            screen={1532}
-            content={rawContent.content}
-            contentIndex={content.index}
-            subPath={subPath}
-            deepPath={deepPath}
-            setLanguage={setLanguage}
-            fullScreen={true}
-            currentPath={path}
-          />
+        <div className="fixed top-0 left-0 z-[55] h-screen bg-stone-900/30 overflow-y-scroll">
+          <Suspense fallback={<FallBackLoader />}>
+            <div className="">
+              <CloseModalButton onClickClose={() => setPreview(false)} className={"fixed top-4 right-8 z-[56]"} />
+            </div>
+
+            <AllForOne
+              language={language}
+              screen={1532}
+              content={rawContent.content}
+              contentIndex={content.index}
+              subPath={subPath}
+              deepPath={deepPath}
+              setLanguage={setLanguage}
+              fullScreen={true}
+              currentPath={path}
+            />
+          </Suspense>
         </div>
       }
       <ToastContainer />

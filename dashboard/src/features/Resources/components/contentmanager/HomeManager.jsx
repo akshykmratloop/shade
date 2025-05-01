@@ -115,7 +115,7 @@ const HomeManager = ({ language, content, currentPath, indexes }) => {
                 inputs={[
                     { input: "input", label: "Heading/title", updateType: "title", value: content?.homeBanner?.content?.title[language], update: `editVersion.sections[${indexes.homeBanner}].content.title.${language}` },
                     { input: "textarea", label: "Description", updateType: "description", maxLength: 500, value: content?.homeBanner?.content?.description[language], update: `sections.${indexes.homeBanner}.description.${language}` },
-                    { input: "input", label: "Button Text", updateType: "buttonText", maxLength: 20, value: content?.homeBanner?.content?.button?.[0]?.text?.[language], update: `sections.${indexes.homeBanner}.buttonText[0]/${language}` }]}
+                    { input: "input", label: "Button Text", updateType: "button", maxLength: 20, value: content?.homeBanner?.content?.button?.[0]?.text?.[language], update: `sections.${indexes.homeBanner}.buttonText[0]/${language}` }]}
                 inputFiles={[{ label: "Backround Image", id: "homeBanner" }]}
                 section={"homeBanner"}
                 language={language}
@@ -131,7 +131,7 @@ const HomeManager = ({ language, content, currentPath, indexes }) => {
                 inputs={[
                     { input: "input", label: "Heading/title", updateType: "title", value: content?.markDown?.content?.title[language] },
                     { input: "richtext", label: "About section", updateType: "description", maxLength: 800, value: content?.markDown?.content?.description[language] },
-                    { input: "input", label: "Button Text", updateType: "buttonText", value: content?.markDown?.content?.button?.[0]?.text?.[language] }]}
+                    { input: "input", label: "Button Text", updateType: "button", value: content?.markDown?.content?.button?.[0]?.text?.[language] }]}
                 inputFiles={[{ label: "Backround Image", id: "aboutUsSection" }]}
                 section={"aboutUsSection"}
                 language={language}
@@ -163,7 +163,7 @@ const HomeManager = ({ language, content, currentPath, indexes }) => {
                     inputs={[
                         { input: "input", label: "Heading/title", updateType: "title", value: content?.statistics?.content?.title[language] },
                         { input: "textarea", label: "Description", updateType: "description", value: content?.statistics?.content?.description[language] },
-                        { input: "input", label: "Button Text", updateType: "buttonText", value: content?.statistics?.content?.button?.[0]?.text?.[language] }]}
+                        { input: "input", label: "Button Text", updateType: "button", value: content?.statistics?.content?.button?.[0]?.text?.[language] }]}
                     isBorder={false}
                     fileId={"experienceSection"}
                     section={"experienceSection"}

@@ -248,6 +248,7 @@ const ContentSection = ({
                                             section={section}
                                             isCloseButton={allowClose}
                                             resourceId={resourceId}
+                                            contentIndex={contentIndex}
                                         />
                                     )
                                 })}
@@ -277,6 +278,7 @@ const ContentSection = ({
                                         fileIndex={i}
                                         section={section}
                                         resourceId={resourceId}
+                                        contentIndex={contentIndex}
                                     />
                                 </div>
                             ))}
@@ -295,6 +297,7 @@ const ContentSection = ({
                                         section={section}
                                         fileIndex={index}
                                         resourceId={resourceId}
+                                        contentIndex={contentIndex}
                                     />
                                 </div>
                             ))}

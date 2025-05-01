@@ -243,7 +243,7 @@ const ImageSelector = ({ onSelectImage, onClose, resourceId }) => {
                     <div className="flex gap-4">
                         {selectedImage && !uploading && (
                             <button
-                                onClick={() => onSelectImage(selectedImage)}
+                                onClick={() => onSelectImage(selectedImage.split("/").slice(-1))}
                                 className="bg-blue-800 text-white px-4 py-2 rounded shadow text-[15px]"
                             >
                                 Select

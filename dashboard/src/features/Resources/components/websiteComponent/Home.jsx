@@ -29,6 +29,7 @@ import { TruncateText } from "../../../../app/capitalizeword";
 import dynamicSize, { generatefontSize } from "../../../../app/fontSizes";
 import { differentText } from "../../../../app/fontSizes";
 import contentJSON from './content.json'
+import { Img_url } from "../../../../routes/backend";
 
 
 const HomePage = ({ language, screen, fullScreen, highlight, content, currentContent, liveContent }) => {
@@ -100,12 +101,13 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
             <section className="w-full relative"
             >
                 <span
-                    className={`w-full block ${language === "en" ? "scale-x-100" : "scale-x-[-1]"
+                    className={`w-full min-h-[400px] block ${language === "en" ? "scale-x-100" : "scale-x-[-1]"
                         }`}
                 >
                     <img
-                        src={ImagesFromRedux?.homeBanner || background}
-                        alt="about-us"
+                        dir={isLeftAlign ? "ltr" : "rtl"}
+                        src={`${Img_url}/${content?.homeBanner?.content?.image[0]}`}
+                        alt="Banner Image"
                         className="w-[full] h-full object-cover"
                         style={{ objectPosition: "center", transform: "scaleX(-1)", height: isTablet ? "500px" : isPhone && "500px" }} />
                 </span>
@@ -318,7 +320,7 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
 
                     <div className={`flex ${isTablet ? isPhone ? "gap-[20px]" : "gap-[30px]" : "gap-[30px]"} ${isLeftAlign && !isComputer && "pr-20"} `}
                         style={{ gap: isComputer && dynamicSize(70, width), width: isComputer || fullScreen ? dynamicSize(1230, width) : "100%" }}>
-                        <div className={`leftDetails min-w-[150px] border ${isTablet ? isPhone? "w-[150px]": "w-[240px]" :""}`}
+                        <div className={`leftDetails min-w-[150px] ${isTablet ? isPhone ? "w-[150px]" : "w-[240px]" : ""}`}
                             style={{ width: isComputer || fullScreen ? dynamicSize(424, width) : "" }}>
                             {content?.projectGrid?.sections?.map((section, index) => (
                                 <div
@@ -355,7 +357,7 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                             ))}
                         </div>
 
-                        <div className={`${isPhone ? "w-[220px]" : isTablet ? "w-[490px]" : ""} border border-cyan-600 overflow-hidden`}
+                        <div className={`${isPhone ? "w-[220px]" : isTablet ? "w-[490px]" : ""}  overflow-hidden`}
                             style={{ width: isComputer || fullScreen ? dynamicSize(800, width) : "" }}
                         >
                             <Swiper
@@ -379,7 +381,7 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
 
                                     return (
                                         <SwiperSlide key={slideIndex}>
-                                            <div className={`${isPhone ? "flex flex-col" : `grid grid-cols-2 gap-[12px] border auto-rows-auto ${isTablet ? "w-[350px]" : "w-[600px]"}`} `}
+                                            <div className={`${isPhone ? "flex flex-col" : `grid grid-cols-2 gap-[12px] auto-rows-auto ${isTablet ? "w-[350px]" : "w-[600px]"}`} `}
                                                 style={{
                                                     width: isComputer ? dynamicSize(722, width) : isPhone ? `${(600 / 1180) * screen}px` : `${(750 / 1180) * screen}px`,
                                                     gap: isComputer ? "" : `${(40 / 1180) * screen}px`

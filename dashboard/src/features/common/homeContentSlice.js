@@ -39,7 +39,7 @@ const cmsSlice = createSlice({
                 }
                 state.present.projectDetail[action.payload.projectId - 1].gallerySection.images = newArray
             } else {
-                state.present.images[action.payload.section] = action.payload.src;
+                state.present[action.payload.currentPath].editVersion.sections[action.payload.index].content.images[0] = action.payload.src
             }
             state.future = [];
         },
@@ -139,8 +139,9 @@ const cmsSlice = createSlice({
         },
         updateSpecificContent: (state, action) => {
             state.past.push(JSON.parse(JSON.stringify(state.present)));
-
-            if (action.payload.section === "recentProjectsSection") {
+            if (action.payload.title === "button") {
+                state.present[action.payload.currentPath].editVersion.sections[action.payload.contentIndex].content[action.payload.title][0].text[action.payload.lan] = action.payload.value
+            } else if (action.payload.section === "recentProjectsSection") {
                 state.present[action.payload.currentPath].editVersion.sections[action.payload.contentIndex].sections[action.payload.index].content[action.payload.title][action.payload.lan] = action.payload.value
             } else if (action.payload.subSection === "cards") {
                 state.present[action.payload.currentPath].editVersion.sections[action.payload.contentIndex].content.cards[action.payload.index][action.payload.title][action.payload.lan] = action.payload.value
@@ -178,7 +179,7 @@ const cmsSlice = createSlice({
                     break;
 
                 case "testimonials":
-                    console.log([action.payload.currentPath],[action.payload.contentIndex])
+                    console.log([action.payload.currentPath], [action.payload.contentIndex])
                     state.present[action.payload.currentPath].editVersion.sections[action.payload.contentIndex].items = newOptions
                     break;
 
