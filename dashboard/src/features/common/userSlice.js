@@ -15,12 +15,15 @@ const user = createSlice({
             roles: [],
             status: "",
             updatedAt: ""
-        }
+        },
+        isManager: false
     },
     reducers: {
         // update user reducer, (the user who is logging in)
         updateUser: (state, action) => {
             state.user = action.payload;
+
+            state.isManager = action.payload.permissions?.some(e => e.slice(-10) === "MANAGEMENT" && e.slice(0, 4) !== "USER" && e.slice(0, 4) !== "ROLE" && e.slice(0, 4) !== "AUDI")
         }
     }
 })

@@ -31,7 +31,7 @@ function Header() {
     if (!userId) return;
     (async () => {
       const res = await getNotificationsbyId(userId);
-      const unread = res.notifications.filter((n) => !n.isRead).length;
+      const unread = res?.notifications?.filter((n) => !n.isRead)?.length;
       dispatch(setNotificationCount(unread));
     })();
   }, [userId, dispatch]);
@@ -46,7 +46,7 @@ function Header() {
     const handleNew = async (payload) => {
       if (payload.userId !== userId) return;
       const res = await getNotificationsbyId(userId);
-      const unread = res.notifications.filter((n) => !n.isRead).length;
+      const unread = res.notifications?.filter((n) => !n.isRead)?.length;
       dispatch(setNotificationCount(unread));
     };
 

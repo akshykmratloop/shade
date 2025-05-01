@@ -19,9 +19,10 @@ import { Switch } from '@headlessui/react';
 import transformContent from '../../../../app/convertContent';
 import { publishContent, updateContent } from '../../../../app/fetch';
 import Popups from './Popups';
+import formatTimestamp from '../../../../app/TimeFormat';
 
 
-export default function ContentTopBar({ setWidth, raisePopup, setFullScreen }) {
+export default function ContentTopBar({ setWidth, raisePopup, setFullScreen, currentPath }) {
     const dispatch = useDispatch();
     const iconSize = 'xl:h-[1.5rem] xl:w-[1.5rem]';
     const smallIconSize = 'sm:h-[1rem] sm:w-[1rem]';
@@ -38,7 +39,7 @@ export default function ContentTopBar({ setWidth, raisePopup, setFullScreen }) {
     const [PopUpPublish, setPopupPublish] = useState(false)
     const [PopupSubmit, setPopupSubmit] = useState(false)
 
-    const isManager = user.permissions?.some(e => e.slice(-10) === "MANAGEMENT" && e.slice(0, 4) !== "USER" && e.slice(0, 4) !== "ROLE" && e.slice(0, 4) !== "AUDI")
+    const isManager = useSelector(state => state.user.isManager)
 
     const deviceIcons = [
         { icon: <MdOutlineDesktopWindows />, label: 'Desktop', width: 1180 },
@@ -55,7 +56,10 @@ export default function ContentTopBar({ setWidth, raisePopup, setFullScreen }) {
 
     }
 
-    async function saveTheDraft() {
+    const lastUpdate = formatTimestamp(ReduxState.present?.[currentPath]?.editVersion?.updatedAt, "dd-mm-yyyy")
+    const status = ReduxState.present?.[currentPath]?.editVersion?.status
+
+    async function saveTheDraft(isToastify = true) {
         const paylaod = transformContent(ReduxState.present.home)
 
         // console.log(JSON.stringify(paylaod))
@@ -65,12 +69,14 @@ export default function ContentTopBar({ setWidth, raisePopup, setFullScreen }) {
 
             const response = await updateContent(paylaod)
 
-            if (response.message === "Success") {
-                toast.success("Changes has been saved", {
-                    style: { backgroundColor: "#187e3d", color: "white" },
-                    autoClose: 1000, // Closes after 1 second
-                    pauseOnHover: false, // Does not pause on hover
-                })
+            if (response.ok) {
+                if (isToastify) {
+                    toast.success("Changes has been saved", {
+                        style: { backgroundColor: "#187e3d", color: "white" },
+                        autoClose: 1000, // Closes after 1 second
+                        pauseOnHover: false, // Does not pause on hover
+                    })
+                }
             } else {
                 throw new Error("Error Occured")
             }
@@ -150,8 +156,9 @@ export default function ContentTopBar({ setWidth, raisePopup, setFullScreen }) {
         if (!autoSave) return;
 
         const debounceTimer = setTimeout(() => {
-            dispatch(saveDraftAction(ReduxState.present));
-        }, 3000); // 3 seconds debounce time
+            // dispatch(saveDraftAction(ReduxState.present));
+            saveTheDraft(false)
+        }, 5000); // 5 seconds debounce time
 
         return () => clearTimeout(debounceTimer); // Reset timer if ReduxState changes before 3 seconds
     }, [ReduxState, autoSave]);
@@ -214,8 +221,8 @@ export default function ContentTopBar({ setWidth, raisePopup, setFullScreen }) {
                             <span ref={infoIconRef} className={`cursor-pointer `} onClick={() => info ? setInfo(false) : setInfo(true)}><IoIosInformationCircleOutline className={`${iconSize} ${smallIconSize} dark:hover:text-[#bbbbbb]`} /></span>
                         }
                         <div ref={infoRef} className={`absolute top-[100%] left-1/2 border bg-white w-[200px] shadow-xl rounded-lg text-xs p-2 ${info ? "block" : "hidden"}`} >
-                            <p className='text-[#64748B]'>last saved:  <span className='text-[black]'>{"dd/mm/yyyy"}</span></p>  {/* last saved */}
-                            <p className='text-[#64748B]'>status: <span className='text-[black]'> draft</span></p>   {/**status */}
+                            <p className='text-[#64748B]'>last saved:  <span className='text-[black]'>{lastUpdate}</span></p>  {/* last saved */}
+                            <p className='text-[#64748B]'>status: <span className='text-[black]'> {status}</span></p>   {/**status */}
                         </div>
                     </div>
                 </div>

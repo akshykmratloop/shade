@@ -36,7 +36,9 @@ const EditPage = () => {
     const subPath = location.pathname.split('/')[5]
     const deepPath = location.pathname.split('/')[6]
 
-    const content = createContent(useSelector((state) => state.homeContent.present), "edit", currentPath)
+    const contentFromRedux = useSelector((state) => state.homeContent.present)
+
+    const content = createContent(contentFromRedux, "edit", currentPath)
 
     const Routes = ['home', 'solutions', 'about', "services", "service", 'markets', 'projects', "project", 'careers', "career", 'news', 'footer', 'header', 'testimonials', 'testimonial']
 
@@ -74,7 +76,7 @@ const EditPage = () => {
                                 className={`flex-[4] h-[83.5vh] flex flex-col`}
                                 style={{ width: screen > 900 ? "60%" : "" }}
                             >
-                                <ContentTopBar setWidth={setScreen} setFullScreen={setFullScreen} />
+                                <ContentTopBar setWidth={setScreen} setFullScreen={setFullScreen} currentPath={currentPath} />
                                 <h4 className="text-[#6B7888] text-[14px] mt-2 mb-[1px]">Add Note</h4>
                                 <TextAreaInput
                                     updateFormValue={() => { }}
@@ -96,8 +98,8 @@ const EditPage = () => {
                                         <AllForOne
                                             language={language}
                                             screen={screen}
-                                            content={content.content} contentIndex={content.index} subPath={subPath} deepPath={deepPath} setLanguage={setLanguage} fullScreen={fullScreen} currentPath={currentPath} 
-                                            />
+                                            content={content.content} contentIndex={content.index} subPath={subPath} deepPath={deepPath} setLanguage={setLanguage} fullScreen={fullScreen} currentPath={currentPath}
+                                        />
                                     }
                                 </div>
                             </div>
