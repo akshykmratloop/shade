@@ -931,70 +931,61 @@ export const createOrUpdateVersion = async (contentData) => {
   // Extract the content from the request
   const { newVersionEditMode } = contentData;
   const saveAs = newVersionEditMode?.versionStatus || "DRAFT";
-  // return resource
 
+  const {
+    comments = "Version created",
+    referenceDoc = null,
+    content = {},
+    icon = null,
+    image = null,
+    sections = [],
+  } = newVersionEditMode;
   // Start a transaction to ensure all operations succeed or fail together
-  return await prismaClient.$transaction(async (tx) => {
-    let resourceVersion;
-
-    // Check if we need to create a new version or update an existing one
+  const result = await prismaClient.$transaction(async (tx) => {
     if (!resource.newVersionEditModeId) {
-      resourceVersion = await tx.resourceVersion.create({
+      // Create a new edit version if no edit version exists
+      const resourceVersion = await tx.resourceVersion.create({
         data: {
           resourceId: resource.id,
           versionNumber: resource._count.versions + 1,
           versionStatus: saveAs,
-          notes: newVersionEditMode?.comments || "Version created",
-          referenceDoc: newVersionEditMode?.referenceDoc || null,
-          content: newVersionEditMode?.content || {},
-          icon: newVersionEditMode?.icon || null,
-          Image: newVersionEditMode?.image || null,
+          notes: comments,
+          referenceDoc,
+          content,
+          icon,
+          Image: image,
         },
       });
-  
-      // Link new edit version to resource
-      await tx.resource.update({
-        where: { id: resource.id },
-        data: { newVersionEditModeId: resourceVersion.id },
-      });
 
-      console.log("Created resource version:", resourceVersion);
-  
       // Create section versions
       if (Array.isArray(newVersionEditMode?.sections)) {
-        for (let i = 0; i < newVersionEditMode.sections.length; i++) {
-          const sectionData = newVersionEditMode.sections[i];
-  
-          const sectionVersion = await createSectionVersionWithChildren(tx, {
+        for (let i = 0; i < sections.length; i++) {
+          const sectionData = sections[i];
+          await createSectionVersionWithChildren(tx, {
             sectionData,
             resource,
             resourceVersion,
-            order: sectionData.order || i + 1,
-          });
-  
-          // if (!sectionVersion?.id) {
-          //   throw new Error("SectionVersion creation failed: ID missing.");
-          // }
-  
-          assert(
-            sectionVersion?.id,
-            "NOT_FOUND",
-            `SectionVersion creation failed: ID missing.`
-          );
-
-          await tx.resourceVersionSection.create({
-            data: {
-              resourceVersionId: resourceVersion.id,
-              sectionVersionId: sectionVersion.id,
-              order: sectionData.order || i + 1,
-            },
+            order: sectionData.order ?? i + 1,
           });
         }
       }
-  
-    }  else {
+      // Link new edit version to resource
+      const updatedResource = await tx.resource.update({
+        where: { id: resource.id },
+        data: {
+          newVersionEditModeId: resourceVersion.id,
+          titleEn: contentData.titleEn,
+          titleAr: contentData.titleAr,
+          slug: contentData.slug,
+        },
+      });
+      return {
+        ...updatedResource,
+        resourceVersion,
+      };
+    } else {
       // Edit version already exists, update it
-      resourceVersion = await tx.resourceVersion.update({
+      const resourceVersion = await tx.resourceVersion.update({
         where: { id: resource.newVersionEditModeId },
         data: {
           versionStatus: saveAs,
@@ -1009,33 +1000,33 @@ export const createOrUpdateVersion = async (contentData) => {
           Image: newVersionEditMode?.image || resource.newVersionEditMode.Image,
         },
       });
-
-      console.log("Updated resource version:", resourceVersion);
-
       // Update sections recursively
       if (Array.isArray(newVersionEditMode?.sections)) {
         for (const sectionData of newVersionEditMode.sections) {
           await updateSectionVersion(tx, sectionData, resourceVersion.id);
         }
       }
+
+      const updatedResource = await tx.resource.update({
+        where: { id: resource.id },
+        data: {
+          titleEn: contentData.titleEn,
+          titleAr: contentData.titleAr,
+          slug: contentData.slug,
+        },
+      });
+      return {
+        ...updatedResource,
+        resourceVersion,
+      };
     }
-
-    const updatedResource = await prismaClient.resource.update({
-      where: { id: resource.id },
-      data: {
-        titleEn: contentData.titleEn,
-        titleAr: contentData.titleAr,
-        slug: contentData.slug,
-      },
-    });
-
-    return {
-      message: !resource.newVersionEditModeId
-        ? "Resource version created successfully"
-        : "Resource version updated successfully",
-      resource: { ...updatedResource, resourceVersion: resourceVersion },
-    };
   });
+  return {
+    message: !resource.newVersionEditModeId
+      ? "Resource version created successfully"
+      : "Resource version updated successfully",
+    resource: result,
+  };
 };
 
 async function createSectionVersionWithChildren(
@@ -1211,14 +1202,16 @@ export const publishContent = async (contentData, userId) => {
       },
     });
 
-    for (let i = 0; i < sections.length; i++) {
-      const sectionData = sections[i];
-      await createSectionVersionWithChildren(tx, {
-        sectionData,
-        resource,
-        resourceVersion,
-        order: sectionData.order ?? i + 1,
-      });
+    if (Array.isArray(newVersionEditMode?.sections)) {
+      for (let i = 0; i < sections.length; i++) {
+        const sectionData = sections[i];
+        await createSectionVersionWithChildren(tx, {
+          sectionData,
+          resource,
+          resourceVersion,
+          order: sectionData.order ?? i + 1,
+        });
+      }
     }
 
     const updatedResource = await tx.resource.update({
