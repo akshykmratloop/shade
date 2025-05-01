@@ -1,19 +1,23 @@
-import { useEffect, useRef, useState } from "react";
+import {useEffect, useRef, useState} from "react";
 import StatusBar from "./Statusbar";
 import Assigned from "../../../../assets/image 13.png";
 import Edit from "../../../../assets/image 14.svg";
 import Verify from "../../../../assets/image 15.svg";
 import Publisher from "../../../../assets/image 16.svg";
-import { X } from "lucide-react";
-import { getResourceInfo } from "../../../../app/fetch";
+import {X} from "lucide-react";
+import {getResourceInfo} from "../../../../app/fetch";
 import formatTimestamp from "../../../../app/TimeFormat";
-import capitalizeWords, { TruncateText } from "../../../../app/capitalizeword";
+import {useDispatch, useSelector} from "react-redux";
+import {TruncateText} from "../../../../app/capitalizeword";
 
-const PageDetails = ({ data, display, setOn }) => {
+const PageDetails = ({data, display, setOn}) => {
   const pageRef = useRef(null);
   const [pageInfo, setPageInfo] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const user = useSelector((state) => state.user.user);
+  console.log(user, "user datta");
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (display && data?.id) {
@@ -49,10 +53,27 @@ const PageDetails = ({ data, display, setOn }) => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [display, setOn]);
 
+  console.log("pageInfo", pageInfo);
+
+  //status bar stages
+  const computeStage = () => {
+    const roles = pageInfo?.resourceInfo?.roles || [];
+    const hasRoles = roles.length > 0;
+    const newVersion = pageInfo?.resourceInfo?.newVersionEditMode;
+    const versionMode = newVersion?.versionMode;
+
+    if (!hasRoles) return 0;
+    if (versionMode === "editMode") return 2;
+    if (versionMode === "verificationMode") return 3;
+    if (versionMode === "publishMode") return 4;
+    return 1;
+  };
+
   return (
     <div
-      className={`${display ? "block" : "hidden"
-        } fixed z-20 top-0 left-0 w-[100vw] h-screen bg-black bg-opacity-50 `}
+      className={`${
+        display ? "block" : "hidden"
+      } fixed z-20 top-0 left-0 w-[100vw] h-screen bg-black bg-opacity-50 `}
     >
       <div
         ref={pageRef}
@@ -64,11 +85,13 @@ const PageDetails = ({ data, display, setOn }) => {
         >
           <X className="w-[16px] h-[16px]" />
         </button>
-        <h1 className="font-medium text-[1.1rem] shadow-md-custom p-[30px] text-center"
-          title={data?.titleEn}>
+        <h1
+          className="font-medium text-[1.1rem] shadow-md-custom p-[30px] text-center"
+          title={data?.titleEn}
+        >
           Page Details for {TruncateText(data?.titleEn, 12)}
         </h1>
-        <div className=" flex flex-col h-[87%] text-[14px] custom-text-color p-[30px] py-0  mt-2 overflow-y-scroll customscroller">
+        <div className="dark:border-none flex flex-col h-[87%] text-[14px] custom-text-color p-[30px] py-0  mt-2 border overflow-y-scroll customscroller">
           <div className="flex py-[15px] justify-between border-b dark:border-stone-700">
             <label>Total Versions:</label>
             <p>{pageInfo?.resourceInfo?._count?.versions}</p>
@@ -83,19 +106,26 @@ const PageDetails = ({ data, display, setOn }) => {
           </div>
           <div className="flex py-[15px] justify-between border-b dark:border-stone-700">
             <label>Live Version:</label>
-            <div className={`w-min flex flex-col items-end gap-[2.5px]`}>
-              <p className="text py-0 my-0">
-                V {pageInfo?.resourceInfo?.liveVersion?.versionNumber}
+            <div className={`flex flex-col items-end gap-[2.5px]`}>
+              <p className="text-right py-0 my-0 !w-full">
+                <span>
+                  {`V ${pageInfo?.resourceInfo?.liveVersion?.versionNumber}`}
+                </span>
               </p>
-              <button
-                className="text-[#145098] dark:text-sky-500 underline font-[300] py-0 my-0"
-                style={{ whiteSpace: "pre" }}
-              >
-                Restore Previous Version
-              </button>
-              <button className="text-[#145098] dark:text-sky-500 underline font-[300] py-0 my-0">
-                View History
-              </button>
+              {(user?.roles?.includes("SUPER_ADMIN") ||
+                user?.permissions?.includes("PAGE_MANAGEMENT")) && (
+                <>
+                  <button
+                    className="text-[#145098] dark:text-sky-500 underline font-[300] py-0 my-0"
+                    style={{whiteSpace: "pre"}}
+                  >
+                    Restore Previous Version
+                  </button>
+                  <button className="text-[#145098] dark:text-sky-500 underline font-[300] py-0 my-0">
+                    View History
+                  </button>
+                </>
+              )}
             </div>
           </div>
           <div className="flex py-[15px] justify-between border-b-4 border-gray-400 dark:border-stone-700">
@@ -120,8 +150,9 @@ const PageDetails = ({ data, display, setOn }) => {
                   return (
                     <div
                       key={verifier?.id}
-                      className={`flex gap-[10px] items-center border-b dark:border-stone-700 ${firstIndex ? "justify-between" : "justify-end"
-                        }`}
+                      className={`flex gap-[10px] items-center border-b dark:border-stone-700 ${
+                        firstIndex ? "justify-between" : "justify-end"
+                      }`}
                     >
                       {firstIndex && (
                         <label className="!text-[#5d5d5e]">Verifiers:</label>
@@ -155,9 +186,12 @@ const PageDetails = ({ data, display, setOn }) => {
                 >
                   Restore Previous Version
                 </button> */}
-                <button className="text-[#145098] dark:text-sky-500 underline font-[300] py-0 my-0">
-                  View
-                </button>
+                {(user?.roles?.includes("SUPER_ADMIN") ||
+                  user?.permissions?.includes("PAGE_MANAGEMENT")) && (
+                  <button className="text-[#145098] dark:text-sky-500 underline font-[300] py-0 my-0">
+                    View
+                  </button>
+                )}
               </div>
             </div>
             {/* <div className="flex py-[15px] justify-between border-b dark:border-stone-700">
@@ -166,7 +200,7 @@ const PageDetails = ({ data, display, setOn }) => {
             <div className="flex flex-col gap-[15px] text-[11px] py-4">
               <label className="text-[15px]">Version Status:</label>
               <div className="">
-                <StatusBar stage={2} />
+                <StatusBar stage={computeStage()} />
               </div>
               <div className="flex justify-between">
                 <div className="flex flex-col translate-x-[14px]">
