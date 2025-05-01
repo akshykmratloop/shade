@@ -1,6 +1,7 @@
 import {Router} from "express";
 import MediaRoutes from "./media.routes.js";
-import {authenticateUser} from "../../helper/index.js";
+import { authenticateUser } from "../../helper/authMiddleware.js";
+
 
 const router = Router();
 router.use("/media", authenticateUser, MediaRoutes);
