@@ -44,7 +44,7 @@
         "ar": "التزامنا الثابت الذي يعزز الشراكات والتعاونات القوية مع القادة الرؤوساء لمواجهة أصعب التحديات واستغلال أعظم الفرص، وخلق إنجازات هندسية واختراقات تحولية تتوافق مع رؤية المملكة ٢٠٣٠."
       },
       "button": [
-        {
+        { "url" : null,
           "text": {
             "en": "View Our Work",
             "ar": "أعمالنا"
@@ -66,7 +66,7 @@
         "ar": "مع عملائنا، نعتمد نهجًا تحوليًا من خلال تمكين المؤسسات لبناء ميزة تنافسية مستدامة والمساعدة في دفع النمو."
       },
       "button": [
-        {
+        { "url" : null,
           "text": {
             "en": "Know About Us",
             "ar": "اعرف عنا"
@@ -128,7 +128,7 @@
         }
       ],
       "button": [
-        {
+        { "url" : null,
           "text": {
             "en": "Contact Us",
             "ar": "اتصل بنا"
@@ -138,32 +138,34 @@
       ]
     },
     "recentProjectsSection": {
-      "buttons": [
-        {
-          "id": "btn1",
-          "text": {
-            "en": "View All",
-            "ar": "عرض الكل"
+      "content" : {
+        "buttons": [
+          {
+            "id": "btn1",
+            "text": {
+              "en": "View All",
+              "ar": "عرض الكل"
+            },
+            "icon": null
           },
-          "icon": null
-        },
-        {
-          "id": "btn2",
-          "text": {
-            "en": "Back",
-            "ar": "العودة"
+          {
+            "id": "btn2",
+            "text": {
+              "en": "Back",
+              "ar": "العودة"
+            },
+            "icon": null
           },
-          "icon": null
-        },
-        {
-          "id": "btn3",
-          "text": {
-            "en": "Next",
-            "ar": "التالي"
-          },
-          "icon": null
-        }
-      ],
+          {
+            "id": "btn3",
+            "text": {
+              "en": "Next",
+              "ar": "التالي"
+            },
+            "icon": null
+          }
+        ]
+      }, 
       "sections": [
         {
           "id": "projectList",
@@ -264,7 +266,7 @@
         "en": "Building a Stronger Future"
       },
       "button": [
-        {
+        { "url" : null,
           "text": {
             "ar": "اتصل بنا",
             "en": "Contact Us"
@@ -514,7 +516,7 @@
         "en": "Need Help? We're Available to Talk"
       },
       "button": [
-        {
+        { "url" : null,
           "text": {
             "ar": "اتصل بنا",
             "en": "Contact Us"
@@ -560,7 +562,7 @@
         "en": "Discover the exceptional excellence of Shade Corporation, the leading company in engineering, procurement, and construction in Saudi Arabia."
       },
       "button": [
-        {
+        { "url" : null,
           "text": {
             "ar": "عرض عملنا",
             "en": "View Our Work"
@@ -611,7 +613,7 @@
         "en": "Building a Stronger Future"
       },
       "button": [
-        {
+        { "url" : null,
           "text": {
             "ar": "اتصل بنا",
             "en": "Contact Us"
@@ -720,7 +722,7 @@
         }
       ],
       "button": [
-        {
+        { "url" : null,
           "text": {
             "ar": "دعونا نتواصل",
             "en": "Let's Connect"
@@ -747,7 +749,7 @@
         "en": "Building a Stronger Future"
       },
       "button": [
-        {
+        { "url" : null,
           "text": {
             "ar": "اتصل بنا",
             "en": "Contact Us"
@@ -768,7 +770,7 @@
         "en": "Discover the exceptional excellence of Shade Corporation, the leading company in engineering, procurement, and construction in Saudi Arabia."
       },
       "button": [
-        {
+        { "url" : null,
           "text": {
             "ar": "عرض المشاريع",
             "en": "View Projects"
@@ -910,7 +912,7 @@
         "en": "Discover the exceptional excellence of Shade Corporation, the premier Engineering, Procurement, and Construction powerhouse in Saudi Arabia."
       },
       "button": [
-        {
+        { "url" : null,
           "text": {
             "ar": "خدماتنا",
             "en": "Our Services"
@@ -1161,7 +1163,7 @@
         }
       ],
       "button": [
-        {
+        { "url" : null,
           "text": {
             "ar": "عرض التفاصيل",
             "en": "View Details"
@@ -1317,7 +1319,7 @@
         "en": "Building a Stronger Future"
       },
       "button": [
-        {
+        { "url" : null,
           "text": {
             "ar": "اتصل بنا",
             "en": "Contact Us"
@@ -1338,7 +1340,7 @@
         "en": "Discover the exceptional excellence of Shade Corporation, a leading company in the fields of engineering, procurement, and construction in Saudi Arabia."
       },
       "button": [
-        {
+        { "url" : null,
           "text": {
             "ar": "دعونا نتواصل",
             "en": "Let's Connect"
@@ -1384,7 +1386,7 @@
           },
           "status": "completed",
           "button": [
-            {
+            { "url" : null,
               "text": {
                 "ar": "عرض التفاصيل",
                 "en": "View Details"
@@ -1406,7 +1408,7 @@
           },
           "status": "completed",
           "button": [
-            {
+            { "url" : null,
               "text": {
                 "ar": "عرض التفاصيل",
                 "en": "View Details"
@@ -1428,7 +1430,7 @@
           },
           "status": "ongoing",
           "button": [
-            {
+            { "url" : null,
               "text": {
                 "ar": "عرض التفاصيل",
                 "en": "View Details"
@@ -1450,7 +1452,7 @@
           },
           "status": "ongoing",
           "button": [
-            {
+            { "url" : null,
               "text": {
                 "ar": "عرض التفاصيل",
                 "en": "View Details"
@@ -1472,7 +1474,7 @@
           },
           "status": "completed",
           "button": [
-            {
+            { "url" : null,
               "text": {
                 "ar": "عرض التفاصيل",
                 "en": "View Details"
@@ -1494,7 +1496,7 @@
           },
           "status": "ongoing",
           "button": [
-            {
+            { "url" : null,
               "text": {
                 "ar": "عرض التفاصيل",
                 "en": "View Details"
@@ -1516,7 +1518,7 @@
           },
           "status": "completed",
           "button": [
-            {
+            { "url" : null,
               "text": {
                 "ar": "عرض التفاصيل",
                 "en": "View Details"
@@ -1538,7 +1540,7 @@
           },
           "status": "completed",
           "button": [
-            {
+            { "url" : null,
               "text": {
                 "ar": "عرض التفاصيل",
                 "en": "View Details"
@@ -1560,7 +1562,7 @@
           },
           "status": "completed",
           "button": [
-            {
+            { "url" : null,
               "text": {
                 "ar": "عرض التفاصيل",
                 "en": "View Details"
@@ -1582,7 +1584,7 @@
           },
           "status": "completed",
           "button": [
-            {
+            { "url" : null,
               "text": {
                 "ar": "عرض التفاصيل",
                 "en": "View Details"
@@ -1604,7 +1606,7 @@
           },
           "status": "completed",
           "button": [
-            {
+            { "url" : null,
               "text": {
                 "ar": "عرض التفاصيل",
                 "en": "View Details"
@@ -1626,7 +1628,7 @@
           },
           "status": "completed",
           "button": [
-            {
+            { "url" : null,
               "text": {
                 "ar": "عرض التفاصيل",
                 "en": "View Details"
@@ -1648,7 +1650,7 @@
           },
           "status": "completed",
           "button": [
-            {
+            { "url" : null,
               "text": {
                 "ar": "عرض التفاصيل",
                 "en": "View Details"
@@ -1670,7 +1672,7 @@
           },
           "status": "ongoing",
           "button": [
-            {
+            { "url" : null,
               "text": {
                 "ar": "عرض التفاصيل",
                 "en": "View Details"
@@ -1692,7 +1694,7 @@
           },
           "status": "completed",
           "button": [
-            {
+            { "url" : null,
               "text": {
                 "ar": "عرض التفاصيل",
                 "en": "View Details"
@@ -1714,7 +1716,7 @@
           },
           "status": "completed",
           "button": [
-            {
+            { "url" : null,
               "text": {
                 "ar": "عرض التفاصيل",
                 "en": "View Details"
@@ -1736,7 +1738,7 @@
           },
           "status": "completed",
           "button": [
-            {
+            { "url" : null,
               "text": {
                 "ar": "عرض التفاصيل",
                 "en": "View Details"
@@ -1758,7 +1760,7 @@
           },
           "status": "completed",
           "button": [
-            {
+            { "url" : null,
               "text": {
                 "ar": "عرض التفاصيل",
                 "en": "View Details"
@@ -1780,7 +1782,7 @@
           },
           "status": "completed",
           "button": [
-            {
+            { "url" : null,
               "text": {
                 "ar": "عرض التفاصيل",
                 "en": "View Details"
@@ -1802,7 +1804,7 @@
           },
           "status": "completed",
           "button": [
-            {
+            { "url" : null,
               "text": {
                 "ar": "عرض التفاصيل",
                 "en": "View Details"
@@ -1824,7 +1826,7 @@
           },
           "status": "completed",
           "button": [
-            {
+            { "url" : null,
               "text": {
                 "ar": "عرض التفاصيل",
                 "en": "View Details"
@@ -1846,7 +1848,7 @@
           },
           "status": "completed",
           "button": [
-            {
+            { "url" : null,
               "text": {
                 "ar": "عرض التفاصيل",
                 "en": "View Details"
@@ -1858,7 +1860,7 @@
         }
       ],
       "button": [
-        {
+        { "url" : null,
           "text": {
             "ar": " عرض المزيد",
             "en": "View More"
@@ -2022,7 +2024,7 @@
             },
             "status": "completed",
             "button": [
-              {
+              { "url" : null,
                 "text": {
                   "ar": "عرض التفاصيل",
                   "en": "View Details"
@@ -2044,7 +2046,7 @@
             },
             "status": "completed",
             "button": [
-              {
+              { "url" : null,
                 "text": {
                   "ar": "عرض التفاصيل",
                   "en": "View Details"
@@ -2066,7 +2068,7 @@
             },
             "status": "ongoing",
             "button": [
-              {
+              { "url" : null,
                 "text": {
                   "ar": "عرض التفاصيل",
                   "en": "View Details"
@@ -2078,7 +2080,7 @@
           }
         ],
         "button": [
-          {
+          { "url" : null,
             "text": {
               "en": "View Details",
               "ar": " عرض التفاصيل"
@@ -2221,7 +2223,7 @@
             },
             "status": "completed",
             "button": [
-              {
+              { "url" : null,
                 "text": {
                   "ar": "عرض التفاصيل",
                   "en": "View Details"
@@ -2243,7 +2245,7 @@
             },
             "status": "completed",
             "button": [
-              {
+              { "url" : null,
                 "text": {
                   "ar": "عرض التفاصيل",
                   "en": "View Details"
@@ -2265,7 +2267,7 @@
             },
             "status": "ongoing",
             "button": [
-              {
+              { "url" : null,
                 "text": {
                   "ar": "عرض التفاصيل",
                   "en": "View Details"
@@ -2277,7 +2279,7 @@
           }
         ],
         "button": [
-          {
+          { "url" : null,
             "text": {
               "en": "View Details",
               "ar": " عرض التفاصيل"
@@ -2420,7 +2422,7 @@
             },
             "status": "completed",
             "button": [
-              {
+              { "url" : null,
                 "text": {
                   "ar": "عرض التفاصيل",
                   "en": "View Details"
@@ -2442,7 +2444,7 @@
             },
             "status": "completed",
             "button": [
-              {
+              { "url" : null,
                 "text": {
                   "ar": "عرض التفاصيل",
                   "en": "View Details"
@@ -2464,7 +2466,7 @@
             },
             "status": "ongoing",
             "button": [
-              {
+              { "url" : null,
                 "text": {
                   "ar": "عرض التفاصيل",
                   "en": "View Details"
@@ -2476,7 +2478,7 @@
           }
         ],
         "button": [
-          {
+          { "url" : null,
             "text": {
               "en": "View Details",
               "ar": " عرض التفاصيل"
@@ -2619,7 +2621,7 @@
             },
             "status": "completed",
             "button": [
-              {
+              { "url" : null,
                 "text": {
                   "ar": "عرض التفاصيل",
                   "en": "View Details"
@@ -2641,7 +2643,7 @@
             },
             "status": "completed",
             "button": [
-              {
+              { "url" : null,
                 "text": {
                   "ar": "عرض التفاصيل",
                   "en": "View Details"
@@ -2663,7 +2665,7 @@
             },
             "status": "ongoing",
             "button": [
-              {
+              { "url" : null,
                 "text": {
                   "ar": "عرض التفاصيل",
                   "en": "View Details"
@@ -2675,7 +2677,7 @@
           }
         ],
         "button": [
-          {
+          { "url" : null,
             "text": {
               "en": "View Details",
               "ar": " عرض التفاصيل"
@@ -2697,7 +2699,7 @@
         "en": "Discover the exceptional excellence of Shade Corporation, the premier Engineering, Procurement, and Construction powerhouse in Saudi Arabia."
       },
       "button": [
-        {
+        { "url" : null,
           "text": {
             "ar": "تقدم بطلبك الآن",
             "en": "Apply Now"
@@ -3671,7 +3673,7 @@
         },
         "bannerImage": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+13.jpg",
         "button": [
-          {
+          { "url" : null,
             "text": {
               "en": "Back",
               "ar": "خلف"
@@ -3743,7 +3745,7 @@
         },
         "rightPanel": {
           "button": [
-            {
+            { "url" : null,
               "text": {
                 "ar": "يتقدم",
                 "en": "Apply"
@@ -3812,7 +3814,7 @@
           ]
         },
         "button": [
-          {
+          { "url" : null,
             "text": {
               "en": "Apply Now",
               "ar": " تقدم بطلبك الآن"
@@ -3835,7 +3837,7 @@
         },
         "bannerImage": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+13.jpg",
         "button": [
-          {
+          { "url" : null,
             "text": {
               "en": "Back",
               "ar": "خلف"
@@ -3907,7 +3909,7 @@
         },
         "rightPanel": {
           "button": [
-            {
+            { "url" : null,
               "text": {
                 "ar": "يتقدم",
                 "en": "Apply"
@@ -3977,7 +3979,7 @@
           ]
         },
         "button": [
-          {
+          { "url" : null,
             "text": {
               "en": "Apply Now",
               "ar": " تقدم بطلبك الآن"
@@ -4000,7 +4002,7 @@
         },
         "bannerImage": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+13.jpg",
         "button": [
-          {
+          { "url" : null,
             "text": {
               "en": "Back",
               "ar": "خلف"
@@ -4072,7 +4074,7 @@
         },
         "rightPanel": {
           "button": [
-            {
+            { "url" : null,
               "text": {
                 "ar": "يتقدم",
                 "en": "Apply"
@@ -4142,7 +4144,7 @@
           ]
         },
         "button": [
-          {
+          { "url" : null,
             "text": {
               "en": "Apply Now",
               "ar": " تقدم بطلبك الآن"
@@ -4165,7 +4167,7 @@
         },
         "bannerImage": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+13.jpg",
         "button": [
-          {
+          { "url" : null,
             "text": {
               "en": "Back",
               "ar": "خلف"
@@ -4237,7 +4239,7 @@
         },
         "rightPanel": {
           "button": [
-            {
+            { "url" : null,
               "text": {
                 "ar": "يتقدم",
                 "en": "Apply"
@@ -4307,7 +4309,7 @@
           ]
         },
         "button": [
-          {
+          { "url" : null,
             "text": {
               "en": "Apply Now",
               "ar": " تقدم بطلبك الآن"
@@ -4330,7 +4332,7 @@
         },
         "bannerImage": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+13.jpg",
         "button": [
-          {
+          { "url" : null,
             "text": {
               "en": "Back",
               "ar": "خلف"
@@ -4402,7 +4404,7 @@
         },
         "rightPanel": {
           "button": [
-            {
+            { "url" : null,
               "text": {
                 "ar": "يتقدم",
                 "en": "Apply"
@@ -4472,7 +4474,7 @@
           ]
         },
         "button": [
-          {
+          { "url" : null,
             "text": {
               "en": "Apply Now",
               "ar": " تقدم بطلبك الآن"
@@ -4495,7 +4497,7 @@
         },
         "bannerImage": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+13.jpg",
         "button": [
-          {
+          { "url" : null,
             "text": {
               "en": "Back",
               "ar": "خلف"
@@ -4567,7 +4569,7 @@
         },
         "rightPanel": {
           "button": [
-            {
+            { "url" : null,
               "text": {
                 "ar": "يتقدم",
                 "en": "Apply"
@@ -4637,7 +4639,7 @@
           ]
         },
         "button": [
-          {
+          { "url" : null,
             "text": {
               "en": "Apply Now",
               "ar": " تقدم بطلبك الآن"
@@ -4660,7 +4662,7 @@
         },
         "bannerImage": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+13.jpg",
         "button": [
-          {
+          { "url" : null,
             "text": {
               "en": "Back",
               "ar": "خلف"
@@ -4732,7 +4734,7 @@
         },
         "rightPanel": {
           "button": [
-            {
+            { "url" : null,
               "text": {
                 "ar": "يتقدم",
                 "en": "Apply"
@@ -4802,7 +4804,7 @@
           ]
         },
         "button": [
-          {
+          { "url" : null,
             "text": {
               "en": "Apply Now",
               "ar": " تقدم بطلبك الآن"
@@ -4975,7 +4977,7 @@
     "trendingCard": {
       "id": "news2",
       "button": [
-        {
+        { "url" : null,
           "text": {
             "ar": "تتجه",
             "en": "Trending"
@@ -5016,7 +5018,7 @@
         },
         "bannerImage": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+2+(3).png",
         "button": [
-          {
+          { "url" : null,
             "text": {
               "en": "Back",
               "ar": "خلف"
@@ -5071,7 +5073,7 @@
         },
         "bannerImage": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+2+(3).png",
         "button": [
-          {
+          { "url" : null,
             "text": {
               "en": "Back",
               "ar": "خلف"
@@ -5126,7 +5128,7 @@
         },
         "bannerImage": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+2+(3).png",
         "button": [
-          {
+          { "url" : null,
             "text": {
               "en": "Back",
               "ar": "خلف"
@@ -5181,7 +5183,7 @@
         },
         "bannerImage": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+2+(3).png",
         "button": [
-          {
+          { "url" : null,
             "text": {
               "en": "Back",
               "ar": "خلف"
@@ -5360,7 +5362,7 @@
       "ar": "عذرًا! الصفحة التي تبحث عنها غير موجودة."
     },
     "button": [
-      {
+      { "url" : null,
         "text": {
           "en": "Return to Homepage",
           "ar": "العودة إلى الصفحة الرئيسية"

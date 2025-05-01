@@ -3,6 +3,9 @@ import {
   assert,
   //  assertEvery
 } from "../../errors/assertError.js";
+import { compareEncryptedData, EncryptData } from "../../helper/bcryptManager.js";
+import { generateToken } from "../../helper/jwtManager.js";
+import { sendEmail } from "../../helper/sendEmail.js";
 import {
   findUserByEmail,
   updateUserPassword,
@@ -13,14 +16,8 @@ import {
   createOrUpdateOtpAttempts,
   findAllLogs,
 } from "../../repository/user.repository.js";
-import {
-  EncryptData,
-  compareEncryptedData,
-  sendEmail,
-  generateToken,
-  // verifyToken,
-  generateRandomOTP,
-} from "../../helper/index.js";
+import {generateRandomOTP} from "../../helper/generateOtp.js";
+
 import {timeStamp} from "console";
 
 // MAIN SERVICE FUNCTIONS
@@ -213,7 +210,7 @@ const generateOtpAndSendOnEmail = async (user, deviceId, otpOrigin) => {
     html: `<p>Please use the following OTP to reset your password: <strong>${otp}</strong></p><p>This OTP will expire in 5 minutes.</p>`,
   };
 
-  // const isEmailSend = await sendEmail(emailPayload);
+  const isEmailSend = await sendEmail(emailPayload);
 
   // if email not sent throw an error
   // assert(isEmailSend, "EXPECTATION_FAILED", "Unable to send otp");
