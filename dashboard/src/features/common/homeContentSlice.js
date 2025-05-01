@@ -177,6 +177,11 @@ const cmsSlice = createSlice({
                     state.present[action.payload.currentPath].editVersion.sections[action.payload.contentIndex].sections[action.payload.index].items = newOptions
                     break;
 
+                case "testimonials":
+                    console.log([action.payload.currentPath],[action.payload.contentIndex])
+                    state.present[action.payload.currentPath].editVersion.sections[action.payload.contentIndex].items = newOptions
+                    break;
+
                 case "jobs":
                     state.present[action.payload?.currentPath].jobListSection.jobs = newOptions;
                     break;

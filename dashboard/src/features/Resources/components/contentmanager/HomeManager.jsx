@@ -32,7 +32,7 @@ const HomeManager = ({ language, content, currentPath, indexes }) => {
         async function getOptionsforServices() {
             const response = await getResources({ resourceType: "SUB_PAGE", resourceTag: "SERVICE" })
             const response2 = await getResources({ resourceType: "SUB_PAGE", resourceTag: "PROJECT" })
-            const response3 = await getResources({ resourceType: "SUB_PAGE", resourceTag: "TESTIMONIAL" })
+            const response3 = await getResources({ resourceType: "SUB_PAGE", resourceTag: "TESTIMONIAL", fetchType: "CONTENT" })
             if (response.message === "Success") {
                 let options = response.resources.resources.map((e, i) => ({
                     id: e.id,
@@ -67,6 +67,7 @@ const HomeManager = ({ language, content, currentPath, indexes }) => {
                     titleAr: e.titleAr,
                     // icon: e.icon,
                     // image: e.image
+                    liveModeVersionData: e.liveModeVersionData
                 }))
                 setTestimonialsOptions(options)
             }
@@ -271,15 +272,17 @@ const HomeManager = ({ language, content, currentPath, indexes }) => {
                 currentPath={currentPath}
                 section={"testimonialsSections"}
                 language={language}
-                label={"Select Service List"}
-                heading={"tesimonials Section"}
+                label={"Select Testimony List"}
+                heading={"Testimonials Section"} 
                 tabName={"Select Testimonies"}
                 options={content?.testimonials?.items}
                 listOptions={TestimonialsOptions}
-                referenceOriginal={{ dir: "home", index: 0 }}
+                referenceOriginal={{ dir: "testimonials", index: 0 }}
                 currentContent={content}
-                contentIndex={indexes.serviceCards}
+                contentIndex={indexes.testimonials}
+                min={4}
             />
+
 
             {/* New Project */}
             <ContentSection
