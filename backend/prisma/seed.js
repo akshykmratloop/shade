@@ -1,5 +1,6 @@
 import prismaClient from "../src/config/dbConfig.js";
-import { EncryptData } from "../src/helper/index.js";
+import { EncryptData } from "../src/helper/bcryptManager.js";
+
 
 const email = process.env.SUPER_ADMIN_EMAIL;
 const pass = process.env.SUPER_ADMIN_PASSWORD;

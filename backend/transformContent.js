@@ -38,20 +38,18 @@ function transformContent(input) {
       return formattedSection;
     };
   
-    const formattedContent = {
-      content: {
-        resourceId: input.content.id,
-        titleEn: input.content.titleEn,
-        titleAr: input.content.titleAr,
-        slug: input.content.slug,
-        newVersionEditMode: {
-          comments: version.comments,
-          referenceDoc: version.referenceDoc,
-          content: version.content,
-          icon: version.icon,
-          image: version.image,
-          sections: version.sections.map(transformSection),
-        },
+    const formattedContent ={
+      resourceId: input.content.id,
+      titleEn: input.content.titleEn,
+      titleAr: input.content.titleAr,
+      slug: input.content.slug,
+      newVersionEditMode: {
+        comments: version.comments,
+        referenceDoc: version.referenceDoc,
+        content: version.content,
+        icon: version.icon,
+        image: version.image,
+        sections: version.sections.map(transformSection),
       },
     };
   

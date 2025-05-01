@@ -1,4 +1,4 @@
-import { verifyToken } from "../helper/index.js";
+import { verifyToken } from "../helper/jwtManager.js";
 import { assert } from "../errors/assertError.js";
 import { findUserById } from "../repository/user.repository.js";
 

@@ -843,7 +843,7 @@ async function formatResourceVersionData(resourceVersion) {
             // Fetch the full content of the item resource
             const itemContent = await fetchContent(resource.id);
 
-             return { ...itemContent, order: item.order };;
+            return { ...itemContent, order: item.order };
           })
         );
       }
@@ -900,23 +900,6 @@ async function formatResourceVersionData(resourceVersion) {
   };
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 export const findResourceById = async (id) => {
   return await prismaClient.resource.findUnique({
     where: {
@@ -956,7 +939,7 @@ export const createOrUpdateVersion = async (contentData) => {
 
     // Check if we need to create a new version or update an existing one
     if (!resource.newVersionEditModeId) {
-      const resourceVersion = await tx.resourceVersion.create({
+      resourceVersion = await tx.resourceVersion.create({
         data: {
           resourceId: resource.id,
           versionNumber: resource._count.versions + 1,
@@ -968,24 +951,48 @@ export const createOrUpdateVersion = async (contentData) => {
           Image: newVersionEditMode?.image || null,
         },
       });
-
+  
+      // Link new edit version to resource
       await tx.resource.update({
         where: { id: resource.id },
         data: { newVersionEditModeId: resourceVersion.id },
       });
 
+      console.log("Created resource version:", resourceVersion);
+  
+      // Create section versions
       if (Array.isArray(newVersionEditMode?.sections)) {
         for (let i = 0; i < newVersionEditMode.sections.length; i++) {
           const sectionData = newVersionEditMode.sections[i];
-          await createSectionVersionWithChildren(tx, {
+  
+          const sectionVersion = await createSectionVersionWithChildren(tx, {
             sectionData,
             resource,
             resourceVersion,
             order: sectionData.order || i + 1,
           });
+  
+          // if (!sectionVersion?.id) {
+          //   throw new Error("SectionVersion creation failed: ID missing.");
+          // }
+  
+          assert(
+            sectionVersion?.id,
+            "NOT_FOUND",
+            `SectionVersion creation failed: ID missing.`
+          );
+
+          await tx.resourceVersionSection.create({
+            data: {
+              resourceVersionId: resourceVersion.id,
+              sectionVersionId: sectionVersion.id,
+              order: sectionData.order || i + 1,
+            },
+          });
         }
       }
-    } else {
+  
+    }  else {
       // Edit version already exists, update it
       resourceVersion = await tx.resourceVersion.update({
         where: { id: resource.newVersionEditModeId },
@@ -1036,6 +1043,8 @@ async function createSectionVersionWithChildren(
   { sectionData, resource, resourceVersion, parentVersionId = null, order = 1 }
 ) {
   const sectionId = sectionData.sectionId;
+
+  console.log("sectionId======================", sectionId);
 
   const section = await tx.section.findUnique({
     where: { id: sectionId },
@@ -1098,6 +1107,7 @@ async function createSectionVersionWithChildren(
       });
     }
   }
+  return sectionVersion;
 }
 
 async function updateSectionVersion(tx, sectionData, resourceVersionId) {
@@ -1168,7 +1178,11 @@ export const publishContent = async (contentData, userId) => {
     },
   });
 
-  assert(resource, "NOT_FOUND", `Resource with ID ${contentData.resourceId} not found`);
+  assert(
+    resource,
+    "NOT_FOUND",
+    `Resource with ID ${contentData.resourceId} not found`
+  );
 
   const { newVersionEditMode = {} } = contentData;
   const {
@@ -1236,4 +1250,3 @@ export const publishContent = async (contentData, userId) => {
     resource: result,
   };
 };
-
