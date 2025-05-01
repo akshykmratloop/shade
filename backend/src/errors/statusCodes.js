@@ -45,6 +45,9 @@ export const statusCodes = {
     code: 407,
     message: "Proxy Authentication Required",
   },
+  
+  BLOCKED : { code: 901, message: "Blocked" },
+
   REQUEST_TIMEOUT: { code: 408, message: "Request Timeout" },
   CONFLICT: { code: 409, message: "Conflict" },
   GONE: { code: 410, message: "Gone" },

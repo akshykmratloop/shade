@@ -11,6 +11,9 @@ import {
   fetchAllResourcesWithContent,
   createOrUpdateVersion,
   publishContent,
+  updateContentAndGenerateRequest,
+  fetchRequests,
+  fetchRequestInfo,
 } from "../../repository/content.repository.js";
 
 const getResources = async (
@@ -137,6 +140,47 @@ const directPublishContent = async (content, userId) => {
   return { message: "Success", content: publishedContent };
 };
 
+const generateRequest = async (content, userId) => {
+  const request = await updateContentAndGenerateRequest(content, userId);
+  logger.info({
+    response: "Content update request has been generated",
+    request: request,
+  });
+  return { message: "Success", content: request };
+};
+
+const getRequest = async (
+  userId,
+  userRole,
+  search,
+  status,
+  pageNum,
+  limitNum
+) => {
+  const requests = await fetchRequests(
+    userId,
+    userRole,
+    search,
+    status,
+    pageNum,
+    limitNum
+  );
+  logger.info({
+    response: "Requests fetched successfully",
+    // requests: requests,
+  });
+  return { message: "Success", requests };
+};
+
+const getRequestInfo = async (requestId) => {
+  const requestInfo = await fetchRequestInfo(requestId);
+  logger.info({
+    response: "Request Info fetched successfully",
+    // requestInfo: requestInfo,
+  });
+  return { message: "Success", requestInfo };
+};
+
 export {
   getResources,
   getResourceInfo,
@@ -145,5 +189,8 @@ export {
   getAssignedUsers,
   getContent,
   updateContent,
-  directPublishContent
+  directPublishContent,
+  generateRequest,
+  getRequest,
+  getRequestInfo,
 };
