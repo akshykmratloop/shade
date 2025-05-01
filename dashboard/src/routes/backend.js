@@ -52,6 +52,7 @@ const api = {
   getAssignedUsers: `${content}/getAssignedUsers`,
   getContent: `${content}/getContent`,
   updateContent: `${content}/updateContent`,
+  publishContent: `${content}/directPublishContent`,
 
   // Media
   uploadMedia: `${media}/upload`,

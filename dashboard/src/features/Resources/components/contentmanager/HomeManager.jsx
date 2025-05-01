@@ -92,7 +92,7 @@ const HomeManager = ({ language, content, currentPath, indexes }) => {
             <FileUploader id={"homeReference"} label={"Rerference doc"} fileName={"Upload your file..."} />
             {/* homeBanner */}
             <ContentSection
-                currentPath={currentPath}title
+                currentPath={currentPath} title
                 Heading={"Hero Banner"}
                 inputs={[
                     { input: "input", label: "Heading/title", updateType: "title", value: content?.homeBanner?.content?.title[language], update: `editVersion.sections[${indexes.homeBanner}].content.title.${language}` },
@@ -249,6 +249,19 @@ const HomeManager = ({ language, content, currentPath, indexes }) => {
                 currentContent={content}
                 contentIndex={indexes.testimonials}
                 resourceId={currentId}
+            />
+            <MultiSelect
+                currentPath={currentPath}
+                section={"serviceSection"}
+                language={language}
+                label={"Select Service List"}
+                heading={"Services Section"}
+                tabName={"Select Services"}
+                options={content?.testimonials?.items}
+                listOptions={ServicesOptions}
+                referenceOriginal={{ dir: "home", index: 0 }}
+                currentContent={content}
+                contentIndex={indexes.serviceCards}
             />
 
             {/* New Project */}

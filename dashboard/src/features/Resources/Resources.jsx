@@ -14,6 +14,7 @@ import { MoonLoader } from "react-spinners";
 import { AiOutlineInfoCircle } from "react-icons/ai";
 import { FiEdit } from "react-icons/fi";
 import { IoSettingsOutline } from "react-icons/io5";
+import { LuEye } from "react-icons/lu";
 
 // Assets & Utils
 import capitalizeWords, { TruncateText } from "../../app/capitalizeword";
@@ -22,10 +23,12 @@ import content from "./components/websiteComponent/content.json";
 
 // Redux
 // import { getLeadsContent } from "./leadSlice"
-import { getResources } from "../../app/fetch";
+import { getContent, getResources } from "../../app/fetch";
 import { updateTag, updateType } from "../common/navbarSlice";
 import { updateRouteLists } from "../common/routeLists";
 import resourcesContent from "./resourcedata";
+import CloseModalButton from "../../components/Button/CloseButton";
+import createContent from "./defineContent";
 
 const AllForOne = lazy(() => import("./components/AllForOne"));
 
@@ -44,6 +47,14 @@ function Resources() {
   });
   const [loading, setLoading] = useState(true);
 
+  const [language, setLanguage] = useState('en');
+  const [path, setPath] = useState("")
+  const [subPath, setSubPath] = useState("")
+  const [deepPath, setDeepPath] = useState("")
+  const [preview, setPreview] = useState(false)
+  const [currentResourceId, setCurrentResourceId] = useState("")
+  const [rawContent, setRawContent] = useState({})
+
   const [screen, setScreen] = useState(359);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [isSmall, setIsSmall] = useState(false);
@@ -59,17 +70,31 @@ function Resources() {
 
   const setIdOnStorage = (id) => localStorage.setItem("contextId", id);
 
+
   const settingRoute = useCallback(
     (first, second, third) => {
+      setPath(first)
+      setSubPath(second)
+      setDeepPath(third)
+
       const route = third
         ? `./edit/${first}/${second}/${third}`
         : second
           ? `./edit/${first}/${second}`
           : `./edit/${first}`;
-      navigate(route);
+
+      return route
     },
     [navigate]
   );
+
+  console.log(rawContent)
+
+
+  function navigateToPage(first, second, third) {
+    let route = settingRoute(first, second, third)
+    navigate(route);
+  }
 
   const setRouteList = useCallback((payload = []) => {
     const list = payload.map((e) =>
@@ -129,6 +154,34 @@ function Resources() {
     return () => observer.disconnect();
   }, [handleResize]);
 
+  useEffect(() => {
+    // dispatch(updateContent({ currentPath: "home", payload: (content?.home) }))
+    if (currentResourceId) {
+      async function context() {
+        try {
+          const response = await getContent(currentResourceId)
+          if (response.message === "Success") {
+            const payload = {
+              id: response.content.id,
+              titleEn: response.content.titleEn,
+              titleAr: response.content.titleAr,
+              slug: response.content.slug,
+              resourceType: response.content.resourceType,
+              resourceTag: response.content.resourceTag,
+              relationType: response.content.relationType,
+              editVersion: response.content.editModeVersionData ?? response.content.liveModeVersionData
+            }
+
+            setRawContent(createContent(payload))
+          }
+        } catch (err) {
+
+        }
+      }
+      context()
+    }
+  }, [currentResourceId])
+
   const ActionIcons = ({ page }) => {
     const actions = [
       {
@@ -146,11 +199,11 @@ function Resources() {
           setIdOnStorage(page.id);
           const { relationType, resourceTag, subPage, subOfSubPage, slug } = page;
           if (relationType === "CHILD") {
-            settingRoute(resourceTag?.toLowerCase(), page.id);
+            navigateToPage(resourceTag?.toLowerCase(), page.id);
           } else if (relationType !== "PARENT") {
-            settingRoute(resourceTag?.toLowerCase(), subPage, subOfSubPage);
+            navigateToPage(resourceTag?.toLowerCase(), subPage, subOfSubPage);
           } else {
-            settingRoute(slug?.toLowerCase());
+            navigateToPage(slug?.toLowerCase());
           }
         },
       },
@@ -162,24 +215,46 @@ function Resources() {
           setConfigBarData(page);
         },
       },
+      {
+        icon: <LuEye />,
+        text: "Preview",
+        onClick: () => {
+          setCurrentResourceId(page.id)
+          // setIdOnStorage(page.id);
+          const { relationType, resourceTag, subPage, subOfSubPage, slug } = page;
+          if (relationType === "CHILD") {
+            settingRoute(resourceTag?.toLowerCase(), page.id);
+          } else if (relationType !== "PARENT") {
+            settingRoute(resourceTag?.toLowerCase(), subPage, subOfSubPage);
+          } else {
+            settingRoute(slug?.toLowerCase());
+          }
+          setPreview(true)
+        },
+      }
     ];
 
     return (
       <div
-        className={`absolute z-10 bottom-3 left-0 w-full text-white text-center flex justify-center items-center ${isNarrow ? "gap-2" : "gap-6"
+        className={`absolute z-10 bottom-3 left-0 w-full text-white text-center flex justify-center items-center ${isNarrow ? "gap-2" : "gap-2"
           } py-1`}
       >
-        {actions.map((item, i) => (
-          <span
-            key={i}
-            onClick={item.onClick}
-            className={`flex ${isCollapsed ? "flex-col" : ""} ${i < 2 ? "border-r-2 pr-5" : ""
-              } gap-2 items-center cursor-pointer`}
-          >
-            {item.icon}
-            <span className={isSmall ? "text-xs" : "text-sm"}>{item.text}</span>
-          </span>
-        ))}
+        {actions.map((item, i, a) => {
+          let lastIndex = i === a.length - 1
+          return (
+            <span
+              key={i}
+              onClick={item.onClick}
+              className={`flex ${isCollapsed ? "flex-col" : ""} gap-1 items-center cursor-pointer`}
+            >
+              {item.icon}
+              <span className={`${isSmall ? "text-xs" : "text-sm"} translate-y-[1px]`}>{item.text}</span>
+              {!lastIndex &&
+                <span className="pl-2"> | </span>
+              }
+            </span>
+          )
+        })}
       </div>
     );
   };
@@ -229,7 +304,7 @@ function Resources() {
                 {/* <div className="h-full overflow-y-scroll customscroller"> */}
                 <div className="relative aspect-[10/11] overflow-hidden">
                   <iframe
-                    src={resourcesContent?.pages[index].src}
+                    src={resourcesContent?.pages?.[index]?.src}
                     className={`top-0 left-0 border-none transition-all duration-300 ease-in-out ${isNarrow
                       ? "w-[1000px] scale-[0.10]"
                       : `w-[1200px]  ${isSidebarOpen ? "scale-[0.34] " : "scale-[0.299]"
@@ -291,8 +366,27 @@ function Resources() {
           setOn={setPageDetailsOn}
         />
       )}
+      {
+        preview &&
+        <div className="fixed top-0 left-0 z-[55] h-screen overflow-y-scroll">
+          <div className="">
+            <CloseModalButton onClickClose={() => setPreview(false)} className={"fixed top-4 right-8 z-[56]"} />
+          </div>
+          <AllForOne
+            language={language}
+            screen={1532}
+            content={rawContent.content}
+            contentIndex={content.index}
+            subPath={subPath}
+            deepPath={deepPath}
+            setLanguage={setLanguage}
+            fullScreen={true}
+            currentPath={path}
+          />
+        </div>
+      }
       <ToastContainer />
-    </div>
+    </div >
   );
 }
 

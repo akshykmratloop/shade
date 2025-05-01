@@ -17,7 +17,8 @@ import { LuEye } from "react-icons/lu";
 import { RxCross1 } from "react-icons/rx";
 import { Switch } from '@headlessui/react';
 import transformContent from '../../../../app/convertContent';
-import { updateContent } from '../../../../app/fetch';
+import { publishContent, updateContent } from '../../../../app/fetch';
+import Popups from './Popups';
 
 
 export default function ContentTopBar({ setWidth, raisePopup, setFullScreen }) {
@@ -33,6 +34,9 @@ export default function ContentTopBar({ setWidth, raisePopup, setFullScreen }) {
     const [savedChanges, setSavedChanges] = useState(false)
     const [autoSave, setAutoSave] = useState(JSON.parse(localStorage.getItem("autoSave")))
     const user = useSelector(state => state.user.user)
+
+    const [PopUpPublish, setPopupPublish] = useState(false)
+    const [PopupSubmit, setPopupSubmit] = useState(false)
 
     const isManager = user.permissions?.some(e => e.slice(-10) === "MANAGEMENT" && e.slice(0, 4) !== "USER" && e.slice(0, 4) !== "ROLE" && e.slice(0, 4) !== "AUDI")
 
@@ -54,7 +58,7 @@ export default function ContentTopBar({ setWidth, raisePopup, setFullScreen }) {
     async function saveTheDraft() {
         const paylaod = transformContent(ReduxState.present.home)
 
-        console.log(JSON.stringify(paylaod))
+        // console.log(JSON.stringify(paylaod))
         dispatch(saveDraftAction(paylaod))
         setSavedChanges(true)
         try {
@@ -67,6 +71,39 @@ export default function ContentTopBar({ setWidth, raisePopup, setFullScreen }) {
                     autoClose: 1000, // Closes after 1 second
                     pauseOnHover: false, // Does not pause on hover
                 })
+            } else {
+                throw new Error("Error Occured")
+            }
+        } catch (err) {
+            toast.error("failed", {
+                style: { backgroundColor: "#187e3d", color: "white" },
+                autoClose: 1000, // Closes after 1 second
+                pauseOnHover: false, // Does not pause on hover
+            })
+        }
+
+    }
+
+    async function HandlepublishToLive() {
+        if (!isManager) return toast.error("You are not allowed to publish the content directly!", { autoClose: 600 })
+        const paylaod = transformContent(ReduxState.present.home)
+
+        // console.log(JSON.stringify(paylaod))
+        dispatch(saveDraftAction(paylaod))
+        setSavedChanges(true)
+        try {
+
+            const response = await publishContent(paylaod)
+
+            if (response.message === "Success") {
+                toast.success("Changes have been published", {
+                    style: { backgroundColor: "#187e3d", color: "white" },
+                    autoClose: 1000, // Closes after 1 second
+                    pauseOnHover: false, // Does not pause on hover
+                })
+                setTimeout(() => {
+                    navigate(-1)
+                }, 650)
             } else {
                 throw new Error("Error Occured")
             }
@@ -210,15 +247,18 @@ export default function ContentTopBar({ setWidth, raisePopup, setFullScreen }) {
                                     !autoSave &&
                                     <Button text={savedChanges ? 'Saved' : 'Draft'} functioning={saveTheDraft} classes={`${savedChanges ? "bg-[#26c226]" : "bg-[#26345C]"}  rounded-md xl:h-[2.68rem] sm:h-[2rem] xl:text-xs sm:text-[.6rem] xl:w-[5.58rem] w-[4rem] text-[white]`} />
                                 }
-                                <Button text={'Submit'} functioning={raisePopup.submit} classes='bg-[#29469D] rounded-md xl:h-[2.68rem] sm:h-[2rem] xl:text-xs sm:text-[.6rem] xl:w-[5.58rem] w-[4rem] text-[white]' />
+                                <Button text={'Submit'} functioning={() => { setPopupSubmit(true) }} classes='bg-[#29469D] rounded-md xl:h-[2.68rem] sm:h-[2rem] xl:text-xs sm:text-[.6rem] xl:w-[5.58rem] w-[4rem] text-[white]' />
                             </div>
                         </div>
                         :
                         <div className='flex gap-3 sm:gap-1'>
-                            <Button text={'Pulish'} functioning={raisePopup.publish} classes='bg-[#29469D] rounded-md xl:h-[2.68rem] sm:h-[2rem] xl:text-xs sm:text-[.6rem] xl:w-[5.58rem] w-[4rem] text-[white]' />
+                            <Button text={'Pulish'} functioning={() => setPopupPublish(true)} classes='bg-[#29469D] rounded-md xl:h-[2.68rem] sm:h-[2rem] xl:text-xs sm:text-[.6rem] xl:w-[5.58rem] w-[4rem] text-[white]' />
                         </div>
                 }
             </div>
+
+            <Popups display={PopUpPublish} setClose={() => setPopupPublish(false)} confirmationText={"Are you sure you want to publish?"} confirmationFunction={HandlepublishToLive} />
+            <Popups display={PopupSubmit} setClose={() => setPopupSubmit(false)} confirmationText={"Are you sure you want to submit?"} />
         </div>
     );
 }

@@ -38,58 +38,58 @@ const AllForOne = ({ language, screen, content, subPath, setLanguage, fullScreen
             }
             {
                 currentPath === "solutions" &&
-                <SolutionPage language={language} currentContent={content.solution} screen={screen} />
+                <SolutionPage language={language} currentContent={content?.solution} screen={screen} />
             }
             {
                 currentPath === "about" &&
-                <AboutUs language={language} currentContent={content.about} screen={screen} />
+                <AboutUs language={language} currentContent={content?.about} screen={screen} />
             }
             {
                 currentPath === "services" ? subPath ? deepPath ?
-                    <SubServiceDetails language={language} contentOn={content.subOfsubService} serviceId={subPath} screen={screen} deepPath={deepPath} /> :
-                    <ServiceDetails language={language} contentOn={content.serviceDetails} serviceId={subPath} screen={screen} /> :
-                    <Services language={language} currentContent={content.services} screen={screen} /> : ""
+                    <SubServiceDetails language={language} contentOn={content?.subOfsubService} serviceId={subPath} screen={screen} deepPath={deepPath} /> :
+                    <ServiceDetails language={language} contentOn={content?.serviceDetails} serviceId={subPath} screen={screen} /> :
+                    <Services language={language} currentContent={content?.services} screen={screen} /> : ""
             }
             {
                 (currentPath === "service" && subPath) &&
-                <ServiceDetails language={language} contentOn={content.serviceDetails} serviceId={subPath} screen={screen} />
+                <ServiceDetails language={language} contentOn={content?.serviceDetails} serviceId={subPath} screen={screen} />
             }
             {
                 currentPath === "markets" &&
-                <MarketPage language={language} currentContent={content.markets} screen={screen} />
+                <MarketPage language={language} currentContent={content?.markets} screen={screen} />
             }
             {
                 currentPath === 'projects' || currentPath === 'project' ? subPath ?
-                    <ProjectDetailPage language={language} contentOn={content.projectDetail} projectId={subPath} screen={screen} /> :
-                    <ProjectPage language={language} currentContent={content.projects} screen={screen} /> : ""
+                    <ProjectDetailPage language={language} contentOn={content?.projectDetail} projectId={subPath} screen={screen} /> :
+                    <ProjectPage language={language} currentContent={content?.projects} screen={screen} /> : ""
             }
             {
                 currentPath === "careers" ? subPath ?
-                    <CareerDetailPage language={language} contentOn={content.careerDetails} careerId={subPath} screen={screen} /> :
-                    <CareerPage language={language} currentContent={content.career} screen={screen} /> : ""
+                    <CareerDetailPage language={language} contentOn={content?.careerDetails} careerId={subPath} screen={screen} /> :
+                    <CareerPage language={language} currentContent={content?.career} screen={screen} /> : ""
             }
             {
                 currentPath === "news" ? subPath ?
-                    <NewsBlogDetailPage language={language} contentOn={content.newsBlogsDetails} newsId={subPath} screen={screen} /> :
-                    <NewsPage language={language} currentContent={content.newsBlogs} screen={screen} /> : ""
+                    <NewsBlogDetailPage language={language} contentOn={content?.newsBlogsDetails} newsId={subPath} screen={screen} /> :
+                    <NewsPage language={language} currentContent={content?.newsBlogs} screen={screen} /> : ""
             }
 
             {/* sub pages */}
             {
                 currentPath === "footer" &&
-                <Footer language={language} currentContent={content.footer} screen={screen} />
+                <Footer language={language} currentContent={content?.footer} screen={screen} />
             }
             {
                 currentPath === "header" &&
-                <Header language={language} currentContent={content.header} screen={screen} setLanguage={setLanguage} />
+                <Header language={language} currentContent={content?.header} screen={screen} setLanguage={setLanguage} />
             }
             {
                 currentPath === "testimonials" || currentPath === "testimonial" &&
-                <Testimonials language={language} currentContent={content.footer} screen={screen} testimonyId={subPath} />
+                <Testimonials language={language} currentContent={content?.footer} screen={screen} testimonyId={subPath} />
             }
             {
                 currentPath === 'contactus-modal' &&
-                <ContactUsModal language={language} currentContent={content.contactUsModal} screen={screen} />
+                <ContactUsModal language={language} currentContent={content?.contactUsModal} screen={screen} />
             }
         </div>
     )

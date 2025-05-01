@@ -28,8 +28,7 @@ const EditPage = () => {
 
     const [language, setLanguage] = useState('en')
     const [screen, setScreen] = useState(1180)
-    const [PopUpPublish, setPopupPublish] = useState(false)
-    const [PopupSubmit, setPopupSubmit] = useState(false)
+
     const [fullScreen, setFullScreen] = useState(false)
     const [subRoutesList, setSubRouteList] = useState([])
 
@@ -37,7 +36,7 @@ const EditPage = () => {
     const subPath = location.pathname.split('/')[5]
     const deepPath = location.pathname.split('/')[6]
 
-    const content = createContent(useSelector((state) => state.homeContent.present), "edit",currentPath)
+    const content = createContent(useSelector((state) => state.homeContent.present), "edit", currentPath)
 
     const Routes = ['home', 'solutions', 'about', "services", "service", 'markets', 'projects', "project", 'careers', "career", 'news', 'footer', 'header', 'testimonials', 'testimonial']
 
@@ -75,7 +74,7 @@ const EditPage = () => {
                                 className={`flex-[4] h-[83.5vh] flex flex-col`}
                                 style={{ width: screen > 900 ? "60%" : "" }}
                             >
-                                <ContentTopBar setWidth={setScreen} setFullScreen={setFullScreen} raisePopup={{ publish: () => setPopupPublish(true), submit: () => setPopupSubmit(true) }} />
+                                <ContentTopBar setWidth={setScreen} setFullScreen={setFullScreen} />
                                 <h4 className="text-[#6B7888] text-[14px] mt-2 mb-[1px]">Add Note</h4>
                                 <TextAreaInput
                                     updateFormValue={() => { }}
@@ -97,18 +96,17 @@ const EditPage = () => {
                                         <AllForOne
                                             language={language}
                                             screen={screen}
-                                            content={content.content} contentIndex={content.index} subPath={subPath} deepPath={deepPath} setLanguage={setLanguage} fullScreen={fullScreen} currentPath={currentPath} />
+                                            content={content.content} contentIndex={content.index} subPath={subPath} deepPath={deepPath} setLanguage={setLanguage} fullScreen={fullScreen} currentPath={currentPath} 
+                                            />
                                     }
                                 </div>
                             </div>
 
-                            <Popups display={PopUpPublish} setClose={() => setPopupPublish(false)} confirmationText={"Are you sure you want to publish?"} />
-                            <Popups display={PopupSubmit} setClose={() => setPopupSubmit(false)} confirmationText={"Are you sure you want to submit?"} />
                         </div>
                 }
 
             </Suspense>
-                <ToastContainer />
+            <ToastContainer />
         </div >
 
     )

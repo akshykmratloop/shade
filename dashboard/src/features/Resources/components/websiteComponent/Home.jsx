@@ -33,12 +33,12 @@ import contentJSON from './content.json'
 
 const HomePage = ({ language, screen, fullScreen, highlight, content, currentContent, liveContent }) => {
 
-    const checkDifference = differentText.checkDifference.bind(differentText);
+    const checkDifference = differentText?.checkDifference.bind(differentText);
     const isComputer = screen > 900;
     const isTablet = screen < 900 && screen > 730;
     const isPhone = screen < 738;
     const ImagesFromRedux = useSelector((state) => {
-        return state.homeContent.present.images
+        return state?.homeContent?.present?.images
     })
     const [swiperInstance, setSwiperInstance] = useState(null);
     let isLeftAlign = language === "en";
@@ -49,8 +49,8 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
     const [activeRecentProjectSection, setActiveRecentProjectSection] = useState(0);
     let chunkArray = (array, chunkSize) => {
         const chunks = [];
-        for (let i = 0; i < array.length; i += chunkSize) {
-            chunks.push(array.slice(i, i + chunkSize));
+        for (let i = 0; i < array?.length; i += chunkSize) {
+            chunks?.push(array?.slice(i, i + chunkSize));
         }
         return chunks;
     };
@@ -87,7 +87,7 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
 
     useEffect(() => {
         if (swiperInstance) {
-            swiperInstance.update();
+            swiperInstance?.update();
         }
     }, [language]);
 
@@ -104,7 +104,7 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                         }`}
                 >
                     <img
-                        src={ImagesFromRedux.homeBanner || background}
+                        src={ImagesFromRedux?.homeBanner || background}
                         alt="about-us"
                         className="w-[full] h-full object-cover"
                         style={{ objectPosition: "center", transform: "scaleX(-1)", height: isTablet ? "500px" : isPhone && "500px" }} />
@@ -114,7 +114,7 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                     <div className={`text-left flex flex-col ${language === "en" ? "items-start" : "items-end"} ${textAlignment} ${isPhone ? "px-[0px] py-10" : "px-[80px]"}`}
                         style={{ paddingLeft: isComputer && dynamicSize(140, width) }}>
                         <h1 className={`${(highlight && checkDifference(content?.homeBanner?.content?.title[language], liveContent?.homeBanner?.content?.title[language]))} text-[#292E3D] text-[45px] tracking-[0px]  leading-[2.5rem] capitalize font-[500] mb-4 ${isPhone ? "w-full" : fullScreen ? "w-3/5" : "w-3/5"}  `}
-                            style={{ fontSize: fontSize.mainHeading, lineHeight: isComputer && `${(width / 1526) * 4.5}rem`, }}
+                            style={{ fontSize: fontSize?.mainHeading, lineHeight: isComputer && `${(width / 1526) * 4.5}rem`, }}
                         >
                             {content?.homeBanner?.content?.title[language]}
                         </h1>
@@ -579,7 +579,7 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
 
                                             <div className="flex 1">
                                                 <img
-                                                    src={testimonials?.[testimonial?.liveVersion?.image]}
+                                                    src={testimonials?.[testimonial?.liveModeVersionData?.image]}
                                                     height={70}
                                                     width={70}
                                                     alt={testimonial?.name}
@@ -596,12 +596,12 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                                                 <p className="text-gray-500 text-xs font-light mb-4"
                                                     style={{ fontSize: isComputer && dynamicSize(12, width) }}
                                                 >
-                                                    {testimonial?.liveVersion?.sections?.[0]?.content?.position?.[language]}
+                                                    {testimonial?.liveModeVersionData?.sections?.[0]?.content?.position?.[language]}
                                                 </p>
                                                 <p className="text-gray-900 text-xs font-light mb-6 leading-5"
                                                     style={{ fontSize: isComputer && dynamicSize(14, width) }}
                                                 >
-                                                    {testimonial?.liveVersion?.sections?.[0]?.content?.quote?.[language]}
+                                                    {testimonial?.liveModeVersionData?.sections?.[0]?.content?.quote?.[language]}
                                                 </p>
                                                 <div className={`flex items-center justify- gap-2`}>
                                                     <img
@@ -614,7 +614,7 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                                                     <p className={`text-gray-500 text-base font-bold ${isLeftAlign ? "text-left" : "text-right"}`}
                                                         style={{ fontSize: isComputer && dynamicSize(16, width) }}
                                                     >
-                                                        {testimonial?.liveVersion?.sections?.[0]?.content?.company?.[language]}
+                                                        {testimonial?.liveModeVersionData?.sections?.[0]?.content?.company?.[language]}
                                                     </p>
                                                 </div>
                                             </div>
