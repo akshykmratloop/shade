@@ -6,9 +6,10 @@ import * as path from "path";
 import {errorHandler, notFoundHandler} from "./errors/index.js"; // Custom error handler
 import {logger, morganMiddleware} from "./config/index.js";
 import cookieParser from "cookie-parser";
-import {globalRateLimiter} from "./helper/index.js";
+
 import helmet from "helmet";
 import auditLogger from "./helper/auditLogger.js";
+import { globalRateLimiter } from "./helper/rateLimiter.js";
 export const createApp = () => {
   const app = express();
 

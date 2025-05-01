@@ -34,8 +34,6 @@ export default function ContentTopBar({ setWidth, raisePopup, setFullScreen }) {
     const [autoSave, setAutoSave] = useState(JSON.parse(localStorage.getItem("autoSave")))
     const user = useSelector(state => state.user.user)
 
-    const permissionSet = new Set(user.permission)
-
     const isManager = user.permissions?.some(e => e.slice(-10) === "MANAGEMENT" && e.slice(0, 4) !== "USER" && e.slice(0, 4) !== "ROLE" && e.slice(0, 4) !== "AUDI")
 
     const deviceIcons = [
@@ -56,6 +54,7 @@ export default function ContentTopBar({ setWidth, raisePopup, setFullScreen }) {
     async function saveTheDraft() {
         const paylaod = transformContent(ReduxState.present.home)
 
+        console.log(JSON.stringify(paylaod))
         dispatch(saveDraftAction(paylaod))
         setSavedChanges(true)
         try {
@@ -68,6 +67,8 @@ export default function ContentTopBar({ setWidth, raisePopup, setFullScreen }) {
                     autoClose: 1000, // Closes after 1 second
                     pauseOnHover: false, // Does not pause on hover
                 })
+            } else {
+                throw new Error("Error Occured")
             }
         } catch (err) {
             toast.error("failed", {
@@ -171,7 +172,10 @@ export default function ContentTopBar({ setWidth, raisePopup, setFullScreen }) {
                     </div>
                     <div className='flex gap-2 border-r border-[#64748B] text-[#1f2937] dark:text-[#808080]  pr-2 relative'>
                         <span className={`cursor-pointer `} onClick={() => setFullScreen(true)}><LuEye className={`${iconSize} ${smallIconSize} dark:hover:text-[#bbbbbb]`} /></span>
-                        <span ref={infoIconRef} className={`cursor-pointer `} onClick={() => info ? setInfo(false) : setInfo(true)}><IoIosInformationCircleOutline className={`${iconSize} ${smallIconSize} dark:hover:text-[#bbbbbb]`} /></span>
+                        {
+                            !isManager &&
+                            <span ref={infoIconRef} className={`cursor-pointer `} onClick={() => info ? setInfo(false) : setInfo(true)}><IoIosInformationCircleOutline className={`${iconSize} ${smallIconSize} dark:hover:text-[#bbbbbb]`} /></span>
+                        }
                         <div ref={infoRef} className={`absolute top-[100%] left-1/2 border bg-white w-[200px] shadow-xl rounded-lg text-xs p-2 ${info ? "block" : "hidden"}`} >
                             <p className='text-[#64748B]'>last saved:  <span className='text-[black]'>{"dd/mm/yyyy"}</span></p>  {/* last saved */}
                             <p className='text-[#64748B]'>status: <span className='text-[black]'> draft</span></p>   {/**status */}
@@ -202,7 +206,10 @@ export default function ContentTopBar({ setWidth, raisePopup, setFullScreen }) {
                                 </Switch>
                             </div>
                             <div className='flex gap-2'>
-                                <Button text={savedChanges ? 'Saved' : 'Draft'} functioning={saveTheDraft} classes={`${savedChanges ? "bg-[#26c226]" : "bg-[#26345C]"}  rounded-md xl:h-[2.68rem] sm:h-[2rem] xl:text-xs sm:text-[.6rem] xl:w-[5.58rem] w-[4rem] text-[white]`} />
+                                {
+                                    !autoSave &&
+                                    <Button text={savedChanges ? 'Saved' : 'Draft'} functioning={saveTheDraft} classes={`${savedChanges ? "bg-[#26c226]" : "bg-[#26345C]"}  rounded-md xl:h-[2.68rem] sm:h-[2rem] xl:text-xs sm:text-[.6rem] xl:w-[5.58rem] w-[4rem] text-[white]`} />
+                                }
                                 <Button text={'Submit'} functioning={raisePopup.submit} classes='bg-[#29469D] rounded-md xl:h-[2.68rem] sm:h-[2rem] xl:text-xs sm:text-[.6rem] xl:w-[5.58rem] w-[4rem] text-[white]' />
                             </div>
                         </div>

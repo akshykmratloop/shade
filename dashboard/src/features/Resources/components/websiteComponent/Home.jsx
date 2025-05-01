@@ -66,7 +66,6 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
     const [width, setWidth] = useState(0);
     const fontSize = generatefontSize(isComputer, dynamicSize, width)
 
-    console.log(width)
     useEffect(() => {
         const observer = new ResizeObserver(entries => {
             for (let entry of entries) {
@@ -129,8 +128,8 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                             style={{ fontSize: fontSize.mainButton }}
                             onClick={() => { }}
                         >
-                            <span className={`${(highlight && checkDifference(content?.homeBanner?.content?.buttonText[language], content?.homeBanner?.content?.buttonText[language]))}`}>
-                                {content?.homeBanner?.content?.buttonText[language]}</span>
+                            <span className={`${(highlight && checkDifference(content?.homeBanner?.content?.button?.[0]?.text?.[language], content?.homeBanner?.content?.button?.[0]?.text?.[language]))}`}>
+                                {content?.homeBanner?.content?.button?.[0]?.text?.[language]}</span>
                             <img
                                 src={Arrow}
                                 width="10"
@@ -167,7 +166,7 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                         <button className={`px-[6px] py-[2px] bg-[#00B9F2] text-white text-[12px] ${highlight && checkDifference(content?.markDown?.content?.description[language], liveContent?.markDown?.content?.description[language])} rounded-md hover:bg-opacity-90 text-right`}
                             style={{ fontSize: isComputer && dynamicSize(18, width) }}
                         >
-                            {content?.markDown?.content?.buttonText?.[0]?.text?.[language]}
+                            {content?.markDown?.content?.button?.[0]?.text?.[language]}
                         </button>
                     </div>
 
@@ -279,7 +278,7 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                         <button
                             className={`text-white bg-[#00B9F2] px-[12px] py-1 text-sm text-lg rounded-md ${!isLeftAlign ? '!px-4' : ''}`}
                         >
-                            {content?.statistics?.content?.button?.text?.[language]}
+                            {content?.statistics?.content?.button?.[0]?.text?.[language]}
                         </button>
                     </div>
                 </div>
@@ -303,7 +302,7 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                                 onClick={() => { }}
                             >
                                 {
-                                    currentContent?.recentProjectsSection?.buttons[0]?.text[language]
+                                    currentContent?.recentProjectsSection?.button?.[0]?.text?.[language]
                                 }
                                 <img
                                     src="https://frequencyimage.s3.ap-south-1.amazonaws.com/5d82e78b-cb95-4768-abfe-247369079ce6-bi_arrow-up.svg"
@@ -443,13 +442,13 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                                     />
 
                                     {!isPhone &&
-                                        currentContent?.recentProjectsSection?.buttons[1]?.text[language]
+                                        currentContent?.recentProjectsSection?.buttons?.[1]?.text[language]
                                     }
                                 </button>
                                 <button ref={nextRef} className={`py-[12px] px-[20px] text-[#00B9F2] text-md font-medium border-[1px] border-[#00B9F2] rounded-[6px] flex gap-2 items-center ${isPhone ? "w-[120px]" : "min-w-[246px]"} justify-center bg-white transition-all duration-200`}
                                     style={{ fontSize: isComputer && dynamicSize(18, width) }}>
                                     {!isPhone &&
-                                        currentContent?.recentProjectsSection?.buttons[2]?.text[language]
+                                        currentContent?.recentProjectsSection?.buttons?.[2]?.text[language]
                                     }
                                     <img
                                         src="https://frequencyimage.s3.ap-south-1.amazonaws.com/de8581fe-4796-404c-a956-8e951ccb355a-Vector%20%287%29.svg"
@@ -696,7 +695,7 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                             className="bg-[#00B9F2] text-xs text-white px-4 py-2 text-lg mt-11 mx-auto block rounded"
                             style={{ fontSize: isComputer && dynamicSize(18, width) }}
                         >
-                            {content?.normalContent?.content?.button?.text?.[language]}
+                            {content?.normalContent?.content?.button?.[0]?.text?.[language]}
                         </button>
                     </div>
                 </div>

@@ -719,7 +719,7 @@ async function main() {
       {
         title: "recentProjectsSection",
         SectionType: "PROJECT_GRID",
-        content: content.home.recentProjectsSection,
+        content: content.home.recentProjectsSection.content,
         sectionVersionTitle: "Recent Projects. Markets & Safety Grid",
         sections:
           content.home.recentProjectsSection.sections?.map((section) => ({

@@ -30,12 +30,13 @@ function ShowDifference({ role, show, onClose, resourceId }) {
     const [editVersion, setEditVersion] = useState({})
     const [language, setLanguage] = useState("en")
     const [showDateTime, setShowDateTime] = useState(false)
+    const user = useSelector(state => state.user.user)
+
+    const isManager = user.permissions?.some(e => e.slice(-10) === "MANAGEMENT" && e.slice(0, 4) !== "USER" && e.slice(0, 4) !== "ROLE" && e.slice(0, 4) !== "AUDI")
+
 
     const editedContent = createContent(editVersion, "difference", "home")
     const LiveContent = createContent(liveVersion, "difference", "home")
-    console.log(editedContent)
-    console.log(LiveContent)
-
 
     const modalRef = useRef(null)
 
@@ -54,7 +55,7 @@ function ShowDifference({ role, show, onClose, resourceId }) {
     useEffect(() => {
         async function fetchContent() {
             try {
-                const response = await getContent("cma2pwt1p008zmn7lxtwpiyfm")
+                const response = await getContent("cma3q6qi7008zmn7a4sjcum6m")
 
                 const payload = {
                     id: response.content.id,
@@ -112,49 +113,52 @@ function ShowDifference({ role, show, onClose, resourceId }) {
                         {/* <Dialog.Title className="text-lg font-[500]">Difference Preview</Dialog.Title> */}
                         <div className="flex gap-5 justify-between w-[95%]">
                             <LanguageSwitch w={'w-[20%]'} setLanguage={setLanguage} language={language} />
-                            <div className="flex gap-2">
-                                <div className="flex gap-3 text-[25px] items-center border-r px-2 border-r-2">
-                                    <span className=" flex flex-col gap-1 items-center">
-                                        <LiaComment strokeWidth={.0001} />
-                                        <span className="text-[12px]">
-                                            Comment
+                            {
+                                isManager &&
+                                <div className="flex gap-2">
+                                    <div className="flex gap-3 text-[25px] items-center border-r px-2 border-r-2">
+                                        <span className=" flex flex-col gap-1 items-center">
+                                            <LiaComment strokeWidth={.0001} />
+                                            <span className="text-[12px]">
+                                                Comment
+                                            </span>
                                         </span>
-                                    </span>
-                                    <span className="flex flex-col gap-1 items-center translate-y-[1.5px]">
-                                        <IoDocumentOutline className="text-[23px]" width={10} />
-                                        <span className="text-[12px]">
-                                            Doc
+                                        <span className="flex flex-col gap-1 items-center translate-y-[1.5px]">
+                                            <IoDocumentOutline className="text-[23px]" width={10} />
+                                            <span className="text-[12px]">
+                                                Doc
+                                            </span>
                                         </span>
-                                    </span>
-                                </div>
-                                <div className='flex items-center gap-1'>
-                                    <span className={`text-[14px] font-lexend font-[400] dark:text-[#CBD5E1] text-[#202a38] select-none`}>
-                                        Publish Schedule
-                                    </span>
+                                    </div>
+                                    <div className='flex items-center gap-1'>
+                                        <span className={`text-[14px] font-lexend font-[400] dark:text-[#CBD5E1] text-[#202a38] select-none`}>
+                                            Publish Schedule
+                                        </span>
 
-                                    <Switch
-                                        checked={true}
-                                        onChange={() => setShowDateTime(true)}
-                                        className={`${true
-                                            ? "bg-[#1DC9A0]"
-                                            : "bg-gray-300"
-                                            } relative inline-flex h-2 w-7 items-center rounded-full`}
-                                    >
-                                        <span
+                                        <Switch
+                                            checked={true}
+                                            onChange={() => setShowDateTime(true)}
                                             className={`${true
-                                                ? "translate-x-4"
-                                                : "translate-x-0"
-                                                } inline-block h-[17px] w-[17px] bg-white rounded-full shadow-2xl border border-gray-300 transition`}
-                                        />
-                                    </Switch>
+                                                ? "bg-[#1DC9A0]"
+                                                : "bg-gray-300"
+                                                } relative inline-flex h-2 w-7 items-center rounded-full`}
+                                        >
+                                            <span
+                                                className={`${true
+                                                    ? "translate-x-4"
+                                                    : "translate-x-0"
+                                                    } inline-block h-[17px] w-[17px] bg-white rounded-full shadow-2xl border border-gray-300 transition`}
+                                            />
+                                        </Switch>
+                                    </div>
+                                    <div className="flex gap-2 px-2">
+                                        <button onClick={() => { }} className='flex justify-center items-center gap-1 bg-[#FF0000] rounded-md xl:h-[2.68rem] sm:h-[2rem] xl:text-xs sm:text-[.6rem] xl:w-[5.58rem] w-[4rem] text-[white]'>
+                                            <RxCross1 /> Reject
+                                        </button>
+                                        <Button text={'Approve'} functioning={() => { }} classes='bg-[#29469D] rounded-md xl:h-[2.68rem] sm:h-[2rem] xl:text-xs sm:text-[.6rem] xl:w-[5.58rem] w-[4rem] text-[white]' />
+                                    </div>
                                 </div>
-                                <div className="flex gap-2 px-2">
-                                    <button onClick={() => { }} className='flex justify-center items-center gap-1 bg-[#FF0000] rounded-md xl:h-[2.68rem] sm:h-[2rem] xl:text-xs sm:text-[.6rem] xl:w-[5.58rem] w-[4rem] text-[white]'>
-                                        <RxCross1 /> Reject
-                                    </button>
-                                    <Button text={'Approve'} functioning={() => { }} classes='bg-[#29469D] rounded-md xl:h-[2.68rem] sm:h-[2rem] xl:text-xs sm:text-[.6rem] xl:w-[5.58rem] w-[4rem] text-[white]' />
-                                </div>
-                            </div>
+                            }
                         </div>
                         <button onClick={onClose} className="bg-transparent absolute top-4 right-10 z-20 hover:bg-stone-300 dark:hover:bg-stone-700 rounded-full border-none p-2 py-2">
                             <XMarkIcon className="w-5" />
