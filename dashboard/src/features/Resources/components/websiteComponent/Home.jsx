@@ -317,9 +317,9 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
 
 
                     <div className={`flex ${isTablet ? isPhone ? "gap-[20px]" : "gap-[30px]" : "gap-[30px]"} ${isLeftAlign && !isComputer && "pr-20"} `}
-                        style={{ gap: isComputer && dynamicSize(70, width), width: isComputer && dynamicSize(1230, width) }}>
-                        <div className={`leftDetails min-w-[150px]   ${isTablet && "w-[180px]"}`}
-                            style={{ width: isComputer && dynamicSize(424, width) }}>
+                        style={{ gap: isComputer && dynamicSize(70, width), width: isComputer || fullScreen ? dynamicSize(1230, width) : "100%" }}>
+                        <div className={`leftDetails min-w-[150px] border ${isTablet ? isPhone? "w-[150px]": "w-[240px]" :""}`}
+                            style={{ width: isComputer || fullScreen ? dynamicSize(424, width) : "" }}>
                             {content?.projectGrid?.sections?.map((section, index) => (
                                 <div
                                     key={index}
@@ -355,8 +355,8 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                             ))}
                         </div>
 
-                        <div className={`${isPhone ? "w-[220px]" : isTablet ? "w-[300px]" : ""} overflow-hidden`}
-                            style={{ width: isComputer && dynamicSize(800, width) }}
+                        <div className={`${isPhone ? "w-[220px]" : isTablet ? "w-[490px]" : ""} border border-cyan-600 overflow-hidden`}
+                            style={{ width: isComputer || fullScreen ? dynamicSize(800, width) : "" }}
                         >
                             <Swiper
                                 key={language}
@@ -379,8 +379,11 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
 
                                     return (
                                         <SwiperSlide key={slideIndex}>
-                                            <div className={`${isPhone ? "flex flex-col" : `grid grid-cols-2 gap-[12px] auto-rows-auto ${isTablet ? "w-[350px]" : "w-[600px]"}`} `}
-                                                style={{ width: isComputer ? dynamicSize(722, width) : isPhone ? `${(600 / 1180) * screen}px` : `${(750 / 1180) * screen}px`, gap: isComputer ? "" : `${(40 / 1180) * screen}px` }}
+                                            <div className={`${isPhone ? "flex flex-col" : `grid grid-cols-2 gap-[12px] border auto-rows-auto ${isTablet ? "w-[350px]" : "w-[600px]"}`} `}
+                                                style={{
+                                                    width: isComputer ? dynamicSize(722, width) : isPhone ? `${(600 / 1180) * screen}px` : `${(750 / 1180) * screen}px`,
+                                                    gap: isComputer ? "" : `${(40 / 1180) * screen}px`
+                                                }}
                                             >
                                                 {chunk?.map((project, cardIndex) => {
                                                     return (
