@@ -22,36 +22,29 @@ const statsData = [
     icon: "",
     //  <UserGroupIcon className="w-8 h-8" />
     description: "+10 (New)",
-    opt1: "↗︎ 10 (20%)",
-    opt2: "↙ 5 (10%)",
-    opt3: "↙ 2 (5%)",
   },
   {
     title: "Total Users",
     value: "250",
     icon: <UserGroupIcon className="w-8 h-8" />,
     description: "+50 (This month)",
-    opt1: "",
-    opt2: "",
-    opt3: "",
   },
   {
-    title: "Pending Leads",
+    title: "Resource Role",
     value: "450",
     icon: <CircleStackIcon className="w-8 h-8" />,
-    description: "50 in hot leads",
-    opt1: "↗︎ 10 (20%)",
-    opt2: "↙ 5 (10%)",
-    opt3: "↙ 2 (5%)",
+    description: "+10 (New)",
+    roles: [
+      {name: "Editor", value: 100},
+      {name: "Verfier", value: 200},
+      {name: "Publish", value: 150},
+    ],
   },
   {
     title: "Active Users",
     value: "5.6k",
     icon: <UsersIcon className="w-8 h-8" />,
     description: "↙ 300 (18%)",
-    opt1: "↗︎ 10 (20%)",
-    opt2: "↙ 5 (10%)",
-    opt3: "↙ 2 (5%)",
   },
 ];
 
