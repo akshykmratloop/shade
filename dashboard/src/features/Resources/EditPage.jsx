@@ -107,8 +107,8 @@ const EditPage = () => {
                         </div>
                 }
 
-                <ToastContainer />
             </Suspense>
+                <ToastContainer />
         </div >
 
     )

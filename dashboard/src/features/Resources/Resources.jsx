@@ -49,6 +49,7 @@ function Resources() {
   const [isSmall, setIsSmall] = useState(false);
   const [isNarrow, setIsNarrow] = useState(false);
 
+  const isSidebarOpen = useSelector(state => state.sidebar.isCollapsed)
   const [randomRender, setRandomRender] = useState(Date.now());
 
   const resourceType = useSelector((state) => state.navBar.resourceType);
@@ -229,7 +230,10 @@ function Resources() {
                 <div className="relative aspect-[10/11] overflow-hidden">
                   <iframe
                     src={resourcesContent?.pages[index].src}
-                    className={`top-0 left-0 border-none transition-all duration-300 ease-in-out ${isNarrow ? "w-[1000px] scale-[0.5]" : "w-[1200px] scale-[0.4]"
+                    className={`top-0 left-0 border-none transition-all duration-300 ease-in-out ${isNarrow
+                      ? "w-[1000px] scale-[0.10]"
+                      : `w-[1200px]  ${isSidebarOpen ? "scale-[0.34] " : "scale-[0.299]"
+                      } p-4  bg-white`
                       } origin-top-left h-[80rem]`}
                   ></iframe>
 
