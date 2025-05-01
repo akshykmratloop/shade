@@ -15,7 +15,6 @@ import TextAreaInput from "../../components/Input/TextAreaInput";
 // import AllForOne from "./components/AllForOne";
 import AllForOneManager from "./components/AllForOneManager";
 import createContent from "./defineContent";
-import { MoonLoader } from "react-spinners";
 import FallBackLoader from "../../components/fallbackLoader/FallbackLoader";
 
 const Page404 = lazy(() => import('../../pages/protected/404'))
