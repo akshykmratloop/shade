@@ -333,7 +333,7 @@ export const fetchEligibleUsers = async (roleType = "", permission = "") => {
   const users = await prismaClient.user.findMany({
     where: {
       isSuperUser: false,
-      status: "ACTIVE",
+      // status: "ACTIVE",
       roles: {
         some: {
           role: {
@@ -386,6 +386,7 @@ export const fetchEligibleUsers = async (roleType = "", permission = "") => {
     name: user.name,
     email: user.email,
     phone: user.phone,
+    status : user.status,
     roles: user.roles.map((r) => ({
       name: r.role.name,
       type: r.role.roleType.name,
