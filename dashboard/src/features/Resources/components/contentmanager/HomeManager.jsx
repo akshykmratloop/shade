@@ -20,6 +20,8 @@ const HomeManager = ({ language, content, currentPath, indexes }) => {
     const user = useSelector(state => state.user.user)
     const isManager = useSelector(state => state.user.isManager)
 
+    const [underVerification, setUnderVerification] = useState(false)
+
 
     useEffect(() => {
         const currentId = localStorage.getItem("contextId");
@@ -93,8 +95,11 @@ const HomeManager = ({ language, content, currentPath, indexes }) => {
                             relationType: response.content.relationType,
                             editVersion: isManager ? response.content.liveModeVersionData : response.content.editModeVersionData ?? response.content.liveModeVersionData
                         }
+                        if (payload.editVersion.status !== "EDITING" || payload.editVersion.status !== "DRAFT") {
+                            
+                        }
 
-                        dispatch(updateContent({ currentPath: "home", payload }))
+                        dispatch(updateContent({ currentPath: "content", payload }))
                     }
                 } catch (err) {
 
@@ -110,7 +115,7 @@ const HomeManager = ({ language, content, currentPath, indexes }) => {
             <FileUploader id={"homeReference"} label={"Rerference doc"} fileName={"Upload your file..."} />
             {/* homeBanner */}
             <ContentSection
-                currentPath={currentPath} title
+                currentPath={currentPath}
                 Heading={"Hero Banner"}
                 inputs={[
                     { input: "input", label: "Heading/title", updateType: "title", value: content?.homeBanner?.content?.title[language], update: `editVersion.sections[${indexes.homeBanner}].content.title.${language}` },
@@ -248,11 +253,12 @@ const HomeManager = ({ language, content, currentPath, indexes }) => {
                     { input: "input", label: "Heading/title", updateType: "title", value: content?.clientLogo?.content?.title[language] },
                     { input: "input", label: "Description", updateType: "description", value: content?.clientLogo?.content?.description[language] },
                 ]}
-                inputFiles={content?.clientLogo?.content?.clients?.map(e => ({ label: e.image, id: e.image }))}
+                inputFiles={content?.clientLogo?.content?.clients?.map((e, i) => ({ label: "Client " + (i + 1), id: e.image[0] }))}
                 section={"clientSection"}
                 language={language}
                 currentContent={content}
                 contentIndex={indexes.clientLogo}
+                allowExtraInput={true}
                 resourceId={currentId}
             />
 
@@ -273,7 +279,7 @@ const HomeManager = ({ language, content, currentPath, indexes }) => {
                 section={"testimonialsSections"}
                 language={language}
                 label={"Select Testimony List"}
-                heading={"Testimonials Section"} 
+                heading={"Testimonials Section"}
                 tabName={"Select Testimonies"}
                 options={content?.testimonials?.items}
                 listOptions={TestimonialsOptions}

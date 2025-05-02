@@ -3,7 +3,7 @@ import InputFile from "../../../../components/Input/InputFile";
 import InputText from "../../../../components/Input/InputText";
 import TextAreaInput from "../../../../components/Input/TextAreaInput";
 import { useDispatch, useSelector } from "react-redux";
-import { updateSpecificContent, updateServicesNumber, updateImages } from "../../../common/homeContentSlice";
+import { updateSpecificContent, updateServicesNumber, updateImages, updateAList } from "../../../common/homeContentSlice";
 import InputFileForm from "../../../../components/Input/InputFileForm";
 import JoditEditor from "jodit-react";
 
@@ -52,11 +52,16 @@ const ContentSection = ({
                 operation: 'add'
             }))
         } else {
-            setExtraFiles([...extraFiles, { label: `Extra File ${extraFiles.length + 1}`, id: `extraFile${extraFiles.length + 1}` }]);
+            dispatch(updateAList({
+                data: { alt: { ar: "", en: "" }, image: [""] },
+                index: contentIndex,
+                operation: "add"
+            }))
         }
     };
 
     const removeExtraFileInput = (id) => {
+
         if (section === 'gallerySection' || deepPath) {
             dispatch(updateImages({
                 src: id,
@@ -68,7 +73,12 @@ const ContentSection = ({
                 operation: 'remove'
             }))
         } else {
-            setExtraFiles(extraFiles.filter(file => file.id !== id));
+            console.log(id)
+            dispatch(updateAList({
+                data: id,
+                index: contentIndex,
+                operation: "remove"
+            }))
         }
     };
 
@@ -263,25 +273,30 @@ const ContentSection = ({
                             </div>
                         </div>
                         : <div className={`flex ${inputFiles.length > 1 ? "flex-wrap" : ""} gap-10 w-[80%]`}>
-                            {inputFiles.map((file, i) => (
-                                <div className="relative" key={i}>
-                                    {i > 3 && <button
-                                        className="absolute top-6 z-10 right-[-12px] bg-red-500 text-white px-[5px] rounded-full shadow"
-                                        onClick={() => removeExtraFileInput(Number(file.id.slice(-1)))}
-                                    >
-                                        ✖
-                                    </button>}
-                                    <InputFile
-                                        label={file.label}
-                                        id={file.id}
-                                        currentPath={currentPath}
-                                        fileIndex={i}
-                                        section={section}
-                                        resourceId={resourceId}
-                                        contentIndex={contentIndex}
-                                    />
-                                </div>
-                            ))}
+                            {inputFiles.map((file, i) => {
+                                return (
+                                    <div className="relative" key={i}>
+                                        {i > 3 && <button
+                                            className="absolute top-6 z-10 right-[-12px] bg-red-500 text-white px-[5px] rounded-full shadow"
+                                            onClick={() => removeExtraFileInput(file.id)}
+                                        >
+                                            ✖
+                                        </button>}
+
+                                        <InputFile
+                                            label={file.label}
+                                            id={file.id}
+                                            currentPath={currentPath}
+                                            fileIndex={i}
+                                            section={section}
+                                            index={section === "clientSection" ? i : index}
+                                            subSection={subSection}
+                                            resourceId={resourceId}
+                                            contentIndex={contentIndex}
+                                        />
+                                    </div>
+                                )
+                            })}
                             {extraFiles.map((file, index) => (
                                 <div key={index} className="relative flex items-center justify-center">
                                     <button

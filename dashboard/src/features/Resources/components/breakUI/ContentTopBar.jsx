@@ -17,7 +17,7 @@ import { LuEye } from "react-icons/lu";
 import { RxCross1 } from "react-icons/rx";
 import { Switch } from '@headlessui/react';
 import transformContent from '../../../../app/convertContent';
-import { publishContent, updateContent } from '../../../../app/fetch';
+import { generateRequest, publishContent, updateContent } from '../../../../app/fetch';
 import Popups from './Popups';
 import formatTimestamp from '../../../../app/TimeFormat';
 
@@ -60,7 +60,7 @@ export default function ContentTopBar({ setWidth, raisePopup, setFullScreen, cur
     const status = ReduxState.present?.[currentPath]?.editVersion?.status
 
     async function saveTheDraft(isToastify = true) {
-        const paylaod = transformContent(ReduxState.present.home)
+        const paylaod = transformContent(ReduxState.present.content)
 
         // console.log(JSON.stringify(paylaod))
         dispatch(saveDraftAction(paylaod))
@@ -87,20 +87,41 @@ export default function ContentTopBar({ setWidth, raisePopup, setFullScreen, cur
                 pauseOnHover: false, // Does not pause on hover
             })
         }
+    }
+
+    async function handleSubmit() {
+        const paylaod = transformContent(ReduxState.present.content)
+
+        console.log(JSON.stringify(paylaod))
+        try {
+
+            const response = await generateRequest(paylaod)
+
+            if (response.ok) {
+                toast.success("Changes has been saved", {
+                    style: { backgroundColor: "#187e3d", color: "white" },
+                    autoClose: 1000, // Closes after 1 second
+                    pauseOnHover: false, // Does not pause on hover
+                })
+            } else {
+                throw new Error("Error Occured")
+            }
+        } catch (err) {
+            toast.error("failed", {
+                style: { backgroundColor: "#187e3d", color: "white" },
+                autoClose: 1000, // Closes after 1 second
+                pauseOnHover: false, // Does not pause on hover
+            })
+        }
 
     }
 
     async function HandlepublishToLive() {
         if (!isManager) return toast.error("You are not allowed to publish the content directly!", { autoClose: 600 })
-        const paylaod = transformContent(ReduxState.present.home)
+        const paylaod = transformContent(ReduxState.present.content)
 
-        // console.log(JSON.stringify(paylaod))
-        dispatch(saveDraftAction(paylaod))
-        setSavedChanges(true)
         try {
-
             const response = await publishContent(paylaod)
-
             if (response.message === "Success") {
                 toast.success("Changes have been published", {
                     style: { backgroundColor: "#187e3d", color: "white" },
@@ -265,7 +286,7 @@ export default function ContentTopBar({ setWidth, raisePopup, setFullScreen, cur
             </div>
 
             <Popups display={PopUpPublish} setClose={() => setPopupPublish(false)} confirmationText={"Are you sure you want to publish?"} confirmationFunction={HandlepublishToLive} />
-            <Popups display={PopupSubmit} setClose={() => setPopupSubmit(false)} confirmationText={"Are you sure you want to submit?"} />
+            <Popups display={PopupSubmit} setClose={() => setPopupSubmit(false)} confirmationText={"Are you sure you want to submit?"} confirmationFunction={handleSubmit}/>
         </div>
     );
 }

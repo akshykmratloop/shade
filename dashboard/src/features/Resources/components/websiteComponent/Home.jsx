@@ -149,7 +149,7 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                     {/* Image section */}
                     <div className={`${isPhone ? "w-[90%]" : "w-[70%]"} h-[500px] overflow-hidden rounded-sm shadow-lg `}
                         style={{ height: isComputer && dynamicSize(629, width), width: isComputer && dynamicSize(877, width) }}>
-                        <img src={ImagesFromRedux.aboutUsSection || AboutUs} alt="about-us" className="w-full h-[500px] object-cover"
+                        <img src={`${Img_url}/${content?.markDown?.content?.image[0]}`} alt="about-us" className="w-full h-[500px] object-cover"
                             style={{ width: isComputer && dynamicSize(877, width), height: isComputer && '100%' }}
                         />
                     </div>
@@ -193,7 +193,7 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                             return (
                                 <div key={key} className={`w-full h-44 flex items-center justify-center p-6 rounded-md transition-transform duration-300 hover:scale-105 cursor-pointer ${key % 2 !== 0 ? "bg-blue-900 text-[white]" : " bg-stone-200"} `}>
                                     <div className="flex flex-col items-center gap-4">
-                                        <img src={services?.[card.iconName]} width={40} height={40} alt="Icon" className="h-10 w-10" />
+                                        <img src={Img_url + card?.liveModeVersionData?.icon} width={40} height={40} alt="Icon" className="h-10 w-10" />
                                         <h5 className={`relative text-lg font-light text-center `}
                                             style={{ fontSize: isComputer && dynamicSize(20, width) }}>
                                             {card?.[titleLan]}
@@ -233,7 +233,7 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                                         <div className="relative">
                                             <img
                                                 className={`absolute ${key % 2 === 1 ? "top-[-22px] right-[-32px]" : "left-[-36px] top-[-27px]"}`}
-                                                src={ImagesFromRedux[item.items] || experience?.[item.iconName]}
+                                                src={Img_url + item.iconName}
                                                 width={40}
                                                 height={key === 1 ? 47 : 60}
                                                 alt=""
@@ -505,7 +505,7 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                                 className="w-[120px] h-[120px] bg-white rounded-full flex items-center justify-center p-5"
                             >
                                 <img
-                                    src={ImagesFromRedux[client.image] || clients?.[client?.image]}
+                                    src={Img_url + client?.image?.[0]}
                                     width={key === 3 ? 100 : 66}
                                     height={key === 3 ? 30 : 66}
                                     alt="about-us"

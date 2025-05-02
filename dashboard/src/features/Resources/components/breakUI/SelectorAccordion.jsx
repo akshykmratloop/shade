@@ -3,12 +3,10 @@ import Select from "../../../../components/Input/Select";
 import { RxCross2 } from "react-icons/rx";
 import { GoPlus } from "react-icons/go";
 
-const SelectorAccordion = ({ options, onChange, field, value, defaultValue }) => {
+const SelectorAccordion = ({ options, onChange, field, value }) => {
     const [selector, setSelector] = useState([{ label: "Level 1", value: "" }]);
     const selectorRef = useRef(null);
     const prevSelectorRef = useRef(selector);
-
-    console.log(defaultValue)
 
     const addSelector = (e) => {
         e.preventDefault();

@@ -4,17 +4,23 @@ const user = createSlice({
     name: "user",
     initialState: {
         user: {
-            createdAt: "",
-            email: "",
-            id: "",
-            image: "",
-            isSuperUser: false,
-            message: "",
-            name: "",
-            permissions: [],
-            roles: [],
-            status: "",
-            updatedAt: ""
+            id: '',
+            name: '',
+            image: '',
+            email: '',
+            isSuperUser: true,
+            status: '',
+            phone: '',
+            createdAt: '',
+            updatedAt: '',
+            roles: [
+                {
+                    role: '',
+                    roleType: '',
+                    status: '',
+                    permissions: []
+                }
+            ]
         },
         isManager: false
     },

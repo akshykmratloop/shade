@@ -275,7 +275,7 @@ function Resources() {
             <MoonLoader size={60} color="#29469c" className="" />
           </div>
         ) : resNotAvail ? (
-          <div className="flex justify-center py-24 h-full border border-cyan-400">
+          <div className="flex justify-center py-24 h-full">
           {/* //   <img src={unavailableIcon} alt="Not Available" /> */}
             <Page404 />
           </div>

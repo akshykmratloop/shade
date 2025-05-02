@@ -1,6 +1,6 @@
 import React from "react";
 
-const Select = ({ options, defaultValue, selectClass, label, labelClass, baseClass, setterOnChange, index, value, height, width, field }) => {
+const Select = ({ options, selectClass, label, labelClass, baseClass, setterOnChange, index, value, height, width, field }) => {
     const handleSelectChange = (e) => {
         if (typeof index === "number") {
             setterOnChange(index, "value", e.target.value);
@@ -21,10 +21,11 @@ const Select = ({ options, defaultValue, selectClass, label, labelClass, baseCla
                 {options?.map((option, i) => {
                     // console.log(option)
                     return (
-                    <option value={option.id} hidden={option.hidden} key={option + i} className="text-stone-700">
-                        {option.name}
-                    </option>
-                )})}
+                        <option value={option.id} hidden={option.hidden} key={option + i} className="text-stone-700">
+                            {option.name}
+                        </option>
+                    )
+                })}
             </select>
         </div>
     );

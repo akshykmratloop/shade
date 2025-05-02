@@ -3,8 +3,9 @@ import { Upload, X } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import { removeImages, updateImages } from "../../features/common/homeContentSlice";
 import ImageSelector from "./ImageSelector"; // Import here
+import { Img_url } from "../../routes/backend";
 
-const InputFile = ({ label, baseClass, id, currentPath, resourceId, contentIndex }) => {
+const InputFile = ({ label, baseClass, id, currentPath, resourceId, contentIndex, index, subSection, section }) => {
   const dispatch = useDispatch();
   const ImageFromRedux = useSelector(state => state.homeContent.present.images);
   const [fileURL, setFileURL] = useState("");
@@ -17,8 +18,7 @@ const InputFile = ({ label, baseClass, id, currentPath, resourceId, contentIndex
 
   const handleImageSelect = (url) => {
     setFileURL(url);
-    console.log(url)
-    dispatch(updateImages({ section: id, src: url, currentPath, index: contentIndex }));
+    dispatch(updateImages({ section, src: url[0], currentPath, index: contentIndex, cardIndex: index, subSection }));
     setIsSelectorOpen(false);
   };
 
@@ -33,7 +33,7 @@ const InputFile = ({ label, baseClass, id, currentPath, resourceId, contentIndex
           fileURL.includes(".mp4") || fileURL.includes("video") ? (
             <video src={fileURL} className="w-full h-full object-cover" controls />
           ) : (
-            <img src={fileURL} alt="Preview" className="w-full h-full object-cover" />
+            <img src={Img_url + fileURL} alt="Preview" className="w-full h-full object-cover" />
           )
         ) : (
           <div className="w-full h-full flex items-center justify-center text-gray-400 text-xs">

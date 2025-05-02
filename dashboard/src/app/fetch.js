@@ -28,6 +28,8 @@ const makerequest = async (
 ) => {
   let token = localStorage.getItem("token");
 
+  console.log(body)
+
   // Check if token is expired and clear session if it is
   if (token && isTokenExpired(token)) {
     clearSession();
@@ -386,10 +388,20 @@ export async function updateContent(data) {
   );
 }
 
-export async function publishContent(body){
+export async function publishContent(body) {
   return await makerequest(
     `${api.route("publishContent")}`,
     "POST",
+    JSON.stringify(body),
+    ContentType.json,
+    true
+  );
+}
+
+export async function generateRequest(body) {
+  return await makerequest(
+    `${api.route("generateRequest")}`,
+    "PUT",
     JSON.stringify(body),
     ContentType.json,
     true
