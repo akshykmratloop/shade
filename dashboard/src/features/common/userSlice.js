@@ -29,7 +29,7 @@ const user = createSlice({
         updateUser: (state, action) => {
             state.user = action.payload;
 
-            state.isManager = action.payload.permissions?.some(e => e.slice(-10) === "MANAGEMENT" && e.slice(0, 4) !== "USER" && e.slice(0, 4) !== "ROLE" && e.slice(0, 4) !== "AUDI")
+            state.isManager = action.payload.roles[0]?.permissions?.some(e => e.slice(-10) === "MANAGEMENT" && e.slice(0, 4) !== "USER" && e.slice(0, 4) !== "ROLE" && e.slice(0, 4) !== "AUDI")
         }
     }
 })

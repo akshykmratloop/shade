@@ -15,6 +15,7 @@ function PageContent() {
     const mainContentRef = useRef(null);
     const { pageTitle } = useSelector(state => state.header)
     const user = useSelector(state => state.user.user)
+    const applied = useSelector(state => state)
     const location = useLocation()
 
     useEffect(() => {
@@ -41,8 +42,8 @@ function PageContent() {
                         {
                             routes.map((route, key) => {
                                 let path = route.path
-                                if (route.permission) {
-                                    if (!user.permissions.includes(route.permission)) {
+                                if (route?.permission) {
+                                    if (!user?.permissions?.includes(route.permission)) {
                                         return null
                                     }
                                 }

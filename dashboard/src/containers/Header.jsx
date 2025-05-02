@@ -140,7 +140,7 @@ function Header() {
         <div className="sm:block xl:hidden"></div>
         <div className=" flex-col items-start sm:hidden xl:flex font-lexend">
           <h2 className="font-semibold">
-            Hello {user?.name} {`(${user?.roles[0]?.replace("_", " ")})`}
+            Hello {user?.name} {`(${user?.roles[0]?.replace?.("_", " ")})`}
           </h2>
           <p className="text-base-700 font-light font-lexend text-[grey]">
             {greetings}
