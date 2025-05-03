@@ -15,6 +15,7 @@ import { getNotificationsbyId } from "../app/fetch";
 import { setNotificationCount } from "../features/common/headerSlice";
 import socket from "../Socket/socket";
 import { TruncateText } from "../app/capitalizeword";
+import { updateCurrentRole } from "../features/common/userSlice";
 
 function Header() {
   const dispatch = useDispatch();
@@ -96,6 +97,10 @@ function Header() {
     document.documentElement.setAttribute("data-theme", newTheme);
   };
 
+  const switchRole = (id) => {
+    dispatch(updateCurrentRole(id))
+  }
+
   useEffect(() => {
     const storedTheme =
       localStorage.getItem("theme") ||
@@ -140,14 +145,16 @@ function Header() {
       <div className="navbar py-[20px] rounded-lg flex justify-between bg-[#fafaff] dark:bg-[#242933] z-10 pl-[15px] pr-[15px] ">
         <div className="sm:block xl:hidden"></div>
         <div className=" flex-col items-start xl:flex font-lexend">
-          <div className="flex gap-2 items-center border">
+          <div className="flex gap-2 items-center">
             <h2 className="font-semibold">
               Hello {user?.name}
             </h2>
-            <select name="" id="" className="bg-transparent text-sm py-0 w-[10vw] border dark:border-stone-500 border-stone-500/30">
-              {user.roles?.map(e => {
+            <select name="" id=""
+              onChange={(e) => switchRole(e.target.value)}
+              className="bg-transparent text-sm py-0 w-[10vw] border dark:border-stone-500 border-stone-500/30">
+              {user.roles?.map((e,i) => {
                 return (
-                  <option value="" className="bg-transparent text-xs py-0">{e.role?.replace?.("_", " ")}</option>
+                  <option value={e.role} key={i} className="bg-transparent text-xs py-0">{e.role?.replace?.("_", " ")}</option>
                 )
               })}
             </select>

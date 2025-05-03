@@ -38,7 +38,8 @@ function Resources() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const divRef = useRef(null);
-  const isManager = useSelector(state => state.user.isManager)
+  const userObj = useSelector(state => state.user)
+  const { isManager, isEditor } = userObj
 
   const [configBarOn, setConfigBarOn] = useState(false);
   const [pageDetailsOn, setPageDetailsOn] = useState(false);
@@ -91,9 +92,6 @@ function Resources() {
     [navigate]
   );
 
-  console.log(rawContent)
-
-
   function navigateToPage(first, second, third) {
     let route = settingRoute(first, second, third)
     navigate(route);
@@ -113,6 +111,15 @@ function Resources() {
     setIsNarrow(width < 600);
     setScreen(width / 3 - 55);
   }, []);
+
+  useEffect(() => {
+
+    if (!isManager && !isEditor) {
+      navigate('/app/welcome')
+      return () => { }
+    }
+
+  }, [isEditor, isManager])
 
   useEffect(() => {
     // dispatch(getLeadsContent())
@@ -213,6 +220,7 @@ function Resources() {
       {
         icon: <IoSettingsOutline />,
         text: "Assign",
+        permission: true,
         onClick: () => {
           setConfigBarOn(true);
           setConfigBarData(page);
@@ -237,12 +245,16 @@ function Resources() {
       }
     ];
 
+
     return (
       <div
         className={`absolute z-10 bottom-3 left-0 w-full text-white text-center flex justify-center items-center ${isNarrow ? "gap-2" : "gap-2"
           } py-1`}
       >
         {actions.map((item, i, a) => {
+          if (item.permission && !isManager) {
+            return null
+          }
           let lastIndex = i === a.length - 1
           return (
             <span
@@ -262,6 +274,8 @@ function Resources() {
     );
   };
 
+  if (!isEditor && !isManager) return null
+
   return (
     <div className="customscroller relative" ref={divRef}>
       <Navbar currentNav={resourceType} setCurrentResource={updateType} />
@@ -276,7 +290,7 @@ function Resources() {
           </div>
         ) : resNotAvail ? (
           <div className="flex justify-center py-24 h-full">
-          {/* //   <img src={unavailableIcon} alt="Not Available" /> */}
+            {/* //   <img src={unavailableIcon} alt="Not Available" /> */}
             <Page404 />
           </div>
         ) : (
@@ -307,14 +321,14 @@ function Resources() {
                 {/* <div className="relative aspect-[10/11] overflow-hidden"> */}
                 {/* <div className="h-full overflow-y-scroll customscroller"> */}
                 <div className="relative aspect-[10/11] overflow-hidden">
-                  <iframe
+                  {/* <iframe
                     src={resourcesContent?.pages?.[index]?.src}
                     className={`top-0 left-0 border-none transition-all duration-300 ease-in-out ${isNarrow
                       ? "w-[1000px] scale-[0.10]"
                       : `w-[1200px]  ${isSidebarOpen ? "scale-[0.34] " : "scale-[0.299]"
                       } p-4  bg-white`
                       } origin-top-left h-[80rem]`}
-                  ></iframe>
+                  ></iframe> */}
 
                   {/* Dark Gradient Overlay */}
                   <div className="absolute bottom-0 left-0 w-full h-1/3 bg-gradient-to-t from-black/100 via-black/40 to-transparent"></div>

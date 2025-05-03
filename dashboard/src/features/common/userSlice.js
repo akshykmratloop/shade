@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
+import { checkUser } from '../../app/checkUser';
 
 const user = createSlice({
     name: "user",
@@ -23,6 +24,9 @@ const user = createSlice({
             ]
         },
         isManager: false,
+        isEditor: false,
+        isVerifier: false,
+        isPublisher: false,
         currentRole: {
             role: "",
             roleType: '',
@@ -37,16 +41,26 @@ const user = createSlice({
 
             state.isManager = action.payload.roles[0]?.permissions?.some(e => e.slice(-10) === "MANAGEMENT" && e.slice(0, 4) !== "USER" && e.slice(0, 4) !== "ROLE" && e.slice(0, 4) !== "AUDI")
 
+            const { isEditor } = checkUser(action.payload.roles[0].permissions)
+
+            state.isEditor = isEditor
+
             state.currentRole = action.payload.roles[0]
         },
         updateCurrentRole: (state, action) => {
-            state.currentRole = action.payload
+            const roleObj = state.user.roles.filter(e => e.role === action.payload)
 
-            state.isManager = action.payload?.permissions?.some(e => e.slice(-10) === "MANAGEMENT" && e.slice(0, 4) !== "USER" && e.slice(0, 4) !== "ROLE" && e.slice(0, 4) !== "AUDI")
+            state.currentRole = roleObj[0]
+
+            const { isEditor, isPublisher, isVerifier } = checkUser(roleObj[0].permissions)
+
+            state.isEditor = isEditor
+
+            state.isManager = roleObj[0]?.permissions?.some(e => e.slice(-10) === "MANAGEMENT" && e.slice(0, 4) !== "USER" && e.slice(0, 4) !== "ROLE" && e.slice(0, 4) !== "AUDI")
         }
     }
 })
 
-export const { updateUser } = user.actions;
+export const { updateUser, updateCurrentRole } = user.actions;
 
 export default user.reducer;

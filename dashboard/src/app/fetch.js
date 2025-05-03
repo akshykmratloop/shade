@@ -28,8 +28,6 @@ const makerequest = async (
 ) => {
   let token = localStorage.getItem("token");
 
-  console.log(body)
-
   // Check if token is expired and clear session if it is
   if (token && isTokenExpired(token)) {
     clearSession();
