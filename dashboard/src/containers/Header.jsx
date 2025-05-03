@@ -1,26 +1,26 @@
-import {themeChange} from "theme-change";
-import React, {useEffect, useState} from "react";
-import {useSelector, useDispatch} from "react-redux";
+import { themeChange } from "theme-change";
+import React, { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import BellIcon from "@heroicons/react/24/outline/BellIcon";
 import MoonIcon from "@heroicons/react/24/outline/MoonIcon";
 import SunIcon from "@heroicons/react/24/outline/SunIcon";
-import {openRightDrawer} from "../features/common/rightDrawerSlice";
-import {RIGHT_DRAWER_TYPES} from "../utils/globalConstantUtil";
-import {LiaUserCircleSolid} from "react-icons/lia";
-import {Link} from "react-router-dom";
-import {openModal} from "../features/common/modalSlice";
-import {MODAL_BODY_TYPES} from "../utils/globalConstantUtil";
+import { openRightDrawer } from "../features/common/rightDrawerSlice";
+import { RIGHT_DRAWER_TYPES } from "../utils/globalConstantUtil";
+import { LiaUserCircleSolid } from "react-icons/lia";
+import { Link } from "react-router-dom";
+import { openModal } from "../features/common/modalSlice";
+import { MODAL_BODY_TYPES } from "../utils/globalConstantUtil";
 import SearchBar from "../components/Input/SearchBar";
-import {getNotificationsbyId} from "../app/fetch";
-import {setNotificationCount} from "../features/common/headerSlice";
+import { getNotificationsbyId } from "../app/fetch";
+import { setNotificationCount } from "../features/common/headerSlice";
 import socket from "../Socket/socket";
-import {TruncateText} from "../app/capitalizeword";
+import { TruncateText } from "../app/capitalizeword";
 
 function Header() {
   const dispatch = useDispatch();
   const userObj = useSelector((state) => state.user);
-  const {user, currentRole} = userObj
-  const {noOfNotifications} = useSelector((state) => state.header);
+  const { user, currentRole } = userObj
+  const { noOfNotifications } = useSelector((state) => state.header);
   const [currentTheme, setCurrentTheme] = useState(null);
   const [greetings, setGreetings] = useState("Good Morning");
 
@@ -69,7 +69,7 @@ function Header() {
       openRightDrawer({
         header: "Notifications",
         bodyType: RIGHT_DRAWER_TYPES.NOTIFICATION,
-        extraObject: {id: user.id},
+        extraObject: { id: user.id },
       })
     );
   };
@@ -139,17 +139,26 @@ function Header() {
     <div className="py-4 px-2 pr-4">
       <div className="navbar py-[20px] rounded-lg flex justify-between bg-[#fafaff] dark:bg-[#242933] z-10 pl-[15px] pr-[15px] ">
         <div className="sm:block xl:hidden"></div>
-        <div className=" flex-col items-start sm:hidden xl:flex font-lexend">
-          <h2 className="font-semibold">
-            Hello {user?.name} {`(${currentRole?.role?.replace?.("_", " ")})`}
-          </h2>
+        <div className=" flex-col items-start xl:flex font-lexend">
+          <div className="flex gap-2 items-center border">
+            <h2 className="font-semibold">
+              Hello {user?.name}
+            </h2>
+            <select name="" id="" className="bg-transparent text-sm py-0 w-[10vw] border dark:border-stone-500 border-stone-500/30">
+              {user.roles?.map(e => {
+                return (
+                  <option value="" className="bg-transparent text-xs py-0">{e.role?.replace?.("_", " ")}</option>
+                )
+              })}
+            </select>
+          </div>
           <p className="text-base-700 font-light font-lexend text-[grey]">
             {greetings}
           </p>
         </div>
         <div className="order-last gap-[12px]">
           <SearchBar
-            setSearchText={() => {}}
+            setSearchText={() => { }}
             styleClass={
               "bg-transparent border border-stone-300 dark:border-stone-600"
             }

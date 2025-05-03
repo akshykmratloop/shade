@@ -220,6 +220,7 @@ const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
               label="Select Manager"
               labelClass="font-[400] text-[#6B7888] text-[14px]"
               selectClass="bg-transparent border border-[#cecbcb] dark:border-stone-600 mt-1 rounded-md py-2 h-[2.5rem] outline-none"
+              id={"SelectManager"}
             />
 
             {/* Select Editor */}
@@ -232,6 +233,7 @@ const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
               label="Select Editor"
               labelClass="font-[400] text-[#6B7888] text-[14px]"
               selectClass="bg-transparent border border-[#cecbcb] dark:border-stone-600 mt-1 rounded-md py-2 h-[2.5rem] outline-none"
+              id={"SelectEditor"}
             />
 
             {/* Selector Accordion */}
@@ -264,6 +266,7 @@ const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
               label="Select Publisher"
               labelClass="font-[400] text-[#6B7888] text-[14px]"
               selectClass="bg-transparent border border-[#cecbcb] dark:border-stone-600 mt-1 rounded-md py-2 h-[2.5rem] outline-none"
+              id={"SelectPublisher"}
             />
 
             <div className="flex flex-col gap-4">

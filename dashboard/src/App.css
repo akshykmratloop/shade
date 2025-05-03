@@ -193,6 +193,7 @@ input[type="file"] {
   /* font-weight: lighter; */
 }
 
+
 select {
   appearance: none;
   /* Removes default styles */
@@ -202,12 +203,19 @@ select {
   font-size: 16px;
   color: #899197;
   /* Change text color */
-  background-color: yellow;
+  /* background-color: yellow; */
   /* Change background */
   border: 1px solid #ccc;
   border-radius: 5px;
   cursor: pointer;
+  outline: none;
 }
+
+select:focus{
+  border: 1px solid  #8f8f8f;
+}
+
+
 
 .transition-custom {
   transition: width .1s linear;

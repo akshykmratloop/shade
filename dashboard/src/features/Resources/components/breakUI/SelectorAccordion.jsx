@@ -82,6 +82,7 @@ const SelectorAccordion = ({ options, onChange, field, value }) => {
                                 height={""}
                                 width={"w-full"}
                                 value={select.value}
+                                id={"selectVerifier " + (index + 1)}
                             />
                             {isLast &&
                                 <span onClick={addSelector} className="absolute top-[90%] right-[1px] rounded-full bg-blue-700 text-white" >
