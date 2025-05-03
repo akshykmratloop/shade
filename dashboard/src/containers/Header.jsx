@@ -18,7 +18,8 @@ import {TruncateText} from "../app/capitalizeword";
 
 function Header() {
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.user.user);
+  const userObj = useSelector((state) => state.user);
+  const {user, currentRole} = userObj
   const {noOfNotifications} = useSelector((state) => state.header);
   const [currentTheme, setCurrentTheme] = useState(null);
   const [greetings, setGreetings] = useState("Good Morning");
@@ -140,7 +141,7 @@ function Header() {
         <div className="sm:block xl:hidden"></div>
         <div className=" flex-col items-start sm:hidden xl:flex font-lexend">
           <h2 className="font-semibold">
-            Hello {user?.name} {`(${user?.roles[0]?.replace?.("_", " ")})`}
+            Hello {user?.name} {`(${currentRole?.role?.replace?.("_", " ")})`}
           </h2>
           <p className="text-base-700 font-light font-lexend text-[grey]">
             {greetings}

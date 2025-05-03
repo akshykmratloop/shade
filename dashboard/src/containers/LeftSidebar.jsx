@@ -10,12 +10,12 @@ function LeftSidebar() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const isCollapsed = useSelector((state) => state.sidebar.isCollapsed);
-  const user = useSelector((state) => state.user.user);
+  const userRole = useSelector((state) => state.user.currentRole);
   const [showText, setShowText] = useState(false);
 
   const defineUserAndRoleManager = useMemo(() => 
-    user?.permissions?.some(e => !e.startsWith("USER") && !e.startsWith("ROLE")),
-    [user?.permissions]
+    userRole?.permissions?.some(e => !e.startsWith("USER") && !e.startsWith("ROLE")),
+    [userRole?.permissions]
   );
 
   const handleResize = useCallback(() => {
@@ -108,7 +108,7 @@ function LeftSidebar() {
           ) {
             return null;
           }
-          if (route.permission && !user?.permissions?.includes(route.permission)) {
+          if (route.permission && !userRole?.permissions?.includes(route.permission)) {
             return null;
           }
           return renderRouteItem(route, index, lastIndex);

@@ -178,7 +178,7 @@ function Requests() {
   const [currentPage, setCurrentPage] = useState(1);
   const [activeIndex, setActiveIndex] = useState(null);
   const requestsPerPage = 20;
-  const user = useSelector((state) => state.user.user);
+  const userRole = useSelector((state) => state.user.currentRole);
   const userPermissionsSet = new Set(["EDIT", "VERIFY", "PUBLISH"]); // SET FOR EACH USER LOGIC
   const {isOpen, bodyType, extraObject, header} = useSelector(
     (state) => state.rightDrawer
@@ -216,7 +216,7 @@ function Requests() {
       openRightDrawer({
         header: "Details",
         bodyType: RIGHT_DRAWER_TYPES.RESOURCE_DETAILS,
-        extraObject: {id: user.id},
+        extraObject: {id: userRole.id},
       })
     );
   };
@@ -228,7 +228,7 @@ function Requests() {
   const totalPages = Math.ceil(requests?.length / requestsPerPage);
 
   const [allowAll, setAllowAll] = useState(
-    user?.permissions.some((e) => {
+    userRole?.permissions?.some((e) => {
       return (
         e.slice(0, 4) !== "USER" &&
         e.slice(0, 4) !== "ROLE" &&
@@ -243,11 +243,11 @@ function Requests() {
   const [allowVerifierState, setAllowVerifier] = useState(false);
   const [allowPublisherState, setAllowPublisher] = useState(false);
   let isToggle =
-    user.permissions.length > 1 &&
-    user?.permissions?.some((e) => userPermissionsSet.has(e));
+    userRole.permissions.length > 1 &&
+    userRole?.permissions?.some((e) => userPermissionsSet.has(e));
   let singleUserPermission = "";
 
-  let permissionsSet = new Set([...user?.permissions]);
+  let permissionsSet = new Set([...userRole?.permissions]);
   let userPermissionCount = 0;
 
   const options = [
@@ -320,7 +320,7 @@ function Requests() {
         return option.text;
       } else if (
         option.permission !== "MANAGEMENT" &&
-        user?.permissions.includes(option.permission)
+        userRole?.permissions.includes(option.permission)
       ) {
         return option.text;
       }
