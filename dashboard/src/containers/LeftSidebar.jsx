@@ -11,9 +11,10 @@ function LeftSidebar() {
   const dispatch = useDispatch();
   const isCollapsed = useSelector((state) => state.sidebar.isCollapsed);
   const userRole = useSelector((state) => state.user.currentRole);
+  const { isEditor, isManager } = useSelector(state => state.user)
   const [showText, setShowText] = useState(false);
 
-  const defineUserAndRoleManager = useMemo(() => 
+  const defineUserAndRoleManager = useMemo(() =>
     userRole?.permissions?.some(e => !e.startsWith("USER") && !e.startsWith("ROLE")),
     [userRole?.permissions]
   );
@@ -57,7 +58,7 @@ function LeftSidebar() {
             ? "font-semibold bg-base-200 dark:bg-stone-300/20 dark:text-white"
             : "font-normal"} pl-7 w-full flex items-center gap-2 relative`
         }
-        
+
       >
         {route.icon} {!showText && route.name}
         {location.pathname === route.path && (
@@ -103,12 +104,15 @@ function LeftSidebar() {
         {routes.map((route, index, array) => {
           const lastIndex = index === array.length - 1;
           if (
-            (route.name === "Requests" || route.name === "Resources") &&
+            (route.name === "Requests") &&
             !defineUserAndRoleManager
           ) {
             return null;
           }
-          if (route.permission && !userRole?.permissions?.includes(route.permission)) {
+          if (route.name === "Resources" && (!isEditor && !isManager)) {
+            return null
+          }
+          if ((route.permission && !userRole?.permissions?.includes(route.permission))) {
             return null;
           }
           return renderRouteItem(route, index, lastIndex);
