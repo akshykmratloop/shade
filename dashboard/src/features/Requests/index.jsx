@@ -113,59 +113,6 @@ const TopSideButtons = ({
   );
 };
 
-const ToggleSwitch = ({ options, switchToggles }) => {
-  const [selectedIndex, setSelectedIndex] = useState(0);
-  const containerRef = useRef(null);
-  const [sliderStyle, setSliderStyle] = useState({});
-  const buttonRefs = useRef([]);
-
-  useEffect(() => {
-    if (buttonRefs.current[selectedIndex]) {
-      const button = buttonRefs.current[selectedIndex];
-      const { offsetLeft, offsetWidth } = button;
-      setSliderStyle({
-        left: offsetLeft,
-        width: offsetWidth,
-      });
-    }
-  }, [selectedIndex, options]);
-
-  useEffect(() => {
-    switchToggles(options[0]);
-  }, []);
-
-  return (
-    <div
-      ref={containerRef}
-      className="relative inline-flex bg-gray-300 py-0 rounded-md"
-    >
-      {/* Slider */}
-      <div
-        className="absolute top-0 bg-blue-500 bottom-1 h-full rounded-md shadow transition-all rounded duration-300 ease-in-out"
-        style={sliderStyle}
-      ></div>
-
-      {/* Options */}
-      {options.map((option, index) => (
-        <button
-          key={index}
-          ref={(el) => (buttonRefs.current[index] = el)}
-          onClick={() => {
-            switchToggles(option);
-            setSelectedIndex(index);
-          }}
-          className={`relative z-10 px-4 py-2 text-sm font-medium transition-colors duration-200  ${selectedIndex === index
-            ? "text-white"
-            : "text-gray-500 hover:text-black"
-            }`}
-        >
-          {option}
-        </button>
-      ))}
-    </div>
-  );
-};
-
 function Requests() {
   const [requests, setRequests] = useState([]);
   const [originalRequests, setOriginalRequests] = useState([]);
@@ -178,10 +125,12 @@ function Requests() {
   const [activeIndex, setActiveIndex] = useState(null);
   const requestsPerPage = 20;
   const userRole = useSelector((state) => state.user.currentRole);
-  const userPermissionsSet = new Set(["EDIT", "VERIFY", "PUBLISH"]); // SET FOR EACH USER LOGIC
-  const { isOpen, bodyType, extraObject, header } = useSelector(
-    (state) => state.rightDrawer
-  );
+  const userObj = useSelector(state => state.user)
+  const { isManager, isEditor, isPublisher, isVerifier } = userObj;
+  // const userPermissionsSet = new Set(["EDIT", "VERIFY", "PUBLISH"]); // SET FOR EACH USER LOGIC
+  // const { isOpen, bodyType, extraObject, header } = useSelector(
+  //   (state) => state.rightDrawer
+  // );
   const navigate = useNavigate();
   const dispatch = useDispatch();
   // REMOVE FILTER
@@ -226,6 +175,10 @@ function Requests() {
   const currentRequests = requests?.slice(indexOfFirstUser, indexOfLastUser);
   const totalPages = Math.ceil(requests?.length / requestsPerPage);
 
+  const canSeeEditor = (isVerifier || isPublisher || isManager)
+  const canSeeVerifier = (isPublisher || isManager)
+  const canSeePublisher = (isVerifier || isManager)
+  const canSeeNone = !isEditor && !isManager && !isVerifier && !isPublisher
 
   useEffect(() => {
     async function fetchRequestsData() {
@@ -236,10 +189,14 @@ function Requests() {
     fetchRequestsData();
   }, [changesInRequest]);
 
+  if (canSeeNone) {
+    navigate("/")
+  }
+
   return (
     <div className="relative min-h-full">
       <div className="absolute top-3 right-2 flex">
-        
+
       </div>
       <TitleCard
         title={"Requests"}
@@ -268,15 +225,24 @@ function Requests() {
                     Resource
                   </th>
                   {/* <th className="text-[#42526D] w-[164px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] text-center !capitalize">Sub Permission</th> */}
-                  <th className="text-[#42526D] w-[154px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] !capitalize text-center">
-                    Editor
-                  </th>
-                  <th className="text-[#42526D] w-[221px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] text-center !capitalize">
-                    Verifier
-                  </th>
-                  <th className="text-[#42526D] w-[221px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] text-center !capitalize">
-                    Publisher
-                  </th>
+                  {
+                    canSeeEditor &&
+                    <th className="text-[#42526D] w-[154px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] !capitalize text-center">
+                      Editor
+                    </th>}
+
+                  {
+                    canSeeVerifier &&
+                    <th className="text-[#42526D] w-[221px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] text-center !capitalize">
+                      Verifier
+                    </th>
+                  }
+                  {
+                    canSeePublisher &&
+                    <th className="text-[#42526D] w-[221px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] text-center !capitalize">
+                      Publisher
+                    </th>
+                  }
                   <th className="text-[#42526D] w-[211px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] !capitalize">
                     Status
                   </th>
@@ -309,107 +275,115 @@ function Requests() {
                             {/* <p className="font-light text-[grey]">{user.email}</p> */}
                           </div>
                         </td>
-                        <td
-                          className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]"
-                          style={{ whiteSpace: "wrap" }}
-                        >
-                          <span className="">{request?.editor || "1"}</span>
-                        </td>
-                        <td
-                          className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]"
-                          style={{ whiteSpace: "wrap" }}
-                        >
-                          <span className="">
-                            {request?.verifier ? (
-                              // <button
-                              //   onClick={() => {
-                              //     setSelectedRequest(request);
-                              //   }}
-                              // >
-                              //   <span className="flex items-center gap-1 rounded-md text-[#101828]">
-                              //     <FiEye
-                              //       className="w-5 h-6  text-[#3b4152] dark:text-stone-200"
-                              //       strokeWidth={1}
-                              //     />
-                              //   </span>
-                              // </button>
-                              <ShowVerifierTooltip
-                                content={
-                                  <div>
-                                    {/* <div className="text-left ">Verifier</div> */}
-                                    <table className="p-3">
-                                      <thead className="bg-[#FAFBFB] dark:bg-slate-700  text-[#FFFFFF] font-poppins font-medium text-[10px] leading-normal px-[24px] py-[13px] text-left !rounded-none !capitalize">
-                                        <tr className="bg-[#25439B]  dark:bg-slate-700 !rounded-none">
-                                          <th className="bg-[#25439B]  dark:bg-slate-700 w-[100px] px-5 py-1 !rounded-none">
-                                            Stage
-                                          </th>
-                                          <th className="bg-[#25439B]  dark:bg-slate-700 w-[100px] px-5 py-1 !rounded-none">
-                                            Name
-                                          </th>
-                                        </tr>
-                                      </thead>
-                                      <tbody className="text-left dark:border-gray-800  border rounded">
-                                        {request?.verifier.map((v) => (
-                                          <tr
-                                            key={v.stage}
-                                            className=" dark:border-stone-700 !rounded-none"
-                                          >
-                                            <td className="w-[100px] px-5 py-1 !rounded-none">
-                                              {v.stage}
-                                            </td>
-                                            <td className="w-[100px] px-5 py-1 !rounded-none">
-                                              {v.name}
-                                            </td>
+                        {
+                          canSeeEditor &&
+                          <td
+                            className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]"
+                            style={{ whiteSpace: "wrap" }}
+                          >
+                            <span className="">{request?.editor || "1"}</span>
+                          </td>
+                        }
+                        {
+                          canSeeVerifier &&
+                          <td
+                            className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]"
+                            style={{ whiteSpace: "wrap" }}
+                          >
+                            <span className="">
+                              {request?.verifier ? (
+                                // <button
+                                //   onClick={() => {
+                                //     setSelectedRequest(request);
+                                //   }}
+                                // >
+                                //   <span className="flex items-center gap-1 rounded-md text-[#101828]">
+                                //     <FiEye
+                                //       className="w-5 h-6  text-[#3b4152] dark:text-stone-200"
+                                //       strokeWidth={1}
+                                //     />
+                                //   </span>
+                                // </button>
+                                <ShowVerifierTooltip
+                                  content={
+                                    <div>
+                                      {/* <div className="text-left ">Verifier</div> */}
+                                      <table className="p-3">
+                                        <thead className="bg-[#FAFBFB] dark:bg-slate-700  text-[#FFFFFF] font-poppins font-medium text-[10px] leading-normal px-[24px] py-[13px] text-left !rounded-none !capitalize">
+                                          <tr className="bg-[#25439B]  dark:bg-slate-700 !rounded-none">
+                                            <th className="bg-[#25439B]  dark:bg-slate-700 w-[100px] px-5 py-1 !rounded-none">
+                                              Stage
+                                            </th>
+                                            <th className="bg-[#25439B]  dark:bg-slate-700 w-[100px] px-5 py-1 !rounded-none">
+                                              Name
+                                            </th>
                                           </tr>
-                                        ))}
-                                      </tbody>
-                                    </table>
+                                        </thead>
+                                        <tbody className="text-left dark:border-gray-800  border rounded">
+                                          {request?.verifier.map((v) => (
+                                            <tr
+                                              key={v.stage}
+                                              className=" dark:border-stone-700 !rounded-none"
+                                            >
+                                              <td className="w-[100px] px-5 py-1 !rounded-none">
+                                                {v.stage}
+                                              </td>
+                                              <td className="w-[100px] px-5 py-1 !rounded-none">
+                                                {v.name}
+                                              </td>
+                                            </tr>
+                                          ))}
+                                        </tbody>
+                                      </table>
 
-                                    {/* <div className="flex justify-around  font-semibold mb-1">
+                                      {/* <div className="flex justify-around  font-semibold mb-1">
                                         <p>Stage</p>
                                         <p>Name</p>
-                                      </div>
-                                      <ul className="list-disc">
+                                        </div>
+                                        <ul className="list-disc">
                                         {request?.verifier.map((v) => (
                                           <div key={v.stage}>
-                                            <div className="flex justify-around ">
-                                              <div className="w-full font-semibold">
-                                                {v.stage}
-                                              </div>
-                                              <div className="w-full">
-                                                {v.name}
-                                              </div>
-                                            </div>
+                                          <div className="flex justify-around ">
+                                          <div className="w-full font-semibold">
+                                          {v.stage}
                                           </div>
-                                        ))}
-                                      </ul> */}
-                                  </div>
-                                }
-                                isVisible={activeIndex === request?.id}
-                                onToggle={() => toggleTooltip(request?.id)}
-                              >
-                                {/* <FiEye
+                                          <div className="w-full">
+                                          {v.name}
+                                          </div>
+                                          </div>
+                                          </div>
+                                          ))}
+                                          </ul> */}
+                                    </div>
+                                  }
+                                  isVisible={activeIndex === request?.id}
+                                  onToggle={() => toggleTooltip(request?.id)}
+                                >
+                                  {/* <FiEye
                                     className="w-5 h-6  text-[#3b4152] dark:text-stone-200"
                                     strokeWidth={1}
-                                  /> */}
-                                <span className="underline w-5 h-6 text-[#3b4152] cursor-pointer dark:text-stone-200">
-                                  View
-                                </span>
-                              </ShowVerifierTooltip>
-                            ) : (
-                              ""
-                            )}
-                          </span>
-                        </td>
-
-                        <td
-                          className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]"
-                          style={{ whiteSpace: "wrap" }}
-                        >
-                          <span className="">
-                            {request?.publisher || "1"}
-                          </span>
-                        </td>
+                                    /> */}
+                                  <span className="underline w-5 h-6 text-[#3b4152] cursor-pointer dark:text-stone-200">
+                                    View
+                                  </span>
+                                </ShowVerifierTooltip>
+                              ) : (
+                                ""
+                              )}
+                            </span>
+                          </td>
+                        }
+                        {
+                          canSeePublisher &&
+                          <td
+                            className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]"
+                            style={{ whiteSpace: "wrap" }}
+                          >
+                            <span className="">
+                              {request?.publisher || "1"}
+                            </span>
+                          </td>
+                        }
                         <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]">
                           <p
                             className={`w-[85px] mx-auto before:content-['•'] before:text-2xl flex h-7 items-center justify-center gap-1 px-1 py-0 font-[500] 

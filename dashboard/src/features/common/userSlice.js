@@ -54,7 +54,9 @@ const user = createSlice({
 
             const { isEditor, isPublisher, isVerifier } = checkUser(roleObj[0].permissions)
 
-            state.isEditor = isEditor
+            state.isEditor = isEditor;
+            state.isPublisher = isPublisher;
+            state.isVerifier = isVerifier;
 
             state.isManager = roleObj[0]?.permissions?.some(e => e.slice(-10) === "MANAGEMENT" && e.slice(0, 4) !== "USER" && e.slice(0, 4) !== "ROLE" && e.slice(0, 4) !== "AUDI")
         }

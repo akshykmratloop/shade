@@ -194,7 +194,7 @@ function Header() {
                   {user.roles?.map((e, i) => {
                     return (
                       <li
-                        onClick={() => { switchRole(e.role); setOpenList(false) }}
+                        onClick={() => {console.log(e.role) ;switchRole(e.role); setOpenList(false) }}
                         value={e.role}
                         key={i}
                         title={e.role?.replace?.("_", " ")}
