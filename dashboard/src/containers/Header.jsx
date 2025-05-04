@@ -14,8 +14,9 @@ import SearchBar from "../components/Input/SearchBar";
 import { getNotificationsbyId } from "../app/fetch";
 import { setNotificationCount } from "../features/common/headerSlice";
 import socket from "../Socket/socket";
-import { TruncateText } from "../app/capitalizeword";
+import capitalizeWords, { TruncateText } from "../app/capitalizeword";
 import { updateCurrentRole } from "../features/common/userSlice";
+import { FaCaretDown } from "react-icons/fa";
 
 function Header() {
   const dispatch = useDispatch();
@@ -24,8 +25,10 @@ function Header() {
   const { noOfNotifications } = useSelector((state) => state.header);
   const [currentTheme, setCurrentTheme] = useState(null);
   const [greetings, setGreetings] = useState("Good Morning");
+  const [openList, setOpenList] = useState(false)
 
   const userId = user.id;
+  const oneRoleOnly = user.roles?.length === 1
 
   //=========================================================================
 
@@ -149,27 +152,57 @@ function Header() {
             <h2 className="font-semibold">
               Hello {user?.name}
             </h2>
-            <select name="" id=""
+            {/* <select name="" id=""
               onChange={(e) => switchRole(e.target.value)}
-              className="bg-transparent text-sm py-0 w-[10vw] border dark:border-stone-500 border-stone-500/30">
+              className="bg-transparent select text-sm py-0 w-[10vw] border dark:border-stone-500 border-stone-500/30">
               {user.roles?.map((e,i) => {
                 return (
-                  <option value={e.role} key={i} className="bg-transparent text-xs py-0">{e.role?.replace?.("_", " ")}</option>
+                  <option value={e.role} key={i} className="bg-transparent text-xs py-0 rounded-sm">{e.role?.replace?.("_", " ")}</option>
                 )
               })}
-            </select>
+            </select> */}
+            <div className="py-1 mx-1 w-[12vw] px-2 bg-base-300 rounded-md border-green-200 relative">
+              <label className="flex items-center justify-between" onClick={() => { setOpenList(!openList) }}>
+                <div className="flex h-[100%] items-center justify-center flex-row cursor-pointer" >
+                  {capitalizeWords(currentRole?.role)}
+                </div>
+                {
+                  !oneRoleOnly &&
+                  <span><FaCaretDown strokeWidth={.5} /></span>
+                }
+              </label>
+              {
+                !oneRoleOnly &&
+                <ul
+                  className="dropdown-content mt-1 left-0 absolute p-2 shadow bg-base-100 rounded-md w-[12vw] flex flex-col gap-1"
+                  style={{ display: openList ? "flex" : "none" }}
+                >
+                  {user.roles?.map((e, i) => {
+                    return (
+                      <li
+                        onClick={() => { switchRole(e.role); setOpenList(false) }}
+                        value={e.role}
+                        key={i}
+                        title={e.role?.replace?.("_", " ")}
+                        className="bg-transparent text-sm pl-2 py-1 rounded-sm hover:bg-[#e5e6e6]"
+                      >{capitalizeWords(e.role)}</li>
+                    )
+                  })}
+                </ul>
+              }
+            </div>
           </div>
           <p className="text-base-700 font-light font-lexend text-[grey]">
             {greetings}
           </p>
         </div>
         <div className="order-last gap-[12px]">
-          <SearchBar
+          {/* <SearchBar
             setSearchText={() => { }}
             styleClass={
               "bg-transparent border border-stone-300 dark:border-stone-600"
             }
-          />
+          /> */}
           {/* <button
             className="h-[45px] w-[45px] mx-1 flex items-center justify-center bg-base-300 rounded-md border-green-200"
             onClick={openNotification}
