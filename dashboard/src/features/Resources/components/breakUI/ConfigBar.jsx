@@ -134,19 +134,22 @@ const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
         try {
           const response = await getAssignedUsers(payload);
 
-          setPreAssignedUsers((prev) => {
-            let roles = {};
-            response?.assignedUsers?.roles?.forEach((e) => {
-              roles[e?.role] = e?.userId;
+          if (response.ok) {
+
+            setPreAssignedUsers((prev) => {
+              let roles = {};
+              response?.assignedUsers?.roles?.forEach((e) => {
+                roles[e?.role] = e?.userId;
+              });
+              return {
+                roles: roles,
+                verifiers: response?.assignedUsers?.verifiers?.map((e) => ({
+                  stage: e?.stage,
+                  id: e?.userId,
+                })),
+              };
             });
-            return {
-              roles: roles,
-              verifiers: response?.assignedUsers?.verifiers?.map((e) => ({
-                stage: e?.stage,
-                id: e?.userId,
-              })),
-            };
-          });
+          }
           if (response?.assignedUsers?.roles?.length > 0) {
             setFetchedData(true);
           }
@@ -253,6 +256,7 @@ const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
                 field={"verifiers"}
                 value={formObj.verifiers}
                 onChange={updateSelection}
+                preAssignedVerifiers={preAssignedUsers.verifiers.length > 0}
               />
             </div>
 
