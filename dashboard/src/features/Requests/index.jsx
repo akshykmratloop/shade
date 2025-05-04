@@ -1,32 +1,32 @@
 // libraries import
-import {useEffect, useRef, useState} from "react";
+import { useEffect, useRef, useState } from "react";
 import PlusIcon from "@heroicons/react/24/outline/PlusIcon";
-import {toast, ToastContainer} from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 // self modules
-import {fetchRoles, activateRole, deactivateRole} from "../../app/fetch";
+import { fetchRoles, activateRole, deactivateRole } from "../../app/fetch";
 import SearchBar from "../../components/Input/SearchBar";
 import TitleCard from "../../components/Cards/TitleCard";
 import updateToasify from "../../app/toastify";
 import Dummyuser from "../../assets/Dummy_User.json";
 // icons
-import {Switch} from "@headlessui/react";
+import { Switch } from "@headlessui/react";
 import XMarkIcon from "@heroicons/react/24/outline/XMarkIcon";
-import {FiEye} from "react-icons/fi";
-import {FiEdit} from "react-icons/fi";
-import {RxQuestionMarkCircled} from "react-icons/rx";
-import {LuListFilter} from "react-icons/lu";
-import {LuImport} from "react-icons/lu";
+import { FiEye } from "react-icons/fi";
+import { FiEdit } from "react-icons/fi";
+import { RxQuestionMarkCircled } from "react-icons/rx";
+import { LuListFilter } from "react-icons/lu";
+import { LuImport } from "react-icons/lu";
 import capitalizeWords from "../../app/capitalizeword";
 import Paginations from "../Component/Paginations";
 import formatTimestamp from "../../app/TimeFormat";
-import {useDispatch, useSelector} from "react-redux";
-import {useNavigate} from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import ShowDifference from "./Showdifference";
 import ShowVerifierTooltip from "./ShowVerifierTooltip";
-import {openRightDrawer} from "../../features/common/rightDrawerSlice";
-import {RIGHT_DRAWER_TYPES} from "../../utils/globalConstantUtil";
-import {PiInfoThin} from "react-icons/pi";
-import {VscInfo} from "react-icons/vsc";
+import { openRightDrawer } from "../../features/common/rightDrawerSlice";
+import { RIGHT_DRAWER_TYPES } from "../../utils/globalConstantUtil";
+import { PiInfoThin } from "react-icons/pi";
+import { VscInfo } from "react-icons/vsc";
 
 // import userIcon from "../../assets/user.png"
 
@@ -92,7 +92,7 @@ const TopSideButtons = ({
               <a
                 className="dark:text-gray-300"
                 onClick={() => showFiltersAndApply(status)}
-                style={{textTransform: "capitalize"}}
+                style={{ textTransform: "capitalize" }}
               >
                 {capitalizeWords(status)}
               </a>
@@ -113,7 +113,7 @@ const TopSideButtons = ({
   );
 };
 
-const ToggleSwitch = ({options, switchToggles}) => {
+const ToggleSwitch = ({ options, switchToggles }) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const containerRef = useRef(null);
   const [sliderStyle, setSliderStyle] = useState({});
@@ -122,7 +122,7 @@ const ToggleSwitch = ({options, switchToggles}) => {
   useEffect(() => {
     if (buttonRefs.current[selectedIndex]) {
       const button = buttonRefs.current[selectedIndex];
-      const {offsetLeft, offsetWidth} = button;
+      const { offsetLeft, offsetWidth } = button;
       setSliderStyle({
         left: offsetLeft,
         width: offsetWidth,
@@ -154,11 +154,10 @@ const ToggleSwitch = ({options, switchToggles}) => {
             switchToggles(option);
             setSelectedIndex(index);
           }}
-          className={`relative z-10 px-4 py-2 text-sm font-medium transition-colors duration-200  ${
-            selectedIndex === index
-              ? "text-white"
-              : "text-gray-500 hover:text-black"
-          }`}
+          className={`relative z-10 px-4 py-2 text-sm font-medium transition-colors duration-200  ${selectedIndex === index
+            ? "text-white"
+            : "text-gray-500 hover:text-black"
+            }`}
         >
           {option}
         </button>
@@ -180,7 +179,7 @@ function Requests() {
   const requestsPerPage = 20;
   const userRole = useSelector((state) => state.user.currentRole);
   const userPermissionsSet = new Set(["EDIT", "VERIFY", "PUBLISH"]); // SET FOR EACH USER LOGIC
-  const {isOpen, bodyType, extraObject, header} = useSelector(
+  const { isOpen, bodyType, extraObject, header } = useSelector(
     (state) => state.rightDrawer
   );
   const navigate = useNavigate();
@@ -216,7 +215,7 @@ function Requests() {
       openRightDrawer({
         header: "Details",
         bodyType: RIGHT_DRAWER_TYPES.RESOURCE_DETAILS,
-        extraObject: {id: userRole.id},
+        extraObject: { id: userRole.id },
       })
     );
   };
@@ -227,105 +226,6 @@ function Requests() {
   const currentRequests = requests?.slice(indexOfFirstUser, indexOfLastUser);
   const totalPages = Math.ceil(requests?.length / requestsPerPage);
 
-  const [allowAll, setAllowAll] = useState(
-    userRole?.permissions?.some((e) => {
-      return (
-        e.slice(0, 4) !== "USER" &&
-        e.slice(0, 4) !== "ROLE" &&
-        e.slice(-10) === "MANAGEMENT"
-      );
-    })
-  );
-  let allowEditor = false;
-  let allowVerifier = false;
-  let allowPublisher = false;
-  const [allowEditorState, setAllowEditor] = useState(false);
-  const [allowVerifierState, setAllowVerifier] = useState(false);
-  const [allowPublisherState, setAllowPublisher] = useState(false);
-  let isToggle =
-    userRole.permissions.length > 1 &&
-    userRole?.permissions?.some((e) => userPermissionsSet.has(e));
-  let singleUserPermission = "";
-
-  let permissionsSet = new Set([...userRole?.permissions]);
-  let userPermissionCount = 0;
-
-  const options = [
-    {permission: "MANAGEMENT", text: "Manager"},
-    {permission: "EDIT", text: "Editor"},
-    {permission: "VERIFY", text: "Verifier"},
-    {permission: "PUBLISH", text: "Publisher"},
-  ];
-
-  if (!allowAll && !isToggle) {
-    permissionsSet.forEach((e) => {
-      if (userPermissionsSet.has(e)) {
-        userPermissionCount++;
-        singleUserPermission = e;
-      }
-    });
-    switch (singleUserPermission) {
-      case "PUBLISH":
-        allowEditor = true;
-        allowVerifier = true;
-        break;
-
-      case "VERIFY":
-        allowEditor = true;
-        allowPublisher = true;
-        break;
-
-      case "EDIT":
-        break;
-
-      default:
-        navigate("/");
-    }
-  }
-
-  const switchToggles = (option) => {
-    switch (option) {
-      case "Publisher":
-        setAllowEditor(true);
-        setAllowVerifier(true);
-        setAllowPublisher(false);
-        setAllowAll(false);
-        break;
-
-      case "Verifier":
-        setAllowEditor(true);
-        setAllowVerifier(false);
-        setAllowPublisher(true);
-        setAllowAll(false);
-        break;
-
-      case "Editor":
-        setAllowEditor(false);
-        setAllowVerifier(false);
-        setAllowPublisher(false);
-        setAllowAll(false);
-        break;
-
-      default:
-        setAllowAll(true);
-    }
-  };
-
-  const finalToggleOptions = options
-    .map((option, i) => {
-      const isNotUserAndRole =
-        option.permission.slice(4) !== "USER" &&
-        option.permission.slice(4) !== "ROLE";
-      if (option.permission === "MANAGEMENT" && isNotUserAndRole) {
-        return option.text;
-      } else if (
-        option.permission !== "MANAGEMENT" &&
-        userRole?.permissions.includes(option.permission)
-      ) {
-        return option.text;
-      }
-    })
-    .filter((e) => e);
 
   useEffect(() => {
     async function fetchRequestsData() {
@@ -339,14 +239,7 @@ function Requests() {
   return (
     <div className="relative min-h-full">
       <div className="absolute top-3 right-2 flex">
-        {isToggle && (
-          <div className="flex justify-center items-center">
-            <ToggleSwitch
-              options={finalToggleOptions}
-              switchToggles={switchToggles}
-            />
-          </div>
-        )}
+        
       </div>
       <TitleCard
         title={"Requests"}
@@ -363,34 +256,27 @@ function Requests() {
         <div className="min-h-[28.2rem] flex flex-col justify-between">
           <div className="overflow-x-auto w-full border dark:border-stone-600 rounded-2xl">
             <table className="table text-center min-w-full dark:text-[white]">
-              <thead className="" style={{borderRadius: ""}}>
+              <thead className="" style={{ borderRadius: "" }}>
                 <tr
                   className="!capitalize"
-                  style={{textTransform: "capitalize"}}
+                  style={{ textTransform: "capitalize" }}
                 >
                   <th
                     className="font-medium text-[12px] text-left font-poppins leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white] text-[#42526D] px-[24px] py-[13px] !capitalize"
-                    style={{position: "static", width: "363px"}}
+                    style={{ position: "static", width: "363px" }}
                   >
-                    {" "}
-                    Resource{" "}
+                    Resource
                   </th>
                   {/* <th className="text-[#42526D] w-[164px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] text-center !capitalize">Sub Permission</th> */}
-                  {(allowAll || allowEditorState || allowEditor) && (
-                    <th className="text-[#42526D] w-[154px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] !capitalize text-center">
-                      Editor
-                    </th>
-                  )}
-                  {(allowAll || allowVerifier || allowVerifierState) && (
-                    <th className="text-[#42526D] w-[221px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] text-center !capitalize">
-                      Verifier
-                    </th>
-                  )}
-                  {(allowAll || allowPublisher || allowPublisherState) && (
-                    <th className="text-[#42526D] w-[221px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] text-center !capitalize">
-                      Publisher
-                    </th>
-                  )}
+                  <th className="text-[#42526D] w-[154px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] !capitalize text-center">
+                    Editor
+                  </th>
+                  <th className="text-[#42526D] w-[221px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] text-center !capitalize">
+                    Verifier
+                  </th>
+                  <th className="text-[#42526D] w-[221px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] text-center !capitalize">
+                    Publisher
+                  </th>
                   <th className="text-[#42526D] w-[211px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] !capitalize">
                     Status
                   </th>
@@ -410,7 +296,7 @@ function Requests() {
                       <tr
                         key={index}
                         className="font-light "
-                        style={{height: "65px"}}
+                        style={{ height: "65px" }}
                       >
                         <td
                           className={`font-poppins h-[65px] truncate font-normal text-[14px] leading-normal text-[#101828] p-[26px] pl-5 flex`}
@@ -423,66 +309,63 @@ function Requests() {
                             {/* <p className="font-light text-[grey]">{user.email}</p> */}
                           </div>
                         </td>
-                        {(allowAll || allowEditor || allowEditorState) && (
-                          <td
-                            className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]"
-                            style={{whiteSpace: "wrap"}}
-                          >
-                            <span className="">{request?.editor || "1"}</span>
-                          </td>
-                        )}
-                        {(allowAll || allowVerifier || allowVerifierState) && (
-                          <td
-                            className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]"
-                            style={{whiteSpace: "wrap"}}
-                          >
-                            <span className="">
-                              {request?.verifier ? (
-                                // <button
-                                //   onClick={() => {
-                                //     setSelectedRequest(request);
-                                //   }}
-                                // >
-                                //   <span className="flex items-center gap-1 rounded-md text-[#101828]">
-                                //     <FiEye
-                                //       className="w-5 h-6  text-[#3b4152] dark:text-stone-200"
-                                //       strokeWidth={1}
-                                //     />
-                                //   </span>
-                                // </button>
-                                <ShowVerifierTooltip
-                                  content={
-                                    <div>
-                                      {/* <div className="text-left ">Verifier</div> */}
-                                      <table className="p-3">
-                                        <thead className="bg-[#FAFBFB] dark:bg-slate-700  text-[#FFFFFF] font-poppins font-medium text-[10px] leading-normal px-[24px] py-[13px] text-left !rounded-none !capitalize">
-                                          <tr className="bg-[#25439B]  dark:bg-slate-700 !rounded-none">
-                                            <th className="bg-[#25439B]  dark:bg-slate-700 w-[100px] px-5 py-1 !rounded-none">
-                                              Stage
-                                            </th>
-                                            <th className="bg-[#25439B]  dark:bg-slate-700 w-[100px] px-5 py-1 !rounded-none">
-                                              Name
-                                            </th>
+                        <td
+                          className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]"
+                          style={{ whiteSpace: "wrap" }}
+                        >
+                          <span className="">{request?.editor || "1"}</span>
+                        </td>
+                        <td
+                          className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]"
+                          style={{ whiteSpace: "wrap" }}
+                        >
+                          <span className="">
+                            {request?.verifier ? (
+                              // <button
+                              //   onClick={() => {
+                              //     setSelectedRequest(request);
+                              //   }}
+                              // >
+                              //   <span className="flex items-center gap-1 rounded-md text-[#101828]">
+                              //     <FiEye
+                              //       className="w-5 h-6  text-[#3b4152] dark:text-stone-200"
+                              //       strokeWidth={1}
+                              //     />
+                              //   </span>
+                              // </button>
+                              <ShowVerifierTooltip
+                                content={
+                                  <div>
+                                    {/* <div className="text-left ">Verifier</div> */}
+                                    <table className="p-3">
+                                      <thead className="bg-[#FAFBFB] dark:bg-slate-700  text-[#FFFFFF] font-poppins font-medium text-[10px] leading-normal px-[24px] py-[13px] text-left !rounded-none !capitalize">
+                                        <tr className="bg-[#25439B]  dark:bg-slate-700 !rounded-none">
+                                          <th className="bg-[#25439B]  dark:bg-slate-700 w-[100px] px-5 py-1 !rounded-none">
+                                            Stage
+                                          </th>
+                                          <th className="bg-[#25439B]  dark:bg-slate-700 w-[100px] px-5 py-1 !rounded-none">
+                                            Name
+                                          </th>
+                                        </tr>
+                                      </thead>
+                                      <tbody className="text-left dark:border-gray-800  border rounded">
+                                        {request?.verifier.map((v) => (
+                                          <tr
+                                            key={v.stage}
+                                            className=" dark:border-stone-700 !rounded-none"
+                                          >
+                                            <td className="w-[100px] px-5 py-1 !rounded-none">
+                                              {v.stage}
+                                            </td>
+                                            <td className="w-[100px] px-5 py-1 !rounded-none">
+                                              {v.name}
+                                            </td>
                                           </tr>
-                                        </thead>
-                                        <tbody className="text-left dark:border-gray-800  border rounded">
-                                          {request?.verifier.map((v) => (
-                                            <tr
-                                              key={v.stage}
-                                              className=" dark:border-stone-700 !rounded-none"
-                                            >
-                                              <td className="w-[100px] px-5 py-1 !rounded-none">
-                                                {v.stage}
-                                              </td>
-                                              <td className="w-[100px] px-5 py-1 !rounded-none">
-                                                {v.name}
-                                              </td>
-                                            </tr>
-                                          ))}
-                                        </tbody>
-                                      </table>
+                                        ))}
+                                      </tbody>
+                                    </table>
 
-                                      {/* <div className="flex justify-around  font-semibold mb-1">
+                                    {/* <div className="flex justify-around  font-semibold mb-1">
                                         <p>Stage</p>
                                         <p>Name</p>
                                       </div>
@@ -500,49 +383,44 @@ function Requests() {
                                           </div>
                                         ))}
                                       </ul> */}
-                                    </div>
-                                  }
-                                  isVisible={activeIndex === request?.id}
-                                  onToggle={() => toggleTooltip(request?.id)}
-                                >
-                                  {/* <FiEye
+                                  </div>
+                                }
+                                isVisible={activeIndex === request?.id}
+                                onToggle={() => toggleTooltip(request?.id)}
+                              >
+                                {/* <FiEye
                                     className="w-5 h-6  text-[#3b4152] dark:text-stone-200"
                                     strokeWidth={1}
                                   /> */}
-                                  <span className="underline w-5 h-6 text-[#3b4152] cursor-pointer dark:text-stone-200">
-                                    View
-                                  </span>
-                                </ShowVerifierTooltip>
-                              ) : (
-                                ""
-                              )}
-                            </span>
-                          </td>
-                        )}
-                        {(allowAll ||
-                          allowPublisher ||
-                          allowPublisherState) && (
-                          <td
-                            className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]"
-                            style={{whiteSpace: "wrap"}}
-                          >
-                            <span className="">
-                              {request?.publisher || "1"}
-                            </span>
-                          </td>
-                        )}
+                                <span className="underline w-5 h-6 text-[#3b4152] cursor-pointer dark:text-stone-200">
+                                  View
+                                </span>
+                              </ShowVerifierTooltip>
+                            ) : (
+                              ""
+                            )}
+                          </span>
+                        </td>
+
+                        <td
+                          className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]"
+                          style={{ whiteSpace: "wrap" }}
+                        >
+                          <span className="">
+                            {request?.publisher || "1"}
+                          </span>
+                        </td>
                         <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]">
                           <p
                             className={`w-[85px] mx-auto before:content-['•'] before:text-2xl flex h-7 items-center justify-center gap-1 px-1 py-0 font-[500] 
-                              ${
-                                request.status === "Green"
-                                  ? "text-green-600 bg-lime-200 before:text-green-600 px-1"
-                                  : request.status === "Blue"
+                              ${request.status === "Green"
+                                ? "text-green-600 bg-lime-200 before:text-green-600 px-1"
+                                : request.status === "Blue"
                                   ? "text-blue-600 bg-sky-200 before:text-blue-600 "
                                   : "text-red-600 bg-pink-200 before:text-red-600 "
                               } 
                                 rounded-2xl`}
-                            style={{textTransform: "capitalize"}}
+                            style={{ textTransform: "capitalize" }}
                           >
                             {/* <span className="">{request?.status}</span> */}
                           </p>
