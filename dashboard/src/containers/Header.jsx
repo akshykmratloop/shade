@@ -1,5 +1,5 @@
 import { themeChange } from "theme-change";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import BellIcon from "@heroicons/react/24/outline/BellIcon";
 import MoonIcon from "@heroicons/react/24/outline/MoonIcon";
@@ -25,6 +25,7 @@ function Header() {
   const { noOfNotifications } = useSelector((state) => state.header);
   const [currentTheme, setCurrentTheme] = useState(null);
   const [greetings, setGreetings] = useState("Good Morning");
+  const listRef = useRef(null)
   const [openList, setOpenList] = useState(false)
 
   const userId = user.id;
@@ -126,6 +127,18 @@ function Header() {
     }
   }, []);
 
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (listRef.current && !listRef.current.contains(e.target)) {
+        setOpenList(false)
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   // useEffect(() => {
   //   async function fetchUnreadCount() {
   //     try {
@@ -160,10 +173,10 @@ function Header() {
                   <option value={e.role} key={i} className="bg-transparent text-xs py-0 rounded-sm">{e.role?.replace?.("_", " ")}</option>
                 )
               })}
-            </select> */}
-            <div className="py-1 mx-1 w-[12vw] px-2 bg-base-300 rounded-md border-green-200 relative">
-              <label className="flex items-center justify-between" onClick={() => { setOpenList(!openList) }}>
-                <div className="flex h-[100%] items-center justify-center flex-row cursor-pointer" >
+            </select> */} 
+            <div className="py-1 mx-1 w-[12vw] px-2 bg-base-300 rounded-md border-green-200 relative cursor-pointer">
+              <label className="flex items-center justify-between cursor-pointer" onClick={() => { setOpenList(!openList) }}>
+                <div className="flex h-[100%] items-center justify-center flex-row " >
                   {capitalizeWords(currentRole?.role)}
                 </div>
                 {
@@ -174,7 +187,8 @@ function Header() {
               {
                 !oneRoleOnly &&
                 <ul
-                  className="dropdown-content mt-1 left-0 absolute p-2 shadow bg-base-100 rounded-md w-[12vw] flex flex-col gap-1"
+                  ref={listRef}
+                  className="dropdown-content mt-1 left-0 absolute z-[30] p-2 shadow bg-base-100 rounded-md w-[12vw] flex flex-col gap-1"
                   style={{ display: openList ? "flex" : "none" }}
                 >
                   {user.roles?.map((e, i) => {
@@ -184,7 +198,7 @@ function Header() {
                         value={e.role}
                         key={i}
                         title={e.role?.replace?.("_", " ")}
-                        className="bg-transparent text-sm pl-2 py-1 rounded-sm hover:bg-[#e5e6e6]"
+                        className="bg-transparent text-sm font-[300] cursor-pointer pl-2 py-1 rounded-sm hover:bg-[#e5e6e6]"
                       >{capitalizeWords(e.role)}</li>
                     )
                   })}
