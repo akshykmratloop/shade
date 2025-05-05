@@ -76,7 +76,7 @@ const SelectorAccordion = ({ options, onChange, field, value, preAssignedVerifie
     return (
         <div
             ref={selectorRef}
-            className="w-[101%] max-h-[12.25rem] pb-4 overflow-y-scroll border customscroller-2 w-[22rem]"
+            className="w-[101%] max-h-[12.25rem] pb-4 overflow-y-scroll  customscroller-2 w-[22rem]"
         >
             {selector.map((select, index, a) => {
                 const isLast = index === selector.length - 1;
