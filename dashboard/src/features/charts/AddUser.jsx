@@ -1,20 +1,20 @@
-import { useEffect, useRef, useState } from "react";
+import {useEffect, useRef, useState} from "react";
 import InputText from "../../components/Input/InputText";
-import { fetchRoles, createUser, updateUser, getUserById } from "../../app/fetch";
-import { toast, ToastContainer } from "react-toastify";
+import {fetchRoles, createUser, updateUser, getUserById} from "../../app/fetch";
+import {toast, ToastContainer} from "react-toastify";
 import validator from "../../app/valid";
 import updateToasify from "../../app/toastify";
 import InputFileForm from "../../components/Input/InputFileForm";
 import dummy from "../../assets/MOCK_DATA.json";
-import { X } from "lucide-react";
-import { checkRegex } from "../../app/emailregex";
+import {X} from "lucide-react";
+import {checkRegex} from "../../app/emailregex";
 import PasswordValidation from "../user/components/PasswordValidation";
 import CloseModalButton from "../../components/Button/CloseButton";
 import capitalizeWords from "../../app/capitalizeword";
-import { useDispatch, useSelector } from "react-redux";
-import { switchDebounce } from "../common/debounceSlice";
+import {useDispatch, useSelector} from "react-redux";
+import {switchDebounce} from "../common/debounceSlice";
 
-const AddUserModal = ({ show, onClose, updateUsers, user }) => {
+const AddUserModal = ({show, onClose, updateUsers, user}) => {
   const [errorMessageName, setErrorMessageName] = useState("");
   const [errorMessageEmail, setErrorMessageEmail] = useState("");
   const [errorMessagePhone, setErrorMessagePhone] = useState("");
@@ -22,8 +22,8 @@ const AddUserModal = ({ show, onClose, updateUsers, user }) => {
   const [errorMessagePassword, setErrorMessagePassword] = useState("");
   const [fetchedUser, setFetchedUser] = useState({});
   const [roles, setRoles] = useState([]);
-  const debouncingState = useSelector(state => state.debounce.debounce)
-  const dispatch = useDispatch()
+  const debouncingState = useSelector((state) => state.debounce.debounce);
+  const dispatch = useDispatch();
   const modalRef = useRef(null);
   const initialUserState = {
     name: "",
@@ -55,7 +55,7 @@ const AddUserModal = ({ show, onClose, updateUsers, user }) => {
 
   const handleFormSubmit = async (e) => {
     e.preventDefault();
-    if (debouncingState) return
+    if (debouncingState) return;
 
     const validation = validator(userData, {
       name: setErrorMessageName,
@@ -74,11 +74,10 @@ const AddUserModal = ({ show, onClose, updateUsers, user }) => {
     if (!validation) return;
     if (validEmail) return;
 
-    let loadingToastId = null
+    let loadingToastId = null;
 
     try {
-
-      dispatch(switchDebounce(true))
+      dispatch(switchDebounce(true));
 
       loadingToastId = toast.loading("Processing request...", {
         autoClose: 2000,
@@ -92,7 +91,7 @@ const AddUserModal = ({ show, onClose, updateUsers, user }) => {
           roles: userData.roles,
         };
         if (!validPassword) payload.password = userData.password;
-        response = await updateUser({ payload, id: user.id });
+        response = await updateUser({payload, id: user.id});
       } else {
         response = await createUser(userData);
       }
@@ -107,21 +106,21 @@ const AddUserModal = ({ show, onClose, updateUsers, user }) => {
       } else {
         updateToasify(
           loadingToastId,
-          `Request failed. ${response?.message
-            ? response.message
-            : "Something went wrong please try again later"
+          `Request failed. ${
+            response?.message
+              ? response.message
+              : "Something went wrong please try again later"
           }`,
           "error",
           2000
         );
       }
-
     } catch (err) {
-      console.log(err?.message)
+      console.log(err?.message);
     } finally {
       onClose();
       updateUsers((prev) => !prev);
-      dispatch(switchDebounce(false))
+      dispatch(switchDebounce(false));
     }
     toast.dismiss(loadingToastId);
   };
@@ -149,7 +148,7 @@ const AddUserModal = ({ show, onClose, updateUsers, user }) => {
 
   useEffect(() => {
     async function fetchForForm() {
-      const response = await fetchRoles({ limit: 100 });
+      const response = await fetchRoles({limit: 100});
 
       setRoles(response?.roles?.roles ?? []);
     }
@@ -165,7 +164,7 @@ const AddUserModal = ({ show, onClose, updateUsers, user }) => {
       response?.user?.roles?.forEach((element) => {
         roles.push(element.role.id);
       });
-      setUserData((prev) => ({ ...prev, roles: roles }));
+      setUserData((prev) => ({...prev, roles: roles}));
     }
     if (user?.id) {
       getUser();
@@ -185,7 +184,7 @@ const AddUserModal = ({ show, onClose, updateUsers, user }) => {
     };
   }, [onClose]);
 
-  const updateFormValue = ({ updateType, value }) => {
+  const updateFormValue = ({updateType, value}) => {
     clearErrorMessage();
     setUserData((prevState) => ({
       ...prevState,
@@ -279,8 +278,7 @@ const AddUserModal = ({ show, onClose, updateUsers, user }) => {
             </div>
           </div>
 
-          {
-            (Array.isArray(roles) && roles?.length > 0) &&
+          {Array.isArray(roles) && roles?.length > 0 ? (
             <div className="self-start w-full">
               <label className="label-text text-[#6B7888]">Select Role</label>
               <ul className="flex flex-wrap mt-2">
@@ -302,9 +300,9 @@ const AddUserModal = ({ show, onClose, updateUsers, user }) => {
                             const updatedRoles = e.target.checked
                               ? [...prevState.roles, element.id]
                               : prevState.roles.filter(
-                                (role) => role !== element.id
-                              );
-                            return { ...prevState, roles: updatedRoles };
+                                  (role) => role !== element.id
+                                );
+                            return {...prevState, roles: updatedRoles};
                           });
                         }}
                       />
@@ -318,7 +316,13 @@ const AddUserModal = ({ show, onClose, updateUsers, user }) => {
                   );
                 })}
               </ul>
-            </div>}
+            </div>
+          ) : (
+            <div className="self-start w-full">
+              <label className="label-text text-[#6B7888]">Select Role</label>
+              <p className="text-sm py-6 text-center">No Roles Found</p>
+            </div>
+          )}
         </form>
         <div className="mt-4 self-end flex gap-1">
           <button
