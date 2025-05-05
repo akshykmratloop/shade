@@ -57,7 +57,7 @@ const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
     }
 
     if (verifierSet.has("")) {
-      return toast.error(`Please select the empty Varifier`);
+      return toast.error(`${formObj.verifiers.length > 1 ? "Varifiers' fields" : "Varifier's field"} field can not be empty`);
     }
 
     try {
