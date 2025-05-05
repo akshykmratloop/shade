@@ -20,9 +20,10 @@ import transformContent from '../../../../app/convertContent';
 import { generateRequest, publishContent, updateContent } from '../../../../app/fetch';
 import Popups from './Popups';
 import formatTimestamp from '../../../../app/TimeFormat';
+import capitalizeWords from '../../../../app/capitalizeword';
 
 
-export default function ContentTopBar({ setWidth, raisePopup, setFullScreen, currentPath }) {
+export default function ContentTopBar({ setWidth, setFullScreen, currentPath }) {
     const dispatch = useDispatch();
     const iconSize = 'xl:h-[1.5rem] xl:w-[1.5rem]';
     const smallIconSize = 'sm:h-[1rem] sm:w-[1rem]';
@@ -56,8 +57,8 @@ export default function ContentTopBar({ setWidth, raisePopup, setFullScreen, cur
 
     }
 
-    const lastUpdate = formatTimestamp(ReduxState.present?.[currentPath]?.editVersion?.updatedAt, "dd-mm-yyyy")
-    const status = ReduxState.present?.[currentPath]?.editVersion?.status
+    const lastUpdate = formatTimestamp(ReduxState.present?.content?.editVersion?.updatedAt, "dd-mm-yyyy")
+    const status = capitalizeWords(ReduxState.present?.content?.editVersion?.status)
 
     async function saveTheDraft(isToastify = true) {
         const paylaod = transformContent(ReduxState.present.content)
@@ -235,15 +236,16 @@ export default function ContentTopBar({ setWidth, raisePopup, setFullScreen, cur
                         <span className={`cursor-pointer`} onClick={undos}><GrUndo className={`${iconSize} ${smallIconSize} hover:text-[#64748B] dark:hover:text-[#bbb] ${ReduxState.past.length > 1 && "text-[#1f2937] dark:text-[#bbb]"}`} /></span>
                         <span className={`cursor-pointer`} onClick={redos}><GrRedo className={`${iconSize} ${smallIconSize} hover:text-[#64748B] dark:hover:text-[#bbb] ${ReduxState.future.length >= 1 && "text-[#1f2937] dark:text-[#bbb]"}`} /></span>
                     </div>
-                    <div className='flex gap-2 border-r border-[#64748B] text-[#1f2937] dark:text-[#808080]  pr-2 relative'>
+                    <div className='flex gap-2 border-r border-[#64748B] text-[#1f2937] dark:text-[#808080] pr-2 relative'>
                         <span className={`cursor-pointer `} onClick={() => setFullScreen(true)}><LuEye className={`${iconSize} ${smallIconSize} dark:hover:text-[#bbbbbb]`} /></span>
                         {
                             !isManager &&
-                            <span ref={infoIconRef} className={`cursor-pointer `} onClick={() => info ? setInfo(false) : setInfo(true)}><IoIosInformationCircleOutline className={`${iconSize} ${smallIconSize} dark:hover:text-[#bbbbbb]`} /></span>
+                            <span ref={infoIconRef} className={`cursor-pointer `} onClick={() => info ? setInfo(false) : setInfo(true)}>
+                                <IoIosInformationCircleOutline className={`${iconSize} ${smallIconSize} dark:hover:text-[#bbbbbb]`} /></span>
                         }
-                        <div ref={infoRef} className={`absolute top-[100%] left-1/2 border bg-white w-[200px] shadow-xl rounded-lg text-xs p-2 ${info ? "block" : "hidden"}`} >
-                            <p className='text-[#64748B]'>last saved:  <span className='text-[black]'>{lastUpdate}</span></p>  {/* last saved */}
-                            <p className='text-[#64748B]'>status: <span className='text-[black]'> {status}</span></p>   {/**status */}
+                        <div ref={infoRef} className={`absolute top-[100%] left-1/2 dark:shadow-lg dark:border dark:border-stone-600/10 bg-base-100 w-[200px] shadow-xl rounded-lg text-xs p-2 ${info ? "block" : "hidden"}`} >
+                            <p className='text-[#64748B]'>last saved:  <span className='text-[black] dark:text-stone-300'>{lastUpdate}</span></p>  {/* last saved */}
+                            <p className='text-[#64748B]'>status: <span className='text-[black] dark:text-stone-300'> {status}</span></p>   {/**status */}
                         </div>
                     </div>
                 </div>

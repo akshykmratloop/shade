@@ -194,8 +194,10 @@ function Header() {
               <BellIcon className="h-6 w-6" />
             </div>
           </button> */}
-          <div className="py-1 mx-1 w-[12vw] px-2 bg-base-300 self-stretch flex items-center rounded-md relative cursor-pointer">
-            <label className="flex items-center justify-between cursor-pointer w-full" onClick={() => { setOpenList(!openList) }}>
+          <div className="py-1 mx-1 w-[12vw] px-2 bg-base-300 self-stretch flex items-center rounded-md relative cursor-pointer select-none"
+            onClick={() => { setOpenList(!openList) }}
+          >
+            <label className="flex items-center justify-between cursor-pointer w-full">
               <div className="flex h-[100%] items-center justify-center flex-row " >
                 {capitalizeWords(currentRole?.role)}
               </div>

@@ -41,9 +41,11 @@ const user = createSlice({
 
             state.isManager = action.payload.roles[0]?.permissions?.some(e => e.slice(-10) === "MANAGEMENT" && e.slice(0, 4) !== "USER" && e.slice(0, 4) !== "ROLE" && e.slice(0, 4) !== "AUDI")
 
-            const { isEditor } = checkUser(action.payload.roles[0].permissions)
+            const { isEditor, isPublisher, isVerifier} = checkUser(action.payload.roles[0].permissions)
 
             state.isEditor = isEditor
+            state.isPublisher = isPublisher;
+            state.isVerifier = isVerifier;
 
             state.currentRole = action.payload.roles[0]
         },

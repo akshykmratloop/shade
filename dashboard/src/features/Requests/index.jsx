@@ -189,9 +189,12 @@ function Requests() {
     fetchRequestsData();
   }, [changesInRequest]);
 
-  if (canSeeNone) {
-    navigate("/")
-  }
+  useEffect(() => {
+    if (canSeeNone) {
+      console.log(isPublisher, isVerifier)
+      navigate("/app/dashboard")
+    }
+  }, [])
 
   return (
     <div className="relative min-h-full">

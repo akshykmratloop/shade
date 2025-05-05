@@ -1,12 +1,20 @@
 import React from "react";
 import { IoIosArrowDown } from "react-icons/io";
+import { toast } from "react-toastify";
 
 const Select = ({ options, selectClass, label, labelClass, baseClass, setterOnChange, index, value, height, width, field }) => {
     const handleSelectChange = (e) => {
+        let value = e.target.value
+        for (let x of options) {
+            if (x.id === value && x.status === "INACTIVE") {
+                // toast.error("Can't select Inactive value")
+                return
+            }
+        }
         if (typeof index === "number") {
-            setterOnChange(index, "value", e.target.value);
+            setterOnChange(index, "value", value);
         } else {
-            setterOnChange(field, e.target.value)
+            setterOnChange(field, value)
         }
     };
 
