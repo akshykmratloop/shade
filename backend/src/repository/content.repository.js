@@ -57,6 +57,13 @@ export const fetchResources = async (
       liveVersion: {
         select: {
           versionNumber: true,
+          versionStatus: true,
+        },
+      },
+      newVersionEditMode: {
+        select: {
+          versionNumber: true,
+          versionStatus: true,
         },
       },
       roles: {
@@ -931,70 +938,61 @@ export const createOrUpdateVersion = async (contentData) => {
   // Extract the content from the request
   const { newVersionEditMode } = contentData;
   const saveAs = newVersionEditMode?.versionStatus || "DRAFT";
-  // return resource
 
+  const {
+    comments = "Version created",
+    referenceDoc = null,
+    content = {},
+    icon = null,
+    image = null,
+    sections = [],
+  } = newVersionEditMode;
   // Start a transaction to ensure all operations succeed or fail together
-  return await prismaClient.$transaction(async (tx) => {
-    let resourceVersion;
-
-    // Check if we need to create a new version or update an existing one
+  const result = await prismaClient.$transaction(async (tx) => {
     if (!resource.newVersionEditModeId) {
-      resourceVersion = await tx.resourceVersion.create({
+      // Create a new edit version if no edit version exists
+      const resourceVersion = await tx.resourceVersion.create({
         data: {
           resourceId: resource.id,
           versionNumber: resource._count.versions + 1,
           versionStatus: saveAs,
-          notes: newVersionEditMode?.comments || "Version created",
-          referenceDoc: newVersionEditMode?.referenceDoc || null,
-          content: newVersionEditMode?.content || {},
-          icon: newVersionEditMode?.icon || null,
-          Image: newVersionEditMode?.image || null,
+          notes: comments,
+          referenceDoc,
+          content,
+          icon,
+          Image: image,
         },
       });
-  
-      // Link new edit version to resource
-      await tx.resource.update({
-        where: { id: resource.id },
-        data: { newVersionEditModeId: resourceVersion.id },
-      });
 
-      console.log("Created resource version:", resourceVersion);
-  
       // Create section versions
       if (Array.isArray(newVersionEditMode?.sections)) {
-        for (let i = 0; i < newVersionEditMode.sections.length; i++) {
-          const sectionData = newVersionEditMode.sections[i];
-  
-          const sectionVersion = await createSectionVersionWithChildren(tx, {
+        for (let i = 0; i < sections.length; i++) {
+          const sectionData = sections[i];
+          await createSectionVersionWithChildren(tx, {
             sectionData,
             resource,
             resourceVersion,
-            order: sectionData.order || i + 1,
-          });
-  
-          // if (!sectionVersion?.id) {
-          //   throw new Error("SectionVersion creation failed: ID missing.");
-          // }
-  
-          assert(
-            sectionVersion?.id,
-            "NOT_FOUND",
-            `SectionVersion creation failed: ID missing.`
-          );
-
-          await tx.resourceVersionSection.create({
-            data: {
-              resourceVersionId: resourceVersion.id,
-              sectionVersionId: sectionVersion.id,
-              order: sectionData.order || i + 1,
-            },
+            order: sectionData.order ?? i + 1,
           });
         }
       }
-  
-    }  else {
+      // Link new edit version to resource
+      const updatedResource = await tx.resource.update({
+        where: { id: resource.id },
+        data: {
+          newVersionEditModeId: resourceVersion.id,
+          titleEn: contentData.titleEn,
+          titleAr: contentData.titleAr,
+          slug: contentData.slug,
+        },
+      });
+      return {
+        ...updatedResource,
+        resourceVersion,
+      };
+    } else {
       // Edit version already exists, update it
-      resourceVersion = await tx.resourceVersion.update({
+      const resourceVersion = await tx.resourceVersion.update({
         where: { id: resource.newVersionEditModeId },
         data: {
           versionStatus: saveAs,
@@ -1009,33 +1007,33 @@ export const createOrUpdateVersion = async (contentData) => {
           Image: newVersionEditMode?.image || resource.newVersionEditMode.Image,
         },
       });
-
-      console.log("Updated resource version:", resourceVersion);
-
       // Update sections recursively
       if (Array.isArray(newVersionEditMode?.sections)) {
         for (const sectionData of newVersionEditMode.sections) {
           await updateSectionVersion(tx, sectionData, resourceVersion.id);
         }
       }
+
+      const updatedResource = await tx.resource.update({
+        where: { id: resource.id },
+        data: {
+          titleEn: contentData.titleEn,
+          titleAr: contentData.titleAr,
+          slug: contentData.slug,
+        },
+      });
+      return {
+        ...updatedResource,
+        resourceVersion,
+      };
     }
-
-    const updatedResource = await prismaClient.resource.update({
-      where: { id: resource.id },
-      data: {
-        titleEn: contentData.titleEn,
-        titleAr: contentData.titleAr,
-        slug: contentData.slug,
-      },
-    });
-
-    return {
-      message: !resource.newVersionEditModeId
-        ? "Resource version created successfully"
-        : "Resource version updated successfully",
-      resource: { ...updatedResource, resourceVersion: resourceVersion },
-    };
   });
+  return {
+    message: !resource.newVersionEditModeId
+      ? "Resource version created successfully"
+      : "Resource version updated successfully",
+    resource: result,
+  };
 };
 
 async function createSectionVersionWithChildren(
@@ -1211,14 +1209,16 @@ export const publishContent = async (contentData, userId) => {
       },
     });
 
-    for (let i = 0; i < sections.length; i++) {
-      const sectionData = sections[i];
-      await createSectionVersionWithChildren(tx, {
-        sectionData,
-        resource,
-        resourceVersion,
-        order: sectionData.order ?? i + 1,
-      });
+    if (Array.isArray(newVersionEditMode?.sections)) {
+      for (let i = 0; i < sections.length; i++) {
+        const sectionData = sections[i];
+        await createSectionVersionWithChildren(tx, {
+          sectionData,
+          resource,
+          resourceVersion,
+          order: sectionData.order ?? i + 1,
+        });
+      }
     }
 
     const updatedResource = await tx.resource.update({
@@ -1250,3 +1250,438 @@ export const publishContent = async (contentData, userId) => {
     resource: result,
   };
 };
+
+export const updateContentAndGenerateRequest = async (contentData) => {
+  // Find the resource with version counts
+  const resource = await prismaClient.resource.findUnique({
+    where: {
+      id: contentData.resourceId,
+    },
+    include: {
+      _count: {
+        select: {
+          versions: true, // Count of versions
+        },
+      },
+      newVersionEditMode: true, // Get the current edit mode version if it exists
+      roles: {
+        include: {
+          user: {
+            select: {
+              id: true,
+              name: true,
+            },
+          },
+        },
+      },
+      verifiers: {
+        include: {
+          user: {
+            select: {
+              id: true,
+              name: true,
+            },
+          },
+        },
+      },
+    },
+  });
+
+  assert(
+    resource,
+    "NOT_FOUND",
+    `Resource with ID ${contentData.resourceId} not found`
+  );
+  // Extract the content from the request
+  const { newVersionEditMode } = contentData;
+  const saveAs = "VERIFICATION_PENDING";
+
+  const {
+    comments = "",
+    referenceDoc = null,
+    content = {},
+    icon = null,
+    image = null,
+    sections = [],
+  } = newVersionEditMode;
+  // Start a transaction to ensure all operations succeed or fail together
+  const result = await prismaClient.$transaction(async (tx) => {
+    let resourceVersion;
+    let updatedResource;
+    if (!resource.newVersionEditModeId) {
+      // Create a new edit version if no edit version exists
+      resourceVersion = await tx.resourceVersion.create({
+        data: {
+          resourceId: resource.id,
+          versionNumber: resource._count.versions + 1,
+          versionStatus: saveAs,
+          notes: comments,
+          referenceDoc,
+          content,
+          icon,
+          Image: image,
+        },
+      });
+
+      // Create section versions
+      if (Array.isArray(newVersionEditMode?.sections)) {
+        for (let i = 0; i < sections.length; i++) {
+          const sectionData = sections[i];
+          await createSectionVersionWithChildren(tx, {
+            sectionData,
+            resource,
+            resourceVersion,
+            order: sectionData.order ?? i + 1,
+          });
+        }
+      }
+      // Link new edit version to resource
+      updatedResource = await tx.resource.update({
+        where: { id: resource.id },
+        data: {
+          newVersionEditModeId: resourceVersion.id,
+          titleEn: contentData.titleEn,
+          titleAr: contentData.titleAr,
+          slug: contentData.slug,
+        },
+      });
+    } else {
+      // Edit version already exists, update it
+      resourceVersion = await tx.resourceVersion.update({
+        where: { id: resource.newVersionEditModeId },
+        data: {
+          versionStatus: saveAs,
+          notes:
+            newVersionEditMode?.comments || resource.newVersionEditMode.notes,
+          referenceDoc:
+            newVersionEditMode?.referenceDoc ||
+            resource.newVersionEditMode.referenceDoc,
+          content:
+            newVersionEditMode?.content || resource.newVersionEditMode.content,
+          icon: newVersionEditMode?.icon || resource.newVersionEditMode.icon,
+          Image: newVersionEditMode?.image || resource.newVersionEditMode.Image,
+        },
+      });
+      // Update sections recursively
+      if (Array.isArray(newVersionEditMode?.sections)) {
+        for (const sectionData of newVersionEditMode.sections) {
+          await updateSectionVersion(tx, sectionData, resourceVersion.id);
+        }
+      }
+
+      updatedResource = await tx.resource.update({
+        where: { id: resource.id },
+        data: {
+          titleEn: contentData.titleEn,
+          titleAr: contentData.titleAr,
+          slug: contentData.slug,
+        },
+      });
+    }
+    const generatedRequest = await tx.resourceVersioningRequest.create({
+      data: {
+        type: "VERIFICATION",
+        editorComments: comments,
+        resourceVersionId: resourceVersion.id,
+        senderId: resource.roles.find((r) => r.role === "EDITOR").userId,
+      },
+    });
+
+    const generateRequestApprovalsForPublisher =
+      await tx.requestApproval.create({
+        data: {
+          stage: null,
+          comments: null,
+          requestId: generatedRequest.id,
+          approverId: resource.roles.find((r) => r.role === "PUBLISHER").userId,
+        },
+      });
+
+    const generateRequestApprovalsForVerifiers =
+      await tx.requestApproval.createMany({
+        data: resource.verifiers.map((verifier, index) => ({
+          stage: verifier.stage,
+          comments: null,
+          requestId: generatedRequest.id,
+          approverId: verifier.userId,
+        })),
+      });
+
+      const verifierApprovals = await tx.requestApproval.findMany({
+        where: {
+          requestId: generatedRequest.id,
+          stage: { not: null }, // Only get verifier approvals (they have stage values)
+        },
+      });
+
+    return {
+      ...updatedResource,
+      resourceVersion,
+      requests: {
+        ...generatedRequest,
+        approvals: {
+          publisher: generateRequestApprovalsForPublisher,
+          verifiers: verifierApprovals,
+        },
+      },
+    };
+  });
+  return {
+    message: "Update request generated successfully",
+    resource: result,
+  };
+};
+
+
+export const fetchRequests = async (userId, userRole, search, status, pageNum, limitNum) => {
+  const skip = (pageNum - 1) * limitNum;
+  
+  // Base where clause
+  const where = {
+    status: status || undefined, // Filter by status if provided
+  };
+
+  // Handle search term
+  if (search) {
+    where.resourceVersion = {
+      resource: {
+        OR: [
+          { titleEn: { contains: search, mode: "insensitive" } },
+          { titleAr: { contains: search, mode: "insensitive" } },
+        ],
+      },
+    };
+  }
+
+  // Role-based filtering
+  if (userRole === "EDITOR") {
+    // Editors see their own requests for resources assigned to them
+    where.senderId = userId;
+    where.resourceVersion = {
+      ...where.resourceVersion,
+      resource: {
+        ...where.resourceVersion?.resource,
+        roles: {
+          some: {
+            userId,
+            role: "EDITOR",
+          },
+        },
+        isAssigned: true,
+      },
+    };
+  } else if (userRole === "VERIFIER") {
+    // Verifiers see requests for resources where they are assigned as verifiers
+    where.resourceVersion = {
+      ...where.resourceVersion,
+      resource: {
+        ...where.resourceVersion?.resource,
+        verifiers: {
+          some: {
+            userId,
+          },
+        },
+      },
+    };
+  } else if (userRole === "PUBLISHER") {
+    // Publishers see requests that are fully verified and for resources they're assigned to
+    where.type = "PUBLICATION"; // Only show publication requests
+    where.status = "APPROVED"; // Only show approved requests (fully verified)
+    where.resourceVersion = {
+      ...where.resourceVersion,
+      resource: {
+        ...where.resourceVersion?.resource,
+        roles: {
+          some: {
+            userId,
+            role: "PUBLISHER",
+          },
+        },
+      },
+    };
+  } else if (userRole === "MANAGER") {
+    // Managers see all requests for resources they're assigned to as manager
+    where.resourceVersion = {
+      ...where.resourceVersion,
+      resource: {
+        ...where.resourceVersion?.resource,
+        roles: {
+          some: {
+            userId,
+            role: "MANAGER",
+          },
+        },
+      },
+    };
+  }
+  // SUPER_ADMIN gets all requests with no additional filtering
+
+  // Count total records for pagination
+  const totalCount = await prismaClient.resourceVersioningRequest.count({
+    where,
+  });
+
+  // Fetch paginated requests with related data
+  const requests = await prismaClient.resourceVersioningRequest.findMany({
+    where,
+    skip,
+    take: limitNum,
+    orderBy: { createdAt: "desc" },
+    include: {
+      resourceVersion: {
+        include: {
+          resource: {
+            select: {
+              id: true,
+              titleEn: true,
+              titleAr: true,
+              resourceType: true,
+            },
+          },
+        },
+      },
+      sender: {
+        select: {
+          id: true,
+          name: true,
+          email: true,
+        },
+      },
+      approvals: {
+        select: {
+          id: true,
+          status: true,
+          stage: true,
+          comments: true,
+          approver: {
+            select: {
+              id: true,
+              name: true,
+              email: true,
+            },
+          },
+        },
+      },
+    },
+  });
+
+  return {
+    data: requests,
+    pagination: {
+      total: totalCount,
+      page: pageNum,
+      limit: limitNum,
+      totalPages: Math.ceil(totalCount / limitNum),
+    },
+  };
+};
+
+
+export const fetchRequestInfo = async (requestId) => {
+  const request = await prismaClient.resourceVersioningRequest.findUnique({
+    where: { id: requestId },
+    include: {
+      resourceVersion: {
+        include: {
+          resource: {
+            include: {
+              roles: {
+                include: {
+                  user: true
+                }
+              },
+              verifiers: {
+                include: {
+                  user: true
+                },
+                orderBy: {
+                  stage: 'asc'
+                }
+              },
+              liveVersion: true,
+              newVersionEditMode: true
+            }
+          }
+        }
+      },
+      sender: true,
+      previousRequest: {
+        include: {
+          sender: true
+        }
+      },
+      approvals: {
+        include: {
+          approver: true
+        },
+        orderBy: {
+          createdAt: 'asc'
+        }
+      }
+    }
+  });
+
+  if (!request) {
+    throw new Error('Request not found');
+  }
+
+  // Format the data as per requirements
+  const formattedData = {
+    Details: {
+      'Resource': request.resourceVersion.resource.titleEn,
+      'Status': request.status,
+      'Edit Mode': request.resourceVersion.resource.newVersionEditMode ? 'Active' : 'Inactive',
+      'Assigned Users': {
+        'Manager': request.resourceVersion.resource.roles
+          .filter(role => role.role === 'MANAGER')
+          .map(role => role.user.name)
+          .join(', ') || 'Not assigned',
+        'Editor': request.resourceVersion.resource.roles
+          .filter(role => role.role === 'EDITOR')
+          .map(role => role.user.name)
+          .join(', ') || 'Not assigned',
+        'Verifiers': request.resourceVersion.resource.verifiers
+          .reduce((acc, verifier) => {
+            const level = `level ${verifier.stage}`;
+            if (!acc[level]) acc[level] = [];
+            acc[level].push(verifier.user.name);
+            return acc;
+          }, {}),
+        'Publisher': request.resourceVersion.resource.roles
+          .filter(role => role.role === 'PUBLISHER')
+          .map(role => role.user.name)
+          .join(', ') || 'Not assigned'
+      },
+      'Submitted Date': request.createdAt.toLocaleDateString('en-US'),
+      'Comment': request.editorComments || 'No comments',
+      'Submitted By': request.sender.name,
+      'Submitted To': request.approvals.length > 0 ? 
+        request.approvals[0].approver.name : 'Not assigned',
+      'Version No.': `V ${request.resourceVersion.versionNumber}`,
+      'Reference Document': request.resourceVersion.referenceDoc ? 
+        'PDF File' : 'No document',
+      'Request Type': request.type,
+      'Request No.': request.id.slice(0, 4).toUpperCase(),
+      'Previous Request': request.previousRequest ? 
+        `${request.previousRequest.type} | ${request.previousRequest.id.slice(0, 4).toUpperCase()}` : 'None',
+      'Approval Status': request.approvals.map(approval => ({
+        'Role': getRoleForApprover(approval.approver.id, request.resourceVersion.resource),
+        'Status': approval.status,
+        'Comment': approval.comments || 'No comments'
+      }))
+    }
+  };
+
+  return formattedData;
+};
+
+// Helper function to determine role for approver
+function getRoleForApprover(userId, resource) {
+  const role = resource.roles.find(r => r.userId === userId);
+  if (role) return role.role;
+  
+  const verifier = resource.verifiers.find(v => v.userId === userId);
+  if (verifier) return `VERIFIER_LEVEL_${verifier.stage}`;
+  
+  return 'UNKNOWN';
+}
