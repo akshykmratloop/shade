@@ -257,6 +257,7 @@ const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
                 value={formObj.verifiers}
                 onChange={updateSelection}
                 preAssignedVerifiers={preAssignedUsers.verifiers.length > 0}
+                preAssignedLength={preAssignedUsers.verifiers.length}
               />
             </div>
 

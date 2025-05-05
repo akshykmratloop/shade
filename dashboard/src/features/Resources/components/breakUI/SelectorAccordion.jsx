@@ -4,7 +4,7 @@ import { RxCross2 } from "react-icons/rx";
 import { GoPlus } from "react-icons/go";
 import { IoIosArrowDown } from "react-icons/io";
 
-const SelectorAccordion = ({ options, onChange, field, value, preAssignedVerifiers }) => {
+const SelectorAccordion = ({ options, onChange, field, value, preAssignedVerifiers, preAssignedLength }) => {
     const [selector, setSelector] = useState([{ label: "Level 1", value: "" }]);
     const selectorRef = useRef(null);
     const prevSelectorRef = useRef(selector);
@@ -26,8 +26,6 @@ const SelectorAccordion = ({ options, onChange, field, value, preAssignedVerifie
     }
 
     const updateSelectorValue = (index, label, newValue) => {
-        console.log("highiheiwheirqroosakflj")
-        console.log(index, label, newValue)
         setSelector((prev) => {
             if (prev[index][label] === newValue) return prev; // Skip if value is unchanged
             const valueExists = prev.some((e, i) => e.value === newValue && i !== index);
@@ -80,7 +78,7 @@ const SelectorAccordion = ({ options, onChange, field, value, preAssignedVerifie
             ref={selectorRef}
             className="w-[101%] max-h-[12.25rem] pb-4 overflow-y-scroll border customscroller-2 w-[22rem]"
         >
-            {selector.map((select, index) => {
+            {selector.map((select, index, a) => {
                 const isLast = index === selector.length - 1;
                 return (
                     <div key={index} className="flex w-[98%] items-center my-1 mt-[2px] gap-2">
@@ -127,7 +125,7 @@ const SelectorAccordion = ({ options, onChange, field, value, preAssignedVerifie
                                                 onClick={
                                                     (e) => {
                                                         e.preventDefault();
-                                                        if (preAssignedVerifiers) {
+                                                        if (preAssignedVerifiers && (index+1) <= preAssignedLength) {
                                                             clearSelectorValue(index)
                                                         } else {
                                                             removeSelector(index);
