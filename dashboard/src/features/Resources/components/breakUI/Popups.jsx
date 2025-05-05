@@ -26,7 +26,7 @@ const Popups = ({ confirmationText, display, setClose, confirmationFunction }) =
     }, []);
 
     return (
-        <div className={`fixed inset-0 flex items-center justify-center z-30 bg-black/50 ${display ? "block" : "hidden"}`}>
+        <div className={`fixed inset-0 flex items-center justify-center z-[57] bg-black/50 ${display ? "block" : "hidden"}`}>
             {isloading ? (
                 <div className="flex items-center justify-center w-full h-full">
                     <MoonLoader color="#ffffff" />

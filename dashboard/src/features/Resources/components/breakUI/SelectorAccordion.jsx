@@ -2,18 +2,18 @@ import React, { useEffect, useRef, useState } from "react";
 import Select from "../../../../components/Input/Select";
 import { RxCross2 } from "react-icons/rx";
 import { GoPlus } from "react-icons/go";
+import { IoIosArrowDown } from "react-icons/io";
 
-const SelectorAccordion = ({ options, onChange, field, value, defaultValue }) => {
+const SelectorAccordion = ({ options, onChange, field, value, preAssignedVerifiers, preAssignedLength }) => {
     const [selector, setSelector] = useState([{ label: "Level 1", value: "" }]);
     const selectorRef = useRef(null);
     const prevSelectorRef = useRef(selector);
-
-    console.log(defaultValue)
 
     const addSelector = (e) => {
         e.preventDefault();
         setSelector((prev) => [...prev, { label: `Level ${prev.length + 1}`, value: "" }]);
     };
+
 
     const updateSelectorValue = (index, label, newValue) => {
         setSelector((prev) => {
@@ -35,6 +35,22 @@ const SelectorAccordion = ({ options, onChange, field, value, defaultValue }) =>
             }));
         });
     };
+
+
+    const clearSelectorValue = (index) => {
+        if (selector[index].value) {
+            const newValue = selector.map((e, i) => {
+                if (i === index) {
+                    return { label: e.label, value: "" }
+                } else {
+                    return e
+                }
+            })
+            setSelector(prev => newValue)
+        } else {
+            removeSelector(index)
+        }
+    }
 
     useEffect(() => {
         if (value?.length > 0) {
@@ -66,17 +82,17 @@ const SelectorAccordion = ({ options, onChange, field, value, defaultValue }) =>
     return (
         <div
             ref={selectorRef}
-            className="mt- max-h-[12.25rem] pb-4 overflow-y-scroll customscroller-2 w-[22rem]"
+            className="w-[101%] max-h-[12.25rem] pb-4 overflow-y-scroll  customscroller-2 w-[22rem]"
         >
-            {selector.map((select, index) => {
+            {selector.map((select, index, a) => {
                 const isLast = index === selector.length - 1;
                 return (
-                    <div key={index} className="flex items-center my-1 mt-[2px] gap-2">
+                    <div key={index} className="flex w-[98%] items-center my-1 mt-[2px] gap-2">
                         <p className="flex flex-[0_1_auto] justify-center items-center rounded-lg font-[400] translate-y-[2px] w-[5rem] h-[2.2rem] bg-[#DFDFDF] dark:bg-[#29469c] text-[#637888] dark:text-[#cecece] text-xs border-none">
                             {select.label}
                         </p>
-                        <div className="flex-[2_1_auto] relative ">
-                            <Select
+                        <div className="flex-[2_1_auto] relative">
+                            {/* <Select
                                 options={options || []}
                                 setterOnChange={updateSelectorValue}
                                 index={index}
@@ -84,25 +100,61 @@ const SelectorAccordion = ({ options, onChange, field, value, defaultValue }) =>
                                 height={""}
                                 width={"w-full"}
                                 value={select.value}
-                            />
-                            {isLast &&
-                                <span onClick={addSelector} className="absolute top-[90%] right-[1px] rounded-full bg-blue-700 text-white" >
-                                    <GoPlus />
-                                </span>}
+                                id={"selectVerifier " + (index + 1)}
+                                multiSelect={true}
+                            /> */}
+                            <div className={` text-sm relative`}>
+                                <div className="relative">
+                                    <select
+                                        className={`px-2 bg-transparent mt-1 border border-stone-300 dark:border-stone-600 rounded-md p-2 outline-none w-full text-xs pl-2 ${value === "" ? "" : "text-zinc-700 dark:text-zinc-300"}`}
+                                        onChange={(e) => updateSelectorValue(index, "value", e.target.value)}
+                                        value={select.value} // <-- Ensure value is controlled
+                                    >
+                                        <option value="" className=""> Select </option>
+                                        {options?.map((option, i) => {
+                                            // console.log(option)
+                                            return (
+                                                <option value={option.id} hidden={option.hidden} key={option + i} className="text-stone-700">
+                                                    {option.name}
+                                                </option>
+                                            )
+                                        })}
+                                    </select>
+                                    <div className="absolute top-1/2 -translate-y-1/2 right-[10px] flex items-center gap-2">
+
+                                        <span className="">
+                                            <IoIosArrowDown className="translate-y-[1px]" strokeWidth={0.1} />
+                                        </span>
+                                        {
+                                            selector.length > 1 &&
+                                            <button
+                                                onClick={
+                                                    (e) => {
+                                                        e.preventDefault();
+                                                        if (preAssignedVerifiers && (index + 1) <= preAssignedLength) {
+                                                            clearSelectorValue(index)
+                                                        } else {
+                                                            removeSelector(index);
+                                                        }
+                                                    }
+                                                }
+                                                className=" flex justify-center items-center translate-y-[2px] rounded-md p-1 text-[1.2rem] text-[#637888] border border-[#cecbcb] dark:border-stone-600"
+                                            >
+                                                {<RxCross2 className="w-3 h-3" />}
+                                            </button>}
+                                    </div>
+
+                                </div>
+                            </div>
+                            {
+                                isLast &&
+                                <div onClick={addSelector} className="absolute top-[84%] right-[-5px] flex justify-center rounded-full bg-blue-700 text-white" >
+                                    <GoPlus className="translate-x-[.5px]" />
+                                </div>
+                            }
+
                         </div>
-                        {
-                            selector.length > 1 &&
-                            <button
-                                onClick={
-                                    (e) => {
-                                        e.preventDefault();
-                                        removeSelector(index);
-                                    }
-                                }
-                                className="flex justify-center items-center translate-y-[2px] rounded-lg w-[2.2rem] h-[2.2rem] text-[1.2rem] text-[#637888] border border-[#cecbcb] dark:border-stone-600"
-                            >
-                                {<RxCross2 className="w-3 h-3" />}
-                            </button>}
+
                     </div>
                 );
             })}

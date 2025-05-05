@@ -83,7 +83,8 @@ function NotificationBodyRightDrawer({notifications = [], loading}) {
     //     );
     //   })}
     // </>
-    <>
+    <div className="">
+    
       {notifications.map((notif, i) => (
         <div key={i} className="relative">
           {/* 🔵 Blue dot for unread */}
@@ -104,7 +105,7 @@ function NotificationBodyRightDrawer({notifications = [], loading}) {
           </div>
         </div>
       ))}
-    </>
+    </div>
   );
 }
 

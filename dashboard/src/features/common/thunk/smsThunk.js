@@ -12,12 +12,14 @@ export const updateSelectedContentAndSaveDraft = (payload) => (dispatch) => {
 
     let newOptions = payload.selected.map((e, i) => ({ ...e, order: i + 1 }));
 
+    
     newOptions.sort((a, b) => {
         const indexA = selectedMap.get(a[payload.titleLan]) ?? Infinity;
         const indexB = selectedMap.get(b[payload.titleLan]) ?? Infinity;
         return indexA - indexB;
     });
-
+    
+    console.log(newOptions)
     // 2. Dispatch `saveDraftAction` first (save the data somewhere)
     // dispatch(saveDraftAction(newOptions));
 

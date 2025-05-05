@@ -17,10 +17,12 @@ import { LuEye } from "react-icons/lu";
 import { RxCross1 } from "react-icons/rx";
 import { Switch } from '@headlessui/react';
 import transformContent from '../../../../app/convertContent';
-import { updateContent } from '../../../../app/fetch';
+import { generateRequest, publishContent, updateContent } from '../../../../app/fetch';
+import Popups from './Popups';
+import formatTimestamp from '../../../../app/TimeFormat';
 
 
-export default function ContentTopBar({ setWidth, raisePopup, setFullScreen }) {
+export default function ContentTopBar({ setWidth, raisePopup, setFullScreen, currentPath }) {
     const dispatch = useDispatch();
     const iconSize = 'xl:h-[1.5rem] xl:w-[1.5rem]';
     const smallIconSize = 'sm:h-[1rem] sm:w-[1rem]';
@@ -34,7 +36,10 @@ export default function ContentTopBar({ setWidth, raisePopup, setFullScreen }) {
     const [autoSave, setAutoSave] = useState(JSON.parse(localStorage.getItem("autoSave")))
     const user = useSelector(state => state.user.user)
 
-    const isManager = user.permissions?.some(e => e.slice(-10) === "MANAGEMENT" && e.slice(0, 4) !== "USER" && e.slice(0, 4) !== "ROLE" && e.slice(0, 4) !== "AUDI")
+    const [PopUpPublish, setPopupPublish] = useState(false)
+    const [PopupSubmit, setPopupSubmit] = useState(false)
+
+    const isManager = useSelector(state => state.user.isManager)
 
     const deviceIcons = [
         { icon: <MdOutlineDesktopWindows />, label: 'Desktop', width: 1180 },
@@ -51,22 +56,81 @@ export default function ContentTopBar({ setWidth, raisePopup, setFullScreen }) {
 
     }
 
-    async function saveTheDraft() {
-        const paylaod = transformContent(ReduxState.present.home)
+    const lastUpdate = formatTimestamp(ReduxState.present?.[currentPath]?.editVersion?.updatedAt, "dd-mm-yyyy")
+    const status = ReduxState.present?.[currentPath]?.editVersion?.status
 
-        console.log(JSON.stringify(paylaod))
+    async function saveTheDraft(isToastify = true) {
+        const paylaod = transformContent(ReduxState.present.content)
+
+        // console.log(JSON.stringify(paylaod))
         dispatch(saveDraftAction(paylaod))
         setSavedChanges(true)
         try {
 
             const response = await updateContent(paylaod)
 
-            if (response.message === "Success") {
+            if (response.ok) {
+                if (isToastify) {
+                    toast.success("Changes has been saved", {
+                        style: { backgroundColor: "#187e3d", color: "white" },
+                        autoClose: 1000, // Closes after 1 second
+                        pauseOnHover: false, // Does not pause on hover
+                    })
+                }
+            } else {
+                throw new Error("Error Occured")
+            }
+        } catch (err) {
+            toast.error("failed", {
+                style: { backgroundColor: "#187e3d", color: "white" },
+                autoClose: 1000, // Closes after 1 second
+                pauseOnHover: false, // Does not pause on hover
+            })
+        }
+    }
+
+    async function handleSubmit() {
+        const paylaod = transformContent(ReduxState.present.content)
+
+        console.log(JSON.stringify(paylaod))
+        try {
+
+            const response = await generateRequest(paylaod)
+
+            if (response.ok) {
                 toast.success("Changes has been saved", {
                     style: { backgroundColor: "#187e3d", color: "white" },
                     autoClose: 1000, // Closes after 1 second
                     pauseOnHover: false, // Does not pause on hover
                 })
+            } else {
+                throw new Error("Error Occured")
+            }
+        } catch (err) {
+            toast.error("failed", {
+                style: { backgroundColor: "#187e3d", color: "white" },
+                autoClose: 1000, // Closes after 1 second
+                pauseOnHover: false, // Does not pause on hover
+            })
+        }
+
+    }
+
+    async function HandlepublishToLive() {
+        if (!isManager) return toast.error("You are not allowed to publish the content directly!", { autoClose: 600 })
+        const paylaod = transformContent(ReduxState.present.content)
+
+        try {
+            const response = await publishContent(paylaod)
+            if (response.message === "Success") {
+                toast.success("Changes have been published", {
+                    style: { backgroundColor: "#187e3d", color: "white" },
+                    autoClose: 1000, // Closes after 1 second
+                    pauseOnHover: false, // Does not pause on hover
+                })
+                setTimeout(() => {
+                    navigate(-1)
+                }, 650)
             } else {
                 throw new Error("Error Occured")
             }
@@ -113,8 +177,9 @@ export default function ContentTopBar({ setWidth, raisePopup, setFullScreen }) {
         if (!autoSave) return;
 
         const debounceTimer = setTimeout(() => {
-            dispatch(saveDraftAction(ReduxState.present));
-        }, 3000); // 3 seconds debounce time
+            // dispatch(saveDraftAction(ReduxState.present));
+            saveTheDraft(false)
+        }, 5000); // 5 seconds debounce time
 
         return () => clearTimeout(debounceTimer); // Reset timer if ReduxState changes before 3 seconds
     }, [ReduxState, autoSave]);
@@ -177,8 +242,8 @@ export default function ContentTopBar({ setWidth, raisePopup, setFullScreen }) {
                             <span ref={infoIconRef} className={`cursor-pointer `} onClick={() => info ? setInfo(false) : setInfo(true)}><IoIosInformationCircleOutline className={`${iconSize} ${smallIconSize} dark:hover:text-[#bbbbbb]`} /></span>
                         }
                         <div ref={infoRef} className={`absolute top-[100%] left-1/2 border bg-white w-[200px] shadow-xl rounded-lg text-xs p-2 ${info ? "block" : "hidden"}`} >
-                            <p className='text-[#64748B]'>last saved:  <span className='text-[black]'>{"dd/mm/yyyy"}</span></p>  {/* last saved */}
-                            <p className='text-[#64748B]'>status: <span className='text-[black]'> draft</span></p>   {/**status */}
+                            <p className='text-[#64748B]'>last saved:  <span className='text-[black]'>{lastUpdate}</span></p>  {/* last saved */}
+                            <p className='text-[#64748B]'>status: <span className='text-[black]'> {status}</span></p>   {/**status */}
                         </div>
                     </div>
                 </div>
@@ -210,15 +275,18 @@ export default function ContentTopBar({ setWidth, raisePopup, setFullScreen }) {
                                     !autoSave &&
                                     <Button text={savedChanges ? 'Saved' : 'Draft'} functioning={saveTheDraft} classes={`${savedChanges ? "bg-[#26c226]" : "bg-[#26345C]"}  rounded-md xl:h-[2.68rem] sm:h-[2rem] xl:text-xs sm:text-[.6rem] xl:w-[5.58rem] w-[4rem] text-[white]`} />
                                 }
-                                <Button text={'Submit'} functioning={raisePopup.submit} classes='bg-[#29469D] rounded-md xl:h-[2.68rem] sm:h-[2rem] xl:text-xs sm:text-[.6rem] xl:w-[5.58rem] w-[4rem] text-[white]' />
+                                <Button text={'Submit'} functioning={() => { setPopupSubmit(true) }} classes='bg-[#29469D] rounded-md xl:h-[2.68rem] sm:h-[2rem] xl:text-xs sm:text-[.6rem] xl:w-[5.58rem] w-[4rem] text-[white]' />
                             </div>
                         </div>
                         :
                         <div className='flex gap-3 sm:gap-1'>
-                            <Button text={'Pulish'} functioning={raisePopup.publish} classes='bg-[#29469D] rounded-md xl:h-[2.68rem] sm:h-[2rem] xl:text-xs sm:text-[.6rem] xl:w-[5.58rem] w-[4rem] text-[white]' />
+                            <Button text={'Pulish'} functioning={() => setPopupPublish(true)} classes='bg-[#29469D] rounded-md xl:h-[2.68rem] sm:h-[2rem] xl:text-xs sm:text-[.6rem] xl:w-[5.58rem] w-[4rem] text-[white]' />
                         </div>
                 }
             </div>
+
+            <Popups display={PopUpPublish} setClose={() => setPopupPublish(false)} confirmationText={"Are you sure you want to publish?"} confirmationFunction={HandlepublishToLive} />
+            <Popups display={PopupSubmit} setClose={() => setPopupSubmit(false)} confirmationText={"Are you sure you want to submit?"} confirmationFunction={handleSubmit}/>
         </div>
     );
 }

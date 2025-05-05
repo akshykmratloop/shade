@@ -3,7 +3,7 @@ export default function createContent(content, purpose, path, subPath) {
 
     let currentContent = {}
     if (purpose === "edit") {
-        currentContent = content?.home?.editVersion?.sections
+        currentContent = content?.content?.editVersion?.sections
     } else {
         currentContent = content?.editVersion?.sections
     }

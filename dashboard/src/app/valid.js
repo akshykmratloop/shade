@@ -1,5 +1,3 @@
-import capitalizeWords from "./capitalizeword";
-
 function validator(obj, setter) {
     // Sort keys to make sure 'email' comes first
     const keys = Object.keys(setter).sort((a, b) => {

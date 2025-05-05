@@ -30,12 +30,13 @@ export function useImageUpload(resourceId) {
             const result = response;
             return result?.imageUrl || URL.createObjectURL(file);
         } catch (err) {
-            setError(err.message);
+            throw err.message
+            // setError(err.message);
             return null;
         } finally {
             setUploading(false);
         }
     };
 
-    return { uploadImage, uploading, error };
+    return { uploadImage, uploading };
 }

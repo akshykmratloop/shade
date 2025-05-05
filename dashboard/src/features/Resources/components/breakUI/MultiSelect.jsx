@@ -56,7 +56,7 @@ const SortableItem = ({ option, removeOption, language, reference, titleLan, con
   );
 };
 
-const MultiSelect = ({ heading, options, tabName, label, language, section, referenceOriginal = { dir: "", index: 0 }, currentPath, projectId, contentIndex, listOptions }) => {
+const MultiSelect = ({ heading, min = 0, options, tabName, label, language, section, referenceOriginal = { dir: "", index: 0 }, currentPath, projectId, contentIndex, listOptions }) => {
   const titleLan = language === "en" ? "titleEn" : "titleAr"
   const [selectedOptions, setSelectedOptions] = useState([]);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -121,6 +121,7 @@ const MultiSelect = ({ heading, options, tabName, label, language, section, refe
 
 
   const removeOption = (optionToRemove) => {
+    if(selectedOptions.length <= 4) return 
     let deductedArray = selectedOptions.filter(e => e !== optionToRemove)
     setSelectedOptions(deductedArray)
     operation = 'remove'

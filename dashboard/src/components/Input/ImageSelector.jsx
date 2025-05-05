@@ -39,8 +39,10 @@ const ImageSelector = ({ onSelectImage, onClose, resourceId }) => {
 
     const handleFileUpload = async (event) => {
         const file = event.target.files[0];
+        console.log(file)
         if (!file || uploading) return; // Prevent uploading if already uploading
 
+        console.log("asdfewq")
         setUploading(true);
         setUploadCancel(false);
 
@@ -56,9 +58,10 @@ const ImageSelector = ({ onSelectImage, onClose, resourceId }) => {
         } catch {
             console.log("Error Uploading Image Please Try again later")
             toast.error("Error Uploading Image Please Try again later")
+        } finally {
+            setUploading(false);
         }
 
-        setUploading(false);
     };
 
 
@@ -159,13 +162,15 @@ const ImageSelector = ({ onSelectImage, onClose, resourceId }) => {
                                 images.map((imgObj, idx) => (
                                     <div
                                         key={idx}
-                                        className={`w-full h-40 relative overflow-hidden rounded cursor-pointer border-2 ${selectedImage === `${Img_url}/${imgObj.publicId}` ? "border-blue-500" : "border-transparent"
+                                        className={`w-full h-40 relative overflow-hidden rounded cursor-pointer border-2 
+                                            ${selectedImage === `${Img_url}/${imgObj.publicId}` ?
+                                                "border-blue-500" : "border-transparent"
                                             }`}
                                     >
                                         <img
                                             src={`${Img_url}/${imgObj.publicId}`}
                                             alt={`Image ${idx}`}
-                                            className={`w-full h-full object-cover ${selectedImage === `${Img_url}/${imgObj.publicId}` && "brightness-[0.6]"}`}
+                                            className={`w-full h-full object-fill ${selectedImage === `${Img_url}/${imgObj.publicId}` && "brightness-[0.6]"}`}
                                             draggable={false}
                                             onClick={() => handleImageSelect(`${Img_url}/${imgObj.publicId}`, idx)}
 
@@ -201,10 +206,9 @@ const ImageSelector = ({ onSelectImage, onClose, resourceId }) => {
                                             src={selectedImage}
                                             alt="Selected"
                                             className="w-full h-full object-contain rounded cursor-pointer"
-                                            title="Click to clear"
                                             draggable={false}
                                         />
-                                        <button className="absolute top-[2px] right-2 bg-[#808080a8] text-white rounded-full p-1" onClick={clearSelectedImage}>
+                                        <button title="Click to clear" className="absolute top-[2px] right-2 bg-[#808080a8] text-white rounded-full p-1" onClick={clearSelectedImage}>
                                             <X width={16} height={16} />
                                         </button>
                                     </div>
@@ -243,7 +247,7 @@ const ImageSelector = ({ onSelectImage, onClose, resourceId }) => {
                     <div className="flex gap-4">
                         {selectedImage && !uploading && (
                             <button
-                                onClick={() => onSelectImage(selectedImage)}
+                                onClick={() => onSelectImage(selectedImage.split("/").slice(-1))}
                                 className="bg-blue-800 text-white px-4 py-2 rounded shadow text-[15px]"
                             >
                                 Select

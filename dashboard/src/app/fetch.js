@@ -386,6 +386,26 @@ export async function updateContent(data) {
   );
 }
 
+export async function publishContent(body) {
+  return await makerequest(
+    `${api.route("publishContent")}`,
+    "POST",
+    JSON.stringify(body),
+    ContentType.json,
+    true
+  );
+}
+
+export async function generateRequest(body) {
+  return await makerequest(
+    `${api.route("generateRequest")}`,
+    "PUT",
+    JSON.stringify(body),
+    ContentType.json,
+    true
+  );
+}
+
 export async function uploadMedia(data) {
   return await makerequest(
     `${api.route("uploadMedia")}`,

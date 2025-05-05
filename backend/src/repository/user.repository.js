@@ -214,6 +214,11 @@ export const findUserByEmail = async (email) => {
       status: role.role.status,
       permissions: role.role.permissions.map((perm) => perm.permission.name),
     })) || [];
+  // const roles = user.roles?.map((role) => role.role.name) || [];
+  // const permissions =
+  //   user.roles?.flatMap((role) =>
+  //     role.role.permissions.map((permission) => permission.permission.name)
+  //   ) || [];
 
   return {
     ...user,

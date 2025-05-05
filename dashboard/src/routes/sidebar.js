@@ -33,7 +33,7 @@ const routes = [
   {
     path: '/app/dashboard',
     icon: <Squares2X2Icon className={iconClasses} />,
-    name: 'Dashboard', 
+    name: 'Dashboard',
   },
   {
     path: '/app/roles', // url
@@ -51,6 +51,7 @@ const routes = [
     path: '/app/resources', // url
     icon: <HiOutlineClipboardDocumentList className={iconClasses} />, // icon component
     name: 'Resources', // name that appear in Sidebar
+    // permission: "EDIT"
   },
   {
     path: '/app/requests', // url
