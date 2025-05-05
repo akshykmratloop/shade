@@ -173,38 +173,7 @@ function Header() {
                   <option value={e.role} key={i} className="bg-transparent text-xs py-0 rounded-sm">{e.role?.replace?.("_", " ")}</option>
                 )
               })}
-            </select> */} 
-            <div className="py-1 mx-1 w-[12vw] px-2 bg-base-300 rounded-md border-green-200 relative cursor-pointer">
-              <label className="flex items-center justify-between cursor-pointer" onClick={() => { setOpenList(!openList) }}>
-                <div className="flex h-[100%] items-center justify-center flex-row " >
-                  {capitalizeWords(currentRole?.role)}
-                </div>
-                {
-                  !oneRoleOnly &&
-                  <span><FaCaretDown strokeWidth={.5} /></span>
-                }
-              </label>
-              {
-                !oneRoleOnly &&
-                <ul
-                  ref={listRef}
-                  className="dropdown-content mt-1 left-0 absolute z-[30] p-2 shadow bg-base-100 rounded-md w-[12vw] flex flex-col gap-1"
-                  style={{ display: openList ? "flex" : "none" }}
-                >
-                  {user.roles?.map((e, i) => {
-                    return (
-                      <li
-                        onClick={() => {console.log(e.role) ;switchRole(e.role); setOpenList(false) }}
-                        value={e.role}
-                        key={i}
-                        title={e.role?.replace?.("_", " ")}
-                        className="bg-transparent text-sm font-[300] cursor-pointer pl-2 py-1 rounded-sm hover:bg-[#e5e6e6]"
-                      >{capitalizeWords(e.role)}</li>
-                    )
-                  })}
-                </ul>
-              }
-            </div>
+            </select> */}
           </div>
           <p className="text-base-700 font-light font-lexend text-[grey]">
             {greetings}
@@ -225,6 +194,37 @@ function Header() {
               <BellIcon className="h-6 w-6" />
             </div>
           </button> */}
+          <div className="py-1 mx-1 w-[12vw] px-2 bg-base-300 self-stretch flex items-center rounded-md relative cursor-pointer">
+            <label className="flex items-center justify-between cursor-pointer w-full" onClick={() => { setOpenList(!openList) }}>
+              <div className="flex h-[100%] items-center justify-center flex-row " >
+                {capitalizeWords(currentRole?.role)}
+              </div>
+              {
+                !oneRoleOnly &&
+                <span><FaCaretDown strokeWidth={.5} /></span>
+              }
+            </label>
+            {
+              !oneRoleOnly &&
+              <ul
+                ref={listRef}
+                className="dropdown-content mt-1 left-0 top-[100%] dark:border dark:border-stone-300/20 dark:shadow-md dark:shadow-stone-800 absolute z-[30] p-2 shadow bg-base-100 rounded-md w-[12vw] flex flex-col gap-1"
+                style={{ display: openList ? "flex" : "none" }}
+              >
+                {user.roles?.map((e, i) => {
+                  return (
+                    <li
+                      onClick={() => { console.log(e.role); switchRole(e.role); setOpenList(false) }}
+                      value={e.role}
+                      key={i}
+                      title={e.role?.replace?.("_", " ")}
+                      className="bg-transparent text-sm font-[300] cursor-pointer pl-2 py-1 rounded-sm hover:bg-[#e5e6e6] dark:hover:bg-stone-200/10"
+                    >{capitalizeWords(e.role)}</li>
+                  )
+                })}
+              </ul>
+            }
+          </div>
           <button
             className="relative h-[45px] w-[45px] mx-1 flex items-center justify-center bg-base-300 rounded-md border-green-200"
             onClick={openNotification}
@@ -263,7 +263,7 @@ function Header() {
             </label>
             <ul
               tabIndex={0}
-              className="menu menu-compact dropdown-content mt-6 p-2 shadow bg-base-100 rounded-box w-52"
+              className="menu menu-compact dropdown-content mt-1 p-2 shadow dark:border dark:border-stone-300/20 dark:shadow-md dark:shadow-stone-800 bg-base-100 rounded-box w-52"
             >
               <li className="justify-between">
                 <Link to={"/app/settings-profile"}>Profile Settings</Link>

@@ -11,6 +11,7 @@ import { toast } from "react-toastify";
 import capitalizeWords, { TruncateText } from "../../../../app/capitalizeword";
 import { useDispatch, useSelector } from "react-redux";
 import { switchDebounce } from "../../../common/debounceSlice";
+import SkeletonLoader from "../../../../components/Loader/SkeletonLoader";
 
 const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
   const initialObj = {
@@ -26,6 +27,7 @@ const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
   const [preAssignedUsers, setPreAssignedUsers] = useState({ roles: {}, verifiers: [] })
   const [fetchedData, setFetchedData] = useState(false)
   const [clearPopup, setClearPopup] = useState(false)
+  const [loader, setLoader] = useState(false)
   const debouncingState = useSelector(state => state.debounce.debounce)
   const dispatch = useDispatch()
 
@@ -132,6 +134,7 @@ const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
       const payload = resourceId;
       if (resourceId) {
         try {
+          setLoader(true)
           const response = await getAssignedUsers(payload);
 
           if (response.ok) {
@@ -155,6 +158,8 @@ const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
           }
         } catch (err) {
 
+        } finally {
+          setLoader(false)
         }
       }
     }
@@ -201,113 +206,118 @@ const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
             Assign User for {TruncateText(data.titleEn, 21)}
           </h1>
         </div>
-        <form className="mt-1 flex flex-col justify-between h-[88%] p-[30px] pt-[0px]">
-          <div className="flex flex-col gap-4 pt-6 ">
-            {/* Selected Page/Content */}
-            {/* <div className="w-full dark:border dark:border-[1px] dark:border-stone-700 rounded-md">
+        {
+          loader ?
+            <SkeletonLoader type={"INFO"} />
+            :
+            <form className="mt-1 flex flex-col justify-between h-[88%] p-[30px] pt-[0px]">
+              <div className="flex flex-col gap-4 pt-6 ">
+                {/* Selected Page/Content */}
+                {/* <div className="w-full dark:border dark:border-[1px] dark:border-stone-700 rounded-md">
               <input 
-                type="text"
+              type="text"
                 className="input w-full px-3 bg-base-300 rounded-md w-[25rem] h-[2.5rem] outline-none disabled:pointer-events-none disabled:cursor-text"
                 value={data.titleEn || ""}
                 disabled
               />
-            </div> */}
+              </div> */}
 
-            {/* Select Manager */}
-            <Select
-              options={optionsForManagers}
-              setterOnChange={updateSelection}
-              field={"manager"}
-              value={formObj.manager}
-              baseClass=""
-              label="Select Manager"
-              labelClass="font-[400] text-[#6B7888] text-[14px]"
-              selectClass="bg-transparent border border-[#cecbcb] dark:border-stone-600 mt-1 rounded-md py-2 h-[2.5rem] outline-none"
-              id={"SelectManager"}
-            />
+                {/* Select Manager */}
+                <Select
+                  options={optionsForManagers}
+                  setterOnChange={updateSelection}
+                  field={"manager"}
+                  value={formObj.manager}
+                  baseClass=""
+                  label="Select Manager"
+                  labelClass="font-[400] text-[#6B7888] text-[14px]"
+                  selectClass="bg-transparent border border-[#cecbcb] dark:border-stone-600 mt-1 rounded-md py-2 h-[2.5rem] outline-none"
+                  id={"SelectManager"}
+                />
 
-            {/* Select Editor */}
-            <Select
-              options={optionsForEditor}
-              setterOnChange={updateSelection}
-              field={"editor"}
-              value={formObj.editor}
-              baseClass=""
-              label="Select Editor"
-              labelClass="font-[400] text-[#6B7888] text-[14px]"
-              selectClass="bg-transparent border border-[#cecbcb] dark:border-stone-600 mt-1 rounded-md py-2 h-[2.5rem] outline-none"
-              id={"SelectEditor"}
-            />
+                {/* Select Editor */}
+                <Select
+                  options={optionsForEditor}
+                  setterOnChange={updateSelection}
+                  field={"editor"}
+                  value={formObj.editor}
+                  baseClass=""
+                  label="Select Editor"
+                  labelClass="font-[400] text-[#6B7888] text-[14px]"
+                  selectClass="bg-transparent border border-[#cecbcb] dark:border-stone-600 mt-1 rounded-md py-2 h-[2.5rem] outline-none"
+                  id={"SelectEditor"}
+                />
 
-            {/* Selector Accordion */}
-            <div className="">
-              <label
-                className={
-                  "font-[400] text-[#6B7888] dark:border-stone-600 text-[14px]"
-                }
-              >
-                Select Verifier
-              </label>
-              <SelectorAccordion
-                options={userList.verifiers.map((e) => ({
-                  id: e.id,
-                  name: e.name,
-                }))}
-                field={"verifiers"}
-                value={formObj.verifiers}
-                onChange={updateSelection}
-                preAssignedVerifiers={preAssignedUsers.verifiers.length > 0}
-                preAssignedLength={preAssignedUsers.verifiers.length}
-              />
-            </div>
+                {/* Selector Accordion */}
+                <div className="">
+                  <label
+                    className={
+                      "font-[400] text-[#6B7888] dark:border-stone-600 text-[14px]"
+                    }
+                  >
+                    Select Verifier
+                  </label>
+                  <SelectorAccordion
+                    options={userList.verifiers.map((e) => ({
+                      id: e.id,
+                      name: e.name,
+                    }))}
+                    field={"verifiers"}
+                    value={formObj.verifiers}
+                    onChange={updateSelection}
+                    preAssignedVerifiers={preAssignedUsers.verifiers.length > 0}
+                    preAssignedLength={preAssignedUsers.verifiers.length}
+                  />
+                </div>
 
-            {/* Select Publisher */}
-            <Select
-              options={optionsForPublisher}
-              setterOnChange={updateSelection}
-              baseClass=""
-              value={formObj.publisher}
-              field={"publisher"}
-              label="Select Publisher"
-              labelClass="font-[400] text-[#6B7888] text-[14px]"
-              selectClass="bg-transparent border border-[#cecbcb] dark:border-stone-600 mt-1 rounded-md py-2 h-[2.5rem] outline-none"
-              id={"SelectPublisher"}
-            />
+                {/* Select Publisher */}
+                <Select
+                  options={optionsForPublisher}
+                  setterOnChange={updateSelection}
+                  baseClass=""
+                  value={formObj.publisher}
+                  field={"publisher"}
+                  label="Select Publisher"
+                  labelClass="font-[400] text-[#6B7888] text-[14px]"
+                  selectClass="bg-transparent border border-[#cecbcb] dark:border-stone-600 mt-1 rounded-md py-2 h-[2.5rem] outline-none"
+                  id={"SelectPublisher"}
+                />
 
-            <div className="flex flex-col gap-4">
-              <div className="flex justify-end">
-                <button className="bg-red-600 text-white p-2 rounded-md text-[12px]" onClick={(e) => { e.preventDefault(); setClearPopup(true) }}>Clear All</button>
-              </div>
-              <div className="bg-stone-500/20 rounded-md text-[14px] text-zinc-700 dark:text-zinc-300 p-3 flex flex-col gap-4 animation-move-left"
-                style={{ display: clearPopup ? "flex" : "none" }}>
-                <p>Do you want to remove all assigned user?</p>
-                <div className="flex gap-2 justify-end">
-                  <button className="bg-red-600 text-white p-2 rounded-md text-[12px] w-[30%]" onClick={(e) => { e.preventDefault(); setClearPopup(false) }}>Cancel</button>
-                  <button className="bg-[#29469C] text-white p-2 rounded-md text-[12px] w-[30%]" onClick={(e) => { e.preventDefault() }}>Save</button>
+                <div className="flex flex-col gap-4">
+                  <div className="flex justify-end">
+                    <button className="bg-red-600 text-white p-2 rounded-md text-[12px]" onClick={(e) => { e.preventDefault(); setClearPopup(true) }}>Clear All</button>
+                  </div>
+                  <div className="bg-stone-500/20 rounded-md text-[14px] text-zinc-700 dark:text-zinc-300 p-3 flex flex-col gap-4 animation-move-left"
+                    style={{ display: clearPopup ? "flex" : "none" }}>
+                    <p>Do you want to remove all assigned user?</p>
+                    <div className="flex gap-2 justify-end">
+                      <button className="bg-red-600 text-white p-2 rounded-md text-[12px] w-[30%]" onClick={(e) => { e.preventDefault(); setClearPopup(false) }}>Cancel</button>
+                      <button className="bg-[#29469C] text-white p-2 rounded-md text-[12px] w-[30%]" onClick={(e) => { e.preventDefault() }}>Save</button>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-          </div>
 
-          {/* Buttons */}
-          <div className="flex justify-center gap-2 py-4 mt-3">
-            <button
-              className="w-[8rem] h-[2.3rem] rounded-md text-xs bg-stone-700 text-white"
-              onClick={(e) => {
-                e.preventDefault();
-                setOn(false);
-              }}
-            >
-              Cancel
-            </button>
-            <button
-              onClick={onSubmit}
-              className="w-[8rem] h-[2.3rem] rounded-md text-xs bg-[#29469c] border-none hover:bg-[#29469c] text-[white]"
-            >
-              {fetchedData ? "Update" : "Save"}
-            </button>
-          </div>
-        </form>
+              {/* Buttons */}
+              <div className="flex justify-center gap-2 py-4 mt-3">
+                <button
+                  className="w-[8rem] h-[2.3rem] rounded-md text-xs bg-stone-700 text-white"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setOn(false);
+                  }}
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={onSubmit}
+                  className="w-[8rem] h-[2.3rem] rounded-md text-xs bg-[#29469c] border-none hover:bg-[#29469c] text-[white]"
+                >
+                  {fetchedData ? "Update" : "Save"}
+                </button>
+              </div>
+            </form>
+        }
       </div>
     </div>
   );

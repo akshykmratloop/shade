@@ -14,16 +14,6 @@ const SelectorAccordion = ({ options, onChange, field, value, preAssignedVerifie
         setSelector((prev) => [...prev, { label: `Level ${prev.length + 1}`, value: "" }]);
     };
 
-    const clearSelectorValue = (index) => {
-        const newValue = selector.map((e, i) => {
-            if (i === index) {
-                return { label: e.label, value: "" }
-            } else {
-                return e
-            }
-        })
-        setSelector(prev => newValue)
-    }
 
     const updateSelectorValue = (index, label, newValue) => {
         setSelector((prev) => {
@@ -45,6 +35,22 @@ const SelectorAccordion = ({ options, onChange, field, value, preAssignedVerifie
             }));
         });
     };
+
+
+    const clearSelectorValue = (index) => {
+        if (selector[index].value) {
+            const newValue = selector.map((e, i) => {
+                if (i === index) {
+                    return { label: e.label, value: "" }
+                } else {
+                    return e
+                }
+            })
+            setSelector(prev => newValue)
+        } else {
+            removeSelector(index)
+        }
+    }
 
     useEffect(() => {
         if (value?.length > 0) {
@@ -125,7 +131,7 @@ const SelectorAccordion = ({ options, onChange, field, value, preAssignedVerifie
                                                 onClick={
                                                     (e) => {
                                                         e.preventDefault();
-                                                        if (preAssignedVerifiers && (index+1) <= preAssignedLength) {
+                                                        if (preAssignedVerifiers && (index + 1) <= preAssignedLength) {
                                                             clearSelectorValue(index)
                                                         } else {
                                                             removeSelector(index);
