@@ -14,7 +14,6 @@ const HomeManager = ({ language, content, currentPath, indexes, outOfEditing }) 
     const [ServicesOptions, setServicesOptions] = useState([])
     const [ProjectOptions, setProjectOptions] = useState([])
     const [TestimonialsOptions, setTestimonialsOptions] = useState([])
-    const [underVerification, setUnderVerification] = useState(false)
     const { isManager, isEditor } = useSelector(state => state.user)
     // fucntions
     const dispatch = useDispatch()

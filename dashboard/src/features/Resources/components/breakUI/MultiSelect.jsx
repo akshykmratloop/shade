@@ -194,7 +194,7 @@ const MultiSelect = ({ outOfEditing, heading, min = 0, options, tabName, label, 
     <div className="relative w-full border-b border-b-2 border-neutral-300 pb-4 mt-4 " ref={dropdownRef}>
       <h3 className="font-semibold text-[1.25rem] mb-4">{heading}</h3>
       <label className="sm:text-xs xl:text-sm text-[#6B7888]">{label}</label>
-      <div className="border relative mt-2 rounded-md ">
+      <div className=" relative mt-2 rounded-md ">
         {
           outOfEditing &&
           <div className="bg-black/10 absolute z-[20] top-0 left-0 h-full w-full rounded-md cursor-not-allowed"></div>

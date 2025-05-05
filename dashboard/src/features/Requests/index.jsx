@@ -3,7 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import PlusIcon from "@heroicons/react/24/outline/PlusIcon";
 import { toast, ToastContainer } from "react-toastify";
 // self modules
-import { fetchRoles, activateRole, deactivateRole } from "../../app/fetch";
+import { fetchRoles, activateRole, deactivateRole, getRequests } from "../../app/fetch";
 import SearchBar from "../../components/Input/SearchBar";
 import TitleCard from "../../components/Cards/TitleCard";
 import updateToasify from "../../app/toastify";
@@ -173,29 +173,39 @@ function Requests() {
   const indexOfLastUser = currentPage * requestsPerPage;
   const indexOfFirstUser = indexOfLastUser - requestsPerPage;
   const currentRequests = requests?.slice(indexOfFirstUser, indexOfLastUser);
+  console.log(currentRequests)
   const totalPages = Math.ceil(requests?.length / requestsPerPage);
 
   const canSeeEditor = (isVerifier || isPublisher || isManager)
   const canSeeVerifier = (isPublisher || isManager)
   const canSeePublisher = (isVerifier || isManager)
-  const canSeeNone = !isEditor && !isManager && !isVerifier && !isPublisher
+  const noneCanSee = !isEditor && !isManager && !isVerifier && !isPublisher
 
   useEffect(() => {
     async function fetchRequestsData() {
-      // const response = await fetchRoles();
-      setRequests(Dummyuser);
-      // setOriginalRequests(response?.roles?.roles ?? []); // Store the original unfiltered data
+      try {
+        const response = await getRequests({userRole: "EDIT"});
+        if (response.ok) {
+          // console.log(response.requests.data)
+          setRequests(response.requests.data);
+        }
+        // setOriginalRequests(response?.roles?.roles ?? []); // Store the original unfiltered data
+
+      } catch (err) {
+
+      } finally {
+
+      }
     }
     fetchRequestsData();
   }, [changesInRequest]);
 
   useEffect(() => {
-    if (canSeeNone) {
-      console.log(isPublisher, isVerifier)
+    if (noneCanSee) {
+      // console.log(isPublisher, isVerifier)
       navigate("/app/dashboard")
     }
   }, [])
-
   return (
     <div className="relative min-h-full">
       <div className="absolute top-3 right-2 flex">
@@ -273,7 +283,7 @@ function Requests() {
                           {/* <img src={user.image ? user.image : userIcon} alt={user.name} className="rounded-[50%] w-[41px] h-[41px] mr-2" /> */}
                           <div className="flex flex-col">
                             <p className="dark:text-[white]">
-                              {request?.resource}
+                              {request?.resourceVersion?.resource?.titleEn}
                             </p>
                             {/* <p className="font-light text-[grey]">{user.email}</p> */}
                           </div>
@@ -284,7 +294,7 @@ function Requests() {
                             className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]"
                             style={{ whiteSpace: "wrap" }}
                           >
-                            <span className="">{request?.editor || "1"}</span>
+                            <span className="">{request?.sender.name || "N/A"}</span>
                           </td>
                         }
                         {
@@ -403,7 +413,7 @@ function Requests() {
                           </p>
                         </td>
                         <td className="font-poppins font-light text-[12px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]">
-                          {formatTimestamp(request?.datetime)}
+                          {formatTimestamp(request?.createdAt)}
                         </td>
                         <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[8px] dark:text-[white]">
                           <div className="w-[145px] mx-auto flex gap-[15px] justify-center border border border-[1px] border-[#E6E7EC] dark:border-stone-400 rounded-[8px] p-[13.6px] py-[10px]">

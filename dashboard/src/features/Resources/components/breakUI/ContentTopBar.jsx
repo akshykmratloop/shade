@@ -93,7 +93,7 @@ export default function ContentTopBar({ setWidth, setFullScreen, currentPath, ou
     async function handleSubmit() {
         const paylaod = transformContent(ReduxState.present.content)
 
-        console.log(JSON.stringify(paylaod))
+        // console.log(JSON.stringify(paylaod))
         try {
 
             const response = await generateRequest(paylaod)
