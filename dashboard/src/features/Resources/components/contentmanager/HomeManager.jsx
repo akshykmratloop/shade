@@ -4,10 +4,9 @@ import FileUploader from "../../../../components/Input/InputFileUploader";
 import ContentSection from "../breakUI/ContentSections";
 import MultiSelect from "../breakUI/MultiSelect";
 import { updateContent } from "../../../common/homeContentSlice";
-import content from "../websiteComponent/content.json"
+// import content from "../websiteComponent/content.json"
 import { useDispatch, useSelector } from "react-redux";
 import { getContent, getResources } from "../../../../app/fetch";
-import { testimonials } from "../../../../assets";
 
 const HomeManager = ({ language, content, currentPath, indexes, }) => {
     // states
@@ -77,7 +76,6 @@ const HomeManager = ({ language, content, currentPath, indexes, }) => {
     }, [])
 
     useEffect(() => {
-        // dispatch(updateContent({ currentPath: "home", payload: (content?.home) }))
         if (currentId) {
             async function context() {
                 try {
@@ -107,7 +105,7 @@ const HomeManager = ({ language, content, currentPath, indexes, }) => {
         }
     }, [currentId])
 
-    return (
+    return ( /// Component
         <div className="w-full">
             {/* reference doc */}
             <FileUploader id={"homeReference"} label={"Rerference doc"} fileName={"Upload your file..."} />
