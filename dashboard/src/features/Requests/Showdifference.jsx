@@ -55,7 +55,7 @@ function ShowDifference({ role, show, onClose, resourceId }) {
     useEffect(() => {
         async function fetchContent() {
             try {
-                const response = await getContent("cma3q6qi7008zmn7a4sjcum6m")
+                const response = await getContent("cma3t2xmm009lmnlebrrq53o1")
 
                 const payload = {
                     id: response.content.id,

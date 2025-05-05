@@ -18,30 +18,47 @@ const cmsSlice = createSlice({
         updateImages: (state, action) => {
             state.past.push(JSON.parse(JSON.stringify(state.present)));
             if (action.payload.deepPath) {
-                const newArray = state.present[action.payload.currentPath][action.payload.projectId][action.payload.deepPath - 1][action.payload.section]
-                let finalArray = []
-                if (action.payload.operation === 'add') {
-                    finalArray = [...newArray, action.payload.src]
-                } else {
-                    finalArray = newArray.filter((e, i) => {
-                        return i !== action.payload.src
-                    })
-                }
-                state.present[action.payload.currentPath][action.payload.projectId][action.payload.deepPath - 1][action.payload.section] = finalArray
-            } else if (action.payload.updateType === 'gallerySection') {
-                let newArray = []
-                if (action.payload.operation === 'add') {
-                    newArray = [...state.present.projectDetail[action.payload.projectId - 1].gallerySection.images, action.payload.src]
-                } else {
-                    newArray = state.present.projectDetail[action.payload.projectId - 1].gallerySection.images.filter((e, i) => {
-                        return i !== action.payload.src
-                    })
-                }
-                state.present.projectDetail[action.payload.projectId - 1].gallerySection.images = newArray
+
+
+            } else if (action.payload.section === "clientSection") {
+
+                state.present.content.editVersion.sections[action.payload.index].content.clients[action.payload.cardIndex].image[0] = action.payload.src
+
+            } else if (action.payload.subSection === "cards" && action.payload.currentPath === "home") {
+
+                state.present.content.editVersion.sections[action.payload.index].content.cards[action.payload.cardIndex].iconName = action.payload.src
+
             } else {
-                state.present.images[action.payload.section] = action.payload.src;
+
+                state.present.content.editVersion.sections[action.payload.index].content.image[0] = action.payload.src
+
             }
             state.future = [];
+        },
+        updateAList: (state, action) => {
+
+            let newArray = state.present.content.editVersion.sections[action.payload.index].content.clients
+
+            // console.log(JSON.parse(JSON.stringify(newArray)))
+            if (action.payload.operation === "add") {
+                newArray = [...newArray, action.payload.data]
+            } else {
+                // console.log(action.payload.data)
+                if (!action.payload.data) {
+                    newArray.pop()
+                } else {
+                    newArray = newArray.filter(e => {
+                        console.log(e.image[0] !== action.payload.data)
+                        console.log(e.image[0], action.payload.data)
+                        return e.image[0] !== action.payload.data
+                    })
+                }
+            }
+
+            console.log(JSON.parse(JSON.stringify(newArray)))
+
+            state.present.content.editVersion.sections[action.payload.index].content.clients = newArray;
+
         },
         removeImages: (state, action) => {
             state.past.push(JSON.parse(JSON.stringify(state.present)));
@@ -139,13 +156,14 @@ const cmsSlice = createSlice({
         },
         updateSpecificContent: (state, action) => {
             state.past.push(JSON.parse(JSON.stringify(state.present)));
-
-            if (action.payload.section === "recentProjectsSection") {
-                state.present[action.payload.currentPath].editVersion.sections[action.payload.contentIndex].sections[action.payload.index].content[action.payload.title][action.payload.lan] = action.payload.value
+            if (action.payload.title === "button") {
+                state.present.content.editVersion.sections[action.payload.contentIndex].content[action.payload.title][0].text[action.payload.lan] = action.payload.value
+            } else if (action.payload.section === "recentProjectsSection") {
+                state.present.content.editVersion.sections[action.payload.contentIndex].sections[action.payload.index].content[action.payload.title][action.payload.lan] = action.payload.value
             } else if (action.payload.subSection === "cards") {
-                state.present[action.payload.currentPath].editVersion.sections[action.payload.contentIndex].content.cards[action.payload.index][action.payload.title][action.payload.lan] = action.payload.value
+                state.present.content.editVersion.sections[action.payload.contentIndex].content.cards[action.payload.index][action.payload.title][action.payload.lan] = action.payload.value
             } else {
-                state.present[action.payload.currentPath].editVersion.sections[action.payload.contentIndex].content[action.payload.title][action.payload.lan] = action.payload.value
+                state.present.content.editVersion.sections[action.payload.contentIndex].content[action.payload.title][action.payload.lan] = action.payload.value
             }
 
             state.future = [];
@@ -175,6 +193,11 @@ const cmsSlice = createSlice({
 
                 case "recentproject":
                     state.present[action.payload.currentPath].editVersion.sections[action.payload.contentIndex].sections[action.payload.index].items = newOptions
+                    break;
+
+                case "testimonials":
+                    console.log([action.payload.currentPath], [action.payload.contentIndex])
+                    state.present[action.payload.currentPath].editVersion.sections[action.payload.contentIndex].items = newOptions
                     break;
 
                 case "jobs":
@@ -356,7 +379,8 @@ export const { // actions
     undo,
     redo,
     updateTheProjectSummaryList,
-    updateSelectedSubService
+    updateSelectedSubService,
+    updateAList
 } = cmsSlice.actions;
 
 export default cmsSlice.reducer; // reducer

@@ -133,7 +133,6 @@ function Users() {
 
   function handleSearchInput(value) {
     if (value.length >= 3) {
-      console.log("qwer");
       setSearchValue(value);
     }
   }

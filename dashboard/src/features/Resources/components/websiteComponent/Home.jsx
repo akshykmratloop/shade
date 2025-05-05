@@ -29,16 +29,17 @@ import { TruncateText } from "../../../../app/capitalizeword";
 import dynamicSize, { generatefontSize } from "../../../../app/fontSizes";
 import { differentText } from "../../../../app/fontSizes";
 import contentJSON from './content.json'
+import { Img_url } from "../../../../routes/backend";
 
 
 const HomePage = ({ language, screen, fullScreen, highlight, content, currentContent, liveContent }) => {
 
-    const checkDifference = differentText.checkDifference.bind(differentText);
+    const checkDifference = differentText?.checkDifference.bind(differentText);
     const isComputer = screen > 900;
     const isTablet = screen < 900 && screen > 730;
     const isPhone = screen < 738;
     const ImagesFromRedux = useSelector((state) => {
-        return state.homeContent.present.images
+        return state?.homeContent?.present?.images
     })
     const [swiperInstance, setSwiperInstance] = useState(null);
     let isLeftAlign = language === "en";
@@ -49,8 +50,8 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
     const [activeRecentProjectSection, setActiveRecentProjectSection] = useState(0);
     let chunkArray = (array, chunkSize) => {
         const chunks = [];
-        for (let i = 0; i < array.length; i += chunkSize) {
-            chunks.push(array.slice(i, i + chunkSize));
+        for (let i = 0; i < array?.length; i += chunkSize) {
+            chunks?.push(array?.slice(i, i + chunkSize));
         }
         return chunks;
     };
@@ -87,7 +88,7 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
 
     useEffect(() => {
         if (swiperInstance) {
-            swiperInstance.update();
+            swiperInstance?.update();
         }
     }, [language]);
 
@@ -100,12 +101,13 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
             <section className="w-full relative"
             >
                 <span
-                    className={`w-full block ${language === "en" ? "scale-x-100" : "scale-x-[-1]"
+                    className={`w-full min-h-[400px] block ${language === "en" ? "scale-x-100" : "scale-x-[-1]"
                         }`}
                 >
                     <img
-                        src={ImagesFromRedux.homeBanner || background}
-                        alt="about-us"
+                        dir={isLeftAlign ? "ltr" : "rtl"}
+                        src={`${Img_url}/${content?.homeBanner?.content?.image[0]}`}
+                        alt="Banner Image"
                         className="w-[full] h-full object-cover"
                         style={{ objectPosition: "center", transform: "scaleX(-1)", height: isTablet ? "500px" : isPhone && "500px" }} />
                 </span>
@@ -114,7 +116,7 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                     <div className={`text-left flex flex-col ${language === "en" ? "items-start" : "items-end"} ${textAlignment} ${isPhone ? "px-[0px] py-10" : "px-[80px]"}`}
                         style={{ paddingLeft: isComputer && dynamicSize(140, width) }}>
                         <h1 className={`${(highlight && checkDifference(content?.homeBanner?.content?.title[language], liveContent?.homeBanner?.content?.title[language]))} text-[#292E3D] text-[45px] tracking-[0px]  leading-[2.5rem] capitalize font-[500] mb-4 ${isPhone ? "w-full" : fullScreen ? "w-3/5" : "w-3/5"}  `}
-                            style={{ fontSize: fontSize.mainHeading, lineHeight: isComputer && `${(width / 1526) * 4.5}rem`, }}
+                            style={{ fontSize: fontSize?.mainHeading, lineHeight: isComputer && `${(width / 1526) * 4.5}rem`, }}
                         >
                             {content?.homeBanner?.content?.title[language]}
                         </h1>
@@ -147,7 +149,7 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                     {/* Image section */}
                     <div className={`${isPhone ? "w-[90%]" : "w-[70%]"} h-[500px] overflow-hidden rounded-sm shadow-lg `}
                         style={{ height: isComputer && dynamicSize(629, width), width: isComputer && dynamicSize(877, width) }}>
-                        <img src={ImagesFromRedux.aboutUsSection || AboutUs} alt="about-us" className="w-full h-[500px] object-cover"
+                        <img src={`${Img_url}/${content?.markDown?.content?.image[0]}`} alt="about-us" className="w-full h-[500px] object-cover"
                             style={{ width: isComputer && dynamicSize(877, width), height: isComputer && '100%' }}
                         />
                     </div>
@@ -191,7 +193,7 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                             return (
                                 <div key={key} className={`w-full h-44 flex items-center justify-center p-6 rounded-md transition-transform duration-300 hover:scale-105 cursor-pointer ${key % 2 !== 0 ? "bg-blue-900 text-[white]" : " bg-stone-200"} `}>
                                     <div className="flex flex-col items-center gap-4">
-                                        <img src={services?.[card.iconName]} width={40} height={40} alt="Icon" className="h-10 w-10" />
+                                        <img src={Img_url + card?.liveModeVersionData?.icon} width={40} height={40} alt="Icon" className="h-10 w-10" />
                                         <h5 className={`relative text-lg font-light text-center `}
                                             style={{ fontSize: isComputer && dynamicSize(20, width) }}>
                                             {card?.[titleLan]}
@@ -231,7 +233,7 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                                         <div className="relative">
                                             <img
                                                 className={`absolute ${key % 2 === 1 ? "top-[-22px] right-[-32px]" : "left-[-36px] top-[-27px]"}`}
-                                                src={ImagesFromRedux[item.items] || experience?.[item.iconName]}
+                                                src={Img_url + item.iconName}
                                                 width={40}
                                                 height={key === 1 ? 47 : 60}
                                                 alt=""
@@ -317,9 +319,9 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
 
 
                     <div className={`flex ${isTablet ? isPhone ? "gap-[20px]" : "gap-[30px]" : "gap-[30px]"} ${isLeftAlign && !isComputer && "pr-20"} `}
-                        style={{ gap: isComputer && dynamicSize(70, width), width: isComputer && dynamicSize(1230, width) }}>
-                        <div className={`leftDetails min-w-[150px]   ${isTablet && "w-[180px]"}`}
-                            style={{ width: isComputer && dynamicSize(424, width) }}>
+                        style={{ gap: isComputer && dynamicSize(70, width), width: isComputer || fullScreen ? dynamicSize(1230, width) : "100%" }}>
+                        <div className={`leftDetails min-w-[150px] ${isTablet ? isPhone ? "w-[150px]" : "w-[240px]" : ""}`}
+                            style={{ width: isComputer || fullScreen ? dynamicSize(424, width) : "" }}>
                             {content?.projectGrid?.sections?.map((section, index) => (
                                 <div
                                     key={index}
@@ -355,8 +357,8 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                             ))}
                         </div>
 
-                        <div className={`${isPhone ? "w-[220px]" : isTablet ? "w-[300px]" : ""} overflow-hidden`}
-                            style={{ width: isComputer && dynamicSize(800, width) }}
+                        <div className={`${isPhone ? "w-[220px]" : isTablet ? "w-[490px]" : ""}  overflow-hidden`}
+                            style={{ width: isComputer || fullScreen ? dynamicSize(800, width) : "" }}
                         >
                             <Swiper
                                 key={language}
@@ -380,7 +382,10 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                                     return (
                                         <SwiperSlide key={slideIndex}>
                                             <div className={`${isPhone ? "flex flex-col" : `grid grid-cols-2 gap-[12px] auto-rows-auto ${isTablet ? "w-[350px]" : "w-[600px]"}`} `}
-                                                style={{ width: isComputer ? dynamicSize(722, width) : isPhone ? `${(600 / 1180) * screen}px` : `${(750 / 1180) * screen}px`, gap: isComputer ? "" : `${(40 / 1180) * screen}px` }}
+                                                style={{
+                                                    width: isComputer ? dynamicSize(722, width) : isPhone ? `${(600 / 1180) * screen}px` : `${(750 / 1180) * screen}px`,
+                                                    gap: isComputer ? "" : `${(40 / 1180) * screen}px`
+                                                }}
                                             >
                                                 {chunk?.map((project, cardIndex) => {
                                                     return (
@@ -500,7 +505,7 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                                 className="w-[120px] h-[120px] bg-white rounded-full flex items-center justify-center p-5"
                             >
                                 <img
-                                    src={ImagesFromRedux[client.image] || clients?.[client?.image]}
+                                    src={Img_url + client?.image?.[0]}
                                     width={key === 3 ? 100 : 66}
                                     height={key === 3 ? 30 : 66}
                                     alt="about-us"
@@ -579,7 +584,7 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
 
                                             <div className="flex 1">
                                                 <img
-                                                    src={testimonials?.[testimonial?.liveVersion?.image]}
+                                                    src={testimonials?.[testimonial?.liveModeVersionData?.image]}
                                                     height={70}
                                                     width={70}
                                                     alt={testimonial?.name}
@@ -596,12 +601,12 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                                                 <p className="text-gray-500 text-xs font-light mb-4"
                                                     style={{ fontSize: isComputer && dynamicSize(12, width) }}
                                                 >
-                                                    {testimonial?.liveVersion?.sections?.[0]?.content?.position?.[language]}
+                                                    {testimonial?.liveModeVersionData?.sections?.[0]?.content?.position?.[language]}
                                                 </p>
                                                 <p className="text-gray-900 text-xs font-light mb-6 leading-5"
                                                     style={{ fontSize: isComputer && dynamicSize(14, width) }}
                                                 >
-                                                    {testimonial?.liveVersion?.sections?.[0]?.content?.quote?.[language]}
+                                                    {testimonial?.liveModeVersionData?.sections?.[0]?.content?.quote?.[language]}
                                                 </p>
                                                 <div className={`flex items-center justify- gap-2`}>
                                                     <img
@@ -614,7 +619,7 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                                                     <p className={`text-gray-500 text-base font-bold ${isLeftAlign ? "text-left" : "text-right"}`}
                                                         style={{ fontSize: isComputer && dynamicSize(16, width) }}
                                                     >
-                                                        {testimonial?.liveVersion?.sections?.[0]?.content?.company?.[language]}
+                                                        {testimonial?.liveModeVersionData?.sections?.[0]?.content?.company?.[language]}
                                                     </p>
                                                 </div>
                                             </div>
