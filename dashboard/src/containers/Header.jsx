@@ -80,8 +80,9 @@ function Header() {
   };
 
   function logoutUser() {
-    localStorage.removeItem("user");
-    localStorage.removeItem("token");
+    let theme = localStorage.getItem("theme")
+    localStorage.clear()
+    localStorage.setItem("theme", theme)
     window.location.href = "/";
   }
 
@@ -102,6 +103,7 @@ function Header() {
   };
 
   const switchRole = (id) => {
+    localStorage.setItem("currentRole", id)
     dispatch(updateCurrentRole(id))
   }
 
@@ -194,10 +196,13 @@ function Header() {
               <BellIcon className="h-6 w-6" />
             </div>
           </button> */}
-          <div className="py-1 mx-1 w-[12vw] px-2 bg-base-300 self-stretch flex items-center rounded-md relative cursor-pointer">
-            <label className="flex items-center justify-between cursor-pointer w-full" onClick={() => { setOpenList(!openList) }}>
-              <div className="flex h-[100%] items-center justify-center flex-row " >
-                {capitalizeWords(currentRole?.role)}
+          <div className="py-1 mx-1 w-[13vw] px-2 bg-base-300 self-stretch flex items-center rounded-md relative cursor-pointer "
+            onClick={() => { setOpenList(!openList) }}
+            title={capitalizeWords(currentRole?.role)}
+          >
+            <label className="flex items-center justify-between cursor-pointer w-full">
+              <div className="flex h-[100%] items-center justify-center flex-row" >
+                {TruncateText(capitalizeWords(currentRole?.role), 18)}
               </div>
               {
                 !oneRoleOnly &&

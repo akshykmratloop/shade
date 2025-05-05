@@ -30,10 +30,7 @@ function ShowDifference({ role, show, onClose, resourceId }) {
     const [editVersion, setEditVersion] = useState({})
     const [language, setLanguage] = useState("en")
     const [showDateTime, setShowDateTime] = useState(false)
-    const user = useSelector(state => state.user.user)
-
-    const isManager = user.permissions?.some(e => e.slice(-10) === "MANAGEMENT" && e.slice(0, 4) !== "USER" && e.slice(0, 4) !== "ROLE" && e.slice(0, 4) !== "AUDI")
-
+    const isEditor = useSelector(state => state.user.isEditor)
 
     const editedContent = createContent(editVersion, "difference", "home")
     const LiveContent = createContent(liveVersion, "difference", "home")
@@ -114,7 +111,7 @@ function ShowDifference({ role, show, onClose, resourceId }) {
                         <div className="flex gap-5 justify-between w-[95%]">
                             <LanguageSwitch w={'w-[20%]'} setLanguage={setLanguage} language={language} />
                             {
-                                isManager &&
+                                !isEditor &&
                                 <div className="flex gap-2">
                                     <div className="flex gap-3 text-[25px] items-center border-r px-2 border-r-2">
                                         <span className=" flex flex-col gap-1 items-center">

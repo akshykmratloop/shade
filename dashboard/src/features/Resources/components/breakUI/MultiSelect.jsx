@@ -21,7 +21,7 @@ import { CSS } from "@dnd-kit/utilities";
 import { updateSelectedContent, updateSelectedProject } from "../../../common/homeContentSlice";
 import { updateSelectedContentAndSaveDraft } from "../../../common/thunk/smsThunk";
 
-const SortableItem = ({ option, removeOption, language, reference, titleLan, contentIndex }) => {
+const SortableItem = ({ option, removeOption, language, reference, titleLan, contentIndex,  }) => {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } =
     useSortable({ id: option, data: { option } });
 
@@ -56,7 +56,7 @@ const SortableItem = ({ option, removeOption, language, reference, titleLan, con
   );
 };
 
-const MultiSelect = ({ heading, min = 0, options, tabName, label, language, section, referenceOriginal = { dir: "", index: 0 }, currentPath, projectId, contentIndex, listOptions }) => {
+const MultiSelect = ({ heading, min = 0, options, tabName, label, language, section, referenceOriginal = { dir: "", index: 0 }, currentPath, projectId, contentIndex, listOptions, limitOptions = 0 }) => {
   const titleLan = language === "en" ? "titleEn" : "titleAr"
   const [selectedOptions, setSelectedOptions] = useState([]);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -67,36 +67,36 @@ const MultiSelect = ({ heading, min = 0, options, tabName, label, language, sect
 
   let operation = "";
 
-  let actualLists; //content.home.serviceSection.cards
-  switch (referenceOriginal.dir) {
+  // let actualLists; //content.home.serviceSection.cards
+  // switch (referenceOriginal.dir) {
 
-    case "recentproject":
-      actualLists = content.home.recentProjectsSection.sections[referenceOriginal.index].projects
-      break;
+  //   case "recentproject":
+  //     actualLists = content.home.recentProjectsSection.sections[referenceOriginal.index].projects
+  //     break;
 
-    case "jobs":
-      actualLists = content.careers.jobListSection.jobs;
-      break;
+  //   case "jobs":
+  //     actualLists = content.careers.jobListSection.jobs;
+  //     break;
 
-    case "news":
-      actualLists = content.newsBlogs.latestNewCards.cards;
-      break;
+  //   case "news":
+  //     actualLists = content.newsBlogs.latestNewCards.cards;
+  //     break;
 
-    case "projectDetail":
-      actualLists = content.projectsPage.projectsSection.projects;
-      break;
+  //   case "projectDetail":
+  //     actualLists = content.projectsPage.projectsSection.projects;
+  //     break;
 
-    case "newsBlogsDetails":
-      actualLists = content.newsBlogs.latestNewCards.cards;
-      break;
+  //   case "newsBlogsDetails":
+  //     actualLists = content.newsBlogs.latestNewCards.cards;
+  //     break;
 
-    case "serviceCards":
-      actualLists = content.services.serviceCards
-      break;
+  //   case "serviceCards":
+  //     actualLists = content.services.serviceCards
+  //     break;
 
-    default:
-      actualLists = []
-  }
+  //   default:
+  //     actualLists = []
+  // }
 
 
   const showOptions = options?.map(e => e?.[titleLan])
@@ -121,7 +121,7 @@ const MultiSelect = ({ heading, min = 0, options, tabName, label, language, sect
 
 
   const removeOption = (optionToRemove) => {
-    if(selectedOptions.length <= 4) return 
+    if(selectedOptions.length <= limitOptions) return 
     let deductedArray = selectedOptions.filter(e => e !== optionToRemove)
     setSelectedOptions(deductedArray)
     operation = 'remove'

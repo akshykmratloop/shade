@@ -188,16 +188,16 @@ const cmsSlice = createSlice({
 
             switch (action.payload.origin) {
                 case "home":
-                    state.present[action.payload.currentPath].editVersion.sections[action.payload.contentIndex].items = newOptions
+                    state.present.content.editVersion.sections[action.payload.contentIndex].items = newOptions
                     break;
 
                 case "recentproject":
-                    state.present[action.payload.currentPath].editVersion.sections[action.payload.contentIndex].sections[action.payload.index].items = newOptions
+                    state.present.content.editVersion.sections[action.payload.contentIndex].sections[action.payload.index].items = newOptions
                     break;
 
                 case "testimonials":
                     console.log([action.payload.currentPath], [action.payload.contentIndex])
-                    state.present[action.payload.currentPath].editVersion.sections[action.payload.contentIndex].items = newOptions
+                    state.present.content.editVersion.sections[action.payload.contentIndex].items = newOptions
                     break;
 
                 case "jobs":

@@ -87,9 +87,9 @@ const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
     setFormObj(initialObj);
   }
 
-  const optionsForManagers = userList.managers.map((e) => ({ id: e.id, name: e.name }))
-  const optionsForEditor = userList.editors.map((e) => ({ id: e.id, name: e.name }))
-  const optionsForPublisher = userList.publishers.map((e) => ({ id: e.id, name: e.name }))
+  const optionsForManagers = userList.managers.map((e) => ({ id: e.id, name: e.name + (e.status !== "ACTIVE" ? " - Inactive" : ""), status: e.status === "ACTIVE" ? "ACTIVE" : "INACTIVE" }))
+  const optionsForEditor = userList.editors.map((e) => ({ id: e.id, name: e.name + (e.status !== "ACTIVE" ? " - Inactive" : ""), status: e.status === "ACTIVE" ? "ACTIVE" : "INACTIVE" }))
+  const optionsForPublisher = userList.publishers.map((e) => ({ id: e.id, name: e.name + (e.status !== "ACTIVE" ? " - Inactive" : ""), status: e.status === "ACTIVE" ? "ACTIVE" : "INACTIVE" }))
 
   useEffect(() => {
     const handleClickOutside = (event) => {

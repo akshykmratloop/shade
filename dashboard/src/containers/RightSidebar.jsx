@@ -149,12 +149,12 @@ function RightSidebar() {
         <div className="relative pb-5 flex flex-col h-full">
           {/* Header */}
           <div className="navbar   flex pl-4 pr-4  ">
-            {/* <button
-              className="float-left btn btn-circle btn-outline btn-sm"
+            <button
+              className="float-left btn btn-circle btn-outline btn-sm mr-2"
               onClick={() => close()}
             >
               <XMarkIcon className="h-5 w-5" />
-            </button> */}
+            </button>
             <span className="ml-2 font-bold text-l">{header}</span>
 
             {/* <p
