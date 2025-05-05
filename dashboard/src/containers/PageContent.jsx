@@ -15,7 +15,7 @@ function PageContent() {
     const mainContentRef = useRef(null);
     const { pageTitle } = useSelector(state => state.header)
     const userRole = useSelector(state => state.user.currentRole)
-    const applied = useSelector(state => state)
+    // const applied = useSelector(state => state)
     const location = useLocation()
 
     useEffect(() => {

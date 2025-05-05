@@ -1,19 +1,18 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import {
+    useSelector,
+    useDispatch
+} from "react-redux";
 import Arrow from "../../../../assets/icons/right-wrrow.svg";
-import AboutUs from "../../../../assets/images/aboutus.png";
-import background from "../../../../assets/images/Hero.png";
+// import AboutUs from "../../../../assets/images/aboutus.png";
+// import background from "../../../../assets/images/Hero.png";
 import highlightsvg from "../../../../assets/highlight.svg"
 import {
-    services,
-    experience,
     recentProjects,
     markets,
     safety,
-    clients,
     testimonials,
 } from "../../../../assets/index";
-// import { updateContent } from "../../../common/homeContentSlice";
 import { Swiper, SwiperSlide } from "swiper/react";
 import {
     Pagination,
@@ -28,7 +27,7 @@ import blankImage from "../../../../assets/images/blankImage.webp";
 import { TruncateText } from "../../../../app/capitalizeword";
 import dynamicSize, { generatefontSize } from "../../../../app/fontSizes";
 import { differentText } from "../../../../app/fontSizes";
-import contentJSON from './content.json'
+// import contentJSON from './content.json'
 import { Img_url } from "../../../../routes/backend";
 
 
@@ -543,92 +542,94 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                             !isPhone &&
                             <div className="absolute top-0 right-0 h-full w-[20%] bg-gradient-to-l from-white to-transparent pointer-events-none z-10"></div>
                         }
+                        {content?.testimonials?.items.lenght > 1 &&
+                            < Swiper
+                                modules={[Navigation, Autoplay, EffectCoverflow]}
+                                grabCursor={true}
+                                centeredSlides={true}
+                                slidesPerView={isPhone ? 1 : 2}
+                                loop={true}
+                                spaceBetween={10}
+                                effect="coverflow"
+                                navigation={{
+                                    prevEl: testimonialPrevRef.current,
+                                    nextEl: testimonialNextRef.current,
+                                }}
+                                onSwiper={(swiper) => {
+                                    swiper.params.navigation.prevEl = testimonialPrevRef.current;
+                                    swiper.params.navigation.nextEl = testimonialNextRef.current;
+                                    swiper.navigation.init();
+                                    swiper.navigation.update();
+                                }}
+                                coverflowEffect={{
+                                    rotate: 0,
+                                    stretch: 0,
+                                    depth: 250,
+                                    modifier: 2,
+                                    slideShadows: false,
+                                }}
+                                autoplay={{ delay: 2500 }}
+                                breakpoints={{
+                                    724: { slidesPerView: isPhone ? 1 : 1.5 },
+                                    500: { slidesPerView: 1 },
+                                }}
+                            >
+                                {content?.testimonials?.items?.map(
+                                    (testimonial, index) => (
+                                        <SwiperSlide key={index}
+                                            dir={isLeftAlign ? "ltr" : "rtl"}
+                                        >
+                                            <div className={`border bg-white p-3 rounded-xl flex justify-center  shadow-md`}>
 
-                        <Swiper
-                            modules={[Navigation, Autoplay, EffectCoverflow]}
-                            grabCursor={true}
-                            centeredSlides={true}
-                            slidesPerView={isPhone ? 1 : 2}
-                            loop={true}
-                            spaceBetween={10}
-                            effect="coverflow"
-                            navigation={{
-                                prevEl: testimonialPrevRef.current,
-                                nextEl: testimonialNextRef.current,
-                            }}
-                            onSwiper={(swiper) => {
-                                swiper.params.navigation.prevEl = testimonialPrevRef.current;
-                                swiper.params.navigation.nextEl = testimonialNextRef.current;
-                                swiper.navigation.init();
-                                swiper.navigation.update();
-                            }}
-                            coverflowEffect={{
-                                rotate: 0,
-                                stretch: 0,
-                                depth: 250,
-                                modifier: 2,
-                                slideShadows: false,
-                            }}
-                            autoplay={{ delay: 2500 }}
-                            breakpoints={{
-                                724: { slidesPerView: isPhone ? 1 : 1.5 },
-                                500: { slidesPerView: 1 },
-                            }}
-                        >
-                            {content?.testimonials?.items?.map(
-                                (testimonial, index) => (
-                                    <SwiperSlide key={index}
-                                        dir={isLeftAlign ? "ltr" : "rtl"}
-                                    >
-                                        <div className={`border bg-white p-3 rounded-xl flex justify-center  shadow-md`}>
-
-                                            <div className="flex 1">
-                                                <img
-                                                    src={testimonials?.[testimonial?.liveModeVersionData?.image]}
-                                                    height={70}
-                                                    width={70}
-                                                    alt={testimonial?.name}
-                                                    className="rounded-full h-[70px] w-[75px] object-cover border border-gray-200"
-                                                />
-                                            </div>
-
-                                            <div className="p-5 w-full">
-                                                <h3 className="text-gray-900 text-md font-bold"
-                                                    style={{ fontSize: isComputer && dynamicSize(20, width) }}
-                                                >
-                                                    {testimonial?.[titleLan]}
-                                                </h3>
-                                                <p className="text-gray-500 text-xs font-light mb-4"
-                                                    style={{ fontSize: isComputer && dynamicSize(12, width) }}
-                                                >
-                                                    {testimonial?.liveModeVersionData?.sections?.[0]?.content?.position?.[language]}
-                                                </p>
-                                                <p className="text-gray-900 text-xs font-light mb-6 leading-5"
-                                                    style={{ fontSize: isComputer && dynamicSize(14, width) }}
-                                                >
-                                                    {testimonial?.liveModeVersionData?.sections?.[0]?.content?.quote?.[language]}
-                                                </p>
-                                                <div className={`flex items-center justify- gap-2`}>
+                                                <div className="flex 1">
                                                     <img
-                                                        src="https://frequencyimage.s3.ap-south-1.amazonaws.com/a813959c-7b67-400b-a0b7-f806e63339e5-ph_building%20%281%29.svg"
-                                                        height={18}
-                                                        width={18}
+                                                        src={testimonials?.[testimonial?.liveModeVersionData?.image]}
+                                                        height={70}
+                                                        width={70}
                                                         alt={testimonial?.name}
-                                                        className="h-[18px] w-[18px]"
+                                                        className="rounded-full h-[70px] w-[75px] object-cover border border-gray-200"
                                                     />
-                                                    <p className={`text-gray-500 text-base font-bold ${isLeftAlign ? "text-left" : "text-right"}`}
-                                                        style={{ fontSize: isComputer && dynamicSize(16, width) }}
-                                                    >
-                                                        {testimonial?.liveModeVersionData?.sections?.[0]?.content?.company?.[language]}
-                                                    </p>
                                                 </div>
-                                            </div>
 
-                                        </div>
-                                    </SwiperSlide>
-                                )
-                            )}
-                        </Swiper>
+                                                <div className="p-5 w-full">
+                                                    <h3 className="text-gray-900 text-md font-bold"
+                                                        style={{ fontSize: isComputer && dynamicSize(20, width) }}
+                                                    >
+                                                        {testimonial?.[titleLan]}
+                                                    </h3>
+                                                    <p className="text-gray-500 text-xs font-light mb-4"
+                                                        style={{ fontSize: isComputer && dynamicSize(12, width) }}
+                                                    >
+                                                        {testimonial?.liveModeVersionData?.sections?.[0]?.content?.position?.[language]}
+                                                    </p>
+                                                    <p className="text-gray-900 text-xs font-light mb-6 leading-5"
+                                                        style={{ fontSize: isComputer && dynamicSize(14, width) }}
+                                                    >
+                                                        {testimonial?.liveModeVersionData?.sections?.[0]?.content?.quote?.[language]}
+                                                    </p>
+                                                    <div className={`flex items-center justify- gap-2`}>
+                                                        <img
+                                                            src="https://frequencyimage.s3.ap-south-1.amazonaws.com/a813959c-7b67-400b-a0b7-f806e63339e5-ph_building%20%281%29.svg"
+                                                            height={18}
+                                                            width={18}
+                                                            alt={testimonial?.name}
+                                                            className="h-[18px] w-[18px]"
+                                                        />
+                                                        <p className={`text-gray-500 text-base font-bold ${isLeftAlign ? "text-left" : "text-right"}`}
+                                                            style={{ fontSize: isComputer && dynamicSize(16, width) }}
+                                                        >
+                                                            {testimonial?.liveModeVersionData?.sections?.[0]?.content?.company?.[language]}
+                                                        </p>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </SwiperSlide>
+                                    )
+                                )}
+                            </Swiper>
+                        }
+
 
                         <div className={`flex justify-center items-center gap-7 mt-5 ${!isLeftAlign && "flex-row-reverse"}`}>
                             <button

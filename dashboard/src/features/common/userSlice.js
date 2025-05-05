@@ -41,7 +41,10 @@ const user = createSlice({
 
             state.isManager = action.payload.roles[0]?.permissions?.some(e => e.slice(-10) === "MANAGEMENT" && e.slice(0, 4) !== "USER" && e.slice(0, 4) !== "ROLE" && e.slice(0, 4) !== "AUDI")
 
-            const { isEditor, isPublisher, isVerifier} = checkUser(action.payload.roles[0].permissions)
+            console.log(action.payload.roles[0].permissions)
+            console.log(JSON.stringify(state.isManager))
+
+            const { isEditor, isPublisher, isVerifier } = checkUser(action.payload.roles[0].permissions)
 
             state.isEditor = isEditor
             state.isPublisher = isPublisher;
@@ -52,15 +55,15 @@ const user = createSlice({
         updateCurrentRole: (state, action) => {
             const roleObj = state.user.roles.filter(e => e.role === action.payload)
 
-            state.currentRole = roleObj[0]
+            state.currentRole = roleObj?.[0]
 
-            const { isEditor, isPublisher, isVerifier } = checkUser(roleObj[0].permissions)
+            const { isEditor, isPublisher, isVerifier } = checkUser(roleObj[0]?.permissions)
 
             state.isEditor = isEditor;
             state.isPublisher = isPublisher;
             state.isVerifier = isVerifier;
 
-            state.isManager = roleObj[0]?.permissions?.some(e => e.slice(-10) === "MANAGEMENT" && e.slice(0, 4) !== "USER" && e.slice(0, 4) !== "ROLE" && e.slice(0, 4) !== "AUDI")
+            state.isManager = roleObj?.[0]?.permissions?.some(e => e.slice(-10) === "MANAGEMENT" && e.slice(0, 4) !== "USER" && e.slice(0, 4) !== "ROLE" && e.slice(0, 4) !== "AUDI")
         }
     }
 })

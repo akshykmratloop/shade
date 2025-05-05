@@ -8,19 +8,17 @@ import content from "../websiteComponent/content.json"
 import { useDispatch, useSelector } from "react-redux";
 import { getContent, getResources } from "../../../../app/fetch";
 import { testimonials } from "../../../../assets";
-import { update } from "lodash";
 
-const HomeManager = ({ language, content, currentPath, indexes }) => {
-    const dispatch = useDispatch()
+const HomeManager = ({ language, content, currentPath, indexes, }) => {
+    // states
     const [currentId, setCurrentId] = useState("")
     const [ServicesOptions, setServicesOptions] = useState([])
     const [ProjectOptions, setProjectOptions] = useState([])
     const [TestimonialsOptions, setTestimonialsOptions] = useState([])
-
-    const user = useSelector(state => state.user.user)
-    const isManager = useSelector(state => state.user.isManager)
-
     const [underVerification, setUnderVerification] = useState(false)
+    const { isManager, isEditor } = useSelector(state => state.user)
+    // fucntions
+    const dispatch = useDispatch()
 
 
     useEffect(() => {
@@ -96,7 +94,7 @@ const HomeManager = ({ language, content, currentPath, indexes }) => {
                             editVersion: isManager ? response.content.liveModeVersionData : response.content.editModeVersionData ?? response.content.liveModeVersionData
                         }
                         if (payload.editVersion.status !== "EDITING" || payload.editVersion.status !== "DRAFT") {
-                            
+
                         }
 
                         dispatch(updateContent({ currentPath: "content", payload }))
