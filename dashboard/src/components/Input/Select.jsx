@@ -1,12 +1,21 @@
 import React from "react";
 import { IoIosArrowDown } from "react-icons/io";
+import { toast } from "react-toastify";
 
 const Select = ({ options, selectClass, label, labelClass, baseClass, setterOnChange, index, value, height, width, field }) => {
     const handleSelectChange = (e) => {
+        let value = e.target.value
+        if(value === "" ) return 
+        for (let x of options) {
+            if (x.id === value && x.status === "INACTIVE") {
+                // toast.error("Unable to select Inactive user")
+                return
+            }
+        }
         if (typeof index === "number") {
-            setterOnChange(index, "value", e.target.value);
+            setterOnChange(index, "value", value);
         } else {
-            setterOnChange(field, e.target.value)
+            setterOnChange(field, value)
         }
     };
 
@@ -23,7 +32,7 @@ const Select = ({ options, selectClass, label, labelClass, baseClass, setterOnCh
                     {options?.map((option, i) => {
                         // console.log(option)
                         return (
-                            <option value={option.id} hidden={option.hidden} key={option + i} className="text-stone-700">
+                            <option value={option.id} key={option + i} className="text-stone-700">
                                 {option.name}
                             </option>
                         )

@@ -27,7 +27,9 @@ const ContentSection = ({
     careerId,
     deepPath,
     contentIndex,
-    resourceId
+    resourceId,
+    ref,
+    elementId
 }) => {
     const dispatch = useDispatch();
     const [extraFiles, setExtraFiles] = useState([]);
@@ -180,7 +182,9 @@ const ContentSection = ({
 
 
     return (
-        <div className={`w-full ${Heading ? "mt-4" : subHeading ? "mt-2" : ""} flex flex-col gap-1 ${!isBorder ? "" : "border-b border-b-1 border-neutral-300"} ${attachOne ? "pb-0" : (Heading || subHeading) ? "pb-6" : ""}`}>
+        <div
+        id={elementId}
+        className={`w-full ${Heading ? "mt-4" : subHeading ? "mt-2" : ""} flex flex-col gap-1 ${!isBorder ? "" : "border-b border-b-1 border-neutral-300"} ${attachOne ? "pb-0" : (Heading || subHeading) ? "pb-6" : ""}`}>
             <h3 className={`font-semibold ${subHeading ? "text-[.9rem] mb-1" : Heading ? "text-[1.25rem] mb-4" : " mb-0"}`} style={{ wordBreak: "break-word" }}>{Heading || subHeading}</h3>
             {inputs.length > 0 &&
                 inputs.map((input, i) => {
@@ -297,7 +301,7 @@ const ContentSection = ({
                                     </div>
                                 )
                             })}
-                            {extraFiles.map((file, index) => (
+                            {/* {extraFiles.map((file, index) => (
                                 <div key={index} className="relative flex items-center justify-center">
                                     <button
                                         className="absolute top-6 z-10 right-[-8px] bg-red-500 text-white px-1 rounded-full shadow"
@@ -315,7 +319,7 @@ const ContentSection = ({
                                         contentIndex={contentIndex}
                                     />
                                 </div>
-                            ))}
+                            ))} */}
                             {
                                 section === 'socialIcons' ? ImagesFromRedux?.socialIcons?.length < 8 ?
                                     <button
