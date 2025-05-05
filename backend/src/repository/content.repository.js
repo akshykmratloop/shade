@@ -333,7 +333,7 @@ export const fetchEligibleUsers = async (roleType = "", permission = "") => {
   const users = await prismaClient.user.findMany({
     where: {
       isSuperUser: false,
-      status: "ACTIVE",
+      // status: "ACTIVE",
       roles: {
         some: {
           role: {
@@ -386,6 +386,7 @@ export const fetchEligibleUsers = async (roleType = "", permission = "") => {
     name: user.name,
     email: user.email,
     phone: user.phone,
+    status: user.status,
     roles: user.roles.map((r) => ({
       name: r.role.name,
       type: r.role.roleType.name,
@@ -417,6 +418,12 @@ export const assignUserToResource = async (
 
   // Start a transaction to ensure all operations succeed or fail together
   return await prismaClient.$transaction(async (prisma) => {
+    
+    // const isAnyOngoingRequestExists =
+    // await prisma.resourceVersioningRequest.findUnique({
+    //   where: { senderId: editor },
+    // });
+    
     // 1. Clear existing roles and verifiers for this resource
     await prisma.resourceRole.deleteMany({
       where: { resourceId },
@@ -1407,12 +1414,12 @@ export const updateContentAndGenerateRequest = async (contentData) => {
         })),
       });
 
-      const verifierApprovals = await tx.requestApproval.findMany({
-        where: {
-          requestId: generatedRequest.id,
-          stage: { not: null }, // Only get verifier approvals (they have stage values)
-        },
-      });
+    const verifierApprovals = await tx.requestApproval.findMany({
+      where: {
+        requestId: generatedRequest.id,
+        stage: { not: null }, // Only get verifier approvals (they have stage values)
+      },
+    });
 
     return {
       ...updatedResource,
@@ -1432,10 +1439,16 @@ export const updateContentAndGenerateRequest = async (contentData) => {
   };
 };
 
-
-export const fetchRequests = async (userId, userRole, search, status, pageNum, limitNum) => {
+export const fetchRequests = async (
+  userId,
+  userRole,
+  search,
+  status,
+  pageNum,
+  limitNum
+) => {
   const skip = (pageNum - 1) * limitNum;
-  
+
   // Base where clause
   const where = {
     status: status || undefined, // Filter by status if provided
@@ -1576,7 +1589,6 @@ export const fetchRequests = async (userId, userRole, search, status, pageNum, l
   };
 };
 
-
 export const fetchRequestInfo = async (requestId) => {
   const request = await prismaClient.resourceVersioningRequest.findUnique({
     where: { id: requestId },
@@ -1587,89 +1599,105 @@ export const fetchRequestInfo = async (requestId) => {
             include: {
               roles: {
                 include: {
-                  user: true
-                }
+                  user: true,
+                },
               },
               verifiers: {
                 include: {
-                  user: true
+                  user: true,
                 },
                 orderBy: {
-                  stage: 'asc'
-                }
+                  stage: "asc",
+                },
               },
               liveVersion: true,
-              newVersionEditMode: true
-            }
-          }
-        }
+              newVersionEditMode: true,
+            },
+          },
+        },
       },
       sender: true,
       previousRequest: {
         include: {
-          sender: true
-        }
+          sender: true,
+        },
       },
       approvals: {
         include: {
-          approver: true
+          approver: true,
         },
         orderBy: {
-          createdAt: 'asc'
-        }
-      }
-    }
+          createdAt: "asc",
+        },
+      },
+    },
   });
 
   if (!request) {
-    throw new Error('Request not found');
+    throw new Error("Request not found");
   }
 
   // Format the data as per requirements
   const formattedData = {
     Details: {
-      'Resource': request.resourceVersion.resource.titleEn,
-      'Status': request.status,
-      'Edit Mode': request.resourceVersion.resource.newVersionEditMode ? 'Active' : 'Inactive',
-      'Assigned Users': {
-        'Manager': request.resourceVersion.resource.roles
-          .filter(role => role.role === 'MANAGER')
-          .map(role => role.user.name)
-          .join(', ') || 'Not assigned',
-        'Editor': request.resourceVersion.resource.roles
-          .filter(role => role.role === 'EDITOR')
-          .map(role => role.user.name)
-          .join(', ') || 'Not assigned',
-        'Verifiers': request.resourceVersion.resource.verifiers
-          .reduce((acc, verifier) => {
+      Resource: request.resourceVersion.resource.titleEn,
+      Status: request.status,
+      "Edit Mode": request.resourceVersion.resource.newVersionEditMode
+        ? "Active"
+        : "Inactive",
+      "Assigned Users": {
+        Manager:
+          request.resourceVersion.resource.roles
+            .filter((role) => role.role === "MANAGER")
+            .map((role) => role.user.name)
+            .join(", ") || "Not assigned",
+        Editor:
+          request.resourceVersion.resource.roles
+            .filter((role) => role.role === "EDITOR")
+            .map((role) => role.user.name)
+            .join(", ") || "Not assigned",
+        Verifiers: request.resourceVersion.resource.verifiers.reduce(
+          (acc, verifier) => {
             const level = `level ${verifier.stage}`;
             if (!acc[level]) acc[level] = [];
             acc[level].push(verifier.user.name);
             return acc;
-          }, {}),
-        'Publisher': request.resourceVersion.resource.roles
-          .filter(role => role.role === 'PUBLISHER')
-          .map(role => role.user.name)
-          .join(', ') || 'Not assigned'
+          },
+          {}
+        ),
+        Publisher:
+          request.resourceVersion.resource.roles
+            .filter((role) => role.role === "PUBLISHER")
+            .map((role) => role.user.name)
+            .join(", ") || "Not assigned",
       },
-      'Submitted Date': request.createdAt.toLocaleDateString('en-US'),
-      'Comment': request.editorComments || 'No comments',
-      'Submitted By': request.sender.name,
-      'Submitted To': request.approvals.length > 0 ? 
-        request.approvals[0].approver.name : 'Not assigned',
-      'Version No.': `V ${request.resourceVersion.versionNumber}`,
-      'Reference Document': request.resourceVersion.referenceDoc ? 
-        'PDF File' : 'No document',
-      'Request Type': request.type,
-      'Request No.': request.id.slice(0, 4).toUpperCase(),
-      'Previous Request': request.previousRequest ? 
-        `${request.previousRequest.type} | ${request.previousRequest.id.slice(0, 4).toUpperCase()}` : 'None',
-      'Approval Status': request.approvals.map(approval => ({
-        'Role': getRoleForApprover(approval.approver.id, request.resourceVersion.resource),
-        'Status': approval.status,
-        'Comment': approval.comments || 'No comments'
-      }))
-    }
+      "Submitted Date": request.createdAt.toLocaleDateString("en-US"),
+      Comment: request.editorComments || "No comments",
+      "Submitted By": request.sender.name,
+      "Submitted To":
+        request.approvals.length > 0
+          ? request.approvals[0].approver.name
+          : "Not assigned",
+      "Version No.": `V ${request.resourceVersion.versionNumber}`,
+      "Reference Document": request.resourceVersion.referenceDoc
+        ? "PDF File"
+        : "No document",
+      "Request Type": request.type,
+      "Request No.": request.id.slice(0, 4).toUpperCase(),
+      "Previous Request": request.previousRequest
+        ? `${request.previousRequest.type} | ${request.previousRequest.id
+            .slice(0, 4)
+            .toUpperCase()}`
+        : "None",
+      "Approval Status": request.approvals.map((approval) => ({
+        Role: getRoleForApprover(
+          approval.approver.id,
+          request.resourceVersion.resource
+        ),
+        Status: approval.status,
+        Comment: approval.comments || "No comments",
+      })),
+    },
   };
 
   return formattedData;
@@ -1677,11 +1705,11 @@ export const fetchRequestInfo = async (requestId) => {
 
 // Helper function to determine role for approver
 function getRoleForApprover(userId, resource) {
-  const role = resource.roles.find(r => r.userId === userId);
+  const role = resource.roles.find((r) => r.userId === userId);
   if (role) return role.role;
-  
-  const verifier = resource.verifiers.find(v => v.userId === userId);
+
+  const verifier = resource.verifiers.find((v) => v.userId === userId);
   if (verifier) return `VERIFIER_LEVEL_${verifier.stage}`;
-  
-  return 'UNKNOWN';
+
+  return "UNKNOWN";
 }

@@ -189,6 +189,7 @@ export const findUserByEmail = async (email) => {
                   permission: true,
                 },
               },
+              roleType: true,
             },
           },
         },
@@ -200,16 +201,25 @@ export const findUserByEmail = async (email) => {
     return false; // Handle case where user is not found
   }
 
-  const roles = user.roles?.map((role) => role.role.name) || [];
-  const permissions =
-    user.roles?.flatMap((role) =>
-      role.role.permissions.map((permission) => permission.permission.name)
-    ) || [];
+  // const roles = user.roles?.map((role) => role.role.name) || [];
+  // const permissions =
+  //   user.roles?.flatMap((role) =>
+  //     role.role.permissions.map((permission) => permission.permission.name)
+  //   ) || [];
+
+    const roleAndPermission =
+    user.roles?.map((role) => ({
+      role: role.role.name,
+      roleType: role.role.roleType.name,
+      status: role.role.status,
+      permissions: role.role.permissions.map((perm) => perm.permission.name),
+    })) || [];
 
   return {
     ...user,
-    roles,
-    permissions,
+    roles:roleAndPermission,
+    // permissions,
+    
   };
 };
 

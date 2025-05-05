@@ -22,7 +22,7 @@ const authenticateUser = async (req, res, next) => {
     // Find user and validate status
     const user = await findUserById(userPayload.id);
     assert(user, "UNAUTHORIZED", "User not found");
-    assert(user.status === "ACTIVE", "BLOCKED ", "User is blocked");
+    assert(user.status === "ACTIVE", "BLOCKED", "User is blocked");
     req.user = user;
     next();
   } catch (err) {
