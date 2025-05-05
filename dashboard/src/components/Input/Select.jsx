@@ -5,9 +5,10 @@ import { toast } from "react-toastify";
 const Select = ({ options, selectClass, label, labelClass, baseClass, setterOnChange, index, value, height, width, field }) => {
     const handleSelectChange = (e) => {
         let value = e.target.value
+        if(value === "" ) return 
         for (let x of options) {
             if (x.id === value && x.status === "INACTIVE") {
-                // toast.error("Can't select Inactive value")
+                // toast.error("Unable to select Inactive user")
                 return
             }
         }
@@ -31,7 +32,7 @@ const Select = ({ options, selectClass, label, labelClass, baseClass, setterOnCh
                     {options?.map((option, i) => {
                         // console.log(option)
                         return (
-                            <option value={option.id} hidden={option.hidden} key={option + i} className="text-stone-700">
+                            <option value={option.id} key={option + i} className="text-stone-700">
                                 {option.name}
                             </option>
                         )

@@ -286,6 +286,7 @@ const HomeManager = ({ language, content, currentPath, indexes }) => {
                 referenceOriginal={{ dir: "testimonials", index: 0 }}
                 currentContent={content}
                 contentIndex={indexes.testimonials}
+                limitOptions={4}
                 min={4}
             />
 
