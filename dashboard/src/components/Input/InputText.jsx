@@ -26,7 +26,8 @@ function InputText({
   required = true,
   errorClass,
   disabled = false,
-  maxLength
+  maxLength,
+  outOfEditing
 }) {
   const [showPassword, setShowPassword] = useState(false);
   const [value, setValue] = useState(defaultValue || "");
@@ -136,7 +137,7 @@ function InputText({
             value={value || ""}
             placeholder={placeholder || ""}
             onChange={(e) => updateInputValue(e.target.value)}
-            disabled={disabled}
+            disabled={disabled || outOfEditing}
             maxLength={35}
             className={`input ${width ?? "w-full"
               } h-[2.3rem] text-xs input input-bordered border-[#80808044] focus:border-[#0000007e] dark:focus:border-[#ffffff7e] ${InputClasses || ""

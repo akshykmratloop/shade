@@ -8,7 +8,7 @@ import { updateContent } from "../../../common/homeContentSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { getContent, getResources } from "../../../../app/fetch";
 
-const HomeManager = ({ language, content, currentPath, indexes, }) => {
+const HomeManager = ({ language, content, currentPath, indexes, outOfEditing }) => {
     // states
     const [currentId, setCurrentId] = useState("")
     const [ServicesOptions, setServicesOptions] = useState([])
@@ -103,7 +103,7 @@ const HomeManager = ({ language, content, currentPath, indexes, }) => {
             }
             context()
         }
-    }, [currentId])
+    }, [currentId, isManager])
 
     return ( /// Component
         <div className="w-full">
@@ -123,6 +123,7 @@ const HomeManager = ({ language, content, currentPath, indexes, }) => {
                 currentContent={content}
                 contentIndex={indexes.homeBanner}
                 resourceId={currentId}
+                outOfEditing={outOfEditing}
             />
 
             {/* about section */}
@@ -139,6 +140,7 @@ const HomeManager = ({ language, content, currentPath, indexes, }) => {
                 currentContent={content}
                 contentIndex={indexes.markDown}
                 resourceId={currentId}
+                outOfEditing={outOfEditing}
             />
 
             {/* services  */}
@@ -154,6 +156,7 @@ const HomeManager = ({ language, content, currentPath, indexes, }) => {
                 referenceOriginal={{ dir: "home", index: 0 }}
                 currentContent={content}
                 contentIndex={indexes.serviceCards}
+                outOfEditing={outOfEditing}
             />
 
             {/* exprerince */}
@@ -172,6 +175,7 @@ const HomeManager = ({ language, content, currentPath, indexes, }) => {
                     currentContent={content}
                     contentIndex={indexes.statistics}
                     resourceId={currentId}
+                    outOfEditing={outOfEditing}
                 />
                 {["Item 1", "Item 2", "Item 3", "Item 4"].map((item, index, array) => {
                     const isLast = index === array.length - 1;
@@ -192,6 +196,7 @@ const HomeManager = ({ language, content, currentPath, indexes, }) => {
                             currentContent={content}
                             contentIndex={indexes.statistics}
                             resourceId={currentId}
+                            outOfEditing={outOfEditing}
                         />
                     )
                 })}
@@ -223,6 +228,7 @@ const HomeManager = ({ language, content, currentPath, indexes, }) => {
                                         currentContent={content}
                                         contentIndex={indexes.projectGrid}
                                         resourceId={currentId}
+                                        outOfEditing={outOfEditing}
                                     />
                                     <MultiSelect
                                         currentPath={currentPath}
@@ -234,6 +240,7 @@ const HomeManager = ({ language, content, currentPath, indexes, }) => {
                                         currentContent={content}
                                         contentIndex={indexes.projectGrid}
                                         listOptions={ProjectOptions}
+                                        outOfEditing={outOfEditing}
                                     />
                                 </div>
                             )
@@ -256,6 +263,7 @@ const HomeManager = ({ language, content, currentPath, indexes, }) => {
                 contentIndex={indexes.clientLogo}
                 allowExtraInput={true}
                 resourceId={currentId}
+                outOfEditing={outOfEditing}
             />
 
             <ContentSection
@@ -269,6 +277,7 @@ const HomeManager = ({ language, content, currentPath, indexes, }) => {
                 currentContent={content}
                 contentIndex={indexes.testimonials}
                 resourceId={currentId}
+                outOfEditing={outOfEditing}
             />
             <MultiSelect
                 currentPath={currentPath}
@@ -284,6 +293,7 @@ const HomeManager = ({ language, content, currentPath, indexes, }) => {
                 contentIndex={indexes.testimonials}
                 limitOptions={4}
                 min={4}
+                outOfEditing={outOfEditing}
             />
 
 
@@ -303,6 +313,7 @@ const HomeManager = ({ language, content, currentPath, indexes, }) => {
                 currentContent={content}
                 contentIndex={indexes.normalContent}
                 resourceId={currentId}
+                outOfEditing={outOfEditing}
             />
 
         </div>

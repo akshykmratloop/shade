@@ -23,7 +23,7 @@ import formatTimestamp from '../../../../app/TimeFormat';
 import capitalizeWords from '../../../../app/capitalizeword';
 
 
-export default function ContentTopBar({ setWidth, setFullScreen, currentPath }) {
+export default function ContentTopBar({ setWidth, setFullScreen, currentPath, outOfEditing }) {
     const dispatch = useDispatch();
     const iconSize = 'xl:h-[1.5rem] xl:w-[1.5rem]';
     const smallIconSize = 'sm:h-[1rem] sm:w-[1rem]';
@@ -251,35 +251,42 @@ export default function ContentTopBar({ setWidth, setFullScreen, currentPath }) 
                 </div>
                 {
                     !isManager ?
-                        <div className='flex gap-3'>
-                            <div className='flex items-center gap-1'>
-                                <span className={`text-sm font-lexend dark:text-[#CBD5E1] text-[#202a38] select-none`}>
-                                    Auto Save
-                                </span>
-                                <Switch
-                                    checked={autoSave}
-                                    onChange={autoSaveToggle}
-                                    className={`${autoSave
-                                        ? "bg-[#26c226]"
-                                        : "bg-gray-300"
-                                        } relative inline-flex h-2 w-7 items-center rounded-full`}
-                                >
-                                    <span
+                        outOfEditing ? (
+                            <div>
+                                <button className='bg-[#80808080] rounded-md xl:h-[2.68rem] sm:h-[2rem] xl:text-xs sm:text-[.6rem] xl:w-[12.58rem] w-[4rem] text-[white]'>
+                                    {status}
+                                </button>
+                            </div>
+                        ) :
+                            (<div className='flex gap-3'>
+                                <div className='flex items-center gap-1'>
+                                    <span className={`text-sm font-lexend dark:text-[#CBD5E1] text-[#202a38] select-none`}>
+                                        Auto Save
+                                    </span>
+                                    <Switch
+                                        checked={autoSave}
+                                        onChange={autoSaveToggle}
                                         className={`${autoSave
-                                            ? "translate-x-4"
-                                            : "translate-x-0"
-                                            } inline-block h-[17px] w-[17px] bg-white rounded-full shadow-2xl border border-gray-300 transition`}
-                                    />
-                                </Switch>
-                            </div>
-                            <div className='flex gap-2'>
-                                {
-                                    !autoSave &&
-                                    <Button text={savedChanges ? 'Saved' : 'Draft'} functioning={saveTheDraft} classes={`${savedChanges ? "bg-[#26c226]" : "bg-[#26345C]"}  rounded-md xl:h-[2.68rem] sm:h-[2rem] xl:text-xs sm:text-[.6rem] xl:w-[5.58rem] w-[4rem] text-[white]`} />
-                                }
-                                <Button text={'Submit'} functioning={() => { setPopupSubmit(true) }} classes='bg-[#29469D] rounded-md xl:h-[2.68rem] sm:h-[2rem] xl:text-xs sm:text-[.6rem] xl:w-[5.58rem] w-[4rem] text-[white]' />
-                            </div>
-                        </div>
+                                            ? "bg-[#26c226]"
+                                            : "bg-gray-300"
+                                            } relative inline-flex h-2 w-7 items-center rounded-full`}
+                                    >
+                                        <span
+                                            className={`${autoSave
+                                                ? "translate-x-4"
+                                                : "translate-x-0"
+                                                } inline-block h-[17px] w-[17px] bg-white rounded-full shadow-2xl border border-gray-300 transition`}
+                                        />
+                                    </Switch>
+                                </div>
+                                <div className='flex gap-2'>
+                                    {
+                                        !autoSave &&
+                                        <Button text={savedChanges ? 'Saved' : 'Draft'} functioning={saveTheDraft} classes={`${savedChanges ? "bg-[#26c226]" : "bg-[#26345C]"}  rounded-md xl:h-[2.68rem] sm:h-[2rem] xl:text-xs sm:text-[.6rem] xl:w-[5.58rem] w-[4rem] text-[white]`} />
+                                    }
+                                    <Button text={'Submit'} functioning={() => { setPopupSubmit(true) }} classes='bg-[#29469D] rounded-md xl:h-[2.68rem] sm:h-[2rem] xl:text-xs sm:text-[.6rem] xl:w-[5.58rem] w-[4rem] text-[white]' />
+                                </div>
+                            </div>)
                         :
                         <div className='flex gap-3 sm:gap-1'>
                             <Button text={'Pulish'} functioning={() => setPopupPublish(true)} classes='bg-[#29469D] rounded-md xl:h-[2.68rem] sm:h-[2rem] xl:text-xs sm:text-[.6rem] xl:w-[5.58rem] w-[4rem] text-[white]' />
@@ -288,7 +295,7 @@ export default function ContentTopBar({ setWidth, setFullScreen, currentPath }) 
             </div>
 
             <Popups display={PopUpPublish} setClose={() => setPopupPublish(false)} confirmationText={"Are you sure you want to publish?"} confirmationFunction={HandlepublishToLive} />
-            <Popups display={PopupSubmit} setClose={() => setPopupSubmit(false)} confirmationText={"Are you sure you want to submit?"} confirmationFunction={handleSubmit}/>
+            <Popups display={PopupSubmit} setClose={() => setPopupSubmit(false)} confirmationText={"Are you sure you want to submit?"} confirmationFunction={handleSubmit} />
         </div>
     );
 }

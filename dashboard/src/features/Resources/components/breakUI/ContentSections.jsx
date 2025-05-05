@@ -29,7 +29,8 @@ const ContentSection = ({
     contentIndex,
     resourceId,
     ref,
-    elementId
+    elementId,
+    outOfEditing
 }) => {
     const dispatch = useDispatch();
     const [extraFiles, setExtraFiles] = useState([]);
@@ -178,13 +179,13 @@ const ContentSection = ({
 
         // 👇 Disable the plus "+" hover icon
         disablePlugins: ['addNewLine']
-    }), []);
+    }), [outOfEditing]);
 
 
     return (
         <div
-        id={elementId}
-        className={`w-full ${Heading ? "mt-4" : subHeading ? "mt-2" : ""} flex flex-col gap-1 ${!isBorder ? "" : "border-b border-b-1 border-neutral-300"} ${attachOne ? "pb-0" : (Heading || subHeading) ? "pb-6" : ""}`}>
+            id={elementId}
+            className={`w-full ${Heading ? "mt-4" : subHeading ? "mt-2" : ""} flex flex-col gap-1 ${!isBorder ? "" : "border-b border-b-1 border-neutral-300"} ${attachOne ? "pb-0" : (Heading || subHeading) ? "pb-6" : ""}`}>
             <h3 className={`font-semibold ${subHeading ? "text-[.9rem] mb-1" : Heading ? "text-[1.25rem] mb-4" : " mb-0"}`} style={{ wordBreak: "break-word" }}>{Heading || subHeading}</h3>
             {inputs.length > 0 &&
                 inputs.map((input, i) => {
@@ -202,12 +203,21 @@ const ContentSection = ({
                                 language={language}
                                 id={input.updateType}
                                 maxLength={input.maxLength}
+
+                                outOfEditing={outOfEditing}
                             />
                         );
                     } else if (input.input === "richtext") {
                         return (
-                            <div dir={language === 'en' ? 'ltr' : 'rtl'} key={i}>
+                            <div dir={language === 'en' ? 'ltr' : 'rtl'} key={outOfEditing ? "readonly" : "editable"}
+                                style={{ cursor: "" }}
+                                className={`relative`}>
+                                {
+                                    outOfEditing &&
+                                    <div className="bg-stone-200/35 absolute z-10 top-0 left-0 h-full w-full rounded-md cursor-not-allowed"></div>
+                                }
                                 <JoditEditor
+                                    className=""
                                     ref={editor}
                                     value={input.value}
                                     config={config}
@@ -219,7 +229,6 @@ const ContentSection = ({
                                         const trimmedVal = newContent.slice(0, input.maxLength);
                                         updateFormValueRichText(input.updateType, trimmedVal)
                                     }}
-
                                 />
                             </div>
                         );
@@ -238,6 +247,7 @@ const ContentSection = ({
                                 id={input.updateType}
                                 required={false}
                                 maxLength={input.maxLength}
+                                outOfEditing={outOfEditing}
                             />
                         );
                     }
@@ -263,13 +273,14 @@ const ContentSection = ({
                                             isCloseButton={allowClose}
                                             resourceId={resourceId}
                                             contentIndex={contentIndex}
+                                            outOfEditing={outOfEditing}
                                         />
                                     )
                                 })}
                                 {allowExtraInput &&
                                     <button
                                         className="mt-2 px-3 py-2 bg-blue-500 h-[95px] w-[95px] text-white rounded-lg translate-y-3 self-center text-xl"
-                                        onClick={addExtraFileInput}
+                                        onClick={outOfEditing ? addExtraFileInput : () => { }}
                                     >
                                         +
                                     </button>
@@ -281,8 +292,8 @@ const ContentSection = ({
                                 return (
                                     <div className="relative" key={i}>
                                         {i > 3 && <button
-                                            className="absolute top-6 z-10 right-[-12px] bg-red-500 text-white px-[5px] rounded-full shadow"
-                                            onClick={() => removeExtraFileInput(file.id)}
+                                            className={`absolute top-6 z-[22] right-[-12px] bg-red-500 text-white px-[5px] rounded-full shadow ${outOfEditing && "cursor-not-allowed"}`}
+                                            onClick={() => { if (!outOfEditing) { removeExtraFileInput(file.id) } }}
                                         >
                                             ✖
                                         </button>}
@@ -297,6 +308,7 @@ const ContentSection = ({
                                             subSection={subSection}
                                             resourceId={resourceId}
                                             contentIndex={contentIndex}
+                                            outOfEditing={outOfEditing}
                                         />
                                     </div>
                                 )
@@ -328,7 +340,7 @@ const ContentSection = ({
                                     >
                                         +
                                     </button> : "" :
-                                    allowExtraInput &&
+                                    (allowExtraInput && !outOfEditing) &&
                                     <button
                                         className="mt-2 px-3 py-2 bg-blue-500 h-[95px] w-[95px] text-white rounded-lg translate-y-3 self-center text-xl"
                                         onClick={addExtraFileInput}

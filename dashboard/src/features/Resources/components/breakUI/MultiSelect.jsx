@@ -21,7 +21,7 @@ import { CSS } from "@dnd-kit/utilities";
 import { updateSelectedContent, updateSelectedProject } from "../../../common/homeContentSlice";
 import { updateSelectedContentAndSaveDraft } from "../../../common/thunk/smsThunk";
 
-const SortableItem = ({ option, removeOption, language, reference, titleLan, contentIndex,  }) => {
+const SortableItem = ({ option, removeOption, language, reference, titleLan, contentIndex, }) => {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } =
     useSortable({ id: option, data: { option } });
 
@@ -56,7 +56,7 @@ const SortableItem = ({ option, removeOption, language, reference, titleLan, con
   );
 };
 
-const MultiSelect = ({ heading, min = 0, options, tabName, label, language, section, referenceOriginal = { dir: "", index: 0 }, currentPath, projectId, contentIndex, listOptions, limitOptions = 0 }) => {
+const MultiSelect = ({ outOfEditing, heading, min = 0, options, tabName, label, language, section, referenceOriginal = { dir: "", index: 0 }, currentPath, projectId, contentIndex, listOptions, limitOptions = 0 }) => {
   const titleLan = language === "en" ? "titleEn" : "titleAr"
   const [selectedOptions, setSelectedOptions] = useState([]);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -121,7 +121,7 @@ const MultiSelect = ({ heading, min = 0, options, tabName, label, language, sect
 
 
   const removeOption = (optionToRemove) => {
-    if(selectedOptions.length <= limitOptions) return 
+    if (selectedOptions.length <= limitOptions) return
     let deductedArray = selectedOptions.filter(e => e !== optionToRemove)
     setSelectedOptions(deductedArray)
     operation = 'remove'
@@ -191,65 +191,71 @@ const MultiSelect = ({ heading, min = 0, options, tabName, label, language, sect
   }, [options]);
 
   return (
-    <div className="relative w-full border-b border-b-2 border-neutral-300 pb-4 mt-4" ref={dropdownRef}>
+    <div className="relative w-full border-b border-b-2 border-neutral-300 pb-4 mt-4 " ref={dropdownRef}>
       <h3 className="font-semibold text-[1.25rem] mb-4">{heading}</h3>
       <label className="sm:text-xs xl:text-sm text-[#6B7888]">{label}</label>
-      <button
-        onClick={toggleDropdown}
-        className="w-full mt-2 p-2 border border-stone-500 rounded-md bg-white hover:bg-gray-100 text-sm bg-[#fafaff] dark:bg-[#2a303c]"
-      >
-        {isDropdownOpen ? "Close" : tabName}
-      </button>
+      <div className="border relative mt-2 rounded-md ">
+        {
+          outOfEditing &&
+          <div className="bg-black/10 absolute z-[20] top-0 left-0 h-full w-full rounded-md cursor-not-allowed"></div>
+        } 
+        <button
+          onClick={toggleDropdown}
+          className="w-full mt- p-2 border border-stone-500 rounded-md bg-white hover:bg-gray-100 text-sm bg-[#fafaff] dark:bg-[#2a303c]"
+        >
+          {isDropdownOpen ? "Close" : tabName}
+        </button>
 
-      {isDropdownOpen && (
-        <ul className="absolute text-xs left-0 xl:top-[-6.2rem] sm:top-[-3rem] md:top-[-6rem] z-10 w-full mt-2 bg-[#fafaff] dark:bg-[#242933] border rounded-md shadow-md overflow-y-scroll h-[10rem] customscroller">
-          {
-            listOptions?.map((option, index) => {
-              return (
-                <li
-                  key={option?.[titleLan] + index}
-                  onClick={() => handleSelect(option, index)}
-                  className="p-2 cursor-pointer hover:bg-gray-100"
-                >
-                  {option[titleLan]}
-                </li>
-              )
-            })
-          }
-        </ul>
-      )}
-
-      {/* Drag-and-Drop Enabled List */}
-      <DndContext
-        sensors={sensors}
-        collisionDetection={closestCenter}
-        onDragStart={onDragStart}
-        onDragEnd={onDragEnd}
-      >
-        <SortableContext items={selectedOptions} strategy={verticalListSortingStrategy}>
-          <div className={`flex flex-wrap  gap-2 p-2 pl-4 border dark:border-stone-500 rounded-md ${language === 'ar' && "flex-row-reverse"}`}>
-            {referenceOriginal.dir === "jobs" ?
-              selectedOptions?.map((option, i) => (
-                <SortableItem key={option.title?.key?.[language] + String(Math.random())} option={option} removeOption={removeOption} language={language} reference={referenceOriginal.dir} />
-              ))
-              :
-              selectedOptions?.map((option, i) => (
-                <SortableItem key={option?.[titleLan] + String(Math.random() + i)} option={option} removeOption={removeOption} language={language} titleLan={titleLan} />
-              ))
+        {isDropdownOpen && (
+          <ul className="absolute text-xs left-0 xl:top-[-6.2rem] sm:top-[-3rem] md:top-[-6rem] z-10 w-full mt-2 bg-[#fafaff] dark:bg-[#242933] border rounded-md shadow-md overflow-y-scroll h-[10rem] customscroller">
+            {
+              listOptions?.map((option, index) => {
+                return (
+                  <li
+                    key={option?.[titleLan] + index}
+                    onClick={() => handleSelect(option, index)}
+                    className="p-2 cursor-pointer hover:bg-gray-100"
+                  >
+                    {option[titleLan]}
+                  </li>
+                )
+              })
             }
-          </div>
-        </SortableContext>
-
-        {/* DragOverlay for smooth dragging */}
-        {createPortal(
-          <DragOverlay>
-            {activeItem ? (
-              <SortableItem option={activeItem} removeOption={removeOption} language={language} />
-            ) : null}
-          </DragOverlay>,
-          document.body
+          </ul>
         )}
-      </DndContext>
+
+        {/* Drag-and-Drop Enabled List */}
+        <DndContext
+          sensors={sensors}
+          collisionDetection={closestCenter}
+          onDragStart={onDragStart}
+          onDragEnd={onDragEnd}
+        >
+          <SortableContext items={selectedOptions} strategy={verticalListSortingStrategy}>
+            <div className={`flex flex-wrap  gap-2 p-2 pl-4 border dark:border-stone-500 rounded-md ${language === 'ar' && "flex-row-reverse"}`}>
+              {referenceOriginal.dir === "jobs" ?
+                selectedOptions?.map((option, i) => (
+                  <SortableItem key={option.title?.key?.[language] + String(Math.random())} option={option} removeOption={removeOption} language={language} reference={referenceOriginal.dir} />
+                ))
+                :
+                selectedOptions?.map((option, i) => (
+                  <SortableItem key={option?.[titleLan] + String(Math.random() + i)} option={option} removeOption={removeOption} language={language} titleLan={titleLan} />
+                ))
+              }
+            </div>
+          </SortableContext>
+
+          {/* DragOverlay for smooth dragging */}
+          {createPortal(
+            <DragOverlay>
+              {activeItem ? (
+                <SortableItem option={activeItem} removeOption={removeOption} language={language} />
+              ) : null}
+            </DragOverlay>,
+            document.body
+          )}
+        </DndContext>
+      </div>
     </div>
   );
 };
