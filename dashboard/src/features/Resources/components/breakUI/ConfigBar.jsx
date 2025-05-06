@@ -65,20 +65,27 @@ const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
 
       if (!sameDoubledValue) {
         const response = await assignUser(formObj)
-        if (response.message === "Success") {
+        if (response.ok) {
           toast.success("Page assigned Successfully!", {
-            autoClose: 700
+            autoClose: 700,
+            hideProgressBar: true
           })
+          setTimeout(() => {
+
+            closeButton()
+            reRender(Math.random())
+            dispatch(switchDebounce(false))
+          }, 700)
         }
       } else {
-        return toast.error(`Error! duplicate selection has been found`)
+        return toast.error(`Error! duplicate selection has been found`, { hideProgressBar: true })
       }
     } catch (err) {
       console.log(err?.message)
     } finally {
-      closeButton()
-      reRender(Math.random())
-      dispatch(switchDebounce(false))
+      setTimeout(() => {
+        dispatch(switchDebounce(false))
+      }, 700)
     }
   }
 
@@ -87,9 +94,10 @@ const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
     setFormObj(initialObj);
   }
 
-  const optionsForManagers = userList.managers.map((e) => ({ id: e.id, name: e.name + (e.status !== "ACTIVE" ? " - Inactive" : ""), status: e.status === "ACTIVE" ? "ACTIVE" : "INACTIVE" }))
-  const optionsForEditor = userList.editors.map((e) => ({ id: e.id, name: e.name + (e.status !== "ACTIVE" ? " - Inactive" : ""), status: e.status === "ACTIVE" ? "ACTIVE" : "INACTIVE" }))
-  const optionsForPublisher = userList.publishers.map((e) => ({ id: e.id, name: e.name + (e.status !== "ACTIVE" ? " - Inactive" : ""), status: e.status === "ACTIVE" ? "ACTIVE" : "INACTIVE" }))
+  const optionsForManagers = userList.managers.map((e) => ({ id: e.id, name: e.name + (e.status === "INACTIVE" ? " - Inactive" : ""), status: e.status }))
+  const optionsForEditor = userList.editors.map((e) => ({ id: e.id, name: e.name + (e.status === "INACTIVE" ? " - Inactive" : ""), status: e.status }))
+  const optionsForVerifiers = userList.verifiers.map((e) => ({ id: e.id, name: e.name + (e.status === "INACTIVE" ? " - Inactive" : ""), status: e.status }))
+  const optionsForPublisher = userList.publishers.map((e) => ({ id: e.id, name: e.name + (e.status === "INACTIVE" ? " - Inactive" : ""), status: e.status }))
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -258,10 +266,7 @@ const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
                     Select Verifier
                   </label>
                   <SelectorAccordion
-                    options={userList.verifiers.map((e) => ({
-                      id: e.id,
-                      name: e.name,
-                    }))}
+                    options={optionsForVerifiers}
                     field={"verifiers"}
                     value={formObj.verifiers}
                     onChange={updateSelection}

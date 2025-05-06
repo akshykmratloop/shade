@@ -542,7 +542,7 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                             !isPhone &&
                             <div className="absolute top-0 right-0 h-full w-[20%] bg-gradient-to-l from-white to-transparent pointer-events-none z-10"></div>
                         }
-                        {content?.testimonials?.items.lenght > 1 &&
+                        {content?.testimonials?.items.length > 1 &&
                             < Swiper
                                 modules={[Navigation, Autoplay, EffectCoverflow]}
                                 grabCursor={true}
@@ -672,16 +672,14 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                         >
                             {content?.normalContent?.content?.title?.[language]}
                         </h2>
-                        <p className="text-xs font-light text-black leading-7 mb-2 relative bg-transparent"
-                            style={{ fontSize: isComputer && dynamicSize(16, width) }}
-                        >
-                            {content?.normalContent?.content?.description?.[language].replace(
-                                content?.normalContent?.content?.highlightedText?.[language],
-                                `"${content?.normalContent?.content?.highlightedText?.[language]}"`
-                            )}
+                        <div className="relative">
+                            <div className=" font-light text-black leading-7 mb-2 relative bg-transparent"
+                                style={{ fontSize: isComputer && dynamicSize(16, width) }}
+                                dangerouslySetInnerHTML={{ __html: content?.normalContent?.content?.description?.[language] }}
+                            />
                             <i
                                 className={`absolute ${isLeftAlign ? isPhone ? "right-[130px] top-[55px]" : "right-[250px]" : "right-[152px]"} top-0  opacity-70 z-10 
-                    ${language === 'ar' ? 'right-48' : ''}`}
+                                ${language === 'ar' ? 'right-48' : ''}`}
                                 style={{
                                     backgroundImage: `url(${highlightsvg})`,
                                     backgroundRepeat: 'no-repeat',
@@ -691,12 +689,7 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                                     mixBlendMode: 'multiply',
                                 }}
                             />
-                        </p>
-                        <p className="text-xs font-light text-black leading-7 mb-2"
-                            style={{ fontSize: isComputer && dynamicSize(16, width) }}
-                        >
-                            {content?.normalContent?.content?.description2?.[language]}
-                        </p>
+                        </div>
                         <button
                             className="bg-[#00B9F2] text-xs text-white px-4 py-2 text-lg mt-11 mx-auto block rounded"
                             style={{ fontSize: isComputer && dynamicSize(18, width) }}

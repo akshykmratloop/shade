@@ -381,7 +381,7 @@ function Requests() {
                                   </span>
                                 </ShowVerifierTooltip>
                               ) : (
-                                ""
+                                "N/A"
                               )}
                             </span>
                           </td>
@@ -393,7 +393,7 @@ function Requests() {
                             style={{ whiteSpace: "wrap" }}
                           >
                             <span className="">
-                              {request?.publisher || "1"}
+                              {request?.publisher || "N/A"}
                             </span>
                           </td>
                         }

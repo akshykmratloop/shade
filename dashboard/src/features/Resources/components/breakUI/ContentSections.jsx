@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateSpecificContent, updateServicesNumber, updateImages, updateAList } from "../../../common/homeContentSlice";
 import InputFileForm from "../../../../components/Input/InputFileForm";
 import JoditEditor from "jodit-react";
+import { Jodit } from "jodit-react";
 
 const ContentSection = ({
     Heading,
@@ -176,6 +177,12 @@ const ContentSection = ({
         useSplitMode: false,
         showButtonPanel: true,
         showTooltip: false,
+        controls: {
+            fontsize: {
+              list: Jodit.atom([8, 9, 10, 12, 14, 16, 18, 24, 30, 32, 34])
+            }
+          }
+,        
 
         // 👇 Disable the plus "+" hover icon
         disablePlugins: ['addNewLine']
