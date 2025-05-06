@@ -1,3 +1,5 @@
+import { toCamelCase } from "../../app/capitalizeword"
+
 export default function createContent(content, purpose, path, subPath) {
 
 
@@ -7,6 +9,16 @@ export default function createContent(content, purpose, path, subPath) {
     } else {
         currentContent = content?.editVersion?.sections
     }
+
+    const tempIndex = {}
+    const tempContent = {}
+
+    currentContent?.forEach((e, i) => {
+        tempIndex[toCamelCase(e.SectionType)] = i
+        tempContent[toCamelCase(e.SectionType)] = currentContent[i]
+        console.log(toCamelCase(e.SectionType))
+    })
+
     const contentIndexes = {
         homeBanner: currentContent?.findIndex(e => e.order === 1),
         markDown: currentContent?.findIndex(e => e.order === 2),
@@ -31,9 +43,11 @@ export default function createContent(content, purpose, path, subPath) {
 
 
 
+    console.log(tempContent)
+    console.log(contentHome)
 
 
-    return { content: contentHome, index: contentIndexes }
+    return { content: tempContent, index: tempIndex }
     switch (path) {
         case "home":
             break;

@@ -113,14 +113,14 @@ const HomeManager = ({ language, content, currentPath, indexes, outOfEditing }) 
                 currentPath={currentPath}
                 Heading={"Hero Banner"}
                 inputs={[
-                    { input: "input", label: "Heading/title", updateType: "title", value: content?.homeBanner?.content?.title[language], update: `editVersion.sections[${indexes.homeBanner}].content.title.${language}` },
-                    { input: "textarea", label: "Description", updateType: "description", maxLength: 500, value: content?.homeBanner?.content?.description[language], update: `sections.${indexes.homeBanner}.description.${language}` },
-                    { input: "input", label: "Button Text", updateType: "button", maxLength: 20, value: content?.homeBanner?.content?.button?.[0]?.text?.[language], update: `sections.${indexes.homeBanner}.buttonText[0]/${language}` }]}
+                    { input: "input", label: "Heading/title", updateType: "title", value: content?.heroBanner?.content?.title[language] },
+                    { input: "textarea", label: "Description", updateType: "description", maxLength: 500, value: content?.heroBanner?.content?.description[language] },
+                    { input: "input", label: "Button Text", updateType: "button", maxLength: 20, value: content?.heroBanner?.content?.button?.[0]?.text?.[language] }]}
                 inputFiles={[{ label: "Backround Image", id: "homeBanner" }]}
                 section={"homeBanner"}
                 language={language}
                 currentContent={content}
-                contentIndex={indexes.homeBanner}
+                contentIndex={indexes.heroBanner}
                 resourceId={currentId}
                 outOfEditing={outOfEditing}
             />
@@ -130,14 +130,14 @@ const HomeManager = ({ language, content, currentPath, indexes, outOfEditing }) 
                 currentPath={currentPath}
                 Heading={"About Section"}
                 inputs={[
-                    { input: "input", label: "Heading/title", updateType: "title", value: content?.markDown?.content?.title[language] },
-                    { input: "richtext", label: "About section", updateType: "description", maxLength: 800, value: content?.markDown?.content?.description[language] },
-                    { input: "input", label: "Button Text", updateType: "button", value: content?.markDown?.content?.button?.[0]?.text?.[language] }]}
+                    { input: "input", label: "Heading/title", updateType: "title", value: content?.markdownContent?.content?.title[language] },
+                    { input: "richtext", label: "About section", updateType: "description", maxLength: 800, value: content?.markdownContent?.content?.description[language] },
+                    { input: "input", label: "Button Text", updateType: "button", value: content?.markdownContent?.content?.button?.[0]?.text?.[language] }]}
                 inputFiles={[{ label: "Backround Image", id: "aboutUsSection" }]}
                 section={"aboutUsSection"}
                 language={language}
                 currentContent={content}
-                contentIndex={indexes.markDown}
+                contentIndex={indexes.markdownContent}
                 resourceId={currentId}
                 outOfEditing={outOfEditing}
             />
