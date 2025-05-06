@@ -289,7 +289,7 @@ export default function ContentTopBar({ setWidth, setFullScreen, currentPath, ou
                             </div>)
                         :
                         <div className='flex gap-3 sm:gap-1'>
-                            <Button text={'Pulish'} functioning={() => setPopupPublish(true)} classes='bg-[#29469D] rounded-md xl:h-[2.68rem] sm:h-[2rem] xl:text-xs sm:text-[.6rem] xl:w-[5.58rem] w-[4rem] text-[white]' />
+                            <Button text={'Publish'} functioning={() => setPopupPublish(true)} classes='bg-[#29469D] rounded-md xl:h-[2.68rem] sm:h-[2rem] xl:text-xs sm:text-[.6rem] xl:w-[5.58rem] w-[4rem] text-[white]' />
                         </div>
                 }
             </div>

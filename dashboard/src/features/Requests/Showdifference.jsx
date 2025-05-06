@@ -63,7 +63,7 @@ function ShowDifference({ role, show, onClose, resourceId }) {
                     resourceTag: response.content.resourceTag,
                     relationType: response.content.relationType,
                     comments: response.content.editModeVersionData.comments,
-                    referenceDoc: response.content.editModeVersionData
+                    referenceDoc: response.content.editModeVersionData.referenceDoc
                 }
                 setLiveVersion({ ...payload, editVersion: response.content.liveModeVersionData })
                 setEditVersion({ ...payload, editVersion: response.content.editModeVersionData ?? response.content.liveModeVersionData })

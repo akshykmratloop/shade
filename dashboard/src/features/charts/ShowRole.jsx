@@ -330,12 +330,12 @@ function UserDetailsModal({ user, show, onClose }) {
                           className="font-light text-[14px] text-[#101828] dark:text-[#f5f5f4]"
                         >
                           <td className="px-4 py-2 dark:border dark:border-[#232d3d]  w-1/3">
-                            {verifier?.resource?.titleEn}
+                            {TruncateText(verifier?.resource?.titleEn, 17)}
                           </td>
                           <td className="px-4 py-2 dark:border dark:border-[#232d3d]  w-1/3">
-                            {convertToReadable(
+                            {TruncateText(convertToReadable(
                               verifier?.resource?.resourceType
-                            )}
+                            ), 17)}
                           </td>
                           <td className=" px-4 py-2 dark:border dark:border-[#232d3d]  w-1/3">
                             Verifier{" "}
