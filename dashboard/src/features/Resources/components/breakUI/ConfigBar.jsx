@@ -69,7 +69,7 @@ const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
     let loadingToastId
     try {
       dispatch(switchDebounce(true))
-      loadingToastId = toast.loading("Updating", { autoClose: 2000, style: { backgroundColor: "#3B82F6", color: "#fff" } }); // starting the loading in toaster
+      loadingToastId = toast.loading("Updating", { style: { backgroundColor: "#3B82F6", color: "#fff" } }); // starting the loading in toaster
       if (!sameDoubledValue) {
         const response = await assignUser(formObj)
         if (response.ok) {
@@ -91,7 +91,7 @@ const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
       setTimeout(() => {
         dispatch(switchDebounce(false))
       }, 700)
-      toast.dismiss(loadingToastId)
+      // toast.dismiss(loadingToastId)
     }
   }
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
