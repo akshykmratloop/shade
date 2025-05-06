@@ -39,25 +39,26 @@ const ImageSelector = ({ onSelectImage, onClose, resourceId }) => {
 
     const handleFileUpload = async (event) => {
         const file = event.target.files[0];
-        console.log(file)
         if (!file || uploading) return; // Prevent uploading if already uploading
 
-        console.log("asdfewq")
+        if (file.size > 5 * 1024 * 1024) {
+            toast.error("File size must be less than 5MB", { hideProgressBar: true });
+            return;
+        }
+
         setUploading(true);
         setUploadCancel(false);
 
         try {
-
             const uploadedImageURL = await uploadImage(file);
             if (uploadedImageURL) {
                 // Instead of previewing, trigger image list reload
                 setRandom(Math.random());
-                toast.success("Image uploaded successfully")
+                toast.success("Image uploaded successfully", { hideProgressBar: true })
             }
-
         } catch {
             console.log("Error Uploading Image Please Try again later")
-            toast.error("Error Uploading Image Please Try again later")
+            toast.error("Error Uploading Image Please Try again later", { hideProgressBar: true })
         } finally {
             setUploading(false);
         }
@@ -85,14 +86,14 @@ const ImageSelector = ({ onSelectImage, onClose, resourceId }) => {
         try {
             const response = await deleteMedia(deleteImgId)
             if (response.ok) {
-                toast.success("Image has been deleted Successfully.", { pauseOnHover: false, autoClose: 700 })
+                toast.success("Image has been deleted Successfully.", { pauseOnHover: false, autoClose: 700, hideProgressBar: true })
                 setRandom(Math.random())
             } else {
                 throw new Error("Failed to delete image")
             }
         } catch (err) {
             console.log(err)
-            toast.error("Failed to delete Image please try again after some time.")
+            toast.error("Failed to delete Image please try again after some time.", { hideProgressBar: true })
         }
     }
 
@@ -176,7 +177,7 @@ const ImageSelector = ({ onSelectImage, onClose, resourceId }) => {
 
                                         />
                                         {
-                                            imagesByResource &&
+                                            // imagesByResource &&
                                             <button className="absolute z-[40] top-[2px] right-2 bg-[#80808080] text-white rounded-full p-1"
                                                 onClick={() => { setDeleteImgId(imgObj.id); setPopup(true) }}
                                             >

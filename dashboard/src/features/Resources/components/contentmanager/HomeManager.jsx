@@ -8,13 +8,12 @@ import { updateContent } from "../../../common/homeContentSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { getContent, getResources } from "../../../../app/fetch";
 
-const HomeManager = ({ language, content, currentPath, indexes, }) => {
+const HomeManager = ({ language, content, currentPath, indexes, outOfEditing }) => {
     // states
     const [currentId, setCurrentId] = useState("")
     const [ServicesOptions, setServicesOptions] = useState([])
     const [ProjectOptions, setProjectOptions] = useState([])
     const [TestimonialsOptions, setTestimonialsOptions] = useState([])
-    const [underVerification, setUnderVerification] = useState(false)
     const { isManager, isEditor } = useSelector(state => state.user)
     // fucntions
     const dispatch = useDispatch()
@@ -91,10 +90,6 @@ const HomeManager = ({ language, content, currentPath, indexes, }) => {
                             relationType: response.content.relationType,
                             editVersion: isManager ? response.content.liveModeVersionData : response.content.editModeVersionData ?? response.content.liveModeVersionData
                         }
-                        if (payload.editVersion.status !== "EDITING" || payload.editVersion.status !== "DRAFT") {
-
-                        }
-
                         dispatch(updateContent({ currentPath: "content", payload }))
                     }
                 } catch (err) {
@@ -103,7 +98,7 @@ const HomeManager = ({ language, content, currentPath, indexes, }) => {
             }
             context()
         }
-    }, [currentId])
+    }, [currentId, isManager])
 
     return ( /// Component
         <div className="w-full">
@@ -114,15 +109,16 @@ const HomeManager = ({ language, content, currentPath, indexes, }) => {
                 currentPath={currentPath}
                 Heading={"Hero Banner"}
                 inputs={[
-                    { input: "input", label: "Heading/title", updateType: "title", value: content?.homeBanner?.content?.title[language], update: `editVersion.sections[${indexes.homeBanner}].content.title.${language}` },
-                    { input: "textarea", label: "Description", updateType: "description", maxLength: 500, value: content?.homeBanner?.content?.description[language], update: `sections.${indexes.homeBanner}.description.${language}` },
-                    { input: "input", label: "Button Text", updateType: "button", maxLength: 20, value: content?.homeBanner?.content?.button?.[0]?.text?.[language], update: `sections.${indexes.homeBanner}.buttonText[0]/${language}` }]}
+                    { input: "input", label: "Heading/title", updateType: "title", value: content?.heroBanner?.content?.title[language] },
+                    { input: "textarea", label: "Description", updateType: "description", maxLength: 500, value: content?.heroBanner?.content?.description[language] },
+                    { input: "input", label: "Button Text", updateType: "button", maxLength: 20, value: content?.heroBanner?.content?.button?.[0]?.text?.[language] }]}
                 inputFiles={[{ label: "Backround Image", id: "homeBanner" }]}
                 section={"homeBanner"}
                 language={language}
                 currentContent={content}
-                contentIndex={indexes.homeBanner}
+                contentIndex={indexes.heroBanner}
                 resourceId={currentId}
+                outOfEditing={outOfEditing}
             />
 
             {/* about section */}
@@ -130,15 +126,16 @@ const HomeManager = ({ language, content, currentPath, indexes, }) => {
                 currentPath={currentPath}
                 Heading={"About Section"}
                 inputs={[
-                    { input: "input", label: "Heading/title", updateType: "title", value: content?.markDown?.content?.title[language] },
-                    { input: "richtext", label: "About section", updateType: "description", maxLength: 800, value: content?.markDown?.content?.description[language] },
-                    { input: "input", label: "Button Text", updateType: "button", value: content?.markDown?.content?.button?.[0]?.text?.[language] }]}
+                    { input: "input", label: "Heading/title", updateType: "title", value: content?.markdownContent?.content?.title[language] },
+                    { input: "richtext", label: "About section", updateType: "description", maxLength: 800, value: content?.markdownContent?.content?.description[language] },
+                    { input: "input", label: "Button Text", updateType: "button", value: content?.markdownContent?.content?.button?.[0]?.text?.[language] }]}
                 inputFiles={[{ label: "Backround Image", id: "aboutUsSection" }]}
                 section={"aboutUsSection"}
                 language={language}
                 currentContent={content}
-                contentIndex={indexes.markDown}
+                contentIndex={indexes.markdownContent}
                 resourceId={currentId}
+                outOfEditing={outOfEditing}
             />
 
             {/* services  */}
@@ -154,6 +151,7 @@ const HomeManager = ({ language, content, currentPath, indexes, }) => {
                 referenceOriginal={{ dir: "home", index: 0 }}
                 currentContent={content}
                 contentIndex={indexes.serviceCards}
+                outOfEditing={outOfEditing}
             />
 
             {/* exprerince */}
@@ -172,6 +170,7 @@ const HomeManager = ({ language, content, currentPath, indexes, }) => {
                     currentContent={content}
                     contentIndex={indexes.statistics}
                     resourceId={currentId}
+                    outOfEditing={outOfEditing}
                 />
                 {["Item 1", "Item 2", "Item 3", "Item 4"].map((item, index, array) => {
                     const isLast = index === array.length - 1;
@@ -192,6 +191,7 @@ const HomeManager = ({ language, content, currentPath, indexes, }) => {
                             currentContent={content}
                             contentIndex={indexes.statistics}
                             resourceId={currentId}
+                            outOfEditing={outOfEditing}
                         />
                     )
                 })}
@@ -223,6 +223,7 @@ const HomeManager = ({ language, content, currentPath, indexes, }) => {
                                         currentContent={content}
                                         contentIndex={indexes.projectGrid}
                                         resourceId={currentId}
+                                        outOfEditing={outOfEditing}
                                     />
                                     <MultiSelect
                                         currentPath={currentPath}
@@ -234,6 +235,7 @@ const HomeManager = ({ language, content, currentPath, indexes, }) => {
                                         currentContent={content}
                                         contentIndex={indexes.projectGrid}
                                         listOptions={ProjectOptions}
+                                        outOfEditing={outOfEditing}
                                     />
                                 </div>
                             )
@@ -256,6 +258,7 @@ const HomeManager = ({ language, content, currentPath, indexes, }) => {
                 contentIndex={indexes.clientLogo}
                 allowExtraInput={true}
                 resourceId={currentId}
+                outOfEditing={outOfEditing}
             />
 
             <ContentSection
@@ -269,6 +272,7 @@ const HomeManager = ({ language, content, currentPath, indexes, }) => {
                 currentContent={content}
                 contentIndex={indexes.testimonials}
                 resourceId={currentId}
+                outOfEditing={outOfEditing}
             />
             <MultiSelect
                 currentPath={currentPath}
@@ -284,6 +288,7 @@ const HomeManager = ({ language, content, currentPath, indexes, }) => {
                 contentIndex={indexes.testimonials}
                 limitOptions={4}
                 min={4}
+                outOfEditing={outOfEditing}
             />
 
 
@@ -293,8 +298,8 @@ const HomeManager = ({ language, content, currentPath, indexes, }) => {
                 Heading={"New Project"}
                 inputs={[
                     { input: "input", label: "Heading/title", updateType: "title", value: content?.normalContent?.content?.title?.[language] },
-                    { input: "textarea", label: "Description 1", updateType: "description", value: content?.normalContent?.content?.description?.[language] },
-                    { input: "textarea", label: "Description 2", updateType: "description2", value: content?.normalContent?.content?.description2?.[language] },
+                    { input: "richtext", label: "Description 1", updateType: "description", value: content?.normalContent?.content?.description?.[language] },
+                    // { input: "textarea", label: "Description 2", updateType: "description2", value: content?.normalContent?.content?.description2?.[language] },
                     // { input: "intpu", label: "Highlight Text", updateType: "highlightedText", value: content?.normalContent?.content?.highlightedText?.[language] },
                     { input: "input", label: "Button Text", updateType: "button", value: content?.normalContent?.content?.button?.[0]?.text?.[language] },
                 ]}
@@ -303,6 +308,7 @@ const HomeManager = ({ language, content, currentPath, indexes, }) => {
                 currentContent={content}
                 contentIndex={indexes.normalContent}
                 resourceId={currentId}
+                outOfEditing={outOfEditing}
             />
 
         </div>

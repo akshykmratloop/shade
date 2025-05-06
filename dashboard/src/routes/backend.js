@@ -54,6 +54,7 @@ const api = {
   updateContent: `${content}/updateContent`,
   publishContent: `${content}/directPublishContent`,
   generateRequest: `${content}/generateRequest`,
+  getRequests: `${content}/getRequests`,
 
   // Media
   uploadMedia: `${media}/upload`,

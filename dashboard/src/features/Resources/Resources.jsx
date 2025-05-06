@@ -321,14 +321,14 @@ function Resources() {
                 {/* <div className="relative aspect-[10/11] overflow-hidden"> */}
                 {/* <div className="h-full overflow-y-scroll customscroller"> */}
                 <div className="relative aspect-[10/11] overflow-hidden">
-                  {/* <iframe
+                  <iframe
                     src={resourcesContent?.pages?.[index]?.src}
                     className={`top-0 left-0 border-none transition-all duration-300 ease-in-out ${isNarrow
                       ? "w-[1000px] scale-[0.10]"
                       : `w-[1200px]  ${isSidebarOpen ? "scale-[0.34] " : "scale-[0.299]"
                       } p-4  bg-white`
                       } origin-top-left h-[80rem]`}
-                  ></iframe> */}
+                  ></iframe>
 
                   {/* Dark Gradient Overlay */}
                   <div className="absolute bottom-0 left-0 w-full h-1/3 bg-gradient-to-t from-black/100 via-black/40 to-transparent"></div>
@@ -406,7 +406,7 @@ function Resources() {
           </Suspense>
         </div>
       }
-      <ToastContainer />
+      <ToastContainer hideProgressBar={true}/>
     </div >
   );
 }
