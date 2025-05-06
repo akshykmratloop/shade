@@ -90,10 +90,6 @@ const HomeManager = ({ language, content, currentPath, indexes, outOfEditing }) 
                             relationType: response.content.relationType,
                             editVersion: isManager ? response.content.liveModeVersionData : response.content.editModeVersionData ?? response.content.liveModeVersionData
                         }
-                        if (payload.editVersion.status !== "EDITING" || payload.editVersion.status !== "DRAFT") {
-
-                        }
-
                         dispatch(updateContent({ currentPath: "content", payload }))
                     }
                 } catch (err) {

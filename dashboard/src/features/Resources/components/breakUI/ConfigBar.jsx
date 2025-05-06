@@ -12,6 +12,7 @@ import capitalizeWords, { TruncateText } from "../../../../app/capitalizeword";
 import { useDispatch, useSelector } from "react-redux";
 import { switchDebounce } from "../../../common/debounceSlice";
 import SkeletonLoader from "../../../../components/Loader/SkeletonLoader";
+import updateToasify from "../../../../app/toastify";
 
 const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
   const initialObj = {
@@ -59,17 +60,15 @@ const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
     if (verifierSet.has("")) {
       return toast.error(`${formObj.verifiers.length > 1 ? "Varifiers' fields" : "Varifier's field"} field can not be empty`);
     }
-
+    let loadingToastId
     try {
       dispatch(switchDebounce(true))
-
+      loadingToastId = toast.loading("Updating", { autoClose: 2000, style: { backgroundColor: "#3B82F6", color: "#fff" } }); // starting the loading in toaster
       if (!sameDoubledValue) {
         const response = await assignUser(formObj)
         if (response.ok) {
-          toast.success("Page assigned Successfully!", {
-            autoClose: 700,
-            hideProgressBar: true
-          })
+          updateToasify(loadingToastId, "Page assigned Successfully 🎉", "success", 1000) // updating the toaster
+    
           setTimeout(() => {
 
             closeButton()
@@ -78,14 +77,16 @@ const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
           }, 700)
         }
       } else {
-        return toast.error(`Error! duplicate selection has been found`, { hideProgressBar: true })
+        throw new Error("Request failed")
       }
     } catch (err) {
       console.log(err?.message)
+      updateToasify(loadingToastId, "Request failed. Please try again after some time!", "error", 1000)
     } finally {
       setTimeout(() => {
         dispatch(switchDebounce(false))
       }, 700)
+      // toast.dismiss(loadingToastId)
     }
   }
 

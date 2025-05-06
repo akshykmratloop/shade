@@ -9,7 +9,7 @@ import { updateContent } from "../../../common/homeContentSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { getContent } from "../../../../app/fetch";
 
-const AboutManager = ({ currentContent, currentPath, language }) => {
+const AboutManager = ({  content, currentPath, language, }) => {
     const dispatch = useDispatch()
     const [currentId, setCurrentId] = useState("")
 
@@ -42,9 +42,6 @@ const AboutManager = ({ currentContent, currentPath, language }) => {
                             relationType: response.content.relationType,
                             editVersion: isManager ? response.content.liveModeVersionData : response.content.editModeVersionData ?? response.content.liveModeVersionData
                         }
-                        if (payload.editVersion.status !== "EDITING" || payload.editVersion.status !== "DRAFT") {
-
-                        }
 
                         dispatch(updateContent({ currentPath: "content", payload }))
                     }
@@ -65,16 +62,16 @@ const AboutManager = ({ currentContent, currentPath, language }) => {
                     currentPath={currentPath}
                     Heading={"Services"}
                     inputs={[
-                        { input: "input", label: "Heading/title", updateType: "title" },
+                        { input: "input", label: "Heading/title", updateType: "title", value: content?.heroBanner?.content?.title[language] },
                         { input: "input", label: "Description", updateType: "subtitle" },
                     ]}
                     isBorder={false}
                     section={"services"}
                     language={language}
-                    currentContent={currentContent}
+                    currentContent={content}
                 />
                 {
-                    currentContent?.services?.cards.map((item, index, array) => {
+                    content?.services?.cards.map((item, index, array) => {
                         const isLast = index === array.length - 1;
                         return (
                             <ContentSection key={item + index}
@@ -91,7 +88,7 @@ const AboutManager = ({ currentContent, currentPath, language }) => {
                                 subSection={"cards"}
                                 index={+index}
                                 isBorder={isLast}
-                                currentContent={currentContent}
+                                currentContent={content}
                             />
                         )
                     })
@@ -110,7 +107,7 @@ const AboutManager = ({ currentContent, currentPath, language }) => {
                 inputFiles={[{ label: "Video", id: "video" }]}
                 section={"main"}
                 language={language}
-                currentContent={currentContent}
+                currentContent={content}
             />
         </div>
     )
