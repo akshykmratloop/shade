@@ -9,28 +9,156 @@ export const fetchResources = async (
   search = "",
   status = "",
   page = 1,
-  limit = 10
+  limit = 10,
+  userId
 ) => {
   const skip = (page - 1) * limit;
 
-  // Determine the resourceType filter
-  let resourceTypeFilter = {};
-  if (resourceType === "HEADER_FOOTER") {
-    resourceTypeFilter = {
-      resourceType: {
-        in: ["HEADER", "FOOTER"],
-      },
-    };
-  } else if (resourceType) {
-    resourceTypeFilter = {
-      resourceType,
-    };
+  // First, fetch the user's roles and permissions
+  const user = await prismaClient.user.findUnique({
+    where: { id: userId },
+    include: {
+      roles: {
+        include: {
+          role: {
+            include: {
+              permissions: {
+                select: {
+                  permission: true,
+                },
+              },
+              roleType: true,
+            },
+          }
+        }
+      }
+    }
+  });
+
+  if (!user) {
+    throw new Error("User not found");
   }
 
-  // Build the where clause based on provided filters
-  const whereClause = {
-    ...resourceTypeFilter,
-    ...(resourceTag ? { resourceTag: resourceTag } : {}),
+  // Extract all permissions the user has
+  const userPermissions = user.roles.flatMap(userRole => 
+    userRole.role.permissions.map(permissionItem => permissionItem.permission.name)
+  );
+
+
+  // Check if user is super admin
+  const isSuperAdmin = user.isSuperUser;
+
+  // Map permissions to allowed resource types and tags
+  const permissionToResourceMap = {
+    "PAGE_MANAGEMENT": {
+      types: ["MAIN_PAGE"],
+      tags: []
+    },
+    "SERVICE_MANAGEMENT": {
+      types: ["SUB_PAGE", "SUB_PAGE_ITEM"],
+      tags: ["SERVICE"]
+    },
+    "MARKET_MANAGEMENT": {
+      types: ["SUB_PAGE", "SUB_PAGE_ITEM"],
+      tags: ["MARKET"]
+    },
+    "PROJECT_MANAGEMENT": {
+      types: ["SUB_PAGE", "SUB_PAGE_ITEM"],
+      tags: ["PROJECT"]
+    },
+    "NEWS_BLOGS_MANAGEMENT": {
+      types: ["SUB_PAGE", "SUB_PAGE_ITEM"],
+      tags: ["NEWS"]
+    },
+    "CAREER_MANAGEMENT": {
+      types: ["SUB_PAGE", "SUB_PAGE_ITEM"],
+      tags: ["CAREER"]
+    },
+    "HEADER_MANAGEMENT": {
+      types: ["HEADER"],
+      tags: ["HEADER"]
+    },
+    "FOOTER_MANAGEMENT": {
+      types: ["FOOTER"],
+      tags: ["FOOTER"]
+    },
+    "TESTIMONIAL_MANAGEMENT": {
+      types: ["SUB_PAGE_ITEM"],
+      tags: ["TESTIMONIAL"]
+    },
+    "FORM_MANAGEMENT": {
+      types: ["FORM"],
+      tags: []
+    }
+  };
+
+  // Initialize filters
+  let typeFilter = {};
+  let tagFilter = {};
+
+  if (!isSuperAdmin) {
+    // Collect allowed types and tags based on permissions
+    let allowedTypes = new Set();
+    let allowedTags = new Set();
+
+    for (const [permission, {types, tags}] of Object.entries(permissionToResourceMap)) {
+      if (userPermissions.includes(permission)) {
+        types.forEach(type => allowedTypes.add(type));
+        tags.forEach(tag => allowedTags.add(tag));
+      }
+    }
+
+    // Apply type filter if user has any type permissions
+    if (allowedTypes.size > 0) {
+      if (resourceType && allowedTypes.has(resourceType)) {
+        typeFilter = { resourceType };
+      } else {
+        typeFilter = { resourceType: { in: Array.from(allowedTypes) } };
+      }
+    }
+
+    // Apply tag filter if user has any tag permissions
+    if (allowedTags.size > 0) {
+      if (resourceTag && allowedTags.has(resourceTag)) {
+        tagFilter = { resourceTag };
+      } else {
+        tagFilter = { resourceTag: { in: Array.from(allowedTags) } };
+      }
+    }
+
+    // If no permissions match, restrict to empty result
+    if (allowedTypes.size === 0 && allowedTags.size === 0) {
+      typeFilter = { resourceType: "NULL" }; // Will return no results
+    }
+  } else {
+    // Super admin gets all resources with optional filters
+    if (resourceType) {
+      typeFilter = { resourceType };
+    }
+    if (resourceTag) {
+      tagFilter = { resourceTag };
+    }
+  }
+  console.log( resourceType,'resourceTypee')
+
+  // Handle SINGLE_RESOURCE_MANAGEMENT or EDIT permissions
+  const hasRestrictedAccess = 
+    !isSuperAdmin && 
+    (userPermissions.includes("SINGLE_RESOURCE_MANAGEMENT") || 
+     userPermissions.includes("EDIT"));
+
+     if(hasRestrictedAccess){
+      if (resourceType) {
+        typeFilter = { resourceType };
+      }
+     }
+
+     console.log(hasRestrictedAccess,';hasRestrictedAccess')
+
+  // Build the base where clause
+  const baseWhereClause = {
+    ...typeFilter,
+    ...tagFilter,
     ...(relationType ? { relationType } : {}),
     ...(typeof isAssigned === "boolean" ? { isAssigned } : {}),
     ...(status ? { status } : {}),
@@ -45,13 +173,48 @@ export const fetchResources = async (
       : {}),
   };
 
+  // For restricted access users, only show assigned resources
+  if (hasRestrictedAccess) {
+    const assignedResources = await prismaClient.resourceRole.findMany({
+      where: {
+        userId,
+        status: "ACTIVE"
+      },
+      select: {
+        resourceId: true
+      }
+    });
+
+    const assignedResourceIds = assignedResources.map(r => r.resourceId);
+
+
+    // If no assigned resources, return empty
+    if (assignedResourceIds.length <= 0) {
+      return {
+        resources: [],
+        pagination: {
+          totalResources: 50,
+          totalPages: 60,
+          currentPage: page,
+          limit,
+        },
+      };
+    }
+
+    // Add assigned resource filter
+    baseWhereClause.id = { in: assignedResourceIds };
+  }
+
+  console.log(baseWhereClause,'baseWhereClause==')
+
+
   // Fetch resources with pagination
   const resources = await prismaClient.resource.findMany({
-    where: whereClause,
+    where: baseWhereClause,
     include: {
       _count: {
         select: {
-          versions: true, // Count of versions
+          versions: true,
         },
       },
       liveVersion: {
@@ -84,10 +247,9 @@ export const fetchResources = async (
 
   // Get total count for pagination
   const totalResources = await prismaClient.resource.count({
-    where: whereClause,
+    where: baseWhereClause,
   });
 
-  // Return formatted response with pagination info
   return {
     resources,
     pagination: {
@@ -107,7 +269,8 @@ export const fetchAllResourcesWithContent = async (
   search = "",
   status = "",
   page = 1,
-  limit = 10
+  limit = 10,
+  userId
 ) => {
   const skip = (page - 1) * limit;
 
@@ -801,6 +964,71 @@ export const assignUserToResource = async (
   });
 };
 
+export const markAllAssignedUserInactive = async (resourceId) => {
+  return await prismaClient.$transaction(async (prisma) => {
+    // 1. Mark all active roles as inactive
+    await prisma.resourceRole.updateMany({
+      where: {
+        resourceId,
+        status: 'ACTIVE'
+      },
+      data: {
+        status: 'INACTIVE'
+      }
+    });
+
+    // 2. Mark all active verifiers as inactive
+    await prisma.resourceVerifier.updateMany({
+      where: {
+        resourceId,
+        status: 'ACTIVE'
+      },
+      data: {
+        status: 'INACTIVE'
+      }
+    });
+
+    // 3. If there's a version, mark those assignments as inactive too
+    const resource = await prisma.resource.findUnique({
+      where: { id: resourceId },
+      select: { newVersionEditModeId: true }
+    });
+
+    if (resource?.newVersionEditModeId) {
+      await prisma.resourceVersionRole.updateMany({
+        where: {
+          resourceVersionId: resource.newVersionEditModeId,
+          status: 'ACTIVE'
+        },
+        data: {
+          status: 'INACTIVE'
+        }
+      });
+
+      await prisma.resourceVersionVerifier.updateMany({
+        where: {
+          resourceVersionId: resource.newVersionEditModeId,
+          status: 'ACTIVE'
+        },
+        data: {
+          status: 'INACTIVE'
+        }
+      });
+    }
+
+    // 4. Update the resource's isAssigned flag if needed
+    await prisma.resource.update({
+      where: { id: resourceId },
+      data: { isAssigned: false }
+    });
+
+    return {
+      success: true,
+      message: `All active user assignments for resource ${resourceId} have been marked as inactive`
+    };
+  });
+};
+
 export const fetchAssignedUsers = async (resourceId) => {
   return await prismaClient.resource.findUnique({
     where: {
@@ -1097,13 +1325,6 @@ async function formatResourceVersionData(resourceVersion) {
   };
 }
 
-export const findResourceById = async (id) => {
-  return await prismaClient.resource.findUnique({
-    where: {
-      id,
-    },
-  });
-};
 
 export const createOrUpdateVersion = async (contentData) => {
   // Find the resource with version counts
