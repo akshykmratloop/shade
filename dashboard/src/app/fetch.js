@@ -406,6 +406,20 @@ export async function generateRequest(body) {
   );
 }
 
+export async function getRequests(query) {
+  if (!query || typeof query !== "object") {
+    return await makerequest(api.route("getRequests"), "GET");
+  }
+
+  const [key] = Object.keys(query);
+  const value = query[key];
+
+  return await makerequest(
+    `${api.route("getRequests")}?${key}=${value}`,
+    "GET"
+  );
+}
+
 export async function uploadMedia(data) {
   return await makerequest(
     `${api.route("uploadMedia")}`,

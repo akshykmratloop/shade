@@ -166,7 +166,7 @@ function Login() {
                     }
                 </div>
             </div>
-            <ToastContainer theme="colored" />
+            <ToastContainer theme="colored" hideProgressBar={true} />
         </div>
     )
 }

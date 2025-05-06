@@ -12,6 +12,7 @@ import capitalizeWords, { TruncateText } from "../../../../app/capitalizeword";
 import { useDispatch, useSelector } from "react-redux";
 import { switchDebounce } from "../../../common/debounceSlice";
 import SkeletonLoader from "../../../../components/Loader/SkeletonLoader";
+import updateToasify from "../../../../app/toastify";
 
 const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
   const initialObj = {
@@ -57,28 +58,35 @@ const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
     }
 
     if (verifierSet.has("")) {
-      return toast.error(`Please select the empty Varifier`);
+      return toast.error(`${formObj.verifiers.length > 1 ? "Varifiers' fields" : "Varifier's field"} field can not be empty`);
     }
-
+    let loadingToastId
     try {
       dispatch(switchDebounce(true))
-
+      loadingToastId = toast.loading("Updating", { autoClose: 2000, style: { backgroundColor: "#3B82F6", color: "#fff" } }); // starting the loading in toaster
       if (!sameDoubledValue) {
         const response = await assignUser(formObj)
-        if (response.message === "Success") {
-          toast.success("Page assigned Successfully!", {
-            autoClose: 700
-          })
+        if (response.ok) {
+          updateToasify(loadingToastId, "Page assigned Successfully 🎉", "success", 1000) // updating the toaster
+    
+          setTimeout(() => {
+
+            closeButton()
+            reRender(Math.random())
+            dispatch(switchDebounce(false))
+          }, 700)
         }
       } else {
-        return toast.error(`Error! duplicate selection has been found`)
+        throw new Error("Request failed")
       }
     } catch (err) {
       console.log(err?.message)
+      updateToasify(loadingToastId, "Request failed. Please try again after some time!", "error", 1000)
     } finally {
-      closeButton()
-      reRender(Math.random())
-      dispatch(switchDebounce(false))
+      setTimeout(() => {
+        dispatch(switchDebounce(false))
+      }, 700)
+      // toast.dismiss(loadingToastId)
     }
   }
 
@@ -87,9 +95,10 @@ const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
     setFormObj(initialObj);
   }
 
-  const optionsForManagers = userList.managers.map((e) => ({ id: e.id, name: e.name + (e.status !== "ACTIVE" ? " - Inactive" : ""), status: e.status === "ACTIVE" ? "ACTIVE" : "INACTIVE" }))
-  const optionsForEditor = userList.editors.map((e) => ({ id: e.id, name: e.name + (e.status !== "ACTIVE" ? " - Inactive" : ""), status: e.status === "ACTIVE" ? "ACTIVE" : "INACTIVE" }))
-  const optionsForPublisher = userList.publishers.map((e) => ({ id: e.id, name: e.name + (e.status !== "ACTIVE" ? " - Inactive" : ""), status: e.status === "ACTIVE" ? "ACTIVE" : "INACTIVE" }))
+  const optionsForManagers = userList.managers.map((e) => ({ id: e.id, name: e.name + (e.status === "INACTIVE" ? " - Inactive" : ""), status: e.status }))
+  const optionsForEditor = userList.editors.map((e) => ({ id: e.id, name: e.name + (e.status === "INACTIVE" ? " - Inactive" : ""), status: e.status }))
+  const optionsForVerifiers = userList.verifiers.map((e) => ({ id: e.id, name: e.name + (e.status === "INACTIVE" ? " - Inactive" : ""), status: e.status }))
+  const optionsForPublisher = userList.publishers.map((e) => ({ id: e.id, name: e.name + (e.status === "INACTIVE" ? " - Inactive" : ""), status: e.status }))
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -258,10 +267,7 @@ const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
                     Select Verifier
                   </label>
                   <SelectorAccordion
-                    options={userList.verifiers.map((e) => ({
-                      id: e.id,
-                      name: e.name,
-                    }))}
+                    options={optionsForVerifiers}
                     field={"verifiers"}
                     value={formObj.verifiers}
                     onChange={updateSelection}

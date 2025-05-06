@@ -105,7 +105,7 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                 >
                     <img
                         dir={isLeftAlign ? "ltr" : "rtl"}
-                        src={`${Img_url}/${content?.homeBanner?.content?.image[0]}`}
+                        src={`${Img_url}${content?.heroBanner?.content?.image[0]}`}
                         alt="Banner Image"
                         className="w-[full] h-full object-cover"
                         style={{ objectPosition: "center", transform: "scaleX(-1)", height: isTablet ? "500px" : isPhone && "500px" }} />
@@ -114,23 +114,23 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                     className={`container mx-auto absolute ${isComputer ? "top-[20%]" : "top-16"}  left-0 right-0 px-4`}>
                     <div className={`text-left flex flex-col ${language === "en" ? "items-start" : "items-end"} ${textAlignment} ${isPhone ? "px-[0px] py-10" : "px-[80px]"}`}
                         style={{ paddingLeft: isComputer && dynamicSize(140, width) }}>
-                        <h1 className={`${(highlight && checkDifference(content?.homeBanner?.content?.title[language], liveContent?.homeBanner?.content?.title[language]))} text-[#292E3D] text-[45px] tracking-[0px]  leading-[2.5rem] capitalize font-[500] mb-4 ${isPhone ? "w-full" : fullScreen ? "w-3/5" : "w-3/5"}  `}
+                        <h1 className={`${(highlight && checkDifference(content?.heroBanner?.content?.title[language], liveContent?.heroBanner?.content?.title[language]))} text-[#292E3D] text-[45px] tracking-[0px]  leading-[2.5rem] capitalize font-[500] mb-4 ${isPhone ? "w-full" : fullScreen ? "w-3/5" : "w-3/5"}  `}
                             style={{ fontSize: fontSize?.mainHeading, lineHeight: isComputer && `${(width / 1526) * 4.5}rem`, }}
                         >
-                            {content?.homeBanner?.content?.title[language]}
+                            {content?.heroBanner?.content?.title[language]}
                         </h1>
-                        <p className={`${(highlight && checkDifference(content?.homeBanner?.content?.description[language], liveContent?.homeBanner?.content?.description[language]))} text-[#0e172fb3] font-[500] leading-[16px] mb-6 ${isPhone ? "w-full text-[12px]" : "w-1/2 text-[10px]"} tracking-[0px]`}
+                        <p className={`${(highlight && checkDifference(content?.heroBanner?.content?.description[language], liveContent?.heroBanner?.content?.description[language]))} text-[#0e172fb3] font-[500] leading-[16px] mb-6 ${isPhone ? "w-full text-[12px]" : "w-1/2 text-[10px]"} tracking-[0px]`}
                             style={{ fontSize: fontSize.mainPara, lineHeight: isComputer && `${width / 1526 * 24}px` }}
                         >
-                            {content?.homeBanner?.content?.description[language]}
+                            {content?.heroBanner?.content?.description[language]}
                         </p>
                         <button
                             className={`relative items-center flex ${isLeftAlign ? "" : "flex-row-reverse"} gap-2 text-[12px] font-medium px-[12px] py-[6px] px-[12px] bg-[#00b9f2] text-white rounded-md`}
                             style={{ fontSize: fontSize.mainButton }}
                             onClick={() => { }}
                         >
-                            <span className={`${(highlight && checkDifference(content?.homeBanner?.content?.button?.[0]?.text?.[language], content?.homeBanner?.content?.button?.[0]?.text?.[language]))}`}>
-                                {content?.homeBanner?.content?.button?.[0]?.text?.[language]}</span>
+                            <span className={`${(highlight && checkDifference(content?.heroBanner?.content?.button?.[0]?.text?.[language], content?.heroBanner?.content?.button?.[0]?.text?.[language]))}`}>
+                                {content?.heroBanner?.content?.button?.[0]?.text?.[language]}</span>
                             <img
                                 src={Arrow}
                                 width="10"
@@ -148,7 +148,7 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                     {/* Image section */}
                     <div className={`${isPhone ? "w-[90%]" : "w-[70%]"} h-[500px] overflow-hidden rounded-sm shadow-lg `}
                         style={{ height: isComputer && dynamicSize(629, width), width: isComputer && dynamicSize(877, width) }}>
-                        <img src={`${Img_url}/${content?.markDown?.content?.image[0]}`} alt="about-us" className="w-full h-[500px] object-cover"
+                        <img src={`${Img_url}${content?.markdownContent?.content?.image[0]}`} alt="about-us" className="w-full h-[500px] object-cover"
                             style={{ width: isComputer && dynamicSize(877, width), height: isComputer && '100%' }}
                         />
                     </div>
@@ -156,18 +156,18 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                     <div className={`flex flex-col items-start ${isPhone ? " " : "absolute "} ${isLeftAlign ? "right-0 text-left" : "left-0 text-right"} bg-[#145098] ${isTablet ? "p-10 py-14" : "p-14 py-20"} rounded-sm w-[23rem]`}
                         style={{ gap: isComputer ? dynamicSize(26, width) : "16px", width: isComputer && dynamicSize(488, width), padding: isComputer && `${dynamicSize(98, width)} ${dynamicSize(65, width)}` }}
                     >
-                        <h2 className={`text-white text-[28px] leading-[1.8rem]  font-normal ${highlight && checkDifference(content?.markDown?.content?.title[language], liveContent?.markDown?.content?.title[language])}`}
+                        <h2 className={`text-white text-[28px] leading-[1.8rem]  font-normal ${highlight && checkDifference(content?.markdownContent?.content?.title[language], liveContent?.markDown?.content?.title[language])}`}
                             style={{ fontSize: isComputer && dynamicSize(36, width), lineHeight: isComputer && dynamicSize(32, width) }}>
-                            {content?.markDown?.content?.title[language]}
+                            {content?.markdownContent?.content?.title[language]}
                         </h2>
-                        <div className={`text-white font-[100] text-[12px] leading-[16px] ${highlight && checkDifference(content?.markDown?.content?.description[language], liveContent?.markDown?.content?.description[language])}`}
+                        <div className={`text-white font-[100] text-[12px] leading-[16px] ${highlight && checkDifference(content?.markdownContent?.content?.description[language], liveContent?.markDown?.content?.description[language])}`}
                             style={{ fontSize: isComputer && dynamicSize(15, width), lineHeight: isComputer && dynamicSize(26, width) }}
-                            dangerouslySetInnerHTML={{ __html: content?.markDown?.content?.description[language] }}
+                            dangerouslySetInnerHTML={{ __html: content?.markdownContent?.content?.description[language] }}
                         />
-                        <button className={`px-[6px] py-[2px] bg-[#00B9F2] text-white text-[12px] ${highlight && checkDifference(content?.markDown?.content?.description[language], liveContent?.markDown?.content?.description[language])} rounded-md hover:bg-opacity-90 text-right`}
+                        <button className={`px-[6px] py-[2px] bg-[#00B9F2] text-white text-[12px] ${highlight && checkDifference(content?.markdownContent?.content?.description[language], liveContent?.markDown?.content?.description[language])} rounded-md hover:bg-opacity-90 text-right`}
                             style={{ fontSize: isComputer && dynamicSize(18, width) }}
                         >
-                            {content?.markDown?.content?.button?.[0]?.text?.[language]}
+                            {content?.markdownContent?.content?.button?.[0]?.text?.[language]}
                         </button>
                     </div>
 
@@ -542,7 +542,7 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                             !isPhone &&
                             <div className="absolute top-0 right-0 h-full w-[20%] bg-gradient-to-l from-white to-transparent pointer-events-none z-10"></div>
                         }
-                        {content?.testimonials?.items.lenght > 1 &&
+                        {content?.testimonials?.items.length > 1 &&
                             < Swiper
                                 modules={[Navigation, Autoplay, EffectCoverflow]}
                                 grabCursor={true}
@@ -672,16 +672,14 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                         >
                             {content?.normalContent?.content?.title?.[language]}
                         </h2>
-                        <p className="text-xs font-light text-black leading-7 mb-2 relative bg-transparent"
-                            style={{ fontSize: isComputer && dynamicSize(16, width) }}
-                        >
-                            {content?.normalContent?.content?.description?.[language].replace(
-                                content?.normalContent?.content?.highlightedText?.[language],
-                                `"${content?.normalContent?.content?.highlightedText?.[language]}"`
-                            )}
+                        <div className="relative">
+                            <div className=" font-light text-black leading-7 mb-2 relative bg-transparent"
+                                style={{ fontSize: isComputer && dynamicSize(16, width) }}
+                                dangerouslySetInnerHTML={{ __html: content?.normalContent?.content?.description?.[language] }}
+                            />
                             <i
                                 className={`absolute ${isLeftAlign ? isPhone ? "right-[130px] top-[55px]" : "right-[250px]" : "right-[152px]"} top-0  opacity-70 z-10 
-                    ${language === 'ar' ? 'right-48' : ''}`}
+                                ${language === 'ar' ? 'right-48' : ''}`}
                                 style={{
                                     backgroundImage: `url(${highlightsvg})`,
                                     backgroundRepeat: 'no-repeat',
@@ -691,12 +689,7 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                                     mixBlendMode: 'multiply',
                                 }}
                             />
-                        </p>
-                        <p className="text-xs font-light text-black leading-7 mb-2"
-                            style={{ fontSize: isComputer && dynamicSize(16, width) }}
-                        >
-                            {content?.normalContent?.content?.description2?.[language]}
-                        </p>
+                        </div>
                         <button
                             className="bg-[#00B9F2] text-xs text-white px-4 py-2 text-lg mt-11 mx-auto block rounded"
                             style={{ fontSize: isComputer && dynamicSize(18, width) }}

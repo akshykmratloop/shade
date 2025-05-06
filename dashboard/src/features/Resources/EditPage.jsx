@@ -31,11 +31,16 @@ const EditPage = () => {
     const [fullScreen, setFullScreen] = useState(false)
     const [subRoutesList, setSubRouteList] = useState([])
 
+    const { isManager } = useSelector(state => state.user)
+
     const currentPath = location.pathname.split('/')[4]
     const subPath = location.pathname.split('/')[5]
     const deepPath = location.pathname.split('/')[6]
 
     const contentFromRedux = useSelector((state) => state.homeContent.present)
+
+    const stageStatus = contentFromRedux?.content?.editVersion?.status
+    const outOfEditing = !(stageStatus === "EDITING" || stageStatus === "DRAFT" || stageStatus === "PUBLISHED")
 
     const content = createContent(contentFromRedux, "edit", currentPath)
 
@@ -63,7 +68,7 @@ const EditPage = () => {
                                 <div className="w-full sticky top-[-30px] rounded-md p-5 bg-gray-100 dark:bg-cyan-800 z-30">
                                     <LanguageSwitch language={language} setLanguage={setLanguage} />
                                 </div>
-                                <AllForOneManager currentPath={currentPath} subPath={subPath} deepPath={deepPath} language={language} content={content.content} contentIndex={content.index} />
+                                <AllForOneManager outOfEditing={outOfEditing} currentPath={currentPath} subPath={subPath} deepPath={deepPath} language={language} content={content.content} contentIndex={content.index} />
                             </div>
 
                             {/* Content view */}
@@ -71,7 +76,7 @@ const EditPage = () => {
                                 className={`flex-[4] h-[83.5vh] flex flex-col`}
                                 style={{ width: screen > 900 ? "60%" : "" }}
                             >
-                                <ContentTopBar setWidth={setScreen} setFullScreen={setFullScreen} currentPath={currentPath} />
+                                <ContentTopBar setWidth={setScreen} setFullScreen={setFullScreen} currentPath={currentPath} outOfEditing={outOfEditing} />
                                 <h4 className="text-[#6B7888] text-[14px] mt-2 mb-[1px]">Add Note</h4>
                                 <TextAreaInput
                                     updateFormValue={() => { }}
@@ -103,7 +108,7 @@ const EditPage = () => {
                 }
 
             </Suspense>
-            <ToastContainer />
+            <ToastContainer hideProgressBar={true} autoClose={700} />
         </div >
 
     )

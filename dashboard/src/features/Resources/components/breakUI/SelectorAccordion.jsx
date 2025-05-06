@@ -22,6 +22,13 @@ const SelectorAccordion = ({ options, onChange, field, value, preAssignedVerifie
     const lastIndex = findLastIndex(selector)
 
     const updateSelectorValue = (index, label, newValue) => {
+        if (newValue === "") return
+        for (let x of options) {
+            if (x.id === newValue && x.status === "INACTIVE") {
+                // toast.error("Unable to select Inactive user")
+                return
+            }
+        }
         setSelector((prev) => {
             if (prev[index][label] === newValue) return prev; // Skip if value is unchanged
             const valueExists = prev.some((e, i) => e.value === newValue && i !== index);
@@ -110,7 +117,8 @@ const SelectorAccordion = ({ options, onChange, field, value, preAssignedVerifie
                             <div className={` text-sm relative`}>
                                 <div className="relative">
                                     <select
-                                        className={`px-2 bg-transparent mt-1 border border-stone-300 dark:border-stone-600 rounded-md p-2 outline-none w-full text-xs pl-2 ${value === "" ? "" : "text-zinc-700 dark:text-zinc-300"}`}
+                                        className={`px-2 bg-transparent mt-1 border border-stone-300 dark:border-stone-600 rounded-md p-2 outline-none w-full text-xs pl-2 
+                                            ${select.value === "" ? "" : "text-zinc-700 dark:text-zinc-300"}`}
                                         onChange={(e) => updateSelectorValue(index, "value", e.target.value)}
                                         value={select.value} // <-- Ensure value is controlled
                                     >
@@ -144,7 +152,7 @@ const SelectorAccordion = ({ options, onChange, field, value, preAssignedVerifie
                                                         }
                                                     }
                                                 }
-                                                className=" flex justify-center items-center translate-y-[2px] rounded-md p-1 text-[1.2rem] text-[#637888] border border-[#cecbcb] dark:border-stone-600"
+                                                className="flex justify-center items-center translate-y-[2px] rounded-md p-1 text-[1.2rem] text-[#637888] border border-[#cecbcb] dark:border-stone-600"
                                             >
                                                 {<RxCross2 className="w-3 h-3" />}
                                             </button>}

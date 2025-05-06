@@ -4,7 +4,6 @@ export function checkUser(arr) {
     let isVerifier = false;
     let isPublisher = false;
 
-    console.log(arr)
     if (Array.isArray(arr)) {
 
         for (let i = 0; i < arr.length; i++) {
