@@ -55,6 +55,7 @@ const api = {
   publishContent: `${content}/directPublishContent`,
   generateRequest: `${content}/generateRequest`,
   getRequests: `${content}/getRequests`,
+  removeAssignedUsers: `${content}/removeAssignedUser/`,
 
   // Media
   uploadMedia: `${media}/upload`,

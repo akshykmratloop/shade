@@ -6,6 +6,7 @@ import {
   assignUser,
   getAssignedUsers,
   getEligibleUsers,
+  removeAssignedUser,
 } from "../../../../app/fetch";
 import { toast } from "react-toastify";
 import capitalizeWords, { TruncateText } from "../../../../app/capitalizeword";
@@ -25,6 +26,7 @@ const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
   const configRef = useRef(null);
   const [userList, setUserList] = useState({ managers: [], editors: [], verifiers: [], publishers: [] })
   const [formObj, setFormObj] = useState(initialObj)
+  const [changedValue, setChangedValue] = useState(-1)
   const [firstValue, setFirstValue] = useState(false)
   const [preAssignedUsers, setPreAssignedUsers] = useState({ roles: {}, verifiers: [] })
   const [fetchedData, setFetchedData] = useState(false)
@@ -92,6 +94,26 @@ const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
       toast.dismiss(loadingToastId)
     }
   }
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  async function removeAllUsers() {
+    if (debouncingState) return
+
+    dispatch(switchDebounce(true))
+    let loadingToastId = toast.loading("Removing all users...")
+    try {
+      const response = await removeAssignedUser(resourceId)
+      if (response.ok) {
+        updateToasify(loadingToastId, "Users has been removed successfully!", "success", 700)
+      } else {
+        updateToasify(loadingToastId, "Failed to remove all Users. Try again later", "failure", 700)
+      }
+    } catch (err) {
+      console.log(err)
+    } finally {
+      toast.dismiss(loadingToastId)
+      dispatch(switchDebounce(false))
+    }
+  }
 
   function closeButton() {
     setOn(false);
@@ -124,6 +146,7 @@ const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
       ...prev,
       resourceId: resourceId,
     }));
+    setChangedValue(0)
   }, [resourceId]);
 
   useEffect(() => {
@@ -139,6 +162,7 @@ const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
         publisher: preAssignedUsers?.roles?.PUBLISHER || "",
       };
     });
+    setChangedValue(-1)
   }, [preAssignedUsers]);
 
   useEffect(() => {
@@ -207,7 +231,11 @@ const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
     }
     getUser()
   }, [])
-  console.log(firstValue)
+
+  useEffect(() => {
+    setChangedValue(prev => prev + 1)
+  }, [formObj])
+
   return (
     <div
       className={`${display ? "block" : "hidden"
@@ -314,7 +342,7 @@ const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
                       <p>Do you want to remove all assigned user?</p>
                       <div className="flex gap-2 justify-end">
                         <button className="bg-red-600 text-white p-2 rounded-md text-[12px] w-[30%]" onClick={(e) => { e.preventDefault(); setClearPopup(false) }}>NO</button>
-                        <button className="bg-[#29469C] text-white p-2 rounded-md text-[12px] w-[30%]" onClick={(e) => { e.preventDefault() }}>YES</button>
+                        <button className="bg-[#29469C] text-white p-2 rounded-md text-[12px] w-[30%]" onClick={(e) => { e.preventDefault(); removeAllUsers() }}>YES</button>
                       </div>
                     </div>
                   </div>}
@@ -331,14 +359,27 @@ const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
                 >
                   Cancel
                 </button> */}
-                <button
-                  onClick={onSubmit}
-                  className={`w-full mx-5 h-[2.3rem] rounded-md text-xs 
+                {
+                  fetchedData ?
+                    changedValue > 1 ?
+                      <button
+                        onClick={onSubmit}
+                        className={`w-full mx-5 h-[2.3rem] rounded-md text-xs 
                     ${firstValue ? "bg-[#29469c]" : "bg-gray-500"} 
                      border-none ${firstValue && "hover:bg-[#29469c]"} text-[white]`}
-                >
-                  {fetchedData ? "Update" : "Save"}
-                </button>
+                      >
+                        {fetchedData ? "Update" : "Save"}
+                      </button> : ""
+                    :
+                    <button
+                      onClick={onSubmit}
+                      className={`w-full mx-5 h-[2.3rem] rounded-md text-xs 
+                  ${firstValue ? "bg-[#29469c]" : "bg-gray-500"} 
+                   border-none ${firstValue && "hover:bg-[#29469c]"} text-[white]`}
+                    >
+                      {"Save"}
+                    </button>
+                }
               </div>
             </form>
         }

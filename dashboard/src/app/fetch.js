@@ -368,12 +368,16 @@ export async function assignUser(data) {
   );
 }
 
-export async function getAssignedUsers(query) {
-  return await makerequest(`${api.route("getAssignedUsers")}/${query}`, "GET");
+export async function getAssignedUsers(param) {
+  return await makerequest(`${api.route("getAssignedUsers")}/${param}`, "GET");
 }
 
-export async function getContent(query) {
-  return await makerequest(`${api.route("getContent")}/${query}`, "GET");
+export async function removeAssignedUser(param) {
+  return await makerequest(`${api.route("removeAssignedUser")}/${param}`, "PATCH");
+}
+
+export async function getContent(param) {
+  return await makerequest(`${api.route("getContent")}/${param}`, "GET");
 }
 
 export async function updateContent(data) {
