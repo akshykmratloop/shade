@@ -25,6 +25,7 @@ const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
   const configRef = useRef(null);
   const [userList, setUserList] = useState({ managers: [], editors: [], verifiers: [], publishers: [] })
   const [formObj, setFormObj] = useState(initialObj)
+  const [firstValue, setFirstValue] = useState(false)
   const [preAssignedUsers, setPreAssignedUsers] = useState({ roles: {}, verifiers: [] })
   const [fetchedData, setFetchedData] = useState(false)
   const [clearPopup, setClearPopup] = useState(false)
@@ -38,8 +39,11 @@ const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
     });
   }
 
+
+
   async function onSubmit(e) {
     e.preventDefault();
+    if (!firstValue) return
     if (debouncingState) return
 
     const valueArray = Object.values(formObj);
@@ -77,7 +81,7 @@ const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
           }, 700)
         }
       } else {
-        return updateToasify(loadingToastId,`Error! duplicate selection has been found`, "error", 1000)
+        return updateToasify(loadingToastId, `Error! duplicate selection has been found`, "error", 1000)
       }
     } catch (err) {
       console.log(err?.message)
@@ -175,6 +179,19 @@ const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
     GetAssingends();
   }, [resourceId]);
 
+
+  useEffect(() => {
+    const hasValue = (
+      formObj.manager.trim() !== "" ||
+      formObj.editor.trim() !== "" ||
+      formObj.publisher.trim() !== "" ||
+      formObj.verifiers.some(v => v.id.trim() !== "")
+    )
+
+    setFirstValue(hasValue)
+  }, [formObj])
+
+
   useEffect(() => {
     async function getUser() {
       const response1 = await getEligibleUsers({ permission: "EDIT" });
@@ -190,7 +207,7 @@ const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
     }
     getUser()
   }, [])
-
+  console.log(firstValue)
   return (
     <div
       className={`${display ? "block" : "hidden"
@@ -287,25 +304,25 @@ const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
                   selectClass="bg-transparent border border-[#cecbcb] dark:border-stone-600 mt-1 rounded-md py-2 h-[2.5rem] outline-none"
                   id={"SelectPublisher"}
                 />
-
-                <div className="flex flex-col gap-4">
-                  <div className="flex justify-end">
-                    <button className="bg-red-600 text-white p-2 rounded-md text-[12px]" onClick={(e) => { e.preventDefault(); setClearPopup(true) }}>Clear All</button>
-                  </div>
-                  <div className="bg-stone-500/20 rounded-md text-[14px] text-zinc-700 dark:text-zinc-300 p-3 flex flex-col gap-4 animation-move-left"
-                    style={{ display: clearPopup ? "flex" : "none" }}>
-                    <p>Do you want to remove all assigned user?</p>
-                    <div className="flex gap-2 justify-end">
-                      <button className="bg-red-600 text-white p-2 rounded-md text-[12px] w-[30%]" onClick={(e) => { e.preventDefault(); setClearPopup(false) }}>Cancel</button>
-                      <button className="bg-[#29469C] text-white p-2 rounded-md text-[12px] w-[30%]" onClick={(e) => { e.preventDefault() }}>Save</button>
+                {fetchedData &&
+                  <div className="flex flex-col gap-4">
+                    <div className="flex justify-end">
+                      <button className="bg-red-600 text-white p-2 rounded-md text-[12px]" onClick={(e) => { e.preventDefault(); setClearPopup(true) }}>Remove All</button>
                     </div>
-                  </div>
-                </div>
+                    <div className="bg-stone-500/20 rounded-md text-[14px] text-zinc-700 dark:text-zinc-300 p-3 flex flex-col gap-4 animation-move-left"
+                      style={{ display: clearPopup ? "flex" : "none" }}>
+                      <p>Do you want to remove all assigned user?</p>
+                      <div className="flex gap-2 justify-end">
+                        <button className="bg-red-600 text-white p-2 rounded-md text-[12px] w-[30%]" onClick={(e) => { e.preventDefault(); setClearPopup(false) }}>NO</button>
+                        <button className="bg-[#29469C] text-white p-2 rounded-md text-[12px] w-[30%]" onClick={(e) => { e.preventDefault() }}>YES</button>
+                      </div>
+                    </div>
+                  </div>}
               </div>
 
               {/* Buttons */}
               <div className="flex justify-center gap-2 py-4 mt-3">
-                <button
+                {/* <button
                   className="w-[8rem] h-[2.3rem] rounded-md text-xs bg-stone-700 text-white"
                   onClick={(e) => {
                     e.preventDefault();
@@ -313,10 +330,12 @@ const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
                   }}
                 >
                   Cancel
-                </button>
+                </button> */}
                 <button
                   onClick={onSubmit}
-                  className="w-[8rem] h-[2.3rem] rounded-md text-xs bg-[#29469c] border-none hover:bg-[#29469c] text-[white]"
+                  className={`w-full mx-5 h-[2.3rem] rounded-md text-xs 
+                    ${firstValue ? "bg-[#29469c]" : "bg-gray-500"} 
+                     border-none ${firstValue && "hover:bg-[#29469c]"} text-[white]`}
                 >
                   {fetchedData ? "Update" : "Save"}
                 </button>
