@@ -147,12 +147,12 @@ const PageDetails = ({ data, display, setOn }) => {
                 <label>Assigned Users:</label>
                 <div className="">
                   <div className="border-b dark:border-stone-700 flex justify-between py-2 h-[43px] items-center">
-                    <label className="!text-[#808080]">Manager:</label>
-                    <p>{users?.manager || "N/A"}</p>
+                    <label className="!text-[#808080]" title={users?.manager}>Manager:</label>
+                    <p>{TruncateText(users?.manager, 17) || "N/A"}</p>
                   </div>
                   <div className="border-b dark:border-stone-700 flex justify-between py-2 h-[43px] items-center">
-                    <label className="!text-[#808080]">Editor:</label>
-                    <p>{users.editor || "N/A"}</p>
+                    <label className="!text-[#808080]" title={users?.editor}>Editor:</label>
+                    <p>{TruncateText(users?.editor, 17) || "N/A"}</p>
                   </div>
                   {/* <div className="border border-cyan-500 flex"> */}
                   <div className="flex flex-col">
@@ -171,7 +171,7 @@ const PageDetails = ({ data, display, setOn }) => {
                             <p className="border px-[12px] w-[6rem] py-[2px] text-center rounded-3xl font-light text-[11px]">
                               {"level " + parseInt(ind + 1)}
                             </p>
-                            <p>
+                            <p title={verifier?.user?.name}>
                               {TruncateText(verifier?.user?.name, 12)}
                               </p>
                           </div>
@@ -180,8 +180,8 @@ const PageDetails = ({ data, display, setOn }) => {
                     })}
                   </div>
                   <div className="border-b-4 border-gray-400 dark:border-stone-700 flex justify-between py-4 items-center">
-                    <label className="!text-[#808080]">Publisher:</label>
-                    <p>{users?.publisher || "N/A"}</p>
+                    <label className="!text-[#808080]" title={users?.publisher}>Publisher:</label>
+                    <p>{TruncateText(users?.publisher, 17) || "N/A"}</p>
                   </div>
                   {/* </div> */}
                 </div>
