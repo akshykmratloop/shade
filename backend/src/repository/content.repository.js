@@ -404,125 +404,122 @@ export const fetchEligibleUsers = async (roleType = "", permission = "") => {
   return formattedUsers;
 };
 
-
-export const assignUserToResource = async (resourceId, manager, editor, verifiers, publisher) => {
-
+export const assignUserToResource = async (
+  resourceId,
+  manager,
+  editor,
+  verifiers,
+  publisher
+) => {
+  // 1. Fetch current resource state with all relationships
   const currentResource = await prismaClient.resource.findUnique({
     where: { id: resourceId },
     include: {
       roles: true,
       verifiers: true,
-      newVersionEditMode: true,
+      newVersionEditMode: {
+        include: {
+          roles: true,
+          verifiers: true,
+        },
+      },
     },
   });
 
   assert(currentResource, "NOT_FOUND", `Resource not found`);
 
   return await prismaClient.$transaction(async (prisma) => {
-
     const roleMap = {
       MANAGER: manager,
       EDITOR: editor,
       PUBLISHER: publisher,
     };
 
-    // First level validation: Check for duplicate user IDs in the payload
-    const userIdsInRoles = Object.values(roleMap).filter(Boolean);
-    const verifierIds = verifiers?.map(v => v.id).filter(Boolean) || [];
-    const allUserIds = [...userIdsInRoles, ...verifierIds];
+    // 2. Validate payload structure
+    const allUserIds = [
+      ...Object.values(roleMap).filter(Boolean),
+      ...(verifiers?.map((v) => v.id) || []),
+    ];
 
-    // Check for duplicate IDs in the payload
+    // Rule: No duplicate users in payload
     const uniqueUserIds = new Set(allUserIds);
     assert(
       uniqueUserIds.size === allUserIds.length,
-      "VALIDATION_ERROR",
-      "Duplicate user found for multiple roles."
+      "DUPLICATE_USER",
+      "Same user cannot be assigned to multiple roles"
     );
 
-    // Check for duplicate verifier stages
-    if (Array.isArray(verifiers) && verifiers.length > 0) {
-      const stages = verifiers.map(v => v.stage);
-      const uniqueStages = new Set(stages);
+    // Rule: Unique verifier stages
+    if (verifiers) {
+      const stages = verifiers.map((v) => v.stage);
       assert(
-        uniqueStages.size === stages.length,
-        "VALIDATION_ERROR",
-        "Duplicate stages found in verifiers. Only one user can be assigned per stage."
+        new Set(stages).size === stages.length,
+        "DUPLICATE_STAGE",
+        "Each verification stage must have exactly one user"
       );
     }
 
-    // Conflict check: user can't be verifier & manager/editor/publisher at same time with ACTIVE status
+    const currentActiveRoles = currentResource.roles.filter(
+      (r) => r.status === "ACTIVE"
+    );
+    const currentActiveVerifiers = currentResource.verifiers.filter(
+      (v) => v.status === "ACTIVE"
+    );
+
+    // 3. Process role assignments first (allows verifier-to-role transitions)
     for (const [role, userId] of Object.entries(roleMap)) {
-      if (!userId) continue;
+      if (!userId) continue; // Skip if no user assigned
 
-      const isVerifier = currentResource.verifiers.find((v) => v.userId === userId && v.status === "ACTIVE");
-      assert(
-        !isVerifier,
-        "ROLE_CONFLICT",
-        `User ${userId} cannot be assigned as ${role}; already an active verifier for stage ${isVerifier?.stage}`
+      // Case 1: Already active in this role - skip (idempotent)
+      const existingActiveInRole = currentActiveRoles.find(
+        (r) => r.role === role && r.userId === userId
       );
-    }
+      if (existingActiveInRole) continue;
 
-    for (const verifierId of verifierIds) {
-      const activeRole = currentResource.roles.find(
-        (r) => r.userId === verifierId && r.status === "ACTIVE"
+      // Case 2: User is active verifier - deactivate first (No Role-Verifier Conflict Rule)
+      const activeVerifierAssignment = currentActiveVerifiers.find(
+        (v) => v.userId === userId
       );
-      assert(
-        !activeRole,
-        "ROLE_CONFLICT",
-        `User ${verifierId} cannot be verifier; already active as ${activeRole?.role}`
-      );
-    }
-
-    // Assign manager/editor/publisher
-    for (const [role, userId] of Object.entries(roleMap)) {
-      if (!userId) continue;
-
-      // Check if this user already has this role with ACTIVE status
-      const existingActiveRole = currentResource.roles.find(
-        (r) => r.role === role && r.userId === userId && r.status === "ACTIVE"
-      );
-
-      // If user already has this role with ACTIVE status, skip (no change needed)
-      if (existingActiveRole) continue;
-
-      // Check if this user has any other ACTIVE role for this resource
-      const isUserInOtherActiveRole = currentResource.roles.find(
-        (r) => r.userId === userId && r.status === "ACTIVE" && r.role !== role
-      );
-
-      // If user has another ACTIVE role, make it INACTIVE
-      if (isUserInOtherActiveRole) {
-        await prisma.resourceRole.update({
-          where: { id: isUserInOtherActiveRole.id },
+      if (activeVerifierAssignment) {
+        await prisma.resourceVerifier.update({
+          where: { id: activeVerifierAssignment.id },
           data: { status: "INACTIVE" },
         });
       }
 
-      // If another user has this role with ACTIVE status, make it INACTIVE
-      const otherUserWithActiveRole = currentResource.roles.find(
-        (r) => r.role === role && r.userId !== userId && r.status === "ACTIVE"
+      // Case 3: User active in different role - deactivate first (Single Active Role Per User Rule)
+      const activeInOtherRole = currentActiveRoles.find(
+        (r) => r.userId === userId && r.role !== role
       );
-
-      if (otherUserWithActiveRole) {
+      if (activeInOtherRole) {
         await prisma.resourceRole.update({
-          where: { id: otherUserWithActiveRole.id },
+          where: { id: activeInOtherRole.id },
           data: { status: "INACTIVE" },
         });
       }
 
-      // Check if this user already has this role but with INACTIVE status
-      const existingInactiveRole = currentResource.roles.find(
+      // Case 4: Another user active in this role - deactivate them (Single Active User Per Role Rule)
+      const otherUserActive = currentActiveRoles.find(
+        (r) => r.role === role && r.userId !== userId
+      );
+      if (otherUserActive) {
+        await prisma.resourceRole.update({
+          where: { id: otherUserActive.id },
+          data: { status: "INACTIVE" },
+        });
+      }
+
+      // Case 5: Existing inactive assignment - reactivate (Inactive Reactivation Rule)
+      const existingInactive = currentResource.roles.find(
         (r) => r.role === role && r.userId === userId && r.status !== "ACTIVE"
       );
-
-      // If user has this role but INACTIVE, make it ACTIVE
-      if (existingInactiveRole) {
+      if (existingInactive) {
         await prisma.resourceRole.update({
-          where: { id: existingInactiveRole.id },
+          where: { id: existingInactive.id },
           data: { status: "ACTIVE" },
         });
       } else {
-        // Create new role assignment with ACTIVE status
+        // Case 6: Create new assignment
         await prisma.resourceRole.create({
           data: {
             resourceId,
@@ -534,144 +531,158 @@ export const assignUserToResource = async (resourceId, manager, editor, verifier
       }
     }
 
-    // Assign verifiers
-    if (Array.isArray(verifiers) && verifiers.length > 0) {
-      // First, deactivate any existing ACTIVE verifiers for users in the payload
-      // This is to avoid unique constraint violations when reassigning users
-      for (const { id: userId } of verifiers) {
-        // Find all ACTIVE verifier roles for this user
-        const existingActiveVerifiers = currentResource.verifiers.filter(
-          (v) => v.userId === userId && v.status === "ACTIVE"
+    // 4. Process verifier assignments (after roles are processed)
+    if (Array.isArray(verifiers)) {
+      // Deactivate verifiers not in payload
+      const verifiersToDeactivate = currentActiveVerifiers.filter(
+        (v) =>
+          !verifiers.some((v2) => v2.id === v.userId && v2.stage === v.stage)
+      );
+      for (const verifier of verifiersToDeactivate) {
+        await prisma.resourceVerifier.update({
+          where: { id: verifier.id },
+          data: { status: "INACTIVE" },
+        });
+      }
+
+      // Get all users being assigned to roles from the payload
+      const usersBeingAssignedToRoles = new Set(
+        Object.values(roleMap).filter(Boolean)
+      );
+
+      // Process each verifier in payload
+      for (const { id: userId, stage } of verifiers) {
+        // Skip if already active in this stage (idempotent)
+        const existingActive = currentActiveVerifiers.find(
+          (v) => v.userId === userId && v.stage === stage
+        );
+        if (existingActive) continue;
+
+        // Modified check: Only fail if user is being assigned to BOTH role and verifier in THIS payload
+        if (usersBeingAssignedToRoles.has(userId)) {
+          throw new Error(
+            `User ${userId} cannot be assigned as both role and verifier in the same request`
+          );
+        }
+
+        // Deactivate ANY existing assignment to this stage (Single Active User Per Verifier Stage)
+        // This needs to happen BEFORE attempting to reactivate or create a new one
+        const existingStageAssignments = currentResource.verifiers.filter(
+          (v) => v.stage === stage && v.status === "ACTIVE"
         );
 
-        // Deactivate all existing ACTIVE verifier roles for this user
-        for (const verifier of existingActiveVerifiers) {
+        for (const assignment of existingStageAssignments) {
+          await prisma.resourceVerifier.update({
+            where: { id: assignment.id },
+            data: { status: "INACTIVE" },
+          });
+        }
+
+        // Deactivate any other active verifier assignments for this user (Single Active Verifier Stage Per User)
+        const userOtherActiveVerifiers = currentActiveVerifiers.filter(
+          (v) => v.userId === userId && v.stage !== stage
+        );
+        for (const verifier of userOtherActiveVerifiers) {
           await prisma.resourceVerifier.update({
             where: { id: verifier.id },
             data: { status: "INACTIVE" },
           });
         }
-      }
 
-      // Now assign verifiers to their new stages
-      for (const { id: userId, stage } of verifiers) {
-        // If another user has this verifier role with ACTIVE status, make it INACTIVE
-        const otherUserWithActiveVerifier = currentResource.verifiers.find(
-          (v) => v.stage === stage && v.userId !== userId && v.status === "ACTIVE"
+        // Reactivate existing inactive or create new
+        const existingInactive = currentResource.verifiers.find(
+          (v) =>
+            v.userId === userId && v.stage === stage && v.status !== "ACTIVE"
         );
-
-        if (otherUserWithActiveVerifier) {
+        if (existingInactive) {
           await prisma.resourceVerifier.update({
-            where: { id: otherUserWithActiveVerifier.id },
-            data: { status: "INACTIVE" },
-          });
-        }
-
-        // Check if this user is already a verifier for this stage (but now INACTIVE)
-        const existingVerifier = currentResource.verifiers.find(
-          (v) => v.stage === stage && v.userId === userId
-        );
-
-        if (existingVerifier) {
-          // Update existing verifier to ACTIVE
-          await prisma.resourceVerifier.update({
-            where: { id: existingVerifier.id },
+            where: { id: existingInactive.id },
             data: { status: "ACTIVE" },
           });
         } else {
-          // Create new verifier with ACTIVE status
           await prisma.resourceVerifier.create({
             data: {
               resourceId,
               userId,
               stage,
-              status: "ACTIVE"
+              status: "ACTIVE",
             },
-          });
-        }
-      }
-
-      // Make any verifiers not in the payload INACTIVE
-      const verifierIdsInPayload = verifiers.map(v => v.id);
-      const verifiersToDeactivate = currentResource.verifiers.filter(
-        (v) => !verifierIdsInPayload.includes(v.userId)
-      );
-
-      for (const verifier of verifiersToDeactivate) {
-        // Only update if not already INACTIVE
-        if (verifier.status !== "INACTIVE") {
-          await prisma.resourceVerifier.update({
-            where: { id: verifier.id },
-            data: { status: "INACTIVE" },
           });
         }
       }
     }
 
-    // Assign version mode roles and verifiers
+    // 5. Process version assignments (same logic as above)
     if (currentResource.newVersionEditModeId) {
-      // Get existing version roles and verifiers
-      const existingVersionRoles = await prisma.resourceVersionRole.findMany({
-        where: { resourceVersionId: currentResource.newVersionEditModeId },
-      });
+      const versionId = currentResource.newVersionEditModeId;
+      const currentVersionRoles = currentResource.newVersionEditMode.roles;
+      const currentVersionVerifiers =
+        currentResource.newVersionEditMode.verifiers;
 
-      const existingVersionVerifiers = await prisma.resourceVersionVerifier.findMany({
-        where: { resourceVersionId: currentResource.newVersionEditModeId },
-      });
+      const activeVersionRoles = currentVersionRoles.filter(
+        (r) => r.status === "ACTIVE"
+      );
+      const activeVersionVerifiers = currentVersionVerifiers.filter(
+        (v) => v.status === "ACTIVE"
+      );
 
-      // Update version roles
+      // Process version roles
       for (const [role, userId] of Object.entries(roleMap)) {
         if (!userId) continue;
 
-        // Check if this user already has this role with ACTIVE status
-        const existingActiveRole = existingVersionRoles.find(
-          (r) => r.role === role && r.userId === userId && r.status === "ACTIVE"
+        // Case 1: Already active in this role - skip (idempotent)
+        const existingActiveInRole = activeVersionRoles.find(
+          (r) => r.role === role && r.userId === userId
         );
+        if (existingActiveInRole) continue;
 
-        // If user already has this role with ACTIVE status, skip (no change needed)
-        if (existingActiveRole) continue;
-
-        // Check if this user has any other ACTIVE role for this version
-        const isUserInOtherActiveRole = existingVersionRoles.find(
-          (r) => r.userId === userId && r.status === "ACTIVE" && r.role !== role
+        // Case 2: User is active verifier - deactivate first (No Role-Verifier Conflict Rule)
+        const activeVerifierAssignment = activeVersionVerifiers.find(
+          (v) => v.userId === userId
         );
-
-        // If user has another ACTIVE role, make it INACTIVE
-        if (isUserInOtherActiveRole) {
-          await prisma.resourceVersionRole.update({
-            where: { id: isUserInOtherActiveRole.id },
+        if (activeVerifierAssignment) {
+          await prisma.resourceVersionVerifier.update({
+            where: { id: activeVerifierAssignment.id },
             data: { status: "INACTIVE" },
           });
         }
 
-        // If another user has this role with ACTIVE status, make it INACTIVE
-        const otherUserWithActiveRole = existingVersionRoles.find(
-          (r) => r.role === role && r.userId !== userId && r.status === "ACTIVE"
+        // Case 3: User active in different role - deactivate first (Single Active Role Per User Rule)
+        const activeInOtherRole = activeVersionRoles.find(
+          (r) => r.userId === userId && r.role !== role
         );
-
-        if (otherUserWithActiveRole) {
+        if (activeInOtherRole) {
           await prisma.resourceVersionRole.update({
-            where: { id: otherUserWithActiveRole.id },
+            where: { id: activeInOtherRole.id },
             data: { status: "INACTIVE" },
           });
         }
 
-        // Check if this user already has this role but with INACTIVE status
-        const existingInactiveRole = existingVersionRoles.find(
+        // Case 4: Another user active in this role - deactivate them (Single Active User Per Role Rule)
+        const otherUserActive = activeVersionRoles.find(
+          (r) => r.role === role && r.userId !== userId
+        );
+        if (otherUserActive) {
+          await prisma.resourceVersionRole.update({
+            where: { id: otherUserActive.id },
+            data: { status: "INACTIVE" },
+          });
+        }
+
+        // Case 5: Existing inactive assignment - reactivate (Inactive Reactivation Rule)
+        const existingInactive = currentVersionRoles.find(
           (r) => r.role === role && r.userId === userId && r.status !== "ACTIVE"
         );
-
-        // If user has this role but INACTIVE, make it ACTIVE
-        if (existingInactiveRole) {
+        if (existingInactive) {
           await prisma.resourceVersionRole.update({
-            where: { id: existingInactiveRole.id },
+            where: { id: existingInactive.id },
             data: { status: "ACTIVE" },
           });
         } else {
-          // Create new role assignment with ACTIVE status
+          // Case 6: Create new assignment
           await prisma.resourceVersionRole.create({
             data: {
-              resourceVersionId: currentResource.newVersionEditModeId,
+              resourceVersionId: versionId,
               userId,
               role,
               status: "ACTIVE",
@@ -680,109 +691,115 @@ export const assignUserToResource = async (resourceId, manager, editor, verifier
         }
       }
 
-      // Update version verifiers
-      if (Array.isArray(verifiers) && verifiers.length > 0) {
-        // First, deactivate any existing ACTIVE verifiers for users in the payload
-        // This is to avoid unique constraint violations when reassigning users
-        for (const { id: userId } of verifiers) {
-          // Find all ACTIVE verifier roles for this user
-          const existingActiveVerifiers = existingVersionVerifiers.filter(
-            (v) => v.userId === userId && v.status === "ACTIVE"
+      // Process version verifiers
+      if (Array.isArray(verifiers)) {
+        // Deactivate verifiers not in payload
+        const verifiersToDeactivate = activeVersionVerifiers.filter(
+          (v) =>
+            !verifiers.some((v2) => v2.id === v.userId && v2.stage === v.stage)
+        );
+        for (const verifier of verifiersToDeactivate) {
+          await prisma.resourceVersionVerifier.update({
+            where: { id: verifier.id },
+            data: { status: "INACTIVE" },
+          });
+        }
+
+        // Process each verifier in payload
+        for (const { id: userId, stage } of verifiers) {
+          // Skip if already active in this stage (idempotent)
+          const existingActive = activeVersionVerifiers.find(
+            (v) => v.userId === userId && v.stage === stage
+          );
+          if (existingActive) continue;
+
+          // Check for active role conflict (No Role-Verifier Conflict Rule)
+          const hasActiveRole = activeVersionRoles.some(
+            (r) => r.userId === userId
+          );
+          assert(
+            !hasActiveRole,
+            "ROLE_CONFLICT",
+            `User ${userId} cannot be verifier while having active role in version`
           );
 
-          // Deactivate all existing ACTIVE verifier roles for this user
-          for (const verifier of existingActiveVerifiers) {
+          // Deactivate ANY existing assignment to this stage (Single Active User Per Verifier Stage)
+          // This needs to happen BEFORE attempting to reactivate or create a new one
+          const existingStageAssignments = activeVersionVerifiers.filter(
+            (v) => v.stage === stage && v.status === "ACTIVE"
+          );
+
+          for (const assignment of existingStageAssignments) {
+            await prisma.resourceVersionVerifier.update({
+              where: { id: assignment.id },
+              data: { status: "INACTIVE" },
+            });
+          }
+
+          // Deactivate any other active verifier assignments for this user (Single Active Verifier Stage Per User)
+          const userOtherActiveVerifiers = activeVersionVerifiers.filter(
+            (v) => v.userId === userId && v.stage !== stage
+          );
+          for (const verifier of userOtherActiveVerifiers) {
             await prisma.resourceVersionVerifier.update({
               where: { id: verifier.id },
               data: { status: "INACTIVE" },
             });
           }
-        }
 
-        // Now assign verifiers to their new stages
-        for (const { id: userId, stage } of verifiers) {
-          // If another user has this verifier role with ACTIVE status, make it INACTIVE
-          const otherUserWithActiveVerifier = existingVersionVerifiers.find(
-            (v) => v.stage === stage && v.userId !== userId && v.status === "ACTIVE"
+          // Reactivate existing inactive or create new
+          const existingInactive = currentVersionVerifiers.find(
+            (v) =>
+              v.userId === userId && v.stage === stage && v.status !== "ACTIVE"
           );
-
-          if (otherUserWithActiveVerifier) {
+          if (existingInactive) {
             await prisma.resourceVersionVerifier.update({
-              where: { id: otherUserWithActiveVerifier.id },
-              data: { status: "INACTIVE" },
-            });
-          }
-
-          // Check if this user is already a verifier for this stage (but now INACTIVE)
-          const existingVerifier = existingVersionVerifiers.find(
-            (v) => v.stage === stage && v.userId === userId
-          );
-
-          if (existingVerifier) {
-            // Update existing verifier to ACTIVE
-            await prisma.resourceVersionVerifier.update({
-              where: { id: existingVerifier.id },
+              where: { id: existingInactive.id },
               data: { status: "ACTIVE" },
             });
           } else {
-            // Create new verifier with ACTIVE status
             await prisma.resourceVersionVerifier.create({
               data: {
-                resourceVersionId: currentResource.newVersionEditModeId,
+                resourceVersionId: versionId,
                 userId,
                 stage,
-                status: "ACTIVE"
+                status: "ACTIVE",
               },
-            });
-          }
-        }
-
-        // Make any verifiers not in the payload INACTIVE
-        const verifierIdsInPayload = verifiers.map(v => v.id);
-        const verifiersToDeactivate = existingVersionVerifiers.filter(
-          (v) => !verifierIdsInPayload.includes(v.userId)
-        );
-
-        for (const verifier of verifiersToDeactivate) {
-          // Only update if not already INACTIVE
-          if (verifier.status !== "INACTIVE") {
-            await prisma.resourceVersionVerifier.update({
-              where: { id: verifier.id },
-              data: { status: "INACTIVE" },
             });
           }
         }
       }
     }
 
+    // 6. Return updated resource with active assignments
     return prisma.resource.update({
       where: { id: resourceId },
       data: { isAssigned: true },
       include: {
-        roles: { include: { user: true } },
-        verifiers: { include: { user: true } },
+        roles: {
+          where: { status: "ACTIVE" },
+          include: { user: true },
+        },
+        verifiers: {
+          where: { status: "ACTIVE" },
+          include: { user: true },
+        },
         newVersionEditMode: {
           include: {
-            roles: { include: { user: true } },
-            verifiers: { include: { user: true } },
+            roles: {
+              where: { status: "ACTIVE" },
+              include: { user: true },
+            },
+            verifiers: {
+              where: { status: "ACTIVE" },
+              include: { user: true },
+            },
           },
         },
       },
     });
   });
 };
-
-
-
-
-
-
-
-
-
-
-
-
 
 export const fetchAssignedUsers = async (resourceId) => {
   return await prismaClient.resource.findUnique({
@@ -819,7 +836,6 @@ export const fetchAssignedUsers = async (resourceId) => {
     },
   });
 };
-
 
 export const fetchContent = async (resourceId) => {
   // Fetch the resource with all necessary relations

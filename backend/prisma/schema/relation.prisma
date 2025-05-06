@@ -94,8 +94,7 @@ model ResourceRole {
   status     Status           @default(ACTIVE) // Add status field
   createdAt  DateTime         @default(now())
 
-  @@unique([resourceId, role, status]) // Only one ACTIVE user per role per resource
-  @@unique([resourceId, userId, status]) // Only one ACTIVE role per user per resource
+  @@unique([resourceId, role, userId, status]) // ✅ No duplicate user-role-status entry
   @@index([resourceId])
   @@index([userId])
 }
@@ -118,8 +117,7 @@ model ResourceVersionRole {
   createdAt DateTime @default(now())
 
   // Composite constraints
-  @@unique([resourceVersionId, role, status]) // One ACTIVE user per role per version
-  @@unique([resourceVersionId, userId, status]) // One ACTIVE role per user per version
+  @@unique([resourceVersionId, role, userId, status]) // ✅ No duplicate user-role-status in version 
   @@index([resourceVersionId]) // For version context
   @@index([userId])
 }
@@ -140,8 +138,7 @@ model ResourceVerifier {
   createdAt DateTime @default(now())
 
   // Composite constraints
-  @@unique([resourceId, stage, status]) // Only one ACTIVE user per stage per resource
-  @@unique([resourceId, userId, status]) // A user can be ACTIVE in only one stage per resource
+  @@unique([resourceId, stage, userId, status]) // ✅ Prevent duplicate verifier assignments 
   // Indexes
   @@index([resourceId, stage])
   @@index([userId])
@@ -164,8 +161,7 @@ model ResourceVersionVerifier {
   createdAt DateTime @default(now())
 
   // Composite constraints
-  @@unique([resourceVersionId, stage, status]) // Only one ACTIVE user per stage per version
-  @@unique([resourceVersionId, userId, status]) // A user can be ACTIVE in only one stage per version
+  @@unique([resourceVersionId, stage, userId, status]) // ✅ Prevent duplicate verifier entries 
   // Indexes
   @@index([resourceVersionId, stage])
   @@index([resourceVersionId])
