@@ -30,7 +30,7 @@ function ShowDifference({ role, show, onClose, resourceId }) {
     const [editVersion, setEditVersion] = useState({})
     const [language, setLanguage] = useState("en")
     const [showDateTime, setShowDateTime] = useState(false)
-    const isEditor = useSelector(state => state.user.isEditor)
+    const { isEditor, isManager, isPublisher, isVerifier } = useSelector(state => state.user)
 
     const editedContent = createContent(editVersion, "difference", "home")
     const LiveContent = createContent(liveVersion, "difference", "home")
@@ -62,6 +62,8 @@ function ShowDifference({ role, show, onClose, resourceId }) {
                     resourceType: response.content.resourceType,
                     resourceTag: response.content.resourceTag,
                     relationType: response.content.relationType,
+                    comments: response.content.editModeVersionData.comments,
+                    referenceDoc: response.content.editModeVersionData
                 }
                 setLiveVersion({ ...payload, editVersion: response.content.liveModeVersionData })
                 setEditVersion({ ...payload, editVersion: response.content.editModeVersionData ?? response.content.liveModeVersionData })
@@ -73,33 +75,33 @@ function ShowDifference({ role, show, onClose, resourceId }) {
         fetchContent()
     }, [])
 
-    useEffect(() => {
-        async function getRole() {
-            if (!role?.id) return;
-            setLoading(true);
-            try {
-                const response = await getRoleById(role.id);
-                if (response.statusCode >= 400 || response instanceof Error) {
-                    throw `Error: status: ${response.statusCode}, type: ${response.errorType}`
-                }
-                setTimeout(() => {
-                    setFetchedRole(response.role);
-                    setError(false);
-                }, 200)
-            } catch (err) {
-                setError(true);
-                console.log("catch")
-            } finally {
-                setTimeout(() => {
+    // useEffect(() => {
+    //     async function getRole() {
+    //         if (!role?.id) return;
+    //         setLoading(true);
+    //         try {
+    //             const response = await getRoleById(role.id);
+    //             if (response.statusCode >= 400 || response instanceof Error) {
+    //                 throw `Error: status: ${response.statusCode}, type: ${response.errorType}`
+    //             }
+    //             setTimeout(() => {
+    //                 setFetchedRole(response.role);
+    //                 setError(false);
+    //             }, 200)
+    //         } catch (err) {
+    //             setError(true);
+    //             console.log("catch")
+    //         } finally {
+    //             setTimeout(() => {
 
-                    setLoading(false);
-                }, 200)
-            }
-        }
-        getRole();
-    }, [role]);
+    //                 setLoading(false);
+    //             }, 200)
+    //         }
+    //     }
+    //     getRole();
+    // }, [role]);
 
-    if (!role) return null;
+    // if (!role) return null;
 
     return (
         <Dialog open={show} onClose={onClose} className="relative z-40 font-poppins">
@@ -127,33 +129,45 @@ function ShowDifference({ role, show, onClose, resourceId }) {
                                             </span>
                                         </span>
                                     </div>
-                                    <div className='flex items-center gap-1'>
-                                        <span className={`text-[14px] font-lexend font-[400] dark:text-[#CBD5E1] text-[#202a38] select-none`}>
-                                            Publish Schedule
-                                        </span>
+                                    {
+                                        !isManager ?
+                                            (<div className="flex gap-2">
+                                                {
+                                                    isPublisher &&
+                                                    <div className='flex items-center gap-1'>
+                                                        <span className={`text-[14px] font-lexend font-[400] dark:text-[#CBD5E1] text-[#202a38] select-none`}>
+                                                            Publish Schedule
+                                                        </span>
 
-                                        <Switch
-                                            checked={true}
-                                            onChange={() => setShowDateTime(true)}
-                                            className={`${true
-                                                ? "bg-[#1DC9A0]"
-                                                : "bg-gray-300"
-                                                } relative inline-flex h-2 w-7 items-center rounded-full`}
-                                        >
-                                            <span
-                                                className={`${true
-                                                    ? "translate-x-4"
-                                                    : "translate-x-0"
-                                                    } inline-block h-[17px] w-[17px] bg-white rounded-full shadow-2xl border border-gray-300 transition`}
-                                            />
-                                        </Switch>
-                                    </div>
-                                    <div className="flex gap-2 px-2">
-                                        <button onClick={() => { }} className='flex justify-center items-center gap-1 bg-[#FF0000] rounded-md xl:h-[2.68rem] sm:h-[2rem] xl:text-xs sm:text-[.6rem] xl:w-[5.58rem] w-[4rem] text-[white]'>
-                                            <RxCross1 /> Reject
-                                        </button>
-                                        <Button text={'Approve'} functioning={() => { }} classes='bg-[#29469D] rounded-md xl:h-[2.68rem] sm:h-[2rem] xl:text-xs sm:text-[.6rem] xl:w-[5.58rem] w-[4rem] text-[white]' />
-                                    </div>
+                                                        <Switch
+                                                            checked={true}
+                                                            onChange={() => setShowDateTime(true)}
+                                                            className={`${true
+                                                                ? "bg-[#1DC9A0]"
+                                                                : "bg-gray-300"
+                                                                } relative inline-flex h-2 w-7 items-center rounded-full`}
+                                                        >
+                                                            <span
+                                                                className={`${true
+                                                                    ? "translate-x-4"
+                                                                    : "translate-x-0"
+                                                                    } inline-block h-[17px] w-[17px] bg-white rounded-full shadow-2xl border border-gray-300 transition`}
+                                                            />
+                                                        </Switch>
+                                                    </div>}
+                                                <div className="flex gap-2 px-2">
+                                                    <button onClick={() => { }} className='flex justify-center items-center gap-1 bg-[#FF0000] rounded-md xl:h-[2.68rem] sm:h-[2rem] xl:text-xs sm:text-[.6rem] xl:w-[5.58rem] w-[4rem] text-[white]'>
+                                                        <RxCross1 /> Reject
+                                                    </button>
+                                                    <Button text={'Approve'} functioning={() => { }} classes='bg-[#29469D] rounded-md xl:h-[2.68rem] sm:h-[2rem] xl:text-xs sm:text-[.6rem] xl:w-[5.58rem] w-[4rem] text-[white]' />
+                                                </div>
+                                            </div>) :
+                                            (
+                                                <div className="flex gap-2 px-2">
+                                                    <Button text={'Publish'} functioning={() => { }} classes='bg-[#29469D] rounded-md xl:h-[2.68rem] sm:h-[2rem] xl:text-xs sm:text-[.6rem] xl:w-[5.58rem] w-[4rem] text-[white]' />
+                                                </div>
+                                            )
+                                    }
                                 </div>
                             }
                         </div>

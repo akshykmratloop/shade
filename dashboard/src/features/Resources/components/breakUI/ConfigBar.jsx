@@ -68,7 +68,7 @@ const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
         const response = await assignUser(formObj)
         if (response.ok) {
           updateToasify(loadingToastId, "Page assigned Successfully 🎉", "success", 1000) // updating the toaster
-    
+
           setTimeout(() => {
 
             closeButton()
@@ -77,16 +77,15 @@ const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
           }, 700)
         }
       } else {
-        throw new Error("Request failed")
+        return updateToasify(loadingToastId,`Error! duplicate selection has been found`, "error", 1000)
       }
     } catch (err) {
       console.log(err?.message)
-      updateToasify(loadingToastId, "Request failed. Please try again after some time!", "error", 1000)
     } finally {
       setTimeout(() => {
         dispatch(switchDebounce(false))
       }, 700)
-      // toast.dismiss(loadingToastId)
+      toast.dismiss(loadingToastId)
     }
   }
 

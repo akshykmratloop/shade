@@ -406,7 +406,7 @@ function Resources() {
           </Suspense>
         </div>
       }
-      <ToastContainer hideProgressBar={true}/>
+      <ToastContainer hideProgressBar={true} />
     </div >
   );
 }
