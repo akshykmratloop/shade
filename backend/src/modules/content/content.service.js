@@ -7,13 +7,13 @@ import {
   fetchResourceInfo,
   fetchAssignedUsers,
   fetchContent,
-  findResourceById,
   fetchAllResourcesWithContent,
   createOrUpdateVersion,
   publishContent,
   updateContentAndGenerateRequest,
   fetchRequests,
   fetchRequestInfo,
+  markAllAssignedUserInactive,
 } from "../../repository/content.repository.js";
 
 const getResources = async (
@@ -25,7 +25,8 @@ const getResources = async (
   status,
   pageNum,
   limitNum,
-  fetchType
+  fetchType,
+  userId
 ) => {
   if (fetchType === "CONTENT") {
     const resources = await fetchAllResourcesWithContent(
@@ -36,7 +37,8 @@ const getResources = async (
       search,
       status,
       pageNum,
-      limitNum
+      limitNum,
+      userId
     );
     logger.info({
       response: "Resources fetched successfully with content",
@@ -52,7 +54,8 @@ const getResources = async (
     search,
     status,
     pageNum,
-    limitNum
+    limitNum,
+    userId
   );
   logger.info({
     response: "Resources fetched successfully without content",
@@ -107,6 +110,16 @@ const assignUser = async (
     // assignedUsers: assignedUsers,
   });
   return { message: "Users assigned successfully", assignedUsers };
+};
+
+const removeAssignedUser = async (resourceId) => {
+  assert(resourceId, "NOT_FOUND", "ResourceId required");
+  const result = await markAllAssignedUserInactive(resourceId);
+  logger.info({
+    response: `Users removed successfully`,
+    // result: result,
+  });
+  return { message: "Users removed successfully", result };
 };
 
 const getContent = async (resourceId) => {
@@ -186,6 +199,7 @@ export {
   getResourceInfo,
   getEligibleUser,
   assignUser,
+  removeAssignedUser,
   getAssignedUsers,
   getContent,
   updateContent,

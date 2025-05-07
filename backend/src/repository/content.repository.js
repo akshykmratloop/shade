@@ -9,28 +9,156 @@ export const fetchResources = async (
   search = "",
   status = "",
   page = 1,
-  limit = 10
+  limit = 10,
+  userId
 ) => {
   const skip = (page - 1) * limit;
 
-  // Determine the resourceType filter
-  let resourceTypeFilter = {};
-  if (resourceType === "HEADER_FOOTER") {
-    resourceTypeFilter = {
-      resourceType: {
-        in: ["HEADER", "FOOTER"],
-      },
-    };
-  } else if (resourceType) {
-    resourceTypeFilter = {
-      resourceType,
-    };
+  // First, fetch the user's roles and permissions
+  const user = await prismaClient.user.findUnique({
+    where: { id: userId },
+    include: {
+      roles: {
+        include: {
+          role: {
+            include: {
+              permissions: {
+                select: {
+                  permission: true,
+                },
+              },
+              roleType: true,
+            },
+          }
+        }
+      }
+    }
+  });
+
+  if (!user) {
+    throw new Error("User not found");
   }
 
-  // Build the where clause based on provided filters
-  const whereClause = {
-    ...resourceTypeFilter,
-    ...(resourceTag ? { resourceTag: resourceTag } : {}),
+  // Extract all permissions the user has
+  const userPermissions = user.roles.flatMap(userRole => 
+    userRole.role.permissions.map(permissionItem => permissionItem.permission.name)
+  );
+
+
+  // Check if user is super admin
+  const isSuperAdmin = user.isSuperUser;
+
+  // Map permissions to allowed resource types and tags
+  const permissionToResourceMap = {
+    "PAGE_MANAGEMENT": {
+      types: ["MAIN_PAGE"],
+      tags: []
+    },
+    "SERVICE_MANAGEMENT": {
+      types: ["SUB_PAGE", "SUB_PAGE_ITEM"],
+      tags: ["SERVICE"]
+    },
+    "MARKET_MANAGEMENT": {
+      types: ["SUB_PAGE", "SUB_PAGE_ITEM"],
+      tags: ["MARKET"]
+    },
+    "PROJECT_MANAGEMENT": {
+      types: ["SUB_PAGE", "SUB_PAGE_ITEM"],
+      tags: ["PROJECT"]
+    },
+    "NEWS_BLOGS_MANAGEMENT": {
+      types: ["SUB_PAGE", "SUB_PAGE_ITEM"],
+      tags: ["NEWS"]
+    },
+    "CAREER_MANAGEMENT": {
+      types: ["SUB_PAGE", "SUB_PAGE_ITEM"],
+      tags: ["CAREER"]
+    },
+    "HEADER_MANAGEMENT": {
+      types: ["HEADER"],
+      tags: ["HEADER"]
+    },
+    "FOOTER_MANAGEMENT": {
+      types: ["FOOTER"],
+      tags: ["FOOTER"]
+    },
+    "TESTIMONIAL_MANAGEMENT": {
+      types: ["SUB_PAGE_ITEM"],
+      tags: ["TESTIMONIAL"]
+    },
+    "FORM_MANAGEMENT": {
+      types: ["FORM"],
+      tags: []
+    }
+  };
+
+  // Initialize filters
+  let typeFilter = {};
+  let tagFilter = {};
+
+  if (!isSuperAdmin) {
+    // Collect allowed types and tags based on permissions
+    let allowedTypes = new Set();
+    let allowedTags = new Set();
+
+    for (const [permission, {types, tags}] of Object.entries(permissionToResourceMap)) {
+      if (userPermissions.includes(permission)) {
+        types.forEach(type => allowedTypes.add(type));
+        tags.forEach(tag => allowedTags.add(tag));
+      }
+    }
+
+    // Apply type filter if user has any type permissions
+    if (allowedTypes.size > 0) {
+      if (resourceType && allowedTypes.has(resourceType)) {
+        typeFilter = { resourceType };
+      } else {
+        typeFilter = { resourceType: { in: Array.from(allowedTypes) } };
+      }
+    }
+
+    // Apply tag filter if user has any tag permissions
+    if (allowedTags.size > 0) {
+      if (resourceTag && allowedTags.has(resourceTag)) {
+        tagFilter = { resourceTag };
+      } else {
+        tagFilter = { resourceTag: { in: Array.from(allowedTags) } };
+      }
+    }
+
+    // If no permissions match, restrict to empty result
+    if (allowedTypes.size === 0 && allowedTags.size === 0) {
+      typeFilter = { resourceType: "NULL" }; // Will return no results
+    }
+  } else {
+    // Super admin gets all resources with optional filters
+    if (resourceType) {
+      typeFilter = { resourceType };
+    }
+    if (resourceTag) {
+      tagFilter = { resourceTag };
+    }
+  }
+  console.log( resourceType,'resourceTypee')
+
+  // Handle SINGLE_RESOURCE_MANAGEMENT or EDIT permissions
+  const hasRestrictedAccess = 
+    !isSuperAdmin && 
+    (userPermissions.includes("SINGLE_RESOURCE_MANAGEMENT") || 
+     userPermissions.includes("EDIT"));
+
+     if(hasRestrictedAccess){
+      if (resourceType) {
+        typeFilter = { resourceType };
+      }
+     }
+
+     console.log(hasRestrictedAccess,';hasRestrictedAccess')
+
+  // Build the base where clause
+  const baseWhereClause = {
+    ...typeFilter,
+    ...tagFilter,
     ...(relationType ? { relationType } : {}),
     ...(typeof isAssigned === "boolean" ? { isAssigned } : {}),
     ...(status ? { status } : {}),
@@ -45,13 +173,48 @@ export const fetchResources = async (
       : {}),
   };
 
+  // For restricted access users, only show assigned resources
+  if (hasRestrictedAccess) {
+    const assignedResources = await prismaClient.resourceRole.findMany({
+      where: {
+        userId,
+        status: "ACTIVE"
+      },
+      select: {
+        resourceId: true
+      }
+    });
+
+    const assignedResourceIds = assignedResources.map(r => r.resourceId);
+
+
+    // If no assigned resources, return empty
+    if (assignedResourceIds.length <= 0) {
+      return {
+        resources: [],
+        pagination: {
+          totalResources: 50,
+          totalPages: 60,
+          currentPage: page,
+          limit,
+        },
+      };
+    }
+
+    // Add assigned resource filter
+    baseWhereClause.id = { in: assignedResourceIds };
+  }
+
+  console.log(baseWhereClause,'baseWhereClause==')
+
+
   // Fetch resources with pagination
   const resources = await prismaClient.resource.findMany({
-    where: whereClause,
+    where: baseWhereClause,
     include: {
       _count: {
         select: {
-          versions: true, // Count of versions
+          versions: true,
         },
       },
       liveVersion: {
@@ -84,10 +247,9 @@ export const fetchResources = async (
 
   // Get total count for pagination
   const totalResources = await prismaClient.resource.count({
-    where: whereClause,
+    where: baseWhereClause,
   });
 
-  // Return formatted response with pagination info
   return {
     resources,
     pagination: {
@@ -107,7 +269,8 @@ export const fetchAllResourcesWithContent = async (
   search = "",
   status = "",
   page = 1,
-  limit = 10
+  limit = 10,
+  userId
 ) => {
   const skip = (page - 1) * limit;
 
@@ -251,6 +414,9 @@ export const fetchResourceInfo = async (resourceId) => {
         },
       },
       roles: {
+        where: {
+          status: "ACTIVE",
+        },
         include: {
           user: {
             select: {
@@ -282,6 +448,9 @@ export const fetchResourceInfo = async (resourceId) => {
         },
       },
       verifiers: {
+        where: {
+          status: "ACTIVE",
+        },
         include: {
           user: {
             select: {
@@ -333,6 +502,7 @@ export const fetchEligibleUsers = async (roleType = "", permission = "") => {
   const users = await prismaClient.user.findMany({
     where: {
       isSuperUser: false,
+      // status: "ACTIVE",
       // status: "ACTIVE",
       roles: {
         some: {
@@ -386,7 +556,7 @@ export const fetchEligibleUsers = async (roleType = "", permission = "") => {
     name: user.name,
     email: user.email,
     phone: user.phone,
-    status : user.status,
+    status: user.status,
     roles: user.roles.map((r) => ({
       name: r.role.name,
       type: r.role.roleType.name,
@@ -404,217 +574,458 @@ export const assignUserToResource = async (
   verifiers,
   publisher
 ) => {
-  // First, get the current resource and its active version (if any)
+  // 1. Fetch current resource state with all relationships
   const currentResource = await prismaClient.resource.findUnique({
     where: { id: resourceId },
     include: {
-      newVersionEditMode: true,
       roles: true,
       verifiers: true,
+      newVersionEditMode: {
+        include: {
+          roles: true,
+          verifiers: true,
+        },
+      },
     },
   });
 
-  assert(currentResource, "NOT_FOUND", "Resource not found");
+  assert(currentResource, "NOT_FOUND", `Resource not found`);
 
-  // Start a transaction to ensure all operations succeed or fail together
   return await prismaClient.$transaction(async (prisma) => {
-    // 1. Clear existing roles and verifiers for this resource
-    await prisma.resourceRole.deleteMany({
-      where: { resourceId },
-    });
+    const roleMap = {
+      MANAGER: manager,
+      EDITOR: editor,
+      PUBLISHER: publisher,
+    };
 
-    await prisma.resourceVerifier.deleteMany({
-      where: { resourceId },
-    });
+    // 2. Validate payload structure
+    const allUserIds = [
+      ...Object.values(roleMap).filter(Boolean),
+      ...(verifiers?.map((v) => v.id) || []),
+    ];
 
-    // 2. Create new resource roles
-    const roleCreations = [];
+    // Rule: No duplicate users in payload
+    const uniqueUserIds = new Set(allUserIds);
+    assert(
+      uniqueUserIds.size === allUserIds.length,
+      "DUPLICATE_USER",
+      "Same user cannot be assigned to multiple roles"
+    );
 
-    // Add manager role
-    if (manager) {
-      roleCreations.push(
-        prisma.resourceRole.create({
-          data: {
-            resourceId,
-            userId: manager,
-            role: "MANAGER",
-          },
-        })
+    // Rule: Unique verifier stages
+    if (verifiers) {
+      const stages = verifiers.map((v) => v.stage);
+      assert(
+        new Set(stages).size === stages.length,
+        "DUPLICATE_STAGE",
+        "Each verification stage must have exactly one user"
       );
     }
 
-    // Add editor role
-    if (editor) {
-      roleCreations.push(
-        prisma.resourceRole.create({
+    const currentActiveRoles = currentResource.roles.filter(
+      (r) => r.status === "ACTIVE"
+    );
+    const currentActiveVerifiers = currentResource.verifiers.filter(
+      (v) => v.status === "ACTIVE"
+    );
+
+    // 3. Process role assignments first (allows verifier-to-role transitions)
+    for (const [role, userId] of Object.entries(roleMap)) {
+      if (!userId) continue; // Skip if no user assigned
+
+      // Case 1: Already active in this role - skip (idempotent)
+      const existingActiveInRole = currentActiveRoles.find(
+        (r) => r.role === role && r.userId === userId
+      );
+      if (existingActiveInRole) continue;
+
+      // Case 2: User is active verifier - deactivate first (No Role-Verifier Conflict Rule)
+      const activeVerifierAssignment = currentActiveVerifiers.find(
+        (v) => v.userId === userId
+      );
+      if (activeVerifierAssignment) {
+        await prisma.resourceVerifier.update({
+          where: { id: activeVerifierAssignment.id },
+          data: { status: "INACTIVE" },
+        });
+      }
+
+      // Case 3: User active in different role - deactivate first (Single Active Role Per User Rule)
+      const activeInOtherRole = currentActiveRoles.find(
+        (r) => r.userId === userId && r.role !== role
+      );
+      if (activeInOtherRole) {
+        await prisma.resourceRole.update({
+          where: { id: activeInOtherRole.id },
+          data: { status: "INACTIVE" },
+        });
+      }
+
+      // Case 4: Another user active in this role - deactivate them (Single Active User Per Role Rule)
+      const otherUserActive = currentActiveRoles.find(
+        (r) => r.role === role && r.userId !== userId
+      );
+      if (otherUserActive) {
+        await prisma.resourceRole.update({
+          where: { id: otherUserActive.id },
+          data: { status: "INACTIVE" },
+        });
+      }
+
+      // Case 5: Existing inactive assignment - reactivate (Inactive Reactivation Rule)
+      const existingInactive = currentResource.roles.find(
+        (r) => r.role === role && r.userId === userId && r.status !== "ACTIVE"
+      );
+      if (existingInactive) {
+        await prisma.resourceRole.update({
+          where: { id: existingInactive.id },
+          data: { status: "ACTIVE" },
+        });
+      } else {
+        // Case 6: Create new assignment
+        await prisma.resourceRole.create({
           data: {
             resourceId,
-            userId: editor,
-            role: "EDITOR",
+            userId,
+            role,
+            status: "ACTIVE",
           },
-        })
-      );
+        });
+      }
     }
 
-    // Add publisher role
-    if (publisher) {
-      roleCreations.push(
-        prisma.resourceRole.create({
-          data: {
-            resourceId,
-            userId: publisher,
-            role: "PUBLISHER",
-          },
-        })
+    // 4. Process verifier assignments (after roles are processed)
+    if (Array.isArray(verifiers)) {
+      // Deactivate verifiers not in payload
+      const verifiersToDeactivate = currentActiveVerifiers.filter(
+        (v) =>
+          !verifiers.some((v2) => v2.id === v.userId && v2.stage === v.stage)
       );
-    }
+      for (const verifier of verifiersToDeactivate) {
+        await prisma.resourceVerifier.update({
+          where: { id: verifier.id },
+          data: { status: "INACTIVE" },
+        });
+      }
 
-    // 3. Create verifiers with their stages
-    const verifierCreations = [];
-    if (verifiers && Array.isArray(verifiers)) {
-      for (const verifier of verifiers) {
-        if (verifier.id && verifier.stage !== undefined) {
-          verifierCreations.push(
-            prisma.resourceVerifier.create({
-              data: {
-                resourceId,
-                userId: verifier.id,
-                stage: verifier.stage,
-              },
-            })
+      // Get all users being assigned to roles from the payload
+      const usersBeingAssignedToRoles = new Set(
+        Object.values(roleMap).filter(Boolean)
+      );
+
+      // Process each verifier in payload
+      for (const { id: userId, stage } of verifiers) {
+        // Skip if already active in this stage (idempotent)
+        const existingActive = currentActiveVerifiers.find(
+          (v) => v.userId === userId && v.stage === stage
+        );
+        if (existingActive) continue;
+
+        // Modified check: Only fail if user is being assigned to BOTH role and verifier in THIS payload
+        if (usersBeingAssignedToRoles.has(userId)) {
+          throw new Error(
+            `User ${userId} cannot be assigned as both role and verifier in the same request`
           );
+        }
+
+        // Deactivate ANY existing assignment to this stage (Single Active User Per Verifier Stage)
+        // This needs to happen BEFORE attempting to reactivate or create a new one
+        const existingStageAssignments = currentResource.verifiers.filter(
+          (v) => v.stage === stage && v.status === "ACTIVE"
+        );
+
+        for (const assignment of existingStageAssignments) {
+          await prisma.resourceVerifier.update({
+            where: { id: assignment.id },
+            data: { status: "INACTIVE" },
+          });
+        }
+
+        // Deactivate any other active verifier assignments for this user (Single Active Verifier Stage Per User)
+        const userOtherActiveVerifiers = currentActiveVerifiers.filter(
+          (v) => v.userId === userId && v.stage !== stage
+        );
+        for (const verifier of userOtherActiveVerifiers) {
+          await prisma.resourceVerifier.update({
+            where: { id: verifier.id },
+            data: { status: "INACTIVE" },
+          });
+        }
+
+        // Reactivate existing inactive or create new
+        const existingInactive = currentResource.verifiers.find(
+          (v) =>
+            v.userId === userId && v.stage === stage && v.status !== "ACTIVE"
+        );
+        if (existingInactive) {
+          await prisma.resourceVerifier.update({
+            where: { id: existingInactive.id },
+            data: { status: "ACTIVE" },
+          });
+        } else {
+          await prisma.resourceVerifier.create({
+            data: {
+              resourceId,
+              userId,
+              stage,
+              status: "ACTIVE",
+            },
+          });
         }
       }
     }
 
-    // Execute all role and verifier creations
-    await Promise.all([...roleCreations, ...verifierCreations]);
-
-    // 4. If there's an active edit version, update its roles and verifiers too
+    // 5. Process version assignments (same logic as above)
     if (currentResource.newVersionEditModeId) {
-      // Clear existing roles and verifiers for this version
-      await prisma.resourceVersionRole.deleteMany({
-        where: { resourceVersionId: currentResource.newVersionEditModeId },
-      });
+      const versionId = currentResource.newVersionEditModeId;
+      const currentVersionRoles = currentResource.newVersionEditMode.roles;
+      const currentVersionVerifiers =
+        currentResource.newVersionEditMode.verifiers;
 
-      await prisma.resourceVersionVerifier.deleteMany({
-        where: { resourceVersionId: currentResource.newVersionEditModeId },
-      });
+      const activeVersionRoles = currentVersionRoles.filter(
+        (r) => r.status === "ACTIVE"
+      );
+      const activeVersionVerifiers = currentVersionVerifiers.filter(
+        (v) => v.status === "ACTIVE"
+      );
 
-      // Create version roles
-      const versionRoleCreations = [];
+      // Process version roles
+      for (const [role, userId] of Object.entries(roleMap)) {
+        if (!userId) continue;
 
-      if (manager) {
-        versionRoleCreations.push(
-          prisma.resourceVersionRole.create({
-            data: {
-              resourceVersionId: currentResource.newVersionEditModeId,
-              userId: manager,
-              role: "MANAGER",
-            },
-          })
+        // Case 1: Already active in this role - skip (idempotent)
+        const existingActiveInRole = activeVersionRoles.find(
+          (r) => r.role === role && r.userId === userId
         );
+        if (existingActiveInRole) continue;
+
+        // Case 2: User is active verifier - deactivate first (No Role-Verifier Conflict Rule)
+        const activeVerifierAssignment = activeVersionVerifiers.find(
+          (v) => v.userId === userId
+        );
+        if (activeVerifierAssignment) {
+          await prisma.resourceVersionVerifier.update({
+            where: { id: activeVerifierAssignment.id },
+            data: { status: "INACTIVE" },
+          });
+        }
+
+        // Case 3: User active in different role - deactivate first (Single Active Role Per User Rule)
+        const activeInOtherRole = activeVersionRoles.find(
+          (r) => r.userId === userId && r.role !== role
+        );
+        if (activeInOtherRole) {
+          await prisma.resourceVersionRole.update({
+            where: { id: activeInOtherRole.id },
+            data: { status: "INACTIVE" },
+          });
+        }
+
+        // Case 4: Another user active in this role - deactivate them (Single Active User Per Role Rule)
+        const otherUserActive = activeVersionRoles.find(
+          (r) => r.role === role && r.userId !== userId
+        );
+        if (otherUserActive) {
+          await prisma.resourceVersionRole.update({
+            where: { id: otherUserActive.id },
+            data: { status: "INACTIVE" },
+          });
+        }
+
+        // Case 5: Existing inactive assignment - reactivate (Inactive Reactivation Rule)
+        const existingInactive = currentVersionRoles.find(
+          (r) => r.role === role && r.userId === userId && r.status !== "ACTIVE"
+        );
+        if (existingInactive) {
+          await prisma.resourceVersionRole.update({
+            where: { id: existingInactive.id },
+            data: { status: "ACTIVE" },
+          });
+        } else {
+          // Case 6: Create new assignment
+          await prisma.resourceVersionRole.create({
+            data: {
+              resourceVersionId: versionId,
+              userId,
+              role,
+              status: "ACTIVE",
+            },
+          });
+        }
       }
 
-      if (editor) {
-        versionRoleCreations.push(
-          prisma.resourceVersionRole.create({
-            data: {
-              resourceVersionId: currentResource.newVersionEditModeId,
-              userId: editor,
-              role: "EDITOR",
-            },
-          })
+      // Process version verifiers
+      if (Array.isArray(verifiers)) {
+        // Deactivate verifiers not in payload
+        const verifiersToDeactivate = activeVersionVerifiers.filter(
+          (v) =>
+            !verifiers.some((v2) => v2.id === v.userId && v2.stage === v.stage)
         );
-      }
+        for (const verifier of verifiersToDeactivate) {
+          await prisma.resourceVersionVerifier.update({
+            where: { id: verifier.id },
+            data: { status: "INACTIVE" },
+          });
+        }
 
-      if (publisher) {
-        versionRoleCreations.push(
-          prisma.resourceVersionRole.create({
-            data: {
-              resourceVersionId: currentResource.newVersionEditModeId,
-              userId: publisher,
-              role: "PUBLISHER",
-            },
-          })
-        );
-      }
+        // Process each verifier in payload
+        for (const { id: userId, stage } of verifiers) {
+          // Skip if already active in this stage (idempotent)
+          const existingActive = activeVersionVerifiers.find(
+            (v) => v.userId === userId && v.stage === stage
+          );
+          if (existingActive) continue;
 
-      // Create version verifiers
-      const versionVerifierCreations = [];
-      if (verifiers && Array.isArray(verifiers)) {
-        for (const verifier of verifiers) {
-          if (verifier.id && verifier.stage !== undefined) {
-            versionVerifierCreations.push(
-              prisma.resourceVersionVerifier.create({
-                data: {
-                  resourceVersionId: currentResource.newVersionEditModeId,
-                  userId: verifier.id,
-                  stage: verifier.stage,
-                },
-              })
-            );
+          // Check for active role conflict (No Role-Verifier Conflict Rule)
+          const hasActiveRole = activeVersionRoles.some(
+            (r) => r.userId === userId
+          );
+          assert(
+            !hasActiveRole,
+            "ROLE_CONFLICT",
+            `User ${userId} cannot be verifier while having active role in version`
+          );
+
+          // Deactivate ANY existing assignment to this stage (Single Active User Per Verifier Stage)
+          // This needs to happen BEFORE attempting to reactivate or create a new one
+          const existingStageAssignments = activeVersionVerifiers.filter(
+            (v) => v.stage === stage && v.status === "ACTIVE"
+          );
+
+          for (const assignment of existingStageAssignments) {
+            await prisma.resourceVersionVerifier.update({
+              where: { id: assignment.id },
+              data: { status: "INACTIVE" },
+            });
+          }
+
+          // Deactivate any other active verifier assignments for this user (Single Active Verifier Stage Per User)
+          const userOtherActiveVerifiers = activeVersionVerifiers.filter(
+            (v) => v.userId === userId && v.stage !== stage
+          );
+          for (const verifier of userOtherActiveVerifiers) {
+            await prisma.resourceVersionVerifier.update({
+              where: { id: verifier.id },
+              data: { status: "INACTIVE" },
+            });
+          }
+
+          // Reactivate existing inactive or create new
+          const existingInactive = currentVersionVerifiers.find(
+            (v) =>
+              v.userId === userId && v.stage === stage && v.status !== "ACTIVE"
+          );
+          if (existingInactive) {
+            await prisma.resourceVersionVerifier.update({
+              where: { id: existingInactive.id },
+              data: { status: "ACTIVE" },
+            });
+          } else {
+            await prisma.resourceVersionVerifier.create({
+              data: {
+                resourceVersionId: versionId,
+                userId,
+                stage,
+                status: "ACTIVE",
+              },
+            });
           }
         }
       }
-
-      // Execute all version role and verifier creations
-      await Promise.all([...versionRoleCreations, ...versionVerifierCreations]);
     }
 
-    // 5. Update the resource to mark it as assigned
-    const updatedResource = await prisma.resource.update({
+    // 6. Return updated resource with active assignments
+    return prisma.resource.update({
       where: { id: resourceId },
       data: { isAssigned: true },
       include: {
         roles: {
-          include: {
-            user: {
-              select: {
-                id: true,
-                name: true,
-              },
-            },
-          },
+          where: { status: "ACTIVE" },
+          include: { user: true },
         },
         verifiers: {
-          include: {
-            user: {
-              select: {
-                id: true,
-                name: true,
-              },
-            },
-          },
+          where: { status: "ACTIVE" },
+          include: { user: true },
         },
         newVersionEditMode: {
           include: {
             roles: {
-              include: {
-                user: {
-                  select: {
-                    id: true,
-                    name: true,
-                  },
-                },
-              },
+              where: { status: "ACTIVE" },
+              include: { user: true },
             },
             verifiers: {
-              include: {
-                user: {
-                  select: {
-                    id: true,
-                    name: true,
-                  },
-                },
-              },
+              where: { status: "ACTIVE" },
+              include: { user: true },
             },
           },
         },
       },
     });
+  });
+};
 
-    return updatedResource;
+export const markAllAssignedUserInactive = async (resourceId) => {
+  return await prismaClient.$transaction(async (prisma) => {
+    // 1. Mark all active roles as inactive
+    await prisma.resourceRole.updateMany({
+      where: {
+        resourceId,
+        status: 'ACTIVE'
+      },
+      data: {
+        status: 'INACTIVE'
+      }
+    });
+
+    // 2. Mark all active verifiers as inactive
+    await prisma.resourceVerifier.updateMany({
+      where: {
+        resourceId,
+        status: 'ACTIVE'
+      },
+      data: {
+        status: 'INACTIVE'
+      }
+    });
+
+    // 3. If there's a version, mark those assignments as inactive too
+    const resource = await prisma.resource.findUnique({
+      where: { id: resourceId },
+      select: { newVersionEditModeId: true }
+    });
+
+    if (resource?.newVersionEditModeId) {
+      await prisma.resourceVersionRole.updateMany({
+        where: {
+          resourceVersionId: resource.newVersionEditModeId,
+          status: 'ACTIVE'
+        },
+        data: {
+          status: 'INACTIVE'
+        }
+      });
+
+      await prisma.resourceVersionVerifier.updateMany({
+        where: {
+          resourceVersionId: resource.newVersionEditModeId,
+          status: 'ACTIVE'
+        },
+        data: {
+          status: 'INACTIVE'
+        }
+      });
+    }
+
+    // 4. Update the resource's isAssigned flag if needed
+    await prisma.resource.update({
+      where: { id: resourceId },
+      data: { isAssigned: false }
+    });
+
+    return {
+      success: true,
+      message: `All active user assignments for resource ${resourceId} have been marked as inactive`
+    };
   });
 };
 
@@ -625,6 +1036,9 @@ export const fetchAssignedUsers = async (resourceId) => {
     },
     select: {
       roles: {
+        where: {
+          status: "ACTIVE",
+        },
         include: {
           user: {
             select: {
@@ -635,6 +1049,9 @@ export const fetchAssignedUsers = async (resourceId) => {
         },
       },
       verifiers: {
+        where: {
+          status: "ACTIVE",
+        },
         include: {
           user: {
             select: {
@@ -908,13 +1325,6 @@ async function formatResourceVersionData(resourceVersion) {
   };
 }
 
-export const findResourceById = async (id) => {
-  return await prismaClient.resource.findUnique({
-    where: {
-      id,
-    },
-  });
-};
 
 export const createOrUpdateVersion = async (contentData) => {
   // Find the resource with version counts
@@ -1408,12 +1818,12 @@ export const updateContentAndGenerateRequest = async (contentData) => {
         })),
       });
 
-      const verifierApprovals = await tx.requestApproval.findMany({
-        where: {
-          requestId: generatedRequest.id,
-          stage: { not: null }, // Only get verifier approvals (they have stage values)
-        },
-      });
+    const verifierApprovals = await tx.requestApproval.findMany({
+      where: {
+        requestId: generatedRequest.id,
+        stage: { not: null }, // Only get verifier approvals (they have stage values)
+      },
+    });
 
     return {
       ...updatedResource,
@@ -1433,10 +1843,16 @@ export const updateContentAndGenerateRequest = async (contentData) => {
   };
 };
 
-
-export const fetchRequests = async (userId, userRole, search, status, pageNum, limitNum) => {
+export const fetchRequests = async (
+  userId,
+  userRole,
+  search,
+  status,
+  pageNum,
+  limitNum
+) => {
   const skip = (pageNum - 1) * limitNum;
-  
+
   // Base where clause
   const where = {
     status: status || undefined, // Filter by status if provided
@@ -1577,7 +1993,6 @@ export const fetchRequests = async (userId, userRole, search, status, pageNum, l
   };
 };
 
-
 export const fetchRequestInfo = async (requestId) => {
   const request = await prismaClient.resourceVersioningRequest.findUnique({
     where: { id: requestId },
@@ -1588,89 +2003,105 @@ export const fetchRequestInfo = async (requestId) => {
             include: {
               roles: {
                 include: {
-                  user: true
-                }
+                  user: true,
+                },
               },
               verifiers: {
                 include: {
-                  user: true
+                  user: true,
                 },
                 orderBy: {
-                  stage: 'asc'
-                }
+                  stage: "asc",
+                },
               },
               liveVersion: true,
-              newVersionEditMode: true
-            }
-          }
-        }
+              newVersionEditMode: true,
+            },
+          },
+        },
       },
       sender: true,
       previousRequest: {
         include: {
-          sender: true
-        }
+          sender: true,
+        },
       },
       approvals: {
         include: {
-          approver: true
+          approver: true,
         },
         orderBy: {
-          createdAt: 'asc'
-        }
-      }
-    }
+          createdAt: "asc",
+        },
+      },
+    },
   });
 
   if (!request) {
-    throw new Error('Request not found');
+    throw new Error("Request not found");
   }
 
   // Format the data as per requirements
   const formattedData = {
     Details: {
-      'Resource': request.resourceVersion.resource.titleEn,
-      'Status': request.status,
-      'Edit Mode': request.resourceVersion.resource.newVersionEditMode ? 'Active' : 'Inactive',
-      'Assigned Users': {
-        'Manager': request.resourceVersion.resource.roles
-          .filter(role => role.role === 'MANAGER')
-          .map(role => role.user.name)
-          .join(', ') || 'Not assigned',
-        'Editor': request.resourceVersion.resource.roles
-          .filter(role => role.role === 'EDITOR')
-          .map(role => role.user.name)
-          .join(', ') || 'Not assigned',
-        'Verifiers': request.resourceVersion.resource.verifiers
-          .reduce((acc, verifier) => {
+      Resource: request.resourceVersion.resource.titleEn,
+      Status: request.status,
+      "Edit Mode": request.resourceVersion.resource.newVersionEditMode
+        ? "Active"
+        : "Inactive",
+      "Assigned Users": {
+        Manager:
+          request.resourceVersion.resource.roles
+            .filter((role) => role.role === "MANAGER")
+            .map((role) => role.user.name)
+            .join(", ") || "Not assigned",
+        Editor:
+          request.resourceVersion.resource.roles
+            .filter((role) => role.role === "EDITOR")
+            .map((role) => role.user.name)
+            .join(", ") || "Not assigned",
+        Verifiers: request.resourceVersion.resource.verifiers.reduce(
+          (acc, verifier) => {
             const level = `level ${verifier.stage}`;
             if (!acc[level]) acc[level] = [];
             acc[level].push(verifier.user.name);
             return acc;
-          }, {}),
-        'Publisher': request.resourceVersion.resource.roles
-          .filter(role => role.role === 'PUBLISHER')
-          .map(role => role.user.name)
-          .join(', ') || 'Not assigned'
+          },
+          {}
+        ),
+        Publisher:
+          request.resourceVersion.resource.roles
+            .filter((role) => role.role === "PUBLISHER")
+            .map((role) => role.user.name)
+            .join(", ") || "Not assigned",
       },
-      'Submitted Date': request.createdAt.toLocaleDateString('en-US'),
-      'Comment': request.editorComments || 'No comments',
-      'Submitted By': request.sender.name,
-      'Submitted To': request.approvals.length > 0 ? 
-        request.approvals[0].approver.name : 'Not assigned',
-      'Version No.': `V ${request.resourceVersion.versionNumber}`,
-      'Reference Document': request.resourceVersion.referenceDoc ? 
-        'PDF File' : 'No document',
-      'Request Type': request.type,
-      'Request No.': request.id.slice(0, 4).toUpperCase(),
-      'Previous Request': request.previousRequest ? 
-        `${request.previousRequest.type} | ${request.previousRequest.id.slice(0, 4).toUpperCase()}` : 'None',
-      'Approval Status': request.approvals.map(approval => ({
-        'Role': getRoleForApprover(approval.approver.id, request.resourceVersion.resource),
-        'Status': approval.status,
-        'Comment': approval.comments || 'No comments'
-      }))
-    }
+      "Submitted Date": request.createdAt.toLocaleDateString("en-US"),
+      Comment: request.editorComments || "No comments",
+      "Submitted By": request.sender.name,
+      "Submitted To":
+        request.approvals.length > 0
+          ? request.approvals[0].approver.name
+          : "Not assigned",
+      "Version No.": `V ${request.resourceVersion.versionNumber}`,
+      "Reference Document": request.resourceVersion.referenceDoc
+        ? "PDF File"
+        : "No document",
+      "Request Type": request.type,
+      "Request No.": request.id.slice(0, 4).toUpperCase(),
+      "Previous Request": request.previousRequest
+        ? `${request.previousRequest.type} | ${request.previousRequest.id
+            .slice(0, 4)
+            .toUpperCase()}`
+        : "None",
+      "Approval Status": request.approvals.map((approval) => ({
+        Role: getRoleForApprover(
+          approval.approver.id,
+          request.resourceVersion.resource
+        ),
+        Status: approval.status,
+        Comment: approval.comments || "No comments",
+      })),
+    },
   };
 
   return formattedData;
@@ -1678,11 +2109,11 @@ export const fetchRequestInfo = async (requestId) => {
 
 // Helper function to determine role for approver
 function getRoleForApprover(userId, resource) {
-  const role = resource.roles.find(r => r.userId === userId);
+  const role = resource.roles.find((r) => r.userId === userId);
   if (role) return role.role;
-  
-  const verifier = resource.verifiers.find(v => v.userId === userId);
+
+  const verifier = resource.verifiers.find((v) => v.userId === userId);
   if (verifier) return `VERIFIER_LEVEL_${verifier.stage}`;
-  
-  return 'UNKNOWN';
+
+  return "UNKNOWN";
 }
