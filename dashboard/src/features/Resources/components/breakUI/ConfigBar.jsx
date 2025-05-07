@@ -6,7 +6,7 @@ import {
   assignUser,
   getAssignedUsers,
   getEligibleUsers,
-  removeAssignedUser,
+  removeAssignedUsers,
 } from "../../../../app/fetch";
 import { toast } from "react-toastify";
 import capitalizeWords, { TruncateText } from "../../../../app/capitalizeword";
@@ -25,10 +25,10 @@ const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
     publisher: ""
   }
   const configRef = useRef(null);
+  const confirmPopupRef = useRef(null)
   const [userList, setUserList] = useState({ managers: [], editors: [], verifiers: [], publishers: [] })
   const [formObj, setFormObj] = useState(initialObj)
   const [isChanged, setIsChanged] = useState(false)
-  const [firstValue, setFirstValue] = useState(false)
   const [preAssignedUsers, setPreAssignedUsers] = useState({ roles: {}, verifiers: [] })
   const [fetchedData, setFetchedData] = useState(false)
   const [clearPopup, setClearPopup] = useState(false)
@@ -43,11 +43,9 @@ const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
     });
   }
 
-
-
   async function onSubmit(e) {
     e.preventDefault();
-    if (!firstValue) return
+    if (!isChanged) return
     if (debouncingState) return
 
     const valueArray = Object.values(formObj);
@@ -103,7 +101,8 @@ const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
     dispatch(switchDebounce(true))
     let loadingToastId = toast.loading("Removing all users...")
     try {
-      const response = await removeAssignedUser(resourceId)
+      const response = await removeAssignedUsers(resourceId)
+      
       if (response.ok) {
         updateToasify(loadingToastId, "Users has been removed successfully!", "success", 700)
       } else {
@@ -111,6 +110,7 @@ const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
       }
     } catch (err) {
       console.log(err)
+      updateToasify(loadingToastId, "Failed to remove all Users. Try again later", "failure", 700)
     } finally {
       toast.dismiss(loadingToastId)
       dispatch(switchDebounce(false))
@@ -132,6 +132,10 @@ const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
     const handleClickOutside = (event) => {
       if (configRef.current && !configRef.current.contains(event.target)) {
         closeButton();
+      }
+
+      if (confirmPopupRef.current && !confirmPopupRef.current.contains(event.target)) {
+        setClearPopup(false)
       }
     };
 
@@ -211,8 +215,6 @@ const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
   useEffect(() => {
     if (initialFormValue.current) {
       const hasChanged = !isEqual(formObj, initialFormValue.current);
-      console.log(hasChanged)
-      console.log(formObj, initialFormValue.current)
       setIsChanged(hasChanged);
     }
   }, [formObj]);
@@ -330,12 +332,14 @@ const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
                   selectClass="bg-transparent border border-[#cecbcb] dark:border-stone-600 mt-1 rounded-md py-2 h-[2.5rem] outline-none"
                   id={"SelectPublisher"}
                 />
-                {fetchedData &&
+                {
+                  fetchedData &&
                   <div className="flex flex-col gap-4">
                     <div className="flex justify-end">
                       <button className="bg-red-600 text-white p-2 rounded-md text-[12px]" onClick={(e) => { e.preventDefault(); setClearPopup(true) }}>Remove All</button>
                     </div>
-                    <div className="bg-stone-500/20 rounded-md text-[14px] text-zinc-700 dark:text-zinc-300 p-3 flex flex-col gap-4 animation-move-left"
+                    <div ref={confirmPopupRef}
+                      className="bg-stone-500/20 rounded-md text-[14px] text-zinc-700 dark:text-zinc-300 p-3 flex flex-col gap-4 animation-move-left"
                       style={{ display: clearPopup ? "flex" : "none" }}>
                       <p>Do you want to remove all assigned user?</p>
                       <div className="flex gap-2 justify-end">
@@ -343,7 +347,8 @@ const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
                         <button className="bg-[#29469C] text-white p-2 rounded-md text-[12px] w-[30%]" onClick={(e) => { e.preventDefault(); removeAllUsers() }}>YES</button>
                       </div>
                     </div>
-                  </div>}
+                  </div>
+                }
               </div>
 
               {/* Buttons */}
@@ -389,28 +394,28 @@ const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
 export default ConfigBar;
 
 
-  // const isFormObjEqual = (obj1, obj2) => {
-  //   if (!obj1 || !obj2) return false;
+// const isFormObjEqual = (obj1, obj2) => {
+//   if (!obj1 || !obj2) return false;
 
-  //   if (
-  //     obj1.resourceId !== obj2.resourceId ||
-  //     obj1.manager !== obj2.manager ||
-  //     obj1.editor !== obj2.editor ||
-  //     obj1.publisher !== obj2.publisher
-  //   ) {
-  //     return false;
-  //   }
+//   if (
+//     obj1.resourceId !== obj2.resourceId ||
+//     obj1.manager !== obj2.manager ||
+//     obj1.editor !== obj2.editor ||
+//     obj1.publisher !== obj2.publisher
+//   ) {
+//     return false;
+//   }
 
-  //   if (obj1.verifiers.length !== obj2.verifiers.length) { console.log("verifiers length"); return false; }
+//   if (obj1.verifiers.length !== obj2.verifiers.length) { console.log("verifiers length"); return false; }
 
-  //   for (let i = 0; i < obj1.verifiers.length; i++) {
-  //     if (
-  //       obj1.verifiers[i].id !== obj2.verifiers[i].id
-  //       //|| obj1.verifiers[i].stage !== obj2.verifiers[i].stage
-  //     ) {
-  //       return false;
-  //     }
-  //   }
+//   for (let i = 0; i < obj1.verifiers.length; i++) {
+//     if (
+//       obj1.verifiers[i].id !== obj2.verifiers[i].id
+//       //|| obj1.verifiers[i].stage !== obj2.verifiers[i].stage
+//     ) {
+//       return false;
+//     }
+//   }
 
-  //   return true;
-  // };
+//   return true;
+// };

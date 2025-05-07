@@ -65,6 +65,7 @@ const makerequest = async (
     result = await response.json();
     result.ok = true;
   } catch (err) {
+    console.log(err)
     if (err.name === "AbortError") {
       result = { error: "Request timed out" };
     } else {
@@ -372,8 +373,8 @@ export async function getAssignedUsers(param) {
   return await makerequest(`${api.route("getAssignedUsers")}/${param}`, "GET");
 }
 
-export async function removeAssignedUser(param) {
-  return await makerequest(`${api.route("removeAssignedUser")}/${param}`, "PATCH");
+export async function removeAssignedUsers(param) {
+  return await makerequest(`${api.route("removeAssignedUsers")}${param}`, "PATCH");
 }
 
 export async function getContent(param) {
