@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { updateContent } from "../../../../common/homeContentSlice";
+import { updateMainContent } from "../../../../common/homeContentSlice";
 import { services, projectPageData } from "../../../../../assets/index";
 import content from '../content.json'
 import structureOfServiceDetails from "../structures/structureOFServiceDetails.json";
@@ -23,9 +23,9 @@ const ServiceDetails = ({ serviceId, contentOn, language, screen }) => {
 
     useEffect(() => {
         if (!contentFromRedux?.[serviceId - 1]) {
-            dispatch(updateContent({ currentPath: "serviceDetails", payload: [...content.serviceDetails, { ...structureOfServiceDetails, id: content.serviceDetails?.length + 1 }] }))
+            dispatch(updateMainContent({ currentPath: "serviceDetails", payload: [...content.serviceDetails, { ...structureOfServiceDetails, id: content.serviceDetails?.length + 1 }] }))
         } else {
-            dispatch(updateContent({ currentPath: "serviceDetails", payload: content.serviceDetails }))
+            dispatch(updateMainContent({ currentPath: "serviceDetails", payload: content.serviceDetails }))
         }
     }, [])
     return (

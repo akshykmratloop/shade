@@ -26,6 +26,7 @@ const GetResources = async (req, res) => {
     page,
     limit,
     fetchType,
+    roleType,
   } = req.query;
   const pageNum = parseInt(page) || 1;
   const limitNum = parseInt(limit) || 100;
@@ -41,7 +42,8 @@ const GetResources = async (req, res) => {
     pageNum,
     limitNum,
     fetchType,
-    userId
+    userId,
+    roleType
   );
   res.status(200).json(response);
 };

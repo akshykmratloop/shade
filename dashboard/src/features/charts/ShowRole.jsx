@@ -3,7 +3,7 @@ import { Dialog } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 import { getUserById } from "../../app/fetch";
 import userIcon from "../../assets/user.png";
-import capitalizeWords from "../../app/capitalizeword";
+import capitalizeWords, { TruncateText } from "../../app/capitalizeword";
 import SkeletonLoader from "../../components/Loader/SkeletonLoader";
 
 function UserDetailsModal({ user, show, onClose }) {
@@ -212,7 +212,7 @@ function UserDetailsModal({ user, show, onClose }) {
                         (<tr>
                           <td className="px-4 py-2 align-top text-center dark:border dark:border-[#232d3d] w-1/3 " colSpan={2}>
                             <div className="h-full">
-                                No associated roles and permission found.
+                              No associated roles and permission found.
                             </div>
                           </td>
                         </tr>) :
@@ -299,34 +299,28 @@ function UserDetailsModal({ user, show, onClose }) {
               <div className="w-full">
                 <table className="w-full text-left">
                   <tbody className="bg-[#fcfcfc] dark:bg-transparent">
-                    {(!fetchedUser?.resourceVerifiers ||
-                      fetchedUser?.resourceVerifiers?.length === 0) &&
-                      fetchedUser?.resourceRoles?.map(
-                        (resRol) => (
-                          console.log("resRol", resRol),
-                          (
-                            <tr
-                              key={resRol?.resource?.titleEn}
-                              className="font-light text-[14px] text-[#101828] dark:text-[#f5f5f4]"
-                            >
-                              <td className="px-4 py-2 dark:border dark:border-[#232d3d] w-1/3">
-                                {resRol?.resource?.titleEn}
-                              </td>
-                              <td className="px-4 py-2 dark:border dark:border-[#232d3d] w-1/3">
-                                {convertToReadable(
-                                  resRol?.resource?.resourceType
-                                )}{" "}
-                                /{" "}
-                                {convertToReadable(
-                                  resRol?.resource?.resourceTag
-                                )}
-                              </td>
-                              <td className="px-4 py-2 dark:border dark:border-[#232d3d] w-1/3">
-                                {convertToReadable(resRol?.role)}
-                              </td>
-                            </tr>
-                          )
+                    {(fetchedUser?.resourceRoles?.length > 0) &&
+                      fetchedUser?.resourceRoles?.map((resRol) => {
+
+                        return (
+                          <tr
+                            key={resRol?.resource?.titleEn}
+                            className="font-light text-[14px] text-[#101828] dark:text-[#f5f5f4]"
+                          >
+                            <td className="px-4 py-2 dark:border dark:border-[#232d3d] w-1/3" title={resRol?.resource?.titleEn}>
+                              {TruncateText(resRol?.resource?.titleEn, 17)}
+                            </td>
+                            <td className="px-4 py-2 dark:border dark:border-[#232d3d] w-1/3" title={resRol?.resource?.resourceType}>
+                              {TruncateText(convertToReadable(
+                                resRol?.resource?.resourceType
+                              ), 20)}
+                            </td>
+                            <td className="px-4 py-2 dark:border dark:border-[#232d3d] w-1/3">
+                              {TruncateText(convertToReadable(resRol?.role), 15)}
+                            </td>
+                          </tr>
                         )
+                      }
                       )}
 
                     {fetchedUser?.resourceVerifiers?.length > 0 &&
@@ -336,12 +330,12 @@ function UserDetailsModal({ user, show, onClose }) {
                           className="font-light text-[14px] text-[#101828] dark:text-[#f5f5f4]"
                         >
                           <td className="px-4 py-2 dark:border dark:border-[#232d3d]  w-1/3">
-                            {verifier?.resource?.titleEn}
+                            {TruncateText(verifier?.resource?.titleEn, 17)}
                           </td>
                           <td className="px-4 py-2 dark:border dark:border-[#232d3d]  w-1/3">
-                            {convertToReadable(
+                            {TruncateText(convertToReadable(
                               verifier?.resource?.resourceType
-                            )}
+                            ), 17)}
                           </td>
                           <td className=" px-4 py-2 dark:border dark:border-[#232d3d]  w-1/3">
                             Verifier{" "}

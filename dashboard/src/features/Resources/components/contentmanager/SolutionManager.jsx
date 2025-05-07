@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import FileUploader from "../../../../components/Input/InputFileUploader";
 import ContentSection from "../breakUI/ContentSections";
-import { updateContent, updateWhatWeDoList } from "../../../common/homeContentSlice";
+import { updateMainContent, updateWhatWeDoList } from "../../../common/homeContentSlice";
 import content from "../websiteComponent/content.json"
 import { useDispatch } from "react-redux";
 import DynamicContentSection from "../breakUI/DynamicContentSection";
@@ -29,7 +29,7 @@ const SolutionManager = ({ currentPath, language, currentContent }) => {
     }
 
     useEffect(() => {
-        dispatch(updateContent({ currentPath: "solutions", payload: (content?.solutions) }))
+        dispatch(updateMainContent({ currentPath: "solutions", payload: (content?.solutions) }))
     }, [])
     return (
         <div className="w-full">

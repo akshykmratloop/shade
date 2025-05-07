@@ -3,39 +3,13 @@ const SkeletonLoader = ({ type }) => {
     if (type === "INFO") {
         return (
 
-            <div className="animate-pulse flex flex-col justify-between h-[80%]  mt-4 gap-5 px-6">
-                {/* <div className="flex items-center mt-4">
-                    <div>
-                        <div className="h-2.5 bg-gray-300 rounded-full dark:bg-gray-700 w-32 mb-2"></div>
-                        <div className="w-48 h-2 bg-gray-300 rounded-full dark:bg-gray-700"></div>
-                        <div className="h-2 w-4/4 bg-gray-300 rounded mb-2"></div>
-                        <div className="h-2 w-4/4 bg-gray-300 rounded mb-2"></div>
-                    </div>
-                </div> */}
+            <div className="animate-pulse flex flex-col h-[80%]  mt-6 gap-5 px-6">
                 <div>
                     <div className="h-2 w-4/4 bg-gray-300 rounded mb-2"></div>
                     <div className="h-2 w-4/4 bg-gray-300 rounded mb-2"></div>
                     <div className="h-2 w-4/4 bg-gray-300 rounded mb-2"></div>
                 </div>
-                <div>
-                    <div className="h-2 w-4/4 bg-gray-300 rounded mb-2"></div>
-                    <div className="h-2 w-4/4 bg-gray-300 rounded mb-2"></div>
-                    <div className="h-2 w-4/4 bg-gray-300 rounded mb-2"></div>
-                    <div className="h-2 w-4/4 bg-gray-300 rounded mb-2"></div>
-                </div>
-
-                <div>
-                    <div className="h-2 w-4/4 bg-gray-300 rounded mb-2"></div>
-                    <div className="h-2 w-4/4 bg-gray-300 rounded mb-2"></div>
-                    <div className="h-2 w-4/4 bg-gray-300 rounded mb-2"></div>
-                    <div className="h-2 w-4/4 bg-gray-300 rounded mb-2"></div>
-                </div>
-                <div>
-                    <div className="h-2 w-4/4 bg-gray-300 rounded mb-2"></div>
-                    <div className="h-2 w-4/4 bg-gray-300 rounded mb-2"></div>
-                    <div className="h-2 w-4/4 bg-gray-300 rounded mb-2"></div>
-                    <div className="h-2 w-4/4 bg-gray-300 rounded mb-2"></div>
-                </div>
+            
                 <div>
                     <div className="h-2 w-4/4 bg-gray-300 rounded mb-2"></div>
                     <div className="h-2 w-4/4 bg-gray-300 rounded mb-2"></div>

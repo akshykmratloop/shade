@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Arrow from "../../../../assets/icons/right-wrrow.svg"; ///assets/icons/right-wrrow.svg
 import { useDispatch, useSelector } from "react-redux";
 import content from "./content.json"
-import { updateContent } from "../../../common/homeContentSlice";
+import { updateMainContent } from "../../../common/homeContentSlice";
 import { services, projectPageData } from "../../../../assets/index";
 import { TruncateText } from "../../../../app/capitalizeword";
 const Services = ({ currentContent, screen, language }) => {
@@ -16,7 +16,7 @@ const Services = ({ currentContent, screen, language }) => {
 
 
     useEffect(() => {
-        dispatch(updateContent({ currentPath: "services", payload: (content?.services) }))
+        dispatch(updateMainContent({ currentPath: "services", payload: (content?.services) }))
     }, [])
     return (
         <div className="">

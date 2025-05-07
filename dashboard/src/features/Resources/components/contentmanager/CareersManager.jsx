@@ -2,7 +2,7 @@ import FileUploader from "../../../../components/Input/InputFileUploader";
 import { useEffect } from "react";
 import ContentSection from "../breakUI/ContentSections";
 import MultiSelect from "../breakUI/MultiSelect";
-import { updateContent } from "../../../common/homeContentSlice";
+import { updateMainContent } from "../../../common/homeContentSlice";
 import content from "../websiteComponent/content.json"
 import { useDispatch } from "react-redux";
 
@@ -11,7 +11,7 @@ const CareersManager = ({ language, currentContent, currentPath }) => {
     const dispatch = useDispatch()
 
     useEffect(() => {
-        dispatch(updateContent({ currentPath: "home", payload: (content?.careers) }))
+        dispatch(updateMainContent({ currentPath: "home", payload: (content?.careers) }))
     }, [])
     return (
         <div className="w-full">

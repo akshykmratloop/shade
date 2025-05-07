@@ -9,7 +9,7 @@ import Twitter from "../../../../../assets/icons/twitter.svg"
 import Linkedin from "../../../../../assets/icons/linkedin.svg"
 import foot_layer from "../../../../../assets/images/foot_layer.png"
 import foot_layer1 from "../../../../../assets/images/foot_layer1.png"
-import { updateContent, updateImages } from "../../../../common/homeContentSlice";
+import { updateMainContent, updateImages } from "../../../../common/homeContentSlice";
 
 
 const Footer = ({ language, screen }) => {
@@ -37,7 +37,7 @@ const Footer = ({ language, screen }) => {
     ]
 
     useEffect(() => {
-        dispatch(updateContent({ currentPath: "footer", payload: (content?.footer) }))
+        dispatch(updateMainContent({ currentPath: "footer", payload: (content?.footer) }))
         dispatch(updateImages({ src: social, section: "socialIcons" }))
     }, [])
     return (

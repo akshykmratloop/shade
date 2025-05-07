@@ -1,5 +1,5 @@
 import { useEffect } from "react"
-import { updateContent } from "../../../../common/homeContentSlice"
+import { updateMainContent } from "../../../../common/homeContentSlice"
 import { useDispatch } from "react-redux"
 import ContentSection from "../../breakUI/ContentSections"
 import FileUploader from "../../../../../components/Input/InputFileUploader"
@@ -9,7 +9,7 @@ const TestimonyManager = ({ testimonyId, currentContent, currentPath, language }
     const dispatch = useDispatch()
 
     useEffect(() => {
-        dispatch(updateContent({ currentPath: "testimonialSection", payload: content.testimonialSection }))
+        dispatch(updateMainContent({ currentPath: "testimonialSection", payload: content.testimonialSection }))
     }, [])
     return (
         <div>
