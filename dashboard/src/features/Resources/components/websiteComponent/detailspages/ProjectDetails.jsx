@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 // import { useTruncate } from "@/common/useTruncate";
 import { projectPageData } from "../../../../../assets/index";
 import { useDispatch, useSelector } from "react-redux";
-import { updateContent } from "../../../../common/homeContentSlice";
+import { updateMainContent } from "../../../../common/homeContentSlice";
 import content from '../content.json'
 import { Swiper, SwiperSlide } from "swiper/react";
 import structureOfPageDetails from "../structures/structureOFPageDetails.json"
@@ -39,9 +39,9 @@ const ProjectDetailPage = ({ contentOn, language, projectId, screen }) => {
 
     useEffect(() => {
         if (!currentContent[projectId - 1]) {
-            dispatch(updateContent({ currentPath: "projectDetail", payload: [...content.projectDetail, { ...structureOfPageDetails, id: content.projectDetail.length + 1 }] }))
+            dispatch(updateMainContent({ currentPath: "projectDetail", payload: [...content.projectDetail, { ...structureOfPageDetails, id: content.projectDetail.length + 1 }] }))
         } else {
-            dispatch(updateContent({ currentPath: "projectDetail", payload: content.projectDetail }))
+            dispatch(updateMainContent({ currentPath: "projectDetail", payload: content.projectDetail }))
         }
     }, [])
 

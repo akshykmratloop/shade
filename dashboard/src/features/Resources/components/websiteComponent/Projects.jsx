@@ -5,7 +5,7 @@ import content from "./content.json"
 import Arrow from "../../../../assets/icons/right-wrrow.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { projectPageData } from "../../../../assets/index";
-import { updateContent, updateSelectedContent } from "../../../common/homeContentSlice";
+import { updateMainContent, updateSelectedContent } from "../../../common/homeContentSlice";
 import { TruncateText } from "../../../../app/capitalizeword";
 import { updateAllProjectlisting } from "../../../common/homeContentSlice"
 
@@ -57,7 +57,7 @@ const ProjectPage = ({ language, screen }) => {
 
 
     useEffect(() => {
-        dispatch(updateContent({ currentPath: "projects", payload: content.projectsPage }));
+        dispatch(updateMainContent({ currentPath: "projects", payload: content.projectsPage }));
     }, [])
     
     useEffect(() => {

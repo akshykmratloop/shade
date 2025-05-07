@@ -9,7 +9,7 @@ import Pagination from "./subparts/Pagination";
 // const AnimatedText = dynamic(() => import('@/common/AnimatedText'), { ssr: false });
 import Arrow from "../../../../assets/icons/right-wrrow.svg"
 import { useDispatch, useSelector } from "react-redux";
-import { updateContent } from "../../../common/homeContentSlice";
+import { updateMainContent } from "../../../common/homeContentSlice";
 
 const CareerPage = ({ language, screen }) => {
     const isLeftAlign = language === 'en'
@@ -76,7 +76,7 @@ const CareerPage = ({ language, screen }) => {
     useEffect(() => {
         let isMounted = true; // Flag to track if component is mounted
 
-        dispatch(updateContent({ currentPath: "careers", payload: content.careers }));
+        dispatch(updateMainContent({ currentPath: "careers", payload: content.careers }));
 
         return () => {
             isMounted = false; // Mark as unmounted when component unmounts

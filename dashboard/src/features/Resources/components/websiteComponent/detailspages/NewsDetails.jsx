@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { newsBlogs } from "../../../../../assets/index";
 import content from "../content.json"
 import { TruncateText } from "../../../../../app/capitalizeword";
-import { updateContent } from "../../../../common/homeContentSlice";
+import { updateMainContent } from "../../../../common/homeContentSlice";
 import { useDispatch, useSelector } from "react-redux";
 import structureOfNewsDetails from '../structures/structureOFNewsDetails.json';
 
@@ -20,9 +20,9 @@ const NewsBlogDetailPage = ({ language, newsId, screen }) => {
 
     useEffect(() => {
         if (!currentContent?.[newsId]) {
-            dispatch(updateContent({ currentPath: "newsBlogsDetails", payload: [...content.newsBlogsDetails, { ...structureOfNewsDetails, id: content.newsBlogsDetails.length + 1 }] }))
+            dispatch(updateMainContent({ currentPath: "newsBlogsDetails", payload: [...content.newsBlogsDetails, { ...structureOfNewsDetails, id: content.newsBlogsDetails.length + 1 }] }))
         } else {
-            dispatch(updateContent({ currentPath: "newsBlogsDetails", payload: content.newsBlogsDetails }))
+            dispatch(updateMainContent({ currentPath: "newsBlogsDetails", payload: content.newsBlogsDetails }))
         }
     }, [])
 

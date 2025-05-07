@@ -3,7 +3,7 @@ import FileUploader from "../../../../../components/Input/InputFileUploader"
 import ContentSection from "../../breakUI/ContentSections"
 import DynamicContentSection from "../../breakUI/DynamicContentSection"
 import MultiSelect from "../../breakUI/MultiSelect"
-import { updateContent, updateTheProjectSummaryList } from "../../../../common/homeContentSlice"
+import { updateMainContent, updateTheProjectSummaryList } from "../../../../common/homeContentSlice"
 import { useEffect } from "react"
 import content from "../../websiteComponent/content.json"
 
@@ -31,7 +31,7 @@ const ProjectDetailManager = ({ projectId, currentContent, currentPath, language
     }
 
     useEffect(() => {
-        dispatch(updateContent({ currentPath: "projectDetail", payload: (content?.projectDetail) }))
+        dispatch(updateMainContent({ currentPath: "projectDetail", payload: (content?.projectDetail) }))
     }, [])
 
     return (

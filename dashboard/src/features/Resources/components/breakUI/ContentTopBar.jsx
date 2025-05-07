@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import Button from '../../../../components/Button/Button';
 import { redo, undo } from '../../../common/homeContentSlice';
 import { IoIosInformationCircleOutline } from "react-icons/io";
-import { saveDraftAction } from '../../../common/saveContentSlice';
+import { saveInitialContentValue } from '../../../common/InitialContentSlice';
 //icons
 import { FaArrowLeftLong } from "react-icons/fa6";
 import { MdOutlineDesktopWindows } from "react-icons/md";
@@ -63,7 +63,7 @@ export default function ContentTopBar({ setWidth, setFullScreen, currentPath, ou
         const paylaod = transformContent(ReduxState.present.content)
 
         // console.log(JSON.stringify(paylaod))
-        dispatch(saveDraftAction(paylaod))
+        dispatch(saveInitialContentValue(paylaod))
         setSavedChanges(true)
         try {
 

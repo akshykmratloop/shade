@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import FileUploader from "../../../../components/Input/InputFileUploader";
 import ContentSection from "../breakUI/ContentSections";
 import MultiSelect from "../breakUI/MultiSelect";
-import { updateContent } from "../../../common/homeContentSlice";
+import { updateMainContent } from "../../../common/homeContentSlice";
 // import content from "../websiteComponent/content.json"
 import { useDispatch, useSelector } from "react-redux";
 import { getContent, getResources } from "../../../../app/fetch";
@@ -17,14 +17,6 @@ const HomeManager = ({ language, content, currentPath, indexes, outOfEditing }) 
     const { isManager, isEditor } = useSelector(state => state.user)
     // fucntions
     const dispatch = useDispatch()
-
-
-    useEffect(() => {
-        const currentId = localStorage.getItem("contextId");
-        if (currentId) {
-            setCurrentId(currentId)
-        }
-    }, [])
 
     useEffect(() => {
         async function getOptionsforServices() {
@@ -74,31 +66,39 @@ const HomeManager = ({ language, content, currentPath, indexes, outOfEditing }) 
         getOptionsforServices()
     }, [])
 
-    useEffect(() => {
-        if (currentId) {
-            async function context() {
-                try {
-                    const response = await getContent(currentId)
-                    if (response.message === "Success") {
-                        const payload = {
-                            id: response.content.id,
-                            titleEn: response.content.titleEn,
-                            titleAr: response.content.titleAr,
-                            slug: response.content.slug,
-                            resourceType: response.content.resourceType,
-                            resourceTag: response.content.resourceTag,
-                            relationType: response.content.relationType,
-                            editVersion: isManager ? response.content.liveModeVersionData : response.content.editModeVersionData ?? response.content.liveModeVersionData
-                        }
-                        dispatch(updateContent({ currentPath: "content", payload }))
-                    }
-                } catch (err) {
 
-                }
-            }
-            context()
-        }
-    }, [currentId, isManager])
+    // useEffect(() => {
+    //     const currentId = localStorage.getItem("contextId");
+    //     if (currentId) {
+    //         setCurrentId(currentId)
+    //     }
+    // }, [])
+
+    // useEffect(() => {
+    //     if (currentId) {
+    //         async function context() {
+    //             try {
+    //                 const response = await getContent(currentId)
+    //                 if (response.message === "Success") {
+    //                     const payload = {
+    //                         id: response.content.id,
+    //                         titleEn: response.content.titleEn,
+    //                         titleAr: response.content.titleAr,
+    //                         slug: response.content.slug,
+    //                         resourceType: response.content.resourceType,
+    //                         resourceTag: response.content.resourceTag,
+    //                         relationType: response.content.relationType,
+    //                         editVersion: isManager ? response.content.liveModeVersionData : response.content.editModeVersionData ?? response.content.liveModeVersionData
+    //                     }
+    //                     dispatch(updateContent({ currentPath: "content", payload }))
+    //                 }
+    //             } catch (err) {
+
+    //             }
+    //         }
+    //         context()
+    //     }
+    // }, [currentId, isManager])
 
     return ( /// Component
         <div className="w-full">
