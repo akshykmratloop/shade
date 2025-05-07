@@ -34,7 +34,6 @@ const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
   const [loader, setLoader] = useState(false)
   // Redux-State
   const debouncingState = useSelector(state => state.debounce.debounce)
-  const dispatch = useDispatch()
 
   //Refs
   const configRef = useRef(null);
@@ -42,12 +41,16 @@ const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
   const initialFormValue = useRef(null)
 
 
+  // Function
+  const dispatch = useDispatch()
+
   function updateSelection(field, value) {
     setFormObj((prev) => {
       return { ...prev, [field]: value };
     });
   }
 
+  ////////////////////////////////////////////
   async function onSubmit(e) {
     e.preventDefault();
     if (!isChanged) return
@@ -99,12 +102,13 @@ const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
       // toast.dismiss(loadingToastId)
     }
   }
-  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////
+
   async function removeAllUsers() {
     if (debouncingState) return
 
     dispatch(switchDebounce(true))
-    let loadingToastId = toast.loading("Removing all users...")
+    let loadingToastId = toast.loading("Removing all users...", { style: { backgroundColor: "#3B82F6", color: "#fff" } })
     try {
       const response = await removeAssignedUsers(resourceId)
 
@@ -123,7 +127,7 @@ const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
       console.log(err)
       updateToasify(loadingToastId, "Failed to remove all Users. Try again later", "failure", 700)
     } finally {
-      toast.dismiss(loadingToastId)
+      // toast.dismiss(loadingToastId)
       dispatch(switchDebounce(false))
     }
   }

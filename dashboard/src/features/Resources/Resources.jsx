@@ -61,6 +61,7 @@ function Resources() {
   const userObj = useSelector(state => state.user)
 
   const { isManager, isEditor } = userObj
+  const superUser = userObj.user?.isSuperUser
 
   // Variables
   const resNotAvail = resources?.[resourceType]?.length === 0;
@@ -132,10 +133,10 @@ function Resources() {
       if (!resourceType) return;
 
       setLoading(true); // Start loading
-
+      const roleType = isManager ? "MANAGER" : "USER"
       const payload = ["MAIN", "HEADER_FOOTER"].includes(resourceTag)
-        ? { resourceType }
-        : { resourceType, resourceTag, relationType: "CHILD" };
+        ? { resourceType, ...(superUser ? {} : { roleType }), }
+        : { resourceType, resourceTag, relationType: "CHILD", ...(superUser ? {} : { roleType }), };
 
       const response = await getResources(payload);
 
