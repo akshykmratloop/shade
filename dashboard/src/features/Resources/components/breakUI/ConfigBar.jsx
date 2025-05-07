@@ -26,7 +26,7 @@ const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
   const configRef = useRef(null);
   const [userList, setUserList] = useState({ managers: [], editors: [], verifiers: [], publishers: [] })
   const [formObj, setFormObj] = useState(initialObj)
-  const [changedValue, setChangedValue] = useState(-1)
+  const [isChanged, setIsChanged] = useState(false)
   const [firstValue, setFirstValue] = useState(false)
   const [preAssignedUsers, setPreAssignedUsers] = useState({ roles: {}, verifiers: [] })
   const [fetchedData, setFetchedData] = useState(false)
@@ -34,6 +34,7 @@ const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
   const [loader, setLoader] = useState(false)
   const debouncingState = useSelector(state => state.debounce.debounce)
   const dispatch = useDispatch()
+  const initialFormValue = useRef(null)
 
   function updateSelection(field, value) {
     setFormObj((prev) => {
@@ -114,17 +115,45 @@ const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
       dispatch(switchDebounce(false))
     }
   }
-
+  ///////////////////////////////////////////////////////
   function closeButton() {
     setOn(false);
     setFormObj(initialObj);
   }
+
+  const isFormObjEqual = (obj1, obj2) => {
+    if (!obj1 || !obj2) return false;
+
+    if (
+      obj1.resourceId !== obj2.resourceId ||
+      obj1.manager !== obj2.manager ||
+      obj1.editor !== obj2.editor ||
+      obj1.publisher !== obj2.publisher
+    ) {
+      return false;
+    }
+
+    if (obj1.verifiers.length !== obj2.verifiers.length) { console.log("verifiers length"); return false; }
+
+    for (let i = 0; i < obj1.verifiers.length; i++) {
+      if (
+        obj1.verifiers[i].id !== obj2.verifiers[i].id
+        //|| obj1.verifiers[i].stage !== obj2.verifiers[i].stage
+      ) {
+        return false;
+      }
+    }
+
+    return true;
+  };
+
 
   const optionsForManagers = userList.managers.map((e) => ({ id: e.id, name: e.name + (e.status === "INACTIVE" ? " - Inactive" : ""), status: e.status }))
   const optionsForEditor = userList.editors.map((e) => ({ id: e.id, name: e.name + (e.status === "INACTIVE" ? " - Inactive" : ""), status: e.status }))
   const optionsForVerifiers = userList.verifiers.map((e) => ({ id: e.id, name: e.name + (e.status === "INACTIVE" ? " - Inactive" : ""), status: e.status }))
   const optionsForPublisher = userList.publishers.map((e) => ({ id: e.id, name: e.name + (e.status === "INACTIVE" ? " - Inactive" : ""), status: e.status }))
 
+  // IF CLICK OUTSIDE
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (configRef.current && !configRef.current.contains(event.target)) {
@@ -141,31 +170,32 @@ const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [display, setOn]);
 
+  // if PreAssignedUsers are set
+  useEffect(() => {
+    let beginObj = {
+      resourceId,
+      manager: preAssignedUsers?.roles?.MANAGER || "",
+      editor: preAssignedUsers?.roles?.EDITOR || "",
+      verifiers:
+        preAssignedUsers?.verifiers?.length > 0
+          ? preAssignedUsers?.verifiers
+          : [{ id: "", stage: NaN }],
+      publisher: preAssignedUsers?.roles?.PUBLISHER || "",
+    };
+
+    initialFormValue.current = beginObj;
+    setFormObj((prev) => {
+      return beginObj
+    });
+  }, [preAssignedUsers]);
+
+  // on every change on RESOURCEID
   useEffect(() => {
     setFormObj((prev) => ({
       ...prev,
       resourceId: resourceId,
     }));
-    setChangedValue(0)
-  }, [resourceId]);
 
-  useEffect(() => {
-    setFormObj((prev) => {
-      return {
-        resourceId,
-        manager: preAssignedUsers?.roles?.MANAGER || "",
-        editor: preAssignedUsers?.roles?.EDITOR || "",
-        verifiers:
-          preAssignedUsers?.verifiers?.length > 0
-            ? preAssignedUsers?.verifiers
-            : [{ id: "", stage: NaN }],
-        publisher: preAssignedUsers?.roles?.PUBLISHER || "",
-      };
-    });
-    setChangedValue(-1)
-  }, [preAssignedUsers]);
-
-  useEffect(() => {
     async function GetAssingends() {
       const payload = resourceId;
       if (resourceId) {
@@ -203,6 +233,15 @@ const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
     GetAssingends();
   }, [resourceId]);
 
+  // on every change on FORMOBJ --------
+  useEffect(() => {
+    if (initialFormValue.current) {
+      const hasChanged = !isFormObjEqual(formObj, initialFormValue.current);
+      console.log(hasChanged)
+      console.log(formObj, initialFormValue.current)
+      setIsChanged(hasChanged);
+    }
+  }, [formObj]);
 
   useEffect(() => {
     const hasValue = (
@@ -216,6 +255,7 @@ const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
   }, [formObj])
 
 
+  // get users
   useEffect(() => {
     async function getUser() {
       const response1 = await getEligibleUsers({ permission: "EDIT" });
@@ -231,10 +271,6 @@ const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
     }
     getUser()
   }, [])
-
-  useEffect(() => {
-    setChangedValue(prev => prev + 1)
-  }, [formObj])
 
   return (
     <div
@@ -361,12 +397,12 @@ const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
                 </button> */}
                 {
                   fetchedData ?
-                    changedValue > 1 ?
+                    isChanged ?
                       <button
                         onClick={onSubmit}
                         className={`w-full mx-5 h-[2.3rem] rounded-md text-xs 
-                    ${firstValue ? "bg-[#29469c]" : "bg-gray-500"} 
-                     border-none ${firstValue && "hover:bg-[#29469c]"} text-[white]`}
+                    ${isChanged ? "bg-[#29469c]" : "bg-gray-500"} 
+                     border-none ${isChanged && "hover:bg-[#29469c]"} text-[white]`}
                       >
                         {fetchedData ? "Update" : "Save"}
                       </button> : ""
@@ -374,8 +410,8 @@ const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
                     <button
                       onClick={onSubmit}
                       className={`w-full mx-5 h-[2.3rem] rounded-md text-xs 
-                  ${firstValue ? "bg-[#29469c]" : "bg-gray-500"} 
-                   border-none ${firstValue && "hover:bg-[#29469c]"} text-[white]`}
+                  ${isChanged ? "bg-[#29469c]" : "bg-gray-500"} 
+                   border-none ${isChanged && "hover:bg-[#29469c]"} text-[white]`}
                     >
                       {"Save"}
                     </button>
