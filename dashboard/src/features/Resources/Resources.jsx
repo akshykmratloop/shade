@@ -2,10 +2,7 @@ import { useEffect, useRef, useState, useCallback, Suspense } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { lazy } from "react";
-// Components
-import ConfigBar from "./components/breakUI/ConfigBar";
-import PageDetails from "./components/breakUI/PageDetails";
-import Navbar from "../../containers/Navbar";
+
 // import AllForOne from "./components/AllForOne"
 import { ToastContainer } from "react-toastify";
 import { MoonLoader } from "react-spinners";
@@ -16,16 +13,14 @@ import { FiEdit } from "react-icons/fi";
 import { IoSettingsOutline } from "react-icons/io5";
 import { LuEye } from "react-icons/lu";
 
-// Assets & Utils
+// Components, Assets & Utils
+import ConfigBar from "./components/breakUI/ConfigBar";
+import PageDetails from "./components/breakUI/PageDetails";
+import Navbar from "../../containers/Navbar";
 import capitalizeWords, { TruncateText } from "../../app/capitalizeword";
-import unavailableIcon from "../../assets/no_data_found.svg";
 import content from "./components/websiteComponent/content.json";
-
-// Redux
-// import { getLeadsContent } from "./leadSlice"
 import { getContent, getResources } from "../../app/fetch";
 import { updateTag, updateType } from "../common/navbarSlice";
-import { updateRouteLists } from "../common/routeLists";
 import resourcesContent from "./resourcedata";
 import CloseModalButton from "../../components/Button/CloseButton";
 import createContent from "./defineContent";

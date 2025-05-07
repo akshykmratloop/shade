@@ -1,54 +1,65 @@
 //libraries
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
+import { isEqual } from 'lodash';
 // modules
 import Button from '../../../../components/Button/Button';
 import { redo, undo } from '../../../common/homeContentSlice';
 import { IoIosInformationCircleOutline } from "react-icons/io";
 import { saveInitialContentValue } from '../../../common/InitialContentSlice';
+import transformContent from '../../../../app/convertContent';
+import { generateRequest, publishContent, updateContent } from '../../../../app/fetch';
+import Popups from './Popups';
+import formatTimestamp from '../../../../app/TimeFormat';
+import capitalizeWords from '../../../../app/capitalizeword';
 //icons
 import { FaArrowLeftLong } from "react-icons/fa6";
 import { MdOutlineDesktopWindows } from "react-icons/md";
 import { FiTablet, FiSmartphone } from "react-icons/fi";
 import { GrUndo, GrRedo } from "react-icons/gr";
 import { LuEye } from "react-icons/lu";
-import { RxCross1 } from "react-icons/rx";
+// import { RxCross1 } from "react-icons/rx";
 import { Switch } from '@headlessui/react';
-import transformContent from '../../../../app/convertContent';
-import { generateRequest, publishContent, updateContent } from '../../../../app/fetch';
-import Popups from './Popups';
-import formatTimestamp from '../../../../app/TimeFormat';
-import capitalizeWords from '../../../../app/capitalizeword';
-import { isEqual } from 'lodash';
+
 
 
 export default function ContentTopBar({ setWidth, setFullScreen, currentPath, outOfEditing }) {
-    const dispatch = useDispatch();
-    const iconSize = 'xl:h-[1.5rem] xl:w-[1.5rem]';
-    const smallIconSize = 'sm:h-[1rem] sm:w-[1rem]';
+    // states
     const [selectedDevice, setSelectedDevice] = useState("Desktop");
     const [menuOpen, setMenuOpen] = useState(false);
-    const ReduxState = useSelector(state => state.homeContent)
-    const savedInitialState = useSelector(state => state.InitialContentValue)
     const [isChanged, setIsChanged] = useState(false)
-    const navigate = useNavigate()
-    const [info, setInfo] = useState(false)
-    const infoRef = useRef(null)
     const [savedChanges, setSavedChanges] = useState(false)
     const [autoSave, setAutoSave] = useState(JSON.parse(localStorage.getItem("autoSave")))
-
+    const [info, setInfo] = useState(false)
     const [PopUpPublish, setPopupPublish] = useState(false)
     const [PopupSubmit, setPopupSubmit] = useState(false)
 
+    // redux state
+    const ReduxState = useSelector(state => state.homeContent)
+    const savedInitialState = useSelector(state => state.InitialContentValue.InitialValue)
     const isManager = useSelector(state => state.user.isManager)
+
+    // refs
+    const infoRef = useRef(null)
+    const infoIconRef = useRef(null); // Create a new ref for the info icon
+
+    // variables
+    const iconSize = 'xl:h-[1.5rem] xl:w-[1.5rem]';
+    const smallIconSize = 'sm:h-[1rem] sm:w-[1rem]';
+    const lastUpdate = formatTimestamp(ReduxState.present?.content?.editVersion?.updatedAt, "dd-mm-yyyy")
+    const status = capitalizeWords(ReduxState.present?.content?.editVersion?.status)
 
     const deviceIcons = [
         { icon: <MdOutlineDesktopWindows />, label: 'Desktop', width: 1180 },
         { icon: <FiTablet />, label: 'Tablet', width: 768 },
         { icon: <FiSmartphone />, label: 'Phone', width: 425 }
     ];
+
+    // functions
+    const dispatch = useDispatch();
+    const navigate = useNavigate()
 
     function autoSaveToggle() {
         setAutoSave(prev => {
@@ -58,9 +69,6 @@ export default function ContentTopBar({ setWidth, setFullScreen, currentPath, ou
         })
 
     }
-
-    const lastUpdate = formatTimestamp(ReduxState.present?.content?.editVersion?.updatedAt, "dd-mm-yyyy")
-    const status = capitalizeWords(ReduxState.present?.content?.editVersion?.status)
 
     async function saveTheDraft(isToastify = true) {
         const paylaod = transformContent(ReduxState.present.content)
@@ -95,11 +103,8 @@ export default function ContentTopBar({ setWidth, setFullScreen, currentPath, ou
     async function handleSubmit() {
         const paylaod = transformContent(ReduxState.present.content)
 
-        // console.log(JSON.stringify(paylaod))
         try {
-
             const response = await generateRequest(paylaod)
-
             if (response.ok) {
                 toast.success("Changes has been saved", {
                     style: { backgroundColor: "#187e3d", color: "white" },
@@ -116,7 +121,6 @@ export default function ContentTopBar({ setWidth, setFullScreen, currentPath, ou
                 pauseOnHover: false, // Does not pause on hover
             })
         }
-
     }
 
     async function HandlepublishToLive() {
@@ -144,7 +148,6 @@ export default function ContentTopBar({ setWidth, setFullScreen, currentPath, ou
                 pauseOnHover: false, // Does not pause on hover
             })
         }
-
     }
 
     const handleDeviceChange = (device) => {
@@ -180,7 +183,6 @@ export default function ContentTopBar({ setWidth, setFullScreen, currentPath, ou
         if (!autoSave) return;
 
         const debounceTimer = setTimeout(() => {
-            // dispatch(saveDraftAction(ReduxState.present));
             saveTheDraft(false)
         }, 5000); // 5 seconds debounce time
 
@@ -191,12 +193,13 @@ export default function ContentTopBar({ setWidth, setFullScreen, currentPath, ou
         localStorage.setItem("autoSave", String(autoSave))
     }, [autoSave])
 
-    useEffect(() => { // Checking ig there has been any changes in the initial and running content
-        const hasChanged = isEqual(ReduxState.present?.content?.editVersion?.sections, savedInitialState)
-        setIsChanged(hasChanged)
-    }, [])
+    console.log(isChanged)
 
-    const infoIconRef = useRef(null); // Create a new ref for the info icon
+    useEffect(() => { // Checking ig there has been any changes in the initial and running content
+        // console.log(ReduxState.present?.content?.editVersion?.sections, savedInitialState)
+        const hasChanged = !isEqual(ReduxState.present?.content?.editVersion?.sections, savedInitialState)
+        setIsChanged(hasChanged)
+    }, [ReduxState.present?.content?.editVersion])
 
     return (
         <div className='flex justify-between gap-2 items-center xl:px-[2.36rem] xl:py-[1.2rem] sm:px-[.8rem] sm:py-[.5rem] lg:px-[.8rem] bg-[#fafaff] dark:bg-[#242933]'>
@@ -279,30 +282,39 @@ export default function ContentTopBar({ setWidth, setFullScreen, currentPath, ou
                                             } relative inline-flex h-2 w-7 items-center rounded-full`}
                                     >
                                         <span
-                                            className={`${autoSave
-                                                ? "translate-x-4"
-                                                : "translate-x-0"
-                                                } inline-block h-[17px] w-[17px] bg-white rounded-full shadow-2xl border border-gray-300 transition`}
+                                            className={`${autoSave ? "translate-x-4" : "translate-x-0"} 
+                                            inline-block h-[17px] w-[17px] bg-white rounded-full shadow-2xl border border-gray-300 transition`}
                                         />
                                     </Switch>
                                 </div>
                                 <div className='flex gap-2'>
                                     {
                                         !autoSave &&
-                                        <Button text={savedChanges ? 'Saved' : 'Draft'} functioning={saveTheDraft} classes={`${savedChanges ? "bg-[#26c226]" : "bg-[#26345C]"}  rounded-md xl:h-[2.68rem] sm:h-[2rem] xl:text-xs sm:text-[.6rem] xl:w-[5.58rem] w-[4rem] text-[white]`} />
+                                        <Button text={savedChanges ? 'Saved' : 'Draft'} functioning={saveTheDraft}
+                                            classes={`${savedChanges ? "bg-[#26c226]" : "bg-[#26345C]"} 
+                                        rounded-md xl:h-[2.68rem] sm:h-[2rem] xl:text-xs sm:text-[.6rem] xl:w-[5.58rem] w-[4rem] text-[white]`} />
                                     }
-                                    <Button text={'Submit'} functioning={() => { setPopupSubmit(true) }} classes='bg-[#29469D] rounded-md xl:h-[2.68rem] sm:h-[2rem] xl:text-xs sm:text-[.6rem] xl:w-[5.58rem] w-[4rem] text-[white]' />
+                                    <Button text={'Submit'} disabled={!isChanged} functioning={() => { setPopupSubmit(true) }}
+                                        classes={`${isChanged ? "bg-[#29469D]" : "bg-gray-500"} 
+                                    rounded-md xl:h-[2.68rem] sm:h-[2rem] xl:text-xs sm:text-[.6rem] xl:w-[5.58rem] w-[4rem] text-[white]`} />
                                 </div>
                             </div>)
                         :
                         <div className='flex gap-3 sm:gap-1'>
-                            <Button text={'Publish'} functioning={() => setPopupPublish(true)} classes='bg-[#29469D] rounded-md xl:h-[2.68rem] sm:h-[2rem] xl:text-xs sm:text-[.6rem] xl:w-[5.58rem] w-[4rem] text-[white]' />
+                            <Button text={'Publish'} disabled={!isChanged} functioning={() => setPopupPublish(true)}
+                                classes={`${isChanged ? "bg-[#29469D]" : "bg-gray-500"} 
+                                rounded-md xl:h-[2.68rem] sm:h-[2rem] xl:text-xs sm:text-[.6rem] xl:w-[5.58rem] w-[4rem] text-[white]`}
+                            />
                         </div>
                 }
             </div>
 
-            <Popups display={PopUpPublish} setClose={() => setPopupPublish(false)} confirmationText={"Are you sure you want to publish?"} confirmationFunction={HandlepublishToLive} />
-            <Popups display={PopupSubmit} setClose={() => setPopupSubmit(false)} confirmationText={"Are you sure you want to submit?"} confirmationFunction={handleSubmit} />
+            <Popups display={PopUpPublish} setClose={() => setPopupPublish(false)}
+                confirmationText={"Are you sure you want to publish?"} confirmationFunction={HandlepublishToLive}
+            />
+            <Popups display={PopupSubmit} setClose={() => setPopupSubmit(false)}
+                confirmationText={"Are you sure you want to submit?"} confirmationFunction={handleSubmit}
+            />
         </div>
     );
 }
