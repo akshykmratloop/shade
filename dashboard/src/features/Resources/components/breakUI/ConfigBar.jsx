@@ -21,21 +21,26 @@ const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
     resourceId,
     manager: "",
     editor: "",
-    verifiers: [{ id: "", stage: NaN }],
+    verifiers: [{ id: "", stage: 1 }],
     publisher: ""
   }
-  const configRef = useRef(null);
-  const confirmPopupRef = useRef(null)
-  const [userList, setUserList] = useState({ managers: [], editors: [], verifiers: [], publishers: [] })
+  // States
   const [formObj, setFormObj] = useState(initialObj)
+  const [userList, setUserList] = useState({ managers: [], editors: [], verifiers: [], publishers: [] })
   const [isChanged, setIsChanged] = useState(false)
   const [preAssignedUsers, setPreAssignedUsers] = useState({ roles: {}, verifiers: [] })
   const [fetchedData, setFetchedData] = useState(false)
   const [clearPopup, setClearPopup] = useState(false)
   const [loader, setLoader] = useState(false)
+  // Redux-State
   const debouncingState = useSelector(state => state.debounce.debounce)
   const dispatch = useDispatch()
+
+  //Refs
+  const configRef = useRef(null);
+  const confirmPopupRef = useRef(null)
   const initialFormValue = useRef(null)
+
 
   function updateSelection(field, value) {
     setFormObj((prev) => {
@@ -102,8 +107,14 @@ const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
     let loadingToastId = toast.loading("Removing all users...")
     try {
       const response = await removeAssignedUsers(resourceId)
-      
+
       if (response.ok) {
+        setFormObj(initialObj)
+        initialFormValue.current = initialObj
+        setClearPopup(false)
+        setFetchedData(false)
+        setIsChanged(false)
+        reRender(Math.random())
         updateToasify(loadingToastId, "Users has been removed successfully!", "success", 700)
       } else {
         updateToasify(loadingToastId, "Failed to remove all Users. Try again later", "failure", 700)
@@ -157,7 +168,7 @@ const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
       verifiers:
         preAssignedUsers?.verifiers?.length > 0
           ? preAssignedUsers?.verifiers
-          : [{ id: "", stage: NaN }],
+          : [{ id: "", stage: 1 }],
       publisher: preAssignedUsers?.roles?.PUBLISHER || "",
     };
 
@@ -215,6 +226,7 @@ const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
   useEffect(() => {
     if (initialFormValue.current) {
       const hasChanged = !isEqual(formObj, initialFormValue.current);
+      console.log(formObj, initialFormValue.current)
       setIsChanged(hasChanged);
     }
   }, [formObj]);
