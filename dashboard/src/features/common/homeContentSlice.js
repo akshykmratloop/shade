@@ -65,7 +65,7 @@ const cmsSlice = createSlice({
             state.present.images[action.payload.section] = "";
             state.future = [];
         },
-        updateContent: (state, action) => {
+        updateMainContent: (state, action) => {
             state.past.push(JSON.parse(JSON.stringify(state.present)));
             state.present[action.payload?.currentPath] = action.payload.payload;
             state.present.loading = false
@@ -367,7 +367,7 @@ const cmsSlice = createSlice({
 export const { // actions
     updateImages,
     removeImages,
-    updateContent,
+    updateMainContent,
     updateSpecificContent,
     updateServicesNumber,
     updateSelectedContent,

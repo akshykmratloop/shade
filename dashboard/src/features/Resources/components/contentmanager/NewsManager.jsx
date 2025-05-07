@@ -4,7 +4,7 @@ import MultiSelect from "../breakUI/MultiSelect"
 import MultiSelectSM from "../breakUI/MultiSelectSM"
 
 import { useEffect } from "react";
-import { updateContent } from "../../../common/homeContentSlice";
+import { updateMainContent } from "../../../common/homeContentSlice";
 import content from "../websiteComponent/content.json"
 import { useDispatch } from "react-redux";
 
@@ -12,7 +12,7 @@ const NewsManager = ({ language, currentContent, currentPath }) => {
     const dispatch = useDispatch()
 
     useEffect(() => {
-        dispatch(updateContent({ currentPath: "home", payload: (content?.newsBlogs) }))
+        dispatch(updateMainContent({ currentPath: "home", payload: (content?.newsBlogs) }))
     }, [])
 
     return (

@@ -4,7 +4,7 @@ import { newsBlogs } from "../../../../assets/index";
 import { useDispatch, useSelector } from "react-redux";
 import { TruncateText } from "../../../../app/capitalizeword";
 import Arrow from "../../../../assets/icons/right-wrrow.svg";
-import { updateContent } from "../../../common/homeContentSlice";
+import { updateMainContent } from "../../../common/homeContentSlice";
 import TruncateComponent from "../../../../components/Truncate.jsx/TruncateComponent";
 // import styles from "@/components/news-and-blogs/newsblogs.module.scss";
 // Font files can be colocated inside of `app`
@@ -38,7 +38,7 @@ const NewsBlogspage = ({ language, screen }) => {
     console.log(isTablet)
 
     useEffect(() => {
-        dispatch(updateContent({ currentPath: "newsBlogs", payload: content.newsBlogs }))
+        dispatch(updateMainContent({ currentPath: "newsBlogs", payload: content.newsBlogs }))
     }, [])
     return (
         <div>

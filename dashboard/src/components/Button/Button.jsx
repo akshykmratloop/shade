@@ -1,11 +1,14 @@
-const Button = ({ text, type, classes, functioning }) => {
-
+const Button = ({ text, type, classes, functioning, disabled }) => {
     return (
         <button
             onClick={functioning}
             type={type || "button"}
-            className={classes}>
-            {text}</button>
+            className={classes}
+            disabled={disabled}
+        >
+            {text}
+        </button>
+
     )
 }
 

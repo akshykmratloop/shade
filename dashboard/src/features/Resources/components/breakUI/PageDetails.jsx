@@ -19,6 +19,16 @@ const PageDetails = ({ data, display, setOn }) => {
   const user = useSelector((state) => state.user.user);
   // const dispatch = useDispatch();
 
+
+  const users = {}
+  pageInfo?.resourceInfo?.roles?.forEach((e, i) => {
+    users[e.role?.toLowerCase()] = e.user.name
+  })
+  // const manager = pageInfo?.resourceInfo?.roles[0]?.user?.name
+  // const manager = pageInfo?.resourceInfo?.roles[0]?.user?.name
+  // const manager = pageInfo?.resourceInfo?.roles[0]?.user?.name
+
+
   useEffect(() => {
     if (display && data?.id) {
       setLoading(true);
@@ -137,12 +147,12 @@ const PageDetails = ({ data, display, setOn }) => {
                 <label>Assigned Users:</label>
                 <div className="">
                   <div className="border-b dark:border-stone-700 flex justify-between py-2 h-[43px] items-center">
-                    <label className="!text-[#5d5d5e]">Manager:</label>
-                    <p>{pageInfo?.resourceInfo?.roles[0]?.user?.name}</p>
+                    <label className="!text-[#808080]" title={users?.manager}>Manager:</label>
+                    <p>{TruncateText(users?.manager, 17) || "N/A"}</p>
                   </div>
                   <div className="border-b dark:border-stone-700 flex justify-between py-2 h-[43px] items-center">
-                    <label className="!text-[#5d5d5e]">Editor:</label>
-                    <p>{pageInfo?.resourceInfo?.roles[1]?.user?.name}</p>
+                    <label className="!text-[#808080]" title={users?.editor}>Editor:</label>
+                    <p>{TruncateText(users?.editor, 17) || "N/A"}</p>
                   </div>
                   {/* <div className="border border-cyan-500 flex"> */}
                   <div className="flex flex-col">
@@ -155,21 +165,23 @@ const PageDetails = ({ data, display, setOn }) => {
                             }`}
                         >
                           {firstIndex && (
-                            <label className="!text-[#5d5d5e]">Verifiers:</label>
+                            <label className="!text-[#808080]">Verifiers:</label>
                           )}
-                          <div className="flex gap-[10px] items-center py-[10px]">
+                          <div className="flex gap-[10px] items-center justify-between py-[10px] w-[65%]">
                             <p className="border px-[12px] w-[6rem] py-[2px] text-center rounded-3xl font-light text-[11px]">
                               {"level " + parseInt(ind + 1)}
                             </p>
-                            <p>{verifier?.user?.name}</p>
+                            <p title={verifier?.user?.name}>
+                              {TruncateText(verifier?.user?.name, 12)}
+                              </p>
                           </div>
                         </div>
                       );
                     })}
                   </div>
                   <div className="border-b-4 border-gray-400 dark:border-stone-700 flex justify-between py-4 items-center">
-                    <label className="!text-[#5d5d5e]">Publisher:</label>
-                    <p>{pageInfo?.resourceInfo?.roles[2]?.user?.name}</p>
+                    <label className="!text-[#808080]" title={users?.publisher}>Publisher:</label>
+                    <p>{TruncateText(users?.publisher, 17) || "N/A"}</p>
                   </div>
                   {/* </div> */}
                 </div>

@@ -173,23 +173,21 @@ function Requests() {
   const indexOfLastUser = currentPage * requestsPerPage;
   const indexOfFirstUser = indexOfLastUser - requestsPerPage;
   const currentRequests = requests?.slice(indexOfFirstUser, indexOfLastUser);
-  console.log(currentRequests)
   const totalPages = Math.ceil(requests?.length / requestsPerPage);
 
   const canSeeEditor = (isVerifier || isPublisher || isManager)
   const canSeeVerifier = (isPublisher || isManager)
   const canSeePublisher = (isVerifier || isManager)
-  const noneCanSee = !isEditor && !isManager && !isVerifier && !isPublisher
+  const noneCanSee = !(isEditor || isManager || isVerifier || isPublisher)
 
   useEffect(() => {
     async function fetchRequestsData() {
       try {
-        const response = await getRequests({userRole: "EDIT"});
+        const response = await getRequests({ userRole: "EDIT" });
         if (response.ok) {
-          // console.log(response.requests.data)
           setRequests(response.requests.data);
         }
-        // setOriginalRequests(response?.roles?.roles ?? []); // Store the original unfiltered data
+        setOriginalRequests(response?.requests?.data ?? []); // Store the original unfiltered data
 
       } catch (err) {
 
@@ -205,7 +203,7 @@ function Requests() {
       // console.log(isPublisher, isVerifier)
       navigate("/app/dashboard")
     }
-  }, [])
+  }, [noneCanSee])
   return (
     <div className="relative min-h-full">
       <div className="absolute top-3 right-2 flex">
@@ -511,7 +509,7 @@ function Requests() {
           }}
         />
       )}
-      <ToastContainer position="top-right" />
+      <ToastContainer position="" />
     </div>
   );
 }

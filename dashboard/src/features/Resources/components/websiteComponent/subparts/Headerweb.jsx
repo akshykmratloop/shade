@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 // import Image from "next/image";
 // import Link from "next/link";
 import { Link, useLocation } from "react-router-dom";
-import { updateContent } from "../../../../common/homeContentSlice";
+import { updateMainContent } from "../../../../common/homeContentSlice";
 // import { usePathname } from "next/navigation";
 // import localFont from "next/font/local";
 // import ContactUsModal from "./ContactUsModal";
@@ -75,7 +75,7 @@ const Header = ({ isOpenNavbar, setIsOpenNavbar, language, screen, setLanguage }
     };
 
     useEffect(() => {
-        dispatch(updateContent({ currentPath: "header", payload: (content?.header) }))
+        dispatch(updateMainContent({ currentPath: "header", payload: (content?.header) }))
     }, [])
 
     return (

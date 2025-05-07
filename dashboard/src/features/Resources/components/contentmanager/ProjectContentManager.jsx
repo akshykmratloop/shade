@@ -6,7 +6,7 @@ import FileUploader from "../../../../components/Input/InputFileUploader"
 
 import { useEffect } from "react";
 import MultiSelect from "../breakUI/MultiSelect";
-import { updateContent } from "../../../common/homeContentSlice";
+import { updateMainContent } from "../../../common/homeContentSlice";
 import content from "../websiteComponent/content.json"
 
 
@@ -14,7 +14,7 @@ const ProjectContentManager = ({ currentPath, currentContent, language }) => {
     const dispatch = useDispatch()
 
     useEffect(() => {
-        dispatch(updateContent({ currentPath: "home", payload: (content?.home) }))
+        dispatch(updateMainContent({ currentPath: "home", payload: (content?.home) }))
     }, [])
     return (
         <div className="w-full">

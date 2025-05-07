@@ -506,3 +506,18 @@ div.importantList ul {
     transform: translateX(0px);
   }
 }
+
+.Toastify__toast--animate-out {
+  animation: slideOutRight 0.7s forwards;
+}
+
+@keyframes slideOutRight {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+}

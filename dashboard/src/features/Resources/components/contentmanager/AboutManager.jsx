@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import FileUploader from "../../../../components/Input/InputFileUploader";
 import ContentSection from "../breakUI/ContentSections";
 // import MultiSelect from "../breakUI/MultiSelect";
-import { updateContent } from "../../../common/homeContentSlice";
+import { updateMainContent } from "../../../common/homeContentSlice";
 // import content from "../websiteComponent/content.json"
 import { useDispatch, useSelector } from "react-redux";
 import { getContent } from "../../../../app/fetch";
@@ -43,7 +43,7 @@ const AboutManager = ({  content, currentPath, language, }) => {
                             editVersion: isManager ? response.content.liveModeVersionData : response.content.editModeVersionData ?? response.content.liveModeVersionData
                         }
 
-                        dispatch(updateContent({ currentPath: "content", payload }))
+                        dispatch(updateMainContent({ currentPath: "content", payload }))
                     }
                 } catch (err) {
 
