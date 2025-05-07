@@ -316,19 +316,14 @@ export async function markAllNotificationAsRead(id) {
 }
 
 export async function getResources(query) {
-  if (!query || typeof query !== "object") {
+  if (!query || typeof query !== "object" || Object.keys(query).length === 0) {
     return await makerequest(api.route("getResources"), "GET");
   }
 
-  const [key1, key2, key3] = Object.keys(query);
-  const [value1, value2, value3] = [query[key1], query[key2], query[key3]];
+  const params = new URLSearchParams(query).toString();
+  const url = `${api.route("getResources")}?${params}`;
 
-  return await makerequest(
-    `${api.route(
-      "getResources"
-    )}?${key1}=${value1}&${key2}=${value2}&${key3}=${value3}`,
-    "GET"
-  );
+  return await makerequest(url, "GET");
 }
 
 export async function getResourceInfo(query) {

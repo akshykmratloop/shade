@@ -30,22 +30,11 @@ const AllForOne = lazy(() => import("./components/AllForOne"));
 const Page404 = lazy(() => import("../../pages/protected/404"));
 
 function Resources() {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const divRef = useRef(null);
-  const userObj = useSelector(state => state.user)
-  const { isManager, isEditor } = userObj
-
+  // State
   const [configBarOn, setConfigBarOn] = useState(false);
   const [pageDetailsOn, setPageDetailsOn] = useState(false);
   const [configBarData, setConfigBarData] = useState({});
-  const [resources, setResources] = useState({
-    SUB_PAGE_ITEM: [],
-    SUB_PAGE: [],
-    MAIN_PAGE: [],
-  });
   const [loading, setLoading] = useState(true);
-
   const [language, setLanguage] = useState('en');
   const [path, setPath] = useState("")
   const [subPath, setSubPath] = useState("")
@@ -53,22 +42,34 @@ function Resources() {
   const [preview, setPreview] = useState(false)
   const [currentResourceId, setCurrentResourceId] = useState("")
   const [rawContent, setRawContent] = useState({})
-
   const [screen, setScreen] = useState(359);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [isSmall, setIsSmall] = useState(false);
   const [isNarrow, setIsNarrow] = useState(false);
-
-  const isSidebarOpen = useSelector(state => state.sidebar.isCollapsed)
   const [randomRender, setRandomRender] = useState(Date.now());
+  const [resources, setResources] = useState({
+    SUB_PAGE_ITEM: [],
+    SUB_PAGE: [],
+    MAIN_PAGE: [],
+  });
 
+  // Redux State
+  const divRef = useRef(null);
+  const isSidebarOpen = useSelector(state => state.sidebar.isCollapsed)
   const resourceType = useSelector((state) => state.navBar.resourceType);
   const resourceTag = useSelector((state) => state.navBar.resourceTag);
+  const userObj = useSelector(state => state.user)
 
+  const { isManager, isEditor } = userObj
+
+  // Variables
   const resNotAvail = resources?.[resourceType]?.length === 0;
 
-  const setIdOnStorage = (id) => localStorage.setItem("contextId", id);
+  // Functions
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
+  const setIdOnStorage = (id) => localStorage.setItem("contextId", id);
 
   const settingRoute = useCallback(
     (first, second, third) => {
@@ -107,7 +108,9 @@ function Resources() {
     setScreen(width / 3 - 55);
   }, []);
 
-  useEffect(() => {
+  // Side Effects 
+
+  useEffect(() => { // Permission for Editor and Manager only
 
     if (!isManager && !isEditor) {
       navigate('/app/welcome')
@@ -116,9 +119,7 @@ function Resources() {
 
   }, [isEditor, isManager])
 
-  useEffect(() => {
-    // dispatch(getLeadsContent())
-
+  useEffect(() => { // Running resources from localstroge
     const currentResource = localStorage.getItem("resourceType") || "MAIN_PAGE";
     const currentTag = localStorage.getItem("resourceTag") || "MAIN";
 
@@ -126,9 +127,10 @@ function Resources() {
     dispatch(updateTag(currentTag));
   }, [dispatch]);
 
-  useEffect(() => {
+  useEffect(() => { // Fetch Resources
     const fetchResources = async () => {
       if (!resourceType) return;
+
       setLoading(true); // Start loading
 
       const payload = ["MAIN", "HEADER_FOOTER"].includes(resourceTag)
@@ -150,7 +152,7 @@ function Resources() {
     fetchResources();
   }, [resourceType, resourceTag, randomRender, setRouteList]);
 
-  useEffect(() => {
+  useEffect(() => { // The Resizes
     const observer = new ResizeObserver((entries) => {
       entries.forEach(handleResize);
     });
@@ -159,10 +161,10 @@ function Resources() {
     return () => observer.disconnect();
   }, [handleResize]);
 
-  useEffect(() => {
-    // dispatch(updateContent({ currentPath: "home", payload: (content?.home) }))
+  useEffect(() => { // Fetch Content from server
     if (currentResourceId) {
       async function context() {
+
         try {
           const response = await getContent(currentResourceId)
           if (response.message === "Success") {
@@ -180,12 +182,14 @@ function Resources() {
             setRawContent(createContent(payload))
           }
         } catch (err) {
-
+          console.error(err)
         }
       }
       context()
     }
   }, [currentResourceId])
+
+  /// Components ///
 
   const ActionIcons = ({ page }) => {
     const actions = [
@@ -239,7 +243,6 @@ function Resources() {
         },
       }
     ];
-
 
     return (
       <div
@@ -316,14 +319,14 @@ function Resources() {
                 {/* <div className="relative aspect-[10/11] overflow-hidden"> */}
                 {/* <div className="h-full overflow-y-scroll customscroller"> */}
                 <div className="relative aspect-[10/11] overflow-hidden">
-                  <iframe
+                  {/* <iframe
                     src={resourcesContent?.pages?.[index]?.src}
                     className={`top-0 left-0 border-none transition-all duration-300 ease-in-out ${isNarrow
                       ? "w-[1000px] scale-[0.10]"
                       : `w-[1200px]  ${isSidebarOpen ? "scale-[0.34] " : "scale-[0.299]"
                       } p-4  bg-white`
                       } origin-top-left h-[80rem]`}
-                  ></iframe>
+                  ></iframe> */}
 
                   {/* Dark Gradient Overlay */}
                   <div className="absolute bottom-0 left-0 w-full h-1/3 bg-gradient-to-t from-black/100 via-black/40 to-transparent"></div>
