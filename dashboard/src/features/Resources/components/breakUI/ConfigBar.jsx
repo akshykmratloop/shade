@@ -230,7 +230,6 @@ const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
   useEffect(() => {
     if (initialFormValue.current) {
       const hasChanged = !isEqual(formObj, initialFormValue.current);
-      console.log(formObj, initialFormValue.current)
       setIsChanged(hasChanged);
     }
   }, [formObj]);

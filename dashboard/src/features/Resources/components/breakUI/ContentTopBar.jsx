@@ -193,7 +193,6 @@ export default function ContentTopBar({ setWidth, setFullScreen, currentPath, ou
         localStorage.setItem("autoSave", String(autoSave))
     }, [autoSave])
 
-    console.log(isChanged)
 
     useEffect(() => { // Checking ig there has been any changes in the initial and running content
         // console.log(ReduxState.present?.content?.editVersion?.sections, savedInitialState)
