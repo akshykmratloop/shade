@@ -260,7 +260,8 @@ export default function ContentTopBar({ setWidth, setFullScreen, currentPath, ou
                     </div>
                 </div>
                 {
-                    !isManager ?
+                    !isManager
+                        ?
                         outOfEditing ? (
                             <div>
                                 <button disabled className='bg-[#80808080] rounded-md xl:h-[2.68rem] sm:h-[2rem] xl:text-xs sm:text-[.6rem] xl:w-[12.58rem] w-[4rem] text-[white]'>
