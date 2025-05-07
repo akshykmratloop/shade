@@ -30,6 +30,8 @@ const EditPage = () => {
 
     const [language, setLanguage] = useState('en')
     const [screen, setScreen] = useState(1180)
+    const [displayStatus, setDisplayStatus] = useState("")
+    const [outOfEditing, setOutOfEditing] = useState(false)
 
     const [fullScreen, setFullScreen] = useState(false)
     const [subRoutesList, setSubRouteList] = useState([])
@@ -43,7 +45,7 @@ const EditPage = () => {
     const contentFromRedux = useSelector((state) => state.homeContent.present)
 
     const stageStatus = contentFromRedux?.content?.editVersion?.status
-    const outOfEditing = !(stageStatus === "EDITING" || stageStatus === "DRAFT" || stageStatus === "PUBLISHED")
+    // const outOfEditing = !(stageStatus === "EDITING" || stageStatus === "DRAFT" || stageStatus === "PUBLISHED")
 
     const content = createContent(contentFromRedux, "edit", currentPath)
 
@@ -68,6 +70,10 @@ const EditPage = () => {
     }, [])
 
     useEffect(() => {
+        setOutOfEditing(!(stageStatus === "EDITING" || stageStatus === "DRAFT" || stageStatus === "PUBLISHED"))
+    })
+
+    useEffect(() => {
         if (currentId) {
             async function context() {
                 try {
@@ -85,6 +91,10 @@ const EditPage = () => {
                         }
                         dispatch(updateMainContent({ currentPath: "content", payload }))
                         dispatch(saveInitialContentValue(payload.editVersion.sections))
+                    }
+
+                    if(!response.content.editModeVersionData) {
+                        setDisplayStatus("Not Edited")
                     }
                 } catch (err) {
 
@@ -133,6 +143,7 @@ const EditPage = () => {
                                 <ContentTopBar setWidth={setScreen}
                                     setFullScreen={setFullScreen} currentPath={currentPath}
                                     outOfEditing={outOfEditing}
+                                    contentStatus={displayStatus}
                                 />
                                 <h4 className="text-[#6B7888] text-[14px] mt-2 mb-[1px]">Add Note</h4>
                                 <TextAreaInput
