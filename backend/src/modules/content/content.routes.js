@@ -42,6 +42,13 @@ router.post(
   tryCatchWrap(ContentController.AssignUser)
 );
 
+router.patch(
+  "/removeAssignedUser/:resourceId",
+  //   checkPermission(requiredPermissionsForContentManagement),
+  auditLogger,
+  tryCatchWrap(ContentController.RemoveAssignedUser)
+);
+
 router.get(
   "/getContent/:resourceId",
   //   checkPermission(requiredPermissionsForContentManagement),
