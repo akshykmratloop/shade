@@ -18,6 +18,7 @@ import createContent from "./defineContent";
 import FallBackLoader from "../../components/fallbackLoader/FallbackLoader";
 import { getContent } from "../../app/fetch";
 import { updateMainContent } from "../common/homeContentSlice";
+import { saveInitialContentValue } from "../common/InitialContentSlice";
 
 const Page404 = lazy(() => import('../../pages/protected/404'))
 const AllForOne = lazy(() => import("./components/AllForOne"));
@@ -83,6 +84,7 @@ const EditPage = () => {
                             editVersion: isManager ? response.content.liveModeVersionData : response.content.editModeVersionData ?? response.content.liveModeVersionData
                         }
                         dispatch(updateMainContent({ currentPath: "content", payload }))
+                        dispatch(saveInitialContentValue(payload.editVersion.sections))
                     }
                 } catch (err) {
 

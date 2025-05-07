@@ -21,6 +21,7 @@ import { generateRequest, publishContent, updateContent } from '../../../../app/
 import Popups from './Popups';
 import formatTimestamp from '../../../../app/TimeFormat';
 import capitalizeWords from '../../../../app/capitalizeword';
+import { isEqual } from 'lodash';
 
 
 export default function ContentTopBar({ setWidth, setFullScreen, currentPath, outOfEditing }) {
@@ -30,6 +31,8 @@ export default function ContentTopBar({ setWidth, setFullScreen, currentPath, ou
     const [selectedDevice, setSelectedDevice] = useState("Desktop");
     const [menuOpen, setMenuOpen] = useState(false);
     const ReduxState = useSelector(state => state.homeContent)
+    const savedInitialState = useSelector(state => state.InitialContentValue)
+    const [isChanged, setIsChanged] = useState(false)
     const navigate = useNavigate()
     const [info, setInfo] = useState(false)
     const infoRef = useRef(null)
@@ -188,6 +191,11 @@ export default function ContentTopBar({ setWidth, setFullScreen, currentPath, ou
         localStorage.setItem("autoSave", String(autoSave))
     }, [autoSave])
 
+    useEffect(() => { // Checking ig there has been any changes in the initial and running content
+        const hasChanged = isEqual(ReduxState.present?.content?.editVersion?.sections, savedInitialState)
+        setIsChanged(hasChanged)
+    }, [])
+
     const infoIconRef = useRef(null); // Create a new ref for the info icon
 
     return (
@@ -252,7 +260,7 @@ export default function ContentTopBar({ setWidth, setFullScreen, currentPath, ou
                     !isManager ?
                         outOfEditing ? (
                             <div>
-                                <button className='bg-[#80808080] rounded-md xl:h-[2.68rem] sm:h-[2rem] xl:text-xs sm:text-[.6rem] xl:w-[12.58rem] w-[4rem] text-[white]'>
+                                <button disabled className='bg-[#80808080] rounded-md xl:h-[2.68rem] sm:h-[2rem] xl:text-xs sm:text-[.6rem] xl:w-[12.58rem] w-[4rem] text-[white]'>
                                     {status}
                                 </button>
                             </div>
