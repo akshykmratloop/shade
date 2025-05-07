@@ -10,7 +10,8 @@ export const fetchResources = async (
   status = "",
   page = 1,
   limit = 10,
-  userId
+  userId,
+  roleType
 ) => {
   const skip = (page - 1) * limit;
 
@@ -29,10 +30,10 @@ export const fetchResources = async (
               },
               roleType: true,
             },
-          }
-        }
-      }
-    }
+          },
+        },
+      },
+    },
   });
 
   if (!user) {
@@ -40,97 +41,66 @@ export const fetchResources = async (
   }
 
   // Extract all permissions the user has
-  const userPermissions = user.roles.flatMap(userRole => 
-    userRole.role.permissions.map(permissionItem => permissionItem.permission.name)
+  const userPermissions = user.roles.flatMap((userRole) =>
+    userRole.role.permissions.map(
+      (permissionItem) => permissionItem.permission.name
+    )
   );
-
 
   // Check if user is super admin
   const isSuperAdmin = user.isSuperUser;
 
   // Map permissions to allowed resource types and tags
   const permissionToResourceMap = {
-    "PAGE_MANAGEMENT": {
+    PAGE_MANAGEMENT: {
       types: ["MAIN_PAGE"],
-      tags: []
+      tags: [],
     },
-    "SERVICE_MANAGEMENT": {
+    SERVICE_MANAGEMENT: {
       types: ["SUB_PAGE", "SUB_PAGE_ITEM"],
-      tags: ["SERVICE"]
+      tags: ["SERVICE"],
     },
-    "MARKET_MANAGEMENT": {
+    MARKET_MANAGEMENT: {
       types: ["SUB_PAGE", "SUB_PAGE_ITEM"],
-      tags: ["MARKET"]
+      tags: ["MARKET"],
     },
-    "PROJECT_MANAGEMENT": {
+    PROJECT_MANAGEMENT: {
       types: ["SUB_PAGE", "SUB_PAGE_ITEM"],
-      tags: ["PROJECT"]
+      tags: ["PROJECT"],
     },
-    "NEWS_BLOGS_MANAGEMENT": {
+    NEWS_BLOGS_MANAGEMENT: {
       types: ["SUB_PAGE", "SUB_PAGE_ITEM"],
-      tags: ["NEWS"]
+      tags: ["NEWS"],
     },
-    "CAREER_MANAGEMENT": {
+    CAREER_MANAGEMENT: {
       types: ["SUB_PAGE", "SUB_PAGE_ITEM"],
-      tags: ["CAREER"]
+      tags: ["CAREER"],
     },
-    "HEADER_MANAGEMENT": {
+    HEADER_MANAGEMENT: {
       types: ["HEADER"],
-      tags: ["HEADER"]
+      tags: ["HEADER"],
     },
-    "FOOTER_MANAGEMENT": {
+    FOOTER_MANAGEMENT: {
       types: ["FOOTER"],
-      tags: ["FOOTER"]
+      tags: ["FOOTER"],
     },
-    "TESTIMONIAL_MANAGEMENT": {
+    TESTIMONIAL_MANAGEMENT: {
       types: ["SUB_PAGE_ITEM"],
-      tags: ["TESTIMONIAL"]
+      tags: ["TESTIMONIAL"],
     },
-    "FORM_MANAGEMENT": {
+    FORM_MANAGEMENT: {
       types: ["FORM"],
-      tags: []
-    }
+      tags: [],
+    },
   };
 
   // Initialize filters
   let typeFilter = {};
   let tagFilter = {};
+  let resourceIdFilter = {};
 
-  if (!isSuperAdmin) {
-    // Collect allowed types and tags based on permissions
-    let allowedTypes = new Set();
-    let allowedTags = new Set();
-
-    for (const [permission, {types, tags}] of Object.entries(permissionToResourceMap)) {
-      if (userPermissions.includes(permission)) {
-        types.forEach(type => allowedTypes.add(type));
-        tags.forEach(tag => allowedTags.add(tag));
-      }
-    }
-
-    // Apply type filter if user has any type permissions
-    if (allowedTypes.size > 0) {
-      if (resourceType && allowedTypes.has(resourceType)) {
-        typeFilter = { resourceType };
-      } else {
-        typeFilter = { resourceType: { in: Array.from(allowedTypes) } };
-      }
-    }
-
-    // Apply tag filter if user has any tag permissions
-    if (allowedTags.size > 0) {
-      if (resourceTag && allowedTags.has(resourceTag)) {
-        tagFilter = { resourceTag };
-      } else {
-        tagFilter = { resourceTag: { in: Array.from(allowedTags) } };
-      }
-    }
-
-    // If no permissions match, restrict to empty result
-    if (allowedTypes.size === 0 && allowedTags.size === 0) {
-      typeFilter = { resourceType: "NULL" }; // Will return no results
-    }
-  } else {
+  // Super admin logic - they can see all resources
+  if (isSuperAdmin) {
     // Super admin gets all resources with optional filters
     if (resourceType) {
       typeFilter = { resourceType };
@@ -139,26 +109,178 @@ export const fetchResources = async (
       tagFilter = { resourceTag };
     }
   }
-  console.log( resourceType,'resourceTypee')
+  // Non-super admin logic with role type filtering
+  else {
+    // Clean up roleType if provided
+    const cleanRoleType = roleType ? roleType.toUpperCase() : "";
 
-  // Handle SINGLE_RESOURCE_MANAGEMENT or EDIT permissions
-  const hasRestrictedAccess = 
-    !isSuperAdmin && 
-    (userPermissions.includes("SINGLE_RESOURCE_MANAGEMENT") || 
-     userPermissions.includes("EDIT"));
+    // USER role type - filter by assigned resources based on specific permissions
+    if (cleanRoleType === "USER") {
+      // Check if user has EDIT permission
+      if (userPermissions.includes("EDIT")) {
+        // Get resources where user is assigned as EDITOR
+        const assignedResources = await prismaClient.resourceRole.findMany({
+          where: {
+            userId,
+            role: "EDITOR",
+            status: "ACTIVE",
+          },
+          select: {
+            resourceId: true,
+          },
+        });
 
-     if(hasRestrictedAccess){
-      if (resourceType) {
-        typeFilter = { resourceType };
+        const assignedResourceIds = assignedResources.map((r) => r.resourceId);
+
+        // If no assigned resources, return empty
+        if (assignedResourceIds.length <= 0) {
+          return {
+            resources: [],
+            pagination: {
+              totalResources: 0,
+              totalPages: 0,
+              currentPage: page,
+              limit,
+            },
+          };
+        }
+
+        // Add assigned resource filter
+        resourceIdFilter = { id: { in: assignedResourceIds } };
+
+        // Apply resource type filter if specified
+        if (resourceType) {
+          typeFilter = { resourceType };
+        }
+
+        // Apply resource tag filter if specified
+        if (resourceTag) {
+          tagFilter = { resourceTag };
+        }
+      } else {
+        // User doesn't have EDIT permission, return empty
+        return {
+          resources: [],
+          pagination: {
+            totalResources: 0,
+            totalPages: 0,
+            currentPage: page,
+            limit,
+          },
+        };
       }
-     }
+    }
+    // MANAGER role type
+    else if (cleanRoleType === "MANAGER") {
+      // Check if user has SINGLE_RESOURCE_MANAGEMENT permission
+      if (userPermissions.includes("SINGLE_RESOURCE_MANAGEMENT")) {
+        // Get resources where user is assigned as MANAGER
+        const assignedManagerResources = await prismaClient.resourceRole.findMany({
+          where: {
+            userId,
+            role: "MANAGER",
+            status: "ACTIVE",
+          },
+          select: {
+            resourceId: true,
+          },
+        });
 
-     console.log(hasRestrictedAccess,';hasRestrictedAccess')
+        const assignedResourceIds = assignedManagerResources.map((r) => r.resourceId);
+
+        // If no assigned resources, return empty
+        if (assignedResourceIds.length <= 0) {
+          return {
+            resources: [],
+            pagination: {
+              totalResources: 0,
+              totalPages: 0,
+              currentPage: page,
+              limit,
+            },
+          };
+        }
+
+        // Add assigned resource filter
+        resourceIdFilter = { id: { in: assignedResourceIds } };
+
+        // Apply resource type filter if specified
+        if (resourceType) {
+          typeFilter = { resourceType };
+        }
+
+        // Apply resource tag filter if specified
+        if (resourceTag) {
+          tagFilter = { resourceTag };
+        }
+      } else {
+        // User doesn't have SINGLE_RESOURCE_MANAGEMENT, filter by other management permissions
+        let allowedTypes = new Set();
+        let allowedTags = new Set();
+
+        for (const [permission, { types, tags }] of Object.entries(permissionToResourceMap)) {
+          if (userPermissions.includes(permission)) {
+            types.forEach((type) => allowedTypes.add(type));
+            tags.forEach((tag) => allowedTags.add(tag));
+          }
+        }
+
+        // If resourceType is specified but not allowed, return empty
+        if (resourceType && !allowedTypes.has(resourceType)) {
+          return {
+            resources: [],
+            pagination: {
+              totalResources: 0,
+              totalPages: 0,
+              currentPage: page,
+              limit,
+            },
+          };
+        }
+
+        // If resourceTag is specified but not allowed, return empty
+        if (resourceTag && !allowedTags.has(resourceTag)) {
+          return {
+            resources: [],
+            pagination: {
+              totalResources: 0,
+              totalPages: 0,
+              currentPage: page,
+              limit,
+            },
+          };
+        }
+
+        // Apply type filter based on allowed types
+        if (allowedTypes.size > 0) {
+          typeFilter = { resourceType: { in: Array.from(allowedTypes) } };
+        }
+
+        // Apply tag filter based on allowed tags
+        if (allowedTags.size > 0) {
+          tagFilter = { resourceTag: { in: Array.from(allowedTags) } };
+        }
+      }
+    }
+    // No roleType specified - return empty
+    else {
+      return {
+        resources: [],
+        pagination: {
+          totalResources: 0,
+          totalPages: 0,
+          currentPage: page,
+          limit,
+        },
+      };
+    }
+  }
 
   // Build the base where clause
   const baseWhereClause = {
     ...typeFilter,
     ...tagFilter,
+    ...resourceIdFilter,
     ...(relationType ? { relationType } : {}),
     ...(typeof isAssigned === "boolean" ? { isAssigned } : {}),
     ...(status ? { status } : {}),
@@ -172,41 +294,6 @@ export const fetchResources = async (
         }
       : {}),
   };
-
-  // For restricted access users, only show assigned resources
-  if (hasRestrictedAccess) {
-    const assignedResources = await prismaClient.resourceRole.findMany({
-      where: {
-        userId,
-        status: "ACTIVE"
-      },
-      select: {
-        resourceId: true
-      }
-    });
-
-    const assignedResourceIds = assignedResources.map(r => r.resourceId);
-
-
-    // If no assigned resources, return empty
-    if (assignedResourceIds.length <= 0) {
-      return {
-        resources: [],
-        pagination: {
-          totalResources: 50,
-          totalPages: 60,
-          currentPage: page,
-          limit,
-        },
-      };
-    }
-
-    // Add assigned resource filter
-    baseWhereClause.id = { in: assignedResourceIds };
-  }
-
-  console.log(baseWhereClause,'baseWhereClause==')
-
 
   // Fetch resources with pagination
   const resources = await prismaClient.resource.findMany({
@@ -227,16 +314,6 @@ export const fetchResources = async (
         select: {
           versionNumber: true,
           versionStatus: true,
-        },
-      },
-      roles: {
-        include: {
-          user: {
-            select: {
-              id: true,
-              name: true,
-            },
-          },
         },
       },
     },
@@ -270,11 +347,35 @@ export const fetchAllResourcesWithContent = async (
   status = "",
   page = 1,
   limit = 10,
-  userId
+  userId,
+  roleType
 ) => {
+  // First fetch the filtered resources based on permissions and roleType
+  const filteredResources = await fetchResources(
+    resourceType,
+    resourceTag,
+    relationType,
+    isAssigned,
+    search,
+    status,
+    page,
+    limit,
+    userId,
+    roleType
+  );
+
+  // If no resources found, return early
+  if (!filteredResources.resources || filteredResources.resources.length === 0) {
+    return {
+      resources: [],
+      pagination: filteredResources.pagination,
+    };
+  }
+
+  const resourceIds = filteredResources.resources.map(resource => resource.id);
   const skip = (page - 1) * limit;
 
-  // Determine the resourceType filter
+  // Determine the resourceType filter based on permissions
   let resourceTypeFilter = {};
   if (resourceType === "HEADER_FOOTER") {
     resourceTypeFilter = {
@@ -288,10 +389,11 @@ export const fetchAllResourcesWithContent = async (
     };
   }
 
-  // Build the where clause based on provided filters
+  // Build the where clause based on provided filters and filtered resource IDs
   const whereClause = {
+    id: { in: resourceIds },
     ...resourceTypeFilter,
-    ...(resourceTag ? { resourceTag: resourceTag } : {}),
+    ...(resourceTag ? { resourceTag } : {}),
     ...(relationType ? { relationType } : {}),
     ...(typeof isAssigned === "boolean" ? { isAssigned } : {}),
     ...(status ? { status } : {}),
@@ -327,23 +429,6 @@ export const fetchAllResourcesWithContent = async (
           },
         },
       },
-      // newVersionEditMode: {
-      //   select: {
-      //     id: true,
-      //     versionNumber: true,
-      //     content: true,
-      //     icon: true,
-      //     Image: true,
-      //     sections: {
-      //       include: {
-      //         sectionVersion: true,
-      //       },
-      //       orderBy: {
-      //         order: "asc",
-      //       },
-      //     },
-      //   },
-      // },
     },
     orderBy: { createdAt: "desc" },
     skip,
@@ -357,7 +442,6 @@ export const fetchAllResourcesWithContent = async (
   // Process each resource with its versions
   const formattedResources = await Promise.all(
     resources.map(async (resource) => {
-      // Create the base resource object
       const formattedResource = {
         id: resource.id,
         titleEn: resource.titleEn,
@@ -374,13 +458,6 @@ export const fetchAllResourcesWithContent = async (
           resource.liveVersion
         );
       }
-
-      // // Process edit version if it exists
-      // if (resource.newVersionEditMode) {
-      //   formattedResource.editModeVersionData = await formatResourceVersionData(
-      //     resource.newVersionEditMode
-      //   );
-      // }
 
       return formattedResource;
     })
@@ -970,61 +1047,61 @@ export const markAllAssignedUserInactive = async (resourceId) => {
     await prisma.resourceRole.updateMany({
       where: {
         resourceId,
-        status: 'ACTIVE'
+        status: "ACTIVE",
       },
       data: {
-        status: 'INACTIVE'
-      }
+        status: "INACTIVE",
+      },
     });
 
     // 2. Mark all active verifiers as inactive
     await prisma.resourceVerifier.updateMany({
       where: {
         resourceId,
-        status: 'ACTIVE'
+        status: "ACTIVE",
       },
       data: {
-        status: 'INACTIVE'
-      }
+        status: "INACTIVE",
+      },
     });
 
     // 3. If there's a version, mark those assignments as inactive too
     const resource = await prisma.resource.findUnique({
       where: { id: resourceId },
-      select: { newVersionEditModeId: true }
+      select: { newVersionEditModeId: true },
     });
 
     if (resource?.newVersionEditModeId) {
       await prisma.resourceVersionRole.updateMany({
         where: {
           resourceVersionId: resource.newVersionEditModeId,
-          status: 'ACTIVE'
+          status: "ACTIVE",
         },
         data: {
-          status: 'INACTIVE'
-        }
+          status: "INACTIVE",
+        },
       });
 
       await prisma.resourceVersionVerifier.updateMany({
         where: {
           resourceVersionId: resource.newVersionEditModeId,
-          status: 'ACTIVE'
+          status: "ACTIVE",
         },
         data: {
-          status: 'INACTIVE'
-        }
+          status: "INACTIVE",
+        },
       });
     }
 
     // 4. Update the resource's isAssigned flag if needed
     await prisma.resource.update({
       where: { id: resourceId },
-      data: { isAssigned: false }
+      data: { isAssigned: false },
     });
 
     return {
       success: true,
-      message: `All active user assignments for resource ${resourceId} have been marked as inactive`
+      message: `All active user assignments for resource ${resourceId} have been marked as inactive`,
     };
   });
 };
@@ -1275,7 +1352,11 @@ async function formatResourceVersionData(resourceVersion) {
 
       // Add child sections if they exist
       if (sectionVersion.children && sectionVersion.children.length > 0) {
-        formattedSection.sections = await Promise.all(
+        // Create sections array if it doesn't exist
+        formattedSection.sections = formattedSection.sections || [];
+
+        // Add child sections
+        const childSections = await Promise.all(
           sectionVersion.children.map(async (childSection) => {
             const formattedChild = {
               sectionId: childSection.sectionId,
@@ -1290,9 +1371,8 @@ async function formatResourceVersionData(resourceVersion) {
             if (childSection.items && childSection.items.length > 0) {
               formattedChild.items = await Promise.all(
                 childSection.items.map(async (item) => {
-                  // Get the resource and its live version
+                  // Get the resource
                   const resource = item.resource;
-                  const liveVersion = resource.liveVersion;
 
                   // Fetch the full content of the item resource
                   const itemContent = await fetchContent(resource.id);
@@ -1324,7 +1404,6 @@ async function formatResourceVersionData(resourceVersion) {
     sections: formattedSections,
   };
 }
-
 
 export const createOrUpdateVersion = async (contentData) => {
   // Find the resource with version counts
@@ -1521,7 +1600,7 @@ async function createSectionVersionWithChildren(
 
 async function updateSectionVersion(tx, sectionData, resourceVersionId) {
   const sectionId = sectionData.sectionId;
-  const order = sectionData.order;
+  // We'll use order later when creating/updating section
 
   // Check if sectionVersion already exists
   let sectionVersion = await tx.sectionVersion.findFirst({
@@ -1808,9 +1887,8 @@ export const updateContentAndGenerateRequest = async (contentData) => {
         },
       });
 
-    const generateRequestApprovalsForVerifiers =
-      await tx.requestApproval.createMany({
-        data: resource.verifiers.map((verifier, index) => ({
+    await tx.requestApproval.createMany({
+        data: resource.verifiers.map((verifier) => ({
           stage: verifier.stage,
           comments: null,
           requestId: generatedRequest.id,

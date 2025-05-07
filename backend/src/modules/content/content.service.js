@@ -26,7 +26,8 @@ const getResources = async (
   pageNum,
   limitNum,
   fetchType,
-  userId
+  userId,
+  roleType
 ) => {
   if (fetchType === "CONTENT") {
     const resources = await fetchAllResourcesWithContent(
@@ -38,7 +39,8 @@ const getResources = async (
       status,
       pageNum,
       limitNum,
-      userId
+      userId,
+      roleType
     );
     logger.info({
       response: "Resources fetched successfully with content",
@@ -55,7 +57,8 @@ const getResources = async (
     status,
     pageNum,
     limitNum,
-    userId
+    userId,
+    roleType
   );
   logger.info({
     response: "Resources fetched successfully without content",
