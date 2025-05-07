@@ -35,7 +35,6 @@ export default function ContentTopBar({ setWidth, setFullScreen, currentPath, ou
     const infoRef = useRef(null)
     const [savedChanges, setSavedChanges] = useState(false)
     const [autoSave, setAutoSave] = useState(JSON.parse(localStorage.getItem("autoSave")))
-    const user = useSelector(state => state.user.user)
 
     const [PopUpPublish, setPopupPublish] = useState(false)
     const [PopupSubmit, setPopupSubmit] = useState(false)

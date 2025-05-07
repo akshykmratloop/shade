@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { switchDebounce } from "../../../common/debounceSlice";
 import SkeletonLoader from "../../../../components/Loader/SkeletonLoader";
 import updateToasify from "../../../../app/toastify";
+import { isEqual } from "lodash";
 
 const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
   const initialObj = {
@@ -121,33 +122,6 @@ const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
     setFormObj(initialObj);
   }
 
-  const isFormObjEqual = (obj1, obj2) => {
-    if (!obj1 || !obj2) return false;
-
-    if (
-      obj1.resourceId !== obj2.resourceId ||
-      obj1.manager !== obj2.manager ||
-      obj1.editor !== obj2.editor ||
-      obj1.publisher !== obj2.publisher
-    ) {
-      return false;
-    }
-
-    if (obj1.verifiers.length !== obj2.verifiers.length) { console.log("verifiers length"); return false; }
-
-    for (let i = 0; i < obj1.verifiers.length; i++) {
-      if (
-        obj1.verifiers[i].id !== obj2.verifiers[i].id
-        //|| obj1.verifiers[i].stage !== obj2.verifiers[i].stage
-      ) {
-        return false;
-      }
-    }
-
-    return true;
-  };
-
-
   const optionsForManagers = userList.managers.map((e) => ({ id: e.id, name: e.name + (e.status === "INACTIVE" ? " - Inactive" : ""), status: e.status }))
   const optionsForEditor = userList.editors.map((e) => ({ id: e.id, name: e.name + (e.status === "INACTIVE" ? " - Inactive" : ""), status: e.status }))
   const optionsForVerifiers = userList.verifiers.map((e) => ({ id: e.id, name: e.name + (e.status === "INACTIVE" ? " - Inactive" : ""), status: e.status }))
@@ -236,24 +210,12 @@ const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
   // on every change on FORMOBJ --------
   useEffect(() => {
     if (initialFormValue.current) {
-      const hasChanged = !isFormObjEqual(formObj, initialFormValue.current);
+      const hasChanged = !isEqual(formObj, initialFormValue.current);
       console.log(hasChanged)
       console.log(formObj, initialFormValue.current)
       setIsChanged(hasChanged);
     }
   }, [formObj]);
-
-  useEffect(() => {
-    const hasValue = (
-      formObj.manager.trim() !== "" ||
-      formObj.editor.trim() !== "" ||
-      formObj.publisher.trim() !== "" ||
-      formObj.verifiers.some(v => v.id.trim() !== "")
-    )
-
-    setFirstValue(hasValue)
-  }, [formObj])
-
 
   // get users
   useEffect(() => {
@@ -425,3 +387,30 @@ const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
 };
 
 export default ConfigBar;
+
+
+  // const isFormObjEqual = (obj1, obj2) => {
+  //   if (!obj1 || !obj2) return false;
+
+  //   if (
+  //     obj1.resourceId !== obj2.resourceId ||
+  //     obj1.manager !== obj2.manager ||
+  //     obj1.editor !== obj2.editor ||
+  //     obj1.publisher !== obj2.publisher
+  //   ) {
+  //     return false;
+  //   }
+
+  //   if (obj1.verifiers.length !== obj2.verifiers.length) { console.log("verifiers length"); return false; }
+
+  //   for (let i = 0; i < obj1.verifiers.length; i++) {
+  //     if (
+  //       obj1.verifiers[i].id !== obj2.verifiers[i].id
+  //       //|| obj1.verifiers[i].stage !== obj2.verifiers[i].stage
+  //     ) {
+  //       return false;
+  //     }
+  //   }
+
+  //   return true;
+  // };
