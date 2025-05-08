@@ -76,6 +76,9 @@ function ShowDifference({ role, show, onClose, resourceId }) {
         fetchContent()
     }, [])
 
+    console.log(isPublisher)
+    console.log(isManager)
+
     // useEffect(() => {
     //     async function getRole() {
     //         if (!role?.id) return;
