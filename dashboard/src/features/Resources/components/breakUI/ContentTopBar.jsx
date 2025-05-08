@@ -113,7 +113,7 @@ export default function ContentTopBar({ setWidth, setFullScreen, currentPath, ou
                 })
                 setTimeout(() => {
                     navigate(-1);
-                    navigate(0)
+                    // navigate(0)
                 }, 750)
             } else {
                 throw new Error("Error Occured")
@@ -294,8 +294,8 @@ export default function ContentTopBar({ setWidth, setFullScreen, currentPath, ou
                                 <div className='flex gap-2'>
                                     {
                                         !autoSave &&
-                                        <Button text={savedChanges ? 'Saved' : 'Draft'} functioning={saveTheDraft}
-                                            classes={`${savedChanges ? "bg-[#26c226]" : "bg-[#26345C]"} 
+                                        <Button disabled={!isChanged} text={savedChanges ? 'Saved' : 'Draft'} functioning={saveTheDraft}
+                                            classes={`${savedChanges ? "bg-[#26c226]" : isChanged ? "bg-[#26345C]" : "bg-gray-500"} 
                                         rounded-md xl:h-[2.68rem] sm:h-[2rem] xl:text-xs sm:text-[.6rem] xl:w-[5.58rem] w-[4rem] text-[white]`} />
                                     }
                                     <Button text={'Submit'} disabled={!isChanged} functioning={() => { setPopupSubmit(true) }}

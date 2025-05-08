@@ -126,7 +126,8 @@ function Requests() {
   const requestsPerPage = 20;
   const userRole = useSelector((state) => state.user.currentRole);
   const userObj = useSelector(state => state.user)
-  const { isManager, isEditor, isPublisher, isVerifier } = userObj;
+  const { isManager, isEditor, isPublisher, isVerifier, currentRole } = userObj;
+  const roleId = currentRole.id
   const [resourceId, setResourceId] = useState("")
   // const userPermissionsSet = new Set(["EDIT", "VERIFY", "PUBLISH"]); // SET FOR EACH USER LOGIC
   // const { isOpen, bodyType, extraObject, header } = useSelector(
@@ -184,7 +185,13 @@ function Requests() {
   useEffect(() => {
     async function fetchRequestsData() {
       try {
-        const response = await getRequests({ userRole: "EDIT" });
+        const payload = { roleId }
+
+        if (isEditor) payload.permisssion = "EDIT"
+        else if (isPublisher) payload.permisssion = "PUBLISH"
+        else if (isVerifier) payload.permisssion = "VERIFY"
+
+        const response = await getRequests(payload);
         if (response.ok) {
           setRequests(response.requests.data);
         }
