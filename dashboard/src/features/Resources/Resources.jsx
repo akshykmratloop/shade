@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, useCallback, Suspense } from "react";
+import React, { useEffect, useRef, useState, useCallback, Suspense } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { lazy } from "react";
@@ -164,9 +164,9 @@ function Resources() {
     return () => observer.disconnect();
   }, [handleResize]);
 
-  useEffect(() => { // Fetch Content from server
+  useEffect(() => { // Fetch Resource's Content from server
     if (currentResourceId) {
-      async function context() {
+      async function fetchResourceContent() {
 
         try {
           const response = await getContent(currentResourceId)
@@ -188,13 +188,13 @@ function Resources() {
           console.error(err)
         }
       }
-      context()
+      fetchResourceContent()
     }
   }, [currentResourceId])
 
   /// Components ///
 
-  const ActionIcons = ({ page }) => {
+  const ActionIcons = React.memo(({ page }) => {
     const actions = [
       {
         icon: <AiOutlineInfoCircle />,
@@ -273,7 +273,7 @@ function Resources() {
         })}
       </div>
     );
-  };
+  })
 
   if (!isEditor && !isManager) return null
 
