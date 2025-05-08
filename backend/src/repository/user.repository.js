@@ -209,6 +209,7 @@ export const findUserByEmail = async (email) => {
 
   const roleAndPermission =
     user.roles?.map((role) => ({
+      id:role.role.id,
       role: role.role.name,
       roleType: role.role.roleType.name,
       status: role.role.status,
