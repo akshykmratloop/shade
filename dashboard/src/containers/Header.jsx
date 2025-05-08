@@ -51,10 +51,12 @@ function Header() {
     };
 
     socket.on("role_created", handleNew);
+    socket.on("user_updated", handleNew);
     socket.on("user_created", handleNew);
     // …listen to any other event names you emit
 
     return () => {
+      socket.off("user_updated", handleNew);
       socket.off("role_created", handleNew);
       socket.off("user_created", handleNew);
     };

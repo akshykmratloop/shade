@@ -13,6 +13,7 @@ const createUserHandler = async (req, res) => {
   const {name, email, password, phone, roles} = req.body;
   const user = await createUser(name, email, password, phone, roles);
   res.locals.entityId = user.id;
+
   res.status(201).json(user);
 };
 
