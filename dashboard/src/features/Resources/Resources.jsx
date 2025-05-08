@@ -2,7 +2,6 @@ import { useEffect, useRef, useState, useCallback, Suspense } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { lazy } from "react";
-
 // import AllForOne from "./components/AllForOne"
 import { ToastContainer } from "react-toastify";
 import { MoonLoader } from "react-spinners";
@@ -12,8 +11,10 @@ import { AiOutlineInfoCircle } from "react-icons/ai";
 import { FiEdit } from "react-icons/fi";
 import { IoSettingsOutline } from "react-icons/io5";
 import { LuEye } from "react-icons/lu";
-
+// Image
+import landingPage from "../../assets/resourcepage/landingPage.png"
 // Components, Assets & Utils
+import { pagesImages } from "./resourcedata";
 import ConfigBar from "./components/breakUI/ConfigBar";
 import PageDetails from "./components/breakUI/PageDetails";
 import Navbar from "../../containers/Navbar";
@@ -60,7 +61,8 @@ function Resources() {
   const resourceTag = useSelector((state) => state.navBar.resourceTag);
   const userObj = useSelector(state => state.user)
 
-  const { isManager, isEditor } = userObj
+  const { isManager, isEditor, currentRole } = userObj
+  const currentRoleId = currentRole?.id
   const superUser = userObj.user?.isSuperUser
 
   // Variables
@@ -133,10 +135,10 @@ function Resources() {
       if (!resourceType) return;
 
       setLoading(true); // Start loading
-      const roleType = isManager ? "MANAGER" : "USER"
+      // const roleType = isManager ? "MANAGER" : "USER"
       const payload = ["MAIN", "HEADER_FOOTER"].includes(resourceTag)
-        ? { resourceType, ...(superUser ? {} : { roleType }), }
-        : { resourceType, resourceTag, relationType: "CHILD", ...(superUser ? {} : { roleType }), };
+        ? { resourceType, ...(superUser ? {} : { roleId: currentRoleId }), }
+        : { resourceType, resourceTag, relationType: "CHILD", ...(superUser ? {} : { roleId: currentRoleId }), };
 
       const response = await getResources(payload);
 
@@ -328,6 +330,9 @@ function Resources() {
                       } p-4  bg-white`
                       } origin-top-left h-[80rem]`}
                   ></iframe> */}
+                  <div className="w-full h-full overflow-y-scroll customscroller">
+                    <img src={pagesImages[page.slug]} alt="resourceRef" />
+                  </div>
 
                   {/* Dark Gradient Overlay */}
                   <div className="absolute bottom-0 left-0 w-full h-1/3 bg-gradient-to-t from-black/100 via-black/40 to-transparent"></div>
