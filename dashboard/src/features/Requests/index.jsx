@@ -183,31 +183,33 @@ function Requests() {
   const noneCanSee = !(isEditor || isManager || isVerifier || isPublisher)
 
   useEffect(() => {
-    async function fetchRequestsData() {
-      try {
-        const payload = { roleId }
+    if (currentRole.id) {
+      async function fetchRequestsData() {
+        try {
+          const payload = { roleId: roleId ?? "" }
 
-        if (isEditor) payload.permission = "EDIT"
-        else if (isPublisher) payload.permission = "PUBLISH"
-        else if (isVerifier) payload.permission = "VERIFY"
+          if (isEditor) payload.permission = "EDIT"
+          else if (isPublisher) payload.permission = "PUBLISH"
+          else if (isVerifier) payload.permission = "VERIFY"
 
-        // console.log(isEditor, isPublisher, isVerifier)
-        // console.log(payload)
+          // console.log(isEditor, isPublisher, isVerifier)
+          // console.log(payload)
 
-        const response = await getRequests(payload);
-        if (response.ok) {
-          setRequests(response.requests.data);
+          const response = await getRequests(payload);
+          if (response.ok) {
+            setRequests(response.requests.data);
+          }
+          setOriginalRequests(response?.requests?.data ?? []); // Store the original unfiltered data
+
+        } catch (err) {
+
+        } finally {
+
         }
-        setOriginalRequests(response?.requests?.data ?? []); // Store the original unfiltered data
-
-      } catch (err) {
-
-      } finally {
-
       }
+      fetchRequestsData();
     }
-    fetchRequestsData();
-  }, [changesInRequest]);
+  }, [changesInRequest, currentRole]);
 
   useEffect(() => {
     if (noneCanSee) {
