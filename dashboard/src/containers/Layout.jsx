@@ -7,7 +7,7 @@ import { removeNotificationMessage } from "../features/common/headerSlice"
 import { NotificationContainer, NotificationManager } from 'react-notifications';
 import 'react-notifications/lib/notifications.css';
 import ModalLayout from "./ModalLayout"
-import { updateUser } from "../features/common/userSlice"
+import { updateCurrentRole, updateUser } from "../features/common/userSlice"
 
 
 function Layout() {
@@ -26,6 +26,10 @@ function Layout() {
   useEffect(() => {
     const userObj = JSON.parse(localStorage.getItem("user"));
     dispatch(updateUser(userObj));
+    let roleId = localStorage.getItem("currentRole");
+    if (roleId) {
+      dispatch(updateCurrentRole(roleId))
+    }
   }, [dispatch]);
 
   return (

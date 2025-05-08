@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux"
 import FileUploader from "../../../../../components/Input/InputFileUploader"
-import { updateContent } from "../../../../common/homeContentSlice"
+import { updateMainContent } from "../../../../common/homeContentSlice"
 import ContentSection from "../../breakUI/ContentSections"
 import MultiSelectForProjects from "../../breakUI/MultiSelectForProjects"
 import content from "../../websiteComponent/content.json"
@@ -13,7 +13,7 @@ const ServiceDetailsManager = ({ serviceId, currentContent, currentPath, languag
     })
 
     useEffect(() => {
-        dispatch(updateContent({ currentPath: "serviceDetails", payload: content.serviceDetails }))
+        dispatch(updateMainContent({ currentPath: "serviceDetails", payload: content.serviceDetails }))
     }, [])
     return (
         <div className={`w-[299px]`}>

@@ -8,6 +8,3 @@ async function getFingerPrint() {
 }
 
 export default getFingerPrint;
-
-
-

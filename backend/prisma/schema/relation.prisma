@@ -1,52 +1,50 @@
 model UserRole {
-    userId    String
-    roleId    String
-    user      User     @relation(fields: [userId], references: [id])
-    role      Role     @relation(fields: [roleId], references: [id])
-    createdAt DateTime @default(now())
+  userId    String
+  roleId    String
+  user      User     @relation(fields: [userId], references: [id])
+  role      Role     @relation(fields: [roleId], references: [id])
+  createdAt DateTime @default(now())
 
-    @@id([userId, roleId]) // primary key as combination of both id
-    @@index([userId])
-    @@index([roleId])
+  @@id([userId, roleId]) // primary key as combination of both id
+  @@index([userId])
+  @@index([roleId])
 }
 
 model UserAuditLog {
-    auditLogId String   @unique
-    userId     String
-    user       User     @relation(fields: [userId], references: [id])
-    auditLog   AuditLog @relation(fields: [auditLogId], references: [id])
-    createdAt  DateTime @default(now())
+  auditLogId String   @unique
+  userId     String
+  user       User     @relation(fields: [userId], references: [id])
+  auditLog   AuditLog @relation(fields: [auditLogId], references: [id])
+  createdAt  DateTime @default(now())
 
-    @@id([auditLogId, userId]) // primary key as combination of both id
-    @@index([auditLogId])
-    @@index([userId])
+  @@id([auditLogId, userId]) // primary key as combination of both id
+  @@index([auditLogId])
+  @@index([userId])
 }
 
 model RolePermission {
-    roleId       String
-    permissionId String
-    role         Role       @relation(fields: [roleId], references: [id])
-    permission   Permission @relation(fields: [permissionId], references: [id])
-    createdAt    DateTime   @default(now())
+  roleId       String
+  permissionId String
+  role         Role       @relation(fields: [roleId], references: [id])
+  permission   Permission @relation(fields: [permissionId], references: [id])
+  createdAt    DateTime   @default(now())
 
-    @@id([roleId, permissionId]) // primary key as combination of both id
-    @@index([roleId])
-    @@index([permissionId])
+  @@id([roleId, permissionId]) // primary key as combination of both id
+  @@index([roleId])
+  @@index([permissionId])
 }
 
 model PermissionSubPermission {
-    permissionId    String
-    subPermissionId String
-    permission      Permission    @relation(fields: [permissionId], references: [id])
-    subPermission   SubPermission @relation(fields: [subPermissionId], references: [id])
-    createdAt       DateTime      @default(now())
+  permissionId    String
+  subPermissionId String
+  permission      Permission    @relation(fields: [permissionId], references: [id])
+  subPermission   SubPermission @relation(fields: [subPermissionId], references: [id])
+  createdAt       DateTime      @default(now())
 
-    @@id([permissionId, subPermissionId]) // primary key as combination of both id
-    @@index([permissionId])
-    @@index([subPermissionId])
+  @@id([permissionId, subPermissionId]) // primary key as combination of both id
+  @@index([permissionId])
+  @@index([subPermissionId])
 }
-
-
 
 // Junction table linking resource versions to section versions
 model ResourceVersionSection {
@@ -65,8 +63,6 @@ model ResourceVersionSection {
   @@index([resourceVersionId])
   @@index([sectionVersionId])
 }
-
-
 
 // Content items within sections (e.g., cards in a grid)
 model SectionVersionItem {
@@ -89,15 +85,16 @@ model SectionVersionItem {
 // TO TRACK USER ROLES(EDITOR, PUBLISHER, MANAGER) FOR THIS RESOURCE
 // ROLES CAN BE CHANGED AT ANY TIME
 model ResourceRole {
-  id         String   @id @default(uuid())
-  resource   Resource @relation(fields: [resourceId], references: [id])
+  id         String           @id @default(uuid())
+  resource   Resource         @relation(fields: [resourceId], references: [id])
   resourceId String
-  user       User     @relation(fields: [userId], references: [id])
+  user       User             @relation(fields: [userId], references: [id])
   userId     String
   role       ResourceRoleType
-  createdAt  DateTime @default(now())
+  status     Status           @default(ACTIVE) // Add status field
+  createdAt  DateTime         @default(now())
 
-  @@unique([resourceId, userId]) // ✅ one user can have only one role per resource
+  @@unique([resourceId, role, userId, status]) // ✅ No duplicate user-role-status entry
   @@index([resourceId])
   @@index([userId])
 }
@@ -106,8 +103,9 @@ model ResourceRole {
 // CAN NOT CHANGED AS THIS IS JUST TO STORE THE HISTORY
 // Historical permission snapshot for versions
 model ResourceVersionRole {
-  id   String   @id @default(uuid())
-  role ResourceRoleType // Permission level at version creation
+  id     String           @id @default(uuid())
+  role   ResourceRoleType // Permission level at version creation
+  status Status           @default(ACTIVE) // Add status field
 
   // Relationships
   resourceVersion   ResourceVersion @relation(fields: [resourceVersionId], references: [id], onDelete: Cascade)
@@ -119,7 +117,7 @@ model ResourceVersionRole {
   createdAt DateTime @default(now())
 
   // Composite constraints
-  @@unique([resourceVersionId, userId]) // One role per user per version
+  @@unique([resourceVersionId, role, userId, status]) // ✅ No duplicate user-role-status in version 
   @@index([resourceVersionId]) // For version context
   @@index([userId])
 }
@@ -128,22 +126,22 @@ model ResourceVersionRole {
 // VERIFIERS CAN BE CHANGED AT ANY TIME
 // Current approval workflow configuration
 model ResourceVerifier {
-  id    String @id @default(uuid())
-  stage Int // Approval sequence (1 = first approver)
+  id     String @id @default(uuid())
+  stage  Int
+  status Status @default(ACTIVE)
 
-  // Relationships
   resource   Resource @relation(fields: [resourceId], references: [id], onDelete: Cascade)
   resourceId String
   user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId     String
 
-  // Timestamps
   createdAt DateTime @default(now())
 
   // Composite constraints
-  @@unique([resourceId, stage, userId]) // One verifier per stage
-  @@index([resourceId, stage]) // For workflow progression
-  @@index([userId]) // For user dashboard
+  @@unique([resourceId, stage, userId, status]) // ✅ Prevent duplicate verifier assignments 
+  // Indexes
+  @@index([resourceId, stage])
+  @@index([userId])
   @@index([resourceId])
 }
 
@@ -151,21 +149,21 @@ model ResourceVerifier {
 // CAN NOT CHANGED AS THIS IS JUST TO STORE THE HISTORY
 // Historical approval snapshot for versions
 model ResourceVersionVerifier {
-  id    String @id @default(uuid())
-  stage Int // Approval stage at version creation
+  id     String @id @default(uuid())
+  stage  Int
+  status Status @default(ACTIVE)
 
-  // Relationships
   resourceVersion   ResourceVersion @relation(fields: [resourceVersionId], references: [id], onDelete: Cascade)
   resourceVersionId String
   user              User            @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId            String
 
-  // Timestamps
   createdAt DateTime @default(now())
 
   // Composite constraints
-  @@unique([resourceVersionId, stage, userId]) // Historical record
-  @@index([resourceVersionId, stage]) // For version context
+  @@unique([resourceVersionId, stage, userId, status]) // ✅ Prevent duplicate verifier entries 
+  // Indexes
+  @@index([resourceVersionId, stage])
   @@index([resourceVersionId])
   @@index([userId])
 }
@@ -178,23 +176,22 @@ model ResourceVersioningRequest {
   editorComments String? // Context for reviewers
 
   // Relationships
-  resourceVersion   ResourceVersion            @relation(fields: [resourceVersionId], references: [id], onDelete: Cascade)
+  resourceVersion   ResourceVersion             @relation(fields: [resourceVersionId], references: [id], onDelete: Cascade)
   resourceVersionId String
-  sender            User                       @relation("sender", fields: [senderId], references: [id], onDelete: Cascade)
+  sender            User                        @relation("sender", fields: [senderId], references: [id], onDelete: Cascade)
   senderId          String
-  previousRequest   ResourceVersioningRequest? @relation("PreviousRequest", fields: [previousRequestId], references: [id], onDelete: Restrict, onUpdate: Restrict)
+  previousRequest   ResourceVersioningRequest?  @relation("PreviousRequest", fields: [previousRequestId], references: [id], onDelete: Restrict, onUpdate: Restrict)
   previousRequestId String?
   nextRequests      ResourceVersioningRequest[] @relation("PreviousRequest")
   approvals         RequestApproval[] // Approval records
-
-  @@index([resourceVersionId])
-  @@index([senderId])
-  @@index([previousRequestId])
 
   // Timestamps
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
+  @@index([resourceVersionId])
+  @@index([senderId])
+  @@index([previousRequestId])
   // Indexes
   @@index([resourceVersionId, status]) // For request tracking
   @@index([status, type]) // For workflow processing
@@ -226,7 +223,7 @@ model RequestApproval {
 
 // State transition rules for workflow validation
 model WorkflowState {
-  id          String        @id @default(cuid())
+  id          String           @id @default(cuid())
   fromState   VersionStatus
   toState     VersionStatus
   allowedRole ResourceRoleType // Changed from relation to direct enum reference

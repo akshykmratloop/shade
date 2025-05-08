@@ -44,7 +44,8 @@
         "ar": "التزامنا الثابت الذي يعزز الشراكات والتعاونات القوية مع القادة الرؤوساء لمواجهة أصعب التحديات واستغلال أعظم الفرص، وخلق إنجازات هندسية واختراقات تحولية تتوافق مع رؤية المملكة ٢٠٣٠."
       },
       "button": [
-        { "url" : null,
+        {
+          "url": null,
           "text": {
             "en": "View Our Work",
             "ar": "أعمالنا"
@@ -66,7 +67,8 @@
         "ar": "مع عملائنا، نعتمد نهجًا تحوليًا من خلال تمكين المؤسسات لبناء ميزة تنافسية مستدامة والمساعدة في دفع النمو."
       },
       "button": [
-        { "url" : null,
+        {
+          "url": null,
           "text": {
             "en": "Know About Us",
             "ar": "اعرف عنا"
@@ -128,7 +130,8 @@
         }
       ],
       "button": [
-        { "url" : null,
+        {
+          "url": null,
           "text": {
             "en": "Contact Us",
             "ar": "اتصل بنا"
@@ -138,7 +141,7 @@
       ]
     },
     "recentProjectsSection": {
-      "content" : {
+      "content": {
         "buttons": [
           {
             "id": "btn1",
@@ -165,7 +168,7 @@
             "icon": null
           }
         ]
-      }, 
+      },
       "sections": [
         {
           "id": "projectList",
@@ -254,19 +257,12 @@
         "en": "Want to Start a New Project OR Collaborate with us?"
       },
       "description": {
-        "ar": "وفقًا لفلسفتنا المتمثلة في “بناء مستقبل أقوى”، تؤمن شركة شيد بشراكات مربحة للجانبين مع جميع أصحاب المصلحة، وتهدف باستمرار إلى إنشاء علاقات مستدامة وطويلة الأمد لخلق القيمة. يتضمن نموذج المشاركة الخاص بنا منهجيات خاصة وحلولًا شاملة من شأنها تحويل اقتصاديات مشروعك وفتح إمكانيات جديدة ودعم أهداف النمو التنظيمي لديك.",
-        "en": "True to our philosophy of “Building a Stronger Future”, Shade Corporation believes in win-win partnerships with all stakeholders, and continually aims at creating sustainable and long-term relationships for value creation. Our engagement model includes proprietary methodologies and comprehensive solutions that will transform your project economics, unlock new possibilities and support your organizational growth goals. In the last few decades, we have served many of Saudi's leading companies and public institutions to create winning strategies, solve some of the complex problems, and deliver consistent outcomes. If you're looking to drive performance, execute growth strategies, and build new capabilities, collaborate with us now."
-      },
-      "description2": {
-        "ar": "في العقود القليلة الماضية، قمنا بخدمة العديد من الشركات والمؤسسات العامة الرائدة في السعودية لوضع استراتيجيات رابحة، وحل بعض المشاكل المعقدة، وتحقيق نتائج متسقة. إذا كنت تتطلع إلى تعزيز الأداء وتنفيذ استراتيجيات النمو وبناء قدرات جديدة، فتعاون معنا الآن.",
-        "en": "In the last few decades, we have served many of Saudi's leading companies and public institutions to create winning strategies, solve some of the complex problems, and deliver consistent outcomes. If you're looking to drive performance, execute growth strategies, and build new capabilities, collaborate with us now."
-      },
-      "highlightedText": {
-        "ar": "بناء مستقبل أقوى",
-        "en": "Building a Stronger Future"
+        "ar": "في العقود القليلة الماضية، قمنا بخدمة العديد من الشركات والمؤسسات العامة الرائدة في السعودية لوضع استراتيجيات رابحة، وحل بعض المشاكل المعقدة، وتحقيق نتائج متسقة. إذا كنت تتطلع إلى تعزيز الأداء وتنفيذ استراتيجيات النمو وبناء قدرات جديدة، فتعاون معنا الآن وفقًا لفلسفتنا المتمثلة في “بناء مستقبل أقوى”، تؤمن شركة شيد بشراكات مربحة للجانبين مع جميع أصحاب المصلحة، وتهدف باستمرار إلى إنشاء علاقات مستدامة وطويلة الأمد لخلق القيمة. يتضمن نموذج المشاركة الخاص بنا منهجيات خاصة وحلولًا شاملة من شأنها تحويل اقتصاديات مشروعك وفتح إمكانيات جديدة ودعم أهداف النمو التنظيمي لديك.",
+        "en": "True to our philosophy of “Building a Stronger Future”, Shade Corporation believes in win-win partnerships with all stakeholders, and continually aims at creating sustainable and long-term relationships for value creation. Our engagement model includes proprietary methodologies and comprehensive solutions that will transform your project economics, unlock new possibilities and support your organizational growth goals. In the last few decades, we have served many of Saudi's leading companies and public institutions to create winning strategies, solve some of the complex problems, and deliver consistent outcomes. If you're looking to drive performance, execute growth strategies, and build new capabilities, collaborate with us now. In the last few decades, we have served many of Saudi's leading companies and public institutions to create winning strategies, solve some of the complex problems, and deliver consistent outcomes. If you're looking to drive performance, execute growth strategies, and build new capabilities, collaborate with us now."
       },
       "button": [
-        { "url" : null,
+        {
+          "url": null,
           "text": {
             "ar": "اتصل بنا",
             "en": "Contact Us"
@@ -516,7 +512,8 @@
         "en": "Need Help? We're Available to Talk"
       },
       "button": [
-        { "url" : null,
+        {
+          "url": null,
           "text": {
             "ar": "اتصل بنا",
             "en": "Contact Us"
@@ -562,7 +559,8 @@
         "en": "Discover the exceptional excellence of Shade Corporation, the leading company in engineering, procurement, and construction in Saudi Arabia."
       },
       "button": [
-        { "url" : null,
+        {
+          "url": null,
           "text": {
             "ar": "عرض عملنا",
             "en": "View Our Work"
@@ -613,7 +611,8 @@
         "en": "Building a Stronger Future"
       },
       "button": [
-        { "url" : null,
+        {
+          "url": null,
           "text": {
             "ar": "اتصل بنا",
             "en": "Contact Us"
@@ -722,7 +721,8 @@
         }
       ],
       "button": [
-        { "url" : null,
+        {
+          "url": null,
           "text": {
             "ar": "دعونا نتواصل",
             "en": "Let's Connect"
@@ -749,7 +749,8 @@
         "en": "Building a Stronger Future"
       },
       "button": [
-        { "url" : null,
+        {
+          "url": null,
           "text": {
             "ar": "اتصل بنا",
             "en": "Contact Us"
@@ -770,7 +771,8 @@
         "en": "Discover the exceptional excellence of Shade Corporation, the leading company in engineering, procurement, and construction in Saudi Arabia."
       },
       "button": [
-        { "url" : null,
+        {
+          "url": null,
           "text": {
             "ar": "عرض المشاريع",
             "en": "View Projects"
@@ -912,7 +914,8 @@
         "en": "Discover the exceptional excellence of Shade Corporation, the premier Engineering, Procurement, and Construction powerhouse in Saudi Arabia."
       },
       "button": [
-        { "url" : null,
+        {
+          "url": null,
           "text": {
             "ar": "خدماتنا",
             "en": "Our Services"
@@ -1163,7 +1166,8 @@
         }
       ],
       "button": [
-        { "url" : null,
+        {
+          "url": null,
           "text": {
             "ar": "عرض التفاصيل",
             "en": "View Details"
@@ -1319,7 +1323,8 @@
         "en": "Building a Stronger Future"
       },
       "button": [
-        { "url" : null,
+        {
+          "url": null,
           "text": {
             "ar": "اتصل بنا",
             "en": "Contact Us"
@@ -1340,7 +1345,8 @@
         "en": "Discover the exceptional excellence of Shade Corporation, a leading company in the fields of engineering, procurement, and construction in Saudi Arabia."
       },
       "button": [
-        { "url" : null,
+        {
+          "url": null,
           "text": {
             "ar": "دعونا نتواصل",
             "en": "Let's Connect"
@@ -1386,7 +1392,8 @@
           },
           "status": "completed",
           "button": [
-            { "url" : null,
+            {
+              "url": null,
               "text": {
                 "ar": "عرض التفاصيل",
                 "en": "View Details"
@@ -1408,7 +1415,8 @@
           },
           "status": "completed",
           "button": [
-            { "url" : null,
+            {
+              "url": null,
               "text": {
                 "ar": "عرض التفاصيل",
                 "en": "View Details"
@@ -1430,7 +1438,8 @@
           },
           "status": "ongoing",
           "button": [
-            { "url" : null,
+            {
+              "url": null,
               "text": {
                 "ar": "عرض التفاصيل",
                 "en": "View Details"
@@ -1452,7 +1461,8 @@
           },
           "status": "ongoing",
           "button": [
-            { "url" : null,
+            {
+              "url": null,
               "text": {
                 "ar": "عرض التفاصيل",
                 "en": "View Details"
@@ -1474,7 +1484,8 @@
           },
           "status": "completed",
           "button": [
-            { "url" : null,
+            {
+              "url": null,
               "text": {
                 "ar": "عرض التفاصيل",
                 "en": "View Details"
@@ -1496,7 +1507,8 @@
           },
           "status": "ongoing",
           "button": [
-            { "url" : null,
+            {
+              "url": null,
               "text": {
                 "ar": "عرض التفاصيل",
                 "en": "View Details"
@@ -1518,7 +1530,8 @@
           },
           "status": "completed",
           "button": [
-            { "url" : null,
+            {
+              "url": null,
               "text": {
                 "ar": "عرض التفاصيل",
                 "en": "View Details"
@@ -1540,7 +1553,8 @@
           },
           "status": "completed",
           "button": [
-            { "url" : null,
+            {
+              "url": null,
               "text": {
                 "ar": "عرض التفاصيل",
                 "en": "View Details"
@@ -1562,7 +1576,8 @@
           },
           "status": "completed",
           "button": [
-            { "url" : null,
+            {
+              "url": null,
               "text": {
                 "ar": "عرض التفاصيل",
                 "en": "View Details"
@@ -1584,7 +1599,8 @@
           },
           "status": "completed",
           "button": [
-            { "url" : null,
+            {
+              "url": null,
               "text": {
                 "ar": "عرض التفاصيل",
                 "en": "View Details"
@@ -1606,7 +1622,8 @@
           },
           "status": "completed",
           "button": [
-            { "url" : null,
+            {
+              "url": null,
               "text": {
                 "ar": "عرض التفاصيل",
                 "en": "View Details"
@@ -1628,7 +1645,8 @@
           },
           "status": "completed",
           "button": [
-            { "url" : null,
+            {
+              "url": null,
               "text": {
                 "ar": "عرض التفاصيل",
                 "en": "View Details"
@@ -1650,7 +1668,8 @@
           },
           "status": "completed",
           "button": [
-            { "url" : null,
+            {
+              "url": null,
               "text": {
                 "ar": "عرض التفاصيل",
                 "en": "View Details"
@@ -1672,7 +1691,8 @@
           },
           "status": "ongoing",
           "button": [
-            { "url" : null,
+            {
+              "url": null,
               "text": {
                 "ar": "عرض التفاصيل",
                 "en": "View Details"
@@ -1694,7 +1714,8 @@
           },
           "status": "completed",
           "button": [
-            { "url" : null,
+            {
+              "url": null,
               "text": {
                 "ar": "عرض التفاصيل",
                 "en": "View Details"
@@ -1716,7 +1737,8 @@
           },
           "status": "completed",
           "button": [
-            { "url" : null,
+            {
+              "url": null,
               "text": {
                 "ar": "عرض التفاصيل",
                 "en": "View Details"
@@ -1738,7 +1760,8 @@
           },
           "status": "completed",
           "button": [
-            { "url" : null,
+            {
+              "url": null,
               "text": {
                 "ar": "عرض التفاصيل",
                 "en": "View Details"
@@ -1760,7 +1783,8 @@
           },
           "status": "completed",
           "button": [
-            { "url" : null,
+            {
+              "url": null,
               "text": {
                 "ar": "عرض التفاصيل",
                 "en": "View Details"
@@ -1782,7 +1806,8 @@
           },
           "status": "completed",
           "button": [
-            { "url" : null,
+            {
+              "url": null,
               "text": {
                 "ar": "عرض التفاصيل",
                 "en": "View Details"
@@ -1804,7 +1829,8 @@
           },
           "status": "completed",
           "button": [
-            { "url" : null,
+            {
+              "url": null,
               "text": {
                 "ar": "عرض التفاصيل",
                 "en": "View Details"
@@ -1826,7 +1852,8 @@
           },
           "status": "completed",
           "button": [
-            { "url" : null,
+            {
+              "url": null,
               "text": {
                 "ar": "عرض التفاصيل",
                 "en": "View Details"
@@ -1848,7 +1875,8 @@
           },
           "status": "completed",
           "button": [
-            { "url" : null,
+            {
+              "url": null,
               "text": {
                 "ar": "عرض التفاصيل",
                 "en": "View Details"
@@ -1860,7 +1888,8 @@
         }
       ],
       "button": [
-        { "url" : null,
+        {
+          "url": null,
           "text": {
             "ar": " عرض المزيد",
             "en": "View More"
@@ -2024,7 +2053,8 @@
             },
             "status": "completed",
             "button": [
-              { "url" : null,
+              {
+                "url": null,
                 "text": {
                   "ar": "عرض التفاصيل",
                   "en": "View Details"
@@ -2046,7 +2076,8 @@
             },
             "status": "completed",
             "button": [
-              { "url" : null,
+              {
+                "url": null,
                 "text": {
                   "ar": "عرض التفاصيل",
                   "en": "View Details"
@@ -2068,7 +2099,8 @@
             },
             "status": "ongoing",
             "button": [
-              { "url" : null,
+              {
+                "url": null,
                 "text": {
                   "ar": "عرض التفاصيل",
                   "en": "View Details"
@@ -2080,7 +2112,8 @@
           }
         ],
         "button": [
-          { "url" : null,
+          {
+            "url": null,
             "text": {
               "en": "View Details",
               "ar": " عرض التفاصيل"
@@ -2223,7 +2256,8 @@
             },
             "status": "completed",
             "button": [
-              { "url" : null,
+              {
+                "url": null,
                 "text": {
                   "ar": "عرض التفاصيل",
                   "en": "View Details"
@@ -2245,7 +2279,8 @@
             },
             "status": "completed",
             "button": [
-              { "url" : null,
+              {
+                "url": null,
                 "text": {
                   "ar": "عرض التفاصيل",
                   "en": "View Details"
@@ -2267,7 +2302,8 @@
             },
             "status": "ongoing",
             "button": [
-              { "url" : null,
+              {
+                "url": null,
                 "text": {
                   "ar": "عرض التفاصيل",
                   "en": "View Details"
@@ -2279,7 +2315,8 @@
           }
         ],
         "button": [
-          { "url" : null,
+          {
+            "url": null,
             "text": {
               "en": "View Details",
               "ar": " عرض التفاصيل"
@@ -2422,7 +2459,8 @@
             },
             "status": "completed",
             "button": [
-              { "url" : null,
+              {
+                "url": null,
                 "text": {
                   "ar": "عرض التفاصيل",
                   "en": "View Details"
@@ -2444,7 +2482,8 @@
             },
             "status": "completed",
             "button": [
-              { "url" : null,
+              {
+                "url": null,
                 "text": {
                   "ar": "عرض التفاصيل",
                   "en": "View Details"
@@ -2466,7 +2505,8 @@
             },
             "status": "ongoing",
             "button": [
-              { "url" : null,
+              {
+                "url": null,
                 "text": {
                   "ar": "عرض التفاصيل",
                   "en": "View Details"
@@ -2478,7 +2518,8 @@
           }
         ],
         "button": [
-          { "url" : null,
+          {
+            "url": null,
             "text": {
               "en": "View Details",
               "ar": " عرض التفاصيل"
@@ -2621,7 +2662,8 @@
             },
             "status": "completed",
             "button": [
-              { "url" : null,
+              {
+                "url": null,
                 "text": {
                   "ar": "عرض التفاصيل",
                   "en": "View Details"
@@ -2643,7 +2685,8 @@
             },
             "status": "completed",
             "button": [
-              { "url" : null,
+              {
+                "url": null,
                 "text": {
                   "ar": "عرض التفاصيل",
                   "en": "View Details"
@@ -2665,7 +2708,8 @@
             },
             "status": "ongoing",
             "button": [
-              { "url" : null,
+              {
+                "url": null,
                 "text": {
                   "ar": "عرض التفاصيل",
                   "en": "View Details"
@@ -2677,7 +2721,8 @@
           }
         ],
         "button": [
-          { "url" : null,
+          {
+            "url": null,
             "text": {
               "en": "View Details",
               "ar": " عرض التفاصيل"
@@ -2699,7 +2744,8 @@
         "en": "Discover the exceptional excellence of Shade Corporation, the premier Engineering, Procurement, and Construction powerhouse in Saudi Arabia."
       },
       "button": [
-        { "url" : null,
+        {
+          "url": null,
           "text": {
             "ar": "تقدم بطلبك الآن",
             "en": "Apply Now"
@@ -3673,7 +3719,8 @@
         },
         "bannerImage": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+13.jpg",
         "button": [
-          { "url" : null,
+          {
+            "url": null,
             "text": {
               "en": "Back",
               "ar": "خلف"
@@ -3745,7 +3792,8 @@
         },
         "rightPanel": {
           "button": [
-            { "url" : null,
+            {
+              "url": null,
               "text": {
                 "ar": "يتقدم",
                 "en": "Apply"
@@ -3814,7 +3862,8 @@
           ]
         },
         "button": [
-          { "url" : null,
+          {
+            "url": null,
             "text": {
               "en": "Apply Now",
               "ar": " تقدم بطلبك الآن"
@@ -3837,7 +3886,8 @@
         },
         "bannerImage": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+13.jpg",
         "button": [
-          { "url" : null,
+          {
+            "url": null,
             "text": {
               "en": "Back",
               "ar": "خلف"
@@ -3909,7 +3959,8 @@
         },
         "rightPanel": {
           "button": [
-            { "url" : null,
+            {
+              "url": null,
               "text": {
                 "ar": "يتقدم",
                 "en": "Apply"
@@ -3979,7 +4030,8 @@
           ]
         },
         "button": [
-          { "url" : null,
+          {
+            "url": null,
             "text": {
               "en": "Apply Now",
               "ar": " تقدم بطلبك الآن"
@@ -4002,7 +4054,8 @@
         },
         "bannerImage": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+13.jpg",
         "button": [
-          { "url" : null,
+          {
+            "url": null,
             "text": {
               "en": "Back",
               "ar": "خلف"
@@ -4074,7 +4127,8 @@
         },
         "rightPanel": {
           "button": [
-            { "url" : null,
+            {
+              "url": null,
               "text": {
                 "ar": "يتقدم",
                 "en": "Apply"
@@ -4144,7 +4198,8 @@
           ]
         },
         "button": [
-          { "url" : null,
+          {
+            "url": null,
             "text": {
               "en": "Apply Now",
               "ar": " تقدم بطلبك الآن"
@@ -4167,7 +4222,8 @@
         },
         "bannerImage": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+13.jpg",
         "button": [
-          { "url" : null,
+          {
+            "url": null,
             "text": {
               "en": "Back",
               "ar": "خلف"
@@ -4239,7 +4295,8 @@
         },
         "rightPanel": {
           "button": [
-            { "url" : null,
+            {
+              "url": null,
               "text": {
                 "ar": "يتقدم",
                 "en": "Apply"
@@ -4309,7 +4366,8 @@
           ]
         },
         "button": [
-          { "url" : null,
+          {
+            "url": null,
             "text": {
               "en": "Apply Now",
               "ar": " تقدم بطلبك الآن"
@@ -4332,7 +4390,8 @@
         },
         "bannerImage": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+13.jpg",
         "button": [
-          { "url" : null,
+          {
+            "url": null,
             "text": {
               "en": "Back",
               "ar": "خلف"
@@ -4404,7 +4463,8 @@
         },
         "rightPanel": {
           "button": [
-            { "url" : null,
+            {
+              "url": null,
               "text": {
                 "ar": "يتقدم",
                 "en": "Apply"
@@ -4474,7 +4534,8 @@
           ]
         },
         "button": [
-          { "url" : null,
+          {
+            "url": null,
             "text": {
               "en": "Apply Now",
               "ar": " تقدم بطلبك الآن"
@@ -4497,7 +4558,8 @@
         },
         "bannerImage": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+13.jpg",
         "button": [
-          { "url" : null,
+          {
+            "url": null,
             "text": {
               "en": "Back",
               "ar": "خلف"
@@ -4569,7 +4631,8 @@
         },
         "rightPanel": {
           "button": [
-            { "url" : null,
+            {
+              "url": null,
               "text": {
                 "ar": "يتقدم",
                 "en": "Apply"
@@ -4639,7 +4702,8 @@
           ]
         },
         "button": [
-          { "url" : null,
+          {
+            "url": null,
             "text": {
               "en": "Apply Now",
               "ar": " تقدم بطلبك الآن"
@@ -4662,7 +4726,8 @@
         },
         "bannerImage": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+13.jpg",
         "button": [
-          { "url" : null,
+          {
+            "url": null,
             "text": {
               "en": "Back",
               "ar": "خلف"
@@ -4734,7 +4799,8 @@
         },
         "rightPanel": {
           "button": [
-            { "url" : null,
+            {
+              "url": null,
               "text": {
                 "ar": "يتقدم",
                 "en": "Apply"
@@ -4804,7 +4870,8 @@
           ]
         },
         "button": [
-          { "url" : null,
+          {
+            "url": null,
             "text": {
               "en": "Apply Now",
               "ar": " تقدم بطلبك الآن"
@@ -4977,7 +5044,8 @@
     "trendingCard": {
       "id": "news2",
       "button": [
-        { "url" : null,
+        {
+          "url": null,
           "text": {
             "ar": "تتجه",
             "en": "Trending"
@@ -5018,7 +5086,8 @@
         },
         "bannerImage": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+2+(3).png",
         "button": [
-          { "url" : null,
+          {
+            "url": null,
             "text": {
               "en": "Back",
               "ar": "خلف"
@@ -5073,7 +5142,8 @@
         },
         "bannerImage": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+2+(3).png",
         "button": [
-          { "url" : null,
+          {
+            "url": null,
             "text": {
               "en": "Back",
               "ar": "خلف"
@@ -5128,7 +5198,8 @@
         },
         "bannerImage": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+2+(3).png",
         "button": [
-          { "url" : null,
+          {
+            "url": null,
             "text": {
               "en": "Back",
               "ar": "خلف"
@@ -5183,7 +5254,8 @@
         },
         "bannerImage": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+2+(3).png",
         "button": [
-          { "url" : null,
+          {
+            "url": null,
             "text": {
               "en": "Back",
               "ar": "خلف"
@@ -5362,7 +5434,8 @@
       "ar": "عذرًا! الصفحة التي تبحث عنها غير موجودة."
     },
     "button": [
-      { "url" : null,
+      {
+        "url": null,
         "text": {
           "en": "Return to Homepage",
           "ar": "العودة إلى الصفحة الرئيسية"

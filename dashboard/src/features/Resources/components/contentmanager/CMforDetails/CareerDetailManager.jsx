@@ -2,7 +2,7 @@ import { useEffect } from "react"
 import FileUploader from "../../../../../components/Input/InputFileUploader"
 import ContentSection from "../../breakUI/ContentSections"
 import { useDispatch } from "react-redux"
-import { updateContent, updateTheProjectSummaryList } from "../../../../common/homeContentSlice"
+import { updateMainContent, updateTheProjectSummaryList } from "../../../../common/homeContentSlice"
 import content from "../../websiteComponent/content.json"
 import DynamicContentSection from "../../breakUI/DynamicContentSection"
 
@@ -32,7 +32,7 @@ const CareerDetailManager = ({ careerId, currentContent, currentPath, language }
 
     useEffect(() => {
 
-        dispatch(updateContent({ currentPath: "careerDetails", payload: (content?.careerDetails) }))
+        dispatch(updateMainContent({ currentPath: "careerDetails", payload: (content?.careerDetails) }))
     }, [])
     return (
         <div>

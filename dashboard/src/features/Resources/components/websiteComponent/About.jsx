@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import content from "./content.json"
 import { useDispatch, useSelector } from "react-redux";
-import { updateContent } from "../../../common/homeContentSlice";
+import { updateMainContent } from "../../../common/homeContentSlice";
 import { aboutUsIcons } from "../../../../assets/index"; // ../../assets/index
 // import styles from "./about.module.scss";
 // import localFont from "next/font/local";
@@ -33,7 +33,7 @@ const AboutUs = ({ language, screen }) => {
     // };
 
     useEffect(() => {
-        dispatch(updateContent({ currentPath: "about", payload: content.about }))
+        dispatch(updateMainContent({ currentPath: "about", payload: content.about }))
     }, [])
     return (
         <div className="px-8">

@@ -4,7 +4,7 @@ import Arrow from "../../../../assets/icons/right-wrrow.svg";
 import "swiper/css";
 import "swiper/css/pagination";
 import { useDispatch, useSelector } from "react-redux";
-import { updateContent } from "../../../common/homeContentSlice";
+import { updateMainContent } from "../../../common/homeContentSlice";
 import doubleQuotes from "../../../../assets/right-quote.png"
 // import { Swiper, SwiperSlide } from "swiper/react";
 // import {
@@ -65,7 +65,7 @@ const MarketPage = ({ language, screen }) => {
 
 
     useEffect(() => {
-        dispatch(updateContent({ currentPath: "markets", payload: content.market }))
+        dispatch(updateMainContent({ currentPath: "markets", payload: content.market }))
     }, [])
 
     return (

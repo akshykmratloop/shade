@@ -8,7 +8,7 @@ import debounceSlice from "../features/common/debounceSlice"
 import sidebarReducer from "../features/common/SbStateSlice";
 import imagesReducer from '../features/common/ImagesSlice'
 import homeContentReducer from '../features/common/homeContentSlice'
-import saveDraftReducer from "../features/common/saveContentSlice"
+import InitialContentReducer from "../features/common/InitialContentSlice"
 import navBarReducer from '../features/common/navbarSlice'
 import routeListsReducer from '../features/common/routeLists'
 
@@ -21,7 +21,7 @@ const combinedReducer = {
   debounce: debounceSlice,
   sidebar: sidebarReducer,
   homeContent: homeContentReducer,
-  saveDraft: saveDraftReducer,
+  InitialContentValue: InitialContentReducer,
   navBar: navBarReducer,
   routesList: routeListsReducer
 }

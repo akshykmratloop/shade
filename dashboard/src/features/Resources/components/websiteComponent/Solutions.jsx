@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import arrow from "../../../../assets/icons/right-wrrow.svg";
 import { useDispatch, useSelector } from "react-redux";
-import { updateContent } from "../../../common/homeContentSlice";
+import { updateMainContent } from "../../../common/homeContentSlice";
 import content from "./content.json"
 import { SwiperSlide } from "swiper/react";
 import { Swiper } from "swiper/react";
@@ -46,7 +46,7 @@ const SolutionPage = ({ language, screen }) => {
     const isLeftAlign = language === 'en'
 
     useEffect(() => {
-        dispatch(updateContent({ currentPath: "solutions", payload: content.solutions }))
+        dispatch(updateMainContent({ currentPath: "solutions", payload: content.solutions }))
     }, [])
     return (
         <div className=" bankgothic-medium-dt pb-8" dir={language === 'en' ? 'ltr' : "rtl"}>

@@ -3,7 +3,7 @@
 //         return word[0].toUpperCase() + word.toLowerCase().slice(1)
 //     }
 // }
-import {useMemo} from "react";
+import { useMemo } from "react";
 
 /**
  * Custom hook for truncating text to a specified length
@@ -33,7 +33,7 @@ export function TruncateText(text, length = 50, locale = "en") {
   if (!text || text.length <= length) return text;
 
   // Use grapheme segmentation
-  const segmenter = new Intl.Segmenter(locale, {granularity: "word"});
+  const segmenter = new Intl.Segmenter(locale, { granularity: "word" });
   const segments = Array.from(segmenter.segment(text), (s) => s.segment);
 
   // Handle Arabic specifically by truncating full words
@@ -49,4 +49,14 @@ export function TruncateText(text, length = 50, locale = "en") {
   }
 
   return text;
+}
+
+export function toCamelCase(str) {
+  return str
+    .toLowerCase()
+    .split('_')
+    .map((word, index) =>
+      index === 0 ? word : word[0].toUpperCase() + word.slice(1)
+    )
+    .join('');
 }

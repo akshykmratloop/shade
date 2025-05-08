@@ -17,7 +17,7 @@ export const createApp = () => {
   app.use(
     cors({
       origin: JSON.parse(process.env.CORS_ORIGIN),
-      methods: "GET,POST,PUT,DELETE",
+      methods: "GET,POST,PUT,DELETE,PATCH",
       credentials: true,
     })
   );

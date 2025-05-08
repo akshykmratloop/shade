@@ -138,15 +138,15 @@ function RightSidebar() {
           ${isOpen ? "translate-x-0" : "translate-x-full"}
           `}
       >
-        <div className="relative  pb-5 flex flex-col  h-full">
+        <div className="relative pb-5 flex flex-col h-full">
           {/* Header */}
-          <div className="navbar   flex pl-4 pr-4    ">
-            {/* <button
-              className="float-left btn btn-circle btn-outline btn-sm"
+          <div className="navbar   flex pl-4 pr-4  ">
+            <button
+              className="float-left btn btn-circle btn-outline btn-sm mr-2"
               onClick={() => close()}
             >
               <XMarkIcon className="h-5 w-5" />
-            </button> */}
+            </button>
             <span className="ml-2 font-bold text-l">{header}</span>
 
             {/* <p
@@ -167,7 +167,7 @@ function RightSidebar() {
           </div>
 
           {/* ------------------ Content Start ------------------ */}
-          <div className="overflow-y-scroll pl-4 pr-4">
+          <div className="overflow-y-scroll customscroller pl-4 pr-4 grow-[1]">
             <div className="flex flex-col w-full">
               {/* Loading drawer body according to different drawer type */}
               {

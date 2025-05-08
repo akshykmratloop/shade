@@ -14,7 +14,8 @@ function PageContent() {
     const navigate = useNavigate()
     const mainContentRef = useRef(null);
     const { pageTitle } = useSelector(state => state.header)
-    const user = useSelector(state => state.user.user)
+    const userRole = useSelector(state => state.user.currentRole)
+    // const applied = useSelector(state => state)
     const location = useLocation()
 
     useEffect(() => {
@@ -26,8 +27,8 @@ function PageContent() {
 
     useEffect(() => {
         let route = localStorage.getItem("route")
-
-        if (route && location.pathname.split('/').length < 3) {
+console.log(location.pathname.split('/').length)
+        if (route && location.pathname.split('/').length < 4) {
             navigate(route)
         }
     }, [])
@@ -41,8 +42,8 @@ function PageContent() {
                         {
                             routes.map((route, key) => {
                                 let path = route.path
-                                if (route.permission) {
-                                    if (!user.permissions.includes(route.permission)) {
+                                if (route?.permission) {
+                                    if (!userRole?.permissions?.includes(route.permission)) {
                                         return null
                                     }
                                 }

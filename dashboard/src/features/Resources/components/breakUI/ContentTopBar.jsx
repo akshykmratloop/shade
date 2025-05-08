@@ -1,46 +1,65 @@
 //libraries
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
+import { isEqual } from 'lodash';
 // modules
 import Button from '../../../../components/Button/Button';
 import { redo, undo } from '../../../common/homeContentSlice';
 import { IoIosInformationCircleOutline } from "react-icons/io";
-import { saveDraftAction } from '../../../common/saveContentSlice';
+import { saveInitialContentValue } from '../../../common/InitialContentSlice';
+import transformContent from '../../../../app/convertContent';
+import { generateRequest, publishContent, updateContent } from '../../../../app/fetch';
+import Popups from './Popups';
+import formatTimestamp from '../../../../app/TimeFormat';
+import capitalizeWords from '../../../../app/capitalizeword';
 //icons
 import { FaArrowLeftLong } from "react-icons/fa6";
 import { MdOutlineDesktopWindows } from "react-icons/md";
 import { FiTablet, FiSmartphone } from "react-icons/fi";
 import { GrUndo, GrRedo } from "react-icons/gr";
 import { LuEye } from "react-icons/lu";
-import { RxCross1 } from "react-icons/rx";
+// import { RxCross1 } from "react-icons/rx";
 import { Switch } from '@headlessui/react';
-import transformContent from '../../../../app/convertContent';
-import { updateContent } from '../../../../app/fetch';
 
 
-export default function ContentTopBar({ setWidth, raisePopup, setFullScreen }) {
-    const dispatch = useDispatch();
-    const iconSize = 'xl:h-[1.5rem] xl:w-[1.5rem]';
-    const smallIconSize = 'sm:h-[1rem] sm:w-[1rem]';
+
+export default function ContentTopBar({ setWidth, setFullScreen, currentPath, outOfEditing }) {
+    // states
     const [selectedDevice, setSelectedDevice] = useState("Desktop");
     const [menuOpen, setMenuOpen] = useState(false);
-    const ReduxState = useSelector(state => state.homeContent)
-    const navigate = useNavigate()
-    const [info, setInfo] = useState(false)
-    const infoRef = useRef(null)
+    const [isChanged, setIsChanged] = useState(false)
     const [savedChanges, setSavedChanges] = useState(false)
     const [autoSave, setAutoSave] = useState(JSON.parse(localStorage.getItem("autoSave")))
-    const user = useSelector(state => state.user.user)
+    const [info, setInfo] = useState(false)
+    const [PopUpPublish, setPopupPublish] = useState(false)
+    const [PopupSubmit, setPopupSubmit] = useState(false)
 
-    const isManager = user.permissions?.some(e => e.slice(-10) === "MANAGEMENT" && e.slice(0, 4) !== "USER" && e.slice(0, 4) !== "ROLE" && e.slice(0, 4) !== "AUDI")
+    // redux state
+    const ReduxState = useSelector(state => state.homeContent)
+    const savedInitialState = useSelector(state => state.InitialContentValue.InitialValue)
+    const isManager = useSelector(state => state.user.isManager)
+
+    // refs
+    const infoRef = useRef(null)
+    const infoIconRef = useRef(null); // Create a new ref for the info icon
+
+    // variables
+    const iconSize = 'xl:h-[1.5rem] xl:w-[1.5rem]';
+    const smallIconSize = 'sm:h-[1rem] sm:w-[1rem]';
+    const lastUpdate = formatTimestamp(ReduxState.present?.content?.editVersion?.updatedAt, "dd-mm-yyyy")
+    const status = capitalizeWords(ReduxState.present?.content?.editVersion?.status)
 
     const deviceIcons = [
         { icon: <MdOutlineDesktopWindows />, label: 'Desktop', width: 1180 },
         { icon: <FiTablet />, label: 'Tablet', width: 768 },
         { icon: <FiSmartphone />, label: 'Phone', width: 425 }
     ];
+
+    // functions
+    const dispatch = useDispatch();
+    const navigate = useNavigate()
 
     function autoSaveToggle() {
         setAutoSave(prev => {
@@ -51,17 +70,42 @@ export default function ContentTopBar({ setWidth, raisePopup, setFullScreen }) {
 
     }
 
-    async function saveTheDraft() {
-        const paylaod = transformContent(ReduxState.present.home)
+    async function saveTheDraft(isToastify = true) {
+        const paylaod = transformContent(ReduxState.present.content)
 
-        console.log(JSON.stringify(paylaod))
-        dispatch(saveDraftAction(paylaod))
+        // console.log(JSON.stringify(paylaod))
+        dispatch(saveInitialContentValue(paylaod))
         setSavedChanges(true)
         try {
 
             const response = await updateContent(paylaod)
 
-            if (response.message === "Success") {
+            if (response.ok) {
+                if (isToastify) {
+                    toast.success("Changes has been saved", {
+                        style: { backgroundColor: "#187e3d", color: "white" },
+                        autoClose: 1000, // Closes after 1 second
+                        pauseOnHover: false, // Does not pause on hover
+                    })
+                }
+            } else {
+                throw new Error("Error Occured")
+            }
+        } catch (err) {
+            toast.error("failed", {
+                style: { backgroundColor: "#187e3d", color: "white" },
+                autoClose: 1000, // Closes after 1 second
+                pauseOnHover: false, // Does not pause on hover
+            })
+        }
+    }
+
+    async function handleSubmit() {
+        const paylaod = transformContent(ReduxState.present.content)
+
+        try {
+            const response = await generateRequest(paylaod)
+            if (response.ok) {
                 toast.success("Changes has been saved", {
                     style: { backgroundColor: "#187e3d", color: "white" },
                     autoClose: 1000, // Closes after 1 second
@@ -77,7 +121,33 @@ export default function ContentTopBar({ setWidth, raisePopup, setFullScreen }) {
                 pauseOnHover: false, // Does not pause on hover
             })
         }
+    }
 
+    async function HandlepublishToLive() {
+        if (!isManager) return toast.error("You are not allowed to publish the content directly!", { autoClose: 600 })
+        const paylaod = transformContent(ReduxState.present.content)
+
+        try {
+            const response = await publishContent(paylaod)
+            if (response.message === "Success") {
+                toast.success("Changes have been published", {
+                    style: { backgroundColor: "#187e3d", color: "white" },
+                    autoClose: 1000, // Closes after 1 second
+                    pauseOnHover: false, // Does not pause on hover
+                })
+                setTimeout(() => {
+                    navigate(-1)
+                }, 650)
+            } else {
+                throw new Error("Error Occured")
+            }
+        } catch (err) {
+            toast.error("failed", {
+                style: { backgroundColor: "#187e3d", color: "white" },
+                autoClose: 1000, // Closes after 1 second
+                pauseOnHover: false, // Does not pause on hover
+            })
+        }
     }
 
     const handleDeviceChange = (device) => {
@@ -113,8 +183,8 @@ export default function ContentTopBar({ setWidth, raisePopup, setFullScreen }) {
         if (!autoSave) return;
 
         const debounceTimer = setTimeout(() => {
-            dispatch(saveDraftAction(ReduxState.present));
-        }, 3000); // 3 seconds debounce time
+            saveTheDraft(false)
+        }, 5000); // 5 seconds debounce time
 
         return () => clearTimeout(debounceTimer); // Reset timer if ReduxState changes before 3 seconds
     }, [ReduxState, autoSave]);
@@ -123,7 +193,13 @@ export default function ContentTopBar({ setWidth, raisePopup, setFullScreen }) {
         localStorage.setItem("autoSave", String(autoSave))
     }, [autoSave])
 
-    const infoIconRef = useRef(null); // Create a new ref for the info icon
+    console.log(isChanged)
+
+    useEffect(() => { // Checking ig there has been any changes in the initial and running content
+        // console.log(ReduxState.present?.content?.editVersion?.sections, savedInitialState)
+        const hasChanged = !isEqual(ReduxState.present?.content?.editVersion?.sections, savedInitialState)
+        setIsChanged(hasChanged)
+    }, [ReduxState.present?.content?.editVersion])
 
     return (
         <div className='flex justify-between gap-2 items-center xl:px-[2.36rem] xl:py-[1.2rem] sm:px-[.8rem] sm:py-[.5rem] lg:px-[.8rem] bg-[#fafaff] dark:bg-[#242933]'>
@@ -170,55 +246,75 @@ export default function ContentTopBar({ setWidth, raisePopup, setFullScreen }) {
                         <span className={`cursor-pointer`} onClick={undos}><GrUndo className={`${iconSize} ${smallIconSize} hover:text-[#64748B] dark:hover:text-[#bbb] ${ReduxState.past.length > 1 && "text-[#1f2937] dark:text-[#bbb]"}`} /></span>
                         <span className={`cursor-pointer`} onClick={redos}><GrRedo className={`${iconSize} ${smallIconSize} hover:text-[#64748B] dark:hover:text-[#bbb] ${ReduxState.future.length >= 1 && "text-[#1f2937] dark:text-[#bbb]"}`} /></span>
                     </div>
-                    <div className='flex gap-2 border-r border-[#64748B] text-[#1f2937] dark:text-[#808080]  pr-2 relative'>
+                    <div className='flex gap-2 border-r border-[#64748B] text-[#1f2937] dark:text-[#808080] pr-2 relative'>
                         <span className={`cursor-pointer `} onClick={() => setFullScreen(true)}><LuEye className={`${iconSize} ${smallIconSize} dark:hover:text-[#bbbbbb]`} /></span>
                         {
                             !isManager &&
-                            <span ref={infoIconRef} className={`cursor-pointer `} onClick={() => info ? setInfo(false) : setInfo(true)}><IoIosInformationCircleOutline className={`${iconSize} ${smallIconSize} dark:hover:text-[#bbbbbb]`} /></span>
+                            <span ref={infoIconRef} className={`cursor-pointer `} onClick={() => info ? setInfo(false) : setInfo(true)}>
+                                <IoIosInformationCircleOutline className={`${iconSize} ${smallIconSize} dark:hover:text-[#bbbbbb]`} /></span>
                         }
-                        <div ref={infoRef} className={`absolute top-[100%] left-1/2 border bg-white w-[200px] shadow-xl rounded-lg text-xs p-2 ${info ? "block" : "hidden"}`} >
-                            <p className='text-[#64748B]'>last saved:  <span className='text-[black]'>{"dd/mm/yyyy"}</span></p>  {/* last saved */}
-                            <p className='text-[#64748B]'>status: <span className='text-[black]'> draft</span></p>   {/**status */}
+                        <div ref={infoRef} className={`absolute top-[100%] left-1/2 dark:shadow-lg dark:border dark:border-stone-600/10 bg-base-100 w-[200px] shadow-xl rounded-lg text-xs p-2 ${info ? "block" : "hidden"}`} >
+                            <p className='text-[#64748B]'>last saved:  <span className='text-[black] dark:text-stone-300'>{lastUpdate}</span></p>  {/* last saved */}
+                            <p className='text-[#64748B]'>status: <span className='text-[black] dark:text-stone-300'> {status}</span></p>   {/**status */}
                         </div>
                     </div>
                 </div>
                 {
                     !isManager ?
-                        <div className='flex gap-3'>
-                            <div className='flex items-center gap-1'>
-                                <span className={`text-sm font-lexend dark:text-[#CBD5E1] text-[#202a38] select-none`}>
-                                    Auto Save
-                                </span>
-                                <Switch
-                                    checked={autoSave}
-                                    onChange={autoSaveToggle}
-                                    className={`${autoSave
-                                        ? "bg-[#26c226]"
-                                        : "bg-gray-300"
-                                        } relative inline-flex h-2 w-7 items-center rounded-full`}
-                                >
-                                    <span
+                        outOfEditing ? (
+                            <div>
+                                <button disabled className='bg-[#80808080] rounded-md xl:h-[2.68rem] sm:h-[2rem] xl:text-xs sm:text-[.6rem] xl:w-[12.58rem] w-[4rem] text-[white]'>
+                                    {status}
+                                </button>
+                            </div>
+                        ) :
+                            (<div className='flex gap-3'>
+                                <div className='flex items-center gap-1'>
+                                    <span className={`text-sm font-lexend dark:text-[#CBD5E1] text-[#202a38] select-none`}>
+                                        Auto Save
+                                    </span>
+                                    <Switch
+                                        checked={autoSave}
+                                        onChange={autoSaveToggle}
                                         className={`${autoSave
-                                            ? "translate-x-4"
-                                            : "translate-x-0"
-                                            } inline-block h-[17px] w-[17px] bg-white rounded-full shadow-2xl border border-gray-300 transition`}
-                                    />
-                                </Switch>
-                            </div>
-                            <div className='flex gap-2'>
-                                {
-                                    !autoSave &&
-                                    <Button text={savedChanges ? 'Saved' : 'Draft'} functioning={saveTheDraft} classes={`${savedChanges ? "bg-[#26c226]" : "bg-[#26345C]"}  rounded-md xl:h-[2.68rem] sm:h-[2rem] xl:text-xs sm:text-[.6rem] xl:w-[5.58rem] w-[4rem] text-[white]`} />
-                                }
-                                <Button text={'Submit'} functioning={raisePopup.submit} classes='bg-[#29469D] rounded-md xl:h-[2.68rem] sm:h-[2rem] xl:text-xs sm:text-[.6rem] xl:w-[5.58rem] w-[4rem] text-[white]' />
-                            </div>
-                        </div>
+                                            ? "bg-[#26c226]"
+                                            : "bg-gray-300"
+                                            } relative inline-flex h-2 w-7 items-center rounded-full`}
+                                    >
+                                        <span
+                                            className={`${autoSave ? "translate-x-4" : "translate-x-0"} 
+                                            inline-block h-[17px] w-[17px] bg-white rounded-full shadow-2xl border border-gray-300 transition`}
+                                        />
+                                    </Switch>
+                                </div>
+                                <div className='flex gap-2'>
+                                    {
+                                        !autoSave &&
+                                        <Button text={savedChanges ? 'Saved' : 'Draft'} functioning={saveTheDraft}
+                                            classes={`${savedChanges ? "bg-[#26c226]" : "bg-[#26345C]"} 
+                                        rounded-md xl:h-[2.68rem] sm:h-[2rem] xl:text-xs sm:text-[.6rem] xl:w-[5.58rem] w-[4rem] text-[white]`} />
+                                    }
+                                    <Button text={'Submit'} disabled={!isChanged} functioning={() => { setPopupSubmit(true) }}
+                                        classes={`${isChanged ? "bg-[#29469D]" : "bg-gray-500"} 
+                                    rounded-md xl:h-[2.68rem] sm:h-[2rem] xl:text-xs sm:text-[.6rem] xl:w-[5.58rem] w-[4rem] text-[white]`} />
+                                </div>
+                            </div>)
                         :
                         <div className='flex gap-3 sm:gap-1'>
-                            <Button text={'Pulish'} functioning={raisePopup.publish} classes='bg-[#29469D] rounded-md xl:h-[2.68rem] sm:h-[2rem] xl:text-xs sm:text-[.6rem] xl:w-[5.58rem] w-[4rem] text-[white]' />
+                            <Button text={'Publish'} disabled={!isChanged} functioning={() => setPopupPublish(true)}
+                                classes={`${isChanged ? "bg-[#29469D]" : "bg-gray-500"} 
+                                rounded-md xl:h-[2.68rem] sm:h-[2rem] xl:text-xs sm:text-[.6rem] xl:w-[5.58rem] w-[4rem] text-[white]`}
+                            />
                         </div>
                 }
             </div>
+
+            <Popups display={PopUpPublish} setClose={() => setPopupPublish(false)}
+                confirmationText={"Are you sure you want to publish?"} confirmationFunction={HandlepublishToLive}
+            />
+            <Popups display={PopupSubmit} setClose={() => setPopupSubmit(false)}
+                confirmationText={"Are you sure you want to submit?"} confirmationFunction={handleSubmit}
+            />
         </div>
     );
 }

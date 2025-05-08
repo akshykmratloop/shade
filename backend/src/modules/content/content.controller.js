@@ -1,5 +1,5 @@
 // import {eventEmitter} from "../../helper/event.js";
-import {createNotification} from "../../repository/notification.repository.js";
+import { createNotification } from "../../repository/notification.repository.js";
 import {
   getResources,
   getResourceInfo,
@@ -12,6 +12,7 @@ import {
   generateRequest,
   getRequest,
   getRequestInfo,
+  removeAssignedUser,
 } from "./content.service.js";
 
 const GetResources = async (req, res) => {
@@ -25,9 +26,12 @@ const GetResources = async (req, res) => {
     page,
     limit,
     fetchType,
+    roleId,
   } = req.query;
   const pageNum = parseInt(page) || 1;
   const limitNum = parseInt(limit) || 100;
+  const userId = req.user.id;
+
   const response = await getResources(
     resourceType,
     resourceTag,
@@ -37,31 +41,33 @@ const GetResources = async (req, res) => {
     status,
     pageNum,
     limitNum,
-    fetchType
+    fetchType,
+    userId,
+    roleId
   );
   res.status(200).json(response);
 };
 
 const GetResourceInfo = async (req, res) => {
-  const {resourceId} = req.params;
+  const { resourceId } = req.params;
   const response = await getResourceInfo(resourceId);
   res.status(200).json(response);
 };
 
 const GetAssignedUsers = async (req, res) => {
-  const {resourceId} = req.params;
+  const { resourceId } = req.params;
   const response = await getAssignedUsers(resourceId);
   res.status(200).json(response);
 };
 
 const GetEligibleUser = async (req, res) => {
-  const {roleType, permission} = req.query;
+  const { roleType, permission } = req.query;
   const response = await getEligibleUser(roleType, permission);
   res.status(200).json(response);
 };
 
 const AssignUser = async (req, res) => {
-  const {resourceId, manager, editor, verifiers, publisher} = req.body;
+  const { resourceId, manager, editor, verifiers, publisher } = req.body;
   const response = await assignUser(
     resourceId,
     manager,
@@ -73,14 +79,20 @@ const AssignUser = async (req, res) => {
   res.status(200).json(response);
 };
 
+const RemoveAssignedUser = async (req, res) => {
+  const { resourceId } = req.params;
+  const response = await removeAssignedUser(resourceId);
+  res.status(200).json(response);
+};
+
 const GetContent = async (req, res) => {
-  const {resourceId} = req.params;
+  const { resourceId } = req.params;
   const response = await getContent(resourceId);
   res.status(200).json(response);
 };
 
 const UpdateContent = async (req, res) => {
-  const {saveAs} = req.query;
+  const { saveAs } = req.query;
   const content = req.body;
   const response = await updateContent(saveAs, content);
   res.status(200).json(response);
@@ -99,15 +111,8 @@ const GenerateRequest = async (req, res) => {
   res.status(200).json(response);
 };
 
-
 const GetRequest = async (req, res) => {
-  const {
-    userRole,
-    search,
-    status,
-    page,
-    limit,
-  } = req.query;
+  const { userRole, search, status, page, limit } = req.query;
   const userId = req.user.id;
 
   const pageNum = parseInt(page) || 1;
@@ -124,7 +129,7 @@ const GetRequest = async (req, res) => {
 };
 
 const GetRequestInfo = async (req, res) => {
-  const {requestId} = req.params;
+  const { requestId } = req.params;
   const response = await getRequestInfo(requestId);
   res.status(200).json(response);
 };
@@ -134,11 +139,12 @@ export default {
   GetResourceInfo,
   GetEligibleUser,
   AssignUser,
+  RemoveAssignedUser,
   GetAssignedUsers,
   GetContent,
   UpdateContent,
   DirectPublishContent,
   GenerateRequest,
   GetRequest,
-  GetRequestInfo
+  GetRequestInfo,
 };

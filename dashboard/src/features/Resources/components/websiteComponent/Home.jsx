@@ -1,19 +1,18 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import {
+    useSelector,
+    useDispatch
+} from "react-redux";
 import Arrow from "../../../../assets/icons/right-wrrow.svg";
-import AboutUs from "../../../../assets/images/aboutus.png";
-import background from "../../../../assets/images/Hero.png";
+// import AboutUs from "../../../../assets/images/aboutus.png";
+// import background from "../../../../assets/images/Hero.png";
 import highlightsvg from "../../../../assets/highlight.svg"
 import {
-    services,
-    experience,
     recentProjects,
     markets,
     safety,
-    clients,
     testimonials,
 } from "../../../../assets/index";
-// import { updateContent } from "../../../common/homeContentSlice";
 import { Swiper, SwiperSlide } from "swiper/react";
 import {
     Pagination,
@@ -28,17 +27,18 @@ import blankImage from "../../../../assets/images/blankImage.webp";
 import { TruncateText } from "../../../../app/capitalizeword";
 import dynamicSize, { generatefontSize } from "../../../../app/fontSizes";
 import { differentText } from "../../../../app/fontSizes";
-import contentJSON from './content.json'
+// import contentJSON from './content.json'
+import { Img_url } from "../../../../routes/backend";
 
 
 const HomePage = ({ language, screen, fullScreen, highlight, content, currentContent, liveContent }) => {
 
-    const checkDifference = differentText.checkDifference.bind(differentText);
+    const checkDifference = differentText?.checkDifference.bind(differentText);
     const isComputer = screen > 900;
     const isTablet = screen < 900 && screen > 730;
     const isPhone = screen < 738;
     const ImagesFromRedux = useSelector((state) => {
-        return state.homeContent.present.images
+        return state?.homeContent?.present?.images
     })
     const [swiperInstance, setSwiperInstance] = useState(null);
     let isLeftAlign = language === "en";
@@ -49,8 +49,8 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
     const [activeRecentProjectSection, setActiveRecentProjectSection] = useState(0);
     let chunkArray = (array, chunkSize) => {
         const chunks = [];
-        for (let i = 0; i < array.length; i += chunkSize) {
-            chunks.push(array.slice(i, i + chunkSize));
+        for (let i = 0; i < array?.length; i += chunkSize) {
+            chunks?.push(array?.slice(i, i + chunkSize));
         }
         return chunks;
     };
@@ -87,7 +87,7 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
 
     useEffect(() => {
         if (swiperInstance) {
-            swiperInstance.update();
+            swiperInstance?.update();
         }
     }, [language]);
 
@@ -100,12 +100,13 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
             <section className="w-full relative"
             >
                 <span
-                    className={`w-full block ${language === "en" ? "scale-x-100" : "scale-x-[-1]"
+                    className={`w-full min-h-[400px] block ${language === "en" ? "scale-x-100" : "scale-x-[-1]"
                         }`}
                 >
                     <img
-                        src={ImagesFromRedux.homeBanner || background}
-                        alt="about-us"
+                        dir={isLeftAlign ? "ltr" : "rtl"}
+                        src={`${Img_url}${content?.heroBanner?.content?.image[0]}`}
+                        alt="Banner Image"
                         className="w-[full] h-full object-cover"
                         style={{ objectPosition: "center", transform: "scaleX(-1)", height: isTablet ? "500px" : isPhone && "500px" }} />
                 </span>
@@ -113,23 +114,23 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                     className={`container mx-auto absolute ${isComputer ? "top-[20%]" : "top-16"}  left-0 right-0 px-4`}>
                     <div className={`text-left flex flex-col ${language === "en" ? "items-start" : "items-end"} ${textAlignment} ${isPhone ? "px-[0px] py-10" : "px-[80px]"}`}
                         style={{ paddingLeft: isComputer && dynamicSize(140, width) }}>
-                        <h1 className={`${(highlight && checkDifference(content?.homeBanner?.content?.title[language], liveContent?.homeBanner?.content?.title[language]))} text-[#292E3D] text-[45px] tracking-[0px]  leading-[2.5rem] capitalize font-[500] mb-4 ${isPhone ? "w-full" : fullScreen ? "w-3/5" : "w-3/5"}  `}
-                            style={{ fontSize: fontSize.mainHeading, lineHeight: isComputer && `${(width / 1526) * 4.5}rem`, }}
+                        <h1 className={`${(highlight && checkDifference(content?.heroBanner?.content?.title[language], liveContent?.heroBanner?.content?.title[language]))} text-[#292E3D] text-[45px] tracking-[0px]  leading-[2.5rem] capitalize font-[500] mb-4 ${isPhone ? "w-full" : fullScreen ? "w-3/5" : "w-3/5"}  `}
+                            style={{ fontSize: fontSize?.mainHeading, lineHeight: isComputer && `${(width / 1526) * 4.5}rem`, }}
                         >
-                            {content?.homeBanner?.content?.title[language]}
+                            {content?.heroBanner?.content?.title[language]}
                         </h1>
-                        <p className={`${(highlight && checkDifference(content?.homeBanner?.content?.description[language], liveContent?.homeBanner?.content?.description[language]))} text-[#0e172fb3] font-[500] leading-[16px] mb-6 ${isPhone ? "w-full text-[12px]" : "w-1/2 text-[10px]"} tracking-[0px]`}
+                        <p className={`${(highlight && checkDifference(content?.heroBanner?.content?.description[language], liveContent?.heroBanner?.content?.description[language]))} text-[#0e172fb3] font-[500] leading-[16px] mb-6 ${isPhone ? "w-full text-[12px]" : "w-1/2 text-[10px]"} tracking-[0px]`}
                             style={{ fontSize: fontSize.mainPara, lineHeight: isComputer && `${width / 1526 * 24}px` }}
                         >
-                            {content?.homeBanner?.content?.description[language]}
+                            {content?.heroBanner?.content?.description[language]}
                         </p>
                         <button
                             className={`relative items-center flex ${isLeftAlign ? "" : "flex-row-reverse"} gap-2 text-[12px] font-medium px-[12px] py-[6px] px-[12px] bg-[#00b9f2] text-white rounded-md`}
                             style={{ fontSize: fontSize.mainButton }}
                             onClick={() => { }}
                         >
-                            <span className={`${(highlight && checkDifference(content?.homeBanner?.content?.button?.[0]?.text?.[language], content?.homeBanner?.content?.button?.[0]?.text?.[language]))}`}>
-                                {content?.homeBanner?.content?.button?.[0]?.text?.[language]}</span>
+                            <span className={`${(highlight && checkDifference(content?.heroBanner?.content?.button?.[0]?.text?.[language], content?.heroBanner?.content?.button?.[0]?.text?.[language]))}`}>
+                                {content?.heroBanner?.content?.button?.[0]?.text?.[language]}</span>
                             <img
                                 src={Arrow}
                                 width="10"
@@ -147,7 +148,7 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                     {/* Image section */}
                     <div className={`${isPhone ? "w-[90%]" : "w-[70%]"} h-[500px] overflow-hidden rounded-sm shadow-lg `}
                         style={{ height: isComputer && dynamicSize(629, width), width: isComputer && dynamicSize(877, width) }}>
-                        <img src={ImagesFromRedux.aboutUsSection || AboutUs} alt="about-us" className="w-full h-[500px] object-cover"
+                        <img src={`${Img_url}${content?.markdownContent?.content?.image[0]}`} alt="about-us" className="w-full h-[500px] object-cover"
                             style={{ width: isComputer && dynamicSize(877, width), height: isComputer && '100%' }}
                         />
                     </div>
@@ -155,18 +156,18 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                     <div className={`flex flex-col items-start ${isPhone ? " " : "absolute "} ${isLeftAlign ? "right-0 text-left" : "left-0 text-right"} bg-[#145098] ${isTablet ? "p-10 py-14" : "p-14 py-20"} rounded-sm w-[23rem]`}
                         style={{ gap: isComputer ? dynamicSize(26, width) : "16px", width: isComputer && dynamicSize(488, width), padding: isComputer && `${dynamicSize(98, width)} ${dynamicSize(65, width)}` }}
                     >
-                        <h2 className={`text-white text-[28px] leading-[1.8rem]  font-normal ${highlight && checkDifference(content?.markDown?.content?.title[language], liveContent?.markDown?.content?.title[language])}`}
+                        <h2 className={`text-white text-[28px] leading-[1.8rem]  font-normal ${highlight && checkDifference(content?.markdownContent?.content?.title[language], liveContent?.markDown?.content?.title[language])}`}
                             style={{ fontSize: isComputer && dynamicSize(36, width), lineHeight: isComputer && dynamicSize(32, width) }}>
-                            {content?.markDown?.content?.title[language]}
+                            {content?.markdownContent?.content?.title[language]}
                         </h2>
-                        <div className={`text-white font-[100] text-[12px] leading-[16px] ${highlight && checkDifference(content?.markDown?.content?.description[language], liveContent?.markDown?.content?.description[language])}`}
+                        <div className={`text-white font-[100] text-[12px] leading-[16px] ${highlight && checkDifference(content?.markdownContent?.content?.description[language], liveContent?.markDown?.content?.description[language])}`}
                             style={{ fontSize: isComputer && dynamicSize(15, width), lineHeight: isComputer && dynamicSize(26, width) }}
-                            dangerouslySetInnerHTML={{ __html: content?.markDown?.content?.description[language] }}
+                            dangerouslySetInnerHTML={{ __html: content?.markdownContent?.content?.description[language] }}
                         />
-                        <button className={`px-[6px] py-[2px] bg-[#00B9F2] text-white text-[12px] ${highlight && checkDifference(content?.markDown?.content?.description[language], liveContent?.markDown?.content?.description[language])} rounded-md hover:bg-opacity-90 text-right`}
+                        <button className={`px-[6px] py-[2px] bg-[#00B9F2] text-white text-[12px] ${highlight && checkDifference(content?.markdownContent?.content?.description[language], liveContent?.markDown?.content?.description[language])} rounded-md hover:bg-opacity-90 text-right`}
                             style={{ fontSize: isComputer && dynamicSize(18, width) }}
                         >
-                            {content?.markDown?.content?.button?.[0]?.text?.[language]}
+                            {content?.markdownContent?.content?.button?.[0]?.text?.[language]}
                         </button>
                     </div>
 
@@ -191,7 +192,7 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                             return (
                                 <div key={key} className={`w-full h-44 flex items-center justify-center p-6 rounded-md transition-transform duration-300 hover:scale-105 cursor-pointer ${key % 2 !== 0 ? "bg-blue-900 text-[white]" : " bg-stone-200"} `}>
                                     <div className="flex flex-col items-center gap-4">
-                                        <img src={services?.[card.iconName]} width={40} height={40} alt="Icon" className="h-10 w-10" />
+                                        <img src={Img_url + card?.liveModeVersionData?.icon} width={40} height={40} alt="Icon" className="h-10 w-10" />
                                         <h5 className={`relative text-lg font-light text-center `}
                                             style={{ fontSize: isComputer && dynamicSize(20, width) }}>
                                             {card?.[titleLan]}
@@ -231,7 +232,7 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                                         <div className="relative">
                                             <img
                                                 className={`absolute ${key % 2 === 1 ? "top-[-22px] right-[-32px]" : "left-[-36px] top-[-27px]"}`}
-                                                src={ImagesFromRedux[item.items] || experience?.[item.iconName]}
+                                                src={Img_url + item.iconName}
                                                 width={40}
                                                 height={key === 1 ? 47 : 60}
                                                 alt=""
@@ -317,9 +318,9 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
 
 
                     <div className={`flex ${isTablet ? isPhone ? "gap-[20px]" : "gap-[30px]" : "gap-[30px]"} ${isLeftAlign && !isComputer && "pr-20"} `}
-                        style={{ gap: isComputer && dynamicSize(70, width), width: isComputer && dynamicSize(1230, width) }}>
-                        <div className={`leftDetails min-w-[150px]   ${isTablet && "w-[180px]"}`}
-                            style={{ width: isComputer && dynamicSize(424, width) }}>
+                        style={{ gap: isComputer && dynamicSize(70, width), width: isComputer || fullScreen ? dynamicSize(1230, width) : "100%" }}>
+                        <div className={`leftDetails min-w-[150px] ${isTablet ? isPhone ? "w-[150px]" : "w-[240px]" : ""}`}
+                            style={{ width: isComputer || fullScreen ? dynamicSize(424, width) : "" }}>
                             {content?.projectGrid?.sections?.map((section, index) => (
                                 <div
                                     key={index}
@@ -355,8 +356,8 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                             ))}
                         </div>
 
-                        <div className={`${isPhone ? "w-[220px]" : isTablet ? "w-[300px]" : ""} overflow-hidden`}
-                            style={{ width: isComputer && dynamicSize(800, width) }}
+                        <div className={`${isPhone ? "w-[220px]" : isTablet ? "w-[490px]" : ""}  overflow-hidden`}
+                            style={{ width: isComputer || fullScreen ? dynamicSize(800, width) : "" }}
                         >
                             <Swiper
                                 key={language}
@@ -380,7 +381,10 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                                     return (
                                         <SwiperSlide key={slideIndex}>
                                             <div className={`${isPhone ? "flex flex-col" : `grid grid-cols-2 gap-[12px] auto-rows-auto ${isTablet ? "w-[350px]" : "w-[600px]"}`} `}
-                                                style={{ width: isComputer ? dynamicSize(722, width) : isPhone ? `${(600 / 1180) * screen}px` : `${(750 / 1180) * screen}px`, gap: isComputer ? "" : `${(40 / 1180) * screen}px` }}
+                                                style={{
+                                                    width: isComputer ? dynamicSize(722, width) : isPhone ? `${(600 / 1180) * screen}px` : `${(750 / 1180) * screen}px`,
+                                                    gap: isComputer ? "" : `${(40 / 1180) * screen}px`
+                                                }}
                                             >
                                                 {chunk?.map((project, cardIndex) => {
                                                     return (
@@ -500,7 +504,7 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                                 className="w-[120px] h-[120px] bg-white rounded-full flex items-center justify-center p-5"
                             >
                                 <img
-                                    src={ImagesFromRedux[client.image] || clients?.[client?.image]}
+                                    src={Img_url + client?.image?.[0]}
                                     width={key === 3 ? 100 : 66}
                                     height={key === 3 ? 30 : 66}
                                     alt="about-us"
@@ -538,92 +542,94 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                             !isPhone &&
                             <div className="absolute top-0 right-0 h-full w-[20%] bg-gradient-to-l from-white to-transparent pointer-events-none z-10"></div>
                         }
+                        {content?.testimonials?.items.length > 1 &&
+                            < Swiper
+                                modules={[Navigation, Autoplay, EffectCoverflow]}
+                                grabCursor={true}
+                                centeredSlides={true}
+                                slidesPerView={isPhone ? 1 : 2}
+                                loop={true}
+                                spaceBetween={10}
+                                effect="coverflow"
+                                navigation={{
+                                    prevEl: testimonialPrevRef.current,
+                                    nextEl: testimonialNextRef.current,
+                                }}
+                                onSwiper={(swiper) => {
+                                    swiper.params.navigation.prevEl = testimonialPrevRef.current;
+                                    swiper.params.navigation.nextEl = testimonialNextRef.current;
+                                    swiper.navigation.init();
+                                    swiper.navigation.update();
+                                }}
+                                coverflowEffect={{
+                                    rotate: 0,
+                                    stretch: 0,
+                                    depth: 250,
+                                    modifier: 2,
+                                    slideShadows: false,
+                                }}
+                                autoplay={{ delay: 2500 }}
+                                breakpoints={{
+                                    724: { slidesPerView: isPhone ? 1 : 1.5 },
+                                    500: { slidesPerView: 1 },
+                                }}
+                            >
+                                {content?.testimonials?.items?.map(
+                                    (testimonial, index) => (
+                                        <SwiperSlide key={index}
+                                            dir={isLeftAlign ? "ltr" : "rtl"}
+                                        >
+                                            <div className={`border bg-white p-3 rounded-xl flex justify-center  shadow-md`}>
 
-                        <Swiper
-                            modules={[Navigation, Autoplay, EffectCoverflow]}
-                            grabCursor={true}
-                            centeredSlides={true}
-                            slidesPerView={isPhone ? 1 : 2}
-                            loop={true}
-                            spaceBetween={10}
-                            effect="coverflow"
-                            navigation={{
-                                prevEl: testimonialPrevRef.current,
-                                nextEl: testimonialNextRef.current,
-                            }}
-                            onSwiper={(swiper) => {
-                                swiper.params.navigation.prevEl = testimonialPrevRef.current;
-                                swiper.params.navigation.nextEl = testimonialNextRef.current;
-                                swiper.navigation.init();
-                                swiper.navigation.update();
-                            }}
-                            coverflowEffect={{
-                                rotate: 0,
-                                stretch: 0,
-                                depth: 250,
-                                modifier: 2,
-                                slideShadows: false,
-                            }}
-                            autoplay={{ delay: 2500 }}
-                            breakpoints={{
-                                724: { slidesPerView: isPhone ? 1 : 1.5 },
-                                500: { slidesPerView: 1 },
-                            }}
-                        >
-                            {content?.testimonials?.items?.map(
-                                (testimonial, index) => (
-                                    <SwiperSlide key={index}
-                                        dir={isLeftAlign ? "ltr" : "rtl"}
-                                    >
-                                        <div className={`border bg-white p-3 rounded-xl flex justify-center  shadow-md`}>
-
-                                            <div className="flex 1">
-                                                <img
-                                                    src={testimonials?.[testimonial?.liveVersion?.image]}
-                                                    height={70}
-                                                    width={70}
-                                                    alt={testimonial?.name}
-                                                    className="rounded-full h-[70px] w-[75px] object-cover border border-gray-200"
-                                                />
-                                            </div>
-
-                                            <div className="p-5 w-full">
-                                                <h3 className="text-gray-900 text-md font-bold"
-                                                    style={{ fontSize: isComputer && dynamicSize(20, width) }}
-                                                >
-                                                    {testimonial?.[titleLan]}
-                                                </h3>
-                                                <p className="text-gray-500 text-xs font-light mb-4"
-                                                    style={{ fontSize: isComputer && dynamicSize(12, width) }}
-                                                >
-                                                    {testimonial?.liveVersion?.sections?.[0]?.content?.position?.[language]}
-                                                </p>
-                                                <p className="text-gray-900 text-xs font-light mb-6 leading-5"
-                                                    style={{ fontSize: isComputer && dynamicSize(14, width) }}
-                                                >
-                                                    {testimonial?.liveVersion?.sections?.[0]?.content?.quote?.[language]}
-                                                </p>
-                                                <div className={`flex items-center justify- gap-2`}>
+                                                <div className="flex 1">
                                                     <img
-                                                        src="https://frequencyimage.s3.ap-south-1.amazonaws.com/a813959c-7b67-400b-a0b7-f806e63339e5-ph_building%20%281%29.svg"
-                                                        height={18}
-                                                        width={18}
+                                                        src={testimonials?.[testimonial?.liveModeVersionData?.image]}
+                                                        height={70}
+                                                        width={70}
                                                         alt={testimonial?.name}
-                                                        className="h-[18px] w-[18px]"
+                                                        className="rounded-full h-[70px] w-[75px] object-cover border border-gray-200"
                                                     />
-                                                    <p className={`text-gray-500 text-base font-bold ${isLeftAlign ? "text-left" : "text-right"}`}
-                                                        style={{ fontSize: isComputer && dynamicSize(16, width) }}
-                                                    >
-                                                        {testimonial?.liveVersion?.sections?.[0]?.content?.company?.[language]}
-                                                    </p>
                                                 </div>
-                                            </div>
 
-                                        </div>
-                                    </SwiperSlide>
-                                )
-                            )}
-                        </Swiper>
+                                                <div className="p-5 w-full">
+                                                    <h3 className="text-gray-900 text-md font-bold"
+                                                        style={{ fontSize: isComputer && dynamicSize(20, width) }}
+                                                    >
+                                                        {testimonial?.[titleLan]}
+                                                    </h3>
+                                                    <p className="text-gray-500 text-xs font-light mb-4"
+                                                        style={{ fontSize: isComputer && dynamicSize(12, width) }}
+                                                    >
+                                                        {testimonial?.liveModeVersionData?.sections?.[0]?.content?.position?.[language]}
+                                                    </p>
+                                                    <p className="text-gray-900 text-xs font-light mb-6 leading-5"
+                                                        style={{ fontSize: isComputer && dynamicSize(14, width) }}
+                                                    >
+                                                        {testimonial?.liveModeVersionData?.sections?.[0]?.content?.quote?.[language]}
+                                                    </p>
+                                                    <div className={`flex items-center justify- gap-2`}>
+                                                        <img
+                                                            src="https://frequencyimage.s3.ap-south-1.amazonaws.com/a813959c-7b67-400b-a0b7-f806e63339e5-ph_building%20%281%29.svg"
+                                                            height={18}
+                                                            width={18}
+                                                            alt={testimonial?.name}
+                                                            className="h-[18px] w-[18px]"
+                                                        />
+                                                        <p className={`text-gray-500 text-base font-bold ${isLeftAlign ? "text-left" : "text-right"}`}
+                                                            style={{ fontSize: isComputer && dynamicSize(16, width) }}
+                                                        >
+                                                            {testimonial?.liveModeVersionData?.sections?.[0]?.content?.company?.[language]}
+                                                        </p>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </SwiperSlide>
+                                    )
+                                )}
+                            </Swiper>
+                        }
+
 
                         <div className={`flex justify-center items-center gap-7 mt-5 ${!isLeftAlign && "flex-row-reverse"}`}>
                             <button
@@ -666,16 +672,14 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                         >
                             {content?.normalContent?.content?.title?.[language]}
                         </h2>
-                        <p className="text-xs font-light text-black leading-7 mb-2 relative bg-transparent"
-                            style={{ fontSize: isComputer && dynamicSize(16, width) }}
-                        >
-                            {content?.normalContent?.content?.description?.[language].replace(
-                                content?.normalContent?.content?.highlightedText?.[language],
-                                `"${content?.normalContent?.content?.highlightedText?.[language]}"`
-                            )}
+                        <div className="relative">
+                            <div className=" font-light text-black leading-7 mb-2 relative bg-transparent"
+                                style={{ fontSize: isComputer && dynamicSize(16, width) }}
+                                dangerouslySetInnerHTML={{ __html: content?.normalContent?.content?.description?.[language] }}
+                            />
                             <i
                                 className={`absolute ${isLeftAlign ? isPhone ? "right-[130px] top-[55px]" : "right-[250px]" : "right-[152px]"} top-0  opacity-70 z-10 
-                    ${language === 'ar' ? 'right-48' : ''}`}
+                                ${language === 'ar' ? 'right-48' : ''}`}
                                 style={{
                                     backgroundImage: `url(${highlightsvg})`,
                                     backgroundRepeat: 'no-repeat',
@@ -685,12 +689,7 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                                     mixBlendMode: 'multiply',
                                 }}
                             />
-                        </p>
-                        <p className="text-xs font-light text-black leading-7 mb-2"
-                            style={{ fontSize: isComputer && dynamicSize(16, width) }}
-                        >
-                            {content?.normalContent?.content?.description2?.[language]}
-                        </p>
+                        </div>
                         <button
                             className="bg-[#00B9F2] text-xs text-white px-4 py-2 text-lg mt-11 mx-auto block rounded"
                             style={{ fontSize: isComputer && dynamicSize(18, width) }}

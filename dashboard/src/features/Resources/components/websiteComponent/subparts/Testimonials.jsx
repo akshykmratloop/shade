@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 // modules
 import content from '../content.json'
-import { updateContent } from '../../../../common/homeContentSlice';
+import { updateMainContent } from '../../../../common/homeContentSlice';
 import { testimonials } from "../../../../../assets/index";
 import userIcon from "../../../../../assets/images/userIcon.jpg"
 import structureOfTestimony from "../structures/structureOfTestimony.json"
@@ -21,9 +21,9 @@ const Testimonials = ({ language, testimonyId, screen }) => {
 
     useEffect(() => {
         if (!currentContent?.testimonials?.[testimonyId]) {
-            dispatch(updateContent({ currentPath: "testimonialSection", payload: { ...content.testimonialSection, testimonials: [...content.testimonialSection.testimonials, {...structureOfTestimony}] } }))
+            dispatch(updateMainContent({ currentPath: "testimonialSection", payload: { ...content.testimonialSection, testimonials: [...content.testimonialSection.testimonials, {...structureOfTestimony}] } }))
         } else {
-            dispatch(updateContent({ currentPath: "testimonialSection", payload: content.testimonialSection }))
+            dispatch(updateMainContent({ currentPath: "testimonialSection", payload: content.testimonialSection }))
         }
     }, [])
 

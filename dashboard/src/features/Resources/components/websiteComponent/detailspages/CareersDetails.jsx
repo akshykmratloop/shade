@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { updateContent } from "../../../../common/homeContentSlice";
+import { updateMainContent } from "../../../../common/homeContentSlice";
 import content from '../content.json'
 import structureOfCareerDetails from "../structures/structureOFCareerDetails.json";
 
@@ -45,9 +45,9 @@ const CareerDetailPage = ({ contentOn, language, careerId, screen }) => {
 
     useEffect(() => {
         if (!currentContent?.[careerId]) {
-            dispatch(updateContent({ currentPath: "careerDetails", payload: [...content.careerDetails, { ...structureOfCareerDetails, id: 4 }] }))
+            dispatch(updateMainContent({ currentPath: "careerDetails", payload: [...content.careerDetails, { ...structureOfCareerDetails, id: 4 }] }))
         } else {
-            dispatch(updateContent({ currentPath: "careerDetails", payload: content.careerDetails }))
+            dispatch(updateMainContent({ currentPath: "careerDetails", payload: content.careerDetails }))
         }
     }, [])
 

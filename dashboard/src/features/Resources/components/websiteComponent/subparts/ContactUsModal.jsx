@@ -1,7 +1,7 @@
 import ModalPortal from "./ModalPortal";
 import React, { useEffect, useState } from "react";
 import content from '../content.json'
-import { updateContent } from "../../../../common/homeContentSlice";
+import { updateMainContent } from "../../../../common/homeContentSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 // import { useGlobalContext } from "../../contexts/GlobalContext";
@@ -34,7 +34,7 @@ const ContactUsModal = ({ isModal, onClose, language, screen, currentContent }) 
 
 
     useEffect(() => {
-        dispatch(updateContent({ currentPath: "contactUsModal", payload: content.contactUsModal }))
+        dispatch(updateMainContent({ currentPath: "contactUsModal", payload: content.contactUsModal }))
     }, [])
     return (
         <div>

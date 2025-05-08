@@ -1,7 +1,7 @@
 import content from '../content.json'
 import { useState, useEffect, useRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { updateContent } from '../../../../common/homeContentSlice';
+import { updateMainContent } from '../../../../common/homeContentSlice';
 import { services } from '../../../../../assets/index'
 import { Swiper, SwiperSlide } from "swiper/react";
 import {
@@ -43,7 +43,7 @@ const SubServiceDetails = ({ serviceId, contentOn, language, screen, deepPath })
 
 
     useEffect(() => {
-        dispatch(updateContent({ currentPath: "subOfsubService", payload: content.subOfsubService }))
+        dispatch(updateMainContent({ currentPath: "subOfsubService", payload: content.subOfsubService }))
     }, [])
     return (
         <div dir={isLeftAlign ? 'ltr' : "rtl"}>

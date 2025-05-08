@@ -3,9 +3,8 @@
 import { updateSelectedContent } from '../homeContentSlice';
 // import { saveDraftAction } from '../saveContentSlice';  
 
-// ✨ This is a thunk
+// This is a thunk
 export const updateSelectedContentAndSaveDraft = (payload) => (dispatch) => {
-    // 1. Prepare your data here
     const selectedMap = new Map(
         payload?.selected?.filter(e => e.display).map((item, index) => [item[payload.titleLan], index])
     );
@@ -18,9 +17,7 @@ export const updateSelectedContentAndSaveDraft = (payload) => (dispatch) => {
         return indexA - indexB;
     });
 
-    // 2. Dispatch `saveDraftAction` first (save the data somewhere)
-    // dispatch(saveDraftAction(newOptions));
+    console.log(newOptions)
 
-    // 3. Dispatch `updateSelectedContent` next (update the UI state)
     dispatch(updateSelectedContent({ ...payload, data: newOptions }));
 };

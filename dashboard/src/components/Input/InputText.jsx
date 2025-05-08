@@ -26,7 +26,8 @@ function InputText({
   required = true,
   errorClass,
   disabled = false,
-  maxLength
+  maxLength,
+  outOfEditing
 }) {
   const [showPassword, setShowPassword] = useState(false);
   const [value, setValue] = useState(defaultValue || "");
@@ -48,7 +49,7 @@ function InputText({
       }, 0);
     }
   };
-  
+
 
   const togglePasswordVisibility = () => {
     setShowPassword((prev) => !prev);
@@ -136,10 +137,11 @@ function InputText({
             value={value || ""}
             placeholder={placeholder || ""}
             onChange={(e) => updateInputValue(e.target.value)}
-            disabled={disabled}
+            disabled={disabled || outOfEditing}
             maxLength={35}
-            className={`input ${width ?? "w-full"
-              } h-[2.3rem] text-xs input input-bordered border-[#80808044] focus:border-[#0000007e] dark:focus:border-[#ffffff7e] ${InputClasses || ""
+            className={`input ${width ?? "w-full"}
+            dark:disabled:bg-[#2a303c] dark:disabled:border-stone-200/10
+             h-[2.3rem] text-xs input input-bordered border-[#80808044] focus:border-[#0000007e] dark:focus:border-[#ffffff7e] ${InputClasses || ""
               }`}
 
           />
