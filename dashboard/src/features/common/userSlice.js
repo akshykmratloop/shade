@@ -53,7 +53,8 @@ const user = createSlice({
             state.currentRole = action.payload.roles[0]
         },
         updateCurrentRole: (state, action) => {
-            const roleObj = state.user.roles.filter(e => e.role === action.payload)
+            console.log(action.payload)
+            const roleObj = state.user.roles.filter(e => e.role === action.payload.id)
 
             state.currentRole = roleObj?.[0]
 
@@ -64,6 +65,7 @@ const user = createSlice({
             state.isVerifier = isVerifier;
 
             state.isManager = roleObj?.[0]?.permissions?.some(e => e.slice(-10) === "MANAGEMENT" && e.slice(0, 4) !== "USER" && e.slice(0, 4) !== "ROLE" && e.slice(0, 4) !== "AUDI")
+            if(action.payload.cb) action.payload.cb()
         }
     }
 })

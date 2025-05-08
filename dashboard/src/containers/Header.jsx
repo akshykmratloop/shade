@@ -76,10 +76,10 @@ function Header() {
     document.documentElement.setAttribute("data-theme", newTheme);
   };
 
-  const switchRole = (id) => {
+  const switchRole = (id) => { // Switch Role
+    const cb = () => navigate(0)
     localStorage.setItem("currentRole", id)
-    dispatch(updateCurrentRole(id))
-    navigate(0)
+    dispatch(updateCurrentRole({id, cb: cb}))
   }
 
   //=========================================================================
@@ -206,20 +206,20 @@ function Header() {
               <BellIcon className="h-6 w-6" />
             </div>
           </button> */}
-          <div className="mx-1 w-[16vw] p-0 self-stretch flex gap-[8px] items-center rounded-md relative cursor-pointer "
+          <div className="mx-1 w-[16vw] p-0 self-stretch flex gap-[6px] items-center rounded-md relative cursor-pointer "
             onClick={() => { setOpenList(!openList) }}
             title={capitalizeWords(currentRole?.role)}
           >
             <div className="py-1 px-[4px] pl-[6px] text-[14px] h-full flex items-center font-[600] rounded-[5px_0px_0px_5px]"
-            onClick={() => { setOpenList(!openList) }}
+              onClick={() => { setOpenList(!openList) }}
             >
               Role
             </div>
             <label className="flex items-center justify-between cursor-pointer w-full bg-base-300 py-1 px-[6px] h-full rounded-md"
-            onClick={() => { setOpenList(!openList) }}
+              onClick={() => { setOpenList(!openList) }}
             >
               <div className="flex h-[100%] items-center justify-center flex-row text-[clamp(10px,1.7vh,2rem)]" style={{ whiteSpace: "" }}>
-                {TruncateText(capitalizeWords(currentRole?.role), 18)}
+                {TruncateText(capitalizeWords(currentRole?.role), 20)}
               </div>
               {
                 !oneRoleOnly &&
