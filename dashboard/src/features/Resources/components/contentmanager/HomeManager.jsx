@@ -66,7 +66,7 @@ const HomeManager = ({ language, content, currentPath, indexes, outOfEditing }) 
     return ( /// Component
         <div className="w-full">
             {/* reference doc */}
-            <FileUploader id={"homeReference"} label={"Rerference doc"} fileName={"Upload your file..."} />
+            <FileUploader id={"homeReference"} label={"Rerference doc"} fileName={"Upload your file..."} outOfEditing={outOfEditing} />
             {/* homeBanner */}
             <ContentSection
                 currentPath={currentPath}

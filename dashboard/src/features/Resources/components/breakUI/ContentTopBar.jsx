@@ -111,6 +111,10 @@ export default function ContentTopBar({ setWidth, setFullScreen, currentPath, ou
                     autoClose: 1000, // Closes after 1 second
                     pauseOnHover: false, // Does not pause on hover
                 })
+                setTimeout(() => {
+                    navigate(-1);
+                    navigate(0)
+                }, 750)
             } else {
                 throw new Error("Error Occured")
             }
