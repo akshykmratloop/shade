@@ -16,7 +16,6 @@ export default function createContent(content, purpose, path, subPath) {
     currentContent?.forEach((e, i) => {
         tempIndex[toCamelCase(e.SectionType)] = i
         tempContent[toCamelCase(e.SectionType)] = currentContent[i]
-        console.log(toCamelCase(e.SectionType))
     })
 
 

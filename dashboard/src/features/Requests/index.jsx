@@ -127,6 +127,7 @@ function Requests() {
   const userRole = useSelector((state) => state.user.currentRole);
   const userObj = useSelector(state => state.user)
   const { isManager, isEditor, isPublisher, isVerifier } = userObj;
+  const [resourceId, setResourceId] = useState("")
   // const userPermissionsSet = new Set(["EDIT", "VERIFY", "PUBLISH"]); // SET FOR EACH USER LOGIC
   // const { isOpen, bodyType, extraObject, header } = useSelector(
   //   (state) => state.rightDrawer
@@ -435,6 +436,7 @@ function Requests() {
                                 setSelectedRequest(request);
                                 setShowDetailsModal(true);
                                 // openNotification();
+                                setResourceId(request.resourceVersion.resourceId)
                               }}
                             >
                               <span className="flex items-center gap-1 rounded-md text-[#101828]">
@@ -502,6 +504,7 @@ function Requests() {
         <ShowDifference
           role={selectedRequest}
           show={showDetailsModal}
+          resourceId={resourceId}
           updateRoles={setChangesInRequest}
           onClose={() => {
             setSelectedRequest(false);

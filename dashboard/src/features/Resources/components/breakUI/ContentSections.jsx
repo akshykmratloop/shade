@@ -36,6 +36,7 @@ const ContentSection = ({
     const dispatch = useDispatch();
     const [extraFiles, setExtraFiles] = useState([]);
     const ImagesFromRedux = useSelector((state) => state.homeContent.present.images)
+    let count = 0
 
     const editor = useRef(null);
 
@@ -113,7 +114,8 @@ const ContentSection = ({
     };
 
     const updateFormValueRichText = (updateType, value) => {
-
+        ++count
+        if (count <= 1) return
         if (updateType === 'count') {
             if (!isNaN(value)) {
                 let val = value?.slice(0, 7);
@@ -179,10 +181,10 @@ const ContentSection = ({
         showTooltip: false,
         controls: {
             fontsize: {
-              list: Jodit.atom([8, 9, 10, 12, 14, 16, 18, 24, 30, 32, 34])
+                list: Jodit.atom([8, 9, 10, 12, 14, 16, 18, 24, 30, 32, 34])
             }
-          }
-,        
+        }
+        ,
 
         // 👇 Disable the plus "+" hover icon
         disablePlugins: ['addNewLine']
@@ -232,10 +234,10 @@ const ContentSection = ({
                                         const trimmedVal = newContent.slice(0, input.maxLength);
                                         updateFormValueRichText(input.updateType, trimmedVal)
                                     }}
-                                    onBlur={(newContent) => {
-                                        const trimmedVal = newContent.slice(0, input.maxLength);
-                                        updateFormValueRichText(input.updateType, trimmedVal)
-                                    }}
+                                // onBlur={(newContent) => {
+                                //     const trimmedVal = newContent.slice(0, input.maxLength);
+                                //     updateFormValueRichText(input.updateType, trimmedVal)
+                                // }}
                                 />
                             </div>
                         );

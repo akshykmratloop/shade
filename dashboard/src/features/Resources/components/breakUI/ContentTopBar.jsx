@@ -25,7 +25,7 @@ import { Switch } from '@headlessui/react';
 
 
 
-export default function ContentTopBar({ setWidth, setFullScreen, currentPath, outOfEditing }) {
+export default function ContentTopBar({ setWidth, setFullScreen, currentPath, outOfEditing, contentStatus }) {
     // states
     const [selectedDevice, setSelectedDevice] = useState("Desktop");
     const [menuOpen, setMenuOpen] = useState(false);
@@ -111,6 +111,10 @@ export default function ContentTopBar({ setWidth, setFullScreen, currentPath, ou
                     autoClose: 1000, // Closes after 1 second
                     pauseOnHover: false, // Does not pause on hover
                 })
+                setTimeout(() => {
+                    navigate(-1);
+                    navigate(0)
+                }, 750)
             } else {
                 throw new Error("Error Occured")
             }
@@ -193,7 +197,6 @@ export default function ContentTopBar({ setWidth, setFullScreen, currentPath, ou
         localStorage.setItem("autoSave", String(autoSave))
     }, [autoSave])
 
-    console.log(isChanged)
 
     useEffect(() => { // Checking ig there has been any changes in the initial and running content
         // console.log(ReduxState.present?.content?.editVersion?.sections, savedInitialState)
@@ -255,12 +258,13 @@ export default function ContentTopBar({ setWidth, setFullScreen, currentPath, ou
                         }
                         <div ref={infoRef} className={`absolute top-[100%] left-1/2 dark:shadow-lg dark:border dark:border-stone-600/10 bg-base-100 w-[200px] shadow-xl rounded-lg text-xs p-2 ${info ? "block" : "hidden"}`} >
                             <p className='text-[#64748B]'>last saved:  <span className='text-[black] dark:text-stone-300'>{lastUpdate}</span></p>  {/* last saved */}
-                            <p className='text-[#64748B]'>status: <span className='text-[black] dark:text-stone-300'> {status}</span></p>   {/**status */}
+                            <p className='text-[#64748B]'>status: <span className='text-[black] dark:text-stone-300'> {contentStatus || status}</span></p>   {/**status */}
                         </div>
                     </div>
                 </div>
                 {
-                    !isManager ?
+                    !isManager
+                        ?
                         outOfEditing ? (
                             <div>
                                 <button disabled className='bg-[#80808080] rounded-md xl:h-[2.68rem] sm:h-[2rem] xl:text-xs sm:text-[.6rem] xl:w-[12.58rem] w-[4rem] text-[white]'>
