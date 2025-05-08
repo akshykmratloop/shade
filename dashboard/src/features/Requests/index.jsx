@@ -191,6 +191,9 @@ function Requests() {
         else if (isPublisher) payload.permisssion = "PUBLISH"
         else if (isVerifier) payload.permisssion = "VERIFY"
 
+        console.log(isEditor, isPublisher, isVerifier)
+        console.log(payload)
+        
         const response = await getRequests(payload);
         if (response.ok) {
           setRequests(response.requests.data);
