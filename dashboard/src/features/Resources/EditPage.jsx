@@ -71,7 +71,7 @@ const EditPage = () => {
 
     useEffect(() => {
         setOutOfEditing(!(stageStatus === "EDITING" || stageStatus === "DRAFT" || stageStatus === "PUBLISHED"))
-    })
+    }, [isManager])
 
     useEffect(() => {
         if (currentId) {
