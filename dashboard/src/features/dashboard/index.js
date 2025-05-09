@@ -3,6 +3,10 @@ import AmountStats from "./components/AmountStats";
 import PageStats from "./components/PageStats";
 
 import UserGroupIcon from "@heroicons/react/24/outline/UserGroupIcon";
+import {UserRoundCog} from "lucide-react";
+import {FolderKanban} from "lucide-react";
+import {Notebook} from "lucide-react";
+import {GitPullRequest} from "lucide-react";
 import UsersIcon from "@heroicons/react/24/outline/UsersIcon";
 import CircleStackIcon from "@heroicons/react/24/outline/CircleStackIcon";
 import CreditCardIcon from "@heroicons/react/24/outline/CreditCardIcon";
@@ -17,34 +21,53 @@ import {useState} from "react";
 
 const statsData = [
   {
+    id: 10,
     title: "Total Roles",
     value: "30",
-    icon: "",
-    //  <UserGroupIcon className="w-8 h-8" />
-    description: "+10 (New)",
+    icon: <UserRoundCog className="w-8 h-8" />,
+    description: "",
   },
   {
+    id: 11,
     title: "Total Users",
     value: "250",
     icon: <UserGroupIcon className="w-8 h-8" />,
-    description: "+50 (This month)",
+    description: "",
   },
   {
+    id: 12,
     title: "Resource Role",
     value: "450",
-    icon: <CircleStackIcon className="w-8 h-8" />,
-    description: "+10 (New)",
-    roles: [
-      {name: "Editor", value: 100},
-      {name: "Verfier", value: 200},
-      {name: "Publish", value: 150},
+    icon: <Notebook className="w-8 h-8" />,
+    description: "Roles",
+    dropdown: [
+      {id: 1, name: "Editor", value: 100},
+      {id: 2, name: "Verfier", value: 200},
+      {id: 3, name: "Publish", value: 150},
     ],
   },
   {
-    title: "Active Users",
-    value: "5.6k",
-    icon: <UsersIcon className="w-8 h-8" />,
-    description: "↙ 300 (18%)",
+    id: 13,
+    title: "Total Requests",
+    value: "120",
+    icon: <GitPullRequest className="w-8 h-8" />,
+    description: "Requests",
+    dropdown: [
+      {id: 4, name: "Approved", value: 100},
+      {id: 5, name: "Pending", value: 200},
+      {id: 6, name: "Rejected", value: 150},
+    ],
+  },
+  {
+    id: 14,
+    title: "Total Projects",
+    value: "11",
+    icon: <FolderKanban className="w-8 h-8" />,
+    description: "Projects",
+    dropdown: [
+      {id: 7, name: "Ongoing Projects", value: 100},
+      {id: 8, name: "Completed Projects", value: 200},
+    ],
   },
 ];
 
@@ -69,7 +92,7 @@ function Dashboard() {
       {/** ---------------------- Different stats content 1 ------------------------- */}
       <div className="grid lg:grid-cols-4 mt-2 md:grid-cols-2 grid-cols-1 gap-6">
         {statsData.map((d, k) => {
-          return <DashboardStats key={k} {...d} colorIndex={k} />;
+          return <DashboardStats key={d.id} {...d} colorIndex={k} />;
         })}
       </div>
 
@@ -80,11 +103,11 @@ function Dashboard() {
             </div> */}
 
       {/** ---------------------- Different stats content 2 ------------------------- */}
-
+      {/* 
       <div className="grid lg:grid-cols-2 mt-10 grid-cols-1 gap-6">
         <AmountStats />
         <PageStats />
-      </div>
+      </div> */}
 
       {/** ---------------------- User source channels table  ------------------------- */}
 
