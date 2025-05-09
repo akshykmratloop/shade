@@ -167,7 +167,8 @@ const generateRequest = async (content, userId) => {
 
 const getRequest = async (
   userId,
-  userRole,
+  roleId,
+  permission,
   search,
   status,
   pageNum,
@@ -175,7 +176,8 @@ const getRequest = async (
 ) => {
   const requests = await fetchRequests(
     userId,
-    userRole,
+    roleId,
+    permission,
     search,
     status,
     pageNum,
