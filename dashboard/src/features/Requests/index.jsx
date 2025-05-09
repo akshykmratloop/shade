@@ -115,7 +115,7 @@ function Requests() {
   const [requests, setRequests] = useState([]);
   const [originalRequests, setOriginalRequests] = useState([]);
   const [showAddForm, setShowAddForm] = useState(false);
-  const [changesInRequest, setChangesInRequest] = useState(false);
+  // const [changesInRequest, setChangesInRequest] = useState(false);
   const [selectedRequest, setSelectedRequest] = useState(null);
   const [showDetailsModal, setShowDetailsModal] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
@@ -138,7 +138,7 @@ function Requests() {
   const [canSeePublisher, setCasSeePublisher] = useState((isVerifier || isManager))
   const noneCanSee = !(isEditor || isManager || isVerifier || isPublisher)
   const RoleTypeIsUser = userPermissionsSet.has(currentRole.permissions[0])
-  const [permission, setPermission] = useState(RoleTypeIsUser ? currentRole.permissions[0] : "")
+  const permission = (RoleTypeIsUser ? currentRole.permissions[0] : false)
 
   // Fucntions
   const navigate = useNavigate();
@@ -159,19 +159,19 @@ function Requests() {
         setCanSeeEditor(false)
         setCanSeeVerifier(false)
         setCasSeePublisher(false)
-        setPermission(permission)
+        permission = (permission)
         break;
       case "VERIFY":
         setCanSeeVerifier(false)
         setCanSeeEditor(true)
         setCasSeePublisher(true)
-        setPermission(permission)
+        permission = (permission)
         break;
       case "PUBLISH":
         setCasSeePublisher(false)
         setCanSeeVerifier(true)
         setCanSeeEditor(true)
-        setPermission(permission)
+        permission = (permission)
         break;
     }
   }
@@ -224,18 +224,15 @@ function Requests() {
   // Side Effects
   useEffect(() => { // Fetch Requests
     if (currentRole.id) {
-      
-      console.log(currentRole.permissions?.[0], "------------------")
-      console.log(RoleTypeIsUser ? currentRole.permissions : "NotUserType")
 
       async function fetchRequestsData() {
         try {
           const payload = { roleId: roleId ?? "" }
 
-          console.log(RoleTypeIsUser, permission)
           if (RoleTypeIsUser && permission) payload.permission = permission
+          let response
 
-          const response = await getRequests(payload);
+          response = await getRequests(payload);
           if (response.ok) {
             setRequests(response.requests.data);
           }
@@ -249,7 +246,7 @@ function Requests() {
       }
       fetchRequestsData();
     }
-  }, [changesInRequest, currentRole.id, permission]);
+  }, [currentRole.id, permission]);
 
   useEffect(() => {
     setCanSeeEditor(isVerifier || isPublisher || isManager)
@@ -576,7 +573,7 @@ function Requests() {
           role={selectedRequest}
           show={showDetailsModal}
           resourceId={resourceId}
-          updateRoles={setChangesInRequest}
+          // updateRoles={setChangesInRequest}
           onClose={() => {
             setSelectedRequest(false);
             setShowDetailsModal(false);
