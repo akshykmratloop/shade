@@ -48,6 +48,7 @@ const EditPage = () => {
     // const outOfEditing = !(stageStatus === "EDITING" || stageStatus === "DRAFT" || stageStatus === "PUBLISHED")
 
     const content = createContent(contentFromRedux, "edit", currentPath)
+    console.log(content)
 
     const Routes = [
         'home', 'solutions', 'about', "services", "service", 'markets',
@@ -71,7 +72,7 @@ const EditPage = () => {
 
     useEffect(() => {
         setOutOfEditing(!(stageStatus === "EDITING" || stageStatus === "DRAFT" || stageStatus === "PUBLISHED"))
-    }, [isManager])
+    }, [isManager, stageStatus])
 
     useEffect(() => {
         if (currentId) {

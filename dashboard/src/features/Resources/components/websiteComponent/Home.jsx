@@ -55,6 +55,8 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
         return chunks;
     };
     const projectsPerSlide = 4;
+
+    console.log(content?.projectGrid?.sections)
     let projectChunks = chunkArray(
         content?.projectGrid?.sections?.[activeRecentProjectSection]?.items || [],
         projectsPerSlide
@@ -284,10 +286,10 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                     </div>
                 </div>
             </section >
+
             {/* subProjects */}
             < section className={`py-[58px] ${isPhone ? "px-2" : "px-8"}  relative`} dir={isLeftAlign ? 'ltr' : 'rtl'}
                 style={{ padding: isComputer && `50px ${dynamicSize(150, width)}`, }}
-
             >
                 <div className={`container mx-auto flex relative  ${!isLeftAlign && 'flex-row-reverse'} ${!isLeftAlign && isTablet && "pl-[200px]"}`}
                 // style={{width: isComputer && dynamicSize(1227, width)}}
@@ -316,7 +318,6 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                         )}
                     </div>
 
-
                     <div className={`flex ${isTablet ? isPhone ? "gap-[20px]" : "gap-[30px]" : "gap-[30px]"} ${isLeftAlign && !isComputer && "pr-20"} `}
                         style={{ gap: isComputer && dynamicSize(70, width), width: isComputer || fullScreen ? dynamicSize(1230, width) : "100%" }}>
                         <div className={`leftDetails min-w-[150px] ${isTablet ? isPhone ? "w-[150px]" : "w-[240px]" : ""}`}
@@ -326,16 +327,14 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                                     key={index}
                                     className={`relative `}
                                 >
-                                    <span
-                                        className={
+                                    <span className={
                                             activeRecentProjectSection === index
                                                 ? 'font-bold leading-[36px] mb-[16px] cursor-pointer relative'
                                                 : 'font-bold leading-[36px] mb-[16px] cursor-pointer'
                                         }
                                         onClick={() => setActiveRecentProjectSection(index)}
                                     >
-                                        <h2
-                                            className={`${activeRecentProjectSection === index ? 'text-[#292e3d]' : 'text-[#292e3d]'} text-md cursor-pointer`}
+                                        <h2 className={`${activeRecentProjectSection === index ? 'text-[#292e3d]' : 'text-[#292e3d]'} text-md cursor-pointer`}
                                             onClick={() => setActiveRecentProjectSection(index)}
                                             style={{ fontSize: isComputer && dynamicSize(32, width) }}
                                         >
@@ -343,8 +342,7 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                                         </h2>
                                     </span>
 
-                                    <p
-                                        className={`${activeRecentProjectSection === index
+                                    <p className={`${activeRecentProjectSection === index
                                             ? 'text-[#292e3d] text-xs leading-[25px] mb-[24px] opacity-100 transform translate-y-0 transition-opacity duration-300'
                                             : 'text-[#292e3d] text-xs leading-[25px] mb-[24px] opacity-0 h-0 transform translate-y-[-20px] transition-opacity duration-300'
                                             }`}
@@ -488,17 +486,18 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                     <div className="text-center mb-8">
                         <h2 className="text-white text-3xl font-bold mb-4"
                             style={{ fontSize: isComputer && dynamicSize(36, width) }}
-                        >
-                            {content?.clientLogo?.content?.title[language]}
+                        > {
+                        }
+                            {content?.clientLogos?.content?.title[language]}
                         </h2>
                         <p className="text-white text-base font-light leading-6"
                             style={{ fontSize: isComputer && dynamicSize(16, width) }}
                         >
-                            {content?.clientLogo?.content?.description[language]}
+                            {content?.clientLogos?.content?.description[language]}
                         </p>
                     </div>
                     <div className={`flex items-center justify-around ${isPhone ? "flex-col gap-4" : "flex-wrap gap-2"}`}>
-                        {content?.clientLogo?.content?.clients?.map((client, key) => (
+                        {content?.clientLogos?.content?.clients?.map((client, key) => (
                             <div
                                 key={key}
                                 className="w-[120px] h-[120px] bg-white rounded-full flex items-center justify-center p-5"
