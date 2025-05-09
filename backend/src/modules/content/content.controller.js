@@ -112,14 +112,15 @@ const GenerateRequest = async (req, res) => {
 };
 
 const GetRequest = async (req, res) => {
-  const { userRole, search, status, page, limit } = req.query;
+  const { roleId, permission, search, status, page, limit } = req.query;
   const userId = req.user.id;
 
   const pageNum = parseInt(page) || 1;
   const limitNum = parseInt(limit) || 100;
   const response = await getRequest(
     userId,
-    userRole,
+    roleId,
+    permission,
     search,
     status,
     pageNum,
