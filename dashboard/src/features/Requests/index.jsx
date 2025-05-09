@@ -224,10 +224,15 @@ function Requests() {
   // Side Effects
   useEffect(() => { // Fetch Requests
     if (currentRole.id) {
+      
+      console.log(currentRole.permissions?.[0], "------------------")
+      console.log(RoleTypeIsUser ? currentRole.permissions : "NotUserType")
+
       async function fetchRequestsData() {
         try {
           const payload = { roleId: roleId ?? "" }
 
+          console.log(RoleTypeIsUser, permission)
           if (RoleTypeIsUser && permission) payload.permission = permission
 
           const response = await getRequests(payload);
@@ -244,7 +249,7 @@ function Requests() {
       }
       fetchRequestsData();
     }
-  }, [changesInRequest, currentRole, permission]);
+  }, [changesInRequest, currentRole.id, permission]);
 
   useEffect(() => {
     setCanSeeEditor(isVerifier || isPublisher || isManager)
