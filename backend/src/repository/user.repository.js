@@ -167,10 +167,37 @@ export const updateUser = async (id, name, password, phone, roles) => {
   const updatedUser = await prismaClient.user.update({
     where: {id},
     data: dataToUpdate,
-    include: {roles: {include: {role: true}}},
+    include: {
+      roles: {
+        include: {
+          role: {
+            include: {
+              permissions: {
+                include: {
+                  permission: true,
+                },
+              },
+              roleType: true,
+            },
+          },
+        },
+      },
+    },
   });
 
-  return updatedUser;
+  const roleAndPermission =
+    updatedUser.roles?.map((role) => ({
+      id: role.role.id,
+      role: role.role.name,
+      roleType: role.role.roleType.name,
+      status: role.role.status,
+      permissions: role.role.permissions.map((perm) => perm.permission.name),
+    })) || [];
+
+  return {
+    ...updatedUser,
+    roles: roleAndPermission,
+  };
 };
 
 // Find and return the user object

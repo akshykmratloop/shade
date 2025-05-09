@@ -108,6 +108,7 @@ const auditLogger = async (req, res, next) => {
           userId: user?.id,
           entity,
           newValue,
+          actionType,
         });
       }
     } catch (err) {

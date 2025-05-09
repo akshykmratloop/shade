@@ -118,6 +118,7 @@ export const handleEntityCreationNotification = async ({
   userId,
   entity,
   newValue,
+  actionType,
 }) => {
   try {
     const creator = await prismaClient.user.findUnique({
@@ -133,8 +134,9 @@ export const handleEntityCreationNotification = async ({
     // Build base message
     const subject =
       newValue.name || newValue.email || newValue.title || newValue.id;
-    const actionVerb = entity === "user" ? "updated" : "created";
-    const message = `A ${entity} '${subject}' has been ${actionVerb}`;
+    const verb = actionType === "CREATE" ? "created" : "updated";
+    // const actionVerb = entity === "user" ? "updated" : "created";
+    const message = `A ${entity} '${subject}' has been ${verb}`;
 
     // Determine recipients: always super admins + users sharing any permission with creator
     // 1️⃣ Super admins

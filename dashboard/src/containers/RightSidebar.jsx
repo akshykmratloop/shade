@@ -74,13 +74,13 @@ function RightSidebar() {
 
     socket.on("role_created", handleNewNotification);
     // socket.on("user_created", handleNewNotification);
-    // socket.on("user_updated", handleNewNotification);
+    socket.on("user_updated", handleNewNotification);
     socket.on("user_created", handleNewNotification);
     // …listen for any other events you emit
 
     return () => {
       socket.off("role_created", handleNewNotification);
-      // socket.off("user_updated", handleNewNotification);
+      socket.off("user_updated", handleNewNotification);
 
       socket.off("user_created", handleNewNotification);
     };

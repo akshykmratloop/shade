@@ -97,23 +97,23 @@ const AddUserModal = ({show, onClose, updateUsers, user}) => {
       }
 
       if (response?.ok) {
-        updateToasify(
-          loadingToastId,
-          `User Created successful! 🎉`,
-          "success",
-          1000
-        );
+        // updateToasify(
+        //   loadingToastId,
+        //   `User Created successful! 🎉`,
+        //   "success",
+        //   1000
+        // );
       } else {
-        updateToasify(
-          loadingToastId,
-          `Request failed. ${
-            response?.message
-              ? response.message
-              : "Something went wrong please try again later"
-          }`,
-          "error",
-          2000
-        );
+        // updateToasify(
+        //   loadingToastId,
+        //   `Request failed. ${
+        //     response?.message
+        //       ? response.message
+        //       : "Something went wrong please try again later"
+        //   }`,
+        //   "error",
+        //   2000
+        // );
       }
     } catch (err) {
       console.log(err?.message);
