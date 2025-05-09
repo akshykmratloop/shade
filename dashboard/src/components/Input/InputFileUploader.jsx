@@ -5,7 +5,7 @@ import { removeImages, updateImages } from "../../features/common/homeContentSli
 import { FaFileUpload } from "react-icons/fa";
 import { TruncateText } from "../../app/capitalizeword";
 
-const FileUploader = ({ label, baseClass, id, currentPath }) => {
+const FileUploader = ({ label, baseClass, id, currentPath, outOfEditing }) => {
     const dispatch = useDispatch();
     const [fileName, setFileName] = useState("");
     const [fileURL, setFileURL] = useState("");
@@ -50,11 +50,15 @@ const FileUploader = ({ label, baseClass, id, currentPath }) => {
     }, [fileURL]);
 
     return (
-        <div className={`relative ${baseClass} mt-2 mb-4 flex flex-col`}>
+        <div className={`relative ${baseClass} mt-2 mb-4 flex flex-col `}>
+
             <label htmlFor={id} className="label-text sm:text-xs xl:text-sm mb-1 text-[#6B7888]">{label}</label>
 
             {/* File Input Bar */}
             <div className="relative w-full rounded-md overflow-hidden cursor-pointer bg-[#F4F4F4] dark:bg-[#2a303c] flex items-center p-2">
+            {outOfEditing &&
+                <div className="absolute bg-stone-300/30 top-0 left-0 z-[35] cursor-not-allowed w-full h-full select-none">
+                </div>}
                 <input
                     type="file"
                     id={id}
@@ -62,6 +66,7 @@ const FileUploader = ({ label, baseClass, id, currentPath }) => {
                     ref={fileInputRef}
                     onChange={handleFileChange}
                     accept="image/*,application/pdf,.docx,.xlsx,.zip,.txt"
+                    disabled={outOfEditing}
                 />
                 <label htmlFor={id} className="flex items-center gap-2 cursor-pointer w-full ">
                     <FaFileUpload className="w-4 h-4 text-gray-500" />
@@ -90,7 +95,7 @@ const FileUploader = ({ label, baseClass, id, currentPath }) => {
                     ) : (
                         <div className="flex items-center gap-2 text-gray-700 dark:text-gray-300">
                             <FileText className="w-5 h-5" />
-                            <span className="text-sm truncate">{TruncateText(fileName, 20) }</span>
+                            <span className="text-sm truncate">{TruncateText(fileName, 20)}</span>
                         </div>
                     )}
                 </div>

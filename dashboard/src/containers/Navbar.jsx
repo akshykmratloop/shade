@@ -1,5 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import { updateTag, updateType } from "../features/common/navbarSlice";
+import capitalizeWords from "../app/capitalizeword";
 
 const Navbar = ({ setCurrentResource }) => {
     const userPermissions = useSelector(state => state.user.user?.permissions);
@@ -17,7 +18,8 @@ const Navbar = ({ setCurrentResource }) => {
         { name: "Testimonials", resourceType: "SUB_PAGE", resourceTag: "TESTIMONIAL", permission: "TESTIMONIAL_MANAGEMENT" },
         { name: "Career Page", resourceType: "SUB_PAGE", resourceTag: "CAREER", permission: "CAREER_MANAGEMENT" },
         { name: "Blogs & News", resourceType: "SUB_PAGE", resourceTag: "NEWS", permission: "NEWS_BLOGS_MANAGEMENT" },
-        { name: "Sub Page", resourceType: "HEADER_FOOTER", resourceTag: "HEADER_FOOTER", permission: ["HEADER_MANAGEMENT", "FOOTER_MANAGEMENT"] },
+        { name: "Header", resourceType: "HEADER", resourceTag: "HEADER", permission: ["HEADER_MANAGEMENT", "FOOTER_MANAGEMENT"] },
+        { name: "Footer", resourceType: "FOOTER", resourceTag: "FOOTER", permission: ["HEADER_MANAGEMENT", "FOOTER_MANAGEMENT"] },
     ];
 
     const hasPermission = (required) => {
@@ -47,12 +49,13 @@ const Navbar = ({ setCurrentResource }) => {
                             >
                                 <button
                                     onClick={() => settingResources(nav.resourceType, nav.resourceTag)}
-                                    className={`block w-full rounded-lg py-3 ${currentNav === nav.resourceTag
+                                    className={`block w-full rounded-lg py-1 ${currentNav === nav.resourceTag
                                         ? "bg-base-200 text-stone-700 dark:text-stone-50"
                                         : "hover:bg-base-200"
-                                        } hover:text-stone-700 dark:hover:text-stone-50 transition`}
+                                        } hover:text-stone-700 dark:hover:text-stone-50 transition flex flex-col`}
                                 >
                                     {nav.name}
+                                    <span className="text-[300] text-[9px]">{"("}{capitalizeWords(nav.resourceType)}{")"}</span>
                                 </button>
                                 {index !== navs.length - 1 && (
                                     <span className="absolute right-[-1px] top-1/2 -translate-y-1/2 h-1/2 w-[1px] bg-white"></span>

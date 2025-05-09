@@ -1,3 +1,5 @@
+import { useEffect, useRef, useState } from "react";
+
 const ToggleSwitch = ({ options, switchToggles }) => {
     const [selectedIndex, setSelectedIndex] = useState(0);
     const containerRef = useRef(null);
@@ -16,7 +18,9 @@ const ToggleSwitch = ({ options, switchToggles }) => {
     }, [selectedIndex, options]);
 
     useEffect(() => {
-        switchToggles(options[0]);
+        if(switchToggles){
+            switchToggles(options?.[0]);
+        }
     }, []);
 
     return (
@@ -31,7 +35,7 @@ const ToggleSwitch = ({ options, switchToggles }) => {
             ></div>
 
             {/* Options */}
-            {options.map((option, index) => (
+            {options?.map((option, index) => (
                 <button
                     key={index}
                     ref={(el) => (buttonRefs.current[index] = el)}

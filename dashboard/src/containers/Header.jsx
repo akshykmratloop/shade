@@ -7,7 +7,7 @@ import SunIcon from "@heroicons/react/24/outline/SunIcon";
 import { openRightDrawer } from "../features/common/rightDrawerSlice";
 import { RIGHT_DRAWER_TYPES } from "../utils/globalConstantUtil";
 import { LiaUserCircleSolid } from "react-icons/lia";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { openModal } from "../features/common/modalSlice";
 import { MODAL_BODY_TYPES } from "../utils/globalConstantUtil";
 import SearchBar from "../components/Input/SearchBar";
@@ -19,54 +19,28 @@ import { updateCurrentRole } from "../features/common/userSlice";
 import { FaCaretDown } from "react-icons/fa";
 
 function Header() {
-  const dispatch = useDispatch();
-  const userObj = useSelector((state) => state.user);
-  const { user, currentRole } = userObj
-  const { noOfNotifications } = useSelector((state) => state.header);
-  const [currentTheme, setCurrentTheme] = useState(null);
+  // state
   const [greetings, setGreetings] = useState("Good Morning");
-  const listRef = useRef(null)
   const [openList, setOpenList] = useState(false)
+  const [currentTheme, setCurrentTheme] = useState(null);
 
-  const userId = user.id;
+  // redux state
+  const userObj = useSelector((state) => state.user);
+  const { noOfNotifications } = useSelector((state) => state.header);
+  const { user, currentRole } = userObj
+
+  // ref
+  const listRef = useRef(null)
+
+  // variables
   const oneRoleOnly = user.roles?.length === 1
+  const userId = user.id;
 
   //=========================================================================
+  // functions
+  const dispatch = useDispatch();
+  const navigate = useNavigate()
 
-  useEffect(() => {
-    if (!userId) return;
-    (async () => {
-      const res = await getNotificationsbyId(userId);
-      const unread = res?.notifications?.filter((n) => !n.isRead)?.length;
-      dispatch(setNotificationCount(unread));
-    })();
-  }, [userId, dispatch]);
-
-  useEffect(() => {
-    if (!userId) return;
-
-    // join your room
-    socket.emit("join", userId);
-
-    // handler to re‑fetch the unread count
-    const handleNew = async (payload) => {
-      if (payload.userId !== userId) return;
-      const res = await getNotificationsbyId(userId);
-      const unread = res.notifications?.filter((n) => !n.isRead)?.length;
-      dispatch(setNotificationCount(unread));
-    };
-
-    socket.on("role_created", handleNew);
-    socket.on("user_created", handleNew);
-    // …listen to any other event names you emit
-
-    return () => {
-      socket.off("role_created", handleNew);
-      socket.off("user_created", handleNew);
-    };
-  }, [userId, dispatch]);
-
-  //=========================================================================
 
   // Opening right sidebar for notification
   const openNotification = () => {
@@ -102,10 +76,13 @@ function Header() {
     document.documentElement.setAttribute("data-theme", newTheme);
   };
 
-  const switchRole = (id) => {
+  const switchRole = (id) => { // Switch Role
     localStorage.setItem("currentRole", id)
-    dispatch(updateCurrentRole(id))
+    // dispatch(updateCurrentRole(id))
+    navigate(0)
   }
+
+  //=========================================================================
 
   useEffect(() => {
     const storedTheme =
@@ -140,6 +117,39 @@ function Header() {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+
+  useEffect(() => {
+    if (!userId) return;
+    (async () => {
+      const res = await getNotificationsbyId(userId);
+      const unread = res?.notifications?.filter((n) => !n.isRead)?.length;
+      dispatch(setNotificationCount(unread));
+    })();
+  }, [userId, dispatch]);
+
+  useEffect(() => {
+    if (!userId) return;
+
+    // join your room
+    socket.emit("join", userId);
+
+    // handler to re‑fetch the unread count
+    const handleNew = async (payload) => {
+      if (payload.userId !== userId) return;
+      const res = await getNotificationsbyId(userId);
+      const unread = res.notifications?.filter((n) => !n.isRead)?.length;
+      dispatch(setNotificationCount(unread));
+    };
+
+    socket.on("role_created", handleNew);
+    socket.on("user_created", handleNew);
+    // …listen to any other event names you emit
+
+    return () => {
+      socket.off("role_created", handleNew);
+      socket.off("user_created", handleNew);
+    };
+  }, [userId, dispatch]);
 
   // useEffect(() => {
   //   async function fetchUnreadCount() {
@@ -196,13 +206,20 @@ function Header() {
               <BellIcon className="h-6 w-6" />
             </div>
           </button> */}
-          <div className="py-1 mx-1 w-[13vw] px-2 bg-base-300 self-stretch flex items-center rounded-md relative cursor-pointer "
+          <div className="mx-1 w-[16vw] p-0 self-stretch flex gap-[6px] items-center rounded-md relative cursor-pointer "
             onClick={() => { setOpenList(!openList) }}
             title={capitalizeWords(currentRole?.role)}
           >
-            <label className="flex items-center justify-between cursor-pointer w-full">
-              <div className="flex h-[100%] items-center justify-center flex-row" >
-                {TruncateText(capitalizeWords(currentRole?.role), 18)}
+            <div className="py-1 px-[4px] pl-[6px] text-[14px] h-full flex items-center font-[600] rounded-[5px_0px_0px_5px]"
+              onClick={() => { setOpenList(!openList) }}
+            >
+              Role
+            </div>
+            <label className="flex items-center justify-between cursor-pointer w-full bg-base-300 py-1 px-[6px] h-full rounded-md"
+              onClick={() => { setOpenList(!openList) }}
+            >
+              <div className="flex h-[100%] items-center justify-center flex-row text-[clamp(10px,1.7vh,2rem)]" style={{ whiteSpace: "" }}>
+                {TruncateText(capitalizeWords(currentRole?.role), 20)}
               </div>
               {
                 !oneRoleOnly &&
@@ -213,7 +230,7 @@ function Header() {
               !oneRoleOnly &&
               <ul
                 ref={listRef}
-                className="dropdown-content mt-1 left-0 top-[100%] dark:border dark:border-stone-300/20 dark:shadow-md dark:shadow-stone-800 absolute z-[30] p-2 shadow bg-base-100 rounded-md w-[12vw] flex flex-col gap-1"
+                className="dropdown-content mt-1 left-[18%] top-[100%] dark:border dark:border-stone-300/20 dark:shadow-md dark:shadow-stone-800 absolute z-[30] p-2 shadow bg-base-100 rounded-md w-[12vw] flex flex-col gap-1"
                 style={{ display: openList ? "flex" : "none" }}
               >
                 {user.roles?.map((e, i) => {

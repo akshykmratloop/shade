@@ -1,13 +1,23 @@
+import landingPage from "../../assets/resourcepage/landingPage.png"
+import aboutUS from "../../assets/resourcepage/aboutUs.png"
+import solutionPage from "../../assets/resourcepage/solution-page.png"
+import marketpage from "../../assets/resourcepage/marketPage.png"
+import careerspage from "../../assets/resourcepage/CareersPage.png"
+import servicePage from "../../assets/resourcepage/ourService.png"
+import news from "../../assets/resourcepage/News-Blogs.png"
+import projectpage from "../../assets/resourcepage/OurProject.png"
+
+
 const resources = {
     pages: [
-        { heading: "Home", src: "https://shade-six.vercel.app/", assign: true },
-        { heading: "About", src: "https://shade-six.vercel.app/about-us", assign: false },
-        { heading: "Solution", src: "https://shade-six.vercel.app/solution", assign: true },
-        { heading: "Services", src: "https://shade-six.vercel.app/services", assign: false },
-        { heading: "Markets", src: "https://shade-six.vercel.app/market", assign: true },
-        { heading: "Projects", src: "https://shade-six.vercel.app/project", assign: false },
-        { heading: "Careers", src: "https://shade-six.vercel.app/career", assign: true },
-        { heading: "News", src: "https://shade-six.vercel.app/news-and-blogs", assign: false },
+        { "Home": landingPage, },
+        { "About": aboutUS, },
+        { "Solution": solutionPage, },
+        { "Services": servicePage, },
+        { "Markets": marketpage, },
+        { "Projects": projectpage, },
+        { "Careers": careerspage, },
+        { "News": news },
     ],
     services: [
         { subPage: 1, heading: "Construction Management", src: "", assign: true },
@@ -62,4 +72,16 @@ const resources = {
     ]
 }
 
+const pagesImages = {
+    "home": landingPage,
+    "about": aboutUS,
+    "solutions": solutionPage,
+    "services": servicePage,
+    "market": marketpage,
+    "projects": projectpage,
+    "careers": careerspage,
+    "news": news
+}
+
+export { pagesImages }
 export default resources

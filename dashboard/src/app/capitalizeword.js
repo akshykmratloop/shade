@@ -1,16 +1,11 @@
-// export default function capitalizeword(word) {
-//     if(typeof(word) === "string"){
-//         return word[0].toUpperCase() + word.toLowerCase().slice(1)
-//     }
-// }
 import { useMemo } from "react";
-
 /**
  * Custom hook for truncating text to a specified length
  * @param {string} text - The text to truncate
  * @param {number} maxLength - The maximum length of the text before truncation
  * @returns {string} - The truncated text with "..." appended if it exceeds maxLength
  */
+
 export const useTruncate = (text, maxLength) => {
   const truncatedText = useMemo(() => {
     if (text.length > maxLength) {

@@ -19,7 +19,8 @@ function InternalPage() {
                 <h1 className="text-5xl  font-bold">404 - Not Found</h1>
                 </div>
             </div> */}
-            <div className="">
+            {/* <div className='absolute z-[35] top-0 left-0 w-full h-full bg-transparent dark:bg-stone-800/20 border translate-y-[60px]'></div> */}
+            <div className="relative">
                 <div className="flex justify-center py-16"><img src={unavailableIcon} alt="" className="w-[200px]" /></div>
             </div>
         </div>
