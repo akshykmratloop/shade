@@ -22,7 +22,7 @@ export default function LanguageSwitch({ setLanguage, language, w }) {
 
     return (
         <div
-            className={`sticky top-0 z-50 ${w ?? "w-full"} h-[2.5rem] text-[.8rem] font-light bg-gray-300 rounded-md cursor-pointer flex-shrink-0 overflow-visible isolation-isolate`}
+            className={`sticky top-0 z-40 ${w ?? "w-full"} h-[2.5rem] text-[.8rem] font-light bg-gray-300 rounded-md cursor-pointer flex-shrink-0 overflow-visible isolation-isolate`}
             onClick={changeLanguage}
         >
             {/* Toggle Background */}

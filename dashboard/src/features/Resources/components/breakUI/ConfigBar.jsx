@@ -102,7 +102,7 @@ const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
       // toast.dismiss(loadingToastId)
     }
   }
-////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////
 
   async function removeAllUsers() {
     if (debouncingState) return
@@ -154,13 +154,23 @@ const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
       }
     };
 
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") {
+        closeButton()
+      }
+    }
+
     if (display) {
       document.addEventListener("mousedown", handleClickOutside);
+      document.addEventListener("keydown", handleKeyDown);
     } else {
       document.removeEventListener("mousedown", handleClickOutside);
     }
 
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside)
+      document.removeEventListener("keydown", handleKeyDown);
+    }
   }, [display, setOn]);
 
   // if PreAssignedUsers are set
@@ -230,7 +240,6 @@ const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
   useEffect(() => {
     if (initialFormValue.current) {
       const hasChanged = !isEqual(formObj, initialFormValue.current);
-      console.log(formObj, initialFormValue.current)
       setIsChanged(hasChanged);
     }
   }, [formObj]);

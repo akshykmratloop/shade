@@ -66,7 +66,7 @@ const HomeManager = ({ language, content, currentPath, indexes, outOfEditing }) 
     return ( /// Component
         <div className="w-full">
             {/* reference doc */}
-            <FileUploader id={"homeReference"} label={"Rerference doc"} fileName={"Upload your file..."} />
+            <FileUploader id={"homeReference"} label={"Rerference doc"} fileName={"Upload your file..."} outOfEditing={outOfEditing} />
             {/* homeBanner */}
             <ContentSection
                 currentPath={currentPath}
@@ -224,11 +224,12 @@ const HomeManager = ({ language, content, currentPath, indexes, outOfEditing }) 
                 outOfEditing={outOfEditing}
             />
 
+            {/* testimonials */}
             <ContentSection
                 currentPath={currentPath}
                 Heading={"Testimonials"}
                 inputs={[
-                    { input: "input", label: "Heading/title", updateType: "title", value: content?.testimonials?.content?.title[language] },
+                    { input: "input", label: "Heading/title", maxLength: 55, updateType: "title", value: content?.testimonials?.content?.title[language] },
                 ]}
                 section={"Testimonials heading"}
                 language={language}
@@ -260,7 +261,7 @@ const HomeManager = ({ language, content, currentPath, indexes, outOfEditing }) 
                 currentPath={currentPath}
                 Heading={"New Project"}
                 inputs={[
-                    { input: "input", label: "Heading/title", updateType: "title", value: content?.normalContent?.content?.title?.[language] },
+                    { input: "input", label: "Heading/title", maxLength: 55, updateType: "title", value: content?.normalContent?.content?.title?.[language] },
                     { input: "richtext", label: "Description 1", updateType: "description", value: content?.normalContent?.content?.description?.[language] },
                     // { input: "textarea", label: "Description 2", updateType: "description2", value: content?.normalContent?.content?.description2?.[language] },
                     // { input: "intpu", label: "Highlight Text", updateType: "highlightedText", value: content?.normalContent?.content?.highlightedText?.[language] },

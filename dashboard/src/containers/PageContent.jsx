@@ -27,7 +27,6 @@ function PageContent() {
 
     useEffect(() => {
         let route = localStorage.getItem("route")
-console.log(location.pathname.split('/').length)
         if (route && location.pathname.split('/').length < 4) {
             navigate(route)
         }

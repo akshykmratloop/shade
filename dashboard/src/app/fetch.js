@@ -406,18 +406,29 @@ export async function generateRequest(body) {
   );
 }
 
+// export async function getRequests(query) {
+//   if (!query || typeof query !== "object") {
+//     return await makerequest(api.route("getRequests"), "GET");
+//   }
+
+//   const [key] = Object.keys(query);
+//   const value = query[key];
+
+//   return await makerequest(
+//     `${api.route("getRequests")}?${key}=${value}`,
+//     "GET"
+//   );
+// }
+
 export async function getRequests(query) {
-  if (!query || typeof query !== "object") {
+  if (!query || typeof query !== "object" || Object.keys(query).length === 0) {
     return await makerequest(api.route("getRequests"), "GET");
   }
 
-  const [key] = Object.keys(query);
-  const value = query[key];
+  const params = new URLSearchParams(query).toString();
+  const url = `${api.route("getRequests")}?${params}`;
 
-  return await makerequest(
-    `${api.route("getRequests")}?${key}=${value}`,
-    "GET"
-  );
+  return await makerequest(url, "GET");
 }
 
 export async function uploadMedia(data) {

@@ -1,8 +1,7 @@
-import { useEffect, useRef, useState, useCallback, Suspense } from "react";
+import React, { useEffect, useRef, useState, useCallback, Suspense } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { lazy } from "react";
-
 // import AllForOne from "./components/AllForOne"
 import { ToastContainer } from "react-toastify";
 import { MoonLoader } from "react-spinners";
@@ -12,8 +11,10 @@ import { AiOutlineInfoCircle } from "react-icons/ai";
 import { FiEdit } from "react-icons/fi";
 import { IoSettingsOutline } from "react-icons/io5";
 import { LuEye } from "react-icons/lu";
-
+// Image
+import landingPage from "../../assets/resourcepage/landingPage.png"
 // Components, Assets & Utils
+import { pagesImages } from "./resourcedata";
 import ConfigBar from "./components/breakUI/ConfigBar";
 import PageDetails from "./components/breakUI/PageDetails";
 import Navbar from "../../containers/Navbar";
@@ -60,7 +61,8 @@ function Resources() {
   const resourceTag = useSelector((state) => state.navBar.resourceTag);
   const userObj = useSelector(state => state.user)
 
-  const { isManager, isEditor } = userObj
+  const { isManager, isEditor, currentRole } = userObj
+  const currentRoleId = currentRole?.id
   const superUser = userObj.user?.isSuperUser
 
   // Variables
@@ -133,10 +135,10 @@ function Resources() {
       if (!resourceType) return;
 
       setLoading(true); // Start loading
-      const roleType = isManager ? "MANAGER" : "USER"
-      const payload = ["MAIN", "HEADER_FOOTER"].includes(resourceTag)
-        ? { resourceType, ...(superUser ? {} : { roleType }), }
-        : { resourceType, resourceTag, relationType: "CHILD", ...(superUser ? {} : { roleType }), };
+      // const roleType = isManager ? "MANAGER" : "USER"
+      const payload = ["MAIN", "FOOTER", "HEADER"].includes(resourceTag)
+        ? { resourceType, ...(superUser ? {} : { roleId: currentRoleId }), }
+        : { resourceType, resourceTag, ...(superUser ? {} : { roleId: currentRoleId }), };
 
       const response = await getResources(payload);
 
@@ -162,9 +164,9 @@ function Resources() {
     return () => observer.disconnect();
   }, [handleResize]);
 
-  useEffect(() => { // Fetch Content from server
+  useEffect(() => { // Fetch Resource's Content from server
     if (currentResourceId) {
-      async function context() {
+      async function fetchResourceContent() {
 
         try {
           const response = await getContent(currentResourceId)
@@ -186,13 +188,25 @@ function Resources() {
           console.error(err)
         }
       }
-      context()
+      fetchResourceContent()
     }
   }, [currentResourceId])
 
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") {
+        setPreview(false)
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown)
+
+    return () => document.removeEventListener("keydown", handleKeyDown)
+  }, [])
+
   /// Components ///
 
-  const ActionIcons = ({ page }) => {
+  const ActionIcons = React.memo(({ page }) => {
     const actions = [
       {
         icon: <AiOutlineInfoCircle />,
@@ -271,7 +285,7 @@ function Resources() {
         })}
       </div>
     );
-  };
+  })
 
   if (!isEditor && !isManager) return null
 
@@ -293,34 +307,60 @@ function Resources() {
             <Page404 />
           </div>
         ) : (
-          resources?.[resourceType]?.map((page, index) => (
-            <div key={page.id || index} className="w-full">
-              <h3 className="mb-1 font-poppins font-semibold">
-                {isSmall
-                  ? page.titleEn?.length > 20
-                    ? `${TruncateText(page.titleEn, 20)}...`
-                    : page.titleEn
-                  : page.titleEn?.length > 35
-                    ? `${TruncateText(page.titleEn, 35)}...`
-                    : page.titleEn}
-              </h3>
+          resources?.[resourceType]?.map((page, index) => {
+            return (
+              <div key={page.id || index} className="w-full">
+                <h3 className="mb-1 font-poppins font-semibold">
+                  {isSmall
+                    ? page.titleEn?.length > 20
+                      ? `${TruncateText(page.titleEn, 20)}...`
+                      : page.titleEn
+                    : page.titleEn?.length > 35
+                      ? `${TruncateText(page.titleEn, 35)}...`
+                      : page.titleEn}
+                </h3>
 
-              <div className="relative rounded-lg overflow-hidden border border-base-300 shadow-xl-custom">
-                <div
-                  className={`h-6 ${page.isAssigned
-                    ? "bg-[#29469c] w-[120px]"
-                    : "bg-red-500 w-[140px]"
-                    } text-white flex items-center justify-center text-sm font-light clip-concave absolute top-3 left-0 z-10`}
-                >
-                  {page.isAssigned ? "Assigned" : "Not assigned"}
-                </div>
+                <div className="relative rounded-lg overflow-hidden border border-base-300 shadow-xl-custom">
+                  {
+                    isManager ?
+                      <div
+                        className={`h-6 ${page.isAssigned
+                          ? "bg-[#29469c] w-[120px]"
+                          : "bg-red-500 w-[140px]"
+                          } text-white flex items-center justify-center text-sm font-light clip-concave absolute top-3 left-0 z-10`}
+                      >
+                        {page.isAssigned ? "Assigned" : "Not assigned"}
+                      </div> :
+                      <div
+                        className={`h-6 
+                        ${!page.newVersionEditMode
+                            ? "bg-yellow-500 w-[140px]"
+                            : page.newVersionEditMode?.versionStatus === "VERIFICATION_PENDING" ? "bg-cyan-500 w-[120px]" : "bg-lime-500 w-[120px]"
+                          } text-white flex items-center justify-center text-sm font-light clip-concave absolute top-3 left-0 z-10`}
+                      >
+                        {page.newVersionEditMode ? capitalizeWords(page.newVersionEditMode?.versionStatus) : "Under Editing"}
+                        {/* {page.newVersionEditMode?.versionStatus} */}
+                      </div>
+                  }
+                  {
+                    isManager &&
+                    <div
+                      className={`h-6 ${page.status
+                        ? "bg-[#29469c] w-[120px]"
+                        : "bg-red-500 w-[140px]"
+                        } text-white flex items-center justify-center text-sm font-light clip-concave absolute top-11 left-0 z-10`}
+                    >
+                      {capitalizeWords(page.status)}
+                    </div>
+                  }
 
-                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/50 to-black/90 via-60%"></div>
 
-                {/* <div className="relative aspect-[10/11] overflow-hidden"> */}
-                {/* <div className="h-full overflow-y-scroll customscroller"> */}
-                <div className="relative aspect-[10/11] overflow-hidden">
-                  {/* <iframe
+                  <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/50 to-black/90 via-60%"></div>
+
+                  {/* <div className="relative aspect-[10/11] overflow-hidden"> */}
+                  {/* <div className="h-full overflow-y-scroll customscroller"> */}
+                  <div className="relative aspect-[10/11] overflow-hidden">
+                    {/* <iframe
                     src={resourcesContent?.pages?.[index]?.src}
                     className={`top-0 left-0 border-none transition-all duration-300 ease-in-out ${isNarrow
                       ? "w-[1000px] scale-[0.10]"
@@ -328,22 +368,26 @@ function Resources() {
                       } p-4  bg-white`
                       } origin-top-left h-[80rem]`}
                   ></iframe> */}
+                    <div className="w-full h-full overflow-y-scroll customscroller">
+                      <img src={pagesImages[page.slug]} alt="resourceRef" />
+                    </div>
 
-                  {/* Dark Gradient Overlay */}
-                  <div className="absolute bottom-0 left-0 w-full h-1/3 bg-gradient-to-t from-black/100 via-black/40 to-transparent"></div>
-                  <div className="absolute top-0 left-0 w-full h-1/3  bg-gradient-to-b from-white/100 via-white/40 to-transparent"></div>
+                    {/* Dark Gradient Overlay */}
+                    <div className="absolute bottom-0 left-0 w-full h-1/3 bg-gradient-to-t from-black/100 via-black/40 to-transparent"></div>
+                    <div className="absolute top-0 left-0 w-full h-1/3  bg-gradient-to-b from-white/100 via-white/40 to-transparent"></div>
+                  </div>
+                  {/* <AllForOne currentPath={page.slug} content={content} language="en" screen={screen} /> */}
+                  {/* </div> */}
+
+                  <div className="absolute z-10 bottom-0 left-0 w-full h-1/3 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
+                  <div className="absolute top-0 left-0 w-full h-1/3 bg-gradient-to-b from-white via-white/40 to-transparent"></div>
+                  {/* </div> */}
+
+                  <ActionIcons page={page} />
                 </div>
-                {/* <AllForOne currentPath={page.slug} content={content} language="en" screen={screen} /> */}
-                {/* </div> */}
-
-                <div className="absolute z-10 bottom-0 left-0 w-full h-1/3 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
-                <div className="absolute top-0 left-0 w-full h-1/3 bg-gradient-to-b from-white via-white/40 to-transparent"></div>
-                {/* </div> */}
-
-                <ActionIcons page={page} />
               </div>
-            </div>
-          ))
+            )
+          })
         )}
 
         {/* Add More Card */}
