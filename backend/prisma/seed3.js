@@ -334,7 +334,7 @@ async function main() {
     }
 
     // 2. Create Footer
-    await createResource("Footer", "التذييل", "footer", "FOOTER", "NULL", "PARENT", [
+    await createResource("Footer", "التذييل", "footer", "FOOTER", "FOOTER", "PARENT", [
       {
         title: "Footer Content",
         SectionType: "FOOTER_COLUMNS",
