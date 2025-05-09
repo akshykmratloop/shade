@@ -78,7 +78,7 @@ function Header() {
 
   const switchRole = (id) => { // Switch Role
     localStorage.setItem("currentRole", id)
-    dispatch(updateCurrentRole(id))
+    // dispatch(updateCurrentRole(id))
     navigate(0)
   }
 

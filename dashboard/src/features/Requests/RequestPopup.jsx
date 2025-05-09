@@ -1,5 +1,9 @@
-const RequestPopup = () => {
-  return <div></div>;
+const RequestPopup = ({}) => {
+  return (
+    <div>
+
+    </div>
+  )
 };
 
 export default RequestPopup;

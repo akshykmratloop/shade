@@ -192,6 +192,18 @@ function Resources() {
     }
   }, [currentResourceId])
 
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") {
+        setPreview(false)
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown)
+
+    return () => document.removeEventListener("keydown", handleKeyDown)
+  }, [])
+
   /// Components ///
 
   const ActionIcons = React.memo(({ page }) => {

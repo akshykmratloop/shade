@@ -247,6 +247,12 @@ function Requests() {
   }, [changesInRequest, currentRole, permission]);
 
   useEffect(() => {
+    setCanSeeEditor(isVerifier || isPublisher || isManager)
+    setCanSeeVerifier(isPublisher || isManager)
+    setCasSeePublisher(isVerifier || isManager)
+  }, [currentRole.id])
+
+  useEffect(() => {
     if (noneCanSee) {
       navigate("/app/dashboard")
     }
@@ -559,6 +565,9 @@ function Requests() {
       </TitleCard>
       {showDetailsModal && (
         <ShowDifference
+          currentlyEditor={!canSeeEditor}
+          currentlyVerifier={canSeePublisher}
+          currentlyPublisher={canSeeVerifier}
           role={selectedRequest}
           show={showDetailsModal}
           resourceId={resourceId}
