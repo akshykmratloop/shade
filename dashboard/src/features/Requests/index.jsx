@@ -1,36 +1,32 @@
-// libraries import
-import { useEffect, useRef, useState } from "react";
-import PlusIcon from "@heroicons/react/24/outline/PlusIcon";
-import { toast, ToastContainer } from "react-toastify";
-// self modules
-import { fetchRoles, activateRole, deactivateRole, getRequests } from "../../app/fetch";
-import SearchBar from "../../components/Input/SearchBar";
-import TitleCard from "../../components/Cards/TitleCard";
-import updateToasify from "../../app/toastify";
-import Dummyuser from "../../assets/Dummy_User.json";
-// icons
-import { Switch } from "@headlessui/react";
-import XMarkIcon from "@heroicons/react/24/outline/XMarkIcon";
-import { FiEye } from "react-icons/fi";
-import { FiEdit } from "react-icons/fi";
-import { RxQuestionMarkCircled } from "react-icons/rx";
-import { LuListFilter } from "react-icons/lu";
-import { LuImport } from "react-icons/lu";
-import capitalizeWords from "../../app/capitalizeword";
-import Paginations from "../Component/Paginations";
-import formatTimestamp from "../../app/TimeFormat";
+// libraries
+import { useEffect, useState, memo } from "react";
+import { ToastContainer } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+
+// self modules and component
 import ShowDifference from "./Showdifference";
 import ShowVerifierTooltip from "./ShowVerifierTooltip";
+import Paginations from "../Component/Paginations";
+import { getRequests } from "../../app/fetch";
+import SearchBar from "../../components/Input/SearchBar";
+import TitleCard from "../../components/Cards/TitleCard";
+import capitalizeWords from "../../app/capitalizeword";
+import formatTimestamp from "../../app/TimeFormat";
 import { openRightDrawer } from "../../features/common/rightDrawerSlice";
 import { RIGHT_DRAWER_TYPES } from "../../utils/globalConstantUtil";
+import ToggleSwitch from "../../components/Toggle/Toggle";
+
+// icons
+import { FiEye } from "react-icons/fi";
+import { LuListFilter } from "react-icons/lu";
 import { PiInfoThin } from "react-icons/pi";
-import { VscInfo } from "react-icons/vsc";
+import XMarkIcon from "@heroicons/react/24/outline/XMarkIcon";
+// import { Switch } from "@headlessui/react";
+// import { FiEdit } from "react-icons/fi";
 
-// import userIcon from "../../assets/user.png"
 
-const TopSideButtons = ({
+const TopSideButtons = memo(({
   removeFilter,
   applyFilter,
   applySearch,
@@ -111,34 +107,80 @@ const TopSideButtons = ({
       </div>
     </div>
   );
-};
-
+});
+//--------------------------------------------------------------------------------------------------------------------------------------------------------//
 function Requests() {
+  const userPermissionsSet = new Set(["EDIT", "VERIFY", "PUBLISH"]); // SET FOR EACH USER LOGIC
+  // states
   const [requests, setRequests] = useState([]);
   const [originalRequests, setOriginalRequests] = useState([]);
   const [showAddForm, setShowAddForm] = useState(false);
   const [changesInRequest, setChangesInRequest] = useState(false);
   const [selectedRequest, setSelectedRequest] = useState(null);
   const [showDetailsModal, setShowDetailsModal] = useState(false);
-  const [enabled, setEnabled] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [activeIndex, setActiveIndex] = useState(null);
-  const requestsPerPage = 20;
+  const [resourceId, setResourceId] = useState("")
+  const [toggle, setToggle] = useState(false);
+
+
+
+  // redux state
   const userRole = useSelector((state) => state.user.currentRole);
   const userObj = useSelector(state => state.user)
+
   const { isManager, isEditor, isPublisher, isVerifier, currentRole } = userObj;
   const roleId = currentRole.id
-  const [resourceId, setResourceId] = useState("")
-  // const userPermissionsSet = new Set(["EDIT", "VERIFY", "PUBLISH"]); // SET FOR EACH USER LOGIC
-  // const { isOpen, bodyType, extraObject, header } = useSelector(
-  //   (state) => state.rightDrawer
-  // );
+
+  // variables for conditioned renderings
+  const [canSeeEditor, setCanSeeEditor] = useState((isVerifier || isPublisher || isManager))
+  const [canSeeVerifier, setCanSeeVerifier] = useState((isPublisher || isManager))
+  const [canSeePublisher, setCasSeePublisher] = useState((isVerifier || isManager))
+  const noneCanSee = !(isEditor || isManager || isVerifier || isPublisher)
+  const RoleTypeIsUser = userPermissionsSet.has(currentRole.permissions[0])
+  const [permission, setPermission] = useState(RoleTypeIsUser ? currentRole.permissions[0] : "")
+
+  // Fucntions
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  // Ordering the UsertypeRole options for toggle
+  const order = ["EDIT", "VERIFY", "PUBLISH"];
+
+  function sortStages(arr) {
+    if (!Array.isArray(arr)) return;
+    return arr?.sort((a, b) => order.indexOf(a) - order.indexOf(b));
+  }
+
+  // Change the reqeust table
+  const changeTable = (permission) => {
+    switch (permission) {
+      case "EDIT":
+        setCanSeeEditor(false)
+        setCanSeeVerifier(false)
+        setCasSeePublisher(false)
+        setPermission(permission)
+        break;
+      case "VERIFY":
+        setCanSeeVerifier(false)
+        setCanSeeEditor(true)
+        setCasSeePublisher(true)
+        setPermission(permission)
+        break;
+      case "PUBLISH":
+        setCasSeePublisher(false)
+        setCanSeeVerifier(true)
+        setCanSeeEditor(true)
+        setPermission(permission)
+        break;
+    }
+  }
+
   // REMOVE FILTER
   const removeFilter = () => {
     setRequests([...originalRequests]);
   };
+
   // APPLY FILTER
   const applyFilter = (status) => {
     const filteredRequests = originalRequests?.filter(
@@ -146,6 +188,7 @@ function Requests() {
     );
     setRequests(filteredRequests);
   };
+
   // APPLY SEARCH
   const applySearch = (value) => {
     const filteredRequests = originalRequests?.filter((request) =>
@@ -172,53 +215,63 @@ function Requests() {
   };
 
   // Pagination logic
+  const requestsPerPage = 20;
   const indexOfLastUser = currentPage * requestsPerPage;
   const indexOfFirstUser = indexOfLastUser - requestsPerPage;
   const currentRequests = requests?.slice(indexOfFirstUser, indexOfLastUser);
   const totalPages = Math.ceil(requests?.length / requestsPerPage);
 
-  const canSeeEditor = (isVerifier || isPublisher || isManager)
-  const canSeeVerifier = (isPublisher || isManager)
-  const canSeePublisher = (isVerifier || isManager)
-  const noneCanSee = !(isEditor || isManager || isVerifier || isPublisher)
+  // Side Effects
+  useEffect(() => { // Fetch Requests
+    if (currentRole.id) {
+      async function fetchRequestsData() {
+        try {
+          const payload = { roleId: roleId ?? "" }
+
+          if (RoleTypeIsUser && permission) payload.permission = permission
+
+          const response = await getRequests(payload);
+          if (response.ok) {
+            setRequests(response.requests.data);
+          }
+          setOriginalRequests(response?.requests?.data ?? []); // Store the original unfiltered data
+
+        } catch (err) {
+
+        } finally {
+
+        }
+      }
+      fetchRequestsData();
+    }
+  }, [changesInRequest, currentRole, permission]);
 
   useEffect(() => {
-    async function fetchRequestsData() {
-      try {
-        const payload = { roleId }
-
-        if (isEditor) payload.permission = "EDIT"
-        else if (isPublisher) payload.permission = "PUBLISH"
-        else if (isVerifier) payload.permission = "VERIFY"
-
-        // console.log(isEditor, isPublisher, isVerifier)
-        // console.log(payload)
-
-        const response = await getRequests(payload);
-        if (response.ok) {
-          setRequests(response.requests.data);
-        }
-        setOriginalRequests(response?.requests?.data ?? []); // Store the original unfiltered data
-
-      } catch (err) {
-
-      } finally {
-
-      }
-    }
-    fetchRequestsData();
-  }, [changesInRequest]);
+    setCanSeeEditor(isVerifier || isPublisher || isManager)
+    setCanSeeVerifier(isPublisher || isManager)
+    setCasSeePublisher(isVerifier || isManager)
+  }, [currentRole.id])
 
   useEffect(() => {
     if (noneCanSee) {
-      // console.log(isPublisher, isVerifier)
       navigate("/app/dashboard")
     }
   }, [noneCanSee])
+
+  useEffect(() => {
+    //flow
+    if (currentRole.permissions.length > 1 && RoleTypeIsUser) {
+      setToggle(true)
+    }
+  }, [currentRole])
+
   return (
     <div className="relative min-h-full">
       <div className="absolute top-3 right-2 flex">
-
+        {
+          toggle &&
+          <ToggleSwitch options={sortStages([...currentRole?.permissions])} switchToggles={changeTable} />
+        }
       </div>
       <TitleCard
         title={"Requests"}
@@ -512,6 +565,9 @@ function Requests() {
       </TitleCard>
       {showDetailsModal && (
         <ShowDifference
+          currentlyEditor={!canSeeEditor}
+          currentlyVerifier={canSeePublisher}
+          currentlyPublisher={canSeeVerifier}
           role={selectedRequest}
           show={showDetailsModal}
           resourceId={resourceId}

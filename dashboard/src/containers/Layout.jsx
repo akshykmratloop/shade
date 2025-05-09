@@ -28,7 +28,7 @@ function Layout() {
     dispatch(updateUser(userObj));
     let roleId = localStorage.getItem("currentRole");
     if (roleId) {
-      dispatch(updateCurrentRole({id:roleId}))
+      dispatch(updateCurrentRole(roleId))
     }
   }, [dispatch]);
 

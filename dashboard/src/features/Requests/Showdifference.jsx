@@ -21,17 +21,13 @@ import createContent from "../Resources/defineContent";
 
 
 
-function ShowDifference({ role, show, onClose, resourceId }) {
-    console.log(resourceId)
-    const [fetchedRole, setFetchedRole] = useState({})
-    const [loading, setLoading] = useState(true)
-    const [error, setError] = useState(true)
+function ShowDifference({ show, onClose, resourceId, currentlyEditor, currentlyPublisher }) {
     // const contentFromRedux = useSelector(state => state.homeContent.present)
     const [liveVersion, setLiveVersion] = useState({})
     const [editVersion, setEditVersion] = useState({})
     const [language, setLanguage] = useState("en")
     const [showDateTime, setShowDateTime] = useState(false)
-    const { isEditor, isManager, isPublisher, isVerifier } = useSelector(state => state.user)
+    const { isManager } = useSelector(state => state.user)
 
     const editedContent = createContent(editVersion, "difference", "home")
     const LiveContent = createContent(liveVersion, "difference", "home")
@@ -42,13 +38,24 @@ function ShowDifference({ role, show, onClose, resourceId }) {
         const handleClickOutside = (e) => {
             if (modalRef.current && !modalRef.current.contains(e.target)) {
                 onClose();
-            };
+            }
         };
+
+        const handleKeyDown = (e) => {
+            if (e.key === 'Escape') {
+                onClose();
+            }
+        };
+
         document.addEventListener("mousedown", handleClickOutside);
+        document.addEventListener("keydown", handleKeyDown);
+
         return () => {
             document.removeEventListener("mousedown", handleClickOutside);
-        }
-    }, [])
+            document.removeEventListener("keydown", handleKeyDown);
+        };
+    }, []);
+
 
     useEffect(() => {
         async function fetchContent() {
@@ -114,7 +121,7 @@ function ShowDifference({ role, show, onClose, resourceId }) {
                         <div className="flex gap-5 justify-between w-[95%]">
                             <LanguageSwitch w={'w-[20%]'} setLanguage={setLanguage} language={language} />
                             {
-                                !isEditor &&
+                                !currentlyEditor &&
                                 <div className="flex gap-2">
                                     <div className="flex gap-3 text-[25px] items-center border-r px-2 border-r-2">
                                         <span className=" flex flex-col gap-1 items-center">
@@ -134,7 +141,7 @@ function ShowDifference({ role, show, onClose, resourceId }) {
                                         !isManager ?
                                             (<div className="flex gap-2">
                                                 {
-                                                    isPublisher &&
+                                                    currentlyPublisher &&
                                                     <div className='flex items-center gap-1'>
                                                         <span className={`text-[14px] font-lexend font-[400] dark:text-[#CBD5E1] text-[#202a38] select-none`}>
                                                             Publish Schedule

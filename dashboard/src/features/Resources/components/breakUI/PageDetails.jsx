@@ -54,13 +54,23 @@ const PageDetails = ({ data, display, setOn }) => {
       }
     };
 
+    const handleKeyDown = (e) => {
+      if (e.key === "Escape") {
+        setOn(false);
+      }
+    }
+
     if (display) {
       document.addEventListener("mousedown", handleClickOutside);
+      document.addEventListener("keydown", handleKeyDown);
     } else {
       document.removeEventListener("mousedown", handleClickOutside);
     }
 
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside)
+      document.removeEventListener("keydown", handleKeyDown)
+    }
   }, [display, setOn]);
 
   //status bar stages
@@ -173,7 +183,7 @@ const PageDetails = ({ data, display, setOn }) => {
                             </p>
                             <p title={verifier?.user?.name}>
                               {TruncateText(verifier?.user?.name, 12)}
-                              </p>
+                            </p>
                           </div>
                         </div>
                       );
