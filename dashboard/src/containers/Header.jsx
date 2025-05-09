@@ -76,6 +76,7 @@ function Header() {
   };
 
   const switchRole = (id) => {
+    if(currentRole.role === id) return
     // Switch Role
     localStorage.setItem("currentRole", id);
     // dispatch(updateCurrentRole(id))
