@@ -46,7 +46,6 @@ const EditUserDetails = async (req, res) => {
   const updatedUser = await editUserDetails(id, name, password, phone, roles);
   const io = req.app.locals.io
   const socketIdOfUpdatedUser = getSocketId(id)
-  console.log(socketIdOfUpdatedUser, "-".repeat(100))
   io.to(socketIdOfUpdatedUser).emit("userUpdated", updatedUser)
   res.status(201).json(updatedUser);
 };

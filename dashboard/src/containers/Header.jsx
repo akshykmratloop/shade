@@ -142,9 +142,8 @@ function Header() {
     };
 
     const handleUserUpdate = async (response) => {
-      // console.log(response.result)
       dispatch(updateUser(response.result))
-      localStorage.setItem("user", response.result)
+      localStorage.setItem("user", JSON.stringify(response.result))
     }
 
     socket.on("role_created", handleNew);
