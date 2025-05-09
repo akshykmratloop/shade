@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import {
     useSelector,
-    useDispatch
 } from "react-redux";
 import Arrow from "../../../../assets/icons/right-wrrow.svg";
 // import AboutUs from "../../../../assets/images/aboutus.png";

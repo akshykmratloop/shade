@@ -59,6 +59,7 @@ function RightSidebar() {
     if (!userId) return;
 
     const handleNewNotification = (payload) => {
+      console.log("llkkkk")
       if (payload.userId !== userId) return; // only for this user
 
       // Option A: simply re‑fetch from server
@@ -86,11 +87,14 @@ function RightSidebar() {
 
     socket.on("role_created", handleNewNotification);
     socket.on("user_created", handleNewNotification);
+    socket.on("user_updated", handleNewNotification)
     // …listen for any other events you emit
 
     return () => {
       socket.off("role_created", handleNewNotification);
       socket.off("user_created", handleNewNotification);
+    socket.off("user_updated", handleNewNotification)
+
     };
   }, [userId, dispatch]);
 

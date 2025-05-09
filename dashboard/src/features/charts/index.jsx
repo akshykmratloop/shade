@@ -157,7 +157,7 @@ function Users() {
     setUsers(users?.users?.allUsers ?? []);
   };
 
-  console.log(users, "users");
+  // console.log(users, "users");
 
   const statusChange = async (user) => {
     const loadingToastId = toast.loading("Processing...", { autoClose: 2000 });

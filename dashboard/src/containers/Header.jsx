@@ -15,7 +15,7 @@ import { getNotificationsbyId } from "../app/fetch";
 import { setNotificationCount } from "../features/common/headerSlice";
 import socket from "../Socket/socket";
 import capitalizeWords, { TruncateText } from "../app/capitalizeword";
-import { updateCurrentRole } from "../features/common/userSlice";
+import { updateCurrentRole, updateUser } from "../features/common/userSlice";
 import { FaCaretDown } from "react-icons/fa";
 
 function Header() {
@@ -141,13 +141,27 @@ function Header() {
       dispatch(setNotificationCount(unread));
     };
 
+    const handleUserUpdate = async (response) => {
+      console.log(response.result)
+      // dispatch(updateUser(response.result))
+      // localStorage.setItem("user", response.result)
+    }
+
     socket.on("role_created", handleNew);
     socket.on("user_created", handleNew);
+    socket.on("userUpdated", handleUserUpdate);
+    // socket.on("user_updated", handleNew);
+    // …listen to any other event names you emit
+
+
     // …listen to any other event names you emit
 
     return () => {
       socket.off("role_created", handleNew);
       socket.off("user_created", handleNew);
+      socket.off("userUpdated", handleUserUpdate);
+      // socket.off("user_updated", handleNew);
+
     };
   }, [userId, dispatch]);
 

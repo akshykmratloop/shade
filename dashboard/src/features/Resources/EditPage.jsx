@@ -111,7 +111,9 @@ const EditPage = () => {
                 fallback={<FallBackLoader />}
             >
                 {
-                    !Routes.includes(currentPath) || (subPath && !subRoutesList.includes(subPath)) ?
+                    !Routes.includes(currentPath) 
+                    // || (cludes(subPath))
+                     ?
                         <Page404 /> :
                         <div className="flex gap-[1.5rem] pr-1 h-[83.5vh] w-full relative">
 
