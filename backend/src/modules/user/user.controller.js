@@ -43,6 +43,8 @@ const EditUserDetails = async (req, res) => {
   const {name, password, phone, roles} = req.body;
 
   const updatedUser = await editUserDetails(id, name, password, phone, roles);
+  const io = req.app.locals.io; // Access the io instance from app locals
+  io.to(id).emit("userUpdated", updatedUser); // Emit the event to the specific user
   res.status(201).json(updatedUser);
 };
 

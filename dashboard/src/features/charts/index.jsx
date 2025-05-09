@@ -1,27 +1,27 @@
 // libraries import
-import { useEffect, useState } from "react";
+import {useEffect, useState} from "react";
 import PlusIcon from "@heroicons/react/24/outline/PlusIcon";
-import { toast, ToastContainer } from "react-toastify";
+import {toast, ToastContainer} from "react-toastify";
 // self modules
 import SearchBar from "../../components/Input/SearchBar";
-import { activateUser, deactivateUser } from "../../app/fetch";
+import {activateUser, deactivateUser} from "../../app/fetch";
 import TitleCard from "../../components/Cards/TitleCard";
 import AddUserModal from "./AddUser";
 import UserDetailsModal from "./ShowRole";
 import updateToasify from "../../app/toastify";
 import dummyUser from "../../assets/Dummy_User.json";
-import capitalizeWords, { TruncateText } from "../../app/capitalizeword";
-import { getAllusers } from "../../app/fetch";
+import capitalizeWords, {TruncateText} from "../../app/capitalizeword";
+import {getAllusers} from "../../app/fetch";
 // icons
-import { Switch } from "@headlessui/react";
+import {Switch} from "@headlessui/react";
 import XMarkIcon from "@heroicons/react/24/outline/XMarkIcon";
-import { FiEye, FiEdit } from "react-icons/fi";
-import { RxQuestionMarkCircled } from "react-icons/rx";
-import { LuListFilter, LuImport } from "react-icons/lu";
+import {FiEye, FiEdit} from "react-icons/fi";
+import {RxQuestionMarkCircled} from "react-icons/rx";
+import {LuListFilter, LuImport} from "react-icons/lu";
 import userIcon from "../../assets/user.png";
 import Paginations from "../Component/Paginations";
 
-const TopSideButtons = ({ removeFilter, applyFilter, applySearch }) => {
+const TopSideButtons = ({removeFilter, applyFilter, applySearch}) => {
   // search and filter bar component
   const [filterParam, setFilterParam] = useState("");
   const [searchText, setSearchText] = useState("");
@@ -52,11 +52,11 @@ const TopSideButtons = ({ removeFilter, applyFilter, applySearch }) => {
   return (
     <div
       className="inline-block float-right w-full flex items-center gap-3 border dark:border-neutral-600 rounded-lg p-1"
-      style={{ textTransform: "capitalize" }}
+      style={{textTransform: "capitalize"}}
     >
       <SearchBar
         searchText={searchText}
-        style={{ border: "none" }}
+        style={{border: "none"}}
         styleClass="w-700px border-none w-full flex-1"
         setSearchText={setSearchText}
         placeholderText={
@@ -90,7 +90,7 @@ const TopSideButtons = ({ removeFilter, applyFilter, applySearch }) => {
               <a
                 className="dark:text-gray-300"
                 onClick={() => showFiltersAndApply(status)}
-                style={{ textTransform: "capitalize" }}
+                style={{textTransform: "capitalize"}}
               >
                 {capitalizeWords(status)}
               </a>
@@ -98,7 +98,12 @@ const TopSideButtons = ({ removeFilter, applyFilter, applySearch }) => {
           ))}
           <div className="divider mt-0 mb-0"></div>
           <li>
-            <a className="dark:text-gray-300" onClick={() => removeAppliedFilter()}>Remove Filter</a>
+            <a
+              className="dark:text-gray-300"
+              onClick={() => removeAppliedFilter()}
+            >
+              Remove Filter
+            </a>
           </li>
         </ul>
       </div>
@@ -160,11 +165,11 @@ function Users() {
   console.log(users, "users");
 
   const statusChange = async (user) => {
-    const loadingToastId = toast.loading("Processing...", { autoClose: 2000 });
+    const loadingToastId = toast.loading("Processing...", {autoClose: 2000});
     let response =
       user.status === "ACTIVE"
-        ? await deactivateUser({ id: user.id })
-        : await activateUser({ id: user.id });
+        ? await deactivateUser({id: user.id})
+        : await activateUser({id: user.id});
     if (response.ok) {
       updateToasify(
         loadingToastId,
@@ -246,10 +251,10 @@ function Users() {
         <div className="min-h-[28.2rem] flex flex-col justify-between">
           <div className=" w-full border dark:border-stone-600 rounded-2xl">
             <table className="table text-left min-w-full dark:text-[white]">
-              <thead className="" style={{ borderRadius: "" }}>
+              <thead className="" style={{borderRadius: ""}}>
                 <tr
                   className="!capitalize"
-                  style={{ textTransform: "capitalize" }}
+                  style={{textTransform: "capitalize"}}
                 >
                   <th
                     className="font-medium text-[12px] font-poppins leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white] text-[#42526D] px-[24px] py-[13px] !capitalize"
@@ -282,8 +287,9 @@ function Users() {
                     return (
                       <tr key={index} className="font-light">
                         <td
-                          className={`font-poppins truncate font-normal text-[14px] leading-normal text-[#101828] p-[26px] ${index % 2 === 0 ? "py-[11px]" : "py-[10px]"
-                            } pl-5 flex `}
+                          className={`font-poppins truncate font-normal text-[14px] leading-normal text-[#101828] p-[26px] ${
+                            index % 2 === 0 ? "py-[11px]" : "py-[10px]"
+                          } pl-5 flex `}
                         >
                           <img
                             src={user?.image ? user?.image : userIcon}
@@ -327,11 +333,12 @@ function Users() {
                         </td>
                         <td className="font-poppins font-light text-[12px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]">
                           <p
-                            className={`w-[85px] mx-auto before:content-['•'] before:text-2xl flex h-7 items-center justify-center gap-1 px-1 py-0 font-[500] ${user.status === "ACTIVE"
-                              ? "text-green-600 bg-green-100 before:text-green-600 px-1"
-                              : "text-red-600 bg-red-100 before:text-red-600 "
-                              } rounded-2xl`}
-                            style={{ textTransform: "capitalize" }}
+                            className={`w-[85px] mx-auto before:content-['•'] before:text-2xl flex h-7 items-center justify-center gap-1 px-1 py-0 font-[500] ${
+                              user.status === "ACTIVE"
+                                ? "text-green-600 bg-green-100 before:text-green-600 px-1"
+                                : "text-red-600 bg-red-100 before:text-red-600 "
+                            } rounded-2xl`}
+                            style={{textTransform: "capitalize"}}
                           >
                             {capitalizeWords(user?.status)}
                           </p>
@@ -363,16 +370,18 @@ function Users() {
                                 onChange={() => {
                                   statusChange(user);
                                 }}
-                                className={`${user?.status === "ACTIVE"
-                                  ? "bg-[#1DC9A0]"
-                                  : "bg-gray-300"
-                                  } relative inline-flex h-2 w-8 items-center rounded-full`}
+                                className={`${
+                                  user?.status === "ACTIVE"
+                                    ? "bg-[#1DC9A0]"
+                                    : "bg-gray-300"
+                                } relative inline-flex h-2 w-8 items-center rounded-full`}
                               >
                                 <span
-                                  className={`${user?.status === "ACTIVE"
-                                    ? "translate-x-4"
-                                    : "translate-x-0"
-                                    } inline-block h-5 w-5 bg-white rounded-full shadow-2xl border border-gray-300 transition`}
+                                  className={`${
+                                    user?.status === "ACTIVE"
+                                      ? "translate-x-4"
+                                      : "translate-x-0"
+                                  } inline-block h-5 w-5 bg-white rounded-full shadow-2xl border border-gray-300 transition`}
                                 />
                               </Switch>
                             </div>
@@ -425,7 +434,7 @@ function Users() {
           }}
         />
       )}
-      <ToastContainer />
+      <ToastContainer hideProgressBar={false} />
     </div>
   );
 }
