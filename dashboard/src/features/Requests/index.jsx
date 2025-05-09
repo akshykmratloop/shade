@@ -114,8 +114,6 @@ function Requests() {
   // states
   const [requests, setRequests] = useState([]);
   const [originalRequests, setOriginalRequests] = useState([]);
-  const [showAddForm, setShowAddForm] = useState(false);
-  // const [changesInRequest, setChangesInRequest] = useState(false);
   const [selectedRequest, setSelectedRequest] = useState(null);
   const [showDetailsModal, setShowDetailsModal] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
@@ -138,7 +136,7 @@ function Requests() {
   const [canSeePublisher, setCasSeePublisher] = useState((isVerifier || isManager))
   const noneCanSee = !(isEditor || isManager || isVerifier || isPublisher)
   const RoleTypeIsUser = userPermissionsSet.has(currentRole.permissions[0])
-  const permission = (RoleTypeIsUser ? currentRole.permissions[0] : false)
+  const [permission, setPermission] = useState(RoleTypeIsUser ? currentRole.permissions[0] : false)
 
   // Fucntions
   const navigate = useNavigate();
@@ -159,19 +157,19 @@ function Requests() {
         setCanSeeEditor(false)
         setCanSeeVerifier(false)
         setCasSeePublisher(false)
-        permission = (permission)
+        setPermission(permission)
         break;
       case "VERIFY":
         setCanSeeVerifier(false)
         setCanSeeEditor(true)
         setCasSeePublisher(true)
-        permission = (permission)
+        setPermission(permission)
         break;
       case "PUBLISH":
         setCasSeePublisher(false)
         setCanSeeVerifier(true)
         setCanSeeEditor(true)
-        permission = (permission)
+        setPermission(permission)
         break;
     }
   }
@@ -224,24 +222,19 @@ function Requests() {
   // Side Effects
   useEffect(() => { // Fetch Requests
     if (currentRole.id) {
-
       async function fetchRequestsData() {
         try {
           const payload = { roleId: roleId ?? "" }
 
-          if (RoleTypeIsUser && permission) payload.permission = permission
-          let response
-
-          response = await getRequests(payload);
+          if (RoleTypeIsUser) payload.permission = permission || currentRole.permissions[0]
+          const response = await getRequests(payload);
           if (response.ok) {
             setRequests(response.requests.data);
           }
           setOriginalRequests(response?.requests?.data ?? []); // Store the original unfiltered data
 
         } catch (err) {
-
-        } finally {
-
+          console.error(err)
         }
       }
       fetchRequestsData();
@@ -283,7 +276,6 @@ function Requests() {
             applySearch={applySearch}
             applyFilter={applyFilter}
             removeFilter={removeFilter}
-            openAddForm={() => setShowAddForm(true)}
           />
         }
       >
@@ -488,7 +480,9 @@ function Requests() {
                                 openNotification();
                               }}
                             >
-                              <span className="flex items-center gap-1 rounded-md text-[#101828]">
+                              <span
+                                title="Request Info"
+                                className="flex items-center gap-1 rounded-md text-[#101828]">
                                 <PiInfoThin
                                   className="w-5 h-6  text-[#3b4152] dark:text-stone-200"
                                   strokeWidth={2}
@@ -504,7 +498,9 @@ function Requests() {
                                 setResourceId(request.resourceVersion.resourceId)
                               }}
                             >
-                              <span className="flex items-center gap-1 rounded-md text-[#101828]">
+                              <span
+                                title={`Review${canSeeEditor ? " and update" : ""}`}
+                                className="flex items-center gap-1 rounded-md text-[#101828]">
                                 <FiEye
                                   className="w-5 h-6  text-[#3b4152] dark:text-stone-200"
                                   strokeWidth={1}
