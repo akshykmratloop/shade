@@ -39,29 +39,33 @@ const user = createSlice({
     reducers: {
         // update user reducer, (the user who is logging in)
         updateUser: (state, action) => {
-            state.user = action.payload;
+            state.user = action.payload.data;
 
-            state.isManager = action.payload.roles[0]?.permissions?.some(e => e.slice(-10) === "MANAGEMENT" && e.slice(0, 4) !== "USER" && e.slice(0, 4) !== "ROLE" && e.slice(0, 4) !== "AUDI")
+            state.isManager = action.payload.data.roles[0]?.permissions?.some(e => e.slice(-10) === "MANAGEMENT" && e.slice(0, 4) !== "USER" && e.slice(0, 4) !== "ROLE" && e.slice(0, 4) !== "AUDI")
 
             // console.log(action.payload.roles[0].permissions)
             // console.log(JSON.stringify(state.isManager))
 
-            const { isEditor, isPublisher, isVerifier } = checkUser(action.payload.roles?.[0]?.permissions)
+            const { isEditor, isPublisher, isVerifier } = checkUser(action.payload.data.roles?.[0]?.permissions)
 
             state.isEditor = isEditor
             state.isPublisher = isPublisher;
             state.isVerifier = isVerifier;
 
-            if (action.payload.roles.length === 0) {
-                console.log("no roles")
-                state.currentRole = { ...initialCurrentRole }
-            } else if (state.currentRole.role !== action.payload.roles?.[0]?.role) {
-                console.log("role it there")
-                state.currentRole = action.payload.roles[0]
-            } else {
-                console.log("else of no roles")
+            if (action.payload.type === "update") {
+                if (action.payload.data.roles.length === 0) {
+                    console.log("no roles")
+                    state.currentRole = { ...initialCurrentRole }
+                } else if (state.currentRole.role !== action.payload.data.roles?.[0]?.role) {
+                    console.log("role it there")
+                    state.currentRole = action.payload.data.roles[0]
+                } else {
+                    console.log("else of no roles")
 
-                state.currentRole = { ...initialCurrentRole }
+                    state.currentRole = { ...initialCurrentRole }
+                }
+            } else {
+                state.currentRole = action.payload.data.roles[0]
             }
         },
         updateCurrentRole: (state, action) => {

@@ -144,7 +144,8 @@ function Header() {
 
     const handleUserUpdate = async (response) => {
       // console.log(JSON.stringify(response.result))
-      dispatch(updateUser(response.result))
+      
+      dispatch(updateUser({data:response.result, type: "update"}))
       localStorage.setItem("user", JSON.stringify(response.result))
     }
 
@@ -237,14 +238,15 @@ function Header() {
               Role
             </div>
             <label
-              className="flex items-center justify-between cursor-pointer w-full bg-base-300 py-1 px-[6px] h-full rounded-md"
+              className={`flex items-center ${oneRoleOnly? "justify-center":"justify-between"} cursor-pointer w-full bg-base-300 py-1 px-[6px] h-full rounded-md`}
+              // style={{ justifyItems: oneRoleOnly ? "center" : ""}}
               onClick={() => {
                 setOpenList(!openList);
               }}
             >
               <div
                 className="flex h-[100%] items-center justify-center flex-row text-[clamp(10px,1.7vh,2rem)]"
-                style={{ whiteSpace: "" }}
+                style={{ whiteSpace: "", }}
               >
                 {TruncateText(capitalizeWords(currentRole?.role), 20) || "No role is assigned"}
               </div>
@@ -313,14 +315,14 @@ function Header() {
             <SunIcon className="fill-current w-6 h-6 swap-off" />
             <MoonIcon className="fill-current w-6 h-6 swap-on" />
           </label>
-          <div className="dropdown h-[45px] dropdown-end mx-1 w-[124px] bg-base-300 rounded-md border-green-200">
+          <div className="dropdown h-[45px] dropdown-end mx-1 w-[33%] px-2 bg-base-300 rounded-md border-green-200">
             <label tabIndex={0} className="">
               <div className="flex h-[100%] items-center justify-center flex-row cursor-pointer">
                 <i className="text-[24px] ">
                   <LiaUserCircleSolid />
                 </i>
                 <h6 className=" font-medium text-xs pl-[5px] text-center">
-                  {TruncateText(user.name, 9)}
+                  {capitalizeWords(user.name)}
                 </h6>
               </div>
             </label>

@@ -144,6 +144,7 @@ function Users() {
   }
 
   const applySearch = async (value) => {
+    setCurrentPage(1)
     // actual search application which is being sent to the topsidebar component
     let query = {};
     if (value.includes("@")) {
@@ -164,6 +165,7 @@ function Users() {
     try {
       let users = await getAllusers(query);
       setUsers(users?.users?.allUsers ?? []);
+      setTotalPages(users?.users?.pagination.totalPages)
     } catch (err) {
       console.error(err)
     }
@@ -199,8 +201,8 @@ function Users() {
   };
 
   // Pagination logic
-  const indexOfLastUser = currentPage * usersPerPage;
-  const indexOfFirstUser = indexOfLastUser - usersPerPage;
+  // const indexOfLastUser = currentPage * usersPerPage;
+  // const indexOfFirstUser = indexOfLastUser - usersPerPage;
   const currentUsers = users// users?.slice(indexOfFirstUser, indexOfLastUser);
   // const totalPages = Math.ceil(users?.length / usersPerPage);
   const [totalPages, setTotalPages] = useState(0)
@@ -227,7 +229,7 @@ function Users() {
       setUsers(response?.users?.allUsers ?? []); // save the fethched users here to apply filters
       setOriginalUsers(response?.users?.allUsers ?? []); // Store the original unfiltered data
       setTotalPages(response?.users?.pagination.totalPages)
-      
+
     }
     fetchUsersData();
   }, [changesInUser, currentPage]);
@@ -442,7 +444,7 @@ function Users() {
           }}
         />
       )}
-      <ToastContainer hideProgressBar={false} />
+      <ToastContainer hideProgressBar={true} />
     </div>
   );
 }
