@@ -344,6 +344,7 @@ div.importantList ul {
   font-size: 16px;
   width: 100%;
   outline: none;
+  font-size: 12px !important;
 }
 
 .react-datepicker__input-container input:focus {
@@ -356,10 +357,12 @@ div.importantList ul {
   padding: 10px;
   border: none;
   border-radius: 8px;
-  font-size: 16px;
+  /* font-size: 16px; */
   width: 100%;
   outline: none;
   box-shadow: 0px 1px 5px #00000050;
+  font-size: 14px !important;
+
 }
 
 .react-datepicker__input-container input:focus {
@@ -379,7 +382,7 @@ div.importantList ul {
   border: none !important;
   background-color: #fdfdfd !important;
   box-shadow: 0 4px 10px #00000056 !important;
-  padding: 20px !important;
+  padding: 8px !important;
 }
 
 /* Header (month, year, etc.) style */
@@ -464,7 +467,9 @@ div.importantList ul {
 .time-input[type="text"] {
   padding: 10px;
   border-radius: 6px;
-  font-size: 16px;
+  /* font-size: 16px; */
+  font-size: 14px !important;
+
   width: 100%;
   outline: none;
   border: none;

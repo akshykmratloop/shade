@@ -3,11 +3,17 @@ import prismaClient from "../config/dbConfig.js";
 import {handleEntityCreationNotification} from "./notificationHelper.js";
 
 // Middleware to log user actions in the database
-export const auditLogger = async (req, res, next) => {
+const auditLogger = async (req, res, next) => {
   const {user, method} = req; // User info from authentication middleware
   const endPoint = req.baseUrl.split("/").pop(); // Extract entity name from route
   let entity = endPoint === "content" ? "resource" : endPoint;
-  let entityId = req.params.id || req.body.id || req.body.resourceId || null; // Extract entity ID if available
+  let entityId =
+    req.params.id ||
+    req.body.id ||
+    req.body.resourceId ||
+    res?.user?.id ||
+    null;
+  console.log("starttt", res, "ress");
   const ipAddress = req.ip;
   const browserInfo = req.headers["user-agent"];
 
@@ -50,7 +56,14 @@ export const auditLogger = async (req, res, next) => {
     const io = req.app.locals.io; // ✅ Add this
 
     if (actionType === "CREATE" && !entityId) {
-      entityId = res.locals.entityId || null;
+      entityId =
+        res.locals.entityId ||
+        res.locals.createdEntity?.id ||
+        res._getData?.()?.id ||
+        req.body?.id ||
+        null;
+
+      console.log("Resolved entityId:", entityId);
     }
 
     // Fetch the latest data from the DB after update
@@ -86,12 +99,16 @@ export const auditLogger = async (req, res, next) => {
         },
       });
 
-      if (actionType === "CREATE" && newValue) {
+      if (
+        (actionType === "CREATE" && newValue) ||
+        (actionType === "UPDATE" && newValue)
+      ) {
         await handleEntityCreationNotification({
           io,
           userId: user?.id,
           entity,
           newValue,
+          actionType,
         });
       }
     } catch (err) {

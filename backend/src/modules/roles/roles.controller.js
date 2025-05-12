@@ -62,6 +62,8 @@ const UpdateRole = async (req, res) => {
   const {id} = req.params;
   const {name, roleTypeId, permissions} = req.body;
   const result = await updateRole(id, name, roleTypeId, permissions);
+  const io = req.app.locals.io; // Get socket.io instance
+  io.emit("role_updated", result);
   res.status(202).json(result);
 };
 

@@ -1,46 +1,45 @@
-import { themeChange } from "theme-change";
-import React, { useEffect, useRef, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import {themeChange} from "theme-change";
+import React, {useEffect, useRef, useState} from "react";
+import {useSelector, useDispatch} from "react-redux";
 import BellIcon from "@heroicons/react/24/outline/BellIcon";
 import MoonIcon from "@heroicons/react/24/outline/MoonIcon";
 import SunIcon from "@heroicons/react/24/outline/SunIcon";
-import { openRightDrawer } from "../features/common/rightDrawerSlice";
-import { RIGHT_DRAWER_TYPES } from "../utils/globalConstantUtil";
-import { LiaUserCircleSolid } from "react-icons/lia";
-import { Link, useNavigate } from "react-router-dom";
-import { openModal } from "../features/common/modalSlice";
-import { MODAL_BODY_TYPES } from "../utils/globalConstantUtil";
+import {openRightDrawer} from "../features/common/rightDrawerSlice";
+import {RIGHT_DRAWER_TYPES} from "../utils/globalConstantUtil";
+import {LiaUserCircleSolid} from "react-icons/lia";
+import {Link, useNavigate} from "react-router-dom";
+import {openModal} from "../features/common/modalSlice";
+import {MODAL_BODY_TYPES} from "../utils/globalConstantUtil";
 import SearchBar from "../components/Input/SearchBar";
-import { getNotificationsbyId } from "../app/fetch";
-import { setNotificationCount } from "../features/common/headerSlice";
+import {getNotificationsbyId} from "../app/fetch";
+import {setNotificationCount} from "../features/common/headerSlice";
 import socket from "../Socket/socket";
 import capitalizeWords, { TruncateText } from "../app/capitalizeword";
-import { updateCurrentRole } from "../features/common/userSlice";
+import { updateCurrentRole, updateUser } from "../features/common/userSlice";
 import { FaCaretDown } from "react-icons/fa";
 
 function Header() {
   // state
   const [greetings, setGreetings] = useState("Good Morning");
-  const [openList, setOpenList] = useState(false)
+  const [openList, setOpenList] = useState(false);
   const [currentTheme, setCurrentTheme] = useState(null);
 
   // redux state
   const userObj = useSelector((state) => state.user);
-  const { noOfNotifications } = useSelector((state) => state.header);
-  const { user, currentRole } = userObj
+  const {noOfNotifications} = useSelector((state) => state.header);
+  const {user, currentRole} = userObj;
 
   // ref
-  const listRef = useRef(null)
+  const listRef = useRef(null);
 
   // variables
-  const oneRoleOnly = user.roles?.length === 1
+  const oneRoleOnly = user.roles?.length === 1;
   const userId = user.id;
 
   //=========================================================================
   // functions
   const dispatch = useDispatch();
-  const navigate = useNavigate()
-
+  const navigate = useNavigate();
 
   // Opening right sidebar for notification
   const openNotification = () => {
@@ -48,15 +47,15 @@ function Header() {
       openRightDrawer({
         header: "Notifications",
         bodyType: RIGHT_DRAWER_TYPES.NOTIFICATION,
-        extraObject: { id: user.id },
+        extraObject: {id: user.id},
       })
     );
   };
 
   function logoutUser() {
-    let theme = localStorage.getItem("theme")
-    localStorage.clear()
-    localStorage.setItem("theme", theme)
+    let theme = localStorage.getItem("theme");
+    localStorage.clear();
+    localStorage.setItem("theme", theme);
     window.location.href = "/";
   }
 
@@ -76,11 +75,13 @@ function Header() {
     document.documentElement.setAttribute("data-theme", newTheme);
   };
 
-  const switchRole = (id) => { // Switch Role
-    localStorage.setItem("currentRole", id)
+  const switchRole = (id) => {
+    if(currentRole.role === id) return
+    // Switch Role
+    localStorage.setItem("currentRole", id);
     // dispatch(updateCurrentRole(id))
-    navigate(0)
-  }
+    navigate(0);
+  };
 
   //=========================================================================
 
@@ -109,7 +110,7 @@ function Header() {
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (listRef.current && !listRef.current.contains(e.target)) {
-        setOpenList(false)
+        setOpenList(false);
       }
     };
     document.addEventListener("mousedown", handleClickOutside);
@@ -141,13 +142,27 @@ function Header() {
       dispatch(setNotificationCount(unread));
     };
 
+    const handleUserUpdate = async (response) => {
+      dispatch(updateUser(response.result))
+      localStorage.setItem("user", JSON.stringify(response.result))
+    }
+
     socket.on("role_created", handleNew);
     socket.on("user_created", handleNew);
+    socket.on("userUpdated", handleUserUpdate);
+    // socket.on("user_updated", handleNew);
+    // …listen to any other event names you emit
+
+
     // …listen to any other event names you emit
 
     return () => {
       socket.off("role_created", handleNew);
+      socket.off("user_updated", handleNew);
       socket.off("user_created", handleNew);
+      socket.off("userUpdated", handleUserUpdate);
+      // socket.off("user_updated", handleNew);
+
     };
   }, [userId, dispatch]);
 
@@ -174,9 +189,7 @@ function Header() {
         <div className="sm:block xl:hidden"></div>
         <div className=" flex-col items-start xl:flex font-lexend">
           <div className="flex gap-2 items-center">
-            <h2 className="font-semibold">
-              Hello {user?.name}
-            </h2>
+            <h2 className="font-semibold">Hello {user?.name}</h2>
             {/* <select name="" id=""
               onChange={(e) => switchRole(e.target.value)}
               className="bg-transparent select text-sm py-0 w-[10vw] border dark:border-stone-500 border-stone-500/30">
@@ -206,46 +219,72 @@ function Header() {
               <BellIcon className="h-6 w-6" />
             </div>
           </button> */}
-          <div className="mx-1 w-[16vw] p-0 self-stretch flex gap-[6px] items-center rounded-md relative cursor-pointer "
-            onClick={() => { setOpenList(!openList) }}
+          <div
+            className="mx-1 w-[16vw] p-0 self-stretch flex gap-[6px] items-center rounded-md relative cursor-pointer "
+            onClick={() => {
+              setOpenList(!openList);
+            }}
             title={capitalizeWords(currentRole?.role)}
           >
-            <div className="py-1 px-[4px] pl-[6px] text-[14px] h-full flex items-center font-[600] rounded-[5px_0px_0px_5px]"
-              onClick={() => { setOpenList(!openList) }}
+            <div
+              className="py-1 px-[4px] pl-[6px] text-[14px] h-full flex items-center font-[600] rounded-[5px_0px_0px_5px]"
+              onClick={() => {
+                setOpenList(!openList);
+              }}
             >
               Role
             </div>
-            <label className="flex items-center justify-between cursor-pointer w-full bg-base-300 py-1 px-[6px] h-full rounded-md"
-              onClick={() => { setOpenList(!openList) }}
+            <label
+              className="flex items-center justify-between cursor-pointer w-full bg-base-300 py-1 px-[6px] h-full rounded-md"
+              onClick={() => {
+                setOpenList(!openList);
+              }}
             >
-              <div className="flex h-[100%] items-center justify-center flex-row text-[clamp(10px,1.7vh,2rem)]" style={{ whiteSpace: "" }}>
+              <div
+                className="flex h-[100%] items-center justify-center flex-row text-[clamp(10px,1.7vh,2rem)]"
+                style={{whiteSpace: ""}}
+              >
                 {TruncateText(capitalizeWords(currentRole?.role), 20)}
               </div>
-              {
-                !oneRoleOnly &&
-                <span><FaCaretDown strokeWidth={.5} /></span>
-              }
+              {!oneRoleOnly && (
+                <span>
+                  <FaCaretDown strokeWidth={0.5} />
+                </span>
+              )}
             </label>
-            {
-              !oneRoleOnly &&
+            {!oneRoleOnly && (
               <ul
                 ref={listRef}
-                className="dropdown-content mt-1 left-[18%] top-[100%] dark:border dark:border-stone-300/20 dark:shadow-md dark:shadow-stone-800 absolute z-[30] p-2 shadow bg-base-100 rounded-md w-[12vw] flex flex-col gap-1"
-                style={{ display: openList ? "flex" : "none" }}
+                className="dropdown-content 
+                mt-1 left-[18%] top-[100%] 
+                dark:border dark:border-stone-300/20 
+                dark:shadow-md dark:shadow-stone-800 
+                absolute z-[30] p-2 shadow bg-base-100 
+                rounded-md flex flex-col gap-1"
+                style={{display: openList ? "flex" : "none", whiteSpace:"pre"}}
               >
                 {user.roles?.map((e, i) => {
                   return (
                     <li
-                      onClick={() => { console.log(e.role); switchRole(e.role); setOpenList(false) }}
+                      onClick={() => {
+                        console.log(e.role);
+                        switchRole(e.role);
+                        setOpenList(false);
+                      }}
                       value={e.role}
                       key={i}
                       title={e.role?.replace?.("_", " ")}
-                      className="bg-transparent text-sm font-[300] cursor-pointer pl-2 py-1 rounded-sm hover:bg-[#e5e6e6] dark:hover:bg-stone-200/10"
-                    >{capitalizeWords(e.role)}</li>
-                  )
+                      className="bg-transparent text-sm 
+                      font-[300] cursor-pointer px-2 py-1 
+                      rounded-sm hover:bg-[#e5e6e6] 
+                      dark:hover:bg-stone-200/10"
+                    >
+                      {TruncateText(capitalizeWords(e.role), 25)}
+                    </li>
+                  );
                 })}
               </ul>
-            }
+            )}
           </div>
           <button
             className="relative h-[45px] w-[45px] mx-1 flex items-center justify-center bg-base-300 rounded-md border-green-200"

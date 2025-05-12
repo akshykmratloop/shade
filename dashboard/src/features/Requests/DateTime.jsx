@@ -71,14 +71,14 @@ const DateTime = ({ onClose, display }) => {
 
     return (
         <div
-            className="w-screen h-screen fixed top-0 left-0 z-[52] bg-black/30"
+            className="w-screen h-screen fixed top-0 left-0 z-[52] bg-black/40"
             style={{ display: display ? "block" : "none" }}
         >
             <div
-                className="w-[50%] absolute z-[55] top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/4  bg-white p-10 shadow-2xl rounded-md"
+                className="w-[45%] absolute z-[55] top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/4  bg-white p-10 shadow-2xl rounded-md"
                 ref={modalRef}
             >
-                <h2 className="font-[500] text-[20px]">Publish Schedule</h2>
+                <h2 className="font-[500] text-[18px]">Publish Schedule</h2>
                 <CloseModalButton onClickClose={closeModal} />
                 <div className="flex flex-col gap-6">
 
@@ -91,7 +91,7 @@ const DateTime = ({ onClose, display }) => {
                                 onChange={(d) => setDate(d)}
                                 dateFormat="dd-MM-yyyy"
                                 placeholderText="Select a date"
-                                className="w-full px-3 py-2 border border-gray-400 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                className="w-full h-[5vh] px-3 py-2 border border-gray-400 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                             />
                         </div>
 
@@ -104,7 +104,7 @@ const DateTime = ({ onClose, display }) => {
                                 onFocus={handleTimeClick}
                                 readOnly
                                 placeholder="Select a time"
-                                className="w-full px-3 py-2 border border-gray-400 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 time-input"
+                                className="w-full h-[5vh] px-3 py-2 text-xs border border-gray-400 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 time-input"
                             />
 
                             {showTimePopup && (
@@ -121,7 +121,7 @@ const DateTime = ({ onClose, display }) => {
                                                 return (
                                                     <button
                                                         key={value}
-                                                        className="px-2 py-1 border rounded hover:bg-blue-100"
+                                                        className="px-2 py-1 text-[14px] border rounded hover:bg-blue-100"
                                                         onClick={() => handleHourSelect(value)}
                                                     >
                                                         {value}
@@ -140,7 +140,7 @@ const DateTime = ({ onClose, display }) => {
                                                 return (
                                                     <button
                                                         key={value}
-                                                        className="px-2 py-1 border rounded hover:bg-blue-100"
+                                                        className="px-2 py-1 text-[14px] border rounded hover:bg-blue-100"
                                                         onClick={() => handleMinuteSelect(value)}
                                                     >
                                                         {value}
@@ -154,8 +154,8 @@ const DateTime = ({ onClose, display }) => {
                         </div>
                     </div>
 
-                    <div className="flex gap-2 justify-end">
-                        <button className="bg-red-600 align-center font-[300] py-2 rounded-[4px] text-[white] w-[150px]">Cancel</button>
+                    <div className="flex gap-2 justify-end text-sm">
+                        <button onClick={() => closeModal()} className="bg-red-600 align-center font-[300] py-2 rounded-[4px] text-[white] w-[150px]">Cancel</button>
                         <button className="bg-[#29469D] align-center font-[300] py-2 rounded-[4px] text-[white] w-[150px]">Save</button>
                     </div>
                 </div>
