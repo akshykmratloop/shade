@@ -168,6 +168,7 @@ export const fetchResources = async (
         "SINGLE_RESOURCE_MANAGEMENT"
       );
       const hasPageManagement = rolePermissions.includes("PAGE_MANAGEMENT");
+      const hasFooterManagement = rolePermissions.includes("FOOTER_MANAGEMENT");
       const hasOtherManagement = rolePermissions.some(
         (permission) =>
           Object.keys(permissionToResourceMap).includes(permission) &&
@@ -210,6 +211,13 @@ export const fetchResources = async (
             tags.forEach((tag) => allowedTags.add(tag));
           }
         }
+      }
+
+      // Ensure FOOTER is included when user has FOOTER_MANAGEMENT permission
+      if (hasFooterManagement) {
+        const { types, tags } = permissionToResourceMap["FOOTER_MANAGEMENT"];
+        types.forEach((type) => allowedTypes.add(type));
+        tags.forEach((tag) => allowedTags.add(tag));
       }
 
       // Special case: If querying for MAIN_PAGE
@@ -338,11 +346,17 @@ export const fetchResources = async (
 
         // If user has SINGLE_RESOURCE_MANAGEMENT, include assigned resources
         if (hasSingleResourceManagement && assignedResourceIds.length > 0) {
-          resourceIdFilter = { id: { in: assignedResourceIds } };
+          // If user also has FOOTER_MANAGEMENT, we need to handle this special case
+          if (hasFooterManagement) {
+            // We don't set resourceIdFilter directly here, as we'll handle it in the typeFilter and tagFilter
+            // This ensures we get both assigned resources AND footers
+          } else {
+            resourceIdFilter = { id: { in: assignedResourceIds } };
+          }
         }
 
-        // If user has PAGE_MANAGEMENT or other management permissions
-        if (hasPageManagement || hasOtherManagement) {
+        // If user has PAGE_MANAGEMENT, FOOTER_MANAGEMENT, or other management permissions
+        if (hasPageManagement || hasOtherManagement || hasFooterManagement) {
           // If no specific resourceType is requested, use allowed types from permissions
           if (!resourceType && allowedTypes.size > 0) {
             typeFilter = { resourceType: { in: Array.from(allowedTypes) } };
@@ -351,7 +365,8 @@ export const fetchResources = async (
           else if (
             resourceType &&
             !allowedTypes.has(resourceType) &&
-            !(hasSingleResourceManagement && assignedResourceIds.length > 0)
+            !(hasSingleResourceManagement && assignedResourceIds.length > 0) &&
+            !(resourceType === "FOOTER" && hasFooterManagement)
           ) {
             return {
               resources: [],
@@ -374,7 +389,8 @@ export const fetchResources = async (
           else if (
             resourceTag &&
             !allowedTags.has(resourceTag) &&
-            !(hasSingleResourceManagement && assignedResourceIds.length > 0)
+            !(hasSingleResourceManagement && assignedResourceIds.length > 0) &&
+            !(resourceTag === "FOOTER" && hasFooterManagement)
           ) {
             return {
               resources: [],
@@ -1463,6 +1479,7 @@ async function formatResourceVersionData(resourceVersion) {
         title: sectionVersion.section?.title || "",
         SectionType: sectionVersion.section?.sectionType?.name || "",
         content: sectionVersion.content || {},
+        sections: [], // Initialize sections array
       };
 
       // Add items if they exist
@@ -1482,11 +1499,11 @@ async function formatResourceVersionData(resourceVersion) {
 
       // Add child sections if they exist
       if (sectionVersion.children && sectionVersion.children.length > 0) {
-        // Create sections array if it doesn't exist
-        formattedSection.sections = formattedSection.sections || [];
+        // Initialize sections array if it doesn't exist
+        formattedSection.sections = [];
 
         // Add child sections
-        const childSections = await Promise.all(
+        formattedSection.sections = await Promise.all(
           sectionVersion.children.map(async (childSection) => {
             const formattedChild = {
               sectionId: childSection.sectionId,
@@ -2184,6 +2201,7 @@ export const fetchRequests = async (
         "SINGLE_RESOURCE_MANAGEMENT"
       );
       const hasPageManagement = rolePermissions.includes("PAGE_MANAGEMENT");
+      const hasFooterManagement = rolePermissions.includes("FOOTER_MANAGEMENT");
       const hasOtherManagement = rolePermissions.some(
         (perm) =>
           Object.keys(permissionToResourceMap).includes(perm) &&
@@ -2218,13 +2236,13 @@ export const fetchRequests = async (
       }
 
       // Handle other management permissions
-      if (hasOtherManagement) {
+      if (hasOtherManagement || hasFooterManagement) {
         // Group permissions by resource type and tag
         const typePermissions = new Map();
         const tagPermissions = new Map();
 
         for (const [perm, { types, tags }] of Object.entries(permissionToResourceMap)) {
-          if (rolePermissions.includes(perm) && perm !== "PAGE_MANAGEMENT") {
+          if ((rolePermissions.includes(perm) && perm !== "PAGE_MANAGEMENT") || (perm === "FOOTER_MANAGEMENT" && hasFooterManagement)) {
             // Add types to the map
             types.forEach(type => {
               if (!typePermissions.has(type)) {
@@ -2383,6 +2401,37 @@ export const fetchRequests = async (
               titleAr: true,
               resourceType: true,
               resourceTag: true,
+              roles: {
+                where:{
+                  status: "ACTIVE",
+                },
+                include: {
+                  user: {
+                    select:{
+                      id: true,
+                      name: true,
+                    }
+                  },
+                },
+              },
+              verifiers: {
+                where:{
+                  status: "ACTIVE",
+                },
+                include: {
+                  user: {
+                    select:{
+                      id: true,
+                      name: true,
+                    }
+                  },
+                },
+                orderBy: {
+                  stage: "asc",
+                },
+              },
+              // liveVersion: true,
+              // newVersionEditMode: true,
             },
           },
         },
@@ -2432,11 +2481,17 @@ export const fetchRequestInfo = async (requestId) => {
           resource: {
             include: {
               roles: {
+                where:{
+                  status: "ACTIVE",
+                },
                 include: {
                   user: true,
                 },
               },
               verifiers: {
+                where:{
+                  status: "ACTIVE",
+                },
                 include: {
                   user: true,
                 },
@@ -2475,10 +2530,10 @@ export const fetchRequestInfo = async (requestId) => {
   const formattedData = {
     Details: {
       Resource: request.resourceVersion.resource.titleEn,
+      "Resource Type": request.resourceVersion.resource.resourceType,
+      "Resource Tag": request.resourceVersion.resource.resourceTag,
+      slug : request.resourceVersion.resource.slug,
       Status: request.status,
-      "Edit Mode": request.resourceVersion.resource.newVersionEditMode
-        ? "Active"
-        : "Inactive",
       "Assigned Users": {
         Manager:
           request.resourceVersion.resource.roles
@@ -2505,7 +2560,7 @@ export const fetchRequestInfo = async (requestId) => {
             .map((role) => role.user.name)
             .join(", ") || "Not assigned",
       },
-      "Submitted Date": request.createdAt.toLocaleDateString("en-US"),
+      "Submitted Date": request.createdAt,
       Comment: request.editorComments || "No comments",
       "Submitted By": request.sender.name,
       "Submitted To":
@@ -2514,8 +2569,7 @@ export const fetchRequestInfo = async (requestId) => {
           : "Not assigned",
       "Version No.": `V ${request.resourceVersion.versionNumber}`,
       "Reference Document": request.resourceVersion.referenceDoc
-        ? "PDF File"
-        : "No document",
+        || "No document",
       "Request Type": request.type,
       "Request No.": request.id.slice(0, 4).toUpperCase(),
       "Previous Request": request.previousRequest
@@ -2528,6 +2582,7 @@ export const fetchRequestInfo = async (requestId) => {
           approval.approver.id,
           request.resourceVersion.resource
         ),
+        Stage: approval.stage,
         Status: approval.status,
         Comment: approval.comments || "No comments",
       })),

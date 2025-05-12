@@ -199,6 +199,61 @@ const getRequestInfo = async (requestId) => {
   return { message: "Success", requestInfo };
 };
 
+
+
+
+const ApproveRequest = async (requestId) => {
+  const request = await approveRequest(requestId);
+  logger.info({
+    response: "Request Approved successfully",
+    // request: request,
+  });
+  return { message: "Success", request };
+};
+
+
+const RejectRequest = async (requestId) => {
+  const request = await r0ejectRequest(requestId);
+  logger.info({
+    response: "Request Rejected successfully",
+    // request: request,
+  });
+  return { message: "Success", request };
+};
+
+
+
+const ScheduleRequest = async (requestId) => {
+  const request = await fetchRequestInfo(requestId);
+  logger.info({
+    response: "Request Scheduled successfully",
+    // request: request,
+  });
+  return { message: "Success", request };
+};
+
+
+const PublishRequest = async (requestId) => {
+  const request = await fetchRequestInfo(requestId);
+  logger.info({
+    response: "Request Published successfully",
+    // request: request,
+  });
+  return { message: "Success", request };
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
 export {
   getResources,
   getResourceInfo,
@@ -212,4 +267,8 @@ export {
   generateRequest,
   getRequest,
   getRequestInfo,
+  ApproveRequest,
+  RejectRequest,
+  ScheduleRequest,
+  PublishRequest,
 };
