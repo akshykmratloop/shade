@@ -173,10 +173,41 @@ export const handleEntityCreationNotification = async ({
     superAdmins.forEach((u) => recipientsMap.set(u.id, u));
     permissionUsers.forEach((u) => recipientsMap.set(u.id, u));
 
+    // Recipients when the role is created
+    if (entity === "role" && verb === "updated") {
+      const rolePerm = await prismaClient.permission.findMany({
+        where: {name: "ROLE_PERMISSION"},
+      });
+
+      if (rolePerm) {
+        const usersWithPerm = await prismaClient.user.findMany({
+          where: {
+            roles: {
+              some: {
+                role: {
+                  permissions: {
+                    some: {
+                      permissionId: rolePerm.id,
+                    },
+                  },
+                },
+              },
+            },
+          },
+        });
+
+        usersWithPerm.forEach((u) => recipientsMap.set(u.id, u));
+        console.log(
+          "=========================================================================================================================usersWithPerm",
+          usersWithPerm
+        );
+      }
+    }
+
     // 3️⃣ Include creator themself
     // recipientsMap.set(creator.id, creator);
 
-    const eventName = `${entity}_${actionVerb}`;
+    const eventName = `${entity}_${verb}`;
 
     console.log(
       "================================================================",
