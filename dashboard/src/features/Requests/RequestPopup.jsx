@@ -43,13 +43,15 @@ const RejectPopup = ({ setClose, display, submitfunction }) => {
     <div style={{ display: display ? "flex" : "none" }}
       className="fixed top-0 left-0 w-full h-screen bg-black/40 items-center justify-center"
     >
+      
       <div ref={popupRef} className="w-[40%] bg-white dark:bg-[#242933] flex flex-col items-center justify-center gap-5 p-6 px-20 rounded-lg shadow-lg relative">
-        <h3 className="">
+        {/* <h3 className="">
           You are rejecting the request.
-        </h3>
+        </h3> */}
         <form action="" onSubmit={submitRejection} className="flex flex-col gap-4 w-full">
           <label htmlFor="" className="flex flex-col gap-2 relative">
-            Please provide a reason to reject.
+            <p>Are you sure you want to reject this request?</p>
+            Please enter a reason to reject.
             <textarea name="" id="" className="border rounded-md min-h-20 p-2 text-sm"
               onChange={onTypeInput}
             ></textarea>
