@@ -708,7 +708,7 @@
 
 
 
-  "services": {
+  "servicePage": {
     "banner": {
       "title": {
         "ar": "خدماتنا",
@@ -853,7 +853,7 @@
   },
 
 
-  "sub-services" : 
+  "2ndLevelOFServices" : 
     [
       {
         "title": {
@@ -1055,7 +1055,7 @@
   
 
   ,
-"main-services" : [
+"3rdLevelOfServices" : [
   {
     "title": {
       "ar": "التشطيبات المعمارية",
