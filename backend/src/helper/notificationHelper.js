@@ -121,6 +121,7 @@ export const handleEntityCreationNotification = async ({
   actionType,
 }) => {
   try {
+    // Fetch the user who performed the action
     const creator = await prismaClient.user.findUnique({
       where: {id: userId},
       include: {roles: {select: {roleId: true}}},
@@ -135,79 +136,46 @@ export const handleEntityCreationNotification = async ({
     const subject =
       newValue.name || newValue.email || newValue.title || newValue.id;
     const verb = actionType === "CREATE" ? "created" : "updated";
-    // const actionVerb = entity === "user" ? "updated" : "created";
     const message = `A ${entity} '${subject}' has been ${verb}`;
+    const eventName = `${entity}_${verb}`;
 
-    // Determine recipients: always super admins + users sharing any permission with creator
-    // 1️⃣ Super admins
-    const superAdmins = await prismaClient.user.findMany({
-      where: {isSuperUser: true},
-    });
-
-    // 2️⃣ Users sharing permissions
-    //   fetch creator permission IDs
-    const creatorPermissions = await prismaClient.rolePermission.findMany({
-      where: {roleId: {in: creator.roles.map((r) => r.roleId)}},
-      select: {permissionId: true},
-    });
-    const permissionIds = creatorPermissions.map((p) => p.permissionId);
-
-    let permissionUsers = [];
-    if (permissionIds.length) {
-      permissionUsers = await prismaClient.user.findMany({
-        where: {
-          id: {not: creator.id},
-          roles: {
-            some: {
-              role: {
-                permissions: {some: {permissionId: {in: permissionIds}}},
-              },
-            },
-          },
-        },
-      });
-    }
-
-    // Combine and dedupe recipients
+    // Determine recipients
     const recipientsMap = new Map();
-    superAdmins.forEach((u) => recipientsMap.set(u.id, u));
-    permissionUsers.forEach((u) => recipientsMap.set(u.id, u));
 
-    // Recipients when the role is created
-    if (entity === "role" && verb === "updated") {
-      const rolePerm = await prismaClient.permission.findMany({
-        where: {name: "ROLE_PERMISSION"},
+    if (creator.isSuperUser) {
+      // If the actor is a super admin, notify only themselves
+      recipientsMap.set(creator.id, creator);
+    } else {
+      // 1️⃣ Always include super admins
+      const superAdmins = await prismaClient.user.findMany({
+        where: {isSuperUser: true},
       });
+      superAdmins.forEach((u) => recipientsMap.set(u.id, u));
 
-      if (rolePerm) {
-        const usersWithPerm = await prismaClient.user.findMany({
+      // 2️⃣ Include users sharing any permission with creator
+      // Fetch creator's permission IDs
+      const creatorPermissions = await prismaClient.rolePermission.findMany({
+        where: {roleId: {in: creator.roles.map((r) => r.roleId)}},
+        select: {permissionId: true},
+      });
+      const permissionIds = creatorPermissions.map((p) => p.permissionId);
+
+      if (permissionIds.length) {
+        const permissionUsers = await prismaClient.user.findMany({
           where: {
+            id: {not: creator.id},
             roles: {
               some: {
                 role: {
-                  permissions: {
-                    some: {
-                      permissionId: rolePerm.id,
-                    },
-                  },
+                  permissions: {some: {permissionId: {in: permissionIds}}},
                 },
               },
             },
           },
         });
-
-        usersWithPerm.forEach((u) => recipientsMap.set(u.id, u));
-        console.log(
-          "=========================================================================================================================usersWithPerm",
-          usersWithPerm
-        );
+        permissionUsers.forEach((u) => recipientsMap.set(u.id, u));
       }
     }
-
-    // 3️⃣ Include creator themself
-    // recipientsMap.set(creator.id, creator);
-
-    const eventName = `${entity}_${verb}`;
 
     console.log(
       "================================================================",

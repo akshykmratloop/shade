@@ -7,6 +7,7 @@ import {
   userActivation,
   userDeactivation,
   findRoleTypeByUserId,
+  fetchAllRolesForUser,
 } from "../../repository/user.repository.js";
 import {assert, assertEvery} from "../../errors/assertError.js";
 import {logger} from "../../config/logConfig.js";
@@ -21,6 +22,11 @@ const getAllUsers = async (name, email, phone, status, page, limit) => {
   const users = await fetchAllUsers(name, email, phone, status, page, limit);
   // logger.info({response: "user fetched successfully", users: users});
   return {message: "user fetched successfully", users};
+};
+
+const getAllRolesForUser = async () => {
+  const roles = await fetchAllRolesForUser();
+  return {message: "user roles fetched successfully", roles};
 };
 
 const getUserById = async (id) => {
@@ -69,4 +75,5 @@ export {
   activateUsers,
   deactivateUsers,
   userRoleType,
+  getAllRolesForUser,
 };

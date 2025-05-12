@@ -487,6 +487,29 @@ export const findRoleTypeByUserId = async (id) => {
   return roleType;
 };
 
+export const fetchAllRolesForUser = async () => {
+  const roles = await prismaClient.role.findMany({
+    where: {
+      name: {
+        not: "SUPER_ADMIN", // Exclude SUPER_ADMIN
+      },
+    },
+    include: {
+      _count: {
+        select: {
+          permissions: true, // Count of permissions per role
+          users: true, // Count of users per role
+        },
+      },
+    },
+    orderBy: {created_at: "asc"},
+  });
+
+  return {
+    roles,
+  };
+};
+
 export const findAllLogs = async () => {
   return await prismaClient.auditLog.findMany({
     include: {
