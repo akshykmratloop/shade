@@ -12,7 +12,6 @@ import { FiEdit } from "react-icons/fi";
 import { IoSettingsOutline } from "react-icons/io5";
 import { LuEye } from "react-icons/lu";
 // Image
-import landingPage from "../../assets/resourcepage/landingPage.png"
 // Components, Assets & Utils
 import { pagesImages } from "./resourcedata";
 import ConfigBar from "./components/breakUI/ConfigBar";
@@ -22,7 +21,7 @@ import capitalizeWords, { TruncateText } from "../../app/capitalizeword";
 import content from "./components/websiteComponent/content.json";
 import { getContent, getResources } from "../../app/fetch";
 import { updateTag, updateType } from "../common/navbarSlice";
-import resourcesContent from "./resourcedata";
+// import resourcesContent from "./resourcedata";
 import CloseModalButton from "../../components/Button/CloseButton";
 import createContent from "./defineContent";
 import FallBackLoader from "../../components/fallbackLoader/FallbackLoader";
@@ -56,7 +55,7 @@ function Resources() {
 
   // Redux State
   const divRef = useRef(null);
-  const isSidebarOpen = useSelector(state => state.sidebar.isCollapsed)
+  // const isSidebarOpen = useSelector(state => state.sidebar.isCollapsed)
   const resourceType = useSelector((state) => state.navBar.resourceType);
   const resourceTag = useSelector((state) => state.navBar.resourceTag);
   const userObj = useSelector(state => state.user)

@@ -48,6 +48,7 @@ const EditPage = () => {
     // const outOfEditing = !(stageStatus === "EDITING" || stageStatus === "DRAFT" || stageStatus === "PUBLISHED")
 
     const content = createContent(contentFromRedux, "edit", currentPath)
+    console.log(content)
 
     const Routes = [
         'home', 'solutions', 'about', "services", "service", 'markets',
@@ -71,7 +72,7 @@ const EditPage = () => {
 
     useEffect(() => {
         setOutOfEditing(!(stageStatus === "EDITING" || stageStatus === "DRAFT" || stageStatus === "PUBLISHED"))
-    }, [isManager])
+    }, [isManager, stageStatus])
 
     useEffect(() => {
         if (currentId) {
@@ -110,7 +111,9 @@ const EditPage = () => {
                 fallback={<FallBackLoader />}
             >
                 {
-                    !Routes.includes(currentPath) || (subPath && !subRoutesList.includes(subPath)) ?
+                    !Routes.includes(currentPath) 
+                    // || (cludes(subPath))
+                     ?
                         <Page404 /> :
                         <div className="flex gap-[1.5rem] pr-1 h-[83.5vh] w-full relative">
 

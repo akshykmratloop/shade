@@ -50,7 +50,9 @@ const user = createSlice({
             state.isPublisher = isPublisher;
             state.isVerifier = isVerifier;
 
-            state.currentRole = action.payload.roles[0]
+            if(!state.currentRole.role) {
+                state.currentRole = action.payload.roles[0]
+            }
         },
         updateCurrentRole: (state, action) => {
             const roleObj = state.user.roles.filter(e => e.role === action.payload)

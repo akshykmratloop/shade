@@ -14,9 +14,9 @@ import SearchBar from "../components/Input/SearchBar";
 import {getNotificationsbyId} from "../app/fetch";
 import {setNotificationCount} from "../features/common/headerSlice";
 import socket from "../Socket/socket";
-import capitalizeWords, {TruncateText} from "../app/capitalizeword";
-import {updateCurrentRole} from "../features/common/userSlice";
-import {FaCaretDown} from "react-icons/fa";
+import capitalizeWords, { TruncateText } from "../app/capitalizeword";
+import { updateCurrentRole, updateUser } from "../features/common/userSlice";
+import { FaCaretDown } from "react-icons/fa";
 
 function Header() {
   // state
@@ -76,6 +76,7 @@ function Header() {
   };
 
   const switchRole = (id) => {
+    if(currentRole.role === id) return
     // Switch Role
     localStorage.setItem("currentRole", id);
     // dispatch(updateCurrentRole(id))
@@ -141,15 +142,27 @@ function Header() {
       dispatch(setNotificationCount(unread));
     };
 
+    const handleUserUpdate = async (response) => {
+      dispatch(updateUser(response.result))
+      localStorage.setItem("user", JSON.stringify(response.result))
+    }
+
     socket.on("role_created", handleNew);
     socket.on("user_created", handleNew);
-    socket.on("user_updated", handleNew);
+    socket.on("userUpdated", handleUserUpdate);
+    // socket.on("user_updated", handleNew);
+    // …listen to any other event names you emit
+
+
     // …listen to any other event names you emit
 
     return () => {
       socket.off("role_created", handleNew);
       socket.off("user_updated", handleNew);
       socket.off("user_created", handleNew);
+      socket.off("userUpdated", handleUserUpdate);
+      // socket.off("user_updated", handleNew);
+
     };
   }, [userId, dispatch]);
 
@@ -242,8 +255,13 @@ function Header() {
             {!oneRoleOnly && (
               <ul
                 ref={listRef}
-                className="dropdown-content mt-1 left-[18%] top-[100%] dark:border dark:border-stone-300/20 dark:shadow-md dark:shadow-stone-800 absolute z-[30] p-2 shadow bg-base-100 rounded-md w-[12vw] flex flex-col gap-1"
-                style={{display: openList ? "flex" : "none"}}
+                className="dropdown-content 
+                mt-1 left-[18%] top-[100%] 
+                dark:border dark:border-stone-300/20 
+                dark:shadow-md dark:shadow-stone-800 
+                absolute z-[30] p-2 shadow bg-base-100 
+                rounded-md flex flex-col gap-1"
+                style={{display: openList ? "flex" : "none", whiteSpace:"pre"}}
               >
                 {user.roles?.map((e, i) => {
                   return (
@@ -256,9 +274,12 @@ function Header() {
                       value={e.role}
                       key={i}
                       title={e.role?.replace?.("_", " ")}
-                      className="bg-transparent text-sm font-[300] cursor-pointer pl-2 py-1 rounded-sm hover:bg-[#e5e6e6] dark:hover:bg-stone-200/10"
+                      className="bg-transparent text-sm 
+                      font-[300] cursor-pointer px-2 py-1 
+                      rounded-sm hover:bg-[#e5e6e6] 
+                      dark:hover:bg-stone-200/10"
                     >
-                      {capitalizeWords(e.role)}
+                      {TruncateText(capitalizeWords(e.role), 25)}
                     </li>
                   );
                 })}

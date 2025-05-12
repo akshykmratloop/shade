@@ -15,6 +15,7 @@ import ContactUsModal from "./websiteComponent/subparts/ContactUsModal";
 import Services from "./websiteComponent/Service";
 import ServiceDetails from "./websiteComponent/detailspages/ServiceDetails";
 import SubServiceDetails from "./websiteComponent/subDetailsPages/SubServiceDetails";
+import tempContent from "./websiteComponent/content.json"
 
 const AllForOne = ({ language, screen, content, subPath, setLanguage, fullScreen, currentPath, deepPath, showDifference = false, live }) => {
     let translateForFullScreen = ""
@@ -46,9 +47,9 @@ const AllForOne = ({ language, screen, content, subPath, setLanguage, fullScreen
             }
             {
                 currentPath === "services" ? subPath ? deepPath ?
-                    <SubServiceDetails language={language} contentOn={content?.subOfsubService} serviceId={subPath} screen={screen} deepPath={deepPath} /> :
-                    <ServiceDetails language={language} contentOn={content?.serviceDetails} serviceId={subPath} screen={screen} /> :
-                    <Services language={language} currentContent={content?.services} screen={screen} /> : ""
+                    <SubServiceDetails language={language} contentOn={tempContent?.subOfsubService} serviceId={subPath} screen={screen} deepPath={deepPath} /> :
+                    <ServiceDetails language={language} contentOn={tempContent?.serviceDetails} serviceId={subPath} screen={screen} /> :
+                    <Services language={language} currentContent={tempContent?.services} screen={screen} /> : ""
             }
             {
                 (currentPath === "service" && subPath) &&

@@ -1,8 +1,9 @@
-import {createServer} from "http";
-import {createApp, finishApp} from "./app.js";
-import {useModules} from "./config/index.js";
-import {Server} from "socket.io";
+import { createServer } from "http";
+import { createApp, finishApp } from "./app.js";
+import { useModules } from "./config/index.js";
+import { Server } from "socket.io";
 import cors from "cors";
+import { getMap, removeUserSocket, setUserSocket } from "./helper/socketConnectionID.js";
 
 (async () => {
   const app = createApp();
@@ -31,10 +32,13 @@ import cors from "cors";
     socket.on("join", (userId) => {
       socket.join(userId);
       console.log(`User ${userId} joined room`);
+      socket.userId = userId
+      setUserSocket(userId, socket.id)
     });
 
     socket.on("disconnect", () => {
       console.log("User disconnected: ", socket.id);
+      removeUserSocket(socket.userId)
     });
   });
 
