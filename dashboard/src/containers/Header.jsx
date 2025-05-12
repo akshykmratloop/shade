@@ -143,7 +143,7 @@ function Header() {
     };
 
     const handleUserUpdate = async (response) => {
-      console.log(JSON.stringify(response.result))
+      // console.log(JSON.stringify(response.result))
       dispatch(updateUser(response.result))
       localStorage.setItem("user", JSON.stringify(response.result))
     }

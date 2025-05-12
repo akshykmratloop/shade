@@ -39,8 +39,6 @@ function ShowDifference({ show, onClose, resourceId, currentlyEditor, currentlyP
     const LiveContent = createContent(liveVersion, "difference", "home")
 
 
-    console.log(editVersion.editVersion?.status)
-    console.log(liveVersion.editVersion?.status)
     const modalRef = useRef(null)
 
     useEffect(() => {
@@ -170,7 +168,7 @@ function ShowDifference({ show, onClose, resourceId, currentlyEditor, currentlyP
                     </div>
 
                     <div className="flex overflow-y-scroll h-[95%] customscroller relative">
-                        <div className="border-r border-r-4 border-lime-500 h-fit">
+                        <div className="border-r border-r-[4px] border-cyan-800 h-fit">
                             <AllForOne
                                 currentPath={"home"}
                                 language={language} screen={740}

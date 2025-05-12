@@ -286,6 +286,20 @@ select:focus {
   border-radius: 0px 5px 5px 0px;
 }
 
+.comment-box {
+  background: #f3f4f6;
+  /* Tailwind's gray-100 */
+  color: #111827;
+  /* Tailwind's gray-900 */
+  padding: 1rem;
+  width: 250px;
+  clip-path: polygon(10% 0%, 90% 0%, 100% 10%, 100% 90%,
+      90% 100%, 10% 100%, 0% 90%, 0% 10%);
+  border: 1px solid #d1d5db;
+  /* gray-300 */
+  font-size: 14px;
+}
+
 .test {
   color: #29469c80;
 }
