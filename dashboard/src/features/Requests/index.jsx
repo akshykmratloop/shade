@@ -128,6 +128,7 @@ function Requests() {
   const userObj = useSelector(state => state.user)
 
   const { isManager, isEditor, isPublisher, isVerifier, currentRole } = userObj;
+  console.log(currentRole)
   const roleId = currentRole?.id
 
   // variables for conditioned renderings
@@ -135,7 +136,7 @@ function Requests() {
   const [canSeeVerifier, setCanSeeVerifier] = useState((isPublisher || isManager))
   const [canSeePublisher, setCasSeePublisher] = useState((isVerifier || isManager))
   const noneCanSee = !(isEditor || isManager || isVerifier || isPublisher)
-  const RoleTypeIsUser = userPermissionsSet.has(currentRole.permissions[0])
+  const RoleTypeIsUser = userPermissionsSet.has(currentRole?.permissions[0])
   const [permission, setPermission] = useState(RoleTypeIsUser ? currentRole?.permissions[0] || "" : false)
 
   // Fucntions
@@ -221,7 +222,7 @@ function Requests() {
 
   // Side Effects
   useEffect(() => { // Fetch Requests
-    if (currentRole.id) {
+    if (currentRole?.id) {
       async function fetchRequestsData() {
         try {
           const payload = { roleId: roleId ?? "" }
@@ -245,7 +246,7 @@ function Requests() {
     setCanSeeEditor(isVerifier || isPublisher || isManager)
     setCanSeeVerifier(isPublisher || isManager)
     setCasSeePublisher(isVerifier || isManager)
-  }, [currentRole.id])
+  }, [currentRole?.id])
 
   useEffect(() => {
     if (noneCanSee) {
@@ -255,7 +256,7 @@ function Requests() {
 
   useEffect(() => {
     //flow
-    if (currentRole.permissions.length > 1 && RoleTypeIsUser) {
+    if (currentRole?.permissions?.length > 1 && RoleTypeIsUser) {
       setToggle(true)
     }
   }, [currentRole])

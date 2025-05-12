@@ -1,6 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { checkUser } from '../../app/checkUser';
 
+const initialCurrentRole = {
+    role: "",
+    roleType: '',
+    status: '',
+    permissions: []
+}
+
 const user = createSlice({
     name: "user",
     initialState: {
@@ -27,12 +34,7 @@ const user = createSlice({
         isEditor: false,
         isVerifier: false,
         isPublisher: false,
-        currentRole: {
-            role: "",
-            roleType: '',
-            status: '',
-            permissions: []
-        }
+        currentRole: { ...initialCurrentRole }
     },
     reducers: {
         // update user reducer, (the user who is logging in)
@@ -51,20 +53,21 @@ const user = createSlice({
             state.isVerifier = isVerifier;
 
             if (action.payload.roles.length === 0) {
-                state.currentRole = {
-                    role: "",
-                    roleType: '',
-                    status: '',
-                    permissions: []
-                }
+                console.log("no roles")
+                state.currentRole = { ...initialCurrentRole }
             } else if (state.currentRole.role !== action.payload.roles?.[0]?.role) {
+                console.log("role it there")
                 state.currentRole = action.payload.roles[0]
+            } else {
+                console.log("else of no roles")
+
+                state.currentRole = { ...initialCurrentRole }
             }
         },
         updateCurrentRole: (state, action) => {
             const roleObj = state.user.roles.filter(e => e.role === action.payload)
 
-            state.currentRole = roleObj?.[0]
+            state.currentRole = roleObj?.[0] || initialCurrentRole
 
             const { isEditor, isPublisher, isVerifier } = checkUser(roleObj[0]?.permissions)
 

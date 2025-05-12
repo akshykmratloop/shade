@@ -1,6 +1,6 @@
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa6";
 
-const Paginations = ({ currentPage, totalPages, setCurrentPage, data }) => {
+const Paginations = ({ currentPage, totalPages, setCurrentPage, data, }) => {
 
     const maxVisiblePages = 5;
     let pages = [];

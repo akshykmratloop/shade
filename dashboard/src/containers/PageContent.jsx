@@ -33,12 +33,12 @@ function PageContent() {
         }
     }, [])
 
-    useEffect(() => {
-        if (userRole.role && userRole.permissions?.length === 0) {
-            toast.error("The current role has no permissios", { hideProgressBar: true })
-        }
+    // useEffect(() => {
+    //     if (userRole.role && userRole.permissions?.length === 0) {
+    //         toast.error("The current role has no permissios", { hideProgressBar: true })
+    //     }
 
-    }, [userRole])
+    // }, [userRole])
 
     return (
         <div className="flex flex-col flex-8 w-full overflow-x-hidden">
