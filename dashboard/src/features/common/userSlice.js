@@ -34,7 +34,7 @@ const user = createSlice({
         isEditor: false,
         isVerifier: false,
         isPublisher: false,
-        currentRole: { ...initialCurrentRole }
+        currentRole: initialCurrentRole
     },
     reducers: {
         // update user reducer, (the user who is logging in)
@@ -54,14 +54,10 @@ const user = createSlice({
 
             if (action.payload.type === "update") {
                 if (action.payload.data.roles.length === 0) {
-                    console.log("no roles")
                     state.currentRole = { ...initialCurrentRole }
                 } else if (state.currentRole.role !== action.payload.data.roles?.[0]?.role) {
-                    console.log("role it there")
                     state.currentRole = action.payload.data.roles[0]
                 } else {
-                    console.log("else of no roles")
-
                     state.currentRole = { ...initialCurrentRole }
                 }
             } else {

@@ -293,7 +293,7 @@ const AddUserModal = ({ show, onClose, updateUsers, user }) => {
                         type="checkbox"
                         id={element.id}
                         checked={isAvailable}
-                        className="border-2 border-[#D0D5DD]"
+                        className="border-2 border-[#D0D5DD] cursor-pointer"
                         onChange={(e) => {
                           setUserData((prevState) => {
                             const updatedRoles = e.target.checked
@@ -307,7 +307,7 @@ const AddUserModal = ({ show, onClose, updateUsers, user }) => {
                       />
                       <label
                         htmlFor={element.id}
-                        className="w-[70%] text-[#6B7888]"
+                        className="w-[70%] text-[#6B7888] cursor-pointer"
                       >
                         {capitalizeWords(element.name)}
                       </label>

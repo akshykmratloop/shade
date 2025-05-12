@@ -26,7 +26,6 @@ function Layout() {
   useEffect(() => {
     const userObj = JSON.parse(localStorage.getItem("user"));
     if (userObj) {
-      console.log("localstroge userobj")
       dispatch(updateUser({ data: userObj, type: "switch" }));
     }
     let roleId = localStorage.getItem("currentRole");
