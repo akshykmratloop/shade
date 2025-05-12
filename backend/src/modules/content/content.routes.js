@@ -91,4 +91,29 @@ router.get(
   tryCatchWrap(ContentController.GetRequestInfo)
 );
 
+router.post(
+  "/approveRequest/:requestId",
+  //   checkPermission(requiredPermissionsForContentManagement),
+  tryCatchWrap(ContentController.ApproveRequest)
+);
+
+
+router.post(
+  "/rejectRequest/:requestId",
+  //   checkPermission(requiredPermissionsForContentManagement),
+  tryCatchWrap(ContentController.RejectRequest)
+);
+
+router.post(
+  "/scheduleRequest/:requestId",
+  //   checkPermission(requiredPermissionsForContentManagement),
+  tryCatchWrap(ContentController.ScheduleRequest)
+);
+
+router.post(
+  "/publishRequest/:requestId",
+  //   checkPermission(requiredPermissionsForContentManagement),
+  tryCatchWrap(ContentController.PublishRequest)
+);
+
 export default router;
