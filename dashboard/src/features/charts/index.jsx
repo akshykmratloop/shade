@@ -43,7 +43,7 @@ const TopSideButtons = ({ removeFilter, applyFilter, applySearch }) => {
   useEffect(() => {
     // reflection on ui as per the state changes
     if (searchText === "") {
-      removeAppliedFilter();
+      // removeAppliedFilter();
       applySearch(searchText);
     } else {
       applySearch(searchText);
@@ -144,7 +144,6 @@ function Users() {
   }
 
   const applySearch = async (value) => {
-    setCurrentPage(1)
     // actual search application which is being sent to the topsidebar component
     let query = {};
     if (value.includes("@")) {
@@ -229,7 +228,6 @@ function Users() {
       setUsers(response?.users?.allUsers ?? []); // save the fethched users here to apply filters
       setOriginalUsers(response?.users?.allUsers ?? []); // Store the original unfiltered data
       setTotalPages(response?.users?.pagination.totalPages)
-
     }
     fetchUsersData();
   }, [changesInUser, currentPage]);
