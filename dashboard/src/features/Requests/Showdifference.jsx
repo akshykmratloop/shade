@@ -12,7 +12,7 @@ import { useSelector } from "react-redux";
 import { RxCross1 } from "react-icons/rx";
 import Button from "../../components/Button/Button";
 import LanguageSwitch from "../Resources/components/breakUI/SwitchLang";
-import RejectPopup from "./RequestPopup";
+import RejectPopup from "./RejectPopup";
 import { LiaComment } from "react-icons/lia";
 
 import { IoDocumentOutline } from "react-icons/io5";
@@ -160,7 +160,7 @@ function ShowDifference({ show, onClose, resourceId, currentlyEditor, currentlyP
                                 </div>
                             }
                         </div>
-                        <button onClick={onClose} className="bg-transparent absolute top-4 right-10 z-20 hover:bg-stone-300 dark:hover:bg-stone-700 rounded-full border-none p-2 py-2">
+                        <button onClick={onClose} className="bg-transparent absolute top-4 right-10 z-20 hover:bg-stone-300 dark:hover:bg-stone-300 dark:hover:text-stone-900 rounded-full border-none p-2 py-2">
                             <XMarkIcon className="w-5" />
                         </button>
                     </div>
@@ -170,11 +170,22 @@ function ShowDifference({ show, onClose, resourceId, currentlyEditor, currentlyP
                     </div>
 
                     <div className="flex overflow-y-scroll h-[95%] customscroller relative">
-                        <div>
-                            <AllForOne currentPath={"home"} language={language} screen={740} content={LiveContent.content} fullScreen={""} />
+                        <div className="border-r border-r-4 border-lime-500 h-fit">
+                            <AllForOne
+                                currentPath={"home"}
+                                language={language} screen={740}
+                                content={LiveContent.content} fullScreen={""}
+                                hideScroll={true}
+                            />
                         </div>
                         <div>
-                            <AllForOne currentPath={"home"} language={language} screen={740} content={editedContent.content} live={LiveContent.content} showDifference={true} fullScreen={""} />
+                            <AllForOne
+                                currentPath={"home"} language={language}
+                                screen={740} content={editedContent.content}
+                                live={LiveContent.content} showDifference={true}
+                                fullScreen={""}
+                                hideScroll={true}
+                            />
                         </div>
                     </div>
                     {
@@ -183,7 +194,7 @@ function ShowDifference({ show, onClose, resourceId, currentlyEditor, currentlyP
                     }
                     {
                         onRejectPopup &&
-                        <RejectPopup display={onRejectPopup} setClose={setOnRejectPopup} />
+                        <RejectPopup display={onRejectPopup} setClose={setOnRejectPopup} submitfunction={async () => { }} />
                     }
 
                     <Popups display={PopUpPublish} setClose={() => setPopupPublish(false)}

@@ -6,6 +6,7 @@ import SuspenseContent from "./SuspenseContent"
 import { useSelector } from 'react-redux'
 import { useEffect, useRef } from "react"
 import { useNavigate } from "react-router-dom"
+import { toast } from "react-toastify"
 
 const Page404 = lazy(() => import('../pages/protected/404'))
 
@@ -31,6 +32,13 @@ function PageContent() {
             navigate(route)
         }
     }, [])
+
+    useEffect(() => {
+        if (userRole.role && userRole.permissions?.length === 0) {
+            toast.error("The current role has no permissios", { hideProgressBar: true })
+        }
+
+    }, [userRole])
 
     return (
         <div className="flex flex-col flex-8 w-full overflow-x-hidden">

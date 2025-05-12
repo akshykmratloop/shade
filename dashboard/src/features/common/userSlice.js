@@ -44,13 +44,20 @@ const user = createSlice({
             // console.log(action.payload.roles[0].permissions)
             // console.log(JSON.stringify(state.isManager))
 
-            const { isEditor, isPublisher, isVerifier } = checkUser(action.payload.roles[0].permissions)
+            const { isEditor, isPublisher, isVerifier } = checkUser(action.payload.roles?.[0]?.permissions)
 
             state.isEditor = isEditor
             state.isPublisher = isPublisher;
             state.isVerifier = isVerifier;
 
-            if(!state.currentRole.role) {
+            if (action.payload.roles.length === 0) {
+                state.currentRole = {
+                    role: "",
+                    roleType: '',
+                    status: '',
+                    permissions: []
+                }
+            } else if (state.currentRole.role !== action.payload.roles?.[0]?.role) {
                 state.currentRole = action.payload.roles[0]
             }
         },

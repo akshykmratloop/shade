@@ -1,18 +1,18 @@
-import {themeChange} from "theme-change";
-import React, {useEffect, useRef, useState} from "react";
-import {useSelector, useDispatch} from "react-redux";
+import { themeChange } from "theme-change";
+import React, { useEffect, useRef, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import BellIcon from "@heroicons/react/24/outline/BellIcon";
 import MoonIcon from "@heroicons/react/24/outline/MoonIcon";
 import SunIcon from "@heroicons/react/24/outline/SunIcon";
-import {openRightDrawer} from "../features/common/rightDrawerSlice";
-import {RIGHT_DRAWER_TYPES} from "../utils/globalConstantUtil";
-import {LiaUserCircleSolid} from "react-icons/lia";
-import {Link, useNavigate} from "react-router-dom";
-import {openModal} from "../features/common/modalSlice";
-import {MODAL_BODY_TYPES} from "../utils/globalConstantUtil";
+import { openRightDrawer } from "../features/common/rightDrawerSlice";
+import { RIGHT_DRAWER_TYPES } from "../utils/globalConstantUtil";
+import { LiaUserCircleSolid } from "react-icons/lia";
+import { Link, useNavigate } from "react-router-dom";
+import { openModal } from "../features/common/modalSlice";
+import { MODAL_BODY_TYPES } from "../utils/globalConstantUtil";
 import SearchBar from "../components/Input/SearchBar";
-import {getNotificationsbyId} from "../app/fetch";
-import {setNotificationCount} from "../features/common/headerSlice";
+import { getNotificationsbyId } from "../app/fetch";
+import { setNotificationCount } from "../features/common/headerSlice";
 import socket from "../Socket/socket";
 import capitalizeWords, { TruncateText } from "../app/capitalizeword";
 import { updateCurrentRole, updateUser } from "../features/common/userSlice";
@@ -26,14 +26,14 @@ function Header() {
 
   // redux state
   const userObj = useSelector((state) => state.user);
-  const {noOfNotifications} = useSelector((state) => state.header);
-  const {user, currentRole} = userObj;
+  const { noOfNotifications } = useSelector((state) => state.header);
+  const { user, currentRole } = userObj;
 
   // ref
   const listRef = useRef(null);
 
   // variables
-  const oneRoleOnly = user.roles?.length === 1;
+  const oneRoleOnly = user.roles?.length <= 1;
   const userId = user.id;
 
   //=========================================================================
@@ -47,7 +47,7 @@ function Header() {
       openRightDrawer({
         header: "Notifications",
         bodyType: RIGHT_DRAWER_TYPES.NOTIFICATION,
-        extraObject: {id: user.id},
+        extraObject: { id: user.id },
       })
     );
   };
@@ -76,7 +76,7 @@ function Header() {
   };
 
   const switchRole = (id) => {
-    if(currentRole.role === id) return
+    if (currentRole.role === id) return
     // Switch Role
     localStorage.setItem("currentRole", id);
     // dispatch(updateCurrentRole(id))
@@ -143,6 +143,7 @@ function Header() {
     };
 
     const handleUserUpdate = async (response) => {
+      console.log(JSON.stringify(response.result))
       dispatch(updateUser(response.result))
       localStorage.setItem("user", JSON.stringify(response.result))
     }
@@ -224,12 +225,13 @@ function Header() {
             onClick={() => {
               setOpenList(!openList);
             }}
-            title={capitalizeWords(currentRole?.role)}
+            title={capitalizeWords(currentRole?.role) || "No role is assigned"}
           >
             <div
               className="py-1 px-[4px] pl-[6px] text-[14px] h-full flex items-center font-[600] rounded-[5px_0px_0px_5px]"
               onClick={() => {
-                setOpenList(!openList);
+                if (!oneRoleOnly) return
+                  setOpenList(!openList);
               }}
             >
               Role
@@ -242,9 +244,9 @@ function Header() {
             >
               <div
                 className="flex h-[100%] items-center justify-center flex-row text-[clamp(10px,1.7vh,2rem)]"
-                style={{whiteSpace: ""}}
+                style={{ whiteSpace: "" }}
               >
-                {TruncateText(capitalizeWords(currentRole?.role), 20)}
+                {TruncateText(capitalizeWords(currentRole?.role), 20) || "No role is assigned"}
               </div>
               {!oneRoleOnly && (
                 <span>
@@ -261,7 +263,7 @@ function Header() {
                 dark:shadow-md dark:shadow-stone-800 
                 absolute z-[30] p-2 shadow bg-base-100 
                 rounded-md flex flex-col gap-1"
-                style={{display: openList ? "flex" : "none", whiteSpace:"pre"}}
+                style={{ display: openList ? "flex" : "none", whiteSpace: "pre" }}
               >
                 {user.roles?.map((e, i) => {
                   return (

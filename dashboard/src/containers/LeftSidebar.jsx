@@ -47,7 +47,7 @@ function LeftSidebar() {
       key={index}
       className="mt-2 w-full flex justify-center"
       title={route.name}
-      style={{ borderRadius: lastIndex ? "0px 0px 0px 0px" : undefined }}
+      style={{ borderRadius: "0px 0px 0px 0px" }}
     >
       <NavLink
         end

@@ -128,7 +128,7 @@ function Requests() {
   const userObj = useSelector(state => state.user)
 
   const { isManager, isEditor, isPublisher, isVerifier, currentRole } = userObj;
-  const roleId = currentRole.id
+  const roleId = currentRole?.id
 
   // variables for conditioned renderings
   const [canSeeEditor, setCanSeeEditor] = useState((isVerifier || isPublisher || isManager))
@@ -136,7 +136,7 @@ function Requests() {
   const [canSeePublisher, setCasSeePublisher] = useState((isVerifier || isManager))
   const noneCanSee = !(isEditor || isManager || isVerifier || isPublisher)
   const RoleTypeIsUser = userPermissionsSet.has(currentRole.permissions[0])
-  const [permission, setPermission] = useState(RoleTypeIsUser ? currentRole.permissions[0] : false)
+  const [permission, setPermission] = useState(RoleTypeIsUser ? currentRole?.permissions[0] || "" : false)
 
   // Fucntions
   const navigate = useNavigate();
@@ -226,7 +226,7 @@ function Requests() {
         try {
           const payload = { roleId: roleId ?? "" }
 
-          if (RoleTypeIsUser) payload.permission = permission || currentRole.permissions[0]
+          if (RoleTypeIsUser) payload.permission = permission || currentRole?.permissions[0] || ""
           const response = await getRequests(payload);
           if (response.ok) {
             setRequests(response.requests.data);
@@ -259,6 +259,8 @@ function Requests() {
       setToggle(true)
     }
   }, [currentRole])
+
+
 
   return (
     <div className="relative min-h-full">
