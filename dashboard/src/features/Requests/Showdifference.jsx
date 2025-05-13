@@ -55,6 +55,17 @@ function ShowDifference({ show, onClose, resourceId, currentlyEditor, currentlyP
         }
     }
 
+    const RejectRequestFunc = async (id, body) => {
+        const response = await rejectedRequest(id, { rejectReason: body })
+        if (response.ok) {
+            toast.success("Request has been approved")
+            onClose()
+            return true
+        } else {
+            toast.error("Something went wrong please try again later", {autoClose: 1000, hideProgressBar: true})
+        }
+    }
+
     useEffect(() => {
         const handleClickOutside = (e) => {
             if (modalRef.current && !modalRef.current.contains(e.target)) {
@@ -223,7 +234,7 @@ function ShowDifference({ show, onClose, resourceId, currentlyEditor, currentlyP
                     }
                     {
                         onRejectPopup &&
-                        <RejectPopup display={onRejectPopup} setClose={setOnRejectPopup} submitfunction={async () => { }} />
+                        <RejectPopup display={onRejectPopup} setClose={setOnRejectPopup} submitfunction={async (body) => { RejectRequestFunc(requestId, body) }} />
                     }
 
                     <Popups display={PopUpPublish} setClose={() => setPopupPublish(false)}

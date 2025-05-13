@@ -434,11 +434,11 @@ export async function approveRequest(param) {
   );
 }
 
-export async function rejectedRequest(param) {
+export async function rejectedRequest(param, body) {
   return await makerequest(
     `${api.route("rejectRequest")}` + param,
     "POST",
-    JSON.stringify({}),
+    JSON.stringify(body),
     ContentType.json,
     true
   );
