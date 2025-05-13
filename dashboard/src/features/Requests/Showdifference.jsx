@@ -20,6 +20,7 @@ import DateTime from "./DateTime";
 import createContent from "../Resources/defineContent";
 import Popups from "../Resources/components/breakUI/Popups";
 import { approveRequest, rejectedRequest } from "../../app/fetch";
+import { toast } from "react-toastify";
 
 
 
@@ -43,6 +44,16 @@ function ShowDifference({ show, onClose, resourceId, currentlyEditor, currentlyP
 
     const modalRef = useRef(null)
     const commentRef = useRef(null)
+
+    const approveRequestFunc = async (id) => {
+        const response = await approveRequest(id)
+        if (response.ok) {
+            toast.success("Request has been approved")
+            onClose()
+        } else {
+            toast.error("Something went wrong please try again later")
+        }
+    }
 
     useEffect(() => {
         const handleClickOutside = (e) => {
@@ -219,7 +230,7 @@ function ShowDifference({ show, onClose, resourceId, currentlyEditor, currentlyP
                         confirmationText={`The page is under ${capitalizeWords(pageStatus[editVersion.editVersion?.status])}. Are you sure you want to publish?`} confirmationFunction={() => { }}
                     />
                     <Popups display={PopupSubmit} setClose={() => setPopupSubmit(false)}
-                        confirmationText={"Are you sure you want to Approve?"} confirmationFunction={async () => { approveRequest(requestId) }}
+                        confirmationText={"Are you sure you want to Approve?"} confirmationFunction={async () => { approveRequestFunc(requestId) }}
                     />
                 </Dialog.Panel>
             </div>
