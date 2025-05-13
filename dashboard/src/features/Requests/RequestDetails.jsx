@@ -43,7 +43,7 @@ const RequestDetails = () => {
           const response = await getRequestInfo(id);
 
           if (response.ok) {
-            setRequestData(response.requestInfo.Details)
+            setRequestData(response.requestInfo.details)
           } else {
 
           }
