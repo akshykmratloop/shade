@@ -1,39 +1,68 @@
 {
   "header": {
-    "solution": {
-      "en": "Solutions",
-      "ar": "خبر"
-    },
-    "about": {
-      "en": "About",
-      "ar": "معلومات عنا"
-    },
-    "services": {
-      "en": "Services",
-      "ar": "المشاريع"
-    },
-    "market": {
-      "en": "Market",
-      "ar": "سوق"
-    },
-    "project": {
-      "en": "Project",
-      "ar": "خدمة"
-    },
-    "career": {
-      "en": "Career",
-      "ar": "مهنة"
-    },
-    "news": {
-      "en": "News",
-      "ar": "حل"
-    },
-    "contact": {
-      "en": "Contact Us",
-      "ar": "اتصل بنا"
-    }
+    "slug": "header",
+    "navItems": [
+      {
+        "nav": {
+          "en": "Solutions",
+          "ar": "الحلول"
+        },
+        "url": "/solutions"
+      },
+      {
+        "nav": {
+          "en": "About",
+          "ar": "من نحن"
+        },
+        "url": "/about"
+      },
+      {
+        "nav": {
+          "en": "Services",
+          "ar": "خدماتنا"
+        },
+        "url": "/services"
+      },
+      {
+        "nav": {
+          "en": "Market",
+          "ar": "السوق"
+        },
+        "url": "/market"
+      },
+      {
+        "nav": {
+          "en": "Project",
+          "ar": "مشاريعنا"
+        },
+        "url": "/projects"
+      },
+      {
+        "nav": {
+          "en": "Career",
+          "ar": "الوظائف"
+        },
+        "url": "/career"
+      },
+      {
+        "nav": {
+          "en": "News",
+          "ar": "الأخبار"
+        },
+        "url": "/news"
+      },
+      {
+        "nav": {
+          "en": "Contact Us",
+          "ar": "اتصل بنا"
+        },
+        "url": "/contact"
+      }
+    ]
   },
+
   "home": {
+    "slug": "home",
     "homeBanner": {
       "title": {
         "en": "Building a Stronger Future",
@@ -249,7 +278,15 @@
       "title": {
         "en": "What Our Clients Say About Us?",
         "ar": "ماذا يقول عملاؤنا عنا؟"
-      }
+      },
+      "testimonialsItems": [
+        "salah-attia-abdelzaher",
+        "ahmed-basiony",
+        "khaled-el-kholy",
+        "mostafa-sayed",
+        "amro-khatab",
+        "sherif-mekky"
+      ]
     },
     "newProjectSection": {
       "title": {
@@ -272,8 +309,10 @@
       ]
     }
   },
+
   "testimonials": [
     {
+      "slug": "salah-attia-abdelzaher",
       "name": {
         "en": "Dr. Engr. Salah Attia Abdelzaher",
         "ar": "د. مهندس صلاح عطيه عبد الظاهر"
@@ -293,6 +332,7 @@
       "image": "testimonial1"
     },
     {
+      "slug": "ahmed-basiony",
       "name": {
         "en": "Ahmed Basiony",
         "ar": "أحمد بسيوني"
@@ -312,6 +352,7 @@
       "image": "testimonial2"
     },
     {
+      "slug": "khaled-el-kholy",
       "name": {
         "en": "Khaled El Kholy",
         "ar": "خالد الخولي"
@@ -331,6 +372,7 @@
       "image": "userIcon"
     },
     {
+      "slug": "mostafa-sayed",
       "name": {
         "en": "Mostafa Sayed",
         "ar": "سيد مصطفى"
@@ -350,6 +392,7 @@
       "image": "dummyUser"
     },
     {
+      "slug": "amro-khatab",
       "name": {
         "en": "Amro Khatab",
         "ar": "عمرو خطاب"
@@ -369,6 +412,7 @@
       "image": "userIcon"
     },
     {
+      "slug": "sherif-mekky",
       "name": {
         "en": "Sherif Mekky",
         "ar": "شريف مكي"
@@ -388,7 +432,9 @@
       "image": "dummyUser"
     }
   ],
+
   "footer": {
+    "slug": "footer",
     "companyInfo": {
       "address": {
         "ar": "شركة الظل المحدودة.\nص.ب. ص.ب 7027 الدمام 31462 المملكة العربية السعودية مبنى رقم 5222 الدمام 32414-6124.",
@@ -548,7 +594,9 @@
       ]
     }
   },
+
   "aboutUs": {
+    "slug": "about-us",
     "intro": {
       "title": {
         "ar": "Shade Corporation Ltd",
@@ -600,7 +648,7 @@
         "ar": "معلومات عنا",
         "en": "About Us"
       },
-      "descriptions":{
+      "descriptions": {
         "ar": "تأسست شركة Shade Corporation، الرائدة في هذه الصناعة، في عام 1992 بهدف واحد هو \"بناء مستقبل أقوى\". إن أفكارنا، التي شكلتها المنهجيات المتطورة وعقود من الخبرة، تخدم أكبر الشركات في العالم. نحن متحمسون لإطلاق الإمكانات وتقديم الحلول لعملائنا",
         "en": "Shade Corporation, a leader in the industry, was established in 1992 with a single goal of \"Building a Stronger Future\". Our ideas, shaped by advanced methodologies and decades of experience, serve the world's largest companies. We are passionate about unlocking potential and delivering solutions for our clients."
       },
@@ -617,11 +665,8 @@
     }
   },
 
-
-
-
-
   "solution": {
+    "slug": "solution",
     "banner": {
       "title": {
         "ar": "الحلول",
@@ -642,7 +687,7 @@
         }
       ]
     },
-    "sectionContent":[
+    "sectionContent": [
       {
         "title": {
           "ar": "ماذا نفعل",
@@ -668,17 +713,15 @@
       "images": [
         {
           "url": "https://frequencyimage.s3.ap-south-1.amazonaws.com/851e35b5-9b3b-4d9f-91b4-9b60ef2a102c-Rectangle%2034624110.png",
-           "altText" : ""
+          "altText": ""
         },
         {
           "url": "https://frequencyimage.s3.ap-south-1.amazonaws.com/ae1cee6e-f695-4e06-8e0b-983b8cb94209-Rectangle%2034624111.jpg",
-          "altText" : ""
-
+          "altText": ""
         },
         {
           "url": "https://frequencyimage.s3.ap-south-1.amazonaws.com/be6992a3-4390-42c1-b807-b1a04f48b0e6-Rectangle%2034624112.jpg",
-          "altText" : ""
-
+          "altText": ""
         }
       ]
     },
@@ -686,29 +729,22 @@
       "images": [
         {
           "url": "https://frequencyimage.s3.ap-south-1.amazonaws.com/851e35b5-9b3b-4d9f-91b4-9b60ef2a102c-Rectangle%2034624110.png",
-           "altText" : ""
+          "altText": ""
         },
         {
           "url": "https://frequencyimage.s3.ap-south-1.amazonaws.com/ae1cee6e-f695-4e06-8e0b-983b8cb94209-Rectangle%2034624111.jpg",
-          "altText" : ""
-
+          "altText": ""
         },
         {
           "url": "https://frequencyimage.s3.ap-south-1.amazonaws.com/be6992a3-4390-42c1-b807-b1a04f48b0e6-Rectangle%2034624112.jpg",
-          "altText" : ""
-
+          "altText": ""
         }
       ]
     }
   },
 
-
-
-
-
-
-
-  "servicePage": {
+  "services": {
+    "slug": "service",
     "banner": {
       "title": {
         "ar": "خدماتنا",
@@ -729,1213 +765,1104 @@
         }
       ]
     },
-    "serviceCards": [
-      {
+    "serviceCards": {
+      "button": [
+        {
+          "url": null,
+          "text": {
+            "ar": "عرض عملنا",
+            "en": "View Our"
+          },
+          "icon": null
+        }
+      ],
+      "cards": [
+        "construction-management",
+        "project-services",
+        "operation-maintenance",
+        "fabrication",
+        "equipment-rental"
+      ]
+    }
+  },
+
+  "secondLevelOFServices": [
+    {
+      "resourceTitle": {
+        "ar": "إدارة البناء",
+        "en": "Construction Management"
+      },
+      "slug": "construction-management",
+      "introSection": {
         "title": {
           "ar": "إدارة البناء",
           "en": "Construction Management"
         },
-        "subtitle": {
-          "ar": "تزدهر شركة Shade من خلال تقديم خدمة عملاء استثنائية ومشاركة معرفتنا بالمنتجات المتخصصة المتوفرة في الصناعة.",
-          "en": "Shade thrives by delivering exceptional customer service and sharing our knowledge of specialized products available in the industry."
+        "description": {
+          "ar": "نحن متخصصون في تقديم حلول إدارة البناء التي تضمن تنفيذ المشاريع بكفاءة وجودة عالية، من مرحلة التصميم حتى التسليم.",
+          "en": "We specialize in providing construction management solutions that ensure project execution with high efficiency and quality, from design to delivery."
         },
-        "listTitle": {
-          "ar": "خبرتنا تغطي:",
-          "en": "Our expertise covers:"
-        },
-        "listItems": [
+        "image": [
+          "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
+        ]
+      },
+      "childrenServices": {
+        "button": [
           {
-            "ar": "التشطيبات المعمارية",
-            "en": "Architectural Finishes"
-          },
-          {
-            "ar": "المدنية الثقيلة",
-            "en": "Heavy Civil"
-          },
-          {
-            "ar": "التدفئة والتهوية وتكييف الهواء والهندسة الكهربائية والميكانيكية",
-            "en": "HVAC & MEP"
-          },
-          {
-            "ar": "المسح",
-            "en": "Surveying"
-          },
-          {
-            "ar": "الاتصالات والأجهزة",
-            "en": "Communications & Instrumentation"
+            "url": null,
+            "text": {
+              "en": "View Details",
+              "ar": "عرض التفاصيل"
+            },
+            "icon": null
           }
         ],
-        "image": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+140.png"
+        "childService": "architectural-finishes"
       },
-      {
+      "otherParentServices": [
+        "project-services",
+        "operation-maintenance",
+        "fabrication",
+        "equipment-rental"
+      ]
+    },
+    {
+      "resourceTitle": {
+        "ar": "خدمات المشروع",
+        "en": "Project Services"
+      },
+      "slug": "project-services",
+      "introSection": {
         "title": {
           "ar": "خدمات المشروع",
           "en": "Project Services"
         },
-        "subtitle": {
-          "ar": "نحن نستفيد من سنوات خبرتنا في صناعة البناء والتشييد للعملاء من خلال الحفاظ أيضًا على مرافقهم وبنيتهم التحتية.",
-          "en": "We leverage our years of experience in the construction industry for clients by also maintaining their facilities and infrastructure."
+        "description": {
+          "ar": "نقدم مجموعة شاملة من خدمات إدارة وتنفيذ المشاريع لضمان تحقيق الأهداف في الوقت المحدد وضمن الميزانية.",
+          "en": "We provide a comprehensive range of project execution and management services to ensure timely and cost-effective delivery."
         },
-        "listTitle": {
-          "ar": "خبرتنا تغطي:",
-          "en": "Our expertise covers:"
-        },
-        "listItems": [
+        "image": [
+          "https://loopwebsite.s3.ap-south-1.amazonaws.com/project-services.png"
+        ]
+      },
+      "childrenServices": {
+        "button": [
           {
-            "ar": "خدمات المرافق",
-            "en": "Facility Services"
-          },
-          {
-            "ar": "خدمات الطرق",
-            "en": "Road Services"
-          },
-          {
-            "ar": "خدمات الجسور / الأنفاق",
-            "en": "Bridge/Tunnel Services"
-          },
-          {
-            "ar": "خدمات المصانع / المصانع",
-            "en": "Plant/Factory Services"
-          },
-          {
-            "ar": "خدمات تنسيق الحدائق",
-            "en": "Landscaping Services"
+            "url": null,
+            "text": {
+              "en": "View Details",
+              "ar": "عرض التفاصيل"
+            },
+            "icon": null
           }
         ],
-        "image": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(2).png"
+        "childService": "facility-services"
       },
-      {
+      "otherParentServices": [
+        "construction-management",
+        "operation-maintenance",
+        "fabrication",
+        "equipment-rental"
+      ]
+    },
+    {
+      "resourceTitle": {
+        "ar": "التشغيل والصيانة",
+        "en": "Operation & Maintenance"
+      },
+      "slug": "operation-maintenance",
+      "introSection": {
         "title": {
           "ar": "التشغيل والصيانة",
           "en": "Operation & Maintenance"
         },
-        "subtitle": {
-          "ar": "نحن نستفيد من سنوات خبرتنا في صناعة البناء والتشييد للعملاء من خلال الحفاظ أيضًا على مرافقهم وبنيتهم التحتية.",
-          "en": "We leverage our years of experience in the construction industry for clients by also maintaining their facilities and infrastructure."
-        },
         "description": {
-          "ar": "سواء تم تقديمها كخدمات مستقلة، أو جزء من مجموعة من الخدمات التي تدعم تسليم المشاريع وتشغيلها، فإن خدمات التشغيل والصيانة التي تقدمها SHADE تساعد العملاء في حماية أصول البنية التحتية الحيوية والمكلفة وإطالة عمرها التشغيلي.",
-          "en": "Whether delivered as standalone services, or part of a suite of services supporting project delivery and operations, SHADE's O&M services help clients protect vital and costly infrastructure assets and extend their operational life."
+          "ar": "نضمن استمرارية الأداء الأمثل من خلال خدمات تشغيل وصيانة فعالة للمرافق والبنية التحتية.",
+          "en": "We ensure optimal performance continuity through efficient facility and infrastructure operation and maintenance services."
         },
-        "image": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(3).png"
+        "image": [
+          "https://loopwebsite.s3.ap-south-1.amazonaws.com/operation-maintenance.png"
+        ]
       },
-      {
+      "childrenServices": {
+        "button": [
+          {
+            "url": null,
+            "text": {
+              "en": "View Details",
+              "ar": "عرض التفاصيل"
+            },
+            "icon": null
+          }
+        ],
+        "childService": "infrastructure-maintenance"
+      },
+      "otherParentServices": [
+        "construction-management",
+        "project-services",
+        "fabrication",
+        "equipment-rental"
+      ]
+    },
+    {
+      "resourceTitle": {
+        "ar": "التصنيع",
+        "en": "Fabrication"
+      },
+      "slug": "fabrication",
+      "introSection": {
         "title": {
-          "ar": "تلفيق",
+          "ar": "التصنيع",
           "en": "Fabrication"
         },
-        "subtitle": {
-          "ar": "تتيح لنا المعرفة الشاملة لشركة Shade Corporation في مجال EPC وإدارة المشاريع تحسين التصنيع الشامل للعميل وتكلفة البناء ومزايا الجدول الزمني.",
-          "en": "Shade Corporation's comprehensive knowledge in EPC and project management allows us to optimize the client's overall fabrication, construction cost, and schedule advantages."
-        },
         "description": {
-          "ar": "يعمل خبراؤنا الفنيون على تبسيط طرق التسليم لتحسين كفاءة رأس المال لعملائنا، بغض النظر عن الصناعة. نحن نعتمد نهجًا مرنًا ونقدم مجموعة من الخيارات التي تم تخصيصها لتناسب متطلبات العميل المحددة.",
-          "en": "Our technical experts work to streamline delivery methods to optimize our clients' capital efficiency, regardless of industry. We take a flexible approach and offer a range of options tailored to meet specific client requirements."
+          "ar": "نقدم خدمات تصنيع عالية الجودة باستخدام أحدث التقنيات لتلبية متطلبات المشاريع الصناعية والتجارية.",
+          "en": "We offer high-quality fabrication services using advanced technologies to meet industrial and commercial project needs."
         },
-        "image": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(5).png"
+        "image": [
+          "https://loopwebsite.s3.ap-south-1.amazonaws.com/fabrication.png"
+        ]
       },
-      {
+      "childrenServices": {
+        "button": [
+          {
+            "url": null,
+            "text": {
+              "en": "View Details",
+              "ar": "عرض التفاصيل"
+            },
+            "icon": null
+          }
+        ],
+        "childService": "structural-fabrication"
+      },
+      "otherParentServices": [
+        "construction-management",
+        "project-services",
+        "operation-maintenance",
+        "equipment-rental"
+      ]
+    },
+    {
+      "resourceTitle": {
+        "ar": "تأجير المعدات",
+        "en": "Equipment Rental"
+      },
+      "slug": "equipment-rental",
+      "introSection": {
         "title": {
           "ar": "تأجير المعدات",
           "en": "Equipment Rental"
         },
-        "subtitle": {
-          "ar": "تعد شركة Shade Corporation واحدة من أكبر شركات البناء وتأجير البنية التحتية في المنطقة.",
-          "en": "Shade Corporation is one of the largest construction and infrastructure rental companies in the region."
-        },
         "description": {
-          "ar": "نحن نقدم حلاً شاملاً لتأجير المعدات ذات المستوى العالمي والخدمات المرتبطة بها. نحن نمكن من استخدام المصانع والآلات لإنجاز المشاريع بسلاسة. يعد أسطولنا الشامل من حيث العمر والأداء من بين الأفضل في الصناعة. تمتلك شركة Shade مجموعة من الرافعات، والمضخات، ومعدات توليد الطاقة، ودعم الخنادق وتدريعها، والسقالات، والتحكم في المناخ، ومعدات المعالجة والترميم، والمزيد.",
-          "en": "We provide a comprehensive solution for world-class equipment rental and associated services. We enable the use of plants and machinery to complete projects seamlessly. Our fleet is comprehensive in terms of age and performance among the best in the industry. Shade owns a range of cranes, pumps, power generation equipment, trench support and shoring, scaffolding, climate control, handling and remediation equipment, and more."
+          "ar": "نوفر مجموعة واسعة من المعدات الحديثة للإيجار لدعم مختلف احتياجات المشاريع بكفاءة وفعالية.",
+          "en": "We provide a wide range of modern equipment for rent to efficiently support various project needs."
         },
-        "image": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(4).png"
-      }
-    ]
-  },
-
-
-  "2ndLevelOFServices" : 
-    [
-      {
-        "title": {
-          "ar": "إدارة البناء",
-          "en": "Construction Management"
-        },
-        "slug": "construction-management",
-        "introSection": {
-          "title": {
-            "ar": "إدارة البناء",
-            "en": "Construction Management"
-          },
-          "description": {
-            "ar": "نحن متخصصون في تقديم حلول إدارة البناء التي تضمن تنفيذ المشاريع بكفاءة وجودة عالية، من مرحلة التصميم حتى التسليم.",
-            "en": "We specialize in providing construction management solutions that ensure project execution with high efficiency and quality, from design to delivery."
-          },
-          "image": [
-            "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
-          ]
-        },
-        "childrenServices": {
-          "button": [
-            {
-              "url": null,
-              "text": {
-                "en": "View Details",
-                "ar": "عرض التفاصيل"
-              },
-              "icon": null
-            }
-          ],
-          "childService": "construction-management"
-        },
-        "otherParentServices": [
-          "architectural-finishes",
-          "heavy-civil",
-          "hvac-mep",
-          "surveying"
+        "image": [
+          "https://loopwebsite.s3.ap-south-1.amazonaws.com/equipment-rental.png"
         ]
       },
-      {
+      "childrenServices": {
+        "button": [
+          {
+            "url": null,
+            "text": {
+              "en": "View Details",
+              "ar": "عرض التفاصيل"
+            },
+            "icon": null
+          }
+        ],
+        "childService": "cranes-heavy-lifting-equipment"
+      },
+      "otherParentServices": [
+        "construction-management",
+        "project-services",
+        "operation-maintenance",
+        "fabrication"
+      ]
+    }
+  ],
+
+
+
+  "thirdLevelOfServices": [
+    {
+      "resourceTitle": {
+        "ar": "التشطيبات المعمارية",
+        "en": "Architectural Finishes"
+      },
+      "slug": "architectural-finishes",
+      "banner": {
         "title": {
           "ar": "التشطيبات المعمارية",
           "en": "Architectural Finishes"
         },
-        "slug": "architectural-finishes",
-        "introSection": {
-          "title": {
-            "ar": "التشطيبات المعمارية",
-            "en": "Architectural Finishes"
-          },
-          "description": {
-            "ar": "نحن متخصصون في تقديم التشطيبات المعمارية عالية الجودة التي تعكس جمال التصميم وتلبي احتياجاتك المعمارية.",
-            "en": "We specialize in providing high-quality architectural finishes that reflect the beauty of design and cater to your architectural needs."
-          },
-          "image": [
-            "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
-          ]
+        "description": {
+          "ar": "نحن نختص في تقديم تشطيبات معمارية عالية الجودة تعكس جمال التصميم وتتناسب مع احتياجاتك المعمارية.",
+          "en": "We specialize in providing high-quality architectural finishes that reflect the beauty of design and cater to your architectural needs."
         },
-        "childrenServices": {
-          "button": [
-            {
-              "url": null,
-              "text": {
-                "en": "View Details",
-                "ar": "عرض التفاصيل"
-              },
-              "icon": null
-            }
-          ],
-          "childService": "architectural-finishes"
-        },
-        "otherParentServices": [
-          "construction-management",
-          "heavy-civil",
-          "hvac-mep",
-          "surveying"
+        "image": [
+          "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
         ]
       },
-      {
+      "ServicePointsGrid1": {
         "title": {
-          "ar": "الخدمات المدنية الثقيلة",
-          "en": "Heavy Civil"
+          "ar": "أنواع التشطيبات المعمارية",
+          "en": "Types of Architectural Finishes"
         },
-        "slug": "heavy-civil",
-        "introSection": {
-          "title": {
-            "ar": "الخدمات المدنية الثقيلة",
-            "en": "Heavy Civil"
+        "description": {
+          "ar": "اكتشف مجموعة واسعة من التشطيبات المعمارية التي نقدمها لضمان أعلى مستويات الجمال والجودة.",
+          "en": "Explore the wide range of architectural finishes we offer to ensure the highest levels of beauty and quality."
+        },
+        "points": [
+          {
+            "title": {
+              "ar": "الأرضيات",
+              "en": "Flooring"
+            },
+            "description": {
+              "ar": "نقدم مجموعة متنوعة من الأرضيات مثل الرخام، والبلاط، والخشب لتناسب جميع أنواع المشاريع المعمارية.",
+              "en": "We offer a variety of flooring options such as marble, tiles, and wood to suit all types of architectural projects."
+            },
+            "image": [
+              "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
+            ]
           },
-          "description": {
-            "ar": "نقدم مجموعة من الخدمات المدنية الثقيلة التي تشمل بناء الأساسات، والطرق، والهياكل المعدنية الثقيلة.",
-            "en": "We provide a range of heavy civil services that include foundation work, roads, and heavy steel structures."
+          {
+            "title": {
+              "ar": "الجدران الداخلية",
+              "en": "Interior Walls"
+            },
+            "description": {
+              "ar": "تشطيب الجدران الداخلية باستخدام الدهانات، الورق الجدراني، أو الألواح الجبسية للحصول على مظهر عصري وأنيق.",
+              "en": "Interior wall finishes using paints, wallpaper, or gypsum boards to achieve a modern and elegant look."
+            },
+            "image": [
+              "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
+            ]
           },
-          "image": [
-            "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
-          ]
-        },
-        "childrenServices": {
-          "button": [
-            {
-              "url": null,
-              "text": {
-                "en": "View Details",
-                "ar": "عرض التفاصيل"
-              },
-              "icon": null
-            }
-          ],
-          "childService": "heavy-civil"
-        },
-        "otherParentServices": [
-          "construction-management",
-          "architectural-finishes",
-          "surveying",
-          "communications-instrumentation"
+          {
+            "title": {
+              "ar": "الأسطح الخارجية",
+              "en": "Exterior Surfaces"
+            },
+            "description": {
+              "ar": "تشطيبات الأسطح الخارجية باستخدام الحجر الطبيعي أو الطوب أو التشطيبات المركبة لخلق مظهر قوي وجميل.",
+              "en": "Exterior surface finishes using natural stone, brick, or composite finishes to create a strong and beautiful appearance."
+            },
+            "image": [
+              "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
+            ]
+          },
+          {
+            "title": {
+              "ar": "الأسقف",
+              "en": "Ceilings"
+            },
+            "description": {
+              "ar": "نقدم تشطيبات الأسقف باستخدام الألواح الجبسية أو الأسقف المعلقة أو الأسقف الخشبية لتحقيق التصميم المطلوب.",
+              "en": "We provide ceiling finishes using gypsum boards, suspended ceilings, or wooden ceilings to achieve the desired design."
+            },
+            "image": [
+              "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
+            ]
+          },
+          {
+            "title": {
+              "ar": "الإضاءة المعمارية",
+              "en": "Architectural Lighting"
+            },
+            "description": {
+              "ar": "تركيب أنظمة الإضاءة المبتكرة التي تتناغم مع التصميم المعماري وتضيف جوًا من الدفء والجمال.",
+              "en": "Installation of innovative lighting systems that complement the architectural design and add a warm, aesthetic ambiance."
+            },
+            "image": [
+              "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
+            ]
+          }
         ]
       },
-      {
+      "ServicePointsGrid2": {
         "title": {
-          "ar": "الخدمات الميكانيكية والكهربائية والتكييف (HVAC)",
-          "en": "HVAC & MEP"
+          "ar": "التشطيبات الخاصة",
+          "en": "Specialized Finishes"
         },
-        "slug": "hvac-mep",
-        "introSection": {
-          "title": {
-            "ar": "الخدمات الميكانيكية والكهربائية والتكييف (HVAC)",
-            "en": "HVAC & MEP"
+        "description": {
+          "ar": "نحن نقدم خدمات تشطيبات معمارية متخصصة تلبي احتياجات مشاريعك الفريدة.",
+          "en": "We offer specialized architectural finishes services that cater to the unique needs of your projects."
+        },
+        "points": [
+          {
+            "title": {
+              "ar": "التشطيبات الزجاجية",
+              "en": "Glass Finishes"
+            },
+            "description": {
+              "ar": "استخدام الزجاج عالي الجودة في النوافذ والأبواب والشرفات لإضفاء مظهر عصري ومشرق.",
+              "en": "Use of high-quality glass in windows, doors, and balconies to give a modern and bright appearance."
+            },
+            "image": [
+              "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
+            ]
           },
-          "description": {
-            "ar": "نحن نقدم حلولًا شاملة لخدمات HVAC وMEP تتضمن التصميم والتركيب والصيانة للمرافق والمباني التجارية والصناعية.",
-            "en": "We offer comprehensive HVAC and MEP services, including design, installation, and maintenance for commercial and industrial facilities."
+          {
+            "title": {
+              "ar": "الأسطح المعدنية",
+              "en": "Metal Finishes"
+            },
+            "description": {
+              "ar": "تقديم تشطيبات معدنية باستخدام الفولاذ المقاوم للصدأ أو الألومنيوم للحصول على مظهر حديث وعصري.",
+              "en": "Providing metal finishes using stainless steel or aluminum for a sleek, modern, and sophisticated look."
+            },
+            "image": [
+              "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
+            ]
           },
-          "image": [
-            "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
-          ]
-        },
-        "childrenServices": {
-          "button": [
-            {
-              "url": null,
-              "text": {
-                "en": "View Details",
-                "ar": "عرض التفاصيل"
-              },
-              "icon": null
-            }
-          ],
-          "childService": "hvac-mep"
-        },
-        "otherParentServices": [
-          "construction-management",
-          "architectural-finishes",
-          "heavy-civil",
-          "surveying"
-        ]
-      },
-      {
-        "title": {
-          "ar": "الخدمات المساحية",
-          "en": "Surveying"
-        },
-        "slug": "surveying",
-        "introSection": {
-          "title": {
-            "ar": "الخدمات المساحية",
-            "en": "Surveying"
+          {
+            "title": {
+              "ar": "التشطيبات الخشبية",
+              "en": "Wooden Finishes"
+            },
+            "description": {
+              "ar": "استخدام التشطيبات الخشبية الطبيعية أو المعالجة لإضفاء لمسة دافئة وطبيعية على التصميم المعماري.",
+              "en": "Using natural or treated wooden finishes to add a warm and natural touch to the architectural design."
+            },
+            "image": [
+              "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
+            ]
           },
-          "description": {
-            "ar": "نحن نقدم خدمات مساحية دقيقة باستخدام تقنيات متقدمة لضمان دقة القياسات والتخطيط للمشاريع.",
-            "en": "We provide precise surveying services using advanced techniques to ensure accurate measurements and project planning."
+          {
+            "title": {
+              "ar": "التشطيبات الحجرية",
+              "en": "Stone Finishes"
+            },
+            "description": {
+              "ar": "تشطيب الأسطح باستخدام الحجر الطبيعي أو الصناعي لإضفاء مظهر قوي وراقي للمباني.",
+              "en": "Finishing surfaces with natural or artificial stone to give buildings a strong, sophisticated look."
+            },
+            "image": [
+              "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
+            ]
           },
-          "image": [
-            "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
-          ]
-        },
-        "childrenServices": {
-          "button": [
-            {
-              "url": null,
-              "text": {
-                "en": "View Details",
-                "ar": "عرض التفاصيل"
-              },
-              "icon": null
-            }
-          ],
-          "childService": "surveying"
-        },
-        "otherParentServices": [
-          "construction-management",
-          "architectural-finishes",
-          "heavy-civil",
-          "hvac-mep"
+          {
+            "title": {
+              "ar": "الأسطح الملونة والمزخرفة",
+              "en": "Colored and Decorative Finishes"
+            },
+            "description": {
+              "ar": "تقديم تشطيبات مزخرفة وملونة لتلبية المتطلبات الفنية والجمالية الخاصة بالمشروع.",
+              "en": "Offering decorative and colored finishes to meet the artistic and aesthetic requirements of the project."
+            },
+            "image": [
+              "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
+            ]
+          }
         ]
       }
-    ]
-    
-  
-
-  ,
-"3rdLevelOfServices" : [
-  {
-    "title": {
-      "ar": "التشطيبات المعمارية",
-      "en": "Architectural Finishes"
     },
-    "slug": "architectural-finishes",
-    "banner": {
-      "title": {
-        "ar": "التشطيبات المعمارية",
-        "en": "Architectural Finishes"
-      },
-      "description": {
-        "ar": "نحن نختص في تقديم تشطيبات معمارية عالية الجودة تعكس جمال التصميم وتتناسب مع احتياجاتك المعمارية.",
-        "en": "We specialize in providing high-quality architectural finishes that reflect the beauty of design and cater to your architectural needs."
-      },
-      "image": [
-        "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
-      ]
-    },
-    "ServicePointsGrid1": {
-      "title": {
-        "ar": "أنواع التشطيبات المعمارية",
-        "en": "Types of Architectural Finishes"
-      },
-      "description": {
-        "ar": "اكتشف مجموعة واسعة من التشطيبات المعمارية التي نقدمها لضمان أعلى مستويات الجمال والجودة.",
-        "en": "Explore the wide range of architectural finishes we offer to ensure the highest levels of beauty and quality."
-      },
-      "points": [
-        {
-          "title": {
-            "ar": "الأرضيات",
-            "en": "Flooring"
-          },
-          "description": {
-            "ar": "نقدم مجموعة متنوعة من الأرضيات مثل الرخام، والبلاط، والخشب لتناسب جميع أنواع المشاريع المعمارية.",
-            "en": "We offer a variety of flooring options such as marble, tiles, and wood to suit all types of architectural projects."
-          },
-          "image": [
-            "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
-          ]
-        },
-        {
-          "title": {
-            "ar": "الجدران الداخلية",
-            "en": "Interior Walls"
-          },
-          "description": {
-            "ar": "تشطيب الجدران الداخلية باستخدام الدهانات، الورق الجدراني، أو الألواح الجبسية للحصول على مظهر عصري وأنيق.",
-            "en": "Interior wall finishes using paints, wallpaper, or gypsum boards to achieve a modern and elegant look."
-          },
-          "image": [
-            "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
-          ]
-        },
-        {
-          "title": {
-            "ar": "الأسطح الخارجية",
-            "en": "Exterior Surfaces"
-          },
-          "description": {
-            "ar": "تشطيبات الأسطح الخارجية باستخدام الحجر الطبيعي أو الطوب أو التشطيبات المركبة لخلق مظهر قوي وجميل.",
-            "en": "Exterior surface finishes using natural stone, brick, or composite finishes to create a strong and beautiful appearance."
-          },
-          "image": [
-            "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
-          ]
-        },
-        {
-          "title": {
-            "ar": "الأسقف",
-            "en": "Ceilings"
-          },
-          "description": {
-            "ar": "نقدم تشطيبات الأسقف باستخدام الألواح الجبسية أو الأسقف المعلقة أو الأسقف الخشبية لتحقيق التصميم المطلوب.",
-            "en": "We provide ceiling finishes using gypsum boards, suspended ceilings, or wooden ceilings to achieve the desired design."
-          },
-          "image": [
-            "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
-          ]
-        },
-        {
-          "title": {
-            "ar": "الإضاءة المعمارية",
-            "en": "Architectural Lighting"
-          },
-          "description": {
-            "ar": "تركيب أنظمة الإضاءة المبتكرة التي تتناغم مع التصميم المعماري وتضيف جوًا من الدفء والجمال.",
-            "en": "Installation of innovative lighting systems that complement the architectural design and add a warm, aesthetic ambiance."
-          },
-          "image": [
-            "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
-          ]
-        }
-      ]
-    },
-    "ServicePointsGrid2": {
-      "title": {
-        "ar": "التشطيبات الخاصة",
-        "en": "Specialized Finishes"
-      },
-      "description": {
-        "ar": "نحن نقدم خدمات تشطيبات معمارية متخصصة تلبي احتياجات مشاريعك الفريدة.",
-        "en": "We offer specialized architectural finishes services that cater to the unique needs of your projects."
-      },
-      "points": [
-        {
-          "title": {
-            "ar": "التشطيبات الزجاجية",
-            "en": "Glass Finishes"
-          },
-          "description": {
-            "ar": "استخدام الزجاج عالي الجودة في النوافذ والأبواب والشرفات لإضفاء مظهر عصري ومشرق.",
-            "en": "Use of high-quality glass in windows, doors, and balconies to give a modern and bright appearance."
-          },
-          "image": [
-            "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
-          ]
-        },
-        {
-          "title": {
-            "ar": "الأسطح المعدنية",
-            "en": "Metal Finishes"
-          },
-          "description": {
-            "ar": "تقديم تشطيبات معدنية باستخدام الفولاذ المقاوم للصدأ أو الألومنيوم للحصول على مظهر حديث وعصري.",
-            "en": "Providing metal finishes using stainless steel or aluminum for a sleek, modern, and sophisticated look."
-          },
-          "image": [
-            "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
-          ]
-        },
-        {
-          "title": {
-            "ar": "التشطيبات الخشبية",
-            "en": "Wooden Finishes"
-          },
-          "description": {
-            "ar": "استخدام التشطيبات الخشبية الطبيعية أو المعالجة لإضفاء لمسة دافئة وطبيعية على التصميم المعماري.",
-            "en": "Using natural or treated wooden finishes to add a warm and natural touch to the architectural design."
-          },
-          "image": [
-            "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
-          ]
-        },
-        {
-          "title": {
-            "ar": "التشطيبات الحجرية",
-            "en": "Stone Finishes"
-          },
-          "description": {
-            "ar": "تشطيب الأسطح باستخدام الحجر الطبيعي أو الصناعي لإضفاء مظهر قوي وراقي للمباني.",
-            "en": "Finishing surfaces with natural or artificial stone to give buildings a strong, sophisticated look."
-          },
-          "image": [
-            "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
-          ]
-        },
-        {
-          "title": {
-            "ar": "الأسطح الملونة والمزخرفة",
-            "en": "Colored and Decorative Finishes"
-          },
-          "description": {
-            "ar": "تقديم تشطيبات مزخرفة وملونة لتلبية المتطلبات الفنية والجمالية الخاصة بالمشروع.",
-            "en": "Offering decorative and colored finishes to meet the artistic and aesthetic requirements of the project."
-          },
-          "image": [
-            "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
-          ]
-        }
-      ]
-    }
-  },
-  {
-    "title": {
-      "ar": "خدمات المنشآت",
-      "en": "Facility Services"
-    },
-    "slug": "facility-services",
-    "banner": {
-      "title": {
+    {
+      "resourceTitle": {
         "ar": "خدمات المنشآت",
         "en": "Facility Services"
       },
-      "description": {
-        "ar": "نقدم مجموعة من الخدمات الشاملة لإدارة المنشآت وضمان تشغيلها بكفاءة عالية.",
-        "en": "We offer a range of comprehensive services for facility management to ensure efficient and smooth operation."
+      "slug": "facility-services",
+      "banner": {
+        "title": {
+          "ar": "خدمات المنشآت",
+          "en": "Facility Services"
+        },
+        "description": {
+          "ar": "نقدم مجموعة من الخدمات الشاملة لإدارة المنشآت وضمان تشغيلها بكفاءة عالية.",
+          "en": "We offer a range of comprehensive services for facility management to ensure efficient and smooth operation."
+        },
+        "image": [
+          "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
+        ]
       },
-      "image": [
-        "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
-      ]
+      "ServicePointsGrid1": {
+        "title": {
+          "ar": "خدمات المنشآت الأساسية",
+          "en": "Core Facility Services"
+        },
+        "description": {
+          "ar": "نحن نقدم خدمات متكاملة تضمن تشغيل المنشآت بكفاءة عالية والحفاظ على أفضل مستويات الأداء.",
+          "en": "We provide integrated services to ensure high efficiency and optimal performance of facilities."
+        },
+        "points": [
+          {
+            "title": {
+              "ar": "إدارة الصيانة",
+              "en": "Maintenance Management"
+            },
+            "description": {
+              "ar": "إدارة الصيانة تشمل توفير خدمات الصيانة الوقائية والتصحيحية لجميع أنظمة المنشأة.",
+              "en": "Maintenance management includes providing preventive and corrective maintenance services for all facility systems."
+            },
+            "image": [
+              "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
+            ]
+          },
+          {
+            "title": {
+              "ar": "إدارة النظافة",
+              "en": "Cleaning Management"
+            },
+            "description": {
+              "ar": "نحن نقدم خدمات تنظيف شاملة لجميع المساحات، بما في ذلك تنظيف المكاتب، الحمامات، والأسطح المشتركة.",
+              "en": "We provide comprehensive cleaning services for all spaces, including office areas, bathrooms, and common surfaces."
+            },
+            "image": [
+              "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
+            ]
+          },
+          {
+            "title": {
+              "ar": "إدارة الأمن",
+              "en": "Security Management"
+            },
+            "description": {
+              "ar": "إدارة الأمن تشمل توفير الحراسة الأمنية، أنظمة المراقبة، وخدمات الاستجابة للطوارئ لضمان سلامة المنشأة.",
+              "en": "Security management includes providing security guards, surveillance systems, and emergency response services to ensure facility safety."
+            },
+            "image": [
+              "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
+            ]
+          },
+          {
+            "title": {
+              "ar": "إدارة الطاقة",
+              "en": "Energy Management"
+            },
+            "description": {
+              "ar": "إدارة الطاقة تركز على تحسين استخدام الطاقة وتقليل استهلاكها من خلال حلول مبتكرة ومستدامة.",
+              "en": "Energy management focuses on optimizing energy use and reducing consumption through innovative and sustainable solutions."
+            },
+            "image": [
+              "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
+            ]
+          },
+          {
+            "title": {
+              "ar": "إدارة أنظمة HVAC",
+              "en": "HVAC Systems Management"
+            },
+            "description": {
+              "ar": "إدارة أنظمة HVAC تشمل صيانة وتحديث أنظمة التدفئة، التهوية، وتكييف الهواء لضمان بيئة مريحة.",
+              "en": "HVAC systems management includes maintenance and upgrading of heating, ventilation, and air conditioning systems to ensure a comfortable environment."
+            },
+            "image": [
+              "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
+            ]
+          }
+        ]
+      },
+      "ServicePointsGrid2": {
+        "title": {
+          "ar": "خدمات إضافية للمنشآت",
+          "en": "Additional Facility Services"
+        },
+        "description": {
+          "ar": "نقدم مجموعة من الخدمات الإضافية التي تساهم في تحسين أداء المنشأة وجعلها أكثر كفاءة.",
+          "en": "We provide a range of additional services that contribute to improving facility performance and enhancing efficiency."
+        },
+        "points": [
+          {
+            "title": {
+              "ar": "إدارة المرافق التكنولوجية",
+              "en": "Technology Facilities Management"
+            },
+            "description": {
+              "ar": "إدارة المرافق التكنولوجية تشمل تقديم حلول تقنية متكاملة لتسهيل العمليات الإدارية والأنظمة التكنولوجية داخل المنشأة.",
+              "en": "Technology facilities management includes providing integrated technological solutions to streamline administrative processes and technological systems within the facility."
+            },
+            "image": [
+              "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
+            ]
+          },
+          {
+            "title": {
+              "ar": "إدارة المساحات",
+              "en": "Space Management"
+            },
+            "description": {
+              "ar": "إدارة المساحات تضمن استغلال المساحات داخل المنشأة بكفاءة من خلال تخطيط وتنظيم المساحات بشكل أمثل.",
+              "en": "Space management ensures the efficient use of spaces within the facility through optimal planning and organization."
+            },
+            "image": [
+              "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
+            ]
+          },
+          {
+            "title": {
+              "ar": "إدارة النفايات",
+              "en": "Waste Management"
+            },
+            "description": {
+              "ar": "إدارة النفايات تشمل جمع وفرز النفايات، إعادة التدوير، والتخلص من النفايات بشكل آمن وفعال.",
+              "en": "Waste management includes the collection, sorting, recycling, and disposal of waste in a safe and efficient manner."
+            },
+            "image": [
+              "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
+            ]
+          },
+          {
+            "title": {
+              "ar": "إدارة المرافق الخضراء",
+              "en": "Green Facility Management"
+            },
+            "description": {
+              "ar": "نحن نقدم حلولًا لإدارة المنشآت بطريقة صديقة للبيئة من خلال تقليل تأثيرات المباني على البيئة.",
+              "en": "We offer solutions for managing facilities in an environmentally friendly way by reducing the environmental impact of buildings."
+            },
+            "image": [
+              "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
+            ]
+          },
+          {
+            "title": {
+              "ar": "إدارة الأنظمة الكهربائية",
+              "en": "Electrical Systems Management"
+            },
+            "description": {
+              "ar": "إدارة الأنظمة الكهربائية تشمل صيانة وتركيب الأنظمة الكهربائية بشكل آمن وفعّال.",
+              "en": "Electrical systems management includes the maintenance and installation of electrical systems in a safe and efficient manner."
+            },
+            "image": [
+              "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
+            ]
+          }
+        ]
+      }
     },
-    "ServicePointsGrid1": {
-      "title": {
-        "ar": "خدمات المنشآت الأساسية",
-        "en": "Core Facility Services"
+    {
+      "resourceTitle": {
+        "ar": "صيانة البنية التحتية",
+        "en": "Infrastructure Maintenance"
       },
-      "description": {
-        "ar": "نحن نقدم خدمات متكاملة تضمن تشغيل المنشآت بكفاءة عالية والحفاظ على أفضل مستويات الأداء.",
-        "en": "We provide integrated services to ensure high efficiency and optimal performance of facilities."
+      "slug": "infrastructure-maintenance",
+      "banner": {
+        "title": {
+          "ar": "صيانة البنية التحتية",
+          "en": "Infrastructure Maintenance"
+        },
+        "description": {
+          "ar": "نقدم خدمات صيانة شاملة للبنية التحتية لضمان استدامة وتطوير المشاريع العمرانية.",
+          "en": "We offer comprehensive infrastructure maintenance services to ensure sustainability and development of urban projects."
+        },
+        "image": [
+          "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
+        ]
       },
-      "points": [
-        {
-          "title": {
-            "ar": "إدارة الصيانة",
-            "en": "Maintenance Management"
-          },
-          "description": {
-            "ar": "إدارة الصيانة تشمل توفير خدمات الصيانة الوقائية والتصحيحية لجميع أنظمة المنشأة.",
-            "en": "Maintenance management includes providing preventive and corrective maintenance services for all facility systems."
-          },
-          "image": [
-            "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
-          ]
+      "ServicePointsGrid1": {
+        "title": {
+          "ar": "خدمات صيانة البنية التحتية الأساسية",
+          "en": "Core Infrastructure Maintenance Services"
         },
-        {
-          "title": {
-            "ar": "إدارة النظافة",
-            "en": "Cleaning Management"
-          },
-          "description": {
-            "ar": "نحن نقدم خدمات تنظيف شاملة لجميع المساحات، بما في ذلك تنظيف المكاتب، الحمامات، والأسطح المشتركة.",
-            "en": "We provide comprehensive cleaning services for all spaces, including office areas, bathrooms, and common surfaces."
-          },
-          "image": [
-            "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
-          ]
+        "description": {
+          "ar": "نحن نقدم خدمات متكاملة لصيانة البنية التحتية لتلبية احتياجات مشاريعك وضمان استمراريتها.",
+          "en": "We provide integrated services for infrastructure maintenance to meet your project needs and ensure their continuity."
         },
-        {
-          "title": {
-            "ar": "إدارة الأمن",
-            "en": "Security Management"
+        "points": [
+          {
+            "title": {
+              "ar": "صيانة الطرق والشوارع",
+              "en": "Road and Street Maintenance"
+            },
+            "description": {
+              "ar": "تشمل صيانة الطرق والشوارع إصلاح الحفر، وصيانة الأسطح، وتحسين الإضاءة العامة.",
+              "en": "Road and street maintenance includes pothole repairs, surface maintenance, and improving public lighting."
+            },
+            "image": [
+              "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
+            ]
           },
-          "description": {
-            "ar": "إدارة الأمن تشمل توفير الحراسة الأمنية، أنظمة المراقبة، وخدمات الاستجابة للطوارئ لضمان سلامة المنشأة.",
-            "en": "Security management includes providing security guards, surveillance systems, and emergency response services to ensure facility safety."
+          {
+            "title": {
+              "ar": "صيانة شبكات المياه والصرف الصحي",
+              "en": "Water and Sewerage Network Maintenance"
+            },
+            "description": {
+              "ar": "نقوم بصيانة شبكات المياه والصرف الصحي لضمان تدفق مستمر للمياه وخدمات الصرف الصحي.",
+              "en": "We maintain water and sewerage networks to ensure continuous water flow and efficient sewage services."
+            },
+            "image": [
+              "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
+            ]
           },
-          "image": [
-            "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
-          ]
+          {
+            "title": {
+              "ar": "صيانة الأنظمة الكهربائية",
+              "en": "Electrical Systems Maintenance"
+            },
+            "description": {
+              "ar": "تشمل صيانة الأنظمة الكهربائية فحص الأسلاك، اللوحات الكهربائية، وصيانة أنظمة الإضاءة.",
+              "en": "Electrical systems maintenance includes inspecting wiring, electrical panels, and maintaining lighting systems."
+            },
+            "image": [
+              "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
+            ]
+          },
+          {
+            "title": {
+              "ar": "صيانة شبكات الاتصالات",
+              "en": "Telecommunication Network Maintenance"
+            },
+            "description": {
+              "ar": "نقوم بصيانة شبكات الاتصالات لضمان استمرارية وتوفير خدمة موثوقة.",
+              "en": "We maintain telecommunication networks to ensure continuity and reliable service."
+            },
+            "image": [
+              "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
+            ]
+          },
+          {
+            "title": {
+              "ar": "صيانة المنشآت والمباني",
+              "en": "Building and Facility Maintenance"
+            },
+            "description": {
+              "ar": "تتضمن صيانة المنشآت والمباني صيانة الأسطح، الفواصل، وأعمال التشطيبات لضمان دوام المنشأة.",
+              "en": "Building and facility maintenance includes surface repairs, joints, and finishing works to ensure the longevity of the facility."
+            },
+            "image": [
+              "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
+            ]
+          }
+        ]
+      },
+      "ServicePointsGrid2": {
+        "title": {
+          "ar": "خدمات إضافية لصيانة البنية التحتية",
+          "en": "Additional Infrastructure Maintenance Services"
         },
-        {
-          "title": {
-            "ar": "إدارة الطاقة",
-            "en": "Energy Management"
-          },
-          "description": {
-            "ar": "إدارة الطاقة تركز على تحسين استخدام الطاقة وتقليل استهلاكها من خلال حلول مبتكرة ومستدامة.",
-            "en": "Energy management focuses on optimizing energy use and reducing consumption through innovative and sustainable solutions."
-          },
-          "image": [
-            "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
-          ]
+        "description": {
+          "ar": "نقدم خدمات إضافية متنوعة لضمان تحسين وصيانة البنية التحتية بشكل مستمر.",
+          "en": "We offer a variety of additional services to ensure continuous improvement and maintenance of infrastructure."
         },
-        {
-          "title": {
-            "ar": "إدارة أنظمة HVAC",
-            "en": "HVAC Systems Management"
+        "points": [
+          {
+            "title": {
+              "ar": "إصلاح وصيانة الأسطح",
+              "en": "Surface Repair and Maintenance"
+            },
+            "description": {
+              "ar": "إصلاح وصيانة الأسطح تشمل معالجة التصدعات والشقوق، وإعادة تعبئة الأسطح المتضررة.",
+              "en": "Surface repair and maintenance includes addressing cracks and fissures, and resurfacing damaged areas."
+            },
+            "image": [
+              "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
+            ]
           },
-          "description": {
-            "ar": "إدارة أنظمة HVAC تشمل صيانة وتحديث أنظمة التدفئة، التهوية، وتكييف الهواء لضمان بيئة مريحة.",
-            "en": "HVAC systems management includes maintenance and upgrading of heating, ventilation, and air conditioning systems to ensure a comfortable environment."
+          {
+            "title": {
+              "ar": "إدارة المشاريع البنية التحتية",
+              "en": "Infrastructure Project Management"
+            },
+            "description": {
+              "ar": "إدارة المشاريع المتعلقة بالبنية التحتية تضمن تنسيق وتنفيذ المشاريع بكفاءة ووفقًا للمعايير المطلوبة.",
+              "en": "Infrastructure project management ensures the coordination and execution of projects efficiently and in accordance with required standards."
+            },
+            "image": [
+              "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
+            ]
           },
-          "image": [
-            "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
-          ]
-        }
-      ]
+          {
+            "title": {
+              "ar": "تركيب وصيانة أنظمة الري",
+              "en": "Irrigation System Installation and Maintenance"
+            },
+            "description": {
+              "ar": "نقوم بتركيب وصيانة أنظمة الري لضمان توصيل المياه بشكل مناسب للحدائق والمرافق.",
+              "en": "We install and maintain irrigation systems to ensure proper water distribution to gardens and facilities."
+            },
+            "image": [
+              "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
+            ]
+          },
+          {
+            "title": {
+              "ar": "إصلاح وصيانة الأسطح الخرسانية",
+              "en": "Concrete Surface Repair and Maintenance"
+            },
+            "description": {
+              "ar": "إصلاح وصيانة الأسطح الخرسانية يشمل إزالة التآكل، وترميم الخرسانة المتصدعة أو المتهالكة.",
+              "en": "Concrete surface repair and maintenance includes removing wear and tear and restoring cracked or deteriorating concrete."
+            },
+            "image": [
+              "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
+            ]
+          },
+          {
+            "title": {
+              "ar": "تحليل ومراقبة أداء البنية التحتية",
+              "en": "Infrastructure Performance Analysis and Monitoring"
+            },
+            "description": {
+              "ar": "نقوم بتحليل ومراقبة أداء البنية التحتية لضمان سلامتها وكفاءتها على المدى الطويل.",
+              "en": "We analyze and monitor the performance of infrastructure to ensure its safety and efficiency in the long term."
+            },
+            "image": [
+              "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
+            ]
+          }
+        ]
+      }
     },
-    "ServicePointsGrid2": {
-      "title": {
-        "ar": "خدمات إضافية للمنشآت",
-        "en": "Additional Facility Services"
+    {
+      "resourceTitle": {
+        "ar": "التصنيع الهيكلي",
+        "en": "Structural Fabrication"
       },
-      "description": {
-        "ar": "نقدم مجموعة من الخدمات الإضافية التي تساهم في تحسين أداء المنشأة وجعلها أكثر كفاءة.",
-        "en": "We provide a range of additional services that contribute to improving facility performance and enhancing efficiency."
+      "slug": "structural-fabrication",
+      "banner": {
+        "title": {
+          "ar": "التصنيع الهيكلي",
+          "en": "Structural Fabrication"
+        },
+        "description": {
+          "ar": "نقدم خدمات التصنيع الهيكلي عالية الجودة لتلبية احتياجات المشاريع الكبرى في صناعة البناء.",
+          "en": "We provide high-quality structural fabrication services to meet the needs of major construction projects."
+        },
+        "image": [
+          "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
+        ]
       },
-      "points": [
-        {
-          "title": {
-            "ar": "إدارة المرافق التكنولوجية",
-            "en": "Technology Facilities Management"
-          },
-          "description": {
-            "ar": "إدارة المرافق التكنولوجية تشمل تقديم حلول تقنية متكاملة لتسهيل العمليات الإدارية والأنظمة التكنولوجية داخل المنشأة.",
-            "en": "Technology facilities management includes providing integrated technological solutions to streamline administrative processes and technological systems within the facility."
-          },
-          "image": [
-            "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
-          ]
+      "ServicePointsGrid1": {
+        "title": {
+          "ar": "خدمات التصنيع الهيكلي الأساسية",
+          "en": "Core Structural Fabrication Services"
         },
-        {
-          "title": {
-            "ar": "إدارة المساحات",
-            "en": "Space Management"
-          },
-          "description": {
-            "ar": "إدارة المساحات تضمن استغلال المساحات داخل المنشأة بكفاءة من خلال تخطيط وتنظيم المساحات بشكل أمثل.",
-            "en": "Space management ensures the efficient use of spaces within the facility through optimal planning and organization."
-          },
-          "image": [
-            "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
-          ]
+        "description": {
+          "ar": "نحن نقدم حلولًا شاملة في مجال التصنيع الهيكلي مع ضمان أعلى مستويات الجودة والدقة.",
+          "en": "We offer comprehensive solutions in structural fabrication ensuring the highest levels of quality and precision."
         },
-        {
-          "title": {
-            "ar": "إدارة النفايات",
-            "en": "Waste Management"
+        "points": [
+          {
+            "title": {
+              "ar": "تصنيع الهياكل الفولاذية",
+              "en": "Steel Structure Fabrication"
+            },
+            "description": {
+              "ar": "نقوم بتصنيع الهياكل الفولاذية للمباني والمنشآت الصناعية وفقًا لأعلى معايير الجودة.",
+              "en": "We fabricate steel structures for buildings and industrial facilities according to the highest quality standards."
+            },
+            "image": [
+              "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
+            ]
           },
-          "description": {
-            "ar": "إدارة النفايات تشمل جمع وفرز النفايات، إعادة التدوير، والتخلص من النفايات بشكل آمن وفعال.",
-            "en": "Waste management includes the collection, sorting, recycling, and disposal of waste in a safe and efficient manner."
+          {
+            "title": {
+              "ar": "تصنيع الأسطح المعدنية",
+              "en": "Metal Surface Fabrication"
+            },
+            "description": {
+              "ar": "نقدم خدمات تصنيع الأسطح المعدنية التي تشمل الألواح المعدنية وأسطوانات التغطية المعدنية.",
+              "en": "We offer metal surface fabrication services, including metal sheets and covering cylinders."
+            },
+            "image": [
+              "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
+            ]
           },
-          "image": [
-            "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
-          ]
+          {
+            "title": {
+              "ar": "تصنيع الهياكل الخرسانية المسلحة",
+              "en": "Reinforced Concrete Structure Fabrication"
+            },
+            "description": {
+              "ar": "نقوم بتصنيع الهياكل الخرسانية المسلحة من خلال استخدام المواد الخرسانية ذات الجودة العالية.",
+              "en": "We fabricate reinforced concrete structures using high-quality concrete materials."
+            },
+            "image": [
+              "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
+            ]
+          },
+          {
+            "title": {
+              "ar": "تصنيع الأنابيب والمواسير",
+              "en": "Pipe and Tube Fabrication"
+            },
+            "description": {
+              "ar": "نحن متخصصون في تصنيع الأنابيب والمواسير بأحجام وأطوال مختلفة لتلبية احتياجات مشاريع البناء.",
+              "en": "We specialize in fabricating pipes and tubes of various sizes and lengths to meet the needs of construction projects."
+            },
+            "image": [
+              "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
+            ]
+          },
+          {
+            "title": {
+              "ar": "تصنيع الأنظمة المعدنية المجمعة",
+              "en": "Pre-assembled Metal Systems Fabrication"
+            },
+            "description": {
+              "ar": "نقوم بتصنيع الأنظمة المعدنية المجمعة والتي تشمل الهياكل الحديدية والهياكل الجاهزة للاستخدام.",
+              "en": "We fabricate pre-assembled metal systems, including steel frames and ready-to-use structural systems."
+            },
+            "image": [
+              "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
+            ]
+          }
+        ]
+      },
+      "ServicePointsGrid2": {
+        "title": {
+          "ar": "خدمات إضافية للتصنيع الهيكلي",
+          "en": "Additional Structural Fabrication Services"
         },
-        {
-          "title": {
-            "ar": "إدارة المرافق الخضراء",
-            "en": "Green Facility Management"
-          },
-          "description": {
-            "ar": "نحن نقدم حلولًا لإدارة المنشآت بطريقة صديقة للبيئة من خلال تقليل تأثيرات المباني على البيئة.",
-            "en": "We offer solutions for managing facilities in an environmentally friendly way by reducing the environmental impact of buildings."
-          },
-          "image": [
-            "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
-          ]
+        "description": {
+          "ar": "نحن نقدم خدمات إضافية متكاملة في مجال التصنيع الهيكلي لضمان إتمام المشاريع بكفاءة عالية.",
+          "en": "We offer additional integrated services in structural fabrication to ensure the efficient completion of projects."
         },
-        {
-          "title": {
-            "ar": "إدارة الأنظمة الكهربائية",
-            "en": "Electrical Systems Management"
+        "points": [
+          {
+            "title": {
+              "ar": "تصنيع هياكل النقل",
+              "en": "Transport Structure Fabrication"
+            },
+            "description": {
+              "ar": "نحن نصمم ونصنع هياكل النقل المتخصصة بما في ذلك حاويات الشحن والهياكل الخاصة بالنقل.",
+              "en": "We design and fabricate specialized transport structures, including shipping containers and custom transport frames."
+            },
+            "image": [
+              "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
+            ]
           },
-          "description": {
-            "ar": "إدارة الأنظمة الكهربائية تشمل صيانة وتركيب الأنظمة الكهربائية بشكل آمن وفعّال.",
-            "en": "Electrical systems management includes the maintenance and installation of electrical systems in a safe and efficient manner."
+          {
+            "title": {
+              "ar": "تصنيع الأسطح المعمارية",
+              "en": "Architectural Surface Fabrication"
+            },
+            "description": {
+              "ar": "نقوم بتصنيع الأسطح المعمارية مثل الأقواس، الأسطح المنحنية، والهياكل المعمارية الأخرى حسب الحاجة.",
+              "en": "We fabricate architectural surfaces such as arches, curved surfaces, and other architectural structures as required."
+            },
+            "image": [
+              "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
+            ]
           },
-          "image": [
-            "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
-          ]
-        }
-      ]
+          {
+            "title": {
+              "ar": "تصنيع هياكل المرافق الصناعية",
+              "en": "Industrial Facility Structure Fabrication"
+            },
+            "description": {
+              "ar": "نقدم خدمات تصنيع الهياكل المخصصة للمرافق الصناعية، بما في ذلك الهياكل للأبراج، والخزانات، والمرافق الصناعية الأخرى.",
+              "en": "We provide structural fabrication services for industrial facilities, including frames for towers, tanks, and other industrial infrastructure."
+            },
+            "image": [
+              "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
+            ]
+          },
+          {
+            "title": {
+              "ar": "تصنيع الهياكل الكبيرة",
+              "en": "Large-Scale Structural Fabrication"
+            },
+            "description": {
+              "ar": "نقوم بتصنيع هياكل كبيرة للمشاريع الضخمة مثل المنشآت التجارية والمباني متعددة الطوابق.",
+              "en": "We fabricate large-scale structures for major projects such as commercial buildings and multi-story structures."
+            },
+            "image": [
+              "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
+            ]
+          },
+          {
+            "title": {
+              "ar": "تصنيع الهياكل المقاومة للزلازل",
+              "en": "Seismic-Resistant Structural Fabrication"
+            },
+            "description": {
+              "ar": "نقدم حلولًا لتصنيع الهياكل المقاومة للزلازل والتي توفر الأمان والاستقرار في المناطق الزلزالية.",
+              "en": "We provide solutions for fabricating seismic-resistant structures that offer safety and stability in seismic areas."
+            },
+            "image": [
+              "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "resourceTitle": {
+        "ar": "الرافعات ومعدات الرفع الثقيلة",
+        "en": "Cranes & Heavy Lifting Equipment"
+      },
+      "slug": "cranes-heavy-lifting-equipment",
+      "banner": {
+        "title": {
+          "ar": "الرافعات ومعدات الرفع الثقيلة",
+          "en": "Cranes & Heavy Lifting Equipment"
+        },
+        "description": {
+          "ar": "نقدم حلولًا متكاملة لرفع وتحريك المعدات الثقيلة باستخدام أحدث الرافعات والمعدات المناسبة.",
+          "en": "We provide integrated solutions for lifting and moving heavy equipment using the latest cranes and appropriate machinery."
+        },
+        "image": [
+          "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
+        ]
+      },
+      "ServicePointsGrid1": {
+        "title": {
+          "ar": "خدمات الرافعات والمعدات الثقيلة الأساسية",
+          "en": "Core Cranes & Heavy Lifting Equipment Services"
+        },
+        "description": {
+          "ar": "نحن نقدم مجموعة واسعة من خدمات الرافعات والمعدات الثقيلة التي تلبي احتياجات المشاريع الكبرى.",
+          "en": "We offer a wide range of cranes and heavy lifting equipment services to meet the needs of large-scale projects."
+        },
+        "points": [
+          {
+            "title": {
+              "ar": "الرافعات البرجية",
+              "en": "Tower Cranes"
+            },
+            "description": {
+              "ar": "نحن نوفر الرافعات البرجية لمشاريع البناء عالية الارتفاع والتي تتطلب الرفع لمسافات طويلة.",
+              "en": "We provide tower cranes for high-rise construction projects that require long-distance lifting."
+            },
+            "image": [
+              "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
+            ]
+          },
+          {
+            "title": {
+              "ar": "الرافعات الجسرية",
+              "en": "Bridge Cranes"
+            },
+            "description": {
+              "ar": "نقدم الرافعات الجسرية للمشاريع التي تتطلب رفع وتحريك المعدات الثقيلة داخل المنشآت المغلقة.",
+              "en": "We offer bridge cranes for projects that require lifting and moving heavy equipment inside enclosed facilities."
+            },
+            "image": [
+              "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
+            ]
+          },
+          {
+            "title": {
+              "ar": "الرافعات الزحافة",
+              "en": "Crawler Cranes"
+            },
+            "description": {
+              "ar": "نقدم الرافعات الزحافة التي توفر القدرة على التحرك على التضاريس الوعرة مع رفع الأحمال الثقيلة.",
+              "en": "We provide crawler cranes that offer the ability to move on rough terrain while lifting heavy loads."
+            },
+            "image": [
+              "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
+            ]
+          },
+          {
+            "title": {
+              "ar": "الرافعات المتنقلة",
+              "en": "Mobile Cranes"
+            },
+            "description": {
+              "ar": "نقدم الرافعات المتنقلة التي تتميز بالقدرة على الانتقال بسرعة بين المواقع المختلفة، مع قدرة رفع عالية.",
+              "en": "We provide mobile cranes that are highly mobile and capable of moving between different locations with high lifting capacity."
+            },
+            "image": [
+              "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
+            ]
+          },
+          {
+            "title": {
+              "ar": "الرافعات ذات الذراع الطويلة",
+              "en": "Long Reach Cranes"
+            },
+            "description": {
+              "ar": "نحن نوفر الرافعات ذات الذراع الطويلة التي تسمح برفع الأحمال الثقيلة لمسافات بعيدة.",
+              "en": "We provide long reach cranes that allow lifting heavy loads over long distances."
+            },
+            "image": [
+              "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
+            ]
+          }
+        ]
+      },
+      "ServicePointsGrid2": {
+        "title": {
+          "ar": "خدمات إضافية للرافعات والمعدات الثقيلة",
+          "en": "Additional Cranes & Heavy Lifting Equipment Services"
+        },
+        "description": {
+          "ar": "نقدم خدمات إضافية متكاملة للرافعات والمعدات الثقيلة لضمان تنفيذ المشاريع بشكل فعال.",
+          "en": "We offer additional integrated services for cranes and heavy lifting equipment to ensure the efficient execution of projects."
+        },
+        "points": [
+          {
+            "title": {
+              "ar": "تركيب الرافعات",
+              "en": "Crane Installation"
+            },
+            "description": {
+              "ar": "نقوم بتركيب الرافعات المختلفة وتوفير دعم مستمر لضمان عملية رفع آمنة.",
+              "en": "We install various types of cranes and provide ongoing support to ensure safe lifting operations."
+            },
+            "image": [
+              "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
+            ]
+          },
+          {
+            "title": {
+              "ar": "خدمات التفكيك والنقل",
+              "en": "Crane Dismantling & Transportation"
+            },
+            "description": {
+              "ar": "نقوم بتوفير خدمات التفكيك والنقل للرافعات والمعدات الثقيلة بين المواقع المختلفة.",
+              "en": "We provide crane dismantling and transportation services for moving cranes and heavy equipment between different locations."
+            },
+            "image": [
+              "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
+            ]
+          },
+          {
+            "title": {
+              "ar": "الصيانة الدورية للرافعات",
+              "en": "Crane Maintenance & Inspection"
+            },
+            "description": {
+              "ar": "نقوم بصيانة وفحص الرافعات بشكل دوري لضمان استمرارية تشغيلها بكفاءة عالية.",
+              "en": "We provide regular maintenance and inspection services for cranes to ensure their continuous operation with high efficiency."
+            },
+            "image": [
+              "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
+            ]
+          },
+          {
+            "title": {
+              "ar": "الرفع والتفريغ للمعدات الثقيلة",
+              "en": "Heavy Equipment Lifting & Unloading"
+            },
+            "description": {
+              "ar": "نقدم خدمات الرفع والتفريغ للمعدات الثقيلة باستخدام الرافعات المتخصصة.",
+              "en": "We provide heavy equipment lifting and unloading services using specialized cranes."
+            },
+            "image": [
+              "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
+            ]
+          },
+          {
+            "title": {
+              "ar": "استشارات الرفع",
+              "en": "Lifting Consultation"
+            },
+            "description": {
+              "ar": "نقدم استشارات متخصصة لعمليات الرفع لضمان سلامة وفعالية العملية.",
+              "en": "We offer specialized consultation services for lifting operations to ensure safety and efficiency."
+            },
+            "image": [
+              "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
+            ]
+          }
+        ]
+      }
     }
-  }
-,
-{
-  "title": {
-    "ar": "صيانة البنية التحتية",
-    "en": "Infrastructure Maintenance"
-  },
-  "slug": "infrastructure-maintenance",
-  "banner": {
-    "title": {
-      "ar": "صيانة البنية التحتية",
-      "en": "Infrastructure Maintenance"
-    },
-    "description": {
-      "ar": "نقدم خدمات صيانة شاملة للبنية التحتية لضمان استدامة وتطوير المشاريع العمرانية.",
-      "en": "We offer comprehensive infrastructure maintenance services to ensure sustainability and development of urban projects."
-    },
-    "image": [
-      "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
-    ]
-  },
-  "ServicePointsGrid1": {
-    "title": {
-      "ar": "خدمات صيانة البنية التحتية الأساسية",
-      "en": "Core Infrastructure Maintenance Services"
-    },
-    "description": {
-      "ar": "نحن نقدم خدمات متكاملة لصيانة البنية التحتية لتلبية احتياجات مشاريعك وضمان استمراريتها.",
-      "en": "We provide integrated services for infrastructure maintenance to meet your project needs and ensure their continuity."
-    },
-    "points": [
-      {
-        "title": {
-          "ar": "صيانة الطرق والشوارع",
-          "en": "Road and Street Maintenance"
-        },
-        "description": {
-          "ar": "تشمل صيانة الطرق والشوارع إصلاح الحفر، وصيانة الأسطح، وتحسين الإضاءة العامة.",
-          "en": "Road and street maintenance includes pothole repairs, surface maintenance, and improving public lighting."
-        },
-        "image": [
-          "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
-        ]
-      },
-      {
-        "title": {
-          "ar": "صيانة شبكات المياه والصرف الصحي",
-          "en": "Water and Sewerage Network Maintenance"
-        },
-        "description": {
-          "ar": "نقوم بصيانة شبكات المياه والصرف الصحي لضمان تدفق مستمر للمياه وخدمات الصرف الصحي.",
-          "en": "We maintain water and sewerage networks to ensure continuous water flow and efficient sewage services."
-        },
-        "image": [
-          "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
-        ]
-      },
-      {
-        "title": {
-          "ar": "صيانة الأنظمة الكهربائية",
-          "en": "Electrical Systems Maintenance"
-        },
-        "description": {
-          "ar": "تشمل صيانة الأنظمة الكهربائية فحص الأسلاك، اللوحات الكهربائية، وصيانة أنظمة الإضاءة.",
-          "en": "Electrical systems maintenance includes inspecting wiring, electrical panels, and maintaining lighting systems."
-        },
-        "image": [
-          "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
-        ]
-      },
-      {
-        "title": {
-          "ar": "صيانة شبكات الاتصالات",
-          "en": "Telecommunication Network Maintenance"
-        },
-        "description": {
-          "ar": "نقوم بصيانة شبكات الاتصالات لضمان استمرارية وتوفير خدمة موثوقة.",
-          "en": "We maintain telecommunication networks to ensure continuity and reliable service."
-        },
-        "image": [
-          "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
-        ]
-      },
-      {
-        "title": {
-          "ar": "صيانة المنشآت والمباني",
-          "en": "Building and Facility Maintenance"
-        },
-        "description": {
-          "ar": "تتضمن صيانة المنشآت والمباني صيانة الأسطح، الفواصل، وأعمال التشطيبات لضمان دوام المنشأة.",
-          "en": "Building and facility maintenance includes surface repairs, joints, and finishing works to ensure the longevity of the facility."
-        },
-        "image": [
-          "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
-        ]
-      }
-    ]
-  },
-  "ServicePointsGrid2": {
-    "title": {
-      "ar": "خدمات إضافية لصيانة البنية التحتية",
-      "en": "Additional Infrastructure Maintenance Services"
-    },
-    "description": {
-      "ar": "نقدم خدمات إضافية متنوعة لضمان تحسين وصيانة البنية التحتية بشكل مستمر.",
-      "en": "We offer a variety of additional services to ensure continuous improvement and maintenance of infrastructure."
-    },
-    "points": [
-      {
-        "title": {
-          "ar": "إصلاح وصيانة الأسطح",
-          "en": "Surface Repair and Maintenance"
-        },
-        "description": {
-          "ar": "إصلاح وصيانة الأسطح تشمل معالجة التصدعات والشقوق، وإعادة تعبئة الأسطح المتضررة.",
-          "en": "Surface repair and maintenance includes addressing cracks and fissures, and resurfacing damaged areas."
-        },
-        "image": [
-          "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
-        ]
-      },
-      {
-        "title": {
-          "ar": "إدارة المشاريع البنية التحتية",
-          "en": "Infrastructure Project Management"
-        },
-        "description": {
-          "ar": "إدارة المشاريع المتعلقة بالبنية التحتية تضمن تنسيق وتنفيذ المشاريع بكفاءة ووفقًا للمعايير المطلوبة.",
-          "en": "Infrastructure project management ensures the coordination and execution of projects efficiently and in accordance with required standards."
-        },
-        "image": [
-          "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
-        ]
-      },
-      {
-        "title": {
-          "ar": "تركيب وصيانة أنظمة الري",
-          "en": "Irrigation System Installation and Maintenance"
-        },
-        "description": {
-          "ar": "نقوم بتركيب وصيانة أنظمة الري لضمان توصيل المياه بشكل مناسب للحدائق والمرافق.",
-          "en": "We install and maintain irrigation systems to ensure proper water distribution to gardens and facilities."
-        },
-        "image": [
-          "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
-        ]
-      },
-      {
-        "title": {
-          "ar": "إصلاح وصيانة الأسطح الخرسانية",
-          "en": "Concrete Surface Repair and Maintenance"
-        },
-        "description": {
-          "ar": "إصلاح وصيانة الأسطح الخرسانية يشمل إزالة التآكل، وترميم الخرسانة المتصدعة أو المتهالكة.",
-          "en": "Concrete surface repair and maintenance includes removing wear and tear and restoring cracked or deteriorating concrete."
-        },
-        "image": [
-          "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
-        ]
-      },
-      {
-        "title": {
-          "ar": "تحليل ومراقبة أداء البنية التحتية",
-          "en": "Infrastructure Performance Analysis and Monitoring"
-        },
-        "description": {
-          "ar": "نقوم بتحليل ومراقبة أداء البنية التحتية لضمان سلامتها وكفاءتها على المدى الطويل.",
-          "en": "We analyze and monitor the performance of infrastructure to ensure its safety and efficiency in the long term."
-        },
-        "image": [
-          "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
-        ]
-      }
-    ]
-  }
-}
-,
-{
-  "title": {
-    "ar": "التصنيع الهيكلي",
-    "en": "Structural Fabrication"
-  },
-  "slug": "structural-fabrication",
-  "banner": {
-    "title": {
-      "ar": "التصنيع الهيكلي",
-      "en": "Structural Fabrication"
-    },
-    "description": {
-      "ar": "نقدم خدمات التصنيع الهيكلي عالية الجودة لتلبية احتياجات المشاريع الكبرى في صناعة البناء.",
-      "en": "We provide high-quality structural fabrication services to meet the needs of major construction projects."
-    },
-    "image": [
-      "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
-    ]
-  },
-  "ServicePointsGrid1": {
-    "title": {
-      "ar": "خدمات التصنيع الهيكلي الأساسية",
-      "en": "Core Structural Fabrication Services"
-    },
-    "description": {
-      "ar": "نحن نقدم حلولًا شاملة في مجال التصنيع الهيكلي مع ضمان أعلى مستويات الجودة والدقة.",
-      "en": "We offer comprehensive solutions in structural fabrication ensuring the highest levels of quality and precision."
-    },
-    "points": [
-      {
-        "title": {
-          "ar": "تصنيع الهياكل الفولاذية",
-          "en": "Steel Structure Fabrication"
-        },
-        "description": {
-          "ar": "نقوم بتصنيع الهياكل الفولاذية للمباني والمنشآت الصناعية وفقًا لأعلى معايير الجودة.",
-          "en": "We fabricate steel structures for buildings and industrial facilities according to the highest quality standards."
-        },
-        "image": [
-          "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
-        ]
-      },
-      {
-        "title": {
-          "ar": "تصنيع الأسطح المعدنية",
-          "en": "Metal Surface Fabrication"
-        },
-        "description": {
-          "ar": "نقدم خدمات تصنيع الأسطح المعدنية التي تشمل الألواح المعدنية وأسطوانات التغطية المعدنية.",
-          "en": "We offer metal surface fabrication services, including metal sheets and covering cylinders."
-        },
-        "image": [
-          "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
-        ]
-      },
-      {
-        "title": {
-          "ar": "تصنيع الهياكل الخرسانية المسلحة",
-          "en": "Reinforced Concrete Structure Fabrication"
-        },
-        "description": {
-          "ar": "نقوم بتصنيع الهياكل الخرسانية المسلحة من خلال استخدام المواد الخرسانية ذات الجودة العالية.",
-          "en": "We fabricate reinforced concrete structures using high-quality concrete materials."
-        },
-        "image": [
-          "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
-        ]
-      },
-      {
-        "title": {
-          "ar": "تصنيع الأنابيب والمواسير",
-          "en": "Pipe and Tube Fabrication"
-        },
-        "description": {
-          "ar": "نحن متخصصون في تصنيع الأنابيب والمواسير بأحجام وأطوال مختلفة لتلبية احتياجات مشاريع البناء.",
-          "en": "We specialize in fabricating pipes and tubes of various sizes and lengths to meet the needs of construction projects."
-        },
-        "image": [
-          "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
-        ]
-      },
-      {
-        "title": {
-          "ar": "تصنيع الأنظمة المعدنية المجمعة",
-          "en": "Pre-assembled Metal Systems Fabrication"
-        },
-        "description": {
-          "ar": "نقوم بتصنيع الأنظمة المعدنية المجمعة والتي تشمل الهياكل الحديدية والهياكل الجاهزة للاستخدام.",
-          "en": "We fabricate pre-assembled metal systems, including steel frames and ready-to-use structural systems."
-        },
-        "image": [
-          "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
-        ]
-      }
-    ]
-  },
-  "ServicePointsGrid2": {
-    "title": {
-      "ar": "خدمات إضافية للتصنيع الهيكلي",
-      "en": "Additional Structural Fabrication Services"
-    },
-    "description": {
-      "ar": "نحن نقدم خدمات إضافية متكاملة في مجال التصنيع الهيكلي لضمان إتمام المشاريع بكفاءة عالية.",
-      "en": "We offer additional integrated services in structural fabrication to ensure the efficient completion of projects."
-    },
-    "points": [
-      {
-        "title": {
-          "ar": "تصنيع هياكل النقل",
-          "en": "Transport Structure Fabrication"
-        },
-        "description": {
-          "ar": "نحن نصمم ونصنع هياكل النقل المتخصصة بما في ذلك حاويات الشحن والهياكل الخاصة بالنقل.",
-          "en": "We design and fabricate specialized transport structures, including shipping containers and custom transport frames."
-        },
-        "image": [
-          "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
-        ]
-      },
-      {
-        "title": {
-          "ar": "تصنيع الأسطح المعمارية",
-          "en": "Architectural Surface Fabrication"
-        },
-        "description": {
-          "ar": "نقوم بتصنيع الأسطح المعمارية مثل الأقواس، الأسطح المنحنية، والهياكل المعمارية الأخرى حسب الحاجة.",
-          "en": "We fabricate architectural surfaces such as arches, curved surfaces, and other architectural structures as required."
-        },
-        "image": [
-          "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
-        ]
-      },
-      {
-        "title": {
-          "ar": "تصنيع هياكل المرافق الصناعية",
-          "en": "Industrial Facility Structure Fabrication"
-        },
-        "description": {
-          "ar": "نقدم خدمات تصنيع الهياكل المخصصة للمرافق الصناعية، بما في ذلك الهياكل للأبراج، والخزانات، والمرافق الصناعية الأخرى.",
-          "en": "We provide structural fabrication services for industrial facilities, including frames for towers, tanks, and other industrial infrastructure."
-        },
-        "image": [
-          "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
-        ]
-      },
-      {
-        "title": {
-          "ar": "تصنيع الهياكل الكبيرة",
-          "en": "Large-Scale Structural Fabrication"
-        },
-        "description": {
-          "ar": "نقوم بتصنيع هياكل كبيرة للمشاريع الضخمة مثل المنشآت التجارية والمباني متعددة الطوابق.",
-          "en": "We fabricate large-scale structures for major projects such as commercial buildings and multi-story structures."
-        },
-        "image": [
-          "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
-        ]
-      },
-      {
-        "title": {
-          "ar": "تصنيع الهياكل المقاومة للزلازل",
-          "en": "Seismic-Resistant Structural Fabrication"
-        },
-        "description": {
-          "ar": "نقدم حلولًا لتصنيع الهياكل المقاومة للزلازل والتي توفر الأمان والاستقرار في المناطق الزلزالية.",
-          "en": "We provide solutions for fabricating seismic-resistant structures that offer safety and stability in seismic areas."
-        },
-        "image": [
-          "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
-        ]
-      }
-    ]
-  }
-}
-,
-{
-  "title": {
-    "ar": "الرافعات ومعدات الرفع الثقيلة",
-    "en": "Cranes & Heavy Lifting Equipment"
-  },
-  "slug": "cranes-heavy-lifting-equipment",
-  "banner": {
-    "title": {
-      "ar": "الرافعات ومعدات الرفع الثقيلة",
-      "en": "Cranes & Heavy Lifting Equipment"
-    },
-    "description": {
-      "ar": "نقدم حلولًا متكاملة لرفع وتحريك المعدات الثقيلة باستخدام أحدث الرافعات والمعدات المناسبة.",
-      "en": "We provide integrated solutions for lifting and moving heavy equipment using the latest cranes and appropriate machinery."
-    },
-    "image": [
-      "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
-    ]
-  },
-  "ServicePointsGrid1": {
-    "title": {
-      "ar": "خدمات الرافعات والمعدات الثقيلة الأساسية",
-      "en": "Core Cranes & Heavy Lifting Equipment Services"
-    },
-    "description": {
-      "ar": "نحن نقدم مجموعة واسعة من خدمات الرافعات والمعدات الثقيلة التي تلبي احتياجات المشاريع الكبرى.",
-      "en": "We offer a wide range of cranes and heavy lifting equipment services to meet the needs of large-scale projects."
-    },
-    "points": [
-      {
-        "title": {
-          "ar": "الرافعات البرجية",
-          "en": "Tower Cranes"
-        },
-        "description": {
-          "ar": "نحن نوفر الرافعات البرجية لمشاريع البناء عالية الارتفاع والتي تتطلب الرفع لمسافات طويلة.",
-          "en": "We provide tower cranes for high-rise construction projects that require long-distance lifting."
-        },
-        "image": [
-          "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
-        ]
-      },
-      {
-        "title": {
-          "ar": "الرافعات الجسرية",
-          "en": "Bridge Cranes"
-        },
-        "description": {
-          "ar": "نقدم الرافعات الجسرية للمشاريع التي تتطلب رفع وتحريك المعدات الثقيلة داخل المنشآت المغلقة.",
-          "en": "We offer bridge cranes for projects that require lifting and moving heavy equipment inside enclosed facilities."
-        },
-        "image": [
-          "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
-        ]
-      },
-      {
-        "title": {
-          "ar": "الرافعات الزحافة",
-          "en": "Crawler Cranes"
-        },
-        "description": {
-          "ar": "نقدم الرافعات الزحافة التي توفر القدرة على التحرك على التضاريس الوعرة مع رفع الأحمال الثقيلة.",
-          "en": "We provide crawler cranes that offer the ability to move on rough terrain while lifting heavy loads."
-        },
-        "image": [
-          "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
-        ]
-      },
-      {
-        "title": {
-          "ar": "الرافعات المتنقلة",
-          "en": "Mobile Cranes"
-        },
-        "description": {
-          "ar": "نقدم الرافعات المتنقلة التي تتميز بالقدرة على الانتقال بسرعة بين المواقع المختلفة، مع قدرة رفع عالية.",
-          "en": "We provide mobile cranes that are highly mobile and capable of moving between different locations with high lifting capacity."
-        },
-        "image": [
-          "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
-        ]
-      },
-      {
-        "title": {
-          "ar": "الرافعات ذات الذراع الطويلة",
-          "en": "Long Reach Cranes"
-        },
-        "description": {
-          "ar": "نحن نوفر الرافعات ذات الذراع الطويلة التي تسمح برفع الأحمال الثقيلة لمسافات بعيدة.",
-          "en": "We provide long reach cranes that allow lifting heavy loads over long distances."
-        },
-        "image": [
-          "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
-        ]
-      }
-    ]
-  },
-  "ServicePointsGrid2": {
-    "title": {
-      "ar": "خدمات إضافية للرافعات والمعدات الثقيلة",
-      "en": "Additional Cranes & Heavy Lifting Equipment Services"
-    },
-    "description": {
-      "ar": "نقدم خدمات إضافية متكاملة للرافعات والمعدات الثقيلة لضمان تنفيذ المشاريع بشكل فعال.",
-      "en": "We offer additional integrated services for cranes and heavy lifting equipment to ensure the efficient execution of projects."
-    },
-    "points": [
-      {
-        "title": {
-          "ar": "تركيب الرافعات",
-          "en": "Crane Installation"
-        },
-        "description": {
-          "ar": "نقوم بتركيب الرافعات المختلفة وتوفير دعم مستمر لضمان عملية رفع آمنة.",
-          "en": "We install various types of cranes and provide ongoing support to ensure safe lifting operations."
-        },
-        "image": [
-          "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
-        ]
-      },
-      {
-        "title": {
-          "ar": "خدمات التفكيك والنقل",
-          "en": "Crane Dismantling & Transportation"
-        },
-        "description": {
-          "ar": "نقوم بتوفير خدمات التفكيك والنقل للرافعات والمعدات الثقيلة بين المواقع المختلفة.",
-          "en": "We provide crane dismantling and transportation services for moving cranes and heavy equipment between different locations."
-        },
-        "image": [
-          "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
-        ]
-      },
-      {
-        "title": {
-          "ar": "الصيانة الدورية للرافعات",
-          "en": "Crane Maintenance & Inspection"
-        },
-        "description": {
-          "ar": "نقوم بصيانة وفحص الرافعات بشكل دوري لضمان استمرارية تشغيلها بكفاءة عالية.",
-          "en": "We provide regular maintenance and inspection services for cranes to ensure their continuous operation with high efficiency."
-        },
-        "image": [
-          "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
-        ]
-      },
-      {
-        "title": {
-          "ar": "الرفع والتفريغ للمعدات الثقيلة",
-          "en": "Heavy Equipment Lifting & Unloading"
-        },
-        "description": {
-          "ar": "نقدم خدمات الرفع والتفريغ للمعدات الثقيلة باستخدام الرافعات المتخصصة.",
-          "en": "We provide heavy equipment lifting and unloading services using specialized cranes."
-        },
-        "image": [
-          "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
-        ]
-      },
-      {
-        "title": {
-          "ar": "استشارات الرفع",
-          "en": "Lifting Consultation"
-        },
-        "description": {
-          "ar": "نقدم استشارات متخصصة لعمليات الرفع لضمان سلامة وفعالية العملية.",
-          "en": "We offer specialized consultation services for lifting operations to ensure safety and efficiency."
-        },
-        "image": [
-          "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
-        ]
-      }
-    ]
-  }
-}
-
-  
-],
+  ],
 
 
 
   "market": {
+    "slug": "market",
     "banner": {
       "title": {
         "ar": "سوق",
@@ -1956,7 +1883,7 @@
         }
       ]
     },
-    "quote": {
+    "quoteSection": {
       "text": {
         "ar": "وفي مسيرتنا نحو التقدم والتطور، يجب ألا ننسى العنصر البشري. قد ترتفع المباني والمنشآت، لكن الناس هم من يبثون الحياة فيها.",
         "en": "In our march towards progress and development, we must not forget the human element. Buildings and structures may rise, but it is the people who breathe life into them."
@@ -1966,407 +1893,361 @@
         "en": "-Ghazi Al Gosaibi"
       }
     },
-    "tabSection": {
-      "tabs": [
-        {
-          "id": "buildings",
-          "title": {
-            "ar": "المباني",
-            "en": "Buildings"
-          }
+    "marketItemsSection": {
+      "introSection": {
+        "title": {
+          "ar": "سوق",
+          "en": "Market we deal"
         },
-        {
-          "id": "industrial",
-          "title": {
-            "ar": "صناعي",
-            "en": "Industrial"
-          }
+        "description": {
+          "ar": "اكتشف التميز الاستثنائي لشركة Shade Corporation، الشركة الرائدة في مجالات الهندسة والمشتريات والبناء في المملكة العربية السعودية.",
+          "en": "Discover the exceptional excellence of Shade Corporation, the premier Engineering, Procurement, and Construction powerhouse in Saudi Arabia. Discover the exceptional excellence of Shade Corporation, the premier Engineering, Procurement, and Construction powerhouse in Saudi Arabia."
         },
-        {
-          "id": "infrastructure",
-          "title": {
-            "ar": "بنية تحتية",
-            "en": "Infrastructure"
-          }
-        },
-        {
-          "id": "renovationAndUpgrading",
-          "title": {
-            "ar": "الإصلاح والتحديث",
-            "en": "Renovation and Upgrading"
-          }
-        }
+        "image": [
+          "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
+        ]
+      },
+      "card": [
+        "buildings",
+        "Industrial",
+        "Infrastructure",
+        "Repair & Retrofit"
       ],
-      "marketItems": [
-        {
-          "id": 1,
-          "title": {
-            "en": "IT Lab of Excellence",
-            "ar": "مختبرات تكنولوجيا المعلومات للتميز"
-          },
-          "type": "buildings",
-          "imgUrl": "itLabExcellence"
+      "button": {
+        "url": null,
+        "text": {
+          "ar": "عرض المزيد",
+          "en": "View Market"
         },
-        {
-          "id": 2,
-          "title": {
-            "en": "Non-Metallic Manufacturing Plant",
-            "ar": "مصنع المواد غير المعدنية"
-          },
-          "type": "industrial",
-          "imgUrl": "nonMetallic"
-        },
-        {
-          "id": 3,
-          "title": {
-            "en": "Business Gate",
-            "ar": "بوابة الأعمال"
-          },
-          "type": "infrastructure",
-          "imgUrl": "businessGate"
-        },
-        {
-          "id": 4,
-          "title": {
-            "en": "Construction of OME Building - NAPD Khursaniyah",
-            "ar": "بناء مبنى OME - NAPD خورصانيه"
-          },
-          "type": "renovationAndUpgrading",
-          "imgUrl": "constructionOfOME"
-        },
-        {
-          "id": 5,
-          "title": {
-            "en": "Psychiatric Facility",
-            "ar": "مرفق الطب النفسي"
-          },
-          "type": "buildings",
-          "imgUrl": "psychiatriFacility"
-        },
-        {
-          "id": 6,
-          "title": {
-            "en": "Safwa-Rahima Sea Bridge",
-            "ar": "جسر صفوى-رحيمة البحري"
-          },
-          "type": "industrial",
-          "imgUrl": "safwaRahima"
-        },
-        {
-          "id": 7,
-          "title": {
-            "en": "Renovation of Building 175 and 176",
-            "ar": "تجديد المباني 175 و 176"
-          },
-          "type": "infrastructure",
-          "imgUrl": "renovation"
-        },
-        {
-          "id": 8,
-          "title": {
-            "en": "SWCC Plant Jeddah and Haqil",
-            "ar": "محطة SWCC جدة وحقيل"
-          },
-          "type": "renovationAndUpgrading",
-          "imgUrl": "swccPlant"
-        },
-        {
-          "id": 9,
-          "title": {
-            "en": "Renovation of Al Salam Tunnel in Jeddah",
-            "ar": "تجديد نفق السلام في جدة"
-          },
-          "type": "buildings",
-          "imgUrl": "renovationOfAi"
-        },
-        {
-          "id": 10,
-          "title": {
-            "en": "Asphalt Works – TCF Pkg 1, 2 & 3",
-            "ar": "أعمال الأسفلت - TCF الحزمة 1، 2 و 3"
-          },
-          "type": "industrial",
-          "imgUrl": "asphaltWork"
-        },
-        {
-          "id": 11,
-          "title": {
-            "en": "SPARK - Waste Water Connection to MODON",
-            "ar": "سبارك - ربط مياه الصرف الصحي مع مدن"
-          },
-          "type": "infrastructure",
-          "imgUrl": "sprakWasteWater"
-        },
-        {
-          "id": 12,
-          "title": {
-            "en": "Construct an underpass at the intersection of Prince Mohamed Bin Fahd road and Imam Ali Bin Taleb road in Dammam",
-            "ar": "بناء نفق في تقاطع طريق الأمير محمد بن فهد وطريق الإمام علي بن طالب في الدمام"
-          },
-          "type": "renovationAndUpgrading",
-          "imgUrl": "constructAnUnderpass"
-        },
-        {
-          "id": 13,
-          "title": {
-            "en": "Development of HO Lots Ar-Rabiyah Phase V",
-            "ar": "تطوير قطع الأراضي في الربيع - المرحلة الخامسة"
-          },
-          "type": "buildings",
-          "imgUrl": "developmentOfHo"
-        },
-        {
-          "id": 14,
-          "title": {
-            "en": "Procedure Areas Expansion Project Phase – 1 KFCA Bahrain Side",
-            "ar": "مشروع توسيع مناطق الإجراءات - المرحلة 1 من جانب البحرين"
-          },
-          "type": "industrial",
-          "imgUrl": "procedureAreaExpansion"
-        },
-        {
-          "id": 15,
-          "title": {
-            "en": "Replace & Automate Water Wells in Dhahran",
-            "ar": "استبدال وأتمتة آبار المياه في الظهران"
-          },
-          "type": "infrastructure",
-          "imgUrl": "replaceAndAutomate"
-        },
-        {
-          "id": 16,
-          "title": {
-            "en": "Al Khobar Tunnel - Upgrading of King Abdulaziz Road Phase 1 & 2",
-            "ar": "نفق الخبر - تطوير طريق الملك عبد العزيز - المرحلة 1 و 2"
-          },
-          "type": "renovationAndUpgrading",
-          "imgUrl": "aiKhobarTunnel"
-        },
-        {
-          "id": 17,
-          "title": {
-            "en": "Bridges & Tunnel for Haramain High Speed Rail",
-            "ar": "الجسور والنفق لقطار الحرمين السريع"
-          },
-          "type": "buildings",
-          "imgUrl": "bridgeAndTunnelForHumair"
-        },
-        {
-          "id": 18,
-          "title": {
-            "en": "Crossroad Bridge of Prince Naif Road with Imam Ali Bin Abu Talib Road - Dammam",
-            "ar": "جسر تقاطع طريق الأمير نايف مع طريق الإمام علي بن أبي طالب - الدمام"
-          },
-          "type": "industrial",
-          "imgUrl": "crossroadBridgee"
-        },
-        {
-          "id": 19,
-          "title": {
-            "en": "Secondary Roads at Eastern Province Group – 5 (Khaladiyah)",
-            "ar": "الطرق الثانوية في مجموعة المنطقة الشرقية - 5 (الخلالدية)"
-          },
-          "type": "infrastructure",
-          "imgUrl": "secondaryRaad"
-        },
-        {
-          "id": 20,
-          "title": {
-            "en": "Secondary Roads at Eastern Province Group – 9 (Abqaiq & Al-Hassa)",
-            "ar": "الطرق الثانوية في مجموعة المنطقة الشرقية - 9 (الأحساء وبقيق)"
-          },
-          "type": "renovationAndUpgrading",
-          "imgUrl": "secondaryRoads"
-        },
-        {
-          "id": 21,
-          "title": {
-            "en": "SWCC Water Supply Connection in Dhahran",
-            "ar": "ربط إمدادات مياه SWCC في الظهران"
-          },
-          "type": "buildings",
-          "imgUrl": "swccWaterSupply"
-        },
-        {
-          "id": 22,
-          "title": {
-            "en": "Other Projects",
-            "ar": "مشاريع أخرى"
-          },
-          "type": "industrial",
-          "imgUrl": "otherProjects"
-        }
-      ],
-      "button": [
-        {
-          "url": null,
-          "text": {
-            "ar": "عرض التفاصيل",
-            "en": "View Details"
-          },
-          "icon": null
-        },
-        {
-          "text": {
-            "ar": "عرض المزيد",
-            "en": "View More"
-          },
-          "icon": null
-        }
-      ]
+        "icon": null
+      }
     },
     "testimonialSection": {
       "title": {
-        "ar": "ماذا يقول عملاؤنا عنا؟",
-        "en": "What Our Clients Say About Us?"
+        "en": "What Our Clients Say About Us?",
+        "ar": "ماذا يقول عملاؤنا عنا؟"
       },
-      "testimonials": [
-        {
-          "name": {
-            "en": "Dr. Engr. Salah Attia Abdelzaher",
-            "ar": "د. مهندس صلاح عطيه عبد الظاهر"
-          },
-          "position": {
-            "en": "Director Projects JODC (Director of infrastructure and MEP)",
-            "ar": "مدير المشاريع في شركة جبل عمر للتطوير (مدير البنية التحتية والميكانيكا والكهرباء)"
-          },
-          "quote": {
-            "en": "Excellent planning, coordination and execution. Successful scheduling. Strong management and reporting. HSE representative excelled. Conclusion: Performance exceeds expectations.Excellent planning, coordination and execution. Successful scheduling. Strong management and reporting. HSE representative excelled. Conclusion: Performance exceeds expectations.",
-            "ar": "تخطيط وتنسيق وتنفيذ ممتاز. جدولة ناجحة. إدارة وإعداد التقارير قوية. تميز ممثل الصحة والسلامة والبيئة. الخلاصة: الأداء يتجاوز التوقعات."
-          },
-          "company": {
-            "en": "Jabal Omar Development Company",
-            "ar": "شركة جبل عمر للتطوير"
-          },
-          "image": "testimonial1"
-        },
-        {
-          "name": {
-            "en": "Ahmed Basiony",
-            "ar": "أحمد بسيوني"
-          },
-          "position": {
-            "en": "Project Manager",
-            "ar": "مدير مشروع"
-          },
-          "quote": {
-            "en": "Always delighted to work with Shade team; our trusted EPC partner. Their proactive approach has added value to each stage of the development and we have always been able to rely on their team to provide a very high quality, cost effective and robust results.",
-            "ar": "دائمًا سعيد بالعمل مع فريق شيد؛ شريكنا الموثوق في مشاريع الهندسة والمشتريات والبناء. لقد أضاف نهجهم الاستباقي قيمة إلى كل مرحلة من مراحل التطوير، وتمكنا دائمًا من الاعتماد على فريقهم لتقديم نتائج قوية عالية الجودة وفعالة من حيث التكلفة."
-          },
-          "company": {
-            "en": "Nesma & Partners",
-            "ar": "نسما وشركاها"
-          },
-          "image": "testimonial2"
-        },
-        {
-          "name": {
-            "en": "Khaled El Kholy",
-            "ar": "خالد الخولي"
-          },
-          "position": {
-            "en": "Project Engineer",
-            "ar": "مهندس مشروع"
-          },
-          "quote": {
-            "en": "Impressed with the project team’s expertise and hands on experience with road projects. They have consistently delivered against project objectives and proved as most reliable construction partner.",
-            "ar": "مُعجب بخبرة فريق المشروع وتجربته العملية في مشاريع الطرق. لقد قدموا باستمرار نتائج تتماشى مع أهداف المشروع وأثبتوا أنهم أكثر شركاء البناء موثوقية."
-          },
-          "company": {
-            "en": "Umm Al Qura for Development & Construction",
-            "ar": "شركة أم القرى للتطوير والبناء"
-          },
-          "image": "userIcon"
-        },
-        {
-          "name": {
-            "en": "Mostafa Sayed",
-            "ar": "سيد مصطفى"
-          },
-          "position": {
-            "en": "Project Manager",
-            "ar": "مدير مشروع"
-          },
-          "quote": {
-            "en": "The staff employed by Shade for the project, have supported us to deliver a challenging scheme on time, budget, quality and specification, which has resulted in us keeping promise of delivering key infrastructure for Makkah on time & budget.",
-            "ar": "لقد دعمنا الموظفون الذين عينتهم شركة شيد للمشروع لتقديم مخطط مليء بالتحديات في الوقت المحدد والميزانية والجودة والمواصفات، مما أدى إلى وفائنا بوعدنا بتسليم البنية التحتية الرئيسية لمكة المكرمة في الوقت المحدد وضمن الميزانية."
-          },
-          "company": {
-            "en": "Jabal Omar Development Authority",
-            "ar": "هيئة تطوير جبل عمر"
-          },
-          "image": "dummyUser"
-        },
-        {
-          "name": {
-            "en": "Amro Khatab",
-            "ar": "عمرو خطاب"
-          },
-          "position": {
-            "en": "Project Manager",
-            "ar": "مدير مشروع"
-          },
-          "quote": {
-            "en": "To have qualified construction partner as Shade, is key for the success of the project, especially something as complicated as Bridge road E. Their competent site team supported us in execution as well as their planning process contribute to on time delivery.",
-            "ar": "وجود شريك بناء مؤهل ك شيد هو مفتاح لنجاح المشروع، خاصة في شيء معقد مثل طريق الجسر E. لقد دعمنا فريق الموقع المختص في التنفيذ بالإضافة إلى مساهمة عملية التخطيط الخاصة بهم في التسليم في الوقت المحدد."
-          },
-          "company": {
-            "en": "Khatib & Alami",
-            "ar": "خطيب وعلمي"
-          },
-          "image": "userIcon"
-        },
-        {
-          "name": {
-            "en": "Sherif Mekky",
-            "ar": "شريف مكي"
-          },
-          "position": {
-            "en": "Design Manager",
-            "ar": "مدير التصميم"
-          },
-          "quote": {
-            "en": "As a design consultant, it is most important to have experienced construction partner who is prompt, efficient, supportive and professional in all elements of their work. Shade is one of such partners, who is committed to deliver required output with excellent quality.",
-            "ar": "كمستشار تصميم، من المهم جدًا أن يكون لديك شريك بناء ذو خبرة وسريع وفعال وداعم ومحترف في جميع جوانب عمله. شيد هي واحدة من هؤلاء الشركاء، الذين يلتزمون بتقديم النتائج المطلوبة بجودة ممتازة."
-          },
-          "company": {
-            "en": "Parsons",
-            "ar": "بارسون"
-          },
-          "image": "dummyUser"
-        }
-      ]
-    },
-    "newProject": {
-      "title": {
-        "ar": "هل تريد بدء مشروع جديد أو التعاون معنا؟",
-        "en": "Want to start a new project or collaborate with us?"
-      },
-      "description1": {
-        "ar": "التزامًا بفلسفتنا المتمثلة في \"بناء مستقبل أقوى\"، تؤمن شركة Shade Corporation بالشراكات المربحة للجانبين مع جميع أصحاب المصلحة، وتهدف باستمرار إلى إنشاء علاقات مستدامة وطويلة الأمد لخلق القيمة. يشتمل نموذج المشاركة الخاص بنا على منهجيات خاصة وحلول شاملة من شأنها أن تحول اقتصاديات مشروعك وتفتح إمكانيات جديدة وتدعم أهداف النمو التنظيمي لديك.",
-        "en": "Committed to our philosophy of \"Building a Stronger Future\", Shade Corporation believes in win-win partnerships with all stakeholders and continuously aims to create sustainable, long-term relationships to create value. Our engagement model includes proprietary methodologies and comprehensive solutions that will transform your project economics, unlock new possibilities, and support your organizational growth objectives."
-      },
-      "description2": {
-        "ar": "في العقود القليلة الماضية، قدمنا خدماتنا للعديد من الشركات السعودية الرائدة والمؤسسات العامة لإنشاء استراتيجيات ناجحة، وحل بعض المشكلات المعقدة، وتحقيق نتائج متسقة. إذا كنت تتطلع إلى تعزيز الأداء وتنفيذ استراتيجيات النمو وبناء قدرات جديدة، فتعاون معنا الآن.",
-        "en": "Over the past few decades, we have served numerous leading Saudi companies and public institutions to create successful strategies, solve complex problems, and deliver consistent results. If you are looking to enhance performance, implement growth strategies, and build new capabilities, collaborate with us now."
-      },
-      "highlightedText": {
-        "ar": "بناء مستقبل أقوى",
-        "en": "Building a Stronger Future"
-      },
-      "button": [
-        {
-          "url": null,
-          "text": {
-            "ar": "اتصل بنا",
-            "en": "Contact Us"
-          },
-          "icon": null
-        }
+      "testimonialsItems": [
+        "salah-attia-abdelzaher",
+        "ahmed-basiony",
+        "khaled-el-kholy",
+        "mostafa-sayed",
+        "amro-khatab",
+        "sherif-mekky"
       ]
     }
   },
-  "projectsPage": {
+
+
+
+
+
+"singleMarketItems": [
+  {
+    "resourceTitle": {
+      "ar": "المباني",
+      "en": "Buildings-Service"
+    },
+    "slug": "buildings",
+    "banner": {
+      "title": {
+        "ar": "المباني",
+        "en": "Buildings"
+      },
+      "description": {
+        "ar": "تعد شركة Shade Corporation واحدة من أكبر شركات البناء وتأجير البنية التحتية في المنطقة.",
+        "en": "Shade Corporation is one of the largest construction and infrastructure rental companies in the region."
+      },
+      "image": [
+        "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"
+      ]
+    },
+    "marketBodySection": {
+      "title": {
+        "ar": "الأسواق التي نخدمها",
+        "en": "Markets where we provide services"
+      },
+      "description": {
+        "ar": "تعليم، ضيافة، سكني متعدد الاستخدامات، سكني، تجزئة، رعاية صحية، مكاتب، حكومي، مطارات، مواقف سيارات",
+        "en": "Education, Hospitality, Multi-Use Residential, Residential, Retail, Health Care, Offices, Government, Airports, Parking"
+      },
+      "marketSubItems": {
+        "title": {
+          "ar": "تفاصيل القطاعات",
+          "en": "Market Segments We Serve"
+        },
+        "description": {
+          "ar": "نقدم خدمات مخصصة لتلبية احتياجات السوق المختلفة ضمن قطاع المباني.",
+          "en": "We offer tailored services to meet the specific demands of various segments within the buildings market."
+        },
+        "points": [
+          {
+            "title": { "ar": "التعليم", "en": "Education" },
+            "description": {
+              "ar": "نقوم ببناء وتجهيز المدارس والجامعات بمعايير عالمية لتوفير بيئة تعليمية فعالة.",
+              "en": "We construct and equip schools and universities to global standards for effective learning environments."
+            },
+            "image": ["https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"]
+          },
+          {
+            "title": { "ar": "الضيافة", "en": "Hospitality" },
+            "description": {
+              "ar": "إنشاء الفنادق والمنتجعات بتصاميم راقية وخدمات متكاملة لتجربة ضيافة متميزة.",
+              "en": "We develop hotels and resorts with elegant design and integrated services for an outstanding guest experience."
+            },
+            "image": ["https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"]
+          },
+          {
+            "title": { "ar": "السكني", "en": "Residential" },
+            "description": {
+              "ar": "بناء مشاريع سكنية متنوعة من الفلل إلى المجمعات متعددة الاستخدامات.",
+              "en": "Development of a wide range of residential projects from villas to multi-use complexes."
+            },
+            "image": ["https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"]
+          }
+        ]
+      }
+    },
+    "projectsGridSection": {
+      "button": {
+        "url": null,
+        "text": { "ar": "عرض المزيد", "en": "View More" },
+        "icon": null
+      },
+      "projects": [
+        "it-labs-for-excellence",
+        "non-metallic-manufacturing-plant",
+        "business-gate",
+        "construction-of-ome-building"
+      ]
+    }
+  },
+  {
+    "resourceTitle": {
+      "ar": "الصناعة",
+      "en": "Industrial"
+    },
+    "slug": "industrial",
+    "banner": {
+      "title": { "ar": "الصناعة", "en": "Industrial" },
+      "description": {
+        "ar": "نقوم ببناء وتشغيل منشآت صناعية متقدمة تشمل المصانع ومرافق الطاقة والبتروكيماويات.",
+        "en": "We construct and operate advanced industrial facilities, including manufacturing plants, energy infrastructure, and petrochemical units."
+      },
+      "image": ["https://loopwebsite.s3.ap-south-1.amazonaws.com/industrial-banner.png"]
+    },
+    "marketBodySection": {
+      "title": {
+        "ar": "الأسواق التي نخدمها",
+        "en": "Markets where we provide services"
+      },
+      "description": {
+        "ar": "مصانع، مستودعات، منشآت بتروكيماوية، الطاقة، التجميع الصناعي، مراكز توزيع، مراكز البيانات",
+        "en": "Factories, Warehouses, Petrochemical Facilities, Energy, Industrial Assembly, Distribution Centers, Data Centers"
+      },
+      "marketSubItems": {
+        "title": {
+          "ar": "تفاصيل القطاعات",
+          "en": "Market Segments We Serve"
+        },
+        "description": {
+          "ar": "ننفذ مشاريع صناعية معقدة تتطلب دقة هندسية وتقنية عالية.",
+          "en": "We execute complex industrial projects requiring high engineering precision and technology."
+        },
+        "points": [
+          {
+            "title": { "ar": "مصانع التصنيع", "en": "Manufacturing Plants" },
+            "description": {
+              "ar": "تطوير منشآت صناعية لإنتاج مواد متنوعة.",
+              "en": "Developing industrial plants for diverse material production."
+            },
+            "image": ["https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"]
+          },
+          {
+            "title": { "ar": "مرافق الطاقة", "en": "Energy Facilities" },
+            "description": {
+              "ar": "بناء وتشغيل محطات توليد الطاقة وأنظمة التوزيع.",
+              "en": "Building and operating power generation and distribution facilities."
+            },
+            "image": ["https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"]
+          }
+        ]
+      }
+    },
+    "projectsGridSection": {
+      "button": {
+        "url": null,
+        "text": { "ar": "عرض المزيد", "en": "View More" },
+        "icon": null
+      },
+      "projects": [
+        "non-metallic-manufacturing-plant",
+        "energy-storage-terminal",
+        "data-processing-facility"
+      ]
+    }
+  },
+  {
+    "resourceTitle": {
+      "ar": "البنية التحتية",
+      "en": "Infrastructure"
+    },
+    "slug": "infrastructure",
+    "banner": {
+      "title": { "ar": "البنية التحتية", "en": "Infrastructure" },
+      "description": {
+        "ar": "نقدم حلولًا متكاملة للبنية التحتية تشمل الطرق، الجسور، المياه، والكهرباء.",
+        "en": "We deliver integrated infrastructure solutions including roads, bridges, water systems, and power grids."
+      },
+      "image": ["https://loopwebsite.s3.ap-south-1.amazonaws.com/infrastructure-banner.png"]
+    },
+    "marketBodySection": {
+      "title": {
+        "ar": "الأسواق التي نخدمها",
+        "en": "Markets where we provide services"
+      },
+      "description": {
+        "ar": "طرق، جسور، أنظمة صرف صحي، خطوط كهرباء، أنفاق، شبكات اتصالات، محطات معالجة المياه",
+        "en": "Roads, Bridges, Sewer Systems, Power Lines, Tunnels, Telecom Networks, Water Treatment Plants"
+      },
+      "marketSubItems": {
+        "title": {
+          "ar": "تفاصيل القطاعات",
+          "en": "Market Segments We Serve"
+        },
+        "description": {
+          "ar": "حلول شاملة للبنية التحتية الحيوية التي تدعم التنمية الحضرية.",
+          "en": "Comprehensive infrastructure solutions supporting urban development."
+        },
+        "points": [
+          {
+            "title": { "ar": "الطرق السريعة", "en": "Highways" },
+            "description": {
+              "ar": "بناء وتوسيع شبكات الطرق والممرات السريعة.",
+              "en": "Construction and expansion of highway and road networks."
+            },
+            "image": ["https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"]
+          },
+          {
+            "title": { "ar": "محطات المياه", "en": "Water Plants" },
+            "description": {
+              "ar": "تصميم وبناء محطات المعالجة لضمان استدامة المياه.",
+              "en": "Design and construction of treatment plants for water sustainability."
+            },
+            "image": ["https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"]
+          }
+        ]
+      }
+    },
+    "projectsGridSection": {
+      "button": {
+        "url": null,
+        "text": { "ar": "عرض المزيد", "en": "View More" },
+        "icon": null
+      },
+      "projects": [
+        "riyadh-metro-line",
+        "north-ring-road-bridge",
+        "urban-infrastructure-utilities"
+      ]
+    }
+  },
+  {
+    "resourceTitle": {
+      "ar": "الإصلاح والتحديث",
+      "en": "Repair & Retrofit"
+    },
+    "slug": "repair-retrofit",
+    "banner": {
+      "title": { "ar": "الإصلاح والتحديث", "en": "Repair & Retrofit" },
+      "description": {
+        "ar": "نقدم خدمات إصلاح وتحديث للمباني والبنية التحتية لضمان استدامة الأداء وتحديث المرافق القائمة.",
+        "en": "We offer repair and retrofit services for buildings and infrastructure to ensure sustainable performance and upgrade existing facilities."
+      },
+      "image": ["https://loopwebsite.s3.ap-south-1.amazonaws.com/repair-retrofit-banner.png"]
+    },
+    "marketBodySection": {
+      "title": {
+        "ar": "الأسواق التي نخدمها",
+        "en": "Markets where we provide services"
+      },
+      "description": {
+        "ar": "ترميم المباني، تحديث أنظمة الطاقة، تقوية الهياكل، تحسين المرافق، حلول كفاءة الطاقة، مقاومة الزلازل",
+        "en": "Building Renovation, Energy System Upgrades, Structural Strengthening, Facility Improvements, Energy Efficiency Solutions, Seismic Retrofits"
+      },
+      "marketSubItems": {
+        "title": {
+          "ar": "تفاصيل القطاعات",
+          "en": "Market Segments We Serve"
+        },
+        "description": {
+          "ar": "خدمات مستدامة لإعادة تأهيل وتجديد الهياكل الحالية.",
+          "en": "Sustainable services for the rehabilitation and renewal of existing structures."
+        },
+        "points": [
+          {
+            "title": { "ar": "ترميم المباني", "en": "Building Restoration" },
+            "description": {
+              "ar": "إصلاح وترميم الهياكل القديمة وإعادتها إلى حالتها الأصلية.",
+              "en": "Repairing and restoring aged structures to their original condition."
+            },
+            "image": ["https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"]
+          },
+          {
+            "title": { "ar": "التحديث الإنشائي", "en": "Structural Upgrades" },
+            "description": {
+              "ar": "تعزيز الهياكل لمواكبة المعايير الحديثة وزيادة المتانة.",
+              "en": "Enhancing structures to meet modern standards and increase durability."
+            },
+            "image": ["https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png"]
+          }
+        ]
+      }
+    },
+    "projectsGridSection": {
+      "button": {
+        "url": null,
+        "text": { "ar": "عرض المزيد", "en": "View More" },
+        "icon": null
+      },
+      "projects": [
+        "heritage-building-renovation",
+        "retrofit-government-housing",
+        "energy-efficiency-upgrade"
+      ]
+    }
+  }
+],
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+  "project": {
+    "slug" : "project",
     "bannerSection": {
       "title": {
         "ar": ">مشروعنا",
@@ -2412,515 +2293,20 @@
         }
       ],
       "projects": [
-        {
-          "id": 1,
-          "title": {
-            "en": "IT Lab of Excellence",
-            "ar": "مختبرات تكنولوجيا المعلومات للتميز"
-          },
-          "address": {
-            "en": "Dhahran, Saudi Arabia",
-            "ar": "الظهران، المملكة العربية السعودية"
-          },
-          "status": "completed",
-          "button": [
-            {
-              "url": null,
-              "text": {
-                "ar": "عرض التفاصيل",
-                "en": "View Details"
-              },
-              "icon": null
-            }
-          ],
-          "url": "itLabExcellence"
-        },
-        {
-          "id": 2,
-          "title": {
-            "en": "Non-Metallic Manufacturing Plant",
-            "ar": "مصنع المواد غير المعدنية"
-          },
-          "address": {
-            "en": "Dhahran, Saudi Arabia",
-            "ar": "الظهران، المملكة العربية السعودية"
-          },
-          "status": "completed",
-          "button": [
-            {
-              "url": null,
-              "text": {
-                "ar": "عرض التفاصيل",
-                "en": "View Details"
-              },
-              "icon": null
-            }
-          ],
-          "url": "nonMetallic"
-        },
-        {
-          "id": 3,
-          "title": {
-            "en": "Business Gate",
-            "ar": "بوابة الأعمال"
-          },
-          "address": {
-            "en": "Dhahran, Saudi Arabia",
-            "ar": "الظهران، المملكة العربية السعودية"
-          },
-          "status": "ongoing",
-          "button": [
-            {
-              "url": null,
-              "text": {
-                "ar": "عرض التفاصيل",
-                "en": "View Details"
-              },
-              "icon": null
-            }
-          ],
-          "url": "businessGate"
-        },
-        {
-          "id": 4,
-          "title": {
-            "en": "Construction of OME Building - NAPD Khursaniyah",
-            "ar": "بناء مبنى OME - NAPD خورصانيه"
-          },
-          "address": {
-            "en": "Khursaniyah, Saudi Arabia",
-            "ar": "خورصانية، المملكة العربية السعودية"
-          },
-          "status": "ongoing",
-          "button": [
-            {
-              "url": null,
-              "text": {
-                "ar": "عرض التفاصيل",
-                "en": "View Details"
-              },
-              "icon": null
-            }
-          ],
-          "url": "constructionOfOME"
-        },
-        {
-          "id": 5,
-          "title": {
-            "en": "Psychiatric Facility",
-            "ar": "مرفق الطب النفسي"
-          },
-          "address": {
-            "en": "Jeddah, Saudi Arabia",
-            "ar": "جدة، المملكة العربية السعودية"
-          },
-          "status": "completed",
-          "button": [
-            {
-              "url": null,
-              "text": {
-                "ar": "عرض التفاصيل",
-                "en": "View Details"
-              },
-              "icon": null
-            }
-          ],
-          "url": "psychiatriFacility"
-        },
-        {
-          "id": 6,
-          "title": {
-            "en": "Safwa-Rahima Sea Bridge",
-            "ar": "جسر صفوى-رحيمة البحري"
-          },
-          "address": {
-            "en": "Safwa, Saudi Arabia",
-            "ar": "صفوى، المملكة العربية السعودية"
-          },
-          "status": "ongoing",
-          "button": [
-            {
-              "url": null,
-              "text": {
-                "ar": "عرض التفاصيل",
-                "en": "View Details"
-              },
-              "icon": null
-            }
-          ],
-          "url": "safwaRahima"
-        },
-        {
-          "id": 7,
-          "title": {
-            "en": "Renovation of Building 175 and 176",
-            "ar": "تجديد المباني 175 و 176"
-          },
-          "address": {
-            "en": "Dhahran, Saudi Arabia",
-            "ar": "الظهران، المملكة العربية السعودية"
-          },
-          "status": "completed",
-          "button": [
-            {
-              "url": null,
-              "text": {
-                "ar": "عرض التفاصيل",
-                "en": "View Details"
-              },
-              "icon": null
-            }
-          ],
-          "url": "renovation"
-        },
-        {
-          "id": 8,
-          "title": {
-            "en": "SWCC Plant Jeddah and Haqil",
-            "ar": "محطة SWCC جدة وحقيل"
-          },
-          "address": {
-            "en": "Jeddah, Saudi Arabia",
-            "ar": "جدة، المملكة العربية السعودية"
-          },
-          "status": "completed",
-          "button": [
-            {
-              "url": null,
-              "text": {
-                "ar": "عرض التفاصيل",
-                "en": "View Details"
-              },
-              "icon": null
-            }
-          ],
-          "url": "swccPlant"
-        },
-        {
-          "id": 9,
-          "title": {
-            "en": "Renovation of Al Salam Tunnel in Jeddah",
-            "ar": "تجديد نفق السلام في جدة"
-          },
-          "address": {
-            "en": "Jeddah, Saudi Arabia",
-            "ar": "جدة، المملكة العربية السعودية"
-          },
-          "status": "completed",
-          "button": [
-            {
-              "url": null,
-              "text": {
-                "ar": "عرض التفاصيل",
-                "en": "View Details"
-              },
-              "icon": null
-            }
-          ],
-          "url": "renovationOfAi"
-        },
-        {
-          "id": 10,
-          "title": {
-            "en": "Asphalt Works – TCF Pkg 1, 2 & 3",
-            "ar": "أعمال الأسفلت - TCF الحزمة 1، 2 و 3"
-          },
-          "address": {
-            "en": "Dhahran, Saudi Arabia",
-            "ar": "الظهران، المملكة العربية السعودية"
-          },
-          "status": "completed",
-          "button": [
-            {
-              "url": null,
-              "text": {
-                "ar": "عرض التفاصيل",
-                "en": "View Details"
-              },
-              "icon": null
-            }
-          ],
-          "url": "asphaltWork"
-        },
-        {
-          "id": 11,
-          "title": {
-            "en": "SPARK - Waste Water Connection to MODON",
-            "ar": "سبارك - ربط مياه الصرف الصحي مع مدن"
-          },
-          "address": {
-            "en": "Dhahran, Saudi Arabia",
-            "ar": "الظهران، المملكة العربية السعودية"
-          },
-          "status": "completed",
-          "button": [
-            {
-              "url": null,
-              "text": {
-                "ar": "عرض التفاصيل",
-                "en": "View Details"
-              },
-              "icon": null
-            }
-          ],
-          "url": "sprakWasteWater"
-        },
-        {
-          "id": 12,
-          "title": {
-            "en": "Construct an underpass at the intersection of Prince Mohamed Bin Fahd road and Imam Ali Bin Taleb road in Dammam",
-            "ar": "بناء نفق في تقاطع طريق الأمير محمد بن فهد وطريق الإمام علي بن طالب في الدمام"
-          },
-          "address": {
-            "en": "Dammam, Saudi Arabia",
-            "ar": "الدمام، المملكة العربية السعودية"
-          },
-          "status": "completed",
-          "button": [
-            {
-              "url": null,
-              "text": {
-                "ar": "عرض التفاصيل",
-                "en": "View Details"
-              },
-              "icon": null
-            }
-          ],
-          "url": "constructAnUnderpass"
-        },
-        {
-          "id": 13,
-          "title": {
-            "en": "Development of HO Lots Ar-Rabiyah Phase V",
-            "ar": "تطوير قطع الأراضي في الربيع - المرحلة الخامسة"
-          },
-          "address": {
-            "en": "Ar-Rabiyah, Saudi Arabia",
-            "ar": "الربيعية، المملكة العربية السعودية"
-          },
-          "status": "completed",
-          "button": [
-            {
-              "url": null,
-              "text": {
-                "ar": "عرض التفاصيل",
-                "en": "View Details"
-              },
-              "icon": null
-            }
-          ],
-          "url": "developmentOfHo"
-        },
-        {
-          "id": 14,
-          "title": {
-            "en": "Procedure Areas Expansion Project Phase – 1 KFCA Bahrain Side",
-            "ar": "مشروع توسيع مناطق الإجراءات - المرحلة 1 من جانب البحرين"
-          },
-          "address": {
-            "en": "Bahrain Side, Saudi Arabia",
-            "ar": "جانب البحرين، المملكة العربية السعودية"
-          },
-          "status": "ongoing",
-          "button": [
-            {
-              "url": null,
-              "text": {
-                "ar": "عرض التفاصيل",
-                "en": "View Details"
-              },
-              "icon": null
-            }
-          ],
-          "url": "procedureAreaExpansion"
-        },
-        {
-          "id": 15,
-          "title": {
-            "en": "Replace & Automate Water Wells in Dhahran",
-            "ar": "استبدال وأتمتة آبار المياه في الظهران"
-          },
-          "address": {
-            "en": "Dhahran, Saudi Arabia",
-            "ar": "الظهران، المملكة العربية السعودية"
-          },
-          "status": "completed",
-          "button": [
-            {
-              "url": null,
-              "text": {
-                "ar": "عرض التفاصيل",
-                "en": "View Details"
-              },
-              "icon": null
-            }
-          ],
-          "url": "replaceAndAutomate"
-        },
-        {
-          "id": 16,
-          "title": {
-            "en": "Al Khobar Tunnel - Upgrading of King Abdulaziz Road Phase 1 & 2",
-            "ar": "نفق الخبر - تطوير طريق الملك عبد العزيز - المرحلة 1 و 2"
-          },
-          "address": {
-            "en": "Al Khobar, Saudi Arabia",
-            "ar": "الخبر، المملكة العربية السعودية"
-          },
-          "status": "completed",
-          "button": [
-            {
-              "url": null,
-              "text": {
-                "ar": "عرض التفاصيل",
-                "en": "View Details"
-              },
-              "icon": null
-            }
-          ],
-          "url": "aiKhobarTunnel"
-        },
-        {
-          "id": 17,
-          "title": {
-            "en": "Bridges & Tunnel for Haramain High Speed Rail",
-            "ar": "الجسور والنفق لقطار الحرمين السريع"
-          },
-          "address": {
-            "en": "Saudi Arabia",
-            "ar": "المملكة العربية السعودية"
-          },
-          "status": "completed",
-          "button": [
-            {
-              "url": null,
-              "text": {
-                "ar": "عرض التفاصيل",
-                "en": "View Details"
-              },
-              "icon": null
-            }
-          ],
-          "url": "bridgeAndTunnelForHumair"
-        },
-        {
-          "id": 18,
-          "title": {
-            "en": "Crossroad Bridge of Prince Naif Road with Imam Ali Bin Abu Talib Road - Dammam",
-            "ar": "جسر تقاطع طريق الأمير نايف مع طريق الإمام علي بن أبي طالب - الدمام"
-          },
-          "address": {
-            "en": "Dammam, Saudi Arabia",
-            "ar": "الدمام، المملكة العربية السعودية"
-          },
-          "status": "completed",
-          "button": [
-            {
-              "url": null,
-              "text": {
-                "ar": "عرض التفاصيل",
-                "en": "View Details"
-              },
-              "icon": null
-            }
-          ],
-          "url": "crossroadBridgee"
-        },
-        {
-          "id": 19,
-          "title": {
-            "en": "Secondary Roads at Eastern Province Group – 5 (Khaladiyah)",
-            "ar": "الطرق الثانوية في مجموعة المنطقة الشرقية - 5 (الخلالدية)"
-          },
-          "address": {
-            "en": "Eastern Province, Saudi Arabia",
-            "ar": "المنطقة الشرقية، المملكة العربية السعودية"
-          },
-          "status": "completed",
-          "button": [
-            {
-              "url": null,
-              "text": {
-                "ar": "عرض التفاصيل",
-                "en": "View Details"
-              },
-              "icon": null
-            }
-          ],
-          "url": "secondaryRaad"
-        },
-        {
-          "id": 20,
-          "title": {
-            "en": "Secondary Roads at Eastern Province Group – 9 (Abqaiq & Al-Hassa)",
-            "ar": "الطرق الثانوية في مجموعة المنطقة الشرقية - 9 (الأحساء وبقيق)"
-          },
-          "address": {
-            "en": "Eastern Province, Saudi Arabia",
-            "ar": "المنطقة الشرقية، المملكة العربية السعودية"
-          },
-          "status": "completed",
-          "button": [
-            {
-              "url": null,
-              "text": {
-                "ar": "عرض التفاصيل",
-                "en": "View Details"
-              },
-              "icon": null
-            }
-          ],
-          "url": "secondaryRoads"
-        },
-        {
-          "id": 21,
-          "title": {
-            "en": "SWCC Water Supply Connection in Dhahran",
-            "ar": "ربط إمدادات مياه SWCC في الظهران"
-          },
-          "address": {
-            "en": "Dhahran, Saudi Arabia",
-            "ar": "الظهران، المملكة العربية السعودية"
-          },
-          "status": "completed",
-          "button": [
-            {
-              "url": null,
-              "text": {
-                "ar": "عرض التفاصيل",
-                "en": "View Details"
-              },
-              "icon": null
-            }
-          ],
-          "url": "swccWaterSupply"
-        },
-        {
-          "id": 22,
-          "title": {
-            "en": "Other Projects",
-            "ar": "مشاريع أخرى"
-          },
-          "address": {
-            "en": "Various Locations, Saudi Arabia",
-            "ar": "مواقع مختلفة، المملكة العربية السعودية"
-          },
-          "status": "completed",
-          "button": [
-            {
-              "url": null,
-              "text": {
-                "ar": "عرض التفاصيل",
-                "en": "View Details"
-              },
-              "icon": null
-            }
-          ],
-          "url": "otherProjects"
-        }
+
       ],
       "button": [
         {
+          "id" : "view-details",
+          "url": null,
+          "text": {
+            "ar": "عرض التفاصيل",
+            "en": "View Details"
+          },
+          "icon": null
+        },
+        {
+          "id" : "view-more",
           "url": null,
           "text": {
             "ar": " عرض المزيد",
@@ -2931,9 +2317,16 @@
       ]
     }
   },
-  "projectDetail": [
+
+
+  
+  "projectDetail":[
     {
-      "id": 1,
+      "resourceTitle": {
+        "ar": "مختبر تكنولوجيا المعلومات للتميز",
+        "en": "IT Labs for Excellence"
+      },
+      "slug": "it-lab-for-excellence",
       "introSection": {
         "title": {
           "ar": "مختبر تكنولوجيا المعلومات للتميز",
@@ -2943,8 +2336,11 @@
           "ar": "العميل: أرامكو السعودية",
           "en": "Client: Saudi Aramco"
         },
-        "url": "https://www.aramco.com",
-        "backButton": [
+        "link": {
+          "url": "https://www.aramco.com",
+          "text": "https://www.aramco.com"
+        },
+        "button": [
           {
             "text": {
               "ar": "خلف",
@@ -2952,55 +2348,55 @@
             },
             "icon": null
           }
-        ],
-        "projectInforCard": [
-          {
-            "key": {
-              "ar": "الموقع",
-              "en": "location"
-            },
-            "value": {
-              "ar": "وادي الظهران للتقنية، المملكة العربية السعودية",
-              "en": "Dhahran Techno Valley, Saudi Arabia"
-            },
-            "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/ion_location-sharp.svg"
-          },
-          {
-            "key": {
-              "ar": "تاريخ البدء",
-              "en": "Start Date"
-            },
-            "value": {
-              "ar": "فبراير 2021",
-              "en": "February 2021"
-            },
-            "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/solar_calendar-bold+(1).svg"
-          },
-          {
-            "key": {
-              "ar": "تاريخ الانتهاء",
-              "en": "End Date"
-            },
-            "value": {
-              "ar": "فبراير 2023",
-              "en": "February 2023"
-            },
-            "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/solar_calendar-bold.svg"
-          },
-          {
-            "key": {
-              "ar": "حالة",
-              "en": "status"
-            },
-            "value": {
-              "ar": "مكتمل",
-              "en": "Completed"
-            },
-            "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/pajamas_status-neutral.svg"
-          }
         ]
       },
-      "descriptionSection": [
+      "projectInforCard": [
+        {
+          "key": {
+            "ar": "الموقع",
+            "en": "location"
+          },
+          "value": {
+            "ar": "وادي الظهران للتقنية، المملكة العربية السعودية",
+            "en": "Dhahran Techno Valley, Saudi Arabia"
+          },
+          "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/ion_location-sharp.svg"
+        },
+        {
+          "key": {
+            "ar": "تاريخ البدء",
+            "en": "Start Date"
+          },
+          "value": {
+            "ar": "فبراير 2021",
+            "en": "February 2021"
+          },
+          "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/solar_calendar-bold+(1).svg"
+        },
+        {
+          "key": {
+            "ar": "تاريخ الانتهاء",
+            "en": "End Date"
+          },
+          "value": {
+            "ar": "فبراير 2023",
+            "en": "February 2023"
+          },
+          "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/solar_calendar-bold.svg"
+        },
+        {
+          "key": {
+            "ar": "حالة",
+            "en": "status"
+          },
+          "value": {
+            "ar": "مكتمل",
+            "en": "Completed"
+          },
+          "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/pajamas_status-neutral.svg"
+        }
+      ],
+      "projectDescriptionSection": [
         {
           "title": {
             "ar": "وصف المشروع",
@@ -3067,96 +2463,22 @@
           }
         ]
       },
-      "moreProjects": {
-        "title": {
-          "ar": "المزيد من المشاريع",
-          "en": "More Projects"
-        },
-        "projects": [
-          {
-            "id": 1,
-            "title": {
-              "en": "IT Lab of Excellence",
-              "ar": "مختبرات تكنولوجيا المعلومات للتميز"
-            },
-            "address": {
-              "en": "Dhahran, Saudi Arabia",
-              "ar": "الظهران، المملكة العربية السعودية"
-            },
-            "status": "completed",
-            "button": [
-              {
-                "url": null,
-                "text": {
-                  "ar": "عرض التفاصيل",
-                  "en": "View Details"
-                },
-                "icon": null
-              }
-            ],
-            "url": "itLabExcellence"
-          },
-          {
-            "id": 2,
-            "title": {
-              "en": "Non-Metallic Manufacturing Plant",
-              "ar": "مصنع المواد غير المعدنية"
-            },
-            "address": {
-              "en": "Dhahran, Saudi Arabia",
-              "ar": "الظهران، المملكة العربية السعودية"
-            },
-            "status": "completed",
-            "button": [
-              {
-                "url": null,
-                "text": {
-                  "ar": "عرض التفاصيل",
-                  "en": "View Details"
-                },
-                "icon": null
-              }
-            ],
-            "url": "nonMetallic"
-          },
-          {
-            "id": 3,
-            "title": {
-              "en": "Business Gate",
-              "ar": "بوابة الأعمال"
-            },
-            "address": {
-              "en": "Dhahran, Saudi Arabia",
-              "ar": "الظهران، المملكة العربية السعودية"
-            },
-            "status": "ongoing",
-            "button": [
-              {
-                "url": null,
-                "text": {
-                  "ar": "عرض التفاصيل",
-                  "en": "View Details"
-                },
-                "icon": null
-              }
-            ],
-            "url": "businessGate"
-          }
-        ],
-        "button": [
-          {
-            "url": null,
-            "text": {
-              "en": "View Details",
-              "ar": " عرض التفاصيل"
-            },
-            "icon": null
-          }
-        ]
-      }
+      "moreProjects": [
+        "non-metallic-manufacturing-plant",
+        "business-gate",
+        "construction-of-ome-building-napd-khursaniyah",
+        "psychiatric-facility",
+        "safwa-rahima-sea-bridge",
+        "renovation-of-building-175-and-176",
+        "swcc-plant-jeddah-and-haqil"
+      ]
     },
     {
-      "id": 2,
+      "resourceTitle": {
+        "ar": "مصنع المواد غير المعدنية",
+        "en": "Non-Metallic Manufacturing Plant"
+      },
+      "slug": "non-metallic-manufacturing-plant",
       "introSection": {
         "title": {
           "ar": "مصنع المواد غير المعدنية",
@@ -3166,8 +2488,11 @@
           "ar": "العميل: حلول المواد غير المعدنية",
           "en": "Client: Non-Metallic Solutions"
         },
-        "url": "https://www.spark.sa",
-        "backButton": [
+        "link": {
+          "url": "https://www.spark.sa",
+          "text": "https://www.spark.sa"
+        },
+        "button": [
           {
             "text": {
               "ar": "خلف",
@@ -3175,55 +2500,55 @@
             },
             "icon": null
           }
-        ],
-        "projectInforCard": [
-          {
-            "key": {
-              "ar": "الموقع",
-              "en": "Location"
-            },
-            "value": {
-              "ar": "مدينة الملك سلمان للطاقة، أبقيق، المملكة العربية السعودية",
-              "en": "King Salman Energy Park (SPARK), Abqaiq, KSA"
-            },
-            "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/ion_location-sharp.svg"
-          },
-          {
-            "key": {
-              "ar": "تاريخ البدء",
-              "en": "Start Date"
-            },
-            "value": {
-              "ar": "مارس 2021",
-              "en": "March 2021"
-            },
-            "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/solar_calendar-bold+(1).svg"
-          },
-          {
-            "key": {
-              "ar": "تاريخ الانتهاء",
-              "en": "End Date"
-            },
-            "value": {
-              "ar": "فبراير 2023",
-              "en": "February 2023"
-            },
-            "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/solar_calendar-bold.svg"
-          },
-          {
-            "key": {
-              "ar": "حالة",
-              "en": "Status"
-            },
-            "value": {
-              "ar": "مكتمل",
-              "en": "Completed"
-            },
-            "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/pajamas_status-neutral.svg"
-          }
         ]
       },
-      "descriptionSection": [
+      "projectInforCard": [
+        {
+          "key": {
+            "ar": "الموقع",
+            "en": "location"
+          },
+          "value": {
+            "ar": "مدينة الملك سلمان للطاقة، أبقيق، المملكة العربية السعودية",
+            "en": "King Salman Energy Park (SPARK), Abqaiq, KSA"
+          },
+          "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/ion_location-sharp.svg"
+        },
+        {
+          "key": {
+            "ar": "تاريخ البدء",
+            "en": "Start Date"
+          },
+          "value": {
+            "ar": "مارس 2021",
+            "en": "March 2021"
+          },
+          "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/solar_calendar-bold+(1).svg"
+        },
+        {
+          "key": {
+            "ar": "تاريخ الانتهاء",
+            "en": "End Date"
+          },
+          "value": {
+            "ar": "فبراير 2023",
+            "en": "February 2023"
+          },
+          "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/solar_calendar-bold.svg"
+        },
+        {
+          "key": {
+            "ar": "حالة",
+            "en": "status"
+          },
+          "value": {
+            "ar": "مكتمل",
+            "en": "Completed"
+          },
+          "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/pajamas_status-neutral.svg"
+        }
+      ],
+      "projectDescriptionSection": [
         {
           "title": {
             "ar": "وصف المشروع",
@@ -3270,96 +2595,22 @@
           }
         ]
       },
-      "moreProjects": {
-        "title": {
-          "ar": "المزيد من المشاريع",
-          "en": "More Projects"
-        },
-        "projects": [
-          {
-            "id": 1,
-            "title": {
-              "en": "IT Lab of Excellence",
-              "ar": "مختبرات تكنولوجيا المعلومات للتميز"
-            },
-            "address": {
-              "en": "Dhahran, Saudi Arabia",
-              "ar": "الظهران، المملكة العربية السعودية"
-            },
-            "status": "completed",
-            "button": [
-              {
-                "url": null,
-                "text": {
-                  "ar": "عرض التفاصيل",
-                  "en": "View Details"
-                },
-                "icon": null
-              }
-            ],
-            "url": "itLabExcellence"
-          },
-          {
-            "id": 2,
-            "title": {
-              "en": "Non-Metallic Manufacturing Plant",
-              "ar": "مصنع المواد غير المعدنية"
-            },
-            "address": {
-              "en": "King Salman Energy Park, Saudi Arabia",
-              "ar": "مدينة الملك سلمان للطاقة، المملكة العربية السعودية"
-            },
-            "status": "completed",
-            "button": [
-              {
-                "url": null,
-                "text": {
-                  "ar": "عرض التفاصيل",
-                  "en": "View Details"
-                },
-                "icon": null
-              }
-            ],
-            "url": "nonMetallic"
-          },
-          {
-            "id": 3,
-            "title": {
-              "en": "Business Gate",
-              "ar": "بوابة الأعمال"
-            },
-            "address": {
-              "en": "Dhahran, Saudi Arabia",
-              "ar": "الظهران، المملكة العربية السعودية"
-            },
-            "status": "ongoing",
-            "button": [
-              {
-                "url": null,
-                "text": {
-                  "ar": "عرض التفاصيل",
-                  "en": "View Details"
-                },
-                "icon": null
-              }
-            ],
-            "url": "businessGate"
-          }
-        ],
-        "button": [
-          {
-            "url": null,
-            "text": {
-              "en": "View Details",
-              "ar": " عرض التفاصيل"
-            },
-            "icon": null
-          }
-        ]
-      }
+      "moreProjects": [
+        "it-lab-for-excellence",
+        "business-gate",
+        "construction-of-ome-building-napd-khursaniyah",
+        "psychiatric-facility",
+        "safwa-rahima-sea-bridge",
+        "renovation-of-building-175-and-176",
+        "swcc-plant-jeddah-and-haqil"
+      ]
     },
     {
-      "id": 3,
+      "resourceTitle": {
+        "ar": "بوابة الأعمال",
+        "en": "Business Gate"
+      },
+      "slug": "business-gate",
       "introSection": {
         "title": {
           "ar": "بوابة الأعمال",
@@ -3369,8 +2620,11 @@
           "ar": "العميل: شركة صالح الصبيعي",
           "en": "Client: Saleh Al Subeaei Company"
         },
-        "url": null,
-        "backButton": [
+        "link": {
+          "url": null,
+          "text": null
+        },
+        "button": [
           {
             "text": {
               "ar": "خلف",
@@ -3378,55 +2632,55 @@
             },
             "icon": null
           }
-        ],
-        "projectInforCard": [
-          {
-            "key": {
-              "ar": "الموقع",
-              "en": "Location"
-            },
-            "value": {
-              "ar": "الدمام، المملكة العربية السعودية",
-              "en": "Dammam, Saudi Arabia"
-            },
-            "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/ion_location-sharp.svg"
-          },
-          {
-            "key": {
-              "ar": "تاريخ البدء",
-              "en": "Start Date"
-            },
-            "value": {
-              "ar": "أكتوبر 2008",
-              "en": "October 2008"
-            },
-            "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/solar_calendar-bold+(1).svg"
-          },
-          {
-            "key": {
-              "ar": "تاريخ الانتهاء",
-              "en": "End Date"
-            },
-            "value": {
-              "ar": "مايو 2011",
-              "en": "May 2011"
-            },
-            "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/solar_calendar-bold.svg"
-          },
-          {
-            "key": {
-              "ar": "حالة",
-              "en": "Status"
-            },
-            "value": {
-              "ar": "مكتمل",
-              "en": "Completed"
-            },
-            "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/pajamas_status-neutral.svg"
-          }
         ]
       },
-      "descriptionSection": [
+      "projectInforCard": [
+        {
+          "key": {
+            "ar": "الموقع",
+            "en": "location"
+          },
+          "value": {
+            "ar": "الدمام، المملكة العربية السعودية",
+            "en": "Dammam, Saudi Arabia"
+          },
+          "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/ion_location-sharp.svg"
+        },
+        {
+          "key": {
+            "ar": "تاريخ البدء",
+            "en": "Start Date"
+          },
+          "value": {
+            "ar": "أكتوبر 2008",
+            "en": "October 2008"
+          },
+          "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/solar_calendar-bold+(1).svg"
+        },
+        {
+          "key": {
+            "ar": "تاريخ الانتهاء",
+            "en": "End Date"
+          },
+          "value": {
+            "ar": "مايو 2011",
+            "en": "May 2011"
+          },
+          "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/solar_calendar-bold.svg"
+        },
+        {
+          "key": {
+            "ar": "حالة",
+            "en": "status"
+          },
+          "value": {
+            "ar": "مكتمل",
+            "en": "Completed"
+          },
+          "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/pajamas_status-neutral.svg"
+        }
+      ],
+      "projectDescriptionSection": [
         {
           "title": {
             "ar": "وصف المشروع",
@@ -3473,96 +2727,22 @@
           }
         ]
       },
-      "moreProjects": {
-        "title": {
-          "ar": "المزيد من المشاريع",
-          "en": "More Projects"
-        },
-        "projects": [
-          {
-            "id": 1,
-            "title": {
-              "en": "IT Lab of Excellence",
-              "ar": "مختبرات تكنولوجيا المعلومات للتميز"
-            },
-            "address": {
-              "en": "Dhahran, Saudi Arabia",
-              "ar": "الظهران، المملكة العربية السعودية"
-            },
-            "status": "completed",
-            "button": [
-              {
-                "url": null,
-                "text": {
-                  "ar": "عرض التفاصيل",
-                  "en": "View Details"
-                },
-                "icon": null
-              }
-            ],
-            "url": "itLabExcellence"
-          },
-          {
-            "id": 2,
-            "title": {
-              "en": "Non-Metallic Manufacturing Plant",
-              "ar": "مصنع المواد غير المعدنية"
-            },
-            "address": {
-              "en": "King Salman Energy Park, Saudi Arabia",
-              "ar": "مدينة الملك سلمان للطاقة، المملكة العربية السعودية"
-            },
-            "status": "completed",
-            "button": [
-              {
-                "url": null,
-                "text": {
-                  "ar": "عرض التفاصيل",
-                  "en": "View Details"
-                },
-                "icon": null
-              }
-            ],
-            "url": "nonMetallic"
-          },
-          {
-            "id": 3,
-            "title": {
-              "en": "Business Gate",
-              "ar": "بوابة الأعمال"
-            },
-            "address": {
-              "en": "Dhahran, Saudi Arabia",
-              "ar": "الظهران، المملكة العربية السعودية"
-            },
-            "status": "ongoing",
-            "button": [
-              {
-                "url": null,
-                "text": {
-                  "ar": "عرض التفاصيل",
-                  "en": "View Details"
-                },
-                "icon": null
-              }
-            ],
-            "url": "businessGate"
-          }
-        ],
-        "button": [
-          {
-            "url": null,
-            "text": {
-              "en": "View Details",
-              "ar": " عرض التفاصيل"
-            },
-            "icon": null
-          }
-        ]
-      }
+      "moreProjects": [
+        "it-lab-for-excellence",
+        "non-metallic-manufacturing-plant",
+        "construction-of-ome-building-napd-khursaniyah",
+        "psychiatric-facility",
+        "safwa-rahima-sea-bridge",
+        "renovation-of-building-175-and-176",
+        "swcc-plant-jeddah-and-haqil"
+      ]
     },
     {
-      "id": 4,
+      "resourceTitle": {
+        "ar": "مبنى OME - خطوط أنابيب المنطقة الشمالية",
+        "en": "OME Building - Northern Area Pipelines"
+      },
+      "slug": "construction-of-ome-building-napd-khursaniyah",
       "introSection": {
         "title": {
           "ar": "مبنى OME - خطوط أنابيب المنطقة الشمالية",
@@ -3572,8 +2752,11 @@
           "ar": "العميل: أرامكو السعودية",
           "en": "Client: Saudi Aramco"
         },
-        "url": "https://www.aramco.com/",
-        "backButton": [
+        "link": {
+          "url": "https://www.aramco.com/",
+          "text": "https://www.aramco.com/"
+        },
+        "button": [
           {
             "text": {
               "ar": "خلف",
@@ -3581,55 +2764,55 @@
             },
             "icon": null
           }
-        ],
-        "projectInforCard": [
-          {
-            "key": {
-              "ar": "الموقع",
-              "en": "Location"
-            },
-            "value": {
-              "ar": "خرسانية، المملكة العربية السعودية",
-              "en": "Khursaniyah, Saudi Arabia"
-            },
-            "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/ion_location-sharp.svg"
-          },
-          {
-            "key": {
-              "ar": "تاريخ البدء",
-              "en": "Start Date"
-            },
-            "value": {
-              "ar": "أغسطس 2017",
-              "en": "August 2017"
-            },
-            "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/solar_calendar-bold+(1).svg"
-          },
-          {
-            "key": {
-              "ar": "تاريخ الانتهاء",
-              "en": "End Date"
-            },
-            "value": {
-              "ar": "فبراير 2020",
-              "en": "February 2020"
-            },
-            "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/solar_calendar-bold.svg"
-          },
-          {
-            "key": {
-              "ar": "حالة",
-              "en": "Status"
-            },
-            "value": {
-              "ar": "مكتمل",
-              "en": "Completed"
-            },
-            "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/pajamas_status-neutral.svg"
-          }
         ]
       },
-      "descriptionSection": [
+      "projectInforCard": [
+        {
+          "key": {
+            "ar": "الموقع",
+            "en": "location"
+          },
+          "value": {
+            "ar": "خرسانية، المملكة العربية السعودية",
+            "en": "Khursaniyah, Saudi Arabia"
+          },
+          "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/ion_location-sharp.svg"
+        },
+        {
+          "key": {
+            "ar": "تاريخ البدء",
+            "en": "Start Date"
+          },
+          "value": {
+            "ar": "أغسطس 2017",
+            "en": "August 2017"
+          },
+          "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/solar_calendar-bold+(1).svg"
+        },
+        {
+          "key": {
+            "ar": "تاريخ الانتهاء",
+            "en": "End Date"
+          },
+          "value": {
+            "ar": "فبراير 2020",
+            "en": "February 2020"
+          },
+          "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/solar_calendar-bold.svg"
+        },
+        {
+          "key": {
+            "ar": "حالة",
+            "en": "status"
+          },
+          "value": {
+            "ar": "مكتمل",
+            "en": "Completed"
+          },
+          "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/pajamas_status-neutral.svg"
+        }
+      ],
+      "projectDescriptionSection": [
         {
           "title": {
             "ar": "وصف المشروع",
@@ -3676,95 +2859,153 @@
           }
         ]
       },
-      "moreProjects": {
+      "moreProjects": [
+        "it-lab-for-excellence",
+        "non-metallic-manufacturing-plant",
+        "business-gate",
+        "psychiatric-facility",
+        "safwa-rahima-sea-bridge",
+        "renovation-of-building-175-and-176",
+        "swcc-plant-jeddah-and-haqil"
+      ]
+    },
+    {
+      "resourceTitle": {
+        "ar": "المنشأة النفسية",
+        "en": "Psychiatric Facility"
+      },
+      "slug": "psychiatric-facility",
+      "introSection": {
         "title": {
-          "ar": "المزيد من المشاريع",
-          "en": "More Projects"
+          "ar": "المنشأة النفسية",
+          "en": "Psychiatric Facility"
         },
-        "projects": [
-          {
-            "id": 1,
-            "title": {
-              "en": "IT Lab of Excellence",
-              "ar": "مختبرات تكنولوجيا المعلومات للتميز"
-            },
-            "address": {
-              "en": "Dhahran, Saudi Arabia",
-              "ar": "الظهران، المملكة العربية السعودية"
-            },
-            "status": "completed",
-            "button": [
-              {
-                "url": null,
-                "text": {
-                  "ar": "عرض التفاصيل",
-                  "en": "View Details"
-                },
-                "icon": null
-              }
-            ],
-            "url": "itLabExcellence"
-          },
-          {
-            "id": 2,
-            "title": {
-              "en": "Non-Metallic Manufacturing Plant",
-              "ar": "مصنع المواد غير المعدنية"
-            },
-            "address": {
-              "en": "King Salman Energy Park, Saudi Arabia",
-              "ar": "مدينة الملك سلمان للطاقة، المملكة العربية السعودية"
-            },
-            "status": "completed",
-            "button": [
-              {
-                "url": null,
-                "text": {
-                  "ar": "عرض التفاصيل",
-                  "en": "View Details"
-                },
-                "icon": null
-              }
-            ],
-            "url": "nonMetallic"
-          },
-          {
-            "id": 3,
-            "title": {
-              "en": "Business Gate",
-              "ar": "بوابة الأعمال"
-            },
-            "address": {
-              "en": "Dhahran, Saudi Arabia",
-              "ar": "الظهران، المملكة العربية السعودية"
-            },
-            "status": "ongoing",
-            "button": [
-              {
-                "url": null,
-                "text": {
-                  "ar": "عرض التفاصيل",
-                  "en": "View Details"
-                },
-                "icon": null
-              }
-            ],
-            "url": "businessGate"
-          }
-        ],
+        "subtitle": {
+          "ar": "العميل: وزارة الصحة",
+          "en": "Client: Ministry of Health"
+        },
+        "link": {
+          "url": null,
+          "text": null
+        },
         "button": [
           {
-            "url": null,
             "text": {
-              "en": "View Details",
-              "ar": " عرض التفاصيل"
+              "ar": "خلف",
+              "en": "Back"
             },
             "icon": null
           }
         ]
-      }
+      },
+      "projectInforCard": [
+        {
+          "key": {
+            "ar": "الموقع",
+            "en": "location"
+          },
+          "value": {
+            "ar": "الرياض، المملكة العربية السعودية",
+            "en": "Riyadh, Saudi Arabia"
+          },
+          "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/ion_location-sharp.svg"
+        },
+        {
+          "key": {
+            "ar": "تاريخ البدء",
+            "en": "Start Date"
+          },
+          "value": {
+            "ar": "يناير 2019",
+            "en": "January 2019"
+          },
+          "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/solar_calendar-bold+(1).svg"
+        },
+        {
+          "key": {
+            "ar": "تاريخ الانتهاء",
+            "en": "End Date"
+          },
+          "value": {
+            "ar": "ديسمبر 2021",
+            "en": "December 2021"
+          },
+          "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/solar_calendar-bold.svg"
+        },
+        {
+          "key": {
+            "ar": "حالة",
+            "en": "status"
+          },
+          "value": {
+            "ar": "مكتمل",
+            "en": "Completed"
+          },
+          "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/pajamas_status-neutral.svg"
+        }
+      ],
+      "projectDescriptionSection": [
+        {
+          "title": {
+            "ar": "وصف المشروع",
+            "en": "Project Description"
+          },
+          "description": {
+            "ar": "إنشاء منشأة نفسية متكاملة بمساحة 25,000 متر مربع تحتوي على 200 سرير.",
+            "en": "Construction of a comprehensive psychiatric facility with 25,000 sqm area containing 200 beds."
+          }
+        },
+        {
+          "title": {
+            "ar": "العمل يشمل",
+            "en": "Work Includes"
+          },
+          "description": {
+            "ar": "تشمل الأعمال الإنشائية للمبنى الرئيسي، المباني المساندة، مواقف السيارات، والمناطق الخضراء.",
+            "en": "Includes construction works for main building, support buildings, parking areas, and landscaping."
+          }
+        }
+      ],
+      "gallerySection": {
+        "images": [
+          {
+            "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Rectangle+34624115+(1).png",
+            "alt": {
+              "ar": "صورة المعرض 1",
+              "en": "Gallery Image 1"
+            }
+          },
+          {
+            "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Rectangle+34624114+(1).png",
+            "alt": {
+              "ar": "صورة المعرض 2",
+              "en": "Gallery Image 2"
+            }
+          },
+          {
+            "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Rectangle+34624113+(1).png",
+            "alt": {
+              "ar": "صورة المعرض 3",
+              "en": "Gallery Image 3"
+            }
+          }
+        ]
+      },
+      "moreProjects": [
+        "it-lab-for-excellence",
+        "non-metallic-manufacturing-plant",
+        "business-gate",
+        "construction-of-ome-building-napd-khursaniyah",
+        "safwa-rahima-sea-bridge",
+        "renovation-of-building-175-and-176",
+        "swcc-plant-jeddah-and-haqil"
+      ]
     }
   ],
+
+
+
+
   "career": {
     "bannerSection": {
       "title": {
@@ -5147,9 +4388,7 @@
                 "en": "Educational Requirements"
               },
               "content": {
-                "ar": [
-                  "خبرة في التعامل مع البيانات، ETL، وأدوات التقارير."
-                ],
+                "ar": ["خبرة في التعامل مع البيانات، ETL، وأدوات التقارير."],
                 "en": [
                   "Experience working with data wrangling, ETL, and reporting tools."
                 ]
@@ -5651,12 +4890,8 @@
                 "en": "Educational Requirements"
               },
               "content": {
-                "ar": [
-                  "مهارات تحليلية قوية وحل المشكلات."
-                ],
-                "en": [
-                  "Strong analytical and problem-solving skills."
-                ]
+                "ar": ["مهارات تحليلية قوية وحل المشكلات."],
+                "en": ["Strong analytical and problem-solving skills."]
               }
             }
           ]
