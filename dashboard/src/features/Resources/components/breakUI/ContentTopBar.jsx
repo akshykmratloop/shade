@@ -294,19 +294,28 @@ export default function ContentTopBar({ setWidth, setFullScreen, currentPath, ou
                                 <div className='flex gap-2'>
                                     {
                                         !autoSave &&
-                                        <Button disabled={!isChanged} text={savedChanges ? 'Saved' : 'Draft'} functioning={saveTheDraft}
-                                            classes={`${savedChanges ? "bg-[#26c226]" : isChanged ? "bg-[#26345C]" : "bg-gray-500"} 
+                                        <Button
+                                            // disabled={!isChanged} -- style isChanged ?: "bg-gray-500"
+                                            text={savedChanges ? 'Saved' : 'Draft'} functioning={saveTheDraft}
+                                            classes={`
+                                                ${savedChanges ? "bg-[#26c226]" : "bg-[#26345C]"} 
                                         rounded-md xl:h-[2.68rem] sm:h-[2rem] xl:text-xs sm:text-[.6rem] xl:w-[5.58rem] w-[4rem] text-[white]`} />
                                     }
-                                    <Button text={'Submit'} disabled={!isChanged} functioning={() => { setPopupSubmit(true) }}
-                                        classes={`${isChanged ? "bg-[#29469D]" : "bg-gray-500"} 
+                                    <Button text={'Submit'}
+                                        // disabled={!isChanged} -- style ${isChanged ? "bg-[#29469D]" : "bg-gray-500"}
+                                        functioning={() => { setPopupSubmit(true) }}
+                                        classes={`
+                                             bg-[#29469D]
                                     rounded-md xl:h-[2.68rem] sm:h-[2rem] xl:text-xs sm:text-[.6rem] xl:w-[5.58rem] w-[4rem] text-[white]`} />
                                 </div>
                             </div>)
                         :
                         <div className='flex gap-3 sm:gap-1'>
-                            <Button text={'Publish'} disabled={!isChanged} functioning={() => setPopupPublish(true)}
-                                classes={`${isChanged ? "bg-[#29469D]" : "bg-gray-500"} 
+                            <Button text={'Publish'}
+                                // disabled={!isChanged}  -- style isChanged ? "bg-[#29469D]" : bg-gray-white
+                                functioning={() => setPopupPublish(true)}
+                                classes={`
+                                    ${"bg-[#29469D]"} 
                                 rounded-md xl:h-[2.68rem] sm:h-[2rem] xl:text-xs sm:text-[.6rem] xl:w-[5.58rem] w-[4rem] text-[white]`}
                             />
                         </div>

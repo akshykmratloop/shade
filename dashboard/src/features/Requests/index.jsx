@@ -283,7 +283,7 @@ function Requests() {
         }
       >
         <div className="min-h-[28.2rem] flex flex-col justify-between">
-          <div className="overflow-x-auto w-full border dark:border-stone-600 rounded-2xl">
+          <div className=" w-full border dark:border-stone-600 rounded-2xl">
             <table className="table text-center min-w-full dark:text-[white]">
               <thead className="" style={{ borderRadius: "" }}>
                 <tr
@@ -330,6 +330,9 @@ function Requests() {
               <tbody className="">
                 {Array.isArray(requests) && currentRequests.length > 0 ? (
                   currentRequests?.map((request, index) => {
+                    let publisher = request.approvals.filter(e => e.stage === null)[0]
+                    let verifiers = request.approvals.filter(e => e.stage)
+
                     return (
                       <tr
                         key={index}
@@ -363,7 +366,7 @@ function Requests() {
                             style={{ whiteSpace: "wrap" }}
                           >
                             <span className="">
-                              {request?.verifier ? (
+                              {verifiers.length > 0 ? (
                                 // <button
                                 //   onClick={() => {
                                 //     setSelectedRequest(request);
@@ -392,19 +395,21 @@ function Requests() {
                                           </tr>
                                         </thead>
                                         <tbody className="text-left dark:border-gray-800  border rounded">
-                                          {request?.verifier.map((v) => (
-                                            <tr
-                                              key={v.stage}
-                                              className=" dark:border-stone-700 !rounded-none"
-                                            >
-                                              <td className="w-[100px] px-5 py-1 !rounded-none">
-                                                {v.stage}
-                                              </td>
-                                              <td className="w-[100px] px-5 py-1 !rounded-none">
-                                                {v.name}
-                                              </td>
-                                            </tr>
-                                          ))}
+                                          {verifiers?.map((v) => {
+                                             return (
+                                              <tr
+                                                key={v?.stage}
+                                                className=" dark:border-stone-700 !rounded-none"
+                                              >
+                                                <td className="w-[100px] px-5 py-1 !rounded-none">
+                                                  {v?.stage}
+                                                </td>
+                                                <td className="w-[100px] px-5 py-1 !rounded-none">
+                                                  {v?.approver?.name}
+                                                </td>
+                                              </tr>
+                                            )
+                                          })}
                                         </tbody>
                                       </table>
 
@@ -428,6 +433,7 @@ function Requests() {
                                           </ul> */}
                                     </div>
                                   }
+                                  setOnView={() => setActiveIndex(-1)}
                                   isVisible={activeIndex === request?.id}
                                   onToggle={() => toggleTooltip(request?.id)}
                                 >
@@ -440,7 +446,7 @@ function Requests() {
                                   </span>
                                 </ShowVerifierTooltip>
                               ) : (
-                                "N/A"
+                                verifiers?.[0]?.approver?.name || "N/A"
                               )}
                             </span>
                           </td>
@@ -452,13 +458,13 @@ function Requests() {
                             style={{ whiteSpace: "wrap" }}
                           >
                             <span className="">
-                              {request?.publisher || "N/A"}
+                              {publisher?.approver?.name || "N/A"}
                             </span>
                           </td>
                         }
                         <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]">
                           <p
-                            className={`w-[85px] mx-auto before:content-['•'] before:text-2xl flex h-7 items-center justify-center gap-1 px-1 py-0 font-[500] 
+                            className={`min-w-[85px] mx-auto before:content-['•'] before:text-2xl flex h-7 items-center justify-center gap-1 px-1 py-0 font-[500] 
                               ${request.status === "Green"
                                 ? "text-green-600 bg-lime-200 before:text-green-600 px-1"
                                 : request.status === "Blue"
@@ -468,7 +474,7 @@ function Requests() {
                                 rounded-2xl`}
                             style={{ textTransform: "capitalize" }}
                           >
-                            {/* <span className="">{request?.status}</span> */}
+                            <span className="">{capitalizeWords(request?.resourceVersion?.versionStatus)}</span>
                           </p>
                         </td>
                         <td className="font-poppins font-light text-[12px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]">
