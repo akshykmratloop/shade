@@ -56,6 +56,7 @@ const api = {
   generateRequest: `${content}/generateRequest`,
   getRequests: `${content}/getRequests`,
   removeAssignedUsers: `${content}/removeAssignedUser/`,
+  requestInfo: `${content}/getRequestInfo/`,
 
   // Media
   uploadMedia: `${media}/upload`,

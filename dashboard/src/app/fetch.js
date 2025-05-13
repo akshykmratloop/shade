@@ -417,6 +417,13 @@ export async function generateRequest(body) {
   );
 }
 
+export async function getRequestInfo(param) {
+  return await makerequest(
+    `${api.route("requestInfo")}` + param,
+    "GET",
+  );
+}
+
 // export async function getRequests(query) {
 //   if (!query || typeof query !== "object") {
 //     return await makerequest(api.route("getRequests"), "GET");

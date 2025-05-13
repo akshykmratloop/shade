@@ -202,12 +202,13 @@ function Requests() {
   };
 
   // Open Right Drawer
-  const openNotification = () => {
+  const openNotification = (id) => {
+    console.log(id)
     dispatch(
       openRightDrawer({
         header: "Details",
         bodyType: RIGHT_DRAWER_TYPES.RESOURCE_DETAILS,
-        extraObject: { id: userRole.id },
+        extraObject: { id },
       })
     );
   };
@@ -485,7 +486,7 @@ function Requests() {
                               onClick={() => {
                                 setSelectedRequest(request);
                                 // setShowDetailsModal(true);
-                                openNotification();
+                                openNotification(request?.id);
                               }}
                             >
                               <span
