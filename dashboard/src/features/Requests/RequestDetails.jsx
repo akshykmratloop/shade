@@ -17,12 +17,12 @@ const data = [
 ];
 
 const statusStyles = {
-  Approved: {
+  APPROVED: {
     bg: "bg-green-100",
     text: "text-green-600",
     icon: <CheckCircle className="w-4 h-4 inline-block mr-1" />,
   },
-  Rejected: {
+  REJECTED: {
     bg: "bg-red-100",
     text: "text-red-600",
     icon: <XCircle className="w-4 h-4 inline-block mr-1" />,
