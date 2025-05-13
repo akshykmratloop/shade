@@ -19,10 +19,11 @@ import { IoDocumentOutline } from "react-icons/io5";
 import DateTime from "./DateTime";
 import createContent from "../Resources/defineContent";
 import Popups from "../Resources/components/breakUI/Popups";
+import { approveRequest, rejectedRequest } from "../../app/fetch";
 
 
 
-function ShowDifference({ show, onClose, resourceId, currentlyEditor, currentlyPublisher }) {
+function ShowDifference({ show, onClose, resourceId, currentlyEditor, currentlyPublisher, requestId }) {
     // const contentFromRedux = useSelector(state => state.homeContent.present)
     const [liveVersion, setLiveVersion] = useState({})
     const [editVersion, setEditVersion] = useState({})
@@ -218,7 +219,7 @@ function ShowDifference({ show, onClose, resourceId, currentlyEditor, currentlyP
                         confirmationText={`The page is under ${capitalizeWords(pageStatus[editVersion.editVersion?.status])}. Are you sure you want to publish?`} confirmationFunction={() => { }}
                     />
                     <Popups display={PopupSubmit} setClose={() => setPopupSubmit(false)}
-                        confirmationText={"Are you sure you want to Approve?"} confirmationFunction={() => { }}
+                        confirmationText={"Are you sure you want to Approve?"} confirmationFunction={async () => { approveRequest(requestId) }}
                     />
                 </Dialog.Panel>
             </div>
