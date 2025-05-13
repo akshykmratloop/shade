@@ -94,7 +94,7 @@ function InputText({
           // **Checkboxes**
           <div className="grid grid-cols-2 md:grid-cols-2 gap-x-10 gap-y-2 w-full items-center pl-2">
             {options.map((opt, index) => (
-              <label key={index} className="flex items-center space-x-2 label-text text-[#6B7888]">
+              <label key={index} className="flex items-center space-x-2 label-text text-[#6B7888] cursor-pointer">
                 <input
                   type="checkbox"
                   name={name}
@@ -111,7 +111,7 @@ function InputText({
                       return newValue;
                     });
                   }}
-                  className=""
+                  className="cursor-pointer"
                 />
                 {/* <div
                   className={`w-5 h-5 flex items-center justify-center border-2 border-gray-300 transition-all ${
@@ -124,7 +124,7 @@ function InputText({
                     <div className="w-3 h-3 rounded-full  border-[#12B28C] bg-[#12B28C]"></div>
                   )}
                 </div> */}
-                <span className="text-xs">{capitalizeWords(opt.name)}</span>
+                <span className="text-xs cursor-pointer">{capitalizeWords(opt.name)}</span>
               </label>
             ))}
           </div>

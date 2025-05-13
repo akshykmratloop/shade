@@ -80,6 +80,7 @@ const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
       loadingToastId = toast.loading("Updating", { style: { backgroundColor: "#3B82F6", color: "#fff" } }); // starting the loading in toaster
       if (!sameDoubledValue) {
         const response = await assignUser(formObj)
+        console.log(response)
         if (response.ok) {
           updateToasify(loadingToastId, "Page assigned Successfully 🎉", "success", 1000) // updating the toaster
 
@@ -89,14 +90,18 @@ const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
             reRender(Math.random())
             dispatch(switchDebounce(false))
           }, 700)
+        } else {
+          throw new Error(response.message)
         }
       } else {
         return updateToasify(loadingToastId, `Error! duplicate selection has been found`, "error", 1000)
       }
     } catch (err) {
       console.log(err?.message)
+      updateToasify(loadingToastId, `${err?.message}`, "error", 1000)
     } finally {
       setTimeout(() => {
+
         dispatch(switchDebounce(false))
       }, 700)
       // toast.dismiss(loadingToastId)
@@ -181,7 +186,7 @@ const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
       editor: preAssignedUsers?.roles?.EDITOR || "",
       verifiers:
         preAssignedUsers?.verifiers?.length > 0
-          ? preAssignedUsers?.verifiers
+          ? preAssignedUsers?.verifiers.sort((a, b) => a.stage - b.stage)
           : [{ id: "", stage: 1 }],
       publisher: preAssignedUsers?.roles?.PUBLISHER || "",
     };

@@ -1,20 +1,20 @@
-import {useEffect, useState} from "react";
-import {Link, useNavigate} from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import InputText from "../../components/Input/InputText";
 import Button from "../../components/Button/Button";
 import BackroundImage from "./components/BackroundImg";
-import {checkRegex} from "../../app/emailregex";
-import {ToastContainer, toast} from "react-toastify";
-import {login, mfaLogin, mfaVerify} from "../../app/fetch";
-import {updateUser} from "../common/userSlice";
-import {useDispatch} from "react-redux";
+import { checkRegex } from "../../app/emailregex";
+import { ToastContainer, toast } from "react-toastify";
+import { login, mfaLogin, mfaVerify } from "../../app/fetch";
+import { updateUser } from "../common/userSlice";
+import { useDispatch } from "react-redux";
 import updateToasify from "../../app/toastify";
 import validator from "../../app/valid";
 import OTPpage from "./components/OTP";
-import {validatePasswordMessage} from "./components/PasswordValidation";
+import { validatePasswordMessage } from "./components/PasswordValidation";
 import getFingerPrint from "../../app/deviceId";
 import socket from "../../Socket/socket";
-import {CodeSquare} from "lucide-react";
+import { CodeSquare } from "lucide-react";
 
 function Login() {
   const dispatch = useDispatch();
@@ -66,7 +66,7 @@ function Login() {
       };
       loadingToastId = toast.loading("requesting OTP!", {
         autoClose: 2000,
-        style: {backgroundColor: "#3B82F6", color: "#fff"},
+        style: { backgroundColor: "#3B82F6", color: "#fff" },
       }); // starting the loading in toaster
       response = await mfaLogin(payload);
       console.log(response);
@@ -89,7 +89,7 @@ function Login() {
 
       loadingToastId = toast.loading("loging in", {
         autoClose: 2000,
-        style: {backgroundColor: "#3B82F6", color: "#fff"},
+        style: { backgroundColor: "#3B82F6", color: "#fff" },
       }); // starting the loading in toaster
       payload = {
         // payload for login
@@ -101,15 +101,10 @@ function Login() {
 
     if (response.token) {
       updateToasify(loadingToastId, "Login successful! 🎉", "success", 2000); // updating the toaster
-      dispatch(updateUser(response.user));
+      dispatch(updateUser({ data: response.user, type: "login" }));
       localStorage.setItem("user", JSON.stringify(response.user));
       localStorage.setItem("token", response.token);
       document.cookie = `authToken=${response.token}; path=/; Secure`; // Saving token as cookie for Auth in backend queries
-
-      // socket.on("userUpdated", () => {
-      //   dispatch(updateUser(response.user));
-      //   console.log("User updated in socket");
-      // });
 
       setTimeout(() => {
         navigate("/app/welcome");
@@ -131,11 +126,11 @@ function Login() {
     setLoading(false);
   };
 
-  const updateFormValue = ({updateType, value}) => {
+  const updateFormValue = ({ updateType, value }) => {
     // Handling the login Object
     clearingMessages();
     setFormObj((prev) => {
-      return {...prev, [updateType]: value}; // key == [updateType], value == value
+      return { ...prev, [updateType]: value }; // key == [updateType], value == value
     });
   };
 
@@ -156,7 +151,7 @@ function Login() {
     async function FP() {
       const deviceId = await getFingerPrint();
       setFormObj((prev) => {
-        return {...prev, deviceId};
+        return { ...prev, deviceId };
       });
     }
     FP();
@@ -209,7 +204,7 @@ function Login() {
               </div>
               <div
                 className="text-right text-primary"
-                style={{display: loginWithOtp ? "none" : "block"}}
+                style={{ display: loginWithOtp ? "none" : "block" }}
               >
                 <Link to="/forgot-password">
                   <span className="text-sm text-stone-500 hover:text-stone-700 dark:hover:text-stone-50 bg-base-200 inline-block hover:underline hover:cursor-pointer transition duration-200">
@@ -218,9 +213,8 @@ function Login() {
                 </Link>
               </div>
               <div
-                className={`${
-                  loginWithOtp ? "mt-8" : "mt-3"
-                } w-[22rem] h-[2.3rem]`}
+                className={`${loginWithOtp ? "mt-8" : "mt-3"
+                  } w-[22rem] h-[2.3rem]`}
               >
                 <Button
                   text={loginWithOtp ? "Generate OTP" : "Login"}

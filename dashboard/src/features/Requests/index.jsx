@@ -11,7 +11,7 @@ import Paginations from "../Component/Paginations";
 import { getRequests } from "../../app/fetch";
 import SearchBar from "../../components/Input/SearchBar";
 import TitleCard from "../../components/Cards/TitleCard";
-import capitalizeWords from "../../app/capitalizeword";
+import capitalizeWords, { TruncateText } from "../../app/capitalizeword";
 import formatTimestamp from "../../app/TimeFormat";
 import { openRightDrawer } from "../../features/common/rightDrawerSlice";
 import { RIGHT_DRAWER_TYPES } from "../../utils/globalConstantUtil";
@@ -128,15 +128,16 @@ function Requests() {
   const userObj = useSelector(state => state.user)
 
   const { isManager, isEditor, isPublisher, isVerifier, currentRole } = userObj;
-  const roleId = currentRole.id
+  console.log(currentRole)
+  const roleId = currentRole?.id
 
   // variables for conditioned renderings
   const [canSeeEditor, setCanSeeEditor] = useState((isVerifier || isPublisher || isManager))
   const [canSeeVerifier, setCanSeeVerifier] = useState((isPublisher || isManager))
   const [canSeePublisher, setCasSeePublisher] = useState((isVerifier || isManager))
   const noneCanSee = !(isEditor || isManager || isVerifier || isPublisher)
-  const RoleTypeIsUser = userPermissionsSet.has(currentRole.permissions[0])
-  const [permission, setPermission] = useState(RoleTypeIsUser ? currentRole.permissions[0] : false)
+  const RoleTypeIsUser = userPermissionsSet.has(currentRole?.permissions[0])
+  const [permission, setPermission] = useState(RoleTypeIsUser ? currentRole?.permissions[0] || "" : false)
 
   // Fucntions
   const navigate = useNavigate();
@@ -221,12 +222,12 @@ function Requests() {
 
   // Side Effects
   useEffect(() => { // Fetch Requests
-    if (currentRole.id) {
+    if (currentRole?.id) {
       async function fetchRequestsData() {
         try {
           const payload = { roleId: roleId ?? "" }
 
-          if (RoleTypeIsUser) payload.permission = permission || currentRole.permissions[0]
+          if (RoleTypeIsUser) payload.permission = permission || currentRole?.permissions[0] || ""
           const response = await getRequests(payload);
           if (response.ok) {
             setRequests(response.requests.data);
@@ -245,7 +246,7 @@ function Requests() {
     setCanSeeEditor(isVerifier || isPublisher || isManager)
     setCanSeeVerifier(isPublisher || isManager)
     setCasSeePublisher(isVerifier || isManager)
-  }, [currentRole.id])
+  }, [currentRole?.id])
 
   useEffect(() => {
     if (noneCanSee) {
@@ -255,10 +256,12 @@ function Requests() {
 
   useEffect(() => {
     //flow
-    if (currentRole.permissions.length > 1 && RoleTypeIsUser) {
+    if (currentRole?.permissions?.length > 1 && RoleTypeIsUser) {
       setToggle(true)
     }
   }, [currentRole])
+
+
 
   return (
     <div className="relative min-h-full">
@@ -280,7 +283,7 @@ function Requests() {
         }
       >
         <div className="min-h-[28.2rem] flex flex-col justify-between">
-          <div className="overflow-x-auto w-full border dark:border-stone-600 rounded-2xl">
+          <div className=" w-full border dark:border-stone-600 rounded-2xl">
             <table className="table text-center min-w-full dark:text-[white]">
               <thead className="" style={{ borderRadius: "" }}>
                 <tr
@@ -327,6 +330,9 @@ function Requests() {
               <tbody className="">
                 {Array.isArray(requests) && currentRequests.length > 0 ? (
                   currentRequests?.map((request, index) => {
+                    let publisher = request.approvals.filter(e => e.stage === null)[0]
+                    let verifiers = request.approvals.filter(e => e.stage)
+
                     return (
                       <tr
                         key={index}
@@ -348,19 +354,19 @@ function Requests() {
                           canSeeEditor &&
                           <td
                             className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]"
-                            style={{ whiteSpace: "wrap" }}
+                            style={{ whiteSpace: "" }}
                           >
-                            <span className="">{request?.sender.name || "N/A"}</span>
+                            <span className="" title={request?.sender.name}>{TruncateText(request?.sender.name, 12) || "N/A"}</span>
                           </td>
                         }
                         {
                           canSeeVerifier &&
                           <td
                             className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]"
-                            style={{ whiteSpace: "wrap" }}
+                            style={{ whiteSpace: "" }}
                           >
                             <span className="">
-                              {request?.verifier ? (
+                              {verifiers.length > 0 ? (
                                 // <button
                                 //   onClick={() => {
                                 //     setSelectedRequest(request);
@@ -389,19 +395,21 @@ function Requests() {
                                           </tr>
                                         </thead>
                                         <tbody className="text-left dark:border-gray-800  border rounded">
-                                          {request?.verifier.map((v) => (
-                                            <tr
-                                              key={v.stage}
-                                              className=" dark:border-stone-700 !rounded-none"
-                                            >
-                                              <td className="w-[100px] px-5 py-1 !rounded-none">
-                                                {v.stage}
-                                              </td>
-                                              <td className="w-[100px] px-5 py-1 !rounded-none">
-                                                {v.name}
-                                              </td>
-                                            </tr>
-                                          ))}
+                                          {verifiers?.map((v) => {
+                                            return (
+                                              <tr
+                                                key={v?.stage}
+                                                className=" dark:border-stone-700 !rounded-none"
+                                              >
+                                                <td className="w-[100px] px-5 py-1 !rounded-none">
+                                                  {v?.stage}
+                                                </td>
+                                                <td className="w-[100px] px-5 py-1 !rounded-none" title={v?.approver?.name}>
+                                                  {TruncateText(v?.approver?.name)}
+                                                </td>
+                                              </tr>
+                                            )
+                                          })}
                                         </tbody>
                                       </table>
 
@@ -425,6 +433,7 @@ function Requests() {
                                           </ul> */}
                                     </div>
                                   }
+                                  setOnView={() => setActiveIndex(-1)}
                                   isVisible={activeIndex === request?.id}
                                   onToggle={() => toggleTooltip(request?.id)}
                                 >
@@ -437,7 +446,7 @@ function Requests() {
                                   </span>
                                 </ShowVerifierTooltip>
                               ) : (
-                                "N/A"
+                                verifiers?.[0]?.approver?.name || "N/A"
                               )}
                             </span>
                           </td>
@@ -446,16 +455,16 @@ function Requests() {
                           canSeePublisher &&
                           <td
                             className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]"
-                            style={{ whiteSpace: "wrap" }}
+                            style={{ whiteSpace: "" }}
                           >
-                            <span className="">
-                              {request?.publisher || "N/A"}
+                            <span className="" title={publisher?.approver?.name}>
+                              {TruncateText(publisher?.approver?.name, 12) || "N/A"}
                             </span>
                           </td>
                         }
                         <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]">
                           <p
-                            className={`w-[85px] mx-auto before:content-['•'] before:text-2xl flex h-7 items-center justify-center gap-1 px-1 py-0 font-[500] 
+                            className={`min-w-[85px] mx-auto before:content-['•'] before:text-2xl flex h-7 items-center justify-center gap-1 px-1 py-0 font-[500] 
                               ${request.status === "Green"
                                 ? "text-green-600 bg-lime-200 before:text-green-600 px-1"
                                 : request.status === "Blue"
@@ -465,7 +474,7 @@ function Requests() {
                                 rounded-2xl`}
                             style={{ textTransform: "capitalize" }}
                           >
-                            {/* <span className="">{request?.status}</span> */}
+                            <span className="">{capitalizeWords(request?.resourceVersion?.versionStatus)}</span>
                           </p>
                         </td>
                         <td className="font-poppins font-light text-[12px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]">

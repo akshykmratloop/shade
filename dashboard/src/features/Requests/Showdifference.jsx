@@ -12,7 +12,7 @@ import { useSelector } from "react-redux";
 import { RxCross1 } from "react-icons/rx";
 import Button from "../../components/Button/Button";
 import LanguageSwitch from "../Resources/components/breakUI/SwitchLang";
-import RejectPopup from "./RequestPopup";
+import RejectPopup from "./RejectPopup";
 import { LiaComment } from "react-icons/lia";
 
 import { IoDocumentOutline } from "react-icons/io5";
@@ -32,6 +32,7 @@ function ShowDifference({ show, onClose, resourceId, currentlyEditor, currentlyP
     const [PopUpPublish, setPopupPublish] = useState(false)
     const [PopupSubmit, setPopupSubmit] = useState(false)
     const [onRejectPopup, setOnRejectPopup] = useState(false)
+    const [commentOn, setCommentOn] = useState(false)
     const pageStatus = { "VERIFICATION_PENDING": "Verifier's stage", "PUBLISH_PENDING": "Publisher's stage" }
     const pageStages = new Set(["VERIFICATION_PENDING", "PUBLISH_PENDING"])
 
@@ -39,14 +40,16 @@ function ShowDifference({ show, onClose, resourceId, currentlyEditor, currentlyP
     const LiveContent = createContent(liveVersion, "difference", "home")
 
 
-    console.log(editVersion.editVersion?.status)
-    console.log(liveVersion.editVersion?.status)
     const modalRef = useRef(null)
+    const commentRef = useRef(null)
 
     useEffect(() => {
         const handleClickOutside = (e) => {
             if (modalRef.current && !modalRef.current.contains(e.target)) {
                 onClose();
+            }
+            if (commentRef.current && !commentRef.current.contains(e.target)) {
+                setCommentOn(false)
             }
         };
 
@@ -105,18 +108,32 @@ function ShowDifference({ show, onClose, resourceId, currentlyEditor, currentlyP
                                 !false &&
                                 <div className="flex gap-2">
                                     <div className="flex gap-3 text-[25px] items-center border-r px-2 border-r-2">
-                                        <span className=" flex flex-col gap-1 items-center">
-                                            <LiaComment strokeWidth={.0001} />
-                                            <span className="text-[12px]">
-                                                Comment
-                                            </span>
-                                        </span>
-                                        <span className="flex flex-col gap-1 items-center translate-y-[1.5px]">
+                                        <div ref={commentRef} className=" flex flex-col gap-1 items-center relative">
+                                            <div className="flex flex-col gap-1 items-center"
+                                                onClick={() => setCommentOn(prev => !prev)}
+                                            >
+                                                <LiaComment strokeWidth={.0001} />
+                                                <span className="text-[12px]">
+                                                    Comment
+                                                </span>
+                                            </div>
+                                            {
+                                                commentOn &&
+                                                <div className="absolute right-[110%] top-[20%] z-[5]">
+                                                    <div className="comment-bubble">
+                                                        <div className="comment-bubble-arrow"></div>
+                                                        <h3>Comments:</h3>
+                                                        <p className={`${editVersion.comments ? "text-stone-900 dark:text-stone-200" : "text-stone-300"}`}>{editVersion.comments || "No comments"}</p>
+                                                    </div>
+                                                </div>
+                                            }
+                                        </div>
+                                        <div className="flex flex-col gap-1 items-center translate-y-[1.5px]">
                                             <IoDocumentOutline className="text-[23px]" width={10} />
                                             <span className="text-[12px]">
                                                 Doc
                                             </span>
-                                        </span>
+                                        </div>
                                     </div>
                                     { // buttons/actions based on the roles
                                         !isManager ?
@@ -148,7 +165,7 @@ function ShowDifference({ show, onClose, resourceId, currentlyEditor, currentlyP
                                                     <button onClick={() => { setOnRejectPopup(true) }} className='flex justify-center items-center gap-1 bg-[#FF0000] rounded-md xl:h-[2.68rem] sm:h-[2rem] xl:text-xs sm:text-[.6rem] xl:w-[5.58rem] w-[4rem] text-[white]'>
                                                         <RxCross1 /> Reject
                                                     </button>
-                                                    <Button text={'Approve'} functioning={() => { }} classes='bg-[#29469D] rounded-md xl:h-[2.68rem] sm:h-[2rem] xl:text-xs sm:text-[.6rem] xl:w-[5.58rem] w-[4rem] text-[white]' />
+                                                    <Button text={'Approve'} functioning={() => { setPopupSubmit(true) }} classes='bg-[#29469D] rounded-md xl:h-[2.68rem] sm:h-[2rem] xl:text-xs sm:text-[.6rem] xl:w-[5.58rem] w-[4rem] text-[white]' />
                                                 </div>
                                             </div>) :
                                             (
@@ -160,7 +177,7 @@ function ShowDifference({ show, onClose, resourceId, currentlyEditor, currentlyP
                                 </div>
                             }
                         </div>
-                        <button onClick={onClose} className="bg-transparent absolute top-4 right-10 z-20 hover:bg-stone-300 dark:hover:bg-stone-700 rounded-full border-none p-2 py-2">
+                        <button onClick={onClose} className="bg-transparent absolute top-4 right-10 z-20 hover:bg-stone-300 dark:hover:bg-stone-300 dark:hover:text-stone-900 rounded-full border-none p-2 py-2">
                             <XMarkIcon className="w-5" />
                         </button>
                     </div>
@@ -170,11 +187,22 @@ function ShowDifference({ show, onClose, resourceId, currentlyEditor, currentlyP
                     </div>
 
                     <div className="flex overflow-y-scroll h-[95%] customscroller relative">
-                        <div>
-                            <AllForOne currentPath={"home"} language={language} screen={740} content={LiveContent.content} fullScreen={""} />
+                        <div className="border-r border-r-[4px] border-cyan-800 h-fit">
+                            <AllForOne
+                                currentPath={"home"}
+                                language={language} screen={740}
+                                content={LiveContent.content} fullScreen={""}
+                                hideScroll={true}
+                            />
                         </div>
                         <div>
-                            <AllForOne currentPath={"home"} language={language} screen={740} content={editedContent.content} live={LiveContent.content} showDifference={true} fullScreen={""} />
+                            <AllForOne
+                                currentPath={"home"} language={language}
+                                screen={740} content={editedContent.content}
+                                live={LiveContent.content} showDifference={true}
+                                fullScreen={""}
+                                hideScroll={true}
+                            />
                         </div>
                     </div>
                     {
@@ -183,14 +211,14 @@ function ShowDifference({ show, onClose, resourceId, currentlyEditor, currentlyP
                     }
                     {
                         onRejectPopup &&
-                        <RejectPopup display={onRejectPopup} setClose={setOnRejectPopup} />
+                        <RejectPopup display={onRejectPopup} setClose={setOnRejectPopup} submitfunction={async () => { }} />
                     }
 
                     <Popups display={PopUpPublish} setClose={() => setPopupPublish(false)}
                         confirmationText={`The page is under ${capitalizeWords(pageStatus[editVersion.editVersion?.status])}. Are you sure you want to publish?`} confirmationFunction={() => { }}
                     />
                     <Popups display={PopupSubmit} setClose={() => setPopupSubmit(false)}
-                        confirmationText={"Are you sure you want to submit?"} confirmationFunction={() => { }}
+                        confirmationText={"Are you sure you want to Approve?"} confirmationFunction={() => { }}
                     />
                 </Dialog.Panel>
             </div>
