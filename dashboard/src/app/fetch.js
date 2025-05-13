@@ -65,7 +65,7 @@ const makerequest = async (
     result = await response.json();
     result.ok = true;
   } catch (err) {
-    console.error(err)
+    // console.error(err)
     if (err.name === "AbortError") {
       result = { error: "Request timed out" };
     } else {

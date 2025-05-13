@@ -128,7 +128,6 @@ function Requests() {
   const userObj = useSelector(state => state.user)
 
   const { isManager, isEditor, isPublisher, isVerifier, currentRole } = userObj;
-  console.log(currentRole)
   const roleId = currentRole?.id
 
   // variables for conditioned renderings
