@@ -555,7 +555,7 @@ function Requests() {
                   })
                 ) : (
                   <tr className="text-[14px]">
-                    <td colSpan={6}>No Data Available</td>
+                    <td colSpan={6}>No requests available</td>
                   </tr>
                 )}
               </tbody>

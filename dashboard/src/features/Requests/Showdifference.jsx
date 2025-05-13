@@ -105,7 +105,7 @@ function ShowDifference({ show, onClose, resourceId, currentlyEditor, currentlyP
                         <div className="flex gap-5 justify-between w-[95%]">
                             <LanguageSwitch w={'w-[20%]'} setLanguage={setLanguage} language={language} />
                             { // not for currentlyEditor
-                                !false &&
+                                !currentlyEditor &&
                                 <div className="flex gap-2">
                                     <div className="flex gap-3 text-[25px] items-center border-r px-2 border-r-2">
                                         <div ref={commentRef} className=" flex flex-col gap-1 items-center relative">
