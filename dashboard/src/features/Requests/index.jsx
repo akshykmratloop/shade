@@ -11,7 +11,7 @@ import Paginations from "../Component/Paginations";
 import { getRequests } from "../../app/fetch";
 import SearchBar from "../../components/Input/SearchBar";
 import TitleCard from "../../components/Cards/TitleCard";
-import capitalizeWords from "../../app/capitalizeword";
+import capitalizeWords, { TruncateText } from "../../app/capitalizeword";
 import formatTimestamp from "../../app/TimeFormat";
 import { openRightDrawer } from "../../features/common/rightDrawerSlice";
 import { RIGHT_DRAWER_TYPES } from "../../utils/globalConstantUtil";
@@ -354,16 +354,16 @@ function Requests() {
                           canSeeEditor &&
                           <td
                             className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]"
-                            style={{ whiteSpace: "wrap" }}
+                            style={{ whiteSpace: "" }}
                           >
-                            <span className="">{request?.sender.name || "N/A"}</span>
+                            <span className="" title={request?.sender.name}>{TruncateText(request?.sender.name, 12) || "N/A"}</span>
                           </td>
                         }
                         {
                           canSeeVerifier &&
                           <td
                             className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]"
-                            style={{ whiteSpace: "wrap" }}
+                            style={{ whiteSpace: "" }}
                           >
                             <span className="">
                               {verifiers.length > 0 ? (
@@ -396,7 +396,7 @@ function Requests() {
                                         </thead>
                                         <tbody className="text-left dark:border-gray-800  border rounded">
                                           {verifiers?.map((v) => {
-                                             return (
+                                            return (
                                               <tr
                                                 key={v?.stage}
                                                 className=" dark:border-stone-700 !rounded-none"
@@ -404,8 +404,8 @@ function Requests() {
                                                 <td className="w-[100px] px-5 py-1 !rounded-none">
                                                   {v?.stage}
                                                 </td>
-                                                <td className="w-[100px] px-5 py-1 !rounded-none">
-                                                  {v?.approver?.name}
+                                                <td className="w-[100px] px-5 py-1 !rounded-none" title={v?.approver?.name}>
+                                                  {TruncateText(v?.approver?.name)}
                                                 </td>
                                               </tr>
                                             )
@@ -455,10 +455,10 @@ function Requests() {
                           canSeePublisher &&
                           <td
                             className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]"
-                            style={{ whiteSpace: "wrap" }}
+                            style={{ whiteSpace: "" }}
                           >
-                            <span className="">
-                              {publisher?.approver?.name || "N/A"}
+                            <span className="" title={publisher?.approver?.name}>
+                              {TruncateText(publisher?.approver?.name, 12) || "N/A"}
                             </span>
                           </td>
                         }
