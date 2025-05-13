@@ -12,6 +12,10 @@ const router = Router();
 
 const requiredPermissionsForUser = ["USER_MANAGEMENT"];
 
+router.get(
+  "/getAllUserByRoleId/:roleId",
+  tryCatchWrap(UserController.GetAllUsersByRoleId)
+);
 router.get("/getRolesForUser", tryCatchWrap(UserController.GetRolesForUser));
 router.post(
   "/create",

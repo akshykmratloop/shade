@@ -14,9 +14,9 @@ import SearchBar from "../components/Input/SearchBar";
 import {getNotificationsbyId} from "../app/fetch";
 import {setNotificationCount} from "../features/common/headerSlice";
 import socket from "../Socket/socket";
-import capitalizeWords, { TruncateText } from "../app/capitalizeword";
-import { updateCurrentRole, updateUser } from "../features/common/userSlice";
-import { FaCaretDown } from "react-icons/fa";
+import capitalizeWords, {TruncateText} from "../app/capitalizeword";
+import {updateCurrentRole, updateUser} from "../features/common/userSlice";
+import {FaCaretDown} from "react-icons/fa";
 
 function Header() {
   // state
@@ -76,7 +76,7 @@ function Header() {
   };
 
   const switchRole = (id) => {
-    if(currentRole.role === id) return
+    if (currentRole.role === id) return;
     // Switch Role
     localStorage.setItem("currentRole", id);
     // dispatch(updateCurrentRole(id))
@@ -143,16 +143,17 @@ function Header() {
     };
 
     const handleUserUpdate = async (response) => {
-      dispatch(updateUser(response.result))
-      localStorage.setItem("user", JSON.stringify(response.result))
-    }
+      console.log(response.result);
+      dispatch(updateUser(response.result));
+      localStorage.setItem("user", JSON.stringify(response.result));
+    };
 
     socket.on("role_created", handleNew);
     socket.on("user_created", handleNew);
+    socket.on("user_updated", handleNew);
     socket.on("userUpdated", handleUserUpdate);
     // socket.on("user_updated", handleNew);
     // …listen to any other event names you emit
-
 
     // …listen to any other event names you emit
 
@@ -162,7 +163,6 @@ function Header() {
       socket.off("user_created", handleNew);
       socket.off("userUpdated", handleUserUpdate);
       // socket.off("user_updated", handleNew);
-
     };
   }, [userId, dispatch]);
 
@@ -261,7 +261,7 @@ function Header() {
                 dark:shadow-md dark:shadow-stone-800 
                 absolute z-[30] p-2 shadow bg-base-100 
                 rounded-md flex flex-col gap-1"
-                style={{display: openList ? "flex" : "none", whiteSpace:"pre"}}
+                style={{display: openList ? "flex" : "none", whiteSpace: "pre"}}
               >
                 {user.roles?.map((e, i) => {
                   return (

@@ -7,6 +7,7 @@ import {
   findUserByEmail,
   getAllRolesForUser,
   getAllUsers,
+  getAllUsersByRoleId,
   getUserById,
   userRoleType,
 } from "./user.service.js";
@@ -38,6 +39,15 @@ const GetUserById = async (req, res) => {
   const {id} = req.params;
   const response = await getUserById(id);
   res.status(200).json(response);
+};
+
+const GetAllUsersByRoleId = async (req, res) => {
+  const {roleId} = req.params;
+  console.log(roleId, "roleId");
+
+  const allUser = await getAllUsersByRoleId(roleId);
+
+  res.status(201).json(allUser);
 };
 
 const EditUserDetails = async (req, res) => {
@@ -83,4 +93,5 @@ export default {
   DeactivateUser,
   UserRoleType,
   GetRolesForUser,
+  GetAllUsersByRoleId,
 };

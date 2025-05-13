@@ -1,5 +1,7 @@
 // import {eventEmitter} from "../../helper/event.js";
+import {getSocketId} from "../../helper/socketConnectionID.js";
 import {createNotification} from "../../repository/notification.repository.js";
+import {fetchAllUsersByRoleId} from "../../repository/user.repository.js";
 import {
   getRoles,
   getRoleById,
@@ -63,6 +65,16 @@ const UpdateRole = async (req, res) => {
   const {name, roleTypeId, permissions} = req.body;
   const result = await updateRole(id, name, roleTypeId, permissions);
   const io = req.app.locals.io; // Get socket.io instance
+  const users = await fetchAllUsersByRoleId(id);
+  users.forEach((el) => {
+    const socketIdOfUpdatedUser = getSocketId(el.id);
+    if (socketIdOfUpdatedUser) {
+      console.log(socketIdOfUpdatedUser, "socketId");
+      console.log(el.id, "el.id");
+
+      io.to(socketIdOfUpdatedUser).emit("userUpdated", el);
+    }
+  });
   io.emit("role_updated", result);
   res.status(202).json(result);
 };

@@ -26,7 +26,7 @@ export const checkPermission = (requiredPermissions) => {
         },
       });
 
-      console.log(user, "userfound");
+      // console.log(user, "userfound");
 
       assert(user, "NOT_FOUND", statusCodes.NOT_FOUND.message);
 
@@ -34,17 +34,17 @@ export const checkPermission = (requiredPermissions) => {
         role.role.permissions.map((p) => p.permission.name)
       );
 
-      console.log(userPermissions, "userPermissions");
+      // console.log(userPermissions, "userPermissions");
 
       const hasPermission = requiredPermissions.every((p) =>
         userPermissions.includes(p)
       );
 
-      console.log(hasPermission, "hasPermission");
+      // console.log(hasPermission, "hasPermission");
 
       assert(hasPermission, "FORBIDDEN", statusCodes.FORBIDDEN.message);
 
-      console.log(true, "checkpassed");
+      // console.log(true, "checkpassed");
 
       logger.info(`User ${userId} accessed API successfully`, {
         userId,

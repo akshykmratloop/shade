@@ -1,3 +1,205 @@
+import prismaClient from "../config/dbConfig.js";
+import {createNotification} from "../repository/notification.repository.js";
+
+export const handleEntityCreationNotification = async ({
+  io,
+  userId,
+  entity,
+  newValue,
+  actionType,
+}) => {
+  try {
+    // Fetch the user who performed the action
+    const creator = await prismaClient.user.findUnique({
+      where: {id: userId},
+      include: {roles: {select: {roleId: true}}},
+    });
+
+    if (!creator) {
+      console.warn("creator not found: ", userId);
+      return;
+    }
+
+    // Build base message
+    const subject =
+      newValue.name || newValue.email || newValue.title || newValue.id;
+    const verb = actionType === "CREATE" ? "created" : "updated";
+    const message = `A ${entity} '${subject}' has been ${verb}`;
+    const eventName = `${entity}_${verb}`;
+
+    // Determine recipients
+    const recipientsMap = new Map();
+
+    // Special handling for role updates
+    if (entity === "role" && verb === "updated") {
+      // Users with ROLE_MANAGEMENT_PERMISSION
+      const roleMgmtPerm = await prismaClient.permission.findUnique({
+        where: {name: "ROLES_PERMISSION_MANAGEMENT"},
+      });
+      if (roleMgmtPerm) {
+        const permUsers = await prismaClient.user.findMany({
+          where: {
+            roles: {
+              some: {
+                role: {
+                  permissions: {some: {permissionId: roleMgmtPerm.id}},
+                },
+              },
+            },
+          },
+        });
+        permUsers.forEach((u) => recipientsMap.set(u.id, u));
+        console.log("permUsers", permUsers);
+      }
+
+      // Users assigned to the specific role being updated
+      if (newValue.id) {
+        const roleUsers = await prismaClient.user.findMany({
+          where: {
+            roles: {some: {roleId: newValue.id}},
+          },
+        });
+        roleUsers.forEach((u) => recipientsMap.set(u.id, u));
+        console.log("roleUsers", roleUsers);
+      }
+    } else if (entity === "user" && verb === "updated") {
+      // Users with USER_MANAGEMENT_PERMISSION
+      const userMgmtPerm = await prismaClient.permission.findUnique({
+        where: {name: "USER_MANAGEMENT"},
+      });
+      if (userMgmtPerm) {
+        const permUsers = await prismaClient.user.findMany({
+          where: {
+            roles: {
+              some: {
+                role: {
+                  permissions: {some: {permissionId: userMgmtPerm.id}},
+                },
+              },
+            },
+          },
+        });
+        permUsers.forEach((u) => recipientsMap.set(u.id, u));
+        console.log("permUsers", permUsers);
+      }
+
+      // Users assigned to the specific user being updated
+      if (newValue.id) {
+        const userRoles = await prismaClient.userRole.findMany({
+          where: {userId: newValue.id},
+          select: {roleId: true},
+        });
+        const roleIds = userRoles.map((r) => r.roleId);
+
+        const roleUsers = await prismaClient.user.findMany({
+          where: {
+            roles: {some: {roleId: {in: roleIds}}},
+          },
+        });
+        roleUsers.forEach((u) => recipientsMap.set(u.id, u));
+        console.log("roleUsers", roleUsers);
+      }
+    } else if (entity === "role" && verb === "created") {
+      // Users with ROLE_MANAGEMENT_PERMISSION
+      const roleMgmtPerm = await prismaClient.permission.findUnique({
+        where: {name: "ROLES_PERMISSION_MANAGEMENT"},
+      });
+      console.log("roleMgmtPerm", roleMgmtPerm);
+
+      if (roleMgmtPerm) {
+        const permUsers = await prismaClient.user.findMany({
+          where: {
+            roles: {
+              some: {
+                role: {
+                  permissions: {some: {permissionId: roleMgmtPerm.id}},
+                },
+              },
+            },
+          },
+        });
+        permUsers.forEach((u) => recipientsMap.set(u.id, u));
+        console.log("permUsers", permUsers);
+      }
+    } else if (entity === "user" && verb === "created") {
+      // Users with USER_MANAGEMENT_PERMISSION
+      const userMgmtPerm = await prismaClient.permission.findUnique({
+        where: {name: "USER_MANAGEMENT"},
+      });
+
+      console.log("userMgmtPerm", userMgmtPerm);
+      if (userMgmtPerm) {
+        const permUsers = await prismaClient.user.findMany({
+          where: {
+            roles: {
+              some: {
+                role: {
+                  permissions: {some: {permissionId: userMgmtPerm.id}},
+                },
+              },
+            },
+          },
+        });
+        permUsers.forEach((u) => recipientsMap.set(u.id, u));
+        console.log("permUsers", permUsers);
+      }
+    } else {
+      // Default notification logic
+      if (creator.isSuperUser) {
+        // If the actor is a super admin, notify only themselves
+        recipientsMap.set(creator.id, creator);
+      } else {
+        // Always include super admins
+        const superAdmins = await prismaClient.user.findMany({
+          where: {isSuperUser: true},
+        });
+        superAdmins.forEach((u) => recipientsMap.set(u.id, u));
+
+        // Include users sharing any permission with creator
+        const creatorPermissions = await prismaClient.rolePermission.findMany({
+          where: {roleId: {in: creator.roles.map((r) => r.roleId)}},
+          select: {permissionId: true},
+        });
+        const permissionIds = creatorPermissions.map((p) => p.permissionId);
+
+        if (permissionIds.length) {
+          const permissionUsers = await prismaClient.user.findMany({
+            where: {
+              id: {not: creator.id},
+              roles: {
+                some: {
+                  role: {
+                    permissions: {some: {permissionId: {in: permissionIds}}},
+                  },
+                },
+              },
+            },
+          });
+          permissionUsers.forEach((u) => recipientsMap.set(u.id, u));
+        }
+      }
+    }
+
+    console.log(
+      "================================================================",
+      `Emitting event: ${eventName} with message: ${message}`,
+      recipientsMap,
+      "recipients"
+    );
+
+    // Emit and store notifications
+    for (const recipient of recipientsMap.values()) {
+      io.emit(eventName, {
+        userId: recipient.id,
+        message,
+      });
+      await createNotification({userId: recipient.id, message});
+    }
+  } catch (error) {
+    console.error("Error in handleEntityCreationNotification:", error);
+  }
+};
+
 // import prismaClient from "../config/dbConfig.js";
 // import {createNotification} from "../repository/notification.repository.js";
 
@@ -109,90 +311,3 @@
 //     console.error("Error in handleEntityCreationNotification:", error);
 //   }
 // };
-
-import prismaClient from "../config/dbConfig.js";
-import {createNotification} from "../repository/notification.repository.js";
-
-export const handleEntityCreationNotification = async ({
-  io,
-  userId,
-  entity,
-  newValue,
-  actionType,
-}) => {
-  try {
-    // Fetch the user who performed the action
-    const creator = await prismaClient.user.findUnique({
-      where: {id: userId},
-      include: {roles: {select: {roleId: true}}},
-    });
-
-    if (!creator) {
-      console.warn("creator not found: ", userId);
-      return;
-    }
-
-    // Build base message
-    const subject =
-      newValue.name || newValue.email || newValue.title || newValue.id;
-    const verb = actionType === "CREATE" ? "created" : "updated";
-    const message = `A ${entity} '${subject}' has been ${verb}`;
-    const eventName = `${entity}_${verb}`;
-
-    // Determine recipients
-    const recipientsMap = new Map();
-
-    if (creator.isSuperUser) {
-      // If the actor is a super admin, notify only themselves
-      recipientsMap.set(creator.id, creator);
-    } else {
-      // 1️⃣ Always include super admins
-      const superAdmins = await prismaClient.user.findMany({
-        where: {isSuperUser: true},
-      });
-      superAdmins.forEach((u) => recipientsMap.set(u.id, u));
-
-      // 2️⃣ Include users sharing any permission with creator
-      // Fetch creator's permission IDs
-      const creatorPermissions = await prismaClient.rolePermission.findMany({
-        where: {roleId: {in: creator.roles.map((r) => r.roleId)}},
-        select: {permissionId: true},
-      });
-      const permissionIds = creatorPermissions.map((p) => p.permissionId);
-
-      if (permissionIds.length) {
-        const permissionUsers = await prismaClient.user.findMany({
-          where: {
-            id: {not: creator.id},
-            roles: {
-              some: {
-                role: {
-                  permissions: {some: {permissionId: {in: permissionIds}}},
-                },
-              },
-            },
-          },
-        });
-        permissionUsers.forEach((u) => recipientsMap.set(u.id, u));
-      }
-    }
-
-    console.log(
-      "================================================================",
-      `Emitting event: ${eventName} with message: ${message}`,
-      recipientsMap.size,
-      "recipients"
-    );
-
-    // Emit and store notifications
-    for (const recipient of recipientsMap.values()) {
-      io.emit(eventName, {
-        userId: recipient.id,
-        message,
-      });
-      await createNotification({userId: recipient.id, message});
-    }
-  } catch (error) {
-    console.error("Error in handleEntityCreationNotification:", error);
-  }
-};
