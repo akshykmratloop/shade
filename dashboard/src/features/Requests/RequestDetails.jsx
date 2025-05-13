@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import formatTimestamp from "../../app/TimeFormat";
 import { RxQuestionMarkCircled } from "react-icons/rx";
+import { BsDashCircle } from "react-icons/bs";
 import { CheckCircle, XCircle } from "lucide-react";
-import { TruncateText } from "../../app/capitalizeword";
+import capitalizeWords, { TruncateText } from "../../app/capitalizeword";
 import { useSelector } from "react-redux";
 import { getRequestInfo } from "../../app/fetch";
 
@@ -26,13 +27,18 @@ const statusStyles = {
     text: "text-red-600",
     icon: <XCircle className="w-4 h-4 inline-block mr-1" />,
   },
+  PENDING: {
+    bg: "bg-yellow-100",
+    text: "text-yellow-600",
+    icon: <BsDashCircle className="w-4 h-4 inline-block mr-1" />,
+  },
 };
 
 const RequestDetails = () => {
   const id = useSelector(state => state.rightDrawer.extraObject.id)
   const [requestData, setRequestData] = useState({})
 
-  console.log(requestData)
+  const verifiers = Object.entries(requestData?.["assignedUsers"]?.verifiers || [])
 
   useEffect(() => {
     async function fetchRequestInfo() {
@@ -43,7 +49,7 @@ const RequestDetails = () => {
           const response = await getRequestInfo(id);
 
           if (response.ok) {
-            setRequestData(response.requestInfo.details)
+            setRequestData(response?.requestInfo?.details)
           } else {
 
           }
@@ -78,7 +84,7 @@ const RequestDetails = () => {
               <p>{requestData?.["assignedUsers"]?.editor}</p>
             </div>
             <div className="flex flex-col">
-              {requestData?.["assignedUsers"]?.verifiers?.map((el, ind) => {
+              {verifiers?.map((el, ind) => {
                 let firstIndex = ind === 0;
                 return (
                   <div
@@ -89,9 +95,9 @@ const RequestDetails = () => {
                     {firstIndex && <label className="">Verifiers:</label>}
                     <div className="flex gap-[10px] items-center py-[10px]">
                       <p className="border px-[12px] w-[6rem] py-[2px] text-center rounded-3xl font-light text-[11px]">
-                        {"level " + parseInt(ind + 1)}
+                        {el[0]}
                       </p>
-                      <p>{el}</p>
+                      <p>{el[1]}</p>
                     </div>
                   </div>
                 );
@@ -99,11 +105,11 @@ const RequestDetails = () => {
             </div>
             <div className="border-b dark:border-stone-700 flex justify-between py-4 items-center">
               <label className="">Publisher:</label>
-              <p>{requestData?.["Assigned Users"]?.publisher}</p>
+              <p>{requestData?.["assignedUsers"]?.publisher}</p>
             </div>
             <div className="border-b dark:border-stone-700 flex justify-between py-2 h-[43px] items-center">
               <label className="">Submitted Date</label>
-              <p>{requestData?.["Submitted Date"]}</p>
+              <p>{formatTimestamp(requestData?.["submittedDate"])}</p>
             </div>
             <div className="border-b dark:border-stone-700 flex flex-col justify-between py-2">
               <div className="flex gap-1 items-center">
@@ -170,14 +176,14 @@ const RequestDetails = () => {
               </tr>
             </thead>
             <tbody>
-              {data.map(({ role, status, comment }) => {
+              {requestData?.approvalStatus?.map(({ role, status, comment }) => {
                 const { bg, text, icon } = statusStyles[status] || {};
                 return (
                   <tr
                     key={role}
                     className="border-b dark:border-slate-700 last:border-0"
                   >
-                    <td className="px-3 py-2 text-sm">{role}</td>
+                    <td className="px-3 py-2 text-sm">{capitalizeWords(role)}</td>
                     <td className="px-3 py-2 text-sm dark:text-white  ">
                       <span
                         className={`${bg} ${text} inline-flex items-center px-3 py-1 rounded-full text-xs font-small`}
