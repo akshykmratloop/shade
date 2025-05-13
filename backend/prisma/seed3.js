@@ -4,20 +4,14 @@ import crypto from "crypto";
 
 const sectionTypes = [
   "HERO_BANNER",
+  "CARD_GRID",
+  "STATISTICS",
+  "TESTIMONIALS",
+  "CLIENT_LOGOS",
+  "CONTACT_FORM",
   "MARKDOWN_CONTENT",
   "SERVICE_CARDS",
-  "STATISTICS",
   "PROJECT_GRID",
-  "CLIENT_LOGOS",
-  "TESTIMONIALS",
-  "NORMAL_CONTENT",
-
-  "INTRO_CONTENT",
-
-  "GALLERY_GRID",
-
-  "CARD_GRID",
-  "CONTACT_FORM",
   "TEAM",
   "CLIENTS",
   "MARKETS",
@@ -26,16 +20,17 @@ const sectionTypes = [
   "FOOTER_COLUMNS",
   "HEADER_NAV",
   "SERVICE_DETAIL",
-  "SERVICE_CHILDREN",
   "CAREER_DETAILS",
   "NEWS_DETAIL",
   "CONTACT_INFO",
   "TESTIMONIAL",
+  "NORMAL_CONTENT",
 ];
+
 
 function generateSlug(input, prefix = "") {
   const randomId = crypto.randomBytes(4).toString("hex");
-
+  
   const slugify = (str) =>
     `${prefix}${str}`
       .toLowerCase()
@@ -95,6 +90,7 @@ async function main() {
       resourceType,
       resourceTag,
       relationType,
+      // contentData,
       sections
     ) {
       // Ensure sections is an array
@@ -122,6 +118,8 @@ async function main() {
             },
           });
 
+
+          
           // Create initial version
           const version = await tx.resourceVersion.create({
             data: {
@@ -179,6 +177,7 @@ async function main() {
                 version: 1,
                 content: sectionData.content,
                 sectionVersionTitle: sectionData.sectionVersionTitle || null,
+              
               },
             });
 
@@ -335,42 +334,15 @@ async function main() {
     }
 
     // 2. Create Footer
-    await createResource(
-      "Footer",
-      "التذييل",
-      "footer",
-      "FOOTER",
-      "FOOTER",
-      "PARENT",
-      [
-        {
-          title: "Footer Content",
-          SectionType: "FOOTER_COLUMNS",
-          content: content.footer,
-          isGlobal: true,
-          sectionVersionTitle: "Footer Body",
-        },
-      ]
-    );
-
-    // 2. Create Header
-    await createResource(
-      "Header",
-      "الرأس",
-      "header",
-      "HEADER",
-      "HEADER",
-      "PARENT",
-      [
-        {
-          title: "Header Content",
-          SectionType: "HEADER_NAV",
-          content: content.header,
-          isGlobal: true,
-          sectionVersionTitle: "Header Body",
-        },
-      ]
-    );
+    await createResource("Footer", "التذييل", "footer", "FOOTER", "NULL", "PARENT", [
+      {
+        title: "Footer Content",
+        SectionType: "FOOTER_COLUMNS",
+        content: content.footer,
+        isGlobal: true,
+        sectionVersionTitle: "Footer Body",
+      },
+    ]);
 
     // 3. Create individual News Items first
     const newsSlugs = [];
@@ -571,14 +543,11 @@ async function main() {
         },
       ]
     );
-
-
-
     // 9. Create Market Page
     await createResource(
       "Market Page",
       "صفحة السوق",
-      content.market.slug,
+      "market",
       "MAIN_PAGE",
       "MARKET",
       "PARENT",
@@ -606,81 +575,34 @@ async function main() {
       ]
     );
 
-    const serviceChildSlugs = [];
-    for (const childService of content.thirdLevelOfServices) {
-      // const slug = generateSlug(childService.title, "childService-");
-      serviceChildSlugs.push(slug);
-
-      await createResource(
-        childService.resourceTitle.en,
-        childService.resourceTitle.ar,
-        childService.slug,
-        "SUB_PAGE_ITEM",
-        "SERVICE",
-        "CHILD",
-        [
-          {
-            title: `Intro Section of child Service`,
-            SectionType: "HERO_BANNER",
-            content: childService.banner,
-            sectionVersionTitle: childService.banner.title?.en || null,
-          },
-          {
-            title: 'ServicePointsGrid1',
-            SectionType: "SERVICE_CHILDREN",
-            content: childService.ServicePointsGrid1,
-            sectionVersionTitle: `ServicePointsGrid1` || null,
-          },
-          {
-            title: 'ServicePointsGrid2',
-            SectionType: "SERVICE_CHILDREN",
-            content: childService.ServicePointsGrid2,
-            sectionVersionTitle: `ServicePointsGrid2` || null,
-          },
-        ]
-      );
-    }
-
     // 10. Create individual Services first (as subpages)
     const serviceSlugs = [];
-    for (const service of content.secondLevelOFServices) {
-      // const slug = generateSlug(service.title, "service-");
-      serviceSlugs.push(service.slug);
+    for (const service of content.services.serviceCards) {
+      const slug = generateSlug(service.title, "service-");
+      serviceSlugs.push(slug);
 
       await createResource(
-        service.resourceTitle.en,
-        service.resourceTitle.ar,
-        service.slug,
+        service.title.en,
+        service.title.ar,
+        slug,
         "SUB_PAGE",
         "SERVICE",
         "CHILD",
         [
           {
-            title: `Intro Section of Service`,
-            SectionType: "HERO_BANNER",
-            content: service.introSection,
-            sectionVersionTitle: service.introSection.title?.en || null,
-          },
-          {
-            title: `Children Services of ${service.resourceTitle.en}`,
-            SectionType: "SERVICE_CHILDREN",
-            content: service.childrenServices,
-            sectionVersionTitle: `Children Services of ${service.resourceTitle.en}` || null,
-            items: {
-              resourceType: "SUB_PAGE",
-              slug: service.childrenServices.childService,
-            }
+            title: `${service.title.en} Details`,
+            SectionType: "SERVICE_DETAIL",
+            content: service,
+            sectionVersionTitle: service.title?.en || null,
           },
         ]
       );
     }
-
-    
     // 11. Create Services Main Page
     await createResource(
       "Services Page",
       "صفحة الخدمات",
-      content.services.slug,
+      "services",
       "MAIN_PAGE",
       "SERVICE",
       "PARENT",
@@ -695,7 +617,7 @@ async function main() {
         {
           title: "Our Services",
           SectionType: "SERVICE_CARDS",
-          content: content.services.serviceCards,
+          content: { serviceCards: content.services.serviceCards },
           items: serviceSlugs.map((slug) => ({
             resourceType: "SUB_PAGE",
             slug: slug,
@@ -703,15 +625,15 @@ async function main() {
         },
       ]
     );
-
     // 12. Create Solutions Page
     await createResource(
       "Solutions Page",
       "صفحة الحلول",
-      content.solution.slug,
+      "solutions",
       "MAIN_PAGE",
       "SOLUTION",
       "PARENT",
+      content.solution,
       [
         {
           title: "Solutions Banner",
@@ -720,129 +642,120 @@ async function main() {
           sectionVersionTitle: content.solution.banner.title?.en || null,
         },
         {
-          title: "Solution Description",
+          title: "What We Do",
           SectionType: "MARKDOWN_CONTENT",
-          content: content.solution.sectionContent,
-          sectionVersionTitle: "Solution Description",
+          content: content.solution.whatWeDo,
+          sectionVersionTitle: content.solution.whatWeDo.title?.en || null,
         },
         {
-          title: "Project Gallery1",
-          SectionType: "GALLERY_GRID",
-          content: content.solution.gallery1,
-          sectionVersionTitle: "Project Gallery1",
+          title: "How We Do It",
+          SectionType: "MARKDOWN_CONTENT",
+          content: content.solution.howWeDo,
+          sectionVersionTitle: content.solution.howWeDo.title?.en || null,
         },
         {
-          title: "Project Gallery2",
-          SectionType: "GALLERY_GRID",
-          content: content.solution.gallery2,
-          sectionVersionTitle: "Project Gallery2",
+          title: "Project Gallery",
+          SectionType: "PROJECT_GRID",
+          content: content.solution.gallery,
+          sectionVersionTitle: content.solution.gallery.title?.en || null,
         },
       ]
     );
-
     // 13. Create About Us Page
     await createResource(
       "About Us Page",
       "صفحة من نحن",
-      content.aboutUs.slug,
+      "about",
       "MAIN_PAGE",
       "ABOUT",
       "PARENT",
+      content.aboutUs,
       [
         {
-          title: "About Intro",
-          SectionType: "INTRO_CONTENT",
-          content: content.aboutUs.intro,
-          sectionVersionTitle: content.aboutUs.intro.title?.en || null,
+          title: "About Banner",
+          SectionType: "HERO_BANNER",
+          content: content.aboutUs.main,
+          sectionVersionTitle: content.aboutUs.main.title?.en || null,
         },
         {
-          title: "About Video Section",
-          SectionType: "MARKDOWN_CONTENT",
-          content: content.aboutUs.videoSection,
-          sectionVersionTitle: content.aboutUs.videoSection.title?.en || null,
+          title: "Mission Vision",
+          SectionType: "CARD_GRID",
+          content: content.aboutUs.services,
+          sectionVersionTitle: content.aboutUs.services.title?.en || null,
         },
       ]
     );
 
     // 14. Create Home Page
-    await createResource(
-      "Home Page",
-      "الصفحة الرئيسية",
-      content.home.slug,
-      "MAIN_PAGE",
-      "HOME",
-      "PARENT",
-      [
-        {
-          title: "HeroSection",
-          SectionType: "HERO_BANNER",
-          content: content.home.homeBanner,
-          sectionVersionTitle: content.home.homeBanner.title?.en || null,
-        },
-        {
-          title: "aboutUsSection",
-          SectionType: "MARKDOWN_CONTENT",
-          content: content.home.aboutUsSection,
-          sectionVersionTitle: content.home.aboutUsSection.title?.en || null,
-        },
-        {
-          title: "serviceSection",
-          SectionType: "SERVICE_CARDS",
-          content: content.home.serviceSection,
-          sectionVersionTitle: content.home.serviceSection.title?.en || null,
-          items: serviceSlugs.map((slug) => ({
-            resourceType: "SUB_PAGE",
-            slug: slug,
-          })),
-        },
-        {
-          title: "experienceSection",
-          SectionType: "STATISTICS",
-          content: content.home.experienceSection,
-          sectionVersionTitle: content.home.experienceSection.title?.en || null,
-        },
-        {
-          title: "recentProjectsSection",
-          SectionType: "PROJECT_GRID",
-          content: content.home.recentProjectsSection,
-          sectionVersionTitle: "Recent Projects. Markets & Safety Grid",
-          sections:
-            content.home.recentProjectsSection.sections?.map((section) => ({
-              title: section.title?.en || null,
-              SectionType: "PROJECT_GRID",
-              content: section,
-              sectionVersionTitle: section.title?.en || null,
-              items: projectSlugs.map((slug) => ({
-                resourceType: "SUB_PAGE",
-                slug: slug,
-              })),
-            })) || [],
-        },
-        {
-          title: "clientSection",
-          SectionType: "CLIENT_LOGOS",
-          content: content.home.clientSection,
-          sectionVersionTitle: content.home.clientSection.title?.en || null,
-        },
-        {
-          title: "testimonialSection",
-          SectionType: "TESTIMONIALS",
-          content: content.home.testimonialSection,
-          sectionVersionTitle:
-            content.home.testimonialSection.title?.en || null,
-          items: testimonialSlug.map((slug) => ({
-            resourceType: "SUB_PAGE",
-            slug: slug,
-          })),
-        },
-        {
-          title: "newProjectSection",
-          SectionType: "NORMAL_CONTENT",
-          content: content.home.newProjectSection,
-          sectionVersionTitle: content.home.newProjectSection.title?.en || null,
-        },
-      ]
-    );
+    await createResource("Home Page", "الصفحة الرئيسية", "home", "MAIN_PAGE", "HOME", "PARENT", [
+      {
+        title: "HeroSection",
+        SectionType: "HERO_BANNER",
+        content: content.home.homeBanner,
+        sectionVersionTitle: content.home.homeBanner.title?.en || null,
+      },
+      {
+        title: "aboutUsSection",
+        SectionType: "MARKDOWN_CONTENT",
+        content: content.home.aboutUsSection,
+        sectionVersionTitle: content.home.aboutUsSection.title?.en || null,
+      },
+      {
+        title: "serviceSection",
+        SectionType: "SERVICE_CARDS",
+        content: content.home.serviceSection,
+        sectionVersionTitle: content.home.serviceSection.title?.en || null,
+        items: serviceSlugs.map((slug) => ({
+          resourceType: "SUB_PAGE",
+          slug: slug,
+        })),
+      },
+      {
+        title: "experienceSection",
+        SectionType: "STATISTICS",
+        content: content.home.experienceSection,
+        sectionVersionTitle: content.home.experienceSection.title?.en || null,
+      },
+      {
+        title: "recentProjectsSection",
+        SectionType: "PROJECT_GRID",
+        content: content.home.recentProjectsSection.content,
+        sectionVersionTitle: "Recent Projects. Markets & Safety Grid",
+        sections:
+          content.home.recentProjectsSection.sections?.map((section) => ({
+            title: section.title?.en || null,
+            SectionType: "PROJECT_GRID",
+            content: section,
+            sectionVersionTitle: section.title?.en || null,
+            items: projectSlugs.map((slug) => ({
+              resourceType: "SUB_PAGE",
+              slug: slug,
+            })),
+          })) || [],
+      },
+      {
+        title: "clientSection",
+        SectionType: "CLIENT_LOGOS",
+        content: content.home.clientSection,
+        sectionVersionTitle: content.home.clientSection.title?.en || null,
+      },
+      {
+        title: "testimonialSection",
+        SectionType: "TESTIMONIALS",
+        content: content.home.testimonialSection,
+        sectionVersionTitle: content.home.testimonialSection.title?.en || null,
+        items: testimonialSlug.map((slug) => ({
+          resourceType: "SUB_PAGE",
+          slug: slug,
+        })),
+      },
+      {
+        title: "newProjectSection",
+        SectionType: "NORMAL_CONTENT",
+        content: content.home.newProjectSection,
+        sectionVersionTitle: content.home.newProjectSection.title?.en || null,
+      },
+    ]);
 
     console.log("All resources seeded successfully!");
   } catch (error) {
