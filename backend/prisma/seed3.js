@@ -878,7 +878,7 @@ async function main() {
               sectionVersionTitle: `Home-multiSection-${
                 section.title?.en || null
               }`,
-              items: [section.id].map((slug) => ({
+              items: eval(section.id).map((slug) => ({
                 resourceType: "SUB_PAGE",
                 slug: slug,
               })),
