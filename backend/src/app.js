@@ -9,7 +9,9 @@ import cookieParser from "cookie-parser";
 
 import helmet from "helmet";
 import auditLogger from "./helper/auditLogger.js";
-import { globalRateLimiter } from "./helper/rateLimiter.js";
+import {globalRateLimiter} from "./helper/rateLimiter.js";
+import swaggerSpec from "./config/swaggerConfig.js";
+import swaggerUi from "swagger-ui-express";
 export const createApp = () => {
   const app = express();
 
@@ -43,6 +45,11 @@ export const createApp = () => {
 
   // Health check route
   app.use("/healthy", (req, res) => res.send(serverStatus()));
+
+  // swagger
+  app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
+  console.log("swagger", swaggerSpec);
 
   // Log Middleware for audit logging
   // app.use(auditLogger);

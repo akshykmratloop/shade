@@ -109,6 +109,7 @@ export const handleEntityCreationNotification = async ({
       if (roleMgmtPerm) {
         const permUsers = await prismaClient.user.findMany({
           where: {
+            not: {id: creator.id},
             roles: {
               some: {
                 role: {
@@ -131,6 +132,7 @@ export const handleEntityCreationNotification = async ({
       if (userMgmtPerm) {
         const permUsers = await prismaClient.user.findMany({
           where: {
+            not: {id: creator.id},
             roles: {
               some: {
                 role: {
@@ -189,6 +191,8 @@ export const handleEntityCreationNotification = async ({
 
     // Emit and store notifications
     for (const recipient of recipientsMap.values()) {
+      if (recipient.id === creator.id) continue;
+
       io.emit(eventName, {
         userId: recipient.id,
         message,
