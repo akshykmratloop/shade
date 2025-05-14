@@ -2635,12 +2635,27 @@ export const approveRequestInVerification = async (requestId, userId) => {
       }
     });
 
-    // If no pending approvals remain, update the request status
+    // If no pending approvals remain, update the request status and resource version status
     if (pendingApprovals === 0) {
+      // Get the request to find the resourceVersionId
+      const request = await tx.resourceVersioningRequest.findUnique({
+        where: { id: requestId },
+        select: { resourceVersionId: true }
+      });
+      
+      // Update request status
       await tx.resourceVersioningRequest.update({
         where: { id: requestId },
         data: {
           status: "APPROVED"
+        }
+      });
+      
+      // Update resource version status to PUBLISH_PENDING
+      await tx.resourceVersion.update({
+        where: { id: request.resourceVersionId },
+        data: {
+          versionStatus: "PUBLISH_PENDING"
         }
       });
     }
