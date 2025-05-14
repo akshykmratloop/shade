@@ -12,7 +12,7 @@ const Navbar = ({ setCurrentResource }) => {
     const navs = [
         { name: "Pages", resourceType: "MAIN_PAGE", resourceTag: "MAIN", permission: "PAGE_MANAGEMENT" },
         { name: "Services", resourceType: "SUB_PAGE", resourceTag: "SERVICE", permission: "SERVICE_MANAGEMENT" },
-        { name: "Sub Services", resourceType: "SUB_PAGE_ITEM", resourceTag: "SUB_SERVICE", permission: "SERVICE_MANAGEMENT" },
+        { name: "Sub Services", resourceType: "SUB_PAGE_ITEM", resourceTag: "SUB_SERVICES", permission: "SERVICE_MANAGEMENT" },
         { name: "Market", resourceType: "SUB_PAGE", resourceTag: "MARKET", permission: "MARKET_MANAGEMENT" },
         { name: "Project", resourceType: "SUB_PAGE", resourceTag: "PROJECT", permission: "PROJECT_MANAGEMENT" },
         { name: "Testimonials", resourceType: "SUB_PAGE", resourceTag: "TESTIMONIAL", permission: "TESTIMONIAL_MANAGEMENT" },
