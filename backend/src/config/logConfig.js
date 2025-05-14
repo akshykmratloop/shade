@@ -13,8 +13,7 @@ const logger = winston.createLogger({
     winston.format.printf(({ timestamp, level, message }) => {
       // If message is an object, stringify it
       const logMessage = typeof message === 'object' ? JSON.stringify(message, null, 2) : message;
-      // return `${level}: \x1b[34m${logMessage}\x1b[0m ${timestamp} `;// Make the message only in blue
-      return;
+      return `${level}: \x1b[34m${logMessage}\x1b[0m ${timestamp} `;// Make the message only in blue
     }),
     winston.format.colorize({ all: true }) // Apply colorization to the whole message
   ),
@@ -30,8 +29,7 @@ const logger = winston.createLogger({
 
 // Morgan setup with Winston for logging HTTP requests
 morgan.token("custom", (req, res) => {
-  // return `Method: ${req.method} | URL: ${req.originalUrl} | Status: ${res.statusCode}`;
-  return ;
+  return `Method: ${req.method} | URL: ${req.originalUrl} | Status: ${res.statusCode}`;
 });
 
 const morganFormat = ":custom | Response Time: :response-time ms";
