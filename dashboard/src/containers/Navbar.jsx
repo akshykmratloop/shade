@@ -1,10 +1,11 @@
 import { useSelector, useDispatch } from "react-redux";
-import { updateTag, updateType } from "../features/common/navbarSlice";
+import { updateName, updateTag, updateType } from "../features/common/navbarSlice";
 import capitalizeWords from "../app/capitalizeword";
 
 const Navbar = ({ setCurrentResource }) => {
     const userPermissions = useSelector(state => state.user.user?.permissions);
     const currentNav = useSelector(state => state.navBar.resourceTag)
+    const currentName = useSelector(state => state.navBar.name)
     const dispatch = useDispatch();
     const permissionsSet = new Set(userPermissions);
 
@@ -12,7 +13,7 @@ const Navbar = ({ setCurrentResource }) => {
     const navs = [
         { name: "Pages", resourceType: "MAIN_PAGE", resourceTag: "MAIN", permission: "PAGE_MANAGEMENT" },
         { name: "Services", resourceType: "SUB_PAGE", resourceTag: "SERVICE", permission: "SERVICE_MANAGEMENT" },
-        { name: "Sub Services", resourceType: "SUB_PAGE_ITEM", resourceTag: "SUB_SERVICES", permission: "SERVICE_MANAGEMENT" },
+        { name: "Sub Services", resourceType: "SUB_PAGE_ITEM", resourceTag: "SERVICE", permission: "SERVICE_MANAGEMENT" },
         { name: "Market", resourceType: "SUB_PAGE", resourceTag: "MARKET", permission: "MARKET_MANAGEMENT" },
         { name: "Project", resourceType: "SUB_PAGE", resourceTag: "PROJECT", permission: "PROJECT_MANAGEMENT" },
         { name: "Testimonials", resourceType: "SUB_PAGE", resourceTag: "TESTIMONIAL", permission: "TESTIMONIAL_MANAGEMENT" },
@@ -29,9 +30,10 @@ const Navbar = ({ setCurrentResource }) => {
         return permissionsSet.has(required);
     };
 
-    const settingResources = (resource, tag) => {
+    const settingResources = (resource, tag, name) => {
         dispatch(updateType(resource));
         dispatch(updateTag(tag));
+        dispatch(updateName(name));
         localStorage.setItem("resourceType", resource);
         localStorage.setItem("resourceTag", tag)
     };
@@ -48,8 +50,8 @@ const Navbar = ({ setCurrentResource }) => {
                                 className="max-w-[150px] w-full text-center px-2 relative flex items-center justify-center"
                             >
                                 <button
-                                    onClick={() => settingResources(nav.resourceType, nav.resourceTag)}
-                                    className={`block w-full rounded-lg py-1 ${currentNav === nav.resourceTag
+                                    onClick={() => settingResources(nav.resourceType, nav.resourceTag, nav.name)}
+                                    className={`block w-full rounded-lg py-1 ${currentName === nav.name
                                         ? "bg-base-200 text-stone-700 dark:text-stone-50"
                                         : "hover:bg-base-200"
                                         } hover:text-stone-700 dark:hover:text-stone-50 transition flex flex-col`}
