@@ -1,31 +1,29 @@
 import XMarkIcon from "@heroicons/react/24/solid/XMarkIcon";
-import {useDispatch, useSelector} from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import NotificationBodyRightDrawer from "../features/common/components/NotificationBodyRightDrawer";
 import {
   closeRightDrawer,
   openRightDrawer,
 } from "../features/common/rightDrawerSlice";
-import {RIGHT_DRAWER_TYPES} from "../utils/globalConstantUtil";
+import { RIGHT_DRAWER_TYPES } from "../utils/globalConstantUtil";
 import CalendarEventsBodyRightDrawer from "../features/calendar/CalendarEventsBodyRightDrawer";
-import {useCallback, useEffect, useState} from "react";
-import {getNotificationsbyId, markAllNotificationAsRead} from "../app/fetch";
-import {setNotificationCount} from "../features/common/headerSlice";
+import { useCallback, useEffect, useState } from "react";
+import { getNotificationsbyId, markAllNotificationAsRead } from "../app/fetch";
+import { setNotificationCount } from "../features/common/headerSlice";
 import socket from "../Socket/socket.js";
 import RequestDetails from "../features/Requests/RequestDetails.jsx";
 
 function RightSidebar() {
   const [notificationData, setNotificationData] = useState([]);
   const [loading, setLoading] = useState(false);
-  const {isOpen, bodyType, extraObject, header} = useSelector(
+  const { isOpen, bodyType, extraObject, header } = useSelector(
     (state) => state.rightDrawer
   );
   const dispatch = useDispatch();
 
   const userId = extraObject?.id;
 
-  const close = (e) => {
-    dispatch(closeRightDrawer(e));
-  };
+
 
   const fetchNotifications = async (id) => {
     setLoading(true);
@@ -59,7 +57,6 @@ function RightSidebar() {
     if (!userId) return;
 
     const handleNewNotification = (payload) => {
-      console.log("llkkkk")
       if (payload.userId !== userId) return; // only for this user
 
       // Option A: simply re‑fetch from server
@@ -85,7 +82,7 @@ function RightSidebar() {
       socket.off("user_updated", handleNewNotification);
 
       socket.off("user_created", handleNewNotification);
-    socket.off("user_updated", handleNewNotification)
+      socket.off("user_updated", handleNewNotification)
 
     };
   }, [userId, dispatch]);
@@ -123,6 +120,11 @@ function RightSidebar() {
     }
   };
 
+  const close = async (e) => {
+    dispatch(closeRightDrawer(e));
+    // await handleMarkAllAsRead(extraObject.id)
+  };
+
   return (
     <div
       className={
@@ -133,11 +135,10 @@ function RightSidebar() {
       }
     >
       <section
-        className={`${
-          bodyType === RIGHT_DRAWER_TYPES.RESOURCE_DETAILS
+        className={`${bodyType === RIGHT_DRAWER_TYPES.RESOURCE_DETAILS
             ? "w-[34rem]"
             : "w-80 md:w-96"
-        }
+          }
           right-0 absolute bg-base-100 h-full shadow-xl delay-400 duration-500 ease-in-out transition-all transform 
           ${isOpen ? "translate-x-0" : "translate-x-full"}
           `}

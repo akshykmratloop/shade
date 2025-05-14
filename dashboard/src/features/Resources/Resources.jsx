@@ -448,7 +448,7 @@ function Resources() {
           </Suspense>
         </div>
       }
-      <ToastContainer hideProgressBar={true} />
+      <ToastContainer />
     </div >
   );
 }

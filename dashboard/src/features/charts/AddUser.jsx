@@ -3,7 +3,7 @@ import InputText from "../../components/Input/InputText";
 import { fetchRoles, createUser, updateUser, getUserById } from "../../app/fetch";
 import { toast, ToastContainer } from "react-toastify";
 import validator from "../../app/valid";
-import updateToasify from "../../app/toastify";
+import updateToastify from "../../app/toastify";
 import InputFileForm from "../../components/Input/InputFileForm";
 import dummy from "../../assets/MOCK_DATA.json";
 import { X } from "lucide-react";
@@ -78,10 +78,9 @@ const AddUserModal = ({ show, onClose, updateUsers, user }) => {
 
     try {
       dispatch(switchDebounce(true));
-
-      loadingToastId = toast.loading("Processing request...", {
-        autoClose: 2000,
-      });
+      // loadingToastId = toast.loading("Processing request...", {
+      // autoClose: 2000,
+      // });
 
       let response;
       if (user) {
@@ -97,22 +96,22 @@ const AddUserModal = ({ show, onClose, updateUsers, user }) => {
       }
 
       if (response?.ok) {
-        updateToasify(
-          loadingToastId,
-          `User Created successful! 🎉`,
-          "success",
-          1000
-        );
+        // updateToastify(
+        //   loadingToastId,
+        //   `User Created successful! 🎉`,
+        //   "success",
+        //   1000
+        // );
       } else {
-        updateToasify(
-          loadingToastId,
-          `Request failed. ${response?.message
-            ? response.message
-            : "Something went wrong please try again later"
-          }`,
-          "error",
-          2000
-        );
+        // updateToastify(
+        //   loadingToastId,
+        //   `Request failed. ${response?.message
+        //     ? response.message
+        //     : "Something went wrong please try again later"
+        //   }`,
+        //   "error",
+        //   2000
+        // );
       }
     } catch (err) {
       console.log(err?.message);

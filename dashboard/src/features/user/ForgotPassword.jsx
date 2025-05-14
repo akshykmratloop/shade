@@ -129,7 +129,7 @@ function ForgotPassword() {
 
 
             </div>
-            <ToastContainer theme="colored" />
+            <ToastContainer />
         </div>
     )
 }

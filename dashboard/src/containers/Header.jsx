@@ -144,7 +144,7 @@ function Header() {
 
     const handleUserUpdate = async (response) => {
       // console.log(JSON.stringify(response))
-
+      if (response.result.deactivate) logoutUser()
       dispatch(updateUser({ data: response.result, type: "update" }))
       localStorage.setItem("user", JSON.stringify(response.result))
     }

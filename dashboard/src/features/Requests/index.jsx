@@ -259,6 +259,8 @@ function Requests() {
     //flow
     if (currentRole?.permissions?.length > 1 && RoleTypeIsUser) {
       setToggle(true)
+    } else {
+      setToggle(false)
     }
   }, [currentRole])
 

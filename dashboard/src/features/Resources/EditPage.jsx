@@ -192,7 +192,7 @@ const EditPage = () => {
                 }
 
             </Suspense>
-            <ToastContainer hideProgressBar={true} autoClose={700} />
+            <ToastContainer  />
         </div >
 
     )
