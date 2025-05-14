@@ -1,4 +1,4 @@
-{
+[{
     "id": "cmakqbzgw0000mn346bxid5f2",
     "name": "Random User",
     "image": "",
@@ -22,4 +22,76 @@
             ]
         }
     ]
-}
+},
+{
+    "id": "cma3tlc1s002kmnrgctpzfy8u",
+    "name": "Bhavnesh",
+    "email": "bhanusharma25200@gmail.com",
+    "isSuperUser": false,
+    "phone": "6454565445",
+    "status": "ACTIVE",
+    "roles": [
+        {
+            "id": "cma55zbix00vvmn0w1pnzvgpc",
+            "role": "PMO - Page Manager",
+            "roleType": "MANAGER",
+            "status": "ACTIVE",
+            "permissions": [
+                "SINGLE_RESOURCE_MANAGEMENT",
+                "PAGE_MANAGEMENT"
+            ]
+        },
+        {
+            "id": "cma50sn0j00obmn0wt9nn27af",
+            "role": "PMO",
+            "roleType": "MANAGER",
+            "status": "ACTIVE",
+            "permissions": [
+                "SINGLE_RESOURCE_MANAGEMENT"
+            ]
+        },
+        {
+            "id": "cmaf97a2d003fmn39trwcjyzj",
+            "role": "PMO - PAGE-SERVICE",
+            "roleType": "MANAGER",
+            "status": "ACTIVE",
+            "permissions": [
+                "SINGLE_RESOURCE_MANAGEMENT",
+                "PAGE_MANAGEMENT",
+                "SERVICE_MANAGEMENT"
+            ]
+        },
+        {
+            "id": "cma3dnjwz0003mn0wawx2nu8z",
+            "role": "verifier",
+            "roleType": "USER",
+            "status": "ACTIVE",
+            "permissions": [
+                "VERIFY"
+            ]
+        },
+        {
+            "id": "cma3dns3v0005mn0wcjuwa907",
+            "role": "Publisher",
+            "roleType": "USER",
+            "status": "ACTIVE",
+            "permissions": [
+                "EDIT"
+            ]
+        },
+        {
+            "id": "cmagdv9ld0001mn4me3xa88aa",
+            "role": "SINGLE - Career:PAGE:SERVICE",
+            "roleType": "MANAGER",
+            "status": "ACTIVE",
+            "permissions": [
+                "SINGLE_RESOURCE_MANAGEMENT",
+                "CAREER_MANAGEMENT",
+                "SERVICE_MANAGEMENT",
+                "PAGE_MANAGEMENT"
+            ]
+        }
+    ],
+    "createdAt": "2025-04-30T10:55:36.257Z",
+    "updatedAt": "2025-05-12T11:56:03.470Z"
+}]

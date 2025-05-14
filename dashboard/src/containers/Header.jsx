@@ -14,9 +14,9 @@ import SearchBar from "../components/Input/SearchBar";
 import { getNotificationsbyId } from "../app/fetch";
 import { setNotificationCount } from "../features/common/headerSlice";
 import socket from "../Socket/socket";
-import capitalizeWords, {TruncateText} from "../app/capitalizeword";
-import {updateCurrentRole, updateUser} from "../features/common/userSlice";
-import {FaCaretDown} from "react-icons/fa";
+import capitalizeWords, { TruncateText } from "../app/capitalizeword";
+import { updateCurrentRole, updateUser } from "../features/common/userSlice";
+import { FaCaretDown } from "react-icons/fa";
 
 function Header() {
   // state
@@ -143,9 +143,9 @@ function Header() {
     };
 
     const handleUserUpdate = async (response) => {
-      console.log(JSON.stringify(response.result))
-      
-      dispatch(updateUser({data:response.result, type: "update"}))
+      // console.log(JSON.stringify(response))
+
+      dispatch(updateUser({ data: response.result, type: "update" }))
       localStorage.setItem("user", JSON.stringify(response.result))
     }
 
@@ -231,13 +231,13 @@ function Header() {
               className="py-1 px-[4px] pl-[6px] text-[14px] h-full flex items-center font-[600] rounded-[5px_0px_0px_5px]"
               onClick={() => {
                 if (!oneRoleOnly) return
-                  setOpenList(!openList);
+                setOpenList(!openList);
               }}
             >
               Role
             </div>
             <label
-              className={`flex items-center ${oneRoleOnly? "justify-center":"justify-between"} cursor-pointer w-full bg-base-300 py-1 px-[6px] h-full rounded-md`}
+              className={`flex items-center ${oneRoleOnly ? "justify-center" : "justify-between"} cursor-pointer w-full bg-base-300 py-1 px-[6px] h-full rounded-md`}
               // style={{ justifyItems: oneRoleOnly ? "center" : ""}}
               onClick={() => {
                 setOpenList(!openList);
