@@ -1,13 +1,46 @@
-[
-    { "id": 1, "name": "Admin_First_User" },
-    { "id": 2, "name": "Editor_Second_User" },
-    { "id": 3, "name": "User_Third_User" },
-    { "id": 4, "name": "Manager_Forth_User" },
-    { "id": 5, "name": "Viewer_Fifth_User" },
-    { "id": 6, "name": "Moderator_Sixth_User" },
-    { "id": 7, "name": "Analyst_Seventh_User" },
-    { "id": 8, "name": "Support_Eighth_User" },
-    { "id": 9, "name": "Developer_Ninth_User" },
-    { "id": 10, "name": "Auditor_Tenth_User" }
-  ]
-  
+{
+  "id": "abc91438-d320-4524-ac84-dd21f5404e7e",
+  "action_performed": "resource created",
+  "actionType": "CREATE",
+  "entity": "resource",
+  "entityId": "cmagg9qmk009lmn8g06kzouyx",
+  "oldValue": null,
+  "newValue": {
+    "editor": "cma3dre4i000emn0w05qsnhag",
+    "manager": "",
+    "publisher": "cma3nnze1005kmn0wqh5d6sfj",
+    "verifiers": [
+      {
+        "id": "cma3tlc1s002kmnrgctpzfy8u",
+        "stage": 1
+      },
+      {
+        "id": "cmakqbzgw0000mn346bxid5f2",
+        "stage": 2
+      }
+    ],
+    "resourceId": "cmagg9qmk009lmn8g06kzouyx"
+  },
+  "ipAddress": "::ffff:172.19.0.1",
+  "browserInfo": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36 OPR/118.0.0.0",
+  "outcome": "Failure",
+  "timestamp": "2025-05-12T11:58:01.917Z",
+  "metadata": null,
+  "user": {
+    "auditLogId": "abc91438-d320-4524-ac84-dd21f5404e7e",
+    "userId": "cma3tlc1s002kmnrgctpzfy8u",
+    "createdAt": "2025-05-12T11:58:01.919Z",
+    "user": {
+      "id": "cma3tlc1s002kmnrgctpzfy8u",
+      "name": "Bhavnesh",
+      "image": "",
+      "email": "bhanusharma25200@gmail.com",
+      "password": "$2b$10$rskw1kwPCJ3lpdLcRdwUQewt7uQLHQWNwdofh6FSaE3ITBRUk7xlq",
+      "isSuperUser": false,
+      "status": "ACTIVE",
+      "phone": "6454565445",
+      "createdAt": "2025-04-30T10:55:36.257Z",
+      "updatedAt": "2025-05-12T11:56:03.470Z"
+    }
+  }
+}

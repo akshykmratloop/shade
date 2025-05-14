@@ -13,6 +13,8 @@ import {
   getRequest,
   getRequestInfo,
   removeAssignedUser,
+  approveRequest,
+  rejectRequest,
 } from "./content.service.js";
 
 const GetResources = async (req, res) => {
@@ -135,6 +137,22 @@ const GetRequestInfo = async (req, res) => {
   res.status(200).json(response);
 };
 
+
+const ApproveRequest = async (req, res) => {
+  const { requestId } = req.params;
+  const userId = req.user.id;
+  const response = await approveRequest(requestId, userId);
+  res.status(200).json(response);
+};
+
+const RejectRequest = async (req, res) => {
+  const { requestId } = req.params;
+  const userId = req.user.id;
+  const { rejectReason } = req.body;
+  const response = await rejectRequest(requestId, userId, rejectReason);
+  res.status(200).json(response);
+};
+
 export default {
   GetResources,
   GetResourceInfo,
@@ -148,4 +166,6 @@ export default {
   GenerateRequest,
   GetRequest,
   GetRequestInfo,
+  ApproveRequest,
+  RejectRequest,
 };

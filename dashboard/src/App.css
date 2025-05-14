@@ -45,6 +45,8 @@
   font-family: "BankGothic-Medium-bt";
 }
 
+/* --------------------------------- */
+
 .App {
   text-align: center;
 }
@@ -53,6 +55,29 @@
   height: 40vmin;
   pointer-events: none;
 }
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+/* ------------------------------------------------------ */
 
 /* login background */
 .l-bg {
@@ -70,20 +95,20 @@
   gap: .5rem;
 }
 
-.custom-forced-color {
-  color: #3b4152 !important;
-}
-
-.Toastify__toast-container {
-  z-index: 9999 !important;
-}
-
 .carouselDot {
   background-color: rgb(80, 80, 80);
   height: .91rem;
   width: .91rem;
   border-radius: 50%;
   transition: .1s linear background-color;
+}
+
+.custom-forced-color {
+  color: #3b4152 !important;
+}
+
+.Toastify__toast-container {
+  z-index: 9999 !important;
 }
 
 /* removing the spinners */
@@ -100,6 +125,7 @@ input[type="number"]::-webkit-inner-spin-button {
   display: none;
 }
 
+/* ------------------------- Scroll Bar Style ----------------------------------- */
 .customscroller::-webkit-scrollbar-track {
   background-color: #dbdbdb;
 }
@@ -165,6 +191,14 @@ nav.customscroller::-webkit-scrollbar-thumb {
   border-radius: 10px;
 }
 
+.rm-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.rm-scroll {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
 
 .shadow-xl-custom {
   box-shadow: 0px 10px 20px -5px #00000080;
@@ -188,9 +222,8 @@ input[type="file"] {
   /* font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif; */
   /* font-weight: 300; */
   /* font: lighter normal 14px/1.5 Calibri ; */
-  font: lighter normal 14px/1.5 "Sans";
-
   /* font-weight: lighter; */
+  font: lighter normal 14px/1.5 "Sans";
 }
 
 
@@ -211,8 +244,8 @@ select {
   outline: none;
 }
 
-select:focus{
-  border: 1px solid  #a7a7a7;
+select:focus {
+  border: 1px solid #a7a7a7;
 }
 
 
@@ -223,31 +256,11 @@ select:focus{
 
 
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
 .custom-text-color label {
   color: #6B7888;
   /* color: #979ca2; */
 }
 
-.App-link {
-  color: #61dafb;
-}
 
 @keyframes App-logo-spin {
   from {
@@ -272,6 +285,45 @@ select:focus{
   padding: 2px 6px;
   border-radius: 0px 5px 5px 0px;
 }
+
+.comment-bubble {
+  position: relative;
+  background: #f3f4f6;
+  padding: 1rem;
+  border-radius: 8px;
+  width: 30vw;
+  height: 30vh;
+  font-size: 14px;
+  color: #111827;
+  margin-left: 20px;
+  /* space for the arrow */
+  box-shadow: 1px 1px 5px #80808080;
+}
+
+/* .comment-bubble-arrow {
+  position: absolute;
+  left: 100%;
+  top: 5px;
+  height: 10px;
+  width: 10px;
+  padding: 10px;
+  background-color: #f3f4f6;
+  clip-path: polygon(0% 0%, 80% 50%, 0% 100%);
+  filter: drop-shadow(1px 1px 5px black);
+} */
+
+/* .comment-bubble::before {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  top: 3%; 
+  right: -9px; 
+  width: 0;
+  height: 0;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-left: 10px solid #f3f4f6; 
+} */
 
 .test {
   color: #29469c80;
@@ -326,16 +378,6 @@ div.importantList ul {
   border: none !important;
   outline: none !important;
 }
-
-.rm-scroll::-webkit-scrollbar {
-  display: none;
-}
-
-.rm-scroll {
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-}
-
 
 .react-datepicker__input-container input {
   padding: 10px;
@@ -521,6 +563,7 @@ div.importantList ul {
     opacity: 1;
     transform: translateX(0);
   }
+
   to {
     opacity: 0;
     transform: translateX(100%);

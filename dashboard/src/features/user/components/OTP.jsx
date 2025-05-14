@@ -86,7 +86,7 @@ const OTPpage = ({ formObj, request, stateUpdater, otpSent }) => {
 
         const response = await request(payload);
         if (formObj.otpOrigin === "MFA_Login" || payload.otpOrigin === "MFA_Login") {
-            dispatch(updateUser(response.user));
+            dispatch(updateUser({ data: response.user, type: "login" }));
             localStorage.setItem("user", JSON.stringify(response.user))
             localStorage.setItem("token", response.token);
             localStorage.removeItem(formObj.otpOrigin)

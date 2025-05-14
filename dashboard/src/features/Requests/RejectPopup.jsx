@@ -1,11 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import ErrorText from "../../components/Typography/ErrorText";
 import xSign from "../../assets/x-close.png"
+import CloseModalButton from "../../components/Button/CloseButton";
 
 const RejectPopup = ({ setClose, display, submitfunction }) => {
   const [rejectReason, setRejectReason] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-
+  const minWords = 2
   const popupRef = useRef(null)
 
   const closeThisPopup = () => {
@@ -20,7 +21,7 @@ const RejectPopup = ({ setClose, display, submitfunction }) => {
   const submitRejection = async (e) => {
     e.preventDefault()
     if (rejectReason.trim() === "") { return setErrorMessage("Please Provide a message") }
-    if (rejectReason.split(" ").length < 10) { return setErrorMessage("The reason must have at least 10 words") }
+    if (rejectReason.split(" ").length < minWords) { return setErrorMessage(`The reason must have at least ${minWords} words`) }
 
     await submitfunction(rejectReason)
   }
@@ -43,8 +44,9 @@ const RejectPopup = ({ setClose, display, submitfunction }) => {
     <div style={{ display: display ? "flex" : "none" }}
       className="fixed top-0 left-0 w-full h-screen bg-black/40 items-center justify-center"
     >
-      
+
       <div ref={popupRef} className="w-[40%] bg-white dark:bg-[#242933] flex flex-col items-center justify-center gap-5 p-6 px-20 rounded-lg shadow-lg relative">
+        <CloseModalButton onClickClose={() => setClose(false)} />
         {/* <h3 className="">
           You are rejecting the request.
         </h3> */}
@@ -52,7 +54,7 @@ const RejectPopup = ({ setClose, display, submitfunction }) => {
           <label htmlFor="" className="flex flex-col gap-2 relative">
             <p>Are you sure you want to reject this request?</p>
             Please enter a reason to reject.
-            <textarea name="" id="" className="border rounded-md min-h-20 p-2 text-sm"
+            <textarea name="" id="" className="border rounded-md min-h-20 p-2 text-sm max-h-[25vh]"
               onChange={onTypeInput}
             ></textarea>
             <ErrorText

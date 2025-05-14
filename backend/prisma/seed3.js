@@ -4,20 +4,14 @@ import crypto from "crypto";
 
 const sectionTypes = [
   "HERO_BANNER",
+  "CARD_GRID",
+  "STATISTICS",
+  "TESTIMONIALS",
+  "CLIENT_LOGOS",
+  "CONTACT_FORM",
   "MARKDOWN_CONTENT",
   "SERVICE_CARDS",
-  "STATISTICS",
   "PROJECT_GRID",
-  "CLIENT_LOGOS",
-  "TESTIMONIALS",
-  "NORMAL_CONTENT",
-
-  "INTRO_CONTENT",
-
-  "GALLERY_GRID",
-
-  "CARD_GRID",
-  "CONTACT_FORM",
   "TEAM",
   "CLIENTS",
   "MARKETS",
@@ -30,6 +24,7 @@ const sectionTypes = [
   "NEWS_DETAIL",
   "CONTACT_INFO",
   "TESTIMONIAL",
+  "NORMAL_CONTENT",
 ];
 
 
@@ -95,6 +90,7 @@ async function main() {
       resourceType,
       resourceTag,
       relationType,
+      // contentData,
       sections
     ) {
       // Ensure sections is an array
@@ -338,24 +334,13 @@ async function main() {
     }
 
     // 2. Create Footer
-    await createResource("Footer", "التذييل", "footer", "FOOTER", "FOOTER", "PARENT", [
+    await createResource("Footer", "التذييل", "footer", "FOOTER", "NULL", "PARENT", [
       {
         title: "Footer Content",
         SectionType: "FOOTER_COLUMNS",
         content: content.footer,
         isGlobal: true,
         sectionVersionTitle: "Footer Body",
-      },
-    ]);
-
-    // 2. Create Footer
-    await createResource("Header", "الرأس", "header", "HEADER", "HEADER", "PARENT", [
-      {
-        title: "Header Content",
-        SectionType: "HEADER_NAV",
-        content: content.header,
-        isGlobal: true,
-        sectionVersionTitle: "Header Body",
       },
     ]);
 
@@ -640,7 +625,6 @@ async function main() {
         },
       ]
     );
-    
     // 12. Create Solutions Page
     await createResource(
       "Solutions Page",
@@ -649,35 +633,34 @@ async function main() {
       "MAIN_PAGE",
       "SOLUTION",
       "PARENT",
-        [{
+      content.solution,
+      [
+        {
           title: "Solutions Banner",
           SectionType: "HERO_BANNER",
           content: content.solution.banner,
           sectionVersionTitle: content.solution.banner.title?.en || null,
         },
         {
-          title: "Solution Description",
+          title: "What We Do",
           SectionType: "MARKDOWN_CONTENT",
-          content: content.solution.sectionContent,
-          sectionVersionTitle: "Solution Description",
+          content: content.solution.whatWeDo,
+          sectionVersionTitle: content.solution.whatWeDo.title?.en || null,
         },
         {
-          title: "Project Gallery1",
-          SectionType: "GALLERY_GRID",
-          content: content.solution.gallery1,
-          sectionVersionTitle: "Project Gallery1",
+          title: "How We Do It",
+          SectionType: "MARKDOWN_CONTENT",
+          content: content.solution.howWeDo,
+          sectionVersionTitle: content.solution.howWeDo.title?.en || null,
         },
         {
-          title: "Project Gallery2",
-          SectionType: "GALLERY_GRID",
-          content: content.solution.gallery2,
-          sectionVersionTitle: "Project Gallery2",
+          title: "Project Gallery",
+          SectionType: "PROJECT_GRID",
+          content: content.solution.gallery,
+          sectionVersionTitle: content.solution.gallery.title?.en || null,
         },
       ]
     );
-
-
-
     // 13. Create About Us Page
     await createResource(
       "About Us Page",
@@ -686,18 +669,19 @@ async function main() {
       "MAIN_PAGE",
       "ABOUT",
       "PARENT",
+      content.aboutUs,
       [
         {
-          title: "About Intro",
-          SectionType: "INTRO_CONTENT",
-          content: content.aboutUs.intro,
-          sectionVersionTitle: content.aboutUs.intro.title?.en || null,
+          title: "About Banner",
+          SectionType: "HERO_BANNER",
+          content: content.aboutUs.main,
+          sectionVersionTitle: content.aboutUs.main.title?.en || null,
         },
         {
-          title: "About Video Section",
-          SectionType: "MARKDOWN_CONTENT",
-          content: content.aboutUs.videoSection,
-          sectionVersionTitle: content.aboutUs.videoSection.title?.en || null,
+          title: "Mission Vision",
+          SectionType: "CARD_GRID",
+          content: content.aboutUs.services,
+          sectionVersionTitle: content.aboutUs.services.title?.en || null,
         },
       ]
     );
@@ -735,7 +719,7 @@ async function main() {
       {
         title: "recentProjectsSection",
         SectionType: "PROJECT_GRID",
-        content: content.home.recentProjectsSection,
+        content: content.home.recentProjectsSection.content,
         sectionVersionTitle: "Recent Projects. Markets & Safety Grid",
         sections:
           content.home.recentProjectsSection.sections?.map((section) => ({

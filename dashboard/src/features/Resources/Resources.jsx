@@ -428,7 +428,7 @@ function Resources() {
       )}
       {
         preview &&
-        <div className="fixed top-0 left-0 z-[55] h-screen bg-stone-900/30 overflow-y-scroll">
+        <div className="fixed top-0 left-0 z-[55] h-screen bg-stone-900/30 overflow-y-scroll customscroller">
           <Suspense fallback={<FallBackLoader />}>
             <div className="">
               <CloseModalButton onClickClose={() => setPreview(false)} className={"fixed top-4 right-8 z-[56]"} />
@@ -448,7 +448,7 @@ function Resources() {
           </Suspense>
         </div>
       }
-      <ToastContainer hideProgressBar={true} />
+      <ToastContainer />
     </div >
   );
 }

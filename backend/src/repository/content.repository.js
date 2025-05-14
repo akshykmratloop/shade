@@ -2528,63 +2528,63 @@ export const fetchRequestInfo = async (requestId) => {
 
   // Format the data as per requirements
   const formattedData = {
-    Details: {
-      Resource: request.resourceVersion.resource.titleEn,
-      "Resource Type": request.resourceVersion.resource.resourceType,
-      "Resource Tag": request.resourceVersion.resource.resourceTag,
+    details: {
+      resource: request.resourceVersion.resource.titleEn,
+      "resourceType": request.resourceVersion.resource.resourceType,
+      "resourceTag": request.resourceVersion.resource.resourceTag,
       slug : request.resourceVersion.resource.slug,
-      Status: request.status,
-      "Assigned Users": {
-        Manager:
+      status: request.status,
+      "assignedUsers": {
+        manager:
           request.resourceVersion.resource.roles
             .filter((role) => role.role === "MANAGER")
             .map((role) => role.user.name)
             .join(", ") || "Not assigned",
-        Editor:
+        editor:
           request.resourceVersion.resource.roles
             .filter((role) => role.role === "EDITOR")
             .map((role) => role.user.name)
             .join(", ") || "Not assigned",
-        Verifiers: request.resourceVersion.resource.verifiers.reduce(
+        verifiers: request.resourceVersion.resource.verifiers.reduce(
           (acc, verifier) => {
             const level = `level ${verifier.stage}`;
-            if (!acc[level]) acc[level] = [];
-            acc[level].push(verifier.user.name);
+            if (!acc[level]) acc[level] = verifier.user.name;
+            // acc[level].push(verifier.user.name);
             return acc;
           },
           {}
         ),
-        Publisher:
+        publisher:
           request.resourceVersion.resource.roles
             .filter((role) => role.role === "PUBLISHER")
             .map((role) => role.user.name)
             .join(", ") || "Not assigned",
       },
-      "Submitted Date": request.createdAt,
-      Comment: request.editorComments || "No comments",
-      "Submitted By": request.sender.name,
-      "Submitted To":
+      "submittedDate": request.createdAt,
+      comment: request.editorComments || "No comments",
+      "submittedBy": request.sender.name,
+      "submittedTo":
         request.approvals.length > 0
           ? request.approvals[0].approver.name
           : "Not assigned",
-      "Version No.": `V ${request.resourceVersion.versionNumber}`,
-      "Reference Document": request.resourceVersion.referenceDoc
+      "versionNo.": `V ${request.resourceVersion.versionNumber}`,
+      "referenceDocument": request.resourceVersion.referenceDoc
         || "No document",
-      "Request Type": request.type,
-      "Request No.": request.id.slice(0, 4).toUpperCase(),
-      "Previous Request": request.previousRequest
+      "requestType": request.type,
+      "requestNo.": request.id.slice(0, 4).toUpperCase(),
+      "previousRequest": request.previousRequest
         ? `${request.previousRequest.type} | ${request.previousRequest.id
             .slice(0, 4)
             .toUpperCase()}`
         : "None",
-      "Approval Status": request.approvals.map((approval) => ({
-        Role: getRoleForApprover(
+      "approvalStatus": request.approvals.map((approval) => ({
+        role: getRoleForApprover(
           approval.approver.id,
           request.resourceVersion.resource
         ),
-        Stage: approval.stage,
-        Status: approval.status,
-        Comment: approval.comments || "No comments",
+      stage: approval.stage,
+      status: approval.status,
+        comment: approval.comments || "No comments",
       })),
     },
   };
@@ -2601,4 +2601,94 @@ function getRoleForApprover(userId, resource) {
   if (verifier) return `VERIFIER_LEVEL_${verifier.stage}`;
 
   return "UNKNOWN";
+}
+
+export const approveRequestInVerification = async (requestId, userId) => {
+  return await prismaClient.$transaction(async (tx) => {
+    // Find the specific approval log for this user
+    const approvalLog = await tx.requestApproval.findFirst({
+      where: { 
+        requestId: requestId,
+        approverId: userId,
+        status: "PENDING"
+      }
+    });
+
+    if (!approvalLog) {
+      throw new Error("Approval log not found");
+    }
+
+    // Update the approval status
+    await tx.requestApproval.update({
+      where: { id: approvalLog.id },
+      data: {
+        status: "APPROVED"
+      }
+    });
+
+    // Check if all verifiers have approved
+    const pendingApprovals = await tx.requestApproval.count({
+      where: {
+        requestId: requestId,
+        status: "PENDING",
+        stage: { not: null }
+      }
+    });
+
+    // If no pending approvals remain, update the request status
+    if (pendingApprovals === 0) {
+      await tx.resourceVersioningRequest.update({
+        where: { id: requestId },
+        data: {
+          status: "APPROVED"
+        }
+      });
+    }
+
+    // Get the updated request to return
+    const request = await tx.resourceVersioningRequest.findUnique({
+      where: { id: requestId },
+      include: {
+        approvals: true
+      }
+    });
+
+    return request;
+  });
+}
+
+
+export const rejectRequestInVerification = async (requestId, userId, rejectReason) => {
+  return await prismaClient.$transaction(async (tx) => {
+    // Find and update the specific approval log for this verifier
+    const approvalLog = await tx.resourceVersioningRequestApproval.updateMany({
+      where: { 
+        requestId: requestId,
+        approverId: userId,
+        status: "PENDING"
+      },
+      data: {
+        status: "REJECTED",
+        comments: rejectReason
+      }
+    });
+
+    // Update the request status to REJECTED
+    await tx.resourceVersioningRequest.update({
+      where: { id: requestId },
+      data: {
+        status: "REJECTED"
+      }
+    });
+
+    // Get the updated request to return
+    const request = await tx.resourceVersioningRequest.findUnique({
+      where: { id: requestId },
+      include: {
+        approvals: true
+      }
+    });
+
+    return request;
+  });
 }
