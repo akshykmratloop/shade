@@ -1,0 +1,25 @@
+{
+    "id": "cmakqbzgw0000mn346bxid5f2",
+    "name": "Random User",
+    "image": "",
+    "email": "lookuna@gmail.com",
+    "password": "$2b$10$ANYLMV/yy66nSOK5fw3IXO2WTf5pUGPG6DzDRBAfmPHfUp5crlZMK",
+    "isSuperUser": false,
+    "status": "ACTIVE",
+    "phone": "1234123412",
+    "createdAt": "2025-05-12T06:56:26.192Z",
+    "updatedAt": "2025-05-13T11:03:17.563Z",
+    "roles": [
+        {
+            "id": "cma3dpowk000dmn0wm5giuejb",
+            "role": "User Full Permission",
+            "roleType": "USER",
+            "status": "ACTIVE",
+            "permissions": [
+                "EDIT",
+                "PUBLISH",
+                "VERIFY"
+            ]
+        }
+    ]
+}
