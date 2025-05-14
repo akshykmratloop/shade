@@ -1,15 +1,17 @@
-import {useEffect, useRef, useState} from "react";
-import {Dialog} from "@headlessui/react";
-import {XMarkIcon} from "@heroicons/react/24/outline";
+import { useEffect, useRef, useState } from "react";
+import { Dialog } from "@headlessui/react";
+import { XMarkIcon } from "@heroicons/react/24/outline";
 import formatTimestamp from "../../app/TimeFormat";
-import {getRoleById} from "../../app/fetch";
+import { getRoleById } from "../../app/fetch";
 import capitalizeWords from "../../app/capitalizeword";
 import SkeletonLoader from "../../components/Loader/SkeletonLoader";
 
-function ShowLogs({log, show, onClose}) {
+function ShowLogs({ log, show, onClose }) {
+  console.log(JSON.stringify(log))
   const [fetchedRole, setFetchedRole] = useState({});
 
-  const emptyOfObject = {"N/A": "N/A"};
+
+  const emptyOfObject = { "N/A": "N/A" };
   function getBrowserInfo(uaString) {
     let browserMatch =
       uaString?.match(
@@ -108,7 +110,7 @@ function ShowLogs({log, show, onClose}) {
             <div className="overflow-x-auto">
               <table className="table-auto w-full text-left mb-4">
                 <thead></thead>
-                <tbody style={{borderBottom: "1px solid #E0E0E0 "}}>
+                <tbody style={{ borderBottom: "1px solid #E0E0E0 " }}>
                   <tr className="font-light text-sm ">
                     <td className="pt-2  w-1/4">Action Type</td>
                     <td className="pt-2  w-1/4">Target</td>
@@ -131,7 +133,7 @@ function ShowLogs({log, show, onClose}) {
               </table>
               <table className="table-auto w-full text-left mb-4">
                 <thead></thead>
-                <tbody style={{borderBottom: "1px solid #E0E0E0 "}}>
+                <tbody style={{ borderBottom: "1px solid #E0E0E0 " }}>
                   <tr className="font-light text-sm ">
                     <td className="pt-2  w-1/4">Outcome</td>
                     <td className="pt-2  w-1/4">Date & Time</td>
@@ -149,20 +151,19 @@ function ShowLogs({log, show, onClose}) {
                                                         items-center
                                                         justify-center gap-1 
                                                         px-1 py-0 font-[500] 
-                                                        ${
-                                                          log?.outcome ===
-                                                          "Success"
-                                                            ? "text-green-600 bg-green-100 before:text-green-600 px-1"
-                                                            : log?.outcome ===
-                                                              "Failed"
-                                                            ? "text-red-600 bg-red-100 before:text-red-600"
-                                                            : "text-stone-600 bg-stone-100 before:text-stone-600"
-                                                        } 
+                                                        ${log?.outcome ===
+                            "Success"
+                            ? "text-green-600 bg-green-100 before:text-green-600 px-1"
+                            : log?.outcome ===
+                              "Failed"
+                              ? "text-red-600 bg-red-100 before:text-red-600"
+                              : "text-stone-600 bg-stone-100 before:text-stone-600"
+                          } 
                                                         rounded-2xl
                                                         `}
-                        style={{textTransform: "capitalize"}}
+                        style={{ textTransform: "capitalize" }}
                       >
-                        {capitalizeWords(fetchedRole?.outcome ?? "N/A")}
+                        {capitalizeWords(log?.outcome ?? "N/A")}
                       </p>
                     </td>
                     <td className={`py-2 pb-6  w-1/4`}>

@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import formatTimestamp from "../../app/TimeFormat";
-import {RxQuestionMarkCircled} from "react-icons/rx";
-import {CheckCircle, XCircle} from "lucide-react";
-import {TruncateText} from "../../app/capitalizeword";
+import { RxQuestionMarkCircled } from "react-icons/rx";
+import { BsDashCircle } from "react-icons/bs";
+import { CheckCircle, XCircle } from "lucide-react";
+import capitalizeWords, { TruncateText } from "../../app/capitalizeword";
+import { useSelector } from "react-redux";
+import { getRequestInfo } from "../../app/fetch";
 
 const data = [
   {
@@ -10,61 +13,91 @@ const data = [
     status: "Approved",
     comment: "Edit, View, Delete",
   },
-  {role: "Verifier", status: "Rejected", comment: "Edit, View, Delete"},
+  { role: "Verifier", status: "Rejected", comment: "Edit, View, Delete" },
 ];
 
 const statusStyles = {
-  Approved: {
+  APPROVED: {
     bg: "bg-green-100",
     text: "text-green-600",
     icon: <CheckCircle className="w-4 h-4 inline-block mr-1" />,
   },
-  Rejected: {
+  REJECTED: {
     bg: "bg-red-100",
     text: "text-red-600",
     icon: <XCircle className="w-4 h-4 inline-block mr-1" />,
   },
+  PENDING: {
+    bg: "bg-yellow-100",
+    text: "text-yellow-600",
+    icon: <BsDashCircle className="w-4 h-4 inline-block mr-1" />,
+  },
 };
 
 const RequestDetails = () => {
+  const id = useSelector(state => state.rightDrawer.extraObject.id)
+  const [requestData, setRequestData] = useState({})
+
+  const verifiers = Object.entries(requestData?.["assignedUsers"]?.verifiers || [])
+
+  useEffect(() => {
+    async function fetchRequestInfo() {
+
+      if (id) {
+
+        try {
+          const response = await getRequestInfo(id);
+
+          if (response.ok) {
+            setRequestData(response?.requestInfo?.details)
+          } else {
+
+          }
+        } catch (err) {
+          console.log(err)
+        }
+
+      }
+    }
+    fetchRequestInfo()
+  }, [id])
   return (
     <div>
       <div className=" flex flex-col h-[87%] text-[14px] custom-text-color p-[10px] py-0  mt-2 overflow-y-auto customscroller">
         <div className="flex py-[15px] justify-between border-b dark:border-stone-700">
           <label>Resource</label>
-          <p>Warish</p>
+          <p>{requestData?.resource || "N/A"}</p>
         </div>
         <div className="flex py-[15px] justify-between border-b dark:border-stone-700">
           <label>Status</label>
-          <p>Edit Mode</p>
+          <p>{requestData?.status || "N/A"}</p>
         </div>
         <div className="flex flex-col py-[15px] pb-[2px] justify-between">
           <label>Assigned Users:</label>
           <div className="">
             <div className="border-b dark:border-stone-700 flex justify-between py-2 h-[43px] items-center">
               <label className="">Manager:</label>
-              <p>Warish</p>
+              <p>{requestData?.["assignedUsers"]?.manager}</p>
             </div>
             <div className="border-b dark:border-stone-700 flex justify-between py-2 h-[43px] items-center">
               <label className="">Editor:</label>
-              <p>Himanshu</p>
+              <p>{requestData?.["assignedUsers"]?.editor}</p>
             </div>
             <div className="flex flex-col">
-              {["Akshay", "Akshay", "Akshay", "Akshay"].map((el, ind) => {
+              {verifiers?.map((el, ind) => {
                 let firstIndex = ind === 0;
                 return (
                   <div
                     key={ind}
-                    className={`flex gap-[10px] items-center border-b dark:border-stone-700 ${
-                      firstIndex ? "justify-between" : "justify-end"
-                    }`}
+                    className={`flex gap-[10px] items-center border-b dark:border-stone-700 ${firstIndex ? "justify-between" : "justify-end"
+                      }`}
                   >
                     {firstIndex && <label className="">Verifiers:</label>}
                     <div className="flex gap-[10px] items-center py-[10px]">
                       <p className="border px-[12px] w-[6rem] py-[2px] text-center rounded-3xl font-light text-[11px]">
-                        {"level " + parseInt(ind + 1)}
+                        {el[0]}
                       </p>
-                      <p>{el}</p>
+                      <p>{el[1]}</p>
                     </div>
                   </div>
                 );
@@ -72,11 +105,11 @@ const RequestDetails = () => {
             </div>
             <div className="border-b dark:border-stone-700 flex justify-between py-4 items-center">
               <label className="">Publisher:</label>
-              <p>Anukool</p>
+              <p>{requestData?.["assignedUsers"]?.publisher}</p>
             </div>
             <div className="border-b dark:border-stone-700 flex justify-between py-2 h-[43px] items-center">
               <label className="">Submitted Date</label>
-              <p>09/09/2025</p>
+              <p>{formatTimestamp(requestData?.["submittedDate"])}</p>
             </div>
             <div className="border-b dark:border-stone-700 flex flex-col justify-between py-2">
               <div className="flex gap-1 items-center">
@@ -84,20 +117,20 @@ const RequestDetails = () => {
                 <RxQuestionMarkCircled />
               </div>
               <p className="py-2">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Ab
+                {requestData?.comment}
               </p>
             </div>
             <div className="border-b dark:border-stone-700 flex justify-between py-2 h-[43px] items-center">
               <label className="">Submitted By</label>
-              <p>Warish</p>
+              <p>{requestData?.["submittedBy"]}</p>
             </div>
             <div className="border-b dark:border-stone-700 flex justify-between py-2 h-[43px] items-center">
               <label className="">Submitted To</label>
-              <p>Akshay</p>
+              <p>{requestData?.["submittedTo"]}</p>
             </div>
             <div className="border-b dark:border-stone-700 flex justify-between py-2 h-[43px] items-center">
               <label className="">Version No.</label>
-              <p>V 1.1.0</p>
+              <p>{requestData?.["versionNo."]}</p>
             </div>
           </div>
         </div>
@@ -115,16 +148,16 @@ const RequestDetails = () => {
         <div className="flex border-b dark:border-stone-700">
           <div className="w-1/2 flex flex-col justify-between py-2">
             <label className="">Request Type</label>
-            <p>Verifier</p>
+            <p>{requestData?.["requestType"]}</p>
           </div>
           <div className=" w-1/2 flex  flex-col justify-between py-2">
             <label className="">Request No.</label>
-            <p>0002</p>
+            <p>{requestData?.["requestNo."]}</p>
           </div>
         </div>
         <div className="border-b dark:border-stone-700 flex justify-between py-2 h-[43px] items-center">
           <label className="">Previous Request</label>
-          <p>Verifier | 0001</p>
+          <p>{requestData?.["previousRequest"]}</p>
         </div>
         <div className="flex flex-col justify-between py-2">
           <label className=" pt-1 pb-2">Approval Status</label>
@@ -143,14 +176,14 @@ const RequestDetails = () => {
               </tr>
             </thead>
             <tbody>
-              {data.map(({role, status, comment}) => {
-                const {bg, text, icon} = statusStyles[status] || {};
+              {requestData?.approvalStatus?.map(({ role, status, comment }) => {
+                const { bg, text, icon } = statusStyles[status] || {};
                 return (
                   <tr
                     key={role}
                     className="border-b dark:border-slate-700 last:border-0"
                   >
-                    <td className="px-3 py-2 text-sm">{role}</td>
+                    <td className="px-3 py-2 text-sm">{capitalizeWords(role)}</td>
                     <td className="px-3 py-2 text-sm dark:text-white  ">
                       <span
                         className={`${bg} ${text} inline-flex items-center px-3 py-1 rounded-full text-xs font-small`}

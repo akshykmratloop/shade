@@ -72,7 +72,7 @@ export const createUserHandler = async (
     `,
   };
 
-  // await sendEmail(emailPayload);
+  await sendEmail(emailPayload);
 
   return newUser;
 };
@@ -198,6 +198,55 @@ export const updateUser = async (id, name, password, phone, roles) => {
     ...updatedUser,
     roles: roleAndPermission,
   };
+};
+
+export const fetchAllUsersByRoleId = async (roleId) => {
+  const users = await prismaClient.user.findMany({
+    where: {
+      roles: {
+        some: {
+          roleId,
+        },
+      },
+    },
+    include: {
+      roles: {
+        include: {
+          role: {
+            include: {
+              roleType: true,
+              permissions: {
+                select: {
+                  permission: true,
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+  });
+  // console.log(JSON.stringify(users), "users");
+  const formattedUsers = users.map((user) => ({
+    id: user.id,
+    name: user.name,
+    email: user.email,
+    isSuperUser: user.isSuperUser,
+    phone: user.phone,
+    status: user.status,
+    roles: user.roles.map((role) => ({
+      id: role.role.id,
+      role: role.role.name,
+      roleType: role.role.roleType.name,
+      status: role.role.status,
+      permissions: role.role.permissions.map(
+        (permission) => permission.permission.name
+      ),
+    })),
+    createdAt: user.createdAt,
+    updatedAt: user.updatedAt,
+  }));
+  return formattedUsers;
 };
 
 // Find and return the user object
@@ -485,6 +534,29 @@ export const findRoleTypeByUserId = async (id) => {
   });
 
   return roleType;
+};
+
+export const fetchAllRolesForUser = async () => {
+  const roles = await prismaClient.role.findMany({
+    where: {
+      name: {
+        not: "SUPER_ADMIN", // Exclude SUPER_ADMIN
+      },
+    },
+    include: {
+      _count: {
+        select: {
+          permissions: true, // Count of permissions per role
+          users: true, // Count of users per role
+        },
+      },
+    },
+    orderBy: {created_at: "asc"},
+  });
+
+  return {
+    roles,
+  };
 };
 
 export const findAllLogs = async () => {

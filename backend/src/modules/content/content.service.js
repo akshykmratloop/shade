@@ -14,6 +14,8 @@ import {
   fetchRequests,
   fetchRequestInfo,
   markAllAssignedUserInactive,
+  approveRequestInVerification,
+  rejectRequestInVerification,
 } from "../../repository/content.repository.js";
 
 const getResources = async (
@@ -202,8 +204,8 @@ const getRequestInfo = async (requestId) => {
 
 
 
-const ApproveRequest = async (requestId) => {
-  const request = await approveRequest(requestId);
+const approveRequest = async (requestId, userId) => {
+  const request = await approveRequestInVerification(requestId, userId);
   logger.info({
     response: "Request Approved successfully",
     // request: request,
@@ -212,8 +214,8 @@ const ApproveRequest = async (requestId) => {
 };
 
 
-const RejectRequest = async (requestId) => {
-  const request = await r0ejectRequest(requestId);
+const rejectRequest = async (requestId, userId, rejectReason) => {
+  const request = await rejectRequestInVerification(requestId, userId, rejectReason);
   logger.info({
     response: "Request Rejected successfully",
     // request: request,
@@ -267,8 +269,8 @@ export {
   generateRequest,
   getRequest,
   getRequestInfo,
-  ApproveRequest,
-  RejectRequest,
+  approveRequest,
+  rejectRequest,
   ScheduleRequest,
   PublishRequest,
 };

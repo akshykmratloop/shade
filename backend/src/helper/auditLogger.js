@@ -13,7 +13,7 @@ const auditLogger = async (req, res, next) => {
     req.body.resourceId ||
     res?.user?.id ||
     null;
-  console.log("starttt", res, "ress");
+  // console.log("starttt", res, "ress");
   const ipAddress = req.ip;
   const browserInfo = req.headers["user-agent"];
 
@@ -63,12 +63,12 @@ const auditLogger = async (req, res, next) => {
         req.body?.id ||
         null;
 
-      console.log("Resolved entityId:", entityId);
+      // console.log("Resolved entityId:", entityId);
     }
 
     // Fetch the latest data from the DB after update
     if (res.statusCode >= 400) {
-      console.log("Update failed, newValue remains unchanged.");
+      // console.log("Update failed, newValue remains unchanged.");
       newValue = req.body; // Since the update didn't go through, no change happened
     } else if (["CREATE", "UPDATE"].includes(actionType) && entityId) {
       // Fetch latest data from the database only if the update was successful

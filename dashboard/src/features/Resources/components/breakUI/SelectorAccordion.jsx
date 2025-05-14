@@ -10,6 +10,7 @@ const SelectorAccordion = ({
   value = [],
   preAssignedVerifiers,
 }) => {
+  console.log(options)
   const [selector, setSelector] = useState([{ label: "Level 1", value: "" }]);
   const selectorRef = useRef(null);
   const prevSelectorRef = useRef(selector);
@@ -25,6 +26,8 @@ const SelectorAccordion = ({
     e.preventDefault();
     setSelector(prev => [...prev, { label: `Level ${prev.length + 1}`, value: "" }]);
   };
+
+  console.log(selector)
 
   const updateSelectorValue = (index, label, newValue) => {
     if (!newValue) return;
@@ -103,9 +106,8 @@ const SelectorAccordion = ({
               /> */}
 
               <select
-                className={`w-full mt-1 px-2 py-2 text-xs border rounded-md outline-none bg-transparent border-stone-300 dark:border-stone-600 ${
-                  select.value ? "text-zinc-700 dark:text-zinc-300" : ""
-                }`}
+                className={`w-full mt-1 px-2 py-2 text-xs border rounded-md outline-none bg-transparent border-stone-300 dark:border-stone-600 ${select.value ? "text-zinc-700 dark:text-zinc-300" : ""
+                  }`}
                 onChange={(e) =>
                   updateSelectorValue(index, "value", e.target.value)
                 }

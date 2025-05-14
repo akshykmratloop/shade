@@ -31,7 +31,7 @@ const makerequest = async (
   // Check if token is expired and clear session if it is
   if (token && isTokenExpired(token)) {
     clearSession();
-    return {error: "Session expired. Please log in again.", ok: false};
+    return { error: "Session expired. Please log in again.", ok: false };
   }
 
   const controller = new AbortController();
@@ -41,7 +41,7 @@ const makerequest = async (
 
   const finalHeaders = {
     ...headers,
-    ...(token ? {Authorization: `Bearer ${token}`} : {}),
+    ...(token ? { Authorization: `Bearer ${token}` } : {}),
   };
 
   const options = {
@@ -65,9 +65,9 @@ const makerequest = async (
     result = await response.json();
     result.ok = true;
   } catch (err) {
-    console.error(err)
+    // console.error(err)
     if (err.name === "AbortError") {
-      result = {error: "Request timed out"};
+      result = { error: "Request timed out" };
     } else {
       result = err;
       result.ok = false;
@@ -79,7 +79,7 @@ const makerequest = async (
 };
 
 const ContentType = {
-  json: {"Content-Type": "application/json"},
+  json: { "Content-Type": "application/json" },
 };
 
 // fetch for auth
@@ -252,8 +252,19 @@ export async function fetchPermissionsByRoleType(roleTypeId) {
 }
 
 // fetch for Users
-export async function getAllusers() {
-  return await makerequest(api.route("getUsers"), "GET");
+// export async function getAllusers(query) {
+//   return await makerequest(api.route("getUsers"), "GET");
+// }
+
+export async function getAllusers(query) {
+  if (!query || typeof query !== "object" || Object.keys(query).length === 0) {
+    return await makerequest(api.route("getUsers"), "GET");
+  }
+
+  const params = new URLSearchParams(query).toString();
+  const url = `${api.route("getUsers")}?${params}`;
+
+  return await makerequest(url, "GET");
 }
 
 export async function createUser(data) {
@@ -406,6 +417,32 @@ export async function generateRequest(body) {
   );
 }
 
+export async function getRequestInfo(param) {
+  return await makerequest(
+    `${api.route("requestInfo")}` + param,
+    "GET",
+  );
+}
+
+export async function approveRequest(param) {
+  return await makerequest(
+    `${api.route("approveRequest")}` + param,
+    "POST",
+    JSON.stringify({}),
+    ContentType.json,
+    true
+  );
+}
+
+export async function rejectedRequest(param, body) {
+  return await makerequest(
+    `${api.route("rejectRequest")}` + param,
+    "POST",
+    JSON.stringify(body),
+    ContentType.json,
+    true
+  );
+}
 // export async function getRequests(query) {
 //   if (!query || typeof query !== "object") {
 //     return await makerequest(api.route("getRequests"), "GET");

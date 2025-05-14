@@ -1,20 +1,20 @@
-import {useEffect, useRef, useState} from "react";
+import { useEffect, useRef, useState } from "react";
 import InputText from "../../components/Input/InputText";
-import {fetchRoles, createUser, updateUser, getUserById} from "../../app/fetch";
-import {toast, ToastContainer} from "react-toastify";
+import { fetchRoles, createUser, updateUser, getUserById } from "../../app/fetch";
+import { toast, ToastContainer } from "react-toastify";
 import validator from "../../app/valid";
-import updateToasify from "../../app/toastify";
+import updateToastify from "../../app/toastify";
 import InputFileForm from "../../components/Input/InputFileForm";
 import dummy from "../../assets/MOCK_DATA.json";
-import {X} from "lucide-react";
-import {checkRegex} from "../../app/emailregex";
+import { X } from "lucide-react";
+import { checkRegex } from "../../app/emailregex";
 import PasswordValidation from "../user/components/PasswordValidation";
 import CloseModalButton from "../../components/Button/CloseButton";
 import capitalizeWords from "../../app/capitalizeword";
-import {useDispatch, useSelector} from "react-redux";
-import {switchDebounce} from "../common/debounceSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { switchDebounce } from "../common/debounceSlice";
 
-const AddUserModal = ({show, onClose, updateUsers, user}) => {
+const AddUserModal = ({ show, onClose, updateUsers, user }) => {
   const [errorMessageName, setErrorMessageName] = useState("");
   const [errorMessageEmail, setErrorMessageEmail] = useState("");
   const [errorMessagePhone, setErrorMessagePhone] = useState("");
@@ -78,10 +78,9 @@ const AddUserModal = ({show, onClose, updateUsers, user}) => {
 
     try {
       dispatch(switchDebounce(true));
-
-      loadingToastId = toast.loading("Processing request...", {
-        autoClose: 2000,
-      });
+      // loadingToastId = toast.loading("Processing request...", {
+      // autoClose: 2000,
+      // });
 
       let response;
       if (user) {
@@ -91,25 +90,24 @@ const AddUserModal = ({show, onClose, updateUsers, user}) => {
           roles: userData.roles,
         };
         if (!validPassword) payload.password = userData.password;
-        response = await updateUser({payload, id: user.id});
+        response = await updateUser({ payload, id: user.id });
       } else {
         response = await createUser(userData);
       }
 
       if (response?.ok) {
-        // updateToasify(
+        // updateToastify(
         //   loadingToastId,
         //   `User Created successful! 🎉`,
         //   "success",
         //   1000
         // );
       } else {
-        // updateToasify(
+        // updateToastify(
         //   loadingToastId,
-        //   `Request failed. ${
-        //     response?.message
-        //       ? response.message
-        //       : "Something went wrong please try again later"
+        //   `Request failed. ${response?.message
+        //     ? response.message
+        //     : "Something went wrong please try again later"
         //   }`,
         //   "error",
         //   2000
@@ -122,7 +120,7 @@ const AddUserModal = ({show, onClose, updateUsers, user}) => {
       updateUsers((prev) => !prev);
       dispatch(switchDebounce(false));
     }
-    toast.dismiss(loadingToastId);
+    // toast.dismiss(loadingToastId);
   };
 
   const onCloseModal = () => {
@@ -148,7 +146,7 @@ const AddUserModal = ({show, onClose, updateUsers, user}) => {
 
   useEffect(() => {
     async function fetchForForm() {
-      const response = await fetchRoles({limit: 100});
+      const response = await fetchRoles({ limit: 100 });
 
       setRoles(response?.roles?.roles ?? []);
     }
@@ -164,7 +162,7 @@ const AddUserModal = ({show, onClose, updateUsers, user}) => {
       response?.user?.roles?.forEach((element) => {
         roles.push(element.role.id);
       });
-      setUserData((prev) => ({...prev, roles: roles}));
+      setUserData((prev) => ({ ...prev, roles: roles }));
     }
     if (user?.id) {
       getUser();
@@ -184,7 +182,7 @@ const AddUserModal = ({show, onClose, updateUsers, user}) => {
     };
   }, [onClose]);
 
-  const updateFormValue = ({updateType, value}) => {
+  const updateFormValue = ({ updateType, value }) => {
     clearErrorMessage();
     setUserData((prevState) => ({
       ...prevState,
@@ -198,7 +196,7 @@ const AddUserModal = ({show, onClose, updateUsers, user}) => {
     <div className="modal modal-open">
       <div
         ref={modalRef}
-        className="p-[24px] relative flex flex-col justify-between gap-6 w-[600px] bg-white dark:bg-gray-800 rounded-md min-h-[500px]"
+        className="p-[24px] relative flex flex-col justify-between gap-6 w-[600px] bg-white dark:bg-gray-800 rounded-md min-h-[500px] mx-h-[90vh] overflow-y-scroll rm-scroll"
       >
         {/* <button className="bg-transparent hover:bg-stone-300 rounded-full border-none absolute right-4 top-4 p-2 py-2"
                     onClick={onClose}>
@@ -294,21 +292,21 @@ const AddUserModal = ({show, onClose, updateUsers, user}) => {
                         type="checkbox"
                         id={element.id}
                         checked={isAvailable}
-                        className="border-2 border-[#D0D5DD]"
+                        className="border-2 border-[#D0D5DD] cursor-pointer"
                         onChange={(e) => {
                           setUserData((prevState) => {
                             const updatedRoles = e.target.checked
                               ? [...prevState.roles, element.id]
                               : prevState.roles.filter(
-                                  (role) => role !== element.id
-                                );
-                            return {...prevState, roles: updatedRoles};
+                                (role) => role !== element.id
+                              );
+                            return { ...prevState, roles: updatedRoles };
                           });
                         }}
                       />
                       <label
                         htmlFor={element.id}
-                        className="w-[70%] text-[#6B7888]"
+                        className="w-[70%] text-[#6B7888] cursor-pointer"
                       >
                         {capitalizeWords(element.name)}
                       </label>

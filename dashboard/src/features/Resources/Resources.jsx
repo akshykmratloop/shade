@@ -25,6 +25,7 @@ import { updateTag, updateType } from "../common/navbarSlice";
 import CloseModalButton from "../../components/Button/CloseButton";
 import createContent from "./defineContent";
 import FallBackLoader from "../../components/fallbackLoader/FallbackLoader";
+import VersionTable from "./VersionTable";
 
 const AllForOne = lazy(() => import("./components/AllForOne"));
 const Page404 = lazy(() => import("../../pages/protected/404"));
@@ -58,6 +59,7 @@ function Resources() {
   // const isSidebarOpen = useSelector(state => state.sidebar.isCollapsed)
   const resourceType = useSelector((state) => state.navBar.resourceType);
   const resourceTag = useSelector((state) => state.navBar.resourceTag);
+  const { showVersions } = useSelector(state => state.versions)
   const userObj = useSelector(state => state.user)
 
   const { isManager, isEditor, currentRole } = userObj
@@ -204,7 +206,11 @@ function Resources() {
   }, [])
 
   /// Components ///
-
+  if (showVersions) {
+    return (
+      <VersionTable />
+    )
+  }
   const ActionIcons = React.memo(({ page }) => {
     const actions = [
       {
@@ -428,7 +434,7 @@ function Resources() {
       )}
       {
         preview &&
-        <div className="fixed top-0 left-0 z-[55] h-screen bg-stone-900/30 overflow-y-scroll">
+        <div className="fixed top-0 left-0 z-[55] h-screen bg-stone-900/30 overflow-y-scroll customscroller">
           <Suspense fallback={<FallBackLoader />}>
             <div className="">
               <CloseModalButton onClickClose={() => setPreview(false)} className={"fixed top-4 right-8 z-[56]"} />
@@ -448,7 +454,7 @@ function Resources() {
           </Suspense>
         </div>
       }
-      <ToastContainer hideProgressBar={true} />
+      <ToastContainer />
     </div >
   );
 }

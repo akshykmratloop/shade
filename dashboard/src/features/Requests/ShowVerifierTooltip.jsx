@@ -1,6 +1,22 @@
-const ShowVerifierTooltip = ({children, content, isVisible, onToggle}) => {
+import { useEffect, useRef } from "react";
+
+const ShowVerifierTooltip = ({ children, content, isVisible, onToggle, setOnView }) => {
+  const modalRef = useRef(null)
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (modalRef.current && !modalRef.current.contains(e.target)) {
+        setOnView();
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   return (
-    <div className="relative inline-block" onClick={onToggle}>
+    <div ref={modalRef} className="relative inline-block" onClick={onToggle}>
       {children}
       {isVisible && (
         <>
