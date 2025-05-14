@@ -6,11 +6,17 @@ import validate from "../../validation/validator.js";
 import {updateUserSchema, userSchema} from "../../validation/userSchema.js";
 import {checkPermission} from "../../helper/roleBasedAccess.js";
 import auditLogger from "../../helper/auditLogger.js";
+import user from "./index.js";
 
 const router = Router();
 
 const requiredPermissionsForUser = ["USER_MANAGEMENT"];
 
+router.get(
+  "/getAllUserByRoleId/:roleId",
+  tryCatchWrap(UserController.GetAllUsersByRoleId)
+);
+router.get("/getRolesForUser", tryCatchWrap(UserController.GetRolesForUser));
 router.post(
   "/create",
   checkPermission(requiredPermissionsForUser),
