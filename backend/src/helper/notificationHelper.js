@@ -1,5 +1,5 @@
 import prismaClient from "../config/dbConfig.js";
-import { createNotification } from "../repository/notification.repository.js";
+import {createNotification} from "../repository/notification.repository.js";
 
 export const handleEntityCreationNotification = async ({
   io,
@@ -11,8 +11,8 @@ export const handleEntityCreationNotification = async ({
   try {
     // Fetch the user who performed the action
     const creator = await prismaClient.user.findUnique({
-      where: { id: userId },
-      include: { roles: { select: { roleId: true } } },
+      where: {id: userId},
+      include: {roles: {select: {roleId: true}}},
     });
 
     if (!creator) {
@@ -34,7 +34,7 @@ export const handleEntityCreationNotification = async ({
     if (entity === "role" && verb === "updated") {
       // Users with ROLE_MANAGEMENT_PERMISSION
       const roleMgmtPerm = await prismaClient.permission.findUnique({
-        where: { name: "ROLES_PERMISSION_MANAGEMENT" },
+        where: {name: "ROLES_PERMISSION_MANAGEMENT"},
       });
       if (roleMgmtPerm) {
         const permUsers = await prismaClient.user.findMany({
@@ -42,7 +42,7 @@ export const handleEntityCreationNotification = async ({
             roles: {
               some: {
                 role: {
-                  permissions: { some: { permissionId: roleMgmtPerm.id } },
+                  permissions: {some: {permissionId: roleMgmtPerm.id}},
                 },
               },
             },
@@ -56,7 +56,7 @@ export const handleEntityCreationNotification = async ({
       if (newValue.id) {
         const roleUsers = await prismaClient.user.findMany({
           where: {
-            roles: { some: { roleId: newValue.id } },
+            roles: {some: {roleId: newValue.id}},
           },
         });
         roleUsers.forEach((u) => recipientsMap.set(u.id, u));
@@ -65,7 +65,7 @@ export const handleEntityCreationNotification = async ({
     } else if (entity === "user" && verb === "updated") {
       // Users with USER_MANAGEMENT_PERMISSION
       const userMgmtPerm = await prismaClient.permission.findUnique({
-        where: { name: "USER_MANAGEMENT" },
+        where: {name: "USER_MANAGEMENT"},
       });
       if (userMgmtPerm) {
         const permUsers = await prismaClient.user.findMany({
@@ -73,7 +73,7 @@ export const handleEntityCreationNotification = async ({
             roles: {
               some: {
                 role: {
-                  permissions: { some: { permissionId: userMgmtPerm.id } },
+                  permissions: {some: {permissionId: userMgmtPerm.id}},
                 },
               },
             },
@@ -86,14 +86,14 @@ export const handleEntityCreationNotification = async ({
       // Users assigned to the specific user being updated
       if (newValue.id) {
         const userRoles = await prismaClient.userRole.findMany({
-          where: { userId: newValue.id },
-          select: { roleId: true },
+          where: {userId: newValue.id},
+          select: {roleId: true},
         });
         const roleIds = userRoles.map((r) => r.roleId);
 
         const roleUsers = await prismaClient.user.findMany({
           where: {
-            roles: { some: { roleId: { in: roleIds } } },
+            roles: {some: {roleId: {in: roleIds}}},
           },
         });
         roleUsers.forEach((u) => recipientsMap.set(u.id, u));
@@ -102,7 +102,7 @@ export const handleEntityCreationNotification = async ({
     } else if (entity === "role" && verb === "created") {
       // Users with ROLE_MANAGEMENT_PERMISSION
       const roleMgmtPerm = await prismaClient.permission.findUnique({
-        where: { name: "ROLES_PERMISSION_MANAGEMENT" },
+        where: {name: "ROLES_PERMISSION_MANAGEMENT"},
       });
       console.log("roleMgmtPerm", roleMgmtPerm);
 
@@ -112,7 +112,7 @@ export const handleEntityCreationNotification = async ({
             roles: {
               some: {
                 role: {
-                  permissions: { some: { permissionId: roleMgmtPerm.id } },
+                  permissions: {some: {permissionId: roleMgmtPerm.id}},
                 },
               },
             },
@@ -124,7 +124,7 @@ export const handleEntityCreationNotification = async ({
     } else if (entity === "user" && verb === "created") {
       // Users with USER_MANAGEMENT_PERMISSION
       const userMgmtPerm = await prismaClient.permission.findUnique({
-        where: { name: "USER_MANAGEMENT" },
+        where: {name: "USER_MANAGEMENT"},
       });
 
       console.log("userMgmtPerm", userMgmtPerm);
@@ -134,7 +134,7 @@ export const handleEntityCreationNotification = async ({
             roles: {
               some: {
                 role: {
-                  permissions: { some: { permissionId: userMgmtPerm.id } },
+                  permissions: {some: {permissionId: userMgmtPerm.id}},
                 },
               },
             },
@@ -151,25 +151,25 @@ export const handleEntityCreationNotification = async ({
       } else {
         // Always include super admins
         const superAdmins = await prismaClient.user.findMany({
-          where: { isSuperUser: true },
+          where: {isSuperUser: true},
         });
         superAdmins.forEach((u) => recipientsMap.set(u.id, u));
 
         // Include users sharing any permission with creator
         const creatorPermissions = await prismaClient.rolePermission.findMany({
-          where: { roleId: { in: creator.roles.map((r) => r.roleId) } },
-          select: { permissionId: true },
+          where: {roleId: {in: creator.roles.map((r) => r.roleId)}},
+          select: {permissionId: true},
         });
         const permissionIds = creatorPermissions.map((p) => p.permissionId);
 
         if (permissionIds.length) {
           const permissionUsers = await prismaClient.user.findMany({
             where: {
-              id: { not: creator.id },
+              id: {not: creator.id},
               roles: {
                 some: {
                   role: {
-                    permissions: { some: { permissionId: { in: permissionIds } } },
+                    permissions: {some: {permissionId: {in: permissionIds}}},
                   },
                 },
               },
@@ -189,12 +189,13 @@ export const handleEntityCreationNotification = async ({
 
     // Emit and store notifications
     for (const recipient of recipientsMap.values()) {
-      if(recipient.id === creator.id) continue;
+      if (recipient.id === creator.id) continue;
+
       io.emit(eventName, {
         userId: recipient.id,
         message,
       });
-      await createNotification({ userId: recipient.id, message });
+      await createNotification({userId: recipient.id, message});
     }
   } catch (error) {
     console.error("Error in handleEntityCreationNotification:", error);
