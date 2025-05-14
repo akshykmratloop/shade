@@ -49,7 +49,7 @@ export const createApp = () => {
   // swagger
   app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
-  console.log("swagger", swaggerSpec);
+  // console.log("swagger", swaggerSpec);
 
   // Log Middleware for audit logging
   // app.use(auditLogger);

@@ -16,13 +16,13 @@ import { useGlobalContext } from "../../contexts/GlobalContext";
 const NewsBlogDetailPage = () => {
   const router = useRouter();
   console.log(router.query)
-  const { blogId } = router.query;
-  console.log(blogId, "blogId");
+  const { newsId } = router.query;
+  console.log(newsId, "newsId");
 
   const { language, content } = useGlobalContext();
 
   const currentContent = content?.newsBlogsDetails?.filter(
-    (item) => item?.id == blogId
+    (item) => item?.id == newsId
   )[0];
 
   if (!currentContent) {
