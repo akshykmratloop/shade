@@ -15,7 +15,7 @@ import {logger} from "../../config/logConfig.js";
 
 const createUser = async (name, email, password, phone, roles) => {
   const user = await createUserHandler(name, email, password, phone, roles);
-  logger.info({response: "user created successfully", user: user});
+  // logger.info({response: "user created successfully", user: user});
   return {message: "user created successfully", user};
 };
 
