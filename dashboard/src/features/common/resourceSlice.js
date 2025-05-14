@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
     resourceId: "",
-    showVersions: true
+    showVersions: false
 }
 
 export const versionSlice = createSlice({
