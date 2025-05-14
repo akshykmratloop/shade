@@ -189,6 +189,7 @@ export const handleEntityCreationNotification = async ({
 
     // Emit and store notifications
     for (const recipient of recipientsMap.values()) {
+      if(recipient.id === creator.id) continue;
       io.emit(eventName, {
         userId: recipient.id,
         message,

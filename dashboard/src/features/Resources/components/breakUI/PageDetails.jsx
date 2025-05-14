@@ -17,6 +17,7 @@ const PageDetails = ({ data, display, setOn }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const user = useSelector((state) => state.user.user);
+  const currentRole = useSelector((state) => state.user.currentRole)
   // const dispatch = useDispatch();
 
 
@@ -133,17 +134,17 @@ const PageDetails = ({ data, display, setOn }) => {
                       {`V ${pageInfo?.resourceInfo?.liveVersion?.versionNumber}`}
                     </span>
                   </p>
-                  {(user?.roles?.includes("SUPER_ADMIN") ||
-                    user?.permissions?.includes("PAGE_MANAGEMENT")) && (
+                  {(user?.isSuperUser ||
+                    currentRole?.permissions?.includes("PAGE_MANAGEMENT")) && (
                       <>
-                        <button
+                        {/* <button
                           className="text-[#145098] dark:text-sky-500 underline font-[300] py-0 my-0"
                           style={{ whiteSpace: "pre" }}
                         >
                           Restore Previous Version
-                        </button>
+                        </button> */}
                         <button className="text-[#145098] dark:text-sky-500 underline font-[300] py-0 my-0">
-                          View History
+                          View Version
                         </button>
                       </>
                     )}
