@@ -40,14 +40,6 @@ const routes = [
     component: Requests,
   },
   {
-    path: '/settings-team',
-    component: Team,
-  },
-  {
-    path: '/calendar',
-    component: Calendar,
-  },
-  {
     path: '/roles',
     component: Roles,
     permission: "ROLES_PERMISSION_MANAGEMENT"
@@ -58,30 +50,6 @@ const routes = [
     permission: "AUDIT_LOGS_MANAGEMENT"
   },
   {
-    path: '/settings-profile',
-    component: ProfileSettings,
-  },
-  {
-    path: '/settings-billing',
-    component: Bills,
-  },
-  {
-    path: '/getting-started',
-    component: GettingStarted,
-  },
-  {
-    path: '/features',
-    component: DocFeatures,
-  },
-  {
-    path: '/components',
-    component: DocComponents,
-  },
-  {
-    path: '/integration',
-    component: Integration,
-  },
-  {
     path: '/users',
     component: Users,
     permission: "USER_MANAGEMENT"
@@ -90,10 +58,43 @@ const routes = [
     path: '/404',
     component: Page404,
   },
-  {
-    path: '/blank',
-    component: Blank,
-  },
+  // {
+  //   path: '/settings-team',
+  //   component: Team,
+  // },
+  // {
+  //   path: '/calendar',
+  //   component: Calendar,
+  // },
+  // {
+  //   path: '/settings-profile',
+  //   component: ProfileSettings,
+  // },
+  // {
+  //   path: '/settings-billing',
+  //   component: Bills,
+  // },
+  // {
+  //   path: '/getting-started',
+  //   component: GettingStarted,
+  // },
+  // {
+  //   path: '/features',
+  //   component: DocFeatures,
+  // },
+  // {
+  //   path: '/components',
+  //   component: DocComponents,
+  // },
+  // {
+  //   path: '/integration',
+  //   component: Integration,
+  // },
+
+  // {
+  //   path: '/blank',
+  //   component: Blank,
+  // },
 ]
 
 export default routes

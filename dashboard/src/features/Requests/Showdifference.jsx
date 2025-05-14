@@ -19,10 +19,12 @@ import { IoDocumentOutline } from "react-icons/io5";
 import DateTime from "./DateTime";
 import createContent from "../Resources/defineContent";
 import Popups from "../Resources/components/breakUI/Popups";
+import { approveRequest, rejectedRequest } from "../../app/fetch";
+import { toast } from "react-toastify";
 
 
 
-function ShowDifference({ show, onClose, resourceId, currentlyEditor, currentlyPublisher }) {
+function ShowDifference({ show, onClose, resourceId, currentlyEditor, currentlyPublisher, requestId }) {
     // const contentFromRedux = useSelector(state => state.homeContent.present)
     const [liveVersion, setLiveVersion] = useState({})
     const [editVersion, setEditVersion] = useState({})
@@ -42,6 +44,27 @@ function ShowDifference({ show, onClose, resourceId, currentlyEditor, currentlyP
 
     const modalRef = useRef(null)
     const commentRef = useRef(null)
+
+    const approveRequestFunc = async (id) => {
+        const response = await approveRequest(id)
+        if (response.ok) {
+            toast.success("Request has been approved")
+            onClose()
+        } else {
+            toast.error("Something went wrong please try again later")
+        }
+    }
+
+    const RejectRequestFunc = async (id, body) => {
+        const response = await rejectedRequest(id, { rejectReason: body })
+        if (response.ok) {
+            toast.success("Request has been approved")
+            onClose()
+            return true
+        } else {
+            toast.error("Something went wrong please try again later", {autoClose: 1000, hideProgressBar: true})
+        }
+    }
 
     useEffect(() => {
         const handleClickOutside = (e) => {
@@ -211,14 +234,14 @@ function ShowDifference({ show, onClose, resourceId, currentlyEditor, currentlyP
                     }
                     {
                         onRejectPopup &&
-                        <RejectPopup display={onRejectPopup} setClose={setOnRejectPopup} submitfunction={async () => { }} />
+                        <RejectPopup display={onRejectPopup} setClose={setOnRejectPopup} submitfunction={async (body) => { RejectRequestFunc(requestId, body) }} />
                     }
 
                     <Popups display={PopUpPublish} setClose={() => setPopupPublish(false)}
                         confirmationText={`The page is under ${capitalizeWords(pageStatus[editVersion.editVersion?.status])}. Are you sure you want to publish?`} confirmationFunction={() => { }}
                     />
                     <Popups display={PopupSubmit} setClose={() => setPopupSubmit(false)}
-                        confirmationText={"Are you sure you want to Approve?"} confirmationFunction={() => { }}
+                        confirmationText={"Are you sure you want to Approve?"} confirmationFunction={async () => { approveRequestFunc(requestId) }}
                     />
                 </Dialog.Panel>
             </div>

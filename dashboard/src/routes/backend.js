@@ -57,6 +57,8 @@ const api = {
   getRequests: `${content}/getRequests`,
   removeAssignedUsers: `${content}/removeAssignedUser/`,
   requestInfo: `${content}/getRequestInfo/`,
+  approveRequest: `${content}/approveRequest/`,
+  rejectRequest: `${content}/rejectRequest/`,
 
   // Media
   uploadMedia: `${media}/upload`,

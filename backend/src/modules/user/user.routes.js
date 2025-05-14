@@ -16,7 +16,12 @@ router.post(
   checkPermission(requiredPermissionsForUser),
   validate(userSchema),
   auditLogger,
-  tryCatchWrap(UserController.createUserHandler)
+  tryCatchWrap(UserController.CreateUserHandler)
+);
+router.get("/getRolesForUser", tryCatchWrap(UserController.GetRolesForUser));
+router.get(
+  "/getAllUserByRoleId/:roleId",
+  tryCatchWrap(UserController.GetAllUsersByRoleId)
 );
 router.get(
   "/getAllUsers",

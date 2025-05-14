@@ -11,6 +11,7 @@ import homeContentReducer from '../features/common/homeContentSlice'
 import InitialContentReducer from "../features/common/InitialContentSlice"
 import navBarReducer from '../features/common/navbarSlice'
 import routeListsReducer from '../features/common/routeLists'
+import versionsReducer from "../features/common/resourceSlice"
 
 const combinedReducer = {
   header: headerSlice,
@@ -23,7 +24,8 @@ const combinedReducer = {
   homeContent: homeContentReducer,
   InitialContentValue: InitialContentReducer,
   navBar: navBarReducer,
-  routesList: routeListsReducer
+  routesList: routeListsReducer,
+  versions: versionsReducer
 }
 
 export default configureStore({

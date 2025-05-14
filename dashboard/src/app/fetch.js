@@ -424,6 +424,25 @@ export async function getRequestInfo(param) {
   );
 }
 
+export async function approveRequest(param) {
+  return await makerequest(
+    `${api.route("approveRequest")}` + param,
+    "POST",
+    JSON.stringify({}),
+    ContentType.json,
+    true
+  );
+}
+
+export async function rejectedRequest(param, body) {
+  return await makerequest(
+    `${api.route("rejectRequest")}` + param,
+    "POST",
+    JSON.stringify(body),
+    ContentType.json,
+    true
+  );
+}
 // export async function getRequests(query) {
 //   if (!query || typeof query !== "object") {
 //     return await makerequest(api.route("getRequests"), "GET");

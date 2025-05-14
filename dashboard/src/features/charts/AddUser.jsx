@@ -3,7 +3,7 @@ import InputText from "../../components/Input/InputText";
 import { fetchRoles, createUser, updateUser, getUserById } from "../../app/fetch";
 import { toast, ToastContainer } from "react-toastify";
 import validator from "../../app/valid";
-import updateToasify from "../../app/toastify";
+import updateToastify from "../../app/toastify";
 import InputFileForm from "../../components/Input/InputFileForm";
 import dummy from "../../assets/MOCK_DATA.json";
 import { X } from "lucide-react";
@@ -78,10 +78,9 @@ const AddUserModal = ({ show, onClose, updateUsers, user }) => {
 
     try {
       dispatch(switchDebounce(true));
-
-      loadingToastId = toast.loading("Processing request...", {
-        autoClose: 2000,
-      });
+      // loadingToastId = toast.loading("Processing request...", {
+      // autoClose: 2000,
+      // });
 
       let response;
       if (user) {
@@ -97,22 +96,22 @@ const AddUserModal = ({ show, onClose, updateUsers, user }) => {
       }
 
       if (response?.ok) {
-        updateToasify(
-          loadingToastId,
-          `User Created successful! 🎉`,
-          "success",
-          1000
-        );
+        // updateToastify(
+        //   loadingToastId,
+        //   `User Created successful! 🎉`,
+        //   "success",
+        //   1000
+        // );
       } else {
-        updateToasify(
-          loadingToastId,
-          `Request failed. ${response?.message
-            ? response.message
-            : "Something went wrong please try again later"
-          }`,
-          "error",
-          2000
-        );
+        // updateToastify(
+        //   loadingToastId,
+        //   `Request failed. ${response?.message
+        //     ? response.message
+        //     : "Something went wrong please try again later"
+        //   }`,
+        //   "error",
+        //   2000
+        // );
       }
     } catch (err) {
       console.log(err?.message);
@@ -197,7 +196,7 @@ const AddUserModal = ({ show, onClose, updateUsers, user }) => {
     <div className="modal modal-open">
       <div
         ref={modalRef}
-        className="p-[24px] relative flex flex-col justify-between gap-6 w-[600px] bg-white dark:bg-gray-800 rounded-md min-h-[500px]"
+        className="p-[24px] relative flex flex-col justify-between gap-6 w-[600px] bg-white dark:bg-gray-800 rounded-md min-h-[500px] mx-h-[90vh] overflow-y-scroll rm-scroll"
       >
         {/* <button className="bg-transparent hover:bg-stone-300 rounded-full border-none absolute right-4 top-4 p-2 py-2"
                     onClick={onClose}>

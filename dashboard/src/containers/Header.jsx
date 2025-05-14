@@ -76,7 +76,7 @@ function Header() {
   };
 
   const switchRole = (id) => {
-    if (currentRole.role === id) return
+    if (currentRole.role === id) return;
     // Switch Role
     localStorage.setItem("currentRole", id);
     // dispatch(updateCurrentRole(id))
@@ -143,18 +143,18 @@ function Header() {
     };
 
     const handleUserUpdate = async (response) => {
-      console.log(JSON.stringify(response.result))
-      
-      dispatch(updateUser({data:response.result, type: "update"}))
+      // console.log(JSON.stringify(response))
+      if (response.result.deactivate) logoutUser()
+      dispatch(updateUser({ data: response.result, type: "update" }))
       localStorage.setItem("user", JSON.stringify(response.result))
     }
 
     socket.on("role_created", handleNew);
     socket.on("user_created", handleNew);
+    socket.on("user_updated", handleNew);
     socket.on("userUpdated", handleUserUpdate);
     // socket.on("user_updated", handleNew);
     // …listen to any other event names you emit
-
 
     // …listen to any other event names you emit
 
@@ -164,7 +164,6 @@ function Header() {
       socket.off("user_created", handleNew);
       socket.off("userUpdated", handleUserUpdate);
       // socket.off("user_updated", handleNew);
-
     };
   }, [userId, dispatch]);
 
@@ -232,13 +231,13 @@ function Header() {
               className="py-1 px-[4px] pl-[6px] text-[14px] h-full flex items-center font-[600] rounded-[5px_0px_0px_5px]"
               onClick={() => {
                 if (!oneRoleOnly) return
-                  setOpenList(!openList);
+                setOpenList(!openList);
               }}
             >
               Role
             </div>
             <label
-              className={`flex items-center ${oneRoleOnly? "justify-center":"justify-between"} cursor-pointer w-full bg-base-300 py-1 px-[6px] h-full rounded-md`}
+              className={`flex items-center ${oneRoleOnly ? "justify-center" : "justify-between"} cursor-pointer w-full bg-base-300 py-1 px-[6px] h-full rounded-md`}
               // style={{ justifyItems: oneRoleOnly ? "center" : ""}}
               onClick={() => {
                 setOpenList(!openList);

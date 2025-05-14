@@ -9,17 +9,17 @@ export const findSubPermissions = async () => {
 };
 
 export const findSubPermissionById = async (permissionId) => {
-  console.log("Fetching subpermissions for permissionId:", id); // Debug log
+  // console.log("Fetching subpermissions for permissionId:", id); // Debug log
 
   const subPermissions = await prismaClient.permissionSubPermission.findMany({
     where: {permissionId: permissionId},
     // include: {subPermission: true}, // Ensure we get subPermission details
   });
 
-  console.log("Fetched SubPermissions:", subPermissions); // Debug log
+  // console.log("Fetched SubPermissions:", subPermissions); // Debug log
 
   if (!subPermissions || subPermissions.length === 0) {
-    console.log("No subpermissions found for permissionId:", id);
+    // console.log("No subpermissions found for permissionId:", id);
     return false; // Return false if empty
   }
 

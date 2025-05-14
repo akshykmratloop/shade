@@ -8,7 +8,7 @@ import { activateUser, deactivateUser } from "../../app/fetch";
 import TitleCard from "../../components/Cards/TitleCard";
 import AddUserModal from "./AddUser";
 import UserDetailsModal from "./ShowRole";
-import updateToasify from "../../app/toastify";
+import updateToastify from "../../app/toastify";
 import dummyUser from "../../assets/Dummy_User.json";
 import capitalizeWords, { TruncateText } from "../../app/capitalizeword";
 import { getAllusers } from "../../app/fetch";
@@ -175,29 +175,49 @@ function Users() {
   // console.log(users, "users");
 
   const statusChange = async (user) => {
-    const loadingToastId = toast.loading("Processing...", { autoClose: 2000 });
+    // const loadingToastId = toast.loading("Processing...");
     let response =
       user.status === "ACTIVE"
         ? await deactivateUser({ id: user.id })
         : await activateUser({ id: user.id });
     if (response.ok) {
-      updateToasify(
-        loadingToastId,
-        `Request successful. ${response.message}`,
-        "success",
-        1000
-      );
+      // updateToastify(
+      //   loadingToastId,
+      //   `Request successful. ${response.message}`,
+      //   "success",
+      //   1000
+      // );
       setChangesInUser((prev) => !prev);
     } else {
-      updateToasify(
-        loadingToastId,
-        `Request failed. ${response.message}`,
-        "error",
-        2000
-      );
+      // updateToastify(
+      //   loadingToastId,
+      //   `Request failed. ${response.message}`,
+      //   "error",
+      //   2000
+      // );
     }
-    toast.dismiss(loadingToastId); // to deactivate to running taost
+    // toast.dismiss(loadingToastId); // to deactivate to running taost
   };
+  // const statusChange = async (user) => {
+  //   const toastId = toast.loading("Processing...", { autoClose: false });
+
+  //   try {
+  //     const response =
+  //       user.status === "ACTIVE"
+  //         ? await deactivateUser({ id: user.id })
+  //         : await activateUser({ id: user.id });
+
+  //     if (response.ok) {
+  //       updateToastify(toastId, ` Success: ${response.message}`, "success", 1500);
+  //       setChangesInUser((prev) => !prev);
+  //     } else {
+  //       updateToastify(toastId, `❌ Failed: ${response.message}`, "error", 2000);
+  //     }
+  //   } catch (err) {
+  //     console.error("Status change error:", err);
+  //     updateToastify(toastId, "Something went wrong. Please try again.", "error", 2500);
+  //   }
+  // };
 
   // Pagination logic
   // const indexOfLastUser = currentPage * usersPerPage;
@@ -442,7 +462,7 @@ function Users() {
           }}
         />
       )}
-      <ToastContainer hideProgressBar={true} />
+      <ToastContainer />
     </div>
   );
 }

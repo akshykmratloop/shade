@@ -119,6 +119,7 @@ function Requests() {
   const [currentPage, setCurrentPage] = useState(1);
   const [activeIndex, setActiveIndex] = useState(null);
   const [resourceId, setResourceId] = useState("")
+  const [requestId, setRequestId] = useState("")
   const [toggle, setToggle] = useState(false);
 
 
@@ -258,6 +259,8 @@ function Requests() {
     //flow
     if (currentRole?.permissions?.length > 1 && RoleTypeIsUser) {
       setToggle(true)
+    } else {
+      setToggle(false)
     }
   }, [currentRole])
 
@@ -332,7 +335,6 @@ function Requests() {
                   currentRequests?.map((request, index) => {
                     let publisher = request.approvals.filter(e => e.stage === null)[0]
                     let verifiers = request.approvals.filter(e => e.stage)
-
                     return (
                       <tr
                         key={index}
@@ -505,6 +507,7 @@ function Requests() {
                                 setShowDetailsModal(true);
                                 // openNotification();
                                 setResourceId(request.resourceVersion.resourceId)
+                                setRequestId(request.id)
                               }}
                             >
                               <span
@@ -578,6 +581,7 @@ function Requests() {
           role={selectedRequest}
           show={showDetailsModal}
           resourceId={resourceId}
+          requestId={requestId}
           // updateRoles={setChangesInRequest}
           onClose={() => {
             setSelectedRequest(false);
@@ -585,7 +589,7 @@ function Requests() {
           }}
         />
       )}
-      <ToastContainer position="" />
+      <ToastContainer />
     </div>
   );
 }
