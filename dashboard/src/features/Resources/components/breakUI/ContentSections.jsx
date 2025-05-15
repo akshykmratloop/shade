@@ -34,7 +34,7 @@ const ContentSection = ({
     outOfEditing
 }) => {
     const dispatch = useDispatch();
-    const [extraFiles, setExtraFiles] = useState([]);
+    // const [extraFiles, setExtraFiles] = useState([]);
     const ImagesFromRedux = useSelector((state) => state.homeContent.present.images)
     let count = 0
 

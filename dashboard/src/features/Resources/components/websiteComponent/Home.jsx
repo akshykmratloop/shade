@@ -55,9 +55,8 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
     };
     const projectsPerSlide = 4;
 
-    console.log(content?.projectGrid?.sections)
     let projectChunks = chunkArray(
-        content?.projectGrid?.sections?.[activeRecentProjectSection]?.items || [],
+        content?.multiSection?.sections?.[activeRecentProjectSection]?.items || [],
         projectsPerSlide
     );
     const ProjectSlider = { ...recentProjects, ...markets, ...safety };
@@ -321,7 +320,7 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                         style={{ gap: isComputer && dynamicSize(70, width), width: isComputer || fullScreen ? dynamicSize(1230, width) : "100%" }}>
                         <div className={`leftDetails min-w-[150px] ${isTablet ? isPhone ? "w-[150px]" : "w-[240px]" : ""}`}
                             style={{ width: isComputer || fullScreen ? dynamicSize(424, width) : "" }}>
-                            {content?.projectGrid?.sections?.map((section, index) => (
+                            {content?.multiSection?.sections?.map((section, index) => (
                                 <div
                                     key={index}
                                     className={`relative `}

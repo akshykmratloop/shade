@@ -52,6 +52,10 @@ const AboutManager = ({ content, currentPath, language, indexes, outOfEditing })
     //         context()
     //     }
     // }, [currentId, isManager, isEditor])
+
+    useEffect(() => {
+        return () => dispatch(updateMainContent({ currentPath: "content", payload: undefined }))
+    }, [])
     return (
         <div className="w-full">
             {/* reference doc */}
@@ -69,7 +73,7 @@ const AboutManager = ({ content, currentPath, language, indexes, outOfEditing })
                     section={"services"}
                     language={language}
                     currentContent={content}
-                    contentIndex={indexes.introContent}
+                    contentIndex={indexes?.introContent}
                     // resourceId={currentId}
                     outOfEditing={outOfEditing}
                 />
@@ -92,7 +96,7 @@ const AboutManager = ({ content, currentPath, language, indexes, outOfEditing })
                                 index={+index}
                                 isBorder={isLast}
                                 currentContent={content}
-                                contentIndex={indexes.introContent}
+                                contentIndex={indexes?.introContent}
                                 // resourceId={currentId}
                                 outOfEditing={outOfEditing}
                             />
@@ -113,7 +117,7 @@ const AboutManager = ({ content, currentPath, language, indexes, outOfEditing })
                 section={"main"}
                 language={language}
                 currentContent={content}
-                contentIndex={indexes.markdownContent}
+                contentIndex={indexes?.markdownContent}
                 // resourceId={currentId}
                 outOfEditing={outOfEditing}
             />

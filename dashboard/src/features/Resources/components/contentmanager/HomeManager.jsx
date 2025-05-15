@@ -6,13 +6,19 @@ import MultiSelect from "../breakUI/MultiSelect";
 import { updateMainContent } from "../../../common/homeContentSlice";
 // import content from "../websiteComponent/content.json"
 import { getResources } from "../../../../app/fetch";
+import createContent from "../../defineContent";
+import { useDispatch, useSelector } from "react-redux";
 
-const HomeManager = ({ language, content, currentPath, indexes, outOfEditing }) => {
+const HomeManager = ({ language, currentPath, outOfEditing }) => {
     // states
     const [currentId, setCurrentId] = useState("")
     const [ServicesOptions, setServicesOptions] = useState([])
     const [ProjectOptions, setProjectOptions] = useState([])
     const [TestimonialsOptions, setTestimonialsOptions] = useState([])
+
+    const currentContent = useSelector((state) => state.homeContent.present)
+    const { content, indexes } = createContent(currentContent, "edit")
+    const dispatch = useDispatch()
     // fucntions
 
     useEffect(() => {
@@ -63,6 +69,10 @@ const HomeManager = ({ language, content, currentPath, indexes, outOfEditing }) 
         getOptionsforServices()
     }, [])
 
+    useEffect(() => {
+        return () => dispatch(updateMainContent({ currentPath: "content", payload: undefined }))
+    }, [])
+
     return ( /// Component
         <div className="w-full">
             {/* reference doc */}
@@ -89,8 +99,8 @@ const HomeManager = ({ language, content, currentPath, indexes, outOfEditing }) 
                 currentPath={currentPath}
                 Heading={"About Section"}
                 inputs={[
-                    { input: "input", label: "Heading/title", updateType: "title", value: content?.markdownContent?.content?.title[language] },
-                    { input: "richtext", label: "About section", updateType: "description", maxLength: 800, value: content?.markdownContent?.content?.description[language] },
+                    { input: "input", label: "Heading/title", updateType: "title", value: content?.markdownContent?.content?.title?.[language] },
+                    { input: "richtext", label: "About section", updateType: "description", maxLength: 800, value: content?.markdownContent?.content?.description?.[language] },
                     { input: "input", label: "Button Text", updateType: "button", value: content?.markdownContent?.content?.button?.[0]?.text?.[language] }]}
                 inputFiles={[{ label: "Backround Image", id: "aboutUsSection" }]}
                 section={"aboutUsSection"}

@@ -1,7 +1,5 @@
-import React, { useEffect } from "react";
-// import content from "./content.json"
-import { useDispatch, useSelector } from "react-redux";
-import { updateMainContent } from "../../../common/homeContentSlice";
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
 import { aboutUsIcons } from "../../../../assets/index"; // ../../assets/index
 // import styles from "./about.module.scss";
 // import localFont from "next/font/local";
@@ -19,11 +17,9 @@ import { aboutUsIcons } from "../../../../assets/index"; // ../../assets/index
 // });
 
 const AboutUs = ({ language, screen, currentContent }) => {
-    console.log(currentContent)
     const isPhone = screen < 768
     const isEnglish = language === "en"
-    const dispatch = useDispatch()
-    // const currentContent = useSelector((state) => state.homeContent.present.about)
+    // const dispatch = useDispatch()
     const ImageFromRedux = useSelector((state) => state.homeContent.present.images)
 
     // const { language, content } = useGlobalContext();
@@ -98,7 +94,7 @@ const AboutUs = ({ language, screen, currentContent }) => {
                                 {currentContent?.markdownContent?.content?.title[language]}
                             </h2>
                             <div className="flex flex-col gap-4">
-                                <div className="text-xs text-[#292E3D]" dangerouslySetInnerHTML={{ __html: currentContent?.markdownContent?.content?.descriptions[language] }} />
+                                <div className="text-xs text-[#292E3D]" dangerouslySetInnerHTML={{ __html: currentContent?.markdownContent?.content?.descriptions?.[language] }} />
                             </div>
                             <button
                                 className="mt-6 px-4 py-2 bg-[white] text-[#00B9F2] border border-[#00B9F2] text-xs font-semibold rounded-[4px] shadow-md hover:none"

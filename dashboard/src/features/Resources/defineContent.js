@@ -19,5 +19,5 @@ export default function createContent(content, purpose, path, subPath) {
     })
 
 
-    return { content: tempContent, index: tempIndex }
+    return { content: tempContent, indexes: tempIndex }
 }
