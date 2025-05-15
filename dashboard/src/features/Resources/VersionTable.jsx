@@ -115,14 +115,13 @@ function VersionTable() {
     const [showDetailsModal, setShowDetailsModal] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
     const [activeIndex, setActiveIndex] = useState(null);
-    const [resourceId, setResourceId] = useState("")
+    // const [resourceId, setResourceId] = useState("")
     //   const [toggle, setToggle] = useState(false);
-
-
 
     // redux state
     //   const userRole = useSelector((state) => state.user.currentRole);
     const userObj = useSelector(state => state.user)
+    const { resourceId, resourceName } = useSelector(state => state.versions)
 
     const { isManager, isEditor, isPublisher, isVerifier, currentRole } = userObj;
     const roleId = currentRole?.id
@@ -211,19 +210,14 @@ function VersionTable() {
         setCasSeePublisher(isVerifier || isManager)
     }, [currentRole?.id])
 
-    useEffect(() => {
-        if (noneCanSee) {
-            navigate("/app/dashboard")
-        }
-    }, [noneCanSee])
+    // useEffect(() => {
+    //     if (noneCanSee) {
+    //         navigate("/app/dashboard")
+    //     }
+    // }, [noneCanSee])
 
     useEffect(() => {
-        //flow
-        if (currentRole?.permissions?.length > 1 && RoleTypeIsUser) {
-            // setToggle(true)
-        } else {
-            // setToggle(false)
-        }
+
     }, [currentRole])
 
 
@@ -234,12 +228,15 @@ function VersionTable() {
                 {/* {
                     <ToggleSwitch options={[""]} switchToggles={changeTable} />
                 } */}
-                <button className="rounded-md text-white cursor-pointer bg-cyan-700 px-3 py-1 text-sm">
+                <button className="rounded-md text-white cursor-pointer bg-cyan-700 px-3 py-1 text-sm"
+                    onClick={() => { navigate("../pages") }}
+                >
                     <span className="">⟵</span> back
                 </button>
             </div>
             <TitleCard
-                title={"Resources / Versions"}
+                title={`Resources / Versions / ${resourceName}`}
+                question={false}
                 topMargin="mt-2"
                 TopSideButtons={
                     <TopSideButtons
@@ -261,7 +258,7 @@ function VersionTable() {
                                         className="font-medium text-[12px] text-left font-poppins leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white] text-[#42526D] px-[24px] py-[13px] !capitalize"
                                         style={{ position: "static", width: "363px" }}
                                     >
-                                        Resource
+                                        Version ID
                                     </th>
                                     {/* <th className="text-[#42526D] w-[164px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] text-center !capitalize">Sub Permission</th> */}
                                     {
@@ -351,14 +348,18 @@ function VersionTable() {
                                                 }
                                                 <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]">
                                                     <p
-                                                        className={`min-w-[85px] mx-auto before:content-['•'] before:text-2xl flex h-7 items-center justify-center gap-1 px-1 py-0 font-[500] 
-                              ${version.status === "Green"
+                                                        className={`min-w-[85px] 
+                                                            mx-auto before:content-['•'] 
+                                                            before:text-2xl flex h-7 
+                                                            items-center justify-center 
+                                                            gap-1 px-1 py-0 font-[500] 
+                                                                ${version.status === "Green"
                                                                 ? "text-green-600 bg-lime-200 before:text-green-600 px-1"
                                                                 : version.status === "Blue"
                                                                     ? "text-blue-600 bg-sky-200 before:text-blue-600 "
                                                                     : "text-red-600 bg-pink-200 before:text-red-600 "
-                                                            } 
-                                rounded-2xl`}
+                                                            }            
+                                                            rounded-2xl`}
                                                         style={{ textTransform: "capitalize" }}
                                                     >
                                                         <span className="">{capitalizeWords(version?.resourceVersion?.versionStatus)}</span>
@@ -391,7 +392,7 @@ function VersionTable() {
                                                                 setSelectedVersion(version);
                                                                 setShowDetailsModal(true);
                                                                 // openNotification();
-                                                                setResourceId(version.resourceVersion.resourceId)
+                                                                // setResourceId(version.resourceVersion.resourceId)
                                                                 // setRequestId(version.id)
                                                             }}
                                                         >
@@ -404,38 +405,6 @@ function VersionTable() {
                                                                 />
                                                             </span>
                                                         </button>
-
-                                                        {/* <button
-                              className=""
-                              onClick={() => {
-                                setSelectedRequest(request);
-                                setShowAddForm(true);
-                              }}
-                            >
-                              <FiEdit
-                                className="w-5 h-6 text-[#3b4152] dark:text-stone-200"
-                                strokeWidth={1}
-                              />
-                            </button> */}
-                                                        {/* <div className="flex items-center space-x-4 ">
-                              <Switch
-                                checked={request?.status === "ACTIVE"}
-                                onChange={() => {
-                                  statusChange(request);
-                                }}
-                                className={`${request?.status === "ACTIVE"
-                                  ? "bg-[#1DC9A0]"
-                                  : "bg-gray-300"
-                                  } relative inline-flex h-2 w-8 items-center rounded-full`}
-                              >
-                                <span
-                                  className={`${request?.status === "ACTIVE"
-                                    ? "translate-x-4"
-                                    : "translate-x-0"
-                                    } inline-block h-5 w-5 bg-white rounded-full shadow-2xl border border-gray-300 transition`}
-                                />
-                              </Switch>
-                            </div> */}
                                                     </div>
                                                 </td>
                                             </tr>
@@ -458,22 +427,6 @@ function VersionTable() {
                     />
                 </div>
             </TitleCard>
-            {/* {showDetailsModal && (
-        <ShowDifference
-          currentlyEditor={!canSeeEditor}
-          currentlyVerifier={canSeePublisher}
-          currentlyPublisher={canSeeVerifier}
-          role={selectedVersion}
-          show={showDetailsModal}
-          resourceId={resourceId}
-          requestId={requestId}
-          // updateRoles={setChangesInRequest}
-          onClose={() => {
-            setSelectedVersion(false);
-            setShowDetailsModal(false);
-          }}
-        />
-      )} */}
             <ToastContainer />
         </div>
     );

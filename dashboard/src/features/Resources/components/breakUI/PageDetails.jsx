@@ -10,15 +10,19 @@ import formatTimestamp from "../../../../app/TimeFormat";
 import { useDispatch, useSelector } from "react-redux";
 import { TruncateText } from "../../../../app/capitalizeword";
 import SkeletonLoader from "../../../../components/Loader/SkeletonLoader";
+import { useNavigate } from "react-router-dom";
+import { updateResourceId } from "../../../common/resourceSlice";
 
 const PageDetails = ({ data, display, setOn }) => {
+  console.log(data)
   const pageRef = useRef(null);
   const [pageInfo, setPageInfo] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const user = useSelector((state) => state.user.user);
   const currentRole = useSelector((state) => state.user.currentRole)
-  // const dispatch = useDispatch();
+  const navigate = useNavigate()
+  const dispatch = useDispatch();
 
 
   const users = {}
@@ -143,7 +147,12 @@ const PageDetails = ({ data, display, setOn }) => {
                         >
                           Restore Previous Version
                         </button> */}
-                        <button className="text-[#145098] dark:text-sky-500 underline font-[300] py-0 my-0">
+                        <button className="text-[#145098] dark:text-sky-500 underline font-[300] py-0 my-0"
+                          onClick={() => {
+                            dispatch(updateResourceId({ id: data.id, name: data.titleEn }))
+                            navigate('../versions')
+                          }}
+                        >
                           View Version
                         </button>
                       </>

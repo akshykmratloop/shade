@@ -82,10 +82,10 @@ function Resources() {
       setDeepPath(third)
 
       const route = third
-        ? `./edit/${first}/${second}/${third}`
+        ? `../edit/${first}/${second}/${third}`
         : second
-          ? `./edit/${first}/${second}`
-          : `./edit/${first}`;
+          ? `../edit/${first}/${second}`
+          : `../edit/${first}`;
 
       return route
     },
@@ -206,11 +206,11 @@ function Resources() {
   }, [])
 
   /// Components ///
-  if (showVersions) {
-    return (
-      <VersionTable />
-    )
-  }
+  // if (showVersions) {
+  //   return (
+  //     <VersionTable />
+  //   )
+  // }
 
   const ActionIcons = React.memo(({ page }) => {
     const actions = [
