@@ -31,7 +31,7 @@ const AllForOneManager = ({ currentPath, language, subPath, deepPath, content, c
             break;
 
         case "about-us":
-            manager = <AboutManager language={language} content={content} currentPath={currentPath} />
+            manager = <AboutManager outOfEditing={outOfEditing} language={language} content={content} indexes={contentIndex} currentPath={currentPath} />
             break;
 
         case "services":

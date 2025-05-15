@@ -9,7 +9,7 @@ import { updateMainContent } from "../../../common/homeContentSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { getContent } from "../../../../app/fetch";
 
-const AboutManager = ({ content, currentPath, language, }) => {
+const AboutManager = ({ content, currentPath, language, indexes, outOfEditing }) => {
     const dispatch = useDispatch()
     const [currentId, setCurrentId] = useState("")
 
@@ -69,6 +69,9 @@ const AboutManager = ({ content, currentPath, language, }) => {
                     section={"services"}
                     language={language}
                     currentContent={content}
+                    contentIndex={indexes.introContent}
+                    // resourceId={currentId}
+                    outOfEditing={outOfEditing}
                 />
                 {
                     content?.introContent?.content?.cards.map((item, index, array) => {
@@ -89,6 +92,9 @@ const AboutManager = ({ content, currentPath, language, }) => {
                                 index={+index}
                                 isBorder={isLast}
                                 currentContent={content}
+                                contentIndex={indexes.introContent}
+                                // resourceId={currentId}
+                                outOfEditing={outOfEditing}
                             />
                         )
                     })
@@ -100,13 +106,16 @@ const AboutManager = ({ content, currentPath, language, }) => {
                 currentPath={currentPath}
                 Heading={"Main"}
                 inputs={[
-                    { input: "input", label: "Heading/title", updateType: "title", value: content?.markdownContent?.content?.title?.[language]  },
-                    { input: "richtext", label: "Descriptions", updateType: "descriptions", maxLength: 400 , value: content?.markdownContent?.content?.descriptions?.[language] },
+                    { input: "input", label: "Heading/title", updateType: "title", value: content?.markdownContent?.content?.title?.[language] },
+                    { input: "richtext", label: "Descriptions", updateType: "descriptions", maxLength: 400, value: content?.markdownContent?.content?.descriptions?.[language] },
                 ]}
                 inputFiles={[{ label: "Video", id: "video" }]}
                 section={"main"}
                 language={language}
                 currentContent={content}
+                contentIndex={indexes.markdownContent}
+                // resourceId={currentId}
+                outOfEditing={outOfEditing}
             />
         </div>
     )

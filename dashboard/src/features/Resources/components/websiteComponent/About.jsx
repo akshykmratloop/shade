@@ -98,12 +98,7 @@ const AboutUs = ({ language, screen, currentContent }) => {
                                 {currentContent?.markdownContent?.content?.title[language]}
                             </h2>
                             <div className="flex flex-col gap-4">
-                                <p className="text-xs text-[#292E3D]">
-                                    {currentContent?.markdownContent?.content?.descriptions[language]}
-                                </p>
-                                {/* <p className="text-xs text-[#292E3D]">
-                                    {currentContent?.markdownContent?.content?.description2[language]}
-                                </p> */}
+                                <div className="text-xs text-[#292E3D]" dangerouslySetInnerHTML={{ __html: currentContent?.markdownContent?.content?.descriptions[language] }} />
                             </div>
                             <button
                                 className="mt-6 px-4 py-2 bg-[white] text-[#00B9F2] border border-[#00B9F2] text-xs font-semibold rounded-[4px] shadow-md hover:none"
