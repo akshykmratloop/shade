@@ -9,7 +9,7 @@ import { updateMainContent } from "../../../common/homeContentSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { getContent } from "../../../../app/fetch";
 
-const AboutManager = ({  content, currentPath, language, }) => {
+const AboutManager = ({ content, currentPath, language, }) => {
     const dispatch = useDispatch()
     const [currentId, setCurrentId] = useState("")
 
@@ -26,32 +26,32 @@ const AboutManager = ({  content, currentPath, language, }) => {
         }
     }, [])
 
-    useEffect(() => {
-        if (currentId) {
-            async function context() {
-                try {
-                    const response = await getContent(currentId)
-                    if (response.message === "Success") {
-                        const payload = {
-                            id: response.content.id,
-                            titleEn: response.content.titleEn,
-                            titleAr: response.content.titleAr,
-                            slug: response.content.slug,
-                            resourceType: response.content.resourceType,
-                            resourceTag: response.content.resourceTag,
-                            relationType: response.content.relationType,
-                            editVersion: isManager ? response.content.liveModeVersionData : response.content.editModeVersionData ?? response.content.liveModeVersionData
-                        }
+    // useEffect(() => {
+    //     if (currentId) {
+    //         async function context() {
+    //             try {
+    //                 const response = await getContent(currentId)
+    //                 if (response.message === "Success") {
+    //                     const payload = {
+    //                         id: response.content.id,
+    //                         titleEn: response.content.titleEn,
+    //                         titleAr: response.content.titleAr,
+    //                         slug: response.content.slug,
+    //                         resourceType: response.content.resourceType,
+    //                         resourceTag: response.content.resourceTag,
+    //                         relationType: response.content.relationType,
+    //                         editVersion: isManager ? response.content.liveModeVersionData : response.content.editModeVersionData ?? response.content.liveModeVersionData
+    //                     }
 
-                        dispatch(updateMainContent({ currentPath: "content", payload }))
-                    }
-                } catch (err) {
+    //                     dispatch(updateMainContent({ currentPath: "content", payload }))
+    //                 }
+    //             } catch (err) {
 
-                }
-            }
-            context()
-        }
-    }, [currentId, isManager, isEditor])
+    //             }
+    //         }
+    //         context()
+    //     }
+    // }, [currentId, isManager, isEditor])
     return (
         <div className="w-full">
             {/* reference doc */}
@@ -62,8 +62,8 @@ const AboutManager = ({  content, currentPath, language, }) => {
                     currentPath={currentPath}
                     Heading={"Services"}
                     inputs={[
-                        { input: "input", label: "Heading/title", updateType: "title", value: content?.heroBanner?.content?.title[language] },
-                        { input: "input", label: "Description", updateType: "subtitle" },
+                        { input: "input", label: "Heading/title", updateType: "title", value: content?.introContent?.content?.title[language] },
+                        { input: "input", label: "Description", updateType: "subtitle", value: content?.introContent?.content?.subtitle[language] },
                     ]}
                     isBorder={false}
                     section={"services"}
@@ -71,15 +71,15 @@ const AboutManager = ({  content, currentPath, language, }) => {
                     currentContent={content}
                 />
                 {
-                    content?.services?.cards.map((item, index, array) => {
+                    content?.introContent?.content?.cards.map((item, index, array) => {
                         const isLast = index === array.length - 1;
                         return (
                             <ContentSection key={item + index}
                                 currentPath={currentPath}
                                 subHeading={"card " + (index + 1)}
                                 inputs={[
-                                    { input: "input", label: "Item text 1", updateType: "title", maxLength: 20 },
-                                    { input: "textarea", label: "Item text 2", updateType: "description", maxLength: 200 }
+                                    { input: "input", label: "Item text 1", updateType: "title", maxLength: 20, value: content?.introContent?.content?.cards?.[index]?.title?.[language] },
+                                    { input: "textarea", label: "Item text 2", updateType: "description", maxLength: 200, value: content?.introContent?.content?.cards?.[index]?.description?.[language] }
                                 ]}
                                 inputFiles={[{ label: "Item Icon", id: item.icon }]}
                                 // fileId={item}
@@ -100,9 +100,8 @@ const AboutManager = ({  content, currentPath, language, }) => {
                 currentPath={currentPath}
                 Heading={"Main"}
                 inputs={[
-                    { input: "input", label: "Heading/title", updateType: "title" },
-                    { input: "textarea", label: "Description 1", updateType: "description1", maxLength: 400 },
-                    { input: "textarea", label: "Description 2", updateType: "description2", maxLength: 400 },
+                    { input: "input", label: "Heading/title", updateType: "title", value: content?.markdownContent?.content?.title?.[language]  },
+                    { input: "richtext", label: "Descriptions", updateType: "descriptions", maxLength: 400 , value: content?.markdownContent?.content?.descriptions?.[language] },
                 ]}
                 inputFiles={[{ label: "Video", id: "video" }]}
                 section={"main"}

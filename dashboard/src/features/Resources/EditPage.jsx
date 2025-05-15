@@ -50,7 +50,7 @@ const EditPage = () => {
     const content = createContent(contentFromRedux, "edit", currentPath)
 
     const Routes = [
-        'home', 'solutions', 'about', "services", "service", 'markets',
+        'home', 'solutions', 'about-us', "services", "service", 'markets',
         'projects', "project", 'careers', "career", 'news', 'footer',
         'header', 'testimonials', 'testimonial']
 

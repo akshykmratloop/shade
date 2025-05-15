@@ -106,8 +106,8 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                 >
                     <img
                         dir={isLeftAlign ? "ltr" : "rtl"}
-                        src={`${Img_url}${content?.heroBanner?.content?.image[0]}`}
-                        alt="Banner Image"
+                        src={`${Img_url}${content?.heroBanner?.content?.images[0].url}`}
+                        alt={content?.heroBanner?.content?.images[0].url}
                         className="w-[full] h-full object-cover"
                         style={{ objectPosition: "center", transform: "scaleX(-1)", height: isTablet ? "500px" : isPhone && "500px" }} />
                 </span>
@@ -149,7 +149,7 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                     {/* Image section */}
                     <div className={`${isPhone ? "w-[90%]" : "w-[70%]"} h-[500px] overflow-hidden rounded-sm shadow-lg `}
                         style={{ height: isComputer && dynamicSize(629, width), width: isComputer && dynamicSize(877, width) }}>
-                        <img src={`${Img_url}${content?.markdownContent?.content?.image[0]}`} alt="about-us" className="w-full h-[500px] object-cover"
+                        <img src={`${Img_url}${content?.markdownContent?.content?.images[0].url}`} alt="about-us" className="w-full h-[500px] object-cover"
                             style={{ width: isComputer && dynamicSize(877, width), height: isComputer && '100%' }}
                         />
                     </div>
@@ -182,14 +182,14 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                     ${highlight && checkDifference(content?.serviceCards?.content?.title[language], liveContent?.serviceCards?.content?.title[language])}
                     `}
                         style={{ fontSize: isComputer && dynamicSize(36, width) }}>
-                        {content?.serviceCards?.content?.title[language]}
+                        {content?.externalSections?.content?.title[language]}
                     </h2>
 
                     <div className={`${isPhone ? "flex gap-4 flex-col" : "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 md:gap-12 sm:gap-6"}
                     ${highlight && checkDifference(content?.serviceCards?.items, liveContent?.serviceCards?.items)}
                     `}
                         style={{ columnGap: isComputer && dynamicSize(96, width), rowGap: isComputer && dynamicSize(48, width) }}>
-                        {content?.serviceCards?.items?.map((card, key) => {
+                        {content?.externalSections?.items?.map((card, key) => {
                             return (
                                 <div key={key} className={`w-full h-44 flex items-center justify-center p-6 rounded-md transition-transform duration-300 hover:scale-105 cursor-pointer ${key % 2 !== 0 ? "bg-blue-900 text-[white]" : " bg-stone-200"} `}>
                                     <div className="flex flex-col items-center gap-4">
@@ -327,10 +327,10 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                                     className={`relative `}
                                 >
                                     <span className={
-                                            activeRecentProjectSection === index
-                                                ? 'font-bold leading-[36px] mb-[16px] cursor-pointer relative'
-                                                : 'font-bold leading-[36px] mb-[16px] cursor-pointer'
-                                        }
+                                        activeRecentProjectSection === index
+                                            ? 'font-bold leading-[36px] mb-[16px] cursor-pointer relative'
+                                            : 'font-bold leading-[36px] mb-[16px] cursor-pointer'
+                                    }
                                         onClick={() => setActiveRecentProjectSection(index)}
                                     >
                                         <h2 className={`${activeRecentProjectSection === index ? 'text-[#292e3d]' : 'text-[#292e3d]'} text-md cursor-pointer`}
@@ -342,9 +342,9 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                                     </span>
 
                                     <p className={`${activeRecentProjectSection === index
-                                            ? 'text-[#292e3d] text-xs leading-[25px] mb-[24px] opacity-100 transform translate-y-0 transition-opacity duration-300'
-                                            : 'text-[#292e3d] text-xs leading-[25px] mb-[24px] opacity-0 h-0 transform translate-y-[-20px] transition-opacity duration-300'
-                                            }`}
+                                        ? 'text-[#292e3d] text-xs leading-[25px] mb-[24px] opacity-100 transform translate-y-0 transition-opacity duration-300'
+                                        : 'text-[#292e3d] text-xs leading-[25px] mb-[24px] opacity-0 h-0 transform translate-y-[-20px] transition-opacity duration-300'
+                                        }`}
                                         style={{ fontSize: isComputer && dynamicSize(16, width) }}
                                     >
                                         {section?.content?.description?.[language]}
@@ -486,7 +486,7 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                         <h2 className="text-white text-3xl font-bold mb-4"
                             style={{ fontSize: isComputer && dynamicSize(36, width) }}
                         > {
-                        }
+                            }
                             {content?.clientLogos?.content?.title[language]}
                         </h2>
                         <p className="text-white text-base font-light leading-6"
@@ -502,7 +502,7 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                                 className="w-[120px] h-[120px] bg-white rounded-full flex items-center justify-center p-5"
                             >
                                 <img
-                                    src={Img_url + client?.image?.[0]}
+                                    src={Img_url + client?.images?.[0]?.url}
                                     width={key === 3 ? 100 : 66}
                                     height={key === 3 ? 30 : 66}
                                     alt="about-us"

@@ -39,11 +39,11 @@ const AllForOne = ({ language, screen, content, subPath, setLanguage, fullScreen
             }
             {
                 currentPath === "solutions" &&
-                <SolutionPage language={language} currentContent={content?.solution} screen={screen} />
+                <SolutionPage language={language} currentContent={content} screen={screen} />
             }
             {
-                currentPath === "about" &&
-                <AboutUs language={language} currentContent={content?.about} screen={screen} />
+                currentPath === "about-us" &&
+                <AboutUs language={language} currentContent={content} screen={screen} />
             }
             {
                 currentPath === "services" ? subPath ? deepPath ?

@@ -27,10 +27,10 @@ const AllForOneManager = ({ currentPath, language, subPath, deepPath, content, c
             break;
 
         case "solutions":
-            manager = <SolutionManager language={language} currentContent={content.solutions} currentPath={currentPath} />
+            manager = <SolutionManager language={language} currentContent={content} currentPath={currentPath} />
             break;
 
-        case "about":
+        case "about-us":
             manager = <AboutManager language={language} content={content} currentPath={currentPath} />
             break;
 
