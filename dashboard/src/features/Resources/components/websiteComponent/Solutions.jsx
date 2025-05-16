@@ -17,7 +17,6 @@ import 'swiper/css/autoplay';
 // import Image from "next/image";
 // import { useGlobalContext } from "../../contexts/GlobalContext";
 // import { useRouter } from "next/router";
-
 // Font files can be colocated inside of `app`
 // const BankGothic = localFont({
 //   src: "../../../public/font/BankGothicLtBTLight.ttf",
@@ -25,7 +24,6 @@ import 'swiper/css/autoplay';
 // });
 // import dynamic from 'next/dynamic';
 // import patch from "../../contexts/svg/path.jsx";
-
 // const AnimatedText = dynamic(() => import('@/common/AnimatedText'), { ssr: false });
 // const ContactUsModal = dynamic(() => import('../header/ContactUsModal'), { ssr: false });
 
@@ -38,7 +36,6 @@ const SolutionPage = ({ currentContent, language, screen }) => {
     const ImageFromRedux = useSelector((state) => state.homeContent.present.images)
     const dispatch = useDispatch()
 
-
     // const [isModal, setIsModal] = useState(false);
     // const handleContactUSClose = () => {
     //     setIsModal(false);
@@ -48,7 +45,7 @@ const SolutionPage = ({ currentContent, language, screen }) => {
 
     return (
         <div className=" bankgothic-medium-dt pb-8" dir={language === 'en' ? 'ltr' : "rtl"}>
-            {/** banner */}
+            {/** banner  1 */}
             <section
                 className={`relative py-[8rem] w-full bg-cover bg-center ${isLeftAlign ? 'scale-x-[-1]' : ''} px-12 ${isPhone ? "h-screen/2" : ""}`}
                 style={{ backgroundImage: ImageFromRedux.bannerBackground ? `url(${ImageFromRedux.bannerBackground})` : 'url("https://frequencyimage.s3.ap-south-1.amazonaws.com/310398e2-856d-4e59-b0b0-10e811ca1f82-solution%20%281%29.png")' }}
@@ -78,7 +75,7 @@ const SolutionPage = ({ currentContent, language, screen }) => {
                 </div>
             </section>
 
-            {/** What we do */}
+            {/** What we do 2 */}
             <section
                 className={`py-[88px] pb-[120px] px-10 ${language === "en" ? "text-left" : "text-right"
                     }`}
@@ -111,8 +108,7 @@ const SolutionPage = ({ currentContent, language, screen }) => {
             </section>
 
 
-            {/** gallary wrap */}
-
+            {/** gallary wrap 3 */}
             <div
                 className="w-[800px] mx-auto"
                 style={{ width: isComputer ? "50rem" : `${screen - 30}px` }}
@@ -191,7 +187,7 @@ const SolutionPage = ({ currentContent, language, screen }) => {
             </section>
 
             {/** Showcase gallery wrap */}
-            <div
+            {/* <div
                 className="w-[800px] mx-auto "
                 style={{ width: isComputer ? "50rem" : `${screen - 30}px` }}
             >
@@ -238,52 +234,10 @@ const SolutionPage = ({ currentContent, language, screen }) => {
                         )
                     )}
                 </Swiper>
-            </div>
-
-
-
-            {/* <ContactUsModal isModal={isModal} onClose={handleContactUSClose} /> */}
+            </div> */}
 
         </div>
     );
 };
 
 export default SolutionPage;
-
-
-// {/* 
-
-// <section
-// className={` ${language === "en" && styles.leftAlign}   ${styles.new_project_wrapper
-//     }`}
-// >
-// <div className={`container ${styles.main_container}`}>
-//     <div className={styles.Client_content}>
-//         {/* <AnimatedText text={currentContent?.newProject?.title[language]} Wrapper="h2" repeatDelay={0.03} className={`${styles.title} ${BankGothic.className}`} /> */}
-//         <h2 className={`${styles.title}`}>
-//             {currentContent?.newProject?.title[language]}
-//         </h2>
-//         <p className={`${styles.description} ${BankGothic.className}`}>
-//             {currentContent?.newProject?.description1[language].replace(
-//                 currentContent?.newProject?.highlightedText[language],
-//                 `"${currentContent?.newProject?.highlightedText[language]}"`
-//             )}
-//             <i className={language === "ar" && styles.arabicVersion}>
-//                 {patch()}
-//             </i>
-//         </p>
-
-//         <p className={`${styles.description} ${BankGothic.className}`}>
-//             {currentContent?.newProject?.description2[language]}
-//         </p>
-//         <Button className={styles.view_btn}
-//             onClick={() => setIsModal(true)}
-
-//         >
-//             {currentContent?.newProject?.button.text[language]}
-//         </Button>
-//     </div>
-// </div>
-// </section> 
-// 
-// */}

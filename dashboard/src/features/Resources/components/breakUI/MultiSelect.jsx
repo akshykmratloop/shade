@@ -18,7 +18,7 @@ import {
   useSortable,
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { updateSelectedContent, updateSelectedProject } from "../../../common/homeContentSlice";
+// import { updateSelectedContent, updateSelectedProject } from "../../../common/homeContentSlice";
 import { updateSelectedContentAndSaveDraft } from "../../../common/thunk/smsThunk";
 
 const SortableItem = ({ option, removeOption, language, reference, titleLan, contentIndex, }) => {
@@ -66,38 +66,6 @@ const MultiSelect = ({ outOfEditing, heading, min = 0, options, tabName, label, 
   const [activeItem, setActiveItem] = useState(null);
 
   let operation = "";
-
-  // let actualLists; //content.home.serviceSection.cards
-  // switch (referenceOriginal.dir) {
-
-  //   case "recentproject":
-  //     actualLists = content.home.recentProjectsSection.sections[referenceOriginal.index].projects
-  //     break;
-
-  //   case "jobs":
-  //     actualLists = content.careers.jobListSection.jobs;
-  //     break;
-
-  //   case "news":
-  //     actualLists = content.newsBlogs.latestNewCards.cards;
-  //     break;
-
-  //   case "projectDetail":
-  //     actualLists = content.projectsPage.projectsSection.projects;
-  //     break;
-
-  //   case "newsBlogsDetails":
-  //     actualLists = content.newsBlogs.latestNewCards.cards;
-  //     break;
-
-  //   case "serviceCards":
-  //     actualLists = content.services.serviceCards
-  //     break;
-
-  //   default:
-  //     actualLists = []
-  // }
-
 
   const showOptions = options?.map(e => e?.[titleLan])
 
