@@ -38,23 +38,23 @@ const AllForOne = ({ language, screen, content, subPath, setLanguage, fullScreen
                 />
             }
             {
-                currentPath === "solutions" &&
-                <SolutionPage language={language} currentContent={content?.solution} screen={screen} />
+                currentPath === "solution" &&
+                <SolutionPage language={language} currentContent={content} screen={screen} />
             }
             {
-                currentPath === "about" &&
-                <AboutUs language={language} currentContent={content?.about} screen={screen} />
+                currentPath === "about-us" &&
+                <AboutUs language={language} currentContent={content} screen={screen} />
             }
             {
-                currentPath === "services" ? subPath ? deepPath ?
+                currentPath === "service" ? subPath ? deepPath ?
                     <SubServiceDetails language={language} contentOn={tempContent?.subOfsubService} serviceId={subPath} screen={screen} deepPath={deepPath} /> :
                     <ServiceDetails language={language} contentOn={tempContent?.serviceDetails} serviceId={subPath} screen={screen} /> :
                     <Services language={language} currentContent={tempContent?.services} screen={screen} /> : ""
             }
-            {
+            {/* {
                 (currentPath === "service" && subPath) &&
                 <ServiceDetails language={language} contentOn={content?.serviceDetails} serviceId={subPath} screen={screen} />
-            }
+            } */}
             {
                 currentPath === "markets" &&
                 <MarketPage language={language} currentContent={content?.markets} screen={screen} />

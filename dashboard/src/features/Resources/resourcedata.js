@@ -74,13 +74,13 @@ const resources = {
 
 const pagesImages = {
     "home": landingPage,
-    "about": aboutUS,
-    "solutions": solutionPage,
-    "services": servicePage,
+    "about-us": aboutUS,
+    "solution": solutionPage,
+    "service": servicePage,
     "market": marketpage,
-    "projects": projectpage,
+    "project": projectpage,
     "careers": careerspage,
-    "news": news
+    "news-blogs": news
 }
 
 export { pagesImages }

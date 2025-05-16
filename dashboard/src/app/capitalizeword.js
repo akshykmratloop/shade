@@ -46,7 +46,8 @@ export function TruncateText(text, length = 50, locale = "en") {
   return text;
 }
 
-export function toCamelCase(str) {
+export function toCamelCase(str) { 
+  if (typeof str !== 'string') return str;
   return str
     .toLowerCase()
     .split('_')

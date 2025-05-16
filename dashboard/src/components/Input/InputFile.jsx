@@ -5,7 +5,7 @@ import { removeImages, updateImages } from "../../features/common/homeContentSli
 import ImageSelector from "./ImageSelector"; // Import here
 import { Img_url } from "../../routes/backend";
 
-const InputFile = ({ label, baseClass, id, currentPath, resourceId, contentIndex, index, subSection, section, outOfEditing }) => {
+const InputFile = ({ label, baseClass, id, currentPath, resourceId, contentIndex, index, subSection, section, outOfEditing, directIcon, order }) => {
   const dispatch = useDispatch();
   const ImageFromRedux = useSelector(state => state.homeContent.present.images);
   const [fileURL, setFileURL] = useState("");
@@ -16,9 +16,18 @@ const InputFile = ({ label, baseClass, id, currentPath, resourceId, contentIndex
     dispatch(removeImages({ section: id, src: "", currentPath }));
   };
 
-  const handleImageSelect = (url) => {
+  const handleImageSelect = (url, altText) => {
+    console.log(url, altText)
     setFileURL(url);
-    dispatch(updateImages({ section, src: url[0], currentPath, index: contentIndex, cardIndex: index, subSection }));
+    const payloadData = {
+      url: url[0],
+      altText: {
+        en: altText.en,
+        ar: altText.ar
+      },
+      order
+    }
+    dispatch(updateImages({ section, src: directIcon ? url[0] : payloadData, currentPath, index: contentIndex, cardIndex: index, subSection, directIcon, order }));
     setIsSelectorOpen(false);
   };
 
@@ -35,7 +44,7 @@ const InputFile = ({ label, baseClass, id, currentPath, resourceId, contentIndex
         }
         <div onClick={() => setIsSelectorOpen(true)}
           className="relative w-24 h-24 border border-[#80808044] rounded-md overflow-hidden cursor-pointer bg-white dark:bg-[#2a303c]"
-          >
+        >
 
 
           {fileURL ? (

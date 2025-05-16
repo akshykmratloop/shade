@@ -15,7 +15,7 @@ const ServiceManager = ({ currentContent, currentPath, language }) => {
                 currentPath={currentPath}
                 Heading={"Banner"}
                 inputs={[
-                    { input: "input", label: "Heading/title", updateType: "title" },
+                    { input: "input", label: "Heading/title", updateType: "title",  },
                     { input: "textarea", label: "Description", updateType: "description" },
                     { input: "input", label: "Button Text", updateType: "button" },
                 ]}

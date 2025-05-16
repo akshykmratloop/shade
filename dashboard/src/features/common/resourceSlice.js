@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
     resourceId: "",
+    resourceName: "",
     showVersions: false
 }
 
@@ -10,7 +11,9 @@ export const versionSlice = createSlice({
     initialState,
     reducers: {
         updateResourceId: (state, action) => {
+            console.log(action.payload)
             state.resourceId = action.payload.id
+            state.resourceName = action.payload.name
             state.showVersions = true
         },
         closeVersions: (state, action) => {

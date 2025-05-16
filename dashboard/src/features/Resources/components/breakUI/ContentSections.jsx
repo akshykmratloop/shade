@@ -27,6 +27,7 @@ const ContentSection = ({
     projectId,
     careerId,
     deepPath,
+    sectionIndex,
     contentIndex,
     resourceId,
     ref,
@@ -34,7 +35,7 @@ const ContentSection = ({
     outOfEditing
 }) => {
     const dispatch = useDispatch();
-    const [extraFiles, setExtraFiles] = useState([]);
+    // const [extraFiles, setExtraFiles] = useState([]);
     const ImagesFromRedux = useSelector((state) => state.homeContent.present.images)
     let count = 0
 
@@ -59,7 +60,7 @@ const ContentSection = ({
         } else {
             dispatch(updateAList({
                 data: { alt: { ar: "", en: "" }, image: [""] },
-                index: contentIndex,
+                index: sectionIndex,
                 operation: "add"
             }))
         }
@@ -81,7 +82,7 @@ const ContentSection = ({
             console.log(id)
             dispatch(updateAList({
                 data: id,
-                index: contentIndex,
+                index: sectionIndex,
                 operation: "remove"
             }))
         }
@@ -91,7 +92,15 @@ const ContentSection = ({
         if (updateType === 'count') {
             if (!isNaN(value)) {
                 let val = value?.slice(0, 7);
-                dispatch(updateServicesNumber({ section, title: updateType, value: val, subSection, index, currentPath, contentIndex }));
+                dispatch(updateServicesNumber({
+                    section,
+                    title: updateType,
+                    value: val,
+                    subSection,
+                    index,
+                    currentPath,
+                    sectionIndex
+                }));
             }
         } else {
             dispatch(updateSpecificContent({
@@ -107,7 +116,7 @@ const ContentSection = ({
                 projectId,
                 careerId,
                 deepPath,
-                contentIndex,
+                sectionIndex,
                 path
             }));
         }
@@ -119,7 +128,15 @@ const ContentSection = ({
         if (updateType === 'count') {
             if (!isNaN(value)) {
                 let val = value?.slice(0, 7);
-                dispatch(updateServicesNumber({ section, title: updateType, value: val, subSection, index, currentPath, contentIndex }));
+                dispatch(updateServicesNumber({
+                    section,
+                    title: updateType,
+                    value: val,
+                    subSection,
+                    index,
+                    currentPath,
+                    sectionIndex
+                }));
             }
         } else {
             dispatch(updateSpecificContent({
@@ -135,7 +152,7 @@ const ContentSection = ({
                 projectId,
                 careerId,
                 deepPath,
-                contentIndex
+                sectionIndex
                 // type
             }));
         }
@@ -212,7 +229,6 @@ const ContentSection = ({
                                 language={language}
                                 id={input.updateType}
                                 maxLength={input.maxLength}
-
                                 outOfEditing={outOfEditing}
                             />
                         );
@@ -281,7 +297,7 @@ const ContentSection = ({
                                             section={section}
                                             isCloseButton={allowClose}
                                             resourceId={resourceId}
-                                            contentIndex={contentIndex}
+                                            contentIndex={sectionIndex}
                                             outOfEditing={outOfEditing}
                                         />
                                     )
@@ -316,8 +332,10 @@ const ContentSection = ({
                                             index={section === "clientSection" ? i : index}
                                             subSection={subSection}
                                             resourceId={resourceId}
-                                            contentIndex={contentIndex}
+                                            contentIndex={sectionIndex}
                                             outOfEditing={outOfEditing}
+                                            directIcon={file.directIcon}
+                                            order={file.order}
                                         />
                                     </div>
                                 )

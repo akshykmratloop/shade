@@ -82,10 +82,10 @@ function Resources() {
       setDeepPath(third)
 
       const route = third
-        ? `./edit/${first}/${second}/${third}`
+        ? `../edit/${first}/${second}/${third}`
         : second
-          ? `./edit/${first}/${second}`
-          : `./edit/${first}`;
+          ? `../edit/${first}/${second}`
+          : `../edit/${first}`;
 
       return route
     },
@@ -114,14 +114,14 @@ function Resources() {
 
   // Side Effects 
 
-  useEffect(() => { // Permission for Editor and Manager only
+  // useEffect(() => { // Permission for Editor and Manager only
 
-    if (!isManager && !isEditor) {
-      navigate('/app/welcome')
-      return () => { }
-    }
+  //   if (!isManager && !isEditor) {
+  //     navigate('/app/welcome')
+  //     return () => { }
+  //   }
 
-  }, [isEditor, isManager])
+  // }, [isEditor, isManager])
 
   useEffect(() => { // Running resources from localstroge
     const currentResource = localStorage.getItem("resourceType") || "MAIN_PAGE";
@@ -206,11 +206,12 @@ function Resources() {
   }, [])
 
   /// Components ///
-  if (showVersions) {
-    return (
-      <VersionTable />
-    )
-  }
+  // if (showVersions) {
+  //   return (
+  //     <VersionTable />
+  //   )
+  // }
+
   const ActionIcons = React.memo(({ page }) => {
     const actions = [
       {
