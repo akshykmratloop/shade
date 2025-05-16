@@ -2,6 +2,7 @@ export const statusCodes = {
   // Informational responses (100-199)
   CONTINUE: { code: 100, message: "Continue" },
   SWITCHING_PROTOCOLS: { code: 101, message: "Switching Protocols" },
+  NOT_ALLOWED: { code: 400, message: "Not Allowed" },
   PROCESSING: { code: 102, message: "Processing" },
   EARLY_HINTS: { code: 103, message: "Early Hints" },
 

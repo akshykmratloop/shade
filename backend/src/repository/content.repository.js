@@ -11,7 +11,8 @@ export const fetchResources = async (
   page = 1,
   limit = 10,
   userId,
-  roleId
+  roleId,
+  apiCallType
 ) => {
   const skip = (page - 1) * limit;
 
@@ -48,15 +49,18 @@ export const fetchResources = async (
   if (!isSuperAdmin) {
     // Find the specific role from the query
     const queryRole = user.roles.find((r) => r.roleId === roleId)?.role;
-    if (!queryRole) {
+    if (!apiCallType && !queryRole) {
       throw new Error("Role not found for this user");
     }
 
-    // Extract permissions for the specific role
-    rolePermissions = queryRole.permissions.map(
-      (permissionItem) => permissionItem.permission.name
-    );
+    if (!apiCallType) {
+      // Extract permissions for the specific role
+      rolePermissions = queryRole.permissions.map(
+        (permissionItem) => permissionItem.permission.name
+      );
+    }
   }
+
 
   // Map permissions to allowed resource types and tags
   const permissionToResourceMap = {
@@ -93,7 +97,7 @@ export const fetchResources = async (
       tags: ["FOOTER"],
     },
     TESTIMONIAL_MANAGEMENT: {
-      types: ["SUB_PAGE",  "SUB_PAGE_ITEM"],
+      types: ["SUB_PAGE", "SUB_PAGE_ITEM"],
       tags: ["TESTIMONIAL"],
     },
     FORM_MANAGEMENT: {
@@ -101,6 +105,7 @@ export const fetchResources = async (
       tags: [],
     },
   };
+
 
   // Initialize filters
   let typeFilter = {};
@@ -118,7 +123,7 @@ export const fetchResources = async (
     }
   }
   // Non-super admin logic with role filtering
-  else {
+  else if (!apiCallType) {
     // Handle EDIT permission case (unchanged)
     if (rolePermissions.includes("EDIT")) {
       // Get resources where user is assigned as EDITOR
@@ -429,6 +434,15 @@ export const fetchResources = async (
         }
       }
     }
+  } else {
+    if (resourceType) {
+      typeFilter = { resourceType };
+    }
+
+    // Apply resource tag filter if specified
+    if (resourceTag) {
+      tagFilter = { resourceTag };
+    }
   }
 
   // Build the base where clause
@@ -503,7 +517,8 @@ export const fetchAllResourcesWithContent = async (
   page = 1,
   limit = 10,
   userId,
-  roleId
+  roleId,
+  apiCallType
 ) => {
   // First fetch the filtered resources based on permissions and roleId
   const filteredResources = await fetchResources(
@@ -516,7 +531,8 @@ export const fetchAllResourcesWithContent = async (
     page,
     limit,
     userId,
-    roleId
+    roleId,
+    apiCallType
   );
 
   // If no resources found, return early
@@ -632,10 +648,6 @@ export const fetchAllResourcesWithContent = async (
     },
   };
 };
-
-
-
-
 
 export const fetchResourceInfo = async (resourceId) => {
   const resources = await prismaClient.resource.findUnique({
@@ -1380,21 +1392,29 @@ export const fetchContent = async (resourceId, isItemFullContent = true) => {
   // Process live version if it exists
   if (resource.liveVersion) {
     result.liveModeVersionData = await formatResourceVersionData(
-      resource.liveVersion, isItemFullContent, resource.slug
+      resource.liveVersion,
+      isItemFullContent,
+      resource.slug
     );
   }
 
   // Process edit version if it exists
   if (isItemFullContent && resource.newVersionEditMode) {
     result.editModeVersionData = await formatResourceVersionData(
-      resource.newVersionEditMode, isItemFullContent, resource.slug
+      resource.newVersionEditMode,
+      isItemFullContent,
+      resource.slug
     );
   }
 
   return result;
 };
 
-async function formatResourceVersionData(resourceVersion, isItemFullContent, resourceSlug) {
+async function formatResourceVersionData(
+  resourceVersion,
+  isItemFullContent,
+  resourceSlug
+) {
   if (!resourceVersion) return null;
 
   // Get all section versions for this resource version
@@ -1505,21 +1525,27 @@ async function formatResourceVersionData(resourceVersion, isItemFullContent, res
       };
 
       // Add items if they exist
-      if (isItemFullContent && sectionVersion.items && sectionVersion.items.length > 0) {
+      if (
+        isItemFullContent &&
+        sectionVersion.items &&
+        sectionVersion.items.length > 0
+      ) {
         formattedSection.items = await Promise.all(
           sectionVersion.items.map(async (item) => {
             // Get the resource and its live version
             const resource = item.resource;
 
-            let returningBody ;
+            let returningBody;
 
             // Fetch the full content of the item resource
             const itemContent = await fetchContent(resource.id, false);
 
-            if ( resourceSlug === 'home' && sectionOrderMap[sectionVersion.id] === 7){
+            if (
+              resourceSlug === "home" &&
+              sectionOrderMap[sectionVersion.id] === 7
+            ) {
               returningBody = itemContent;
-            }
-            else {
+            } else {
               returningBody = {
                 id: itemContent.id,
                 titleEn: itemContent.titleEn,
@@ -1529,7 +1555,6 @@ async function formatResourceVersionData(resourceVersion, isItemFullContent, res
                 image: itemContent.liveModeVersionData.image,
               };
             }
-
 
             return { ...returningBody, order: item.order };
           })
@@ -1554,21 +1579,30 @@ async function formatResourceVersionData(resourceVersion, isItemFullContent, res
             };
 
             // Add items to child section if they exist
-            if ( isItemFullContent && childSection.items && childSection.items.length > 0) {
+            if (
+              isItemFullContent &&
+              childSection.items &&
+              childSection.items.length > 0
+            ) {
               formattedChild.items = await Promise.all(
                 childSection.items.map(async (item) => {
                   // Get the resource
                   const resource = item.resource;
 
-                  let returningBody ;
+                  let returningBody;
 
                   // Fetch the full content of the item resource
                   const itemContent = await fetchContent(resource.id, false);
 
-                  if ( resourceSlug === 'home' && sectionOrderMap[sectionVersion.id] === 7){
+                  if (
+                    resourceSlug === "home" &&
+                    sectionOrderMap[sectionVersion.id] === 7
+                  ) {
                     returningBody = itemContent;
-                  }
-                  else if(resourceSlug === 'home' && sectionOrderMap[sectionVersion.id] === 5){
+                  } else if (
+                    resourceSlug === "home" &&
+                    sectionOrderMap[sectionVersion.id] === 5
+                  ) {
                     returningBody = {
                       id: itemContent.id,
                       titleEn: itemContent.titleEn,
@@ -1576,10 +1610,10 @@ async function formatResourceVersionData(resourceVersion, isItemFullContent, res
                       slug: itemContent.slug,
                       icon: itemContent.liveModeVersionData.icon,
                       image: itemContent.liveModeVersionData.image,
-                      location : itemContent.liveModeVersionData.sections[1].content[0],
+                      location:
+                        itemContent.liveModeVersionData.sections[1].content[0],
                     };
-                  }
-                  else {
+                  } else {
                     returningBody = {
                       id: itemContent.id,
                       titleEn: itemContent.titleEn,
@@ -1603,9 +1637,6 @@ async function formatResourceVersionData(resourceVersion, isItemFullContent, res
     })
   );
 
-
-
-
   return {
     id: resourceVersion.id,
     versionNumber: resourceVersion.versionNumber,
@@ -1619,10 +1650,6 @@ async function formatResourceVersionData(resourceVersion, isItemFullContent, res
     sections: formattedSections,
   };
 }
-
-
-
-
 
 //DRAFT CONTENT
 export const createOrUpdateVersion = async (contentData) => {
@@ -1645,8 +1672,16 @@ export const createOrUpdateVersion = async (contentData) => {
     "NOT_FOUND",
     `Resource with ID ${contentData.resourceId} not found`
   );
-  // Extract the content from the request
+
   const { newVersionEditMode } = contentData;
+
+  assert(
+    resource.newVersionEditMode.versionStatus === "DRAFT",
+    "NOT_ALLOWED",
+    `Not Allowed, Previous request is already in process`
+  );
+
+  // Extract the content from the request
   const saveAs = newVersionEditMode?.versionStatus || "DRAFT";
 
   const {
@@ -2158,7 +2193,7 @@ export const fetchRequests = async (
   search,
   status,
   pageNum = 1,
-  limitNum = 10,
+  limitNum = 10
 ) => {
   const skip = (pageNum - 1) * limitNum;
 
@@ -2303,7 +2338,7 @@ export const fetchRequests = async (
       // Handle PAGE_MANAGEMENT permission separately to ensure it's always included
       if (hasPageManagement) {
         orConditions.push({
-          resourceType: "MAIN_PAGE"
+          resourceType: "MAIN_PAGE",
         });
       }
 
@@ -2313,10 +2348,15 @@ export const fetchRequests = async (
         const typePermissions = new Map();
         const tagPermissions = new Map();
 
-        for (const [perm, { types, tags }] of Object.entries(permissionToResourceMap)) {
-          if ((rolePermissions.includes(perm) && perm !== "PAGE_MANAGEMENT") || (perm === "FOOTER_MANAGEMENT" && hasFooterManagement)) {
+        for (const [perm, { types, tags }] of Object.entries(
+          permissionToResourceMap
+        )) {
+          if (
+            (rolePermissions.includes(perm) && perm !== "PAGE_MANAGEMENT") ||
+            (perm === "FOOTER_MANAGEMENT" && hasFooterManagement)
+          ) {
             // Add types to the map
-            types.forEach(type => {
+            types.forEach((type) => {
               if (!typePermissions.has(type)) {
                 typePermissions.set(type, []);
               }
@@ -2324,7 +2364,7 @@ export const fetchRequests = async (
             });
 
             // Add tags to the map
-            tags.forEach(tag => {
+            tags.forEach((tag) => {
               if (!tagPermissions.has(tag)) {
                 tagPermissions.set(tag, []);
               }
@@ -2338,7 +2378,7 @@ export const fetchRequests = async (
           const types = Array.from(typePermissions.keys());
           if (types.length > 0) {
             orConditions.push({
-              resourceType: { in: types }
+              resourceType: { in: types },
             });
           }
         }
@@ -2348,7 +2388,7 @@ export const fetchRequests = async (
           const tags = Array.from(tagPermissions.keys());
           if (tags.length > 0) {
             orConditions.push({
-              resourceTag: { in: tags }
+              resourceTag: { in: tags },
             });
           }
         }
@@ -2357,7 +2397,7 @@ export const fetchRequests = async (
       // If user has SINGLE_RESOURCE_MANAGEMENT and has assigned resources, add them to OR conditions
       if (hasSingleResourceManagement && assignedResourceIds.length > 0) {
         orConditions.push({
-          id: { in: assignedResourceIds }
+          id: { in: assignedResourceIds },
         });
       }
 
@@ -2367,7 +2407,7 @@ export const fetchRequests = async (
           ...where.resourceVersion,
           resource: {
             ...where.resourceVersion?.resource,
-            OR: orConditions
+            OR: orConditions,
           },
         };
       } else {
@@ -2474,28 +2514,28 @@ export const fetchRequests = async (
               resourceType: true,
               resourceTag: true,
               roles: {
-                where:{
+                where: {
                   status: "ACTIVE",
                 },
                 include: {
                   user: {
-                    select:{
+                    select: {
                       id: true,
                       name: true,
-                    }
+                    },
                   },
                 },
               },
               verifiers: {
-                where:{
+                where: {
                   status: "ACTIVE",
                 },
                 include: {
                   user: {
-                    select:{
+                    select: {
                       id: true,
                       name: true,
-                    }
+                    },
                   },
                 },
                 orderBy: {
@@ -2553,7 +2593,7 @@ export const fetchRequestInfo = async (requestId) => {
           resource: {
             include: {
               roles: {
-                where:{
+                where: {
                   status: "ACTIVE",
                 },
                 include: {
@@ -2561,7 +2601,7 @@ export const fetchRequestInfo = async (requestId) => {
                 },
               },
               verifiers: {
-                where:{
+                where: {
                   status: "ACTIVE",
                 },
                 include: {
@@ -2602,11 +2642,11 @@ export const fetchRequestInfo = async (requestId) => {
   const formattedData = {
     details: {
       resource: request.resourceVersion.resource.titleEn,
-      "resourceType": request.resourceVersion.resource.resourceType,
-      "resourceTag": request.resourceVersion.resource.resourceTag,
-      slug : request.resourceVersion.resource.slug,
+      resourceType: request.resourceVersion.resource.resourceType,
+      resourceTag: request.resourceVersion.resource.resourceTag,
+      slug: request.resourceVersion.resource.slug,
       status: request.status,
-      "assignedUsers": {
+      assignedUsers: {
         manager:
           request.resourceVersion.resource.roles
             .filter((role) => role.role === "MANAGER")
@@ -2632,30 +2672,29 @@ export const fetchRequestInfo = async (requestId) => {
             .map((role) => role.user.name)
             .join(", ") || "Not assigned",
       },
-      "submittedDate": request.createdAt,
+      submittedDate: request.createdAt,
       comment: request.editorComments || "No comments",
-      "submittedBy": request.sender.name,
-      "submittedTo":
+      submittedBy: request.sender.name,
+      submittedTo:
         request.approvals.length > 0
           ? request.approvals[0].approver.name
           : "Not assigned",
       "versionNo.": `V ${request.resourceVersion.versionNumber}`,
-      "referenceDocument": request.resourceVersion.referenceDoc
-        || "No document",
-      "requestType": request.type,
+      referenceDocument: request.resourceVersion.referenceDoc || "No document",
+      requestType: request.type,
       "requestNo.": request.id.slice(0, 4).toUpperCase(),
-      "previousRequest": request.previousRequest
+      previousRequest: request.previousRequest
         ? `${request.previousRequest.type} | ${request.previousRequest.id
             .slice(0, 4)
             .toUpperCase()}`
         : "None",
-      "approvalStatus": request.approvals.map((approval) => ({
+      approvalStatus: request.approvals.map((approval) => ({
         role: getRoleForApprover(
           approval.approver.id,
           request.resourceVersion.resource
         ),
-      stage: approval.stage,
-      status: approval.status,
+        stage: approval.stage,
+        status: approval.status,
         comment: approval.comments || "No comments",
       })),
     },
@@ -2682,8 +2721,8 @@ export const approveRequestInVerification = async (requestId, userId) => {
       where: {
         requestId: requestId,
         approverId: userId,
-        status: "PENDING"
-      }
+        status: "PENDING",
+      },
     });
 
     if (!approvalLog) {
@@ -2694,8 +2733,8 @@ export const approveRequestInVerification = async (requestId, userId) => {
     await tx.requestApproval.update({
       where: { id: approvalLog.id },
       data: {
-        status: "APPROVED"
-      }
+        status: "APPROVED",
+      },
     });
 
     // Check if all verifiers have approved
@@ -2703,8 +2742,8 @@ export const approveRequestInVerification = async (requestId, userId) => {
       where: {
         requestId: requestId,
         status: "PENDING",
-        stage: { not: null }
-      }
+        stage: { not: null },
+      },
     });
 
     // If no pending approvals remain, update the request status and resource version status
@@ -2712,23 +2751,23 @@ export const approveRequestInVerification = async (requestId, userId) => {
       // Get the request to find the resourceVersionId
       const request = await tx.resourceVersioningRequest.findUnique({
         where: { id: requestId },
-        select: { resourceVersionId: true }
+        select: { resourceVersionId: true },
       });
 
       // Update request status
       await tx.resourceVersioningRequest.update({
         where: { id: requestId },
         data: {
-          status: "APPROVED"
-        }
+          status: "APPROVED",
+        },
       });
 
       // Update resource version status to PUBLISH_PENDING
       await tx.resourceVersion.update({
         where: { id: request.resourceVersionId },
         data: {
-          versionStatus: "PUBLISH_PENDING"
-        }
+          versionStatus: "PUBLISH_PENDING",
+        },
       });
     }
 
@@ -2736,46 +2775,70 @@ export const approveRequestInVerification = async (requestId, userId) => {
     const request = await tx.resourceVersioningRequest.findUnique({
       where: { id: requestId },
       include: {
-        approvals: true
-      }
+        approvals: true,
+      },
     });
 
     return request;
   });
-}
+};
 
-
-export const rejectRequestInVerification = async (requestId, userId, rejectReason) => {
+export const rejectRequestInVerification = async (
+  requestId,
+  userId,
+  rejectReason
+) => {
   return await prismaClient.$transaction(async (tx) => {
     // Find and update the specific approval log for this verifier
     const approvalLog = await tx.resourceVersioningRequestApproval.updateMany({
       where: {
         requestId: requestId,
         approverId: userId,
-        status: "PENDING"
+        status: "PENDING",
       },
       data: {
         status: "REJECTED",
-        comments: rejectReason
-      }
+        comments: rejectReason,
+      },
     });
 
     // Update the request status to REJECTED
     await tx.resourceVersioningRequest.update({
       where: { id: requestId },
       data: {
-        status: "REJECTED"
-      }
+        status: "REJECTED",
+      },
     });
 
     // Get the updated request to return
     const request = await tx.resourceVersioningRequest.findUnique({
       where: { id: requestId },
       include: {
-        approvals: true
-      }
+        approvals: true,
+      },
     });
 
     return request;
+  });
+};
+
+
+export const fetchVersionsList = async (resourceId) =>{
+  return await prismaClient.resourceVersion.findMany({
+    where: {
+      resourceId: resourceId,
+    },
+    // include: {
+    //   resource: {
+    //     select: {
+    //       id: true,
+    //       titleEn: true,
+    //       titleAr: true,
+    //     },
+    //   },
+    // },
+    orderBy: {
+      versionNumber: "desc",
+    },
   });
 }
