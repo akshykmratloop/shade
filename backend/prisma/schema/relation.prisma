@@ -170,11 +170,10 @@ model ResourceVersionVerifier {
 
 // Content workflow requests
 model ResourceVersioningRequest {
-  id             String        @id @default(uuid())
-  status         RequestStatus @default(PENDING)
-  type           RequestType // VERIFICATION or PUBLICATION
-  editorComments String? // Context for reviewers
-
+  id                String                      @id @default(uuid())
+  status            RequestStatus               @default(PENDING)
+  type              RequestType // VERIFICATION or PUBLICATION
+  editorComments    String? // Context for reviewers
   // Relationships
   resourceVersion   ResourceVersion             @relation(fields: [resourceVersionId], references: [id], onDelete: Cascade)
   resourceVersionId String
@@ -199,16 +198,16 @@ model ResourceVersioningRequest {
 
 // Individual approval actions
 model RequestApproval {
-  id       String         @id @default(uuid())
-  stage    Int? // Verification stage (null for publisher)
-  status   ApprovalStatus @default(PENDING)
-  comments String? // Feedback from approver
-
+  id               String                    @id @default(uuid())
+  stage            Int? // Verification stage (null for publisher)
+  status           ApprovalStatus            @default(PENDING)
+  comments         String? // Feedback from approver
   // Relationships
-  request    ResourceVersioningRequest @relation(fields: [requestId], references: [id], onDelete: Cascade)
-  requestId  String
-  approver   User                      @relation("approver", fields: [approverId], references: [id], onDelete: Cascade)
-  approverId String
+  request          ResourceVersioningRequest @relation(fields: [requestId], references: [id], onDelete: Cascade)
+  requestId        String
+  approver         User                      @relation("approver", fields: [approverId], references: [id], onDelete: Cascade)
+  approverId       String
+  isApproverActive Boolean                   @default(true)
 
   // Timestamps
   createdAt DateTime @default(now())
