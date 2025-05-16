@@ -253,34 +253,25 @@ function VersionTable() {
                                         className="font-medium text-[12px] text-left font-poppins leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white] text-[#42526D] px-[24px] py-[13px] !capitalize"
                                         style={{ position: "static", width: "363px" }}
                                     >
-                                        Version ID
+                                        Version Number
                                     </th>
                                     {/* <th className="text-[#42526D] w-[164px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] text-center !capitalize">Sub Permission</th> */}
-                                    {
-                                        canSeeEditor &&
-                                        <th className="text-[#42526D] w-[154px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] !capitalize text-center">
-                                            Editor
-                                        </th>}
-
-                                    {
-                                        canSeeVerifier &&
-                                        <th className="text-[#42526D] w-[221px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] text-center !capitalize">
-                                            Verifier
-                                        </th>
-                                    }
-                                    {
-                                        canSeePublisher &&
-                                        <th className="text-[#42526D] w-[221px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] text-center !capitalize">
-                                            Publisher
-                                        </th>
-                                    }
-                                    <th className="text-[#42526D] w-[211px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] !capitalize">
+                                    <th className="text-[#42526D] w-[154px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] !capitalize text-center">
+                                        Status
+                                    </th>
+                                    <th className="text-[#42526D] w-[221px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] text-center !capitalize">
+                                        Published At
+                                    </th>
+                                    {/* <th className="text-[#42526D] w-[221px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] text-center !capitalize">
+                                        Status
+                                    </th> */}
+                                    {/* <th className="text-[#42526D] w-[211px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] !capitalize">
                                         Status
                                     </th>
 
                                     <th className="text-[#42526D] w-[221px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] text-center !capitalize">
                                         Date Time
-                                    </th>
+                                    </th> */}
                                     <th className="text-[#42526D] w-[221px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] text-center !capitalize">
                                         Action
                                     </th>
@@ -301,65 +292,61 @@ function VersionTable() {
                                                     {/* <img src={user.image ? user.image : userIcon} alt={user.name} className="rounded-[50%] w-[41px] h-[41px] mr-2" /> */}
                                                     <div className="flex flex-col">
                                                         <p className="dark:text-[white]">
-                                                            {version?.id}
+                                                            {version?.['versionNumber']}
                                                         </p>
-                                                        {/* <p className="font-light text-[grey]">{user.email}</p> */}
                                                     </div>
                                                 </td>
-                                                {
-                                                    canSeeEditor &&
-                                                    <td
-                                                        className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]"
-                                                        style={{ whiteSpace: "" }}
-                                                    >
-                                                        <span className="">
-                                                            {/* {TruncateText(version?.sender.name, 12) || "N/A"} */}
-                                                        </span>
-                                                    </td>
-                                                }
-                                                {
-                                                    canSeeVerifier &&
-                                                    <td
-                                                        className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]"
-                                                        style={{ whiteSpace: "" }}
-                                                    >
-                                                        <span className="">
-                                                            {/* {verifiers.length > 0 && (
-                                                                verifiers?.[0]?.approver?.name || "N/A"
-                                                            )} */}
-                                                        </span>
-                                                    </td>
-                                                }
-                                                {
-                                                    canSeePublisher &&
-                                                    <td
-                                                        className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]"
-                                                        style={{ whiteSpace: "" }}
-                                                    >
-                                                        <span className="" >
-                                                            {/* {TruncateText(publisher?.approver?.name, 12) || "N/A"} */}
-                                                        </span>
-                                                    </td>
-                                                }
                                                 <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]">
-                                                    <p
-                                                        className={`min-w-[85px] 
+                                                    <div className="flex gap-2 border justify-start">
+                                                        <p
+                                                            className={`min-w-[85px] 
                                                             mx-auto before:content-['•'] 
                                                             before:text-2xl flex h-7 
                                                             items-center justify-center 
                                                             gap-1 px-1 py-0 font-[500] 
-                                                                ${version.status === "Green"
-                                                                ? "text-green-600 bg-lime-200 before:text-green-600 px-1"
-                                                                : version.status === "Blue"
-                                                                    ? "text-blue-600 bg-sky-200 before:text-blue-600 "
-                                                                    : "text-red-600 bg-pink-200 before:text-red-600 "
-                                                            }            
+                                                            ${version.status === "Green"
+                                                                    ? "text-green-600 bg-lime-200 before:text-green-600 px-1"
+                                                                    : version.status === "Blue"
+                                                                        ? "text-blue-600 bg-sky-200 before:text-blue-600 "
+                                                                        : "text-red-600 bg-pink-200 before:text-red-600 "
+                                                                }            
                                                             rounded-2xl`}
-                                                        style={{ textTransform: "capitalize" }}
-                                                    >
-                                                        <span className="">{capitalizeWords(version?.resourceVersion?.versionStatus)}</span>
-                                                    </p>
+                                                            style={{ textTransform: "capitalize" }}
+                                                        >
+                                                            <span className="">
+                                                                {capitalizeWords(version?.versionStatus)}
+                                                            </span>
+                                                        </p>
+                                                        <p>{version?.isLive ? "Live" : version?.isUnderEditing ? "Under Editing" : ""}</p>
+                                                    </div>
                                                 </td>
+                                                <td
+                                                    className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]"
+                                                    style={{ whiteSpace: "" }}
+                                                >
+                                                    <span className="">
+                                                        {formatTimestamp(version?.publishedAt)}
+                                                    </span>
+                                                </td>
+                                                <td
+                                                    className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]"
+                                                    style={{ whiteSpace: "" }}
+                                                >
+                                                    <span className="">
+                                                        {/* {verifiers.length > 0 && (
+                                                                verifiers?.[0]?.approver?.name || "N/A"
+                                                            )} */}
+                                                    </span>
+                                                </td>
+                                                <td
+                                                    className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]"
+                                                    style={{ whiteSpace: "" }}
+                                                >
+                                                    <span className="" >
+                                                        {/* {TruncateText(publisher?.approver?.name, 12) || "N/A"} */}
+                                                    </span>
+                                                </td>
+
                                                 <td className="font-poppins font-light text-[12px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]">
                                                     {formatTimestamp(version?.createdAt)}
                                                 </td>

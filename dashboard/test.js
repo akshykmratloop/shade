@@ -1,4 +1,4 @@
-let a = {
+{
     "message": "Success",
     "content": {
         "versions": [
@@ -17,7 +17,9 @@ let a = {
                 "createdAt": "2025-05-16T11:13:27.034Z",
                 "updatedAt": "2025-05-16T11:13:27.034Z",
                 "scheduledAt": null,
-                "publishedAt": "2025-05-16T11:13:27.034Z"
+                "publishedAt": "2025-05-16T11:13:27.034Z",
+                "isLive": true,
+                "isUnderEditing": false
             },
             {
                 "id": "cmaqloir50001nl0wrm0c9uf1",
@@ -34,7 +36,9 @@ let a = {
                 "createdAt": "2025-05-16T09:32:50.033Z",
                 "updatedAt": "2025-05-16T09:35:29.317Z",
                 "scheduledAt": null,
-                "publishedAt": null
+                "publishedAt": null,
+                "isLive": false,
+                "isUnderEditing": false
             },
             {
                 "id": "cmap7yosw00tqmn5k6tnvfskc",
@@ -51,7 +55,9 @@ let a = {
                 "createdAt": "2025-05-15T10:21:03.632Z",
                 "updatedAt": "2025-05-16T10:24:33.887Z",
                 "scheduledAt": null,
-                "publishedAt": null
+                "publishedAt": null,
+                "isLive": false,
+                "isUnderEditing": true
             }
         ],
         "pagination": {
