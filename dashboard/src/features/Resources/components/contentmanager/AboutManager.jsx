@@ -88,7 +88,7 @@ const AboutManager = ({ content, currentPath, language, indexes, outOfEditing })
                                     { input: "input", label: "Item text 1", updateType: "title", maxLength: 20, value: content?.['1']?.content?.cards?.[index]?.title?.[language] },
                                     { input: "textarea", label: "Item text 2", updateType: "description", maxLength: 200, value: content?.['1']?.content?.cards?.[index]?.description?.[language] }
                                 ]}
-                                inputFiles={[{ label: "Item Icon", id: item.icon }]}
+                                inputFiles={[{ label: "Item Icon", id: item.icon, order: item.order, directIcon: true }]}
                                 // fileId={item}
                                 language={language}
                                 section={"services"}
@@ -113,7 +113,7 @@ const AboutManager = ({ content, currentPath, language, indexes, outOfEditing })
                     { input: "input", label: "Heading/title", updateType: "title", value: content?.['2']?.content?.title?.[language] },
                     { input: "richtext", label: "Descriptions", updateType: "descriptions", maxLength: 400, value: content?.['2']?.content?.descriptions?.[language] },
                 ]}
-                inputFiles={[{ label: "Video", id: "video" }]}
+                inputFiles={[{ label: "Video", id: "video", }]}
                 section={"main"}
                 language={language}
                 currentContent={content}

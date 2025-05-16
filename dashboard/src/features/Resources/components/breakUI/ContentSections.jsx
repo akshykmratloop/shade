@@ -334,6 +334,7 @@ const ContentSection = ({
                                             resourceId={resourceId}
                                             contentIndex={sectionIndex}
                                             outOfEditing={outOfEditing}
+                                            directIcon={file.directIcon}
                                         />
                                     </div>
                                 )

@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { aboutUsIcons } from "../../../../assets/index"; // ../../assets/index
+import { Img_url } from "../../../../routes/backend";
 // import styles from "./about.module.scss";
 // import localFont from "next/font/local";
 // import Button from "@/common/Button";
@@ -52,7 +53,7 @@ const AboutUs = ({ language, screen, currentContent }) => {
                                 key={index}
                             >
                                 <img
-                                    src={ImageFromRedux[card.icon] || aboutUsIcons[card?.icon]}
+                                    src={Img_url+card.icon}
                                     width="44"
                                     height="44"
                                     alt="icon"

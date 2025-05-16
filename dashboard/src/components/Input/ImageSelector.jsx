@@ -220,6 +220,16 @@ const ImageSelector = ({ onSelectImage, onClose, resourceId }) => {
                                         <p>{metadata?.uploadedAt}</p>
                                     </div>
                                 </div>
+                                <div className="flex flex-col gap-4 mt-4">
+                                    <label htmlFor="altEn" className="flex border text-sm justify-between items-center">
+                                        Alt Text English
+                                        <input type="text" id="altEn" className="rounded-sm p-2 text-xs" />
+                                    </label>
+                                    <label htmlFor="altEn" className="flex border text-sm justify-between items-center">
+                                        Alt Text Arabic
+                                        <input type="text" id="altEn" className="rounded-sm p-2 text-xs" dir="rtl"/>
+                                    </label>
+                                </div>
                             </div>
                         ) : (
                             <p className="text-gray-500">No image selected</p>

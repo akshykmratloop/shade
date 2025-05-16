@@ -17,13 +17,13 @@ const cmsSlice = createSlice({
     reducers: {
         updateImages: (state, action) => {
             state.past.push(JSON.parse(JSON.stringify(state.present)));
-            if (action.payload.type === "refDoc") {
+           if (action.payload.type === "refDoc") {
                 state.present.content.editVersion.referenceDoc = action.payload.src
             } else if (action.payload.section === "clientSection") {
 
                 state.present.content.editVersion.sections[action.payload.index].content.clients[action.payload.cardIndex].image[0] = action.payload.src
 
-            } else if (action.payload.subSection === "cards" && action.payload.currentPath === "home") {
+            } else if (action.payload.directIcon) {
 
                 state.present.content.editVersion.sections[action.payload.index].content.cards[action.payload.cardIndex].iconName = action.payload.src
 

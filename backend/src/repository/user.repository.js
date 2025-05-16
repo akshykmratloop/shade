@@ -72,7 +72,7 @@ export const createUserHandler = async (
     `,
   };
 
-  await sendEmail(emailPayload);
+  // await sendEmail(emailPayload);
 
   return newUser;
 };
