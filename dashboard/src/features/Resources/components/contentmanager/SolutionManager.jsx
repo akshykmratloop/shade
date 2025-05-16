@@ -48,7 +48,7 @@ const SolutionManager = ({ currentPath, language, currentContent, indexes }) => 
                 section={"banner"}
                 language={language}
                 currentContent={currentContent}
-                contentIndex={indexes?.['1']}
+                sectionIndex={indexes?.['1']}
 
             />
 
@@ -86,8 +86,8 @@ const SolutionManager = ({ currentPath, language, currentContent, indexes }) => 
                                 currentContent={currentContent}
                                 isBorder={false}
                                 // type={'rich'}
-                                contentIndex={indexes?.['1']}
-
+                                sectionIndex={indexes?.['1']}
+                                contentIndex={index}
                             />
                         )
                     })
@@ -108,7 +108,7 @@ const SolutionManager = ({ currentPath, language, currentContent, indexes }) => 
                 language={language}
                 currentContent={currentContent}
                 allowExtraInput={true}
-                contentIndex={indexes?.['1']}
+                sectionIndex={indexes?.['1']}
 
             />
 
@@ -143,7 +143,7 @@ const SolutionManager = ({ currentPath, language, currentContent, indexes }) => 
                                 currentContent={currentContent}
                                 isBorder={false}
                                 type={'rich'}
-                                contentIndex={indexes?.['1']}
+                                sectionIndex={indexes?.['1']}
 
 
                             />
@@ -165,7 +165,7 @@ const SolutionManager = ({ currentPath, language, currentContent, indexes }) => 
                 language={language}
                 currentContent={currentContent}
                 allowExtraInput={true}
-                contentIndex={indexes?.['1']}
+                sectionIndex={indexes?.['1']}
 
             />
         </div>

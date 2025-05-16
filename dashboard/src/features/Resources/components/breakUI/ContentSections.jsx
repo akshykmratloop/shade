@@ -27,6 +27,7 @@ const ContentSection = ({
     projectId,
     careerId,
     deepPath,
+    sectionIndex,
     contentIndex,
     resourceId,
     ref,
@@ -59,7 +60,7 @@ const ContentSection = ({
         } else {
             dispatch(updateAList({
                 data: { alt: { ar: "", en: "" }, image: [""] },
-                index: contentIndex,
+                index: sectionIndex,
                 operation: "add"
             }))
         }
@@ -81,7 +82,7 @@ const ContentSection = ({
             console.log(id)
             dispatch(updateAList({
                 data: id,
-                index: contentIndex,
+                index: sectionIndex,
                 operation: "remove"
             }))
         }
@@ -98,7 +99,7 @@ const ContentSection = ({
                     subSection,
                     index,
                     currentPath,
-                    contentIndex
+                    sectionIndex
                 }));
             }
         } else {
@@ -115,7 +116,7 @@ const ContentSection = ({
                 projectId,
                 careerId,
                 deepPath,
-                contentIndex,
+                sectionIndex,
                 path
             }));
         }
@@ -134,7 +135,7 @@ const ContentSection = ({
                     subSection,
                     index,
                     currentPath,
-                    contentIndex
+                    sectionIndex
                 }));
             }
         } else {
@@ -151,7 +152,7 @@ const ContentSection = ({
                 projectId,
                 careerId,
                 deepPath,
-                contentIndex
+                sectionIndex
                 // type
             }));
         }
@@ -297,7 +298,7 @@ const ContentSection = ({
                                             section={section}
                                             isCloseButton={allowClose}
                                             resourceId={resourceId}
-                                            contentIndex={contentIndex}
+                                            contentIndex={sectionIndex}
                                             outOfEditing={outOfEditing}
                                         />
                                     )
@@ -332,7 +333,7 @@ const ContentSection = ({
                                             index={section === "clientSection" ? i : index}
                                             subSection={subSection}
                                             resourceId={resourceId}
-                                            contentIndex={contentIndex}
+                                            contentIndex={sectionIndex}
                                             outOfEditing={outOfEditing}
                                         />
                                     </div>

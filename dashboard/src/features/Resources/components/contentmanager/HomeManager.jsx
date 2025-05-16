@@ -89,7 +89,7 @@ const HomeManager = ({ language, currentPath, outOfEditing }) => {
                 section={"homeBanner"}
                 language={language}
                 currentContent={content}
-                contentIndex={indexes?.["1"]}
+                sectionIndex={indexes?.["1"]}
                 resourceId={currentId}
                 outOfEditing={outOfEditing}
             />
@@ -106,7 +106,7 @@ const HomeManager = ({ language, currentPath, outOfEditing }) => {
                 section={"aboutUsSection"}
                 language={language}
                 currentContent={content}
-                contentIndex={indexes?.['2']}
+                sectionIndex={indexes?.['2']}
                 resourceId={currentId}
                 outOfEditing={outOfEditing}
             />
@@ -123,7 +123,7 @@ const HomeManager = ({ language, currentPath, outOfEditing }) => {
                 listOptions={ServicesOptions}
                 referenceOriginal={{ dir: "home", index: 0 }}
                 currentContent={content}
-                contentIndex={indexes?.['3']}
+                sectionIndex={indexes?.['3']}
                 outOfEditing={outOfEditing}
             />
 
@@ -141,7 +141,7 @@ const HomeManager = ({ language, currentPath, outOfEditing }) => {
                     section={"experienceSection"}
                     language={language}
                     currentContent={content}
-                    contentIndex={indexes?.['4']}
+                    sectionIndex={indexes?.['4']}
                     resourceId={currentId}
                     outOfEditing={outOfEditing}
                 />
@@ -162,7 +162,7 @@ const HomeManager = ({ language, currentPath, outOfEditing }) => {
                             index={+index}
                             isBorder={isLast}
                             currentContent={content}
-                            contentIndex={indexes?.['4']}
+                            sectionIndex={indexes?.['4']}
                             resourceId={currentId}
                             outOfEditing={outOfEditing}
                         />
@@ -194,7 +194,7 @@ const HomeManager = ({ language, currentPath, outOfEditing }) => {
                                         index={+index}
                                         isBorder={isLast}
                                         currentContent={content}
-                                        contentIndex={indexes?.['5']}
+                                        sectionIndex={indexes?.['5']}
                                         resourceId={currentId}
                                         outOfEditing={outOfEditing}
                                     />
@@ -206,7 +206,7 @@ const HomeManager = ({ language, currentPath, outOfEditing }) => {
                                         options={content?.['5'].sections[index].items}
                                         referenceOriginal={{ dir: "recentproject", index }}
                                         currentContent={content}
-                                        contentIndex={indexes?.['5']}
+                                        sectionIndex={indexes?.['5']}
                                         listOptions={ProjectOptions}
                                         outOfEditing={outOfEditing}
                                     />
@@ -228,7 +228,7 @@ const HomeManager = ({ language, currentPath, outOfEditing }) => {
                 section={"clientSection"}
                 language={language}
                 currentContent={content}
-                contentIndex={indexes?.['6']}
+                sectionIndex={indexes?.['6']}
                 allowExtraInput={true}
                 resourceId={currentId}
                 outOfEditing={outOfEditing}
@@ -244,7 +244,7 @@ const HomeManager = ({ language, currentPath, outOfEditing }) => {
                 section={"Testimonials heading"}
                 language={language}
                 currentContent={content}
-                contentIndex={indexes?.['7']}
+                sectionIndex={indexes?.['7']}
                 resourceId={currentId}
                 outOfEditing={outOfEditing}
             />
@@ -259,7 +259,7 @@ const HomeManager = ({ language, currentPath, outOfEditing }) => {
                 listOptions={TestimonialsOptions}
                 referenceOriginal={{ dir: "testimonials", index: 0 }}
                 currentContent={content}
-                contentIndex={indexes?.['7']}
+                sectionIndex={indexes?.['7']}
                 limitOptions={4}
                 min={4}
                 outOfEditing={outOfEditing}
@@ -280,7 +280,7 @@ const HomeManager = ({ language, currentPath, outOfEditing }) => {
                 section={"newProjectSection"}
                 language={language}
                 currentContent={content}
-                contentIndex={indexes?.['8']}
+                sectionIndex={indexes?.['8']}
                 resourceId={currentId}
                 outOfEditing={outOfEditing}
             />

@@ -73,7 +73,7 @@ const AboutManager = ({ content, currentPath, language, indexes, outOfEditing })
                     section={"services"}
                     language={language}
                     currentContent={content}
-                    contentIndex={indexes?.['1']}
+                    sectionIndex={indexes?.['1']}
                     // resourceId={currentId}
                     outOfEditing={outOfEditing}
                 />
@@ -96,7 +96,7 @@ const AboutManager = ({ content, currentPath, language, indexes, outOfEditing })
                                 index={+index}
                                 isBorder={isLast}
                                 currentContent={content}
-                                contentIndex={indexes?.['1']}
+                                sectionIndex={indexes?.['1']}
                                 // resourceId={currentId}
                                 outOfEditing={outOfEditing}
                             />
@@ -117,7 +117,7 @@ const AboutManager = ({ content, currentPath, language, indexes, outOfEditing })
                 section={"main"}
                 language={language}
                 currentContent={content}
-                contentIndex={indexes?.['2']}
+                sectionIndex={indexes?.['2']}
                 // resourceId={currentId}
                 outOfEditing={outOfEditing}
             />

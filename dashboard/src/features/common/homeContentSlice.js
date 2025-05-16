@@ -155,14 +155,16 @@ const cmsSlice = createSlice({
         },
         updateSpecificContent: (state, action) => {
             state.past.push(JSON.parse(JSON.stringify(state.present)));
-            if (action.payload.title === "button") {
-                state.present.content.editVersion.sections[action.payload.contentIndex].content[action.payload.title][0].text[action.payload.lan] = action.payload.value
+            if (action.payload.type === "content[index]") {
+                state.present.content.editVersion.sections[action.payload.sectionIndex].content[action.payload.contentIndex][action.payload.title][0].text[action.payload.lan] = action.payload.value
+            } else if (action.payload.title === "button") {
+                state.present.content.editVersion.sections[action.payload.sectionIndex].content[action.payload.title][0].text[action.payload.lan] = action.payload.value
             } else if (action.payload.section === "recentProjectsSection") {
-                state.present.content.editVersion.sections[action.payload.contentIndex].sections[action.payload.index].content[action.payload.title][action.payload.lan] = action.payload.value
+                state.present.content.editVersion.sections[action.payload.sectionIndex].sections[action.payload.index].content[action.payload.title][action.payload.lan] = action.payload.value
             } else if (action.payload.subSection === "cards") {
-                state.present.content.editVersion.sections[action.payload.contentIndex].content.cards[action.payload.index][action.payload.title][action.payload.lan] = action.payload.value
+                state.present.content.editVersion.sections[action.payload.sectionIndex].content.cards[action.payload.index][action.payload.title][action.payload.lan] = action.payload.value
             } else {
-                state.present.content.editVersion.sections[action.payload.contentIndex].content[action.payload.title][action.payload.lan] = action.payload.value
+                state.present.content.editVersion.sections[action.payload.sectionIndex].content[action.payload.title][action.payload.lan] = action.payload.value
             }
 
             state.future = [];

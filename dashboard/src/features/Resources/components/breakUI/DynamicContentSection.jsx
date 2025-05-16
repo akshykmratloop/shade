@@ -32,8 +32,8 @@ const DynamicContentSection = ({
     newsId,
     deepPath,
     // type,
+    sectionIndex,
     contentIndex
-    
 }) => {
     const dispatch = useDispatch();
     const [extraFiles, setExtraFiles] = useState([]);
@@ -95,7 +95,7 @@ const DynamicContentSection = ({
         if (updateType === 'count') {
             if (!isNaN(value)) {
                 let val = value?.slice(0, 7);
-                dispatch(updateServicesNumber({ section, title: updateType, value: val, subSection, index, currentPath }));
+                dispatch(updateServicesNumber({ section, title: updateType, value: val, subSection, index, currentPath, sectionIndex }));
             }
         } else {
             dispatch(updateSpecificContent({
@@ -112,7 +112,7 @@ const DynamicContentSection = ({
                 careerId,
                 deepPath,
                 // type,
-                contentIndex,
+                sectionIndex,
                 path
             }));
         }
@@ -123,7 +123,7 @@ const DynamicContentSection = ({
         if (updateType === 'count') {
             if (!isNaN(value)) {
                 let val = value?.slice(0, 7);
-                dispatch(updateServicesNumber({ section, title: updateType, value: val, subSection, index, currentPath }));
+                dispatch(updateServicesNumber({ section, title: updateType, value: val, subSection, index, currentPath, sectionIndex}));
             }
         } else {
             dispatch(updateSpecificContent({
@@ -140,6 +140,7 @@ const DynamicContentSection = ({
                 careerId,
                 deepPath,
                 // type,
+                sectionIndex,
                 contentIndex
             }));
         }
