@@ -191,7 +191,7 @@ const MultiSelect = ({ outOfEditing, heading, min = 0, options, tabName, label, 
   }, [options]);
 
   return (
-    <div className="relative w-full border-b border-b-2 border-neutral-300 pb-4 mt-4 " ref={dropdownRef}>
+    <div className="relative w-full border-b border-b-2 border-neutral-300 pb-4 mt-4 " >
       <h3 className="font-semibold text-[1.25rem] mb-4">{heading}</h3>
       <label className="sm:text-xs xl:text-sm text-[#6B7888]">{label}</label>
       <div className=" relative mt-2 rounded-md ">
@@ -207,7 +207,7 @@ const MultiSelect = ({ outOfEditing, heading, min = 0, options, tabName, label, 
         </button>
 
         {isDropdownOpen && (
-          <ul className="absolute text-xs left-0 xl:top-[-6.2rem] sm:top-[-3rem] md:top-[-6rem] z-10 w-full mt-2 bg-[#fafaff] dark:bg-[#242933] border rounded-md shadow-md overflow-y-scroll h-[10rem] customscroller">
+          <ul ref={dropdownRef} className="absolute text-xs left-0 xl:top-[-6.2rem] sm:top-[-3rem] md:top-[-6rem] z-10 w-full mt-2 bg-[#fafaff] dark:bg-[#242933] border rounded-md shadow-md overflow-y-scroll h-[10rem] customscroller">
             {
               listOptions?.map((option, index) => {
                 return (
