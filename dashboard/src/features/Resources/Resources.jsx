@@ -26,6 +26,7 @@ import CloseModalButton from "../../components/Button/CloseButton";
 import createContent from "./defineContent";
 import FallBackLoader from "../../components/fallbackLoader/FallbackLoader";
 import VersionTable from "./VersionTable";
+import { setPlatform } from "../common/platformSlice";
 
 const AllForOne = lazy(() => import("./components/AllForOne"));
 const Page404 = lazy(() => import("../../pages/protected/404"));
@@ -261,6 +262,7 @@ function Resources() {
             settingRoute(slug?.toLowerCase());
           }
           setPreview(true)
+          setPlatform("RESOURCE")
         },
       }
     ];

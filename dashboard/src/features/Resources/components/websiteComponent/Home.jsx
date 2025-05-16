@@ -41,6 +41,7 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
     const ImagesFromRedux = useSelector((state) => {
         return state?.homeContent?.present?.images
     })
+    const platform = useSelector(state => state.platform.platform)
     const [swiperInstance, setSwiperInstance] = useState(null);
     let isLeftAlign = language === "en";
     let textAlignment = isLeftAlign ? "text-left" : "text-right"
@@ -95,7 +96,9 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
 
 
     useEffect(() => {
-        return () => dispatch(updateMainContent({ currentPath: "content", payload: undefined }))
+        if (platform !== "EDIT") {
+            return () => dispatch(updateMainContent({ currentPath: "content", payload: undefined }))
+        }
     }, [])
     const testimonialPrevRef = useRef(null);
     const testimonialNextRef = useRef(null);
