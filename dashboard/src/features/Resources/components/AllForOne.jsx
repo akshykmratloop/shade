@@ -18,7 +18,6 @@ import SubServiceDetails from "./websiteComponent/subDetailsPages/SubServiceDeta
 import tempContent from "./websiteComponent/content.json"
 
 const AllForOne = ({ language, screen, content, subPath, setLanguage, fullScreen, currentPath, deepPath, showDifference = false, live, hideScroll }) => {
-    let translateForFullScreen = ""
 
     return (
         <div

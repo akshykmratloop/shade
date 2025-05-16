@@ -1,162 +1,64 @@
 let a = {
     "message": "Success",
     "content": {
-        "id": "cmap7yoq700simn5kjook95l1",
-        "titleEn": "Solutions Page",
-        "titleAr": "صفحة الحلول",
-        "slug": "solution",
-        "resourceType": "MAIN_PAGE",
-        "resourceTag": "SOLUTION",
-        "relationType": "PARENT",
-        "liveModeVersionData": {
-            "id": "cmap7yoq900skmn5ka6shsg1u",
-            "versionNumber": 1,
-            "content": {},
-            "icon": null,
-            "image": null,
-            "comments": "Initial version created",
-            "referenceDoc": null,
-            "updatedAt": "2025-05-15T10:21:03.538Z",
-            "status": "PUBLISHED",
-            "sections": [
-                {
-                    "sectionId": "cmap7yoql00smmn5kmi0e4tlu",
-                    "sectionVersionId": "cmap7yoqo00somn5kz7jro6p0",
-                    "order": 1,
-                    "version": 1,
-                    "title": "heroSection-solution-79fd",
-                    "SectionType": "HERO_BANNER",
-                    "content": {
-                        "title": {
-                            "ar": "الحلول",
-                            "en": "Solutions"
-                        },
-                        "button": [
-                            {
-                                "url": null,
-                                "icon": null,
-                                "text": {
-                                    "ar": "عرض عملنا",
-                                    "en": "View Our Work"
-                                },
-                                "order": 1
-                            }
-                        ],
-                        "description": {
-                            "ar": "اكتشف التميز الاستثنائي لشركة Shade Corporation، الشركة الرائدة في مجالات الهندسة والمشتريات والبناء في المملكة العربية السعودية.",
-                            "en": "Discover the exceptional excellence of Shade Corporation, the leading company in engineering, procurement, and construction in Saudi Arabia."
-                        }
-                    },
-                    "sections": []
-                },
-                {
-                    "sectionId": "cmap7yoqy00ssmn5kfwngn0m9",
-                    "sectionVersionId": "cmap7yor200sumn5ksm7miium",
-                    "order": 2,
-                    "version": 1,
-                    "title": "detailsSection-solution-0b2d",
-                    "SectionType": "MARKDOWN_CONTENT",
-                    "content": [
-                        {
-                            "order": 1,
-                            "title": {
-                                "ar": "ماذا نفعل",
-                                "en": "What We Do"
-                            },
-                            "description": {
-                                "ar": "استمتع بتجربة التآزر بين التصميم والتنفيذ من خلال خدمات التصميم/البناء لدينا، وهو نهج متناغم يدمج الإبداع مع الدقة. ثق بخبرتنا في مجال المقاولات العامة والهندسة العامة للتغلب على التعقيدات وتقديم الحلول التي تصمد أمام اختبار الزمن. انغمس في هندسة القيمة لدينا، وهو النظام الذي يتقاطع فيه الابتكار والكفاءة، مما يضمن أن مشاريعك ليست عملية فحسب، بل مُحسّنة أيضًا لتحقيق أقصى قيمة.",
-                                "en": "Experience the synergy between design and execution through our design/build services, a harmonious approach that combines creativity with precision. Trust our expertise in general contracting and general engineering to overcome complexities and deliver solutions that stand the test of time. Immerse yourself in our value engineering, a system where innovation intersects with efficiency, ensuring your projects are not just functional but optimized for maximum value."
-                            }
-                        },
-                        {
-                            "order": 2,
-                            "title": {
-                                "ar": "كيف نفعل",
-                                "en": "How We Do It"
-                            },
-                            "description": {
-                                "ar": "استمتع بالدقة في المسح، وبراعة التصنيع، وقوة رفع الأثقال، كل ذلك تحت مظلة Shade's Construction Services. سواء كان مشروعك يتطلب قوة هيكلية، أو تفاصيل معقدة، أو نشر التكنولوجيا المتقدمة، فنحن مجهزون لتجاوز توقعاتك.",
-                                "en": "Experience precision in surveying, manufacturing expertise, and heavy lifting capabilities, all under Shade's Construction Services umbrella. Whether your project demands structural strength, intricate details, or advanced technology deployment, we're equipped to exceed your expectations."
-                            }
-                        }
-                    ],
-                    "sections": []
-                },
-                {
-                    "sectionId": "cmap7yora00symn5k2qr63yt7",
-                    "sectionVersionId": "cmap7yorf00t0mn5kvbd0w8vd",
-                    "order": 3,
-                    "version": 1,
-                    "title": "GallerySection1-solution-754d",
-                    "SectionType": "GALLERY_GRID",
-                    "content": {
-                        "images": [
-                            {
-                                "url": "https://frequencyimage.s3.ap-south-1.amazonaws.com/851e35b5-9b3b-4d9f-91b4-9b60ef2a102c-Rectangle%2034624110.png",
-                                "order": 1,
-                                "altText": {
-                                    "ar": "صورة شعار الصفحة الرئيسية",
-                                    "en": "Image 1"
-                                }
-                            },
-                            {
-                                "url": "https://frequencyimage.s3.ap-south-1.amazonaws.com/ae1cee6e-f695-4e06-8e0b-983b8cb94209-Rectangle%2034624111.jpg",
-                                "order": 2,
-                                "altText": {
-                                    "ar": "صورة 2",
-                                    "en": "Image 2"
-                                }
-                            },
-                            {
-                                "url": "https://frequencyimage.s3.ap-south-1.amazonaws.com/be6992a3-4390-42c1-b807-b1a04f48b0e6-Rectangle%2034624112.jpg",
-                                "order": 3,
-                                "altText": {
-                                    "ar": "صورة 3",
-                                    "en": "Image 3"
-                                }
-                            }
-                        ]
-                    },
-                    "sections": []
-                },
-                {
-                    "sectionId": "cmap7yorm00t4mn5krf4f8r16",
-                    "sectionVersionId": "cmap7yorp00t6mn5kol9sb5zf",
-                    "order": 4,
-                    "version": 1,
-                    "title": "GallerySection2-solution-9e07",
-                    "SectionType": "GALLERY_GRID",
-                    "content": {
-                        "images": [
-                            {
-                                "url": "https://frequencyimage.s3.ap-south-1.amazonaws.com/851e35b5-9b3b-4d9f-91b4-9b60ef2a102c-Rectangle%2034624110.png",
-                                "order": 1,
-                                "altText": {
-                                    "ar": "صورة 1",
-                                    "en": "Image 1"
-                                }
-                            },
-                            {
-                                "url": "https://frequencyimage.s3.ap-south-1.amazonaws.com/ae1cee6e-f695-4e06-8e0b-983b8cb94209-Rectangle%2034624111.jpg",
-                                "order": 2,
-                                "altText": {
-                                    "ar": "صورة 2",
-                                    "en": "Image 2"
-                                }
-                            },
-                            {
-                                "url": "https://frequencyimage.s3.ap-south-1.amazonaws.com/be6992a3-4390-42c1-b807-b1a04f48b0e6-Rectangle%2034624112.jpg",
-                                "order": 3,
-                                "altText": {
-                                    "ar": "صورة 3",
-                                    "en": "Image 3"
-                                }
-                            }
-                        ]
-                    },
-                    "sections": []
-                }
-            ]
+        "versions": [
+            {
+                "id": "cmaqp9wxm0001nl7ke2t6bebg",
+                "versionNumber": 3,
+                "versionStatus": "PUBLISHED",
+                "notes": "Initial version created",
+                "referenceDoc": null,
+                "content": {},
+                "icon": null,
+                "Image": null,
+                "lockedById": null,
+                "lockedAt": null,
+                "resourceId": "cmap7yost00tomn5kro5pqv7y",
+                "createdAt": "2025-05-16T11:13:27.034Z",
+                "updatedAt": "2025-05-16T11:13:27.034Z",
+                "scheduledAt": null,
+                "publishedAt": "2025-05-16T11:13:27.034Z"
+            },
+            {
+                "id": "cmaqloir50001nl0wrm0c9uf1",
+                "versionNumber": 2,
+                "versionStatus": "DRAFT",
+                "notes": "",
+                "referenceDoc": "",
+                "content": {},
+                "icon": null,
+                "Image": null,
+                "lockedById": null,
+                "lockedAt": null,
+                "resourceId": "cmap7yost00tomn5kro5pqv7y",
+                "createdAt": "2025-05-16T09:32:50.033Z",
+                "updatedAt": "2025-05-16T09:35:29.317Z",
+                "scheduledAt": null,
+                "publishedAt": null
+            },
+            {
+                "id": "cmap7yosw00tqmn5k6tnvfskc",
+                "versionNumber": 1,
+                "versionStatus": "DRAFT",
+                "notes": "Initial version created",
+                "referenceDoc": null,
+                "content": {},
+                "icon": null,
+                "Image": null,
+                "lockedById": null,
+                "lockedAt": null,
+                "resourceId": "cmap7yost00tomn5kro5pqv7y",
+                "createdAt": "2025-05-15T10:21:03.632Z",
+                "updatedAt": "2025-05-16T10:24:33.887Z",
+                "scheduledAt": null,
+                "publishedAt": null
+            }
+        ],
+        "pagination": {
+            "totalVersions": 3,
+            "totalPages": 1,
+            "currentPage": 1,
+            "limit": 10
         }
     }
 }

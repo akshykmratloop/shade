@@ -25,9 +25,9 @@ const AboutUs = ({ language, screen, currentContent }) => {
 
  
 
-    useEffect(() => {
-        return () => dispatch(updateMainContent({ currentPath: "content", payload: undefined }))
-    }, [])
+    // useEffect(() => {
+    //     return () => dispatch(updateMainContent({ currentPath: "content", payload: undefined }))
+    // }, [])
 
     return (
         <div className="px-8">

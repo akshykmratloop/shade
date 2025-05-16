@@ -19,6 +19,7 @@ import { FiEye } from "react-icons/fi";
 import { LuListFilter } from "react-icons/lu";
 import { PiInfoThin } from "react-icons/pi";
 import XMarkIcon from "@heroicons/react/24/outline/XMarkIcon";
+import { versionsList } from "../../app/fetch";
 // import { Switch } from "@headlessui/react";
 // import { FiEdit } from "react-icons/fi";
 
@@ -181,20 +182,14 @@ function VersionTable() {
 
     // Side Effects
     useEffect(() => { // Fetch Versions
-        if (currentRole?.id) {
+        if (resourceId) {
             async function fetchversionsData() {
                 try {
-                    const payload = { roleId: roleId ?? "" }
-
-                    if (RoleTypeIsUser) payload.permission = permission || currentRole?.permissions[0] || ""
-                    //   const response = await getRequests(payload);
-                    if (
-                        // response.ok
-                        false
-                    ) {
-                        // setVersions(response.requests.data);
+                    const response = await versionsList("cmap7yost00tomn5kro5pqv7y");
+                    if (response.ok) {
+                        setVersions(response?.content?.versions || []);
                     }
-                    //   setOriginalVersions(response?.requests?.data ?? []); // Store the original unfiltered data
+                    setOriginalVersions(response?.content?.versions || []); // Store the original unfiltered data
 
                 } catch (err) {
                     console.error(err)
@@ -202,13 +197,13 @@ function VersionTable() {
             }
             fetchversionsData();
         }
-    }, [currentRole.id, permission]);
+    }, [resourceId, permission]);
 
-    useEffect(() => {
-        setCanSeeEditor(isVerifier || isPublisher || isManager)
-        setCanSeeVerifier(isPublisher || isManager)
-        setCasSeePublisher(isVerifier || isManager)
-    }, [currentRole?.id])
+    // useEffect(() => {
+    //     setCanSeeEditor(isVerifier || isPublisher || isManager)
+    //     setCanSeeVerifier(isPublisher || isManager)
+    //     setCasSeePublisher(isVerifier || isManager)
+    // }, [currentRole?.id])
 
     // useEffect(() => {
     //     if (noneCanSee) {
@@ -216,9 +211,9 @@ function VersionTable() {
     //     }
     // }, [noneCanSee])
 
-    useEffect(() => {
+    // useEffect(() => {
 
-    }, [currentRole])
+    // }, [currentRole])
 
 
 
@@ -294,8 +289,6 @@ function VersionTable() {
                             <tbody className="">
                                 {Array.isArray(versions) && currentVersions.length > 0 ? (
                                     currentVersions?.map((version, index) => {
-                                        let publisher = version.approvals.filter(e => e.stage === null)[0]
-                                        let verifiers = version.approvals.filter(e => e.stage)
                                         return (
                                             <tr
                                                 key={index}
@@ -308,7 +301,7 @@ function VersionTable() {
                                                     {/* <img src={user.image ? user.image : userIcon} alt={user.name} className="rounded-[50%] w-[41px] h-[41px] mr-2" /> */}
                                                     <div className="flex flex-col">
                                                         <p className="dark:text-[white]">
-                                                            {version?.resourceVersion?.resource?.titleEn}
+                                                            {version?.id}
                                                         </p>
                                                         {/* <p className="font-light text-[grey]">{user.email}</p> */}
                                                     </div>
@@ -319,7 +312,9 @@ function VersionTable() {
                                                         className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]"
                                                         style={{ whiteSpace: "" }}
                                                     >
-                                                        <span className="" title={version?.sender.name}>{TruncateText(version?.sender.name, 12) || "N/A"}</span>
+                                                        <span className="">
+                                                            {/* {TruncateText(version?.sender.name, 12) || "N/A"} */}
+                                                        </span>
                                                     </td>
                                                 }
                                                 {
@@ -329,9 +324,9 @@ function VersionTable() {
                                                         style={{ whiteSpace: "" }}
                                                     >
                                                         <span className="">
-                                                            {verifiers.length > 0 && (
+                                                            {/* {verifiers.length > 0 && (
                                                                 verifiers?.[0]?.approver?.name || "N/A"
-                                                            )}
+                                                            )} */}
                                                         </span>
                                                     </td>
                                                 }
@@ -341,8 +336,8 @@ function VersionTable() {
                                                         className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]"
                                                         style={{ whiteSpace: "" }}
                                                     >
-                                                        <span className="" title={publisher?.approver?.name}>
-                                                            {TruncateText(publisher?.approver?.name, 12) || "N/A"}
+                                                        <span className="" >
+                                                            {/* {TruncateText(publisher?.approver?.name, 12) || "N/A"} */}
                                                         </span>
                                                     </td>
                                                 }

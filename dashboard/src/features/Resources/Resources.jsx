@@ -43,7 +43,7 @@ function Resources() {
   const [deepPath, setDeepPath] = useState("")
   const [preview, setPreview] = useState(false)
   const [currentResourceId, setCurrentResourceId] = useState("")
-  const [rawContent, setRawContent] = useState({})
+  const [rawContent, setRawContent] = useState(null)
   const [screen, setScreen] = useState(359);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [isSmall, setIsSmall] = useState(false);
@@ -262,7 +262,7 @@ function Resources() {
             settingRoute(slug?.toLowerCase());
           }
           setPreview(true)
-          setPlatform("RESOURCE")
+          dispatch(setPlatform("RESOURCE"))
         },
       }
     ];
@@ -436,11 +436,11 @@ function Resources() {
         />
       )}
       {
-        preview &&
+        (preview && rawContent) && 
         <div className="fixed top-0 left-0 z-[55] h-screen bg-stone-900/30 overflow-y-scroll customscroller">
           <Suspense fallback={<FallBackLoader />}>
             <div className="">
-              <CloseModalButton onClickClose={() => setPreview(false)} className={"fixed top-4 right-8 z-[56]"} />
+              <CloseModalButton onClickClose={() => { setPreview(false); setRawContent(null) }} className={"fixed top-4 right-8 z-[56]"} />
             </div>
 
             <AllForOne
