@@ -1288,7 +1288,7 @@ export const fetchAssignedUsers = async (resourceId) => {
   });
 };
 
-export const fetchContent = async (resourceId) => {
+export const fetchContent = async (resourceId, isItemFullContent = true) => {
   // Fetch the resource with all necessary relations
   const resource = await prismaClient.resource.findUnique({
     where: {
@@ -1297,15 +1297,23 @@ export const fetchContent = async (resourceId) => {
     include: {
       liveVersion: {
         select: {
-          id: true,
-          versionNumber: true,
-          content: true,
-          icon: true,
-          Image: true,
-          notes: true,
-          referenceDoc: true,
-          updatedAt: true,
-          versionStatus: true,
+          ...(isItemFullContent
+            ? {
+                id: true,
+                versionNumber: true,
+                content: true,
+                icon: true,
+                Image: true,
+                notes: true,
+                referenceDoc: true,
+                updatedAt: true,
+                versionStatus: true,
+              }
+            : {
+                id: true,
+                icon: true,
+                Image: true,
+              }),
           sections: {
             include: {
               sectionVersion: true,
@@ -1350,29 +1358,31 @@ export const fetchContent = async (resourceId) => {
     titleEn: resource.titleEn,
     titleAr: resource.titleAr,
     slug: resource.slug,
-    resourceType: resource.resourceType,
-    resourceTag: resource.resourceTag,
-    relationType: resource.relationType,
+    ...(isItemFullContent && {
+      resourceType: resource.resourceType,
+      resourceTag: resource.resourceTag,
+      relationType: resource.relationType,
+    }),
   };
 
   // Process live version if it exists
   if (resource.liveVersion) {
     result.liveModeVersionData = await formatResourceVersionData(
-      resource.liveVersion
+      resource.liveVersion, isItemFullContent, resource.slug
     );
   }
 
   // Process edit version if it exists
-  if (resource.newVersionEditMode) {
+  if (isItemFullContent && resource.newVersionEditMode) {
     result.editModeVersionData = await formatResourceVersionData(
-      resource.newVersionEditMode
+      resource.newVersionEditMode, isItemFullContent, resource.slug
     );
   }
 
   return result;
 };
 
-async function formatResourceVersionData(resourceVersion) {
+async function formatResourceVersionData(resourceVersion, isItemFullContent, resourceSlug) {
   if (!resourceVersion) return null;
 
   // Get all section versions for this resource version
@@ -1472,27 +1482,44 @@ async function formatResourceVersionData(resourceVersion) {
     sortedSectionVersions.map(async (sectionVersion) => {
       // Format the main section
       const formattedSection = {
-        sectionId: sectionVersion.sectionId,
-        sectionVersionId: sectionVersion.id,
+        // sectionId: sectionVersion.sectionId,
+        // sectionVersionId: sectionVersion.id,
         order: sectionOrderMap[sectionVersion.id] || 999,
         version: sectionVersion.version,
         title: sectionVersion.section?.title || "",
-        SectionType: sectionVersion.section?.sectionType?.name || "",
+        // SectionType: sectionVersion.section?.sectionType?.name || "",
         content: sectionVersion.content || {},
-        sections: [], // Initialize sections array
+        // sections: [], // Initialize sections array
       };
 
       // Add items if they exist
-      if (sectionVersion.items && sectionVersion.items.length > 0) {
+      if (isItemFullContent && sectionVersion.items && sectionVersion.items.length > 0) {
         formattedSection.items = await Promise.all(
           sectionVersion.items.map(async (item) => {
             // Get the resource and its live version
             const resource = item.resource;
 
-            // Fetch the full content of the item resource
-            const itemContent = await fetchContent(resource.id);
+            let returningBody ;
 
-            return { ...itemContent, order: item.order };
+            // Fetch the full content of the item resource
+            const itemContent = await fetchContent(resource.id, false);
+
+            if ( resourceSlug === 'home' && sectionOrderMap[sectionVersion.id] === 7){
+              returningBody = itemContent;
+            }
+            else {
+              returningBody = {
+                id: itemContent.id,
+                titleEn: itemContent.titleEn,
+                titleAr: itemContent.titleAr,
+                slug: itemContent.slug,
+                icon: itemContent.liveModeVersionData.icon,
+                image: itemContent.liveModeVersionData.image,
+              };
+            }
+
+
+            return { ...returningBody, order: item.order };
           })
         );
       }
@@ -1507,24 +1534,50 @@ async function formatResourceVersionData(resourceVersion) {
           sectionVersion.children.map(async (childSection) => {
             const formattedChild = {
               sectionId: childSection.sectionId,
-              sectionVersionId: childSection.id,
+              // sectionVersionId: childSection.id,
               order: sectionOrderMap[childSection.id] || 999,
               title: childSection.section?.title || "",
-              SectionType: childSection.section?.sectionType?.name || "",
+              // SectionType: childSection.section?.sectionType?.name || "",
               content: childSection.content || {},
             };
 
             // Add items to child section if they exist
-            if (childSection.items && childSection.items.length > 0) {
+            if ( isItemFullContent && childSection.items && childSection.items.length > 0) {
               formattedChild.items = await Promise.all(
                 childSection.items.map(async (item) => {
                   // Get the resource
                   const resource = item.resource;
 
+                  let returningBody ;
+      
                   // Fetch the full content of the item resource
-                  const itemContent = await fetchContent(resource.id);
-
-                  return { ...itemContent, order: item.order };
+                  const itemContent = await fetchContent(resource.id, false);
+      
+                  if ( resourceSlug === 'home' && sectionOrderMap[sectionVersion.id] === 7){
+                    returningBody = itemContent;
+                  }
+                  else if(resourceSlug === 'home' && sectionOrderMap[sectionVersion.id] === 5){
+                    returningBody = {
+                      id: itemContent.id,
+                      titleEn: itemContent.titleEn,
+                      titleAr: itemContent.titleAr,
+                      slug: itemContent.slug,
+                      icon: itemContent.liveModeVersionData.icon,
+                      image: itemContent.liveModeVersionData.image,
+                      location : itemContent.liveModeVersionData.sections[1].content[0],
+                    };
+                  }
+                  else {
+                    returningBody = {
+                      id: itemContent.id,
+                      titleEn: itemContent.titleEn,
+                      titleAr: itemContent.titleAr,
+                      slug: itemContent.slug,
+                      icon: itemContent.liveModeVersionData.icon,
+                      image: itemContent.liveModeVersionData.image,
+                    };
+                  }
+                  return { ...returningBody, order: item.order };
                 })
               );
             }
@@ -1538,10 +1591,13 @@ async function formatResourceVersionData(resourceVersion) {
     })
   );
 
+
+
+
   return {
     id: resourceVersion.id,
     versionNumber: resourceVersion.versionNumber,
-    content: resourceVersion.content || {},
+    // content: resourceVersion.content || {},
     icon: resourceVersion.icon || null,
     image: resourceVersion.Image || null,
     comments: resourceVersion.notes,
@@ -1551,6 +1607,10 @@ async function formatResourceVersionData(resourceVersion) {
     sections: formattedSections,
   };
 }
+
+
+
+
 
 //DRAFT CONTENT
 export const createOrUpdateVersion = async (contentData) => {
