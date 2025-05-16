@@ -82,14 +82,14 @@ const HomeManager = ({ language, currentPath, outOfEditing }) => {
                 currentPath={currentPath}
                 Heading={"Hero Banner"}
                 inputs={[
-                    { input: "input", label: "Heading/title", updateType: "title", value: content?.heroBanner?.content?.title[language] },
-                    { input: "textarea", label: "Description", updateType: "description", maxLength: 500, value: content?.heroBanner?.content?.description[language] },
-                    { input: "input", label: "Button Text", updateType: "button", maxLength: 20, value: content?.heroBanner?.content?.button?.[0]?.text?.[language] }]}
+                    { input: "input", label: "Heading/title", updateType: "title", value: content?.["1"]?.content?.title[language] },
+                    { input: "textarea", label: "Description", updateType: "description", maxLength: 500, value: content?.["1"]?.content?.description[language] },
+                    { input: "input", label: "Button Text", updateType: "button", maxLength: 20, value: content?.["1"]?.content?.button?.[0]?.text?.[language] }]}
                 inputFiles={[{ label: "Backround Image", id: "homeBanner" }]}
                 section={"homeBanner"}
                 language={language}
                 currentContent={content}
-                contentIndex={indexes.heroBanner}
+                contentIndex={indexes?.["1"]}
                 resourceId={currentId}
                 outOfEditing={outOfEditing}
             />
@@ -99,14 +99,14 @@ const HomeManager = ({ language, currentPath, outOfEditing }) => {
                 currentPath={currentPath}
                 Heading={"About Section"}
                 inputs={[
-                    { input: "input", label: "Heading/title", updateType: "title", value: content?.markdownContent?.content?.title?.[language] },
-                    { input: "richtext", label: "About section", updateType: "description", maxLength: 800, value: content?.markdownContent?.content?.description?.[language] },
-                    { input: "input", label: "Button Text", updateType: "button", value: content?.markdownContent?.content?.button?.[0]?.text?.[language] }]}
+                    { input: "input", label: "Heading/title", updateType: "title", value: content?.['2']?.content?.title?.[language] },
+                    { input: "richtext", label: "About section", updateType: "description", maxLength: 800, value: content?.['2']?.content?.description?.[language] },
+                    { input: "input", label: "Button Text", updateType: "button", value: content?.['2']?.content?.button?.[0]?.text?.[language] }]}
                 inputFiles={[{ label: "Backround Image", id: "aboutUsSection" }]}
                 section={"aboutUsSection"}
                 language={language}
                 currentContent={content}
-                contentIndex={indexes.markdownContent}
+                contentIndex={indexes?.['2']}
                 resourceId={currentId}
                 outOfEditing={outOfEditing}
             />
@@ -119,11 +119,11 @@ const HomeManager = ({ language, currentPath, outOfEditing }) => {
                 label={"Select Service List"}
                 heading={"Services Section"}
                 tabName={"Select Services"}
-                options={content?.serviceCards?.items}
+                options={content?.['3']?.items}
                 listOptions={ServicesOptions}
                 referenceOriginal={{ dir: "home", index: 0 }}
                 currentContent={content}
-                contentIndex={indexes.serviceCards}
+                contentIndex={indexes?.['3']}
                 outOfEditing={outOfEditing}
             />
 
@@ -133,15 +133,15 @@ const HomeManager = ({ language, currentPath, outOfEditing }) => {
                     currentPath={currentPath}
                     Heading={"Experience Section"}
                     inputs={[
-                        { input: "input", label: "Heading/title", updateType: "title", value: content?.statistics?.content?.title[language] },
-                        { input: "textarea", label: "Description", updateType: "description", value: content?.statistics?.content?.description[language] },
-                        { input: "input", label: "Button Text", updateType: "button", value: content?.statistics?.content?.button?.[0]?.text?.[language] }]}
+                        { input: "input", label: "Heading/title", updateType: "title", value: content?.['4']?.content?.title[language] },
+                        { input: "textarea", label: "Description", updateType: "description", value: content?.['4']?.content?.description[language] },
+                        { input: "input", label: "Button Text", updateType: "button", value: content?.['4']?.content?.button?.[0]?.text?.[language] }]}
                     isBorder={false}
                     fileId={"experienceSection"}
                     section={"experienceSection"}
                     language={language}
                     currentContent={content}
-                    contentIndex={indexes.statistics}
+                    contentIndex={indexes?.['4']}
                     resourceId={currentId}
                     outOfEditing={outOfEditing}
                 />
@@ -152,8 +152,8 @@ const HomeManager = ({ language, currentPath, outOfEditing }) => {
                             currentPath={currentPath}
                             subHeading={item}
                             inputs={[
-                                { input: "input", label: "Item text 1", updateType: "count", value: content?.statistics?.content?.cards?.[index]?.count },
-                                { input: "input", label: "Item text 2", updateType: "title", value: content?.statistics?.content?.cards?.[index]?.title?.[language] }]}
+                                { input: "input", label: "Item text 1", updateType: "count", value: content?.['4']?.content?.cards?.[index]?.count },
+                                { input: "input", label: "Item text 2", updateType: "title", value: content?.['4']?.content?.cards?.[index]?.title?.[language] }]}
                             inputFiles={[{ label: "Item Icon", id: item }]}
                             // fileId={item}
                             language={language}
@@ -162,7 +162,7 @@ const HomeManager = ({ language, currentPath, outOfEditing }) => {
                             index={+index}
                             isBorder={isLast}
                             currentContent={content}
-                            contentIndex={indexes.statistics}
+                            contentIndex={indexes?.['4']}
                             resourceId={currentId}
                             outOfEditing={outOfEditing}
                         />
@@ -177,7 +177,7 @@ const HomeManager = ({ language, currentPath, outOfEditing }) => {
                 </h3>
                 <div>
                     {
-                        content?.projectGrid?.sections?.map((section, index, array) => {
+                        content?.['5']?.sections?.map((section, index, array) => {
                             const isLast = index === array.length - 1;
                             return (
                                 <div key={index} className="mt-3 ">
@@ -194,7 +194,7 @@ const HomeManager = ({ language, currentPath, outOfEditing }) => {
                                         index={+index}
                                         isBorder={isLast}
                                         currentContent={content}
-                                        contentIndex={indexes.projectGrid}
+                                        contentIndex={indexes?.['5']}
                                         resourceId={currentId}
                                         outOfEditing={outOfEditing}
                                     />
@@ -203,10 +203,10 @@ const HomeManager = ({ language, currentPath, outOfEditing }) => {
                                         language={language}
                                         label={"Select Project List " + (index + 1)}
                                         tabName={"Select Projects"}
-                                        options={content.projectGrid.sections[index].items}
+                                        options={content?.['5'].sections[index].items}
                                         referenceOriginal={{ dir: "recentproject", index }}
                                         currentContent={content}
-                                        contentIndex={indexes.projectGrid}
+                                        contentIndex={indexes?.['5']}
                                         listOptions={ProjectOptions}
                                         outOfEditing={outOfEditing}
                                     />
@@ -221,14 +221,14 @@ const HomeManager = ({ language, currentPath, outOfEditing }) => {
                 currentPath={currentPath}
                 Heading={"Client Section"}
                 inputs={[
-                    { input: "input", label: "Heading/title", updateType: "title", value: content?.clientLogo?.content?.title[language] },
-                    { input: "input", label: "Description", updateType: "description", value: content?.clientLogo?.content?.description[language] },
+                    { input: "input", label: "Heading/title", updateType: "title", value: content?.['6']?.content?.title[language] },
+                    { input: "input", label: "Description", updateType: "description", value: content?.['6']?.content?.description[language] },
                 ]}
-                inputFiles={content?.clientLogo?.content?.clients?.map((e, i) => ({ label: "Client " + (i + 1), id: e.image[0] }))}
+                inputFiles={content?.['6']?.content?.clients?.map((e, i) => ({ label: "Client " + (i + 1), id: e.image[0] }))}
                 section={"clientSection"}
                 language={language}
                 currentContent={content}
-                contentIndex={indexes.clientLogo}
+                contentIndex={indexes?.['6']}
                 allowExtraInput={true}
                 resourceId={currentId}
                 outOfEditing={outOfEditing}
@@ -239,12 +239,12 @@ const HomeManager = ({ language, currentPath, outOfEditing }) => {
                 currentPath={currentPath}
                 Heading={"Testimonials"}
                 inputs={[
-                    { input: "input", label: "Heading/title", maxLength: 55, updateType: "title", value: content?.testimonials?.content?.title[language] },
+                    { input: "input", label: "Heading/title", maxLength: 55, updateType: "title", value: content?.['7']?.content?.title[language] },
                 ]}
                 section={"Testimonials heading"}
                 language={language}
                 currentContent={content}
-                contentIndex={indexes.testimonials}
+                contentIndex={indexes?.['7']}
                 resourceId={currentId}
                 outOfEditing={outOfEditing}
             />
@@ -255,11 +255,11 @@ const HomeManager = ({ language, currentPath, outOfEditing }) => {
                 label={"Select Testimony List"}
                 heading={"Testimonials Section"}
                 tabName={"Select Testimonies"}
-                options={content?.testimonials?.items}
+                options={content?.['7']?.items}
                 listOptions={TestimonialsOptions}
                 referenceOriginal={{ dir: "testimonials", index: 0 }}
                 currentContent={content}
-                contentIndex={indexes.testimonials}
+                contentIndex={indexes?.['7']}
                 limitOptions={4}
                 min={4}
                 outOfEditing={outOfEditing}
@@ -271,16 +271,16 @@ const HomeManager = ({ language, currentPath, outOfEditing }) => {
                 currentPath={currentPath}
                 Heading={"New Project"}
                 inputs={[
-                    { input: "input", label: "Heading/title", maxLength: 55, updateType: "title", value: content?.normalContent?.content?.title?.[language] },
-                    { input: "richtext", label: "Description 1", updateType: "description", value: content?.normalContent?.content?.description?.[language] },
+                    { input: "input", label: "Heading/title", maxLength: 55, updateType: "title", value: content?.['8']?.content?.title?.[language] },
+                    { input: "richtext", label: "Description 1", updateType: "description", value: content?.['8']?.content?.description?.[language] },
                     // { input: "textarea", label: "Description 2", updateType: "description2", value: content?.normalContent?.content?.description2?.[language] },
                     // { input: "intpu", label: "Highlight Text", updateType: "highlightedText", value: content?.normalContent?.content?.highlightedText?.[language] },
-                    { input: "input", label: "Button Text", updateType: "button", value: content?.normalContent?.content?.button?.[0]?.text?.[language] },
+                    { input: "input", label: "Button Text", updateType: "button", value: content?.['8']?.content?.button?.[0]?.text?.[language] },
                 ]}
                 section={"newProjectSection"}
                 language={language}
                 currentContent={content}
-                contentIndex={indexes.normalContent}
+                contentIndex={indexes?.['8']}
                 resourceId={currentId}
                 outOfEditing={outOfEditing}
             />

@@ -14,8 +14,8 @@ export default function createContent(content, purpose, path, subPath) {
     const tempContent = {}
 
     currentContent?.forEach((e, i) => {
-        tempIndex[toCamelCase(e.SectionType)] = i
-        tempContent[toCamelCase(e.SectionType)] = currentContent[i]
+        tempIndex[toCamelCase(e.order)] = i
+        tempContent[toCamelCase(e.order)] = currentContent[i]
     })
 
 

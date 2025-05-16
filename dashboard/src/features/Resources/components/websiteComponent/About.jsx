@@ -39,14 +39,14 @@ const AboutUs = ({ language, screen, currentContent }) => {
                 <div className="container mx-auto relative px-4">
                     <div className={`flex flex-col gap-6 items-center`}>
                         <h2 className={`text-black ${isPhone ? "text-2xl" : "text-3xl"} font-normal leading-none`}>
-                            {currentContent?.introContent?.content?.title[language]}
+                            {currentContent?.["1"]?.content?.title[language]}
                         </h2>
                         <p className="text-black text-base font-light leading-7 mb-4 text-[#00B9F2]">
-                            {(currentContent?.introContent?.content?.subtitle[language])}
+                            {(currentContent?.["1"]?.content?.subtitle[language])}
                         </p>
                     </div>
                     <div className={`${!isEnglish ? `flex  ${isPhone ? "flex-col" : "flex-row-reverse"}` : `${isPhone ? "flex flex-col" : "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3"}`} text-center gap-8 mt-8`}>
-                        {currentContent?.introContent?.content?.cards.map((card, index) => (
+                        {currentContent?.["1"]?.content?.cards.map((card, index) => (
                             <div
                                 className={`p-6 bg-[#ebf8fd] rounded-lg shadow-md flex-1 flex flex-col items-center gap-4`}
                                 key={index}
@@ -80,7 +80,7 @@ const AboutUs = ({ language, screen, currentContent }) => {
                     <div className={`flex items-center ${!isEnglish ? `${isPhone ? "flex-col" : "flex-row-reverse"}` : `${isPhone && "flex-col"}`} gap-8`}>
                         <div className="w-full flex flex-[2] items-center">
                             <video
-                                src={currentContent?.markdownContent?.content?.video}
+                                src={currentContent?.['2']?.content?.video}
                                 autoPlay
                                 loop
                                 muted
@@ -91,16 +91,16 @@ const AboutUs = ({ language, screen, currentContent }) => {
 
                         <div className=" flex-[1]">
                             <h2 className="text-2xl font-bold text-black mb-5">
-                                {currentContent?.markdownContent?.content?.title[language]}
+                                {currentContent?.['2']?.content?.title[language]}
                             </h2>
                             <div className="flex flex-col gap-4">
-                                <div className="text-xs text-[#292E3D]" dangerouslySetInnerHTML={{ __html: currentContent?.markdownContent?.content?.descriptions?.[language] }} />
+                                <div className="text-xs text-[#292E3D]" dangerouslySetInnerHTML={{ __html: currentContent?.['2']?.content?.descriptions?.[language] }} />
                             </div>
                             <button
                                 className="mt-6 px-4 py-2 bg-[white] text-[#00B9F2] border border-[#00B9F2] text-xs font-semibold rounded-[4px] shadow-md hover:none"
                             // onClick={() => setIsModal(true)}
                             >
-                                {currentContent?.markdownContent?.content?.button?.[0]?.text[language]}
+                                {currentContent?.['2']?.content?.button?.[0]?.text[language]}
                             </button>
                         </div>
                     </div>

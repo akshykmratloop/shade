@@ -1,105 +1,158 @@
-let aboutUS = {
+let a = {
     "message": "Success",
     "content": {
-        "id": "cmanwtl9d00t9mn4c2cq12grz",
-        "titleEn": "About Us Page",
-        "titleAr": "من نحن",
-        "slug": "about-us",
+        "id": "cmap7yoq700simn5kjook95l1",
+        "titleEn": "Solutions Page",
+        "titleAr": "صفحة الحلول",
+        "slug": "solution",
         "resourceType": "MAIN_PAGE",
-        "resourceTag": "ABOUT",
+        "resourceTag": "SOLUTION",
         "relationType": "PARENT",
         "liveModeVersionData": {
-            "id": "cmanwtl9g00tbmn4cyp4co0ql",
+            "id": "cmap7yoq900skmn5ka6shsg1u",
             "versionNumber": 1,
             "content": {},
             "icon": null,
             "image": null,
             "comments": "Initial version created",
             "referenceDoc": null,
-            "updatedAt": "2025-05-14T12:21:23.813Z",
+            "updatedAt": "2025-05-15T10:21:03.538Z",
             "status": "PUBLISHED",
             "sections": [
                 {
-                    "sectionId": "cmanwtl9s00tdmn4cqf1h8eop",
-                    "sectionVersionId": "cmanwtl9w00tfmn4cqczfkkxn",
+                    "sectionId": "cmap7yoql00smmn5kmi0e4tlu",
+                    "sectionVersionId": "cmap7yoqo00somn5kz7jro6p0",
                     "order": 1,
                     "version": 1,
-                    "title": "introSection-about-us-b2cf",
-                    "SectionType": "INTRO_CONTENT",
-                    "content": {
-                        "cards": [
-                            {
-                                "icon": "ourMission",
-                                "title": {
-                                    "ar": "مهمتنا",
-                                    "en": "Our Mission"
-                                },
-                                "description": {
-                                    "ar": "نحن نسعى جاهدين لتقديم أعلى مستوى من الخدمات عالية الجودة مع الالتزام الاستثنائي بالصحة والسلامة والبيئة باستخدام أحدث تقنيات البناء الناشئة.",
-                                    "en": "We strive to deliver the highest level of quality services with exceptional commitment to health, safety, and environment using the latest emerging construction technologies."
-                                }
-                            },
-                            {
-                                "icon": "ourVision",
-                                "title": {
-                                    "ar": "مهمتنا",
-                                    "en": "Our Vision"
-                                },
-                                "description": {
-                                    "ar": "أن نكون الشركة الرائدة في قطاع البناء والتوريد والإنشاء في المنطقة مع التزام قوي بـ بناء مستقبل أقوى",
-                                    "en": "To be the leading Company in the region's EPC construction sector with a solid commitment to 'Building a Stronger Future'"
-                                }
-                            },
-                            {
-                                "icon": "ourGoal",
-                                "title": {
-                                    "ar": "مهمتنا",
-                                    "en": "Our Goal"
-                                },
-                                "description": {
-                                    "ar": "توجه قيمنا الأساسية قراراتنا، وتغرس الالتزام بالقيادة والنزاهة والعمل بأمانة لا تتزعزع.",
-                                    "en": "Our core values guide our decisions, instilling a commitment to leadership, integrity, and operating with unwavering honesty."
-                                }
-                            }
-                        ],
-                        "title": {
-                            "ar": "Shade Corporation Ltd",
-                            "en": "Shade Corporation Ltd"
-                        },
-                        "subtitle": {
-                            "ar": "مستقبل البناء",
-                            "en": "Future of Construction"
-                        }
-                    },
-                    "sections": []
-                },
-                {
-                    "sectionId": "cmanwtla800tjmn4cqxyzyo27",
-                    "sectionVersionId": "cmanwtlad00tlmn4clqji3dfj",
-                    "order": 2,
-                    "version": 1,
-                    "title": "videoSection-about-us-23e8",
-                    "SectionType": "MARKDOWN_CONTENT",
+                    "title": "heroSection-solution-79fd",
+                    "SectionType": "HERO_BANNER",
                     "content": {
                         "title": {
-                            "ar": "معلومات عنا",
-                            "en": "About Us"
+                            "ar": "الحلول",
+                            "en": "Solutions"
                         },
-                        "video": "https://loopwebsite.s3.ap-south-1.amazonaws.com/8f90049bc01f593220af2e6d1e978b40834eb07b+(2).mp4",
                         "button": [
                             {
                                 "url": null,
                                 "icon": null,
                                 "text": {
-                                    "ar": "دعونا نتواصل",
-                                    "en": "Let's Connect"
-                                }
+                                    "ar": "عرض عملنا",
+                                    "en": "View Our Work"
+                                },
+                                "order": 1
                             }
                         ],
-                        "descriptions": {
-                            "ar": "تأسست شركة Shade Corporation، الرائدة في هذه الصناعة، في عام 1992 بهدف واحد هو \"بناء مستقبل أقوى\". إن أفكارنا، التي شكلتها المنهجيات المتطورة وعقود من الخبرة، تخدم أكبر الشركات في العالم. نحن متحمسون لإطلاق الإمكانات وتقديم الحلول لعملائنا",
-                            "en": "Shade Corporation, a leader in the industry, was established in 1992 with a single goal of \"Building a Stronger Future\". Our ideas, shaped by advanced methodologies and decades of experience, serve the world's largest companies. We are passionate about unlocking potential and delivering solutions for our clients."
+                        "description": {
+                            "ar": "اكتشف التميز الاستثنائي لشركة Shade Corporation، الشركة الرائدة في مجالات الهندسة والمشتريات والبناء في المملكة العربية السعودية.",
+                            "en": "Discover the exceptional excellence of Shade Corporation, the leading company in engineering, procurement, and construction in Saudi Arabia."
                         }
+                    },
+                    "sections": []
+                },
+                {
+                    "sectionId": "cmap7yoqy00ssmn5kfwngn0m9",
+                    "sectionVersionId": "cmap7yor200sumn5ksm7miium",
+                    "order": 2,
+                    "version": 1,
+                    "title": "detailsSection-solution-0b2d",
+                    "SectionType": "MARKDOWN_CONTENT",
+                    "content": [
+                        {
+                            "order": 1,
+                            "title": {
+                                "ar": "ماذا نفعل",
+                                "en": "What We Do"
+                            },
+                            "description": {
+                                "ar": "استمتع بتجربة التآزر بين التصميم والتنفيذ من خلال خدمات التصميم/البناء لدينا، وهو نهج متناغم يدمج الإبداع مع الدقة. ثق بخبرتنا في مجال المقاولات العامة والهندسة العامة للتغلب على التعقيدات وتقديم الحلول التي تصمد أمام اختبار الزمن. انغمس في هندسة القيمة لدينا، وهو النظام الذي يتقاطع فيه الابتكار والكفاءة، مما يضمن أن مشاريعك ليست عملية فحسب، بل مُحسّنة أيضًا لتحقيق أقصى قيمة.",
+                                "en": "Experience the synergy between design and execution through our design/build services, a harmonious approach that combines creativity with precision. Trust our expertise in general contracting and general engineering to overcome complexities and deliver solutions that stand the test of time. Immerse yourself in our value engineering, a system where innovation intersects with efficiency, ensuring your projects are not just functional but optimized for maximum value."
+                            }
+                        },
+                        {
+                            "order": 2,
+                            "title": {
+                                "ar": "كيف نفعل",
+                                "en": "How We Do It"
+                            },
+                            "description": {
+                                "ar": "استمتع بالدقة في المسح، وبراعة التصنيع، وقوة رفع الأثقال، كل ذلك تحت مظلة Shade's Construction Services. سواء كان مشروعك يتطلب قوة هيكلية، أو تفاصيل معقدة، أو نشر التكنولوجيا المتقدمة، فنحن مجهزون لتجاوز توقعاتك.",
+                                "en": "Experience precision in surveying, manufacturing expertise, and heavy lifting capabilities, all under Shade's Construction Services umbrella. Whether your project demands structural strength, intricate details, or advanced technology deployment, we're equipped to exceed your expectations."
+                            }
+                        }
+                    ],
+                    "sections": []
+                },
+                {
+                    "sectionId": "cmap7yora00symn5k2qr63yt7",
+                    "sectionVersionId": "cmap7yorf00t0mn5kvbd0w8vd",
+                    "order": 3,
+                    "version": 1,
+                    "title": "GallerySection1-solution-754d",
+                    "SectionType": "GALLERY_GRID",
+                    "content": {
+                        "images": [
+                            {
+                                "url": "https://frequencyimage.s3.ap-south-1.amazonaws.com/851e35b5-9b3b-4d9f-91b4-9b60ef2a102c-Rectangle%2034624110.png",
+                                "order": 1,
+                                "altText": {
+                                    "ar": "صورة شعار الصفحة الرئيسية",
+                                    "en": "Image 1"
+                                }
+                            },
+                            {
+                                "url": "https://frequencyimage.s3.ap-south-1.amazonaws.com/ae1cee6e-f695-4e06-8e0b-983b8cb94209-Rectangle%2034624111.jpg",
+                                "order": 2,
+                                "altText": {
+                                    "ar": "صورة 2",
+                                    "en": "Image 2"
+                                }
+                            },
+                            {
+                                "url": "https://frequencyimage.s3.ap-south-1.amazonaws.com/be6992a3-4390-42c1-b807-b1a04f48b0e6-Rectangle%2034624112.jpg",
+                                "order": 3,
+                                "altText": {
+                                    "ar": "صورة 3",
+                                    "en": "Image 3"
+                                }
+                            }
+                        ]
+                    },
+                    "sections": []
+                },
+                {
+                    "sectionId": "cmap7yorm00t4mn5krf4f8r16",
+                    "sectionVersionId": "cmap7yorp00t6mn5kol9sb5zf",
+                    "order": 4,
+                    "version": 1,
+                    "title": "GallerySection2-solution-9e07",
+                    "SectionType": "GALLERY_GRID",
+                    "content": {
+                        "images": [
+                            {
+                                "url": "https://frequencyimage.s3.ap-south-1.amazonaws.com/851e35b5-9b3b-4d9f-91b4-9b60ef2a102c-Rectangle%2034624110.png",
+                                "order": 1,
+                                "altText": {
+                                    "ar": "صورة 1",
+                                    "en": "Image 1"
+                                }
+                            },
+                            {
+                                "url": "https://frequencyimage.s3.ap-south-1.amazonaws.com/ae1cee6e-f695-4e06-8e0b-983b8cb94209-Rectangle%2034624111.jpg",
+                                "order": 2,
+                                "altText": {
+                                    "ar": "صورة 2",
+                                    "en": "Image 2"
+                                }
+                            },
+                            {
+                                "url": "https://frequencyimage.s3.ap-south-1.amazonaws.com/be6992a3-4390-42c1-b807-b1a04f48b0e6-Rectangle%2034624112.jpg",
+                                "order": 3,
+                                "altText": {
+                                    "ar": "صورة 3",
+                                    "en": "Image 3"
+                                }
+                            }
+                        ]
                     },
                     "sections": []
                 }

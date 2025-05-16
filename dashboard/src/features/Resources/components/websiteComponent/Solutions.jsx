@@ -29,11 +29,12 @@ import 'swiper/css/autoplay';
 // const AnimatedText = dynamic(() => import('@/common/AnimatedText'), { ssr: false });
 // const ContactUsModal = dynamic(() => import('../header/ContactUsModal'), { ssr: false });
 
-const SolutionPage = ({ language, screen }) => {
+const SolutionPage = ({ currentContent, language, screen }) => {
+    console.log(currentContent)
     const isComputer = screen > 1100
     const isTablet = 1100 > screen && screen > 767
     const isPhone = screen < 767
-    const currentContent = useSelector((state) => state.homeContent.present.solutions)
+    // const currentContent = useSelector((state) => state.homeContent.present.solutions)
     const ImageFromRedux = useSelector((state) => state.homeContent.present.images)
     const dispatch = useDispatch()
 
@@ -45,9 +46,6 @@ const SolutionPage = ({ language, screen }) => {
 
     const isLeftAlign = language === 'en'
 
-    useEffect(() => {
-        dispatch(updateMainContent({ currentPath: "solutions", payload: content.solutions }))
-    }, [])
     return (
         <div className=" bankgothic-medium-dt pb-8" dir={language === 'en' ? 'ltr' : "rtl"}>
             {/** banner */}
@@ -58,16 +56,16 @@ const SolutionPage = ({ language, screen }) => {
                 <div className="container h-full relative flex">
                     <div className={`text-${isLeftAlign ? 'left' : 'right'} w-full transform ${isLeftAlign ? 'scale-x-[-1]' : ''}`}>
                         <h1 className="text-[#292E3D] text-[40px] font-medium leading-[77px] tracking-[-3.5px] mb-4">
-                            {currentContent?.banner?.title[language]}
+                            {currentContent?.["1"]?.content?.title?.[language]}
                         </h1>
                         <p className={`text-[#0E172FB3] text-left text-xs font-semibold leading-[26px] mb-6 ${isLeftAlign ? "" : "ml-auto"} ${isPhone ? "w-[70%]" : "w-[50%]"} word-spacing-[5px]`}>
-                            {currentContent?.banner?.description[language]}
+                            {currentContent?.["1"]?.content?.description?.[language]}
                         </p>
                         <button
                             className={`relative flex gap-2 items-center text-xs text-[white] font-medium py-[6px] px-[12px] ${isLeftAlign ? "" : "ml-auto"} bg-[#00B9F2] rounded-[4px] border-none cursor-pointer`}
                         // onClick={() => router.push('/project')}
                         >
-                            {currentContent?.banner?.button?.[language]}
+                            {currentContent?.["1"]?.content?.button?.[0]?.text?.[language]}
                             <img
                                 src={arrow}
                                 width={11}
@@ -85,7 +83,7 @@ const SolutionPage = ({ language, screen }) => {
                 className={`py-[88px] pb-[120px] px-10 ${language === "en" ? "text-left" : "text-right"
                     }`}
             >
-                {currentContent?.whatWeDo?.map((e, i) => {
+                {currentContent?.["2"]?.content?.map((e, i) => {
 
                     return (
                         <div className="container bankgothic-regular-db-mt" key={i}>
@@ -147,7 +145,7 @@ const SolutionPage = ({ language, screen }) => {
                         500: { slidesPerView: isPhone ? 1 : 2 },
                     }}
                 >
-                    {(currentContent?.gallery?.images || []).map((image, index) => (
+                    {(currentContent?.["3"]?.content?.images || []).map((image, index) => (
                         <SwiperSlide key={`slide-${index}`}>
                             <div className="flex justify-center">
                                 <img
@@ -225,7 +223,7 @@ const SolutionPage = ({ language, screen }) => {
                         500: { slidesPerView: isPhone ? 1 : 2 },
                     }}
                 >
-                    {currentContent?.gallery?.showcase.map(
+                    {currentContent?.["4"]?.content?.images.map(
                         (image, index) => (
                             <SwiperSlide key={index}>
                                 <div className={`rounded-lg overflow-hidden  transition-transform transform ${isPhone ? "h-[50vh]" : "h-[400px]"}`}>

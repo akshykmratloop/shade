@@ -66,27 +66,27 @@ const AboutManager = ({ content, currentPath, language, indexes, outOfEditing })
                     currentPath={currentPath}
                     Heading={"Services"}
                     inputs={[
-                        { input: "input", label: "Heading/title", updateType: "title", value: content?.introContent?.content?.title[language] },
-                        { input: "input", label: "Description", updateType: "subtitle", value: content?.introContent?.content?.subtitle[language] },
+                        { input: "input", label: "Heading/title", updateType: "title", value: content?.['1']?.content?.title[language] },
+                        { input: "input", label: "Description", updateType: "subtitle", value: content?.['1']?.content?.subtitle[language] },
                     ]}
                     isBorder={false}
                     section={"services"}
                     language={language}
                     currentContent={content}
-                    contentIndex={indexes?.introContent}
+                    contentIndex={indexes?.['1']}
                     // resourceId={currentId}
                     outOfEditing={outOfEditing}
                 />
                 {
-                    content?.introContent?.content?.cards.map((item, index, array) => {
+                    content?.['1']?.content?.cards.map((item, index, array) => {
                         const isLast = index === array.length - 1;
                         return (
                             <ContentSection key={item + index}
                                 currentPath={currentPath}
                                 subHeading={"card " + (index + 1)}
                                 inputs={[
-                                    { input: "input", label: "Item text 1", updateType: "title", maxLength: 20, value: content?.introContent?.content?.cards?.[index]?.title?.[language] },
-                                    { input: "textarea", label: "Item text 2", updateType: "description", maxLength: 200, value: content?.introContent?.content?.cards?.[index]?.description?.[language] }
+                                    { input: "input", label: "Item text 1", updateType: "title", maxLength: 20, value: content?.['1']?.content?.cards?.[index]?.title?.[language] },
+                                    { input: "textarea", label: "Item text 2", updateType: "description", maxLength: 200, value: content?.['1']?.content?.cards?.[index]?.description?.[language] }
                                 ]}
                                 inputFiles={[{ label: "Item Icon", id: item.icon }]}
                                 // fileId={item}
@@ -96,7 +96,7 @@ const AboutManager = ({ content, currentPath, language, indexes, outOfEditing })
                                 index={+index}
                                 isBorder={isLast}
                                 currentContent={content}
-                                contentIndex={indexes?.introContent}
+                                contentIndex={indexes?.['1']}
                                 // resourceId={currentId}
                                 outOfEditing={outOfEditing}
                             />
@@ -110,14 +110,14 @@ const AboutManager = ({ content, currentPath, language, indexes, outOfEditing })
                 currentPath={currentPath}
                 Heading={"Main"}
                 inputs={[
-                    { input: "input", label: "Heading/title", updateType: "title", value: content?.markdownContent?.content?.title?.[language] },
-                    { input: "richtext", label: "Descriptions", updateType: "descriptions", maxLength: 400, value: content?.markdownContent?.content?.descriptions?.[language] },
+                    { input: "input", label: "Heading/title", updateType: "title", value: content?.['2']?.content?.title?.[language] },
+                    { input: "richtext", label: "Descriptions", updateType: "descriptions", maxLength: 400, value: content?.['2']?.content?.descriptions?.[language] },
                 ]}
                 inputFiles={[{ label: "Video", id: "video" }]}
                 section={"main"}
                 language={language}
                 currentContent={content}
-                contentIndex={indexes?.markdownContent}
+                contentIndex={indexes?.['2']}
                 // resourceId={currentId}
                 outOfEditing={outOfEditing}
             />

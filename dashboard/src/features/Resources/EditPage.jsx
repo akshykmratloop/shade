@@ -77,7 +77,6 @@ const EditPage = () => {
     useEffect(() => {
         if (currentId) {
             async function context() {
-                console.log(currentId, "IIIIIIIIIDDDDDDDDDDD")
                 try {
                     const response = await getContent(currentId)
                     setLoader(true)

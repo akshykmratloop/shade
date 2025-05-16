@@ -66,7 +66,7 @@ const cmsSlice = createSlice({
         },
         updateMainContent: (state, action) => {
             state.past.push(JSON.parse(JSON.stringify(state.present)));
-            state.present.content= action.payload.payload;
+            state.present.content = action.payload.payload;
             state.present.loading = false
             state.future = [];
         },

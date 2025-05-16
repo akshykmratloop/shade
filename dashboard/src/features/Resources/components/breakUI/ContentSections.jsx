@@ -91,7 +91,15 @@ const ContentSection = ({
         if (updateType === 'count') {
             if (!isNaN(value)) {
                 let val = value?.slice(0, 7);
-                dispatch(updateServicesNumber({ section, title: updateType, value: val, subSection, index, currentPath, contentIndex }));
+                dispatch(updateServicesNumber({
+                    section,
+                    title: updateType,
+                    value: val,
+                    subSection,
+                    index,
+                    currentPath,
+                    contentIndex
+                }));
             }
         } else {
             dispatch(updateSpecificContent({
@@ -119,7 +127,15 @@ const ContentSection = ({
         if (updateType === 'count') {
             if (!isNaN(value)) {
                 let val = value?.slice(0, 7);
-                dispatch(updateServicesNumber({ section, title: updateType, value: val, subSection, index, currentPath, contentIndex }));
+                dispatch(updateServicesNumber({
+                    section,
+                    title: updateType,
+                    value: val,
+                    subSection,
+                    index,
+                    currentPath,
+                    contentIndex
+                }));
             }
         } else {
             dispatch(updateSpecificContent({

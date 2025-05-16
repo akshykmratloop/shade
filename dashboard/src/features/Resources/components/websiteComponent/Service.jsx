@@ -6,6 +6,7 @@ import { updateMainContent } from "../../../common/homeContentSlice";
 import { services, projectPageData } from "../../../../assets/index";
 import { TruncateText } from "../../../../app/capitalizeword";
 const Services = ({ currentContent, screen, language }) => {
+    console.log(currentContent)
     const isComputer = screen > 900;
     const isTablet = screen < 900 && screen > 730;
     const isPhone = screen < 738;
@@ -27,7 +28,7 @@ const Services = ({ currentContent, screen, language }) => {
                 <div className="container relative h-full flex items-center justify-end">
                     <div className={`${isLeftAlign ? 'scale-x-[-1] text-left' : 'text-right'} ${isPhone ? "w-4/5" : isTablet ? "w-2/3" : "w-1/2"} space-y-4 p-6 flex flex-col ${isLeftAlign ? "items-start" : "items-end"}`}>
                         <h1 className={`text-[#292E3D]  font-medium ${isPhone ? "text-[40px] leading-[50px]" : isTablet ? "text-[45px] leading-[55px]" : "text-[45px] leading-[77px]"} tracking-[-3.5px] mb-4`}>
-                            {currentContent?.banner?.title[language]}
+                            {currentContent?.heroBanner?.content?.title[language]}
                         </h1>
                         <p className="text-[#0E172FB2] text-[12px] font-semibold leading-[26px]  word-spacing-5">
                             {currentContent?.banner?.description[language]}
