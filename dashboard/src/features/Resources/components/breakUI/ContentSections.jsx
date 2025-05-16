@@ -229,7 +229,6 @@ const ContentSection = ({
                                 language={language}
                                 id={input.updateType}
                                 maxLength={input.maxLength}
-
                                 outOfEditing={outOfEditing}
                             />
                         );

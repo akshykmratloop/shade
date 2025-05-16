@@ -111,8 +111,9 @@ const DynamicContentSection = ({
                 projectId,
                 careerId,
                 deepPath,
-                // type,
+                type: "content[index]", 
                 sectionIndex,
+                contentIndex,
                 path
             }));
         }
@@ -139,7 +140,7 @@ const DynamicContentSection = ({
                 projectId,
                 careerId,
                 deepPath,
-                // type,
+                type: "content[index]",
                 sectionIndex,
                 contentIndex
             }));
@@ -218,11 +219,11 @@ const DynamicContentSection = ({
                                     config={config}
                                     onChange={(newContent) => {
                                         const trimmedVal = newContent.slice(0, input.maxLength);
-                                        // updateFormValueRichText(input.updateType, trimmedVal)
+                                        updateFormValueRichText(input.updateType, trimmedVal)
                                     }}
                                     onBlur={(newContent) => {
                                         const trimmedVal = newContent.slice(0, input.maxLength);
-                                        // updateFormValueRichText(input.updateType, trimmedVal)
+                                        updateFormValueRichText(input.updateType, trimmedVal)
                                     }}
                                 />
                             </div>

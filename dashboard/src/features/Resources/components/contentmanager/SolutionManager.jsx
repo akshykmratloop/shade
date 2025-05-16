@@ -29,8 +29,10 @@ const SolutionManager = ({ currentPath, language, currentContent, indexes }) => 
     }
 
     useEffect(() => {
-        dispatch(updateMainContent({ currentPath: "solutions", payload: (content?.solutions) }))
+
+        return () => dispatch(updateMainContent({ currentPath: "content", payload: undefined }))
     }, [])
+
     return (
         <div className="w-full">
             {/* reference doc */}
@@ -71,7 +73,7 @@ const SolutionManager = ({ currentPath, language, currentContent, indexes }) => 
                 {
                     currentContent?.['2']?.content?.map((element, index, a) => {
                         const isLast = index === a.length - 1
-                        console.log(element)
+                        console.log(index)
                         return (
                             <DynamicContentSection key={index}
                                 currentPath={currentPath}
@@ -86,7 +88,7 @@ const SolutionManager = ({ currentPath, language, currentContent, indexes }) => 
                                 currentContent={currentContent}
                                 isBorder={false}
                                 // type={'rich'}
-                                sectionIndex={indexes?.['1']}
+                                sectionIndex={indexes?.['2']}
                                 contentIndex={index}
                             />
                         )
@@ -108,7 +110,7 @@ const SolutionManager = ({ currentPath, language, currentContent, indexes }) => 
                 language={language}
                 currentContent={currentContent}
                 allowExtraInput={true}
-                sectionIndex={indexes?.['1']}
+                sectionIndex={indexes?.['3']}
 
             />
 
@@ -165,7 +167,7 @@ const SolutionManager = ({ currentPath, language, currentContent, indexes }) => 
                 language={language}
                 currentContent={currentContent}
                 allowExtraInput={true}
-                sectionIndex={indexes?.['1']}
+                sectionIndex={indexes?.['4']}
 
             />
         </div>
