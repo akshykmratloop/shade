@@ -15,6 +15,7 @@ import {
   removeAssignedUser,
   approveRequest,
   rejectRequest,
+  getVersionsList,
 } from "./content.service.js";
 
 const GetResources = async (req, res) => {
@@ -29,6 +30,7 @@ const GetResources = async (req, res) => {
     limit,
     fetchType,
     roleId,
+    apiCallType
   } = req.query;
   const pageNum = parseInt(page) || 1;
   const limitNum = parseInt(limit) || 100;
@@ -45,7 +47,8 @@ const GetResources = async (req, res) => {
     limitNum,
     fetchType,
     userId,
-    roleId
+    roleId,
+    apiCallType
   );
   res.status(200).json(response);
 };
@@ -153,6 +156,12 @@ const RejectRequest = async (req, res) => {
   res.status(200).json(response);
 };
 
+const GetVersionsList = async (req, res) => {
+  const { resourceId } = req.params;
+  const response = await getVersionsList(resourceId);
+  res.status(200).json(response);
+};
+
 export default {
   GetResources,
   GetResourceInfo,
@@ -168,4 +177,5 @@ export default {
   GetRequestInfo,
   ApproveRequest,
   RejectRequest,
+  GetVersionsList
 };

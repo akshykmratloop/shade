@@ -16,6 +16,7 @@ import {
   markAllAssignedUserInactive,
   approveRequestInVerification,
   rejectRequestInVerification,
+  fetchVersionsList,
 } from "../../repository/content.repository.js";
 
 const getResources = async (
@@ -29,7 +30,8 @@ const getResources = async (
   limitNum,
   fetchType,
   userId,
-  roleId
+  roleId,
+  apiCallType
 ) => {
   if (fetchType === "CONTENT") {
     const resources = await fetchAllResourcesWithContent(
@@ -42,7 +44,8 @@ const getResources = async (
       pageNum,
       limitNum,
       userId,
-      roleId
+      roleId,
+      apiCallType
     );
     logger.info({
       response: "Resources fetched successfully with content",
@@ -60,7 +63,8 @@ const getResources = async (
     pageNum,
     limitNum,
     userId,
-    roleId
+    roleId,
+    apiCallType
   );
   logger.info({
     response: "Resources fetched successfully without content",
@@ -246,7 +250,14 @@ const PublishRequest = async (requestId) => {
 
 
 
-
+const getVersionsList = async (resourceId) => {
+  const content = await fetchVersionsList(resourceId);
+  logger.info({
+    response: "Content fetched successfully",
+    // content: content,
+  });
+  return { message: "Success", content };
+};
 
 
 
@@ -273,4 +284,5 @@ export {
   rejectRequest,
   ScheduleRequest,
   PublishRequest,
+  getVersionsList,
 };
