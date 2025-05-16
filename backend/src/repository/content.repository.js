@@ -1482,7 +1482,7 @@ async function formatResourceVersionData(resourceVersion, isItemFullContent, res
     sortedSectionVersions.map(async (sectionVersion) => {
       // Format the main section
       const formattedSection = {
-        // sectionId: sectionVersion.sectionId,
+        sectionId: sectionVersion.sectionId,
         // sectionVersionId: sectionVersion.id,
         order: sectionOrderMap[sectionVersion.id] || 999,
         version: sectionVersion.version,
