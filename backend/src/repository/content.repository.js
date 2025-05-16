@@ -538,7 +538,7 @@ export const fetchAllResourcesWithContent = async (
   // Build the where clause based on provided filters and filtered resource IDs
   const whereClause = {
     id: { in: resourceIds },
-    ...resourceType,
+    ...(resourceType ? { resourceType } : {}),
     ...(resourceTag ? { resourceTag } : {}),
     ...(relationType ? { relationType } : {}),
     ...(typeof isAssigned === "boolean" ? { isAssigned } : {}),
@@ -582,7 +582,15 @@ export const fetchAllResourcesWithContent = async (
   });
 
   if (!resources || resources.length === 0) {
-    return null;
+    return {
+      resources: [],
+      pagination: {
+        totalResources: 0,
+        totalPages: 0,
+        currentPage: page,
+        limit,
+      },
+    };
   }
 
   // Process each resource with its versions
@@ -624,6 +632,10 @@ export const fetchAllResourcesWithContent = async (
     },
   };
 };
+
+
+
+
 
 export const fetchResourceInfo = async (resourceId) => {
   const resources = await prismaClient.resource.findUnique({
@@ -1549,10 +1561,10 @@ async function formatResourceVersionData(resourceVersion, isItemFullContent, res
                   const resource = item.resource;
 
                   let returningBody ;
-      
+
                   // Fetch the full content of the item resource
                   const itemContent = await fetchContent(resource.id, false);
-      
+
                   if ( resourceSlug === 'home' && sectionOrderMap[sectionVersion.id] === 7){
                     returningBody = itemContent;
                   }
@@ -2667,7 +2679,7 @@ export const approveRequestInVerification = async (requestId, userId) => {
   return await prismaClient.$transaction(async (tx) => {
     // Find the specific approval log for this user
     const approvalLog = await tx.requestApproval.findFirst({
-      where: { 
+      where: {
         requestId: requestId,
         approverId: userId,
         status: "PENDING"
@@ -2702,7 +2714,7 @@ export const approveRequestInVerification = async (requestId, userId) => {
         where: { id: requestId },
         select: { resourceVersionId: true }
       });
-      
+
       // Update request status
       await tx.resourceVersioningRequest.update({
         where: { id: requestId },
@@ -2710,7 +2722,7 @@ export const approveRequestInVerification = async (requestId, userId) => {
           status: "APPROVED"
         }
       });
-      
+
       // Update resource version status to PUBLISH_PENDING
       await tx.resourceVersion.update({
         where: { id: request.resourceVersionId },
@@ -2737,7 +2749,7 @@ export const rejectRequestInVerification = async (requestId, userId, rejectReaso
   return await prismaClient.$transaction(async (tx) => {
     // Find and update the specific approval log for this verifier
     const approvalLog = await tx.resourceVersioningRequestApproval.updateMany({
-      where: { 
+      where: {
         requestId: requestId,
         approverId: userId,
         status: "PENDING"
