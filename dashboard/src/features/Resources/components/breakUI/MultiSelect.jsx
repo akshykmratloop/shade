@@ -56,7 +56,7 @@ const SortableItem = ({ option, removeOption, language, reference, titleLan, con
   );
 };
 
-const MultiSelect = ({ outOfEditing, heading, min = 0, options, tabName, label, language, section, referenceOriginal = { dir: "", index: 0 }, currentPath, projectId, contentIndex, listOptions, limitOptions = 0 }) => {
+const MultiSelect = ({ outOfEditing, heading, min = 0, options, tabName, label, language, section, referenceOriginal = { dir: "", index: 0 }, currentPath, projectId, sectionIndex, listOptions, limitOptions = 0 }) => {
   const titleLan = language === "en" ? "titleEn" : "titleAr"
   const [selectedOptions, setSelectedOptions] = useState([]);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -176,7 +176,7 @@ const MultiSelect = ({ outOfEditing, heading, min = 0, options, tabName, label, 
         currentPath,
         projectId,
         titleLan,
-        contentIndex
+        sectionIndex
       }));
     }
   }, [random]); // Minimize dependencies to prevent unnecessary runs

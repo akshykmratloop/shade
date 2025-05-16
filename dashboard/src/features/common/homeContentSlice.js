@@ -29,7 +29,7 @@ const cmsSlice = createSlice({
 
             } else {
 
-                state.present.content.editVersion.sections[action.payload.index].content.image[0] = action.payload.src
+                state.present.content.editVersion.sections[action.payload.index].content.images[0].url = action.payload.src
 
             }
             state.future = [];
@@ -186,19 +186,20 @@ const cmsSlice = createSlice({
             //     const indexB = selectedMap.get(b[action.payload.titleLan]) ?? Infinity;
             //     return indexA - indexB;
             // });
+            console.log(action.payload.sectionIndex)
 
             switch (action.payload.origin) {
                 case "home":
-                    state.present.content.editVersion.sections[action.payload.contentIndex].items = newOptions
+                    state.present.content.editVersion.sections[action.payload.sectionIndex].items = newOptions
                     break;
 
                 case "recentproject":
-                    state.present.content.editVersion.sections[action.payload.contentIndex].sections[action.payload.index].items = newOptions
+                    state.present.content.editVersion.sections[action.payload.sectionIndex].sections[action.payload.index].items = newOptions
                     break;
 
                 case "testimonials":
-                    console.log([action.payload.currentPath], [action.payload.contentIndex])
-                    state.present.content.editVersion.sections[action.payload.contentIndex].items = newOptions
+                    console.log([action.payload.currentPath], [action.payload.sectionIndex])
+                    state.present.content.editVersion.sections[action.payload.sectionIndex].items = newOptions
                     break;
 
                 case "jobs":

@@ -99,17 +99,18 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
             {/* banner 1  */}
             <section className="w-full relative"
             >
-                <span
-                    className={`w-full min-h-[400px] block ${language === "en" ? "scale-x-100" : "scale-x-[-1]"
+                <div
+                    className={`w-full overflow-y-hidden min-h-[400px] block ${language === "en" ? "scale-x-100" : "scale-x-[-1]"
                         }`}
+                        style={{height: dynamicSize(715, width)}}
                 >
                     <img
                         dir={isLeftAlign ? "ltr" : "rtl"}
                         src={`${Img_url}${content?.["1"]?.content?.images[0].url}`}
                         alt={content?.["1"]?.content?.images[0].url}
-                        className="w-[full] h-full object-cover"
+                        className="w-full object-cover"
                         style={{ objectPosition: "center", transform: "scaleX(-1)", height: isTablet ? "500px" : isPhone && "500px" }} />
-                </span>
+                </div>
                 <div
                     className={`container mx-auto absolute ${isComputer ? "top-[20%]" : "top-16"}  left-0 right-0 px-4`}>
                     <div className={`text-left flex flex-col ${language === "en" ? "items-start" : "items-end"} ${textAlignment} ${isPhone ? "px-[0px] py-10" : "px-[80px]"}`}
