@@ -63,7 +63,6 @@ const ImageSelector = ({ onSelectImage, onClose, resourceId }) => {
         } finally {
             setUploading(false);
         }
-
     };
 
     const handleAltText = (e) => {
@@ -151,7 +150,6 @@ const ImageSelector = ({ onSelectImage, onClose, resourceId }) => {
             >
                 <h2 className="text-[20px] font-[500] dark:text-stone-300">Select or Upload an Image</h2>
 
-
                 <div className="flex h-[80%] gap-2 mt-4 items-stretch">
                     {/* Image Grid */}
                     <div className="flex-[5_1_1200px] self-stretch h-full flex flex-col ">
@@ -228,13 +226,13 @@ const ImageSelector = ({ onSelectImage, onClose, resourceId }) => {
                                     </div>
                                 </div>
                                 <div className="flex flex-col gap-4 mt-4">
-                                    <label htmlFor="altEn" className="flex border text-sm justify-between items-center">
+                                    <label htmlFor="altEn" className="flex sm:flex-col xl:flex-row text-sm justify-between xl:items-center">
                                         Alt Text English
-                                        <input type="text" name="en" id="altEn" className="rounded-sm p-2 text-xs" />
+                                        <input onChange={handleAltText} type="text" name="en" id="altEn" className="rounded-sm p-2 text-xs xl:w-[15vw] sm:w-full" />
                                     </label>
-                                    <label htmlFor="altEn" className="flex border text-sm justify-between items-center">
+                                    <label htmlFor="altEn" className="flex sm:flex-col xl:flex-row text-sm justify-between xl:items-center">
                                         Alt Text Arabic
-                                        <input type="text" name="ar" id="altEn" className="rounded-sm p-2 text-xs" dir="rtl" />
+                                        <input onChange={handleAltText} type="text" name="ar" id="altEn" className="rounded-sm p-2 text-xs xl:w-[15vw] sm:w-full" dir="rtl" />
                                     </label>
                                 </div>
                             </div>
@@ -265,7 +263,7 @@ const ImageSelector = ({ onSelectImage, onClose, resourceId }) => {
                     <div className="flex gap-4">
                         {selectedImage && !uploading && (
                             <button
-                                onClick={() => onSelectImage(selectedImage.split("/").slice(-1))}
+                                onClick={() => onSelectImage(selectedImage.split("/").slice(-1), altText)}
                                 className="bg-blue-800 text-white px-4 py-2 rounded shadow text-[15px]"
                             >
                                 Select

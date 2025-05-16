@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import {
+    useDispatch,
     useSelector,
 } from "react-redux";
 import Arrow from "../../../../assets/icons/right-wrrow.svg";
@@ -28,10 +29,11 @@ import dynamicSize, { generatefontSize } from "../../../../app/fontSizes";
 import { differentText } from "../../../../app/fontSizes";
 // import contentJSON from './content.json'
 import { Img_url } from "../../../../routes/backend";
+import { updateMainContent } from "../../../common/homeContentSlice";
 
 
 const HomePage = ({ language, screen, fullScreen, highlight, content, currentContent, liveContent }) => {
-
+    const dispatch = useDispatch()
     const checkDifference = differentText?.checkDifference.bind(differentText);
     const isComputer = screen > 900;
     const isTablet = screen < 900 && screen > 730;
@@ -92,6 +94,9 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
     }, [language]);
 
 
+    useEffect(() => {
+        return () => dispatch(updateMainContent({ currentPath: "content", payload: undefined }))
+    }, [])
     const testimonialPrevRef = useRef(null);
     const testimonialNextRef = useRef(null);
     return (
@@ -102,7 +107,7 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                 <div
                     className={`w-full overflow-y-hidden min-h-[400px] block ${language === "en" ? "scale-x-100" : "scale-x-[-1]"
                         }`}
-                        style={{height: dynamicSize(715, width)}}
+                    style={{ height: dynamicSize(715, width) }}
                 >
                     <img
                         dir={isLeftAlign ? "ltr" : "rtl"}

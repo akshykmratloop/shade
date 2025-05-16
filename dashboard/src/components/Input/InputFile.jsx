@@ -17,15 +17,17 @@ const InputFile = ({ label, baseClass, id, currentPath, resourceId, contentIndex
   };
 
   const handleImageSelect = (url, altText) => {
+    console.log(url, altText)
     setFileURL(url);
     const payloadData = {
       url: url[0],
-      altText:{
+      altText: {
         en: altText.en,
         ar: altText.ar
-      }
+      },
+      order
     }
-    dispatch(updateImages({ section, src: payloadData, currentPath, index: contentIndex, cardIndex: index, subSection, directIcon }));
+    dispatch(updateImages({ section, src: directIcon ? url[0] : payloadData, currentPath, index: contentIndex, cardIndex: index, subSection, directIcon, order }));
     setIsSelectorOpen(false);
   };
 

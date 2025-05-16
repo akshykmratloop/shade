@@ -24,7 +24,7 @@ const cmsSlice = createSlice({
             } else if (action.payload.directIcon) {
                 state.present.content.editVersion.sections[action.payload.index].content.cards[action.payload.cardIndex].icon = action.payload.src
             } else {
-                state.present.content.editVersion.sections[action.payload.index].content.images = action.payload.src
+                state.present.content.editVersion.sections[action.payload.index].content.images[action.payload.order - 1] = action.payload.src
             }
             state.future = [];
         },

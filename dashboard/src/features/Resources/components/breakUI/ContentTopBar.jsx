@@ -74,7 +74,7 @@ export default function ContentTopBar({ setWidth, setFullScreen, currentPath, ou
         const paylaod = transformContent(ReduxState.present.content)
 
         // console.log(JSON.stringify(paylaod))
-        dispatch(saveInitialContentValue(paylaod))
+        dispatch(saveInitialContentValue(ReduxState.present.content))
         setSavedChanges(true)
         try {
 

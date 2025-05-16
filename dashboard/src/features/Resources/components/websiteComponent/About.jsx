@@ -1,7 +1,8 @@
 import { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { aboutUsIcons } from "../../../../assets/index"; // ../../assets/index
 import { Img_url } from "../../../../routes/backend";
+import { updateMainContent } from "../../../common/homeContentSlice";
 // import styles from "./about.module.scss";
 // import localFont from "next/font/local";
 // import Button from "@/common/Button";
@@ -20,19 +21,14 @@ import { Img_url } from "../../../../routes/backend";
 const AboutUs = ({ language, screen, currentContent }) => {
     const isPhone = screen < 768
     const isEnglish = language === "en"
-    // const dispatch = useDispatch()
-    const ImageFromRedux = useSelector((state) => state.homeContent.present.images)
+    const dispatch = useDispatch()
 
-    // const { language, content } = useGlobalContext();
-    // const [isModal, setIsModal] = useState(false);
-    // const currentContent = content?.aboutUs;
-    // const handleContactUSClose = () => {
-    //     setIsModal(false);
-    // };
+ 
 
     useEffect(() => {
-        // dispatch(updateMainContent({ currentPath: "about", payload:  }))
+        return () => dispatch(updateMainContent({ currentPath: "content", payload: undefined }))
     }, [])
+
     return (
         <div className="px-8">
             {/** about us top section */}
@@ -53,7 +49,7 @@ const AboutUs = ({ language, screen, currentContent }) => {
                                 key={index}
                             >
                                 <img
-                                    src={Img_url+card.icon}
+                                    src={Img_url + card.icon}
                                     width="44"
                                     height="44"
                                     alt="icon"
