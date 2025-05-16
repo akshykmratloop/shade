@@ -158,7 +158,8 @@ const RejectRequest = async (req, res) => {
 
 const GetVersionsList = async (req, res) => {
   const { resourceId } = req.params;
-  const response = await getVersionsList(resourceId);
+  const { search, status, page, limit } = req.query;
+  const response = await getVersionsList(resourceId, search, status, page, limit);
   res.status(200).json(response);
 };
 

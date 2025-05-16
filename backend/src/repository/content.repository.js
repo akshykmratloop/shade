@@ -2823,22 +2823,50 @@ export const rejectRequestInVerification = async (
 };
 
 
-export const fetchVersionsList = async (resourceId) =>{
-  return await prismaClient.resourceVersion.findMany({
-    where: {
-      resourceId: resourceId,
+export const fetchVersionsList = async (resourceId, search, status, page, limit) => {
+  const pageNum = parseInt(page) || 1;
+  const limitNum = parseInt(limit) || 10;
+  const skip = (pageNum - 1) * limitNum;
+
+  const [versions, totalVersions] = await Promise.all([
+    prismaClient.resourceVersion.findMany({
+      where: {
+        resourceId: resourceId,
+        status: status ? status : undefined,
+        OR: search
+          ? [
+              { titleEn: { contains: search, mode: "insensitive" } },
+              { titleAr: { contains: search, mode: "insensitive" } },
+            ]
+          : undefined,
+      },
+      orderBy: {
+        versionNumber: "desc",
+      },
+      skip: skip,
+      take: limitNum,
+    }),
+    prismaClient.resourceVersion.count({
+      where: {
+        resourceId: resourceId,
+        status: status ? status : undefined,
+        OR: search
+          ? [
+              { titleEn: { contains: search, mode: "insensitive" } },
+              { titleAr: { contains: search, mode: "insensitive" } },
+            ]
+          : undefined,
+      },
+    }),
+  ]);
+
+  return {
+    versions,
+    pagination: {
+      totalVersions,
+      totalPages: Math.ceil(totalVersions / limitNum),
+      currentPage: pageNum,
+      limit: limitNum,
     },
-    // include: {
-    //   resource: {
-    //     select: {
-    //       id: true,
-    //       titleEn: true,
-    //       titleAr: true,
-    //     },
-    //   },
-    // },
-    orderBy: {
-      versionNumber: "desc",
-    },
-  });
+  };
 }
