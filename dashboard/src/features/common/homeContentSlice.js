@@ -24,8 +24,9 @@ const cmsSlice = createSlice({
                 state.present.content.editVersion.sections[action.payload.index].content.clients[action.payload.cardIndex].image[0] = action.payload.src
 
             } else if (action.payload.directIcon) {
-
-                state.present.content.editVersion.sections[action.payload.index].content.cards[action.payload.cardIndex].iconName = action.payload.src
+// console.log("goooood")
+console.log(action.payload.index, action.payload.cardIndex)
+                state.present.content.editVersion.sections[action.payload.index].content.cards[action.payload.cardIndex].icon = action.payload.src
 
             } else {
 
