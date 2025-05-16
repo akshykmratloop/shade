@@ -49,8 +49,13 @@ export const fetchResources = async (
   if (!isSuperAdmin) {
     // Find the specific role from the query
     const queryRole = user.roles.find((r) => r.roleId === roleId)?.role;
+
+    // If role is not found or is inactive, throw error
     if (!apiCallType && !queryRole) {
       throw new Error("Role not found for this user");
+    }
+    if (queryRole.status === "INACTIVE") {
+      throw new Error("Role is inactive for this user");
     }
 
     if (!apiCallType) {
@@ -2290,8 +2295,12 @@ export const fetchRequests = async (
   if (!isSuperAdmin && roleId) {
     // Find the specific role from the query
     const queryRole = user.roles.find((r) => r.roleId === roleId)?.role;
-    if (!queryRole) {
+     // If role is not found or is inactive, throw error
+     if (!queryRole) {
       throw new Error("Role not found for this user");
+    }
+    if (queryRole.status === "INACTIVE") {
+      throw new Error("Role is inactive for this user");
     }
 
     // Extract permissions for the specific role
@@ -2822,11 +2831,19 @@ export const rejectRequestInVerification = async (
   });
 };
 
-
 export const fetchVersionsList = async (resourceId, search, status, page, limit) => {
   const pageNum = parseInt(page) || 1;
   const limitNum = parseInt(limit) || 10;
   const skip = (pageNum - 1) * limitNum;
+
+  // Fetch the resource to get liveVersionId and newVersionEditModeId
+  const resource = await prismaClient.resource.findUnique({
+    where: { id: resourceId },
+    select: {
+      liveVersionId: true,
+      newVersionEditModeId: true,
+    },
+  });
 
   const [versions, totalVersions] = await Promise.all([
     prismaClient.resourceVersion.findMany({
@@ -2860,8 +2877,15 @@ export const fetchVersionsList = async (resourceId, search, status, page, limit)
     }),
   ]);
 
+  // Add flags to each version
+  const versionsWithFlags = versions.map(version => ({
+    ...version,
+    isLive: version.id === resource.liveVersionId,
+    isUnderEditing: version.id === resource.newVersionEditModeId,
+  }));
+
   return {
-    versions,
+    versions: versionsWithFlags,
     pagination: {
       totalVersions,
       totalPages: Math.ceil(totalVersions / limitNum),
