@@ -171,7 +171,7 @@ const cmsSlice = createSlice({
         },
         updateServicesNumber: (state, action) => {
             state.past.push(JSON.parse(JSON.stringify(state.present)));
-            state.present[action.payload.currentPath].editVersion.sections[action.payload.contentIndex].content.cards[action.payload.index][action.payload.title] = action.payload.value
+            state.present.content.editVersion.sections[action.payload.sectionIndex].content.cards[action.payload.index][action.payload.title] = action.payload.value
             state.future = [];
         },
         updateSelectedContent: (state, action) => {
