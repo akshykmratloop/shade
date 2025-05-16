@@ -32,6 +32,7 @@ const ImageSelector = ({ onSelectImage, onClose, resourceId }) => {
     const [deleteImgId, setDeleteImgId] = useState("")
     const [popup, setPopup] = useState(false)
     const [random, setRandom] = useState(Math.random())
+    const [altText, setAltText] = useState({ en: "", ar: "" })
 
     const { uploadImage } = useImageUpload(resourceId); // hook for uploading images
 
@@ -65,6 +66,12 @@ const ImageSelector = ({ onSelectImage, onClose, resourceId }) => {
 
     };
 
+    const handleAltText = (e) => {
+        setAltText(prev => {
+
+            return { ...prev, [e.target.name]: e.target.value }
+        })
+    }
 
     const handleImageSelect = (src, index) => {
         if (uploading) return; // Prevent image selection if uploading
@@ -223,11 +230,11 @@ const ImageSelector = ({ onSelectImage, onClose, resourceId }) => {
                                 <div className="flex flex-col gap-4 mt-4">
                                     <label htmlFor="altEn" className="flex border text-sm justify-between items-center">
                                         Alt Text English
-                                        <input type="text" id="altEn" className="rounded-sm p-2 text-xs" />
+                                        <input type="text" name="en" id="altEn" className="rounded-sm p-2 text-xs" />
                                     </label>
                                     <label htmlFor="altEn" className="flex border text-sm justify-between items-center">
                                         Alt Text Arabic
-                                        <input type="text" id="altEn" className="rounded-sm p-2 text-xs" dir="rtl"/>
+                                        <input type="text" name="ar" id="altEn" className="rounded-sm p-2 text-xs" dir="rtl" />
                                     </label>
                                 </div>
                             </div>

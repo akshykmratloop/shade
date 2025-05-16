@@ -20,16 +20,11 @@ const cmsSlice = createSlice({
             if (action.payload.type === "refDoc") {
                 state.present.content.editVersion.referenceDoc = action.payload.src
             } else if (action.payload.section === "clientSection") {
-
                 state.present.content.editVersion.sections[action.payload.index].content.clients[action.payload.cardIndex].image[0] = action.payload.src
-
             } else if (action.payload.directIcon) {
                 state.present.content.editVersion.sections[action.payload.index].content.cards[action.payload.cardIndex].icon = action.payload.src
-
             } else {
-
-                state.present.content.editVersion.sections[action.payload.index].content.images[0].url = action.payload.src
-
+                state.present.content.editVersion.sections[action.payload.index].content.images = action.payload.src
             }
             state.future = [];
         },
@@ -37,11 +32,9 @@ const cmsSlice = createSlice({
 
             let newArray = state.present.content.editVersion.sections[action.payload.index].content.clients
 
-            // console.log(JSON.parse(JSON.stringify(newArray)))
             if (action.payload.operation === "add") {
                 newArray = [...newArray, action.payload.data]
             } else {
-                // console.log(action.payload.data)
                 if (!action.payload.data) {
                     newArray.pop()
                 } else {
@@ -53,10 +46,7 @@ const cmsSlice = createSlice({
                 }
             }
 
-            console.log(JSON.parse(JSON.stringify(newArray)))
-
             state.present.content.editVersion.sections[action.payload.index].content.clients = newArray;
-
         },
         removeImages: (state, action) => {
             state.past.push(JSON.parse(JSON.stringify(state.present)));
@@ -197,7 +187,6 @@ const cmsSlice = createSlice({
                     break;
 
                 case "testimonials":
-                    console.log([action.payload.currentPath], [action.payload.sectionIndex])
                     state.present.content.editVersion.sections[action.payload.sectionIndex].items = newOptions
                     break;
 

@@ -5,7 +5,7 @@ import { removeImages, updateImages } from "../../features/common/homeContentSli
 import ImageSelector from "./ImageSelector"; // Import here
 import { Img_url } from "../../routes/backend";
 
-const InputFile = ({ label, baseClass, id, currentPath, resourceId, contentIndex, index, subSection, section, outOfEditing, directIcon }) => {
+const InputFile = ({ label, baseClass, id, currentPath, resourceId, contentIndex, index, subSection, section, outOfEditing, directIcon, order }) => {
   const dispatch = useDispatch();
   const ImageFromRedux = useSelector(state => state.homeContent.present.images);
   const [fileURL, setFileURL] = useState("");
@@ -18,7 +18,14 @@ const InputFile = ({ label, baseClass, id, currentPath, resourceId, contentIndex
 
   const handleImageSelect = (url, altText) => {
     setFileURL(url);
-    dispatch(updateImages({ section, src: url[0], currentPath, index: contentIndex, cardIndex: index, subSection, directIcon }));
+    const payloadData = {
+      url: url[0],
+      altText:{
+        en: altText.en,
+        ar: altText.ar
+      }
+    }
+    dispatch(updateImages({ section, src: payloadData, currentPath, index: contentIndex, cardIndex: index, subSection, directIcon }));
     setIsSelectorOpen(false);
   };
 

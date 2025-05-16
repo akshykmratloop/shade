@@ -335,6 +335,7 @@ const ContentSection = ({
                                             contentIndex={sectionIndex}
                                             outOfEditing={outOfEditing}
                                             directIcon={file.directIcon}
+                                            order={file.order}
                                         />
                                     </div>
                                 )
