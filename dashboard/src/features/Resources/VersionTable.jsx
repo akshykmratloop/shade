@@ -355,7 +355,6 @@ function VersionTable() {
                                                         <button
                                                             onClick={() => {
                                                                 setSelectedVersion(version);
-                                                                // setShowDetailsModal(true);
                                                                 openNotification(version?.id);
                                                             }}
                                                         >
@@ -373,9 +372,6 @@ function VersionTable() {
                                                             onClick={() => {
                                                                 setSelectedVersion(version);
                                                                 setShowDetailsModal(true);
-                                                                // openNotification();
-                                                                // setResourceId(version.resourceVersion.resourceId)
-                                                                // setRequestId(version.id)
                                                             }}
                                                         >
                                                             <span

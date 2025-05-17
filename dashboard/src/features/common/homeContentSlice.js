@@ -132,14 +132,16 @@ const cmsSlice = createSlice({
         updateWhatWeDoList: (state, action) => {
             state.past.push(JSON.parse(JSON.stringify(state.present)));
             let newArray = []
+            console.log(action.payload.sectionIndex)
+            let oldArray = state.present.content?.editVersion?.sections?.[action.payload.sectionIndex].content
             if (action.payload.operation === 'add') {
-                newArray = [...state.present.solution?.[action.payload.section], action.payload.insert]
+                newArray = [...oldArray, { ...action.payload.insert, order: oldArray.length }]
             } else {
-                newArray = state.present.solution[action.payload.section].filter((e, i) => {
+                newArray = state.present.content?.editVersion?.sections?.[action.payload.sectionIndex].content.filter((e, i) => {
                     return i !== action.payload.index
                 })
             }
-            state.present.solution[action.payload.section] = newArray
+            state.present.content.editVersion.sections[action.payload.sectionIndex].content = newArray
             state.future = [];
         },
         updateSpecificContent: (state, action) => {

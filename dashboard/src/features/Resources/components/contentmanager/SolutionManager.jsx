@@ -9,7 +9,7 @@ import DynamicContentSection from "../breakUI/DynamicContentSection";
 const SolutionManager = ({ currentPath, language, currentContent, indexes }) => {
     const dispatch = useDispatch()
 
-    const addExtraSummary = (section) => {
+    const addExtraSummary = () => {
         dispatch(updateWhatWeDoList(
             {
                 insert: {
@@ -22,7 +22,7 @@ const SolutionManager = ({ currentPath, language, currentContent, indexes }) => 
                         en: ""
                     }
                 },
-                section,
+                sectionIndex: indexes?.['2'],
                 operation: 'add'
             }
         ))
@@ -90,6 +90,7 @@ const SolutionManager = ({ currentPath, language, currentContent, indexes }) => 
                                 // type={'rich'}
                                 sectionIndex={indexes?.['2']}
                                 contentIndex={index}
+                                allowRemoval={true}
                             />
                         )
                     })

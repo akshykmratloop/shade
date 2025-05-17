@@ -1,6 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
 import { updateName, updateTag, updateType } from "../features/common/navbarSlice";
 import capitalizeWords from "../app/capitalizeword";
+import { useEffect } from "react";
 
 const Navbar = ({ setCurrentResource }) => {
     // const userPermissions = useSelector(state => state.user.user?.permissions);
@@ -35,8 +36,13 @@ const Navbar = ({ setCurrentResource }) => {
         dispatch(updateTag(tag));
         dispatch(updateName(name));
         localStorage.setItem("resourceType", resource);
-        localStorage.setItem("resourceTag", tag)
+        localStorage.setItem("resourceTag", tag);
+        localStorage.setItem("navName", name)
     };
+
+    useEffect(() => {
+        dispatch(updateName(localStorage.getItem("navName")))
+    }, [])
 
     return (
         <div className="sticky top-0 z-20">

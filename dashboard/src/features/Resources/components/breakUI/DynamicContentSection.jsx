@@ -83,10 +83,11 @@ const DynamicContentSection = ({
             }))
         } else {
             dispatch(updateWhatWeDoList({
-                index,
+                sectionIndex,
                 operation: 'remove',
-                section,
-                context: currentPath
+                index
+                // section,
+                // context: currentPath
             }))
         }
     }
