@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import FileUploader from "../../../../components/Input/InputFileUploader";
 import ContentSection from "../breakUI/ContentSections";
-import { updateMainContent, updateWhatWeDoList } from "../../../common/homeContentSlice";
+import { updateMainContent, updateCardAndItemsArray } from "../../../common/homeContentSlice";
 import content from "../websiteComponent/content.json"
 import { useDispatch } from "react-redux";
 import DynamicContentSection from "../breakUI/DynamicContentSection";
@@ -10,7 +10,7 @@ const SolutionManager = ({ currentPath, language, currentContent, indexes }) => 
     const dispatch = useDispatch()
 
     const addExtraSummary = () => {
-        dispatch(updateWhatWeDoList(
+        dispatch(updateCardAndItemsArray(
             {
                 insert: {
                     title: {
@@ -155,7 +155,7 @@ const SolutionManager = ({ currentPath, language, currentContent, indexes }) => 
                 }
                 <button className="text-blue-500 cursor-pointer mb-3" onClick={() => addExtraSummary('howWeDo')}>Add More Section...</button>
             </div> */}
-
+{/* 
             <ContentSection
                 currentPath={currentPath}
                 Heading={"Gallery 2"}
@@ -169,8 +169,7 @@ const SolutionManager = ({ currentPath, language, currentContent, indexes }) => 
                 currentContent={currentContent}
                 allowExtraInput={true}
                 sectionIndex={indexes?.['4']}
-
-            />
+            /> */}
         </div>
     )
 }

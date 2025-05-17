@@ -28,31 +28,31 @@ const cmsSlice = createSlice({
             }
             state.future = [];
         },
-        updateAList: (state, action) => {
+        // updateAList: (state, action) => {
 
-            let newArray = state.present.content.editVersion.sections[action.payload.index].content.clients
+        //     let newArray = state.present.content.editVersion.sections[action.payload.index].content.clients
 
-            if (action.payload.operation === "add") {
-                newArray = [...newArray, action.payload.data]
-            } else {
-                if (!action.payload.data) {
-                    newArray.pop()
-                } else {
-                    newArray = newArray.filter(e => {
-                        console.log(e.image[0] !== action.payload.data)
-                        console.log(e.image[0], action.payload.data)
-                        return e.image[0] !== action.payload.data
-                    })
-                }
-            }
+        //     if (action.payload.operation === "add") {
+        //         newArray = [...newArray, action.payload.data]
+        //     } else {
+        //         if (!action.payload.data) {
+        //             newArray.pop()
+        //         } else {
+        //             newArray = newArray.filter(e => {
+        //                 console.log(e.image[0] !== action.payload.data)
+        //                 console.log(e.image[0], action.payload.data)
+        //                 return e.image[0] !== action.payload.data
+        //             })
+        //         }
+        //     }
 
-            state.present.content.editVersion.sections[action.payload.index].content.clients = newArray;
-        },
-        removeImages: (state, action) => {
-            state.past.push(JSON.parse(JSON.stringify(state.present)));
-            state.present.images[action.payload.section] = "";
-            state.future = [];
-        },
+        //     state.present.content.editVersion.sections[action.payload.index].content.clients = newArray;
+        // },
+        // removeImages: (state, action) => {
+        //     state.past.push(JSON.parse(JSON.stringify(state.present)));
+        //     state.present.images[action.payload.section] = "";
+        //     state.future = [];
+        // },
         updateMainContent: (state, action) => {
             state.past.push(JSON.parse(JSON.stringify(state.present)));
             state.present.content = action.payload.payload;
@@ -75,61 +75,61 @@ const cmsSlice = createSlice({
             }
             state.future = [];
         },
-        updateTheProjectSummaryList: (state, action) => {
-            state.past.push(JSON.parse(JSON.stringify(state.present)));
-            let newArray = []
-            let expression;
+        // updateTheProjectSummaryList: (state, action) => {
+        //     state.past.push(JSON.parse(JSON.stringify(state.present)));
+        //     let newArray = []
+        //     let expression;
 
-            switch (action.payload.context) {
-                case "projectDetail":
-                    expression = state.present.projectDetail?.[action.payload.projectId - 1].descriptionSection;
-                    break;
+        //     switch (action.payload.context) {
+        //         case "projectDetail":
+        //             expression = state.present.projectDetail?.[action.payload.projectId - 1].descriptionSection;
+        //             break;
 
-                case "careerDetails":
-                    expression = state.present.careerDetails?.[action.payload.careerIndex]?.jobDetails?.leftPanel?.sections;
-                    break;
+        //         case "careerDetails":
+        //             expression = state.present.careerDetails?.[action.payload.careerIndex]?.jobDetails?.leftPanel?.sections;
+        //             break;
 
-                case "newsBlogsDetails":
-                    expression = state.present.newsBlogsDetails?.[action.payload.newsIndex]?.newsPoints;
-                    break;
+        //         case "newsBlogsDetails":
+        //             expression = state.present.newsBlogsDetails?.[action.payload.newsIndex]?.newsPoints;
+        //             break;
 
-                case "subOfsubService":
-                    expression = state.present.subOfsubService[action.payload.serviceId][action.payload.deepPath - 1][action.payload.subContext]
-                    break;
+        //         case "subOfsubService":
+        //             expression = state.present.subOfsubService[action.payload.serviceId][action.payload.deepPath - 1][action.payload.subContext]
+        //             break;
 
-                default:
-            }
+        //         default:
+        //     }
 
-            if (action.payload.operation === 'add') {
-                newArray = [...expression, action.payload.insert]
-            } else {
-                newArray = expression?.filter((e, i) => {
-                    return i !== action.payload.index
-                })
-            }
+        //     if (action.payload.operation === 'add') {
+        //         newArray = [...expression, action.payload.insert]
+        //     } else {
+        //         newArray = expression?.filter((e, i) => {
+        //             return i !== action.payload.index
+        //         })
+        //     }
 
-            switch (action.payload.context) {
-                case "projectDetail":
-                    state.present.projectDetail[action.payload.projectId - 1].descriptionSection = newArray
-                    break;
+        //     switch (action.payload.context) {
+        //         case "projectDetail":
+        //             state.present.projectDetail[action.payload.projectId - 1].descriptionSection = newArray
+        //             break;
 
-                case "careerDetails":
-                    state.present.careerDetails[action.payload.careerIndex].jobDetails.leftPanel.sections = newArray
-                    break;
+        //         case "careerDetails":
+        //             state.present.careerDetails[action.payload.careerIndex].jobDetails.leftPanel.sections = newArray
+        //             break;
 
-                case "newsBlogsDetails":
-                    state.present.newsBlogsDetails[action.payload.newsIndex].newsPoints = newArray
-                    break;
+        //         case "newsBlogsDetails":
+        //             state.present.newsBlogsDetails[action.payload.newsIndex].newsPoints = newArray
+        //             break;
 
-                case "subOfsubService":
-                    state.present.subOfsubService[action.payload.serviceId][action.payload.deepPath - 1][action.payload.subContext] = newArray
-                    break;
+        //         case "subOfsubService":
+        //             state.present.subOfsubService[action.payload.serviceId][action.payload.deepPath - 1][action.payload.subContext] = newArray
+        //             break;
 
-                default:
-            }
-            state.future = [];
-        },
-        updateWhatWeDoList: (state, action) => {
+        //         default:
+        //     }
+        //     state.future = [];
+        // },
+        updateCardAndItemsArray: (state, action) => {
             state.past.push(JSON.parse(JSON.stringify(state.present)));
             let newArray = []
             console.log(action.payload.sectionIndex)
@@ -365,7 +365,7 @@ export const { // actions
     updateSelectedContent,
     updateSelectedProject,
     updateMarketSelectedContent,
-    updateWhatWeDoList,
+    updateCardAndItemsArray,
     updateAllProjectlisting,
     selectMainNews,
     undo,

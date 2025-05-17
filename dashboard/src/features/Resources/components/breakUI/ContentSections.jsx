@@ -37,7 +37,6 @@ const ContentSection = ({
     const dispatch = useDispatch();
     // const [extraFiles, setExtraFiles] = useState([]);
     const ImagesFromRedux = useSelector((state) => state.homeContent.present.images)
-    let count = 0
 
     const editor = useRef(null);
 
@@ -123,8 +122,6 @@ const ContentSection = ({
     };
 
     const updateFormValueRichText = (updateType, value) => {
-        ++count
-        if (count <= 1) return
         if (updateType === 'count') {
             if (!isNaN(value)) {
                 let val = value?.slice(0, 7);
@@ -158,27 +155,15 @@ const ContentSection = ({
         }
     };
 
-    // const modules = {
-    //     toolbar: [
-    //         [{ color: [] }, { background: [] }], ,
-    //         [{ header: [1, 2, false] }],
-    //         ["bold", "italic", "underline"],
-    //         // [{ list: "ordered" }, { list: "bullet" }],
-    //         ["link", "image"],
-    //         ['clean'] // Remove formatting
-    //     ],
-    // };
-
     const config = useMemo(() => ({
         buttons: [
             "bold", "italic", "underline", "strikethrough", "|",
-            "font", "fontsize", "lineHeight", "|",
-            "brush", "eraser", "image", "ul"
+            "font", "fontsize", "lineHeight", "|", "eraser", "image", "ul"
         ],
         buttonsXS: [
             "bold", "italic", "underline", "strikethrough", "|",
             "font", "fontsize", "lineHeight", "|",
-            "brush", "eraser", "ul"
+            "eraser", "ul"
         ],
         toolbarAdaptive: false,
         toolbarSticky: false,
@@ -196,12 +181,13 @@ const ContentSection = ({
         useSplitMode: false,
         showButtonPanel: true,
         showTooltip: false,
+
         controls: {
             fontsize: {
                 list: Jodit.atom([8, 9, 10, 12, 14, 16, 18, 24, 30, 32, 34])
             }
-        }
-        ,
+        },
+
 
         // 👇 Disable the plus "+" hover icon
         disablePlugins: ['addNewLine']

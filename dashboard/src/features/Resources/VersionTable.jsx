@@ -116,24 +116,12 @@ function VersionTable() {
     const [showDetailsModal, setShowDetailsModal] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
     const [activeIndex, setActiveIndex] = useState(null);
-    // const [resourceId, setResourceId] = useState("")
-    //   const [toggle, setToggle] = useState(false);
 
     // redux state
-    //   const userRole = useSelector((state) => state.user.currentRole);
     const userObj = useSelector(state => state.user)
     const { resourceId, resourceName } = useSelector(state => state.versions)
 
-    const { isManager, isEditor, isPublisher, isVerifier, currentRole } = userObj;
-    const roleId = currentRole?.id
-
-    // variables for conditioned renderings
-    const [canSeeEditor, setCanSeeEditor] = useState((isVerifier || isPublisher || isManager))
-    const [canSeeVerifier, setCanSeeVerifier] = useState((isPublisher || isManager))
-    const [canSeePublisher, setCasSeePublisher] = useState((isVerifier || isManager))
-    const noneCanSee = !(isEditor || isManager || isVerifier || isPublisher)
-    const RoleTypeIsUser = userPermissionsSet.has(currentRole?.permissions[0])
-    const [permission, setPermission] = useState(RoleTypeIsUser ? currentRole?.permissions[0] || "" : false)
+    const { isManager } = userObj;
 
     // Fucntions
     const navigate = useNavigate();
@@ -197,42 +185,16 @@ function VersionTable() {
             }
             fetchversionsData();
         }
-    }, [resourceId, permission]);
-
-    // useEffect(() => {
-    //     setCanSeeEditor(isVerifier || isPublisher || isManager)
-    //     setCanSeeVerifier(isPublisher || isManager)
-    //     setCasSeePublisher(isVerifier || isManager)
-    // }, [currentRole?.id])
-
-    // useEffect(() => {
-    //     if (noneCanSee) {
-    //         navigate("/app/dashboard")
-    //     }
-    // }, [noneCanSee])
-
-    // useEffect(() => {
-
-    // }, [currentRole])
-
+    }, [resourceId]);
 
 
     return (
         <div className="relative min-h-full">
-            <div className="absolute top-3 right-2 z-[10] flex">
-                {/* {
-                    <ToggleSwitch options={[""]} switchToggles={changeTable} />
-                } */}
-                <button className="rounded-md text-white cursor-pointer bg-cyan-700 px-3 py-1 text-sm"
-                    onClick={() => { navigate("../pages") }}
-                >
-                    <span className="">⟵</span> back
-                </button>
-            </div>
             <TitleCard
-                title={`Resources / Versions / ${resourceName}`}
+                title={`Resources/ ${resourceName} / Versions `}
                 question={false}
                 topMargin="mt-2"
+                backButton={true}
                 TopSideButtons={
                     <TopSideButtons
                         applySearch={applySearch}
@@ -262,16 +224,6 @@ function VersionTable() {
                                     <th className="text-[#42526D] w-[221px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] text-center !capitalize">
                                         Published At
                                     </th>
-                                    {/* <th className="text-[#42526D] w-[221px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] text-center !capitalize">
-                                        Status
-                                    </th> */}
-                                    {/* <th className="text-[#42526D] w-[211px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] !capitalize">
-                                        Status
-                                    </th>
-
-                                    <th className="text-[#42526D] w-[221px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] text-center !capitalize">
-                                        Date Time
-                                    </th> */}
                                     <th className="text-[#42526D] w-[221px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] text-center !capitalize">
                                         Action
                                     </th>
@@ -286,70 +238,55 @@ function VersionTable() {
                                                 className="font-light "
                                                 style={{ height: "65px" }}
                                             >
+                                                {/* 1 */}
                                                 <td
                                                     className={`font-poppins h-[65px] truncate font-normal text-[14px] leading-normal text-[#101828] p-[26px] pl-5 flex`}
                                                 >
-                                                    {/* <img src={user.image ? user.image : userIcon} alt={user.name} className="rounded-[50%] w-[41px] h-[41px] mr-2" /> */}
                                                     <div className="flex flex-col">
                                                         <p className="dark:text-[white]">
                                                             {version?.['versionNumber']}
                                                         </p>
                                                     </div>
                                                 </td>
-                                                <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]">
-                                                    <div className="flex gap-2 border justify-start">
-                                                        <p
-                                                            className={`min-w-[85px] 
-                                                            mx-auto before:content-['•'] 
-                                                            before:text-2xl flex h-7 
+                                                {/* 2 */}
+                                                <td className="font-poppins w-[10vw] font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]">
+                                                    <div className="">
+
+                                                        <div className="flex w-[50%] mx-auto gap-2 items-center justify-start">
+                                                            <p
+                                                                className={`min-w-[100px] 
+                                                                before:content-['•'] 
+                                                                before:text-2xl flex h-7 
                                                             items-center justify-center 
                                                             gap-1 px-1 py-0 font-[500] 
-                                                            ${version.status === "Green"
-                                                                    ? "text-green-600 bg-lime-200 before:text-green-600 px-1"
-                                                                    : version.status === "Blue"
-                                                                        ? "text-blue-600 bg-sky-200 before:text-blue-600 "
-                                                                        : "text-red-600 bg-pink-200 before:text-red-600 "
-                                                                }            
+                                                            ${version.versionStatus === "PUBLISHED"
+                                                                        ? "text-green-600 bg-lime-200 before:text-green-600 px-1"
+                                                                        : version.versionStatus === "DRAFT"
+                                                                            ? "text-blue-600 bg-sky-200 before:text-blue-600 "
+                                                                            : "text-red-600 bg-pink-200 before:text-red-600 "
+                                                                    }            
                                                             rounded-2xl`}
-                                                            style={{ textTransform: "capitalize" }}
-                                                        >
-                                                            <span className="">
-                                                                {capitalizeWords(version?.versionStatus)}
-                                                            </span>
-                                                        </p>
-                                                        <p>{version?.isLive ? "Live" : version?.isUnderEditing ? "Under Editing" : ""}</p>
+                                                                style={{ textTransform: "capitalize" }}
+                                                            >
+                                                                <span className="">
+                                                                    {capitalizeWords(version?.versionStatus)}
+                                                                </span>
+                                                            </p>
+                                                            <p className="text-xs font-[500]">{version?.isLive ? "Live" : version?.isUnderEditing ? "Under Editing" : ""}</p>
+                                                        </div>
                                                     </div>
                                                 </td>
+                                                {/* 3 */}
                                                 <td
-                                                    className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]"
+                                                    className="font-poppins font-light text-[12px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]"
                                                     style={{ whiteSpace: "" }}
                                                 >
                                                     <span className="">
                                                         {formatTimestamp(version?.publishedAt)}
                                                     </span>
                                                 </td>
-                                                <td
-                                                    className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]"
-                                                    style={{ whiteSpace: "" }}
-                                                >
-                                                    <span className="">
-                                                        {/* {verifiers.length > 0 && (
-                                                                verifiers?.[0]?.approver?.name || "N/A"
-                                                            )} */}
-                                                    </span>
-                                                </td>
-                                                <td
-                                                    className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]"
-                                                    style={{ whiteSpace: "" }}
-                                                >
-                                                    <span className="" >
-                                                        {/* {TruncateText(publisher?.approver?.name, 12) || "N/A"} */}
-                                                    </span>
-                                                </td>
 
-                                                <td className="font-poppins font-light text-[12px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]">
-                                                    {formatTimestamp(version?.createdAt)}
-                                                </td>
+                                                {/* 7 */}
                                                 <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[8px] dark:text-[white]">
                                                     <div className="w-[145px] mx-auto flex gap-[15px] justify-center border border border-[1px] border-[#E6E7EC] dark:border-stone-400 rounded-[8px] p-[13.6px] py-[10px]">
                                                         <button
@@ -375,7 +312,7 @@ function VersionTable() {
                                                             }}
                                                         >
                                                             <span
-                                                                title={`Review${canSeeEditor ? " and update" : ""}`}
+                                                                title={`Review version details`}
                                                                 className="flex items-center gap-1 rounded-md text-[#101828]">
                                                                 <FiEye
                                                                     className="w-5 h-6  text-[#3b4152] dark:text-stone-200"

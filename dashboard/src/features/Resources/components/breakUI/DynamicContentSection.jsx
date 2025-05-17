@@ -6,7 +6,7 @@ import JoditEditor from "jodit-react";
 import TextAreaInput from "../../../../components/Input/TextAreaInput";
 import InputFile from "../../../../components/Input/InputFile";
 import InputText from "../../../../components/Input/InputText";
-import { updateSpecificContent, updateServicesNumber, updateImages, updateTheProjectSummaryList, updateWhatWeDoList } from "../../../common/homeContentSlice";
+import { updateSpecificContent, updateServicesNumber, updateImages, updateTheProjectSummaryList, updateCardAndItemsArray } from "../../../common/homeContentSlice";
 import InputFileForm from "../../../../components/Input/InputFileForm";
 
 const DynamicContentSection = ({
@@ -82,7 +82,7 @@ const DynamicContentSection = ({
                 context: currentPath
             }))
         } else {
-            dispatch(updateWhatWeDoList({
+            dispatch(updateCardAndItemsArray({
                 sectionIndex,
                 operation: 'remove',
                 index
