@@ -173,7 +173,7 @@ function VersionTable() {
         if (resourceId) {
             async function fetchversionsData() {
                 try {
-                    const response = await versionsList("cmap7yost00tomn5kro5pqv7y");
+                    const response = await versionsList(resourceId);
                     if (response.ok) {
                         setVersions(response?.content?.versions || []);
                     }

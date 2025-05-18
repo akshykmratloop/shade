@@ -16,14 +16,26 @@ import Services from "./websiteComponent/Service";
 import ServiceDetails from "./websiteComponent/detailspages/ServiceDetails";
 import SubServiceDetails from "./websiteComponent/subDetailsPages/SubServiceDetails";
 import tempContent from "./websiteComponent/content.json"
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { updateMainContent } from "../../common/homeContentSlice";
 
 const AllForOne = ({ language, screen, content, subPath, setLanguage, fullScreen, currentPath, deepPath, showDifference = false, live, hideScroll }) => {
+    const dispatch = useDispatch()
+
+    const platform = useSelector(state => state.platform.platform)
+
+    useEffect(() => {
+        if (platform !== "EDIT") {
+            return () => dispatch(updateMainContent({ currentPath: "content", payload: undefined }))
+        }
+    }, [platform])
 
     return (
         <div
             className={`dark:text-[#2A303C] mt-0 
             ${fullScreen ? "overflow-y-hidden" : "overflow-y-scroll"}
-             ${hideScroll ? "rm-scroll":"customscroller"} transition-custom border-stone-200 border mx-auto w-full bankgothic-medium-dt bg-[white]`}
+             ${hideScroll ? "rm-scroll" : "customscroller"} transition-custom border-stone-200 border mx-auto w-full bankgothic-medium-dt bg-[white]`}
             style={{ width: screen > 950 ? "100%" : screen, wordBreak: "break-word" }}
         >
             {
@@ -56,7 +68,7 @@ const AllForOne = ({ language, screen, content, subPath, setLanguage, fullScreen
             } */}
             {
                 currentPath === "market" &&
-                <MarketPage language={language} currentContent={content?.markets} screen={screen} />
+                <MarketPage language={language} currentContent={content} screen={screen} />
             }
             {
                 currentPath === 'projects' || currentPath === 'project' ? subPath ?

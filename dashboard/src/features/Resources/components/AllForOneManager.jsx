@@ -15,9 +15,13 @@ import TestimonyManager from "./contentmanager/CMforSubParts/TestimonyManager";
 import ServiceManager from "./contentmanager/ServiceManager";
 import ServiceDetailsManager from "./contentmanager/CMforDetails/ServiceDetailsManager";
 import SubServiceDetailManager from "./contentmanager/subDetailsManagement/SubServiceDetailManagement";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { updateMainContent } from "../../common/homeContentSlice";
 
 
 const AllForOneManager = ({ currentPath, language, subPath, deepPath, content, contentIndex, outOfEditing }) => {
+    const dispatch = useDispatch()
 
     let manager = null
 
@@ -86,6 +90,10 @@ const AllForOneManager = ({ currentPath, language, subPath, deepPath, content, c
 
         default:
     }
+
+    useEffect(() => {
+        return () => dispatch(updateMainContent({ currentPath: "content", payload: undefined }))
+    }, [])
 
 
     return (

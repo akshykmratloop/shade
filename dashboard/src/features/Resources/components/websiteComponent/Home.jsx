@@ -94,12 +94,6 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
     }, [language]);
 
 
-    // useEffect(() => {
-    //     // return () => dispatch(updateMainContent({ currentPath: "content", payload: undefined }))
-    //     if (platform !== "EDIT") {
-    //         console.log(platform)
-    //     }
-    // }, [])
     const testimonialPrevRef = useRef(null);
     const testimonialNextRef = useRef(null);
     return (

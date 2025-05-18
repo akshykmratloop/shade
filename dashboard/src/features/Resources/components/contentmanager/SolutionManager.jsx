@@ -28,10 +28,10 @@ const SolutionManager = ({ currentPath, language, currentContent, indexes }) => 
         ))
     }
 
-    useEffect(() => {
+    // useEffect(() => {
 
-        return () => dispatch(updateMainContent({ currentPath: "content", payload: undefined }))
-    }, [])
+    //     return () => dispatch(updateMainContent({ currentPath: "content", payload: undefined }))
+    // }, [])
 
     return (
         <div className="w-full">

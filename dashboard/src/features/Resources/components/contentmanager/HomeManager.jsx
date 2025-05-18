@@ -69,9 +69,9 @@ const HomeManager = ({ language, currentPath, outOfEditing }) => {
         getOptionsforServices()
     }, [])
 
-    useEffect(() => {
-        return () => dispatch(updateMainContent({ currentPath: "content", payload: undefined }))
-    }, [])
+    // useEffect(() => {
+    //     return () => dispatch(updateMainContent({ currentPath: "content", payload: undefined }))
+    // }, [])
 
     return ( /// Component
         <div className="w-full">

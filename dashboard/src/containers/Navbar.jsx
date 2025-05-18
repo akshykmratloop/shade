@@ -22,6 +22,7 @@ const Navbar = ({ setCurrentResource }) => {
         { name: "Blogs & News", resourceType: "SUB_PAGE", resourceTag: "NEWS", permission: "NEWS_BLOGS_MANAGEMENT" },
         { name: "Header", resourceType: "HEADER", resourceTag: "HEADER", permission: ["HEADER_MANAGEMENT", "FOOTER_MANAGEMENT"] },
         { name: "Footer", resourceType: "FOOTER", resourceTag: "FOOTER", permission: ["HEADER_MANAGEMENT", "FOOTER_MANAGEMENT"] },
+        { name: "S & R", resourceType: "SUB_PAGE", resourceTag: "SAFETY_RESPONSIBILITY", permission: "PROJECT_MANAGEMENT" },
     ];
 
     // const hasPermission = (required) => {
