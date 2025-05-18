@@ -15,6 +15,11 @@ const cmsSlice = createSlice({
     name: "CMS",
     initialState,
     reducers: {
+        submitings: (state, action) => {
+            state.past = []
+            state.present = {}
+            state.future = []
+        },
         updateImages: (state, action) => {
             state.past.push(JSON.parse(JSON.stringify(state.present)));
             if (action.payload.type === "refDoc") {
@@ -28,6 +33,21 @@ const cmsSlice = createSlice({
             }
             state.future = [];
         },
+        addImageArray: (state, action) => {
+            let oldArray = state.present.content.editVersion.sections[action.payload.sectionIndex].content.images
+            let newArray = [...oldArray, { ...action.payload.src, order: oldArray.length + 1 }]
+
+            state.present.content.editVersion.sections[action.payload.sectionIndex].content.images = newArray
+        },
+        rmImageArray: (state, action) => {
+            let oldArray = state.present.content.editVersion.sections[action.payload.sectionIndex].content.images
+            let newArray = oldArray.filter(e => {
+                return e.order !== action.payload.order
+            })
+
+            state.present.content.editVersion.sections[action.payload.sectionIndex].content.images = newArray
+        }
+        ,
         // updateAList: (state, action) => {
 
         //     let newArray = state.present.content.editVersion.sections[action.payload.index].content.clients
@@ -368,11 +388,14 @@ export const { // actions
     updateCardAndItemsArray,
     updateAllProjectlisting,
     selectMainNews,
+    submitings,
+    addImageArray,
+    rmImageArray,
     undo,
     redo,
     updateTheProjectSummaryList,
     updateSelectedSubService,
-    updateAList
+    updateAList,
 } = cmsSlice.actions;
 
 export default cmsSlice.reducer; // reducer

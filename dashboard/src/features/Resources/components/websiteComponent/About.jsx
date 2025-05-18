@@ -52,7 +52,7 @@ const AboutUs = ({ language, screen, currentContent }) => {
 
     return (
         <div className="px-8" ref={divRef}
-            style={{ padding: `32px ${directSize(140)}` }}
+            style={{ padding: `32px ${directSize(150)}` }}
         >
             {/** about us top section */}
             <section className="py-12">
@@ -61,20 +61,20 @@ const AboutUs = ({ language, screen, currentContent }) => {
                 >
                     <div className={`flex flex-col gap-6 items-center`}>
                         <h2 className={`text-black ${isPhone ? "text-2xl" : "text-3xl"} font-normal leading-none`}
-                            style={{ fontSize: directSize(56) }}
+                            style={{ fontSize: directSize(58) }}
                         >
-                            {currentContent?.["1"]?.content?.title[language]}
+                            {currentContent?.["1"]?.content?.title?.[language]}
                         </h2>
                         <p className="   font-light leading-7 mb-4 text-[#00B9F2]"
                             style={{ fontSize: directSize(24) }}
                         >
-                            {(currentContent?.["1"]?.content?.subtitle[language])}
+                            {(currentContent?.["1"]?.content?.subtitle?.[language])}
                         </p>
                     </div>
                     <div
-                        style={{ gap: directSize(50) }}
+                        style={{ gap: directSize(100) }}
                         className={`${!isEnglish ? `flex  ${isPhone ? "flex-col" : "flex-row-reverse"}` : `${isPhone ? "flex flex-col" : "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3"}`} text-center gap-8 mt-8`}>
-                        {currentContent?.["1"]?.content?.cards.map((card, index) => (
+                        {currentContent?.["1"]?.content?.cards?.map((card, index) => (
                             <div
                                 className={`bg-[#ebf8fd] rounded-sm flex-1 flex flex-col items-center gap-4`}
 
@@ -96,12 +96,12 @@ const AboutUs = ({ language, screen, currentContent }) => {
                                 <h5 className="text-black text-xl font-normal leading-none"
                                     style={{ fontSize: directSize(24) }}
                                 >
-                                    {card.title[language]}
+                                    {card?.title?.[language]}
                                 </h5>
                                 <p className="text-black text-sm font-light leading-6 self-center"
                                     style={{ fontSize: directSize(16) }}
                                 >
-                                    {card.description[language]}
+                                    {card?.description?.[language]}
                                 </p>
                             </div>
                         ))}
@@ -138,7 +138,7 @@ const AboutUs = ({ language, screen, currentContent }) => {
                             <h2 className="text-2xl font-[400] text-black mb-5"
                                 style={{ fontSize: directSize(36) }}
                             >
-                                {currentContent?.['2']?.content?.title[language]}
+                                {currentContent?.['2']?.content?.title?.[language]}
                             </h2>
                             <div className="flex flex-col gap-4">
                                 <div className="" dangerouslySetInnerHTML={{ __html: currentContent?.['2']?.content?.descriptions?.[language] }} />
@@ -147,7 +147,7 @@ const AboutUs = ({ language, screen, currentContent }) => {
                                 className="mt-6 px-4 py-2 bg-[white] text-[#00B9F2] border border-[#00B9F2] text-xs font-semibold rounded-[4px] shadow-md hover:none"
                             // onClick={() => setIsModal(true)}
                             >
-                                {currentContent?.['2']?.content?.button?.[0]?.text[language]}
+                                {currentContent?.['2']?.content?.button?.[0]?.text?.[language]}
                             </button>
                         </div>
                     </div>

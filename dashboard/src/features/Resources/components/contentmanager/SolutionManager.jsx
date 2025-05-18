@@ -102,11 +102,16 @@ const SolutionManager = ({ currentPath, language, currentContent, indexes }) => 
             <ContentSection
                 currentPath={currentPath}
                 Heading={"Gallery 1"}
-                inputFiles={[
-                    { label: "Image 1", id: "Image 1" },
-                    { label: "Image 2", id: "Image 2" },
-                    { label: "Image 3", id: "Image 3" },
-                ]}
+                inputFiles={
+                    currentContent?.['3']?.content.images?.map((e, i) => {
+                        return { label: "Image " + (i + 1), id: "Image " + (1 + i), order: e.order }
+                    })
+                    //     [
+                    //     {label: "Image 1", id: "Image 1" },
+                    //     {label: "Image 2", id: "Image 2" },
+                    //     {label: "Image 3", id: "Image 3" },
+                    // ]
+                }
                 section={"gallery"}
                 language={language}
                 currentContent={currentContent}
@@ -155,7 +160,7 @@ const SolutionManager = ({ currentPath, language, currentContent, indexes }) => 
                 }
                 <button className="text-blue-500 cursor-pointer mb-3" onClick={() => addExtraSummary('howWeDo')}>Add More Section...</button>
             </div> */}
-{/* 
+            {/* 
             <ContentSection
                 currentPath={currentPath}
                 Heading={"Gallery 2"}

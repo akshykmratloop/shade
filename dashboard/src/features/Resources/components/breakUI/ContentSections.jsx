@@ -3,7 +3,7 @@ import InputFile from "../../../../components/Input/InputFile";
 import InputText from "../../../../components/Input/InputText";
 import TextAreaInput from "../../../../components/Input/TextAreaInput";
 import { useDispatch, useSelector } from "react-redux";
-import { updateSpecificContent, updateServicesNumber, updateImages, updateAList } from "../../../common/homeContentSlice";
+import { updateSpecificContent, updateServicesNumber, updateImages, updateAList, addImageArray, rmImageArray } from "../../../common/homeContentSlice";
 import InputFileForm from "../../../../components/Input/InputFileForm";
 import JoditEditor from "jodit-react";
 import { Jodit } from "jodit-react";
@@ -42,49 +42,56 @@ const ContentSection = ({
 
 
     const addExtraFileInput = () => {
-        if (deepPath) {
-            dispatch(updateImages({ src: { url: "" }, section, currentPath, deepPath, projectId, operation: "add" }))
-        } else if (section === 'socialIcons') {
-            if (ImagesFromRedux.socialIcons.length < 8) {
-                dispatch(updateImages({ src: [...ImagesFromRedux.socialIcons, { img: "", url: "", id: ImagesFromRedux.socialIcons.length + 1 }], section: "socialIcons" }))
-                dispatch(updateImages({ src: [...ImagesFromRedux.socialIcons, { img: "", url: "", id: ImagesFromRedux.socialIcons.length + 1 }], section: "socialIcons" }))
-            }
-        } else if (section === 'gallerySection') {
-            dispatch(updateImages({
-                src: { url: "", alt: { en: "", ar: "" } },
-                updateType: section,
-                projectId,
-                operation: 'add'
-            }))
-        } else {
-            dispatch(updateAList({
-                data: { alt: { ar: "", en: "" }, image: [""] },
-                index: sectionIndex,
-                operation: "add"
-            }))
-        }
+        dispatch(addImageArray({
+            src: {
+                url: "", altText: { en: "", ar: "" }
+            },
+            sectionIndex
+        }))
+        // if (deepPath) {
+        //     dispatch(updateImages({ src: { url: "" }, section, currentPath, deepPath, projectId, operation: "add" }))
+        // } else if (section === 'socialIcons') {
+        //     if (ImagesFromRedux.socialIcons.length < 8) {
+        //         dispatch(updateImages({ src: [...ImagesFromRedux.socialIcons, { img: "", url: "", id: ImagesFromRedux.socialIcons.length + 1 }], section: "socialIcons" }))
+        //         dispatch(updateImages({ src: [...ImagesFromRedux.socialIcons, { img: "", url: "", id: ImagesFromRedux.socialIcons.length + 1 }], section: "socialIcons" }))
+        //     }
+        // } else if (section === 'gallerySection') {
+        //     dispatch(updateImages({
+        //         src: { url: "", alt: { en: "", ar: "" } },
+        //         updateType: section,
+        //         projectId,
+        //         operation: 'add'
+        //     }))
+        // } else {
+        //     dispatch(updateAList({
+        //         data: { alt: { ar: "", en: "" }, image: [""] },
+        //         index: sectionIndex,
+        //         operation: "add"
+        //     }))
+        // }
     };
 
-    const removeExtraFileInput = (id) => {
+    const removeExtraFileInput = (order) => {
+        dispatch(rmImageArray({sectionIndex, order}))
 
-        if (section === 'gallerySection' || deepPath) {
-            dispatch(updateImages({
-                src: id,
-                updateType: section,
-                projectId,
-                deepPath,
-                currentPath,
-                section,
-                operation: 'remove'
-            }))
-        } else {
-            console.log(id)
-            dispatch(updateAList({
-                data: id,
-                index: sectionIndex,
-                operation: "remove"
-            }))
-        }
+        // if (section === 'gallerySection' || deepPath) {
+        //     dispatch(updateImages({
+        //         src: id,
+        //         updateType: section,
+        //         projectId,
+        //         deepPath,
+        //         currentPath,
+        //         section,
+        //         operation: 'remove'
+        //     }))
+        // } else {
+        //     console.log(id)
+        //     dispatch(updateAList({
+        //         data: id,
+        //         index: sectionIndex,
+        //         operation: "remove"
+        //     }))
+        // }
     };
 
     const updateFormValue = ({ updateType, value, path }) => {
@@ -304,7 +311,7 @@ const ContentSection = ({
                                     <div className="relative" key={i}>
                                         {i > 3 && <button
                                             className={`absolute top-6 z-[22] right-[-12px] bg-red-500 text-white px-[5px] rounded-full shadow ${outOfEditing && "cursor-not-allowed"}`}
-                                            onClick={() => { if (!outOfEditing) { removeExtraFileInput(file.id) } }}
+                                            onClick={() => { if (!outOfEditing) { removeExtraFileInput(file.order) } }}
                                         >
                                             ✖
                                         </button>}
