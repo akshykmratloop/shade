@@ -1,147 +1,210 @@
 {
     "message": "Success",
     "content": {
-        "id": "cmap7yoq700simn5kjook95l1",
-        "titleEn": "Solutions Page",
-        "titleAr": "صفحة الحلول",
-        "slug": "solution",
+        "id": "cmap7yolb00qimn5kp16a4chm",
+        "titleEn": "Market Page",
+        "titleAr": "صفحة السوق",
+        "slug": "market",
         "resourceType": "MAIN_PAGE",
-        "resourceTag": "SOLUTION",
+        "resourceTag": "MARKET",
         "relationType": "PARENT",
         "liveModeVersionData": {
-            "id": "cmaqq6kgb0001nl92isoiwe9g",
-            "versionNumber": 2,
+            "id": "cmap7yole00qkmn5k4w0d0b5g",
+            "versionNumber": 1,
             "icon": null,
             "image": null,
             "comments": "Initial version created",
             "referenceDoc": null,
-            "updatedAt": "2025-05-16T11:38:50.506Z",
+            "updatedAt": "2025-05-15T10:21:03.363Z",
             "status": "PUBLISHED",
             "sections": [
                 {
-                    "sectionId": "cmap7yoql00smmn5kmi0e4tlu",
+                    "sectionId": "cmap7yolo00qmmn5kh1j1wl3d",
                     "order": 1,
-                    "version": 2,
-                    "title": "heroSection-solution-79fd",
+                    "version": 1,
+                    "title": "heroSection-market-da28",
                     "content": {
                         "title": {
-                            "ar": "الحلول",
-                            "en": "Solutions"
+                            "ar": "سوق",
+                            "en": "Market"
                         },
                         "button": [
                             {
                                 "url": null,
                                 "icon": null,
                                 "text": {
-                                    "ar": "عرض عملنا",
-                                    "en": "View Our Work"
+                                    "ar": "خدماتنا",
+                                    "en": "Our Services"
                                 },
                                 "order": 1
                             }
                         ],
                         "description": {
                             "ar": "اكتشف التميز الاستثنائي لشركة Shade Corporation، الشركة الرائدة في مجالات الهندسة والمشتريات والبناء في المملكة العربية السعودية.",
-                            "en": "Discover the exceptional excellence of Shade Corporation, the leading company in engineering, procurement, and construction in Saudi Arabia."
+                            "en": "Discover the exceptional excellence of Shade Corporation, the premier Engineering, Procurement, and Construction powerhouse in Saudi Arabia."
                         }
                     }
                 },
                 {
-                    "sectionId": "cmap7yoqy00ssmn5kfwngn0m9",
+                    "sectionId": "cmap7yom100qsmn5k9s0gpkx0",
                     "order": 2,
-                    "version": 2,
-                    "title": "detailsSection-solution-0b2d",
-                    "content": [
-                        {
-                            "order": 1,
-                            "title": {
-                                "ar": "ماذا نفعل",
-                                "en": "What We Do"
-                            },
-                            "description": {
-                                "ar": "استمتع بتجربة التآزر بين التصميم والتنفيذ من خلال خدمات التصميم/البناء لدينا، وهو نهج متناغم يدمج الإبداع مع الدقة. ثق بخبرتنا في مجال المقاولات العامة والهندسة العامة للتغلب على التعقيدات وتقديم الحلول التي تصمد أمام اختبار الزمن. انغمس في هندسة القيمة لدينا، وهو النظام الذي يتقاطع فيه الابتكار والكفاءة، مما يضمن أن مشاريعك ليست عملية فحسب، بل مُحسّنة أيضًا لتحقيق أقصى قيمة.",
-                                "en": "<p>Experience the synergy between design and execution through our design/build services, a harmonious approach that combines creativity with precision. Trust our expertise in general contracting and general engineering to overcome complexities and deliver solutions that stand the test of time. Immerse yourself in our value engineering, a system where innovation intersects with efficiency, ensuring your projects are not just functional but optimized for maximum value.</p>"
+                    "version": 1,
+                    "title": "quoteSection-market-58b6",
+                    "content": {
+                        "text": {
+                            "ar": "وفي مسيرتنا نحو التقدم والتطور، يجب ألا ننسى العنصر البشري. قد ترتفع المباني والمنشآت، لكن الناس هم من يبثون الحياة فيها.",
+                            "en": "In our march towards progress and development, we must not forget the human element. Buildings and structures may rise, but it is the people who breathe life into them."
+                        },
+                        "author": {
+                            "ar": "غازي القصيبي",
+                            "en": "-Ghazi Al Gosaibi"
+                        }
+                    }
+                },
+                {
+                    "sectionId": "cmap7yomf00qymn5kbxtrya75",
+                    "order": 3,
+                    "version": 1,
+                    "title": "marketItemsSection-market-0e61",
+                    "content": {
+                        "button": [
+                            {
+                                "url": null,
+                                "icon": null,
+                                "text": {
+                                    "ar": "عرض المزيد",
+                                    "en": "View Market"
+                                },
+                                "order": 1
                             }
+                        ],
+                        "introSection": {
+                            "title": {
+                                "ar": "سوق",
+                                "en": "Market we deal"
+                            },
+                            "images": [
+                                {
+                                    "url": "",
+                                    "order": 1,
+                                    "altText": {
+                                        "ar": "ص الرئيسية",
+                                        "en": "Image"
+                                    }
+                                }
+                            ],
+                            "description": {
+                                "ar": "اكتشف التميز الاستثنائي لشركة Shade Corporation، الشركة الرائدة في مجالات الهندسة والمشتريات والبناء في المملكة العربية السعودية.",
+                                "en": "Discover the exceptional excellence of Shade Corporation, the premier Engineering, Procurement, and Construction powerhouse in Saudi Arabia. Discover the exceptional excellence of Shade Corporation, the premier Engineering, Procurement, and Construction powerhouse in Saudi Arabia."
+                            }
+                        }
+                    },
+                    "items": [
+                        {
+                            "id": "cmap7ynfk0095mn5kney4d3v5",
+                            "titleEn": "Buildings-Service",
+                            "titleAr": "المباني",
+                            "slug": "buildings",
+                            "icon": null,
+                            "image": null,
+                            "order": 1
                         },
                         {
-                            "order": 2,
-                            "title": {
-                                "ar": "كيف نفعل",
-                                "en": "How We Do"
-                            },
-                            "description": {
-                                "ar": "استمتع بالدقة في المسح، وبراعة التصنيع، وقوة رفع الأثقال، كل ذلك تحت مظلة Shade's Construction Services. سواء كان مشروعك يتطلب قوة هيكلية، أو تفاصيل معقدة، أو نشر التكنولوجيا المتقدمة، فنحن مجهزون لتجاوز توقعاتك.",
-                                "en": "<p>Experience precision in surveying, manufacturing expertise, and heavy lifting capabilities, all under Shade's Construction Services umbrella. Whether your project demands structural strength, intricate details, or advanced technology deployment, we're equipped to exceed your expectations.</p>"
-                            }
+                            "id": "cmap7ynie00a0mn5k3bfhsfwl",
+                            "titleEn": "Industrial",
+                            "titleAr": "الصناعة",
+                            "slug": "industrial",
+                            "icon": null,
+                            "image": null,
+                            "order": 2
+                        },
+                        {
+                            "id": "cmap7ynkh00avmn5ka21ejv1e",
+                            "titleEn": "Infrastructure",
+                            "titleAr": "البنية التحتية",
+                            "slug": "infrastructure",
+                            "icon": null,
+                            "image": null,
+                            "order": 3
+                        },
+                        {
+                            "id": "cmap7ynmj00bqmn5kk4jf1vj9",
+                            "titleEn": "Repair & Retrofit",
+                            "titleAr": "الإصلاح والتحديث",
+                            "slug": "repair-retrofit",
+                            "icon": null,
+                            "image": null,
+                            "order": 4
                         }
                     ]
                 },
                 {
-                    "sectionId": "cmap7yora00symn5k2qr63yt7",
-                    "order": 3,
-                    "version": 2,
-                    "title": "GallerySection1-solution-754d",
-                    "content": {
-                        "images": [
-                            {
-                                "url": "https://frequencyimage.s3.ap-south-1.amazonaws.com/851e35b5-9b3b-4d9f-91b4-9b60ef2a102c-Rectangle%2034624110.png",
-                                "order": 1,
-                                "altText": {
-                                    "ar": "صورة شعار الصفحة الرئيسية",
-                                    "en": "Image 1"
-                                }
-                            },
-                            {
-                                "url": "https://frequencyimage.s3.ap-south-1.amazonaws.com/ae1cee6e-f695-4e06-8e0b-983b8cb94209-Rectangle%2034624111.jpg",
-                                "order": 2,
-                                "altText": {
-                                    "ar": "صورة 2",
-                                    "en": "Image 2"
-                                }
-                            },
-                            {
-                                "url": "https://frequencyimage.s3.ap-south-1.amazonaws.com/be6992a3-4390-42c1-b807-b1a04f48b0e6-Rectangle%2034624112.jpg",
-                                "order": 3,
-                                "altText": {
-                                    "ar": "صورة 3",
-                                    "en": "Image 3"
-                                }
-                            }
-                        ]
-                    }
-                },
-                {
-                    "sectionId": "cmap7yorm00t4mn5krf4f8r16",
+                    "sectionId": "cmap7yonb00rcmn5kaw00nrn0",
                     "order": 4,
-                    "version": 2,
-                    "title": "GallerySection2-solution-9e07",
+                    "version": 1,
+                    "title": "testimonialSection-market-44eb",
                     "content": {
-                        "images": [
-                            {
-                                "url": "https://frequencyimage.s3.ap-south-1.amazonaws.com/851e35b5-9b3b-4d9f-91b4-9b60ef2a102c-Rectangle%2034624110.png",
-                                "order": 1,
-                                "altText": {
-                                    "ar": "صورة 1",
-                                    "en": "Image 1"
-                                }
-                            },
-                            {
-                                "url": "https://frequencyimage.s3.ap-south-1.amazonaws.com/ae1cee6e-f695-4e06-8e0b-983b8cb94209-Rectangle%2034624111.jpg",
-                                "order": 2,
-                                "altText": {
-                                    "ar": "صورة 2",
-                                    "en": "Image 2"
-                                }
-                            },
-                            {
-                                "url": "https://frequencyimage.s3.ap-south-1.amazonaws.com/be6992a3-4390-42c1-b807-b1a04f48b0e6-Rectangle%2034624112.jpg",
-                                "order": 3,
-                                "altText": {
-                                    "ar": "صورة 3",
-                                    "en": "Image 3"
-                                }
-                            }
-                        ]
-                    }
+                        "title": {
+                            "ar": "ماذا يقول عملاؤنا عنا؟",
+                            "en": "What Our Clients Say About Us?"
+                        }
+                    },
+                    "items": [
+                        {
+                            "id": "cmap7yn070032mn5kcvuns63f",
+                            "titleEn": "Dr. Engr. Salah Attia Abdelzaher",
+                            "titleAr": "د. مهندس صلاح عطيه عبد الظاهر",
+                            "slug": "salah-attia-abdelzaher",
+                            "icon": null,
+                            "image": null,
+                            "order": 1
+                        },
+                        {
+                            "id": "cmap7yn0u003bmn5kfz4hpfgc",
+                            "titleEn": "Ahmed Basiony",
+                            "titleAr": "أحمد بسيوني",
+                            "slug": "ahmed-basiony",
+                            "icon": null,
+                            "image": null,
+                            "order": 2
+                        },
+                        {
+                            "id": "cmap7yn1j003kmn5kcrep6ybw",
+                            "titleEn": "Khaled El Kholy",
+                            "titleAr": "خالد الخولي",
+                            "slug": "khaled-el-kholy",
+                            "icon": null,
+                            "image": null,
+                            "order": 3
+                        },
+                        {
+                            "id": "cmap7yn29003tmn5k0m5obb2s",
+                            "titleEn": "Mostafa Sayed",
+                            "titleAr": "سيد مصطفى",
+                            "slug": "mostafa-sayed",
+                            "icon": null,
+                            "image": null,
+                            "order": 4
+                        },
+                        {
+                            "id": "cmap7yn2z0042mn5kez1qxetg",
+                            "titleEn": "Amro Khatab",
+                            "titleAr": "عمرو خطاب",
+                            "slug": "amro-khatab",
+                            "icon": null,
+                            "image": null,
+                            "order": 5
+                        },
+                        {
+                            "id": "cmap7yn3s004bmn5k1yjsiw0t",
+                            "titleEn": "Sherif Mekky",
+                            "titleAr": "شريف مكي",
+                            "slug": "sherif-mekky",
+                            "icon": null,
+                            "image": null,
+                            "order": 6
+                        }
+                    ]
                 }
             ]
         }

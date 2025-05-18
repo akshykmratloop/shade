@@ -46,7 +46,7 @@ const AllForOneManager = ({ currentPath, language, subPath, deepPath, content, c
                 <ServiceDetailsManager serviceId={subPath} language={language} currentContent={content.serviceDetails} currentPath={"serviceDetails"} />
             break;
 
-        case "markets":
+        case "market":
             manager = <MarketManager language={language} currentContent={content.markets} currentPath={currentPath} />
             break;
 
