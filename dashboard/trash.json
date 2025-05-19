@@ -1,438 +1,147 @@
 {
     "message": "Success",
-    "resources": {
-        "resources": [
-            {
-                "id": "cmaunw5er00iynla4xgbrjvp2",
-                "titleEn": "Equipment Rental",
-                "titleAr": "تأجير المعدات",
-                "slug": "equipment-rental",
-                "resourceType": "SUB_PAGE",
-                "resourceTag": "SERVICE",
-                "relationType": "CHILD",
-                "liveModeVersionData": {
-                    "id": "cmaunw5et00j0nla4ptz6rvqc",
-                    "versionNumber": 1,
-                    "icon": null,
-                    "image": null,
-                    "sections": [
-                        {
-                            "sectionId": "cmaunw5f400j2nla45ok6o7fj",
-                            "order": 1,
-                            "version": 1,
-                            "title": "introSection-equipment-rental-6186",
-                            "content": {
-                                "title": {
-                                    "ar": "تأجير المعدات",
-                                    "en": "Equipment Rental"
+    "content": {
+        "id": "cmaunw60g00rtnla4k4fdqrrk",
+        "titleEn": "Services Page",
+        "titleAr": "خدمات الصفحة",
+        "slug": "service",
+        "resourceType": "MAIN_PAGE",
+        "resourceTag": "SERVICE",
+        "relationType": "PARENT",
+        "liveModeVersionData": {
+            "id": "cmaunw60j00rvnla44gva6bku",
+            "versionNumber": 1,
+            "icon": null,
+            "image": null,
+            "comments": "Initial version created",
+            "referenceDoc": null,
+            "updatedAt": "2025-05-19T05:45:50.707Z",
+            "status": "PUBLISHED",
+            "sections": [
+                {
+                    "sectionId": "cmaunw60s00rxnla4ohm0mgt3",
+                    "order": 1,
+                    "version": 1,
+                    "title": "HeroSection-service-767f",
+                    "content": {
+                        "title": {
+                            "ar": "خدماتنا",
+                            "en": "Our Services"
+                        },
+                        "button": [
+                            {
+                                "url": null,
+                                "icon": null,
+                                "text": {
+                                    "ar": "عرض المشاريع",
+                                    "en": "View Projects"
                                 },
-                                "images": [
-                                    {
-                                        "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/equipment-rental.png",
-                                        "order": 1,
-                                        "altText": {
-                                            "ar": "صورة تأجير المعدات",
-                                            "en": "Equipment Rental Image"
-                                        }
-                                    }
-                                ],
-                                "description": {
-                                    "ar": "نوفر مجموعة واسعة من المعدات الحديثة للإيجار لدعم مختلف احتياجات المشاريع بكفاءة وفعالية.",
-                                    "en": "We provide a wide range of modern equipment for rent to efficiently support various project needs."
+                                "order": 1
+                            }
+                        ],
+                        "images": [
+                            {
+                                "url": "https://frequencyimage.s3.ap-south-1.amazonaws.com/851e35b5-9b3b-4d9f-91b4-9b60ef2a102c-Rectangle%2034624110.png",
+                                "order": 1,
+                                "altText": {
+                                    "ar": "صورة شعار الصفحة الرئيسية",
+                                    "en": "Image 1"
                                 }
                             }
-                        },
-                        {
-                            "sectionId": "cmaunw5fg00j8nla4ffyb4g7b",
-                            "order": 2,
-                            "version": 1,
-                            "title": "childrenServices-equipment-rental-d1e8",
-                            "content": {
-                                "button": [
-                                    {
-                                        "url": null,
-                                        "icon": null,
-                                        "text": {
-                                            "ar": "عرض التفاصيل",
-                                            "en": "View Details"
-                                        },
-                                        "order": 1
-                                    }
-                                ]
-                            }
-                        },
-                        {
-                            "sectionId": "cmaunw5gh00jonla46xiq7erj",
-                            "order": 3,
-                            "version": 1,
-                            "title": "otherSecondLevelOFServices-equipment-rental-20c9",
-                            "content": {
-                                "title": {
-                                    "ar": "خدمات أخرى",
-                                    "en": "Other Services"
+                        ],
+                        "description": {
+                            "ar": "اكتشف التميز الاستثنائي لشركة Shade Corporation، الشركة الرائدة في مجال الهندسة والمشتريات والبناء في المملكة العربية السعودية.",
+                            "en": "Discover the exceptional excellence of Shade Corporation, the leading company in engineering, procurement, and construction in Saudi Arabia."
+                        }
+                    }
+                },
+                {
+                    "sectionId": "cmaunw61500s3nla4ficzm54b",
+                    "order": 2,
+                    "version": 1,
+                    "title": "serviceCardsSection-service-853e",
+                    "content": {
+                        "button": [
+                            {
+                                "url": null,
+                                "icon": null,
+                                "text": {
+                                    "ar": "عرض عملنا",
+                                    "en": "View Our"
                                 },
-                                "button": [
-                                    {
-                                        "url": null,
-                                        "icon": null,
-                                        "text": {
-                                            "ar": "عرض التفاصيل",
-                                            "en": "View Details"
-                                        },
-                                        "order": 1
-                                    }
-                                ]
+                                "order": 1
                             }
+                        ]
+                    },
+                    "items": [
+                        {
+                            "id": "cmaunw56s00finla4z5o585nm",
+                            "titleEn": "Construction Management",
+                            "titleAr": "إدارة البناء",
+                            "slug": "construction-management",
+                            "icon": null,
+                            "image": null,
+                            "description": {
+                                "ar": "نحن متخصصون في تقديم حلول إدارة البناء التي تضمن تنفيذ المشاريع بكفاءة وجودة عالية، من مرحلة التصميم حتى التسليم.",
+                                "en": "We specialize in providing construction management solutions that ensure project execution with high efficiency and quality, from design to delivery."
+                            },
+                            "order": 1
+                        },
+                        {
+                            "id": "cmaunw58p00gdnla4788huhol",
+                            "titleEn": "Project Services",
+                            "titleAr": "خدمات المشروع",
+                            "slug": "project-services",
+                            "icon": null,
+                            "image": null,
+                            "description": {
+                                "ar": "نقدم مجموعة شاملة من خدمات إدارة وتنفيذ المشاريع لضمان تحقيق الأهداف في الوقت المحدد وضمن الميزانية.",
+                                "en": "We provide a comprehensive range of project execution and management services to ensure timely and cost-effective delivery."
+                            },
+                            "order": 2
+                        },
+                        {
+                            "id": "cmaunw5aq00h8nla4dvpwfiio",
+                            "titleEn": "Operation & Maintenance",
+                            "titleAr": "التشغيل والصيانة",
+                            "slug": "operation-maintenance",
+                            "icon": null,
+                            "image": null,
+                            "description": {
+                                "ar": "نضمن استمرارية الأداء الأمثل من خلال خدمات تشغيل وصيانة فعالة للمرافق والبنية التحتية.",
+                                "en": "We ensure optimal performance continuity through efficient facility and infrastructure operation and maintenance services."
+                            },
+                            "order": 3
+                        },
+                        {
+                            "id": "cmaunw5cu00i3nla4uqigru60",
+                            "titleEn": "Fabrication",
+                            "titleAr": "التصنيع",
+                            "slug": "fabrication",
+                            "icon": null,
+                            "image": null,
+                            "description": {
+                                "ar": "نقدم خدمات تصنيع عالية الجودة باستخدام أحدث التقنيات لتلبية متطلبات المشاريع الصناعية والتجارية.",
+                                "en": "We offer high-quality fabrication services using advanced technologies to meet industrial and commercial project needs."
+                            },
+                            "order": 4
+                        },
+                        {
+                            "id": "cmaunw5er00iynla4xgbrjvp2",
+                            "titleEn": "Equipment Rental",
+                            "titleAr": "تأجير المعدات",
+                            "slug": "equipment-rental",
+                            "icon": null,
+                            "image": null,
+                            "description": {
+                                "ar": "نوفر مجموعة واسعة من المعدات الحديثة للإيجار لدعم مختلف احتياجات المشاريع بكفاءة وفعالية.",
+                                "en": "We provide a wide range of modern equipment for rent to efficiently support various project needs."
+                            },
+                            "order": 5
                         }
                     ]
                 }
-            },
-            {
-                "id": "cmaunw5cu00i3nla4uqigru60",
-                "titleEn": "Fabrication",
-                "titleAr": "التصنيع",
-                "slug": "fabrication",
-                "resourceType": "SUB_PAGE",
-                "resourceTag": "SERVICE",
-                "relationType": "CHILD",
-                "liveModeVersionData": {
-                    "id": "cmaunw5cw00i5nla4o4ul8jfs",
-                    "versionNumber": 1,
-                    "icon": null,
-                    "image": null,
-                    "sections": [
-                        {
-                            "sectionId": "cmaunw5d600i7nla4yhs8jfup",
-                            "order": 1,
-                            "version": 1,
-                            "title": "introSection-fabrication-9fc9",
-                            "content": {
-                                "title": {
-                                    "ar": "التصنيع",
-                                    "en": "Fabrication"
-                                },
-                                "images": [
-                                    {
-                                        "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/fabrication.png",
-                                        "order": 1,
-                                        "altText": {
-                                            "ar": "صورة التصنيع",
-                                            "en": "Fabrication Image"
-                                        }
-                                    }
-                                ],
-                                "description": {
-                                    "ar": "نقدم خدمات تصنيع عالية الجودة باستخدام أحدث التقنيات لتلبية متطلبات المشاريع الصناعية والتجارية.",
-                                    "en": "We offer high-quality fabrication services using advanced technologies to meet industrial and commercial project needs."
-                                }
-                            }
-                        },
-                        {
-                            "sectionId": "cmaunw5dj00idnla4tz1grdg2",
-                            "order": 2,
-                            "version": 1,
-                            "title": "childrenServices-fabrication-c635",
-                            "content": {
-                                "button": [
-                                    {
-                                        "url": null,
-                                        "icon": null,
-                                        "text": {
-                                            "ar": "عرض التفاصيل",
-                                            "en": "View Details"
-                                        },
-                                        "order": 1
-                                    }
-                                ]
-                            }
-                        },
-                        {
-                            "sectionId": "cmaunw5eh00itnla4k8vyx9iv",
-                            "order": 3,
-                            "version": 1,
-                            "title": "otherSecondLevelOFServices-fabrication-3d17",
-                            "content": {
-                                "title": {
-                                    "ar": "خدمات أخرى",
-                                    "en": "Other Services"
-                                },
-                                "button": [
-                                    {
-                                        "url": null,
-                                        "icon": null,
-                                        "text": {
-                                            "ar": "عرض التفاصيل",
-                                            "en": "View Details"
-                                        },
-                                        "order": 1
-                                    }
-                                ]
-                            }
-                        }
-                    ]
-                }
-            },
-            {
-                "id": "cmaunw5aq00h8nla4dvpwfiio",
-                "titleEn": "Operation & Maintenance",
-                "titleAr": "التشغيل والصيانة",
-                "slug": "operation-maintenance",
-                "resourceType": "SUB_PAGE",
-                "resourceTag": "SERVICE",
-                "relationType": "CHILD",
-                "liveModeVersionData": {
-                    "id": "cmaunw5at00hanla4hp6kj77w",
-                    "versionNumber": 1,
-                    "icon": null,
-                    "image": null,
-                    "sections": [
-                        {
-                            "sectionId": "cmaunw5b200hcnla4p8ma0l2v",
-                            "order": 1,
-                            "version": 1,
-                            "title": "introSection-operation-maintenance-2ff9",
-                            "content": {
-                                "title": {
-                                    "ar": "التشغيل والصيانة",
-                                    "en": "Operation & Maintenance"
-                                },
-                                "images": [
-                                    {
-                                        "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/operation-maintenance.png",
-                                        "order": 1,
-                                        "altText": {
-                                            "ar": "صورة التشغيل والصيانة",
-                                            "en": "Operation & Maintenance Image"
-                                        }
-                                    }
-                                ],
-                                "description": {
-                                    "ar": "نضمن استمرارية الأداء الأمثل من خلال خدمات تشغيل وصيانة فعالة للمرافق والبنية التحتية.",
-                                    "en": "We ensure optimal performance continuity through efficient facility and infrastructure operation and maintenance services."
-                                }
-                            }
-                        },
-                        {
-                            "sectionId": "cmaunw5bh00hinla4i7jh3hz9",
-                            "order": 2,
-                            "version": 1,
-                            "title": "childrenServices-operation-maintenance-8499",
-                            "content": {
-                                "button": [
-                                    {
-                                        "url": null,
-                                        "icon": null,
-                                        "text": {
-                                            "ar": "عرض التفاصيل",
-                                            "en": "View Details"
-                                        },
-                                        "order": 1
-                                    }
-                                ]
-                            }
-                        },
-                        {
-                            "sectionId": "cmaunw5cj00hynla41zx0zfv0",
-                            "order": 3,
-                            "version": 1,
-                            "title": "otherSecondLevelOFServices-operation-maintenance-2a3f",
-                            "content": {
-                                "title": {
-                                    "ar": "خدمات أخرى",
-                                    "en": "Other Services"
-                                },
-                                "button": [
-                                    {
-                                        "url": null,
-                                        "icon": null,
-                                        "text": {
-                                            "ar": "عرض التفاصيل",
-                                            "en": "View Details"
-                                        },
-                                        "order": 1
-                                    }
-                                ]
-                            }
-                        }
-                    ]
-                }
-            },
-            {
-                "id": "cmaunw58p00gdnla4788huhol",
-                "titleEn": "Project Services",
-                "titleAr": "خدمات المشروع",
-                "slug": "project-services",
-                "resourceType": "SUB_PAGE",
-                "resourceTag": "SERVICE",
-                "relationType": "CHILD",
-                "liveModeVersionData": {
-                    "id": "cmaunw58r00gfnla457yittnu",
-                    "versionNumber": 1,
-                    "icon": null,
-                    "image": null,
-                    "sections": [
-                        {
-                            "sectionId": "cmaunw59100ghnla4l3nf9uzk",
-                            "order": 1,
-                            "version": 1,
-                            "title": "introSection-project-services-7fbe",
-                            "content": {
-                                "title": {
-                                    "ar": "خدمات المشروع",
-                                    "en": "Project Services"
-                                },
-                                "images": [
-                                    {
-                                        "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/project-services.png",
-                                        "order": 1,
-                                        "altText": {
-                                            "ar": "صورة خدمات المشروع",
-                                            "en": "Project Services Image"
-                                        }
-                                    }
-                                ],
-                                "description": {
-                                    "ar": "نقدم مجموعة شاملة من خدمات إدارة وتنفيذ المشاريع لضمان تحقيق الأهداف في الوقت المحدد وضمن الميزانية.",
-                                    "en": "We provide a comprehensive range of project execution and management services to ensure timely and cost-effective delivery."
-                                }
-                            }
-                        },
-                        {
-                            "sectionId": "cmaunw59e00gnnla48nmc0fd5",
-                            "order": 2,
-                            "version": 1,
-                            "title": "childrenServices-project-services-e0c1",
-                            "content": {
-                                "button": [
-                                    {
-                                        "url": null,
-                                        "icon": null,
-                                        "text": {
-                                            "ar": "عرض التفاصيل",
-                                            "en": "View Details"
-                                        },
-                                        "order": 1
-                                    }
-                                ]
-                            }
-                        },
-                        {
-                            "sectionId": "cmaunw5ah00h3nla436es9l4z",
-                            "order": 3,
-                            "version": 1,
-                            "title": "otherSecondLevelOFServices-project-services-04ad",
-                            "content": {
-                                "title": {
-                                    "ar": "خدمات أخرى",
-                                    "en": "Other Services"
-                                },
-                                "button": [
-                                    {
-                                        "url": null,
-                                        "icon": null,
-                                        "text": {
-                                            "ar": "عرض التفاصيل",
-                                            "en": "View Details"
-                                        },
-                                        "order": 1
-                                    }
-                                ]
-                            }
-                        }
-                    ]
-                }
-            },
-            {
-                "id": "cmaunw56s00finla4z5o585nm",
-                "titleEn": "Construction Management",
-                "titleAr": "إدارة البناء",
-                "slug": "construction-management",
-                "resourceType": "SUB_PAGE",
-                "resourceTag": "SERVICE",
-                "relationType": "CHILD",
-                "liveModeVersionData": {
-                    "id": "cmaunw56u00fknla4q36tjyak",
-                    "versionNumber": 1,
-                    "icon": null,
-                    "image": null,
-                    "sections": [
-                        {
-                            "sectionId": "cmaunw57400fmnla4ufkk2238",
-                            "order": 1,
-                            "version": 1,
-                            "title": "introSection-construction-management-4d25",
-                            "content": {
-                                "title": {
-                                    "ar": "إدارة البناء",
-                                    "en": "Construction Management"
-                                },
-                                "images": [
-                                    {
-                                        "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                                        "order": 1,
-                                        "altText": {
-                                            "ar": "صورة إدارة البناء",
-                                            "en": "Construction Management Image"
-                                        }
-                                    }
-                                ],
-                                "description": {
-                                    "ar": "نحن متخصصون في تقديم حلول إدارة البناء التي تضمن تنفيذ المشاريع بكفاءة وجودة عالية، من مرحلة التصميم حتى التسليم.",
-                                    "en": "We specialize in providing construction management solutions that ensure project execution with high efficiency and quality, from design to delivery."
-                                }
-                            }
-                        },
-                        {
-                            "sectionId": "cmaunw57g00fsnla446vkh1ju",
-                            "order": 2,
-                            "version": 1,
-                            "title": "childrenServices-construction-management-028c",
-                            "content": {
-                                "button": [
-                                    {
-                                        "url": null,
-                                        "icon": null,
-                                        "text": {
-                                            "ar": "عرض التفاصيل",
-                                            "en": "View Details"
-                                        },
-                                        "order": 1
-                                    }
-                                ]
-                            }
-                        },
-                        {
-                            "sectionId": "cmaunw58h00g8nla4hvmmw7mo",
-                            "order": 3,
-                            "version": 1,
-                            "title": "otherSecondLevelOFServices-construction-management-27b6",
-                            "content": {
-                                "title": {
-                                    "ar": "خدمات أخرى",
-                                    "en": "Other Services"
-                                },
-                                "button": [
-                                    {
-                                        "url": null,
-                                        "icon": null,
-                                        "text": {
-                                            "ar": "عرض التفاصيل",
-                                            "en": "View Details"
-                                        },
-                                        "order": 1
-                                    }
-                                ]
-                            }
-                        }
-                    ]
-                }
-            }
-        ],
-        "pagination": {
-            "totalResources": 5,
-            "totalPages": 1,
-            "currentPage": 1,
-            "limit": 100
+            ]
         }
     }
 }
