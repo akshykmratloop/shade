@@ -12,7 +12,7 @@ const swaggerOptions = {
       title: "Shade CMS APIs",
       version: "1.0.0",
       description:
-        "This is the API Documentation of Content Management System (CMS) for Shade Corporation, designed to manage content on the Shade website. It features a role-based management system, user creation, and page content update capabilities. The system supports multiple roles, with a workflow that includes editing, verification, and publishing stages.",
+        "This is an API Documentation of Content Management System (CMS) for Shade Corporation, designed to manage content on the Shade website. It features a role-based management system, user creation, and page content update capabilities. The system supports multiple roles, with a workflow that includes editing, verification, and publishing stages.",
       // termsOfService: "https://shadecms.com/terms",
       // contact: {
       //   name: "Shade CMS Team",
@@ -40,8 +40,9 @@ const swaggerOptions = {
     },
     tags: [
       {name: "Auth", description: "Authentication and session management"},
-      {name: "Users", description: "User CRUD operations"},
+      {name: "Permissions", description: "Permissions for the roles"},
       {name: "Roles", description: "Role & permission endpoints"},
+      {name: "Users", description: "User CRUD operations"},
       {
         name: "Notifications",
         description: "Real‑time and persisted notifications",
@@ -91,5 +92,9 @@ const swaggerOptions = {
   },
   apis: [join(__dirname, "../modules/**/*.js")],
 };
+
+// const token = loginResponse.token;
+
+// ui.preauthorizeApiKey("BearerAuth", `Bearer ${token}`);
 
 export default swaggerJSDoc(swaggerOptions);
