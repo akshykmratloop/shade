@@ -9,6 +9,7 @@ import Button from '../../../../components/Button/Button';
 import { redo, undo } from '../../../common/homeContentSlice';
 import { IoIosInformationCircleOutline } from "react-icons/io";
 import { saveInitialContentValue } from '../../../common/InitialContentSlice';
+import { submitings } from '../../../common/homeContentSlice';
 import transformContent from '../../../../app/convertContent';
 import { generateRequest, publishContent, updateContent } from '../../../../app/fetch';
 import Popups from './Popups';
@@ -25,7 +26,7 @@ import { Switch } from '@headlessui/react';
 
 
 
-export default function ContentTopBar({ setWidth, setFullScreen, currentPath, outOfEditing, contentStatus }) {
+export default function ContentTopBar({ setWidth, setFullScreen, outOfEditing, contentStatus }) {
     // states
     const [selectedDevice, setSelectedDevice] = useState("Desktop");
     const [menuOpen, setMenuOpen] = useState(false);
@@ -48,7 +49,7 @@ export default function ContentTopBar({ setWidth, setFullScreen, currentPath, ou
     // variables
     const iconSize = 'xl:h-[1.5rem] xl:w-[1.5rem]';
     const smallIconSize = 'sm:h-[1rem] sm:w-[1rem]';
-    const lastUpdate = formatTimestamp(ReduxState.present?.content?.editVersion?.updatedAt, "dd-mm-yyyy")
+    const lastUpdate = formatTimestamp(ReduxState.present?.content?.editVersion?.updatedAt)
     const status = capitalizeWords(ReduxState.present?.content?.editVersion?.status)
 
     const deviceIcons = [
@@ -73,13 +74,10 @@ export default function ContentTopBar({ setWidth, setFullScreen, currentPath, ou
     async function saveTheDraft(isToastify = true) {
         const paylaod = transformContent(ReduxState.present.content)
 
-        // console.log(JSON.stringify(paylaod))
         dispatch(saveInitialContentValue(ReduxState.present.content))
         setSavedChanges(true)
         try {
-
             const response = await updateContent(paylaod)
-
             if (response.ok) {
                 if (isToastify) {
                     toast.success("Changes has been saved", {
@@ -106,6 +104,7 @@ export default function ContentTopBar({ setWidth, setFullScreen, currentPath, ou
         try {
             const response = await generateRequest(paylaod)
             if (response.ok) {
+                dispatch(submitings())
                 toast.success("Changes has been saved", {
                     style: { backgroundColor: "#187e3d", color: "white" },
                     autoClose: 1000, // Closes after 1 second
@@ -134,6 +133,7 @@ export default function ContentTopBar({ setWidth, setFullScreen, currentPath, ou
         try {
             const response = await publishContent(paylaod)
             if (response.message === "Success") {
+                dispatch(submitings())
                 toast.success("Changes have been published", {
                     style: { backgroundColor: "#187e3d", color: "white" },
                     autoClose: 1000, // Closes after 1 second
@@ -199,7 +199,6 @@ export default function ContentTopBar({ setWidth, setFullScreen, currentPath, ou
 
 
     useEffect(() => { // Checking ig there has been any changes in the initial and running content
-        // console.log(ReduxState.present?.content?.editVersion?.sections, savedInitialState)
         const hasChanged = !isEqual(ReduxState.present?.content?.editVersion?.sections, savedInitialState)
         setIsChanged(hasChanged)
     }, [ReduxState.present?.content?.editVersion])
@@ -256,7 +255,7 @@ export default function ContentTopBar({ setWidth, setFullScreen, currentPath, ou
                             <span ref={infoIconRef} className={`cursor-pointer `} onClick={() => info ? setInfo(false) : setInfo(true)}>
                                 <IoIosInformationCircleOutline className={`${iconSize} ${smallIconSize} dark:hover:text-[#bbbbbb]`} /></span>
                         }
-                        <div ref={infoRef} className={`absolute top-[100%] left-1/2 dark:shadow-lg dark:border dark:border-stone-600/10 bg-base-100 w-[200px] shadow-xl rounded-lg text-xs p-2 ${info ? "block" : "hidden"}`} >
+                        <div ref={infoRef} className={`absolute top-[100%] left-1/2 dark:shadow-lg dark:border dark:border-stone-600/10 bg-base-100 w-[220px] shadow-xl rounded-lg text-xs p-2 ${info ? "block" : "hidden"}`} >
                             <p className='text-[#64748B]'>last saved:  <span className='text-[black] dark:text-stone-300'>{lastUpdate}</span></p>  {/* last saved */}
                             <p className='text-[#64748B]'>status: <span className='text-[black] dark:text-stone-300'> {contentStatus || status}</span></p>   {/**status */}
                         </div>
@@ -295,16 +294,16 @@ export default function ContentTopBar({ setWidth, setFullScreen, currentPath, ou
                                     {
                                         !autoSave &&
                                         <Button
-                                            // disabled={!isChanged} -- style isChanged ?: "bg-gray-500"
+                                            disabled={!isChanged}
                                             text={savedChanges ? 'Saved' : 'Draft'} functioning={saveTheDraft}
                                             classes={`
-                                                ${savedChanges ? "bg-[#26c226]" : "bg-[#26345C]"} 
+                                                ${savedChanges ? "bg-[#26c226]" : isChanged ? "bg-[#26345C]" : "bg-gray-500"} 
                                         rounded-md xl:h-[2.68rem] sm:h-[2rem] xl:text-xs sm:text-[.6rem] xl:w-[5.58rem] w-[4rem] text-[white]`} />
                                     }
                                     <Button text={'Submit'}
-                                        // disabled={!isChanged} -- style ${isChanged ? "bg-[#29469D]" : "bg-gray-500"}
+                                        disabled={!isChanged}
                                         functioning={() => { setPopupSubmit(true) }}
-                                        classes={`
+                                        classes={` ${isChanged ? "bg-[#29469D]" : "bg-gray-500"}
                                              bg-[#29469D]
                                     rounded-md xl:h-[2.68rem] sm:h-[2rem] xl:text-xs sm:text-[.6rem] xl:w-[5.58rem] w-[4rem] text-[white]`} />
                                 </div>

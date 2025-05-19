@@ -1,6 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
 import { updateName, updateTag, updateType } from "../features/common/navbarSlice";
 import capitalizeWords from "../app/capitalizeword";
+import { useEffect } from "react";
 
 const Navbar = ({ setCurrentResource }) => {
     // const userPermissions = useSelector(state => state.user.user?.permissions);
@@ -21,6 +22,7 @@ const Navbar = ({ setCurrentResource }) => {
         { name: "Blogs & News", resourceType: "SUB_PAGE", resourceTag: "NEWS", permission: "NEWS_BLOGS_MANAGEMENT" },
         { name: "Header", resourceType: "HEADER", resourceTag: "HEADER", permission: ["HEADER_MANAGEMENT", "FOOTER_MANAGEMENT"] },
         { name: "Footer", resourceType: "FOOTER", resourceTag: "FOOTER", permission: ["HEADER_MANAGEMENT", "FOOTER_MANAGEMENT"] },
+        { name: "S & R", resourceType: "SUB_PAGE", resourceTag: "SAFETY_RESPONSIBILITY", permission: "PROJECT_MANAGEMENT" },
     ];
 
     // const hasPermission = (required) => {
@@ -35,8 +37,13 @@ const Navbar = ({ setCurrentResource }) => {
         dispatch(updateTag(tag));
         dispatch(updateName(name));
         localStorage.setItem("resourceType", resource);
-        localStorage.setItem("resourceTag", tag)
+        localStorage.setItem("resourceTag", tag);
+        localStorage.setItem("navName", name)
     };
+
+    useEffect(() => {
+        dispatch(updateName(localStorage.getItem("navName")))
+    }, [])
 
     return (
         <div className="sticky top-0 z-20">

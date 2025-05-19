@@ -16,82 +16,53 @@ export const differentText = {
     }
 }
 
+
+const fontKeys = [
+    "mainHeading", "mainPara", "mainButton",
+    "markDownHead", "markDownPara", "markDownButton",
+    "serviceHeading", "services",
+    "experienceCount", "experienceTitle",
+    "experienceHeading", "experiencePara", "experienceButton",
+    "subProjectTopButton", "subProjectHeadings", "subProjectParas",
+    "subProjectBoxHeading", "subProjectBoxPara",
+    "subProjectButtons",
+    "clientSection",
+    "testimonialsHead", "testimonialsHeading", "testimonialsPosition",
+    "testimonialsQuote", "testimonialsCompany"
+];
+
+const fontSizes = {
+    mainHeading: 70,
+    mainPara: 16,
+    mainButton: 18,
+    markDownHead: 36,
+    markDownPara: 15,
+    markDownButton: 70,
+    serviceHeading: 36,
+    services: 20,
+    experienceCount: 40,
+    experienceTitle: 12,
+    experienceHeading: 60,
+    experiencePara: 16,
+    experienceButton: 18,
+    subProjectTopButton: 16,
+    subProjectHeadings: 32,
+    subProjectParas: 16,
+    subProjectBoxHeading: 20,
+    subProjectBoxPara: 16,
+    subProjectButtons: 18,
+    clientSection: 36,
+    testimonialsHead: 36,
+    testimonialsHeading: 20,
+    testimonialsPosition: 12,
+    testimonialsQuote: 14,
+    testimonialsCompany: 16
+};
+
 export const generatefontSize = (condition, fn, w) => {
-    let obj = {
-        mainHeading: "",
-        mainPara: "",
-        mainButton: "",
-
-        markDownHead: "",
-        markDownPara: "",
-        markDownButton: "",
-
-        serviceHeading: "",
-        services: "",
-
-        experienceCount: "",
-        experienceTitle: "",
-
-        experienceHeading: "",
-        experiencePara: "",
-        experienceButton: "",
-
-        subProjectTopButton: "",
-        subProjectHeadings: "",
-        subProjectParas: "",
-
-        subProjectBoxHeading: "",
-        subProjectBoxPara: "",
-
-        subProjectButtons: "",
-
-        clientSection: "",
-        clientSection: "",
-
-        testimonialsHead: "",
-        testimonialsHeading: "",
-        testimonialsPosition: "",
-        testimonialsQuote: "",
-        testimonialsCompany: "",
+    const result = {};
+    for (const key of fontKeys) {
+        result[key] = condition ? fn(fontSizes[key], w) : "";
     }
-    if (condition) {
-        obj = {
-            mainHeading: fn(70, w),
-            mainPara: fn(16, w),
-            mainButton: fn(18, w),
-
-            markDownHead: fn(36, w),
-            markDownPara: fn(15, w),
-            markDownButton: fn(70, w),
-
-            serviceHeading: fn(36, w),
-            services: fn(20, w),
-
-            experienceCount: fn(40, w),
-            experienceTitle: fn(12, w),
-
-            experienceHeading: fn(60, w),
-            experiencePara: fn(16, w),
-            experienceButton: fn(18, w),
-
-            subProjectTopButton: fn(16, w),
-            subProjectHeadings: fn(32, w),
-            subProjectParas: fn(16, w),
-
-            subProjectBoxHeading: fn(20, w),
-            subProjectBoxPara: fn(16, w),
-
-            subProjectButtons: fn(18, w),
-
-            clientSection: fn(36, w),
-            clientSection: fn(36, w),
-
-            testimonialsHead: fn(36, w),
-            testimonialsHeading: fn(20, w),
-            testimonialsPosition: fn(12, w),
-            testimonialsQuote: fn(14, w),
-            testimonialsCompany: fn(16, w),
-        }
-    }
-    return obj
-}
+    return result;
+};

@@ -15,7 +15,7 @@ function LeftSidebar() {
   const [showText, setShowText] = useState(false);
 
   const defineUserAndRoleManager = useMemo(() =>
-    userRole?.permissions?.some(e => !e.startsWith("USER") && !e.startsWith("ROLE")),
+    userRole?.permissions?.some(e => !e.startsWith("USER") && !e.startsWith("ROLE") && !e.startsWith("AUDI")),
     [userRole?.permissions]
   );
 

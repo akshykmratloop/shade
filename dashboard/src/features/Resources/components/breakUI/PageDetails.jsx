@@ -150,6 +150,7 @@ const PageDetails = ({ data, display, setOn }) => {
                         <button className="text-[#145098] dark:text-sky-500 underline font-[300] py-0 my-0"
                           onClick={() => {
                             dispatch(updateResourceId({ id: data.id, name: data.titleEn }))
+                            localStorage.setItem("route", "/app/resources/versions")
                             navigate('../versions')
                           }}
                         >

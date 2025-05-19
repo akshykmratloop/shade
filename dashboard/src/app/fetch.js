@@ -424,6 +424,13 @@ export async function getRequestInfo(param) {
   );
 }
 
+export async function versionsList(param) {
+  return await makerequest(
+    `${api.route("versionsList")}` + param,
+    "GET",
+  );
+}
+
 export async function approveRequest(param) {
   return await makerequest(
     `${api.route("approveRequest")}` + param,

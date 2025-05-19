@@ -1,436 +1,152 @@
 {
-    "resourceId": "cmap7yost00tomn5kro5pqv7y",
-    "titleEn": "Home Page",
-    "titleAr": "الصفحة الرئيسية",
-    "slug": "home",
-    "newVersionEditMode": {
-        "comments": "Initial version created",
-        "referenceDoc": null,
-        "icon": null,
-        "image": null,
-        "sections": [
-            {
-                "sectionId": "cmap7yot500tsmn5k5qecg65a",
-                "order": 1,
-                "content": {
-                    "title": {
-                        "ar": "بناء مستقبل أقوى",
-                        "en": "Building a Stronger Future"
-                    },
-                    "button": [
-                        {
-                            "url": null,
-                            "icon": null,
-                            "text": {
-                                "ar": "أعمالنا",
-                                "en": "View Our Work"
-                            },
-                            "order": 1
-                        }
-                    ],
-                    "images": [
-                        {
-                            "url": "",
-                            "order": 1,
-                            "altText": {
-                                "ar": "الرئيسية",
-                                "en": " Image"
+    "message": "Success",
+    "content": {
+        "id": "cmap7yojn00ptmn5kdmm9cz99",
+        "titleEn": "Projects Page",
+        "titleAr": "المشاريع الصفحة",
+        "slug": "project",
+        "resourceType": "MAIN_PAGE",
+        "resourceTag": "PROJECT",
+        "relationType": "PARENT",
+        "liveModeVersionData": {
+            "id": "cmap7yojq00pvmn5kikpvl6q5",
+            "versionNumber": 1,
+            "icon": null,
+            "image": null,
+            "comments": "Initial version created",
+            "referenceDoc": null,
+            "updatedAt": "2025-05-15T10:21:03.303Z",
+            "status": "PUBLISHED",
+            "sections": [
+                {
+                    "sectionId": "cmap7yok100pxmn5kcpd92zmr",
+                    "order": 1,
+                    "version": 1,
+                    "title": "bannerSection-project-381f",
+                    "content": {
+                        "title": {
+                            "ar": ">مشروعنا",
+                            "en": "Our Projects"
+                        },
+                        "button": [
+                            {
+                                "url": null,
+                                "icon": null,
+                                "text": {
+                                    "ar": "دعونا نتواصل",
+                                    "en": "Let's Connect"
+                                },
+                                "order": 1
                             }
+                        ],
+                        "description": {
+                            "ar": "اكتشف التميز الاستثنائي لشركة Shade Corporation، الشركة الرائدة في مجالات الهندسة والمشتريات والبناء في المملكة العربية السعودية.",
+                            "en": "Discover the exceptional excellence of Shade Corporation, a leading company in the fields of engineering, procurement, and construction in Saudi Arabia."
                         }
-                    ],
-                    "description": {
-                        "ar": "التزامنا الثابت الذي يعزز الشراكات والتعاونات القوية مع القادة الرؤوساء لمواجهة أصعب التحديات واستغلال أعظم الفرص، وخلق إنجازات هندسية واختراقات تحولية تتوافق مع رؤية المملكة ٢٠٣٠.",
-                        "en": "Our unwavering commitment that forge partnerships and strong collaborations with visionary leaders to take their most critical challenges, capture their greatest opportunities, and create engineering feats and breakthroughs that are transformative and coincides with the Kingdom’s Vision 2030."
-                    }
-                }
-            },
-            {
-                "sectionId": "cmap7yoth00tymn5kq8qppw51",
-                "order": 2,
-                "content": {
-                    "title": {
-                        "ar": "مدفوعون بالتميز في التنفيذ",
-                        "en": "Driven by excellence in execution"
-                    },
-                    "button": [
-                        {
-                            "url": null,
-                            "icon": null,
-                            "text": {
-                                "ar": "اعرف عنا",
-                                "en": "Know About Us"
-                            },
-                            "order": 1
-                        }
-                    ],
-                    "images": [
-                        {
-                            "url": "",
-                            "order": 1,
-                            "altText": {
-                                "ar": "صورة عنا",
-                                "en": "About Us Image"
-                            }
-                        }
-                    ],
-                    "description": {
-                        "ar": "مع عملائنا، نعتمد نهجًا تحوليًا من خلال تمكين المؤسسات لبناء ميزة تنافسية مستدامة والمساعدة في دفع النمو.",
-                        "en": "With our clients, we adopt a transformational approach by empowering organizations to build a sustainable competitive advantage and help drive growth.We work with the most dynamic organizations and have helped them by mobilizing change, accelerating value engineering with creative solutions, and partnering them towards achieving global prominence."
-                    }
-                }
-            },
-            {
-                "sectionId": "cmap7yott00u4mn5k33qezz7x",
-                "order": 3,
-                "content": {
-                    "title": {
-                        "ar": "خدماتنا",
-                        "en": "OUR SERVICES"
                     }
                 },
-                "items": [
-                    {
-                        "order": 1,
-                        "id": "cmap7ynw500fimn5k08mmsb19"
-                    },
-                    {
-                        "order": 2,
-                        "id": "cmap7yny300gdmn5kxa3nl078"
-                    },
-                    {
-                        "order": 3,
-                        "id": "cmap7ynzz00h8mn5kdaxy2wrv"
-                    },
-                    {
-                        "order": 4,
-                        "id": "cmap7yo1v00i3mn5kn839dys0"
-                    },
-                    {
-                        "order": 5,
-                        "id": "cmap7yo3t00iymn5kak8or9ep"
-                    }
-                ]
-            },
-            {
-                "sectionId": "cmap7youu00ukmn5k50nmqvaa",
-                "order": 4,
-                "content": {
-                    "cards": [
-                        {
-                            "icon": "",
-                            "count": "123",
-                            "order": 1,
-                            "title": {
-                                "ar": "المشاريع المنجزة",
-                                "en": "Projects Completed"
-                            }
-                        },
-                        {
-                            "icon": "",
-                            "count": "84",
-                            "order": 2,
-                            "title": {
-                                "ar": "عملاء سعداء",
-                                "en": "Happy Clients"
-                            }
-                        },
-                        {
-                            "icon": "",
-                            "count": "32",
-                            "order": 3,
-                            "title": {
-                                "ar": "سنوات في العمل",
-                                "en": "Years in Business"
-                            }
-                        },
-                        {
-                            "icon": "",
-                            "count": "42",
-                            "order": 4,
-                            "title": {
-                                "ar": "الفوز بالجوائز",
-                                "en": "Awards Won"
-                            }
-                        }
-                    ],
-                    "title": {
-                        "ar": "٣٢ عاماً من الخبرة",
-                        "en": "32 Years of Experience"
-                    },
-                    "button": [
-                        {
-                            "url": null,
-                            "icon": null,
-                            "text": {
-                                "ar": "اتصل بنا",
-                                "en": "Contact Us"
+                {
+                    "sectionId": "cmap7yoke00q3mn5k5a0ll8k1",
+                    "order": 2,
+                    "version": 1,
+                    "title": "projectsGridSection-project-5e81",
+                    "content": {
+                        "tabs": [
+                            {
+                                "id": "all",
+                                "order": 1,
+                                "title": {
+                                    "ar": "الكل",
+                                    "en": "All"
+                                }
                             },
-                            "order": 1
-                        }
-                    ],
-                    "description": {
-                        "ar": "كانت شركتنا رائدة في تقديم خدمات البناء للعملاء في جميع أنحاء دبي منذ عام 1992.",
-                        "en": "Our company has been the leading provided construction services to clients throughout the Dubai since 1992."
-                    }
-                }
-            },
-            {
-                "sectionId": "cmap7yova00uqmn5ktqqmjegt",
-                "order": 5,
-                "content": {
-                    "buttons": [
-                        {
-                            "icon": null,
-                            "text": {
-                                "ar": "عرض الكل",
-                                "en": "View All"
+                            {
+                                "id": "ongoing",
+                                "order": 2,
+                                "title": {
+                                    "ar": "مستمر",
+                                    "en": "Ongoing"
+                                }
                             },
+                            {
+                                "id": "completed",
+                                "order": 3,
+                                "title": {
+                                    "ar": "مكتمل",
+                                    "en": "Completed"
+                                }
+                            }
+                        ],
+                        "button": [
+                            {
+                                "url": null,
+                                "icon": null,
+                                "text": {
+                                    "ar": "عرض التفاصيل",
+                                    "en": "View Details"
+                                },
+                                "order": 1
+                            },
+                            {
+                                "url": null,
+                                "icon": null,
+                                "text": {
+                                    "ar": " عرض المزيد",
+                                    "en": "View More"
+                                },
+                                "order": 2
+                            }
+                        ]
+                    },
+                    "items": [
+                        {
+                            "id": "cmap7yn4j004kmn5k3z26jsy9",
+                            "titleEn": "IT Labs for Excellence",
+                            "titleAr": "مختبر تكنولوجيا المعلومات للتميز",
+                            "slug": "it-lab-for-excellence",
+                            "icon": null,
+                            "image": null,
                             "order": 1
                         },
                         {
+                            "id": "cmap7yn6s005hmn5k7co0u1x0",
+                            "titleEn": "Non-Metallic Manufacturing Plant",
+                            "titleAr": "مصنع المواد غير المعدنية",
+                            "slug": "non-metallic-manufacturing-plant",
                             "icon": null,
-                            "text": {
-                                "ar": "العودة",
-                                "en": "Back"
-                            },
+                            "image": null,
                             "order": 2
                         },
                         {
+                            "id": "cmap7yn8y006emn5klww1zgwq",
+                            "titleEn": "Business Gate",
+                            "titleAr": "بوابة الأعمال",
+                            "slug": "business-gate",
                             "icon": null,
-                            "text": {
-                                "ar": "التالي",
-                                "en": "Next"
-                            },
+                            "image": null,
                             "order": 3
-                        }
-                    ]
-                },
-                "sections": [
-                    {
-                        "sectionId": "cmap7yovq00uwmn5krw0gddyu",
-                        "order": 1,
-                        "content": {
-                            "id": "projectsSlugs",
-                            "order": 1,
-                            "title": {
-                                "ar": "المشاريع الأخيرة",
-                                "en": "Recent Projects"
-                            },
-                            "description": {
-                                "ar": "تفتخر شركة شيد بمحفظة متزايدة من العملاء الراضين، سواء على الصعيد العالمي أو المحلي، الذين استفادوا بشكل كبير من تعاونهم معنا. تُعتبر حلولنا مطلوبة من قبل الشركات بمختلف أحجامها – الكبيرة، والمتوسطة، والصغيرة. نحن نؤمن بشدة بضرورة إقامة شراكات استراتيجية مع منظمات متنوعة، وتقديم حلول توفر قيمة تجارية ملموسة. من بين مشاريعنا الأخيرة والبارزة:",
-                                "en": "Shade Corporation boasts a continually growing portfolio of satisfied clients, both global and local, who have derived tremendous benefits from their engagement with us. Our solutions are sought after by companies of all sizes – large, mid-sized, and small. We firmly believe in establishing strategic partnerships with diversed organizations, delivering solutions that provide tangible business value. Among our recent and notable projects are:"
-                            }
-                        },
-                        "items": [
-                            {
-                                "order": 1,
-                                "id": "cmap7yn4j004kmn5k3z26jsy9"
-                            },
-                            {
-                                "order": 2,
-                                "id": "cmap7yn6s005hmn5k7co0u1x0"
-                            },
-                            {
-                                "order": 3,
-                                "id": "cmap7yn8y006emn5klww1zgwq"
-                            },
-                            {
-                                "order": 4,
-                                "id": "cmap7ynb5007bmn5k5x06c63t"
-                            },
-                            {
-                                "order": 5,
-                                "id": "cmap7yndd0088mn5kkln0nr0n"
-                            }
-                        ]
-                    },
-                    {
-                        "sectionId": "cmap7yoxc00vcmn5kv28wj92h",
-                        "order": 2,
-                        "content": {
-                            "id": "marketItemSlug",
-                            "order": 2,
-                            "title": {
-                                "ar": "أسواقنا",
-                                "en": "Our Markets"
-                            },
-                            "description": {
-                                "ar": "التنقل عبر شبكة من الأسواق، تستفيد شركة شيد من ثروة من الخبرة، مما يتيح لها تحقيق ميزة استراتيجية. إن رحلتنا عبر صناعات متنوعة توفر رؤى عميقة، مما يشكل نهجًا يجمع بين الخبرة والإبداع والرؤية المستقبلية. من فهم التحديات الفريدة إلى توقع اتجاهات السوق، نستفيد من حكمتنا الجماعية لتحقيق النجاح في كل مشروع.",
-                                "en": "Navigating a tapestry of markets, Shade Corporation draws from a wealth of experience, cultivating a strategic advantage. Our journey through diverse industries provides profound insights, shaping an approach that is both seasoned, creative and forward-thinking. From understanding unique challenges to anticipating market trends, we leverage our collective wisdom to drive success in every venture."
-                            }
-                        },
-                        "items": [
-                            {
-                                "order": 1,
-                                "id": "cmap7ynfk0095mn5kney4d3v5"
-                            },
-                            {
-                                "order": 2,
-                                "id": "cmap7ynie00a0mn5k3bfhsfwl"
-                            },
-                            {
-                                "order": 3,
-                                "id": "cmap7ynkh00avmn5ka21ejv1e"
-                            },
-                            {
-                                "order": 4,
-                                "id": "cmap7ynmj00bqmn5kk4jf1vj9"
-                            }
-                        ]
-                    },
-                    {
-                        "sectionId": "cmap7yoyf00vqmn5k39my7hq9",
-                        "order": 3,
-                        "content": {
-                            "id": "safetyPoliciesSlug",
-                            "order": 3,
-                            "title": {
-                                "ar": "السلامة: مسؤوليتنا",
-                                "en": "Safety: Our Responsibility"
-                            },
-                            "description": {
-                                "ar": "في شركة شيد، السلامة ليست مجرد سياسة، بل هي قيمة أساسية نزرعها في كل مشروع. من خلال التخطيط الدقيق، والتكنولوجيا المتقدمة، والالتزام الصارم ببروتوكولات السلامة، نضمن حماية جميع الأطراف المعنية وتنفيذ كل عملية بأعلى معايير السلامة.",
-                                "en": "At Shade Corporation, safety isn't just a policy—it's a core value that we instill in every project. Through meticulous planning, advanced technology, and strict adherence to safety protocols, we ensure that every stakeholder is protected and every operation is conducted with the highest level of safety standards."
-                            }
-                        },
-                        "items": [
-                            {
-                                "order": 1,
-                                "id": "cmap7yo5v00jtmn5kz28rnu7n"
-                            },
-                            {
-                                "order": 2,
-                                "id": "cmap7yo7700kemn5k1youzbzf"
-                            },
-                            {
-                                "order": 3,
-                                "id": "cmap7yo8j00kzmn5kjycuxxic"
-                            },
-                            {
-                                "order": 4,
-                                "id": "cmap7yo9t00lkmn5kpwivuwiy"
-                            },
-                            {
-                                "order": 5,
-                                "id": "cmap7yob700m5mn5kisuzshwv"
-                            },
-                            {
-                                "order": 6,
-                                "id": "cmap7yocl00mqmn5kzy37vvma"
-                            }
-                        ]
-                    }
-                ]
-            },
-            {
-                "sectionId": "cmap7yoz900w8mn5kk3hxpn3u",
-                "order": 6,
-                "content": {
-                    "title": {
-                        "ar": "عملائنا السعداء",
-                        "en": "Our Happy Clients"
-                    },
-                    "description": {
-                        "ar": "شركاء موثوقون في النجاح",
-                        "en": "Trusted Partners in Success"
-                    },
-                    "clientsImages": [
-                        {
-                            "url": "client1",
-                            "order": 1,
-                            "altText": {
-                                "ar": "عميل 1",
-                                "en": "Client 1"
-                            }
                         },
                         {
-                            "url": "client2",
-                            "order": 2,
-                            "altText": {
-                                "ar": "عميل 2",
-                                "en": "Client 2"
-                            }
-                        },
-                        {
-                            "url": "client3",
-                            "order": 3,
-                            "altText": {
-                                "ar": "عميل 3",
-                                "en": "Client 3"
-                            }
-                        },
-                        {
-                            "url": "client4",
-                            "order": 4,
-                            "altText": {
-                                "ar": "عميل 4",
-                                "en": "Client 4"
-                            }
-                        }
-                    ]
-                }
-            },
-            {
-                "sectionId": "cmap7yozg00wemn5kro7ccmxm",
-                "order": 7,
-                "content": {
-                    "title": {
-                        "ar": "ماذا يقول عملاؤنا عنا؟",
-                        "en": "What Our Clients Say About Us?"
-                    }
-                },
-                "items": [
-                    {
-                        "order": 1,
-                        "id": "cmap7yn070032mn5kcvuns63f"
-                    },
-                    {
-                        "order": 2,
-                        "id": "cmap7yn0u003bmn5kfz4hpfgc"
-                    },
-                    {
-                        "order": 3,
-                        "id": "cmap7yn1j003kmn5kcrep6ybw"
-                    },
-                    {
-                        "order": 4,
-                        "id": "cmap7yn29003tmn5k0m5obb2s"
-                    },
-                    {
-                        "order": 5,
-                        "id": "cmap7yn2z0042mn5kez1qxetg"
-                    },
-                    {
-                        "order": 6,
-                        "id": "cmap7yn3s004bmn5k1yjsiw0t"
-                    }
-                ]
-            },
-            {
-                "sectionId": "cmap7yp0800wwmn5kxye7b3sw",
-                "order": 8,
-                "content": {
-                    "title": {
-                        "ar": "هل تريد بدء مشروع جديد أو التعاون معنا؟",
-                        "en": "Want to Start a New Project OR Collaborate with us?"
-                    },
-                    "button": [
-                        {
-                            "url": null,
+                            "id": "cmap7ynb5007bmn5k5x06c63t",
+                            "titleEn": "OME Building - Northern Area Pipelines",
+                            "titleAr": "مبنى OME - خطوط أنابيب المنطقة الشمالية",
+                            "slug": "construction-of-ome-building-napd-khursaniyah",
                             "icon": null,
-                            "text": {
-                                "ar": "اتصل بنا",
-                                "en": "Contact Us"
-                            },
-                            "order": 1
+                            "image": null,
+                            "order": 4
+                        },
+                        {
+                            "id": "cmap7yndd0088mn5kkln0nr0n",
+                            "titleEn": "Psychiatric Facility",
+                            "titleAr": "المنشأة النفسية",
+                            "slug": "psychiatric-facility",
+                            "icon": null,
+                            "image": null,
+                            "order": 5
                         }
-                    ],
-                    "description": {
-                        "ar": "في العقود القليلة الماضية، قمنا بخدمة العديد من الشركات والمؤسسات العامة الرائدة في السعودية لوضع استراتيجيات رابحة، وحل بعض المشاكل المعقدة، وتحقيق نتائج متسقة. إذا كنت تتطلع إلى تعزيز الأداء وتنفيذ استراتيجيات النمو وبناء قدرات جديدة، فتعاون معنا الآن وفقًا لفلسفتنا المتمثلة في “بناء مستقبل أقوى”، تؤمن شركة شيد بشراكات مربحة للجانبين مع جميع أصحاب المصلحة، وتهدف باستمرار إلى إنشاء علاقات مستدامة وطويلة الأمد لخلق القيمة. يتضمن نموذج المشاركة الخاص بنا منهجيات خاصة وحلولًا شاملة من شأنها تحويل اقتصاديات مشروعك وفتح إمكانيات جديدة ودعم أهداف النمو التنظيمي لديك.",
-                        "en": "True to our philosophy of “Building a Stronger Future”, Shade Corporation believes in win-win partnerships with all stakeholders, and continually aims at creating sustainable and long-term relationships for value creation. Our engagement model includes proprietary methodologies and comprehensive solutions that will transform your project economics, unlock new possibilities and support your organizational growth goals. In the last few decades, we have served many of Saudi's leading companies and public institutions to create winning strategies, solve some of the complex problems, and deliver consistent outcomes. If you're looking to drive performance, execute growth strategies, and build new capabilities, collaborate with us now. In the last few decades, we have served many of Saudi's leading companies and public institutions to create winning strategies, solve some of the complex problems, and deliver consistent outcomes. If you're looking to drive performance, execute growth strategies, and build new capabilities, collaborate with us now."
-                    }
+                    ]
                 }
-            }
-        ]
+            ]
+        }
     }
 }

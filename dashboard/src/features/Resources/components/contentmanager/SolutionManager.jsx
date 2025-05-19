@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import FileUploader from "../../../../components/Input/InputFileUploader";
 import ContentSection from "../breakUI/ContentSections";
-import { updateMainContent, updateWhatWeDoList } from "../../../common/homeContentSlice";
+import { updateMainContent, updateCardAndItemsArray } from "../../../common/homeContentSlice";
 import content from "../websiteComponent/content.json"
 import { useDispatch } from "react-redux";
 import DynamicContentSection from "../breakUI/DynamicContentSection";
@@ -9,8 +9,8 @@ import DynamicContentSection from "../breakUI/DynamicContentSection";
 const SolutionManager = ({ currentPath, language, currentContent, indexes }) => {
     const dispatch = useDispatch()
 
-    const addExtraSummary = (section) => {
-        dispatch(updateWhatWeDoList(
+    const addExtraSummary = () => {
+        dispatch(updateCardAndItemsArray(
             {
                 insert: {
                     title: {
@@ -22,16 +22,16 @@ const SolutionManager = ({ currentPath, language, currentContent, indexes }) => 
                         en: ""
                     }
                 },
-                section,
+                sectionIndex: indexes?.['2'],
                 operation: 'add'
             }
         ))
     }
 
-    useEffect(() => {
+    // useEffect(() => {
 
-        return () => dispatch(updateMainContent({ currentPath: "content", payload: undefined }))
-    }, [])
+    //     return () => dispatch(updateMainContent({ currentPath: "content", payload: undefined }))
+    // }, [])
 
     return (
         <div className="w-full">
@@ -90,6 +90,7 @@ const SolutionManager = ({ currentPath, language, currentContent, indexes }) => 
                                 // type={'rich'}
                                 sectionIndex={indexes?.['2']}
                                 contentIndex={index}
+                                allowRemoval={true}
                             />
                         )
                     })
@@ -101,11 +102,16 @@ const SolutionManager = ({ currentPath, language, currentContent, indexes }) => 
             <ContentSection
                 currentPath={currentPath}
                 Heading={"Gallery 1"}
-                inputFiles={[
-                    { label: "Image 1", id: "Image 1" },
-                    { label: "Image 2", id: "Image 2" },
-                    { label: "Image 3", id: "Image 3" },
-                ]}
+                inputFiles={
+                    currentContent?.['3']?.content.images?.map((e, i) => {
+                        return { label: "Image " + (i + 1), id: "Image " + (1 + i), order: e.order }
+                    })
+                    //     [
+                    //     {label: "Image 1", id: "Image 1" },
+                    //     {label: "Image 2", id: "Image 2" },
+                    //     {label: "Image 3", id: "Image 3" },
+                    // ]
+                }
                 section={"gallery"}
                 language={language}
                 currentContent={currentContent}
@@ -154,7 +160,7 @@ const SolutionManager = ({ currentPath, language, currentContent, indexes }) => 
                 }
                 <button className="text-blue-500 cursor-pointer mb-3" onClick={() => addExtraSummary('howWeDo')}>Add More Section...</button>
             </div> */}
-
+            {/* 
             <ContentSection
                 currentPath={currentPath}
                 Heading={"Gallery 2"}
@@ -168,8 +174,7 @@ const SolutionManager = ({ currentPath, language, currentContent, indexes }) => 
                 currentContent={currentContent}
                 allowExtraInput={true}
                 sectionIndex={indexes?.['4']}
-
-            />
+            /> */}
         </div>
     )
 }

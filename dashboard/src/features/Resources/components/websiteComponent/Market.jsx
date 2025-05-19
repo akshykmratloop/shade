@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import content from "./content.json"
 import Arrow from "../../../../assets/icons/right-wrrow.svg";
 import "swiper/css";
@@ -33,7 +33,7 @@ import doubleQuotes from "../../../../assets/right-quote.png"
 import { projectPageData } from "../../../../assets/index";
 import { TruncateText } from "../../../../app/capitalizeword";
 
-const MarketPage = ({ language, screen }) => {
+const MarketPage = ({ language, screen, currentContent }) => {
     // const testimonialPrevRef = useRef(null);
     // const testimonialNextRef = useRef(null);
     // const currentContent = content?.market;
@@ -45,11 +45,14 @@ const MarketPage = ({ language, screen }) => {
     const isPhone = screen < 760
     const isTablet = screen > 761 && screen < 1100
     const [activeTab, setActiveTab] = useState("buildings");
-    const currentContent = useSelector((state) => state.homeContent.present.markets)
     const ImageFromRedux = useSelector((state) => state.homeContent.present.images)
     const isLeftAlign = language === 'en'
     const [filterMarketItems, setFilterMarketItems] = useState([]);
+    const [width, setWidth] = useState(0)
     const [visibleMarketItemsCount, setVisibleMarketItemCount] = useState(6);
+    const divRef = useRef(null)
+
+    const languageCondition = language === "en" ? 'titleEn' : "titleAr"
 
     useEffect(() => {
         setFilterMarketItems(
@@ -62,14 +65,27 @@ const MarketPage = ({ language, screen }) => {
         setVisibleMarketItemCount(6);
     }, [activeTab, currentContent]); // Added currentContent as a dependency
 
-
-
     useEffect(() => {
-        dispatch(updateMainContent({ currentPath: "markets", payload: content.market }))
-    }, [])
+        const observer = new ResizeObserver(entries => {
+            for (let entry of entries) {
+                setWidth(entry.contentRect.width);
+            }
+        });
+
+        if (divRef.current) {
+            observer.observe(divRef.current);
+        }
+
+        return () => {
+            if (divRef.current) {
+                observer.unobserve(divRef.current);
+            }
+        };
+    }, []);
+
 
     return (
-        <div >
+        <div ref={divRef}>
             {/* hero banner  */}
             <section className={`relative h-full w-full bg-cover bg-center ${isLeftAlign ? 'scale-x-[-1]' : ''}  `}
                 style={{
@@ -80,10 +96,10 @@ const MarketPage = ({ language, screen }) => {
                 <div className={`container h-full relative ${isPhone ? "px-10" : "px-20"} flex items-center ${isLeftAlign ? "justify-end" : "justify-end"}   `}>
                     <div className={`flex flex-col ${isLeftAlign ? 'right-5 text-left items-start ' : 'left-5 text-right items-end'} ${isPhone ? "max-w-[70%]" : "max-w-[55%]"} w-full ${isLeftAlign ? 'scale-x-[-1]' : ''}`}>
                         <h1 className={`text-[#292E3D] ${isPhone ? "text-3xl" : "text-[50px] leading-[77px] tracking-[-3.5px]"} font-medium  mb-4`}>
-                            {currentContent?.banner?.title[language]}
+                            {currentContent?.['1']?.content?.title?.[language]}
                         </h1>
                         <p className={`text-[#0E172FB3] ${isPhone ? "" : "leading-[28px]"} text-sm font-semibold  mb-6 word-spacing-5`}>
-                            {currentContent?.banner?.description[language]}
+                            {currentContent?.['1']?.content?.description?.[language]}
                         </p>
                         <button
                             className={`relative py-[6px] px-[12px] text-xs font-medium bg-[#00B9F2] text-white rounded flex items-center justify-start gap-2 ${isLeftAlign ? "flex-row-reverse" : ""}`}
@@ -95,7 +111,7 @@ const MarketPage = ({ language, screen }) => {
                                 className={` ${isLeftAlign ? 'scale-x-[-1]' : ''}  w-[11px] h-[11px]`}
                             />
                             <p>
-                                {currentContent?.banner?.button?.[language]}
+                                {currentContent?.['1']?.content?.button?.[0]?.text?.[language]}
                             </p>
                         </button>
                     </div>
@@ -130,10 +146,10 @@ const MarketPage = ({ language, screen }) => {
                             className="mb-[24px] rotate-180 opacity-[.3]"
                         />
                         <p className={`text-[#97b3d8] font-Arial ${isPhone ? "" : "text-[20px]"} font-normal leading-[30px] tracking-[0.02em] text-center mb-[20px]`}>
-                            {currentContent?.quote?.text[language]}
+                            {currentContent?.['2']?.content?.text?.[language]}
                         </p>
                         <h5 className="text-[rgba(11,54,156,0.3)] font-Arial text-[18px] italic font-bold leading-[27px] tracking-[0.01em] text-center">
-                            -{currentContent?.quote?.author[language]}
+                            {currentContent?.['2']?.content?.author?.[language]}
                         </h5>
                     </div>
                 </div>
@@ -141,7 +157,7 @@ const MarketPage = ({ language, screen }) => {
 
             {/* market projects */}
             <section className={` pb-[45px] px-14 ${language === "en" ? "text-left" : "text-right"}`}>
-                <div className="container mx-auto px-4" style={{wordBreak: "normal"}}>
+                <div className="container mx-auto px-4" style={{ wordBreak: "normal" }}>
                     <div>
                         {/* Tabs or Dropdown */}
                         <div className="w-full flex flex-col items-center mb-10">
@@ -152,11 +168,11 @@ const MarketPage = ({ language, screen }) => {
                                         className="w-full custom-select p-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-[#00B9F2] focus:border-[#00B9F2]"
                                         value={activeTab}
                                         onChange={(e) => setActiveTab(e.target.value)}
-                                        style={{outline: "none"}}
+                                        style={{ outline: "none" }}
                                     >
-                                        {currentContent?.tabSection?.tabs.map((tab, index) => (
-                                            <option key={index} value={tab?.id}>
-                                                {tab.title[language]}
+                                        {currentContent?.['3']?.items?.map((tab, index) => (
+                                            <option key={index} value={tab?.slug}>
+                                                {tab?.[languageCondition]}
                                             </option>
                                         ))}
                                     </select>
@@ -164,26 +180,27 @@ const MarketPage = ({ language, screen }) => {
                             ) : (
                                 // Tabs for larger screens
                                 <div className={`flex items-center justify-center gap-6 ${!isLeftAlign && "flex-row-reverse"}`}>
-                                    {currentContent?.tabSection?.tabs.map((tab, index) => (
+                                    {currentContent?.['3']?.items?.map((tab, index) => (
                                         <button
-                                            key={index}
-                                            className={`relative px-4 py-2 text-sm font-medium uppercase transition-all duration-300 ${activeTab === tab?.id
-                                                    ? "text-[#00B9F2] border-b-2 border-[#00B9F2]"
-                                                    : "text-gray-600 hover:text-gray-800"
+                                            key={tab.id || index}
+                                            className={`relative px-4 py-2 text-sm font-medium uppercase transition-all duration-300 ${activeTab === tab?.slug
+                                                ? "text-[#00B9F2] border-b-2 border-[#00B9F2]"
+                                                : "text-gray-600 hover:text-gray-800"
                                                 }`}
-                                            onClick={() => setActiveTab(tab?.id)}
+                                            onClick={() => setActiveTab(tab?.slug)}
                                         >
-                                            {tab.title[language]}
+                                            {tab?.[languageCondition]}
                                         </button>
                                     ))}
                                 </div>
                             )}
                         </div>
+                        
 
 
                         {/* Cards */}
                         <div
-                            className={`${isPhone ? "flex flex-col" : `grid ${isTablet?"grid-cols-2":"grid-cols-3"} gap-x-4 gap-y-4 mt-12`} ${language === "ar" ? "rtl" : ""}`}
+                            className={`${isPhone ? "flex flex-col" : `grid ${isTablet ? "grid-cols-2" : "grid-cols-3"} gap-x-4 gap-y-4 mt-12`} ${language === "ar" ? "rtl" : ""}`}
                             style={language === "ar" ? { direction: "rtl" } : {}}
                         >
                             {filterMarketItems
@@ -198,7 +215,7 @@ const MarketPage = ({ language, screen }) => {
                                             width="339"
                                             height="190"
                                             alt={item.title[language]}
-                                            className={`object-cover w-full ${isPhone?"h-[150px]" :"h-[50%]"}`}
+                                            className={`object-cover w-full ${isPhone ? "h-[150px]" : "h-[50%]"}`}
                                         />
                                         <h5
                                             title={item?.title[language]}
