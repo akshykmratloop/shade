@@ -1,222 +1,438 @@
 {
     "message": "Success",
-    "content": {
-        "id": "cmaunw5xh00qinla4re47znkh",
-        "titleEn": "Market Page",
-        "titleAr": "صفحة السوق",
-        "slug": "market",
-        "resourceType": "MAIN_PAGE",
-        "resourceTag": "MARKET",
-        "relationType": "PARENT",
-        "liveModeVersionData": {
-            "id": "cmaunw5xj00qknla4ei5t1lpp",
-            "versionNumber": 1,
-            "icon": null,
-            "image": null,
-            "comments": "Initial version created",
-            "referenceDoc": null,
-            "updatedAt": "2025-05-19T05:45:50.600Z",
-            "status": "PUBLISHED",
-            "sections": [
-                {
-                    "sectionId": "cmaunw5xt00qmnla4mi6afrio",
-                    "order": 1,
-                    "version": 1,
-                    "title": "heroSection-market-c97d",
-                    "content": {
-                        "title": {
-                            "ar": "سوق",
-                            "en": "Market"
-                        },
-                        "button": [
-                            {
-                                "url": null,
-                                "icon": null,
-                                "text": {
-                                    "ar": "خدماتنا",
-                                    "en": "Our Services"
+    "resources": {
+        "resources": [
+            {
+                "id": "cmaunw5er00iynla4xgbrjvp2",
+                "titleEn": "Equipment Rental",
+                "titleAr": "تأجير المعدات",
+                "slug": "equipment-rental",
+                "resourceType": "SUB_PAGE",
+                "resourceTag": "SERVICE",
+                "relationType": "CHILD",
+                "liveModeVersionData": {
+                    "id": "cmaunw5et00j0nla4ptz6rvqc",
+                    "versionNumber": 1,
+                    "icon": null,
+                    "image": null,
+                    "sections": [
+                        {
+                            "sectionId": "cmaunw5f400j2nla45ok6o7fj",
+                            "order": 1,
+                            "version": 1,
+                            "title": "introSection-equipment-rental-6186",
+                            "content": {
+                                "title": {
+                                    "ar": "تأجير المعدات",
+                                    "en": "Equipment Rental"
                                 },
-                                "order": 1
-                            }
-                        ],
-                        "images": [
-                            {
-                                "url": "https://frequencyimage.s3.ap-south-1.amazonaws.com/851e35b5-9b3b-4d9f-91b4-9b60ef2a102c-Rectangle%2034624110.png",
-                                "order": 1,
-                                "altText": {
-                                    "ar": "صورة شعار الصفحة الرئيسية",
-                                    "en": "Image 1"
-                                }
-                            }
-                        ],
-                        "description": {
-                            "ar": "اكتشف التميز الاستثنائي لشركة Shade Corporation، الشركة الرائدة في مجالات الهندسة والمشتريات والبناء في المملكة العربية السعودية.",
-                            "en": "Discover the exceptional excellence of Shade Corporation, the premier Engineering, Procurement, and Construction powerhouse in Saudi Arabia."
-                        }
-                    }
-                },
-                {
-                    "sectionId": "cmaunw5y800qsnla49kj1ee28",
-                    "order": 2,
-                    "version": 1,
-                    "title": "quoteSection-market-452e",
-                    "content": {
-                        "text": {
-                            "ar": "وفي مسيرتنا نحو التقدم والتطور، يجب ألا ننسى العنصر البشري. قد ترتفع المباني والمنشآت، لكن الناس هم من يبثون الحياة فيها.",
-                            "en": "In our march towards progress and development, we must not forget the human element. Buildings and structures may rise, but it is the people who breathe life into them."
-                        },
-                        "author": {
-                            "ar": "غازي القصيبي",
-                            "en": "-Ghazi Al Gosaibi"
-                        }
-                    }
-                },
-                {
-                    "sectionId": "cmaunw5ym00qynla4nupls6zf",
-                    "order": 3,
-                    "version": 1,
-                    "title": "marketItemsSection-market-3d22",
-                    "content": {
-                        "button": [
-                            {
-                                "url": null,
-                                "icon": null,
-                                "text": {
-                                    "ar": "عرض المزيد",
-                                    "en": "View Market"
-                                },
-                                "order": 1
-                            }
-                        ],
-                        "introSection": {
-                            "title": {
-                                "ar": "سوق",
-                                "en": "Market we deal"
-                            },
-                            "images": [
-                                {
-                                    "url": "",
-                                    "order": 1,
-                                    "altText": {
-                                        "ar": "ص الرئيسية",
-                                        "en": "Image"
+                                "images": [
+                                    {
+                                        "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/equipment-rental.png",
+                                        "order": 1,
+                                        "altText": {
+                                            "ar": "صورة تأجير المعدات",
+                                            "en": "Equipment Rental Image"
+                                        }
                                     }
+                                ],
+                                "description": {
+                                    "ar": "نوفر مجموعة واسعة من المعدات الحديثة للإيجار لدعم مختلف احتياجات المشاريع بكفاءة وفعالية.",
+                                    "en": "We provide a wide range of modern equipment for rent to efficiently support various project needs."
                                 }
-                            ],
-                            "description": {
-                                "ar": "اكتشف التميز الاستثنائي لشركة Shade Corporation، الشركة الرائدة في مجالات الهندسة والمشتريات والبناء في المملكة العربية السعودية.",
-                                "en": "Discover the exceptional excellence of Shade Corporation, the premier Engineering, Procurement, and Construction powerhouse in Saudi Arabia. Discover the exceptional excellence of Shade Corporation, the premier Engineering, Procurement, and Construction powerhouse in Saudi Arabia."
                             }
-                        }
-                    },
-                    "items": [
-                        {
-                            "id": "cmaunw4q10095nla494x23k5x",
-                            "titleEn": "Buildings-Service",
-                            "titleAr": "المباني",
-                            "slug": "buildings",
-                            "icon": null,
-                            "image": null,
-                            "order": 1
                         },
                         {
-                            "id": "cmaunw4se00a0nla4tk4wzx1w",
-                            "titleEn": "Industrial",
-                            "titleAr": "الصناعة",
-                            "slug": "industrial",
-                            "icon": null,
-                            "image": null,
-                            "order": 2
+                            "sectionId": "cmaunw5fg00j8nla4ffyb4g7b",
+                            "order": 2,
+                            "version": 1,
+                            "title": "childrenServices-equipment-rental-d1e8",
+                            "content": {
+                                "button": [
+                                    {
+                                        "url": null,
+                                        "icon": null,
+                                        "text": {
+                                            "ar": "عرض التفاصيل",
+                                            "en": "View Details"
+                                        },
+                                        "order": 1
+                                    }
+                                ]
+                            }
                         },
                         {
-                            "id": "cmaunw4uk00avnla447nglasg",
-                            "titleEn": "Infrastructure",
-                            "titleAr": "البنية التحتية",
-                            "slug": "infrastructure",
-                            "icon": null,
-                            "image": null,
-                            "order": 3
-                        },
-                        {
-                            "id": "cmaunw4wt00bqnla4xfhufg2g",
-                            "titleEn": "Repair & Retrofit",
-                            "titleAr": "الإصلاح والتحديث",
-                            "slug": "repair-retrofit",
-                            "icon": null,
-                            "image": null,
-                            "order": 4
-                        }
-                    ]
-                },
-                {
-                    "sectionId": "cmaunw5zg00rcnla4pglzs48j",
-                    "order": 4,
-                    "version": 1,
-                    "title": "testimonialSection-market-3eb2",
-                    "content": {
-                        "title": {
-                            "ar": "ماذا يقول عملاؤنا عنا؟",
-                            "en": "What Our Clients Say About Us?"
-                        }
-                    },
-                    "items": [
-                        {
-                            "id": "cmaunw4ak0032nla4wdqi0xfb",
-                            "titleEn": "Dr. Engr. Salah Attia Abdelzaher",
-                            "titleAr": "د. مهندس صلاح عطيه عبد الظاهر",
-                            "slug": "salah-attia-abdelzaher",
-                            "icon": null,
-                            "image": null,
-                            "order": 1
-                        },
-                        {
-                            "id": "cmaunw4ba003bnla45wked3mz",
-                            "titleEn": "Ahmed Basiony",
-                            "titleAr": "أحمد بسيوني",
-                            "slug": "ahmed-basiony",
-                            "icon": null,
-                            "image": null,
-                            "order": 2
-                        },
-                        {
-                            "id": "cmaunw4c1003knla4bhcztm7n",
-                            "titleEn": "Khaled El Kholy",
-                            "titleAr": "خالد الخولي",
-                            "slug": "khaled-el-kholy",
-                            "icon": null,
-                            "image": null,
-                            "order": 3
-                        },
-                        {
-                            "id": "cmaunw4cr003tnla45dbt7s5u",
-                            "titleEn": "Mostafa Sayed",
-                            "titleAr": "سيد مصطفى",
-                            "slug": "mostafa-sayed",
-                            "icon": null,
-                            "image": null,
-                            "order": 4
-                        },
-                        {
-                            "id": "cmaunw4dg0042nla4mrh4x2x8",
-                            "titleEn": "Amro Khatab",
-                            "titleAr": "عمرو خطاب",
-                            "slug": "amro-khatab",
-                            "icon": null,
-                            "image": null,
-                            "order": 5
-                        },
-                        {
-                            "id": "cmaunw4e5004bnla4xj6v1rb0",
-                            "titleEn": "Sherif Mekky",
-                            "titleAr": "شريف مكي",
-                            "slug": "sherif-mekky",
-                            "icon": null,
-                            "image": null,
-                            "order": 6
+                            "sectionId": "cmaunw5gh00jonla46xiq7erj",
+                            "order": 3,
+                            "version": 1,
+                            "title": "otherSecondLevelOFServices-equipment-rental-20c9",
+                            "content": {
+                                "title": {
+                                    "ar": "خدمات أخرى",
+                                    "en": "Other Services"
+                                },
+                                "button": [
+                                    {
+                                        "url": null,
+                                        "icon": null,
+                                        "text": {
+                                            "ar": "عرض التفاصيل",
+                                            "en": "View Details"
+                                        },
+                                        "order": 1
+                                    }
+                                ]
+                            }
                         }
                     ]
                 }
-            ]
+            },
+            {
+                "id": "cmaunw5cu00i3nla4uqigru60",
+                "titleEn": "Fabrication",
+                "titleAr": "التصنيع",
+                "slug": "fabrication",
+                "resourceType": "SUB_PAGE",
+                "resourceTag": "SERVICE",
+                "relationType": "CHILD",
+                "liveModeVersionData": {
+                    "id": "cmaunw5cw00i5nla4o4ul8jfs",
+                    "versionNumber": 1,
+                    "icon": null,
+                    "image": null,
+                    "sections": [
+                        {
+                            "sectionId": "cmaunw5d600i7nla4yhs8jfup",
+                            "order": 1,
+                            "version": 1,
+                            "title": "introSection-fabrication-9fc9",
+                            "content": {
+                                "title": {
+                                    "ar": "التصنيع",
+                                    "en": "Fabrication"
+                                },
+                                "images": [
+                                    {
+                                        "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/fabrication.png",
+                                        "order": 1,
+                                        "altText": {
+                                            "ar": "صورة التصنيع",
+                                            "en": "Fabrication Image"
+                                        }
+                                    }
+                                ],
+                                "description": {
+                                    "ar": "نقدم خدمات تصنيع عالية الجودة باستخدام أحدث التقنيات لتلبية متطلبات المشاريع الصناعية والتجارية.",
+                                    "en": "We offer high-quality fabrication services using advanced technologies to meet industrial and commercial project needs."
+                                }
+                            }
+                        },
+                        {
+                            "sectionId": "cmaunw5dj00idnla4tz1grdg2",
+                            "order": 2,
+                            "version": 1,
+                            "title": "childrenServices-fabrication-c635",
+                            "content": {
+                                "button": [
+                                    {
+                                        "url": null,
+                                        "icon": null,
+                                        "text": {
+                                            "ar": "عرض التفاصيل",
+                                            "en": "View Details"
+                                        },
+                                        "order": 1
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "sectionId": "cmaunw5eh00itnla4k8vyx9iv",
+                            "order": 3,
+                            "version": 1,
+                            "title": "otherSecondLevelOFServices-fabrication-3d17",
+                            "content": {
+                                "title": {
+                                    "ar": "خدمات أخرى",
+                                    "en": "Other Services"
+                                },
+                                "button": [
+                                    {
+                                        "url": null,
+                                        "icon": null,
+                                        "text": {
+                                            "ar": "عرض التفاصيل",
+                                            "en": "View Details"
+                                        },
+                                        "order": 1
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "id": "cmaunw5aq00h8nla4dvpwfiio",
+                "titleEn": "Operation & Maintenance",
+                "titleAr": "التشغيل والصيانة",
+                "slug": "operation-maintenance",
+                "resourceType": "SUB_PAGE",
+                "resourceTag": "SERVICE",
+                "relationType": "CHILD",
+                "liveModeVersionData": {
+                    "id": "cmaunw5at00hanla4hp6kj77w",
+                    "versionNumber": 1,
+                    "icon": null,
+                    "image": null,
+                    "sections": [
+                        {
+                            "sectionId": "cmaunw5b200hcnla4p8ma0l2v",
+                            "order": 1,
+                            "version": 1,
+                            "title": "introSection-operation-maintenance-2ff9",
+                            "content": {
+                                "title": {
+                                    "ar": "التشغيل والصيانة",
+                                    "en": "Operation & Maintenance"
+                                },
+                                "images": [
+                                    {
+                                        "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/operation-maintenance.png",
+                                        "order": 1,
+                                        "altText": {
+                                            "ar": "صورة التشغيل والصيانة",
+                                            "en": "Operation & Maintenance Image"
+                                        }
+                                    }
+                                ],
+                                "description": {
+                                    "ar": "نضمن استمرارية الأداء الأمثل من خلال خدمات تشغيل وصيانة فعالة للمرافق والبنية التحتية.",
+                                    "en": "We ensure optimal performance continuity through efficient facility and infrastructure operation and maintenance services."
+                                }
+                            }
+                        },
+                        {
+                            "sectionId": "cmaunw5bh00hinla4i7jh3hz9",
+                            "order": 2,
+                            "version": 1,
+                            "title": "childrenServices-operation-maintenance-8499",
+                            "content": {
+                                "button": [
+                                    {
+                                        "url": null,
+                                        "icon": null,
+                                        "text": {
+                                            "ar": "عرض التفاصيل",
+                                            "en": "View Details"
+                                        },
+                                        "order": 1
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "sectionId": "cmaunw5cj00hynla41zx0zfv0",
+                            "order": 3,
+                            "version": 1,
+                            "title": "otherSecondLevelOFServices-operation-maintenance-2a3f",
+                            "content": {
+                                "title": {
+                                    "ar": "خدمات أخرى",
+                                    "en": "Other Services"
+                                },
+                                "button": [
+                                    {
+                                        "url": null,
+                                        "icon": null,
+                                        "text": {
+                                            "ar": "عرض التفاصيل",
+                                            "en": "View Details"
+                                        },
+                                        "order": 1
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "id": "cmaunw58p00gdnla4788huhol",
+                "titleEn": "Project Services",
+                "titleAr": "خدمات المشروع",
+                "slug": "project-services",
+                "resourceType": "SUB_PAGE",
+                "resourceTag": "SERVICE",
+                "relationType": "CHILD",
+                "liveModeVersionData": {
+                    "id": "cmaunw58r00gfnla457yittnu",
+                    "versionNumber": 1,
+                    "icon": null,
+                    "image": null,
+                    "sections": [
+                        {
+                            "sectionId": "cmaunw59100ghnla4l3nf9uzk",
+                            "order": 1,
+                            "version": 1,
+                            "title": "introSection-project-services-7fbe",
+                            "content": {
+                                "title": {
+                                    "ar": "خدمات المشروع",
+                                    "en": "Project Services"
+                                },
+                                "images": [
+                                    {
+                                        "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/project-services.png",
+                                        "order": 1,
+                                        "altText": {
+                                            "ar": "صورة خدمات المشروع",
+                                            "en": "Project Services Image"
+                                        }
+                                    }
+                                ],
+                                "description": {
+                                    "ar": "نقدم مجموعة شاملة من خدمات إدارة وتنفيذ المشاريع لضمان تحقيق الأهداف في الوقت المحدد وضمن الميزانية.",
+                                    "en": "We provide a comprehensive range of project execution and management services to ensure timely and cost-effective delivery."
+                                }
+                            }
+                        },
+                        {
+                            "sectionId": "cmaunw59e00gnnla48nmc0fd5",
+                            "order": 2,
+                            "version": 1,
+                            "title": "childrenServices-project-services-e0c1",
+                            "content": {
+                                "button": [
+                                    {
+                                        "url": null,
+                                        "icon": null,
+                                        "text": {
+                                            "ar": "عرض التفاصيل",
+                                            "en": "View Details"
+                                        },
+                                        "order": 1
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "sectionId": "cmaunw5ah00h3nla436es9l4z",
+                            "order": 3,
+                            "version": 1,
+                            "title": "otherSecondLevelOFServices-project-services-04ad",
+                            "content": {
+                                "title": {
+                                    "ar": "خدمات أخرى",
+                                    "en": "Other Services"
+                                },
+                                "button": [
+                                    {
+                                        "url": null,
+                                        "icon": null,
+                                        "text": {
+                                            "ar": "عرض التفاصيل",
+                                            "en": "View Details"
+                                        },
+                                        "order": 1
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                }
+            },
+            {
+                "id": "cmaunw56s00finla4z5o585nm",
+                "titleEn": "Construction Management",
+                "titleAr": "إدارة البناء",
+                "slug": "construction-management",
+                "resourceType": "SUB_PAGE",
+                "resourceTag": "SERVICE",
+                "relationType": "CHILD",
+                "liveModeVersionData": {
+                    "id": "cmaunw56u00fknla4q36tjyak",
+                    "versionNumber": 1,
+                    "icon": null,
+                    "image": null,
+                    "sections": [
+                        {
+                            "sectionId": "cmaunw57400fmnla4ufkk2238",
+                            "order": 1,
+                            "version": 1,
+                            "title": "introSection-construction-management-4d25",
+                            "content": {
+                                "title": {
+                                    "ar": "إدارة البناء",
+                                    "en": "Construction Management"
+                                },
+                                "images": [
+                                    {
+                                        "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
+                                        "order": 1,
+                                        "altText": {
+                                            "ar": "صورة إدارة البناء",
+                                            "en": "Construction Management Image"
+                                        }
+                                    }
+                                ],
+                                "description": {
+                                    "ar": "نحن متخصصون في تقديم حلول إدارة البناء التي تضمن تنفيذ المشاريع بكفاءة وجودة عالية، من مرحلة التصميم حتى التسليم.",
+                                    "en": "We specialize in providing construction management solutions that ensure project execution with high efficiency and quality, from design to delivery."
+                                }
+                            }
+                        },
+                        {
+                            "sectionId": "cmaunw57g00fsnla446vkh1ju",
+                            "order": 2,
+                            "version": 1,
+                            "title": "childrenServices-construction-management-028c",
+                            "content": {
+                                "button": [
+                                    {
+                                        "url": null,
+                                        "icon": null,
+                                        "text": {
+                                            "ar": "عرض التفاصيل",
+                                            "en": "View Details"
+                                        },
+                                        "order": 1
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "sectionId": "cmaunw58h00g8nla4hvmmw7mo",
+                            "order": 3,
+                            "version": 1,
+                            "title": "otherSecondLevelOFServices-construction-management-27b6",
+                            "content": {
+                                "title": {
+                                    "ar": "خدمات أخرى",
+                                    "en": "Other Services"
+                                },
+                                "button": [
+                                    {
+                                        "url": null,
+                                        "icon": null,
+                                        "text": {
+                                            "ar": "عرض التفاصيل",
+                                            "en": "View Details"
+                                        },
+                                        "order": 1
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                }
+            }
+        ],
+        "pagination": {
+            "totalResources": 5,
+            "totalPages": 1,
+            "currentPage": 1,
+            "limit": 100
         }
     }
 }

@@ -81,7 +81,7 @@ const AllForOne = ({ language, screen, content, subPath, setLanguage, fullScreen
                     <CareerPage language={language} currentContent={content} screen={screen} /> : ""
             }
             {
-                currentPath === "news" ? subPath ?
+                currentPath === "news-blogs" ? subPath ?
                     <NewsBlogDetailPage language={language} contentOn={content?.newsBlogsDetails} newsId={subPath} screen={screen} /> :
                     <NewsPage language={language} currentContent={content} screen={screen} /> : ""
             }

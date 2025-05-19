@@ -52,7 +52,7 @@ const EditPage = () => {
 
     const Routes = [
         'home', 'solution', 'about-us', "service", 'market',
-        'projects', "project", 'careers', "career", 'news', 'footer',
+        'projects', "project", 'careers', "career", 'news-blogs', 'footer',
         'header', 'testimonials', 'testimonial']
 
     useEffect(() => {

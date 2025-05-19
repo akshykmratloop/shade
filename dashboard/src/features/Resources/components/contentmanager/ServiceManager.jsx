@@ -7,9 +7,11 @@ import MultiSelect from "../breakUI/MultiSelect"
 const ServiceManager = ({ currentContent, currentPath, language, indexes }) => {
     const [subService, setServicesOptions] = useState(null)
 
+    console.log(subService)
+
     useEffect(() => {
         async function getOptionsforServices() {
-            const response = await getResources({ resourceType: "SUB_PAGE", resourceTag: "SERVICE", apiCallType: "INTERNAL" })
+            const response = await getResources({ resourceType: "SUB_PAGE", resourceTag: "SERVICE", apiCallType: "INTERNAL", fetchType: "CONTENT" })
             if (response.message === "Success") {
                 let options = response?.resources?.resources?.map((e, i) => ({
                     id: e.id,
@@ -18,7 +20,8 @@ const ServiceManager = ({ currentContent, currentPath, language, indexes }) => {
                     titleEn: e.titleEn,
                     titleAr: e.titleAr,
                     // icon: e.icon,
-                    // image: e.image
+                    image: e?.liveModeVersionData?.sections?.image,
+                    description: e?.liveModeVersionData?.sections?.[0]?.content.description
                 }))
                 setServicesOptions(options)
             }
@@ -51,8 +54,9 @@ const ServiceManager = ({ currentContent, currentPath, language, indexes }) => {
                 language={language}
                 label={"Select Services List"}
                 tabName={"Select Services"}
-                options={currentContent?.serviceCards}
-                referenceOriginal={{ dir: "serviceCards" }}
+                options={currentContent?.['2']?.items}
+                listOptions={subService}
+                referenceOriginal={{ dir: "home" }}
                 currentContent={currentContent}
                 sectionIndex={indexes?.['2']}
             />
