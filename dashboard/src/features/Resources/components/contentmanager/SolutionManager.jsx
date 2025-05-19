@@ -6,7 +6,7 @@ import content from "../websiteComponent/content.json"
 import { useDispatch } from "react-redux";
 import DynamicContentSection from "../breakUI/DynamicContentSection";
 
-const SolutionManager = ({ currentPath, language, currentContent }) => {
+const SolutionManager = ({ currentPath, language, currentContent, indexes }) => {
     const dispatch = useDispatch()
 
     const addExtraSummary = (section) => {
@@ -29,8 +29,10 @@ const SolutionManager = ({ currentPath, language, currentContent }) => {
     }
 
     useEffect(() => {
-        dispatch(updateMainContent({ currentPath: "solutions", payload: (content?.solutions) }))
+
+        return () => dispatch(updateMainContent({ currentPath: "content", payload: undefined }))
     }, [])
+
     return (
         <div className="w-full">
             {/* reference doc */}
@@ -40,14 +42,16 @@ const SolutionManager = ({ currentPath, language, currentContent }) => {
                 currentPath={currentPath}
                 Heading={"Solution Banner"}
                 inputs={[
-                    { input: "input", label: "Heading/title", updateType: "title" },
-                    { input: "textarea", label: "Description", updateType: "description", maxLength: 300 },
-                    { input: "input", label: "Button Text", updateType: "button", maxLength: 20 }
+                    { input: "input", label: "Heading/title", updateType: "title", value: currentContent?.["1"]?.content?.title?.[language] },
+                    { input: "textarea", label: "Description", updateType: "description", maxLength: 300, value: currentContent?.["1"]?.content?.description?.[language] },
+                    { input: "input", label: "Button Text", updateType: "button", maxLength: 20, value: currentContent?.["1"]?.content?.button?.[0]?.text?.[language] }
                 ]}
                 inputFiles={[{ label: "Background Image", id: "bannerBackground" },]}
                 section={"banner"}
                 language={language}
                 currentContent={currentContent}
+                sectionIndex={indexes?.['1']}
+
             />
 
             {/**What We Do */}
@@ -67,28 +71,30 @@ const SolutionManager = ({ currentPath, language, currentContent }) => {
             <div className="mt-4 border-b">
                 <h3 className={`font-semibold text-[1.25rem] mb-4`}>Description</h3>
                 {
-                    currentContent?.whatWeDo?.map((element, index, a) => {
+                    currentContent?.['2']?.content?.map((element, index, a) => {
                         const isLast = index === a.length - 1
+                        console.log(index)
                         return (
                             <DynamicContentSection key={index}
                                 currentPath={currentPath}
                                 subHeading={"Section " + (index + 1)}
                                 inputs={[
-                                    { input: "input", label: "Title", updateType: "title", maxLength: 35 },
-                                    { input: "richtext", label: "Description", updateType: "description"},
+                                    { input: "input", label: "Title", updateType: "title", maxLength: 35, value: element?.title?.[language] },
+                                    { input: "richtext", label: "Description", updateType: "description", value: element?.description?.[language] },
                                 ]}
                                 section={"whatWeDo"}
                                 index={index}
                                 language={language}
                                 currentContent={currentContent}
                                 isBorder={false}
-                                type={'rich'}
-
+                                // type={'rich'}
+                                sectionIndex={indexes?.['2']}
+                                contentIndex={index}
                             />
                         )
                     })
                 }
-                <button className="text-blue-500 cursor-pointer mb-3" onClick={()=>addExtraSummary('whatWeDo')}>Add More Section...</button>
+                <button className="text-blue-500 cursor-pointer mb-3" onClick={() => addExtraSummary('whatWeDo')}>Add More Section...</button>
             </div>
 
             {/** Gallery */}
@@ -104,6 +110,8 @@ const SolutionManager = ({ currentPath, language, currentContent }) => {
                 language={language}
                 currentContent={currentContent}
                 allowExtraInput={true}
+                sectionIndex={indexes?.['3']}
+
             />
 
             {/**How We Do */}
@@ -118,7 +126,7 @@ const SolutionManager = ({ currentPath, language, currentContent }) => {
                 language={language}
                 currentContent={currentContent}
             /> */}
-            <div className="mt-4 border-b">
+            {/* <div className="mt-4 border-b">
                 <h3 className={`font-semibold text-[1.25rem] mb-4`}>Description 2</h3>
                 {
                     currentContent?.howWeDo?.map((element, index, a) => {
@@ -129,7 +137,7 @@ const SolutionManager = ({ currentPath, language, currentContent }) => {
                                 subHeading={"Section " + (index + 1)}
                                 inputs={[
                                     { input: "input", label: "Title", updateType: "title" },
-                                    { input: "richtext", label: "Description", updateType: "description"},
+                                    { input: "richtext", label: "Description", updateType: "description" },
                                 ]}
                                 section={"howWeDo"}
                                 index={index}
@@ -137,13 +145,15 @@ const SolutionManager = ({ currentPath, language, currentContent }) => {
                                 currentContent={currentContent}
                                 isBorder={false}
                                 type={'rich'}
+                                sectionIndex={indexes?.['1']}
+
 
                             />
                         )
                     })
                 }
-                <button className="text-blue-500 cursor-pointer mb-3" onClick={()=>addExtraSummary('howWeDo')}>Add More Section...</button>
-            </div>
+                <button className="text-blue-500 cursor-pointer mb-3" onClick={() => addExtraSummary('howWeDo')}>Add More Section...</button>
+            </div> */}
 
             <ContentSection
                 currentPath={currentPath}
@@ -157,6 +167,8 @@ const SolutionManager = ({ currentPath, language, currentContent }) => {
                 language={language}
                 currentContent={currentContent}
                 allowExtraInput={true}
+                sectionIndex={indexes?.['4']}
+
             />
         </div>
     )

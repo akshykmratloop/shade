@@ -31,7 +31,9 @@ const DynamicContentSection = ({
     careerIndex,
     newsId,
     deepPath,
-    type
+    // type,
+    sectionIndex,
+    contentIndex
 }) => {
     const dispatch = useDispatch();
     const [extraFiles, setExtraFiles] = useState([]);
@@ -89,11 +91,11 @@ const DynamicContentSection = ({
         }
     }
 
-    const updateFormValue = ({ updateType, value }) => {
+    const updateFormValue = ({ updateType, value, path }) => {
         if (updateType === 'count') {
             if (!isNaN(value)) {
                 let val = value?.slice(0, 7);
-                dispatch(updateServicesNumber({ section, title: updateType, value: val, subSection, index, currentPath }));
+                dispatch(updateServicesNumber({ section, title: updateType, value: val, subSection, index, currentPath, sectionIndex }));
             }
         } else {
             dispatch(updateSpecificContent({
@@ -109,7 +111,10 @@ const DynamicContentSection = ({
                 projectId,
                 careerId,
                 deepPath,
-                type
+                type: "content[index]", 
+                sectionIndex,
+                contentIndex,
+                path
             }));
         }
     };
@@ -119,7 +124,7 @@ const DynamicContentSection = ({
         if (updateType === 'count') {
             if (!isNaN(value)) {
                 let val = value?.slice(0, 7);
-                dispatch(updateServicesNumber({ section, title: updateType, value: val, subSection, index, currentPath }));
+                dispatch(updateServicesNumber({ section, title: updateType, value: val, subSection, index, currentPath, sectionIndex}));
             }
         } else {
             dispatch(updateSpecificContent({
@@ -135,7 +140,9 @@ const DynamicContentSection = ({
                 projectId,
                 careerId,
                 deepPath,
-                type
+                type: "content[index]",
+                sectionIndex,
+                contentIndex
             }));
         }
     };
@@ -186,43 +193,7 @@ const DynamicContentSection = ({
             <h3 className={`font-semibold ${subHeading ? "text-[.9rem] mb-1" : Heading ? "text-[1.25rem] mb-4" : " mb-0"}`}>{Heading || subHeading}</h3>
             {inputs.length > 0 &&
                 inputs.map((input, i) => {
-                    let valueExpression;
-                    if (deepPath) {
-                        valueExpression = currentContent?.[projectId]?.[deepPath - 1]?.[section]?.[index]?.[input.updateType]?.[language]
-                    } else if (projectId && !careerId) {
-                        if (subSection) {
-                            valueExpression = currentContent?.[projectId - 1]?.[section]?.[subSection]?.[index]?.[input.updateType]?.[language];
-                        } else if (input.updateType === 'url') {
-                            valueExpression = currentContent?.[projectId - 1]?.[section]?.[input.updateType];
-                        } else if (section === 'descriptionSection') {
-                            valueExpression = currentContent?.[projectId - 1]?.[section]?.[index]?.[input.updateType]?.[language];
-                        } else {
-                            valueExpression = currentContent?.[projectId - 1]?.[section]?.[input.updateType]?.[language];
-                        }
-                    } else if (subSectionsProMax === "Links") {
-                        valueExpression = currentContent?.[section]?.[subSection]?.[index]?.[input.updateType];
-                    } else if (subSectionsProMax) {
-                        if (careerId) {
-                            valueExpression = currentContent?.[projectId - 1]?.[section]?.[subSection]?.[subSectionsProMax]?.[index]?.[input.updateType]?.[language];
-                        } else {
-                            valueExpression = currentContent?.[section]?.[subSection]?.[index]?.[subSectionsProMax]?.[subSecIndex]?.[input.updateType]?.[language];
-                        }
-                    } else if (subSection && typeof currentContent?.[section]?.[subSection]?.[index]?.[input.updateType] !== "object") {
-                        valueExpression = currentContent?.[section]?.[subSection]?.[index]?.[input.updateType];
-                    } else if (subSection === 'url') {
-                        valueExpression = currentContent?.[section]?.[subSection]?.[index]?.[input.updateType];
-                    } else if (subSection) {
-                        valueExpression = currentContent?.[section]?.[subSection]?.[index]?.[input.updateType]?.[language];
-                    } else if (type === 'rich') {
-                        valueExpression = currentContent?.[section]?.[index]?.[input.updateType]?.[language];
-                    } else {
-                        if (careerId) {
-                            // console.log(currentContent?.[projectId - 1]?.[section]?.[index]?.[input.updateType]?.[language])
-                            valueExpression = currentContent?.[projectId - 1]?.[section]?.[index]?.[input.updateType]?.[language];
-                        } else {
-                            valueExpression = currentContent?.[section]?.[input.updateType]?.[language];
-                        }
-                    }
+
 
                     if (input.input === "textarea") {
                         return (
@@ -233,7 +204,7 @@ const DynamicContentSection = ({
                                 updateFormValue={updateFormValue}
                                 updateType={input.updateType}
                                 section={section}
-                                defaultValue={valueExpression || ""}
+                                defaultValue={input.value || ""}
                                 language={language}
                                 id={input.updateType}
                                 maxLength={input.maxLength}
@@ -244,7 +215,7 @@ const DynamicContentSection = ({
                             <div dir={language === 'en' ? 'ltr' : 'rtl'} key={i}>
                                 <JoditEditor
                                     ref={editor}
-                                    value={valueExpression}
+                                    value={input.value}
                                     config={config}
                                     onChange={(newContent) => {
                                         const trimmedVal = newContent.slice(0, input.maxLength);
@@ -267,7 +238,7 @@ const DynamicContentSection = ({
                                 updateFormValue={updateFormValue}
                                 updateType={input.updateType}
                                 section={section}
-                                defaultValue={valueExpression || ""}
+                                defaultValue={input.value || ""}
                                 language={language}
                                 id={input.updateType}
                                 required={false}

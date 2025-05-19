@@ -3,6 +3,7 @@ import Resources from "./Resources";
 import EditPage from "./EditPage";
 import { lazy, Suspense } from "react";
 import SuspenseContent from "../../containers/SuspenseContent";
+import VersionTable from "./VersionTable";
 
 
 const Resource = () => {
@@ -10,7 +11,8 @@ const Resource = () => {
     return (
         <Suspense fallback={<SuspenseContent />}>
             <Routes>
-                <Route index element={<Resources />} />
+                <Route path="pages" element={<Resources />} />
+                <Route path="versions/" element={<VersionTable />} />
                 <Route path="edit/*" element={<EditPage />} />
                 <Route path="*" element={<Page404 />} />
             </Routes>

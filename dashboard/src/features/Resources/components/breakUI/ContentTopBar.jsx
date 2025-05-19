@@ -74,7 +74,7 @@ export default function ContentTopBar({ setWidth, setFullScreen, currentPath, ou
         const paylaod = transformContent(ReduxState.present.content)
 
         // console.log(JSON.stringify(paylaod))
-        dispatch(saveInitialContentValue(paylaod))
+        dispatch(saveInitialContentValue(ReduxState.present.content))
         setSavedChanges(true)
         try {
 
@@ -208,7 +208,7 @@ export default function ContentTopBar({ setWidth, setFullScreen, currentPath, ou
         <div className='flex justify-between gap-2 items-center xl:px-[2.36rem] xl:py-[1.2rem] sm:px-[.8rem] sm:py-[.5rem] lg:px-[.8rem] bg-[#fafaff] dark:bg-[#242933]'>
             <div className='flex items-center gap-2'>
                 <span className='text-[black] dark:text-[#fafaff] flex items-center cursor-pointer'
-                    onClick={() => navigate("../../resources")}>
+                    onClick={() => navigate(-1)}>
 
                     <FaArrowLeftLong className={`h-[1.25rem] w-[1.19rem]`} />
                 </span>

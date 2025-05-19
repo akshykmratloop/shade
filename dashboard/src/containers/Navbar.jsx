@@ -3,11 +3,11 @@ import { updateName, updateTag, updateType } from "../features/common/navbarSlic
 import capitalizeWords from "../app/capitalizeword";
 
 const Navbar = ({ setCurrentResource }) => {
-    const userPermissions = useSelector(state => state.user.user?.permissions);
-    const currentNav = useSelector(state => state.navBar.resourceTag)
+    // const userPermissions = useSelector(state => state.user.user?.permissions);
+    // const currentNav = useSelector(state => state.navBar.resourceTag)
     const currentName = useSelector(state => state.navBar.name)
     const dispatch = useDispatch();
-    const permissionsSet = new Set(userPermissions);
+    // const permissionsSet = new Set(userPermissions);
 
 
     const navs = [
@@ -23,12 +23,12 @@ const Navbar = ({ setCurrentResource }) => {
         { name: "Footer", resourceType: "FOOTER", resourceTag: "FOOTER", permission: ["HEADER_MANAGEMENT", "FOOTER_MANAGEMENT"] },
     ];
 
-    const hasPermission = (required) => {
-        if (Array.isArray(required)) {
-            return required.some(p => permissionsSet.has(p));
-        }
-        return permissionsSet.has(required);
-    };
+    // const hasPermission = (required) => {
+    //     if (Array.isArray(required)) {
+    //         return required.some(p => permissionsSet.has(p));
+    //     }
+    //     return permissionsSet.has(required);
+    // };
 
     const settingResources = (resource, tag, name) => {
         dispatch(updateType(resource));

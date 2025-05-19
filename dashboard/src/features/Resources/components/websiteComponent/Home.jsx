@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import {
+    useDispatch,
     useSelector,
 } from "react-redux";
 import Arrow from "../../../../assets/icons/right-wrrow.svg";
@@ -28,10 +29,11 @@ import dynamicSize, { generatefontSize } from "../../../../app/fontSizes";
 import { differentText } from "../../../../app/fontSizes";
 // import contentJSON from './content.json'
 import { Img_url } from "../../../../routes/backend";
+import { updateMainContent } from "../../../common/homeContentSlice";
 
 
 const HomePage = ({ language, screen, fullScreen, highlight, content, currentContent, liveContent }) => {
-
+    const dispatch = useDispatch()
     const checkDifference = differentText?.checkDifference.bind(differentText);
     const isComputer = screen > 900;
     const isTablet = screen < 900 && screen > 730;
@@ -55,9 +57,8 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
     };
     const projectsPerSlide = 4;
 
-    console.log(content?.projectGrid?.sections)
     let projectChunks = chunkArray(
-        content?.projectGrid?.sections?.[activeRecentProjectSection]?.items || [],
+        content?.["5"]?.sections?.[activeRecentProjectSection]?.items || [],
         projectsPerSlide
     );
     const ProjectSlider = { ...recentProjects, ...markets, ...safety };
@@ -93,45 +94,49 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
     }, [language]);
 
 
+    useEffect(() => {
+        return () => dispatch(updateMainContent({ currentPath: "content", payload: undefined }))
+    }, [])
     const testimonialPrevRef = useRef(null);
     const testimonialNextRef = useRef(null);
     return (
         <div className={`w-full relative ${textAlignment} bankgothic-medium-dt bg-[white]`} ref={divRef}>
-            {/* banner */}
+            {/* banner 1  */}
             <section className="w-full relative"
             >
-                <span
-                    className={`w-full min-h-[400px] block ${language === "en" ? "scale-x-100" : "scale-x-[-1]"
+                <div
+                    className={`w-full overflow-y-hidden min-h-[400px] block ${language === "en" ? "scale-x-100" : "scale-x-[-1]"
                         }`}
+                    style={{ height: dynamicSize(715, width) }}
                 >
                     <img
                         dir={isLeftAlign ? "ltr" : "rtl"}
-                        src={`${Img_url}${content?.heroBanner?.content?.image[0]}`}
-                        alt="Banner Image"
-                        className="w-[full] h-full object-cover"
+                        src={`${Img_url}${content?.["1"]?.content?.images[0].url}`}
+                        alt={content?.["1"]?.content?.images[0].url}
+                        className="w-full object-cover"
                         style={{ objectPosition: "center", transform: "scaleX(-1)", height: isTablet ? "500px" : isPhone && "500px" }} />
-                </span>
+                </div>
                 <div
                     className={`container mx-auto absolute ${isComputer ? "top-[20%]" : "top-16"}  left-0 right-0 px-4`}>
                     <div className={`text-left flex flex-col ${language === "en" ? "items-start" : "items-end"} ${textAlignment} ${isPhone ? "px-[0px] py-10" : "px-[80px]"}`}
                         style={{ paddingLeft: isComputer && dynamicSize(140, width) }}>
-                        <h1 className={`${(highlight && checkDifference(content?.heroBanner?.content?.title[language], liveContent?.heroBanner?.content?.title[language]))} text-[#292E3D] text-[45px] tracking-[0px]  leading-[2.5rem] capitalize font-[500] mb-4 ${isPhone ? "w-full" : fullScreen ? "w-3/5" : "w-3/5"}  `}
+                        <h1 className={`${(highlight && checkDifference(content?.["1"]?.content?.title[language], liveContent?.["1"]?.content?.title[language]))} text-[#292E3D] text-[45px] tracking-[0px]  leading-[2.5rem] capitalize font-[500] mb-4 ${isPhone ? "w-full" : fullScreen ? "w-3/5" : "w-3/5"}  `}
                             style={{ fontSize: fontSize?.mainHeading, lineHeight: isComputer && `${(width / 1526) * 4.5}rem`, }}
                         >
-                            {content?.heroBanner?.content?.title[language]}
+                            {content?.["1"]?.content?.title[language]}
                         </h1>
-                        <p className={`${(highlight && checkDifference(content?.heroBanner?.content?.description[language], liveContent?.heroBanner?.content?.description[language]))} text-[#0e172fb3] font-[500] leading-[16px] mb-6 ${isPhone ? "w-full text-[12px]" : "w-1/2 text-[10px]"} tracking-[0px]`}
+                        <p className={`${(highlight && checkDifference(content?.["1"]?.content?.description[language], liveContent?.["1"]?.content?.description[language]))} text-[#0e172fb3] font-[500] leading-[16px] mb-6 ${isPhone ? "w-full text-[12px]" : "w-1/2 text-[10px]"} tracking-[0px]`}
                             style={{ fontSize: fontSize.mainPara, lineHeight: isComputer && `${width / 1526 * 24}px` }}
                         >
-                            {content?.heroBanner?.content?.description[language]}
+                            {content?.["1"]?.content?.description[language]}
                         </p>
                         <button
                             className={`relative items-center flex ${isLeftAlign ? "" : "flex-row-reverse"} gap-2 text-[12px] font-medium px-[12px] py-[6px] px-[12px] bg-[#00b9f2] text-white rounded-md`}
                             style={{ fontSize: fontSize.mainButton }}
                             onClick={() => { }}
                         >
-                            <span className={`${(highlight && checkDifference(content?.heroBanner?.content?.button?.[0]?.text?.[language], content?.heroBanner?.content?.button?.[0]?.text?.[language]))}`}>
-                                {content?.heroBanner?.content?.button?.[0]?.text?.[language]}</span>
+                            <span className={`${(highlight && checkDifference(content?.["1"]?.content?.button?.[0]?.text?.[language], content?.["1"]?.content?.button?.[0]?.text?.[language]))}`}>
+                                {content?.["1"]?.content?.button?.[0]?.text?.[language]}</span>
                             <img
                                 src={Arrow}
                                 width="10"
@@ -143,13 +148,13 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                     </div>
                 </div>
             </section>
-            {/* about us section */}
+            {/* about us section 2 */}
             <section className={` ${isPhone ? "px-2 py-[60px]" : isTablet ? "px-[80px] py-[120px]" : "px-[150px] py-[120px]"} ${language === "en" ? "" : " direction-rtl"} items-start`}>
                 <div className={`relative container mx-auto flex ${isPhone ? "flex-col" : ""} ${isLeftAlign ? "" : "flex-row-reverse"} items-center`}>
                     {/* Image section */}
                     <div className={`${isPhone ? "w-[90%]" : "w-[70%]"} h-[500px] overflow-hidden rounded-sm shadow-lg `}
                         style={{ height: isComputer && dynamicSize(629, width), width: isComputer && dynamicSize(877, width) }}>
-                        <img src={`${Img_url}${content?.markdownContent?.content?.image[0]}`} alt="about-us" className="w-full h-[500px] object-cover"
+                        <img src={`${Img_url}${content?.["2"]?.content?.images[0].url}`} alt="about-us" className="w-full h-[500px] object-cover"
                             style={{ width: isComputer && dynamicSize(877, width), height: isComputer && '100%' }}
                         />
                     </div>
@@ -157,39 +162,39 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                     <div className={`flex flex-col items-start ${isPhone ? " " : "absolute "} ${isLeftAlign ? "right-0 text-left" : "left-0 text-right"} bg-[#145098] ${isTablet ? "p-10 py-14" : "p-14 py-20"} rounded-sm w-[23rem]`}
                         style={{ gap: isComputer ? dynamicSize(26, width) : "16px", width: isComputer && dynamicSize(488, width), padding: isComputer && `${dynamicSize(98, width)} ${dynamicSize(65, width)}` }}
                     >
-                        <h2 className={`text-white text-[28px] leading-[1.8rem]  font-normal ${highlight && checkDifference(content?.markdownContent?.content?.title[language], liveContent?.markDown?.content?.title[language])}`}
+                        <h2 className={`text-white text-[28px] leading-[1.8rem]  font-normal ${highlight && checkDifference(content?.["2"]?.content?.title[language], liveContent?.["2"]?.content?.title[language])}`}
                             style={{ fontSize: isComputer && dynamicSize(36, width), lineHeight: isComputer && dynamicSize(32, width) }}>
-                            {content?.markdownContent?.content?.title[language]}
+                            {content?.["2"]?.content?.title[language]}
                         </h2>
-                        <div className={`text-white font-[100] text-[12px] leading-[16px] ${highlight && checkDifference(content?.markdownContent?.content?.description[language], liveContent?.markDown?.content?.description[language])}`}
+                        <div className={`text-white font-[100] text-[12px] leading-[16px] ${highlight && checkDifference(content?.["2"]?.content?.description[language], liveContent?.["2"]?.content?.description[language])}`}
                             style={{ fontSize: isComputer && dynamicSize(15, width), lineHeight: isComputer && dynamicSize(26, width) }}
-                            dangerouslySetInnerHTML={{ __html: content?.markdownContent?.content?.description[language] }}
+                            dangerouslySetInnerHTML={{ __html: content?.["2"]?.content?.description[language] }}
                         />
-                        <button className={`px-[6px] py-[2px] bg-[#00B9F2] text-white text-[12px] ${highlight && checkDifference(content?.markdownContent?.content?.description[language], liveContent?.markDown?.content?.description[language])} rounded-md hover:bg-opacity-90 text-right`}
+                        <button className={`px-[6px] py-[2px] bg-[#00B9F2] text-white text-[12px] ${highlight && checkDifference(content?.["2"]?.content?.description[language], liveContent?.["2"]?.content?.description[language])} rounded-md hover:bg-opacity-90 text-right`}
                             style={{ fontSize: isComputer && dynamicSize(18, width) }}
                         >
-                            {content?.markdownContent?.content?.button?.[0]?.text?.[language]}
+                            {content?.["2"]?.content?.button?.[0]?.text?.[language]}
                         </button>
                     </div>
 
                 </div>
             </section >
-            {/* service section */}
+            {/* service section 3 */}
             < section className="py-10 bg-gray-100" style={{ wordBreak: "normal" }}>
                 <div className="container mx-auto px-6"
                     style={{ padding: isComputer && `${dynamicSize(44, width)} ${dynamicSize(220, width)}` }}>
                     <h2 className={`text-center text-3xl font-light text-[#292E3D] mb-9 ${isPhone ? "text-[30px]" : "text-[40px]"}
-                    ${highlight && checkDifference(content?.serviceCards?.content?.title[language], liveContent?.serviceCards?.content?.title[language])}
+                    ${highlight && checkDifference(content?.["3"]?.content?.title[language], liveContent?.["3"]?.content?.title[language])}
                     `}
                         style={{ fontSize: isComputer && dynamicSize(36, width) }}>
-                        {content?.serviceCards?.content?.title[language]}
+                        {content?.["3"]?.content?.title[language]}
                     </h2>
 
                     <div className={`${isPhone ? "flex gap-4 flex-col" : "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 md:gap-12 sm:gap-6"}
-                    ${highlight && checkDifference(content?.serviceCards?.items, liveContent?.serviceCards?.items)}
+                    ${highlight && checkDifference(content?.["3"]?.items, liveContent?.["3"]?.items)}
                     `}
                         style={{ columnGap: isComputer && dynamicSize(96, width), rowGap: isComputer && dynamicSize(48, width) }}>
-                        {content?.serviceCards?.items?.map((card, key) => {
+                        {content?.['3']?.items?.map((card, key) => {
                             return (
                                 <div key={key} className={`w-full h-44 flex items-center justify-center p-6 rounded-md transition-transform duration-300 hover:scale-105 cursor-pointer ${key % 2 !== 0 ? "bg-blue-900 text-[white]" : " bg-stone-200"} `}>
                                     <div className="flex flex-col items-center gap-4">
@@ -205,7 +210,7 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                     </div>
                 </div>
             </section >
-            {/* experience section */}
+            {/* experience section 4 */}
             < section className={`py-[115px] overflow-hidden ${isComputer ? fullScreen ? "px-20 pt-40 pb-60" : "px-20 pb-60" : !isLeftAlign ? "px-8" : "px-10"}`} dir={isLeftAlign ? 'ltr' : "rtl"} >
                 <div
                     className={`container mx-auto flex ${isPhone ? "flex-col gap-[350px]" : "gap-10"} `}>
@@ -221,7 +226,7 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                             ${!isLeftAlign && isPhone && "left-[-310px]"}`}
                         // style={{ width: isComputer && dynamicSize(200, width) }}
                         >
-                            {content?.statistics?.content?.cards?.map((item, key) => {
+                            {content?.["4"]?.content?.cards?.map((item, key) => {
                                 // Set top position based on whether key is odd or even
                                 const topValue = Math.floor(key / 2) * 140 + (key % 2 !== 0 ? -35 : 25); // Odd = move up, Even = move down
                                 return (
@@ -267,7 +272,7 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                                 fontSize: isComputer && dynamicSize(60, width),
                                 lineHeight: isComputer && dynamicSize(70, width)
                             }}>
-                            {content?.statistics?.content?.title[language]}
+                            {content?.['4']?.content?.title[language]}
                         </h2>
                         <p className="text-[#292E3D] text-sm font-[200] leading-4 mb-8"
                             style={{
@@ -275,18 +280,18 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                                 fontSize: isComputer && dynamicSize(16, width)
                             }}
                         >
-                            {content?.statistics?.content?.description[language]}
+                            {content?.['4']?.content?.description[language]}
                         </p>
                         <button
                             className={`text-white bg-[#00B9F2] px-[12px] py-1 text-sm text-lg rounded-md ${!isLeftAlign ? '!px-4' : ''}`}
                         >
-                            {content?.statistics?.content?.button?.[0]?.text?.[language]}
+                            {content?.['4']?.content?.button?.[0]?.text?.[language]}
                         </button>
                     </div>
                 </div>
             </section >
 
-            {/* subProjects */}
+            {/* subProjects 5 */}
             < section className={`py-[58px] ${isPhone ? "px-2" : "px-8"}  relative`} dir={isLeftAlign ? 'ltr' : 'rtl'}
                 style={{ padding: isComputer && `50px ${dynamicSize(150, width)}`, }}
             >
@@ -304,7 +309,7 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                                 onClick={() => { }}
                             >
                                 {
-                                    currentContent?.recentProjectsSection?.button?.[0]?.text?.[language]
+                                    currentContent?.["5"]?.button?.[0]?.text?.[language]
                                 }
                                 <img
                                     src="https://frequencyimage.s3.ap-south-1.amazonaws.com/5d82e78b-cb95-4768-abfe-247369079ce6-bi_arrow-up.svg"
@@ -321,16 +326,16 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                         style={{ gap: isComputer && dynamicSize(70, width), width: isComputer || fullScreen ? dynamicSize(1230, width) : "100%" }}>
                         <div className={`leftDetails min-w-[150px] ${isTablet ? isPhone ? "w-[150px]" : "w-[240px]" : ""}`}
                             style={{ width: isComputer || fullScreen ? dynamicSize(424, width) : "" }}>
-                            {content?.projectGrid?.sections?.map((section, index) => (
+                            {content?.["5"]?.sections?.map((section, index) => (
                                 <div
                                     key={index}
                                     className={`relative `}
                                 >
                                     <span className={
-                                            activeRecentProjectSection === index
-                                                ? 'font-bold leading-[36px] mb-[16px] cursor-pointer relative'
-                                                : 'font-bold leading-[36px] mb-[16px] cursor-pointer'
-                                        }
+                                        activeRecentProjectSection === index
+                                            ? 'font-bold leading-[36px] mb-[16px] cursor-pointer relative'
+                                            : 'font-bold leading-[36px] mb-[16px] cursor-pointer'
+                                    }
                                         onClick={() => setActiveRecentProjectSection(index)}
                                     >
                                         <h2 className={`${activeRecentProjectSection === index ? 'text-[#292e3d]' : 'text-[#292e3d]'} text-md cursor-pointer`}
@@ -342,9 +347,9 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                                     </span>
 
                                     <p className={`${activeRecentProjectSection === index
-                                            ? 'text-[#292e3d] text-xs leading-[25px] mb-[24px] opacity-100 transform translate-y-0 transition-opacity duration-300'
-                                            : 'text-[#292e3d] text-xs leading-[25px] mb-[24px] opacity-0 h-0 transform translate-y-[-20px] transition-opacity duration-300'
-                                            }`}
+                                        ? 'text-[#292e3d] text-xs leading-[25px] mb-[24px] opacity-100 transform translate-y-0 transition-opacity duration-300'
+                                        : 'text-[#292e3d] text-xs leading-[25px] mb-[24px] opacity-0 h-0 transform translate-y-[-20px] transition-opacity duration-300'
+                                        }`}
                                         style={{ fontSize: isComputer && dynamicSize(16, width) }}
                                     >
                                         {section?.content?.description?.[language]}
@@ -443,13 +448,13 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                                     />
 
                                     {!isPhone &&
-                                        currentContent?.recentProjectsSection?.buttons?.[1]?.text[language]
+                                        currentContent?.["5"]?.buttons?.[1]?.text[language]
                                     }
                                 </button>
                                 <button ref={nextRef} className={`py-[12px] px-[20px] text-[#00B9F2] text-md font-medium border-[1px] border-[#00B9F2] rounded-[6px] flex gap-2 items-center ${isPhone ? "w-[120px]" : "min-w-[246px]"} justify-center bg-white transition-all duration-200`}
                                     style={{ fontSize: isComputer && dynamicSize(18, width) }}>
                                     {!isPhone &&
-                                        currentContent?.recentProjectsSection?.buttons?.[2]?.text[language]
+                                        currentContent?.["5"]?.buttons?.[2]?.text[language]
                                     }
                                     <img
                                         src="https://frequencyimage.s3.ap-south-1.amazonaws.com/de8581fe-4796-404c-a956-8e951ccb355a-Vector%20%287%29.svg"
@@ -465,7 +470,7 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                 </div>
             </section >
 
-            {/* client section */}
+            {/* client section 6 */}
             < section className="bg-[#00B9F2] py-12 relative" >
                 <img
                     src="https://frequencyimage.s3.ap-south-1.amazonaws.com/98d10161-fc9a-464f-86cb-7f69a0bebbd5-Group%2061%20%281%29.svg"
@@ -486,23 +491,23 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                         <h2 className="text-white text-3xl font-bold mb-4"
                             style={{ fontSize: isComputer && dynamicSize(36, width) }}
                         > {
-                        }
-                            {content?.clientLogos?.content?.title[language]}
+                            }
+                            {content?.["6"]?.content?.title[language]}
                         </h2>
                         <p className="text-white text-base font-light leading-6"
                             style={{ fontSize: isComputer && dynamicSize(16, width) }}
                         >
-                            {content?.clientLogos?.content?.description[language]}
+                            {content?.["6"]?.content?.description[language]}
                         </p>
                     </div>
                     <div className={`flex items-center justify-around ${isPhone ? "flex-col gap-4" : "flex-wrap gap-2"}`}>
-                        {content?.clientLogos?.content?.clients?.map((client, key) => (
+                        {content?.["6"]?.content?.clientsImages?.map((client, key) => (
                             <div
                                 key={key}
                                 className="w-[120px] h-[120px] bg-white rounded-full flex items-center justify-center p-5"
                             >
                                 <img
-                                    src={Img_url + client?.image?.[0]}
+                                    src={Img_url + client?.images?.[0]?.url}
                                     width={key === 3 ? 100 : 66}
                                     height={key === 3 ? 30 : 66}
                                     alt="about-us"
@@ -514,7 +519,7 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                 </div>
             </section >
 
-            {/* testomonials section  */}
+            {/* testomonials section 7 */}
             < section
                 className={`py-[40px] pb-[40px] ${!isLeftAlign && 'rtl'} mx-auto relative overflow-hidden`}
                 style={{
@@ -526,7 +531,7 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                         <h2 className="text-black text-3xl font-medium"
                             style={{ fontSize: isComputer && dynamicSize(36, width) }}
                         >
-                            {content?.testimonials?.content?.title[language]}
+                            {content?.["7"]?.content?.title[language]}
                         </h2>
                     </div>
 
@@ -540,7 +545,7 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                             !isPhone &&
                             <div className="absolute top-0 right-0 h-full w-[20%] bg-gradient-to-l from-white to-transparent pointer-events-none z-10"></div>
                         }
-                        {content?.testimonials?.items.length > 1 &&
+                        {content?.["7"]?.items?.length > 1 &&
                             < Swiper
                                 modules={[Navigation, Autoplay, EffectCoverflow]}
                                 grabCursor={true}
@@ -572,7 +577,7 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                                     500: { slidesPerView: 1 },
                                 }}
                             >
-                                {content?.testimonials?.items?.map(
+                                {content?.["7"]?.items?.map(
                                     (testimonial, index) => (
                                         <SwiperSlide key={index}
                                             dir={isLeftAlign ? "ltr" : "rtl"}
@@ -581,7 +586,7 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
 
                                                 <div className="flex 1">
                                                     <img
-                                                        src={testimonials?.[testimonial?.liveModeVersionData?.image]}
+                                                        src={["7"]?.[testimonial?.liveModeVersionData?.image]}
                                                         height={70}
                                                         width={70}
                                                         alt={testimonial?.name}
@@ -659,7 +664,7 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                 </div>
             </section >
 
-            {/* new project section */}
+            {/* new project section 8 */}
             < section className={`py-16 w-[100%] ${isPhone ? "px-[30px]" : "px-[80px]"} bg-transparent`}
                 style={{ padding: `64px ${isComputer && dynamicSize(143, width)}` }}
             >
@@ -668,12 +673,12 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                         <h2 className="text-3xl font-medium text-black mb-5"
                             style={{ fontSize: isComputer && dynamicSize(36, width) }}
                         >
-                            {content?.normalContent?.content?.title?.[language]}
+                            {content?.['8']?.content?.title?.[language]}
                         </h2>
                         <div className="relative">
                             <div className=" font-light text-black leading-7 mb-2 relative bg-transparent"
                                 style={{ fontSize: isComputer && dynamicSize(16, width) }}
-                                dangerouslySetInnerHTML={{ __html: content?.normalContent?.content?.description?.[language] }}
+                                dangerouslySetInnerHTML={{ __html: content?.['8']?.content?.description?.[language] }}
                             />
                             <i
                                 className={`absolute ${isLeftAlign ? isPhone ? "right-[130px] top-[55px]" : "right-[250px]" : "right-[152px]"} top-0  opacity-70 z-10 
@@ -692,7 +697,7 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                             className="bg-[#00B9F2] text-xs text-white px-4 py-2 text-lg mt-11 mx-auto block rounded"
                             style={{ fontSize: isComputer && dynamicSize(18, width) }}
                         >
-                            {content?.normalContent?.content?.button?.[0]?.text?.[language]}
+                            {content?.['8']?.content?.button?.[0]?.text?.[language]}
                         </button>
                     </div>
                 </div>

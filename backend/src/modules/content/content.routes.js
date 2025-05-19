@@ -10,7 +10,6 @@ import auditLogger from "../../helper/auditLogger.js";
 const router = Router();
 
 // const requiredPermissionsForContentManagement = ["ROLES_PERMISSION_MANAGEMENT"];
-
 router.get(
   "/getResources",
   //   checkPermission(requiredPermissionsForContentManagement),
@@ -116,4 +115,10 @@ router.post(
   tryCatchWrap(ContentController.PublishRequest)
 );
 
+
+router.get(
+  "/getVersionsList/:resourceId",
+  //   checkPermission(requiredPermissionsForContentManagement),
+  tryCatchWrap(ContentController.GetVersionsList)
+);
 export default router;

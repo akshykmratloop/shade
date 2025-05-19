@@ -26,19 +26,19 @@ const AllForOneManager = ({ currentPath, language, subPath, deepPath, content, c
             manager = <HomeManager outOfEditing={outOfEditing} language={language} content={content} indexes={contentIndex} currentPath={currentPath} />
             break;
 
-        case "solutions":
-            manager = <SolutionManager language={language} currentContent={content.solutions} currentPath={currentPath} />
+        case "solution":
+            manager = <SolutionManager outOfEditing={outOfEditing} language={language} currentContent={content} currentPath={currentPath} indexes={contentIndex} />
             break;
 
-        case "about":
-            manager = <AboutManager language={language} content={content} currentPath={currentPath} />
+        case "about-us":
+            manager = <AboutManager outOfEditing={outOfEditing} language={language} content={content} indexes={contentIndex} currentPath={currentPath} />
             break;
 
-        case "services":
+        case "service":
             manager = subPath ? deepPath ?
                 <SubServiceDetailManager serviceId={subPath} deepPath={deepPath} language={language} currentContent={content.subOfsubService} currentPath={"subOfsubService"} /> :
                 <ServiceDetailsManager serviceId={subPath} language={language} currentContent={content.serviceDetails} currentPath={"serviceDetails"} /> :
-                <ServiceManager language={language} currentContent={content.services} currentPath={currentPath} />
+                <ServiceManager language={language} currentContent={content} currentPath={currentPath} />
             break;
 
         case "service":
