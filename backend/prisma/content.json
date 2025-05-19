@@ -958,6 +958,15 @@
             "en": "View Our"
           },
           "icon": null
+        },
+        {
+          "order": 2,
+          "url": null,
+          "text": {
+            "ar": "عرض عملنا",
+            "en": "View Service"
+          },
+          "icon": null
         }
       ]
     }
