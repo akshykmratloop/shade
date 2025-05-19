@@ -539,43 +539,20 @@ export const fetchAllResourcesWithContent = async (
   );
 
   // If no resources found, return early
-  if (
-    !filteredResources.resources ||
-    filteredResources.resources.length === 0
-  ) {
+  if (!filteredResources.resources || filteredResources.resources.length === 0) {
     return {
       resources: [],
       pagination: filteredResources.pagination,
     };
   }
 
-  const resourceIds = filteredResources.resources.map(
-    (resource) => resource.id
-  );
-  const skip = (page - 1) * limit;
-
-  // Build the where clause based on provided filters and filtered resource IDs
-  const whereClause = {
-    id: { in: resourceIds },
-    ...(resourceType ? { resourceType } : {}),
-    ...(resourceTag ? { resourceTag } : {}),
-    ...(relationType ? { relationType } : {}),
-    ...(typeof isAssigned === "boolean" ? { isAssigned } : {}),
-    ...(status ? { status } : {}),
-    ...(search
-      ? {
-          OR: [
-            { titleEn: { contains: search, mode: "insensitive" } },
-            { titleAr: { contains: search, mode: "insensitive" } },
-            { slug: { contains: search, mode: "insensitive" } },
-          ],
-        }
-      : {}),
-  };
+  const resourceIds = filteredResources.resources.map((resource) => resource.id);
 
   // Fetch the resources with all necessary relations
   const resources = await prismaClient.resource.findMany({
-    where: whereClause,
+    where: {
+      id: { in: resourceIds }
+    },
     include: {
       liveVersion: {
         select: {
@@ -596,59 +573,29 @@ export const fetchAllResourcesWithContent = async (
       },
     },
     orderBy: { createdAt: "desc" },
-    skip,
+    skip: (page - 1) * limit,
     take: parseInt(limit),
   });
 
-  if (!resources || resources.length === 0) {
-    return {
-      resources: [],
-      pagination: {
-        totalResources: 0,
-        totalPages: 0,
-        currentPage: page,
-        limit,
-      },
-    };
-  }
-
   // Process each resource with its versions
   const formattedResources = await Promise.all(
-    resources.map(async (resource) => {
-      const formattedResource = {
-        id: resource.id,
-        titleEn: resource.titleEn,
-        titleAr: resource.titleAr,
-        slug: resource.slug,
-        resourceType: resource.resourceType,
-        resourceTag: resource.resourceTag,
-        relationType: resource.relationType,
-      };
-
-      // Process live version if it exists
-      if (resource.liveVersion) {
-        formattedResource.liveModeVersionData = await formatResourceVersionData(
-          resource.liveVersion
-        );
-      }
-
-      return formattedResource;
-    })
+    resources.map(async (resource) => ({
+      id: resource.id,
+      titleEn: resource.titleEn,
+      titleAr: resource.titleAr,
+      slug: resource.slug,
+      resourceType: resource.resourceType,
+      resourceTag: resource.resourceTag,
+      relationType: resource.relationType,
+      ...(resource.liveVersion && {
+        liveModeVersionData: await formatResourceVersionData(resource.liveVersion)
+      })
+    }))
   );
-
-  // Get total count for pagination
-  const totalResources = await prismaClient.resource.count({
-    where: whereClause,
-  });
 
   return {
     resources: formattedResources,
-    pagination: {
-      totalResources,
-      totalPages: Math.ceil(totalResources / limit),
-      currentPage: page,
-      limit,
-    },
+    pagination: filteredResources.pagination,
   };
 };
 
