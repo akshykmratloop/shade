@@ -72,7 +72,7 @@ const ContentSection = ({
     };
 
     const removeExtraFileInput = (order) => {
-        dispatch(rmImageArray({sectionIndex, order}))
+        dispatch(rmImageArray({ sectionIndex, order }))
 
         // if (section === 'gallerySection' || deepPath) {
         //     dispatch(updateImages({
@@ -94,7 +94,7 @@ const ContentSection = ({
         // }
     };
 
-    const updateFormValue = ({ updateType, value, path }) => {
+    const updateFormValue = (updateType, value, path, buttonIndex) => {
         if (updateType === 'count') {
             if (!isNaN(value)) {
                 let val = value?.slice(0, 7);
@@ -123,7 +123,8 @@ const ContentSection = ({
                 careerId,
                 deepPath,
                 sectionIndex,
-                path
+                path,
+                buttonIndex
             }));
         }
     };
@@ -208,7 +209,6 @@ const ContentSection = ({
             <h3 className={`font-semibold ${subHeading ? "text-[.9rem] mb-1" : Heading ? "text-[1.25rem] mb-4" : " mb-0"}`} style={{ wordBreak: "break-word" }}>{Heading || subHeading}</h3>
             {inputs.length > 0 &&
                 inputs.map((input, i) => {
-                    let valueExpression;
                     if (input.input === "textarea") {
                         return (
                             <TextAreaInput
@@ -257,9 +257,9 @@ const ContentSection = ({
                                 InputClasses="h-[2.125rem]"
                                 labelTitle={input.label}
                                 labelStyle="block sm:text-xs xl:text-sm"
-                                updateFormValue={updateFormValue}
+                                updateFormValue={({ updateType, value, path }) => updateFormValue(updateType, value, path, input.index)}
                                 updateType={input.updateType}
-                                section={section}
+                                // section={section}
                                 defaultValue={input.value || ""}
                                 language={language}
                                 id={input.updateType}

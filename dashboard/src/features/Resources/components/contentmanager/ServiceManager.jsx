@@ -49,7 +49,21 @@ const ServiceManager = ({ currentContent, currentPath, language, indexes }) => {
                 currentContent={currentContent}
                 sectionIndex={indexes?.['1']}
             />
+            <ContentSection
+                Heading={"Buttons"}
+                currentPath={currentPath}
+                inputs={[
+                    { input: "input", label: "Button Text 1", updateType: "button", value: currentContent?.['2']?.content?.button?.[1]?.text?.[language], index: 1 },
+                    { input: "input", label: "Button Text 2", updateType: "button", value: currentContent?.['2']?.content?.button?.[0]?.text?.[language], index: 0 }
+                ]}
+                // section={"banner"}
+                language={language}
+                currentContent={currentContent}
+                sectionIndex={indexes?.['2']}
+            />
+
             <MultiSelect
+                heading={"Select Services"}
                 currentPath={currentPath}
                 language={language}
                 label={"Select Services List"}

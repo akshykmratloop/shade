@@ -70,7 +70,7 @@ const Services = ({ currentContent, screen, language }) => {
                                     {service?.description?.[language]}
                                 </p>
                                 <button className={`text-[#00B9F2] flex gap-1 items-center mt-auto ${!isLeftAlign && "flex-rows-reverse"}`}>
-                                    {service?.button?.[language]}
+                                    {currentContent?.['2']?.content?.button?.[1]?.text?.[language]}
                                     <img
                                         src="https://frequencyimage.s3.ap-south-1.amazonaws.com/61c0f0c2-6c90-42b2-a71e-27bc4c7446c2-mingcute_arrow-up-line.svg"
                                         alt=""

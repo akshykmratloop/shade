@@ -167,7 +167,7 @@ const cmsSlice = createSlice({
             if (action.payload.type === "content[index]") {
                 state.present.content.editVersion.sections[action.payload.sectionIndex].content[action.payload.contentIndex][action.payload.title][action.payload.lan] = action.payload.value
             } else if (action.payload.title === "button") {
-                state.present.content.editVersion.sections[action.payload.sectionIndex].content[action.payload.title][0].text[action.payload.lan] = action.payload.value
+                state.present.content.editVersion.sections[action.payload.sectionIndex].content[action.payload.title][action.payload.buttonIndex].text[action.payload.lan] = action.payload.value
             } else if (action.payload.section === "recentProjectsSection") {
                 state.present.content.editVersion.sections[action.payload.sectionIndex].sections[action.payload.index].content[action.payload.title][action.payload.lan] = action.payload.value
             } else if (action.payload.subSection === "cards") {
