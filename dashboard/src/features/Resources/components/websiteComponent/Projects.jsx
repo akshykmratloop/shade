@@ -8,6 +8,7 @@ import { projectPageData } from "../../../../assets/index";
 import { updateMainContent, updateSelectedContent } from "../../../common/homeContentSlice";
 import { TruncateText } from "../../../../app/capitalizeword";
 import { updateAllProjectlisting } from "../../../common/homeContentSlice"
+import { Img_url } from "../../../../routes/backend";
 
 // Font files can be colocated inside of `app`
 // const BankGothic = localFont({
@@ -71,7 +72,7 @@ const ProjectPage = ({ language, screen, currentContent }) => {
             <section className={`relative h-full w-full bg-cover bg-center ${isLeftAlign ? 'scale-x-[-1]' : ''}  `}
                 style={{
                     height: 1200 * 0.436,
-                    backgroundImage: ImageFromRedux.projectsBanner ? `url(${ImageFromRedux.projectsBanner})` :
+                    backgroundImage: currentContent?.['1']?.content?.images?.[0]?.url ? `url(${Img_url + currentContent?.['1']?.content?.images?.[0]?.url})` :
                         "url('https://frequencyimage.s3.ap-south-1.amazonaws.com/a4a2a992-c11e-448b-bdfe-54b14574958d-Hero%20%281%29%20%281%29.png')"
                 }}>
                 <div className={`container h-full relative ${isPhone ? "px-10" : "px-20"} flex items-center ${isLeftAlign ? "justify-end" : "justify-end"}   `}>
