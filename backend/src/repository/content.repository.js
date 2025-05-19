@@ -1557,6 +1557,10 @@ async function formatResourceVersionData(
               returningBody = itemContent;
             }
 
+            if (resourceSlug === 'service' && sectionOrderMap[sectionVersion.id] === 2) {
+              returningBody.description = itemContent.liveModeVersionData.sections[0].content.description;
+            }
+
             return { ...returningBody, order: item.order };
           })
         );
