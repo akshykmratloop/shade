@@ -46,7 +46,7 @@ const SolutionManager = ({ currentPath, language, currentContent, indexes }) => 
                     { input: "textarea", label: "Description", updateType: "description", maxLength: 300, value: currentContent?.["1"]?.content?.description?.[language] },
                     { input: "input", label: "Button Text", updateType: "button", maxLength: 20, value: currentContent?.["1"]?.content?.button?.[0]?.text?.[language] }
                 ]}
-                inputFiles={[{ label: "Background Image", id: "bannerBackground" },]}
+                inputFiles={[{ label: "Background Image", id: "bannerBackground", order: 1 },]}
                 section={"banner"}
                 language={language}
                 currentContent={currentContent}

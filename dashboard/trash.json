@@ -1,148 +1,218 @@
 {
     "message": "Success",
     "content": {
-        "id": "cmap7yojn00ptmn5kdmm9cz99",
-        "titleEn": "Projects Page",
-        "titleAr": "المشاريع الصفحة",
-        "slug": "project",
+        "id": "cmaunw5xh00qinla4re47znkh",
+        "titleEn": "Market Page",
+        "titleAr": "صفحة السوق",
+        "slug": "market",
         "resourceType": "MAIN_PAGE",
-        "resourceTag": "PROJECT",
+        "resourceTag": "MARKET",
         "relationType": "PARENT",
         "liveModeVersionData": {
-            "id": "cmap7yojq00pvmn5kikpvl6q5",
+            "id": "cmaunw5xj00qknla4ei5t1lpp",
             "versionNumber": 1,
             "icon": null,
             "image": null,
             "comments": "Initial version created",
             "referenceDoc": null,
-            "updatedAt": "2025-05-15T10:21:03.303Z",
+            "updatedAt": "2025-05-19T05:45:50.600Z",
             "status": "PUBLISHED",
             "sections": [
                 {
-                    "sectionId": "cmap7yok100pxmn5kcpd92zmr",
+                    "sectionId": "cmaunw5xt00qmnla4mi6afrio",
                     "order": 1,
                     "version": 1,
-                    "title": "bannerSection-project-381f",
+                    "title": "heroSection-market-c97d",
                     "content": {
                         "title": {
-                            "ar": ">مشروعنا",
-                            "en": "Our Projects"
+                            "ar": "سوق",
+                            "en": "Market"
                         },
                         "button": [
                             {
                                 "url": null,
                                 "icon": null,
                                 "text": {
-                                    "ar": "دعونا نتواصل",
-                                    "en": "Let's Connect"
+                                    "ar": "خدماتنا",
+                                    "en": "Our Services"
                                 },
                                 "order": 1
                             }
                         ],
+                        "images": [
+                            {
+                                "url": "https://frequencyimage.s3.ap-south-1.amazonaws.com/851e35b5-9b3b-4d9f-91b4-9b60ef2a102c-Rectangle%2034624110.png",
+                                "order": 1,
+                                "altText": {
+                                    "ar": "صورة شعار الصفحة الرئيسية",
+                                    "en": "Image 1"
+                                }
+                            }
+                        ],
                         "description": {
                             "ar": "اكتشف التميز الاستثنائي لشركة Shade Corporation، الشركة الرائدة في مجالات الهندسة والمشتريات والبناء في المملكة العربية السعودية.",
-                            "en": "Discover the exceptional excellence of Shade Corporation, a leading company in the fields of engineering, procurement, and construction in Saudi Arabia."
+                            "en": "Discover the exceptional excellence of Shade Corporation, the premier Engineering, Procurement, and Construction powerhouse in Saudi Arabia."
                         }
                     }
                 },
                 {
-                    "sectionId": "cmap7yoke00q3mn5k5a0ll8k1",
+                    "sectionId": "cmaunw5y800qsnla49kj1ee28",
                     "order": 2,
                     "version": 1,
-                    "title": "projectsGridSection-project-5e81",
+                    "title": "quoteSection-market-452e",
                     "content": {
-                        "tabs": [
-                            {
-                                "id": "all",
-                                "order": 1,
-                                "title": {
-                                    "ar": "الكل",
-                                    "en": "All"
-                                }
-                            },
-                            {
-                                "id": "ongoing",
-                                "order": 2,
-                                "title": {
-                                    "ar": "مستمر",
-                                    "en": "Ongoing"
-                                }
-                            },
-                            {
-                                "id": "completed",
-                                "order": 3,
-                                "title": {
-                                    "ar": "مكتمل",
-                                    "en": "Completed"
-                                }
-                            }
-                        ],
+                        "text": {
+                            "ar": "وفي مسيرتنا نحو التقدم والتطور، يجب ألا ننسى العنصر البشري. قد ترتفع المباني والمنشآت، لكن الناس هم من يبثون الحياة فيها.",
+                            "en": "In our march towards progress and development, we must not forget the human element. Buildings and structures may rise, but it is the people who breathe life into them."
+                        },
+                        "author": {
+                            "ar": "غازي القصيبي",
+                            "en": "-Ghazi Al Gosaibi"
+                        }
+                    }
+                },
+                {
+                    "sectionId": "cmaunw5ym00qynla4nupls6zf",
+                    "order": 3,
+                    "version": 1,
+                    "title": "marketItemsSection-market-3d22",
+                    "content": {
                         "button": [
                             {
                                 "url": null,
                                 "icon": null,
                                 "text": {
-                                    "ar": "عرض التفاصيل",
-                                    "en": "View Details"
+                                    "ar": "عرض المزيد",
+                                    "en": "View Market"
                                 },
                                 "order": 1
-                            },
-                            {
-                                "url": null,
-                                "icon": null,
-                                "text": {
-                                    "ar": " عرض المزيد",
-                                    "en": "View More"
-                                },
-                                "order": 2
                             }
-                        ]
+                        ],
+                        "introSection": {
+                            "title": {
+                                "ar": "سوق",
+                                "en": "Market we deal"
+                            },
+                            "images": [
+                                {
+                                    "url": "",
+                                    "order": 1,
+                                    "altText": {
+                                        "ar": "ص الرئيسية",
+                                        "en": "Image"
+                                    }
+                                }
+                            ],
+                            "description": {
+                                "ar": "اكتشف التميز الاستثنائي لشركة Shade Corporation، الشركة الرائدة في مجالات الهندسة والمشتريات والبناء في المملكة العربية السعودية.",
+                                "en": "Discover the exceptional excellence of Shade Corporation, the premier Engineering, Procurement, and Construction powerhouse in Saudi Arabia. Discover the exceptional excellence of Shade Corporation, the premier Engineering, Procurement, and Construction powerhouse in Saudi Arabia."
+                            }
+                        }
                     },
                     "items": [
                         {
-                            "id": "cmap7yn4j004kmn5k3z26jsy9",
-                            "titleEn": "IT Labs for Excellence",
-                            "titleAr": "مختبر تكنولوجيا المعلومات للتميز",
-                            "slug": "it-lab-for-excellence",
+                            "id": "cmaunw4q10095nla494x23k5x",
+                            "titleEn": "Buildings-Service",
+                            "titleAr": "المباني",
+                            "slug": "buildings",
                             "icon": null,
                             "image": null,
                             "order": 1
                         },
                         {
-                            "id": "cmap7yn6s005hmn5k7co0u1x0",
-                            "titleEn": "Non-Metallic Manufacturing Plant",
-                            "titleAr": "مصنع المواد غير المعدنية",
-                            "slug": "non-metallic-manufacturing-plant",
+                            "id": "cmaunw4se00a0nla4tk4wzx1w",
+                            "titleEn": "Industrial",
+                            "titleAr": "الصناعة",
+                            "slug": "industrial",
                             "icon": null,
                             "image": null,
                             "order": 2
                         },
                         {
-                            "id": "cmap7yn8y006emn5klww1zgwq",
-                            "titleEn": "Business Gate",
-                            "titleAr": "بوابة الأعمال",
-                            "slug": "business-gate",
+                            "id": "cmaunw4uk00avnla447nglasg",
+                            "titleEn": "Infrastructure",
+                            "titleAr": "البنية التحتية",
+                            "slug": "infrastructure",
                             "icon": null,
                             "image": null,
                             "order": 3
                         },
                         {
-                            "id": "cmap7ynb5007bmn5k5x06c63t",
-                            "titleEn": "OME Building - Northern Area Pipelines",
-                            "titleAr": "مبنى OME - خطوط أنابيب المنطقة الشمالية",
-                            "slug": "construction-of-ome-building-napd-khursaniyah",
+                            "id": "cmaunw4wt00bqnla4xfhufg2g",
+                            "titleEn": "Repair & Retrofit",
+                            "titleAr": "الإصلاح والتحديث",
+                            "slug": "repair-retrofit",
+                            "icon": null,
+                            "image": null,
+                            "order": 4
+                        }
+                    ]
+                },
+                {
+                    "sectionId": "cmaunw5zg00rcnla4pglzs48j",
+                    "order": 4,
+                    "version": 1,
+                    "title": "testimonialSection-market-3eb2",
+                    "content": {
+                        "title": {
+                            "ar": "ماذا يقول عملاؤنا عنا؟",
+                            "en": "What Our Clients Say About Us?"
+                        }
+                    },
+                    "items": [
+                        {
+                            "id": "cmaunw4ak0032nla4wdqi0xfb",
+                            "titleEn": "Dr. Engr. Salah Attia Abdelzaher",
+                            "titleAr": "د. مهندس صلاح عطيه عبد الظاهر",
+                            "slug": "salah-attia-abdelzaher",
+                            "icon": null,
+                            "image": null,
+                            "order": 1
+                        },
+                        {
+                            "id": "cmaunw4ba003bnla45wked3mz",
+                            "titleEn": "Ahmed Basiony",
+                            "titleAr": "أحمد بسيوني",
+                            "slug": "ahmed-basiony",
+                            "icon": null,
+                            "image": null,
+                            "order": 2
+                        },
+                        {
+                            "id": "cmaunw4c1003knla4bhcztm7n",
+                            "titleEn": "Khaled El Kholy",
+                            "titleAr": "خالد الخولي",
+                            "slug": "khaled-el-kholy",
+                            "icon": null,
+                            "image": null,
+                            "order": 3
+                        },
+                        {
+                            "id": "cmaunw4cr003tnla45dbt7s5u",
+                            "titleEn": "Mostafa Sayed",
+                            "titleAr": "سيد مصطفى",
+                            "slug": "mostafa-sayed",
                             "icon": null,
                             "image": null,
                             "order": 4
                         },
                         {
-                            "id": "cmap7yndd0088mn5kkln0nr0n",
-                            "titleEn": "Psychiatric Facility",
-                            "titleAr": "المنشأة النفسية",
-                            "slug": "psychiatric-facility",
+                            "id": "cmaunw4dg0042nla4mrh4x2x8",
+                            "titleEn": "Amro Khatab",
+                            "titleAr": "عمرو خطاب",
+                            "slug": "amro-khatab",
                             "icon": null,
                             "image": null,
                             "order": 5
+                        },
+                        {
+                            "id": "cmaunw4e5004bnla4xj6v1rb0",
+                            "titleEn": "Sherif Mekky",
+                            "titleAr": "شريف مكي",
+                            "slug": "sherif-mekky",
+                            "icon": null,
+                            "image": null,
+                            "order": 6
                         }
                     ]
                 }

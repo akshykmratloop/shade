@@ -32,6 +32,7 @@ import doubleQuotes from "../../../../assets/right-quote.png"
 // });
 import { projectPageData } from "../../../../assets/index";
 import { TruncateText } from "../../../../app/capitalizeword";
+import { Img_url } from "../../../../routes/backend";
 
 const MarketPage = ({ language, screen, currentContent }) => {
     // const testimonialPrevRef = useRef(null);
@@ -90,7 +91,7 @@ const MarketPage = ({ language, screen, currentContent }) => {
             <section className={`relative h-full w-full bg-cover bg-center ${isLeftAlign ? 'scale-x-[-1]' : ''}  `}
                 style={{
                     height: 1200 * 0.436,
-                    backgroundImage: ImageFromRedux.marketBanner ? `url(${ImageFromRedux.marketBanner})` :
+                    backgroundImage: currentContent?.['1']?.content?.images?.[0]?.url ? `url(${Img_url + currentContent?.['1']?.content?.images?.[0]?.url})` :
                         "url('https://frequencyimage.s3.ap-south-1.amazonaws.com/b9961a33-e840-4982-bd19-a7dcc52fdd95-Hero.jpg')"
                 }}>
                 <div className={`container h-full relative ${isPhone ? "px-10" : "px-20"} flex items-center ${isLeftAlign ? "justify-end" : "justify-end"}   `}>
@@ -195,7 +196,7 @@ const MarketPage = ({ language, screen, currentContent }) => {
                                 </div>
                             )}
                         </div>
-                        
+
 
 
                         {/* Cards */}

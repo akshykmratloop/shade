@@ -25,11 +25,11 @@ const AllForOne = ({ language, screen, content, subPath, setLanguage, fullScreen
 
     const platform = useSelector(state => state.platform.platform)
 
-    useEffect(() => {
-        if (platform !== "EDIT") {
-            return () => dispatch(updateMainContent({ currentPath: "content", payload: undefined }))
-        }
-    }, [platform])
+    // useEffect(() => {
+    //     if (platform !== "EDIT") {
+    //         return () => dispatch(updateMainContent({ currentPath: "content", payload: undefined }))
+    //     }
+    // }, [platform])
 
     return (
         <div

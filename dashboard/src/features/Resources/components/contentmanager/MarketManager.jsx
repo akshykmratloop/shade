@@ -7,7 +7,7 @@ import { updateMainContent } from "../../../common/homeContentSlice";
 import content from "../websiteComponent/content.json"
 import { useDispatch } from "react-redux";
 
-const MarketManager = ({ language, currentContent, currentPath }) => {
+const MarketManager = ({ language, currentContent, currentPath, indexes }) => {
     const dispatch = useDispatch()
 
     useEffect(() => {
@@ -23,14 +23,16 @@ const MarketManager = ({ language, currentContent, currentPath }) => {
                 currentPath={currentPath}
                 Heading={"Banner"}
                 inputs={[
-                    { input: "input", label: "Heading/title", updateType: "title" },
-                    { input: "textarea", label: "Description", updateType: "description", maxLength: 300 },
-                    { input: "input", label: "Button Text", updateType: "button" }
+                    { input: "input", label: "Heading/title", updateType: "title", value: currentContent?.['1']?.content?.title?.[language] },
+                    { input: "textarea", label: "Description", updateType: "description", maxLength: 300, value: currentContent?.['1']?.content?.description?.[language] },
+                    { input: "input", label: "Button Text", updateType: "button", value: currentContent?.['1']?.content?.button?.[0]?.text?.[language] }
                 ]}
-                inputFiles={[{ label: "Backround Image", id: "marketBanner" }]}
+                inputFiles={[{ label: "Backround Image", id: "marketBanner", order: 1 }]}
                 section={"banner"}
                 language={language}
                 currentContent={currentContent}
+                sectionIndex={indexes?.["1"]}
+
             />
 
             {/* Quote */}
@@ -38,12 +40,14 @@ const MarketManager = ({ language, currentContent, currentPath }) => {
                 currentPath={currentPath}
                 Heading={"Quote"}
                 inputs={[
-                    { input: "textarea", label: "Heading/title", updateType: "text", maxLength: 300 },
-                    { input: "input", label: "Description", updateType: "author" },
+                    { input: "textarea", label: "Heading/title", updateType: "text", maxLength: 300, value: currentContent?.['2']?.content?.text?.[language] },
+                    { input: "input", label: "Description", updateType: "author", value: currentContent?.['2']?.content?.author?.[language] },
                 ]}
                 section={"quote"}
                 language={language}
                 currentContent={currentContent}
+                sectionIndex={indexes?.["2"]}
+
             />
 
             {/* Market Lists */}
@@ -64,6 +68,7 @@ const MarketManager = ({ language, currentContent, currentPath }) => {
                                     tabName={"Select Markets"}
                                     referenceOriginal={{ dir: "markets", index: 0 }}
                                     currentContent={currentContent}
+                                    sectionIndex={indexes?.["4"]}
                                 />
                             </div>
                         )

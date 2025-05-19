@@ -1,10 +1,31 @@
+import { useEffect, useState } from "react"
+import { getResources } from "../../../../app/fetch"
 import FileUploader from "../../../../components/Input/InputFileUploader"
 import ContentSection from "../breakUI/ContentSections"
 import MultiSelect from "../breakUI/MultiSelect"
 
 const ServiceManager = ({ currentContent, currentPath, language, indexes }) => {
+    const [subService, setServicesOptions] = useState(null)
 
-    console.log(currentContent)
+    useEffect(() => {
+        async function getOptionsforServices() {
+            const response = await getResources({ resourceType: "SUB_PAGE", resourceTag: "SERVICE", apiCallType: "INTERNAL" })
+            if (response.message === "Success") {
+                let options = response?.resources?.resources?.map((e, i) => ({
+                    id: e.id,
+                    order: i + 1,
+                    slug: e.slug,
+                    titleEn: e.titleEn,
+                    titleAr: e.titleAr,
+                    // icon: e.icon,
+                    // image: e.image
+                }))
+                setServicesOptions(options)
+            }
+        }
+
+        getOptionsforServices()
+    }, [])
 
     return (
         <div>
@@ -33,6 +54,7 @@ const ServiceManager = ({ currentContent, currentPath, language, indexes }) => {
                 options={currentContent?.serviceCards}
                 referenceOriginal={{ dir: "serviceCards" }}
                 currentContent={currentContent}
+                sectionIndex={indexes?.['2']}
             />
         </div>
     )
