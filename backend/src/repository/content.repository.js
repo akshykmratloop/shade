@@ -1498,15 +1498,21 @@ async function formatResourceVersionData(
             };
 
             if (
-              resourceSlug === "home" &&
-              sectionOrderMap[sectionVersion.id] === 7
+              (resourceSlug === "home" &&
+              sectionOrderMap[sectionVersion.id] === 7) || (resourceSlug === 'market' && sectionOrderMap[sectionVersion.id] === 4) // to ge the full body of testimonials
             ) {
               returningBody = itemContent;
             }
 
             if (resourceSlug === 'service' && sectionOrderMap[sectionVersion.id] === 2) {
-              returningBody.description = itemContent.liveModeVersionData.sections[0].content.description;
+              returningBody.description = itemContent.liveModeVersionData.sections[0].content.description; // including description in the item for services items 
             }
+
+            
+            if (resourceSlug === 'market' && sectionOrderMap[sectionVersion.id] === 3) {
+              returningBody.description = itemContent.liveModeVersionData.sections[0].content.description; // including description in the item for market items
+            }
+
 
             return { ...returningBody, order: item.order };
           })
