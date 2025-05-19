@@ -60,7 +60,7 @@ const AllForOne = ({ language, screen, content, subPath, setLanguage, fullScreen
                 currentPath === "service" ? subPath ? deepPath ?
                     <SubServiceDetails language={language} contentOn={tempContent?.subOfsubService} serviceId={subPath} screen={screen} deepPath={deepPath} /> :
                     <ServiceDetails language={language} contentOn={tempContent?.serviceDetails} serviceId={subPath} screen={screen} /> :
-                    <Services language={language} currentContent={content} screen={screen} /> : ""
+                    <Services language={language} currentContent={content}  screen={screen} /> : ""
             }
             {/* {
                 (currentPath === "service" && subPath) &&

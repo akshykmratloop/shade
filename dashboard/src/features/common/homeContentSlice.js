@@ -9,8 +9,6 @@ const initialState = {
     future: []
 };
 
-const basePath = 'present.home';
-
 const cmsSlice = createSlice({
     name: "CMS",
     initialState,

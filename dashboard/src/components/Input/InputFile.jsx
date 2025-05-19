@@ -27,7 +27,16 @@ const InputFile = ({ label, baseClass, id, currentPath, resourceId, contentIndex
       },
       order
     }
-    dispatch(updateImages({ section, src: directIcon ? url[0] : payloadData, currentPath, index: contentIndex, cardIndex: index, subSection, directIcon, order }));
+    dispatch(updateImages({
+      section,
+      src: directIcon ? url[0] : payloadData,
+      currentPath,
+      index: contentIndex,
+      cardIndex: index,
+      subSection,
+      directIcon,
+      order
+    }));
     setIsSelectorOpen(false);
   };
 
