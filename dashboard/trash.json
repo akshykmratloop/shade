@@ -1,40 +1,40 @@
 {
     "message": "Success",
     "content": {
-        "id": "cmaunw60g00rtnla4k4fdqrrk",
-        "titleEn": "Services Page",
-        "titleAr": "خدمات الصفحة",
-        "slug": "service",
+        "id": "cmaux3zut00qinlids7rsmcwn",
+        "titleEn": "Market Page",
+        "titleAr": "صفحة السوق",
+        "slug": "market",
         "resourceType": "MAIN_PAGE",
-        "resourceTag": "SERVICE",
+        "resourceTag": "MARKET",
         "relationType": "PARENT",
         "liveModeVersionData": {
-            "id": "cmaunw60j00rvnla44gva6bku",
+            "id": "cmaux3zuw00qknlidoggesvu2",
             "versionNumber": 1,
             "icon": null,
             "image": null,
             "comments": "Initial version created",
             "referenceDoc": null,
-            "updatedAt": "2025-05-19T05:45:50.707Z",
+            "updatedAt": "2025-05-19T10:03:52.520Z",
             "status": "PUBLISHED",
             "sections": [
                 {
-                    "sectionId": "cmaunw60s00rxnla4ohm0mgt3",
+                    "sectionId": "cmaux3zv600qmnlidyd4gmhx7",
                     "order": 1,
                     "version": 1,
-                    "title": "HeroSection-service-767f",
+                    "title": "heroSection-market-1528",
                     "content": {
                         "title": {
-                            "ar": "خدماتنا",
-                            "en": "Our Services"
+                            "ar": "سوق",
+                            "en": "Market"
                         },
                         "button": [
                             {
                                 "url": null,
                                 "icon": null,
                                 "text": {
-                                    "ar": "عرض المشاريع",
-                                    "en": "View Projects"
+                                    "ar": "خدماتنا",
+                                    "en": "Our Services"
                                 },
                                 "order": 1
                             }
@@ -50,94 +50,419 @@
                             }
                         ],
                         "description": {
-                            "ar": "اكتشف التميز الاستثنائي لشركة Shade Corporation، الشركة الرائدة في مجال الهندسة والمشتريات والبناء في المملكة العربية السعودية.",
-                            "en": "Discover the exceptional excellence of Shade Corporation, the leading company in engineering, procurement, and construction in Saudi Arabia."
+                            "ar": "اكتشف التميز الاستثنائي لشركة Shade Corporation، الشركة الرائدة في مجالات الهندسة والمشتريات والبناء في المملكة العربية السعودية.",
+                            "en": "Discover the exceptional excellence of Shade Corporation, the premier Engineering, Procurement, and Construction powerhouse in Saudi Arabia."
                         }
                     }
                 },
                 {
-                    "sectionId": "cmaunw61500s3nla4ficzm54b",
+                    "sectionId": "cmaux3zvm00qsnlidd66hy2vv",
                     "order": 2,
                     "version": 1,
-                    "title": "serviceCardsSection-service-853e",
+                    "title": "quoteSection-market-2bd5",
+                    "content": {
+                        "text": {
+                            "ar": "وفي مسيرتنا نحو التقدم والتطور، يجب ألا ننسى العنصر البشري. قد ترتفع المباني والمنشآت، لكن الناس هم من يبثون الحياة فيها.",
+                            "en": "In our march towards progress and development, we must not forget the human element. Buildings and structures may rise, but it is the people who breathe life into them."
+                        },
+                        "author": {
+                            "ar": "غازي القصيبي",
+                            "en": "-Ghazi Al Gosaibi"
+                        }
+                    }
+                },
+                {
+                    "sectionId": "cmaux3zw000qynlid02sucy7y",
+                    "order": 3,
+                    "version": 1,
+                    "title": "marketItemsSection-market-2589",
                     "content": {
                         "button": [
                             {
                                 "url": null,
                                 "icon": null,
                                 "text": {
-                                    "ar": "عرض عملنا",
-                                    "en": "View Our"
+                                    "ar": "عرض المزيد",
+                                    "en": "View Market"
                                 },
                                 "order": 1
                             }
-                        ]
+                        ],
+                        "introSection": {
+                            "title": {
+                                "ar": "سوق",
+                                "en": "Market we deal"
+                            },
+                            "images": [
+                                {
+                                    "url": "",
+                                    "order": 1,
+                                    "altText": {
+                                        "ar": "ص الرئيسية",
+                                        "en": "Image"
+                                    }
+                                }
+                            ],
+                            "description": {
+                                "ar": "اكتشف التميز الاستثنائي لشركة Shade Corporation، الشركة الرائدة في مجالات الهندسة والمشتريات والبناء في المملكة العربية السعودية.",
+                                "en": "Discover the exceptional excellence of Shade Corporation, the premier Engineering, Procurement, and Construction powerhouse in Saudi Arabia. Discover the exceptional excellence of Shade Corporation, the premier Engineering, Procurement, and Construction powerhouse in Saudi Arabia."
+                            }
+                        }
                     },
                     "items": [
                         {
-                            "id": "cmaunw56s00finla4z5o585nm",
-                            "titleEn": "Construction Management",
-                            "titleAr": "إدارة البناء",
-                            "slug": "construction-management",
+                            "id": "cmaux3yo90095nlid6joig4wt",
+                            "titleEn": "Buildings-Service",
+                            "titleAr": "المباني",
+                            "slug": "buildings",
                             "icon": null,
                             "image": null,
                             "description": {
-                                "ar": "نحن متخصصون في تقديم حلول إدارة البناء التي تضمن تنفيذ المشاريع بكفاءة وجودة عالية، من مرحلة التصميم حتى التسليم.",
-                                "en": "We specialize in providing construction management solutions that ensure project execution with high efficiency and quality, from design to delivery."
+                                "ar": "تعد شركة Shade Corporation واحدة من أكبر شركات البناء وتأجير البنية التحتية في المنطقة.",
+                                "en": "Shade Corporation is one of the largest construction and infrastructure rental companies in the region."
                             },
                             "order": 1
                         },
                         {
-                            "id": "cmaunw58p00gdnla4788huhol",
-                            "titleEn": "Project Services",
-                            "titleAr": "خدمات المشروع",
-                            "slug": "project-services",
+                            "id": "cmaux3yqs00a0nlidtefhguff",
+                            "titleEn": "Industrial",
+                            "titleAr": "الصناعة",
+                            "slug": "industrial",
                             "icon": null,
                             "image": null,
                             "description": {
-                                "ar": "نقدم مجموعة شاملة من خدمات إدارة وتنفيذ المشاريع لضمان تحقيق الأهداف في الوقت المحدد وضمن الميزانية.",
-                                "en": "We provide a comprehensive range of project execution and management services to ensure timely and cost-effective delivery."
+                                "ar": "نقوم ببناء وتشغيل منشآت صناعية متقدمة تشمل المصانع ومرافق الطاقة والبتروكيماويات.",
+                                "en": "We construct and operate advanced industrial facilities, including manufacturing plants, energy infrastructure, and petrochemical units."
                             },
                             "order": 2
                         },
                         {
-                            "id": "cmaunw5aq00h8nla4dvpwfiio",
-                            "titleEn": "Operation & Maintenance",
-                            "titleAr": "التشغيل والصيانة",
-                            "slug": "operation-maintenance",
+                            "id": "cmaux3ytc00avnlidfhi3m0ct",
+                            "titleEn": "Infrastructure",
+                            "titleAr": "البنية التحتية",
+                            "slug": "infrastructure",
                             "icon": null,
                             "image": null,
                             "description": {
-                                "ar": "نضمن استمرارية الأداء الأمثل من خلال خدمات تشغيل وصيانة فعالة للمرافق والبنية التحتية.",
-                                "en": "We ensure optimal performance continuity through efficient facility and infrastructure operation and maintenance services."
+                                "ar": "نقدم حلولًا متكاملة للبنية التحتية تشمل الطرق، الجسور، المياه، والكهرباء.",
+                                "en": "We deliver integrated infrastructure solutions including roads, bridges, water systems, and power grids."
                             },
                             "order": 3
                         },
                         {
-                            "id": "cmaunw5cu00i3nla4uqigru60",
-                            "titleEn": "Fabrication",
-                            "titleAr": "التصنيع",
-                            "slug": "fabrication",
+                            "id": "cmaux3yv500bqnlid2fhpux2g",
+                            "titleEn": "Repair & Retrofit",
+                            "titleAr": "الإصلاح والتحديث",
+                            "slug": "repair-retrofit",
                             "icon": null,
                             "image": null,
                             "description": {
-                                "ar": "نقدم خدمات تصنيع عالية الجودة باستخدام أحدث التقنيات لتلبية متطلبات المشاريع الصناعية والتجارية.",
-                                "en": "We offer high-quality fabrication services using advanced technologies to meet industrial and commercial project needs."
+                                "ar": "نقدم خدمات إصلاح وتحديث للمباني والبنية التحتية لضمان استدامة الأداء وتحديث المرافق القائمة.",
+                                "en": "We offer repair and retrofit services for buildings and infrastructure to ensure sustainable performance and upgrade existing facilities."
+                            },
+                            "order": 4
+                        }
+                    ]
+                },
+                {
+                    "sectionId": "cmaux3zwv00rcnlidr1200asr",
+                    "order": 4,
+                    "version": 1,
+                    "title": "testimonialSection-market-dacb",
+                    "content": {
+                        "title": {
+                            "ar": "ماذا يقول عملاؤنا عنا؟",
+                            "en": "What Our Clients Say About Us?"
+                        }
+                    },
+                    "items": [
+                        {
+                            "id": "cmaux3y8y0032nlidxkapc5px",
+                            "titleEn": "Dr. Engr. Salah Attia Abdelzaher",
+                            "titleAr": "د. مهندس صلاح عطيه عبد الظاهر",
+                            "slug": "salah-attia-abdelzaher",
+                            "liveModeVersionData": {
+                                "id": "cmaux3y910034nlidpxqsc325",
+                                "icon": null,
+                                "image": null,
+                                "sections": [
+                                    {
+                                        "sectionId": "cmaux3y9c0036nlid20sh24tw",
+                                        "order": 1,
+                                        "version": 1,
+                                        "title": "testimonialBodySection-salah-attia-abdelzaher-f5a2",
+                                        "content": {
+                                            "name": {
+                                                "ar": "د. مهندس صلاح عطيه عبد الظاهر",
+                                                "en": "Dr. Engr. Salah Attia Abdelzaher"
+                                            },
+                                            "quote": {
+                                                "ar": "تخطيط وتنسيق وتنفيذ ممتاز. جدولة ناجحة. إدارة وإعداد التقارير قوية. تميز ممثل الصحة والسلامة والبيئة. الخلاصة: الأداء يتجاوز التوقعات.",
+                                                "en": "Excellent planning, coordination and execution. Successful scheduling. Strong management and reporting. HSE representative excelled. Conclusion: Performance exceeds expectations."
+                                            },
+                                            "images": [
+                                                {
+                                                    "url": "testimonial1",
+                                                    "order": 1,
+                                                    "altText": {
+                                                        "ar": "د. مهندس صلاح عطيه عبد الظاهر",
+                                                        "en": "Dr. Engr. Salah Attia Abdelzaher"
+                                                    }
+                                                }
+                                            ],
+                                            "company": {
+                                                "ar": "شركة جبل عمر للتطوير",
+                                                "en": "Jabal Omar Development Company"
+                                            },
+                                            "position": {
+                                                "ar": "مدير المشاريع في شركة جبل عمر للتطوير (مدير البنية التحتية والميكانيكا والكهرباء)",
+                                                "en": "Director Projects JODC (Director of infrastructure and MEP)"
+                                            }
+                                        }
+                                    }
+                                ]
+                            },
+                            "order": 1
+                        },
+                        {
+                            "id": "cmaux3y9n003bnlid79xsw6j3",
+                            "titleEn": "Ahmed Basiony",
+                            "titleAr": "أحمد بسيوني",
+                            "slug": "ahmed-basiony",
+                            "liveModeVersionData": {
+                                "id": "cmaux3y9q003dnlidw5hpw94g",
+                                "icon": null,
+                                "image": null,
+                                "sections": [
+                                    {
+                                        "sectionId": "cmaux3ya0003fnlidq4dw5uzh",
+                                        "order": 1,
+                                        "version": 1,
+                                        "title": "testimonialBodySection-ahmed-basiony-21b4",
+                                        "content": {
+                                            "name": {
+                                                "ar": "أحمد بسيوني",
+                                                "en": "Ahmed Basiony"
+                                            },
+                                            "quote": {
+                                                "ar": "دائمًا سعيد بالعمل مع فريق شيد؛ شريكنا الموثوق في مشاريع الهندسة والمشتريات والبناء. لقد أضاف نهجهم الاستباقي قيمة إلى كل مرحلة من مراحل التطوير، وتمكنا دائمًا من الاعتماد على فريقهم لتقديم نتائج قوية عالية الجودة وفعالة من حيث التكلفة.",
+                                                "en": "Always delighted to work with Shade team; our trusted EPC partner. Their proactive approach has added value to each stage of the development and we have always been able to rely on their team to provide a very high quality, cost effective and robust results."
+                                            },
+                                            "images": [
+                                                {
+                                                    "url": "testimonial2",
+                                                    "order": 1,
+                                                    "altText": {
+                                                        "ar": "أحمد بسيوني",
+                                                        "en": "Ahmed Basiony"
+                                                    }
+                                                }
+                                            ],
+                                            "company": {
+                                                "ar": "نسما وشركاها",
+                                                "en": "Nesma & Partners"
+                                            },
+                                            "position": {
+                                                "ar": "مدير مشروع",
+                                                "en": "Project Manager"
+                                            }
+                                        }
+                                    }
+                                ]
+                            },
+                            "order": 2
+                        },
+                        {
+                            "id": "cmaux3ya8003knlidi1nw1cby",
+                            "titleEn": "Khaled El Kholy",
+                            "titleAr": "خالد الخولي",
+                            "slug": "khaled-el-kholy",
+                            "liveModeVersionData": {
+                                "id": "cmaux3yab003mnlida8g1keuy",
+                                "icon": null,
+                                "image": null,
+                                "sections": [
+                                    {
+                                        "sectionId": "cmaux3yam003onlidn8wqdy7o",
+                                        "order": 1,
+                                        "version": 1,
+                                        "title": "testimonialBodySection-khaled-el-kholy-5340",
+                                        "content": {
+                                            "name": {
+                                                "ar": "خالد الخولي",
+                                                "en": "Khaled El Kholy"
+                                            },
+                                            "quote": {
+                                                "ar": "مُعجب بخبرة فريق المشروع وتجربته العملية في مشاريع الطرق. لقد قدموا باستمرار نتائج تتماشى مع أهداف المشروع وأثبتوا أنهم أكثر شركاء البناء موثوقية.",
+                                                "en": "Impressed with the project team’s expertise and hands on experience with road projects. They have consistently delivered against project objectives and proved as most reliable construction partner."
+                                            },
+                                            "images": [
+                                                {
+                                                    "url": "userIcon",
+                                                    "order": 1,
+                                                    "altText": {
+                                                        "ar": "خالد الخولي",
+                                                        "en": "Khaled El Kholy"
+                                                    }
+                                                }
+                                            ],
+                                            "company": {
+                                                "ar": "شركة أم القرى للتطوير والبناء",
+                                                "en": "Umm Al Qura for Development & Construction"
+                                            },
+                                            "position": {
+                                                "ar": "مهندس مشروع",
+                                                "en": "Project Engineer"
+                                            }
+                                        }
+                                    }
+                                ]
+                            },
+                            "order": 3
+                        },
+                        {
+                            "id": "cmaux3yav003tnlidska5f18z",
+                            "titleEn": "Mostafa Sayed",
+                            "titleAr": "سيد مصطفى",
+                            "slug": "mostafa-sayed",
+                            "liveModeVersionData": {
+                                "id": "cmaux3yay003vnlid8u7m60u4",
+                                "icon": null,
+                                "image": null,
+                                "sections": [
+                                    {
+                                        "sectionId": "cmaux3yb9003xnlidv4j7jqju",
+                                        "order": 1,
+                                        "version": 1,
+                                        "title": "testimonialBodySection-mostafa-sayed-804d",
+                                        "content": {
+                                            "name": {
+                                                "ar": "سيد مصطفى",
+                                                "en": "Mostafa Sayed"
+                                            },
+                                            "quote": {
+                                                "ar": "لقد دعمنا الموظفون الذين عينتهم شركة شيد للمشروع لتقديم مخطط مليء بالتحديات في الوقت المحدد والميزانية والجودة والمواصفات، مما أدى إلى وفائنا بوعدنا بتسليم البنية التحتية الرئيسية لمكة المكرمة في الوقت المحدد وضمن الميزانية.",
+                                                "en": "The staff employed by Shade for the project, have supported us to deliver a challenging scheme on time, budget, quality and specification, which has resulted in us keeping promise of delivering key infrastructure for Makkah on time & budget."
+                                            },
+                                            "images": [
+                                                {
+                                                    "url": "dummyUser",
+                                                    "order": 1,
+                                                    "altText": {
+                                                        "ar": "سيد مصطفى",
+                                                        "en": "Mostafa Sayed"
+                                                    }
+                                                }
+                                            ],
+                                            "company": {
+                                                "ar": "هيئة تطوير جبل عمر",
+                                                "en": "Jabal Omar Development Authority"
+                                            },
+                                            "position": {
+                                                "ar": "مدير مشروع",
+                                                "en": "Project Manager"
+                                            }
+                                        }
+                                    }
+                                ]
                             },
                             "order": 4
                         },
                         {
-                            "id": "cmaunw5er00iynla4xgbrjvp2",
-                            "titleEn": "Equipment Rental",
-                            "titleAr": "تأجير المعدات",
-                            "slug": "equipment-rental",
-                            "icon": null,
-                            "image": null,
-                            "description": {
-                                "ar": "نوفر مجموعة واسعة من المعدات الحديثة للإيجار لدعم مختلف احتياجات المشاريع بكفاءة وفعالية.",
-                                "en": "We provide a wide range of modern equipment for rent to efficiently support various project needs."
+                            "id": "cmaux3ybk0042nlidju06r4kf",
+                            "titleEn": "Amro Khatab",
+                            "titleAr": "عمرو خطاب",
+                            "slug": "amro-khatab",
+                            "liveModeVersionData": {
+                                "id": "cmaux3ybo0044nlidl5phzymj",
+                                "icon": null,
+                                "image": null,
+                                "sections": [
+                                    {
+                                        "sectionId": "cmaux3yc10046nlids7674jig",
+                                        "order": 1,
+                                        "version": 1,
+                                        "title": "testimonialBodySection-amro-khatab-4a74",
+                                        "content": {
+                                            "name": {
+                                                "ar": "عمرو خطاب",
+                                                "en": "Amro Khatab"
+                                            },
+                                            "quote": {
+                                                "ar": "وجود شريك بناء مؤهل ك شيد هو مفتاح لنجاح المشروع، خاصة في شيء معقد مثل طريق الجسر E. لقد دعمنا فريق الموقع المختص في التنفيذ بالإضافة إلى مساهمة عملية التخطيط الخاصة بهم في التسليم في الوقت المحدد.",
+                                                "en": "To have qualified construction partner as Shade, is key for the success of the project, especially something as complicated as Bridge road E. Their competent site team supported us in execution as well as their planning process contribute to on time delivery."
+                                            },
+                                            "images": [
+                                                {
+                                                    "url": "userIcon",
+                                                    "order": 1,
+                                                    "altText": {
+                                                        "ar": "عمرو خطاب",
+                                                        "en": "Amro Khatab"
+                                                    }
+                                                }
+                                            ],
+                                            "company": {
+                                                "ar": "خطيب وعلمي",
+                                                "en": "Khatib & Alami"
+                                            },
+                                            "position": {
+                                                "ar": "مدير مشروع",
+                                                "en": "Project Manager"
+                                            }
+                                        }
+                                    }
+                                ]
                             },
                             "order": 5
+                        },
+                        {
+                            "id": "cmaux3ycc004bnlidevw9zujz",
+                            "titleEn": "Sherif Mekky",
+                            "titleAr": "شريف مكي",
+                            "slug": "sherif-mekky",
+                            "liveModeVersionData": {
+                                "id": "cmaux3ycg004dnlid2whkjvxt",
+                                "icon": null,
+                                "image": null,
+                                "sections": [
+                                    {
+                                        "sectionId": "cmaux3yct004fnlidl179zncb",
+                                        "order": 1,
+                                        "version": 1,
+                                        "title": "testimonialBodySection-sherif-mekky-8b73",
+                                        "content": {
+                                            "name": {
+                                                "ar": "شريف مكي",
+                                                "en": "Sherif Mekky"
+                                            },
+                                            "quote": {
+                                                "ar": "كمستشار تصميم، من المهم جدًا أن يكون لديك شريك بناء ذو خبرة وسريع وفعال وداعم ومحترف في جميع جوانب عمله. شيد هي واحدة من هؤلاء الشركاء، الذين يلتزمون بتقديم النتائج المطلوبة بجودة ممتازة.",
+                                                "en": "As a design consultant, it is most important to have experienced construction partner who is prompt, efficient, supportive and professional in all elements of their work. Shade is one of such partners, who is committed to deliver required output with excellent quality."
+                                            },
+                                            "images": [
+                                                {
+                                                    "url": "dummyUser",
+                                                    "order": 1,
+                                                    "altText": {
+                                                        "ar": "شريف مكي",
+                                                        "en": "Sherif Mekky"
+                                                    }
+                                                }
+                                            ],
+                                            "company": {
+                                                "ar": "بارسون",
+                                                "en": "Parsons"
+                                            },
+                                            "position": {
+                                                "ar": "مدير التصميم",
+                                                "en": "Design Manager"
+                                            }
+                                        }
+                                    }
+                                ]
+                            },
+                            "order": 6
                         }
                     ]
                 }
