@@ -66,7 +66,6 @@ export const fetchResources = async (
     }
   }
 
-
   // Map permissions to allowed resource types and tags
   const permissionToResourceMap = {
     PAGE_MANAGEMENT: {
@@ -110,7 +109,6 @@ export const fetchResources = async (
       tags: [],
     },
   };
-
 
   // Initialize filters
   let typeFilter = {};
@@ -1540,25 +1538,27 @@ async function formatResourceVersionData(
             // Get the resource and its live version
             const resource = item.resource;
 
-            let returningBody;
-
             // Fetch the full content of the item resource
             const itemContent = await fetchContent(resource.id, false);
+
+            let returningBody = {
+              id: itemContent.id,
+              titleEn: itemContent.titleEn,
+              titleAr: itemContent.titleAr,
+              slug: itemContent.slug,
+              icon: itemContent.liveModeVersionData.icon,
+              image: itemContent.liveModeVersionData.image,
+            };
 
             if (
               resourceSlug === "home" &&
               sectionOrderMap[sectionVersion.id] === 7
             ) {
               returningBody = itemContent;
-            } else {
-              returningBody = {
-                id: itemContent.id,
-                titleEn: itemContent.titleEn,
-                titleAr: itemContent.titleAr,
-                slug: itemContent.slug,
-                icon: itemContent.liveModeVersionData.icon,
-                image: itemContent.liveModeVersionData.image,
-              };
+            }
+
+            if (resourceSlug === 'service' && sectionOrderMap[sectionVersion.id] === 2) {
+              returningBody.description = itemContent.liveModeVersionData.sections[0].content.description;
             }
 
             return { ...returningBody, order: item.order };
@@ -1594,10 +1594,16 @@ async function formatResourceVersionData(
                   // Get the resource
                   const resource = item.resource;
 
-                  let returningBody;
-
-                  // Fetch the full content of the item resource
                   const itemContent = await fetchContent(resource.id, false);
+
+                  let returningBody = {
+                    id: itemContent.id,
+                    titleEn: itemContent.titleEn,
+                    titleAr: itemContent.titleAr,
+                    slug: itemContent.slug,
+                    icon: itemContent.liveModeVersionData.icon,
+                    image: itemContent.liveModeVersionData.image,
+                  };
 
                   if (
                     resourceSlug === "home" &&
@@ -1608,25 +1614,8 @@ async function formatResourceVersionData(
                     resourceSlug === "home" &&
                     sectionOrderMap[sectionVersion.id] === 5
                   ) {
-                    returningBody = {
-                      id: itemContent.id,
-                      titleEn: itemContent.titleEn,
-                      titleAr: itemContent.titleAr,
-                      slug: itemContent.slug,
-                      icon: itemContent.liveModeVersionData.icon,
-                      image: itemContent.liveModeVersionData.image,
-                      location:
-                        itemContent.liveModeVersionData.sections[1].content[0],
-                    };
-                  } else {
-                    returningBody = {
-                      id: itemContent.id,
-                      titleEn: itemContent.titleEn,
-                      titleAr: itemContent.titleAr,
-                      slug: itemContent.slug,
-                      icon: itemContent.liveModeVersionData.icon,
-                      image: itemContent.liveModeVersionData.image,
-                    };
+                    returningBody.location =
+                      itemContent.liveModeVersionData.sections[1].content[0];
                   }
                   return { ...returningBody, order: item.order };
                 })
@@ -2295,8 +2284,8 @@ export const fetchRequests = async (
   if (!isSuperAdmin && roleId) {
     // Find the specific role from the query
     const queryRole = user.roles.find((r) => r.roleId === roleId)?.role;
-     // If role is not found or is inactive, throw error
-     if (!queryRole) {
+    // If role is not found or is inactive, throw error
+    if (!queryRole) {
       throw new Error("Role not found for this user");
     }
     if (queryRole.status === "INACTIVE") {
@@ -2831,7 +2820,13 @@ export const rejectRequestInVerification = async (
   });
 };
 
-export const fetchVersionsList = async (resourceId, search, status, page, limit) => {
+export const fetchVersionsList = async (
+  resourceId,
+  search,
+  status,
+  page,
+  limit
+) => {
   const pageNum = parseInt(page) || 1;
   const limitNum = parseInt(limit) || 10;
   const skip = (pageNum - 1) * limitNum;
@@ -2878,7 +2873,7 @@ export const fetchVersionsList = async (resourceId, search, status, page, limit)
   ]);
 
   // Add flags to each version
-  const versionsWithFlags = versions.map(version => ({
+  const versionsWithFlags = versions.map((version) => ({
     ...version,
     isLive: version.id === resource.liveVersionId,
     isUnderEditing: version.id === resource.newVersionEditModeId,
@@ -2893,4 +2888,4 @@ export const fetchVersionsList = async (resourceId, search, status, page, limit)
       limit: limitNum,
     },
   };
-}
+};
