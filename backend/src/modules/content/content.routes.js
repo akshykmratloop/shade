@@ -121,4 +121,12 @@ router.get(
   //   checkPermission(requiredPermissionsForContentManagement),
   tryCatchWrap(ContentController.GetVersionsList)
 );
+
+
+router.get(
+  "/inactiveResource/:resourceId",
+  //   checkPermission(requiredPermissionsForContentManagement),
+  tryCatchWrap(ContentController.GetVersionsList)
+);
+
 export default router;

@@ -811,6 +811,16 @@
         "ar": "اكتشف التميز الاستثنائي لشركة Shade Corporation، الشركة الرائدة في مجالات الهندسة والمشتريات والبناء في المملكة العربية السعودية.",
         "en": "Discover the exceptional excellence of Shade Corporation, the leading company in engineering, procurement, and construction in Saudi Arabia."
       },
+      "images": [
+        {
+          "order": 1,
+          "url": "https://frequencyimage.s3.ap-south-1.amazonaws.com/851e35b5-9b3b-4d9f-91b4-9b60ef2a102c-Rectangle%2034624110.png",
+          "altText": {
+            "en": "Image 1",
+            "ar": "صورة شعار الصفحة الرئيسية"
+          }
+        }
+      ],
       "button": [
         {
           "order": 1,
@@ -916,6 +926,16 @@
         "ar": "اكتشف التميز الاستثنائي لشركة Shade Corporation، الشركة الرائدة في مجال الهندسة والمشتريات والبناء في المملكة العربية السعودية.",
         "en": "Discover the exceptional excellence of Shade Corporation, the leading company in engineering, procurement, and construction in Saudi Arabia."
       },
+      "images": [
+        {
+          "order": 1,
+          "url": "https://frequencyimage.s3.ap-south-1.amazonaws.com/851e35b5-9b3b-4d9f-91b4-9b60ef2a102c-Rectangle%2034624110.png",
+          "altText": {
+            "en": "Image 1",
+            "ar": "صورة شعار الصفحة الرئيسية"
+          }
+        }
+      ],
       "button": [
         {
           "order": 1,
@@ -2550,6 +2570,16 @@
         "ar": "اكتشف التميز الاستثنائي لشركة Shade Corporation، الشركة الرائدة في مجالات الهندسة والمشتريات والبناء في المملكة العربية السعودية.",
         "en": "Discover the exceptional excellence of Shade Corporation, the premier Engineering, Procurement, and Construction powerhouse in Saudi Arabia."
       },
+      "images": [
+        {
+          "order": 1,
+          "url": "https://frequencyimage.s3.ap-south-1.amazonaws.com/851e35b5-9b3b-4d9f-91b4-9b60ef2a102c-Rectangle%2034624110.png",
+          "altText": {
+            "en": "Image 1",
+            "ar": "صورة شعار الصفحة الرئيسية"
+          }
+        }
+      ],
       "button": [
         {
           "order": 1,
@@ -2612,7 +2642,6 @@
       }
     }
   },
-
 
   "singleMarketItems": [
     {
@@ -3023,6 +3052,16 @@
         "ar": "اكتشف التميز الاستثنائي لشركة Shade Corporation، الشركة الرائدة في مجالات الهندسة والمشتريات والبناء في المملكة العربية السعودية.",
         "en": "Discover the exceptional excellence of Shade Corporation, a leading company in the fields of engineering, procurement, and construction in Saudi Arabia."
       },
+      "images": [
+        {
+          "order": 1,
+          "url": "https://frequencyimage.s3.ap-south-1.amazonaws.com/851e35b5-9b3b-4d9f-91b4-9b60ef2a102c-Rectangle%2034624110.png",
+          "altText": {
+            "en": "Image 1",
+            "ar": "صورة شعار الصفحة الرئيسية"
+          }
+        }
+      ],
       "button": [
         {
           "order": 1,
@@ -3105,6 +3144,16 @@
           "url": "https://www.aramco.com",
           "text": "https://www.aramco.com"
         },
+        "images": [
+          {
+            "order": 1,
+            "url": "https://frequencyimage.s3.ap-south-1.amazonaws.com/851e35b5-9b3b-4d9f-91b4-9b60ef2a102c-Rectangle%2034624110.png",
+            "altText": {
+              "en": "Image 1",
+              "ar": "صورة شعار الصفحة الرئيسية"
+            }
+          }
+        ],
         "button": [
           {
             "order": 1,
@@ -3852,7 +3901,7 @@
 
   "newsBlogs": {
     "slug" : "news-blogs",
-    "bannerSection": {
+    "heroSection": {
       "title": {
         "ar": "خبر & المدونات",
         "en": "News & Blogs"
@@ -3860,7 +3909,28 @@
       "description": {
         "ar": "اكتشف التميز الاستثنائي لشركة Shade Corporation، الشركة الرائدة في مجال الهندسة والمشتريات والبناء في المملكة العربية السعودية.",
         "en": "Discover the exceptional excellence of Shade Corporation, a leader in engineering, procurement, and construction in Saudi Arabia."
-      }
+      },
+      "images": [
+        {
+          "order": 1,
+          "url": "https://frequencyimage.s3.ap-south-1.amazonaws.com/851e35b5-9b3b-4d9f-91b4-9b60ef2a102c-Rectangle%2034624110.png",
+          "altText": {
+            "en": "Image 1",
+            "ar": "صورة شعار الصفحة الرئيسية"
+          }
+        }
+      ],
+      "button": [
+        {
+          "order": 1,
+          "url": null,
+          "text": {
+            "ar": "خدماتنا",
+            "en": "Our Services"
+          },
+          "icon": null
+        }
+      ]
     },
     "featuredArticle": {
       "button": [
@@ -4278,7 +4348,28 @@
       "description": {
         "en": "At Shade Corporation, safety isn't just a policy—it's a core value that we instill in every project. Through meticulous planning, advanced technology, and strict adherence to safety protocols, we ensure that every stakeholder is protected and every operation is conducted with the highest level of safety standards.",
         "ar": "في شركة شيد، السلامة ليست مجرد سياسة، بل هي قيمة أساسية نزرعها في كل مشروع. من خلال التخطيط الدقيق، والتكنولوجيا المتقدمة، والالتزام الصارم ببروتوكولات السلامة، نضمن حماية جميع الأطراف المعنية وتنفيذ كل عملية بأعلى معايير السلامة."
-      }
+      },
+      "images": [
+        {
+          "order": 1,
+          "url": "https://frequencyimage.s3.ap-south-1.amazonaws.com/851e35b5-9b3b-4d9f-91b4-9b60ef2a102c-Rectangle%2034624110.png",
+          "altText": {
+            "en": "Image 1",
+            "ar": "صورة شعار الصفحة الرئيسية"
+          }
+        }
+      ],
+      "button": [
+        {
+          "order": 1,
+          "url": null,
+          "text": {
+            "ar": "خدماتنا",
+            "en": "Our Services"
+          },
+          "icon": null
+        }
+      ]
     }, 
     "safetyTerms" : {
       "title"  : {

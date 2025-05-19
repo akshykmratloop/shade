@@ -6,7 +6,6 @@ import { updateMainContent } from "../../../common/homeContentSlice";
 import { services, projectPageData } from "../../../../assets/index";
 import { TruncateText } from "../../../../app/capitalizeword";
 const Services = ({ currentContent, screen, language }) => {
-    console.log(currentContent)
     const isComputer = screen > 900;
     const isTablet = screen < 900 && screen > 730;
     const isPhone = screen < 738;
@@ -14,30 +13,33 @@ const Services = ({ currentContent, screen, language }) => {
     const ImagesFromRedux = useSelector(state => state.homeContent.present.images);
     const dispatch = useDispatch()
 
+    const titleLan = isLeftAlign ? "titleEn" : "titleAr"
 
-
-    useEffect(() => {
-        dispatch(updateMainContent({ currentPath: "services", payload: (content?.services) }))
-    }, [])
+    // useEffect(() => {
+    //     dispatch(updateMainContent({ currentPath: "services", payload: (content?.services) }))
+    // }, [])
     return (
         <div className="">
             <section
                 className={`relative w-full py-[100px] ${isPhone ? "px-8" : "px-10"} bg-cover bg-center ${isLeftAlign ? 'scale-x-[-1]' : ''}`}
-                style={{ backgroundImage: `linear-gradient(to right,#00000020 30%,#fffffffb 100%) ,url("${ImagesFromRedux?.['ServiceBanner'] || services.contructionTowerImage}")`, backgroundPosition: "bottom" }}
+                style={{
+                    backgroundImage: `linear-gradient(to right,#00000020 30%,#fffffffb 100%) ,url("${ImagesFromRedux?.['ServiceBanner'] || services.contructionTowerImage}")`,
+                    backgroundPosition: "bottom"
+                }}
             >
                 <div className="container relative h-full flex items-center justify-end">
                     <div className={`${isLeftAlign ? 'scale-x-[-1] text-left' : 'text-right'} ${isPhone ? "w-4/5" : isTablet ? "w-2/3" : "w-1/2"} space-y-4 p-6 flex flex-col ${isLeftAlign ? "items-start" : "items-end"}`}>
-                        <h1 className={`text-[#292E3D]  font-medium ${isPhone ? "text-[40px] leading-[50px]" : isTablet ? "text-[45px] leading-[55px]" : "text-[45px] leading-[77px]"} tracking-[-3.5px] mb-4`}>
-                            {currentContent?.heroBanner?.content?.title[language]}
-                        </h1>
+                        <h2 className={`text-[#292E3D]  font-medium ${isPhone ? "text-[40px] leading-[50px]" : isTablet ? "text-[45px] leading-[55px]" : "text-[45px] leading-[77px]"} tracking-[-3.5px] mb-4`}>
+                            {currentContent?.['1']?.content?.title?.[language]}
+                        </h2>
                         <p className="text-[#0E172FB2] text-[12px] font-semibold leading-[26px]  word-spacing-5">
-                            {currentContent?.banner?.description[language]}
+                            {currentContent?.['1']?.content?.description?.[language]}
                         </p>
                         <button
                             className={`relative items-center flex ${isLeftAlign ? "" : "flex-row-reverse"} gap-1 text-[12px] font-medium px-[12px] py-[6px] px-[12px] bg-[#00b9f2] text-white rounded-md`}
                             onClick={() => { }}
                         >
-                            {currentContent?.banner?.button?.[language]}
+                            {currentContent?.['1']?.content?.button?.[0]?.text?.[language]}
 
                             <img
                                 src={Arrow}
@@ -52,8 +54,7 @@ const Services = ({ currentContent, screen, language }) => {
             </section>
             <section dir={isLeftAlign ? 'ltr' : 'rtl'}
                 className={`grid ${isPhone ? " py-[80px] grid-cols-1" : "py-[20px] grid-cols-2"} ${isTablet ? "px-[60px]" : isPhone ? "px-[40px]" : "px-[100px]"} gap-x-[28px] gap-y-10 auto-rows-fr`}>
-                {currentContent?.serviceCards?.map((service, idx) => {
-                    if(!service.display) return null
+                {currentContent?.['2']?.items?.map((service, idx) => {
                     return (
                         <article
                             key={idx}
@@ -62,7 +63,7 @@ const Services = ({ currentContent, screen, language }) => {
                             <img src={service.image} alt="img" className="w-full object-cover h-[176px]" />
                             <section className="bg-[#F8F8F8] py-[14px] px-[18px] flex flex-col justify-between flex-1">
                                 <h1 className="text-[#292E3D] text-[22px] font-[400]">
-                                    {TruncateText(service?.title?.[language], isTablet ? 15 : 23)}
+                                    {TruncateText(service?.[titleLan], isTablet ? 15 : 23)}
                                 </h1>
                                 <p className="text-[#292E3D] text-[10px] mb-2">
                                     {service?.subtitle?.[language]}
@@ -81,10 +82,10 @@ const Services = ({ currentContent, screen, language }) => {
                 })}
             </section>
 
-            {!(currentContent?.serviceCards.lenght > 6) &&
+            {!(currentContent?.serviceCards?.length > 6) &&
                 < div className="flex justify-center py-10" >
                     <button className="bg-[#00B9F2] text-[#fff] p-[11px] rounded-[6px]">
-                        {currentContent?.button?.[language]}
+                        {currentContent?.['2']?.content?.button?.[0]?.text?.[language]}
                     </button>
                 </div>}
 

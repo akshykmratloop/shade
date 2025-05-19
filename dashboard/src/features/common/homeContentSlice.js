@@ -15,6 +15,11 @@ const cmsSlice = createSlice({
     name: "CMS",
     initialState,
     reducers: {
+        submitings: (state, action) => {
+            state.past = []
+            state.present = {}
+            state.future = []
+        },
         updateImages: (state, action) => {
             state.past.push(JSON.parse(JSON.stringify(state.present)));
             if (action.payload.type === "refDoc") {
@@ -28,31 +33,46 @@ const cmsSlice = createSlice({
             }
             state.future = [];
         },
-        updateAList: (state, action) => {
+        addImageArray: (state, action) => {
+            let oldArray = state.present.content.editVersion.sections[action.payload.sectionIndex].content.images
+            let newArray = [...oldArray, { ...action.payload.src, order: oldArray.length + 1 }]
 
-            let newArray = state.present.content.editVersion.sections[action.payload.index].content.clients
-
-            if (action.payload.operation === "add") {
-                newArray = [...newArray, action.payload.data]
-            } else {
-                if (!action.payload.data) {
-                    newArray.pop()
-                } else {
-                    newArray = newArray.filter(e => {
-                        console.log(e.image[0] !== action.payload.data)
-                        console.log(e.image[0], action.payload.data)
-                        return e.image[0] !== action.payload.data
-                    })
-                }
-            }
-
-            state.present.content.editVersion.sections[action.payload.index].content.clients = newArray;
+            state.present.content.editVersion.sections[action.payload.sectionIndex].content.images = newArray
         },
-        removeImages: (state, action) => {
-            state.past.push(JSON.parse(JSON.stringify(state.present)));
-            state.present.images[action.payload.section] = "";
-            state.future = [];
-        },
+        rmImageArray: (state, action) => {
+            let oldArray = state.present.content.editVersion.sections[action.payload.sectionIndex].content.images
+            let newArray = oldArray.filter(e => {
+                return e.order !== action.payload.order
+            })
+
+            state.present.content.editVersion.sections[action.payload.sectionIndex].content.images = newArray
+        }
+        ,
+        // updateAList: (state, action) => {
+
+        //     let newArray = state.present.content.editVersion.sections[action.payload.index].content.clients
+
+        //     if (action.payload.operation === "add") {
+        //         newArray = [...newArray, action.payload.data]
+        //     } else {
+        //         if (!action.payload.data) {
+        //             newArray.pop()
+        //         } else {
+        //             newArray = newArray.filter(e => {
+        //                 console.log(e.image[0] !== action.payload.data)
+        //                 console.log(e.image[0], action.payload.data)
+        //                 return e.image[0] !== action.payload.data
+        //             })
+        //         }
+        //     }
+
+        //     state.present.content.editVersion.sections[action.payload.index].content.clients = newArray;
+        // },
+        // removeImages: (state, action) => {
+        //     state.past.push(JSON.parse(JSON.stringify(state.present)));
+        //     state.present.images[action.payload.section] = "";
+        //     state.future = [];
+        // },
         updateMainContent: (state, action) => {
             state.past.push(JSON.parse(JSON.stringify(state.present)));
             state.present.content = action.payload.payload;
@@ -75,71 +95,73 @@ const cmsSlice = createSlice({
             }
             state.future = [];
         },
-        updateTheProjectSummaryList: (state, action) => {
+        // updateTheProjectSummaryList: (state, action) => {
+        //     state.past.push(JSON.parse(JSON.stringify(state.present)));
+        //     let newArray = []
+        //     let expression;
+
+        //     switch (action.payload.context) {
+        //         case "projectDetail":
+        //             expression = state.present.projectDetail?.[action.payload.projectId - 1].descriptionSection;
+        //             break;
+
+        //         case "careerDetails":
+        //             expression = state.present.careerDetails?.[action.payload.careerIndex]?.jobDetails?.leftPanel?.sections;
+        //             break;
+
+        //         case "newsBlogsDetails":
+        //             expression = state.present.newsBlogsDetails?.[action.payload.newsIndex]?.newsPoints;
+        //             break;
+
+        //         case "subOfsubService":
+        //             expression = state.present.subOfsubService[action.payload.serviceId][action.payload.deepPath - 1][action.payload.subContext]
+        //             break;
+
+        //         default:
+        //     }
+
+        //     if (action.payload.operation === 'add') {
+        //         newArray = [...expression, action.payload.insert]
+        //     } else {
+        //         newArray = expression?.filter((e, i) => {
+        //             return i !== action.payload.index
+        //         })
+        //     }
+
+        //     switch (action.payload.context) {
+        //         case "projectDetail":
+        //             state.present.projectDetail[action.payload.projectId - 1].descriptionSection = newArray
+        //             break;
+
+        //         case "careerDetails":
+        //             state.present.careerDetails[action.payload.careerIndex].jobDetails.leftPanel.sections = newArray
+        //             break;
+
+        //         case "newsBlogsDetails":
+        //             state.present.newsBlogsDetails[action.payload.newsIndex].newsPoints = newArray
+        //             break;
+
+        //         case "subOfsubService":
+        //             state.present.subOfsubService[action.payload.serviceId][action.payload.deepPath - 1][action.payload.subContext] = newArray
+        //             break;
+
+        //         default:
+        //     }
+        //     state.future = [];
+        // },
+        updateCardAndItemsArray: (state, action) => {
             state.past.push(JSON.parse(JSON.stringify(state.present)));
             let newArray = []
-            let expression;
-
-            switch (action.payload.context) {
-                case "projectDetail":
-                    expression = state.present.projectDetail?.[action.payload.projectId - 1].descriptionSection;
-                    break;
-
-                case "careerDetails":
-                    expression = state.present.careerDetails?.[action.payload.careerIndex]?.jobDetails?.leftPanel?.sections;
-                    break;
-
-                case "newsBlogsDetails":
-                    expression = state.present.newsBlogsDetails?.[action.payload.newsIndex]?.newsPoints;
-                    break;
-
-                case "subOfsubService":
-                    expression = state.present.subOfsubService[action.payload.serviceId][action.payload.deepPath - 1][action.payload.subContext]
-                    break;
-
-                default:
-            }
-
+            console.log(action.payload.sectionIndex)
+            let oldArray = state.present.content?.editVersion?.sections?.[action.payload.sectionIndex].content
             if (action.payload.operation === 'add') {
-                newArray = [...expression, action.payload.insert]
+                newArray = [...oldArray, { ...action.payload.insert, order: oldArray.length }]
             } else {
-                newArray = expression?.filter((e, i) => {
+                newArray = state.present.content?.editVersion?.sections?.[action.payload.sectionIndex].content.filter((e, i) => {
                     return i !== action.payload.index
                 })
             }
-
-            switch (action.payload.context) {
-                case "projectDetail":
-                    state.present.projectDetail[action.payload.projectId - 1].descriptionSection = newArray
-                    break;
-
-                case "careerDetails":
-                    state.present.careerDetails[action.payload.careerIndex].jobDetails.leftPanel.sections = newArray
-                    break;
-
-                case "newsBlogsDetails":
-                    state.present.newsBlogsDetails[action.payload.newsIndex].newsPoints = newArray
-                    break;
-
-                case "subOfsubService":
-                    state.present.subOfsubService[action.payload.serviceId][action.payload.deepPath - 1][action.payload.subContext] = newArray
-                    break;
-
-                default:
-            }
-            state.future = [];
-        },
-        updateWhatWeDoList: (state, action) => {
-            state.past.push(JSON.parse(JSON.stringify(state.present)));
-            let newArray = []
-            if (action.payload.operation === 'add') {
-                newArray = [...state.present.solution?.[action.payload.section], action.payload.insert]
-            } else {
-                newArray = state.present.solution[action.payload.section].filter((e, i) => {
-                    return i !== action.payload.index
-                })
-            }
-            state.present.solution[action.payload.section] = newArray
+            state.present.content.editVersion.sections[action.payload.sectionIndex].content = newArray
             state.future = [];
         },
         updateSpecificContent: (state, action) => {
@@ -363,14 +385,17 @@ export const { // actions
     updateSelectedContent,
     updateSelectedProject,
     updateMarketSelectedContent,
-    updateWhatWeDoList,
+    updateCardAndItemsArray,
     updateAllProjectlisting,
     selectMainNews,
+    submitings,
+    addImageArray,
+    rmImageArray,
     undo,
     redo,
     updateTheProjectSummaryList,
     updateSelectedSubService,
-    updateAList
+    updateAList,
 } = cmsSlice.actions;
 
 export default cmsSlice.reducer; // reducer
