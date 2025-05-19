@@ -172,13 +172,16 @@ const cmsSlice = createSlice({
                 state.present.content.editVersion.sections[action.payload.sectionIndex].sections[action.payload.index].content[action.payload.title][action.payload.lan] = action.payload.value
             } else if (action.payload.subSection === "cards") {
                 state.present.content.editVersion.sections[action.payload.sectionIndex].content.cards[action.payload.index][action.payload.title][action.payload.lan] = action.payload.value
+            } else if(action.payload.subSection) {
+                state.present.content.editVersion.sections[action.payload.sectionIndex].content.introSection[action.payload.title][action.payload.lan] = action.payload.value
             } else {
                 state.present.content.editVersion.sections[action.payload.sectionIndex].content[action.payload.title][action.payload.lan] = action.payload.value
             }
 
             state.future = [];
         },
-        updateServicesNumber: (state, action) => {
+        updateServicesNumber: (state, action) => {                state.present.content.editVersion.sections[action.payload.sectionIndex].content[action.payload.title][action.payload.lan] = action.payload.value
+
             state.past.push(JSON.parse(JSON.stringify(state.present)));
             state.present.content.editVersion.sections[action.payload.sectionIndex].content.cards[action.payload.index][action.payload.title] = action.payload.value
             state.future = [];

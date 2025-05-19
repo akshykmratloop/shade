@@ -91,7 +91,7 @@ const MarketPage = ({ language, screen, currentContent }) => {
     return (
         <div ref={divRef} className={``}>
             {/* hero banner  */}
-            <section className={`relative h-[487px] border w-full bg-cover bg-center ${isLeftAlign ? 'scale-x-[-1]' : ''} ${isPhone ? "px-10" : "px-20"} `}
+            <section className={`relative h-[487px] w-full bg-cover bg-center ${isLeftAlign ? 'scale-x-[-1]' : ''} ${isPhone ? "px-10" : "px-20"} `}
                 style={{
                     // height: 1200 * 0.436,
                     backgroundImage: currentContent?.['1']?.content?.images?.[0]?.url ? `url(${Img_url + currentContent?.['1']?.content?.images?.[0]?.url})` :

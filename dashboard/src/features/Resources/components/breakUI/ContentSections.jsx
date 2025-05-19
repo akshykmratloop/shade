@@ -215,7 +215,7 @@ const ContentSection = ({
                                 key={i}
                                 labelTitle={input.label}
                                 labelStyle="block sm:text-xs xl:text-sm"
-                                updateFormValue={updateFormValue}
+                                updateFormValue={({ updateType, value, path }) => updateFormValue(updateType, value, path, input.index)}
                                 updateType={input.updateType}
                                 section={section}
                                 defaultValue={input.value || ""}
