@@ -22,7 +22,10 @@ const Services = ({ currentContent, screen, language }) => {
         <div className="">
             <section
                 className={`relative w-full py-[100px] ${isPhone ? "px-8" : "px-10"} bg-cover bg-center ${isLeftAlign ? 'scale-x-[-1]' : ''}`}
-                style={{ backgroundImage: `linear-gradient(to right,#00000020 30%,#fffffffb 100%) ,url("${ImagesFromRedux?.['ServiceBanner'] || services.contructionTowerImage}")`, backgroundPosition: "bottom" }}
+                style={{
+                    backgroundImage: `linear-gradient(to right,#00000020 30%,#fffffffb 100%) ,url("${ImagesFromRedux?.['ServiceBanner'] || services.contructionTowerImage}")`,
+                    backgroundPosition: "bottom"
+                }}
             >
                 <div className="container relative h-full flex items-center justify-end">
                     <div className={`${isLeftAlign ? 'scale-x-[-1] text-left' : 'text-right'} ${isPhone ? "w-4/5" : isTablet ? "w-2/3" : "w-1/2"} space-y-4 p-6 flex flex-col ${isLeftAlign ? "items-start" : "items-end"}`}>

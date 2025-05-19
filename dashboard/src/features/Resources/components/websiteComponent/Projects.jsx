@@ -23,7 +23,7 @@ import { updateAllProjectlisting } from "../../../common/homeContentSlice"
 // ssr: false,
 // });
 
-const ProjectPage = ({ language, screen }) => {
+const ProjectPage = ({ language, screen, currentContent }) => {
     const isPhone = screen < 760
     const isTablet = screen > 761 && screen < 1100
     const isLeftAlign = language === "en"
@@ -31,7 +31,7 @@ const ProjectPage = ({ language, screen }) => {
     const [activeTab, setActiveTab] = useState("all");
     const [filteredProject, setFilteredProject] = useState([]);
     const [visibleProjectsCount, setVisibleProjectsCount] = useState(6);
-    const currentContent = useSelector((state) => state.homeContent.present.projects)
+    // const currentContent = useSelector((state) => state.homeContent.present.projects)
     const ImageFromRedux = useSelector((state) => state.homeContent.present.images)
     // const { language, content } = useGlobalContext();
     // const currentContent = content?.projectsPage;
@@ -42,11 +42,11 @@ const ProjectPage = ({ language, screen }) => {
 
     useEffect(() => {
         if (activeTab === "all") {
-            setFilteredProject(currentContent?.projectsSection?.allProjectsList || []);
+            setFilteredProject(currentContent?.["2"]?.items || []);
         } else {
             setFilteredProject(
-                currentContent?.projectsSection?.projects
-                    ? currentContent?.projectsSection.projects.filter(
+                currentContent?.["2"]?.items
+                    ? currentContent?.["2"]?.items.filter(
                         (project) => project?.status === activeTab
                     )
                     : []
@@ -56,15 +56,15 @@ const ProjectPage = ({ language, screen }) => {
     }, [activeTab, currentContent]); // Added currentContent as a dependency
 
 
-    useEffect(() => {
-        dispatch(updateMainContent({ currentPath: "projects", payload: content.projectsPage }));
-    }, [])
-    
-    useEffect(() => {
-        if(currentContent){
-            dispatch(updateAllProjectlisting({data:currentContent?.projectsSection?.projects, action: "initial"}))
-        }
-    }, [currentContent])
+    // useEffect(() => {
+    //     dispatch(updateMainContent({ currentPath: "projects", payload: content.projectsPage }));
+    // }, [])
+
+    // useEffect(() => {
+    //     if(currentContent){
+    //         dispatch(updateAllProjectlisting({data:currentContent?.projectsSection?.projects, action: "initial"}))
+    //     }
+    // }, [currentContent])
 
     return (
         <div className="h-full">
@@ -77,10 +77,10 @@ const ProjectPage = ({ language, screen }) => {
                 <div className={`container h-full relative ${isPhone ? "px-10" : "px-20"} flex items-center ${isLeftAlign ? "justify-end" : "justify-end"}   `}>
                     <div className={`flex flex-col ${isLeftAlign ? 'right-5 text-left items-start ' : 'left-5 text-right items-end'} ${isPhone ? "max-w-[70%]" : "max-w-[55%]"} w-full ${isLeftAlign ? 'scale-x-[-1]' : ''}`}>
                         <h1 dir={language === 'ar' ? "rtl" : "ltr"} className={`text-[#292E3D] ${isPhone ? "text-3xl" : "text-[40px] leading-[77px] tracking-[-3.5px]"} font-medium  mb-4`}>
-                            {currentContent?.bannerSection?.title[language]}
+                            {currentContent?.["1"]?.content?.title?.[language]}
                         </h1>
                         <p className={`text-[#0E172FB3] ${isPhone ? "" : "leading-[28px]"} text-sm font-semibold  mb-6 word-spacing-5`}>
-                            {currentContent?.bannerSection?.description[language]}
+                            {currentContent?.["1"]?.content?.description?.[language]}
                         </p>
                         <button
                             className={`relative px-[12px] py-[6px] text-xs font-medium bg-[#00B9F2] text-white rounded flex items-center justify-start gap-2 ${isLeftAlign ? "flex-row-reverse" : ""}`}
@@ -92,7 +92,7 @@ const ProjectPage = ({ language, screen }) => {
                                 className={` ${isLeftAlign ? 'scale-x-[-1]' : ''} w-[11px] h-[11px]`}
                             />
                             <p>
-                                {currentContent?.bannerSection?.button?.[language]}
+                                {currentContent?.["1"]?.content?.button?.[0]?.text?.[language]}
                             </p>
                         </button>
                     </div>
@@ -104,7 +104,7 @@ const ProjectPage = ({ language, screen }) => {
                     <div>
                         {/* Tabs */}
                         <div className="flex justify-center gap-8 mb-10">
-                            {currentContent?.projectsSection?.tabs?.map((tab, index) => (
+                            {currentContent?.["2"]?.content?.tabs?.map((tab, index) => (
                                 <button
                                     key={index}
                                     className={`text-black text-lg font-normal uppercase relative pb-2 border-b-4 transition-all duration-300 ${activeTab === tab?.id ? "border-[#00B9F2] text-[#00B9F2]" : "border-transparent"
@@ -122,20 +122,20 @@ const ProjectPage = ({ language, screen }) => {
                                 <div className="bg-white p-4 rounded-md flex flex-col gap-2" key={index}>
                                     <img
                                         src={projectPageData[item.url]}
-                                        alt={item.title[language]}
+                                        alt={item.title?.[language]}
                                         className="w-full h-[190px]"
                                     />
-                                    <h5 className="text-lg font-bold mt-2 truncate" title={item?.title[language]}>
-                                        {TruncateText(item.title[language], 45)}
+                                    <h5 className="text-lg font-bold mt-2 truncate" title={item?.title?.[language]}>
+                                        {TruncateText(item.title?.[language], 45)}
                                     </h5>
-                                    <p className="text-sm text-gray-600 truncate" title={item?.address[language]}>
-                                        {TruncateText(item.address[language], 25)}
+                                    <p className="text-sm text-gray-600 truncate" title={item?.address?.[language]}>
+                                        {TruncateText(item.address?.[language], 25)}
                                     </p>
                                     <button
                                         className="text-[#00B9F2] flex items-center gap-2 mt-2"
                                     // onClick={() => router.push(`/project/${item?.id}`)}
                                     >
-                                        {item.button.text[language]}
+                                        {item.button?.text?.[language]}
                                         <img
                                             className={language === "en" ? "transform scale-x-[-1]" : ""}
                                             src="https://frequencyimage.s3.ap-south-1.amazonaws.com/61c0f0c2-6c90-42b2-a71e-27bc4c7446c2-mingcute_arrow-up-line.svg"
@@ -155,7 +155,7 @@ const ProjectPage = ({ language, screen }) => {
                                     className="flex items-center gap-2"
                                     onClick={() => setVisibleProjectsCount(visibleProjectsCount + 6)}
                                 >
-                                    {currentContent?.projectsSection?.button?.text[language]}
+                                    {currentContent?.['2']?.content?.button?.[1]?.text?.[language]}
                                     <img
                                         src="https://loopwebsite.s3.ap-south-1.amazonaws.com/weui_arrow-outlined.svg"
                                         width={24}

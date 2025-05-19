@@ -1,110 +1,145 @@
 {
     "message": "Success",
     "content": {
-        "id": "cmap7yooh00rtmn5k7o27nso0",
-        "titleEn": "Services Page",
-        "titleAr": "خدمات الصفحة",
-        "slug": "service",
+        "id": "cmap7yojn00ptmn5kdmm9cz99",
+        "titleEn": "Projects Page",
+        "titleAr": "المشاريع الصفحة",
+        "slug": "project",
         "resourceType": "MAIN_PAGE",
-        "resourceTag": "SERVICE",
+        "resourceTag": "PROJECT",
         "relationType": "PARENT",
         "liveModeVersionData": {
-            "id": "cmap7yook00rvmn5kpminnr46",
+            "id": "cmap7yojq00pvmn5kikpvl6q5",
             "versionNumber": 1,
             "icon": null,
             "image": null,
             "comments": "Initial version created",
             "referenceDoc": null,
-            "updatedAt": "2025-05-15T10:21:03.476Z",
+            "updatedAt": "2025-05-15T10:21:03.303Z",
             "status": "PUBLISHED",
             "sections": [
                 {
-                    "sectionId": "cmap7yoow00rxmn5kqk2nteim",
+                    "sectionId": "cmap7yok100pxmn5kcpd92zmr",
                     "order": 1,
                     "version": 1,
-                    "title": "HeroSection-service-e46a",
+                    "title": "bannerSection-project-381f",
                     "content": {
                         "title": {
-                            "ar": "خدماتنا",
-                            "en": "Our Services"
+                            "ar": ">مشروعنا",
+                            "en": "Our Projects"
                         },
                         "button": [
                             {
                                 "url": null,
                                 "icon": null,
                                 "text": {
-                                    "ar": "عرض المشاريع",
-                                    "en": "View Projects"
+                                    "ar": "دعونا نتواصل",
+                                    "en": "Let's Connect"
                                 },
                                 "order": 1
                             }
                         ],
                         "description": {
-                            "ar": "اكتشف التميز الاستثنائي لشركة Shade Corporation، الشركة الرائدة في مجال الهندسة والمشتريات والبناء في المملكة العربية السعودية.",
-                            "en": "Discover the exceptional excellence of Shade Corporation, the leading company in engineering, procurement, and construction in Saudi Arabia."
+                            "ar": "اكتشف التميز الاستثنائي لشركة Shade Corporation، الشركة الرائدة في مجالات الهندسة والمشتريات والبناء في المملكة العربية السعودية.",
+                            "en": "Discover the exceptional excellence of Shade Corporation, a leading company in the fields of engineering, procurement, and construction in Saudi Arabia."
                         }
                     }
                 },
                 {
-                    "sectionId": "cmap7yopa00s3mn5k3s6g864h",
+                    "sectionId": "cmap7yoke00q3mn5k5a0ll8k1",
                     "order": 2,
                     "version": 1,
-                    "title": "serviceCardsSection-service-e88f",
+                    "title": "projectsGridSection-project-5e81",
                     "content": {
+                        "tabs": [
+                            {
+                                "id": "all",
+                                "order": 1,
+                                "title": {
+                                    "ar": "الكل",
+                                    "en": "All"
+                                }
+                            },
+                            {
+                                "id": "ongoing",
+                                "order": 2,
+                                "title": {
+                                    "ar": "مستمر",
+                                    "en": "Ongoing"
+                                }
+                            },
+                            {
+                                "id": "completed",
+                                "order": 3,
+                                "title": {
+                                    "ar": "مكتمل",
+                                    "en": "Completed"
+                                }
+                            }
+                        ],
                         "button": [
                             {
                                 "url": null,
                                 "icon": null,
                                 "text": {
-                                    "ar": "عرض عملنا",
-                                    "en": "View Our"
+                                    "ar": "عرض التفاصيل",
+                                    "en": "View Details"
                                 },
                                 "order": 1
+                            },
+                            {
+                                "url": null,
+                                "icon": null,
+                                "text": {
+                                    "ar": " عرض المزيد",
+                                    "en": "View More"
+                                },
+                                "order": 2
                             }
                         ]
                     },
                     "items": [
                         {
-                            "id": "cmap7ynw500fimn5k08mmsb19",
-                            "titleEn": "Construction Management",
-                            "titleAr": "إدارة البناء",
-                            "slug": "construction-management",
+                            "id": "cmap7yn4j004kmn5k3z26jsy9",
+                            "titleEn": "IT Labs for Excellence",
+                            "titleAr": "مختبر تكنولوجيا المعلومات للتميز",
+                            "slug": "it-lab-for-excellence",
                             "icon": null,
                             "image": null,
                             "order": 1
                         },
                         {
-                            "id": "cmap7yny300gdmn5kxa3nl078",
-                            "titleEn": "Project Services",
-                            "titleAr": "خدمات المشروع",
-                            "slug": "project-services",
+                            "id": "cmap7yn6s005hmn5k7co0u1x0",
+                            "titleEn": "Non-Metallic Manufacturing Plant",
+                            "titleAr": "مصنع المواد غير المعدنية",
+                            "slug": "non-metallic-manufacturing-plant",
                             "icon": null,
                             "image": null,
                             "order": 2
                         },
                         {
-                            "id": "cmap7ynzz00h8mn5kdaxy2wrv",
-                            "titleEn": "Operation & Maintenance",
-                            "titleAr": "التشغيل والصيانة",
-                            "slug": "operation-maintenance",
+                            "id": "cmap7yn8y006emn5klww1zgwq",
+                            "titleEn": "Business Gate",
+                            "titleAr": "بوابة الأعمال",
+                            "slug": "business-gate",
                             "icon": null,
                             "image": null,
                             "order": 3
                         },
                         {
-                            "id": "cmap7yo1v00i3mn5kn839dys0",
-                            "titleEn": "Fabrication",
-                            "titleAr": "التصنيع",
-                            "slug": "fabrication",
+                            "id": "cmap7ynb5007bmn5k5x06c63t",
+                            "titleEn": "OME Building - Northern Area Pipelines",
+                            "titleAr": "مبنى OME - خطوط أنابيب المنطقة الشمالية",
+                            "slug": "construction-of-ome-building-napd-khursaniyah",
                             "icon": null,
                             "image": null,
                             "order": 4
                         },
                         {
-                            "id": "cmap7yo3t00iymn5kak8or9ep",
-                            "titleEn": "Equipment Rental",
-                            "titleAr": "تأجير المعدات",
-                            "slug": "equipment-rental",
+                            "id": "cmap7yndd0088mn5kkln0nr0n",
+                            "titleEn": "Psychiatric Facility",
+                            "titleAr": "المنشأة النفسية",
+                            "slug": "psychiatric-facility",
                             "icon": null,
                             "image": null,
                             "order": 5

@@ -73,35 +73,35 @@ const AllForOne = ({ language, screen, content, subPath, setLanguage, fullScreen
             {
                 currentPath === 'projects' || currentPath === 'project' ? subPath ?
                     <ProjectDetailPage language={language} contentOn={content?.projectDetail} projectId={subPath} screen={screen} /> :
-                    <ProjectPage language={language} currentContent={content?.projects} screen={screen} /> : ""
+                    <ProjectPage language={language} currentContent={content} screen={screen} /> : ""
             }
             {
                 currentPath === "careers" ? subPath ?
                     <CareerDetailPage language={language} contentOn={content?.careerDetails} careerId={subPath} screen={screen} /> :
-                    <CareerPage language={language} currentContent={content?.career} screen={screen} /> : ""
+                    <CareerPage language={language} currentContent={content} screen={screen} /> : ""
             }
             {
                 currentPath === "news" ? subPath ?
                     <NewsBlogDetailPage language={language} contentOn={content?.newsBlogsDetails} newsId={subPath} screen={screen} /> :
-                    <NewsPage language={language} currentContent={content?.newsBlogs} screen={screen} /> : ""
+                    <NewsPage language={language} currentContent={content} screen={screen} /> : ""
             }
 
             {/* sub pages */}
             {
                 currentPath === "footer" &&
-                <Footer language={language} currentContent={content?.footer} screen={screen} />
+                <Footer language={language} currentContent={content} screen={screen} />
             }
             {
                 currentPath === "header" &&
-                <Header language={language} currentContent={content?.header} screen={screen} setLanguage={setLanguage} />
+                <Header language={language} currentContent={content} screen={screen} setLanguage={setLanguage} />
             }
             {
                 currentPath === "testimonials" || currentPath === "testimonial" &&
-                <Testimonials language={language} currentContent={content?.footer} screen={screen} testimonyId={subPath} />
+                <Testimonials language={language} currentContent={content} screen={screen} testimonyId={subPath} />
             }
             {
                 currentPath === 'contactus-modal' &&
-                <ContactUsModal language={language} currentContent={content?.contactUsModal} screen={screen} />
+                <ContactUsModal language={language} currentContent={content} screen={screen} />
             }
         </div>
     )
