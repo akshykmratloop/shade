@@ -5,6 +5,7 @@ import { deleteMedia, fetchAllImages } from "../../app/fetch";
 import { Img_url } from "../../routes/backend";
 import Popups from "../../features/Resources/components/breakUI/Popups";
 import { ToastContainer, toast } from "react-toastify";
+import { useSelector } from "react-redux";
 const imageStructure = [{
     "id": "",
     "url": "",
@@ -17,7 +18,10 @@ const imageStructure = [{
     "resourceId": ""
 }]
 
-const ImageSelector = ({ onSelectImage, onClose, resourceId }) => {
+const ImageSelector = ({ onSelectImage, onClose }) => {
+    const [resourceId, setResourceId] = useState('')
+    // const resourceId = useSelector(state => state.versions.resourceId)
+    console.log(resourceId)
     const fileInputRef = useRef(null);
     const modalRef = useRef(null);
 
@@ -111,23 +115,28 @@ const ImageSelector = ({ onSelectImage, onClose, resourceId }) => {
     useEffect(() => { // get images
         async function getAllImagesHandler() {
             setLoadingImages(true);
-            try {
-                const response = await fetchAllImages(imagesByResource ? { resourceId } : "");
-                if (response.ok) {
-                    setImages(response.media);
-                } else {
-                    throw new Error("Error while fetching images");
+            if (!imagesByResource || (imagesByResource && resourceId)) {
+                try {
+                    const response = await fetchAllImages(imagesByResource ? { resourceId } : "");
+                    if (response.ok) {
+                        setImages(response.media);
+                    } else {
+                        throw new Error("Error while fetching images");
+                    }
+                } catch (err) {
+                    console.log(err);
+                } finally {
+                    setLoadingImages(false);
                 }
-            } catch (err) {
-                console.log(err);
-            } finally {
-                setLoadingImages(false);
             }
         }
         getAllImagesHandler();
-    }, [imagesByResource, random]);
+    }, [imagesByResource, random, resourceId]);
 
 
+    useEffect(() => {
+        setResourceId(localStorage.getItem("contextId"))
+    }, [])
     // OUTSIDE CLICK 
 
     useEffect(() => {
