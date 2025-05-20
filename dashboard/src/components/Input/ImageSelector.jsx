@@ -42,7 +42,7 @@ const ImageSelector = ({ onSelectImage, onClose, resourceId }) => {
         const file = event.target.files[0];
         if (!file || uploading) return; // Prevent uploading if already uploading
 
-        if (file.size > 9 * 1024 * 1024) {
+        if (file.size > 5 * 1024 * 1024) {
             toast.error("File size must be less than 5MB", { hideProgressBar: true });
             return;
         }

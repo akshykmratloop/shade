@@ -1,31 +1,48 @@
+model Filters {
+  id        String     @id @default(cuid())
+  nameEn    String     @unique
+  nameAr    String     @unique
+  // Relationships
+  resources Resource[]
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+
+  @@unique([nameEn, nameAr])
+}
+
 // RESOURCE IS TYPE OF CONTENT ON WEBSITE(PAGE, TESTIMONIAL, SERVICE, PROJECTS, HEADER etc)
 // Core content entity representing any type of content on the website
 model Resource {
-  id                   String            @id @default(cuid())
+  id                   String               @id @default(cuid())
   titleEn              String
   titleAr              String
-  slug                 String            @unique // URL-friendly identifier
-  status               Status            @default(ACTIVE)
-  resourceType         ResourceType      @default(NULL) // Content classification
-  resourceTag          ResourceTag       @default(NULL) // Content category
-  relationType         RelationType      @default(NULL) // Hierarchy position
-  isAssigned           Boolean           @default(false) // Whether content is assigned for work
+  slug                 String               @unique // URL-friendly identifier
+  status               Status               @default(ACTIVE)
+  resourceType         ResourceType         @default(NULL) // Content classification
+  resourceTag          ResourceTag          @default(NULL) // Content category
+  relationType         RelationType         @default(NULL) // Hierarchy position
+  isAssigned           Boolean              @default(false) // Whether content is assigned for work
   // Versioning relationships
   versions             ResourceVersion[] // All historical versions
-  liveVersionId        String?           @unique // Currently published version
-  liveVersion          ResourceVersion?  @relation(name: "LiveVersion", fields: [liveVersionId], references: [id], onDelete: Restrict, onUpdate: Restrict) //  version can not be deleted
-  newVersionEditModeId String?           @unique // Version being actively edited
-  newVersionEditMode   ResourceVersion?  @relation(name: "EditModeVersion", fields: [newVersionEditModeId], references: [id], onDelete: Restrict, onUpdate: Restrict) //  version can not be deleted
-  scheduledVersionId   String?           @unique // Future version to be published
-  scheduledVersion     ResourceVersion?  @relation(name: "ScheduledVersion", fields: [scheduledVersionId], references: [id], onDelete: Restrict, onUpdate: Restrict) //  version can not be deleted
-
+  liveVersionId        String?              @unique // Currently published version
+  liveVersion          ResourceVersion?     @relation(name: "LiveVersion", fields: [liveVersionId], references: [id], onDelete: Restrict, onUpdate: Restrict) //  version can not be deleted
+  newVersionEditModeId String?              @unique // Version being actively edited
+  newVersionEditMode   ResourceVersion?     @relation(name: "EditModeVersion", fields: [newVersionEditModeId], references: [id], onDelete: Restrict, onUpdate: Restrict) //  version can not be deleted
+  scheduledVersionId   String?              @unique // Future version to be published
+  scheduledVersion     ResourceVersion?     @relation(name: "ScheduledVersion", fields: [scheduledVersionId], references: [id], onDelete: Restrict, onUpdate: Restrict) //  version can not be deleted
+  filters              Filters[]
   // Access control
-  roles               ResourceRole[] // Current user permissions
-  verifiers           ResourceVerifier[] // Current approval workflow
-  sectionVersions     SectionVersion[]
-  sectionVersionItems SectionVersionItem[]
-  seo                 SEO?
-  media               Media[]
+  roles                ResourceRole[] // Current user permissions
+  verifiers            ResourceVerifier[] // Current approval workflow
+  sectionVersions      SectionVersion[]
+  sectionVersionItems  SectionVersionItem[]
+  seo                  SEO?
+  media                Media[]
+
+  // Self-referencing hierarchy
+  parentId String?
+  parent   Resource?  @relation("ResourceToChildren", fields: [parentId], references: [id], onDelete: Restrict, onUpdate: Restrict)
+  children Resource[] @relation("ResourceToChildren")
 
   // Timestamps
   createdAt DateTime @default(now())
@@ -36,6 +53,7 @@ model Resource {
   @@index([resourceType, status])
   @@index([slug])
   @@index([scheduledVersionId])
+  @@index([parentId]) // For efficient hierarchy queries
 }
 
 // Versioned content with full history tracking
@@ -44,7 +62,7 @@ model ResourceVersion {
   versionNumber Int           @default(1) // Sequential version identifier
   versionStatus VersionStatus @default(NULL) // Current lifecycle state
   notes         String? // Change description for auditors
-  referenceDoc  String?  // Reference to external documentation
+  referenceDoc  String? // Reference to external documentation
   content       Json // Flexible content storage
   icon          String?
   Image         String?
