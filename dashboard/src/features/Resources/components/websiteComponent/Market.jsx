@@ -55,7 +55,7 @@ const MarketPage = ({ language, screen, currentContent }) => {
     const [visibleMarketItemsCount, setVisibleMarketItemCount] = useState(6);
     const divRef = useRef(null)
 
-    const titleLan = language === "en" ? 'titleEn' : "titleAr"
+    const titleLan = isLeftAlign ? 'titleEn' : "titleAr"
 
 
     useEffect(() => {
@@ -122,7 +122,9 @@ const MarketPage = ({ language, screen, currentContent }) => {
                 </div>
             </section>
 
-            <section className={`flex gap-[30px] ${isPhone ? "flex-col px-[30px]" : ""} ${isPhone ? "px-10" : "px-20"} my-[33px]`}>
+            <section
+            dir={isLeftAlign? "ltr":"rtl"}
+            className={`flex gap-[30px] ${isPhone ? "flex-col px-[30px]" : ""} ${isPhone ? "px-10" : "px-20"} my-[33px]`}>
                 <h2 className={`text-[35px] ${isPhone ? "" : "w-1/2"}`}>
                     {/* {currentContent?.banner?.title?.[language]} */}
                     {currentContent?.['3']?.content?.introSection?.title?.[language]}
@@ -133,7 +135,9 @@ const MarketPage = ({ language, screen, currentContent }) => {
                 />
             </section>
 
-            <div className={`${isPhone ? "px-10" : "px-20"} flex flex-col gap-[20px]`}>
+            <div className={`${isPhone ? "px-10" : "px-20"} flex flex-col gap-[20px]`}
+            dir={isLeftAlign? "ltr":"rtl"}
+            >
                 {
                     currentContent?.['3']?.items?.map((e, i) => {
                         let odd = i % 2 !== 0
@@ -146,7 +150,9 @@ const MarketPage = ({ language, screen, currentContent }) => {
                                         style={{ width: 310, height: 240 }}
                                     />
                                 </div>
-                                <article className={`flex flex-col gap-[13px] items-start justify-center text-[#292E3D] pl-[38px]`}>
+                                <article
+                                dir={isLeftAlign? "ltr":"rtl"}
+                                className={`flex flex-col gap-[13px] items-start justify-center text-[#292E3D] px-[38px]`}>
                                     <h3 className="font-[400] text-[21px]">{e?.[titleLan]}</h3>
                                     <p className="font-[300] text-[10px]">
                                         {e.description?.[language]}
@@ -160,7 +166,7 @@ const MarketPage = ({ language, screen, currentContent }) => {
                                             className={` ${isLeftAlign ? 'scale-x-[-1]' : ''}  w-[11px] h-[11px]`}
                                         />
                                         <p>
-                                            {currentContent?.["2"]?.content?.button?.[0]?.text?.[language]}
+                                            {currentContent?.["3"]?.content?.button?.[0]?.text?.[language]}
                                         </p>
                                     </button>
                                 </article>

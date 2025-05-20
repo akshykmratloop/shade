@@ -84,7 +84,8 @@ const MarketManager = ({ language, currentContent, currentPath, indexes, outOfEd
                 Heading={"Sub Heading"}
                 inputs={[
                     { input: "input", label: "Heading/title", maxLength: 55, updateType: "title", value: currentContent?.['3']?.content?.introSection?.title?.[language] },
-                    { input: "textarea", label: "Description", maxLength: 400, updateType: "description", value: currentContent?.['3']?.content?.introSection?.description?.[language] }
+                    { input: "textarea", label: "Description", maxLength: 400, updateType: "description", value: currentContent?.['3']?.content?.introSection?.description?.[language] },
+                    { input: "input", label: "Button for projects", maxLength: 15, updateType: "button", value: currentContent?.['3']?.content?.button?.[0]?.text?.[language], index: 0 }
                 ]}
                 section={"Market Sub heading"}
                 subSection={"sub"}
@@ -128,7 +129,7 @@ const MarketManager = ({ language, currentContent, currentPath, indexes, outOfEd
             />
 
             {/* Market Lists */}
-            <div>
+            {/* <div>
                 <h1>Market Lists</h1>
                 {
                     currentContent?.tabSection?.tabs.map((element, index) => {
@@ -153,13 +154,13 @@ const MarketManager = ({ language, currentContent, currentPath, indexes, outOfEd
                         )
                     })
                 }
-            </div>
+            </div> */}
             {/* testimonials */}
             <ContentSection
                 currentPath={currentPath}
                 Heading={"Testimonials"}
                 inputs={[
-                    { input: "input", label: "Heading/title", maxLength: 55, updateType: "title", value: content?.['4']?.content?.title[language] },
+                    { input: "input", label: "Heading/title", maxLength: 55, updateType: "title", value: currentContent?.['4']?.content?.title[language] },
                 ]}
                 section={"Testimonials heading"}
                 language={language}
