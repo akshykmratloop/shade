@@ -17,6 +17,7 @@ import {
   approveRequestInVerification,
   rejectRequestInVerification,
   fetchVersionsList,
+  deleteAllResourceRelatedDataFromDb,
 } from "../../repository/content.repository.js";
 
 const getResources = async (
@@ -31,7 +32,8 @@ const getResources = async (
   fetchType,
   userId,
   roleId,
-  apiCallType
+  apiCallType,
+  filterText
 ) => {
   if (fetchType === "CONTENT") {
     const resources = await fetchAllResourcesWithContent(
@@ -45,7 +47,8 @@ const getResources = async (
       limitNum,
       userId,
       roleId,
-      apiCallType
+      apiCallType,
+      filterText
     );
     logger.info({
       response: "Resources fetched successfully with content",
@@ -64,7 +67,8 @@ const getResources = async (
     limitNum,
     userId,
     roleId,
-    apiCallType
+    apiCallType,
+    filterText
   );
   logger.info({
     response: "Resources fetched successfully without content",
@@ -267,6 +271,15 @@ const getVersionsList = async (resourceId, search, status, page, limit) => {
 
 
 
+const deleteAllContentData = async () => {
+  const result = await deleteAllResourceRelatedDataFromDb();
+  logger.info({
+    response: "All content-related data deleted successfully",
+    result: result,
+  });
+  return { message: "All content-related data deleted successfully", result };
+};
+
 export {
   getResources,
   getResourceInfo,
@@ -285,4 +298,5 @@ export {
   ScheduleRequest,
   PublishRequest,
   getVersionsList,
+  deleteAllContentData,
 };
