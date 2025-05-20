@@ -53,9 +53,9 @@ const AboutManager = ({ content, currentPath, language, indexes, outOfEditing })
     //     }
     // }, [currentId, isManager, isEditor])
 
-    useEffect(() => {
-        return () => dispatch(updateMainContent({ currentPath: "content", payload: undefined }))
-    }, [])
+    // useEffect(() => {
+    //     return () => dispatch(updateMainContent({ currentPath: "content", payload: undefined }))
+    // }, [])
     return (
         <div className="w-full">
             {/* reference doc */}

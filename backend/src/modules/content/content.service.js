@@ -250,10 +250,10 @@ const PublishRequest = async (requestId) => {
 
 
 
-const getVersionsList = async (resourceId) => {
-  const content = await fetchVersionsList(resourceId);
+const getVersionsList = async (resourceId, search, status, page, limit) => {
+  const content = await fetchVersionsList(resourceId, search, status, page, limit);
   logger.info({
-    response: "Content fetched successfully",
+    response: "Version history fetched successfully",
     // content: content,
   });
   return { message: "Success", content };

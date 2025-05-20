@@ -27,7 +27,7 @@ const HomeManager = ({ language, currentPath, outOfEditing }) => {
             const response2 = await getResources({ resourceType: "SUB_PAGE", resourceTag: "PROJECT", apiCallType: "INTERNAL" })
             const response3 = await getResources({ resourceType: "SUB_PAGE", resourceTag: "TESTIMONIAL", fetchType: "CONTENT", apiCallType: "INTERNAL" })
             if (response.message === "Success") {
-                let options = response.resources.resources.map((e, i) => ({
+                let options = response?.resources?.resources?.map((e, i) => ({
                     id: e.id,
                     order: i + 1,
                     slug: e.slug,
@@ -39,7 +39,7 @@ const HomeManager = ({ language, currentPath, outOfEditing }) => {
                 setServicesOptions(options)
             }
             if (response2.message === "Success") {
-                let options = response2.resources.resources.map((e, i) => ({
+                let options = response2?.resources?.resources?.map((e, i) => ({
                     id: e.id,
                     order: i + 1,
                     slug: e.slug,
@@ -52,7 +52,7 @@ const HomeManager = ({ language, currentPath, outOfEditing }) => {
             }
 
             if (response3.ok) {
-                let options = response3.resources.resources.map((e, i) => ({
+                let options = response3?.resources?.resources?.map((e, i) => ({
                     id: e.id,
                     order: i + 1,
                     slug: e.slug,
@@ -69,9 +69,9 @@ const HomeManager = ({ language, currentPath, outOfEditing }) => {
         getOptionsforServices()
     }, [])
 
-    useEffect(() => {
-        return () => dispatch(updateMainContent({ currentPath: "content", payload: undefined }))
-    }, [])
+    // useEffect(() => {
+    //     return () => dispatch(updateMainContent({ currentPath: "content", payload: undefined }))
+    // }, [])
 
     return ( /// Component
         <div className="w-full">
@@ -82,8 +82,8 @@ const HomeManager = ({ language, currentPath, outOfEditing }) => {
                 currentPath={currentPath}
                 Heading={"Hero Banner"}
                 inputs={[
-                    { input: "input", label: "Heading/title", updateType: "title", value: content?.["1"]?.content?.title[language] },
-                    { input: "textarea", label: "Description", updateType: "description", maxLength: 500, value: content?.["1"]?.content?.description[language] },
+                    { input: "input", label: "Heading/title", updateType: "title", value: content?.["1"]?.content?.title?.[language] },
+                    { input: "textarea", label: "Description", updateType: "description", maxLength: 500, value: content?.["1"]?.content?.description?.[language] },
                     { input: "input", label: "Button Text", updateType: "button", maxLength: 20, value: content?.["1"]?.content?.button?.[0]?.text?.[language] }]}
                 inputFiles={[{ label: "Backround Image", id: "homeBanner", order: 1 }]}
                 section={"homeBanner"}
@@ -134,8 +134,8 @@ const HomeManager = ({ language, currentPath, outOfEditing }) => {
                     currentPath={currentPath}
                     Heading={"Experience Section"}
                     inputs={[
-                        { input: "input", label: "Heading/title", updateType: "title", value: content?.['4']?.content?.title[language] },
-                        { input: "textarea", label: "Description", updateType: "description", value: content?.['4']?.content?.description[language] },
+                        { input: "input", label: "Heading/title", updateType: "title", value: content?.['4']?.content?.title?.[language] },
+                        { input: "textarea", label: "Description", updateType: "description", value: content?.['4']?.content?.description?.[language] },
                         { input: "input", label: "Button Text", updateType: "button", value: content?.['4']?.content?.button?.[0]?.text?.[language] }]}
                     isBorder={false}
                     fileId={"experienceSection"}
@@ -204,7 +204,7 @@ const HomeManager = ({ language, currentPath, outOfEditing }) => {
                                         language={language}
                                         label={"Select Project List " + (index + 1)}
                                         tabName={"Select Projects"}
-                                        options={content?.['5'].sections[index].items}
+                                        options={content?.['5']?.sections?.[index]?.items}
                                         referenceOriginal={{ dir: "recentproject", index }}
                                         currentContent={content}
                                         sectionIndex={indexes?.['5']}

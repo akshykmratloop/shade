@@ -26,6 +26,7 @@ import CloseModalButton from "../../components/Button/CloseButton";
 import createContent from "./defineContent";
 import FallBackLoader from "../../components/fallbackLoader/FallbackLoader";
 import VersionTable from "./VersionTable";
+import { setPlatform } from "../common/platformSlice";
 
 const AllForOne = lazy(() => import("./components/AllForOne"));
 const Page404 = lazy(() => import("../../pages/protected/404"));
@@ -42,7 +43,7 @@ function Resources() {
   const [deepPath, setDeepPath] = useState("")
   const [preview, setPreview] = useState(false)
   const [currentResourceId, setCurrentResourceId] = useState("")
-  const [rawContent, setRawContent] = useState({})
+  const [rawContent, setRawContent] = useState(null)
   const [screen, setScreen] = useState(359);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [isSmall, setIsSmall] = useState(false);
@@ -261,6 +262,7 @@ function Resources() {
             settingRoute(slug?.toLowerCase());
           }
           setPreview(true)
+          dispatch(setPlatform("RESOURCE"))
         },
       }
     ];
@@ -434,11 +436,11 @@ function Resources() {
         />
       )}
       {
-        preview &&
+        (preview && rawContent) && 
         <div className="fixed top-0 left-0 z-[55] h-screen bg-stone-900/30 overflow-y-scroll customscroller">
           <Suspense fallback={<FallBackLoader />}>
             <div className="">
-              <CloseModalButton onClickClose={() => setPreview(false)} className={"fixed top-4 right-8 z-[56]"} />
+              <CloseModalButton onClickClose={() => { setPreview(false); setRawContent(null) }} className={"fixed top-4 right-8 z-[56]"} />
             </div>
 
             <AllForOne

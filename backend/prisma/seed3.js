@@ -628,7 +628,7 @@ async function main() {
         {
           title: "bannerSection",
           SectionType: "HERO_BANNER",
-          content: content.newsBlogs.bannerSection,
+          content: content.newsBlogs.heroSection,
           sectionVersionTitle: "News-bannerSection",
         },
         {

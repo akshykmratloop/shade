@@ -11,6 +11,7 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/effect-coverflow';
 import 'swiper/css/autoplay';
+import { Img_url } from "../../../../routes/backend";
 
 // import localFont from "next/font/local";
 // import Button from "@/common/Button";
@@ -90,14 +91,14 @@ const SolutionPage = ({ currentContent, language, screen }) => {
                                         <span className="absolute top-[1px] w-[4px] h-[20px] bg-red-500 rotate-[-15deg]"></span>
                                     </span>
                                     <h1 className="text-[20px] text-[#1F2937] font-bold leading-[20px] pr-[20px]">
-                                        {e?.title[language]}
+                                        {e?.title?.[language]}
                                     </h1>
                                 </div>
                                 <div className="text-[#2A303C]">
                                     <div
                                         className={`  ${isPhone ? "leading-[20px] text-sm" : "leading-[40px]"} tracking-[-1.2px] mb-[32px]`}
                                         // className={` font-light text-[#1F2937] ${isPhone ? "leading-[20px] text-sm" : "leading-[40px]"} tracking-[-1.2px] mb-[32px] `}
-                                        dangerouslySetInnerHTML={{ __html: e?.description[language] }}
+                                        dangerouslySetInnerHTML={{ __html: e?.description?.[language] }}
                                     />
 
                                 </div>
@@ -111,22 +112,24 @@ const SolutionPage = ({ currentContent, language, screen }) => {
             {/** gallary wrap 3 */}
             <div
                 className="w-[800px] mx-auto"
-                style={{ width: isComputer ? "50rem" : `${screen - 30}px` }}
+                style={{
+                    width: isComputer ? "50rem" : `${screen - 30}px`,
+                    // direction: isRTL ? "rtl" : "ltr"  // Add this line
+                }}
             >
                 <Swiper
                     className=""
                     modules={[Navigation, Autoplay, EffectCoverflow]}
                     grabCursor={true}
                     centeredSlides={true}
-                    slidesPerView={isPhone ? 1 : 2} // Adjust dynamically
-                    loop={true} // Enable loop only if enough slides exist
+                    slidesPerView={isPhone ? 1 : 2}
+                    loop={true}
                     spaceBetween={10}
                     onSwiper={(swiper) => {
                         setTimeout(() => {
                             swiper?.autoplay?.start();
                         }, 500);
                     }}
-
                     effect="coverflow"
                     coverflowEffect={{
                         rotate: 0,
@@ -135,7 +138,8 @@ const SolutionPage = ({ currentContent, language, screen }) => {
                         modifier: 2,
                         slideShadows: false,
                     }}
-                    autoplay={{ delay: 2500, disableOnInteraction: false }} // Ensure autoplay works
+                    autoplay={{ delay: 2500, disableOnInteraction: false }}
+                    // dir={isRTL ? "rtl" : "ltr"} // Add this line
                     breakpoints={{
                         724: { slidesPerView: isPhone ? 1 : 2 },
                         500: { slidesPerView: isPhone ? 1 : 2 },
@@ -145,16 +149,16 @@ const SolutionPage = ({ currentContent, language, screen }) => {
                         <SwiperSlide key={`slide-${index}`}>
                             <div className="flex justify-center">
                                 <img
-                                    src={ImageFromRedux[`Image ${index + 1}`] || image.url}
+                                    src={image.url.slice(0, 5) === "https" ? image.url : Img_url + image.url}
                                     alt={`Image ${index + 1}`}
-                                    className="object-cover w-[400px] h-[400px] rounded-md"
+                                    className="object-cover w-[400px] h-[400px] rounded-md border"
                                 />
                             </div>
                         </SwiperSlide>
                     ))}
                 </Swiper>
-
             </div>
+
 
             {/** HowWeDo */}
             <section
@@ -169,14 +173,14 @@ const SolutionPage = ({ currentContent, language, screen }) => {
                                         <span className="absolute top-[1px] w-[4px] h-[20px] bg-red-500 rotate-[-15deg]"></span>
                                     </span>
                                     <h1 className="text-[20px] text-[#1F2937] font-bold leading-[20px] pr-[20px]">
-                                        {e?.title[language]}
+                                        {e?.title?.[language]}
                                     </h1>
                                 </div>
                                 <div>
                                     <div
                                         className={` font-light ${isPhone ? "leading-[20px] text-sm" : "leading-[40px]"} tracking-[-1.2px] mb-[32px] `}
                                         // className={` font-light text-[#1F2937] ${isPhone ? "leading-[20px] text-sm" : "leading-[40px]"} tracking-[-1.2px] mb-[32px] `}
-                                        dangerouslySetInnerHTML={{ __html: e?.description[language] }}
+                                        dangerouslySetInnerHTML={{ __html: e?.description?.[language] }}
                                     />
 
                                 </div>
