@@ -32,7 +32,8 @@ const ContentSection = ({
     resourceId,
     ref,
     elementId,
-    outOfEditing
+    outOfEditing,
+    directIcon
 }) => {
     const dispatch = useDispatch();
     // const [extraFiles, setExtraFiles] = useState([]);

@@ -19,6 +19,7 @@ const cmsSlice = createSlice({
             state.future = []
         },
         updateImages: (state, action) => {
+            console.log(action.payload.directIcon, action.payload.index, action.payload.cardIndex)
             state.past.push(JSON.parse(JSON.stringify(state.present)));
             if (action.payload.type === "refDoc") {
                 state.present.content.editVersion.referenceDoc = action.payload.src

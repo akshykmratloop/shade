@@ -43,7 +43,7 @@ const ServiceManager = ({ currentContent, currentPath, language, indexes }) => {
                     { input: "textarea", label: "Description", updateType: "description", value: currentContent?.['1']?.content?.description?.[language] },
                     { input: "input", label: "Button Text", updateType: "button", value: currentContent?.['1']?.content?.button?.[0]?.text?.[language] },
                 ]}
-                inputFiles={[{ label: "Backround Image", id: "ServiceBanner", order: 1 }]}
+                inputFiles={[{ label: "Backround Image", id: "ServiceBanner", order: 1, url: currentContent?.['1']?.content?.images?.[0]?.url }]}
                 section={"banner"}
                 language={language}
                 currentContent={currentContent}

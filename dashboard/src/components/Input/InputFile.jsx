@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Upload, X } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
@@ -16,9 +17,11 @@ const InputFile = ({ label, baseClass, id, currentPath, resourceId, contentIndex
     dispatch(removeImages({ section: id, src: "", currentPath }));
   };
 
+  console.log(url)
   const handleImageSelect = (url, altText) => {
-    console.log(url, altText)
-    setFileURL(url);
+    // console.log(url, altText)
+    // setFileURL(url[0]);
+    console.log(url)
     const payloadData = {
       url: url[0],
       altText: {
@@ -55,11 +58,11 @@ const InputFile = ({ label, baseClass, id, currentPath, resourceId, contentIndex
           className="relative w-24 h-24 border border-[#80808044] rounded-md overflow-hidden cursor-pointer bg-white dark:bg-[#2a303c]"
         >
 
-          {(fileURL || url) ? (
+          {(url) ? (
             fileURL.includes(".mp4") || fileURL.includes("video") ? (
               <video src={fileURL} className="w-full h-full object-cover" controls />
             ) : (
-              <img src={url.slice(0,5) === "https" ? url : `${Img_url}${(url)}`} alt="Preview" className="w-full h-full object-cover" />
+              <img src={url?.slice(0,5) === "https" ? url : `${Img_url}${(url)}`} alt="Preview" className="w-full h-full object-cover" />
             )
           ) : (
             <div className="w-full h-full flex items-center justify-center text-gray-400 text-xs">

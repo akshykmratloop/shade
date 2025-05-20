@@ -136,7 +136,7 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                     <img
                         dir={isLeftAlign ? "ltr" : "rtl"}
                         src={`${Img_url}${content?.["1"]?.content?.images[0]?.url}`}
-                        alt={content?.["1"]?.content?.images[0]?.url}
+                        alt={content?.["1"]?.content?.images?.[0]?.url}
                         className="w-full object-cover"
                         style={{ objectPosition: "center", transform: "scaleX(-1)", height: isTablet ? "500px" : isPhone && "500px" }} />
                 </div>
@@ -262,7 +262,7 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                                         <div className="relative">
                                             <img
                                                 className={`absolute ${key % 2 === 1 ? "top-[-22px] right-[-32px]" : "left-[-36px] top-[-27px]"}`}
-                                                src={Img_url + item?.iconName}
+                                                src={Img_url + item?.icon}
                                                 width={40}
                                                 height={key === 1 ? 47 : 60}
                                                 alt=""
