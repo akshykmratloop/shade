@@ -514,8 +514,7 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                     <div className="text-center mb-8 px-4">
                         <h2 className="text-white text-3xl font-bold mb-4"
                             style={{ fontSize: isComputer && dynamicSize(36, width) }}
-                        > {
-                            }
+                        > 
                             {content?.["6"]?.content?.title?.[language]}
                         </h2>
                         <p className="text-white text-base font-light leading-6"
@@ -524,12 +523,20 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                             {content?.["6"]?.content?.description?.[language]}
                         </p>
                     </div>
-                    <div ref={scrollRef} className="w-full overflow-x-auto rm-scroll px-16 pb-4">
-                        <div className={`flex w-fit items-center justify-around ${isPhone ? "flex-col gap-4" : " gap-[120px]"}`}>
+                    <div ref={scrollRef} className="w-full overflow-x-auto rm-scroll px-16 pb-4"
+                        style={{ padding: isComputer ? `${dynamicSize(40, width)} ${dynamicSize(68, width)}` : "" }}
+                    >
+                        <div className={`flex min-w-100% items-center ${isPhone ? "flex-col gap-4 justify-center" : "w-[fit-content]  justify-between"}`}
+                            style={{ gap: !isPhone ? (isTablet? dynamicSize(264, width):dynamicSize(194, width)): dynamicSize(354, width) }}
+                        >
                             {content?.["6"]?.content?.clientsImages?.map((client, key) => (
                                 <div
                                     key={key}
                                     className="w-[120px] h-[120px] bg-white rounded-full flex items-center justify-center p-5"
+                                    style={{
+                                        width: isComputer && dynamicSize(200, width),
+                                        height: isComputer && dynamicSize(200, width)
+                                    }}
                                 >
                                     <img
                                         src={Img_url + client?.url}
