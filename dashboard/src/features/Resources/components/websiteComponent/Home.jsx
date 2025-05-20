@@ -523,7 +523,7 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                 }}
             >
                 <div className="container mx-auto" >
-                    <div className="text-center mb-5">
+                    <div className="text-center mb-16">
                         <h2 className="text-black text-3xl font-medium"
                             style={{ fontSize: isComputer && dynamicSize(36, width) }}
                         >
@@ -661,8 +661,8 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
             </section >
 
             {/* new project section 8 */}
-            < section className={`py-16 w-[100%] ${isPhone ? "px-[30px]" : "px-[80px]"} bg-transparent`}
-                style={{ padding: `64px ${isComputer && dynamicSize(143, width)}` }}
+            < section className={`py-16 w-[100%] ${isPhone ? "px-[0px] text-justify" : "px-[80px]"} bg-transparent`}
+                style={{ padding: `64px ${isComputer ? dynamicSize(143, width):"35px"}` }}
             >
                 <div className="container mx-auto">
                     <div className="text-center bg-transparent">
@@ -672,7 +672,7 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                             {content?.['8']?.content?.title?.[language]}
                         </h2>
                         <div className="relative">
-                            <div className=" font-light text-black leading-7 mb-2 relative bg-transparent"
+                            <div className={`font-light text-black leading-7 mb-2 relative bg-transparent`}
                                 style={{ fontSize: isComputer && dynamicSize(16, width) }}
                                 dangerouslySetInnerHTML={{ __html: content?.['8']?.content?.description?.[language] }}
                             />

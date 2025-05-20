@@ -182,7 +182,6 @@ const MarketManager = ({ language, currentContent, currentPath, indexes, outOfEd
                 currentContent={content}
                 sectionIndex={indexes?.['4']}
                 limitOptions={4}
-                min={4}
                 outOfEditing={outOfEditing}
             />
 

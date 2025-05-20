@@ -26,7 +26,7 @@ const AboutUs = ({ language, screen, currentContent }) => {
     const [width, setWidth] = useState(0);
     const divRef = useRef(null);
 
-    const directSize = (size) => dynamicSize(size, width)
+    const getDynamicSize = (size) => dynamicSize(size, width)
 
     useEffect(() => {
         const observer = new ResizeObserver(entries => {
@@ -52,27 +52,27 @@ const AboutUs = ({ language, screen, currentContent }) => {
 
     return (
         <div className="px-8" ref={divRef}
-            style={{ padding: `32px ${directSize(150)}` }}
+            style={{ padding: `32px ${getDynamicSize(150)}` }}
         >
             {/** about us top section */}
             <section className="py-12">
                 <div className="container mx-auto relative px-4"
-                    style={{ height: directSize(715) }}
+                    style={{ height: getDynamicSize(715) }}
                 >
                     <div className={`flex flex-col gap-6 items-center`}>
                         <h2 className={`text-black ${isPhone ? "text-2xl" : "text-3xl"} font-normal leading-none`}
-                            style={{ fontSize: directSize(58) }}
+                            style={{ fontSize: getDynamicSize(58) }}
                         >
                             {currentContent?.["1"]?.content?.title?.[language]}
                         </h2>
                         <p className="   font-light leading-7 mb-4 text-[#00B9F2]"
-                            style={{ fontSize: directSize(24) }}
+                            style={{ fontSize: getDynamicSize(24) }}
                         >
                             {(currentContent?.["1"]?.content?.subtitle?.[language])}
                         </p>
                     </div>
                     <div
-                        style={{ gap: directSize(100) }}
+                        style={{ gap: getDynamicSize(100) }}
                         className={`${!isEnglish ? `flex  ${isPhone ? "flex-col" : "flex-row-reverse"}` : `${isPhone ? "flex flex-col" : "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3"}`} text-center gap-8 mt-8`}>
                         {currentContent?.["1"]?.content?.cards?.map((card, index) => (
                             <div
@@ -82,24 +82,24 @@ const AboutUs = ({ language, screen, currentContent }) => {
                                 style={{
                                     // width: directSize(319), 
                                     // height: directSize(315), 
-                                    padding: `${directSize(40)} ${directSize(10)}`
+                                    padding: `${getDynamicSize(40)} ${getDynamicSize(10)}`
                                 }}
                             >
                                 <img
                                     src={Img_url + card.icon}
                                     // width="44"
                                     // height="44"
-                                    style={{ width: directSize(44), height: directSize(44) }}
+                                    style={{ width: getDynamicSize(44), height: getDynamicSize(44) }}
                                     alt="icon"
                                     className="w-11 h-11 self-center"
                                 />
                                 <h5 className="text-black text-xl font-normal leading-none"
-                                    style={{ fontSize: directSize(24) }}
+                                    style={{ fontSize: getDynamicSize(24) }}
                                 >
                                     {card?.title?.[language]}
                                 </h5>
                                 <p className="text-black text-sm font-light leading-6 self-center"
-                                    style={{ fontSize: directSize(16) }}
+                                    style={{ fontSize: getDynamicSize(16) }}
                                 >
                                     {card?.description?.[language]}
                                 </p>
@@ -113,14 +113,14 @@ const AboutUs = ({ language, screen, currentContent }) => {
 
             <section
                 className={`${language === "en" ? "text-left" : "text-right"}`}
-                style={{marginBottom: directSize(100)}}
+                style={{marginBottom: getDynamicSize(100)}}
             >
                 <div className="container mx-auto px-4">
                     <div className={`flex items-center ${!isEnglish ? `${isPhone ? "flex-col" : "flex-row-reverse"}` : `${isPhone && "flex-col"}`} gap-8`}>
                         <div className="w-full flex flex-[2] items-center"
                             style={{
-                                width: directSize(639),
-                                height: directSize(457),
+                                width: getDynamicSize(639),
+                                height: getDynamicSize(457),
                             }}
                         >
                             <video
@@ -136,7 +136,7 @@ const AboutUs = ({ language, screen, currentContent }) => {
 
                         <div className=" flex-[1]">
                             <h2 className="text-2xl font-[400] text-black mb-5"
-                                style={{ fontSize: directSize(36) }}
+                                style={{ fontSize: getDynamicSize(36) }}
                             >
                                 {currentContent?.['2']?.content?.title?.[language]}
                             </h2>

@@ -166,11 +166,11 @@ const ContentSection = ({
     const config = useMemo(() => ({
         buttons: [
             "bold", "italic", "underline", "strikethrough", "|",
-            "font", "fontsize", "lineHeight", "|", "eraser", "image", "ul"
+            "font", "lineHeight", "|", "eraser", "image", "ul"
         ],
         buttonsXS: [
             "bold", "italic", "underline", "strikethrough", "|",
-            "font", "fontsize", "lineHeight", "|",
+            "font", "lineHeight", "|",
             "eraser", "ul"
         ],
         toolbarAdaptive: false,
