@@ -46,7 +46,8 @@ const ContentSection = ({
             src: {
                 url: "", altText: { en: "", ar: "" }
             },
-            sectionIndex
+            sectionIndex,
+            section
         }))
         // if (deepPath) {
         //     dispatch(updateImages({ src: { url: "" }, section, currentPath, deepPath, projectId, operation: "add" }))
@@ -72,7 +73,7 @@ const ContentSection = ({
     };
 
     const removeExtraFileInput = (order) => {
-        dispatch(rmImageArray({ sectionIndex, order }))
+        dispatch(rmImageArray({ sectionIndex, order, section }))
 
         // if (section === 'gallerySection' || deepPath) {
         //     dispatch(updateImages({
@@ -308,7 +309,7 @@ const ContentSection = ({
                         : <div className={`flex ${inputFiles.length > 1 ? "flex-wrap" : ""} gap-10 w-[80%]`}>
                             {inputFiles.map((file, i) => {
                                 return (
-                                    <div className="relative" key={i}>
+                                    <div className="relative" key={file.id}>
                                         {i > 3 && <button
                                             className={`absolute top-6 z-[22] right-[-12px] bg-red-500 text-white px-[5px] rounded-full shadow ${outOfEditing && "cursor-not-allowed"}`}
                                             onClick={() => { if (!outOfEditing) { removeExtraFileInput(file.order) } }}
@@ -329,6 +330,7 @@ const ContentSection = ({
                                             outOfEditing={outOfEditing}
                                             directIcon={file.directIcon}
                                             order={file.order}
+                                            url={file.url}
                                         />
                                     </div>
                                 )

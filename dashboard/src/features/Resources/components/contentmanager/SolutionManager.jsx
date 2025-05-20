@@ -104,7 +104,7 @@ const SolutionManager = ({ currentPath, language, currentContent, indexes }) => 
                 Heading={"Gallery 1"}
                 inputFiles={
                     currentContent?.['3']?.content.images?.map((e, i) => {
-                        return { label: "Image " + (i + 1), id: "Image " + (1 + i), order: e.order }
+                        return { label: "Image " + (i + 1), id: "Image " + (1 + i), order: e.order, url: e.url }
                     })
                     //     [
                     //     {label: "Image 1", id: "Image 1" },
@@ -112,7 +112,7 @@ const SolutionManager = ({ currentPath, language, currentContent, indexes }) => 
                     //     {label: "Image 3", id: "Image 3" },
                     // ]
                 }
-                section={"gallery"}
+                section={"images"}
                 language={language}
                 currentContent={currentContent}
                 allowExtraInput={true}

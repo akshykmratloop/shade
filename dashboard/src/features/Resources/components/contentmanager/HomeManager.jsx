@@ -225,8 +225,8 @@ const HomeManager = ({ language, currentPath, outOfEditing }) => {
                     { input: "input", label: "Heading/title", updateType: "title", value: content?.['6']?.content?.title[language] },
                     { input: "input", label: "Description", updateType: "description", value: content?.['6']?.content?.description[language] },
                 ]}
-                inputFiles={content?.['6']?.content?.clients?.map((e, i) => ({ label: "Client " + (i + 1), id: e.image[0], order: e.order }))}
-                section={"clientSection"}
+                inputFiles={content?.['6']?.content?.clientsImages?.map((e, i) => ({ label: "Client " + (i + 1), id: e.order, order: e.order, url: e.url }))}
+                section={"clientsImages"}
                 language={language}
                 currentContent={content}
                 sectionIndex={indexes?.['6']}
