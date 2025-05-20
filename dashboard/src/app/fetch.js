@@ -58,12 +58,14 @@ const makerequest = async (
   let result;
   try {
     const response = await fetch(uri, options);
+    console.log("makeRequest", response)
     if (!response.ok) {
       const err = await response.json();
       throw err;
     }
     result = await response.json();
     result.ok = true;
+    console.log("running all time ok")
   } catch (err) {
     // console.error(err)
     if (err.name === "AbortError") {
@@ -480,8 +482,6 @@ export async function uploadMedia(data) {
     `${api.route("uploadMedia")}`,
     "POST",
     data,
-    {},
-    true
   );
 }
 

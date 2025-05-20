@@ -179,6 +179,7 @@ const HomeManager = ({ language, currentPath, outOfEditing }) => {
                 <div>
                     {
                         content?.['5']?.sections?.map((section, index, array) => {
+                            const names = { 0: "Projects", 1: "Markets", 2: "Safety & Responsibility" }
                             const isLast = index === array.length - 1;
                             return (
                                 <div key={index} className="mt-3 ">
@@ -202,7 +203,7 @@ const HomeManager = ({ language, currentPath, outOfEditing }) => {
                                     <MultiSelect
                                         currentPath={currentPath}
                                         language={language}
-                                        label={"Select Project List " + (index + 1)}
+                                        label={`Select ${names[index]}`}
                                         tabName={"Select Projects"}
                                         options={content?.['5']?.sections?.[index]?.items}
                                         referenceOriginal={{ dir: "recentproject", index }}

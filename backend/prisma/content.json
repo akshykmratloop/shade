@@ -1021,7 +1021,8 @@
             "icon": null
           }
         ]
-      }
+      },
+      "childService": ["architectural-finishes"]
     },
     {
       "resourceTitle": {
@@ -1078,7 +1079,8 @@
             "icon": null
           }
         ]
-      }
+      },
+      "childService": ["facility-services"]
     },
     {
       "resourceTitle": {
@@ -1135,7 +1137,8 @@
             "icon": null
           }
         ]
-      }
+      },
+      "childService": ["infrastructure-maintenance"]
     },
     {
       "resourceTitle": {
@@ -1192,7 +1195,8 @@
             "icon": null
           }
         ]
-      }
+      },
+      "childService": ["structural-fabrication"]
     },
     {
       "resourceTitle": {
@@ -1249,7 +1253,8 @@
             "icon": null
           }
         ]
-      }
+      },
+      "childService": ["cranes-heavy-lifting-equipment"]
     }
   ],
   "thirdLevelOfServices": [
@@ -3114,57 +3119,60 @@
         }
       ]
     },
-    "projectsGridSection": {
-      "tabs": [
-        {
-          "id": "all",
-          "order": 1,
-          "title": {
-            "en": "All",
-            "ar": "الكل"
-          }
-        },
-        {
-          "id": "ongoing",
-          "order": 2,
-          "title": {
-            "en": "Ongoing",
-            "ar": "مستمر"
-          }
-        },
-        {
-          "id": "completed",
-          "order": 3,
-          "title": {
-            "en": "Completed",
-            "ar": "مكتمل"
-          }
-        }
-      ],
-      "button": [
-        {
-          "order": 1,
-          "url": null,
-          "text": {
-            "ar": "عرض التفاصيل",
-            "en": "View Details"
+
+    "multiSection": {
+      "content": {
+        "buttons": [
+          {
+            "order": 1,
+            "text": {
+              "en": "View Details",
+              "ar": "عرض التفاصيل"
+            },
+            "icon": null
           },
-          "icon": null
-        },
-        {
-          "order": 2,
-          "url": null,
-          "text": {
-            "ar": " عرض المزيد",
-            "en": "View More"
+          {
+            "order": 2,
+            "text": {
+              "en": "View More",
+              "ar": "عرض المزيد"
+            },
+            "icon": null
+          }
+        ]
+        
+      },
+      "sections": [
+          {
+            "id": "all",
+            "order": 1,
+            "title": {
+              "en": "ALL",
+              "ar": "الكل"
+            }
           },
-          "icon": null
-        }
-      ]
+          {
+            "id": "ongoing",
+            "order": 2,
+            "title": {
+              "en": "ONGOING",
+              "ar": "مستمر"
+            }
+          },
+          {
+            "id": "complete",
+            "order": 3,
+            "title": {
+              "en": "COMPLETE",
+              "ar": "مكتمل"
+            }
+          }
+        ]
     }
   },
   "projectDetail": [
     {
+      "filter": "ONGOING",
       "resourceTitle": {
         "ar": "مختبر تكنولوجيا المعلومات للتميز",
         "en": "IT Labs for Excellence"
@@ -3345,6 +3353,7 @@
       }
     },
     {
+      "filter": "COMPLETE",
       "resourceTitle": {
         "ar": "مصنع المواد غير المعدنية",
         "en": "Non-Metallic Manufacturing Plant"
@@ -3493,6 +3502,7 @@
       }
     },
     {
+      "filter": "COMPLETE",
       "resourceTitle": {
         "ar": "بوابة الأعمال",
         "en": "Business Gate"
@@ -3641,6 +3651,7 @@
       }
     },
     {
+      "filter": "ONGOING",
       "resourceTitle": {
         "ar": "مبنى OME - خطوط أنابيب المنطقة الشمالية",
         "en": "OME Building - Northern Area Pipelines"
@@ -3789,6 +3800,7 @@
       }
     },
     {
+      "filter": "COMPLETE",
       "resourceTitle": {
         "ar": "المنشأة النفسية",
         "en": "Psychiatric Facility"
@@ -4374,7 +4386,8 @@
       }
     }
   ],
-  "safetyPage": {
+
+  "safetyPage" : {
     "slug": "safety",
     "heroSection": {
       "title": {
@@ -4425,6 +4438,7 @@
       ]
     }
   },
+  
   "safetyPolicies": [
     {
       "resourceTitle": {

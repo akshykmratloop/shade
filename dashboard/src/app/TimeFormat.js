@@ -7,9 +7,16 @@ function formatTimestamp(isoString, mode = "all") {
   const year = date.toLocaleString("en-US", { year: "numeric", timeZone });
   const month = pad(date.toLocaleString("en-US", { month: "2-digit", timeZone }));
   const day = pad(date.toLocaleString("en-US", { day: "2-digit", timeZone }));
-  const hour = pad(date.toLocaleString("en-US", { hour: "2-digit", hour12: false, timeZone }));
-  const minute = pad(date.toLocaleString("en-US", { minute: "2-digit", timeZone }));
-  const second = pad(date.toLocaleString("en-US", { second: "2-digit", timeZone }));
+
+  const timeParts = date.toLocaleString("en-US", {
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: true,
+    timeZone
+  }).split(" ");
+
+  const [hourMinute, period] = timeParts;
+  const [hour, minute] = hourMinute.split(":").map(pad);
 
   switch (mode) {
     case "dateonly":
@@ -18,8 +25,9 @@ function formatTimestamp(isoString, mode = "all") {
       return `${day}-${month}-${year}`;
     case "all":
     default:
-      return `${day}-${month}-${year}, ${hour}:${minute}:${second}`;
+      return `${day}-${month}-${year}, ${hour}:${minute} ${period}`;
   }
 }
 
 export default formatTimestamp;
+

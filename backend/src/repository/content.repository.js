@@ -12,7 +12,8 @@ export const fetchResources = async (
   limit = 10,
   userId,
   roleId,
-  apiCallType
+  apiCallType,
+  filterText
 ) => {
   const skip = (page - 1) * limit;
 
@@ -465,6 +466,18 @@ export const fetchResources = async (
           ],
         }
       : {}),
+    ...(filterText && filterText !== "ALL"
+      ? {
+          filters: {
+            some: {
+              OR: [
+                { nameEn: { equals: filterText } },
+                { nameAr: { equals: filterText } },
+              ],
+            },
+          },
+        }
+      : {}),
   };
 
   // Fetch resources with pagination
@@ -475,6 +488,13 @@ export const fetchResources = async (
         select: {
           versions: true,
         },
+      },
+      filters: {
+        select : {
+          id : true,
+          nameEn: true,
+          nameAr: true,
+        }
       },
       liveVersion: {
         select: {
@@ -521,7 +541,9 @@ export const fetchAllResourcesWithContent = async (
   limit = 10,
   userId,
   roleId,
-  apiCallType
+  apiCallType,
+  filterText
+
 ) => {
   // First fetch the filtered resources based on permissions and roleId
   const filteredResources = await fetchResources(
@@ -535,7 +557,8 @@ export const fetchAllResourcesWithContent = async (
     limit,
     userId,
     roleId,
-    apiCallType
+    apiCallType,
+    filterText
   );
 
   // If no resources found, return early
@@ -1505,10 +1528,10 @@ async function formatResourceVersionData(
             }
 
             if (resourceSlug === 'service' && sectionOrderMap[sectionVersion.id] === 2) {
-              returningBody.description = itemContent.liveModeVersionData.sections[0].content.description; // including description in the item for services items 
+              returningBody.description = itemContent.liveModeVersionData.sections[0].content.description; // including description in the item for services items
             }
 
-            
+
             if (resourceSlug === 'market' && sectionOrderMap[sectionVersion.id] === 3) {
               returningBody.description = itemContent.liveModeVersionData.sections[0].content.description; // including description in the item for market items
             }
@@ -1570,6 +1593,10 @@ async function formatResourceVersionData(
                     returningBody.location =
                       itemContent.liveModeVersionData.sections[1].content[0];
                   }
+
+                  if (resourceSlug === 'project' && sectionOrderMap[sectionVersion.id] === 2) {
+                    returningBody.location = itemContent.liveModeVersionData.sections[1].content[0].value; // including description in the item for market items
+                  }
                   return { ...returningBody, order: item.order };
                 })
               );
@@ -1601,6 +1628,8 @@ async function formatResourceVersionData(
 //DRAFT CONTENT
 export const createOrUpdateVersion = async (contentData) => {
   // Find the resource with version counts
+  console.log(contentData,"version+++++")
+
   const resource = await prismaClient.resource.findUnique({
     where: {
       id: contentData.resourceId,
@@ -1622,11 +1651,15 @@ export const createOrUpdateVersion = async (contentData) => {
 
   const { newVersionEditMode } = contentData;
 
-  assert(
-    resource.newVersionEditMode.versionStatus === "DRAFT",
-    "NOT_ALLOWED",
-    `Not Allowed, Previous request is already in process`
-  );
+  console.log(resource.newVersionEditMode,"version+++++")
+
+  if (resource && resource.newVersionEditMode ){
+    assert(
+      resource.newVersionEditMode.versionStatus === "DRAFT",
+      "NOT_ALLOWED",
+      `Not Allowed, Previous request is already in process`
+    );
+  }
 
   // Extract the content from the request
   const saveAs = newVersionEditMode?.versionStatus || "DRAFT";
@@ -2841,4 +2874,163 @@ export const fetchVersionsList = async (
       limit: limitNum,
     },
   };
+};
+
+export const deleteAllResourceRelatedDataFromDb = async () => {
+  try {
+    // Use a transaction to ensure all operations succeed or fail together
+    return await prismaClient.$transaction(async (tx) => {
+      // Step 1: Delete all approval logs and requests
+      const deletedRequestApprovals = await tx.requestApproval.deleteMany({});
+      console.log(`Deleted ${deletedRequestApprovals.count} request approvals`);
+
+      // This will be handled later in the proper order
+
+      // Handle ResourceVersioningRequest previousRequest relationship
+      // First, update all requests to remove previousRequest references
+      // This is necessary because of the onDelete: Restrict constraint
+      await tx.resourceVersioningRequest.updateMany({
+        data: {
+          previousRequestId: null
+        }
+      });
+      console.log(`Updated requests to remove previous request references`);
+
+      // Now we can safely delete all requests
+      const deletedRequests = await tx.resourceVersioningRequest.deleteMany({});
+      console.log(`Deleted ${deletedRequests.count} resource versioning requests`);
+
+      // Step 2: Delete all resource roles and verifiers
+      const deletedResourceVersionRoles = await tx.resourceVersionRole.deleteMany({});
+      console.log(`Deleted ${deletedResourceVersionRoles.count} resource version roles`);
+
+      const deletedResourceVersionVerifiers = await tx.resourceVersionVerifier.deleteMany({});
+      console.log(`Deleted ${deletedResourceVersionVerifiers.count} resource version verifiers`);
+
+      const deletedResourceRoles = await tx.resourceRole.deleteMany({});
+      console.log(`Deleted ${deletedResourceRoles.count} resource roles`);
+
+      const deletedResourceVerifiers = await tx.resourceVerifier.deleteMany({});
+      console.log(`Deleted ${deletedResourceVerifiers.count} resource verifiers`);
+
+      // Step 3: Delete all section version items
+      const deletedSectionVersionItems = await tx.sectionVersionItem.deleteMany({});
+      console.log(`Deleted ${deletedSectionVersionItems.count} section version items`);
+
+      // Step 4: Delete all resource version sections
+      const deletedResourceVersionSections = await tx.resourceVersionSection.deleteMany({});
+      console.log(`Deleted ${deletedResourceVersionSections.count} resource version sections`);
+
+      // Step 5: Delete all section versions - SPECIAL HANDLING FOR PARENT-CHILD RELATIONSHIP
+      // First, get all section versions
+      const allSectionVersions = await tx.sectionVersion.findMany({
+        select: { id: true, parentVersionId: true }
+      });
+
+      // Group them by whether they have a parent or not
+      const childSectionVersions = allSectionVersions.filter(sv => sv.parentVersionId !== null);
+      const parentSectionVersions = allSectionVersions.filter(sv => sv.parentVersionId === null);
+
+      // Delete child section versions first
+      let totalDeletedSectionVersions = 0;
+      if (childSectionVersions.length > 0) {
+        const childIds = childSectionVersions.map(sv => sv.id);
+        const deletedChildSectionVersions = await tx.sectionVersion.deleteMany({
+          where: { id: { in: childIds } }
+        });
+        console.log(`Deleted ${deletedChildSectionVersions.count} child section versions`);
+        totalDeletedSectionVersions += deletedChildSectionVersions.count;
+      }
+
+      // Then delete parent section versions
+      if (parentSectionVersions.length > 0) {
+        const parentIds = parentSectionVersions.map(sv => sv.id);
+        const deletedParentSectionVersions = await tx.sectionVersion.deleteMany({
+          where: { id: { in: parentIds } }
+        });
+        console.log(`Deleted ${deletedParentSectionVersions.count} parent section versions`);
+        totalDeletedSectionVersions += deletedParentSectionVersions.count;
+      }
+
+      console.log(`Deleted ${totalDeletedSectionVersions} total section versions`);
+
+      // Step 6: Delete all sections
+      const deletedSections = await tx.section.deleteMany({});
+      console.log(`Deleted ${deletedSections.count} sections`);
+
+      // Step 7: Handle Resource and ResourceVersion relationships
+      // First, update all resources to remove references to versions
+      // This is necessary because of the onDelete: Restrict constraints
+      await tx.resource.updateMany({
+        data: {
+          liveVersionId: null,
+          newVersionEditModeId: null,
+          scheduledVersionId: null
+        }
+      });
+      console.log(`Updated resources to remove version references`);
+
+      // Now we can safely delete all resource versions
+      const deletedResourceVersions = await tx.resourceVersion.deleteMany({});
+      console.log(`Deleted ${deletedResourceVersions.count} resource versions`);
+
+      // Step 8: Delete all SEO data
+      const deletedSEO = await tx.sEO.deleteMany({});
+      console.log(`Deleted ${deletedSEO.count} SEO records`);
+
+      // Step 9: Delete all media
+      const deletedMedia = await tx.media.deleteMany({});
+      console.log(`Deleted ${deletedMedia.count} media records`);
+
+      // Step 10: Delete all filters to resource relationships
+      // await tx.$executeRaw`DELETE FROM "_FiltersToResource"`;
+      // console.log(`Deleted filters to resource relationships`);
+
+      // // Step 11: Delete all filters
+      // const deletedFilters = await tx.filters.deleteMany({});
+      // console.log(`Deleted ${deletedFilters.count} filters`);
+
+      // Step 12: Handle Resource parent-child relationships
+      // First, update all resources to remove parent references
+      // This is necessary because of the onDelete: Restrict constraint on parent-child relationship
+      await tx.resource.updateMany({
+        data: {
+          parentId: null
+        }
+      });
+      console.log(`Updated resources to remove parent references`);
+
+      // Now we can safely delete all resources
+      const deletedResources = await tx.resource.deleteMany({});
+      console.log(`Deleted ${deletedResources.count} resources`);
+
+      return {
+        message: "Successfully deleted all content-related data",
+        deletedCounts: {
+          requestApprovals: deletedRequestApprovals.count,
+          requests: deletedRequests.count,
+          resourceVersionRoles: deletedResourceVersionRoles.count,
+          resourceVersionVerifiers: deletedResourceVersionVerifiers.count,
+          resourceRoles: deletedResourceRoles.count,
+          resourceVerifiers: deletedResourceVerifiers.count,
+          sectionVersionItems: deletedSectionVersionItems.count,
+          resourceVersionSections: deletedResourceVersionSections.count,
+          sectionVersions: totalDeletedSectionVersions,
+          sections: deletedSections.count,
+          resourceVersions: deletedResourceVersions.count,
+          seo: deletedSEO.count,
+          media: deletedMedia.count,
+          // filters: deletedFilters.count,
+          resources: deletedResources.count
+        }
+      };
+    }, {
+      maxWait: 60000, // 60 seconds max wait time
+      timeout: 300000, // 5 minutes transaction timeout
+      isolationLevel: 'Serializable', // Highest isolation level for data consistency
+    });
+  } catch (error) {
+    console.error("Error deleting content data:", error);
+    throw error;
+  }
 };

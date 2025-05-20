@@ -16,6 +16,7 @@ import {
   approveRequest,
   rejectRequest,
   getVersionsList,
+  deleteAllContentData,
 } from "./content.service.js";
 
 const GetResources = async (req, res) => {
@@ -30,7 +31,8 @@ const GetResources = async (req, res) => {
     limit,
     fetchType,
     roleId,
-    apiCallType
+    apiCallType,
+    filterText
   } = req.query;
   const pageNum = parseInt(page) || 1;
   const limitNum = parseInt(limit) || 100;
@@ -48,7 +50,8 @@ const GetResources = async (req, res) => {
     fetchType,
     userId,
     roleId,
-    apiCallType
+    apiCallType,
+    filterText
   );
   res.status(200).json(response);
 };
@@ -163,6 +166,11 @@ const GetVersionsList = async (req, res) => {
   res.status(200).json(response);
 };
 
+const DeleteAllContentData = async (_, res) => {
+  const response = await deleteAllContentData();
+  res.status(200).json(response);
+};
+
 export default {
   GetResources,
   GetResourceInfo,
@@ -178,5 +186,6 @@ export default {
   GetRequestInfo,
   ApproveRequest,
   RejectRequest,
-  GetVersionsList
+  GetVersionsList,
+  DeleteAllContentData
 };

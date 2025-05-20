@@ -129,4 +129,12 @@ router.get(
   tryCatchWrap(ContentController.GetVersionsList)
 );
 
+router.delete(
+  "/deleteAllContentData",
+  // authenticateUser,
+  // checkPermission(["SUPER_ADMIN"]),
+  // auditLogger,
+  tryCatchWrap(ContentController.DeleteAllContentData)
+);
+
 export default router;
