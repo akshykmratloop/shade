@@ -10,14 +10,15 @@ import { updateMainContent } from "../../../common/homeContentSlice";
 import content from "../websiteComponent/content.json"
 
 
-const ProjectContentManager = ({ currentPath, currentContent, language }) => {
-    const dispatch = useDispatch()
+const ProjectContentManager = ({ currentPath, currentContent, language, indexes }) => {
+    // const dispatch = useDispatch()
 
-    useEffect(() => {
-        dispatch(updateMainContent({ currentPath: "home", payload: (content?.home) }))
-    }, [])
+    // useEffect(() => {
+    //     dispatch(updateMainContent({ currentPath: "home", payload: (content?.home) }))
+    // }, [])
     return (
         <div className="w-full">
+            hfhjgf
             {/* reference doc */}
             <FileUploader id={"projectReference"} label={"Rerference doc"} fileName={"Upload your file..."} />
             {/** Hero Banner */}
@@ -25,14 +26,16 @@ const ProjectContentManager = ({ currentPath, currentContent, language }) => {
                 currentPath={currentPath}
                 Heading={"Banner"}
                 inputs={[
-                    { input: "input", label: "Heading/title", updateType: "title" },
-                    { input: "textarea", label: "Description", updateType: "description", maxLength: 300 },
-                    { input: "input", label: "Button Text", updateType: "button" }
+                    { input: "input", label: "Heading/title", updateType: "title", value: currentContent?.['1']?.content?.title?.[language] },
+                    { input: "textarea", label: "Description", updateType: "description", maxLength: 300, value: currentContent?.['1']?.content?.description?.[language] },
+                    { input: "input", label: "Button Text", updateType: "button", value: currentContent?.['1']?.content?.button?.[0]?.text?.[language] }
                 ]}
-                inputFiles={[{ label: "Backround Image", id: "projectsBanner" }]}
+                inputFiles={[{ label: "Backround Image", id: "projectsBanner", order: 1 }]}
                 section={"bannerSection"}
                 language={language}
                 currentContent={currentContent}
+                sectionIndex={indexes?.["1"]}
+
             />
 
             <div>
@@ -52,6 +55,7 @@ const ProjectContentManager = ({ currentPath, currentContent, language }) => {
                                     tabName={"Select Projects"}
                                     referenceOriginal={{ dir: "projects", index: 0 }}
                                     currentContent={currentContent}
+                                    sectionIndex={indexes?.["2"]}
                                 />
                             </div>
                         )

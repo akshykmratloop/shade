@@ -49,7 +49,7 @@ const SolutionPage = ({ currentContent, language, screen }) => {
             {/** banner  1 */}
             <section
                 className={`relative py-[8rem] w-full bg-cover bg-center ${isLeftAlign ? 'scale-x-[-1]' : ''} px-12 ${isPhone ? "h-screen/2" : ""}`}
-                style={{ backgroundImage: ImageFromRedux.bannerBackground ? `url(${ImageFromRedux.bannerBackground})` : 'url("https://frequencyimage.s3.ap-south-1.amazonaws.com/310398e2-856d-4e59-b0b0-10e811ca1f82-solution%20%281%29.png")' }}
+                style={{ backgroundImage: `url(${Img_url + currentContent?.['1']?.content?.images?.[0]?.url})` }}
             >
                 <div className="container h-full relative flex">
                     <div className={`text-${isLeftAlign ? 'left' : 'right'} w-full transform ${isLeftAlign ? 'scale-x-[-1]' : ''}`}>

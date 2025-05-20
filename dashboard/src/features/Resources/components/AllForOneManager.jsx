@@ -42,50 +42,50 @@ const AllForOneManager = ({ currentPath, language, subPath, deepPath, content, c
             manager = subPath ? deepPath ?
                 <SubServiceDetailManager serviceId={subPath} deepPath={deepPath} language={language} currentContent={content.subOfsubService} currentPath={"subOfsubService"} /> :
                 <ServiceDetailsManager serviceId={subPath} language={language} currentContent={content.serviceDetails} currentPath={"serviceDetails"} /> :
-                <ServiceManager language={language} currentContent={content} currentPath={currentPath} />
+                <ServiceManager language={language} currentContent={content} currentPath={currentPath} indexes={contentIndex} />
             break;
 
         case "service":
             manager = subPath &&
-                <ServiceDetailsManager serviceId={subPath} language={language} currentContent={content.serviceDetails} currentPath={"serviceDetails"} />
+                <ServiceDetailsManager serviceId={subPath} language={language} currentContent={content.serviceDetails} indexes={contentIndex} currentPath={"serviceDetails"} />
             break;
 
         case "market":
-            manager = <MarketManager language={language} currentContent={content.markets} currentPath={currentPath} />
-            break;
-
-        case "projects":
-            manager = <ProjectContentManager language={language} currentContent={content.projects} currentPath={currentPath} />
+            manager = <MarketManager language={language} currentContent={content} indexes={contentIndex} currentPath={currentPath} />
             break;
 
         case "project":
-            manager = <ProjectDetailManager projectId={subPath} language={language} currentContent={content.projectDetail} currentPath={"projectDetail"} />
+            manager = <ProjectContentManager language={language} currentContent={content} indexes={contentIndex} currentPath={currentPath} />
+            break;
+
+        case "projects":
+            manager = <ProjectDetailManager projectId={subPath} language={language} indexes={contentIndex} currentContent={content.projectDetail} currentPath={"projectDetail"} />
             break;
 
         case "careers":
-            manager = <CareersManager language={language} currentContent={content.careers} currentPath={currentPath} />
+            manager = <CareersManager language={language} currentContent={content} indexes={contentIndex} currentPath={currentPath} />
             break;
 
         case "career":
-            manager = <CareerDetailManager careerId={subPath} language={language} currentContent={content.careerDetails} currentPath={"careerDetails"} />
+            manager = <CareerDetailManager careerId={subPath} language={language} indexes={contentIndex} currentContent={content} currentPath={"careerDetails"} />
             break;
 
-        case "news":
+        case "news-blogs":
             manager = subPath ?
-                <NewsDetailManager newsId={subPath} language={language} currentContent={content.newsBlogsDetails} currentPath={"newsBlogsDetails"} /> :
-                <NewsManager language={language} currentContent={content.newsBlogs} currentPath={"newsBlogs"} />
+                <NewsDetailManager newsId={subPath} language={language} currentContent={content} currentPath={"newsBlogsDetails"} /> :
+                <NewsManager language={language} currentContent={content} indexes={contentIndex} currentPath={"newsBlogs"} />
             break;
 
         case "footer":
-            manager = <FooterManager language={language} currentContent={content.footer} currentPath={currentPath} />
+            manager = <FooterManager language={language} currentContent={content} indexes={contentIndex} currentPath={currentPath} />
             break;
 
         case "header":
-            manager = <HeaderManager language={language} currentContent={content.header} currentPath={currentPath} />
+            manager = <HeaderManager language={language} currentContent={content} indexes={contentIndex} currentPath={currentPath} />
             break;
 
         case "testimonial":
-            manager = <TestimonyManager language={language} currentContent={content.testimonialSection} testimonyId={subPath} currentPath={"testimonialSection"} />
+            manager = <TestimonyManager language={language} currentContent={content} indexes={contentIndex} testimonyId={subPath} currentPath={"testimonialSection"} />
             break;
 
         default:

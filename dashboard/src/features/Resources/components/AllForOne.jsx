@@ -25,11 +25,11 @@ const AllForOne = ({ language, screen, content, subPath, setLanguage, fullScreen
 
     const platform = useSelector(state => state.platform.platform)
 
-    useEffect(() => {
-        if (platform !== "EDIT") {
-            return () => dispatch(updateMainContent({ currentPath: "content", payload: undefined }))
-        }
-    }, [platform])
+    // useEffect(() => {
+    //     if (platform !== "EDIT") {
+    //         return () => dispatch(updateMainContent({ currentPath: "content", payload: undefined }))
+    //     }
+    // }, [platform])
 
     return (
         <div
@@ -60,7 +60,7 @@ const AllForOne = ({ language, screen, content, subPath, setLanguage, fullScreen
                 currentPath === "service" ? subPath ? deepPath ?
                     <SubServiceDetails language={language} contentOn={tempContent?.subOfsubService} serviceId={subPath} screen={screen} deepPath={deepPath} /> :
                     <ServiceDetails language={language} contentOn={tempContent?.serviceDetails} serviceId={subPath} screen={screen} /> :
-                    <Services language={language} currentContent={content} screen={screen} /> : ""
+                    <Services language={language} currentContent={content}  screen={screen} /> : ""
             }
             {/* {
                 (currentPath === "service" && subPath) &&
@@ -81,7 +81,7 @@ const AllForOne = ({ language, screen, content, subPath, setLanguage, fullScreen
                     <CareerPage language={language} currentContent={content} screen={screen} /> : ""
             }
             {
-                currentPath === "news" ? subPath ?
+                currentPath === "news-blogs" ? subPath ?
                     <NewsBlogDetailPage language={language} contentOn={content?.newsBlogsDetails} newsId={subPath} screen={screen} /> :
                     <NewsPage language={language} currentContent={content} screen={screen} /> : ""
             }

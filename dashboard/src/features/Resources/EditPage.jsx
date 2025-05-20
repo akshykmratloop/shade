@@ -52,7 +52,7 @@ const EditPage = () => {
 
     const Routes = [
         'home', 'solution', 'about-us', "service", 'market',
-        'projects', "project", 'careers', "career", 'news', 'footer',
+        'projects', "project", 'careers', "career", 'news-blogs', 'footer',
         'header', 'testimonials', 'testimonial']
 
     useEffect(() => {
@@ -68,6 +68,16 @@ const EditPage = () => {
         if (currentId) {
             setCurrentId(currentId)
         }
+
+        const handleKeyDown = (e) => {
+            if (e.key === 'Escape') {
+                setFullScreen(false)
+            }
+        }
+
+        window.addEventListener("keydown", handleKeyDown)
+
+        return () => window.removeEventListener("keydown", handleKeyDown)
     }, [])
 
     useEffect(() => {

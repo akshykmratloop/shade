@@ -46,7 +46,7 @@ const SolutionManager = ({ currentPath, language, currentContent, indexes }) => 
                     { input: "textarea", label: "Description", updateType: "description", maxLength: 300, value: currentContent?.["1"]?.content?.description?.[language] },
                     { input: "input", label: "Button Text", updateType: "button", maxLength: 20, value: currentContent?.["1"]?.content?.button?.[0]?.text?.[language] }
                 ]}
-                inputFiles={[{ label: "Background Image", id: "bannerBackground" },]}
+                inputFiles={[{ label: "Background Image", id: "bannerBackground", order: 1 },]}
                 section={"banner"}
                 language={language}
                 currentContent={currentContent}
@@ -104,7 +104,7 @@ const SolutionManager = ({ currentPath, language, currentContent, indexes }) => 
                 Heading={"Gallery 1"}
                 inputFiles={
                     currentContent?.['3']?.content.images?.map((e, i) => {
-                        return { label: "Image " + (i + 1), id: "Image " + (1 + i), order: e.order }
+                        return { label: "Image " + (i + 1), id: "Image " + (1 + i), order: e.order, url: e.url }
                     })
                     //     [
                     //     {label: "Image 1", id: "Image 1" },
@@ -112,7 +112,7 @@ const SolutionManager = ({ currentPath, language, currentContent, indexes }) => 
                     //     {label: "Image 3", id: "Image 3" },
                     // ]
                 }
-                section={"gallery"}
+                section={"images"}
                 language={language}
                 currentContent={currentContent}
                 allowExtraInput={true}
