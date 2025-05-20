@@ -53,19 +53,9 @@ const user = createSlice({
             state.isVerifier = isVerifier;
 
             if (action.payload.type === "update") {
-                console.log(state.currentRole.role, action.payload.data.roles?.[0]?.role, state.currentRole.role !== action.payload.data.roles?.[0]?.role)
-                console.log(state.currentRole.permissions[0], action.payload.data.roles?.[0]?.permissions[0], JSON.stringify(state.currentRole.permissions) !== JSON.stringify(action.payload.data.roles?.[0]?.permissions))
-                if (action.payload.data.roles.length === 0) {
-                    console.log("q")
-                    state.currentRole = { ...initialCurrentRole }
-                } else if (state.currentRole.role !== action.payload.data.roles?.[0]?.role) {
-                    console.log("r")
+                if (!(state.currentRole && action.payload.data.roles.length > 1)) {
                     state.currentRole = action.payload.data.roles[0]
-                } else if (state.currentRole.role === action.payload.data.roles?.[0]?.role && (JSON.stringify(state.currentRole.permissions) !== JSON.stringify(action.payload.data.roles?.[0]?.permissions))) {
-                    console.log("test")
-                    state.currentRole = action.payload.data.roles[0]
-                } else {
-                    console.log("s")
+                } else if (action.payload.data.roles.length === 0) {
                     state.currentRole = { ...initialCurrentRole }
                 }
             } else {
