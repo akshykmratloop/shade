@@ -66,12 +66,6 @@ router.post(
   tryCatchWrap(ContentController.DirectPublishContent)
 );
 
-router.post(
-  "/directPublishContent",
-  //   checkPermission(requiredPermissionsForContentManagement),
-  tryCatchWrap(ContentController.DirectPublishContent)
-);
-
 router.put(
   "/generateRequest",
   //   checkPermission(requiredPermissionsForContentManagement),

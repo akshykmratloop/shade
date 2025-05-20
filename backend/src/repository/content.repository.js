@@ -2978,9 +2978,9 @@ export const deleteAllResourceRelatedDataFromDb = async () => {
       const deletedSEO = await tx.sEO.deleteMany({});
       console.log(`Deleted ${deletedSEO.count} SEO records`);
 
-      // Step 9: Delete all media
-      const deletedMedia = await tx.media.deleteMany({});
-      console.log(`Deleted ${deletedMedia.count} media records`);
+      // // Step 9: Delete all media
+      // const deletedMedia = await tx.media.deleteMany({});
+      // console.log(`Deleted ${deletedMedia.count} media records`);
 
       // Step 10: Delete all filters to resource relationships
       await tx.$executeRaw`DELETE FROM "_FiltersToResource"`;
@@ -3019,7 +3019,7 @@ export const deleteAllResourceRelatedDataFromDb = async () => {
           sections: deletedSections.count,
           resourceVersions: deletedResourceVersions.count,
           seo: deletedSEO.count,
-          media: deletedMedia.count,
+          // media: deletedMedia.count,
           filters: deletedFilters.count,
           resources: deletedResources.count
         }
