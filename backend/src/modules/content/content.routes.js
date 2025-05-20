@@ -10,11 +10,256 @@ import auditLogger from "../../helper/auditLogger.js";
 const router = Router();
 
 // const requiredPermissionsForContentManagement = ["ROLES_PERMISSION_MANAGEMENT"];
+
+/**
+ * @swagger
+ * /content/getResources:
+ *   get:
+ *     summary: Get content resources with filters and pagination
+ *     tags: [Content]
+ *     security:
+ *       - BearerAuth: []
+ *     parameters:
+ *       - in: query
+ *         name: resourceType
+ *         required: false
+ *         schema:
+ *           type: string
+ *         description: Filter by the type of resource (e.g., "article", "page")
+ *       - in: query
+ *         name: resourceTag
+ *         required: false
+ *         schema:
+ *           type: string
+ *         description: Filter by a specific tag associated with the resource
+ *       - in: query
+ *         name: relationType
+ *         required: false
+ *         schema:
+ *           type: string
+ *         description: Filter by relation type (e.g., "parent", "child")
+ *       - in: query
+ *         name: isAssigned
+ *         required: false
+ *         schema:
+ *           type: boolean
+ *         description: Whether the resource is assigned (true/false)
+ *       - in: query
+ *         name: search
+ *         required: false
+ *         schema:
+ *           type: string
+ *         description: Full-text search term
+ *       - in: query
+ *         name: status
+ *         required: false
+ *         schema:
+ *           type: string
+ *         description: Filter by workflow status (e.g., "draft", "published")
+ *       - in: query
+ *         name: page
+ *         required: false
+ *         schema:
+ *           type: integer
+ *           default: 1
+ *         description: Page number for pagination
+ *       - in: query
+ *         name: limit
+ *         required: false
+ *         schema:
+ *           type: integer
+ *           default: 100
+ *         description: Number of items per page
+ *       - in: query
+ *         name: fetchType
+ *         required: false
+ *         schema:
+ *           type: string
+ *         description: Type of fetch operation (e.g., "all", "assignedOnly")
+ *       - in: query
+ *         name: roleId
+ *         required: false
+ *         schema:
+ *           type: string
+ *         description: Role ID to filter resources by user role
+ *       - in: query
+ *         name: apiCallType
+ *         required: false
+ *         schema:
+ *           type: string
+ *         description: Indicates the context of the API call (e.g., "inline", "bulk")
+ *     responses:
+ *       200:
+ *         description: Resources fetched successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Resources fetched successfully
+ *                 data:
+ *                   type: array
+ *                   description: List of resource objects
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       id:
+ *                         type: string
+ *                         format: uuid
+ *                         example: e4f8c0a2-3b7a-4c5d-9e2f-1a2b3c4d5e6f
+ *                       title:
+ *                         type: string
+ *                         example: "Getting Started with Shade CMS"
+ *                       resourceType:
+ *                         type: string
+ *                         example: article
+ *                       status:
+ *                         type: string
+ *                         example: published
+ *                       tags:
+ *                         type: array
+ *                         items:
+ *                           type: string
+ *                         example: ["guide", "intro"]
+ *                       createdAt:
+ *                         type: string
+ *                         format: date-time
+ *                         example: 2025-05-19T06:00:00Z
+ *                 page:
+ *                   type: integer
+ *                   example: 1
+ *                 limit:
+ *                   type: integer
+ *                   example: 100
+ *                 total:
+ *                   type: integer
+ *                   example: 42
+ *       400:
+ *         $ref: '#/components/schemas/ErrorResponse'
+ */
+
 router.get(
   "/getResources",
   //   checkPermission(requiredPermissionsForContentManagement),
   tryCatchWrap(ContentController.GetResources)
 );
+
+/**
+ * @swagger
+ * /content/getResourceInfo/{resourceId}:
+ *   get:
+ *     summary: Get detailed information for a single resource
+ *     tags: [Content]
+ *     security:
+ *       - BearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: resourceId
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The ID of the resource to retrieve
+ *     responses:
+ *       200:
+ *         description: Resource info fetched successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Success
+ *                 resourceInfo:
+ *                   type: object
+ *                   properties:
+ *                     id:
+ *                       type: string
+ *                       example: cmanxcohj00topc4yeubbou2m
+ *                     titleEn:
+ *                       type: string
+ *                       example: Home Page
+ *                     titleAr:
+ *                       type: string
+ *                       example: الصفحة الرئيسية
+ *                     slug:
+ *                       type: string
+ *                       example: home
+ *                     status:
+ *                       type: string
+ *                       example: ACTIVE
+ *                     resourceType:
+ *                       type: string
+ *                       example: MAIN_PAGE
+ *                     resourceTag:
+ *                       type: string
+ *                       example: HOME
+ *                     relationType:
+ *                       type: string
+ *                       example: PARENT
+ *                     isAssigned:
+ *                       type: boolean
+ *                       example: false
+ *                     liveVersionId:
+ *                       type: string
+ *                       example: cmanxcohn00tqpc4y5bpbjw7w
+ *                     newVersionEditModeId:
+ *                       nullable: true
+ *                       type: string
+ *                       example: null
+ *                     scheduledVersionId:
+ *                       nullable: true
+ *                       type: string
+ *                       example: null
+ *                     createdAt:
+ *                       type: string
+ *                       format: date-time
+ *                       example: 2025-05-14T12:36:14.455Z
+ *                     updatedAt:
+ *                       type: string
+ *                       format: date-time
+ *                       example: 2025-05-14T12:36:14.461Z
+ *                     _count:
+ *                       type: object
+ *                       properties:
+ *                         versions:
+ *                           type: integer
+ *                           example: 1
+ *                     roles:
+ *                       type: array
+ *                       items:
+ *                         type: string
+ *                       example: []
+ *                     liveVersion:
+ *                       type: object
+ *                       properties:
+ *                         versionNumber:
+ *                           type: integer
+ *                           example: 1
+ *                     newVersionEditMode:
+ *                       nullable: true
+ *                       type: object
+ *                       example: null
+ *                     verifiers:
+ *                       type: array
+ *                       items:
+ *                         type: object
+ *                       example: []
+ *       400:
+ *         $ref: '#/components/schemas/ErrorResponse'
+ *       404:
+ *         description: Resource not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Resource not found
+ */
 
 router.get(
   "/getResourceInfo/:resourceId",
@@ -22,11 +267,203 @@ router.get(
   tryCatchWrap(ContentController.GetResourceInfo)
 );
 
+/**
+ * @swagger
+ * /content/getAssignedUsers/{resourceId}:
+ *   get:
+ *     summary: Get users assigned to a specific resource
+ *     tags: [Content]
+ *     security:
+ *       - BearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: resourceId
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The ID of the resource for which to retrieve assigned users
+ *     responses:
+ *       200:
+ *         description: Assigned users fetched successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Success
+ *                 assignedUsers:
+ *                   type: object
+ *                   properties:
+ *                     roles:
+ *                       type: array
+ *                       items:
+ *                         type: object
+ *                         properties:
+ *                           id:
+ *                             type: string
+ *                             format: uuid
+ *                             example: 9c3083b6-de55-4eb4-b901-4d7dc742c7b3
+ *                           resourceId:
+ *                             type: string
+ *                             format: uuid
+ *                             example: cmanxcohj00topc4yeubbou2m
+ *                           userId:
+ *                             type: string
+ *                             format: uuid
+ *                             example: cmaoux1f1000qpc0w5vlqhgjx
+ *                           role:
+ *                             type: string
+ *                             example: MANAGER
+ *                           status:
+ *                             type: string
+ *                             example: ACTIVE
+ *                           createdAt:
+ *                             type: string
+ *                             format: date-time
+ *                             example: 2025-05-19T10:22:43.787Z
+ *                           user:
+ *                             type: object
+ *                             properties:
+ *                               id:
+ *                                 type: string
+ *                                 format: uuid
+ *                                 example: cmaoux1f1000qpc0w5vlqhgjx
+ *                               name:
+ *                                 type: string
+ *                                 example: Deepanshu Kataria
+ *                     verifiers:
+ *                       type: array
+ *                       items:
+ *                         type: object
+ *                         properties:
+ *                           id:
+ *                             type: string
+ *                             format: uuid
+ *                             example: ca9d4344-b067-4383-b5c6-992c6bd6639d
+ *                           stage:
+ *                             type: integer
+ *                             example: 1
+ *                           status:
+ *                             type: string
+ *                             example: ACTIVE
+ *                           resourceId:
+ *                             type: string
+ *                             format: uuid
+ *                             example: cmanxcohj00topc4yeubbou2m
+ *                           userId:
+ *                             type: string
+ *                             format: uuid
+ *                             example: cmaovteo80010pc0ww0eqt1w3
+ *                           createdAt:
+ *                             type: string
+ *                             format: date-time
+ *                             example: 2025-05-19T10:22:43.795Z
+ *                           user:
+ *                             type: object
+ *                             properties:
+ *                               id:
+ *                                 type: string
+ *                                 format: uuid
+ *                                 example: cmaovteo80010pc0ww0eqt1w3
+ *                               name:
+ *                                 type: string
+ *                                 example: Rajesh Rishi
+ *       400:
+ *         $ref: '#/components/schemas/ErrorResponse'
+ *       404:
+ *         description: Resource not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Resource not found
+ */
+
 router.get(
   "/getAssignedUsers/:resourceId",
   //   checkPermission(requiredPermissionsForContentManagement),
   tryCatchWrap(ContentController.GetAssignedUsers)
 );
+
+/**
+ * @swagger
+ * /content/getEligibleUsers:
+ *   get:
+ *     summary: Get users eligible based on role type and permission
+ *     tags: [Content]
+ *     security:
+ *       - BearerAuth: []
+ *     parameters:
+ *       - in: query
+ *         name: roleType
+ *         required: false
+ *         schema:
+ *           type: string
+ *         description: Filter eligible users by role type (e.g., "MANAGER, USER")
+ *       - in: query
+ *         name: permission
+ *         required: false
+ *         schema:
+ *           type: string
+ *         description: Filter eligible users by a specific permission (e.g., "publish_content")
+ *     responses:
+ *       200:
+ *         description: Eligible users fetched successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Success
+ *                 eligibleUsers:
+ *                   type: array
+ *                   description: List of eligible users matching the criteria
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       id:
+ *                         type: string
+ *                         example: cmaov27ni000spc0w9oxjpdd6
+ *                       name:
+ *                         type: string
+ *                         example: Bhavnesh Sharma
+ *                       email:
+ *                         type: string
+ *                         format: email
+ *                         example: bhavnesh@sharma.com
+ *                       phone:
+ *                         type: string
+ *                         example: "7878787878"
+ *                       status:
+ *                         type: string
+ *                         example: ACTIVE
+ *                       roles:
+ *                         type: array
+ *                         description: Roles assigned to the user
+ *                         items:
+ *                           type: object
+ *                           properties:
+ *                             name:
+ *                               type: string
+ *                               example: Publisher
+ *                             type:
+ *                               type: string
+ *                               example: USER
+ *                             permissions:
+ *                               type: array
+ *                               items:
+ *                                 type: string
+ *                               example: ["PUBLISH"]
+ *       400:
+ *         $ref: '#/components/schemas/ErrorResponse'
+ */
 
 router.get(
   "/getEligibleUsers",
@@ -41,6 +478,55 @@ router.post(
   tryCatchWrap(ContentController.AssignUser)
 );
 
+/**
+ * @swagger
+ * /content/removeAssignedUser/{resourceId}:
+ *   patch:
+ *     summary: Remove an assigned user from a specific resource
+ *     tags: [Content]
+ *     security:
+ *       - BearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: resourceId
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The ID of the resource from which to remove the user
+ *     responses:
+ *       200:
+ *         description: Users removed successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Users removed successfully
+ *                 result:
+ *                   type: object
+ *                   properties:
+ *                     success:
+ *                       type: boolean
+ *                       example: true
+ *                     message:
+ *                       type: string
+ *                       example: All active user assignments for resource cmanxcohj00topc4yeubbou2m have been marked as inactive
+ *       400:
+ *         $ref: '#/components/schemas/ErrorResponse'
+ *       404:
+ *         description: Resource or assigned user not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Assigned user not found for this resource
+ */
+
 router.patch(
   "/removeAssignedUser/:resourceId",
   //   checkPermission(requiredPermissionsForContentManagement),
@@ -48,17 +534,619 @@ router.patch(
   tryCatchWrap(ContentController.RemoveAssignedUser)
 );
 
+/**
+ * @swagger
+ * /content/getContent/{resourceId}:
+ *   get:
+ *     summary: Get the raw content for a specific resource
+ *     tags: [Content]
+ *     security:
+ *       - BearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: resourceId
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The ID of the resource to retrieve content for
+ *     responses:
+ *       200:
+ *         description: Resource info fetched successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Success
+ *                 content:
+ *                   type: object
+ *                   properties:
+ *                     id:
+ *                       type: string
+ *                       example: cmanxcohj00topc4yeubbou2m
+ *                     titleEn:
+ *                       type: string
+ *                       example: Home Page
+ *                     titleAr:
+ *                       type: string
+ *                       example: الصفحة الرئيسية
+ *                     slug:
+ *                       type: string
+ *                       example: home
+ *                     resourceType:
+ *                       type: string
+ *                       example: MAIN_PAGE
+ *                     resourceTag:
+ *                       type: string
+ *                       example: HOME
+ *                     relationType:
+ *                       type: string
+ *                       example: PARENT
+ *                     liveModeVersionData:
+ *                       type: object
+ *                       properties:
+ *                         id:
+ *                           type: string
+ *                           example: cmanxcohn00tqpc4y5bpbjw7w
+ *                         versionNumber:
+ *                           type: integer
+ *                           example: 1
+ *                         icon:
+ *                           type: string
+ *                           nullable: true
+ *                         image:
+ *                           type: string
+ *                           nullable: true
+ *                         comments:
+ *                           type: string
+ *                           example: Initial version created
+ *                         referenceDoc:
+ *                           type: string
+ *                           nullable: true
+ *                         updatedAt:
+ *                           type: string
+ *                           format: date-time
+ *                           example: 2025-05-14T12:36:14.459Z
+ *                         status:
+ *                           type: string
+ *                           example: PUBLISHED
+ *                         sections:
+ *                           type: array
+ *                           items:
+ *                             type: object
+ *                             properties:
+ *                               sectionId:
+ *                                 type: string
+ *                                 example: cmanxcohz00tspc4yn7rl5kk6
+ *                               order:
+ *                                 type: integer
+ *                                 example: 1
+ *                               version:
+ *                                 type: integer
+ *                                 example: 1
+ *                               title:
+ *                                 type: string
+ *                                 example: HeroSection-home-b3dd
+ *                               content:
+ *                                 type: object
+ *                                 properties:
+ *                                   title:
+ *                                     type: object
+ *                                     properties:
+ *                                       ar:
+ *                                         type: string
+ *                                         example: بناء مستقبل أقوى
+ *                                       en:
+ *                                         type: string
+ *                                         example: Building a Stronger Future
+ *                                   button:
+ *                                     type: array
+ *                                     items:
+ *                                       type: object
+ *                                       properties:
+ *                                         url:
+ *                                           type: string
+ *                                           nullable: true
+ *                                         icon:
+ *                                           type: string
+ *                                           nullable: true
+ *                                         text:
+ *                                           type: object
+ *                                           properties:
+ *                                             ar:
+ *                                               type: string
+ *                                               example: أعمالنا
+ *                                             en:
+ *                                               type: string
+ *                                               example: View Our Work
+ *                                         order:
+ *                                           type: integer
+ *                                           example: 1
+ *                                   images:
+ *                                     type: array
+ *                                     items:
+ *                                       type: object
+ *                                       properties:
+ *                                         url:
+ *                                           type: string
+ *                                         order:
+ *                                           type: integer
+ *                                           example: 1
+ *                                         altText:
+ *                                           type: object
+ *                                           properties:
+ *                                             ar:
+ *                                               type: string
+ *                                             en:
+ *                                               type: string
+ *                                   description:
+ *                                     type: object
+ *                                     properties:
+ *                                       ar:
+ *                                         type: string
+ *                                       en:
+ *                                         type: string
+ *                               items:
+ *                                 type: array
+ *                                 items:
+ *                                   type: object
+ *                                   properties:
+ *                                     id:
+ *                                       type: string
+ *                                     titleEn:
+ *                                       type: string
+ *                                     titleAr:
+ *                                       type: string
+ *                                     slug:
+ *                                       type: string
+ *                                   # ... additional item props omitted for brevity
+ *       400:
+ *         $ref: '#/components/schemas/ErrorResponse'
+ *       404:
+ *         description: Resource not found
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Resource not found
+ */
+
 router.get(
   "/getContent/:resourceId",
   //   checkPermission(requiredPermissionsForContentManagement),
   tryCatchWrap(ContentController.GetContent)
 );
 
+/**
+ * @swagger
+ * /content/updateContent:
+ *   put:
+ *     summary: Update or save content for resources
+ *     tags: [Content]
+ *     security:
+ *       - BearerAuth: []
+ *     requestBody:
+ *       description: Full content payload, including draft mode and structured sections
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - resourceId
+ *               - titleEn
+ *               - titleAr
+ *               - slug
+ *               - newVersionEditMode
+ *               - sections
+ *             properties:
+ *               resourceId:
+ *                 type: string
+ *                 format: uuid
+ *                 example: cmanwipvc00toqrj6zytmop4d
+ *               titleEn:
+ *                 type: string
+ *                 example: Home Page
+ *               titleAr:
+ *                 type: string
+ *                 example: الصفحة الرئيسية
+ *               slug:
+ *                 type: string
+ *                 example: home
+ *               newVersionEditMode:
+ *                 type: object
+ *                 required:
+ *                   - comments
+ *                   - sections
+ *                 properties:
+ *                   comments:
+ *                     type: string
+ *                     example: Initial version created
+ *                   referenceDoc:
+ *                     type: string
+ *                     nullable: true
+ *                     example: null
+ *                   icon:
+ *                     type: string
+ *                     nullable: true
+ *                     example: null
+ *                   image:
+ *                     type: string
+ *                     nullable: true
+ *                     example: null
+ *                   sections:
+ *                     type: array
+ *                     items:
+ *                       type: object
+ *                       required:
+ *                         - sectionId
+ *                         - order
+ *                         - content
+ *                       properties:
+ *                         sectionId:
+ *                           type: string
+ *                           format: uuid
+ *                           example: cmanwipvr00tsqrj6nkmm7080
+ *                         order:
+ *                           type: integer
+ *                           example: 1
+ *                         content:
+ *                           type: object
+ *                           properties:
+ *                             title:
+ *                               type: object
+ *                               properties:
+ *                                 ar:
+ *                                   type: string
+ *                                   example: بناء مستقبل أقوى
+ *                                 en:
+ *                                   type: string
+ *                                   example: Building a Stronger Future
+ *                             button:
+ *                               type: array
+ *                               items:
+ *                                 type: object
+ *                                 required:
+ *                                   - order
+ *                                   - text
+ *                                 properties:
+ *                                   url:
+ *                                     type: string
+ *                                     nullable: true
+ *                                     example: null
+ *                                   icon:
+ *                                     type: string
+ *                                     nullable: true
+ *                                     example: null
+ *                                   text:
+ *                                     type: object
+ *                                     properties:
+ *                                       ar:
+ *                                         type: string
+ *                                         example: أعمالنا
+ *                                       en:
+ *                                         type: string
+ *                                         example: View Our Work
+ *                                   order:
+ *                                     type: integer
+ *                                     example: 1
+ *                             images:
+ *                               type: array
+ *                               items:
+ *                                 type: object
+ *                                 required:
+ *                                   - order
+ *                                   - altText
+ *                                 properties:
+ *                                   url:
+ *                                     type: string
+ *                                     example: ""
+ *                                   order:
+ *                                     type: integer
+ *                                     example: 1
+ *                                   altText:
+ *                                     type: object
+ *                                     properties:
+ *                                       ar:
+ *                                         type: string
+ *                                         example: الرئيسية
+ *                                       en:
+ *                                         type: string
+ *                                         example: Image
+ *                             description:
+ *                               type: object
+ *                               properties:
+ *                                 ar:
+ *                                   type: string
+ *                                   example: >-
+ *                                     التزامنا الثابت الذي يعزز الشراكات...
+ *                                 en:
+ *                                   type: string
+ *                                   example: >-
+ *                                     Our unwavering commitment that forge...
+ *                         items:
+ *                           type: array
+ *                           items:
+ *                             type: object
+ *                             required:
+ *                               - order
+ *                               - id
+ *                             properties:
+ *                               order:
+ *                                 type: integer
+ *                                 example: 1
+ *                               id:
+ *                                 type: string
+ *                                 format: uuid
+ *                                 example: cmanwipcm00fiqrj6c05xml7u
+ *               sections:
+ *                 type: array
+ *                 items:
+ *                   type: object
+ *                   required:
+ *                     - sectionId
+ *                     - order
+ *                     - content
+ *                   properties:
+ *                     sectionId:
+ *                       type: string
+ *                       format: uuid
+ *                       example: cmanwipwr00ukqrj6r5gd4v50
+ *                     order:
+ *                       type: integer
+ *                       example: 4
+ *                     content:
+ *                       type: object
+ *                       properties:
+ *                         cards:
+ *                           type: array
+ *                           items:
+ *                             type: object
+ *                             properties:
+ *                               icon:
+ *                                 type: string
+ *                                 example: ""
+ *                               count:
+ *                                 type: string
+ *                                 example: "123"
+ *                               order:
+ *                                 type: integer
+ *                                 example: 1
+ *                               title:
+ *                                 type: object
+ *                                 properties:
+ *                                   ar:
+ *                                     type: string
+ *                                     example: المشاريع المنجزة
+ *                                   en:
+ *                                     type: string
+ *                                     example: Projects Completed
+ *                         button:
+ *                           type: array
+ *                           items:
+ *                             type: object
+ *                             required:
+ *                               - order
+ *                               - text
+ *                             properties:
+ *                               url:
+ *                                 type: string
+ *                                 nullable: true
+ *                                 example: null
+ *                               icon:
+ *                                 type: string
+ *                                 nullable: true
+ *                                 example: null
+ *                               text:
+ *                                 type: object
+ *                                 properties:
+ *                                   ar:
+ *                                     type: string
+ *                                     example: اتصل بنا
+ *                                   en:
+ *                                     type: string
+ *                                     example: Contact Us
+ *                               order:
+ *                                 type: integer
+ *                                 example: 1
+ *                         description:
+ *                           type: object
+ *                           properties:
+ *                             ar:
+ *                               type: string
+ *                               example: كانت شركتنا رائدة...
+ *                             en:
+ *                               type: string
+ *                               example: Our company has been the leading...
+ *                         buttons:
+ *                           type: array
+ *                           items:
+ *                             type: object
+ *                             required:
+ *                               - order
+ *                               - text
+ *                             properties:
+ *                               icon:
+ *                                 type: string
+ *                                 nullable: true
+ *                               text:
+ *                                 type: object
+ *                                 properties:
+ *                                   ar:
+ *                                     type: string
+ *                                     example: عرض الكل
+ *                                   en:
+ *                                     type: string
+ *                                     example: View All
+ *                               order:
+ *                                 type: integer
+ *                                 example: 1
+ *                         sections:
+ *                           type: array
+ *                           items:
+ *                             type: object
+ *                             required:
+ *                               - sectionId
+ *                               - order
+ *                               - content
+ *                             properties:
+ *                               sectionId:
+ *                                 type: string
+ *                                 format: uuid
+ *                                 example: cmanwipx600uwqrj647aqzfw5
+ *                               order:
+ *                                 type: integer
+ *                                 example: 1
+ *                               content:
+ *                                 type: object
+ *                                 properties:
+ *                                   id:
+ *                                     type: string
+ *                                     example: projectsSlugs
+ *                                   title:
+ *                                     type: object
+ *                                     properties:
+ *                                       ar:
+ *                                         type: string
+ *                                         example: المشاريع الأخيرة
+ *                                       en:
+ *                                         type: string
+ *                                         example: Recent Projects
+ *                                   description:
+ *                                     type: object
+ *                                     properties:
+ *                                       ar:
+ *                                         type: string
+ *                                         example: تفتخر شركة شيد...
+ *                                       en:
+ *                                         type: string
+ *                                         example: Shade Corporation boasts...
+ *                     items:
+ *                       type: array
+ *                       items:
+ *                         type: object
+ *                         properties:
+ *                           order:
+ *                             type: integer
+ *                             example: 1
+ *                           id:
+ *                             type: string
+ *                             format: uuid
+ *                             example: cmanwiox7004kqrj6excs2vyo
+ *     responses:
+ *       200:
+ *         description: Content updated successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Content updated successfully
+ *                 data:
+ *                   type: object
+ *                   properties:
+ *                     resourceId:
+ *                       type: string
+ *                       format: uuid
+ *                       example: cmanwipvc00toqrj6zytmop4d
+ *                     savedAs:
+ *                       type: string
+ *                       example: draft-v2
+ *       400:
+ *         $ref: '#/components/schemas/ErrorResponse'
+ */
 router.put(
   "/updateContent",
   //   checkPermission(requiredPermissionsForContentManagement),
   tryCatchWrap(ContentController.UpdateContent)
 );
+
+/**
+ * @swagger
+ * /content/directPublishContent:
+ *   post:
+ *     summary: Directly publish content (super-admin/managers only)
+ *     tags: [Content]
+ *     security:
+ *       - BearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             description: Content payload to publish
+ *             properties:
+ *               resourceId:
+ *                 type: string
+ *                 format: uuid
+ *                 example: e4f8c0a2-3b7a-4c5d-9e2f-1a2b3c4d5e6f
+ *               title:
+ *                 type: string
+ *                 example: "Finalized Article Title"
+ *               body:
+ *                 type: string
+ *                 example: "<p>Final content HTML or markdown.</p>"
+ *               metadata:
+ *                 type: object
+ *                 description: Additional metadata for publishing
+ *                 properties:
+ *                   tags:
+ *                     type: array
+ *                     items:
+ *                       type: string
+ *                     example: ["news", "announcement"]
+ *                   publishDate:
+ *                     type: string
+ *                     format: date-time
+ *                     example: "2025-05-20T10:00:00Z"
+ *     responses:
+ *       200:
+ *         description: Content published successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Content published successfully
+ *                 data:
+ *                   type: object
+ *                   description: Details of the published content
+ *                   properties:
+ *                     resourceId:
+ *                       type: string
+ *                       format: uuid
+ *                       example: e4f8c0a2-3b7a-4c5d-9e2f-1a2b3c4d5e6f
+ *                     publishedBy:
+ *                       type: string
+ *                       format: uuid
+ *                       example: "f47ac10b-58cc-4372-a567-0e02b2c3d479"
+ *                     publishedAt:
+ *                       type: string
+ *                       format: date-time
+ *                       example: "2025-05-20T10:05:00Z"
+ *       400:
+ *         $ref: '#/components/schemas/ErrorResponse'
+ *       403:
+ *         description: Forbidden — user not authorized to publish directly
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Forbidden — insufficient permissions
+ */
 
 router.post(
   "/directPublishContent",
@@ -96,7 +1184,6 @@ router.post(
   tryCatchWrap(ContentController.ApproveRequest)
 );
 
-
 router.post(
   "/rejectRequest/:requestId",
   //   checkPermission(requiredPermissionsForContentManagement),
@@ -114,7 +1201,6 @@ router.post(
   //   checkPermission(requiredPermissionsForContentManagement),
   tryCatchWrap(ContentController.PublishRequest)
 );
-
 
 router.get(
   "/getVersionsList/:resourceId",

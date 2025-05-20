@@ -1,5 +1,5 @@
 {
-  "resourceId": "cmap7yost00tomn5kro5pqv7y",
+  "resourceId": "cmanxcohj00topc4yeubbou2m",
   "titleEn": "Home Page",
   "titleAr": "الصفحة الرئيسية",
   "slug": "home",
@@ -10,7 +10,7 @@
     "image": null,
     "sections": [
       {
-        "sectionId": "cmap7yot500tsmn5k5qecg65a",
+        "sectionId": "cmanxcohz00tspc4yn7rl5kk6",
         "order": 1,
         "content": {
           "title": {
@@ -45,7 +45,7 @@
         }
       },
       {
-        "sectionId": "cmap7yoth00tymn5kq8qppw51",
+        "sectionId": "cmanxcoif00typc4yigymn0al",
         "order": 2,
         "content": {
           "title": {
@@ -80,7 +80,7 @@
         }
       },
       {
-        "sectionId": "cmap7yott00u4mn5k33qezz7x",
+        "sectionId": "cmanxcoiu00u4pc4y5i670zn0",
         "order": 3,
         "content": {
           "title": {
@@ -91,28 +91,28 @@
         "items": [
           {
             "order": 1,
-            "id": "cmap7ynw500fimn5k08mmsb19"
+            "id": "cmanxcnc900fipc4yhi538rz1"
           },
           {
             "order": 2,
-            "id": "cmap7yny300gdmn5kxa3nl078"
+            "id": "cmanxcneu00gdpc4yakq5ldyw"
           },
           {
             "order": 3,
-            "id": "cmap7ynzz00h8mn5kdaxy2wrv"
+            "id": "cmanxcnh900h8pc4y0q35jg9z"
           },
           {
             "order": 4,
-            "id": "cmap7yo1v00i3mn5kn839dys0"
+            "id": "cmanxcnjs00i3pc4ytp0ez44l"
           },
           {
             "order": 5,
-            "id": "cmap7yo3t00iymn5kak8or9ep"
+            "id": "cmanxcnm500iypc4ysfelsahk"
           }
         ]
       },
       {
-        "sectionId": "cmap7youu00ukmn5k50nmqvaa",
+        "sectionId": "cmanxcok100ukpc4y25gxjll1",
         "order": 4,
         "content": {
           "cards": [
@@ -175,7 +175,7 @@
         }
       },
       {
-        "sectionId": "cmap7yova00uqmn5ktqqmjegt",
+        "sectionId": "cmanxcokf00uqpc4yu1pdsh36",
         "order": 5,
         "content": {
           "buttons": [
@@ -207,7 +207,7 @@
         },
         "sections": [
           {
-            "sectionId": "cmap7yovq00uwmn5krw0gddyu",
+            "sectionId": "cmanxcokv00uwpc4yvr1m82hf",
             "order": 1,
             "content": {
               "id": "projectsSlugs",
@@ -224,28 +224,28 @@
             "items": [
               {
                 "order": 1,
-                "id": "cmap7yn4j004kmn5k3z26jsy9"
+                "id": "cmanxcmhk004kpc4yyylmiyd8"
               },
               {
                 "order": 2,
-                "id": "cmap7yn6s005hmn5k7co0u1x0"
+                "id": "cmanxcmkb005hpc4ypleynuq8"
               },
               {
                 "order": 3,
-                "id": "cmap7yn8y006emn5klww1zgwq"
+                "id": "cmanxcmmt006epc4yrlgyq7k6"
               },
               {
                 "order": 4,
-                "id": "cmap7ynb5007bmn5k5x06c63t"
+                "id": "cmanxcmp3007bpc4yxjnfkv38"
               },
               {
                 "order": 5,
-                "id": "cmap7yndd0088mn5kkln0nr0n"
+                "id": "cmanxcmr80088pc4y18u0an50"
               }
             ]
           },
           {
-            "sectionId": "cmap7yoxc00vcmn5kv28wj92h",
+            "sectionId": "cmanxcom800vcpc4ygpubei68",
             "order": 2,
             "content": {
               "id": "marketItemSlug",
@@ -262,24 +262,24 @@
             "items": [
               {
                 "order": 1,
-                "id": "cmap7ynfk0095mn5kney4d3v5"
+                "id": "cmanxcmth0095pc4y216rjywt"
               },
               {
                 "order": 2,
-                "id": "cmap7ynie00a0mn5k3bfhsfwl"
+                "id": "cmanxcmvt00a0pc4ydo393gmk"
               },
               {
                 "order": 3,
-                "id": "cmap7ynkh00avmn5ka21ejv1e"
+                "id": "cmanxcmy300avpc4yn6obmqs7"
               },
               {
                 "order": 4,
-                "id": "cmap7ynmj00bqmn5kk4jf1vj9"
+                "id": "cmanxcn0i00bqpc4yzw1syvdt"
               }
             ]
           },
           {
-            "sectionId": "cmap7yoyf00vqmn5k39my7hq9",
+            "sectionId": "cmanxcon900vqpc4yckb4owzr",
             "order": 3,
             "content": {
               "id": "safetyPoliciesSlug",
@@ -296,34 +296,34 @@
             "items": [
               {
                 "order": 1,
-                "id": "cmap7yo5v00jtmn5kz28rnu7n"
+                "id": "cmanxcnor00jtpc4y59xmoiz4"
               },
               {
                 "order": 2,
-                "id": "cmap7yo7700kemn5k1youzbzf"
+                "id": "cmanxcnql00kepc4ygxke5tgd"
               },
               {
                 "order": 3,
-                "id": "cmap7yo8j00kzmn5kjycuxxic"
+                "id": "cmanxcnsc00kzpc4ybxqpi32c"
               },
               {
                 "order": 4,
-                "id": "cmap7yo9t00lkmn5kpwivuwiy"
+                "id": "cmanxcnu400lkpc4yfrvt28dc"
               },
               {
                 "order": 5,
-                "id": "cmap7yob700m5mn5kisuzshwv"
+                "id": "cmanxcnvt00m5pc4yn84q870n"
               },
               {
                 "order": 6,
-                "id": "cmap7yocl00mqmn5kzy37vvma"
+                "id": "cmanxcnxd00mqpc4ywggsk3ll"
               }
             ]
           }
         ]
       },
       {
-        "sectionId": "cmap7yoz900w8mn5kk3hxpn3u",
+        "sectionId": "cmanxcoos00w8pc4y8rerx769",
         "order": 6,
         "content": {
           "title": {
@@ -371,7 +371,7 @@
         }
       },
       {
-        "sectionId": "cmap7yozg00wemn5kro7ccmxm",
+        "sectionId": "cmanxcopa00wepc4y97zfuocy",
         "order": 7,
         "content": {
           "title": {
@@ -382,32 +382,32 @@
         "items": [
           {
             "order": 1,
-            "id": "cmap7yn070032mn5kcvuns63f"
+            "id": "cmanxcmca0032pc4yieygiwy0"
           },
           {
             "order": 2,
-            "id": "cmap7yn0u003bmn5kfz4hpfgc"
+            "id": "cmanxcmd2003bpc4yytxlzqlf"
           },
           {
             "order": 3,
-            "id": "cmap7yn1j003kmn5kcrep6ybw"
+            "id": "cmanxcme1003kpc4yheq3wi33"
           },
           {
             "order": 4,
-            "id": "cmap7yn29003tmn5k0m5obb2s"
+            "id": "cmanxcmes003tpc4ykc6p2u9x"
           },
           {
             "order": 5,
-            "id": "cmap7yn2z0042mn5kez1qxetg"
+            "id": "cmanxcmfi0042pc4yuqoy4p8e"
           },
           {
             "order": 6,
-            "id": "cmap7yn3s004bmn5k1yjsiw0t"
+            "id": "cmanxcmgq004bpc4ybffkngz4"
           }
         ]
       },
       {
-        "sectionId": "cmap7yp0800wwmn5kxye7b3sw",
+        "sectionId": "cmanxcoqm00wwpc4yobiiiyxi",
         "order": 8,
         "content": {
           "title": {
