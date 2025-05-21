@@ -1,5 +1,5 @@
 import prismaClient from "../config/dbConfig.js";
-import { assert } from "../errors/assertError.js";
+import {assert} from "../errors/assertError.js";
 
 export const fetchResources = async (
   resourceType = "",
@@ -19,7 +19,7 @@ export const fetchResources = async (
 
   // First, fetch the user's roles and permissions
   const user = await prismaClient.user.findUnique({
-    where: { id: userId },
+    where: {id: userId},
     include: {
       roles: {
         include: {
@@ -120,10 +120,10 @@ export const fetchResources = async (
   if (isSuperAdmin) {
     // Super admin gets all resources with optional filters
     if (resourceType) {
-      typeFilter = { resourceType };
+      typeFilter = {resourceType};
     }
     if (resourceTag) {
-      tagFilter = { resourceTag };
+      tagFilter = {resourceTag};
     }
   }
   // Non-super admin logic with role filtering
@@ -158,16 +158,16 @@ export const fetchResources = async (
       }
 
       // Add assigned resource filter
-      resourceIdFilter = { id: { in: assignedResourceIds } };
+      resourceIdFilter = {id: {in: assignedResourceIds}};
 
       // Apply resource type filter if specified
       if (resourceType) {
-        typeFilter = { resourceType };
+        typeFilter = {resourceType};
       }
 
       // Apply resource tag filter if specified
       if (resourceTag) {
-        tagFilter = { resourceTag };
+        tagFilter = {resourceTag};
       }
     }
     // Handle manager permission cases (updated logic)
@@ -212,7 +212,7 @@ export const fetchResources = async (
 
       // Add allowed types and tags from other management permissions
       if (hasOtherManagement) {
-        for (const [permission, { types, tags }] of Object.entries(
+        for (const [permission, {types, tags}] of Object.entries(
           permissionToResourceMap
         )) {
           if (rolePermissions.includes(permission)) {
@@ -224,7 +224,7 @@ export const fetchResources = async (
 
       // Ensure FOOTER is included when user has FOOTER_MANAGEMENT permission
       if (hasFooterManagement) {
-        const { types, tags } = permissionToResourceMap["FOOTER_MANAGEMENT"];
+        const {types, tags} = permissionToResourceMap["FOOTER_MANAGEMENT"];
         types.forEach((type) => allowedTypes.add(type));
         tags.forEach((tag) => allowedTags.add(tag));
       }
@@ -233,7 +233,7 @@ export const fetchResources = async (
       if (resourceType === "MAIN_PAGE") {
         // If user has PAGE_MANAGEMENT, they can see all MAIN_PAGEs
         if (hasPageManagement) {
-          typeFilter = { resourceType: "MAIN_PAGE" };
+          typeFilter = {resourceType: "MAIN_PAGE"};
           // No need for resourceIdFilter as they can see all MAIN_PAGEs
           resourceIdFilter = {};
         }
@@ -245,10 +245,10 @@ export const fetchResources = async (
           // Get only MAIN_PAGEs from assigned resources
           const mainPageResources = await prismaClient.resource.findMany({
             where: {
-              id: { in: assignedResourceIds },
+              id: {in: assignedResourceIds},
               resourceType: "MAIN_PAGE",
             },
-            select: { id: true },
+            select: {id: true},
           });
 
           if (mainPageResources.length === 0) {
@@ -264,8 +264,8 @@ export const fetchResources = async (
           }
 
           // Only show MAIN_PAGEs where user is assigned as MANAGER
-          typeFilter = { resourceType: "MAIN_PAGE" };
-          resourceIdFilter = { id: { in: mainPageResources.map((r) => r.id) } };
+          typeFilter = {resourceType: "MAIN_PAGE"};
+          resourceIdFilter = {id: {in: mainPageResources.map((r) => r.id)}};
         } else {
           // No PAGE_MANAGEMENT and no assigned MAIN_PAGEs, return empty
           return {
@@ -302,8 +302,8 @@ export const fetchResources = async (
         // If user has permission for this resource type/tag OR is assigned to resources of this type
         if (hasPermissionForResourceType) {
           // User has direct permission, apply type and tag filters
-          typeFilter = { resourceType };
-          tagFilter = { resourceTag };
+          typeFilter = {resourceType};
+          tagFilter = {resourceTag};
         }
         // If user has SINGLE_RESOURCE_MANAGEMENT but no direct permission for this type
         else if (
@@ -313,11 +313,11 @@ export const fetchResources = async (
           // Get only resources of the specified type/tag from assigned resources
           const filteredResources = await prismaClient.resource.findMany({
             where: {
-              id: { in: assignedResourceIds },
+              id: {in: assignedResourceIds},
               resourceType,
               resourceTag,
             },
-            select: { id: true },
+            select: {id: true},
           });
 
           if (filteredResources.length === 0) {
@@ -333,9 +333,9 @@ export const fetchResources = async (
           }
 
           // Only show resources where user is assigned as MANAGER
-          typeFilter = { resourceType };
-          tagFilter = { resourceTag };
-          resourceIdFilter = { id: { in: filteredResources.map((r) => r.id) } };
+          typeFilter = {resourceType};
+          tagFilter = {resourceTag};
+          resourceIdFilter = {id: {in: filteredResources.map((r) => r.id)}};
         } else {
           // No permission and no assigned resources of this type, return empty
           return {
@@ -360,7 +360,7 @@ export const fetchResources = async (
             // We don't set resourceIdFilter directly here, as we'll handle it in the typeFilter and tagFilter
             // This ensures we get both assigned resources AND footers
           } else {
-            resourceIdFilter = { id: { in: assignedResourceIds } };
+            resourceIdFilter = {id: {in: assignedResourceIds}};
           }
         }
 
@@ -368,7 +368,7 @@ export const fetchResources = async (
         if (hasPageManagement || hasOtherManagement || hasFooterManagement) {
           // If no specific resourceType is requested, use allowed types from permissions
           if (!resourceType && allowedTypes.size > 0) {
-            typeFilter = { resourceType: { in: Array.from(allowedTypes) } };
+            typeFilter = {resourceType: {in: Array.from(allowedTypes)}};
           }
           // If specific resourceType is requested, check if it's allowed
           else if (
@@ -387,12 +387,12 @@ export const fetchResources = async (
               },
             };
           } else if (resourceType) {
-            typeFilter = { resourceType };
+            typeFilter = {resourceType};
           }
 
           // If no specific resourceTag is requested, use allowed tags from permissions
           if (!resourceTag && allowedTags.size > 0) {
-            tagFilter = { resourceTag: { in: Array.from(allowedTags) } };
+            tagFilter = {resourceTag: {in: Array.from(allowedTags)}};
           }
           // If specific resourceTag is requested, check if it's allowed
           else if (
@@ -411,17 +411,17 @@ export const fetchResources = async (
               },
             };
           } else if (resourceTag) {
-            tagFilter = { resourceTag };
+            tagFilter = {resourceTag};
           }
         }
         // If user only has SINGLE_RESOURCE_MANAGEMENT (no other permissions)
         else if (hasSingleResourceManagement) {
           // Apply resourceType and resourceTag filters if specified
           if (resourceType) {
-            typeFilter = { resourceType };
+            typeFilter = {resourceType};
           }
           if (resourceTag) {
-            tagFilter = { resourceTag };
+            tagFilter = {resourceTag};
           }
         }
         // User has no relevant permissions
@@ -440,12 +440,12 @@ export const fetchResources = async (
     }
   } else {
     if (resourceType) {
-      typeFilter = { resourceType };
+      typeFilter = {resourceType};
     }
 
     // Apply resource tag filter if specified
     if (resourceTag) {
-      tagFilter = { resourceTag };
+      tagFilter = {resourceTag};
     }
   }
 
@@ -454,15 +454,15 @@ export const fetchResources = async (
     ...typeFilter,
     ...tagFilter,
     ...resourceIdFilter,
-    ...(relationType ? { relationType } : {}),
-    ...(typeof isAssigned === "boolean" ? { isAssigned } : {}),
-    ...(status ? { status } : {}),
+    ...(relationType ? {relationType} : {}),
+    ...(typeof isAssigned === "boolean" ? {isAssigned} : {}),
+    ...(status ? {status} : {}),
     ...(search
       ? {
           OR: [
-            { titleEn: { contains: search, mode: "insensitive" } },
-            { titleAr: { contains: search, mode: "insensitive" } },
-            { slug: { contains: search, mode: "insensitive" } },
+            {titleEn: {contains: search, mode: "insensitive"}},
+            {titleAr: {contains: search, mode: "insensitive"}},
+            {slug: {contains: search, mode: "insensitive"}},
           ],
         }
       : {}),
@@ -471,8 +471,8 @@ export const fetchResources = async (
           filters: {
             some: {
               OR: [
-                { nameEn: { equals: filterText } },
-                { nameAr: { equals: filterText } },
+                {nameEn: {equals: filterText}},
+                {nameAr: {equals: filterText}},
               ],
             },
           },
@@ -490,11 +490,11 @@ export const fetchResources = async (
         },
       },
       filters: {
-        select : {
-          id : true,
+        select: {
+          id: true,
           nameEn: true,
           nameAr: true,
-        }
+        },
       },
       liveVersion: {
         select: {
@@ -509,7 +509,7 @@ export const fetchResources = async (
         },
       },
     },
-    orderBy: { createdAt: "desc" },
+    orderBy: {createdAt: "desc"},
     skip,
     take: parseInt(limit),
   });
@@ -543,7 +543,6 @@ export const fetchAllResourcesWithContent = async (
   roleId,
   apiCallType,
   filterText
-
 ) => {
   // First fetch the filtered resources based on permissions and roleId
   const filteredResources = await fetchResources(
@@ -562,19 +561,24 @@ export const fetchAllResourcesWithContent = async (
   );
 
   // If no resources found, return early
-  if (!filteredResources.resources || filteredResources.resources.length === 0) {
+  if (
+    !filteredResources.resources ||
+    filteredResources.resources.length === 0
+  ) {
     return {
       resources: [],
       pagination: filteredResources.pagination,
     };
   }
 
-  const resourceIds = filteredResources.resources.map((resource) => resource.id);
+  const resourceIds = filteredResources.resources.map(
+    (resource) => resource.id
+  );
 
   // Fetch the resources with all necessary relations
   const resources = await prismaClient.resource.findMany({
     where: {
-      id: { in: resourceIds }
+      id: {in: resourceIds},
     },
     include: {
       liveVersion: {
@@ -595,7 +599,7 @@ export const fetchAllResourcesWithContent = async (
         },
       },
     },
-    orderBy: { createdAt: "desc" },
+    orderBy: {createdAt: "desc"},
     skip: (page - 1) * limit,
     take: parseInt(limit),
   });
@@ -611,8 +615,10 @@ export const fetchAllResourcesWithContent = async (
       resourceTag: resource.resourceTag,
       relationType: resource.relationType,
       ...(resource.liveVersion && {
-        liveModeVersionData: await formatResourceVersionData(resource.liveVersion)
-      })
+        liveModeVersionData: await formatResourceVersionData(
+          resource.liveVersion
+        ),
+      }),
     }))
   );
 
@@ -796,7 +802,7 @@ export const assignUserToResource = async (
 ) => {
   // 1. Fetch current resource state with all relationships
   const currentResource = await prismaClient.resource.findUnique({
-    where: { id: resourceId },
+    where: {id: resourceId},
     include: {
       roles: true,
       verifiers: true,
@@ -865,8 +871,8 @@ export const assignUserToResource = async (
       );
       if (activeVerifierAssignment) {
         await prisma.resourceVerifier.update({
-          where: { id: activeVerifierAssignment.id },
-          data: { status: "INACTIVE" },
+          where: {id: activeVerifierAssignment.id},
+          data: {status: "INACTIVE"},
         });
       }
 
@@ -876,8 +882,8 @@ export const assignUserToResource = async (
       );
       if (activeInOtherRole) {
         await prisma.resourceRole.update({
-          where: { id: activeInOtherRole.id },
-          data: { status: "INACTIVE" },
+          where: {id: activeInOtherRole.id},
+          data: {status: "INACTIVE"},
         });
       }
 
@@ -887,8 +893,8 @@ export const assignUserToResource = async (
       );
       if (otherUserActive) {
         await prisma.resourceRole.update({
-          where: { id: otherUserActive.id },
-          data: { status: "INACTIVE" },
+          where: {id: otherUserActive.id},
+          data: {status: "INACTIVE"},
         });
       }
 
@@ -898,8 +904,8 @@ export const assignUserToResource = async (
       );
       if (existingInactive) {
         await prisma.resourceRole.update({
-          where: { id: existingInactive.id },
-          data: { status: "ACTIVE" },
+          where: {id: existingInactive.id},
+          data: {status: "ACTIVE"},
         });
       } else {
         // Case 6: Create new assignment
@@ -923,8 +929,8 @@ export const assignUserToResource = async (
       );
       for (const verifier of verifiersToDeactivate) {
         await prisma.resourceVerifier.update({
-          where: { id: verifier.id },
-          data: { status: "INACTIVE" },
+          where: {id: verifier.id},
+          data: {status: "INACTIVE"},
         });
       }
 
@@ -934,7 +940,7 @@ export const assignUserToResource = async (
       );
 
       // Process each verifier in payload
-      for (const { id: userId, stage } of verifiers) {
+      for (const {id: userId, stage} of verifiers) {
         // Skip if already active in this stage (idempotent)
         const existingActive = currentActiveVerifiers.find(
           (v) => v.userId === userId && v.stage === stage
@@ -956,8 +962,8 @@ export const assignUserToResource = async (
 
         for (const assignment of existingStageAssignments) {
           await prisma.resourceVerifier.update({
-            where: { id: assignment.id },
-            data: { status: "INACTIVE" },
+            where: {id: assignment.id},
+            data: {status: "INACTIVE"},
           });
         }
 
@@ -967,8 +973,8 @@ export const assignUserToResource = async (
         );
         for (const verifier of userOtherActiveVerifiers) {
           await prisma.resourceVerifier.update({
-            where: { id: verifier.id },
-            data: { status: "INACTIVE" },
+            where: {id: verifier.id},
+            data: {status: "INACTIVE"},
           });
         }
 
@@ -979,8 +985,8 @@ export const assignUserToResource = async (
         );
         if (existingInactive) {
           await prisma.resourceVerifier.update({
-            where: { id: existingInactive.id },
-            data: { status: "ACTIVE" },
+            where: {id: existingInactive.id},
+            data: {status: "ACTIVE"},
           });
         } else {
           await prisma.resourceVerifier.create({
@@ -1025,8 +1031,8 @@ export const assignUserToResource = async (
         );
         if (activeVerifierAssignment) {
           await prisma.resourceVersionVerifier.update({
-            where: { id: activeVerifierAssignment.id },
-            data: { status: "INACTIVE" },
+            where: {id: activeVerifierAssignment.id},
+            data: {status: "INACTIVE"},
           });
         }
 
@@ -1036,8 +1042,8 @@ export const assignUserToResource = async (
         );
         if (activeInOtherRole) {
           await prisma.resourceVersionRole.update({
-            where: { id: activeInOtherRole.id },
-            data: { status: "INACTIVE" },
+            where: {id: activeInOtherRole.id},
+            data: {status: "INACTIVE"},
           });
         }
 
@@ -1047,8 +1053,8 @@ export const assignUserToResource = async (
         );
         if (otherUserActive) {
           await prisma.resourceVersionRole.update({
-            where: { id: otherUserActive.id },
-            data: { status: "INACTIVE" },
+            where: {id: otherUserActive.id},
+            data: {status: "INACTIVE"},
           });
         }
 
@@ -1058,8 +1064,8 @@ export const assignUserToResource = async (
         );
         if (existingInactive) {
           await prisma.resourceVersionRole.update({
-            where: { id: existingInactive.id },
-            data: { status: "ACTIVE" },
+            where: {id: existingInactive.id},
+            data: {status: "ACTIVE"},
           });
         } else {
           // Case 6: Create new assignment
@@ -1083,13 +1089,13 @@ export const assignUserToResource = async (
         );
         for (const verifier of verifiersToDeactivate) {
           await prisma.resourceVersionVerifier.update({
-            where: { id: verifier.id },
-            data: { status: "INACTIVE" },
+            where: {id: verifier.id},
+            data: {status: "INACTIVE"},
           });
         }
 
         // Process each verifier in payload
-        for (const { id: userId, stage } of verifiers) {
+        for (const {id: userId, stage} of verifiers) {
           // Skip if already active in this stage (idempotent)
           const existingActive = activeVersionVerifiers.find(
             (v) => v.userId === userId && v.stage === stage
@@ -1114,8 +1120,8 @@ export const assignUserToResource = async (
 
           for (const assignment of existingStageAssignments) {
             await prisma.resourceVersionVerifier.update({
-              where: { id: assignment.id },
-              data: { status: "INACTIVE" },
+              where: {id: assignment.id},
+              data: {status: "INACTIVE"},
             });
           }
 
@@ -1125,8 +1131,8 @@ export const assignUserToResource = async (
           );
           for (const verifier of userOtherActiveVerifiers) {
             await prisma.resourceVersionVerifier.update({
-              where: { id: verifier.id },
-              data: { status: "INACTIVE" },
+              where: {id: verifier.id},
+              data: {status: "INACTIVE"},
             });
           }
 
@@ -1137,8 +1143,8 @@ export const assignUserToResource = async (
           );
           if (existingInactive) {
             await prisma.resourceVersionVerifier.update({
-              where: { id: existingInactive.id },
-              data: { status: "ACTIVE" },
+              where: {id: existingInactive.id},
+              data: {status: "ACTIVE"},
             });
           } else {
             await prisma.resourceVersionVerifier.create({
@@ -1156,26 +1162,26 @@ export const assignUserToResource = async (
 
     // 6. Return updated resource with active assignments
     return prisma.resource.update({
-      where: { id: resourceId },
-      data: { isAssigned: true },
+      where: {id: resourceId},
+      data: {isAssigned: true},
       include: {
         roles: {
-          where: { status: "ACTIVE" },
-          include: { user: true },
+          where: {status: "ACTIVE"},
+          include: {user: true},
         },
         verifiers: {
-          where: { status: "ACTIVE" },
-          include: { user: true },
+          where: {status: "ACTIVE"},
+          include: {user: true},
         },
         newVersionEditMode: {
           include: {
             roles: {
-              where: { status: "ACTIVE" },
-              include: { user: true },
+              where: {status: "ACTIVE"},
+              include: {user: true},
             },
             verifiers: {
-              where: { status: "ACTIVE" },
-              include: { user: true },
+              where: {status: "ACTIVE"},
+              include: {user: true},
             },
           },
         },
@@ -1210,8 +1216,8 @@ export const markAllAssignedUserInactive = async (resourceId) => {
 
     // 3. If there's a version, mark those assignments as inactive too
     const resource = await prisma.resource.findUnique({
-      where: { id: resourceId },
-      select: { newVersionEditModeId: true },
+      where: {id: resourceId},
+      select: {newVersionEditModeId: true},
     });
 
     if (resource?.newVersionEditModeId) {
@@ -1238,8 +1244,8 @@ export const markAllAssignedUserInactive = async (resourceId) => {
 
     // 4. Update the resource's isAssigned flag if needed
     await prisma.resource.update({
-      where: { id: resourceId },
-      data: { isAssigned: false },
+      where: {id: resourceId},
+      data: {isAssigned: false},
     });
 
     return {
@@ -1522,22 +1528,30 @@ async function formatResourceVersionData(
 
             if (
               (resourceSlug === "home" &&
-              sectionOrderMap[sectionVersion.id] === 7) || (resourceSlug === 'market' && sectionOrderMap[sectionVersion.id] === 4) // to ge the full body of testimonials
+                sectionOrderMap[sectionVersion.id] === 7) ||
+              (resourceSlug === "market" &&
+                sectionOrderMap[sectionVersion.id] === 4) // to ge the full body of testimonials
             ) {
               returningBody = itemContent;
             }
 
-            if (resourceSlug === 'service' && sectionOrderMap[sectionVersion.id] === 2) {
-              returningBody.description = itemContent.liveModeVersionData.sections[0].content.description; // including description in the item for services items
+            if (
+              resourceSlug === "service" &&
+              sectionOrderMap[sectionVersion.id] === 2
+            ) {
+              returningBody.description =
+                itemContent.liveModeVersionData.sections[0].content.description; // including description in the item for services items
             }
 
-
-            if (resourceSlug === 'market' && sectionOrderMap[sectionVersion.id] === 3) {
-              returningBody.description = itemContent.liveModeVersionData.sections[0].content.description; // including description in the item for market items
+            if (
+              resourceSlug === "market" &&
+              sectionOrderMap[sectionVersion.id] === 3
+            ) {
+              returningBody.description =
+                itemContent.liveModeVersionData.sections[0].content.description; // including description in the item for market items
             }
 
-
-            return { ...returningBody, order: item.order };
+            return {...returningBody, order: item.order};
           })
         );
       }
@@ -1594,10 +1608,14 @@ async function formatResourceVersionData(
                       itemContent.liveModeVersionData.sections[1].content[0];
                   }
 
-                  if (resourceSlug === 'project' && sectionOrderMap[sectionVersion.id] === 2) {
-                    returningBody.location = itemContent.liveModeVersionData.sections[1].content[0].value; // including description in the item for market items
+                  if (
+                    resourceSlug === "project" &&
+                    sectionOrderMap[sectionVersion.id] === 2
+                  ) {
+                    returningBody.location =
+                      itemContent.liveModeVersionData.sections[1].content[0].value; // including description in the item for market items
                   }
-                  return { ...returningBody, order: item.order };
+                  return {...returningBody, order: item.order};
                 })
               );
             }
@@ -1628,7 +1646,7 @@ async function formatResourceVersionData(
 //DRAFT CONTENT
 export const createOrUpdateVersion = async (contentData) => {
   // Find the resource with version counts
-  console.log(contentData,"version+++++")
+  console.log(contentData, "version+++++");
 
   const resource = await prismaClient.resource.findUnique({
     where: {
@@ -1649,11 +1667,11 @@ export const createOrUpdateVersion = async (contentData) => {
     `Resource with ID ${contentData.resourceId} not found`
   );
 
-  const { newVersionEditMode } = contentData;
+  const {newVersionEditMode} = contentData;
 
-  console.log(resource.newVersionEditMode,"version+++++")
+  console.log(resource.newVersionEditMode, "version+++++");
 
-  if (resource && resource.newVersionEditMode ){
+  if (resource && resource.newVersionEditMode) {
     assert(
       resource.newVersionEditMode.versionStatus === "DRAFT",
       "NOT_ALLOWED",
@@ -1703,7 +1721,7 @@ export const createOrUpdateVersion = async (contentData) => {
       }
       // Link new edit version to resource
       const updatedResource = await tx.resource.update({
-        where: { id: resource.id },
+        where: {id: resource.id},
         data: {
           newVersionEditModeId: resourceVersion.id,
           titleEn: contentData.titleEn,
@@ -1718,7 +1736,7 @@ export const createOrUpdateVersion = async (contentData) => {
     } else {
       // Edit version already exists, update it
       const resourceVersion = await tx.resourceVersion.update({
-        where: { id: resource.newVersionEditModeId },
+        where: {id: resource.newVersionEditModeId},
         data: {
           versionStatus: saveAs,
           notes:
@@ -1740,7 +1758,7 @@ export const createOrUpdateVersion = async (contentData) => {
       }
 
       const updatedResource = await tx.resource.update({
-        where: { id: resource.id },
+        where: {id: resource.id},
         data: {
           titleEn: contentData.titleEn,
           titleAr: contentData.titleAr,
@@ -1763,17 +1781,17 @@ export const createOrUpdateVersion = async (contentData) => {
 
 async function createSectionVersionWithChildren(
   tx,
-  { sectionData, resource, resourceVersion, parentVersionId = null, order = 1 }
+  {sectionData, resource, resourceVersion, parentVersionId = null, order = 1}
 ) {
   const sectionId = sectionData.sectionId;
 
   console.log("sectionId======================", sectionId);
 
   const section = await tx.section.findUnique({
-    where: { id: sectionId },
+    where: {id: sectionId},
     include: {
       _count: {
-        select: { versions: true },
+        select: {versions: true},
       },
     },
   });
@@ -1847,10 +1865,10 @@ async function updateSectionVersion(tx, sectionData, resourceVersionId) {
 
   if (sectionVersion) {
     sectionVersion = await tx.sectionVersion.update({
-      where: { id: sectionVersion.id },
+      where: {id: sectionVersion.id},
       data: {
         ...(sectionData.content !== undefined
-          ? { content: sectionData.content }
+          ? {content: sectionData.content}
           : {}),
       },
     });
@@ -1858,7 +1876,7 @@ async function updateSectionVersion(tx, sectionData, resourceVersionId) {
 
   // Delete existing items
   await tx.sectionVersionItem.deleteMany({
-    where: { sectionVersionId: sectionVersion.id },
+    where: {sectionVersionId: sectionVersion.id},
   });
 
   // Insert new items
@@ -1908,7 +1926,7 @@ export const publishContent = async (contentData, userId) => {
     `Resource with ID ${contentData.resourceId} not found`
   );
 
-  const { newVersionEditMode = {} } = contentData;
+  const {newVersionEditMode = {}} = contentData;
   const {
     comments = "Version created",
     referenceDoc = null,
@@ -1948,7 +1966,7 @@ export const publishContent = async (contentData, userId) => {
     }
 
     const updatedResource = await tx.resource.update({
-      where: { id: resource.id },
+      where: {id: resource.id},
       data: {
         liveVersionId: resourceVersion.id,
         titleEn: contentData.titleEn,
@@ -2026,7 +2044,7 @@ export const updateContentAndGenerateRequest = async (contentData) => {
     `Resource with ID ${contentData.resourceId} not found`
   );
   // Extract the content from the request
-  const { newVersionEditMode } = contentData;
+  const {newVersionEditMode} = contentData;
   const saveAs = "VERIFICATION_PENDING";
 
   const {
@@ -2070,7 +2088,7 @@ export const updateContentAndGenerateRequest = async (contentData) => {
       }
       // Link new edit version to resource
       updatedResource = await tx.resource.update({
-        where: { id: resource.id },
+        where: {id: resource.id},
         data: {
           newVersionEditModeId: resourceVersion.id,
           titleEn: contentData.titleEn,
@@ -2081,7 +2099,7 @@ export const updateContentAndGenerateRequest = async (contentData) => {
     } else {
       // Edit version already exists, update it
       resourceVersion = await tx.resourceVersion.update({
-        where: { id: resource.newVersionEditModeId },
+        where: {id: resource.newVersionEditModeId},
         data: {
           versionStatus: saveAs,
           notes:
@@ -2103,7 +2121,7 @@ export const updateContentAndGenerateRequest = async (contentData) => {
       }
 
       updatedResource = await tx.resource.update({
-        where: { id: resource.id },
+        where: {id: resource.id},
         data: {
           titleEn: contentData.titleEn,
           titleAr: contentData.titleAr,
@@ -2144,7 +2162,7 @@ export const updateContentAndGenerateRequest = async (contentData) => {
     const verifierApprovals = await tx.requestApproval.findMany({
       where: {
         requestId: generatedRequest.id,
-        stage: { not: null }, // Only get verifier approvals (they have stage values)
+        stage: {not: null}, // Only get verifier approvals (they have stage values)
       },
     });
 
@@ -2179,7 +2197,7 @@ export const fetchRequests = async (
 
   // First, fetch the user's roles and permissions
   const user = await prismaClient.user.findUnique({
-    where: { id: userId },
+    where: {id: userId},
     include: {
       roles: {
         include: {
@@ -2215,8 +2233,8 @@ export const fetchRequests = async (
     where.resourceVersion = {
       resource: {
         OR: [
-          { titleEn: { contains: search, mode: "insensitive" } },
-          { titleAr: { contains: search, mode: "insensitive" } },
+          {titleEn: {contains: search, mode: "insensitive"}},
+          {titleAr: {contains: search, mode: "insensitive"}},
         ],
       },
     };
@@ -2332,7 +2350,7 @@ export const fetchRequests = async (
         const typePermissions = new Map();
         const tagPermissions = new Map();
 
-        for (const [perm, { types, tags }] of Object.entries(
+        for (const [perm, {types, tags}] of Object.entries(
           permissionToResourceMap
         )) {
           if (
@@ -2362,7 +2380,7 @@ export const fetchRequests = async (
           const types = Array.from(typePermissions.keys());
           if (types.length > 0) {
             orConditions.push({
-              resourceType: { in: types },
+              resourceType: {in: types},
             });
           }
         }
@@ -2372,7 +2390,7 @@ export const fetchRequests = async (
           const tags = Array.from(tagPermissions.keys());
           if (tags.length > 0) {
             orConditions.push({
-              resourceTag: { in: tags },
+              resourceTag: {in: tags},
             });
           }
         }
@@ -2381,7 +2399,7 @@ export const fetchRequests = async (
       // If user has SINGLE_RESOURCE_MANAGEMENT and has assigned resources, add them to OR conditions
       if (hasSingleResourceManagement && assignedResourceIds.length > 0) {
         orConditions.push({
-          id: { in: assignedResourceIds },
+          id: {in: assignedResourceIds},
         });
       }
 
@@ -2412,7 +2430,7 @@ export const fetchRequests = async (
         // User with EDIT permission sees requests where they are EDITOR or SENDER
         where.OR = [
           // Requests where user is the sender
-          { senderId: userId },
+          {senderId: userId},
           // Requests for resources where user is assigned as EDITOR with ACTIVE status
           {
             resourceVersion: {
@@ -2486,7 +2504,7 @@ export const fetchRequests = async (
     where,
     skip,
     take: limitNum,
-    orderBy: { createdAt: "desc" },
+    orderBy: {createdAt: "desc"},
     include: {
       resourceVersion: {
         include: {
@@ -2570,7 +2588,7 @@ export const fetchRequests = async (
 
 export const fetchRequestInfo = async (requestId) => {
   const request = await prismaClient.resourceVersioningRequest.findUnique({
-    where: { id: requestId },
+    where: {id: requestId},
     include: {
       resourceVersion: {
         include: {
@@ -2715,7 +2733,7 @@ export const approveRequestInVerification = async (requestId, userId) => {
 
     // Update the approval status
     await tx.requestApproval.update({
-      where: { id: approvalLog.id },
+      where: {id: approvalLog.id},
       data: {
         status: "APPROVED",
       },
@@ -2726,7 +2744,7 @@ export const approveRequestInVerification = async (requestId, userId) => {
       where: {
         requestId: requestId,
         status: "PENDING",
-        stage: { not: null },
+        stage: {not: null},
       },
     });
 
@@ -2734,13 +2752,13 @@ export const approveRequestInVerification = async (requestId, userId) => {
     if (pendingApprovals === 0) {
       // Get the request to find the resourceVersionId
       const request = await tx.resourceVersioningRequest.findUnique({
-        where: { id: requestId },
-        select: { resourceVersionId: true },
+        where: {id: requestId},
+        select: {resourceVersionId: true},
       });
 
       // Update request status
       await tx.resourceVersioningRequest.update({
-        where: { id: requestId },
+        where: {id: requestId},
         data: {
           status: "APPROVED",
         },
@@ -2748,7 +2766,7 @@ export const approveRequestInVerification = async (requestId, userId) => {
 
       // Update resource version status to PUBLISH_PENDING
       await tx.resourceVersion.update({
-        where: { id: request.resourceVersionId },
+        where: {id: request.resourceVersionId},
         data: {
           versionStatus: "PUBLISH_PENDING",
         },
@@ -2757,7 +2775,7 @@ export const approveRequestInVerification = async (requestId, userId) => {
 
     // Get the updated request to return
     const request = await tx.resourceVersioningRequest.findUnique({
-      where: { id: requestId },
+      where: {id: requestId},
       include: {
         approvals: true,
       },
@@ -2788,7 +2806,7 @@ export const rejectRequestInVerification = async (
 
     // Update the request status to REJECTED
     await tx.resourceVersioningRequest.update({
-      where: { id: requestId },
+      where: {id: requestId},
       data: {
         status: "REJECTED",
       },
@@ -2796,7 +2814,7 @@ export const rejectRequestInVerification = async (
 
     // Get the updated request to return
     const request = await tx.resourceVersioningRequest.findUnique({
-      where: { id: requestId },
+      where: {id: requestId},
       include: {
         approvals: true,
       },
@@ -2819,7 +2837,7 @@ export const fetchVersionsList = async (
 
   // Fetch the resource to get liveVersionId and newVersionEditModeId
   const resource = await prismaClient.resource.findUnique({
-    where: { id: resourceId },
+    where: {id: resourceId},
     select: {
       liveVersionId: true,
       newVersionEditModeId: true,
@@ -2833,8 +2851,8 @@ export const fetchVersionsList = async (
         status: status ? status : undefined,
         OR: search
           ? [
-              { titleEn: { contains: search, mode: "insensitive" } },
-              { titleAr: { contains: search, mode: "insensitive" } },
+              {titleEn: {contains: search, mode: "insensitive"}},
+              {titleAr: {contains: search, mode: "insensitive"}},
             ]
           : undefined,
       },
@@ -2850,8 +2868,8 @@ export const fetchVersionsList = async (
         status: status ? status : undefined,
         OR: search
           ? [
-              { titleEn: { contains: search, mode: "insensitive" } },
-              { titleAr: { contains: search, mode: "insensitive" } },
+              {titleEn: {contains: search, mode: "insensitive"}},
+              {titleAr: {contains: search, mode: "insensitive"}},
             ]
           : undefined,
       },
@@ -2879,156 +2897,195 @@ export const fetchVersionsList = async (
 export const deleteAllResourceRelatedDataFromDb = async () => {
   try {
     // Use a transaction to ensure all operations succeed or fail together
-    return await prismaClient.$transaction(async (tx) => {
-      // Step 1: Delete all approval logs and requests
-      const deletedRequestApprovals = await tx.requestApproval.deleteMany({});
-      console.log(`Deleted ${deletedRequestApprovals.count} request approvals`);
+    return await prismaClient.$transaction(
+      async (tx) => {
+        // Step 1: Delete all approval logs and requests
+        const deletedRequestApprovals = await tx.requestApproval.deleteMany({});
+        console.log(
+          `Deleted ${deletedRequestApprovals.count} request approvals`
+        );
 
-      // This will be handled later in the proper order
+        // This will be handled later in the proper order
 
-      // Handle ResourceVersioningRequest previousRequest relationship
-      // First, update all requests to remove previousRequest references
-      // This is necessary because of the onDelete: Restrict constraint
-      await tx.resourceVersioningRequest.updateMany({
-        data: {
-          previousRequestId: null
-        }
-      });
-      console.log(`Updated requests to remove previous request references`);
-
-      // Now we can safely delete all requests
-      const deletedRequests = await tx.resourceVersioningRequest.deleteMany({});
-      console.log(`Deleted ${deletedRequests.count} resource versioning requests`);
-
-      // Step 2: Delete all resource roles and verifiers
-      const deletedResourceVersionRoles = await tx.resourceVersionRole.deleteMany({});
-      console.log(`Deleted ${deletedResourceVersionRoles.count} resource version roles`);
-
-      const deletedResourceVersionVerifiers = await tx.resourceVersionVerifier.deleteMany({});
-      console.log(`Deleted ${deletedResourceVersionVerifiers.count} resource version verifiers`);
-
-      const deletedResourceRoles = await tx.resourceRole.deleteMany({});
-      console.log(`Deleted ${deletedResourceRoles.count} resource roles`);
-
-      const deletedResourceVerifiers = await tx.resourceVerifier.deleteMany({});
-      console.log(`Deleted ${deletedResourceVerifiers.count} resource verifiers`);
-
-      // Step 3: Delete all section version items
-      const deletedSectionVersionItems = await tx.sectionVersionItem.deleteMany({});
-      console.log(`Deleted ${deletedSectionVersionItems.count} section version items`);
-
-      // Step 4: Delete all resource version sections
-      const deletedResourceVersionSections = await tx.resourceVersionSection.deleteMany({});
-      console.log(`Deleted ${deletedResourceVersionSections.count} resource version sections`);
-
-      // Step 5: Delete all section versions - SPECIAL HANDLING FOR PARENT-CHILD RELATIONSHIP
-      // First, get all section versions
-      const allSectionVersions = await tx.sectionVersion.findMany({
-        select: { id: true, parentVersionId: true }
-      });
-
-      // Group them by whether they have a parent or not
-      const childSectionVersions = allSectionVersions.filter(sv => sv.parentVersionId !== null);
-      const parentSectionVersions = allSectionVersions.filter(sv => sv.parentVersionId === null);
-
-      // Delete child section versions first
-      let totalDeletedSectionVersions = 0;
-      if (childSectionVersions.length > 0) {
-        const childIds = childSectionVersions.map(sv => sv.id);
-        const deletedChildSectionVersions = await tx.sectionVersion.deleteMany({
-          where: { id: { in: childIds } }
+        // Handle ResourceVersioningRequest previousRequest relationship
+        // First, update all requests to remove previousRequest references
+        // This is necessary because of the onDelete: Restrict constraint
+        await tx.resourceVersioningRequest.updateMany({
+          data: {
+            previousRequestId: null,
+          },
         });
-        console.log(`Deleted ${deletedChildSectionVersions.count} child section versions`);
-        totalDeletedSectionVersions += deletedChildSectionVersions.count;
-      }
+        console.log(`Updated requests to remove previous request references`);
 
-      // Then delete parent section versions
-      if (parentSectionVersions.length > 0) {
-        const parentIds = parentSectionVersions.map(sv => sv.id);
-        const deletedParentSectionVersions = await tx.sectionVersion.deleteMany({
-          where: { id: { in: parentIds } }
+        // Now we can safely delete all requests
+        const deletedRequests = await tx.resourceVersioningRequest.deleteMany(
+          {}
+        );
+        console.log(
+          `Deleted ${deletedRequests.count} resource versioning requests`
+        );
+
+        // Step 2: Delete all resource roles and verifiers
+        const deletedResourceVersionRoles =
+          await tx.resourceVersionRole.deleteMany({});
+        console.log(
+          `Deleted ${deletedResourceVersionRoles.count} resource version roles`
+        );
+
+        const deletedResourceVersionVerifiers =
+          await tx.resourceVersionVerifier.deleteMany({});
+        console.log(
+          `Deleted ${deletedResourceVersionVerifiers.count} resource version verifiers`
+        );
+
+        const deletedResourceRoles = await tx.resourceRole.deleteMany({});
+        console.log(`Deleted ${deletedResourceRoles.count} resource roles`);
+
+        const deletedResourceVerifiers = await tx.resourceVerifier.deleteMany(
+          {}
+        );
+        console.log(
+          `Deleted ${deletedResourceVerifiers.count} resource verifiers`
+        );
+
+        // Step 3: Delete all section version items
+        const deletedSectionVersionItems =
+          await tx.sectionVersionItem.deleteMany({});
+        console.log(
+          `Deleted ${deletedSectionVersionItems.count} section version items`
+        );
+
+        // Step 4: Delete all resource version sections
+        const deletedResourceVersionSections =
+          await tx.resourceVersionSection.deleteMany({});
+        console.log(
+          `Deleted ${deletedResourceVersionSections.count} resource version sections`
+        );
+
+        // Step 5: Delete all section versions - SPECIAL HANDLING FOR PARENT-CHILD RELATIONSHIP
+        // First, get all section versions
+        const allSectionVersions = await tx.sectionVersion.findMany({
+          select: {id: true, parentVersionId: true},
         });
-        console.log(`Deleted ${deletedParentSectionVersions.count} parent section versions`);
-        totalDeletedSectionVersions += deletedParentSectionVersions.count;
+
+        // Group them by whether they have a parent or not
+        const childSectionVersions = allSectionVersions.filter(
+          (sv) => sv.parentVersionId !== null
+        );
+        const parentSectionVersions = allSectionVersions.filter(
+          (sv) => sv.parentVersionId === null
+        );
+
+        // Delete child section versions first
+        let totalDeletedSectionVersions = 0;
+        if (childSectionVersions.length > 0) {
+          const childIds = childSectionVersions.map((sv) => sv.id);
+          const deletedChildSectionVersions =
+            await tx.sectionVersion.deleteMany({
+              where: {id: {in: childIds}},
+            });
+          console.log(
+            `Deleted ${deletedChildSectionVersions.count} child section versions`
+          );
+          totalDeletedSectionVersions += deletedChildSectionVersions.count;
+        }
+
+        // Then delete parent section versions
+        if (parentSectionVersions.length > 0) {
+          const parentIds = parentSectionVersions.map((sv) => sv.id);
+          const deletedParentSectionVersions =
+            await tx.sectionVersion.deleteMany({
+              where: {id: {in: parentIds}},
+            });
+          console.log(
+            `Deleted ${deletedParentSectionVersions.count} parent section versions`
+          );
+          totalDeletedSectionVersions += deletedParentSectionVersions.count;
+        }
+
+        console.log(
+          `Deleted ${totalDeletedSectionVersions} total section versions`
+        );
+
+        // Step 6: Delete all sections
+        const deletedSections = await tx.section.deleteMany({});
+        console.log(`Deleted ${deletedSections.count} sections`);
+
+        // Step 7: Handle Resource and ResourceVersion relationships
+        // First, update all resources to remove references to versions
+        // This is necessary because of the onDelete: Restrict constraints
+        await tx.resource.updateMany({
+          data: {
+            liveVersionId: null,
+            newVersionEditModeId: null,
+            scheduledVersionId: null,
+          },
+        });
+        console.log(`Updated resources to remove version references`);
+
+        // Now we can safely delete all resource versions
+        const deletedResourceVersions = await tx.resourceVersion.deleteMany({});
+        console.log(
+          `Deleted ${deletedResourceVersions.count} resource versions`
+        );
+
+        // Step 8: Delete all SEO data
+        const deletedSEO = await tx.sEO.deleteMany({});
+        console.log(`Deleted ${deletedSEO.count} SEO records`);
+
+        // Step 9: Delete all media
+        const deletedMedia = await tx.media.deleteMany({});
+        console.log(`Deleted ${deletedMedia.count} media records`);
+
+        // Step 10: Delete all filters to resource relationships
+        // await tx.$executeRaw`DELETE FROM "_FiltersToResource"`;
+        // console.log(`Deleted filters to resource relationships`);
+
+        // // Step 11: Delete all filters
+        // const deletedFilters = await tx.filters.deleteMany({});
+        // console.log(`Deleted ${deletedFilters.count} filters`);
+
+        // Step 12: Handle Resource parent-child relationships
+        // First, update all resources to remove parent references
+        // This is necessary because of the onDelete: Restrict constraint on parent-child relationship
+        await tx.resource.updateMany({
+          data: {
+            parentId: null,
+          },
+        });
+        console.log(`Updated resources to remove parent references`);
+
+        // Now we can safely delete all resources
+        const deletedResources = await tx.resource.deleteMany({});
+        console.log(`Deleted ${deletedResources.count} resources`);
+
+        return {
+          message: "Successfully deleted all content-related data",
+          deletedCounts: {
+            requestApprovals: deletedRequestApprovals.count,
+            requests: deletedRequests.count,
+            resourceVersionRoles: deletedResourceVersionRoles.count,
+            resourceVersionVerifiers: deletedResourceVersionVerifiers.count,
+            resourceRoles: deletedResourceRoles.count,
+            resourceVerifiers: deletedResourceVerifiers.count,
+            sectionVersionItems: deletedSectionVersionItems.count,
+            resourceVersionSections: deletedResourceVersionSections.count,
+            sectionVersions: totalDeletedSectionVersions,
+            sections: deletedSections.count,
+            resourceVersions: deletedResourceVersions.count,
+            seo: deletedSEO.count,
+            media: deletedMedia.count,
+            // filters: deletedFilters.count,
+            resources: deletedResources.count,
+          },
+        };
+      },
+      {
+        maxWait: 60000, // 60 seconds max wait time
+        timeout: 300000, // 5 minutes transaction timeout
+        isolationLevel: "Serializable", // Highest isolation level for data consistency
       }
-
-      console.log(`Deleted ${totalDeletedSectionVersions} total section versions`);
-
-      // Step 6: Delete all sections
-      const deletedSections = await tx.section.deleteMany({});
-      console.log(`Deleted ${deletedSections.count} sections`);
-
-      // Step 7: Handle Resource and ResourceVersion relationships
-      // First, update all resources to remove references to versions
-      // This is necessary because of the onDelete: Restrict constraints
-      await tx.resource.updateMany({
-        data: {
-          liveVersionId: null,
-          newVersionEditModeId: null,
-          scheduledVersionId: null
-        }
-      });
-      console.log(`Updated resources to remove version references`);
-
-      // Now we can safely delete all resource versions
-      const deletedResourceVersions = await tx.resourceVersion.deleteMany({});
-      console.log(`Deleted ${deletedResourceVersions.count} resource versions`);
-
-      // Step 8: Delete all SEO data
-      const deletedSEO = await tx.sEO.deleteMany({});
-      console.log(`Deleted ${deletedSEO.count} SEO records`);
-
-      // Step 9: Delete all media
-      const deletedMedia = await tx.media.deleteMany({});
-      console.log(`Deleted ${deletedMedia.count} media records`);
-
-      // Step 10: Delete all filters to resource relationships
-      // await tx.$executeRaw`DELETE FROM "_FiltersToResource"`;
-      // console.log(`Deleted filters to resource relationships`);
-
-      // // Step 11: Delete all filters
-      // const deletedFilters = await tx.filters.deleteMany({});
-      // console.log(`Deleted ${deletedFilters.count} filters`);
-
-      // Step 12: Handle Resource parent-child relationships
-      // First, update all resources to remove parent references
-      // This is necessary because of the onDelete: Restrict constraint on parent-child relationship
-      await tx.resource.updateMany({
-        data: {
-          parentId: null
-        }
-      });
-      console.log(`Updated resources to remove parent references`);
-
-      // Now we can safely delete all resources
-      const deletedResources = await tx.resource.deleteMany({});
-      console.log(`Deleted ${deletedResources.count} resources`);
-
-      return {
-        message: "Successfully deleted all content-related data",
-        deletedCounts: {
-          requestApprovals: deletedRequestApprovals.count,
-          requests: deletedRequests.count,
-          resourceVersionRoles: deletedResourceVersionRoles.count,
-          resourceVersionVerifiers: deletedResourceVersionVerifiers.count,
-          resourceRoles: deletedResourceRoles.count,
-          resourceVerifiers: deletedResourceVerifiers.count,
-          sectionVersionItems: deletedSectionVersionItems.count,
-          resourceVersionSections: deletedResourceVersionSections.count,
-          sectionVersions: totalDeletedSectionVersions,
-          sections: deletedSections.count,
-          resourceVersions: deletedResourceVersions.count,
-          seo: deletedSEO.count,
-          media: deletedMedia.count,
-          // filters: deletedFilters.count,
-          resources: deletedResources.count
-        }
-      };
-    }, {
-      maxWait: 60000, // 60 seconds max wait time
-      timeout: 300000, // 5 minutes transaction timeout
-      isolationLevel: 'Serializable', // Highest isolation level for data consistency
-    });
+    );
   } catch (error) {
     console.error("Error deleting content data:", error);
     throw error;

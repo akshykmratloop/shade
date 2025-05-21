@@ -70,6 +70,9 @@ const ActivateUser = async (req, res) => {
 const DeactivateUser = async (req, res) => {
   const {id} = req.body;
   const result = await deactivateUsers(id);
+  const io = req.app.locals.io;
+  const socketIdOfUpdatedUser = getSocketId(id);
+  io.to(socketIdOfUpdatedUser).emit("userUpdated", {result});
   res.status(200).json(result);
 };
 
