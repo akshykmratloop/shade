@@ -65,6 +65,15 @@ const UpdateRole = async (req, res) => {
 const ActivateRole = async (req, res) => {
   const {id} = req.body;
   const result = await activateRoles(id);
+  const io = req.app.locals.io; // Get socket.io instance
+  const users = await fetchAllUsersByRoleId(id);
+  users.forEach((el) => {
+    const socketIdOfUpdatedUser = getSocketId(el.id);
+    if (socketIdOfUpdatedUser) {
+      io.to(socketIdOfUpdatedUser).emit("userUpdated", {result: el});
+    }
+  });
+  io.emit("role_updated", result);
   res.status(200).json(result);
 };
 

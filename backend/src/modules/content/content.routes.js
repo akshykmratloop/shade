@@ -471,6 +471,282 @@ router.get(
   tryCatchWrap(ContentController.GetEligibleUser)
 );
 
+/**
+ * @swagger
+ * /content/assignUser:
+ *   post:
+ *     summary: Assign users to a content resource
+ *     tags: [Content]
+ *     security:
+ *       - BearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - resourceId
+ *             properties:
+ *               resourceId:
+ *                 type: string
+ *                 example: "cmaw7xsgh00tdnt4val4aae3e"
+ *               manager:
+ *                 type: string
+ *                 example: "ManagerUserId"
+ *               editor:
+ *                 type: string
+ *                 example: "EditorUserId"
+ *               verifiers:
+ *                 type: array
+ *                 items:
+ *                   type: object
+ *                   properties:
+ *                     id:
+ *                       type: string
+ *                       example: cmaw7xsgh00tdnt4val4aae3e
+ *                     stage:
+ *                       type: integar
+ *                       example: 1
+ *               publisher:
+ *                 type: string
+ *                 example: "PublisherUserId"
+ *     responses:
+ *       200:
+ *         description: Users assigned successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Users assigned successfully
+ *                 assignedUsers:
+ *                   type: object
+ *                   properties:
+ *                     id:
+ *                       type: string
+ *                       format: uuid
+ *                       example: cmaw7xsgh00tdnt4val4aae3e
+ *                     titleEn:
+ *                       type: string
+ *                       example: Home Page
+ *                     titleAr:
+ *                       type: string
+ *                       example: الصفحة الرئيسية
+ *                     slug:
+ *                       type: string
+ *                       example: home
+ *                     status:
+ *                       type: string
+ *                       example: ACTIVE
+ *                     resourceType:
+ *                       type: string
+ *                       example: MAIN_PAGE
+ *                     resourceTag:
+ *                       type: string
+ *                       example: HOME
+ *                     relationType:
+ *                       type: string
+ *                       example: PARENT
+ *                     isAssigned:
+ *                       type: boolean
+ *                       example: true
+ *                     liveVersionId:
+ *                       type: string
+ *                       format: uuid
+ *                       example: cmawb9jm30001nt9wne52ghzc
+ *                     newVersionEditModeId:
+ *                       type: string
+ *                       format: uuid
+ *                       example: cmaw88umy000ant7zeqovh5w6
+ *                     scheduledVersionId:
+ *                       type: string
+ *                       nullable: true
+ *                     parentId:
+ *                       type: string
+ *                       nullable: true
+ *                     createdAt:
+ *                       type: string
+ *                       format: date-time
+ *                       example: 2025-05-20T07:54:44.946Z
+ *                     updatedAt:
+ *                       type: string
+ *                       format: date-time
+ *                       example: 2025-05-21T05:28:59.779Z
+ *                     roles:
+ *                       type: array
+ *                       items:
+ *                         type: object
+ *                         properties:
+ *                           id:
+ *                             type: string
+ *                             format: uuid
+ *                           resourceId:
+ *                             type: string
+ *                             format: uuid
+ *                           userId:
+ *                             type: string
+ *                             format: uuid
+ *                           role:
+ *                             type: string
+ *                           status:
+ *                             type: string
+ *                           createdAt:
+ *                             type: string
+ *                             format: date-time
+ *                           user:
+ *                             type: object
+ *                             properties:
+ *                               id:
+ *                                 type: string
+ *                                 format: uuid
+ *                               name:
+ *                                 type: string
+ *                               image:
+ *                                 type: string
+ *                               email:
+ *                                 type: string
+ *                                 format: email
+ *                     verifiers:
+ *                       type: array
+ *                       items:
+ *                         type: object
+ *                         properties:
+ *                           id:
+ *                             type: string
+ *                             format: uuid
+ *                           stage:
+ *                             type: integer
+ *                           status:
+ *                             type: string
+ *                           resourceId:
+ *                             type: string
+ *                             format: uuid
+ *                           userId:
+ *                             type: string
+ *                             format: uuid
+ *                           createdAt:
+ *                             type: string
+ *                             format: date-time
+ *                           user:
+ *                             type: object
+ *                             properties:
+ *                               id:
+ *                                 type: string
+ *                                 format: uuid
+ *                               name:
+ *                                 type: string
+ *                     newVersionEditMode:
+ *                       type: object
+ *                       properties:
+ *                         id:
+ *                           type: string
+ *                           format: uuid
+ *                         versionNumber:
+ *                           type: integer
+ *                         versionStatus:
+ *                           type: string
+ *                         notes:
+ *                           type: string
+ *                         referenceDoc:
+ *                           type: string
+ *                           nullable: true
+ *                         content:
+ *                           type: object
+ *                         icon:
+ *                           type: string
+ *                           nullable: true
+ *                         Image:
+ *                           type: string
+ *                           nullable: true
+ *                         lockedById:
+ *                           type: string
+ *                           nullable: true
+ *                         lockedAt:
+ *                           type: string
+ *                           format: date-time
+ *                           nullable: true
+ *                         resourceId:
+ *                           type: string
+ *                           format: uuid
+ *                         createdAt:
+ *                           type: string
+ *                           format: date-time
+ *                         updatedAt:
+ *                           type: string
+ *                           format: date-time
+ *                         scheduledAt:
+ *                           type: string
+ *                           format: date-time
+ *                           nullable: true
+ *                         publishedAt:
+ *                           type: string
+ *                           format: date-time
+ *                           nullable: true
+ *                         roles:
+ *                           type: array
+ *                           items:
+ *                             type: object
+ *                             properties:
+ *                               id:
+ *                                 type: string
+ *                                 format: uuid
+ *                               role:
+ *                                 type: string
+ *                               status:
+ *                                 type: string
+ *                               resourceVersionId:
+ *                                 type: string
+ *                                 format: uuid
+ *                               userId:
+ *                                 type: string
+ *                                 format: uuid
+ *                               createdAt:
+ *                                 type: string
+ *                                 format: date-time
+ *                               user:
+ *                                 type: object
+ *                                 properties:
+ *                                   id:
+ *                                     type: string
+ *                                     format: uuid
+ *                                   name:
+ *                                     type: string
+ *                         verifiers:
+ *                           type: array
+ *                           items:
+ *                             type: object
+ *                             properties:
+ *                               id:
+ *                                 type: string
+ *                                 format: uuid
+ *                               stage:
+ *                                 type: integer
+ *                               status:
+ *                                 type: string
+ *                               resourceVersionId:
+ *                                 type: string
+ *                                 format: uuid
+ *                               userId:
+ *                                 type: string
+ *                                 format: uuid
+ *                               createdAt:
+ *                                 type: string
+ *                                 format: date-time
+ *                               user:
+ *                                 type: object
+ *                                 properties:
+ *                                   id:
+ *                                     type: string
+ *                                     format: uuid
+ *                                   name:
+ *                                     type: string
+ *       400:
+ *         $ref: '#/components/schemas/ErrorResponse'
+ */
+
 router.post(
   "/assignUser",
   //   checkPermission(requiredPermissionsForContentManagement),
@@ -1651,12 +1927,6 @@ router.post(
   tryCatchWrap(ContentController.DirectPublishContent)
 );
 
-router.post(
-  "/directPublishContent",
-  //   checkPermission(requiredPermissionsForContentManagement),
-  tryCatchWrap(ContentController.DirectPublishContent)
-);
-
 /**
  * @swagger
  * /content/generateRequest:
@@ -2645,11 +2915,159 @@ router.get(
   tryCatchWrap(ContentController.GetRequestInfo)
 );
 
+/**
+ * @swagger
+ * /content/approveRequest/{requestId}:
+ *   post:
+ *     summary: Approve a pending request
+ *     tags: [Content]
+ *     security:
+ *       - BearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: requestId
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The ID of the request to approve
+ *     responses:
+ *       200:
+ *         description: Request approved successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Success
+ *                 request:
+ *                   type: object
+ *                   properties:
+ *                     id:
+ *                       type: string
+ *                       format: uuid
+ *                       example: 640e0fb7-9954-4400-9e02-5965df39fc46
+ *                     status:
+ *                       type: string
+ *                       example: PENDING
+ *                     type:
+ *                       type: string
+ *                       example: VERIFICATION
+ *                     editorComments:
+ *                       type: string
+ *                       example: Initial version created
+ *                     resourceVersionId:
+ *                       type: string
+ *                       format: uuid
+ *                       example: cmaw88umy000ant7zeqovh5w6
+ *                     senderId:
+ *                       type: string
+ *                       format: uuid
+ *                       example: cmaw86nhq0000nt7zpozrm6vh
+ *                     previousRequestId:
+ *                       type: string
+ *                       nullable: true
+ *                       example: null
+ *                     createdAt:
+ *                       type: string
+ *                       format: date-time
+ *                       example: 2025-05-20T10:16:28.752Z
+ *                     updatedAt:
+ *                       type: string
+ *                       format: date-time
+ *                       example: 2025-05-20T10:16:28.752Z
+ *                     approvals:
+ *                       type: array
+ *                       items:
+ *                         type: object
+ *                         properties:
+ *                           id:
+ *                             type: string
+ *                             format: uuid
+ *                             example: 6e81af9b-ad59-40c0-b772-e8941b77b83a
+ *                           stage:
+ *                             type: integer
+ *                             nullable: true
+ *                             example: 1
+ *                           status:
+ *                             type: string
+ *                             example: APPROVED
+ *                           comments:
+ *                             type: string
+ *                             nullable: true
+ *                             example: null
+ *                           requestId:
+ *                             type: string
+ *                             format: uuid
+ *                             example: 640e0fb7-9954-4400-9e02-5965df39fc46
+ *                           approverId:
+ *                             type: string
+ *                             format: uuid
+ *                             example: cmaw8880w0008nt7zpq5a71qm
+ *                           isApproverActive:
+ *                             type: boolean
+ *                             example: true
+ *                           createdAt:
+ *                             type: string
+ *                             format: date-time
+ *                             example: 2025-05-20T10:16:28.764Z
+ *                           updatedAt:
+ *                             type: string
+ *                             format: date-time
+ *                             example: 2025-05-21T09:20:59.776Z
+ *       400:
+ *         $ref: '#/components/schemas/ErrorResponse'
+ */
+
 router.post(
   "/approveRequest/:requestId",
   //   checkPermission(requiredPermissionsForContentManagement),
   tryCatchWrap(ContentController.ApproveRequest)
 );
+
+/**
+ * @swagger
+ * /content/rejectRequest/{requestId}:
+ *   post:
+ *     summary: Reject a pending request with a reason
+ *     tags: [Content]
+ *     security:
+ *       - BearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: requestId
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The ID of the request to reject
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - rejectReason
+ *             properties:
+ *               rejectReason:
+ *                 type: string
+ *                 description: Explanation for rejecting the request
+ *                 example: "Content does not meet quality standards."
+ *     responses:
+ *       200:
+ *         description: Request rejected successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Request rejected successfully
+ *       400:
+ *         $ref: '#/components/schemas/ErrorResponse'
+ */
 
 router.post(
   "/rejectRequest/:requestId",
