@@ -6,7 +6,7 @@ import SuspenseContent from "./SuspenseContent"
 import { useSelector } from 'react-redux'
 import { useEffect, useRef } from "react"
 import { useNavigate } from "react-router-dom"
-import { toast } from "react-toastify"
+// import { toast } from "react-toastify"
 
 const Page404 = lazy(() => import('../pages/protected/404'))
 

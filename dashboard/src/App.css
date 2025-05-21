@@ -143,7 +143,7 @@ input[type="number"]::-webkit-inner-spin-button {
   /* Use height instead of width */
   width: 2px;
   background-color: #0e2b65;
-  border-radius: 10px;
+  border-radius: 1px;
 }
 
 main.customscroller::-webkit-scrollbar {
@@ -159,7 +159,7 @@ main.customscroller::-webkit-scrollbar-thumb {
   /* Use height instead of width */
   width: 2px;
   background-color: #0e2b65;
-  border-radius: 10px;
+  border-radius: 1px;
 }
 
 .customscroller-2::-webkit-scrollbar {

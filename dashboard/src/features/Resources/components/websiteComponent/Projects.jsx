@@ -1,59 +1,28 @@
-import React, { useState, useEffect } from "react";
-// import styles from "./project.module.scss";
-// import localFont from "next/font/local";
-import content from "./content.json"
+import { useState, useEffect } from "react";
+// import content from "./content.json"
 import Arrow from "../../../../assets/icons/right-wrrow.svg";
 import { useDispatch, useSelector } from "react-redux";
 import { projectPageData } from "../../../../assets/index";
-import { updateMainContent, updateSelectedContent } from "../../../common/homeContentSlice";
 import { TruncateText } from "../../../../app/capitalizeword";
-import { updateAllProjectlisting } from "../../../common/homeContentSlice"
 import { Img_url } from "../../../../routes/backend";
-
-// Font files can be colocated inside of `app`
-// const BankGothic = localFont({
-//     src: "../../../public/font/BankGothicLtBTLight.ttf",
-//     display: "swap",
-// });
-// import dynamic from "next/dynamic";
-// import { useRouter } from "next/router";
-
-// const AnimatedText = dynamic(() => import('@/common/AnimatedText'), { ssr: false });
-// import { useGlobalContext } from "../../contexts/GlobalContext";
-// const ContactUsModal = dynamic(() => import("../header/ContactUsModal"), {
-// ssr: false,
-// });
 
 const ProjectPage = ({ language, screen, currentContent }) => {
     const isPhone = screen < 760
     const isTablet = screen > 761 && screen < 1100
     const isLeftAlign = language === "en"
     const dispatch = useDispatch()
-    const [activeTab, setActiveTab] = useState("all");
+    const [activeTab, setActiveTab] = useState("1");
     const [filteredProject, setFilteredProject] = useState([]);
     const [visibleProjectsCount, setVisibleProjectsCount] = useState(6);
-    // const currentContent = useSelector((state) => state.homeContent.present.projects)
-    const ImageFromRedux = useSelector((state) => state.homeContent.present.images)
-    // const { language, content } = useGlobalContext();
-    // const currentContent = content?.projectsPage;
-    // const [isModal, setIsModal] = useState(false);
-    // const handleContactUSClose = () => {
-    //     setIsModal(false);
-    // };
+
+    const titleLan = isLeftAlign ? "titleEn" : "titleAr"
 
     useEffect(() => {
-        if (activeTab === "all") {
-            setFilteredProject(currentContent?.["2"]?.items || []);
-        } else {
-            setFilteredProject(
-                currentContent?.["2"]?.items
-                    ? currentContent?.["2"]?.items.filter(
-                        (project) => project?.status === activeTab
-                    )
-                    : []
-            );
-            setVisibleProjectsCount(6);
-        }
+        const tabIndex = currentContent?.['2']?.sections.findIndex(e => e.order == activeTab)
+        setFilteredProject(
+            currentContent?.["2"]?.sections?.[tabIndex]?.items
+        );
+        setVisibleProjectsCount(6);
     }, [activeTab, currentContent]); // Added currentContent as a dependency
 
 
@@ -104,15 +73,18 @@ const ProjectPage = ({ language, screen, currentContent }) => {
                 <div className={`container mx-auto px-10`}>
                     <div>
                         {/* Tabs */}
-                        <div className="flex justify-center gap-8 mb-10">
-                            {currentContent?.["2"]?.content?.tabs?.map((tab, index) => (
+                        <div className={`flex justify-center gap-8 mb-10 ${isPhone && "sticky top-0 pt-2 bg-white/90 left-1/2"}`}>
+                            {currentContent?.["2"]?.sections?.map((tab, index) => (
                                 <button
                                     key={index}
-                                    className={`text-black text-lg font-normal uppercase relative pb-2 border-b-4 transition-all duration-300 ${activeTab === tab?.id ? "border-[#00B9F2] text-[#00B9F2]" : "border-transparent"
-                                        }`}
-                                    onClick={() => setActiveTab(tab?.id)}
+                                    className={`text-black text-lg font-normal uppercase 
+                                        relative pb-2 border-b-4 transition-all duration-300 
+                                        ${activeTab == tab?.order ?
+                                            "border-[#00B9F2] text-[#00B9F2]" :
+                                            "border-transparent"}`}
+                                    onClick={() => setActiveTab(tab?.order)}
                                 >
-                                    {tab.title[language]}
+                                    {tab?.content?.title?.[language]}
                                 </button>
                             ))}
                         </div>
@@ -122,21 +94,20 @@ const ProjectPage = ({ language, screen, currentContent }) => {
                             {filteredProject?.slice(0, visibleProjectsCount)?.map((item, index) => (
                                 <div className="bg-white p-4 rounded-md flex flex-col gap-2" key={index}>
                                     <img
-                                        src={projectPageData[item.url]}
+                                        src={item?.image ? Img_url + item?.url : "https://frequencyimage.s3.ap-south-1.amazonaws.com/851e35b5-9b3b-4d9f-91b4-9b60ef2a102c-Rectangle%2034624110.png"}
                                         alt={item.title?.[language]}
                                         className="w-full h-[190px]"
                                     />
                                     <h5 className="text-lg font-bold mt-2 truncate" title={item?.title?.[language]}>
-                                        {TruncateText(item.title?.[language], 45)}
+                                        {TruncateText(item?.[titleLan], 45)}
                                     </h5>
                                     <p className="text-sm text-gray-600 truncate" title={item?.address?.[language]}>
-                                        {TruncateText(item.address?.[language], 25)}
+                                        {TruncateText(item?.location?.[language], 25)}
                                     </p>
                                     <button
                                         className="text-[#00B9F2] flex items-center gap-2 mt-2"
-                                    // onClick={() => router.push(`/project/${item?.id}`)}
                                     >
-                                        {item.button?.text?.[language]}
+                                        {currentContent?.['2']?.content?.buttons?.[0]?.text?.[language]}
                                         <img
                                             className={language === "en" ? "transform scale-x-[-1]" : ""}
                                             src="https://frequencyimage.s3.ap-south-1.amazonaws.com/61c0f0c2-6c90-42b2-a71e-27bc4c7446c2-mingcute_arrow-up-line.svg"
@@ -156,7 +127,7 @@ const ProjectPage = ({ language, screen, currentContent }) => {
                                     className="flex items-center gap-2"
                                     onClick={() => setVisibleProjectsCount(visibleProjectsCount + 6)}
                                 >
-                                    {currentContent?.['2']?.content?.button?.[1]?.text?.[language]}
+                                    {currentContent?.['2']?.content?.buttons?.[1]?.text?.[language]}
                                     <img
                                         src="https://loopwebsite.s3.ap-south-1.amazonaws.com/weui_arrow-outlined.svg"
                                         width={24}
