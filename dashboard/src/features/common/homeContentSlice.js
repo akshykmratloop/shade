@@ -233,6 +233,10 @@ const cmsSlice = createSlice({
                     state.present.content.editVersion.sections[action.payload.sectionIndex].items = newOptions
                     break;
 
+                case "project/main":
+                    state.present.content.editVersion.sections[action.payload.sectionIndex].sections[action.payload.index].items = newOptions
+                    break;
+
                 case "jobs":
                     state.present[action.payload?.currentPath].jobListSection.jobs = newOptions;
                     break;

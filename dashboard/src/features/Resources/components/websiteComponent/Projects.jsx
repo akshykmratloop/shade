@@ -143,7 +143,7 @@ const ProjectPage = ({ language, screen, currentContent }) => {
                                     }}
                                     className="bg-white p-4 rounded-md flex flex-col gap-2" key={index}>
                                     <img
-                                        src={item?.image ? Img_url + item?.url : "https://frequencyimage.s3.ap-south-1.amazonaws.com/851e35b5-9b3b-4d9f-91b4-9b60ef2a102c-Rectangle%2034624110.png"}
+                                        src={item?.image ? Img_url + item?.url : projectPageData["nonMetallic"]}
                                         alt={item.title?.[language]}
                                         className="w-full h-[190px]"
                                         style={{

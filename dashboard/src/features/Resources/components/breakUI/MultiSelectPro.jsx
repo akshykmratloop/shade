@@ -187,7 +187,7 @@ const MultiSelectPro = ({ bottomBorder = true, outOfEditing, heading, options, t
                                     <li
                                         key={option?.[titleLan] + index}
                                         onClick={() => handleSelect(option, index)}
-                                        className="p-2 cursor-pointer hover:bg-gray-100"
+                                        className="p-2 cursor-pointer hover:bg-gray-100 dark:hover:text-black"
                                     >
                                         {option[titleLan]}
                                     </li>
