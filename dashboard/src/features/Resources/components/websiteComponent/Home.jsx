@@ -317,24 +317,16 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
 
             {/* subProjects 5 */}
             < section className={`py-[58px] ${isPhone ? "px-2" : "px-8"}  relative`} dir={isLeftAlign ? 'ltr' : 'rtl'}
-                style={{ padding: isComputer && `50px ${dynamicSize(150, width)}`, }}
-            >
-                <div className={`container mx-auto flex relative  ${!isLeftAlign && 'flex-row-reverse'} ${!isLeftAlign && isTablet && "pl-[200px]"}`}
-                // style={{width: isComputer && dynamicSize(1227, width)}}
-                >
-                    <div className={`flex justify-end absolute top-[-30px]   ${isLeftAlign ? "right-1" : "left-1"}`}>
-                        {activeRecentProjectSection === 2 ? (
-                            ""
-                        ) : (
+                style={{ padding: isComputer && `50px ${dynamicSize(150, width)}`, }}>
+                <div className={`container mx-auto flex relative  ${!isLeftAlign && 'flex-row-reverse'} ${!isLeftAlign && isTablet && "pl-[200px]"}`}>
+                    <div className={`flex justify-end absolute top-[-30px] ${isLeftAlign ? "right-1" : "left-1"}`}>
+                        {activeRecentProjectSection === 2 ? ("") : (
                             <button
                                 type="button"
                                 className={`relative bg-transparent border-none text-[#667085] text-right text-[16px] leading-[24px] cursor-pointer flex gap-2 items-center `}
                                 style={{ fontSize: isComputer && dynamicSize(16, width) }}
-                                onClick={() => { }}
-                            >
-                                {
-                                    currentContent?.["5"]?.button?.[0]?.text?.[language]
-                                }
+                                onClick={() => { }}>
+                                {currentContent?.["5"]?.button?.[0]?.text?.[language]}
                                 <img
                                     src="https://frequencyimage.s3.ap-south-1.amazonaws.com/5d82e78b-cb95-4768-abfe-247369079ce6-bi_arrow-up.svg"
                                     width="18"
@@ -346,7 +338,7 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                         )}
                     </div>
 
-                    <div className={`flex ${isTablet ? isPhone ? "gap-[20px]" : "gap-[30px]" : "gap-[30px]"} ${isLeftAlign && !isComputer && "pr-20"} `}
+                    <div className={`flex ${isTablet ? isPhone ? "gap-[20px]" : "gap-[30px]" : "gap-[30px]"} ${isLeftAlign && !isComputer && "pr-20"}`}
                         style={{ gap: isComputer && dynamicSize(70, width), width: isComputer || fullScreen ? dynamicSize(1230, width) : "100%" }}>
                         <div className={`leftDetails min-w-[150px] ${isTablet ? isPhone ? "w-[150px]" : "w-[240px]" : ""}`}
                             style={{ width: isComputer || fullScreen ? dynamicSize(424, width) : "" }}>
@@ -355,11 +347,9 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                                     key={index}
                                     className={`relative `}
                                 >
-                                    <span className={
-                                        activeRecentProjectSection === index
-                                            ? 'font-bold leading-[36px] mb-[16px] cursor-pointer relative'
-                                            : 'font-bold leading-[36px] mb-[16px] cursor-pointer'
-                                    }
+                                    <span className={activeRecentProjectSection === index
+                                        ? 'font-bold leading-[36px] mb-[16px] cursor-pointer relative'
+                                        : 'font-bold leading-[36px] mb-[16px] cursor-pointer'}
                                         onClick={() => setActiveRecentProjectSection(index)}
                                     >
                                         <h2 className={`${activeRecentProjectSection === index ? 'text-[#292e3d]' : 'text-[#292e3d]'} text-md cursor-pointer`}
@@ -382,14 +372,14 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                             ))}
                         </div>
 
-                        <div className={`${isPhone ? "w-[220px]" : isTablet ? "w-[490px]" : ""}  overflow-hidden`}
+                        <div className={`${isPhone ? "w-[220px]" : isTablet ? "w-[500px]" : ""}`}
                             style={{ width: isComputer || fullScreen ? dynamicSize(800, width) : "" }}
                         >
                             <Swiper
                                 key={language}
                                 modules={[Pagination, Navigation]}
-                                className={`mySwiper w-[722px]  pb-[65px]`}
-
+                                className={`mySwiper pl-1`}
+                                style={{ width: '100%' }}
                                 navigation={{
                                     prevEl: prevRef.current,
                                     nextEl: nextRef.current,
@@ -403,29 +393,25 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                                 }}
                             >
                                 {projectChunks?.map((chunk, slideIndex) => {
-
                                     return (
                                         <SwiperSlide key={slideIndex}>
-                                            <div className={`${isPhone ? "flex flex-col" : `grid grid-cols-2 gap-[12px] auto-rows-auto ${isTablet ? "w-[350px]" : "w-[600px]"}`} `}
+                                            <div className={`${isPhone ? "flex flex-col" : `grid grid-cols-2 gap-[12px] auto-rows-auto ${isTablet ? "w-[350px]" : "w-[600px]"}`}`}
                                                 style={{
-                                                    width: isComputer ? dynamicSize(722, width) : isPhone ? `${(600 / 1180) * screen}px` : `${(750 / 1180) * screen}px`,
-                                                    gap: isComputer ? "" : `${(40 / 1180) * screen}px`
+                                                    width: isComputer ? dynamicSize(798, width) : isPhone ? `${(600 / 1180) * screen}px` : `${(750 / 1180) * screen}px`,
+                                                    gap: isComputer ? "" : `${(40 / 1180) * screen}px`,
+                                                    placeItems: ""
                                                 }}
                                             >
                                                 {chunk?.map((project, cardIndex) => {
                                                     return (
                                                         <div className="flex flex-col rounded-[4px]" key={cardIndex}>
-                                                            <div className={`w-full aspect-[1.4/1]`} >
+                                                            <div className={`w-full aspect-[1.4/1] `} >
                                                                 <img
-                                                                    className={`w-full  aspect-[1.4/1] object-cover object-center ${project?.image
-                                                                        ? ''
-                                                                        : 'opacity-[0.1]'
-                                                                        }`}
+                                                                    className={`w-full aspect-[1.4/1] object-cover object-center`}
                                                                     alt={project?.[language]}
                                                                     src={ImagesFromRedux?.[project?.image] ? ImagesFromRedux?.[project?.image] : project?.image
                                                                         ? ProjectSlider?.[project?.image]
-                                                                        : blankImage}
-                                                                    style={{ width: isComputer && dynamicSize(349, width) }}
+                                                                        : recentProjects.itLab}
                                                                 />
                                                             </div>
                                                             <div className="p-[18px_12px_12px_12px] flex flex-col justify-center items-start gap-[16px] bg-[#00B9F2] flex-1">
@@ -514,7 +500,7 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                     <div className="text-center mb-8 px-4">
                         <h2 className="text-white text-3xl font-bold mb-4"
                             style={{ fontSize: isComputer && dynamicSize(36, width) }}
-                        > 
+                        >
                             {content?.["6"]?.content?.title?.[language]}
                         </h2>
                         <p className="text-white text-base font-light leading-6"
@@ -527,7 +513,7 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                         style={{ padding: isComputer ? `${dynamicSize(40, width)} ${dynamicSize(68, width)}` : "" }}
                     >
                         <div className={`flex min-w-100% items-center ${isPhone ? "flex-col gap-4 justify-center" : "w-[fit-content]  justify-between"}`}
-                            style={{ gap: !isPhone ? (isTablet? dynamicSize(264, width):dynamicSize(194, width)): dynamicSize(354, width) }}
+                            style={{ gap: !isPhone ? (isTablet ? dynamicSize(264, width) : dynamicSize(194, width)) : dynamicSize(354, width) }}
                         >
                             {content?.["6"]?.content?.clientsImages?.map((client, key) => (
                                 <div
