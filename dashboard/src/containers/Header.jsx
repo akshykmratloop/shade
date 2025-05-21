@@ -147,8 +147,13 @@ function Header() {
       if (response.result?.status === "INACTIVE") {
         return logoutUser();
       }
-      dispatch(updateUser({data: response.result, type: "update"}));
-      localStorage.setItem("user", JSON.stringify(response.result));
+
+      let userObj = response.result?.roles?.filter(
+        (e) => e.status === "ACTIVE"
+      );
+
+      dispatch(updateUser({data: userObj, type: "update"}));
+      localStorage.setItem("user", JSON.stringify(userObj));
     };
 
     socket.on("role_created", handleNew);
