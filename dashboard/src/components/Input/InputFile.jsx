@@ -62,7 +62,7 @@ const InputFile = ({ label, baseClass, id, currentPath, resourceId, contentIndex
             fileURL.includes(".mp4") || fileURL.includes("video") ? (
               <video src={fileURL} className="w-full h-full object-cover" controls />
             ) : (
-              <img src={url?.slice(0,5) === "https" ? url : `${Img_url}${(url)}`} alt="Preview" className="w-full h-full object-cover" />
+              <img src={(url && url.slice(0, 5) !== "https") ? `${Img_url}${(url)}` : ""} alt="Preview" className="w-full h-full object-cover" />
             )
           ) : (
             <div className="w-full h-full flex items-center justify-center text-gray-400 text-xs">
