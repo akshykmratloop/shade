@@ -18,9 +18,12 @@ import {
     useSortable,
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
-import { updateAllProjectlisting, updateMarketSelectedContent } from "../../../common/homeContentSlice";
+// import { updateSelectedContent, updateSelectedProject } from "../../../common/homeContentSlice";
+import { updateSelectedContentAndSaveDraft } from "../../../common/thunk/smsThunk";
+import ErrorText from "../../../../components/Typography/ErrorText";
+import xSign from "../../../../assets/x-close.png"
 
-const SortableItem = ({ option, removeOption, language }) => {
+const SortableItem = ({ option, removeOption, language, reference, titleLan, contentIndex }) => {
     const { attributes, listeners, setNodeRef, transform, transition, isDragging } =
         useSortable({ id: option, data: { option } });
 
@@ -41,7 +44,10 @@ const SortableItem = ({ option, removeOption, language }) => {
             {...listeners}
             className={`flex items-center ${language === 'ar' && "flex-row-reverse text-right"} gap-1 px-3 py-1 text-xs bg-gray-200 min-h-[2.125rem] rounded-md cursor-move dark:text-[black] transition-transform`}
         >
-            {option.title?.[language]}
+
+            {reference === "jobs" ?
+                option.title.key?.[language] + ", " + option.location.value?.[language]
+                : option?.[titleLan]}
             <button
                 onClick={() => removeOption(option)}
                 className="text-gray-600 hover:text-red-500"
@@ -52,80 +58,47 @@ const SortableItem = ({ option, removeOption, language }) => {
     );
 };
 
-
-
-const MultiSelectPro = ({ heading, options = [], tabName, label, language, section, referenceOriginal = { dir: "", index: 0 }, currentPath, id }) => {
+const MultiSelectPro = ({ bottomBorder = true, outOfEditing, heading, options, tabName, label, language, section, referenceOriginal = { dir: "", index: 0 }, currentPath, projectId, sectionIndex, listOptions, limitOptions = 0, errorClass }) => {
+    const titleLan = language === "en" ? "titleEn" : "titleAr"
     const [selectedOptions, setSelectedOptions] = useState([]);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const dropdownRef = useRef(null);
     const [random, setRandom] = useState(1)
     const dispatch = useDispatch();
     const [activeItem, setActiveItem] = useState(null);
+    const [errorMessage, setErrorMessage] = useState('')
 
-    let actualListOfServices; //content.home.serviceSection.cards
-    switch (referenceOriginal.dir) {
-        case "markets":
-            actualListOfServices = content.market.tabSection.marketItems;
-            break;
 
-        case "projects":
-            actualListOfServices = content.projectsPage.projectsSection.projects;
-            break;
+    let operation = "";
 
-        default:
-            actualListOfServices = []
-    }
-
-    const showOptions = options?.map(e => e.title[language])
+    const showOptions = options?.map(e => e?.[titleLan])
 
     const toggleDropdown = () => {
         setIsDropdownOpen((prev) => !prev);
+        setErrorMessage("")
     };
 
     const handleSelect = (optionToAdd) => {
-        let newOption
-        switch (referenceOriginal.dir) {
-            case "markets":
-                newOption = { ...optionToAdd, type: id }
-                break;
-
-            case "projects":
-                newOption = { ...optionToAdd, status: id }
-                break;
-
-            default:
+        const existedInList = selectedOptions.some(e => e.id === optionToAdd.id)
+        if (existedInList) {
+            return
+        } else {
+            console.log('qwerjwkh')
+            setSelectedOptions(prev => {
+                return [...prev, { ...optionToAdd }]
+            })
         }
-        dispatch(updateMarketSelectedContent({
-            origin: referenceOriginal.dir,
-            newArray: [...options],
-            selected: selectedOptions,
-            language,
-            currentPath,
-            newOption
-        }))
+
+        setRandom(prev => prev + 1)
     };
 
+
     const removeOption = (optionToRemove) => {
-        let newOption
-        switch (referenceOriginal.dir) {
-            case "markets":
-                newOption = { ...optionToRemove, type: "" }
-                break;
-
-            case "projects":
-                newOption = { ...optionToRemove, status: "" }
-                break;
-
-            default:
-        }
-        dispatch(updateMarketSelectedContent({
-            origin: referenceOriginal.dir,
-            newArray: [...options],
-            selected: selectedOptions,
-            language,
-            currentPath,
-            newOption
-        }))
+        if (selectedOptions.length <= limitOptions) return setErrorMessage(`At least ${limitOptions} options are required`)
+        let deductedArray = selectedOptions.filter(e => e !== optionToRemove)
+        setSelectedOptions(deductedArray)
+        operation = 'remove'
+        setRandom(prev => prev + 1)
     };
 
     const sensors = useSensors(
@@ -145,7 +118,6 @@ const MultiSelectPro = ({ heading, options = [], tabName, label, language, secti
                 return arrayMove(items, oldIndex, newIndex);
             });
         }
-
         setRandom(prev => prev + 1)
     };
 
@@ -160,103 +132,112 @@ const MultiSelectPro = ({ heading, options = [], tabName, label, language, secti
         return () => {
             document.removeEventListener("mousedown", handleClickOutside);
         };
-    }, []);
+    }, []); // Empty array ensures the effect runs only once
+
+
 
     useEffect(() => {
-        if (showOptions && referenceOriginal.dir === "markets") {
+        if (Array.isArray(options) && random !== 1) {
+
+            dispatch(updateSelectedContentAndSaveDraft({
+                origin: referenceOriginal.dir,
+                index: referenceOriginal.index,
+                section,
+                newArray: [...options],
+                selected: selectedOptions,
+                language,
+                currentPath,
+                projectId,
+                titleLan,
+                sectionIndex
+            }));
+        }
+    }, [random]); // Minimize dependencies to prevent unnecessary runs
+
+
+    useEffect(() => {
+        if (showOptions) {
             setSelectedOptions(options?.map(e => {
-                if (e.type === id) {
-                    return e
-                }
-            }).filter(e => e));
-        } else if (showOptions && referenceOriginal.dir === "projects") {
-            setSelectedOptions(options?.map(e => {
-                if (e.status === id) {
-                    return e
-                } else if (id === "all") {
-                    return e
-                }
+                return e
             }).filter(e => e));
         }
     }, [options]);
 
-    useEffect(() => {
-        if (random > 1) {
-            if (id === 'all') {
-                // dispatch(updateAllProjectlisting({
-                //     origin: referenceOriginal.dir,
-                //     newArray: [...options],
-                //     selected: selectedOptions,
-                //     language,
-                //     // currentPath,
-                //     action: "update"
-                // }))
-
-            } else {
-                dispatch(updateMarketSelectedContent({
-                    origin: referenceOriginal.dir,
-                    newArray: [...options],
-                    selected: [...selectedOptions],
-                    language,
-                    currentPath,
-                    newOption: null
-                }))
-            }
-        }
-    }, [random])
-
     return (
-        <div className="relative w-full border-b border-b-2 border-neutral-300 pb-4 mt-4" ref={dropdownRef}>
+        <div className={`relative w-full ${bottomBorder ? "border-b border-b-2" : ""} border-neutral-300 pb-4 mt-4 `} >
             <h3 className="font-semibold text-[1.25rem] mb-4">{heading}</h3>
-            <label className="sm:text-xs xl:text-sm">{label}</label>
-            <button
-                onClick={toggleDropdown}
-                className="w-full mt-2 p-2 border border-stone-500 rounded-md bg-white hover:bg-gray-100 text-sm bg-[#fafaff] dark:bg-[#2a303c]"
-            >
-                {isDropdownOpen ? "Close" : tabName}
-            </button>
+            <label className="sm:text-xs xl:text-sm text-[#6B7888]">{label}</label>
+            <div className=" relative mt-2 rounded-md ">
+                {
+                    outOfEditing &&
+                    <div className="bg-black/10 absolute z-[20] top-0 left-0 h-full w-full rounded-md cursor-not-allowed"></div>
+                }
+                <button
+                    onClick={toggleDropdown}
+                    className="w-full mt- p-2 border border-stone-500 rounded-md bg-white hover:bg-gray-100 text-sm bg-[#fafaff] dark:bg-[#2a303c]"
+                >
+                    {isDropdownOpen ? "Close" : tabName}
+                </button>
 
-            {isDropdownOpen && (
-                <ul className="absolute text-xs left-0 xl:top-[-6.2rem] sm:top-[-3rem] md:top-[-6rem] z-10 w-full mt-2 bg-[#fafaff] dark:bg-[#242933] border rounded-md shadow-md overflow-y-scroll h-[10rem] customscroller">
-                    {actualListOfServices.map((option, index) => {
-                        return (
-                            <li
-                                key={option.title[language]}
-                                onClick={() => handleSelect(option, index)}
-                                className="p-2 cursor-pointer hover:bg-gray-100"
-                            >
-                                {option.title[language]}
-                            </li>
-                        )
-                    })}
-                </ul>
-            )}
-
-            {/* Drag-and-Drop Enabled List */}
-            <DndContext
-                sensors={sensors}
-                collisionDetection={closestCenter}
-                onDragStart={onDragStart}
-                onDragEnd={onDragEnd}
-            >
-                <SortableContext items={selectedOptions} strategy={verticalListSortingStrategy}>
-                    <div className={`flex flex-wrap gap-2 p-2 pl-4 border dark:border-stone-500 rounded-md ${language === 'ar' && "flex-row-reverse"}`}>
-                        {selectedOptions?.map((option) => (
-                            <SortableItem key={option.title?.[language] + String(Math.random())} option={option} removeOption={removeOption} language={language} />
-                        ))}
-                    </div>
-                </SortableContext>
-
-                {/* DragOverlay for smooth dragging */}
-                {createPortal(
-                    <DragOverlay>
-                        {activeItem ? (
-                            <SortableItem option={activeItem} removeOption={removeOption} language={language} />
-                        ) : null}
-                    </DragOverlay>,
-                    document.body
+                {isDropdownOpen && (
+                    <ul ref={dropdownRef} className="absolute text-xs left-0 xl:top-[-6.2rem] sm:top-[-3rem] md:top-[-6rem] z-10 w-full mt-2 bg-[#fafaff] dark:bg-[#242933] border rounded-md shadow-md overflow-y-scroll h-[10rem] customscroller">
+                        {
+                            listOptions?.map((option, index) => {
+                                return (
+                                    <li
+                                        key={option?.[titleLan] + index}
+                                        onClick={() => handleSelect(option, index)}
+                                        className="p-2 cursor-pointer hover:bg-gray-100"
+                                    >
+                                        {option[titleLan]}
+                                    </li>
+                                )
+                            })
+                        }
+                    </ul>
                 )}
-            </DndContext>
+
+                {/* Drag-and-Drop Enabled List */}
+                <DndContext
+                    sensors={sensors}
+                    collisionDetection={closestCenter}
+                    onDragStart={onDragStart}
+                    onDragEnd={onDragEnd}
+                >
+                    <SortableContext items={selectedOptions} strategy={verticalListSortingStrategy}>
+                        <div className={`flex flex-wrap  gap-2 p-2 pl-4 border dark:border-stone-500 rounded-md ${language === 'ar' && "flex-row-reverse"}`}>
+                            {referenceOriginal.dir === "jobs" ?
+                                selectedOptions?.map((option, i) => (
+                                    <SortableItem key={option.title?.key?.[language] + String(Math.random())} option={option} removeOption={removeOption} language={language} reference={referenceOriginal.dir} />
+                                ))
+                                :
+                                selectedOptions?.map((option, i) => (
+                                    <SortableItem key={option?.[titleLan] + String(Math.random() + i)} option={option} removeOption={removeOption} language={language} titleLan={titleLan} />
+                                ))
+                            }
+                        </div>
+                    </SortableContext>
+
+                    {/* DragOverlay for smooth dragging */}
+                    {createPortal(
+                        <DragOverlay>
+                            {activeItem ? (
+                                <SortableItem option={activeItem} removeOption={removeOption} language={language} />
+                            ) : null}
+                        </DragOverlay>,
+                        document.body
+                    )}
+                </DndContext>
+            </div>
+            {
+                errorMessage &&
+                <ErrorText
+                    styleClass={`absolute ${errorClass ? errorClass : "text-[.7rem] top-[101%] left-[1px] gap-1"} ${errorMessage ? "flex" : "hidden"
+                        }`}
+                >
+                    <img src={xSign} alt="" className="h-3 translate-y-[2px]" />
+                    {errorMessage}
+                </ErrorText>}
         </div>
     );
 };

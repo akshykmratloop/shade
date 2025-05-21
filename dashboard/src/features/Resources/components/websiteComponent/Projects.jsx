@@ -63,9 +63,10 @@ const ProjectPage = ({ language, screen, currentContent }) => {
 
     return (
         <div className="h-full" ref={divRef}>
-            <section className={`relative h-full border w-full bg-cover bg-center ${isLeftAlign ? 'scale-x-[-1]' : ''}  `}
+            <section className={`relative w-full bg-cover bg-center ${isLeftAlign ? 'scale-x-[-1]' : ''}  `}
                 style={{
                     height: isComputer ? getDynamicSize(715) : "",
+                    padding: isTablet ? `${getDynamicSize(180)} 0px` : "",
                     backgroundImage: currentContent?.['1']?.content?.images?.[0]?.url ? `url(${Img_url + currentContent?.['1']?.content?.images?.[0]?.url})` :
                         "url('https://frequencyimage.s3.ap-south-1.amazonaws.com/a4a2a992-c11e-448b-bdfe-54b14574958d-Hero%20%281%29%20%281%29.png')"
                 }}>
@@ -101,7 +102,7 @@ const ProjectPage = ({ language, screen, currentContent }) => {
 
             <section
                 style={{ padding: `${getDynamicSize(80)}` }}
-                className={` ${language === "en" ? "text-left" : "text-right"} border`}>
+                className={` ${language === "en" ? "text-left" : "text-right"}`}>
                 <div className={`container mx-auto px-10`}>
                     <div>
                         {/* Tabs */}

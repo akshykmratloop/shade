@@ -10,7 +10,7 @@ import { updateMainContent } from "../../../common/homeContentSlice";
 import content from "../websiteComponent/content.json"
 
 
-const ProjectContentManager = ({ currentPath, currentContent, language, indexes }) => {
+const ProjectManager = ({ currentPath, currentContent, language, indexes }) => {
     // const dispatch = useDispatch()
 
     // useEffect(() => {
@@ -37,15 +37,20 @@ const ProjectContentManager = ({ currentPath, currentContent, language, indexes 
 
             />
 
-            <div>
-                <h1>Projects</h1>
+            <div className="py-2 pt-6">
+                <h1 className="font-semibold text-[1.25rem] mb-4">Projects</h1>
                 {
-                    currentContent?.projectsSection?.tabs?.map((element, index) => {
-
+                    currentContent?.['2']?.sections?.map((element, index, a) => {
+                        const heading = ["All Lists", "Ongoing Lists", "Completed Lists"]
+                        const lastIndex = index === a.length - 1
                         return (
                             <div key={index}>
+
+                                <h3 className="mt-3 text-sm">
+                                    {heading[index]}
+                                </h3>
                                 <MultiSelectPro
-                                    options={element.id === "all" ? currentContent?.projectsSection?.allProjectsList : currentContent?.projectsSection?.projects}
+                                    options={element?.items}
                                     currentPath={currentPath}
                                     section={"projects"}
                                     language={language}
@@ -55,6 +60,7 @@ const ProjectContentManager = ({ currentPath, currentContent, language, indexes 
                                     referenceOriginal={{ dir: "projects", index: 0 }}
                                     currentContent={currentContent}
                                     sectionIndex={indexes?.["2"]}
+                                    bottomBorder={lastIndex}
                                 />
                             </div>
                         )
@@ -66,4 +72,4 @@ const ProjectContentManager = ({ currentPath, currentContent, language, indexes 
     )
 }
 
-export default ProjectContentManager
+export default ProjectManager
