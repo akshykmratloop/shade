@@ -182,7 +182,6 @@ function Header() {
   //       console.error("Failed to fetch notifications count", error);
   //     }
   //   }
-
   //   if (user?.id) {
   //     fetchUnreadCount();
   //   }
