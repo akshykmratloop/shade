@@ -52,8 +52,8 @@ const user = createSlice({
 
             if (action.payload?.type === "update") {
                 if (!(state?.currentRole && action.payload?.data?.roles?.length > 1)) {
-                    state.currentRole = action.payload.data.roles[0]
-                } else if (action.payload.data.roles.length === 0) {
+                    state.currentRole = action.payload?.data?.roles[0]
+                } else if (action.payload.data?.roles?.length === 0) {
                     state.currentRole = { ...initialCurrentRole }
                 }
             } else if (action.payload?.data?.roles?.length === 0) {
