@@ -1040,7 +1040,7 @@ router.get(
  *                             example: cmanwiox7004kqrj6excs2vyo
  *     responses:
  *       200:
- *         description: Content updated successfully
+ *         description: Resource version updated successfully
  *         content:
  *           application/json:
  *             schema:
@@ -1048,17 +1048,127 @@ router.get(
  *               properties:
  *                 message:
  *                   type: string
- *                   example: Content updated successfully
- *                 data:
+ *                   example: Resource version updated successfully
+ *                 resource:
  *                   type: object
  *                   properties:
- *                     resourceId:
+ *                     id:
  *                       type: string
  *                       format: uuid
- *                       example: cmanwipvc00toqrj6zytmop4d
- *                     savedAs:
+ *                       example: cmaw7xsgh00tdnt4val4aae3e
+ *                     titleEn:
  *                       type: string
- *                       example: draft-v2
+ *                       example: Home Page
+ *                     titleAr:
+ *                       type: string
+ *                       example: الصفحة الرئيسية
+ *                     slug:
+ *                       type: string
+ *                       example: home
+ *                     status:
+ *                       type: string
+ *                       example: ACTIVE
+ *                     resourceType:
+ *                       type: string
+ *                       example: MAIN_PAGE
+ *                     resourceTag:
+ *                       type: string
+ *                       example: HOME
+ *                     relationType:
+ *                       type: string
+ *                       example: PARENT
+ *                     isAssigned:
+ *                       type: boolean
+ *                       example: true
+ *                     liveVersionId:
+ *                       type: string
+ *                       format: uuid
+ *                       example: cmaw7xsgk00tfnt4vxpnwe62i
+ *                     newVersionEditModeId:
+ *                       type: string
+ *                       format: uuid
+ *                       example: cmaw88umy000ant7zeqovh5w6
+ *                     scheduledVersionId:
+ *                       type: string
+ *                       format: uuid
+ *                       nullable: true
+ *                       example: null
+ *                     parentId:
+ *                       type: string
+ *                       format: uuid
+ *                       nullable: true
+ *                       example: null
+ *                     createdAt:
+ *                       type: string
+ *                       format: date-time
+ *                       example: 2025-05-20T07:54:44.946Z
+ *                     updatedAt:
+ *                       type: string
+ *                       format: date-time
+ *                       example: 2025-05-20T08:07:54.203Z
+ *                     resourceVersion:
+ *                       type: object
+ *                       properties:
+ *                         id:
+ *                           type: string
+ *                           format: uuid
+ *                           example: cmaw88umy000ant7zeqovh5w6
+ *                         versionNumber:
+ *                           type: integer
+ *                           example: 2
+ *                         versionStatus:
+ *                           type: string
+ *                           example: DRAFT
+ *                         notes:
+ *                           type: string
+ *                           example: Initial version created
+ *                         referenceDoc:
+ *                           type: string
+ *                           nullable: true
+ *                           example: null
+ *                         content:
+ *                           type: object
+ *                           description: Version-specific content payload
+ *                         icon:
+ *                           type: string
+ *                           nullable: true
+ *                           example: null
+ *                         Image:
+ *                           type: string
+ *                           nullable: true
+ *                           example: null
+ *                         lockedById:
+ *                           type: string
+ *                           format: uuid
+ *                           nullable: true
+ *                           example: null
+ *                         lockedAt:
+ *                           type: string
+ *                           format: date-time
+ *                           nullable: true
+ *                           example: null
+ *                         resourceId:
+ *                           type: string
+ *                           format: uuid
+ *                           example: cmaw7xsgh00tdnt4val4aae3e
+ *                         createdAt:
+ *                           type: string
+ *                           format: date-time
+ *                           example: 2025-05-20T08:03:20.986Z
+ *                         updatedAt:
+ *                           type: string
+ *                           format: date-time
+ *                           example: 2025-05-20T08:07:53.862Z
+ *                         scheduledAt:
+ *                           type: string
+ *                           format: date-time
+ *                           nullable: true
+ *                           example: null
+ *                         publishedAt:
+ *                           type: string
+ *                           format: date-time
+ *                           nullable: true
+ *                           example: null
  *       400:
  *         $ref: '#/components/schemas/ErrorResponse'
  */
@@ -1077,39 +1187,316 @@ router.put(
  *     security:
  *       - BearerAuth: []
  *     requestBody:
+ *       description: Full content payload, including draft mode and structured sections
  *       required: true
  *       content:
  *         application/json:
  *           schema:
  *             type: object
- *             description: Content payload to publish
+ *             required:
+ *               - resourceId
+ *               - titleEn
+ *               - titleAr
+ *               - slug
+ *               - newVersionEditMode
+ *               - sections
  *             properties:
  *               resourceId:
  *                 type: string
  *                 format: uuid
- *                 example: e4f8c0a2-3b7a-4c5d-9e2f-1a2b3c4d5e6f
- *               title:
+ *                 example: cmanwipvc00toqrj6zytmop4d
+ *               titleEn:
  *                 type: string
- *                 example: "Finalized Article Title"
- *               body:
+ *                 example: Home Page
+ *               titleAr:
  *                 type: string
- *                 example: "<p>Final content HTML or markdown.</p>"
- *               metadata:
+ *                 example: الصفحة الرئيسية
+ *               slug:
+ *                 type: string
+ *                 example: home
+ *               newVersionEditMode:
  *                 type: object
- *                 description: Additional metadata for publishing
+ *                 required:
+ *                   - comments
+ *                   - sections
  *                 properties:
- *                   tags:
+ *                   comments:
+ *                     type: string
+ *                     example: Initial version created
+ *                   referenceDoc:
+ *                     type: string
+ *                     nullable: true
+ *                     example: null
+ *                   icon:
+ *                     type: string
+ *                     nullable: true
+ *                     example: null
+ *                   image:
+ *                     type: string
+ *                     nullable: true
+ *                     example: null
+ *                   sections:
  *                     type: array
  *                     items:
+ *                       type: object
+ *                       required:
+ *                         - sectionId
+ *                         - order
+ *                         - content
+ *                       properties:
+ *                         sectionId:
+ *                           type: string
+ *                           format: uuid
+ *                           example: cmanwipvr00tsqrj6nkmm7080
+ *                         order:
+ *                           type: integer
+ *                           example: 1
+ *                         content:
+ *                           type: object
+ *                           properties:
+ *                             title:
+ *                               type: object
+ *                               properties:
+ *                                 ar:
+ *                                   type: string
+ *                                   example: بناء مستقبل أقوى
+ *                                 en:
+ *                                   type: string
+ *                                   example: Building a Stronger Future
+ *                             button:
+ *                               type: array
+ *                               items:
+ *                                 type: object
+ *                                 required:
+ *                                   - order
+ *                                   - text
+ *                                 properties:
+ *                                   url:
+ *                                     type: string
+ *                                     nullable: true
+ *                                     example: null
+ *                                   icon:
+ *                                     type: string
+ *                                     nullable: true
+ *                                     example: null
+ *                                   text:
+ *                                     type: object
+ *                                     properties:
+ *                                       ar:
+ *                                         type: string
+ *                                         example: أعمالنا
+ *                                       en:
+ *                                         type: string
+ *                                         example: View Our Work
+ *                                   order:
+ *                                     type: integer
+ *                                     example: 1
+ *                             images:
+ *                               type: array
+ *                               items:
+ *                                 type: object
+ *                                 required:
+ *                                   - order
+ *                                   - altText
+ *                                 properties:
+ *                                   url:
+ *                                     type: string
+ *                                     example: ""
+ *                                   order:
+ *                                     type: integer
+ *                                     example: 1
+ *                                   altText:
+ *                                     type: object
+ *                                     properties:
+ *                                       ar:
+ *                                         type: string
+ *                                         example: الرئيسية
+ *                                       en:
+ *                                         type: string
+ *                                         example: Image
+ *                             description:
+ *                               type: object
+ *                               properties:
+ *                                 ar:
+ *                                   type: string
+ *                                   example: >-
+ *                                     التزامنا الثابت الذي يعزز الشراكات...
+ *                                 en:
+ *                                   type: string
+ *                                   example: >-
+ *                                     Our unwavering commitment that forge...
+ *                         items:
+ *                           type: array
+ *                           items:
+ *                             type: object
+ *                             required:
+ *                               - order
+ *                               - id
+ *                             properties:
+ *                               order:
+ *                                 type: integer
+ *                                 example: 1
+ *                               id:
+ *                                 type: string
+ *                                 format: uuid
+ *                                 example: cmanwipcm00fiqrj6c05xml7u
+ *               sections:
+ *                 type: array
+ *                 items:
+ *                   type: object
+ *                   required:
+ *                     - sectionId
+ *                     - order
+ *                     - content
+ *                   properties:
+ *                     sectionId:
  *                       type: string
- *                     example: ["news", "announcement"]
- *                   publishDate:
- *                     type: string
- *                     format: date-time
- *                     example: "2025-05-20T10:00:00Z"
+ *                       format: uuid
+ *                       example: cmanwipwr00ukqrj6r5gd4v50
+ *                     order:
+ *                       type: integer
+ *                       example: 4
+ *                     content:
+ *                       type: object
+ *                       properties:
+ *                         cards:
+ *                           type: array
+ *                           items:
+ *                             type: object
+ *                             properties:
+ *                               icon:
+ *                                 type: string
+ *                                 example: ""
+ *                               count:
+ *                                 type: string
+ *                                 example: "123"
+ *                               order:
+ *                                 type: integer
+ *                                 example: 1
+ *                               title:
+ *                                 type: object
+ *                                 properties:
+ *                                   ar:
+ *                                     type: string
+ *                                     example: المشاريع المنجزة
+ *                                   en:
+ *                                     type: string
+ *                                     example: Projects Completed
+ *                         button:
+ *                           type: array
+ *                           items:
+ *                             type: object
+ *                             required:
+ *                               - order
+ *                               - text
+ *                             properties:
+ *                               url:
+ *                                 type: string
+ *                                 nullable: true
+ *                                 example: null
+ *                               icon:
+ *                                 type: string
+ *                                 nullable: true
+ *                                 example: null
+ *                               text:
+ *                                 type: object
+ *                                 properties:
+ *                                   ar:
+ *                                     type: string
+ *                                     example: اتصل بنا
+ *                                   en:
+ *                                     type: string
+ *                                     example: Contact Us
+ *                               order:
+ *                                 type: integer
+ *                                 example: 1
+ *                         description:
+ *                           type: object
+ *                           properties:
+ *                             ar:
+ *                               type: string
+ *                               example: كانت شركتنا رائدة...
+ *                             en:
+ *                               type: string
+ *                               example: Our company has been the leading...
+ *                         buttons:
+ *                           type: array
+ *                           items:
+ *                             type: object
+ *                             required:
+ *                               - order
+ *                               - text
+ *                             properties:
+ *                               icon:
+ *                                 type: string
+ *                                 nullable: true
+ *                               text:
+ *                                 type: object
+ *                                 properties:
+ *                                   ar:
+ *                                     type: string
+ *                                     example: عرض الكل
+ *                                   en:
+ *                                     type: string
+ *                                     example: View All
+ *                               order:
+ *                                 type: integer
+ *                                 example: 1
+ *                         sections:
+ *                           type: array
+ *                           items:
+ *                             type: object
+ *                             required:
+ *                               - sectionId
+ *                               - order
+ *                               - content
+ *                             properties:
+ *                               sectionId:
+ *                                 type: string
+ *                                 format: uuid
+ *                                 example: cmanwipx600uwqrj647aqzfw5
+ *                               order:
+ *                                 type: integer
+ *                                 example: 1
+ *                               content:
+ *                                 type: object
+ *                                 properties:
+ *                                   id:
+ *                                     type: string
+ *                                     example: projectsSlugs
+ *                                   title:
+ *                                     type: object
+ *                                     properties:
+ *                                       ar:
+ *                                         type: string
+ *                                         example: المشاريع الأخيرة
+ *                                       en:
+ *                                         type: string
+ *                                         example: Recent Projects
+ *                                   description:
+ *                                     type: object
+ *                                     properties:
+ *                                       ar:
+ *                                         type: string
+ *                                         example: تفتخر شركة شيد...
+ *                                       en:
+ *                                         type: string
+ *                                         example: Shade Corporation boasts...
+ *                     items:
+ *                       type: array
+ *                       items:
+ *                         type: object
+ *                         properties:
+ *                           order:
+ *                             type: integer
+ *                             example: 1
+ *                           id:
+ *                             type: string
+ *                             format: uuid
+ *                             example: cmanwiox7004kqrj6excs2vyo
  *     responses:
  *       200:
- *         description: Content published successfully
+ *         description: Resource version published successfully
  *         content:
  *           application/json:
  *             schema:
@@ -1117,23 +1504,133 @@ router.put(
  *               properties:
  *                 message:
  *                   type: string
- *                   example: Content published successfully
- *                 data:
+ *                   example: Success
+ *                 content:
  *                   type: object
- *                   description: Details of the published content
  *                   properties:
- *                     resourceId:
+ *                     message:
  *                       type: string
- *                       format: uuid
- *                       example: e4f8c0a2-3b7a-4c5d-9e2f-1a2b3c4d5e6f
- *                     publishedBy:
- *                       type: string
- *                       format: uuid
- *                       example: "f47ac10b-58cc-4372-a567-0e02b2c3d479"
- *                     publishedAt:
- *                       type: string
- *                       format: date-time
- *                       example: "2025-05-20T10:05:00Z"
+ *                       example: Resource version published successfully
+ *                     resource:
+ *                       type: object
+ *                       properties:
+ *                         id:
+ *                           type: string
+ *                           format: uuid
+ *                           example: cmaw7xsgh00tdnt4val4aae3e
+ *                         titleEn:
+ *                           type: string
+ *                           example: Home Page
+ *                         titleAr:
+ *                           type: string
+ *                           example: الصفحة الرئيسية
+ *                         slug:
+ *                           type: string
+ *                           example: home
+ *                         status:
+ *                           type: string
+ *                           example: ACTIVE
+ *                         resourceType:
+ *                           type: string
+ *                           example: MAIN_PAGE
+ *                         resourceTag:
+ *                           type: string
+ *                           example: HOME
+ *                         relationType:
+ *                           type: string
+ *                           example: PARENT
+ *                         isAssigned:
+ *                           type: boolean
+ *                           example: true
+ *                         liveVersionId:
+ *                           type: string
+ *                           format: uuid
+ *                           example: cmawb9jm30001nt9wne52ghzc
+ *                         newVersionEditModeId:
+ *                           type: string
+ *                           format: uuid
+ *                           example: cmaw88umy000ant7zeqovh5w6
+ *                         scheduledVersionId:
+ *                           type: string
+ *                           format: uuid
+ *                           nullable: true
+ *                           example: null
+ *                         parentId:
+ *                           type: string
+ *                           format: uuid
+ *                           nullable: true
+ *                           example: null
+ *                         createdAt:
+ *                           type: string
+ *                           format: date-time
+ *                           example: 2025-05-20T07:54:44.946Z
+ *                         updatedAt:
+ *                           type: string
+ *                           format: date-time
+ *                           example: 2025-05-20T09:27:52.440Z
+ *                         resourceVersion:
+ *                           type: object
+ *                           properties:
+ *                             id:
+ *                               type: string
+ *                               format: uuid
+ *                               example: cmawb9jm30001nt9wne52ghzc
+ *                             versionNumber:
+ *                               type: integer
+ *                               example: 4
+ *                             versionStatus:
+ *                               type: string
+ *                               example: PUBLISHED
+ *                             notes:
+ *                               type: string
+ *                               example: Initial version created
+ *                             referenceDoc:
+ *                               type: string
+ *                               nullable: true
+ *                               example: null
+ *                             content:
+ *                               type: object
+ *                               description: Version-specific content payload
+ *                             icon:
+ *                               type: string
+ *                               nullable: true
+ *                               example: null
+ *                             Image:
+ *                               type: string
+ *                               nullable: true
+ *                               example: null
+ *                             lockedById:
+ *                               type: string
+ *                               format: uuid
+ *                               nullable: true
+ *                               example: null
+ *                             lockedAt:
+ *                               type: string
+ *                               format: date-time
+ *                               nullable: true
+ *                               example: null
+ *                             resourceId:
+ *                               type: string
+ *                               format: uuid
+ *                               example: cmaw7xsgh00tdnt4val4aae3e
+ *                             createdAt:
+ *                               type: string
+ *                               format: date-time
+ *                               example: 2025-05-20T09:27:52.203Z
+ *                             updatedAt:
+ *                               type: string
+ *                               format: date-time
+ *                               example: 2025-05-20T09:27:52.203Z
+ *                             scheduledAt:
+ *                               type: string
+ *                               format: date-time
+ *                               nullable: true
+ *                               example: null
+ *                             publishedAt:
+ *                               type: string
+ *                               format: date-time
+ *                               nullable: true
+ *                               example: 2025-05-20T09:27:52.194Z
  *       400:
  *         $ref: '#/components/schemas/ErrorResponse'
  *       403:
@@ -1160,17 +1657,987 @@ router.post(
   tryCatchWrap(ContentController.DirectPublishContent)
 );
 
+/**
+ * @swagger
+ * /content/generateRequest:
+ *   put:
+ *     summary: Create a new permission/resource request for the current user
+ *     tags: [Content]
+ *     security:
+ *       - BearerAuth: []
+ *     requestBody:
+ *       description: Full content payload, including draft mode and structured sections
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - resourceId
+ *               - titleEn
+ *               - titleAr
+ *               - slug
+ *               - newVersionEditMode
+ *               - sections
+ *             properties:
+ *               resourceId:
+ *                 type: string
+ *                 format: uuid
+ *                 example: cmanwipvc00toqrj6zytmop4d
+ *               titleEn:
+ *                 type: string
+ *                 example: Home Page
+ *               titleAr:
+ *                 type: string
+ *                 example: الصفحة الرئيسية
+ *               slug:
+ *                 type: string
+ *                 example: home
+ *               newVersionEditMode:
+ *                 type: object
+ *                 required:
+ *                   - comments
+ *                   - sections
+ *                 properties:
+ *                   comments:
+ *                     type: string
+ *                     example: Initial version created
+ *                   referenceDoc:
+ *                     type: string
+ *                     nullable: true
+ *                     example: null
+ *                   icon:
+ *                     type: string
+ *                     nullable: true
+ *                     example: null
+ *                   image:
+ *                     type: string
+ *                     nullable: true
+ *                     example: null
+ *                   sections:
+ *                     type: array
+ *                     items:
+ *                       type: object
+ *                       required:
+ *                         - sectionId
+ *                         - order
+ *                         - content
+ *                       properties:
+ *                         sectionId:
+ *                           type: string
+ *                           format: uuid
+ *                           example: cmanwipvr00tsqrj6nkmm7080
+ *                         order:
+ *                           type: integer
+ *                           example: 1
+ *                         content:
+ *                           type: object
+ *                           properties:
+ *                             title:
+ *                               type: object
+ *                               properties:
+ *                                 ar:
+ *                                   type: string
+ *                                   example: بناء مستقبل أقوى
+ *                                 en:
+ *                                   type: string
+ *                                   example: Building a Stronger Future
+ *                             button:
+ *                               type: array
+ *                               items:
+ *                                 type: object
+ *                                 required:
+ *                                   - order
+ *                                   - text
+ *                                 properties:
+ *                                   url:
+ *                                     type: string
+ *                                     nullable: true
+ *                                     example: null
+ *                                   icon:
+ *                                     type: string
+ *                                     nullable: true
+ *                                     example: null
+ *                                   text:
+ *                                     type: object
+ *                                     properties:
+ *                                       ar:
+ *                                         type: string
+ *                                         example: أعمالنا
+ *                                       en:
+ *                                         type: string
+ *                                         example: View Our Work
+ *                                   order:
+ *                                     type: integer
+ *                                     example: 1
+ *                             images:
+ *                               type: array
+ *                               items:
+ *                                 type: object
+ *                                 required:
+ *                                   - order
+ *                                   - altText
+ *                                 properties:
+ *                                   url:
+ *                                     type: string
+ *                                     example: ""
+ *                                   order:
+ *                                     type: integer
+ *                                     example: 1
+ *                                   altText:
+ *                                     type: object
+ *                                     properties:
+ *                                       ar:
+ *                                         type: string
+ *                                         example: الرئيسية
+ *                                       en:
+ *                                         type: string
+ *                                         example: Image
+ *                             description:
+ *                               type: object
+ *                               properties:
+ *                                 ar:
+ *                                   type: string
+ *                                   example: >-
+ *                                     التزامنا الثابت الذي يعزز الشراكات...
+ *                                 en:
+ *                                   type: string
+ *                                   example: >-
+ *                                     Our unwavering commitment that forge...
+ *                         items:
+ *                           type: array
+ *                           items:
+ *                             type: object
+ *                             required:
+ *                               - order
+ *                               - id
+ *                             properties:
+ *                               order:
+ *                                 type: integer
+ *                                 example: 1
+ *                               id:
+ *                                 type: string
+ *                                 format: uuid
+ *                                 example: cmanwipcm00fiqrj6c05xml7u
+ *               sections:
+ *                 type: array
+ *                 items:
+ *                   type: object
+ *                   required:
+ *                     - sectionId
+ *                     - order
+ *                     - content
+ *                   properties:
+ *                     sectionId:
+ *                       type: string
+ *                       format: uuid
+ *                       example: cmanwipwr00ukqrj6r5gd4v50
+ *                     order:
+ *                       type: integer
+ *                       example: 4
+ *                     content:
+ *                       type: object
+ *                       properties:
+ *                         cards:
+ *                           type: array
+ *                           items:
+ *                             type: object
+ *                             properties:
+ *                               icon:
+ *                                 type: string
+ *                                 example: ""
+ *                               count:
+ *                                 type: string
+ *                                 example: "123"
+ *                               order:
+ *                                 type: integer
+ *                                 example: 1
+ *                               title:
+ *                                 type: object
+ *                                 properties:
+ *                                   ar:
+ *                                     type: string
+ *                                     example: المشاريع المنجزة
+ *                                   en:
+ *                                     type: string
+ *                                     example: Projects Completed
+ *                         button:
+ *                           type: array
+ *                           items:
+ *                             type: object
+ *                             required:
+ *                               - order
+ *                               - text
+ *                             properties:
+ *                               url:
+ *                                 type: string
+ *                                 nullable: true
+ *                                 example: null
+ *                               icon:
+ *                                 type: string
+ *                                 nullable: true
+ *                                 example: null
+ *                               text:
+ *                                 type: object
+ *                                 properties:
+ *                                   ar:
+ *                                     type: string
+ *                                     example: اتصل بنا
+ *                                   en:
+ *                                     type: string
+ *                                     example: Contact Us
+ *                               order:
+ *                                 type: integer
+ *                                 example: 1
+ *                         description:
+ *                           type: object
+ *                           properties:
+ *                             ar:
+ *                               type: string
+ *                               example: كانت شركتنا رائدة...
+ *                             en:
+ *                               type: string
+ *                               example: Our company has been the leading...
+ *                         buttons:
+ *                           type: array
+ *                           items:
+ *                             type: object
+ *                             required:
+ *                               - order
+ *                               - text
+ *                             properties:
+ *                               icon:
+ *                                 type: string
+ *                                 nullable: true
+ *                               text:
+ *                                 type: object
+ *                                 properties:
+ *                                   ar:
+ *                                     type: string
+ *                                     example: عرض الكل
+ *                                   en:
+ *                                     type: string
+ *                                     example: View All
+ *                               order:
+ *                                 type: integer
+ *                                 example: 1
+ *                         sections:
+ *                           type: array
+ *                           items:
+ *                             type: object
+ *                             required:
+ *                               - sectionId
+ *                               - order
+ *                               - content
+ *                             properties:
+ *                               sectionId:
+ *                                 type: string
+ *                                 format: uuid
+ *                                 example: cmanwipx600uwqrj647aqzfw5
+ *                               order:
+ *                                 type: integer
+ *                                 example: 1
+ *                               content:
+ *                                 type: object
+ *                                 properties:
+ *                                   id:
+ *                                     type: string
+ *                                     example: projectsSlugs
+ *                                   title:
+ *                                     type: object
+ *                                     properties:
+ *                                       ar:
+ *                                         type: string
+ *                                         example: المشاريع الأخيرة
+ *                                       en:
+ *                                         type: string
+ *                                         example: Recent Projects
+ *                                   description:
+ *                                     type: object
+ *                                     properties:
+ *                                       ar:
+ *                                         type: string
+ *                                         example: تفتخر شركة شيد...
+ *                                       en:
+ *                                         type: string
+ *                                         example: Shade Corporation boasts...
+ *                     items:
+ *                       type: array
+ *                       items:
+ *                         type: object
+ *                         properties:
+ *                           order:
+ *                             type: integer
+ *                             example: 1
+ *                           id:
+ *                             type: string
+ *                             format: uuid
+ *                             example: cmanwiox7004kqrj6excs2vyo
+ *     responses:
+ *       200:
+ *         description: Update request generated successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Success
+ *                 content:
+ *                   type: object
+ *                   properties:
+ *                     message:
+ *                       type: string
+ *                       example: Update request generated successfully
+ *                     resource:
+ *                       type: object
+ *                       properties:
+ *                         id:
+ *                           type: string
+ *                           format: uuid
+ *                           example: cmaw7xsgh00tdnt4val4aae3e
+ *                         titleEn:
+ *                           type: string
+ *                           example: Home Page
+ *                         titleAr:
+ *                           type: string
+ *                           example: الصفحة الرئيسية
+ *                         slug:
+ *                           type: string
+ *                           example: home
+ *                         status:
+ *                           type: string
+ *                           example: ACTIVE
+ *                         resourceType:
+ *                           type: string
+ *                           example: MAIN_PAGE
+ *                         resourceTag:
+ *                           type: string
+ *                           example: HOME
+ *                         relationType:
+ *                           type: string
+ *                           example: PARENT
+ *                         isAssigned:
+ *                           type: boolean
+ *                           example: true
+ *                         liveVersionId:
+ *                           type: string
+ *                           format: uuid
+ *                           example: cmawb9jm30001nt9wne52ghzc
+ *                         newVersionEditModeId:
+ *                           type: string
+ *                           format: uuid
+ *                           example: cmaw88umy000ant7zeqovh5w6
+ *                         scheduledVersionId:
+ *                           type: string
+ *                           nullable: true
+ *                           example: null
+ *                         parentId:
+ *                           type: string
+ *                           nullable: true
+ *                           example: null
+ *                         createdAt:
+ *                           type: string
+ *                           format: date-time
+ *                           example: 2025-05-20T07:54:44.946Z
+ *                         updatedAt:
+ *                           type: string
+ *                           format: date-time
+ *                           example: 2025-05-20T10:24:41.088Z
+ *                         resourceVersion:
+ *                           type: object
+ *                           properties:
+ *                             id:
+ *                               type: string
+ *                               format: uuid
+ *                               example: cmaw88umy000ant7zeqovh5w6
+ *                             versionNumber:
+ *                               type: integer
+ *                               example: 2
+ *                             versionStatus:
+ *                               type: string
+ *                               example: VERIFICATION_PENDING
+ *                             notes:
+ *                               type: string
+ *                               example: Initial version created
+ *                             referenceDoc:
+ *                               type: string
+ *                               nullable: true
+ *                               example: null
+ *                             content:
+ *                               type: object
+ *                               description: Version-specific content payload
+ *                             icon:
+ *                               type: string
+ *                               nullable: true
+ *                               example: null
+ *                             Image:
+ *                               type: string
+ *                               nullable: true
+ *                               example: null
+ *                             lockedById:
+ *                               type: string
+ *                               format: uuid
+ *                               nullable: true
+ *                               example: null
+ *                             lockedAt:
+ *                               type: string
+ *                               format: date-time
+ *                               nullable: true
+ *                               example: null
+ *                             resourceId:
+ *                               type: string
+ *                               format: uuid
+ *                               example: cmaw7xsgh00tdnt4val4aae3e
+ *                             createdAt:
+ *                               type: string
+ *                               format: date-time
+ *                               example: 2025-05-20T08:03:20.986Z
+ *                             updatedAt:
+ *                               type: string
+ *                               format: date-time
+ *                               example: 2025-05-20T10:24:40.785Z
+ *                             scheduledAt:
+ *                               type: string
+ *                               format: date-time
+ *                               nullable: true
+ *                               example: null
+ *                             publishedAt:
+ *                               type: string
+ *                               format: date-time
+ *                               nullable: true
+ *                               example: null
+ *                         requests:
+ *                           type: object
+ *                           properties:
+ *                             id:
+ *                               type: string
+ *                               format: uuid
+ *                               example: 2e9a5b25-856c-4e68-8888-619e36a18b6c
+ *                             status:
+ *                               type: string
+ *                               example: PENDING
+ *                             type:
+ *                               type: string
+ *                               example: VERIFICATION
+ *                             editorComments:
+ *                               type: string
+ *                               example: Initial version created
+ *                             resourceVersionId:
+ *                               type: string
+ *                               format: uuid
+ *                               example: cmaw88umy000ant7zeqovh5w6
+ *                             senderId:
+ *                               type: string
+ *                               format: uuid
+ *                               example: cmaw86nhq0000nt7zpozrm6vh
+ *                             previousRequestId:
+ *                               type: string
+ *                               nullable: true
+ *                               example: null
+ *                             createdAt:
+ *                               type: string
+ *                               format: date-time
+ *                               example: 2025-05-20T10:24:41.100Z
+ *                             updatedAt:
+ *                               type: string
+ *                               format: date-time
+ *                               example: 2025-05-20T10:24:41.100Z
+ *                             approvals:
+ *                               type: object
+ *                               properties:
+ *                                 publisher:
+ *                                   type: object
+ *                                   properties:
+ *                                     id:
+ *                                       type: string
+ *                                       format: uuid
+ *                                       example: d26d6017-33e8-42b1-8aeb-02b9d8e8c0ec
+ *                                     stage:
+ *                                       type: integer
+ *                                       nullable: true
+ *                                     status:
+ *                                       type: string
+ *                                       example: PENDING
+ *                                     comments:
+ *                                       type: string
+ *                                       nullable: true
+ *                                     requestId:
+ *                                       type: string
+ *                                       format: uuid
+ *                                     approverId:
+ *                                       type: string
+ *                                       format: uuid
+ *                                     isApproverActive:
+ *                                       type: boolean
+ *                                       example: true
+ *                                     createdAt:
+ *                                       type: string
+ *                                       format: date-time
+ *                                     updatedAt:
+ *                                       type: string
+ *                                       format: date-time
+ *                                 verifiers:
+ *                                   type: array
+ *                                   items:
+ *                                     type: object
+ *                                     properties:
+ *                                       id:
+ *                                         type: string
+ *                                         format: uuid
+ *                                       stage:
+ *                                         type: integer
+ *                                       status:
+ *                                         type: string
+ *                                         example: PENDING
+ *                                       comments:
+ *                                         type: string
+ *                                         nullable: true
+ *                                       requestId:
+ *                                         type: string
+ *                                         format: uuid
+ *                                       approverId:
+ *                                         type: string
+ *                                         format: uuid
+ *                                       isApproverActive:
+ *                                         type: boolean
+ *                                         example: true
+ *                                       createdAt:
+ *                                         type: string
+ *                                         format: date-time
+ *                                       updatedAt:
+ *                                         type: string
+ *                                         format: date-time
+ *       400:
+ *         $ref: '#/components/schemas/ErrorResponse'
+ */
+
 router.put(
   "/generateRequest",
   //   checkPermission(requiredPermissionsForContentManagement),
   tryCatchWrap(ContentController.GenerateRequest)
 );
 
+/**
+ * @swagger
+ * /content/getRequests:
+ *   get:
+ *     summary: Get permission/resource requests with filters and pagination
+ *     tags: [Content]
+ *     security:
+ *       - BearerAuth: []
+ *     parameters:
+ *       - in: query
+ *         name: roleId
+ *         required: false
+ *         schema:
+ *           type: string
+ *           format: uuid
+ *         description: Filter requests by a specific role ID
+ *       - in: query
+ *         name: permission
+ *         required: false
+ *         schema:
+ *           type: string
+ *         description: Filter requests by permission name
+ *       - in: query
+ *         name: search
+ *         required: false
+ *         schema:
+ *           type: string
+ *         description: Search term to filter request details
+ *       - in: query
+ *         name: status
+ *         required: false
+ *         schema:
+ *           type: string
+ *         description: Filter by request status (e.g., "PENDING", "APPROVED", "REJECTED")
+ *       - in: query
+ *         name: page
+ *         required: false
+ *         schema:
+ *           type: integer
+ *           default: 1
+ *         description: Page number for pagination
+ *       - in: query
+ *         name: limit
+ *         required: false
+ *         schema:
+ *           type: integer
+ *           default: 100
+ *         description: Number of items per page
+ *     responses:
+ *       200:
+ *         description: Requests fetched successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Success
+ *                 requests:
+ *                   type: object
+ *                   properties:
+ *                     data:
+ *                       type: array
+ *                       items:
+ *                         type: object
+ *                         properties:
+ *                           id:
+ *                             type: string
+ *                             format: uuid
+ *                             example: 640e0fb7-9954-4400-9e02-5965df39fc46
+ *                           status:
+ *                             type: string
+ *                             example: PENDING
+ *                           type:
+ *                             type: string
+ *                             example: VERIFICATION
+ *                           editorComments:
+ *                             type: string
+ *                             example: Initial version created
+ *                           resourceVersionId:
+ *                             type: string
+ *                             format: uuid
+ *                             example: cmaw88umy000ant7zeqovh5w6
+ *                           senderId:
+ *                             type: string
+ *                             format: uuid
+ *                             example: cmaw86nhq0000nt7zpozrm6vh
+ *                           previousRequestId:
+ *                             type: string
+ *                             nullable: true
+ *                             example: null
+ *                           createdAt:
+ *                             type: string
+ *                             format: date-time
+ *                             example: 2025-05-20T10:16:28.752Z
+ *                           updatedAt:
+ *                             type: string
+ *                             format: date-time
+ *                             example: 2025-05-20T10:16:28.752Z
+ *                           resourceVersion:
+ *                             type: object
+ *                             properties:
+ *                               id:
+ *                                 type: string
+ *                                 format: uuid
+ *                                 example: cmaw88umy000ant7zeqovh5w6
+ *                               versionNumber:
+ *                                 type: integer
+ *                                 example: 2
+ *                               versionStatus:
+ *                                 type: string
+ *                                 example: VERIFICATION_PENDING
+ *                               notes:
+ *                                 type: string
+ *                                 example: Initial version created
+ *                               referenceDoc:
+ *                                 type: string
+ *                                 nullable: true
+ *                                 example: null
+ *                               content:
+ *                                 type: object
+ *                                 description: Version content payload
+ *                               icon:
+ *                                 type: string
+ *                                 nullable: true
+ *                                 example: null
+ *                               Image:
+ *                                 type: string
+ *                                 nullable: true
+ *                                 example: null
+ *                               lockedById:
+ *                                 type: string
+ *                                 format: uuid
+ *                                 nullable: true
+ *                                 example: null
+ *                               lockedAt:
+ *                                 type: string
+ *                                 format: date-time
+ *                                 nullable: true
+ *                                 example: null
+ *                               resourceId:
+ *                                 type: string
+ *                                 format: uuid
+ *                                 example: cmaw7xsgh00tdnt4val4aae3e
+ *                               createdAt:
+ *                                 type: string
+ *                                 format: date-time
+ *                                 example: 2025-05-20T08:03:20.986Z
+ *                               updatedAt:
+ *                                 type: string
+ *                                 format: date-time
+ *                                 example: 2025-05-20T10:16:28.465Z
+ *                               scheduledAt:
+ *                                 type: string
+ *                                 format: date-time
+ *                                 nullable: true
+ *                                 example: null
+ *                               publishedAt:
+ *                                 type: string
+ *                                 format: date-time
+ *                                 nullable: true
+ *                                 example: null
+ *                               resource:
+ *                                 type: object
+ *                                 properties:
+ *                                   id:
+ *                                     type: string
+ *                                     format: uuid
+ *                                     example: cmaw7xsgh00tdnt4val4aae3e
+ *                                   titleEn:
+ *                                     type: string
+ *                                     example: Home Page
+ *                                   titleAr:
+ *                                     type: string
+ *                                     example: الصفحة الرئيسية
+ *                                   resourceType:
+ *                                     type: string
+ *                                     example: MAIN_PAGE
+ *                                   resourceTag:
+ *                                     type: string
+ *                                     example: HOME
+ *                                   roles:
+ *                                     type: array
+ *                                     items:
+ *                                       type: object
+ *                                       properties:
+ *                                         id:
+ *                                           type: string
+ *                                           format: uuid
+ *                                         resourceId:
+ *                                           type: string
+ *                                           format: uuid
+ *                                         userId:
+ *                                           type: string
+ *                                           format: uuid
+ *                                         role:
+ *                                           type: string
+ *                                         status:
+ *                                           type: string
+ *                                         createdAt:
+ *                                           type: string
+ *                                           format: date-time
+ *                                         user:
+ *                                           type: object
+ *                                           properties:
+ *                                             id:
+ *                                               type: string
+ *                                               format: uuid
+ *                                             name:
+ *                                               type: string
+ *                                   verifiers:
+ *                                     type: array
+ *                                     items:
+ *                                       type: object
+ *                                       properties:
+ *                                         id:
+ *                                           type: string
+ *                                           format: uuid
+ *                                         stage:
+ *                                           type: integer
+ *                                         status:
+ *                                           type: string
+ *                                         resourceId:
+ *                                           type: string
+ *                                           format: uuid
+ *                                         userId:
+ *                                           type: string
+ *                                           format: uuid
+ *                                         createdAt:
+ *                                           type: string
+ *                                           format: date-time
+ *                                         user:
+ *                                           type: object
+ *                                           properties:
+ *                                             id:
+ *                                               type: string
+ *                                               format: uuid
+ *                                             name:
+ *                                               type: string
+ *                           sender:
+ *                             type: object
+ *                             properties:
+ *                               id:
+ *                                 type: string
+ *                                 format: uuid
+ *                               name:
+ *                                 type: string
+ *                               email:
+ *                                 type: string
+ *                                 format: email
+ *                           approvals:
+ *                             type: array
+ *                             items:
+ *                               type: object
+ *                               properties:
+ *                                 id:
+ *                                   type: string
+ *                                   format: uuid
+ *                                 status:
+ *                                   type: string
+ *                                   example: PENDING
+ *                                 stage:
+ *                                   type: integer
+ *                                   nullable: true
+ *                                 comments:
+ *                                   type: string
+ *                                   nullable: true
+ *                                 approver:
+ *                                   type: object
+ *                                   properties:
+ *                                     id:
+ *                                       type: string
+ *                                       format: uuid
+ *                                     name:
+ *                                       type: string
+ *                                     email:
+ *                                       type: string
+ *                                       format: email
+ *                     pagination:
+ *                       type: object
+ *                       properties:
+ *                         total:
+ *                           type: integer
+ *                           example: 1
+ *                         page:
+ *                           type: integer
+ *                           example: 1
+ *                         limit:
+ *                           type: integer
+ *                           example: 100
+ *                         totalPages:
+ *                           type: integer
+ *                           example: 1
+ *       400:
+ *         $ref: '#/components/schemas/ErrorResponse'
+ */
+
 router.get(
   "/getRequests",
   //   checkPermission(requiredPermissionsForContentManagement),
   tryCatchWrap(ContentController.GetRequest)
 );
+
+/**
+ * @swagger
+ * /content/getRequestInfo/{requestId}:
+ *   get:
+ *     summary: Get detailed information for a single request
+ *     tags: [Content]
+ *     security:
+ *       - BearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: requestId
+ *         required: true
+ *         schema:
+ *           type: string
+ *           format: uuid
+ *         description: The ID of the request to retrieve
+ *     responses:
+ *       200:
+ *         description: Detailed request information fetched successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Success
+ *                 requestInfo:
+ *                   type: object
+ *                   properties:
+ *                     details:
+ *                       type: object
+ *                       properties:
+ *                         resource:
+ *                           type: string
+ *                           example: Home Page
+ *                         resourceType:
+ *                           type: string
+ *                           example: MAIN_PAGE
+ *                         resourceTag:
+ *                           type: string
+ *                           example: HOME
+ *                         slug:
+ *                           type: string
+ *                           example: home
+ *                         status:
+ *                           type: string
+ *                           example: PENDING
+ *                         assignedUsers:
+ *                           type: object
+ *                           properties:
+ *                             manager:
+ *                               type: string
+ *                               example: Not assigned
+ *                             editor:
+ *                               type: string
+ *                               example: Deepanshu Kataria
+ *                             verifiers:
+ *                               type: object
+ *                               properties:
+ *                                 level 1:
+ *                                   type: string
+ *                                   example: Editor
+ *                             publisher:
+ *                               type: string
+ *                               example: User3
+ *                         submittedDate:
+ *                           type: string
+ *                           format: date-time
+ *                           example: 2025-05-20T10:24:41.100Z
+ *                         comment:
+ *                           type: string
+ *                           example: Initial version created
+ *                         submittedBy:
+ *                           type: string
+ *                           example: Deepanshu Kataria
+ *                         submittedTo:
+ *                           type: string
+ *                           example: User3
+ *                         versionNo.:
+ *                           type: string
+ *                           example: V 2
+ *                         referenceDocument:
+ *                           type: string
+ *                           example: No document
+ *                         requestType:
+ *                           type: string
+ *                           example: VERIFICATION
+ *                         requestNo.:
+ *                           type: string
+ *                           example: 2E9A
+ *                         previousRequest:
+ *                           type: string
+ *                           example: None
+ *                         approvalStatus:
+ *                           type: array
+ *                           items:
+ *                             type: object
+ *                             properties:
+ *                               role:
+ *                                 type: string
+ *                                 example: PUBLISHER
+ *                               stage:
+ *                                 type: integer
+ *                                 nullable: true
+ *                                 example: null
+ *                               status:
+ *                                 type: string
+ *                                 example: PENDING
+ *                               comment:
+ *                                 type: string
+ *                                 example: No comments
+ *       400:
+ *         $ref: '#/components/schemas/ErrorResponse'
+ */
 
 router.get(
   "/getRequestInfo/:requestId",
@@ -1202,18 +2669,273 @@ router.post(
   tryCatchWrap(ContentController.PublishRequest)
 );
 
+/**
+ * @swagger
+ * /content/getVersionsList/{resourceId}:
+ *   get:
+ *     summary: Get list of resource versions with optional filters and pagination
+ *     tags: [Content]
+ *     security:
+ *       - BearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: resourceId
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The ID of the resource to list versions for
+ *       - in: query
+ *         name: search
+ *         required: false
+ *         schema:
+ *           type: string
+ *         description: Text to search within version notes or content metadata
+ *       - in: query
+ *         name: status
+ *         required: false
+ *         schema:
+ *           type: string
+ *         description: Filter by version status (e.g., DRAFT, PUBLISHED, ARCHIVED)
+ *       - in: query
+ *         name: page
+ *         required: false
+ *         schema:
+ *           type: integer
+ *           default: 1
+ *         description: Page number for pagination
+ *       - in: query
+ *         name: limit
+ *         required: false
+ *         schema:
+ *           type: integer
+ *           default: 100
+ *         description: Number of items per page
+ *     responses:
+ *       200:
+ *         description: Versions list fetched successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Success
+ *                 content:
+ *                   type: object
+ *                   properties:
+ *                     versions:
+ *                       type: array
+ *                       items:
+ *                         type: object
+ *                         properties:
+ *                           id:
+ *                             type: string
+ *                             format: uuid
+ *                             example: cmawb9jm30001nt9wne52ghzc
+ *                           versionNumber:
+ *                             type: integer
+ *                             example: 4
+ *                           versionStatus:
+ *                             type: string
+ *                             example: PUBLISHED
+ *                           notes:
+ *                             type: string
+ *                             example: Initial version created
+ *                           referenceDoc:
+ *                             type: string
+ *                             nullable: true
+ *                             example: null
+ *                           content:
+ *                             type: object
+ *                             description: Version-specific content payload
+ *                           icon:
+ *                             type: string
+ *                             nullable: true
+ *                             example: null
+ *                           Image:
+ *                             type: string
+ *                             nullable: true
+ *                             example: null
+ *                           lockedById:
+ *                             type: string
+ *                             format: uuid
+ *                             nullable: true
+ *                             example: null
+ *                           lockedAt:
+ *                             type: string
+ *                             format: date-time
+ *                             nullable: true
+ *                             example: null
+ *                           resourceId:
+ *                             type: string
+ *                             format: uuid
+ *                             example: cmaw7xsgh00tdnt4val4aae3e
+ *                           createdAt:
+ *                             type: string
+ *                             format: date-time
+ *                             example: 2025-05-20T09:27:52.203Z
+ *                           updatedAt:
+ *                             type: string
+ *                             format: date-time
+ *                             example: 2025-05-20T09:27:52.203Z
+ *                           scheduledAt:
+ *                             type: string
+ *                             format: date-time
+ *                             nullable: true
+ *                             example: null
+ *                           publishedAt:
+ *                             type: string
+ *                             format: date-time
+ *                             nullable: true
+ *                             example: 2025-05-20T09:27:52.194Z
+ *                           isLive:
+ *                             type: boolean
+ *                             example: true
+ *                           isUnderEditing:
+ *                             type: boolean
+ *                             example: false
+ *                     pagination:
+ *                       type: object
+ *                       properties:
+ *                         totalVersions:
+ *                           type: integer
+ *                           example: 4
+ *                         totalPages:
+ *                           type: integer
+ *                           example: 1
+ *                         currentPage:
+ *                           type: integer
+ *                           example: 1
+ *                         limit:
+ *                           type: integer
+ *                           example: 100
+ *       400:
+ *         $ref: '#/components/schemas/ErrorResponse'
+ */
+
 router.get(
   "/getVersionsList/:resourceId",
   //   checkPermission(requiredPermissionsForContentManagement),
   tryCatchWrap(ContentController.GetVersionsList)
 );
 
+/**
+ * @swagger
+ * /content/inactiveResource/{resourceId}:
+ *   get:
+ *     summary: Get list of inactive versions for a specific resource
+ *     tags: [Content]
+ *     security:
+ *       - BearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: resourceId
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The ID of the resource to retrieve inactive versions for
+ *       - in: query
+ *         name: search
+ *         required: false
+ *         schema:
+ *           type: string
+ *         description: Text to search within version notes or content metadata
+ *       - in: query
+ *         name: status
+ *         required: false
+ *         schema:
+ *           type: string
+ *         description: Filter by version status (e.g., ARCHIVED, DEPRECATED)
+ *       - in: query
+ *         name: page
+ *         required: false
+ *         schema:
+ *           type: integer
+ *           default: 1
+ *         description: Page number for pagination
+ *       - in: query
+ *         name: limit
+ *         required: false
+ *         schema:
+ *           type: integer
+ *           default: 100
+ *         description: Number of items per page
+ *     responses:
+ *       200:
+ *         description: Inactive versions list fetched successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: Success
+ *                 versions:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       id:
+ *                         type: string
+ *                         format: uuid
+ *                       versionNumber:
+ *                         type: integer
+ *                       versionStatus:
+ *                         type: string
+ *                       notes:
+ *                         type: string
+ *                         nullable: true
+ *                       referenceDoc:
+ *                         type: string
+ *                         nullable: true
+ *                       createdAt:
+ *                         type: string
+ *                         format: date-time
+ *                       updatedAt:
+ *                         type: string
+ *                         format: date-time
+ *                       scheduledAt:
+ *                         type: string
+ *                         format: date-time
+ *                         nullable: true
+ *                       publishedAt:
+ *                         type: string
+ *                         format: date-time
+ *                         nullable: true
+ *       400:
+ *         $ref: '#/components/schemas/ErrorResponse'
+ */
 
 router.get(
   "/inactiveResource/:resourceId",
   //   checkPermission(requiredPermissionsForContentManagement),
   tryCatchWrap(ContentController.GetVersionsList)
 );
+
+/**
+ * @swagger
+ * /content/deleteAllContentData:
+ *   delete:
+ *     summary: Delete all content data (dangerous operation)
+ *     tags: [Content]
+ *     security:
+ *       - BearerAuth: []
+ *     responses:
+ *       200:
+ *         description: All content data deleted successfully
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   example: All content data deleted successfully
+ *       400:
+ *         $ref: '#/components/schemas/ErrorResponse'
+ */
 
 router.delete(
   "/deleteAllContentData",
