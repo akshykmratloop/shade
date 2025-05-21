@@ -5,6 +5,7 @@ import content from "./content.json"
 import { updateMainContent } from "../../../common/homeContentSlice";
 import { services, projectPageData } from "../../../../assets/index";
 import { TruncateText } from "../../../../app/capitalizeword";
+import { Img_url } from "../../../../routes/backend";
 const Services = ({ currentContent, screen, language }) => {
     const isComputer = screen > 900;
     const isTablet = screen < 900 && screen > 730;
@@ -23,7 +24,7 @@ const Services = ({ currentContent, screen, language }) => {
             <section
                 className={`relative w-full py-[100px] ${isPhone ? "px-8" : "px-10"} bg-cover bg-center ${isLeftAlign ? 'scale-x-[-1]' : ''}`}
                 style={{
-                    backgroundImage: `linear-gradient(to right,#00000020 30%,#fffffffb 100%) ,url("${ImagesFromRedux?.['ServiceBanner'] || services.contructionTowerImage}")`,
+                    backgroundImage: `linear-gradient(to right,#00000020 30%,#fffffffb 100%) ,url("${Img_url + currentContent?.['1']?.content?.images?.[0]?.url}")`,
                     backgroundPosition: "bottom"
                 }}
             >
@@ -60,16 +61,16 @@ const Services = ({ currentContent, screen, language }) => {
                             key={idx}
                             className="flex flex-col h-full bg-white \ overflow-hidden shadow"
                         >
-                            <img src={service.image} alt="img" className="w-full object-cover h-[176px]" />
+                            <img src={service.image ? (Img_url + service.image) : projectPageData.swccWaterSupply} alt="img" className="w-full object-cover h-[176px]" />
                             <section className="bg-[#F8F8F8] py-[14px] px-[18px] flex flex-col justify-between flex-1">
                                 <h1 className="text-[#292E3D] text-[22px] font-[400]">
                                     {TruncateText(service?.[titleLan], isTablet ? 15 : 23)}
                                 </h1>
                                 <p className="text-[#292E3D] text-[10px] mb-2">
-                                    {service?.subtitle?.[language]}
+                                    {service?.description?.[language]}
                                 </p>
                                 <button className={`text-[#00B9F2] flex gap-1 items-center mt-auto ${!isLeftAlign && "flex-rows-reverse"}`}>
-                                    {service?.button?.[language]}
+                                    {currentContent?.['2']?.content?.button?.[1]?.text?.[language]}
                                     <img
                                         src="https://frequencyimage.s3.ap-south-1.amazonaws.com/61c0f0c2-6c90-42b2-a71e-27bc4c7446c2-mingcute_arrow-up-line.svg"
                                         alt=""

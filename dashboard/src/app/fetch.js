@@ -480,8 +480,6 @@ export async function uploadMedia(data) {
     `${api.route("uploadMedia")}`,
     "POST",
     data,
-    {},
-    true
   );
 }
 
@@ -502,6 +500,8 @@ export async function deleteMedia(id) {
 export async function fetchAllImages(query) {
   if (!query || typeof query !== "object") {
     return await makerequest(api.route("getMedia"), "GET");
+  } else if (!query.resourceId) {
+    throw new Error("No resource Id")
   }
 
   const [key] = Object.keys(query);

@@ -52,7 +52,7 @@ const EditPage = () => {
 
     const Routes = [
         'home', 'solution', 'about-us', "service", 'market',
-        'projects', "project", 'careers', "career", 'news', 'footer',
+        'projects', "project", 'careers', "career", 'news-blogs', 'footer',
         'header', 'testimonials', 'testimonial']
 
     useEffect(() => {
@@ -68,6 +68,16 @@ const EditPage = () => {
         if (currentId) {
             setCurrentId(currentId)
         }
+
+        const handleKeyDown = (e) => {
+            if (e.key === 'Escape') {
+                setFullScreen(false)
+            }
+        }
+
+        window.addEventListener("keydown", handleKeyDown)
+
+        return () => window.removeEventListener("keydown", handleKeyDown)
     }, [])
 
     useEffect(() => {
@@ -131,7 +141,9 @@ const EditPage = () => {
                                     dark:bg-[#242933] p-8 lg:w-[23rem] 
                                     sm:w-[30vw] min-w-23rem flex 
                                     flex-col gap-4 items-center 
-                                    overflow-y-scroll customscroller`}
+                                    overflow-y-scroll customscroller
+                                     rounded-lg
+                                    `}
                                     >
                                         <div className="w-full sticky top-[-30px] rounded-md p-5 bg-gray-100 dark:bg-cyan-800 z-30">
                                             <LanguageSwitch language={language} setLanguage={setLanguage} />

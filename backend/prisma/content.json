@@ -68,7 +68,6 @@
       }
     ]
   },
-
   "home": {
     "slug": "home",
     "heroSection": {
@@ -338,7 +337,6 @@
       ]
     }
   },
-
   "testimonials": [
     {
       "slug": "salah-attia-abdelzaher",
@@ -527,7 +525,6 @@
       }
     }
   ],
-
   "footer": {
     "slug": "footer",
     "companyInfo": {
@@ -729,7 +726,6 @@
       }
     ]
   },
-
   "aboutUs": {
     "slug": "about-us",
     "introSection": {
@@ -799,7 +795,6 @@
       ]
     }
   },
-
   "solution": {
     "slug": "solution",
     "heroSection": {
@@ -914,7 +909,6 @@
       ]
     }
   },
-
   "services": {
     "slug": "service",
     "heroSection": {
@@ -971,7 +965,6 @@
       ]
     }
   },
-
   "secondLevelOFServices": [
     {
       "resourceTitle": {
@@ -1264,7 +1257,6 @@
       "childService": ["cranes-heavy-lifting-equipment"]
     }
   ],
-
   "thirdLevelOfServices": [
     {
       "resourceTitle": {
@@ -2572,7 +2564,6 @@
       }
     }
   ],
-
   "market": {
     "slug": "market",
     "heroSection": {
@@ -2656,7 +2647,6 @@
       }
     }
   },
-
   "singleMarketItems": [
     {
       "resourceTitle": {
@@ -2705,7 +2695,10 @@
           "points": [
             {
               "order": 1,
-              "title": { "ar": "التعليم", "en": "Education" },
+              "title": {
+                "ar": "التعليم",
+                "en": "Education"
+              },
               "description": {
                 "ar": "نقوم ببناء وتجهيز المدارس والجامعات بمعايير عالمية لتوفير بيئة تعليمية فعالة.",
                 "en": "We construct and equip schools and universities to global standards for effective learning environments."
@@ -2723,7 +2716,10 @@
             },
             {
               "order": 2,
-              "title": { "ar": "الضيافة", "en": "Hospitality" },
+              "title": {
+                "ar": "الضيافة",
+                "en": "Hospitality"
+              },
               "description": {
                 "ar": "إنشاء الفنادق والمنتجعات بتصاميم راقية وخدمات متكاملة لتجربة ضيافة متميزة.",
                 "en": "We develop hotels and resorts with elegant design and integrated services for an outstanding guest experience."
@@ -2741,7 +2737,10 @@
             },
             {
               "order": 3,
-              "title": { "ar": "السكني", "en": "Residential" },
+              "title": {
+                "ar": "السكني",
+                "en": "Residential"
+              },
               "description": {
                 "ar": "بناء مشاريع سكنية متنوعة من الفلل إلى المجمعات متعددة الاستخدامات.",
                 "en": "Development of a wide range of residential projects from villas to multi-use complexes."
@@ -2781,7 +2780,10 @@
       },
       "slug": "industrial",
       "heroSection": {
-        "title": { "ar": "الصناعة", "en": "Industrial" },
+        "title": {
+          "ar": "الصناعة",
+          "en": "Industrial"
+        },
         "description": {
           "ar": "نقوم ببناء وتشغيل منشآت صناعية متقدمة تشمل المصانع ومرافق الطاقة والبتروكيماويات.",
           "en": "We construct and operate advanced industrial facilities, including manufacturing plants, energy infrastructure, and petrochemical units."
@@ -2818,7 +2820,10 @@
           "points": [
             {
               "order": 1,
-              "title": { "ar": "مصانع التصنيع", "en": "Manufacturing Plants" },
+              "title": {
+                "ar": "مصانع التصنيع",
+                "en": "Manufacturing Plants"
+              },
               "description": {
                 "ar": "تطوير منشآت صناعية لإنتاج مواد متنوعة.",
                 "en": "Developing industrial plants for diverse material production."
@@ -2836,7 +2841,10 @@
             },
             {
               "order": 2,
-              "title": { "ar": "مرافق الطاقة", "en": "Energy Facilities" },
+              "title": {
+                "ar": "مرافق الطاقة",
+                "en": "Energy Facilities"
+              },
               "description": {
                 "ar": "بناء وتشغيل محطات توليد الطاقة وأنظمة التوزيع.",
                 "en": "Building and operating power generation and distribution facilities."
@@ -2860,7 +2868,10 @@
           {
             "order": 1,
             "url": null,
-            "text": { "ar": "عرض المزيد", "en": "View More" },
+            "text": {
+              "ar": "عرض المزيد",
+              "en": "View More"
+            },
             "icon": null
           }
         ]
@@ -2873,7 +2884,10 @@
       },
       "slug": "infrastructure",
       "heroSection": {
-        "title": { "ar": "البنية التحتية", "en": "Infrastructure" },
+        "title": {
+          "ar": "البنية التحتية",
+          "en": "Infrastructure"
+        },
         "description": {
           "ar": "نقدم حلولًا متكاملة للبنية التحتية تشمل الطرق، الجسور، المياه، والكهرباء.",
           "en": "We deliver integrated infrastructure solutions including roads, bridges, water systems, and power grids."
@@ -2910,7 +2924,10 @@
           "points": [
             {
               "order": 1,
-              "title": { "ar": "الطرق السريعة", "en": "Highways" },
+              "title": {
+                "ar": "الطرق السريعة",
+                "en": "Highways"
+              },
               "description": {
                 "ar": "بناء وتوسيع شبكات الطرق والممرات السريعة.",
                 "en": "Construction and expansion of highway and road networks."
@@ -2928,7 +2945,10 @@
             },
             {
               "order": 2,
-              "title": { "ar": "محطات المياه", "en": "Water Plants" },
+              "title": {
+                "ar": "محطات المياه",
+                "en": "Water Plants"
+              },
               "description": {
                 "ar": "تصميم وبناء محطات المعالجة لضمان استدامة المياه.",
                 "en": "Design and construction of treatment plants for water sustainability."
@@ -2952,7 +2972,10 @@
           {
             "order": 1,
             "url": null,
-            "text": { "ar": "عرض المزيد", "en": "View More" },
+            "text": {
+              "ar": "عرض المزيد",
+              "en": "View More"
+            },
             "icon": null
           }
         ]
@@ -2965,7 +2988,10 @@
       },
       "slug": "repair-retrofit",
       "heroSection": {
-        "title": { "ar": "الإصلاح والتحديث", "en": "Repair & Retrofit" },
+        "title": {
+          "ar": "الإصلاح والتحديث",
+          "en": "Repair & Retrofit"
+        },
         "description": {
           "ar": "نقدم خدمات إصلاح وتحديث للمباني والبنية التحتية لضمان استدامة الأداء وتحديث المرافق القائمة.",
           "en": "We offer repair and retrofit services for buildings and infrastructure to ensure sustainable performance and upgrade existing facilities."
@@ -3002,7 +3028,10 @@
           "points": [
             {
               "order": 1,
-              "title": { "ar": "ترميم المباني", "en": "Building Restoration" },
+              "title": {
+                "ar": "ترميم المباني",
+                "en": "Building Restoration"
+              },
               "description": {
                 "ar": "إصلاح وترميم الهياكل القديمة وإعادتها إلى حالتها الأصلية.",
                 "en": "Repairing and restoring aged structures to their original condition."
@@ -3047,14 +3076,16 @@
           {
             "order": 1,
             "url": null,
-            "text": { "ar": "عرض المزيد", "en": "View More" },
+            "text": {
+              "ar": "عرض المزيد",
+              "en": "View More"
+            },
             "icon": null
           }
         ]
       }
     }
   ],
-
   "project": {
     "slug": "project",
     "bannerSection": {
@@ -3139,7 +3170,6 @@
         ]
     }
   },
-
   "projectDetail": [
     {
       "filter": "ONGOING",
@@ -3919,7 +3949,6 @@
       }
     }
   ],
-
   "newsBlogs": {
     "slug": "news-blogs",
     "heroSection": {
@@ -4010,7 +4039,6 @@
       ]
     }
   },
-
   "newsBlogsDetails": [
     {
       "resourceTitle": {
@@ -4359,7 +4387,7 @@
     }
   ],
 
-  "safetyPage": {
+  "safetyPage" : {
     "slug": "safety",
     "heroSection": {
       "title": {
@@ -4410,7 +4438,7 @@
       ]
     }
   },
-
+  
   "safetyPolicies": [
     {
       "resourceTitle": {
@@ -4459,7 +4487,10 @@
           "terms": [
             {
               "order": 1,
-              "title": { "ar": "هدفنا", "en": "Our Goal" },
+              "title": {
+                "ar": "هدفنا",
+                "en": "Our Goal"
+              },
               "description": {
                 "ar": "هدفنا في جميع المشاريع هو عدم وجود حوادث قابلة للتسجيل. تفرض شركتنا على جميع الموظفين التصرف وفقًا لدليل السلامة في جميع الأوقات وأن يكونوا دائمًا على دراية بهدفنا النهائي في أن نصبح شركة خالية من الحوادث.",
                 "en": "Zero recordable incidents is always our project goal. Our company mandates all employees to act as per the Safety Manual at all times and to be constantly mindful of our ultimate goal in becoming an accident-free company."
@@ -4499,7 +4530,10 @@
       },
       "slug": "quality-policy",
       "overviewSection": {
-        "title": { "ar": "سياسة الجودة", "en": "Quality Policy" },
+        "title": {
+          "ar": "سياسة الجودة",
+          "en": "Quality Policy"
+        },
         "description": {
           "ar": "في سعيها لبناء مستقبل أقوى، تلتزم شركة Shade بتطوير وإنشاء وتنفيذ وصيانة وتحسين فعالية نظام إدارة الجودة استنادًا إلى معيار ISO 9001 لتقديم خدمات الهندسة والمشتريات والبناء (EPC).",
           "en": "In its pursuit of “Building a Stronger Future”, Shade is committed to develop, establish, implement, maintain, and continually improve the effectiveness of the Quality Management System based on ISO 9001 standard to provide Engineering, Procurement, and Construction (EPC) services."
@@ -4536,7 +4570,10 @@
           "terms": [
             {
               "order": 1,
-              "title": { "ar": "تعزيز الكفاءة", "en": "Enhancing Efficiency" },
+              "title": {
+                "ar": "تعزيز الكفاءة",
+                "en": "Enhancing Efficiency"
+              },
               "description": {
                 "ar": "تعزيز كفاءتها من خلال الحفاظ على بيئة عمل صحية تشجع على النمو المهني وتعزز الأفكار الجديدة بين موظفيها.",
                 "en": "Enhance its efficiency by maintaining and promoting a healthy work environment that encourages professional growth and promotes new ideas among its employees."
@@ -4560,7 +4597,10 @@
           {
             "order": 1,
             "url": null,
-            "text": { "ar": "عرض المزيد", "en": "View More" },
+            "text": {
+              "ar": "عرض المزيد",
+              "en": "View More"
+            },
             "icon": null
           }
         ]
@@ -4573,7 +4613,10 @@
       },
       "slug": "environmental-policy",
       "overviewSection": {
-        "title": { "ar": "سياسة البيئة", "en": "Environmental Policy" },
+        "title": {
+          "ar": "سياسة البيئة",
+          "en": "Environmental Policy"
+        },
         "description": {
           "ar": "تلتزم شركة Shade بحماية البيئة من خلال تنفيذ ممارسات مستدامة وتقليل الأثر البيئي لعملياتها.",
           "en": "Shade is committed to protecting the environment by implementing sustainable practices and minimizing the environmental impact of its operations."
@@ -4610,7 +4653,10 @@
           "terms": [
             {
               "order": 1,
-              "title": { "ar": "الاستدامة", "en": "Sustainability" },
+              "title": {
+                "ar": "الاستدامة",
+                "en": "Sustainability"
+              },
               "description": {
                 "ar": "نحن نعمل على تعزيز الاستدامة في جميع جوانب عملياتنا.",
                 "en": "We strive to promote sustainability in all aspects of our operations."
@@ -4634,7 +4680,10 @@
           {
             "order": 1,
             "url": null,
-            "text": { "ar": "عرض المزيد", "en": "View More" },
+            "text": {
+              "ar": "عرض المزيد",
+              "en": "View More"
+            },
             "icon": null
           }
         ]
@@ -4647,7 +4696,10 @@
       },
       "slug": "training-policy",
       "overviewSection": {
-        "title": { "ar": "سياسة التدريب", "en": "Training Policy" },
+        "title": {
+          "ar": "سياسة التدريب",
+          "en": "Training Policy"
+        },
         "description": {
           "ar": "تلتزم شركة Shade بتوفير التدريب المستمر لموظفيها لضمان الكفاءة والامتثال لمعايير السلامة.",
           "en": "Shade is committed to providing continuous training to its employees to ensure competence and compliance with safety standards."
@@ -4711,7 +4763,10 @@
           {
             "order": 1,
             "url": null,
-            "text": { "ar": "عرض المزيد", "en": "View More" },
+            "text": {
+              "ar": "عرض المزيد",
+              "en": "View More"
+            },
             "icon": null
           }
         ]
@@ -4724,7 +4779,10 @@
       },
       "slug": "innovation-policy",
       "overviewSection": {
-        "title": { "ar": "سياسة الابتكار", "en": "Innovation Policy" },
+        "title": {
+          "ar": "سياسة الابتكار",
+          "en": "Innovation Policy"
+        },
         "description": {
           "ar": "تلتزم شركة Shade بتعزيز الابتكار في جميع عملياتها لضمان التحسين المستمر.",
           "en": "Shade is committed to fostering innovation in all its operations to ensure continuous improvement."
@@ -4761,7 +4819,10 @@
           "terms": [
             {
               "order": 1,
-              "title": { "ar": "التفكير الإبداعي", "en": "Creative Thinking" },
+              "title": {
+                "ar": "التفكير الإبداعي",
+                "en": "Creative Thinking"
+              },
               "description": {
                 "ar": "نحن نشجع التفكير الإبداعي بين موظفينا.",
                 "en": "We encourage creative thinking among our employees."
@@ -4785,7 +4846,10 @@
           {
             "order": 1,
             "url": null,
-            "text": { "ar": "عرض المزيد", "en": "View More" },
+            "text": {
+              "ar": "عرض المزيد",
+              "en": "View More"
+            },
             "icon": null
           }
         ]
@@ -4798,7 +4862,10 @@
       },
       "slug": "communication-policy",
       "overviewSection": {
-        "title": { "ar": "سياسة التواصل", "en": "Communication Policy" },
+        "title": {
+          "ar": "سياسة التواصل",
+          "en": "Communication Policy"
+        },
         "description": {
           "ar": "تلتزم شركة Shade بتعزيز التواصل الفعال لضمان الشفافية والوضوح في جميع عملياتها.",
           "en": "Shade is committed to promoting effective communication to ensure transparency and clarity in all its operations."
@@ -4835,7 +4902,10 @@
           "terms": [
             {
               "order": 1,
-              "title": { "ar": "الشفافية", "en": "Transparency" },
+              "title": {
+                "ar": "الشفافية",
+                "en": "Transparency"
+              },
               "description": {
                 "ar": "نحن نشجع الشفافية في جميع جوانب عملياتنا.",
                 "en": "We encourage transparency in all aspects of our operations."
@@ -4859,7 +4929,10 @@
           {
             "order": 1,
             "url": null,
-            "text": { "ar": "عرض المزيد", "en": "View More" },
+            "text": {
+              "ar": "عرض المزيد",
+              "en": "View More"
+            },
             "icon": null
           }
         ]

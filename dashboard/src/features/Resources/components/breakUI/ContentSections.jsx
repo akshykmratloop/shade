@@ -32,7 +32,8 @@ const ContentSection = ({
     resourceId,
     ref,
     elementId,
-    outOfEditing
+    outOfEditing,
+    directIcon
 }) => {
     const dispatch = useDispatch();
     // const [extraFiles, setExtraFiles] = useState([]);
@@ -46,7 +47,8 @@ const ContentSection = ({
             src: {
                 url: "", altText: { en: "", ar: "" }
             },
-            sectionIndex
+            sectionIndex,
+            section
         }))
         // if (deepPath) {
         //     dispatch(updateImages({ src: { url: "" }, section, currentPath, deepPath, projectId, operation: "add" }))
@@ -72,7 +74,7 @@ const ContentSection = ({
     };
 
     const removeExtraFileInput = (order) => {
-        dispatch(rmImageArray({sectionIndex, order}))
+        dispatch(rmImageArray({ sectionIndex, order, section }))
 
         // if (section === 'gallerySection' || deepPath) {
         //     dispatch(updateImages({
@@ -94,7 +96,7 @@ const ContentSection = ({
         // }
     };
 
-    const updateFormValue = ({ updateType, value, path }) => {
+    const updateFormValue = (updateType, value, path, buttonIndex) => {
         if (updateType === 'count') {
             if (!isNaN(value)) {
                 let val = value?.slice(0, 7);
@@ -123,7 +125,8 @@ const ContentSection = ({
                 careerId,
                 deepPath,
                 sectionIndex,
-                path
+                path,
+                buttonIndex
             }));
         }
     };
@@ -165,11 +168,11 @@ const ContentSection = ({
     const config = useMemo(() => ({
         buttons: [
             "bold", "italic", "underline", "strikethrough", "|",
-            "font", "fontsize", "lineHeight", "|", "eraser", "image", "ul"
+            "font", "lineHeight", "|", "eraser", "image", "ul"
         ],
         buttonsXS: [
             "bold", "italic", "underline", "strikethrough", "|",
-            "font", "fontsize", "lineHeight", "|",
+            "font", "lineHeight", "|",
             "eraser", "ul"
         ],
         toolbarAdaptive: false,
@@ -208,14 +211,13 @@ const ContentSection = ({
             <h3 className={`font-semibold ${subHeading ? "text-[.9rem] mb-1" : Heading ? "text-[1.25rem] mb-4" : " mb-0"}`} style={{ wordBreak: "break-word" }}>{Heading || subHeading}</h3>
             {inputs.length > 0 &&
                 inputs.map((input, i) => {
-                    let valueExpression;
                     if (input.input === "textarea") {
                         return (
                             <TextAreaInput
                                 key={i}
                                 labelTitle={input.label}
                                 labelStyle="block sm:text-xs xl:text-sm"
-                                updateFormValue={updateFormValue}
+                                updateFormValue={({ updateType, value, path }) => updateFormValue(updateType, value, path, input.index)}
                                 updateType={input.updateType}
                                 section={section}
                                 defaultValue={input.value || ""}
@@ -257,9 +259,9 @@ const ContentSection = ({
                                 InputClasses="h-[2.125rem]"
                                 labelTitle={input.label}
                                 labelStyle="block sm:text-xs xl:text-sm"
-                                updateFormValue={updateFormValue}
+                                updateFormValue={({ updateType, value, path }) => updateFormValue(updateType, value, path, input.index)}
                                 updateType={input.updateType}
-                                section={section}
+                                // section={section}
                                 defaultValue={input.value || ""}
                                 language={language}
                                 id={input.updateType}
@@ -308,7 +310,7 @@ const ContentSection = ({
                         : <div className={`flex ${inputFiles.length > 1 ? "flex-wrap" : ""} gap-10 w-[80%]`}>
                             {inputFiles.map((file, i) => {
                                 return (
-                                    <div className="relative" key={i}>
+                                    <div className="relative" key={file.id}>
                                         {i > 3 && <button
                                             className={`absolute top-6 z-[22] right-[-12px] bg-red-500 text-white px-[5px] rounded-full shadow ${outOfEditing && "cursor-not-allowed"}`}
                                             onClick={() => { if (!outOfEditing) { removeExtraFileInput(file.order) } }}
@@ -329,6 +331,7 @@ const ContentSection = ({
                                             outOfEditing={outOfEditing}
                                             directIcon={file.directIcon}
                                             order={file.order}
+                                            url={file.url}
                                         />
                                     </div>
                                 )

@@ -20,8 +20,10 @@ import {
 import { CSS } from "@dnd-kit/utilities";
 // import { updateSelectedContent, updateSelectedProject } from "../../../common/homeContentSlice";
 import { updateSelectedContentAndSaveDraft } from "../../../common/thunk/smsThunk";
+import ErrorText from "../../../../components/Typography/ErrorText";
+import xSign from "../../../../assets/x-close.png"
 
-const SortableItem = ({ option, removeOption, language, reference, titleLan, contentIndex, }) => {
+const SortableItem = ({ option, removeOption, language, reference, titleLan, contentIndex }) => {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } =
     useSortable({ id: option, data: { option } });
 
@@ -56,7 +58,7 @@ const SortableItem = ({ option, removeOption, language, reference, titleLan, con
   );
 };
 
-const MultiSelect = ({ outOfEditing, heading, min = 0, options, tabName, label, language, section, referenceOriginal = { dir: "", index: 0 }, currentPath, projectId, sectionIndex, listOptions, limitOptions = 0 }) => {
+const MultiSelect = ({ outOfEditing, heading, options, tabName, label, language, section, referenceOriginal = { dir: "", index: 0 }, currentPath, projectId, sectionIndex, listOptions, limitOptions = 0, errorClass }) => {
   const titleLan = language === "en" ? "titleEn" : "titleAr"
   const [selectedOptions, setSelectedOptions] = useState([]);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -64,6 +66,8 @@ const MultiSelect = ({ outOfEditing, heading, min = 0, options, tabName, label, 
   const [random, setRandom] = useState(1)
   const dispatch = useDispatch();
   const [activeItem, setActiveItem] = useState(null);
+  const [errorMessage, setErrorMessage] = useState('')
+
 
   let operation = "";
 
@@ -71,6 +75,7 @@ const MultiSelect = ({ outOfEditing, heading, min = 0, options, tabName, label, 
 
   const toggleDropdown = () => {
     setIsDropdownOpen((prev) => !prev);
+    setErrorMessage("")
   };
 
   const handleSelect = (optionToAdd) => {
@@ -89,7 +94,7 @@ const MultiSelect = ({ outOfEditing, heading, min = 0, options, tabName, label, 
 
 
   const removeOption = (optionToRemove) => {
-    if (selectedOptions.length <= limitOptions) return
+    if (selectedOptions.length <= limitOptions) return setErrorMessage(`At least ${limitOptions} options are required`)
     let deductedArray = selectedOptions.filter(e => e !== optionToRemove)
     setSelectedOptions(deductedArray)
     operation = 'remove'
@@ -166,7 +171,7 @@ const MultiSelect = ({ outOfEditing, heading, min = 0, options, tabName, label, 
         {
           outOfEditing &&
           <div className="bg-black/10 absolute z-[20] top-0 left-0 h-full w-full rounded-md cursor-not-allowed"></div>
-        } 
+        }
         <button
           onClick={toggleDropdown}
           className="w-full mt- p-2 border border-stone-500 rounded-md bg-white hover:bg-gray-100 text-sm bg-[#fafaff] dark:bg-[#2a303c]"
@@ -182,7 +187,7 @@ const MultiSelect = ({ outOfEditing, heading, min = 0, options, tabName, label, 
                   <li
                     key={option?.[titleLan] + index}
                     onClick={() => handleSelect(option, index)}
-                    className="p-2 cursor-pointer hover:bg-gray-100"
+                    className="p-2 cursor-pointer hover:bg-gray-100 dark:hover:text-black"
                   >
                     {option[titleLan]}
                   </li>
@@ -224,6 +229,15 @@ const MultiSelect = ({ outOfEditing, heading, min = 0, options, tabName, label, 
           )}
         </DndContext>
       </div>
+      {
+        errorMessage &&
+        <ErrorText
+          styleClass={`absolute ${errorClass ? errorClass : "text-[.7rem] top-[101%] left-[1px] gap-1"} ${errorMessage ? "flex" : "hidden"
+            }`}
+        >
+          <img src={xSign} alt="" className="h-3 translate-y-[2px]" />
+          {errorMessage}
+        </ErrorText>}
     </div>
   );
 };

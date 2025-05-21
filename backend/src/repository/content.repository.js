@@ -3037,13 +3037,13 @@ export const deleteAllResourceRelatedDataFromDb = async () => {
         const deletedMedia = await tx.media.deleteMany({});
         console.log(`Deleted ${deletedMedia.count} media records`);
 
-        // // Step 10: Delete all filters to resource relationships
+        // Step 10: Delete all filters to resource relationships
         // await tx.$executeRaw`DELETE FROM "_FiltersToResource"`;
         // console.log(`Deleted filters to resource relationships`);
 
-        // Step 11: Delete all filters
-        const deletedFilters = await tx.filters.deleteMany({});
-        console.log(`Deleted ${deletedFilters.count} filters`);
+        // // Step 11: Delete all filters
+        // const deletedFilters = await tx.filters.deleteMany({});
+        // console.log(`Deleted ${deletedFilters.count} filters`);
 
         // Step 12: Handle Resource parent-child relationships
         // First, update all resources to remove parent references
@@ -3075,7 +3075,7 @@ export const deleteAllResourceRelatedDataFromDb = async () => {
             resourceVersions: deletedResourceVersions.count,
             seo: deletedSEO.count,
             media: deletedMedia.count,
-            filters: deletedFilters.count,
+            // filters: deletedFilters.count,
             resources: deletedResources.count,
           },
         };

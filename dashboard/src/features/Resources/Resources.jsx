@@ -27,6 +27,7 @@ import createContent from "./defineContent";
 import FallBackLoader from "../../components/fallbackLoader/FallbackLoader";
 import VersionTable from "./VersionTable";
 import { setPlatform } from "../common/platformSlice";
+import { updateResourceId } from "../common/resourceSlice";
 
 const AllForOne = lazy(() => import("./components/AllForOne"));
 const Page404 = lazy(() => import("../../pages/protected/404"));
@@ -227,6 +228,8 @@ function Resources() {
         icon: <FiEdit />,
         text: "Edit",
         onClick: () => {
+          // dispatch(updateResourceId({ id: page.id, name: page.titleEn }))
+
           setIdOnStorage(page.id);
           const { relationType, resourceTag, subPage, subOfSubPage, slug } = page;
           if (relationType === "CHILD") {
@@ -436,7 +439,7 @@ function Resources() {
         />
       )}
       {
-        (preview && rawContent) && 
+        (preview && rawContent) &&
         <div className="fixed top-0 left-0 z-[55] h-screen bg-stone-900/30 overflow-y-scroll customscroller">
           <Suspense fallback={<FallBackLoader />}>
             <div className="">

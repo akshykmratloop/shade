@@ -207,7 +207,7 @@ function Header() {
             {greetings}
           </p>
         </div>
-        <div className="order-last gap-[12px]">
+        <div className="order-last w-[50%] gap-[12px]">
           {/* <SearchBar
             setSearchText={() => { }}
             styleClass={
@@ -223,7 +223,7 @@ function Header() {
             </div>
           </button> */}
           <div
-            className="mx-1 w-[16vw] p-0 self-stretch flex gap-[6px] items-center rounded-md relative cursor-pointer "
+            className="mx-1 w-[20vw] p-0 self-stretch flex gap-[6px] items-center rounded-md relative cursor-pointer "
             onClick={() => {
               setOpenList(!openList);
             }}
@@ -263,7 +263,7 @@ function Header() {
             {!oneRoleOnly && (
               <ul
                 ref={listRef}
-                className="dropdown-content 
+                className="dropdown-content w-[90%]
                 mt-1 left-[18%] top-[100%] 
                 dark:border dark:border-stone-300/20 
                 dark:shadow-md dark:shadow-stone-800 

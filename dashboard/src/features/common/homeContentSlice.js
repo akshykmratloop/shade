@@ -9,8 +9,6 @@ const initialState = {
     future: []
 };
 
-const basePath = 'present.home';
-
 const cmsSlice = createSlice({
     name: "CMS",
     initialState,
@@ -21,11 +19,12 @@ const cmsSlice = createSlice({
             state.future = []
         },
         updateImages: (state, action) => {
+            console.log(action.payload.directIcon, action.payload.index, action.payload.cardIndex)
             state.past.push(JSON.parse(JSON.stringify(state.present)));
             if (action.payload.type === "refDoc") {
                 state.present.content.editVersion.referenceDoc = action.payload.src
             } else if (action.payload.section === "clientSection") {
-                state.present.content.editVersion.sections[action.payload.index].content.clients[action.payload.cardIndex].image[0] = action.payload.src
+                state.present.content.editVersion.sections[action.payload.index].content.clientsImages[action.payload.cardIndex] = action.payload.src
             } else if (action.payload.directIcon) {
                 state.present.content.editVersion.sections[action.payload.index].content.cards[action.payload.cardIndex].icon = action.payload.src
             } else {
@@ -34,18 +33,36 @@ const cmsSlice = createSlice({
             state.future = [];
         },
         addImageArray: (state, action) => {
-            let oldArray = state.present.content.editVersion.sections[action.payload.sectionIndex].content.images
+            let oldArray = state.present.content.editVersion.sections[action.payload.sectionIndex].content[action.payload.section]
             let newArray = [...oldArray, { ...action.payload.src, order: oldArray.length + 1 }]
 
-            state.present.content.editVersion.sections[action.payload.sectionIndex].content.images = newArray
+            state.present.content.editVersion.sections[action.payload.sectionIndex].content[action.payload.section] = newArray
         },
         rmImageArray: (state, action) => {
-            let oldArray = state.present.content.editVersion.sections[action.payload.sectionIndex].content.images
+            let oldArray = state.present.content.editVersion.sections[action.payload.sectionIndex].content[action.payload.section]
             let newArray = oldArray.filter(e => {
                 return e.order !== action.payload.order
             })
 
-            state.present.content.editVersion.sections[action.payload.sectionIndex].content.images = newArray
+            newArray = newArray.map((e, i) => ({ ...e, order: i + 1 }))
+
+            state.present.content.editVersion.sections[action.payload.sectionIndex].content[action.payload.section] = newArray
+        },
+        addClientHomeArray: (state, action) => {
+            let oldArray = state.present.content.editVersion.sections[action.payload.sectionIndex].content.clientImages
+            let newArray = [...oldArray, { ...action.payload.src, order: oldArray.length + 1 }]
+
+            state.present.content.editVersion.sections[action.payload.sectionIndex].content.clientImages = newArray
+        },
+        rmClientHomeArray: (state, action) => {
+            let oldArray = state.present.content.editVersion.sections[action.payload.sectionIndex].content.clientImages
+            let newArray = oldArray.filter(e => {
+                return e.order !== action.payload.order
+            })
+
+            newArray = newArray.map((e, i) => ({ ...e, order: i + 1 }))
+
+            state.present.content.editVersion.sections[action.payload.sectionIndex].content.clientImages = newArray
         }
         ,
         // updateAList: (state, action) => {
@@ -169,11 +186,13 @@ const cmsSlice = createSlice({
             if (action.payload.type === "content[index]") {
                 state.present.content.editVersion.sections[action.payload.sectionIndex].content[action.payload.contentIndex][action.payload.title][action.payload.lan] = action.payload.value
             } else if (action.payload.title === "button") {
-                state.present.content.editVersion.sections[action.payload.sectionIndex].content[action.payload.title][0].text[action.payload.lan] = action.payload.value
+                state.present.content.editVersion.sections[action.payload.sectionIndex].content[action.payload.title][action.payload.buttonIndex].text[action.payload.lan] = action.payload.value
             } else if (action.payload.section === "recentProjectsSection") {
                 state.present.content.editVersion.sections[action.payload.sectionIndex].sections[action.payload.index].content[action.payload.title][action.payload.lan] = action.payload.value
             } else if (action.payload.subSection === "cards") {
                 state.present.content.editVersion.sections[action.payload.sectionIndex].content.cards[action.payload.index][action.payload.title][action.payload.lan] = action.payload.value
+            } else if (action.payload.subSection) {
+                state.present.content.editVersion.sections[action.payload.sectionIndex].content.introSection[action.payload.title][action.payload.lan] = action.payload.value
             } else {
                 state.present.content.editVersion.sections[action.payload.sectionIndex].content[action.payload.title][action.payload.lan] = action.payload.value
             }
@@ -181,6 +200,8 @@ const cmsSlice = createSlice({
             state.future = [];
         },
         updateServicesNumber: (state, action) => {
+            state.present.content.editVersion.sections[action.payload.sectionIndex].content[action.payload.title][action.payload.lan] = action.payload.value
+
             state.past.push(JSON.parse(JSON.stringify(state.present)));
             state.present.content.editVersion.sections[action.payload.sectionIndex].content.cards[action.payload.index][action.payload.title] = action.payload.value
             state.future = [];
@@ -210,6 +231,10 @@ const cmsSlice = createSlice({
 
                 case "testimonials":
                     state.present.content.editVersion.sections[action.payload.sectionIndex].items = newOptions
+                    break;
+
+                case "project/main":
+                    state.present.content.editVersion.sections[action.payload.sectionIndex].sections[action.payload.index].items = newOptions
                     break;
 
                 case "jobs":
