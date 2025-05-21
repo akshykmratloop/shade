@@ -88,6 +88,8 @@ const DeactivateRole = async (req, res) => {
       io.to(socketIdOfUpdatedUser).emit("userUpdated", {result: el});
     }
   });
+  console.log("role update", result);
+
   io.emit("role_updated", result);
 
   res.status(200).json(result);
