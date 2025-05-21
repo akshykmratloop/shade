@@ -50,21 +50,23 @@ const user = createSlice({
       );
 
       const {isEditor, isPublisher, isVerifier} = checkUser(
-        action.payload.data.roles?.[0]?.permissions
+        action.payload?.data?.roles?.[0]?.permissions
       );
 
       state.isEditor = isEditor;
       state.isPublisher = isPublisher;
       state.isVerifier = isVerifier;
 
-      if (action.payload.type === "update") {
-        if (!(state.currentRole && action.payload.data?.roles?.length > 1)) {
-          state.currentRole = action.payload.data.roles[0];
-        } else if (action.payload.data.roles.length === 0) {
+      if (action.payload?.type === "update") {
+        if (!(state?.currentRole && action.payload?.data?.roles?.length > 1)) {
+          state.currentRole = action.payload?.data?.roles?.[0];
+        } else if (action.payload?.data?.roles?.length === 0) {
           state.currentRole = {...initialCurrentRole};
         }
+      } else if (action.payload?.data?.roles?.length === 0) {
+        state.currentRole = {...initialCurrentRole};
       } else {
-        state.currentRole = action.payload.data.roles[0];
+        state.currentRole = action.payload?.data?.roles?.[0];
       }
     },
     updateCurrentRole: (state, action) => {
@@ -73,7 +75,7 @@ const user = createSlice({
       state.currentRole = roleObj?.[0] || initialCurrentRole;
 
       const {isEditor, isPublisher, isVerifier} = checkUser(
-        roleObj[0]?.permissions
+        roleObj?.[0]?.permissions
       );
 
       state.isEditor = isEditor;

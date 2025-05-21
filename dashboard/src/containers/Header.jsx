@@ -148,9 +148,10 @@ function Header() {
         return logoutUser();
       }
 
-      let userObj = response.result?.roles?.filter(
-        (e) => e.status === "ACTIVE"
-      );
+      let roles = response.result?.roles?.filter((e) => e.status === "ACTIVE");
+
+      const userObj = {...response.result, roles};
+      console.log("userObj", userObj);
 
       dispatch(updateUser({data: userObj, type: "update"}));
       localStorage.setItem("user", JSON.stringify(userObj));
