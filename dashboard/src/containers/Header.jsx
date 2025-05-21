@@ -149,6 +149,7 @@ function Header() {
       }
 
       let userObj = response.result?.roles?.filter(e => e.status === "ACTIVE")
+      
       dispatch(updateUser({ data: userObj, type: "update" }))
       localStorage.setItem("user", JSON.stringify(userObj))
     }
