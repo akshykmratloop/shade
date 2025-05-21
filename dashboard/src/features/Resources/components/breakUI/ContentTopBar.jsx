@@ -204,7 +204,7 @@ export default function ContentTopBar({ setWidth, setFullScreen, outOfEditing, c
     }, [ReduxState.present?.content?.editVersion])
 
     return (
-        <div className='flex justify-between gap-2 items-center xl:px-[2.36rem] xl:py-[1.2rem] sm:px-[.8rem] sm:py-[.5rem] lg:px-[.8rem] bg-[#fafaff] dark:bg-[#242933]'>
+        <div className='flex rounded-lg justify-between gap-2 items-center xl:px-[2.36rem] xl:py-[1.2rem] sm:px-[.8rem] sm:py-[.5rem] lg:px-[.8rem] bg-[#fafaff] dark:bg-[#242933]'>
             <div className='flex items-center gap-2'>
                 <span className='text-[black] dark:text-[#fafaff] flex items-center cursor-pointer'
                     onClick={() => navigate(-1)}>

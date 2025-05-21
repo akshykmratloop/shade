@@ -144,9 +144,11 @@ function Header() {
 
     const handleUserUpdate = async (response) => {
       // console.log(JSON.stringify(response))
-      if (response.result.deactivate) logoutUser()
-      dispatch(updateUser({ data: response.result, type: "update" }))
-      localStorage.setItem("user", JSON.stringify(response.result))
+      if (response.result.deactivate || response.result.status === "INACTIVE") logoutUser()
+
+      let userObj = response.result?.roles?.filter(e => e.status === "ACTIVE")
+      dispatch(updateUser({ data: userObj, type: "update" }))
+      localStorage.setItem("user", JSON.stringify(userObj))
     }
 
     socket.on("role_created", handleNew);
@@ -205,7 +207,7 @@ function Header() {
             {greetings}
           </p>
         </div>
-        <div className="order-last gap-[12px]">
+        <div className="order-last w-[50%] gap-[12px]">
           {/* <SearchBar
             setSearchText={() => { }}
             styleClass={
@@ -221,7 +223,7 @@ function Header() {
             </div>
           </button> */}
           <div
-            className="mx-1 w-[16vw] p-0 self-stretch flex gap-[6px] items-center rounded-md relative cursor-pointer "
+            className="mx-1 w-[20vw] p-0 self-stretch flex gap-[6px] items-center rounded-md relative cursor-pointer "
             onClick={() => {
               setOpenList(!openList);
             }}
@@ -245,7 +247,7 @@ function Header() {
             >
               <div
                 className="flex h-[100%] items-center justify-center flex-row text-[clamp(10px,1.7vh,2rem)]"
-                style={{ whiteSpace: "", }}
+                style={{ whiteSpace: "pre", }}
               >
                 {TruncateText(capitalizeWords(currentRole?.role), 20) || "No role is assigned"}
               </div>
@@ -258,7 +260,7 @@ function Header() {
             {!oneRoleOnly && (
               <ul
                 ref={listRef}
-                className="dropdown-content 
+                className="dropdown-content w-[90%]
                 mt-1 left-[18%] top-[100%] 
                 dark:border dark:border-stone-300/20 
                 dark:shadow-md dark:shadow-stone-800 

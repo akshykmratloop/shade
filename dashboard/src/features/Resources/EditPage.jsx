@@ -141,7 +141,9 @@ const EditPage = () => {
                                     dark:bg-[#242933] p-8 lg:w-[23rem] 
                                     sm:w-[30vw] min-w-23rem flex 
                                     flex-col gap-4 items-center 
-                                    overflow-y-scroll customscroller`}
+                                    overflow-y-scroll customscroller
+                                     rounded-lg
+                                    `}
                                     >
                                         <div className="w-full sticky top-[-30px] rounded-md p-5 bg-gray-100 dark:bg-cyan-800 z-30">
                                             <LanguageSwitch language={language} setLanguage={setLanguage} />

@@ -97,7 +97,7 @@ const AllForOneManager = ({ currentPath, language, subPath, deepPath, content, c
 
 
     return (
-        <div>
+        <div className="">
             {manager}
         </div>
     )
