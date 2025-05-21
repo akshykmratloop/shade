@@ -144,7 +144,9 @@ function Header() {
 
     const handleUserUpdate = async (response) => {
       // console.log(JSON.stringify(response))
-      if (response.result.deactivate || response.result.status === "INACTIVE") logoutUser()
+      if (response.result.status === "INACTIVE") {
+        return logoutUser()
+      }
 
       let userObj = response.result?.roles?.filter(e => e.status === "ACTIVE")
       dispatch(updateUser({ data: userObj, type: "update" }))
