@@ -1,34 +1,19 @@
-import React, { useEffect, useState } from "react";
-// import styles from "@/components/header/Header.module.scss";
-// import Logo from "@/assets/brand-logo/logo.svg";
+import { useEffect, useState } from "react";
 import Logo from "../../../../../assets/brand-logo/logo.svg"
 import content from '../content.json'
 import { useDispatch, useSelector } from "react-redux";
-// import Image from "next/image";
-// import Link from "next/link";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { updateMainContent } from "../../../../common/homeContentSlice";
-// import { usePathname } from "next/navigation";
-// import localFont from "next/font/local";
-// import ContactUsModal from "./ContactUsModal";
-// import { useGlobalContext } from "../../contexts/GlobalContext";
 
-// Font files can be colocated inside of `app`
-// const BankGothic = localFont({
-//     src: "../../../public/font/BankGothic_Md_BT.ttf",
-//     display: "swap",
-// });
-
-const Header = ({ isOpenNavbar, setIsOpenNavbar, language, screen, setLanguage }) => {
-    // const { language, toggleLanguage, content } = useGlobalContext();
+const Header = ({ isOpenNavbar, setIsOpenNavbar, language, screen, setLanguage, currentContent }) => {
     // const currentContent = content?.header;
     // const router = useRouter()
     // const pathname = usePathname();
-    const dispatch = useDispatch()
+    // const dispatch = useDispatch()
     const isLeftAlign = language === "en"
     const [scrolled, setScrolled] = useState(false);
     const [isModal, setIsModal] = useState(false);
-    const currentContent = useSelector((state) => state.homeContent.present.header)
+    // const currentContent = useSelector((state) => state.homeContent.present.header)
 
     const changeLangugage = () => {
         setLanguage(prev => {
@@ -39,6 +24,7 @@ const Header = ({ isOpenNavbar, setIsOpenNavbar, language, screen, setLanguage }
             }
         })
     }
+
 
     useEffect(() => {
         const handleScroll = () => {
@@ -74,9 +60,9 @@ const Header = ({ isOpenNavbar, setIsOpenNavbar, language, screen, setLanguage }
         setIsModal(false);
     };
 
-    useEffect(() => {
-        dispatch(updateMainContent({ currentPath: "header", payload: (content?.header) }))
-    }, [])
+    // useEffect(() => {
+    //     dispatch(updateMainContent({ currentPath: "header", payload: (content?.header) }))
+    // }, [])
 
     return (
         <div>
@@ -89,23 +75,18 @@ const Header = ({ isOpenNavbar, setIsOpenNavbar, language, screen, setLanguage }
                         </Link>
 
                         <nav className={`hidden lg:flex ${isLeftAlign ? 'gap-6' : "space-x-10"}`}>
-                            {[
-                                "section 1",
-                                "section 2",
-                                "section 3",
-                                "section 4",
-                                "section 5",
-                                "section 6",
-                                "section 7"
-                            ].map((item) => (
-                                <Link
-                                    key={item}
-                                    href={`/${item}`}
-                                    className={`text-[#001A5882] text-xs transition duration-200 ${false ? "text-gray-800 font-semibold" : "hover:text-[#145098]"}`}
-                                >
-                                    {currentContent?.[item]?.title?.[language]}
-                                </Link>
-                            ))}
+                            {currentContent?.['1']?.content?.map((item) => {
+                                if (item.order === 8) return null
+                                return (
+                                    <Link
+                                        key={item.url}
+                                        href={`${item?.url}`}
+                                        className={`text-[#001A5882] text-xs transition duration-200 ${false ? "text-gray-800 font-semibold" : "hover:text-[#145098]"}`}
+                                    >
+                                        {item?.nav?.[language]}
+                                    </Link>
+                                )
+                            })}
                         </nav>
 
                         <div className={`flex items-center ${!isLeftAlign && "flex-row-reverse"} gap-4`}>
@@ -124,7 +105,7 @@ const Header = ({ isOpenNavbar, setIsOpenNavbar, language, screen, setLanguage }
                                 className="p-2 py-2 text-white text-sm bg-[#00b9f2] rounded-md shadow-md hover:bg-blue-700 transition-all"
                                 onClick={handleContactUS}
                             >
-                                {currentContent?.["section 8"]?.title?.[language]}
+                                {currentContent?.['1']?.content?.[7]?.nav?.[language]}
                             </button>
 
                             <button className="lg:hidden flex flex-col items-center space-y-1" onClick={handleNavbar}>
