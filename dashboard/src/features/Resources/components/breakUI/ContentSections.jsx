@@ -8,6 +8,15 @@ import InputFileForm from "../../../../components/Input/InputFileForm";
 import JoditEditor from "jodit-react";
 import { Jodit } from "jodit-react";
 
+const skeleton = {
+    socialLinks: {
+        url: "", icon: ""
+    },
+    images: {
+        url: "", altText: { en: "", ar: "" }
+    }
+}
+
 const ContentSection = ({
     Heading,
     subHeading,
@@ -42,13 +51,29 @@ const ContentSection = ({
 
 
     const addExtraFileInput = () => {
+        console.log("qwer")
         dispatch(addImageArray({
-            src: {
-                url: "", altText: { en: "", ar: "" }
-            },
+            src: skeleton[section],
             sectionIndex,
             section
         }))
+        // if (section === "socialLinks") {
+        //     dispatch(addImageArray({
+        //         src: {
+        //             url: "", altText: { en: "", ar: "" }
+        //         },
+        //         sectionIndex,
+        //         section
+        //     }))
+        // } else {
+        //     dispatch(addImageArray({
+        //         src: {
+        //             url: "", icon: ""
+        //         },
+        //         sectionIndex,
+        //         section
+        //     }))
+        // }
     };
 
     const removeExtraFileInput = (order) => {
@@ -264,7 +289,7 @@ const ContentSection = ({
                                 {allowExtraInput &&
                                     <button
                                         className="mt-2 px-3 py-2 bg-blue-500 h-[95px] w-[95px] text-white rounded-lg translate-y-3 self-center text-xl"
-                                        onClick={outOfEditing ? addExtraFileInput : () => { }}
+                                        onClick={outOfEditing ? () => { } : addExtraFileInput}
                                     >
                                         +
                                     </button>
@@ -301,9 +326,9 @@ const ContentSection = ({
                                     </div>
                                 )
                             })}
-                       
+
                             {
-                                section === 'socialIcons' ? ImagesFromRedux?.socialIcons?.length < 8 ?
+                                section === 'socialLinks' ? ImagesFromRedux?.socialIcons?.length < 8 ?
                                     <button
                                         className="mt-2 px-3 py-2 bg-blue-500 h-[95px] w-[95px] text-white rounded-lg translate-y-3 self-center text-xl"
                                         onClick={addExtraFileInput}

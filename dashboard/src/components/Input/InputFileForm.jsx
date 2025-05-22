@@ -12,6 +12,7 @@ const InputFile = ({ label, baseClass, resourceId, sectionIndex, index, textValu
   const ImageFromRedux = useSelector(state => state.homeContent.present.images);
   const [fileURL, setFileURL] = useState("");
   const [isSelectorOpen, setIsSelectorOpen] = useState(false);
+  const [prevText, setPrevText] = useState("")
 
   // const handleFileChange = (event) => {
   //   const file = event.target.files[0];
@@ -32,14 +33,9 @@ const InputFile = ({ label, baseClass, resourceId, sectionIndex, index, textValu
   //     dispatch(updateImages({ section: "socialIcons", src: newArray, currentPath }));
   //   }
   // };
-  console.log(url)
 
   const handleImageSelect = (url) => {
-    // setFileURL(url[0]);
-    // const payloadData = {
-    //   url: url[0],
-    //   order
-    // }
+
     dispatch(updateImages({
       section,
       title: "icon",
@@ -53,7 +49,7 @@ const InputFile = ({ label, baseClass, resourceId, sectionIndex, index, textValu
   };
 
   function updateValue({ value }) {
-    if (value.length <= 1) {
+    if (value.length <= 1 && prevText === "") {
       value = "https://" + value
     }
 
@@ -65,24 +61,25 @@ const InputFile = ({ label, baseClass, resourceId, sectionIndex, index, textValu
       currentPath,
       sectionIndex,
     }));
+    setPrevText(value)
   }
 
-  const clearFile = () => {
-    setFileURL("");
-    const newArray = ImageFromRedux?.socialIcons?.map((e, i) => {
-      console.log(ImageFromRedux.OriginalSocialIcons[i], id.slice(-1))
-      if (id.slice(-1) == ImageFromRedux.OriginalSocialIcons[i].id) {
-        console.log("find true")
-        return ImageFromRedux.OriginalSocialIcons[i]
-      } else {
-        return e
-      }
-    })
-    dispatch(updateImages({ section: "socialIcons", src: newArray, currentPath }));
-    if (fileInputRef.current) {
-      fileInputRef.current.value = "";
-    }
-  };
+  // const clearFile = () => {
+  //   setFileURL("");
+  //   const newArray = ImageFromRedux?.socialIcons?.map((e, i) => {
+  //     console.log(ImageFromRedux.OriginalSocialIcons[i], id.slice(-1))
+  //     if (id.slice(-1) == ImageFromRedux.OriginalSocialIcons[i].id) {
+  //       console.log("find true")
+  //       return ImageFromRedux.OriginalSocialIcons[i]
+  //     } else {
+  //       return e
+  //     }
+  //   })
+  //   dispatch(updateImages({ section: "socialIcons", src: newArray, currentPath }));
+  //   if (fileInputRef.current) {
+  //     fileInputRef.current.value = "";
+  //   }
+  // };
   const removeFileInput = () => {
     if (section === 'socialIcons') {
       const newArray = ImageFromRedux.socialIcons.filter((e, i) => { return e.id !== parseInt(id.slice(-1)) })
