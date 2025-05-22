@@ -36,10 +36,10 @@ const Footer = ({ language, screen, currentContent }) => {
         { id: 4, img: Facebook, url: "https://www.facebook.com/" },
     ]
 
-    useEffect(() => {
-        dispatch(updateMainContent({ currentPath: "footer", payload: (content?.footer) }))
-        // dispatch(updateImages({ src: social, section: "socialIcons" }))
-    }, [])
+    // useEffect(() => {
+    //     dispatch(updateMainContent({ currentPath: "footer", payload: (content?.footer) }))
+    //     // dispatch(updateImages({ src: social, section: "socialIcons" }))
+    // }, [])
     return (
         <footer className="relative overflow-hidden bg-[#062233] border-t border-primary ">
             <div className="container relative mx-auto px-4 z-[2] p-6">
@@ -66,6 +66,7 @@ const Footer = ({ language, screen, currentContent }) => {
                     ))}
 
                     <div dir={isLeftAlign ? "ltr" : "rtl"} className="w-full md:w-auto flex flex-col gap-4 items-start">
+                        adsf
                         <h5 className="text-white text-lg font-light">
                             {currentContent?.["Section 4"]?.title[language]}
                         </h5>

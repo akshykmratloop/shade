@@ -179,9 +179,6 @@ model ResourceVersioningRequest {
   resourceVersionId String
   sender            User                        @relation("sender", fields: [senderId], references: [id], onDelete: Cascade)
   senderId          String
-  previousRequest   ResourceVersioningRequest?  @relation("PreviousRequest", fields: [previousRequestId], references: [id], onDelete: Restrict, onUpdate: Restrict)
-  previousRequestId String?
-  nextRequests      ResourceVersioningRequest[] @relation("PreviousRequest")
   approvals         RequestApproval[] // Approval records
 
   // Timestamps
@@ -190,7 +187,6 @@ model ResourceVersioningRequest {
 
   @@index([resourceVersionId])
   @@index([senderId])
-  @@index([previousRequestId])
   // Indexes
   @@index([resourceVersionId, status]) // For request tracking
   @@index([status, type]) // For workflow processing
@@ -207,14 +203,17 @@ model RequestApproval {
   requestId        String
   approver         User                      @relation("approver", fields: [approverId], references: [id], onDelete: Cascade)
   approverId       String
-  isApproverActive Boolean                   @default(true)
+  approverStatus   Status @default(ACTIVE)
 
   // Timestamps
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   // Composite constraints
-  @@unique([requestId, approverId, stage]) // Prevent duplicate approvals
+  @@unique([requestId, approverId, stage]) // Prevent duplicate approvals for same stage/role
+  @@unique([requestId, approverId, approverStatus, stage]) // Ensures only one active role per request per user
+  
+  // Indexes
   @@index([requestId, status]) // For request progress
   @@index([approverId]) // For user dashboard
   @@index([requestId])

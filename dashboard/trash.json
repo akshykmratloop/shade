@@ -1,7 +1,7 @@
 {
     "message": "Success",
     "content": {
-        "id": "cmaw8lta100lyqp713rrndjjh",
+        "id": "cmaywmqx300m9qpdo29z9tfe1",
         "titleEn": "Footer",
         "titleAr": "تذييل الصفحة",
         "slug": "footer",
@@ -9,20 +9,20 @@
         "resourceTag": "FOOTER",
         "relationType": "PARENT",
         "liveModeVersionData": {
-            "id": "cmaw8lta400m0qp71joghzvnp",
+            "id": "cmaywmqx600mbqpdorjomxn67",
             "versionNumber": 1,
             "icon": null,
             "image": null,
             "comments": "Initial version created",
             "referenceDoc": null,
-            "updatedAt": "2025-05-20T08:13:25.756Z",
+            "updatedAt": "2025-05-22T05:01:32.490Z",
             "status": "PUBLISHED",
             "sections": [
                 {
-                    "sectionId": "cmaw8ltaf00m2qp718htr2iez",
+                    "sectionId": "cmaywmqxi00mdqpdohgcobpf9",
                     "order": 1,
                     "version": 1,
-                    "title": "companyInfo-footer-4bc0",
+                    "title": "companyInfo-footer-6e61",
                     "content": {
                         "logo": {
                             "url": "logo",
@@ -35,13 +35,14 @@
                             "ar": "شركة الظل المحدودة.\nص.ب. ص.ب 7027 الدمام 31462 المملكة العربية السعودية مبنى رقم 5222 الدمام 32414-6124.",
                             "en": "Shade Corporation Ltd.\nP.O. Box 7027 Dammam 31462 Saudi Arabia Building No. 5222 Dammam 32414-6124."
                         }
-                    }
+                    },
+                    "sections": []
                 },
                 {
-                    "sectionId": "cmaw8ltat00m8qp71q43m5tja",
+                    "sectionId": "cmaywmqxw00mjqpdo4ijeyvnf",
                     "order": 2,
                     "version": 1,
-                    "title": "navColumns-footer-1558",
+                    "title": "navColumns-footer-497e",
                     "content": [
                         {
                             "links": [
@@ -143,67 +144,6 @@
                             }
                         },
                         {
-                            "fax": {
-                                "ar": "فاكس: +966 13 8343910",
-                                "en": "Fax: +966 13 8343910"
-                            },
-                            "phone": {
-                                "ar": "الهاتف: +966 13 8350100",
-                                "en": "Phone: +966 13 8350100"
-                            },
-                            "title": {
-                                "ar": "اتصال",
-                                "en": "Contact"
-                            },
-                            "button": [
-                                {
-                                    "url": null,
-                                    "icon": null,
-                                    "text": {
-                                        "ar": "اتصل بنا",
-                                        "en": "Contact Us"
-                                    },
-                                    "order": 1
-                                }
-                            ],
-                            "helpText": {
-                                "ar": "بحاجة الى مساعدة؟ نحن متاحون للحديث",
-                                "en": "Need Help? We're Available to Talk"
-                            },
-                            "socialLinks": [
-                                {
-                                    "url": "https://www.linkedin.com/",
-                                    "icon": "linkedin",
-                                    "order": 1
-                                },
-                                {
-                                    "url": "https://www.instagram.com/",
-                                    "icon": "instagram",
-                                    "order": 2
-                                },
-                                {
-                                    "url": "https://twitter.com/",
-                                    "icon": "twitter",
-                                    "order": 3
-                                },
-                                {
-                                    "url": "https://www.facebook.com/",
-                                    "icon": "facebook",
-                                    "order": 4
-                                }
-                            ]
-                        },
-                        {
-                            "text": {
-                                "ar": "@2024 جميع الحقوق محفوظة",
-                                "en": "@2024 All Rights reserved"
-                            },
-                            "title": {
-                                "ar": "اتصال",
-                                "en": "copyRights"
-                            }
-                        },
-                        {
                             "links": [
                                 {
                                     "ar": "سياسة الخصوصية",
@@ -226,7 +166,83 @@
                                 "en": "Security"
                             }
                         }
-                    ]
+                    ],
+                    "sections": []
+                },
+                {
+                    "sectionId": "cmaywmqyc00mpqpdozn3og6tw",
+                    "order": 3,
+                    "version": 1,
+                    "title": "contacts-footer-88a5",
+                    "content": {
+                        "fax": {
+                            "ar": "فاكس: +966 13 8343910",
+                            "en": "Fax: +966 13 8343910"
+                        },
+                        "phone": {
+                            "ar": "الهاتف: +966 13 8350100",
+                            "en": "Phone: +966 13 8350100"
+                        },
+                        "title": {
+                            "ar": "اتصال",
+                            "en": "Contact"
+                        },
+                        "button": [
+                            {
+                                "url": null,
+                                "icon": null,
+                                "text": {
+                                    "ar": "اتصل بنا",
+                                    "en": "Contact Us"
+                                },
+                                "order": 1
+                            }
+                        ],
+                        "helpText": {
+                            "ar": "بحاجة الى مساعدة؟ نحن متاحون للحديث",
+                            "en": "Need Help? We're Available to Talk"
+                        },
+                        "socialLinks": [
+                            {
+                                "url": "https://www.linkedin.com/",
+                                "icon": "linkedin",
+                                "order": 1
+                            },
+                            {
+                                "url": "https://www.instagram.com/",
+                                "icon": "instagram",
+                                "order": 2
+                            },
+                            {
+                                "url": "https://twitter.com/",
+                                "icon": "twitter",
+                                "order": 3
+                            },
+                            {
+                                "url": "https://www.facebook.com/",
+                                "icon": "facebook",
+                                "order": 4
+                            }
+                        ]
+                    },
+                    "sections": []
+                },
+                {
+                    "sectionId": "cmaywmqys00mvqpdoken32qge",
+                    "order": 4,
+                    "version": 1,
+                    "title": "copyright-footer-8ed4",
+                    "content": {
+                        "text": {
+                            "ar": "@2024 جميع الحقوق محفوظة",
+                            "en": "@2024 All Rights reserved"
+                        },
+                        "title": {
+                            "ar": "اتصال",
+                            "en": "copyRights"
+                        }
+                    },
+                    "sections": []
                 }
             ]
         }

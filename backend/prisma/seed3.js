@@ -1,5 +1,5 @@
 import prisma from "../src/config/dbConfig.js";
-import content from "./content.json" assert { type: "json" };
+import content from "./content.json" with { type: "json" };
 import crypto from "crypto";
 
 const sectionTypes = [
@@ -754,12 +754,24 @@ async function main() {
               content: content.footer.companyInfo,
               sectionVersionTitle: "Footer-companyInfo",
             },
-            {
-              title: "navColumns",
-              SectionType: "FOOTER_COLUMNS",
-              content: content.footer.navColumns,
-              sectionVersionTitle: "Footer-navColumns",
-            },
+              {
+                title: "navColumns",
+                SectionType: "FOOTER_COLUMNS",
+                content: content.footer.navColumns,
+                sectionVersionTitle: "Footer-navColumns",
+              },
+              {
+                title: "contacts",
+                SectionType: "FOOTER_COLUMNS",
+                content: content.footer.contacts,
+                sectionVersionTitle: "Footer-contacts",
+              },
+              {
+                title: "copyright",
+                SectionType: "FOOTER_COLUMNS",
+                content: content.footer.copyright,
+                sectionVersionTitle: "Footer-copyright",
+              },
           ]
         );
 
