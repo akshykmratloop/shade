@@ -10,7 +10,7 @@ function LeftSidebar() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const isCollapsed = useSelector((state) => state.sidebar.isCollapsed);
-  const userRole = useSelector((state) => state.user.currentRole);
+  const userRole = useSelector((state) => state.user.activeRole);
   const { isEditor, isManager } = useSelector(state => state.user)
   const [showText, setShowText] = useState(false);
 

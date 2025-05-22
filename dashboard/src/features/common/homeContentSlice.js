@@ -19,7 +19,6 @@ const cmsSlice = createSlice({
             state.future = []
         },
         updateImages: (state, action) => {
-            console.log(action.payload.directIcon, action.payload.index, action.payload.cardIndex)
             state.past.push(JSON.parse(JSON.stringify(state.present)));
             if (action.payload.type === "refDoc") {
                 state.present.content.editVersion.referenceDoc = action.payload.src
@@ -183,13 +182,19 @@ const cmsSlice = createSlice({
         },
         updateSpecificContent: (state, action) => {
             state.past.push(JSON.parse(JSON.stringify(state.present)));
-            console.log(action.payload.type)
+            // console.log(action.payload.type)
             if (action.payload.type === "content[index]") {
                 if (action.payload.title === 'url') {
                     state.present.content.editVersion.sections[action.payload.sectionIndex].content[action.payload.contentIndex][action.payload.title] = action.payload.value
                 } else {
                     state.present.content.editVersion.sections[action.payload.sectionIndex].content[action.payload.contentIndex][action.payload.title][action.payload.lan] = action.payload.value
                 }
+            } else if (action.payload.section === "Footer") {
+                state.present.content.editVersion.sections[action.payload.sectionIndex].content[action.payload.contentIndex][action.payload.title][action.payload.lan] = action.payload.value
+            } else if (action.payload.section === "Footer/Links") {
+                state.present.content.editVersion.sections[action.payload.sectionIndex].content[action.payload.contentIndex].links[action.payload.index][action.payload.title] = action.payload.value
+
+                // state.present.content.editVersion.sections[action.payload.sectionIndex].content[action.payload.contentIndex][action.payload.title][action.payload.lan] = action.payload.value
             } else if (action.payload.title === "button") {
                 state.present.content.editVersion.sections[action.payload.sectionIndex].content[action.payload.title][action.payload.buttonIndex].text[action.payload.lan] = action.payload.value
             } else if (action.payload.section === "recentProjectsSection") {

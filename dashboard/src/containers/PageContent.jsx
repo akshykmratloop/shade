@@ -15,7 +15,7 @@ function PageContent() {
     const navigate = useNavigate()
     const mainContentRef = useRef(null);
     const { pageTitle } = useSelector(state => state.header)
-    const userRole = useSelector(state => state.user.currentRole)
+    const userRole = useSelector(state => state.user.activeRole)
     // const applied = useSelector(state => state)
     const location = useLocation()
 

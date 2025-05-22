@@ -125,19 +125,19 @@ function Requests() {
 
 
   // redux state
-  const userRole = useSelector((state) => state.user.currentRole);
+  const userRole = useSelector((state) => state.user.activeRole);
   const userObj = useSelector(state => state.user)
 
-  const { isManager, isEditor, isPublisher, isVerifier, currentRole } = userObj;
-  const roleId = currentRole?.id
+  const { isManager, isEditor, isPublisher, isVerifier, activeRole } = userObj;
+  const roleId = activeRole?.id
 
   // variables for conditioned renderings
   const [canSeeEditor, setCanSeeEditor] = useState((isVerifier || isPublisher || isManager))
   const [canSeeVerifier, setCanSeeVerifier] = useState((isPublisher || isManager))
   const [canSeePublisher, setCasSeePublisher] = useState((isVerifier || isManager))
   const noneCanSee = !(isEditor || isManager || isVerifier || isPublisher)
-  const RoleTypeIsUser = userPermissionsSet.has(currentRole?.permissions[0])
-  const [permission, setPermission] = useState(RoleTypeIsUser ? currentRole?.permissions[0] || "" : false)
+  const RoleTypeIsUser = userPermissionsSet.has(activeRole?.permissions[0])
+  const [permission, setPermission] = useState(RoleTypeIsUser ? activeRole?.permissions[0] || "" : false)
 
   // Fucntions
   const navigate = useNavigate();
@@ -223,12 +223,12 @@ function Requests() {
 
   // Side Effects
   useEffect(() => { // Fetch Requests
-    if (currentRole?.id) {
+    if (activeRole?.id) {
       async function fetchRequestsData() {
         try {
           const payload = { roleId: roleId ?? "" }
 
-          if (RoleTypeIsUser) payload.permission = permission || currentRole?.permissions[0] || ""
+          if (RoleTypeIsUser) payload.permission = permission || activeRole?.permissions[0] || ""
           const response = await getRequests(payload);
           if (response.ok) {
             setRequests(response.requests.data);
@@ -241,13 +241,13 @@ function Requests() {
       }
       fetchRequestsData();
     }
-  }, [currentRole.id, permission]);
+  }, [activeRole.id, permission]);
 
   useEffect(() => {
     setCanSeeEditor(isVerifier || isPublisher || isManager)
     setCanSeeVerifier(isPublisher || isManager)
     setCasSeePublisher(isVerifier || isManager)
-  }, [currentRole?.id])
+  }, [activeRole?.id])
 
   useEffect(() => {
     if (noneCanSee) {
@@ -257,12 +257,12 @@ function Requests() {
 
   useEffect(() => {
     //flow
-    if (currentRole?.permissions?.length > 1 && RoleTypeIsUser) {
+    if (activeRole?.permissions?.length > 1 && RoleTypeIsUser) {
       setToggle(true)
     } else {
       setToggle(false)
     }
-  }, [currentRole])
+  }, [activeRole])
 
 
 
@@ -271,7 +271,7 @@ function Requests() {
       <div className="absolute top-3 right-2 flex">
         {
           toggle &&
-          <ToggleSwitch options={sortStages([...currentRole?.permissions])} switchToggles={changeTable} />
+          <ToggleSwitch options={sortStages([...activeRole?.permissions])} switchToggles={changeTable} />
         }
       </div>
       <TitleCard

@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { checkUser } from "../../app/checkUser";
 
-const initialCurrentRole = {
+const initialActiveRole = {
     role: "",
     roleType: "",
     status: "",
@@ -31,7 +31,7 @@ const initialState = {
     isEditor: false,
     isVerifier: false,
     isPublisher: false,
-    currentRole: initialCurrentRole,
+    activeRole: initialActiveRole,
 };
 const user = createSlice({
     name: "user",
@@ -58,22 +58,23 @@ const user = createSlice({
             state.isPublisher = isPublisher;
             state.isVerifier = isVerifier;
 
-            if (action.payload?.type === "update") {
-                if (!(state?.currentRole?.role && action.payload?.data?.roles?.length > 1)) {
-                    state.currentRole = roles?.[0];
-                } else if (roles?.length === 0) {
-                    state.currentRole = { ...initialCurrentRole };
-                }
-            } else if (roles?.length === 0) {
-                state.currentRole = { ...initialCurrentRole };
-            } else {
-                state.currentRole = roles?.[0];
-            }
+            // if (action.payload?.type === "update") {
+            //     if (!(state?.activeRole?.role && action.payload?.data?.roles?.length > 1)) {
+            //         state.activeRole = roles?.[0];
+            //     } else if (roles?.length === 0) {
+            //         state.activeRole = { ...initialActiveRole };
+            //     }
+            // } else if (roles?.length === 0) {
+            //     state.activeRole = { ...initialActiveRole };
+            // } else {
+            // }
+            console.log(roles)
+            state.activeRole = roles?.[0];
         },
-        updateCurrentRole: (state, action) => {
+        updateActiveRole: (state, action) => {
             const roleObj = state.user.roles.filter((e) => e.role === action.payload);
 
-            state.currentRole = roleObj?.[0] || initialCurrentRole;
+            state.activeRole = roleObj?.[0] || initialActiveRole;
 
             const { isEditor, isPublisher, isVerifier } = checkUser(
                 roleObj?.[0]?.permissions
@@ -94,6 +95,6 @@ const user = createSlice({
     },
 });
 
-export const { updateUser, updateCurrentRole } = user.actions;
+export const { updateUser, updateActiveRole } = user.actions;
 
 export default user.reducer;

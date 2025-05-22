@@ -125,6 +125,7 @@ const ContentSection = ({
                 careerId,
                 deepPath,
                 sectionIndex,
+                contentIndex,
                 path,
                 buttonIndex
             }));
@@ -159,7 +160,8 @@ const ContentSection = ({
                 projectId,
                 careerId,
                 deepPath,
-                sectionIndex
+                sectionIndex,
+                contentIndex
                 // type
             }));
         }

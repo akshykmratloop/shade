@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Upload, X } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
@@ -17,11 +16,8 @@ const InputFile = ({ label, baseClass, id, currentPath, resourceId, contentIndex
     dispatch(removeImages({ section: id, src: "", currentPath }));
   };
 
-  console.log(url)
   const handleImageSelect = (url, altText) => {
-    // console.log(url, altText)
     // setFileURL(url[0]);
-    console.log(url)
     const payloadData = {
       url: url[0],
       altText: {
