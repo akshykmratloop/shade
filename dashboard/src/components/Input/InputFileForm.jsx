@@ -78,7 +78,7 @@ const InputFile = ({ label, baseClass, id, currentPath, section, fileIndex, isCl
   }, [ImageFromRedux, id]);
 
   useEffect(() => {
-    dispatch(updateImages({ section: "OriginalSocialIcons", src: ImageFromRedux.socialIcons, currentPath }))
+    // dispatch(updateImages({ section: "OriginalSocialIcons", src: ImageFromRedux.socialIcons, currentPath }))
   }, [])
 
   return (

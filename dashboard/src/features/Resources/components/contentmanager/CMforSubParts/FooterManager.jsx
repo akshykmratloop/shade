@@ -98,124 +98,19 @@ const FooterManager = ({ language, currentContent, currentPath, indexes }) => {
                 sectionIndex={indexes?.['3']}
             />
 
-
-            {/* markets and its links */}
-            {/* <div className="w-full">
-                <ContentSection
-                    currentPath={currentPath}
-                    Heading={"Section 2"}
-                    inputs={[
-                        { input: "input", label: "Title", updateType: "title", maxLength: 25 },
-                    ]}
-                    section={"Section 2"}
-                    language={language}
-                    isBorder={false}
-                    currentContent={currentContent}
-                />
-                {currentContent?.["Section 2"]?.links?.map((item, index, array) => {
-                    const isLast = index === array.length - 1;
-                    return (
-                        <ContentSection key={item + index}
-                            currentPath={currentPath}
-                            subHeading={"Item " + (index + 1)}
-                            inputs={[
-                                { input: "input", label: "Label", updateType: language, maxLength: 25 },
-                                { input: "input", label: "Url", updateType: "url" }
-                            ]}
-                            language={language}
-                            section={"Section 2"}
-                            subSection={"links"}
-                            subSectionsProMax={"Links"}
-                            index={+index}
-                            isBorder={isLast}
-                            currentContent={currentContent}
-                        />
-                    )
-                })}
-            </div> */}
-
-
-            {/* services and its links */}
-            {/* <div className="w-full">
-                <ContentSection
-                    currentPath={currentPath}
-                    Heading={"Sections 3"}
-                    inputs={[
-                        { input: "input", label: "Title", updateType: "title", maxLength: 22 },
-                    ]}
-                    section={"Section 3"}
-                    language={language}
-                    isBorder={false}
-                    currentContent={currentContent}
-                />
-                {currentContent?.["Section 3"]?.links?.map((item, index, array) => {
-                    const isLast = index === array.length - 1;
-                    return (
-                        <ContentSection key={item + index}
-                            currentPath={currentPath}
-                            subHeading={"Item " + (index + 1)}
-                            inputs={[
-                                { input: "input", label: "Label", updateType: language, maxLength: 22 },
-                                { input: "input", label: "Url", updateType: "url" }
-                            ]}
-                            language={language}
-                            section={"Section 3"}
-                            subSection={"links"}
-                            subSectionsProMax={"Links"}
-                            index={+index}
-                            isBorder={isLast}
-                            currentContent={currentContent}
-                        />
-                    )
-                })}
-            </div> */}
-
-            {/* <div className="w-full">
-                <ContentSection
-                    currentPath={currentPath}
-                    Heading={"Sections 4"}
-                    inputs={[
-                        { input: "input", label: "Title", updateType: "title", maxLength: 22 },
-                    ]}
-                    section={"Section 4"}
-                    language={language}
-                    isBorder={false}
-                    currentContent={currentContent}
-                />
-                {currentContent?.["Section 4"]?.links?.map((item, index, array) => {
-                    const isLast = index === array.length - 1;
-                    return (
-                        <ContentSection key={item + index}
-                            currentPath={currentPath}
-                            subHeading={"Item " + (index + 1)}
-                            inputs={[
-                                { input: "input", label: "Label", updateType: language, maxLength: 22 },
-                                { input: "input", label: "Url", updateType: "url" }
-                            ]}
-                            language={language}
-                            section={"Section 4"}
-                            subSection={"links"}
-                            subSectionsProMax={"Links"}
-                            index={+index}
-                            isBorder={isLast}
-                            currentContent={currentContent}
-                        />
-                    )
-                })}
-            </div> */}
-
             {/* social icons */}
             <ContentSection
                 currentPath={currentPath}
                 Heading={"Social Media Icons"}
-                inputFiles={socialIcons?.map(
+                inputFiles={currentContent?.['3']?.content?.socialLinks?.map(
                     (e, i) =>
                         ({ label: "Image " + (i + 1), id: "image " + e.id })
                 )}
-                section={"socialIcons"}
+                section={"socialLinks"}
                 language={language}
                 currentContent={currentContent}
                 allowExtraInput={true}
+                sectionIndex={indexes?.['3']}
             />
 
         </div>

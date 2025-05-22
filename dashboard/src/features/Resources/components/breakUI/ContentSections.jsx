@@ -279,7 +279,7 @@ const ContentSection = ({
 
             <div className={`flex ${inputFiles.length > 1 ? "justify-center" : ""}`}>
                 {
-                    section === 'socialIcons' ?
+                    section === 'socialLinks' ?
                         <div>
                             <div className={`flex ${inputFiles.length > 1 ? "flex-wrap" : ""} gap-10 w-[100%] relative`}>
                                 {inputFiles.map((file, index) => {
