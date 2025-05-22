@@ -1,92 +1,230 @@
 {
     "message": "Success",
     "content": {
-        "id": "cmaw8ltb600mdqp71xxs8ereh",
-        "titleEn": "Header",
-        "titleAr": "رأس الصفحة",
-        "slug": "header",
-        "resourceType": "HEADER",
-        "resourceTag": "HEADER",
+        "id": "cmaw8lta100lyqp713rrndjjh",
+        "titleEn": "Footer",
+        "titleAr": "تذييل الصفحة",
+        "slug": "footer",
+        "resourceType": "FOOTER",
+        "resourceTag": "FOOTER",
         "relationType": "PARENT",
         "liveModeVersionData": {
-            "id": "cmaw8ltb900mfqp71mj2mwh3a",
+            "id": "cmaw8lta400m0qp71joghzvnp",
             "versionNumber": 1,
             "icon": null,
             "image": null,
             "comments": "Initial version created",
             "referenceDoc": null,
-            "updatedAt": "2025-05-20T08:13:25.797Z",
+            "updatedAt": "2025-05-20T08:13:25.756Z",
             "status": "PUBLISHED",
             "sections": [
                 {
-                    "sectionId": "cmaw8ltbm00mhqp71qozdjpfp",
+                    "sectionId": "cmaw8ltaf00m2qp718htr2iez",
                     "order": 1,
                     "version": 1,
-                    "title": "navItems-header-5c29",
+                    "title": "companyInfo-footer-4bc0",
+                    "content": {
+                        "logo": {
+                            "url": "logo",
+                            "altText": {
+                                "ar": "شعار شيد",
+                                "en": "Shade Logo"
+                            }
+                        },
+                        "address": {
+                            "ar": "شركة الظل المحدودة.\nص.ب. ص.ب 7027 الدمام 31462 المملكة العربية السعودية مبنى رقم 5222 الدمام 32414-6124.",
+                            "en": "Shade Corporation Ltd.\nP.O. Box 7027 Dammam 31462 Saudi Arabia Building No. 5222 Dammam 32414-6124."
+                        }
+                    }
+                },
+                {
+                    "sectionId": "cmaw8ltat00m8qp71q43m5tja",
+                    "order": 2,
+                    "version": 1,
+                    "title": "navColumns-footer-1558",
                     "content": [
                         {
-                            "nav": {
-                                "ar": "الحلول",
-                                "en": "Solutions"
-                            },
-                            "url": "/solutions",
-                            "order": 1
+                            "links": [
+                                {
+                                    "ar": "تاريخ",
+                                    "en": "History",
+                                    "url": "/about-us"
+                                },
+                                {
+                                    "ar": "الرؤية/الرسالة",
+                                    "en": "Vision/Mission",
+                                    "url": "/about-us"
+                                },
+                                {
+                                    "ar": "المخطط التنظيمي",
+                                    "en": "Organization Chart",
+                                    "url": "/about-us"
+                                },
+                                {
+                                    "ar": "مالي",
+                                    "en": "Financial",
+                                    "url": "/about-us"
+                                },
+                                {
+                                    "ar": "الصحة والسلامة والبيئة",
+                                    "en": "HSE",
+                                    "url": "/about-us"
+                                },
+                                {
+                                    "ar": "الشركات التابعة",
+                                    "en": "Subsidiaries",
+                                    "url": "/about-us"
+                                }
+                            ],
+                            "title": {
+                                "ar": "معلومات عنا",
+                                "en": "About Us"
+                            }
                         },
                         {
-                            "nav": {
-                                "ar": "من نحن",
-                                "en": "About"
-                            },
-                            "url": "/about",
-                            "order": 2
+                            "links": [
+                                {
+                                    "ar": "المباني",
+                                    "en": "Buildings",
+                                    "url": "/market"
+                                },
+                                {
+                                    "ar": "صناعي",
+                                    "en": "Industrial",
+                                    "url": "/market"
+                                },
+                                {
+                                    "ar": "بنية تحتية",
+                                    "en": "Infrastructure",
+                                    "url": "/market"
+                                },
+                                {
+                                    "ar": "الإصلاح والتحديث",
+                                    "en": "Repair & Modernization",
+                                    "url": "/market"
+                                }
+                            ],
+                            "title": {
+                                "ar": "الأسواق",
+                                "en": "Markets"
+                            }
                         },
                         {
-                            "nav": {
-                                "ar": "خدماتنا",
-                                "en": "Services"
-                            },
-                            "url": "/services",
-                            "order": 3
+                            "links": [
+                                {
+                                    "ar": "خدمات المشاريع",
+                                    "en": "Project Services",
+                                    "url": "/services"
+                                },
+                                {
+                                    "ar": "مدير البناء",
+                                    "en": "Construction Manager",
+                                    "url": "/services"
+                                },
+                                {
+                                    "ar": "التشغيل والصيانة",
+                                    "en": "Operation & Maintenance",
+                                    "url": "/services"
+                                },
+                                {
+                                    "ar": "تأجير المعدات",
+                                    "en": "Equipment Rental",
+                                    "url": "/services"
+                                },
+                                {
+                                    "ar": "تلفيق",
+                                    "en": "Fabrication",
+                                    "url": "/services"
+                                }
+                            ],
+                            "title": {
+                                "ar": "جميع الخدمات",
+                                "en": "All Services"
+                            }
                         },
                         {
-                            "nav": {
-                                "ar": "السوق",
-                                "en": "Market"
+                            "fax": {
+                                "ar": "فاكس: +966 13 8343910",
+                                "en": "Fax: +966 13 8343910"
                             },
-                            "url": "/market",
-                            "order": 4
+                            "phone": {
+                                "ar": "الهاتف: +966 13 8350100",
+                                "en": "Phone: +966 13 8350100"
+                            },
+                            "title": {
+                                "ar": "اتصال",
+                                "en": "Contact"
+                            },
+                            "button": [
+                                {
+                                    "url": null,
+                                    "icon": null,
+                                    "text": {
+                                        "ar": "اتصل بنا",
+                                        "en": "Contact Us"
+                                    },
+                                    "order": 1
+                                }
+                            ],
+                            "helpText": {
+                                "ar": "بحاجة الى مساعدة؟ نحن متاحون للحديث",
+                                "en": "Need Help? We're Available to Talk"
+                            },
+                            "socialLinks": [
+                                {
+                                    "url": "https://www.linkedin.com/",
+                                    "icon": "linkedin",
+                                    "order": 1
+                                },
+                                {
+                                    "url": "https://www.instagram.com/",
+                                    "icon": "instagram",
+                                    "order": 2
+                                },
+                                {
+                                    "url": "https://twitter.com/",
+                                    "icon": "twitter",
+                                    "order": 3
+                                },
+                                {
+                                    "url": "https://www.facebook.com/",
+                                    "icon": "facebook",
+                                    "order": 4
+                                }
+                            ]
                         },
                         {
-                            "nav": {
-                                "ar": "مشاريعنا",
-                                "en": "Project"
+                            "text": {
+                                "ar": "@2024 جميع الحقوق محفوظة",
+                                "en": "@2024 All Rights reserved"
                             },
-                            "url": "/projects",
-                            "order": 5
+                            "title": {
+                                "ar": "اتصال",
+                                "en": "copyRights"
+                            }
                         },
                         {
-                            "nav": {
-                                "ar": "الوظائف",
-                                "en": "Career"
-                            },
-                            "url": "/career",
-                            "order": 6
-                        },
-                        {
-                            "nav": {
-                                "ar": "الأخبار",
-                                "en": "News"
-                            },
-                            "url": "/news",
-                            "order": 7
-                        },
-                        {
-                            "nav": {
-                                "ar": "اتصل بنا",
-                                "en": "Contact Us"
-                            },
-                            "url": "/contact",
-                            "order": 8
+                            "links": [
+                                {
+                                    "ar": "سياسة الخصوصية",
+                                    "en": "Privacy Policy",
+                                    "url": "#"
+                                },
+                                {
+                                    "ar": "شروط الاستخدام",
+                                    "en": "Terms of Use",
+                                    "url": "#"
+                                },
+                                {
+                                    "ar": "خريطة الموقع",
+                                    "en": "Site Map",
+                                    "url": "#"
+                                }
+                            ],
+                            "title": {
+                                "ar": "اتصال",
+                                "en": "Security"
+                            }
                         }
                     ]
                 }

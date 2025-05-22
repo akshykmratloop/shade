@@ -12,11 +12,11 @@ import foot_layer1 from "../../../../../assets/images/foot_layer1.png"
 import { updateMainContent, updateImages } from "../../../../common/homeContentSlice";
 
 
-const Footer = ({ language, screen }) => {
+const Footer = ({ language, screen, currentContent }) => {
     const isPhone = screen < 600
     const isLeftAlign = language === "en"
     const dispatch = useDispatch()
-    const currentContent = useSelector((state) => state.homeContent.present.footer)
+    // const currentContent = useSelector((state) => state.homeContent.present.footer)
     const imageFromRedux = useSelector(state => state.homeContent.present.images)
     const socialIcons = useSelector((state) => {
         return state.homeContent.present.images.socialIcons
@@ -38,7 +38,7 @@ const Footer = ({ language, screen }) => {
 
     useEffect(() => {
         dispatch(updateMainContent({ currentPath: "footer", payload: (content?.footer) }))
-        dispatch(updateImages({ src: social, section: "socialIcons" }))
+        // dispatch(updateImages({ src: social, section: "socialIcons" }))
     }, [])
     return (
         <footer className="relative overflow-hidden bg-[#062233] border-t border-primary ">
@@ -49,15 +49,15 @@ const Footer = ({ language, screen }) => {
                     style={{ backgroundImage: `url(${foot_layer})` }} />
                 <div className="flex flex-col items-center gap-6 text-center mb-10 px-[80px]">
                     <div>
-                        <img src={imageFromRedux.footerIcon ? imageFromRedux.footerIcon : Logo} alt="Logo" width={138} height={138} />
+                        <img src={currentContent?.['1']?.content?.logo?.url ? currentContent?.['1']?.content?.logo?.url : Logo} alt="Logo" width={138} height={138} />
                     </div>
-                    <p className="text-white text-xs font-medium leading-5">{currentContent?.companyInfo?.address[language]}</p>
+                    <p className="text-white text-xs font-medium leading-5">{currentContent?.['1']?.content?.address?.[language]}</p>
                 </div>
                 <div dir={isLeftAlign ? "ltr" : "rtl"} className={`flex flex-wrap justify-between ${isPhone && "flex-col"} gap-4 px-8 mb-12`}>
-                    {["Section 1", "Section 2", "Section 3"].map((section) => (
+                    {currentContent?.['2']?.content.map((section, i) => (
                         <div key={section} className="w-full md:w-auto">
                             <h5 className="text-white text-lg font-light mb-4">{currentContent?.[section]?.title[language]}</h5>
-                            {currentContent?.[section]?.links?.map((link, index) => (
+                            {section?.links?.map((link, index) => (
                                 <Link key={index} href={link.url} className="block text-white text-base font-light mb-4 text-xs">
                                     {link[language]}
                                 </Link>
