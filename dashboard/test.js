@@ -262,3 +262,14 @@ let a = {
         }
     }
 }
+
+const log = {
+    "status": "error",
+    "errorType": "Database operation failed",
+    "statusCode": 400,
+    "message": "Database operation failed",
+    "errorDetails": {
+        "name": "PrismaClientValidationError",
+        "clientVersion": "6.2.1"
+    }
+}
