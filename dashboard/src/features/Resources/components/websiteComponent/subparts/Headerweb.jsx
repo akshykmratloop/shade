@@ -67,9 +67,9 @@ const Header = ({ language, screen, setLanguage, currentContent }) => {
                             {/* Hamburger for Tablet/Phone */}
                             {(isTablet || isPhone) && (
                                 <button className="flex flex-col items-center space-y-1" onClick={handleNavbar}>
-                                    <span className="w-8 h-1 bg-green-600 rounded"></span>
-                                    <span className="w-8 h-1 bg-green-600 rounded"></span>
-                                    <span className="w-8 h-1 bg-green-600 rounded"></span>
+                                    <span className="w-8 h-1 bg-[#00b9f2] rounded"></span>
+                                    <span className="w-8 h-1 bg-[#00b9f2] rounded"></span>
+                                    <span className="w-8 h-1 bg-[#00b9f2] rounded"></span>
                                 </button>
                             )}
                             {/* Language Toggle */}
