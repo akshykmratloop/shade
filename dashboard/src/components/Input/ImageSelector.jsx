@@ -42,12 +42,40 @@ const ImageSelector = ({ onSelectImage, onClose }) => {
 
     // HANDLERS 
 
-    const handleFileUpload = async (event) => {
-        const file = event.target.files[0];
-        if (!file || uploading) return; // Prevent uploading if already uploading
+    // const handleFileUpload = async (event) => {
+    //     const file = event.target.files[0];
+    //     if (!file || uploading) return; // Prevent uploading if already uploading
 
-        if (file.size > 5 * 1024 * 1024) {
-            toast.error("File size must be less than 5MB", { hideProgressBar: true });
+    //     if (file.size > 5 * 1024 * 1024) {
+    //         toast.error("File size must be less than 5MB", { hideProgressBar: true });
+    //         return;
+    //     }
+
+    //     setUploading(true);
+    //     setUploadCancel(false);
+
+    //     try {
+    //         const uploadedImageURL = await uploadImage(file);
+    //         if (uploadedImageURL) {
+    //             // Instead of previewing, trigger image list reload
+    //             setRandom(Math.random());
+    //             toast.success("Image uploaded successfully", { hideProgressBar: true })
+    //         }
+    //     } catch {
+    //         console.log("Error Uploading Image Please Try again later")
+    //         toast.error("Error Uploading Image Please Try again later", { hideProgressBar: true })
+    //     } finally {
+    //         setUploading(false);
+    //     }
+    // };
+
+    const handleFileUpload = async (event) => {
+        const files = Array.from(event.target.files);
+        if (!files.length || uploading) return;
+
+        const oversizedFiles = files.filter(file => file.size > 5 * 1024 * 1024);
+        if (oversizedFiles.length) {
+            toast.error("One or more files exceed the 5MB size limit.", { hideProgressBar: true,  autoClose: 1000 });
             return;
         }
 
@@ -55,19 +83,19 @@ const ImageSelector = ({ onSelectImage, onClose }) => {
         setUploadCancel(false);
 
         try {
-            const uploadedImageURL = await uploadImage(file);
-            if (uploadedImageURL) {
-                // Instead of previewing, trigger image list reload
-                setRandom(Math.random());
-                toast.success("Image uploaded successfully", { hideProgressBar: true })
-            }
-        } catch {
-            console.log("Error Uploading Image Please Try again later")
-            toast.error("Error Uploading Image Please Try again later", { hideProgressBar: true })
+            // Call your API to upload all files at once
+            await uploadImage(files.length > 1 ? files : files[0]); // Replace with your API call
+console.log("runn down time")
+            setRandom(Math.random()); // Refresh image grid
+            toast.success("All images uploaded successfully", { hideProgressBar: true, autoClose: 1000 });
+        } catch (err) {
+            console.error("Error uploading images:", err);
+            toast.error("Error uploading images. Please try again later.", { hideProgressBar: true, autoClose: 1000 });
         } finally {
             setUploading(false);
         }
     };
+
 
     const handleAltText = (e) => {
         setAltText(prev => {
@@ -267,6 +295,7 @@ const ImageSelector = ({ onSelectImage, onClose }) => {
                             accept="image/*,video/*"
                             className="hidden"
                             onChange={handleFileUpload}
+                            multiple
                         />
                     </div>
                     <div className="flex gap-4">
