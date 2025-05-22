@@ -11,10 +11,11 @@ const InputFile = ({ label, baseClass, id, currentPath, resourceId, contentIndex
   const [fileURL, setFileURL] = useState("");
   const [isSelectorOpen, setIsSelectorOpen] = useState(false);
 
-  const clearFile = () => {
-    setFileURL("");
-    dispatch(removeImages({ section: id, src: "", currentPath }));
-  };
+  console.log(url)
+  // const clearFile = () => {
+  //   setFileURL("");
+  //   dispatch(removeImages({ section: id, src: "", currentPath }));
+  // };
 
   const handleImageSelect = (url, altText) => {
     // setFileURL(url[0]);

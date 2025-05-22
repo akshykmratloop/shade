@@ -53,9 +53,9 @@ const Footer = ({ language, screen, currentContent }) => {
                     style={{ backgroundImage: `url(${foot_layer1})`, width: getDynamicSize(362), height: getDynamicSize(362) }} />
                 <span className="absolute bottom-0 left-0 w-[200px] h-[180px] bg-no-repeat bg-contain bg-full bg-center z-[-1] "
                     style={{ backgroundImage: `url(${foot_layer})`, width: getDynamicSize(265), height: getDynamicSize(234) }} />
-                <div className="flex flex-col items-center gap-6 text-center mb-10">
+                <div className="flex flex-col items-center gap-6 text-center mb-10 ">
                     <div>
-                        <img src={currentContent?.['1']?.content?.logo?.url ? currentContent?.['1']?.content?.logo?.url : Logo}
+                        <img src={Img_url + currentContent?.['1']?.content?.images?.[0]?.url}
                             alt="Logo"
                             //  width={138} height={138}
                             style={{ width: getDynamicSize(138), height: getDynamicSize(138) }}

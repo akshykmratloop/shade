@@ -170,14 +170,15 @@ model ResourceVersionVerifier {
 
 // Content workflow requests
 model ResourceVersioningRequest {
-  id                String                      @id @default(uuid())
-  status            RequestStatus               @default(PENDING)
+  id                String            @id @default(uuid())
+  status            RequestStatus     @default(VERIFICATION_PENDING)
+  flowStatus        FlowStatus        @default(PENDING)
   type              RequestType // VERIFICATION or PUBLICATION
   editorComments    String? // Context for reviewers
   // Relationships
-  resourceVersion   ResourceVersion             @relation(fields: [resourceVersionId], references: [id], onDelete: Cascade)
+  resourceVersion   ResourceVersion   @relation(fields: [resourceVersionId], references: [id], onDelete: Cascade)
   resourceVersionId String
-  sender            User                        @relation("sender", fields: [senderId], references: [id], onDelete: Cascade)
+  sender            User              @relation("sender", fields: [senderId], references: [id], onDelete: Cascade)
   senderId          String
   approvals         RequestApproval[] // Approval records
 
@@ -194,16 +195,16 @@ model ResourceVersioningRequest {
 
 // Individual approval actions
 model RequestApproval {
-  id               String                    @id @default(uuid())
-  stage            Int? // Verification stage (null for publisher)
-  status           ApprovalStatus            @default(PENDING)
-  comments         String? // Feedback from approver
+  id             String                    @id @default(uuid())
+  stage          Int? // Verification stage (null for publisher)
+  status         ApprovalStatus            @default(PENDING)
+  comments       String? // Feedback from approver
   // Relationships
-  request          ResourceVersioningRequest @relation(fields: [requestId], references: [id], onDelete: Cascade)
-  requestId        String
-  approver         User                      @relation("approver", fields: [approverId], references: [id], onDelete: Cascade)
-  approverId       String
-  approverStatus   Status @default(ACTIVE)
+  request        ResourceVersioningRequest @relation(fields: [requestId], references: [id], onDelete: Cascade)
+  requestId      String
+  approver       User                      @relation("approver", fields: [approverId], references: [id], onDelete: Cascade)
+  approverId     String
+  approverStatus Status                    @default(ACTIVE)
 
   // Timestamps
   createdAt DateTime @default(now())
@@ -212,7 +213,6 @@ model RequestApproval {
   // Composite constraints
   @@unique([requestId, approverId, stage]) // Prevent duplicate approvals for same stage/role
   @@unique([requestId, approverId, approverStatus, stage]) // Ensures only one active role per request per user
-  
   // Indexes
   @@index([requestId, status]) // For request progress
   @@index([approverId]) // For user dashboard

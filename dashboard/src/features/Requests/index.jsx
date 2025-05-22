@@ -319,9 +319,13 @@ function Requests() {
                     </th>
                   }
                   <th className="text-[#42526D] w-[211px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] !capitalize">
+                    {/* Status */}
+                    Stage
+                  </th>
+                  <th className="text-[#42526D] w-[211px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] !capitalize">
+                    {/* Status */}
                     Status
                   </th>
-
                   <th className="text-[#42526D] w-[221px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] text-center !capitalize">
                     Date Time
                   </th>
@@ -476,7 +480,22 @@ function Requests() {
                                 rounded-2xl`}
                             style={{ textTransform: "capitalize" }}
                           >
-                            <span className="">{capitalizeWords(request?.resourceVersion?.versionStatus)}</span>
+                            <span className="">{capitalizeWords(request?.status)}</span>
+                          </p>
+                        </td>
+                        <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]">
+                          <p
+                            className={`min-w-[85px] mx-auto before:content-['•'] before:text-2xl flex h-7 items-center justify-center gap-1 px-1 py-0 font-[500] 
+                              ${request.status === "Green"
+                                ? "text-green-600 bg-lime-200 before:text-green-600 px-1"
+                                : request.status === "Blue"
+                                  ? "text-blue-600 bg-sky-200 before:text-blue-600 "
+                                  : "text-red-600 bg-pink-200 before:text-red-600 "
+                              } 
+                                rounded-2xl`}
+                            style={{ textTransform: "capitalize" }}
+                          >
+                            <span className="">{capitalizeWords(request?.flowStatus)}</span>
                           </p>
                         </td>
                         <td className="font-poppins font-light text-[12px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]">

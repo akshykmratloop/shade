@@ -1,7 +1,7 @@
 {
     "message": "Success",
     "content": {
-        "id": "cmaywmqx300m9qpdo29z9tfe1",
+        "id": "cmazauwvd00m9qp45spkwd9c2",
         "titleEn": "Footer",
         "titleAr": "تذييل الصفحة",
         "slug": "footer",
@@ -9,28 +9,30 @@
         "resourceTag": "FOOTER",
         "relationType": "PARENT",
         "liveModeVersionData": {
-            "id": "cmaywmqx600mbqpdorjomxn67",
+            "id": "cmazauwvg00mbqp45syftt50m",
             "versionNumber": 1,
             "icon": null,
             "image": null,
             "comments": "Initial version created",
             "referenceDoc": null,
-            "updatedAt": "2025-05-22T05:01:32.490Z",
+            "updatedAt": "2025-05-22T11:39:48.076Z",
             "status": "PUBLISHED",
             "sections": [
                 {
-                    "sectionId": "cmaywmqxi00mdqpdohgcobpf9",
+                    "sectionId": "cmazauwvt00mdqp4546r2pqev",
                     "order": 1,
                     "version": 1,
-                    "title": "companyInfo-footer-6e61",
+                    "title": "companyInfo-footer-3bbd",
                     "content": {
-                        "logo": {
-                            "url": "logo",
-                            "altText": {
-                                "ar": "شعار شيد",
-                                "en": "Shade Logo"
+                        "images": [
+                            {
+                                "url": "logo",
+                                "altText": {
+                                    "ar": "شعار شيد",
+                                    "en": "Shade Logo"
+                                }
                             }
-                        },
+                        ],
                         "address": {
                             "ar": "شركة الظل المحدودة.\nص.ب. ص.ب 7027 الدمام 31462 المملكة العربية السعودية مبنى رقم 5222 الدمام 32414-6124.",
                             "en": "Shade Corporation Ltd.\nP.O. Box 7027 Dammam 31462 Saudi Arabia Building No. 5222 Dammam 32414-6124."
@@ -39,10 +41,10 @@
                     "sections": []
                 },
                 {
-                    "sectionId": "cmaywmqxw00mjqpdo4ijeyvnf",
+                    "sectionId": "cmazauww700mjqp45n0w4i3ur",
                     "order": 2,
                     "version": 1,
-                    "title": "navColumns-footer-497e",
+                    "title": "navColumns-footer-cb78",
                     "content": [
                         {
                             "links": [
@@ -170,10 +172,10 @@
                     "sections": []
                 },
                 {
-                    "sectionId": "cmaywmqyc00mpqpdozn3og6tw",
+                    "sectionId": "cmazauwwo00mpqp45bbmmzza6",
                     "order": 3,
                     "version": 1,
-                    "title": "contacts-footer-88a5",
+                    "title": "contacts-footer-cac5",
                     "content": {
                         "fax": {
                             "ar": "فاكس: +966 13 8343910",
@@ -228,10 +230,10 @@
                     "sections": []
                 },
                 {
-                    "sectionId": "cmaywmqys00mvqpdoken32qge",
+                    "sectionId": "cmazauwx300mvqp45kivoza0f",
                     "order": 4,
                     "version": 1,
-                    "title": "copyright-footer-8ed4",
+                    "title": "copyright-footer-85a3",
                     "content": {
                         "text": {
                             "ar": "@2024 جميع الحقوق محفوظة",

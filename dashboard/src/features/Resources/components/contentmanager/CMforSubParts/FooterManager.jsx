@@ -27,7 +27,7 @@ const FooterManager = ({ language, currentContent, currentPath, indexes }) => {
                 inputs={[
                     { input: "textarea", label: "Address", updateType: "address", maxLength: 150, value: currentContent?.['1']?.content?.address?.[language] },
                 ]}
-                inputFiles={[{ label: "Main Icons Image", id: "footerIcon", url: currentContent?.['1']?.content?.logo?.url }]}
+                inputFiles={[{ label: "Main Icons Image", id: "footerIcon", url: currentContent?.['1']?.content?.images?.[0]?.url, index: 0, order: 1 }]}
                 section={"companyInfo"}
                 language={language}
                 currentContent={currentContent}
