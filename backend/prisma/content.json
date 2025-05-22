@@ -531,13 +531,13 @@
   "footer": {
     "slug": "footer",
     "companyInfo": {
-      "logo": {
+      "images": [{
         "url": "logo",
         "altText": {
           "ar": "شعار شيد",
           "en": "Shade Logo"
         }
-      },
+      }],
       "address": {
         "ar": "شركة الظل المحدودة.\nص.ب. ص.ب 7027 الدمام 31462 المملكة العربية السعودية مبنى رقم 5222 الدمام 32414-6124.",
         "en": "Shade Corporation Ltd.\nP.O. Box 7027 Dammam 31462 Saudi Arabia Building No. 5222 Dammam 32414-6124."
