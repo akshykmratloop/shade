@@ -28,7 +28,7 @@ const ImageSelector = ({ onSelectImage, onClose }) => {
     const [selectedImage, setSelectedImage] = useState(null);
     const [metadata, setMetadata] = useState(null);
     const [uploading, setUploading] = useState(false); // Local uploading state for UI
-    const [error, setError] = useState(null); // For any upload errors
+    // const [error, setError] = useState(null); // For any upload errors
     const [uploadCancel, setUploadCancel] = useState(false); // To track cancel status
     const [imagesByResource, setImagesByResources] = useState(true)
     const [images, setImages] = useState(imageStructure)
@@ -40,42 +40,13 @@ const ImageSelector = ({ onSelectImage, onClose }) => {
 
     const { uploadImage } = useImageUpload(resourceId); // hook for uploading images
 
-    // HANDLERS 
-
-    // const handleFileUpload = async (event) => {
-    //     const file = event.target.files[0];
-    //     if (!file || uploading) return; // Prevent uploading if already uploading
-
-    //     if (file.size > 5 * 1024 * 1024) {
-    //         toast.error("File size must be less than 5MB", { hideProgressBar: true });
-    //         return;
-    //     }
-
-    //     setUploading(true);
-    //     setUploadCancel(false);
-
-    //     try {
-    //         const uploadedImageURL = await uploadImage(file);
-    //         if (uploadedImageURL) {
-    //             // Instead of previewing, trigger image list reload
-    //             setRandom(Math.random());
-    //             toast.success("Image uploaded successfully", { hideProgressBar: true })
-    //         }
-    //     } catch {
-    //         console.log("Error Uploading Image Please Try again later")
-    //         toast.error("Error Uploading Image Please Try again later", { hideProgressBar: true })
-    //     } finally {
-    //         setUploading(false);
-    //     }
-    // };
-
     const handleFileUpload = async (event) => {
         const files = Array.from(event.target.files);
         if (!files.length || uploading) return;
 
         const oversizedFiles = files.filter(file => file.size > 5 * 1024 * 1024);
         if (oversizedFiles.length) {
-            toast.error("One or more files exceed the 5MB size limit.", { hideProgressBar: true,  autoClose: 1000 });
+            toast.error("One or more files exceed the 5MB size limit.", { hideProgressBar: true, autoClose: 1000 });
             return;
         }
 
@@ -85,7 +56,6 @@ const ImageSelector = ({ onSelectImage, onClose }) => {
         try {
             // Call your API to upload all files at once
             await uploadImage(files.length > 1 ? files : files[0]); // Replace with your API call
-console.log("runn down time")
             setRandom(Math.random()); // Refresh image grid
             toast.success("All images uploaded successfully", { hideProgressBar: true, autoClose: 1000 });
         } catch (err) {
@@ -327,3 +297,34 @@ console.log("runn down time")
 };
 
 export default ImageSelector;
+
+
+
+// HANDLERS 
+
+// const handleFileUpload = async (event) => {
+//     const file = event.target.files[0];
+//     if (!file || uploading) return; // Prevent uploading if already uploading
+
+//     if (file.size > 5 * 1024 * 1024) {
+//         toast.error("File size must be less than 5MB", { hideProgressBar: true });
+//         return;
+//     }
+
+//     setUploading(true);
+//     setUploadCancel(false);
+
+//     try {
+//         const uploadedImageURL = await uploadImage(file);
+//         if (uploadedImageURL) {
+//             // Instead of previewing, trigger image list reload
+//             setRandom(Math.random());
+//             toast.success("Image uploaded successfully", { hideProgressBar: true })
+//         }
+//     } catch {
+//         console.log("Error Uploading Image Please Try again later")
+//         toast.error("Error Uploading Image Please Try again later", { hideProgressBar: true })
+//     } finally {
+//         setUploading(false);
+//     }
+// };

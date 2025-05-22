@@ -6,7 +6,7 @@ import SuspenseContent from "./SuspenseContent"
 import { useSelector } from 'react-redux'
 import { useEffect, useRef } from "react"
 import { useNavigate } from "react-router-dom"
-import { toast } from "react-toastify"
+// import { toast } from "react-toastify"
 
 const Page404 = lazy(() => import('../pages/protected/404'))
 
@@ -15,7 +15,7 @@ function PageContent() {
     const navigate = useNavigate()
     const mainContentRef = useRef(null);
     const { pageTitle } = useSelector(state => state.header)
-    const userRole = useSelector(state => state.user.currentRole)
+    const userRole = useSelector(state => state.user.activeRole)
     // const applied = useSelector(state => state)
     const location = useLocation()
 

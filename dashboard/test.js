@@ -1,562 +1,264 @@
 let a = {
     "message": "Success",
-    "resources": {
-        "resources": [
-            {
-                "id": "cmaux3yv500bqnlid2fhpux2g",
-                "titleEn": "Repair & Retrofit",
-                "titleAr": "الإصلاح والتحديث",
-                "slug": "repair-retrofit",
-                "resourceType": "SUB_PAGE",
-                "resourceTag": "MARKET",
-                "relationType": "CHILD",
-                "liveModeVersionData": {
-                    "id": "cmaux3yv800bsnlid82nyituy",
-                    "versionNumber": 1,
-                    "icon": null,
-                    "image": null,
+    "content": {
+        "id": "cmaw8ltfu00npqp71jdgt65no",
+        "titleEn": "Projects Page",
+        "titleAr": "المشاريع الصفحة",
+        "slug": "project",
+        "resourceType": "MAIN_PAGE",
+        "resourceTag": "PROJECT",
+        "relationType": "PARENT",
+        "liveModeVersionData": {
+            "id": "cmaw8ltfx00nrqp71aojeiig7",
+            "versionNumber": 1,
+            "icon": null,
+            "image": null,
+            "comments": "Initial version created",
+            "referenceDoc": null,
+            "updatedAt": "2025-05-20T08:13:25.965Z",
+            "status": "PUBLISHED",
+            "sections": [
+                {
+                    "sectionId": "cmaw8lti700ntqp71xh0exbz0",
+                    "order": 1,
+                    "version": 1,
+                    "title": "bannerSection-project-ce5b",
+                    "content": {
+                        "title": {
+                            "ar": ">مشروعنا",
+                            "en": "Our Projects"
+                        },
+                        "button": [
+                            {
+                                "url": null,
+                                "icon": null,
+                                "text": {
+                                    "ar": "دعونا نتواصل",
+                                    "en": "Let's Connect"
+                                },
+                                "order": 1
+                            }
+                        ],
+                        "images": [
+                            {
+                                "url": "https://frequencyimage.s3.ap-south-1.amazonaws.com/851e35b5-9b3b-4d9f-91b4-9b60ef2a102c-Rectangle%2034624110.png",
+                                "order": 1,
+                                "altText": {
+                                    "ar": "صورة شعار الصفحة الرئيسية",
+                                    "en": "Image 1"
+                                }
+                            }
+                        ],
+                        "description": {
+                            "ar": "اكتشف التميز الاستثنائي لشركة Shade Corporation، الشركة الرائدة في مجالات الهندسة والمشتريات والبناء في المملكة العربية السعودية.",
+                            "en": "Discover the exceptional excellence of Shade Corporation, a leading company in the fields of engineering, procurement, and construction in Saudi Arabia."
+                        }
+                    }
+                },
+                {
+                    "sectionId": "cmaw8ltim00nzqp71sng0zaet",
+                    "order": 2,
+                    "version": 1,
+                    "title": "multiSection-project-dcf4",
+                    "content": {
+                        "buttons": [
+                            {
+                                "icon": null,
+                                "text": {
+                                    "ar": "عرض التفاصيل",
+                                    "en": "View Details"
+                                },
+                                "order": 1
+                            },
+                            {
+                                "icon": null,
+                                "text": {
+                                    "ar": "عرض المزيد",
+                                    "en": "View More"
+                                },
+                                "order": 2
+                            }
+                        ]
+                    },
                     "sections": [
                         {
-                            "sectionId": "cmaux3yvi00bunlidwmvcyakq",
+                            "sectionId": "cmaw8ltiz00o5qp71hj4pz2fj",
                             "order": 1,
-                            "version": 1,
-                            "title": "heroSection-repair-retrofit-eb65",
+                            "title": "ALL-project-child-07fd",
                             "content": {
+                                "id": "all",
+                                "order": 1,
                                 "title": {
-                                    "ar": "الإصلاح والتحديث",
-                                    "en": "Repair & Retrofit"
-                                },
-                                "images": [
-                                    {
-                                        "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/repair-retrofit-heroSection.png",
-                                        "order": 1,
-                                        "altText": {
-                                            "ar": "لافتة الإصلاح والتحديث",
-                                            "en": "Repair & Retrofit Banner"
-                                        }
-                                    }
-                                ],
-                                "description": {
-                                    "ar": "نقدم خدمات إصلاح وتحديث للمباني والبنية التحتية لضمان استدامة الأداء وتحديث المرافق القائمة.",
-                                    "en": "We offer repair and retrofit services for buildings and infrastructure to ensure sustainable performance and upgrade existing facilities."
+                                    "ar": "الكل",
+                                    "en": "ALL"
                                 }
-                            }
-                        },
-                        {
-                            "sectionId": "cmaux3yvv00c0nlidw7qe1l4z",
-                            "order": 2,
-                            "version": 1,
-                            "title": "marketBodySection-repair-retrofit-631d",
-                            "content": {
-                                "title": {
-                                    "ar": "الأسواق التي نخدمها",
-                                    "en": "Markets where we provide services"
-                                },
-                                "description": {
-                                    "ar": "ترميم المباني، تحديث أنظمة الطاقة، تقوية الهياكل، تحسين المرافق، حلول كفاءة الطاقة، مقاومة الزلازل",
-                                    "en": "Building Renovation, Energy System Upgrades, Structural Strengthening, Facility Improvements, Energy Efficiency Solutions, Seismic Retrofits"
-                                },
-                                "marketSubItems": {
-                                    "title": {
-                                        "ar": "تفاصيل القطاعات",
-                                        "en": "Market Segments We Serve"
+                            },
+                            "items": [
+                                {
+                                    "id": "cmaw8lruv003uqp71kobf1rdq",
+                                    "titleEn": "IT Labs for Excellence",
+                                    "titleAr": "مختبر تكنولوجيا المعلومات للتميز",
+                                    "slug": "it-lab-for-excellence",
+                                    "icon": null,
+                                    "image": null,
+                                    "location": {
+                                        "ar": "وادي الظهران للتقنية، المملكة العربية السعودية",
+                                        "en": "Dhahran Techno Valley, Saudi Arabia"
                                     },
-                                    "points": [
-                                        {
-                                            "order": 1,
-                                            "title": {
-                                                "ar": "ترميم المباني",
-                                                "en": "Building Restoration"
-                                            },
-                                            "images": [
-                                                {
-                                                    "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                                                    "order": 1,
-                                                    "altText": {
-                                                        "ar": "صورة ترميم المباني",
-                                                        "en": "Building Restoration Image"
-                                                    }
-                                                }
-                                            ],
-                                            "description": {
-                                                "ar": "إصلاح وترميم الهياكل القديمة وإعادتها إلى حالتها الأصلية.",
-                                                "en": "Repairing and restoring aged structures to their original condition."
-                                            }
-                                        },
-                                        {
-                                            "order": 2,
-                                            "title": {
-                                                "ar": "التحديث الإنشائي",
-                                                "en": "Structural Upgrades"
-                                            },
-                                            "images": [
-                                                {
-                                                    "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                                                    "order": 1,
-                                                    "altText": {
-                                                        "ar": "صورة التحديث الإنشائي",
-                                                        "en": "Structural Upgrades Image"
-                                                    }
-                                                }
-                                            ],
-                                            "description": {
-                                                "ar": "تعزيز الهياكل لمواكبة المعايير الحديثة وزيادة المتانة.",
-                                                "en": "Enhancing structures to meet modern standards and increase durability."
-                                            }
-                                        }
-                                    ],
-                                    "description": {
-                                        "ar": "خدمات مستدامة لإعادة تأهيل وتجديد الهياكل الحالية.",
-                                        "en": "Sustainable services for the rehabilitation and renewal of existing structures."
-                                    }
+                                    "order": 1
+                                },
+                                {
+                                    "id": "cmaw8lrxl004rqp71ujzhzuoa",
+                                    "titleEn": "Non-Metallic Manufacturing Plant",
+                                    "titleAr": "مصنع المواد غير المعدنية",
+                                    "slug": "non-metallic-manufacturing-plant",
+                                    "icon": null,
+                                    "image": null,
+                                    "location": {
+                                        "ar": "مدينة الملك سلمان للطاقة، أبقيق، المملكة العربية السعودية",
+                                        "en": "King Salman Energy Park (SPARK), Abqaiq, KSA"
+                                    },
+                                    "order": 2
+                                },
+                                {
+                                    "id": "cmaw8ls05005oqp71zxrs2dzn",
+                                    "titleEn": "Business Gate",
+                                    "titleAr": "بوابة الأعمال",
+                                    "slug": "business-gate",
+                                    "icon": null,
+                                    "image": null,
+                                    "location": {
+                                        "ar": "الدمام، المملكة العربية السعودية",
+                                        "en": "Dammam, Saudi Arabia"
+                                    },
+                                    "order": 3
+                                },
+                                {
+                                    "id": "cmaw8ls30006lqp71cwmfjwm6",
+                                    "titleEn": "OME Building - Northern Area Pipelines",
+                                    "titleAr": "مبنى OME - خطوط أنابيب المنطقة الشمالية",
+                                    "slug": "construction-of-ome-building-napd-khursaniyah",
+                                    "icon": null,
+                                    "image": null,
+                                    "location": {
+                                        "ar": "خرسانية، المملكة العربية السعودية",
+                                        "en": "Khursaniyah, Saudi Arabia"
+                                    },
+                                    "order": 4
+                                },
+                                {
+                                    "id": "cmaw8ls5j007iqp715m3s4qvl",
+                                    "titleEn": "Psychiatric Facility",
+                                    "titleAr": "المنشأة النفسية",
+                                    "slug": "psychiatric-facility",
+                                    "icon": null,
+                                    "image": null,
+                                    "location": {
+                                        "ar": "الرياض، المملكة العربية السعودية",
+                                        "en": "Riyadh, Saudi Arabia"
+                                    },
+                                    "order": 5
                                 }
-                            }
+                            ]
                         },
                         {
-                            "sectionId": "cmaux3ywa00c6nlid3tmxbtrv",
-                            "order": 3,
-                            "version": 1,
-                            "title": "projectsGridSection-repair-retrofit-d59a",
+                            "sectionId": "cmaw8ltk100olqp71jr5fqshq",
+                            "order": 2,
+                            "title": "ONGOING-project-child-ccbf",
                             "content": {
-                                "button": [
-                                    {
-                                        "url": null,
-                                        "icon": null,
-                                        "text": {
-                                            "ar": "عرض المزيد",
-                                            "en": "View More"
-                                        },
-                                        "order": 1
-                                    }
-                                ]
-                            }
+                                "id": "ongoing",
+                                "order": 2,
+                                "title": {
+                                    "ar": "مستمر",
+                                    "en": "ONGOING"
+                                }
+                            },
+                            "items": [
+                                {
+                                    "id": "cmaw8lruv003uqp71kobf1rdq",
+                                    "titleEn": "IT Labs for Excellence",
+                                    "titleAr": "مختبر تكنولوجيا المعلومات للتميز",
+                                    "slug": "it-lab-for-excellence",
+                                    "icon": null,
+                                    "image": null,
+                                    "location": {
+                                        "ar": "وادي الظهران للتقنية، المملكة العربية السعودية",
+                                        "en": "Dhahran Techno Valley, Saudi Arabia"
+                                    },
+                                    "order": 1
+                                },
+                                {
+                                    "id": "cmaw8ls30006lqp71cwmfjwm6",
+                                    "titleEn": "OME Building - Northern Area Pipelines",
+                                    "titleAr": "مبنى OME - خطوط أنابيب المنطقة الشمالية",
+                                    "slug": "construction-of-ome-building-napd-khursaniyah",
+                                    "icon": null,
+                                    "image": null,
+                                    "location": {
+                                        "ar": "خرسانية، المملكة العربية السعودية",
+                                        "en": "Khursaniyah, Saudi Arabia"
+                                    },
+                                    "order": 2
+                                }
+                            ]
+                        },
+                        {
+                            "sectionId": "cmaw8ltkp00ovqp712w642ypn",
+                            "order": 3,
+                            "title": "COMPLETE-project-child-2f76",
+                            "content": {
+                                "id": "complete",
+                                "order": 3,
+                                "title": {
+                                    "ar": "مكتمل",
+                                    "en": "COMPLETE"
+                                }
+                            },
+                            "items": [
+                                {
+                                    "id": "cmaw8lrxl004rqp71ujzhzuoa",
+                                    "titleEn": "Non-Metallic Manufacturing Plant",
+                                    "titleAr": "مصنع المواد غير المعدنية",
+                                    "slug": "non-metallic-manufacturing-plant",
+                                    "icon": null,
+                                    "image": null,
+                                    "location": {
+                                        "ar": "مدينة الملك سلمان للطاقة، أبقيق، المملكة العربية السعودية",
+                                        "en": "King Salman Energy Park (SPARK), Abqaiq, KSA"
+                                    },
+                                    "order": 1
+                                },
+                                {
+                                    "id": "cmaw8ls05005oqp71zxrs2dzn",
+                                    "titleEn": "Business Gate",
+                                    "titleAr": "بوابة الأعمال",
+                                    "slug": "business-gate",
+                                    "icon": null,
+                                    "image": null,
+                                    "location": {
+                                        "ar": "الدمام، المملكة العربية السعودية",
+                                        "en": "Dammam, Saudi Arabia"
+                                    },
+                                    "order": 2
+                                },
+                                {
+                                    "id": "cmaw8ls5j007iqp715m3s4qvl",
+                                    "titleEn": "Psychiatric Facility",
+                                    "titleAr": "المنشأة النفسية",
+                                    "slug": "psychiatric-facility",
+                                    "icon": null,
+                                    "image": null,
+                                    "location": {
+                                        "ar": "الرياض، المملكة العربية السعودية",
+                                        "en": "Riyadh, Saudi Arabia"
+                                    },
+                                    "order": 3
+                                }
+                            ]
                         }
                     ]
                 }
-            },
-            {
-                "id": "cmaux3ytc00avnlidfhi3m0ct",
-                "titleEn": "Infrastructure",
-                "titleAr": "البنية التحتية",
-                "slug": "infrastructure",
-                "resourceType": "SUB_PAGE",
-                "resourceTag": "MARKET",
-                "relationType": "CHILD",
-                "liveModeVersionData": {
-                    "id": "cmaux3yte00axnlid8ll9hqyy",
-                    "versionNumber": 1,
-                    "icon": null,
-                    "image": null,
-                    "sections": [
-                        {
-                            "sectionId": "cmaux3yto00aznlidxsg827y4",
-                            "order": 1,
-                            "version": 1,
-                            "title": "heroSection-infrastructure-1e0d",
-                            "content": {
-                                "title": {
-                                    "ar": "البنية التحتية",
-                                    "en": "Infrastructure"
-                                },
-                                "images": [
-                                    {
-                                        "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/infrastructure-heroSection.png",
-                                        "order": 1,
-                                        "altText": {
-                                            "ar": "لافتة البنية التحتية",
-                                            "en": "Infrastructure Banner"
-                                        }
-                                    }
-                                ],
-                                "description": {
-                                    "ar": "نقدم حلولًا متكاملة للبنية التحتية تشمل الطرق، الجسور، المياه، والكهرباء.",
-                                    "en": "We deliver integrated infrastructure solutions including roads, bridges, water systems, and power grids."
-                                }
-                            }
-                        },
-                        {
-                            "sectionId": "cmaux3ytv00b5nlid1sk9f79q",
-                            "order": 2,
-                            "version": 1,
-                            "title": "marketBodySection-infrastructure-6457",
-                            "content": {
-                                "title": {
-                                    "ar": "الأسواق التي نخدمها",
-                                    "en": "Markets where we provide services"
-                                },
-                                "description": {
-                                    "ar": "طرق، جسور، أنظمة صرف صحي، خطوط كهرباء، أنفاق، شبكات اتصالات، محطات معالجة المياه",
-                                    "en": "Roads, Bridges, Sewer Systems, Power Lines, Tunnels, Telecom Networks, Water Treatment Plants"
-                                },
-                                "marketSubItems": {
-                                    "title": {
-                                        "ar": "تفاصيل القطاعات",
-                                        "en": "Market Segments We Serve"
-                                    },
-                                    "points": [
-                                        {
-                                            "order": 1,
-                                            "title": {
-                                                "ar": "الطرق السريعة",
-                                                "en": "Highways"
-                                            },
-                                            "images": [
-                                                {
-                                                    "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                                                    "order": 1,
-                                                    "altText": {
-                                                        "ar": "صورة الطريق السريع",
-                                                        "en": "Highway Image"
-                                                    }
-                                                }
-                                            ],
-                                            "description": {
-                                                "ar": "بناء وتوسيع شبكات الطرق والممرات السريعة.",
-                                                "en": "Construction and expansion of highway and road networks."
-                                            }
-                                        },
-                                        {
-                                            "order": 2,
-                                            "title": {
-                                                "ar": "محطات المياه",
-                                                "en": "Water Plants"
-                                            },
-                                            "images": [
-                                                {
-                                                    "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                                                    "order": 1,
-                                                    "altText": {
-                                                        "ar": "صورة محطة المياه",
-                                                        "en": "Water Plant Image"
-                                                    }
-                                                }
-                                            ],
-                                            "description": {
-                                                "ar": "تصميم وبناء محطات المعالجة لضمان استدامة المياه.",
-                                                "en": "Design and construction of treatment plants for water sustainability."
-                                            }
-                                        }
-                                    ],
-                                    "description": {
-                                        "ar": "حلول شاملة للبنية التحتية الحيوية التي تدعم التنمية الحضرية.",
-                                        "en": "Comprehensive infrastructure solutions supporting urban development."
-                                    }
-                                }
-                            }
-                        },
-                        {
-                            "sectionId": "cmaux3yu700bbnlidlalsxecf",
-                            "order": 3,
-                            "version": 1,
-                            "title": "projectsGridSection-infrastructure-7486",
-                            "content": {
-                                "button": [
-                                    {
-                                        "url": null,
-                                        "icon": null,
-                                        "text": {
-                                            "ar": "عرض المزيد",
-                                            "en": "View More"
-                                        },
-                                        "order": 1
-                                    }
-                                ]
-                            }
-                        }
-                    ]
-                }
-            },
-            {
-                "id": "cmaux3yqs00a0nlidtefhguff",
-                "titleEn": "Industrial",
-                "titleAr": "الصناعة",
-                "slug": "industrial",
-                "resourceType": "SUB_PAGE",
-                "resourceTag": "MARKET",
-                "relationType": "CHILD",
-                "liveModeVersionData": {
-                    "id": "cmaux3yqx00a2nlidz3ytpidl",
-                    "versionNumber": 1,
-                    "icon": null,
-                    "image": null,
-                    "sections": [
-                        {
-                            "sectionId": "cmaux3yrb00a4nlidyhwg6fwk",
-                            "order": 1,
-                            "version": 1,
-                            "title": "heroSection-industrial-6051",
-                            "content": {
-                                "title": {
-                                    "ar": "الصناعة",
-                                    "en": "Industrial"
-                                },
-                                "images": [
-                                    {
-                                        "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/industrial-heroSection.png",
-                                        "order": 1,
-                                        "altText": {
-                                            "ar": "لافتة الصناعة",
-                                            "en": "Industrial Banner"
-                                        }
-                                    }
-                                ],
-                                "description": {
-                                    "ar": "نقوم ببناء وتشغيل منشآت صناعية متقدمة تشمل المصانع ومرافق الطاقة والبتروكيماويات.",
-                                    "en": "We construct and operate advanced industrial facilities, including manufacturing plants, energy infrastructure, and petrochemical units."
-                                }
-                            }
-                        },
-                        {
-                            "sectionId": "cmaux3yrv00aanlidm6y7uu54",
-                            "order": 2,
-                            "version": 1,
-                            "title": "marketBodySection-industrial-e36f",
-                            "content": {
-                                "title": {
-                                    "ar": "الأسواق التي نخدمها",
-                                    "en": "Markets where we provide services"
-                                },
-                                "description": {
-                                    "ar": "مصانع، مستودعات، منشآت بتروكيماوية، الطاقة، التجميع الصناعي، مراكز توزيع، مراكز البيانات",
-                                    "en": "Factories, Warehouses, Petrochemical Facilities, Energy, Industrial Assembly, Distribution Centers, Data Centers"
-                                },
-                                "marketSubItems": {
-                                    "title": {
-                                        "ar": "تفاصيل القطاعات",
-                                        "en": "Market Segments We Serve"
-                                    },
-                                    "points": [
-                                        {
-                                            "order": 1,
-                                            "title": {
-                                                "ar": "مصانع التصنيع",
-                                                "en": "Manufacturing Plants"
-                                            },
-                                            "images": [
-                                                {
-                                                    "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                                                    "order": 1,
-                                                    "altText": {
-                                                        "ar": "صورة مصنع التصنيع",
-                                                        "en": "Manufacturing Plant Image"
-                                                    }
-                                                }
-                                            ],
-                                            "description": {
-                                                "ar": "تطوير منشآت صناعية لإنتاج مواد متنوعة.",
-                                                "en": "Developing industrial plants for diverse material production."
-                                            }
-                                        },
-                                        {
-                                            "order": 2,
-                                            "title": {
-                                                "ar": "مرافق الطاقة",
-                                                "en": "Energy Facilities"
-                                            },
-                                            "images": [
-                                                {
-                                                    "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                                                    "order": 1,
-                                                    "altText": {
-                                                        "ar": "صورة مرفق الطاقة",
-                                                        "en": "Energy Facility Image"
-                                                    }
-                                                }
-                                            ],
-                                            "description": {
-                                                "ar": "بناء وتشغيل محطات توليد الطاقة وأنظمة التوزيع.",
-                                                "en": "Building and operating power generation and distribution facilities."
-                                            }
-                                        }
-                                    ],
-                                    "description": {
-                                        "ar": "ننفذ مشاريع صناعية معقدة تتطلب دقة هندسية وتقنية عالية.",
-                                        "en": "We execute complex industrial projects requiring high engineering precision and technology."
-                                    }
-                                }
-                            }
-                        },
-                        {
-                            "sectionId": "cmaux3yse00agnlidstazblug",
-                            "order": 3,
-                            "version": 1,
-                            "title": "projectsGridSection-industrial-eda9",
-                            "content": {
-                                "button": [
-                                    {
-                                        "url": null,
-                                        "icon": null,
-                                        "text": {
-                                            "ar": "عرض المزيد",
-                                            "en": "View More"
-                                        },
-                                        "order": 1
-                                    }
-                                ]
-                            }
-                        }
-                    ]
-                }
-            },
-            {
-                "id": "cmaux3yo90095nlid6joig4wt",
-                "titleEn": "Buildings-Service",
-                "titleAr": "المباني",
-                "slug": "buildings",
-                "resourceType": "SUB_PAGE",
-                "resourceTag": "MARKET",
-                "relationType": "CHILD",
-                "liveModeVersionData": {
-                    "id": "cmaux3yoc0097nlido64fazmy",
-                    "versionNumber": 1,
-                    "icon": null,
-                    "image": null,
-                    "sections": [
-                        {
-                            "sectionId": "cmaux3yom0099nlid4erv9ate",
-                            "order": 1,
-                            "version": 1,
-                            "title": "heroSection-buildings-077d",
-                            "content": {
-                                "title": {
-                                    "ar": "المباني",
-                                    "en": "Buildings"
-                                },
-                                "images": [
-                                    {
-                                        "url": "",
-                                        "order": 1,
-                                        "altText": {
-                                            "ar": "الرئيسية",
-                                            "en": " Image"
-                                        }
-                                    }
-                                ],
-                                "description": {
-                                    "ar": "تعد شركة Shade Corporation واحدة من أكبر شركات البناء وتأجير البنية التحتية في المنطقة.",
-                                    "en": "Shade Corporation is one of the largest construction and infrastructure rental companies in the region."
-                                }
-                            }
-                        },
-                        {
-                            "sectionId": "cmaux3yp0009fnlidmw26aqv9",
-                            "order": 2,
-                            "version": 1,
-                            "title": "marketBodySection-buildings-2ac9",
-                            "content": {
-                                "title": {
-                                    "ar": "الأسواق التي نخدمها",
-                                    "en": "Markets where we provide services"
-                                },
-                                "description": {
-                                    "ar": "تعليم، ضيافة، سكني متعدد الاستخدامات، سكني، تجزئة، رعاية صحية، مكاتب، حكومي، مطارات، مواقف سيارات",
-                                    "en": "Education, Hospitality, Multi-Use Residential, Residential, Retail, Health Care, Offices, Government, Airports, Parking"
-                                },
-                                "marketSubItems": {
-                                    "title": {
-                                        "ar": "تفاصيل القطاعات",
-                                        "en": "Market Segments We Serve"
-                                    },
-                                    "points": [
-                                        {
-                                            "order": 1,
-                                            "title": {
-                                                "ar": "التعليم",
-                                                "en": "Education"
-                                            },
-                                            "images": [
-                                                {
-                                                    "url": "",
-                                                    "order": 1,
-                                                    "altText": {
-                                                        "ar": "الرئيسية",
-                                                        "en": " Image"
-                                                    }
-                                                }
-                                            ],
-                                            "description": {
-                                                "ar": "نقوم ببناء وتجهيز المدارس والجامعات بمعايير عالمية لتوفير بيئة تعليمية فعالة.",
-                                                "en": "We construct and equip schools and universities to global standards for effective learning environments."
-                                            }
-                                        },
-                                        {
-                                            "order": 2,
-                                            "title": {
-                                                "ar": "الضيافة",
-                                                "en": "Hospitality"
-                                            },
-                                            "images": [
-                                                {
-                                                    "url": "",
-                                                    "order": 1,
-                                                    "altText": {
-                                                        "ar": "الرئيسية",
-                                                        "en": " Image"
-                                                    }
-                                                }
-                                            ],
-                                            "description": {
-                                                "ar": "إنشاء الفنادق والمنتجعات بتصاميم راقية وخدمات متكاملة لتجربة ضيافة متميزة.",
-                                                "en": "We develop hotels and resorts with elegant design and integrated services for an outstanding guest experience."
-                                            }
-                                        },
-                                        {
-                                            "order": 3,
-                                            "title": {
-                                                "ar": "السكني",
-                                                "en": "Residential"
-                                            },
-                                            "images": [
-                                                {
-                                                    "url": "",
-                                                    "order": 1,
-                                                    "altText": {
-                                                        "ar": "الرئيسية",
-                                                        "en": " Image"
-                                                    }
-                                                }
-                                            ],
-                                            "description": {
-                                                "ar": "بناء مشاريع سكنية متنوعة من الفلل إلى المجمعات متعددة الاستخدامات.",
-                                                "en": "Development of a wide range of residential projects from villas to multi-use complexes."
-                                            }
-                                        }
-                                    ],
-                                    "description": {
-                                        "ar": "نقدم خدمات مخصصة لتلبية احتياجات السوق المختلفة ضمن قطاع المباني.",
-                                        "en": "We offer tailored services to meet the specific demands of various segments within the buildings market."
-                                    }
-                                }
-                            }
-                        },
-                        {
-                            "sectionId": "cmaux3ypg009lnlid4swn4vpw",
-                            "order": 3,
-                            "version": 1,
-                            "title": "projectsGridSection-buildings-09ec",
-                            "content": {
-                                "button": [
-                                    {
-                                        "url": null,
-                                        "icon": null,
-                                        "text": {
-                                            "ar": "أعمالنا",
-                                            "en": "View More"
-                                        },
-                                        "order": 1
-                                    }
-                                ]
-                            }
-                        }
-                    ]
-                }
-            }
-        ],
-        "pagination": {
-            "totalResources": 4,
-            "totalPages": 1,
-            "currentPage": 1,
-            "limit": 100
+            ]
         }
     }
 }

@@ -20,7 +20,7 @@ const PageDetails = ({ data, display, setOn }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const user = useSelector((state) => state.user.user);
-  const currentRole = useSelector((state) => state.user.currentRole)
+  const activeRole = useSelector((state) => state.user.activeRole)
   const navigate = useNavigate()
   const dispatch = useDispatch();
 
@@ -139,7 +139,7 @@ const PageDetails = ({ data, display, setOn }) => {
                     </span>
                   </p>
                   {(user?.isSuperUser ||
-                    currentRole?.permissions?.includes("PAGE_MANAGEMENT")) && (
+                    activeRole?.permissions?.includes("PAGE_MANAGEMENT")) && (
                       <>
                         {/* <button
                           className="text-[#145098] dark:text-sky-500 underline font-[300] py-0 my-0"

@@ -63,7 +63,12 @@ const deactivateUsers = async (id) => {
   const user = await userDeactivation(id);
   assert(user, "USER_INVALID", "user not found");
   // logger.info({response: `user ${id} is deactive now`});
-  return {message: "User deactivated successfully", ok: true}; // if everything goes fine
+  console.log("user", user);
+  return {
+    message: "User deactivated successfully",
+    ok: true,
+    status: user.status,
+  }; // if everything goes fine
 };
 
 const userRoleType = async (id) => {

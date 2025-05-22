@@ -68,7 +68,7 @@ const MarketManager = ({ language, currentContent, currentPath, indexes, outOfEd
                 inputs={[
                     { input: "input", label: "Heading/title", updateType: "title", value: currentContent?.['1']?.content?.title?.[language] },
                     { input: "textarea", label: "Description", updateType: "description", maxLength: 300, value: currentContent?.['1']?.content?.description?.[language] },
-                    { input: "input", label: "Button Text", updateType: "button", value: currentContent?.['1']?.content?.button?.[0]?.text?.[language] }
+                    { input: "input", label: "Button Text", updateType: "button", value: currentContent?.['1']?.content?.button?.[0]?.text?.[language], index: 0 }
                 ]}
                 inputFiles={[{ label: "Backround Image", id: "marketBanner", order: 1 }]}
                 section={"banner"}

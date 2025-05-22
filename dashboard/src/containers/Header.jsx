@@ -15,7 +15,7 @@ import { getNotificationsbyId } from "../app/fetch";
 import { setNotificationCount } from "../features/common/headerSlice";
 import socket from "../Socket/socket";
 import capitalizeWords, { TruncateText } from "../app/capitalizeword";
-import { updateCurrentRole, updateUser } from "../features/common/userSlice";
+import { updateActiveRole, updateUser } from "../features/common/userSlice";
 import { FaCaretDown } from "react-icons/fa";
 
 function Header() {
@@ -27,7 +27,7 @@ function Header() {
   // redux state
   const userObj = useSelector((state) => state.user);
   const { noOfNotifications } = useSelector((state) => state.header);
-  const { user, currentRole } = userObj;
+  const { user, activeRole } = userObj;
 
   // ref
   const listRef = useRef(null);
@@ -76,9 +76,9 @@ function Header() {
   };
 
   const switchRole = (id) => {
-    if (currentRole.role === id) return;
+    if (activeRole.role === id) return;
     // Switch Role
-    localStorage.setItem("currentRole", id);
+    localStorage.setItem("activeRole", id);
     // dispatch(updateCurrentRole(id))
     navigate(0);
   };
@@ -143,11 +143,19 @@ function Header() {
     };
 
     const handleUserUpdate = async (response) => {
-      // console.log(JSON.stringify(response))
-      if (response.result.deactivate) logoutUser()
-      dispatch(updateUser({ data: response.result, type: "update" }))
-      localStorage.setItem("user", JSON.stringify(response.result))
-    }
+      // console.log(JSON.stringify(response));
+      if (response.result?.status === "INACTIVE") {
+        return logoutUser();
+      }
+
+      // let roles = response.result?.roles?.filter((e) => e.status === "ACTIVE");
+
+      const userObj = response.result
+      // console.log("userObj", userObj);
+
+      dispatch(updateUser({ data: userObj, type: "update" }));
+      localStorage.setItem("user", JSON.stringify(userObj));
+    };
 
     socket.on("role_created", handleNew);
     socket.on("user_created", handleNew);
@@ -178,7 +186,6 @@ function Header() {
   //       console.error("Failed to fetch notifications count", error);
   //     }
   //   }
-
   //   if (user?.id) {
   //     fetchUnreadCount();
   //   }
@@ -205,7 +212,7 @@ function Header() {
             {greetings}
           </p>
         </div>
-        <div className="order-last gap-[12px]">
+        <div className="order-last w-[50%] gap-[12px]">
           {/* <SearchBar
             setSearchText={() => { }}
             styleClass={
@@ -221,23 +228,24 @@ function Header() {
             </div>
           </button> */}
           <div
-            className="mx-1 w-[16vw] p-0 self-stretch flex gap-[6px] items-center rounded-md relative cursor-pointer "
+            className="mx-1 w-[20vw] p-0 self-stretch flex gap-[6px] items-center rounded-md relative cursor-pointer "
             onClick={() => {
               setOpenList(!openList);
             }}
-            title={capitalizeWords(currentRole?.role) || "No role is assigned"}
+            title={capitalizeWords(activeRole?.role) || "No role is assigned"}
           >
             <div
               className="py-1 px-[4px] pl-[6px] text-[14px] h-full flex items-center font-[600] rounded-[5px_0px_0px_5px]"
               onClick={() => {
-                if (!oneRoleOnly) return
+                if (!oneRoleOnly) return;
                 setOpenList(!openList);
               }}
             >
               Role
             </div>
             <label
-              className={`flex items-center ${oneRoleOnly ? "justify-center" : "justify-between"} cursor-pointer w-full bg-base-300 py-1 px-[6px] h-full rounded-md`}
+              className={`flex items-center ${oneRoleOnly ? "justify-center" : "justify-between"
+                } cursor-pointer w-full bg-base-300 py-1 px-[6px] h-full rounded-md`}
               // style={{ justifyItems: oneRoleOnly ? "center" : ""}}
               onClick={() => {
                 setOpenList(!openList);
@@ -245,9 +253,10 @@ function Header() {
             >
               <div
                 className="flex h-[100%] items-center justify-center flex-row text-[clamp(10px,1.7vh,2rem)]"
-                style={{ whiteSpace: "", }}
+                style={{ whiteSpace: "" }}
               >
-                {TruncateText(capitalizeWords(currentRole?.role), 20) || "No role is assigned"}
+                {TruncateText(capitalizeWords(activeRole?.role), 20) ||
+                  "No role is assigned"}
               </div>
               {!oneRoleOnly && (
                 <span>
@@ -258,7 +267,7 @@ function Header() {
             {!oneRoleOnly && (
               <ul
                 ref={listRef}
-                className="dropdown-content 
+                className="dropdown-content w-[90%]
                 mt-1 left-[18%] top-[100%] 
                 dark:border dark:border-stone-300/20 
                 dark:shadow-md dark:shadow-stone-800 

@@ -84,8 +84,8 @@ const HomeManager = ({ language, currentPath, outOfEditing }) => {
                 inputs={[
                     { input: "input", label: "Heading/title", updateType: "title", value: content?.["1"]?.content?.title?.[language] },
                     { input: "textarea", label: "Description", updateType: "description", maxLength: 500, value: content?.["1"]?.content?.description?.[language] },
-                    { input: "input", label: "Button Text", updateType: "button", maxLength: 20, value: content?.["1"]?.content?.button?.[0]?.text?.[language] }]}
-                inputFiles={[{ label: "Backround Image", id: "homeBanner", order: 1 }]}
+                    { input: "input", label: "Button Text", updateType: "button", maxLength: 20, value: content?.["1"]?.content?.button?.[0]?.text?.[language], index: 0 }]}
+                inputFiles={[{ label: "Backround Image", id: "homeBanner", order: 1, url: content?.['1']?.content?.images?.[0]?.url }]}
                 section={"homeBanner"}
                 language={language}
                 currentContent={content}
@@ -101,8 +101,8 @@ const HomeManager = ({ language, currentPath, outOfEditing }) => {
                 inputs={[
                     { input: "input", label: "Heading/title", updateType: "title", value: content?.['2']?.content?.title?.[language] },
                     { input: "richtext", label: "About section", updateType: "description", maxLength: 800, value: content?.['2']?.content?.description?.[language] },
-                    { input: "input", label: "Button Text", updateType: "button", value: content?.['2']?.content?.button?.[0]?.text?.[language] }]}
-                inputFiles={[{ label: "Backround Image", id: "aboutUsSection", order: 1 }]}
+                    { input: "input", label: "Button Text", updateType: "button", value: content?.['2']?.content?.button?.[0]?.text?.[language], index: 0 }]}
+                inputFiles={[{ label: "Backround Image", id: "aboutUsSection", order: 1, url: content?.["2"]?.content?.images[0]?.url }]}
                 section={"aboutUsSection"}
                 language={language}
                 currentContent={content}
@@ -136,7 +136,7 @@ const HomeManager = ({ language, currentPath, outOfEditing }) => {
                     inputs={[
                         { input: "input", label: "Heading/title", updateType: "title", value: content?.['4']?.content?.title?.[language] },
                         { input: "textarea", label: "Description", updateType: "description", value: content?.['4']?.content?.description?.[language] },
-                        { input: "input", label: "Button Text", updateType: "button", value: content?.['4']?.content?.button?.[0]?.text?.[language] }]}
+                        { input: "input", label: "Button Text", updateType: "button", value: content?.['4']?.content?.button?.[0]?.text?.[language], index: 0 }]}
                     isBorder={false}
                     fileId={"experienceSection"}
                     section={"experienceSection"}
@@ -155,7 +155,7 @@ const HomeManager = ({ language, currentPath, outOfEditing }) => {
                             inputs={[
                                 { input: "input", label: "Item text 1", updateType: "count", value: content?.['4']?.content?.cards?.[index]?.count },
                                 { input: "input", label: "Item text 2", updateType: "title", value: content?.['4']?.content?.cards?.[index]?.title?.[language] }]}
-                            inputFiles={[{ label: "Item Icon", id: item, order: (index + 1) }]}
+                            inputFiles={[{ label: "Item Icon", id: item, order: (index + 1), directIcon: true, url: content?.['4']?.content?.cards?.[index]?.icon }]}
                             // fileId={item}
                             language={language}
                             section={"experienceSection"}
@@ -275,9 +275,7 @@ const HomeManager = ({ language, currentPath, outOfEditing }) => {
                 inputs={[
                     { input: "input", label: "Heading/title", maxLength: 55, updateType: "title", value: content?.['8']?.content?.title?.[language] },
                     { input: "richtext", label: "Description 1", updateType: "description", value: content?.['8']?.content?.description?.[language] },
-                    // { input: "textarea", label: "Description 2", updateType: "description2", value: content?.normalContent?.content?.description2?.[language] },
-                    // { input: "intpu", label: "Highlight Text", updateType: "highlightedText", value: content?.normalContent?.content?.highlightedText?.[language] },
-                    { input: "input", label: "Button Text", updateType: "button", value: content?.['8']?.content?.button?.[0]?.text?.[language] },
+                    { input: "input", label: "Button Text", updateType: "button", value: content?.['8']?.content?.button?.[0]?.text?.[language], index: 0 },
                 ]}
                 section={"newProjectSection"}
                 language={language}

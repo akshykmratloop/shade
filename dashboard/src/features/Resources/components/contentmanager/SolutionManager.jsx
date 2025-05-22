@@ -44,29 +44,14 @@ const SolutionManager = ({ currentPath, language, currentContent, indexes }) => 
                 inputs={[
                     { input: "input", label: "Heading/title", updateType: "title", value: currentContent?.["1"]?.content?.title?.[language] },
                     { input: "textarea", label: "Description", updateType: "description", maxLength: 300, value: currentContent?.["1"]?.content?.description?.[language] },
-                    { input: "input", label: "Button Text", updateType: "button", maxLength: 20, value: currentContent?.["1"]?.content?.button?.[0]?.text?.[language] }
+                    { input: "input", label: "Button Text", updateType: "button", maxLength: 20, value: currentContent?.["1"]?.content?.button?.[0]?.text?.[language], index: 0 }
                 ]}
-                inputFiles={[{ label: "Background Image", id: "bannerBackground", order: 1 },]}
+                inputFiles={[{ label: "Background Image", id: "bannerBackground", order: 1, url: currentContent?.["1"]?.content?.images?.[0]?.url },]}
                 section={"banner"}
                 language={language}
                 currentContent={currentContent}
                 sectionIndex={indexes?.['1']}
-
             />
-
-            {/**What We Do */}
-            {/* <ContentSection
-                currentPath={currentPath}
-                Heading={"Solution Section 2"}
-                inputs={[
-                    { input: "input", label: "Heading/title", updateType: "title" },
-                    { input: "textarea", label: "Description 1", updateType: "description1" },
-                    { input: "textarea", label: "Description 2", updateType: "description2" }
-                ]}
-                section={"whatWeDo"}
-                language={language}
-                currentContent={currentContent}
-            /> */}
 
             <div className="mt-4 border-b">
                 <h3 className={`font-semibold text-[1.25rem] mb-4`}>Description</h3>
@@ -106,11 +91,6 @@ const SolutionManager = ({ currentPath, language, currentContent, indexes }) => 
                     currentContent?.['3']?.content.images?.map((e, i) => {
                         return { label: "Image " + (i + 1), id: "Image " + (1 + i), order: e.order, url: e.url }
                     })
-                    //     [
-                    //     {label: "Image 1", id: "Image 1" },
-                    //     {label: "Image 2", id: "Image 2" },
-                    //     {label: "Image 3", id: "Image 3" },
-                    // ]
                 }
                 section={"images"}
                 language={language}

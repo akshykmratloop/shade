@@ -1,7 +1,7 @@
 // import {eventEmitter} from "../../helper/event.js";
-import { getSocketId } from "../../helper/socketConnectionID.js";
-import { createNotification } from "../../repository/notification.repository.js";
-import { fetchAllUsersByRoleId } from "../../repository/user.repository.js";
+import {getSocketId} from "../../helper/socketConnectionID.js";
+import {createNotification} from "../../repository/notification.repository.js";
+import {fetchAllUsersByRoleId} from "../../repository/user.repository.js";
 import {
   getRoles,
   getRoleById,
@@ -15,7 +15,7 @@ import {
 const GetRoles = async (req, res) => {
   // const searchTerm = req.query.search || "";
   // const status = req.query.status || "";
-  const { search, status, page, limit } = req.query;
+  const {search, status, page, limit} = req.query;
   const pageNum = parseInt(page) || 1;
   const limitNum = parseInt(limit) || 10;
   const response = await getRoles(search, status, pageNum, limitNum);
@@ -23,7 +23,7 @@ const GetRoles = async (req, res) => {
 };
 
 const GetRoleById = async (req, res) => {
-  const { id } = req.params;
+  const {id} = req.params;
   const response = await getRoleById(id);
   res.status(200).json(response);
 };
@@ -34,22 +34,8 @@ const GetRoleType = async (req, res) => {
 };
 
 const CreateRole = async (req, res) => {
-  const { name, roleTypeId, permissions } = req.body;
+  const {name, roleTypeId, permissions} = req.body;
   const result = await createRole(name, roleTypeId, permissions);
-
-  // const io = req.app.locals.io; // Get socket.io instance
-
-  // // Create the notification in DB
-  // await createNotification({
-  //   userId: req.user.id,
-  //   message: `A new role '${name}' has been created`,
-  // });
-
-  // // Emit role creation event
-  // io.emit("role_created", {
-  //   userId: req.user.id,
-  //   message: `A new role '${name}' has been created`,
-  // });
   res.locals.entityId = result.newRole.roles.id;
   res.status(201).json(result);
 };
@@ -61,15 +47,15 @@ const CreateRole = async (req, res) => {
 //   res.status(202).json(result);
 // };
 const UpdateRole = async (req, res) => {
-  const { id } = req.params;
-  const { name, roleTypeId, permissions } = req.body;
+  const {id} = req.params;
+  const {name, roleTypeId, permissions} = req.body;
   const result = await updateRole(id, name, roleTypeId, permissions);
   const io = req.app.locals.io; // Get socket.io instance
   const users = await fetchAllUsersByRoleId(id);
   users.forEach((el) => {
     const socketIdOfUpdatedUser = getSocketId(el.id);
     if (socketIdOfUpdatedUser) {
-      io.to(socketIdOfUpdatedUser).emit("userUpdated", { result: el });
+      io.to(socketIdOfUpdatedUser).emit("userUpdated", {result: el});
     }
   });
   io.emit("role_updated", result);
@@ -77,14 +63,34 @@ const UpdateRole = async (req, res) => {
 };
 
 const ActivateRole = async (req, res) => {
-  const { id } = req.body;
+  const {id} = req.body;
   const result = await activateRoles(id);
+  const io = req.app.locals.io; // Get socket.io instance
+  const users = await fetchAllUsersByRoleId(id);
+  users.forEach((el) => {
+    const socketIdOfUpdatedUser = getSocketId(el.id);
+    if (socketIdOfUpdatedUser) {
+      io.to(socketIdOfUpdatedUser).emit("userUpdated", {result: el});
+    }
+  });
+  io.emit("role_updated", result);
   res.status(200).json(result);
 };
 
 const DeactivateRole = async (req, res) => {
-  const { id } = req.body;
+  const {id} = req.body;
   const result = await deactivateRoles(id);
+  const io = req.app.locals.io; // Get socket.io instance
+  const users = await fetchAllUsersByRoleId(id);
+  users.forEach((el) => {
+    const socketIdOfUpdatedUser = getSocketId(el.id);
+    if (socketIdOfUpdatedUser) {
+      io.to(socketIdOfUpdatedUser).emit("userUpdated", {result: el});
+    }
+  });
+  console.log("role update", result);
+
+  io.emit("role_updated", result);
 
   res.status(200).json(result);
 };
