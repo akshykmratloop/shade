@@ -104,7 +104,13 @@ const FooterManager = ({ language, currentContent, currentPath, indexes }) => {
                 Heading={"Social Media Icons"}
                 inputFiles={currentContent?.['3']?.content?.socialLinks?.map(
                     (e, i) =>
-                        ({ label: "Image " + (i + 1), id: "image " + e.id })
+                    ({
+                        label: "Image " + (i + 1),
+                        id: "image " + e.order,
+                        order: e.order,
+                        url: e.icon,
+                        value: e.url
+                    })
                 )}
                 section={"socialLinks"}
                 language={language}

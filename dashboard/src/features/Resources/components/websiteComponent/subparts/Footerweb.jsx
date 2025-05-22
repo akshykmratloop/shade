@@ -9,6 +9,7 @@ import Twitter from "../../../../../assets/icons/twitter.svg"
 import Linkedin from "../../../../../assets/icons/linkedin.svg"
 import foot_layer from "../../../../../assets/images/foot_layer.png"
 import foot_layer1 from "../../../../../assets/images/foot_layer1.png"
+import { Img_url } from "../../../../../routes/backend";
 // import { updateMainContent, updateImages } from "../../../../common/homeContentSlice";
 
 
@@ -92,7 +93,7 @@ const Footer = ({ language, screen, currentContent }) => {
                     <div className="flex gap-4 mt-1 items-center">
                         {currentContent?.["3"]?.content?.socialLinks?.map((social, index) => (
                             <a key={index + social.url} href={social.url} target="_blank" rel="noopener noreferrer">
-                                {social.icon && <img src={social.icon} alt="social" width={20} height={20} />}
+                                {social.icon && <img src={Img_url + social.icon} alt="" width={20} height={20} />}
                             </a>
                         ))}
                     </div>

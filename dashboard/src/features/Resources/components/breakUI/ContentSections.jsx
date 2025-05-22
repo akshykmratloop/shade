@@ -36,7 +36,6 @@ const ContentSection = ({
     directIcon
 }) => {
     const dispatch = useDispatch();
-    // const [extraFiles, setExtraFiles] = useState([]);
     const ImagesFromRedux = useSelector((state) => state.homeContent.present.images)
 
     const editor = useRef(null);
@@ -50,50 +49,10 @@ const ContentSection = ({
             sectionIndex,
             section
         }))
-        // if (deepPath) {
-        //     dispatch(updateImages({ src: { url: "" }, section, currentPath, deepPath, projectId, operation: "add" }))
-        // } else if (section === 'socialIcons') {
-        //     if (ImagesFromRedux.socialIcons.length < 8) {
-        //         dispatch(updateImages({ src: [...ImagesFromRedux.socialIcons, { img: "", url: "", id: ImagesFromRedux.socialIcons.length + 1 }], section: "socialIcons" }))
-        //         dispatch(updateImages({ src: [...ImagesFromRedux.socialIcons, { img: "", url: "", id: ImagesFromRedux.socialIcons.length + 1 }], section: "socialIcons" }))
-        //     }
-        // } else if (section === 'gallerySection') {
-        //     dispatch(updateImages({
-        //         src: { url: "", alt: { en: "", ar: "" } },
-        //         updateType: section,
-        //         projectId,
-        //         operation: 'add'
-        //     }))
-        // } else {
-        //     dispatch(updateAList({
-        //         data: { alt: { ar: "", en: "" }, image: [""] },
-        //         index: sectionIndex,
-        //         operation: "add"
-        //     }))
-        // }
     };
 
     const removeExtraFileInput = (order) => {
         dispatch(rmImageArray({ sectionIndex, order, section }))
-
-        // if (section === 'gallerySection' || deepPath) {
-        //     dispatch(updateImages({
-        //         src: id,
-        //         updateType: section,
-        //         projectId,
-        //         deepPath,
-        //         currentPath,
-        //         section,
-        //         operation: 'remove'
-        //     }))
-        // } else {
-        //     console.log(id)
-        //     dispatch(updateAList({
-        //         data: id,
-        //         index: sectionIndex,
-        //         operation: "remove"
-        //     }))
-        // }
     };
 
     const updateFormValue = (updateType, value, path, buttonIndex) => {
@@ -294,8 +253,11 @@ const ContentSection = ({
                                             section={section}
                                             isCloseButton={allowClose}
                                             resourceId={resourceId}
-                                            contentIndex={sectionIndex}
+                                            sectionIndex={sectionIndex}
+                                            index={index}
                                             outOfEditing={outOfEditing}
+                                            textValue={file.value}
+                                            url={file.url}
                                         />
                                     )
                                 })}
@@ -334,29 +296,12 @@ const ContentSection = ({
                                             directIcon={file.directIcon}
                                             order={file.order}
                                             url={file.url}
+                                            textValue={file.value}
                                         />
                                     </div>
                                 )
                             })}
-                            {/* {extraFiles.map((file, index) => (
-                                <div key={index} className="relative flex items-center justify-center">
-                                    <button
-                                        className="absolute top-6 z-10 right-[-8px] bg-red-500 text-white px-1 rounded-full shadow"
-                                        onClick={() => removeExtraFileInput(file.id)}
-                                    >
-                                        ✖
-                                    </button>
-                                    <InputFile
-                                        label={file.label}
-                                        id={file.id}
-                                        currentPath={currentPath}
-                                        section={section}
-                                        fileIndex={index}
-                                        resourceId={resourceId}
-                                        contentIndex={contentIndex}
-                                    />
-                                </div>
-                            ))} */}
+                       
                             {
                                 section === 'socialIcons' ? ImagesFromRedux?.socialIcons?.length < 8 ?
                                     <button
