@@ -56,6 +56,7 @@ const AboutManager = ({ content, currentPath, language, indexes, outOfEditing })
     // useEffect(() => {
     //     return () => dispatch(updateMainContent({ currentPath: "content", payload: undefined }))
     // }, [])
+    //
     return (
         <div className="w-full">
             {/* reference doc */}
@@ -112,6 +113,7 @@ const AboutManager = ({ content, currentPath, language, indexes, outOfEditing })
                 inputs={[
                     { input: "input", label: "Heading/title", updateType: "title", value: content?.['2']?.content?.title?.[language] },
                     { input: "richtext", label: "Descriptions", updateType: "descriptions", maxLength: 400, value: content?.['2']?.content?.descriptions?.[language] },
+                    { input: "input", label: "Button", updateType: "button", maxLength: 20, value: content?.['2']?.content?.button?.[0]?.text?.[language], index: 0 },
                 ]}
                 inputFiles={[{ label: "Video", id: "video", }]}
                 section={"main"}

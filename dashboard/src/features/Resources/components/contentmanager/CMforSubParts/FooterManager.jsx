@@ -85,8 +85,8 @@ const FooterManager = ({ language, currentContent, currentPath, indexes }) => {
                     { input: "input", label: "Title", updateType: 'title', maxLength: 25, value: currentContent?.['3']?.content?.title?.[language] },
                     { input: "input", label: "Fax", updateType: "fax", maxLength: 25, value: currentContent?.['3']?.content?.fax?.[language] },
                     { input: "input", label: "Phone", updateType: "phone", maxLength: 25, value: currentContent?.['3']?.content?.phone?.[language] },
-                    { input: "input", label: "Help Text", updateType: "helpText", maxLength: 25, value: currentContent?.['3']?.content?.helpText?.[language] },
-                    { input: "input", label: "Button", updateType: "button", maxLength: 12, value: currentContent?.['3']?.content?.button?.[0]?.text?.[language] }
+                    { input: "textarea", label: "Help Text", updateType: "helpText", maxLength: 50, value: currentContent?.['3']?.content?.helpText?.[language] },
+                    { input: "input", label: "Button", updateType: "button", maxLength: 12, value: currentContent?.['3']?.content?.button?.[0]?.text?.[language], index: 0 }
                 ]}
                 language={language}
                 // section={"Section 1"}
