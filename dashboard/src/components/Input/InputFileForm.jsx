@@ -1,14 +1,14 @@
 import { useEffect, useRef, useState } from "react";
 import { Upload, X } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
-import { removeImages, updateImages, updateSpecificContent } from "../../features/common/homeContentSlice";
+import { removeImages, rmImageArray, updateImages, updateSpecificContent } from "../../features/common/homeContentSlice";
 import InputText from "./InputText";
 import { Img_url } from "../../routes/backend";
 import ImageSelector from "./ImageSelector";
 
 const InputFile = ({ label, baseClass, resourceId, sectionIndex, index, textValue, url, id, currentPath, section, fileIndex, isCloseButton, order }) => {
   const dispatch = useDispatch();
-  const fileInputRef = useRef(null);
+  // const fileInputRef = useRef(null);
   const ImageFromRedux = useSelector(state => state.homeContent.present.images);
   const [fileURL, setFileURL] = useState("");
   const [isSelectorOpen, setIsSelectorOpen] = useState(false);
@@ -80,14 +80,10 @@ const InputFile = ({ label, baseClass, resourceId, sectionIndex, index, textValu
   //     fileInputRef.current.value = "";
   //   }
   // };
-  const removeFileInput = () => {
-    if (section === 'socialIcons') {
-      const newArray = ImageFromRedux.socialIcons.filter((e, i) => { return e.id !== parseInt(id.slice(-1)) })
-      const newOriginalArray = ImageFromRedux.OriginalSocialIcons.filter((e, i) => { return e.id !== parseInt(id.slice(-1)) })
-      dispatch(updateImages({ src: newArray, section: "socialIcons" }))
-      dispatch(updateImages({ src: newOriginalArray, section: "OriginalSocialIcons" }))
-    }
-  };
+
+    const removeExtraFileInput = () => {
+        dispatch(rmImageArray({ sectionIndex, order, section }))
+    };
 
   useEffect(() => {
     if (ImageFromRedux[id]) {
@@ -103,7 +99,7 @@ const InputFile = ({ label, baseClass, resourceId, sectionIndex, index, textValu
     <div className={`relative ${baseClass} mt-2 flex flex gap-2 w-full `}>
       {isCloseButton && <button
         className="absolute -top-3 z-20 right-[-8px] bg-[#ff0000] text-white px-[5px] rounded-full shadow"
-        onClick={removeFileInput}
+        onClick={removeExtraFileInput}
       >
         ✖
       </button>}

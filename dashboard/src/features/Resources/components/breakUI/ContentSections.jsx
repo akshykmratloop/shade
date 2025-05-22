@@ -283,6 +283,7 @@ const ContentSection = ({
                                             outOfEditing={outOfEditing}
                                             textValue={file.value}
                                             url={file.url}
+                                            order={file.order}
                                         />
                                     )
                                 })}

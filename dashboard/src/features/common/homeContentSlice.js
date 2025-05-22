@@ -40,13 +40,15 @@ const cmsSlice = createSlice({
             state.present.content.editVersion.sections[action.payload.sectionIndex].content[action.payload.section] = newArray
         },
         rmImageArray: (state, action) => {
+      console.log(action.payload.order)
+
             let oldArray = state.present.content.editVersion.sections[action.payload.sectionIndex].content[action.payload.section]
             let newArray = oldArray.filter(e => {
                 return e.order !== action.payload.order
             })
 
             newArray = newArray.map((e, i) => ({ ...e, order: i + 1 }))
-
+            console.log(newArray)
             state.present.content.editVersion.sections[action.payload.sectionIndex].content[action.payload.section] = newArray
         },
         addClientHomeArray: (state, action) => {
