@@ -40,7 +40,6 @@ const cmsSlice = createSlice({
             state.present.content.editVersion.sections[action.payload.sectionIndex].content[action.payload.section] = newArray
         },
         rmImageArray: (state, action) => {
-      console.log(action.payload.order)
 
             let oldArray = state.present.content.editVersion.sections[action.payload.sectionIndex].content[action.payload.section]
             let newArray = oldArray.filter(e => {
@@ -186,7 +185,6 @@ const cmsSlice = createSlice({
         },
         updateSpecificContent: (state, action) => {
             state.past.push(JSON.parse(JSON.stringify(state.present)));
-            // console.log(action.payload.type)
             if (action.payload.type === "content[index]") {
                 if (action.payload.title === 'url') {
                     state.present.content.editVersion.sections[action.payload.sectionIndex].content[action.payload.contentIndex][action.payload.title] = action.payload.value
@@ -197,8 +195,6 @@ const cmsSlice = createSlice({
                 state.present.content.editVersion.sections[action.payload.sectionIndex].content[action.payload.contentIndex][action.payload.title][action.payload.lan] = action.payload.value
             } else if (action.payload.section === "Footer/Links") {
                 state.present.content.editVersion.sections[action.payload.sectionIndex].content[action.payload.contentIndex].links[action.payload.index][action.payload.title] = action.payload.value
-
-                // state.present.content.editVersion.sections[action.payload.sectionIndex].content[action.payload.contentIndex][action.payload.title][action.payload.lan] = action.payload.value
             } else if (action.payload.title === "button") {
                 state.present.content.editVersion.sections[action.payload.sectionIndex].content[action.payload.title][action.payload.buttonIndex].text[action.payload.lan] = action.payload.value
             } else if (action.payload.section === "recentProjectsSection") {
