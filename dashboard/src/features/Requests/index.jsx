@@ -142,6 +142,7 @@ function Requests() {
   const noneCanSee = !(isEditor || isManager || isVerifier || isPublisher)
   const RoleTypeIsUser = userPermissionsSet.has(activeRole?.permissions[0])
   const [permission, setPermission] = useState(RoleTypeIsUser ? activeRole?.permissions[0] || "" : false)
+  const [random, setRandom] = useState(Math.random())
 
   // Fucntions
   const navigate = useNavigate();
@@ -217,7 +218,7 @@ function Requests() {
   // APPLY SEARCH
   const applySearch = (value) => {
     const filteredRequests = originalRequests?.filter((request) =>
-      request?.name.toLowerCase().includes(value.toLowerCase())
+      request?.name?.toLowerCase().includes(value?.toLowerCase())
     );
     setCurrentPage(1);
     setRequests(filteredRequests);
@@ -268,7 +269,7 @@ function Requests() {
       }
       fetchRequestsData();
     }
-  }, [activeRole.id, permission]);
+  }, [activeRole.id, permission, random]);
 
   useEffect(() => {
     setCanSeeEditor(isVerifier || isPublisher || isManager)
@@ -312,7 +313,7 @@ function Requests() {
           />
         }
       >
-        <div className="min-h-[28.2rem] flex flex-col justify-between">
+        <div className="min-h-[30rem] flex flex-col justify-between">
           <div className=" w-full border dark:border-stone-600 rounded-2xl">
             <table className="table text-center min-w-full dark:text-[white]">
               <thead className="" style={{ borderRadius: "" }}>
@@ -373,14 +374,12 @@ function Requests() {
                         style={{ height: "65px" }}
                       >
                         <td
-                          className={`font-poppins h-[65px] truncate font-normal text-[14px] leading-normal text-[#101828] p-[26px] pl-5 flex`}
+                          className={`font-poppins h-[65px] truncate font-normal text-[14px] leading-normal text-[#101828] py-[10px] pl-5 flex items-center`}
                         >
-                          {/* <img src={user.image ? user.image : userIcon} alt={user.name} className="rounded-[50%] w-[41px] h-[41px] mr-2" /> */}
                           <div className="flex flex-col">
                             <p className="dark:text-[white]">
                               {request?.resourceVersion?.resource?.titleEn}
                             </p>
-                            {/* <p className="font-light text-[grey]">{user.email}</p> */}
                           </div>
                         </td>
                         {
@@ -513,7 +512,7 @@ function Requests() {
                         <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]">
                           <p
                             className={`min-w-[85px] mx-auto before:content-['•'] before:text-2xl flex h-7 items-center justify-center gap-1 px-1 py-0 font-[500] 
-                              ${request.flowStatus === "SCHEDULED"
+                              ${request.flowStatus === "SCHEDULED" || request.flowStatus === "PUBLISHED"
                                 ? "text-green-600 bg-lime-200 before:text-green-600 px-1"
                                 : request.flowStatus === "PENDING"
                                   ? "text-blue-600 bg-sky-200 before:text-blue-600 "
@@ -655,10 +654,11 @@ function Requests() {
           currentlyEditor={!canSeeEditor}
           currentlyVerifier={canSeePublisher}
           currentlyPublisher={canSeeVerifier}
-          role={selectedRequest}
+          request={selectedRequest}
           show={showDetailsModal}
           resourceId={resourceId}
           requestId={requestId}
+          refreshList={() => setRandom(Math.random())}
           // updateRoles={setChangesInRequest}
           onClose={() => {
             setSelectedRequest(false);

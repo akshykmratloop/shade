@@ -24,10 +24,11 @@ const Commnets = ({ comment }) => {
         <div className="flex items-center gap-1">
 
             {TruncateText(comment, 20) || "N/A"}
-            {comment !== "No Comments" && (
+            {comment !== null && (
                 <div className="relative" ref={commentRef}
                 >
                     <span
+                        className="cursor-pointer"
                         onClick={() => setCommentOn(prev => !prev)}
                     >
                         <FiEye />
@@ -38,7 +39,7 @@ const Commnets = ({ comment }) => {
                             <div className="comment-bubble w-[25vw] h-[25vh] overflow-y-scroll rm-scroll">
                                 <div className="comment-bubble-arrow"></div>
                                 <h3>Comments:</h3>
-                                <p className={`${comment ? "text-stone-900 dark:text-stone-200" : "text-stone-300"}`}>{comment || "No comments"}</p>
+                                <p className={`${comment ? "text-stone-900 dark:text-stone-900" : "text-stone-300"}`}>{comment || "No comments"}</p>
                             </div>
                         </div>
                     }
