@@ -291,8 +291,8 @@ select:focus {
   background: #f3f4f6;
   padding: 1rem;
   border-radius: 8px;
-  width: 30vw;
-  height: 30vh;
+  /* width: 30vw; */
+  /* height: 30vh; */
   font-size: 14px;
   color: #111827;
   margin-left: 20px;

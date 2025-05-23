@@ -272,8 +272,8 @@ function Requests() {
 
   useEffect(() => {
     setCanSeeEditor(isVerifier || isPublisher || isManager)
-    setCanSeeVerifier(isPublisher || isManager)
-    setCasSeePublisher(isVerifier || isManager)
+    setCanSeeVerifier(isPublisher || isEditor || isManager)
+    setCasSeePublisher(isVerifier || isEditor || isManager)
   }, [activeRole?.id])
 
   useEffect(() => {
@@ -328,27 +328,26 @@ function Requests() {
                   </th>
                   {/* <th className="text-[#42526D] w-[164px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] text-center !capitalize">Sub Permission</th> */}
                   {
-                    canSeeEditor &&
+                    // canSeeEditor &&
                     <th className="text-[#42526D] w-[154px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] !capitalize text-center">
-                      Editor
+                      SubmitBy
                     </th>}
 
                   {
-                    canSeeVerifier &&
+                    // canSeeVerifier &&
                     <th className="text-[#42526D] w-[221px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] text-center !capitalize">
                       Verifier
                     </th>
                   }
                   {
-                    canSeePublisher &&
+                    // canSeePublisher &&
                     <th className="text-[#42526D] w-[221px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] text-center !capitalize">
                       Publisher
                     </th>
                   }
-                  <th className="text-[#42526D] w-[211px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] !capitalize">
-                    {/* Status */}
+                  {/* <th className="text-[#42526D] w-[211px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] !capitalize">
                     Stage
-                  </th>
+                  </th> */}
                   <th className="text-[#42526D] w-[211px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] !capitalize">
                     {/* Status */}
                     Status
@@ -385,7 +384,7 @@ function Requests() {
                           </div>
                         </td>
                         {
-                          canSeeEditor &&
+                          // canSeeEditor &&
                           <td
                             className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]"
                             style={{ whiteSpace: "" }}
@@ -394,7 +393,7 @@ function Requests() {
                           </td>
                         }
                         {
-                          canSeeVerifier &&
+                          // canSeeVerifier &&
                           <td
                             className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]"
                             style={{ whiteSpace: "" }}
@@ -486,7 +485,7 @@ function Requests() {
                           </td>
                         }
                         {
-                          canSeePublisher &&
+                          // canSeePublisher &&
                           <td
                             className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]"
                             style={{ whiteSpace: "" }}
@@ -496,7 +495,7 @@ function Requests() {
                             </span>
                           </td>
                         }
-                        <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]">
+                        {/* <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]">
                           <p
                             className={`min-w-[85px] mx-auto before:content-['•'] before:text-2xl flex h-7 items-center justify-center gap-1 px-1 py-0 font-[500] 
                               ${request.status === "Green"
@@ -510,7 +509,7 @@ function Requests() {
                           >
                             <span className="">{capitalizeWords(request?.status)}</span>
                           </p>
-                        </td>
+                        </td> */}
                         <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]">
                           <p
                             className={`min-w-[85px] mx-auto before:content-['•'] before:text-2xl flex h-7 items-center justify-center gap-1 px-1 py-0 font-[500] 
