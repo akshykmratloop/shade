@@ -3819,8 +3819,29 @@ export const fetchRequestInfo = async (requestId) => {
     include: {
       resourceVersion: {
         include: {
+          // Include roles and verifiers from the resource version
+          roles: {
+            where: {
+              status: "ACTIVE",
+            },
+            include: {
+              user: true,
+            },
+          },
+          verifiers: {
+            where: {
+              status: "ACTIVE",
+            },
+            include: {
+              user: true,
+            },
+            orderBy: {
+              stage: "asc",
+            },
+          },
           resource: {
             include: {
+              // Also include resource roles and verifiers as fallback
               roles: {
                 where: {
                   status: "ACTIVE",
@@ -3885,6 +3906,10 @@ export const fetchRequestInfo = async (requestId) => {
     // Otherwise, it stays as PENDING
   }
 
+  // Get roles from resource version first, then fall back to resource roles if needed
+  const versionRoles = request.resourceVersion.roles || [];
+  const versionVerifiers = request.resourceVersion.verifiers || [];
+
   // Format the data as per requirements
   const formattedData = {
     details: {
@@ -3897,26 +3922,25 @@ export const fetchRequestInfo = async (requestId) => {
       simplifiedFlowStatus: simplifiedFlowStatus,
       assignedUsers: {
         manager:
-          request.resourceVersion.resource.roles
+          versionRoles
             .filter((role) => role.role === "MANAGER")
             .map((role) => role.user.name)
             .join(", ") || "Not assigned",
         editor:
-          request.resourceVersion.resource.roles
+          versionRoles
             .filter((role) => role.role === "EDITOR")
             .map((role) => role.user.name)
             .join(", ") || "Not assigned",
-        verifiers: request.resourceVersion.resource.verifiers.reduce(
+        verifiers: versionVerifiers.reduce(
           (acc, verifier) => {
             const level = `level ${verifier.stage}`;
             if (!acc[level]) acc[level] = verifier.user.name;
-            // acc[level].push(verifier.user.name);
             return acc;
           },
           {}
         ),
         publisher:
-          request.resourceVersion.resource.roles
+          versionRoles
             .filter((role) => role.role === "PUBLISHER")
             .map((role) => role.user.name)
             .join(", ") || "Not assigned",
@@ -3924,10 +3948,6 @@ export const fetchRequestInfo = async (requestId) => {
       submittedDate: request.createdAt,
       comment: request.editorComments,
       submittedBy: request.sender.name,
-      // submittedTo:
-      //   request.approvals.length > 0
-      //     ? request.approvals[0].approver.name
-      //     : "Not assigned",
       "versionNo.": `V ${request.resourceVersion.versionNumber}`,
       referenceDocument: request.resourceVersion.referenceDoc || "No document",
       requestType: request.type,
@@ -3946,12 +3966,12 @@ export const fetchRequestInfo = async (requestId) => {
         .map((approval) => ({
           role: getRoleForApprover(
             approval.approver.id,
-            request.resourceVersion.resource
+            request.resourceVersion
           ),
           approver: approval.approver.name,
           stage: approval.stage,
           status: approval.status,
-          comment: approval.comments ,
+          comment: approval.comments,
         })),
     },
   };
@@ -3960,12 +3980,23 @@ export const fetchRequestInfo = async (requestId) => {
 };
 
 // Helper function to determine role for approver
-function getRoleForApprover(userId, resource) {
-  const role = resource.roles.find((r) => r.userId === userId);
+function getRoleForApprover(userId, resourceVersion) {
+  // First check roles in the resource version
+  const role = resourceVersion.roles.find((r) => r.userId === userId);
   if (role) return role.role;
 
-  const verifier = resource.verifiers.find((v) => v.userId === userId);
+  // Then check verifiers in the resource version
+  const verifier = resourceVersion.verifiers.find((v) => v.userId === userId);
   if (verifier) return `VERIFIER_LEVEL_${verifier.stage}`;
+
+  // If not found in resource version, check the resource as fallback
+  if (resourceVersion.resource) {
+    const resourceRole = resourceVersion.resource.roles.find((r) => r.userId === userId);
+    if (resourceRole) return resourceRole.role;
+
+    const resourceVerifier = resourceVersion.resource.verifiers.find((v) => v.userId === userId);
+    if (resourceVerifier) return `VERIFIER_LEVEL_${resourceVerifier.stage}`;
+  }
 
   return "UNKNOWN";
 }
@@ -4120,8 +4151,28 @@ export const approveRequestInPublication = async (requestId, userId) => {
         where: { id: request.resourceVersion.resourceId },
         data: {
           liveVersionId: request.resourceVersionId,
+          newVersionEditModeId: null
         },
       });
+
+      // After successful publication, remove all inactive roles from the resource
+      await tx.resourceRole.deleteMany({
+        where: {
+          resourceId: request.resourceVersion.resourceId,
+          status: "INACTIVE"
+        }
+      });
+
+      // Also remove all inactive verifiers from the resource
+      await tx.resourceVerifier.deleteMany({
+        where: {
+          resourceId: request.resourceVersion.resourceId,
+          status: "INACTIVE"
+        }
+      });
+
+      // Note: We don't delete inactive roles/verifiers from the resource version
+      // as they serve as a historical record of who worked on that version
     }
 
     // Get the updated request to return
@@ -4135,6 +4186,12 @@ export const approveRequestInPublication = async (requestId, userId) => {
     return updatedRequest;
   });
 };
+
+
+
+
+
+
 
 export const rejectRequestInVerification = async (
   requestId,

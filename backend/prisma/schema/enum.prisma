@@ -106,6 +106,7 @@ enum FlowStatus {
   APPROVED
   REJECTED
   SCHEDULED
+  PUBLISHED
 }
 
 enum RequestType {
