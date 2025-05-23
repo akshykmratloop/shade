@@ -83,7 +83,7 @@ const EditPage = () => {
 
     useEffect(() => {
         setOutOfEditing((!isEditable))
-    }, [isManager, stageStatus])
+    }, [isManager, isEditable])
 
     useEffect(() => {
         if (currentId) {
