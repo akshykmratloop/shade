@@ -125,7 +125,7 @@ function Requests() {
   const [subPath, setSubPath] = useState("")
   const [deepPath, setDeepPath] = useState("")
 
-  
+
 
 
   // redux state
@@ -571,7 +571,7 @@ function Requests() {
                               !canSeeEditor &&
                               < button
                                 onClick={() => {
-                                  const { relationType, resourceTag, subPage, subOfSubPage, slug } = request;
+                                  const { relationType, resourceTag, subPage, subOfSubPage, slug } = request.resourceVersion?.resource;
                                   if (relationType === "CHILD") {
                                     navigateToPage(resourceTag?.toLowerCase(), request.id);
                                   } else if (relationType !== "PARENT") {

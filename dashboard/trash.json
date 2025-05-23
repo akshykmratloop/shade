@@ -1,252 +1,121 @@
 {
     "message": "Success",
-    "content": {
-        "id": "cmazauwvd00m9qp45spkwd9c2",
-        "titleEn": "Footer",
-        "titleAr": "تذييل الصفحة",
-        "slug": "footer",
-        "resourceType": "FOOTER",
-        "resourceTag": "FOOTER",
-        "relationType": "PARENT",
-        "liveModeVersionData": {
-            "id": "cmazauwvg00mbqp45syftt50m",
-            "versionNumber": 1,
-            "icon": null,
-            "image": null,
-            "comments": "Initial version created",
-            "referenceDoc": null,
-            "updatedAt": "2025-05-22T11:39:48.076Z",
-            "status": "PUBLISHED",
-            "sections": [
-                {
-                    "sectionId": "cmazauwvt00mdqp4546r2pqev",
-                    "order": 1,
-                    "version": 1,
-                    "title": "companyInfo-footer-3bbd",
-                    "content": {
-                        "images": [
+    "requests": {
+        "data": [
+            {
+                "id": "0ee9d7c3-147a-4ff3-93ac-825e4cce6aac",
+                "status": "VERIFICATION_PENDING",
+                "flowStatus": "PENDING",
+                "type": "VERIFICATION",
+                "editorComments": "Initial version created",
+                "resourceVersionId": "cmb0emd61002rqp0w5i34lrql",
+                "senderId": "cmawfx6da0008qp0w1q4ittw9",
+                "createdAt": "2025-05-23T06:12:54.007Z",
+                "updatedAt": "2025-05-23T06:12:54.007Z",
+                "resourceVersion": {
+                    "id": "cmb0emd61002rqp0w5i34lrql",
+                    "versionNumber": 2,
+                    "versionStatus": "VERIFICATION_PENDING",
+                    "notes": "Initial version created",
+                    "referenceDoc": null,
+                    "content": {},
+                    "icon": null,
+                    "Image": null,
+                    "lockedById": null,
+                    "lockedAt": null,
+                    "resourceId": "cmb0edx2h00szqp4qtifbjxqk",
+                    "createdAt": "2025-05-23T06:12:53.929Z",
+                    "updatedAt": "2025-05-23T06:12:53.929Z",
+                    "scheduledAt": null,
+                    "publishedAt": null,
+                    "resource": {
+                        "id": "cmb0edx2h00szqp4qtifbjxqk",
+                        "titleEn": "Home Page",
+                        "titleAr": "الصفحة الرئيسية",
+                        "resourceType": "MAIN_PAGE",
+                        "resourceTag": "HOME",
+                        "relationType": "PARENT",
+                        "slug": "home",
+                        "roles": [
                             {
-                                "url": "logo",
-                                "altText": {
-                                    "ar": "شعار شيد",
-                                    "en": "Shade Logo"
+                                "id": "6321622e-254a-4c3c-a15d-a439ec554309",
+                                "resourceId": "cmb0edx2h00szqp4qtifbjxqk",
+                                "userId": "cmawfx6da0008qp0w1q4ittw9",
+                                "role": "EDITOR",
+                                "status": "ACTIVE",
+                                "createdAt": "2025-05-23T06:06:51.718Z",
+                                "user": {
+                                    "id": "cmawfx6da0008qp0w1q4ittw9",
+                                    "name": "Anukool"
+                                }
+                            },
+                            {
+                                "id": "92ff5fa1-0ccf-4800-a78e-7fc8b4450a5f",
+                                "resourceId": "cmb0edx2h00szqp4qtifbjxqk",
+                                "userId": "cmawgyhh60032qp0wbo9aru90",
+                                "role": "PUBLISHER",
+                                "status": "ACTIVE",
+                                "createdAt": "2025-05-23T06:06:51.722Z",
+                                "user": {
+                                    "id": "cmawgyhh60032qp0wbo9aru90",
+                                    "name": "Akshay Kumar"
                                 }
                             }
                         ],
-                        "address": {
-                            "ar": "شركة الظل المحدودة.\nص.ب. ص.ب 7027 الدمام 31462 المملكة العربية السعودية مبنى رقم 5222 الدمام 32414-6124.",
-                            "en": "Shade Corporation Ltd.\nP.O. Box 7027 Dammam 31462 Saudi Arabia Building No. 5222 Dammam 32414-6124."
-                        }
-                    },
-                    "sections": []
-                },
-                {
-                    "sectionId": "cmazauww700mjqp45n0w4i3ur",
-                    "order": 2,
-                    "version": 1,
-                    "title": "navColumns-footer-cb78",
-                    "content": [
-                        {
-                            "links": [
-                                {
-                                    "ar": "تاريخ",
-                                    "en": "History",
-                                    "url": "/about-us"
-                                },
-                                {
-                                    "ar": "الرؤية/الرسالة",
-                                    "en": "Vision/Mission",
-                                    "url": "/about-us"
-                                },
-                                {
-                                    "ar": "المخطط التنظيمي",
-                                    "en": "Organization Chart",
-                                    "url": "/about-us"
-                                },
-                                {
-                                    "ar": "مالي",
-                                    "en": "Financial",
-                                    "url": "/about-us"
-                                },
-                                {
-                                    "ar": "الصحة والسلامة والبيئة",
-                                    "en": "HSE",
-                                    "url": "/about-us"
-                                },
-                                {
-                                    "ar": "الشركات التابعة",
-                                    "en": "Subsidiaries",
-                                    "url": "/about-us"
+                        "verifiers": [
+                            {
+                                "id": "96610aa5-c6be-45e0-ab8a-36c2dfc8c007",
+                                "stage": 1,
+                                "status": "ACTIVE",
+                                "resourceId": "cmb0edx2h00szqp4qtifbjxqk",
+                                "userId": "cmawgxqly002zqp0wybh46wyd",
+                                "createdAt": "2025-05-23T06:06:51.728Z",
+                                "user": {
+                                    "id": "cmawgxqly002zqp0wybh46wyd",
+                                    "name": "Akshay"
                                 }
-                            ],
-                            "title": {
-                                "ar": "معلومات عنا",
-                                "en": "About Us"
-                            }
-                        },
-                        {
-                            "links": [
-                                {
-                                    "ar": "المباني",
-                                    "en": "Buildings",
-                                    "url": "/market"
-                                },
-                                {
-                                    "ar": "صناعي",
-                                    "en": "Industrial",
-                                    "url": "/market"
-                                },
-                                {
-                                    "ar": "بنية تحتية",
-                                    "en": "Infrastructure",
-                                    "url": "/market"
-                                },
-                                {
-                                    "ar": "الإصلاح والتحديث",
-                                    "en": "Repair & Modernization",
-                                    "url": "/market"
-                                }
-                            ],
-                            "title": {
-                                "ar": "الأسواق",
-                                "en": "Markets"
-                            }
-                        },
-                        {
-                            "links": [
-                                {
-                                    "ar": "خدمات المشاريع",
-                                    "en": "Project Services",
-                                    "url": "/services"
-                                },
-                                {
-                                    "ar": "مدير البناء",
-                                    "en": "Construction Manager",
-                                    "url": "/services"
-                                },
-                                {
-                                    "ar": "التشغيل والصيانة",
-                                    "en": "Operation & Maintenance",
-                                    "url": "/services"
-                                },
-                                {
-                                    "ar": "تأجير المعدات",
-                                    "en": "Equipment Rental",
-                                    "url": "/services"
-                                },
-                                {
-                                    "ar": "تلفيق",
-                                    "en": "Fabrication",
-                                    "url": "/services"
-                                }
-                            ],
-                            "title": {
-                                "ar": "جميع الخدمات",
-                                "en": "All Services"
-                            }
-                        },
-                        {
-                            "links": [
-                                {
-                                    "ar": "سياسة الخصوصية",
-                                    "en": "Privacy Policy",
-                                    "url": "#"
-                                },
-                                {
-                                    "ar": "شروط الاستخدام",
-                                    "en": "Terms of Use",
-                                    "url": "#"
-                                },
-                                {
-                                    "ar": "خريطة الموقع",
-                                    "en": "Site Map",
-                                    "url": "#"
-                                }
-                            ],
-                            "title": {
-                                "ar": "اتصال",
-                                "en": "Security"
-                            }
-                        }
-                    ],
-                    "sections": []
-                },
-                {
-                    "sectionId": "cmazauwwo00mpqp45bbmmzza6",
-                    "order": 3,
-                    "version": 1,
-                    "title": "contacts-footer-cac5",
-                    "content": {
-                        "fax": {
-                            "ar": "فاكس: +966 13 8343910",
-                            "en": "Fax: +966 13 8343910"
-                        },
-                        "phone": {
-                            "ar": "الهاتف: +966 13 8350100",
-                            "en": "Phone: +966 13 8350100"
-                        },
-                        "title": {
-                            "ar": "اتصال",
-                            "en": "Contact"
-                        },
-                        "button": [
-                            {
-                                "url": null,
-                                "icon": null,
-                                "text": {
-                                    "ar": "اتصل بنا",
-                                    "en": "Contact Us"
-                                },
-                                "order": 1
-                            }
-                        ],
-                        "helpText": {
-                            "ar": "بحاجة الى مساعدة؟ نحن متاحون للحديث",
-                            "en": "Need Help? We're Available to Talk"
-                        },
-                        "socialLinks": [
-                            {
-                                "url": "https://www.linkedin.com/",
-                                "icon": "linkedin",
-                                "order": 1
-                            },
-                            {
-                                "url": "https://www.instagram.com/",
-                                "icon": "instagram",
-                                "order": 2
-                            },
-                            {
-                                "url": "https://twitter.com/",
-                                "icon": "twitter",
-                                "order": 3
-                            },
-                            {
-                                "url": "https://www.facebook.com/",
-                                "icon": "facebook",
-                                "order": 4
                             }
                         ]
-                    },
-                    "sections": []
+                    }
                 },
-                {
-                    "sectionId": "cmazauwx300mvqp45kivoza0f",
-                    "order": 4,
-                    "version": 1,
-                    "title": "copyright-footer-85a3",
-                    "content": {
-                        "text": {
-                            "ar": "@2024 جميع الحقوق محفوظة",
-                            "en": "@2024 All Rights reserved"
-                        },
-                        "title": {
-                            "ar": "اتصال",
-                            "en": "copyRights"
+                "sender": {
+                    "id": "cmawfx6da0008qp0w1q4ittw9",
+                    "name": "Anukool",
+                    "email": "anukool26@outlook.com"
+                },
+                "approvals": [
+                    {
+                        "id": "8a8e28db-ac40-4660-a34a-d376d76f12d9",
+                        "status": "PENDING",
+                        "stage": 1,
+                        "comments": null,
+                        "approverStatus": "ACTIVE",
+                        "approver": {
+                            "id": "cmawgxqly002zqp0wybh46wyd",
+                            "name": "Akshay",
+                            "email": "akshykmr@loopmethods.com"
                         }
                     },
-                    "sections": []
-                }
-            ]
+                    {
+                        "id": "27e6fa97-e01d-49a9-ab0d-bf16df4a8d2a",
+                        "status": "PENDING",
+                        "stage": null,
+                        "comments": null,
+                        "approverStatus": "ACTIVE",
+                        "approver": {
+                            "id": "cmawgyhh60032qp0wbo9aru90",
+                            "name": "Akshay Kumar",
+                            "email": "akshykmr70@gmail.com"
+                        }
+                    }
+                ]
+            }
+        ],
+        "pagination": {
+            "total": 1,
+            "page": 1,
+            "limit": 100,
+            "totalPages": 1
         }
     }
 }
