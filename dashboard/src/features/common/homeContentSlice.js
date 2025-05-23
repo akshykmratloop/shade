@@ -436,6 +436,7 @@ export const { // actions
     updateTheProjectSummaryList,
     updateSelectedSubService,
     updateAList,
+    updateComment
 } = cmsSlice.actions;
 
 export default cmsSlice.reducer; // reducer

@@ -17,7 +17,7 @@ import AllForOneManager from "./components/AllForOneManager";
 import createContent from "./defineContent";
 import FallBackLoader from "../../components/fallbackLoader/FallbackLoader";
 import { getContent } from "../../app/fetch";
-import { updateMainContent } from "../common/homeContentSlice";
+import { updateComment, updateMainContent } from "../common/homeContentSlice";
 import { saveInitialContentValue } from "../common/InitialContentSlice";
 
 const Page404 = lazy(() => import('../../pages/protected/404'))
@@ -51,7 +51,7 @@ const EditPage = () => {
 
     const content = createContent(contentFromRedux, "edit", currentPath)
 
-    const updateComment = ({ value }) => {
+    const updateComments = ({ value }) => {
         dispatch(updateComment({ value }))
     }
 
@@ -176,7 +176,7 @@ const EditPage = () => {
                                         />
                                         <h4 className="text-[#6B7888] text-[14px] mt-2 mb-[1px]">Add Note</h4>
                                         <TextAreaInput
-                                            updateFormValue={updateComment}
+                                            updateFormValue={updateComments}
                                             placeholder={"Comments..."}
                                             required={false}
                                             textAreaStyle={""}
