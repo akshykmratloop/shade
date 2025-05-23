@@ -142,6 +142,7 @@ function Requests() {
   const noneCanSee = !(isEditor || isManager || isVerifier || isPublisher)
   const RoleTypeIsUser = userPermissionsSet.has(activeRole?.permissions[0])
   const [permission, setPermission] = useState(RoleTypeIsUser ? activeRole?.permissions[0] || "" : false)
+  const [random, setRandom] = useState(Math.random())
 
   // Fucntions
   const navigate = useNavigate();
@@ -268,7 +269,7 @@ function Requests() {
       }
       fetchRequestsData();
     }
-  }, [activeRole.id, permission]);
+  }, [activeRole.id, permission, random]);
 
   useEffect(() => {
     setCanSeeEditor(isVerifier || isPublisher || isManager)
@@ -655,10 +656,11 @@ function Requests() {
           currentlyEditor={!canSeeEditor}
           currentlyVerifier={canSeePublisher}
           currentlyPublisher={canSeeVerifier}
-          role={selectedRequest}
+          request={selectedRequest}
           show={showDetailsModal}
           resourceId={resourceId}
           requestId={requestId}
+          refreshList={() => setRandom(Math.random())}
           // updateRoles={setChangesInRequest}
           onClose={() => {
             setSelectedRequest(false);
