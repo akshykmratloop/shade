@@ -2390,7 +2390,7 @@ export const createOrUpdateVersion = async (contentData) => {
   const saveAs = newVersionEditMode?.versionStatus || "DRAFT";
 
   const {
-    comments = "Version created",
+    comments = "",
     referenceDoc = null,
     content = {},
     icon = null,
@@ -2635,7 +2635,7 @@ export const publishContent = async (contentData, userId) => {
 
   const {newVersionEditMode = {}} = contentData;
   const {
-    comments = "Version created",
+    comments = "",
     referenceDoc = null,
     content = {},
     icon = null,
@@ -2750,6 +2750,7 @@ export const updateContentAndGenerateRequest = async (contentData) => {
     "NOT_FOUND",
     `Resource with ID ${contentData.resourceId} not found`
   );
+
   // Extract the content from the request
   const {newVersionEditMode} = contentData;
   const saveAs = "VERIFICATION_PENDING";
@@ -2762,6 +2763,7 @@ export const updateContentAndGenerateRequest = async (contentData) => {
     image = null,
     sections = [],
   } = newVersionEditMode;
+
   // Check if there are any active requests for this resource
   const existingRequests = await prismaClient.resourceVersioningRequest.findMany({
     where: {
@@ -2779,7 +2781,8 @@ export const updateContentAndGenerateRequest = async (contentData) => {
           id: true,
           status: true,
           stage: true,
-          approverId: true
+          approverId: true,
+          approverStatus: true
         }
       },
       resourceVersion: {
@@ -2808,14 +2811,30 @@ export const updateContentAndGenerateRequest = async (contentData) => {
   const result = await prismaClient.$transaction(async (tx) => {
     let resourceVersion;
     let updatedResource;
+    let existingRequest = null;
+    let hasRejectedApprovals = false;
+
+    // Check if there's an existing request for the current edit version
+    if (resource.newVersionEditModeId) {
+      existingRequest = existingRequests.find(req =>
+        req.resourceVersion.id === resource.newVersionEditModeId
+      );
+
+      // Check if this request has any rejected approvals
+      if (existingRequest) {
+        hasRejectedApprovals = existingRequest.approvals.some(
+          approval => approval.status === "REJECTED" && approval.approverStatus === "ACTIVE"
+        );
+      }
+    }
 
     // Find rejected stages from previous requests to reset them to PENDING
     const rejectedStages = [];
     const rejectedPublisher = [];
 
-    existingRequests.forEach(request => {
-      request.approvals.forEach(approval => {
-        if (approval.status === "REJECTED") {
+    if (existingRequest) {
+      existingRequest.approvals.forEach(approval => {
+        if (approval.status === "REJECTED" && approval.approverStatus === "ACTIVE") {
           if (approval.stage === null) {
             // Publisher rejection
             rejectedPublisher.push(approval.approverId);
@@ -2828,7 +2847,24 @@ export const updateContentAndGenerateRequest = async (contentData) => {
           }
         }
       });
-    });
+    } else {
+      existingRequests.forEach(request => {
+        request.approvals.forEach(approval => {
+          if (approval.status === "REJECTED" && approval.approverStatus === "ACTIVE") {
+            if (approval.stage === null) {
+              // Publisher rejection
+              rejectedPublisher.push(approval.approverId);
+            } else {
+              // Verifier rejection
+              rejectedStages.push({
+                stage: approval.stage,
+                approverId: approval.approverId
+              });
+            }
+          }
+        });
+      });
+    }
 
     if (!resource.newVersionEditModeId) {
       // Create a new edit version if no edit version exists
@@ -2901,27 +2937,71 @@ export const updateContentAndGenerateRequest = async (contentData) => {
       });
     }
 
-    // GENERATE A REQ AND APPROVAL LOGS
-    const generatedRequest = await tx.resourceVersioningRequest.create({
-      data: {
-        type: "VERIFICATION",
-        status: "VERIFICATION_PENDING", // Explicitly set the status
-        flowStatus: "PENDING", // Set the initial flow status to PENDING
-        editorComments: comments,
-        resourceVersionId: resourceVersion.id,
-        senderId: resource.roles.find((r) => r.role === "EDITOR").userId,
-      },
-    });
+    let generatedRequest;
+    let generateRequestApprovalsForPublisher;
+    let verifierApprovals;
 
-    // Get the publisher
-    const publisher = resource.roles.find((r) => r.role === "PUBLISHER");
+    // If there's an existing request with rejected approvals, update those approvals instead of creating a new request
+    if (existingRequest && hasRejectedApprovals) {
+      // Update the existing request
+      generatedRequest = await tx.resourceVersioningRequest.update({
+        where: { id: existingRequest.id },
+        data: {
+          flowStatus: "PENDING", // Reset flow status to PENDING
+          editorComments: comments,
+        },
+      });
 
-    // Check if the publisher was previously rejected
-    const wasPublisherRejected = rejectedPublisher.includes(publisher.userId);
+      // Update all rejected approval logs to PENDING
+      for (const approval of existingRequest.approvals) {
+        if (approval.status === "REJECTED" && approval.approverStatus === "ACTIVE") {
+          await tx.requestApproval.update({
+            where: { id: approval.id },
+            data: {
+              status: "PENDING",
+              comments: null, // Clear previous rejection comments
+            },
+          });
+        }
+      }
 
-    // Create publisher approval with appropriate status
-    const generateRequestApprovalsForPublisher =
-      await tx.requestApproval.create({
+      // Get updated approvals
+      verifierApprovals = await tx.requestApproval.findMany({
+        where: {
+          requestId: generatedRequest.id,
+          stage: { not: null }, // Only get verifier approvals
+          approverStatus: "ACTIVE",
+        },
+      });
+
+      generateRequestApprovalsForPublisher = await tx.requestApproval.findFirst({
+        where: {
+          requestId: generatedRequest.id,
+          stage: null, // Publisher approval has null stage
+          approverStatus: "ACTIVE",
+        },
+      });
+    } else {
+      // GENERATE A NEW REQ AND APPROVAL LOGS
+      generatedRequest = await tx.resourceVersioningRequest.create({
+        data: {
+          type: "VERIFICATION",
+          status: "VERIFICATION_PENDING", // Explicitly set the status
+          flowStatus: "PENDING", // Set the initial flow status to PENDING
+          editorComments: comments,
+          resourceVersionId: resourceVersion.id,
+          senderId: resource.roles.find((r) => r.role === "EDITOR").userId,
+        },
+      });
+
+      // Get the publisher
+      const publisher = resource.roles.find((r) => r.role === "PUBLISHER");
+
+      // Check if the publisher was previously rejected
+      const wasPublisherRejected = rejectedPublisher.includes(publisher.userId);
+
+      // Create publisher approval with appropriate status
+      generateRequestApprovalsForPublisher = await tx.requestApproval.create({
         data: {
           stage: null,
           comments: null,
@@ -2933,33 +3013,34 @@ export const updateContentAndGenerateRequest = async (contentData) => {
         },
       });
 
-    // Create verifier approvals with appropriate status
-    await Promise.all(resource.verifiers.map(async (verifier) => {
-      // Check if this verifier previously rejected at this stage
-      const wasRejected = rejectedStages.some(
-        rejected => rejected.stage === verifier.stage && rejected.approverId === verifier.userId
-      );
+      // Create verifier approvals with appropriate status
+      await Promise.all(resource.verifiers.map(async (verifier) => {
+        // Check if this verifier previously rejected at this stage
+        const wasRejected = rejectedStages.some(
+          rejected => rejected.stage === verifier.stage && rejected.approverId === verifier.userId
+        );
 
-      // Create approval with appropriate status
-      return await tx.requestApproval.create({
-        data: {
-          stage: verifier.stage,
-          comments: null,
+        // Create approval with appropriate status
+        return await tx.requestApproval.create({
+          data: {
+            stage: verifier.stage,
+            comments: null,
+            requestId: generatedRequest.id,
+            approverId: verifier.userId,
+            // If verifier previously rejected, set status to PENDING
+            // This allows them to re-verify the request
+            status: wasRejected ? "PENDING" : "PENDING"
+          },
+        });
+      }));
+
+      verifierApprovals = await tx.requestApproval.findMany({
+        where: {
           requestId: generatedRequest.id,
-          approverId: verifier.userId,
-          // If verifier previously rejected, set status to PENDING
-          // This allows them to re-verify the request
-          status: wasRejected ? "PENDING" : "PENDING"
+          stage: { not: null }, // Only get verifier approvals (they have stage values)
         },
       });
-    }));
-
-    const verifierApprovals = await tx.requestApproval.findMany({
-      where: {
-        requestId: generatedRequest.id,
-        stage: {not: null}, // Only get verifier approvals (they have stage values)
-      },
-    });
+    }
 
     return {
       ...updatedResource,
@@ -2973,8 +3054,14 @@ export const updateContentAndGenerateRequest = async (contentData) => {
       },
     };
   });
+
   return {
-    message: "Update request generated successfully",
+    message: existingRequests.some(req =>
+      req.resourceVersion.id === resource.newVersionEditModeId &&
+      req.approvals.some(approval => approval.status === "REJECTED" && approval.approverStatus === "ACTIVE")
+    )
+      ? "Existing request updated successfully"
+      : "Update request generated successfully",
     resource: result,
   };
 };
@@ -3676,7 +3763,7 @@ export const fetchRequestInfo = async (requestId) => {
             .join(", ") || "Not assigned",
       },
       submittedDate: request.createdAt,
-      comment: request.editorComments || "No comments",
+      comment: request.editorComments,
       submittedBy: request.sender.name,
       // submittedTo:
       //   request.approvals.length > 0
@@ -3705,7 +3792,7 @@ export const fetchRequestInfo = async (requestId) => {
           approver: approval.approver.name,
           stage: approval.stage,
           status: approval.status,
-          comment: approval.comments || "No comments",
+          comment: approval.comments ,
         })),
     },
   };
