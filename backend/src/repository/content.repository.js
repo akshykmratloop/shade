@@ -829,11 +829,62 @@ export const assignUserToResource = async (
   assert(currentResource, "NOT_FOUND", `Resource not found`);
 
   return await prismaClient.$transaction(async (prisma) => {
+    // Helper function to get pending requests for a resource
+    const getPendingRequests = async (resourceId, versionId = null) => {
+      return await prisma.resourceVersioningRequest.findMany({
+        where: {
+          ...(versionId ? { resourceVersionId: versionId } : { resourceVersion: { resourceId } }),
+          OR: [
+            { status: "VERIFICATION_PENDING" },
+            { status: "PUBLISH_PENDING" }
+          ]
+        },
+        select: { id: true }
+      });
+    };
+
+    // Helper function to check if a user has taken action on requests
+    const hasUserTakenAction = async (userId, requestIds, stage = null) => {
+      if (!requestIds.length) return false;
+
+      const approvals = await prisma.requestApproval.findMany({
+        where: {
+          requestId: { in: requestIds },
+          approverId: userId,
+          stage,
+          status: { not: "PENDING" } // Either APPROVED or REJECTED
+        }
+      });
+
+      return approvals.length > 0;
+    };
+
     const roleMap = {
       MANAGER: manager,
       EDITOR: editor,
       PUBLISHER: publisher,
     };
+
+    // Check if publisher is being removed (was active but not in payload)
+    const activePublisher = currentResource.roles.find(
+      (r) => r.role === "PUBLISHER" && r.status === "ACTIVE"
+    );
+
+    if (activePublisher && !publisher) {
+      const pendingRequests = await getPendingRequests(resourceId);
+
+      if (pendingRequests.length > 0) {
+        const hasTakenAction = await hasUserTakenAction(
+          activePublisher.userId,
+          pendingRequests.map(req => req.id),
+          null
+        );
+
+        if (hasTakenAction) {
+          throw new Error(`Cannot remove publisher - they've already acted on requests`);
+        }
+      }
+    }
 
     // 2. Validate payload structure
     const allUserIds = [
@@ -943,35 +994,17 @@ export const assignUserToResource = async (
 
         // If replacing a publisher, check if they've approved any requests
         if (role === "PUBLISHER") {
-          // Find all pending requests for this resource
-          const pendingRequests = await prisma.resourceVersioningRequest.findMany({
-            where: {
-              resourceVersion: {
-                resourceId: resourceId
-              },
-              OR: [
-                { status: "VERIFICATION_PENDING" },
-                { status: "PUBLISH_PENDING" }
-              ]
-            },
-            select: {
-              id: true
-            }
-          });
+          const pendingRequests = await getPendingRequests(resourceId);
 
           if (pendingRequests.length > 0) {
-            // Check if this publisher has taken any action on these requests
-            const publisherApprovals = await prisma.requestApproval.findMany({
-              where: {
-                requestId: { in: pendingRequests.map(req => req.id) },
-                approverId: otherUserActive.userId,
-                stage: null, // Publisher approvals have null stage
-                status: { not: "PENDING" } // Either APPROVED or REJECTED
-              }
-            });
+            const hasTakenAction = await hasUserTakenAction(
+              otherUserActive.userId,
+              pendingRequests.map(req => req.id),
+              null
+            );
 
             // If the publisher has taken any action (approved or rejected), we can't reassign them
-            if (publisherApprovals.length > 0) {
+            if (hasTakenAction) {
               throw new Error(`Cannot reassign publisher because they have already taken action on requests (approved or rejected). Only publishers who haven't taken any action can be reassigned.`);
             }
 
@@ -1002,21 +1035,7 @@ export const assignUserToResource = async (
 
         // If reactivating a publisher, check for inactive approval logs to reactivate
         if (role === "PUBLISHER") {
-          // Find all pending requests for this resource
-          const pendingRequests = await prisma.resourceVersioningRequest.findMany({
-            where: {
-              resourceVersion: {
-                resourceId: resourceId
-              },
-              OR: [
-                { status: "VERIFICATION_PENDING" },
-                { status: "PUBLISH_PENDING" }
-              ]
-            },
-            select: {
-              id: true
-            }
-          });
+          const pendingRequests = await getPendingRequests(resourceId);
 
           if (pendingRequests.length > 0) {
             // Check for existing inactive approval logs for this user as publisher
@@ -1079,21 +1098,7 @@ export const assignUserToResource = async (
 
         // If assigning a new publisher, create approval logs for pending requests
         if (role === "PUBLISHER") {
-          // Find all pending requests for this resource
-          const pendingRequests = await prisma.resourceVersioningRequest.findMany({
-            where: {
-              resourceVersion: {
-                resourceId: resourceId
-              },
-              OR: [
-                { status: "VERIFICATION_PENDING" },
-                { status: "PUBLISH_PENDING" }
-              ]
-            },
-            select: {
-              id: true
-            }
-          });
+          const pendingRequests = await getPendingRequests(resourceId);
 
           // Create new approval logs for each pending request
           for (const request of pendingRequests) {
@@ -1130,29 +1135,21 @@ export const assignUserToResource = async (
           !verifiers.some((v2) => v2.id === v.userId && v2.stage === v.stage)
       );
       for (const verifier of verifiersToDeactivate) {
-        await prisma.resourceVerifier.update({
-          where: { id: verifier.id },
-          data: { status: "INACTIVE" },
-        });
+        const pendingRequests = await getPendingRequests(resourceId);
 
-        // Find all pending requests for this resource
-        const pendingRequests = await prisma.resourceVersioningRequest.findMany({
-          where: {
-            resourceVersion: {
-              resourceId: resourceId
-            },
-            OR: [
-              { status: "VERIFICATION_PENDING" },
-              { status: "PUBLISH_PENDING" }
-            ]
-          },
-          select: {
-            id: true
-          }
-        });
-
-        // Mark all verifier approval logs as inactive
         if (pendingRequests.length > 0) {
+          const hasTakenAction = await hasUserTakenAction(
+            verifier.userId,
+            pendingRequests.map(req => req.id),
+            verifier.stage
+          );
+
+          // If the verifier has taken any action (approved or rejected), we can't remove them
+          if (hasTakenAction) {
+            throw new Error(`Cannot remove verifier at stage ${verifier.stage} because they have already taken action on requests (approved or rejected). Only verifiers who haven't taken any action can be removed.`);
+          }
+
+          // Mark all verifier approval logs as inactive
           await prisma.requestApproval.updateMany({
             where: {
               requestId: { in: pendingRequests.map(req => req.id) },
@@ -1164,6 +1161,12 @@ export const assignUserToResource = async (
             }
           });
         }
+
+        // If we get here, it's safe to deactivate the verifier
+        await prisma.resourceVerifier.update({
+          where: { id: verifier.id },
+          data: { status: "INACTIVE" },
+        });
       }
 
       // Get all users being assigned to roles from the payload
@@ -1202,21 +1205,7 @@ export const assignUserToResource = async (
 
           // If the user was a publisher, mark their approval logs as inactive
           if (role.role === "PUBLISHER") {
-            // Find all pending requests for this resource
-            const pendingRequests = await prisma.resourceVersioningRequest.findMany({
-              where: {
-                resourceVersion: {
-                  resourceId: resourceId
-                },
-                OR: [
-                  { status: "VERIFICATION_PENDING" },
-                  { status: "PUBLISH_PENDING" }
-                ]
-              },
-              select: {
-                id: true
-              }
-            });
+            const pendingRequests = await getPendingRequests(resourceId);
 
             // Mark all publisher approval logs as inactive
             if (pendingRequests.length > 0) {
@@ -1243,36 +1232,18 @@ export const assignUserToResource = async (
         // Check if any of the existing verifiers have approved any requests
         // If they have, we can't reassign them
         for (const assignment of existingStageAssignments) {
-          // Find all pending requests for this resource
-          const pendingRequests = await prisma.resourceVersioningRequest.findMany({
-            where: {
-              resourceVersion: {
-                resourceId: resourceId
-              },
-              OR: [
-                { status: "VERIFICATION_PENDING" },
-                { status: "PUBLISH_PENDING" }
-              ]
-            },
-            select: {
-              id: true
-            }
-          });
+          const pendingRequests = await getPendingRequests(resourceId);
 
           if (pendingRequests.length > 0) {
-            // Check if this verifier has approved any of these requests
-            const approvedRequests = await prisma.requestApproval.findMany({
-              where: {
-                requestId: { in: pendingRequests.map(req => req.id) },
-                approverId: assignment.userId,
-                stage: assignment.stage,
-                status: "APPROVED"
-              }
-            });
+            const hasTakenAction = await hasUserTakenAction(
+              assignment.userId,
+              pendingRequests.map(req => req.id),
+              assignment.stage
+            );
 
-            // If the verifier has approved any requests, we can't reassign them
-            if (approvedRequests.length > 0) {
-              throw new Error(`Cannot reassign verifier at stage ${stage} because they have already approved requests. Only verifiers who haven't approved or have rejected requests can be reassigned.`);
+            // If the verifier has taken any action (approved or rejected), we can't reassign them
+            if (hasTakenAction) {
+              throw new Error(`Cannot reassign verifier at stage ${stage} because they have already taken action on requests (approved or rejected). Only verifiers who haven't taken any action can be reassigned.`);
             }
           }
 
@@ -1435,6 +1406,28 @@ export const assignUserToResource = async (
         (v) => v.status === "ACTIVE"
       );
 
+      // Check if version publisher is being removed (was active but not in payload)
+      const activeVersionPublisher = activeVersionRoles.find(
+        (r) => r.role === "PUBLISHER"
+      );
+
+      if (activeVersionPublisher && !publisher) {
+        const pendingRequests = await getPendingRequests(null, versionId);
+
+        if (pendingRequests.length > 0) {
+          const hasTakenAction = await hasUserTakenAction(
+            activeVersionPublisher.userId,
+            pendingRequests.map(req => req.id),
+            null
+          );
+
+          // If the publisher has taken any action (approved or rejected), we can't remove them
+          if (hasTakenAction) {
+            throw new Error(`Cannot remove publisher for version because they have already taken action on requests (approved or rejected). Only publishers who haven't taken any action can be removed.`);
+          }
+        }
+      }
+
       // Process version roles
       for (const [role, userId] of Object.entries(roleMap)) {
         if (!userId) continue;
@@ -1474,33 +1467,17 @@ export const assignUserToResource = async (
         if (otherUserActive) {
           // If this is a publisher role, check if they've approved any requests
           if (role === "PUBLISHER") {
-            // Find all pending requests for this resource version
-            const pendingRequests = await prisma.resourceVersioningRequest.findMany({
-              where: {
-                resourceVersionId: versionId,
-                OR: [
-                  { status: "VERIFICATION_PENDING" },
-                  { status: "PUBLISH_PENDING" }
-                ]
-              },
-              select: {
-                id: true
-              }
-            });
+            const pendingRequests = await getPendingRequests(null, versionId);
 
             if (pendingRequests.length > 0) {
-              // Check if this publisher has taken any action on these requests
-              const publisherApprovals = await prisma.requestApproval.findMany({
-                where: {
-                  requestId: { in: pendingRequests.map(req => req.id) },
-                  approverId: otherUserActive.userId,
-                  stage: null, // Publisher approvals have null stage
-                  status: { not: "PENDING" } // Either APPROVED or REJECTED
-                }
-              });
+              const hasTakenAction = await hasUserTakenAction(
+                otherUserActive.userId,
+                pendingRequests.map(req => req.id),
+                null
+              );
 
               // If the publisher has taken any action (approved or rejected), we can't reassign them
-              if (publisherApprovals.length > 0) {
+              if (hasTakenAction) {
                 throw new Error(`Cannot reassign publisher for version because they have already taken action on requests (approved or rejected). Only publishers who haven't taken any action can be reassigned.`);
               }
             }
@@ -1542,6 +1519,22 @@ export const assignUserToResource = async (
             !verifiers.some((v2) => v2.id === v.userId && v2.stage === v.stage)
         );
         for (const verifier of verifiersToDeactivate) {
+          const pendingRequests = await getPendingRequests(null, versionId);
+
+          if (pendingRequests.length > 0) {
+            const hasTakenAction = await hasUserTakenAction(
+              verifier.userId,
+              pendingRequests.map(req => req.id),
+              verifier.stage
+            );
+
+            // If the verifier has taken any action (approved or rejected), we can't remove them
+            if (hasTakenAction) {
+              throw new Error(`Cannot remove verifier at stage ${verifier.stage} for version because they have already taken action on requests (approved or rejected). Only verifiers who haven't taken any action can be removed.`);
+            }
+          }
+
+          // If we get here, it's safe to deactivate the verifier
           await prisma.resourceVersionVerifier.update({
             where: {id: verifier.id},
             data: {status: "INACTIVE"},
@@ -1581,34 +1574,18 @@ export const assignUserToResource = async (
           // Check if any of the existing verifiers have approved any requests
           // If they have, we can't reassign them
           for (const assignment of existingStageAssignments) {
-            // Find all pending requests for this resource version
-            const pendingRequests = await prisma.resourceVersioningRequest.findMany({
-              where: {
-                resourceVersionId: versionId,
-                OR: [
-                  { status: "VERIFICATION_PENDING" },
-                  { status: "PUBLISH_PENDING" }
-                ]
-              },
-              select: {
-                id: true
-              }
-            });
+            const pendingRequests = await getPendingRequests(null, versionId);
 
             if (pendingRequests.length > 0) {
-              // Check if this verifier has approved any of these requests
-              const approvedRequests = await prisma.requestApproval.findMany({
-                where: {
-                  requestId: { in: pendingRequests.map(req => req.id) },
-                  approverId: assignment.userId,
-                  stage: assignment.stage,
-                  status: "APPROVED"
-                }
-              });
+              const hasTakenAction = await hasUserTakenAction(
+                assignment.userId,
+                pendingRequests.map(req => req.id),
+                assignment.stage
+              );
 
-              // If the verifier has approved any requests, we can't reassign them
-              if (approvedRequests.length > 0) {
-                throw new Error(`Cannot reassign verifier at stage ${stage} for version because they have already approved requests. Only verifiers who haven't approved or have rejected requests can be reassigned.`);
+              // If the verifier has taken any action (approved or rejected), we can't reassign them
+              if (hasTakenAction) {
+                throw new Error(`Cannot reassign verifier at stage ${stage} for version because they have already taken action on requests (approved or rejected). Only verifiers who haven't taken any action can be reassigned.`);
               }
             }
 
@@ -1687,6 +1664,44 @@ export const assignUserToResource = async (
 
 export const markAllAssignedUserInactive = async (resourceId) => {
   return await prismaClient.$transaction(async (prisma) => {
+    // First, check if there are any versions in edit mode or with requests
+    const resource = await prisma.resource.findUnique({
+      where: { id: resourceId },
+      select: {
+        newVersionEditModeId: true,
+        versions: {
+          where: {
+            versionStatus: {
+              not: "PUBLISHED"
+            }
+          },
+          select: {
+            id: true,
+            versionStatus: true,
+            requests: {
+              select: {
+                id: true
+              }
+            }
+          }
+        }
+      }
+    });
+
+    // Check if there's a version in edit mode
+    if (resource.newVersionEditModeId) {
+      throw new Error("Cannot mark all users as inactive because there is a version in edit mode. All versions must be published before reassigning all users.");
+    }
+
+    // Check if there are any versions with requests (in any state)
+    const versionsWithRequests = resource.versions.filter(version =>
+      version.requests && version.requests.length > 0
+    );
+
+    if (versionsWithRequests.length > 0) {
+      throw new Error("Cannot mark all users as inactive because there are versions with requests. All requests must be completed and published before reassigning all users.");
+    }
+
     // Get all active roles and verifiers before marking them inactive
     const activeRoles = await prisma.resourceRole.findMany({
       where: {
@@ -1785,16 +1800,16 @@ export const markAllAssignedUserInactive = async (resourceId) => {
     }
 
     // 3. If there's a version, mark those assignments as inactive too
-    const resource = await prisma.resource.findUnique({
+    const resourceWithVersion = await prisma.resource.findUnique({
       where: {id: resourceId},
       select: {newVersionEditModeId: true},
     });
 
-    if (resource?.newVersionEditModeId) {
+    if (resourceWithVersion?.newVersionEditModeId) {
       // Get all active version roles and verifiers before marking them inactive
       const activeVersionRoles = await prisma.resourceVersionRole.findMany({
         where: {
-          resourceVersionId: resource.newVersionEditModeId,
+          resourceVersionId: resourceWithVersion.newVersionEditModeId,
           status: "ACTIVE",
         },
         select: {
@@ -1805,7 +1820,7 @@ export const markAllAssignedUserInactive = async (resourceId) => {
 
       const activeVersionVerifiers = await prisma.resourceVersionVerifier.findMany({
         where: {
-          resourceVersionId: resource.newVersionEditModeId,
+          resourceVersionId: resourceWithVersion.newVersionEditModeId,
           status: "ACTIVE",
         },
         select: {
@@ -1817,7 +1832,7 @@ export const markAllAssignedUserInactive = async (resourceId) => {
       // Mark all active version roles as inactive
       await prisma.resourceVersionRole.updateMany({
         where: {
-          resourceVersionId: resource.newVersionEditModeId,
+          resourceVersionId: resourceWithVersion.newVersionEditModeId,
           status: "ACTIVE",
         },
         data: {
@@ -1828,7 +1843,7 @@ export const markAllAssignedUserInactive = async (resourceId) => {
       // Mark all active version verifiers as inactive
       await prisma.resourceVersionVerifier.updateMany({
         where: {
-          resourceVersionId: resource.newVersionEditModeId,
+          resourceVersionId: resourceWithVersion.newVersionEditModeId,
           status: "ACTIVE",
         },
         data: {
@@ -1987,12 +2002,53 @@ export const fetchContent = async (resourceId, isItemFullContent = true) => {
     return null;
   }
 
+  // Check if the resource is editable
+  let isEditable = true;
+
+  if (isItemFullContent) {
+    // Find all requests for this resource
+    const requests = await prismaClient.resourceVersioningRequest.findMany({
+      where: {
+        resourceVersion: {
+          resourceId: resourceId
+        }
+      },
+      include: {
+        approvals: {
+          select: {
+            status: true
+          }
+        },
+        resourceVersion: {
+          select: {
+            versionStatus: true
+          }
+        }
+      }
+    });
+
+    // Check if there's any active request in verification process with pending approvals
+    const hasActiveVerificationRequest = requests.some(request =>
+      // Check if the request is in verification process
+      (request.status === "VERIFICATION_PENDING" || request.status === "PUBLISH_PENDING") &&
+      // And has no rejections
+      !request.approvals.some(approval => approval.status === "REJECTED") &&
+      // And the version is not published or scheduled
+      request.resourceVersion.versionStatus !== "PUBLISHED" &&
+      request.resourceVersion.versionStatus !== "SCHEDULED"
+    );
+
+    // Resource is NOT editable if there's an active verification request with no rejections
+    isEditable = !hasActiveVerificationRequest;
+  }
+
   // Process both live version and edit version
   const result = {
     id: resource.id,
     titleEn: resource.titleEn,
     titleAr: resource.titleAr,
     slug: resource.slug,
+    isEditable: isEditable,
     ...(isItemFullContent && {
       resourceType: resource.resourceType,
       resourceTag: resource.resourceTag,
@@ -2301,11 +2357,33 @@ export const createOrUpdateVersion = async (contentData) => {
   console.log(resource.newVersionEditMode, "version+++++");
 
   if (resource && resource.newVersionEditMode) {
-    assert(
-      resource.newVersionEditMode.versionStatus === "DRAFT",
-      "NOT_ALLOWED",
-      `Not Allowed, Previous request is already in process`
+    // Check if there are any active requests for this resource version
+    const activeRequests = await prismaClient.resourceVersioningRequest.findMany({
+      where: {
+        resourceVersionId: resource.newVersionEditModeId,
+        OR: [
+          { status: "VERIFICATION_PENDING" },
+          { status: "PUBLISH_PENDING" }
+        ]
+      },
+      include: {
+        approvals: {
+          select: {
+            status: true
+          }
+        }
+      }
+    });
+
+    // Check if there's any active request in verification process with no rejections
+    const hasActiveVerificationRequest = activeRequests.some(request =>
+      !request.approvals.some(approval => approval.status === "REJECTED")
     );
+
+    // If there's an active verification request with no rejections, don't allow editing
+    if (hasActiveVerificationRequest && resource.newVersionEditMode.versionStatus !== "DRAFT") {
+      throw new Error("Cannot edit content that is under verification process. Wait for the verification to complete or for the request to be rejected.");
+    }
   }
 
   // Extract the content from the request
@@ -2684,10 +2762,74 @@ export const updateContentAndGenerateRequest = async (contentData) => {
     image = null,
     sections = [],
   } = newVersionEditMode;
+  // Check if there are any active requests for this resource
+  const existingRequests = await prismaClient.resourceVersioningRequest.findMany({
+    where: {
+      resourceVersion: {
+        resourceId: contentData.resourceId
+      },
+      OR: [
+        { status: "VERIFICATION_PENDING" },
+        { status: "PUBLISH_PENDING" }
+      ]
+    },
+    include: {
+      approvals: {
+        select: {
+          id: true,
+          status: true,
+          stage: true,
+          approverId: true
+        }
+      },
+      resourceVersion: {
+        select: {
+          id: true,
+          versionStatus: true
+        }
+      }
+    }
+  });
+
+  // Check if there's any active request in verification process with no rejections
+  const hasActiveVerificationRequest = existingRequests.some(request =>
+    !request.approvals.some(approval => approval.status === "REJECTED") &&
+    request.resourceVersion.versionStatus !== "PUBLISHED" &&
+    request.resourceVersion.versionStatus !== "SCHEDULED"
+  );
+
+  // If there's an active verification request with no rejections, don't allow editing
+  if (hasActiveVerificationRequest && resource.newVersionEditMode &&
+      resource.newVersionEditMode.versionStatus !== "DRAFT") {
+    throw new Error("Cannot submit content that is under verification process. Wait for the verification to complete or for the request to be rejected.");
+  }
+
   // Start a transaction to ensure all operations succeed or fail together
   const result = await prismaClient.$transaction(async (tx) => {
     let resourceVersion;
     let updatedResource;
+
+    // Find rejected stages from previous requests to reset them to PENDING
+    const rejectedStages = [];
+    const rejectedPublisher = [];
+
+    existingRequests.forEach(request => {
+      request.approvals.forEach(approval => {
+        if (approval.status === "REJECTED") {
+          if (approval.stage === null) {
+            // Publisher rejection
+            rejectedPublisher.push(approval.approverId);
+          } else {
+            // Verifier rejection
+            rejectedStages.push({
+              stage: approval.stage,
+              approverId: approval.approverId
+            });
+          }
+        }
+      });
+    });
+
     if (!resource.newVersionEditModeId) {
       // Create a new edit version if no edit version exists
       resourceVersion = await tx.resourceVersion.create({
@@ -2771,24 +2913,46 @@ export const updateContentAndGenerateRequest = async (contentData) => {
       },
     });
 
+    // Get the publisher
+    const publisher = resource.roles.find((r) => r.role === "PUBLISHER");
+
+    // Check if the publisher was previously rejected
+    const wasPublisherRejected = rejectedPublisher.includes(publisher.userId);
+
+    // Create publisher approval with appropriate status
     const generateRequestApprovalsForPublisher =
       await tx.requestApproval.create({
         data: {
           stage: null,
           comments: null,
           requestId: generatedRequest.id,
-          approverId: resource.roles.find((r) => r.role === "PUBLISHER").userId,
+          approverId: publisher.userId,
+          // If publisher previously rejected, set status to PENDING
+          // This allows them to re-verify the request
+          status: wasPublisherRejected ? "PENDING" : "PENDING"
         },
       });
 
-    await tx.requestApproval.createMany({
-      data: resource.verifiers.map((verifier) => ({
-        stage: verifier.stage,
-        comments: null,
-        requestId: generatedRequest.id,
-        approverId: verifier.userId,
-      })),
-    });
+    // Create verifier approvals with appropriate status
+    await Promise.all(resource.verifiers.map(async (verifier) => {
+      // Check if this verifier previously rejected at this stage
+      const wasRejected = rejectedStages.some(
+        rejected => rejected.stage === verifier.stage && rejected.approverId === verifier.userId
+      );
+
+      // Create approval with appropriate status
+      return await tx.requestApproval.create({
+        data: {
+          stage: verifier.stage,
+          comments: null,
+          requestId: generatedRequest.id,
+          approverId: verifier.userId,
+          // If verifier previously rejected, set status to PENDING
+          // This allows them to re-verify the request
+          status: wasRejected ? "PENDING" : "PENDING"
+        },
+      });
+    }));
 
     const verifierApprovals = await tx.requestApproval.findMany({
       where: {
@@ -3237,6 +3401,8 @@ export const fetchRequests = async (
               titleAr: true,
               resourceType: true,
               resourceTag: true,
+              relationType: true,
+              slug : true,
               roles: {
                 where: {
                   status: "ACTIVE",
