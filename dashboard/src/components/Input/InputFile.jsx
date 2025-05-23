@@ -7,11 +7,10 @@ import { Img_url } from "../../routes/backend";
 
 const InputFile = ({ label, baseClass, id, currentPath, resourceId, contentIndex, index, subSection, section, outOfEditing, directIcon, order, url }) => {
   const dispatch = useDispatch();
-  const ImageFromRedux = useSelector(state => state.homeContent.present.images);
+  // const ImageFromRedux = useSelector(state => state.homeContent.present.images);
   const [fileURL, setFileURL] = useState("");
   const [isSelectorOpen, setIsSelectorOpen] = useState(false);
 
-  console.log(url)
   // const clearFile = () => {
   //   setFileURL("");
   //   dispatch(removeImages({ section: id, src: "", currentPath }));

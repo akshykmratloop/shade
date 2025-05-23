@@ -227,8 +227,12 @@ function RequestTable() {
     useEffect(() => { // Fetch Requests
         if (activeRole?.id) {
             async function fetchRequestsData() {
+                if (!resourceId) {
+                    setRequests([])
+                    return setOriginalRequests([])
+                }
                 try {
-                    const payload = { roleId: roleId ?? "" }
+                    const payload = { roleId: roleId ?? "", resourceId }
 
                     if (RoleTypeIsUser) payload.permission = permission || activeRole?.permissions[0] || ""
                     const response = await getRequests(payload);
@@ -243,7 +247,7 @@ function RequestTable() {
             }
             fetchRequestsData();
         }
-    }, [activeRole.id, permission]);
+    }, [activeRole.id, permission, resourceId]);
 
     useEffect(() => {
         setCanSeeEditor(isVerifier || isPublisher || isManager)
@@ -277,7 +281,7 @@ function RequestTable() {
                 }
             </div>
             <TitleCard
-                title={`Resources/ ${resourceName || "##########"} / Versions `}
+                title={`Resources/ ${resourceName || "##########"} / Requests `}
                 question={false}
                 topMargin="mt-2"
                 backButton={true}
@@ -322,10 +326,7 @@ function RequestTable() {
                                             Publisher
                                         </th>
                                     }
-                                    <th className="text-[#42526D] w-[211px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] !capitalize">
-                                        {/* Status */}
-                                        Stage
-                                    </th>
+
                                     <th className="text-[#42526D] w-[211px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] !capitalize">
                                         {/* Status */}
                                         Status
@@ -361,7 +362,7 @@ function RequestTable() {
                                                     </div>
                                                 </td>
                                                 {
-                                                    canSeeEditor &&
+                                                    // canSeeEditor &&
                                                     <td
                                                         className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]"
                                                         style={{ whiteSpace: "" }}
@@ -370,7 +371,7 @@ function RequestTable() {
                                                     </td>
                                                 }
                                                 {
-                                                    canSeeVerifier &&
+                                                    // canSeeVerifier &&
                                                     <td
                                                         className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]"
                                                         style={{ whiteSpace: "" }}
@@ -423,34 +424,14 @@ function RequestTable() {
                                                                                 </tbody>
                                                                             </table>
 
-                                                                            {/* <div className="flex justify-around  font-semibold mb-1">
-                                        <p>Stage</p>
-                                        <p>Name</p>
-                                        </div>
-                                        <ul className="list-disc">
-                                        {request?.verifier.map((v) => (
-                                          <div key={v.stage}>
-                                          <div className="flex justify-around ">
-                                          <div className="w-full font-semibold">
-                                          {v.stage}
-                                          </div>
-                                          <div className="w-full">
-                                          {v.name}
-                                          </div>
-                                          </div>
-                                          </div>
-                                          ))}
-                                          </ul> */}
+
                                                                         </div>
                                                                     }
                                                                     setOnView={() => setActiveIndex(-1)}
                                                                     isVisible={activeIndex === request?.id}
                                                                     onToggle={() => toggleTooltip(request?.id)}
                                                                 >
-                                                                    {/* <FiEye
-                                    className="w-5 h-6  text-[#3b4152] dark:text-stone-200"
-                                    strokeWidth={1}
-                                    /> */}
+
                                                                     <span className="underline w-5 h-6 text-[#3b4152] cursor-pointer dark:text-stone-200">
                                                                         View
                                                                     </span>
@@ -462,7 +443,7 @@ function RequestTable() {
                                                     </td>
                                                 }
                                                 {
-                                                    canSeePublisher &&
+                                                    // canSeePublisher &&
                                                     <td
                                                         className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]"
                                                         style={{ whiteSpace: "" }}
@@ -472,7 +453,7 @@ function RequestTable() {
                                                         </span>
                                                     </td>
                                                 }
-                                                <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]">
+                                                {/* <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]">
                                                     <p
                                                         className={`min-w-[85px] mx-auto before:content-['•'] before:text-2xl flex h-7 items-center justify-center gap-1 px-1 py-0 font-[500] 
                               ${request.status === "Green"
@@ -486,7 +467,7 @@ function RequestTable() {
                                                     >
                                                         <span className="">{capitalizeWords(request?.status)}</span>
                                                     </p>
-                                                </td>
+                                                </td> */}
                                                 <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]">
                                                     <p
                                                         className={`min-w-[85px] mx-auto before:content-['•'] before:text-2xl flex h-7 items-center justify-center gap-1 px-1 py-0 font-[500] 
