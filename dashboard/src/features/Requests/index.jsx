@@ -513,9 +513,9 @@ function Requests() {
                         <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]">
                           <p
                             className={`min-w-[85px] mx-auto before:content-['•'] before:text-2xl flex h-7 items-center justify-center gap-1 px-1 py-0 font-[500] 
-                              ${request.status === "Green"
+                              ${request.flowStatus === "SCHEDULED"
                                 ? "text-green-600 bg-lime-200 before:text-green-600 px-1"
-                                : request.status === "Blue"
+                                : request.flowStatus === "PENDING"
                                   ? "text-blue-600 bg-sky-200 before:text-blue-600 "
                                   : "text-red-600 bg-pink-200 before:text-red-600 "
                               } 
