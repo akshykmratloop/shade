@@ -2537,6 +2537,12 @@ router.put(
  *           type: integer
  *           default: 100
  *         description: Number of items per page
+ *       - in: query
+ *         name: resourceId
+ *         required: false
+ *         schema:
+ *           type: string
+ *         description: Filter requests by a specific resource ID
  *     responses:
  *       200:
  *         description: Requests fetched successfully

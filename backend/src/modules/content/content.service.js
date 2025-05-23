@@ -184,7 +184,8 @@ const getRequest = async (
   search,
   status,
   pageNum,
-  limitNum
+  limitNum,
+  resourceId
 ) => {
   const requests = await fetchRequests(
     userId,
@@ -193,7 +194,8 @@ const getRequest = async (
     search,
     status,
     pageNum,
-    limitNum
+    limitNum,
+    resourceId
   );
   logger.info({
     response: "Requests fetched successfully",
