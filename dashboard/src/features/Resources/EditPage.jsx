@@ -51,6 +51,10 @@ const EditPage = () => {
 
     const content = createContent(contentFromRedux, "edit", currentPath)
 
+    const updateComment = ({ value }) => {
+        dispatch(updateComment({ value }))
+    }
+
     const Routes = [
         'home', 'solution', 'about-us', "service", 'market',
         'projects', "project", 'careers', "career", 'news-blogs', 'footer',
@@ -172,13 +176,14 @@ const EditPage = () => {
                                         />
                                         <h4 className="text-[#6B7888] text-[14px] mt-2 mb-[1px]">Add Note</h4>
                                         <TextAreaInput
-                                            updateFormValue={() => { }}
+                                            updateFormValue={updateComment}
                                             placeholder={"Comments..."}
                                             required={false}
                                             textAreaStyle={""}
                                             containerStyle={"mb-4"}
                                             minHeight={"3.2rem"}
                                             style={{ marginTop: "4px" }}
+                                            defaultValue={contentFromRedux?.content?.editVersion?.comments}
                                         />
                                         <AllForOne
                                             language={language} screen={screen}

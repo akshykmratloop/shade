@@ -18,6 +18,9 @@ const cmsSlice = createSlice({
             state.present = {}
             state.future = []
         },
+        updateComment: (state, action) => {
+            state.present.content.editVersion.comments = action.payload.value
+        },
         updateImages: (state, action) => {
             state.past.push(JSON.parse(JSON.stringify(state.present)));
             if (action.payload.type === "refDoc") {
