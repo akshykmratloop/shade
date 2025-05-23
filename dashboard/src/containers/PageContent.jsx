@@ -33,6 +33,9 @@ function PageContent() {
         }
     }, [])
 
+    localStorage.setItem("route", location.pathname)
+    // useEffect(() => {
+    // }, [])
     // useEffect(() => {
     //     if (userRole.role && userRole.permissions?.length === 0) {
     //         toast.error("The current role has no permissios", { hideProgressBar: true })

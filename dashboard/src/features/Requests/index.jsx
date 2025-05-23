@@ -1,5 +1,5 @@
 // libraries
-import { useEffect, useState, memo } from "react";
+import { useEffect, useState, memo, useCallback } from "react";
 import { ToastContainer } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -18,7 +18,7 @@ import { RIGHT_DRAWER_TYPES } from "../../utils/globalConstantUtil";
 import ToggleSwitch from "../../components/Toggle/Toggle";
 
 // icons
-import { FiEye } from "react-icons/fi";
+import { FiEdit, FiEye } from "react-icons/fi";
 import { LuListFilter } from "react-icons/lu";
 import { PiInfoThin } from "react-icons/pi";
 import XMarkIcon from "@heroicons/react/24/outline/XMarkIcon";
@@ -121,7 +121,11 @@ function Requests() {
   const [resourceId, setResourceId] = useState("")
   const [requestId, setRequestId] = useState("")
   const [toggle, setToggle] = useState(false);
+  const [path, setPath] = useState("")
+  const [subPath, setSubPath] = useState("")
+  const [deepPath, setDeepPath] = useState("")
 
+  
 
 
   // redux state
@@ -149,6 +153,28 @@ function Requests() {
   function sortStages(arr) {
     if (!Array.isArray(arr)) return;
     return arr?.sort((a, b) => order.indexOf(a) - order.indexOf(b));
+  }
+
+  const settingRoute = useCallback(
+    (first, second, third) => {
+      setPath(first)
+      setSubPath(second)
+      setDeepPath(third)
+
+      const route = third
+        ? `/app/resources/edit/${first}/${second}/${third}`
+        : second
+          ? `/app/resources/edit/${first}/${second}`
+          : `/app/resources/edit/${first}`;
+
+      return route
+    },
+    [navigate]
+  );
+
+  function navigateToPage(first, second, third) {
+    let route = settingRoute(first, second, third)
+    navigate(route);
   }
 
   // Change the reqeust table
@@ -231,7 +257,8 @@ function Requests() {
           if (RoleTypeIsUser) payload.permission = permission || activeRole?.permissions[0] || ""
           const response = await getRequests(payload);
           if (response.ok) {
-            setRequests(response.requests.data);
+            // console.log(response.requests.data)
+            setRequests(response.requests?.data ?? []);
           }
           setOriginalRequests(response?.requests?.data ?? []); // Store the original unfiltered data
 
@@ -337,6 +364,7 @@ function Requests() {
               <tbody className="">
                 {Array.isArray(requests) && currentRequests.length > 0 ? (
                   currentRequests?.map((request, index) => {
+                    console.log(request)
                     let publisher = request.approvals.filter(e => e.stage === null)[0]
                     let verifiers = request.approvals.filter(e => e.stage)
                     return (
@@ -539,7 +567,38 @@ function Requests() {
                               </span>
                             </button>
 
-                            {/* <button
+                            {
+                              !canSeeEditor &&
+                              < button
+                                onClick={() => {
+                                  const { relationType, resourceTag, subPage, subOfSubPage, slug } = request;
+                                  if (relationType === "CHILD") {
+                                    navigateToPage(resourceTag?.toLowerCase(), request.id);
+                                  } else if (relationType !== "PARENT") {
+                                    navigateToPage(resourceTag?.toLowerCase(), subPage, subOfSubPage);
+                                  } else {
+                                    navigateToPage(slug?.toLowerCase());
+                                  }
+                                  // setSelectedRequest(request);
+                                  // setShowDetailsModal(true);
+                                  // // openNotification();
+                                  // setResourceId(request.resourceVersion.resourceId)
+                                  // setRequestId(request.id)
+                                  // navigate(`/app/resources/edit/home`)
+                                }}
+                              >
+                                <span
+                                  title={`Review${canSeeEditor ? " and update" : ""}`}
+                                  className="flex items-center gap-1 rounded-md text-[#101828]">
+                                  <FiEdit
+                                    className="w-5 h-6  text-[#3b4152] dark:text-stone-200"
+                                    strokeWidth={1}
+                                  />
+                                </span>
+                              </button>}
+
+
+                            {/* <button              
                               className=""
                               onClick={() => {
                                 setSelectedRequest(request);
@@ -591,7 +650,7 @@ function Requests() {
             totalPages={totalPages}
           />
         </div>
-      </TitleCard>
+      </TitleCard >
       {showDetailsModal && (
         <ShowDifference
           currentlyEditor={!canSeeEditor}
@@ -607,9 +666,10 @@ function Requests() {
             setShowDetailsModal(false);
           }}
         />
-      )}
+      )
+      }
       <ToastContainer />
-    </div>
+    </div >
   );
 }
 export default Requests;

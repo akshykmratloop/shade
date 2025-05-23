@@ -19,6 +19,8 @@ function LeftSidebar() {
     [userRole?.permissions]
   );
 
+  const currentPath = location.pathname.split('/').slice(0, 3).join('/')
+
   const handleResize = useCallback(() => {
     const shouldCollapse = window.innerWidth < 1200;
     dispatch(setSidebarState(shouldCollapse));
@@ -61,7 +63,7 @@ function LeftSidebar() {
 
       >
         {route.icon} {!showText && route.name}
-        {location.pathname === route.path && (
+        {currentPath === route.path && (
           <span
             className="absolute inset-y-0 left-0 w-1 bg-primary"
             aria-hidden="true"

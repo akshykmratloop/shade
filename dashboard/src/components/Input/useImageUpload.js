@@ -36,7 +36,7 @@ export function useImageUpload(resourceId) {
                 const result = response;
                 return result?.imageUrl || URL.createObjectURL(files.length ? files[0] : files);
             } else {
-                throw new Error("Upload failed");
+                throw new Error(response.message);
             }
         } catch (err) {
             throw err.message

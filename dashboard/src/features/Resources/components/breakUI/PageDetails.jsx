@@ -150,7 +150,7 @@ const PageDetails = ({ data, display, setOn }) => {
                         <button className="text-[#145098] dark:text-sky-500 underline font-[300] py-0 my-0"
                           onClick={() => {
                             dispatch(updateResourceId({ id: data.id, name: data.titleEn }))
-                            localStorage.setItem("route", "/app/resources/versions")
+                            // localStorage.setItem("route", "/app/resources/versions")
                             navigate('../versions')
                           }}
                         >
@@ -158,6 +158,24 @@ const PageDetails = ({ data, display, setOn }) => {
                         </button>
                       </>
                     )}
+                </div>
+              </div>
+              <div className="flex py-[15px] justify-between border-b dark:border-stone-700">
+                <label>Ongoing Requests:</label>
+                <div className={`flex flex-col items-end gap-[2.5px]`}>
+                  {(
+                    <>
+                      <button className="text-[#145098] dark:text-sky-500 underline font-[300] py-0 my-0"
+                        onClick={() => {
+                          // dispatch(updateResourceId({ id: data.id, name: data.titleEn }))
+                          // localStorage.setItem("route", "/app/resources/versions")
+                          navigate('../requests')
+                        }}
+                      >
+                        View Requests
+                      </button>
+                    </>
+                  )}
                 </div>
               </div>
               <div className="flex py-[15px] justify-between border-b-4 border-gray-400 dark:border-stone-700">

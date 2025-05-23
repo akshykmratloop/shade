@@ -48,7 +48,7 @@ const routes = [
     permission: "USER_MANAGEMENT"
   },
   {
-    path: '/app/resources/pages', // url
+    path: '/app/resources', // url
     icon: <HiOutlineClipboardDocumentList className={iconClasses} />, // icon component
     name: 'Resources', // name that appear in Sidebar
     // permission: "EDIT"

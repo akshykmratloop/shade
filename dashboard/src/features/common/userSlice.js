@@ -68,7 +68,7 @@ const user = createSlice({
             //     state.activeRole = { ...initialActiveRole };
             // } else {
             // }
-            console.log(roles)
+            // console.log(roles)
             state.activeRole = roles?.[0];
         },
         updateActiveRole: (state, action) => {
