@@ -156,7 +156,7 @@ function Logs() {
           />
         }
       >
-        <div className="min-h-[28.2rem] flex flex-col justify-between">
+        <div className="min-h-[30rem] flex flex-col justify-between">
           <div className="overflow-x-auto w-full border dark:border-stone-600 rounded-2xl">
             <table className="table text-center min-w-full dark:text-[white]">
               <thead className="" style={{ borderRadius: "" }}>

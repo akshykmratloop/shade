@@ -191,7 +191,7 @@ function Roles() {
           <span>Import</span>
         </button> */}
         <button
-          className=" z-20 btn btn-sm hover:bg-[#25439B] border-none !capitalize ml-4 bg-[#25439B] text-[white] font-semibold py-[.9rem] pb-[1.8rem] px-4"
+          className="z-20 btn btn-sm hover:bg-[#25439B] border-none !capitalize ml-4 bg-[#25439B] text-[white] font-semibold py-[.9rem] pb-[1.8rem] px-4"
           onClick={() => setShowAddForm(true)}
         >
           <PlusIcon className="w-4 mr-2 border border-1 rounded-full border-dotted " />
@@ -210,7 +210,7 @@ function Roles() {
           />
         }
       >
-        <div className="min-h-[28.2rem] flex flex-col justify-between">
+        <div className="min-h-[30rem] flex flex-col justify-between">
           <div className="overflow-x-auto w-full border dark:border-stone-600 rounded-2xl">
             <table className="table text-center min-w-full dark:text-[white]">
               <thead className="" style={{ borderRadius: "" }}>

@@ -19,7 +19,7 @@ const Paginations = ({ currentPage, totalPages, setCurrentPage, data, }) => {
     }
 
     return (
-        <div className="flex justify-end items-center mt-4 gap-2 pr-2" style={{display:!(data?.length > 0) && "none"}}>
+        <div className="flex justify-end items-center mt-6 gap-2 pr-2" style={{ display: !(data?.length > 0) && "none" }}>
             <button
                 onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
                 disabled={currentPage === 1}
@@ -33,7 +33,11 @@ const Paginations = ({ currentPage, totalPages, setCurrentPage, data, }) => {
                     key={index}
                     onClick={() => {
                         if (page === "...") {
-                            setCurrentPage(currentPage < totalPages / 2 ? totalPages - maxVisiblePages + 1 : 1);
+                            if (index === 0) {
+                                setCurrentPage(1); // "..." at the beginning
+                            } else if (index === pages.length - 1) {
+                                setCurrentPage(totalPages); // "..." at the end
+                            }
                         } else {
                             setCurrentPage(page);
                         }
@@ -43,6 +47,7 @@ const Paginations = ({ currentPage, totalPages, setCurrentPage, data, }) => {
                     {page}
                 </button>
             ))}
+
 
             <button
                 onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
