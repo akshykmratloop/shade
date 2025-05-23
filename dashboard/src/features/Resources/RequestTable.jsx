@@ -230,19 +230,21 @@ function RequestTable() {
                 if (!resourceId) {
                     setRequests([])
                     return setOriginalRequests([])
-                }
-                try {
-                    const payload = { roleId: roleId ?? "", resourceId }
+                } else {
 
-                    if (RoleTypeIsUser) payload.permission = permission || activeRole?.permissions[0] || ""
-                    const response = await getRequests(payload);
-                    if (response.ok) {
-                        setRequests(response.requests.data);
+                    try {
+                        const payload = { roleId: roleId ?? "", resourceId }
+
+                        if (RoleTypeIsUser) payload.permission = permission || activeRole?.permissions[0] || ""
+                        const response = await getRequests(payload);
+                        if (response.ok) {
+                            setRequests(response.requests.data);
+                        }
+                        setOriginalRequests(response?.requests?.data ?? []); // Store the original unfiltered data
+
+                    } catch (err) {
+                        console.error(err)
                     }
-                    setOriginalRequests(response?.requests?.data ?? []); // Store the original unfiltered data
-
-                } catch (err) {
-                    console.error(err)
                 }
             }
             fetchRequestsData();
