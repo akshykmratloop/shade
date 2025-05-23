@@ -82,7 +82,7 @@ const EditPage = () => {
     }, [])
 
     useEffect(() => {
-        setOutOfEditing(!(stageStatus === "EDITING" || stageStatus === "DRAFT" || stageStatus === "PUBLISHED") || !isEditable)
+        setOutOfEditing((!isEditable))
     }, [isManager, stageStatus])
 
     useEffect(() => {
