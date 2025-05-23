@@ -98,12 +98,14 @@ enum RequestStatus {
   VERIFICATION_PENDING
   PUBLISH_PENDING
   PUBLISHED
+  SCHEDULED
 }
 
 enum FlowStatus {
   PENDING
   APPROVED
   REJECTED
+  SCHEDULED
 }
 
 enum RequestType {
