@@ -17,7 +17,7 @@ import AllForOneManager from "./components/AllForOneManager";
 import createContent from "./defineContent";
 import FallBackLoader from "../../components/fallbackLoader/FallbackLoader";
 import { getContent } from "../../app/fetch";
-import { updateMainContent } from "../common/homeContentSlice";
+import { updateComment, updateMainContent } from "../common/homeContentSlice";
 import { saveInitialContentValue } from "../common/InitialContentSlice";
 
 const Page404 = lazy(() => import('../../pages/protected/404'))
@@ -50,6 +50,10 @@ const EditPage = () => {
     // const outOfEditing = !(stageStatus === "EDITING" || stageStatus === "DRAFT" || stageStatus === "PUBLISHED")
 
     const content = createContent(contentFromRedux, "edit", currentPath)
+
+    const updateComments = ({ value }) => {
+        dispatch(updateComment({ value }))
+    }
 
     const Routes = [
         'home', 'solution', 'about-us', "service", 'market',
@@ -172,13 +176,14 @@ const EditPage = () => {
                                         />
                                         <h4 className="text-[#6B7888] text-[14px] mt-2 mb-[1px]">Add Note</h4>
                                         <TextAreaInput
-                                            updateFormValue={() => { }}
+                                            updateFormValue={updateComments}
                                             placeholder={"Comments..."}
                                             required={false}
                                             textAreaStyle={""}
                                             containerStyle={"mb-4"}
                                             minHeight={"3.2rem"}
                                             style={{ marginTop: "4px" }}
+                                            defaultValue={contentFromRedux?.content?.editVersion?.comments}
                                         />
                                         <AllForOne
                                             language={language} screen={screen}
