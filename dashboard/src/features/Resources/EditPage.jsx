@@ -29,7 +29,7 @@ const EditPage = () => {
     const location = useLocation();
 
     const [language, setLanguage] = useState('en')
-    const [loader, setLoader] = useState(false)
+    const [loader, setLoader] = useState(true)
     const [screen, setScreen] = useState(1180)
     const [displayStatus, setDisplayStatus] = useState("")
     const [outOfEditing, setOutOfEditing] = useState(true)
@@ -46,6 +46,7 @@ const EditPage = () => {
     const contentFromRedux = useSelector((state) => state.homeContent.present)
 
     const stageStatus = contentFromRedux?.content?.editVersion?.status
+    const isEditable = contentFromRedux?.content?.isEditable
     // const outOfEditing = !(stageStatus === "EDITING" || stageStatus === "DRAFT" || stageStatus === "PUBLISHED")
 
     const content = createContent(contentFromRedux, "edit", currentPath)
@@ -81,7 +82,7 @@ const EditPage = () => {
     }, [])
 
     useEffect(() => {
-        setOutOfEditing(!(stageStatus === "EDITING" || stageStatus === "DRAFT" || stageStatus === "PUBLISHED"))
+        setOutOfEditing(!(stageStatus === "EDITING" || stageStatus === "DRAFT" || stageStatus === "PUBLISHED") || isEditable)
     }, [isManager, stageStatus])
 
     useEffect(() => {
@@ -99,6 +100,7 @@ const EditPage = () => {
                             resourceType: response.content.resourceType,
                             resourceTag: response.content.resourceTag,
                             relationType: response.content.relationType,
+                            isEditable: response.content.isEditable,
                             editVersion: isManager ? response.content.liveModeVersionData : response.content.editModeVersionData ?? response.content.liveModeVersionData
                         }
                         dispatch(updateMainContent({ currentPath: "content", payload }))

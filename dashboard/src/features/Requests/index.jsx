@@ -568,7 +568,7 @@ function Requests() {
                             </button>
 
                             {
-                              !canSeeEditor &&
+                              (!canSeeEditor && request.flowStatus === "REJECTED") &&
                               < button
                                 onClick={() => {
                                   const { relationType, resourceTag, subPage, subOfSubPage, slug } = request.resourceVersion?.resource;
