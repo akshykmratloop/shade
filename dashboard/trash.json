@@ -1,121 +1,300 @@
 {
     "message": "Success",
-    "requests": {
-        "data": [
-            {
-                "id": "0ee9d7c3-147a-4ff3-93ac-825e4cce6aac",
-                "status": "VERIFICATION_PENDING",
-                "flowStatus": "PENDING",
-                "type": "VERIFICATION",
-                "editorComments": "Initial version created",
-                "resourceVersionId": "cmb0emd61002rqp0w5i34lrql",
-                "senderId": "cmawfx6da0008qp0w1q4ittw9",
-                "createdAt": "2025-05-23T06:12:54.007Z",
-                "updatedAt": "2025-05-23T06:12:54.007Z",
-                "resourceVersion": {
-                    "id": "cmb0emd61002rqp0w5i34lrql",
-                    "versionNumber": 2,
-                    "versionStatus": "VERIFICATION_PENDING",
-                    "notes": "Initial version created",
-                    "referenceDoc": null,
-                    "content": {},
-                    "icon": null,
-                    "Image": null,
-                    "lockedById": null,
-                    "lockedAt": null,
-                    "resourceId": "cmb0edx2h00szqp4qtifbjxqk",
-                    "createdAt": "2025-05-23T06:12:53.929Z",
-                    "updatedAt": "2025-05-23T06:12:53.929Z",
-                    "scheduledAt": null,
-                    "publishedAt": null,
-                    "resource": {
-                        "id": "cmb0edx2h00szqp4qtifbjxqk",
-                        "titleEn": "Home Page",
-                        "titleAr": "الصفحة الرئيسية",
-                        "resourceType": "MAIN_PAGE",
-                        "resourceTag": "HOME",
-                        "relationType": "PARENT",
-                        "slug": "home",
-                        "roles": [
+    "content": {
+        "id": "cmb0m39un00eiqp2r8sgcfotg",
+        "titleEn": "Cranes & Heavy Lifting Equipment",
+        "titleAr": "الرافعات ومعدات الرفع الثقيلة",
+        "slug": "cranes-heavy-lifting-equipment",
+        "isEditable": true,
+        "resourceType": "SUB_PAGE_ITEM",
+        "resourceTag": "SERVICE",
+        "relationType": "CHILD",
+        "liveModeVersionData": {
+            "id": "cmb0m39up00ekqp2rr4zwny1p",
+            "versionNumber": 1,
+            "icon": null,
+            "image": null,
+            "comments": "Initial version created",
+            "referenceDoc": null,
+            "updatedAt": "2025-05-23T09:42:00.097Z",
+            "status": "PUBLISHED",
+            "sections": [
+                {
+                    "sectionId": "cmb0m39ux00emqp2ri1bp9p44",
+                    "order": 1,
+                    "version": 1,
+                    "title": "heroSection-cranes-heavy-lifting-equipment-9698",
+                    "content": {
+                        "title": {
+                            "ar": "الرافعات ومعدات الرفع الثقيلة",
+                            "en": "Cranes & Heavy Lifting Equipment"
+                        },
+                        "images": [
                             {
-                                "id": "6321622e-254a-4c3c-a15d-a439ec554309",
-                                "resourceId": "cmb0edx2h00szqp4qtifbjxqk",
-                                "userId": "cmawfx6da0008qp0w1q4ittw9",
-                                "role": "EDITOR",
-                                "status": "ACTIVE",
-                                "createdAt": "2025-05-23T06:06:51.718Z",
-                                "user": {
-                                    "id": "cmawfx6da0008qp0w1q4ittw9",
-                                    "name": "Anukool"
-                                }
-                            },
-                            {
-                                "id": "92ff5fa1-0ccf-4800-a78e-7fc8b4450a5f",
-                                "resourceId": "cmb0edx2h00szqp4qtifbjxqk",
-                                "userId": "cmawgyhh60032qp0wbo9aru90",
-                                "role": "PUBLISHER",
-                                "status": "ACTIVE",
-                                "createdAt": "2025-05-23T06:06:51.722Z",
-                                "user": {
-                                    "id": "cmawgyhh60032qp0wbo9aru90",
-                                    "name": "Akshay Kumar"
+                                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
+                                "order": 1,
+                                "altText": {
+                                    "ar": "صورة الرافعات ومعدات الرفع الثقيلة",
+                                    "en": "Cranes & Heavy Lifting Equipment Image"
                                 }
                             }
                         ],
-                        "verifiers": [
-                            {
-                                "id": "96610aa5-c6be-45e0-ab8a-36c2dfc8c007",
-                                "stage": 1,
-                                "status": "ACTIVE",
-                                "resourceId": "cmb0edx2h00szqp4qtifbjxqk",
-                                "userId": "cmawgxqly002zqp0wybh46wyd",
-                                "createdAt": "2025-05-23T06:06:51.728Z",
-                                "user": {
-                                    "id": "cmawgxqly002zqp0wybh46wyd",
-                                    "name": "Akshay"
-                                }
-                            }
-                        ]
-                    }
-                },
-                "sender": {
-                    "id": "cmawfx6da0008qp0w1q4ittw9",
-                    "name": "Anukool",
-                    "email": "anukool26@outlook.com"
-                },
-                "approvals": [
-                    {
-                        "id": "8a8e28db-ac40-4660-a34a-d376d76f12d9",
-                        "status": "PENDING",
-                        "stage": 1,
-                        "comments": null,
-                        "approverStatus": "ACTIVE",
-                        "approver": {
-                            "id": "cmawgxqly002zqp0wybh46wyd",
-                            "name": "Akshay",
-                            "email": "akshykmr@loopmethods.com"
+                        "description": {
+                            "ar": "نقدم حلولًا متكاملة لرفع وتحريك المعدات الثقيلة باستخدام أحدث الرافعات والمعدات المناسبة.",
+                            "en": "We provide integrated solutions for lifting and moving heavy equipment using the latest cranes and appropriate machinery."
                         }
                     },
-                    {
-                        "id": "27e6fa97-e01d-49a9-ab0d-bf16df4a8d2a",
-                        "status": "PENDING",
-                        "stage": null,
-                        "comments": null,
-                        "approverStatus": "ACTIVE",
-                        "approver": {
-                            "id": "cmawgyhh60032qp0wbo9aru90",
-                            "name": "Akshay Kumar",
-                            "email": "akshykmr70@gmail.com"
+                    "sections": []
+                },
+                {
+                    "sectionId": "cmb0m39vc00esqp2r5ckuq82v",
+                    "order": 2,
+                    "version": 1,
+                    "title": "ServicePointsGrid1-cranes-heavy-lifting-equipment-d706",
+                    "content": {
+                        "title": {
+                            "ar": "خدمات الرافعات والمعدات الثقيلة الأساسية",
+                            "en": "Core Cranes & Heavy Lifting Equipment Services"
+                        },
+                        "points": [
+                            {
+                                "order": 1,
+                                "title": {
+                                    "ar": "الرافعات البرجية",
+                                    "en": "Tower Cranes"
+                                },
+                                "images": [
+                                    {
+                                        "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
+                                        "order": 1,
+                                        "altText": {
+                                            "ar": "صورة الخدمة",
+                                            "en": "Service Image"
+                                        }
+                                    }
+                                ],
+                                "description": {
+                                    "ar": "نحن نوفر الرافعات البرجية لمشاريع البناء عالية الارتفاع والتي تتطلب الرفع لمسافات طويلة.",
+                                    "en": "We provide tower cranes for high-rise construction projects that require long-distance lifting."
+                                }
+                            },
+                            {
+                                "order": 2,
+                                "title": {
+                                    "ar": "الرافعات الجسرية",
+                                    "en": "Bridge Cranes"
+                                },
+                                "images": [
+                                    {
+                                        "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
+                                        "order": 1,
+                                        "altText": {
+                                            "ar": "صورة الخدمة",
+                                            "en": "Service Image"
+                                        }
+                                    }
+                                ],
+                                "description": {
+                                    "ar": "نقدم الرافعات الجسرية للمشاريع التي تتطلب رفع وتحريك المعدات الثقيلة داخل المنشآت المغلقة.",
+                                    "en": "We offer bridge cranes for projects that require lifting and moving heavy equipment inside enclosed facilities."
+                                }
+                            },
+                            {
+                                "order": 3,
+                                "title": {
+                                    "ar": "الرافعات الزحافة",
+                                    "en": "Crawler Cranes"
+                                },
+                                "images": [
+                                    {
+                                        "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
+                                        "order": 1,
+                                        "altText": {
+                                            "ar": "صورة الخدمة",
+                                            "en": "Service Image"
+                                        }
+                                    }
+                                ],
+                                "description": {
+                                    "ar": "نقدم الرافعات الزحافة التي توفر القدرة على التحرك على التضاريس الوعرة مع رفع الأحمال الثقيلة.",
+                                    "en": "We provide crawler cranes that offer the ability to move on rough terrain while lifting heavy loads."
+                                }
+                            },
+                            {
+                                "order": 4,
+                                "title": {
+                                    "ar": "الرافعات المتنقلة",
+                                    "en": "Mobile Cranes"
+                                },
+                                "images": [
+                                    {
+                                        "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
+                                        "order": 1,
+                                        "altText": {
+                                            "ar": "صورة الخدمة",
+                                            "en": "Service Image"
+                                        }
+                                    }
+                                ],
+                                "description": {
+                                    "ar": "نقدم الرافعات المتنقلة التي تتميز بالقدرة على الانتقال بسرعة بين المواقع المختلفة، مع قدرة رفع عالية.",
+                                    "en": "We provide mobile cranes that are highly mobile and capable of moving between different locations with high lifting capacity."
+                                }
+                            },
+                            {
+                                "order": 5,
+                                "title": {
+                                    "ar": "الرافعات ذات الذراع الطويلة",
+                                    "en": "Long Reach Cranes"
+                                },
+                                "images": [
+                                    {
+                                        "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
+                                        "order": 1,
+                                        "altText": {
+                                            "ar": "صورة الخدمة",
+                                            "en": "Service Image"
+                                        }
+                                    }
+                                ],
+                                "description": {
+                                    "ar": "نحن نوفر الرافعات ذات الذراع الطويلة التي تسمح برفع الأحمال الثقيلة لمسافات بعيدة.",
+                                    "en": "We provide long reach cranes that allow lifting heavy loads over long distances."
+                                }
+                            }
+                        ],
+                        "description": {
+                            "ar": "نحن نقدم مجموعة واسعة من خدمات الرافعات والمعدات الثقيلة التي تلبي احتياجات المشاريع الكبرى.",
+                            "en": "We offer a wide range of cranes and heavy lifting equipment services to meet the needs of large-scale projects."
                         }
-                    }
-                ]
-            }
-        ],
-        "pagination": {
-            "total": 1,
-            "page": 1,
-            "limit": 100,
-            "totalPages": 1
+                    },
+                    "sections": []
+                },
+                {
+                    "sectionId": "cmb0m39vm00eyqp2rshnpwuvi",
+                    "order": 3,
+                    "version": 1,
+                    "title": "ServicePointsGrid2-cranes-heavy-lifting-equipment-154e",
+                    "content": {
+                        "title": {
+                            "ar": "خدمات إضافية للرافعات والمعدات الثقيلة",
+                            "en": "Additional Cranes & Heavy Lifting Equipment Services"
+                        },
+                        "points": [
+                            {
+                                "order": 1,
+                                "title": {
+                                    "ar": "تركيب الرافعات",
+                                    "en": "Crane Installation"
+                                },
+                                "images": [
+                                    {
+                                        "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
+                                        "order": 1,
+                                        "altText": {
+                                            "ar": "صورة الخدمة",
+                                            "en": "Service Image"
+                                        }
+                                    }
+                                ],
+                                "description": {
+                                    "ar": "نقوم بتركيب الرافعات المختلفة وتوفير دعم مستمر لضمان عملية رفع آمنة.",
+                                    "en": "We install various types of cranes and provide ongoing support to ensure safe lifting operations."
+                                }
+                            },
+                            {
+                                "order": 2,
+                                "title": {
+                                    "ar": "خدمات التفكيك والنقل",
+                                    "en": "Crane Dismantling & Transportation"
+                                },
+                                "images": [
+                                    {
+                                        "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
+                                        "order": 1,
+                                        "altText": {
+                                            "ar": "صورة الخدمة",
+                                            "en": "Service Image"
+                                        }
+                                    }
+                                ],
+                                "description": {
+                                    "ar": "نقوم بتوفير خدمات التفكيك والنقل للرافعات والمعدات الثقيلة بين المواقع المختلفة.",
+                                    "en": "We provide crane dismantling and transportation services for moving cranes and heavy equipment between different locations."
+                                }
+                            },
+                            {
+                                "order": 3,
+                                "title": {
+                                    "ar": "الصيانة الدورية للرافعات",
+                                    "en": "Crane Maintenance & Inspection"
+                                },
+                                "images": [
+                                    {
+                                        "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
+                                        "order": 1,
+                                        "altText": {
+                                            "ar": "صورة الخدمة",
+                                            "en": "Service Image"
+                                        }
+                                    }
+                                ],
+                                "description": {
+                                    "ar": "نقوم بصيانة وفحص الرافعات بشكل دوري لضمان استمرارية تشغيلها بكفاءة عالية.",
+                                    "en": "We provide regular maintenance and inspection services for cranes to ensure their continuous operation with high efficiency."
+                                }
+                            },
+                            {
+                                "order": 4,
+                                "title": {
+                                    "ar": "الرفع والتفريغ للمعدات الثقيلة",
+                                    "en": "Heavy Equipment Lifting & Unloading"
+                                },
+                                "images": [
+                                    {
+                                        "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
+                                        "order": 1,
+                                        "altText": {
+                                            "ar": "صورة الخدمة",
+                                            "en": "Service Image"
+                                        }
+                                    }
+                                ],
+                                "description": {
+                                    "ar": "نقدم خدمات الرفع والتفريغ للمعدات الثقيلة باستخدام الرافعات المتخصصة.",
+                                    "en": "We provide heavy equipment lifting and unloading services using specialized cranes."
+                                }
+                            },
+                            {
+                                "order": 5,
+                                "title": {
+                                    "ar": "استشارات الرفع",
+                                    "en": "Lifting Consultation"
+                                },
+                                "images": [
+                                    {
+                                        "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
+                                        "order": 1,
+                                        "altText": {
+                                            "ar": "صورة الخدمة",
+                                            "en": "Service Image"
+                                        }
+                                    }
+                                ],
+                                "description": {
+                                    "ar": "نقدم استشارات متخصصة لعمليات الرفع لضمان سلامة وفعالية العملية.",
+                                    "en": "We offer specialized consultation services for lifting operations to ensure safety and efficiency."
+                                }
+                            }
+                        ],
+                        "description": {
+                            "ar": "نقدم خدمات إضافية متكاملة للرافعات والمعدات الثقيلة لضمان تنفيذ المشاريع بشكل فعال.",
+                            "en": "We offer additional integrated services for cranes and heavy lifting equipment to ensure the efficient execution of projects."
+                        }
+                    },
+                    "sections": []
+                }
+            ]
         }
     }
 }

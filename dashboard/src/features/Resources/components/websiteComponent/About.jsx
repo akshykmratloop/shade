@@ -1,78 +1,44 @@
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { aboutUsIcons } from "../../../../assets/index"; // ../../assets/index
+// import { aboutUsIcons } from "../../../../assets/index"; // ../../assets/index
 import { Img_url } from "../../../../routes/backend";
-import { updateMainContent } from "../../../common/homeContentSlice";
-import dynamicSize from "../../../../app/fontSizes";
-// import styles from "./about.module.scss";
-// import localFont from "next/font/local";
-// import Button from "@/common/Button";
-// import Image from "next/image";
-// import { useGlobalContext } from "../../contexts/GlobalContext";
-// import patch from "../../../../assets/icons/pa";  // ../../contexts/svg/path.jsx
+import dynamicSize, { defineDevice, generatefontSize } from "../../../../app/fontSizes";
 
-// Font files can be colocated inside of `app`
 
-// import dynamic from "next/dynamic";
-// const AnimatedText = dynamic(() => import('@/common/AnimatedText'), { ssr: false });
-// const ContactUsModal = dynamic(() => import("../header/ContactUsModal"), {
-//     ssr: false,
-// });
-
-const AboutUs = ({ language, screen, currentContent }) => {
-    const isPhone = screen < 768
+const AboutUs = ({ language, screen, currentContent, width }) => {
+    const isTablet = screen > 700 && screen < 1100
+    const isPhone = screen < 700
     const isEnglish = language === "en"
-    const dispatch = useDispatch()
-    const [width, setWidth] = useState(0);
-    const divRef = useRef(null);
+
+    const fontSize = generatefontSize(defineDevice(screen), dynamicSize, width)
 
     const getDynamicSize = (size) => dynamicSize(size, width)
 
-    useEffect(() => {
-        const observer = new ResizeObserver(entries => {
-            for (let entry of entries) {
-                setWidth(entry.contentRect.width);
-            }
-        });
-
-        if (divRef.current) {
-            observer.observe(divRef.current);
-        }
-
-        return () => {
-            if (divRef.current) {
-                observer.unobserve(divRef.current);
-            }
-        };
-    }, []);
-
-    // useEffect(() => {
-    //     return () => dispatch(updateMainContent({ currentPath: "content", payload: undefined }))
-    // }, [])
+    const fontLight = useSelector(state => state.fontStyle.light)
 
     return (
-        <div className="px-8" ref={divRef}
-            style={{ padding: `32px ${getDynamicSize(150)}` }}
+        <div className="px-8"
+            style={{ padding: `32px ${fontSize.aboutPaddingX}` }}
         >
             {/** about us top section */}
             <section className="py-12">
-                <div className="container mx-auto relative px-4"
-                    style={{ height: getDynamicSize(715) }}
+                <div className="container mx-auto px-4"
+                // style={{ height: getDynamicSize(715) }}
                 >
                     <div className={`flex flex-col gap-6 items-center`}>
-                        <h2 className={`text-black ${isPhone ? "text-2xl" : "text-3xl"} font-normal leading-none`}
-                            style={{ fontSize: getDynamicSize(58) }}
+                        <h2 className={`${isPhone ? "text-2xl" : "text-3xl"} font-normal leading-none`}
+                            style={{ fontSize: fontSize.mainHeading }}
                         >
                             {currentContent?.["1"]?.content?.title?.[language]}
                         </h2>
-                        <p className="   font-light leading-7 mb-4 text-[#00B9F2]"
-                            style={{ fontSize: getDynamicSize(24) }}
+                        <p className={`font-light leading-7 mb-4 text-[#00B9F2] font-[100] ${fontLight}`}
+                            style={{ fontSize: fontSize.aboutMainPara, }}
                         >
                             {(currentContent?.["1"]?.content?.subtitle?.[language])}
                         </p>
                     </div>
                     <div
-                        style={{ gap: getDynamicSize(100) }}
+                        style={{ gap: isTablet ? getDynamicSize(50) : getDynamicSize(60) }}
                         className={`${!isEnglish ? `flex  ${isPhone ? "flex-col" : "flex-row-reverse"}` : `${isPhone ? "flex flex-col" : "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3"}`} text-center gap-8 mt-8`}>
                         {currentContent?.["1"]?.content?.cards?.map((card, index) => (
                             <div
@@ -80,9 +46,9 @@ const AboutUs = ({ language, screen, currentContent }) => {
 
                                 key={index}
                                 style={{
-                                    // width: directSize(319), 
+                                    // width: directSize(319),
                                     // height: directSize(315), 
-                                    padding: `${getDynamicSize(40)} ${getDynamicSize(10)}`
+                                    padding: `${fontSize.aboutCardPaddingY} ${fontSize.aboutCardPaddingX}`
                                 }}
                             >
                                 <img
@@ -94,12 +60,12 @@ const AboutUs = ({ language, screen, currentContent }) => {
                                     className="w-11 h-11 self-center"
                                 />
                                 <h5 className="text-black text-xl font-normal leading-none"
-                                    style={{ fontSize: getDynamicSize(24) }}
+                                    style={{ fontSize: fontSize.aboutMainPara }}
                                 >
                                     {card?.title?.[language]}
                                 </h5>
-                                <p className="text-black text-sm font-light leading-6 self-center"
-                                    style={{ fontSize: getDynamicSize(16) }}
+                                <p className={`${fontLight} text-[#001a5882] text-sm font-light leading-6 self-center`}
+                                    style={{ fontSize: fontSize.mainPara }}
                                 >
                                     {card?.description?.[language]}
                                 </p>
@@ -113,14 +79,14 @@ const AboutUs = ({ language, screen, currentContent }) => {
 
             <section
                 className={`${language === "en" ? "text-left" : "text-right"}`}
-                style={{marginBottom: getDynamicSize(100)}}
+                style={{ marginBottom: getDynamicSize(100) }}
             >
-                <div className="container mx-auto px-4">
+                <div className="container mx-auto px-4 mt-20">
                     <div className={`flex items-center ${!isEnglish ? `${isPhone ? "flex-col" : "flex-row-reverse"}` : `${isPhone && "flex-col"}`} gap-8`}>
                         <div className="w-full flex flex-[2] items-center"
                             style={{
-                                width: getDynamicSize(639),
-                                height: getDynamicSize(457),
+                                // width: getDynamicSize(639),
+                                // height: getDynamicSize(457),
                             }}
                         >
                             <video
@@ -136,12 +102,12 @@ const AboutUs = ({ language, screen, currentContent }) => {
 
                         <div className=" flex-[1]">
                             <h2 className="text-2xl font-[400] text-black mb-5"
-                                style={{ fontSize: getDynamicSize(36) }}
+                                style={{ fontSize: fontSize.clientSection }}
                             >
                                 {currentContent?.['2']?.content?.title?.[language]}
                             </h2>
                             <div className="flex flex-col gap-4">
-                                <div className="" dangerouslySetInnerHTML={{ __html: currentContent?.['2']?.content?.descriptions?.[language] }} />
+                                <div className={`${fontLight}`} style={{ fontSize: fontSize.experiencePara }} dangerouslySetInnerHTML={{ __html: currentContent?.['2']?.content?.descriptions?.[language] }} />
                             </div>
                             <button
                                 className="mt-6 px-4 py-2 bg-[white] text-[#00B9F2] border border-[#00B9F2] text-xs font-semibold rounded-[4px] shadow-md hover:none"

@@ -17,25 +17,48 @@ import ServiceDetails from "./websiteComponent/detailspages/ServiceDetails";
 import SubServiceDetails from "./websiteComponent/subDetailsPages/SubServiceDetails";
 import tempContent from "./websiteComponent/content.json"
 import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import { updateMainContent } from "../../common/homeContentSlice";
 
 const AllForOne = ({ language, screen, content, subPath, setLanguage, fullScreen, currentPath, deepPath, showDifference = false, live, hideScroll }) => {
+    // console.log(content)
     const dispatch = useDispatch()
+    const fontRegular = useSelector(state => state.fontStyle.regular)
 
-    const platform = useSelector(state => state.platform.platform)
+    // const platform = useSelector(state => state.platform.platform)
 
     // useEffect(() => {
     //     if (platform !== "EDIT") {
     //         return () => dispatch(updateMainContent({ currentPath: "content", payload: undefined }))
     //     }
     // }, [platform])
+    const divRef = useRef(null);
+    const [width, setWidth] = useState(0);
+
+    useEffect(() => {
+        const observer = new ResizeObserver(entries => {
+            for (let entry of entries) {
+                setWidth(entry.contentRect.width);
+            }
+        });
+
+        if (divRef.current) {
+            observer.observe(divRef.current);
+        }
+
+        return () => {
+            if (divRef.current) {
+                observer.unobserve(divRef.current);
+            }
+        };
+    }, []);
 
     return (
         <div
+            ref={divRef}
             className={`dark:text-[#2A303C] mt-0 
             ${fullScreen ? "overflow-y-hidden" : "overflow-y-scroll"}
-             ${hideScroll ? "rm-scroll" : "customscroller"} transition-custom border-stone-200 border mx-auto w-full bankgothic-medium-dt bg-[white]`}
+             ${hideScroll ? "rm-scroll" : "customscroller"} transition-custom border-stone-200 border mx-auto w-full ${fontRegular} bg-[white]`}
             style={{ width: screen > 950 ? "100%" : screen, wordBreak: "break-word" }}
         >
             {
@@ -46,21 +69,32 @@ const AllForOne = ({ language, screen, content, subPath, setLanguage, fullScreen
                     content={content}
                     highlight={showDifference}
                     liveContent={live}
+                    width={width}
                 />
             }
             {
                 currentPath === "solution" &&
-                <SolutionPage language={language} currentContent={content} screen={screen} />
+                <SolutionPage language={language} currentContent={content} screen={screen}
+                    width={width}
+                />
             }
             {
                 currentPath === "about-us" &&
-                <AboutUs language={language} currentContent={content} screen={screen} />
+                <AboutUs language={language} currentContent={content} screen={screen}
+                    width={width}
+                />
             }
             {
                 currentPath === "service" ? subPath ? deepPath ?
-                    <SubServiceDetails language={language} contentOn={tempContent?.subOfsubService} serviceId={subPath} screen={screen} deepPath={deepPath} /> :
-                    <ServiceDetails language={language} contentOn={tempContent?.serviceDetails} serviceId={subPath} screen={screen} /> :
-                    <Services language={language} currentContent={content}  screen={screen} /> : ""
+                    <SubServiceDetails
+                        width={width}
+                        language={language} content={content} serviceId={subPath} screen={screen} deepPath={deepPath} /> :
+                    <ServiceDetails
+                        width={width}
+                        language={language} content={content} serviceId={subPath} screen={screen} /> :
+                    <Services language={language}
+                        width={width}
+                        currentContent={content} screen={screen} /> : ""
             }
             {/* {
                 (currentPath === "service" && subPath) &&
@@ -68,40 +102,60 @@ const AllForOne = ({ language, screen, content, subPath, setLanguage, fullScreen
             } */}
             {
                 currentPath === "market" &&
-                <MarketPage language={language} currentContent={content} screen={screen} />
+                <MarketPage
+                    width={width}
+                    language={language} currentContent={content} screen={screen} />
             }
             {
                 currentPath === 'projects' || currentPath === 'project' ? subPath ?
-                    <ProjectDetailPage language={language} contentOn={content?.projectDetail} projectId={subPath} screen={screen} /> :
-                    <ProjectPage language={language} currentContent={content} screen={screen} /> : ""
+                    <ProjectDetailPage
+                        width={width}
+                        language={language} contentOn={content?.projectDetail} projectId={subPath} screen={screen} /> :
+                    <ProjectPage
+                        width={width}
+                        language={language} currentContent={content} screen={screen} /> : ""
             }
             {
                 currentPath === "careers" ? subPath ?
-                    <CareerDetailPage language={language} contentOn={content?.careerDetails} careerId={subPath} screen={screen} /> :
-                    <CareerPage language={language} currentContent={content} screen={screen} /> : ""
+                    <CareerDetailPage
+                        width={width}
+                        language={language} contentOn={content?.careerDetails} careerId={subPath} screen={screen} /> :
+                    <CareerPage
+                        width={width}
+                        language={language} currentContent={content} screen={screen} /> : ""
             }
             {
                 currentPath === "news-blogs" ? subPath ?
-                    <NewsBlogDetailPage language={language} contentOn={content?.newsBlogsDetails} newsId={subPath} screen={screen} /> :
+                    <NewsBlogDetailPage
+                        width={width}
+                        language={language} contentOn={content?.newsBlogsDetails} newsId={subPath} screen={screen} /> :
                     <NewsPage language={language} currentContent={content} screen={screen} /> : ""
             }
 
             {/* sub pages */}
             {
                 currentPath === "footer" &&
-                <Footer language={language} currentContent={content} screen={screen} />
+                <Footer
+                    width={width}
+                    language={language} currentContent={content} screen={screen} />
             }
             {
                 currentPath === "header" &&
-                <Header language={language} currentContent={content} screen={screen} setLanguage={setLanguage} />
+                <Header
+                    width={width}
+                    language={language} currentContent={content} screen={screen} setLanguage={setLanguage} />
             }
             {
                 currentPath === "testimonials" || currentPath === "testimonial" &&
-                <Testimonials language={language} currentContent={content} screen={screen} testimonyId={subPath} />
+                <Testimonials
+                    width={width}
+                    language={language} currentContent={content} screen={screen} testimonyId={subPath} />
             }
             {
                 currentPath === 'contactus-modal' &&
-                <ContactUsModal language={language} currentContent={content} screen={screen} />
+                <ContactUsModal
+                    width={width}
+                    language={language} currentContent={content} screen={screen} />
             }
         </div>
     )

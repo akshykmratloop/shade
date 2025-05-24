@@ -127,7 +127,10 @@ function RequestTable() {
     // redux state
     const userRole = useSelector((state) => state.user.activeRole);
     const userObj = useSelector(state => state.user)
-    const { resourceId, resourceName } = useSelector(state => state.versions)
+    // const { resourceId, resourceName } = useSelector(state => state.versions)
+    const [currentResource, setCurrentResource] = useState({ resourceId: "", resourceName: "" })
+
+    const { resourceId, resourceName } = currentResource
 
 
     const { isManager, isEditor, isPublisher, isVerifier, activeRole } = userObj;
@@ -272,6 +275,9 @@ function RequestTable() {
         }
     }, [activeRole])
 
+    useEffect(() => {
+        setCurrentResource(JSON.parse(localStorage.getItem("currentResource")))
+    }, [])
 
 
     return (

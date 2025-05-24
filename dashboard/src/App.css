@@ -25,6 +25,11 @@
   src: url("../public/font/BankGothicMediumBT.ttf") format("truetype");
 }
 
+@font-face {
+  font-family: "BankGothic-Medium-lt";
+  src: url("../public/font/BankGothicLtBTLight.ttf") format("truetype");
+}
+
 .bankgothic-regular {
   font-family: "BankGothic-Regular";
 }
@@ -43,6 +48,10 @@
 
 .bankgothic-medium-dt {
   font-family: "BankGothic-Medium-bt";
+}
+
+.bank-light{
+  font-family: "BankGothic-Medium-lt";
 }
 
 /* --------------------------------- */

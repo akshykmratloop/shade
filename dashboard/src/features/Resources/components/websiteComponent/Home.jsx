@@ -30,17 +30,25 @@ import { differentText } from "../../../../app/fontSizes";
 // import contentJSON from './content.json'
 import { Img_url } from "../../../../routes/backend";
 
+function defineDevice(screen) {
+    if (screen > 900) {
+        return "computer"
+    } else if (screen < 900 && screen > 730) {
+        return 'tablet'
+    } else {
+        return 'phone'
+    }
+}
 
-const HomePage = ({ language, screen, fullScreen, highlight, content, currentContent, liveContent }) => {
-    const dispatch = useDispatch()
+const HomePage = ({ language, screen, fullScreen, highlight, content, currentContent, liveContent, width }) => {
+    // const dispatch = useDispatch()
     const checkDifference = differentText?.checkDifference?.bind(differentText);
     const isComputer = screen > 900;
     const isTablet = screen < 900 && screen > 730;
     const isPhone = screen < 738;
-    const ImagesFromRedux = useSelector((state) => {
-        return state?.homeContent?.present?.images
-    })
-    const platform = useSelector(state => state.platform.platform)
+    const ImagesFromRedux = useSelector((state) => state?.homeContent?.present?.images)
+    const fontLight = useSelector(state => state.fontStyle.light)
+    // const platform = useSelector(state => state.platform.platform)
     const [swiperInstance, setSwiperInstance] = useState(null);
     let isLeftAlign = language === "en";
     let textAlignment = isLeftAlign ? "text-left" : "text-right"
@@ -62,32 +70,11 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
         projectsPerSlide
     );
     const ProjectSlider = { ...recentProjects, ...markets, ...safety };
+  
 
-
-    const divRef = useRef(null);
-    const [width, setWidth] = useState(0);
-    const fontSize = generatefontSize(isComputer, dynamicSize, width)
+    const fontSize = generatefontSize(defineDevice(screen), dynamicSize, width)
 
     const scrollRef = useRef(null);
-
-    useEffect(() => {
-        const observer = new ResizeObserver(entries => {
-            for (let entry of entries) {
-                setWidth(entry.contentRect.width);
-            }
-        });
-
-        if (divRef.current) {
-            observer.observe(divRef.current);
-        }
-
-        return () => {
-            if (divRef.current) {
-                observer.unobserve(divRef.current);
-            }
-        };
-    }, []);
-
 
     useEffect(() => {
         if (swiperInstance) {
@@ -125,7 +112,7 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
     const testimonialPrevRef = useRef(null);
     const testimonialNextRef = useRef(null);
     return (
-        <div className={`w-full relative ${textAlignment} bankgothic-medium-dt bg-[white]`} ref={divRef}>
+        <div className={`w-full relative ${textAlignment} bankgothic-medium-dt bg-[white]`} >
             {/* banner 1  */}
             <section className="w-full relative">
                 <div
@@ -149,7 +136,7 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                         >
                             {content?.["1"]?.content?.title[language]}
                         </h1>
-                        <p className={`${(highlight && checkDifference(content?.["1"]?.content?.description[language], liveContent?.["1"]?.content?.description[language]))} text-[#0e172fb3] font-[500] leading-[16px] mb-6 ${isPhone ? "w-full text-[12px]" : "w-1/2 text-[10px]"} tracking-[0px]`}
+                        <p className={`${(highlight && checkDifference(content?.["1"]?.content?.description[language], liveContent?.["1"]?.content?.description[language]))} text-[#0e172fb3]  leading-[16px] mb-6 ${isPhone ? "w-full text-[12px]" : "w-1/2 text-[10px]"} tracking-[0px]`}
                             style={{ fontSize: fontSize?.mainPara, lineHeight: isComputer && `${width / 1526 * 24}px` }}
                         >
                             {content?.["1"]?.content?.description?.[language]}
@@ -298,7 +285,7 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                             }}>
                             {content?.['4']?.content?.title?.[language]}
                         </h2>
-                        <p className="text-[#292E3D] text-sm font-[200] leading-4 mb-8"
+                        <p className={`text-[#292E3D] text-sm ${fontLight} leading-4 mb-8`}
                             style={{
                                 fontWeight: "100",
                                 fontSize: isComputer && dynamicSize(16, width)
@@ -360,7 +347,7 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                                         </h2>
                                     </span>
 
-                                    <p className={`${activeRecentProjectSection === index
+                                    <p className={`${fontLight} ${activeRecentProjectSection === index
                                         ? 'text-[#292e3d] text-xs leading-[25px] mb-[24px] opacity-100 transform translate-y-0 transition-opacity duration-300'
                                         : 'text-[#292e3d] text-xs leading-[25px] mb-[24px] opacity-0 h-0 transform translate-y-[-20px] transition-opacity duration-300'
                                         }`}

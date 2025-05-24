@@ -13,6 +13,7 @@ import navBarReducer from '../features/common/navbarSlice'
 import routeListsReducer from '../features/common/routeLists'
 import versionsReducer from "../features/common/resourceSlice"
 import platformReducer from "../features/common/platformSlice"
+import fontFamilyReducer from "../features/common/fontStyle"
 
 const combinedReducer = {
   header: headerSlice,
@@ -27,7 +28,8 @@ const combinedReducer = {
   navBar: navBarReducer,
   routesList: routeListsReducer,
   versions: versionsReducer,
-  platform: platformReducer
+  platform: platformReducer,
+  fontStyle: fontFamilyReducer
 }
 
 export default configureStore({

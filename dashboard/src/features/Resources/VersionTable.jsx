@@ -20,6 +20,7 @@ import { LuListFilter } from "react-icons/lu";
 import { PiInfoThin } from "react-icons/pi";
 import XMarkIcon from "@heroicons/react/24/outline/XMarkIcon";
 import { versionsList } from "../../app/fetch";
+import { Switch } from "@headlessui/react";
 // import { Switch } from "@headlessui/react";
 // import { FiEdit } from "react-icons/fi";
 
@@ -119,7 +120,11 @@ function VersionTable() {
 
     // redux state
     const userObj = useSelector(state => state.user)
-    const { resourceId, resourceName } = useSelector(state => state.versions)
+    // const { resourceId, resourceName } = useSelector(state => state.versions)
+    const [currentResource, setCurrentResource] = useState({ resourceId: "", resourceName: "" })
+
+    const { resourceId, resourceName } = currentResource
+
 
     const { isManager } = userObj;
 
@@ -151,7 +156,6 @@ function VersionTable() {
 
     // Open Right Drawer
     const openNotification = (id) => {
-        console.log(id)
         dispatch(
             openRightDrawer({
                 header: "Details",
@@ -187,6 +191,9 @@ function VersionTable() {
         }
     }, [resourceId]);
 
+    useEffect(() => {
+        setCurrentResource(JSON.parse(localStorage.getItem("currentResource")))
+    }, [])
 
     return (
         <div className="relative min-h-full">
@@ -217,8 +224,7 @@ function VersionTable() {
                                     >
                                         Version Number
                                     </th>
-                                    {/* <th className="text-[#42526D] w-[164px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] text-center !capitalize">Sub Permission</th> */}
-                                    <th className="text-[#42526D] w-[154px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] !capitalize text-center">
+                                    <th className="text-[#42526D] w-[154px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] !capitalize text-left pl-10">
                                         Status
                                     </th>
                                     <th className="text-[#42526D] w-[221px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] text-center !capitalize">
@@ -252,7 +258,7 @@ function VersionTable() {
                                                 <td className="font-poppins w-[10vw] font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]">
                                                     <div className="">
 
-                                                        <div className="flex w-[50%] mx-auto gap-2 items-center justify-start">
+                                                        <div className="flex mx-auto gap-2 items-center justify-start">
                                                             <p
                                                                 className={`min-w-[100px] 
                                                                 before:content-['•'] 
@@ -286,11 +292,12 @@ function VersionTable() {
                                                     </span>
                                                 </td>
 
-                                                {/* 7 */}
+                                                {/* 4 */}
                                                 <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[8px] dark:text-[white]">
                                                     <div className="w-[145px] mx-auto flex gap-[15px] justify-center border border border-[1px] border-[#E6E7EC] dark:border-stone-400 rounded-[8px] p-[13.6px] py-[10px]">
                                                         <button
                                                             onClick={() => {
+                                                                // console.log(version)
                                                                 setSelectedVersion(version);
                                                                 openNotification(version?.id);
                                                             }}
@@ -320,6 +327,28 @@ function VersionTable() {
                                                                 />
                                                             </span>
                                                         </button>
+                                                        <div className="flex items-center space-x-4 "
+                                                            title={!version?.isLive ? "Live this version" : "cannot deactivate the version try to live aleast one from the list"}
+                                                        >
+                                                            <Switch
+                                                                checked={version?.isLive}
+                                                                onChange={() => {
+                                                                    if (version?.isLive) return
+                                                                    // statusChange(role);
+                                                                }}
+                                                                className={`${version?.isLive
+                                                                    ? "bg-[#1DC9A0]"
+                                                                    : "bg-gray-300"
+                                                                    } relative inline-flex h-2 w-8 items-center rounded-full`}
+                                                            >
+                                                                <span
+                                                                    className={`${version?.isLive
+                                                                        ? "translate-x-4"
+                                                                        : "translate-x-0"
+                                                                        } inline-block h-5 w-5 bg-white rounded-full shadow-2xl border border-gray-300 transition`}
+                                                                />
+                                                            </Switch>
+                                                        </div>
                                                     </div>
                                                 </td>
                                             </tr>

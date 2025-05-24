@@ -158,8 +158,7 @@ const ContentSection = ({
         ],
         buttonsXS: [
             "bold", "italic", "underline", "strikethrough", "|",
-            "font", "lineHeight", "|",
-            "eraser", "ul"
+            "font", "lineHeight", "|", "eraser", "ul"
         ],
         toolbarAdaptive: false,
         toolbarSticky: false,
@@ -179,15 +178,27 @@ const ContentSection = ({
         showTooltip: false,
 
         controls: {
+            font: {
+                list: {
+                    'Arial': 'Arial',
+                    'Verdana': 'Verdana',
+                    'Tahoma': 'Tahoma',
+                    // 'BankGothic-Regular': 'BankGothic-Regular',
+                    // 'BankGothic-Regular-db': 'BankGothic-Regular-db',
+                    // 'BankGothic-Russ-Medium': 'BankGothic-Russ-Medium',
+                    // 'BankGothic-Regular-MD-Bt': 'BankGothic-Regular-MD-Bt',
+                    'BankGothic-Medium-bt': 'BankGothic-Medium-bt',
+                    'BankGothic-Medium-lt': 'BankGothic-Medium-lt'
+                }
+            },
             fontsize: {
                 list: Jodit.atom([8, 9, 10, 12, 14, 16, 18, 24, 30, 32, 34])
             }
         },
 
-
-        // 👇 Disable the plus "+" hover icon
         disablePlugins: ['addNewLine']
     }), [outOfEditing]);
+
 
 
     return (
