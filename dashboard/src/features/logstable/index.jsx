@@ -1,32 +1,23 @@
 // libraries import
 import { useEffect, useState } from "react";
-import PlusIcon from "@heroicons/react/24/outline/PlusIcon";
-import { toast, ToastContainer } from "react-toastify";
 // self modules
 import { userLogs } from "../../app/fetch";
-// import AddRoleModal from "./AddRole";
 import SearchBar from "../../components/Input/SearchBar";
 import TitleCard from "../../components/Cards/TitleCard";
 import ShowLogs from "./ShowLog";
-import updateToasify from "../../app/toastify";
-// icons
-import { Switch } from "@headlessui/react";
-import XMarkIcon from "@heroicons/react/24/outline/XMarkIcon";
-import { FiEye } from "react-icons/fi";
-import { FiEdit } from "react-icons/fi";
-import { RxQuestionMarkCircled } from "react-icons/rx";
-import { LuListFilter } from "react-icons/lu";
-import { LuImport } from "react-icons/lu";
-import capitalizeWords, { TruncateText } from "../../app/capitalizeword";
+import capitalizeWords from "../../app/capitalizeword";
 import Paginations from "../Component/Paginations";
 import formatTimestamp from "../../app/TimeFormat";
-// import userIcon from "../../assets/user.png"
+// icons
+import XMarkIcon from "@heroicons/react/24/outline/XMarkIcon";
+import { FiEye } from "react-icons/fi";
+import { LuListFilter } from "react-icons/lu";
 
 const TopSideButtons = ({
   removeFilter,
   applyFilter,
   applySearch,
-  openAddForm,
+  // openAddForm,
 }) => {
   const [filterParam, setFilterParam] = useState("");
   const [searchText, setSearchText] = useState("");
@@ -79,18 +70,18 @@ const TopSideButtons = ({
         >
           {statusFilters.map((status, key) => (
             <li key={key}>
-              <a
+              <button
                 className="dark:text-gray-300"
                 onClick={() => showFiltersAndApply(status)}
                 style={{ textTransform: "capitalize" }}
               >
                 {capitalizeWords(status)}
-              </a>
+              </button>
             </li>
           ))}
           <div className="divider mt-0 mb-0"></div>
           <li>
-            <a className="dark:text-gray-300" onClick={() => removeAppliedFilter()}>Remove Filter</a>
+            <button className="dark:text-gray-300" onClick={() => removeAppliedFilter()}>Remove Filter</button>
           </li>
         </ul>
       </div>
@@ -100,24 +91,25 @@ const TopSideButtons = ({
 function Logs() {
   const [logs, setLogs] = useState([]);
   const [originalLogs, setOriginalLogs] = useState([]);
-  const [showAddForm, setShowAddForm] = useState(false);
-  const [changesInLogs, setChangesInLogs] = useState(false);
   const [selectedLogs, setSelectedLogs] = useState(null);
   const [showDetailsModal, setShowDetailsModal] = useState(false);
-  const [enabled, setEnabled] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const logsPerPage = 20;
 
   const removeFilter = () => {
     setLogs([...originalLogs]);
+    setCurrentPage(1)
   };
+
   const applyFilter = (outcome) => {
-    console.log(outcome);
+
     const filteredRoles = originalLogs?.filter(
       (log) => log.outcome === outcome
     );
+    setCurrentPage(1)
     setLogs(filteredRoles);
   };
+
   const applySearch = (value) => {
     const filteredRoles = originalLogs?.filter((log) =>
       log?.action_performed.toLowerCase().includes(value.toLowerCase())
@@ -141,7 +133,7 @@ function Logs() {
       setOriginalLogs(response ?? []); // Store the original unfiltered data
     }
     fetchRoleData();
-  }, [changesInLogs]);
+  }, []);
   return (
     <div className="relative min-h-full">
       <TitleCard
@@ -152,7 +144,7 @@ function Logs() {
             applySearch={applySearch}
             applyFilter={applyFilter}
             removeFilter={removeFilter}
-            openAddForm={() => setShowAddForm(true)}
+            openAddForm={() => { }}
           />
         }
       >
@@ -176,7 +168,6 @@ function Logs() {
                   <th className="text-[#42526D] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[20px] py-[13px] !capitalize">
                     Performed By
                   </th>
-                  {/* <th className="text-[#42526D] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[20px] py-[13px] !capitalize">Performed Over</th> */}
                   <th className="text-[#42526D] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[20px] py-[13px] !capitalize">
                     Target
                   </th>
@@ -206,12 +197,10 @@ function Logs() {
                         <td
                           className={`font-poppins h-[65px] truncate font-normal text-[14px] leading-normal text-[#101828] p-[10px] pl-5 flex items-center`}
                         >
-                          {/* <img src={user.image ? user.image : userIcon} alt={user.name} className="rounded-[50%] w-[41px] h-[41px] mr-2" /> */}
                           <div className="flex flex-col">
                             <p className="dark:text-[white]">
                               {log.action_performed}
                             </p>
-                            {/* <p className="font-light text-[grey]">{user.email}</p> */}
                           </div>
                         </td>
 
@@ -223,11 +212,7 @@ function Logs() {
                             {log?.user?.user?.name || "N/A"}
                           </span>
                         </td>
-                        {/* <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]">
-                                                    <span className="">
-                                                        {TruncateText(log?.oldValue?.name, 10) ?? TruncateText(log?.newValue?.name, 10) ?? "N/A"}
-                                                    </span>
-                                                </td> */}
+
                         <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]">
                           <span className="">{log?.entity || "N/A"}</span>
                         </td>
@@ -242,25 +227,16 @@ function Logs() {
                         >
                           <span className="">
                             <p
-                              className={`w-[85px] 
-                                                                mx-auto 
-                                                                before:content-['•'] 
-                                                                before:text-2xl 
-                                                                flex h-7 
-                                                                items-center
-                                                                text-[12px] 
-                                                                justify-center gap-1 
-                                                                px-1 py-0 font-[500] 
-                                                                ${log?.outcome ===
-                                  "Success"
-                                  ? "text-green-600 bg-green-100 before:text-green-600 px-1"
-                                  : log?.outcome ===
-                                    "Failed"
-                                    ? "text-red-600 bg-red-100 before:text-red-600"
+                              className={`w-[85px] mx-auto 
+                                before:content-['•'] before:text-2xl 
+                                flex h-7 items-center text-[12px] 
+                                justify-center gap-1 px-1 py-0 font-[500] 
+                                ${log?.outcome === "Success" ?
+                                  "text-green-600 bg-green-100 before:text-green-600 px-1" :
+                                  log?.outcome === "Failed" ?
+                                    "text-red-600 bg-red-100 before:text-red-600"
                                     : "text-stone-600 bg-stone-100 before:text-stone-600"
-                                } 
-                                                                rounded-2xl
-                                                                `}
+                                } rounded-2xl`}
                               style={{ textTransform: "capitalize" }}
                             >
                               {capitalizeWords(log?.outcome) || "N/A"}
@@ -285,34 +261,6 @@ function Logs() {
                                 />
                               </span>
                             </button>
-                            {/* <button
-                                                            className=""
-                                                            onClick={() => {
-                                                                setSelectedRole(role);
-                                                                setShowAddForm(true);
-                                                            }}
-                                                        >
-                                                            <FiEdit className="w-5 h-6 text-[#3b4152] dark:text-stone-200" strokeWidth={1} />
-                                                        </button>
-                                                        <div className="flex items-center space-x-4 ">
-                                                            <Switch
-                                                                checked={role.status === "ACTIVE"}
-                                                                onChange={() => {
-                                                                    statusChange(role);
-                                                                }}
-                                                                className={`${role.status === "ACTIVE"
-                                                                    ? "bg-[#1DC9A0]"
-                                                                    : "bg-gray-300"
-                                                                    } relative inline-flex h-2 w-8 items-center rounded-full`}
-                                                            >
-                                                                <span
-                                                                    className={`${role.status === "ACTIVE"
-                                                                        ? "translate-x-4"
-                                                                        : "translate-x-0"
-                                                                        } inline-block h-5 w-5 bg-white rounded-full shadow-2xl border border-gray-300 transition`}
-                                                                />
-                                                            </Switch>
-                                                        </div> */}
                           </div>
                         </td>
                       </tr>
@@ -336,26 +284,14 @@ function Logs() {
         </div>
       </TitleCard>
 
-      {/* Add Role Modal */}
-      {/* <AddRoleModal
-        show={showAddForm}
-        onClose={() => {
-          setShowAddForm(false);
-          setSelectedRole(null);
-        }}
-        updateRoles={setChangesInRole}
-        role={selectedRole}
-      /> */}
-      {/* <AddRoleModal show={showAddForm} onClose={() => setShowAddForm(false)} updateRole={setChangesInRole} /> */}
-
-      {/* Role Details Modal */}
+      {/* log Details Modal */}
       <ShowLogs
         log={selectedLogs}
         show={showDetailsModal}
         onClose={() => setShowDetailsModal(false)}
       />
-      <ToastContainer />
     </div>
   );
 }
+
 export default Logs;

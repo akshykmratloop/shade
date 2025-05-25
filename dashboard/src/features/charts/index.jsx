@@ -2,6 +2,12 @@
 import { useEffect, useState } from "react";
 import PlusIcon from "@heroicons/react/24/outline/PlusIcon";
 import { toast, ToastContainer } from "react-toastify";
+// icons
+import { Switch } from "@headlessui/react";
+import XMarkIcon from "@heroicons/react/24/outline/XMarkIcon";
+import { FiEye, FiEdit } from "react-icons/fi";
+import { RxQuestionMarkCircled } from "react-icons/rx";
+import { LuListFilter, } from "react-icons/lu";
 // self modules
 import SearchBar from "../../components/Input/SearchBar";
 import { activateUser, deactivateUser } from "../../app/fetch";
@@ -9,17 +15,11 @@ import TitleCard from "../../components/Cards/TitleCard";
 import AddUserModal from "./AddUser";
 import UserDetailsModal from "./ShowRole";
 import updateToastify from "../../app/toastify";
-import dummyUser from "../../assets/Dummy_User.json";
 import capitalizeWords, { TruncateText } from "../../app/capitalizeword";
 import { getAllusers } from "../../app/fetch";
-// icons
-import { Switch } from "@headlessui/react";
-import XMarkIcon from "@heroicons/react/24/outline/XMarkIcon";
-import { FiEye, FiEdit } from "react-icons/fi";
-import { RxQuestionMarkCircled } from "react-icons/rx";
-import { LuListFilter, LuImport } from "react-icons/lu";
 import userIcon from "../../assets/user.png";
 import Paginations from "../Component/Paginations";
+
 
 const TopSideButtons = ({ removeFilter, applyFilter, applySearch }) => {
   // search and filter bar component
@@ -124,7 +124,7 @@ function Users() {
 
   // Pagination state
   const [currentPage, setCurrentPage] = useState(1);
-  const usersPerPage = 10;
+  // const usersPerPage = 10;
 
   const removeFilter = () => {
     setUsers([...originalUsers]);
@@ -171,53 +171,31 @@ function Users() {
   };
 
 
-
-  // console.log(users, "users");
-
   const statusChange = async (user) => {
-    // const loadingToastId = toast.loading("Processing...");
+    const loadingToastId = toast.loading("Processing...");
     let response =
       user.status === "ACTIVE"
         ? await deactivateUser({ id: user.id })
         : await activateUser({ id: user.id });
     if (response.ok) {
-      // updateToastify(
-      //   loadingToastId,
-      //   `Request successful. ${response.message}`,
-      //   "success",
-      //   1000
-      // );
+      updateToastify(
+        loadingToastId,
+        `Request successful. ${response.message}`,
+        "success",
+        1000
+      );
       setChangesInUser((prev) => !prev);
     } else {
-      // updateToastify(
-      //   loadingToastId,
-      //   `Request failed. ${response.message}`,
-      //   "error",
-      //   2000
-      // );
+      updateToastify(
+        loadingToastId,
+        `Request failed. ${response.message}`,
+        "error",
+        2000
+      );
     }
     // toast.dismiss(loadingToastId); // to deactivate to running taost
   };
-  // const statusChange = async (user) => {
-  //   const toastId = toast.loading("Processing...", { autoClose: false });
 
-  //   try {
-  //     const response =
-  //       user.status === "ACTIVE"
-  //         ? await deactivateUser({ id: user.id })
-  //         : await activateUser({ id: user.id });
-
-  //     if (response.ok) {
-  //       updateToastify(toastId, ` Success: ${response.message}`, "success", 1500);
-  //       setChangesInUser((prev) => !prev);
-  //     } else {
-  //       updateToastify(toastId, `❌ Failed: ${response.message}`, "error", 2000);
-  //     }
-  //   } catch (err) {
-  //     console.error("Status change error:", err);
-  //     updateToastify(toastId, "Something went wrong. Please try again.", "error", 2500);
-  //   }
-  // };
 
   // Pagination logic
   // const indexOfLastUser = currentPage * usersPerPage;
@@ -437,7 +415,7 @@ function Users() {
         </div>
       </TitleCard>
 
-      {/* Add Role Modal */}
+      {/* Add User Modal */}
       {showAddForm && (
         <AddUserModal
           show={showAddForm}
@@ -449,9 +427,7 @@ function Users() {
           user={selectedUser}
         />
       )}
-      {/* <AddRoleModal show={showAddForm} onClose={() => setShowAddForm(false)} updateRole={setChangesInRole} /> */}
-
-      {/* Role Details Modal */}
+      {/* User Details Modal */}
       {showDetailsModal && (
         <UserDetailsModal
           user={selectedUser}
