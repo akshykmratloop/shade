@@ -34,7 +34,8 @@ const TopSideButtons = memo(({
 }) => {
     const [filterParam, setFilterParam] = useState("");
     const [searchText, setSearchText] = useState("");
-    const statusFilters = ["ACTIVE", "INACTIVE"];
+    const statusFilters = ["PENDING", "PUBLISHED", "SCHEDULED", "REJECTED", "APPROVED"];
+
     const showFiltersAndApply = (status) => {
         applyFilter(status);
         setFilterParam(status);
@@ -42,7 +43,7 @@ const TopSideButtons = memo(({
     const removeAppliedFilter = () => {
         removeFilter();
         setFilterParam("");
-        setSearchText("");
+        // setSearchText("")
     };
     useEffect(() => {
         if (searchText === "") {
@@ -85,23 +86,23 @@ const TopSideButtons = memo(({
                 >
                     {statusFilters?.map((status, key) => (
                         <li key={key}>
-                            <a
+                            <button
                                 className="dark:text-gray-300"
                                 onClick={() => showFiltersAndApply(status)}
                                 style={{ textTransform: "capitalize" }}
                             >
                                 {capitalizeWords(status)}
-                            </a>
+                            </button>
                         </li>
                     ))}
                     <div className="divider mt-0 mb-0"></div>
                     <li>
-                        <a
+                        <button
                             className="dark:text-gray-300"
                             onClick={() => removeAppliedFilter()}
                         >
                             Remove Filter
-                        </a>
+                        </button>
                     </li>
                 </ul>
             </div>
@@ -188,7 +189,7 @@ function RequestTable() {
     // APPLY FILTER
     const applyFilter = (status) => {
         const filteredRequests = originalRequests?.filter(
-            (request) => request.status === status
+            (request) => request.flowStatus === status
         );
         setRequests(filteredRequests);
     };
@@ -196,7 +197,7 @@ function RequestTable() {
     // APPLY SEARCH
     const applySearch = (value) => {
         const filteredRequests = originalRequests?.filter((request) =>
-            request?.name.toLowerCase().includes(value.toLowerCase())
+            request?.resourceVersion?.resource?.titleEn?.toLowerCase().includes(value.toLowerCase())
         );
         setCurrentPage(1);
         setRequests(filteredRequests);
