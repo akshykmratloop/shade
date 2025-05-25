@@ -33,7 +33,15 @@ const TopSideButtons = memo(({
 }) => {
     const [filterParam, setFilterParam] = useState("");
     const [searchText, setSearchText] = useState("");
-    const statusFilters = ["ACTIVE", "INACTIVE"];
+    const statusFilters = [
+        'EDITING',
+        'DRAFT',
+        'VERIFICATION_PENDING',
+        'PUBLISH_PENDING',
+        'ARCHIVED',
+        'SCHEDULED',
+        'PUBLISHED'
+    ];
     const showFiltersAndApply = (status) => {
         applyFilter(status);
         setFilterParam(status);
@@ -66,7 +74,7 @@ const TopSideButtons = memo(({
                     onClick={() => removeAppliedFilter()}
                     className="btn btn-xs mr-2 btn-active btn-ghost normal-case"
                 >
-                    {filterParam}
+                    {capitalizeWords(filterParam)}
                     <XMarkIcon className="w-4 ml-2" />
                 </button>
             )}
@@ -140,7 +148,7 @@ function VersionTable() {
     // APPLY FILTER
     const applyFilter = (status) => {
         const filteredVersions = originalVersions?.filter(
-            (version) => version.status === status
+            (version) => version.versionStatus === status
         );
         setVersions(filteredVersions);
     };
@@ -148,7 +156,7 @@ function VersionTable() {
     // APPLY SEARCH
     const applySearch = (value) => {
         const filteredVersions = originalVersions?.filter((version) =>
-            version?.name.toLowerCase().includes(value.toLowerCase())
+            version?.versionNumber?.toString()?.toLowerCase()?.includes(value?.toLowerCase())
         );
         setCurrentPage(1);
         setVersions(filteredVersions);
