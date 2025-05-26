@@ -20,6 +20,8 @@ import {
   rejectRequestInPublication,
   fetchVersionsList,
   deleteAllResourceRelatedDataFromDb,
+  fetchVersionsInfo,
+  restoreLiveVersion,
 } from "../../repository/content.repository.js";
 
 const getResources = async (
@@ -186,7 +188,7 @@ const getRequest = async (
   pageNum,
   limitNum,
   resourceId
-  
+
 ) => {
   const requests = await fetchRequests(
     userId,
@@ -292,9 +294,24 @@ const getVersionsList = async (resourceId, search, status, page, limit) => {
   return { message: "Success", content };
 };
 
+const getVersionInfo = async (versionId) => {
+  const content = await fetchVersionsInfo(versionId);
+  logger.info({
+    response: "Version info fetched successfully",
+    // content: content,
+  });
+  return { message: "Success", content };
+};
 
 
-
+const restoreVersion = async (versionId) => {
+  const content = await restoreLiveVersion(versionId);
+  logger.info({
+    response: "Version restored successfully",
+    // content: content,
+  });
+  return { message: "Success", content };
+};
 
 
 
@@ -327,5 +344,7 @@ export {
   ScheduleRequest,
   PublishRequest,
   getVersionsList,
+  getVersionInfo,
+  restoreVersion,
   deleteAllContentData,
 };

@@ -2187,6 +2187,17 @@ export const fetchContent = async (resourceId, isItemFullContent = true) => {
   return result;
 };
 
+
+
+
+
+
+
+
+
+
+
+
 async function formatResourceVersionData(
   resourceVersion,
   isItemFullContent,
@@ -4419,6 +4430,258 @@ export const fetchVersionsList = async (
   };
 };
 
+
+
+export const fetchVersionsInfo = async (versionId) => {
+  // Get the specific version with comprehensive data
+  const version = await prismaClient.resourceVersion.findUnique({
+    where: { id: versionId },
+    include: {
+      // Include resource information
+      resource: {
+        select: {
+          id: true,
+          titleEn: true,
+          titleAr: true,
+          resourceType: true,
+          resourceTag: true,
+          liveVersionId: true,
+          newVersionEditModeId: true,
+        },
+      },
+      // Role assignments for this version (historical snapshot)
+      roles: {
+        include: {
+          user: {
+            select: {
+              id: true,
+              name: true,
+              email: true,
+            },
+          },
+        },
+        orderBy: {
+          createdAt: "asc",
+        },
+      },
+      // Verifier assignments for this version (historical snapshot)
+      verifiers: {
+        include: {
+          user: {
+            select: {
+              id: true,
+              name: true,
+              email: true,
+            },
+          },
+        },
+        orderBy: [
+          { stage: "asc" },
+          { createdAt: "asc" },
+        ],
+      },
+      // All requests associated with this version
+      requests: {
+        include: {
+          sender: {
+            select: {
+              id: true,
+              name: true,
+              email: true,
+            },
+          },
+          // All approval logs for each request
+          approvals: {
+            include: {
+              approver: {
+                select: {
+                  id: true,
+                  name: true,
+                  email: true,
+                },
+              },
+            },
+            orderBy: [
+              { stage: "asc" },
+              { createdAt: "asc" },
+            ],
+          },
+        },
+        orderBy: {
+          createdAt: "desc",
+        },
+      },
+      // User who locked this version (if any)
+      lockedBy: {
+        select: {
+          id: true,
+          name: true,
+          email: true,
+        },
+      },
+    },
+  });
+
+  if (!version) {
+    throw new Error("Version not found");
+  }
+
+  // Process the version to create comprehensive history
+  // Group role history by role type
+  const roleHistory = {
+    MANAGER: [],
+    EDITOR: [],
+    PUBLISHER: [],
+  };
+
+  // Process role assignments with timestamps
+  version.roles.forEach((roleAssignment) => {
+    const roleType = roleAssignment.role;
+    if (roleHistory[roleType]) {
+      roleHistory[roleType].push({
+        user: roleAssignment.user,
+        status: roleAssignment.status,
+        assignedAt: roleAssignment.createdAt,
+        updatedAt: roleAssignment.updatedAt,
+      });
+    }
+  });
+
+  // Group verifier history by stage
+  const verifierHistory = {};
+  version.verifiers.forEach((verifierAssignment) => {
+    const stage = verifierAssignment.stage;
+    if (!verifierHistory[stage]) {
+      verifierHistory[stage] = [];
+    }
+    verifierHistory[stage].push({
+      user: verifierAssignment.user,
+      status: verifierAssignment.status,
+      assignedAt: verifierAssignment.createdAt,
+      updatedAt: verifierAssignment.updatedAt,
+    });
+  });
+
+  // Process request and approval history
+  const requestHistory = version.requests.map((request) => {
+    // Group approvals by stage (verifiers) and publisher (stage: null)
+    const verifierApprovals = {};
+    let publisherApproval = null;
+
+    request.approvals.forEach((approval) => {
+      if (approval.stage === null) {
+        // Publisher approval
+        publisherApproval = {
+          approver: approval.approver,
+          status: approval.status,
+          comments: approval.comments,
+          approverStatus: approval.approverStatus,
+          createdAt: approval.createdAt,
+          updatedAt: approval.updatedAt,
+        };
+      } else {
+        // Verifier approval
+        if (!verifierApprovals[approval.stage]) {
+          verifierApprovals[approval.stage] = [];
+        }
+        verifierApprovals[approval.stage].push({
+          approver: approval.approver,
+          status: approval.status,
+          comments: approval.comments,
+          approverStatus: approval.approverStatus,
+          createdAt: approval.createdAt,
+          updatedAt: approval.updatedAt,
+        });
+      }
+    });
+
+    return {
+      id: request.id,
+      type: request.type,
+      status: request.status,
+      flowStatus: request.flowStatus,
+      submittedBy: request.sender,
+      submittedAt: request.createdAt,
+      referenceDoc: request.referenceDoc,
+      verifierApprovals,
+      publisherApproval,
+      updatedAt: request.updatedAt,
+    };
+  });
+
+  return {
+    resource: {
+      id: version.resource.id,
+      titleEn: version.resource.titleEn,
+      titleAr: version.resource.titleAr,
+      resourceType: version.resource.resourceType,
+      resourceTag: version.resource.resourceTag,
+    },
+    version: {
+      id: version.id,
+      versionNumber: version.versionNumber,
+      versionStatus: version.versionStatus,
+      notes: version.notes,
+      referenceDoc: version.referenceDoc,
+      isLive: version.id === version.resource.liveVersionId,
+      isUnderEditing: version.id === version.resource.newVersionEditModeId,
+
+      // Timestamps
+      createdAt: version.createdAt,
+      updatedAt: version.updatedAt,
+      scheduledAt: version.scheduledAt,
+      publishedAt: version.publishedAt,
+
+      // Lock information
+      lockedBy: version.lockedBy,
+      lockedAt: version.lockedAt,
+
+      // Historical role assignments
+      roleHistory,
+
+      // Historical verifier assignments
+      verifierHistory,
+
+      // Request and approval history
+      requestHistory,
+    },
+  };
+};
+
+
+export const restoreLiveVersion = async (versionId) => {
+  const version = await prismaClient.resourceVersion.findUnique({
+    where: { id: versionId },
+    select: {
+      id: true,
+      resourceId: true,
+    },
+  });
+
+  if (!version) {
+    throw new Error("Version not found");
+  }
+
+  // Restore the version and update the resource's live version
+  const [restoredVersion] = await prismaClient.$transaction([
+    prismaClient.resourceVersion.update({ 
+      where: { id: versionId },
+      data: {
+        versionStatus: "LIVE",
+      },
+    }),
+    prismaClient.resource.update({
+      where: { id: version.resourceId },
+      data: {
+        liveVersionId: versionId,
+      },
+    }),
+  ]);
+
+  return { message: "Success", content: restoredVersion };
+};
+
+
 export const deleteAllResourceRelatedDataFromDb = async () => {
   try {
     // Use a transaction to ensure all operations succeed or fail together
@@ -4607,3 +4870,12 @@ export const deleteAllResourceRelatedDataFromDb = async () => {
     throw error;
   }
 };
+
+// fetchVersionsInfo function returns comprehensive version history data including:
+// - Resource name and basic information
+// - Assigned Users with complete role and verifier history showing how users were assigned to roles and later changed
+// - Historical timestamps showing when each user was selected as manager/editor/publisher and when they were changed
+// - Role status tracking (active/inactive) to maintain complete audit trail
+// - Submitted Date, publisher approval datetime, Editor's Comments
+// - Submitted By information, reference documents, approval status per user
+// - All data is specific to each resource version as every version maintains its own history
