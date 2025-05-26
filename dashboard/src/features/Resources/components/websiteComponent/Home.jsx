@@ -33,7 +33,7 @@ import { Img_url } from "../../../../routes/backend";
 function defineDevice(screen) {
     if (screen > 900) {
         return "computer"
-    } else if (screen < 900 && screen > 730) {
+    } else if (screen < 900 && screen > 550) {
         return 'tablet'
     } else {
         return 'phone'
@@ -42,10 +42,10 @@ function defineDevice(screen) {
 
 const HomePage = ({ language, screen, fullScreen, highlight, content, currentContent, liveContent, width }) => {
     // const dispatch = useDispatch()
-    const checkDifference = differentText?.checkDifference?.bind(differentText);
+    const checkDifference = highlight ? differentText?.checkDifference?.bind(differentText) : () => { }
     const isComputer = screen > 900;
     const isTablet = screen < 900 && screen > 730;
-    const isPhone = screen < 738;
+    const isPhone = screen < 450;
     const ImagesFromRedux = useSelector((state) => state?.homeContent?.present?.images)
     const fontLight = useSelector(state => state.fontStyle.light)
     // const platform = useSelector(state => state.platform.platform)
@@ -70,7 +70,7 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
         projectsPerSlide
     );
     const ProjectSlider = { ...recentProjects, ...markets, ...safety };
-  
+
 
     const fontSize = generatefontSize(defineDevice(screen), dynamicSize, width)
 
@@ -131,7 +131,7 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                     className={`container mx-auto absolute ${isComputer ? "top-[20%]" : "top-16"}  left-0 right-0 px-4`}>
                     <div className={`text-left flex flex-col ${language === "en" ? "items-start" : "items-end"} ${textAlignment} ${isPhone ? "px-[0px] py-10" : "px-[80px]"}`}
                         style={{ paddingLeft: isComputer && dynamicSize(140, width) }}>
-                        <h1 className={`${(highlight && checkDifference(content?.["1"]?.content?.title[language], liveContent?.["1"]?.content?.title[language]))} text-[#292E3D] text-[45px] tracking-[0px]  leading-[2.5rem] capitalize font-[500] mb-4 ${isPhone ? "w-full" : fullScreen ? "w-3/5" : "w-3/5"}  `}
+                        <h1 className={`${(checkDifference(content?.["1"]?.content?.title[language], liveContent?.["1"]?.content?.title[language]))} text-[#292E3D] text-[45px] tracking-[0px]  leading-[2.5rem] capitalize font-[500] mb-4 ${isPhone ? "w-full" : fullScreen ? "w-3/5" : "w-3/5"}  `}
                             style={{ fontSize: fontSize?.mainHeading, lineHeight: isComputer && `${(width / 1526) * 4.5}rem`, }}
                         >
                             {content?.["1"]?.content?.title[language]}
