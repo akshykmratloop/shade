@@ -7,11 +7,20 @@ export function useImageUpload(resourceId) {
     const [uploading, setUploading] = useState(false);
     const [error, setError] = useState(null);
 
-    const uploadImage = async (file) => {
-        if (!file) return null;
+    const uploadImage = async (files) => {
+        if (!files) return null;
 
+        console.log(files)
         const formData = new FormData();
-        formData.append("mediaFile", file);
+        if (Array.isArray(files)) {
+            for (const file of files) {
+                formData.append("mediaFile", file);
+            }
+        } else {
+            formData.append("mediaFile", files);
+        }
+
+        // formData.append("mediaFile", files);
         formData.append("mediaType", "IMAGE");
         formData.append("resourceId", resourceId);
 
@@ -23,12 +32,12 @@ export function useImageUpload(resourceId) {
             const response = await uploadMedia(formData);
 
             console.log(response)
-            if (!response.ok) {
-                throw new Error("Upload failed");
+            if (response.ok) {
+                const result = response;
+                return result?.imageUrl || URL.createObjectURL(files.length ? files[0] : files);
+            } else {
+                throw new Error(response.message);
             }
-
-            const result = response;
-            return result?.imageUrl || URL.createObjectURL(file);
         } catch (err) {
             throw err.message
             // setError(err.message);

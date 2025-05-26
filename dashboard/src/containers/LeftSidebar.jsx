@@ -10,7 +10,7 @@ function LeftSidebar() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const isCollapsed = useSelector((state) => state.sidebar.isCollapsed);
-  const userRole = useSelector((state) => state.user.currentRole);
+  const userRole = useSelector((state) => state.user.activeRole);
   const { isEditor, isManager } = useSelector(state => state.user)
   const [showText, setShowText] = useState(false);
 
@@ -18,6 +18,8 @@ function LeftSidebar() {
     userRole?.permissions?.some(e => !e.startsWith("USER") && !e.startsWith("ROLE") && !e.startsWith("AUDI")),
     [userRole?.permissions]
   );
+
+  const currentPath = location.pathname.split('/').slice(0, 3).join('/')
 
   const handleResize = useCallback(() => {
     const shouldCollapse = window.innerWidth < 1200;
@@ -61,7 +63,7 @@ function LeftSidebar() {
 
       >
         {route.icon} {!showText && route.name}
-        {location.pathname === route.path && (
+        {currentPath === route.path && (
           <span
             className="absolute inset-y-0 left-0 w-1 bg-primary"
             aria-hidden="true"

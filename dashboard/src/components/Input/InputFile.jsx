@@ -5,20 +5,20 @@ import { removeImages, updateImages } from "../../features/common/homeContentSli
 import ImageSelector from "./ImageSelector"; // Import here
 import { Img_url } from "../../routes/backend";
 
-const InputFile = ({ label, baseClass, id, currentPath, resourceId, contentIndex, index, subSection, section, outOfEditing, directIcon, order }) => {
+const InputFile = ({ label, baseClass, id, currentPath, resourceId, contentIndex, index, subSection, section, outOfEditing, directIcon, order, url }) => {
   const dispatch = useDispatch();
   const ImageFromRedux = useSelector(state => state.homeContent.present.images);
   const [fileURL, setFileURL] = useState("");
   const [isSelectorOpen, setIsSelectorOpen] = useState(false);
 
-  const clearFile = () => {
-    setFileURL("");
-    dispatch(removeImages({ section: id, src: "", currentPath }));
-  };
+  console.log(url)
+  // const clearFile = () => {
+  //   setFileURL("");
+  //   dispatch(removeImages({ section: id, src: "", currentPath }));
+  // };
 
   const handleImageSelect = (url, altText) => {
-    console.log(url, altText)
-    setFileURL(url);
+    // setFileURL(url[0]);
     const payloadData = {
       url: url[0],
       altText: {
@@ -27,7 +27,16 @@ const InputFile = ({ label, baseClass, id, currentPath, resourceId, contentIndex
       },
       order
     }
-    dispatch(updateImages({ section, src: directIcon ? url[0] : payloadData, currentPath, index: contentIndex, cardIndex: index, subSection, directIcon, order }));
+    dispatch(updateImages({
+      section,
+      src: directIcon ? url[0] : payloadData,
+      currentPath,
+      index: contentIndex,
+      cardIndex: index,
+      subSection,
+      directIcon,
+      order
+    }));
     setIsSelectorOpen(false);
   };
 
@@ -46,12 +55,11 @@ const InputFile = ({ label, baseClass, id, currentPath, resourceId, contentIndex
           className="relative w-24 h-24 border border-[#80808044] rounded-md overflow-hidden cursor-pointer bg-white dark:bg-[#2a303c]"
         >
 
-
-          {fileURL ? (
+          {(url) ? (
             fileURL.includes(".mp4") || fileURL.includes("video") ? (
               <video src={fileURL} className="w-full h-full object-cover" controls />
             ) : (
-              <img src={Img_url + fileURL} alt="Preview" className="w-full h-full object-cover" />
+              <img src={(url && url.slice(0, 5) !== "https") ? `${Img_url}${(url)}` : ""} alt="Preview" className="w-full h-full object-cover" />
             )
           ) : (
             <div className="w-full h-full flex items-center justify-center text-gray-400 text-xs">

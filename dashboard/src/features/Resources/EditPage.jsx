@@ -17,7 +17,7 @@ import AllForOneManager from "./components/AllForOneManager";
 import createContent from "./defineContent";
 import FallBackLoader from "../../components/fallbackLoader/FallbackLoader";
 import { getContent } from "../../app/fetch";
-import { updateMainContent } from "../common/homeContentSlice";
+import { updateComment, updateMainContent } from "../common/homeContentSlice";
 import { saveInitialContentValue } from "../common/InitialContentSlice";
 
 const Page404 = lazy(() => import('../../pages/protected/404'))
@@ -29,7 +29,7 @@ const EditPage = () => {
     const location = useLocation();
 
     const [language, setLanguage] = useState('en')
-    const [loader, setLoader] = useState(false)
+    const [loader, setLoader] = useState(true)
     const [screen, setScreen] = useState(1180)
     const [displayStatus, setDisplayStatus] = useState("")
     const [outOfEditing, setOutOfEditing] = useState(true)
@@ -46,13 +46,18 @@ const EditPage = () => {
     const contentFromRedux = useSelector((state) => state.homeContent.present)
 
     const stageStatus = contentFromRedux?.content?.editVersion?.status
+    const isEditable = contentFromRedux?.content?.isEditable
     // const outOfEditing = !(stageStatus === "EDITING" || stageStatus === "DRAFT" || stageStatus === "PUBLISHED")
 
     const content = createContent(contentFromRedux, "edit", currentPath)
 
+    const updateComments = ({ value }) => {
+        dispatch(updateComment({ value }))
+    }
+
     const Routes = [
         'home', 'solution', 'about-us', "service", 'market',
-        'projects', "project", 'careers', "career", 'news', 'footer',
+        'projects', "project", 'careers', "career", 'news-blogs', 'footer',
         'header', 'testimonials', 'testimonial']
 
     useEffect(() => {
@@ -68,11 +73,21 @@ const EditPage = () => {
         if (currentId) {
             setCurrentId(currentId)
         }
+
+        const handleKeyDown = (e) => {
+            if (e.key === 'Escape') {
+                setFullScreen(false)
+            }
+        }
+
+        window.addEventListener("keydown", handleKeyDown)
+
+        return () => window.removeEventListener("keydown", handleKeyDown)
     }, [])
 
     useEffect(() => {
-        setOutOfEditing(!(stageStatus === "EDITING" || stageStatus === "DRAFT" || stageStatus === "PUBLISHED"))
-    }, [isManager, stageStatus])
+        setOutOfEditing((!isEditable))
+    }, [isManager, isEditable])
 
     useEffect(() => {
         if (currentId) {
@@ -89,6 +104,7 @@ const EditPage = () => {
                             resourceType: response.content.resourceType,
                             resourceTag: response.content.resourceTag,
                             relationType: response.content.relationType,
+                            isEditable: response.content.isEditable,
                             editVersion: isManager ? response.content.liveModeVersionData : response.content.editModeVersionData ?? response.content.liveModeVersionData
                         }
                         dispatch(updateMainContent({ currentPath: "content", payload }))
@@ -131,7 +147,9 @@ const EditPage = () => {
                                     dark:bg-[#242933] p-8 lg:w-[23rem] 
                                     sm:w-[30vw] min-w-23rem flex 
                                     flex-col gap-4 items-center 
-                                    overflow-y-scroll customscroller`}
+                                    overflow-y-scroll customscroller
+                                     rounded-lg
+                                    `}
                                     >
                                         <div className="w-full sticky top-[-30px] rounded-md p-5 bg-gray-100 dark:bg-cyan-800 z-30">
                                             <LanguageSwitch language={language} setLanguage={setLanguage} />
@@ -158,13 +176,14 @@ const EditPage = () => {
                                         />
                                         <h4 className="text-[#6B7888] text-[14px] mt-2 mb-[1px]">Add Note</h4>
                                         <TextAreaInput
-                                            updateFormValue={() => { }}
+                                            updateFormValue={updateComments}
                                             placeholder={"Comments..."}
                                             required={false}
                                             textAreaStyle={""}
                                             containerStyle={"mb-4"}
                                             minHeight={"3.2rem"}
                                             style={{ marginTop: "4px" }}
+                                            defaultValue={contentFromRedux?.content?.editVersion?.comments}
                                         />
                                         <AllForOne
                                             language={language} screen={screen}

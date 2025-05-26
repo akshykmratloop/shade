@@ -6,6 +6,8 @@ import { CheckCircle, XCircle } from "lucide-react";
 import capitalizeWords, { TruncateText } from "../../app/capitalizeword";
 import { useSelector } from "react-redux";
 import { getRequestInfo } from "../../app/fetch";
+import { FiEye } from "react-icons/fi";
+import Comments from "./Comments"
 
 const data = [
   {
@@ -32,13 +34,29 @@ const statusStyles = {
     text: "text-yellow-600",
     icon: <BsDashCircle className="w-4 h-4 inline-block mr-1" />,
   },
+  Blue: {
+    bg: "bg-blue-100",
+    text: "text-blue-600",
+    icon: <BsDashCircle className="w-4 h-4 inline-block mr-1" />,
+  }
 };
+
+const getStyle = {
+  VERIFICATION_PENDING: "Blue",
+  PUBLISH_PENDING: "Blue",
+  SCHEDULED: "APPROVED",
+  PUBLISHED: "APPROVED"
+}
 
 const RequestDetails = () => {
   const id = useSelector(state => state.rightDrawer.extraObject.id)
   const [requestData, setRequestData] = useState({})
+  const [commentOn, setCommentOn] = useState({ 0: false })
 
   const verifiers = Object.entries(requestData?.["assignedUsers"]?.verifiers || [])
+
+  const requestStageStyle = statusStyles[getStyle[requestData?.status]] || {}
+
 
   useEffect(() => {
     async function fetchRequestInfo() {
@@ -69,8 +87,10 @@ const RequestDetails = () => {
           <p>{requestData?.resource || "N/A"}</p>
         </div>
         <div className="flex py-[15px] justify-between border-b dark:border-stone-700">
-          <label>Status</label>
-          <p>{requestData?.status || "N/A"}</p>
+          <label>Request Stage</label>
+          <p className={`${requestStageStyle.bg} ${requestStageStyle.text} inline-flex items-center px-3 py-1 rounded-full text-xs font-small`}>
+            {requestStageStyle.icon}
+            {capitalizeWords(requestData?.status) || "N/A"}</p>
         </div>
         <div className="flex flex-col py-[15px] pb-[2px] justify-between">
           <label>Assigned Users:</label>
@@ -113,7 +133,7 @@ const RequestDetails = () => {
             </div>
             <div className="border-b dark:border-stone-700 flex flex-col justify-between py-2">
               <div className="flex gap-1 items-center">
-                <label className=" ">Comment</label>
+                <label className=" ">Editor's Comment</label>
                 <RxQuestionMarkCircled />
               </div>
               <p className="py-2">
@@ -124,10 +144,10 @@ const RequestDetails = () => {
               <label className="">Submitted By</label>
               <p>{requestData?.["submittedBy"]}</p>
             </div>
-            <div className="border-b dark:border-stone-700 flex justify-between py-2 h-[43px] items-center">
+            {/* <div className="border-b dark:border-stone-700 flex justify-between py-2 h-[43px] items-center">
               <label className="">Submitted To</label>
               <p>{requestData?.["submittedTo"]}</p>
-            </div>
+            </div> */}
             <div className="border-b dark:border-stone-700 flex justify-between py-2 h-[43px] items-center">
               <label className="">Version No.</label>
               <p>{requestData?.["versionNo."]}</p>
@@ -146,19 +166,19 @@ const RequestDetails = () => {
           </div>
         </div>
         <div className="flex border-b dark:border-stone-700">
-          <div className="w-1/2 flex flex-col justify-between py-2">
+          {/* <div className="w-1/2 flex flex-col justify-between py-2">
             <label className="">Request Type</label>
             <p>{requestData?.["requestType"]}</p>
-          </div>
-          <div className=" w-1/2 flex  flex-col justify-between py-2">
+          </div> */}
+          {/* <div className=" w-1/2 flex  flex-col justify-between py-2">
             <label className="">Request No.</label>
             <p>{requestData?.["requestNo."]}</p>
-          </div>
+          </div> */}
         </div>
-        <div className="border-b dark:border-stone-700 flex justify-between py-2 h-[43px] items-center">
+        {/* <div className="border-b dark:border-stone-700 flex justify-between py-2 h-[43px] items-center">
           <label className="">Previous Request</label>
           <p>{requestData?.["previousRequest"]}</p>
-        </div>
+        </div> */}
         <div className="flex flex-col justify-between py-2">
           <label className=" pt-1 pb-2">Approval Status</label>
           <table className="w-full bg-white rounded-lg shadow dark:bg-base-100">
@@ -175,9 +195,10 @@ const RequestDetails = () => {
                 </th>
               </tr>
             </thead>
-            <tbody>
-              {requestData?.approvalStatus?.map(({ role, status, comment }) => {
+            <tbody className="relative">
+              {requestData?.approvalStatus?.map(({ role, status, comment }, i) => {
                 const { bg, text, icon } = statusStyles[status] || {};
+                // setCommentOn(prev => ({ ...prev, i: false }))
                 return (
                   <tr
                     key={role}
@@ -193,8 +214,29 @@ const RequestDetails = () => {
                       </span>
                     </td>
 
-                    <td title={comment} className="px-3 py-2 text-sm">
-                      {TruncateText(comment, 20)}
+                    <td title={comment || 'N/A'} className="px-3 py-2 text-sm">
+                      <Comments comment={comment} />
+                      {/* <div className="flex items-center gap-1">
+
+                        {TruncateText(comment, 20) || "N/A"}
+                        {comment !== "No Comments" && (
+                          <div className=""
+                            onClick={() => setCommentOn(prev => ({ ...prev, i: !prev.i }))}
+                          >
+                            <FiEye />
+                            {
+                              commentOn &&
+                              <div className="absolute right-[110%] top-[50%] z-[70]">
+                                <div className="comment-bubble">
+                                  <div className="comment-bubble-arrow"></div>
+                                  <h3>Comments:</h3>
+                                  <p className={`${comment ? "text-stone-900 dark:text-stone-200" : "text-stone-300"}`}>{comment || "No comments"}</p>
+                                </div>
+                              </div>
+                            }
+                          </div>
+                        )}
+                      </div> */}
                     </td>
                   </tr>
                 );
@@ -203,7 +245,7 @@ const RequestDetails = () => {
           </table>
         </div>
       </div>
-    </div>
+    </div >
   );
 };
 

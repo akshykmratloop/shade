@@ -17,7 +17,5 @@ export const updateSelectedContentAndSaveDraft = (payload) => (dispatch) => {
         return indexA - indexB;
     });
 
-    console.log(newOptions)
-
     dispatch(updateSelectedContent({ ...payload, data: newOptions }));
 };

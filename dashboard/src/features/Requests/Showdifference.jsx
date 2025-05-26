@@ -51,18 +51,18 @@ function ShowDifference({ show, onClose, resourceId, currentlyEditor, currentlyP
             toast.success("Request has been approved")
             onClose()
         } else {
-            toast.error("Something went wrong please try again later")
+            toast.error(response.message)
         }
     }
 
     const RejectRequestFunc = async (id, body) => {
         const response = await rejectedRequest(id, { rejectReason: body })
         if (response.ok) {
-            toast.success("Request has been approved")
+            toast.success("Request has been Rejected")
             onClose()
             return true
         } else {
-            toast.error("Something went wrong please try again later", {autoClose: 1000, hideProgressBar: true})
+            toast.error(response.meesage, { autoClose: 1000, hideProgressBar: true })
         }
     }
 

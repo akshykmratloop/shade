@@ -15,8 +15,11 @@ import {
   fetchRequestInfo,
   markAllAssignedUserInactive,
   approveRequestInVerification,
+  approveRequestInPublication,
   rejectRequestInVerification,
+  rejectRequestInPublication,
   fetchVersionsList,
+  deleteAllResourceRelatedDataFromDb,
 } from "../../repository/content.repository.js";
 
 const getResources = async (
@@ -31,7 +34,8 @@ const getResources = async (
   fetchType,
   userId,
   roleId,
-  apiCallType
+  apiCallType,
+  filterText
 ) => {
   if (fetchType === "CONTENT") {
     const resources = await fetchAllResourcesWithContent(
@@ -45,7 +49,8 @@ const getResources = async (
       limitNum,
       userId,
       roleId,
-      apiCallType
+      apiCallType,
+      filterText
     );
     logger.info({
       response: "Resources fetched successfully with content",
@@ -64,7 +69,8 @@ const getResources = async (
     limitNum,
     userId,
     roleId,
-    apiCallType
+    apiCallType,
+    filterText
   );
   logger.info({
     response: "Resources fetched successfully without content",
@@ -209,7 +215,19 @@ const getRequestInfo = async (requestId) => {
 
 
 const approveRequest = async (requestId, userId) => {
-  const request = await approveRequestInVerification(requestId, userId);
+  // First, get the request to determine if it's a verification or publication request
+  const requestInfo = await fetchRequestInfo(requestId);
+
+  let request;
+  // Check the request type to determine which approval function to use
+  if (requestInfo.details.requestType === "PUBLICATION") {
+    // This is a publication request, use approveRequestInPublication
+    request = await approveRequestInPublication(requestId, userId);
+  } else {
+    // This is a verification request, use approveRequestInVerification
+    request = await approveRequestInVerification(requestId, userId);
+  }
+
   logger.info({
     response: "Request Approved successfully",
     // request: request,
@@ -219,7 +237,19 @@ const approveRequest = async (requestId, userId) => {
 
 
 const rejectRequest = async (requestId, userId, rejectReason) => {
-  const request = await rejectRequestInVerification(requestId, userId, rejectReason);
+  // First, get the request to determine if it's a verification or publication request
+  const requestInfo = await fetchRequestInfo(requestId);
+
+  let request;
+  // Check the request type to determine which rejection function to use
+  if (requestInfo.details.requestType === "PUBLICATION") {
+    // This is a publication request, use rejectRequestInPublication
+    request = await rejectRequestInPublication(requestId, userId, rejectReason);
+  } else {
+    // This is a verification request, use rejectRequestInVerification
+    request = await rejectRequestInVerification(requestId, userId, rejectReason);
+  }
+
   logger.info({
     response: "Request Rejected successfully",
     // request: request,
@@ -267,6 +297,15 @@ const getVersionsList = async (resourceId, search, status, page, limit) => {
 
 
 
+const deleteAllContentData = async () => {
+  const result = await deleteAllResourceRelatedDataFromDb();
+  logger.info({
+    response: "All content-related data deleted successfully",
+    result: result,
+  });
+  return { message: "All content-related data deleted successfully", result };
+};
+
 export {
   getResources,
   getResourceInfo,
@@ -285,4 +324,5 @@ export {
   ScheduleRequest,
   PublishRequest,
   getVersionsList,
+  deleteAllContentData,
 };

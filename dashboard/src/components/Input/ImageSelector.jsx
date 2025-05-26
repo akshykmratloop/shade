@@ -5,6 +5,7 @@ import { deleteMedia, fetchAllImages } from "../../app/fetch";
 import { Img_url } from "../../routes/backend";
 import Popups from "../../features/Resources/components/breakUI/Popups";
 import { ToastContainer, toast } from "react-toastify";
+import { useSelector } from "react-redux";
 const imageStructure = [{
     "id": "",
     "url": "",
@@ -17,14 +18,17 @@ const imageStructure = [{
     "resourceId": ""
 }]
 
-const ImageSelector = ({ onSelectImage, onClose, resourceId }) => {
+const ImageSelector = ({ onSelectImage, onClose }) => {
+    const [resourceId, setResourceId] = useState('')
+    // const resourceId = useSelector(state => state.versions.resourceId)
+    console.log(resourceId)
     const fileInputRef = useRef(null);
     const modalRef = useRef(null);
 
     const [selectedImage, setSelectedImage] = useState(null);
     const [metadata, setMetadata] = useState(null);
     const [uploading, setUploading] = useState(false); // Local uploading state for UI
-    const [error, setError] = useState(null); // For any upload errors
+    // const [error, setError] = useState(null); // For any upload errors
     const [uploadCancel, setUploadCancel] = useState(false); // To track cancel status
     const [imagesByResource, setImagesByResources] = useState(true)
     const [images, setImages] = useState(imageStructure)
@@ -36,14 +40,13 @@ const ImageSelector = ({ onSelectImage, onClose, resourceId }) => {
 
     const { uploadImage } = useImageUpload(resourceId); // hook for uploading images
 
-    // HANDLERS 
-
     const handleFileUpload = async (event) => {
-        const file = event.target.files[0];
-        if (!file || uploading) return; // Prevent uploading if already uploading
+        const files = Array.from(event.target.files);
+        if (!files.length || uploading) return;
 
-        if (file.size > 5 * 1024 * 1024) {
-            toast.error("File size must be less than 5MB", { hideProgressBar: true });
+        const oversizedFiles = files.filter(file => file.size > 5 * 1024 * 1024);
+        if (oversizedFiles.length) {
+            toast.error("One or more files exceed the 5MB size limit.", { hideProgressBar: true, autoClose: 1000 });
             return;
         }
 
@@ -51,19 +54,18 @@ const ImageSelector = ({ onSelectImage, onClose, resourceId }) => {
         setUploadCancel(false);
 
         try {
-            const uploadedImageURL = await uploadImage(file);
-            if (uploadedImageURL) {
-                // Instead of previewing, trigger image list reload
-                setRandom(Math.random());
-                toast.success("Image uploaded successfully", { hideProgressBar: true })
-            }
-        } catch {
-            console.log("Error Uploading Image Please Try again later")
-            toast.error("Error Uploading Image Please Try again later", { hideProgressBar: true })
+            // Call your API to upload all files at once
+            await uploadImage(files.length > 1 ? files : files[0]); // Replace with your API call
+            setRandom(Math.random()); // Refresh image grid
+            toast.success("All images uploaded successfully", { hideProgressBar: true, autoClose: 1000 });
+        } catch (err) {
+            console.error("Error uploading images:", err);
+            toast.error(err, { hideProgressBar: true, autoClose: 1000 });
         } finally {
             setUploading(false);
         }
     };
+
 
     const handleAltText = (e) => {
         setAltText(prev => {
@@ -99,7 +101,7 @@ const ImageSelector = ({ onSelectImage, onClose, resourceId }) => {
             }
         } catch (err) {
             console.log(err)
-            toast.error("Failed to delete Image please try again after some time.", { hideProgressBar: true })
+            toast.error(err, { hideProgressBar: true })
         }
     }
 
@@ -111,23 +113,28 @@ const ImageSelector = ({ onSelectImage, onClose, resourceId }) => {
     useEffect(() => { // get images
         async function getAllImagesHandler() {
             setLoadingImages(true);
-            try {
-                const response = await fetchAllImages(imagesByResource ? { resourceId } : "");
-                if (response.ok) {
-                    setImages(response.media);
-                } else {
-                    throw new Error("Error while fetching images");
+            if (!imagesByResource || (imagesByResource && resourceId)) {
+                try {
+                    const response = await fetchAllImages(imagesByResource ? { resourceId } : "");
+                    if (response.ok) {
+                        setImages(response.media);
+                    } else {
+                        throw new Error("Error while fetching images");
+                    }
+                } catch (err) {
+                    console.log(err);
+                } finally {
+                    setLoadingImages(false);
                 }
-            } catch (err) {
-                console.log(err);
-            } finally {
-                setLoadingImages(false);
             }
         }
         getAllImagesHandler();
-    }, [imagesByResource, random]);
+    }, [imagesByResource, random, resourceId]);
 
 
+    useEffect(() => {
+        setResourceId(localStorage.getItem("contextId"))
+    }, [])
     // OUTSIDE CLICK 
 
     useEffect(() => {
@@ -258,6 +265,7 @@ const ImageSelector = ({ onSelectImage, onClose, resourceId }) => {
                             accept="image/*,video/*"
                             className="hidden"
                             onChange={handleFileUpload}
+                            multiple
                         />
                     </div>
                     <div className="flex gap-4">
@@ -289,3 +297,34 @@ const ImageSelector = ({ onSelectImage, onClose, resourceId }) => {
 };
 
 export default ImageSelector;
+
+
+
+// HANDLERS 
+
+// const handleFileUpload = async (event) => {
+//     const file = event.target.files[0];
+//     if (!file || uploading) return; // Prevent uploading if already uploading
+
+//     if (file.size > 5 * 1024 * 1024) {
+//         toast.error("File size must be less than 5MB", { hideProgressBar: true });
+//         return;
+//     }
+
+//     setUploading(true);
+//     setUploadCancel(false);
+
+//     try {
+//         const uploadedImageURL = await uploadImage(file);
+//         if (uploadedImageURL) {
+//             // Instead of previewing, trigger image list reload
+//             setRandom(Math.random());
+//             toast.success("Image uploaded successfully", { hideProgressBar: true })
+//         }
+//     } catch {
+//         console.log("Error Uploading Image Please Try again later")
+//         toast.error("Error Uploading Image Please Try again later", { hideProgressBar: true })
+//     } finally {
+//         setUploading(false);
+//     }
+// };

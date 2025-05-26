@@ -1,152 +1,121 @@
 {
     "message": "Success",
-    "content": {
-        "id": "cmap7yojn00ptmn5kdmm9cz99",
-        "titleEn": "Projects Page",
-        "titleAr": "المشاريع الصفحة",
-        "slug": "project",
-        "resourceType": "MAIN_PAGE",
-        "resourceTag": "PROJECT",
-        "relationType": "PARENT",
-        "liveModeVersionData": {
-            "id": "cmap7yojq00pvmn5kikpvl6q5",
-            "versionNumber": 1,
-            "icon": null,
-            "image": null,
-            "comments": "Initial version created",
-            "referenceDoc": null,
-            "updatedAt": "2025-05-15T10:21:03.303Z",
-            "status": "PUBLISHED",
-            "sections": [
-                {
-                    "sectionId": "cmap7yok100pxmn5kcpd92zmr",
-                    "order": 1,
-                    "version": 1,
-                    "title": "bannerSection-project-381f",
-                    "content": {
-                        "title": {
-                            "ar": ">مشروعنا",
-                            "en": "Our Projects"
-                        },
-                        "button": [
+    "requests": {
+        "data": [
+            {
+                "id": "0ee9d7c3-147a-4ff3-93ac-825e4cce6aac",
+                "status": "VERIFICATION_PENDING",
+                "flowStatus": "PENDING",
+                "type": "VERIFICATION",
+                "editorComments": "Initial version created",
+                "resourceVersionId": "cmb0emd61002rqp0w5i34lrql",
+                "senderId": "cmawfx6da0008qp0w1q4ittw9",
+                "createdAt": "2025-05-23T06:12:54.007Z",
+                "updatedAt": "2025-05-23T06:12:54.007Z",
+                "resourceVersion": {
+                    "id": "cmb0emd61002rqp0w5i34lrql",
+                    "versionNumber": 2,
+                    "versionStatus": "VERIFICATION_PENDING",
+                    "notes": "Initial version created",
+                    "referenceDoc": null,
+                    "content": {},
+                    "icon": null,
+                    "Image": null,
+                    "lockedById": null,
+                    "lockedAt": null,
+                    "resourceId": "cmb0edx2h00szqp4qtifbjxqk",
+                    "createdAt": "2025-05-23T06:12:53.929Z",
+                    "updatedAt": "2025-05-23T06:12:53.929Z",
+                    "scheduledAt": null,
+                    "publishedAt": null,
+                    "resource": {
+                        "id": "cmb0edx2h00szqp4qtifbjxqk",
+                        "titleEn": "Home Page",
+                        "titleAr": "الصفحة الرئيسية",
+                        "resourceType": "MAIN_PAGE",
+                        "resourceTag": "HOME",
+                        "relationType": "PARENT",
+                        "slug": "home",
+                        "roles": [
                             {
-                                "url": null,
-                                "icon": null,
-                                "text": {
-                                    "ar": "دعونا نتواصل",
-                                    "en": "Let's Connect"
-                                },
-                                "order": 1
-                            }
-                        ],
-                        "description": {
-                            "ar": "اكتشف التميز الاستثنائي لشركة Shade Corporation، الشركة الرائدة في مجالات الهندسة والمشتريات والبناء في المملكة العربية السعودية.",
-                            "en": "Discover the exceptional excellence of Shade Corporation, a leading company in the fields of engineering, procurement, and construction in Saudi Arabia."
-                        }
-                    }
-                },
-                {
-                    "sectionId": "cmap7yoke00q3mn5k5a0ll8k1",
-                    "order": 2,
-                    "version": 1,
-                    "title": "projectsGridSection-project-5e81",
-                    "content": {
-                        "tabs": [
-                            {
-                                "id": "all",
-                                "order": 1,
-                                "title": {
-                                    "ar": "الكل",
-                                    "en": "All"
+                                "id": "6321622e-254a-4c3c-a15d-a439ec554309",
+                                "resourceId": "cmb0edx2h00szqp4qtifbjxqk",
+                                "userId": "cmawfx6da0008qp0w1q4ittw9",
+                                "role": "EDITOR",
+                                "status": "ACTIVE",
+                                "createdAt": "2025-05-23T06:06:51.718Z",
+                                "user": {
+                                    "id": "cmawfx6da0008qp0w1q4ittw9",
+                                    "name": "Anukool"
                                 }
                             },
                             {
-                                "id": "ongoing",
-                                "order": 2,
-                                "title": {
-                                    "ar": "مستمر",
-                                    "en": "Ongoing"
-                                }
-                            },
-                            {
-                                "id": "completed",
-                                "order": 3,
-                                "title": {
-                                    "ar": "مكتمل",
-                                    "en": "Completed"
+                                "id": "92ff5fa1-0ccf-4800-a78e-7fc8b4450a5f",
+                                "resourceId": "cmb0edx2h00szqp4qtifbjxqk",
+                                "userId": "cmawgyhh60032qp0wbo9aru90",
+                                "role": "PUBLISHER",
+                                "status": "ACTIVE",
+                                "createdAt": "2025-05-23T06:06:51.722Z",
+                                "user": {
+                                    "id": "cmawgyhh60032qp0wbo9aru90",
+                                    "name": "Akshay Kumar"
                                 }
                             }
                         ],
-                        "button": [
+                        "verifiers": [
                             {
-                                "url": null,
-                                "icon": null,
-                                "text": {
-                                    "ar": "عرض التفاصيل",
-                                    "en": "View Details"
-                                },
-                                "order": 1
-                            },
-                            {
-                                "url": null,
-                                "icon": null,
-                                "text": {
-                                    "ar": " عرض المزيد",
-                                    "en": "View More"
-                                },
-                                "order": 2
+                                "id": "96610aa5-c6be-45e0-ab8a-36c2dfc8c007",
+                                "stage": 1,
+                                "status": "ACTIVE",
+                                "resourceId": "cmb0edx2h00szqp4qtifbjxqk",
+                                "userId": "cmawgxqly002zqp0wybh46wyd",
+                                "createdAt": "2025-05-23T06:06:51.728Z",
+                                "user": {
+                                    "id": "cmawgxqly002zqp0wybh46wyd",
+                                    "name": "Akshay"
+                                }
                             }
                         ]
-                    },
-                    "items": [
-                        {
-                            "id": "cmap7yn4j004kmn5k3z26jsy9",
-                            "titleEn": "IT Labs for Excellence",
-                            "titleAr": "مختبر تكنولوجيا المعلومات للتميز",
-                            "slug": "it-lab-for-excellence",
-                            "icon": null,
-                            "image": null,
-                            "order": 1
-                        },
-                        {
-                            "id": "cmap7yn6s005hmn5k7co0u1x0",
-                            "titleEn": "Non-Metallic Manufacturing Plant",
-                            "titleAr": "مصنع المواد غير المعدنية",
-                            "slug": "non-metallic-manufacturing-plant",
-                            "icon": null,
-                            "image": null,
-                            "order": 2
-                        },
-                        {
-                            "id": "cmap7yn8y006emn5klww1zgwq",
-                            "titleEn": "Business Gate",
-                            "titleAr": "بوابة الأعمال",
-                            "slug": "business-gate",
-                            "icon": null,
-                            "image": null,
-                            "order": 3
-                        },
-                        {
-                            "id": "cmap7ynb5007bmn5k5x06c63t",
-                            "titleEn": "OME Building - Northern Area Pipelines",
-                            "titleAr": "مبنى OME - خطوط أنابيب المنطقة الشمالية",
-                            "slug": "construction-of-ome-building-napd-khursaniyah",
-                            "icon": null,
-                            "image": null,
-                            "order": 4
-                        },
-                        {
-                            "id": "cmap7yndd0088mn5kkln0nr0n",
-                            "titleEn": "Psychiatric Facility",
-                            "titleAr": "المنشأة النفسية",
-                            "slug": "psychiatric-facility",
-                            "icon": null,
-                            "image": null,
-                            "order": 5
+                    }
+                },
+                "sender": {
+                    "id": "cmawfx6da0008qp0w1q4ittw9",
+                    "name": "Anukool",
+                    "email": "anukool26@outlook.com"
+                },
+                "approvals": [
+                    {
+                        "id": "8a8e28db-ac40-4660-a34a-d376d76f12d9",
+                        "status": "PENDING",
+                        "stage": 1,
+                        "comments": null,
+                        "approverStatus": "ACTIVE",
+                        "approver": {
+                            "id": "cmawgxqly002zqp0wybh46wyd",
+                            "name": "Akshay",
+                            "email": "akshykmr@loopmethods.com"
                         }
-                    ]
-                }
-            ]
+                    },
+                    {
+                        "id": "27e6fa97-e01d-49a9-ab0d-bf16df4a8d2a",
+                        "status": "PENDING",
+                        "stage": null,
+                        "comments": null,
+                        "approverStatus": "ACTIVE",
+                        "approver": {
+                            "id": "cmawgyhh60032qp0wbo9aru90",
+                            "name": "Akshay Kumar",
+                            "email": "akshykmr70@gmail.com"
+                        }
+                    }
+                ]
+            }
+        ],
+        "pagination": {
+            "total": 1,
+            "page": 1,
+            "limit": 100,
+            "totalPages": 1
         }
     }
 }

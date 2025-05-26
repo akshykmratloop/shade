@@ -531,13 +531,13 @@
   "footer": {
     "slug": "footer",
     "companyInfo": {
-      "logo": {
+      "images": [{
         "url": "logo",
         "altText": {
           "ar": "شعار شيد",
           "en": "Shade Logo"
         }
-      },
+      }],
       "address": {
         "ar": "شركة الظل المحدودة.\nص.ب. ص.ب 7027 الدمام 31462 المملكة العربية السعودية مبنى رقم 5222 الدمام 32414-6124.",
         "en": "Shade Corporation Ltd.\nP.O. Box 7027 Dammam 31462 Saudi Arabia Building No. 5222 Dammam 32414-6124."
@@ -646,67 +646,6 @@
       {
         "title": {
           "ar": "اتصال",
-          "en": "Contact"
-        },
-        "phone": {
-          "ar": "الهاتف: +966 13 8350100",
-          "en": "Phone: +966 13 8350100"
-        },
-        "fax": {
-          "ar": "فاكس: +966 13 8343910",
-          "en": "Fax: +966 13 8343910"
-        },
-        "helpText": {
-          "ar": "بحاجة الى مساعدة؟ نحن متاحون للحديث",
-          "en": "Need Help? We're Available to Talk"
-        },
-        "button": [
-          {
-            "order": 1,
-            "url": null,
-            "text": {
-              "ar": "اتصل بنا",
-              "en": "Contact Us"
-            },
-            "icon": null
-          }
-        ],
-        "socialLinks": [
-          {
-            "order": 1,
-            "url": "https://www.linkedin.com/",
-            "icon": "linkedin"
-          },
-          {
-            "order": 2,
-            "url": "https://www.instagram.com/",
-            "icon": "instagram"
-          },
-          {
-            "order": 3,
-            "url": "https://twitter.com/",
-            "icon": "twitter"
-          },
-          {
-            "order": 4,
-            "url": "https://www.facebook.com/",
-            "icon": "facebook"
-          }
-        ]
-      },
-      {
-        "title": {
-          "ar": "اتصال",
-          "en": "copyRights"
-        },
-        "text": {
-          "ar": "@2024 جميع الحقوق محفوظة",
-          "en": "@2024 All Rights reserved"
-        }
-      },
-      {
-        "title": {
-          "ar": "اتصال",
           "en": "Security"
         },
         "links": [
@@ -727,7 +666,68 @@
           }
         ]
       }
-    ]
+    ],
+    "contacts": {
+      "title": {
+        "ar": "اتصال",
+        "en": "Contact"
+      },
+      "phone": {
+        "ar": "الهاتف: +966 13 8350100",
+        "en": "Phone: +966 13 8350100"
+      },
+      "fax": {
+        "ar": "فاكس: +966 13 8343910",
+        "en": "Fax: +966 13 8343910"
+      },
+      "helpText": {
+        "ar": "بحاجة الى مساعدة؟ نحن متاحون للحديث",
+        "en": "Need Help? We're Available to Talk"
+      },
+      "button": [
+        {
+          "order": 1,
+          "url": null,
+          "text": {
+            "ar": "اتصل بنا",
+            "en": "Contact Us"
+          },
+          "icon": null
+        }
+      ],
+      "socialLinks": [
+        {
+          "order": 1,
+          "url": "https://www.linkedin.com/",
+          "icon": "linkedin"
+        },
+        {
+          "order": 2,
+          "url": "https://www.instagram.com/",
+          "icon": "instagram"
+        },
+        {
+          "order": 3,
+          "url": "https://twitter.com/",
+          "icon": "twitter"
+        },
+        {
+          "order": 4,
+          "url": "https://www.facebook.com/",
+          "icon": "facebook"
+        }
+      ]
+    },
+    "copyright": {
+      "title": {
+        "ar": "اتصال",
+        "en": "copyRights"
+      },
+      "text": {
+        "ar": "@2024 جميع الحقوق محفوظة",
+        "en": "@2024 All Rights reserved"
+      }
+    }
   },
 
   "aboutUs": {
@@ -958,6 +958,15 @@
             "en": "View Our"
           },
           "icon": null
+        },
+        {
+          "order": 2,
+          "url": null,
+          "text": {
+            "ar": "عرض عملنا",
+            "en": "View Service"
+          },
+          "icon": null
         }
       ]
     }
@@ -1019,7 +1028,8 @@
             "icon": null
           }
         ]
-      }
+      },
+      "childService": ["architectural-finishes"]
     },
     {
       "resourceTitle": {
@@ -1076,7 +1086,8 @@
             "icon": null
           }
         ]
-      }
+      },
+      "childService": ["facility-services"]
     },
     {
       "resourceTitle": {
@@ -1133,7 +1144,8 @@
             "icon": null
           }
         ]
-      }
+      },
+      "childService": ["infrastructure-maintenance"]
     },
     {
       "resourceTitle": {
@@ -1190,7 +1202,8 @@
             "icon": null
           }
         ]
-      }
+      },
+      "childService": ["structural-fabrication"]
     },
     {
       "resourceTitle": {
@@ -1247,7 +1260,8 @@
             "icon": null
           }
         ]
-      }
+      },
+      "childService": ["cranes-heavy-lifting-equipment"]
     }
   ],
 
@@ -3074,13 +3088,34 @@
         }
       ]
     },
-    "projectsGridSection": {
-      "tabs": [
+
+    "multiSection": {
+      "content": {
+        "buttons": [
+          {
+            "order": 1,
+            "text": {
+              "en": "View Details",
+              "ar": "عرض التفاصيل"
+            },
+            "icon": null
+          },
+          {
+            "order": 2,
+            "text": {
+              "en": "View More",
+              "ar": "عرض المزيد"
+            },
+            "icon": null
+          }
+        ]
+      },
+      "sections": [
         {
           "id": "all",
           "order": 1,
           "title": {
-            "en": "All",
+            "en": "ALL",
             "ar": "الكل"
           }
         },
@@ -3088,37 +3123,17 @@
           "id": "ongoing",
           "order": 2,
           "title": {
-            "en": "Ongoing",
+            "en": "ONGOING",
             "ar": "مستمر"
           }
         },
         {
-          "id": "completed",
+          "id": "complete",
           "order": 3,
           "title": {
-            "en": "Completed",
+            "en": "COMPLETE",
             "ar": "مكتمل"
           }
-        }
-      ],
-      "button": [
-        {
-          "order": 1,
-          "url": null,
-          "text": {
-            "ar": "عرض التفاصيل",
-            "en": "View Details"
-          },
-          "icon": null
-        },
-        {
-          "order": 2,
-          "url": null,
-          "text": {
-            "ar": " عرض المزيد",
-            "en": "View More"
-          },
-          "icon": null
         }
       ]
     }
@@ -3126,6 +3141,7 @@
 
   "projectDetail": [
     {
+      "filter": "ONGOING",
       "resourceTitle": {
         "ar": "مختبر تكنولوجيا المعلومات للتميز",
         "en": "IT Labs for Excellence"
@@ -3306,6 +3322,7 @@
       }
     },
     {
+      "filter": "COMPLETE",
       "resourceTitle": {
         "ar": "مصنع المواد غير المعدنية",
         "en": "Non-Metallic Manufacturing Plant"
@@ -3454,6 +3471,7 @@
       }
     },
     {
+      "filter": "COMPLETE",
       "resourceTitle": {
         "ar": "بوابة الأعمال",
         "en": "Business Gate"
@@ -3602,6 +3620,7 @@
       }
     },
     {
+      "filter": "ONGOING",
       "resourceTitle": {
         "ar": "مبنى OME - خطوط أنابيب المنطقة الشمالية",
         "en": "OME Building - Northern Area Pipelines"
@@ -3750,6 +3769,7 @@
       }
     },
     {
+      "filter": "COMPLETE",
       "resourceTitle": {
         "ar": "المنشأة النفسية",
         "en": "Psychiatric Facility"
@@ -3900,7 +3920,7 @@
   ],
 
   "newsBlogs": {
-    "slug" : "news-blogs",
+    "slug": "news-blogs",
     "heroSection": {
       "title": {
         "ar": "خبر & المدونات",
@@ -4338,7 +4358,7 @@
     }
   ],
 
-  "safetyPage" : {
+  "safetyPage": {
     "slug": "safety",
     "heroSection": {
       "title": {
@@ -4370,13 +4390,13 @@
           "icon": null
         }
       ]
-    }, 
-    "safetyTerms" : {
-      "title"  : {
+    },
+    "safetyTerms": {
+      "title": {
         "en": "Safety Terms and Conditions",
         "ar": " الشروط والأحكام الخاصة بسلامة"
       },
-      "button" : [
+      "button": [
         {
           "order": 1,
           "url": null,
@@ -4389,7 +4409,7 @@
       ]
     }
   },
-  
+
   "safetyPolicies": [
     {
       "resourceTitle": {
@@ -4663,7 +4683,10 @@
           "terms": [
             {
               "order": 1,
-              "title": { "ar": "التطوير المهني", "en": "Professional Development" },
+              "title": {
+                "ar": "التطوير المهني",
+                "en": "Professional Development"
+              },
               "description": {
                 "ar": "نحن نشجع التطوير المهني المستمر لموظفينا.",
                 "en": "We encourage continuous professional development for our employees."

@@ -22,7 +22,6 @@ const DynamicContentSection = ({
     subSectionsProMax,
     index,
     subSecIndex,
-    currentContent,
     allowRemoval = false, // New prop to allow extra input
     allowExtraInput = false, // New prop to allow extra input
     attachOne = false,
