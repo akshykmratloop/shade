@@ -3185,7 +3185,8 @@ export const fetchRequests = async (
   search,
   status,
   pageNum = 1,
-  limitNum = 10
+  limitNum = 10,
+  resourceId = null // New parameter to filter by resource ID
 ) => {
   const skip = (pageNum - 1) * limitNum;
 
@@ -3225,10 +3226,25 @@ export const fetchRequests = async (
     // We can also filter by flowStatus if needed in the future
   };
 
+  // Initialize resourceVersion filter if it doesn't exist
+  if (!where.resourceVersion) {
+    where.resourceVersion = {};
+  }
+
+  // Filter by resource ID if provided
+  if (resourceId) {
+    where.resourceVersion = {
+      ...where.resourceVersion,
+      resourceId: resourceId
+    };
+  }
+
   // Handle search term
   if (search) {
     where.resourceVersion = {
+      ...where.resourceVersion,
       resource: {
+        ...(where.resourceVersion.resource || {}),
         OR: [
           {titleEn: {contains: search, mode: "insensitive"}},
           {titleAr: {contains: search, mode: "insensitive"}},
@@ -3402,6 +3418,15 @@ export const fetchRequests = async (
 
       // If we have any conditions to filter by
       if (orConditions.length > 0) {
+        // If resourceId is provided, we need to add it to the filter
+        if (resourceId) {
+          // Add resource ID filter to each OR condition
+          orConditions = orConditions.map(condition => ({
+            ...condition,
+            id: resourceId // This ensures each OR condition also checks for the specific resource ID
+          }));
+        }
+
         where.resourceVersion = {
           ...where.resourceVersion,
           resource: {
@@ -3448,14 +3473,24 @@ export const fetchRequests = async (
         // Now build the OR conditions
         where.OR = [
           // Requests where user is the sender
-          { senderId: userId },
+          {
+            senderId: userId,
+            // If resourceId is provided, add it to the filter
+            ...(resourceId ? {
+              resourceVersion: {
+                resourceId: resourceId
+              }
+            } : {})
+          },
           // Requests for resources where user is CURRENTLY assigned as EDITOR with ACTIVE status
           {
             resourceVersion: {
               ...where.resourceVersion?.resourceVersion,
+              ...(resourceId ? { resourceId: resourceId } : {}), // Add resourceId filter if provided
               resource: {
                 ...where.resourceVersion?.resource,
                 id: { in: activeEditorResourceIds },
+                ...(resourceId ? { id: resourceId } : {}) // Add resourceId filter if provided
               },
             },
           },
@@ -3488,9 +3523,13 @@ export const fetchRequests = async (
 
         where.resourceVersion = {
           ...where.resourceVersion,
+          ...(resourceId ? { resourceId: resourceId } : {}), // Add resourceId filter if provided
           resource: {
             ...where.resourceVersion?.resource,
-            id: { in: activeVerifierResourceIds },
+            id: {
+              in: activeVerifierResourceIds,
+              ...(resourceId ? resourceId : undefined) // Add resourceId filter if provided
+            },
             verifiers: {
               some: {
                 userId,
@@ -3531,9 +3570,13 @@ export const fetchRequests = async (
         where.type = "PUBLICATION"; // Only show publication requests
         where.resourceVersion = {
           ...where.resourceVersion,
+          ...(resourceId ? { resourceId: resourceId } : {}), // Add resourceId filter if provided
           resource: {
             ...where.resourceVersion?.resource,
-            id: { in: activePublisherResourceIds },
+            id: {
+              in: activePublisherResourceIds,
+              ...(resourceId ? resourceId : undefined) // Add resourceId filter if provided
+            },
             roles: {
               some: {
                 userId,
