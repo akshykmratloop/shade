@@ -3,9 +3,11 @@ import { Route, Routes, useLocation } from 'react-router-dom'
 import routes from '../routes'
 import { Suspense, lazy } from 'react'
 import SuspenseContent from "./SuspenseContent"
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useRef } from "react"
 import { useNavigate } from "react-router-dom"
+import { useContext } from "react";
+import { ScrollContext } from "../features/Context/Context"
 // import { toast } from "react-toastify"
 
 const Page404 = lazy(() => import('../pages/protected/404'))
@@ -13,14 +15,17 @@ const Page404 = lazy(() => import('../pages/protected/404'))
 
 function PageContent() {
     const navigate = useNavigate()
-    const mainContentRef = useRef(null);
+    // const mainContentRef = useRef(null);
     const { pageTitle } = useSelector(state => state.header)
     const userRole = useSelector(state => state.user.activeRole)
+    const scrollContainerRef = useContext(ScrollContext);
+
     // const applied = useSelector(state => state)
     const location = useLocation()
 
+
     useEffect(() => {
-        mainContentRef.current.scroll({
+        scrollContainerRef.current.scroll({
             top: 0,
             behavior: "smooth"
         });
@@ -31,6 +36,8 @@ function PageContent() {
         if (route && location.pathname.split('/').length <= 4) {
             navigate(route)
         }
+
+        // dispatch()
     }, [])
 
     localStorage.setItem("route", location.pathname)
@@ -46,7 +53,7 @@ function PageContent() {
     return (
         <div className="flex flex-col flex-8 w-full overflow-x-hidden">
             <Header />
-            <main className="flex-1 overflow-y-scroll pt-0 px-3 pb-8 bg-base-100 customscroller" ref={mainContentRef}>
+            <main className="flex-1 overflow-y-scroll pt-0 px-3 pb-8 bg-base-100 customscroller" ref={scrollContainerRef}>
                 <Suspense fallback={<SuspenseContent />}>
                     <Routes>
                         {

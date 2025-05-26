@@ -1,6 +1,13 @@
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa6";
+import { useContext } from "react";
+import { ScrollContext } from "../Context/Context";
 
 const Paginations = ({ currentPage, totalPages, setCurrentPage, data, }) => {
+    const scrollContainerRef = useContext(ScrollContext);
+
+    const scrollToTop = () => {
+        scrollContainerRef.current?.scrollTo({ top: 0, behavior: "smooth" });
+    };
 
     const maxVisiblePages = 5;
     let pages = [];
@@ -19,10 +26,15 @@ const Paginations = ({ currentPage, totalPages, setCurrentPage, data, }) => {
     }
 
     return (
-        <div className="flex justify-end items-center mt-6 gap-2 pr-2" style={{ display: !(data?.length > 0) && "none" }}>
+        <div className="flex justify-end items-center mt-6 gap-2 pr-2" style={{
+            // display: !(data?.length > 0) && "none"
+        }}>
             <button
-                onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
-                disabled={currentPage === 1}
+                onClick={() => {
+                    setCurrentPage(prev => Math.max(prev - 1, 1))
+                    scrollToTop()
+                }}
+                disabled={currentPage === 1 || !totalPages}
                 className={`w-[2rem] p-2 flex items-center justify-center  text-sm rounded-full ${currentPage === 1 ? "bg-[#ededed] cursor-not-allowed dark:text-[black]" : "bg-[#29469c] text-white"}`}
             >
                 <FaAngleLeft />
@@ -41,6 +53,7 @@ const Paginations = ({ currentPage, totalPages, setCurrentPage, data, }) => {
                         } else {
                             setCurrentPage(page);
                         }
+                        scrollToTop()
                     }}
                     className={`px-3 py-1 pt-2 ${page > 9 ? "pl-2 pr-2" : ""} rounded-full w-[2rem] h-[2rem] ${page === "..." ? "hover:underline text-[23px] -translate-x-1 -translate-y-1" : currentPage === page ? "bg-[#29469c] text-white text-sm" : "bg-[#ededed] dark:text-[black] text-sm"}`}
                 >
@@ -50,9 +63,12 @@ const Paginations = ({ currentPage, totalPages, setCurrentPage, data, }) => {
 
 
             <button
-                onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
-                disabled={currentPage === totalPages}
-                className={`w-[2rem] p-2 flex items-center justify-center text-sm rounded-full ${currentPage === totalPages ? "bg-[#ededed] cursor-not-allowed dark:text-[black]" : "bg-[#29469C] text-white"}`}
+                onClick={() => {
+                    setCurrentPage(prev => Math.min(prev + 1, totalPages))
+                    scrollToTop()
+                }}
+                disabled={currentPage === totalPages || !totalPages}
+                className={`w-[2rem] p-2 flex items-center justify-center text-sm rounded-full ${(currentPage === totalPages || totalPages === 0) ? "bg-[#ededed] cursor-not-allowed dark:text-[black]" : "bg-[#29469C] text-white"}`}
             >
                 <FaAngleRight />
             </button>

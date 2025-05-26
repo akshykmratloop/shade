@@ -170,8 +170,16 @@ export async function resendOTP(data) {
 }
 
 // fetch for Logs
-export async function userLogs(data) {
-  return await makerequest(api.route("userLogs"), "GET");
+
+export async function userLogs(query) {
+  if (!query || typeof query !== "object" || Object.keys(query).length === 0) {
+    return await makerequest(api.route("userLogs"), "GET");
+  }
+
+  const params = new URLSearchParams(query).toString();
+  const url = `${api.route("userLogs")}?${params}`;
+
+  return await makerequest(url, "GET");
 }
 
 // fetch for roles

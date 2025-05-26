@@ -1,300 +1,482 @@
 {
-    "message": "Success",
-    "content": {
-        "id": "cmb3sl4uu00eiqp1v1z17c1l7",
-        "titleEn": "Cranes & Heavy Lifting Equipment",
-        "titleAr": "الرافعات ومعدات الرفع الثقيلة",
-        "slug": "cranes-heavy-lifting-equipment",
-        "isEditable": true,
-        "resourceType": "SUB_PAGE_ITEM",
-        "resourceTag": "SERVICE",
-        "relationType": "CHILD",
-        "liveModeVersionData": {
-            "id": "cmb3sl4ux00ekqp1vpnrftgrs",
-            "versionNumber": 1,
-            "icon": null,
-            "image": null,
-            "comments": "Initial version created",
-            "referenceDoc": null,
-            "updatedAt": "2025-05-25T15:07:09.658Z",
-            "status": "PUBLISHED",
-            "sections": [
-                {
-                    "sectionId": "cmb3sl4vb00emqp1vv627cbc8",
-                    "order": 1,
-                    "version": 1,
-                    "title": "heroSection-cranes-heavy-lifting-equipment-5784",
-                    "content": {
-                        "title": {
-                            "ar": "الرافعات ومعدات الرفع الثقيلة",
-                            "en": "Cranes & Heavy Lifting Equipment"
-                        },
-                        "images": [
-                            {
-                                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                                "order": 1,
-                                "altText": {
-                                    "ar": "صورة الرافعات ومعدات الرفع الثقيلة",
-                                    "en": "Cranes & Heavy Lifting Equipment Image"
-                                }
-                            }
-                        ],
-                        "description": {
-                            "ar": "نقدم حلولًا متكاملة لرفع وتحريك المعدات الثقيلة باستخدام أحدث الرافعات والمعدات المناسبة.",
-                            "en": "We provide integrated solutions for lifting and moving heavy equipment using the latest cranes and appropriate machinery."
-                        }
-                    },
-                    "sections": []
-                },
-                {
-                    "sectionId": "cmb3sl4vp00esqp1vtnb2fspa",
-                    "order": 2,
-                    "version": 1,
-                    "title": "ServicePointsGrid1-cranes-heavy-lifting-equipment-6af8",
-                    "content": {
-                        "title": {
-                            "ar": "خدمات الرافعات والمعدات الثقيلة الأساسية",
-                            "en": "Core Cranes & Heavy Lifting Equipment Services"
-                        },
-                        "points": [
-                            {
-                                "order": 1,
-                                "title": {
-                                    "ar": "الرافعات البرجية",
-                                    "en": "Tower Cranes"
-                                },
-                                "images": [
-                                    {
-                                        "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                                        "order": 1,
-                                        "altText": {
-                                            "ar": "صورة الخدمة",
-                                            "en": "Service Image"
-                                        }
-                                    }
-                                ],
-                                "description": {
-                                    "ar": "نحن نوفر الرافعات البرجية لمشاريع البناء عالية الارتفاع والتي تتطلب الرفع لمسافات طويلة.",
-                                    "en": "We provide tower cranes for high-rise construction projects that require long-distance lifting."
-                                }
-                            },
-                            {
-                                "order": 2,
-                                "title": {
-                                    "ar": "الرافعات الجسرية",
-                                    "en": "Bridge Cranes"
-                                },
-                                "images": [
-                                    {
-                                        "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                                        "order": 1,
-                                        "altText": {
-                                            "ar": "صورة الخدمة",
-                                            "en": "Service Image"
-                                        }
-                                    }
-                                ],
-                                "description": {
-                                    "ar": "نقدم الرافعات الجسرية للمشاريع التي تتطلب رفع وتحريك المعدات الثقيلة داخل المنشآت المغلقة.",
-                                    "en": "We offer bridge cranes for projects that require lifting and moving heavy equipment inside enclosed facilities."
-                                }
-                            },
-                            {
-                                "order": 3,
-                                "title": {
-                                    "ar": "الرافعات الزحافة",
-                                    "en": "Crawler Cranes"
-                                },
-                                "images": [
-                                    {
-                                        "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                                        "order": 1,
-                                        "altText": {
-                                            "ar": "صورة الخدمة",
-                                            "en": "Service Image"
-                                        }
-                                    }
-                                ],
-                                "description": {
-                                    "ar": "نقدم الرافعات الزحافة التي توفر القدرة على التحرك على التضاريس الوعرة مع رفع الأحمال الثقيلة.",
-                                    "en": "We provide crawler cranes that offer the ability to move on rough terrain while lifting heavy loads."
-                                }
-                            },
-                            {
-                                "order": 4,
-                                "title": {
-                                    "ar": "الرافعات المتنقلة",
-                                    "en": "Mobile Cranes"
-                                },
-                                "images": [
-                                    {
-                                        "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                                        "order": 1,
-                                        "altText": {
-                                            "ar": "صورة الخدمة",
-                                            "en": "Service Image"
-                                        }
-                                    }
-                                ],
-                                "description": {
-                                    "ar": "نقدم الرافعات المتنقلة التي تتميز بالقدرة على الانتقال بسرعة بين المواقع المختلفة، مع قدرة رفع عالية.",
-                                    "en": "We provide mobile cranes that are highly mobile and capable of moving between different locations with high lifting capacity."
-                                }
-                            },
-                            {
-                                "order": 5,
-                                "title": {
-                                    "ar": "الرافعات ذات الذراع الطويلة",
-                                    "en": "Long Reach Cranes"
-                                },
-                                "images": [
-                                    {
-                                        "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                                        "order": 1,
-                                        "altText": {
-                                            "ar": "صورة الخدمة",
-                                            "en": "Service Image"
-                                        }
-                                    }
-                                ],
-                                "description": {
-                                    "ar": "نحن نوفر الرافعات ذات الذراع الطويلة التي تسمح برفع الأحمال الثقيلة لمسافات بعيدة.",
-                                    "en": "We provide long reach cranes that allow lifting heavy loads over long distances."
-                                }
-                            }
-                        ],
-                        "description": {
-                            "ar": "نحن نقدم مجموعة واسعة من خدمات الرافعات والمعدات الثقيلة التي تلبي احتياجات المشاريع الكبرى.",
-                            "en": "We offer a wide range of cranes and heavy lifting equipment services to meet the needs of large-scale projects."
-                        }
-                    },
-                    "sections": []
-                },
-                {
-                    "sectionId": "cmb3sl4w600eyqp1v4gjq4thz",
-                    "order": 3,
-                    "version": 1,
-                    "title": "ServicePointsGrid2-cranes-heavy-lifting-equipment-f73d",
-                    "content": {
-                        "title": {
-                            "ar": "خدمات إضافية للرافعات والمعدات الثقيلة",
-                            "en": "Additional Cranes & Heavy Lifting Equipment Services"
-                        },
-                        "points": [
-                            {
-                                "order": 1,
-                                "title": {
-                                    "ar": "تركيب الرافعات",
-                                    "en": "Crane Installation"
-                                },
-                                "images": [
-                                    {
-                                        "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                                        "order": 1,
-                                        "altText": {
-                                            "ar": "صورة الخدمة",
-                                            "en": "Service Image"
-                                        }
-                                    }
-                                ],
-                                "description": {
-                                    "ar": "نقوم بتركيب الرافعات المختلفة وتوفير دعم مستمر لضمان عملية رفع آمنة.",
-                                    "en": "We install various types of cranes and provide ongoing support to ensure safe lifting operations."
-                                }
-                            },
-                            {
-                                "order": 2,
-                                "title": {
-                                    "ar": "خدمات التفكيك والنقل",
-                                    "en": "Crane Dismantling & Transportation"
-                                },
-                                "images": [
-                                    {
-                                        "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                                        "order": 1,
-                                        "altText": {
-                                            "ar": "صورة الخدمة",
-                                            "en": "Service Image"
-                                        }
-                                    }
-                                ],
-                                "description": {
-                                    "ar": "نقوم بتوفير خدمات التفكيك والنقل للرافعات والمعدات الثقيلة بين المواقع المختلفة.",
-                                    "en": "We provide crane dismantling and transportation services for moving cranes and heavy equipment between different locations."
-                                }
-                            },
-                            {
-                                "order": 3,
-                                "title": {
-                                    "ar": "الصيانة الدورية للرافعات",
-                                    "en": "Crane Maintenance & Inspection"
-                                },
-                                "images": [
-                                    {
-                                        "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                                        "order": 1,
-                                        "altText": {
-                                            "ar": "صورة الخدمة",
-                                            "en": "Service Image"
-                                        }
-                                    }
-                                ],
-                                "description": {
-                                    "ar": "نقوم بصيانة وفحص الرافعات بشكل دوري لضمان استمرارية تشغيلها بكفاءة عالية.",
-                                    "en": "We provide regular maintenance and inspection services for cranes to ensure their continuous operation with high efficiency."
-                                }
-                            },
-                            {
-                                "order": 4,
-                                "title": {
-                                    "ar": "الرفع والتفريغ للمعدات الثقيلة",
-                                    "en": "Heavy Equipment Lifting & Unloading"
-                                },
-                                "images": [
-                                    {
-                                        "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                                        "order": 1,
-                                        "altText": {
-                                            "ar": "صورة الخدمة",
-                                            "en": "Service Image"
-                                        }
-                                    }
-                                ],
-                                "description": {
-                                    "ar": "نقدم خدمات الرفع والتفريغ للمعدات الثقيلة باستخدام الرافعات المتخصصة.",
-                                    "en": "We provide heavy equipment lifting and unloading services using specialized cranes."
-                                }
-                            },
-                            {
-                                "order": 5,
-                                "title": {
-                                    "ar": "استشارات الرفع",
-                                    "en": "Lifting Consultation"
-                                },
-                                "images": [
-                                    {
-                                        "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                                        "order": 1,
-                                        "altText": {
-                                            "ar": "صورة الخدمة",
-                                            "en": "Service Image"
-                                        }
-                                    }
-                                ],
-                                "description": {
-                                    "ar": "نقدم استشارات متخصصة لعمليات الرفع لضمان سلامة وفعالية العملية.",
-                                    "en": "We offer specialized consultation services for lifting operations to ensure safety and efficiency."
-                                }
-                            }
-                        ],
-                        "description": {
-                            "ar": "نقدم خدمات إضافية متكاملة للرافعات والمعدات الثقيلة لضمان تنفيذ المشاريع بشكل فعال.",
-                            "en": "We offer additional integrated services for cranes and heavy lifting equipment to ensure the efficient execution of projects."
-                        }
-                    },
-                    "sections": []
+    "logs": [
+        {
+            "id": "a77d13de-7b41-42aa-976e-511c7f4ed3e0",
+            "action_performed": "Log in successful",
+            "actionType": "LOGIN",
+            "entity": "auth",
+            "entityId": "cmb0rmccy0001qp4x1k2dq3qc",
+            "oldValue": null,
+            "newValue": {
+                "user": "cmb0rmccy0001qp4x1k2dq3qc",
+                "email": "jyotikumari00718@gmail.com"
+            },
+            "ipAddress": "::ffff:172.19.0.1",
+            "browserInfo": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36 OPR/119.0.0.0",
+            "outcome": "Success",
+            "timestamp": "2025-05-26T04:11:14.763Z",
+            "metadata": null,
+            "user": {
+                "auditLogId": "a77d13de-7b41-42aa-976e-511c7f4ed3e0",
+                "userId": "cmb0rmccy0001qp4x1k2dq3qc",
+                "createdAt": "2025-05-26T04:11:14.764Z",
+                "user": {
+                    "id": "cmb0rmccy0001qp4x1k2dq3qc",
+                    "name": "JYOTI KUMARI",
+                    "image": "",
+                    "email": "jyotikumari00718@gmail.com",
+                    "password": "$2b$10$31hDRVOOv3Dy.x0x.xixr.5l0Vzs2dcRHp0YnntUdlu0Y5HnGFAF6",
+                    "isSuperUser": false,
+                    "status": "ACTIVE",
+                    "phone": "4441112200",
+                    "createdAt": "2025-05-23T12:16:47.891Z",
+                    "updatedAt": "2025-05-23T12:16:47.891Z"
                 }
-            ]
+            }
+        },
+        {
+            "id": "2a060181-a1cd-492a-93cd-ceb0c51798da",
+            "action_performed": "resource created",
+            "actionType": "CREATE",
+            "entity": "resource",
+            "entityId": "cmb3sl64m00skqp1v5y6fp8ed",
+            "oldValue": null,
+            "newValue": {
+                "id": "cmb3sl64m00skqp1v5y6fp8ed",
+                "slug": "about-us",
+                "status": "ACTIVE",
+                "titleAr": "من نحن",
+                "titleEn": "About Us Page",
+                "parentId": null,
+                "createdAt": "2025-05-25T15:07:11.303Z",
+                "updatedAt": "2025-05-26T03:28:02.179Z",
+                "isAssigned": true,
+                "resourceTag": "ABOUT",
+                "relationType": "PARENT",
+                "resourceType": "MAIN_PAGE",
+                "liveVersionId": "cmb3sl64q00smqp1vnxeqiks0",
+                "scheduledVersionId": null,
+                "newVersionEditModeId": null
+            },
+            "ipAddress": "::ffff:172.19.0.1",
+            "browserInfo": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36",
+            "outcome": "Success",
+            "timestamp": "2025-05-26T03:28:02.209Z",
+            "metadata": null,
+            "user": {
+                "auditLogId": "2a060181-a1cd-492a-93cd-ceb0c51798da",
+                "userId": "cmaw8j8ck000yqp45as0cj3eh",
+                "createdAt": "2025-05-26T03:28:02.212Z",
+                "user": {
+                    "id": "cmaw8j8ck000yqp45as0cj3eh",
+                    "name": "Super Admin",
+                    "image": "",
+                    "email": "anukool.singh@loopmethods.com",
+                    "password": "$2b$10$NbAcSW5uqNfhGd3fZs.xb.QYIGFsHVOh4J7A01OKlrzjIk2nwDmDS",
+                    "isSuperUser": true,
+                    "status": "ACTIVE",
+                    "phone": "",
+                    "createdAt": "2025-05-20T08:11:25.316Z",
+                    "updatedAt": "2025-05-20T08:11:25.316Z"
+                }
+            }
+        },
+        {
+            "id": "6196d917-1c67-4e7f-8e88-13fdc9135c73",
+            "action_performed": "Log in successful",
+            "actionType": "LOGIN",
+            "entity": "auth",
+            "entityId": "cmawfx6da0008qp0w1q4ittw9",
+            "oldValue": null,
+            "newValue": {
+                "user": "cmawfx6da0008qp0w1q4ittw9",
+                "email": "anukool26@outlook.com"
+            },
+            "ipAddress": "::ffff:172.19.0.1",
+            "browserInfo": "Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:138.0) Gecko/20100101 Firefox/138.0",
+            "outcome": "Success",
+            "timestamp": "2025-05-25T15:41:21.247Z",
+            "metadata": null,
+            "user": {
+                "auditLogId": "6196d917-1c67-4e7f-8e88-13fdc9135c73",
+                "userId": "cmawfx6da0008qp0w1q4ittw9",
+                "createdAt": "2025-05-25T15:41:21.249Z",
+                "user": {
+                    "id": "cmawfx6da0008qp0w1q4ittw9",
+                    "name": "Anukool",
+                    "image": "",
+                    "email": "anukool26@outlook.com",
+                    "password": "$2b$10$axM5sg.Zvcl3PL4OON3IFO2U/PbJUVSjfGxvinUy7XhVqVBfGm9ai",
+                    "isSuperUser": false,
+                    "status": "ACTIVE",
+                    "phone": "9874563210",
+                    "createdAt": "2025-05-20T11:38:13.246Z",
+                    "updatedAt": "2025-05-25T15:27:11.516Z"
+                }
+            }
+        },
+        {
+            "id": "6650e82d-943f-4176-bfff-93922b839ad5",
+            "action_performed": "resource created",
+            "actionType": "CREATE",
+            "entity": "resource",
+            "entityId": "cmb3sl65s00szqp1vl3023s9a",
+            "oldValue": null,
+            "newValue": {
+                "id": "cmb3sl65s00szqp1vl3023s9a",
+                "slug": "home",
+                "status": "ACTIVE",
+                "titleAr": "الصفحة الرئيسية",
+                "titleEn": "Home Page",
+                "parentId": null,
+                "createdAt": "2025-05-25T15:07:11.345Z",
+                "updatedAt": "2025-05-25T15:40:57.407Z",
+                "isAssigned": true,
+                "resourceTag": "HOME",
+                "relationType": "PARENT",
+                "resourceType": "MAIN_PAGE",
+                "liveVersionId": "cmb3thydt0001qp0wreiwac3s",
+                "scheduledVersionId": null,
+                "newVersionEditModeId": null
+            },
+            "ipAddress": "::ffff:172.19.0.1",
+            "browserInfo": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36",
+            "outcome": "Success",
+            "timestamp": "2025-05-25T15:40:57.431Z",
+            "metadata": null,
+            "user": {
+                "auditLogId": "6650e82d-943f-4176-bfff-93922b839ad5",
+                "userId": "cmaw8j8ck000yqp45as0cj3eh",
+                "createdAt": "2025-05-25T15:40:57.433Z",
+                "user": {
+                    "id": "cmaw8j8ck000yqp45as0cj3eh",
+                    "name": "Super Admin",
+                    "image": "",
+                    "email": "anukool.singh@loopmethods.com",
+                    "password": "$2b$10$NbAcSW5uqNfhGd3fZs.xb.QYIGFsHVOh4J7A01OKlrzjIk2nwDmDS",
+                    "isSuperUser": true,
+                    "status": "ACTIVE",
+                    "phone": "",
+                    "createdAt": "2025-05-20T08:11:25.316Z",
+                    "updatedAt": "2025-05-20T08:11:25.316Z"
+                }
+            }
+        },
+        {
+            "id": "feeb6cf9-2b99-495f-b708-a02aa1df21d7",
+            "action_performed": "role updated",
+            "actionType": "UPDATE",
+            "entity": "role",
+            "entityId": "cmawfvjss0001qp0wdk0hq82c",
+            "oldValue": {
+                "id": "cmawfvjss0001qp0wdk0hq82c",
+                "name": "editor",
+                "status": "INACTIVE",
+                "created_at": "2025-05-20T11:36:57.341Z",
+                "roleTypeId": "2963c8a1-f48f-475a-aaaf-1747d8583def",
+                "updated_at": "2025-05-23T10:41:45.829Z"
+            },
+            "newValue": {
+                "id": "cmawfvjss0001qp0wdk0hq82c",
+                "name": "editor",
+                "status": "ACTIVE",
+                "created_at": "2025-05-20T11:36:57.341Z",
+                "roleTypeId": "2963c8a1-f48f-475a-aaaf-1747d8583def",
+                "updated_at": "2025-05-25T15:30:31.209Z"
+            },
+            "ipAddress": "::ffff:172.19.0.1",
+            "browserInfo": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36",
+            "outcome": "Success",
+            "timestamp": "2025-05-25T15:30:31.233Z",
+            "metadata": null,
+            "user": {
+                "auditLogId": "feeb6cf9-2b99-495f-b708-a02aa1df21d7",
+                "userId": "cmaw8j8ck000yqp45as0cj3eh",
+                "createdAt": "2025-05-25T15:30:31.235Z",
+                "user": {
+                    "id": "cmaw8j8ck000yqp45as0cj3eh",
+                    "name": "Super Admin",
+                    "image": "",
+                    "email": "anukool.singh@loopmethods.com",
+                    "password": "$2b$10$NbAcSW5uqNfhGd3fZs.xb.QYIGFsHVOh4J7A01OKlrzjIk2nwDmDS",
+                    "isSuperUser": true,
+                    "status": "ACTIVE",
+                    "phone": "",
+                    "createdAt": "2025-05-20T08:11:25.316Z",
+                    "updatedAt": "2025-05-20T08:11:25.316Z"
+                }
+            }
+        },
+        {
+            "id": "cca7e7eb-607b-48d6-8ed7-e660cb7e6dcf",
+            "action_performed": "user updated",
+            "actionType": "UPDATE",
+            "entity": "user",
+            "entityId": "cmawgxqly002zqp0wybh46wyd",
+            "oldValue": {
+                "id": "cmawgxqly002zqp0wybh46wyd",
+                "name": "Akshay",
+                "email": "akshykmr@loopmethods.com",
+                "image": "",
+                "phone": "7894561320",
+                "status": "INACTIVE",
+                "password": "$2b$10$/ceLY4f6tdKGQYaW59IVdefkwRNmJmRFtY1QU3dg0dpZrU0B4RiwG",
+                "createdAt": "2025-05-20T12:06:39.095Z",
+                "updatedAt": "2025-05-25T15:27:08.921Z",
+                "isSuperUser": false
+            },
+            "newValue": {
+                "id": "cmawgxqly002zqp0wybh46wyd",
+                "name": "Akshay",
+                "email": "akshykmr@loopmethods.com",
+                "image": "",
+                "phone": "7894561320",
+                "status": "ACTIVE",
+                "password": "$2b$10$/ceLY4f6tdKGQYaW59IVdefkwRNmJmRFtY1QU3dg0dpZrU0B4RiwG",
+                "createdAt": "2025-05-20T12:06:39.095Z",
+                "updatedAt": "2025-05-25T15:27:13.061Z",
+                "isSuperUser": false
+            },
+            "ipAddress": "::ffff:172.19.0.1",
+            "browserInfo": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36",
+            "outcome": "Success",
+            "timestamp": "2025-05-25T15:27:13.072Z",
+            "metadata": null,
+            "user": {
+                "auditLogId": "cca7e7eb-607b-48d6-8ed7-e660cb7e6dcf",
+                "userId": "cmaw8j8ck000yqp45as0cj3eh",
+                "createdAt": "2025-05-25T15:27:13.074Z",
+                "user": {
+                    "id": "cmaw8j8ck000yqp45as0cj3eh",
+                    "name": "Super Admin",
+                    "image": "",
+                    "email": "anukool.singh@loopmethods.com",
+                    "password": "$2b$10$NbAcSW5uqNfhGd3fZs.xb.QYIGFsHVOh4J7A01OKlrzjIk2nwDmDS",
+                    "isSuperUser": true,
+                    "status": "ACTIVE",
+                    "phone": "",
+                    "createdAt": "2025-05-20T08:11:25.316Z",
+                    "updatedAt": "2025-05-20T08:11:25.316Z"
+                }
+            }
+        },
+        {
+            "id": "f91d4622-0bb0-4a33-bd2e-c034996b8c91",
+            "action_performed": "user updated",
+            "actionType": "UPDATE",
+            "entity": "user",
+            "entityId": "cmawfx6da0008qp0w1q4ittw9",
+            "oldValue": {
+                "id": "cmawfx6da0008qp0w1q4ittw9",
+                "name": "Anukool",
+                "email": "anukool26@outlook.com",
+                "image": "",
+                "phone": "9874563210",
+                "status": "INACTIVE",
+                "password": "$2b$10$axM5sg.Zvcl3PL4OON3IFO2U/PbJUVSjfGxvinUy7XhVqVBfGm9ai",
+                "createdAt": "2025-05-20T11:38:13.246Z",
+                "updatedAt": "2025-05-25T15:27:06.967Z",
+                "isSuperUser": false
+            },
+            "newValue": {
+                "id": "cmawfx6da0008qp0w1q4ittw9",
+                "name": "Anukool",
+                "email": "anukool26@outlook.com",
+                "image": "",
+                "phone": "9874563210",
+                "status": "ACTIVE",
+                "password": "$2b$10$axM5sg.Zvcl3PL4OON3IFO2U/PbJUVSjfGxvinUy7XhVqVBfGm9ai",
+                "createdAt": "2025-05-20T11:38:13.246Z",
+                "updatedAt": "2025-05-25T15:27:11.516Z",
+                "isSuperUser": false
+            },
+            "ipAddress": "::ffff:172.19.0.1",
+            "browserInfo": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36",
+            "outcome": "Success",
+            "timestamp": "2025-05-25T15:27:11.530Z",
+            "metadata": null,
+            "user": {
+                "auditLogId": "f91d4622-0bb0-4a33-bd2e-c034996b8c91",
+                "userId": "cmaw8j8ck000yqp45as0cj3eh",
+                "createdAt": "2025-05-25T15:27:11.532Z",
+                "user": {
+                    "id": "cmaw8j8ck000yqp45as0cj3eh",
+                    "name": "Super Admin",
+                    "image": "",
+                    "email": "anukool.singh@loopmethods.com",
+                    "password": "$2b$10$NbAcSW5uqNfhGd3fZs.xb.QYIGFsHVOh4J7A01OKlrzjIk2nwDmDS",
+                    "isSuperUser": true,
+                    "status": "ACTIVE",
+                    "phone": "",
+                    "createdAt": "2025-05-20T08:11:25.316Z",
+                    "updatedAt": "2025-05-20T08:11:25.316Z"
+                }
+            }
+        },
+        {
+            "id": "efcb80a4-6120-4be2-b01b-412ff367eba0",
+            "action_performed": "user updated",
+            "actionType": "UPDATE",
+            "entity": "user",
+            "entityId": "cmawgxqly002zqp0wybh46wyd",
+            "oldValue": {
+                "id": "cmawgxqly002zqp0wybh46wyd",
+                "name": "Akshay",
+                "email": "akshykmr@loopmethods.com",
+                "image": "",
+                "phone": "7894561320",
+                "status": "ACTIVE",
+                "password": "$2b$10$/ceLY4f6tdKGQYaW59IVdefkwRNmJmRFtY1QU3dg0dpZrU0B4RiwG",
+                "createdAt": "2025-05-20T12:06:39.095Z",
+                "updatedAt": "2025-05-20T12:06:39.095Z",
+                "isSuperUser": false
+            },
+            "newValue": {
+                "id": "cmawgxqly002zqp0wybh46wyd",
+                "name": "Akshay",
+                "email": "akshykmr@loopmethods.com",
+                "image": "",
+                "phone": "7894561320",
+                "status": "INACTIVE",
+                "password": "$2b$10$/ceLY4f6tdKGQYaW59IVdefkwRNmJmRFtY1QU3dg0dpZrU0B4RiwG",
+                "createdAt": "2025-05-20T12:06:39.095Z",
+                "updatedAt": "2025-05-25T15:27:08.921Z",
+                "isSuperUser": false
+            },
+            "ipAddress": "::ffff:172.19.0.1",
+            "browserInfo": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36",
+            "outcome": "Success",
+            "timestamp": "2025-05-25T15:27:08.934Z",
+            "metadata": null,
+            "user": {
+                "auditLogId": "efcb80a4-6120-4be2-b01b-412ff367eba0",
+                "userId": "cmaw8j8ck000yqp45as0cj3eh",
+                "createdAt": "2025-05-25T15:27:08.936Z",
+                "user": {
+                    "id": "cmaw8j8ck000yqp45as0cj3eh",
+                    "name": "Super Admin",
+                    "image": "",
+                    "email": "anukool.singh@loopmethods.com",
+                    "password": "$2b$10$NbAcSW5uqNfhGd3fZs.xb.QYIGFsHVOh4J7A01OKlrzjIk2nwDmDS",
+                    "isSuperUser": true,
+                    "status": "ACTIVE",
+                    "phone": "",
+                    "createdAt": "2025-05-20T08:11:25.316Z",
+                    "updatedAt": "2025-05-20T08:11:25.316Z"
+                }
+            }
+        },
+        {
+            "id": "12938db8-5fa1-4bfe-aee3-5e61d9d21458",
+            "action_performed": "user updated",
+            "actionType": "UPDATE",
+            "entity": "user",
+            "entityId": "cmawfx6da0008qp0w1q4ittw9",
+            "oldValue": {
+                "id": "cmawfx6da0008qp0w1q4ittw9",
+                "name": "Anukool",
+                "email": "anukool26@outlook.com",
+                "image": "",
+                "phone": "9874563210",
+                "status": "ACTIVE",
+                "password": "$2b$10$axM5sg.Zvcl3PL4OON3IFO2U/PbJUVSjfGxvinUy7XhVqVBfGm9ai",
+                "createdAt": "2025-05-20T11:38:13.246Z",
+                "updatedAt": "2025-05-25T15:27:03.376Z",
+                "isSuperUser": false
+            },
+            "newValue": {
+                "id": "cmawfx6da0008qp0w1q4ittw9",
+                "name": "Anukool",
+                "email": "anukool26@outlook.com",
+                "image": "",
+                "phone": "9874563210",
+                "status": "INACTIVE",
+                "password": "$2b$10$axM5sg.Zvcl3PL4OON3IFO2U/PbJUVSjfGxvinUy7XhVqVBfGm9ai",
+                "createdAt": "2025-05-20T11:38:13.246Z",
+                "updatedAt": "2025-05-25T15:27:06.967Z",
+                "isSuperUser": false
+            },
+            "ipAddress": "::ffff:172.19.0.1",
+            "browserInfo": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36",
+            "outcome": "Success",
+            "timestamp": "2025-05-25T15:27:06.982Z",
+            "metadata": null,
+            "user": {
+                "auditLogId": "12938db8-5fa1-4bfe-aee3-5e61d9d21458",
+                "userId": "cmaw8j8ck000yqp45as0cj3eh",
+                "createdAt": "2025-05-25T15:27:06.984Z",
+                "user": {
+                    "id": "cmaw8j8ck000yqp45as0cj3eh",
+                    "name": "Super Admin",
+                    "image": "",
+                    "email": "anukool.singh@loopmethods.com",
+                    "password": "$2b$10$NbAcSW5uqNfhGd3fZs.xb.QYIGFsHVOh4J7A01OKlrzjIk2nwDmDS",
+                    "isSuperUser": true,
+                    "status": "ACTIVE",
+                    "phone": "",
+                    "createdAt": "2025-05-20T08:11:25.316Z",
+                    "updatedAt": "2025-05-20T08:11:25.316Z"
+                }
+            }
+        },
+        {
+            "id": "28450943-7ca3-48c1-af9d-5bf16eb5fbf2",
+            "action_performed": "user updated",
+            "actionType": "UPDATE",
+            "entity": "user",
+            "entityId": "cmawfx6da0008qp0w1q4ittw9",
+            "oldValue": {
+                "id": "cmawfx6da0008qp0w1q4ittw9",
+                "name": "Anukool",
+                "email": "anukool26@outlook.com",
+                "image": "",
+                "phone": "9874563210",
+                "status": "INACTIVE",
+                "password": "$2b$10$axM5sg.Zvcl3PL4OON3IFO2U/PbJUVSjfGxvinUy7XhVqVBfGm9ai",
+                "createdAt": "2025-05-20T11:38:13.246Z",
+                "updatedAt": "2025-05-25T15:26:58.930Z",
+                "isSuperUser": false
+            },
+            "newValue": {
+                "id": "cmawfx6da0008qp0w1q4ittw9",
+                "name": "Anukool",
+                "email": "anukool26@outlook.com",
+                "image": "",
+                "phone": "9874563210",
+                "status": "ACTIVE",
+                "password": "$2b$10$axM5sg.Zvcl3PL4OON3IFO2U/PbJUVSjfGxvinUy7XhVqVBfGm9ai",
+                "createdAt": "2025-05-20T11:38:13.246Z",
+                "updatedAt": "2025-05-25T15:27:03.376Z",
+                "isSuperUser": false
+            },
+            "ipAddress": "::ffff:172.19.0.1",
+            "browserInfo": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36",
+            "outcome": "Success",
+            "timestamp": "2025-05-25T15:27:03.387Z",
+            "metadata": null,
+            "user": {
+                "auditLogId": "28450943-7ca3-48c1-af9d-5bf16eb5fbf2",
+                "userId": "cmaw8j8ck000yqp45as0cj3eh",
+                "createdAt": "2025-05-25T15:27:03.389Z",
+                "user": {
+                    "id": "cmaw8j8ck000yqp45as0cj3eh",
+                    "name": "Super Admin",
+                    "image": "",
+                    "email": "anukool.singh@loopmethods.com",
+                    "password": "$2b$10$NbAcSW5uqNfhGd3fZs.xb.QYIGFsHVOh4J7A01OKlrzjIk2nwDmDS",
+                    "isSuperUser": true,
+                    "status": "ACTIVE",
+                    "phone": "",
+                    "createdAt": "2025-05-20T08:11:25.316Z",
+                    "updatedAt": "2025-05-20T08:11:25.316Z"
+                }
+            }
         }
+    ],
+    "pagination": {
+        "totalLogs": 159,
+        "totalPages": 16,
+        "currentPage": 1,
+        "limitNum": 10
     }
 }

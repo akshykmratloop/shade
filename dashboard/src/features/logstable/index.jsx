@@ -94,46 +94,68 @@ function Logs() {
   const [selectedLogs, setSelectedLogs] = useState(null);
   const [showDetailsModal, setShowDetailsModal] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const logsPerPage = 20;
+  const [searchValue, setSearchValue] = useState("");
+  const [debouncedValue, setDebouncedValue] = useState("");
+  const [filteredLogs, setFilteredLogs] = useState("")
+
 
   const removeFilter = () => {
-    setLogs([...originalLogs]);
+    setFilteredLogs("")
     setCurrentPage(1)
   };
 
   const applyFilter = (outcome) => {
-
-    const filteredRoles = originalLogs?.filter(
-      (log) => log.outcome === outcome
-    );
+    setFilteredLogs(outcome)
     setCurrentPage(1)
-    setLogs(filteredRoles);
   };
 
-  const applySearch = (value) => {
-    const filteredRoles = originalLogs?.filter((log) =>
-      log?.action_performed.toLowerCase().includes(value.toLowerCase())
-    );
-    setCurrentPage(1)
-    setLogs(filteredRoles);
-  };
+  function handleSearchInput(value) {
+    if (value.length >= 3 || value.trim() === "") {
+      setSearchValue(value);
+    }
+  }
+
+  // const applySearch = (value) => {
+  //   const filteredRoles = originalLogs?.filter((log) =>
+  //     log?.action_performed.toLowerCase().includes(value.toLowerCase())
+  //   );
+  //   setCurrentPage(1)
+  //   setLogs(filteredRoles);
+  // };
 
   // Pagination logic
-  const indexOfLastUser = currentPage * logsPerPage;
-  const indexOfFirstUser = indexOfLastUser - logsPerPage;
-  const currentLogs = Array.isArray(logs)
-    ? logs?.slice(indexOfFirstUser, indexOfLastUser)
-    : [];
-  const totalPages = Math.ceil(logs?.length / logsPerPage);
+  const currentLogs = logs
+  const [totalPages, setTotalPages] = useState(0)
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedValue(searchValue);
+    }, 700); // debounce delay
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [searchValue]);
+
+  // useEffect(() => {
+  //   if (debouncedValue) {
+  //     applySearch(debouncedValue);
+  //   }
+  // }, [debouncedValue]);
 
   useEffect(() => {
     async function fetchRoleData() {
-      const response = await userLogs();
-      setLogs(response);
-      setOriginalLogs(response ?? []); // Store the original unfiltered data
+      let query = { page: currentPage }
+      if (debouncedValue) query.search = debouncedValue
+      if (filteredLogs) query.status = filteredLogs
+      const response = await userLogs(query);
+      setLogs(response.logs ?? []);
+      setOriginalLogs(response.logs ?? []); // Store the original unfiltered data
+      setTotalPages(response.pagination?.totalPages || 0)
     }
     fetchRoleData();
-  }, []);
+  }, [currentPage, debouncedValue, filteredLogs]);
+
   return (
     <div className="relative min-h-full">
       <TitleCard
@@ -141,7 +163,7 @@ function Logs() {
         topMargin="mt-2"
         TopSideButtons={
           <TopSideButtons
-            applySearch={applySearch}
+            applySearch={handleSearchInput}
             applyFilter={applyFilter}
             removeFilter={removeFilter}
             openAddForm={() => { }}
