@@ -17,6 +17,8 @@ import {
   rejectRequest,
   getVersionsList,
   deleteAllContentData,
+  getVersionInfo,
+  restoreVersion,
 } from "./content.service.js";
 
 const GetResources = async (req, res) => {
@@ -172,6 +174,18 @@ const GetVersionsList = async (req, res) => {
   res.status(200).json(response);
 };
 
+const GetVersionInfo = async (req, res) => {
+  const {versionId} = req.params;
+  const response = await getVersionInfo(versionId);
+  res.status(200).json(response);
+};
+
+const RestoreVersion = async (req, res) => {
+  const {versionId} = req.params;
+  const response = await restoreVersion(versionId);
+  res.status(200).json(response);
+};
+
 const DeleteAllContentData = async (_, res) => {
   const response = await deleteAllContentData();
   res.status(200).json(response);
@@ -193,5 +207,7 @@ export default {
   ApproveRequest,
   RejectRequest,
   GetVersionsList,
+  GetVersionInfo,
+  RestoreVersion,
   DeleteAllContentData,
 };

@@ -561,29 +561,36 @@ export const fetchAllRolesForUser = async () => {
 
 export const findAllLogs = async (search, status, pageNum, limitNum) => {
   const skip = (pageNum - 1) * limitNum;
-  const logs = await prismaClient.auditLog.findMany({
-    where: {
-      action_performed: {
-        contains: search,
-        mode: "insensitive",
-      },
-      ...(status ? {outcome: status} : {}),
+  
+  // Define the where clause for both findMany and count
+  const whereClause = {
+    action_performed: {
+      contains: search,
+      mode: "insensitive",
     },
-    include: {
-      user: {
-        include: {
-          user: true,
+    ...(status ? {outcome: status} : {}),
+  };
+
+  const [logs, totalLogs] = await Promise.all([
+    prismaClient.auditLog.findMany({
+      where: whereClause,
+      include: {
+        user: {
+          include: {
+            user: true,
+          },
         },
       },
-    },
-    orderBy: {
-      timestamp: "desc",
-    },
-    skip,
-    take: limitNum,
-  });
-
-  const totalLogs = await prismaClient.auditLog.count();
+      orderBy: {
+        timestamp: "desc",
+      },
+      skip,
+      take: limitNum,
+    }),
+    prismaClient.auditLog.count({
+      where: whereClause,
+    }),
+  ]);
 
   return {
     logs,

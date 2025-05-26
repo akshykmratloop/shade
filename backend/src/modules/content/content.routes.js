@@ -3244,6 +3244,15 @@ router.get(
   tryCatchWrap(ContentController.GetVersionsList)
 );
 
+
+router.get(
+  "/getVersionInfo/:versionId",
+  //   checkPermission(requiredPermissionsForContentManagement),
+  tryCatchWrap(ContentController.GetVersionInfo)
+);
+
+
+
 /**
  * @swagger
  * /content/inactiveResource/{resourceId}:
@@ -3332,10 +3341,10 @@ router.get(
  *         $ref: '#/components/schemas/ErrorResponse'
  */
 
-router.get(
+router.post(
   "/inactiveResource/:resourceId",
   //   checkPermission(requiredPermissionsForContentManagement),
-  tryCatchWrap(ContentController.GetVersionsList)
+  tryCatchWrap(ContentController.InactiveResource)
 );
 
 /**
