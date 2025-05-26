@@ -122,7 +122,7 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                 >
                     <img
                         dir={isLeftAlign ? "ltr" : "rtl"}
-                        src={`${Img_url}${content?.["1"]?.content?.images[0]?.url}`}
+                        src={`${Img_url}${content?.["1"]?.content?.images?.[0]?.url}`}
                         alt={content?.["1"]?.content?.images?.[0]?.url}
                         className="w-full object-cover"
                         style={{ objectPosition: "center", transform: "scaleX(-1)", height: isTablet ? "500px" : isPhone && "500px" }} />
@@ -165,7 +165,7 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                     {/* Image section */}
                     <div className={`${isPhone ? "w-[90%]" : "w-[70%]"} h-[500px] overflow-hidden rounded-sm shadow-lg `}
                         style={{ height: isComputer && dynamicSize(629, width), width: isComputer && dynamicSize(877, width) }}>
-                        <img src={`${Img_url}${content?.["2"]?.content?.images[0]?.url}`} alt="about-us" className="w-full h-[500px] object-cover"
+                        <img src={`${Img_url}${content?.["2"]?.content?.images?.[0]?.url}`} alt="about-us" className="w-full h-[500px] object-cover"
                             style={{ width: isComputer && dynamicSize(877, width), height: isComputer && '100%' }}
                         />
                     </div>

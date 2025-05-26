@@ -102,7 +102,7 @@ const HomeManager = ({ language, currentPath, outOfEditing }) => {
                     { input: "input", label: "Heading/title", updateType: "title", value: content?.['2']?.content?.title?.[language] },
                     { input: "richtext", label: "About section", updateType: "description", maxLength: 800, value: content?.['2']?.content?.description?.[language] },
                     { input: "input", label: "Button Text", updateType: "button", value: content?.['2']?.content?.button?.[0]?.text?.[language], index: 0 }]}
-                inputFiles={[{ label: "Backround Image", id: "aboutUsSection", order: 1, url: content?.["2"]?.content?.images[0]?.url }]}
+                inputFiles={[{ label: "Backround Image", id: "aboutUsSection", order: 1, url: content?.["2"]?.content?.images?.[0]?.url }]}
                 section={"aboutUsSection"}
                 language={language}
                 currentContent={content}

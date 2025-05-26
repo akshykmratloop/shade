@@ -19,7 +19,7 @@ export const differentText = {
 export function defineDevice(screen) {
     if (screen > 900) {
         return "computer"
-    } else if (screen < 900 && screen > 730) {
+    } else if (screen < 900 && screen > 550) {
         return 'tablet'
     } else {
         return 'phone'
