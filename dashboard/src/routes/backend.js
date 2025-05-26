@@ -60,6 +60,8 @@ const api = {
   approveRequest: `${content}/approveRequest/`,
   rejectRequest: `${content}/rejectRequest/`,
   versionsList: `${content}/getVersionsList/`,
+  versionInfo: `${content}/getVersionInfo/`,
+
 
   // Media
   uploadMedia: `${media}/upload`,

@@ -166,8 +166,8 @@ function VersionTable() {
     const openNotification = (id) => {
         dispatch(
             openRightDrawer({
-                header: "Details",
-                bodyType: RIGHT_DRAWER_TYPES.RESOURCE_DETAILS,
+                header: "Version Details",
+                bodyType: RIGHT_DRAWER_TYPES.VERSION_DETAILS,
                 extraObject: { id },
             })
         );
@@ -305,7 +305,7 @@ function VersionTable() {
                                                     <div className="w-[145px] mx-auto flex gap-[15px] justify-center border border border-[1px] border-[#E6E7EC] dark:border-stone-400 rounded-[8px] p-[13.6px] py-[10px]">
                                                         <button
                                                             onClick={() => {
-                                                                // console.log(version)
+                                                                console.log(version.id)
                                                                 setSelectedVersion(version);
                                                                 openNotification(version?.id);
                                                             }}

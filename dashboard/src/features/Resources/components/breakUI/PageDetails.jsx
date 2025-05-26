@@ -14,7 +14,7 @@ import { useNavigate } from "react-router-dom";
 import { updateResourceId } from "../../../common/resourceSlice";
 
 const PageDetails = ({ data, display, setOn }) => {
-  console.log(data)
+  // console.log(data)
   const pageRef = useRef(null);
   const [pageInfo, setPageInfo] = useState(null);
   const [loading, setLoading] = useState(false);
