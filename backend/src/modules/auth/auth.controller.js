@@ -110,7 +110,10 @@ const ResetPass = async (req, res) => {
 };
 
 const GetAllLogs = async (req, res) => {
-  const response = await getAllLogs();
+  const {search, status, page, limit} = req.query;
+  const pageNum = parseInt(page) || 1;
+  const limitNum = parseInt(limit) || 10;
+  const response = await getAllLogs(search, status, pageNum, limitNum);
   res.status(200).json(response);
 };
 

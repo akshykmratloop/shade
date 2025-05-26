@@ -559,8 +559,16 @@ export const fetchAllRolesForUser = async () => {
   };
 };
 
-export const findAllLogs = async () => {
-  return await prismaClient.auditLog.findMany({
+export const findAllLogs = async (search, status, pageNum, limitNum) => {
+  const skip = (pageNum - 1) * limitNum;
+  const logs = await prismaClient.auditLog.findMany({
+    where: {
+      action_performed: {
+        contains: search,
+        mode: "insensitive",
+      },
+      ...(status ? {outcome: status} : {}),
+    },
     include: {
       user: {
         include: {
@@ -571,5 +579,19 @@ export const findAllLogs = async () => {
     orderBy: {
       timestamp: "desc",
     },
+    skip,
+    take: limitNum,
   });
+
+  const totalLogs = await prismaClient.auditLog.count();
+
+  return {
+    logs,
+    pagination: {
+      totalLogs,
+      totalPages: Math.ceil(totalLogs / limitNum),
+      currentPage: pageNum,
+      limitNum,
+    },
+  };
 };
