@@ -21,10 +21,21 @@ export const handleEntityCreationNotification = async ({
     }
 
     // Build base message
+    // const subject =
+    //   newValue.name || newValue.email || newValue.title || newValue.id;
+    // const verb = actionType === "CREATE" ? "created" : "updated";
+    // const message = `A ${entity} '${subject}' has been ${verb}`;
     const subject =
       newValue.name || newValue.email || newValue.title || newValue.id;
     const verb = actionType === "CREATE" ? "created" : "updated";
-    const message = `A ${entity} '${subject}' has been ${verb}`;
+
+    // New: give a friendly actor label
+    const actorLabel = creator.isSuperUser
+      ? "Super Admin"
+      : `User '${creator.name}'`;
+
+    // New: meaningful message
+    const message = `${actorLabel} ${verb} the ${entity} '${subject}'`;
     const eventName = `${entity}_${verb}`;
 
     // Determine recipients
