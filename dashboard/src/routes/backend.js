@@ -45,24 +45,26 @@ const api = {
   markAllNotificationAsRead: `${notification}/read-all/`, // API for marking notification as read
 
   // Pages
-  getResources: `${content}/getResources`,
+  getResources: `${content}/getResources`, // Resources
   getResourceInfo: `${content}/getResourceInfo/`,
   getEligibleUsers: `${content}/getEligibleUsers`,
   assignUser: `${content}/assignUser`,
+  removeAssignedUsers: `${content}/removeAssignedUser/`,
   getAssignedUsers: `${content}/getAssignedUsers`,
-  getContent: `${content}/getContent`,
+
+  getContent: `${content}/getContent`, // Content of Resources
   updateContent: `${content}/updateContent`,
   publishContent: `${content}/directPublishContent`,
+
+  getRequests: `${content}/getRequests`, // requests query
   generateRequest: `${content}/generateRequest`,
-  getRequests: `${content}/getRequests`,
-  removeAssignedUsers: `${content}/removeAssignedUser/`,
   requestInfo: `${content}/getRequestInfo/`,
   approveRequest: `${content}/approveRequest/`,
   rejectRequest: `${content}/rejectRequest/`,
-  versionsList: `${content}/getVersionsList/`,
-  versionInfo: `${content}/getVersionInfo/`,
-  restoreVersion: `${content}/getVersionInfo/`,
 
+  versionsList: `${content}/getVersionsList/`, // versions query
+  versionInfo: `${content}/getVersionInfo/`,
+  restoreVersion: `${content}/restoreVersion/`,
 
   // Media
   uploadMedia: `${media}/upload`,

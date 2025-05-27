@@ -5,10 +5,11 @@ import { BsDashCircle } from "react-icons/bs";
 import { CheckCircle, XCircle } from "lucide-react";
 import capitalizeWords, { TruncateText } from "../../app/capitalizeword";
 import { useSelector } from "react-redux";
-import { getRequestInfo, versionInfo } from "../../app/fetch";
+import { getRequestInfo, restoreVersion, versionInfo } from "../../app/fetch";
 import { FiEye } from "react-icons/fi";
 import Comments from "../Requests/Comments";
 import { Switch } from "@headlessui/react";
+import { toast, ToastContainer } from "react-toastify";
 
 const data = [
     {
@@ -49,24 +50,33 @@ const getStyle = {
     PUBLISHED: "APPROVED"
 }
 
+const toastObject = {
+    hideProgressBar: true, autoClose: 700, pauseOnHover: false
+}
+
 const RequestDetails = () => {
     const id = useSelector(state => state.rightDrawer.extraObject.id)
     const [versionData, setVersionData] = useState({ resource: {}, version: {} })
 
-    const { resource, version } = useState
+    const { resource, version } = versionData
 
     const verifiers = Object.entries(versionData?.["assignedUsers"]?.verifiers || [])
 
     const requestStageStyle = statusStyles[getStyle[versionData?.status]] || {}
 
-    const handleRestoreVersionRequest = (version) => {
+    const handleRestoreVersionRequest = async (version) => {
         // validation
-        if (version.isLive) return
-        if (version.versionStatus !== "PUBLISHED") return "Can't restore version. Version was never published"
+        if (version.isLive) return toast.error("Error! Version is already live.", toastObject)
+        if (version.versionStatus !== "PUBLISHED") return toast.error("Can't restore version. Version was never published.", toastObject)
 
         // API Logic
         try {
-
+            const response = await restoreVersion(version.id)
+            if (response.ok) {
+                toast.success("Version has been restored.", toastObject)
+            } else {
+                toast.error("Failed to restore.", toastObject)
+            }
         } catch (err) {
             console.log(err)
         }
@@ -270,25 +280,25 @@ const RequestDetails = () => {
                                             <Comments comment={comment} />
                                             {/* <div className="flex items-center gap-1">
 
-                        {TruncateText(comment, 20) || "N/A"}
-                        {comment !== "No Comments" && (
-                          <div className=""
-                            onClick={() => setCommentOn(prev => ({ ...prev, i: !prev.i }))}
-                          >
-                            <FiEye />
-                            {
-                              commentOn &&
-                              <div className="absolute right-[110%] top-[50%] z-[70]">
-                                <div className="comment-bubble">
-                                  <div className="comment-bubble-arrow"></div>
-                                  <h3>Comments:</h3>
-                                  <p className={`${comment ? "text-stone-900 dark:text-stone-200" : "text-stone-300"}`}>{comment || "No comments"}</p>
-                                </div>
-                              </div>
-                            }
-                          </div>
-                        )}
-                      </div> */}
+                                                {TruncateText(comment, 20) || "N/A"}
+                                                {comment !== "No Comments" && (
+                                                    <div className=""
+                                                        onClick={() => setCommentOn(prev => ({ ...prev, i: !prev.i }))}
+                                                    >
+                                                        <FiEye />
+                                                        {
+                                                            commentOn &&
+                                                            <div className="absolute right-[110%] top-[50%] z-[70]">
+                                                                <div className="comment-bubble">
+                                                                    <div className="comment-bubble-arrow"></div>
+                                                                    <h3>Comments:</h3>
+                                                                    <p className={`${comment ? "text-stone-900 dark:text-stone-200" : "text-stone-300"}`}>{comment || "No comments"}</p>
+                                                                </div>
+                                                            </div>
+                                                        }
+                                                    </div>
+                                                )}
+                                            </div> */}
                                         </td>
                                     </tr>
                                 );
@@ -297,6 +307,7 @@ const RequestDetails = () => {
                     </table>
                 </div>
             </div>
+            <ToastContainer />
         </div >
     );
 };

@@ -1,51 +1,108 @@
 {
     "message": "Success",
     "content": {
-        "versions": [
-            {
-                "id": "cmb520ito0002qp70wgkpt38s",
-                "versionNumber": 2,
-                "versionStatus": "VERIFICATION_PENDING",
-                "notes": "Initial version created",
-                "referenceDoc": null,
-                "content": {},
-                "icon": null,
-                "Image": null,
-                "lockedById": null,
-                "lockedAt": null,
-                "resourceId": "cmb51wtre00szqp8kjzm72bkg",
-                "createdAt": "2025-05-26T12:18:50.316Z",
-                "updatedAt": "2025-05-26T12:18:50.316Z",
-                "scheduledAt": null,
-                "publishedAt": null,
-                "isLive": false,
-                "isUnderEditing": true
+        "resource": {
+            "id": "cmb51wtre00szqp8kjzm72bkg",
+            "titleEn": "Home Page",
+            "titleAr": "الصفحة الرئيسية",
+            "resourceType": "MAIN_PAGE",
+            "resourceTag": "HOME"
+        },
+        "version": {
+            "id": "cmb520ito0002qp70wgkpt38s",
+            "versionNumber": 2,
+            "versionStatus": "VERIFICATION_PENDING",
+            "notes": "Initial version created",
+            "referenceDoc": null,
+            "isLive": false,
+            "isUnderEditing": true,
+            "createdAt": "2025-05-26T12:18:50.316Z",
+            "updatedAt": "2025-05-26T12:18:50.316Z",
+            "scheduledAt": null,
+            "publishedAt": null,
+            "lockedBy": null,
+            "lockedAt": null,
+            "roleHistory": {
+                "MANAGER": [],
+                "EDITOR": [
+                    {
+                        "user": {
+                            "id": "cmb51zdu30000qp70zhwf2yyz",
+                            "name": "Anukool chuahan",
+                            "email": "user1@gmail.com"
+                        },
+                        "status": "ACTIVE",
+                        "assignedAt": "2025-05-26T12:20:14.974Z"
+                    }
+                ],
+                "PUBLISHER": [
+                    {
+                        "user": {
+                            "id": "cmb0rmuvg0002qp4xt8w2cm1x",
+                            "name": "Bhavnesh",
+                            "email": "bhanusharma25200@gmail.com"
+                        },
+                        "status": "ACTIVE",
+                        "assignedAt": "2025-05-26T12:20:14.979Z"
+                    }
+                ]
             },
-            {
-                "id": "cmb51wtri00t1qp8kz5n62yoi",
-                "versionNumber": 1,
-                "versionStatus": "PUBLISHED",
-                "notes": "Initial version created",
-                "referenceDoc": null,
-                "content": {},
-                "icon": null,
-                "Image": null,
-                "lockedById": null,
-                "lockedAt": null,
-                "resourceId": "cmb51wtre00szqp8kjzm72bkg",
-                "createdAt": "2025-05-26T12:15:57.870Z",
-                "updatedAt": "2025-05-26T12:15:57.870Z",
-                "scheduledAt": null,
-                "publishedAt": null,
-                "isLive": true,
-                "isUnderEditing": false
-            }
-        ],
-        "pagination": {
-            "totalVersions": 2,
-            "totalPages": 1,
-            "currentPage": 1,
-            "limit": 10
+            "verifierHistory": {
+                "1": [
+                    {
+                        "user": {
+                            "id": "cmb0rls150000qp4xpn4y20vj",
+                            "name": "Jyoti",
+                            "email": "jyotikumari@loopmethods.com"
+                        },
+                        "status": "ACTIVE",
+                        "assignedAt": "2025-05-26T12:20:14.982Z"
+                    }
+                ]
+            },
+            "requestHistory": [
+                {
+                    "id": "9110a65c-c758-4961-9805-0fa15cac5738",
+                    "type": "VERIFICATION",
+                    "status": "VERIFICATION_PENDING",
+                    "flowStatus": "PENDING",
+                    "submittedBy": {
+                        "id": "cmawfx6da0008qp0w1q4ittw9",
+                        "name": "Anukool",
+                        "email": "anukool26@outlook.com"
+                    },
+                    "submittedAt": "2025-05-26T12:18:50.506Z",
+                    "verifierApprovals": {
+                        "1": [
+                            {
+                                "approver": {
+                                    "id": "cmb0rls150000qp4xpn4y20vj",
+                                    "name": "Jyoti",
+                                    "email": "jyotikumari@loopmethods.com"
+                                },
+                                "status": "PENDING",
+                                "comments": null,
+                                "approverStatus": "ACTIVE",
+                                "createdAt": "2025-05-26T12:18:50.514Z",
+                                "updatedAt": "2025-05-26T12:18:50.514Z"
+                            }
+                        ]
+                    },
+                    "publisherApproval": {
+                        "approver": {
+                            "id": "cmb0rmuvg0002qp4xt8w2cm1x",
+                            "name": "Bhavnesh",
+                            "email": "bhanusharma25200@gmail.com"
+                        },
+                        "status": "PENDING",
+                        "comments": null,
+                        "approverStatus": "ACTIVE",
+                        "createdAt": "2025-05-26T12:18:50.510Z",
+                        "updatedAt": "2025-05-26T12:18:50.510Z"
+                    },
+                    "updatedAt": "2025-05-26T12:18:50.506Z"
+                }
+            ]
         }
     }
 }

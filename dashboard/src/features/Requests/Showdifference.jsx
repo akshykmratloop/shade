@@ -73,12 +73,12 @@ function ShowDifference({ show, onClose, request, resourceId, currentlyEditor, c
 
     useEffect(() => {
         const handleClickOutside = (e) => {
-            if (modalRef.current && !modalRef.current.contains(e.target)) {
-                onClose();
-            }
-            if (commentRef.current && !commentRef.current.contains(e.target)) {
-                setCommentOn(false)
-            }
+            // if (modalRef.current && !modalRef.current.contains(e.target)) {
+            //     onClose();
+            // }
+            // if (commentRef.current && !commentRef.current.contains(e.target)) {
+            //     setCommentOn(false)
+            // }
         };
 
         const handleKeyDown = (e) => {
@@ -143,7 +143,7 @@ function ShowDifference({ show, onClose, request, resourceId, currentlyEditor, c
                 observer.unobserve(divRef.current);
             }
         };
-    }, []);
+    }, [editVersion]);
 
     // console.log((!currentlyEditor || request.flowStatus === "PENDING"))
 
