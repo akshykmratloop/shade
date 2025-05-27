@@ -857,7 +857,7 @@
         }
       }
     ],
-    "GallerySection1": {
+    "GallerySection": {
       "images": [
         {
           "order": 1,
@@ -865,34 +865,6 @@
           "altText": {
             "en": "Image 1",
             "ar": "صورة شعار الصفحة الرئيسية"
-          }
-        },
-        {
-          "order": 2,
-          "url": "https://frequencyimage.s3.ap-south-1.amazonaws.com/ae1cee6e-f695-4e06-8e0b-983b8cb94209-Rectangle%2034624111.jpg",
-          "altText": {
-            "en": "Image 2",
-            "ar": "صورة 2"
-          }
-        },
-        {
-          "order": 3,
-          "url": "https://frequencyimage.s3.ap-south-1.amazonaws.com/be6992a3-4390-42c1-b807-b1a04f48b0e6-Rectangle%2034624112.jpg",
-          "altText": {
-            "en": "Image 3",
-            "ar": "صورة 3"
-          }
-        }
-      ]
-    },
-    "GallerySection2": {
-      "images": [
-        {
-          "order": 1,
-          "url": "https://frequencyimage.s3.ap-south-1.amazonaws.com/851e35b5-9b3b-4d9f-91b4-9b60ef2a102c-Rectangle%2034624110.png",
-          "altText": {
-            "en": "Image 1",
-            "ar": "صورة 1"
           }
         },
         {

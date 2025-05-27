@@ -3252,6 +3252,12 @@ router.get(
 );
 
 
+router.get(
+  "/restoreVersion/:versionId",
+  //   checkPermission(requiredPermissionsForContentManagement),
+  tryCatchWrap(ContentController.RestoreVersion)
+);
+
 
 /**
  * @swagger

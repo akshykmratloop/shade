@@ -668,6 +668,10 @@ async function main() {
                 SectionType: "EXTERNAL_ITEMS",
                 content: service.otherSecondLevelOFServices,
                 sectionVersionTitle: `${service.resourceTitle.en}-otherSecondLevelOFServices`,
+                items: secondLevelOFServices?.map((slug) => ({
+                  resourceType: "SUB_PAGE_ITEM",
+                  slug: slug,
+                })) || [],
               },
             ],
             [],
@@ -1006,17 +1010,11 @@ async function main() {
               sectionVersionTitle: "Solution-detailsSection",
             },
             {
-              title: "GallerySection1",
+              title: "GallerySection",
               SectionType: "GALLERY_GRID",
-              content: content.solution.GallerySection1,
-              sectionVersionTitle: "Solution-GallerySection1",
-            },
-            {
-              title: "GallerySection2",
-              SectionType: "GALLERY_GRID",
-              content: content.solution.GallerySection2,
-              sectionVersionTitle: "Solution-GallerySection2",
-            },
+              content: content.solution.GallerySection,
+              sectionVersionTitle: "Solution-GallerySection",
+            }
           ]
         );
 
