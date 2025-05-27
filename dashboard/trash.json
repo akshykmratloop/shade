@@ -1,7 +1,7 @@
 {
     "message": "Success",
     "content": {
-        "id": "cmb66aigy00n9qpectbhdkbvf",
+        "id": "cmb688co900n9qph6tf0k4i6d",
         "titleEn": "News & Blogs Page",
         "titleAr": "الأخبار و المدونات",
         "slug": "news-blogs",
@@ -10,20 +10,20 @@
         "resourceTag": "NEWS",
         "relationType": "PARENT",
         "liveModeVersionData": {
-            "id": "cmb66aih000nbqpecgoc08n5a",
+            "id": "cmb688coc00nbqph6qlnuh9pd",
             "versionNumber": 1,
             "icon": null,
             "image": null,
             "comments": "Initial version created by system",
             "referenceDoc": null,
-            "updatedAt": "2025-05-27T07:06:21.060Z",
+            "updatedAt": "2025-05-27T08:00:39.468Z",
             "status": "LIVE",
             "sections": [
                 {
-                    "sectionId": "cmb66aihh00ndqpecv8ch5lcg",
+                    "sectionId": "cmb688cpt00ndqph6fkl2kk7h",
                     "order": 1,
                     "version": 1,
-                    "title": "bannerSection-news-blogs-549c",
+                    "title": "bannerSection-news-blogs-d443",
                     "content": {
                         "title": {
                             "ar": "خبر & المدونات",
@@ -58,10 +58,10 @@
                     "sections": []
                 },
                 {
-                    "sectionId": "cmb66aihn00njqpec102bgnzy",
+                    "sectionId": "cmb688cqa00njqph6armrkob3",
                     "order": 2,
                     "version": 1,
-                    "title": "featuredArticle-news-blogs-dde9",
+                    "title": "featuredArticle-news-blogs-c268",
                     "content": {
                         "button": [
                             {
@@ -78,21 +78,29 @@
                     "sections": [],
                     "items": [
                         {
-                            "id": "cmb66ahx9000bqpeciptu1pz1",
+                            "id": "cmb688asm000bqph6lant9qg9",
                             "titleEn": "Youth Overcoming Disability",
                             "titleAr": "شباب يتحدون الإعاقة",
                             "slug": "youth-overcoming-disability",
                             "icon": null,
                             "image": null,
+                            "description": {
+                                "ar": "يواجه ذوو الإعاقة في منطقة الشرق الأوسط العديد من التحديات التي تتراوح بين الأزمات الاقتصادية والحروب المستمرة، مما يجعل حياتهم اليومية أكثر صعوبة. بالرغم من ذلك، يسعى العديد منهم لتحدي هذه الصعوبات والمساهمة في تغيير مجتمعاتهم.",
+                                "en": "People with disabilities in the Middle East face many challenges, ranging from economic crises to ongoing wars, which make their daily lives more difficult. Despite this, many of them strive to overcome these difficulties and contribute to the betterment of their communities."
+                            },
+                            "date": {
+                                "ar": "20 مايو 2020",
+                                "en": "Monday May 20"
+                            },
                             "order": 1
                         }
                     ]
                 },
                 {
-                    "sectionId": "cmb66aiht00nrqpecosk191jk",
+                    "sectionId": "cmb688cqv00nrqph63an8awks",
                     "order": 3,
                     "version": 1,
-                    "title": "latestNewCards-news-blogs-0ee7",
+                    "title": "latestNewCards-news-blogs-d02e",
                     "content": {
                         "button": [
                             {
@@ -122,48 +130,80 @@
                     "sections": [],
                     "items": [
                         {
-                            "id": "cmb66ahx9000bqpeciptu1pz1",
+                            "id": "cmb688asm000bqph6lant9qg9",
                             "titleEn": "Youth Overcoming Disability",
                             "titleAr": "شباب يتحدون الإعاقة",
                             "slug": "youth-overcoming-disability",
                             "icon": null,
                             "image": null,
+                            "description": {
+                                "ar": "يواجه ذوو الإعاقة في منطقة الشرق الأوسط العديد من التحديات التي تتراوح بين الأزمات الاقتصادية والحروب المستمرة، مما يجعل حياتهم اليومية أكثر صعوبة. بالرغم من ذلك، يسعى العديد منهم لتحدي هذه الصعوبات والمساهمة في تغيير مجتمعاتهم.",
+                                "en": "People with disabilities in the Middle East face many challenges, ranging from economic crises to ongoing wars, which make their daily lives more difficult. Despite this, many of them strive to overcome these difficulties and contribute to the betterment of their communities."
+                            },
+                            "date": {
+                                "ar": "20 مايو 2020",
+                                "en": "Monday May 20"
+                            },
                             "order": 1
                         },
                         {
-                            "id": "cmb66ahxu000wqpec7afsx17t",
+                            "id": "cmb688aum000wqph6n5w5j1dz",
                             "titleEn": "Saudi Robots Join Millions in Performing the Hajj",
                             "titleAr": "الروبوتات السعودية تنضم إلى الملايين في أداء فريضة الحج",
                             "slug": "saudi-robots-hajj",
                             "icon": null,
                             "image": null,
+                            "description": {
+                                "ar": "في خطوة مبتكرة، تستخدم المملكة العربية السعودية الروبوتات لمساعدة الحجاج في أداء مناسكهم. هذه الروبوتات تقدم خدمات مثل الإرشاد وتوفير المياه، مما يسهم في تسهيل أداء المناسك.",
+                                "en": "In an innovative move, Saudi Arabia uses robots to assist pilgrims in performing their rituals. These robots provide services such as guidance and water distribution, contributing to the ease of performing the rites."
+                            },
+                            "date": {
+                                "ar": "20 مايو 2020",
+                                "en": "Monday May 20"
+                            },
                             "order": 2
                         },
                         {
-                            "id": "cmb66ahy9001hqpec29mmkn8u",
+                            "id": "cmb688aw9001hqph672urk4to",
                             "titleEn": "Technology Serving People with Disabilities",
                             "titleAr": "التكنولوجيا في خدمة ذوي الإعاقة",
                             "slug": "technology-serving-disabilities",
                             "icon": null,
                             "image": null,
+                            "description": {
+                                "ar": "تلعب التكنولوجيا دورًا حيويًا في تحسين حياة الأشخاص ذوي الإعاقة من خلال تقديم حلول مبتكرة مثل الأطراف الصناعية، وبرامج التدريب، والتطبيقات الذكية التي تسهل حياتهم اليومية.",
+                                "en": "Technology plays a vital role in improving the lives of people with disabilities by providing innovative solutions such as prosthetics, training programs, and smart apps that make daily life easier."
+                            },
+                            "date": {
+                                "ar": "15 يونيو 2021",
+                                "en": "Tuesday June 15"
+                            },
                             "order": 3
                         },
                         {
-                            "id": "cmb66ahyp0022qpecl1oxed9g",
+                            "id": "cmb688axw0022qph65gka9sr7",
                             "titleEn": "Inspiring Success Stories",
                             "titleAr": "قصص نجاح ملهمة",
                             "slug": "inspiring-success-stories",
                             "icon": null,
                             "image": null,
+                            "description": {
+                                "ar": "من جميع أنحاء العالم، هناك العديد من الأشخاص الذين تغلبوا على تحديات كبيرة لتحقيق نجاحاتهم. تتنوع هذه القصص من التغلب على إصابات جسدية إلى التغلب على الظروف الاجتماعية الصعبة.",
+                                "en": "From around the world, there are many people who have overcome significant challenges to achieve their success. These stories range from overcoming physical injuries to conquering difficult social circumstances."
+                            },
+                            "date": {
+                                "ar": "10 يوليو 2021",
+                                "en": "Saturday July 10"
+                            },
                             "order": 4
                         }
                     ]
                 },
                 {
-                    "sectionId": "cmb66aii700o5qpecumj97dnl",
+                    "sectionId": "cmb688crw00o5qph638gszwje",
                     "order": 4,
                     "version": 1,
-                    "title": "featuredArticle-news-blogs-b22d",
+                    "title": "featuredArticle-news-blogs-9daa",
                     "content": {
                         "button": [
                             {
@@ -184,12 +224,20 @@
                     "sections": [],
                     "items": [
                         {
-                            "id": "cmb66ahxu000wqpec7afsx17t",
+                            "id": "cmb688aum000wqph6n5w5j1dz",
                             "titleEn": "Saudi Robots Join Millions in Performing the Hajj",
                             "titleAr": "الروبوتات السعودية تنضم إلى الملايين في أداء فريضة الحج",
                             "slug": "saudi-robots-hajj",
                             "icon": null,
                             "image": null,
+                            "description": {
+                                "ar": "في خطوة مبتكرة، تستخدم المملكة العربية السعودية الروبوتات لمساعدة الحجاج في أداء مناسكهم. هذه الروبوتات تقدم خدمات مثل الإرشاد وتوفير المياه، مما يسهم في تسهيل أداء المناسك.",
+                                "en": "In an innovative move, Saudi Arabia uses robots to assist pilgrims in performing their rituals. These robots provide services such as guidance and water distribution, contributing to the ease of performing the rites."
+                            },
+                            "date": {
+                                "ar": "20 مايو 2020",
+                                "en": "Monday May 20"
+                            },
                             "order": 1
                         }
                     ]

@@ -6,6 +6,8 @@ import { useDispatch, useSelector } from "react-redux";
 // import Arrow from "../../../../assets/icons/right-wrrow.svg";
 import { updateMainContent } from "../../../common/homeContentSlice";
 import TruncateComponent from "../../../../components/Truncate.jsx/TruncateComponent";
+import { TruncateText } from "../../../../app/capitalizeword";
+import { Img_url } from "../../../../routes/backend";
 // import styles from "@/components/news-and-blogs/newsblogs.module.scss";
 // Font files can be colocated inside of `app`
 // const BankGothic = localFont({
@@ -17,36 +19,28 @@ import TruncateComponent from "../../../../components/Truncate.jsx/TruncateCompo
 // const AnimatedText = dynamic(() => import('@/common/AnimatedText'), { ssr: false });
 
 
-const NewsBlogspage = ({ language, screen }) => {
+const NewsBlogspage = ({ language, screen, content }) => {
     const isLeftAlign = language === 'en'
+    const titleLan = isLeftAlign ? "titleEn" : "titleAr"
     const isPhone = screen < 761
     const isTablet = screen > 760 && screen < 900
-    const dispatch = useDispatch()
-    const currentContent = useSelector((state) => state.homeContent.present.newsBlogs)
+    // const dispatch = useDispatch()
+    // const currentContent = useSelector((state) => state.homeContent.present.newsBlogs)
     const ImageFromRedux = useSelector((state) => state.homeContent.present.images)
-    const bannerTitle = currentContent?.bannerSection?.title?.[language];
-    const bannerDescription = currentContent?.bannerSection?.description[language];
-    const mainCard = currentContent?.mainCard;
-    const latestNews = currentContent?.latestNewCards;
-    const trendingCard = currentContent?.trendingCard;
-    // const TruncateText = (text, length) => TruncateText(text, length || 200);
+    const bannerTitle = content?.['1']?.content?.title?.[language];
+    const bannerDescription = content?.['1']?.content?.description[language];
+    const banner = content?.['1']?.content
+    const mainCard = content?.['2']?.items?.[0]
+    const latestNews = content?.['3']?.items;
+    const trendingCard = content?.['4']?.items?.[0];
 
-    // const handleNavigate = (id) => {
-    //     // router.push(`blog/${id}`);
-    // };
-
-
-    useEffect(() => {
-        dispatch(updateMainContent({ currentPath: "newsBlogs", payload: content.newsBlogs }))
-    }, [])
     return (
         <div>
             {/**Banner Section */}
             <section className={`relative px-5 w-full bg-cover bg-center ${isLeftAlign ? 'scale-x-[-1]' : ''}  `}
                 style={{
                     height: 1100 * 0.436,
-                    backgroundImage: ImageFromRedux.newsBanner ? `url(${ImageFromRedux.newsBanner})` :
-                        "url('https://loopwebsite.s3.ap-south-1.amazonaws.com/Hero+(2).png')"
+                    backgroundImage: banner.images?.[0]?.url ? Img_url + banner.images?.[0]?.url : "url('https://loopwebsite.s3.ap-south-1.amazonaws.com/Hero+(2).png')"
                 }}>
                 <div className={`${isTablet && "py-[200px]"} container h-full relative ${isPhone ? "px-10" : "px-20"} flex items-center ${isLeftAlign ? "justify-end" : "justify-end"}`}>
                     <div className={`flex flex-col ${isLeftAlign ? 'right-5 text-left items-start ' : 'left-5 text-right items-end'} ${isPhone ? "max-w-[90%]" : isTablet ? "max-w-[70%]" : "max-w-[50%]"} w-full ${isLeftAlign ? 'scale-x-[-1]' : ''}`}>
@@ -80,13 +74,13 @@ const NewsBlogspage = ({ language, screen }) => {
                         <div className={`flex items-center ${!isLeftAlign && "flex-row-reverse text-right"} ${isTablet || isPhone ? "flex-col pb-6" : ""} justify-center gap-[50px] p-2 mx-auto rounded-md border border-gray-300 bg-white shadow-md shadow-gray-200`}>
                             <div className="p-[30px]">
                                 <h2 title={mainCard?.title?.[language]} className="text-[#292E3D] text-[20px] font-bold mb-4">
-                                    <TruncateComponent string={mainCard?.title?.[language] ?? ""} truncAt={20} language={language} />
+                                    {TruncateText(mainCard?.[titleLan], 20)}
                                 </h2>
                                 <p
                                     title={mainCard?.description?.[language]}
                                     className="text-xs text-[rgba(0,26,88,0.51)] font-light leading-[22px] mb-6"
                                 >
-                                    <TruncateComponent string={mainCard?.description?.[language] ?? ""} truncAt={150} language={language} />
+                                    {TruncateText(mainCard?.description?.[language], 150)}
                                 </p>
                                 <div className="flex items-center justify-between gap-5">
                                     <h6 className="text-[12px] text-gray-600 font-light">
@@ -94,14 +88,13 @@ const NewsBlogspage = ({ language, screen }) => {
                                     </h6>
                                     <button
                                         className="text-[14px] text-[#00b9f2] font-bold bg-transparent border-none cursor-pointer"
-                                    // onClick={() => handleNavigate(mainCard?.id)}
                                     >
-                                        {mainCard?.readMore?.[language]}
+                                        {content?.['2']?.button?.[0]?.text?.[language]}
                                     </button>
                                 </div>
                             </div>
                             <img
-                                src={mainCard?.image.slice(0, 5) === "https" ? mainCard.image : newsBlogs?.[mainCard.image]}
+                                src={mainCard?.image?.slice(0, 5) === "https" ? mainCard.image : Img_url + mainCard?.image}
                                 className="rounded-md mr-1 h-[200px] object-cover object-left"
                                 alt=""
                                 width={333}
@@ -115,15 +108,14 @@ const NewsBlogspage = ({ language, screen }) => {
             <section className={`pb-20 ${language === "en" ? "text-left" : "text-right"}`}>
                 <div className="container mx-auto px-16">
                     <h2 className={`text-[28px] text-[#0E172F] opacity-70 font-normal mb-6`}>
-                        {latestNews?.heading[language]}
+                        {content?.['3']?.content?.heading?.[language]}
                     </h2>
                     <div className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 ${isTablet ? "lg:grid-cols-3" : isPhone ? "lg:grid-cols-1" : "lg:grid-cols-4"} gap-3 justify-items-center ${isLeftAlign ? '' : 'scale-x-[-1]'}`}>
-                        {latestNews?.cards?.map((card, index) => {
-                            if (!card.display) return null
+                        {latestNews?.map((card, index) => {
                             return (
                                 <div key={index} className={`rounded-md border border-gray-300 bg-white shadow-md overflow-hidden ${isPhone ? "min-h-[390px]" : "min-h-[390px]"}`}>
                                     <img
-                                        src={card.image.slice(0, 5) === "https" ? card.image : newsBlogs[card.image]}
+                                        src={card.image?.slice(0, 5) === "https" ? card.image : Img_url + card?.image}
                                         alt=""
                                         className={`object-cover object-center w-full ${isPhone ? "h-[200px]" : "h-[130px]"}`}
                                         width={180}
@@ -131,16 +123,17 @@ const NewsBlogspage = ({ language, screen }) => {
                                     <div className={`p-2 flex-auto flex flex-col justify-between ${isPhone ? "min-h-[48%]" : "min-h-[68%]"}`}>
                                         <div>
                                             <h2
-                                                title={card?.title?.[language]}
+                                                title={card?.[titleLan]}
                                                 className={`text-[16px] font-bold mb-2 text-[#292E3D] ${isLeftAlign ? '' : 'scale-x-[-1] text-right'}`}
                                             >
-                                                <TruncateComponent string={card?.title?.[language] ?? ""} truncAt={25} language={language} />
+                                                {TruncateText(card?.[titleLan], 25)}
                                             </h2>
                                             <p
                                                 title={card.description[language]}
                                                 className={`text-[13px] font-light text-[#001A58]/50 leading-4 mb-5 ${isLeftAlign ? '' : 'scale-x-[-1] text-right'}`}
                                             >
-                                                <TruncateComponent string={card.description[language] ?? ""} truncAt={150} language={language} />
+                                                {TruncateText(card.description[language], 150)}
+
                                             </p>
                                         </div>
                                         <div className="flex items-center justify-between">
@@ -152,7 +145,7 @@ const NewsBlogspage = ({ language, screen }) => {
                                                 // onClick={() => router.push(`blog/${card.id}`)}
                                                 className={`text-[10px] font-bold text-[#00B9F2] border-none bg-transparent cursor-pointer ${isLeftAlign ? '' : 'scale-x-[-1] text-right'}`}
                                             >
-                                                {card.readMore[language]}
+                                                {content?.['3']?.content.button?.[0]?.text?.[language]}
                                             </button>
                                         </div>
                                     </div>
@@ -172,34 +165,30 @@ const NewsBlogspage = ({ language, screen }) => {
                         <div className={`flex p-0 items-start ${!isLeftAlign && "flex-row-reverse text-right"} ${isTablet || isPhone && "flex-col-reverse"} gap-11 mx-auto rounded-md overflow-hidden bg-[rgba(20,80,152,0.06)]`}>
                             <div className="p-8 flex-1">
                                 {<button className={`px-8 py-2 ${!trendingCard?.button && "invisible"} flex justify-center items-center gap-2 rounded-3xl bg-[#145098] text-white text-sm font-normal tracking-wide mb-8 border-none cursor-pointer`}>
-                                    {trendingCard?.button?.text[language]}
+                                    {trendingCard?.heading?.[language]}
                                 </button>}
                                 <h2
                                     title={trendingCard?.title?.[language]}
                                     className="font-bold text-lg leading-6 text-[#292E3D]"
                                 >
-                                    <TruncateComponent string={trendingCard?.title?.[language] ?? ""} truncAt={35} language={language} />
+                                    {TruncateText(trendingCard?.[titleLan], 35)}
                                 </h2>
-                                <p
-                                    title={trendingCard?.description[language]}
-                                    className="text-xs font-light leading- text-[rgba(0,26,88,0.51)] mb-6 h-[150px]"
-                                >
-                                    <TruncateComponent string={trendingCard?.description[language] ?? ""} truncAt={150} language={language} />
+                                <p className="text-xs font-light leading- text-[rgba(0,26,88,0.51)] mb-6 h-[150px]">
+                                    {TruncateText(trendingCard?.description?.[language], 150)}
                                 </p>
                                 <div className="flex items-center justify-between gap-5">
                                     <h6 className="text-xs font-light text-gray-600">
-                                        {trendingCard?.date[language]}
+                                        {trendingCard?.date?.[language]}
                                     </h6>
                                     <button
                                         className="text-sm font-bold text-[#00b9f2] bg-transparent border-none cursor-pointer"
-                                    // onClick={() => handleNavigate(trendingCard.id)}
                                     >
-                                        {trendingCard?.readMore[language]}
+                                        {content?.['4']?.content?.button?.[0]?.text?.[language]}
                                     </button>
                                 </div>
                             </div>
                             <img
-                                src={trendingCard?.image.slice(0, 5) === "https" ? trendingCard?.image : newsBlogs[trendingCard?.image]}
+                                src={trendingCard?.image?.slice(0, 5) === "https" ? trendingCard?.image : Img_url + trendingCard?.image}
                                 alt="Trending Card Image"
                                 // width={439}
                                 // height={329} 

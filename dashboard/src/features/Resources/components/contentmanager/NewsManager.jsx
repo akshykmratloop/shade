@@ -9,11 +9,11 @@ import content from "../websiteComponent/content.json"
 import { useDispatch } from "react-redux";
 
 const NewsManager = ({ language, currentContent, currentPath }) => {
-    const dispatch = useDispatch()
+    // const dispatch = useDispatch()
 
-    useEffect(() => {
-        dispatch(updateMainContent({ currentPath: "home", payload: (content?.newsBlogs) }))
-    }, [])
+    // useEffect(() => {
+    //     dispatch(updateMainContent({ currentPath: "home", payload: (content?.newsBlogs) }))
+    // }, [])
 
     return (
         <div className="w-full">
@@ -35,7 +35,7 @@ const NewsManager = ({ language, currentContent, currentPath }) => {
             />
 
             {/* select main news */}
-            <MultiSelectSM
+            {/* <MultiSelectSM
                 referenceOriginal={{ dir: "MainNews", index: 0 }}
                 currentContent={currentContent}
                 currentPath={currentPath}
@@ -45,7 +45,7 @@ const NewsManager = ({ language, currentContent, currentPath }) => {
                 heading={"Main News Section"}
                 tabName={"Select News"}
                 options={currentPath?.latestNewCards?.cards}
-            />
+            /> */}
 
             <ContentSection
                 currentPath={currentPath}
@@ -59,7 +59,7 @@ const NewsManager = ({ language, currentContent, currentPath }) => {
             />
 
             {/* select latest news */}
-            <MultiSelect
+            {/* <MultiSelect
                 currentPath={currentPath}
                 section={"latestNewCards"}
                 language={language}
@@ -69,10 +69,10 @@ const NewsManager = ({ language, currentContent, currentPath }) => {
                 options={currentContent?.latestNewCards?.cards}
                 referenceOriginal={{ dir: "news", index: 0 }}
                 currentContent={currentContent}
-            />
+            /> */}
 
             {/* select trending news */}
-            <MultiSelectSM
+            {/* <MultiSelectSM
                 referenceOriginal={{ dir: "TrendingNews", index: 0 }}
                 currentContent={currentContent}
                 currentPath={currentPath}
@@ -82,7 +82,7 @@ const NewsManager = ({ language, currentContent, currentPath }) => {
                 heading={"Trend News Section"}
                 tabName={"Select News"}
                 options={currentPath?.latestNewCards?.cards}
-            />
+            /> */}
 
         </div>
     )
