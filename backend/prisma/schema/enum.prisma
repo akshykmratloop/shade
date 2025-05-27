@@ -83,6 +83,7 @@ enum VersionStatus {
   ARCHIVED
   SCHEDULED
   PUBLISHED
+  LIVE
   NULL
 }
 

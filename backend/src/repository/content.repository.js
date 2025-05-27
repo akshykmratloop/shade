@@ -1129,14 +1129,46 @@ export const assignUserToResource = async (
 
     // 4. Process verifier assignments (after roles are processed)
     if (Array.isArray(verifiers)) {
+      // Check if publisher has taken action on any pending requests
+      const pendingRequests = await getPendingRequests(resourceId);
+      let publisherHasTakenAction = false;
+
+      if (pendingRequests.length > 0) {
+        // Find current active publisher
+        const currentPublisher = currentResource.roles.find(
+          (r) => r.role === "PUBLISHER" && r.status === "ACTIVE"
+        );
+
+        if (currentPublisher) {
+          publisherHasTakenAction = await hasUserTakenAction(
+            currentPublisher.userId,
+            pendingRequests.map(req => req.id),
+            null // Publisher stage is null
+          );
+        }
+      }
+
       // Deactivate verifiers not in payload
       const verifiersToDeactivate = currentActiveVerifiers.filter(
         (v) =>
           !verifiers.some((v2) => v2.id === v.userId && v2.stage === v.stage)
       );
-      for (const verifier of verifiersToDeactivate) {
-        const pendingRequests = await getPendingRequests(resourceId);
 
+      // If publisher has taken action, prevent ALL verifier modifications
+      if (publisherHasTakenAction) {
+        // Check if there are any changes to verifiers
+        const hasVerifierChanges =
+          verifiersToDeactivate.length > 0 ||
+          verifiers.some(v => !currentActiveVerifiers.find(cv => cv.userId === v.id && cv.stage === v.stage));
+
+        if (hasVerifierChanges) {
+          throw new Error(`Cannot modify verifiers because the publisher has already taken action on pending requests. Verifier assignments cannot be changed once the publisher has approved or rejected a request.`);
+        }
+
+        // If no changes, skip verifier processing and continue to version assignments
+      } else {
+        // Publisher has NOT taken action, proceed with normal verifier processing
+        for (const verifier of verifiersToDeactivate) {
         if (pendingRequests.length > 0) {
           const hasTakenAction = await hasUserTakenAction(
             verifier.userId,
@@ -1167,6 +1199,52 @@ export const assignUserToResource = async (
           where: { id: verifier.id },
           data: { status: "INACTIVE" },
         });
+
+        // Check if this was the last pending verifier and update request status if needed
+        if (pendingRequests.length > 0) {
+          for (const request of pendingRequests) {
+            // Get all active approvals for this request
+            const activeApprovals = await prisma.requestApproval.findMany({
+              where: {
+                requestId: request.id,
+                approverStatus: "ACTIVE",
+                stage: { not: null } // Only verifier approvals (exclude publisher)
+              }
+            });
+
+            // Check if all remaining active verifier approvals are approved
+            const allVerifiersApproved = activeApprovals.length > 0 &&
+              activeApprovals.every(approval => approval.status === "APPROVED");
+
+            // If all remaining verifiers have approved, transition to publish pending
+            if (allVerifiersApproved) {
+              // Update request status to PUBLISH_PENDING
+              await prisma.resourceVersioningRequest.update({
+                where: { id: request.id },
+                data: {
+                  status: "PUBLISH_PENDING",
+                  type: "PUBLICATION",
+                  flowStatus: "PENDING"
+                }
+              });
+
+              // Update resource version status to PUBLISH_PENDING
+              const requestDetails = await prisma.resourceVersioningRequest.findUnique({
+                where: { id: request.id },
+                select: { resourceVersionId: true }
+              });
+
+              if (requestDetails) {
+                await prisma.resourceVersion.update({
+                  where: { id: requestDetails.resourceVersionId },
+                  data: {
+                    versionStatus: "PUBLISH_PENDING"
+                  }
+                });
+              }
+            }
+          }
+        }
       }
 
       // Get all users being assigned to roles from the payload
@@ -1252,6 +1330,53 @@ export const assignUserToResource = async (
             where: {id: assignment.id},
             data: {status: "INACTIVE"},
           });
+
+          // Check if this was the last pending verifier and update request status if needed
+          const pendingRequestsForReassignment = await getPendingRequests(resourceId);
+          if (pendingRequestsForReassignment.length > 0) {
+            for (const request of pendingRequestsForReassignment) {
+              // Get all active approvals for this request
+              const activeApprovals = await prisma.requestApproval.findMany({
+                where: {
+                  requestId: request.id,
+                  approverStatus: "ACTIVE",
+                  stage: { not: null } // Only verifier approvals (exclude publisher)
+                }
+              });
+
+              // Check if all remaining active verifier approvals are approved
+              const allVerifiersApproved = activeApprovals.length > 0 &&
+                activeApprovals.every(approval => approval.status === "APPROVED");
+
+              // If all remaining verifiers have approved, transition to publish pending
+              if (allVerifiersApproved) {
+                // Update request status to PUBLISH_PENDING
+                await prisma.resourceVersioningRequest.update({
+                  where: { id: request.id },
+                  data: {
+                    status: "PUBLISH_PENDING",
+                    type: "PUBLICATION",
+                    flowStatus: "PENDING"
+                  }
+                });
+
+                // Update resource version status to PUBLISH_PENDING
+                const requestDetails = await prisma.resourceVersioningRequest.findUnique({
+                  where: { id: request.id },
+                  select: { resourceVersionId: true }
+                });
+
+                if (requestDetails) {
+                  await prisma.resourceVersion.update({
+                    where: { id: requestDetails.resourceVersionId },
+                    data: {
+                      versionStatus: "PUBLISH_PENDING"
+                    }
+                  });
+                }
+              }
+            }
+          }
         }
 
         // Deactivate any other active verifier assignments for this user (Single Active Verifier Stage Per User)
@@ -1500,6 +1625,7 @@ export const assignUserToResource = async (
           }
         }
       }
+      } // End of else block for publisher has NOT taken action
     }
 
     // 5. Process version assignments (same logic as above)
@@ -1623,33 +1749,113 @@ export const assignUserToResource = async (
 
       // Process version verifiers
       if (Array.isArray(verifiers)) {
+        // Check if version publisher has taken action on any pending requests
+        const pendingVersionRequests = await getPendingRequests(null, versionId);
+        let versionPublisherHasTakenAction = false;
+
+        if (pendingVersionRequests.length > 0) {
+          // Find current active version publisher
+          const currentVersionPublisher = activeVersionRoles.find(
+            (r) => r.role === "PUBLISHER"
+          );
+
+          if (currentVersionPublisher) {
+            versionPublisherHasTakenAction = await hasUserTakenAction(
+              currentVersionPublisher.userId,
+              pendingVersionRequests.map(req => req.id),
+              null // Publisher stage is null
+            );
+          }
+        }
+
         // Deactivate verifiers not in payload
         const verifiersToDeactivate = activeVersionVerifiers.filter(
           (v) =>
             !verifiers.some((v2) => v2.id === v.userId && v2.stage === v.stage)
         );
-        for (const verifier of verifiersToDeactivate) {
-          const pendingRequests = await getPendingRequests(null, versionId);
 
-          if (pendingRequests.length > 0) {
-            const hasTakenAction = await hasUserTakenAction(
-              verifier.userId,
-              pendingRequests.map(req => req.id),
-              verifier.stage
-            );
+        // If version publisher has taken action, prevent ALL verifier modifications
+        if (versionPublisherHasTakenAction) {
+          // Check if there are any changes to verifiers
+          const hasVersionVerifierChanges =
+            verifiersToDeactivate.length > 0 ||
+            verifiers.some(v => !activeVersionVerifiers.find(cv => cv.userId === v.id && cv.stage === v.stage));
 
-            // If the verifier has taken any action (approved or rejected), we can't remove them
-            if (hasTakenAction) {
-              throw new Error(`Cannot remove verifier at stage ${verifier.stage} for version because they have already taken action on requests (approved or rejected). Only verifiers who haven't taken any action can be removed.`);
-            }
+          if (hasVersionVerifierChanges) {
+            throw new Error(`Cannot modify version verifiers because the publisher has already taken action on pending requests. Version verifier assignments cannot be changed once the publisher has approved or rejected a request.`);
           }
 
-          // If we get here, it's safe to deactivate the verifier
-          await prisma.resourceVersionVerifier.update({
-            where: {id: verifier.id},
-            data: {status: "INACTIVE"},
-          });
-        }
+          // If no changes, skip version verifier processing
+        } else {
+          // Version publisher has NOT taken action, proceed with normal verifier processing
+          for (const verifier of verifiersToDeactivate) {
+            const pendingRequests = await getPendingRequests(null, versionId);
+
+            if (pendingRequests.length > 0) {
+              const hasTakenAction = await hasUserTakenAction(
+                verifier.userId,
+                pendingRequests.map(req => req.id),
+                verifier.stage
+              );
+
+              // If the verifier has taken any action (approved or rejected), we can't remove them
+              if (hasTakenAction) {
+                throw new Error(`Cannot remove verifier at stage ${verifier.stage} for version because they have already taken action on requests (approved or rejected). Only verifiers who haven't taken any action can be removed.`);
+              }
+            }
+
+            // If we get here, it's safe to deactivate the verifier
+            await prisma.resourceVersionVerifier.update({
+              where: {id: verifier.id},
+              data: {status: "INACTIVE"},
+            });
+
+            // Check if this was the last pending verifier and update request status if needed
+            if (pendingRequests.length > 0) {
+              for (const request of pendingRequests) {
+                // Get all active approvals for this request
+                const activeApprovals = await prisma.requestApproval.findMany({
+                  where: {
+                    requestId: request.id,
+                    approverStatus: "ACTIVE",
+                    stage: { not: null } // Only verifier approvals (exclude publisher)
+                  }
+                });
+
+                // Check if all remaining active verifier approvals are approved
+                const allVerifiersApproved = activeApprovals.length > 0 &&
+                  activeApprovals.every(approval => approval.status === "APPROVED");
+
+                // If all remaining verifiers have approved, transition to publish pending
+                if (allVerifiersApproved) {
+                  // Update request status to PUBLISH_PENDING
+                  await prisma.resourceVersioningRequest.update({
+                    where: { id: request.id },
+                    data: {
+                      status: "PUBLISH_PENDING",
+                      type: "PUBLICATION",
+                      flowStatus: "PENDING"
+                    }
+                  });
+
+                  // Update resource version status to PUBLISH_PENDING
+                  const requestDetails = await prisma.resourceVersioningRequest.findUnique({
+                    where: { id: request.id },
+                    select: { resourceVersionId: true }
+                  });
+
+                  if (requestDetails) {
+                    await prisma.resourceVersion.update({
+                      where: { id: requestDetails.resourceVersionId },
+                      data: {
+                        versionStatus: "PUBLISH_PENDING"
+                      }
+                    });
+                  }
+                }
+              }
+            }
+          }
 
         // Process each verifier in payload
         for (const {id: userId, stage} of verifiers) {
@@ -1704,6 +1910,53 @@ export const assignUserToResource = async (
               where: {id: assignment.id},
               data: {status: "INACTIVE"},
             });
+
+            // Check if this was the last pending verifier and update request status if needed
+            const pendingVersionRequestsForReassignment = await getPendingRequests(null, versionId);
+            if (pendingVersionRequestsForReassignment.length > 0) {
+              for (const request of pendingVersionRequestsForReassignment) {
+                // Get all active approvals for this request
+                const activeApprovals = await prisma.requestApproval.findMany({
+                  where: {
+                    requestId: request.id,
+                    approverStatus: "ACTIVE",
+                    stage: { not: null } // Only verifier approvals (exclude publisher)
+                  }
+                });
+
+                // Check if all remaining active verifier approvals are approved
+                const allVerifiersApproved = activeApprovals.length > 0 &&
+                  activeApprovals.every(approval => approval.status === "APPROVED");
+
+                // If all remaining verifiers have approved, transition to publish pending
+                if (allVerifiersApproved) {
+                  // Update request status to PUBLISH_PENDING
+                  await prisma.resourceVersioningRequest.update({
+                    where: { id: request.id },
+                    data: {
+                      status: "PUBLISH_PENDING",
+                      type: "PUBLICATION",
+                      flowStatus: "PENDING"
+                    }
+                  });
+
+                  // Update resource version status to PUBLISH_PENDING
+                  const requestDetails = await prisma.resourceVersioningRequest.findUnique({
+                    where: { id: request.id },
+                    select: { resourceVersionId: true }
+                  });
+
+                  if (requestDetails) {
+                    await prisma.resourceVersion.update({
+                      where: { id: requestDetails.resourceVersionId },
+                      data: {
+                        versionStatus: "PUBLISH_PENDING"
+                      }
+                    });
+                  }
+                }
+              }
+            }
           }
 
           // Deactivate any other active verifier assignments for this user (Single Active Verifier Stage Per User)
@@ -1738,6 +1991,7 @@ export const assignUserToResource = async (
             });
           }
         }
+        } // End of else block for version publisher has NOT taken action
       }
     }
 
@@ -2186,6 +2440,17 @@ export const fetchContent = async (resourceId, isItemFullContent = true) => {
 
   return result;
 };
+
+
+
+
+
+
+
+
+
+
+
 
 async function formatResourceVersionData(
   resourceVersion,
@@ -4184,7 +4449,7 @@ export const approveRequestInPublication = async (requestId, userId) => {
     await tx.resourceVersion.update({
       where: { id: request.resourceVersionId },
       data: {
-        versionStatus: "PUBLISHED",
+        versionStatus: "LIVE",
       },
     });
 
@@ -4419,6 +4684,258 @@ export const fetchVersionsList = async (
   };
 };
 
+
+
+export const fetchVersionsInfo = async (versionId) => {
+  // Get the specific version with comprehensive data
+  const version = await prismaClient.resourceVersion.findUnique({
+    where: { id: versionId },
+    include: {
+      // Include resource information
+      resource: {
+        select: {
+          id: true,
+          titleEn: true,
+          titleAr: true,
+          resourceType: true,
+          resourceTag: true,
+          liveVersionId: true,
+          newVersionEditModeId: true,
+        },
+      },
+      // Role assignments for this version (historical snapshot)
+      roles: {
+        include: {
+          user: {
+            select: {
+              id: true,
+              name: true,
+              email: true,
+            },
+          },
+        },
+        orderBy: {
+          createdAt: "asc",
+        },
+      },
+      // Verifier assignments for this version (historical snapshot)
+      verifiers: {
+        include: {
+          user: {
+            select: {
+              id: true,
+              name: true,
+              email: true,
+            },
+          },
+        },
+        orderBy: [
+          { stage: "asc" },
+          { createdAt: "asc" },
+        ],
+      },
+      // All requests associated with this version
+      requests: {
+        include: {
+          sender: {
+            select: {
+              id: true,
+              name: true,
+              email: true,
+            },
+          },
+          // All approval logs for each request
+          approvals: {
+            include: {
+              approver: {
+                select: {
+                  id: true,
+                  name: true,
+                  email: true,
+                },
+              },
+            },
+            orderBy: [
+              { stage: "asc" },
+              { createdAt: "asc" },
+            ],
+          },
+        },
+        orderBy: {
+          createdAt: "desc",
+        },
+      },
+      // User who locked this version (if any)
+      lockedBy: {
+        select: {
+          id: true,
+          name: true,
+          email: true,
+        },
+      },
+    },
+  });
+
+  if (!version) {
+    throw new Error("Version not found");
+  }
+
+  // Process the version to create comprehensive history
+  // Group role history by role type
+  const roleHistory = {
+    MANAGER: [],
+    EDITOR: [],
+    PUBLISHER: [],
+  };
+
+  // Process role assignments with timestamps
+  version.roles.forEach((roleAssignment) => {
+    const roleType = roleAssignment.role;
+    if (roleHistory[roleType]) {
+      roleHistory[roleType].push({
+        user: roleAssignment.user,
+        status: roleAssignment.status,
+        assignedAt: roleAssignment.createdAt,
+        updatedAt: roleAssignment.updatedAt,
+      });
+    }
+  });
+
+  // Group verifier history by stage
+  const verifierHistory = {};
+  version.verifiers.forEach((verifierAssignment) => {
+    const stage = verifierAssignment.stage;
+    if (!verifierHistory[stage]) {
+      verifierHistory[stage] = [];
+    }
+    verifierHistory[stage].push({
+      user: verifierAssignment.user,
+      status: verifierAssignment.status,
+      assignedAt: verifierAssignment.createdAt,
+      updatedAt: verifierAssignment.updatedAt,
+    });
+  });
+
+  // Process request and approval history
+  const requestHistory = version.requests.map((request) => {
+    // Group approvals by stage (verifiers) and publisher (stage: null)
+    const verifierApprovals = {};
+    let publisherApproval = null;
+
+    request.approvals.forEach((approval) => {
+      if (approval.stage === null) {
+        // Publisher approval
+        publisherApproval = {
+          approver: approval.approver,
+          status: approval.status,
+          comments: approval.comments,
+          approverStatus: approval.approverStatus,
+          createdAt: approval.createdAt,
+          updatedAt: approval.updatedAt,
+        };
+      } else {
+        // Verifier approval
+        if (!verifierApprovals[approval.stage]) {
+          verifierApprovals[approval.stage] = [];
+        }
+        verifierApprovals[approval.stage].push({
+          approver: approval.approver,
+          status: approval.status,
+          comments: approval.comments,
+          approverStatus: approval.approverStatus,
+          createdAt: approval.createdAt,
+          updatedAt: approval.updatedAt,
+        });
+      }
+    });
+
+    return {
+      id: request.id,
+      type: request.type,
+      status: request.status,
+      flowStatus: request.flowStatus,
+      submittedBy: request.sender,
+      submittedAt: request.createdAt,
+      referenceDoc: request.referenceDoc,
+      verifierApprovals,
+      publisherApproval,
+      updatedAt: request.updatedAt,
+    };
+  });
+
+  return {
+    resource: {
+      id: version.resource.id,
+      titleEn: version.resource.titleEn,
+      titleAr: version.resource.titleAr,
+      resourceType: version.resource.resourceType,
+      resourceTag: version.resource.resourceTag,
+    },
+    version: {
+      id: version.id,
+      versionNumber: version.versionNumber,
+      versionStatus: version.versionStatus,
+      notes: version.notes,
+      referenceDoc: version.referenceDoc,
+      isLive: version.id === version.resource.liveVersionId,
+      isUnderEditing: version.id === version.resource.newVersionEditModeId,
+
+      // Timestamps
+      createdAt: version.createdAt,
+      updatedAt: version.updatedAt,
+      scheduledAt: version.scheduledAt,
+      publishedAt: version.publishedAt,
+
+      // Lock information
+      lockedBy: version.lockedBy,
+      lockedAt: version.lockedAt,
+
+      // Historical role assignments
+      roleHistory,
+
+      // Historical verifier assignments
+      verifierHistory,
+
+      // Request and approval history
+      requestHistory,
+    },
+  };
+};
+
+
+export const restoreLiveVersion = async (versionId) => {
+  const version = await prismaClient.resourceVersion.findUnique({
+    where: { id: versionId },
+    select: {
+      id: true,
+      resourceId: true,
+    },
+  });
+
+  if (!version) {
+    throw new Error("Version not found");
+  }
+
+  // Restore the version and update the resource's live version
+  const [restoredVersion] = await prismaClient.$transaction([
+    prismaClient.resourceVersion.update({
+      where: { id: versionId },
+      data: {
+        versionStatus: "LIVE",
+      },
+    }),
+    prismaClient.resource.update({
+      where: { id: version.resourceId },
+      data: {
+        liveVersionId: versionId,
+      },
+    }),
+  ]);
+
+  return { message: "Success", content: restoredVersion };
+};
+
+
 export const deleteAllResourceRelatedDataFromDb = async () => {
   try {
     // Use a transaction to ensure all operations succeed or fail together
@@ -4607,3 +5124,12 @@ export const deleteAllResourceRelatedDataFromDb = async () => {
     throw error;
   }
 };
+
+// fetchVersionsInfo function returns comprehensive version history data including:
+// - Resource name and basic information
+// - Assigned Users with complete role and verifier history showing how users were assigned to roles and later changed
+// - Historical timestamps showing when each user was selected as manager/editor/publisher and when they were changed
+// - Role status tracking (active/inactive) to maintain complete audit trail
+// - Submitted Date, publisher approval datetime, Editor's Comments
+// - Submitted By information, reference documents, approval status per user
+// - All data is specific to each resource version as every version maintains its own history
