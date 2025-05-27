@@ -123,7 +123,7 @@ const RequestDetails = ({ close }) => {
                 {version.versionStatus === "PUBLISHED" &&
                     <div className="flex py-[15px] justify-between border-b dark:border-[#8a8a8a]">
                         <label></label>
-                        <button className="underline text-[#145098] font-[300]"
+                        <button className="underline text-[#145098] dark:text-[#0EA5E9] font-[300]"
                             onClick={() => handleRestoreVersionRequest(version)}
                         >Restore this version</button>
                     </div>}
