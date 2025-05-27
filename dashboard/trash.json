@@ -2,40 +2,26 @@
     "message": "Success",
     "content": {
         "resource": {
-            "id": "cmb51wtre00szqp8kjzm72bkg",
+            "id": "cmb6391g400stqpcgngpostdp",
             "titleEn": "Home Page",
             "titleAr": "الصفحة الرئيسية",
             "resourceType": "MAIN_PAGE",
             "resourceTag": "HOME"
         },
         "version": {
-            "id": "cmb520ito0002qp70wgkpt38s",
+            "id": "cmb63ac2v002pqpb970v65o7k",
             "versionNumber": 2,
-            "versionStatus": "VERIFICATION_PENDING",
-            "notes": "Initial version created",
+            "versionStatus": "DRAFT",
+            "notes": "Initial version created by system",
             "referenceDoc": null,
             "isLive": false,
             "isUnderEditing": true,
-            "createdAt": "2025-05-26T12:18:50.316Z",
-            "updatedAt": "2025-05-26T12:18:50.316Z",
+            "createdAt": "2025-05-27T05:42:13.927Z",
+            "updatedAt": "2025-05-27T05:42:13.927Z",
             "scheduledAt": null,
             "publishedAt": null,
-            "lockedBy": null,
-            "lockedAt": null,
             "roleHistory": {
-                "MANAGER": [],
-                "EDITOR": [
-                    {
-                        "user": {
-                            "id": "cmb51zdu30000qp70zhwf2yyz",
-                            "name": "Anukool chuahan",
-                            "email": "user1@gmail.com"
-                        },
-                        "status": "ACTIVE",
-                        "assignedAt": "2025-05-26T12:20:14.974Z"
-                    }
-                ],
-                "PUBLISHER": [
+                "MANAGER": [
                     {
                         "user": {
                             "id": "cmb0rmuvg0002qp4xt8w2cm1x",
@@ -43,7 +29,29 @@
                             "email": "bhanusharma25200@gmail.com"
                         },
                         "status": "ACTIVE",
-                        "assignedAt": "2025-05-26T12:20:14.979Z"
+                        "assignedAt": "2025-05-27T05:42:00.981Z"
+                    }
+                ],
+                "EDITOR": [
+                    {
+                        "user": {
+                            "id": "cmawfx6da0008qp0w1q4ittw9",
+                            "name": "Anukool",
+                            "email": "anukool26@outlook.com"
+                        },
+                        "status": "ACTIVE",
+                        "assignedAt": "2025-05-27T05:42:00.983Z"
+                    }
+                ],
+                "PUBLISHER": [
+                    {
+                        "user": {
+                            "id": "cmb0rnyxo0003qp4x5winl0wr",
+                            "name": "Bhavnesh Sharma",
+                            "email": "bhavneshsharma@loopmethods.com"
+                        },
+                        "status": "ACTIVE",
+                        "assignedAt": "2025-05-27T05:42:00.985Z"
                     }
                 ]
             },
@@ -56,53 +64,22 @@
                             "email": "jyotikumari@loopmethods.com"
                         },
                         "status": "ACTIVE",
-                        "assignedAt": "2025-05-26T12:20:14.982Z"
+                        "assignedAt": "2025-05-27T05:42:00.998Z"
+                    }
+                ],
+                "2": [
+                    {
+                        "user": {
+                            "id": "cmb0rmccy0001qp4x1k2dq3qc",
+                            "name": "JYOTI KUMARI",
+                            "email": "jyotikumari00718@gmail.com"
+                        },
+                        "status": "ACTIVE",
+                        "assignedAt": "2025-05-27T05:42:01.008Z"
                     }
                 ]
             },
-            "requestHistory": [
-                {
-                    "id": "9110a65c-c758-4961-9805-0fa15cac5738",
-                    "type": "VERIFICATION",
-                    "status": "VERIFICATION_PENDING",
-                    "flowStatus": "PENDING",
-                    "submittedBy": {
-                        "id": "cmawfx6da0008qp0w1q4ittw9",
-                        "name": "Anukool",
-                        "email": "anukool26@outlook.com"
-                    },
-                    "submittedAt": "2025-05-26T12:18:50.506Z",
-                    "verifierApprovals": {
-                        "1": [
-                            {
-                                "approver": {
-                                    "id": "cmb0rls150000qp4xpn4y20vj",
-                                    "name": "Jyoti",
-                                    "email": "jyotikumari@loopmethods.com"
-                                },
-                                "status": "PENDING",
-                                "comments": null,
-                                "approverStatus": "ACTIVE",
-                                "createdAt": "2025-05-26T12:18:50.514Z",
-                                "updatedAt": "2025-05-26T12:18:50.514Z"
-                            }
-                        ]
-                    },
-                    "publisherApproval": {
-                        "approver": {
-                            "id": "cmb0rmuvg0002qp4xt8w2cm1x",
-                            "name": "Bhavnesh",
-                            "email": "bhanusharma25200@gmail.com"
-                        },
-                        "status": "PENDING",
-                        "comments": null,
-                        "approverStatus": "ACTIVE",
-                        "createdAt": "2025-05-26T12:18:50.510Z",
-                        "updatedAt": "2025-05-26T12:18:50.510Z"
-                    },
-                    "updatedAt": "2025-05-26T12:18:50.506Z"
-                }
-            ]
+            "requestHistory": []
         }
     }
 }

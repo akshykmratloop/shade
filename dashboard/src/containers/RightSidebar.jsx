@@ -136,7 +136,7 @@ function RightSidebar() {
       }
     >
       <section
-        className={`${bodyType === RIGHT_DRAWER_TYPES.RESOURCE_DETAILS
+        className={`${bodyType === RIGHT_DRAWER_TYPES.RESOURCE_DETAILS || bodyType === RIGHT_DRAWER_TYPES.VERSION_DETAILS
           ? "w-[34rem]"
           : "w-80 md:w-96"
           }
