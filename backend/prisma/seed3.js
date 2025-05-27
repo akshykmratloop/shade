@@ -189,8 +189,8 @@ async function main() {
                 data: {
                   resourceId: resource.id,
                   versionNumber: 1,
-                  versionStatus: "PUBLISHED",
-                  notes: "Initial version created",
+                  versionStatus: "LIVE",
+                  notes: "Initial version created by system",
                   content: {},
                 },
               });
