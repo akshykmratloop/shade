@@ -13,6 +13,7 @@ import { setNotificationCount } from "../features/common/headerSlice";
 import socket from "../Socket/socket.js";
 import RequestDetails from "../features/Requests/RequestDetails.jsx";
 import VersionDetails from "../features/Resources/VersionDetails.jsx";
+import { ToastContainer } from "react-toastify";
 
 function RightSidebar() {
   const [notificationData, setNotificationData] = useState([]);
@@ -221,6 +222,7 @@ function RightSidebar() {
         className=" w-screen h-full cursor-pointer "
         onClick={() => close()}
       ></section>
+      <ToastContainer />
     </div>
   );
 }

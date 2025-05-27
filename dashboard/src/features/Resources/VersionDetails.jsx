@@ -8,6 +8,8 @@ import { useSelector } from "react-redux";
 import { restoreVersion, versionInfo } from "../../app/fetch";
 import { toast, ToastContainer } from "react-toastify";
 import CustomContext from "../Context/CustomContext";
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const data = [
     {
@@ -49,7 +51,7 @@ const getStyle = {
 }
 
 const toastObject = {
-    hideProgressBar: true, autoClose: 700, pauseOnHover: false
+    hideProgressBar: true, autoClose: 700
 }
 
 const RequestDetails = ({ close }) => {
@@ -261,7 +263,7 @@ const RequestDetails = ({ close }) => {
                     </div>
                 </div>
             </div>
-            <ToastContainer />
+            {/* <ToastContainer /> */}
         </div >
     );
 };
