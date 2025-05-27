@@ -86,7 +86,7 @@ const EditPage = () => {
     }, [])
 
     useEffect(() => {
-        setOutOfEditing((!isEditable))
+        setOutOfEditing((!isEditable && !isManager))
     }, [isManager, isEditable])
 
     useEffect(() => {
