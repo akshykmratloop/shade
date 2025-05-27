@@ -135,6 +135,7 @@ function VersionTable() {
     const [currentPage, setCurrentPage] = useState(1);
     // const [random, setRandowm] = useState(Math.random())
     const { random } = CustomContext().random
+    console.log(random)
     // const [activeIndex, setActiveIndex] = useState(null);
 
     // redux state
@@ -208,11 +209,11 @@ function VersionTable() {
             }
             fetchversionsData();
         }
-    }, [resourceId]);
+    }, [resourceId, random]);
 
     useEffect(() => {
         setCurrentResource(JSON.parse(localStorage.getItem("currentResource")))
-    }, [random])
+    }, [])
 
     return (
         <div className="relative min-h-full">
