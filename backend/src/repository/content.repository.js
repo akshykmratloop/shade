@@ -4270,6 +4270,22 @@ export const approveRequestInPublication = async (requestId, userId) => {
       },
     });
 
+
+       // change the status of old live version into published
+       const resource = await tx.resource.findUnique({
+        where: { id: request.resourceVersion.resourceId },
+        select: {
+          liveVersionId: true,
+        },
+      });
+  
+      await tx.resourceVersion.update({
+        where: { id: resource.liveVersionId },
+        data: {
+          versionStatus: "PUBLISHED",
+        },
+      });
+      
     // Update resource version status to PUBLISHED
     await tx.resourceVersion.update({
       where: { id: request.resourceVersionId },
@@ -4277,6 +4293,8 @@ export const approveRequestInPublication = async (requestId, userId) => {
         versionStatus: "LIVE",
       },
     });
+
+ 
 
     // If this is a publication request, update the resource's liveVersionId
     if (request.type === "PUBLICATION") {
@@ -4744,37 +4762,57 @@ export const fetchVersionsInfo = async (versionId) => {
   };
 };
 
-
 export const restoreLiveVersion = async (versionId) => {
-  const version = await prismaClient.resourceVersion.findUnique({
-    where: { id: versionId },
-    select: {
-      id: true,
-      resourceId: true,
-    },
-  });
+  return await prismaClient.$transaction(async (tx) => {
+    // Get the version to restore
+    const version = await tx.resourceVersion.findUnique({
+      where: { id: versionId },
+      select: {
+        id: true,
+        resourceId: true,
+      },
+    });
 
-  if (!version) {
-    throw new Error("Version not found");
-  }
+    if (!version) {
+      throw new Error("Version not found");
+    }
 
-  // Restore the version and update the resource's live version
-  const [restoredVersion] = await prismaClient.$transaction([
-    prismaClient.resourceVersion.update({
+    // Get the current live version
+    const resource = await tx.resource.findUnique({
+      where: { id: version.resourceId },
+      select: {
+        liveVersionId: true,
+      },
+    });
+
+    // If there is a current live version, mark it as PUBLISHED
+    if (resource.liveVersionId) {
+      await tx.resourceVersion.update({
+        where: { id: resource.liveVersionId },
+        data: {
+          versionStatus: "PUBLISHED",
+        },
+      });
+    }
+
+    // Update the new version to LIVE
+    await tx.resourceVersion.update({
       where: { id: versionId },
       data: {
         versionStatus: "LIVE",
       },
-    }),
-    prismaClient.resource.update({
+    });
+
+    // Update the resource's live version reference
+    await tx.resource.update({
       where: { id: version.resourceId },
       data: {
         liveVersionId: versionId,
       },
-    }),
-  ]);
+    });
 
-  return { message: "Success", content: restoredVersion };
+    return { message: "Success" };
+  });
 };
 
 
