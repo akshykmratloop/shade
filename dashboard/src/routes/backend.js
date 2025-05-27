@@ -61,6 +61,7 @@ const api = {
   rejectRequest: `${content}/rejectRequest/`,
   versionsList: `${content}/getVersionsList/`,
   versionInfo: `${content}/getVersionInfo/`,
+  restoreVersion: `${content}/getVersionInfo/`,
 
 
   // Media

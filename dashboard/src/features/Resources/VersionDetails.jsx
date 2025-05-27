@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import { getRequestInfo, versionInfo } from "../../app/fetch";
 import { FiEye } from "react-icons/fi";
 import Comments from "../Requests/Comments";
+import { Switch } from "@headlessui/react";
 
 const data = [
     {
@@ -58,8 +59,19 @@ const RequestDetails = () => {
 
     const requestStageStyle = statusStyles[getStyle[versionData?.status]] || {}
 
+    const handleRestoreVersionRequest = (version) => {
+        // validation
+        if (version.isLive) return
+        if (version.versionStatus !== "PUBLISHED") return "Can't restore version. Version was never published"
 
-    console.log("requestDetails, ", id)
+        // API Logic
+        try {
+
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
     useEffect(() => {
         async function fetchRequestInfo() {
 
@@ -84,16 +96,41 @@ const RequestDetails = () => {
     return (
         <div>
             <div className=" flex flex-col h-[87%] text-[14px] custom-text-color p-[10px] py-0  mt-2 overflow-y-auto customscroller">
-                <div className="flex py-[15px] justify-between border-b dark:border-stone-700">
+                {/* <div className="flex py-[15px] justify-between border-b dark:border-stone-700">
                     <label>Resource</label>
                     <p>{resource?.titleEn || "N/A"}</p>
-                </div>
+                </div> */}
                 <div className="flex py-[15px] justify-between border-b dark:border-stone-700">
                     <label>Version Number</label>
                     <p className={`${requestStageStyle.bg} ${requestStageStyle.text} inline-flex items-center px-3 py-1 rounded-full text-xs font-small`}>
                         {/* {requestStageStyle.icon}
                         {capitalizeWords(requestData?.status) || "N/A"} */}
                         {version?.versionNumber}
+                    </p>
+                </div>
+                <div className="flex py-[15px] justify-between border-b dark:border-stone-700">
+                    <label>Restore this Version</label>
+                    <p className={`${requestStageStyle.bg} ${requestStageStyle.text} inline-flex items-center px-3 py-1 rounded-full text-xs font-small`}>
+                        {/* {requestStageStyle.icon}
+                        {capitalizeWords(requestData?.status) || "N/A"} */}
+                        {/* {version?.versionNumber} */}
+                        <Switch
+                            checked={version?.isLive}
+                            onChange={() => {
+                                handleRestoreVersionRequest(version)
+                            }}
+                            className={`${version?.isLive
+                                ? "bg-[#1DC9A0]"
+                                : "bg-gray-300"
+                                } relative inline-flex h-2 w-8 items-center rounded-full`}
+                        >
+                            <span
+                                className={`${version?.isLive
+                                    ? "translate-x-4"
+                                    : "translate-x-0"
+                                    } inline-block h-5 w-5 bg-white rounded-full shadow-2xl border border-gray-300 transition`}
+                            />
+                        </Switch>
                     </p>
                 </div>
                 <div className="flex flex-col">

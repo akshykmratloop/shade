@@ -5,7 +5,7 @@ export const navBarSlice = createSlice({
     initialState: {
         resourceType: "",  // current  title state management
         resourceTag: "",   // right drawer state management for opening closing
-        name: ""
+        name: "Pages"
     },
     reducers: {
 

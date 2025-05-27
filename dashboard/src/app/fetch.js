@@ -445,6 +445,15 @@ export async function versionInfo(param) {
   );
 }
 
+//restoreVersion
+export async function restoreVersion(param) {
+  return await makerequest(
+    `${api.route("restoreVersion")}` + param,
+    "GET",
+  );
+}
+
+
 
 export async function approveRequest(param) {
   return await makerequest(

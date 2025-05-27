@@ -115,6 +115,14 @@ const TopSideButtons = memo(({
         </div>
     );
 });
+
+const statusStyles = {
+    PUBLISHED: "text-green-600 bg-lime-200 before:text-green-600 px-1",
+    DRAFT: "text-blue-600 bg-sky-200 before:text-blue-600 ",
+    VERIFICATION_PENDING: "text-red-600 bg-pink-200 before:text-red-600 ",
+    LIVE: "text-blue-600 bg-blue-200 before:text-white-600",
+};
+
 //--------------------------------------------------------------------------------------------------------------------------------------------------------//
 function VersionTable() {
     const userPermissionsSet = new Set(["EDIT", "VERIFY", "PUBLISH"]); // SET FOR EACH USER LOGIC
@@ -124,7 +132,7 @@ function VersionTable() {
     const [selectedVersion, setSelectedVersion] = useState(null);
     const [showDetailsModal, setShowDetailsModal] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
-    const [activeIndex, setActiveIndex] = useState(null);
+    // const [activeIndex, setActiveIndex] = useState(null);
 
     // redux state
     const userObj = useSelector(state => state.user)
@@ -273,12 +281,7 @@ function VersionTable() {
                                                                 before:text-2xl flex h-7 
                                                             items-center justify-center 
                                                             gap-1 px-1 py-0 font-[500] 
-                                                            ${version.versionStatus === "PUBLISHED"
-                                                                        ? "text-green-600 bg-lime-200 before:text-green-600 px-1"
-                                                                        : version.versionStatus === "DRAFT"
-                                                                            ? "text-blue-600 bg-sky-200 before:text-blue-600 "
-                                                                            : "text-red-600 bg-pink-200 before:text-red-600 "
-                                                                    }            
+                                                          ${statusStyles[version?.versionStatus]}
                                                             rounded-2xl`}
                                                                 style={{ textTransform: "capitalize" }}
                                                             >
@@ -286,7 +289,7 @@ function VersionTable() {
                                                                     {capitalizeWords(version?.versionStatus)}
                                                                 </span>
                                                             </p>
-                                                            <p className="text-xs font-[500]">{version?.isLive ? "Live" : version?.isUnderEditing ? "Under Editing" : ""}</p>
+                                                            {/* <p className="text-xs font-[500]">{version?.isLive ? "Live" : version?.isUnderEditing ? "Under Editing" : ""}</p> */}
                                                         </div>
                                                     </div>
                                                 </td>
@@ -335,7 +338,7 @@ function VersionTable() {
                                                                 />
                                                             </span>
                                                         </button>
-                                                        <div className="flex items-center space-x-4 "
+                                                        {/* <div className="flex items-center space-x-4 "
                                                             title={!version?.isLive ? "Live this version" : "cannot deactivate the version try to live aleast one from the list"}
                                                         >
                                                             <Switch
@@ -356,7 +359,7 @@ function VersionTable() {
                                                                         } inline-block h-5 w-5 bg-white rounded-full shadow-2xl border border-gray-300 transition`}
                                                                 />
                                                             </Switch>
-                                                        </div>
+                                                        </div> */}
                                                     </div>
                                                 </td>
                                             </tr>
