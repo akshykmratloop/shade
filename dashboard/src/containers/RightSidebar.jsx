@@ -205,7 +205,7 @@ function RightSidebar() {
                     //   {...extraObject}
                     //   closeRightDrawer={close}
                     // />
-                    <VersionDetails />
+                    <VersionDetails close={close} />
                   ),
 
                   [RIGHT_DRAWER_TYPES.DEFAULT]: <div></div>,

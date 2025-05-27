@@ -7,6 +7,7 @@ import capitalizeWords, { TruncateText } from "../../app/capitalizeword";
 import { useSelector } from "react-redux";
 import { restoreVersion, versionInfo } from "../../app/fetch";
 import { toast, ToastContainer } from "react-toastify";
+import CustomContext from "../Context/CustomContext";
 
 const data = [
     {
@@ -51,9 +52,11 @@ const toastObject = {
     hideProgressBar: true, autoClose: 700, pauseOnHover: false
 }
 
-const RequestDetails = () => {
+const RequestDetails = ({ close }) => {
     const id = useSelector(state => state.rightDrawer.extraObject.id)
     const [versionData, setVersionData] = useState({ resource: {}, version: {} })
+    const { setRandom } = CustomContext().random
+
 
     const { resource, version } = versionData
 
@@ -76,6 +79,8 @@ const RequestDetails = () => {
             const response = await restoreVersion(version.id)
             if (response.ok) {
                 toast.success("Version has been restored.", toastObject)
+                close()
+                setRandom()
             } else {
                 toast.error("Failed to restore.", toastObject)
             }

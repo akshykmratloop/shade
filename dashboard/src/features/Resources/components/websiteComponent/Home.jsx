@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from "react";
 import {
-    useDispatch,
     useSelector,
 } from "react-redux";
 import Arrow from "../../../../assets/icons/right-wrrow.svg";
@@ -11,7 +10,7 @@ import {
     recentProjects,
     markets,
     safety,
-    testimonials,
+    // testimonials,
 } from "../../../../assets/index";
 import { Swiper, SwiperSlide } from "swiper/react";
 import {
@@ -23,7 +22,7 @@ import {
 import "swiper/css/navigation";
 import "swiper/css";
 import "swiper/css/pagination";
-import blankImage from "../../../../assets/images/blankImage.webp";
+// import blankImage from "../../../../assets/images/blankImage.webp";
 import { TruncateText } from "../../../../app/capitalizeword";
 import dynamicSize, { generatefontSize } from "../../../../app/fontSizes";
 import { differentText } from "../../../../app/fontSizes";

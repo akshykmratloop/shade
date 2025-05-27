@@ -1,85 +1,200 @@
 {
     "message": "Success",
     "content": {
-        "resource": {
-            "id": "cmb6391g400stqpcgngpostdp",
-            "titleEn": "Home Page",
-            "titleAr": "الصفحة الرئيسية",
-            "resourceType": "MAIN_PAGE",
-            "resourceTag": "HOME"
-        },
-        "version": {
-            "id": "cmb63ac2v002pqpb970v65o7k",
-            "versionNumber": 2,
-            "versionStatus": "DRAFT",
-            "notes": "Initial version created by system",
+        "id": "cmb66aigy00n9qpectbhdkbvf",
+        "titleEn": "News & Blogs Page",
+        "titleAr": "الأخبار و المدونات",
+        "slug": "news-blogs",
+        "isEditable": true,
+        "resourceType": "MAIN_PAGE",
+        "resourceTag": "NEWS",
+        "relationType": "PARENT",
+        "liveModeVersionData": {
+            "id": "cmb66aih000nbqpecgoc08n5a",
+            "versionNumber": 1,
+            "icon": null,
+            "image": null,
+            "comments": "Initial version created by system",
             "referenceDoc": null,
-            "isLive": false,
-            "isUnderEditing": true,
-            "createdAt": "2025-05-27T05:42:13.927Z",
-            "updatedAt": "2025-05-27T05:42:13.927Z",
-            "scheduledAt": null,
-            "publishedAt": null,
-            "roleHistory": {
-                "MANAGER": [
-                    {
-                        "user": {
-                            "id": "cmb0rmuvg0002qp4xt8w2cm1x",
-                            "name": "Bhavnesh",
-                            "email": "bhanusharma25200@gmail.com"
+            "updatedAt": "2025-05-27T07:06:21.060Z",
+            "status": "LIVE",
+            "sections": [
+                {
+                    "sectionId": "cmb66aihh00ndqpecv8ch5lcg",
+                    "order": 1,
+                    "version": 1,
+                    "title": "bannerSection-news-blogs-549c",
+                    "content": {
+                        "title": {
+                            "ar": "خبر & المدونات",
+                            "en": "News & Blogs"
                         },
-                        "status": "ACTIVE",
-                        "assignedAt": "2025-05-27T05:42:00.981Z"
-                    }
-                ],
-                "EDITOR": [
-                    {
-                        "user": {
-                            "id": "cmawfx6da0008qp0w1q4ittw9",
-                            "name": "Anukool",
-                            "email": "anukool26@outlook.com"
+                        "button": [
+                            {
+                                "url": null,
+                                "icon": null,
+                                "text": {
+                                    "ar": "خدماتنا",
+                                    "en": "Our Services"
+                                },
+                                "order": 1
+                            }
+                        ],
+                        "images": [
+                            {
+                                "url": "https://frequencyimage.s3.ap-south-1.amazonaws.com/851e35b5-9b3b-4d9f-91b4-9b60ef2a102c-Rectangle%2034624110.png",
+                                "order": 1,
+                                "altText": {
+                                    "ar": "صورة شعار الصفحة الرئيسية",
+                                    "en": "Image 1"
+                                }
+                            }
+                        ],
+                        "description": {
+                            "ar": "اكتشف التميز الاستثنائي لشركة Shade Corporation، الشركة الرائدة في مجال الهندسة والمشتريات والبناء في المملكة العربية السعودية.",
+                            "en": "Discover the exceptional excellence of Shade Corporation, a leader in engineering, procurement, and construction in Saudi Arabia."
+                        }
+                    },
+                    "sections": []
+                },
+                {
+                    "sectionId": "cmb66aihn00njqpec102bgnzy",
+                    "order": 2,
+                    "version": 1,
+                    "title": "featuredArticle-news-blogs-dde9",
+                    "content": {
+                        "button": [
+                            {
+                                "url": null,
+                                "icon": null,
+                                "text": {
+                                    "ar": "أعمالنا",
+                                    "en": "Read More"
+                                },
+                                "order": 1
+                            }
+                        ]
+                    },
+                    "sections": [],
+                    "items": [
+                        {
+                            "id": "cmb66ahx9000bqpeciptu1pz1",
+                            "titleEn": "Youth Overcoming Disability",
+                            "titleAr": "شباب يتحدون الإعاقة",
+                            "slug": "youth-overcoming-disability",
+                            "icon": null,
+                            "image": null,
+                            "order": 1
+                        }
+                    ]
+                },
+                {
+                    "sectionId": "cmb66aiht00nrqpecosk191jk",
+                    "order": 3,
+                    "version": 1,
+                    "title": "latestNewCards-news-blogs-0ee7",
+                    "content": {
+                        "button": [
+                            {
+                                "url": null,
+                                "icon": null,
+                                "text": {
+                                    "ar": "أعمالنا",
+                                    "en": "Read More"
+                                },
+                                "order": 1
+                            },
+                            {
+                                "url": null,
+                                "icon": null,
+                                "text": {
+                                    "ar": "أعمالنا",
+                                    "en": "Load More"
+                                },
+                                "order": 2
+                            }
+                        ],
+                        "heading": {
+                            "ar": "آخر الأخبار",
+                            "en": "Latest News & Blogs"
+                        }
+                    },
+                    "sections": [],
+                    "items": [
+                        {
+                            "id": "cmb66ahx9000bqpeciptu1pz1",
+                            "titleEn": "Youth Overcoming Disability",
+                            "titleAr": "شباب يتحدون الإعاقة",
+                            "slug": "youth-overcoming-disability",
+                            "icon": null,
+                            "image": null,
+                            "order": 1
                         },
-                        "status": "ACTIVE",
-                        "assignedAt": "2025-05-27T05:42:00.983Z"
-                    }
-                ],
-                "PUBLISHER": [
-                    {
-                        "user": {
-                            "id": "cmb0rnyxo0003qp4x5winl0wr",
-                            "name": "Bhavnesh Sharma",
-                            "email": "bhavneshsharma@loopmethods.com"
+                        {
+                            "id": "cmb66ahxu000wqpec7afsx17t",
+                            "titleEn": "Saudi Robots Join Millions in Performing the Hajj",
+                            "titleAr": "الروبوتات السعودية تنضم إلى الملايين في أداء فريضة الحج",
+                            "slug": "saudi-robots-hajj",
+                            "icon": null,
+                            "image": null,
+                            "order": 2
                         },
-                        "status": "ACTIVE",
-                        "assignedAt": "2025-05-27T05:42:00.985Z"
-                    }
-                ]
-            },
-            "verifierHistory": {
-                "1": [
-                    {
-                        "user": {
-                            "id": "cmb0rls150000qp4xpn4y20vj",
-                            "name": "Jyoti",
-                            "email": "jyotikumari@loopmethods.com"
+                        {
+                            "id": "cmb66ahy9001hqpec29mmkn8u",
+                            "titleEn": "Technology Serving People with Disabilities",
+                            "titleAr": "التكنولوجيا في خدمة ذوي الإعاقة",
+                            "slug": "technology-serving-disabilities",
+                            "icon": null,
+                            "image": null,
+                            "order": 3
                         },
-                        "status": "ACTIVE",
-                        "assignedAt": "2025-05-27T05:42:00.998Z"
-                    }
-                ],
-                "2": [
-                    {
-                        "user": {
-                            "id": "cmb0rmccy0001qp4x1k2dq3qc",
-                            "name": "JYOTI KUMARI",
-                            "email": "jyotikumari00718@gmail.com"
-                        },
-                        "status": "ACTIVE",
-                        "assignedAt": "2025-05-27T05:42:01.008Z"
-                    }
-                ]
-            },
-            "requestHistory": []
+                        {
+                            "id": "cmb66ahyp0022qpecl1oxed9g",
+                            "titleEn": "Inspiring Success Stories",
+                            "titleAr": "قصص نجاح ملهمة",
+                            "slug": "inspiring-success-stories",
+                            "icon": null,
+                            "image": null,
+                            "order": 4
+                        }
+                    ]
+                },
+                {
+                    "sectionId": "cmb66aii700o5qpecumj97dnl",
+                    "order": 4,
+                    "version": 1,
+                    "title": "featuredArticle-news-blogs-b22d",
+                    "content": {
+                        "button": [
+                            {
+                                "url": null,
+                                "icon": null,
+                                "text": {
+                                    "ar": "أعمالنا",
+                                    "en": "Read More"
+                                },
+                                "order": 1
+                            }
+                        ],
+                        "heading": {
+                            "ar": "آخر الأخبار",
+                            "en": "Trending News"
+                        }
+                    },
+                    "sections": [],
+                    "items": [
+                        {
+                            "id": "cmb66ahxu000wqpec7afsx17t",
+                            "titleEn": "Saudi Robots Join Millions in Performing the Hajj",
+                            "titleAr": "الروبوتات السعودية تنضم إلى الملايين في أداء فريضة الحج",
+                            "slug": "saudi-robots-hajj",
+                            "icon": null,
+                            "image": null,
+                            "order": 1
+                        }
+                    ]
+                }
+            ]
         }
     }
 }

@@ -1,9 +1,9 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import content from "./content.json"
 import { newsBlogs } from "../../../../assets/index";
 import { useDispatch, useSelector } from "react-redux";
-import { TruncateText } from "../../../../app/capitalizeword";
-import Arrow from "../../../../assets/icons/right-wrrow.svg";
+// import { TruncateText } from "../../../../app/capitalizeword";
+// import Arrow from "../../../../assets/icons/right-wrrow.svg";
 import { updateMainContent } from "../../../common/homeContentSlice";
 import TruncateComponent from "../../../../components/Truncate.jsx/TruncateComponent";
 // import styles from "@/components/news-and-blogs/newsblogs.module.scss";
@@ -35,7 +35,6 @@ const NewsBlogspage = ({ language, screen }) => {
     //     // router.push(`blog/${id}`);
     // };
 
-    console.log(isTablet)
 
     useEffect(() => {
         dispatch(updateMainContent({ currentPath: "newsBlogs", payload: content.newsBlogs }))

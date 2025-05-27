@@ -21,6 +21,7 @@ import { PiInfoThin } from "react-icons/pi";
 import XMarkIcon from "@heroicons/react/24/outline/XMarkIcon";
 import { versionsList } from "../../app/fetch";
 import { Switch } from "@headlessui/react";
+import CustomContext from "../Context/CustomContext";
 // import { Switch } from "@headlessui/react";
 // import { FiEdit } from "react-icons/fi";
 
@@ -132,6 +133,8 @@ function VersionTable() {
     const [selectedVersion, setSelectedVersion] = useState(null);
     const [showDetailsModal, setShowDetailsModal] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
+    // const [random, setRandowm] = useState(Math.random())
+    const { random } = CustomContext().random
     // const [activeIndex, setActiveIndex] = useState(null);
 
     // redux state
@@ -209,7 +212,7 @@ function VersionTable() {
 
     useEffect(() => {
         setCurrentResource(JSON.parse(localStorage.getItem("currentResource")))
-    }, [])
+    }, [random])
 
     return (
         <div className="relative min-h-full">
@@ -338,28 +341,7 @@ function VersionTable() {
                                                                 />
                                                             </span>
                                                         </button>
-                                                        {/* <div className="flex items-center space-x-4 "
-                                                            title={!version?.isLive ? "Live this version" : "cannot deactivate the version try to live aleast one from the list"}
-                                                        >
-                                                            <Switch
-                                                                checked={version?.isLive}
-                                                                onChange={() => {
-                                                                    if (version?.isLive) return
-                                                                    // statusChange(role);
-                                                                }}
-                                                                className={`${version?.isLive
-                                                                    ? "bg-[#1DC9A0]"
-                                                                    : "bg-gray-300"
-                                                                    } relative inline-flex h-2 w-8 items-center rounded-full`}
-                                                            >
-                                                                <span
-                                                                    className={`${version?.isLive
-                                                                        ? "translate-x-4"
-                                                                        : "translate-x-0"
-                                                                        } inline-block h-5 w-5 bg-white rounded-full shadow-2xl border border-gray-300 transition`}
-                                                                />
-                                                            </Switch>
-                                                        </div> */}
+
                                                     </div>
                                                 </td>
                                             </tr>

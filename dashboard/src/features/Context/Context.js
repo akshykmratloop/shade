@@ -1,14 +1,16 @@
 // ScrollContext.js
-import { createContext, useRef } from "react";
+import { createContext, useRef, useState } from "react";
 
-export const ScrollContext = createContext();
+export const Context = createContext();
 
-export const ScrollProvider = ({ children }) => {
+export const ContenxtProvider = ({ children }) => {
     const scrollContainerRef = useRef();
 
+    const [random, setRandom] = useState(Math.random())
+
     return (
-        <ScrollContext.Provider value={scrollContainerRef}>
+        <Context.Provider value={{ scrollContainerRef, random: { random, setRandom: () => setRandom(Math.random()) } }}>
             {children}
-        </ScrollContext.Provider>
+        </Context.Provider >
     );
 };

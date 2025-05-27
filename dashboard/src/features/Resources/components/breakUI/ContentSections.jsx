@@ -325,7 +325,7 @@ const ContentSection = ({
                                             currentPath={currentPath}
                                             fileIndex={i}
                                             section={section}
-                                            index={section === "clientSection" ? i : index}
+                                            index={section === "clientsImages" ? i : index}
                                             subSection={subSection}
                                             resourceId={resourceId}
                                             contentIndex={sectionIndex}
