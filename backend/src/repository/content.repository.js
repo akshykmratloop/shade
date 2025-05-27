@@ -4518,15 +4518,6 @@ export const fetchVersionsInfo = async (versionId) => {
     include: {
       // Include resource information with its roles and verifiers
       resource: {
-        select: {
-          id: true,
-          titleEn: true,
-          titleAr: true,
-          resourceType: true,
-          resourceTag: true,
-          liveVersionId: true,
-          newVersionEditModeId: true,
-        },
         include: {
           // Include resource roles and verifiers for DRAFT versions
           roles: {
