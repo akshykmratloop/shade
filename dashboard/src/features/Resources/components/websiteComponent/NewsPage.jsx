@@ -1,22 +1,7 @@
-import { useEffect } from "react";
-import content from "./content.json"
-import { newsBlogs } from "../../../../assets/index";
-import { useDispatch, useSelector } from "react-redux";
-// import { TruncateText } from "../../../../app/capitalizeword";
+// import { newsBlogs } from "../../../../assets/index";
 // import Arrow from "../../../../assets/icons/right-wrrow.svg";
-import { updateMainContent } from "../../../common/homeContentSlice";
-import TruncateComponent from "../../../../components/Truncate.jsx/TruncateComponent";
 import { TruncateText } from "../../../../app/capitalizeword";
 import { Img_url } from "../../../../routes/backend";
-// import styles from "@/components/news-and-blogs/newsblogs.module.scss";
-// Font files can be colocated inside of `app`
-// const BankGothic = localFont({
-//     src: "../../../public/font/BankGothicLtBTLight.ttf",
-//     display: "swap",
-// });
-// import dynamic from 'next/dynamic';
-// import localFont from "next/font/local";
-// const AnimatedText = dynamic(() => import('@/common/AnimatedText'), { ssr: false });
 
 
 const NewsBlogspage = ({ language, screen, content }) => {
@@ -24,11 +9,6 @@ const NewsBlogspage = ({ language, screen, content }) => {
     const titleLan = isLeftAlign ? "titleEn" : "titleAr"
     const isPhone = screen < 761
     const isTablet = screen > 760 && screen < 900
-    // const dispatch = useDispatch()
-    // const currentContent = useSelector((state) => state.homeContent.present.newsBlogs)
-    const ImageFromRedux = useSelector((state) => state.homeContent.present.images)
-    const bannerTitle = content?.['1']?.content?.title?.[language];
-    const bannerDescription = content?.['1']?.content?.description[language];
     const banner = content?.['1']?.content
     const mainCard = content?.['2']?.items?.[0]
     const latestNews = content?.['3']?.items;
@@ -40,15 +20,15 @@ const NewsBlogspage = ({ language, screen, content }) => {
             <section className={`relative px-5 w-full bg-cover bg-center ${isLeftAlign ? 'scale-x-[-1]' : ''}  `}
                 style={{
                     height: 1100 * 0.436,
-                    backgroundImage: banner.images?.[0]?.url ? Img_url + banner.images?.[0]?.url : "url('https://loopwebsite.s3.ap-south-1.amazonaws.com/Hero+(2).png')"
+                    backgroundImage: banner.images?.[0]?.url?.slice(0, 5) === "https" ? "url('https://loopwebsite.s3.ap-south-1.amazonaws.com/Hero+(2).png')" : Img_url + banner.images?.[0]?.url
                 }}>
                 <div className={`${isTablet && "py-[200px]"} container h-full relative ${isPhone ? "px-10" : "px-20"} flex items-center ${isLeftAlign ? "justify-end" : "justify-end"}`}>
                     <div className={`flex flex-col ${isLeftAlign ? 'right-5 text-left items-start ' : 'left-5 text-right items-end'} ${isPhone ? "max-w-[90%]" : isTablet ? "max-w-[70%]" : "max-w-[50%]"} w-full ${isLeftAlign ? 'scale-x-[-1]' : ''}`}>
                         <h1 className={`text-[#292E3D] ${isPhone ? "text-3xl" : "text-[50px] leading-[77px] tracking-[-3.5px]"} font-medium  mb-4`}>
-                            {bannerTitle}
+                            {banner?.title?.[language]}
                         </h1>
                         <p className={`text-[#0E172FB3] ${isPhone ? "" : "leading-[28px]"} text-sm font-semibold w-[70%] mb-6 word-spacing-5`} dir={isLeftAlign ? "ltr" : "rtl"}>
-                            {bannerDescription}
+                            {banner?.description?.[language]}
                         </p>
                         {/* <button
                             className={`relative px-5 py-2 ${isPhone ? "text-xs" : "text-sm"} font-medium bg-[#00B9F2] text-white rounded flex items-center justify-start gap-2 ${isLeftAlign ? "flex-row-reverse" : ""}`}

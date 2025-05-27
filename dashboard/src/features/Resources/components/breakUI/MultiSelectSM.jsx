@@ -44,7 +44,7 @@ const SortableItem = ({ option, removeOption, language, reference }) => {
             className={`flex items-center ${language === 'ar' && "flex-row-reverse text-right"} gap-1 px-3 py-1 text-xs bg-gray-200 min-h-[2.125rem] rounded-md cursor-move dark:text-[black] transition-transform`}
         >
 
-            {option.title?.[language]}
+            {option?.title?.[language]}
             <button
                 onClick={() => removeOption(option)}
                 className="text-gray-600 hover:text-red-500"
@@ -71,7 +71,6 @@ const MultiSelectSM = ({ currentContent, heading, options = [], tabName, label, 
 
         default:
             actualListOfServices = content.newsBlogs.latestNewCards.cards
-        // actualListOfServices = []
     }
 
     // const showOptions = options?.map(e => e.title[language])
