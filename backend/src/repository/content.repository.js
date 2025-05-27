@@ -1628,7 +1628,7 @@ export const assignUserToResource = async (
       } // End of else block for publisher has NOT taken action
     }
 
-    // 5. Process version assignments (same logic as above)
+    // 5. Synchronize resource assignments to version in edit mode
     if (currentResource.newVersionEditModeId) {
       const versionId = currentResource.newVersionEditModeId;
       const currentVersionRoles = currentResource.newVersionEditMode.roles;
@@ -1642,100 +1642,83 @@ export const assignUserToResource = async (
         (v) => v.status === "ACTIVE"
       );
 
-      // Check if version publisher is being removed (was active but not in payload)
-      const activeVersionPublisher = activeVersionRoles.find(
-        (r) => r.role === "PUBLISHER"
-      );
+      // Synchronize all resource-level assignments to version-level
+      // This ensures version in edit mode always mirrors resource assignments
 
-      if (activeVersionPublisher && !publisher) {
-        const pendingRequests = await getPendingRequests(null, versionId);
-
-        if (pendingRequests.length > 0) {
-          const hasTakenAction = await hasUserTakenAction(
-            activeVersionPublisher.userId,
-            pendingRequests.map(req => req.id),
-            null
-          );
-
-          // If the publisher has taken any action (approved or rejected), we can't remove them
-          if (hasTakenAction) {
-            throw new Error(`Cannot remove publisher for version because they have already taken action on requests (approved or rejected). Only publishers who haven't taken any action can be removed.`);
-          }
+      // Get current active resource assignments to mirror them in version
+      const currentActiveResourceRoles = await prisma.resourceRole.findMany({
+        where: {
+          resourceId,
+          status: "ACTIVE"
         }
-      }
+      });
 
-      // Process version roles
+      const currentActiveResourceVerifiers = await prisma.resourceVerifier.findMany({
+        where: {
+          resourceId,
+          status: "ACTIVE"
+        }
+      });
+
+      // Synchronize roles: Make version roles match resource roles exactly
       for (const [role, userId] of Object.entries(roleMap)) {
-        if (!userId) continue;
+        if (!userId) {
+          // Role is being removed - deactivate in version
+          const versionRoleToDeactivate = activeVersionRoles.find(
+            (r) => r.role === role
+          );
+          if (versionRoleToDeactivate) {
+            await prisma.resourceVersionRole.update({
+              where: {id: versionRoleToDeactivate.id},
+              data: {status: "INACTIVE"},
+            });
+          }
+          continue;
+        }
 
-        // Case 1: Already active in this role - skip (idempotent)
-        const existingActiveInRole = activeVersionRoles.find(
+        // Role is being assigned - ensure version matches
+        const existingVersionRole = activeVersionRoles.find(
           (r) => r.role === role && r.userId === userId
         );
-        if (existingActiveInRole) continue;
 
-        // Case 2: User is active verifier - deactivate first (No Role-Verifier Conflict Rule)
-        const activeVerifierAssignment = activeVersionVerifiers.find(
-          (v) => v.userId === userId
+        if (existingVersionRole) {
+          // Already correctly assigned, skip
+          continue;
+        }
+
+        // Deactivate any existing role assignment for this role
+        const existingRoleAssignment = activeVersionRoles.find(
+          (r) => r.role === role
         );
-        if (activeVerifierAssignment) {
-          await prisma.resourceVersionVerifier.update({
-            where: {id: activeVerifierAssignment.id},
+        if (existingRoleAssignment) {
+          await prisma.resourceVersionRole.update({
+            where: {id: existingRoleAssignment.id},
             data: {status: "INACTIVE"},
           });
         }
 
-        // Case 3: User active in different role - deactivate first (Single Active Role Per User Rule)
-        const activeInOtherRole = activeVersionRoles.find(
+        // Deactivate any other role assignments for this user
+        const userOtherRoles = activeVersionRoles.filter(
           (r) => r.userId === userId && r.role !== role
         );
-        if (activeInOtherRole) {
+        for (const userRole of userOtherRoles) {
           await prisma.resourceVersionRole.update({
-            where: {id: activeInOtherRole.id},
+            where: {id: userRole.id},
             data: {status: "INACTIVE"},
           });
         }
 
-        // Case 4: Another user active in this role - deactivate them (Single Active User Per Role Rule)
-        const otherUserActive = activeVersionRoles.find(
-          (r) => r.role === role && r.userId !== userId
-        );
-        if (otherUserActive) {
-          // If this is a publisher role, check if they've approved any requests
-          if (role === "PUBLISHER") {
-            const pendingRequests = await getPendingRequests(null, versionId);
-
-            if (pendingRequests.length > 0) {
-              const hasTakenAction = await hasUserTakenAction(
-                otherUserActive.userId,
-                pendingRequests.map(req => req.id),
-                null
-              );
-
-              // If the publisher has taken any action (approved or rejected), we can't reassign them
-              if (hasTakenAction) {
-                throw new Error(`Cannot reassign publisher for version because they have already taken action on requests (approved or rejected). Only publishers who haven't taken any action can be reassigned.`);
-              }
-            }
-          }
-
-          await prisma.resourceVersionRole.update({
-            where: {id: otherUserActive.id},
-            data: {status: "INACTIVE"},
-          });
-        }
-
-        // Case 5: Existing inactive assignment - reactivate (Inactive Reactivation Rule)
-        const existingInactive = currentVersionRoles.find(
+        // Create or reactivate the correct assignment
+        const inactiveVersionRole = currentVersionRoles.find(
           (r) => r.role === role && r.userId === userId && r.status !== "ACTIVE"
         );
-        if (existingInactive) {
+
+        if (inactiveVersionRole) {
           await prisma.resourceVersionRole.update({
-            where: {id: existingInactive.id},
+            where: {id: inactiveVersionRole.id},
             data: {status: "ACTIVE"},
           });
         } else {
-          // Case 6: Create new assignment
           await prisma.resourceVersionRole.create({
             data: {
               resourceVersionId: versionId,
@@ -1747,251 +1730,77 @@ export const assignUserToResource = async (
         }
       }
 
-      // Process version verifiers
+      // Synchronize verifiers: Make version verifiers match resource verifiers exactly
       if (Array.isArray(verifiers)) {
-        // Check if version publisher has taken action on any pending requests
-        const pendingVersionRequests = await getPendingRequests(null, versionId);
-        let versionPublisherHasTakenAction = false;
-
-        if (pendingVersionRequests.length > 0) {
-          // Find current active version publisher
-          const currentVersionPublisher = activeVersionRoles.find(
-            (r) => r.role === "PUBLISHER"
+        // Deactivate all current version verifiers that don't match resource verifiers
+        for (const versionVerifier of activeVersionVerifiers) {
+          const matchingResourceVerifier = currentActiveResourceVerifiers.find(
+            (rv) => rv.userId === versionVerifier.userId && rv.stage === versionVerifier.stage
           );
 
-          if (currentVersionPublisher) {
-            versionPublisherHasTakenAction = await hasUserTakenAction(
-              currentVersionPublisher.userId,
-              pendingVersionRequests.map(req => req.id),
-              null // Publisher stage is null
-            );
+          if (!matchingResourceVerifier) {
+            // This version verifier doesn't exist in resource, deactivate it
+            await prisma.resourceVersionVerifier.update({
+              where: {id: versionVerifier.id},
+              data: {status: "INACTIVE"},
+            });
           }
         }
 
-        // Deactivate verifiers not in payload
-        const verifiersToDeactivate = activeVersionVerifiers.filter(
-          (v) =>
-            !verifiers.some((v2) => v2.id === v.userId && v2.stage === v.stage)
-        );
+        // Add/activate version verifiers to match resource verifiers
+        for (const resourceVerifier of currentActiveResourceVerifiers) {
+          const existingVersionVerifier = activeVersionVerifiers.find(
+            (vv) => vv.userId === resourceVerifier.userId && vv.stage === resourceVerifier.stage
+          );
 
-        // If version publisher has taken action, prevent ALL verifier modifications
-        if (versionPublisherHasTakenAction) {
-          // Check if there are any changes to verifiers
-          const hasVersionVerifierChanges =
-            verifiersToDeactivate.length > 0 ||
-            verifiers.some(v => !activeVersionVerifiers.find(cv => cv.userId === v.id && cv.stage === v.stage));
-
-          if (hasVersionVerifierChanges) {
-            throw new Error(`Cannot modify version verifiers because the publisher has already taken action on pending requests. Version verifier assignments cannot be changed once the publisher has approved or rejected a request.`);
+          if (existingVersionVerifier) {
+            // Already correctly assigned, skip
+            continue;
           }
 
-          // If no changes, skip version verifier processing
-        } else {
-          // Version publisher has NOT taken action, proceed with normal verifier processing
-          for (const verifier of verifiersToDeactivate) {
-            const pendingRequests = await getPendingRequests(null, versionId);
-
-            if (pendingRequests.length > 0) {
-              const hasTakenAction = await hasUserTakenAction(
-                verifier.userId,
-                pendingRequests.map(req => req.id),
-                verifier.stage
-              );
-
-              // If the verifier has taken any action (approved or rejected), we can't remove them
-              if (hasTakenAction) {
-                throw new Error(`Cannot remove verifier at stage ${verifier.stage} for version because they have already taken action on requests (approved or rejected). Only verifiers who haven't taken any action can be removed.`);
-              }
-            }
-
-            // If we get here, it's safe to deactivate the verifier
+          // Deactivate any existing verifier for this stage
+          const existingStageVerifier = activeVersionVerifiers.find(
+            (vv) => vv.stage === resourceVerifier.stage
+          );
+          if (existingStageVerifier) {
             await prisma.resourceVersionVerifier.update({
-              where: {id: verifier.id},
-              data: {status: "INACTIVE"},
-            });
-
-            // Check if this was the last pending verifier and update request status if needed
-            if (pendingRequests.length > 0) {
-              for (const request of pendingRequests) {
-                // Get all active approvals for this request
-                const activeApprovals = await prisma.requestApproval.findMany({
-                  where: {
-                    requestId: request.id,
-                    approverStatus: "ACTIVE",
-                    stage: { not: null } // Only verifier approvals (exclude publisher)
-                  }
-                });
-
-                // Check if all remaining active verifier approvals are approved
-                const allVerifiersApproved = activeApprovals.length > 0 &&
-                  activeApprovals.every(approval => approval.status === "APPROVED");
-
-                // If all remaining verifiers have approved, transition to publish pending
-                if (allVerifiersApproved) {
-                  // Update request status to PUBLISH_PENDING
-                  await prisma.resourceVersioningRequest.update({
-                    where: { id: request.id },
-                    data: {
-                      status: "PUBLISH_PENDING",
-                      type: "PUBLICATION",
-                      flowStatus: "PENDING"
-                    }
-                  });
-
-                  // Update resource version status to PUBLISH_PENDING
-                  const requestDetails = await prisma.resourceVersioningRequest.findUnique({
-                    where: { id: request.id },
-                    select: { resourceVersionId: true }
-                  });
-
-                  if (requestDetails) {
-                    await prisma.resourceVersion.update({
-                      where: { id: requestDetails.resourceVersionId },
-                      data: {
-                        versionStatus: "PUBLISH_PENDING"
-                      }
-                    });
-                  }
-                }
-              }
-            }
-          }
-
-        // Process each verifier in payload
-        for (const {id: userId, stage} of verifiers) {
-          // Skip if already active in this stage (idempotent)
-          const existingActive = activeVersionVerifiers.find(
-            (v) => v.userId === userId && v.stage === stage
-          );
-          if (existingActive) continue;
-
-          // Check for active role conflict (No Role-Verifier Conflict Rule)
-          // First, deactivate any active roles for this user in the version
-          const userActiveRoles = activeVersionRoles.filter(
-            (r) => r.userId === userId
-          );
-
-          // Deactivate any active roles for this user in the version
-          for (const role of userActiveRoles) {
-            await prisma.resourceVersionRole.update({
-              where: { id: role.id },
-              data: { status: "INACTIVE" },
-            });
-          }
-
-          // Now the user doesn't have any active roles in the version, so we can proceed
-
-          // Deactivate ANY existing assignment to this stage (Single Active User Per Verifier Stage)
-          // This needs to happen BEFORE attempting to reactivate or create a new one
-          const existingStageAssignments = activeVersionVerifiers.filter(
-            (v) => v.stage === stage && v.status === "ACTIVE"
-          );
-
-          // Check if any of the existing verifiers have approved any requests
-          // If they have, we can't reassign them
-          for (const assignment of existingStageAssignments) {
-            const pendingRequests = await getPendingRequests(null, versionId);
-
-            if (pendingRequests.length > 0) {
-              const hasTakenAction = await hasUserTakenAction(
-                assignment.userId,
-                pendingRequests.map(req => req.id),
-                assignment.stage
-              );
-
-              // If the verifier has taken any action (approved or rejected), we can't reassign them
-              if (hasTakenAction) {
-                throw new Error(`Cannot reassign verifier at stage ${stage} for version because they have already taken action on requests (approved or rejected). Only verifiers who haven't taken any action can be reassigned.`);
-              }
-            }
-
-            // If we get here, it's safe to deactivate the verifier
-            await prisma.resourceVersionVerifier.update({
-              where: {id: assignment.id},
-              data: {status: "INACTIVE"},
-            });
-
-            // Check if this was the last pending verifier and update request status if needed
-            const pendingVersionRequestsForReassignment = await getPendingRequests(null, versionId);
-            if (pendingVersionRequestsForReassignment.length > 0) {
-              for (const request of pendingVersionRequestsForReassignment) {
-                // Get all active approvals for this request
-                const activeApprovals = await prisma.requestApproval.findMany({
-                  where: {
-                    requestId: request.id,
-                    approverStatus: "ACTIVE",
-                    stage: { not: null } // Only verifier approvals (exclude publisher)
-                  }
-                });
-
-                // Check if all remaining active verifier approvals are approved
-                const allVerifiersApproved = activeApprovals.length > 0 &&
-                  activeApprovals.every(approval => approval.status === "APPROVED");
-
-                // If all remaining verifiers have approved, transition to publish pending
-                if (allVerifiersApproved) {
-                  // Update request status to PUBLISH_PENDING
-                  await prisma.resourceVersioningRequest.update({
-                    where: { id: request.id },
-                    data: {
-                      status: "PUBLISH_PENDING",
-                      type: "PUBLICATION",
-                      flowStatus: "PENDING"
-                    }
-                  });
-
-                  // Update resource version status to PUBLISH_PENDING
-                  const requestDetails = await prisma.resourceVersioningRequest.findUnique({
-                    where: { id: request.id },
-                    select: { resourceVersionId: true }
-                  });
-
-                  if (requestDetails) {
-                    await prisma.resourceVersion.update({
-                      where: { id: requestDetails.resourceVersionId },
-                      data: {
-                        versionStatus: "PUBLISH_PENDING"
-                      }
-                    });
-                  }
-                }
-              }
-            }
-          }
-
-          // Deactivate any other active verifier assignments for this user (Single Active Verifier Stage Per User)
-          const userOtherActiveVerifiers = activeVersionVerifiers.filter(
-            (v) => v.userId === userId && v.stage !== stage
-          );
-          for (const verifier of userOtherActiveVerifiers) {
-            await prisma.resourceVersionVerifier.update({
-              where: {id: verifier.id},
+              where: {id: existingStageVerifier.id},
               data: {status: "INACTIVE"},
             });
           }
 
-          // Reactivate existing inactive or create new
-          const existingInactive = currentVersionVerifiers.find(
-            (v) =>
-              v.userId === userId && v.stage === stage && v.status !== "ACTIVE"
+          // Deactivate any other stage assignments for this user
+          const userOtherStages = activeVersionVerifiers.filter(
+            (vv) => vv.userId === resourceVerifier.userId && vv.stage !== resourceVerifier.stage
           );
-          if (existingInactive) {
+          for (const userStage of userOtherStages) {
             await prisma.resourceVersionVerifier.update({
-              where: {id: existingInactive.id},
+              where: {id: userStage.id},
+              data: {status: "INACTIVE"},
+            });
+          }
+
+          // Create or reactivate the correct verifier assignment
+          const inactiveVersionVerifier = currentVersionVerifiers.find(
+            (vv) => vv.userId === resourceVerifier.userId && vv.stage === resourceVerifier.stage && vv.status !== "ACTIVE"
+          );
+
+          if (inactiveVersionVerifier) {
+            await prisma.resourceVersionVerifier.update({
+              where: {id: inactiveVersionVerifier.id},
               data: {status: "ACTIVE"},
             });
           } else {
             await prisma.resourceVersionVerifier.create({
               data: {
                 resourceVersionId: versionId,
-                userId,
-                stage,
+                userId: resourceVerifier.userId,
+                stage: resourceVerifier.stage,
                 status: "ACTIVE",
               },
             });
           }
         }
-        } // End of else block for version publisher has NOT taken action
       }
     }
 
@@ -2719,6 +2528,16 @@ export const createOrUpdateVersion = async (contentData) => {
         },
       },
       newVersionEditMode: true, // Get the current edit mode version if it exists
+      roles: {
+        where: {
+          status: "ACTIVE",
+        },
+      },
+      verifiers: {
+        where: {
+          status: "ACTIVE",
+        },
+      },
     },
   });
   assert(
@@ -3278,6 +3097,9 @@ export const updateContentAndGenerateRequest = async (contentData) => {
           slug: contentData.slug,
         },
       });
+
+      // Copy roles and verifiers from resource to the new resource version
+      await copyResourceAssignmentsToVersion(tx, resource.id, resourceVersion.id, resource.roles, resource.verifiers);
     } else {
       // Edit version already exists, update it
       resourceVersion = await tx.resourceVersion.update({
@@ -3310,6 +3132,9 @@ export const updateContentAndGenerateRequest = async (contentData) => {
           slug: contentData.slug,
         },
       });
+
+      // Update roles and verifiers from resource to the existing resource version
+      await copyResourceAssignmentsToVersion(tx, resource.id, resourceVersion.id, resource.roles, resource.verifiers);
     }
 
     let generatedRequest;
@@ -4691,7 +4516,7 @@ export const fetchVersionsInfo = async (versionId) => {
   const version = await prismaClient.resourceVersion.findUnique({
     where: { id: versionId },
     include: {
-      // Include resource information
+      // Include resource information with its roles and verifiers
       resource: {
         select: {
           id: true,
@@ -4701,6 +4526,38 @@ export const fetchVersionsInfo = async (versionId) => {
           resourceTag: true,
           liveVersionId: true,
           newVersionEditModeId: true,
+        },
+        include: {
+          // Include resource roles and verifiers for DRAFT versions
+          roles: {
+            include: {
+              user: {
+                select: {
+                  id: true,
+                  name: true,
+                  email: true,
+                },
+              },
+            },
+            orderBy: {
+              createdAt: "asc",
+            },
+          },
+          verifiers: {
+            include: {
+              user: {
+                select: {
+                  id: true,
+                  name: true,
+                  email: true,
+                },
+              },
+            },
+            orderBy: [
+              { stage: "asc" },
+              { createdAt: "asc" },
+            ],
+          },
         },
       },
       // Role assignments for this version (historical snapshot)
@@ -4765,20 +4622,18 @@ export const fetchVersionsInfo = async (versionId) => {
           createdAt: "desc",
         },
       },
-      // User who locked this version (if any)
-      lockedBy: {
-        select: {
-          id: true,
-          name: true,
-          email: true,
-        },
-      },
+
     },
   });
 
   if (!version) {
     throw new Error("Version not found");
   }
+
+  // Determine which role and verifier data to use based on version status
+  const isDraftVersion = version.versionStatus === "DRAFT";
+  const rolesToProcess = isDraftVersion ? version.resource.roles : version.roles;
+  const verifiersToProcess = isDraftVersion ? version.resource.verifiers : version.verifiers;
 
   // Process the version to create comprehensive history
   // Group role history by role type
@@ -4789,7 +4644,7 @@ export const fetchVersionsInfo = async (versionId) => {
   };
 
   // Process role assignments with timestamps
-  version.roles.forEach((roleAssignment) => {
+  rolesToProcess.forEach((roleAssignment) => {
     const roleType = roleAssignment.role;
     if (roleHistory[roleType]) {
       roleHistory[roleType].push({
@@ -4803,7 +4658,7 @@ export const fetchVersionsInfo = async (versionId) => {
 
   // Group verifier history by stage
   const verifierHistory = {};
-  version.verifiers.forEach((verifierAssignment) => {
+  verifiersToProcess.forEach((verifierAssignment) => {
     const stage = verifierAssignment.stage;
     if (!verifierHistory[stage]) {
       verifierHistory[stage] = [];
@@ -4885,10 +4740,6 @@ export const fetchVersionsInfo = async (versionId) => {
       updatedAt: version.updatedAt,
       scheduledAt: version.scheduledAt,
       publishedAt: version.publishedAt,
-
-      // Lock information
-      lockedBy: version.lockedBy,
-      lockedAt: version.lockedAt,
 
       // Historical role assignments
       roleHistory,
@@ -5133,3 +4984,166 @@ export const deleteAllResourceRelatedDataFromDb = async () => {
 // - Submitted Date, publisher approval datetime, Editor's Comments
 // - Submitted By information, reference documents, approval status per user
 // - All data is specific to each resource version as every version maintains its own history
+
+// Helper function to copy resource assignments to resource version
+async function copyResourceAssignmentsToVersion(tx, resourceId, resourceVersionId, resourceRoles, resourceVerifiers) {
+  // Get current version assignments
+  const currentVersionRoles = await tx.resourceVersionRole.findMany({
+    where: {
+      resourceVersionId: resourceVersionId,
+    },
+  });
+
+  const currentVersionVerifiers = await tx.resourceVersionVerifier.findMany({
+    where: {
+      resourceVersionId: resourceVersionId,
+    },
+  });
+
+  const activeVersionRoles = currentVersionRoles.filter(r => r.status === "ACTIVE");
+  const activeVersionVerifiers = currentVersionVerifiers.filter(v => v.status === "ACTIVE");
+
+  // Copy roles from resource to version
+  for (const resourceRole of resourceRoles) {
+    // Check if this role already exists and is active in the version
+    const existingVersionRole = activeVersionRoles.find(
+      vr => vr.role === resourceRole.role && vr.userId === resourceRole.userId
+    );
+
+    if (existingVersionRole) {
+      // Role already exists and matches, skip
+      continue;
+    }
+
+    // Deactivate any existing role assignment for this role type
+    const existingRoleAssignment = activeVersionRoles.find(
+      vr => vr.role === resourceRole.role
+    );
+    if (existingRoleAssignment) {
+      await tx.resourceVersionRole.update({
+        where: { id: existingRoleAssignment.id },
+        data: { status: "INACTIVE" },
+      });
+    }
+
+    // Deactivate any other role assignments for this user
+    const userOtherRoles = activeVersionRoles.filter(
+      vr => vr.userId === resourceRole.userId && vr.role !== resourceRole.role
+    );
+    for (const userRole of userOtherRoles) {
+      await tx.resourceVersionRole.update({
+        where: { id: userRole.id },
+        data: { status: "INACTIVE" },
+      });
+    }
+
+    // Check if there's an inactive assignment we can reactivate
+    const inactiveVersionRole = currentVersionRoles.find(
+      vr => vr.role === resourceRole.role && vr.userId === resourceRole.userId && vr.status !== "ACTIVE"
+    );
+
+    if (inactiveVersionRole) {
+      // Reactivate existing inactive assignment
+      await tx.resourceVersionRole.update({
+        where: { id: inactiveVersionRole.id },
+        data: { status: "ACTIVE" },
+      });
+    } else {
+      // Create new role assignment
+      await tx.resourceVersionRole.create({
+        data: {
+          resourceVersionId: resourceVersionId,
+          userId: resourceRole.userId,
+          role: resourceRole.role,
+          status: "ACTIVE",
+        },
+      });
+    }
+  }
+
+  // Deactivate version roles that don't exist in resource
+  for (const versionRole of activeVersionRoles) {
+    const matchingResourceRole = resourceRoles.find(
+      rr => rr.role === versionRole.role && rr.userId === versionRole.userId
+    );
+
+    if (!matchingResourceRole) {
+      await tx.resourceVersionRole.update({
+        where: { id: versionRole.id },
+        data: { status: "INACTIVE" },
+      });
+    }
+  }
+
+  // Copy verifiers from resource to version
+  for (const resourceVerifier of resourceVerifiers) {
+    // Check if this verifier already exists and is active in the version
+    const existingVersionVerifier = activeVersionVerifiers.find(
+      vv => vv.stage === resourceVerifier.stage && vv.userId === resourceVerifier.userId
+    );
+
+    if (existingVersionVerifier) {
+      // Verifier already exists and matches, skip
+      continue;
+    }
+
+    // Deactivate any existing verifier assignment for this stage
+    const existingStageVerifier = activeVersionVerifiers.find(
+      vv => vv.stage === resourceVerifier.stage
+    );
+    if (existingStageVerifier) {
+      await tx.resourceVersionVerifier.update({
+        where: { id: existingStageVerifier.id },
+        data: { status: "INACTIVE" },
+      });
+    }
+
+    // Deactivate any other stage assignments for this user
+    const userOtherStages = activeVersionVerifiers.filter(
+      vv => vv.userId === resourceVerifier.userId && vv.stage !== resourceVerifier.stage
+    );
+    for (const userStage of userOtherStages) {
+      await tx.resourceVersionVerifier.update({
+        where: { id: userStage.id },
+        data: { status: "INACTIVE" },
+      });
+    }
+
+    // Check if there's an inactive assignment we can reactivate
+    const inactiveVersionVerifier = currentVersionVerifiers.find(
+      vv => vv.stage === resourceVerifier.stage && vv.userId === resourceVerifier.userId && vv.status !== "ACTIVE"
+    );
+
+    if (inactiveVersionVerifier) {
+      // Reactivate existing inactive assignment
+      await tx.resourceVersionVerifier.update({
+        where: { id: inactiveVersionVerifier.id },
+        data: { status: "ACTIVE" },
+      });
+    } else {
+      // Create new verifier assignment
+      await tx.resourceVersionVerifier.create({
+        data: {
+          resourceVersionId: resourceVersionId,
+          userId: resourceVerifier.userId,
+          stage: resourceVerifier.stage,
+          status: "ACTIVE",
+        },
+      });
+    }
+  }
+
+  // Deactivate version verifiers that don't exist in resource
+  for (const versionVerifier of activeVersionVerifiers) {
+    const matchingResourceVerifier = resourceVerifiers.find(
+      rv => rv.stage === versionVerifier.stage && rv.userId === versionVerifier.userId
+    );
+
+    if (!matchingResourceVerifier) {
+      await tx.resourceVersionVerifier.update({
+        where: { id: versionVerifier.id },
+        data: { status: "INACTIVE" },
+      });
+    }
+  }
+}
