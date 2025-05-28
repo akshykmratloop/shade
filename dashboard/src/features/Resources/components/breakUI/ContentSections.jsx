@@ -204,7 +204,7 @@ const ContentSection = ({
     return (
         <div
             id={elementId}
-            className={`w-full ${Heading ? "mt-4" : subHeading ? "mt-2" : ""} flex flex-col gap-1 ${!isBorder ? "" : "border-b border-b-1 border-neutral-300"} ${attachOne ? "pb-0" : (Heading || subHeading) ? "pb-6" : ""}`}>
+            className={`w-full ${Heading ? "mt-4" : subHeading ? "mt-2" : ""} flex flex-col gap-1 ${!isBorder ? "" : "border-b border-b-1 border-neutral-300"} ${attachOne ? "pb-0" : (Heading || subHeading) ? "pb-3" : ""}`}>
             <h3 className={`font-semibold ${subHeading ? "text-[.9rem] mb-1" : Heading ? "text-[1.25rem] mb-4" : " mb-0"}`} style={{ wordBreak: "break-word" }}>{Heading || subHeading}</h3>
             {inputs.length > 0 &&
                 inputs.map((input, i) => {
@@ -325,7 +325,7 @@ const ContentSection = ({
                                             currentPath={currentPath}
                                             fileIndex={i}
                                             section={section}
-                                            index={section === "clientSection" ? i : index}
+                                            index={section === "clientsImages" ? i : index}
                                             subSection={subSection}
                                             resourceId={resourceId}
                                             contentIndex={sectionIndex}

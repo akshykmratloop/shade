@@ -1,85 +1,96 @@
 {
     "message": "Success",
     "content": {
-        "resource": {
-            "id": "cmb6391g400stqpcgngpostdp",
-            "titleEn": "Home Page",
-            "titleAr": "الصفحة الرئيسية",
-            "resourceType": "MAIN_PAGE",
-            "resourceTag": "HOME"
-        },
-        "version": {
-            "id": "cmb63ac2v002pqpb970v65o7k",
-            "versionNumber": 2,
-            "versionStatus": "DRAFT",
-            "notes": "Initial version created by system",
+        "id": "cmb688c7m00hfqph6ohp8dt0s",
+        "titleEn": "Equipment Rental",
+        "titleAr": "تأجير المعدات",
+        "slug": "equipment-rental",
+        "isEditable": true,
+        "resourceType": "SUB_PAGE",
+        "resourceTag": "SERVICE",
+        "relationType": "CHILD",
+        "liveModeVersionData": {
+            "id": "cmb688c7q00hhqph6tn9ppyll",
+            "versionNumber": 1,
+            "icon": null,
+            "image": null,
+            "comments": "Initial version created by system",
             "referenceDoc": null,
-            "isLive": false,
-            "isUnderEditing": true,
-            "createdAt": "2025-05-27T05:42:13.927Z",
-            "updatedAt": "2025-05-27T05:42:13.927Z",
-            "scheduledAt": null,
-            "publishedAt": null,
-            "roleHistory": {
-                "MANAGER": [
-                    {
-                        "user": {
-                            "id": "cmb0rmuvg0002qp4xt8w2cm1x",
-                            "name": "Bhavnesh",
-                            "email": "bhanusharma25200@gmail.com"
+            "updatedAt": "2025-05-27T08:00:38.870Z",
+            "status": "LIVE",
+            "sections": [
+                {
+                    "sectionId": "cmb688c8a00hjqph6xvgyn9lb",
+                    "order": 1,
+                    "version": 1,
+                    "title": "introSection-equipment-rental-d550",
+                    "content": {
+                        "title": {
+                            "ar": "تأجير المعدات",
+                            "en": "Equipment Rental"
                         },
-                        "status": "ACTIVE",
-                        "assignedAt": "2025-05-27T05:42:00.981Z"
-                    }
-                ],
-                "EDITOR": [
-                    {
-                        "user": {
-                            "id": "cmawfx6da0008qp0w1q4ittw9",
-                            "name": "Anukool",
-                            "email": "anukool26@outlook.com"
+                        "images": [
+                            {
+                                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/equipment-rental.png",
+                                "order": 1,
+                                "altText": {
+                                    "ar": "صورة تأجير المعدات",
+                                    "en": "Equipment Rental Image"
+                                }
+                            }
+                        ],
+                        "description": {
+                            "ar": "نوفر مجموعة واسعة من المعدات الحديثة للإيجار لدعم مختلف احتياجات المشاريع بكفاءة وفعالية.",
+                            "en": "We provide a wide range of modern equipment for rent to efficiently support various project needs."
+                        }
+                    },
+                    "sections": []
+                },
+                {
+                    "sectionId": "cmb688c8o00hpqph6805ib22e",
+                    "order": 2,
+                    "version": 1,
+                    "title": "childrenServices-equipment-rental-ba0e",
+                    "content": {
+                        "button": [
+                            {
+                                "url": null,
+                                "icon": null,
+                                "text": {
+                                    "ar": "عرض التفاصيل",
+                                    "en": "View Details"
+                                },
+                                "order": 1
+                            }
+                        ]
+                    },
+                    "sections": []
+                },
+                {
+                    "sectionId": "cmb688c8z00hvqph6wblm9i6n",
+                    "order": 3,
+                    "version": 1,
+                    "title": "otherSecondLevelOFServices-equipment-rental-44ea",
+                    "content": {
+                        "title": {
+                            "ar": "خدمات أخرى",
+                            "en": "Other Services"
                         },
-                        "status": "ACTIVE",
-                        "assignedAt": "2025-05-27T05:42:00.983Z"
-                    }
-                ],
-                "PUBLISHER": [
-                    {
-                        "user": {
-                            "id": "cmb0rnyxo0003qp4x5winl0wr",
-                            "name": "Bhavnesh Sharma",
-                            "email": "bhavneshsharma@loopmethods.com"
-                        },
-                        "status": "ACTIVE",
-                        "assignedAt": "2025-05-27T05:42:00.985Z"
-                    }
-                ]
-            },
-            "verifierHistory": {
-                "1": [
-                    {
-                        "user": {
-                            "id": "cmb0rls150000qp4xpn4y20vj",
-                            "name": "Jyoti",
-                            "email": "jyotikumari@loopmethods.com"
-                        },
-                        "status": "ACTIVE",
-                        "assignedAt": "2025-05-27T05:42:00.998Z"
-                    }
-                ],
-                "2": [
-                    {
-                        "user": {
-                            "id": "cmb0rmccy0001qp4x1k2dq3qc",
-                            "name": "JYOTI KUMARI",
-                            "email": "jyotikumari00718@gmail.com"
-                        },
-                        "status": "ACTIVE",
-                        "assignedAt": "2025-05-27T05:42:01.008Z"
-                    }
-                ]
-            },
-            "requestHistory": []
+                        "button": [
+                            {
+                                "url": null,
+                                "icon": null,
+                                "text": {
+                                    "ar": "عرض التفاصيل",
+                                    "en": "View Details"
+                                },
+                                "order": 1
+                            }
+                        ]
+                    },
+                    "sections": []
+                }
+            ]
         }
     }
 }

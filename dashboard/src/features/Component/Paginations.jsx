@@ -1,9 +1,9 @@
 import { FaAngleLeft, FaAngleRight } from "react-icons/fa6";
 import { useContext } from "react";
-import { ScrollContext } from "../Context/Context";
+import { Context } from "../Context/Context";
 
 const Paginations = ({ currentPage, totalPages, setCurrentPage, data, }) => {
-    const scrollContainerRef = useContext(ScrollContext);
+    const scrollContainerRef = useContext(Context);
 
     const scrollToTop = () => {
         scrollContainerRef.current?.scrollTo({ top: 0, behavior: "smooth" });

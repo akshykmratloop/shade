@@ -129,7 +129,7 @@ const AllForOne = ({ language, screen, content, subPath, setLanguage, fullScreen
                     <NewsBlogDetailPage
                         width={width}
                         language={language} contentOn={content?.newsBlogsDetails} newsId={subPath} screen={screen} /> :
-                    <NewsPage language={language} currentContent={content} screen={screen} /> : ""
+                    <NewsPage language={language} content={content} screen={screen} /> : ""
             }
 
             {/* sub pages */}

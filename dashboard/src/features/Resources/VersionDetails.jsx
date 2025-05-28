@@ -7,6 +7,9 @@ import capitalizeWords, { TruncateText } from "../../app/capitalizeword";
 import { useSelector } from "react-redux";
 import { restoreVersion, versionInfo } from "../../app/fetch";
 import { toast, ToastContainer } from "react-toastify";
+import CustomContext from "../Context/CustomContext";
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const data = [
     {
@@ -48,12 +51,14 @@ const getStyle = {
 }
 
 const toastObject = {
-    hideProgressBar: true, autoClose: 700, pauseOnHover: false
+    hideProgressBar: true, autoClose: 700
 }
 
-const RequestDetails = () => {
+const RequestDetails = ({ close }) => {
     const id = useSelector(state => state.rightDrawer.extraObject.id)
     const [versionData, setVersionData] = useState({ resource: {}, version: {} })
+    const { setRandom } = CustomContext().random
+
 
     const { resource, version } = versionData
 
@@ -76,6 +81,8 @@ const RequestDetails = () => {
             const response = await restoreVersion(version.id)
             if (response.ok) {
                 toast.success("Version has been restored.", toastObject)
+                close()
+                setRandom()
             } else {
                 toast.error("Failed to restore.", toastObject)
             }
@@ -118,7 +125,7 @@ const RequestDetails = () => {
                 {version.versionStatus === "PUBLISHED" &&
                     <div className="flex py-[15px] justify-between border-b dark:border-[#8a8a8a]">
                         <label></label>
-                        <button className="underline text-[#145098] font-[300]"
+                        <button className="underline text-[#145098] dark:text-[#0EA5E9] font-[300]"
                             onClick={() => handleRestoreVersionRequest(version)}
                         >Restore this version</button>
                     </div>}
@@ -256,7 +263,7 @@ const RequestDetails = () => {
                     </div>
                 </div>
             </div>
-            <ToastContainer />
+            {/* <ToastContainer /> */}
         </div >
     );
 };

@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useEffect, useRef } from "react"
 import { useNavigate } from "react-router-dom"
 import { useContext } from "react";
-import { ScrollContext } from "../features/Context/Context"
+import { Context } from "../features/Context/Context"
 // import { toast } from "react-toastify"
 
 const Page404 = lazy(() => import('../pages/protected/404'))
@@ -18,7 +18,7 @@ function PageContent() {
     // const mainContentRef = useRef(null);
     const { pageTitle } = useSelector(state => state.header)
     const userRole = useSelector(state => state.user.activeRole)
-    const scrollContainerRef = useContext(ScrollContext);
+    const { scrollContainerRef } = useContext(Context);
 
     // const applied = useSelector(state => state)
     const location = useLocation()
