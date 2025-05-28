@@ -44,7 +44,8 @@
                             "en": "We provide a wide range of modern equipment for rent to efficiently support various project needs."
                         }
                     },
-                    "sections": []
+                    "sections": [],
+                    "items": []
                 },
                 {
                     "sectionId": "cmb688c8o00hpqph6805ib22e",
@@ -64,7 +65,8 @@
                             }
                         ]
                     },
-                    "sections": []
+                    "sections": [],
+                    "items": []
                 },
                 {
                     "sectionId": "cmb688c8z00hvqph6wblm9i6n",
@@ -88,7 +90,8 @@
                             }
                         ]
                     },
-                    "sections": []
+                    "sections": [],
+                    "items": []
                 }
             ]
         }

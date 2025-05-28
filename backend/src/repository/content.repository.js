@@ -2243,7 +2243,9 @@ export const fetchContent = async (resourceId, isItemFullContent = true) => {
     result.editModeVersionData = await formatResourceVersionData(
       resource.newVersionEditMode,
       isItemFullContent,
-      resource.slug
+      resource.slug,
+      resource.resourceType,
+      resource.resourceTag
     );
   }
 
@@ -2264,7 +2266,9 @@ export const fetchContent = async (resourceId, isItemFullContent = true) => {
 async function formatResourceVersionData(
   resourceVersion,
   isItemFullContent,
-  resourceSlug
+  resourceSlug,
+  resourceType,
+  resourceTag
 ) {
   if (!resourceVersion) return null;
 

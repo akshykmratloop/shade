@@ -5,9 +5,14 @@ export default function dynamicSize(size, width) {
 export const differentText = {
     highlight1: "border-green-600 border",
 
-    checkDifference: function (arg1, arg2, highlight) {
+    checkDifference: function (arg1, arg2, highlight, from) {
+
         if (Array.isArray(arg1) && Array.isArray(arg2)) {
-            return arg1.forEach((e, i) => e.id === arg2[i].id)
+            if (from === 'projects') {
+                // console.log(arg1, arg2)
+               console.log(JSON.stringify(arg1), JSON.stringify(arg2))
+            }
+            return arg1.some((e, i) => e.id !== arg2[i].id) ? this?.highlight1 : ""
         }
 
         if (arg1 !== arg2) {

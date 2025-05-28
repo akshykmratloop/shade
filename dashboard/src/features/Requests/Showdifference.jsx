@@ -26,7 +26,7 @@ import { toast } from "react-toastify";
 
 function ShowDifference({ show, onClose, request, resourceId, currentlyEditor, currentlyPublisher, requestId, refreshList }) {
 
-    console.log(request)
+    // console.log(request)
     // const contentFromRedux = useSelector(state => state.homeContent.present)
     const [liveVersion, setLiveVersion] = useState({})
     const [editVersion, setEditVersion] = useState({})
