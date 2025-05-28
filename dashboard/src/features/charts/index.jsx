@@ -280,7 +280,7 @@ function Users() {
           />
         }
       >
-        <div className="min-h-[28.2rem] flex flex-col justify-between">
+        <div className="min-h-[30rem] flex flex-col justify-between">
           <div className=" w-full border dark:border-stone-600 rounded-2xl">
             <table className="table text-left min-w-full dark:text-[white]">
               <thead className="" style={{ borderRadius: "" }}>

@@ -120,7 +120,7 @@ const GenerateRequest = async (req, res) => {
 };
 
 const GetRequest = async (req, res) => {
-  const {roleId, permission, search, status, page, limit} = req.query;
+  const {roleId, permission, search, status, page, limit, resourceId} = req.query;
   const userId = req.user.id;
 
   const pageNum = parseInt(page) || 1;
@@ -132,7 +132,8 @@ const GetRequest = async (req, res) => {
     search,
     status,
     pageNum,
-    limitNum
+    limitNum,
+    resourceId
   );
   res.status(200).json(response);
 };

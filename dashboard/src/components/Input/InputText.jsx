@@ -131,7 +131,7 @@ function InputText({
         ) : (
           // **Regular Input (Text, Password, etc.)**
           <input
-            dir={language === "ar" ? "rtl" : "ltr"}
+            dir={language === "ar" ? updateType === "url" ? "ltr" : "rtl" : "ltr"}
             type={showPassword && type === "password" ? "text" : type || "text"}
             name={name}
             value={value || ""}

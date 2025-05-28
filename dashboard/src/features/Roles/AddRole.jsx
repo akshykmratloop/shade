@@ -28,7 +28,7 @@ const AddRoleModal = ({ show, onClose, updateRoles, role }) => {
   const [errorMessageRoleType, setErrorMessageRoleType] = useState("");
   const [errorMessagePermission, setErrorMessagePermission] = useState("");
   const [PermissionOptions, setPermissionOptions] = useState([]);
-  const [currentRole, setCurrentRole] = useState({});
+  const [activeRole, setActiveRole] = useState({});
   const debouncingState = useSelector(state => state.debounce.debounce)
   const dispatch = useDispatch()
 
@@ -119,7 +119,7 @@ const AddRoleModal = ({ show, onClose, updateRoles, role }) => {
           })),
           selectedPermissions:
             role?.roleTypeId === roleData?.selectedRoletype
-              ? currentRole?.permissions?.map((e) => e?.permissionId) || []
+              ? activeRole?.permissions?.map((e) => e?.permissionId) || []
               : [],
         }));
       }
@@ -188,7 +188,7 @@ const AddRoleModal = ({ show, onClose, updateRoles, role }) => {
       async function getRole() {
         try {
           const response = await getRoleById(role?.id);
-          setCurrentRole(response?.role);
+          setActiveRole(response?.role);
           const permissions = await fetchPermissionsByRoleType(
             role?.roleTypeId
           );
@@ -209,20 +209,20 @@ const AddRoleModal = ({ show, onClose, updateRoles, role }) => {
   useEffect(() => {
     if (role) {
       setRoleData({
-        name: currentRole?.name || "",
-        name: currentRole?.name || "",
+        name: activeRole?.name || "",
+        name: activeRole?.name || "",
         roleTypes: [] || [],
         selectedPermissions:
-          currentRole?.permissions?.map((e) => e.permissionId) || [],
+          activeRole?.permissions?.map((e) => e.permissionId) || [],
         fetchedPermissions: [],
         fetchedRoletype: [],
-        selectedRoletype: currentRole?.roleTypeId || "",
-        selectedRoletype: currentRole?.roleTypeId || "",
+        selectedRoletype: activeRole?.roleTypeId || "",
+        selectedRoletype: activeRole?.roleTypeId || "",
       });
     } else {
       setRoleData(freshObject);
     }
-  }, [currentRole]);
+  }, [activeRole]);
 
   useEffect(() => {
     if (role?.roleTypeId === roleData?.selectedRoletype) {
@@ -230,7 +230,7 @@ const AddRoleModal = ({ show, onClose, updateRoles, role }) => {
         return {
           ...prev,
           selectedPermissions:
-            currentRole?.permissions?.map((e) => e.permissionId) || [],
+            activeRole?.permissions?.map((e) => e.permissionId) || [],
         };
       });
     }

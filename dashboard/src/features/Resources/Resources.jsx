@@ -64,8 +64,8 @@ function Resources() {
   const { showVersions } = useSelector(state => state.versions)
   const userObj = useSelector(state => state.user)
 
-  const { isManager, isEditor, currentRole } = userObj
-  const currentRoleId = currentRole?.id
+  const { isManager, isEditor, activeRole } = userObj
+  const activeRoleId = activeRole?.id
   const superUser = userObj.user?.isSuperUser
 
   // Variables
@@ -140,8 +140,8 @@ function Resources() {
       setLoading(true); // Start loading
       // const roleType = isManager ? "MANAGER" : "USER"
       const payload = ["MAIN", "FOOTER", "HEADER"].includes(resourceTag)
-        ? { resourceType, ...(superUser ? {} : { roleId: currentRoleId }), }
-        : { resourceType, resourceTag, ...(superUser ? {} : { roleId: currentRoleId }), };
+        ? { resourceType, ...(superUser ? {} : { roleId: activeRoleId }), }
+        : { resourceType, resourceTag, ...(superUser ? {} : { roleId: activeRoleId }), };
 
       const response = await getResources(payload);
 

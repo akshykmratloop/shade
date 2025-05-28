@@ -17,7 +17,7 @@ import AllForOneManager from "./components/AllForOneManager";
 import createContent from "./defineContent";
 import FallBackLoader from "../../components/fallbackLoader/FallbackLoader";
 import { getContent } from "../../app/fetch";
-import { updateMainContent } from "../common/homeContentSlice";
+import { updateComment, updateMainContent } from "../common/homeContentSlice";
 import { saveInitialContentValue } from "../common/InitialContentSlice";
 
 const Page404 = lazy(() => import('../../pages/protected/404'))
@@ -29,7 +29,7 @@ const EditPage = () => {
     const location = useLocation();
 
     const [language, setLanguage] = useState('en')
-    const [loader, setLoader] = useState(false)
+    const [loader, setLoader] = useState(true)
     const [screen, setScreen] = useState(1180)
     const [displayStatus, setDisplayStatus] = useState("")
     const [outOfEditing, setOutOfEditing] = useState(true)
@@ -46,9 +46,14 @@ const EditPage = () => {
     const contentFromRedux = useSelector((state) => state.homeContent.present)
 
     const stageStatus = contentFromRedux?.content?.editVersion?.status
+    const isEditable = contentFromRedux?.content?.isEditable
     // const outOfEditing = !(stageStatus === "EDITING" || stageStatus === "DRAFT" || stageStatus === "PUBLISHED")
 
     const content = createContent(contentFromRedux, "edit", currentPath)
+
+    const updateComments = ({ value }) => {
+        dispatch(updateComment({ value }))
+    }
 
     const Routes = [
         'home', 'solution', 'about-us', "service", 'market',
@@ -81,8 +86,8 @@ const EditPage = () => {
     }, [])
 
     useEffect(() => {
-        setOutOfEditing(!(stageStatus === "EDITING" || stageStatus === "DRAFT" || stageStatus === "PUBLISHED"))
-    }, [isManager, stageStatus])
+        setOutOfEditing((!isEditable))
+    }, [isManager, isEditable])
 
     useEffect(() => {
         if (currentId) {
@@ -99,6 +104,7 @@ const EditPage = () => {
                             resourceType: response.content.resourceType,
                             resourceTag: response.content.resourceTag,
                             relationType: response.content.relationType,
+                            isEditable: response.content.isEditable,
                             editVersion: isManager ? response.content.liveModeVersionData : response.content.editModeVersionData ?? response.content.liveModeVersionData
                         }
                         dispatch(updateMainContent({ currentPath: "content", payload }))
@@ -170,13 +176,14 @@ const EditPage = () => {
                                         />
                                         <h4 className="text-[#6B7888] text-[14px] mt-2 mb-[1px]">Add Note</h4>
                                         <TextAreaInput
-                                            updateFormValue={() => { }}
+                                            updateFormValue={updateComments}
                                             placeholder={"Comments..."}
                                             required={false}
                                             textAreaStyle={""}
                                             containerStyle={"mb-4"}
                                             minHeight={"3.2rem"}
                                             style={{ marginTop: "4px" }}
+                                            defaultValue={contentFromRedux?.content?.editVersion?.comments}
                                         />
                                         <AllForOne
                                             language={language} screen={screen}

@@ -291,8 +291,8 @@ select:focus {
   background: #f3f4f6;
   padding: 1rem;
   border-radius: 8px;
-  width: 30vw;
-  height: 30vh;
+  /* width: 30vw; */
+  /* height: 30vh; */
   font-size: 14px;
   color: #111827;
   margin-left: 20px;
@@ -568,4 +568,17 @@ div.importantList ul {
     opacity: 0;
     transform: translateX(100%);
   }
+}
+
+/* --------------------------------------------------------- */
+.glass-effect {
+  background: rgba(36, 41, 51, 0.285); /* semi-transparent background */
+  border-radius: 10px;
+  color: white;
+
+  backdrop-filter: blur(90px);         /* main blur effect */
+  -webkit-backdrop-filter: blur(10px); /* Safari support */
+
+  border: 1px solid rgba(255, 255, 255, 0.2); /* optional subtle border */
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);  /* optional shadow */
 }

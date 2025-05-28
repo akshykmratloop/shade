@@ -15,7 +15,9 @@ import {
   fetchRequestInfo,
   markAllAssignedUserInactive,
   approveRequestInVerification,
+  approveRequestInPublication,
   rejectRequestInVerification,
+  rejectRequestInPublication,
   fetchVersionsList,
   deleteAllResourceRelatedDataFromDb,
 } from "../../repository/content.repository.js";
@@ -182,7 +184,9 @@ const getRequest = async (
   search,
   status,
   pageNum,
-  limitNum
+  limitNum,
+  resourceId
+  
 ) => {
   const requests = await fetchRequests(
     userId,
@@ -191,7 +195,8 @@ const getRequest = async (
     search,
     status,
     pageNum,
-    limitNum
+    limitNum,
+    resourceId
   );
   logger.info({
     response: "Requests fetched successfully",
@@ -213,7 +218,19 @@ const getRequestInfo = async (requestId) => {
 
 
 const approveRequest = async (requestId, userId) => {
-  const request = await approveRequestInVerification(requestId, userId);
+  // First, get the request to determine if it's a verification or publication request
+  const requestInfo = await fetchRequestInfo(requestId);
+
+  let request;
+  // Check the request type to determine which approval function to use
+  if (requestInfo.details.requestType === "PUBLICATION") {
+    // This is a publication request, use approveRequestInPublication
+    request = await approveRequestInPublication(requestId, userId);
+  } else {
+    // This is a verification request, use approveRequestInVerification
+    request = await approveRequestInVerification(requestId, userId);
+  }
+
   logger.info({
     response: "Request Approved successfully",
     // request: request,
@@ -223,7 +240,19 @@ const approveRequest = async (requestId, userId) => {
 
 
 const rejectRequest = async (requestId, userId, rejectReason) => {
-  const request = await rejectRequestInVerification(requestId, userId, rejectReason);
+  // First, get the request to determine if it's a verification or publication request
+  const requestInfo = await fetchRequestInfo(requestId);
+
+  let request;
+  // Check the request type to determine which rejection function to use
+  if (requestInfo.details.requestType === "PUBLICATION") {
+    // This is a publication request, use rejectRequestInPublication
+    request = await rejectRequestInPublication(requestId, userId, rejectReason);
+  } else {
+    // This is a verification request, use rejectRequestInVerification
+    request = await rejectRequestInVerification(requestId, userId, rejectReason);
+  }
+
   logger.info({
     response: "Request Rejected successfully",
     // request: request,

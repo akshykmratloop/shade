@@ -1,5 +1,5 @@
 // libraries
-import { useEffect, useState, memo } from "react";
+import { useEffect, useState, memo, useCallback } from "react";
 import { ToastContainer } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -18,7 +18,7 @@ import { RIGHT_DRAWER_TYPES } from "../../utils/globalConstantUtil";
 import ToggleSwitch from "../../components/Toggle/Toggle";
 
 // icons
-import { FiEye } from "react-icons/fi";
+import { FiEdit, FiEye } from "react-icons/fi";
 import { LuListFilter } from "react-icons/lu";
 import { PiInfoThin } from "react-icons/pi";
 import XMarkIcon from "@heroicons/react/24/outline/XMarkIcon";
@@ -121,23 +121,28 @@ function Requests() {
   const [resourceId, setResourceId] = useState("")
   const [requestId, setRequestId] = useState("")
   const [toggle, setToggle] = useState(false);
+  const [path, setPath] = useState("")
+  const [subPath, setSubPath] = useState("")
+  const [deepPath, setDeepPath] = useState("")
+
 
 
 
   // redux state
-  const userRole = useSelector((state) => state.user.currentRole);
+  const userRole = useSelector((state) => state.user.activeRole);
   const userObj = useSelector(state => state.user)
 
-  const { isManager, isEditor, isPublisher, isVerifier, currentRole } = userObj;
-  const roleId = currentRole?.id
+  const { isManager, isEditor, isPublisher, isVerifier, activeRole } = userObj;
+  const roleId = activeRole?.id
 
   // variables for conditioned renderings
   const [canSeeEditor, setCanSeeEditor] = useState((isVerifier || isPublisher || isManager))
   const [canSeeVerifier, setCanSeeVerifier] = useState((isPublisher || isManager))
   const [canSeePublisher, setCasSeePublisher] = useState((isVerifier || isManager))
   const noneCanSee = !(isEditor || isManager || isVerifier || isPublisher)
-  const RoleTypeIsUser = userPermissionsSet.has(currentRole?.permissions[0])
-  const [permission, setPermission] = useState(RoleTypeIsUser ? currentRole?.permissions[0] || "" : false)
+  const RoleTypeIsUser = userPermissionsSet.has(activeRole?.permissions[0])
+  const [permission, setPermission] = useState(RoleTypeIsUser ? activeRole?.permissions[0] || "" : false)
+  const [random, setRandom] = useState(Math.random())
 
   // Fucntions
   const navigate = useNavigate();
@@ -149,6 +154,28 @@ function Requests() {
   function sortStages(arr) {
     if (!Array.isArray(arr)) return;
     return arr?.sort((a, b) => order.indexOf(a) - order.indexOf(b));
+  }
+
+  const settingRoute = useCallback(
+    (first, second, third) => {
+      setPath(first)
+      setSubPath(second)
+      setDeepPath(third)
+
+      const route = third
+        ? `/app/resources/edit/${first}/${second}/${third}`
+        : second
+          ? `/app/resources/edit/${first}/${second}`
+          : `/app/resources/edit/${first}`;
+
+      return route
+    },
+    [navigate]
+  );
+
+  function navigateToPage(first, second, third) {
+    let route = settingRoute(first, second, third)
+    navigate(route);
   }
 
   // Change the reqeust table
@@ -191,7 +218,7 @@ function Requests() {
   // APPLY SEARCH
   const applySearch = (value) => {
     const filteredRequests = originalRequests?.filter((request) =>
-      request?.name.toLowerCase().includes(value.toLowerCase())
+      request?.name?.toLowerCase().includes(value?.toLowerCase())
     );
     setCurrentPage(1);
     setRequests(filteredRequests);
@@ -223,15 +250,16 @@ function Requests() {
 
   // Side Effects
   useEffect(() => { // Fetch Requests
-    if (currentRole?.id) {
+    if (activeRole?.id) {
       async function fetchRequestsData() {
         try {
           const payload = { roleId: roleId ?? "" }
 
-          if (RoleTypeIsUser) payload.permission = permission || currentRole?.permissions[0] || ""
+          if (RoleTypeIsUser) payload.permission = permission || activeRole?.permissions[0] || ""
           const response = await getRequests(payload);
           if (response.ok) {
-            setRequests(response.requests.data);
+            // console.log(response.requests.data)
+            setRequests(response.requests?.data ?? []);
           }
           setOriginalRequests(response?.requests?.data ?? []); // Store the original unfiltered data
 
@@ -241,13 +269,13 @@ function Requests() {
       }
       fetchRequestsData();
     }
-  }, [currentRole.id, permission]);
+  }, [activeRole.id, permission, random]);
 
   useEffect(() => {
     setCanSeeEditor(isVerifier || isPublisher || isManager)
-    setCanSeeVerifier(isPublisher || isManager)
-    setCasSeePublisher(isVerifier || isManager)
-  }, [currentRole?.id])
+    setCanSeeVerifier(isPublisher || isEditor || isManager)
+    setCasSeePublisher(isVerifier || isEditor || isManager)
+  }, [activeRole?.id])
 
   useEffect(() => {
     if (noneCanSee) {
@@ -257,12 +285,12 @@ function Requests() {
 
   useEffect(() => {
     //flow
-    if (currentRole?.permissions?.length > 1 && RoleTypeIsUser) {
+    if (activeRole?.permissions?.length > 1 && RoleTypeIsUser) {
       setToggle(true)
     } else {
       setToggle(false)
     }
-  }, [currentRole])
+  }, [activeRole])
 
 
 
@@ -271,7 +299,7 @@ function Requests() {
       <div className="absolute top-3 right-2 flex">
         {
           toggle &&
-          <ToggleSwitch options={sortStages([...currentRole?.permissions])} switchToggles={changeTable} />
+          <ToggleSwitch options={sortStages([...activeRole?.permissions])} switchToggles={changeTable} />
         }
       </div>
       <TitleCard
@@ -285,7 +313,7 @@ function Requests() {
           />
         }
       >
-        <div className="min-h-[28.2rem] flex flex-col justify-between">
+        <div className="min-h-[30rem] flex flex-col justify-between">
           <div className=" w-full border dark:border-stone-600 rounded-2xl">
             <table className="table text-center min-w-full dark:text-[white]">
               <thead className="" style={{ borderRadius: "" }}>
@@ -301,27 +329,30 @@ function Requests() {
                   </th>
                   {/* <th className="text-[#42526D] w-[164px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] text-center !capitalize">Sub Permission</th> */}
                   {
-                    canSeeEditor &&
+                    // canSeeEditor &&
                     <th className="text-[#42526D] w-[154px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] !capitalize text-center">
-                      Editor
+                      SubmitBy
                     </th>}
 
                   {
-                    canSeeVerifier &&
+                    // canSeeVerifier &&
                     <th className="text-[#42526D] w-[221px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] text-center !capitalize">
                       Verifier
                     </th>
                   }
                   {
-                    canSeePublisher &&
+                    // canSeePublisher &&
                     <th className="text-[#42526D] w-[221px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] text-center !capitalize">
                       Publisher
                     </th>
                   }
+                  {/* <th className="text-[#42526D] w-[211px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] !capitalize">
+                    Stage
+                  </th> */}
                   <th className="text-[#42526D] w-[211px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] !capitalize">
+                    {/* Status */}
                     Status
                   </th>
-
                   <th className="text-[#42526D] w-[221px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] text-center !capitalize">
                     Date Time
                   </th>
@@ -333,6 +364,7 @@ function Requests() {
               <tbody className="">
                 {Array.isArray(requests) && currentRequests.length > 0 ? (
                   currentRequests?.map((request, index) => {
+                    console.log(request)
                     let publisher = request.approvals.filter(e => e.stage === null)[0]
                     let verifiers = request.approvals.filter(e => e.stage)
                     return (
@@ -342,18 +374,16 @@ function Requests() {
                         style={{ height: "65px" }}
                       >
                         <td
-                          className={`font-poppins h-[65px] truncate font-normal text-[14px] leading-normal text-[#101828] p-[26px] pl-5 flex`}
+                          className={`font-poppins h-[65px] truncate font-normal text-[14px] leading-normal text-[#101828] py-[10px] pl-5 flex items-center`}
                         >
-                          {/* <img src={user.image ? user.image : userIcon} alt={user.name} className="rounded-[50%] w-[41px] h-[41px] mr-2" /> */}
                           <div className="flex flex-col">
                             <p className="dark:text-[white]">
                               {request?.resourceVersion?.resource?.titleEn}
                             </p>
-                            {/* <p className="font-light text-[grey]">{user.email}</p> */}
                           </div>
                         </td>
                         {
-                          canSeeEditor &&
+                          // canSeeEditor &&
                           <td
                             className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]"
                             style={{ whiteSpace: "" }}
@@ -362,7 +392,7 @@ function Requests() {
                           </td>
                         }
                         {
-                          canSeeVerifier &&
+                          // canSeeVerifier &&
                           <td
                             className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]"
                             style={{ whiteSpace: "" }}
@@ -454,7 +484,7 @@ function Requests() {
                           </td>
                         }
                         {
-                          canSeePublisher &&
+                          // canSeePublisher &&
                           <td
                             className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]"
                             style={{ whiteSpace: "" }}
@@ -464,7 +494,7 @@ function Requests() {
                             </span>
                           </td>
                         }
-                        <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]">
+                        {/* <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]">
                           <p
                             className={`min-w-[85px] mx-auto before:content-['•'] before:text-2xl flex h-7 items-center justify-center gap-1 px-1 py-0 font-[500] 
                               ${request.status === "Green"
@@ -476,7 +506,22 @@ function Requests() {
                                 rounded-2xl`}
                             style={{ textTransform: "capitalize" }}
                           >
-                            <span className="">{capitalizeWords(request?.resourceVersion?.versionStatus)}</span>
+                            <span className="">{capitalizeWords(request?.status)}</span>
+                          </p>
+                        </td> */}
+                        <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]">
+                          <p
+                            className={`min-w-[85px] mx-auto before:content-['•'] before:text-2xl flex h-7 items-center justify-center gap-1 px-1 py-0 font-[500] 
+                              ${request.flowStatus === "SCHEDULED" || request.flowStatus === "PUBLISHED"
+                                ? "text-green-600 bg-lime-200 before:text-green-600 px-1"
+                                : request.flowStatus === "PENDING"
+                                  ? "text-blue-600 bg-sky-200 before:text-blue-600 "
+                                  : "text-red-600 bg-pink-200 before:text-red-600 "
+                              } 
+                                rounded-2xl`}
+                            style={{ textTransform: "capitalize" }}
+                          >
+                            <span className="">{capitalizeWords(request?.flowStatus)}</span>
                           </p>
                         </td>
                         <td className="font-poppins font-light text-[12px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]">
@@ -520,7 +565,38 @@ function Requests() {
                               </span>
                             </button>
 
-                            {/* <button
+                            {
+                              !canSeeEditor && request.flowStatus === "REJECTED" &&
+                              < button
+                                onClick={() => {
+                                  const { relationType, resourceTag, subPage, subOfSubPage, slug } = request.resourceVersion?.resource;
+                                  if (relationType === "CHILD") {
+                                    navigateToPage(resourceTag?.toLowerCase(), request.id);
+                                  } else if (relationType !== "PARENT") {
+                                    navigateToPage(resourceTag?.toLowerCase(), subPage, subOfSubPage);
+                                  } else {
+                                    navigateToPage(slug?.toLowerCase());
+                                  }
+                                  // setSelectedRequest(request);
+                                  // setShowDetailsModal(true);
+                                  // // openNotification();
+                                  // setResourceId(request.resourceVersion.resourceId)
+                                  // setRequestId(request.id)
+                                  // navigate(`/app/resources/edit/home`)
+                                }}
+                              >
+                                <span
+                                  title={`Review${canSeeEditor ? " and update" : ""}`}
+                                  className="flex items-center gap-1 rounded-md text-[#101828]">
+                                  <FiEdit
+                                    className="w-5 h-6  text-[#3b4152] dark:text-stone-200"
+                                    strokeWidth={1}
+                                  />
+                                </span>
+                              </button>}
+
+
+                            {/* <button              
                               className=""
                               onClick={() => {
                                 setSelectedRequest(request);
@@ -572,25 +648,27 @@ function Requests() {
             totalPages={totalPages}
           />
         </div>
-      </TitleCard>
+      </TitleCard >
       {showDetailsModal && (
         <ShowDifference
           currentlyEditor={!canSeeEditor}
           currentlyVerifier={canSeePublisher}
           currentlyPublisher={canSeeVerifier}
-          role={selectedRequest}
+          request={selectedRequest}
           show={showDetailsModal}
           resourceId={resourceId}
           requestId={requestId}
+          refreshList={() => setRandom(Math.random())}
           // updateRoles={setChangesInRequest}
           onClose={() => {
             setSelectedRequest(false);
             setShowDetailsModal(false);
           }}
         />
-      )}
+      )
+      }
       <ToastContainer />
-    </div>
+    </div >
   );
 }
 export default Requests;

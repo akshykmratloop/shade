@@ -88,7 +88,6 @@ enum VersionStatus {
 
 // SECTION ENUM==================
 
-
 enum ResourceRoleType {
   MANAGER
   EDITOR
@@ -96,9 +95,17 @@ enum ResourceRoleType {
 }
 
 enum RequestStatus {
+  VERIFICATION_PENDING
+  PUBLISH_PENDING
+  PUBLISHED
+  SCHEDULED
+}
+
+enum FlowStatus {
   PENDING
   APPROVED
   REJECTED
+  SCHEDULED
   PUBLISHED
 }
 

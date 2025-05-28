@@ -1,985 +1,121 @@
 {
     "message": "Success",
-    "resources": {
-        "resources": [
+    "requests": {
+        "data": [
             {
-                "id": "cmaw8ls5j007iqp715m3s4qvl",
-                "titleEn": "Psychiatric Facility",
-                "titleAr": "المنشأة النفسية",
-                "slug": "psychiatric-facility",
-                "resourceType": "SUB_PAGE",
-                "resourceTag": "PROJECT",
-                "relationType": "CHILD",
-                "liveModeVersionData": {
-                    "id": "cmaw8ls5m007kqp71v7kbb9qx",
-                    "versionNumber": 1,
+                "id": "0ee9d7c3-147a-4ff3-93ac-825e4cce6aac",
+                "status": "VERIFICATION_PENDING",
+                "flowStatus": "PENDING",
+                "type": "VERIFICATION",
+                "editorComments": "Initial version created",
+                "resourceVersionId": "cmb0emd61002rqp0w5i34lrql",
+                "senderId": "cmawfx6da0008qp0w1q4ittw9",
+                "createdAt": "2025-05-23T06:12:54.007Z",
+                "updatedAt": "2025-05-23T06:12:54.007Z",
+                "resourceVersion": {
+                    "id": "cmb0emd61002rqp0w5i34lrql",
+                    "versionNumber": 2,
+                    "versionStatus": "VERIFICATION_PENDING",
+                    "notes": "Initial version created",
+                    "referenceDoc": null,
+                    "content": {},
                     "icon": null,
-                    "image": null,
-                    "sections": [
-                        {
-                            "sectionId": "cmaw8ls67007mqp71gx3ftqfo",
-                            "order": 1,
-                            "version": 1,
-                            "title": "introSection-psychiatric-facility-fcaf",
-                            "content": {
-                                "link": {
-                                    "url": null,
-                                    "text": null
-                                },
-                                "title": {
-                                    "ar": "المنشأة النفسية",
-                                    "en": "Psychiatric Facility"
-                                },
-                                "button": [
-                                    {
-                                        "icon": null,
-                                        "text": {
-                                            "ar": "خلف",
-                                            "en": "Back"
-                                        },
-                                        "order": 1
-                                    }
-                                ],
-                                "subtitle": {
-                                    "ar": "العميل: وزارة الصحة",
-                                    "en": "Client: Ministry of Health"
+                    "Image": null,
+                    "lockedById": null,
+                    "lockedAt": null,
+                    "resourceId": "cmb0edx2h00szqp4qtifbjxqk",
+                    "createdAt": "2025-05-23T06:12:53.929Z",
+                    "updatedAt": "2025-05-23T06:12:53.929Z",
+                    "scheduledAt": null,
+                    "publishedAt": null,
+                    "resource": {
+                        "id": "cmb0edx2h00szqp4qtifbjxqk",
+                        "titleEn": "Home Page",
+                        "titleAr": "الصفحة الرئيسية",
+                        "resourceType": "MAIN_PAGE",
+                        "resourceTag": "HOME",
+                        "relationType": "PARENT",
+                        "slug": "home",
+                        "roles": [
+                            {
+                                "id": "6321622e-254a-4c3c-a15d-a439ec554309",
+                                "resourceId": "cmb0edx2h00szqp4qtifbjxqk",
+                                "userId": "cmawfx6da0008qp0w1q4ittw9",
+                                "role": "EDITOR",
+                                "status": "ACTIVE",
+                                "createdAt": "2025-05-23T06:06:51.718Z",
+                                "user": {
+                                    "id": "cmawfx6da0008qp0w1q4ittw9",
+                                    "name": "Anukool"
+                                }
+                            },
+                            {
+                                "id": "92ff5fa1-0ccf-4800-a78e-7fc8b4450a5f",
+                                "resourceId": "cmb0edx2h00szqp4qtifbjxqk",
+                                "userId": "cmawgyhh60032qp0wbo9aru90",
+                                "role": "PUBLISHER",
+                                "status": "ACTIVE",
+                                "createdAt": "2025-05-23T06:06:51.722Z",
+                                "user": {
+                                    "id": "cmawgyhh60032qp0wbo9aru90",
+                                    "name": "Akshay Kumar"
                                 }
                             }
-                        },
-                        {
-                            "sectionId": "cmaw8ls6l007sqp71w5n5patx",
-                            "order": 2,
-                            "version": 1,
-                            "title": "projectInfoCard-psychiatric-facility-4fd8",
-                            "content": [
-                                {
-                                    "key": {
-                                        "ar": "الموقع",
-                                        "en": "location"
-                                    },
-                                    "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/ion_location-sharp.svg",
-                                    "order": 1,
-                                    "value": {
-                                        "ar": "الرياض، المملكة العربية السعودية",
-                                        "en": "Riyadh, Saudi Arabia"
-                                    }
-                                },
-                                {
-                                    "key": {
-                                        "ar": "تاريخ البدء",
-                                        "en": "Start Date"
-                                    },
-                                    "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/solar_calendar-bold+(1).svg",
-                                    "order": 2,
-                                    "value": {
-                                        "ar": "يناير 2019",
-                                        "en": "January 2019"
-                                    }
-                                },
-                                {
-                                    "key": {
-                                        "ar": "تاريخ الانتهاء",
-                                        "en": "End Date"
-                                    },
-                                    "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/solar_calendar-bold.svg",
-                                    "order": 3,
-                                    "value": {
-                                        "ar": "ديسمبر 2021",
-                                        "en": "December 2021"
-                                    }
-                                },
-                                {
-                                    "key": {
-                                        "ar": "حالة",
-                                        "en": "status"
-                                    },
-                                    "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/pajamas_status-neutral.svg",
-                                    "order": 4,
-                                    "value": {
-                                        "ar": "مكتمل",
-                                        "en": "Completed"
-                                    }
-                                }
-                            ]
-                        },
-                        {
-                            "sectionId": "cmaw8ls6z007yqp71r97t1abk",
-                            "order": 3,
-                            "version": 1,
-                            "title": "projectDescriptionSection-psychiatric-facility-0e20",
-                            "content": [
-                                {
-                                    "order": 1,
-                                    "title": {
-                                        "ar": "وصف المشروع",
-                                        "en": "Project Description"
-                                    },
-                                    "description": {
-                                        "ar": "إنشاء منشأة نفسية متكاملة بمساحة 25,000 متر مربع تحتوي على 200 سرير.",
-                                        "en": "Construction of a comprehensive psychiatric facility with 25,000 sqm area containing 200 beds."
-                                    }
-                                },
-                                {
-                                    "order": 2,
-                                    "title": {
-                                        "ar": "العمل يشمل",
-                                        "en": "Work Includes"
-                                    },
-                                    "description": {
-                                        "ar": "تشمل الأعمال الإنشائية للمبنى الرئيسي، المباني المساندة، مواقف السيارات، والمناطق الخضراء.",
-                                        "en": "Includes construction works for main building, support buildings, parking areas, and landscaping."
-                                    }
-                                }
-                            ]
-                        },
-                        {
-                            "sectionId": "cmaw8ls7e0084qp719fig8ti2",
-                            "order": 4,
-                            "version": 1,
-                            "title": "gallerySection-psychiatric-facility-c62d",
-                            "content": {
-                                "images": [
-                                    {
-                                        "alt": {
-                                            "ar": "صورة المعرض 1",
-                                            "en": "Gallery Image 1"
-                                        },
-                                        "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Rectangle+34624115+(1).png",
-                                        "order": 1
-                                    },
-                                    {
-                                        "alt": {
-                                            "ar": "صورة المعرض 2",
-                                            "en": "Gallery Image 2"
-                                        },
-                                        "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Rectangle+34624114+(1).png",
-                                        "order": 2
-                                    },
-                                    {
-                                        "alt": {
-                                            "ar": "صورة المعرض 3",
-                                            "en": "Gallery Image 3"
-                                        },
-                                        "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Rectangle+34624113+(1).png",
-                                        "order": 3
-                                    }
-                                ]
-                            }
-                        },
-                        {
-                            "sectionId": "cmaw8ls7s008aqp7148f82vtf",
-                            "order": 5,
-                            "version": 1,
-                            "title": "moreProjects-psychiatric-facility-8478",
-                            "content": {
-                                "title": {
-                                    "ar": "المزيد من المشاريع",
-                                    "en": "More Projects"
-                                },
-                                "button": {
-                                    "url": null,
-                                    "icon": null,
-                                    "text": {
-                                        "ar": "عرض المزيد",
-                                        "en": "View More"
-                                    },
-                                    "order": 1
+                        ],
+                        "verifiers": [
+                            {
+                                "id": "96610aa5-c6be-45e0-ab8a-36c2dfc8c007",
+                                "stage": 1,
+                                "status": "ACTIVE",
+                                "resourceId": "cmb0edx2h00szqp4qtifbjxqk",
+                                "userId": "cmawgxqly002zqp0wybh46wyd",
+                                "createdAt": "2025-05-23T06:06:51.728Z",
+                                "user": {
+                                    "id": "cmawgxqly002zqp0wybh46wyd",
+                                    "name": "Akshay"
                                 }
                             }
+                        ]
+                    }
+                },
+                "sender": {
+                    "id": "cmawfx6da0008qp0w1q4ittw9",
+                    "name": "Anukool",
+                    "email": "anukool26@outlook.com"
+                },
+                "approvals": [
+                    {
+                        "id": "8a8e28db-ac40-4660-a34a-d376d76f12d9",
+                        "status": "PENDING",
+                        "stage": 1,
+                        "comments": null,
+                        "approverStatus": "ACTIVE",
+                        "approver": {
+                            "id": "cmawgxqly002zqp0wybh46wyd",
+                            "name": "Akshay",
+                            "email": "akshykmr@loopmethods.com"
                         }
-                    ]
-                }
-            },
-            {
-                "id": "cmaw8ls30006lqp71cwmfjwm6",
-                "titleEn": "OME Building - Northern Area Pipelines",
-                "titleAr": "مبنى OME - خطوط أنابيب المنطقة الشمالية",
-                "slug": "construction-of-ome-building-napd-khursaniyah",
-                "resourceType": "SUB_PAGE",
-                "resourceTag": "PROJECT",
-                "relationType": "CHILD",
-                "liveModeVersionData": {
-                    "id": "cmaw8ls33006nqp717f6gttpj",
-                    "versionNumber": 1,
-                    "icon": null,
-                    "image": null,
-                    "sections": [
-                        {
-                            "sectionId": "cmaw8ls3p006pqp71u9akthhy",
-                            "order": 1,
-                            "version": 1,
-                            "title": "introSection-construction-of-ome-building-napd-khursaniyah-156c",
-                            "content": {
-                                "link": {
-                                    "url": "https://www.aramco.com/",
-                                    "text": "https://www.aramco.com/"
-                                },
-                                "title": {
-                                    "ar": "مبنى OME - خطوط أنابيب المنطقة الشمالية",
-                                    "en": "OME Building - Northern Area Pipelines"
-                                },
-                                "button": [
-                                    {
-                                        "icon": null,
-                                        "text": {
-                                            "ar": "خلف",
-                                            "en": "Back"
-                                        },
-                                        "order": 1
-                                    }
-                                ],
-                                "subtitle": {
-                                    "ar": "العميل: أرامكو السعودية",
-                                    "en": "Client: Saudi Aramco"
-                                }
-                            }
-                        },
-                        {
-                            "sectionId": "cmaw8ls43006vqp71nddw9sga",
-                            "order": 2,
-                            "version": 1,
-                            "title": "projectInfoCard-construction-of-ome-building-napd-khursaniyah-5617",
-                            "content": [
-                                {
-                                    "key": {
-                                        "ar": "الموقع",
-                                        "en": "location"
-                                    },
-                                    "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/ion_location-sharp.svg",
-                                    "order": 1,
-                                    "value": {
-                                        "ar": "خرسانية، المملكة العربية السعودية",
-                                        "en": "Khursaniyah, Saudi Arabia"
-                                    }
-                                },
-                                {
-                                    "key": {
-                                        "ar": "تاريخ البدء",
-                                        "en": "Start Date"
-                                    },
-                                    "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/solar_calendar-bold+(1).svg",
-                                    "order": 2,
-                                    "value": {
-                                        "ar": "أغسطس 2017",
-                                        "en": "August 2017"
-                                    }
-                                },
-                                {
-                                    "key": {
-                                        "ar": "تاريخ الانتهاء",
-                                        "en": "End Date"
-                                    },
-                                    "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/solar_calendar-bold.svg",
-                                    "order": 3,
-                                    "value": {
-                                        "ar": "فبراير 2020",
-                                        "en": "February 2020"
-                                    }
-                                },
-                                {
-                                    "key": {
-                                        "ar": "حالة",
-                                        "en": "status"
-                                    },
-                                    "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/pajamas_status-neutral.svg",
-                                    "order": 4,
-                                    "value": {
-                                        "ar": "مكتمل",
-                                        "en": "Completed"
-                                    }
-                                }
-                            ]
-                        },
-                        {
-                            "sectionId": "cmaw8ls4h0071qp7157wy7oh6",
-                            "order": 3,
-                            "version": 1,
-                            "title": "projectDescriptionSection-construction-of-ome-building-napd-khursaniyah-9e06",
-                            "content": [
-                                {
-                                    "order": 1,
-                                    "title": {
-                                        "ar": "وصف المشروع",
-                                        "en": "Project Description"
-                                    },
-                                    "description": {
-                                        "ar": "الهدف من المشروع هو إنشاء مبنى OME لخطوط أنابيب المنطقة الشمالية في مصنع الغاز في خرسانية.",
-                                        "en": "The project objective is to construct OME Building for Northern Area Pipelines Dept at Khursaniyah Gas Plant."
-                                    }
-                                },
-                                {
-                                    "order": 2,
-                                    "title": {
-                                        "ar": "العمل يشمل",
-                                        "en": "Work Includes"
-                                    },
-                                    "description": {
-                                        "ar": "تشمل البنية التحتية اللازمة للمرافق الجديدة التي تشمل الكهرباء، والاتصالات، وإمدادات المياه، ونظام الصرف الصحي.",
-                                        "en": "Includes all necessary utilities for the new facility such as power, telecommunication, water supply, and sanitary sewer system."
-                                    }
-                                }
-                            ]
-                        },
-                        {
-                            "sectionId": "cmaw8ls4v0077qp717v4use3a",
-                            "order": 4,
-                            "version": 1,
-                            "title": "gallerySection-construction-of-ome-building-napd-khursaniyah-b001",
-                            "content": {
-                                "images": [
-                                    {
-                                        "alt": {
-                                            "ar": "صورة المعرض 1",
-                                            "en": "Gallery Image 1"
-                                        },
-                                        "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Rectangle+34624115+(1).png",
-                                        "order": 1
-                                    },
-                                    {
-                                        "alt": {
-                                            "ar": "صورة المعرض 2",
-                                            "en": "Gallery Image 2"
-                                        },
-                                        "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Rectangle+34624114+(1).png",
-                                        "order": 2
-                                    },
-                                    {
-                                        "alt": {
-                                            "ar": "صورة المعرض 3",
-                                            "en": "Gallery Image 3"
-                                        },
-                                        "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Rectangle+34624113+(1).png",
-                                        "order": 3
-                                    }
-                                ]
-                            }
-                        },
-                        {
-                            "sectionId": "cmaw8ls59007dqp713lxa52f4",
-                            "order": 5,
-                            "version": 1,
-                            "title": "moreProjects-construction-of-ome-building-napd-khursaniyah-7941",
-                            "content": {
-                                "title": {
-                                    "ar": "المزيد من المشاريع",
-                                    "en": "More Projects"
-                                },
-                                "button": {
-                                    "url": null,
-                                    "icon": null,
-                                    "text": {
-                                        "ar": "عرض المزيد",
-                                        "en": "View More"
-                                    },
-                                    "order": 1
-                                }
-                            }
+                    },
+                    {
+                        "id": "27e6fa97-e01d-49a9-ab0d-bf16df4a8d2a",
+                        "status": "PENDING",
+                        "stage": null,
+                        "comments": null,
+                        "approverStatus": "ACTIVE",
+                        "approver": {
+                            "id": "cmawgyhh60032qp0wbo9aru90",
+                            "name": "Akshay Kumar",
+                            "email": "akshykmr70@gmail.com"
                         }
-                    ]
-                }
-            },
-            {
-                "id": "cmaw8ls05005oqp71zxrs2dzn",
-                "titleEn": "Business Gate",
-                "titleAr": "بوابة الأعمال",
-                "slug": "business-gate",
-                "resourceType": "SUB_PAGE",
-                "resourceTag": "PROJECT",
-                "relationType": "CHILD",
-                "liveModeVersionData": {
-                    "id": "cmaw8ls09005qqp71r0a7muw3",
-                    "versionNumber": 1,
-                    "icon": null,
-                    "image": null,
-                    "sections": [
-                        {
-                            "sectionId": "cmaw8ls0w005sqp711fxruzhe",
-                            "order": 1,
-                            "version": 1,
-                            "title": "introSection-business-gate-a326",
-                            "content": {
-                                "link": {
-                                    "url": null,
-                                    "text": null
-                                },
-                                "title": {
-                                    "ar": "بوابة الأعمال",
-                                    "en": "Business Gate"
-                                },
-                                "button": [
-                                    {
-                                        "icon": null,
-                                        "text": {
-                                            "ar": "خلف",
-                                            "en": "Back"
-                                        },
-                                        "order": 1
-                                    }
-                                ],
-                                "subtitle": {
-                                    "ar": "العميل: شركة صالح الصبيعي",
-                                    "en": "Client: Saleh Al Subeaei Company"
-                                }
-                            }
-                        },
-                        {
-                            "sectionId": "cmaw8ls1c005yqp71zyz3q0ax",
-                            "order": 2,
-                            "version": 1,
-                            "title": "projectInfoCard-business-gate-306b",
-                            "content": [
-                                {
-                                    "key": {
-                                        "ar": "الموقع",
-                                        "en": "location"
-                                    },
-                                    "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/ion_location-sharp.svg",
-                                    "order": 1,
-                                    "value": {
-                                        "ar": "الدمام، المملكة العربية السعودية",
-                                        "en": "Dammam, Saudi Arabia"
-                                    }
-                                },
-                                {
-                                    "key": {
-                                        "ar": "تاريخ البدء",
-                                        "en": "Start Date"
-                                    },
-                                    "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/solar_calen-bold+(1).svg",
-                                    "order": 2,
-                                    "value": {
-                                        "ar": "أكتوبر 2008",
-                                        "en": "October 2008"
-                                    }
-                                },
-                                {
-                                    "key": {
-                                        "ar": "تاريخ الانتهاء",
-                                        "en": "End Date"
-                                    },
-                                    "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/solar_calendar-bold.svg",
-                                    "order": 3,
-                                    "value": {
-                                        "ar": "مايو 2011",
-                                        "en": "May 2011"
-                                    }
-                                },
-                                {
-                                    "key": {
-                                        "ar": "حالة",
-                                        "en": "status"
-                                    },
-                                    "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/pajamas_status-neutral.svg",
-                                    "order": 4,
-                                    "value": {
-                                        "ar": "مكتمل",
-                                        "en": "Completed"
-                                    }
-                                }
-                            ]
-                        },
-                        {
-                            "sectionId": "cmaw8ls1u0064qp71nxrqqgeu",
-                            "order": 3,
-                            "version": 1,
-                            "title": "projectDescriptionSection-business-gate-95c7",
-                            "content": [
-                                {
-                                    "order": 1,
-                                    "title": {
-                                        "ar": "وصف المشروع",
-                                        "en": "Project Description"
-                                    },
-                                    "description": {
-                                        "ar": "إنشاء مبنى مكاتب مكون من 11 طابقًا بمساحة 6,000 متر مربع لكل طابق بمساحة إجمالية قدرها 50,000 متر مربع.",
-                                        "en": "Construction of an 11-storey office building with an area of 6,000m² each floor, totaling 50,000m²."
-                                    }
-                                },
-                                {
-                                    "order": 2,
-                                    "title": {
-                                        "ar": "العمل يشمل",
-                                        "en": "Work Includes"
-                                    },
-                                    "description": {
-                                        "ar": "تشمل الخرسانة المسلحة، الأساسات، الأعمدة، الأسقف، جدران المصاعد، وجدران القص لجميع الطوابق. بالإضافة إلى الجدران المكسوة بالملاط، والبلاط، والتمددات.",
-                                        "en": "Reinforced concrete, raft foundation, columns, slabs, elevator shafts walls, shear walls for all floors. Masonry walls including cement plastering, tiling works, cladding, expansion joints."
-                                    }
-                                }
-                            ]
-                        },
-                        {
-                            "sectionId": "cmaw8ls2a006aqp71jtw8dfja",
-                            "order": 4,
-                            "version": 1,
-                            "title": "gallerySection-business-gate-6b4f",
-                            "content": {
-                                "images": [
-                                    {
-                                        "alt": {
-                                            "ar": "صورة المعرض 1",
-                                            "en": "Gallery Image 1"
-                                        },
-                                        "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Rectangle+34624115+(1).png",
-                                        "order": 1
-                                    },
-                                    {
-                                        "alt": {
-                                            "ar": "صورة المعرض 2",
-                                            "en": "Gallery Image 2"
-                                        },
-                                        "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Rectangle+34624114+(1).png",
-                                        "order": 2
-                                    },
-                                    {
-                                        "alt": {
-                                            "ar": "صورة المعرض 3",
-                                            "en": "Gallery Image 3"
-                                        },
-                                        "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Rectangle+34624113+(1).png",
-                                        "order": 3
-                                    }
-                                ]
-                            }
-                        },
-                        {
-                            "sectionId": "cmaw8ls2p006gqp71hyay86ze",
-                            "order": 5,
-                            "version": 1,
-                            "title": "moreProjects-business-gate-3032",
-                            "content": {
-                                "title": {
-                                    "ar": "المزيد من المشاريع",
-                                    "en": "More Projects"
-                                },
-                                "button": {
-                                    "url": null,
-                                    "icon": null,
-                                    "text": {
-                                        "ar": "عرض المزيد",
-                                        "en": "View More"
-                                    },
-                                    "order": 1
-                                }
-                            }
-                        }
-                    ]
-                }
-            },
-            {
-                "id": "cmaw8lrxl004rqp71ujzhzuoa",
-                "titleEn": "Non-Metallic Manufacturing Plant",
-                "titleAr": "مصنع المواد غير المعدنية",
-                "slug": "non-metallic-manufacturing-plant",
-                "resourceType": "SUB_PAGE",
-                "resourceTag": "PROJECT",
-                "relationType": "CHILD",
-                "liveModeVersionData": {
-                    "id": "cmaw8lrxo004tqp71v8ay9zvo",
-                    "versionNumber": 1,
-                    "icon": null,
-                    "image": null,
-                    "sections": [
-                        {
-                            "sectionId": "cmaw8lryb004vqp71yk06126r",
-                            "order": 1,
-                            "version": 1,
-                            "title": "introSection-non-metallic-manufacturing-plant-df32",
-                            "content": {
-                                "link": {
-                                    "url": "https://www.spark.sa",
-                                    "text": "https://www.spark.sa"
-                                },
-                                "title": {
-                                    "ar": "مصنع المواد غير المعدنية",
-                                    "en": "Non-Metallic Manufacturing Plant"
-                                },
-                                "button": [
-                                    {
-                                        "icon": null,
-                                        "text": {
-                                            "ar": "خلف",
-                                            "en": "Back"
-                                        },
-                                        "order": 1
-                                    }
-                                ],
-                                "subtitle": {
-                                    "ar": "العميل: حلول المواد غير المعدنية",
-                                    "en": "Client: Non-Metallic Solutions"
-                                }
-                            }
-                        },
-                        {
-                            "sectionId": "cmaw8lryp0051qp71wh7j0wus",
-                            "order": 2,
-                            "version": 1,
-                            "title": "projectInfoCard-non-metallic-manufacturing-plant-581e",
-                            "content": [
-                                {
-                                    "key": {
-                                        "ar": "الموقع",
-                                        "en": "location"
-                                    },
-                                    "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/ion_location-sharp.svg",
-                                    "order": 1,
-                                    "value": {
-                                        "ar": "مدينة الملك سلمان للطاقة، أبقيق، المملكة العربية السعودية",
-                                        "en": "King Salman Energy Park (SPARK), Abqaiq, KSA"
-                                    }
-                                },
-                                {
-                                    "key": {
-                                        "ar": "تاريخ البدء",
-                                        "en": "Start Date"
-                                    },
-                                    "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/solar_calendar-bold+(1).svg",
-                                    "order": 2,
-                                    "value": {
-                                        "ar": "مارس 2021",
-                                        "en": "March 2021"
-                                    }
-                                },
-                                {
-                                    "key": {
-                                        "ar": "تاريخ الانتهاء",
-                                        "en": "End Date"
-                                    },
-                                    "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/solar_calendar-bold.svg",
-                                    "order": 3,
-                                    "value": {
-                                        "ar": "فبراير 2023",
-                                        "en": "February 2023"
-                                    }
-                                },
-                                {
-                                    "key": {
-                                        "ar": "حالة",
-                                        "en": "status"
-                                    },
-                                    "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/pajamas_status-neutral.svg",
-                                    "order": 4,
-                                    "value": {
-                                        "ar": "مكتمل",
-                                        "en": "Completed"
-                                    }
-                                }
-                            ]
-                        },
-                        {
-                            "sectionId": "cmaw8lrz40057qp71zkzsbswi",
-                            "order": 3,
-                            "version": 1,
-                            "title": "projectDescriptionSection-non-metallic-manufacturing-plant-becb",
-                            "content": [
-                                {
-                                    "order": 1,
-                                    "title": {
-                                        "ar": "وصف المشروع",
-                                        "en": "Project Description"
-                                    },
-                                    "description": {
-                                        "ar": "نطاق العمل في المشروع هو تصميم وشراء وبناء مصنع لتصنيع المواد غير المعدنية في \"مدينة الملك سلمان للطاقة\" (SPARK).",
-                                        "en": "The scope of work of the project is to Design, Procure & Construct a Non-Metallic Manufacturing plant in \"King Salman Energy Park\" (SPARK)."
-                                    }
-                                },
-                                {
-                                    "order": 2,
-                                    "title": {
-                                        "ar": "العمل يشمل",
-                                        "en": "Work Includes"
-                                    },
-                                    "description": {
-                                        "ar": "المشروع يتكون من مبنى الورشة الرئيسي، منطقة المكاتب، والمباني الداعمة بمساحة إجمالية تبلغ 17,000 متر مربع.\n• غرف الحراسة\n• سور أمني\n• بركة احتجاز\n• ساحة ميكانيكية\n• نظام الطاقة\n• أعمال البنية التحتية تحت الأرض\n• نظام تصريف مياه الأمطار\n• نظام الاتصالات والأمن\n• تجهيز الموقع وأعمال الرصف الصلبة\n• أعمال التشجير",
-                                        "en": "The project comprises the Main Workshop building, Office area, and Support building with a total built-up area of 17,000 sqm.\n• Guard houses\n• Security fence\n• Retention pond\n• Mechanical yard\n• Power system\n• Underground utilities work\n• Storm water system\n• Telecom & security system\n• Site preparation and hard paving works\n• Soft scaping work"
-                                    }
-                                }
-                            ]
-                        },
-                        {
-                            "sectionId": "cmaw8lrzj005dqp717x2ss7z6",
-                            "order": 4,
-                            "version": 1,
-                            "title": "gallerySection-non-metallic-manufacturing-plant-9bc7",
-                            "content": {
-                                "images": [
-                                    {
-                                        "alt": {
-                                            "ar": "صورة المعرض 1",
-                                            "en": "Gallery Image 1"
-                                        },
-                                        "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Rectangle+34624115+(1).png",
-                                        "order": 1
-                                    },
-                                    {
-                                        "alt": {
-                                            "ar": "صورة المعرض 2",
-                                            "en": "Gallery Image 2"
-                                        },
-                                        "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Rectangle+34624114+(1).png",
-                                        "order": 2
-                                    },
-                                    {
-                                        "alt": {
-                                            "ar": "صورة المعرض 3",
-                                            "en": "Gallery Image 3"
-                                        },
-                                        "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Rectangle+34624113+(1).png",
-                                        "order": 3
-                                    }
-                                ]
-                            }
-                        },
-                        {
-                            "sectionId": "cmaw8lrzw005jqp71et8d3gnw",
-                            "order": 5,
-                            "version": 1,
-                            "title": "moreProjects-non-metallic-manufacturing-plant-9ad1",
-                            "content": {
-                                "title": {
-                                    "ar": "المزيد من المشاريع",
-                                    "en": "More Projects"
-                                },
-                                "button": {
-                                    "url": null,
-                                    "icon": null,
-                                    "text": {
-                                        "ar": "عرض المزيد",
-                                        "en": "View More"
-                                    },
-                                    "order": 1
-                                }
-                            }
-                        }
-                    ]
-                }
-            },
-            {
-                "id": "cmaw8lruv003uqp71kobf1rdq",
-                "titleEn": "IT Labs for Excellence",
-                "titleAr": "مختبر تكنولوجيا المعلومات للتميز",
-                "slug": "it-lab-for-excellence",
-                "resourceType": "SUB_PAGE",
-                "resourceTag": "PROJECT",
-                "relationType": "CHILD",
-                "liveModeVersionData": {
-                    "id": "cmaw8lruy003wqp71pym8mbjn",
-                    "versionNumber": 1,
-                    "icon": null,
-                    "image": null,
-                    "sections": [
-                        {
-                            "sectionId": "cmaw8lrvl003yqp714qug2i8u",
-                            "order": 1,
-                            "version": 1,
-                            "title": "introSection-it-lab-for-excellence-3f28",
-                            "content": {
-                                "link": {
-                                    "url": "https://www.aramco.com",
-                                    "text": "https://www.aramco.com"
-                                },
-                                "title": {
-                                    "ar": "مختبر تكنولوجيا المعلومات للتميز",
-                                    "en": "IT Labs for Excellence"
-                                },
-                                "button": [
-                                    {
-                                        "icon": null,
-                                        "text": {
-                                            "ar": "خلف",
-                                            "en": "Back"
-                                        },
-                                        "order": 1
-                                    }
-                                ],
-                                "images": [
-                                    {
-                                        "url": "https://frequencyimage.s3.ap-south-1.amazonaws.com/851e35b5-9b3b-4d9f-91b4-9b60ef2a102c-Rectangle%2034624110.png",
-                                        "order": 1,
-                                        "altText": {
-                                            "ar": "صورة شعار الصفحة الرئيسية",
-                                            "en": "Image 1"
-                                        }
-                                    }
-                                ],
-                                "subtitle": {
-                                    "ar": "العميل: أرامكو السعودية",
-                                    "en": "Client: Saudi Aramco"
-                                }
-                            }
-                        },
-                        {
-                            "sectionId": "cmaw8lrw00044qp71bmsh2l0j",
-                            "order": 2,
-                            "version": 1,
-                            "title": "projectInfoCard-it-lab-for-excellence-57b4",
-                            "content": [
-                                {
-                                    "key": {
-                                        "ar": "الموقع",
-                                        "en": "location"
-                                    },
-                                    "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/ion_location-sharp.svg",
-                                    "order": 1,
-                                    "value": {
-                                        "ar": "وادي الظهران للتقنية، المملكة العربية السعودية",
-                                        "en": "Dhahran Techno Valley, Saudi Arabia"
-                                    }
-                                },
-                                {
-                                    "key": {
-                                        "ar": "تاريخ البدء",
-                                        "en": "Start Date"
-                                    },
-                                    "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/solar_calendar-bold+(1).svg",
-                                    "order": 2,
-                                    "value": {
-                                        "ar": "فبراير 2021",
-                                        "en": "February 2021"
-                                    }
-                                },
-                                {
-                                    "key": {
-                                        "ar": "تاريخ الانتهاء",
-                                        "en": "End Date"
-                                    },
-                                    "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/solar_calendar-bold.svg",
-                                    "order": 3,
-                                    "value": {
-                                        "ar": "فبراير 2023",
-                                        "en": "February 2023"
-                                    }
-                                },
-                                {
-                                    "key": {
-                                        "ar": "حالة",
-                                        "en": "status"
-                                    },
-                                    "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/pajamas_status-neutral.svg",
-                                    "order": 4,
-                                    "value": {
-                                        "ar": "مكتمل",
-                                        "en": "Completed"
-                                    }
-                                }
-                            ]
-                        },
-                        {
-                            "sectionId": "cmaw8lrwf004aqp718mndm5bh",
-                            "order": 3,
-                            "version": 1,
-                            "title": "projectDescriptionSection-it-lab-for-excellence-e023",
-                            "content": [
-                                {
-                                    "order": 1,
-                                    "title": {
-                                        "ar": "وصف المشروع",
-                                        "en": "Project Description"
-                                    },
-                                    "description": {
-                                        "ar": "نطاق العمل في المشروع هو هدم وشراء وبناء مختبر تكنولوجيا المعلومات في برج المدرة الواقع في الظهران.",
-                                        "en": "The scope of work for the project is to demolish, procure and Construct an IT Lab in Al-Midra Tower located in Dhahran."
-                                    }
-                                },
-                                {
-                                    "order": 2,
-                                    "title": {
-                                        "ar": "أعمال الهدم",
-                                        "en": "Demolition Works"
-                                    },
-                                    "description": {
-                                        "ar": "العناصر المدنية (إزالة القسم المنخفض والزجاجي، وجدار CMU، ومخلفات الأرضيات، والأثاث، والسقف)...",
-                                        "en": "Civil items (Remove low and glass partition, CMU wall, Floor tailing, furniture and Ceiling)HVAC ItemsPlumbing ItemsFire protectionElectrical (remove lighting fixture, wiring devices, disconnect switches, etc.,)Telecom (remove telecom system)"
-                                    }
-                                },
-                                {
-                                    "order": 3,
-                                    "title": {
-                                        "ar": "شبكات جديدة",
-                                        "en": "New Networks"
-                                    },
-                                    "description": {
-                                        "ar": "مدني (الإنهاء الأرضي، السقف، الجدران، الأثاث)...",
-                                        "en": "Civil (floor finishes, ceiling finishes, wall finishes, furniture)Mechanical ( HVAC, fire protection, plumbing)Electrical (fire detection and alarm system, lighting, wiring devices)Instrumentation (building management system)Telecom (cable routing, data voice system, wireless LAN, AV system, data network)"
-                                    }
-                                },
-                                {
-                                    "order": 4,
-                                    "title": {
-                                        "ar": "العمل يشمل",
-                                        "en": "Work Includes"
-                                    },
-                                    "description": {
-                                        "ar": "تشمل تسليمات المشروع الرئيسية: ورشة البناء، المنطقة المكتبية، المباني المساندة للورشة، المرافق الخارجية...",
-                                        "en": "The key deliverables of project are :Workshop BuildingOffice AreaWorkshop support buildingsExternal UtilitiesSite development worksTelecom & Security works"
-                                    }
-                                }
-                            ]
-                        },
-                        {
-                            "sectionId": "cmaw8lrww004gqp713pats4sg",
-                            "order": 4,
-                            "version": 1,
-                            "title": "gallerySection-it-lab-for-excellence-0ef8",
-                            "content": {
-                                "images": [
-                                    {
-                                        "alt": {
-                                            "ar": "صورة المعرض 1",
-                                            "en": "Gallery Image 1"
-                                        },
-                                        "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Rectangle+34624115+(1).png",
-                                        "order": 1
-                                    },
-                                    {
-                                        "alt": {
-                                            "ar": "صورة المعرض 2",
-                                            "en": "Gallery Image 2"
-                                        },
-                                        "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Rectangle+34624114+(1).png",
-                                        "order": 2
-                                    },
-                                    {
-                                        "alt": {
-                                            "ar": "صورة المعرض 3",
-                                            "en": "Gallery Image 3"
-                                        },
-                                        "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Rectangle+34624113+(1).png",
-                                        "order": 3
-                                    }
-                                ]
-                            }
-                        },
-                        {
-                            "sectionId": "cmaw8lrxb004mqp71gkle3g02",
-                            "order": 5,
-                            "version": 1,
-                            "title": "moreProjects-it-lab-for-excellence-0001",
-                            "content": {
-                                "title": {
-                                    "ar": "المزيد من المشاريع",
-                                    "en": "More Projects"
-                                },
-                                "button": {
-                                    "url": null,
-                                    "icon": null,
-                                    "text": {
-                                        "ar": "عرض المزيد",
-                                        "en": "View More"
-                                    },
-                                    "order": 1
-                                }
-                            }
-                        }
-                    ]
-                }
+                    }
+                ]
             }
         ],
         "pagination": {
-            "totalResources": 5,
-            "totalPages": 1,
-            "currentPage": 1,
-            "limit": 100
+            "total": 1,
+            "page": 1,
+            "limit": 100,
+            "totalPages": 1
         }
     }
 }

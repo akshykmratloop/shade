@@ -60,7 +60,7 @@ const ImageSelector = ({ onSelectImage, onClose }) => {
             toast.success("All images uploaded successfully", { hideProgressBar: true, autoClose: 1000 });
         } catch (err) {
             console.error("Error uploading images:", err);
-            toast.error("Error uploading images. Please try again later.", { hideProgressBar: true, autoClose: 1000 });
+            toast.error(err, { hideProgressBar: true, autoClose: 1000 });
         } finally {
             setUploading(false);
         }
@@ -101,7 +101,7 @@ const ImageSelector = ({ onSelectImage, onClose }) => {
             }
         } catch (err) {
             console.log(err)
-            toast.error("Failed to delete Image please try again after some time.", { hideProgressBar: true })
+            toast.error(err, { hideProgressBar: true })
         }
     }
 

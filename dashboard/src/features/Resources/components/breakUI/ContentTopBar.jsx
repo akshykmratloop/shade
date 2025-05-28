@@ -87,10 +87,10 @@ export default function ContentTopBar({ setWidth, setFullScreen, outOfEditing, c
                     })
                 }
             } else {
-                throw new Error("Error Occured")
+                throw new Error(response.message)
             }
         } catch (err) {
-            toast.error("failed", {
+            toast.error(err, {
                 style: { backgroundColor: "#187e3d", color: "white" },
                 autoClose: 1000, // Closes after 1 second
                 pauseOnHover: false, // Does not pause on hover
@@ -115,10 +115,10 @@ export default function ContentTopBar({ setWidth, setFullScreen, outOfEditing, c
                     // navigate(0)
                 }, 750)
             } else {
-                throw new Error("Error Occured")
+                throw new Error(response.message)
             }
         } catch (err) {
-            toast.error("failed", {
+            toast.error(err, {
                 style: { backgroundColor: "#187e3d", color: "white" },
                 autoClose: 1000, // Closes after 1 second
                 pauseOnHover: false, // Does not pause on hover
@@ -143,10 +143,10 @@ export default function ContentTopBar({ setWidth, setFullScreen, outOfEditing, c
                     navigate(-1)
                 }, 650)
             } else {
-                throw new Error("Error Occured")
+                throw new Error(response.message)
             }
         } catch (err) {
-            toast.error("failed", {
+            toast.error(err, {
                 style: { backgroundColor: "#187e3d", color: "white" },
                 autoClose: 1000, // Closes after 1 second
                 pauseOnHover: false, // Does not pause on hover
@@ -256,10 +256,10 @@ export default function ContentTopBar({ setWidth, setFullScreen, outOfEditing, c
                                 <IoIosInformationCircleOutline className={`${iconSize} ${smallIconSize} dark:hover:text-[#bbbbbb]`} /></span>
                         }
                         <div ref={infoRef} className={`absolute top-[100%] left-1/2 dark:shadow-lg dark:border dark:border-stone-600/10 bg-base-100 w-[230px] shadow-xl rounded-lg text-xs p-2 ${info ? "block" : "hidden"}`} >
-                        <div className='border border-cyan-400 w-fit'>
-                            <p className='text-[#64748B]'>last saved:  <span className='text-[black] dark:text-stone-300'>{lastUpdate}</span></p>  {/* last saved */}
-                            <p className='text-[#64748B]'>status: <span className='text-[black] dark:text-stone-300'> {contentStatus || status}</span></p>   {/**status */}
-                        </div>
+                            <div className=' w-fit'>
+                                <p className='text-[#64748B]'>last saved:  <span className='text-[black] dark:text-stone-300'>{lastUpdate}</span></p>  {/* last saved */}
+                                <p className='text-[#64748B]'>status: <span className='text-[black] dark:text-stone-300'> {contentStatus || status}</span></p>   {/**status */}
+                            </div>
                         </div>
                     </div>
                 </div>

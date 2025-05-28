@@ -24,7 +24,9 @@ import { toast } from "react-toastify";
 
 
 
-function ShowDifference({ show, onClose, resourceId, currentlyEditor, currentlyPublisher, requestId }) {
+function ShowDifference({ show, onClose, request, resourceId, currentlyEditor, currentlyPublisher, requestId, refreshList }) {
+
+    console.log(request)
     // const contentFromRedux = useSelector(state => state.homeContent.present)
     const [liveVersion, setLiveVersion] = useState({})
     const [editVersion, setEditVersion] = useState({})
@@ -49,20 +51,23 @@ function ShowDifference({ show, onClose, resourceId, currentlyEditor, currentlyP
         const response = await approveRequest(id)
         if (response.ok) {
             toast.success("Request has been approved")
+            refreshList()
             onClose()
+
         } else {
-            toast.error("Something went wrong please try again later")
+            toast.error(response.message)
         }
     }
 
     const RejectRequestFunc = async (id, body) => {
         const response = await rejectedRequest(id, { rejectReason: body })
         if (response.ok) {
-            toast.success("Request has been approved")
+            toast.success("Request has been Rejected")
+            refreshList()
             onClose()
             return true
         } else {
-            toast.error("Something went wrong please try again later", {autoClose: 1000, hideProgressBar: true})
+            toast.error(response.meesage, { autoClose: 1000, hideProgressBar: true })
         }
     }
 
@@ -118,6 +123,8 @@ function ShowDifference({ show, onClose, resourceId, currentlyEditor, currentlyP
         fetchContent()
     }, [])
 
+    console.log((!currentlyEditor || request.flowStatus === "PENDING"))
+
     return (
         <Dialog open={show} onClose={onClose} className="relative z-40 font-poppins">
             <div className="fixed inset-0 bg-black/50" aria-hidden="true" />
@@ -128,7 +135,7 @@ function ShowDifference({ show, onClose, resourceId, currentlyEditor, currentlyP
                         <div className="flex gap-5 justify-between w-[95%]">
                             <LanguageSwitch w={'w-[20%]'} setLanguage={setLanguage} language={language} />
                             { // not for currentlyEditor
-                                !currentlyEditor &&
+                                (!currentlyEditor && request.flowStatus === "PENDING") &&
                                 <div className="flex gap-2">
                                     <div className="flex gap-3 text-[25px] items-center border-r px-2 border-r-2">
                                         <div ref={commentRef} className=" flex flex-col gap-1 items-center relative">
@@ -212,16 +219,16 @@ function ShowDifference({ show, onClose, resourceId, currentlyEditor, currentlyP
                     <div className="flex overflow-y-scroll h-[95%] customscroller relative">
                         <div className="border-r border-r-[4px] border-cyan-800 h-fit">
                             <AllForOne
-                                currentPath={"home"}
-                                language={language} screen={740}
+                                currentPath={liveVersion.slug}
+                                language={language} screen={760}
                                 content={LiveContent.content} fullScreen={""}
                                 hideScroll={true}
                             />
                         </div>
                         <div>
                             <AllForOne
-                                currentPath={"home"} language={language}
-                                screen={740} content={editedContent.content}
+                                currentPath={liveVersion.slug} language={language}
+                                screen={760} content={editedContent.content}
                                 live={LiveContent.content} showDifference={true}
                                 fullScreen={""}
                                 hideScroll={true}

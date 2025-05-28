@@ -156,7 +156,7 @@ function Logs() {
           />
         }
       >
-        <div className="min-h-[28.2rem] flex flex-col justify-between">
+        <div className="min-h-[30rem] flex flex-col justify-between">
           <div className="overflow-x-auto w-full border dark:border-stone-600 rounded-2xl">
             <table className="table text-center min-w-full dark:text-[white]">
               <thead className="" style={{ borderRadius: "" }}>
@@ -204,7 +204,7 @@ function Logs() {
                         style={{ height: "65px" }}
                       >
                         <td
-                          className={`font-poppins h-[65px] truncate font-normal text-[14px] leading-normal text-[#101828] p-[26px] pl-5 flex`}
+                          className={`font-poppins h-[65px] truncate font-normal text-[14px] leading-normal text-[#101828] p-[10px] pl-5 flex items-center`}
                         >
                           {/* <img src={user.image ? user.image : userIcon} alt={user.name} className="rounded-[50%] w-[41px] h-[41px] mr-2" /> */}
                           <div className="flex flex-col">

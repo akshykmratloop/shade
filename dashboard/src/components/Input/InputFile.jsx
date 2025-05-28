@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Upload, X } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,20 +7,17 @@ import { Img_url } from "../../routes/backend";
 
 const InputFile = ({ label, baseClass, id, currentPath, resourceId, contentIndex, index, subSection, section, outOfEditing, directIcon, order, url }) => {
   const dispatch = useDispatch();
-  const ImageFromRedux = useSelector(state => state.homeContent.present.images);
+  // const ImageFromRedux = useSelector(state => state.homeContent.present.images);
   const [fileURL, setFileURL] = useState("");
   const [isSelectorOpen, setIsSelectorOpen] = useState(false);
 
-  const clearFile = () => {
-    setFileURL("");
-    dispatch(removeImages({ section: id, src: "", currentPath }));
-  };
+  // const clearFile = () => {
+  //   setFileURL("");
+  //   dispatch(removeImages({ section: id, src: "", currentPath }));
+  // };
 
-  console.log(url)
   const handleImageSelect = (url, altText) => {
-    // console.log(url, altText)
     // setFileURL(url[0]);
-    console.log(url)
     const payloadData = {
       url: url[0],
       altText: {
