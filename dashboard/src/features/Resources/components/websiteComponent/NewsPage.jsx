@@ -14,9 +14,6 @@ const NewsBlogspage = ({ language, screen, content }) => {
     const latestNews = content?.['3']?.items;
     const trendingCard = content?.['4']?.items?.[0];
 
-    console.log(banner.images?.[0]?.url?.slice(0, 5) === "https")
-    console.log( banner.images?.[0]?.url?.slice(0, 5) === "https" ? "url('https://loopwebsite.s3.ap-south-1.amazonaws.com/Hero+(2).png')" : Img_url + banner.images?.[0]?.url)
-
     return (
         <div>
             {/**Banner Section */}

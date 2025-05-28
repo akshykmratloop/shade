@@ -1,246 +1,94 @@
 {
     "message": "Success",
     "content": {
-        "id": "cmb688co900n9qph6tf0k4i6d",
-        "titleEn": "News & Blogs Page",
-        "titleAr": "الأخبار و المدونات",
-        "slug": "news-blogs",
+        "id": "cmb688c7m00hfqph6ohp8dt0s",
+        "titleEn": "Equipment Rental",
+        "titleAr": "تأجير المعدات",
+        "slug": "equipment-rental",
         "isEditable": true,
-        "resourceType": "MAIN_PAGE",
-        "resourceTag": "NEWS",
-        "relationType": "PARENT",
+        "resourceType": "SUB_PAGE",
+        "resourceTag": "SERVICE",
+        "relationType": "CHILD",
         "liveModeVersionData": {
-            "id": "cmb688coc00nbqph6qlnuh9pd",
+            "id": "cmb688c7q00hhqph6tn9ppyll",
             "versionNumber": 1,
             "icon": null,
             "image": null,
             "comments": "Initial version created by system",
             "referenceDoc": null,
-            "updatedAt": "2025-05-27T08:00:39.468Z",
+            "updatedAt": "2025-05-27T08:00:38.870Z",
             "status": "LIVE",
             "sections": [
                 {
-                    "sectionId": "cmb688cpt00ndqph6fkl2kk7h",
+                    "sectionId": "cmb688c8a00hjqph6xvgyn9lb",
                     "order": 1,
                     "version": 1,
-                    "title": "bannerSection-news-blogs-d443",
+                    "title": "introSection-equipment-rental-d550",
                     "content": {
                         "title": {
-                            "ar": "خبر & المدونات",
-                            "en": "News & Blogs"
+                            "ar": "تأجير المعدات",
+                            "en": "Equipment Rental"
                         },
-                        "button": [
-                            {
-                                "url": null,
-                                "icon": null,
-                                "text": {
-                                    "ar": "خدماتنا",
-                                    "en": "Our Services"
-                                },
-                                "order": 1
-                            }
-                        ],
                         "images": [
                             {
-                                "url": "https://frequencyimage.s3.ap-south-1.amazonaws.com/851e35b5-9b3b-4d9f-91b4-9b60ef2a102c-Rectangle%2034624110.png",
+                                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/equipment-rental.png",
                                 "order": 1,
                                 "altText": {
-                                    "ar": "صورة شعار الصفحة الرئيسية",
-                                    "en": "Image 1"
+                                    "ar": "صورة تأجير المعدات",
+                                    "en": "Equipment Rental Image"
                                 }
                             }
                         ],
                         "description": {
-                            "ar": "اكتشف التميز الاستثنائي لشركة Shade Corporation، الشركة الرائدة في مجال الهندسة والمشتريات والبناء في المملكة العربية السعودية.",
-                            "en": "Discover the exceptional excellence of Shade Corporation, a leader in engineering, procurement, and construction in Saudi Arabia."
+                            "ar": "نوفر مجموعة واسعة من المعدات الحديثة للإيجار لدعم مختلف احتياجات المشاريع بكفاءة وفعالية.",
+                            "en": "We provide a wide range of modern equipment for rent to efficiently support various project needs."
                         }
                     },
                     "sections": []
                 },
                 {
-                    "sectionId": "cmb688cqa00njqph6armrkob3",
+                    "sectionId": "cmb688c8o00hpqph6805ib22e",
                     "order": 2,
                     "version": 1,
-                    "title": "featuredArticle-news-blogs-c268",
+                    "title": "childrenServices-equipment-rental-ba0e",
                     "content": {
                         "button": [
                             {
                                 "url": null,
                                 "icon": null,
                                 "text": {
-                                    "ar": "أعمالنا",
-                                    "en": "Read More"
+                                    "ar": "عرض التفاصيل",
+                                    "en": "View Details"
                                 },
                                 "order": 1
                             }
                         ]
                     },
-                    "sections": [],
-                    "items": [
-                        {
-                            "id": "cmb688asm000bqph6lant9qg9",
-                            "titleEn": "Youth Overcoming Disability",
-                            "titleAr": "شباب يتحدون الإعاقة",
-                            "slug": "youth-overcoming-disability",
-                            "icon": null,
-                            "image": null,
-                            "description": {
-                                "ar": "يواجه ذوو الإعاقة في منطقة الشرق الأوسط العديد من التحديات التي تتراوح بين الأزمات الاقتصادية والحروب المستمرة، مما يجعل حياتهم اليومية أكثر صعوبة. بالرغم من ذلك، يسعى العديد منهم لتحدي هذه الصعوبات والمساهمة في تغيير مجتمعاتهم.",
-                                "en": "People with disabilities in the Middle East face many challenges, ranging from economic crises to ongoing wars, which make their daily lives more difficult. Despite this, many of them strive to overcome these difficulties and contribute to the betterment of their communities."
-                            },
-                            "date": {
-                                "ar": "20 مايو 2020",
-                                "en": "Monday May 20"
-                            },
-                            "order": 1
-                        }
-                    ]
+                    "sections": []
                 },
                 {
-                    "sectionId": "cmb688cqv00nrqph63an8awks",
+                    "sectionId": "cmb688c8z00hvqph6wblm9i6n",
                     "order": 3,
                     "version": 1,
-                    "title": "latestNewCards-news-blogs-d02e",
+                    "title": "otherSecondLevelOFServices-equipment-rental-44ea",
                     "content": {
+                        "title": {
+                            "ar": "خدمات أخرى",
+                            "en": "Other Services"
+                        },
                         "button": [
                             {
                                 "url": null,
                                 "icon": null,
                                 "text": {
-                                    "ar": "أعمالنا",
-                                    "en": "Read More"
-                                },
-                                "order": 1
-                            },
-                            {
-                                "url": null,
-                                "icon": null,
-                                "text": {
-                                    "ar": "أعمالنا",
-                                    "en": "Load More"
-                                },
-                                "order": 2
-                            }
-                        ],
-                        "heading": {
-                            "ar": "آخر الأخبار",
-                            "en": "Latest News & Blogs"
-                        }
-                    },
-                    "sections": [],
-                    "items": [
-                        {
-                            "id": "cmb688asm000bqph6lant9qg9",
-                            "titleEn": "Youth Overcoming Disability",
-                            "titleAr": "شباب يتحدون الإعاقة",
-                            "slug": "youth-overcoming-disability",
-                            "icon": null,
-                            "image": null,
-                            "description": {
-                                "ar": "يواجه ذوو الإعاقة في منطقة الشرق الأوسط العديد من التحديات التي تتراوح بين الأزمات الاقتصادية والحروب المستمرة، مما يجعل حياتهم اليومية أكثر صعوبة. بالرغم من ذلك، يسعى العديد منهم لتحدي هذه الصعوبات والمساهمة في تغيير مجتمعاتهم.",
-                                "en": "People with disabilities in the Middle East face many challenges, ranging from economic crises to ongoing wars, which make their daily lives more difficult. Despite this, many of them strive to overcome these difficulties and contribute to the betterment of their communities."
-                            },
-                            "date": {
-                                "ar": "20 مايو 2020",
-                                "en": "Monday May 20"
-                            },
-                            "order": 1
-                        },
-                        {
-                            "id": "cmb688aum000wqph6n5w5j1dz",
-                            "titleEn": "Saudi Robots Join Millions in Performing the Hajj",
-                            "titleAr": "الروبوتات السعودية تنضم إلى الملايين في أداء فريضة الحج",
-                            "slug": "saudi-robots-hajj",
-                            "icon": null,
-                            "image": null,
-                            "description": {
-                                "ar": "في خطوة مبتكرة، تستخدم المملكة العربية السعودية الروبوتات لمساعدة الحجاج في أداء مناسكهم. هذه الروبوتات تقدم خدمات مثل الإرشاد وتوفير المياه، مما يسهم في تسهيل أداء المناسك.",
-                                "en": "In an innovative move, Saudi Arabia uses robots to assist pilgrims in performing their rituals. These robots provide services such as guidance and water distribution, contributing to the ease of performing the rites."
-                            },
-                            "date": {
-                                "ar": "20 مايو 2020",
-                                "en": "Monday May 20"
-                            },
-                            "order": 2
-                        },
-                        {
-                            "id": "cmb688aw9001hqph672urk4to",
-                            "titleEn": "Technology Serving People with Disabilities",
-                            "titleAr": "التكنولوجيا في خدمة ذوي الإعاقة",
-                            "slug": "technology-serving-disabilities",
-                            "icon": null,
-                            "image": null,
-                            "description": {
-                                "ar": "تلعب التكنولوجيا دورًا حيويًا في تحسين حياة الأشخاص ذوي الإعاقة من خلال تقديم حلول مبتكرة مثل الأطراف الصناعية، وبرامج التدريب، والتطبيقات الذكية التي تسهل حياتهم اليومية.",
-                                "en": "Technology plays a vital role in improving the lives of people with disabilities by providing innovative solutions such as prosthetics, training programs, and smart apps that make daily life easier."
-                            },
-                            "date": {
-                                "ar": "15 يونيو 2021",
-                                "en": "Tuesday June 15"
-                            },
-                            "order": 3
-                        },
-                        {
-                            "id": "cmb688axw0022qph65gka9sr7",
-                            "titleEn": "Inspiring Success Stories",
-                            "titleAr": "قصص نجاح ملهمة",
-                            "slug": "inspiring-success-stories",
-                            "icon": null,
-                            "image": null,
-                            "description": {
-                                "ar": "من جميع أنحاء العالم، هناك العديد من الأشخاص الذين تغلبوا على تحديات كبيرة لتحقيق نجاحاتهم. تتنوع هذه القصص من التغلب على إصابات جسدية إلى التغلب على الظروف الاجتماعية الصعبة.",
-                                "en": "From around the world, there are many people who have overcome significant challenges to achieve their success. These stories range from overcoming physical injuries to conquering difficult social circumstances."
-                            },
-                            "date": {
-                                "ar": "10 يوليو 2021",
-                                "en": "Saturday July 10"
-                            },
-                            "order": 4
-                        }
-                    ]
-                },
-                {
-                    "sectionId": "cmb688crw00o5qph638gszwje",
-                    "order": 4,
-                    "version": 1,
-                    "title": "featuredArticle-news-blogs-9daa",
-                    "content": {
-                        "button": [
-                            {
-                                "url": null,
-                                "icon": null,
-                                "text": {
-                                    "ar": "أعمالنا",
-                                    "en": "Read More"
+                                    "ar": "عرض التفاصيل",
+                                    "en": "View Details"
                                 },
                                 "order": 1
                             }
-                        ],
-                        "heading": {
-                            "ar": "آخر الأخبار",
-                            "en": "Trending News"
-                        }
+                        ]
                     },
-                    "sections": [],
-                    "items": [
-                        {
-                            "id": "cmb688aum000wqph6n5w5j1dz",
-                            "titleEn": "Saudi Robots Join Millions in Performing the Hajj",
-                            "titleAr": "الروبوتات السعودية تنضم إلى الملايين في أداء فريضة الحج",
-                            "slug": "saudi-robots-hajj",
-                            "icon": null,
-                            "image": null,
-                            "description": {
-                                "ar": "في خطوة مبتكرة، تستخدم المملكة العربية السعودية الروبوتات لمساعدة الحجاج في أداء مناسكهم. هذه الروبوتات تقدم خدمات مثل الإرشاد وتوفير المياه، مما يسهم في تسهيل أداء المناسك.",
-                                "en": "In an innovative move, Saudi Arabia uses robots to assist pilgrims in performing their rituals. These robots provide services such as guidance and water distribution, contributing to the ease of performing the rites."
-                            },
-                            "date": {
-                                "ar": "20 مايو 2020",
-                                "en": "Monday May 20"
-                            },
-                            "order": 1
-                        }
-                    ]
+                    "sections": []
                 }
             ]
         }
