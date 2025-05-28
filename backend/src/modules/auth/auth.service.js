@@ -228,8 +228,8 @@ const generateOtpAndSendOnEmail = async (user, deviceId, otpOrigin) => {
   return otp;
 };
 
-const getAllLogs = async () => {
-  return await findAllLogs();
+const getAllLogs = async (search, status, pageNum, limitNum) => {
+  return await findAllLogs(search, status, pageNum, limitNum);
 };
 
 export {

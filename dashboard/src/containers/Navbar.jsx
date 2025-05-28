@@ -1,13 +1,14 @@
 import { useSelector, useDispatch } from "react-redux";
 import { updateName, updateTag, updateType } from "../features/common/navbarSlice";
 import capitalizeWords from "../app/capitalizeword";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const Navbar = ({ setCurrentResource }) => {
     // const userPermissions = useSelector(state => state.user.user?.permissions);
     // const currentNav = useSelector(state => state.navBar.resourceTag)
     const currentName = useSelector(state => state.navBar.name)
     const dispatch = useDispatch();
+    // const [currentName, setCurrentName] = useState("Pages")
     // const permissionsSet = new Set(userPermissions);
 
 
@@ -42,7 +43,11 @@ const Navbar = ({ setCurrentResource }) => {
     };
 
     useEffect(() => {
-        dispatch(updateName(localStorage.getItem("navName")))
+        let currentName = localStorage.getItem("navName")
+        if(currentName) {
+            // setCurrentName(currentName)
+            dispatch(updateName(currentName))
+        }
     }, [])
 
     return (

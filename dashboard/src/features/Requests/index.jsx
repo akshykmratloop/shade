@@ -34,7 +34,7 @@ const TopSideButtons = memo(({
 }) => {
   const [filterParam, setFilterParam] = useState("");
   const [searchText, setSearchText] = useState("");
-  const statusFilters = ["ACTIVE", "INACTIVE"];
+  const statusFilters = ["REJECTED", "PUBLISHED", "PENDING"];
   const showFiltersAndApply = (status) => {
     applyFilter(status);
     setFilterParam(status);
@@ -210,15 +210,16 @@ function Requests() {
   // APPLY FILTER
   const applyFilter = (status) => {
     const filteredRequests = originalRequests?.filter(
-      (request) => request.status === status
+      (request) => request.flowStatus === status
     );
     setRequests(filteredRequests);
   };
 
   // APPLY SEARCH
   const applySearch = (value) => {
+    console.log(value)
     const filteredRequests = originalRequests?.filter((request) =>
-      request?.name?.toLowerCase().includes(value?.toLowerCase())
+      request?.resourceVersion?.resource?.titleEn?.toLowerCase()?.includes(value?.toLowerCase())
     );
     setCurrentPage(1);
     setRequests(filteredRequests);
@@ -364,7 +365,6 @@ function Requests() {
               <tbody className="">
                 {Array.isArray(requests) && currentRequests.length > 0 ? (
                   currentRequests?.map((request, index) => {
-                    console.log(request)
                     let publisher = request.approvals.filter(e => e.stage === null)[0]
                     let verifiers = request.approvals.filter(e => e.stage)
                     return (

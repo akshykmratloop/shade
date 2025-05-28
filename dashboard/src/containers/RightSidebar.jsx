@@ -12,6 +12,8 @@ import { getNotificationsbyId, markAllNotificationAsRead } from "../app/fetch";
 import { setNotificationCount } from "../features/common/headerSlice";
 import socket from "../Socket/socket.js";
 import RequestDetails from "../features/Requests/RequestDetails.jsx";
+import VersionDetails from "../features/Resources/VersionDetails.jsx";
+import { ToastContainer } from "react-toastify";
 
 function RightSidebar() {
   const [notificationData, setNotificationData] = useState([]);
@@ -135,9 +137,9 @@ function RightSidebar() {
       }
     >
       <section
-        className={`${bodyType === RIGHT_DRAWER_TYPES.RESOURCE_DETAILS
-            ? "w-[34rem]"
-            : "w-80 md:w-96"
+        className={`${bodyType === RIGHT_DRAWER_TYPES.RESOURCE_DETAILS || bodyType === RIGHT_DRAWER_TYPES.VERSION_DETAILS
+          ? "w-[34rem]"
+          : "w-80 md:w-96"
           }
           right-0 absolute bg-base-100 h-full shadow-xl delay-400 duration-500 ease-in-out transition-all transform 
           ${isOpen ? "translate-x-0" : "translate-x-full"}
@@ -199,6 +201,13 @@ function RightSidebar() {
                     // />
                     <RequestDetails />
                   ),
+                  [RIGHT_DRAWER_TYPES.VERSION_DETAILS]: (
+                    // <CalendarEventsBodyRightDrawer
+                    //   {...extraObject}
+                    //   closeRightDrawer={close}
+                    // />
+                    <VersionDetails close={close} />
+                  ),
 
                   [RIGHT_DRAWER_TYPES.DEFAULT]: <div></div>,
                 }[bodyType]
@@ -213,6 +222,7 @@ function RightSidebar() {
         className=" w-screen h-full cursor-pointer "
         onClick={() => close()}
       ></section>
+      <ToastContainer />
     </div>
   );
 }

@@ -14,7 +14,7 @@ import { useNavigate } from "react-router-dom";
 import { updateResourceId } from "../../../common/resourceSlice";
 
 const PageDetails = ({ data, display, setOn }) => {
-  console.log(data)
+  // console.log(data)
   const pageRef = useRef(null);
   const [pageInfo, setPageInfo] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -150,7 +150,7 @@ const PageDetails = ({ data, display, setOn }) => {
                         <button className="text-[#145098] dark:text-sky-500 underline font-[300] py-0 my-0"
                           onClick={() => {
                             dispatch(updateResourceId({ id: data.id, name: data.titleEn }))
-                            // localStorage.setItem("route", "/app/resources/versions")
+                            localStorage.setItem("currentResource", JSON.stringify({ resourceId: data.id, resourceName: data.titleEn }))
                             navigate('../versions')
                           }}
                         >
@@ -168,7 +168,7 @@ const PageDetails = ({ data, display, setOn }) => {
                       <button className="text-[#145098] dark:text-sky-500 underline font-[300] py-0 my-0"
                         onClick={() => {
                           dispatch(updateResourceId({ id: data.id, name: data.titleEn }))
-                          // localStorage.setItem("route", "/app/resources/versions")
+                          localStorage.setItem("currentResource", JSON.stringify({ resourceId: data.id, resourceName: data.titleEn }))
                           navigate('../requests')
                         }}
                       >

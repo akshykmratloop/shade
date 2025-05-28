@@ -73,12 +73,12 @@ function ShowDifference({ show, onClose, request, resourceId, currentlyEditor, c
 
     useEffect(() => {
         const handleClickOutside = (e) => {
-            if (modalRef.current && !modalRef.current.contains(e.target)) {
-                onClose();
-            }
-            if (commentRef.current && !commentRef.current.contains(e.target)) {
-                setCommentOn(false)
-            }
+            // if (modalRef.current && !modalRef.current.contains(e.target)) {
+            //     onClose();
+            // }
+            // if (commentRef.current && !commentRef.current.contains(e.target)) {
+            //     setCommentOn(false)
+            // }
         };
 
         const handleKeyDown = (e) => {
@@ -123,19 +123,41 @@ function ShowDifference({ show, onClose, request, resourceId, currentlyEditor, c
         fetchContent()
     }, [])
 
-    console.log((!currentlyEditor || request.flowStatus === "PENDING"))
+    const [width, setWidth] = useState(0);
+    const divRef = useRef(null);
+
+
+    useEffect(() => {
+        const observer = new ResizeObserver(entries => {
+            for (let entry of entries) {
+                setWidth(entry.contentRect.width);
+            }
+        });
+
+        if (divRef.current) {
+            observer.observe(divRef.current);
+        }
+
+        return () => {
+            if (divRef.current) {
+                observer.unobserve(divRef.current);
+            }
+        };
+    }, [editVersion]);
+
+    // console.log((!currentlyEditor || request.flowStatus === "PENDING"))
 
     return (
         <Dialog open={show} onClose={onClose} className="relative z-40 font-poppins">
             <div className="fixed inset-0 bg-black/50" aria-hidden="true" />
-            <div ref={modalRef} className="fixed inset-0 flex items-center justify-center p-4 px-0">
-                <Dialog.Panel className="w-[98vw] h-[98vh] customscroller shadow-lg shadow-stone rounded-lg bg-[white] dark:bg-slate-800 p-6 px-0 relative">
+            <div ref={modalRef} className="fixed inset-0 flex items-center justify-center p-4 px-0 ">
+                <Dialog.Panel ref={divRef} className="w-[98vw]  h-[98vh] customscroller shadow-lg shadow-stone rounded-lg bg-[white] dark:bg-slate-800 p-6 px-0 relative">
                     <div className="flex justify-between items-center mb-4 px-6 ">
                         {/* <Dialog.Title className="text-lg font-[500]">Difference Preview</Dialog.Title> */}
-                        <div className="flex gap-5 justify-between w-[95%]">
+                        <div className="flex gap-5 justify-between w-[95%] ">
                             <LanguageSwitch w={'w-[20%]'} setLanguage={setLanguage} language={language} />
                             { // not for currentlyEditor
-                                (!currentlyEditor && request.flowStatus === "PENDING") &&
+                                (!currentlyEditor && request?.flowStatus === "PENDING") &&
                                 <div className="flex gap-2">
                                     <div className="flex gap-3 text-[25px] items-center border-r px-2 border-r-2">
                                         <div ref={commentRef} className=" flex flex-col gap-1 items-center relative">
@@ -216,19 +238,21 @@ function ShowDifference({ show, onClose, request, resourceId, currentlyEditor, c
                         <h3 className="font-[500] px-4 flex-1">Changed Version</h3>
                     </div>
 
-                    <div className="flex overflow-y-scroll h-[95%] customscroller relative">
-                        <div className="border-r border-r-[4px] border-cyan-800 h-fit">
+                    <div className="flex overflow-y-scroll h-[95%] customscroller relative w-full">
+                        <div className="border-r border-r-[4px] border-r-cyan-800 h-fit  flex">
                             <AllForOne
                                 currentPath={liveVersion.slug}
-                                language={language} screen={760}
+                                language={language}
+                                screen={width/2.02}
                                 content={LiveContent.content} fullScreen={""}
                                 hideScroll={true}
                             />
                         </div>
-                        <div>
+                        <div className="flex h-fit">
                             <AllForOne
                                 currentPath={liveVersion.slug} language={language}
-                                screen={760} content={editedContent.content}
+                                screen={width/2.02}
+                                content={editedContent.content}
                                 live={LiveContent.content} showDifference={true}
                                 fullScreen={""}
                                 hideScroll={true}
