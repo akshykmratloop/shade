@@ -26,6 +26,7 @@ const InputFile = ({ label, baseClass, id, currentPath, resourceId, contentIndex
       },
       order
     }
+    console.log(payloadData)
     dispatch(updateImages({
       section,
       src: directIcon ? url[0] : payloadData,

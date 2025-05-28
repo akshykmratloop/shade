@@ -1,4 +1,4 @@
-// import { newsBlogs } from "../../../../assets/index";
+import { newsBlogs } from "../../../../assets/index";
 // import Arrow from "../../../../assets/icons/right-wrrow.svg";
 import { TruncateText } from "../../../../app/capitalizeword";
 import { Img_url } from "../../../../routes/backend";
@@ -14,13 +14,16 @@ const NewsBlogspage = ({ language, screen, content }) => {
     const latestNews = content?.['3']?.items;
     const trendingCard = content?.['4']?.items?.[0];
 
+    console.log(banner.images?.[0]?.url?.slice(0, 5) === "https")
+    console.log( banner.images?.[0]?.url?.slice(0, 5) === "https" ? "url('https://loopwebsite.s3.ap-south-1.amazonaws.com/Hero+(2).png')" : Img_url + banner.images?.[0]?.url)
+
     return (
         <div>
             {/**Banner Section */}
             <section className={`relative px-5 w-full bg-cover bg-center ${isLeftAlign ? 'scale-x-[-1]' : ''}  `}
                 style={{
                     height: 1100 * 0.436,
-                    backgroundImage: banner.images?.[0]?.url?.slice(0, 5) === "https" ? "url('https://loopwebsite.s3.ap-south-1.amazonaws.com/Hero+(2).png')" : Img_url + banner.images?.[0]?.url
+                    backgroundImage: banner.images?.[0]?.url?.slice(0, 5) === "https" ? "url('https://loopwebsite.s3.ap-south-1.amazonaws.com/Hero+(2).png')" : `url(${Img_url + banner.images?.[0]?.url})`
                 }}>
                 <div className={`${isTablet && "py-[200px]"} container h-full relative ${isPhone ? "px-10" : "px-20"} flex items-center ${isLeftAlign ? "justify-end" : "justify-end"}`}>
                     <div className={`flex flex-col ${isLeftAlign ? 'right-5 text-left items-start ' : 'left-5 text-right items-end'} ${isPhone ? "max-w-[90%]" : isTablet ? "max-w-[70%]" : "max-w-[50%]"} w-full ${isLeftAlign ? 'scale-x-[-1]' : ''}`}>
@@ -74,7 +77,7 @@ const NewsBlogspage = ({ language, screen, content }) => {
                                 </div>
                             </div>
                             <img
-                                src={mainCard?.image?.slice(0, 5) === "https" ? mainCard.image : Img_url + mainCard?.image}
+                                src={mainCard.image ? Img_url + mainCard?.image : newsBlogs.news1}
                                 className="rounded-md mr-1 h-[200px] object-cover object-left"
                                 alt=""
                                 width={333}
@@ -95,7 +98,7 @@ const NewsBlogspage = ({ language, screen, content }) => {
                             return (
                                 <div key={index} className={`rounded-md border border-gray-300 bg-white shadow-md overflow-hidden ${isPhone ? "min-h-[390px]" : "min-h-[390px]"}`}>
                                     <img
-                                        src={card.image?.slice(0, 5) === "https" ? card.image : Img_url + card?.image}
+                                        src={card.image ? Img_url + card?.image : newsBlogs.news2}
                                         alt=""
                                         className={`object-cover object-center w-full ${isPhone ? "h-[200px]" : "h-[130px]"}`}
                                         width={180}
@@ -168,7 +171,7 @@ const NewsBlogspage = ({ language, screen, content }) => {
                                 </div>
                             </div>
                             <img
-                                src={trendingCard?.image?.slice(0, 5) === "https" ? trendingCard?.image : Img_url + trendingCard?.image}
+                                src={trendingCard.image ? Img_url + trendingCard?.image : newsBlogs.news1}
                                 alt="Trending Card Image"
                                 // width={439}
                                 // height={329} 

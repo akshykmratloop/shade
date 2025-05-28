@@ -19,7 +19,6 @@ import {
 } from "@dnd-kit/sortable";
 import { CSS } from "@dnd-kit/utilities";
 // import { updateSelectedContent, updateSelectedProject } from "../../../common/homeContentSlice";
-import { updateSelectedContentAndSaveDraft } from "../../../common/thunk/smsThunk";
 import ErrorText from "../../../../components/Typography/ErrorText";
 import xSign from "../../../../assets/x-close.png"
 import { selectMainNews } from "../../../common/homeContentSlice";

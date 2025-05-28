@@ -52,7 +52,7 @@ const NewsManager = ({ language, content, currentPath, indexes }) => {
                     { input: "textarea", label: "Description", updateType: "description", maxLength: 300, value: content?.['1']?.content?.description?.[language] },
                     // { input: "input", label: "Button Text", updateType: "button" }
                 ]}
-                inputFiles={[{ label: "Backround Image", id: "newsBanner", index: 0, url: content?.['1']?.content?.images?.[0]?.url }]}
+                inputFiles={[{ label: "Backround Image", id: "newsBanner", order: 1, url: content?.['1']?.content?.images?.[0]?.url }]}
                 section={"bannerSection"}
                 language={language}
                 currentContent={content}

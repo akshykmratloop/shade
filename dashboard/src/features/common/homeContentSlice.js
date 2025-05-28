@@ -70,6 +70,7 @@ const cmsSlice = createSlice({
             } else if (action.payload.section === "socialLinks") {
                 state.present.content.editVersion.sections[action.payload.sectionIndex].content[action.payload.section][action.payload.index][action.payload.title] = action.payload.src
             } else {
+                console.log("asdfwqerqwefsfvxczvefmqwekrbhjvkweuiwqhnxip")
                 state.present.content.editVersion.sections[action.payload.index].content.images[action.payload.order - 1] = action.payload.src
             }
             state.future = [];
