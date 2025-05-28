@@ -8,10 +8,6 @@ export const differentText = {
     checkDifference: function (arg1, arg2, highlight, from) {
 
         if (Array.isArray(arg1) && Array.isArray(arg2)) {
-            if (from === 'projects') {
-                // console.log(arg1, arg2)
-               console.log(JSON.stringify(arg1), JSON.stringify(arg2))
-            }
             return arg1.some((e, i) => e.id !== arg2[i].id) ? this?.highlight1 : ""
         }
 

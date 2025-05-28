@@ -39,6 +39,7 @@ const user = createSlice({
     reducers: {
         // update user reducer, (the user who is logging in)
         updateUser: (state, action) => {
+            
             const roles = action.payload?.data?.roles?.filter((e) => e.status === "ACTIVE")
             state.user = { ...action.payload.data, roles };
 

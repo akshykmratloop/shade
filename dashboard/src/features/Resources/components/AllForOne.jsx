@@ -21,6 +21,7 @@ import { useEffect, useRef, useState } from "react";
 import { updateMainContent } from "../../common/homeContentSlice";
 
 const AllForOne = ({ language, screen, content, subPath, setLanguage, fullScreen, currentPath, deepPath, showDifference = false, live, hideScroll }) => {
+    console.log(fullScreen)
     // console.log(content)
     const dispatch = useDispatch()
     const fontRegular = useSelector(state => state.fontStyle.regular)

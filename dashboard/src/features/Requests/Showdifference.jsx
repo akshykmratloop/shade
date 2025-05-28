@@ -1,13 +1,13 @@
 import { useEffect, useRef, useState } from "react";
 import { Dialog, Switch } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
-import userIcon from "../../assets/user.png"
-import formatTimestamp from "../../app/TimeFormat";
+// import userIcon from "../../assets/user.png"
+// import formatTimestamp from "../../app/TimeFormat";
 import { getContent, getRoleById } from "../../app/fetch";
 import capitalizeWords from "../../app/capitalizeword";
-import SkeletonLoader from "../../components/Loader/SkeletonLoader";
+// import SkeletonLoader from "../../components/Loader/SkeletonLoader";
 import AllForOne from "../Resources/components/AllForOne";
-import content from "../Resources/components/websiteComponent/content.json"
+// import content from "../Resources/components/websiteComponent/content.json"
 import { useSelector } from "react-redux";
 import { RxCross1 } from "react-icons/rx";
 import Button from "../../components/Button/Button";
@@ -244,7 +244,7 @@ function ShowDifference({ show, onClose, request, resourceId, currentlyEditor, c
                                 currentPath={liveVersion.slug}
                                 language={language}
                                 screen={width/2.02}
-                                content={LiveContent.content} fullScreen={""}
+                                content={LiveContent.content} fullScreen={true}
                                 hideScroll={true}
                             />
                         </div>
@@ -254,7 +254,7 @@ function ShowDifference({ show, onClose, request, resourceId, currentlyEditor, c
                                 screen={width/2.02}
                                 content={editedContent.content}
                                 live={LiveContent.content} showDifference={true}
-                                fullScreen={""}
+                                fullScreen={true}
                                 hideScroll={true}
                             />
                         </div>

@@ -35,6 +35,7 @@ const EditPage = () => {
     const [outOfEditing, setOutOfEditing] = useState(true)
 
     const [fullScreen, setFullScreen] = useState(false)
+    console.log(fullScreen)
     const [subRoutesList, setSubRouteList] = useState([])
 
     const { isManager } = useSelector(state => state.user)

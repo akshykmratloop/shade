@@ -383,15 +383,16 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                         </div>
 
                         <div className={`${isPhone ? "w-[220px]" : isTablet ? "w-[500px]" : ""} 
-                        ${checkDifference(projectChunks.flat(), liveProjectChunks.flat(), "", "projects")}
                         `}
-                            style={{ width: isComputer || fullScreen ? dynamicSize(800, width) : "" }}
+                            style={{ width: (isComputer && fullScreen) ? dynamicSize(800, width) : (!isComputer && fullScreen) ? dynamicSize(1030, width): "" }}
                         >
                             <Swiper
                                 key={language}
                                 modules={[Pagination, Navigation]}
-                                className={`mySwiper pl-1`}
-                                style={{ width: '100%' }}
+                                className={`mySwiper pl-1 mx-auto 
+                                    ${checkDifference(projectChunks.flat(), liveProjectChunks.flat(), "", "projects")}
+                                    `}
+                                style={{ width: "100%" }}
                                 navigation={{
                                     prevEl: prevRef.current,
                                     nextEl: nextRef.current,
@@ -407,13 +408,13 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                                 {projectChunks?.map((chunk, slideIndex) => {
                                     return (
                                         <SwiperSlide key={slideIndex}>
-                                            <div className={`${isPhone ? "flex flex-col" : `grid grid-cols-2 gap-[12px] auto-rows-auto ${isTablet ? "pl-1" : "w-[600px]"}`}`}
+                                            <div className={`${isPhone ? "flex flex-col" : `grid grid-cols-2 gap-[12px] auto-rows-auto ${isTablet ? "pl-1" : "w-[600px]"}`} `}
                                                 style={{
                                                     width: isComputer ? dynamicSize(799, width) : isPhone ? `${(600 / 1180) * screen}px` : `${(750 / 1180) * screen}px`,
                                                     gap: isComputer ? "" : `${(40 / 1180) * screen}px`,
                                                     placeItems: ""
                                                 }}
-                                            >
+                                            > 
                                                 {chunk?.map((project, cardIndex) => {
                                                     return (
                                                         <div className="flex flex-col rounded-[4px]" key={cardIndex}>
