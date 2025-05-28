@@ -12,9 +12,9 @@ const ServiceDetailsManager = ({ serviceId, currentContent, currentPath, languag
         return e.id == serviceId
     })
 
-    useEffect(() => {
-        dispatch(updateMainContent({ currentPath: "serviceDetails", payload: content.serviceDetails }))
-    }, [])
+    // useEffect(() => {
+    //     dispatch(updateMainContent({ currentPath: "serviceDetails", payload: content.serviceDetails }))
+    // }, [])
     return (
         <div className={`w-[299px]`}>
             {/* file doc */}

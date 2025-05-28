@@ -58,6 +58,7 @@ const RequestDetails = () => {
   const requestStageStyle = statusStyles[getStyle[requestData?.status]] || {}
 
 
+  console.log("requestDetails, ", id)
   useEffect(() => {
     async function fetchRequestInfo() {
 

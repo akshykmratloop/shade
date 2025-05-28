@@ -1,5 +1,7 @@
 function formatTimestamp(isoString, mode = "all") {
+  if (!isoString) return ""
   const date = new Date(isoString);
+  if (isNaN(date.getTime())) return "Invalid-Date"; // Check for invalid date
   const timeZone = "Asia/Dubai";
 
   const pad = (num) => String(num).padStart(2, "0");

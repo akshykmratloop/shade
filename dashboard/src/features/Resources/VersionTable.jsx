@@ -20,6 +20,8 @@ import { LuListFilter } from "react-icons/lu";
 import { PiInfoThin } from "react-icons/pi";
 import XMarkIcon from "@heroicons/react/24/outline/XMarkIcon";
 import { versionsList } from "../../app/fetch";
+import { Switch } from "@headlessui/react";
+import CustomContext from "../Context/CustomContext";
 // import { Switch } from "@headlessui/react";
 // import { FiEdit } from "react-icons/fi";
 
@@ -32,7 +34,15 @@ const TopSideButtons = memo(({
 }) => {
     const [filterParam, setFilterParam] = useState("");
     const [searchText, setSearchText] = useState("");
-    const statusFilters = ["ACTIVE", "INACTIVE"];
+    const statusFilters = [
+        'EDITING',
+        'DRAFT',
+        'VERIFICATION_PENDING',
+        'PUBLISH_PENDING',
+        'ARCHIVED',
+        'SCHEDULED',
+        'PUBLISHED'
+    ];
     const showFiltersAndApply = (status) => {
         applyFilter(status);
         setFilterParam(status);
@@ -65,7 +75,7 @@ const TopSideButtons = memo(({
                     onClick={() => removeAppliedFilter()}
                     className="btn btn-xs mr-2 btn-active btn-ghost normal-case"
                 >
-                    {filterParam}
+                    {capitalizeWords(filterParam)}
                     <XMarkIcon className="w-4 ml-2" />
                 </button>
             )}
@@ -106,6 +116,14 @@ const TopSideButtons = memo(({
         </div>
     );
 });
+
+const statusStyles = {
+    PUBLISHED: "text-green-600 bg-lime-200 before:text-green-600 px-1",
+    DRAFT: "text-blue-600 bg-sky-200 before:text-blue-600 ",
+    VERIFICATION_PENDING: "text-red-600 bg-pink-200 before:text-red-600 ",
+    LIVE: "text-blue-600 bg-blue-200 before:text-white-600",
+};
+
 //--------------------------------------------------------------------------------------------------------------------------------------------------------//
 function VersionTable() {
     const userPermissionsSet = new Set(["EDIT", "VERIFY", "PUBLISH"]); // SET FOR EACH USER LOGIC
@@ -115,11 +133,18 @@ function VersionTable() {
     const [selectedVersion, setSelectedVersion] = useState(null);
     const [showDetailsModal, setShowDetailsModal] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
-    const [activeIndex, setActiveIndex] = useState(null);
+    // const [random, setRandowm] = useState(Math.random())
+    const { random } = CustomContext().random
+    console.log(random)
+    // const [activeIndex, setActiveIndex] = useState(null);
 
     // redux state
     const userObj = useSelector(state => state.user)
-    const { resourceId, resourceName } = useSelector(state => state.versions)
+    // const { resourceId, resourceName } = useSelector(state => state.versions)
+    const [currentResource, setCurrentResource] = useState({ resourceId: "", resourceName: "" })
+
+    const { resourceId, resourceName } = currentResource
+
 
     const { isManager } = userObj;
 
@@ -135,7 +160,7 @@ function VersionTable() {
     // APPLY FILTER
     const applyFilter = (status) => {
         const filteredVersions = originalVersions?.filter(
-            (version) => version.status === status
+            (version) => version.versionStatus === status
         );
         setVersions(filteredVersions);
     };
@@ -143,7 +168,7 @@ function VersionTable() {
     // APPLY SEARCH
     const applySearch = (value) => {
         const filteredVersions = originalVersions?.filter((version) =>
-            version?.name.toLowerCase().includes(value.toLowerCase())
+            version?.versionNumber?.toString()?.toLowerCase()?.includes(value?.toLowerCase())
         );
         setCurrentPage(1);
         setVersions(filteredVersions);
@@ -151,11 +176,10 @@ function VersionTable() {
 
     // Open Right Drawer
     const openNotification = (id) => {
-        console.log(id)
         dispatch(
             openRightDrawer({
-                header: "Details",
-                bodyType: RIGHT_DRAWER_TYPES.RESOURCE_DETAILS,
+                header: "Version Details",
+                bodyType: RIGHT_DRAWER_TYPES.VERSION_DETAILS,
                 extraObject: { id },
             })
         );
@@ -185,8 +209,11 @@ function VersionTable() {
             }
             fetchversionsData();
         }
-    }, [resourceId]);
+    }, [resourceId, random]);
 
+    useEffect(() => {
+        setCurrentResource(JSON.parse(localStorage.getItem("currentResource")))
+    }, [])
 
     return (
         <div className="relative min-h-full">
@@ -217,8 +244,7 @@ function VersionTable() {
                                     >
                                         Version Number
                                     </th>
-                                    {/* <th className="text-[#42526D] w-[164px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] text-center !capitalize">Sub Permission</th> */}
-                                    <th className="text-[#42526D] w-[154px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] !capitalize text-center">
+                                    <th className="text-[#42526D] w-[154px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] !capitalize text-left pl-10">
                                         Status
                                     </th>
                                     <th className="text-[#42526D] w-[221px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] text-center !capitalize">
@@ -252,19 +278,14 @@ function VersionTable() {
                                                 <td className="font-poppins w-[10vw] font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]">
                                                     <div className="">
 
-                                                        <div className="flex w-[50%] mx-auto gap-2 items-center justify-start">
+                                                        <div className="flex mx-auto gap-2 items-center justify-start">
                                                             <p
                                                                 className={`min-w-[100px] 
                                                                 before:content-['•'] 
                                                                 before:text-2xl flex h-7 
                                                             items-center justify-center 
                                                             gap-1 px-1 py-0 font-[500] 
-                                                            ${version.versionStatus === "PUBLISHED"
-                                                                        ? "text-green-600 bg-lime-200 before:text-green-600 px-1"
-                                                                        : version.versionStatus === "DRAFT"
-                                                                            ? "text-blue-600 bg-sky-200 before:text-blue-600 "
-                                                                            : "text-red-600 bg-pink-200 before:text-red-600 "
-                                                                    }            
+                                                          ${statusStyles[version?.versionStatus]}
                                                             rounded-2xl`}
                                                                 style={{ textTransform: "capitalize" }}
                                                             >
@@ -272,7 +293,7 @@ function VersionTable() {
                                                                     {capitalizeWords(version?.versionStatus)}
                                                                 </span>
                                                             </p>
-                                                            <p className="text-xs font-[500]">{version?.isLive ? "Live" : version?.isUnderEditing ? "Under Editing" : ""}</p>
+                                                            {/* <p className="text-xs font-[500]">{version?.isLive ? "Live" : version?.isUnderEditing ? "Under Editing" : ""}</p> */}
                                                         </div>
                                                     </div>
                                                 </td>
@@ -286,11 +307,12 @@ function VersionTable() {
                                                     </span>
                                                 </td>
 
-                                                {/* 7 */}
+                                                {/* 4 */}
                                                 <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[8px] dark:text-[white]">
                                                     <div className="w-[145px] mx-auto flex gap-[15px] justify-center border border border-[1px] border-[#E6E7EC] dark:border-stone-400 rounded-[8px] p-[13.6px] py-[10px]">
                                                         <button
                                                             onClick={() => {
+                                                                console.log(version.id)
                                                                 setSelectedVersion(version);
                                                                 openNotification(version?.id);
                                                             }}
@@ -320,6 +342,7 @@ function VersionTable() {
                                                                 />
                                                             </span>
                                                         </button>
+
                                                     </div>
                                                 </td>
                                             </tr>

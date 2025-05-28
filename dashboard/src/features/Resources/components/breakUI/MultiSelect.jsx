@@ -23,7 +23,7 @@ import { updateSelectedContentAndSaveDraft } from "../../../common/thunk/smsThun
 import ErrorText from "../../../../components/Typography/ErrorText";
 import xSign from "../../../../assets/x-close.png"
 
-const SortableItem = ({ option, removeOption, language, reference, titleLan, contentIndex }) => {
+const SortableItem = ({ option, removeOption, language, reference, titleLan,  }) => {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } =
     useSortable({ id: option, data: { option } });
 
@@ -67,7 +67,6 @@ const MultiSelect = ({ outOfEditing, heading, options, tabName, label, language,
   const dispatch = useDispatch();
   const [activeItem, setActiveItem] = useState(null);
   const [errorMessage, setErrorMessage] = useState('')
-
 
   let operation = "";
 
@@ -164,7 +163,7 @@ const MultiSelect = ({ outOfEditing, heading, options, tabName, label, language,
   }, [options]);
 
   return (
-    <div className="relative w-full border-b border-b-2 border-neutral-300 pb-4 mt-4 " >
+    <div className={`relative w-full border-b border-b-2 border-neutral-300 pb-4 mt-4`} >
       <h3 className="font-semibold text-[1.25rem] mb-4">{heading}</h3>
       <label className="sm:text-xs xl:text-sm text-[#6B7888]">{label}</label>
       <div className=" relative mt-2 rounded-md ">
