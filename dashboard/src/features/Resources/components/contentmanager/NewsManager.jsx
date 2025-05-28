@@ -9,7 +9,7 @@ import MultiSelectSM from "../breakUI/MultiSelectSM"
 import { useDispatch } from "react-redux";
 import { getResources } from "../../../../app/fetch";
 
-const NewsManager = ({ language, content, currentPath }) => {
+const NewsManager = ({ language, content, currentPath, indexes }) => {
     const [newses, setNewses] = useState([])
     // const dispatch = useDispatch()
 
@@ -19,7 +19,7 @@ const NewsManager = ({ language, content, currentPath }) => {
 
     useEffect(() => {
         async function getOptionsforServices() {
-            const response = await getResources({ resourceType: "SUB_PAGE", resourceTag: "SERVICE", apiCallType: "INTERNAL" })
+            const response = await getResources({ resourceType: "SUB_PAGE", resourceTag: "NEWS", apiCallType: "INTERNAL", fetchType: "CONTENT" })
 
             if (response.ok) {
                 let options = response?.resources?.resources?.map((e, i) => ({
@@ -48,38 +48,42 @@ const NewsManager = ({ language, content, currentPath }) => {
                 currentPath={currentPath}
                 Heading={"News Hero Banner"}
                 inputs={[
-                    { input: "input", label: "Heading/title", updateType: "title" },
-                    { input: "textarea", label: "Description", updateType: "description", maxLength: 300 },
+                    { input: "input", label: "Heading/title", updateType: "title", value: content?.['1']?.content?.title?.[language] },
+                    { input: "textarea", label: "Description", updateType: "description", maxLength: 300, value: content?.['1']?.content?.description?.[language] },
                     // { input: "input", label: "Button Text", updateType: "button" }
                 ]}
-                inputFiles={[{ label: "Backround Image", id: "newsBanner" }]}
+                inputFiles={[{ label: "Backround Image", id: "newsBanner", index: 0, url: content?.['1']?.content?.images?.[0]?.url }]}
                 section={"bannerSection"}
                 language={language}
                 currentContent={content}
+                sectionIndex={indexes?.['1']}
             />
 
             {/* select main news */}
             <MultiSelectSM
                 referenceOriginal={{ dir: "MainNews", index: 0 }}
-                
                 currentContent={content}
                 currentPath={currentPath}
                 language={language}
                 label={"Select Main News"}
                 heading={"Main News Section"}
                 tabName={"Select News"}
-                options={currentPath?.latestNewCards?.cards}
+                listOptions={newses}
+                options={content?.['2']?.items}
+                sectionIndex={indexes?.['2']}
             />
 
             <ContentSection
                 currentPath={currentPath}
-                Heading={content?.latestNewCards?.heading?.en}
+                Heading={"News and Blog Lists"}
                 inputs={[
-                    { input: "input", label: "Heading/title", updateType: "heading" },
+                    { input: "input", label: "Heading/title", updateType: "heading", value: content?.['3']?.content?.heading?.[language] },
                 ]}
                 section={"latestNewCards"}
                 language={language}
                 currentContent={content}
+                sectionIndex={indexes?.['3']}
+                isBorder={false}
             />
 
             {/* select latest news */}
@@ -88,11 +92,13 @@ const NewsManager = ({ language, content, currentPath }) => {
                 section={"latestNewCards"}
                 language={language}
                 label={"Select News and Blog List"}
-                heading={"News Section"}
+                // heading={"News Section"}
                 tabName={"Select News and Blogs"}
-                options={content?.latestNewCards?.cards}
+                listOptions={newses}
+                options={content?.['3']?.items}
                 referenceOriginal={{ dir: "news", index: 0 }}
                 currentContent={content}
+                sectionIndex={indexes?.['3']}
             />
 
             {/* select trending news */}
@@ -105,7 +111,9 @@ const NewsManager = ({ language, content, currentPath }) => {
                 label={"Select Trend News"}
                 heading={"Trend News Section"}
                 tabName={"Select News"}
-                options={content?.latestNewCards?.cards}
+                listOptions={newses}
+                options={content?.['2']?.items}
+                sectionIndex={indexes?.['4']}
             />
 
         </div>
