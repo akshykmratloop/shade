@@ -3321,7 +3321,7 @@ export const fetchRequests = async (
 
   // Base where clause
   const where = {
-    status: status || undefined, // Filter by status if provided
+    flowStatus: status || undefined, // Filter by status if provided  // -changedby -- Anukool -- at MAY29 -- from "status" to "flowStatus" for filter query from backend
     // We can also filter by flowStatus if needed in the future
   };
 

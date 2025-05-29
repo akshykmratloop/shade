@@ -3,6 +3,7 @@ import { useContext } from "react";
 import { Context } from "../Context/Context";
 
 const Paginations = ({ currentPage, totalPages, setCurrentPage, data, }) => {
+    const setTotalPages = totalPages || 0
     const scrollContainerRef = useContext(Context);
 
     const scrollToTop = () => {
@@ -12,14 +13,14 @@ const Paginations = ({ currentPage, totalPages, setCurrentPage, data, }) => {
     const maxVisiblePages = 5;
     let pages = [];
 
-    if (totalPages <= maxVisiblePages) {
-        pages = Array.from({ length: totalPages }, (_, i) => i + 1);
+    if (setTotalPages <= maxVisiblePages) {
+        pages = Array.from({ length: setTotalPages }, (_, i) => i + 1);
     } else if (currentPage <= maxVisiblePages) {
         pages = [...Array(maxVisiblePages).keys()].map(i => i + 1);
         pages.push("...");
-    } else if (currentPage > totalPages - maxVisiblePages) {
+    } else if (currentPage > setTotalPages - maxVisiblePages) {
         pages.push("...");
-        pages = pages.concat([...Array(maxVisiblePages).keys()].map(i => totalPages - maxVisiblePages + 1 + i));
+        pages = pages.concat([...Array(maxVisiblePages).keys()].map(i => setTotalPages - maxVisiblePages + 1 + i));
     } else {
         pages = pages.concat([...Array(maxVisiblePages).keys()].map(i => currentPage - Math.floor(maxVisiblePages / 2) + i));
         pages.push("...");
@@ -34,7 +35,7 @@ const Paginations = ({ currentPage, totalPages, setCurrentPage, data, }) => {
                     setCurrentPage(prev => Math.max(prev - 1, 1))
                     scrollToTop()
                 }}
-                disabled={currentPage === 1 || !totalPages}
+                disabled={currentPage === 1 || !setTotalPages}
                 className={`w-[2rem] p-2 flex items-center justify-center  text-sm rounded-full ${currentPage === 1 ? "bg-[#ededed] cursor-not-allowed dark:text-[black]" : "bg-[#29469c] text-white"}`}
             >
                 <FaAngleLeft />
@@ -48,7 +49,7 @@ const Paginations = ({ currentPage, totalPages, setCurrentPage, data, }) => {
                             if (index === 0) {
                                 setCurrentPage(1); // "..." at the beginning
                             } else if (index === pages.length - 1) {
-                                setCurrentPage(totalPages); // "..." at the end
+                                setCurrentPage(setTotalPages); // "..." at the end
                             }
                         } else {
                             setCurrentPage(page);
@@ -64,11 +65,11 @@ const Paginations = ({ currentPage, totalPages, setCurrentPage, data, }) => {
 
             <button
                 onClick={() => {
-                    setCurrentPage(prev => Math.min(prev + 1, totalPages))
+                    setCurrentPage(prev => Math.min(prev + 1, setTotalPages))
                     scrollToTop()
                 }}
-                disabled={currentPage === totalPages || !totalPages}
-                className={`w-[2rem] p-2 flex items-center justify-center text-sm rounded-full ${(currentPage === totalPages || totalPages === 0) ? "bg-[#ededed] cursor-not-allowed dark:text-[black]" : "bg-[#29469C] text-white"}`}
+                disabled={currentPage === setTotalPages || !setTotalPages}
+                className={`w-[2rem] p-2 flex items-center justify-center text-sm rounded-full ${(currentPage === setTotalPages || setTotalPages === 0) ? "bg-[#ededed] cursor-not-allowed dark:text-[black]" : "bg-[#29469C] text-white"}`}
             >
                 <FaAngleRight />
             </button>

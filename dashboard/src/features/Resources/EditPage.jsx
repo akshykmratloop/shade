@@ -46,8 +46,8 @@ const EditPage = () => {
 
     const contentFromRedux = useSelector((state) => state.homeContent.present)
 
-    const stageStatus = contentFromRedux?.content?.editVersion?.status
     const isEditable = contentFromRedux?.content?.isEditable
+    // const stageStatus = contentFromRedux?.content?.editVersion?.status
     // const outOfEditing = !(stageStatus === "EDITING" || stageStatus === "DRAFT" || stageStatus === "PUBLISHED")
 
     const content = createContent(contentFromRedux, "edit", currentPath)
@@ -59,7 +59,7 @@ const EditPage = () => {
     const Routes = [
         'home', 'solution', 'about-us', "service", 'market',
         'projects', "project", 'careers', "career", 'news-blogs', 'footer',
-        'header', 'testimonials', 'testimonial']
+        'header', 'testimonials', 'testimonial', "safety"]
 
     useEffect(() => {
         dispatch(setSidebarState(true))
