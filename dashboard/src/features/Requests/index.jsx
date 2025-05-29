@@ -134,7 +134,6 @@ function Requests() {
 
 
   // redux state
-  // const userRole = useSelector((state) => state.user.activeRole);
   const userObj = useSelector(state => state.user)
 
   const { isManager, isEditor, isPublisher, isVerifier, activeRole } = userObj;

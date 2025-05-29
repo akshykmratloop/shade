@@ -19,6 +19,7 @@ import tempContent from "./websiteComponent/content.json"
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useRef, useState } from "react";
 import { updateMainContent } from "../../common/homeContentSlice";
+import SnR from "./websiteComponent/SafetyAndResponsibility";
 
 const AllForOne = ({ language, screen, content, subPath, setLanguage, fullScreen, currentPath, deepPath, showDifference = false, live, hideScroll }) => {
     console.log(fullScreen)
@@ -35,6 +36,7 @@ const AllForOne = ({ language, screen, content, subPath, setLanguage, fullScreen
     // }, [platform])
     const divRef = useRef(null);
     const [width, setWidth] = useState(0);
+
 
     useEffect(() => {
         const observer = new ResizeObserver(entries => {
@@ -157,6 +159,10 @@ const AllForOne = ({ language, screen, content, subPath, setLanguage, fullScreen
                 <ContactUsModal
                     width={width}
                     language={language} currentContent={content} screen={screen} />
+            }
+            {
+                currentPath === "safety" &&
+                <SnR width={width} language={language} currentContent={content} screen={screen} />
             }
         </div>
     )

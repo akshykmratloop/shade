@@ -57,9 +57,11 @@ const EditPage = () => {
     }
 
     const Routes = [
-        'home', 'solution', 'about-us', "service", 'market',
-        'projects', "project", 'careers', "career", 'news-blogs', 'footer',
-        'header', 'testimonials', 'testimonial', "safety"]
+        "home", "solution", "about-us", "service", "market",
+        "projects", "project", "careers", "career", "news-blogs",
+        "footer", "header", "testimonials", "testimonial", "safety"
+    ]
+
 
     useEffect(() => {
         dispatch(setSidebarState(true))
