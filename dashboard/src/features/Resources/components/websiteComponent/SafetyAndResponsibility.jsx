@@ -33,19 +33,21 @@ const SnR = ({ currentContent, screen, language, width }) => {
                 className={`relative w-full py-[100px] ${isPhone ? "px-8" : "px-10"} bg-cover bg-center ${isLeftAlign ? 'scale-x-[-1]' : ''}`}
                 style={{
                     backgroundImage: `linear-gradient(to right,#00000020 30%,#fffffffb 100%) ,url("${Img_url + currentContent?.['1']?.content?.images?.[0]?.url}")`,
-                    backgroundPosition: "bottom"
+                    backgroundPosition: "bottom",
+                    height: isComputer && getDynamicSize(740),
+                    padding: isComputer && `${getDynamicSize(100)} ${getDynamicSize(120)}`
                 }}
             >
                 <div className="container relative h-full flex items-center justify-end">
                     <div className={`${isLeftAlign ? 'scale-x-[-1] text-left' : 'text-right'} ${isPhone ? "w-4/5" : isTablet ? "w-2/3" : ""} space-y-4 p-6 flex flex-col ${isLeftAlign ? "items-start" : "items-end"}`}>
-                        <h2 className={`text-[#292E3D]  font-medium ${isPhone ? "text-[40px] leading-[50px]" : isTablet ? "text-[45px] leading-[55px]" : "text-[45px] leading-[77px]"} tracking-[-3.5px] mb-4`}
+                        <h2 className={`text-[#292E3D] font-medium ${isPhone ? "text-[40px] leading-[50px]" : isTablet ? "text-[45px] leading-[55px]" : "text-[45px] leading-[77px]"} tracking-[-3.5px] mb-4`}
                             style={{ fontSize: fontSize.mainHeading, lineHeight: getDynamicSize(28) }}
                         >
                             {currentContent?.['1']?.content?.title?.[language]}
                         </h2>
                         <p
                             style={{ fontSize: fontSize.mainPara, lineHeight: getDynamicSize(22) }}
-                            className={`text-[#0E172FB2]  text-[12px] font-semibold leading-[26px] ${fontLight} word-spacing-5 ${isPhone ? "w-4/5" : isTablet ? "w-2/3" : "w-1/2"} `}>
+                            className={`text-[#0E172FB2] text-[12px] font-semibold leading-[26px] ${fontLight} word-spacing-5 ${isPhone ? "w-4/5" : isTablet ? "w-2/3" : "w-1/2"} `}>
                             {currentContent?.['1']?.content?.description?.[language]}
                         </p>
                         <button
@@ -68,11 +70,11 @@ const SnR = ({ currentContent, screen, language, width }) => {
             </section>
 
             <section
-                className={`${isPhone ? "px-10" : "px-20"} flex flex-col gap-[20px]`}
+                className={`${isPhone ? "px-10" : "px-20"} grid grid-cols-1 [grid-template-rows:repeat(5,1fr)] gap-[20px]`}
                 dir={isLeftAlign ? "ltr" : "rtl"}
                 style={{
                     gap: getDynamicSize(60),
-                    padding: `0px ${getDynamicSize(112)}`,
+                    padding: `0px ${getDynamicSize(150)}`,
                     margin: `${getDynamicSize(70)} 0px`
                 }}
             >

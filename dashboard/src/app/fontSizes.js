@@ -17,6 +17,7 @@ export const differentText = {
     }
 }
 
+
 export function defineDevice(screen) {
     if (screen > 900) {
         return "computer"
