@@ -4418,7 +4418,7 @@
           "ar": "السلامة قيمة متأصلة في ثقافتنا، وهي عنصر أساسي مثل التكلفة والجودة والجدول الزمني لعملائنا. نحن ملتزمون بالعمل بأمان وكفاءة ومع مراعاة البيئة. يتم إعطاء الأولوية الأولى للاعتبارات المتعلقة بالسلامة في جميع الأمور المتعلقة بالتصميم والطرق والمواد والمعدات والبناء وتشغيل جميع المشاريع التي نقوم بها.",
           "en": "Safety is a value ingrained in our culture, and it is an equal deliverable the same way that cost, quality, and schedule are to our clients. We are committed to working safely, efficiently, and with due regard for the environment. Safety considerations shall be given first priority over all others in matters of design, methods, materials, equipment, construction, and operations of all the projects we undertake."
         },
-        "safetyProcedures": {
+        "procedures": {
           "title": {
             "ar": "خطتنا للسلامة والصحة",
             "en": "Our Safety and Health Plan"
@@ -4495,7 +4495,7 @@
           "ar": "تفخر شركة Shade ببناء سمعة طيبة باستمرار مع شركائها في العمل وتزرع بقوة ثقافة الصحة والسلامة مع إظهار الاهتمام بالبيئة.",
           "en": "Shade takes pride in continuously building goodwill with its business partners and strongly cultivates a culture of health and safety while displaying care towards the environment."
         },
-        "qualityProcedures": {
+        "procedures": {
           "title": {
             "ar": "التزاماتنا",
             "en": "Our Commitments"
@@ -4569,7 +4569,7 @@
           "ar": "نحن ملتزمون بتقليل النفايات، والحفاظ على الموارد، وتعزيز الوعي البيئي بين موظفينا.",
           "en": "We are committed to reducing waste, conserving resources, and promoting environmental awareness among our employees."
         },
-        "environmentalProcedures": {
+        "procedures": {
           "title": {
             "ar": "إجراءاتنا البيئية",
             "en": "Our Environmental Procedures"
@@ -4643,7 +4643,7 @@
           "ar": "نحن نؤمن بأن التدريب المستمر هو مفتاح النجاح في تحقيق أهداف السلامة والجودة.",
           "en": "We believe that continuous training is key to achieving safety and quality objectives."
         },
-        "trainingProcedures": {
+        "procedures": {
           "title": {
             "ar": "إجراءات التدريب",
             "en": "Training Procedures"
@@ -4720,7 +4720,7 @@
           "ar": "نحن نؤمن بأن الابتكار هو مفتاح النجاح في السوق التنافسية.",
           "en": "We believe that innovation is key to success in a competitive market."
         },
-        "innovationProcedures": {
+        "procedures": {
           "title": {
             "ar": "إجراءات الابتكار",
             "en": "Innovation Procedures"
@@ -4794,7 +4794,7 @@
           "ar": "نحن نؤمن بأن التواصل الفعال هو أساس النجاح في جميع المشاريع.",
           "en": "We believe that effective communication is the foundation of success in all projects."
         },
-        "communicationProcedures": {
+        "procedures": {
           "title": {
             "ar": "إجراءات التواصل",
             "en": "Communication Procedures"

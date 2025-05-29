@@ -2111,6 +2111,7 @@ export const fetchAssignedUsers = async (resourceId) => {
   });
 };
 
+////////////////fetchContent/////////////
 export const fetchContent = async (resourceId, isItemFullContent = true) => {
   // Fetch the resource with all necessary relations
   const resource = await prismaClient.resource.findUnique({
@@ -2430,6 +2431,15 @@ async function formatResourceVersionData(
             if (resourceSlug === "news-blogs") {
               returningBody.description = itemContent.liveModeVersionData.sections[1].content[0].description; //
               returningBody.date = itemContent.liveModeVersionData.sections[0].content.date; //
+            }
+
+            if (resourceSlug === "safety") {
+              returningBody.descriptions = [
+                itemContent.liveModeVersionData.sections[0].content.description,
+                itemContent.liveModeVersionData.sections[1].content.description,
+                itemContent.liveModeVersionData.sections[1].content?.procedures?.description,
+                itemContent.liveModeVersionData.sections[1].content?.procedures?.terms?.[0]?.description,
+              ]
             }
 
             return { ...returningBody, order: item.order };
