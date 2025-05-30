@@ -28,20 +28,6 @@ export function defineDevice(screen) {
     }
 }
 
-// const fontKeys = [
-//     "mainHeading", "mainPara", "mainButton",
-//     "markDownHead", "markDownPara", "markDownButton",
-//     "serviceHeading", "services",
-//     "experienceCount", "experienceTitle",
-//     "experienceHeading", "experiencePara", "experienceButton",
-//     "subProjectTopButton", "subProjectHeadings", "subProjectParas",
-//     "subProjectBoxHeading", "subProjectBoxPara",
-//     "subProjectButtons",
-//     "clientSection",
-//     "testimonialsHead", "testimonialsHeading", "testimonialsPosition",
-//     "testimonialsQuote", "testimonialsCompany", 'aboutMainPara'
-// ];
-
 const fontSizes = {
     computer: {
         // home -- some of them are used in other pages due similarity
