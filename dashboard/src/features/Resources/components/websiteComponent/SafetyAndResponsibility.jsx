@@ -40,19 +40,22 @@ const SnR = ({ currentContent, screen, language, width }) => {
             >
                 <div className="container relative h-full flex items-center justify-end">
                     <div className={`${isLeftAlign ? 'scale-x-[-1] text-left' : 'text-right'} ${isPhone ? "w-4/5" : isTablet ? "w-2/3" : ""} space-y-4 p-6 flex flex-col ${isLeftAlign ? "items-start" : "items-end"}`}>
-                        <h2 className={`text-[#292E3D] font-medium ${isPhone ? "text-[40px] leading-[50px]" : isTablet ? "text-[45px] leading-[55px]" : "text-[45px] leading-[77px]"} tracking-[-3.5px] mb-4`}
-                            style={{ fontSize: fontSize.mainHeading, lineHeight: getDynamicSize(28) }}
+                        <h2 className={`text-[#292E3D] border font-medium ${isPhone ? "text-[40px]" : isTablet ? "text-[45px]" : "text-[45px]"} tracking-[-3px] mb-4`}
+                            style={{
+                                fontSize: fontSize.mainHeading, lineHeight: fontSize.headingLeading,
+                                margin: `${getDynamicSize(16)} 0px`
+                            }}
                         >
                             {currentContent?.['1']?.content?.title?.[language]}
                         </h2>
                         <p
-                            style={{ fontSize: fontSize.mainPara, lineHeight: getDynamicSize(22) }}
+                            style={{ fontSize: fontSize.mainPara, lineHeight: fontSize.paraLeading }}
                             className={`text-[#0E172FB2] text-[12px] font-semibold leading-[26px] ${fontLight} word-spacing-5 ${isPhone ? "w-4/5" : isTablet ? "w-2/3" : "w-1/2"} `}>
                             {currentContent?.['1']?.content?.description?.[language]}
                         </p>
                         <button
                             className={`relative items-center flex ${isLeftAlign ? "" : "flex-row-reverse"} gap-1 text-[12px] font-medium px-[12px] py-[6px] px-[12px] bg-[#00b9f2] text-white rounded-md`}
-                            style={{ fontSize: fontSize.mainButton, lineHeight: getDynamicSize(22) }}
+                            style={{ fontSize: fontSize.mainButton, lineHeight: fontSize.paraLeading }}
                             onClick={() => { }}
                         >
                             {currentContent?.['1']?.content?.button?.[0]?.text?.[language]}

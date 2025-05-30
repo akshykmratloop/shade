@@ -40,7 +40,9 @@ const fontSizes = {
         // about
         aboutMainPara: 26, aboutPaddingX: 150,
         aboutVideoW: 639, aboutVideoH: 457, // video size but not applied to the video
-        aboutCardPaddingY: 40, aboutCardPaddingX: 10
+        aboutCardPaddingY: 40, aboutCardPaddingX: 10,
+        // other sizes
+        headingLeading: 30, paraLeading: 22
     },
     tablet: {
         // home -- some of them are used in other pages due similarity
@@ -53,7 +55,9 @@ const fontSizes = {
         // about
         aboutMainPara: 26, aboutPaddingX: 50,
         aboutVideoW: 639, aboutVideoH: 457, // video size but not applied to the video
-        aboutCardPaddingY: 40, aboutCardPaddingX: 30
+        aboutCardPaddingY: 40, aboutCardPaddingX: 30,
+        // other sizes
+        headingLeading: 30, paraLeading: 20
     },
     phone: {
         // home -- some of them are used in other pages due similarity
@@ -66,7 +70,9 @@ const fontSizes = {
         // about
         aboutMainPara: 70, aboutPaddingX: 20,
         aboutVideoW: 639, aboutVideoH: 457, // video size but not applied to the video
-        aboutCardPaddingY: 100, aboutCardPaddingX: 60
+        aboutCardPaddingY: 100, aboutCardPaddingX: 60,
+        // other sizes
+        headingLeading: 170, paraLeading: 70
     }
 };
 
