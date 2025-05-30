@@ -75,7 +75,8 @@ const SnR = ({ currentContent, screen, language, width }) => {
                 style={{
                     gap: getDynamicSize(60),
                     padding: `0px ${getDynamicSize(150)}`,
-                    margin: `${getDynamicSize(70)} 0px`
+                    margin: `${getDynamicSize(70)} 0px`,
+                    gridTemplateRows: `repeat(${currentContent?.['2']?.items.length}, 1fr)`
                 }}
             >
                 {

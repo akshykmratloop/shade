@@ -4,14 +4,12 @@ import FileUploader from "../../../../components/Input/InputFileUploader"
 import ContentSection from "../breakUI/ContentSections"
 import MultiSelect from "../breakUI/MultiSelect"
 
-const SnRManager = ({ currentContent, currentPath, language, indexes }) => {
-    const [subService, setServicesOptions] = useState(null)
-
-    console.log(subService)
+const SnRManager = ({ content, currentPath, language, indexes }) => {
+    const [policiesList, setPoliciesList] = useState(null)
 
     useEffect(() => {
         async function getOptionsforServices() {
-            const response = await getResources({ resourceType: "SUB_PAGE", resourceTag: "SERVICE", apiCallType: "INTERNAL", fetchType: "CONTENT" })
+            const response = await getResources({ resourceType: "SUB_PAGE", resourceTag: "SAFETY_RESPONSIBILITY", apiCallType: "INTERNAL", fetchType: "CONTENT" })
             if (response.message === "Success") {
                 let options = response?.resources?.resources?.map((e, i) => ({
                     id: e.id,
@@ -19,11 +17,16 @@ const SnRManager = ({ currentContent, currentPath, language, indexes }) => {
                     slug: e.slug,
                     titleEn: e.titleEn,
                     titleAr: e.titleAr,
-                    // icon: e.icon,
-                    image: e?.liveModeVersionData?.sections?.image,
-                    description: e?.liveModeVersionData?.sections?.[0]?.content.description
+                    icon: e?.icon,
+                    image: e?.image,
+                    descriptions: [
+                        e?.liveModeVersionData?.sections?.[0]?.content?.description,
+                        e?.liveModeVersionData?.sections?.[1]?.content?.description,
+                        e?.liveModeVersionData?.sections?.[1]?.content?.procedures?.description,
+                        e?.liveModeVersionData?.sections?.[1]?.content?.procedures?.terms?.[0]?.description,
+                    ]
                 }))
-                setServicesOptions(options)
+                setPoliciesList(options)
             }
         }
 
@@ -39,26 +42,25 @@ const SnRManager = ({ currentContent, currentPath, language, indexes }) => {
                 currentPath={currentPath}
                 Heading={"Banner"}
                 inputs={[
-                    { input: "input", label: "Heading/title", updateType: "title", value: currentContent?.['1']?.content?.title?.[language] },
-                    { input: "textarea", label: "Description", updateType: "description", value: currentContent?.['1']?.content?.description?.[language] },
-                    { input: "input", label: "Button Text", updateType: "button", value: currentContent?.['1']?.content?.button?.[0]?.text?.[language], index: 0 },
+                    { input: "input", label: "Heading/title", updateType: "title", value: content?.['1']?.content?.title?.[language] },
+                    { input: "textarea", label: "Description", updateType: "description", value: content?.['1']?.content?.description?.[language] },
+                    { input: "input", label: "Button Text", updateType: "button", value: content?.['1']?.content?.button?.[0]?.text?.[language], index: 0 },
                 ]}
-                inputFiles={[{ label: "Backround Image", id: "ServiceBanner", order: 1, url: currentContent?.['1']?.content?.images?.[0]?.url }]}
+                inputFiles={[{ label: "Backround Image", id: "ServiceBanner", order: 1, url: content?.['1']?.content?.images?.[0]?.url }]}
                 section={"banner"}
                 language={language}
-                currentContent={currentContent}
+                currentContent={content}
                 sectionIndex={indexes?.['1']}
             />
             <ContentSection
                 Heading={"Buttons"}
                 currentPath={currentPath}
                 inputs={[
-                    { input: "input", label: "Button Text 1", updateType: "button", value: currentContent?.['2']?.content?.button?.[1]?.text?.[language], index: 1 },
-                    { input: "input", label: "Button Text 2", updateType: "button", value: currentContent?.['2']?.content?.button?.[0]?.text?.[language], index: 0 }
+                    { input: "input", label: "Button Text 1", updateType: "button", value: content?.['2']?.content?.button?.[0]?.text?.[language], index: 0 }
                 ]}
                 // section={"banner"}
                 language={language}
-                currentContent={currentContent}
+                currentContent={content}
                 sectionIndex={indexes?.['2']}
             />
 
@@ -68,10 +70,10 @@ const SnRManager = ({ currentContent, currentPath, language, indexes }) => {
                 language={language}
                 label={"Select Policy List"}
                 tabName={"Select Policy"}
-                options={currentContent?.['2']?.items}
-                listOptions={subService}
+                options={content?.['2']?.items}
+                listOptions={policiesList}
                 referenceOriginal={{ dir: "home" }}
-                currentContent={currentContent}
+                currentContent={content}
                 sectionIndex={indexes?.['2']}
             />
         </div>
