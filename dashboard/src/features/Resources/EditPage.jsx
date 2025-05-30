@@ -17,7 +17,7 @@ import AllForOneManager from "./components/AllForOneManager";
 import createContent from "./defineContent";
 import FallBackLoader from "../../components/fallbackLoader/FallbackLoader";
 import { getContent } from "../../app/fetch";
-import { updateComment, updateMainContent } from "../common/homeContentSlice";
+import { updateComment, updateIsEditMode, updateMainContent } from "../common/homeContentSlice";
 import { saveInitialContentValue } from "../common/InitialContentSlice";
 
 const Page404 = lazy(() => import('../../pages/protected/404'))
@@ -112,6 +112,7 @@ const EditPage = () => {
                         }
                         dispatch(updateMainContent({ currentPath: "content", payload }))
                         dispatch(saveInitialContentValue(payload.editVersion.sections))
+                        if (response.content.editModeVersionData) dispatch(updateIsEditMode(true))
                     }
 
                     if (!response.content.editModeVersionData) {

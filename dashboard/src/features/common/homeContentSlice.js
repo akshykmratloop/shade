@@ -4,15 +4,19 @@ const initialState = {
     past: [],
     present: {
         images: {},
-        loading: true
+        loading: true,
     },
-    future: []
+    future: [],
+    EditInitiated: false
 };
 
 const cmsSlice = createSlice({
     name: "CMS",
     initialState,
     reducers: {
+        updateIsEditMode: (state, action) => {
+            state.EditInitiated = action.payload.value
+        },
         submitings: (state, action) => { // post content
             state.past = []
             state.present = {}
@@ -390,6 +394,7 @@ const cmsSlice = createSlice({
 });
 
 export const { // actions
+    updateIsEditMode,
     updateImages,
     removeImages,
     updateMainContent,
