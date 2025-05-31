@@ -40,7 +40,7 @@ const SnR = ({ currentContent, screen, language, width }) => {
             >
                 <div className="container relative h-full flex items-center justify-end">
                     <div className={`${isLeftAlign ? 'scale-x-[-1] text-left' : 'text-right'} ${isPhone ? "w-4/5" : isTablet ? "w-2/3" : ""} space-y-4 p-6 flex flex-col ${isLeftAlign ? "items-start" : "items-end"}`}>
-                        <h2 className={`text-[#292E3D] border font-medium ${isPhone ? "text-[40px]" : isTablet ? "text-[45px]" : "text-[45px]"} tracking-[-3px] mb-4`}
+                        <h2 className={`text-[#292E3D] font-medium ${isPhone ? "text-[40px]" : isTablet ? "text-[45px]" : "text-[45px]"} tracking-[-3px] mb-4`}
                             style={{
                                 fontSize: fontSize.mainHeading, lineHeight: fontSize.headingLeading,
                                 margin: `${getDynamicSize(16)} 0px`
@@ -73,7 +73,7 @@ const SnR = ({ currentContent, screen, language, width }) => {
             </section>
 
             <section
-                className={`${isPhone ? "px-10" : "px-20"} grid grid-cols-1 [grid-template-rows:repeat(5,1fr)] gap-[20px]`}
+                className={`${isPhone ? "px-10" : "px-20"} grid grid-cols-1 gap-[20px]`}
                 dir={isLeftAlign ? "ltr" : "rtl"}
                 style={{
                     gap: getDynamicSize(60),
