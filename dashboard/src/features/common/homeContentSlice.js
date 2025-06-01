@@ -36,9 +36,14 @@ const cmsSlice = createSlice({
             if (action.payload.type === "content[index]") {
                 if (action.payload.title === 'url') {
                     state.present.content.editVersion.sections[action.payload.sectionIndex].content[action.payload.contentIndex][action.payload.title] = action.payload.value
+                } else if (action.payload.section === "procedures/terms") {
+                    state.present.content.editVersion.sections[action.payload.sectionIndex].content.procedures.terms[action.payload.index][action.payload.title][action.payload.lan] = action.payload.value
                 } else {
+                    console.log("lkasdjf")
                     state.present.content.editVersion.sections[action.payload.sectionIndex].content[action.payload.contentIndex][action.payload.title][action.payload.lan] = action.payload.value
                 }
+            } else if (action.payload.section === "procedures") {
+                state.present.content.editVersion.sections[action.payload.sectionIndex].content.procedures[action.payload.title][action.payload.lan] = action.payload.value
             } else if (action.payload.section === "Footer") {
                 state.present.content.editVersion.sections[action.payload.sectionIndex].content[action.payload.contentIndex][action.payload.title][action.payload.lan] = action.payload.value
             } else if (action.payload.section === "Footer/Links") {
@@ -131,7 +136,7 @@ const cmsSlice = createSlice({
         updateCardAndItemsArray: (state, action) => { // post content
             state.past.push(JSON.parse(JSON.stringify(state.present)));
             let newArray = []
-            console.log(action.payload.sectionIndex)
+            // console.log(action.payload.sectionIndex)
             let oldArray = state.present.content?.editVersion?.sections?.[action.payload.sectionIndex].content
             if (action.payload.operation === 'add') {
                 newArray = [...oldArray, { ...action.payload.insert, order: oldArray.length }]
@@ -141,6 +146,21 @@ const cmsSlice = createSlice({
                 })
             }
             state.present.content.editVersion.sections[action.payload.sectionIndex].content = newArray
+            state.future = [];
+        },
+        updatePoliciesItems: (state, action) => { // post content
+            state.past.push(JSON.parse(JSON.stringify(state.present)));
+            let newArray = []
+            // console.log(action.payload.sectionIndex)
+            let oldArray = state.present.content?.editVersion?.sections?.[action.payload.sectionIndex].content.procedures.terms
+            if (action.payload.operation === 'add') {
+                newArray = [...oldArray, { ...action.payload.insert, order: oldArray.length }]
+            } else {
+                newArray = state.present.content?.editVersion?.sections?.[action.payload.sectionIndex].content.procedures.terms.filter((e, i) => {
+                    return i !== action.payload.index
+                })
+            }
+            state.present.content.editVersion.sections[action.payload.sectionIndex].content.procedures.terms = newArray
             state.future = [];
         },
         updateSelectedContent: (state, action) => { // post content
@@ -404,6 +424,7 @@ export const { // actions
     updateSelectedProject,
     updateMarketSelectedContent,
     updateCardAndItemsArray,
+    updatePoliciesItems,
     updateAllProjectlisting,
     selectMainNews,
     submitings,

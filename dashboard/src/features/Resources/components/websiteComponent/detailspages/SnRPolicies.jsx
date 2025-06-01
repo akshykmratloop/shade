@@ -112,7 +112,7 @@ const SnRPolicies = ({ currentContent, screen, language, width }) => {
                         currentContent?.['2']?.content?.procedures?.terms?.map((term, i) => {
 
                             return (
-                                <div className="flex">
+                                <div className="flex" key={i}>
                                     <div className="flex-[3_1_auto]">
                                         <p style={{ fontSize: fontSize.mainPara, marginTop: getDynamicSize(8) }}>
                                             00{i + 2}
