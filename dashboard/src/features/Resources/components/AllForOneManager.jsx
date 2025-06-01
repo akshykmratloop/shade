@@ -89,8 +89,8 @@ const AllForOneManager = ({ currentPath, language, subPath, deepPath, content, c
             manager = <TestimonyManager language={language} currentContent={content} indexes={contentIndex} testimonyId={subPath} currentPath={"testimonialSection"} />
             break;
 
-        case "safety":
-            manager = <SnRManager outOfEditing={outOfEditing} language={language} content={content} indexes={contentIndex} currentPath={currentPath} />
+        case "safety_responsibility":
+            manager = subPath ? "" : <SnRManager outOfEditing={outOfEditing} language={language} content={content} indexes={contentIndex} currentPath={currentPath} />
 
         default:
     }

@@ -35,7 +35,6 @@ const EditPage = () => {
     const [outOfEditing, setOutOfEditing] = useState(true)
 
     const [fullScreen, setFullScreen] = useState(false)
-    console.log(fullScreen)
     const [subRoutesList, setSubRouteList] = useState([])
 
     const { isManager } = useSelector(state => state.user)
@@ -59,7 +58,7 @@ const EditPage = () => {
     const Routes = [
         "home", "solution", "about-us", "service", "market",
         "projects", "project", "careers", "career", "news-blogs",
-        "footer", "header", "testimonials", "testimonial", "safety"
+        "footer", "header", "testimonials", "testimonial", "safety", "safety_responsibility"
     ]
 
 

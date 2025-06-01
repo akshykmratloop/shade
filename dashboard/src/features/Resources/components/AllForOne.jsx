@@ -20,10 +20,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useRef, useState } from "react";
 import { updateMainContent } from "../../common/homeContentSlice";
 import SnR from "./websiteComponent/SafetyAndResponsibility";
+import SnRPolicies from "./websiteComponent/detailspages/SnRPolicies";
 
 const AllForOne = ({ language, screen, content, subPath, setLanguage, fullScreen, currentPath, deepPath, showDifference = false, live, hideScroll }) => {
-    console.log(fullScreen)
-    // console.log(content)
     const dispatch = useDispatch()
     const fontRegular = useSelector(state => state.fontStyle.regular)
 
@@ -161,8 +160,10 @@ const AllForOne = ({ language, screen, content, subPath, setLanguage, fullScreen
                     language={language} currentContent={content} screen={screen} />
             }
             {
-                currentPath === "safety" &&
-                <SnR width={width} language={language} currentContent={content} screen={screen} />
+                currentPath === "safety_responsibility" &&
+                    subPath ?
+                    <SnRPolicies width={width} language={language} currentContent={content} screen={screen} /> :
+                    <SnR width={width} language={language} currentContent={content} screen={screen} />
             }
         </div>
     )

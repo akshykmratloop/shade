@@ -232,6 +232,7 @@ function Resources() {
 
           setIdOnStorage(page.id);
           const { relationType, resourceTag, subPage, subOfSubPage, slug } = page;
+          console.log(relationType, resourceTag, subPage, subOfSubPage, slug)
           if (relationType === "CHILD") {
             navigateToPage(resourceTag?.toLowerCase(), page.id);
           } else if (relationType !== "PARENT") {

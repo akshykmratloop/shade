@@ -2433,7 +2433,7 @@ async function formatResourceVersionData(
               returningBody.date = itemContent.liveModeVersionData.sections[0].content.date; //
             }
 
-            if (resourceSlug === "safety") {
+            if (resourceSlug === "safety_responsibility") {
               returningBody.descriptions = [
                 itemContent.liveModeVersionData.sections[0].content.description,
                 itemContent.liveModeVersionData.sections[1].content.description,
