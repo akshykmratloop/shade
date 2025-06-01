@@ -34,12 +34,12 @@ const SnRPolicies = ({ currentContent, screen, language, width }) => {
                     // backgroundImage: `linear-gradient(to right,#00000020 30%,#fffffffb 100%) ,url("${Img_url + currentContent?.['1']?.content?.images?.[0]?.url}")`,
                     backgroundImage: `url("${Img_url + currentContent?.['1']?.content?.images?.[0]?.url}")`,
                     backgroundPosition: "bottom",
-                    height: isComputer && getDynamicSize(640),
+                    height: isComputer && getDynamicSize(600),
                     padding: isComputer && `${getDynamicSize(100)} ${getDynamicSize(120)}`
                 }}
             >
-                <div className="container relative h-full flex items-center justify-center">
-                    <div className={`${isLeftAlign ? 'scale-x-[-1]' : ''} text-center ${isPhone ? "w-4/5" : isTablet ? "w-2/3" : ""} space-y-4 p-6 flex flex-col items-center border border-cyan-500`}>
+                <div className="container relative h-full flex items-center justify-center border">
+                    <div className={`${isLeftAlign ? 'scale-x-[-1]' : ''} ${isPhone ? "w-full" : isTablet ? "w-2/3 text-center" : "text-center"} flex flex-col ${isPhone ? "items-start" : "items-center p-6 space-y-4"} `}>
                         <h2 className={`text-[#292E3D] font-medium ${isPhone ? "text-[40px]" : isTablet ? "text-[45px]" : "text-[45px]"} tracking-[-3px] mb-4`}
                             style={{
                                 fontSize: fontSize.mainHeading, lineHeight: fontSize.headingLeading,
@@ -50,137 +50,88 @@ const SnRPolicies = ({ currentContent, screen, language, width }) => {
                         </h2>
                         <p
                             style={{ fontSize: fontSize.mainPara, lineHeight: fontSize.paraLeading }}
-                            className={`text-[#0E172FB2] text-[12px] font-semibold leading-[26px] ${fontLight} word-spacing-5 ${isPhone ? "w-4/5" : isTablet ? "w-2/3" : "w-1/2"} `}>
+                            className={`text-[#0E172FB2] text-[12px] leading-[26px] ${fontLight} word-spacing-5 ${isPhone ? "w-4/5" : isTablet ? "w-2/3" : "w-1/2"} `}>
                             {currentContent?.['1']?.content?.description?.[language]}
                         </p>
-                        <button
-                            className={`relative items-center flex ${isLeftAlign ? "" : "flex-row-reverse"} gap-1 text-[12px] font-medium px-[12px] py-[6px] px-[12px] bg-[#00b9f2] text-white rounded-md`}
-                            style={{ fontSize: fontSize.mainButton, lineHeight: fontSize.paraLeading }}
-                            onClick={() => { }}
-                        >
-                            {currentContent?.['1']?.content?.button?.[0]?.text?.[language]}
-
-                            <img
-                                src={Arrow}
-                                width="10"
-                                height="11"
-                                alt=""
-                                style={{ transform: isLeftAlign ? "rotate(180deg)" : "" }}
-                            />
-                        </button>
                     </div>
                 </div>
             </section>
 
-            {/* <section
-                className={`${isPhone ? "px-4" : "px-20"} grid grid-cols-1 gap-[20px]`}
-                dir={isLeftAlign ? "ltr" : "rtl"}
+            <section className={`flex ${isPhone && 'flex-col'}`}
                 style={{
-                    gap: getDynamicSize(60),
-                    padding: `0px ${getDynamicSize(150)}`,
-                    margin: `${getDynamicSize(70)} 0px`,
-                    gridTemplateRows: !isPhone && `repeat(${currentContent?.['2']?.items?.length}, 1fr)`
+                    margin: `${getDynamicSize(50)} ${getDynamicSize(110)}`,
+                    gap: getDynamicSize(16)
                 }}
             >
-                {
-                    currentContent?.['2']?.items?.map((e, i) => {
-                        let odd = i % 2 !== 0
-                        return (
-                            <article
-                                style={{
-                                    // height: getDynamicSize(359),
-                                    // width: getDynamicSize(1216)
-                                    // gap: getDynamicSize(30),
-                                    // margin: `${getDynamicSize(70)} 0px`
-                                }}
-                                className={`flex relative ${isPhone ? "flex-col" : odd && "flex-row-reverse"}`}
-                                key={e.id}
-                            >
-                                <div className={`${!isPhone && 'absolute'} flex-[2_0_auto] `}
-                                    style={{
-                                        width: isPhone ? '100%' : isTablet ? "300px" : getDynamicSize(463),
-                                        height: isPhone ? 'fit-content' : isTablet ? "40vh" : '100%'
-                                    }}
-
-                                >
-                                    <img
-                                        src="https://frequencyimage.s3.ap-south-1.amazonaws.com/851e35b5-9b3b-4d9f-91b4-9b60ef2a102c-Rectangle%2034624110.png"
-                                        alt=""
-                                        style={{
-                                            width: isPhone ? '100%' : isTablet ? "300px" : getDynamicSize(463),
-                                            height: isPhone ? '50vh' : isTablet ? "40vh" : '100%'
-                                        }}
-                                        className="object-cover"
-                                    />
-                                </div>
-                                {
-                                    !isPhone &&
-                                    <div
-                                        className="flex-[2_0_auto]"
-                                        style={{ width: isPhone ? '100%' : isTablet ? "300px" : getDynamicSize(463), height: isPhone ? '50%' : isTablet ? "40vh" : '100%' }}
-
-                                    ></div>}
-                                <article
-                                    dir={isLeftAlign ? "ltr" : "rtl"}
-                                    style={{
-                                    }}
-                                    className={`flex flex-col flex-[1_1_auto] gap-[13px] items-start justify-center text-[#292E3D]  
-                                    ${isPhone ? "py-4 px-[18px]" : "py-4 px-[38px]"}`}>
-                                    <h3 className="font-[400] text-[21px]"
-                                        style={{
-                                            fontSize: fontSize.aboutMainPara
-                                        }}
-                                    >{TruncateText(e?.[titleLan], 35)} </h3>
-
-                                    {
-                                        e.descriptions?.map((description, i) => {
-                                            return (
-                                                <div className="flex items-start" style={{ gap: isPhone ? "4px" : getDynamicSize(8) }}>
-                                                    <img src={blueCheckIcon} alt="" className="translate-y-[1px]"
-                                                        style={{ width: isPhone ? "" : getDynamicSize(20), height: isPhone ? "" : getDynamicSize(20) }} />
-                                                    <p className="font-[300] text-[10px]"
-                                                        key={i}
-                                                        style={{
-                                                            fontSize: fontSize.mainPara
-                                                        }}>
-                                                        {TruncateText(description?.[language], 120)}
-                                                    </p>
-                                                </div>
-                                            )
-                                        })
-                                    }
-
-                                    <button
-                                        className={`relative py-[6px] px-[12px] text-xs font-medium text-[#00B9F2] rounded flex items-center justify-start gap-2 ${isLeftAlign ? "flex-row-reverse" : ""}`}
-                                        style={{
-                                            fontSize: fontSize.mainPara,
-                                            padding: getDynamicSize(15)
-                                        }}
-                                    >
-                                        <img
-                                            src={"https://frequencyimage.s3.ap-south-1.amazonaws.com/61c0f0c2-6c90-42b2-a71e-27bc4c7446c2-mingcute_arrow-up-line.svg"}
-                                            alt="Arrow"
-                                            className={` ${isLeftAlign ? 'scale-x-[-1]' : ''}  w-[11px] h-[11px]`}
-                                        />
-                                        <p>
-                                            {currentContent?.["2"]?.content?.button?.[0]?.text?.[language]}
-                                        </p>
-                                    </button>
-                                </article>
-                            </article>
-                        )
-                    })
-                }
-
-            </section> */}
-
-            {/* {!(currentContent?.serviceCards?.length > 3) &&
-                < div className="flex justify-center py-10" >
-                    <button className="bg-[#00B9F2] text-[#fff] p-[11px] rounded-[6px]">
-                        {currentContent?.['2']?.content?.button?.[0]?.text?.[language]}
-                    </button>
+                <div className="flex-[1] flex flex-col"
+                    style={{ gap: getDynamicSize(30) }}
+                >
+                    <h2 className=""
+                        style={{ fontSize: fontSize.SnRSubHeading, lineHeight: fontSize.headingLeading }}
+                    >
+                        {currentContent?.['2']?.content?.title?.[language]}
+                    </h2>
+                    <p
+                        style={{ fontSize: fontSize.mainPara }}
+                        className={`${fontLight} pr-3`}>
+                        {currentContent?.['2']?.content?.description?.[language]}
+                    </p>
                 </div>
-            } */}
+
+                <div className="flex-[1] flex flex-col"
+                    style={{ gap: getDynamicSize(30) }}
+                >
+
+                    <div className="flex">
+                        <div className="flex-[3_1_auto]">
+                            <p style={{ fontSize: fontSize.mainPara, marginTop: getDynamicSize(8) }}>001</p>
+                        </div>
+                        <div className=""
+                            style={{ flex: `3 1 ${getDynamicSize(552)}` }}
+                        >
+                            <h3 className=""
+                                style={{ fontSize: fontSize.aboutMainPara }}
+                            >
+                                {currentContent?.['2']?.content?.procedures?.title?.[language]}
+                            </h3>
+                            <p
+                                style={{ fontSize: fontSize.mainPara }}
+                                className={`${fontLight}`}>
+                                {currentContent?.['2']?.content?.procedures?.description?.[language]}
+                            </p>
+                        </div>
+                    </div>
+                    {
+                        currentContent?.['2']?.content?.procedures?.terms?.map((term, i) => {
+
+                            return (
+                                <div className="flex">
+                                    <div className="flex-[3_1_auto]">
+                                        <p style={{ fontSize: fontSize.mainPara, marginTop: getDynamicSize(8) }}>
+                                            00{i + 2}
+                                        </p>
+                                    </div>
+                                    <div className=""
+                                        style={{ flex: `3 1 ${getDynamicSize(552)}` }}
+                                    >
+                                        <h3 className=""
+                                            style={{ fontSize: fontSize.aboutMainPara }}
+                                        >
+                                            {term?.title?.[language]}
+                                        </h3>
+                                        <p
+                                            style={{ fontSize: fontSize.mainPara }}
+                                            className={`${fontLight}`}>
+                                            {term?.description?.[language]}
+                                        </p>
+                                    </div>
+                                </div>
+                            )
+                        })
+                    }
+
+                </div>
+            </section>
 
         </div >
     );

@@ -36,13 +36,13 @@ const fontSizes = {
         experiencePara: 16, experienceButton: 18, subProjectTopButton: 16, subProjectHeadings: 32,
         subProjectParas: 16, subProjectBoxHeading: 20, subProjectBoxPara: 16, subProjectButtons: 18,
         clientSection: 36, testimonialsHead: 36, testimonialsHeading: 20, testimonialsPosition: 12,
-        testimonialsQuote: 14, testimonialsCompany: 16,
+        testimonialsQuote: 14, testimonialsCompany: 16, SnRSubHeading: 50,
         // about
         aboutMainPara: 26, aboutPaddingX: 150,
         aboutVideoW: 639, aboutVideoH: 457, // video size but not applied to the video
         aboutCardPaddingY: 40, aboutCardPaddingX: 10,
         // other sizes
-        headingLeading: 30, paraLeading: 22
+        headingLeading: 40, paraLeading: 22
     },
     tablet: {
         // home -- some of them are used in other pages due similarity
@@ -51,13 +51,13 @@ const fontSizes = {
         experiencePara: 16, experienceButton: 18, subProjectTopButton: 16, subProjectHeadings: 32,
         subProjectParas: 16, subProjectBoxHeading: 20, subProjectBoxPara: 16, subProjectButtons: 18,
         clientSection: 36, testimonialsHead: 36, testimonialsHeading: 20, testimonialsPosition: 12,
-        testimonialsQuote: 14, testimonialsCompany: 16,
+        testimonialsQuote: 14, testimonialsCompany: 16, SnRSubHeading: 50,
         // about
         aboutMainPara: 26, aboutPaddingX: 50,
         aboutVideoW: 639, aboutVideoH: 457, // video size but not applied to the video
         aboutCardPaddingY: 40, aboutCardPaddingX: 30,
         // other sizes
-        headingLeading: 30, paraLeading: 20
+        headingLeading: 40, paraLeading: 20
     },
     phone: {
         // home -- some of them are used in other pages due similarity
@@ -66,7 +66,7 @@ const fontSizes = {
         experiencePara: 50, experienceButton: 18, subProjectTopButton: 16, subProjectHeadings: 32,
         subProjectParas: 16, subProjectBoxHeading: 20, subProjectBoxPara: 16, subProjectButtons: 18,
         clientSection: 90, testimonialsHead: 36, testimonialsHeading: 20, testimonialsPosition: 12,
-        testimonialsQuote: 14, testimonialsCompany: 16,
+        testimonialsQuote: 14, testimonialsCompany: 16, SnRSubHeading: 110,
         // about
         aboutMainPara: 70, aboutPaddingX: 20,
         aboutVideoW: 639, aboutVideoH: 457, // video size but not applied to the video

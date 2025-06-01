@@ -23,9 +23,6 @@ const SnR = ({ currentContent, screen, language, width }) => {
     const getDynamicSize = (size) => dynamicSize(size, width)
 
 
-    // useEffect(() => {
-    //     dispatch(updateMainContent({ currentPath: "services", payload: (content?.services) }))
-    // }, [])
     return (
         <div className="">
             <section
@@ -49,7 +46,7 @@ const SnR = ({ currentContent, screen, language, width }) => {
                         </h2>
                         <p
                             style={{ fontSize: fontSize.mainPara, lineHeight: fontSize.paraLeading }}
-                            className={`text-[#0E172FB2] text-[12px] font-semibold leading-[26px] ${fontLight} word-spacing-5 ${isPhone ? "w-4/5" : isTablet ? "w-2/3" : "w-1/2"} `}>
+                            className={`text-[#0E172FB2] text-[12px] leading-[26px] ${fontLight} word-spacing-5 ${isPhone ? "w-4/5" : isTablet ? "w-2/3" : "w-1/2"} `}>
                             {currentContent?.['1']?.content?.description?.[language]}
                         </p>
                         <button
@@ -84,6 +81,7 @@ const SnR = ({ currentContent, screen, language, width }) => {
                 {
                     currentContent?.['2']?.items?.map((e, i) => {
                         let odd = i % 2 !== 0
+                        console.log(e)
                         return (
                             <article
                                 style={{
@@ -103,7 +101,7 @@ const SnR = ({ currentContent, screen, language, width }) => {
 
                                 >
                                     <img
-                                        src="https://frequencyimage.s3.ap-south-1.amazonaws.com/851e35b5-9b3b-4d9f-91b4-9b60ef2a102c-Rectangle%2034624110.png"
+                                        src={e.image ? (Img_url + e.image) : `https://frequencyimage.s3.ap-south-1.amazonaws.com/851e35b5-9b3b-4d9f-91b4-9b60ef2a102c-Rectangle%2034624110.png`}
                                         alt=""
                                         style={{
                                             width: isPhone ? '100%' : isTablet ? "300px" : getDynamicSize(463),
@@ -137,7 +135,7 @@ const SnR = ({ currentContent, screen, language, width }) => {
                                                 <div className="flex items-start" style={{ gap: isPhone ? "4px" : getDynamicSize(8) }}>
                                                     <img src={blueCheckIcon} alt="" className="translate-y-[1px]"
                                                         style={{ width: isPhone ? "" : getDynamicSize(20), height: isPhone ? "" : getDynamicSize(20) }} />
-                                                    <p className="font-[300] text-[10px]"
+                                                    <p className={`font-[300] text-[10px] ${fontLight}`}
                                                         key={i}
                                                         style={{
                                                             fontSize: fontSize.mainPara
