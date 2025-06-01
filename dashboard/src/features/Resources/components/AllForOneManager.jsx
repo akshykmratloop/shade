@@ -19,6 +19,7 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { updateMainContent } from "../../common/homeContentSlice";
 import SnRManager from "./contentmanager/SnRManager";
+import SnRPoliciesManager from "./contentmanager/SnRPolicyManager";
 
 
 const AllForOneManager = ({ currentPath, language, subPath, deepPath, content, contentIndex, outOfEditing }) => {
@@ -90,7 +91,9 @@ const AllForOneManager = ({ currentPath, language, subPath, deepPath, content, c
             break;
 
         case "safety_responsibility":
-            manager = subPath ? "" : <SnRManager outOfEditing={outOfEditing} language={language} content={content} indexes={contentIndex} currentPath={currentPath} />
+            manager = subPath ?
+                <SnRPoliciesManager outOfEditing={outOfEditing} language={language} content={content} indexes={contentIndex} currentPath={currentPath} /> :
+                <SnRManager outOfEditing={outOfEditing} language={language} content={content} indexes={contentIndex} currentPath={currentPath} />
 
         default:
     }

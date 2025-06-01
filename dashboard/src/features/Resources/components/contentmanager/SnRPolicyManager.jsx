@@ -30,7 +30,7 @@ const SnRPoliciesManager = ({ content, currentPath, language, indexes }) => {
             }
         }
 
-        getOptionsforServices()
+        // getOptionsforServices()
     }, [])
 
     return (
@@ -44,7 +44,6 @@ const SnRPoliciesManager = ({ content, currentPath, language, indexes }) => {
                 inputs={[
                     { input: "input", label: "Heading/title", updateType: "title", value: content?.['1']?.content?.title?.[language] },
                     { input: "textarea", label: "Description", updateType: "description", value: content?.['1']?.content?.description?.[language] },
-                    { input: "input", label: "Button Text", updateType: "button", value: content?.['1']?.content?.button?.[0]?.text?.[language], index: 0 },
                 ]}
                 inputFiles={[{ label: "Backround Image", id: "ServiceBanner", order: 1, url: content?.['1']?.content?.images?.[0]?.url }]}
                 section={"banner"}
@@ -56,26 +55,13 @@ const SnRPoliciesManager = ({ content, currentPath, language, indexes }) => {
                 Heading={"Buttons"}
                 currentPath={currentPath}
                 inputs={[
-                    { input: "input", label: "Button Text 1", updateType: "button", value: content?.['2']?.content?.button?.[0]?.text?.[language], index: 0 }
+                    { input: "input", label: "Heading/title", updateType: "title", value: content?.['2']?.content?.title?.[language] },
+                    { input: "textarea", label: "Description", updateType: "description", value: content?.['2']?.content?.description?.[language] },
                 ]}
-                // section={"banner"}
                 language={language}
                 currentContent={content}
                 sectionIndex={indexes?.['2']}
             />
-
-            {/* <MultiSelect
-                heading={"Select Policies"}
-                currentPath={currentPath}
-                language={language}
-                label={"Select Policy List"}
-                tabName={"Select Policy"}
-                options={content?.['2']?.items}
-                listOptions={policiesList}
-                referenceOriginal={{ dir: "home" }}
-                currentContent={content}
-                sectionIndex={indexes?.['2']}
-            /> */}
         </div>
     )
 }

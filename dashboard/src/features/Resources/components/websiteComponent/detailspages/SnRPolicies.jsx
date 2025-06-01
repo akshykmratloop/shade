@@ -31,15 +31,22 @@ const SnRPolicies = ({ currentContent, screen, language, width }) => {
             <section
                 className={`relative w-full py-[100px] ${isPhone ? "px-8" : "px-10"} bg-cover bg-center ${isLeftAlign ? 'scale-x-[-1]' : ''}`}
                 style={{
-                    // backgroundImage: `linear-gradient(to right,#00000020 30%,#fffffffb 100%) ,url("${Img_url + currentContent?.['1']?.content?.images?.[0]?.url}")`,
                     backgroundImage: `url("${Img_url + currentContent?.['1']?.content?.images?.[0]?.url}")`,
                     backgroundPosition: "bottom",
                     height: isComputer && getDynamicSize(600),
                     padding: isComputer && `${getDynamicSize(100)} ${getDynamicSize(120)}`
                 }}
             >
-                <div className="container relative h-full flex items-center justify-center border">
-                    <div className={`${isLeftAlign ? 'scale-x-[-1]' : ''} ${isPhone ? "w-full" : isTablet ? "w-2/3 text-center" : "text-center"} flex flex-col ${isPhone ? "items-start" : "items-center p-6 space-y-4"} `}>
+                <div className="absolute inset-0 pointer-events-none z-0 flex items-center justify-center overflow-hidden">
+                    <div
+                        style={{ width: getDynamicSize(750), height: getDynamicSize(650) }}
+                        className=" rounded-full bg-white opacity-[.9] blur-[120px] mix-blend-screen"></div>
+                </div>
+
+                <div className="container relative h-full flex items-center justify-center "
+                >
+                    <div
+                        className={` ${isLeftAlign ? 'scale-x-[-1]' : ''} ${isPhone ? "w-full" : isTablet ? "w-2/3 text-center" : "text-center"} flex flex-col ${isPhone ? "items-start" : "items-center p-6 space-y-4"} `}>
                         <h2 className={`text-[#292E3D] font-medium ${isPhone ? "text-[40px]" : isTablet ? "text-[45px]" : "text-[45px]"} tracking-[-3px] mb-4`}
                             style={{
                                 fontSize: fontSize.mainHeading, lineHeight: fontSize.headingLeading,
