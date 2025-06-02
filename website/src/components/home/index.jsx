@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, {useEffect, useRef, useState} from "react";
 import styles from "@/components/home/Home.module.scss";
 import Button from "@/common/Button";
 import Image from "next/image";
@@ -6,8 +6,8 @@ import Arrow from "../../assets/icons/right-wrrow.svg";
 // import Client from "../../assets/icons/client.svg";
 import AboutUs from "../../assets/images/aboutus.png";
 import localFont from "next/font/local";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { useRouter } from "next/router";
+import {Swiper, SwiperSlide} from "swiper/react";
+import {useRouter} from "next/router";
 // import required modules
 import {
   Pagination,
@@ -18,7 +18,7 @@ import {
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
-import { useGlobalContext } from "../../contexts/GlobalContext";
+import {useGlobalContext} from "../../contexts/GlobalContext";
 import blankImage from "../../assets/images/blankImage.webp";
 import background from "../../assets/images/Hero.png";
 // import dynamic from 'next/dynamic';
@@ -44,7 +44,7 @@ const BankGothic = localFont({
 
 const HomePage = () => {
   const router = useRouter();
-  const { language, content } = useGlobalContext();
+  const {language, content} = useGlobalContext();
   const currentContent = content?.home;
   // Create refs for the navigation buttons
   const prevRef = useRef(null);
@@ -78,7 +78,7 @@ const HomePage = () => {
     projectsPerSlide
   );
 
-  const ProjectSlider = { ...recentProjects, ...markets, ...safety };
+  const ProjectSlider = {...recentProjects, ...markets, ...safety};
 
   useEffect(() => {
     if (swiperInstance) {
@@ -537,10 +537,10 @@ const HomePage = () => {
                 modifier: 2, // Adjust the scale modifier
                 slideShadows: false, // Optional: Enable/disable shadows
               }}
-              autoplay={{ delay: 2500 }}
+              autoplay={{delay: 2500}}
               breakpoints={{
-                724: { slidesPerView: 2.2 }, // Adjust for bigger screens
-                500: { slidesPerView: 1 }, // For smaller screens
+                724: {slidesPerView: 2.2}, // Adjust for bigger screens
+                500: {slidesPerView: 1}, // For smaller screens
               }}
               // rtl={true} // Enable RTL for Arabic layout
             >
