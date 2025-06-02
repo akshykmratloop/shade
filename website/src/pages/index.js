@@ -6,6 +6,7 @@ import HomePage from "@/components/home";
 import createContent from "@/common/CreateContent";
 import Loader from "@/common/Loader";
 import { useEffect, useState } from "react";
+import { backendAPI } from "@/contexts/GlobalContext";
 
 
 const inter = Inter({ subsets: ["latin"] });
@@ -45,7 +46,7 @@ export default function Home({ apiData }) {
 
 export async function getServerSideProps() {
   try {
-    const res = await fetch("http://localhost:3000/website/getContentForWebite/cmbca1dhd00stqp1r8hi8rjnh");
+    const res = await fetch(`${backendAPI}cmbca1dhd00stqp1r8hi8rjnh`);
 
     if (!res.ok) {
       // If response failed (e.g., 404, 500), return empty object
@@ -60,3 +61,4 @@ export async function getServerSideProps() {
     return { props: { apiData: {} } };
   }
 }
+
