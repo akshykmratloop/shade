@@ -8,7 +8,7 @@ import { Img_url } from "../../../../routes/backend";
 import dynamicSize, { defineDevice, generatefontSize } from "../../../../app/fontSizes";
 // import blueCheckIcon from "../../../../../assets/bluecheckicon.svg"
 
-const History = ({ currentContent, screen, language, width }) => {
+const VisionNMission = ({ currentContent, screen, language, width }) => {
     const isComputer = screen > 900;
     const isTablet = screen < 900 && screen > 730;
     const isPhone = screen < 738;
@@ -104,6 +104,7 @@ const History = ({ currentContent, screen, language, width }) => {
                     style={{ gap: getDynamicSize(30) }}
                 >
                     <div className="bg-[#F1F4F9] rounded-lg absolute right-[0%] top-1/2 -translate-y-1/2 h-[40%] w-[115%] z-[1]"></div>
+
                     {
                         imageA?.map((term, i) => {
 
@@ -121,8 +122,9 @@ const History = ({ currentContent, screen, language, width }) => {
 
                 </div>
             </section>
+
         </div >
     );
 };
 
-export default History;
+export default VisionNMission;
