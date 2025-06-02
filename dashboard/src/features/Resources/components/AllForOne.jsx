@@ -21,6 +21,7 @@ import { useEffect, useRef, useState } from "react";
 import { updateMainContent } from "../../common/homeContentSlice";
 import SnR from "./websiteComponent/SafetyAndResponsibility";
 import SnRPolicies from "./websiteComponent/detailspages/SnRPolicies";
+import History from "./websiteComponent/HistoryPage";
 
 // import { useDispatch, useSelector } from "react-redux";
 // import { useEffect, useRef, useState } from "react";
@@ -93,6 +94,10 @@ const AllForOne = ({
                 return subPath
                     ? <SnRPolicies {...baseProps} currentContent={content} />
                     : <SnR {...baseProps} currentContent={content} />;
+
+            case "history":
+                return <History {...baseProps} currentContent={content} />;
+
             default:
                 return null;
         }
