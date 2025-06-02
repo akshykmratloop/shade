@@ -4,7 +4,7 @@ import Button from "@/common/Button";
 import Image from "next/image";
 import Arrow from "../../assets/icons/right-wrrow.svg";
 // import Client from "../../assets/icons/client.svg";
-import AboutUs from "../../assets/images/aboutus.png";
+// import AboutUs from "../../assets/images/aboutus.png";
 import localFont from "next/font/local";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { useRouter } from "next/router";
@@ -102,10 +102,10 @@ const HomePage = ({ content }) => {
     <>
       {/* banner */}
       <section
-        className={` ${styles.home_banner_wrap} ${language === "en" && styles.leftAlign}`}
+        className={`${styles.home_banner_wrap} ${language === "en" && styles.leftAlign}`}
       >
         <span
-          className={`  ${language === "en" && styles.leftAlign} ${styles.backgroundContainer}`}
+          className={`${language === "en" && styles.leftAlign} ${styles.backgroundContainer}`}
         >
           <Image
             src={currentContent?.['1']?.content?.images?.[0]?.url ? Img_url + currentContent?.['1']?.content?.images?.[0]?.url : background}
@@ -209,10 +209,10 @@ const HomePage = ({ content }) => {
                   <Image
                     className={styles.icon}
                     src={Img_url + card?.iconName}
-                    // width={40}
-                    // height={40}
-                    alt=""
-                    fill
+                    width={40}
+                    height={40}
+                    alt="services-icon"
+                    // fill
                     sizes="100vw"
                   />
 
@@ -242,7 +242,7 @@ const HomePage = ({ content }) => {
                       src={Img_url + item.icon}
                       width={60}
                       height={key === 1 ? 47 : 60}
-                      alt=""
+                      alt="cards-icon"
                     />
                     <h3 className={styles.count}>{item.count}</h3>
                     <h5 className={styles.card_title}>
