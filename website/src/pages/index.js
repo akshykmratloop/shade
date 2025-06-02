@@ -3,11 +3,33 @@ import Image from "next/image";
 import { Inter } from "next/font/google";
 import styles from "@/styles/Error.module.scss";
 import HomePage from "@/components/home";
+import createContent from "@/common/CreateContent";
+import Loader from "@/common/Loader";
+import { useEffect, useState } from "react";
+
 
 const inter = Inter({ subsets: ["latin"] });
 
+
 export default function Home({ apiData }) {
-  console.log(apiData)
+  const [isLoading, setIsLoading] = useState(true);
+  const [content, setContent] = useState(null);
+
+  useEffect(() => {
+    if (apiData && Object.keys(apiData).length > 0 && apiData.content) {
+      const generatedContent = createContent(apiData.content);
+      setContent(generatedContent.content);
+      setIsLoading(false);
+    } else {
+      // keep loading forever or retry (optional)
+      console.warn("API response is empty. Keeping loader active...");
+    }
+  }, [apiData]);
+
+  if (isLoading) {
+    return <Loader />;
+  }
+
   return (
     <>
       <Head>
@@ -16,14 +38,25 @@ export default function Home({ apiData }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <HomePage language="en" />
+      <HomePage content={content} language="en" />
     </>
   );
 }
 
 export async function getServerSideProps() {
-  const res = await fetch("https://pokeapi.co/api/v2/");
-  const apiData = await res.json();
+  try {
+    const res = await fetch("http://localhost:3000/website/getContentForWebite/cmbca1dhd00stqp1r8hi8rjnh");
 
-  return { props: { apiData } };
+    if (!res.ok) {
+      // If response failed (e.g., 404, 500), return empty object
+      return { props: { apiData: {} } };
+    }
+
+    const apiData = await res.json();
+
+    return { props: { apiData: apiData || {} } };
+  } catch (error) {
+    // If fetch throws an error (e.g., network failure), return empty object
+    return { props: { apiData: {} } };
+  }
 }

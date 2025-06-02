@@ -2,7 +2,7 @@ import {createContext, useContext, useEffect, useState} from "react";
 // import axios from "axios";
 import data from "./content.json";
 const GlobalContext = createContext();
-import axios from "axios";
+// import axios from "axios";
 
 export const GlobalContextProvider = ({children}) => {
   const [language, setLanguage] = useState(null);
@@ -29,23 +29,23 @@ export const GlobalContextProvider = ({children}) => {
     });
   };
 
-  useEffect(() => {
-    // Fetch content from API on initial load
-    const fetchContent = async (id) => {
-      try {
-        const response = await axios.get(
-          `http://localhost:3000/website/getContentForWebite/${id}`
-        );
-        // Adjust the URL as needed
-        setContent(response.data);
-        console.log("Content fetched successfully:", response.data.content);
-      } catch (error) {
-        console.error("Error fetching content:", error);
-      }
-    };
+  // useEffect(() => {
+  //   // Fetch content from API on initial load
+  //   const fetchContent = async (id) => {
+  //     try {
+  //       const response = await axios.get(
+  //         `http://localhost:3000/website/getContentForWebite/${id}`
+  //       );
+  //       // Adjust the URL as needed
+  //       setContent(response.data);
+  //       console.log("Content fetched successfully:", response.data.content);
+  //     } catch (error) {
+  //       console.error("Error fetching content:", error);
+  //     }
+  //   };
 
-    fetchContent("cmaw7xsgh00tdnt4val4aae3e");
-  }, []);
+  //   fetchContent("cmaw7xsgh00tdnt4val4aae3e");
+  // }, []);
 
   if (isLoading) {
     return null;

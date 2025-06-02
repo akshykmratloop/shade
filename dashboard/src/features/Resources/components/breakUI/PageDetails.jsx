@@ -6,7 +6,7 @@ import Verify from "../../../../assets/image 15.svg";
 import Publisher from "../../../../assets/image 16.svg";
 import { X } from "lucide-react";
 import { getResourceInfo } from "../../../../app/fetch";
-import formatTimestamp from "../../../../app/TimeFormat";
+// import formatTimestamp from "../../../../app/TimeFormat";
 import { useDispatch, useSelector } from "react-redux";
 import capitalizeWords, { TruncateText } from "../../../../app/capitalizeword";
 import SkeletonLoader from "../../../../components/Loader/SkeletonLoader";

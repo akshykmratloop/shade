@@ -131,7 +131,8 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                         src={`${Img_url}${content?.["1"]?.content?.images?.[0]?.url}`}
                         alt={content?.["1"]?.content?.images?.[0]?.url}
                         className={`w-full object-cover`}
-                        style={{ objectPosition: "center", transform: "scaleX(-1)", height: isTablet ? "500px" : isPhone && "500px" }} />
+                        style={{ objectPosition: "center", transform: "scaleX(-1)", height: isTablet ? "500px" : isPhone && "500px" }}
+                    />
                 </div>
                 <div
                     className={`container mx-auto absolute ${isComputer ? "top-[20%]" : "top-16"}  left-0 right-0 px-4`}>
@@ -384,7 +385,7 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
 
                         <div className={`${isPhone ? "w-[220px]" : isTablet ? "w-[500px]" : ""} 
                         `}
-                            style={{ width: (isComputer && fullScreen) ? dynamicSize(800, width) : (!isComputer && fullScreen) ? dynamicSize(1030, width): "" }}
+                            style={{ width: (isComputer && fullScreen) ? dynamicSize(800, width) : (!isComputer && fullScreen) ? dynamicSize(1030, width) : "" }}
                         >
                             <Swiper
                                 key={language}
@@ -414,7 +415,7 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                                                     gap: isComputer ? "" : `${(40 / 1180) * screen}px`,
                                                     placeItems: ""
                                                 }}
-                                            > 
+                                            >
                                                 {chunk?.map((project, cardIndex) => {
                                                     return (
                                                         <div className="flex flex-col rounded-[4px]" key={cardIndex}>
@@ -722,13 +723,13 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                             {content?.['8']?.content?.title?.[language]}
                         </h2>
                         <div className="relative">
-                            <div className={`font-light text-black leading-7 mb-2 relative bg-transparent
+                            <div className={` text-black leading-7 mb-2 relative bg-transparent
                             ${checkDifference(content?.['8']?.content?.description?.[language], liveContent?.['8']?.content?.description?.[language])}
                             `}
                                 style={{ fontSize: isComputer && dynamicSize(16, width) }}
                                 dangerouslySetInnerHTML={{ __html: content?.['8']?.content?.description?.[language] }}
                             />
-                            <i
+                            {/* <i
                                 className={`absolute ${isLeftAlign ? isPhone ? "right-[130px] top-[55px]" : "right-[250px]" : "right-[152px]"} top-0  opacity-70 z-10 
                                 ${language === 'ar' ? 'right-48' : ''}`}
                                 style={{
@@ -739,7 +740,7 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                                     height: '100%',
                                     mixBlendMode: 'multiply',
                                 }}
-                            />
+                            /> */}
                         </div>
                         <button
                             className={`bg-[#00B9F2] text-xs text-white px-4 py-2 text-lg mt-11 mx-auto block rounded
