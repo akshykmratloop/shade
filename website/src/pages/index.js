@@ -6,7 +6,8 @@ import HomePage from "@/components/home";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export default function Home() {
+export default function Home({ apiData }) {
+  console.log(apiData)
   return (
     <>
       <Head>
@@ -18,4 +19,11 @@ export default function Home() {
       <HomePage language="en" />
     </>
   );
+}
+
+export async function getServerSideProps() {
+  const res = await fetch("https://pokeapi.co/api/v2/");
+  const apiData = await res.json();
+
+  return { props: { apiData } };
 }
