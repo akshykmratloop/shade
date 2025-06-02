@@ -22,6 +22,7 @@ import { updateMainContent } from "../../common/homeContentSlice";
 import SnR from "./websiteComponent/SafetyAndResponsibility";
 import SnRPolicies from "./websiteComponent/detailspages/SnRPolicies";
 import History from "./websiteComponent/HistoryPage";
+import VisionNMission from "./websiteComponent/VisionPage";
 
 // import { useDispatch, useSelector } from "react-redux";
 // import { useEffect, useRef, useState } from "react";
@@ -97,6 +98,9 @@ const AllForOne = ({
 
             case "history":
                 return <History {...baseProps} currentContent={content} />;
+
+            case "vision":
+                return <VisionNMission {...baseProps} currentContent={content} />
 
             default:
                 return null;

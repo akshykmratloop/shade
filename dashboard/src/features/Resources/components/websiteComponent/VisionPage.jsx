@@ -71,7 +71,12 @@ const VisionNMission = ({ currentContent, screen, language, width }) => {
                 </div>
             </section>
 
-            <section className={`flex ${isPhone && 'flex-col'}`}
+            <section className={`flex gap-[30px]  ${isPhone ? "flex-col px-[30px]" : ""}`}>
+                <h2 className='text-[32px]  flex-1 leading-[28px]'>{currentContent?.subBanner?.title?.[language]}</h2>
+                <div className='text-[9.5px] flex-1' dangerouslySetInnerHTML={{ __html: currentContent?.subBanner?.description?.[language] }} />
+            </section>
+
+            {/* <section className={`flex ${isPhone && 'flex-col'}`}
                 style={{
                     margin: `${getDynamicSize(50)} ${getDynamicSize(110)}`,
                     gap: getDynamicSize(120)
@@ -121,7 +126,7 @@ const VisionNMission = ({ currentContent, screen, language, width }) => {
                     }
 
                 </div>
-            </section>
+            </section> */}
 
         </div >
     );

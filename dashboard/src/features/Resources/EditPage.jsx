@@ -59,7 +59,7 @@ const EditPage = () => {
         "home", "solution", "about-us", "service", "market",
         "projects", "project", "careers", "career", "news-blogs",
         "footer", "header", "testimonials", "testimonial", "safety",
-        "safety_responsibility", "history"
+        "safety_responsibility", "history", "vision"
     ]
 
 
