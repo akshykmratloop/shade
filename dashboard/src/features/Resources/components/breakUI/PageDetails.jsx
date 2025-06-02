@@ -195,7 +195,7 @@ const PageDetails = ({ data, display, setOn }) => {
                   </div>
                   {/* <div className="border border-cyan-500 flex"> */}
                   <div className="flex flex-col">
-                    {pageInfo?.resourceInfo?.verifiers.map((verifier, ind) => {
+                    {pageInfo?.resourceInfo?.verifiers?.length > 0 ? pageInfo?.resourceInfo?.verifiers.map((verifier, ind) => {
                       let firstIndex = ind === 0;
                       return (
                         <div
@@ -216,7 +216,22 @@ const PageDetails = ({ data, display, setOn }) => {
                           </div>
                         </div>
                       );
-                    })}
+                    })
+                      :
+                      <div
+                        className={`flex gap-[10px] items-center border-b dark:border-stone-700 justify-between`}
+                      >
+                        <label className="!text-[#808080]">Verifiers:</label>
+                        <div className="flex gap-[10px] items-center justify-between py-[10px] ">
+                          {/* <p className="border px-[12px] w-[6rem] py-[2px] text-center rounded-3xl font-light text-[11px]">
+                            {"level " + "N/A"}
+                          </p> */}
+                          <p >
+                            N/A
+                          </p>
+                        </div>
+                      </div>
+                    }
                   </div>
                   <div className="border-b-4 border-gray-400 dark:border-stone-700 flex justify-between py-4 items-center">
                     <label className="!text-[#808080]" title={users?.publisher}>Publisher:</label>

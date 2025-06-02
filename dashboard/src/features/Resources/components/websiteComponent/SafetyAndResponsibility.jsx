@@ -10,6 +10,7 @@ import dynamicSize, { defineDevice, generatefontSize } from "../../../../app/fon
 import blueCheckIcon from "../../../../assets/bluecheckicon.svg"
 
 const SnR = ({ currentContent, screen, language, width }) => {
+    console.log('pop')
     const isComputer = screen > 900;
     const isTablet = screen < 900 && screen > 730;
     const isPhone = screen < 738;
@@ -75,7 +76,7 @@ const SnR = ({ currentContent, screen, language, width }) => {
                     gap: getDynamicSize(60),
                     padding: `0px ${getDynamicSize(150)}`,
                     margin: `${getDynamicSize(70)} 0px`,
-                    gridTemplateRows: !isPhone && `repeat(${currentContent?.['2']?.items.length}, 1fr)`
+                    gridTemplateRows: !isPhone && `repeat(${currentContent?.['2']?.items?.length}, 1fr)`
                 }}
             >
                 {

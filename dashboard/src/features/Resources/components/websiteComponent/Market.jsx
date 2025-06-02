@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from "react";
-import content from "./content.json"
+import { useState, useEffect, useRef } from "react";
+// import content from "./content.json"
 import Arrow from "../../../../assets/icons/right-wrrow.svg";
 import "swiper/css";
 import "swiper/css/pagination";
@@ -13,24 +13,7 @@ import {
     Autoplay,
     EffectCoverflow,
 } from "swiper/modules";
-// import styles from "./market.module.scss";
-// import localFont from "next/font/local";
-// import img from "next/img";
-// import button from "@/common/button";
-// import patch from "../../contexts/svg/path.jsx";
-// Font files can be colocated inside of `app`
-// const BankGothic = localFont({
-//     src: "../../../public/font/BankGothicLtBTLight.ttf",
-//     display: "swap",
-// });
-// import { testimonials } from "../../assets/index";
-// import dynamic from "next/dynamic";
-// const AnimatedText = dynamic(() => import('@/common/AnimatedText'), { ssr: false });
-// import { useGlobalContext } from "../../contexts/GlobalContext";
-// const ContactUsModal = dynamic(() => import("../header/ContactUsModal"), {
-//     ssr: false,
-// });
-import { projectPageData } from "../../../../assets/index";
+// import { projectPageData } from "../../../../assets/index";
 import { TruncateText } from "../../../../app/capitalizeword";
 import { Img_url } from "../../../../routes/backend";
 import dynamicSize from "../../../../app/fontSizes";
@@ -42,7 +25,6 @@ const MarketPage = ({ language, screen, currentContent }) => {
     // const handleContactUSClose = () => {
     //     setIsModal(false);
     // };
-    // const [isModal, setIsModal] = useState(false);
     const dispatch = useDispatch()
     const isComputer = screen > 1100
     const isPhone = screen < 760
