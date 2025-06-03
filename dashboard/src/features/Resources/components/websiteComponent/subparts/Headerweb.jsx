@@ -113,7 +113,7 @@ const Header = ({ language, screen, setLanguage, currentContent }) => {
                             {!isPhone && (
                                 <button
                                     className="p-2 py-2 text-white text-sm bg-[#00b9f2] rounded-md shadow-md hover:bg-blue-700 transition-all"
-                                    onClick={handleContactUS}
+                                    // onClick={handleContactUS}
                                 >
                                     {currentContent?.["2"]?.content?.contact?.[language]}
                                 </button>
@@ -146,7 +146,7 @@ const Header = ({ language, screen, setLanguage, currentContent }) => {
                             {isPhone && (
                                 <button
                                     className="p-2 text-white text-sm bg-[#00b9f2] rounded-md shadow-md hover:bg-blue-700 transition-all w-full text-center"
-                                    onClick={handleContactUS}
+                                    // onClick={handleContactUS}
                                 >
                                     {currentContent?.["2"]?.content?.contact?.[language]}
                                 </button>

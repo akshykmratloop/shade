@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { uploadMedia } from "../../app/fetch"; // adjust path if needed
 
-export function useImageUpload(resourceId) {
+export function useImageUpload(resourceId, type) {
     const [uploading, setUploading] = useState(false);
     const [error, setError] = useState(null);
 
@@ -21,7 +21,7 @@ export function useImageUpload(resourceId) {
         }
 
         // formData.append("mediaFile", files);
-        formData.append("mediaType", "IMAGE");
+        formData.append("mediaType", type);
         formData.append("resourceId", resourceId);
 
 

@@ -5,8 +5,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { FaFileUpload } from "react-icons/fa";
 import { TruncateText } from "../../app/capitalizeword";
 import ImageSelector from "./ImageSelector";
+import { updateImages } from "../../features/common/homeContentSlice";
 
-const FileUploader = ({ label, baseClass, id, currentPath, outOfEditing }) => {
+const FileUploader = ({ label, baseClass, id, currentPath, outOfEditing, order }) => {
     const dispatch = useDispatch();
     const [fileName, setFileName] = useState("");
     const [fileURL, setFileURL] = useState("");
@@ -14,27 +15,27 @@ const FileUploader = ({ label, baseClass, id, currentPath, outOfEditing }) => {
     const [isSelectorOpen, setIsSelectorOpen] = useState(false);
 
 
-    const handleFileChange = (event) => {
-        const file = event.target.files[0];
-        if (!file) return;
+    // const handleFileChange = (event) => {
+    //     const file = event.target.files[0];
+    //     if (!file) return;
 
-        setFileName(file.name);
-        const fileType = file.type.split("/")[0];
-        const fileExtension = file.name.split(".").pop().toLowerCase();
+    //     setFileName(file.name);
+    //     const fileType = file.type.split("/")[0];
+    //     const fileExtension = file.name.split(".").pop().toLowerCase();
 
-        if (fileType === "image") {
-            // Handle image preview
-            const reader = new FileReader();
-            reader.onload = (e) => setFileURL(e.target.result);
-            reader.readAsDataURL(file);
-        } else if (fileExtension === "pdf") {
-            // Handle PDF preview
-            setFileURL(URL.createObjectURL(file));
-        } else {
-            // Other file types (DOCX, ZIP, etc.)
-            setFileURL("");
-        }
-    };
+    //     if (fileType === "image") {
+    //         // Handle image preview
+    //         const reader = new FileReader();
+    //         reader.onload = (e) => setFileURL(e.target.result);
+    //         reader.readAsDataURL(file);
+    //     } else if (fileExtension === "pdf") {
+    //         // Handle PDF preview
+    //         setFileURL(URL.createObjectURL(file));
+    //     } else {
+    //         // Other file types (DOCX, ZIP, etc.)
+    //         setFileURL("");
+    //     }
+    // };
 
     const handleImageSelect = (url, altText) => {
         // setFileURL(url[0]);
@@ -47,13 +48,13 @@ const FileUploader = ({ label, baseClass, id, currentPath, outOfEditing }) => {
             order
         }
         dispatch(updateImages({
-            section,
-            src: directIcon ? url[0] : payloadData,
-            currentPath,
-            index: contentIndex,
-            cardIndex: index,
-            subSection,
-            directIcon,
+            // section: "refDoc",
+            src: payloadData,
+            // currentPath,
+            // index: contentIndex,
+            // cardIndex: index,
+            // subSection,
+            // directIcon,
             order,
             type: "refDoc"
         }));
@@ -69,11 +70,11 @@ const FileUploader = ({ label, baseClass, id, currentPath, outOfEditing }) => {
         }
     };
 
-    useEffect(() => {
-        if (fileURL) {
-            // dispatch(updateImages({ section: id, src: fileURL, type: "refDoc" }));
-        }
-    }, [fileURL]);
+    // useEffect(() => {
+    //     if (fileURL) {
+    //         // dispatch(updateImages({ section: id, src: fileURL, type: "refDoc" }));
+    //     }
+    // }, [fileURL]);
 
     return (
         <div className={`relative ${baseClass} mt-2 mb-4 flex flex-col `}>
@@ -81,11 +82,14 @@ const FileUploader = ({ label, baseClass, id, currentPath, outOfEditing }) => {
             <label htmlFor={id} className="label-text sm:text-xs xl:text-sm mb-1 text-[#6B7888]">{label}</label>
 
             {/* File Input Bar */}
-            <div className="relative w-full rounded-md overflow-hidden cursor-pointer bg-[#F4F4F4] dark:bg-[#2a303c] flex items-center p-2">
+            <div className="relative w-full rounded-md overflow-hidden cursor-pointer bg-[#F4F4F4] dark:bg-[#2a303c] flex items-center p-2"
+                onClick={() => setIsSelectorOpen(true)}
+
+            >
                 {outOfEditing &&
                     <div className="absolute bg-stone-300/30 top-0 left-0 z-[35] cursor-not-allowed w-full h-full select-none">
                     </div>}
-                <input
+                {/* <input
                     type="file"
                     id={id}
                     className="hidden"
@@ -93,7 +97,7 @@ const FileUploader = ({ label, baseClass, id, currentPath, outOfEditing }) => {
                     onChange={handleFileChange}
                     accept="image/*,application/pdf,.docx,.xlsx,.zip,.txt"
                     disabled={outOfEditing}
-                />
+                /> */}
                 <label htmlFor={id} className="flex items-center gap-2 cursor-pointer w-full ">
                     <FaFileUpload className="w-4 h-4 text-gray-500" />
                     <span className="text-sm text-[#6B7888] dark:text-gray-300 truncate">
@@ -130,7 +134,8 @@ const FileUploader = ({ label, baseClass, id, currentPath, outOfEditing }) => {
                 <ImageSelector
                     onSelectImage={handleImageSelect}
                     onClose={() => setIsSelectorOpen(false)}
-                    resourceId={resourceId}
+                    type="DOCUMENT"
+                // resourceId={resourceId}
                 />
             )}
         </div>
