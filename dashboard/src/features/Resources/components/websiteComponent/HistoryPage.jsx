@@ -2,7 +2,7 @@
 import { useSelector } from "react-redux";
 // import content from "./content.json"
 // import { updateMainContent } from "../../../common/homeContentSlice";
-import { services, projectPageData } from "../../../../assets/index";
+import {  projectPageData } from "../../../../assets/index";
 // import { TruncateText } from "../../../../../app/capitalizeword";
 import { Img_url } from "../../../../routes/backend";
 import dynamicSize, { defineDevice, generatefontSize } from "../../../../app/fontSizes";

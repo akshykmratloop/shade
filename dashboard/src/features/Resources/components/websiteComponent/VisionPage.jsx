@@ -23,18 +23,9 @@ const bg2color = {
 const VisionNMission = ({ currentContent, screen, language, width }) => {
     const isComputer = screen > 900;
     const isTablet = screen < 900 && screen > 730;
-    const isPhone = screen < 738;
+    const isPhone = screen < 638;
     const isLeftAlign = language === 'en';
     const fontLight = useSelector(state => state.fontStyle.light)
-
-    const p1 = "Founded in 1992 by a group of committed professionals, today Shade Corporation has a strong workforce of 2,000 employees across different locations. It has always served clients by providing innovative solutions to deliver capital efficiency and project certainty. Since our inception, we have expanded our services from General Contracting to Construction Management, Project Management, Design/Build, and Value Engineering; and have become integral players in the transportation, industrial, and building sectors."
-    const p2 = "Shade started as a General Contractor and provided EPC, PM, CM, VE and Design/Built services to clients s such as Aramco, Royal Commission, Ministry of Transportation, SABIC, Maaden, Municipalities, Saudi Bahraini Causeway Authority, Water Directorate, Saudi Electric Company, Saudi Naval Forces, Qatar Petroleum and more."
-    const p3 = "Founded in 1992 by a group of committed professionals, today Shade Corporation has a strong workforce of 2,000 employees across different locations. It has always served clients by providing innovative solutions to deliver capital efficiency and project certainty. Since our inception, we have expanded our services from General Contracting to Construction Management, Project Management, Design/Build, and Value Engineering; and have become integral players in the transportation, industrial, and building sectors."
-    const p4 = "Shade started as a General Contractor and provided EPC, PM, CM, VE and Design/Built services to clients s such as Aramco, Royal Commission, Ministry of Transportation, SABIC, Maaden, Municipalities, Saudi Bahraini Causeway Authority, Water Directorate, Saudi Electric Company, Saudi Naval Forces, Qatar Petroleum and more."
-    const pA = [p1, p2, p3, p4]
-
-
-    const imageA = [projectPageData.asphaltWork, projectPageData.bridgeAndTunnelForHumair, projectPageData.renovation, projectPageData.nonMetallic]
 
     const titleLan = isLeftAlign ? "titleEn" : "titleAr";
 
@@ -69,7 +60,7 @@ const VisionNMission = ({ currentContent, screen, language, width }) => {
                             }}
                         >
                             {
-                            // currentContent?.['1']?.content?.title?.[language] ||
+                                // currentContent?.['1']?.content?.title?.[language] ||
                                 "Vision / Mission"
                             }
                         </h2>
@@ -77,7 +68,7 @@ const VisionNMission = ({ currentContent, screen, language, width }) => {
                             style={{ fontSize: fontSize.mainPara, lineHeight: fontSize.paraLeading }}
                             className={`text-[#0E172FB2] text-[12px] leading-[26px] ${fontLight} word-spacing-5 ${isPhone ? "w-4/5" : isTablet ? "w-2/3" : "w-1/2"} `}>
                             {
-                            // currentContent?.['1']?.content?.description?.[language] ||
+                                // currentContent?.['1']?.content?.description?.[language] ||
                                 "Experience the rich history of Shade Corporation — a legacy of innovation, resilience, and engineering excellence that shaped Saudi Arabia's EPC landscape"
                             }
                         </p>
@@ -101,7 +92,7 @@ const VisionNMission = ({ currentContent, screen, language, width }) => {
 
             </section>
 
-            <section className=" flex gap-10 py-10 px-20">
+            <section className={`flex ${isPhone && "flex-col"} gap-10 py-10 px-20`}>
                 <div className="border-b border-[#0E172FB2] relative pr-10 pb-5">
                     <div className="bg-[#0E172FB2] absolute top-0 right-0 h-[90%] w-[.5px]"></div>
                     <div><img src="" alt="" /></div>
@@ -110,7 +101,7 @@ const VisionNMission = ({ currentContent, screen, language, width }) => {
                         Our core values define the character and shape the culture of our company. They serve as the foundation for how we act, make decisions and interact with our communities.
                     </p>
                 </div>
-                <div className="border-b border-[#0E172FB2] relative pr-10">
+                <div className="border-b border-[#0E172FB2] relative pr-10 pb-5">
                     <div className="bg-[#0E172FB2] absolute top-0 right-0 h-[90%] w-[.5px]"></div>
                     <div><img src="" alt="" /></div>
                     <h3>VALUES</h3>
@@ -118,7 +109,7 @@ const VisionNMission = ({ currentContent, screen, language, width }) => {
                         Our core values define the character and shape the culture of our company. They serve as the foundation for how we act, make decisions and interact with our communities.
                     </p>
                 </div>
-                <div className="border-b border-[#0E172FB2] relative pr-10">
+                <div className="border-b border-[#0E172FB2] relative pr-10 pb-5">
                     <div className="bg-[#0E172FB2] absolute top-0 right-0 h-[90%] w-[.5px]"></div>
                     <div><img src="" alt="" /></div>
                     <h3>VALUES</h3>
@@ -128,7 +119,7 @@ const VisionNMission = ({ currentContent, screen, language, width }) => {
                 </div>
             </section>
 
-            <section className="flex gap-10 px-20">
+            <section className={`flex gap-10 px-20 ${isPhone && "flex-col"}`}>
                 <div className="flex flex-col rounded-lg">
                     <h3 style={{ backgroundColor: bg1color[0] }} className="p-3 text-center">
                         Our Vision
@@ -155,7 +146,7 @@ const VisionNMission = ({ currentContent, screen, language, width }) => {
                 </div>
             </section>
 
-            <section className="flex gap-10 px-20 py-10">
+            <section className={`flex gap-10 px-20 py-10 ${isPhone && "flex-col"}`}>
                 <div className="flex flex-col rounded-lg">
                     <h3 style={{ backgroundColor: bg2color[0] }} className="p-3 text-center text-white">
                         Our Vision

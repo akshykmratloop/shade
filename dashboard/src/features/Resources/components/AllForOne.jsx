@@ -23,6 +23,7 @@ import SnR from "./websiteComponent/SafetyAndResponsibility";
 import SnRPolicies from "./websiteComponent/detailspages/SnRPolicies";
 import History from "./websiteComponent/HistoryPage";
 import VisionNMission from "./websiteComponent/VisionPage";
+import HSnE from "./websiteComponent/HSE";
 
 // import { useDispatch, useSelector } from "react-redux";
 // import { useEffect, useRef, useState } from "react";
@@ -101,6 +102,9 @@ const AllForOne = ({
 
             case "vision":
                 return <VisionNMission {...baseProps} currentContent={content} />
+
+            case "hse":
+                return <HSnE {...baseProps} currentContent={content} />
 
             default:
                 return null;
