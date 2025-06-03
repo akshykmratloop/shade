@@ -1,16 +1,18 @@
 import { useEffect, useRef, useState } from "react";
 import { Upload, X, FileText } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
-import { removeImages, updateImages } from "../../features/common/homeContentSlice";
+// import { removeImages, updateImages } from "../../features/common/homeContentSlice";
 import { FaFileUpload } from "react-icons/fa";
 import { TruncateText } from "../../app/capitalizeword";
+import ImageSelector from "./ImageSelector";
 
 const FileUploader = ({ label, baseClass, id, currentPath, outOfEditing }) => {
     const dispatch = useDispatch();
     const [fileName, setFileName] = useState("");
     const [fileURL, setFileURL] = useState("");
-    const ImageFromRedux = useSelector((state) => state.homeContent.present.images);
     const fileInputRef = useRef(null);
+    const [isSelectorOpen, setIsSelectorOpen] = useState(false);
+
 
     const handleFileChange = (event) => {
         const file = event.target.files[0];
@@ -32,6 +34,30 @@ const FileUploader = ({ label, baseClass, id, currentPath, outOfEditing }) => {
             // Other file types (DOCX, ZIP, etc.)
             setFileURL("");
         }
+    };
+
+    const handleImageSelect = (url, altText) => {
+        // setFileURL(url[0]);
+        const payloadData = {
+            url: url[0],
+            altText: {
+                en: altText.en,
+                ar: altText.ar
+            },
+            order
+        }
+        dispatch(updateImages({
+            section,
+            src: directIcon ? url[0] : payloadData,
+            currentPath,
+            index: contentIndex,
+            cardIndex: index,
+            subSection,
+            directIcon,
+            order,
+            type: "refDoc"
+        }));
+        setIsSelectorOpen(false);
     };
 
     const clearFile = () => {
@@ -78,7 +104,7 @@ const FileUploader = ({ label, baseClass, id, currentPath, outOfEditing }) => {
             </div>
 
             {/* File Preview Section */}
-            {fileURL && (
+            {/* {fileURL && (
                 <div className="mt-3 p-2 border border-gray-300 rounded-md bg-gray-100 dark:bg-gray-800 relative">
                     {fileName && (
                         <button
@@ -99,6 +125,13 @@ const FileUploader = ({ label, baseClass, id, currentPath, outOfEditing }) => {
                         </div>
                     )}
                 </div>
+            )} */}
+            {isSelectorOpen && (
+                <ImageSelector
+                    onSelectImage={handleImageSelect}
+                    onClose={() => setIsSelectorOpen(false)}
+                    resourceId={resourceId}
+                />
             )}
         </div>
     );

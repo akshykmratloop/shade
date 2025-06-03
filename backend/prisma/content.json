@@ -57,17 +57,19 @@
           "ar": "الأخبار"
         },
         "url": "/news"
-      },
-      {
-        "order": 8,
-        "nav": {
-          "en": "Contact Us",
-          "ar": "اتصل بنا"
-        },
-        "url": "/contact",
-        "type": "contact"
       }
-    ]
+    ],
+    "otherButtons": {
+      "extraKey": {
+        "en": "More...",
+        "ar": "المزيد..."
+      },
+      "contact": {
+        "en": "Contact Us",
+        "ar": "اتصل بنا",
+        "url": "/contact"
+      }
+    }
   },
   "home": {
     "slug": "home",

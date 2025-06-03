@@ -31,6 +31,21 @@ const HeaderManager = ({ language, currentContent, currentPath, indexes }) => {
         <div className="w-full">
             {/* reference doc */}
             <FileUploader id={"headerReference"} label={"Rerference doc"} fileName={"Upload your file..."} />
+
+            <ContentSection
+                currentPath={currentPath}
+                Heading={"Extra Keys"}
+                inputs={[
+                    { input: "input", label: "Button", updateType: "contact", maxLength: 10, value: currentContent?.['2']?.content?.contact?.[language] },
+                    { input: "input", label: "Extra Key", updateType: "extraKey", value: currentContent?.['2']?.content?.extraKey?.[language] },
+                ]}
+                section={"Extra Key"}
+                language={language}
+                currentContent={currentContent}
+                isBorder={false}
+                sectionIndex={indexes?.['2']}
+            />
+
             {currentContent?.['1']?.content?.map((section, i, a) => {
                 const moreThanFive = i > 4
                 const isContactButton = section.type === "contact"

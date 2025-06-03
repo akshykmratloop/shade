@@ -58,6 +58,12 @@ const makerequest = async (
   let result;
   try {
     const response = await fetch(uri, options);
+
+    if (response.status === 555) {
+      clearSession();
+      return { error: "Critical session error. Please log in again.", ok: false };
+    }
+
     if (!response.ok) {
       const err = await response.json();
       throw err;

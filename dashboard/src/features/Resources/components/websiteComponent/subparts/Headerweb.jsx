@@ -10,7 +10,6 @@ const Header = ({ language, screen, setLanguage, currentContent }) => {
 
     const [isOpenNavbar, setIsOpenNavbar] = useState(false);
     const [scrolled, setScrolled] = useState(false);
-    const [isModal, setIsModal] = useState(false);
     const [isMoreModalOpen, setIsMoreModalOpen] = useState(false);
 
     const changeLangugage = () => {
@@ -19,10 +18,8 @@ const Header = ({ language, screen, setLanguage, currentContent }) => {
 
     const moreModalRef = useRef(null)
 
-    const buttonIndex = currentContent?.["1"]?.content?.findIndex(e => e.type === "contact");
-
     // Separate nav items
-    const navItems = currentContent?.["1"]?.content?.filter(item => item.type !== "contact") || [];
+    const navItems = currentContent?.["1"]?.content || [];
     const mainNavItems = navItems.slice(0, 6);
     const extraNavItems = navItems.slice(6);
 
@@ -50,8 +47,6 @@ const Header = ({ language, screen, setLanguage, currentContent }) => {
     }, [])
 
     const handleNavbar = () => setIsOpenNavbar(!isOpenNavbar);
-    const handleContactUS = () => setIsModal(true);
-    const handleContactUSClose = () => setIsModal(false);
 
     return (
         <div>
@@ -69,25 +64,25 @@ const Header = ({ language, screen, setLanguage, currentContent }) => {
 
                         {/* Navigation */}
                         {isComputer && (
-                            <nav className="flex items-center gap-6">
+                            <ul className="flex items-center gap-6">
                                 {mainNavItems.map((item) => (
-                                    <Link
+                                    <li
                                         key={item.url}
                                         to={item.url}
                                         className="text-[#001A5882] text-xs transition duration-200 hover:text-[#145098]"
                                     >
                                         {item?.nav?.[language]}
-                                    </Link>
+                                    </li>
                                 ))}
                                 {extraNavItems.length > 0 && (
                                     <button
                                         onClick={() => setIsMoreModalOpen(true)}
                                         className="text-[#001A5882] text-xs transition duration-200 hover:text-[#145098]"
                                     >
-                                        {language === "en" ? "More..." : "المزيد..."}
+                                        {currentContent?.["2"]?.content?.extraKey?.[language]}
                                     </button>
                                 )}
-                            </nav>
+                            </ul>
                         )}
 
                         {/* Right side controls */}
@@ -120,7 +115,7 @@ const Header = ({ language, screen, setLanguage, currentContent }) => {
                                     className="p-2 py-2 text-white text-sm bg-[#00b9f2] rounded-md shadow-md hover:bg-blue-700 transition-all"
                                     onClick={handleContactUS}
                                 >
-                                    {currentContent?.["1"]?.content?.[buttonIndex]?.nav?.[language]}
+                                    {currentContent?.["2"]?.content?.contact?.[language]}
                                 </button>
                             )}
                             {/* Hamburger for Tablet/Phone */}
@@ -140,26 +135,25 @@ const Header = ({ language, screen, setLanguage, currentContent }) => {
                             className={`flex flex-col mt-4 space-y-2 px-6 ${!isLeftAlign ? "items-end" : "items-start"}`}
                         >
                             {navItems.map((item) => (
-                                <Link
+                                <li
                                     key={item.url}
                                     to={item.url}
                                     className="text-[#001A5882] text-sm hover:text-[#145098] w-full"
                                 >
                                     {item?.nav?.[language]}
-                                </Link>
+                                </li>
                             ))}
                             {isPhone && (
                                 <button
                                     className="p-2 text-white text-sm bg-[#00b9f2] rounded-md shadow-md hover:bg-blue-700 transition-all w-full text-center"
                                     onClick={handleContactUS}
                                 >
-                                    {currentContent?.["1"]?.content?.[buttonIndex]?.nav?.[language]}
+                                    {currentContent?.["2"]?.content?.contact?.[language]}
                                 </button>
                             )}
                         </nav>
                     )}
 
-                    {/* More Modal */}
                     {/* More Modal */}
                     {isMoreModalOpen && (
                         <div ref={moreModalRef} className="absolute top-[70%] mt-2 left-[58%] w-[150px] bg-white rounded-lg shadow-lg p-4 z-50">

@@ -202,7 +202,7 @@ async function main() {
               });
 
 
-             // Add the filter in resource
+              // Add the filter in resource
               if (filters && filters.length > 0) {
                 // Process filters
                 for (
@@ -247,7 +247,7 @@ async function main() {
               }
 
 
-               // if any child resource add the parent or child id
+              // if any child resource add the parent or child id
               if (childResources && childResources.length > 0) {
                 // Process child resources
                 for (
@@ -294,9 +294,8 @@ async function main() {
                 });
 
                 // Create Section with unique title (append resource slug to ensure uniqueness)
-                const uniqueSectionTitle = `${
-                  sectionData.title
-                }-${slug}-${crypto.randomBytes(2).toString("hex")}`;
+                const uniqueSectionTitle = `${sectionData.title
+                  }-${slug}-${crypto.randomBytes(2).toString("hex")}`;
                 const section = await tx.section.create({
                   data: {
                     title: uniqueSectionTitle,
@@ -372,9 +371,8 @@ async function main() {
                     });
 
                     // Create child Section with unique title
-                    const uniqueChildSectionTitle = `${
-                      childData.title
-                    }-${slug}-child-${crypto.randomBytes(2).toString("hex")}`;
+                    const uniqueChildSectionTitle = `${childData.title
+                      }-${slug}-child-${crypto.randomBytes(2).toString("hex")}`;
                     const childSection = await tx.section.create({
                       data: {
                         title: uniqueChildSectionTitle,
@@ -758,24 +756,24 @@ async function main() {
               content: content.footer.companyInfo,
               sectionVersionTitle: "Footer-companyInfo",
             },
-              {
-                title: "navColumns",
-                SectionType: "FOOTER_COLUMNS",
-                content: content.footer.navColumns,
-                sectionVersionTitle: "Footer-navColumns",
-              },
-              {
-                title: "contacts",
-                SectionType: "FOOTER_COLUMNS",
-                content: content.footer.contacts,
-                sectionVersionTitle: "Footer-contacts",
-              },
-              {
-                title: "copyright",
-                SectionType: "FOOTER_COLUMNS",
-                content: content.footer.copyright,
-                sectionVersionTitle: "Footer-copyright",
-              },
+            {
+              title: "navColumns",
+              SectionType: "FOOTER_COLUMNS",
+              content: content.footer.navColumns,
+              sectionVersionTitle: "Footer-navColumns",
+            },
+            {
+              title: "contacts",
+              SectionType: "FOOTER_COLUMNS",
+              content: content.footer.contacts,
+              sectionVersionTitle: "Footer-contacts",
+            },
+            {
+              title: "copyright",
+              SectionType: "FOOTER_COLUMNS",
+              content: content.footer.copyright,
+              sectionVersionTitle: "Footer-copyright",
+            },
           ]
         );
 
@@ -795,6 +793,13 @@ async function main() {
               isGlobal: true,
               sectionVersionTitle: "Header-navItems",
             },
+            {
+              title: "other-buttons",
+              SectionType: "EXTRA_KEY",
+              content: content.header.otherButtons,
+              isGlobal: true,
+              sectionVersionTitle: "Header-otherButtons"
+            }
           ]
         );
 
@@ -882,24 +887,24 @@ async function main() {
                   items:
                     section.title?.en === "ALL"
                       ? projectsSlugs.map((slug) => ({
-                          resourceType: "SUB_PAGE",
-                          slug: slug,
-                        }))
+                        resourceType: "SUB_PAGE",
+                        slug: slug,
+                      }))
                       : section.title?.en === "ONGOING"
-                      ? content.projectDetail
+                        ? content.projectDetail
                           .filter((project) => project.filter === "ONGOING")
                           .map((project) => ({
                             resourceType: "SUB_PAGE",
                             slug: project.slug,
                           }))
-                      : section.title?.en === "COMPLETE"
-                      ? content.projectDetail
-                          .filter((project) => project.filter === "COMPLETE")
-                          .map((project) => ({
-                            resourceType: "SUB_PAGE",
-                            slug: project.slug,
-                          }))
-                      : [],
+                        : section.title?.en === "COMPLETE"
+                          ? content.projectDetail
+                            .filter((project) => project.filter === "COMPLETE")
+                            .map((project) => ({
+                              resourceType: "SUB_PAGE",
+                              slug: project.slug,
+                            }))
+                          : [],
                 })
               ),
             },
@@ -1089,9 +1094,8 @@ async function main() {
                   title: section.title?.en || null,
                   SectionType: "EXTERNAL_ITEMS",
                   content: section,
-                  sectionVersionTitle: `Home-multiSection-${
-                    section.title?.en || null
-                  }`,
+                  sectionVersionTitle: `Home-multiSection-${section.title?.en || null
+                    }`,
                   items: eval(section.id).map((slug) => ({
                     resourceType: "SUB_PAGE",
                     slug: slug,
