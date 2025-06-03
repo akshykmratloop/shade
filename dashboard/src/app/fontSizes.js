@@ -5,9 +5,10 @@ export default function dynamicSize(size, width) {
 export const differentText = {
     highlight1: "border-green-600 border",
 
-    checkDifference: function (arg1, arg2, highlight) {
+    checkDifference: function (arg1, arg2, highlight, from) {
+
         if (Array.isArray(arg1) && Array.isArray(arg2)) {
-            return arg1.forEach((e, i) => e.id === arg2[i].id)
+            return arg1.some((e, i) => e.id !== arg2[i].id) ? this?.highlight1 : ""
         }
 
         if (arg1 !== arg2) {
@@ -15,6 +16,7 @@ export const differentText = {
         } else return ""
     }
 }
+
 
 export function defineDevice(screen) {
     if (screen > 900) {
@@ -26,20 +28,6 @@ export function defineDevice(screen) {
     }
 }
 
-// const fontKeys = [
-//     "mainHeading", "mainPara", "mainButton",
-//     "markDownHead", "markDownPara", "markDownButton",
-//     "serviceHeading", "services",
-//     "experienceCount", "experienceTitle",
-//     "experienceHeading", "experiencePara", "experienceButton",
-//     "subProjectTopButton", "subProjectHeadings", "subProjectParas",
-//     "subProjectBoxHeading", "subProjectBoxPara",
-//     "subProjectButtons",
-//     "clientSection",
-//     "testimonialsHead", "testimonialsHeading", "testimonialsPosition",
-//     "testimonialsQuote", "testimonialsCompany", 'aboutMainPara'
-// ];
-
 const fontSizes = {
     computer: {
         // home -- some of them are used in other pages due similarity
@@ -48,11 +36,13 @@ const fontSizes = {
         experiencePara: 16, experienceButton: 18, subProjectTopButton: 16, subProjectHeadings: 32,
         subProjectParas: 16, subProjectBoxHeading: 20, subProjectBoxPara: 16, subProjectButtons: 18,
         clientSection: 36, testimonialsHead: 36, testimonialsHeading: 20, testimonialsPosition: 12,
-        testimonialsQuote: 14, testimonialsCompany: 16,
+        testimonialsQuote: 14, testimonialsCompany: 16, SnRSubHeading: 50,
         // about
         aboutMainPara: 26, aboutPaddingX: 150,
         aboutVideoW: 639, aboutVideoH: 457, // video size but not applied to the video
-        aboutCardPaddingY: 40, aboutCardPaddingX: 10
+        aboutCardPaddingY: 40, aboutCardPaddingX: 10,
+        // other sizes
+        headingLeading: 40, paraLeading: 22
     },
     tablet: {
         // home -- some of them are used in other pages due similarity
@@ -61,11 +51,13 @@ const fontSizes = {
         experiencePara: 16, experienceButton: 18, subProjectTopButton: 16, subProjectHeadings: 32,
         subProjectParas: 16, subProjectBoxHeading: 20, subProjectBoxPara: 16, subProjectButtons: 18,
         clientSection: 36, testimonialsHead: 36, testimonialsHeading: 20, testimonialsPosition: 12,
-        testimonialsQuote: 14, testimonialsCompany: 16,
+        testimonialsQuote: 14, testimonialsCompany: 16, SnRSubHeading: 50,
         // about
         aboutMainPara: 26, aboutPaddingX: 50,
         aboutVideoW: 639, aboutVideoH: 457, // video size but not applied to the video
-        aboutCardPaddingY: 40, aboutCardPaddingX: 30
+        aboutCardPaddingY: 40, aboutCardPaddingX: 30,
+        // other sizes
+        headingLeading: 40, paraLeading: 20
     },
     phone: {
         // home -- some of them are used in other pages due similarity
@@ -74,11 +66,13 @@ const fontSizes = {
         experiencePara: 50, experienceButton: 18, subProjectTopButton: 16, subProjectHeadings: 32,
         subProjectParas: 16, subProjectBoxHeading: 20, subProjectBoxPara: 16, subProjectButtons: 18,
         clientSection: 90, testimonialsHead: 36, testimonialsHeading: 20, testimonialsPosition: 12,
-        testimonialsQuote: 14, testimonialsCompany: 16,
+        testimonialsQuote: 14, testimonialsCompany: 16, SnRSubHeading: 110,
         // about
         aboutMainPara: 70, aboutPaddingX: 20,
         aboutVideoW: 639, aboutVideoH: 457, // video size but not applied to the video
-        aboutCardPaddingY: 100, aboutCardPaddingX: 60
+        aboutCardPaddingY: 100, aboutCardPaddingX: 60,
+        // other sizes
+        headingLeading: 170, paraLeading: 70
     }
 };
 

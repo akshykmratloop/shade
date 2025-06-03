@@ -19,19 +19,21 @@ import tempContent from "./websiteComponent/content.json"
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useRef, useState } from "react";
 import { updateMainContent } from "../../common/homeContentSlice";
+import SnR from "./websiteComponent/SafetyAndResponsibility";
+import SnRPolicies from "./websiteComponent/detailspages/SnRPolicies";
+import History from "./websiteComponent/HistoryPage";
+import VisionNMission from "./websiteComponent/VisionPage";
 
-const AllForOne = ({ language, screen, content, subPath, setLanguage, fullScreen, currentPath, deepPath, showDifference = false, live, hideScroll }) => {
-    // console.log(content)
-    const dispatch = useDispatch()
-    const fontRegular = useSelector(state => state.fontStyle.regular)
+// import { useDispatch, useSelector } from "react-redux";
+// import { useEffect, useRef, useState } from "react";
+// import { updateMainContent } from "../../common/homeContentSlice";
 
-    // const platform = useSelector(state => state.platform.platform)
-
-    // useEffect(() => {
-    //     if (platform !== "EDIT") {
-    //         return () => dispatch(updateMainContent({ currentPath: "content", payload: undefined }))
-    //     }
-    // }, [platform])
+const AllForOne = ({
+    language, screen, content, subPath, setLanguage, fullScreen,
+    currentPath, deepPath, showDifference = false, live, hideScroll
+}) => {
+    const dispatch = useDispatch();
+    const fontRegular = useSelector(state => state.fontStyle.regular);
     const divRef = useRef(null);
     const [width, setWidth] = useState(0);
 
@@ -42,123 +44,83 @@ const AllForOne = ({ language, screen, content, subPath, setLanguage, fullScreen
             }
         });
 
-        if (divRef.current) {
-            observer.observe(divRef.current);
-        }
-
+        if (divRef.current) observer.observe(divRef.current);
         return () => {
-            if (divRef.current) {
-                observer.unobserve(divRef.current);
-            }
+            if (divRef.current) observer.unobserve(divRef.current);
         };
     }, []);
+
+    const baseProps = { width, language, screen };
+
+    const renderPage = () => {
+        switch (currentPath) {
+            case "home":
+                return <HomePage {...baseProps} content={content} fullScreen={fullScreen} highlight={showDifference} liveContent={live} />;
+            case "solution":
+                return <SolutionPage {...baseProps} currentContent={content} />;
+            case "about-us":
+                return <AboutUs {...baseProps} currentContent={content} />;
+            case "service":
+                if (subPath) {
+                    return deepPath
+                        ? <SubServiceDetails {...baseProps} serviceId={subPath} content={content} deepPath={deepPath} />
+                        : <ServiceDetails {...baseProps} serviceId={subPath} content={content} />;
+                }
+                return <Services {...baseProps} currentContent={content} />;
+            case "market":
+                return <MarketPage {...baseProps} currentContent={content} />;
+            case "projects":
+            case "project":
+                return subPath
+                    ? <ProjectDetailPage {...baseProps} projectId={subPath} contentOn={content?.projectDetail} />
+                    : <ProjectPage {...baseProps} currentContent={content} />;
+            case "careers":
+                return subPath
+                    ? <CareerDetailPage {...baseProps} careerId={subPath} contentOn={content?.careerDetails} />
+                    : <CareerPage {...baseProps} currentContent={content} />;
+            case "news-blogs":
+                return subPath
+                    ? <NewsBlogDetailPage {...baseProps} newsId={subPath} contentOn={content?.newsBlogsDetails} />
+                    : <NewsPage {...baseProps} content={content} />;
+            case "footer":
+                return <Footer {...baseProps} currentContent={content} />;
+            case "header":
+                return <Header {...baseProps} currentContent={content} setLanguage={setLanguage} />;
+            case "testimonials":
+            case "testimonial":
+                return <Testimonials {...baseProps} testimonyId={subPath} currentContent={content} />;
+            case "contactus-modal":
+                return <ContactUsModal {...baseProps} currentContent={content} />;
+            case "safety_responsibility":
+                return subPath
+                    ? <SnRPolicies {...baseProps} currentContent={content} />
+                    : <SnR {...baseProps} currentContent={content} />;
+
+            case "history":
+                return <History {...baseProps} currentContent={content} />;
+
+            case "vision":
+                return <VisionNMission {...baseProps} currentContent={content} />
+
+            default:
+                return null;
+        }
+    };
 
     return (
         <div
             ref={divRef}
-            className={`dark:text-[#2A303C] mt-0 
-            ${fullScreen ? "overflow-y-hidden" : "overflow-y-scroll"}
-             ${hideScroll ? "rm-scroll" : "customscroller"} transition-custom border-stone-200 border mx-auto w-full ${fontRegular} bg-[white]`}
-            style={{ width: screen > 950 ? "100%" : screen, wordBreak: "break-word" }}
+            className={`dark:text-[#2A303C] mt-0 transition-custom border-stone-200 border mx-auto w-full ${fontRegular} bg-[white] 
+            ${fullScreen ? "overflow-y-hidden" : "overflow-y-scroll"} 
+            ${hideScroll ? "rm-scroll" : "customscroller"}`}
+            style={{
+                width: screen > 950 ? "100%" : screen,
+                wordBreak: "break-word",
+            }}
         >
-            {
-                currentPath === "home" &&
-                <HomePage language={language}
-                    screen={screen}
-                    fullScreen={fullScreen}
-                    content={content}
-                    highlight={showDifference}
-                    liveContent={live}
-                    width={width}
-                />
-            }
-            {
-                currentPath === "solution" &&
-                <SolutionPage language={language} currentContent={content} screen={screen}
-                    width={width}
-                />
-            }
-            {
-                currentPath === "about-us" &&
-                <AboutUs language={language} currentContent={content} screen={screen}
-                    width={width}
-                />
-            }
-            {
-                currentPath === "service" ? subPath ? deepPath ?
-                    <SubServiceDetails
-                        width={width}
-                        language={language} content={content} serviceId={subPath} screen={screen} deepPath={deepPath} /> :
-                    <ServiceDetails
-                        width={width}
-                        language={language} content={content} serviceId={subPath} screen={screen} /> :
-                    <Services language={language}
-                        width={width}
-                        currentContent={content} screen={screen} /> : ""
-            }
-            {/* {
-                (currentPath === "service" && subPath) &&
-                <ServiceDetails language={language} contentOn={content?.serviceDetails} serviceId={subPath} screen={screen} />
-            } */}
-            {
-                currentPath === "market" &&
-                <MarketPage
-                    width={width}
-                    language={language} currentContent={content} screen={screen} />
-            }
-            {
-                currentPath === 'projects' || currentPath === 'project' ? subPath ?
-                    <ProjectDetailPage
-                        width={width}
-                        language={language} contentOn={content?.projectDetail} projectId={subPath} screen={screen} /> :
-                    <ProjectPage
-                        width={width}
-                        language={language} currentContent={content} screen={screen} /> : ""
-            }
-            {
-                currentPath === "careers" ? subPath ?
-                    <CareerDetailPage
-                        width={width}
-                        language={language} contentOn={content?.careerDetails} careerId={subPath} screen={screen} /> :
-                    <CareerPage
-                        width={width}
-                        language={language} currentContent={content} screen={screen} /> : ""
-            }
-            {
-                currentPath === "news-blogs" ? subPath ?
-                    <NewsBlogDetailPage
-                        width={width}
-                        language={language} contentOn={content?.newsBlogsDetails} newsId={subPath} screen={screen} /> :
-                    <NewsPage language={language} content={content} screen={screen} /> : ""
-            }
-
-            {/* sub pages */}
-            {
-                currentPath === "footer" &&
-                <Footer
-                    width={width}
-                    language={language} currentContent={content} screen={screen} />
-            }
-            {
-                currentPath === "header" &&
-                <Header
-                    width={width}
-                    language={language} currentContent={content} screen={screen} setLanguage={setLanguage} />
-            }
-            {
-                currentPath === "testimonials" || currentPath === "testimonial" &&
-                <Testimonials
-                    width={width}
-                    language={language} currentContent={content} screen={screen} testimonyId={subPath} />
-            }
-            {
-                currentPath === 'contactus-modal' &&
-                <ContactUsModal
-                    width={width}
-                    language={language} currentContent={content} screen={screen} />
-            }
+            {renderPage()}
         </div>
-    )
-}
+    );
+};
 
-export default AllForOne
+export default AllForOne;

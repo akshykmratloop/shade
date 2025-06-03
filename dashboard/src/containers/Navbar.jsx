@@ -21,8 +21,8 @@ const Navbar = ({ setCurrentResource }) => {
         { name: "Testimonials", resourceType: "SUB_PAGE", resourceTag: "TESTIMONIAL", permission: "TESTIMONIAL_MANAGEMENT" },
         { name: "Career Page", resourceType: "SUB_PAGE", resourceTag: "CAREER", permission: "CAREER_MANAGEMENT" },
         { name: "Blogs & News", resourceType: "SUB_PAGE", resourceTag: "NEWS", permission: "NEWS_BLOGS_MANAGEMENT" },
-        { name: "Header", resourceType: "HEADER", resourceTag: "HEADER", permission: ["HEADER_MANAGEMENT", "FOOTER_MANAGEMENT"] },
-        { name: "Footer", resourceType: "FOOTER", resourceTag: "FOOTER", permission: ["HEADER_MANAGEMENT", "FOOTER_MANAGEMENT"] },
+        { name: "Header", resourceType: "HEADER", resourceTag: "HEADER", permission: "HEADER_MANAGEMENT" },
+        { name: "Footer", resourceType: "FOOTER", resourceTag: "FOOTER", permission: "FOOTER_MANAGEMENT" },
         { name: "S & R", resourceType: "SUB_PAGE", resourceTag: "SAFETY_RESPONSIBILITY", permission: "PROJECT_MANAGEMENT" },
     ];
 

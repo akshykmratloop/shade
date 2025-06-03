@@ -34,15 +34,14 @@ const initialState = {
   activeRole: initialActiveRole,
 };
 const user = createSlice({
-  name: "user",
-  initialState,
-  reducers: {
-    // update user reducer, (the user who is logging in)
-    updateUser: (state, action) => {
-      const roles = action.payload?.data?.roles?.filter(
-        (e) => e.status === "ACTIVE"
-      );
-      state.user = {...action.payload.data, roles};
+    name: "user",
+    initialState,
+    reducers: {
+        // update user reducer, (the user who is logging in)
+        updateUser: (state, action) => {
+            
+            const roles = action.payload?.data?.roles?.filter((e) => e.status === "ACTIVE")
+            state.user = { ...action.payload.data, roles };
 
       state.isManager = action.payload.data?.roles?.[0]?.permissions?.some(
         (e) =>

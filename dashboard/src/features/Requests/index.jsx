@@ -42,7 +42,8 @@ const TopSideButtons = memo(({
   const removeAppliedFilter = () => {
     removeFilter();
     setFilterParam("");
-    setSearchText("");
+    // setSearchText("");
+    applyFilter("")
   };
   useEffect(() => {
     if (searchText === "") {
@@ -116,20 +117,23 @@ function Requests() {
   const [originalRequests, setOriginalRequests] = useState([]);
   const [selectedRequest, setSelectedRequest] = useState(null);
   const [showDetailsModal, setShowDetailsModal] = useState(false);
-  const [currentPage, setCurrentPage] = useState(1);
   const [activeIndex, setActiveIndex] = useState(null);
   const [resourceId, setResourceId] = useState("")
   const [requestId, setRequestId] = useState("")
   const [toggle, setToggle] = useState(false);
-  const [path, setPath] = useState("")
-  const [subPath, setSubPath] = useState("")
-  const [deepPath, setDeepPath] = useState("")
+  const [searchValue, setSearchValue] = useState("");
+  const [debouncedValue, setDebouncedValue] = useState("");
+  const [filter, setFilter] = useState("")
+
+  const [currentPage, setCurrentPage] = useState(1);
+  // const [path, setPath] = useState("")
+  // const [subPath, setSubPath] = useState("")
+  // const [deepPath, setDeepPath] = useState("")
 
 
 
 
   // redux state
-  const userRole = useSelector((state) => state.user.activeRole);
   const userObj = useSelector(state => state.user)
 
   const { isManager, isEditor, isPublisher, isVerifier, activeRole } = userObj;
@@ -158,9 +162,9 @@ function Requests() {
 
   const settingRoute = useCallback(
     (first, second, third) => {
-      setPath(first)
-      setSubPath(second)
-      setDeepPath(third)
+      // setPath(first)
+      // setSubPath(second)
+      // setDeepPath(third)
 
       const route = third
         ? `/app/resources/edit/${first}/${second}/${third}`
@@ -209,21 +213,14 @@ function Requests() {
 
   // APPLY FILTER
   const applyFilter = (status) => {
-    const filteredRequests = originalRequests?.filter(
-      (request) => request.flowStatus === status
-    );
-    setRequests(filteredRequests);
+    setFilter(status)
   };
 
-  // APPLY SEARCH
-  const applySearch = (value) => {
-    console.log(value)
-    const filteredRequests = originalRequests?.filter((request) =>
-      request?.resourceVersion?.resource?.titleEn?.toLowerCase()?.includes(value?.toLowerCase())
-    );
-    setCurrentPage(1);
-    setRequests(filteredRequests);
-  };
+  function handleSearchInput(value) {
+    if (value.length >= 3 || value.trim() === "") {
+      setSearchValue(value);
+    }
+  }
 
   // Toggle verifier tooltip visibility
   const toggleTooltip = (index) => {
@@ -243,34 +240,43 @@ function Requests() {
   };
 
   // Pagination logic
-  const requestsPerPage = 20;
-  const indexOfLastUser = currentPage * requestsPerPage;
-  const indexOfFirstUser = indexOfLastUser - requestsPerPage;
-  const currentRequests = requests?.slice(indexOfFirstUser, indexOfLastUser);
-  const totalPages = Math.ceil(requests?.length / requestsPerPage);
+  const currentRequests = requests
+  const [totalPages, setTotalPages] = useState(0)
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedValue(searchValue);
+    }, 700); // debounce delay
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [searchValue]);
 
   // Side Effects
   useEffect(() => { // Fetch Requests
     if (activeRole?.id) {
       async function fetchRequestsData() {
         try {
-          const payload = { roleId: roleId ?? "" }
+          const payload = { roleId: roleId ?? "", page: currentPage }
 
           if (RoleTypeIsUser) payload.permission = permission || activeRole?.permissions[0] || ""
+          if (debouncedValue) payload.search = debouncedValue
+          if (filter) payload.status = filter
           const response = await getRequests(payload);
           if (response.ok) {
             // console.log(response.requests.data)
             setRequests(response.requests?.data ?? []);
           }
           setOriginalRequests(response?.requests?.data ?? []); // Store the original unfiltered data
-
+          setTotalPages(response?.requests?.pagination?.totalPages)
         } catch (err) {
           console.error(err)
         }
       }
       fetchRequestsData();
     }
-  }, [activeRole.id, permission, random]);
+  }, [activeRole.id, permission, filter, debouncedValue, currentPage, random]);
 
   useEffect(() => {
     setCanSeeEditor(isVerifier || isPublisher || isManager)
@@ -308,7 +314,7 @@ function Requests() {
         topMargin="mt-2"
         TopSideButtons={
           <TopSideButtons
-            applySearch={applySearch}
+            applySearch={handleSearchInput}
             applyFilter={applyFilter}
             removeFilter={removeFilter}
           />
@@ -483,32 +489,15 @@ function Requests() {
                             </span>
                           </td>
                         }
-                        {
-                          // canSeePublisher &&
-                          <td
-                            className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]"
-                            style={{ whiteSpace: "" }}
-                          >
-                            <span className="" title={publisher?.approver?.name}>
-                              {TruncateText(publisher?.approver?.name, 12) || "N/A"}
-                            </span>
-                          </td>
-                        }
-                        {/* <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]">
-                          <p
-                            className={`min-w-[85px] mx-auto before:content-['•'] before:text-2xl flex h-7 items-center justify-center gap-1 px-1 py-0 font-[500] 
-                              ${request.status === "Green"
-                                ? "text-green-600 bg-lime-200 before:text-green-600 px-1"
-                                : request.status === "Blue"
-                                  ? "text-blue-600 bg-sky-200 before:text-blue-600 "
-                                  : "text-red-600 bg-pink-200 before:text-red-600 "
-                              } 
-                                rounded-2xl`}
-                            style={{ textTransform: "capitalize" }}
-                          >
-                            <span className="">{capitalizeWords(request?.status)}</span>
-                          </p>
-                        </td> */}
+                        <td
+                          className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]"
+                          style={{ whiteSpace: "" }}
+                        >
+                          <span className="" title={publisher?.approver?.name}>
+                            {TruncateText(publisher?.approver?.name, 12) || "N/A"}
+                          </span>
+                        </td>
+
                         <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]">
                           <p
                             className={`min-w-[85px] mx-auto before:content-['•'] before:text-2xl flex h-7 items-center justify-center gap-1 px-1 py-0 font-[500] 
@@ -577,12 +566,6 @@ function Requests() {
                                   } else {
                                     navigateToPage(slug?.toLowerCase());
                                   }
-                                  // setSelectedRequest(request);
-                                  // setShowDetailsModal(true);
-                                  // // openNotification();
-                                  // setResourceId(request.resourceVersion.resourceId)
-                                  // setRequestId(request.id)
-                                  // navigate(`/app/resources/edit/home`)
                                 }}
                               >
                                 <span
@@ -593,40 +576,8 @@ function Requests() {
                                     strokeWidth={1}
                                   />
                                 </span>
-                              </button>}
-
-
-                            {/* <button              
-                              className=""
-                              onClick={() => {
-                                setSelectedRequest(request);
-                                setShowAddForm(true);
-                              }}
-                            >
-                              <FiEdit
-                                className="w-5 h-6 text-[#3b4152] dark:text-stone-200"
-                                strokeWidth={1}
-                              />
-                            </button> */}
-                            {/* <div className="flex items-center space-x-4 ">
-                              <Switch
-                                checked={request?.status === "ACTIVE"}
-                                onChange={() => {
-                                  statusChange(request);
-                                }}
-                                className={`${request?.status === "ACTIVE"
-                                  ? "bg-[#1DC9A0]"
-                                  : "bg-gray-300"
-                                  } relative inline-flex h-2 w-8 items-center rounded-full`}
-                              >
-                                <span
-                                  className={`${request?.status === "ACTIVE"
-                                    ? "translate-x-4"
-                                    : "translate-x-0"
-                                    } inline-block h-5 w-5 bg-white rounded-full shadow-2xl border border-gray-300 transition`}
-                                />
-                              </Switch>
-                            </div> */}
+                              </button>
+                            }
                           </div>
                         </td>
                       </tr>

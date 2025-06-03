@@ -116,14 +116,7 @@ function Resources() {
 
   // Side Effects 
 
-  // useEffect(() => { // Permission for Editor and Manager only
-
-  //   if (!isManager && !isEditor) {
-  //     navigate('/app/welcome')
-  //     return () => { }
-  //   }
-
-  // }, [isEditor, isManager])
+  
 
   useEffect(() => { // Running resources from localstroge
     const currentResource = localStorage.getItem("resourceType") || "MAIN_PAGE";
@@ -232,6 +225,7 @@ function Resources() {
 
           setIdOnStorage(page.id);
           const { relationType, resourceTag, subPage, subOfSubPage, slug } = page;
+          console.log(relationType, resourceTag, subPage, subOfSubPage, slug)
           if (relationType === "CHILD") {
             navigateToPage(resourceTag?.toLowerCase(), page.id);
           } else if (relationType !== "PARENT") {

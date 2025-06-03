@@ -6,7 +6,7 @@ import JoditEditor from "jodit-react";
 import TextAreaInput from "../../../../components/Input/TextAreaInput";
 import InputFile from "../../../../components/Input/InputFile";
 import InputText from "../../../../components/Input/InputText";
-import { updateSpecificContent, updateServicesNumber, updateImages, updateTheProjectSummaryList, updateCardAndItemsArray } from "../../../common/homeContentSlice";
+import { updateSpecificContent, updateServicesNumber, updateImages, updateTheProjectSummaryList, updateCardAndItemsArray, updatePoliciesItems } from "../../../common/homeContentSlice";
 import InputFileForm from "../../../../components/Input/InputFileForm";
 
 const DynamicContentSection = ({
@@ -55,6 +55,12 @@ const DynamicContentSection = ({
 
 
     const removeSummary = (index) => {
+        if (section === 'procedures/terms') {
+            return dispatch(updatePoliciesItems({
+                sectionIndex,
+                index
+            }))
+        }
         if (deepPath) {
             dispatch(updateTheProjectSummaryList({
                 index,
@@ -85,8 +91,6 @@ const DynamicContentSection = ({
                 sectionIndex,
                 operation: 'remove',
                 index
-                // section,
-                // context: currentPath
             }))
         }
     }
@@ -111,7 +115,7 @@ const DynamicContentSection = ({
                 projectId,
                 careerId,
                 deepPath,
-                type: "content[index]", 
+                type: "content[index]",
                 sectionIndex,
                 contentIndex,
                 path
@@ -124,7 +128,7 @@ const DynamicContentSection = ({
         if (updateType === 'count') {
             if (!isNaN(value)) {
                 let val = value?.slice(0, 7);
-                dispatch(updateServicesNumber({ section, title: updateType, value: val, subSection, index, currentPath, sectionIndex}));
+                dispatch(updateServicesNumber({ section, title: updateType, value: val, subSection, index, currentPath, sectionIndex }));
             }
         } else {
             dispatch(updateSpecificContent({

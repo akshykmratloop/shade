@@ -18,6 +18,8 @@ import SubServiceDetailManager from "./contentmanager/subDetailsManagement/SubSe
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { updateMainContent } from "../../common/homeContentSlice";
+import SnRManager from "./contentmanager/SnRManager";
+import SnRPoliciesManager from "./contentmanager/SnRPolicyManager";
 
 
 const AllForOneManager = ({ currentPath, language, subPath, deepPath, content, contentIndex, outOfEditing }) => {
@@ -87,6 +89,11 @@ const AllForOneManager = ({ currentPath, language, subPath, deepPath, content, c
         case "testimonial":
             manager = <TestimonyManager language={language} currentContent={content} indexes={contentIndex} testimonyId={subPath} currentPath={"testimonialSection"} />
             break;
+
+        case "safety_responsibility":
+            manager = subPath ?
+                <SnRPoliciesManager outOfEditing={outOfEditing} language={language} content={content} indexes={contentIndex} currentPath={currentPath} /> :
+                <SnRManager outOfEditing={outOfEditing} language={language} content={content} indexes={contentIndex} currentPath={currentPath} />
 
         default:
     }

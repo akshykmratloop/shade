@@ -102,7 +102,9 @@ const ProjectPage = ({ language, screen, currentContent }) => {
 
             <section
                 style={{ padding: `${getDynamicSize(80)}` }}
-                className={` ${language === "en" ? "text-left" : "text-right"}`}>
+                className={` ${language === "en" ? "text-left" : "text-right"}`}
+                dir={isLeftAlign? "ltr" :"rtl"}
+                >
                 <div className={`container mx-auto px-10`}>
                     <div>
                         {/* Tabs */}

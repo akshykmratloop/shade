@@ -20,7 +20,8 @@ const NewsBlogspage = ({ language, screen, content }) => {
             <section className={`relative px-5 w-full bg-cover bg-center ${isLeftAlign ? 'scale-x-[-1]' : ''}  `}
                 style={{
                     height: 1100 * 0.436,
-                    backgroundImage: banner.images?.[0]?.url?.slice(0, 5) === "https" ? "url('https://loopwebsite.s3.ap-south-1.amazonaws.com/Hero+(2).png')" : `url(${Img_url + banner.images?.[0]?.url})`
+                    // backgroundImage: banner.images?.[0]?.url?.slice(0, 5) === "https" ? "url('https://loopwebsite.s3.ap-south-1.amazonaws.com/Hero+(2).png')" : `url(${Img_url + banner.images?.[0]?.url})`
+                    backgroundImage: `linear-gradient(to right,#00000020 30%,#fffffffb 100%) ,url("${Img_url + content?.['1']?.content?.images?.[0]?.url}")`,
                 }}>
                 <div className={`${isTablet && "py-[200px]"} container h-full relative ${isPhone ? "px-10" : "px-20"} flex items-center ${isLeftAlign ? "justify-end" : "justify-end"}`}>
                     <div className={`flex flex-col ${isLeftAlign ? 'right-5 text-left items-start ' : 'left-5 text-right items-end'} ${isPhone ? "max-w-[90%]" : isTablet ? "max-w-[70%]" : "max-w-[50%]"} w-full ${isLeftAlign ? 'scale-x-[-1]' : ''}`}>
