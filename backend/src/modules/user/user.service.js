@@ -9,6 +9,7 @@ import {
   findRoleTypeByUserId,
   fetchAllRolesForUser,
   fetchAllUsersByRoleId,
+  updateProfile,
 } from "../../repository/user.repository.js";
 import {assert, assertEvery} from "../../errors/assertError.js";
 import {logger} from "../../config/logConfig.js";
@@ -39,6 +40,11 @@ const getUserById = async (id) => {
 
 const editUserDetails = async (id, name, password, phone, roles) => {
   let result = await updateUser(id, name, password, phone, roles);
+  return {message: "User updated Successfully", result}; // changed for message to show at frontend at apr 7 11:32
+};
+
+const editProfile = async (id, name, phone) => {
+  let result = await updateProfile(id, name, phone);
   return {message: "User updated Successfully", result}; // changed for message to show at frontend at apr 7 11:32
 };
 
@@ -84,6 +90,7 @@ export {
   getAllUsers,
   getUserById,
   editUserDetails,
+  editProfile,
   activateUsers,
   deactivateUsers,
   userRoleType,

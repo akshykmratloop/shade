@@ -3,6 +3,7 @@ import {
   activateUsers,
   createUser,
   deactivateUsers,
+  editProfile,
   editUserDetails,
   findUserByEmail,
   getAllRolesForUser,
@@ -41,6 +42,12 @@ const GetUserById = async (req, res) => {
   res.status(200).json(response);
 };
 
+const GetUserProfile = async (req, res) => {
+  const {id} = req.user;
+  const user = await getUserById(id);
+  res.status(200).json(user);
+};
+
 const GetAllUsersByRoleId = async (req, res) => {
   const {roleId} = req.params;
   console.log(roleId, "roleId");
@@ -58,6 +65,17 @@ const EditUserDetails = async (req, res) => {
   const io = req.app.locals.io;
   const socketIdOfUpdatedUser = getSocketId(id);
   io.to(socketIdOfUpdatedUser).emit("userUpdated", updatedUser);
+  res.status(201).json(updatedUser);
+};
+
+const EditProfile = async (req, res) => {
+  const {id} = req.user;
+  const {name, phone} = req.body;
+
+  const updatedUser = await editProfile(id, name, phone);
+  // const io = req.app.locals.io;
+  // const socketIdOfUpdatedUser = getSocketId(id);
+  // io.to(socketIdOfUpdatedUser).emit("userUpdated", updatedUser);
   res.status(201).json(updatedUser);
 };
 
@@ -92,9 +110,11 @@ export default {
   GetAllUsers,
   GetUserById,
   EditUserDetails,
+  EditProfile,
   ActivateUser,
   DeactivateUser,
   UserRoleType,
   GetRolesForUser,
   GetAllUsersByRoleId,
+  GetUserProfile,
 };
