@@ -71,11 +71,50 @@ const VisionNMission = ({ currentContent, screen, language, width }) => {
                 </div>
             </section>
 
-            <section className={`flex gap-[30px]  ${isPhone ? "flex-col px-[30px]" : ""}`}>
-                <h2 className='text-[32px]  flex-1 leading-[28px]'>{currentContent?.subBanner?.title?.[language]}</h2>
-                <div className='text-[9.5px] flex-1' dangerouslySetInnerHTML={{ __html: currentContent?.subBanner?.description?.[language] }} />
+            <section
+                style={{ padding: `${getDynamicSize(80)} ${getDynamicSize(112)}` }}
+                className={`flex gap-[30px]  ${isPhone ? "flex-col px-[30px]" : ""}`}>
+                <h2 className='text-[32px]  flex-1 leading-[28px]'>
+                    {currentContent?.subBanner?.title?.[language] ||
+                        "Lorem ipsum dolor sit."
+                    }
+                </h2>
+                <div className='text-[9.5px] flex-1' dangerouslySetInnerHTML={{
+                    __html:
+                        currentContent?.subBanner?.description?.[language] ||
+                        "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Deleniti voluptatem pariatur corrupti error ut vero expedita inventore repudiandae nostrum assumenda!"
+                }} />
+
             </section>
 
+            <section className=" flex gap-10 py-10 px-20">
+                <div className="border-b border-[#0E172FB2] relative pr-10 pb-5">
+                    <div className="bg-[#0E172FB2] absolute top-0 right-0 h-[90%] w-[.5px]"></div>
+                    <div><img src="" alt="" /></div>
+                    <h3>VALUES</h3>
+                    <p className="text-[10px]">
+                        Our core values define the character and shape the culture of our company. They serve as the foundation for how we act, make decisions and interact with our communities.
+                    </p>
+                </div>
+                <div className="border-b border-[#0E172FB2] relative pr-10">
+                    <div className="bg-[#0E172FB2] absolute top-0 right-0 h-[90%] w-[.5px]"></div>
+                    <div><img src="" alt="" /></div>
+                    <h3>VALUES</h3>
+                    <p className="text-[10px]">
+                        Our core values define the character and shape the culture of our company. They serve as the foundation for how we act, make decisions and interact with our communities.
+                    </p>
+                </div>
+                <div className="border-b border-[#0E172FB2] relative pr-10">
+                    <div className="bg-[#0E172FB2] absolute top-0 right-0 h-[90%] w-[.5px]"></div>
+                    <div><img src="" alt="" /></div>
+                    <h3>VALUES</h3>
+                    <p className="text-[10px]">
+                        Our core values define the character and shape the culture of our company. They serve as the foundation for how we act, make decisions and interact with our communities.
+                    </p>
+                </div>
+
+
+            </section>
             {/* <section className={`flex ${isPhone && 'flex-col'}`}
                 style={{
                     margin: `${getDynamicSize(50)} ${getDynamicSize(110)}`,
