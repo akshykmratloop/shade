@@ -33,6 +33,13 @@ router.get(
 );
 
 router.get(
+  "/getUserProfile",
+  // checkPermission(requiredPermissionsForUser),
+  auditLogger,
+  tryCatchWrap(UserController.GetUserProfile)
+);
+
+router.get(
   "/:id",
   checkPermission(requiredPermissionsForUser),
   auditLogger,
@@ -45,6 +52,14 @@ router.put(
   validate(updateUserSchema),
   auditLogger,
   tryCatchWrap(UserController.EditUserDetails)
+);
+
+router.put(
+  "/updateProfile",
+  // checkPermission(requiredPermissionsForUser),
+  validate(updateUserSchema),
+  auditLogger,
+  tryCatchWrap(UserController.EditProfile)
 );
 
 router.put(
