@@ -116,14 +116,7 @@ function Resources() {
 
   // Side Effects 
 
-  // useEffect(() => { // Permission for Editor and Manager only
-
-  //   if (!isManager && !isEditor) {
-  //     navigate('/app/welcome')
-  //     return () => { }
-  //   }
-
-  // }, [isEditor, isManager])
+  
 
   useEffect(() => { // Running resources from localstroge
     const currentResource = localStorage.getItem("resourceType") || "MAIN_PAGE";

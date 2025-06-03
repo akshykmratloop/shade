@@ -1,5 +1,5 @@
 // library
-import React, { Suspense, useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setSidebarState } from "../common/SbStateSlice";
 import { lazy } from "react";
