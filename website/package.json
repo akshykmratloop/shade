@@ -21,7 +21,7 @@
     "shade-co": "file:",
     "shade-co-website": "file:",
     "sharp": "^0.33.5",
-    "swiper": "^11.1.14"
+    "swiper": "^11.2.8"
   },
   "devDependencies": {
     "cross-env": "^7.0.3",

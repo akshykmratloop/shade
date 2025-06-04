@@ -3,12 +3,12 @@ import AboutUs from "@/components/about-us.jsx/AboutUs";
 import createContent from "@/common/CreateContent";
 import { useEffect, useState } from "react";
 import Loader from "@/common/Loader";
+import { backendAPI } from "@/contexts/GlobalContext";
 
 export default function Aboutus({ apiData }) {
   const [isLoading, setIsLoading] = useState(true);
   const [content, setContent] = useState(null);
 
-  console.log(content)
   useEffect(() => {
     if (apiData && Object.keys(apiData).length > 0 && apiData.content) {
       const generatedContent = createContent(apiData.content);
@@ -50,9 +50,9 @@ export async function getServerSideProps() {
 
     const apiData = await res.json();
 
-    return { props: { apiData: apiData } };
+    return { props: { apiData: apiData || {}} };
   } catch (error) {
     // If fetch throws an error (e.g., network failure), return empty object
-    return { props: { apiData: JSON.stringify(error) } };
+    return { props: { apiData: {} } };
   }
 }

@@ -24,12 +24,11 @@ const AboutUs = ({ content }) => {
 
   const { language } = useGlobalContext();
   const currentContent = content;
-  console.log(currentContent)
   const handleContactUSClose = () => {
     setIsModal(false);
   };
   return (
-    <>
+    <div style={{ marginBottom: "10vh" }}>
       <section className={styles.about_us_services_wrapper}>
         <div className={`container ${styles.main_container}`}>
           <div className={styles.about_content}>
@@ -43,7 +42,7 @@ const AboutUs = ({ content }) => {
           </div>
 
           <div className={styles.card_group}>
-            {currentContent?.services?.cards.map((card, index) => (
+            {currentContent?.['1']?.content?.cards.map((card, index) => (
               <div className={styles.card} key={index}>
                 <Image
                   src={aboutUsIcons[card?.icon]}
@@ -53,10 +52,10 @@ const AboutUs = ({ content }) => {
                   className={styles.icon}
                 />
                 <h5 className={`${styles.title} ${BankGothic.className}`}>
-                  {card.title[language]}
+                  {card?.title?.[language]}
                 </h5>
                 <p className={`${styles.subTitle} ${BankGothic.className}`}>
-                  {card.description[language]}
+                  {card?.description?.[language]}
                 </p>
               </div>
             ))}
@@ -72,7 +71,7 @@ const AboutUs = ({ content }) => {
           <div className={styles.about_us_wrap}>
             <div className={styles.about_us_banner_wrap}>
               <video
-                src={currentContent?.main?.video}
+                src={currentContent?.['2']?.content?.video}
                 autoPlay
                 loop
                 muted
@@ -84,60 +83,27 @@ const AboutUs = ({ content }) => {
             <div className={styles.about_content}>
               {/* <AnimatedText text={currentContent?.main?.title[language]} Wrapper="h2" repeatDelay={0.04} className={`${styles.title} ${BankGothic.className}`} /> */}
               <h2 className={`${styles.title} ${BankGothic.className}`}>
-                {currentContent?.main?.title[language]}
+                {currentContent?.['2']?.content?.title?.[language]}
               </h2>
-              <div>
-                {currentContent?.main?.descriptions.map((desc, index) => (
-                  <p
-                    key={index}
-                    className={`${styles.description} ${BankGothic.className}`}
-                  >
-                    {desc[language]}
-                  </p>
-                ))}
-              </div>
+              <div
+                className={`${styles.description} ${BankGothic.className}`}
+                dangerouslySetInnerHTML={{ __html: currentContent?.['2']?.content?.descriptions?.[language] }}
+              />
+              {/* </div> */}
               <Button
                 className={styles.view_btn}
                 onClick={() => setIsModal(true)}
               >
-                {currentContent?.main?.button?.text[language]}
+                {currentContent?.['2']?.content?.button?.[0]?.text?.[language]}
               </Button>
             </div>
           </div>
         </div>
-      </section>
+      </section >
 
-      <section className={styles.about_new_project_wrapper}>
-        <div className={`container ${styles.main_container}`}>
-          <div className={styles.Client_content}>
-            {/* <AnimatedText text={currentContent?.newProject?.title[language]} Wrapper="h2" repeatDelay={0.04} className={`${styles.title} ${BankGothic.className}`} /> */}
-            <h2 className={`${styles.title} ${BankGothic.className}`}>
-              {currentContent?.newProject?.title[language]}
-            </h2>
-            <p className={`${styles.description} ${BankGothic.className}`}>
-              {currentContent?.newProject?.description[language].replace(
-                currentContent?.newProject?.highlightedText[language],
-                `"${currentContent?.newProject?.highlightedText[language]}"`
-              )}
-              <i className={language === "ar" && styles.arabicVersion}>
-                {patch()}
-              </i>
-            </p>
-            <p className={`${styles.description} ${BankGothic.className}`}>
-              {currentContent?.newProject?.description2[language]}
-            </p>
-            <Button
-              className={`${styles.view_btn} ${language === "en" && styles.leftAlign
-                }`}
-              onClick={() => setIsModal(true)}
-            >
-              {currentContent?.newProject?.button?.text[language]}
-            </Button>
-          </div>
-        </div>
-      </section>
+
       <ContactUsModal isModal={isModal} onClose={handleContactUSClose} />
-    </>
+    </div>
   );
 };
 

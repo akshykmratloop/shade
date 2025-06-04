@@ -85,11 +85,8 @@ const HomePage = ({ content }) => {
 
   const ProjectSlider = { ...recentProjects, ...markets, ...safety };
 
-  useEffect(() => {
-    if (swiperInstance) {
-      swiperInstance.update();
-    }
-  }, [language]);
+ 
+  
 
   const TruncateText = (text, length) => {
     if (text?.length > (length || 50)) {

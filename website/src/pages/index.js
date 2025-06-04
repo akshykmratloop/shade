@@ -39,7 +39,7 @@ export default function Home({ apiData }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <HomePage content={content} language="en" />
+      <HomePage content={content} />
     </>
   );
 }
