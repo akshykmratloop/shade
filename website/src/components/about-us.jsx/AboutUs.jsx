@@ -19,11 +19,12 @@ const ContactUsModal = dynamic(() => import("../header/ContactUsModal"), {
   ssr: false,
 });
 
-const AboutUs = () => {
+const AboutUs = ({ content }) => {
   const [isModal, setIsModal] = useState(false);
 
-  const { language, content } = useGlobalContext();
-  const currentContent = content?.aboutUs;
+  const { language } = useGlobalContext();
+  const currentContent = content;
+  console.log(currentContent)
   const handleContactUSClose = () => {
     setIsModal(false);
   };
@@ -34,10 +35,10 @@ const AboutUs = () => {
           <div className={styles.about_content}>
             {/* <AnimatedText text={currentContent?.services?.title[language]} Wrapper="h2" repeatDelay={0.04} className={`${styles.title} ${BankGothic.className}`} /> */}
             <h2 className={`${styles.title} ${BankGothic.className}`}>
-              {currentContent?.services?.title[language]}
+              {currentContent?.['1']?.content?.title[language]}
             </h2>
             <p className={`${styles.description} ${BankGothic.className}`}>
-              {currentContent?.services?.subtitle[language]}
+              {currentContent?.['1']?.content?.subtitle[language]}
             </p>
           </div>
 
@@ -64,9 +65,8 @@ const AboutUs = () => {
       </section>
 
       <section
-        className={`${styles.about_us_wrapper} ${
-          language === "en" && styles.leftAlign
-        }`}
+        className={`${styles.about_us_wrapper} ${language === "en" && styles.leftAlign
+          }`}
       >
         <div className={`container ${styles.main_container}`}>
           <div className={styles.about_us_wrap}>
@@ -127,9 +127,8 @@ const AboutUs = () => {
               {currentContent?.newProject?.description2[language]}
             </p>
             <Button
-              className={`${styles.view_btn} ${
-                language === "en" && styles.leftAlign
-              }`}
+              className={`${styles.view_btn} ${language === "en" && styles.leftAlign
+                }`}
               onClick={() => setIsModal(true)}
             >
               {currentContent?.newProject?.button?.text[language]}

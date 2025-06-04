@@ -5,7 +5,7 @@ import { removeImages, updateImages } from "../../features/common/homeContentSli
 import ImageSelector from "./ImageSelector"; // Import here
 import { Img_url } from "../../routes/backend";
 
-const InputFile = ({ label, baseClass, id, currentPath, resourceId, contentIndex, index, subSection, section, outOfEditing, directIcon, order, url }) => {
+const InputFile = ({ label, baseClass, id, currentPath, resourceId, contentIndex, index, subSection, section, outOfEditing, directIcon, order, url, disabled = false }) => {
   const dispatch = useDispatch();
   // const ImageFromRedux = useSelector(state => state.homeContent.present.images);
   const [fileURL, setFileURL] = useState("");
@@ -45,14 +45,18 @@ const InputFile = ({ label, baseClass, id, currentPath, resourceId, contentIndex
 
       <label htmlFor={id} className="label-text sm:text-xs xl:text-sm mb-1 text-[#6B7888]">{label}</label>
       <div
-        className="relative w-24 h-24 border border-[#80808044] rounded-md overflow-hidden cursor-pointer bg-white dark:bg-[#2a303c]"
+        className={`relative w-24 h-24 border border-[#80808044] rounded-md overflow-hidden cursor-pointer bg-white dark:bg-[#2a303c]`}
       >
         {
           outOfEditing &&
           <div className="bg-black/30 absolute z-[20] top-0 left-0 h-full w-full rounded-md cursor-not-allowed"></div>
         }
-        <div onClick={() => setIsSelectorOpen(true)}
-          className="relative w-24 h-24 border border-[#80808044] rounded-md overflow-hidden cursor-pointer bg-white dark:bg-[#2a303c]"
+        <div onClick={() => {
+          if (!disabled) {
+            setIsSelectorOpen(true)
+          }
+        }}
+          className={`relative w-24 h-24 border border-[#80808044] rounded-md overflow-hidden ${disabled ? "cursor-auto" : "cursor-pointer"} bg-white dark:bg-[#2a303c]`}
         >
 
           {(url) ? (
