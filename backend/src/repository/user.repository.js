@@ -224,12 +224,13 @@ export const updateUser = async (id, name, password, phone, roles) => {
   };
 };
 
-export const updateProfile = async (id, name, phone) => {
+export const updateProfile = async (id, name, phone, image) => {
   const updatedUser = await prismaClient.user.update({
     where: {id},
     data: {
       name,
       phone,
+      image,
     },
     include: {
       roles: {

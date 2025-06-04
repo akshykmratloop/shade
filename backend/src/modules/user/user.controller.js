@@ -70,9 +70,9 @@ const EditUserDetails = async (req, res) => {
 
 const EditProfile = async (req, res) => {
   const {id} = req.user;
-  const {name, phone} = req.body;
+  const {name, phone, image} = req.body;
 
-  const updatedUser = await editProfile(id, name, phone);
+  const updatedUser = await editProfile(id, name, phone, image);
   // const io = req.app.locals.io;
   // const socketIdOfUpdatedUser = getSocketId(id);
   // io.to(socketIdOfUpdatedUser).emit("userUpdated", updatedUser);
