@@ -43,8 +43,8 @@ const editUserDetails = async (id, name, password, phone, roles) => {
   return {message: "User updated Successfully", result}; // changed for message to show at frontend at apr 7 11:32
 };
 
-const editProfile = async (id, name, phone) => {
-  let result = await updateProfile(id, name, phone);
+const editProfile = async (id, name, phone, image) => {
+  let result = await updateProfile(id, name, phone, image);
   return {message: "User updated Successfully", result}; // changed for message to show at frontend at apr 7 11:32
 };
 

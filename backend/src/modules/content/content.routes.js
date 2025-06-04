@@ -1452,6 +1452,7 @@ router.get(
 router.put(
   "/updateContent",
   //   checkPermission(requiredPermissionsForContentManagement),
+
   tryCatchWrap(ContentController.UpdateContent)
 );
 
@@ -3245,20 +3246,17 @@ router.get(
   tryCatchWrap(ContentController.GetVersionsList)
 );
 
-
 router.get(
   "/getVersionInfo/:versionId",
   //   checkPermission(requiredPermissionsForContentManagement),
   tryCatchWrap(ContentController.GetVersionInfo)
 );
 
-
 router.get(
   "/restoreVersion/:versionId",
   //   checkPermission(requiredPermissionsForContentManagement),
   tryCatchWrap(ContentController.RestoreVersion)
 );
-
 
 /**
  * @swagger
@@ -3383,6 +3381,18 @@ router.delete(
   // checkPermission(["SUPER_ADMIN"]),
   // auditLogger,
   tryCatchWrap(ContentController.DeleteAllContentData)
+);
+
+router.put(
+  "/deactivateResource/:resourceId",
+  //   checkPermission(requiredPermissionsForContentManagement),
+  tryCatchWrap(ContentController.DeactivateResources)
+);
+
+router.put(
+  "/activateResource/:resourceId",
+  //   checkPermission(requiredPermissionsForContentManagement),
+  tryCatchWrap(ContentController.ActivateResources)
 );
 
 export default router;

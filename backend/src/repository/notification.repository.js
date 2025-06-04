@@ -1,3 +1,4 @@
+import exp from "constants";
 import prismaClient from "../config/dbConfig.js";
 
 import {findRoleTypeByUserId} from "./user.repository.js";
@@ -56,4 +57,19 @@ export const markAllNotificationAsRead = async (userId) => {
   const notifications = await findAllNotification(userId);
 
   return notifications; // contains { count: X }
+};
+
+export const deleteNotification = async () => {
+  const sevenDaysAgo = new Date();
+  sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+
+  const deletedNotifications = await prismaClient.notification.deleteMany({
+    where: {
+      createdAt: {
+        lt: sevenDaysAgo,
+      },
+    },
+  });
+
+  return deletedNotifications;
 };
