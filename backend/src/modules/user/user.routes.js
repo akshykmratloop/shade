@@ -6,6 +6,9 @@ import validate from "../../validation/validator.js";
 import {updateUserSchema, userSchema} from "../../validation/userSchema.js";
 import {checkPermission} from "../../helper/roleBasedAccess.js";
 import auditLogger from "../../helper/auditLogger.js";
+import multer from "multer";
+import mediaUploader from "../../helper/mediaUploader.js";
+const upload = multer({dest: "uploads/"}); // temporary folder
 
 const router = Router();
 
@@ -60,6 +63,16 @@ router.put(
   validate(updateUserSchema),
   auditLogger,
   tryCatchWrap(UserController.EditProfile)
+);
+
+router.put(
+  "/updateProfileImage",
+  // checkPermission(requiredPermissionsForUser),
+  // validate(updateUserSchema),
+  // auditLogger,
+  upload.array("image", 1), // Assuming the image is sent as a form-data field named 'image'
+  mediaUploader,
+  tryCatchWrap(UserController.EditProfileImage)
 );
 
 router.put(

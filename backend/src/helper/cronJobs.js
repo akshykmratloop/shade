@@ -1,7 +1,7 @@
 import cron from "node-cron";
 import {
   resetUserOtpAttempts,
-  sendNotifications,
+  // sendNotifications,
 } from "../repository/user.repository.js";
 import {deleteNotification} from "../repository/notification.repository.js";
 
@@ -38,14 +38,14 @@ const scheduleCronJobs = () => {
     }
   );
 
-  cron.schedule("*/1 * * * *", async () => {
-    console.log(
-      `[${new Date().toISOString()}] Starting cleanup job (every minute)`
-    );
-    await deleteNotification();
-  });
+  // cron.schedule("*/1 * * * *", async () => {
+  //   console.log(
+  //     `[${new Date().toISOString()}] Starting cleanup job (every minute)`
+  //   );
+  //   await deleteNotification();
+  // });
 
-  console.log("[Scheduler started: runs every minute]");
+  // console.log("[Scheduler started: runs every minute]");
 };
 
 export {scheduleCronJobs};

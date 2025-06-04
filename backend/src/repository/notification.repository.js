@@ -63,10 +63,14 @@ export const deleteNotification = async () => {
   const sevenDaysAgo = new Date();
   sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
 
+  // const twoMinutesAgo = new Date();
+  // twoMinutesAgo.setMinutes(twoMinutesAgo.getMinutes() - 2);
+
   const deletedNotifications = await prismaClient.notification.deleteMany({
     where: {
       createdAt: {
         lt: sevenDaysAgo,
+        // lt: twoMinutesAgo,
       },
     },
   });
