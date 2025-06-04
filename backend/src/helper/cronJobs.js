@@ -3,6 +3,7 @@ import {
   resetUserOtpAttempts,
   sendNotifications,
 } from "../repository/user.repository.js";
+import {deleteNotification} from "../repository/notification.repository.js";
 
 // Global cron scheduler function
 const scheduleCronJobs = () => {
@@ -24,6 +25,27 @@ const scheduleCronJobs = () => {
   //   await sendNotifications();
   //   console.log("Sent daily notifications.");
   // });
+
+  // Delete old notifications after 7 days
+  cron.schedule(
+    "0 0 * * *",
+    async () => {
+      console.log(`[${new Date().toISOString()}] Starting cleanup job...`);
+      await deleteNotification();
+    },
+    {
+      timezone: "Asia/Kolkata",
+    }
+  );
+
+  cron.schedule("*/1 * * * *", async () => {
+    console.log(
+      `[${new Date().toISOString()}] Starting cleanup job (every minute)`
+    );
+    await deleteNotification();
+  });
+
+  console.log("[Scheduler started: runs every minute]");
 };
 
-export { scheduleCronJobs };
+export {scheduleCronJobs};

@@ -1,5 +1,5 @@
-import { logger } from "../../config/index.js";
-import { assert, assertEvery } from "../../errors/assertError.js";
+import {logger} from "../../config/index.js";
+import {assert, assertEvery} from "../../errors/assertError.js";
 import {
   fetchResources,
   assignUserToResource,
@@ -22,6 +22,8 @@ import {
   deleteAllResourceRelatedDataFromDb,
   fetchVersionsInfo,
   restoreLiveVersion,
+  deactivateResource,
+  activateResource,
 } from "../../repository/content.repository.js";
 
 const getResources = async (
@@ -58,7 +60,7 @@ const getResources = async (
       response: "Resources fetched successfully with content",
       // resources: resources,
     });
-    return { message: "Success", resources };
+    return {message: "Success", resources};
   }
   const resources = await fetchResources(
     resourceType,
@@ -78,7 +80,7 @@ const getResources = async (
     response: "Resources fetched successfully without content",
     // resources: resources,
   });
-  return { message: "Success", resources };
+  return {message: "Success", resources};
 };
 
 const getResourceInfo = async (resourceId) => {
@@ -87,7 +89,7 @@ const getResourceInfo = async (resourceId) => {
     response: "Page Info fetched successfully",
     // resourceInfo: resourceInfo,
   });
-  return { message: "Success", resourceInfo };
+  return {message: "Success", resourceInfo};
 };
 
 const getAssignedUsers = async (resourceId) => {
@@ -96,7 +98,7 @@ const getAssignedUsers = async (resourceId) => {
     response: `assignedUsers fetched successfully`,
     // assignedUsers: assignedUsers,
   });
-  return { message: "Success", assignedUsers };
+  return {message: "Success", assignedUsers};
 };
 
 const getEligibleUser = async (roleType, permission) => {
@@ -105,7 +107,7 @@ const getEligibleUser = async (roleType, permission) => {
     response: `eligibleUsers fetched successfully for ${roleType} and ${permission}`,
     // eligibleUsers: eligibleUsers,
   });
-  return { message: "Success", eligibleUsers };
+  return {message: "Success", eligibleUsers};
 };
 
 const assignUser = async (
@@ -126,7 +128,7 @@ const assignUser = async (
     response: `Users assigned successfully`,
     // assignedUsers: assignedUsers,
   });
-  return { message: "Users assigned successfully", assignedUsers };
+  return {message: "Users assigned successfully", assignedUsers};
 };
 
 const removeAssignedUser = async (resourceId) => {
@@ -136,7 +138,7 @@ const removeAssignedUser = async (resourceId) => {
     response: `Users removed successfully`,
     // result: result,
   });
-  return { message: "Users removed successfully", result };
+  return {message: "Users removed successfully", result};
 };
 
 const getContent = async (resourceId) => {
@@ -145,7 +147,7 @@ const getContent = async (resourceId) => {
     response: "Content fetched successfully",
     // content: content,
   });
-  return { message: "Success", content };
+  return {message: "Success", content};
 };
 
 const updateContent = async (saveAs, content) => {
@@ -158,7 +160,7 @@ const updateContent = async (saveAs, content) => {
     response: "Content updated successfully",
     updatedContent: updatedContent,
   });
-  return { message: updatedContent.message, resource: updatedContent.resource };
+  return {message: updatedContent.message, resource: updatedContent.resource};
 };
 
 const directPublishContent = async (content, userId) => {
@@ -167,7 +169,7 @@ const directPublishContent = async (content, userId) => {
     response: "Content published successfully",
     publishedContent: publishedContent,
   });
-  return { message: "Success", content: publishedContent };
+  return {message: "Success", content: publishedContent};
 };
 
 const generateRequest = async (content, userId) => {
@@ -176,7 +178,7 @@ const generateRequest = async (content, userId) => {
     response: "Content update request has been generated",
     request: request,
   });
-  return { message: "Success", content: request };
+  return {message: "Success", content: request};
 };
 
 const getRequest = async (
@@ -188,7 +190,6 @@ const getRequest = async (
   pageNum,
   limitNum,
   resourceId
-
 ) => {
   const requests = await fetchRequests(
     userId,
@@ -204,7 +205,7 @@ const getRequest = async (
     response: "Requests fetched successfully",
     // requests: requests,
   });
-  return { message: "Success", requests };
+  return {message: "Success", requests};
 };
 
 const getRequestInfo = async (requestId) => {
@@ -213,11 +214,8 @@ const getRequestInfo = async (requestId) => {
     response: "Request Info fetched successfully",
     // requestInfo: requestInfo,
   });
-  return { message: "Success", requestInfo };
+  return {message: "Success", requestInfo};
 };
-
-
-
 
 const approveRequest = async (requestId, userId) => {
   // First, get the request to determine if it's a verification or publication request
@@ -237,9 +235,8 @@ const approveRequest = async (requestId, userId) => {
     response: "Request Approved successfully",
     // request: request,
   });
-  return { message: "Success", request };
+  return {message: "Success", request};
 };
-
 
 const rejectRequest = async (requestId, userId, rejectReason) => {
   // First, get the request to determine if it's a verification or publication request
@@ -252,17 +249,19 @@ const rejectRequest = async (requestId, userId, rejectReason) => {
     request = await rejectRequestInPublication(requestId, userId, rejectReason);
   } else {
     // This is a verification request, use rejectRequestInVerification
-    request = await rejectRequestInVerification(requestId, userId, rejectReason);
+    request = await rejectRequestInVerification(
+      requestId,
+      userId,
+      rejectReason
+    );
   }
 
   logger.info({
     response: "Request Rejected successfully",
     // request: request,
   });
-  return { message: "Success", request };
+  return {message: "Success", request};
 };
-
-
 
 const ScheduleRequest = async (requestId) => {
   const request = await fetchRequestInfo(requestId);
@@ -270,9 +269,8 @@ const ScheduleRequest = async (requestId) => {
     response: "Request Scheduled successfully",
     // request: request,
   });
-  return { message: "Success", request };
+  return {message: "Success", request};
 };
-
 
 const PublishRequest = async (requestId) => {
   const request = await fetchRequestInfo(requestId);
@@ -280,18 +278,22 @@ const PublishRequest = async (requestId) => {
     response: "Request Published successfully",
     // request: request,
   });
-  return { message: "Success", request };
+  return {message: "Success", request};
 };
 
-
-
 const getVersionsList = async (resourceId, search, status, page, limit) => {
-  const content = await fetchVersionsList(resourceId, search, status, page, limit);
+  const content = await fetchVersionsList(
+    resourceId,
+    search,
+    status,
+    page,
+    limit
+  );
   logger.info({
     response: "Version history fetched successfully",
     // content: content,
   });
-  return { message: "Success", content };
+  return {message: "Success", content};
 };
 
 const getVersionInfo = async (versionId) => {
@@ -300,9 +302,8 @@ const getVersionInfo = async (versionId) => {
     response: "Version info fetched successfully",
     // content: content,
   });
-  return { message: "Success", content };
+  return {message: "Success", content};
 };
-
 
 const restoreVersion = async (versionId) => {
   const content = await restoreLiveVersion(versionId);
@@ -310,12 +311,8 @@ const restoreVersion = async (versionId) => {
     response: "Version restored successfully",
     // content: content,
   });
-  return { message: "Success", content };
+  return {message: "Success", content};
 };
-
-
-
-
 
 const deleteAllContentData = async () => {
   const result = await deleteAllResourceRelatedDataFromDb();
@@ -323,7 +320,27 @@ const deleteAllContentData = async () => {
     response: "All content-related data deleted successfully",
     result: result,
   });
-  return { message: "All content-related data deleted successfully", result };
+  return {message: "All content-related data deleted successfully", result};
+};
+
+const deactivateResources = async (resourceId) => {
+  assert(resourceId, "NOT_FOUND", "ResourceId required");
+  const result = await deactivateResource(resourceId);
+  logger.info({
+    response: `Resource deactivated successfully`,
+    // result: result,
+  });
+  return {message: "Resource deactivated successfully", result};
+};
+
+const activateResources = async (resourceId) => {
+  assert(resourceId, "NOT_FOUND", "ResourceId required");
+  const result = await activateResource(resourceId);
+  logger.info({
+    response: `Resource activated successfully`,
+    // result: result,
+  });
+  return {message: "Resource activated successfully", result};
 };
 
 export {
@@ -347,4 +364,6 @@ export {
   getVersionInfo,
   restoreVersion,
   deleteAllContentData,
+  deactivateResources,
+  activateResources,
 };

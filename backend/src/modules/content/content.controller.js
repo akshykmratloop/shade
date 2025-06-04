@@ -19,6 +19,8 @@ import {
   deleteAllContentData,
   getVersionInfo,
   restoreVersion,
+  deactivateResources,
+  activateResources,
 } from "./content.service.js";
 
 const GetResources = async (req, res) => {
@@ -122,7 +124,8 @@ const GenerateRequest = async (req, res) => {
 };
 
 const GetRequest = async (req, res) => {
-  const {roleId, permission, search, status, page, limit, resourceId} = req.query;
+  const {roleId, permission, search, status, page, limit, resourceId} =
+    req.query;
   const userId = req.user.id;
 
   const pageNum = parseInt(page) || 1;
@@ -191,6 +194,18 @@ const DeleteAllContentData = async (_, res) => {
   res.status(200).json(response);
 };
 
+const DeactivateResources = async (req, res) => {
+  const {resourceId} = req.params;
+  const response = await deactivateResources(resourceId);
+  res.status(200).json(response);
+};
+
+const ActivateResources = async (req, res) => {
+  const {resourceId} = req.params;
+  const response = await activateResources(resourceId);
+  res.status(200).json(response);
+};
+
 export default {
   GetResources,
   GetResourceInfo,
@@ -210,4 +225,6 @@ export default {
   GetVersionInfo,
   RestoreVersion,
   DeleteAllContentData,
+  DeactivateResources,
+  ActivateResources,
 };
