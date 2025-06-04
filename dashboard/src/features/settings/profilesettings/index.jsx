@@ -29,10 +29,10 @@ function ProfileSettings() {
     }
 
     return (
-        <>
+        <div className="relative">
 
             <TitleCard title="Profile Settings" topMargin="mt-2">
-                <div className="mt-16"><button className="btn btn-primary float-right" onClick={() => updateProfile()}>Edit</button></div>
+                <div className="mt-16 absolute top-0 right-5 w-[145px]"><button className="bg-[#25439B] rounded-lg w-full h-full py-2 text-white border" onClick={() => updateProfile()}>Edit</button></div>
 
 
                 <div>
@@ -42,27 +42,27 @@ function ProfileSettings() {
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <InputText labelTitle="Name" defaultValue={user.name} disabled={isDisable} updateFormValue={updateFormValue} />
-                    <InputText labelTitle="ID" defaultValue={user.id} disabled={true} updateFormValue={updateFormValue} />
-                    <InputText labelTitle="Email Id" defaultValue={user.email} disabled={true} updateFormValue={updateFormValue} />
-                    <InputText labelTitle="Phone" defaultValue={user.phone} disabled={isDisable} updateFormValue={updateFormValue} />
-                    <InputText labelTitle="Created At" defaultValue={formatTimestamp(user.createdAt)} disabled={isDisable} updateFormValue={updateFormValue} />
-                    <InputText labelTitle="Last Updated At" defaultValue={formatTimestamp(user.updatedAt)} disabled={isDisable} updateFormValue={updateFormValue} />
+                    <InputText labelTitle="Name" defaultValue={user.name} disabled={isDisable} required={false} updateFormValue={updateFormValue} />
+                    <InputText labelTitle="ID" defaultValue={user.id} disabled={true} required={false} updateFormValue={updateFormValue} />
+                    <InputText labelTitle="Email Id" defaultValue={user.email} disabled={true} required={false} updateFormValue={updateFormValue} />
+                    <InputText labelTitle="Phone" defaultValue={user.phone} disabled={isDisable} required={false} updateFormValue={updateFormValue} />
+                    <InputText labelTitle="Created At" defaultValue={formatTimestamp(user.createdAt)} required={false} disabled={isDisable} updateFormValue={updateFormValue} />
+                    <InputText labelTitle="Last Updated At" defaultValue={formatTimestamp(user.updatedAt)} required={false} disabled={isDisable} updateFormValue={updateFormValue} />
                     {/* <TextAreaInput labelTitle="About" defaultValue="Doing what I love, part time traveller" disabled={isDisable} updateFormValue={updateFormValue} /> */}
                 </div>
                 <div className="divider" ></div>
-
+                {/* 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <InputText labelTitle="Language" defaultValue="English" updateFormValue={updateFormValue} />
                     <InputText labelTitle="Timezone" defaultValue="IST" updateFormValue={updateFormValue} />
                     <ToogleInput updateType="syncData" labelTitle="Sync Data" defaultValue={true} updateFormValue={updateFormValue} />
-                </div>
+                </div> */}
 
-                {isDisable &&
+                {!isDisable &&
                     < div className="mt-16"><button className="btn btn-primary float-right" onClick={() => updateProfile()}>Update</button></div>
                 }
             </TitleCard >
-        </>
+        </div>
     )
 }
 
