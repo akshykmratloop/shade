@@ -31,7 +31,7 @@ export function useImageUpload(resourceId, type) {
 
             const response = await uploadMedia(formData);
 
-            console.log(response)
+            // console.log(response)
             if (response.ok) {
                 const result = response;
                 return result?.imageUrl || URL.createObjectURL(files.length ? files[0] : files);

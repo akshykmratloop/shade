@@ -508,15 +508,26 @@ export async function deleteMedia(id) {
   }
 }
 
+// export async function fetchAllImages(query) {
+//   if (!query || typeof query !== "object") {
+//     return await makerequest(api.route("getMedia"), "GET");
+//   } else if (!query.resourceId) {
+//     throw new Error("No resource Id")
+//   }
+
+//   const [key] = Object.keys(query);
+//   const value = query[key];
+
+//   return await makerequest(`${api.route("getMedia")}?${key}=${value}`, "GET");
+// }
+
 export async function fetchAllImages(query) {
-  if (!query || typeof query !== "object") {
+  if (!query || typeof query !== "object" || Object.keys(query).length === 0) {
     return await makerequest(api.route("getMedia"), "GET");
-  } else if (!query.resourceId) {
-    throw new Error("No resource Id")
   }
 
-  const [key] = Object.keys(query);
-  const value = query[key];
+  const params = new URLSearchParams(query).toString();
+  const url = `${api.route("getMedia")}?${params}`;
 
-  return await makerequest(`${api.route("getMedia")}?${key}=${value}`, "GET");
+  return await makerequest(url, "GET");
 }

@@ -22,7 +22,7 @@ const imageStructure = [{
 const ImageSelector = ({ onSelectImage, onClose, type = "IMAGE" }) => {
     const [resourceId, setResourceId] = useState('')
     // const resourceId = useSelector(state => state.versions.resourceId)
-    console.log(resourceId)
+    // console.log(resourceId)
     const fileInputRef = useRef(null);
     const modalRef = useRef(null);
 
@@ -38,6 +38,8 @@ const ImageSelector = ({ onSelectImage, onClose, type = "IMAGE" }) => {
     const [popup, setPopup] = useState(false)
     const [random, setRandom] = useState(Math.random())
     const [altText, setAltText] = useState({ en: "", ar: "" })
+
+    const documentMode = type === "DOCUMENT"
 
     const { uploadImage } = useImageUpload(resourceId, type); // hook for uploading images
 
@@ -58,9 +60,9 @@ const ImageSelector = ({ onSelectImage, onClose, type = "IMAGE" }) => {
             // Call your API to upload all files at once
             await uploadImage(files.length > 1 ? files : files[0]); // Replace with your API call
             setRandom(Math.random()); // Refresh image grid
-            toast.success("All images uploaded successfully", { hideProgressBar: true, autoClose: 1000 });
+            toast.success(files.length > 1 ? "All files uploaded successfully" : "file uploaded successfully", { hideProgressBar: true, autoClose: 1000 });
         } catch (err) {
-            console.error("Error uploading images:", err);
+            console.error("Error uploading files:", err);
             toast.error(err, { hideProgressBar: true, autoClose: 1000 });
         } finally {
             setUploading(false);
@@ -75,9 +77,8 @@ const ImageSelector = ({ onSelectImage, onClose, type = "IMAGE" }) => {
     }
 
     const handleImageSelect = (src, index) => {
-        console.log("lkhqwjekbf")
         if (uploading) return; // Prevent image selection if uploading
-        if (type === "DOCUMENT") {
+        if (documentMode) {
             setSelectedFile(src);
         } else {
             const img = new Image();
@@ -101,6 +102,7 @@ const ImageSelector = ({ onSelectImage, onClose, type = "IMAGE" }) => {
             if (response.ok) {
                 toast.success("Image has been deleted Successfully.", { pauseOnHover: false, autoClose: 700, hideProgressBar: true })
                 setRandom(Math.random())
+                onSelectImage([""])
             } else {
                 throw new Error("Failed to delete image")
             }
@@ -162,62 +164,71 @@ const ImageSelector = ({ onSelectImage, onClose, type = "IMAGE" }) => {
 
                 <div className="flex h-[80%] gap-2 mt-4 items-stretch">
                     {/* Image Grid */}
-                    <div className="flex-[5_1_1200px] self-stretch h-full flex flex-col ">
+                    <div className={`${documentMode ? "flex-[4_1_400px]" : "flex-[5_1_1200px]"} self-stretch h-full flex flex-col `}>
 
                         {
-                            !(type === "DOCUMENT") &&
+                            !(documentMode) &&
                             <ul className="flex">
                                 <li onClick={() => setImagesByResources(true)} className={`dark:text-stone-200 text-stone-50 px-2 text-sm py-1 rounded-[2px] ${imagesByResource ? "dark:bg-blue-800 bg-blue-500" : "bg-stone-300 dark:bg-stone-500 "}`}>This Page only</li>
                                 <li onClick={() => setImagesByResources(false)} className={`dark:text-stone-200 text-stone-50 px-2 text-sm py-1 rounded-[2px] ${!imagesByResource ? "dark:bg-blue-800 bg-blue-500" : "bg-stone-300 dark:bg-stone-500 "}`}>All Images</li>
                             </ul>}
-                        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 overflow-y-scroll flex-[1] customscroller p-5 border border-stone-500/20 ">
+                        <div className={`${documentMode ? "flex-col gap-[0px]" : "grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4"}  overflow-y-scroll flex-[1] customscroller p-5 border border-stone-500/20 `}>
                             {loadingImages ? (
                                 <div className="col-span-full flex justify-center items-center h-full">
                                     <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-blue-500 border-solid"></div>
                                     <span className="ml-4 text-gray-600 dark:text-stone-300">Loading images...</span>
                                 </div>
                             ) : (
-                                images.map((imgObj, idx) => (
-                                    <div
-                                        key={idx}
-                                        className={`w-full h-40 relative overflow-hidden rounded cursor-pointer border-2 
+                                images.map((imgObj, idx) => {
+                                    const even = idx % 2 === 0
+                                    return (
+                                        <div
+                                            key={idx}
+                                            className={`w-full ${documentMode ? "" : "h-40"} relative overflow-hidden rounded cursor-pointer border-2
                                             ${selectedFile === `${Img_url}/${imgObj.publicId}` ?
-                                                "border-blue-500" : "border-transparent"
-                                            }`}
-                                    >
-                                        {
-                                            type === "DOCUMENT" ?
-                                                <div
-                                                    onClick={() => handleImageSelect(`${Img_url}/${imgObj.publicId}`, idx)}
+                                                    "border-blue-500" : "border-transparent"
+                                                }`}
+                                        >
+                                            {
+                                                documentMode ?
+                                                    <div
+                                                        className={`relative p-2 ${even ? "bg-stone-600/30" : ""}`}
+                                                        onClick={() => handleImageSelect(`${Img_url}/${imgObj.publicId}`, idx)}
+                                                    >
+                                                        <p>
+                                                            {imgObj.publicId}
+                                                        </p>
+                                                        {/* <embed src={`${Img_url}/${imgObj.publicId}`}
+                                                        width="100%" height="100px"
+                                                        style={{ overflow: "hidden" }}
+                                                        type="application/pdf" className="w-full h-48 border" /> */}
+                                                    </div>
+                                                    :
+                                                    <img
+                                                        src={`${Img_url}/${imgObj.publicId}`}
+                                                        alt={`Image ${idx}`}
+                                                        className={`w-full h-full object-fill ${selectedFile === `${Img_url}/${imgObj.publicId}` && "brightness-[0.6]"}`}
+                                                        draggable={false}
+                                                        onClick={() => handleImageSelect(`${Img_url}/${imgObj.publicId}`, idx)}
+                                                    />
+                                            }
+                                            {
+                                                imagesByResource &&
+                                                <button className="absolute z-[40] top-1/2 -translate-y-1/2 right-2 bg-[#80808080] text-white rounded-full p-1"
+                                                    onClick={() => { setDeleteImgId(imgObj.id); setPopup(true) }}
                                                 >
-                                                    <embed src={`${Img_url}/${imgObj.publicId}`}
-                                                        type="application/pdf" className="w-full h-48 border" />
-                                                </div>
-                                                :
-                                                <img
-                                                    src={`${Img_url}/${imgObj.publicId}`}
-                                                    alt={`Image ${idx}`}
-                                                    className={`w-full h-full object-fill ${selectedFile === `${Img_url}/${imgObj.publicId}` && "brightness-[0.6]"}`}
-                                                    draggable={false}
-                                                    onClick={() => handleImageSelect(`${Img_url}/${imgObj.publicId}`, idx)}
-                                                />
-                                        }
-                                        {
-                                            imagesByResource &&
-                                            <button className="absolute z-[40] top-[2px] right-2 bg-[#80808080] text-white rounded-full p-1"
-                                                onClick={() => { setDeleteImgId(imgObj.id); setPopup(true) }}
-                                            >
-                                                <X width={16} height={16} />
-                                            </button>
-                                        }
-                                    </div>
-                                ))
+                                                    <X width={16} height={16} />
+                                                </button>
+                                            }
+                                        </div>
+                                    )
+                                })
                             )}
                         </div>
                     </div>
 
                     {/* Preview Panel */}
-                    <div className="flex-[1_0_auto]  bg-[#F3F3F3] p-4 rounded w-1/3 dark:bg-[#242941] mt-[25px]">
+                    <div className={`flex-[3_0_auto] flex flex-col bg-[#F3F3F3] p-4 rounded w-1/3 dark:bg-[#242941] ${documentMode ? "" : "mt-[25px]"}`}>
                         <h3 className="font-semibold mb-2">Attachment Details</h3>
                         {uploading ? (
                             <div className="flex justify-center items-center w-full h-full">
@@ -225,30 +236,35 @@ const ImageSelector = ({ onSelectImage, onClose, type = "IMAGE" }) => {
                                 <p className="text-gray-500 ml-4">Uploading...</p>
                             </div>
                         ) : selectedFile ? (
-                            <div className="flex flex-col">
-                                <div className=" w-full relative flex gap-2 border-b border-b-2 pb-4">
-                                    <div className="h-[20vh] w-[18vw] relative border">
-                                        {true ?
-                                            <embed src={selectedFile} type="application/pdf" className="w-full h-48" /> :
-                                            <img
-                                                src={selectedFile}
-                                                alt="Selected"
-                                                className="w-full h-full object-contain rounded cursor-pointer"
-                                                draggable={false}
-                                            />
-                                        }
-                                        <button title="Click to clear" className="absolute top-[2px] right-2 bg-[#808080a8] text-white rounded-full p-1" onClick={clearSelectedImage}>
-                                            <X width={16} height={16} />
-                                        </button>
-                                    </div>
-                                    <div className="mt-2 text-[10px] space-y-1 w-1/3">
-                                        <p><strong> {metadata?.name} </strong>  </p>
-                                        <p>{metadata?.size}</p>
-                                        <p>{metadata?.width} × {metadata?.height}</p>
-                                        <p>{metadata?.uploadedAt}</p>
-                                    </div>
-                                </div>
+                            <div className="flex flex-col flex-[1]">
                                 {
+                                    documentMode ?
+                                        <div className="border h-full order-[1]">
+                                            <iframe src={selectedFile + "#toolbar=0&navpanes=0&scrollbar=0"} type="application/pdf" className="w-full h-full" />
+                                        </div>
+                                        :
+                                        <div className=" w-full relative flex gap-2 border-b border-b-2 pb-4">
+                                            <div className="h-[20vh] w-[18vw] relative border">
+                                                <img
+                                                    src={selectedFile}
+                                                    alt="Selected"
+                                                    className="w-full h-full object-contain rounded cursor-pointer"
+                                                    draggable={false}
+                                                />
+                                                <button title="Click to clear" className="absolute top-[2px] right-2 bg-[#808080a8] text-white rounded-full p-1" onClick={clearSelectedImage}>
+                                                    <X width={16} height={16} />
+                                                </button>
+                                            </div>
+                                            <div className="mt-2 text-[10px] space-y-1 w-1/3">
+                                                <p><strong> {metadata?.name} </strong>  </p>
+                                                <p>{metadata?.size}</p>
+                                                <p>{metadata?.width} × {metadata?.height}</p>
+                                                <p>{metadata?.uploadedAt}</p>
+                                            </div>
+                                        </div>
+                                }
+                                {
+                                    !documentMode &&
                                     <div className="flex flex-col gap-4 mt-4">
                                         <label htmlFor="altEn" className="flex sm:flex-col xl:flex-row text-sm justify-between xl:items-center">
                                             Alt Text English
@@ -258,7 +274,8 @@ const ImageSelector = ({ onSelectImage, onClose, type = "IMAGE" }) => {
                                             Alt Text Arabic
                                             <input onChange={handleAltText} type="text" name="ar" id="altEn" className="rounded-sm p-2 text-xs xl:w-[15vw] sm:w-full" dir="rtl" />
                                         </label>
-                                    </div>}
+                                    </div>
+                                }
                             </div>
                         ) : (
                             <p className="text-gray-500">No File selected</p>
@@ -282,7 +299,7 @@ const ImageSelector = ({ onSelectImage, onClose, type = "IMAGE" }) => {
                             accept={
                                 type === "IMAGE"
                                     ? "image/*"
-                                    : type === "DOCUMENT"
+                                    : documentMode
                                         ? ".pdf"
                                         : "image/*,video/*" // fallback if type is undefined or something else
                             }
@@ -310,7 +327,7 @@ const ImageSelector = ({ onSelectImage, onClose, type = "IMAGE" }) => {
                 >
                     ✕
                 </button>
-                <Popups display={popup} setClose={() => setPopup(false)} confirmationText={"Are you sure you want to delete this image?"} confirmationFunction={handleImageDelete} />
+                <Popups display={popup} setClose={() => setPopup(false)} confirmationText={"Are you sure you want to delete this file?"} confirmationFunction={handleImageDelete} />
             </div>
             {/* <ToastContainer /> */}
         </div>

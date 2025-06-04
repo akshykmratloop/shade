@@ -13,48 +13,12 @@ const FileUploader = ({ label, baseClass, id, currentPath, outOfEditing, order }
     const [fileURL, setFileURL] = useState("");
     const fileInputRef = useRef(null);
     const [isSelectorOpen, setIsSelectorOpen] = useState(false);
+    const referenceDocName = useSelector(state => state.homeContent.present.content?.editVersion?.referenceDoc)
 
-
-    // const handleFileChange = (event) => {
-    //     const file = event.target.files[0];
-    //     if (!file) return;
-
-    //     setFileName(file.name);
-    //     const fileType = file.type.split("/")[0];
-    //     const fileExtension = file.name.split(".").pop().toLowerCase();
-
-    //     if (fileType === "image") {
-    //         // Handle image preview
-    //         const reader = new FileReader();
-    //         reader.onload = (e) => setFileURL(e.target.result);
-    //         reader.readAsDataURL(file);
-    //     } else if (fileExtension === "pdf") {
-    //         // Handle PDF preview
-    //         setFileURL(URL.createObjectURL(file));
-    //     } else {
-    //         // Other file types (DOCX, ZIP, etc.)
-    //         setFileURL("");
-    //     }
-    // };
-
-    const handleImageSelect = (url, altText) => {
-        // setFileURL(url[0]);
-        const payloadData = {
-            url: url[0],
-            altText: {
-                en: altText.en,
-                ar: altText.ar
-            },
-            order
-        }
+    const handleImageSelect = (url) => {
+        setFileName(url[0])
         dispatch(updateImages({
-            // section: "refDoc",
-            src: payloadData,
-            // currentPath,
-            // index: contentIndex,
-            // cardIndex: index,
-            // subSection,
-            // directIcon,
+            src: url[0],
             order,
             type: "refDoc"
         }));
@@ -101,7 +65,7 @@ const FileUploader = ({ label, baseClass, id, currentPath, outOfEditing, order }
                 <label htmlFor={id} className="flex items-center gap-2 cursor-pointer w-full ">
                     <FaFileUpload className="w-4 h-4 text-gray-500" />
                     <span className="text-sm text-[#6B7888] dark:text-gray-300 truncate">
-                        {TruncateText(fileName, 20) || "Upload your file..."}
+                        {TruncateText(referenceDocName, 20) || "Upload your file..."}
                     </span>
                 </label>
 
