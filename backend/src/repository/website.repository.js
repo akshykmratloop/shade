@@ -2,13 +2,13 @@ import prismaClient from "../config/dbConfig.js";
 import {formatResourceVersionData} from "./content.repository.js";
 
 export const fetchContentForWebsite = async (
-  resourceId,
+  slug,
   isItemFullContent = true
 ) => {
   // Fetch the resource with all necessary relations
   const resource = await prismaClient.resource.findUnique({
     where: {
-      id: resourceId,
+      slug: slug,
     },
     include: {
       liveVersion: {
@@ -76,7 +76,7 @@ export const fetchContentForWebsite = async (
     const requests = await prismaClient.resourceVersioningRequest.findMany({
       where: {
         resourceVersion: {
-          resourceId: resourceId,
+          resourceId: resource.id,
         },
       },
       include: {

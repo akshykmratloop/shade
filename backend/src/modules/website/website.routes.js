@@ -10,7 +10,7 @@ import auditLogger from "../../helper/auditLogger.js";
 const router = Router();
 
 router.get(
-  "/getContentForWebite/:resourceId",
+  "/getContentForWebsite/:slug",
   //   checkPermission(requiredPermissionsForContentManagement),
   tryCatchWrap(WebsiteController.GetContentForWebsite)
 );

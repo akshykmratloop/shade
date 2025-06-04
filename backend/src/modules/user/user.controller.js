@@ -4,6 +4,7 @@ import {
   createUser,
   deactivateUsers,
   editProfile,
+  editProfileImage,
   editUserDetails,
   findUserByEmail,
   getAllRolesForUser,
@@ -105,6 +106,24 @@ const UserRoleType = async (req, res) => {
   res.status(200).json(result);
 };
 
+const EditProfileImage = async (req, res) => {
+  const {id} = req.user;
+  const {image} = req.body;
+
+  // Because upload.array("image", 1) was used, mediaUploader set req.uploadedImages = [ {...} ]
+  if (!req.uploadedImages || req.uploadedImages.length === 0) {
+    return res.status(400).json({error: "No uploadedImages found"});
+  }
+
+  const {url: imageUrl} = req.uploadedImages[0];
+  if (!imageUrl) {
+    return res.status(400).json({error: "Cloudinary did not return a URL"});
+  }
+
+  const updatedUser = await editProfileImage(id, image);
+  res.status(201).json(updatedUser);
+};
+
 export default {
   CreateUserHandler,
   GetAllUsers,
@@ -117,4 +136,5 @@ export default {
   GetRolesForUser,
   GetAllUsersByRoleId,
   GetUserProfile,
+  EditProfileImage,
 };
