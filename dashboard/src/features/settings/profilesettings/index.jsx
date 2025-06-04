@@ -32,7 +32,12 @@ function ProfileSettings() {
         <div className="relative">
 
             <TitleCard title="Profile Settings" topMargin="mt-2">
-                <div className="mt-16 absolute top-0 right-5 w-[145px]"><button className="bg-[#25439B] rounded-lg w-full h-full py-2 text-white border" onClick={() => updateProfile()}>Edit</button></div>
+                <div className="mt-16 absolute top-0 right-5 w-[145px]">
+                    <button className="bg-[#25439B] rounded-lg w-full h-full py-2 text-white border" onClick={() => {
+                        setIsDisable(false)
+                        // updateProfile()
+                    }}>Edit</button>
+                </div>
 
 
                 <div>
