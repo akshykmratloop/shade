@@ -8,21 +8,24 @@ import { Img_url } from "../../../../routes/backend";
 import dynamicSize, { defineDevice, generatefontSize } from "../../../../app/fontSizes";
 // import blueCheckIcon from "../../../../../assets/bluecheckicon.svg"
 
+const bg1color = {
+    0: "#EDFAFE",
+    1: "#D8F6FF",
+    2: "#C0F0FF"
+}
+
+const bg2color = {
+    0: "#84E2FE",
+    1: "#06D5FF",
+    2: "#00B9F2"
+}
+
 const VisionNMission = ({ currentContent, screen, language, width }) => {
     const isComputer = screen > 900;
     const isTablet = screen < 900 && screen > 730;
-    const isPhone = screen < 738;
+    const isPhone = screen < 638;
     const isLeftAlign = language === 'en';
     const fontLight = useSelector(state => state.fontStyle.light)
-
-    const p1 = "Founded in 1992 by a group of committed professionals, today Shade Corporation has a strong workforce of 2,000 employees across different locations. It has always served clients by providing innovative solutions to deliver capital efficiency and project certainty. Since our inception, we have expanded our services from General Contracting to Construction Management, Project Management, Design/Build, and Value Engineering; and have become integral players in the transportation, industrial, and building sectors."
-    const p2 = "Shade started as a General Contractor and provided EPC, PM, CM, VE and Design/Built services to clients s such as Aramco, Royal Commission, Ministry of Transportation, SABIC, Maaden, Municipalities, Saudi Bahraini Causeway Authority, Water Directorate, Saudi Electric Company, Saudi Naval Forces, Qatar Petroleum and more."
-    const p3 = "Founded in 1992 by a group of committed professionals, today Shade Corporation has a strong workforce of 2,000 employees across different locations. It has always served clients by providing innovative solutions to deliver capital efficiency and project certainty. Since our inception, we have expanded our services from General Contracting to Construction Management, Project Management, Design/Build, and Value Engineering; and have become integral players in the transportation, industrial, and building sectors."
-    const p4 = "Shade started as a General Contractor and provided EPC, PM, CM, VE and Design/Built services to clients s such as Aramco, Royal Commission, Ministry of Transportation, SABIC, Maaden, Municipalities, Saudi Bahraini Causeway Authority, Water Directorate, Saudi Electric Company, Saudi Naval Forces, Qatar Petroleum and more."
-    const pA = [p1, p2, p3, p4]
-
-
-    const imageA = [projectPageData.asphaltWork, projectPageData.bridgeAndTunnelForHumair, projectPageData.renovation, projectPageData.nonMetallic]
 
     const titleLan = isLeftAlign ? "titleEn" : "titleAr";
 
@@ -32,7 +35,7 @@ const VisionNMission = ({ currentContent, screen, language, width }) => {
     return (
         <div className="" dir={isLeftAlign ? "ltr" : "rtl"}>
             <section
-                className={`relative w-full py-[100px] ${isPhone ? "px-8" : "px-10"} bg-cover bg-center ${isLeftAlign ? 'scale-x-[-1]' : ''}`}
+                className={`relative border w-full py-[100px] ${isPhone ? "px-8" : "px-10"} bg-cover bg-center ${isLeftAlign ? 'scale-x-[-1]' : ''}`}
                 style={{
                     backgroundImage: `url("${Img_url + currentContent?.['1']?.content?.images?.[0]?.url}")`,
                     backgroundPosition: "bottom",
@@ -56,14 +59,16 @@ const VisionNMission = ({ currentContent, screen, language, width }) => {
                                 margin: `${getDynamicSize(16)} 0px`
                             }}
                         >
-                            {currentContent?.['1']?.content?.title?.[language] ||
-                                "Trusted History"
+                            {
+                                // currentContent?.['1']?.content?.title?.[language] ||
+                                "Vision / Mission"
                             }
                         </h2>
                         <p
                             style={{ fontSize: fontSize.mainPara, lineHeight: fontSize.paraLeading }}
                             className={`text-[#0E172FB2] text-[12px] leading-[26px] ${fontLight} word-spacing-5 ${isPhone ? "w-4/5" : isTablet ? "w-2/3" : "w-1/2"} `}>
-                            {currentContent?.['1']?.content?.description?.[language] ||
+                            {
+                                // currentContent?.['1']?.content?.description?.[language] ||
                                 "Experience the rich history of Shade Corporation — a legacy of innovation, resilience, and engineering excellence that shaped Saudi Arabia's EPC landscape"
                             }
                         </p>
@@ -71,62 +76,102 @@ const VisionNMission = ({ currentContent, screen, language, width }) => {
                 </div>
             </section>
 
-            <section className={`flex gap-[30px]  ${isPhone ? "flex-col px-[30px]" : ""}`}>
-                <h2 className='text-[32px]  flex-1 leading-[28px]'>{currentContent?.subBanner?.title?.[language]}</h2>
-                <div className='text-[9.5px] flex-1' dangerouslySetInnerHTML={{ __html: currentContent?.subBanner?.description?.[language] }} />
+            <section
+                style={{ padding: `${getDynamicSize(80)} ${getDynamicSize(112)}` }}
+                className={`flex gap-[30px]  ${isPhone ? "flex-col px-[30px]" : ""}`}>
+                <h2 className='text-[32px]  flex-1 leading-[28px]'>
+                    {currentContent?.subBanner?.title?.[language] ||
+                        "Lorem ipsum dolor sit."
+                    }
+                </h2>
+                <div className='text-[9.5px] flex-1' dangerouslySetInnerHTML={{
+                    __html:
+                        currentContent?.subBanner?.description?.[language] ||
+                        "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Deleniti voluptatem pariatur corrupti error ut vero expedita inventore repudiandae nostrum assumenda!"
+                }} />
+
             </section>
 
-            {/* <section className={`flex ${isPhone && 'flex-col'}`}
-                style={{
-                    margin: `${getDynamicSize(50)} ${getDynamicSize(110)}`,
-                    gap: getDynamicSize(120)
-                }}
-            >
-                <div className="flex-[1] flex flex-col"
-                    style={{ gap: getDynamicSize(30) }}
-                >
-                    <h2 className=""
-                        style={{ fontSize: fontSize.SnRSubHeading, lineHeight: fontSize.headingLeading }}
-                    >
-                        {currentContent?.['2']?.content?.title?.[language] ||
-                            "Where It All Began"
-                        }
-                    </h2>
-                    {pA.map((e, i) => {
-                        return (
-                            <p
-                                key={i}
-                                style={{ fontSize: fontSize.mainPara }}
-                                className={`${fontLight} pr-3`}>
-                                {e}
-                            </p>
-                        )
-                    })}
-
+            <section className={`flex ${isPhone && "flex-col"} gap-10 py-10 px-20`}>
+                <div className="border-b border-[#0E172FB2] relative pr-10 pb-5">
+                    <div className="bg-[#0E172FB2] absolute top-0 right-0 h-[90%] w-[.5px]"></div>
+                    <div><img src="" alt="" /></div>
+                    <h3>VALUES</h3>
+                    <p className="text-[10px]">
+                        Our core values define the character and shape the culture of our company. They serve as the foundation for how we act, make decisions and interact with our communities.
+                    </p>
                 </div>
-
-                <div className="grid grid-cols-2 py-20 gap-[10px] relative"
-                    style={{ gap: getDynamicSize(30) }}
-                >
-                    <div className="bg-[#F1F4F9] rounded-lg absolute right-[0%] top-1/2 -translate-y-1/2 h-[40%] w-[115%] z-[1]"></div>
-
-                    {
-                        imageA?.map((term, i) => {
-
-                            return (
-                                <div className="flex relative z-[2]" key={i}>
-                                    <img
-                                        width={187}
-                                        height={210}
-                                        className="object-cover"
-                                        src={term} alt={i} />
-                                </div>
-                            )
-                        })
-                    }
-
+                <div className="border-b border-[#0E172FB2] relative pr-10 pb-5">
+                    <div className="bg-[#0E172FB2] absolute top-0 right-0 h-[90%] w-[.5px]"></div>
+                    <div><img src="" alt="" /></div>
+                    <h3>VALUES</h3>
+                    <p className="text-[10px]">
+                        Our core values define the character and shape the culture of our company. They serve as the foundation for how we act, make decisions and interact with our communities.
+                    </p>
                 </div>
-            </section> */}
+                <div className="border-b border-[#0E172FB2] relative pr-10 pb-5">
+                    <div className="bg-[#0E172FB2] absolute top-0 right-0 h-[90%] w-[.5px]"></div>
+                    <div><img src="" alt="" /></div>
+                    <h3>VALUES</h3>
+                    <p className="text-[10px]">
+                        Our core values define the character and shape the culture of our company. They serve as the foundation for how we act, make decisions and interact with our communities.
+                    </p>
+                </div>
+            </section>
+
+            <section className={`flex gap-10 px-20 ${isPhone && "flex-col"}`}>
+                <div className="flex flex-col rounded-lg">
+                    <h3 style={{ backgroundColor: bg1color[0] }} className="p-3 text-center">
+                        Our Vision
+                    </h3>
+                    <p className="bg-[#F8F8F8] text-[10px] p-4">
+                        We strive to be a leader in the EPC Engineering, Procurement, Construction industry with a steadfast commitment to “Building a Stronger Future.”
+                    </p>
+                </div>
+                <div className="flex flex-col rounded-lg">
+                    <h3 style={{ backgroundColor: bg1color[1] }} className="p-3 text-center">
+                        Our Vision
+                    </h3>
+                    <p className="bg-[#F8F8F8] text-[10px] p-4">
+                        We strive to be a leader in the EPC Engineering, Procurement, Construction industry with a steadfast commitment to “Building a Stronger Future.”
+                    </p>
+                </div>
+                <div className="flex flex-col rounded-lg">
+                    <h3 style={{ backgroundColor: bg1color[2] }} className="p-3 text-center">
+                        Our Vision
+                    </h3>
+                    <p className="bg-[#F8F8F8] text-[10px] p-4">
+                        We strive to be a leader in the EPC Engineering, Procurement, Construction industry with a steadfast commitment to “Building a Stronger Future.”
+                    </p>
+                </div>
+            </section>
+
+            <section className={`flex gap-10 px-20 py-10 ${isPhone && "flex-col"}`}>
+                <div className="flex flex-col rounded-lg">
+                    <h3 style={{ backgroundColor: bg2color[0] }} className="p-3 text-center text-white">
+                        Our Vision
+                    </h3>
+                    <p className="bg-[#F8F8F8] text-[10px] p-4">
+                        We strive to be a leader in the EPC Engineering, Procurement, Construction industry with a steadfast commitment to “Building a Stronger Future.”
+                    </p>
+                </div>
+                <div className="flex flex-col rounded-lg">
+                    <h3 style={{ backgroundColor: bg2color[1] }} className="p-3 text-center text-white">
+                        Our Vision
+                    </h3>
+                    <p className="bg-[#F8F8F8] text-[10px] p-4">
+                        We strive to be a leader in the EPC Engineering, Procurement, Construction industry with a steadfast commitment to “Building a Stronger Future.”
+                    </p>
+                </div>
+                <div className="flex flex-col rounded-lg">
+                    <h3 style={{ backgroundColor: bg2color[2] }} className="p-3 text-center text-white">
+                        Our Vision
+                    </h3>
+                    <p className="bg-[#F8F8F8] text-[10px] p-4">
+                        We strive to be a leader in the EPC Engineering, Procurement, Construction industry with a steadfast commitment to “Building a Stronger Future.”
+                    </p>
+                </div>
+            </section>
 
         </div >
     );

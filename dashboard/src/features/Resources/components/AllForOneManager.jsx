@@ -20,6 +20,9 @@ import { useDispatch } from "react-redux";
 import { updateMainContent } from "../../common/homeContentSlice";
 import SnRManager from "./contentmanager/SnRManager";
 import SnRPoliciesManager from "./contentmanager/SnRPolicyManager";
+import HistoryManager from "./contentmanager/HistoryManager";
+import VisionManager from "./contentmanager/VisionManager";
+import HSnEManager from "./contentmanager/HSnEManager";
 
 
 const AllForOneManager = ({ currentPath, language, subPath, deepPath, content, contentIndex, outOfEditing }) => {
@@ -94,6 +97,18 @@ const AllForOneManager = ({ currentPath, language, subPath, deepPath, content, c
             manager = subPath ?
                 <SnRPoliciesManager outOfEditing={outOfEditing} language={language} content={content} indexes={contentIndex} currentPath={currentPath} /> :
                 <SnRManager outOfEditing={outOfEditing} language={language} content={content} indexes={contentIndex} currentPath={currentPath} />
+            break;
+
+        case "history":
+            manager = <HistoryManager outOfEditing={outOfEditing} language={language} content={content} indexes={contentIndex} currentPath={currentPath} />
+            break;
+
+        case "vision":
+            manager = <VisionManager outOfEditing={outOfEditing} language={language} content={content} indexes={contentIndex} currentPath={currentPath} />
+            break;
+
+        case "hse":
+            manager = <HSnEManager outOfEditing={outOfEditing} language={language} content={content} indexes={contentIndex} currentPath={currentPath} />
 
         default:
     }

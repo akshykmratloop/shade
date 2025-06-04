@@ -5,7 +5,7 @@ import fs from "fs";
 export const uploadFileToCloudinary = async (filePath, fileName = null) => {
   try {
     const result = await cloudinary.uploader.upload(filePath, {
-      public_id: fileName || `image_${Date.now()}`,
+      public_id: fileName || `file_${Date.now()}`,
     });
 
     console.log("Cloudinary upload successful:", {

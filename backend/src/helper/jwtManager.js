@@ -14,7 +14,9 @@ const verifyToken = (token) => {
   try {
     return jwt.verify(token, JWT_SECRET);
   } catch (error) {
-    throw new Error("Invalid or expired token");
+    error = new Error('invalid error') // Custom Status Code
+    error.statusCode = 555; // Custom Status Code
+    throw error;
   }
 };
 

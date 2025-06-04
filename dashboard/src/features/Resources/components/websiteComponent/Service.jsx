@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+// import { useEffect, useState } from "react";
+// import { useDispatch, useSelector } from "react-redux";
+// import content from "./content.json"
+// import { updateMainContent } from "../../../common/homeContentSlice";
 import Arrow from "../../../../assets/icons/right-wrrow.svg"; ///assets/icons/right-wrrow.svg
-import { useDispatch, useSelector } from "react-redux";
-import content from "./content.json"
-import { updateMainContent } from "../../../common/homeContentSlice";
-import { services, projectPageData } from "../../../../assets/index";
+import { projectPageData } from "../../../../assets/index";
 import { TruncateText } from "../../../../app/capitalizeword";
 import { Img_url } from "../../../../routes/backend";
 const Services = ({ currentContent, screen, language }) => {
@@ -11,8 +11,8 @@ const Services = ({ currentContent, screen, language }) => {
     const isTablet = screen < 900 && screen > 730;
     const isPhone = screen < 738;
     const isLeftAlign = language === 'en';
-    const ImagesFromRedux = useSelector(state => state.homeContent.present.images);
-    const dispatch = useDispatch()
+    // const ImagesFromRedux = useSelector(state => state.homeContent.present.images);
+    // const dispatch = useDispatch()
 
     const titleLan = isLeftAlign ? "titleEn" : "titleAr"
 
