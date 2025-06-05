@@ -336,6 +336,7 @@ const ContentSection = ({
                                             order={file.order}
                                             url={file.url}
                                             textValue={file.value}
+                                            type={file.type}
                                         />
                                     </div>
                                 )

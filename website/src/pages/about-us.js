@@ -21,9 +21,9 @@ export default function Aboutus({ apiData }) {
   }, [apiData]);
 
 
-  // if (isLoading) {
-  //   return <Loader />; 
-  // }
+  if (isLoading) {
+    return <Loader />; 
+  }
 
   return (
     <>

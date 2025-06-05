@@ -104,14 +104,14 @@ const HomePage = ({ content }) => {
         <span
           className={`${language === "en" && styles.leftAlign} ${styles.backgroundContainer}`}
         >
-          <Image
+          <img
             src={currentContent?.['1']?.content?.images?.[0]?.url ? Img_url + currentContent?.['1']?.content?.images?.[0]?.url : ""}
             alt="about-us"
             className={styles.backgroundImage}
             width={0}
             // fill
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-
+            style={{objectFit: "cover"}}
             height={0}
           />
         </span>
@@ -150,6 +150,7 @@ const HomePage = ({ content }) => {
           }`}
       >
         <div className={`container ${styles.main_container}`}>
+          
           <div className={styles.about_content}>
             <h2 className={`${styles.title}`}>
               {currentContent?.['2']?.content?.title?.[language]}

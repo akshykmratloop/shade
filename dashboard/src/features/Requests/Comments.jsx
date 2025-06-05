@@ -23,15 +23,15 @@ const Commnets = ({ comment }) => {
     return (
         <div className="flex items-center gap-1">
 
-            {TruncateText(comment, 20) || "N/A"}
-            {comment !== null && (
+            {comment !== null ? (
                 <div className="relative" ref={commentRef}
                 >
                     <span
-                        className="cursor-pointer"
+                        className="cursor-pointer underline text-blue-500"
                         onClick={() => setCommentOn(prev => !prev)}
                     >
-                        <FiEye />
+                        {"View"}
+                        {/* <FiEye /> */}
                     </span>
                     {
                         commentOn &&
@@ -44,7 +44,7 @@ const Commnets = ({ comment }) => {
                         </div>
                     }
                 </div>
-            )}
+            ) : "N/A"}
         </div>
     )
 }

@@ -5,7 +5,7 @@ import { removeImages, updateImages } from "../../features/common/homeContentSli
 import ImageSelector from "./ImageSelector"; // Import here
 import { Img_url } from "../../routes/backend";
 
-const InputFile = ({ label, baseClass, id, currentPath, resourceId, contentIndex, index, subSection, section, outOfEditing, directIcon, order, url, disabled = false }) => {
+const InputFile = ({ label, baseClass, id, currentPath, resourceId, contentIndex, index, subSection, section, outOfEditing, directIcon, order, url, disabled = false, type }) => {
   const dispatch = useDispatch();
   // const ImageFromRedux = useSelector(state => state.homeContent.present.images);
   const [fileURL, setFileURL] = useState("");
@@ -29,7 +29,7 @@ const InputFile = ({ label, baseClass, id, currentPath, resourceId, contentIndex
     console.log(payloadData)
     dispatch(updateImages({
       section,
-      src: directIcon ? url[0] : payloadData,
+      src: directIcon || type === "VIDEO" ? url[0] : payloadData,
       currentPath,
       index: contentIndex,
       cardIndex: index,
@@ -60,7 +60,7 @@ const InputFile = ({ label, baseClass, id, currentPath, resourceId, contentIndex
         >
 
           {(url) ? (
-            fileURL.includes(".mp4") || fileURL.includes("video") ? (
+            fileURL.includes(".mp4") || fileURL.includes("video") || type === "VIDEO" ? (
               <video src={fileURL} className="w-full h-full object-cover" controls />
             ) : (
               <img src={(url && url.slice(0, 5) !== "https") ? `${Img_url}${(url)}` : ""} alt="Preview" className="w-full h-full object-cover" />
@@ -86,6 +86,7 @@ const InputFile = ({ label, baseClass, id, currentPath, resourceId, contentIndex
           onSelectImage={handleImageSelect}
           onClose={() => setIsSelectorOpen(false)}
           resourceId={resourceId}
+          type={type}
         />
       )}
     </div>

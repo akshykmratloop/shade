@@ -69,7 +69,9 @@ const cmsSlice = createSlice({
         },
         updateImages: (state, action) => { // post content
             state.past.push(JSON.parse(JSON.stringify(state.present)));
-            if (action.payload.type === "refDoc") {
+            if (action.type.type === "VIDEO") {
+                state.present.content.editVersion.sections[action.payload.sectionIndex].content.video = action.payload.src
+            } else if (action.payload.type === "refDoc") {
                 state.present.content.editVersion.referenceDoc = action.payload.src
             } else if (action.payload.section === "clientsImages") {
                 // console.log(action.payload.index, action.payload.cardIndex, action.payload.src)

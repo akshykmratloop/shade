@@ -17,7 +17,7 @@ export function useImageUpload(resourceId, type) {
                 formData.append("mediaFile", file);
             }
         } else {
-            formData.append("mediaFile", files);
+            formData.append("mediaFile", files); // files = "VIDEO" || "IMAGE" || "DOCUMENT" 
         }
 
         // formData.append("mediaFile", files);
