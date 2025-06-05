@@ -85,8 +85,8 @@ const HomePage = ({ content }) => {
 
   const ProjectSlider = { ...recentProjects, ...markets, ...safety };
 
- 
-  
+
+
 
   const TruncateText = (text, length) => {
     if (text?.length > (length || 50)) {
@@ -155,7 +155,9 @@ const HomePage = ({ content }) => {
               {currentContent?.['2']?.content?.title?.[language]}
             </h2>
             <div>
-              <div className={`${styles.description} ${BankGothic.className}`} dangerouslySetInnerHTML={{ __html: currentContent?.['2']?.content?.description?.[language] }} />
+              <div
+                dir={isLeftAlign ? "ltr" : "rtl"}
+                className={`${styles.description} ${BankGothic.className}`} dangerouslySetInnerHTML={{ __html: currentContent?.['2']?.content?.description?.[language] }} />
               {/* {currentContent?.['2']?.content?.description[language]} */}
               {/* </div> */}
               {/* <p className={`${styles.description} ${BankGothic.className}`}>

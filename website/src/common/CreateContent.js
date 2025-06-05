@@ -27,4 +27,6 @@ export default function createContent(content) {
     }
 }
 
+// section:[{}, {}] => content: {1: {}, 2:{}}
+
 export const Img_url = "https://res.cloudinary.com/dmcxybhjm/image/upload/v1745838647/" 

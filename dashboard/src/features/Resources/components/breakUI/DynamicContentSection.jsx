@@ -1,7 +1,7 @@
 // libraries
 import { useState, useRef, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import JoditEditor from "jodit-react";
+import JoditEditor, { Jodit } from "jodit-react";
 // custom module
 import TextAreaInput from "../../../../components/Input/TextAreaInput";
 import InputFile from "../../../../components/Input/InputFile";
@@ -32,7 +32,8 @@ const DynamicContentSection = ({
     deepPath,
     // type,
     sectionIndex,
-    contentIndex
+    contentIndex,
+    outOfEditing
 }) => {
     const dispatch = useDispatch();
     const [extraFiles, setExtraFiles] = useState([]);
@@ -154,13 +155,11 @@ const DynamicContentSection = ({
     const config = useMemo(() => ({
         buttons: [
             "bold", "italic", "underline", "strikethrough", "|",
-            "font", "fontsize", "lineHeight", "|",
-            "brush", "eraser", "image", "ul"
+            "font", "lineHeight", "|", "eraser", "image", "ul"
         ],
         buttonsXS: [
             "bold", "italic", "underline", "strikethrough", "|",
-            "font", "fontsize", "lineHeight", "|",
-            "brush", "eraser", "ul"
+            "font", "lineHeight", "|", "eraser", "ul"
         ],
         toolbarAdaptive: false,
         toolbarSticky: false,
@@ -179,9 +178,30 @@ const DynamicContentSection = ({
         showButtonPanel: true,
         showTooltip: false,
 
-        // 👇 Disable the plus "+" hover icon
+        controls: {
+            font: {
+                list: {
+                    'Arial': 'Arial',
+                    'Verdana': 'Verdana',
+                    'Tahoma': 'Tahoma',
+                    // 'BankGothic-Regular': 'BankGothic-Regular',
+                    // 'BankGothic-Regular-db': 'BankGothic-Regular-db',
+                    // 'BankGothic-Russ-Medium': 'BankGothic-Russ-Medium',
+                    // 'BankGothic-Regular-MD-Bt': 'BankGothic-Regular-MD-Bt',
+                    'BankGothic-Medium-bt': 'BankGothic-Medium-bt',
+                    'BankGothic-Medium-lt': 'BankGothic-Medium-lt'
+                }
+            },
+            fontsize: {
+                list: Jodit.atom([8, 9, 10, 12, 14, 16, 18, 24, 30, 32, 34])
+            },
+            lineHeight: {
+                list: Jodit.atom(['1', '1.5', '2', '2.5', '3', '3.5', '4'])
+            }
+        },
+
         disablePlugins: ['addNewLine']
-    }), []);
+    }), [outOfEditing]);
 
 
 

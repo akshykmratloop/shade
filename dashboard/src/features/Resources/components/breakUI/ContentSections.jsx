@@ -193,6 +193,9 @@ const ContentSection = ({
             },
             fontsize: {
                 list: Jodit.atom([8, 9, 10, 12, 14, 16, 18, 24, 30, 32, 34])
+            },
+            lineHeight: {
+                list: Jodit.atom(['1', '1.5', '2', '2.5', '3', '3.5', '4'])
             }
         },
 

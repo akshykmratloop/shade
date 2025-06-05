@@ -25,6 +25,15 @@ import {
 import "swiper/css";
 import "swiper/css/pagination";
 import { Img_url } from "@/common/CreateContent";
+import {
+  services,
+  experience,
+  recentProjects,
+  markets,
+  safety,
+  clients,
+  testimonials,
+} from "../../assets/index";
 // const AnimatedText = dynamic(() => import('@/common/AnimatedText'), { ssr: false });
 const ContactUsModal = dynamic(() => import('../header/ContactUsModal'), { ssr: false });
 
@@ -91,10 +100,13 @@ const SolutionPage = ({ content }) => {
                       {e.title?.[language]}
                     </h1>
                   </div>
-                  <div className={styles.right_panel}>
-                    <p className={`${styles.description} ${BankGothic.className}`}>
-                      {e.description?.[language]}
-                    </p>
+                  <div 
+                  className={styles.right_panel}
+                  >
+                    <div 
+                    className={`${BankGothic.className}`}
+                      dangerouslySetInnerHTML={{ __html: e.description?.[language] }}
+                    />
                   </div>
                 </div>
               </div>
@@ -104,19 +116,23 @@ const SolutionPage = ({ content }) => {
       </section>
 
       <section
-        className={` ${styles1.testimonial_wrapper} ${language !== "en" && styles1.rightAlignment
+        className={` 
+          ${styles.testimonial_wrapper} 
+          ${language !== "en" && styles1.rightAlignment
           }`}
       >
-        <div className={`container ${styles1.main_container}`}>
+        <div className={`container `}>
           <div className={styles1.testimonials_content}>
             {/* <AnimatedText text="ماذا يقول عملاؤنا عنا؟" Wrapper="h2" repeatDelay={0.04} className={`${styles.title} ${BankGothic.className}`} /> */}
 
             <h2 className={`${styles1.title}`}>
-              {currentContent?.['7']?.content?.title[language]}
+              {currentContent?.['3']?.content?.title?.[language]}
             </h2>
           </div>
 
-          <div className={styles1.testimonials_client}>
+          <div
+          //  className={styles1.testimonials_client}
+          >
             <Swiper
               modules={[Navigation, Autoplay, EffectCoverflow]}
               grabCursor={true}
@@ -149,22 +165,24 @@ const SolutionPage = ({ content }) => {
                 724: { slidesPerView: 2.2 }, // Adjust for bigger screens
                 500: { slidesPerView: 1 }, // For smaller screens
               }}
-            // rtl={true} // Enable RTL for Arabic layout
+
+              rtl={true} // Enable RTL for Arabic layout
             >
               {currentContent?.['3']?.content?.images?.map(
                 (image, index) => (
                   <SwiperSlide
                     key={index}
-                    className={`${styles1.swiperSlide} ${styles1.testimonial_slide}`}
+                  // className={`${styles1.swiperSlide} ${styles1.testimonial_slide}`}
                   >
                     {/* <div className={styles1.testimonial_card}> */}
-                      <Image
-                        src={Img_url + image.image}
-                        height={70}
-                        width={70}
-                        alt={image?.name}
-                        className={styles1.testimonial_image}
-                      />
+                    <img
+                      src={Img_url + image.url}
+                      height={70}
+                      width={70}
+                      alt={image?.name}
+                      style={{ width: '100%', height: '60vh' }}
+                    // className={styles1.testimonial_image}
+                    />
                     {/* </div> */}
                   </SwiperSlide>
                 )
@@ -172,7 +190,7 @@ const SolutionPage = ({ content }) => {
             </Swiper>
 
             {/* Custom buttons */}
-            <div className={styles1.testimonial_wrapper_btn}>
+            {/* <div className={styles1.testimonial_wrapper_btn}>
               <button ref={testimonialPrevRef} className={styles1.custom_next}>
                 <Image
                   src="https://frequencyimage.s3.ap-south-1.amazonaws.com/b2872383-e9d5-4dd7-ae00-8ae00cc4e87e-Vector%20%286%29.svg"
@@ -193,7 +211,7 @@ const SolutionPage = ({ content }) => {
                     }`}
                 />
               </button>
-            </div>
+            </div> */}
           </div>
         </div>
       </section>
