@@ -66,10 +66,10 @@ const routes = [
   //   path: '/calendar',
   //   component: Calendar,
   // },
-  // {
-  //   path: '/settings-profile',
-  //   component: ProfileSettings,
-  // },
+  {
+    path: '/settings-profile',
+    component: ProfileSettings,
+  },
   // {
   //   path: '/settings-billing',
   //   component: Bills,

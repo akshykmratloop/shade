@@ -60,4 +60,4 @@ export const GlobalContextProvider = ({children}) => {
 
 export const useGlobalContext = () => useContext(GlobalContext);
 
-export const backendAPI = "http://localhost:3000/website/getContentForWebite/"
+export const backendAPI = "http://localhost:3000/website/getContentForWebsite/"

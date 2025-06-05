@@ -39,14 +39,14 @@ export default function Home({ apiData }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <HomePage content={content} language="en" />
+      <HomePage content={content} />
     </>
   );
 }
 
 export async function getServerSideProps() {
   try {
-    const res = await fetch(`${backendAPI}cmbca1dhd00stqp1r8hi8rjnh`);
+    const res = await fetch(`${backendAPI}home`);
 
     if (!res.ok) {
       // If response failed (e.g., 404, 500), return empty object
