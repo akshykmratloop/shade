@@ -806,7 +806,7 @@ router.post(
 router.patch(
   "/removeAssignedUser/:resourceId",
   //   checkPermission(requiredPermissionsForContentManagement),
-  auditLogger,
+  // auditLogger,
   tryCatchWrap(ContentController.RemoveAssignedUser)
 );
 
