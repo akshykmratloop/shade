@@ -1884,7 +1884,7 @@ export const markAllAssignedUserInactive = async (resourceId) => {
         versions: {
           where: {
             versionStatus: {
-              not: "PUBLISHED",
+              notIn: ["PUBLISHED", "LIVE"],
             },
           },
           select: {
@@ -4870,23 +4870,16 @@ export const restoreLiveVersion = async (versionId) => {
       throw new Error("Version not found");
     }
 
-    // Get the current live version
-    const resource = await tx.resource.findUnique({
-      where: {id: version.resourceId},
-      select: {
-        liveVersionId: true,
+    // Mark all LIVE versions for this resource as PUBLISHED
+    await tx.resourceVersion.updateMany({
+      where: {
+        resourceId: version.resourceId,
+        versionStatus: "LIVE",
+      },
+      data: {
+        versionStatus: "PUBLISHED",
       },
     });
-
-    // If there is a current live version, mark it as PUBLISHED
-    if (resource.liveVersionId) {
-      await tx.resourceVersion.update({
-        where: {id: resource.liveVersionId},
-        data: {
-          versionStatus: "PUBLISHED",
-        },
-      });
-    }
 
     // Update the new version to LIVE
     await tx.resourceVersion.update({
