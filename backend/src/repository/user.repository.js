@@ -666,10 +666,10 @@ export const findAllLogs = async (search, status, pageNum, limitNum) => {
   };
 };
 
-export const updateProfileImage = async (userId, image) => {
+export const updateProfileImage = async (userId, imageUrl) => {
   const profileImage = await prismaClient.user.update({
     where: {id: userId},
-    data: {image},
+    data: {image: imageUrl},
   });
 
   return profileImage;

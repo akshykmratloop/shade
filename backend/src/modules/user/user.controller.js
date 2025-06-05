@@ -108,19 +108,19 @@ const UserRoleType = async (req, res) => {
 
 const EditProfileImage = async (req, res) => {
   const {id} = req.user;
-  const {image} = req.body;
+  // const {image} = req.body;
 
   // Because upload.array("image", 1) was used, mediaUploader set req.uploadedImages = [ {...} ]
   if (!req.uploadedImages || req.uploadedImages.length === 0) {
     return res.status(400).json({error: "No uploadedImages found"});
   }
 
-  const {url: imageUrl} = req.uploadedImages[0];
+  const {public_id: imageUrl} = req.uploadedImages[0];
   if (!imageUrl) {
     return res.status(400).json({error: "Cloudinary did not return a URL"});
   }
 
-  const updatedUser = await editProfileImage(id, image);
+  const updatedUser = await editProfileImage(id, imageUrl);
   res.status(201).json(updatedUser);
 };
 
