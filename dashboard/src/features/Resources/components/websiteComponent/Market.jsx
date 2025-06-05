@@ -136,7 +136,6 @@ const MarketPage = ({ language, screen, currentContent }) => {
                 style={{
                     gap: getDynamicSize(30),
                     padding: `0px ${getDynamicSize(112)}`,
-                    // margin: `${getDynamicSize(70)} 0px`
                 }}
             >
                 {
@@ -146,10 +145,6 @@ const MarketPage = ({ language, screen, currentContent }) => {
                             <section
                                 style={{
                                     height: getDynamicSize(359),
-                                    // width: getDynamicSize(1216)
-                                    // gap: getDynamicSize(30),
-                                    // padding: `0px ${getDynamicSize(112)}`,
-                                    // margin: `${getDynamicSize(70)} 0px`
                                 }}
                                 className={`flex ${isPhone ? "flex-col" : odd && "flex-row-reverse"} bg-[#F8F8F8]`} key={e.id}>
                                 <div className={` flex-[2_0_auto] border border-cyan-500`}
@@ -199,7 +194,6 @@ const MarketPage = ({ language, screen, currentContent }) => {
                         )
                     })
                 }
-
             </div>
 
             {/* qoutes */}

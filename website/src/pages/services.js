@@ -1,4 +1,5 @@
 import createContent from "@/common/CreateContent";
+import Loader from "@/common/Loader";
 import Services from "@/components/services/Services";
 import { backendAPI } from "@/contexts/GlobalContext";
 import Head from "next/head";
@@ -19,9 +20,9 @@ export default function Service({ apiData }) {
     }
   }, [apiData]);
 
-  // if (isLoading) {
-  //   return <Loader />;
-  // }
+  if (isLoading) {
+    return <Loader />;
+  }
   return (
     <>
       <Head>
