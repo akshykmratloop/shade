@@ -85,11 +85,11 @@ const userRoleType = async (id) => {
   return {message: "RoleType fetched successfully", roleType}; // if everything goes fine
 };
 
-const editProfileImage = async (id, image) => {
-  const profileImage = await updateProfileImage(id, image);
+const editProfileImage = async (id, imageUrl) => {
+  const profileImage = await updateProfileImage(id, imageUrl);
   assert(profileImage, "IMAGE_UPDATE_FAILED", "Profile image update failed");
   // logger.info({response: `Profile image updated successfully`});
-  return {message: "Profile image updated successfully", profileImage}; // if everything goes fine
+  return {message: "Profile image updated successfully", profileImage};
 };
 
 export {
