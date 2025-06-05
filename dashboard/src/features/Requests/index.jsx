@@ -535,24 +535,26 @@ function Requests() {
                               </span>
                             </button>
 
-                            <button
-                              onClick={() => {
-                                setSelectedRequest(request);
-                                setShowDetailsModal(true);
-                                // openNotification();
-                                setResourceId(request.resourceVersion.resourceId)
-                                setRequestId(request.id)
-                              }}
-                            >
-                              <span
-                                title={`Review${canSeeEditor ? " and update" : ""}`}
-                                className="flex items-center gap-1 rounded-md text-[#101828]">
-                                <FiEye
-                                  className="w-5 h-6  text-[#3b4152] dark:text-stone-200"
-                                  strokeWidth={1}
-                                />
-                              </span>
-                            </button>
+                            {
+                              request.flowStatus !== "PUBLISHED" &&
+                              <button
+                                onClick={() => {
+                                  setSelectedRequest(request);
+                                  setShowDetailsModal(true);
+                                  // openNotification();
+                                  setResourceId(request.resourceVersion.resourceId)
+                                  setRequestId(request.id)
+                                }}
+                              >
+                                <span
+                                  title={`Review${canSeeEditor ? " and update" : ""}`}
+                                  className="flex items-center gap-1 rounded-md text-[#101828]">
+                                  <FiEye
+                                    className="w-5 h-6  text-[#3b4152] dark:text-stone-200"
+                                    strokeWidth={1}
+                                  />
+                                </span>
+                              </button>}
 
                             {
                               !canSeeEditor && request.flowStatus === "REJECTED" &&

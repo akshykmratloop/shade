@@ -214,7 +214,7 @@ const ImageSelector = ({ onSelectImage, onClose, type = "IMAGE" }) => {
                                             }
                                             {
                                                 imagesByResource &&
-                                                <button className="absolute z-[40] top-1/2 -translate-y-1/2 right-2 bg-[#80808080] text-white rounded-full p-1"
+                                                <button className={`absolute z-[40] ${documentMode ? "top-1/2 -translate-y-1/2" : "top-2"} right-2 bg-[#80808080] text-white rounded-full p-1`}
                                                     onClick={() => { setDeleteImgId(imgObj.id); setPopup(true) }}
                                                 >
                                                     <X width={16} height={16} />

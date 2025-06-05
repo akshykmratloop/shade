@@ -105,7 +105,7 @@ const HomePage = ({ content }) => {
           className={`${language === "en" && styles.leftAlign} ${styles.backgroundContainer}`}
         >
           <Image
-            src={currentContent?.['1']?.content?.images?.[0]?.url ? Img_url + currentContent?.['1']?.content?.images?.[0]?.url : background}
+            src={currentContent?.['1']?.content?.images?.[0]?.url ? Img_url + currentContent?.['1']?.content?.images?.[0]?.url : ""}
             alt="about-us"
             className={styles.backgroundImage}
             width={0}

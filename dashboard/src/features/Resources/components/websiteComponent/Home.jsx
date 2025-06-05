@@ -287,7 +287,7 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                             })}
                         </div>
                     </div>
-                    <div className={`max-w-[450xp] ${isTablet ? !isLeftAlign ? "pr-[64px]" : "pl-[40px]" : "pl-[40px]"}  ${fullScreen ? "flex-[2]" : "flex-[3]"}`}
+                    <div className={`w-[550px] ${isTablet ? !isLeftAlign ? "pr-[64px]" : "pl-[40px]" : "pl-[40px]"}  ${fullScreen ? "flex-[2]" : "flex-[3]"}`}
                         style={{
                             // maxWidth: isComputer && dynamicSize(420, width)
                             // width: isComputer && dynamicSize(420, width),
@@ -385,7 +385,7 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
 
                         <div className={`${isPhone ? "w-[220px]" : isTablet ? "w-[500px]" : ""} 
                         `}
-                            style={{ width: (isComputer && fullScreen) ? dynamicSize(800, width) : (!isComputer && fullScreen) ? dynamicSize(1030, width) : "" }}
+                            style={{ width: (isComputer || fullScreen) ? dynamicSize(800, width) : (!isComputer && fullScreen) ? dynamicSize(1030, width) : "" }}
                         >
                             <Swiper
                                 key={language}
@@ -461,8 +461,8 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                                 style={{ width: isComputer ? "" : isPhone ? "220px" : `${(400 / 1180) * screen}px` }}
                             // ${projectChunks?.length <= 1 ? 'hidden' : ''}
                             >
-                                <button ref={prevRef} className={`py-[12px] px-[20px] text-[#00B9F2] text-md font-medium border-[1px] border-[#00B9F2] rounded-[6px] flex gap-2 items-center ${isPhone ? "w-[120px]" : "min-w-[246px]"} justify-center  bg-white transition-all duration-200`}
-                                    style={{ fontSize: isComputer && dynamicSize(18, width) }}>
+                                <button ref={prevRef} className={`py-[12px] px-[20px] text-[#00B9F2] text-md font-medium border-[1px] border-[#00B9F2] rounded-[6px] flex gap-2 items-center ${isPhone ? "w-[120px]" : ""} justify-center  bg-white transition-all duration-200`}
+                                    style={{ fontSize: isComputer && dynamicSize(18, width), width: isComputer && dynamicSize(280, width) }}>
                                     <img
                                         src="https://frequencyimage.s3.ap-south-1.amazonaws.com/b2872383-e9d5-4dd7-ae00-8ae00cc4e87e-Vector%20%286%29.svg"
                                         width="18"
@@ -475,8 +475,8 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                                         currentContent?.["5"]?.buttons?.[1]?.text?.[language]
                                     }
                                 </button>
-                                <button ref={nextRef} className={`py-[12px] px-[20px] text-[#00B9F2] text-md font-medium border-[1px] border-[#00B9F2] rounded-[6px] flex gap-2 items-center ${isPhone ? "w-[120px]" : "min-w-[246px]"} justify-center bg-white transition-all duration-200`}
-                                    style={{ fontSize: isComputer && dynamicSize(18, width) }}>
+                                <button ref={nextRef} className={`py-[12px] px-[20px] text-[#00B9F2] text-md font-medium border-[1px] border-[#00B9F2] rounded-[6px] flex gap-2 items-center ${isPhone ? "w-[120px]" : "w-[280px]"} justify-center bg-white transition-all duration-200`}
+                                    style={{ fontSize: isComputer && dynamicSize(18, width), width: isComputer && dynamicSize(280, width) }}>
                                     {!isPhone &&
                                         currentContent?.["5"]?.buttons?.[2]?.text?.[language]
                                     }

@@ -104,7 +104,7 @@ const SolutionPage = ({ content }) => {
                   className={styles.right_panel}
                   >
                     <div 
-                    className={`${BankGothic.className}`}
+                    className={`${styles.description} ${BankGothic.className}`}
                       dangerouslySetInnerHTML={{ __html: e.description?.[language] }}
                     />
                   </div>

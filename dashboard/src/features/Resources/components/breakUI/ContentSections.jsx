@@ -51,7 +51,6 @@ const ContentSection = ({
 
 
     const addExtraFileInput = () => {
-        console.log("qwer")
         dispatch(addImageArray({
             src: skeleton[section],
             sectionIndex,
@@ -192,10 +191,10 @@ const ContentSection = ({
                 }
             },
             fontsize: {
-                list: Jodit.atom([8, 9, 10, 12, 14, 16, 18, 24, 30, 32, 34])
+                list: Jodit.atom([8, 9, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32, 34])
             },
             lineHeight: {
-                list: Jodit.atom(['1', '1.5', '2', '2.5', '3', '3.5', '4'])
+                list: Jodit.atom(['1', '1.5', '2', '2.5', '2.7', '3', '3.25', '3.5', '4'])
             }
         },
 
