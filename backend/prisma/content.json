@@ -999,9 +999,7 @@
           }
         ]
       },
-      "childService": [
-        "architectural-finishes"
-      ]
+      "childService": ["architectural-finishes"]
     },
     {
       "resourceTitle": {
@@ -1059,9 +1057,7 @@
           }
         ]
       },
-      "childService": [
-        "facility-services"
-      ]
+      "childService": ["facility-services"]
     },
     {
       "resourceTitle": {
@@ -1119,9 +1115,7 @@
           }
         ]
       },
-      "childService": [
-        "infrastructure-maintenance"
-      ]
+      "childService": ["infrastructure-maintenance"]
     },
     {
       "resourceTitle": {
@@ -1179,9 +1173,7 @@
           }
         ]
       },
-      "childService": [
-        "structural-fabrication"
-      ]
+      "childService": ["structural-fabrication"]
     },
     {
       "resourceTitle": {
@@ -1239,9 +1231,7 @@
           }
         ]
       },
-      "childService": [
-        "cranes-heavy-lifting-equipment"
-      ]
+      "childService": ["cranes-heavy-lifting-equipment"]
     }
   ],
   "thirdLevelOfServices": [
@@ -4921,5 +4911,74 @@
         ]
       }
     }
-  ]
+  ],
+  "history": {
+    "slug": "history",
+    "heroSection": {
+      "title": {
+        "en": "Trusted History",
+        "ar": "تاريخ موثوق"
+      },
+      "description": {
+        "en": "Experience the rich history of Shade Corporation — a legacy of innovation, resilience, and engineering excellence that shaped Saudi Arabia's EPC landscape",
+        "ar": "اختبر التاريخ العريق لشركة شيد — إرث من الابتكار والمرونة والتميّز الهندسي الذي شكّل مشهد المقاولات الهندسية والمشتريات والإنشاءات (EPC) في المملكة العربية السعودية."
+      },
+      "images": [
+        {
+          "order": 1,
+          "url": "",
+          "altText": {
+            "en": " Image",
+            "ar": "الرئيسية"
+          }
+        }
+      ]
+    },
+    "descriptionSection": {
+      "title": {
+        "en": "Where It All Began",
+        "ar": "حيث بدأ كل شيء"
+      },
+      "description": {
+        "en": "Founded in 1992 by a group of committed professionals, Shade Corporation now has a strong workforce of over 2,000 employees across various locations. The company has consistently provided innovative solutions to deliver capital efficiency and project certainty. Over the years, Shade has expanded from General Contracting to offer services including Construction Management, Project Management, Design/Build, and Value Engineering. It plays a key role in the transportation, industrial, and building sectors. Shade has delivered EPC, PM, CM, VE, and Design/Build services to clients such as Aramco, Royal Commission, Ministry of Transportation, SABIC, Maaden, various municipalities, Saudi Bahraini Causeway Authority, Water Directorate, Saudi Electric Company, Saudi Naval Forces, and Qatar Petroleum.",
+
+        "ar": "تأسست شركة شيد في عام 1992 على يد مجموعة من المتخصصين الملتزمين، وتضم اليوم أكثر من 2000 موظف في مواقع متعددة. تقدم الشركة باستمرار حلولاً مبتكرة لتحقيق الكفاءة الرأسمالية وضمان نجاح المشاريع. توسعت خدماتها لتشمل الإدارة العامة للمقاولات، إدارة المشاريع، الإدارة الإنشائية، التصميم والبناء، والهندسة القيمية. وتلعب دوراً رئيسياً في قطاعات النقل والصناعة والبناء، وقدمت خدماتها لعملاء مثل أرامكو، الهيئة الملكية، وزارة النقل، سابك، معادن، البلديات، هيئة جسر الملك فهد، مديرية المياه، الشركة السعودية للكهرباء، القوات البحرية السعودية، وقطر للبترول."
+      },
+
+      "images": [
+        {
+          "order": 1,
+          "url": "",
+          "altText": {
+            "en": "About Us Image",
+            "ar": "صورة عنا"
+          }
+        },
+        {
+          "order": 2,
+          "url": "",
+          "altText": {
+            "en": "About Us Image",
+            "ar": "صورة عنا"
+          }
+        },
+        {
+          "order": 3,
+          "url": "",
+          "altText": {
+            "en": "About Us Image",
+            "ar": "صورة عنا"
+          }
+        },
+        {
+          "order": 4,
+          "url": "",
+          "altText": {
+            "en": "About Us Image",
+            "ar": "صورة عنا"
+          }
+        }
+      ]
+    }
+  }
 }

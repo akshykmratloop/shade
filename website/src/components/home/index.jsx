@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, {useEffect, useRef, useState} from "react";
 import styles from "@/components/home/Home.module.scss";
 import Button from "@/common/Button";
 import Image from "next/image";
@@ -6,9 +6,9 @@ import Arrow from "../../assets/icons/right-wrrow.svg";
 // import Client from "../../assets/icons/client.svg";
 // import AboutUs from "../../assets/images/aboutus.png";
 import localFont from "next/font/local";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { useRouter } from "next/router";
-import { Img_url } from "@/common/CreateContent";
+import {Swiper, SwiperSlide} from "swiper/react";
+import {useRouter} from "next/router";
+import {Img_url} from "@/common/CreateContent";
 // import required modules
 import {
   Pagination,
@@ -19,7 +19,7 @@ import {
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
-import { useGlobalContext } from "../../contexts/GlobalContext";
+import {useGlobalContext} from "../../contexts/GlobalContext";
 import blankImage from "../../assets/images/blankImage.webp";
 import background from "../../assets/images/Hero.png";
 // import dynamic from 'next/dynamic';
@@ -43,13 +43,14 @@ const BankGothic = localFont({
   display: "swap",
 });
 
-const HomePage = ({ content }) => {
+const HomePage = ({content}) => {
   const router = useRouter();
-  const { language,
+  const {
+    language,
     // content
   } = useGlobalContext();
-  const isLeftAlign = language === 'en';
-  const titleLan = isLeftAlign ? "titleEn" : "titleAr"
+  const isLeftAlign = language === "en";
+  const titleLan = isLeftAlign ? "titleEn" : "titleAr";
 
   const currentContent = content;
   // Create refs for the navigation buttons
@@ -83,10 +84,7 @@ const HomePage = ({ content }) => {
     projectsPerSlide
   );
 
-  const ProjectSlider = { ...recentProjects, ...markets, ...safety };
-
-
-
+  const ProjectSlider = {...recentProjects, ...markets, ...safety};
 
   const TruncateText = (text, length) => {
     if (text?.length > (length || 50)) {
@@ -99,13 +97,22 @@ const HomePage = ({ content }) => {
     <>
       {/* banner */}
       <section
-        className={`${styles.home_banner_wrap} ${language === "en" && styles.leftAlign}`}
+        className={`${styles.home_banner_wrap} ${
+          language === "en" && styles.leftAlign
+        }`}
       >
         <span
-          className={`${language === "en" && styles.leftAlign} ${styles.backgroundContainer}`}
+          className={`${language === "en" && styles.leftAlign} ${
+            styles.backgroundContainer
+          }`}
         >
           <img
-            src={currentContent?.['1']?.content?.images?.[0]?.url ? Img_url + currentContent?.['1']?.content?.images?.[0]?.url : ""}
+            style={{objectPosition: "bottom"}}
+            src={
+              currentContent?.["1"]?.content?.images?.[0]?.url
+                ? Img_url + currentContent?.["1"]?.content?.images?.[0]?.url
+                : ""
+            }
             alt="about-us"
             className={styles.backgroundImage}
             width={0}
@@ -121,15 +128,16 @@ const HomePage = ({ content }) => {
 
             <h1 className={`${styles.title}`}>
               {/* {currentContent?.homeBanner?.title[language]} */}
-              {currentContent?.['1']?.content?.title?.[language]}
+              {currentContent?.["1"]?.content?.title?.[language]}
             </h1>
             <p className={`${styles.description} ${BankGothic.className}`}>
               {/* {currentContent?.homeBanner?.description[language]} */}
-              {currentContent?.['1']?.content?.description?.[language]}
+              {currentContent?.["1"]?.content?.description?.[language]}
             </p>
             <Button
-              className={`${styles.view_btn}  ${language === "en" && styles.noPadding
-                }`}
+              className={`${styles.view_btn}  ${
+                language === "en" && styles.noPadding
+              }`}
               onClick={() => router.push("/project")}
             >
               <Image
@@ -139,26 +147,34 @@ const HomePage = ({ content }) => {
                 alt=""
                 className={`${styles.arrow_btn}`}
               />
-              <span>{currentContent?.[1]?.content?.button?.[0]?.text?.[language]}</span>
+              <span>
+                {currentContent?.[1]?.content?.button?.[0]?.text?.[language]}
+              </span>
             </Button>
           </div>
         </div>
       </section>
       {/* about us section */}
       <section
-        className={`${styles.about_us_wrapper} ${language === "en" && styles.englishVersion
-          }`}
+        className={`${styles.about_us_wrapper} ${
+          language === "en" && styles.englishVersion
+        }`}
       >
         <div className={`container ${styles.main_container}`}>
 
           <div className={styles.about_content}>
             <h2 className={`${styles.title}`}>
-              {currentContent?.['2']?.content?.title?.[language]}
+              {currentContent?.["2"]?.content?.title?.[language]}
             </h2>
             <div>
               <div
                 dir={isLeftAlign ? "ltr" : "rtl"}
-                className={`${styles.description} ${BankGothic.className}`} dangerouslySetInnerHTML={{ __html: currentContent?.['2']?.content?.description?.[language] }} />
+                className={`${styles.description} ${BankGothic.className}`}
+                dangerouslySetInnerHTML={{
+                  __html:
+                    currentContent?.["2"]?.content?.description?.[language],
+                }}
+              />
               {/* {currentContent?.['2']?.content?.description[language]} */}
               {/* </div> */}
               {/* <p className={`${styles.description} ${BankGothic.className}`}>
@@ -169,7 +185,7 @@ const HomePage = ({ content }) => {
               className={styles.view_btn}
               onClick={() => router.push("/about-us")}
             >
-              {currentContent?.['2']?.content?.button?.[0]?.text?.[language]}
+              {currentContent?.["2"]?.content?.button?.[0]?.text?.[language]}
             </Button>
           </div>
 
@@ -184,8 +200,11 @@ const HomePage = ({ content }) => {
               style={{ objectFit: 'cover' }}
             /> */}
 
-            <img src={`${Img_url}${content?.["2"]?.content?.images?.[0]?.url}`} alt="about-us" className="w-full h-[500px] object-cover"
-              style={{ width: 877, height: 629 }}
+            <img
+              src={`${Img_url}${content?.["2"]?.content?.images?.[0]?.url}`}
+              alt="about-us"
+              className="w-full h-[500px] object-cover"
+              style={{width: 877, height: 629}}
             />
           </div>
         </div>
@@ -194,12 +213,12 @@ const HomePage = ({ content }) => {
       <section className={styles.service_wrapper}>
         <div className={`container`}>
           <h2 className={`${styles.title}`}>
-            {currentContent?.['3']?.content?.title?.[language]}{" "}
+            {currentContent?.["3"]?.content?.title?.[language]}{" "}
             {/* Dynamic title */}
           </h2>
 
           <div className={styles.service_cards}>
-            {currentContent?.['3']?.items?.map((card, key) => (
+            {currentContent?.["3"]?.items?.map((card, key) => (
               <div
                 className={styles.card}
                 key={key}
@@ -230,10 +249,11 @@ const HomePage = ({ content }) => {
         <div className={`container ${styles.main_container}`}>
           <div className={styles.experience_colums}>
             <div
-              className={`${styles.experince_cards} ${language === "ar" && styles.arabicVersion
-                }`}
+              className={`${styles.experince_cards} ${
+                language === "ar" && styles.arabicVersion
+              }`}
             >
-              {currentContent?.['4']?.content?.cards?.map((item, key) => (
+              {currentContent?.["4"]?.content?.cards?.map((item, key) => (
                 <div className={styles.card} key={key}>
                   <div className={styles.card_body}>
                     {/* <Image src={item.url} width="66" height="66" alt="about-us" className={styles.icon} /> */}
@@ -264,8 +284,9 @@ const HomePage = ({ content }) => {
               </p>
 
               <Button
-                className={`${styles.view_btn} ${language === "ar" && styles.arabicVersion
-                  }`}
+                className={`${styles.view_btn} ${
+                  language === "ar" && styles.arabicVersion
+                }`}
                 onClick={() => setIsModal(true)}
               >
                 {currentContent?.[4]?.content?.button?.[0]?.text[language]}
@@ -291,62 +312,59 @@ const HomePage = ({ content }) => {
                   )
                 }
               >
-                {
-                  currentContent?.['5']?.content?.buttons[0]?.text[
-                  language
-                  ]
-                }{" "}
+                {currentContent?.["5"]?.content?.buttons[0]?.text[language]}{" "}
                 &nbsp;
                 <Image
                   src="https://frequencyimage.s3.ap-south-1.amazonaws.com/5d82e78b-cb95-4768-abfe-247369079ce6-bi_arrow-up.svg"
                   width="18"
                   height="17"
                   alt=""
-                  className={`${styles.arrow_btn} ${language === "en" && styles.leftAlign
-                    }`}
+                  className={`${styles.arrow_btn} ${
+                    language === "en" && styles.leftAlign
+                  }`}
                 />{" "}
               </button>
             )}
           </div>
           <div className={styles.recent_project}>
             <div className="leftDetails">
-              {currentContent?.['5']?.sections?.map(
-                (section, index) => (
-                  <div
-                    key={index}
-                    className={`${styles.recent_project_content}  ${language === "ar" && styles.arabicVersion
-                      }`}
+              {currentContent?.["5"]?.sections?.map((section, index) => (
+                <div
+                  key={index}
+                  className={`${styles.recent_project_content}  ${
+                    language === "ar" && styles.arabicVersion
+                  }`}
+                >
+                  <span
+                    className={
+                      activeRecentProjectSection === index
+                        ? styles.title
+                        : styles.subtitle
+                    }
+                    onClick={() => setActiveRecentProjectSection(index)}
                   >
-                    <span
+                    <h2
                       className={
                         activeRecentProjectSection === index
                           ? styles.title
                           : styles.subtitle
                       }
-                      onClick={() => setActiveRecentProjectSection(index)}
                     >
-                      <h2
-                        className={
-                          activeRecentProjectSection === index
-                            ? styles.title
-                            : styles.subtitle
-                        }
-                      >
-                        {section?.content?.title?.[language]}
-                      </h2>
-                    </span>
+                      {section?.content?.title?.[language]}
+                    </h2>
+                  </span>
 
-                    <p
-                      className={`${activeRecentProjectSection === index
+                  <p
+                    className={`${
+                      activeRecentProjectSection === index
                         ? styles.description
                         : styles.descriptionHide
-                        } ${BankGothic.className}`}
-                    >
-                      {section?.content?.description?.[language]}
-                    </p>
-                  </div>
-                )
-              )}
+                    } ${BankGothic.className}`}
+                  >
+                    {section?.content?.description?.[language]}
+                  </p>
+                </div>
+              ))}
             </div>
 
             <div>
@@ -416,8 +434,9 @@ const HomePage = ({ content }) => {
               {/* Custom buttons */}
 
               <div
-                className={`${styles.btn_wrapper} ${projectChunks?.length <= 1 && styles.hide_btn_wrapper
-                  }`}
+                className={`${styles.btn_wrapper} ${
+                  projectChunks?.length <= 1 && styles.hide_btn_wrapper
+                }`}
               >
                 <button ref={prevRef} className={styles.custom_prev}>
                   <Image
@@ -425,13 +444,14 @@ const HomePage = ({ content }) => {
                     width="18"
                     height="17"
                     alt=""
-                    className={`${styles.arrow_btn} ${language === "en" && styles.leftAlign
-                      }`}
+                    className={`${styles.arrow_btn} ${
+                      language === "en" && styles.leftAlign
+                    }`}
                   />
                   &nbsp;
                   {
                     currentContent?.recentProjectsSection?.buttons[1]?.text[
-                    language
+                      language
                     ]
                   }
                 </button>
@@ -439,7 +459,7 @@ const HomePage = ({ content }) => {
                   {" "}
                   {
                     currentContent?.recentProjectsSection?.buttons[2]?.text[
-                    language
+                      language
                     ]
                   }{" "}
                   &nbsp;
@@ -448,8 +468,9 @@ const HomePage = ({ content }) => {
                     width="18"
                     height="17"
                     alt=""
-                    className={`${styles.arrow_btn} ${language === "en" && styles.leftAlign
-                      }`}
+                    className={`${styles.arrow_btn} ${
+                      language === "en" && styles.leftAlign
+                    }`}
                   />
                 </button>
               </div>
@@ -479,41 +500,44 @@ const HomePage = ({ content }) => {
             {/* <AnimatedText text="عملائنا السعداء" Wrapper="h2" repeatDelay={0.04} className={`${styles.title} ${BankGothic.className}`} /> */}
 
             <h2 className={`${styles.title}`}>
-              {currentContent?.['6']?.content?.title[language]}
+              {currentContent?.["6"]?.content?.title[language]}
             </h2>
             <p className={`${styles.description} ${BankGothic.className}`}>
-              {currentContent?.['6']?.content?.description[language]}
+              {currentContent?.["6"]?.content?.description[language]}
             </p>
           </div>
           <div className={styles.Client_cards}>
-            {currentContent?.['6']?.content?.clientsImages?.map((client, key) => (
-              <div className={styles.card} key={key}>
-                <div className={styles.card_body}>
-                  <Image
-                    src={Img_url + client?.image}
-                    width={key === 3 ? 100 : 66}
-                    height={key === 3 ? 30 : 66}
-                    alt="about-us"
-                    className={styles.client}
-                  />
+            {currentContent?.["6"]?.content?.clientsImages?.map(
+              (client, key) => (
+                <div className={styles.card} key={key}>
+                  <div className={styles.card_body}>
+                    <Image
+                      src={Img_url + client?.image}
+                      width={key === 3 ? 100 : 66}
+                      height={key === 3 ? 30 : 66}
+                      alt="about-us"
+                      className={styles.client}
+                    />
+                  </div>
                 </div>
-              </div>
-            ))}
+              )
+            )}
           </div>
         </div>
       </section>
 
       {/* testomonials section  */}
       <section
-        className={` ${styles.testimonial_wrapper} ${language !== "en" && styles.rightAlignment
-          }`}
+        className={` ${styles.testimonial_wrapper} ${
+          language !== "en" && styles.rightAlignment
+        }`}
       >
         <div className={`container ${styles.main_container}`}>
           <div className={styles.testimonials_content}>
             {/* <AnimatedText text="ماذا يقول عملاؤنا عنا؟" Wrapper="h2" repeatDelay={0.04} className={`${styles.title} ${BankGothic.className}`} /> */}
 
             <h2 className={`${styles.title}`}>
-              {currentContent?.['7']?.content?.title[language]}
+              {currentContent?.["7"]?.content?.title[language]}
             </h2>
           </div>
 
@@ -545,10 +569,10 @@ const HomePage = ({ content }) => {
                 modifier: 2, // Adjust the scale modifier
                 slideShadows: false, // Optional: Enable/disable shadows
               }}
-              autoplay={{ delay: 2500 }}
+              autoplay={{delay: 2500}}
               breakpoints={{
-                724: { slidesPerView: 2.2 }, // Adjust for bigger screens
-                500: { slidesPerView: 1 }, // For smaller screens
+                724: {slidesPerView: 2.2}, // Adjust for bigger screens
+                500: {slidesPerView: 1}, // For smaller screens
               }}
               rtl={true} // Enable RTL for Arabic layout
             >
@@ -607,8 +631,9 @@ const HomePage = ({ content }) => {
                   width="22"
                   height="17"
                   alt=""
-                  className={`${styles.arrow_btn} ${language === "en" && styles.leftAlign
-                    }`}
+                  className={`${styles.arrow_btn} ${
+                    language === "en" && styles.leftAlign
+                  }`}
                 />{" "}
               </button>
               <button ref={testimonialNextRef} className={styles.custom_prev}>
@@ -617,8 +642,9 @@ const HomePage = ({ content }) => {
                   width="22"
                   height="17"
                   alt=""
-                  className={`${styles.arrow_btn} ${language === "en" && styles.leftAlign
-                    }`}
+                  className={`${styles.arrow_btn} ${
+                    language === "en" && styles.leftAlign
+                  }`}
                 />
               </button>
             </div>
@@ -631,7 +657,7 @@ const HomePage = ({ content }) => {
         <div className={`container ${styles.main_container}`}>
           <div className={styles.Client_content}>
             <h2 className={`${styles.title}`}>
-              {currentContent?.['8']?.content?.title[language]}
+              {currentContent?.["8"]?.content?.title[language]}
             </h2>
             {/* <p className={`${styles.description} ${BankGothic.className}`}>
               {currentContent?.['8']?.content?.description[
@@ -646,8 +672,12 @@ const HomePage = ({ content }) => {
               </i>
             </p> */}
 
-            <div className={`${styles.description} ${BankGothic.className}`}
-              dangerouslySetInnerHTML={{ __html: currentContent?.['8']?.content?.description?.[language] }} />
+            <div
+              className={`${styles.description} ${BankGothic.className}`}
+              dangerouslySetInnerHTML={{
+                __html: currentContent?.["8"]?.content?.description?.[language],
+              }}
+            />
             {/* {currentContent?.newProjectSection?.description2[language]} */}
             {/* </div> */}
 
@@ -655,7 +685,7 @@ const HomePage = ({ content }) => {
               className={styles.view_btn}
               onClick={() => setIsModal(true)}
             >
-              {currentContent?.['8']?.content?.button?.[0]?.text?.[language]}
+              {currentContent?.["8"]?.content?.button?.[0]?.text?.[language]}
             </Button>
           </div>
         </div>
