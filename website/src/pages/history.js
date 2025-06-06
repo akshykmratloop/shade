@@ -7,7 +7,7 @@ import createContent from "@/common/CreateContent";
 import Loader from "@/common/Loader";
 import {useEffect, useState} from "react";
 import {backendAPI} from "@/contexts/GlobalContext";
-import HistoryPage from "@/components/history/History.jsx";
+import HistoryPage from "@/components/history/index.jsx";
 
 const inter = Inter({subsets: ["latin"]});
 

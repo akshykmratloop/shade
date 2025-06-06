@@ -1,5 +1,6 @@
 import React, {useEffect, useRef, useState} from "react";
-import styles from "@/components/History/History.module.scss";
+// import styles from "@/History.module.scss";
+import styles from "./History.module.scss"
 import Button from "@/common/Button";
 import Image from "next/image";
 import Arrow from "../../assets/icons/right-wrrow.svg";

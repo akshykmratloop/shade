@@ -17,19 +17,21 @@ import { useRouter } from "next/router";
 // const AnimatedText = dynamic(() => import('@/common/AnimatedText'), { ssr: false });
 import { useGlobalContext } from "../../contexts/GlobalContext";
 import { newsBlogs } from "../../assets/index";
-const NewsBlogspage = () => {
+const NewsBlogspage = ({ content }) => {
   const router = useRouter();
 
-  const { language, content } = useGlobalContext();
-  const currentContent = content?.newsBlogs;
+  const { language } = useGlobalContext();
+  const currentContent = content;
 
-  const bannerTitle = currentContent?.bannerSection?.title[language];
+  const bannerTitle = currentContent?.[1]?.content?.title?.[language];
   const bannerDescription =
-    currentContent?.bannerSection?.description[language];
+    currentContent?.[1]?.content?.description[language];
 
-  const mainCard = currentContent?.mainCard;
-  const latestNews = currentContent?.latestNewCards;
-  const trendingCard = currentContent?.trendingCard;
+
+  const banner = content?.['1']?.content
+  const mainCard = content?.['2']?.items?.[0]
+  const latestNews = content?.['3']?.items;
+  const trendingCard = content?.['4']?.items?.[0];
 
   const TruncateText = (text, length) => useTruncate(text, length || 200);
 
@@ -40,9 +42,8 @@ const NewsBlogspage = () => {
   return (
     <>
       <section
-        className={` ${language === "en" && styles.leftAlign}   ${
-          styles.news_blogs_banner_wrap
-        }`}
+        className={` ${language === "en" && styles.leftAlign}   ${styles.news_blogs_banner_wrap
+          }`}
       >
         <div
           className="container"
@@ -60,18 +61,17 @@ const NewsBlogspage = () => {
 
       {/* Main Card */}
       <section
-        className={` ${language === "en" && styles.leftAlign}   ${
-          styles.main_card_wrap
-        }`}
+        className={` ${language === "en" && styles.leftAlign}   ${styles.main_card_wrap
+          }`}
       >
         <div className="container">
           <div className={styles.card}>
             <div className={styles.card_body}>
               <h2
-                title={mainCard.title[language]}
+                title={mainCard?.title?.[language]}
                 className={`${BankGothic.className} ${styles.title}`}
               >
-                {mainCard.title[language]}
+                {mainCard?.title?.[language]}
               </h2>
               <p
                 title={mainCard.description[language]}
@@ -104,9 +104,8 @@ const NewsBlogspage = () => {
 
       {/* Latest News Cards */}
       <section
-        className={` ${language === "en" && styles.leftAlign}   ${
-          styles.latest_new_card_wrap
-        }`}
+        className={` ${language === "en" && styles.leftAlign}   ${styles.latest_new_card_wrap
+          }`}
       >
         <div className="container">
           <h2 className={`${BankGothic.className} ${styles.main_heading}`}>
@@ -155,9 +154,8 @@ const NewsBlogspage = () => {
 
       {/* Trending Card */}
       <section
-        className={` ${language === "en" && styles.leftAlign}   ${
-          styles.trending_card_wrap
-        }`}
+        className={` ${language === "en" && styles.leftAlign}   ${styles.trending_card_wrap
+          }`}
       >
         <div className="container">
           <div className={styles.card}>
