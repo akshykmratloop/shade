@@ -11,6 +11,7 @@ import Button from "@/common/Button";
 import localFont from "next/font/local";
 import { useGlobalContext } from "../../contexts/GlobalContext";
 import ContactUsModal from "../header/ContactUsModal";
+import createContent, { Img_url } from "@/common/CreateContent";
 
 // Font files can be colocated inside of `app`
 const BankGothic = localFont({
@@ -19,14 +20,15 @@ const BankGothic = localFont({
 });
 
 const Footer = () => {
-
-  const { language, content } = useGlobalContext();
-  const currentContent = content?.footer;
+  const { language, content, footerData } = useGlobalContext();
+  const currentContent = createContent(footerData.content).content;
+  console.log(currentContent)
   const [isModal, setIsModal] = useState(false);
 
   const handleContactUSClose = () => {
     setIsModal(false);
   };
+
   return (
     <footer className={styles.footerWrapper} dir={language === 'en' ? "ltr" : 'rtl'}>
       <span className={styles.bubble1}></span>
@@ -34,8 +36,8 @@ const Footer = () => {
       <div className="container">
         <div className={styles.footerHead}>
           <div className={styles.logo}>
-            <Image
-              src={Logo}
+            <img
+              src={Img_url + currentContent?.['1']?.content?.images?.[0]?.url}
               alt="Logo"
               className={styles.logoImage}
               width={138}
@@ -43,11 +45,11 @@ const Footer = () => {
             />
           </div>
           <p className={styles.footerDescription}>
-            {currentContent?.companyInfo?.address[language]}
+            {currentContent?.['1']?.content?.address?.[language]}
           </p>
         </div>
-        <div className={styles.footerBody}>
-          <div className={styles.otherLink}>
+        <div>
+          {/* <div className={styles.otherLink}>
             <h5 className={styles.footertitle}>
               {currentContent?.aboutUs?.title[language]}
             </h5>
@@ -60,9 +62,9 @@ const Footer = () => {
                 {link[language]}
               </Link>
             ))}
-          </div>
+          </div> */}
 
-          <div className={styles.companyLink}>
+          {/* <div className={styles.companyLink}>
             <h5 className={styles.footertitle}>
               {currentContent?.markets?.title[language]}
             </h5>
@@ -75,92 +77,67 @@ const Footer = () => {
                 {link[language]}
               </Link>
             ))}
-          </div>
+          </div> */}
+          <div className={styles.footerBody}>
 
-          <div className={styles.companyLink}>
-            <h5 className={styles.footertitle}>
-              {currentContent?.services?.title[language]}
-            </h5>
-            {currentContent?.services?.links?.map((link, index) => (
-              <Link
-                key={index}
-                href={link.url}
-                className={`${styles.url} ${BankGothic.className}`}
-              >
-                {link[language]}
-              </Link>
-            ))}
+            {
+              currentContent?.['2']?.content?.map((section, i) => (
+                <div className={styles.companyLink}>
+                  <h5 className={styles.footertitle}>
+                    {section?.title[language]}
+                  </h5>
+                  {section?.links?.map((link, index) => (
+                    <Link
+                      key={index}
+                      href={link.url}
+                      className={`${styles.url} ${BankGothic.className}`}
+                    >
+                      {link[language]}
+                    </Link>
+                  ))}
+                </div>))
+            }
+
           </div>
 
           <div className={styles.addressWrap}>
             <h5 className={styles.footertitle}>
-              {currentContent?.contact?.title[language]}
+              {currentContent?.["3"]?.content?.title?.[language]}
             </h5>
 
             <div className={styles.contactWrap}>
               <p className={`${styles.address} ${BankGothic.className}`}>
-                {currentContent?.contact?.phone[language]}
+                {currentContent?.["3"]?.content?.phone?.[language]}
               </p>
             </div>
             <div className={styles.contactWrap}>
               <p className={`${styles.address} ${BankGothic.className}`}>
-                {currentContent?.contact?.fax[language]}
+                {currentContent?.["3"]?.content?.fax?.[language]}
               </p>
             </div>
 
             <h6 className={styles.basic_title}>
-              {currentContent?.contact?.helpText[language]}
+              {currentContent?.["3"]?.content?.helpText?.[language]}
             </h6>
 
             <Button className={`${styles.contact_btn} ${language === 'en' && styles.center}`} onClick={() => setIsModal(true)}>
-              {currentContent?.contact?.button[language]}
+              {currentContent?.["3"]?.content?.button?.[0]?.text?.[language]}
             </Button>
 
             <ul className={styles.socialMedia}>
-              <li className={styles.socialMediaItem}>
-                <a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer" className={styles.socialMediaLink}>
-                  <Image
-                    src={Linkedin}
-                    alt="Linkedin"
-                    className={styles.Icon}
-                    width={24}
-                    height={24}
-                  />
-                </a>
-              </li>
-              <li className={styles.socialMediaItem}>
-                <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer" className={styles.socialMediaLink}>
-                  <Image
-                    src={Instagram}
-                    alt="Instagram"
-                    className={styles.Icon}
-                    width={24}
-                    height={24}
-                  />
-                </a>
-              </li>
-              <li className={styles.socialMediaItem}>
-                <a href="https://twitter.com/" target="_blank" rel="noopener noreferrer" className={styles.socialMediaLink}>
-                  <Image
-                    src={Twitter}
-                    alt="Twitter"
-                    className={styles.Icon}
-                    width={24}
-                    height={24}
-                  />
-                </a>
-              </li>
-              <li className={styles.socialMediaItem}>
-                <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" className={styles.socialMediaLink}>
-                  <Image
-                    src={Facebook}
-                    alt="Facebook"
-                    className={styles.Icon}
-                    width={24}
-                    height={24}
-                  />
-                </a>
-              </li>
+              {currentContent?.["3"]?.content?.socialLinks?.map((social, index) => (
+                <li className={styles.socialMediaItem}>
+                  <a key={index + social.url} href={social.url} target="_blank" rel="noopener noreferrer" className={styles.socialMediaLink}>
+                    <img
+                      src={Img_url + social.icon}
+                      alt=""
+                      className={styles.Icon}
+                      width={24}
+                      height={24}
+                    />
+                  </a>
+                </li>
+              ))}
             </ul>
           </div>
 

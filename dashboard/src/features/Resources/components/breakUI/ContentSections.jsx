@@ -300,8 +300,9 @@ const ContentSection = ({
                                         />
                                     )
                                 })}
-                                {allowExtraInput &&
-                                    <button
+                                {
+                                    (allowExtraInput && inputFiles?.length < 8) &&
+                                    < button
                                         className="mt-2 px-3 py-2 bg-blue-500 h-[95px] w-[95px] text-white rounded-lg translate-y-3 self-center text-xl"
                                         onClick={outOfEditing ? () => { } : addExtraFileInput}
                                     >
@@ -361,7 +362,7 @@ const ContentSection = ({
                         </div>
                 }
             </div>
-        </div>
+        </div >
     );
 };
 
