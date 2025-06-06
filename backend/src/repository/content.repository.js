@@ -2899,11 +2899,22 @@ export const publishContent = async (contentData, userId) => {
   const result = await prismaClient.$transaction(async (tx) => {
     const versionNumber = resource._count.versions + 1;
 
+    // Mark all LIVE versions for this resource as PUBLISHED
+    await tx.resourceVersion.updateMany({
+      where: {
+        resourceId: resource.id,
+        versionStatus: "LIVE",
+      },
+      data: {
+        versionStatus: "PUBLISHED",
+      },
+    });
+
     const resourceVersion = await tx.resourceVersion.create({
       data: {
         resourceId: resource.id,
         versionNumber,
-        versionStatus: "PUBLISHED",
+        versionStatus: "LIVE",
         notes: comments,
         referenceDoc,
         content,
@@ -4392,8 +4403,18 @@ export const approveRequestInPublication = async (requestId, userId) => {
       },
     });
 
-    await tx.resourceVersion.update({
-      where: {id: resource.liveVersionId},
+    // await tx.resourceVersion.update({
+    //   where: {id: resource.liveVersionId},
+    //   data: {
+    //     versionStatus: "PUBLISHED",
+    //   },
+    // });
+
+    await tx.resourceVersion.updateMany({
+      where: {
+        resourceId: resource.id,
+        versionStatus: "LIVE",
+      },
       data: {
         versionStatus: "PUBLISHED",
       },
