@@ -741,6 +741,31 @@ async function main() {
           [...safetyPoliciesSlug]
         );
 
+        // 3. Create History Page
+        await createResource(
+          "History",
+          "تاريخ",
+          content.history.slug,
+          "MAIN_PAGE",
+          "HISTORY",
+          "PARENT",
+          [
+            {
+              title: "heroSection",
+              SectionType: "HERO_BANNER",
+              content: content.history.heroSection,
+              sectionVersionTitle: "History-heroSection",
+            },
+           {
+            title: "descriptionSection",
+            SectionType: "MARKDOWN_CONTENT",
+            content: content.history.descriptionSection,
+            sectionVersionTitle: "History-descriptionSection",
+           }
+          ]
+        );
+
+
         // 2. Create Footer
         await createResource(
           "Footer",
@@ -1139,7 +1164,7 @@ async function main() {
     console.error("Error in main function:", error);
     throw error; // Re-throw to be caught by the outer catch block
   }
-}
+} 
 
 main()
   .catch((e) => {

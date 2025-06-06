@@ -1,0 +1,93 @@
+.history_banner_wrap {
+  height: 715px;
+  //   background: url("../../assets/images/Hero.png") no-repeat center / cover;
+  width: 100%;
+  position: relative;
+
+  &.leftAlign {
+    .content {
+      .view_btn {
+        padding: 10px 35px 10px 10px !important;
+
+        .arrow_btn {
+          position: absolute;
+          top: 30% !important;
+          left: 170px !important;
+          transform: scaleX(-1) !important;
+        }
+      }
+    }
+  }
+  .backgroundContainer {
+    width: 100%;
+    height: 715px;
+    display: block;
+
+    &.leftAlign {
+      transform: scaleX(-1);
+    }
+
+    .backgroundImage {
+      width: 100%;
+      height: 100vh;
+    }
+  }
+
+  .content {
+    position: absolute;
+    top: 30%;
+
+    .title {
+      color: var(--black);
+      font-size: 70px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 77px;
+      /* 110% */
+      letter-spacing: -3.5px;
+      margin-bottom: 16px;
+      text-wrap: auto;
+      width: 635px;
+      //   text-align: right;
+    }
+
+    .description {
+      color: var(--para-light);
+      // font-size: 14px;
+      // font-style: normal;
+      // font-weight: 700;
+      // line-height: 14.5px;
+      // margin-bottom: 24px;
+      // width: 44%;
+      //   text-align: right;
+      //   margin-left: auto;
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 26px;
+      margin-bottom: 26px;
+      width: 50%;
+      word-spacing: 5px;
+      display: block;
+    }
+
+    .view_btn {
+      padding: 16px 28px 5px 60px;
+
+      font-size: 18px;
+      font-weight: 500;
+      //   margin-left: auto;
+      position: relative;
+
+      &.noPadding {
+        padding: 10px 28px 10px 60px;
+      }
+      .arrow_btn {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        left: 32px;
+      }
+    }
+  }
+}
