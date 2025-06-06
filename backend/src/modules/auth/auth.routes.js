@@ -77,7 +77,7 @@ router.post(
 
 router.post(
   "/resetPass",
-  authenticateUser,
+  // authentica/teUser,
   validator(resetPassSchema),
   tryCatchWrap(AuthController.ResetPass)
 );

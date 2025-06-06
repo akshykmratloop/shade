@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import styles from "@/components/footer/Footer.module.scss";
 import Link from "next/link";
 import Logo from "@/assets/brand-logo/foot-logo.svg";
@@ -28,7 +28,7 @@ const Footer = () => {
     setIsModal(false);
   };
   return (
-    <footer className={styles.footerWrapper}>
+    <footer className={styles.footerWrapper} dir={language === 'en' ? "ltr" : 'rtl'}>
       <span className={styles.bubble1}></span>
       <span className={styles.bubble2}></span>
       <div className="container">
@@ -112,7 +112,7 @@ const Footer = () => {
               {currentContent?.contact?.helpText[language]}
             </h6>
 
-            <Button className={`${styles.contact_btn} ${language === 'en' && styles.center}` } onClick={()=>setIsModal(true)}>
+            <Button className={`${styles.contact_btn} ${language === 'en' && styles.center}`} onClick={() => setIsModal(true)}>
               {currentContent?.contact?.button[language]}
             </Button>
 

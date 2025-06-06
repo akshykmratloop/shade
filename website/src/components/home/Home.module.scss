@@ -833,14 +833,16 @@
   &.rightAlignment {
     .mySwiper_testimonial {
       .testimonial_card {
-        flex-direction: row-reverse;
+        // flex-direction: row-reverse;
 
         .testimonial_content {
+
           .name,
           .position,
           .quote {
             text-align: right;
           }
+
           .company_wrap {
             justify-content: start;
             flex-direction: row-reverse;
@@ -852,6 +854,7 @@
         }
       }
     }
+
     .testimonial_wrapper_btn {
       // flex-direction: row-reverse;
       transform: scale(-1);
@@ -870,7 +873,7 @@
 
   .mySwiper_testimonial {
     padding: 66px 0;
-    direction: rtl;
+    direction: ltr;
     // overflow: visible; // Ensure left and right slides are not clipped
     position: relative; // For absolute positioning of gradients
 
@@ -882,11 +885,9 @@
       left: 0;
       width: 142px; // Width of the gradient
       height: 100%;
-      background: linear-gradient(
-        to right,
-        rgba(255, 255, 255, 1) 0%,
-        rgba(255, 255, 255, 0) 100%
-      );
+      background: linear-gradient(to right,
+          rgba(255, 255, 255, 1) 0%,
+          rgba(255, 255, 255, 0) 100%);
       z-index: 2; // Make sure it is above the background but below the slides
     }
 
@@ -898,11 +899,9 @@
       right: 0;
       width: 142px; // Width of the gradient
       height: 100%;
-      background: linear-gradient(
-        to left,
-        rgba(255, 255, 255, 1) 0%,
-        rgba(255, 255, 255, 0) 100%
-      );
+      background: linear-gradient(to left,
+          rgba(255, 255, 255, 1) 0%,
+          rgba(255, 255, 255, 0) 100%);
       z-index: 1; // Make sure it is above the background but below the slides
     }
 
@@ -986,7 +985,7 @@
         .company_wrap {
           display: flex;
           align-items: center;
-          justify-content: end;
+          // justify-content: end;
           gap: 10px;
 
           .company {
@@ -1017,6 +1016,7 @@
       align-items: center;
       justify-content: center;
       cursor: pointer;
+
       .arrow_btn {
         &.leftAlign {
           transform: scale(-1);

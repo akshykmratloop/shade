@@ -111,7 +111,7 @@ const HomePage = ({ content }) => {
             width={0}
             // fill
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            style={{objectFit: "cover"}}
+            style={{ objectFit: "cover" }}
             height={0}
           />
         </span>
@@ -150,7 +150,7 @@ const HomePage = ({ content }) => {
           }`}
       >
         <div className={`container ${styles.main_container}`}>
-          
+
           <div className={styles.about_content}>
             <h2 className={`${styles.title}`}>
               {currentContent?.['2']?.content?.title?.[language]}
@@ -550,7 +550,7 @@ const HomePage = ({ content }) => {
                 724: { slidesPerView: 2.2 }, // Adjust for bigger screens
                 500: { slidesPerView: 1 }, // For smaller screens
               }}
-            // rtl={true} // Enable RTL for Arabic layout
+              rtl={true} // Enable RTL for Arabic layout
             >
               {currentContent?.['7']?.items?.map(
                 (testimonial, index) => (
@@ -559,6 +559,13 @@ const HomePage = ({ content }) => {
                     className={`${styles.swiperSlide} ${styles.testimonial_slide}`}
                   >
                     <div className={styles.testimonial_card}>
+                      <Image
+                        src={testimonials?.[testimonial?.image]}
+                        height={70}
+                        width={70}
+                        alt={testimonial?.name}
+                        className={styles.testimonial_image}
+                      />
                       <div className={styles.testimonial_content}>
                         <h3 className={styles.name}>
                           {testimonial?.[titleLan]}
@@ -569,10 +576,9 @@ const HomePage = ({ content }) => {
                         <p className={styles.quote}>
                           {testimonial?.liveModeVersionData?.sections?.[0]?.content?.quote?.[language]}
                         </p>
-                        <div className={styles.company_wrap}>
-                          <p className={styles.company}>
-                            {testimonial?.liveModeVersionData?.sections?.[0]?.content?.company?.[language]}
-                          </p>
+                        <div className={styles.company_wrap}
+                          style={{ flexDirection: isLeftAlign ? "row" : "row-reverse", justifyContent: isLeftAlign ? "flex-start" : "end" }}
+                        >
                           <Image
                             src="https://frequencyimage.s3.ap-south-1.amazonaws.com/a813959c-7b67-400b-a0b7-f806e63339e5-ph_building%20%281%29.svg"
                             height={18}
@@ -580,15 +586,13 @@ const HomePage = ({ content }) => {
                             alt={testimonial.name}
                             className={styles.company_icon}
                           />
+                          <p className={styles.company}>
+                            {testimonial?.liveModeVersionData?.sections?.[0]?.content?.company?.[language]}
+                          </p>
+
                         </div>
                       </div>
-                      <Image
-                        src={testimonials?.[testimonial?.image]}
-                        height={70}
-                        width={70}
-                        alt={testimonial?.name}
-                        className={styles.testimonial_image}
-                      />
+
                     </div>
                   </SwiperSlide>
                 )

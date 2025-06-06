@@ -278,7 +278,7 @@
   &.rightAlignment {
     .mySwiper_testimonial {
       .testimonial_card {
-        flex-direction: row-reverse;
+        // flex-direction: row-reverse;
 
         .testimonial_content {
 
@@ -318,7 +318,7 @@
 
   .mySwiper_testimonial {
     padding: 66px 0;
-    direction: rtl;
+    direction: ltr;
     // overflow: visible; // Ensure left and right slides are not clipped
     position: relative; // For absolute positioning of gradients
 
@@ -430,7 +430,7 @@
         .company_wrap {
           display: flex;
           align-items: center;
-          justify-content: end;
+          // justify-content: end;
           gap: 10px;
 
           .company {
@@ -543,6 +543,7 @@
   .title {
     color: var(--black);
     font-size: 60px;
+    font-weight: 300;
     width: 50%;
   }
 
@@ -564,20 +565,22 @@
     display: flex;
     flex-direction: row; // <- this matters for layout
     background-color: #F8F8F8;
+    justify-content: space-between;
 
-    .Imagediv {
-      flex: 2 0 auto;
-    }
+    // .Imagediv {
+    //   // flex: 1 0 auto;
+    // }
 
     .article {
       display: flex;
-      flex: 1 1 auto; // Or remove if not needed
+      flex: 2 1 auto; // Or remove if not needed
       flex-direction: column;
       gap: 13px;
       align-items: flex-start;
       justify-content: center;
       color: var(--para-light);
       padding: 40px 38px;
+      color: #292E3D;
 
       .title {
         font-weight: 400;
@@ -604,8 +607,4 @@
       }
     }
   }
-}
-.h1{
-  transform: scaleX(-1);
-  scale: -1;
 }

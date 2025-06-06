@@ -125,6 +125,7 @@ const MarketPage = ({ content }) => {
         />
       </section >
 
+      {/* market cards */}
       <div className={`${styles.subMarkets}`}
         dir={isLeftAlign ? "ltr" : "rtl"}
       >
@@ -139,7 +140,7 @@ const MarketPage = ({ content }) => {
                 }}
                 className={`${styles.card}`} key={e.id}>
                 <div className={` ${styles.Imagediv}`}
-                  style={{ width: '463px', height: '100%' }}
+                // style={{ width: '463px', height: '100%' }}
                 >
                   <img
                     src="https://frequencyimage.s3.ap-south-1.amazonaws.com/851e35b5-9b3b-4d9f-91b4-9b60ef2a102c-Rectangle%2034624110.png"
@@ -194,6 +195,7 @@ const MarketPage = ({ content }) => {
         }
       </div>
 
+      {/* quote */}
       <section
         className={` ${language === "en" && styles.leftAlign}   ${styles.market_cot_wrap
           }`}
@@ -209,95 +211,17 @@ const MarketPage = ({ content }) => {
                 className={styles.arrow_btn}
               />
               <p className={`${styles.description} ${BankGothic.className}`}>
-                {currentContent?.quote?.text[language]}
+                {currentContent?.[2]?.content?.text[language]}
               </p>
               <h5 className={`${styles.title} ${BankGothic.className}`}>
-                -{currentContent?.quote?.author[language]}
+                -{currentContent?.[2]?.content?.author[language]}
               </h5>
             </div>
           </div>
         </div>
       </section>
 
-      <section
-        className={` ${language === "en" && styles.leftAlign}   ${styles.market_tab_container
-          }`}
-      >
-        <div className="container">
-          <div className={styles.tabContainer}>
-            {/* Tabs */}
-            <div className={styles.tabs}>
-              {currentContent?.tabSection?.tabs.map((tab, index) => (
-                <button
-                  key={index}
-                  className={`${styles.tabButton} ${activeTab === tab?.id ? styles.activeTab : ""
-                    }`}
-                  onClick={() => setActiveTab(tab?.id)}
-                >
-                  {tab.title[language]}
-                </button>
-              ))}
-            </div>
-
-            {/* Cards */}
-            <div className={styles.card_group}>
-              {filterMarketItems
-                ?.slice(0, visibleMarketItemsCount)
-                ?.map((item, index) => (
-                  <div className={styles.card} key={index}>
-                    <Image
-                      src={projectPageData[item.imgUrl]}
-                      width="339"
-                      height="190"
-                      alt={item.title[language]}
-                      className={styles.card_image}
-                    />
-                    <h5
-                      title={item?.title[language]}
-                      className={`${styles.title} ${BankGothic.className}`}
-                    >
-                      {TruncateText(item.title[language], 45)}
-                    </h5>
-                    <button
-                      onClick={() => router.push(`/market/${index + 1}`)}
-                      className={`${styles.button} ${BankGothic.className}`}
-                    >
-                      {currentContent?.tabSection?.button[0]?.text[language]}
-                      <Image
-                        className={` ${language === "en" && styles.leftAlign
-                          }   ${styles.icon}`}
-                        src="https://frequencyimage.s3.ap-south-1.amazonaws.com/61c0f0c2-6c90-42b2-a71e-27bc4c7446c2-mingcute_arrow-up-line.svg"
-                        width={22}
-                        height={22}
-                        alt="icon"
-                      />
-                    </button>
-                  </div>
-                ))}
-            </div>
-            {visibleMarketItemsCount < filterMarketItems.length && ( // Show button only if there are more projects
-              <div className={styles.button_wrap}>
-                <Button
-                  className={styles.view_more_btn}
-                  onClick={() =>
-                    setVisibleMarketItemCount(visibleMarketItemsCount + 6)
-                  } // Increase count by 4
-                >
-                  {currentContent?.tabSection?.button[1]?.text[language]}
-                  <Image
-                    src="https://loopwebsite.s3.ap-south-1.amazonaws.com/weui_arrow-outlined.svg"
-                    width={24}
-                    height={24}
-                    alt="icon"
-                  />
-                </Button>
-              </div>
-            )}
-          </div>
-        </div>
-      </section>
       {/* testomonials section  */}
-
       <section
         className={` ${language !== "en" && styles.rightAlignment}   ${styles.testimonial_wrapper
           }`}
@@ -306,7 +230,7 @@ const MarketPage = ({ content }) => {
           <div className={styles.testimonials_content}>
             {/* <AnimatedText text={currentContent?.testimonialSection?.title[language]} Wrapper="h2" repeatDelay={0.04} className={`${styles.title} ${BankGothic.className}`} /> */}
             <h2 className={`${styles.title}`}>
-              {currentContent?.testimonialSection?.title[language]}
+              {currentContent?.[4]?.content?.title[language]}
             </h2>
           </div>
 
@@ -344,45 +268,49 @@ const MarketPage = ({ content }) => {
               }}
               rtl={true}
             >
-              {currentContent?.testimonialSection?.testimonials?.map(
+              {currentContent?.[4]?.items?.map(
                 (testimonial, index) => (
                   <SwiperSlide
                     key={index}
                     className={`${styles.swiperSlide} ${styles.testimonial_slide}`}
                   >
                     <div className={styles.testimonial_card}>
-
+                      <Image
+                        src={Img_url + testimonial?.liveModeVersionData?.sections?.[0]?.content.images?.[0]?.url}
+                        height={70}
+                        width={70}
+                        alt={testimonial?.name?.[language]}
+                        className={styles.testimonial_image}
+                      />
                       <div className={styles.testimonial_content}>
                         <h3 className={styles.name}>
-                          {testimonial.name[language]}
+                          {testimonial?.[titleLan]}
                         </h3>
                         <p className={styles.position}>
-                          {testimonial.position[language]}
+                          {testimonial?.liveModeVersionData?.sections?.[0]?.content?.position?.[language]}
                         </p>
                         <p className={styles.quote}>
-                          {testimonial.quote[language]}
+                          {testimonial?.liveModeVersionData?.sections?.[0]?.content?.quote?.[language]}
                         </p>
-                        <div className={styles.company_wrap}>
-                          <p className={styles.company}>
-                            {testimonial.company[language]}
-                          </p>
+                        <div className={styles.company_wrap}
+                          // dir={isLeftAlign ? "ltr" : "rtl"}
+                          style={{ flexDirection: isLeftAlign ? "row" : "row-reverse", justifyContent: isLeftAlign?"flex-start":"end" }}
+                        >
                           <Image
                             src="https://frequencyimage.s3.ap-south-1.amazonaws.com/a813959c-7b67-400b-a0b7-f806e63339e5-ph_building%20%281%29.svg"
                             height={18}
                             width={18}
-                            alt={testimonial.name[language]}
+                            alt={testimonial?.name?.[language]}
                             className={styles.company_icon}
                           />
+                          <p className={styles.company}>
+                            {testimonial?.liveModeVersionData?.sections?.[0]?.content.company?.[language]}
+                          </p>
+
 
                         </div>
                       </div>
-                      <Image
-                        src={testimonials?.[testimonial?.image]}
-                        height={70}
-                        width={70}
-                        alt={testimonial.name[language]}
-                        className={styles.testimonial_image}
-                      />
+
                     </div>
                   </SwiperSlide>
                 )

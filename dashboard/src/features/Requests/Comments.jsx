@@ -36,9 +36,9 @@ const Commnets = ({ comment }) => {
                     {
                         commentOn &&
                         <div className="absolute right-[0%] bottom-[100%] z-[30]">
-                            <div className="comment-bubble w-[25vw] h-[25vh] overflow-y-scroll rm-scroll">
+                            <div className="comment-bubble w-[25vw] h-[25vh] overflow-y-scroll rm-scroll text-start">
                                 <div className="comment-bubble-arrow"></div>
-                                <h3>Comments:</h3>
+                                <h3 className="">Comments:</h3>
                                 <p className={`${comment ? "text-stone-900 dark:text-stone-900" : "text-stone-300"}`}>{comment || "No comments"}</p>
                             </div>
                         </div>

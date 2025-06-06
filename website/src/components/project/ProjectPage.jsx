@@ -19,11 +19,11 @@ const ContactUsModal = dynamic(() => import("../header/ContactUsModal"), {
   ssr: false,
 });
 
-const ProjectPage = () => {
+const ProjectPage = ({ content }) => {
   const router = useRouter();
   const [activeTab, setActiveTab] = useState("all");
-  const { language, content } = useGlobalContext();
-  const currentContent = content?.projectsPage;
+  const { language } = useGlobalContext();
+  const currentContent = content
   const [isModal, setIsModal] = useState(false);
   const [filteredProject, setFilteredProject] = useState([]);
   const [visibleProjectsCount, setVisibleProjectsCount] = useState(6);
@@ -33,13 +33,13 @@ const ProjectPage = () => {
   };
   useEffect(() => {
     if (activeTab === "all") {
-      setFilteredProject(currentContent?.projectsSection.projects);
+      setFilteredProject(currentContent?.projectsSection?.projects);
     } else {
       setFilteredProject(
         currentContent?.projectsSection?.projects
-          ? currentContent?.projectsSection.projects.filter(
-              (project) => project?.status === activeTab
-            )
+          ? currentContent?.projectsSection?.projects?.filter(
+            (project) => project?.status === activeTab
+          )
           : []
       );
       setVisibleProjectsCount(6);
@@ -56,9 +56,8 @@ const ProjectPage = () => {
   return (
     <>
       <section
-        className={` ${language === "en" && styles.leftAlign}   ${
-          styles.project_banner_wrap
-        }`}
+        className={` ${language === "en" && styles.leftAlign}   ${styles.project_banner_wrap
+          }`}
       >
         <div
           className="container"
@@ -68,10 +67,10 @@ const ProjectPage = () => {
             {/* <AnimatedText text="مشروعنا" Wrapper="h1" repeatDelay={0.04} className={`${styles.title} ${BankGothic.className}`} /> */}
 
             <h1 className={`${styles.title}`}>
-              {currentContent?.bannerSection?.title[language]}
+              {currentContent?.[1]?.content?.title[language]}
             </h1>
             <p className={`${styles.description} ${BankGothic.className}`}>
-              {currentContent?.bannerSection?.description[language]}
+              {currentContent?.[1]?.content?.description[language]}
             </p>
             <Button
               className={styles.view_btn}
@@ -84,16 +83,15 @@ const ProjectPage = () => {
                 alt=""
                 className={styles.arrow_btn}
               />{" "}
-              {currentContent?.bannerSection?.button?.text[language]}
+              {currentContent?.[1]?.content?.button?.[0]?.text[language]}
             </Button>
           </div>
         </div>
       </section>
 
       <section
-        className={` ${language === "en" && styles.leftAlign}   ${
-          styles.market_tab_container
-        }`}
+        className={` ${language === "en" && styles.leftAlign}   ${styles.market_tab_container
+          }`}
       >
         <div className="container">
           <div className={styles.tabContainer}>
@@ -102,9 +100,8 @@ const ProjectPage = () => {
               {currentContent?.projectsSection?.tabs?.map((tab, index) => (
                 <button
                   key={index}
-                  className={`${styles.tabButton} ${
-                    activeTab === tab?.id ? styles.activeTab : ""
-                  }`}
+                  className={`${styles.tabButton} ${activeTab === tab?.id ? styles.activeTab : ""
+                    }`}
                   onClick={() => setActiveTab(tab?.id)}
                 >
                   {tab.title[language]}
@@ -129,7 +126,7 @@ const ProjectPage = () => {
                       {TruncateText(item.title[language], 45)}
                     </h5>
                     <p
-                    title={item?.address[language]}
+                      title={item?.address[language]}
                       className={`${styles.description} ${BankGothic.className}`}
                     >
                       {TruncateText(item.address[language], 25)}
@@ -141,9 +138,8 @@ const ProjectPage = () => {
                     >
                       {item.button.text[language]}
                       <Image
-                        className={` ${
-                          language === "en" && styles.leftAlign
-                        }   ${styles.icon}`}
+                        className={` ${language === "en" && styles.leftAlign
+                          }   ${styles.icon}`}
                         src="https://frequencyimage.s3.ap-south-1.amazonaws.com/61c0f0c2-6c90-42b2-a71e-27bc4c7446c2-mingcute_arrow-up-line.svg"
                         width={22}
                         height={22}
@@ -154,7 +150,7 @@ const ProjectPage = () => {
                 ))}
             </div>
 
-            {visibleProjectsCount < filteredProject.length && ( // Show button only if there are more projects
+            {visibleProjectsCount < filteredProject?.length && ( // Show button only if there are more projects
               <div className={styles.button_wrap}>
                 <Button
                   className={styles.view_more_btn}

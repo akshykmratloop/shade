@@ -260,7 +260,7 @@ const MarketPage = ({ language, screen, currentContent }) => {
                             <div className="absolute top-0 right-0 h-full w-[20%] bg-gradient-to-l from-white to-transparent pointer-events-none z-10"></div>
                         }
                         {currentContent?.["4"]?.items?.length > 1 &&
-                            < Swiper
+                            <Swiper
                                 modules={[Navigation, Autoplay, EffectCoverflow]}
                                 grabCursor={true}
                                 centeredSlides={true}
