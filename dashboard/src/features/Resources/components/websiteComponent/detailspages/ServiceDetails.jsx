@@ -20,7 +20,7 @@ const ServiceDetails = ({ serviceId, content, language, screen, width }) => {
     return (
         <div dir={isLeftAlign ? "ltr" : "rtl"} className="w-full">
             {/* banner */}
-            <section className={`py-[120px] ${isPhone ? "px-2" : "px-20"} border flex flex-col justify-center object-cover text-center flex flex-col items-center bg-cover bg-bottom `}
+            <section className={`py-[120px] ${isPhone ? "px-2" : "px-20"} flex flex-col justify-center object-cover text-center flex flex-col items-center bg-cover bg-bottom `}
                 style={{
                     backgroundImage: `linear-gradient(to bottom,#00000020 ,#fffffffb 100%), url(${Img_url + content?.['1']?.content?.images?.[0]?.url})`,
                     padding: `${getDynamicSize(120)} ${getDynamicSize(80)}`,
