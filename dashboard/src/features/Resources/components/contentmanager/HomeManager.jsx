@@ -27,82 +27,82 @@ const HomeManager = ({ language, currentPath, outOfEditing }) => {
     // fucntions
 
     useEffect(() => {
-        async function getOptionsforServices() {
-            const response1 = await getResources({ resourceType: "SUB_PAGE", resourceTag: "SERVICE", apiCallType: "INTERNAL", })
-            const response2 = await getResources({ resourceType: "SUB_PAGE", resourceTag: "PROJECT", apiCallType: "INTERNAL", fetchType: "CONTENT" })
-            const response4 = await getResources({ resourceType: "SUB_PAGE", resourceTag: "MARKET", apiCallType: "INTERNAL", fetchType: "CONTENT" })
-            const response5 = await getResources({ resourceType: "SUB_PAGE", resourceTag: "SAFETY_RESPONSIBILITY", apiCallType: "INTERNAL", fetchType: "CONTENT" })
-            const response3 = await getResources({ resourceType: "SUB_PAGE", resourceTag: "TESTIMONIAL", fetchType: "CONTENT", apiCallType: "INTERNAL" })
+        const RESOURCE_CONFIG = [
+            {
+                tag: "SERVICE",
+                setState: setServicesOptions,
+                getExtra: () => ({}),
+            },
+            {
+                tag: "PROJECT",
+                setState: setProjectOptions,
+                getExtra: (e) => ({
+                    location: e?.liveModeVersionData?.sections?.[1]?.content?.[0]?.value,
+                }),
+            },
+            {
+                tag: "MARKET",
+                setState: setMarketOptions,
+                getExtra: (e) => ({
+                    description: e?.liveModeVersionData?.sections?.[0]?.content?.description,
+                }),
+            },
+            {
+                tag: "SAFETY_RESPONSIBILITY",
+                setState: setSafetyOptions,
+                getExtra: (e) => ({
+                    description: e?.liveModeVersionData?.sections?.[0]?.content?.description,
+                }),
+            },
+            {
+                tag: "TESTIMONIAL",
+                setState: setTestimonialsOptions,
+                isOkCheck: true,
+                getExtra: (e) => ({
+                    liveModeVersionData: e.liveModeVersionData,
+                }),
+            },
+        ];
 
-            if (response1.message === "Success") {
-                let options = response1?.resources?.resources?.map((e, i) => ({
-                    id: e.id,
-                    order: i + 1,
-                    slug: e.slug,
-                    titleEn: e.titleEn,
-                    titleAr: e.titleAr,
-                    icon: e.icon,
-                    image: e.image
-                }))
-                setServicesOptions(options)
-            }
-            if (response2.message === "Success") {
-                let options = response2?.resources?.resources?.map((e, i) => ({
-                    id: e.id,
-                    order: i + 1,
-                    slug: e.slug,
-                    titleEn: e.titleEn,
-                    titleAr: e.titleAr,
-                    icon: e.icon,
-                    image: e.image,
-                    location: e?.liveModeVersionData?.sections?.[1]?.content?.[0].value
-                }))
-                setProjectOptions(options)
-            }
-            if (response4.message === "Success") {
-                let options = response4?.resources?.resources?.map((e, i) => ({
-                    id: e.id,
-                    order: i + 1,
-                    slug: e.slug,
-                    titleEn: e.titleEn,
-                    titleAr: e.titleAr,
-                    icon: e.icon,
-                    image: e.image,
-                    description: e?.liveModeVersionData?.sections?.[0]?.content.description
-                }))
-                setMarketOptions(options)
-            }
-            if (response5.message === "Success") {
-                let options = response5?.resources?.resources?.map((e, i) => ({
-                    id: e.id,
-                    order: i + 1,
-                    slug: e.slug,
-                    titleEn: e.titleEn,
-                    titleAr: e.titleAr,
-                    icon: e.icon,
-                    image: e.image,
-                    description: e?.liveModeVersionData?.sections?.[0]?.content.description
-                }))
-                setSafetyOptions(options)
-            }
+        async function getOptionsForServices() {
+            try {
+                const requests = RESOURCE_CONFIG.map(({ tag }) =>
+                    getResources({
+                        resourceType: "SUB_PAGE",
+                        resourceTag: tag,
+                        apiCallType: "INTERNAL",
+                        fetchType: ["PROJECT", "MARKET", "SAFETY_RESPONSIBILITY", "TESTIMONIAL"].includes(tag) ? "CONTENT" : undefined,
+                    })
+                );
 
-            if (response3.ok) {
-                let options = response3?.resources?.resources?.map((e, i) => ({
-                    id: e.id,
-                    order: i + 1,
-                    slug: e.slug,
-                    titleEn: e.titleEn,
-                    titleAr: e.titleAr,
-                    icon: e.icon,
-                    image: e.image,
-                    liveModeVersionData: e.liveModeVersionData
-                }))
-                setTestimonialsOptions(options)
+                const responses = await Promise.all(requests);
+
+                responses.forEach((response, index) => {
+                    const { setState, getExtra, isOkCheck } = RESOURCE_CONFIG[index];
+
+                    const valid = isOkCheck ? response?.ok : response?.message === "Success";
+                    if (valid && response?.resources?.resources) {
+                        const options = response.resources.resources.map((e, i) => ({
+                            id: e.id,
+                            order: i + 1,
+                            slug: e.slug,
+                            titleEn: e.titleEn,
+                            titleAr: e.titleAr,
+                            icon: e.icon,
+                            image: e.image,
+                            ...getExtra(e),
+                        }));
+                        setState(options);
+                    }
+                });
+            } catch (error) {
+                console.error("Failed to load resource options:", error);
             }
         }
 
-        getOptionsforServices()
-    }, [])
+        getOptionsForServices();
+    }, []);
+
 
     return ( /// Component
         <div className="w-full">
