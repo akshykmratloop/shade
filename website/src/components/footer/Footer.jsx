@@ -49,37 +49,8 @@ const Footer = () => {
           </p>
         </div>
         <div>
-          {/* <div className={styles.otherLink}>
-            <h5 className={styles.footertitle}>
-              {currentContent?.aboutUs?.title[language]}
-            </h5>
-            {currentContent?.aboutUs?.links?.map((link, index) => (
-              <Link
-                key={index}
-                href={link.url}
-                className={`${styles.url} ${BankGothic.className}`}
-              >
-                {link[language]}
-              </Link>
-            ))}
-          </div> */}
-
-          {/* <div className={styles.companyLink}>
-            <h5 className={styles.footertitle}>
-              {currentContent?.markets?.title[language]}
-            </h5>
-            {currentContent?.markets?.links?.map((link, index) => (
-              <Link
-                key={index}
-                href={link.url}
-                className={`${styles.url} ${BankGothic.className}`}
-              >
-                {link[language]}
-              </Link>
-            ))}
-          </div> */}
+       
           <div className={styles.footerBody}>
-
             {
               currentContent?.['2']?.content?.map((section, i) => (
                 <div className={styles.companyLink}>
@@ -97,7 +68,6 @@ const Footer = () => {
                   ))}
                 </div>))
             }
-
           </div>
 
           <div className={styles.addressWrap}>

@@ -2,7 +2,7 @@
 import { useSelector } from "react-redux";
 // import content from "./content.json"
 // import { updateMainContent } from "../../../common/homeContentSlice";
-import {  projectPageData } from "../../../../assets/index";
+import { projectPageData } from "../../../../assets/index";
 // import { TruncateText } from "../../../../../app/capitalizeword";
 import { Img_url } from "../../../../routes/backend";
 import dynamicSize, { defineDevice, generatefontSize } from "../../../../app/fontSizes";
@@ -87,16 +87,12 @@ const History = ({ currentContent, screen, language, width }) => {
                             "Where It All Began"
                         }
                     </h2>
-                    {pA.map((e, i) => {
-                        return (
-                            <p
-                                key={i}
-                                style={{ fontSize: fontSize.mainPara }}
-                                className={`${fontLight} pr-3`}>
-                                {e}
-                            </p>
-                        )
-                    })}
+
+                    <div
+                        style={{ fontSize: fontSize.mainPara }}
+                        className={`${fontLight} pr-3`}
+                        dangerouslySetInnerHTML={{ __html: currentContent?.['2']?.content?.description?.[language] }}
+                    />
 
                 </div>
 
