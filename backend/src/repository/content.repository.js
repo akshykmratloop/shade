@@ -13,7 +13,8 @@ export const fetchResources = async (
   userId,
   roleId,
   apiCallType,
-  filterText
+  filterText,
+  parentId
 ) => {
   const skip = (page - 1) * limit;
 
@@ -478,6 +479,7 @@ export const fetchResources = async (
         },
       }
       : {}),
+    ...(parentId ? { parentId } : {}),
   };
 
   // Fetch resources with pagination
@@ -542,7 +544,8 @@ export const fetchAllResourcesWithContent = async (
   userId,
   roleId,
   apiCallType,
-  filterText
+  filterText,
+  parentId
 ) => {
   // First fetch the filtered resources based on permissions and roleId
   const filteredResources = await fetchResources(
@@ -557,7 +560,8 @@ export const fetchAllResourcesWithContent = async (
     userId,
     roleId,
     apiCallType,
-    filterText
+    filterText,
+    parentId
   );
 
   // If no resources found, return early
@@ -621,6 +625,8 @@ export const fetchAllResourcesWithContent = async (
       }),
     }))
   );
+
+  
 
   return {
     resources: formattedResources,

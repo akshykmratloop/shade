@@ -14,8 +14,8 @@ const ServiceDetails = ({ serviceId, content, language, screen }) => {
     return (
         <div dir={isLeftAlign ? "ltr" : "rtl"} className="w-full">
             {/* banner */}
-            <section className={`py-[120px]  ${isPhone ? "px-2" : "px-20"} object-cover text-center flex flex-col items-center`}
-                style={{ backgroundImage: `linear-gradient(to bottom,#00000020 ,#fffffffb 100%), url(${Img_url + content?.['1']?.content?.images?.[0]?.url})`, backgroundPosition: 'bottom', backgroundSize: "cover"}}
+            <section className={`py-[120px]  ${isPhone ? "px-2" : "px-20"} object-cover text-center flex flex-col items-center bg-cover bg-bottom `}
+                style={{ backgroundImage: `linear-gradient(to bottom,#00000020 ,#fffffffb 100%), url(${Img_url + content?.['1']?.content?.images?.[0]?.url})`, }}
             >
                 <h1 className={`text-[41px] text-[#292E3D] `}>
                     {content?.['1']?.content?.title?.[language]}

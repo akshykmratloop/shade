@@ -198,9 +198,13 @@ const cmsSlice = createSlice({
                     state.present.content.editVersion.sections[action.payload.sectionIndex].items = newOptions
                     break;
 
-                case "jobs":
-                    state.present[action.payload?.currentPath].jobListSection.jobs = newOptions;
+                case "subServices": // in use
+                    state.present.content.editVersion.sections[action.payload.sectionIndex].items = newOptions
                     break;
+
+                // case "jobs":
+                //     state.present[action.payload?.currentPath].jobListSection.jobs = newOptions;
+                //     break;
 
                 case "projectDetail":
                     state.present.projectDetail[action.payload.projectId - 1].moreProjects.projects = newOptions
@@ -208,10 +212,6 @@ const cmsSlice = createSlice({
 
                 case "serviceCards":
                     state.present[action.payload?.currentPath].serviceCards = newOptions;
-                    break;
-
-                case "subServices":
-                    state.present[action.payload?.currentPath][action.payload.projectId].subServices = newOptions
                     break;
 
                 default:
