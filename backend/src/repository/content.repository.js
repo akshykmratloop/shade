@@ -626,7 +626,7 @@ export const fetchAllResourcesWithContent = async (
     }))
   );
 
-  
+
 
   return {
     resources: formattedResources,
@@ -2278,6 +2278,7 @@ export const fetchContent = async (resourceId, isItemFullContent = true) => {
       relationType: resource.relationType,
     }),
   };
+  if (resource.parentId) result.parentId = resource.parentId
 
   // Process live version if it exists
   if (resource.liveVersion) {

@@ -98,14 +98,13 @@ const HomePage = ({ content }) => {
       {/* banner */}
       <section
         className={`${styles.home_banner_wrap} `}
-        style={{
-          backgroundImage: `url(${Img_url + currentContent?.["1"]?.content?.images?.[0]?.url})`,
-          backgroundRepeat: "no-repeat",
-          backgroundSize: "cover",
-        }}
-        dir={isLeftAlign ? "ltr" : "rtl"}
+        // style={{
+        //   backgroundImage: `url(${Img_url + currentContent?.["1"]?.content?.images?.[0]?.url})`,
+        //   backgroundRepeat: "no-repeat",
+        //   backgroundSize: "cover",
+        // }}
       >
-        {/* <span
+        <span
           className={`${language === "en" && styles.leftAlign} ${styles.backgroundContainer
             }`}
         >
@@ -124,15 +123,15 @@ const HomePage = ({ content }) => {
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             height={0}
           />
-        </span> */}
+        </span>
         {/* <div className="container" style={}> */}
         <div className={styles.content}>
-          <div className="wrapper">
+          {/* <div className="wrapper">
             <div
               className="glow-circle"
             // style={{ width: getDynamicSize(750), height: getDynamicSize(650) }}
             ></div>
-          </div>
+          </div> */}
           {/* <AnimatedText text="بناء مستقبل أقوى" Wrapper="h1" repeatDelay={0.04} className={`${styles.title} ${BankGothic.className}`} /> */}
 
           <h1 className={`${styles.title}`}>

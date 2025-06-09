@@ -3,7 +3,7 @@
   //   background: url("../../assets/images/Hero.png") no-repeat center / cover;
   width: 100%;
   position: relative;
-  padding: 0px 150px;
+  // padding: 0px 150px;
 
   &.leftAlign {
     .content {
@@ -36,9 +36,9 @@
   }
 
   .content {
-    position: relative;
-    border: 1px solid red;
+    position: absolute;
     top: 30%;
+    padding: 0px 150px;
 
     .title {
       color: var(--black);
