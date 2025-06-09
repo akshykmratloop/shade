@@ -6,11 +6,11 @@ import MultiSelectForProjects from "../../breakUI/MultiSelectForProjects"
 import content from "../../websiteComponent/content.json"
 import { useEffect } from "react"
 
-const ServiceDetailsManager = ({ serviceId, currentContent, currentPath, language,  }) => {
+const ServiceDetailsManager = ({ serviceId, content, currentPath, language, indexes }) => {
     const dispatch = useDispatch()
-    const serviceIndex = currentContent?.findIndex(e => {
-        return e.id == serviceId
-    })
+    // const serviceIndex = content?.findIndex(e => {
+    //     return e.id == serviceId
+    // }) || 0
 
     // useEffect(() => {
     //     dispatch(updateMainContent({ currentPath: "serviceDetails", payload: content.serviceDetails }))
@@ -24,14 +24,15 @@ const ServiceDetailsManager = ({ serviceId, currentContent, currentPath, languag
                 currentPath={currentPath}
                 Heading={"Banner"}
                 inputs={[
-                    { input: "input", label: "Heading/title", updateType: "title" },
-                    { input: "textarea", label: "Description", updateType: "description" },
+                    { input: "input", label: "Heading/title", updateType: "title", value: content?.['1']?.content?.title?.[language] },
+                    { input: "textarea", label: "Description", updateType: "description", value: content?.['1']?.content?.description?.[language] },
                 ]}
-                inputFiles={[{ label: "Backround Image", id: "serviceBanner/" + (serviceId) }]}
+                inputFiles={[{ label: "Backround Image", id: "serviceBanner/" + (serviceId), order: 1, url: content?.['1']?.content?.images?.[0]?.url }]}
                 section={"banner"}
                 language={language}
-                currentContent={currentContent}
-                projectId={serviceIndex + 1}
+                currentContent={content}
+                // projectId={serviceIndex + 1}
+                sectionIndex={indexes?.['1']}
             />
 
             {/* sub services */}
@@ -41,8 +42,9 @@ const ServiceDetailsManager = ({ serviceId, currentContent, currentPath, languag
                 language={language}
                 referenceOriginal={{ dir: "subServices" }}
                 currentPath={currentPath}
-                options={currentContent?.[serviceId - 1]?.subServices}
-                id={serviceIndex}
+                options={content?.[serviceId - 1]?.subServices}
+                // id={serviceIndex}
+                sectionIndex={indexes?.['2']}
             />
 
             {/* other services */}
@@ -52,8 +54,9 @@ const ServiceDetailsManager = ({ serviceId, currentContent, currentPath, languag
                 language={language}
                 referenceOriginal={{ dir: "otherServices" }}
                 currentPath={currentPath}
-                options={currentContent?.[serviceId - 1]?.otherServices}
-                id={serviceIndex}
+                options={content?.[serviceId - 1]?.otherServices}
+                // id={serviceIndex}
+                sectionIndex={indexes?.['3']}
             />
         </div>
     )

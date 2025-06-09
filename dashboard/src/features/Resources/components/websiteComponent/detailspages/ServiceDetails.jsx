@@ -1,46 +1,23 @@
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { updateMainContent } from "../../../../common/homeContentSlice";
-import { services, projectPageData } from "../../../../../assets/index";
-import content from '../content.json'
-import structureOfServiceDetails from "../structures/structureOFServiceDetails.json";
+import { useSelector } from "react-redux";
+import { projectPageData } from "../../../../../assets/index";
 import { TruncateText } from "../../../../../app/capitalizeword";
+import { Img_url } from "../../../../../routes/backend";
 
 const ServiceDetails = ({ serviceId, content, language, screen }) => {
-    const dispatch = useDispatch();
     const slug = useSelector(state => state.homeContent.present.content.slug)
     const isComputer = screen > 1100;
     const isTablet = 1100 > screen && screen > 767;
     const isPhone = screen < 767;
     const isLeftAlign = language === 'en';
     const titleLan = isLeftAlign ? "titleEn" : "titleAr"
-    // const ImageFromRedux = useSelector(state => state.homeContent.present.images);
-
-    // const contentFromRedux = useSelector(state => state.homeContent.present.serviceDetails)
-
-    // const currentContent = contentFromRedux?.filter(
-    //     (item) => item?.id == serviceId
-    // )[0];
-
-
-    // useEffect(() => {
-    //     if (!contentFromRedux?.[serviceId - 1]) {
-    //         dispatch(updateMainContent({ currentPath: "serviceDetails", payload: [...content?.serviceDetails, { ...structureOfServiceDetails, id: content.serviceDetails?.length + 1 }] }))
-    //     } else {
-    //         dispatch(updateMainContent({ currentPath: "serviceDetails", payload: content.serviceDetails }))
-    //     }
-    // console.log(content)
-    // }, [])
 
     return (
         <div dir={isLeftAlign ? "ltr" : "rtl"} className="w-full">
             {/* banner */}
             <section className={`py-[120px]  ${isPhone ? "px-2" : "px-20"} object-cover text-center flex flex-col items-center`}
-                style={{ backgroundImage: `linear-gradient(to bottom,#00000020 ,#fffffffb 100%), url(${content?.['1']?.content?.images?.[0]?.url})`, backgroundPosition: 'bottom' }}
+                style={{ backgroundImage: `linear-gradient(to bottom,#00000020 ,#fffffffb 100%), url(${Img_url + content?.['1']?.content?.images?.[0]?.url})`, backgroundPosition: 'bottom', backgroundSize: "cover"}}
             >
                 <h1 className={`text-[41px] text-[#292E3D] `}>
-                    {/* {currentContent?.banner?.title?.[language] || "Project Details"} */}
                     {content?.['1']?.content?.title?.[language]}
                 </h1>
                 <p className={`text-[#0E172FB2] text-[10px] w-2/3`}>

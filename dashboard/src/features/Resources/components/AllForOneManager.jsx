@@ -46,7 +46,7 @@ const AllForOneManager = ({ currentPath, language, subPath, deepPath, content, c
         case "service":
             manager = subPath ? deepPath ?
                 <SubServiceDetailManager serviceId={subPath} deepPath={deepPath} language={language} currentContent={content.subOfsubService} currentPath={"subOfsubService"} /> :
-                <ServiceDetailsManager serviceId={subPath} language={language} currentContent={content.serviceDetails} currentPath={"serviceDetails"} /> :
+                <ServiceDetailsManager serviceId={subPath} language={language} content={content} indexes={contentIndex} currentPath={"serviceDetails"} /> :
                 <ServiceManager language={language} currentContent={content} currentPath={currentPath} indexes={contentIndex} />
             break;
 
