@@ -112,7 +112,7 @@ const EditPage = () => {
                         }
                         dispatch(updateMainContent({ currentPath: "content", payload }))
                         dispatch(saveInitialContentValue(payload.editVersion.sections))
-                        if (response.content.editModeVersionData) dispatch(updateIsEditMode(true))
+                        if (response.content.editModeVersionData) dispatch(updateIsEditMode({ value: true }))
                     }
 
                     if (!response.content.editModeVersionData) {

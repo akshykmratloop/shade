@@ -9,11 +9,14 @@ import { TruncateText } from "../../../../../app/capitalizeword";
 
 const ServiceDetails = ({ serviceId, content, language, screen }) => {
     const dispatch = useDispatch();
+    const slug = useSelector(state => state.homeContent.present.content.slug)
     const isComputer = screen > 1100;
     const isTablet = 1100 > screen && screen > 767;
     const isPhone = screen < 767;
-    const isLeftAlign = language === 'en'
-    const ImageFromRedux = useSelector(state => state.homeContent.present.images)
+    const isLeftAlign = language === 'en';
+    const titleLan = isLeftAlign ? "titleEn" : "titleAr"
+    // const ImageFromRedux = useSelector(state => state.homeContent.present.images);
+
     // const contentFromRedux = useSelector(state => state.homeContent.present.serviceDetails)
 
     // const currentContent = contentFromRedux?.filter(
@@ -29,6 +32,7 @@ const ServiceDetails = ({ serviceId, content, language, screen }) => {
     //     }
     // console.log(content)
     // }, [])
+
     return (
         <div dir={isLeftAlign ? "ltr" : "rtl"} className="w-full">
             {/* banner */}
@@ -48,7 +52,7 @@ const ServiceDetails = ({ serviceId, content, language, screen }) => {
             <section className={`grid ${isTablet || isPhone ? "grid-cols-1 items-center justify-center px-[20px]" : "grid-cols-2 px-[76px]"} gap-y-[27px] gap-x-[25px] py-[34px]`}>
                 {
                     (
-                        // currentContent?.subServices ||
+                        content?.['2']?.items?.concat(content?.[2]?.items).concat(content?.[2]?.items).concat(content?.[2]?.items) ||
                         [])?.map((subService, index) => {
                             return (
                                 <article key={index + "wqer"} className={`border-b flex gap-4 pb-[12px]`}>
@@ -56,12 +60,12 @@ const ServiceDetails = ({ serviceId, content, language, screen }) => {
                                         <img src={subService.image || projectPageData.developmentOfHo} alt="" className={`${isTablet || isTablet ? "w-[50vw] aspect-[4/3]" : "w-[196px] h-[135px]"} `} />
                                     </article>
                                     <article className="">
-                                        <h3 className="text-[17px]">{subService.title[language]}</h3>
+                                        <h3 className="text-[17px]" title={subService?.[titleLan]}>{TruncateText(subService?.[titleLan], 30)}</h3>
                                         <p className="text-[11px]">
-                                            We capitalize on our years of experience in the construction industry to clients by also maintaining their facilities and infrastructure.
+                                            {subService?.description?.[language]}
                                         </p>
                                         <button className="text-[#00B9F2] text-[11px]">
-                                            Veiw Details
+                                            {content?.['2']?.content?.button?.[0]?.text?.[language]}
                                             <img src="" alt="" />
                                         </button>
                                     </article>
@@ -79,9 +83,10 @@ const ServiceDetails = ({ serviceId, content, language, screen }) => {
                         className={`flex gap-7 ${isPhone ? "px-[38px]" : "px-[76px]"} pr-[38px] w-fit items-stretch`}>
                         {
                             (
-                                // currentContent?.otherServices ||
+                                content?.['3']?.items ||
                                 []
                             )?.map((service, idx) => {
+                                if (service.slug === slug) return null
                                 return (
                                     <article
                                         key={idx}
@@ -90,13 +95,13 @@ const ServiceDetails = ({ serviceId, content, language, screen }) => {
                                         <img src={service.image} alt="img" className="w-full object-cover h-[176px]" />
                                         <section className="bg-[#F8F8F8] py-[14px] px-[18px] flex flex-col justify-between flex-1">
                                             <h1 className="text-[#292E3D] text-[22px] font-[400]">
-                                                {TruncateText(service?.title?.[language], isTablet ? 15 : 23)}
+                                                {TruncateText(service?.[titleLan], isTablet ? 15 : 23)}
                                             </h1>
                                             <p className="text-[#292E3D] text-[10px] mb-2">
-                                                {service?.subtitle?.[language]}
+                                                {service?.description?.[language]}
                                             </p>
                                             <button className={`text-[#00B9F2] flex gap-1 items-center mt-auto ${!isLeftAlign && "flex-rows-reverse"}`}>
-                                                {service?.button?.[language]}
+                                                {content?.[3]?.content?.button?.[0]?.text?.[language]}
                                                 <img
                                                     src="https://frequencyimage.s3.ap-south-1.amazonaws.com/61c0f0c2-6c90-42b2-a71e-27bc4c7446c2-mingcute_arrow-up-line.svg"
                                                     alt=""
