@@ -14,7 +14,12 @@ const HomeManager = ({ language, currentPath, outOfEditing }) => {
     const [currentId, setCurrentId] = useState("")
     const [ServicesOptions, setServicesOptions] = useState([])
     const [ProjectOptions, setProjectOptions] = useState([])
+    const [MarketOptions, setMarketOptions] = useState([])
+    const [SafetyOptions, setSafetyOptions] = useState([])
+
     const [TestimonialsOptions, setTestimonialsOptions] = useState([])
+
+    const lists = [ProjectOptions, MarketOptions, SafetyOptions]
 
     const currentContent = useSelector((state) => state.homeContent.present)
     const { content, indexes } = createContent(currentContent, "edit")
@@ -23,9 +28,15 @@ const HomeManager = ({ language, currentPath, outOfEditing }) => {
 
     useEffect(() => {
         async function getOptionsforServices() {
-            const response = await getResources({ resourceType: "SUB_PAGE", resourceTag: "SERVICE", apiCallType: "INTERNAL" })
-            const response2 = await getResources({ resourceType: "SUB_PAGE", resourceTag: "PROJECT", apiCallType: "INTERNAL" })
+            const response = await getResources({ resourceType: "SUB_PAGE", resourceTag: "SERVICE", apiCallType: "INTERNAL", })
+            const response2 = await getResources({ resourceType: "SUB_PAGE", resourceTag: "PROJECT", apiCallType: "INTERNAL", fetchType: "CONTENT" })
+            const response4 = await getResources({ resourceType: "SUB_PAGE", resourceTag: "MARKET", apiCallType: "INTERNAL", fetchType: "CONTENT" })
+            const response5 = await getResources({ resourceType: "SUB_PAGE", resourceTag: "SAFETY_RESPONSIBILITY", apiCallType: "INTERNAL", fetchType: "CONTENT" })
             const response3 = await getResources({ resourceType: "SUB_PAGE", resourceTag: "TESTIMONIAL", fetchType: "CONTENT", apiCallType: "INTERNAL" })
+
+            if (response4.message === "Success") console.log(response4)
+            if (response5.message === "Success") console.log(response5)
+
             if (response.message === "Success") {
                 let options = response?.resources?.resources?.map((e, i) => ({
                     id: e.id,
@@ -47,8 +58,35 @@ const HomeManager = ({ language, currentPath, outOfEditing }) => {
                     titleAr: e.titleAr,
                     // icon: e.icon,
                     // image: e.image
+                    location: e?.liveModeVersionData?.sections?.[1]?.content?.[0].value
                 }))
                 setProjectOptions(options)
+            }
+            if (response4.message === "Success") {
+                let options = response4?.resources?.resources?.map((e, i) => ({
+                    id: e.id,
+                    order: i + 1,
+                    slug: e.slug,
+                    titleEn: e.titleEn,
+                    titleAr: e.titleAr,
+                    // icon: e.icon,
+                    // image: e.image
+                    description: e?.liveModeVersionData?.sections?.[0]?.content.description
+                }))
+                setMarketOptions(options)
+            }
+            if (response5.message === "Success") {
+                let options = response5?.resources?.resources?.map((e, i) => ({
+                    id: e.id,
+                    order: i + 1,
+                    slug: e.slug,
+                    titleEn: e.titleEn,
+                    titleAr: e.titleAr,
+                    // icon: e.icon,
+                    // image: e.image
+                    description: e?.liveModeVersionData?.sections?.[0]?.content.description
+                }))
+                setSafetyOptions(options)
             }
 
             if (response3.ok) {
@@ -181,6 +219,7 @@ const HomeManager = ({ language, currentPath, outOfEditing }) => {
                         content?.['5']?.sections?.map((section, index, array) => {
                             const names = { 0: "Projects", 1: "Markets", 2: "Safety & Responsibility" }
                             const isLast = index === array.length - 1;
+                            console.log(lists[index])
                             return (
                                 <div key={index} className="mt-3 ">
                                     <ContentSection
@@ -206,10 +245,10 @@ const HomeManager = ({ language, currentPath, outOfEditing }) => {
                                         label={`Select ${names[index]}`}
                                         tabName={"Select Projects"}
                                         options={content?.['5']?.sections?.[index]?.items}
+                                        listOptions={lists[index]}
                                         referenceOriginal={{ dir: "recentproject", index }}
                                         currentContent={content}
                                         sectionIndex={indexes?.['5']}
-                                        listOptions={ProjectOptions}
                                         outOfEditing={outOfEditing}
                                     />
                                 </div>
