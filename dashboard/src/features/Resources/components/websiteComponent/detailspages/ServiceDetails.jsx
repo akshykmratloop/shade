@@ -10,7 +10,7 @@ const ServiceDetails = ({ serviceId, content, language, screen, width }) => {
     const isPhone = screen < 767;
     const isLeftAlign = language === 'en';
     const titleLan = isLeftAlign ? "titleEn" : "titleAr";
-    const slug = useSelector(state => state.homeContent.present.content.slug)
+    const slug = useSelector(state => state.homeContent?.present?.content?.slug)
 
     // Font and Size
     const fontSize = generatefontSize(defineDevice(screen), dynamicSize, width)

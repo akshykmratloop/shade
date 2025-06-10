@@ -12,36 +12,10 @@ import 'swiper/css/navigation';
 import 'swiper/css/effect-coverflow';
 import 'swiper/css/autoplay';
 
-// import React, { useEffect, useState } from "react";
-// import { updateMainContent } from "../../../common/homeContentSlice";
-// import content from "./content.json"
-// import localFont from "next/font/local";
-// import Button from "@/common/Button";
-// import Image from "next/image";
-// import { useGlobalContext } from "../../contexts/GlobalContext";
-// import { useRouter } from "next/router";
-// Font files can be colocated inside of `app`
-// const BankGothic = localFont({
-//   src: "../../../public/font/BankGothicLtBTLight.ttf",
-//   display: "swap",
-// });
-// import dynamic from 'next/dynamic';
-// import patch from "../../contexts/svg/path.jsx";
-// const AnimatedText = dynamic(() => import('@/common/AnimatedText'), { ssr: false });
-// const ContactUsModal = dynamic(() => import('../header/ContactUsModal'), { ssr: false });
-
 const SolutionPage = ({ currentContent, language, screen, width }) => {
     const isComputer = screen > 1100
     const isTablet = 1100 > screen && screen > 767
     const isPhone = screen < 767
-    // const currentContent = useSelector((state) => state.homeContent.present.solutions)
-    // const ImageFromRedux = useSelector((state) => state.homeContent.present.images)
-    // const dispatch = useDispatch()
-
-    // const [isModal, setIsModal] = useState(false);
-    // const handleContactUSClose = () => {
-    //     setIsModal(false);
-    // };
 
     // Font and Size
     const fontSize = generatefontSize(defineDevice(screen), dynamicSize, width)
@@ -55,10 +29,10 @@ const SolutionPage = ({ currentContent, language, screen, width }) => {
         <div className=" bankgothic-medium-dt pb-8" dir={language === 'en' ? 'ltr' : "rtl"}>
             {/** banner  1 */}
             <section
-                className={`relative py-[8rem] w-full border bg-cover bg-center ${isLeftAlign ? 'scale-x-[-1]' : ''} px-12 ${isPhone ? "h-screen/2" : ""}`}
+                className={`relative py-[8rem] w-full border bg-cover bg-center ${isLeftAlign ? 'scale-x-[-1]' : ''} px-12 ${isPhone ? "h-[500px]" : ""}`}
                 style={{
                     backgroundImage: `url(${Img_url + currentContent?.['1']?.content?.images?.[0]?.url})`,
-                    height: getDynamicSize(700),
+                    height: (isComputer || isTablet) && getDynamicSize(720),
                     padding: `0px ${getDynamicSize(150)}`
                 }}
             >
@@ -96,25 +70,29 @@ const SolutionPage = ({ currentContent, language, screen, width }) => {
 
             {/** What we do 2 */}
             <section
-                className={`py-[88px] pb-[120px] px-10 ${language === "en" ? "text-left" : "text-right"
-                    }`}
+                className={`py-[88px] pb-[120px] px-10 ${language === "en" ? "text-left" : "text-right"}`}
+                style={{ padding: `${getDynamicSize(88)} ${getDynamicSize(150)}` }}
             >
                 {currentContent?.["2"]?.content?.map((e, i) => {
-
                     return (
                         <div className="container bankgothic-regular-db-mt" key={i}>
-                            <div className={`${isPhone ? "flex flex-col" : "grid grid-cols-[129px_1fr] gap-[67px]"} `}>
+                            <div className={`${isPhone || isTablet ? "flex flex-col" : "grid  "} `}
+                            style={{gap: getDynamicSize(50), gridTemplateColumns: `${getDynamicSize(200)} 1fr`}}
+                            >
                                 <div className={`flex justify-start w-[190px] py-[14px]`}>
                                     <span className="relative w-[10px] h-[20px]">
                                         <span className="absolute top-[1px] w-[4px] h-[20px] bg-red-500 rotate-[-15deg]"></span>
                                     </span>
-                                    <h1 className="text-[20px] text-[#1F2937] font-bold leading-[20px] pr-[20px]">
+                                    <h1 className="text-[20px] text-[#1F2937] font-bold leading-[20px] pr-[20px]"
+                                        style={{ fontSize: isComputer && `${getDynamicSize(20)}` }}
+                                    >
                                         {e?.title?.[language]}
                                     </h1>
                                 </div>
                                 <div className="text-[#2A303C]">
                                     <div
-                                        className={`  ${isPhone ? "leading-[20px] text-sm" : "leading-[40px]"} tracking-[-1.2px] mb-[32px]`}
+                                        style={{ fontSize: isComputer && `${getDynamicSize(24)}`, lineHeight: isComputer && getDynamicSize(50) }}
+                                        className={`  ${isPhone ? `leading-[20px] text-sm` : "leading-[40px]"} ${fontLight} tracking-[-1.2px] mb-[32px]`}
                                         // className={` font-light text-[#1F2937] ${isPhone ? "leading-[20px] text-sm" : "leading-[40px]"} tracking-[-1.2px] mb-[32px] `}
                                         dangerouslySetInnerHTML={{ __html: e?.description?.[language] }}
                                     />
