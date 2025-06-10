@@ -2,13 +2,13 @@ import { useDispatch } from "react-redux"
 import FileUploader from "../../../../../components/Input/InputFileUploader"
 import ContentSection from "../../breakUI/ContentSections"
 import DynamicContentSection from "../../breakUI/DynamicContentSection"
-import { updateTheProjectSummaryList } from "../../../../common/homeContentSlice"
+import { updateSubServiceDetailsPointsArray } from "../../../../common/homeContentSlice"
 
-const SubServiceDetailManager = ({ serviceId, currentContent, currentPath, language, deepPath }) => {
+const SubServiceDetailManager = ({ serviceId, content, currentPath, language, deepPath, indexes }) => {
     const dispatch = useDispatch()
 
     const addExtraSummary = (subContext) => {
-        dispatch(updateTheProjectSummaryList(
+        dispatch(updateSubServiceDetailsPointsArray(
             {
                 insert: {
                     title: {
@@ -20,11 +20,8 @@ const SubServiceDetailManager = ({ serviceId, currentContent, currentPath, langu
                         en: ""
                     }
                 },
-                serviceId,
-                deepPath,
-                context: "subOfsubService",
-                subContext,
-                operation: 'add'
+                operation: 'add',
+                sectionIndex: indexes?.['2'],
             }
         ))
     }
@@ -39,15 +36,16 @@ const SubServiceDetailManager = ({ serviceId, currentContent, currentPath, langu
                 currentPath={currentPath}
                 Heading={"Banner"}
                 inputs={[
-                    { input: "input", label: "Heading/title", updateType: "title", maxLength: 18 },
-                    { input: "richtext", label: "Description", updateType: "description", maxLength: 350 },
+                    { input: "input", label: "Heading/title", updateType: "title", maxLength: 40, value: content?.['1']?.content?.title?.[language] },
+                    { input: "richtext", label: "Description", updateType: "description", maxLength: 350, value: content?.['1']?.content?.description?.[language] },
                 ]}
-                inputFiles={[{ label: "Backround Image", id: `subServiceBanner/${serviceId}/${deepPath}` }]}
+                inputFiles={[{ label: "Backround Image", id: `subServiceBanner/${serviceId}/${deepPath}`, order: 1, url: content?.['1']?.content?.images?.[0]?.url }]}
                 section={"banner"}
                 language={language}
-                currentContent={currentContent}
+                currentContent={content}
                 projectId={serviceId}
                 deepPath={deepPath}
+                sectionIndex={indexes?.['1']}
             />
 
             {/* sub banner */}
@@ -55,107 +53,80 @@ const SubServiceDetailManager = ({ serviceId, currentContent, currentPath, langu
                 currentPath={currentPath}
                 Heading={"Banner"}
                 inputs={[
-                    { input: "input", label: "Heading/title", updateType: "title", maxLength: 34 },
-                    { input: "richtext", label: "Description", updateType: "description", maxLength: 350 },
+                    { input: "input", label: "Heading/title", updateType: "title", maxLength: 34, value: content?.['2']?.content?.title?.[language] },
+                    { input: "richtext", label: "Description", updateType: "description", maxLength: 350, value: content?.['2']?.content?.description?.[language] },
                 ]}
                 section={"subBanner"}
                 language={language}
-                currentContent={currentContent}
+                currentContent={content}
                 projectId={serviceId}
                 deepPath={deepPath}
-            />
-
-            {/* Gallery 1 */}
-            <ContentSection
-                currentPath={currentPath}
-                Heading={"Gallery"}
-                inputFiles={
-                    currentContent?.[serviceId]?.[deepPath - 1]?.gallery1?.map((e, i) => {
-                        return { label: "Image " + (i + 1), id: `subService/${serviceId}/gallery/${deepPath}/${i}` }
-                    })}
-                section={"gallery1"}
-                language={language}
-                currentContent={currentContent}
-                projectId={serviceId}
-                deepPath={deepPath}
-                allowExtraInput={true}
+                sectionIndex={indexes?.['2']}
             />
 
             {/* Details Sections */}
             <div className="mt-4 border-b">
                 <h3 className={`font-semibold text-[1.25rem] mb-4`}>Details Sections</h3>
                 {
-                    currentContent?.[serviceId]?.[deepPath - 1]?.descriptions?.map((element, index, a) => {
+                    content?.['2']?.content?.points?.map((element, index, a) => {
                         return (
                             <DynamicContentSection key={index}
                                 currentPath={currentPath}
                                 subHeading={"Section " + (index + 1)}
                                 inputs={[
-                                    { input: "input", label: "Title", updateType: "title", maxLength: 100 },
-                                    { input: "textarea", label: "Description", updateType: "description" },
+                                    { input: "input", label: "Title", updateType: "title", maxLength: 100, value: element?.title?.[language] },
+                                    { input: "textarea", label: "Description", updateType: "description", value: element?.description?.[language] },
                                 ]}
-                                section={"descriptions"}
+                                section={"points"}
                                 isBorder={false}
                                 index={index}
                                 language={language}
-                                currentContent={currentContent}
+                                currentContent={content}
                                 projectId={serviceId}
                                 deepPath={deepPath}
                                 allowRemoval={true}
+                                sectionIndex={indexes?.['2']}
                             />
                         )
                     })
                 }
                 <button className="text-blue-500 cursor-pointer mb-3"
-                    onClick={() => addExtraSummary("descriptions")}
+                    onClick={() => addExtraSummary()}
                 >Add More Section...</button>
             </div>
 
-            {/* Details Sections 2 */}
-            <div className="mt-4 border-b">
-                <h3 className={`font-semibold text-[1.25rem] mb-4`}>Details Sections 2</h3>
-                {
-                    currentContent?.[serviceId]?.[deepPath - 1]?.descriptions2?.map((element, index, a) => {
-                        return (
-                            <DynamicContentSection key={index}
-                                currentPath={currentPath}
-                                subHeading={"Section " + (index + 1)}
-                                inputs={[
-                                    { input: "input", label: "Title", updateType: "title", maxLength: 100 },
-                                    { input: "textarea", label: "Description", updateType: "description" },
-                                ]}
-                                section={"descriptions2"}
-                                isBorder={false}
-                                index={index}
-                                language={language}
-                                currentContent={currentContent}
-                                projectId={serviceId}
-                                deepPath={deepPath}
-                                allowRemoval={true}
-                            />
-                        )
-                    })
-                }
-                <button className="text-blue-500 cursor-pointer mb-3"
-                    onClick={() => addExtraSummary("descriptions2")}
-                >Add More Section...</button>
-            </div>
+            {/* Gallery 1 */}
+            <ContentSection
+                currentPath={currentPath}
+                Heading={"Gallery"}
+                inputFiles={
+                    content?.[3]?.content?.images?.map((e, i) => {
+                        return { label: "Image " + (i + 1), id: `subServiceChild/gallery/${i}`, order: i + 1, url: e.url }
+                    })}
+                section={"points"}
+                language={language}
+                currentContent={content}
+                projectId={serviceId}
+                deepPath={deepPath}
+                allowExtraInput={true}
+                sectionIndex={indexes?.['3']}
+            />
 
-            {/* Gallery 2 */}
+            {/* Gallery 2
             <ContentSection
                 currentPath={currentPath}
                 Heading={"Gallery"} y
                 inputFiles={
-                    currentContent?.[serviceId]?.[deepPath - 1]?.gallery2?.map((e, i) => {
+                    content?.[serviceId]?.[deepPath - 1]?.gallery2?.map((e, i) => {
                         return { label: "Image " + (i + 1), id: `subService/${serviceId}/gallery2/${deepPath}/${i}` }
                     })}
                 section={"gallery2"}
                 language={language}
-                currentContent={currentContent}
+                currentContent={content}
                 projectId={serviceId}
                 deepPath={deepPath}
                 allowExtraInput={true}
-            />
+            /> */}
         </div>
     )
 }
