@@ -1,0 +1,251 @@
+{
+  "message": "Success",
+  "content": {
+    "id": "cmbkijnti00lins2rca7imblm",
+    "titleEn": "Safety & Responsibility Page",
+    "titleAr": "السلامة: مسؤوليتنا",
+    "slug": "safety_responsibility",
+    "isEditable": true,
+    "resourceType": "MAIN_PAGE",
+    "resourceTag": "SAFETY_RESPONSIBILITY",
+    "relationType": "PARENT",
+    "liveModeVersionData": {
+      "id": "cmbkijntl00lkns2rvbvfq4pr",
+      "versionNumber": 1,
+      "icon": null,
+      "image": null,
+      "comments": "Initial version created by system",
+      "referenceDoc": null,
+      "updatedAt": "2025-06-06T09:36:03.618Z",
+      "status": "PUBLISHED",
+      "sections": [
+        {
+          "sectionId": "cmbkijnvw00lmns2rs5mi5hl3",
+          "order": 1,
+          "version": 1,
+          "title": "heroSection-safety_responsibility-4402",
+          "content": {
+            "title": {
+              "ar": "السلامة: مسؤوليتنا",
+              "en": "Safety: Our Responsibility"
+            },
+            "button": [
+              {
+                "url": null,
+                "icon": null,
+                "text": {
+                  "ar": "خدماتنا",
+                  "en": "Our Services"
+                },
+                "order": 1
+              }
+            ],
+            "images": [
+              {
+                "url": "https://frequencyimage.s3.ap-south-1.amazonaws.com/851e35b5-9b3b-4d9f-91b4-9b60ef2a102c-Rectangle%2034624110.png",
+                "order": 1,
+                "altText": {
+                  "ar": "صورة شعار الصفحة الرئيسية",
+                  "en": "Image 1"
+                }
+              }
+            ],
+            "description": {
+              "ar": "في شركة شيد، السلامة ليست مجرد سياسة، بل هي قيمة أساسية نزرعها في كل مشروع. من خلال التخطيط الدقيق، والتكنولوجيا المتقدمة، والالتزام الصارم ببروتوكولات السلامة، نضمن حماية جميع الأطراف المعنية وتنفيذ كل عملية بأعلى معايير السلامة.",
+              "en": "At Shade Corporation, safety isn't just a policy—it's a core value that we instill in every project. Through meticulous planning, advanced technology, and strict adherence to safety protocols, we ensure that every stakeholder is protected and every operation is conducted with the highest level of safety standards."
+            }
+          },
+          "sections": []
+        },
+        {
+          "sectionId": "cmbkijnwd00lsns2revf63vtv",
+          "order": 2,
+          "version": 1,
+          "title": "safetyTerms-safety_responsibility-d9e9",
+          "content": {
+            "title": {
+              "ar": " الشروط والأحكام الخاصة بسلامة",
+              "en": "Safety Terms and Conditions"
+            },
+            "button": [
+              {
+                "url": null,
+                "icon": null,
+                "text": {
+                  "ar": "أعمالنا",
+                  "en": "Read More"
+                },
+                "order": 1
+              }
+            ]
+          },
+          "sections": [],
+          "items": [
+            {
+              "id": "cmbkijnjs00i0ns2r37f5rulc",
+              "titleEn": "Safety Policy",
+              "titleAr": "سياسة السلامة",
+              "slug": "safety-policy",
+              "icon": null,
+              "image": null,
+              "descriptions": [
+                {
+                  "ar": "تعتبر السلامة أولوية قصوى لشركة Shade Corporation، حيث نلتزم بتوفير أقصى درجات السلامة لموظفينا وموردينا وعملائنا وجميع الأطراف المعنية. مع نهجنا الصارم تجاه الامتثال لمعايير الصحة والسلامة والبيئة، حققنا سجلًا مثاليًا منذ تأسيسنا، دون أي حوادث كبيرة تتعلق بالصحة أو السلامة أو البيئة.",
+                  "en": "Shade Corporation's top priority is to provide utmost safety to its employees, suppliers, clients, and all stakeholders. With its zero-tolerance approach towards HSE compliance, Shade has an exemplary track record since its inception, with the absence of any major lost-time arising out of health, safety, or environmental accidents."
+                },
+                {
+                  "ar": "السلامة قيمة متأصلة في ثقافتنا، وهي عنصر أساسي مثل التكلفة والجودة والجدول الزمني لعملائنا. نحن ملتزمون بالعمل بأمان وكفاءة ومع مراعاة البيئة. يتم إعطاء الأولوية الأولى للاعتبارات المتعلقة بالسلامة في جميع الأمور المتعلقة بالتصميم والطرق والمواد والمعدات والبناء وتشغيل جميع المشاريع التي نقوم بها.",
+                  "en": "Safety is a value ingrained in our culture, and it is an equal deliverable the same way that cost, quality, and schedule are to our clients. We are committed to working safely, efficiently, and with due regard for the environment. Safety considerations shall be given first priority over all others in matters of design, methods, materials, equipment, construction, and operations of all the projects we undertake."
+                },
+                {
+                  "ar": "تتوافق خطتنا للسلامة والصحة كما هو موضح في إجراءات العمل الخاصة بالسلامة مع المعايير الدولية للسلامة والصحة، وهدفنا هو القضاء تمامًا على الحوادث من عملياتنا.",
+                  "en": "Our Safety and Health Plan, as described in our safety work procedures, is in consonance with international safety and health standards, and our goal is to eliminate accidents totally from our operations."
+                },
+                {
+                  "ar": "هدفنا في جميع المشاريع هو عدم وجود حوادث قابلة للتسجيل. تفرض شركتنا على جميع الموظفين التصرف وفقًا لدليل السلامة في جميع الأوقات وأن يكونوا دائمًا على دراية بهدفنا النهائي في أن نصبح شركة خالية من الحوادث.",
+                  "en": "Zero recordable incidents is always our project goal. Our company mandates all employees to act as per the Safety Manual at all times and to be constantly mindful of our ultimate goal in becoming an accident-free company."
+                }
+              ],
+              "order": 1
+            },
+            {
+              "id": "cmbkijnlc00ilns2rdixxd3mw",
+              "titleEn": "Quality Policy",
+              "titleAr": "سياسة الجودة",
+              "slug": "quality-policy",
+              "icon": null,
+              "image": null,
+              "descriptions": [
+                {
+                  "ar": "في سعيها لبناء مستقبل أقوى، تلتزم شركة Shade بتطوير وإنشاء وتنفيذ وصيانة وتحسين فعالية نظام إدارة الجودة استنادًا إلى معيار ISO 9001 لتقديم خدمات الهندسة والمشتريات والبناء (EPC).",
+                  "en": "In its pursuit of “Building a Stronger Future”, Shade is committed to develop, establish, implement, maintain, and continually improve the effectiveness of the Quality Management System based on ISO 9001 standard to provide Engineering, Procurement, and Construction (EPC) services."
+                },
+                {
+                  "ar": "تفخر شركة Shade ببناء سمعة طيبة باستمرار مع شركائها في العمل وتزرع بقوة ثقافة الصحة والسلامة مع إظهار الاهتمام بالبيئة.",
+                  "en": "Shade takes pride in continuously building goodwill with its business partners and strongly cultivates a culture of health and safety while displaying care towards the environment."
+                },
+                {
+                  "ar": "تلتزم شركة Shade بتقديم أعلى مستوى من الجودة وخدمات البناء في الوقت المحدد لعملائها بأسعار عادلة وتنافسية في السوق.",
+                  "en": "Shade Corporation is committed to providing its clients the highest level of quality and on-time construction services at fair and market competitive prices."
+                },
+                {
+                  "ar": "تعزيز كفاءتها من خلال الحفاظ على بيئة عمل صحية تشجع على النمو المهني وتعزز الأفكار الجديدة بين موظفيها.",
+                  "en": "Enhance its efficiency by maintaining and promoting a healthy work environment that encourages professional growth and promotes new ideas among its employees."
+                }
+              ],
+              "order": 2
+            },
+            {
+              "id": "cmbkijnms00j6ns2reu1bvylg",
+              "titleEn": "Environmental Policy",
+              "titleAr": "سياسة البيئة",
+              "slug": "environmental-policy",
+              "icon": null,
+              "image": null,
+              "descriptions": [
+                {
+                  "ar": "تلتزم شركة Shade بحماية البيئة من خلال تنفيذ ممارسات مستدامة وتقليل الأثر البيئي لعملياتها.",
+                  "en": "Shade is committed to protecting the environment by implementing sustainable practices and minimizing the environmental impact of its operations."
+                },
+                {
+                  "ar": "نحن ملتزمون بتقليل النفايات، والحفاظ على الموارد، وتعزيز الوعي البيئي بين موظفينا.",
+                  "en": "We are committed to reducing waste, conserving resources, and promoting environmental awareness among our employees."
+                },
+                {
+                  "ar": "نقوم بتطبيق إجراءات صارمة لضمان الامتثال للمعايير البيئية الدولية.",
+                  "en": "We implement strict procedures to ensure compliance with international environmental standards."
+                },
+                {
+                  "ar": "نحن نعمل على تعزيز الاستدامة في جميع جوانب عملياتنا.",
+                  "en": "We strive to promote sustainability in all aspects of our operations."
+                }
+              ],
+              "order": 3
+            },
+            {
+              "id": "cmbkijnoa00jrns2rqb3v6m23",
+              "titleEn": "Training Policy",
+              "titleAr": "سياسة التدريب",
+              "slug": "training-policy",
+              "icon": null,
+              "image": null,
+              "descriptions": [
+                {
+                  "ar": "تلتزم شركة Shade بتوفير التدريب المستمر لموظفيها لضمان الكفاءة والامتثال لمعايير السلامة.",
+                  "en": "Shade is committed to providing continuous training to its employees to ensure competence and compliance with safety standards."
+                },
+                {
+                  "ar": "نحن نؤمن بأن التدريب المستمر هو مفتاح النجاح في تحقيق أهداف السلامة والجودة.",
+                  "en": "We believe that continuous training is key to achieving safety and quality objectives."
+                },
+                {
+                  "ar": "نقوم بتطوير برامج تدريبية شاملة تغطي جميع جوانب السلامة والجودة.",
+                  "en": "We develop comprehensive training programs covering all aspects of safety and quality."
+                },
+                {
+                  "ar": "نحن نشجع التطوير المهني المستمر لموظفينا.",
+                  "en": "We encourage continuous professional development for our employees."
+                }
+              ],
+              "order": 4
+            },
+            {
+              "id": "cmbkijnq400kcns2r1m0copwz",
+              "titleEn": "Innovation Policy",
+              "titleAr": "سياسة الابتكار",
+              "slug": "innovation-policy",
+              "icon": null,
+              "image": null,
+              "descriptions": [
+                {
+                  "ar": "تلتزم شركة Shade بتعزيز الابتكار في جميع عملياتها لضمان التحسين المستمر.",
+                  "en": "Shade is committed to fostering innovation in all its operations to ensure continuous improvement."
+                },
+                {
+                  "ar": "نحن نؤمن بأن الابتكار هو مفتاح النجاح في السوق التنافسية.",
+                  "en": "We believe that innovation is key to success in a competitive market."
+                },
+                {
+                  "ar": "نقوم بتطوير استراتيجيات مبتكرة لتعزيز الكفاءة والجودة.",
+                  "en": "We develop innovative strategies to enhance efficiency and quality."
+                },
+                {
+                  "ar": "نحن نشجع التفكير الإبداعي بين موظفينا.",
+                  "en": "We encourage creative thinking among our employees."
+                }
+              ],
+              "order": 5
+            },
+            {
+              "id": "cmbkijns200kxns2rflmqdqmx",
+              "titleEn": "Communication Policy",
+              "titleAr": "سياسة التواصل",
+              "slug": "communication-policy",
+              "icon": null,
+              "image": null,
+              "descriptions": [
+                {
+                  "ar": "تلتزم شركة Shade بتعزيز التواصل الفعال لضمان الشفافية والوضوح في جميع عملياتها.",
+                  "en": "Shade is committed to promoting effective communication to ensure transparency and clarity in all its operations."
+                },
+                {
+                  "ar": "نحن نؤمن بأن التواصل الفعال هو أساس النجاح في جميع المشاريع.",
+                  "en": "We believe that effective communication is the foundation of success in all projects."
+                },
+                {
+                  "ar": "نقوم بتطوير قنوات تواصل فعالة لضمان تدفق المعلومات بسلاسة.",
+                  "en": "We develop effective communication channels to ensure smooth information flow."
+                },
+                {
+                  "ar": "نحن نشجع الشفافية في جميع جوانب عملياتنا.",
+                  "en": "We encourage transparency in all aspects of our operations."
+                }
+              ],
+              "order": 6
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

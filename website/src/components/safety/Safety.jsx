@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, useState} from "react";
-import styles from "@/components/History/History.module.scss";
+import styles from "@/components/Safety/Safety.module.scss";
 import localFont from "next/font/local";
 import {useRouter} from "next/router";
 import {Img_url} from "@/common/CreateContent";
@@ -8,6 +8,10 @@ import "swiper/css";
 import "swiper/css/pagination";
 import {useGlobalContext} from "../../contexts/GlobalContext";
 import ContactUsModal from "../header/ContactUsModal";
+import Image from "next/image";
+import checkSvg from "../../assets/icons/check.svg";
+import Button from "@/common/Button";
+import Link from "next/link";
 
 // Font files can be colocated inside of `app`
 const BankGothic = localFont({
@@ -15,8 +19,11 @@ const BankGothic = localFont({
   display: "swap",
 });
 
-const HistoryPage = ({content}) => {
+//
+
+const SafetyPage = ({content}) => {
   const router = useRouter();
+
   const {
     language,
     // content
@@ -61,7 +68,7 @@ const HistoryPage = ({content}) => {
     <>
       {/* banner */}
       <section
-        className={`${styles.history_banner_wrap} ${
+        className={`${styles.safety_banner_wrap} ${
           language === "en" && styles.leftAlign
         }`}
       >
@@ -102,49 +109,82 @@ const HistoryPage = ({content}) => {
         </div>
       </section>
 
-      <section
-        className={`${styles.history_description_section} ${
-          language === "en" && styles.leftAlign
-        }`}
-      >
+      <section className={styles.safety_card_wrap}>
         <div className="container">
-          <h1 className={styles.title}>
-            {currentContent?.["2"]?.content?.title?.[language]}
-          </h1>
-          <div
-            className={styles.description}
-            dangerouslySetInnerHTML={{
-              __html: currentContent?.["2"]?.content?.description?.[language],
-            }}
-          />
-        </div>
-
-        <div className="container">
-          <div className={styles.history_image_container}>
-            {currentContent?.["2"]?.content?.images?.map((imgObj, idx) => {
-              // Compose the full URL (or empty string if it doesn't exist)
-              const srcUrl = imgObj?.url ? Img_url + imgObj.url : "";
-
+          <div className={styles.safety_card_container}>
+            {currentContent?.["2"]?.items?.map((item, idx) => {
+              // pick the right title key based on language
+              const titleKey = language === "en" ? "titleEn" : "titleAr";
+              const isReversed = idx % 2 === 1;
               return (
-                <>
-                  <img
-                    src={srcUrl}
-                    key={idx}
-                    alt={`history-image-${idx}`}
-                    className={styles.history_image}
-                    width={273}
-                    height={304}
-                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                  />
-                </>
+                <div
+                  key={item.id ?? idx}
+                  className={`${styles.safety_card}  ${
+                    isReversed ? styles.reverse : ""
+                  }`}
+                >
+                  {/* Image (if any) */}
+                  {
+                    <div className={styles.safety_card_image_wrap}>
+                      <img
+                        src={Img_url + item.image}
+                        alt={"safety image"}
+                        // width={400}
+                        // height={300}
+                        className={styles.safety_card_image}
+                      />
+                    </div>
+                  }
+
+                  {/* Details */}
+                  <div className={styles.safety_card_details}>
+                    <h1 className={styles.title}>{item[titleKey]}</h1>
+                    <div
+                      className={`${styles.description} ${BankGothic.className}`}
+                    >
+                      {item.descriptions?.map((descObj, i) => (
+                        <div className={styles.description_item} key={i}>
+                          <Image
+                            key={i}
+                            src={checkSvg}
+                            alt="description"
+                            // width={100}
+                            // height={100}
+                            className={styles.description_image}
+                          />
+                          <p>{descObj[language]}</p>
+                        </div>
+                      ))}
+                      {/* <Button /> */}
+                      <div className={styles.read_more_btns}>
+                        {/* <a
+                          onClick={() => {
+                            router.push(`/safety/${item?.slug}`);
+                            console.log("item.id", item.slug);
+                          }}
+                          href={currentContent?.["2"]?.content?.button ?? "#"}
+                          className={styles.read_more_btn}
+                        >
+                          {
+                            currentContent?.["2"]?.content?.button?.[0]?.text?.[
+                              language
+                            ]
+                          }
+                        </a> */}
+                        <Link
+                          key={item.id}
+                          href={`/safety/${item.slug}`}
+                          className={styles.read_more_btn}
+                        >
+                          {currentContent["2"].content.button[0].text[language]}
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               );
             })}
           </div>
-          <div
-            className={`${styles.history_image_wrapper} ${
-              language === "en" && styles.leftAlign
-            }`}
-          ></div>
         </div>
       </section>
 
@@ -153,4 +193,4 @@ const HistoryPage = ({content}) => {
   );
 };
 
-export default HistoryPage;
+export default SafetyPage;

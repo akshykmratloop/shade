@@ -36,6 +36,9 @@
   .content {
     position: absolute;
     top: 30%;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
 
     .title {
       color: var(--black);
@@ -47,7 +50,7 @@
       letter-spacing: -3.5px;
       margin-bottom: 16px;
       text-wrap: auto;
-      width: 635px;
+      // width: 635px;
       //   text-align: right;
     }
 
@@ -66,7 +69,7 @@
       font-weight: 600;
       line-height: 26px;
       margin-bottom: 26px;
-      width: 50%;
+      // width: 50%;
       word-spacing: 5px;
       display: block;
     }
@@ -89,5 +92,62 @@
         left: 32px;
       }
     }
+  }
+}
+
+.history_description_section {
+  width: 100%;
+  padding: 100px 0;
+  background-color: var(--white);
+  text-align: left;
+  display: flex;
+
+  .title {
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 20px;
+    color: var(--black);
+    margin-bottom: 16px;
+  }
+
+  .description {
+    font-size: 16px;
+    font-weight: 300;
+    line-height: 22px;
+    color: var(--para-light);
+    max-width: 500px;
+    // margin: auto;
+    margin-bottom: 40px;
+    // text-align: left;
+  }
+
+  .history_image_container {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); // 2 equal columns
+    // align-content: end;
+    justify-items: flex-end;
+    // align-items: flex-end;
+    gap: 20px;
+    // background-color: aqua;
+
+    .history_image {
+      // width: 100%; // Ensure image fills the column width
+      // height: auto; // Maintain original aspect ratio
+      // border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      object-fit: cover; // Ensures images fill their container nicely
+    }
+  }
+  .history_image_wrapper {
+    position: absolute;
+    background-color: #f1f4f9;
+    /* height: 10px; */
+    width: 663px;
+    right: 117px;
+    bottom: -70%;
+    height: 400px;
+    border-top-left-radius: 32px;
   }
 }
