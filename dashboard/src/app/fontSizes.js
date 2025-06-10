@@ -46,18 +46,18 @@ const fontSizes = {
     },
     tablet: {
         // home -- some of them are used in other pages due similarity
-        mainHeading: 70, mainPara: 16, mainButton: 18, markDownHead: 36, markDownPara: 15, markDownButton: 70,
+        mainHeading: 70, mainPara: 26, mainButton: 30, markDownHead: 36, markDownPara: 15, markDownButton: 70,
         serviceHeading: 36, services: 20, experienceCount: 40, experienceTitle: 12, experienceHeading: 60,
         experiencePara: 16, experienceButton: 18, subProjectTopButton: 16, subProjectHeadings: 32,
         subProjectParas: 16, subProjectBoxHeading: 20, subProjectBoxPara: 16, subProjectButtons: 18,
         clientSection: 36, testimonialsHead: 36, testimonialsHeading: 20, testimonialsPosition: 12,
         testimonialsQuote: 14, testimonialsCompany: 16, SnRSubHeading: 50,
         // about
-        aboutMainPara: 26, aboutPaddingX: 50,
+        aboutMainPara: 40, aboutPaddingX: 50,
         aboutVideoW: 639, aboutVideoH: 457, // video size but not applied to the video
         aboutCardPaddingY: 40, aboutCardPaddingX: 30,
         // other sizes
-        headingLeading: 40, paraLeading: 20
+        headingLeading: 40, paraLeading: 30
     },
     phone: {
         // home -- some of them are used in other pages due similarity
