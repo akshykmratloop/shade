@@ -429,7 +429,6 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                                                                 />
                                                             </div>
                                                             <div className="p-[18px_12px_12px_12px] flex flex-col justify-center items-start gap-[16px] bg-[#00B9F2] flex-1">
-
                                                                 <h5
                                                                     title={project?.[titleLan]}
                                                                     className={`text-white text-[20px] font-semibold  h-[40px] ${!isComputer && "mb-2"}`}
@@ -442,7 +441,7 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                                                                     className="text-white text-[16px] font-light leading-[normal]"
                                                                     style={{ fontSize: isComputer && dynamicSize(16, width) }}
                                                                 >
-                                                                    {TruncateText(project?.[titleLan], (isTablet ? 16 : 25))}
+                                                                    {TruncateText(project?.location?.value?.[language] || project?.description?.[language], (isTablet ? 16 : 25))}
                                                                 </p>
                                                             </div>
                                                         </div>

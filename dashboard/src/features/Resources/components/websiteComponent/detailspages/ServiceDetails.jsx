@@ -1,102 +1,165 @@
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { updateMainContent } from "../../../../common/homeContentSlice";
-import { services, projectPageData } from "../../../../../assets/index";
-import content from '../content.json'
-import structureOfServiceDetails from "../structures/structureOFServiceDetails.json";
+import { useSelector } from "react-redux";
+import { projectPageData } from "../../../../../assets/index";
 import { TruncateText } from "../../../../../app/capitalizeword";
+import { Img_url } from "../../../../../routes/backend";
+import dynamicSize, { defineDevice, generatefontSize } from "../../../../../app/fontSizes";
 
-const ServiceDetails = ({ serviceId, content, language, screen }) => {
-    const dispatch = useDispatch();
+const ServiceDetails = ({ serviceId, content, language, screen, width }) => {
     const isComputer = screen > 1100;
     const isTablet = 1100 > screen && screen > 767;
     const isPhone = screen < 767;
-    const isLeftAlign = language === 'en'
-    const ImageFromRedux = useSelector(state => state.homeContent.present.images)
-    // const contentFromRedux = useSelector(state => state.homeContent.present.serviceDetails)
+    const isLeftAlign = language === 'en';
+    const titleLan = isLeftAlign ? "titleEn" : "titleAr";
+    const slug = useSelector(state => state.homeContent?.present?.content?.slug)
 
-    // const currentContent = contentFromRedux?.filter(
-    //     (item) => item?.id == serviceId
-    // )[0];
+    // Font and Size
+    const fontSize = generatefontSize(defineDevice(screen), dynamicSize, width)
+    const getDynamicSize = (size) => dynamicSize(size, width)
+    const fontLight = useSelector(state => state.fontStyle.light)
 
-
-    // useEffect(() => {
-    //     if (!contentFromRedux?.[serviceId - 1]) {
-    //         dispatch(updateMainContent({ currentPath: "serviceDetails", payload: [...content?.serviceDetails, { ...structureOfServiceDetails, id: content.serviceDetails?.length + 1 }] }))
-    //     } else {
-    //         dispatch(updateMainContent({ currentPath: "serviceDetails", payload: content.serviceDetails }))
-    //     }
-    // console.log(content)
-    // }, [])
     return (
         <div dir={isLeftAlign ? "ltr" : "rtl"} className="w-full">
             {/* banner */}
-            <section className={`py-[120px]  ${isPhone ? "px-2" : "px-20"} object-cover text-center flex flex-col items-center`}
-                style={{ backgroundImage: `linear-gradient(to bottom,#00000020 ,#fffffffb 100%), url(${content?.['1']?.content?.images?.[0]?.url})`, backgroundPosition: 'bottom' }}
+            <section className={`py-[120px] ${isPhone ? "px-2" : "px-20"} flex flex-col justify-center object-cover text-center flex flex-col items-center bg-cover bg-bottom `}
+                style={{
+                    backgroundImage: `linear-gradient(to bottom,#00000020 ,#fffffffb 100%), url(${Img_url + content?.['1']?.content?.images?.[0]?.url})`,
+                    padding: `${getDynamicSize(120)} ${getDynamicSize(80)}`,
+                    height: getDynamicSize(550)
+                }}
             >
-                <h1 className={`text-[41px] text-[#292E3D] `}>
-                    {/* {currentContent?.banner?.title?.[language] || "Project Details"} */}
+                <h1 className={`text-[41px] text-[#292E3D] `}
+                    style={{ fontSize: fontSize.mainHeading }}
+                >
                     {content?.['1']?.content?.title?.[language]}
                 </h1>
-                <p className={`text-[#0E172FB2] text-[10px] w-2/3`}>
+                <p className={`text-[#0E172FB2] text-[10px] w-2/3`}
+                    style={{ fontSize: fontSize.mainPara }}
+                >
                     {content?.['1']?.content?.description?.[language]}
                 </p>
             </section>
 
             {/* Sub services */}
-            <section className={`grid ${isTablet || isPhone ? "grid-cols-1 items-center justify-center px-[20px]" : "grid-cols-2 px-[76px]"} gap-y-[27px] gap-x-[25px] py-[34px]`}>
+            <section
+                className={`grid ${isTablet || isPhone ? "grid-cols-1 items-center justify-center px-[20px]" : "grid-cols-2 px-[76px]"} py-[34px]`}
+                style={{
+                    padding: `${getDynamicSize(50)} ${getDynamicSize(112)}`,
+                    rowGap: getDynamicSize(30),
+                    columnGap: getDynamicSize(35),
+                }}
+            >
                 {
-                    (
-                        // currentContent?.subServices ||
-                        [])?.map((subService, index) => {
-                            return (
-                                <article key={index + "wqer"} className={`border-b flex gap-4 pb-[12px]`}>
-                                    <article className={`min-w-[197px] py-2`}>
-                                        <img src={subService.image || projectPageData.developmentOfHo} alt="" className={`${isTablet || isTablet ? "w-[50vw] aspect-[4/3]" : "w-[196px] h-[135px]"} `} />
-                                    </article>
-                                    <article className="">
-                                        <h3 className="text-[17px]">{subService.title[language]}</h3>
-                                        <p className="text-[11px]">
-                                            We capitalize on our years of experience in the construction industry to clients by also maintaining their facilities and infrastructure.
-                                        </p>
-                                        <button className="text-[#00B9F2] text-[11px]">
-                                            Veiw Details
-                                            <img src="" alt="" />
-                                        </button>
-                                    </article>
+                    (content?.['2']?.items.concat(content?.['2']?.items).concat(content?.['2']?.items).concat(content?.['2']?.items) || [])?.map((subService, index) => {
+                        return (
+                            <article key={index + "12i"} className={`border-b flex gap-4 pb-[12px]`}>
+                                <article className={``}
+                                    style={{
+                                        minWidth: isComputer && getDynamicSize(300),
+                                        padding: isComputer && `${getDynamicSize(8)}`,
+                                    }}
+                                >
+                                    <img
+                                        src={subService.image || projectPageData.developmentOfHo}
+                                        alt=""
+                                        className={`${isTablet || isTablet ? "w-[50vw] aspect-[4/3]" : "w-[196px] h-[135px]"}`}
+                                        style={{
+                                            width: isComputer && getDynamicSize(300),
+                                            height: isComputer && getDynamicSize(191)
+                                        }}
+                                    />
                                 </article>
-                            )
-                        })
+                                <article className="flex flex-col items-start"
+                                    style={{ gap: getDynamicSize(10) }}
+                                >
+                                    <h3
+                                        className={``}
+                                        style={{
+                                            fontSize: fontSize.aboutMainPara,
+                                            lineHeight: getDynamicSize(30)
+                                        }}
+                                        title={subService?.[titleLan]}
+                                    >{TruncateText(subService?.[titleLan], 40)}</h3>
+                                    <p className={`${fontLight}`}
+                                        style={{ fontSize: fontSize.mainPara }}
+                                    >
+                                        {subService?.description?.[language]}
+                                    </p>
+                                    <button
+                                        className={`text-[#00B9F2]`}
+                                        style={{ fontSize: fontSize.mainPara }}
+                                    >
+                                        {content?.['2']?.content?.button?.[0]?.text?.[language]}
+                                        <img src="" alt="" />
+                                    </button>
+                                </article>
+                            </article>
+                        )
+                    })
                 }
             </section>
 
             {/* Other Services */}
             <section>
-                <h3 className={`text-[#292E3D] font-[400] text-[22px] ${isPhone ? "mx-5" : "mx-[76px]"} py-[20px]`}>Other Services</h3>
-                <section className={`${isComputer ? "w-[988px]" : screen} overflow-x-scroll rm-scroll py-5 pt-2`}>
-                    <section dir={isLeftAlign ? 'ltr' : 'rtl'}
-                        className={`flex gap-7 ${isPhone ? "px-[38px]" : "px-[76px]"} pr-[38px] w-fit items-stretch`}>
+                <h3
+                    className={`text-[#292E3D] font-[400] ${isPhone ? "mx-5" : ""} py-[20px]`}
+                    style={{
+                        fontSize: fontSize.aboutMainPara,
+                        margin: `0px ${getDynamicSize(76)}`,
+                        padding: `${getDynamicSize(20)}`
+                    }}
+                >
+                    Other Services
+                </h3>
+                <section className={`overflow-x-scroll rm-scroll py-5 pt-2`}
+                    style={{
+                        padding: `${getDynamicSize(20)}`,
+                        paddingBottom: `${getDynamicSize(60)}`,
+                    }}
+                >
+                    <section
+                        dir={isLeftAlign ? 'ltr' : 'rtl'}
+                        className={`flex gap-7 ${isPhone ? "px-[38px]" : ""} pr-[38px] w-fit items-stretch`}
+                        style={{
+                            padding: isComputer && `0px ${getDynamicSize(76)}`,
+                            width: "fit-content"
+                        }}
+                    >
                         {
                             (
-                                // currentContent?.otherServices ||
+                                content?.['3']?.items ||
                                 []
                             )?.map((service, idx) => {
+                                if (service.slug === slug) return null
                                 return (
                                     <article
                                         key={idx}
-                                        className="flex flex-col bg-white overflow-hidden shadow w-[300px]"
+                                        className="flex flex-col bg-white overflow-hidden shadow"
+                                        style={{ width: getDynamicSize(437) }}
                                     >
-                                        <img src={service.image} alt="img" className="w-full object-cover h-[176px]" />
-                                        <section className="bg-[#F8F8F8] py-[14px] px-[18px] flex flex-col justify-between flex-1">
-                                            <h1 className="text-[#292E3D] text-[22px] font-[400]">
-                                                {TruncateText(service?.title?.[language], isTablet ? 15 : 23)}
+                                        <img src={service.image} alt="img"
+                                            className="w-full object-cover"
+                                            style={{ height: isComputer && getDynamicSize(210) }}
+                                        />
+                                        <section className="bg-[#F8F8F8] flex flex-col justify-between flex-1"
+                                            style={{
+                                                padding: `${getDynamicSize(16)} ${getDynamicSize(25)}`,
+                                                gap: getDynamicSize(10)
+                                            }}
+                                        >
+                                            <h1 className="text-[#292E3D] text-[22px] font-[400]"
+                                                style={{ fontSize: fontSize.aboutMainPara, lineHeight: getDynamicSize(30) }}
+                                            >
+                                                {TruncateText(service?.[titleLan], isTablet ? 15 : 20)}
                                             </h1>
-                                            <p className="text-[#292E3D] text-[10px] mb-2">
-                                                {service?.subtitle?.[language]}
+                                            <p className={`text-[#292E3D] text-[10px] mb-2 ${fontLight}`}
+                                                style={{ fontSize: fontSize.mainPara }}
+                                            >
+                                                {service?.description?.[language]}
                                             </p>
-                                            <button className={`text-[#00B9F2] flex gap-1 items-center mt-auto ${!isLeftAlign && "flex-rows-reverse"}`}>
-                                                {service?.button?.[language]}
+                                            <button className={`text-[#00B9F2] flex gap-1 items-center mt-auto ${!isLeftAlign && "flex-rows-reverse"}`}
+                                                style={{ fontSize: fontSize.mainPara }}
+                                            >
+                                                {content?.[3]?.content?.button?.[0]?.text?.[language]}
                                                 <img
                                                     src="https://frequencyimage.s3.ap-south-1.amazonaws.com/61c0f0c2-6c90-42b2-a71e-27bc4c7446c2-mingcute_arrow-up-line.svg"
                                                     alt=""
@@ -110,7 +173,7 @@ const ServiceDetails = ({ serviceId, content, language, screen }) => {
                     </section>
                 </section>
             </section>
-        </div>
+        </div >
     )
 }
 

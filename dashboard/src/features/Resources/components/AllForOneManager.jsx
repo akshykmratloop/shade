@@ -46,7 +46,7 @@ const AllForOneManager = ({ currentPath, language, subPath, deepPath, content, c
         case "service":
             manager = subPath ? deepPath ?
                 <SubServiceDetailManager serviceId={subPath} deepPath={deepPath} language={language} currentContent={content.subOfsubService} currentPath={"subOfsubService"} /> :
-                <ServiceDetailsManager serviceId={subPath} language={language} currentContent={content.serviceDetails} currentPath={"serviceDetails"} /> :
+                <ServiceDetailsManager serviceId={subPath} language={language} content={content} indexes={contentIndex} currentPath={"serviceDetails"} /> :
                 <ServiceManager language={language} currentContent={content} currentPath={currentPath} indexes={contentIndex} />
             break;
 
@@ -126,61 +126,3 @@ const AllForOneManager = ({ currentPath, language, subPath, deepPath, content, c
 }
 
 export default AllForOneManager
-
-
-
-
-// {/* {
-//                                 currentPath === "home" &&
-//                                 <HomeManager language={language} currentContent={content.home?.editVersion?.sections} currentPath={currentPath} />
-//                             }
-//                             {
-//                                 currentPath === "solutions" &&
-//                                 <SolutionManager language={language} currentContent={content.solutions} currentPath={currentPath} />
-//                             }
-//                             {
-//                                 currentPath === "about" &&
-//                                 <AboutManager language={language} currentContent={content.about} currentPath={currentPath} />
-//                             }
-//                             {
-//                                 currentPath === "services" ? subPath ? deepPath ?
-//                                     <SubServiceDetailManager serviceId={subPath} deepPath={deepPath} language={language} currentContent={content.subOfsubService} currentPath={"subOfsubService"} /> :
-//                                     <ServiceDetailsManager serviceId={subPath} language={language} currentContent={content.serviceDetails} currentPath={"serviceDetails"} /> :
-//                                     <ServiceManager language={language} currentContent={content.services} currentPath={currentPath} /> : ""
-//                             }
-//                             {
-//                                 (currentPath === "service" && subPath) &&
-//                                 <ServiceDetailsManager serviceId={subPath} language={language} currentContent={content.serviceDetails} currentPath={"serviceDetails"} />
-//                             }
-//                             {
-//                                 currentPath === 'markets' &&
-//                                 <MarketManager language={language} currentContent={content.markets} currentPath={currentPath} />
-//                             }
-//                             {
-//                                 currentPath === 'projects' || currentPath === 'project' ? subPath ?
-
-//                                     <ProjectDetailManager projectId={subPath} language={language} currentContent={content.projectDetail} currentPath={"projectDetail"} /> :
-//                                     <ProjectContentManager language={language} currentContent={content.projects} currentPath={currentPath} /> : ""
-//                             }
-//                             {
-//                                 currentPath === 'careers' ? subPath ?
-//                                     <CareerDetailManager careerId={subPath} language={language} currentContent={content.careerDetails} currentPath={"careerDetails"} /> :
-//                                     <CareersManager language={language} currentContent={content.careers} currentPath={currentPath} /> : ""
-//                             }
-//                             {
-//                                 currentPath === 'news' ? subPath ?
-//                                     <NewsDetailManager newsId={subPath} language={language} currentContent={content.newsBlogsDetails} currentPath={"newsBlogsDetails"} /> :
-//                                     <NewsManager language={language} currentContent={content.newsBlogs} currentPath={"newsBlogs"} /> : ""
-//                             }
-//                             {
-//                                 currentPath === 'footer' &&
-//                                 <FooterManager language={language} currentContent={content.footer} currentPath={currentPath} />
-//                             }
-//                             {
-//                                 currentPath === 'header' &&
-//                                 <HeaderManager language={language} currentContent={content.header} currentPath={currentPath} />
-//                             }
-//                             {
-//                                 currentPath === 'testimonials' || currentPath === 'testimonial' &&
-//                                 <TestimonyManager language={language} currentContent={content.testimonialSection} testimonyId={subPath} currentPath={"testimonialSection"} />
-//                             } */}

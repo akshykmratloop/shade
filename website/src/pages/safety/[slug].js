@@ -49,9 +49,9 @@ export default function SafetyDetails({apiData}) {
     }
   }, [apiData]);
 
-  if (isLoading) {
-    return <Loader />;
-  }
+  // if (isLoading) {
+  //   return <Loader />;
+  // }
 
   return (
     <>

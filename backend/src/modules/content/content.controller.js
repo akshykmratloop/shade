@@ -1,5 +1,5 @@
 // import {eventEmitter} from "../../helper/event.js";
-import {createNotification} from "../../repository/notification.repository.js";
+import { createNotification } from "../../repository/notification.repository.js";
 import {
   getResources,
   getResourceInfo,
@@ -37,6 +37,7 @@ const GetResources = async (req, res) => {
     roleId,
     apiCallType,
     filterText,
+    parentId
   } = req.query;
   const pageNum = parseInt(page) || 1;
   const limitNum = parseInt(limit) || 100;
@@ -55,31 +56,32 @@ const GetResources = async (req, res) => {
     userId,
     roleId,
     apiCallType,
-    filterText
+    filterText,
+    parentId
   );
   res.status(200).json(response);
 };
 
 const GetResourceInfo = async (req, res) => {
-  const {resourceId} = req.params;
+  const { resourceId } = req.params;
   const response = await getResourceInfo(resourceId);
   res.status(200).json(response);
 };
 
 const GetAssignedUsers = async (req, res) => {
-  const {resourceId} = req.params;
+  const { resourceId } = req.params;
   const response = await getAssignedUsers(resourceId);
   res.status(200).json(response);
 };
 
 const GetEligibleUser = async (req, res) => {
-  const {roleType, permission} = req.query;
+  const { roleType, permission } = req.query;
   const response = await getEligibleUser(roleType, permission);
   res.status(200).json(response);
 };
 
 const AssignUser = async (req, res) => {
-  const {resourceId, manager, editor, verifiers, publisher} = req.body;
+  const { resourceId, manager, editor, verifiers, publisher } = req.body;
   const response = await assignUser(
     resourceId,
     manager,
@@ -92,19 +94,19 @@ const AssignUser = async (req, res) => {
 };
 
 const RemoveAssignedUser = async (req, res) => {
-  const {resourceId} = req.params;
+  const { resourceId } = req.params;
   const response = await removeAssignedUser(resourceId);
   res.status(200).json(response);
 };
 
 const GetContent = async (req, res) => {
-  const {resourceId} = req.params;
+  const { resourceId } = req.params;
   const response = await getContent(resourceId);
   res.status(200).json(response);
 };
 
 const UpdateContent = async (req, res) => {
-  const {saveAs} = req.query;
+  const { saveAs } = req.query;
   const content = req.body;
   const response = await updateContent(saveAs, content);
   res.status(200).json(response);
@@ -124,7 +126,7 @@ const GenerateRequest = async (req, res) => {
 };
 
 const GetRequest = async (req, res) => {
-  const {roleId, permission, search, status, page, limit, resourceId} =
+  const { roleId, permission, search, status, page, limit, resourceId } =
     req.query;
   const userId = req.user.id;
 
@@ -144,29 +146,29 @@ const GetRequest = async (req, res) => {
 };
 
 const GetRequestInfo = async (req, res) => {
-  const {requestId} = req.params;
+  const { requestId } = req.params;
   const response = await getRequestInfo(requestId);
   res.status(200).json(response);
 };
 
 const ApproveRequest = async (req, res) => {
-  const {requestId} = req.params;
+  const { requestId } = req.params;
   const userId = req.user.id;
   const response = await approveRequest(requestId, userId);
   res.status(200).json(response);
 };
 
 const RejectRequest = async (req, res) => {
-  const {requestId} = req.params;
+  const { requestId } = req.params;
   const userId = req.user.id;
-  const {rejectReason} = req.body;
+  const { rejectReason } = req.body;
   const response = await rejectRequest(requestId, userId, rejectReason);
   res.status(200).json(response);
 };
 
 const GetVersionsList = async (req, res) => {
-  const {resourceId} = req.params;
-  const {search, status, page, limit} = req.query;
+  const { resourceId } = req.params;
+  const { search, status, page, limit } = req.query;
   const response = await getVersionsList(
     resourceId,
     search,
@@ -178,13 +180,13 @@ const GetVersionsList = async (req, res) => {
 };
 
 const GetVersionInfo = async (req, res) => {
-  const {versionId} = req.params;
+  const { versionId } = req.params;
   const response = await getVersionInfo(versionId);
   res.status(200).json(response);
 };
 
 const RestoreVersion = async (req, res) => {
-  const {versionId} = req.params;
+  const { versionId } = req.params;
   const response = await restoreVersion(versionId);
   res.status(200).json(response);
 };
@@ -195,13 +197,13 @@ const DeleteAllContentData = async (_, res) => {
 };
 
 const DeactivateResources = async (req, res) => {
-  const {resourceId} = req.params;
+  const { resourceId } = req.params;
   const response = await deactivateResources(resourceId);
   res.status(200).json(response);
 };
 
 const ActivateResources = async (req, res) => {
-  const {resourceId} = req.params;
+  const { resourceId } = req.params;
   const response = await activateResources(resourceId);
   res.status(200).json(response);
 };

@@ -7,7 +7,7 @@ import createContent from "@/common/CreateContent";
 import Loader from "@/common/Loader";
 import {useEffect, useState} from "react";
 import {backendAPI} from "@/contexts/GlobalContext";
-import HistoryPage from "@/components/history/History.jsx";
+// import HistoryPage from "@/components/history/History.jsx";
 // import Safety_Responsibility from "@/components/safety/SafetyResponsibility";
 import SafetyResponsibility from "@/components/safety/Safety.jsx";
 

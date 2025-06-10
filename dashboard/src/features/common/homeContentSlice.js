@@ -69,7 +69,9 @@ const cmsSlice = createSlice({
         },
         updateImages: (state, action) => { // post content
             state.past.push(JSON.parse(JSON.stringify(state.present)));
-            if (action.payload.type === "refDoc") {
+            if (action.type.type === "VIDEO") {
+                state.present.content.editVersion.sections[action.payload.sectionIndex].content.video = action.payload.src
+            } else if (action.payload.type === "refDoc") {
                 state.present.content.editVersion.referenceDoc = action.payload.src
             } else if (action.payload.section === "clientsImages") {
                 // console.log(action.payload.index, action.payload.cardIndex, action.payload.src)
@@ -196,9 +198,13 @@ const cmsSlice = createSlice({
                     state.present.content.editVersion.sections[action.payload.sectionIndex].items = newOptions
                     break;
 
-                case "jobs":
-                    state.present[action.payload?.currentPath].jobListSection.jobs = newOptions;
+                case "subServices": // in use
+                    state.present.content.editVersion.sections[action.payload.sectionIndex].items = newOptions
                     break;
+
+                // case "jobs":
+                //     state.present[action.payload?.currentPath].jobListSection.jobs = newOptions;
+                //     break;
 
                 case "projectDetail":
                     state.present.projectDetail[action.payload.projectId - 1].moreProjects.projects = newOptions
@@ -206,10 +212,6 @@ const cmsSlice = createSlice({
 
                 case "serviceCards":
                     state.present[action.payload?.currentPath].serviceCards = newOptions;
-                    break;
-
-                case "subServices":
-                    state.present[action.payload?.currentPath][action.payload.projectId].subServices = newOptions
                     break;
 
                 default:

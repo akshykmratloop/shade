@@ -53,6 +53,8 @@ export default function ContentTopBar({ setWidth, setFullScreen, outOfEditing, c
     const status = capitalizeWords(ReduxState.present?.content?.editVersion?.status)
     const EditingIsLive = ReduxState.EditInitiated
 
+    console.log(ReduxState)
+
     const deviceIcons = [
         { icon: <MdOutlineDesktopWindows />, label: 'Desktop', width: 1180 },
         { icon: <FiTablet />, label: 'Tablet', width: 768 },

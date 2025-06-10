@@ -116,7 +116,7 @@ function Resources() {
 
   // Side Effects 
 
-  
+
 
   useEffect(() => { // Running resources from localstroge
     const currentResource = localStorage.getItem("resourceType") || "MAIN_PAGE";
@@ -224,12 +224,13 @@ function Resources() {
           // dispatch(updateResourceId({ id: page.id, name: page.titleEn }))
 
           setIdOnStorage(page.id);
-          const { relationType, resourceTag, subPage, subOfSubPage, slug } = page;
+          const { resourceType, resourceTag, subPage, subOfSubPage, slug } = page;
+          const parentId = page?.parentId
           // console.log(relationType, resourceTag, subPage, subOfSubPage, slug)
-          if (relationType === "CHILD") {
+          if (resourceType === "SUB_PAGE") {
             navigateToPage(resourceTag?.toLowerCase(), page.id);
-          } else if (relationType !== "PARENT") {
-            navigateToPage(resourceTag?.toLowerCase(), subPage, subOfSubPage);
+          } else if (resourceType === "SUB_PAGE_ITEM") {
+            navigateToPage(resourceTag?.toLowerCase(), parentId, page.id);
           } else {
             navigateToPage(slug?.toLowerCase());
           }

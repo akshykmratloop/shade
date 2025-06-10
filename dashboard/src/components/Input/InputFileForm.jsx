@@ -86,8 +86,8 @@ const InputFileNText = ({ label, baseClass, resourceId, sectionIndex, index, tex
     };
 
   useEffect(() => {
-    if (ImageFromRedux[id]) {
-      setFileURL(ImageFromRedux[id]);
+    if (ImageFromRedux?.[id]) {
+      setFileURL(ImageFromRedux?.[id]);
     }
   }, [ImageFromRedux, id]);
 
@@ -117,12 +117,12 @@ const InputFileNText = ({ label, baseClass, resourceId, sectionIndex, index, tex
           /> */}
           <label htmlFor={id} className="w-full h-full flex items-center justify-center text-gray-400 text-xs">
             {url ? (
-              fileURL.includes(".mp4") || fileURL.includes("video") || ImageFromRedux.video ? (
-                <video src={fileURL} className="w-full h-full object-cover" controls />
-              ) : (
+              // fileURL.includes(".mp4") || fileURL.includes("video") || ImageFromRedux.video ? (
+                // <video src={fileURL} className="w-full h-full object-cover" controls />
+              
                 <img src={Img_url + url} alt="Preview" className="w-full h-full object-cover" />
               )
-            ) : (
+             : (
               <Upload className="w-6 h-6" />
             )}
           </label>

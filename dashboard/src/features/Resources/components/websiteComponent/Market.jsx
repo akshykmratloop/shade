@@ -136,7 +136,6 @@ const MarketPage = ({ language, screen, currentContent }) => {
                 style={{
                     gap: getDynamicSize(30),
                     padding: `0px ${getDynamicSize(112)}`,
-                    // margin: `${getDynamicSize(70)} 0px`
                 }}
             >
                 {
@@ -146,10 +145,6 @@ const MarketPage = ({ language, screen, currentContent }) => {
                             <section
                                 style={{
                                     height: getDynamicSize(359),
-                                    // width: getDynamicSize(1216)
-                                    // gap: getDynamicSize(30),
-                                    // padding: `0px ${getDynamicSize(112)}`,
-                                    // margin: `${getDynamicSize(70)} 0px`
                                 }}
                                 className={`flex ${isPhone ? "flex-col" : odd && "flex-row-reverse"} bg-[#F8F8F8]`} key={e.id}>
                                 <div className={` flex-[2_0_auto] border border-cyan-500`}
@@ -199,7 +194,6 @@ const MarketPage = ({ language, screen, currentContent }) => {
                         )
                     })
                 }
-
             </div>
 
             {/* qoutes */}
@@ -266,7 +260,7 @@ const MarketPage = ({ language, screen, currentContent }) => {
                             <div className="absolute top-0 right-0 h-full w-[20%] bg-gradient-to-l from-white to-transparent pointer-events-none z-10"></div>
                         }
                         {currentContent?.["4"]?.items?.length > 1 &&
-                            < Swiper
+                            <Swiper
                                 modules={[Navigation, Autoplay, EffectCoverflow]}
                                 grabCursor={true}
                                 centeredSlides={true}

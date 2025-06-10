@@ -3,6 +3,7 @@
   //   background: url("../../assets/images/Hero.png") no-repeat center / cover;
   width: 100%;
   position: relative;
+  // padding: 0px 150px;
 
   &.leftAlign {
     .content {
@@ -13,11 +14,12 @@
           position: absolute;
           top: 30% !important;
           left: 170px !important;
-          transform: scaleX(-1) !important;
+          // transform: scaleX(-1) !important;
         }
       }
     }
   }
+
   .backgroundContainer {
     width: 100%;
     height: 715px;
@@ -36,6 +38,7 @@
   .content {
     position: absolute;
     top: 30%;
+    padding: 0px 150px;
 
     .title {
       color: var(--black);
@@ -82,6 +85,7 @@
       &.noPadding {
         padding: 10px 28px 10px 60px;
       }
+
       .arrow_btn {
         position: absolute;
         top: 50%;
@@ -96,14 +100,17 @@
   padding: 120px 0;
 
   &.englishVersion {
-    transform: scaleX(-1); /* This flips the content horizontally */
+    transform: scaleX(-1);
+    /* This flips the content horizontally */
     direction: rtl;
+
     .title,
     .description {
       transform: scaleX(-1);
       text-align: left !important;
       /* This flips the content horizontally */
     }
+
     .view_btn {
       transform: scaleX(-1);
       padding: 8px !important;
@@ -111,8 +118,10 @@
       /* This flips the content horizontally */
     }
   }
+
   .main_container {
     position: relative;
+
     .about_content {
       display: flex;
       padding: 98px 60px 98px 40px;
@@ -217,6 +226,7 @@
 
         .card_body {
           height: 100%;
+
           .card_title {
             color: var(--secondary);
           }
@@ -231,13 +241,16 @@
         align-items: center;
         display: flex;
         gap: 20px;
+
         // position: relative;
         .icon {
           height: 40px;
           width: 40px;
         }
+
         .span {
           position: relative;
+
           &::after {
             content: "";
             position: absolute;
@@ -289,11 +302,13 @@
             bottom: 15px;
             left: -102px;
           }
+
           &:nth-child(2) {
             position: relative;
             bottom: -105px;
             left: 50px;
             width: 361px;
+
             .card_body {
               .icon {
                 right: 320px !important;
@@ -305,6 +320,7 @@
             position: relative;
             bottom: -109px;
             left: 78px;
+
             .card_body {
               .icon {
                 right: 331px !important;
@@ -336,6 +352,7 @@
           }
         }
       }
+
       .card {
         min-width: 305px;
         border-radius: 4px;
@@ -350,10 +367,12 @@
           left: 45px;
           width: 361px;
         }
+
         &:nth-child(2) {
           position: relative;
           bottom: 15px;
           left: -102px;
+
           .card_body {
             .icon {
               left: 300px;
@@ -365,6 +384,7 @@
           position: relative;
           bottom: -109px;
           left: 78px;
+
           .card_body {
             .icon {
               right: 320px !important;
@@ -463,6 +483,7 @@
       .view_btn {
         // padding: 16px 28px 5px 34px;
         font-size: 18px;
+
         // margin-left: auto;
         &.arabicVersion {
           padding: 16px 28px 5px 34px;
@@ -480,6 +501,7 @@
     margin-bottom: 18px;
     display: flex;
     justify-content: flex-end;
+
     .back_btn {
       // margin-left: auto;
       position: relative;
@@ -494,6 +516,7 @@
       cursor: pointer;
       display: flex;
       align-items: center;
+
       // gap: 0px;
       .leftAlign {
         transform: scale(-1);
@@ -549,6 +572,7 @@
 
         .arrow_btn {
           left: 34%;
+
           &.leftAlign {
             transform: scale(-1);
           }
@@ -575,6 +599,7 @@
             object-fit: cover;
             object-position: center;
           }
+
           .card_imgFade {
             width: 100%;
             height: 100%;
@@ -629,6 +654,7 @@
           }
         }
       }
+
       .title {
         color: #292e3d;
         // text-align: right;
@@ -692,6 +718,7 @@
         position: relative;
         z-index: 5;
         cursor: pointer;
+
         &:hover {
           color: rgba(6, 59, 235, 0.5);
         }
@@ -710,6 +737,7 @@
     top: 0;
     left: 0;
   }
+
   .ellips2 {
     position: absolute;
     bottom: 0;
@@ -785,12 +813,13 @@
     display: block;
     position: relative;
 
-    > i {
+    >i {
       position: absolute;
       top: 0;
       right: 200;
       z-index: -1;
       opacity: 0.7;
+
       &.arabicVersion {
         position: absolute;
         top: 0;
@@ -833,14 +862,16 @@
   &.rightAlignment {
     .mySwiper_testimonial {
       .testimonial_card {
-        flex-direction: row-reverse;
+        // flex-direction: row-reverse;
 
         .testimonial_content {
+
           .name,
           .position,
           .quote {
             text-align: right;
           }
+
           .company_wrap {
             justify-content: start;
             flex-direction: row-reverse;
@@ -852,6 +883,7 @@
         }
       }
     }
+
     .testimonial_wrapper_btn {
       // flex-direction: row-reverse;
       transform: scale(-1);
@@ -870,7 +902,7 @@
 
   .mySwiper_testimonial {
     padding: 66px 0;
-    direction: rtl;
+    direction: ltr;
     // overflow: visible; // Ensure left and right slides are not clipped
     position: relative; // For absolute positioning of gradients
 
@@ -882,11 +914,9 @@
       left: 0;
       width: 142px; // Width of the gradient
       height: 100%;
-      background: linear-gradient(
-        to right,
-        rgba(255, 255, 255, 1) 0%,
-        rgba(255, 255, 255, 0) 100%
-      );
+      background: linear-gradient(to right,
+          rgba(255, 255, 255, 1) 0%,
+          rgba(255, 255, 255, 0) 100%);
       z-index: 2; // Make sure it is above the background but below the slides
     }
 
@@ -898,11 +928,9 @@
       right: 0;
       width: 142px; // Width of the gradient
       height: 100%;
-      background: linear-gradient(
-        to left,
-        rgba(255, 255, 255, 1) 0%,
-        rgba(255, 255, 255, 0) 100%
-      );
+      background: linear-gradient(to left,
+          rgba(255, 255, 255, 1) 0%,
+          rgba(255, 255, 255, 0) 100%);
       z-index: 1; // Make sure it is above the background but below the slides
     }
 
@@ -986,7 +1014,7 @@
         .company_wrap {
           display: flex;
           align-items: center;
-          justify-content: end;
+          // justify-content: end;
           gap: 10px;
 
           .company {
@@ -1017,6 +1045,7 @@
       align-items: center;
       justify-content: center;
       cursor: pointer;
+
       .arrow_btn {
         &.leftAlign {
           transform: scale(-1);
@@ -1024,4 +1053,29 @@
       }
     }
   }
+}
+
+
+.wrapper {
+  position: absolute;
+  inset: 0; // shorthand for top: 0; right: 0; bottom: 0; left: 0;
+  pointer-events: none;
+  z-index: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.glow-circle {
+  border-radius: 9999px; // equivalent to rounded-full
+  background-color: white;
+  opacity: 0.9;
+  filter: blur(120px);
+  mix-blend-mode: screen;
+
+  // You can set width/height dynamically via inline style or JavaScript
+  // Or create CSS variables to manage it more flexibly
+  width: 750px;
+  height: 650px;
 }

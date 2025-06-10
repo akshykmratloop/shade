@@ -15,50 +15,59 @@ import { useRouter } from "next/router";
 
 // const AnimatedText = dynamic(() => import('@/common/AnimatedText'), { ssr: false });
 import { useGlobalContext } from "../../contexts/GlobalContext";
+import { TruncateText } from "@/common/useTruncate";
+import { Img_url } from "@/common/CreateContent";
 const ContactUsModal = dynamic(() => import("../header/ContactUsModal"), {
   ssr: false,
 });
 
-const ProjectPage = () => {
+const ProjectPage = ({ content }) => {
   const router = useRouter();
-  const [activeTab, setActiveTab] = useState("all");
-  const { language, content } = useGlobalContext();
-  const currentContent = content?.projectsPage;
+  const [activeTab, setActiveTab] = useState("1");
+  const { language } = useGlobalContext();
+  const currentContent = content
   const [isModal, setIsModal] = useState(false);
   const [filteredProject, setFilteredProject] = useState([]);
   const [visibleProjectsCount, setVisibleProjectsCount] = useState(6);
+
+  const isLeftAlign = language === 'en';
+  const titleLan = isLeftAlign ? "titleEn" : "titleAr";
 
   const handleContactUSClose = () => {
     setIsModal(false);
   };
   useEffect(() => {
-    if (activeTab === "all") {
-      setFilteredProject(currentContent?.projectsSection.projects);
-    } else {
-      setFilteredProject(
-        currentContent?.projectsSection?.projects
-          ? currentContent?.projectsSection.projects.filter(
-              (project) => project?.status === activeTab
-            )
-          : []
-      );
-      setVisibleProjectsCount(6);
-    }
+    const tabIndex = currentContent?.['2']?.sections.findIndex(e => e.order == activeTab)
+    setFilteredProject(
+      currentContent?.["2"]?.sections?.[tabIndex]?.items
+    );
+    setVisibleProjectsCount(6);
+    // if (activeTab === "all") {
+    //   setFilteredProject(currentContent?.projectsSection?.projects);
+    // } else {
+    //   setFilteredProject(
+    //     currentContent?.projectsSection?.projects
+    //       ? currentContent?.projectsSection?.projects?.filter(
+    //         (project) => project?.status === activeTab
+    //       )
+    //       : []
+    //   );
+    //   setVisibleProjectsCount(6);
+    // }
   }, [activeTab, currentContent]); // Added currentContent as a dependency
 
-  const TruncateText = (text, length) => {
-    if (text.length > (length || 50)) {
-      return `${text.slice(0, length || 50)}...`;
-    }
-    return text;
-  };
+  // const TruncateText = (text, length) => {
+  //   if (text.length > (length || 50)) {
+  //     return `${text.slice(0, length || 50)}...`;
+  //   }
+  //   return text;
+  // };
 
   return (
     <>
       <section
-        className={` ${language === "en" && styles.leftAlign}   ${
-          styles.project_banner_wrap
-        }`}
+        className={` ${language === "en" && styles.leftAlign}   ${styles.project_banner_wrap
+          }`}
       >
         <div
           className="container"
@@ -68,10 +77,10 @@ const ProjectPage = () => {
             {/* <AnimatedText text="مشروعنا" Wrapper="h1" repeatDelay={0.04} className={`${styles.title} ${BankGothic.className}`} /> */}
 
             <h1 className={`${styles.title}`}>
-              {currentContent?.bannerSection?.title[language]}
+              {currentContent?.[1]?.content?.title[language]}
             </h1>
             <p className={`${styles.description} ${BankGothic.className}`}>
-              {currentContent?.bannerSection?.description[language]}
+              {currentContent?.[1]?.content?.description[language]}
             </p>
             <Button
               className={styles.view_btn}
@@ -84,30 +93,29 @@ const ProjectPage = () => {
                 alt=""
                 className={styles.arrow_btn}
               />{" "}
-              {currentContent?.bannerSection?.button?.text[language]}
+              {currentContent?.[1]?.content?.button?.[0]?.text[language]}
             </Button>
           </div>
         </div>
       </section>
 
       <section
-        className={` ${language === "en" && styles.leftAlign}   ${
-          styles.market_tab_container
-        }`}
+        className={` ${language === "en" && styles.leftAlign}   ${styles.market_tab_container
+          }`}
       >
         <div className="container">
           <div className={styles.tabContainer}>
             {/* Tabs */}
             <div className={styles.tabs}>
-              {currentContent?.projectsSection?.tabs?.map((tab, index) => (
+              {currentContent?.["2"]?.sections?.map((tab, index) => (
                 <button
                   key={index}
-                  className={`${styles.tabButton} ${
-                    activeTab === tab?.id ? styles.activeTab : ""
-                  }`}
-                  onClick={() => setActiveTab(tab?.id)}
+                  className={`${styles.tabButton} ${activeTab == tab?.order ? styles.activeTab : ""
+                    }`}
+                  onClick={() => setActiveTab(tab?.order)}
                 >
-                  {tab.title[language]}
+                  {tab?.content?.title?.[language]}
+
                 </button>
               ))}
             </div>
@@ -118,32 +126,31 @@ const ProjectPage = () => {
                 ?.slice(0, visibleProjectsCount)
                 ?.map((item, index) => (
                   <div className={styles.card} key={index}>
-                    <Image
-                      src={projectPageData[item.url]}
+                    <img
+                      src={item?.image ? Img_url + item?.url : projectPageData?.swccWaterSupply?.src}
                       width="339"
                       height="190"
-                      alt={item.title[language]}
+                      alt={item.title?.[language]}
                       className={styles.card_image}
                     />
-                    <h5 title={item?.title[language]} className={`${styles.title} ${BankGothic.className}`}>
-                      {TruncateText(item.title[language], 45)}
+                    <h5 title={item?.[titleLan]} className={`${styles.title} ${BankGothic.className}`}>
+                      {TruncateText(item?.[titleLan], 45)}
                     </h5>
                     <p
-                    title={item?.address[language]}
+                      title={item?.location?.[language]}
                       className={`${styles.description} ${BankGothic.className}`}
                     >
-                      {TruncateText(item.address[language], 25)}
+                      {TruncateText(item?.location?.[language], 25)}
 
                     </p>
                     <button
                       className={`${styles.button} ${BankGothic.className}`}
                       onClick={() => router.push(`/project/${item?.id}`)}
                     >
-                      {item.button.text[language]}
+                      {currentContent?.['2']?.content?.buttons?.[0]?.text?.[language]}
                       <Image
-                        className={` ${
-                          language === "en" && styles.leftAlign
-                        }   ${styles.icon}`}
+                        className={` ${language === "en" && styles.leftAlign
+                          }   ${styles.icon}`}
                         src="https://frequencyimage.s3.ap-south-1.amazonaws.com/61c0f0c2-6c90-42b2-a71e-27bc4c7446c2-mingcute_arrow-up-line.svg"
                         width={22}
                         height={22}
@@ -154,7 +161,7 @@ const ProjectPage = () => {
                 ))}
             </div>
 
-            {visibleProjectsCount < filteredProject.length && ( // Show button only if there are more projects
+            {visibleProjectsCount < filteredProject?.length && ( // Show button only if there are more projects
               <div className={styles.button_wrap}>
                 <Button
                   className={styles.view_more_btn}

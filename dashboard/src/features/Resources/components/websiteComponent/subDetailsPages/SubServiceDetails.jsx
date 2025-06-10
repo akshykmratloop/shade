@@ -12,7 +12,7 @@ import {
 import "swiper/css";
 import "swiper/css/pagination";
 
-const SubServiceDetails = ({ serviceId, contentOn, language, screen, deepPath }) => {
+const SubServiceDetails = ({ serviceId, content, language, screen, deepPath }) => {
     const isComputer = screen > 900;
     const isTablet = screen < 900 && screen > 730;
     const isPhone = screen < 738;
@@ -20,14 +20,6 @@ const SubServiceDetails = ({ serviceId, contentOn, language, screen, deepPath })
     let isLeftAlign = language === "en";
 
     const dispatch = useDispatch()
-    let pageIndex
-    const currentContent = contentOn?.[serviceId]?.filter(
-        (item, i) => {
-            if (item?.id == deepPath) pageIndex = i
-            return item?.id == deepPath
-        }
-    )[0];
-
     const swiperRef = useRef(null);
 
     useEffect(() => {
@@ -42,24 +34,28 @@ const SubServiceDetails = ({ serviceId, contentOn, language, screen, deepPath })
     }, []);
 
 
-    useEffect(() => {
-        dispatch(updateMainContent({ currentPath: "subOfsubService", payload: content.subOfsubService }))
-    }, [])
+    // useEffect(() => {
+    //     dispatch(updateMainContent({ currentPath: "subOfsubService", payload: content.subOfsubService }))
+    // }, [])
     return (
         <div dir={isLeftAlign ? 'ltr' : "rtl"}>
             {/* banner */}
             <section className={`${isPhone ? "" : "px-[75px]"} py-[50px] pb-[25px]`}>
                 <article className={`flex flex-col gap-[34px] ${isPhone ? "" : ""}`}>
                     <section className={`flex gap-[30px] ${isPhone ? "flex-col px-[30px]" : ""}`}>
-                        <h2 className={`text-[35px] ${isPhone ? "" : "w-1/2"}`}>{currentContent?.banner?.title?.[language]}</h2>
-                        <div className={`text-[9.5px] ${isPhone ? "" : "w-1/2"}`} dangerouslySetInnerHTML={{ __html: currentContent?.banner?.description?.[language] }} />
+                        <h2 className={`text-[35px] ${isPhone ? "" : "w-1/2"}`}>
+                            {content?.[1]?.content?.title?.[language]}
+                        </h2>
+                        <div className={`text-[9.5px] ${isPhone ? "" : "w-1/2"}`}
+                            dangerouslySetInnerHTML={{ __html: content?.[1]?.content?.description?.[language] }}
+                        />
                     </section>
                     <div>
-                        <img src={ImagesFromRedux?.[`subServiceBanner/${serviceId}/${deepPath}`] || services?.[currentContent?.banner?.image]} alt="" className={`${isPhone ? "aspect-[2/1]" : "aspect-[3.5/1]"} object-cover`} />
+                        <img src={content?.[1]?.content?.images?.[0]?.url} alt="" className={`${isPhone ? "aspect-[2/1]" : "aspect-[3.5/1]"} object-cover`} />
                     </div>
                     <section className={`flex gap-[30px]  ${isPhone ? "flex-col px-[30px]" : ""}`}>
-                        <h2 className='text-[32px]  flex-1 leading-[28px]'>{currentContent?.subBanner?.title?.[language]}</h2>
-                        <div className='text-[9.5px] flex-1' dangerouslySetInnerHTML={{ __html: currentContent?.subBanner?.description?.[language] }} />
+                        <h2 className='text-[32px]  flex-1 leading-[28px]'>{content?.[2]?.content?.title?.[language]}</h2>
+                        <div className='text-[9.5px] flex-1' dangerouslySetInnerHTML={{ __html: content?.[2]?.content?.description?.[language] }} />
                     </section>
                 </article>
             </section>
@@ -67,7 +63,7 @@ const SubServiceDetails = ({ serviceId, contentOn, language, screen, deepPath })
             {/* Services */}
             <section className={` py-[20px] grid ${isPhone ? "grid-cols-1 px-[30px]" : "grid-cols-2 px-[75px]"} gap-x-[20px] gap-y-[30px] auto-rows-fr`}>
                 {
-                    currentContent?.descriptions?.map((description, i) => {
+                    content?.descriptions?.map((description, i) => {
 
                         return (
                             <article className='px-[37px] py-[20px] bg-[#00B9F212]' key={i + description?.title?.[language]}>
@@ -107,7 +103,7 @@ const SubServiceDetails = ({ serviceId, contentOn, language, screen, deepPath })
                         }}
                         onSwiper={(swiper) => (swiperRef.current = swiper)} // 👈 capture swiper instance
                     >
-                        {currentContent?.gallery1?.map(
+                        {content?.gallery1?.map(
                             (images, index) => (
                                 <SwiperSlide key={index}
                                     dir={isLeftAlign ? "ltr" : "rtl"}
@@ -131,7 +127,7 @@ const SubServiceDetails = ({ serviceId, contentOn, language, screen, deepPath })
             {/* description section */}
             <section className={`${!isPhone && "px-[75px]"} py-[25px] flex flex-col gap-[25px]`}>
                 {
-                    currentContent?.descriptions2?.map((description, i) => {
+                    content?.descriptions2?.map((description, i) => {
 
                         return (
                             <article className='flex flex-col gap-[32px]' key={i}>
@@ -147,7 +143,7 @@ const SubServiceDetails = ({ serviceId, contentOn, language, screen, deepPath })
 
             {/* gallery 2 */}
             <section className={`py-[25px] pb-[50px] grid ${isPhone ? "grid-cols-2 px-3 gap-y-[12px] gap-x-[6px]" : "grid-cols-4 px-[76px] gap-y-[11px] gap-x-[11px]"} `}>
-                {currentContent?.gallery2?.map(
+                {content?.gallery2?.map(
                     (images, index) => (
                         <div className="relative w-fit" key={index}>
                             <img

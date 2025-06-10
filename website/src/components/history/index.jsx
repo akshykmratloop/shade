@@ -1,5 +1,12 @@
 import React, {useEffect, useRef, useState} from "react";
-import styles from "@/components/History/History.module.scss";
+// import styles from "@/History.module.scss";
+import styles from "./History.module.scss";
+import Button from "@/common/Button";
+import Image from "next/image";
+import Arrow from "../../assets/icons/right-wrrow.svg";
+import historyBanner from "../../assets/images/history-banner.png";
+// import Client from "../../assets/icons/client.svg";
+// import AboutUs from "../../assets/images/aboutus.png";
 import localFont from "next/font/local";
 import {useRouter} from "next/router";
 import {Img_url} from "@/common/CreateContent";

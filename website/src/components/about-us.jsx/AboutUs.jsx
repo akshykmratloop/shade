@@ -14,6 +14,7 @@ const BankGothic = localFont({
 });
 
 import dynamic from "next/dynamic";
+import { Img_url } from "@/common/CreateContent";
 // const AnimatedText = dynamic(() => import('@/common/AnimatedText'), { ssr: false });
 const ContactUsModal = dynamic(() => import("../header/ContactUsModal"), {
   ssr: false,
@@ -45,7 +46,7 @@ const AboutUs = ({ content }) => {
             {currentContent?.['1']?.content?.cards.map((card, index) => (
               <div className={styles.card} key={index}>
                 <Image
-                  src={aboutUsIcons[card?.icon]}
+                  src={Img_url + card?.icon}
                   width="44"
                   height="44"
                   alt="icon"

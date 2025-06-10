@@ -1,12 +1,29 @@
-import {createContext, useContext, useEffect, useState} from "react";
+import { createContext, useContext, useEffect, useState } from "react";
+import { fetchFooterData, fetchHeaderData } from "@/services/api";
 // import axios from "axios";
 import data from "./content.json";
 const GlobalContext = createContext();
 // import axios from "axios";
 
-export const GlobalContextProvider = ({children}) => {
+export const GlobalContextProvider = ({ children }) => {
   const [language, setLanguage] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+
+  const [headerData, setHeaderData] = useState({});
+  const [footerData, setFooterData] = useState({});
+
+  useEffect(() => {
+    async function loadData() {
+      const [header, footer] = await Promise.all([
+        fetchHeaderData(),
+        fetchFooterData()
+      ]);
+      setHeaderData(header);
+      setFooterData(footer);
+    }
+
+    loadData();
+  }, []);
 
   useEffect(() => {
     // Check local storage only on the client side
@@ -52,7 +69,7 @@ export const GlobalContextProvider = ({children}) => {
   }
 
   return (
-    <GlobalContext.Provider value={{language, toggleLanguage, content}}>
+    <GlobalContext.Provider value={{ language, toggleLanguage, content, headerData, footerData  }}>
       {children}
     </GlobalContext.Provider>
   );
