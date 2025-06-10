@@ -63,12 +63,12 @@ const SubServiceDetails = ({ serviceId, content, language, screen, deepPath }) =
             {/* Services */}
             <section className={` py-[20px] grid ${isPhone ? "grid-cols-1 px-[30px]" : "grid-cols-2 px-[75px]"} gap-x-[20px] gap-y-[30px] auto-rows-fr`}>
                 {
-                    content?.descriptions?.map((description, i) => {
+                    content?.[2]?.content?.points?.map((point, i) => {
 
                         return (
-                            <article className='px-[37px] py-[20px] bg-[#00B9F212]' key={i + description?.title?.[language]}>
-                                <h3 className={`text-[25px]`}>{description?.title?.[language]}</h3>
-                                <p className={`text-[11px]`}>{description?.description?.[language]}</p>
+                            <article className='px-[37px] py-[20px] bg-[#00B9F212]' key={i + point?.title?.[language]}>
+                                <h3 className={`text-[25px]`}>{point?.title?.[language]}</h3>
+                                <p className={`text-[11px]`}>{point?.description?.[language]}</p>
                             </article>
                         )
                     })

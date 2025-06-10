@@ -30,9 +30,13 @@ import HSnE from "./websiteComponent/HSE";
 // import { updateMainContent } from "../../common/homeContentSlice";
 
 const AllForOne = ({
-    language, screen, content, subPath, setLanguage, fullScreen,
-    currentPath, deepPath, showDifference = false, live, hideScroll
+    language, screen, content, setLanguage, fullScreen,
+    currentPath, subPath, deepPath, showDifference = false, live, hideScroll
 }) => {
+    console.log(currentPath, subPath, deepPath)
+    const isComputer = screen > 1100;
+    const isTablet = 1100 > screen && screen > 767;
+    const isPhone = screen < 767;
     const dispatch = useDispatch();
     const fontRegular = useSelector(state => state.fontStyle.regular);
     const divRef = useRef(null);
@@ -111,6 +115,8 @@ const AllForOne = ({
         }
     };
 
+    console.log(fullScreen)
+
     return (
         <div
             ref={divRef}
@@ -118,7 +124,7 @@ const AllForOne = ({
             ${fullScreen ? "overflow-y-hidden" : "overflow-y-scroll"} 
             ${hideScroll ? "rm-scroll" : "customscroller"}`}
             style={{
-                width: screen > 950 ? "100%" : screen,
+                width: (fullScreen) ? isComputer ? "100%" : screen : screen > 950 ? "100%" : screen,
                 wordBreak: "break-word",
             }}
         >

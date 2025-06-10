@@ -49,7 +49,7 @@ const ServiceDetails = ({ serviceId, content, language, screen, width }) => {
                 }}
             >
                 {
-                    (content?.['2']?.items.concat(content?.['2']?.items).concat(content?.['2']?.items).concat(content?.['2']?.items) || [])?.map((subService, index) => {
+                    (content?.['2']?.items?.concat(content?.['2']?.items)?.concat(content?.['2']?.items)?.concat(content?.['2']?.items) || [])?.map((subService, index) => {
                         return (
                             <article key={index + "12i"} className={`border-b flex gap-4 pb-[12px]`}>
                                 <article className={``}
@@ -125,10 +125,8 @@ const ServiceDetails = ({ serviceId, content, language, screen, width }) => {
                         }}
                     >
                         {
-                            (
-                                content?.['3']?.items ||
-                                []
-                            )?.map((service, idx) => {
+                            (content?.['3']?.items || [])?.map((service, idx) => {
+                                // console.log(service.slug, slug, service.slug === slug)
                                 if (service.slug === slug) return null
                                 return (
                                     <article

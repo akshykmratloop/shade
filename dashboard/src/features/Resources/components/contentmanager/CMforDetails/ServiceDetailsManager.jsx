@@ -1,17 +1,17 @@
-import { useDispatch, useSelector } from "react-redux"
-import FileUploader from "../../../../../components/Input/InputFileUploader"
-import { updateMainContent } from "../../../../common/homeContentSlice"
-import ContentSection from "../../breakUI/ContentSections"
-import MultiSelectForProjects from "../../breakUI/MultiSelectForProjects"
-import content from "../../websiteComponent/content.json"
 import { useEffect, useState } from "react"
+import { useSelector } from "react-redux"
+import FileUploader from "../../../../../components/Input/InputFileUploader"
+import ContentSection from "../../breakUI/ContentSections"
 import { getResources } from "../../../../../app/fetch"
 import MultiSelect from "../../breakUI/MultiSelect"
+// import { updateMainContent } from "../../../../common/homeContentSlice"
+// import MultiSelectForProjects from "../../breakUI/MultiSelectForProjects"
+// import content from "../../websiteComponent/content.json"
 
 const ServiceDetailsManager = ({ serviceId, content, currentPath, language, indexes }) => {
     const [subService, setServicesOptions] = useState(null);
     const [subServiceItems, setServicesItemsOptions] = useState(null);
-    const { slug, id } = useSelector(state => state.homeContent.present.content);
+    const { slug, id } = useSelector(state => state?.homeContent?.present?.content) || { slug: "", id: "" };
 
     useEffect(() => {
         async function getOptionsforServices() {

@@ -621,13 +621,7 @@ async function main() {
                 SectionType: "SERVICE_CHILDREN",
                 content: childService.ServicePointsGrid1,
                 sectionVersionTitle: `${childService.resourceTitle.en}-ServicePointsGrid1`,
-              },
-              {
-                title: "ServicePointsGrid2",
-                SectionType: "SERVICE_CHILDREN",
-                content: childService.ServicePointsGrid2,
-                sectionVersionTitle: `${childService.resourceTitle.en}-ServicePointsGrid2`,
-              },
+              }
             ]
           );
         }
