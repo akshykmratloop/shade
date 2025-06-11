@@ -46,41 +46,36 @@ const VisionManager = ({ content, currentPath, language, indexes }) => {
                 Heading={"Section 1"}
                 currentPath={currentPath}
                 inputs={[
-                    { input: "input", label: "Heading/title", updateType: "title", value: content?.['2']?.content?.procedures?.title?.[language] },
-                    { input: "textarea", label: "Description", updateType: "description", value: content?.['2']?.content?.procedures?.description?.[language] },
+                    ...(
+                        content?.[2]?.content?.cards?.map((e, i) => [
+                            { input: "input", label: `Card ${i + 1} - Title`, updateType: "title", value: e?.title?.[language] },
+                            { input: "textarea", label: `Card ${i + 1} - Description`, updateType: "description", value: e?.description?.[language] },
+                        ]) || []
+                    ).flat()
                 ]}
                 section={"procedures"}
                 language={language}
                 currentContent={content}
                 sectionIndex={indexes?.['2']}
             />
+
 
             <ContentSection
                 Heading={"Section 2"}
                 currentPath={currentPath}
                 inputs={[
-                    { input: "input", label: "Heading/title", updateType: "title", value: content?.['2']?.content?.procedures?.title?.[language] },
-                    { input: "textarea", label: "Description", updateType: "description", value: content?.['2']?.content?.procedures?.description?.[language] },
+                    ...(
+                        content?.[3]?.content?.map((e, i) => [
+                            { input: "input", label: `Card ${i + 1} - Title`, updateType: "title", value: e?.title?.[language] },
+                            { input: "textarea", label: `Card ${i + 1} - Description`, updateType: "description", value: e?.description?.[language] },
+                        ]) || []
+                    ).flat()
                 ]}
-                section={"procedures"}
+                section={"content/procedures"}
                 language={language}
                 currentContent={content}
-                sectionIndex={indexes?.['2']}
+                sectionIndex={indexes?.['3']}
             />
-            
-            <ContentSection
-                Heading={"Section 3"}
-                currentPath={currentPath}
-                inputs={[
-                    { input: "input", label: "Heading/title", updateType: "title", value: content?.['2']?.content?.procedures?.title?.[language] },
-                    { input: "textarea", label: "Description", updateType: "description", value: content?.['2']?.content?.procedures?.description?.[language] },
-                ]}
-                section={"procedures"}
-                language={language}
-                currentContent={content}
-                sectionIndex={indexes?.['2']}
-            />
-
         </div>
     )
 }
