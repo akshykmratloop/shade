@@ -747,7 +747,7 @@ async function main() {
           "الرؤية و الرسالة",
           content.visionMission.slug,
           "MAIN_PAGE",
-          "VISION_MISSION",
+          "VISION",
           "PARENT",
           [
             {

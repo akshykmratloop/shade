@@ -20,7 +20,7 @@ const bg2color = {
     2: "#00B9F2"
 }
 
-const VisionNMission = ({ currentContent, screen, language, width }) => {
+const VisionNMission = ({ currentContent, screen, language, width, liveContent, highlight }) => {
     const isComputer = screen > 900;
     const isTablet = screen < 900 && screen > 730;
     const isPhone = screen < 638;
@@ -52,7 +52,7 @@ const VisionNMission = ({ currentContent, screen, language, width }) => {
                 <div className="container relative h-full flex items-center justify-center "
                 >
                     <div
-                        className={` ${isLeftAlign ? 'scale-x-[-1]' : ''} ${isPhone ? "w-full" : isTablet ? "w-2/3 text-center" : "text-center"} flex flex-col ${isPhone ? "items-start" : "items-center p-6 space-y-4"} `}>
+                        className={` ${isLeftAlign ? 'scale-x-[-1]' : ''} ${isPhone ? "w-full" : isTablet ? "w-2/3 " : ""} flex flex-col ${isPhone ? "items-start" : "items-start p-6 space-y-4"} `}>
                         <h2 className={`text-[#292E3D] font-medium ${isPhone ? "text-[40px]" : isTablet ? "text-[45px]" : "text-[45px]"} tracking-[-3px] mb-4`}
                             style={{
                                 fontSize: fontSize.mainHeading, lineHeight: fontSize.headingLeading,
@@ -60,16 +60,14 @@ const VisionNMission = ({ currentContent, screen, language, width }) => {
                             }}
                         >
                             {
-                                // currentContent?.['1']?.content?.title?.[language] ||
-                                "Vision / Mission"
+                                currentContent?.['1']?.content?.title?.[language]
                             }
                         </h2>
                         <p
                             style={{ fontSize: fontSize.mainPara, lineHeight: fontSize.paraLeading }}
                             className={`text-[#0E172FB2] text-[12px] leading-[26px] ${fontLight} word-spacing-5 ${isPhone ? "w-4/5" : isTablet ? "w-2/3" : "w-1/2"} `}>
                             {
-                                // currentContent?.['1']?.content?.description?.[language] ||
-                                "Experience the rich history of Shade Corporation — a legacy of innovation, resilience, and engineering excellence that shaped Saudi Arabia's EPC landscape"
+                                currentContent?.['1']?.content?.description?.[language]
                             }
                         </p>
                     </div>
@@ -80,97 +78,52 @@ const VisionNMission = ({ currentContent, screen, language, width }) => {
                 style={{ padding: `${getDynamicSize(80)} ${getDynamicSize(112)}` }}
                 className={`flex gap-[30px]  ${isPhone ? "flex-col px-[30px]" : ""}`}>
                 <h2 className='text-[32px]  flex-1 leading-[28px]'>
-                    {currentContent?.subBanner?.title?.[language] ||
-                        "Lorem ipsum dolor sit."
-                    }
+                    {currentContent?.[2]?.content?.title?.[language]}
                 </h2>
                 <div className='text-[9.5px] flex-1' dangerouslySetInnerHTML={{
                     __html:
-                        currentContent?.subBanner?.description?.[language] ||
-                        "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Deleniti voluptatem pariatur corrupti error ut vero expedita inventore repudiandae nostrum assumenda!"
+                        currentContent?.[2]?.content?.description?.[language]
                 }} />
 
             </section>
 
             <section className={`flex ${isPhone && "flex-col"} gap-10 py-10 px-20`}>
-                <div className="border-b border-[#0E172FB2] relative pr-10 pb-5">
-                    <div className="bg-[#0E172FB2] absolute top-0 right-0 h-[90%] w-[.5px]"></div>
-                    <div><img src="" alt="" /></div>
-                    <h3>VALUES</h3>
-                    <p className="text-[10px]">
-                        Our core values define the character and shape the culture of our company. They serve as the foundation for how we act, make decisions and interact with our communities.
-                    </p>
-                </div>
-                <div className="border-b border-[#0E172FB2] relative pr-10 pb-5">
-                    <div className="bg-[#0E172FB2] absolute top-0 right-0 h-[90%] w-[.5px]"></div>
-                    <div><img src="" alt="" /></div>
-                    <h3>VALUES</h3>
-                    <p className="text-[10px]">
-                        Our core values define the character and shape the culture of our company. They serve as the foundation for how we act, make decisions and interact with our communities.
-                    </p>
-                </div>
-                <div className="border-b border-[#0E172FB2] relative pr-10 pb-5">
-                    <div className="bg-[#0E172FB2] absolute top-0 right-0 h-[90%] w-[.5px]"></div>
-                    <div><img src="" alt="" /></div>
-                    <h3>VALUES</h3>
-                    <p className="text-[10px]">
-                        Our core values define the character and shape the culture of our company. They serve as the foundation for how we act, make decisions and interact with our communities.
-                    </p>
-                </div>
+
+                {currentContent?.[2]?.content?.cards?.map((card, index) => {
+
+                    return (
+                        <div className="border-b border-[#0E172FB2] relative pr-10 pb-5">
+                            <div className="bg-[#0E172FB2] absolute top-0 right-0 h-[90%] w-[.5px]"></div>
+                            <div>
+                                <img src={Img_url + card?.images?.[0]?.url} alt={card?.images?.[0]?.alt?.[language]} />
+                            </div>
+                            <h3>
+                                {card?.title?.[language]}
+                            </h3>
+                            <p className="text-[10px]">
+                                {card?.description?.[language]}
+                            </p>
+                        </div>
+                    )
+                })}
             </section>
 
-            <section className={`flex gap-10 px-20 ${isPhone && "flex-col"}`}>
-                <div className="flex flex-col rounded-lg">
-                    <h3 style={{ backgroundColor: bg1color[0] }} className="p-3 text-center">
-                        Our Vision
-                    </h3>
-                    <p className="bg-[#F8F8F8] text-[10px] p-4">
-                        We strive to be a leader in the EPC Engineering, Procurement, Construction industry with a steadfast commitment to “Building a Stronger Future.”
-                    </p>
-                </div>
-                <div className="flex flex-col rounded-lg">
-                    <h3 style={{ backgroundColor: bg1color[1] }} className="p-3 text-center">
-                        Our Vision
-                    </h3>
-                    <p className="bg-[#F8F8F8] text-[10px] p-4">
-                        We strive to be a leader in the EPC Engineering, Procurement, Construction industry with a steadfast commitment to “Building a Stronger Future.”
-                    </p>
-                </div>
-                <div className="flex flex-col rounded-lg">
-                    <h3 style={{ backgroundColor: bg1color[2] }} className="p-3 text-center">
-                        Our Vision
-                    </h3>
-                    <p className="bg-[#F8F8F8] text-[10px] p-4">
-                        We strive to be a leader in the EPC Engineering, Procurement, Construction industry with a steadfast commitment to “Building a Stronger Future.”
-                    </p>
-                </div>
-            </section>
-
-            <section className={`flex gap-10 px-20 py-10 ${isPhone && "flex-col"}`}>
-                <div className="flex flex-col rounded-lg">
-                    <h3 style={{ backgroundColor: bg2color[0] }} className="p-3 text-center text-white">
-                        Our Vision
-                    </h3>
-                    <p className="bg-[#F8F8F8] text-[10px] p-4">
-                        We strive to be a leader in the EPC Engineering, Procurement, Construction industry with a steadfast commitment to “Building a Stronger Future.”
-                    </p>
-                </div>
-                <div className="flex flex-col rounded-lg">
-                    <h3 style={{ backgroundColor: bg2color[1] }} className="p-3 text-center text-white">
-                        Our Vision
-                    </h3>
-                    <p className="bg-[#F8F8F8] text-[10px] p-4">
-                        We strive to be a leader in the EPC Engineering, Procurement, Construction industry with a steadfast commitment to “Building a Stronger Future.”
-                    </p>
-                </div>
-                <div className="flex flex-col rounded-lg">
-                    <h3 style={{ backgroundColor: bg2color[2] }} className="p-3 text-center text-white">
-                        Our Vision
-                    </h3>
-                    <p className="bg-[#F8F8F8] text-[10px] p-4">
-                        We strive to be a leader in the EPC Engineering, Procurement, Construction industry with a steadfast commitment to “Building a Stronger Future.”
-                    </p>
-                </div>
+            <section className={`grid grid-cols-3 gap-10 px-20 py-10 ${isPhone && "flex-col"}`}>
+                {
+                    currentContent?.[3]?.content?.map((card, index) => {
+                        const color = index % 3
+                        return (
+                            <div className="flex flex-col rounded-lg">
+                                <h3 style={{ backgroundColor: bg2color[color] }} className="p-3 text-center text-white">
+                                    {card?.title?.[language]}
+                                </h3>
+                                <p className="bg-[#F8F8F8] text-[10px] p-4">
+                                    {card?.description?.[language]}
+                                </p>
+                            </div>
+                        )
+                    })
+                }
             </section>
 
         </div >
