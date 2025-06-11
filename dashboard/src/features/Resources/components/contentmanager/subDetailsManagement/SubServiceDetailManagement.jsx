@@ -20,6 +20,7 @@ const SubServiceDetailManager = ({ serviceId, content, currentPath, language, de
                         en: ""
                     }
                 },
+                section: "points",
                 operation: 'add',
                 sectionIndex: indexes?.['2'],
             }
