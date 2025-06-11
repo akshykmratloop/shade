@@ -2,6 +2,7 @@ import createContent from "@/common/CreateContent";
 import Loader from "@/common/Loader";
 import MarketDetailsPage from "@/components/market/MarketDetailsPage";
 import SafetyDetailPage from "@/components/safety/safetyDetailPage";
+import {backendAPI} from "@/contexts/GlobalContext";
 import Head from "next/head";
 import {useEffect, useState} from "react";
 
@@ -42,7 +43,10 @@ export default function SafetyDetails({apiData}) {
       const generatedContent = createContent(apiData.content);
       setContent(generatedContent.content);
       setIsLoading(false);
-      console.log("Content generated successfully:", generatedContent.content);
+      console.log(
+        "Content generated successfully:",
+        JSON.stringify(generatedContent.content, null, 2)
+      );
     } else {
       // keep loading forever or retry (optional)
       console.warn("API response is empty. Keeping loader active...");
@@ -69,6 +73,7 @@ export default function SafetyDetails({apiData}) {
 export async function getServerSideProps({params}) {
   const {slug} = params;
   console.log("Fetching data for slug:", slug);
+  console.log("helloooooooo");
 
   try {
     const res = await fetch(`${backendAPI}${slug}`);
@@ -77,7 +82,6 @@ export async function getServerSideProps({params}) {
       // If response failed (e.g., 404, 500), return empty object
       return {props: {apiData: {}}};
     }
-
     const apiData = await res.json();
 
     console.log("API Data:", apiData);

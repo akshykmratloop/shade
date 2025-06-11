@@ -741,6 +741,37 @@ async function main() {
           [...safetyPoliciesSlug]
         );
 
+        // 5. Create Vision and mission Page
+        await createResource(
+          "Vision and Mission Page",
+          "الرؤية و الرسالة",
+          content.visionMission.slug,
+          "MAIN_PAGE",
+          "VISION_MISSION",
+          "PARENT",
+          [
+            {
+              title: "heroSection",
+              SectionType: "HERO_BANNER",
+              content: content.visionMission.heroSection,
+              sectionVersionTitle: "Vision-heroSection",
+            },
+            {
+              title: "coreBeliefsSection",
+              SectionType: "MARKDOWN_CONTENT",
+              content: content.visionMission.coreBeliefsSection,
+              sectionVersionTitle: "Vision-coreBeliefsSection",
+            },
+            {
+              title: "visionSection",
+              SectionType: "MARKDOWN_CONTENT",
+              content: content.visionMission.visionSection,
+              sectionVersionTitle: "Vision-visionSection",
+            },
+            
+          ],
+        );
+
         // 3. Create History Page
         await createResource(
           "History",

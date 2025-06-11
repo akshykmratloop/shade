@@ -146,3 +146,69 @@
     }
   }
 }
+
+.safety_detail_wrap {
+  padding: 112px 0;
+
+  .safety_detail_container {
+    display: flex;
+    align-items: flex-start;
+    gap: 50px;
+
+    .left {
+      .title {
+        font-weight: 700;
+        font-size: 50px;
+        line-height: 45px;
+        letter-spacing: -5%;
+        margin-bottom: 30px;
+        color: #292e3d;
+      }
+      .description {
+        font-weight: 300;
+        font-size: 15px;
+        line-height: 22px;
+        letter-spacing: 0%;
+        color: #718096;
+      }
+    }
+    .right {
+      .safety_detail_card_wrap {
+        .safety_detail_card {
+          display: flex;
+          gap: 60px;
+
+          .safety_detail_number {
+            font-weight: 300;
+            font-size: 14px;
+            line-height: 20px;
+            letter-spacing: 0%;
+            vertical-align: middle;
+            color: #292e3d;
+          }
+
+          .safety_detail_title_wrap {
+            .safety_detail_card_title {
+              font-weight: 700;
+              font-size: 24px;
+              line-height: 20px;
+              letter-spacing: 0%;
+              vertical-align: middle;
+              color: #292e3d;
+              margin-bottom: 23px;
+            }
+            .safety_detail_card_para {
+              font-weight: 300;
+              font-size: 15px;
+              line-height: 22px;
+              letter-spacing: 0%;
+              vertical-align: middle;
+              color: #718096;
+              margin-bottom: 30px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
