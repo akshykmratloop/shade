@@ -19,18 +19,13 @@ const DynamicContentSection = ({
     section,
     language,
     subSection,
-    subSectionsProMax,
     index,
-    subSecIndex,
     allowRemoval = false, // New prop to allow extra input
     allowExtraInput = false, // New prop to allow extra input
     attachOne = false,
     projectId,
-    careerId,
-    careerIndex,
-    newsId,
     deepPath,
-    // type,
+    type,
     sectionIndex,
     contentIndex,
     outOfEditing
@@ -56,10 +51,11 @@ const DynamicContentSection = ({
 
 
     const removeSummary = (index) => {
-        if (section === "points") {
+        if (section === "points" || section === "cards") {
             return dispatch(updateSubServiceDetailsPointsArray({
                 sectionIndex,
-                index
+                index,
+                section
             }))
         }
         if (section === 'procedures/terms') {
@@ -78,18 +74,10 @@ const DynamicContentSection = ({
                 subContext: section,
                 deepPath
             }))
-        } else if (newsId) {
-            dispatch(updateTheProjectSummaryList({
-                index,
-                operation: 'remove',
-                newsIndex: projectId - 1,
-                context: currentPath
-            }))
         } else if (projectId) {
             dispatch(updateTheProjectSummaryList({
                 index,
                 projectId,
-                careerIndex,
                 operation: 'remove',
                 context: currentPath
             }))
@@ -102,7 +90,7 @@ const DynamicContentSection = ({
         }
     }
 
-    const updateFormValue = ({ updateType, value, path }) => {
+    const updateFormValue = ({updateType, value}) => {
         if (updateType === 'count') {
             if (!isNaN(value)) {
                 let val = value?.slice(0, 7);
@@ -116,21 +104,19 @@ const DynamicContentSection = ({
                 value: value === "" ? "" : value,
                 subSection,
                 index,
-                subSectionsProMax,
-                subSecIndex,
                 currentPath,
                 projectId,
-                careerId,
                 deepPath,
-                type: "content[index]",
+                type,
                 sectionIndex,
                 contentIndex,
-                path
+                // path,
+                buttonIndex: index
             }));
         }
     };
 
-    const updateFormValueRichText = (updateType, value) => {
+    const updateFormValueRichText = ({ updateType, value }) => {
 
         if (updateType === 'count') {
             if (!isNaN(value)) {
@@ -145,15 +131,12 @@ const DynamicContentSection = ({
                 value: value === "" ? "" : value,
                 subSection,
                 index,
-                subSectionsProMax,
-                subSecIndex,
                 currentPath,
                 projectId,
-                careerId,
                 deepPath,
                 type: "content[index]",
                 sectionIndex,
-                contentIndex
+                contentIndex,
             }));
         }
     };
@@ -228,8 +211,6 @@ const DynamicContentSection = ({
             <h3 className={`font-semibold ${subHeading ? "text-[.9rem] mb-1" : Heading ? "text-[1.25rem] mb-4" : " mb-0"}`}>{Heading || subHeading}</h3>
             {inputs.length > 0 &&
                 inputs.map((input, i) => {
-
-
                     if (input.input === "textarea") {
                         return (
                             <TextAreaInput

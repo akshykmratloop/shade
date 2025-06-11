@@ -40,10 +40,10 @@ const VisionNMission = ({ currentContent, screen, language, width, liveContent, 
                     backgroundImage: `url("${Img_url + currentContent?.['1']?.content?.images?.[0]?.url}")`,
                     backgroundPosition: "bottom",
                     height: isComputer && getDynamicSize(600),
-                    padding: isComputer && `${getDynamicSize(100)} ${getDynamicSize(120)}`
+                    padding: isComputer && `${getDynamicSize(100)} ${getDynamicSize(90)}`
                 }}
             >
-                <div className="absolute inset-0 pointer-events-none z-0 flex items-center justify-center overflow-hidden">
+                <div className={`absolute inset-0 pointer-events-none z-0 flex items-start ${isLeftAlign? "justify-end":"justify-start"} overflow-hidden`}>
                     <div
                         style={{ width: getDynamicSize(750), height: getDynamicSize(650) }}
                         className=" rounded-full bg-white opacity-[.9] blur-[120px] mix-blend-screen"></div>
@@ -110,7 +110,7 @@ const VisionNMission = ({ currentContent, screen, language, width, liveContent, 
 
             <section className={`grid grid-cols-3 gap-10 px-20 py-10 ${isPhone && "flex-col"}`}>
                 {
-                    currentContent?.[3]?.content?.map((card, index) => {
+                    currentContent?.[3]?.content?.cards?.map((card, index) => {
                         const color = index % 3
                         return (
                             <div className="flex flex-col rounded-lg">

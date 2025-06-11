@@ -126,6 +126,7 @@ const SnRPoliciesManager = ({ content, currentPath, language, indexes }) => {
                             currentContent={content}
                             sectionIndex={indexes?.['2']}
                             allowRemoval={true}
+                            type={"content[index]"}
                         />
                     )
                 })
