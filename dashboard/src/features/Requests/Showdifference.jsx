@@ -44,6 +44,7 @@ function ShowDifference({ show, onClose, request, resourceId, currentlyEditor, c
     const LiveContent = createContent(liveVersion, "difference", "home")
 
     const setUpRoute = (content) => {
+        console.log(content)
         let subRoute = ""
         let deepRoute = ""
         let route = ""
@@ -53,7 +54,7 @@ function ShowDifference({ show, onClose, request, resourceId, currentlyEditor, c
         const isSubChild = content.resourceType === "SUB_PAGE_ITEM";
         if (isSubChild) {
             route = content.resourceTag.toLowerCase();
-            subRoute = content.parentId;
+            subRoute = '1'
             deepRoute = content.id
         } else if (isSubPage) {
             route = content.resourceTag.toLowerCase();
@@ -61,7 +62,6 @@ function ShowDifference({ show, onClose, request, resourceId, currentlyEditor, c
         } else {
             route = content.slug;
         }
-        console.log(liveVersion)
         return { subRoute, deepRoute, route }
     }
 

@@ -8,7 +8,7 @@ export const differentText = {
     checkDifference: function (arg1, arg2, highlight, from) {
 
         if (Array.isArray(arg1) && Array.isArray(arg2)) {
-            return arg1.some((e, i) => e.id !== arg2[i].id) ? this?.highlight1 : ""
+            return arg1.some((e, i) => e?.id !== arg2[i]?.id || e?.order !== arg2[i]?.order) ? this?.highlight1 : ""
         }
 
         if (arg1 !== arg2) {

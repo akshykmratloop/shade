@@ -8,7 +8,7 @@ import MultiSelect from "../../breakUI/MultiSelect"
 // import MultiSelectForProjects from "../../breakUI/MultiSelectForProjects"
 // import content from "../../websiteComponent/content.json"
 
-const ServiceDetailsManager = ({ serviceId, content, currentPath, language, indexes }) => {
+const ServiceDetailsManager = ({ serviceId, content, currentPath, language, indexes, outOfEditing }) => {
     const [subService, setServicesOptions] = useState(null);
     const [subServiceItems, setServicesItemsOptions] = useState(null);
     const { slug, id } = useSelector(state => state?.homeContent?.present?.content) || { slug: "", id: "" };
@@ -71,6 +71,8 @@ const ServiceDetailsManager = ({ serviceId, content, currentPath, language, inde
                 currentContent={content}
                 // projectId={serviceIndex + 1}
                 sectionIndex={indexes?.['1']}
+                outOfEditing={outOfEditing}
+
             />
 
             {/* sub services */}
@@ -83,6 +85,8 @@ const ServiceDetailsManager = ({ serviceId, content, currentPath, language, inde
                 listOptions={subServiceItems}
                 options={content?.[2]?.items}
                 sectionIndex={indexes?.['2']}
+                outOfEditing={outOfEditing}
+
             />
 
             {/* other services */}
@@ -95,6 +99,8 @@ const ServiceDetailsManager = ({ serviceId, content, currentPath, language, inde
                 listOptions={subService}
                 options={content?.[3]?.items?.filter(e => e.slug !== slug)}
                 sectionIndex={indexes?.['3']}
+                outOfEditing={outOfEditing}
+
             />
         </div>
     )

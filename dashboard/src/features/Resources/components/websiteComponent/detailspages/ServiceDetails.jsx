@@ -2,15 +2,16 @@ import { useSelector } from "react-redux";
 import { projectPageData } from "../../../../../assets/index";
 import { TruncateText } from "../../../../../app/capitalizeword";
 import { Img_url } from "../../../../../routes/backend";
-import dynamicSize, { defineDevice, generatefontSize } from "../../../../../app/fontSizes";
+import dynamicSize, { defineDevice, differentText, generatefontSize } from "../../../../../app/fontSizes";
 
-const ServiceDetails = ({ serviceId, content, language, screen, width }) => {
+const ServiceDetails = ({ serviceId, content, language, screen, width, highlight, liveContent }) => {
     const isComputer = screen > 1100;
     const isTablet = 1100 > screen && screen > 700;
     const isPhone = screen < 767;
     const isLeftAlign = language === 'en';
     const titleLan = isLeftAlign ? "titleEn" : "titleAr";
     const slug = useSelector(state => state.homeContent?.present?.content?.slug)
+    const checkDifference = highlight ? differentText?.checkDifference?.bind(differentText) : () => ""
 
     // Font and Size
     const fontSize = generatefontSize(defineDevice(screen), dynamicSize, width)
@@ -27,12 +28,12 @@ const ServiceDetails = ({ serviceId, content, language, screen, width }) => {
                     height: getDynamicSize(550)
                 }}
             >
-                <h1 className={`text-[41px] text-[#292E3D] `}
+                <h1 className={`text-[41px] text-[#292E3D] ${(checkDifference(content?.["1"]?.content?.title[language], liveContent?.["1"]?.content?.title[language]))}`}
                     style={{ fontSize: fontSize.mainHeading }}
                 >
                     {content?.['1']?.content?.title?.[language]}
                 </h1>
-                <p className={`text-[#0E172FB2] text-[10px] w-2/3`}
+                <p className={`text-[#0E172FB2] text-[10px] w-2/3 ${(checkDifference(content?.["1"]?.content?.description[language], liveContent?.["1"]?.content?.description[language]))}`}
                     style={{ fontSize: fontSize.mainPara }}
                 >
                     {content?.['1']?.content?.description?.[language]}
@@ -41,79 +42,87 @@ const ServiceDetails = ({ serviceId, content, language, screen, width }) => {
 
             {/* Sub services */}
             <section
-                className={`grid ${isTablet || isPhone ? "grid-cols-1 items-center justify-center px-[20px]" : "grid-cols-2 px-[76px]"} py-[34px]`}
                 style={{
                     padding: `${getDynamicSize(50)} ${getDynamicSize(112)}`,
-                    rowGap: getDynamicSize(30),
-                    columnGap: getDynamicSize(35),
                 }}
             >
-                {
-                    (content?.['2']?.items?.concat(content?.['2']?.items)?.concat(content?.['2']?.items)?.concat(content?.['2']?.items) || [])?.map((subService, index) => {
-                        return (
-                            <article key={index + "12i"} className={`border-b flex gap-4 pb-[12px]`}>
-                                <article className={``}
-                                    style={{
-                                        minWidth: isComputer && getDynamicSize(300),
-                                        padding: isComputer && `${getDynamicSize(8)}`,
-                                    }}
-                                >
-                                    <img
-                                        src={subService.image || projectPageData.developmentOfHo}
-                                        alt=""
-                                        className={`${isTablet || isTablet ? "w-[50vw] aspect-[4/3]" : "w-[196px] h-[135px]"}`}
+                <section
+                    className={`grid ${isTablet || isPhone ? "grid-cols-1 items-center justify-center " : "grid-cols-2 "}
+                    ${(checkDifference(content?.['2']?.items, liveContent?.['2']?.items))}
+                    `}
+                    style={{
+                        // padding: `${getDynamicSize(50)} ${getDynamicSize(112)}`,
+                        rowGap: getDynamicSize(30),
+                        columnGap: getDynamicSize(35),
+                    }}
+                >
+                    {
+                        (content?.['2']?.items || [])?.map((subService, index) => {
+                            return (
+                                <article key={index + "12i"} className={`border-b flex gap-4 pb-[12px]`}>
+                                    <article className={``}
                                         style={{
-                                            width: isComputer && getDynamicSize(300),
-                                            height: isComputer && getDynamicSize(191)
+                                            minWidth: isComputer && getDynamicSize(300),
+                                            padding: isComputer && `${getDynamicSize(8)}`,
                                         }}
-                                    />
-                                </article>
-                                <article className="flex flex-col items-start justify-between"
-                                    style={{
-                                        gap: fontSize.aboutCardPaddingX,
-                                        padding: isTablet && `${getDynamicSize(20)} 0px`
-                                    }}
-                                >
-                                    <h3
-                                        className={``}
+                                    >
+                                        <img
+                                            src={subService.image || projectPageData.developmentOfHo}
+                                            alt=""
+                                            className={`${isTablet || isTablet ? "w-[50vw] aspect-[4/3]" : "w-[196px] h-[135px]"}`}
+                                            style={{
+                                                width: isComputer && getDynamicSize(300),
+                                                height: isComputer && getDynamicSize(191)
+                                            }}
+                                        />
+                                    </article>
+                                    <article className="flex flex-col items-start justify-between"
                                         style={{
-                                            fontSize: fontSize.aboutMainPara,
-                                            lineHeight: getDynamicSize(30)
+                                            gap: fontSize.aboutCardPaddingX,
+                                            padding: isTablet && `${getDynamicSize(20)} 0px`
                                         }}
-                                        title={subService?.[titleLan]}
-                                    >{TruncateText(subService?.[titleLan], 40)}</h3>
-                                    <div className={`${fontLight}`}
-                                        style={{ fontSize: fontSize.mainPara }}
-                                        dangerouslySetInnerHTML={{ __html: subService?.description?.[language] }}
-                                    />
-                                    {/* <button
+                                    >
+                                        <h3
+                                            className={``}
+                                            style={{
+                                                fontSize: fontSize.aboutMainPara,
+                                                lineHeight: getDynamicSize(30)
+                                            }}
+                                            title={subService?.[titleLan]}
+                                        >{TruncateText(subService?.[titleLan], 40)}</h3>
+                                        <div className={`${fontLight}`}
+                                            style={{ fontSize: fontSize.mainPara }}
+                                            dangerouslySetInnerHTML={{ __html: subService?.description?.[language] }}
+                                        />
+                                        {/* <button
                                         className={`text-[#00B9F2]`}
                                         style={{ fontSize: fontSize.mainButton }}
                                     >
                                         {content?.['2']?.content?.button?.[0]?.text?.[language]}
                                         <img src="" alt="" />
-                                    </button> */}
-                                    <button
-                                        style={{
-                                            fontSize: isComputer ? getDynamicSize(16) : "",
-                                        }}
-                                        className="text-[#00B9F2] flex items-center gap-2 mt-2"
-                                    >
-                                        {content?.['2']?.content?.button?.[0]?.text?.[language]}
-                                        <img
-                                            className={language === "en" ? "transform scale-x-[-1]" : ""}
-                                            src="https://frequencyimage.s3.ap-south-1.amazonaws.com/61c0f0c2-6c90-42b2-a71e-27bc4c7446c2-mingcute_arrow-up-line.svg"
-                                            // width={22}
-                                            // height={22}
-                                            style={{ width: fontSize.paraLeading, height: fontSize.paraLeading }}
-                                            alt="icon"
-                                        />
-                                    </button>
+                                        </button> */}
+                                        <button
+                                            style={{
+                                                fontSize: isComputer ? getDynamicSize(16) : "",
+                                            }}
+                                            className="text-[#00B9F2] flex items-center gap-2 mt-2"
+                                        >
+                                            {content?.['2']?.content?.button?.[0]?.text?.[language]}
+                                            <img
+                                                className={language === "en" ? "transform scale-x-[-1]" : ""}
+                                                src="https://frequencyimage.s3.ap-south-1.amazonaws.com/61c0f0c2-6c90-42b2-a71e-27bc4c7446c2-mingcute_arrow-up-line.svg"
+                                                // width={22}
+                                                // height={22}
+                                                style={{ width: fontSize.paraLeading, height: fontSize.paraLeading }}
+                                                alt="icon"
+                                            />
+                                        </button>
+                                    </article>
                                 </article>
-                            </article>
-                        )
-                    })
-                }
+                            )
+                        })
+                    }
+                </section>
             </section>
 
             {/* Other Services */}
@@ -128,7 +137,9 @@ const ServiceDetails = ({ serviceId, content, language, screen, width }) => {
                 >
                     Other Services
                 </h3>
-                <section className={`overflow-x-scroll rm-scroll py-5 pt-2`}
+                <section className={`overflow-x-scroll rm-scroll py-5 pt-2
+                    ${(checkDifference(content?.['3']?.items, liveContent?.['3']?.items))}
+                `}
                     style={{
                         padding: `${getDynamicSize(20)}`,
                         paddingBottom: `${getDynamicSize(60)}`,

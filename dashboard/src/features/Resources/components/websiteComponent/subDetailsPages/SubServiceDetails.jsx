@@ -11,14 +11,15 @@ import {
 import "swiper/css";
 import "swiper/css/pagination";
 import { Img_url } from '../../../../../routes/backend';
-import dynamicSize, { defineDevice, generatefontSize } from '../../../../../app/fontSizes';
+import dynamicSize, { defineDevice, differentText, generatefontSize } from '../../../../../app/fontSizes';
 import { useSelector } from 'react-redux';
 
-const SubServiceDetails = ({ serviceId, content, language, screen, deepPath, width }) => {
+const SubServiceDetails = ({ serviceId, content, language, screen, deepPath, width, liveContent, highlight }) => {
     const isComputer = screen > 900;
     const isTablet = screen < 900 && screen > 730;
     const isPhone = screen < 738;
     const isLeftAlign = language === "en";
+    const checkDifference = highlight ? differentText?.checkDifference?.bind(differentText) : () => ""
 
     // const dispatch = useDispatch()
     const swiperRef = useRef(null);
@@ -31,7 +32,7 @@ const SubServiceDetails = ({ serviceId, content, language, screen, deepPath, wid
     useEffect(() => {
         const timer = setTimeout(() => {
             if (swiperRef.current) {
-                swiperRef.current.slideTo(0);   
+                swiperRef.current.slideTo(0);
                 swiperRef.current.update();
                 swiperRef.current.autoplay?.start();
             }
@@ -41,13 +42,13 @@ const SubServiceDetails = ({ serviceId, content, language, screen, deepPath, wid
     }, []);
 
     useEffect(() => {
-    // Only run when switching out of phone view
-    if (!isPhone && swiperRef.current) {
-        swiperRef.current.slideTo(0);        // Reset to first slide
-        swiperRef.current.update();          // Force layout refresh
-        swiperRef.current.autoplay?.start(); // Restart autoplay if paused
-    }
-}, [isPhone]); // 👈 run effect *when isPhone changes*
+        // Only run when switching out of phone view
+        if (!isPhone && swiperRef.current) {
+            swiperRef.current.slideTo(0);        // Reset to first slide
+            swiperRef.current.update();          // Force layout refresh
+            swiperRef.current.autoplay?.start(); // Restart autoplay if paused
+        }
+    }, [isPhone]); // 👈 run effect *when isPhone changes*
 
 
     return (
@@ -58,37 +59,48 @@ const SubServiceDetails = ({ serviceId, content, language, screen, deepPath, wid
             >
                 <article className={`flex flex-col gap-[34px] ${isPhone ? "" : ""}`}>
                     <section className={`flex gap-[30px] ${isPhone ? "flex-col px-[30px]" : ""}`}>
-                        <h2 className={`text-[35px] ${isPhone ? "" : "w-1/2"}`}
+                        <h2 className={`text-[35px] ${isPhone ? "" : "w-1/2"}
+                        ${checkDifference(content?.[1]?.content?.title?.[language], liveContent?.[1]?.content?.title?.[language])}
+                        `}
                             style={{ fontSize: fontSize.serviceHeading, lineHeight: isComputer && getDynamicSize(35) }}
                         >
                             {content?.[1]?.content?.title?.[language]}
                         </h2>
-                        <div className={`text-[9.5px] ${isPhone ? "" : "w-1/2"} ${fontLight}`}
+                        <div className={`text-[9.5px] ${isPhone ? "" : "w-1/2"} ${fontLight}
+                        ${checkDifference(content?.[1]?.content?.description?.[language], liveContent?.[1]?.content?.description?.[language])}
+                        `}
                             style={{ fontSize: fontSize.mainPara }}
                             dangerouslySetInnerHTML={{ __html: content?.[1]?.content?.description?.[language] }}
                         />
                     </section>
                     <div>
-                        <img src={Img_url + content?.[1]?.content?.images?.[0]?.url} alt="" className={`${isPhone ? "aspect-[2/1]" : "aspect-[3.5/1]"} object-cover`} />
+                        <img src={Img_url + content?.[1]?.content?.images?.[0]?.url} alt=""
+                            className={`${isPhone ? "aspect-[2/1]" : "w-full aspect-[3.5/1]"} object-cover
+                        ${checkDifference(content?.[1]?.content?.images?.[0]?.url, content?.[1]?.content?.images?.[0]?.url)}
+                        `} />
                     </div>
                     <section className={`flex gap-[30px]  ${isPhone ? "flex-col px-[30px]" : ""}`}>
-                        <h2 className='text-[32px]  flex-1 leading-[28px]'
+                        <h2 className={`text-[32px]  flex-1 leading-[28px]
+                        ${checkDifference(content?.[2]?.content?.title?.[language], liveContent?.[2]?.content?.title?.[language])}
+                        `}
                             style={{ fontSize: fontSize.serviceHeading, lineHeight: isComputer && getDynamicSize(35) }}
                         >{content?.[2]?.content?.title?.[language]}</h2>
-                        <div className='text-[9.5px] flex-1'
+                        <div className={`text-[9.5px] flex-1
+                        ${checkDifference(content?.[2]?.content?.description?.[language], liveContent?.[2]?.content?.description?.[language])}
+                        `}
                             style={{ fontSize: fontSize.mainPara }}
                             dangerouslySetInnerHTML={{ __html: content?.[2]?.content?.description?.[language] }} />
                     </section>
                 </article>
-            </section>
+            </section >
 
             {/* Services */}
-            <section
+            < section
                 style={{
                     padding: `0px ${getDynamicSize(130)} ${getDynamicSize(40)}`,
                     gap: getDynamicSize(40)
                 }}
-                className={` py-[20px] grid ${isPhone ? "grid-cols-1" : "grid-cols-2 px-[75px]"} auto-rows-fr`}>
+                className={`py-[20px] grid ${isPhone ? "grid-cols-1" : "grid-cols-2 px-[75px]"} auto-rows-fr`}>
                 {
                     content?.[2]?.content?.points?.map((point, i) => {
 
@@ -96,10 +108,14 @@ const SubServiceDetails = ({ serviceId, content, language, screen, deepPath, wid
                             <article className='px-[37px] py-[20px] bg-[#00B9F212]' key={i + point?.title?.[language]}
                                 style={{ padding: `${getDynamicSize(30)} ${getDynamicSize(55)}` }}
                             >
-                                <h3 className={`text-[25px]`}
+                                <h3 className={`text-[25px]
+                        ${checkDifference(point?.title?.[language], liveContent?.[2]?.content?.points?.[i]?.title?.[language])}
+                                `}
                                     style={{ fontSize: fontSize.aboutMainPara }}
                                 >{point?.title?.[language]}</h3>
-                                <p className={`text-[11px] ${fontLight}`}
+                                <p className={`text-[11px] ${fontLight}
+                        ${checkDifference(point?.description?.[language], liveContent?.[2]?.content?.points?.[i]?.description?.[language])}
+                                `}
                                     style={{ fontSize: fontSize.mainPara }}
                                 >
                                     {point?.description?.[language]}
@@ -108,11 +124,13 @@ const SubServiceDetails = ({ serviceId, content, language, screen, deepPath, wid
                         )
                     })
                 }
-            </section>
+            </section >
 
             {/* gallery 1 and slider */}
-            <section className='py-[25px]'>
-                <div className={`relative w-[full] ${!isLeftAlign && "scale-x-[-1]"}`} dir='ltr'>
+            < section className='py-[25px]' >
+                <div className={`relative w-[full] ${!isLeftAlign && "scale-x-[-1]"} py-1
+                ${checkDifference(content?.[3]?.content?.images, liveContent?.['3']?.content?.images)}
+                `} dir='ltr'>
                     <Swiper
                         modules={[Autoplay, EffectCoverflow]}
                         grabCursor={true}
@@ -150,8 +168,10 @@ const SubServiceDetails = ({ serviceId, content, language, screen, deepPath, wid
                                             height={""}
                                             width={""}
                                             alt={image.title?.[language]}
-                                            className={` aspect-[2/1] object-cover border border-gray-200`}
-                                            style={{ width: isComputer ? getDynamicSize(560) : isPhone ? '100%' : ""}}
+                                            className={`aspect-[2/1] object-cover border border-gray-200
+                                                ${checkDifference(image.url, liveContent?.[3]?.content?.images?.[index]?.url)}
+                                                `}
+                                            style={{ width: isComputer ? getDynamicSize(560) : isPhone ? '100%' : "" }}
                                         />
                                     </div>
                                 </SwiperSlide>
@@ -159,7 +179,7 @@ const SubServiceDetails = ({ serviceId, content, language, screen, deepPath, wid
                         )}
                     </Swiper>
                 </div>
-            </section>
+            </section >
 
             {/* description section */}
             {/* <section className={`${!isPhone && "px-[75px]"} py-[25px] flex flex-col gap-[25px]`}>

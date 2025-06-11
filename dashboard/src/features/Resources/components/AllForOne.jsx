@@ -55,12 +55,12 @@ const AllForOne = ({
         };
     }, []);
 
-    const baseProps = { width, language, screen };
+    const baseProps = { width, language, screen, highlight: showDifference, liveContent: live };
 
     const renderPage = () => {
         switch (currentPath) {
             case "home":
-                return <HomePage {...baseProps} content={content} fullScreen={fullScreen} highlight={showDifference} liveContent={live} />;
+                return <HomePage {...baseProps} content={content} fullScreen={fullScreen} />;
             case "solution":
                 return <SolutionPage {...baseProps} currentContent={content} />;
             case "about-us":

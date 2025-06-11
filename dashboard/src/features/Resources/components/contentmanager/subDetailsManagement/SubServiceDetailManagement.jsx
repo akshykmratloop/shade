@@ -4,7 +4,7 @@ import ContentSection from "../../breakUI/ContentSections"
 import DynamicContentSection from "../../breakUI/DynamicContentSection"
 import { updateSubServiceDetailsPointsArray } from "../../../../common/homeContentSlice"
 
-const SubServiceDetailManager = ({ serviceId, content, currentPath, language, deepPath, indexes }) => {
+const SubServiceDetailManager = ({ serviceId, content, currentPath, language, deepPath, indexes, outOfEditing }) => {
     const dispatch = useDispatch()
 
     const addExtraSummary = (subContext) => {
@@ -46,6 +46,7 @@ const SubServiceDetailManager = ({ serviceId, content, currentPath, language, de
                 projectId={serviceId}
                 deepPath={deepPath}
                 sectionIndex={indexes?.['1']}
+                outOfEditing={outOfEditing}
             />
 
             {/* sub banner */}
@@ -62,6 +63,7 @@ const SubServiceDetailManager = ({ serviceId, content, currentPath, language, de
                 projectId={serviceId}
                 deepPath={deepPath}
                 sectionIndex={indexes?.['2']}
+                outOfEditing={outOfEditing}
             />
 
             {/* Details Sections */}
@@ -86,13 +88,16 @@ const SubServiceDetailManager = ({ serviceId, content, currentPath, language, de
                                 deepPath={deepPath}
                                 allowRemoval={true}
                                 sectionIndex={indexes?.['2']}
+                                outOfEditing={outOfEditing}
                             />
                         )
                     })
                 }
-                <button className="text-blue-500 cursor-pointer mb-3"
-                    onClick={() => addExtraSummary()}
-                >Add More Section...</button>
+                {
+                    !outOfEditing &&
+                    <button className="text-blue-500 cursor-pointer mb-3"
+                        onClick={() => addExtraSummary()}
+                    >Add More Section...</button>}
             </div>
 
             {/* Gallery 1 */}
@@ -110,6 +115,7 @@ const SubServiceDetailManager = ({ serviceId, content, currentPath, language, de
                 deepPath={deepPath}
                 allowExtraInput={true}
                 sectionIndex={indexes?.['3']}
+                outOfEditing={outOfEditing}
             />
 
             {/* Gallery 2
