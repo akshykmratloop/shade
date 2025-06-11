@@ -33,7 +33,7 @@ const cmsSlice = createSlice({
         },
         updateSpecificContent: (state, action) => { // post content
             state.past.push(JSON.parse(JSON.stringify(state.present)));
-            if (action.payload.type === "content[index]" && action.payload.section !== "points" && action.payload.section !== "cards") {
+            if (action.payload.type === "content[index]") {
                 if (action.payload.title === 'url') {
                     state.present.content.editVersion.sections[action.payload.sectionIndex].content[action.payload.contentIndex][action.payload.title] = action.payload.value
                 } else if (action.payload.section === "procedures/terms") {

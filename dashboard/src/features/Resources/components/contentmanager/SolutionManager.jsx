@@ -52,7 +52,6 @@ const SolutionManager = ({ currentPath, language, currentContent, indexes }) => 
                 {
                     currentContent?.['2']?.content?.map((element, index, a) => {
                         const isLast = index === a.length - 1
-                        console.log(index)
                         return (
                             <DynamicContentSection key={index}
                                 currentPath={currentPath}

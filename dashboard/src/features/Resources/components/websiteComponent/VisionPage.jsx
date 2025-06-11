@@ -43,7 +43,7 @@ const VisionNMission = ({ currentContent, screen, language, width, liveContent, 
                     padding: isComputer && `${getDynamicSize(100)} ${getDynamicSize(90)}`
                 }}
             >
-                <div className={`absolute inset-0 pointer-events-none z-0 flex items-start ${isLeftAlign? "justify-end":"justify-start"} overflow-hidden`}>
+                <div className={`absolute inset-0 pointer-events-none z-0 flex items-start ${isLeftAlign ? "justify-end" : "justify-start"} overflow-hidden`}>
                     <div
                         style={{ width: getDynamicSize(750), height: getDynamicSize(650) }}
                         className=" rounded-full bg-white opacity-[.9] blur-[120px] mix-blend-screen"></div>
@@ -53,15 +53,14 @@ const VisionNMission = ({ currentContent, screen, language, width, liveContent, 
                 >
                     <div
                         className={` ${isLeftAlign ? 'scale-x-[-1]' : ''} ${isPhone ? "w-full" : isTablet ? "w-2/3 " : ""} flex flex-col ${isPhone ? "items-start" : "items-start p-6 space-y-4"} `}>
-                        <h2 className={`text-[#292E3D] font-medium ${isPhone ? "text-[40px]" : isTablet ? "text-[45px]" : "text-[45px]"} tracking-[-3px] mb-4`}
+                        <h2
+                            className={`text-[#292E3D] font-medium ${isPhone ? "text-[40px]" : isTablet ? "text-[45px]" : "text-[45px]"} tracking-[-3px] mb-4`}
                             style={{
                                 fontSize: fontSize.mainHeading, lineHeight: fontSize.headingLeading,
                                 margin: `${getDynamicSize(16)} 0px`
                             }}
                         >
-                            {
-                                currentContent?.['1']?.content?.title?.[language]
-                            }
+                            {currentContent?.['1']?.content?.title?.[language]}
                         </h2>
                         <p
                             style={{ fontSize: fontSize.mainPara, lineHeight: fontSize.paraLeading }}
@@ -77,17 +76,27 @@ const VisionNMission = ({ currentContent, screen, language, width, liveContent, 
             <section
                 style={{ padding: `${getDynamicSize(80)} ${getDynamicSize(112)}` }}
                 className={`flex gap-[30px]  ${isPhone ? "flex-col px-[30px]" : ""}`}>
-                <h2 className='text-[32px]  flex-1 leading-[28px]'>
+                <h2 className='text-[32px]  flex-1 leading-[28px]'
+                    style={{
+                        fontSize: fontSize.experienceHeading, lineHeight: fontSize.headingLeading,
+                    }}
+                >
                     {currentContent?.[2]?.content?.title?.[language]}
                 </h2>
-                <div className='text-[9.5px] flex-1' dangerouslySetInnerHTML={{
-                    __html:
-                        currentContent?.[2]?.content?.description?.[language]
-                }} />
+                <div className={`text-[9.5px] flex-1 ${fontLight}`}
+                    style={{
+                        fontSize: fontSize.mainPara,
+                    }}
+                    dangerouslySetInnerHTML={{
+                        __html:
+                            currentContent?.[2]?.content?.description?.[language]
+                    }} />
 
             </section>
 
-            <section className={`flex ${isPhone && "flex-col"} gap-10 py-10 px-20`}>
+            <section className={` ${isPhone ? "flex" : "grid grid-cols-3"} gap-10 py-10 px-20`}
+                style={{ padding: `${getDynamicSize(60)} ${getDynamicSize(112)}` }}
+            >
 
                 {currentContent?.[2]?.content?.cards?.map((card, index) => {
 
@@ -97,10 +106,18 @@ const VisionNMission = ({ currentContent, screen, language, width, liveContent, 
                             <div>
                                 <img src={Img_url + card?.images?.[0]?.url} alt={card?.images?.[0]?.alt?.[language]} />
                             </div>
-                            <h3>
+                            <h3
+                                style={{
+                                    fontSize: fontSize.subProjectHeadings,
+                                }}
+                            >
                                 {card?.title?.[language]}
                             </h3>
-                            <p className="text-[10px]">
+                            <p className={`text-[10px] ${fontLight}`}
+                                style={{
+                                    fontSize: fontSize.mainPara,
+                                }}
+                            >
                                 {card?.description?.[language]}
                             </p>
                         </div>
@@ -108,16 +125,29 @@ const VisionNMission = ({ currentContent, screen, language, width, liveContent, 
                 })}
             </section>
 
-            <section className={`grid grid-cols-3 gap-10 px-20 py-10 ${isPhone && "flex-col"}`}>
+            <section
+                style={{
+                    padding: `${getDynamicSize(50)} ${getDynamicSize(112)}`,
+                    gridTemplateRows: !isPhone && `repeat(${currentContent?.[3]?.content?.cards?.length / 3}, 1fr)`
+                }}
+                className={`grid grid-cols-3 gap-10 px-20 py-10 ${isPhone && "flex-col"}`}>
                 {
                     currentContent?.[3]?.content?.cards?.map((card, index) => {
                         const color = index % 3
                         return (
                             <div className="flex flex-col rounded-lg">
-                                <h3 style={{ backgroundColor: bg2color[color] }} className="p-3 text-center text-white">
+                                <h3 style={{
+                                    backgroundColor: bg2color[color],
+                                    fontSize: fontSize.cardTitle,
+                                    padding: `${getDynamicSize(12)}`
+                                }} className="text-center text-white">
                                     {card?.title?.[language]}
                                 </h3>
-                                <p className="bg-[#F8F8F8] text-[10px] p-4">
+                                <p className={`${fontLight} bg-[#F8F8F8] h-full text-[10px] p-4`}
+                                    style={{
+                                        fontSize: fontSize.mainPara,
+                                    }}
+                                >
                                     {card?.description?.[language]}
                                 </p>
                             </div>

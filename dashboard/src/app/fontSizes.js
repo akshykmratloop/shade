@@ -36,7 +36,7 @@ const fontSizes = {
         experiencePara: 16, experienceButton: 18, subProjectTopButton: 16, subProjectHeadings: 32,
         subProjectParas: 16, subProjectBoxHeading: 20, subProjectBoxPara: 16, subProjectButtons: 18,
         clientSection: 36, testimonialsHead: 36, testimonialsHeading: 20, testimonialsPosition: 12,
-        testimonialsQuote: 14, testimonialsCompany: 16, SnRSubHeading: 50,
+        testimonialsQuote: 14, testimonialsCompany: 16, SnRSubHeading: 50, cardTitle: 30,
         // about
         aboutMainPara: 26, aboutPaddingX: 150,
         aboutVideoW: 639, aboutVideoH: 457, // video size but not applied to the video
@@ -51,7 +51,7 @@ const fontSizes = {
         experiencePara: 16, experienceButton: 18, subProjectTopButton: 16, subProjectHeadings: 32,
         subProjectParas: 16, subProjectBoxHeading: 20, subProjectBoxPara: 16, subProjectButtons: 18,
         clientSection: 36, testimonialsHead: 36, testimonialsHeading: 20, testimonialsPosition: 12,
-        testimonialsQuote: 14, testimonialsCompany: 16, SnRSubHeading: 50,
+        testimonialsQuote: 14, testimonialsCompany: 16, SnRSubHeading: 50, cardTitle: 50,
         // about
         aboutMainPara: 40, aboutPaddingX: 50,
         aboutVideoW: 639, aboutVideoH: 457, // video size but not applied to the video
@@ -66,7 +66,7 @@ const fontSizes = {
         experiencePara: 50, experienceButton: 18, subProjectTopButton: 16, subProjectHeadings: 32,
         subProjectParas: 16, subProjectBoxHeading: 20, subProjectBoxPara: 16, subProjectButtons: 18,
         clientSection: 90, testimonialsHead: 36, testimonialsHeading: 20, testimonialsPosition: 12,
-        testimonialsQuote: 14, testimonialsCompany: 16, SnRSubHeading: 110,
+        testimonialsQuote: 14, testimonialsCompany: 16, SnRSubHeading: 110, cardTitle: 100,
         // about
         aboutMainPara: 70, aboutPaddingX: 20,
         aboutVideoW: 639, aboutVideoH: 457, // video size but not applied to the video

@@ -3,7 +3,6 @@
 import FileUploader from "../../../../components/Input/InputFileUploader"
 import ContentSection from "../breakUI/ContentSections"
 // import MultiSelect from "../breakUI/MultiSelect"
-// import DynamicContentSection from "../breakUI/DynamicContentSection"
 // import { useDispatch } from "react-redux"
 // import { updateCardAndItemsArray, updatePoliciesItems } from "../../../common/homeContentSlice"
 
