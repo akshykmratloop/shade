@@ -116,7 +116,7 @@ const DynamicContentSection = ({
         }
     };
 
-    const updateFormValueRichText = ({ updateType, value }) => {
+    const updateFormValueRichText = ( updateType, value ) => {
 
         if (updateType === 'count') {
             if (!isNaN(value)) {

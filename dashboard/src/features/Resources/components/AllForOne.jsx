@@ -33,7 +33,7 @@ const AllForOne = ({
     language, screen, content, setLanguage, fullScreen,
     currentPath, subPath, deepPath, showDifference = false, live, hideScroll
 }) => {
-    console.log(currentPath, subPath, deepPath)
+    // console.log(currentPath, subPath, deepPath)
     const isComputer = screen > 1100;
     const isTablet = 1100 > screen && screen > 767;
     const isPhone = screen < 767;
@@ -115,7 +115,7 @@ const AllForOne = ({
         }
     };
 
-    console.log(fullScreen)
+    // console.log(fullScreen)
 
     return (
         <div

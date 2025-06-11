@@ -39,6 +39,7 @@ const cmsSlice = createSlice({
                 } else if (action.payload.section === "procedures/terms") {
                     state.present.content.editVersion.sections[action.payload.sectionIndex].content.procedures.terms[action.payload.index][action.payload.title][action.payload.lan] = action.payload.value
                 } else {
+                    console.log(action.payload)
                     state.present.content.editVersion.sections[action.payload.sectionIndex].content[action.payload.contentIndex][action.payload.title][action.payload.lan] = action.payload.value
                 }
             } else if (action.payload.subSection === "content/procedures") {

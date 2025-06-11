@@ -1,8 +1,7 @@
-import { useEffect } from "react";
+// import { useEffect } from "react";
 import FileUploader from "../../../../components/Input/InputFileUploader";
 import ContentSection from "../breakUI/ContentSections";
-import { updateMainContent, updateCardAndItemsArray } from "../../../common/homeContentSlice";
-import content from "../websiteComponent/content.json"
+import {  updateCardAndItemsArray } from "../../../common/homeContentSlice";
 import { useDispatch } from "react-redux";
 import DynamicContentSection from "../breakUI/DynamicContentSection";
 
@@ -27,11 +26,6 @@ const SolutionManager = ({ currentPath, language, currentContent, indexes }) => 
             }
         ))
     }
-
-    // useEffect(() => {
-
-    //     return () => dispatch(updateMainContent({ currentPath: "content", payload: undefined }))
-    // }, [])
 
     return (
         <div className="w-full">
@@ -72,7 +66,7 @@ const SolutionManager = ({ currentPath, language, currentContent, indexes }) => 
                                 language={language}
                                 currentContent={currentContent}
                                 isBorder={false}
-                                // type={'rich'}
+                                type={'content[index]'}
                                 sectionIndex={indexes?.['2']}
                                 contentIndex={index}
                                 allowRemoval={true}
@@ -99,62 +93,6 @@ const SolutionManager = ({ currentPath, language, currentContent, indexes }) => 
                 sectionIndex={indexes?.['3']}
 
             />
-
-            {/**How We Do */}
-            {/* <ContentSection
-                currentPath={currentPath}
-                Heading={"About Section 3"}
-                inputs={[
-                    { input: "input", label: "Heading/title", updateType: "title" },
-                    { input: "textarea", label: "Description", updateType: "description" },
-                ]}
-                section={"howWeDo"}
-                language={language}
-                currentContent={currentContent}
-            /> */}
-            {/* <div className="mt-4 border-b">
-                <h3 className={`font-semibold text-[1.25rem] mb-4`}>Description 2</h3>
-                {
-                    currentContent?.howWeDo?.map((element, index, a) => {
-                        const isLast = index === a.length - 1
-                        return (
-                            <DynamicContentSection key={index}
-                                currentPath={currentPath}
-                                subHeading={"Section " + (index + 1)}
-                                inputs={[
-                                    { input: "input", label: "Title", updateType: "title" },
-                                    { input: "richtext", label: "Description", updateType: "description" },
-                                ]}
-                                section={"howWeDo"}
-                                index={index}
-                                language={language}
-                                currentContent={currentContent}
-                                isBorder={false}
-                                type={'rich'}
-                                sectionIndex={indexes?.['1']}
-
-
-                            />
-                        )
-                    })
-                }
-                <button className="text-blue-500 cursor-pointer mb-3" onClick={() => addExtraSummary('howWeDo')}>Add More Section...</button>
-            </div> */}
-            {/* 
-            <ContentSection
-                currentPath={currentPath}
-                Heading={"Gallery 2"}
-                inputFiles={[
-                    { label: "Image 4", id: "Image 4" },
-                    { label: "Image 5", id: "Image 5" },
-                    { label: "Image 6", id: "Image 6" },
-                ]}
-                section={"gallery"}
-                language={language}
-                currentContent={currentContent}
-                allowExtraInput={true}
-                sectionIndex={indexes?.['4']}
-            /> */}
         </div>
     )
 }
