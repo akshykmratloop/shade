@@ -3,7 +3,7 @@ import { Dialog, Switch } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 // import userIcon from "../../assets/user.png"
 // import formatTimestamp from "../../app/TimeFormat";
-import { getContent, getRoleById } from "../../app/fetch";
+import { getContent } from "../../app/fetch";
 import capitalizeWords from "../../app/capitalizeword";
 // import SkeletonLoader from "../../components/Loader/SkeletonLoader";
 import AllForOne from "../Resources/components/AllForOne";
@@ -42,6 +42,30 @@ function ShowDifference({ show, onClose, request, resourceId, currentlyEditor, c
 
     const editedContent = createContent(editVersion, "difference", "home")
     const LiveContent = createContent(liveVersion, "difference", "home")
+
+    const setUpRoute = (content) => {
+        console.log(content)
+        let subRoute = ""
+        let deepRoute = ""
+        let route = ""
+
+        const isSubPage = content.resourceType === "SUB_PAGE";
+        // const isMainPage = content.resourceType === "MAIN_PAGE";
+        const isSubChild = content.resourceType === "SUB_PAGE_ITEM";
+        if (isSubChild) {
+            route = content.resourceTag.toLowerCase();
+            subRoute = '1'
+            deepRoute = content.id
+        } else if (isSubPage) {
+            route = content.resourceTag.toLowerCase();
+            subRoute = content.id;
+        } else {
+            route = content.slug;
+        }
+        return { subRoute, deepRoute, route }
+    }
+
+    const { route, deepRoute, subRoute } = setUpRoute(liveVersion)
 
 
     const modalRef = useRef(null)
@@ -241,17 +265,20 @@ function ShowDifference({ show, onClose, request, resourceId, currentlyEditor, c
                     <div className="flex overflow-y-scroll h-[95%] customscroller relative w-full">
                         <div className="border-r border-r-[4px] border-r-cyan-800 h-fit  flex">
                             <AllForOne
-                                currentPath={liveVersion.slug}
+                                currentPath={route}
+                                subPath={subRoute}
+                                deepPath={deepRoute}
                                 language={language}
-                                screen={width/2.02}
+                                screen={width / 2.02}
                                 content={LiveContent.content} fullScreen={true}
                                 hideScroll={true}
                             />
                         </div>
                         <div className="flex h-fit">
                             <AllForOne
-                                currentPath={liveVersion.slug} language={language}
-                                screen={width/2.02}
+                                currentPath={route} language={language}
+                                subPath={subRoute} deepPath={deepRoute}
+                                screen={width / 2.02}
                                 content={editedContent.content}
                                 live={LiveContent.content} showDifference={true}
                                 fullScreen={true}

@@ -6,7 +6,7 @@ import JoditEditor, { Jodit } from "jodit-react";
 import TextAreaInput from "../../../../components/Input/TextAreaInput";
 import InputFile from "../../../../components/Input/InputFile";
 import InputText from "../../../../components/Input/InputText";
-import { updateSpecificContent, updateServicesNumber, updateImages, updateTheProjectSummaryList, updateCardAndItemsArray, updatePoliciesItems } from "../../../common/homeContentSlice";
+import { updateSpecificContent, updateServicesNumber, updateImages, updateTheProjectSummaryList, updateCardAndItemsArray, updatePoliciesItems, updateSubServiceDetailsPointsArray } from "../../../common/homeContentSlice";
 import InputFileForm from "../../../../components/Input/InputFileForm";
 
 const DynamicContentSection = ({
@@ -56,6 +56,12 @@ const DynamicContentSection = ({
 
 
     const removeSummary = (index) => {
+        if (section === "points") {
+            return dispatch(updateSubServiceDetailsPointsArray({
+                sectionIndex,
+                index
+            }))
+        }
         if (section === 'procedures/terms') {
             return dispatch(updatePoliciesItems({
                 sectionIndex,
@@ -213,7 +219,7 @@ const DynamicContentSection = ({
     return (
         <div className={`w-full relative ${Heading ? "mt-4" : subHeading ? "mt-2" : ""} flex flex-col gap-1 ${!isBorder ? "" : "border-b border-b-1 border-neutral-300"} ${attachOne ? "pb-0" : (Heading || subHeading) ? "pb-6" : ""}`}
             style={{ wordBreak: "break-word" }}>
-            {allowRemoval && <button
+            {(allowRemoval && !outOfEditing) && <button
                 className="absolute top-6 z-10 right-[-8px] bg-red-500 text-white px-[5px] rounded-full shadow"
                 onClick={() => { removeSummary(index) }}
             >
@@ -237,11 +243,18 @@ const DynamicContentSection = ({
                                 language={language}
                                 id={input.updateType}
                                 maxLength={input.maxLength}
+                                outOfEditing={outOfEditing}
                             />
                         );
                     } else if (input.input === "richtext") {
                         return (
-                            <div dir={language === 'en' ? 'ltr' : 'rtl'} key={i}>
+                            <div dir={language === 'en' ? 'ltr' : 'rtl'} key={outOfEditing ? "readonly" : "editable"}
+                                style={{ cursor: "" }}
+                                className={`relative`}>
+                                {
+                                    outOfEditing &&
+                                    <div className="bg-stone-200/35 absolute z-10 top-0 left-0 h-full w-full rounded-md cursor-not-allowed"></div>
+                                }
                                 <JoditEditor
                                     ref={editor}
                                     value={input.value}
@@ -272,6 +285,7 @@ const DynamicContentSection = ({
                                 id={input.updateType}
                                 required={false}
                                 maxLength={input.maxLength}
+                                outOfEditing={outOfEditing}
                             />
                         );
                     }

@@ -28,6 +28,7 @@ import FallBackLoader from "../../components/fallbackLoader/FallbackLoader";
 import VersionTable from "./VersionTable";
 import { setPlatform } from "../common/platformSlice";
 import { updateResourceId } from "../common/resourceSlice";
+import { updateMainContent } from "../common/homeContentSlice";
 
 const AllForOne = lazy(() => import("./components/AllForOne"));
 const Page404 = lazy(() => import("../../pages/protected/404"));
@@ -177,7 +178,7 @@ function Resources() {
               relationType: response.content.relationType,
               editVersion: isManager ? response.content.liveModeVersionData : response.content.editModeVersionData ?? response.content.liveModeVersionData
             }
-
+            dispatch(updateMainContent({ currentPath: "content", payload }))
             setRawContent(createContent(payload))
           }
         } catch (err) {
@@ -435,7 +436,7 @@ function Resources() {
       )}
       {
         (preview && rawContent) &&
-        <div className="fixed top-0 left-0 z-[55] h-screen bg-stone-900/30 overflow-y-scroll customscroller">
+        <div className="fixed top-0 left-0 z-[55] w-screen h-screen bg-stone-900/30 overflow-y-scroll customscroller">
           <Suspense fallback={<FallBackLoader />}>
             <div className="">
               <CloseModalButton onClickClose={() => { setPreview(false); setRawContent(null) }} className={"fixed top-4 right-8 z-[56]"} />

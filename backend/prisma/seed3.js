@@ -617,17 +617,17 @@ async function main() {
                 sectionVersionTitle: `${childService.resourceTitle.en}-heroSection`,
               },
               {
-                title: "ServicePointsGrid1",
+                title: "ServicePointsGrid",
                 SectionType: "SERVICE_CHILDREN",
-                content: childService.ServicePointsGrid1,
+                content: childService.ServicePointsGrid,
                 sectionVersionTitle: `${childService.resourceTitle.en}-ServicePointsGrid1`,
               },
               {
-                title: "ServicePointsGrid2",
+                title: "gallery",
                 SectionType: "SERVICE_CHILDREN",
-                content: childService.ServicePointsGrid2,
-                sectionVersionTitle: `${childService.resourceTitle.en}-ServicePointsGrid2`,
-              },
+                content: childService.gallery,
+                sectionVersionTitle: `${childService.resourceTitle.en}-Gallery`,
+              }
             ]
           );
         }
@@ -787,12 +787,12 @@ async function main() {
               content: content.history.heroSection,
               sectionVersionTitle: "History-heroSection",
             },
-           {
-            title: "descriptionSection",
-            SectionType: "MARKDOWN_CONTENT",
-            content: content.history.descriptionSection,
-            sectionVersionTitle: "History-descriptionSection",
-           }
+            {
+              title: "descriptionSection",
+              SectionType: "MARKDOWN_CONTENT",
+              content: content.history.descriptionSection,
+              sectionVersionTitle: "History-descriptionSection",
+            }
           ]
         );
 
@@ -1195,7 +1195,7 @@ async function main() {
     console.error("Error in main function:", error);
     throw error; // Re-throw to be caught by the outer catch block
   }
-} 
+}
 
 main()
   .catch((e) => {

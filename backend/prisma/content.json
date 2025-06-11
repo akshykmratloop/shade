@@ -999,7 +999,9 @@
           }
         ]
       },
-      "childService": ["architectural-finishes"]
+      "childService": [
+        "architectural-finishes"
+      ]
     },
     {
       "resourceTitle": {
@@ -1057,7 +1059,9 @@
           }
         ]
       },
-      "childService": ["facility-services"]
+      "childService": [
+        "facility-services"
+      ]
     },
     {
       "resourceTitle": {
@@ -1115,7 +1119,9 @@
           }
         ]
       },
-      "childService": ["infrastructure-maintenance"]
+      "childService": [
+        "infrastructure-maintenance"
+      ]
     },
     {
       "resourceTitle": {
@@ -1173,7 +1179,9 @@
           }
         ]
       },
-      "childService": ["structural-fabrication"]
+      "childService": [
+        "structural-fabrication"
+      ]
     },
     {
       "resourceTitle": {
@@ -1231,7 +1239,9 @@
           }
         ]
       },
-      "childService": ["cranes-heavy-lifting-equipment"]
+      "childService": [
+        "cranes-heavy-lifting-equipment"
+      ]
     }
   ],
   "thirdLevelOfServices": [
@@ -1261,7 +1271,7 @@
           }
         ]
       },
-      "ServicePointsGrid1": {
+      "ServicePointsGrid": {
         "title": {
           "ar": "أنواع التشطيبات المعمارية",
           "en": "Types of Architectural Finishes"
@@ -1280,17 +1290,7 @@
             "description": {
               "ar": "نقدم مجموعة متنوعة من الأرضيات مثل الرخام، والبلاط، والخشب لتناسب جميع أنواع المشاريع المعمارية.",
               "en": "We offer a variety of flooring options such as marble, tiles, and wood to suit all types of architectural projects."
-            },
-            "images": [
-              {
-                "order": 1,
-                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                "altText": {
-                  "en": "Service Image",
-                  "ar": "صورة الخدمة"
-                }
-              }
-            ]
+            }
           },
           {
             "order": 2,
@@ -1301,17 +1301,7 @@
             "description": {
               "ar": "تشطيب الجدران الداخلية باستخدام الدهانات، الورق الجدراني، أو الألواح الجبسية للحصول على مظهر عصري وأنيق.",
               "en": "Interior wall finishes using paints, wallpaper, or gypsum boards to achieve a modern and elegant look."
-            },
-            "images": [
-              {
-                "order": 1,
-                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                "altText": {
-                  "en": "Service Image",
-                  "ar": "صورة الخدمة"
-                }
-              }
-            ]
+            }
           },
           {
             "order": 3,
@@ -1322,17 +1312,7 @@
             "description": {
               "ar": "تشطيبات الأسطح الخارجية باستخدام الحجر الطبيعي أو الطوب أو التشطيبات المركبة لخلق مظهر قوي وجميل.",
               "en": "Exterior surface finishes using natural stone, brick, or composite finishes to create a strong and beautiful appearance."
-            },
-            "images": [
-              {
-                "order": 1,
-                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                "altText": {
-                  "en": "Service Image",
-                  "ar": "صورة الخدمة"
-                }
-              }
-            ]
+            }
           },
           {
             "order": 4,
@@ -1343,17 +1323,7 @@
             "description": {
               "ar": "نقدم تشطيبات الأسقف باستخدام الألواح الجبسية أو الأسقف المعلقة أو الأسقف الخشبية لتحقيق التصميم المطلوب.",
               "en": "We provide ceiling finishes using gypsum boards, suspended ceilings, or wooden ceilings to achieve the desired design."
-            },
-            "images": [
-              {
-                "order": 1,
-                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                "altText": {
-                  "en": "Service Image",
-                  "ar": "صورة الخدمة"
-                }
-              }
-            ]
+            }
           },
           {
             "order": 5,
@@ -1364,134 +1334,51 @@
             "description": {
               "ar": "تركيب أنظمة الإضاءة المبتكرة التي تتناغم مع التصميم المعماري وتضيف جوًا من الدفء والجمال.",
               "en": "Installation of innovative lighting systems that complement the architectural design and add a warm, aesthetic ambiance."
-            },
-            "images": [
-              {
-                "order": 1,
-                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                "altText": {
-                  "en": "Service Image",
-                  "ar": "صورة الخدمة"
-                }
-              }
-            ]
+            }
           }
         ]
       },
-      "ServicePointsGrid2": {
-        "title": {
-          "ar": "التشطيبات الخاصة",
-          "en": "Specialized Finishes"
-        },
-        "description": {
-          "ar": "نحن نقدم خدمات تشطيبات معمارية متخصصة تلبي احتياجات مشاريعك الفريدة.",
-          "en": "We offer specialized architectural finishes services that cater to the unique needs of your projects."
-        },
-        "points": [
+      "gallery": {
+        "images": [
           {
             "order": 1,
-            "title": {
-              "ar": "التشطيبات الزجاجية",
-              "en": "Glass Finishes"
-            },
-            "description": {
-              "ar": "استخدام الزجاج عالي الجودة في النوافذ والأبواب والشرفات لإضفاء مظهر عصري ومشرق.",
-              "en": "Use of high-quality glass in windows, doors, and balconies to give a modern and bright appearance."
-            },
-            "images": [
-              {
-                "order": 1,
-                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                "altText": {
-                  "en": "Service Image",
-                  "ar": "صورة الخدمة"
-                }
-              }
-            ]
+            "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
+            "altText": {
+              "en": "Service Image",
+              "ar": "صورة الخدمة"
+            }
           },
           {
             "order": 2,
-            "title": {
-              "ar": "الأسطح المعدنية",
-              "en": "Metal Finishes"
-            },
-            "description": {
-              "ar": "تقديم تشطيبات معدنية باستخدام الفولاذ المقاوم للصدأ أو الألومنيوم للحصول على مظهر حديث وعصري.",
-              "en": "Providing metal finishes using stainless steel or aluminum for a sleek, modern, and sophisticated look."
-            },
-            "images": [
-              {
-                "order": 1,
-                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                "altText": {
-                  "en": "Service Image",
-                  "ar": "صورة الخدمة"
-                }
-              }
-            ]
+            "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
+            "altText": {
+              "en": "Service Image",
+              "ar": "صورة الخدمة"
+            }
           },
           {
             "order": 3,
-            "title": {
-              "ar": "التشطيبات الخشبية",
-              "en": "Wooden Finishes"
-            },
-            "description": {
-              "ar": "استخدام التشطيبات الخشبية الطبيعية أو المعالجة لإضفاء لمسة دافئة وطبيعية على التصميم المعماري.",
-              "en": "Using natural or treated wooden finishes to add a warm and natural touch to the architectural design."
-            },
-            "images": [
-              {
-                "order": 1,
-                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                "altText": {
-                  "en": "Service Image",
-                  "ar": "صورة الخدمة"
-                }
-              }
-            ]
+            "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
+            "altText": {
+              "en": "Service Image",
+              "ar": "صورة الخدمة"
+            }
           },
           {
             "order": 4,
-            "title": {
-              "ar": "التشطيبات الحجرية",
-              "en": "Stone Finishes"
-            },
-            "description": {
-              "ar": "تشطيب الأسطح باستخدام الحجر الطبيعي أو الصناعي لإضفاء مظهر قوي وراقي للمباني.",
-              "en": "Finishing surfaces with natural or artificial stone to give buildings a strong, sophisticated look."
-            },
-            "images": [
-              {
-                "order": 1,
-                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                "altText": {
-                  "en": "Service Image",
-                  "ar": "صورة الخدمة"
-                }
-              }
-            ]
+            "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
+            "altText": {
+              "en": "Service Image",
+              "ar": "صورة الخدمة"
+            }
           },
           {
             "order": 5,
-            "title": {
-              "ar": "الأسطح الملونة والمزخرفة",
-              "en": "Colored and Decorative Finishes"
-            },
-            "description": {
-              "ar": "تقديم تشطيبات مزخرفة وملونة لتلبية المتطلبات الفنية والجمالية الخاصة بالمشروع.",
-              "en": "Offering decorative and colored finishes to meet the artistic and aesthetic requirements of the project."
-            },
-            "images": [
-              {
-                "order": 1,
-                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                "altText": {
-                  "en": "Service Image",
-                  "ar": "صورة الخدمة"
-                }
-              }
-            ]
+            "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
+            "altText": {
+              "en": "Service Image",
+              "ar": "صورة الخدمة"
+            }
           }
         ]
       }
@@ -1522,7 +1409,7 @@
           }
         ]
       },
-      "ServicePointsGrid1": {
+      "ServicePointsGrid": {
         "title": {
           "ar": "خدمات المنشآت الأساسية",
           "en": "Core Facility Services"
@@ -1541,17 +1428,7 @@
             "description": {
               "ar": "إدارة الصيانة تشمل توفير خدمات الصيانة الوقائية والتصحيحية لجميع أنظمة المنشأة.",
               "en": "Maintenance management includes providing preventive and corrective maintenance services for all facility systems."
-            },
-            "images": [
-              {
-                "order": 1,
-                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                "altText": {
-                  "en": "Service Image",
-                  "ar": "صورة الخدمة"
-                }
-              }
-            ]
+            }
           },
           {
             "order": 2,
@@ -1562,17 +1439,7 @@
             "description": {
               "ar": "نحن نقدم خدمات تنظيف شاملة لجميع المساحات، بما في ذلك تنظيف المكاتب، الحمامات، والأسطح المشتركة.",
               "en": "We provide comprehensive cleaning services for all spaces, including office areas, bathrooms, and common surfaces."
-            },
-            "images": [
-              {
-                "order": 1,
-                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                "altText": {
-                  "en": "Service Image",
-                  "ar": "صورة الخدمة"
-                }
-              }
-            ]
+            }
           },
           {
             "order": 3,
@@ -1583,17 +1450,7 @@
             "description": {
               "ar": "إدارة الأمن تشمل توفير الحراسة الأمنية، أنظمة المراقبة، وخدمات الاستجابة للطوارئ لضمان سلامة المنشأة.",
               "en": "Security management includes providing security guards, surveillance systems, and emergency response services to ensure facility safety."
-            },
-            "images": [
-              {
-                "order": 1,
-                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                "altText": {
-                  "en": "Service Image",
-                  "ar": "صورة الخدمة"
-                }
-              }
-            ]
+            }
           },
           {
             "order": 4,
@@ -1604,17 +1461,7 @@
             "description": {
               "ar": "إدارة الطاقة تركز على تحسين استخدام الطاقة وتقليل استهلاكها من خلال حلول مبتكرة ومستدامة.",
               "en": "Energy management focuses on optimizing energy use and reducing consumption through innovative and sustainable solutions."
-            },
-            "images": [
-              {
-                "order": 1,
-                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                "altText": {
-                  "en": "Service Image",
-                  "ar": "صورة الخدمة"
-                }
-              }
-            ]
+            }
           },
           {
             "order": 5,
@@ -1625,134 +1472,51 @@
             "description": {
               "ar": "إدارة أنظمة HVAC تشمل صيانة وتحديث أنظمة التدفئة، التهوية، وتكييف الهواء لضمان بيئة مريحة.",
               "en": "HVAC systems management includes maintenance and upgrading of heating, ventilation, and air conditioning systems to ensure a comfortable environment."
-            },
-            "images": [
-              {
-                "order": 1,
-                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                "altText": {
-                  "en": "Service Image",
-                  "ar": "صورة الخدمة"
-                }
-              }
-            ]
+            }
           }
         ]
       },
-      "ServicePointsGrid2": {
-        "title": {
-          "ar": "خدمات إضافية للمنشآت",
-          "en": "Additional Facility Services"
-        },
-        "description": {
-          "ar": "نقدم مجموعة من الخدمات الإضافية التي تساهم في تحسين أداء المنشأة وجعلها أكثر كفاءة.",
-          "en": "We provide a range of additional services that contribute to improving facility performance and enhancing efficiency."
-        },
-        "points": [
+      "gallery": {
+        "images": [
           {
             "order": 1,
-            "title": {
-              "ar": "إدارة المرافق التكنولوجية",
-              "en": "Technology Facilities Management"
-            },
-            "description": {
-              "ar": "إدارة المرافق التكنولوجية تشمل تقديم حلول تقنية متكاملة لتسهيل العمليات الإدارية والأنظمة التكنولوجية داخل المنشأة.",
-              "en": "Technology facilities management includes providing integrated technological solutions to streamline administrative processes and technological systems within the facility."
-            },
-            "images": [
-              {
-                "order": 1,
-                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                "altText": {
-                  "en": "Service Image",
-                  "ar": "صورة الخدمة"
-                }
-              }
-            ]
+            "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
+            "altText": {
+              "en": "Service Image",
+              "ar": "صورة الخدمة"
+            }
           },
           {
             "order": 2,
-            "title": {
-              "ar": "إدارة المساحات",
-              "en": "Space Management"
-            },
-            "description": {
-              "ar": "إدارة المساحات تضمن استغلال المساحات داخل المنشأة بكفاءة من خلال تخطيط وتنظيم المساحات بشكل أمثل.",
-              "en": "Space management ensures the efficient use of spaces within the facility through optimal planning and organization."
-            },
-            "images": [
-              {
-                "order": 1,
-                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                "altText": {
-                  "en": "Service Image",
-                  "ar": "صورة الخدمة"
-                }
-              }
-            ]
+            "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
+            "altText": {
+              "en": "Service Image",
+              "ar": "صورة الخدمة"
+            }
           },
           {
             "order": 3,
-            "title": {
-              "ar": "إدارة النفايات",
-              "en": "Waste Management"
-            },
-            "description": {
-              "ar": "إدارة النفايات تشمل جمع وفرز النفايات، إعادة التدوير، والتخلص من النفايات بشكل آمن وفعال.",
-              "en": "Waste management includes the collection, sorting, recycling, and disposal of waste in a safe and efficient manner."
-            },
-            "images": [
-              {
-                "order": 1,
-                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                "altText": {
-                  "en": "Service Image",
-                  "ar": "صورة الخدمة"
-                }
-              }
-            ]
+            "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
+            "altText": {
+              "en": "Service Image",
+              "ar": "صورة الخدمة"
+            }
           },
           {
             "order": 4,
-            "title": {
-              "ar": "إدارة المرافق الخضراء",
-              "en": "Green Facility Management"
-            },
-            "description": {
-              "ar": "نحن نقدم حلولًا لإدارة المنشآت بطريقة صديقة للبيئة من خلال تقليل تأثيرات المباني على البيئة.",
-              "en": "We offer solutions for managing facilities in an environmentally friendly way by reducing the environmental impact of buildings."
-            },
-            "images": [
-              {
-                "order": 1,
-                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                "altText": {
-                  "en": "Service Image",
-                  "ar": "صورة الخدمة"
-                }
-              }
-            ]
+            "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
+            "altText": {
+              "en": "Service Image",
+              "ar": "صورة الخدمة"
+            }
           },
           {
             "order": 5,
-            "title": {
-              "ar": "إدارة الأنظمة الكهربائية",
-              "en": "Electrical Systems Management"
-            },
-            "description": {
-              "ar": "إدارة الأنظمة الكهربائية تشمل صيانة وتركيب الأنظمة الكهربائية بشكل آمن وفعّال.",
-              "en": "Electrical systems management includes the maintenance and installation of electrical systems in a safe and efficient manner."
-            },
-            "images": [
-              {
-                "order": 1,
-                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                "altText": {
-                  "en": "Service Image",
-                  "ar": "صورة الخدمة"
-                }
-              }
-            ]
+            "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
+            "altText": {
+              "en": "Service Image",
+              "ar": "صورة الخدمة"
+            }
           }
         ]
       }
@@ -1783,7 +1547,7 @@
           }
         ]
       },
-      "ServicePointsGrid1": {
+      "ServicePointsGrid": {
         "title": {
           "ar": "خدمات صيانة البنية التحتية الأساسية",
           "en": "Core Infrastructure Maintenance Services"
@@ -1802,17 +1566,7 @@
             "description": {
               "ar": "تشمل صيانة الطرق والشوارع إصلاح الحفر، وصيانة الأسطح، وتحسين الإضاءة العامة.",
               "en": "Road and street maintenance includes pothole repairs, surface maintenance, and improving public lighting."
-            },
-            "images": [
-              {
-                "order": 1,
-                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                "altText": {
-                  "en": "Service Image",
-                  "ar": "صورة الخدمة"
-                }
-              }
-            ]
+            }
           },
           {
             "order": 2,
@@ -1823,17 +1577,7 @@
             "description": {
               "ar": "نقوم بصيانة شبكات المياه والصرف الصحي لضمان تدفق مستمر للمياه وخدمات الصرف الصحي.",
               "en": "We maintain water and sewerage networks to ensure continuous water flow and efficient sewage services."
-            },
-            "images": [
-              {
-                "order": 1,
-                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                "altText": {
-                  "en": "Service Image",
-                  "ar": "صورة الخدمة"
-                }
-              }
-            ]
+            }
           },
           {
             "order": 3,
@@ -1844,17 +1588,7 @@
             "description": {
               "ar": "تشمل صيانة الأنظمة الكهربائية فحص الأسلاك، اللوحات الكهربائية، وصيانة أنظمة الإضاءة.",
               "en": "Electrical systems maintenance includes inspecting wiring, electrical panels, and maintaining lighting systems."
-            },
-            "images": [
-              {
-                "order": 1,
-                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                "altText": {
-                  "en": "Service Image",
-                  "ar": "صورة الخدمة"
-                }
-              }
-            ]
+            }
           },
           {
             "order": 4,
@@ -1865,17 +1599,7 @@
             "description": {
               "ar": "نقوم بصيانة شبكات الاتصالات لضمان استمرارية وتوفير خدمة موثوقة.",
               "en": "We maintain telecommunication networks to ensure continuity and reliable service."
-            },
-            "images": [
-              {
-                "order": 1,
-                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                "altText": {
-                  "en": "Service Image",
-                  "ar": "صورة الخدمة"
-                }
-              }
-            ]
+            }
           },
           {
             "order": 5,
@@ -1886,134 +1610,51 @@
             "description": {
               "ar": "تتضمن صيانة المنشآت والمباني صيانة الأسطح، الفواصل، وأعمال التشطيبات لضمان دوام المنشأة.",
               "en": "Building and facility maintenance includes surface repairs, joints, and finishing works to ensure the longevity of the facility."
-            },
-            "images": [
-              {
-                "order": 1,
-                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                "altText": {
-                  "en": "Service Image",
-                  "ar": "صورة الخدمة"
-                }
-              }
-            ]
+            }
           }
         ]
       },
-      "ServicePointsGrid2": {
-        "title": {
-          "ar": "خدمات إضافية لصيانة البنية التحتية",
-          "en": "Additional Infrastructure Maintenance Services"
-        },
-        "description": {
-          "ar": "نقدم خدمات إضافية متنوعة لضمان تحسين وصيانة البنية التحتية بشكل مستمر.",
-          "en": "We offer a variety of additional services to ensure continuous improvement and maintenance of infrastructure."
-        },
-        "points": [
+      "gallery": {
+        "images": [
           {
             "order": 1,
-            "title": {
-              "ar": "إصلاح وصيانة الأسطح",
-              "en": "Surface Repair and Maintenance"
-            },
-            "description": {
-              "ar": "إصلاح وصيانة الأسطح تشمل معالجة التصدعات والشقوق، وإعادة تعبئة الأسطح المتضررة.",
-              "en": "Surface repair and maintenance includes addressing cracks and fissures, and resurfacing damaged areas."
-            },
-            "images": [
-              {
-                "order": 1,
-                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                "altText": {
-                  "en": "Service Image",
-                  "ar": "صورة الخدمة"
-                }
-              }
-            ]
+            "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
+            "altText": {
+              "en": "Service Image",
+              "ar": "صورة الخدمة"
+            }
           },
           {
             "order": 2,
-            "title": {
-              "ar": "إدارة المشاريع البنية التحتية",
-              "en": "Infrastructure Project Management"
-            },
-            "description": {
-              "ar": "إدارة المشاريع المتعلقة بالبنية التحتية تضمن تنسيق وتنفيذ المشاريع بكفاءة ووفقًا للمعايير المطلوبة.",
-              "en": "Infrastructure project management ensures the coordination and execution of projects efficiently and in accordance with required standards."
-            },
-            "images": [
-              {
-                "order": 1,
-                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                "altText": {
-                  "en": "Service Image",
-                  "ar": "صورة الخدمة"
-                }
-              }
-            ]
+            "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
+            "altText": {
+              "en": "Service Image",
+              "ar": "صورة الخدمة"
+            }
           },
           {
             "order": 3,
-            "title": {
-              "ar": "تركيب وصيانة أنظمة الري",
-              "en": "Irrigation System Installation and Maintenance"
-            },
-            "description": {
-              "ar": "نقوم بتركيب وصيانة أنظمة الري لضمان توصيل المياه بشكل مناسب للحدائق والمرافق.",
-              "en": "We install and maintain irrigation systems to ensure proper water distribution to gardens and facilities."
-            },
-            "images": [
-              {
-                "order": 1,
-                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                "altText": {
-                  "en": "Service Image",
-                  "ar": "صورة الخدمة"
-                }
-              }
-            ]
+            "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
+            "altText": {
+              "en": "Service Image",
+              "ar": "صورة الخدمة"
+            }
           },
           {
             "order": 4,
-            "title": {
-              "ar": "إصلاح وصيانة الأسطح الخرسانية",
-              "en": "Concrete Surface Repair and Maintenance"
-            },
-            "description": {
-              "ar": "إصلاح وصيانة الأسطح الخرسانية يشمل إزالة التآكل، وترميم الخرسانة المتصدعة أو المتهالكة.",
-              "en": "Concrete surface repair and maintenance includes removing wear and tear and restoring cracked or deteriorating concrete."
-            },
-            "images": [
-              {
-                "order": 1,
-                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                "altText": {
-                  "en": "Service Image",
-                  "ar": "صورة الخدمة"
-                }
-              }
-            ]
+            "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
+            "altText": {
+              "en": "Service Image",
+              "ar": "صورة الخدمة"
+            }
           },
           {
             "order": 5,
-            "title": {
-              "ar": "تحليل ومراقبة أداء البنية التحتية",
-              "en": "Infrastructure Performance Analysis and Monitoring"
-            },
-            "description": {
-              "ar": "نقوم بتحليل ومراقبة أداء البنية التحتية لضمان سلامتها وكفاءتها على المدى الطويل.",
-              "en": "We analyze and monitor the performance of infrastructure to ensure its safety and efficiency in the long term."
-            },
-            "images": [
-              {
-                "order": 1,
-                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                "altText": {
-                  "en": "Service Image",
-                  "ar": "صورة الخدمة"
-                }
-              }
-            ]
+            "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
+            "altText": {
+              "en": "Service Image",
+              "ar": "صورة الخدمة"
+            }
           }
         ]
       }
@@ -2044,7 +1685,7 @@
           }
         ]
       },
-      "ServicePointsGrid1": {
+      "ServicePointsGrid": {
         "title": {
           "ar": "خدمات التصنيع الهيكلي الأساسية",
           "en": "Core Structural Fabrication Services"
@@ -2063,17 +1704,7 @@
             "description": {
               "ar": "نقوم بتصنيع الهياكل الفولاذية للمباني والمنشآت الصناعية وفقًا لأعلى معايير الجودة.",
               "en": "We fabricate steel structures for buildings and industrial facilities according to the highest quality standards."
-            },
-            "images": [
-              {
-                "order": 1,
-                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                "altText": {
-                  "en": "Service Image",
-                  "ar": "صورة الخدمة"
-                }
-              }
-            ]
+            }
           },
           {
             "order": 2,
@@ -2084,17 +1715,7 @@
             "description": {
               "ar": "نقدم خدمات تصنيع الأسطح المعدنية التي تشمل الألواح المعدنية وأسطوانات التغطية المعدنية.",
               "en": "We offer metal surface fabrication services, including metal sheets and covering cylinders."
-            },
-            "images": [
-              {
-                "order": 1,
-                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                "altText": {
-                  "en": "Service Image",
-                  "ar": "صورة الخدمة"
-                }
-              }
-            ]
+            }
           },
           {
             "order": 3,
@@ -2105,17 +1726,7 @@
             "description": {
               "ar": "نقوم بتصنيع الهياكل الخرسانية المسلحة من خلال استخدام المواد الخرسانية ذات الجودة العالية.",
               "en": "We fabricate reinforced concrete structures using high-quality concrete materials."
-            },
-            "images": [
-              {
-                "order": 1,
-                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                "altText": {
-                  "en": "Service Image",
-                  "ar": "صورة الخدمة"
-                }
-              }
-            ]
+            }
           },
           {
             "order": 4,
@@ -2126,17 +1737,7 @@
             "description": {
               "ar": "نحن متخصصون في تصنيع الأنابيب والمواسير بأحجام وأطوال مختلفة لتلبية احتياجات مشاريع البناء.",
               "en": "We specialize in fabricating pipes and tubes of various sizes and lengths to meet the needs of construction projects."
-            },
-            "images": [
-              {
-                "order": 1,
-                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                "altText": {
-                  "en": "Service Image",
-                  "ar": "صورة الخدمة"
-                }
-              }
-            ]
+            }
           },
           {
             "order": 5,
@@ -2147,134 +1748,51 @@
             "description": {
               "ar": "نقوم بتصنيع الأنظمة المعدنية المجمعة والتي تشمل الهياكل الحديدية والهياكل الجاهزة للاستخدام.",
               "en": "We fabricate pre-assembled metal systems, including steel frames and ready-to-use structural systems."
-            },
-            "images": [
-              {
-                "order": 1,
-                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                "altText": {
-                  "en": "Service Image",
-                  "ar": "صورة الخدمة"
-                }
-              }
-            ]
+            }
           }
         ]
       },
-      "ServicePointsGrid2": {
-        "title": {
-          "ar": "خدمات إضافية للتصنيع الهيكلي",
-          "en": "Additional Structural Fabrication Services"
-        },
-        "description": {
-          "ar": "نحن نقدم خدمات إضافية متكاملة في مجال التصنيع الهيكلي لضمان إتمام المشاريع بكفاءة عالية.",
-          "en": "We offer additional integrated services in structural fabrication to ensure the efficient completion of projects."
-        },
-        "points": [
+      "gallery": {
+        "images": [
           {
             "order": 1,
-            "title": {
-              "ar": "تصنيع هياكل النقل",
-              "en": "Transport Structure Fabrication"
-            },
-            "description": {
-              "ar": "نحن نصمم ونصنع هياكل النقل المتخصصة بما في ذلك حاويات الشحن والهياكل الخاصة بالنقل.",
-              "en": "We design and fabricate specialized transport structures, including shipping containers and custom transport frames."
-            },
-            "images": [
-              {
-                "order": 1,
-                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                "altText": {
-                  "en": "Service Image",
-                  "ar": "صورة الخدمة"
-                }
-              }
-            ]
+            "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
+            "altText": {
+              "en": "Service Image",
+              "ar": "صورة الخدمة"
+            }
           },
           {
             "order": 2,
-            "title": {
-              "ar": "تصنيع الأسطح المعمارية",
-              "en": "Architectural Surface Fabrication"
-            },
-            "description": {
-              "ar": "نقوم بتصنيع الأسطح المعمارية مثل الأقواس، الأسطح المنحنية، والهياكل المعمارية الأخرى حسب الحاجة.",
-              "en": "We fabricate architectural surfaces such as arches, curved surfaces, and other architectural structures as required."
-            },
-            "images": [
-              {
-                "order": 1,
-                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                "altText": {
-                  "en": "Service Image",
-                  "ar": "صورة الخدمة"
-                }
-              }
-            ]
+            "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
+            "altText": {
+              "en": "Service Image",
+              "ar": "صورة الخدمة"
+            }
           },
           {
             "order": 3,
-            "title": {
-              "ar": "تصنيع هياكل المرافق الصناعية",
-              "en": "Industrial Facility Structure Fabrication"
-            },
-            "description": {
-              "ar": "نقدم خدمات تصنيع الهياكل المخصصة للمرافق الصناعية، بما في ذلك الهياكل للأبراج، والخزانات، والمرافق الصناعية الأخرى.",
-              "en": "We provide structural fabrication services for industrial facilities, including frames for towers, tanks, and other industrial infrastructure."
-            },
-            "images": [
-              {
-                "order": 1,
-                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                "altText": {
-                  "en": "Service Image",
-                  "ar": "صورة الخدمة"
-                }
-              }
-            ]
+            "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
+            "altText": {
+              "en": "Service Image",
+              "ar": "صورة الخدمة"
+            }
           },
           {
             "order": 4,
-            "title": {
-              "ar": "تصنيع الهياكل الكبيرة",
-              "en": "Large-Scale Structural Fabrication"
-            },
-            "description": {
-              "ar": "نقوم بتصنيع هياكل كبيرة للمشاريع الضخمة مثل المنشآت التجارية والمباني متعددة الطوابق.",
-              "en": "We fabricate large-scale structures for major projects such as commercial buildings and multi-story structures."
-            },
-            "images": [
-              {
-                "order": 1,
-                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                "altText": {
-                  "en": "Service Image",
-                  "ar": "صورة الخدمة"
-                }
-              }
-            ]
+            "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
+            "altText": {
+              "en": "Service Image",
+              "ar": "صورة الخدمة"
+            }
           },
           {
             "order": 5,
-            "title": {
-              "ar": "تصنيع الهياكل المقاومة للزلازل",
-              "en": "Seismic-Resistant Structural Fabrication"
-            },
-            "description": {
-              "ar": "نقدم حلولًا لتصنيع الهياكل المقاومة للزلازل والتي توفر الأمان والاستقرار في المناطق الزلزالية.",
-              "en": "We provide solutions for fabricating seismic-resistant structures that offer safety and stability in seismic areas."
-            },
-            "images": [
-              {
-                "order": 1,
-                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                "altText": {
-                  "en": "Service Image",
-                  "ar": "صورة الخدمة"
-                }
-              }
-            ]
+            "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
+            "altText": {
+              "en": "Service Image",
+              "ar": "صورة الخدمة"
+            }
           }
         ]
       }
@@ -2305,7 +1823,7 @@
           }
         ]
       },
-      "ServicePointsGrid1": {
+      "ServicePointsGrid": {
         "title": {
           "ar": "خدمات الرافعات والمعدات الثقيلة الأساسية",
           "en": "Core Cranes & Heavy Lifting Equipment Services"
@@ -2324,17 +1842,7 @@
             "description": {
               "ar": "نحن نوفر الرافعات البرجية لمشاريع البناء عالية الارتفاع والتي تتطلب الرفع لمسافات طويلة.",
               "en": "We provide tower cranes for high-rise construction projects that require long-distance lifting."
-            },
-            "images": [
-              {
-                "order": 1,
-                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                "altText": {
-                  "en": "Service Image",
-                  "ar": "صورة الخدمة"
-                }
-              }
-            ]
+            }
           },
           {
             "order": 2,
@@ -2345,17 +1853,7 @@
             "description": {
               "ar": "نقدم الرافعات الجسرية للمشاريع التي تتطلب رفع وتحريك المعدات الثقيلة داخل المنشآت المغلقة.",
               "en": "We offer bridge cranes for projects that require lifting and moving heavy equipment inside enclosed facilities."
-            },
-            "images": [
-              {
-                "order": 1,
-                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                "altText": {
-                  "en": "Service Image",
-                  "ar": "صورة الخدمة"
-                }
-              }
-            ]
+            }
           },
           {
             "order": 3,
@@ -2366,17 +1864,7 @@
             "description": {
               "ar": "نقدم الرافعات الزحافة التي توفر القدرة على التحرك على التضاريس الوعرة مع رفع الأحمال الثقيلة.",
               "en": "We provide crawler cranes that offer the ability to move on rough terrain while lifting heavy loads."
-            },
-            "images": [
-              {
-                "order": 1,
-                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                "altText": {
-                  "en": "Service Image",
-                  "ar": "صورة الخدمة"
-                }
-              }
-            ]
+            }
           },
           {
             "order": 4,
@@ -2387,17 +1875,7 @@
             "description": {
               "ar": "نقدم الرافعات المتنقلة التي تتميز بالقدرة على الانتقال بسرعة بين المواقع المختلفة، مع قدرة رفع عالية.",
               "en": "We provide mobile cranes that are highly mobile and capable of moving between different locations with high lifting capacity."
-            },
-            "images": [
-              {
-                "order": 1,
-                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                "altText": {
-                  "en": "Service Image",
-                  "ar": "صورة الخدمة"
-                }
-              }
-            ]
+            }
           },
           {
             "order": 5,
@@ -2408,134 +1886,51 @@
             "description": {
               "ar": "نحن نوفر الرافعات ذات الذراع الطويلة التي تسمح برفع الأحمال الثقيلة لمسافات بعيدة.",
               "en": "We provide long reach cranes that allow lifting heavy loads over long distances."
-            },
-            "images": [
-              {
-                "order": 1,
-                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                "altText": {
-                  "en": "Service Image",
-                  "ar": "صورة الخدمة"
-                }
-              }
-            ]
+            }
           }
         ]
       },
-      "ServicePointsGrid2": {
-        "title": {
-          "ar": "خدمات إضافية للرافعات والمعدات الثقيلة",
-          "en": "Additional Cranes & Heavy Lifting Equipment Services"
-        },
-        "description": {
-          "ar": "نقدم خدمات إضافية متكاملة للرافعات والمعدات الثقيلة لضمان تنفيذ المشاريع بشكل فعال.",
-          "en": "We offer additional integrated services for cranes and heavy lifting equipment to ensure the efficient execution of projects."
-        },
-        "points": [
+      "gallery": {
+        "images": [
           {
             "order": 1,
-            "title": {
-              "ar": "تركيب الرافعات",
-              "en": "Crane Installation"
-            },
-            "description": {
-              "ar": "نقوم بتركيب الرافعات المختلفة وتوفير دعم مستمر لضمان عملية رفع آمنة.",
-              "en": "We install various types of cranes and provide ongoing support to ensure safe lifting operations."
-            },
-            "images": [
-              {
-                "order": 1,
-                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                "altText": {
-                  "en": "Service Image",
-                  "ar": "صورة الخدمة"
-                }
-              }
-            ]
+            "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
+            "altText": {
+              "en": "Service Image",
+              "ar": "صورة الخدمة"
+            }
           },
           {
             "order": 2,
-            "title": {
-              "ar": "خدمات التفكيك والنقل",
-              "en": "Crane Dismantling & Transportation"
-            },
-            "description": {
-              "ar": "نقوم بتوفير خدمات التفكيك والنقل للرافعات والمعدات الثقيلة بين المواقع المختلفة.",
-              "en": "We provide crane dismantling and transportation services for moving cranes and heavy equipment between different locations."
-            },
-            "images": [
-              {
-                "order": 1,
-                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                "altText": {
-                  "en": "Service Image",
-                  "ar": "صورة الخدمة"
-                }
-              }
-            ]
+            "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
+            "altText": {
+              "en": "Service Image",
+              "ar": "صورة الخدمة"
+            }
           },
           {
             "order": 3,
-            "title": {
-              "ar": "الصيانة الدورية للرافعات",
-              "en": "Crane Maintenance & Inspection"
-            },
-            "description": {
-              "ar": "نقوم بصيانة وفحص الرافعات بشكل دوري لضمان استمرارية تشغيلها بكفاءة عالية.",
-              "en": "We provide regular maintenance and inspection services for cranes to ensure their continuous operation with high efficiency."
-            },
-            "images": [
-              {
-                "order": 1,
-                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                "altText": {
-                  "en": "Service Image",
-                  "ar": "صورة الخدمة"
-                }
-              }
-            ]
+            "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
+            "altText": {
+              "en": "Service Image",
+              "ar": "صورة الخدمة"
+            }
           },
           {
             "order": 4,
-            "title": {
-              "ar": "الرفع والتفريغ للمعدات الثقيلة",
-              "en": "Heavy Equipment Lifting & Unloading"
-            },
-            "description": {
-              "ar": "نقدم خدمات الرفع والتفريغ للمعدات الثقيلة باستخدام الرافعات المتخصصة.",
-              "en": "We provide heavy equipment lifting and unloading services using specialized cranes."
-            },
-            "images": [
-              {
-                "order": 1,
-                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                "altText": {
-                  "en": "Service Image",
-                  "ar": "صورة الخدمة"
-                }
-              }
-            ]
+            "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
+            "altText": {
+              "en": "Service Image",
+              "ar": "صورة الخدمة"
+            }
           },
           {
             "order": 5,
-            "title": {
-              "ar": "استشارات الرفع",
-              "en": "Lifting Consultation"
-            },
-            "description": {
-              "ar": "نقدم استشارات متخصصة لعمليات الرفع لضمان سلامة وفعالية العملية.",
-              "en": "We offer specialized consultation services for lifting operations to ensure safety and efficiency."
-            },
-            "images": [
-              {
-                "order": 1,
-                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                "altText": {
-                  "en": "Service Image",
-                  "ar": "صورة الخدمة"
-                }
-              }
-            ]
+            "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
+            "altText": {
+              "en": "Service Image",
+              "ar": "صورة الخدمة"
+            }
           }
         ]
       }
@@ -4942,10 +4337,8 @@
       },
       "description": {
         "en": "<p>Founded in 1992 by a group of committed professionals, Shade Corporation now has a strong workforce of over 2,000 employees across various locations. The company has consistently provided innovative solutions to deliver capital efficiency and project certainty. Over the years, Shade has expanded from General Contracting to offer services including Construction Management, Project Management, Design/Build, and Value Engineering. It plays a key role in the transportation, industrial, and building sectors. Shade has delivered EPC, PM, CM, VE, and Design/Build services to clients such as Aramco, Royal Commission, Ministry of Transportation, SABIC, Maaden, various municipalities, Saudi Bahraini Causeway Authority, Water Directorate, Saudi Electric Company, Saudi Naval Forces, and Qatar Petroleum.</p>",
-
         "ar": "تأسست شركة شيد في عام 1992 على يد مجموعة من المتخصصين الملتزمين، وتضم اليوم أكثر من 2000 موظف في مواقع متعددة. تقدم الشركة باستمرار حلولاً مبتكرة لتحقيق الكفاءة الرأسمالية وضمان نجاح المشاريع. توسعت خدماتها لتشمل الإدارة العامة للمقاولات، إدارة المشاريع، الإدارة الإنشائية، التصميم والبناء، والهندسة القيمية. وتلعب دوراً رئيسياً في قطاعات النقل والصناعة والبناء، وقدمت خدماتها لعملاء مثل أرامكو، الهيئة الملكية، وزارة النقل، سابك، معادن، البلديات، هيئة جسر الملك فهد، مديرية المياه، الشركة السعودية للكهرباء، القوات البحرية السعودية، وقطر للبترول."
       },
-
       "images": [
         {
           "order": 1,

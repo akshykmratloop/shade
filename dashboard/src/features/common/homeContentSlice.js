@@ -33,15 +33,16 @@ const cmsSlice = createSlice({
         },
         updateSpecificContent: (state, action) => { // post content
             state.past.push(JSON.parse(JSON.stringify(state.present)));
-            if (action.payload.type === "content[index]") {
+            if (action.payload.type === "content[index]" && action.payload.section !== "points") {
                 if (action.payload.title === 'url') {
                     state.present.content.editVersion.sections[action.payload.sectionIndex].content[action.payload.contentIndex][action.payload.title] = action.payload.value
                 } else if (action.payload.section === "procedures/terms") {
                     state.present.content.editVersion.sections[action.payload.sectionIndex].content.procedures.terms[action.payload.index][action.payload.title][action.payload.lan] = action.payload.value
                 } else {
-                    console.log("lkasdjf")
                     state.present.content.editVersion.sections[action.payload.sectionIndex].content[action.payload.contentIndex][action.payload.title][action.payload.lan] = action.payload.value
                 }
+            } else if (action.payload.section === "points") {
+                state.present.content.editVersion.sections[action.payload.sectionIndex].content.points[action.payload.index][action.payload.title][action.payload.lan] = action.payload.value
             } else if (action.payload.section === "procedures") {
                 state.present.content.editVersion.sections[action.payload.sectionIndex].content.procedures[action.payload.title][action.payload.lan] = action.payload.value
             } else if (action.payload.section === "Footer") {
@@ -81,6 +82,7 @@ const cmsSlice = createSlice({
             } else if (action.payload.section === "socialLinks") {
                 state.present.content.editVersion.sections[action.payload.sectionIndex].content[action.payload.section][action.payload.index][action.payload.title] = action.payload.src
             } else {
+                console.log(action.payload.index, action.payload.order)
                 state.present.content.editVersion.sections[action.payload.index].content.images[action.payload.order - 1] = action.payload.src
             }
             state.future = [];
@@ -90,6 +92,12 @@ const cmsSlice = createSlice({
             let newArray = [...oldArray, { ...action.payload.src, order: oldArray.length + 1 }]
 
             state.present.content.editVersion.sections[action.payload.sectionIndex].content[action.payload.section] = newArray
+        },
+        addImagePointArray: (state, action) => { // post content
+            let oldArray = state.present.content.editVersion.sections[action.payload.sectionIndex].content.images
+            let newArray = [...oldArray, { ...action.payload.src, order: oldArray.length + 1 }]
+
+            state.present.content.editVersion.sections[action.payload.sectionIndex].content.images = newArray
         },
         rmImageArray: (state, action) => { // post content
 
@@ -101,6 +109,17 @@ const cmsSlice = createSlice({
             newArray = newArray.map((e, i) => ({ ...e, order: i + 1 }))
             console.log(newArray)
             state.present.content.editVersion.sections[action.payload.sectionIndex].content[action.payload.section] = newArray
+        },
+        rmImagePointArray: (state, action) => { // post content
+
+            let oldArray = state.present.content.editVersion.sections[action.payload.sectionIndex].content.images
+            let newArray = oldArray.filter(e => {
+                return e.order !== action.payload.order
+            })
+
+            newArray = newArray.map((e, i) => ({ ...e, order: i + 1 }))
+            console.log(newArray)
+            state.present.content.editVersion.sections[action.payload.sectionIndex].content.images = newArray
         },
         updateAList: (state, action) => { // post content
 
@@ -137,7 +156,6 @@ const cmsSlice = createSlice({
         updateCardAndItemsArray: (state, action) => { // post content
             state.past.push(JSON.parse(JSON.stringify(state.present)));
             let newArray = []
-            // console.log(action.payload.sectionIndex)
             let oldArray = state.present.content?.editVersion?.sections?.[action.payload.sectionIndex].content
             if (action.payload.operation === 'add') {
                 newArray = [...oldArray, { ...action.payload.insert, order: oldArray.length }]
@@ -149,10 +167,23 @@ const cmsSlice = createSlice({
             state.present.content.editVersion.sections[action.payload.sectionIndex].content = newArray
             state.future = [];
         },
+        updateSubServiceDetailsPointsArray: (state, action) => { // post content
+            state.past.push(JSON.parse(JSON.stringify(state.present)));
+            let newArray = []
+            let oldArray = state.present.content?.editVersion?.sections?.[action.payload.sectionIndex].content.points
+            if (action.payload.operation === 'add') {
+                newArray = [...oldArray, { ...action.payload.insert, order: oldArray.length }]
+            } else {
+                newArray = state.present.content?.editVersion?.sections?.[action.payload.sectionIndex].content.points.filter((e, i) => {
+                    return i !== action.payload.index
+                })
+            }
+            state.present.content.editVersion.sections[action.payload.sectionIndex].content.points = newArray
+            state.future = [];
+        },
         updatePoliciesItems: (state, action) => { // post content
             state.past.push(JSON.parse(JSON.stringify(state.present)));
             let newArray = []
-            // console.log(action.payload.sectionIndex)
             let oldArray = state.present.content?.editVersion?.sections?.[action.payload.sectionIndex].content.procedures.terms
             if (action.payload.operation === 'add') {
                 newArray = [...oldArray, { ...action.payload.insert, order: oldArray.length }]
@@ -166,16 +197,8 @@ const cmsSlice = createSlice({
         },
         updateSelectedContent: (state, action) => { // post content
             state.past.push(JSON.parse(JSON.stringify(state.present)));
-            // const selectedMap = new Map(
-            //     action.payload?.selected?.filter(e => e.display).map((item, index) => [item[action.payload.titleLan], index])
-            // );
-            let newOptions = action.payload.data
 
-            // newOptions.sort((a, b) => {
-            //     const indexA = selectedMap.get(a[action.payload.titleLan]) ?? Infinity;
-            //     const indexB = selectedMap.get(b[action.payload.titleLan]) ?? Infinity;
-            //     return indexA - indexB;
-            // });
+            let newOptions = action.payload.data
 
             switch (action.payload.origin) {
                 case "home": // in use
@@ -430,13 +453,16 @@ export const { // actions
     selectMainNews,
     submitings,
     addImageArray,
+    addImagePointArray,
+    rmImagePointArray,
     rmImageArray,
     undo,
     redo,
     updateTheProjectSummaryList,
     updateSelectedSubService,
     updateAList,
-    updateComment
+    updateComment,
+    updateSubServiceDetailsPointsArray
 } = cmsSlice.actions;
 
 export default cmsSlice.reducer; // reducer

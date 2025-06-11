@@ -3,7 +3,7 @@ import InputFile from "../../../../components/Input/InputFile";
 import InputText from "../../../../components/Input/InputText";
 import TextAreaInput from "../../../../components/Input/TextAreaInput";
 import { useDispatch, useSelector } from "react-redux";
-import { updateSpecificContent, updateServicesNumber, updateImages, updateAList, addImageArray, rmImageArray } from "../../../common/homeContentSlice";
+import { updateSpecificContent, updateServicesNumber, updateImages, updateAList, addImageArray, rmImageArray, addImagePointArray, rmImagePointArray } from "../../../common/homeContentSlice";
 import InputFileForm from "../../../../components/Input/InputFileForm";
 import JoditEditor from "jodit-react";
 import { Jodit } from "jodit-react";
@@ -51,11 +51,19 @@ const ContentSection = ({
 
 
     const addExtraFileInput = () => {
-        dispatch(addImageArray({
-            src: skeleton[section],
-            sectionIndex,
-            section
-        }))
+        if (section === "points") {
+            dispatch(addImagePointArray({
+                src: skeleton['images'],
+                sectionIndex,
+                section
+            }))
+        } else {
+            dispatch(addImageArray({
+                src: skeleton[section],
+                sectionIndex,
+                section
+            }))
+        }
         // if (section === "socialLinks") {
         //     dispatch(addImageArray({
         //         src: {
@@ -76,7 +84,11 @@ const ContentSection = ({
     };
 
     const removeExtraFileInput = (order) => {
-        dispatch(rmImageArray({ sectionIndex, order, section }))
+        if (section === "points") {
+            dispatch(rmImagePointArray({ sectionIndex, order, section }))
+        } else {
+            dispatch(rmImageArray({ sectionIndex, order, section }))
+        }
     };
 
     const updateFormValue = (updateType, value, path, buttonIndex) => {

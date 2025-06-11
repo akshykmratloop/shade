@@ -211,7 +211,7 @@ const EditPage = () => {
                                                 fullScreen &&
                                                 <AllForOne
                                                     language={language} screen={screen}
-                                                    content={content.content} contentIndex={content.index}
+                                                    content={content.content}
                                                     subPath={subPath} deepPath={deepPath}
                                                     setLanguage={setLanguage} fullScreen={fullScreen}
                                                     currentPath={currentPath}
