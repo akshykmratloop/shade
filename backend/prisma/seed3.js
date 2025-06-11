@@ -549,7 +549,10 @@ async function main() {
                 SectionType: "EXTERNAL_ITEMS",
                 content: project.moreProjects,
                 sectionVersionTitle: "Project-moreProjects",
-                items: [],
+                items: projectsSlugs.map((slug) => ({
+                  resourceType: "SUB_PAGE",
+                  slug: slug,
+                })),
               },
             ],
             [project.filter], // Pass filter as an array with a single string

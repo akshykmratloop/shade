@@ -135,11 +135,9 @@ const HomePage = ({ content }) => {
           {/* <AnimatedText text="بناء مستقبل أقوى" Wrapper="h1" repeatDelay={0.04} className={`${styles.title} ${BankGothic.className}`} /> */}
 
           <h1 className={`${styles.title}`}>
-            {/* {currentContent?.homeBanner?.title[language]} */}
             {currentContent?.["1"]?.content?.title?.[language]}
           </h1>
           <p className={`${styles.description} ${BankGothic.className}`}>
-            {/* {currentContent?.homeBanner?.description[language]} */}
             {currentContent?.["1"]?.content?.description?.[language]}
           </p>
           <Button
@@ -181,11 +179,6 @@ const HomePage = ({ content }) => {
                     currentContent?.["2"]?.content?.description?.[language],
                 }}
               />
-              {/* {currentContent?.['2']?.content?.description[language]} */}
-              {/* </div> */}
-              {/* <p className={`${styles.description} ${BankGothic.className}`}>
-                {currentContent?.aboutUsSection?.description2[language]}
-              </p> */}
             </div>
             <Button
               className={styles.view_btn}

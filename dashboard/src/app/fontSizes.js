@@ -8,7 +8,7 @@ export const differentText = {
     checkDifference: function (arg1, arg2, highlight, from) {
 
         if (Array.isArray(arg1) && Array.isArray(arg2)) {
-            return arg1.some((e, i) => e?.id !== arg2[i]?.id || e?.order !== arg2[i]?.order) ? this?.highlight1 : ""
+            return arg1.some((e, i) => e?.title?.en !== arg2[i]?.title?.en || e?.id !== arg2[i]?.id || e?.order !== arg2[i]?.order) ? this?.highlight1 : ""
         }
 
         if (arg1 !== arg2) {
@@ -18,10 +18,10 @@ export const differentText = {
 }
 
 
-export function defineDevice(screen) {
-    if (screen > 900) {
+export function defineDevice(screen, fullScreen) {
+    if (screen > 900 || fullScreen) {
         return "computer"
-    } else if (screen < 900 && screen > 550) {
+    } else if (screen < 900 && screen > 550 && !fullScreen) {
         return 'tablet'
     } else {
         return 'phone'

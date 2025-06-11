@@ -16,6 +16,8 @@ import {
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
+import { TruncateText } from "../../../../../app/capitalizeword";
+import { Img_url } from "../../../../../routes/backend";
 // import NotFound from "../../pages/404";
 // Import local font
 // const BankGothic = localFont({
@@ -24,45 +26,30 @@ import 'swiper/css/pagination';
 // });
 // import { useGlobalContext } from "../../contexts/GlobalContext";
 
-const ProjectDetailPage = ({ contentOn, language, projectId, screen }) => {
+const ProjectDetailPage = ({ content, language, projectId, screen }) => {
     const isComputer = screen > 1100
     const isTablet = 1100 > screen && screen > 767
     const isPhone = screen < 767
     const isLeftAlign = language === 'en'
     const dispatch = useDispatch()
     const ImageFromRedux = useSelector((state) => state.homeContent.present.images)
-    let currentContent = contentOn?.[projectId - 1] ?? structureOfPageDetails
+    let currentContent = content ?? structureOfPageDetails
 
     const testimonialPrevRef = useRef(null);
     const testimonialNextRef = useRef(null);
 
-
-    useEffect(() => {
-        if (!currentContent[projectId - 1]) {
-            dispatch(updateMainContent({ currentPath: "projectDetail", payload: [...content.projectDetail, { ...structureOfPageDetails, id: content.projectDetail.length + 1 }] }))
-        } else {
-            dispatch(updateMainContent({ currentPath: "projectDetail", payload: content.projectDetail }))
-        }
-    }, [])
-
-
-    const { introSection, descriptionSection, gallerySection, moreProjects } = currentContent ?? {};
-
-    // const TruncateText = (text, length) => useTruncate(text, length || 200);
-
-    const TruncateText = (text, length) => {
-        if (text.length > (length || 50)) {
-            return `${text.slice(0, length || 50)}...`;
-        }
-        return text;
-    };
+    const { moreProjects } = currentContent ?? {};
+    const introSection = currentContent?.[1]?.content
+    const projectInforCard = currentContent?.[2]?.content
+    const descriptionSection = currentContent?.[3]?.content
+    const gallerySection = currentContent?.[4]?.content
 
 
     return (
         <div className="w-full " dir={isLeftAlign ? "ltr" : "rtl"}>
             {/* Intro Section */}
             <section className="mt-10 mb-10">
-                <div className={`container mx-auto ${isPhone?"px-2" :"px-16"}`}>
+                <div className={`container mx-auto ${isPhone ? "px-2" : "px-16"}`}>
                     <div className={`${isPhone ? "flex flex-col gap-[40px]" : "grid grid-cols-2 gap-[52px] mb-16 items-center"}`}>
                         <div>
                             <div className="relative">
@@ -74,22 +61,22 @@ const ProjectDetailPage = ({ contentOn, language, projectId, screen }) => {
                                         height={20}
                                         className={`${language === "en" ? 'scale-x-[-1]' : ''}`}
                                     />
-                                    {introSection?.backButton[language] || "Button"}
+                                    {introSection?.button?.[0]?.text?.[language] || "Button"}
                                 </Link>
-                                <h1 className={`text-[#062233] font-bold text-xl mt-7 mb-6 ${isPhone&& "px-4"}`}>
-                                    {introSection?.title[language] || "Heading/title"}
+                                <h1 className={`text-[#062233] font-bold text-xl mt-7 mb-6 ${isPhone && "px-4"}`}>
+                                    {introSection?.title?.[language] || "Heading/title"}
                                 </h1>
-                                <p className={`text-gray-700 font-bold text-lg mb-2 ${isPhone&& "px-4"}`}>
-                                    {introSection?.subtitle[language] || "Description"}
+                                <p className={`text-gray-700 font-bold text-lg mb-2 ${isPhone && "px-4"}`}>
+                                    {introSection?.subtitle?.[language] || "Description"}
                                 </p>
-                                <a href={introSection?.url || ""} className={`text-[#00b9f2] underline font-medium text-md ${isPhone&& "px-4"}`}>
-                                    {introSection?.url || "URL"}
+                                <a href={introSection?.link?.url || ""} className={`text-[#00b9f2] underline font-medium text-md ${isPhone && "px-4"}`}>
+                                    {introSection?.link?.text || "URL"}
                                 </a>
                             </div>
                         </div>
                         <div>
                             <img
-                                src={ImageFromRedux?.[`ProjectBanner/${projectId}`] ? ImageFromRedux?.[`ProjectBanner/${projectId}`] : "https://loopwebsite.s3.ap-south-1.amazonaws.com/Project+hero.jpg"}
+                                src={Img_url + introSection?.images?.[0]?.url}
                                 alt="Project Hero"
                                 className="w-full h-[250px]"
                             />
@@ -97,20 +84,20 @@ const ProjectDetailPage = ({ contentOn, language, projectId, screen }) => {
                     </div>
 
                     {/* Project Info List */}
-                    <div className={`flex ${isPhone && "flex-col"} items-stretch justify-between gap-4 mt-10 ${isPhone&& "px-12"}`}>
-                        {introSection?.projectInforCard?.map((card, index) => {
+                    <div className={`flex ${isPhone && "flex-col"} items-stretch justify-between gap-4 mt-10 ${isPhone && "px-12"}`}>
+                        {projectInforCard?.map((card, index) => {
 
                             return (
                                 <div key={index} className="p-3 flex flex-col bg-blue-100 rounded-md flex-1">
-                                    <img src={ImageFromRedux?.[`ProjectIcon/${index}/${projectId}`] ? ImageFromRedux?.[`ProjectIcon/${index}/${projectId}`] : card?.icon} alt="" width={28} height={28} className="w-7 h-7" />
+                                    <img src={card?.icon} alt="" width={28} height={28} className="w-7 h-7" />
                                     <h5 className={`text-[#292E3D] font-bold text-lg mt-4`}>
-                                        {card?.key[language] || "title"}
+                                        {card?.key?.[language] || "title"}
                                     </h5>
                                     <p
-                                        title={card?.value[language]}
+                                        title={card?.value?.[language]}
                                         className={`text-gray-700 font-light text-xs leading-2`}
                                     >
-                                        {TruncateText(card?.value[language], 25) || "description"}
+                                        {TruncateText(card?.value?.[language], 25) || "description"}
                                     </p>
                                 </div>
                             )
@@ -133,14 +120,14 @@ const ProjectDetailPage = ({ contentOn, language, projectId, screen }) => {
                                     <span className="relative w-[10px] h-[20px]">
                                         <span className="absolute top-[1px] w-[4px] h-[20px] bg-red-500 rotate-[15deg]"></span>
                                     </span>
-                                    <h1 className={`text-[18px] font-bold leading-[20px] pr-[20px] ${isPhone&&"mb-3"}`}>
-                                        {item?.title[language] || "Description title"}
+                                    <h1 className={`text-[18px] font-bold leading-[20px] pr-[20px] ${isPhone && "mb-3"}`}>
+                                        {item?.title?.[language] || "Description title"}
                                     </h1>
                                 </div>
                                 <div>
                                     <div className="font-[200] text-sm"
                                         // className={`text-[#707684] font-[200] ${isPhone ? "leading-[20px] text-sm" : "leading-[20px]"} tracking-[-1.2px] mb-[32px] `}
-                                        dangerouslySetInnerHTML={{ __html: item?.description[language] || "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vel tempore a odit voluptatibus hic accusamus expedita libero sunt, quasi minus." }}
+                                        dangerouslySetInnerHTML={{ __html: item?.description?.[language] || "Lorem ipsum dolor sit amet consectetur, adipisicing elit. Vel tempore a odit voluptatibus hic accusamus expedita libero sunt, quasi minus." }}
                                     />
                                 </div>
                             </div>
@@ -193,7 +180,7 @@ const ProjectDetailPage = ({ contentOn, language, projectId, screen }) => {
                         500: { slidesPerView: 2 },
                     }}
                 >
-                    {(gallerySection?.images?.length ? gallerySection.images : []).map((image, index) => (
+                    {(gallerySection?.images || []).map((image, index) => (
                         <SwiperSlide key={`slide-${index}`}>
                             <div className="flex justify-center">
                                 <img
@@ -205,34 +192,6 @@ const ProjectDetailPage = ({ contentOn, language, projectId, screen }) => {
                         </SwiperSlide>
                     ))}
                 </Swiper>
-
-
-                {/* <div className={`flex justify-center items-center gap-7 mt-5 ${!isLeftAlign && "flex-row-reverse"}`}>
-                    <button
-                        ref={testimonialPrevRef}
-                        className="w-[42px] h-[42px] rounded-full border border-[#00B9F2] flex justify-center items-center cursor-pointer"
-                    >
-                        <img
-                            src="https://frequencyimage.s3.ap-south-1.amazonaws.com/b2872383-e9d5-4dd7-ae00-8ae00cc4e87e-Vector%20%286%29.svg"
-                            width="22"
-                            height="17"
-                            alt=""
-                            className={`${isLeftAlign && 'scale-x-[-1]'}`}
-                        />
-                    </button>
-                    <button
-                        ref={testimonialNextRef}
-                        className="w-[42px] h-[42px] rounded-full border border-[#00B9F2] flex justify-center items-center cursor-pointer"
-                    >
-                        <img
-                            src="https://frequencyimage.s3.ap-south-1.amazonaws.com/de8581fe-4796-404c-a956-8e951ccb355a-Vector%20%287%29.svg"
-                            width="22"
-                            height="17"
-                            alt=""
-                            className={`${isLeftAlign && 'scale-x-[-1]'}`}
-                        />
-                    </button>
-                </div> */}
             </div>
 
 
@@ -279,37 +238,3 @@ const ProjectDetailPage = ({ contentOn, language, projectId, screen }) => {
 };
 
 export default ProjectDetailPage;
-
-{/* <section className="pb-[50px] ">
-                <div className="container">
-                    <div className={`flex justify-between items-center  relative ${isPhone ? "px-1 gap-4" : "px-20 gap-16"}`}>
-                        {gallerySection?.images?.map((image, index) => {
-                            const spanBordersSize = isPhone ? "w-12 h-12" : "w-20 h-20"
-
-                            return (
-                                <div key={index} className={` ${index === 1 ? 'absolute left-1/2 -translate-x-1/2 custom-position z-20 shadow-lg border border-lime-500' : 'relative'}`}>
-                                    <img
-                                        src={image.url}
-                                        width={index === 1 ? isPhone ? 200 : 302 : 488}
-                                        // height={index === 1 ? 132 : 296}
-                                        alt={image.alt[language]}
-                                        className={`${index === 1 ? "aspect-[16/9]" : "aspect-[13/12]"}`}
-                                    />
-                                    {index === 0 && (
-                                        <>
-                                            <span className={`absolute  ${isPhone ? "-right-1 -top-1" : "-right-4 -top-6"} ${spanBordersSize} border-t border-r border-blue-400`} />
-                                            <span className={`absolute  ${isPhone ? "-right-1 -bottom-1" : "-right-4 -bottom-6"} ${spanBordersSize} border-b border-r border-blue-400`} />
-                                        </>
-                                    )}
-                                    {index === gallerySection?.images?.length - 1 && (
-                                        <>
-                                            <span className={`absolute  ${isPhone ? "-left-1 -top-1" : "-left-4 -top-6"} ${spanBordersSize} border-t border-l border-blue-400`} />
-                                            <span className={`absolute  ${isPhone ? "-left-1 -bottom-1" : "-left-4 -bottom-6"} ${spanBordersSize} border-b border-l border-blue-400`} />
-                                        </>
-                                    )}
-                                </div>
-                            )
-                        })}
-                    </div>
-                </div>
-            </section> */}

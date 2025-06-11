@@ -55,7 +55,7 @@ const AllForOne = ({
         };
     }, []);
 
-    const baseProps = { width, language, screen, highlight: showDifference, liveContent: live };
+    const baseProps = { width, language, screen, highlight: showDifference, liveContent: live, fullScreen };
 
     const renderPage = () => {
         switch (currentPath) {
@@ -77,7 +77,7 @@ const AllForOne = ({
             case "projects":
             case "project":
                 return subPath
-                    ? <ProjectDetailPage {...baseProps} projectId={subPath} contentOn={content?.projectDetail} />
+                    ? <ProjectDetailPage {...baseProps} projectId={subPath} content={content} />
                     : <ProjectPage {...baseProps} currentContent={content} />;
             case "careers":
                 return subPath
