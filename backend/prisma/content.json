@@ -999,9 +999,7 @@
           }
         ]
       },
-      "childService": [
-        "architectural-finishes"
-      ]
+      "childService": ["architectural-finishes"]
     },
     {
       "resourceTitle": {
@@ -1059,9 +1057,7 @@
           }
         ]
       },
-      "childService": [
-        "facility-services"
-      ]
+      "childService": ["facility-services"]
     },
     {
       "resourceTitle": {
@@ -1119,9 +1115,7 @@
           }
         ]
       },
-      "childService": [
-        "infrastructure-maintenance"
-      ]
+      "childService": ["infrastructure-maintenance"]
     },
     {
       "resourceTitle": {
@@ -1179,9 +1173,7 @@
           }
         ]
       },
-      "childService": [
-        "structural-fabrication"
-      ]
+      "childService": ["structural-fabrication"]
     },
     {
       "resourceTitle": {
@@ -1239,9 +1231,7 @@
           }
         ]
       },
-      "childService": [
-        "cranes-heavy-lifting-equipment"
-      ]
+      "childService": ["cranes-heavy-lifting-equipment"]
     }
   ],
   "thirdLevelOfServices": [
@@ -4376,7 +4366,7 @@
     }
   },
   "visionMission": {
-    "slug": "vision-mission",
+    "slug": "vision",
     "heroSection": {
       "title": {
         "en": "Vision / Mission",

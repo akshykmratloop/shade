@@ -1,4 +1,4 @@
-.home_banner_wrap {
+.vision_mission_banner_wrap {
   height: 715px;
   //   background: url("../../assets/images/Hero.png") no-repeat center / cover;
   width: 100%;
@@ -91,6 +91,80 @@
         top: 50%;
         transform: translateY(-50%);
         left: 32px;
+      }
+    }
+  }
+}
+
+.vision_mission_wrap {
+  padding: 112px 0;
+
+  .vision_mission_section_head {
+    display: flex;
+    // gap: 90px;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 72px;
+
+    .vision_mission_section_head_title {
+      font-weight: 700;
+      font-size: 60px;
+      line-height: normal;
+      color: #292e3d;
+    }
+    .vision_mission_section_head_description {
+      width: 700px;
+      font-weight: 700;
+      font-size: 16px;
+      line-height: normal;
+      color: #0e172fb2;
+    }
+  }
+
+  .vision_mission_core_card_wrap {
+    display: flex;
+    // flex-wrap: wrap;
+    .vision_mission_core_card {
+      width: 100%;
+      max-width: 400px;
+      margin-right: 30px;
+      margin-bottom: 30px;
+      position: relative;
+      padding: 20px;
+      // border-right: 1px solid #0e172fb2;
+      border-bottom: 1px solid #0e172fb2;
+
+      .side_border {
+        position: absolute;
+        top: 0;
+        right: 0;
+        height: 90%;
+        width: 0.5px;
+        background-color: rgba(14, 23, 47, 0.7);
+      }
+
+      .card_image {
+        width: 32px;
+        height: 32px;
+        margin-bottom: 10px;
+      }
+
+      .card_title {
+        // font-family: BankGothic Md BT;
+        font-weight: 400;
+        font-size: 32px;
+        line-height: 100%;
+        letter-spacing: 0%;
+        color: #292e3d;
+        margin-bottom: 10px;
+      }
+
+      .card_description {
+        font-weight: 700;
+        font-size: 16px;
+        line-height: normal;
+        color: #0e172fb2;
+        margin-bottom: 10px;
       }
     }
   }

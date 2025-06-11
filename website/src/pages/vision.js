@@ -43,7 +43,7 @@ export default function VisionMission({apiData}) {
 
 export async function getServerSideProps() {
   try {
-    const res = await fetch(`${backendAPI}vision-mission`);
+    const res = await fetch(`${backendAPI}vision`);
 
     if (!res.ok) {
       // If response failed (e.g., 404, 500), return empty object

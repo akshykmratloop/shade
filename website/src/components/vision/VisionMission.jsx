@@ -3,6 +3,7 @@ import styles from "@/components/vision/VisionMission.module.scss";
 import {useRouter} from "next/router";
 import {useGlobalContext} from "@/contexts/GlobalContext";
 import localFont from "next/font/local";
+import {Img_url} from "@/common/CreateContent";
 
 const BankGothic = localFont({
   src: "../../../public/font/BankGothicLtBTLight.ttf",
@@ -22,7 +23,7 @@ const VisionMissionPage = ({content}) => {
 
   return (
     <>
-      <section className={`${styles.home_banner_wrap} `}>
+      <section className={`${styles.vision_mission_banner_wrap} `}>
         <span
           className={`${language === "en" && styles.leftAlign} ${
             styles.backgroundContainer
@@ -52,7 +53,47 @@ const VisionMissionPage = ({content}) => {
         </div>
       </section>
 
-      <section></section>
+      <section className={`${styles.vision_mission_wrap} ${styles[language]}`}>
+        <div className="container">
+          <div className={styles.vision_mission_section_head}>
+            <h1 className={styles.vision_mission_section_head_title}>
+              {currentContent?.["2"]?.content?.title?.[language]}
+            </h1>
+            <div
+              className={styles.vision_mission_section_head_description}
+              dangerouslySetInnerHTML={{
+                __html: currentContent?.["2"]?.content?.description?.[language],
+              }}
+            />
+          </div>
+          <div className={styles.vision_mission_core_card_wrap}>
+            {currentContent?.["2"]?.content?.cards.map((card, index) => (
+              <div
+                key={index}
+                className={`${styles.vision_mission_core_card} ${styles[language]}`}
+              >
+                <div className={styles.side_border}></div>
+                <img
+                  src={
+                    card.image?.url
+                      ? Img_url + card.image.url
+                      : "/images/placeholder.png"
+                  }
+                  alt={card.title[language]}
+                  className={styles.card_image}
+                />
+                <h2 className={styles.card_title}>{card.title[language]}</h2>
+                <div
+                  className={styles.card_description}
+                  dangerouslySetInnerHTML={{
+                    __html: card.description[language],
+                  }}
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
     </>
   );
 };
