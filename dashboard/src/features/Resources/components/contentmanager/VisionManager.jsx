@@ -71,7 +71,7 @@ const VisionManager = ({ content, currentPath, language, indexes }) => {
                         ]) || []
                     ).flat()
                 ]}
-                section={"procedures"}
+                section={"content/procedures"}
                 language={language}
                 currentContent={content}
                 sectionIndex={indexes?.['3']}

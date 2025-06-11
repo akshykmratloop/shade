@@ -4307,7 +4307,6 @@
       }
     }
   ],
-
   "history": {
     "slug": "history",
     "heroSection": {
@@ -4472,73 +4471,75 @@
         }
       ]
     },
-    "visionSection": [
-      {
-        "order": 1,
-        "title": {
-          "en": "Our vision",
-          "ar": "رؤيتنا"
+    "visionSection": {
+      "cards": [
+        {
+          "order": 1,
+          "title": {
+            "en": "Our vision",
+            "ar": "رؤيتنا"
+          },
+          "description": {
+            "en": "We strive to be a leader in the EPC (Engineering, Procurement, Construction) industry with a steadfast commitment to “Building a Stronger Future.”",
+            "ar": "نحن نسعى جاهدين لنكون رائدين في صناعة EPC (الهندسة والمشتريات والبناء) مع التزام ثابت بـ بناء مستقبل أقوى."
+          }
         },
-        "description": {
-          "en": "We strive to be a leader in the EPC (Engineering, Procurement, Construction) industry with a steadfast commitment to “Building a Stronger Future.”",
-          "ar": "نحن نسعى جاهدين لنكون رائدين في صناعة EPC (الهندسة والمشتريات والبناء) مع التزام ثابت بـ بناء مستقبل أقوى."
-        }
-      },
-      {
-        "order": 2,
-        "title": {
-          "en": "Our mission",
-          "ar": "مهمتنا"
+        {
+          "order": 2,
+          "title": {
+            "en": "Our mission",
+            "ar": "مهمتنا"
+          },
+          "description": {
+            "en": "We deliver projects on time and with excellence by leveraging advanced construction methods, cutting-edge technology, and seamless collaboration across diverse teams—upholding integrity, professionalism, safety, and quality at every step.",
+            "ar": "نحن نسلم المشاريع في الوقت المحدد وبتميز من خلال الاستفادة من أساليب البناء المتقدمة والتكنولوجيا المتطورة والتعاون السلس بين الفرق المتنوعة - مع الحفاظ على النزاهة والاحتراف والسلامة والجودة في كل خطوة."
+          }
         },
-        "description": {
-          "en": "We deliver projects on time and with excellence by leveraging advanced construction methods, cutting-edge technology, and seamless collaboration across diverse teams—upholding integrity, professionalism, safety, and quality at every step.",
-          "ar": "نحن نسلم المشاريع في الوقت المحدد وبتميز من خلال الاستفادة من أساليب البناء المتقدمة والتكنولوجيا المتطورة والتعاون السلس بين الفرق المتنوعة - مع الحفاظ على النزاهة والاحتراف والسلامة والجودة في كل خطوة."
-        }
-      },
-      {
-        "order": 3,
-        "title": {
-          "en": "Our culture",
-          "ar": "ثقافتنا"
+        {
+          "order": 3,
+          "title": {
+            "en": "Our culture",
+            "ar": "ثقافتنا"
+          },
+          "description": {
+            "en": "At Shade Corporation, we operate as one unified team—internally and with our clients—driven by shared energy, purpose, and the pursuit of extraordinary outcomes.",
+            "ar": "في شركة شيد، نعمل كفريق موحد - داخليًا ومع عملائنا - مدفوعين بالطاقة المشتركة والهدف والسعي لتحقيق نتائج استثنائية."
+          }
         },
-        "description": {
-          "en": "At Shade Corporation, we operate as one unified team—internally and with our clients—driven by shared energy, purpose, and the pursuit of extraordinary outcomes.",
-          "ar": "في شركة شيد، نعمل كفريق موحد - داخليًا ومع عملائنا - مدفوعين بالطاقة المشتركة والهدف والسعي لتحقيق نتائج استثنائية."
-        }
-      },
-      {
-        "order": 4,
-        "title": {
-          "en": "Safe Integrity",
-          "ar": "سلامة النزاهة"
+        {
+          "order": 4,
+          "title": {
+            "en": "Safe Integrity",
+            "ar": "سلامة النزاهة"
+          },
+          "description": {
+            "en": "We prioritize safety, health, and security in everything we do. With unwavering integrity, we build trust through honest actions and take full responsibility for our commitments.",
+            "ar": "نحن نعطي الأولوية للسلامة والصحة والأمن في كل ما نقوم به. من خلال النزاهة الثابتة، نبني الثقة من خلال الأفعال الصادقة ونتحمل المسؤولية الكاملة عن التزاماتنا."
+          }
         },
-        "description": {
-          "en": "We prioritize safety, health, and security in everything we do. With unwavering integrity, we build trust through honest actions and take full responsibility for our commitments.",
-          "ar": "نحن نعطي الأولوية للسلامة والصحة والأمن في كل ما نقوم به. من خلال النزاهة الثابتة، نبني الثقة من خلال الأفعال الصادقة ونتحمل المسؤولية الكاملة عن التزاماتنا."
-        }
-      },
-      {
-        "order": 5,
-        "title": {
-          "en": "Community Impact",
-          "ar": "أثر المجتمع"
+        {
+          "order": 5,
+          "title": {
+            "en": "Community Impact",
+            "ar": "أثر المجتمع"
+          },
+          "description": {
+            "en": "We believe in giving back. Through partnerships and active involvement, we support and uplift the communities where we live and work, respecting human rights and driving meaningful change.",
+            "ar": "نحن نؤمن بالعطاء. من خلال الشراكات والمشاركة النشطة، ندعم ونرفع المجتمعات التي نعيش ونعمل فيها، مع احترام حقوق الإنسان ودفع التغيير ذي المعنى."
+          }
         },
-        "description": {
-          "en": "We believe in giving back. Through partnerships and active involvement, we support and uplift the communities where we live and work, respecting human rights and driving meaningful change.",
-          "ar": "نحن نؤمن بالعطاء. من خلال الشراكات والمشاركة النشطة، ندعم ونرفع المجتمعات التي نعيش ونعمل فيها، مع احترام حقوق الإنسان ودفع التغيير ذي المعنى."
+        {
+          "order": 6,
+          "title": {
+            "en": "Quality Commitment",
+            "ar": "الالتزام بالجودة"
+          },
+          "description": {
+            "en": "We are committed to excellence, agility, and high performance. By holding ourselves to the highest standards of quality and accountability, we create lasting value for our clients and our people.",
+            "ar": "نحن ملتزمون بالتميز والمرونة والأداء العالي. من خلال التزامنا بأعلى معايير الجودة والمساءلة، نخلق قيمة دائمة لعملائنا وموظفينا."
+          }
         }
-      },
-      {
-        "order": 6,
-        "title": {
-          "en": "Quality Commitment",
-          "ar": "الالتزام بالجودة"
-        },
-        "description": {
-          "en": "We are committed to excellence, agility, and high performance. By holding ourselves to the highest standards of quality and accountability, we create lasting value for our clients and our people.",
-          "ar": "نحن ملتزمون بالتميز والمرونة والأداء العالي. من خلال التزامنا بأعلى معايير الجودة والمساءلة، نخلق قيمة دائمة لعملائنا وموظفينا."
-        }
-      }
-    ]
+      ]
+    }
   }
 }
