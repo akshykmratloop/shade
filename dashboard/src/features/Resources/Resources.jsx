@@ -239,7 +239,8 @@ function Resources() {
         // setIdOnStorage(page.id);
         const { relationType, resourceTag, subPage, subOfSubPage, slug } = page;
         if (relationType === "CHILD") {
-          settingRoute(resourceTag?.toLowerCase(), page.id);
+          let firstRoute = resourceTag?.toLowerCase() === "news" ? "news-blogs" : resourceTag?.toLowerCase()
+          settingRoute(firstRoute, page.id);
         } else if (relationType !== "PARENT") {
           settingRoute(resourceTag?.toLowerCase(), subPage, subOfSubPage);
         } else {
@@ -249,8 +250,6 @@ function Resources() {
         dispatch(setPlatform("RESOURCE"))
       }
     ];
-    console.log(i, actions)
-    console.log(actions[i])
     return actions[i]();
   })
 

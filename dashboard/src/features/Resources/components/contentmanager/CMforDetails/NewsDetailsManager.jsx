@@ -7,9 +7,7 @@ import MultiSelect from "../../breakUI/MultiSelect"
 
 const NewsDetailManager = ({ newsId, currentContent, currentPath, language }) => {
     const dispatch = useDispatch();
-    const newsIndex = currentContent?.findIndex(e => {
-        return e.id == newsId
-    })
+    const newsIndex = 0
 
     const addExtraSummary = () => {
         dispatch(updateTheProjectSummaryList(

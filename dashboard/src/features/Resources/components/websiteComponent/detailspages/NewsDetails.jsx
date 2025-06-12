@@ -18,14 +18,6 @@ const NewsBlogDetailPage = ({ language, newsId, screen }) => {
 
     const { banner, newsPoints } = currentContent ?? {};
 
-    useEffect(() => {
-        if (!currentContent?.[newsId]) {
-            dispatch(updateMainContent({ currentPath: "newsBlogsDetails", payload: [...content.newsBlogsDetails, { ...structureOfNewsDetails, id: content.newsBlogsDetails.length + 1 }] }))
-        } else {
-            dispatch(updateMainContent({ currentPath: "newsBlogsDetails", payload: content.newsBlogsDetails }))
-        }
-    }, [])
-
     return (
         <div className={`${isPhone ? "px-1" : `px-10`}`}>
             <section

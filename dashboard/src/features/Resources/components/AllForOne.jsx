@@ -60,7 +60,7 @@ const AllForOne = ({
     const renderPage = () => {
         switch (currentPath) {
             case "home":
-                return <HomePage {...baseProps} content={content} fullScreen={fullScreen} />;
+                return <HomePage {...baseProps} content={content} />;
             case "solution":
                 return <SolutionPage {...baseProps} currentContent={content} />;
             case "about-us":
@@ -85,8 +85,11 @@ const AllForOne = ({
                     : <CareerPage {...baseProps} currentContent={content} />;
             case "news-blogs":
                 return subPath
-                    ? <NewsBlogDetailPage {...baseProps} newsId={subPath} contentOn={content?.newsBlogsDetails} />
+                    ? <NewsBlogDetailPage {...baseProps} newsId={subPath} contentOn={content} />
                     : <NewsPage {...baseProps} content={content} />;
+            case "news":
+                return <NewsBlogDetailPage {...baseProps} newsId={subPath} contentOn={content} />;
+                
             case "footer":
                 return <Footer {...baseProps} currentContent={content} />;
             case "header":
