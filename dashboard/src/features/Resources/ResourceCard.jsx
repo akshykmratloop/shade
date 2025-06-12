@@ -55,7 +55,7 @@ export const ResourceCard = ({ resource = {}, ActionIcons }) => {
                 </div>
             </div>
             {/* Content */}
-            <div className="p-4 ">
+            <div className="p-4 flex flex-col border  justify-between">
                 <div className="flex items-start justify-between mb-3">
                     <div>
                         <h3 className="font-semibold text-gray-900 mb-1">{resource.titleEn}</h3>
@@ -103,7 +103,7 @@ export const ResourceCard = ({ resource = {}, ActionIcons }) => {
                 <div className="flex space-x-2">
                     <button
                         onClick={() => ActionIcons(resource, 1)}
-                        className="flex-1 flex items-center justify-center rounded-xl bg-[#0f172a] text-[#d9d7d9]" size="sm">
+                        className="flex-1 flex items-center justify-center rounded-xl bg-[#29469c] text-[#fff]" size="sm">
                         <Edit3 className="w-4 h-4 mr-2" />
                         Edit
                     </button>

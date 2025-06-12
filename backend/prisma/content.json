@@ -2055,81 +2055,71 @@
           "ar": "تعليم، ضيافة، سكني متعدد الاستخدامات، سكني، تجزئة، رعاية صحية، مكاتب، حكومي، مطارات، مواقف سيارات",
           "en": "Education, Hospitality, Multi-Use Residential, Residential, Retail, Health Care, Offices, Government, Airports, Parking"
         },
-        "marketSubItems": {
-          "title": {
-            "ar": "تفاصيل القطاعات",
-            "en": "Market Segments We Serve"
-          },
-          "description": {
-            "ar": "نقدم خدمات مخصصة لتلبية احتياجات السوق المختلفة ضمن قطاع المباني.",
-            "en": "We offer tailored services to meet the specific demands of various segments within the buildings market."
-          },
-          "points": [
-            {
-              "order": 1,
-              "title": {
-                "ar": "التعليم",
-                "en": "Education"
-              },
-              "description": {
-                "ar": "نقوم ببناء وتجهيز المدارس والجامعات بمعايير عالمية لتوفير بيئة تعليمية فعالة.",
-                "en": "We construct and equip schools and universities to global standards for effective learning environments."
-              },
-              "images": [
-                {
-                  "order": 1,
-                  "url": "",
-                  "altText": {
-                    "en": " Image",
-                    "ar": "الرئيسية"
-                  }
-                }
-              ]
+        "points": [
+          {
+            "order": 1,
+            "title": {
+              "ar": "التعليم",
+              "en": "Education"
             },
-            {
-              "order": 2,
-              "title": {
-                "ar": "الضيافة",
-                "en": "Hospitality"
-              },
-              "description": {
-                "ar": "إنشاء الفنادق والمنتجعات بتصاميم راقية وخدمات متكاملة لتجربة ضيافة متميزة.",
-                "en": "We develop hotels and resorts with elegant design and integrated services for an outstanding guest experience."
-              },
-              "images": [
-                {
-                  "order": 1,
-                  "url": "",
-                  "altText": {
-                    "en": " Image",
-                    "ar": "الرئيسية"
-                  }
-                }
-              ]
+            "description": {
+              "ar": "نقوم ببناء وتجهيز المدارس والجامعات بمعايير عالمية لتوفير بيئة تعليمية فعالة.",
+              "en": "We construct and equip schools and universities to global standards for effective learning environments."
             },
-            {
-              "order": 3,
-              "title": {
-                "ar": "السكني",
-                "en": "Residential"
-              },
-              "description": {
-                "ar": "بناء مشاريع سكنية متنوعة من الفلل إلى المجمعات متعددة الاستخدامات.",
-                "en": "Development of a wide range of residential projects from villas to multi-use complexes."
-              },
-              "images": [
-                {
-                  "order": 1,
-                  "url": "",
-                  "altText": {
-                    "en": " Image",
-                    "ar": "الرئيسية"
-                  }
+            "images": [
+              {
+                "order": 1,
+                "url": "",
+                "altText": {
+                  "en": " Image",
+                  "ar": "الرئيسية"
                 }
-              ]
-            }
-          ]
-        }
+              }
+            ]
+          },
+          {
+            "order": 2,
+            "title": {
+              "ar": "الضيافة",
+              "en": "Hospitality"
+            },
+            "description": {
+              "ar": "إنشاء الفنادق والمنتجعات بتصاميم راقية وخدمات متكاملة لتجربة ضيافة متميزة.",
+              "en": "We develop hotels and resorts with elegant design and integrated services for an outstanding guest experience."
+            },
+            "images": [
+              {
+                "order": 1,
+                "url": "",
+                "altText": {
+                  "en": " Image",
+                  "ar": "الرئيسية"
+                }
+              }
+            ]
+          },
+          {
+            "order": 3,
+            "title": {
+              "ar": "السكني",
+              "en": "Residential"
+            },
+            "description": {
+              "ar": "بناء مشاريع سكنية متنوعة من الفلل إلى المجمعات متعددة الاستخدامات.",
+              "en": "Development of a wide range of residential projects from villas to multi-use complexes."
+            },
+            "images": [
+              {
+                "order": 1,
+                "url": "",
+                "altText": {
+                  "en": " Image",
+                  "ar": "الرئيسية"
+                }
+              }
+            ]
+          }
+        ]
       },
       "projectsGridSection": {
         "button": [
@@ -2180,60 +2170,50 @@
           "ar": "مصانع، مستودعات، منشآت بتروكيماوية، الطاقة، التجميع الصناعي، مراكز توزيع، مراكز البيانات",
           "en": "Factories, Warehouses, Petrochemical Facilities, Energy, Industrial Assembly, Distribution Centers, Data Centers"
         },
-        "marketSubItems": {
-          "title": {
-            "ar": "تفاصيل القطاعات",
-            "en": "Market Segments We Serve"
-          },
-          "description": {
-            "ar": "ننفذ مشاريع صناعية معقدة تتطلب دقة هندسية وتقنية عالية.",
-            "en": "We execute complex industrial projects requiring high engineering precision and technology."
-          },
-          "points": [
-            {
-              "order": 1,
-              "title": {
-                "ar": "مصانع التصنيع",
-                "en": "Manufacturing Plants"
-              },
-              "description": {
-                "ar": "تطوير منشآت صناعية لإنتاج مواد متنوعة.",
-                "en": "Developing industrial plants for diverse material production."
-              },
-              "images": [
-                {
-                  "order": 1,
-                  "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                  "altText": {
-                    "en": "Manufacturing Plant Image",
-                    "ar": "صورة مصنع التصنيع"
-                  }
-                }
-              ]
+        "points": [
+          {
+            "order": 1,
+            "title": {
+              "ar": "مصانع التصنيع",
+              "en": "Manufacturing Plants"
             },
-            {
-              "order": 2,
-              "title": {
-                "ar": "مرافق الطاقة",
-                "en": "Energy Facilities"
-              },
-              "description": {
-                "ar": "بناء وتشغيل محطات توليد الطاقة وأنظمة التوزيع.",
-                "en": "Building and operating power generation and distribution facilities."
-              },
-              "images": [
-                {
-                  "order": 1,
-                  "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                  "altText": {
-                    "en": "Energy Facility Image",
-                    "ar": "صورة مرفق الطاقة"
-                  }
+            "description": {
+              "ar": "تطوير منشآت صناعية لإنتاج مواد متنوعة.",
+              "en": "Developing industrial plants for diverse material production."
+            },
+            "images": [
+              {
+                "order": 1,
+                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
+                "altText": {
+                  "en": "Manufacturing Plant Image",
+                  "ar": "صورة مصنع التصنيع"
                 }
-              ]
-            }
-          ]
-        }
+              }
+            ]
+          },
+          {
+            "order": 2,
+            "title": {
+              "ar": "مرافق الطاقة",
+              "en": "Energy Facilities"
+            },
+            "description": {
+              "ar": "بناء وتشغيل محطات توليد الطاقة وأنظمة التوزيع.",
+              "en": "Building and operating power generation and distribution facilities."
+            },
+            "images": [
+              {
+                "order": 1,
+                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
+                "altText": {
+                  "en": "Energy Facility Image",
+                  "ar": "صورة مرفق الطاقة"
+                }
+              }
+            ]
+          }
+        ]
       },
       "projectsGridSection": {
         "button": [
@@ -2284,60 +2264,50 @@
           "ar": "طرق، جسور، أنظمة صرف صحي، خطوط كهرباء، أنفاق، شبكات اتصالات، محطات معالجة المياه",
           "en": "Roads, Bridges, Sewer Systems, Power Lines, Tunnels, Telecom Networks, Water Treatment Plants"
         },
-        "marketSubItems": {
-          "title": {
-            "ar": "تفاصيل القطاعات",
-            "en": "Market Segments We Serve"
-          },
-          "description": {
-            "ar": "حلول شاملة للبنية التحتية الحيوية التي تدعم التنمية الحضرية.",
-            "en": "Comprehensive infrastructure solutions supporting urban development."
-          },
-          "points": [
-            {
-              "order": 1,
-              "title": {
-                "ar": "الطرق السريعة",
-                "en": "Highways"
-              },
-              "description": {
-                "ar": "بناء وتوسيع شبكات الطرق والممرات السريعة.",
-                "en": "Construction and expansion of highway and road networks."
-              },
-              "images": [
-                {
-                  "order": 1,
-                  "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                  "altText": {
-                    "en": "Highway Image",
-                    "ar": "صورة الطريق السريع"
-                  }
-                }
-              ]
+        "points": [
+          {
+            "order": 1,
+            "title": {
+              "ar": "الطرق السريعة",
+              "en": "Highways"
             },
-            {
-              "order": 2,
-              "title": {
-                "ar": "محطات المياه",
-                "en": "Water Plants"
-              },
-              "description": {
-                "ar": "تصميم وبناء محطات المعالجة لضمان استدامة المياه.",
-                "en": "Design and construction of treatment plants for water sustainability."
-              },
-              "images": [
-                {
-                  "order": 1,
-                  "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                  "altText": {
-                    "en": "Water Plant Image",
-                    "ar": "صورة محطة المياه"
-                  }
+            "description": {
+              "ar": "بناء وتوسيع شبكات الطرق والممرات السريعة.",
+              "en": "Construction and expansion of highway and road networks."
+            },
+            "images": [
+              {
+                "order": 1,
+                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
+                "altText": {
+                  "en": "Highway Image",
+                  "ar": "صورة الطريق السريع"
                 }
-              ]
-            }
-          ]
-        }
+              }
+            ]
+          },
+          {
+            "order": 2,
+            "title": {
+              "ar": "محطات المياه",
+              "en": "Water Plants"
+            },
+            "description": {
+              "ar": "تصميم وبناء محطات المعالجة لضمان استدامة المياه.",
+              "en": "Design and construction of treatment plants for water sustainability."
+            },
+            "images": [
+              {
+                "order": 1,
+                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
+                "altText": {
+                  "en": "Water Plant Image",
+                  "ar": "صورة محطة المياه"
+                }
+              }
+            ]
+          }
+        ]
       },
       "projectsGridSection": {
         "button": [
@@ -2388,60 +2358,50 @@
           "ar": "ترميم المباني، تحديث أنظمة الطاقة، تقوية الهياكل، تحسين المرافق، حلول كفاءة الطاقة، مقاومة الزلازل",
           "en": "Building Renovation, Energy System Upgrades, Structural Strengthening, Facility Improvements, Energy Efficiency Solutions, Seismic Retrofits"
         },
-        "marketSubItems": {
-          "title": {
-            "ar": "تفاصيل القطاعات",
-            "en": "Market Segments We Serve"
-          },
-          "description": {
-            "ar": "خدمات مستدامة لإعادة تأهيل وتجديد الهياكل الحالية.",
-            "en": "Sustainable services for the rehabilitation and renewal of existing structures."
-          },
-          "points": [
-            {
-              "order": 1,
-              "title": {
-                "ar": "ترميم المباني",
-                "en": "Building Restoration"
-              },
-              "description": {
-                "ar": "إصلاح وترميم الهياكل القديمة وإعادتها إلى حالتها الأصلية.",
-                "en": "Repairing and restoring aged structures to their original condition."
-              },
-              "images": [
-                {
-                  "order": 1,
-                  "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                  "altText": {
-                    "en": "Building Restoration Image",
-                    "ar": "صورة ترميم المباني"
-                  }
-                }
-              ]
+        "points": [
+          {
+            "order": 1,
+            "title": {
+              "ar": "ترميم المباني",
+              "en": "Building Restoration"
             },
-            {
-              "order": 2,
-              "title": {
-                "ar": "التحديث الإنشائي",
-                "en": "Structural Upgrades"
-              },
-              "description": {
-                "ar": "تعزيز الهياكل لمواكبة المعايير الحديثة وزيادة المتانة.",
-                "en": "Enhancing structures to meet modern standards and increase durability."
-              },
-              "images": [
-                {
-                  "order": 1,
-                  "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                  "altText": {
-                    "en": "Structural Upgrades Image",
-                    "ar": "صورة التحديث الإنشائي"
-                  }
+            "description": {
+              "ar": "إصلاح وترميم الهياكل القديمة وإعادتها إلى حالتها الأصلية.",
+              "en": "Repairing and restoring aged structures to their original condition."
+            },
+            "images": [
+              {
+                "order": 1,
+                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
+                "altText": {
+                  "en": "Building Restoration Image",
+                  "ar": "صورة ترميم المباني"
                 }
-              ]
-            }
-          ]
-        }
+              }
+            ]
+          },
+          {
+            "order": 2,
+            "title": {
+              "ar": "التحديث الإنشائي",
+              "en": "Structural Upgrades"
+            },
+            "description": {
+              "ar": "تعزيز الهياكل لمواكبة المعايير الحديثة وزيادة المتانة.",
+              "en": "Enhancing structures to meet modern standards and increase durability."
+            },
+            "images": [
+              {
+                "order": 1,
+                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
+                "altText": {
+                  "en": "Structural Upgrades Image",
+                  "ar": "صورة التحديث الإنشائي"
+                }
+              }
+            ]
+          }
+        ]
       },
       "projectsGridSection": {
         "button": [
@@ -2557,10 +2517,6 @@
           "ar": "العميل: أرامكو السعودية",
           "en": "Client: Saudi Aramco"
         },
-        "link": {
-          "url": "https://www.aramco.com",
-          "text": "https://www.aramco.com"
-        },
         "images": [
           {
             "order": 1,
@@ -2581,6 +2537,13 @@
             "icon": null
           }
         ]
+      },
+      "links": {
+        "text": {
+          "en": "https://www.aramco.com",
+          "ar": "https://www.aramco.com"
+        },
+        "url": "https://www.aramco.com"
       },
       "projectInfoCard": [
         {
@@ -2738,10 +2701,6 @@
           "ar": "العميل: حلول المواد غير المعدنية",
           "en": "Client: Non-Metallic Solutions"
         },
-        "link": {
-          "url": "https://www.spark.sa",
-          "text": "https://www.spark.sa"
-        },
         "button": [
           {
             "order": 1,
@@ -2762,6 +2721,13 @@
             }
           }
         ]
+      },
+      "links": {
+        "text": {
+          "en": "https://www.aramco.com",
+          "ar": "https://www.aramco.com"
+        },
+        "url": "https://www.aramco.com"
       },
       "projectInfoCard": [
         {
@@ -2897,10 +2863,6 @@
           "ar": "العميل: شركة صالح الصبيعي",
           "en": "Client: Saleh Al Subeaei Company"
         },
-        "link": {
-          "url": null,
-          "text": null
-        },
         "button": [
           {
             "order": 1,
@@ -2921,6 +2883,13 @@
             }
           }
         ]
+      },
+      "links": {
+        "text": {
+          "en": "https://www.aramco.com",
+          "ar": "https://www.aramco.com"
+        },
+        "url": "https://www.aramco.com"
       },
       "projectInfoCard": [
         {
@@ -3056,10 +3025,6 @@
           "ar": "العميل: أرامكو السعودية",
           "en": "Client: Saudi Aramco"
         },
-        "link": {
-          "url": "https://www.aramco.com/",
-          "text": "https://www.aramco.com/"
-        },
         "button": [
           {
             "order": 1,
@@ -3080,6 +3045,13 @@
             }
           }
         ]
+      },
+      "links": {
+        "text": {
+          "en": "https://www.aramco.com",
+          "ar": "https://www.aramco.com"
+        },
+        "url": "https://www.aramco.com"
       },
       "projectInfoCard": [
         {
@@ -3215,10 +3187,6 @@
           "ar": "العميل: وزارة الصحة",
           "en": "Client: Ministry of Health"
         },
-        "link": {
-          "url": null,
-          "text": null
-        },
         "button": [
           {
             "order": 1,
@@ -3239,6 +3207,13 @@
             }
           }
         ]
+      },
+      "links": {
+        "text": {
+          "en": "https://www.aramco.com",
+          "ar": "https://www.aramco.com"
+        },
+        "url": "https://www.aramco.com"
       },
       "projectInfoCard": [
         {

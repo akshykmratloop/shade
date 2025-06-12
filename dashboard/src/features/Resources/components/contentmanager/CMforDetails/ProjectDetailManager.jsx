@@ -8,7 +8,7 @@ import { useEffect } from "react"
 import content from "../../websiteComponent/content.json"
 
 
-const ProjectDetailManager = ({ projectId, currentContent, currentPath, language }) => {
+const ProjectDetailManager = ({ projectId, currentContent, currentPath, language, indexes }) => {
     const dispatch = useDispatch()
     const addExtraSummary = () => {
         dispatch(updateTheProjectSummaryList(
@@ -30,9 +30,13 @@ const ProjectDetailManager = ({ projectId, currentContent, currentPath, language
         ))
     }
 
-    useEffect(() => {
-        dispatch(updateMainContent({ currentPath: "projectDetail", payload: (content?.projectDetail) }))
-    }, [])
+
+    const { moreProjects } = currentContent ?? {};
+    const introSection = currentContent?.[1]?.content
+    const urlSection = currentContent?.[2]?.content;
+    const projectInforCard = currentContent?.[3]?.content
+    const descriptionSection = currentContent?.[4]?.content
+    const gallerySection = currentContent?.[5]?.content
 
     return (
         <div className="w-full">
@@ -43,16 +47,29 @@ const ProjectDetailManager = ({ projectId, currentContent, currentPath, language
                 currentPath={currentPath}
                 Heading={"Banner"}
                 inputs={[
-                    { input: "input", label: "Heading/title", updateType: "title" },
-                    { input: "input", label: "Description", updateType: "subtitle" },
-                    { input: "input", label: "Button Text", updateType: "backButton" },
-                    { input: "input", label: "Url", updateType: "url" },
+                    { input: "input", label: "Heading/title", updateType: "title", value: introSection?.title?.[language] },
+                    { input: "input", label: "Description", updateType: "subtitle", value: introSection?.subtitle?.[language] },
+                    { input: "input", label: "Button Text", updateType: "button", value: introSection?.button?.[0]?.text?.[language], index: 0 },
                 ]}
-                inputFiles={[{ label: "Backround Image", id: "ProjectBanner/" + (projectId) }]}
+                inputFiles={[{ label: "Cover Image", id: "ProjectBanner/" + (projectId), url: introSection?.images?.[0]?.url, order: 1 }]}
                 section={"introSection"}
                 language={language}
                 currentContent={currentContent}
                 projectId={projectId}
+                sectionIndex={indexes?.['1']}
+            />
+            <ContentSection
+                currentPath={currentPath}
+                Heading={"Url"}
+                inputs={[
+                    { input: "input", label: "Url", updateType: "url", value: urlSection?.url },
+                    { input: "input", label: "Url Text", updateType: "text", value: urlSection?.text?.[language] },
+                ]}
+                section={"urls"}
+                language={language}
+                currentContent={currentContent}
+                projectId={projectId}
+                sectionIndex={indexes?.['2']}
             />
             <div className="mt-4">
                 <h3 className={`font-semibold text-[1.25rem] mb-4`}>Cards</h3>

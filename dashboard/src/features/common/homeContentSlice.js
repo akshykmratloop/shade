@@ -62,7 +62,12 @@ const cmsSlice = createSlice({
             } else if (action.payload.subSection) {
                 state.present.content.editVersion.sections[action.payload.sectionIndex].content.introSection[action.payload.title][action.payload.lan] = action.payload.value
             } else {
-                state.present.content.editVersion.sections[action.payload.sectionIndex].content[action.payload.title][action.payload.lan] = action.payload.value
+                console.log(action.payload.title, action.payload.lan, action.payload.value)
+                if (action.payload.title === "url") {
+                    state.present.content.editVersion.sections[action.payload.sectionIndex].content[action.payload.title] = action.payload.value
+                } else {
+                    state.present.content.editVersion.sections[action.payload.sectionIndex].content[action.payload.title][action.payload.lan] = action.payload.value
+                }
             }
 
             state.future = [];

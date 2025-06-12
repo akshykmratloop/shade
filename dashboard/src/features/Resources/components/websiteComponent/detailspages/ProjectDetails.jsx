@@ -40,9 +40,10 @@ const ProjectDetailPage = ({ content, language, projectId, screen }) => {
 
     const { moreProjects } = currentContent ?? {};
     const introSection = currentContent?.[1]?.content
-    const projectInforCard = currentContent?.[2]?.content
-    const descriptionSection = currentContent?.[3]?.content
-    const gallerySection = currentContent?.[4]?.content
+    const urlSection = currentContent?.[2]?.content
+    const projectInforCard = currentContent?.[3]?.content
+    const descriptionSection = currentContent?.[4]?.content
+    const gallerySection = currentContent?.[5]?.content
 
 
     return (
@@ -69,8 +70,8 @@ const ProjectDetailPage = ({ content, language, projectId, screen }) => {
                                 <p className={`text-gray-700 font-bold text-lg mb-2 ${isPhone && "px-4"}`}>
                                     {introSection?.subtitle?.[language] || "Description"}
                                 </p>
-                                <a href={introSection?.link?.url || ""} className={`text-[#00b9f2] underline font-medium text-md ${isPhone && "px-4"}`}>
-                                    {introSection?.link?.text || "URL"}
+                                <a href={urlSection?.url || ""} className={`text-[#00b9f2] underline font-medium text-md ${isPhone && "px-4"}`}>
+                                    {urlSection?.text?.[language] || "URL"}
                                 </a>
                             </div>
                         </div>

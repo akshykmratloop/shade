@@ -527,6 +527,12 @@ async function main() {
                 sectionVersionTitle: "Project-introSection",
               },
               {
+                title: "links",
+                SectionType: "LINKS",
+                content: project.links,
+                sectionVersionTitle: "Project-links",
+              },
+              {
                 title: "projectInfoCard",
                 SectionType: "MARKDOWN_CONTENT",
                 content: project.projectInfoCard,
@@ -589,7 +595,7 @@ async function main() {
                 SectionType: "EXTERNAL_ITEMS",
                 content: marketItem.projectsGridSection,
                 sectionVersionTitle: "MarketItem-projectsGridSection",
-                items: projectsSlugs.map((slug) => ({
+                items: marketItemSlug.map((slug) => ({
                   resourceType: "SUB_PAGE",
                   slug: slug,
                 })),
@@ -771,7 +777,7 @@ async function main() {
               content: content.visionMission.visionSection,
               sectionVersionTitle: "Vision-visionSection",
             },
-            
+
           ],
         );
 
