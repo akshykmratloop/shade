@@ -103,15 +103,15 @@ const ProjectDetailManager = ({ projectId, currentContent, currentPath, language
             <div className="mt-4 border-b">
                 <h3 className={`font-semibold text-[1.25rem] mb-4`}>Project Summaries</h3>
                 {
-                    currentContent?.[projectId - 1]?.descriptionSection?.map((element, index, a) => {
+                    descriptionSection?.map((element, index, a) => {
                         const isLast = index === a.length - 1
                         return (
                             <DynamicContentSection key={index}
                                 currentPath={currentPath}
                                 subHeading={"Section " + (index + 1)}
                                 inputs={[
-                                    { input: "input", label: "Title", updateType: "title" },
-                                    { input: "richtext", label: "Description", updateType: "description" },
+                                    { input: "input", label: "Title", updateType: "title", value: element?.title?.[language] },
+                                    { input: "richtext", label: "Description", updateType: "description", value: element?.description?.[language] },
                                 ]}
                                 section={"descriptionSection"}
                                 index={index}
@@ -119,6 +119,9 @@ const ProjectDetailManager = ({ projectId, currentContent, currentPath, language
                                 currentContent={currentContent}
                                 projectId={projectId}
                                 isBorder={false}
+                                sectionIndex={indexes?.['4']}
+                                contentIndex={index}
+                                type={"content[index]"}
                             />
                         )
                     })
@@ -130,14 +133,15 @@ const ProjectDetailManager = ({ projectId, currentContent, currentPath, language
                 currentPath={currentPath}
                 Heading={"Gallery"}
                 inputFiles={
-                    currentContent?.[projectId - 1]?.gallerySection?.images?.map((e, i) => {
-                        return { label: "Image " + (i + 1), id: `ProjectBanner/${projectId}/gallery/${i}` }
+                    gallerySection?.images?.map((e, i) => {
+                        return { label: "Image " + (i + 1), id: `ProjectBanner/${projectId}/gallery/${i}`, url: e.url, order: i + 1 }
                     })}
-                section={"gallerySection"}
+                section={"images"}
                 language={language}
                 currentContent={currentContent}
                 projectId={projectId}
                 allowExtraInput={true}
+                sectionIndex={indexes?.['5']}
             />
 
             <MultiSelect

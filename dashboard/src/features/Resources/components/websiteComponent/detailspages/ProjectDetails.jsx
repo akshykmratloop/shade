@@ -185,7 +185,7 @@ const ProjectDetailPage = ({ content, language, projectId, screen }) => {
                         <SwiperSlide key={`slide-${index}`}>
                             <div className="flex justify-center">
                                 <img
-                                    src={ImageFromRedux?.[`ProjectBanner/${projectId}/gallery/${index}`] || image.url || "https://loopwebsite.s3.ap-south-1.amazonaws.com/Project+hero.jpg"}
+                                    src={Img_url + image?.url || "https://loopwebsite.s3.ap-south-1.amazonaws.com/Project+hero.jpg"}
                                     alt={image.name}
                                     className={`rounded-lg ${isPhone ? "h-[200px]" : "h-[320px]"} w-[400px] object-cover`}
                                 />
