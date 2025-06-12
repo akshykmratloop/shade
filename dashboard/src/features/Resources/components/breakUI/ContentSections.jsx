@@ -105,6 +105,28 @@ const ContentSection = ({
                     sectionIndex
                 }));
             }
+        } else if (updateType === 'url') {
+            dispatch(updateSpecificContent({
+                section,
+                title: "link",
+                lan: "url",
+                value,
+                subSection,
+                index,
+                currentPath,
+                sectionIndex
+            }));
+        } else if (updateType === 'url/text') {
+            dispatch(updateSpecificContent({
+                section,
+                title: "link",
+                lan: "text",
+                value,
+                subSection,
+                index,
+                currentPath,
+                sectionIndex
+            }));
         } else {
             dispatch(updateSpecificContent({
                 section,

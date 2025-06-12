@@ -1,15 +1,17 @@
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import FileUploader from "../../../../../components/Input/InputFileUploader"
 import ContentSection from "../../breakUI/ContentSections"
 import DynamicContentSection from "../../breakUI/DynamicContentSection"
 import MultiSelect from "../../breakUI/MultiSelect"
 import { updateMainContent, updateTheProjectSummaryList } from "../../../../common/homeContentSlice"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import content from "../../websiteComponent/content.json"
+import { getResources } from "../../../../../app/fetch"
 
 
 const ProjectDetailManager = ({ projectId, currentContent, currentPath, language, indexes }) => {
     const dispatch = useDispatch()
+    const slug = useSelector(state => state?.homeContent?.present?.content?.slug)
     const addExtraSummary = () => {
         dispatch(updateTheProjectSummaryList(
             {
@@ -31,12 +33,54 @@ const ProjectDetailManager = ({ projectId, currentContent, currentPath, language
     }
 
 
-    const { moreProjects } = currentContent ?? {};
     const introSection = currentContent?.[1]?.content
     const urlSection = currentContent?.[2]?.content;
-    const projectInforCard = currentContent?.[3]?.content
-    const descriptionSection = currentContent?.[4]?.content
-    const gallerySection = currentContent?.[5]?.content
+    const projectInforCard = currentContent?.[2]?.content
+    const descriptionSection = currentContent?.[3]?.content
+    const gallerySection = currentContent?.[4]?.content
+    const moreProjects = currentContent?.[5];
+
+    const [all, setAll] = useState([])
+
+    useEffect(() => {
+        async function getOptionsForServices() {
+            const query = {
+                resourceType: "SUB_PAGE",
+                resourceTag: "PROJECT",
+                fetchType: "CONTENT",
+                apiCallType: "INTERNAL"
+            };
+
+            const filters = [
+                { key: "ALL", setter: setAll },
+            ];
+
+            const mapResources = (resources) =>
+                resources?.map((e, i) => ({
+                    id: e.id,
+                    order: i + 1,
+                    slug: e.slug,
+                    titleEn: e.titleEn,
+                    titleAr: e.titleAr,
+                    icon: e.liveModeVersionData?.icon,
+                    image: e.liveModeVersionData?.image,
+                    location: e.liveModeVersionData?.sections?.[1]?.content?.[0]?.value
+                })).filter(e => e.slug !== slug)
+
+            const responses = await Promise.all(
+                filters.map(({ key }) => getResources({ ...query, filterText: key }))
+            );
+
+            responses.forEach((response, index) => {
+                if (response.ok) {
+                    const options = mapResources(response?.resources?.resources);
+                    filters[index].setter(options);
+                }
+            });
+        }
+
+        getOptionsForServices();
+    }, []);
 
     return (
         <div className="w-full">
@@ -50,6 +94,8 @@ const ProjectDetailManager = ({ projectId, currentContent, currentPath, language
                     { input: "input", label: "Heading/title", updateType: "title", value: introSection?.title?.[language] },
                     { input: "input", label: "Description", updateType: "subtitle", value: introSection?.subtitle?.[language] },
                     { input: "input", label: "Button Text", updateType: "button", value: introSection?.button?.[0]?.text?.[language], index: 0 },
+                    { input: "input", label: "Url", updateType: "url", value: introSection?.link?.url },
+                    { input: "input", label: "Url Text", updateType: "url/text", value: introSection?.link?.text },
                 ]}
                 inputFiles={[{ label: "Cover Image", id: "ProjectBanner/" + (projectId), url: introSection?.images?.[0]?.url, order: 1 }]}
                 section={"introSection"}
@@ -57,19 +103,6 @@ const ProjectDetailManager = ({ projectId, currentContent, currentPath, language
                 currentContent={currentContent}
                 projectId={projectId}
                 sectionIndex={indexes?.['1']}
-            />
-            <ContentSection
-                currentPath={currentPath}
-                Heading={"Url"}
-                inputs={[
-                    { input: "input", label: "Url", updateType: "url", value: urlSection?.url },
-                    { input: "input", label: "Url Text", updateType: "text", value: urlSection?.text?.[language] },
-                ]}
-                section={"urls"}
-                language={language}
-                currentContent={currentContent}
-                projectId={projectId}
-                sectionIndex={indexes?.['2']}
             />
             <div className="mt-4">
                 <h3 className={`font-semibold text-[1.25rem] mb-4`}>Cards</h3>
@@ -93,7 +126,7 @@ const ProjectDetailManager = ({ projectId, currentContent, currentPath, language
                                 currentContent={currentContent}
                                 projectId={projectId}
                                 isBorder={lastIndex}
-                                sectionIndex={indexes?.['3']}
+                                sectionIndex={indexes?.['2']}
                             />
                         )
                     })
@@ -119,7 +152,7 @@ const ProjectDetailManager = ({ projectId, currentContent, currentPath, language
                                 currentContent={currentContent}
                                 projectId={projectId}
                                 isBorder={false}
-                                sectionIndex={indexes?.['4']}
+                                sectionIndex={indexes?.['3']}
                                 contentIndex={index}
                                 type={"content[index]"}
                             />
@@ -141,7 +174,7 @@ const ProjectDetailManager = ({ projectId, currentContent, currentPath, language
                 currentContent={currentContent}
                 projectId={projectId}
                 allowExtraInput={true}
-                sectionIndex={indexes?.['5']}
+                sectionIndex={indexes?.['4']}
             />
 
             <MultiSelect
@@ -151,10 +184,13 @@ const ProjectDetailManager = ({ projectId, currentContent, currentPath, language
                 // label={"Select More Project List"}
                 heading={"More Projects"}
                 tabName={"Select Project"}
-                options={currentContent?.[projectId - 1]?.moreProjects?.projects || []}
-                referenceOriginal={{ dir: "projectDetail", index: 0 }}
+                listOptions={all}
+                options={moreProjects?.items.filter(e => e.slug !== slug) || []}
+                referenceOriginal={{ dir: "home", index: 0 }}
                 currentContent={currentContent}
                 projectId={projectId}
+                sectionIndex={indexes?.['5']}
+                maxLimit={6}
             />
 
         </div>

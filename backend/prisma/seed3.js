@@ -527,12 +527,6 @@ async function main() {
                 sectionVersionTitle: "Project-introSection",
               },
               {
-                title: "links",
-                SectionType: "LINKS",
-                content: project.links,
-                sectionVersionTitle: "Project-links",
-              },
-              {
                 title: "projectInfoCard",
                 SectionType: "MARKDOWN_CONTENT",
                 content: project.projectInfoCard,

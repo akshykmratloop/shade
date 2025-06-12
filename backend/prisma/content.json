@@ -2517,6 +2517,10 @@
           "ar": "العميل: أرامكو السعودية",
           "en": "Client: Saudi Aramco"
         },
+        "link": {
+          "url": "https://www.aramco.com",
+          "text": "https://www.aramco.com"
+        },
         "images": [
           {
             "order": 1,
@@ -2537,13 +2541,6 @@
             "icon": null
           }
         ]
-      },
-      "links": {
-        "text": {
-          "en": "https://www.aramco.com",
-          "ar": "https://www.aramco.com"
-        },
-        "url": "https://www.aramco.com"
       },
       "projectInfoCard": [
         {
@@ -2701,6 +2698,10 @@
           "ar": "العميل: حلول المواد غير المعدنية",
           "en": "Client: Non-Metallic Solutions"
         },
+        "link": {
+          "url": "https://www.spark.sa",
+          "text": "https://www.spark.sa"
+        },
         "button": [
           {
             "order": 1,
@@ -2721,13 +2722,6 @@
             }
           }
         ]
-      },
-      "links": {
-        "text": {
-          "en": "https://www.aramco.com",
-          "ar": "https://www.aramco.com"
-        },
-        "url": "https://www.aramco.com"
       },
       "projectInfoCard": [
         {
@@ -2863,6 +2857,10 @@
           "ar": "العميل: شركة صالح الصبيعي",
           "en": "Client: Saleh Al Subeaei Company"
         },
+        "link": {
+          "url": null,
+          "text": null
+        },
         "button": [
           {
             "order": 1,
@@ -2883,13 +2881,6 @@
             }
           }
         ]
-      },
-      "links": {
-        "text": {
-          "en": "https://www.aramco.com",
-          "ar": "https://www.aramco.com"
-        },
-        "url": "https://www.aramco.com"
       },
       "projectInfoCard": [
         {
@@ -3025,6 +3016,10 @@
           "ar": "العميل: أرامكو السعودية",
           "en": "Client: Saudi Aramco"
         },
+        "link": {
+          "url": "https://www.aramco.com/",
+          "text": "https://www.aramco.com/"
+        },
         "button": [
           {
             "order": 1,
@@ -3045,13 +3040,6 @@
             }
           }
         ]
-      },
-      "links": {
-        "text": {
-          "en": "https://www.aramco.com",
-          "ar": "https://www.aramco.com"
-        },
-        "url": "https://www.aramco.com"
       },
       "projectInfoCard": [
         {
@@ -3187,6 +3175,10 @@
           "ar": "العميل: وزارة الصحة",
           "en": "Client: Ministry of Health"
         },
+        "link": {
+          "url": null,
+          "text": null
+        },
         "button": [
           {
             "order": 1,
@@ -3207,13 +3199,6 @@
             }
           }
         ]
-      },
-      "links": {
-        "text": {
-          "en": "https://www.aramco.com",
-          "ar": "https://www.aramco.com"
-        },
-        "url": "https://www.aramco.com"
       },
       "projectInfoCard": [
         {

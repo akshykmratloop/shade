@@ -31,19 +31,20 @@ const ProjectDetailPage = ({ content, language, projectId, screen }) => {
     const isTablet = 1100 > screen && screen > 767
     const isPhone = screen < 767
     const isLeftAlign = language === 'en'
+    const titleLan = isLeftAlign ? "titleEn" : "titleAr";
     const dispatch = useDispatch()
-    const ImageFromRedux = useSelector((state) => state.homeContent.present.images)
+    const slug = useSelector(state => state?.homeContent?.present?.content?.slug)
     let currentContent = content ?? structureOfPageDetails
 
     const testimonialPrevRef = useRef(null);
     const testimonialNextRef = useRef(null);
 
-    const { moreProjects } = currentContent ?? {};
     const introSection = currentContent?.[1]?.content
     const urlSection = currentContent?.[2]?.content
-    const projectInforCard = currentContent?.[3]?.content
-    const descriptionSection = currentContent?.[4]?.content
-    const gallerySection = currentContent?.[5]?.content
+    const projectInforCard = currentContent?.[2]?.content
+    const descriptionSection = currentContent?.[3]?.content
+    const gallerySection = currentContent?.[4]?.content
+    const moreProjects = currentContent?.[5]
 
 
     return (
@@ -70,8 +71,8 @@ const ProjectDetailPage = ({ content, language, projectId, screen }) => {
                                 <p className={`text-gray-700 font-bold text-lg mb-2 ${isPhone && "px-4"}`}>
                                     {introSection?.subtitle?.[language] || "Description"}
                                 </p>
-                                <a href={urlSection?.url || ""} className={`text-[#00b9f2] underline font-medium text-md ${isPhone && "px-4"}`}>
-                                    {urlSection?.text?.[language] || "URL"}
+                                <a href={introSection?.link?.url || ""} className={`text-[#00b9f2] underline font-medium text-md ${isPhone && "px-4"}`}>
+                                    {introSection?.link?.text || "URL"}
                                 </a>
                             </div>
                         </div>
@@ -199,26 +200,26 @@ const ProjectDetailPage = ({ content, language, projectId, screen }) => {
             {/* More Projects */}
             <section className="pt-[70px] pb-[88px] px-[26px]">
                 <div className="container">
-                    <h2 className={`text-gray-700 text-2xl font-normal mb-6 `}>{moreProjects?.title[language]}</h2>
+                    <h2 className={`text-gray-700 text-2xl font-normal mb-6 `}>{moreProjects?.content?.title?.[language]}</h2>
                     <div className={`${isPhone ? "flex flex-col gap-10 " : `grid ${isTablet ? "grid-cols-2" : "grid-cols-3"} gap-x-8 gap-y-6 mt-12`}`}>
-                        {moreProjects?.projects?.slice(0, 3).map((project, key) => {
-                            if (!project.display) return null
+                        {moreProjects?.items?.map((project, key) => {
+                            if(project.slug === slug) return null
                             return (
                                 <div key={key} className="rounded-md p-3 flex flex-col items-start gap-2 ">
                                     <img
-                                        src={projectPageData[project?.url] || "https://loopwebsite.s3.ap-south-1.amazonaws.com/Project+hero.jpg"}
+                                        src={projectPageData?.[project?.url] || "https://loopwebsite.s3.ap-south-1.amazonaws.com/Project+hero.jpg"}
                                         // width={339}
                                         // height={0}
                                         alt="icon"
                                         className="w-full aspect-[12/8]"
                                     />
-                                    <h5 className={`text-[#292E23D] text-lg font-bold mt-4 h-11  ${language === 'ar' ? 'text-right' : ''}`}>{TruncateText(project?.title[language], 25) || "Project Name"}</h5>
-                                    <p className={`text-gray-700 text-sm font-light mt-2 ${!isLeftAlign && "text-right"}`}>{project?.address[language] || "Project Description"}</p>
+                                    <h5 className={`text-[#292E23D] text-lg font-bold mt-4 h-11  ${language === 'ar' ? 'text-right' : ''}`}>{TruncateText(project?.[titleLan], 25) || "Project Name"}</h5>
+                                    <p className={`text-gray-700 text-sm font-light mt-2 ${!isLeftAlign && "text-right"}`}>{project?.location?.[language] || "Project Description"}</p>
                                     <button
                                         className="text-[#00b9f2] text-base font-normal flex items-center gap-2 mt-2 cursor-pointer bg-transparent border-none"
                                     // onClick={() => router.push("/project/56756757656")}
                                     >
-                                        {project?.button?.text[language]}
+                                        {moreProjects?.content?.button?.text?.[language]}
                                         <img
                                             src="https://frequencyimage.s3.ap-south-1.amazonaws.com/61c0f0c2-6c90-42b2-a71e-27bc4c7446c2-mingcute_arrow-up-line.svg"
                                             width={18}

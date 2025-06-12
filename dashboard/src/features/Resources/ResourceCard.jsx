@@ -8,30 +8,10 @@ import { useEffect, useRef, useState } from "react";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "./components/breakUI/DropDownMenu";
 import { pagesImages } from "./resourcedata";
 import { useSelector } from "react-redux";
+import { TruncateText } from "../../app/capitalizeword";
 
 export const ResourceCard = ({ resource = {}, ActionIcons }) => {
-    const [menu, setMenu] = useState(false)
     const isEditor = useSelector(state => state.user.isEditor)
-
-    // const swithcMenu = () => {
-    //     setMenu(!menu)
-    // }
-
-    // const menuRef = useRef(null)
-
-    // useEffect(() => {
-    //     const handleClickOutside = (event) => {
-    //         if (menuRef.current && !menuRef.current.contains(event.target)) {
-    //             setMenu(false);
-    //         }
-    //     };
-
-    //     document.addEventListener("mousedown", handleClickOutside);
-    //     return () => {
-    //         document.removeEventListener("mousedown", handleClickOutside);
-    //     };
-    // }, []);
-
 
     return (
         <div className="bg-white rounded-lg shadow-sm border hover:shadow-md transition-shadow overflow-hidden">
@@ -58,7 +38,8 @@ export const ResourceCard = ({ resource = {}, ActionIcons }) => {
             <div className="p-4 flex flex-col border  justify-between">
                 <div className="flex items-start justify-between mb-3">
                     <div>
-                        <h3 className="font-semibold text-gray-900 mb-1">{resource.titleEn}</h3>
+                        <h3 className="font-semibold text-gray-900 mb-1" 
+                        title={resource.titleEn}>{TruncateText(resource.titleEn, 25)}</h3>
                         <div className="flex items-center text-sm text-gray-500">
                             {/* <Globe className="w-4 h-4 mr-1" /> */}
                             <span>{resource.status}</span>
