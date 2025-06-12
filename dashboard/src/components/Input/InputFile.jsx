@@ -29,7 +29,7 @@ const InputFile = ({ label, baseClass, id, currentPath, resourceId, contentIndex
     console.log(payloadData)
     dispatch(updateImages({
       section,
-      src: directIcon || type === "VIDEO" ? url[0] : payloadData,
+      src: directIcon || subSection === "projectInforCard" || type === "VIDEO" ? url[0] : payloadData,
       currentPath,
       index: contentIndex,
       cardIndex: index,

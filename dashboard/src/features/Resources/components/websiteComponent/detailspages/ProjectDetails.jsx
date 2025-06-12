@@ -90,7 +90,7 @@ const ProjectDetailPage = ({ content, language, projectId, screen }) => {
 
                             return (
                                 <div key={index} className="p-3 flex flex-col bg-blue-100 rounded-md flex-1">
-                                    <img src={card?.icon} alt="" width={28} height={28} className="w-7 h-7" />
+                                    <img src={Img_url + card?.icon} alt="" width={28} height={28} className="w-7 h-7" />
                                     <h5 className={`text-[#292E3D] font-bold text-lg mt-4`}>
                                         {card?.key?.[language] || "title"}
                                     </h5>

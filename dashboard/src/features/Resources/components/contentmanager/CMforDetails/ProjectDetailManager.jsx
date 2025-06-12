@@ -74,24 +74,26 @@ const ProjectDetailManager = ({ projectId, currentContent, currentPath, language
             <div className="mt-4">
                 <h3 className={`font-semibold text-[1.25rem] mb-4`}>Cards</h3>
                 {
-                    currentContent?.[projectId - 1]?.introSection?.projectInforCard?.map((element, index, a) => {
+                    projectInforCard?.map((element, index, a) => {
                         const lastIndex = index === (a.length - 1)
                         return (
                             <ContentSection key={index}
                                 currentPath={currentPath}
                                 subHeading={"Card " + (index + 1)}
                                 inputs={[
-                                    { input: "input", label: "Title", updateType: "key" },
-                                    { input: "input", label: "Description", updateType: "value" },
+                                    { input: "input", label: "Title", updateType: "key", value: element?.key?.[language] },
+                                    { input: "input", label: "Description", updateType: "value", value: element?.value?.[language] },
                                 ]}
-                                inputFiles={[{ label: "Icon Image", id: `ProjectIcon/${index}/${projectId}` }]}
-                                section={"introSection"}
+                                inputFiles={[{ label: "Icon Image", id: `ProjectIcon/${index}/${projectId}`, url: element?.icon }]}
+                                section={"Footer"}
                                 subSection={"projectInforCard"}
                                 index={index}
+                                contentIndex={index}
                                 language={language}
                                 currentContent={currentContent}
                                 projectId={projectId}
                                 isBorder={lastIndex}
+                                sectionIndex={indexes?.['3']}
                             />
                         )
                     })

@@ -39,7 +39,6 @@ const cmsSlice = createSlice({
                 } else if (action.payload.section === "procedures/terms") {
                     state.present.content.editVersion.sections[action.payload.sectionIndex].content.procedures.terms[action.payload.index][action.payload.title][action.payload.lan] = action.payload.value
                 } else {
-                    console.log(action.payload)
                     state.present.content.editVersion.sections[action.payload.sectionIndex].content[action.payload.contentIndex][action.payload.title][action.payload.lan] = action.payload.value
                 }
             } else if (action.payload.subSection === "content/procedures") {
@@ -62,7 +61,6 @@ const cmsSlice = createSlice({
             } else if (action.payload.subSection) {
                 state.present.content.editVersion.sections[action.payload.sectionIndex].content.introSection[action.payload.title][action.payload.lan] = action.payload.value
             } else {
-                console.log(action.payload.title, action.payload.lan, action.payload.value)
                 if (action.payload.title === "url") {
                     state.present.content.editVersion.sections[action.payload.sectionIndex].content[action.payload.title] = action.payload.value
                 } else {
@@ -81,17 +79,17 @@ const cmsSlice = createSlice({
             state.past.push(JSON.parse(JSON.stringify(state.present)));
             if (action.type.type === "VIDEO") {
                 state.present.content.editVersion.sections[action.payload.sectionIndex].content.video = action.payload.src
+            } else if (action.payload.subSection === "projectInforCard") {
+                state.present.content.editVersion.sections[action.payload.index].content[action.payload.cardIndex].icon = action.payload.src
             } else if (action.payload.type === "refDoc") {
                 state.present.content.editVersion.referenceDoc = action.payload.src
             } else if (action.payload.section === "clientsImages") {
-                // console.log(action.payload.index, action.payload.cardIndex, action.payload.src)
                 state.present.content.editVersion.sections[action.payload.index].content.clientsImages[action.payload.cardIndex] = action.payload.src
             } else if (action.payload.directIcon) {
                 state.present.content.editVersion.sections[action.payload.index].content.cards[action.payload.cardIndex].icon = action.payload.src
             } else if (action.payload.section === "socialLinks") {
                 state.present.content.editVersion.sections[action.payload.sectionIndex].content[action.payload.section][action.payload.index][action.payload.title] = action.payload.src
             } else {
-                console.log(action.payload.index, action.payload.order)
                 state.present.content.editVersion.sections[action.payload.index].content.images[action.payload.order - 1] = action.payload.src
             }
             state.future = [];
