@@ -24,6 +24,7 @@ import SnRPolicies from "./websiteComponent/detailspages/SnRPolicies";
 import History from "./websiteComponent/HistoryPage";
 import VisionNMission from "./websiteComponent/VisionPage";
 import HSnE from "./websiteComponent/HSE";
+import MarketDetails from "./websiteComponent/detailspages/MarketDetails";
 
 // import { useDispatch, useSelector } from "react-redux";
 // import { useEffect, useRef, useState } from "react";
@@ -57,6 +58,8 @@ const AllForOne = ({
 
     const baseProps = { width, language, screen, highlight: showDifference, liveContent: live, fullScreen };
 
+    console.log(subPath)
+
     const renderPage = () => {
         switch (currentPath) {
             case "home":
@@ -73,7 +76,10 @@ const AllForOne = ({
                 }
                 return <Services {...baseProps} currentContent={content} />;
             case "market":
-                return <MarketPage {...baseProps} currentContent={content} />;
+                return subPath ?
+                    <MarketDetails {...baseProps} content={content} />
+                    : <MarketPage {...baseProps} currentContent={content} />;
+
             case "projects":
             case "project":
                 return subPath
@@ -89,7 +95,7 @@ const AllForOne = ({
                     : <NewsPage {...baseProps} content={content} />;
             case "news":
                 return <NewsBlogDetailPage {...baseProps} newsId={subPath} content={content} />;
-                
+
             case "footer":
                 return <Footer {...baseProps} currentContent={content} />;
             case "header":
