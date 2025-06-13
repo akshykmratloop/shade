@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux"
 import FileUploader from "../../../../../components/Input/InputFileUploader"
 import ContentSection from "../../breakUI/ContentSections"
 import DynamicContentSection from "../../breakUI/DynamicContentSection"
-import { updateTheProjectSummaryList } from "../../../../common/homeContentSlice"
+import { updateCardAndItemsArray, updateTheProjectSummaryList } from "../../../../common/homeContentSlice"
 import MultiSelect from "../../breakUI/MultiSelect"
 import { useEffect, useState } from "react"
 import { getResources } from "../../../../../app/fetch"
@@ -18,22 +18,20 @@ const NewsDetailManager = ({ newsId, content, currentPath, language, indexes }) 
     const latestNewCards = content?.[3];
 
     const addExtraSummary = () => {
-        dispatch(updateTheProjectSummaryList(
+        dispatch(updateCardAndItemsArray(
             {
                 insert: {
                     title: {
                         ar: "",
                         en: ""
                     },
-                    content: {
+                    description: {
                         ar: "",
                         en: ""
                     }
                 },
-                newsId,
-                newsIndex,
-                context: "newsBlogsDetails",
-                operation: 'add'
+                operation: 'add',
+                sectionIndex: indexes?.['2']
             }
         ))
     }

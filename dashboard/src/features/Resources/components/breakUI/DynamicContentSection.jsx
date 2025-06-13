@@ -74,14 +74,7 @@ const DynamicContentSection = ({
                 subContext: section,
                 deepPath
             }))
-        } else if (projectId) {
-            dispatch(updateTheProjectSummaryList({
-                index,
-                projectId,
-                operation: 'remove',
-                context: currentPath
-            }))
-        } else {
+        }  else {
             dispatch(updateCardAndItemsArray({
                 sectionIndex,
                 operation: 'remove',
