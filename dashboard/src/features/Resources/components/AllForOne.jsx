@@ -88,7 +88,7 @@ const AllForOne = ({
                     ? <NewsBlogDetailPage {...baseProps} newsId={subPath} contentOn={content} />
                     : <NewsPage {...baseProps} content={content} />;
             case "news":
-                return <NewsBlogDetailPage {...baseProps} newsId={subPath} contentOn={content} />;
+                return <NewsBlogDetailPage {...baseProps} newsId={subPath} content={content} />;
                 
             case "footer":
                 return <Footer {...baseProps} currentContent={content} />;

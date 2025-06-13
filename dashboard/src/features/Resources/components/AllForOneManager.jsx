@@ -79,7 +79,7 @@ const AllForOneManager = ({ currentPath, language, subPath, deepPath, content, c
             break;
 
         case "news":
-            manager = <NewsDetailManager outOfEditing={outOfEditing} newsId={subPath} language={language} currentContent={content} currentPath={"newsBlogsDetails"} />
+            manager = <NewsDetailManager outOfEditing={outOfEditing} newsId={subPath} language={language} indexes={contentIndex} content={content} currentPath={"newsBlogsDetails"} />
             break;
 
         case "footer":

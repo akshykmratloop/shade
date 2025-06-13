@@ -3425,7 +3425,7 @@
           "en": "Monday May 20",
           "ar": "20 مايو 2020"
         },
-        "image": [
+        "images": [
           {
             "order": 1,
             "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+2+(3).png",
@@ -3514,7 +3514,7 @@
           "en": "Monday May 20",
           "ar": "20 مايو 2020"
         },
-        "image": [
+        "images": [
           {
             "order": 1,
             "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+2+(3).png",
@@ -3603,7 +3603,7 @@
           "en": "Tuesday June 15",
           "ar": "15 يونيو 2021"
         },
-        "image": [
+        "images": [
           {
             "order": 1,
             "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+2+(3).png",
@@ -3692,7 +3692,7 @@
           "en": "Saturday July 10",
           "ar": "10 يوليو 2021"
         },
-        "image": [
+        "images": [
           {
             "order": 1,
             "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+2+(3).png",

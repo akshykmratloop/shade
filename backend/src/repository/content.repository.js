@@ -2420,12 +2420,11 @@ export async function formatResourceVersionData(
         content: sectionVersion.content || {},
         sections: [], // Initialize sections array
       };
-
       // Add items if they exist
       if (
         isItemFullContent &&
         sectionVersion.items &&
-        sectionVersion.items.length > 0
+        (sectionVersion.items.length > 0)
       ) {
         formattedSection.items = await Promise.all(
           sectionVersion.items.map(async (item) => {
@@ -2489,6 +2488,11 @@ export async function formatResourceVersionData(
 
             if (resourceType === "SUB_PAGE" && resourceTag === "SERVICE") {
               returningBody.description = itemContent?.liveModeVersionData?.sections?.[0]?.content?.description
+            }
+
+            if (resourceType === "SUB_PAGE" && resourceTag === "NEWS") {
+              returningBody.description = itemContent?.liveModeVersionData?.sections?.[1]?.content?.[0]?.description
+              returningBody.date = itemContent?.liveModeVersionData?.sections?.[0]?.content?.date
             }
 
             if (resourceType === "SUB_PAGE" && resourceTag === "PROJECT") {
