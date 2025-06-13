@@ -16,6 +16,7 @@ const SolutionPage = ({ currentContent, language, screen, width }) => {
     const isComputer = screen > 1100
     const isTablet = 1100 > screen && screen > 767
     const isPhone = screen < 767
+    const isLeftAlign = language === 'en'
 
     // Font and Size
     const fontSize = generatefontSize(defineDevice(screen), dynamicSize, width)
@@ -23,7 +24,6 @@ const SolutionPage = ({ currentContent, language, screen, width }) => {
     const fontLight = useSelector(state => state.fontStyle.light)
 
 
-    const isLeftAlign = language === 'en'
 
     return (
         <div className=" bankgothic-medium-dt pb-8" dir={language === 'en' ? 'ltr' : "rtl"}>

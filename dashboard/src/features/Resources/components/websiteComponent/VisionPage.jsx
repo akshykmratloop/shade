@@ -21,9 +21,9 @@ const bg2color = {
 }
 
 const VisionNMission = ({ currentContent, screen, language, width, liveContent, highlight, fullScreen }) => {
-    const isComputer = screen > 900 || fullScreen;
-    const isTablet = (screen < 900 && screen > 730) && !fullScreen;
-    const isPhone = screen < 638 && !fullScreen;
+    const isComputer = screen > 900;
+    const isTablet = (screen < 900 && screen > 730) && !highlight;
+    const isPhone = screen < 638 && !highlight;
     const isLeftAlign = language === 'en';
     const fontLight = useSelector(state => state.fontStyle.light)
 
@@ -55,7 +55,7 @@ const VisionNMission = ({ currentContent, screen, language, width, liveContent, 
                 <div className="container relative h-full flex items-center justify-center "
                 >
                     <div
-                        className={` ${isLeftAlign ? 'scale-x-[-1]' : ''} ${isPhone ? "w-full" : isTablet ? "w-2/3 " : ""} flex flex-col ${isPhone ? "items-start" : "items-start p-6 space-y-4"} `}>
+                        className={` ${isLeftAlign ? 'scale-x-[-1]' : ''} ${isPhone ? "w-full" : isTablet ? "" : ""} flex flex-col ${isPhone ? "items-start" : "items-start space-y-4"} `}>
                         <h2
                             className={`text-[#292E3D] font-medium ${isPhone ? "text-[40px]" : isTablet ? "text-[45px]" : "text-[45px]"} tracking-[-3px] mb-4
                             ${checkDifference(currentContent?.['1']?.content?.title?.[language], liveContent?.['1']?.content?.title?.[language])}

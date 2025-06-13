@@ -2,25 +2,28 @@ import Arrow from "../../../../assets/icons/right-wrrow.svg"; ///assets/icons/ri
 import { projectPageData } from "../../../../assets/index";
 import { TruncateText } from "../../../../app/capitalizeword";
 import { Img_url } from "../../../../routes/backend";
+import dynamicSize, { defineDevice, generatefontSize } from "../../../../app/fontSizes";
+import { useSelector } from "react-redux";
 // import { useEffect, useState } from "react";
 // import { useDispatch, useSelector } from "react-redux";
 // import content from "./content.json"
 // import { updateMainContent } from "../../../common/homeContentSlice";
 
 
-const Services = ({ currentContent, screen, language }) => {
+const Services = ({ currentContent, screen, language, width }) => {
     const isComputer = screen > 900;
     const isTablet = screen < 900 && screen > 730;
     const isPhone = screen < 738;
     const isLeftAlign = language === 'en';
-    // const ImagesFromRedux = useSelector(state => state.homeContent.present.images);
-    // const dispatch = useDispatch()
 
     const titleLan = isLeftAlign ? "titleEn" : "titleAr"
 
-    // useEffect(() => {
-    //     dispatch(updateMainContent({ currentPath: "services", payload: (content?.services) }))
-    // }, [])
+    const fontSize = generatefontSize(defineDevice(screen), dynamicSize, width)
+    const getDynamicSize = (size) => dynamicSize(size, width)
+    const fontLight = useSelector(state => state.fontStyle.light)
+
+
+
     return (
         <div className="">
             <section
