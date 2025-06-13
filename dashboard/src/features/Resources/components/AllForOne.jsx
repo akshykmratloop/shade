@@ -25,6 +25,7 @@ import History from "./websiteComponent/HistoryPage";
 import VisionNMission from "./websiteComponent/VisionPage";
 import HSnE from "./websiteComponent/HSE";
 import MarketDetails from "./websiteComponent/detailspages/MarketDetails";
+import AffiliatesPage from "./websiteComponent/Affiliates";
 
 // import { useDispatch, useSelector } from "react-redux";
 // import { useEffect, useRef, useState } from "react";
@@ -118,6 +119,9 @@ const AllForOne = ({
 
             case "hse":
                 return <HSnE {...baseProps} currentContent={content} />
+
+            case "affiliates":
+                return <AffiliatesPage {...baseProps} content={content} />
 
             default:
                 return null;
