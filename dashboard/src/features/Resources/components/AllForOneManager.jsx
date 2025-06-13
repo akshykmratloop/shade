@@ -46,7 +46,7 @@ const AllForOneManager = ({ currentPath, language, subPath, deepPath, content, c
         case "service":
             manager = subPath ? deepPath ?
                 <SubServiceDetailManager outOfEditing={outOfEditing} serviceId={subPath} deepPath={deepPath} language={language} content={content} indexes={contentIndex} currentPath={"subOfsubService"} /> :
-                <ServiceDetailsManager outOfEditing={outOfEditing}  serviceId={subPath} language={language} content={content} indexes={contentIndex} currentPath={"serviceDetails"} /> :
+                <ServiceDetailsManager outOfEditing={outOfEditing} serviceId={subPath} language={language} content={content} indexes={contentIndex} currentPath={"serviceDetails"} /> :
                 <ServiceManager outOfEditing={outOfEditing} language={language} currentContent={content} currentPath={currentPath} indexes={contentIndex} />
             break;
 
@@ -60,11 +60,10 @@ const AllForOneManager = ({ currentPath, language, subPath, deepPath, content, c
             break;
 
         case "project":
-            manager = <ProjectContentManager outOfEditing={outOfEditing} language={language} currentContent={content} indexes={contentIndex} currentPath={currentPath} />
-            break;
-
-        case "projects":
-            manager = <ProjectDetailManager outOfEditing={outOfEditing} projectId={subPath} language={language} indexes={contentIndex} currentContent={content.projectDetail} currentPath={"projectDetail"} />
+            manager =
+                subPath ?
+                    <ProjectDetailManager outOfEditing={outOfEditing} projectId={subPath} language={language} indexes={contentIndex} currentContent={content} currentPath={"projectDetail"} /> :
+                    <ProjectContentManager outOfEditing={outOfEditing} language={language} currentContent={content} indexes={contentIndex} currentPath={currentPath} />
             break;
 
         case "careers":
@@ -76,9 +75,11 @@ const AllForOneManager = ({ currentPath, language, subPath, deepPath, content, c
             break;
 
         case "news-blogs":
-            manager = subPath ?
-                <NewsDetailManager outOfEditing={outOfEditing} newsId={subPath} language={language} currentContent={content} currentPath={"newsBlogsDetails"} /> :
-                <NewsManager outOfEditing={outOfEditing} language={language} content={content} indexes={contentIndex} currentPath={"newsBlogs"} />
+            manager = <NewsManager outOfEditing={outOfEditing} language={language} content={content} indexes={contentIndex} currentPath={"newsBlogs"} />
+            break;
+
+        case "news":
+            manager = <NewsDetailManager outOfEditing={outOfEditing} newsId={subPath} language={language} indexes={contentIndex} content={content} currentPath={"newsBlogsDetails"} />
             break;
 
         case "footer":

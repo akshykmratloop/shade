@@ -45,7 +45,6 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
     const isComputer = screen > 900;
     const isTablet = screen < 900 && screen > 730;
     const isPhone = screen < 450;
-    const ImagesFromRedux = useSelector((state) => state?.homeContent?.present?.images)
     const fontLight = useSelector(state => state.fontStyle.light)
     // const platform = useSelector(state => state.platform.platform)
     const [swiperInstance, setSwiperInstance] = useState(null);
@@ -423,9 +422,7 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                                                                 <img
                                                                     className={`w-full aspect-[1.4/1] object-cover object-center`}
                                                                     alt={project?.[language]}
-                                                                    src={ImagesFromRedux?.[project?.image] ? ImagesFromRedux?.[project?.image] : project?.image
-                                                                        ? ProjectSlider?.[project?.image]
-                                                                        : recentProjects.itLab}
+                                                                    src={Img_url + project?.image || recentProjects.itLab}
                                                                 />
                                                             </div>
                                                             <div className="p-[18px_12px_12px_12px] flex flex-col justify-center items-start gap-[16px] bg-[#00B9F2] flex-1">

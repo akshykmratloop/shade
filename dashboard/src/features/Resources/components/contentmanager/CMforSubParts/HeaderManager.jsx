@@ -67,6 +67,7 @@ const HeaderManager = ({ language, currentContent, currentPath, indexes }) => {
                             index={i}
                             sectionIndex={indexes?.['1']}
                             allowRemoval={moreThanFive && !isContactButton}
+                            type={"content[index]"}
                         />
 
                     </div>

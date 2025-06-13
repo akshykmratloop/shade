@@ -77,7 +77,7 @@ const SubServiceDetailManager = ({ serviceId, content, currentPath, language, de
                                 currentPath={currentPath}
                                 subHeading={"Section " + (index + 1)}
                                 inputs={[
-                                    { input: "input", label: "Title", updateType: "title", maxLength: 100, value: element?.title?.[language] },
+                                    { input: "input", label: "Title", updateType: "title", maxLength: 21, value: element?.title?.[language] },
                                     { input: "textarea", label: "Description", updateType: "description", value: element?.description?.[language] },
                                 ]}
                                 section={"points"}

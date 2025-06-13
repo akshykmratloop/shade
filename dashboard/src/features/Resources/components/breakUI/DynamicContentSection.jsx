@@ -74,14 +74,7 @@ const DynamicContentSection = ({
                 subContext: section,
                 deepPath
             }))
-        } else if (projectId) {
-            dispatch(updateTheProjectSummaryList({
-                index,
-                projectId,
-                operation: 'remove',
-                context: currentPath
-            }))
-        } else {
+        }  else {
             dispatch(updateCardAndItemsArray({
                 sectionIndex,
                 operation: 'remove',
@@ -116,7 +109,7 @@ const DynamicContentSection = ({
         }
     };
 
-    const updateFormValueRichText = ({ updateType, value }) => {
+    const updateFormValueRichText = ( updateType, value ) => {
 
         if (updateType === 'count') {
             if (!isNaN(value)) {

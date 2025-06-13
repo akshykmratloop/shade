@@ -33,7 +33,7 @@ const AllForOne = ({
     language, screen, content, setLanguage, fullScreen,
     currentPath, subPath, deepPath, showDifference = false, live, hideScroll
 }) => {
-    console.log(currentPath, subPath, deepPath)
+    // console.log(currentPath, subPath, deepPath)
     const isComputer = screen > 1100;
     const isTablet = 1100 > screen && screen > 767;
     const isPhone = screen < 767;
@@ -55,12 +55,12 @@ const AllForOne = ({
         };
     }, []);
 
-    const baseProps = { width, language, screen, highlight: showDifference, liveContent: live };
+    const baseProps = { width, language, screen, highlight: showDifference, liveContent: live, fullScreen };
 
     const renderPage = () => {
         switch (currentPath) {
             case "home":
-                return <HomePage {...baseProps} content={content} fullScreen={fullScreen} />;
+                return <HomePage {...baseProps} content={content} />;
             case "solution":
                 return <SolutionPage {...baseProps} currentContent={content} />;
             case "about-us":
@@ -77,7 +77,7 @@ const AllForOne = ({
             case "projects":
             case "project":
                 return subPath
-                    ? <ProjectDetailPage {...baseProps} projectId={subPath} contentOn={content?.projectDetail} />
+                    ? <ProjectDetailPage {...baseProps} projectId={subPath} content={content} />
                     : <ProjectPage {...baseProps} currentContent={content} />;
             case "careers":
                 return subPath
@@ -85,8 +85,11 @@ const AllForOne = ({
                     : <CareerPage {...baseProps} currentContent={content} />;
             case "news-blogs":
                 return subPath
-                    ? <NewsBlogDetailPage {...baseProps} newsId={subPath} contentOn={content?.newsBlogsDetails} />
+                    ? <NewsBlogDetailPage {...baseProps} newsId={subPath} contentOn={content} />
                     : <NewsPage {...baseProps} content={content} />;
+            case "news":
+                return <NewsBlogDetailPage {...baseProps} newsId={subPath} content={content} />;
+                
             case "footer":
                 return <Footer {...baseProps} currentContent={content} />;
             case "header":
@@ -115,7 +118,7 @@ const AllForOne = ({
         }
     };
 
-    console.log(fullScreen)
+    // console.log(fullScreen)
 
     return (
         <div
