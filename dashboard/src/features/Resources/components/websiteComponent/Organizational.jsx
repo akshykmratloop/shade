@@ -61,12 +61,15 @@ const Organization = ({ language, screen, content, width, highlight }) => {
                 </div>
             </section>
 
-            <section>
+            <section
+                style={{
+                    padding: isComputer && `${getDynamicSize(100)} ${getDynamicSize(120)}`
+                }}
+                className={`${isPhone ? "px-3 py-10" : "px-10 py-20"}`}
+            >
                 <div
-                    style={{
-                        padding: isComputer && `${getDynamicSize(100)} ${getDynamicSize(120)}`
-                    }}
-                    className="aspect-[1.3/1] border"
+
+                    className={`aspect-[1.3/1] border`}
                 >
                     <img
                         src={Img_url + content?.[2]?.content?.chart?.images?.[0]?.url}
