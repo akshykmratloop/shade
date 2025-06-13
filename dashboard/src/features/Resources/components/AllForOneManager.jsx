@@ -25,6 +25,7 @@ import VisionManager from "./contentmanager/VisionManager";
 import HSnEManager from "./contentmanager/HSnEManager";
 import MarketDetailsManager from "./contentmanager/CMforDetails/MarketDetailsManager";
 import AffiliatesManager from "./contentmanager/AffiliatesManager";
+import OrganizationManager from "./contentmanager/OrganizationManager";
 
 
 const AllForOneManager = ({ currentPath, language, subPath, deepPath, content, contentIndex, outOfEditing }) => {
@@ -114,6 +115,10 @@ const AllForOneManager = ({ currentPath, language, subPath, deepPath, content, c
 
         case "affiliates":
             manager = <AffiliatesManager outOfEditing={outOfEditing} language={language} content={content} indexes={contentIndex} currentPath={currentPath} />
+            break;
+
+        case "organization":
+            manager = <OrganizationManager outOfEditing={outOfEditing} language={language} content={content} indexes={contentIndex} currentPath={currentPath} />
             break;
 
         case "hse":

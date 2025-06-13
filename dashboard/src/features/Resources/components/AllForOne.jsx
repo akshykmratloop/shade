@@ -26,6 +26,7 @@ import VisionNMission from "./websiteComponent/VisionPage";
 import HSnE from "./websiteComponent/HSE";
 import MarketDetails from "./websiteComponent/detailspages/MarketDetails";
 import AffiliatesPage from "./websiteComponent/Affiliates";
+import Organization from "./websiteComponent/Organizational";
 
 // import { useDispatch, useSelector } from "react-redux";
 // import { useEffect, useRef, useState } from "react";
@@ -58,8 +59,6 @@ const AllForOne = ({
     }, []);
 
     const baseProps = { width, language, screen, highlight: showDifference, liveContent: live, fullScreen };
-
-    console.log(subPath)
 
     const renderPage = () => {
         switch (currentPath) {
@@ -122,6 +121,9 @@ const AllForOne = ({
 
             case "affiliates":
                 return <AffiliatesPage {...baseProps} content={content} />
+
+            case "organization":
+                return <Organization {...baseProps} content={content} />
 
             default:
                 return null;
