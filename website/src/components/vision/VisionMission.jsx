@@ -21,6 +21,8 @@ const VisionMissionPage = ({content}) => {
 
   const currentContent = content;
 
+  const bgColors = ["#84E2FE", "#06D5FF", "#00B9F2"];
+
   return (
     <>
       <section className={`${styles.vision_mission_banner_wrap} `}>
@@ -89,6 +91,24 @@ const VisionMissionPage = ({content}) => {
                     __html: card.description[language],
                   }}
                 />
+              </div>
+            ))}
+          </div>
+
+          <div className={styles.visions_section_wrap}>
+            {currentContent?.["3"]?.content?.cards.map((card, index) => (
+              <div key={index} className={styles.visions_section_card}>
+                <h1
+                  className={`${styles.visions_section_card_title} ${
+                    styles[`card_${index}`]
+                  }`}
+                  style={{backgroundColor: bgColors[index % 3]}}
+                >
+                  {card.title[language]}
+                </h1>
+                <h1 className={styles.visions_section_card_para}>
+                  {card.description[language]}
+                </h1>
               </div>
             ))}
           </div>

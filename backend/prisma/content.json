@@ -4531,5 +4531,293 @@
         }
       ]
     }
+  },
+  "hse": {
+    "slug": "hse",
+    "heroSection": {
+      "title": {
+        "en": "HS&E",
+        "ar": "الصحة والسلامة والبيئة"
+      },
+      "description": {
+        "en": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut lab",
+        "ar": "نحن ملتزمون بالتميز والمرونة والأداء العالي. من خلال التزامنا بأعلى معايير الجودة والمساءلة، نخلق قيمة دائمة لعملائنا وموظفينا"
+      },
+      "images": [
+        {
+          "order": 1,
+          "url": "",
+          "altText": {
+            "en": "HS&E banner Image",
+            "ar": "صورة لافتة الصحة والسلامة والبيئة"
+          }
+        }
+      ]
+    },
+    "hseSection": {
+      "cards": [
+        {
+          "order": 1,
+          "images": [
+            {
+              "order": 1,
+              "url": "",
+              "altText": {
+                "en": " Image",
+                "ar": "الرئيسية"
+              }
+            }
+          ],
+          "title": {
+            "en": "Health",
+            "ar": "صحة"
+          },
+          "description": {
+            "en": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+            "ar": "هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص العربي، حيث يمكنك أن تولد مثل هذا النص أو العديد من النصوص الأخرى إضافة إلى زيادة عدد الحروف التي يولدها التطبيق. إذا كنت تحتاج إلى عدد أكبر من الفقرات يتيح لك مولد النص العربي زيادة عدد الفقرات كما تريد، النص لن يبدو مقسماً ولا يحوي أخطاء لغوية، مولد النص العربي مفيد لمصممي المواقع على وجه الخصوص، حيث يحتاج العميل في كثير من الأحيان أن يطلع على صورة حقيقية لتصميم الموقع."
+          }
+        },
+        {
+          "order": 2,
+          "images": [
+            {
+              "order": 1,
+              "url": "",
+              "altText": {
+                "en": " Image",
+                "ar": "الرئيسية"
+              }
+            }
+          ],
+          "title": {
+            "en": "Safety",
+            "ar": "أمان"
+          },
+          "description": {
+            "en": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+            "ar": "هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص العربي، حيث يمكنك أن تولد مثل هذا النص أو العديد من النصوص الأخرى إضافة إلى زيادة عدد الحروف التي يولدها التطبيق. إذا كنت تحتاج إلى عدد أكبر من الفقرات يتيح لك مولد النص العربي زيادة عدد الفقرات كما تريد، النص لن يبدو مقسماً ولا يحوي أخطاء لغوية، مولد النص العربي مفيد لمصممي المواقع على وجه الخصوص، حيث يحتاج العميل في كثير من الأحيان أن يطلع على صورة حقيقية لتصميم الموقع."
+          }
+        },
+        {
+          "order": 3,
+          "images": [
+            {
+              "order": 1,
+              "url": "",
+              "altText": {
+                "en": " Image",
+                "ar": "الرئيسية"
+              }
+            }
+          ],
+          "title": {
+            "en": "Environment",
+            "ar": "بيئة"
+          },
+          "description": {
+            "en": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+            "ar": "هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص العربي، حيث يمكنك أن تولد مثل هذا النص أو العديد من النصوص الأخرى إضافة إلى زيادة عدد الحروف التي يولدها التطبيق. إذا كنت تحتاج إلى عدد أكبر من الفقرات يتيح لك مولد النص العربي زيادة عدد الفقرات كما تريد، النص لن يبدو مقسماً ولا يحوي أخطاء لغوية، مولد النص العربي مفيد لمصممي المواقع على وجه الخصوص، حيث يحتاج العميل في كثير من الأحيان أن يطلع على صورة حقيقية لتصميم الموقع."
+          }
+        }
+      ],
+      "images": [
+        {
+          "order": 1,
+          "url": "",
+          "altText": {
+            "en": "HS&E section Image",
+            "ar": "صورة قسم الصحة والسلامة والبيئة"
+          }
+        }
+      ],
+      "title": {
+        "en": "Quality, HSE, and Security is fundamental to our mission",
+        "ar": "الجودة والصحة والسلامة والأمن هي الأساس لمهمتنا"
+      },
+      "description": {
+        "en": "It is at the core of everything we do. We do not ever compromise on safety, health, security or environmental sustainability to achieve our financial, project, service and manufacturing objectives. HS&E is an integral part of our business, based on genuine care and concern for the people and the environment.The SHADE HS&E Management Systems is designed and implemented to protect its employees and sub-contractors from unacceptable HS&E risks. This system also safeguards the health, safety and environment of persons not employed by Shade, but could be impacted by the company’s activities.SHADE fully acknowledges its global responsibilities towards Environmental Pollution Prevention and is committed to honouring environmental management agreements to decrease pollution levels arising from the Company’s operations and products and reduce overall impact on the environment.",
+        "ar": "إنها جوهر كل ما نقوم به. لا نتهاون أبدًا في السلامة والصحة والأمن والاستدامة البيئية لتحقيق أهدافنا المالية ومشاريعنا وخدماتنا وتصنيعنا. الصحة والسلامة والبيئة جزء لا يتجزأ من أعمالنا، ويرتكز على رعاية حقيقية واهتمام بالناس والبيئة. صُممت أنظمة إدارة الصحة والسلامة والبيئة من SHADE ونُفذت لحماية موظفيها ومقاوليها من مخاطر الصحة والسلامة والبيئة غير المقبولة. كما يحمي هذا النظام صحة وسلامة وبيئة الأشخاص غير العاملين لدى SHADE، والذين قد يتأثرون بأنشطة الشركة. تُدرك SHADE تمامًا مسؤولياتها العالمية تجاه منع التلوث البيئي، وتلتزم باحترام اتفاقيات الإدارة البيئية لخفض مستويات التلوث الناتجة عن عمليات الشركة ومنتجاتها، وتقليل التأثير الإجمالي على البيئة."
+      },
+      "sectionPointers": [
+        {
+          "order": 1,
+          "text": {
+            "en": "Fostering a safe climate that protects the health, safety and security of our employees, contractors, suppliers, clients, visitors and of all those engaged or affected by our activities.",
+            "ar": "تعزيز مناخ آمن يحمي صحة وسلامة وأمن موظفينا ومقاولينا وموردينا وعملائنا وزوارنا وجميع المشاركين أو المتأثرين بأنشطتنا."
+          }
+        },
+        {
+          "order": 2,
+          "text": {
+            "en": "Compliance with HS&E legislations and constantly endeavor to higher standards than those stipulated in International and local laws.",
+            "ar": "الالتزام بتشريعات الصحة والسلامة والبيئة والسعي الدائم إلى معايير أعلى من تلك المنصوص عليها في القوانين الدولية والمحلية."
+          }
+        },
+        {
+          "order": 3,
+          "text": {
+            "en": "Make stringent efforts to reduce Health and Safety risks in order to achieve our goal of “Zero-Accident” at all our project sites",
+            "ar": "بذل جهود صارمة للحد من مخاطر الصحة والسلامة من أجل تحقيق هدفنا المتمثل في عدم وقوع أي حادث في جميع مواقع مشاريعنا"
+          }
+        },
+        {
+          "order": 4,
+          "text": {
+            "en": "Regularly monitor & audit its activities for compliance with local, and international HS&E Management Systems,",
+            "ar": "مراقبة أنشطتها ومراجعتها بانتظام للتأكد من الامتثال لأنظمة إدارة الصحة والسلامة والبيئة المحلية والدولية،"
+          }
+        },
+        {
+          "order": 5,
+          "text": {
+            "en": "Engage with select sub-contractors & suppliers who demonstrate a continual commitment in preventing pollution and are capable of accomplishing high levels of HSE control whilst carrying out their duties.",
+            "ar": "التعامل مع المقاولين الفرعيين والموردين المختارين الذين يظهرون التزامًا مستمرًا في منع التلوث والذين هم قادرون على تحقيق مستويات عالية من التحكم في الصحة والسلامة والبيئة أثناء أداء واجباتهم."
+          }
+        },
+        {
+          "order": 6,
+          "text": {
+            "en": "Conduct regular inspections and audits on sub-contractors and suppliers to monitor their HS&E activities.",
+            "ar": "إجراء عمليات تفتيش وتدقيق منتظمة على المقاولين من الباطن والموردين لمراقبة أنشطتهم في مجال الصحة والسلامة والبيئة."
+          }
+        },
+        {
+          "order": 7,
+          "text": {
+            "en": "Continual improvement will be measured through the reduction of accidents, risks and environments through clear performance indicators.",
+            "ar": "سيتم قياس التحسين المستمر من خلال الحد من الحوادث والمخاطر والبيئة من خلال مؤشرات أداء واضحة."
+          }
+        }
+      ]
+    }
+  },
+  "affiliates": {
+    "slug": "affiliates",
+    "heroSection": {
+      "title": {
+        "en": "Affiliates",
+        "ar": "الشركات التابعة"
+      },
+      "description": {
+        "en": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut lab",
+        "ar": "نحن ملتزمون بالتميز والمرونة والأداء العالي. من خلال التزامنا بأعلى معايير الجودة والمساءلة، نخلق قيمة دائمة لعملائنا وموظفينا"
+      },
+      "images": [
+        {
+          "order": 1,
+          "url": "",
+          "altText": {
+            "en": "Affiliates image",
+            "ar": "صورة الشركات التابعة"
+          }
+        }
+      ]
+    },
+    "affiliatesSection": {
+      "cards": [
+        {
+          "order": 1,
+          "images": [
+            {
+              "order": 1,
+              "url": "",
+              "altText": {
+                "en": "Affiliates image",
+                "ar": "صورة الشركات التابعة"
+              }
+            }
+          ]
+        },
+        {
+          "order": 2,
+          "images": [
+            {
+              "order": 1,
+              "url": "",
+              "altText": {
+                "en": "Affiliates image",
+                "ar": "صورة الشركات التابعة"
+              }
+            }
+          ]
+        },
+        {
+          "order": 3,
+          "images": [
+            {
+              "order": 1,
+              "url": "",
+              "altText": {
+                "en": "Affiliates image",
+                "ar": "صورة الشركات التابعة"
+              }
+            }
+          ]
+        },
+        {
+          "order": 4,
+          "images": [
+            {
+              "order": 1,
+              "url": "",
+              "altText": {
+                "en": "Affiliates image",
+                "ar": "صورة الشركات التابعة"
+              }
+            }
+          ]
+        },
+        {
+          "order": 5,
+          "images": [
+            {
+              "order": 1,
+              "url": "",
+              "altText": {
+                "en": "Affiliates image",
+                "ar": "صورة الشركات التابعة"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "organizationalChart": {
+    "slug": "organization",
+    "heroSection": {
+      "title": {
+        "en": "Organizational chart",
+        "ar": "المخطط التنظيمي"
+      },
+      "description": {
+        "en": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut lab",
+        "ar": "نحن ملتزمون بالتميز والمرونة والأداء العالي. من خلال التزامنا بأعلى معايير الجودة والمساءلة، نخلق قيمة دائمة لعملائنا وموظفينا"
+      },
+      "images": [
+        {
+          "order": 1,
+          "url": "",
+          "altText": {
+            "en": "Organization image",
+            "ar": "الصورة التنظيمية"
+          }
+        }
+      ]
+    },
+    "chartSection": {
+      "chart": {
+        "images": [
+          {
+            "order": 1,
+            "url": "",
+            "altText": {
+              "en": "chart image",
+              "ar": "صورة الرسم البياني"
+            }
+          }
+        ]
+      }
+    }
   }
 }

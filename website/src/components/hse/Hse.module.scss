@@ -1,0 +1,160 @@
+.hse_banner_wrap {
+  height: 715px;
+  //   background: url("../../assets/images/Hero.png") no-repeat center / cover;
+  width: 100%;
+  position: relative;
+  // padding: 0px 150px;
+
+  &.leftAlign {
+    .content {
+      .view_btn {
+        padding: 10px 35px 10px 10px !important;
+
+        .arrow_btn {
+          position: absolute;
+          top: 30% !important;
+          left: 170px !important;
+          // transform: scaleX(-1) !important;
+        }
+      }
+    }
+  }
+
+  .backgroundContainer {
+    width: 100%;
+    height: 715px;
+    display: block;
+
+    &.leftAlign {
+      transform: scaleX(-1);
+    }
+
+    .backgroundImage {
+      width: 100%;
+      height: 100vh;
+    }
+  }
+
+  .content {
+    position: absolute;
+    top: 30%;
+    padding: 0px 150px;
+
+    .title {
+      color: var(--black);
+      font-size: 70px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 77px;
+      /* 110% */
+      letter-spacing: -3.5px;
+      margin-bottom: 16px;
+      text-wrap: auto;
+      width: 635px;
+      //   text-align: right;
+    }
+
+    .description {
+      color: var(--para-light);
+      // font-size: 14px;
+      // font-style: normal;
+      // font-weight: 700;
+      // line-height: 14.5px;
+      // margin-bottom: 24px;
+      // width: 44%;
+      //   text-align: right;
+      //   margin-left: auto;
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 26px;
+      margin-bottom: 26px;
+      width: 50%;
+      word-spacing: 5px;
+      display: block;
+    }
+
+    .view_btn {
+      padding: 16px 28px 5px 60px;
+
+      font-size: 18px;
+      font-weight: 500;
+      //   margin-left: auto;
+      position: relative;
+
+      &.noPadding {
+        padding: 10px 28px 10px 60px;
+      }
+
+      .arrow_btn {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        left: 32px;
+      }
+    }
+  }
+}
+
+.hse_section_wrap {
+  padding: 112px 0;
+  .hse_section_card_wrapper {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+    gap: 68px;
+    margin-bottom: 95px;
+    .hse_card {
+      width: 500px;
+      display: flex;
+      gap: 30px;
+      justify-content: center;
+
+      .hse_card_title {
+        font-weight: 400;
+        font-size: 32px;
+        line-height: 100%;
+        color: #292e3d;
+        margin-bottom: 12px;
+      }
+
+      .hse_card_para {
+        // font-family: BankGothic;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 100%;
+        color: #718096;
+      }
+    }
+  }
+
+  .hse_section_title {
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 20px;
+    margin-top: 60px;
+    margin-bottom: 30px;
+    color: #292e3d;
+  }
+
+  .hse_section_description {
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 22px;
+    color: #718096;
+    margin-bottom: 50px;
+  }
+
+  .hse_section_pointer_wrap {
+    .hse_section_pointer {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+      .hse_section_pointer_text {
+        font-weight: 300;
+        font-size: 16px;
+        line-height: 100%;
+        color: #718096;
+      }
+    }
+  }
+}

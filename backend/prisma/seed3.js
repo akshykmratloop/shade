@@ -741,6 +741,78 @@ async function main() {
           [...safetyPoliciesSlug]
         );
 
+        // 7. create affiliates page
+        await createResource(
+          "Affiliate",
+          "الشركات التابعة",
+          content.affiliates.slug,
+          "MAIN_PAGE",
+          "AFFILIATES",
+          "PARENT",
+          [
+            {
+              title: "heroSection",
+              SectionType: "HERO_BANNER",
+              content: content.affiliates.heroSection,
+              sectionVersionTitle: "Affiliates-heroSection",
+            },
+            {
+              title: "affiliatesSection",
+              SectionType: "MARKDOWN_CONTENT",
+              content: content.affiliates.affiliatesSection,
+              sectionVersionTitle: "Affiliates-affiliatesSection",
+            },
+          ]
+        )
+        
+        // 7. create organizational chart page
+  await createResource(
+          "Organizational chart",
+          "المخطط التنظيمي",
+          content.organizationalChart.slug,
+          "MAIN_PAGE",
+          "ORGANIZATION_CHART",
+          "PARENT",
+          [
+            {
+              title: "heroSection",
+              SectionType: "HERO_BANNER",
+              content: content.organizationalChart.heroSection,
+              sectionVersionTitle: "Organization-heroSection",
+            },
+            {
+              title: "organizationalChart",
+              SectionType: "MARKDOWN_CONTENT",
+              content: content.organizationalChart.chartSection,
+              sectionVersionTitle: "Organization-chartSection",
+            },
+          ]
+        )
+
+        // 6. Create HS&E page
+        await createResource(
+          "HS&E",
+          "الصحة والسلامة والبيئة",
+          content.hse.slug,
+          "MAIN_PAGE",
+          "HSE",
+          "PARENT",
+          [
+            {
+              title: "heroSection",
+              SectionType: "HERO_BANNER",
+              content: content.hse.heroSection,
+              sectionVersionTitle:"Hse-heroSection"
+            },
+            {
+              title: "hseSection",
+              SectionType: "MARKDOWN_CONTENT",
+              content: content.hse.hseSection,
+              sectionVersionTitle: "Hse-hseSection"
+            }
+          ]
+        ) 
+
         // 5. Create Vision and mission Page
         await createResource(
           "Vision and Mission Page",
