@@ -24,6 +24,9 @@ import SnRPolicies from "./websiteComponent/detailspages/SnRPolicies";
 import History from "./websiteComponent/HistoryPage";
 import VisionNMission from "./websiteComponent/VisionPage";
 import HSnE from "./websiteComponent/HSE";
+import MarketDetails from "./websiteComponent/detailspages/MarketDetails";
+import AffiliatesPage from "./websiteComponent/Affiliates";
+import Organization from "./websiteComponent/Organizational";
 
 // import { useDispatch, useSelector } from "react-redux";
 // import { useEffect, useRef, useState } from "react";
@@ -73,7 +76,10 @@ const AllForOne = ({
                 }
                 return <Services {...baseProps} currentContent={content} />;
             case "market":
-                return <MarketPage {...baseProps} currentContent={content} />;
+                return subPath ?
+                    <MarketDetails {...baseProps} content={content} />
+                    : <MarketPage {...baseProps} currentContent={content} />;
+
             case "projects":
             case "project":
                 return subPath
@@ -89,7 +95,7 @@ const AllForOne = ({
                     : <NewsPage {...baseProps} content={content} />;
             case "news":
                 return <NewsBlogDetailPage {...baseProps} newsId={subPath} content={content} />;
-                
+
             case "footer":
                 return <Footer {...baseProps} currentContent={content} />;
             case "header":
@@ -112,6 +118,12 @@ const AllForOne = ({
 
             case "hse":
                 return <HSnE {...baseProps} currentContent={content} />
+
+            case "affiliates":
+                return <AffiliatesPage {...baseProps} content={content} />
+
+            case "organization":
+                return <Organization {...baseProps} content={content} />
 
             default:
                 return null;

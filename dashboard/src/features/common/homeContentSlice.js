@@ -39,6 +39,7 @@ const cmsSlice = createSlice({
                 } else if (action.payload.section === "procedures/terms") {
                     state.present.content.editVersion.sections[action.payload.sectionIndex].content.procedures.terms[action.payload.index][action.payload.title][action.payload.lan] = action.payload.value
                 } else {
+                    console.log(action.payload.contentIndex)
                     state.present.content.editVersion.sections[action.payload.sectionIndex].content[action.payload.contentIndex][action.payload.title][action.payload.lan] = action.payload.value
                 }
             } else if (action.payload.subSection === "content/procedures") {
@@ -89,6 +90,12 @@ const cmsSlice = createSlice({
                 state.present.content.editVersion.sections[action.payload.index].content.cards[action.payload.cardIndex].icon = action.payload.src
             } else if (action.payload.section === "socialLinks") {
                 state.present.content.editVersion.sections[action.payload.sectionIndex].content[action.payload.section][action.payload.index][action.payload.title] = action.payload.src
+            } else if (action.payload.section === "points") {
+                state.present.content.editVersion.sections[action.payload.index].content.points[action.payload.cardIndex].images[action.payload.order - 1] = action.payload.src
+            } else if (action.payload.section === "affiliates") {
+                state.present.content.editVersion.sections[action.payload.index].content.cards[action.payload.order - 1].images[0] = action.payload.src
+            } else if (action.payload.section === "Chart") {
+                state.present.content.editVersion.sections[action.payload.index].content.chart.images[action.payload.order - 1] = action.payload.src
             } else {
                 state.present.content.editVersion.sections[action.payload.index].content.images[action.payload.order - 1] = action.payload.src
             }
@@ -183,6 +190,20 @@ const cmsSlice = createSlice({
             } else {
                 newArray = state.present.content?.editVersion?.sections?.[action.payload.sectionIndex].content[action.payload.section].filter((e, i) => {
                     return i !== action.payload.index
+                })
+            }
+            state.present.content.editVersion.sections[action.payload.sectionIndex].content[action.payload.section] = newArray
+            state.future = [];
+        },
+        updateAffiliatesCardsArray: (state, action) => { // post content
+            state.past.push(JSON.parse(JSON.stringify(state.present)));
+            let newArray = []
+            let oldArray = state.present.content?.editVersion?.sections?.[action.payload.sectionIndex].content[action.payload.section]
+            if (action.payload.operation === 'add') {
+                newArray = [...oldArray, { ...action.payload.src, order: oldArray.length + 1 }]
+            } else {
+                newArray = state.present.content?.editVersion?.sections?.[action.payload.sectionIndex].content[action.payload.section].filter((e, i) => {
+                    return e.order !== action.payload.order
                 })
             }
             state.present.content.editVersion.sections[action.payload.sectionIndex].content[action.payload.section] = newArray
@@ -469,7 +490,8 @@ export const { // actions
     updateSelectedSubService,
     updateAList,
     updateComment,
-    updateSubServiceDetailsPointsArray
+    updateSubServiceDetailsPointsArray,
+    updateAffiliatesCardsArray
 } = cmsSlice.actions;
 
 export default cmsSlice.reducer; // reducer

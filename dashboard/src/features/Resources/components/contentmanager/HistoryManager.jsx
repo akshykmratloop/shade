@@ -7,43 +7,13 @@ import ContentSection from "../breakUI/ContentSections"
 // import { updateCardAndItemsArray, updatePoliciesItems } from "../../../common/homeContentSlice"
 
 const HistoryManager = ({ content, currentPath, language, indexes }) => {
-    // const dispatch = useDispatch()
-
-    // const addExtraSummary = () => {
-    //     dispatch(updatePoliciesItems(
-    //         {
-    //             insert: {
-    //                 title: {
-    //                     ar: "",
-    //                     en: ""
-    //                 },
-    //                 description: {
-    //                     ar: "",
-    //                     en: ""
-    //                 },
-    //                 images: [
-    //                     {
-    //                         url: "",
-    //                         order: 1,
-    //                         altText: {
-    //                             ar: "",
-    //                             en: ""
-    //                         }
-    //                     }
-    //                 ]
-    //             },
-    //             sectionIndex: indexes?.['2'],
-    //             operation: 'add'
-    //         }
-    //     ))
-    // }
 
 
     return (
         <div>
             {/* reference doc */}
-            <FileUploader id={"SnR-Polilcy-ID-Reference"} label={"Rerference doc"} fileName={"Upload your file..."} />
-            
+            <FileUploader id={"History-ID-Reference"} label={"Rerference doc"} fileName={"Upload your file..."} />
+
             {/** Hero Banner */}
             <ContentSection
                 currentPath={currentPath}

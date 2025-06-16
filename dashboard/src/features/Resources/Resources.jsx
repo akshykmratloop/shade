@@ -47,6 +47,7 @@ function Resources() {
   const [preview, setPreview] = useState(false)
   const [currentResourceId, setCurrentResourceId] = useState("")
   const [rawContent, setRawContent] = useState(null)
+  const [contentLoader, setContentLoader] = useState(false)
   const [screen, setScreen] = useState(359);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [isSmall, setIsSmall] = useState(false);
@@ -165,7 +166,7 @@ function Resources() {
   useEffect(() => { // Fetch Resource's Content from server
     if (currentResourceId) {
       async function fetchResourceContent() {
-
+        setContentLoader(true)
         try {
           const response = await getContent(currentResourceId)
           if (response.message === "Success") {
@@ -184,11 +185,13 @@ function Resources() {
           }
         } catch (err) {
           console.error(err)
+        } finally {
+          setContentLoader(false)
         }
       }
       fetchResourceContent()
     }
-  }, [currentResourceId])
+  }, [currentResourceId, preview])
 
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -248,6 +251,7 @@ function Resources() {
         }
         setPreview(true)
         dispatch(setPlatform("RESOURCE"))
+        console.log("qwer")
       }
     ];
     return actions[i]();
@@ -318,26 +322,29 @@ function Resources() {
         />
       )}
       {
-        (preview && rawContent) &&
-        <div className="fixed top-0 left-0 z-[55] w-screen h-screen bg-stone-900/30 overflow-y-scroll customscroller">
-          <Suspense fallback={<FallBackLoader />}>
-            <div className="">
-              <CloseModalButton onClickClose={() => { setPreview(false); setRawContent(null) }} className={"fixed top-4 right-8 z-[56]"} />
-            </div>
+        (preview && rawContent) && (
+          contentLoader ? 
+          <FallBackLoader />
+          :
+            < div className="fixed top-0 left-0 z-[55] w-screen h-screen bg-stone-900/30 overflow-y-scroll customscroller">
+              <Suspense fallback={<FallBackLoader />}>
+                <div className="">
+                  <CloseModalButton onClickClose={() => { setPreview(false); setRawContent(null) }} className={"fixed top-4 right-8 z-[56]"} />
+                </div>
 
-            <AllForOne
-              language={language}
-              screen={1532}
-              content={rawContent.content}
-              contentIndex={content.index}
-              subPath={subPath}
-              deepPath={deepPath}
-              setLanguage={setLanguage}
-              fullScreen={true}
-              currentPath={path}
-            />
-          </Suspense>
-        </div>
+                <AllForOne
+                  language={language}
+                  screen={1532}
+                  content={rawContent.content}
+                  contentIndex={content.index}
+                  subPath={subPath}
+                  deepPath={deepPath}
+                  setLanguage={setLanguage}
+                  fullScreen={true}
+                  currentPath={path}
+                />
+              </Suspense>
+            </div>)
       }
       <ToastContainer />
     </div >

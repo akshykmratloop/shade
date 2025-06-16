@@ -297,14 +297,17 @@ const DynamicContentSection = ({
                         </div>
                         : <div className={`flex ${inputFiles.length > 1 ? "flex-wrap" : "flex-wrap"} gap-10 w-[80%]`}>
 
-                            {inputFiles.map((file, index) => (
+                            {inputFiles.map((file, ind) => (
                                 <InputFile
-                                    key={index}
+                                    key={ind}
                                     label={file.label}
                                     id={file.id}
                                     currentPath={currentPath}
-                                    fileIndex={index}
+                                    fileIndex={ind}
                                     section={section}
+                                    contentIndex={sectionIndex}
+                                    index={index}
+                                    order={file.order}
                                 />
                             ))}
                             {extraFiles.map((file, index) => (

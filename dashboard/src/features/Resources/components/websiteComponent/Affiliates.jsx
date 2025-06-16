@@ -1,43 +1,32 @@
-// import { useState } from "react";
 import { useSelector } from "react-redux";
-// import content from "./content.json"
-// import { updateMainContent } from "../../../common/homeContentSlice";
-import { services, projectPageData } from "../../../../assets/index";
-// import { TruncateText } from "../../../../../app/capitalizeword";
+import dynamicSize, { defineDevice, differentText, generatefontSize } from "../../../../app/fontSizes";
+import { projectPageData } from "../../../../assets";
 import { Img_url } from "../../../../routes/backend";
-import dynamicSize, { defineDevice, generatefontSize } from "../../../../app/fontSizes";
-// import blueCheckIcon from "../../../../../assets/bluecheckicon.svg"
 
-const bg1color = {
-    0: "#EDFAFE",
-    1: "#D8F6FF",
-    2: "#C0F0FF"
-}
-
-const bg2color = {
-    0: "#84E2FE",
-    1: "#06D5FF",
-    2: "#00B9F2"
-}
-
-const AffiliatesPage = ({ currentContent, screen, language, width }) => {
+const AffiliatesPage = ({ language, screen, content, width, highlight }) => {
     const isComputer = screen > 900;
-    const isTablet = screen < 900 && screen > 730;
-    const isPhone = screen < 638;
+    const isTablet = screen < 900 && screen > 700;
+    const isPhone = screen < 700;
     const isLeftAlign = language === 'en';
     const fontLight = useSelector(state => state.fontStyle.light)
+    const slug = useSelector(state => state.homeContent?.present?.content?.slug)
+
 
     const titleLan = isLeftAlign ? "titleEn" : "titleAr";
+
+    const checkDifference = highlight ? differentText?.checkDifference?.bind(differentText) : () => ""
 
     const fontSize = generatefontSize(defineDevice(screen), dynamicSize, width)
     const getDynamicSize = (size) => dynamicSize(size, width)
 
     return (
-        <div className="" dir={isLeftAlign ? "ltr" : "rtl"}>
+        <div>
             <section
-                className={`relative border w-full py-[100px] ${isPhone ? "px-8" : "px-10"} bg-cover bg-center ${isLeftAlign ? 'scale-x-[-1]' : ''}`}
+                className={`relative w-full py-[100px] ${isPhone ? "px-8" : "px-10"} bg-cover bg-center ${isLeftAlign ? 'scale-x-[-1]' : ''}`}
                 style={{
-                    backgroundImage: `url("${Img_url + currentContent?.['1']?.content?.images?.[0]?.url}")`,
+                    backgroundImage: `url("${Img_url + content?.['1']?.content?.images?.[0]?.url
+                        // projectPageData.asphaltWork
+                        }")`,
                     backgroundPosition: "bottom",
                     height: isComputer && getDynamicSize(600),
                     padding: isComputer && `${getDynamicSize(100)} ${getDynamicSize(120)}`
@@ -46,7 +35,7 @@ const AffiliatesPage = ({ currentContent, screen, language, width }) => {
                 <div className="absolute inset-0 pointer-events-none z-0 flex items-center justify-center overflow-hidden">
                     <div
                         style={{ width: getDynamicSize(750), height: getDynamicSize(650) }}
-                        className=" rounded-full bg-white opacity-[.9] blur-[120px] mix-blend-screen"></div>
+                        className="rounded-full bg-white opacity-[.9] blur-[120px] mix-blend-screen"></div>
                 </div>
 
                 <div className="container relative h-full flex items-center justify-center "
@@ -59,27 +48,43 @@ const AffiliatesPage = ({ currentContent, screen, language, width }) => {
                                 margin: `${getDynamicSize(16)} 0px`
                             }}
                         >
-                            {
-                                // currentContent?.['1']?.content?.title?.[language] ||
-                                "Affiliates"
-                            }
+                            {content?.['1']?.content?.title?.[language]}
                         </h2>
                         <p
                             style={{ fontSize: fontSize.mainPara, lineHeight: fontSize.paraLeading }}
                             className={`text-[#0E172FB2] text-[12px] leading-[26px] ${fontLight} word-spacing-5 ${isPhone ? "w-4/5" : isTablet ? "w-2/3" : "w-1/2"} `}>
-                            {
-                                // currentContent?.['1']?.content?.description?.[language] ||
-                                "Experience the rich history of Shade Corporation — a legacy of innovation, resilience, and engineering excellence that shaped Saudi Arabia's EPC landscape"
-                            }
+                            {content?.['1']?.content?.description?.[language]}
                         </p>
                     </div>
                 </div>
             </section>
 
-   
+            <section
+                className={`${isPhone ? "px-8" : isTablet ? "px-10" : ""} py-10`}
+                style={{
+                    padding: isComputer && `${getDynamicSize(60)} ${getDynamicSize(120)}`
+                }}
+            >
+                <div className={`grid ${isPhone ? "grid-cols-1" : isTablet ? "grid-cols-2" : "grid-cols-3"} gap-[20px]`}>
+                    {content?.[2]?.content?.cards?.map((card, i) => {
+                        return (
+                            <div key={i}
+                                className="aspect-[1.2/1]"
+                                style={{}}
+                            >
+                                <img
+                                    src={Img_url + card?.images?.[0]?.url}
+                                    alt={card?.images?.[0]?.text?.[language]}
+                                    className="h-full"
+                                />
+                            </div>
+                        )
+                    })}
+                </div>
+            </section>
 
-        </div >
-    );
-};
+        </div>
+    )
+}
 
-export default AffiliatesPage;
+export default AffiliatesPage

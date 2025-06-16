@@ -59,7 +59,7 @@ const EditPage = () => {
         "home", "solution", "about-us", "service", "market",
         "projects", "project", "careers", "career", "news-blogs","news",,
         "footer", "header", "testimonials", "testimonial",
-        "safety_responsibility", "history", "vision", "hse"
+        "safety_responsibility", "history", "vision", "hse", "affiliates","organization"
     ]
 
 
@@ -191,9 +191,10 @@ const EditPage = () => {
                                         />
                                         <AllForOne
                                             language={language} screen={screen}
-                                            content={content.content} subPath={subPath}
-                                            deepPath={deepPath} setLanguage={setLanguage}
-                                            fullScreen={fullScreen} currentPath={currentPath}
+                                            content={content.content} 
+                                            subPath={subPath} deepPath={deepPath} 
+                                            setLanguage={setLanguage} fullScreen={fullScreen} 
+                                            currentPath={currentPath}
                                         />
 
                                         <div className={`border border-cyan-500 pt-0 

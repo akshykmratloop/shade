@@ -5,10 +5,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { projectPageData } from "../../../../assets/index";
 import { TruncateText } from "../../../../app/capitalizeword";
 import { Img_url } from "../../../../routes/backend";
-import dynamicSize from "../../../../app/fontSizes";
+import dynamicSize, { defineDevice, differentText, generatefontSize } from "../../../../app/fontSizes";
 
 
-const ProjectPage = ({ language, screen, currentContent }) => {
+const ProjectPage = ({ language, screen, currentContent, highlight, liveContent }) => {
     const isPhone = screen < 760
     const isTablet = screen > 761 && screen < 1100
     const isComputer = screen > 1100
@@ -22,10 +22,15 @@ const ProjectPage = ({ language, screen, currentContent }) => {
 
     const titleLan = isLeftAlign ? "titleEn" : "titleAr";
 
+    const checkDifference = highlight ? differentText?.checkDifference?.bind(differentText) : () => ""
+
+
+    const fontSize = generatefontSize(defineDevice(screen), dynamicSize, width)
     const getDynamicSize = (size) => dynamicSize(size, width)
+    const fontLight = useSelector(state => state.fontStyle.light)
+    const tabIndex = currentContent?.['2']?.sections.findIndex(e => e.order == activeTab)
 
     useEffect(() => {
-        const tabIndex = currentContent?.['2']?.sections.findIndex(e => e.order == activeTab)
         setFilteredProject(
             currentContent?.["2"]?.sections?.[tabIndex]?.items
         );
@@ -51,48 +56,45 @@ const ProjectPage = ({ language, screen, currentContent }) => {
         };
     }, []);
 
-    // useEffect(() => {
-    //     dispatch(updateMainContent({ currentPath: "projects", payload: content.projectsPage }));
-    // }, [])
-
-    // useEffect(() => {
-    //     if(currentContent){
-    //         dispatch(updateAllProjectlisting({data:currentContent?.projectsSection?.projects, action: "initial"}))
-    //     }
-    // }, [currentContent])
-
     return (
         <div className="h-full" ref={divRef}>
             <section className={`relative w-full bg-cover bg-center ${isLeftAlign ? 'scale-x-[-1]' : ''}  `}
                 style={{
-                    height: isComputer ? getDynamicSize(715) : "",
+                    height: isComputer ? getDynamicSize(715) : "500px",
                     padding: isTablet ? `${getDynamicSize(180)} 0px` : "",
                     backgroundImage: currentContent?.['1']?.content?.images?.[0]?.url ? `url(${Img_url + currentContent?.['1']?.content?.images?.[0]?.url})` :
                         "url('https://frequencyimage.s3.ap-south-1.amazonaws.com/a4a2a992-c11e-448b-bdfe-54b14574958d-Hero%20%281%29%20%281%29.png')"
                 }}>
-                <div className={`container h-full relative ${isPhone ? "px-10" : "px-20"} flex items-center ${isLeftAlign ? "justify-end" : "justify-end"}   `}>
+                <div
+                    style={{
+                        padding: isComputer && `0px ${getDynamicSize(150)}`,
+                    }}
+                    className={`container h-full relative ${isPhone ? "px-10" : "px-20"} flex items-center ${isLeftAlign ? "justify-end" : "justify-end"}   `}>
                     <div className={`flex flex-col ${isLeftAlign ? 'right-5 text-left items-start ' : 'left-5 text-right items-end'} ${isPhone ? "max-w-[70%]" : "max-w-[55%]"} w-full ${isLeftAlign ? 'scale-x-[-1]' : ''}`}>
                         <h1 dir={language === 'ar' ? "rtl" : "ltr"}
-                            style={{ fontSize: isComputer ? getDynamicSize(70) : "" }}
-                            className={`text-[#292E3D] ${isPhone ? "text-3xl" : "text-[40px] leading-[77px] tracking-[-3.5px]"} font-medium  mb-4`}>
+                            style={{ fontSize: fontSize.mainHeading, lineHeight: (isComputer || isTablet) && fontSize.headingLeading }}
+                            className={`text-[#292E3D] ${isPhone ? "text-3xl" : "text-[40px] leading-[77px] tracking-[-3.5px]"} font-medium  mb-4
+                            ${checkDifference(currentContent?.["1"]?.content?.title?.[language], liveContent?.["1"]?.content?.title?.[language])}
+                            `}>
                             {currentContent?.["1"]?.content?.title?.[language]}
                         </h1>
                         <p
-                            style={{ fontSize: isComputer ? getDynamicSize(16) : "", width: isComputer ? getDynamicSize(674) : "", lineHeight: isComputer && getDynamicSize(28) }}
-                            className={`text-[#0E172FB3] ${isPhone ? "" : "leading-[28px]"} text-sm font-semibold font-[300] mb-6 word-spacing-5`}>
+                            style={{ fontSize: fontSize.mainPara, width: isComputer ? getDynamicSize(674) : "", lineHeight: isComputer && getDynamicSize(28) }}
+                            className={`text-[#0E172FB3] ${isPhone ? "" : "leading-[28px]"} text-sm font-semibold font-[300] mb-6 word-spacing-5
+                            ${checkDifference(currentContent?.["1"]?.content?.description?.[language], liveContent?.["1"]?.content?.description?.[language])}
+                            `}>
                             {currentContent?.["1"]?.content?.description?.[language]}
                         </p>
                         <button
-                            style={{ fontSize: isComputer ? getDynamicSize(16) : "", padding: isComputer && getDynamicSize(10) }}
+                            style={{ fontSize: fontSize.mainButton, padding: isComputer && getDynamicSize(10) }}
                             className={`relative px-[12px] py-[6px] text-xs font-medium bg-[#00B9F2] text-white rounded flex items-center justify-start gap-2 ${isLeftAlign ? "flex-row-reverse" : ""}`}
-                        // onClick={() => router.push("/services")}
                         >
                             <img
                                 src={Arrow}
                                 alt="Arrow"
                                 className={` ${isLeftAlign ? 'scale-x-[-1]' : ''} w-[11px] h-[11px]`}
                             />
-                            <p>
+                            <p className={`${checkDifference(currentContent?.["1"]?.content?.title?.[language], liveContent?.["1"]?.content?.title?.[language])}`}>
                                 {currentContent?.["1"]?.content?.button?.[0]?.text?.[language]}
                             </p>
                         </button>
@@ -101,11 +103,13 @@ const ProjectPage = ({ language, screen, currentContent }) => {
             </section>
 
             <section
-                style={{ padding: `${getDynamicSize(80)}` }}
+                style={{
+                    padding: isComputer || isTablet ? `0px ${getDynamicSize(150)}` : "",
+                }}
                 className={` ${language === "en" ? "text-left" : "text-right"}`}
-                dir={isLeftAlign? "ltr" :"rtl"}
-                >
-                <div className={`container mx-auto px-10`}>
+                dir={isLeftAlign ? "ltr" : "rtl"}
+            >
+                <div className={`container mx-auto`}>
                     <div>
                         {/* Tabs */}
                         <div
@@ -135,7 +139,9 @@ const ProjectPage = ({ language, screen, currentContent }) => {
                                 gap: isComputer ? getDynamicSize(55) : "",
                                 // placeItems: "center"
                             }}
-                            className={`grid grid-cols-1  ${isTablet ? "lg:grid-cols-2 gap-6" : isPhone ? "grid-cols-1" : "lg:grid-cols-3 gap-8"} `}>
+                            className={`grid grid-cols-1  ${isTablet ? "lg:grid-cols-2 gap-6" : isPhone ? "grid-cols-1" : "lg:grid-cols-3 gap-8"} 
+                            ${checkDifference(currentContent?.["2"]?.sections?.[tabIndex]?.items, liveContent?.["2"]?.sections?.[tabIndex]?.items)}
+                            `}>
                             {filteredProject?.slice(0, visibleProjectsCount)?.map((item, index) => (
                                 <div
                                     style={{

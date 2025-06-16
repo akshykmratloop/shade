@@ -23,6 +23,9 @@ import SnRPoliciesManager from "./contentmanager/SnRPolicyManager";
 import HistoryManager from "./contentmanager/HistoryManager";
 import VisionManager from "./contentmanager/VisionManager";
 import HSnEManager from "./contentmanager/HSnEManager";
+import MarketDetailsManager from "./contentmanager/CMforDetails/MarketDetailsManager";
+import AffiliatesManager from "./contentmanager/AffiliatesManager";
+import OrganizationManager from "./contentmanager/OrganizationManager";
 
 
 const AllForOneManager = ({ currentPath, language, subPath, deepPath, content, contentIndex, outOfEditing }) => {
@@ -56,7 +59,9 @@ const AllForOneManager = ({ currentPath, language, subPath, deepPath, content, c
             break;
 
         case "market":
-            manager = <MarketManager outOfEditing={outOfEditing} language={language} currentContent={content} indexes={contentIndex} currentPath={currentPath} />
+            manager = subPath ?
+                <MarketDetailsManager outOfEditing={outOfEditing} language={language} indexes={contentIndex} content={content} currentPath={currentPath} />
+                : <MarketManager outOfEditing={outOfEditing} language={language} currentContent={content} indexes={contentIndex} currentPath={currentPath} />
             break;
 
         case "project":
@@ -108,8 +113,17 @@ const AllForOneManager = ({ currentPath, language, subPath, deepPath, content, c
             manager = <VisionManager outOfEditing={outOfEditing} language={language} content={content} indexes={contentIndex} currentPath={currentPath} />
             break;
 
+        case "affiliates":
+            manager = <AffiliatesManager outOfEditing={outOfEditing} language={language} content={content} indexes={contentIndex} currentPath={currentPath} />
+            break;
+
+        case "organization":
+            manager = <OrganizationManager outOfEditing={outOfEditing} language={language} content={content} indexes={contentIndex} currentPath={currentPath} />
+            break;
+
         case "hse":
             manager = <HSnEManager outOfEditing={outOfEditing} language={language} content={content} indexes={contentIndex} currentPath={currentPath} />
+            break;
 
         default:
     }

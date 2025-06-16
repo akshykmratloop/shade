@@ -6,13 +6,8 @@ const DirectInputFile = ({
   label,
   baseClass,
   id,
-  currentPath,
-  contentIndex,
   index,
-  subSection,
   section,
-  directIcon,
-  order,
   url,
   disabled = false,
 }) => {

@@ -8,7 +8,8 @@ export const differentText = {
     checkDifference: function (arg1, arg2, highlight, from) {
 
         if (Array.isArray(arg1) && Array.isArray(arg2)) {
-            return arg1.some((e, i) => e?.title?.en !== arg2[i]?.title?.en || e?.id !== arg2[i]?.id || e?.order !== arg2[i]?.order) ? this?.highlight1 : ""
+            if (arg1.length !== arg2.length) return this?.highlight1
+            return arg1.some((e, i) => e?.title?.en !== arg2[i]?.title?.en || e?.id !== arg2[i]?.id || e?.titleEn !== arg2[i]?.titleEn) ? this?.highlight1 : ""
         }
 
         if (arg1 !== arg2) {
@@ -48,7 +49,7 @@ const fontSizes = {
         // home -- some of them are used in other pages due similarity
         mainHeading: 70, mainPara: 26, mainButton: 30, markDownHead: 36, markDownPara: 15, markDownButton: 70,
         serviceHeading: 36, services: 20, experienceCount: 40, experienceTitle: 12, experienceHeading: 60,
-        experiencePara: 16, experienceButton: 18, subProjectTopButton: 16, subProjectHeadings: 32,
+        experiencePara: 16, experienceButton: 18, subProjectTopButton: 16, subProjectHeadings: 55,
         subProjectParas: 16, subProjectBoxHeading: 20, subProjectBoxPara: 16, subProjectButtons: 18,
         clientSection: 36, testimonialsHead: 36, testimonialsHeading: 20, testimonialsPosition: 12,
         testimonialsQuote: 14, testimonialsCompany: 16, SnRSubHeading: 50, cardTitle: 50,
@@ -61,9 +62,9 @@ const fontSizes = {
     },
     phone: {
         // home -- some of them are used in other pages due similarity
-        mainHeading: 150, mainPara: 48, mainButton: 50, markDownHead: 36, markDownPara: 15, markDownButton: 70,
+        mainHeading: 150, mainPara: 48, mainButton: 70, markDownHead: 36, markDownPara: 15, markDownButton: 70,
         serviceHeading: 36, services: 20, experienceCount: 40, experienceTitle: 12, experienceHeading: 60,
-        experiencePara: 50, experienceButton: 18, subProjectTopButton: 16, subProjectHeadings: 32,
+        experiencePara: 50, experienceButton: 18, subProjectTopButton: 16, subProjectHeadings: 80,
         subProjectParas: 16, subProjectBoxHeading: 20, subProjectBoxPara: 16, subProjectButtons: 18,
         clientSection: 90, testimonialsHead: 36, testimonialsHeading: 20, testimonialsPosition: 12,
         testimonialsQuote: 14, testimonialsCompany: 16, SnRSubHeading: 110, cardTitle: 100,
