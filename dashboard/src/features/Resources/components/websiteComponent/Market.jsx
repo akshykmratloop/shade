@@ -16,21 +16,15 @@ import {
 // import { projectPageData } from "../../../../assets/index";
 import { TruncateText } from "../../../../app/capitalizeword";
 import { Img_url } from "../../../../routes/backend";
-import dynamicSize from "../../../../app/fontSizes";
+import dynamicSize, { defineDevice, differentText, generatefontSize } from "../../../../app/fontSizes";
 
-const MarketPage = ({ language, screen, currentContent }) => {
+const MarketPage = ({ language, screen, currentContent, highlight, liveContent }) => {
     const testimonialPrevRef = useRef(null);
     const testimonialNextRef = useRef(null);
-    // const currentContent = content?.market;
-    // const handleContactUSClose = () => {
-    //     setIsModal(false);
-    // };
-    const dispatch = useDispatch()
     const isComputer = screen > 1100
     const isPhone = screen < 760
     const isTablet = screen > 761 && screen < 1100
     const [activeTab, setActiveTab] = useState("buildings");
-    const ImageFromRedux = useSelector((state) => state.homeContent.present.images)
     const isLeftAlign = language === 'en'
     const [filterMarketItems, setFilterMarketItems] = useState([]);
     const [width, setWidth] = useState(0)
@@ -40,6 +34,11 @@ const MarketPage = ({ language, screen, currentContent }) => {
         if (isComputer) { return dynamicSize(size, width) }
     }
     const titleLan = isLeftAlign ? 'titleEn' : "titleAr"
+    const checkDifference = highlight ? differentText?.checkDifference?.bind(differentText) : () => ""
+
+
+    const fontSize = generatefontSize(defineDevice(screen), dynamicSize, width)
+    const fontLight = useSelector(state => state.fontStyle.light)
 
 
     useEffect(() => {
@@ -77,7 +76,7 @@ const MarketPage = ({ language, screen, currentContent }) => {
             {/* hero banner  */}
             <section className={`relative h-[487px] w-full bg-cover bg-center ${isLeftAlign ? 'scale-x-[-1]' : ''} ${isPhone ? "px-10" : "px-30"} `}
                 style={{
-                    padding: `0px ${isTablet ? '80px' : getDynamicSize(112)}`,
+                    padding: `0px ${isTablet ? '80px' : getDynamicSize(150)}`,
                     height: getDynamicSize(726),
                     backgroundImage: currentContent?.['1']?.content?.images?.[0]?.url ? `url(${Img_url + currentContent?.['1']?.content?.images?.[0]?.url})` :
                         "url('https://frequencyimage.s3.ap-south-1.amazonaws.com/b9961a33-e840-4982-bd19-a7dcc52fdd95-Hero.jpg')"
@@ -85,13 +84,23 @@ const MarketPage = ({ language, screen, currentContent }) => {
                 <div className={`container h-full relative  flex items-center ${isLeftAlign ? "justify-end" : "justify-end"}   `}>
                     <div className={`flex flex-col ${isLeftAlign ? 'right-5 text-left items-start ' : 'left-5 text-right items-end'} ${isPhone ? "max-w-[70%]" : "max-w-[55%]"} w-full ${isLeftAlign ? 'scale-x-[-1]' : ''}`}>
                         <h1
-                            style={{ fontSize: isPhone ? "40px" : getDynamicSize(70) }}
-                            className={`text-[#292E3D] ${isPhone ? "text-3xl" : "text-[50px] leading-[77px] tracking-[-3.5px]"} font-medium  mb-4`}>
+                            style={{ fontSize: isPhone ? "40px" : fontSize.mainHeading, lineHeight: fontSize.headingLeading }}
+                            className={`text-[#292E3D] ${isPhone ? "text-3xl" : "text-[50px] leading-[77px] tracking-[-3.5px]"} font-medium  mb-4
+                            ${checkDifference(currentContent?.['1']?.content?.title?.[language],
+                                liveContent?.['1']?.content?.title?.[language])}
+                            `}>
                             {currentContent?.['1']?.content?.title?.[language]}
                         </h1>
                         <p
-                            style={{ fontSize: getDynamicSize(14), width: getDynamicSize(486), lineHeight: getDynamicSize(28) }}
-                            className={`text-[#0E172FB3] ${isPhone ? "" : "leading-[28px]"} text-sm font-semibold  mb-6 word-spacing-5`}>
+                            style={{
+                                fontSize: fontSize.mainPara,
+                                width: getDynamicSize(486),
+                                lineHeight: getDynamicSize(28)
+                            }}
+                            className={`text-[#0E172FB3] ${isPhone ? "" : "leading-[28px]"} text-sm font-semibold  mb-6 word-spacing-5
+                            ${checkDifference(currentContent?.['1']?.content?.description?.[language],
+                                liveContent?.['1']?.content?.description?.[language])}
+                            `}>
                             {currentContent?.['1']?.content?.description?.[language]}
                         </p>
                         <button
@@ -103,7 +112,12 @@ const MarketPage = ({ language, screen, currentContent }) => {
                                 alt="Arrow"
                                 className={`${isLeftAlign ? 'scale-x-[-1]' : ''} w-[11px] h-[11px]`}
                             />
-                            <p>
+                            <p
+                                className={`
+                                         ${checkDifference(currentContent?.['1']?.content?.button?.[0]?.text?.[language],
+                                    liveContent?.['1']?.content?.button?.[0]?.text?.[language])}
+                                `}
+                            >
                                 {currentContent?.['1']?.content?.button?.[0]?.text?.[language]}
                             </p>
                         </button>
@@ -115,27 +129,36 @@ const MarketPage = ({ language, screen, currentContent }) => {
                 dir={isLeftAlign ? "ltr" : "rtl"}
                 style={{
                     gap: getDynamicSize(30),
-                    padding: `0px ${getDynamicSize(112)}`,
+                    padding: `0px ${getDynamicSize(150)}`,
                     margin: `${getDynamicSize(70)} 0px`
                 }}
-                className={`flex gap-[30px] ${isPhone ? "flex-col px-[30px]" : ""} ${isPhone ? "px-10" : "px-20"} my-[33px]`}>
+                className={`flex gap-[30px] ${isPhone ? "flex-col px-[30px]" : ""} ${isPhone ? "px-10" : "px-20"} my-[33px]`}
+            >
                 <h2
                     style={{ fontSize: getDynamicSize(60) }}
-                    className={`text-[35px] ${isPhone ? "" : "w-1/2"} ${(isTablet || isPhone) && "leading-[34px]"}`}>
+                    className={`text-[35px] ${isPhone ? "" : "w-1/2"} ${(isTablet || isPhone) && "leading-[34px]"}
+                                ${checkDifference(currentContent?.['3']?.content?.introSection?.title?.[language],
+                        liveContent?.['3']?.content?.introSection?.title?.[language])}
+                            `}>
                     {currentContent?.['3']?.content?.introSection?.title?.[language]}
                 </h2>
                 <div
-                    style={{ fontSize: getDynamicSize(14) }}
-                    className={`text-[9.5px] ${isPhone ? "" : "w-1/2"}`}
-                    dangerouslySetInnerHTML={{ __html: currentContent?.['3']?.content?.introSection?.description?.[language] || "Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam, aliquam. Eum architecto alias adipisci tempore nemo tenetur accusantium id voluptatibus?   " }}
+                    style={{ fontSize: fontSize.mainPara }}
+                    className={` ${isPhone ? "" : "w-1/2"} ${fontLight}
+                                ${checkDifference(currentContent?.['3']?.content?.introSection?.description?.[language],
+                        liveContent?.['3']?.content?.introSection?.description?.[language])}
+                                `}
+                    dangerouslySetInnerHTML={{ __html: currentContent?.['3']?.content?.introSection?.description?.[language] }}
                 />
             </section>
 
-            <div className={`${isPhone ? "px-10" : "px-20"} flex flex-col gap-[20px]`}
+            <div className={`${isPhone ? "px-12" : "px-20"} flex flex-col gap-[20px]
+            ${checkDifference(currentContent?.['3']?.items, liveContent?.['3']?.items)}
+            `}
                 dir={isLeftAlign ? "ltr" : "rtl"}
                 style={{
                     gap: getDynamicSize(30),
-                    padding: `0px ${getDynamicSize(112)}`,
+                    padding: isComputer && `0px ${getDynamicSize(150)}`,
                 }}
             >
                 {
@@ -147,7 +170,7 @@ const MarketPage = ({ language, screen, currentContent }) => {
                                     height: getDynamicSize(359),
                                 }}
                                 className={`flex ${isPhone ? "flex-col" : odd && "flex-row-reverse"} bg-[#F8F8F8]`} key={e.id}>
-                                <div className={` flex-[2_0_auto] border border-cyan-500`}
+                                <div className={` flex-[2_0_auto] `}
                                     style={{ width: isPhone ? '100%' : isTablet ? "300px" : getDynamicSize(463), height: isPhone ? '50%' : isTablet ? "40vh" : '100%' }}
                                 >
                                     <img
@@ -161,15 +184,15 @@ const MarketPage = ({ language, screen, currentContent }) => {
                                 </div>
                                 <article
                                     dir={isLeftAlign ? "ltr" : "rtl"}
-                                    className={`flex flex-col flex-[1_1_auto] gap-[13px] items-start justify-center text-[#292E3D] px-[38px] ${isPhone && "py-10"}`}>
+                                    className={`flex flex-col flex-[1_1_auto] gap-[13px] items-start justify-center text-[#292E3D] ${isPhone ? "py-5 px-[20px] w-full" : "px-[38px]"}`}>
                                     <h3 className="font-[400] text-[21px]"
                                         style={{
-                                            fontSize: getDynamicSize(32)
+                                            fontSize: fontSize.subProjectHeadings
                                         }}
                                     >{TruncateText(e?.[titleLan], 35)} </h3>
-                                    <p className="font-[300] text-[10px]"
+                                    <p className={`${fontLight} text-[10px]`}
                                         style={{
-                                            fontSize: getDynamicSize(16)
+                                            fontSize: fontSize.mainPara
                                         }}>
                                         {TruncateText(e.description?.[language], 350)}
                                     </p>
@@ -223,10 +246,14 @@ const MarketPage = ({ language, screen, currentContent }) => {
                             alt="asd"
                             className="mb-[24px] rotate-180 opacity-[.3]"
                         />
-                        <p className={`text-[#97b3d8] font-Arial ${isPhone ? "" : "text-[20px]"} font-normal leading-[30px] tracking-[0.02em] text-center mb-[20px]`}>
+                        <p className={`text-[#97b3d8] font-Arial ${isPhone ? "" : "text-[20px]"} font-normal leading-[30px] tracking-[0.02em] text-center mb-[20px]
+                        ${checkDifference(currentContent?.['2']?.content?.text?.[language], liveContent?.['2']?.content?.text?.[language])}
+                        `}>
                             {currentContent?.['2']?.content?.text?.[language]}
                         </p>
-                        <h5 className="text-[rgba(11,54,156,0.3)] font-Arial text-[18px] italic font-bold leading-[27px] tracking-[0.01em] text-center">
+                        <h5 className={`text-[rgba(11,54,156,0.3)] font-Arial text-[18px] italic font-bold leading-[27px] tracking-[0.01em] text-center
+                            ${checkDifference(currentContent?.['2']?.content?.author?.[language], liveContent?.['2']?.content?.author?.[language])}
+                            `}>
                             {currentContent?.['2']?.content?.author?.[language]}
                         </h5>
                     </div>
@@ -242,7 +269,10 @@ const MarketPage = ({ language, screen, currentContent }) => {
             >
                 <div className="container mx-auto" >
                     <div className="text-center mb-16">
-                        <h2 className="text-black text-3xl font-medium"
+                        <h2 className={`text-black text-3xl font-medium
+                            ${checkDifference(currentContent?.["4"]?.content?.title?.[language], liveContent?.["4"]?.content?.title?.[language])}
+                        
+                        `}
                             style={{ fontSize: isComputer && dynamicSize(36, width) }}
                         >
                             {currentContent?.["4"]?.content?.title?.[language]}
@@ -290,6 +320,7 @@ const MarketPage = ({ language, screen, currentContent }) => {
                                     724: { slidesPerView: isPhone ? 1 : 1.5 },
                                     500: { slidesPerView: 1 },
                                 }}
+                                className={`${checkDifference(currentContent?.["4"]?.items, liveContent?.["4"]?.items)}`}
                             >
                                 {currentContent?.["4"]?.items?.map(
                                     (testimonial, index) => (

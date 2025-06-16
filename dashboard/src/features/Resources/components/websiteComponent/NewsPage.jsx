@@ -2,9 +2,12 @@ import { newsBlogs } from "../../../../assets/index";
 // import Arrow from "../../../../assets/icons/right-wrrow.svg";
 import { TruncateText } from "../../../../app/capitalizeword";
 import { Img_url } from "../../../../routes/backend";
+import dynamicSize, { defineDevice, differentText, generatefontSize } from "../../../../app/fontSizes";
+import { useSelector } from "react-redux";
 
 
-const NewsBlogspage = ({ language, screen, content }) => {
+const NewsBlogspage = ({ language, screen, content, highlight, liveContent, width }) => {
+    const isComputer = screen > 1100
     const isLeftAlign = language === 'en'
     const titleLan = isLeftAlign ? "titleEn" : "titleAr"
     const isPhone = screen < 761
@@ -14,72 +17,89 @@ const NewsBlogspage = ({ language, screen, content }) => {
     const latestNews = content?.['3']?.items;
     const trendingCard = content?.['4']?.items?.[0];
 
+    const checkDifference = highlight ? differentText?.checkDifference?.bind(differentText) : () => ""
+
+
+    const fontSize = generatefontSize(defineDevice(screen), dynamicSize, width)
+    const getDynamicSize = (size) => dynamicSize(size, width)
+    const fontLight = useSelector(state => state.fontStyle.light)
+
     return (
         <div>
             {/**Banner Section */}
             <section className={`relative px-5 w-full bg-cover bg-center ${isLeftAlign ? 'scale-x-[-1]' : ''}  `}
                 style={{
-                    height: 1100 * 0.436,
+                    height: isComputer ? getDynamicSize(715) : "500px",
                     // backgroundImage: banner.images?.[0]?.url?.slice(0, 5) === "https" ? "url('https://loopwebsite.s3.ap-south-1.amazonaws.com/Hero+(2).png')" : `url(${Img_url + banner.images?.[0]?.url})`
                     backgroundImage: `linear-gradient(to right,#00000020 30%,#fffffffb 100%) ,url("${Img_url + content?.['1']?.content?.images?.[0]?.url}")`,
                 }}>
-                <div className={`${isTablet && "py-[200px]"} container h-full relative ${isPhone ? "px-10" : "px-20"} flex items-center ${isLeftAlign ? "justify-end" : "justify-end"}`}>
+                <div
+                    className={`${isTablet && "py-[200px]"} container h-full relative ${isPhone ? "px-10" : ""} flex items-center ${isLeftAlign ? "justify-end" : "justify-end"}`}
+                    style={{
+                        padding: (isComputer || isTablet) && `0px ${getDynamicSize(150)}`,
+                    }}
+                >
                     <div className={`flex flex-col ${isLeftAlign ? 'right-5 text-left items-start ' : 'left-5 text-right items-end'} ${isPhone ? "max-w-[90%]" : isTablet ? "max-w-[70%]" : "max-w-[50%]"} w-full ${isLeftAlign ? 'scale-x-[-1]' : ''}`}>
-                        <h1 className={`text-[#292E3D] ${isPhone ? "text-3xl" : "text-[50px] leading-[77px] tracking-[-3.5px]"} font-medium  mb-4`}>
+                        <h1 className={`text-[#292E3D] ${isPhone ? "text-3xl" : "text-[50px] leading-[77px] tracking-[-3.5px]"} font-medium  mb-4`}
+                            style={{ fontSize: fontSize.mainHeading, lineHeight: (isComputer || isTablet) && fontSize.headingLeading }}
+                        >
                             {banner?.title?.[language]}
                         </h1>
-                        <p className={`text-[#0E172FB3] ${isPhone ? "" : "leading-[28px]"} text-sm font-semibold w-[70%] mb-6 word-spacing-5`} dir={isLeftAlign ? "ltr" : "rtl"}>
+                        <p
+                            style={{ fontSize: fontSize.mainPara, width: isComputer ? getDynamicSize(674) : "", lineHeight: isComputer && getDynamicSize(28) }}
+                            className={`text-[#0E172FB3] ${isPhone ? "" : "leading-[28px]"} text-sm font-semibold w-[70%] mb-6 word-spacing-5`} dir={isLeftAlign ? "ltr" : "rtl"}>
                             {banner?.description?.[language]}
                         </p>
-                        {/* <button
-                            className={`relative px-5 py-2 ${isPhone ? "text-xs" : "text-sm"} font-medium bg-[#00B9F2] text-white rounded flex items-center justify-start gap-2 ${isLeftAlign ? "flex-row-reverse" : ""}`}
-                        // onClick={() => router.push("/services")}
-                        >
-                            <img
-                                src={Arrow}
-                                alt="Arrow"
-                                className={` ${isLeftAlign ? 'scale-x-[-1]' : ''} ${isPhone ? "w-[12px] h-[12px]" : "w-[14px] h-[14px]"}`}
-                            />
-                            <p>
-                                {currentContent?.banner?.button?.[language]}
-                            </p>
-                        </button> */}
                     </div>
                 </div>
             </section>
 
             {/** main card */}
             {!mainCard?.id ? "" :
-                <section className={`py-[88px] ${isPhone ? 'px-4' : "px-[100px]"}`}>
+                <section className={`py-[88px] ${isPhone ? 'px-4' : "px-[100px]"}`}
+                    style={{
+                        padding: (isComputer || isTablet) && `${getDynamicSize(100)} ${getDynamicSize(170)}`,
+                    }}
+                >
                     <div className="container">
-                        <div className={`flex items-center ${!isLeftAlign && "flex-row-reverse text-right"} ${isTablet || isPhone ? "flex-col pb-6" : ""} justify-center gap-[50px] p-2 mx-auto rounded-md border border-gray-300 bg-white shadow-md shadow-gray-200`}>
+                        <div className={`flex  ${!isLeftAlign && "flex-row-reverse text-right"} 
+                            ${isTablet || isPhone ? "flex-col pb-6" : ""} 
+                            justify-center gap-[50px] mx-auto rounded-md border border-gray-300 bg-white shadow-md shadow-gray-200`}>
                             <div className="p-[30px]">
-                                <h2 title={mainCard?.title?.[language]} className="text-[#292E3D] text-[20px] font-bold mb-4">
-                                    {TruncateText(mainCard?.[titleLan], 20)}
+                                <h2 title={mainCard?.title?.[language]}
+                                    style={{ fontSize: fontSize.aboutMainPara }}
+                                    className="text-[#292E3D] text-[20px] font-bold mb-4">
+                                    {TruncateText(mainCard?.[titleLan], 26)}
                                 </h2>
                                 <p
+                                    style={{ fontSize: fontSize.mainPara }}
                                     title={mainCard?.description?.[language]}
-                                    className="text-xs text-[rgba(0,26,88,0.51)] font-light leading-[22px] mb-6"
+                                    className={`text-xs text-[rgba(0,26,88,0.51)] ${fontLight} leading-[22px] mb-6`}
                                 >
-                                    {TruncateText(mainCard?.description?.[language], 150)}
+                                    {TruncateText(mainCard?.description?.[language], 180)}
                                 </p>
                                 <div className="flex items-center justify-between gap-5">
-                                    <h6 className="text-[12px] text-gray-600 font-light">
+                                    <h6
+                                        style={{ fontSize: fontSize.mainPara }}
+                                        className={`text-[12px] text-gray-600 ${fontLight}`}>
                                         {mainCard?.date?.[language]}
                                     </h6>
                                     <button
+                                        style={{ fontSize: fontSize.mainPara }}
                                         className="text-[14px] text-[#00b9f2] font-bold bg-transparent border-none cursor-pointer"
                                     >
-                                        {content?.['2']?.button?.[0]?.text?.[language]}
+                                        {content?.['3']?.content?.button?.[0]?.text?.[language]}
                                     </button>
                                 </div>
                             </div>
-                            <img
-                                src={mainCard.image ? Img_url + mainCard?.image : newsBlogs.news1}
-                                className="rounded-md mr-1 h-[200px] object-cover object-left"
-                                alt=""
-                                width={333}
-                            />
+                            <div className="self-stretch flex-[2_0_auto]">
+                                <img
+                                    src={mainCard.image ? Img_url + mainCard?.image : newsBlogs.news1}
+                                    className="rounded-md mr-1 aspect-[1.9/1] h-[100%] object-cover object-left"
+                                    alt=""
+                                />
+                            </div>
+
                         </div>
                     </div>
                 </section>
