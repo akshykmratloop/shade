@@ -337,7 +337,7 @@ async function main() {
                     itemOrder++
                   ) {
                     const item = sectionData.items[itemOrder];
-                    if (item.resourceType === "SUB_PAGE") {
+                    if (item.resourceType === "SUB_PAGE" || item.resourceType === "SUB_PAGE_ITEM") {
                       const linkedResource = await tx.resource.findUnique({
                         where: { slug: item.slug },
                       });

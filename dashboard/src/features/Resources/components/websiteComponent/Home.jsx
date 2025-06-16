@@ -13,21 +13,26 @@ import {
     // testimonials,
 } from "../../../../assets/index";
 import { Swiper, SwiperSlide } from "swiper/react";
-import {
+import SwiperCore, {
     Pagination,
     Navigation,
     Autoplay,
     EffectCoverflow,
-} from "swiper/modules";
-import "swiper/css/navigation";
-import "swiper/css";
-import "swiper/css/pagination";
+} from "swiper"; // Changed import source
+import "swiper/swiper-bundle.min.css"; // Consolidated Swiper CSS import
+// import "swiper/css/navigation"; // Covered by swiper-bundle.min.css
+// import "swiper/css"; // Covered by swiper-bundle.min.css
+// import "swiper/css/pagination"; // Covered by swiper-bundle.min.css
+
 // import blankImage from "../../../../assets/images/blankImage.webp";
 import { TruncateText } from "../../../../app/capitalizeword";
 import dynamicSize, { generatefontSize } from "../../../../app/fontSizes";
 import { differentText } from "../../../../app/fontSizes";
 // import contentJSON from './content.json'
 import { Img_url } from "../../../../routes/backend";
+
+// Initialize Swiper modules globally
+SwiperCore.use([Pagination, Navigation, Autoplay, EffectCoverflow]);
 
 function defineDevice(screen) {
     if (screen > 900) {
@@ -365,7 +370,7 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                         >
                             <Swiper
                                 key={language}
-                                modules={[Pagination, Navigation]}
+                                // modules={[Pagination, Navigation]} // Removed modules prop
                                 className={`mySwiper pl-1`}
                                 style={{ width: '100%' }}
                                 navigation={{
@@ -562,7 +567,7 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                         }
                         {content?.["7"]?.items?.length > 1 &&
                             <Swiper
-                                modules={[Navigation, Autoplay, EffectCoverflow]}
+                                // modules={[Navigation, Autoplay, EffectCoverflow]} // Removed modules prop
                                 grabCursor={true}
                                 centeredSlides={true}
                                 slidesPerView={isPhone ? 1 : 2}
@@ -601,7 +606,7 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
 
                                                 <div className="flex 1">
                                                     <img
-                                                        src={["7"]?.[testimonial?.liveModeVersionData?.image]}
+                                                        src={Img_url + testimonial?.liveModeVersionData?.image}
                                                         height={70}
                                                         width={70}
                                                         alt={testimonial?.name}
