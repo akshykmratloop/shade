@@ -32,19 +32,19 @@ const MarketDetails = ({ language, content, screen, width, highlight, liveConten
                         }")`,
                     backgroundPosition: "bottom",
                     height: isComputer && getDynamicSize(600),
-                    padding: isComputer && `${getDynamicSize(100)} ${getDynamicSize(120)}`
+                    padding: isComputer && `${getDynamicSize(100)} ${getDynamicSize(150)}`
                 }}
             >
-                <div className="absolute inset-0 pointer-events-none z-0 flex items-center justify-center overflow-hidden">
+                <div className="absolute inset-0 pointer-events-none z-0 flex items-center justify-end overflow-hidden">
                     <div
                         style={{ width: getDynamicSize(750), height: getDynamicSize(650) }}
                         className="rounded-full bg-white opacity-[.9] blur-[120px] mix-blend-screen"></div>
                 </div>
 
-                <div className="container relative h-full flex items-center justify-center "
+                <div className="container relative h-full flex items-center justify-end"
                 >
                     <div
-                        className={` ${isLeftAlign ? 'scale-x-[-1]' : ''} ${isPhone ? "w-full" : isTablet ? "w-2/3 text-center" : "text-center"} flex flex-col ${isPhone ? "items-start" : "items-center p-6 space-y-4"} `}>
+                        className={` ${isLeftAlign ? 'scale-x-[-1]' : ''} ${isPhone ? "w-full" : isTablet ? "" : ""} flex flex-col ${isPhone ? "items-start" : " space-y-4"} `}>
                         <h2 className={`text-[#292E3D] font-medium ${isPhone ? "text-[40px]" : isTablet ? "text-[45px]" : "text-[45px]"} tracking-[-3px] mb-4`}
                             style={{
                                 fontSize: fontSize.mainHeading, lineHeight: fontSize.headingLeading,

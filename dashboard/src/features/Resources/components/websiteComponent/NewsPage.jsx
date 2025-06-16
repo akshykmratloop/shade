@@ -16,6 +16,10 @@ const NewsBlogspage = ({ language, screen, content, highlight, liveContent, widt
     const mainCard = content?.['2']?.items?.[0]
     const latestNews = content?.['3']?.items;
     const trendingCard = content?.['4']?.items?.[0];
+    const liveBanner = liveContent?.['1']?.content
+    const liveMainCard = liveContent?.['2']?.items?.[0]
+    const liveLatestNews = liveContent?.['3']?.items;
+    const liveTrendingCard = liveContent?.['4']?.items?.[0];
 
     const checkDifference = highlight ? differentText?.checkDifference?.bind(differentText) : () => ""
 
@@ -40,14 +44,18 @@ const NewsBlogspage = ({ language, screen, content, highlight, liveContent, widt
                     }}
                 >
                     <div className={`flex flex-col ${isLeftAlign ? 'right-5 text-left items-start ' : 'left-5 text-right items-end'} ${isPhone ? "max-w-[90%]" : isTablet ? "max-w-[70%]" : "max-w-[50%]"} w-full ${isLeftAlign ? 'scale-x-[-1]' : ''}`}>
-                        <h1 className={`text-[#292E3D] ${isPhone ? "text-3xl" : "text-[50px] leading-[77px] tracking-[-3.5px]"} font-medium  mb-4`}
+                        <h1 className={`text-[#292E3D] ${isPhone ? "text-3xl" : "text-[50px] leading-[77px] tracking-[-3.5px]"} font-medium  mb-4
+                        ${checkDifference(banner?.title?.[language], liveBanner?.title?.[language])}
+                        `}
                             style={{ fontSize: fontSize.mainHeading, lineHeight: (isComputer || isTablet) && fontSize.headingLeading }}
                         >
                             {banner?.title?.[language]}
                         </h1>
                         <p
                             style={{ fontSize: fontSize.mainPara, width: isComputer ? getDynamicSize(674) : "", lineHeight: isComputer && getDynamicSize(28) }}
-                            className={`text-[#0E172FB3] ${isPhone ? "" : "leading-[28px]"} text-sm font-semibold w-[70%] mb-6 word-spacing-5`} dir={isLeftAlign ? "ltr" : "rtl"}>
+                            className={`text-[#0E172FB3] 
+                                ${checkDifference(banner?.description?.[language], liveBanner?.description?.[language])}
+                            ${isPhone ? "" : "leading-[28px]"} text-sm font-semibold w-[70%] mb-6 word-spacing-5`} dir={isLeftAlign ? "ltr" : "rtl"}>
                             {banner?.description?.[language]}
                         </p>
                     </div>
@@ -56,7 +64,9 @@ const NewsBlogspage = ({ language, screen, content, highlight, liveContent, widt
 
             {/** main card */}
             {!mainCard?.id ? "" :
-                <section className={`${isPhone ? 'px-4 py-16' : "px-[100px]"} `}
+                <section className={`${isPhone ? 'px-4 py-16' : "px-[100px]"} 
+                        ${checkDifference(mainCard?.title?.[language], liveMainCard?.title?.[language])}                
+                `}
                     style={{
                         padding: (isComputer || isTablet) && `${getDynamicSize(100)} ${getDynamicSize(170)} ${getDynamicSize(50)}`,
                     }}
@@ -113,19 +123,25 @@ const NewsBlogspage = ({ language, screen, content, highlight, liveContent, widt
             >
                 <div className="container mx-auto"
                 >
-                    <h2 className={`text-[28px] text-[#0E172F] opacity-70 font-normal mb-6`}
+                    <h2 className={`text-[28px] text-[#0E172F] opacity-70 font-normal mb-6
+                        ${checkDifference(content?.['3']?.content?.heading?.[language], liveContent?.['3']?.content?.heading?.[language])}
+                    `}
                         style={{ fontSize: fontSize.aboutMainPara, lineHeight: (isComputer || isTablet) && fontSize.headingLeading }}
                     >
                         {content?.['3']?.content?.heading?.[language]}
                     </h2>
-                    <div className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 
+                    <div className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 auto-rows-fr
                         ${isTablet ? "lg:grid-cols-3" : isPhone ? "lg:grid-cols-1" : "lg:grid-cols-4"}
-                          justify-items-center ${isLeftAlign ? '' : 'scale-x-[-1]'}`}
-                        style={{ gap: isComputer ? getDynamicSize(20) : isTablet ? getDynamicSize(40) : getDynamicSize(80) }}
+                          justify-items-center ${isLeftAlign ? '' : 'scale-x-[-1]'}
+                          ${checkDifference(latestNews, liveLatestNews)}
+                          `}
+                        style={{
+                            gap: isComputer ? getDynamicSize(20) : isTablet ? getDynamicSize(40) : getDynamicSize(80)
+                        }}
                     >
                         {latestNews?.map((card, index) => {
                             return (
-                                <div key={index} className={`rounded-md flex flex-col border border-gray-300 bg-white shadow-md overflow-hidden ${isPhone ? "min-h-[390px]" : "min-h-[390px]"}`}>
+                                <div key={index} className={`rounded-md flex flex-col border border-gray-300 bg-white shadow-md overflow-hidden`}>
                                     <img
                                         src={card.image ? Img_url + card?.image : newsBlogs.news2}
                                         alt=""
@@ -154,7 +170,7 @@ const NewsBlogspage = ({ language, screen, content, highlight, liveContent, widt
                                         <div className="flex items-center justify-between">
                                             <h6
                                                 style={{ fontSize: isComputer ? getDynamicSize(13) : isTablet ? getDynamicSize(20) : getDynamicSize(50) }}
-                                                className={`text-[10px] font-light text-gray-600 text- ${isLeftAlign ? '' : 'scale-x-[-1] text-right'}`} dir={language == "ar" ? "rtl" : "ltr"}>
+                                                className={`${fontLight} text-gray-600 text- ${isLeftAlign ? '' : 'scale-x-[-1] text-right'}`} dir={language == "ar" ? "rtl" : "ltr"}>
                                                 {card.date[language]}
                                             </h6>
                                             <button
@@ -186,8 +202,10 @@ const NewsBlogspage = ({ language, screen, content, highlight, liveContent, widt
                     >
                         <div className={`flex items-start ${!isLeftAlign && "flex-row-reverse text-right"} 
                                              ${(isTablet || isPhone) && "flex-col-reverse"}
-                                             mx-auto rounded-md overflow-hidden bg-[rgba(20,80,152,0.06)]`}>
-                            <div className="flex-1 flex flex-col justify-between self-stretch"
+                                             mx-auto rounded-md overflow-hidden bg-[rgba(20,80,152,0.06)]
+                                            ${checkDifference(trendingCard?.[titleLan], liveTrendingCard?.[titleLan])}
+                                             `}>
+                            <div className={`flex-1 flex flex-col justify-between self-stretch ${(isPhone || isTablet) && "gap-5"}`}
                                 style={{ padding: (isComputer || isTablet) ? `${getDynamicSize(40)} ${getDynamicSize(40)}` : `${getDynamicSize(50)} ${getDynamicSize(80)}` }}
                             >
                                 <div>
@@ -199,19 +217,19 @@ const NewsBlogspage = ({ language, screen, content, highlight, liveContent, widt
                                         {TruncateText(trendingCard?.[titleLan], (isTablet || isPhone) ? 20 : 35)}
                                     </h2>
                                     <p className={`text-xs ${fontLight} text-[rgba(0,26,88,0.51)]`}
-                                        style={{ fontSize: isComputer ? getDynamicSize(14) : isTablet ? getDynamicSize(20) : getDynamicSize(50) }}
+                                        style={{ fontSize: isComputer ? getDynamicSize(14) : isTablet ? getDynamicSize(30) : getDynamicSize(50) }}
                                     >
                                         {TruncateText(trendingCard?.description?.[language], 250)}
                                     </p>
                                 </div>
                                 <div className="flex items-center justify-between">
                                     <h6
-                                        style={{ fontSize: isComputer ? getDynamicSize(14) : isTablet ? getDynamicSize(20) : getDynamicSize(50) }}
+                                        style={{ fontSize: isComputer ? getDynamicSize(14) : isTablet ? getDynamicSize(25) : getDynamicSize(50) }}
                                         className={`text-xs ${fontLight} text-gray-600`}>
                                         {trendingCard?.date?.[language]}
                                     </h6>
                                     <button
-                                        style={{ fontSize: isComputer ? getDynamicSize(14) : isTablet ? getDynamicSize(20) : getDynamicSize(50) }}
+                                        style={{ fontSize: isComputer ? getDynamicSize(14) : isTablet ? getDynamicSize(25) : getDynamicSize(50) }}
                                         className="text-sm font-bold text-[#00b9f2] bg-transparent border-none cursor-pointer"
                                     >
                                         {content?.['4']?.content?.button?.[0]?.text?.[language]}
