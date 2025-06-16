@@ -106,12 +106,19 @@ const NewsBlogspage = ({ language, screen, content, highlight, liveContent, widt
             }
 
             {/* latest card */}
-            <section className={`pb-20 ${language === "en" ? "text-left" : "text-right"}`}>
-                <div className="container mx-auto px-16">
-                    <h2 className={`text-[28px] text-[#0E172F] opacity-70 font-normal mb-6`}>
+            <section className={` ${language === "en" ? "text-left" : "text-right"}`}
+                style={{ padding: (isComputer || isTablet) && `${getDynamicSize(100)} ${getDynamicSize(150)}` }}
+            >
+                <div className="container mx-auto"
+                >
+                    <h2 className={`text-[28px] text-[#0E172F] opacity-70 font-normal mb-6`}
+                        style={{ fontSize: fontSize.aboutMainPara, lineHeight: (isComputer || isTablet) && fontSize.headingLeading }}
+                    >
                         {content?.['3']?.content?.heading?.[language]}
                     </h2>
-                    <div className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 ${isTablet ? "lg:grid-cols-3" : isPhone ? "lg:grid-cols-1" : "lg:grid-cols-4"} gap-3 justify-items-center ${isLeftAlign ? '' : 'scale-x-[-1]'}`}>
+                    <div className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 
+                        ${isTablet ? "lg:grid-cols-3" : isPhone ? "lg:grid-cols-1" : "lg:grid-cols-4"}
+                         gap-3 justify-items-center ${isLeftAlign ? '' : 'scale-x-[-1]'}`}>
                         {latestNews?.map((card, index) => {
                             return (
                                 <div key={index} className={`rounded-md border border-gray-300 bg-white shadow-md overflow-hidden ${isPhone ? "min-h-[390px]" : "min-h-[390px]"}`}>
@@ -125,23 +132,27 @@ const NewsBlogspage = ({ language, screen, content, highlight, liveContent, widt
                                         <div>
                                             <h2
                                                 title={card?.[titleLan]}
+                                                style={{ fontSize: fontSize.mainButton }}
                                                 className={`text-[16px] font-bold mb-2 text-[#292E3D] ${isLeftAlign ? '' : 'scale-x-[-1] text-right'}`}
                                             >
                                                 {TruncateText(card?.[titleLan], 25)}
                                             </h2>
                                             <p
+                                                style={{ fontSize: isComputer ? getDynamicSize(13) : isTablet ? getDynamicSize(20) : getDynamicSize(50) }}
                                                 title={card.description[language]}
                                                 className={`text-[13px] font-light text-[#001A58]/50 leading-4 mb-5 ${isLeftAlign ? '' : 'scale-x-[-1] text-right'}`}
                                             >
                                                 {TruncateText(card.description[language], 150)}
-
                                             </p>
                                         </div>
                                         <div className="flex items-center justify-between">
-                                            <h6 className={`text-[10px] font-light text-gray-600 text- ${isLeftAlign ? '' : 'scale-x-[-1] text-right'}`} dir={language == "ar" ? "rtl" : "ltr"}>
+                                            <h6
+                                                style={{ fontSize: isComputer ? getDynamicSize(13) : isTablet ? getDynamicSize(20) : getDynamicSize(50) }}
+                                                className={`text-[10px] font-light text-gray-600 text- ${isLeftAlign ? '' : 'scale-x-[-1] text-right'}`} dir={language == "ar" ? "rtl" : "ltr"}>
                                                 {card.date[language]}
                                             </h6>
                                             <button
+                                                style={{ fontSize: isComputer ? getDynamicSize(13) : isTablet ? getDynamicSize(20) : getDynamicSize(50) }}
                                                 dir={language == "ar" ? "rtl" : "ltr"}
                                                 // onClick={() => router.push(`blog/${card.id}`)}
                                                 className={`text-[10px] font-bold text-[#00B9F2] border-none bg-transparent cursor-pointer ${isLeftAlign ? '' : 'scale-x-[-1] text-right'}`}
