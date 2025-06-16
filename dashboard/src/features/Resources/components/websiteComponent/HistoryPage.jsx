@@ -63,9 +63,9 @@ const History = ({ currentContent, screen, language, width }) => {
                 </div>
             </section>
 
-            <section className={`flex ${isPhone && 'flex-col'}`}
+            <section className={`flex ${(isPhone || isTablet) && 'flex-col'} border`}
                 style={{
-                    margin: `${getDynamicSize(50)} ${getDynamicSize(110)}`,
+                    margin: `${isComputer ? getDynamicSize(50) : getDynamicSize(150)} ${getDynamicSize(110)}`,
                     gap: getDynamicSize(120)
                 }}
             >
@@ -86,18 +86,21 @@ const History = ({ currentContent, screen, language, width }) => {
 
                 </div>
 
-                <div className={`grid ${(isTablet) ? "grid-cols-1" : "grid-cols-2"} py-20 gap-[10px] relative`}
-                    style={{ gap: getDynamicSize(30) }}
+                <div className={`grid ${(isPhone) ? "grid-cols-1" : "grid-cols-2"} py-20 gap-[10px] relative`}
+                    style={{ gap: isComputer ? getDynamicSize(30): getDynamicSize(80), padding: isTablet ? `0px ${getDynamicSize(100)}`: isPhone ? `0px ${getDynamicSize(120)}`:"" }}
                 >
-                    <div className={`bg-[#F1F4F9] rounded-lg absolute ${isPhone? "left-[-20px] w-[110%]":"right-[0%] w-[115%]"} top-1/2 -translate-y-1/2 h-[40%]  z-[1]`}></div>
+                    {
+                        isComputer &&
+                        <div className={`bg-[#F1F4F9] rounded-lg absolute right-[0%] w-[115%] top-1/2 -translate-y-1/2 h-[40%]  z-[1]`}></div>
+                    }
                     {
                         currentContent?.['2']?.content?.images?.map((image, i) => {
 
                             return (
-                                <div className={`flex relative z-[2] ${isTablet && "w-[200px]"}`} key={i}>
+                                <div className={`flex relative z-[2] ${isTablet && ""}`} key={i}>
                                     <img
                                         style={{ aspectRatio: "2/2.2", width: isComputer && getDynamicSize(273), height: isComputer && getDynamicSize(304) }}
-                                        className="object-cover"
+                                        className="object-cover w-full"
                                         src={Img_url + image.url} alt={i} />
                                 </div>
                             )
