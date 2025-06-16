@@ -202,7 +202,7 @@ async function main() {
               });
 
 
-             // Add the filter in resource
+              // Add the filter in resource
               if (filters && filters.length > 0) {
                 // Process filters
                 for (
@@ -247,7 +247,7 @@ async function main() {
               }
 
 
-               // if any child resource add the parent or child id
+              // if any child resource add the parent or child id
               if (childResources && childResources.length > 0) {
                 // Process child resources
                 for (
@@ -294,9 +294,8 @@ async function main() {
                 });
 
                 // Create Section with unique title (append resource slug to ensure uniqueness)
-                const uniqueSectionTitle = `${
-                  sectionData.title
-                }-${slug}-${crypto.randomBytes(2).toString("hex")}`;
+                const uniqueSectionTitle = `${sectionData.title
+                  }-${slug}-${crypto.randomBytes(2).toString("hex")}`;
                 const section = await tx.section.create({
                   data: {
                     title: uniqueSectionTitle,
@@ -337,7 +336,7 @@ async function main() {
                     itemOrder++
                   ) {
                     const item = sectionData.items[itemOrder];
-                    if (item.resourceType === "SUB_PAGE") {
+                    if (item.resourceType === "SUB_PAGE" || "SUB_PAGE_ITEM") {
                       const linkedResource = await tx.resource.findUnique({
                         where: { slug: item.slug },
                       });
@@ -372,9 +371,8 @@ async function main() {
                     });
 
                     // Create child Section with unique title
-                    const uniqueChildSectionTitle = `${
-                      childData.title
-                    }-${slug}-child-${crypto.randomBytes(2).toString("hex")}`;
+                    const uniqueChildSectionTitle = `${childData.title
+                      }-${slug}-child-${crypto.randomBytes(2).toString("hex")}`;
                     const childSection = await tx.section.create({
                       data: {
                         title: uniqueChildSectionTitle,
@@ -419,7 +417,7 @@ async function main() {
                         itemOrder++
                       ) {
                         const item = childData.items[itemOrder];
-                        if (item.resourceType === "SUB_PAGE") {
+                        if (item.resourceType === "SUB_PAGE" || "SUB_PAGE_ITEM") {
                           const linkedResource = await tx.resource.findUnique({
                             where: { slug: item.slug },
                           });
@@ -551,7 +549,10 @@ async function main() {
                 SectionType: "EXTERNAL_ITEMS",
                 content: project.moreProjects,
                 sectionVersionTitle: "Project-moreProjects",
-                items: [],
+                items: projectsSlugs.map((slug) => ({
+                  resourceType: "SUB_PAGE",
+                  slug: slug,
+                })),
               },
             ],
             [project.filter], // Pass filter as an array with a single string
@@ -588,7 +589,7 @@ async function main() {
                 SectionType: "EXTERNAL_ITEMS",
                 content: marketItem.projectsGridSection,
                 sectionVersionTitle: "MarketItem-projectsGridSection",
-                items: projectsSlugs.map((slug) => ({
+                items: marketItemSlug.map((slug) => ({
                   resourceType: "SUB_PAGE",
                   slug: slug,
                 })),
@@ -619,17 +620,17 @@ async function main() {
                 sectionVersionTitle: `${childService.resourceTitle.en}-heroSection`,
               },
               {
-                title: "ServicePointsGrid1",
+                title: "ServicePointsGrid",
                 SectionType: "SERVICE_CHILDREN",
-                content: childService.ServicePointsGrid1,
+                content: childService.ServicePointsGrid,
                 sectionVersionTitle: `${childService.resourceTitle.en}-ServicePointsGrid1`,
               },
               {
-                title: "ServicePointsGrid2",
+                title: "gallery",
                 SectionType: "SERVICE_CHILDREN",
-                content: childService.ServicePointsGrid2,
-                sectionVersionTitle: `${childService.resourceTitle.en}-ServicePointsGrid2`,
-              },
+                content: childService.gallery,
+                sectionVersionTitle: `${childService.resourceTitle.en}-Gallery`,
+              }
             ]
           );
         }
@@ -743,6 +744,134 @@ async function main() {
           [...safetyPoliciesSlug]
         );
 
+        // 7. create affiliates page
+        await createResource(
+          "Affiliate",
+          "الشركات التابعة",
+          content.affiliates.slug,
+          "MAIN_PAGE",
+          "AFFILIATES",
+          "PARENT",
+          [
+            {
+              title: "heroSection",
+              SectionType: "HERO_BANNER",
+              content: content.affiliates.heroSection,
+              sectionVersionTitle: "Affiliates-heroSection",
+            },
+            {
+              title: "affiliatesSection",
+              SectionType: "MARKDOWN_CONTENT",
+              content: content.affiliates.affiliatesSection,
+              sectionVersionTitle: "Affiliates-affiliatesSection",
+            },
+          ]
+        )
+        
+        // 7. create organizational chart page
+  await createResource(
+          "Organizational chart",
+          "المخطط التنظيمي",
+          content.organizationalChart.slug,
+          "MAIN_PAGE",
+          "ORGANIZATION_CHART",
+          "PARENT",
+          [
+            {
+              title: "heroSection",
+              SectionType: "HERO_BANNER",
+              content: content.organizationalChart.heroSection,
+              sectionVersionTitle: "Organization-heroSection",
+            },
+            {
+              title: "organizationalChart",
+              SectionType: "MARKDOWN_CONTENT",
+              content: content.organizationalChart.chartSection,
+              sectionVersionTitle: "Organization-chartSection",
+            },
+          ]
+        )
+
+        // 6. Create HS&E page
+        await createResource(
+          "HS&E",
+          "الصحة والسلامة والبيئة",
+          content.hse.slug,
+          "MAIN_PAGE",
+          "HSE",
+          "PARENT",
+          [
+            {
+              title: "heroSection",
+              SectionType: "HERO_BANNER",
+              content: content.hse.heroSection,
+              sectionVersionTitle:"Hse-heroSection"
+            },
+            {
+              title: "hseSection",
+              SectionType: "MARKDOWN_CONTENT",
+              content: content.hse.hseSection,
+              sectionVersionTitle: "Hse-hseSection"
+            }
+          ]
+        ) 
+
+        // 5. Create Vision and mission Page
+        await createResource(
+          "Vision and Mission Page",
+          "الرؤية و الرسالة",
+          content.visionMission.slug,
+          "MAIN_PAGE",
+          "VISION",
+          "PARENT",
+          [
+            {
+              title: "heroSection",
+              SectionType: "HERO_BANNER",
+              content: content.visionMission.heroSection,
+              sectionVersionTitle: "Vision-heroSection",
+            },
+            {
+              title: "coreBeliefsSection",
+              SectionType: "MARKDOWN_CONTENT",
+              content: content.visionMission.coreBeliefsSection,
+              sectionVersionTitle: "Vision-coreBeliefsSection",
+            },
+            {
+              title: "visionSection",
+              SectionType: "MARKDOWN_CONTENT",
+              content: content.visionMission.visionSection,
+              sectionVersionTitle: "Vision-visionSection",
+            },
+
+          ],
+        );
+
+        // 3. Create History Page
+        await createResource(
+          "History",
+          "تاريخ",
+          content.history.slug,
+          "MAIN_PAGE",
+          "HISTORY",
+          "PARENT",
+          [
+            {
+              title: "heroSection",
+              SectionType: "HERO_BANNER",
+              content: content.history.heroSection,
+              sectionVersionTitle: "History-heroSection",
+            },
+            {
+              title: "descriptionSection",
+              SectionType: "MARKDOWN_CONTENT",
+              content: content.history.descriptionSection,
+              sectionVersionTitle: "History-descriptionSection",
+            }
+          ]
+        );
+
+
         // 2. Create Footer
         await createResource(
           "Footer",
@@ -758,24 +887,24 @@ async function main() {
               content: content.footer.companyInfo,
               sectionVersionTitle: "Footer-companyInfo",
             },
-              {
-                title: "navColumns",
-                SectionType: "FOOTER_COLUMNS",
-                content: content.footer.navColumns,
-                sectionVersionTitle: "Footer-navColumns",
-              },
-              {
-                title: "contacts",
-                SectionType: "FOOTER_COLUMNS",
-                content: content.footer.contacts,
-                sectionVersionTitle: "Footer-contacts",
-              },
-              {
-                title: "copyright",
-                SectionType: "FOOTER_COLUMNS",
-                content: content.footer.copyright,
-                sectionVersionTitle: "Footer-copyright",
-              },
+            {
+              title: "navColumns",
+              SectionType: "FOOTER_COLUMNS",
+              content: content.footer.navColumns,
+              sectionVersionTitle: "Footer-navColumns",
+            },
+            {
+              title: "contacts",
+              SectionType: "FOOTER_COLUMNS",
+              content: content.footer.contacts,
+              sectionVersionTitle: "Footer-contacts",
+            },
+            {
+              title: "copyright",
+              SectionType: "FOOTER_COLUMNS",
+              content: content.footer.copyright,
+              sectionVersionTitle: "Footer-copyright",
+            },
           ]
         );
 
@@ -795,6 +924,13 @@ async function main() {
               isGlobal: true,
               sectionVersionTitle: "Header-navItems",
             },
+            {
+              title: "other-buttons",
+              SectionType: "EXTRA_KEY",
+              content: content.header.otherButtons,
+              isGlobal: true,
+              sectionVersionTitle: "Header-otherButtons"
+            }
           ]
         );
 
@@ -882,24 +1018,24 @@ async function main() {
                   items:
                     section.title?.en === "ALL"
                       ? projectsSlugs.map((slug) => ({
-                          resourceType: "SUB_PAGE",
-                          slug: slug,
-                        }))
+                        resourceType: "SUB_PAGE",
+                        slug: slug,
+                      }))
                       : section.title?.en === "ONGOING"
-                      ? content.projectDetail
+                        ? content.projectDetail
                           .filter((project) => project.filter === "ONGOING")
                           .map((project) => ({
                             resourceType: "SUB_PAGE",
                             slug: project.slug,
                           }))
-                      : section.title?.en === "COMPLETE"
-                      ? content.projectDetail
-                          .filter((project) => project.filter === "COMPLETE")
-                          .map((project) => ({
-                            resourceType: "SUB_PAGE",
-                            slug: project.slug,
-                          }))
-                      : [],
+                        : section.title?.en === "COMPLETE"
+                          ? content.projectDetail
+                            .filter((project) => project.filter === "COMPLETE")
+                            .map((project) => ({
+                              resourceType: "SUB_PAGE",
+                              slug: project.slug,
+                            }))
+                          : [],
                 })
               ),
             },
@@ -1089,9 +1225,8 @@ async function main() {
                   title: section.title?.en || null,
                   SectionType: "EXTERNAL_ITEMS",
                   content: section,
-                  sectionVersionTitle: `Home-multiSection-${
-                    section.title?.en || null
-                  }`,
+                  sectionVersionTitle: `Home-multiSection-${section.title?.en || null
+                    }`,
                   items: eval(section.id).map((slug) => ({
                     resourceType: "SUB_PAGE",
                     slug: slug,

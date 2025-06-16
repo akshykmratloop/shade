@@ -13,15 +13,20 @@ model Filters {
 // RESOURCE IS TYPE OF CONTENT ON WEBSITE(PAGE, TESTIMONIAL, SERVICE, PROJECTS, HEADER etc)
 // Core content entity representing any type of content on the website
 model Resource {
-  id                   String               @id @default(cuid())
-  titleEn              String
-  titleAr              String
-  slug                 String               @unique // URL-friendly identifier
-  status               Status               @default(ACTIVE)
-  resourceType         ResourceType         @default(NULL) // Content classification
-  resourceTag          ResourceTag          @default(NULL) // Content category
-  relationType         RelationType         @default(NULL) // Hierarchy position
-  isAssigned           Boolean              @default(false) // Whether content is assigned for work
+  id           String       @id @default(cuid())
+  titleEn      String
+  titleAr      String
+  slug         String       @unique // URL-friendly identifier
+  status       Status       @default(ACTIVE)
+  resourceType ResourceType @default(NULL) // Content classification
+  resourceTag  ResourceTag  @default(NULL) // Content category
+  relationType RelationType @default(NULL) // Hierarchy position
+  isAssigned   Boolean      @default(false) // Whether content is assigned for work
+
+  // Auto approval
+  autoApproval     Boolean @default(false) // Whether content is auto-approved
+  autoApprovalTime Int? // time for auto-approval
+
   // Versioning relationships
   versions             ResourceVersion[] // All historical versions
   liveVersionId        String?              @unique // Currently published version

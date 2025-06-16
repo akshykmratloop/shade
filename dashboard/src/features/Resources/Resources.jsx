@@ -28,6 +28,8 @@ import FallBackLoader from "../../components/fallbackLoader/FallbackLoader";
 import VersionTable from "./VersionTable";
 import { setPlatform } from "../common/platformSlice";
 import { updateResourceId } from "../common/resourceSlice";
+import { updateMainContent } from "../common/homeContentSlice";
+import { ResourceCard } from "./ResourceCard";
 
 const AllForOne = lazy(() => import("./components/AllForOne"));
 const Page404 = lazy(() => import("../../pages/protected/404"));
@@ -45,6 +47,7 @@ function Resources() {
   const [preview, setPreview] = useState(false)
   const [currentResourceId, setCurrentResourceId] = useState("")
   const [rawContent, setRawContent] = useState(null)
+  const [contentLoader, setContentLoader] = useState(false)
   const [screen, setScreen] = useState(359);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [isSmall, setIsSmall] = useState(false);
@@ -116,14 +119,7 @@ function Resources() {
 
   // Side Effects 
 
-  // useEffect(() => { // Permission for Editor and Manager only
 
-  //   if (!isManager && !isEditor) {
-  //     navigate('/app/welcome')
-  //     return () => { }
-  //   }
-
-  // }, [isEditor, isManager])
 
   useEffect(() => { // Running resources from localstroge
     const currentResource = localStorage.getItem("resourceType") || "MAIN_PAGE";
@@ -170,7 +166,7 @@ function Resources() {
   useEffect(() => { // Fetch Resource's Content from server
     if (currentResourceId) {
       async function fetchResourceContent() {
-
+        setContentLoader(true)
         try {
           const response = await getContent(currentResourceId)
           if (response.message === "Success") {
@@ -184,16 +180,18 @@ function Resources() {
               relationType: response.content.relationType,
               editVersion: isManager ? response.content.liveModeVersionData : response.content.editModeVersionData ?? response.content.liveModeVersionData
             }
-
+            dispatch(updateMainContent({ currentPath: "content", payload }))
             setRawContent(createContent(payload))
           }
         } catch (err) {
           console.error(err)
+        } finally {
+          setContentLoader(false)
         }
       }
       fetchResourceContent()
     }
-  }, [currentResourceId])
+  }, [currentResourceId, preview])
 
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -214,88 +212,49 @@ function Resources() {
   //   )
   // }
 
-  const ActionIcons = React.memo(({ page }) => {
+  const ActionIcons = ((page, i) => {
     const actions = [
-      {
-        icon: <AiOutlineInfoCircle />,
-        text: "Info",
-        onClick: () => {
-          setPageDetailsOn(true);
-          setConfigBarData(page);
-        },
+      () => {
+        setPageDetailsOn(true);
+        setConfigBarData(page);
       },
-      {
-        icon: <FiEdit />,
-        text: "Edit",
-        onClick: () => {
-          // dispatch(updateResourceId({ id: page.id, name: page.titleEn }))
+      () => {
+        // dispatch(updateResourceId({ id: page.id, name: page.titleEn }))
 
-          setIdOnStorage(page.id);
-          const { relationType, resourceTag, subPage, subOfSubPage, slug } = page;
-          if (relationType === "CHILD") {
-            navigateToPage(resourceTag?.toLowerCase(), page.id);
-          } else if (relationType !== "PARENT") {
-            navigateToPage(resourceTag?.toLowerCase(), subPage, subOfSubPage);
-          } else {
-            navigateToPage(slug?.toLowerCase());
-          }
-        },
+        setIdOnStorage(page.id);
+        const { resourceType, resourceTag, subPage, subOfSubPage, slug } = page;
+        const parentId = page?.parentId
+        // console.log(relationType, resourceTag, subPage, subOfSubPage, slug)
+        if (resourceType === "SUB_PAGE") {
+          navigateToPage(resourceTag?.toLowerCase(), page.id);
+        } else if (resourceType === "SUB_PAGE_ITEM") {
+          navigateToPage(resourceTag?.toLowerCase(), parentId, page.id);
+        } else {
+          navigateToPage(slug?.toLowerCase());
+        }
       },
-      {
-        icon: <IoSettingsOutline />,
-        text: "Assign",
-        permission: true,
-        onClick: () => {
-          setConfigBarOn(true);
-          setConfigBarData(page);
-        },
+      () => {
+        setConfigBarOn(true);
+        setConfigBarData(page);
       },
-      {
-        icon: <LuEye />,
-        text: "Preview",
-        onClick: () => {
-          setCurrentResourceId(page.id)
-          // setIdOnStorage(page.id);
-          const { relationType, resourceTag, subPage, subOfSubPage, slug } = page;
-          if (relationType === "CHILD") {
-            settingRoute(resourceTag?.toLowerCase(), page.id);
-          } else if (relationType !== "PARENT") {
-            settingRoute(resourceTag?.toLowerCase(), subPage, subOfSubPage);
-          } else {
-            settingRoute(slug?.toLowerCase());
-          }
-          setPreview(true)
-          dispatch(setPlatform("RESOURCE"))
-        },
+      () => {
+        setCurrentResourceId(page.id)
+        // setIdOnStorage(page.id);
+        const { relationType, resourceTag, subPage, subOfSubPage, slug } = page;
+        if (relationType === "CHILD") {
+          let firstRoute = resourceTag?.toLowerCase() === "news" ? "news-blogs" : resourceTag?.toLowerCase()
+          settingRoute(firstRoute, page.id);
+        } else if (relationType !== "PARENT") {
+          settingRoute(resourceTag?.toLowerCase(), subPage, subOfSubPage);
+        } else {
+          settingRoute(slug?.toLowerCase());
+        }
+        setPreview(true)
+        dispatch(setPlatform("RESOURCE"))
+        console.log("qwer")
       }
     ];
-
-    return (
-      <div
-        className={`absolute z-10 bottom-3 left-0 w-full text-white text-center flex justify-center items-center ${isNarrow ? "gap-2" : "gap-2"
-          } py-1`}
-      >
-        {actions.map((item, i, a) => {
-          if (item.permission && !isManager) {
-            return null
-          }
-          let lastIndex = i === a.length - 1
-          return (
-            <span
-              key={i}
-              onClick={item.onClick}
-              className={`flex ${isCollapsed ? "flex-col" : ""} gap-1 items-center cursor-pointer`}
-            >
-              {item.icon}
-              <span className={`${isSmall ? "text-xs" : "text-sm"} translate-y-[1px]`}>{item.text}</span>
-              {!lastIndex &&
-                <span className="pl-2"> | </span>
-              }
-            </span>
-          )
-        })}
-      </div>
-    );
+    return actions[i]();
   })
 
   if (!isEditor && !isManager) return null
@@ -320,83 +279,7 @@ function Resources() {
         ) : (
           resources?.[resourceType]?.map((page, index) => {
             return (
-              <div key={page.id || index} className="w-full">
-                <h3 className="mb-1 font-poppins font-semibold">
-                  {isSmall
-                    ? page.titleEn?.length > 20
-                      ? `${TruncateText(page.titleEn, 20)}...`
-                      : page.titleEn
-                    : page.titleEn?.length > 35
-                      ? `${TruncateText(page.titleEn, 35)}...`
-                      : page.titleEn}
-                </h3>
-
-                <div className="relative rounded-lg overflow-hidden border border-base-300 shadow-xl-custom">
-                  {
-                    isManager ?
-                      <div
-                        className={`h-6 ${page.isAssigned
-                          ? "bg-[#29469c] w-[120px]"
-                          : "bg-red-500 w-[140px]"
-                          } text-white flex items-center justify-center text-sm font-light clip-concave absolute top-3 left-0 z-10`}
-                      >
-                        {page.isAssigned ? "Assigned" : "Not assigned"}
-                      </div> :
-                      <div
-                        className={`h-6 
-                        ${!page.newVersionEditMode
-                            ? "bg-yellow-500 w-[140px]"
-                            : page.newVersionEditMode?.versionStatus === "VERIFICATION_PENDING" ? "bg-cyan-500 w-[120px]" : "bg-lime-500 w-[120px]"
-                          } text-white flex items-center justify-center text-sm font-light clip-concave absolute top-3 left-0 z-10`}
-                      >
-                        {page.newVersionEditMode ? capitalizeWords(page.newVersionEditMode?.versionStatus) : "Under Editing"}
-                        {/* {page.newVersionEditMode?.versionStatus} */}
-                      </div>
-                  }
-                  {
-                    isManager &&
-                    <div
-                      className={`h-6 ${page.status
-                        ? "bg-[#29469c] w-[120px]"
-                        : "bg-red-500 w-[140px]"
-                        } text-white flex items-center justify-center text-sm font-light clip-concave absolute top-11 left-0 z-10`}
-                    >
-                      {capitalizeWords(page.status)}
-                    </div>
-                  }
-
-
-                  <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/50 to-black/90 via-60%"></div>
-
-                  {/* <div className="relative aspect-[10/11] overflow-hidden"> */}
-                  {/* <div className="h-full overflow-y-scroll customscroller"> */}
-                  <div className="relative aspect-[10/11] overflow-hidden">
-                    {/* <iframe
-                    src={resourcesContent?.pages?.[index]?.src}
-                    className={`top-0 left-0 border-none transition-all duration-300 ease-in-out ${isNarrow
-                      ? "w-[1000px] scale-[0.10]"
-                      : `w-[1200px]  ${isSidebarOpen ? "scale-[0.34] " : "scale-[0.299]"
-                      } p-4  bg-white`
-                      } origin-top-left h-[80rem]`}
-                  ></iframe> */}
-                    <div className="w-full h-full overflow-y-scroll customscroller">
-                      <img src={pagesImages[page.slug]} alt="resourceRef" />
-                    </div>
-
-                    {/* Dark Gradient Overlay */}
-                    <div className="absolute bottom-0 left-0 w-full h-1/3 bg-gradient-to-t from-black/100 via-black/40 to-transparent"></div>
-                    <div className="absolute top-0 left-0 w-full h-1/3  bg-gradient-to-b from-white/100 via-white/40 to-transparent"></div>
-                  </div>
-                  {/* <AllForOne currentPath={page.slug} content={content} language="en" screen={screen} /> */}
-                  {/* </div> */}
-
-                  <div className="absolute z-10 bottom-0 left-0 w-full h-1/3 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
-                  <div className="absolute top-0 left-0 w-full h-1/3 bg-gradient-to-b from-white via-white/40 to-transparent"></div>
-                  {/* </div> */}
-
-                  <ActionIcons page={page} />
-                </div>
-              </div>
+              <ResourceCard key={index} resource={page} ActionIcons={ActionIcons} />
             )
           })
         )}
@@ -439,26 +322,29 @@ function Resources() {
         />
       )}
       {
-        (preview && rawContent) &&
-        <div className="fixed top-0 left-0 z-[55] h-screen bg-stone-900/30 overflow-y-scroll customscroller">
-          <Suspense fallback={<FallBackLoader />}>
-            <div className="">
-              <CloseModalButton onClickClose={() => { setPreview(false); setRawContent(null) }} className={"fixed top-4 right-8 z-[56]"} />
-            </div>
+        (preview && rawContent) && (
+          contentLoader ? 
+          <FallBackLoader />
+          :
+            < div className="fixed top-0 left-0 z-[55] w-screen h-screen bg-stone-900/30 overflow-y-scroll customscroller">
+              <Suspense fallback={<FallBackLoader />}>
+                <div className="">
+                  <CloseModalButton onClickClose={() => { setPreview(false); setRawContent(null) }} className={"fixed top-4 right-8 z-[56]"} />
+                </div>
 
-            <AllForOne
-              language={language}
-              screen={1532}
-              content={rawContent.content}
-              contentIndex={content.index}
-              subPath={subPath}
-              deepPath={deepPath}
-              setLanguage={setLanguage}
-              fullScreen={true}
-              currentPath={path}
-            />
-          </Suspense>
-        </div>
+                <AllForOne
+                  language={language}
+                  screen={1532}
+                  content={rawContent.content}
+                  contentIndex={content.index}
+                  subPath={subPath}
+                  deepPath={deepPath}
+                  setLanguage={setLanguage}
+                  fullScreen={true}
+                  currentPath={path}
+                />
+              </Suspense>
+            </div>)
       }
       <ToastContainer />
     </div >

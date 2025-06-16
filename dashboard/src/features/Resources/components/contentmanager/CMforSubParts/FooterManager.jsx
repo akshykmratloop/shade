@@ -9,7 +9,7 @@ import { useDispatch } from "react-redux";
 
 
 const FooterManager = ({ language, currentContent, currentPath, indexes }) => {
-    const socialIcons = useSelector((state) => state.homeContent.present.images.socialIcons)
+    // const socialIcons = useSelector((state) => state.homeContent.present.images.socialIcons)
     const dispatch = useDispatch()
 
     // useEffect(() => {

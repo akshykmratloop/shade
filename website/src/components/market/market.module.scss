@@ -1,26 +1,28 @@
 .market_banner_wrap {
-  height: 715px;
-  background: url("https://frequencyimage.s3.ap-south-1.amazonaws.com/b9961a33-e840-4982-bd19-a7dcc52fdd95-Hero.jpg")
-    no-repeat center / cover;
+  height: 100vh;
   width: 100%;
   position: relative;
 
   &.leftAlign {
     transform: scaleX(-1);
+
     .content {
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
       right: 20px;
+
       .title,
       .description {
         transform: scaleX(-1);
         text-align: left;
       }
+
       .view_btn {
         padding: 10px 40px 10px 5px;
         transform: scaleX(-1);
       }
+
       .arrow_btn {
         position: absolute;
         top: 30% !important;
@@ -103,8 +105,7 @@
         left: 0;
         height: 327px;
         width: 154px;
-        background: url("https://frequencyimage.s3.ap-south-1.amazonaws.com/dedcd7a4-2f65-4cde-bbc3-008818e2581d-Pattern.svg")
-          no-repeat center;
+        background: url("https://frequencyimage.s3.ap-south-1.amazonaws.com/dedcd7a4-2f65-4cde-bbc3-008818e2581d-Pattern.svg") no-repeat center;
       }
 
       &::before {
@@ -114,8 +115,7 @@
         right: 0;
         height: 327px;
         width: 154px;
-        background: url("https://frequencyimage.s3.ap-south-1.amazonaws.com/ac99188b-3b99-4708-b075-8a660e9aac8f-Pattern%20%281%29.svg")
-          no-repeat center;
+        background: url("https://frequencyimage.s3.ap-south-1.amazonaws.com/ac99188b-3b99-4708-b075-8a660e9aac8f-Pattern%20%281%29.svg") no-repeat center;
       }
 
       .arrow_btn {
@@ -248,14 +248,16 @@
           gap: 10px;
           margin-top: 8px;
           cursor: pointer;
-          .icon{
-            &.leftAlign{
+
+          .icon {
+            &.leftAlign {
               transform: scaleX(-1);
+            }
           }
-      }
         }
       }
     }
+
     .button_wrap {
       align-items: center;
       justify-content: center;
@@ -276,14 +278,16 @@
   &.rightAlignment {
     .mySwiper_testimonial {
       .testimonial_card {
-        flex-direction: row-reverse;
+        // flex-direction: row-reverse;
 
         .testimonial_content {
+
           .name,
           .position,
           .quote {
             text-align: right;
           }
+
           .company_wrap {
             justify-content: start;
             flex-direction: row-reverse;
@@ -295,6 +299,7 @@
         }
       }
     }
+
     .testimonial_wrapper_btn {
       // flex-direction: row-reverse;
       transform: scale(-1);
@@ -313,7 +318,7 @@
 
   .mySwiper_testimonial {
     padding: 66px 0;
-    direction: rtl;
+    direction: ltr;
     // overflow: visible; // Ensure left and right slides are not clipped
     position: relative; // For absolute positioning of gradients
 
@@ -325,11 +330,9 @@
       left: 0;
       width: 142px; // Width of the gradient
       height: 100%;
-      background: linear-gradient(
-        to right,
-        rgba(255, 255, 255, 1) 0%,
-        rgba(255, 255, 255, 0) 100%
-      );
+      background: linear-gradient(to right,
+          rgba(255, 255, 255, 1) 0%,
+          rgba(255, 255, 255, 0) 100%);
       z-index: 2; // Make sure it is above the background but below the slides
     }
 
@@ -341,11 +344,9 @@
       right: 0;
       width: 142px; // Width of the gradient
       height: 100%;
-      background: linear-gradient(
-        to left,
-        rgba(255, 255, 255, 1) 0%,
-        rgba(255, 255, 255, 0) 100%
-      );
+      background: linear-gradient(to left,
+          rgba(255, 255, 255, 1) 0%,
+          rgba(255, 255, 255, 0) 100%);
       z-index: 1; // Make sure it is above the background but below the slides
     }
 
@@ -429,7 +430,7 @@
         .company_wrap {
           display: flex;
           align-items: center;
-          justify-content: end;
+          // justify-content: end;
           gap: 10px;
 
           .company {
@@ -460,6 +461,7 @@
       align-items: center;
       justify-content: center;
       cursor: pointer;
+
       .arrow_btn {
         &.leftAlign {
           transform: scale(-1);
@@ -495,7 +497,7 @@
     position: relative;
     z-index: 1;
 
-    > i {
+    >i {
       position: absolute;
       top: 0;
       right: 200;
@@ -526,8 +528,83 @@
     font-size: 18px;
     margin: 0 auto;
     margin-top: 44px;
-    &.leftAlign{
-      padding: 10px!important;
+
+    &.leftAlign {
+      padding: 10px !important;
+    }
   }
+}
+
+.subHeading {
+  display: flex;
+  gap: 30px;
+  padding: 33px 150px;
+
+  .title {
+    color: var(--black);
+    font-size: 60px;
+    font-weight: 300;
+    width: 50%;
+  }
+
+  .description {
+    color: var(--para-light);
+    font-size: 16px;
+    width: 50%;
+  }
+}
+
+.subMarkets {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  padding: 50px 160px;
+
+  .card {
+    height: 359px;
+    display: flex;
+    flex-direction: row; // <- this matters for layout
+    background-color: #F8F8F8;
+    justify-content: space-between;
+
+    // .Imagediv {
+    //   // flex: 1 0 auto;
+    // }
+
+    .article {
+      display: flex;
+      flex: 2 1 auto; // Or remove if not needed
+      flex-direction: column;
+      gap: 13px;
+      align-items: flex-start;
+      justify-content: center;
+      color: var(--para-light);
+      padding: 40px 38px;
+      color: #292E3D;
+
+      .title {
+        font-weight: 400;
+        font-size: 32px;
+      }
+
+      .description {
+        font-size: 16px;
+        font-weight: 300;
+      }
+
+      .button {
+        position: relative;
+        padding: 6px 12px;
+        font-size: 18px;
+        background-color: #00B9F2;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 8px;
+        border: none;
+        border-radius: 8px;
+      }
+    }
   }
 }

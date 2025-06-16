@@ -18,6 +18,14 @@ import SubServiceDetailManager from "./contentmanager/subDetailsManagement/SubSe
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { updateMainContent } from "../../common/homeContentSlice";
+import SnRManager from "./contentmanager/SnRManager";
+import SnRPoliciesManager from "./contentmanager/SnRPolicyManager";
+import HistoryManager from "./contentmanager/HistoryManager";
+import VisionManager from "./contentmanager/VisionManager";
+import HSnEManager from "./contentmanager/HSnEManager";
+import MarketDetailsManager from "./contentmanager/CMforDetails/MarketDetailsManager";
+import AffiliatesManager from "./contentmanager/AffiliatesManager";
+import OrganizationManager from "./contentmanager/OrganizationManager";
 
 
 const AllForOneManager = ({ currentPath, language, subPath, deepPath, content, contentIndex, outOfEditing }) => {
@@ -40,52 +48,81 @@ const AllForOneManager = ({ currentPath, language, subPath, deepPath, content, c
 
         case "service":
             manager = subPath ? deepPath ?
-                <SubServiceDetailManager serviceId={subPath} deepPath={deepPath} language={language} currentContent={content.subOfsubService} currentPath={"subOfsubService"} /> :
-                <ServiceDetailsManager serviceId={subPath} language={language} currentContent={content.serviceDetails} currentPath={"serviceDetails"} /> :
-                <ServiceManager language={language} currentContent={content} currentPath={currentPath} indexes={contentIndex} />
+                <SubServiceDetailManager outOfEditing={outOfEditing} serviceId={subPath} deepPath={deepPath} language={language} content={content} indexes={contentIndex} currentPath={"subOfsubService"} /> :
+                <ServiceDetailsManager outOfEditing={outOfEditing} serviceId={subPath} language={language} content={content} indexes={contentIndex} currentPath={"serviceDetails"} /> :
+                <ServiceManager outOfEditing={outOfEditing} language={language} currentContent={content} currentPath={currentPath} indexes={contentIndex} />
             break;
 
         case "service":
             manager = subPath &&
-                <ServiceDetailsManager serviceId={subPath} language={language} currentContent={content.serviceDetails} indexes={contentIndex} currentPath={"serviceDetails"} />
+                <ServiceDetailsManager outOfEditing={outOfEditing} serviceId={subPath} language={language} currentContent={content.serviceDetails} indexes={contentIndex} currentPath={"serviceDetails"} />
             break;
 
         case "market":
-            manager = <MarketManager language={language} currentContent={content} indexes={contentIndex} currentPath={currentPath} />
+            manager = subPath ?
+                <MarketDetailsManager outOfEditing={outOfEditing} language={language} indexes={contentIndex} content={content} currentPath={currentPath} />
+                : <MarketManager outOfEditing={outOfEditing} language={language} currentContent={content} indexes={contentIndex} currentPath={currentPath} />
             break;
 
         case "project":
-            manager = <ProjectContentManager language={language} currentContent={content} indexes={contentIndex} currentPath={currentPath} />
-            break;
-
-        case "projects":
-            manager = <ProjectDetailManager projectId={subPath} language={language} indexes={contentIndex} currentContent={content.projectDetail} currentPath={"projectDetail"} />
+            manager =
+                subPath ?
+                    <ProjectDetailManager outOfEditing={outOfEditing} projectId={subPath} language={language} indexes={contentIndex} currentContent={content} currentPath={"projectDetail"} /> :
+                    <ProjectContentManager outOfEditing={outOfEditing} language={language} currentContent={content} indexes={contentIndex} currentPath={currentPath} />
             break;
 
         case "careers":
-            manager = <CareersManager language={language} currentContent={content} indexes={contentIndex} currentPath={currentPath} />
+            manager = <CareersManager outOfEditing={outOfEditing} language={language} currentContent={content} indexes={contentIndex} currentPath={currentPath} />
             break;
 
         case "career":
-            manager = <CareerDetailManager careerId={subPath} language={language} indexes={contentIndex} currentContent={content} currentPath={"careerDetails"} />
+            manager = <CareerDetailManager outOfEditing={outOfEditing} careerId={subPath} language={language} indexes={contentIndex} currentContent={content} currentPath={"careerDetails"} />
             break;
 
         case "news-blogs":
-            manager = subPath ?
-                <NewsDetailManager newsId={subPath} language={language} currentContent={content} currentPath={"newsBlogsDetails"} /> :
-                <NewsManager language={language} content={content} indexes={contentIndex} currentPath={"newsBlogs"} />
+            manager = <NewsManager outOfEditing={outOfEditing} language={language} content={content} indexes={contentIndex} currentPath={"newsBlogs"} />
+            break;
+
+        case "news":
+            manager = <NewsDetailManager outOfEditing={outOfEditing} newsId={subPath} language={language} indexes={contentIndex} content={content} currentPath={"newsBlogsDetails"} />
             break;
 
         case "footer":
-            manager = <FooterManager language={language} currentContent={content} indexes={contentIndex} currentPath={currentPath} />
+            manager = <FooterManager outOfEditing={outOfEditing} language={language} currentContent={content} indexes={contentIndex} currentPath={currentPath} />
             break;
 
         case "header":
-            manager = <HeaderManager language={language} currentContent={content} indexes={contentIndex} currentPath={currentPath} />
+            manager = <HeaderManager outOfEditing={outOfEditing} language={language} currentContent={content} indexes={contentIndex} currentPath={currentPath} />
             break;
 
         case "testimonial":
-            manager = <TestimonyManager language={language} currentContent={content} indexes={contentIndex} testimonyId={subPath} currentPath={"testimonialSection"} />
+            manager = <TestimonyManager outOfEditing={outOfEditing} language={language} currentContent={content} indexes={contentIndex} testimonyId={subPath} currentPath={"testimonialSection"} />
+            break;
+
+        case "safety_responsibility":
+            manager = subPath ?
+                <SnRPoliciesManager outOfEditing={outOfEditing} language={language} content={content} indexes={contentIndex} currentPath={currentPath} /> :
+                <SnRManager outOfEditing={outOfEditing} language={language} content={content} indexes={contentIndex} currentPath={currentPath} />
+            break;
+
+        case "history":
+            manager = <HistoryManager outOfEditing={outOfEditing} language={language} content={content} indexes={contentIndex} currentPath={currentPath} />
+            break;
+
+        case "vision":
+            manager = <VisionManager outOfEditing={outOfEditing} language={language} content={content} indexes={contentIndex} currentPath={currentPath} />
+            break;
+
+        case "affiliates":
+            manager = <AffiliatesManager outOfEditing={outOfEditing} language={language} content={content} indexes={contentIndex} currentPath={currentPath} />
+            break;
+
+        case "organization":
+            manager = <OrganizationManager outOfEditing={outOfEditing} language={language} content={content} indexes={contentIndex} currentPath={currentPath} />
+            break;
+
+        case "hse":
+            manager = <HSnEManager outOfEditing={outOfEditing} language={language} content={content} indexes={contentIndex} currentPath={currentPath} />
             break;
 
         default:
@@ -104,61 +141,3 @@ const AllForOneManager = ({ currentPath, language, subPath, deepPath, content, c
 }
 
 export default AllForOneManager
-
-
-
-
-// {/* {
-//                                 currentPath === "home" &&
-//                                 <HomeManager language={language} currentContent={content.home?.editVersion?.sections} currentPath={currentPath} />
-//                             }
-//                             {
-//                                 currentPath === "solutions" &&
-//                                 <SolutionManager language={language} currentContent={content.solutions} currentPath={currentPath} />
-//                             }
-//                             {
-//                                 currentPath === "about" &&
-//                                 <AboutManager language={language} currentContent={content.about} currentPath={currentPath} />
-//                             }
-//                             {
-//                                 currentPath === "services" ? subPath ? deepPath ?
-//                                     <SubServiceDetailManager serviceId={subPath} deepPath={deepPath} language={language} currentContent={content.subOfsubService} currentPath={"subOfsubService"} /> :
-//                                     <ServiceDetailsManager serviceId={subPath} language={language} currentContent={content.serviceDetails} currentPath={"serviceDetails"} /> :
-//                                     <ServiceManager language={language} currentContent={content.services} currentPath={currentPath} /> : ""
-//                             }
-//                             {
-//                                 (currentPath === "service" && subPath) &&
-//                                 <ServiceDetailsManager serviceId={subPath} language={language} currentContent={content.serviceDetails} currentPath={"serviceDetails"} />
-//                             }
-//                             {
-//                                 currentPath === 'markets' &&
-//                                 <MarketManager language={language} currentContent={content.markets} currentPath={currentPath} />
-//                             }
-//                             {
-//                                 currentPath === 'projects' || currentPath === 'project' ? subPath ?
-
-//                                     <ProjectDetailManager projectId={subPath} language={language} currentContent={content.projectDetail} currentPath={"projectDetail"} /> :
-//                                     <ProjectContentManager language={language} currentContent={content.projects} currentPath={currentPath} /> : ""
-//                             }
-//                             {
-//                                 currentPath === 'careers' ? subPath ?
-//                                     <CareerDetailManager careerId={subPath} language={language} currentContent={content.careerDetails} currentPath={"careerDetails"} /> :
-//                                     <CareersManager language={language} currentContent={content.careers} currentPath={currentPath} /> : ""
-//                             }
-//                             {
-//                                 currentPath === 'news' ? subPath ?
-//                                     <NewsDetailManager newsId={subPath} language={language} currentContent={content.newsBlogsDetails} currentPath={"newsBlogsDetails"} /> :
-//                                     <NewsManager language={language} currentContent={content.newsBlogs} currentPath={"newsBlogs"} /> : ""
-//                             }
-//                             {
-//                                 currentPath === 'footer' &&
-//                                 <FooterManager language={language} currentContent={content.footer} currentPath={currentPath} />
-//                             }
-//                             {
-//                                 currentPath === 'header' &&
-//                                 <HeaderManager language={language} currentContent={content.header} currentPath={currentPath} />
-//                             }
-//                             {
-//                                 currentPath === 'testimonials' || currentPath === 'testimonial' &&
-//                                 <TestimonyManager language={language} currentContent={content.testimonialSection} testimonyId={subPath} currentPath={"testimonialSection"} />
-//                             } */}

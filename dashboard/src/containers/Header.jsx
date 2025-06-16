@@ -143,7 +143,6 @@ function Header() {
     };
 
     const handleUserUpdate = async (response) => {
-      // console.log(JSON.stringify(response));
       if (response.result?.status === "INACTIVE") {
         return logoutUser();
       }

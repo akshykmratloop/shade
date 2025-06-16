@@ -215,7 +215,7 @@ const RequestDetails = () => {
                       </span>
                     </td>
 
-                    <td title={comment || 'N/A'} className="px-3 py-2 text-sm">
+                    <td className="px-3 py-2 text-sm text-center">
                       <Comments comment={comment} />
                       {/* <div className="flex items-center gap-1">
 

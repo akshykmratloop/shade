@@ -42,12 +42,7 @@ const TopSideButtons = ({ removeFilter, applyFilter, applySearch }) => {
 
   useEffect(() => {
     // reflection on ui as per the state changes
-    if (searchText === "") {
-      // removeAppliedFilter();
       applySearch(searchText);
-    } else {
-      applySearch(searchText);
-    }
   }, [searchText]);
 
   return (
@@ -111,7 +106,7 @@ const TopSideButtons = ({ removeFilter, applyFilter, applySearch }) => {
     </div>
   );
 };
-
+// --------------------------------------------------------------------------------------------
 function Users() {
   const [users, setUsers] = useState([]);
   const [originalUsers, setOriginalUsers] = useState([]);
@@ -156,7 +151,7 @@ function Users() {
     ) {
       query.status = value.toUpperCase();
     } else if (value.trim() === "") {
-
+      query.page = 1
     } else {
       query.name = value;
     }
@@ -198,10 +193,7 @@ function Users() {
 
 
   // Pagination logic
-  // const indexOfLastUser = currentPage * usersPerPage;
-  // const indexOfFirstUser = indexOfLastUser - usersPerPage;
-  const currentUsers = users// users?.slice(indexOfFirstUser, indexOfLastUser);
-  // const totalPages = Math.ceil(users?.length / usersPerPage);
+  const currentUsers = users
   const [totalPages, setTotalPages] = useState(0)
 
   useEffect(() => {
@@ -215,9 +207,9 @@ function Users() {
   }, [searchValue]);
 
   useEffect(() => {
-    if (debouncedValue) {
-      applySearch(debouncedValue);
-    }
+    applySearch(debouncedValue);
+    // if (debouncedValue) {
+    // }
   }, [debouncedValue]);
 
   useEffect(() => {

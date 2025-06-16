@@ -1,67 +1,69 @@
-import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+
+import { Img_url } from "../../../../routes/backend";
 import arrow from "../../../../assets/icons/right-wrrow.svg";
-import { useDispatch, useSelector } from "react-redux";
-import { updateMainContent } from "../../../common/homeContentSlice";
-import content from "./content.json"
+import dynamicSize, { defineDevice, differentText, generatefontSize } from "../../../../app/fontSizes";
+
+import { Autoplay, EffectCoverflow, Navigation } from "swiper/modules";
 import { SwiperSlide } from "swiper/react";
 import { Swiper } from "swiper/react";
-import { Autoplay, EffectCoverflow, Navigation } from "swiper/modules";
-
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/effect-coverflow';
 import 'swiper/css/autoplay';
-import { Img_url } from "../../../../routes/backend";
 
-// import localFont from "next/font/local";
-// import Button from "@/common/Button";
-// import Image from "next/image";
-// import { useGlobalContext } from "../../contexts/GlobalContext";
-// import { useRouter } from "next/router";
-// Font files can be colocated inside of `app`
-// const BankGothic = localFont({
-//   src: "../../../public/font/BankGothicLtBTLight.ttf",
-//   display: "swap",
-// });
-// import dynamic from 'next/dynamic';
-// import patch from "../../contexts/svg/path.jsx";
-// const AnimatedText = dynamic(() => import('@/common/AnimatedText'), { ssr: false });
-// const ContactUsModal = dynamic(() => import('../header/ContactUsModal'), { ssr: false });
-
-const SolutionPage = ({ currentContent, language, screen }) => {
-    console.log(currentContent)
+const SolutionPage = ({ currentContent, language, screen, width, highlight, liveContent }) => {
     const isComputer = screen > 1100
     const isTablet = 1100 > screen && screen > 767
     const isPhone = screen < 767
-    // const currentContent = useSelector((state) => state.homeContent.present.solutions)
-    const ImageFromRedux = useSelector((state) => state.homeContent.present.images)
-    const dispatch = useDispatch()
-
-    // const [isModal, setIsModal] = useState(false);
-    // const handleContactUSClose = () => {
-    //     setIsModal(false);
-    // };
-
     const isLeftAlign = language === 'en'
+    const checkDifference = highlight ? differentText?.checkDifference?.bind(differentText) : () => ""
+
+
+    // Font and Size
+    const fontSize = generatefontSize(defineDevice(screen), dynamicSize, width)
+    const getDynamicSize = (size) => dynamicSize(size, width)
+    const fontLight = useSelector(state => state.fontStyle.light)
+
+
 
     return (
         <div className=" bankgothic-medium-dt pb-8" dir={language === 'en' ? 'ltr' : "rtl"}>
             {/** banner  1 */}
             <section
-                className={`relative py-[8rem] w-full bg-cover bg-center ${isLeftAlign ? 'scale-x-[-1]' : ''} px-12 ${isPhone ? "h-screen/2" : ""}`}
-                style={{ backgroundImage: `url(${Img_url + currentContent?.['1']?.content?.images?.[0]?.url})` }}
+                className={`relative py-[8rem] w-full border bg-cover bg-center 
+                        ${checkDifference(currentContent?.['1']?.content?.images?.[0]?.url, liveContent?.['1']?.content?.images?.[0]?.url)}
+                    ${isLeftAlign ? 'scale-x-[-1]' : ''} px-12 ${isPhone ? "h-[500px]" : ""}`}
+                style={{
+                    backgroundImage: `url(${Img_url + currentContent?.['1']?.content?.images?.[0]?.url})`,
+                    height: (isComputer || isTablet) && getDynamicSize(720),
+                    padding: `0px ${getDynamicSize(150)}`
+                }}
             >
-                <div className="container h-full relative flex">
+                <div className="container h-full relative flex items-center justify-center">
                     <div className={`text-${isLeftAlign ? 'left' : 'right'} w-full transform ${isLeftAlign ? 'scale-x-[-1]' : ''}`}>
-                        <h1 className="text-[#292E3D] text-[40px] font-medium leading-[77px] tracking-[-3.5px] mb-4">
+                        <h1 className={`text-[#292E3D] text-[40px] font-medium leading-[77px] tracking-[-3.5px] mb-4
+                        ${checkDifference(currentContent?.["1"]?.content?.title?.[language], liveContent?.["1"]?.content?.title?.[language])}
+                        `}
+                            style={{ fontSize: fontSize.mainHeading }}
+                        >
                             {currentContent?.["1"]?.content?.title?.[language]}
                         </h1>
-                        <p className={`text-[#0E172FB3] text-left text-xs font-semibold leading-[26px] mb-6 ${isLeftAlign ? "" : "ml-auto"} ${isPhone ? "w-[70%]" : "w-[50%]"} word-spacing-[5px]`}>
+                        <p
+                            style={{ fontSize: fontSize.mainPara }}
+                            className={`text-[#0E172FB3] ${fontLight} text-left text-xs font-semibold leading-[26px] mb-6
+                        ${checkDifference(currentContent?.["1"]?.content?.description?.[language], liveContent?.["1"]?.content?.description?.[language])}
+                            ${isLeftAlign ? "" : "ml-auto"} ${isPhone ? "w-[70%]" : "w-[50%]"} word-spacing-[5px]`}>
                             {currentContent?.["1"]?.content?.description?.[language]}
                         </p>
                         <button
-                            className={`relative flex gap-2 items-center text-xs text-[white] font-medium py-[6px] px-[12px] ${isLeftAlign ? "" : "ml-auto"} bg-[#00B9F2] rounded-[4px] border-none cursor-pointer`}
-                        // onClick={() => router.push('/project')}
+                            className={`relative  py-[6px] px-[12px] flex gap-2 items-center text-xs text-[white] font-medium 
+                        ${checkDifference(currentContent?.["1"]?.content?.button?.[0]?.text?.[language], liveContent?.["1"]?.content?.button?.[0]?.text?.[language])}
+                                ${isLeftAlign ? "" : "ml-auto"} bg-[#00B9F2] rounded-[4px] border-none cursor-pointer`}
+                            style={{
+                                fontSize: fontSize.mainButton,
+                                padding: `${getDynamicSize(12)} ${getDynamicSize(16)}`
+                            }}
                         >
                             {currentContent?.["1"]?.content?.button?.[0]?.text?.[language]}
                             <img
@@ -78,34 +80,47 @@ const SolutionPage = ({ currentContent, language, screen }) => {
 
             {/** What we do 2 */}
             <section
-                className={`py-[88px] pb-[120px] px-10 ${language === "en" ? "text-left" : "text-right"
-                    }`}
+                className={`py-[88px] pb-[120px] px-10 ${language === "en" ? "text-left" : "text-right"}`}
+                style={{ padding: `${getDynamicSize(88)} ${getDynamicSize(150)}` }}
             >
-                {currentContent?.["2"]?.content?.map((e, i) => {
+                <div className={`
+                    ${checkDifference(currentContent?.["2"]?.content, liveContent?.["2"]?.content)}
+                    `}>
 
-                    return (
-                        <div className="container bankgothic-regular-db-mt" key={i}>
-                            <div className={`${isPhone ? "flex flex-col" : "grid grid-cols-[129px_1fr] gap-[67px]"} `}>
-                                <div className={`flex justify-start w-[190px] py-[14px]`}>
-                                    <span className="relative w-[10px] h-[20px]">
-                                        <span className="absolute top-[1px] w-[4px] h-[20px] bg-red-500 rotate-[-15deg]"></span>
-                                    </span>
-                                    <h1 className="text-[20px] text-[#1F2937] font-bold leading-[20px] pr-[20px]">
-                                        {e?.title?.[language]}
-                                    </h1>
-                                </div>
-                                <div className="text-[#2A303C]">
-                                    <div
-                                        className={`  ${isPhone ? "leading-[20px] text-sm" : "leading-[40px]"} tracking-[-1.2px] mb-[32px]`}
-                                        // className={` font-light text-[#1F2937] ${isPhone ? "leading-[20px] text-sm" : "leading-[40px]"} tracking-[-1.2px] mb-[32px] `}
-                                        dangerouslySetInnerHTML={{ __html: e?.description?.[language] }}
-                                    />
+                    {currentContent?.["2"]?.content?.map((e, i) => {
+                        return (
+                            <div className="container bankgothic-regular-db-mt" key={i}>
+                                <div className={`${isPhone || isTablet ? "flex flex-col" : "grid  "} `}
+                                    style={{ gap: getDynamicSize(50), gridTemplateColumns: `${getDynamicSize(200)} 1fr` }}
+                                >
+                                    <div className={`flex justify-start w-[190px] py-[14px]`}>
+                                        <span className="relative w-[10px] h-[20px]">
+                                            <span className="absolute top-[1px] w-[4px] h-[20px] bg-red-500 rotate-[-15deg]"></span>
+                                        </span>
+                                        <h1 className={`text-[20px] text-[#1F2937] font-bold leading-[20px] pr-[20px]
+                                                ${checkDifference(e?.title?.[language], liveContent?.["2"]?.content?.[i]?.title?.[language])}
+                                        `}
+                                            style={{ fontSize: isComputer && `${getDynamicSize(20)}` }}
+                                        >
+                                            {e?.title?.[language]}
+                                        </h1>
+                                    </div>
+                                    <div className="text-[#2A303C]">
+                                        <div
+                                            style={{ fontSize: isComputer && `${getDynamicSize(24)}`, lineHeight: isComputer && getDynamicSize(50) }}
+                                            className={`  ${isPhone ? `leading-[20px] text-sm` : "leading-[40px]"} ${fontLight} tracking-[-1.2px] mb-[32px]
+                                                ${checkDifference(e?.description?.[language], liveContent?.["2"]?.content?.[i]?.description?.[language])}
+                                            `}
+                                            // className={` font-light text-[#1F2937] ${isPhone ? "leading-[20px] text-sm" : "leading-[40px]"} tracking-[-1.2px] mb-[32px] `}
+                                            dangerouslySetInnerHTML={{ __html: e?.description?.[language] }}
+                                        />
 
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    )
-                })}
+                        )
+                    })}
+                </div>
             </section>
 
 
@@ -118,7 +133,6 @@ const SolutionPage = ({ currentContent, language, screen }) => {
                 }}
             >
                 <Swiper
-                    className=""
                     modules={[Navigation, Autoplay, EffectCoverflow]}
                     grabCursor={true}
                     centeredSlides={true}
@@ -144,6 +158,7 @@ const SolutionPage = ({ currentContent, language, screen }) => {
                         724: { slidesPerView: isPhone ? 1 : 2 },
                         500: { slidesPerView: isPhone ? 1 : 2 },
                     }}
+                    className={`${checkDifference(currentContent?.["3"]?.content?.images, liveContent?.["3"]?.content?.images)}`}
                 >
                     {(currentContent?.["3"]?.content?.images || []).map((image, index) => (
                         <SwiperSlide key={`slide-${index}`}>
@@ -151,7 +166,9 @@ const SolutionPage = ({ currentContent, language, screen }) => {
                                 <img
                                     src={image.url.slice(0, 5) === "https" ? image.url : Img_url + image.url}
                                     alt={`Image ${index + 1}`}
-                                    className="object-cover w-[400px] h-[400px] rounded-md border"
+                                    className={`object-cover w-[400px] h-[400px] rounded-md border
+                                        ${checkDifference(image?.url, liveContent?.["3"]?.content?.images?.[index]?.url)}
+                                        `}
                                 />
                             </div>
                         </SwiperSlide>
@@ -161,7 +178,7 @@ const SolutionPage = ({ currentContent, language, screen }) => {
 
 
             {/** HowWeDo */}
-            <section
+            {/* <section
                 className={`py-[88px] pb-[120px] px-10 ${language === "en" ? "text-left" : "text-right"}`}
             >
                 {currentContent?.howWeDo?.map((e, i) => {
@@ -188,57 +205,7 @@ const SolutionPage = ({ currentContent, language, screen }) => {
                         </div>
                     )
                 })}
-            </section>
-
-            {/** Showcase gallery wrap */}
-            {/* <div
-                className="w-[800px] mx-auto "
-                style={{ width: isComputer ? "50rem" : `${screen - 30}px` }}
-            >
-                <Swiper
-                    className=""
-                    modules={[Navigation, Autoplay, EffectCoverflow]}
-                    grabCursor={true}
-                    centeredSlides={true}
-                    slidesPerView={isPhone ? 1 : 2} // Adjust dynamically
-                    loop={currentContent?.gallery?.images?.length > 3} // Enable loop only if enough slides exist
-                    spaceBetween={10}
-                    onSwiper={(swiper) => {
-                        setTimeout(() => {
-                            swiper?.autoplay?.start();
-                        }, 500);
-                    }}
-
-                    effect="coverflow"
-                    coverflowEffect={{
-                        rotate: 0,
-                        stretch: 0,
-                        depth: 250,
-                        modifier: 2,
-                        slideShadows: false,
-                    }}
-                    autoplay={{ delay: 2500, disableOnInteraction: false }} // Ensure autoplay works
-                    breakpoints={{
-                        724: { slidesPerView: isPhone ? 1 : 2 },
-                        500: { slidesPerView: isPhone ? 1 : 2 },
-                    }}
-                >
-                    {currentContent?.["4"]?.content?.images.map(
-                        (image, index) => (
-                            <SwiperSlide key={index}>
-                                <div className={`rounded-lg overflow-hidden  transition-transform transform ${isPhone ? "h-[50vh]" : "h-[400px]"}`}>
-                                    <img
-                                        src={ImageFromRedux[`Image ${index + 4}`] || image.url}
-                                        alt={`Image ${index + 1}`}
-                                        className="object-cover w-[400px] h-[400px] rounded-md"
-                                        style={{ objectPosition: "center" }}
-                                    />
-                                </div>
-                            </SwiperSlide>
-                        )
-                    )}
-                </Swiper>
-            </div> */}
+            </section> */}
 
         </div>
     );

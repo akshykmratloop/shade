@@ -6,9 +6,9 @@ import Verify from "../../../../assets/image 15.svg";
 import Publisher from "../../../../assets/image 16.svg";
 import { X } from "lucide-react";
 import { getResourceInfo } from "../../../../app/fetch";
-import formatTimestamp from "../../../../app/TimeFormat";
+// import formatTimestamp from "../../../../app/TimeFormat";
 import { useDispatch, useSelector } from "react-redux";
-import { TruncateText } from "../../../../app/capitalizeword";
+import capitalizeWords, { TruncateText } from "../../../../app/capitalizeword";
 import SkeletonLoader from "../../../../components/Loader/SkeletonLoader";
 import { useNavigate } from "react-router-dom";
 import { updateResourceId } from "../../../common/resourceSlice";
@@ -126,16 +126,16 @@ const PageDetails = ({ data, display, setOn }) => {
             <label>Request Number:</label>
             <p>2</p>
           </div> */}
-              <div className="flex py-[15px] justify-between border-b dark:border-stone-700">
+              {/* <div className="flex py-[15px] justify-between border-b dark:border-stone-700">
                 <label>Last Edited:</label>
                 <p>{formatTimestamp(pageInfo?.resourceInfo?.updatedAt)}</p>
-              </div>
+              </div> */}
               <div className="flex py-[15px] justify-between border-b dark:border-stone-700">
                 <label>Live Version:</label>
                 <div className={`flex flex-col items-end gap-[2.5px]`}>
                   <p className="text-right py-0 my-0 !w-full">
                     <span>
-                      {`V ${pageInfo?.resourceInfo?.liveVersion?.versionNumber}`}
+                      {`V${pageInfo?.resourceInfo?.liveVersion?.versionNumber}`}
                     </span>
                   </p>
                   {(user?.isSuperUser ||
@@ -180,7 +180,7 @@ const PageDetails = ({ data, display, setOn }) => {
               </div>
               <div className="flex py-[15px] justify-between border-b-4 border-gray-400 dark:border-stone-700">
                 <label>Page Status:</label>
-                <p>{pageInfo?.resourceInfo?.status}</p>
+                <p className={`${pageInfo?.resourceInfo?.status === "ACTIVE" ? "bg-lime-500" : "bg-red-500"} text-white rounded-full px-2`}>{capitalizeWords(pageInfo?.resourceInfo?.status)}</p>
               </div>
               <div className="flex flex-col py-[15px] pb-[2px] justify-between">
                 <label>Assigned Users:</label>
@@ -195,7 +195,7 @@ const PageDetails = ({ data, display, setOn }) => {
                   </div>
                   {/* <div className="border border-cyan-500 flex"> */}
                   <div className="flex flex-col">
-                    {pageInfo?.resourceInfo?.verifiers.map((verifier, ind) => {
+                    {pageInfo?.resourceInfo?.verifiers?.length > 0 ? pageInfo?.resourceInfo?.verifiers.map((verifier, ind) => {
                       let firstIndex = ind === 0;
                       return (
                         <div
@@ -216,7 +216,22 @@ const PageDetails = ({ data, display, setOn }) => {
                           </div>
                         </div>
                       );
-                    })}
+                    })
+                      :
+                      <div
+                        className={`flex gap-[10px] items-center border-b dark:border-stone-700 justify-between`}
+                      >
+                        <label className="!text-[#808080]">Verifiers:</label>
+                        <div className="flex gap-[10px] items-center justify-between py-[10px] ">
+                          {/* <p className="border px-[12px] w-[6rem] py-[2px] text-center rounded-3xl font-light text-[11px]">
+                            {"level " + "N/A"}
+                          </p> */}
+                          <p >
+                            N/A
+                          </p>
+                        </div>
+                      </div>
+                    }
                   </div>
                   <div className="border-b-4 border-gray-400 dark:border-stone-700 flex justify-between py-4 items-center">
                     <label className="!text-[#808080]" title={users?.publisher}>Publisher:</label>
@@ -226,28 +241,31 @@ const PageDetails = ({ data, display, setOn }) => {
                 </div>
               </div>
               <div className="flex flex-col py-4">
-                <label>New Version In Edit Mode:</label>
-                <div className="flex py-[15px] justify-between border-b dark:border-stone-700">
-                  <label>Version Number:</label>
-                  <div className={`w-max flex flex-col items-end gap-[2.5px]`}>
-                    <p className="text py-0 my-0">V 1.1.00</p>
-                    {/* <button
+                {pageInfo?.resourceInfo?.['newVersionEditMode']?.versionNumber &&
+                  <div>
+                    <label>New Version In Edit Mode:</label>
+                    <div className="flex py-[15px] justify-between border-b dark:border-stone-700">
+                      <label>Version Number:</label>
+                      <div className={`w-max flex flex-col items-end gap-[2.5px]`}>
+                        <p className="text py-0 my-0">V{pageInfo?.resourceInfo?.['newVersionEditMode']?.versionNumber}</p>
+                        {/* <button
                   className="text-[#145098] dark:text-sky-500 underline font-[300] py-0 my-0"
                   style={{whiteSpace: "pre"}}
                   >
                   Restore Previous Version
                   </button> */}
-                    {(user?.roles?.includes("SUPER_ADMIN") ||
-                      user?.permissions?.includes("PAGE_MANAGEMENT")) && (
-                        <button className="text-[#145098] dark:text-sky-500 underline font-[300] py-0 my-0">
-                          View
-                        </button>
-                      )}
-                  </div>
-                </div>
+                        {(user?.roles?.includes("SUPER_ADMIN") ||
+                          user?.permissions?.includes("PAGE_MANAGEMENT")) && (
+                            <button className="text-[#145098] dark:text-sky-500 underline font-[300] py-0 my-0">
+                              View
+                            </button>
+                          )}
+                      </div>
+                    </div>
+                  </div>}
                 {/* <div className="flex py-[15px] justify-between border-b dark:border-stone-700">
-              <p>Null</p>
-            </div> */}
+                    <p>Null</p>
+                  </div> */}
                 <div className="flex flex-col gap-[15px] text-[11px] py-4">
                   <label className="text-[15px]">Version Status:</label>
                   <div className="">

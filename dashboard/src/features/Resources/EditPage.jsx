@@ -1,5 +1,5 @@
 // library
-import React, { Suspense, useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setSidebarState } from "../common/SbStateSlice";
 import { lazy } from "react";
@@ -17,7 +17,7 @@ import AllForOneManager from "./components/AllForOneManager";
 import createContent from "./defineContent";
 import FallBackLoader from "../../components/fallbackLoader/FallbackLoader";
 import { getContent } from "../../app/fetch";
-import { updateComment, updateMainContent } from "../common/homeContentSlice";
+import { updateComment, updateIsEditMode, updateMainContent } from "../common/homeContentSlice";
 import { saveInitialContentValue } from "../common/InitialContentSlice";
 
 const Page404 = lazy(() => import('../../pages/protected/404'))
@@ -45,8 +45,8 @@ const EditPage = () => {
 
     const contentFromRedux = useSelector((state) => state.homeContent.present)
 
-    const stageStatus = contentFromRedux?.content?.editVersion?.status
     const isEditable = contentFromRedux?.content?.isEditable
+    // const stageStatus = contentFromRedux?.content?.editVersion?.status
     // const outOfEditing = !(stageStatus === "EDITING" || stageStatus === "DRAFT" || stageStatus === "PUBLISHED")
 
     const content = createContent(contentFromRedux, "edit", currentPath)
@@ -56,9 +56,12 @@ const EditPage = () => {
     }
 
     const Routes = [
-        'home', 'solution', 'about-us', "service", 'market',
-        'projects', "project", 'careers', "career", 'news-blogs', 'footer',
-        'header', 'testimonials', 'testimonial']
+        "home", "solution", "about-us", "service", "market",
+        "projects", "project", "careers", "career", "news-blogs","news",,
+        "footer", "header", "testimonials", "testimonial",
+        "safety_responsibility", "history", "vision", "hse", "affiliates","organization"
+    ]
+
 
     useEffect(() => {
         dispatch(setSidebarState(true))
@@ -109,6 +112,7 @@ const EditPage = () => {
                         }
                         dispatch(updateMainContent({ currentPath: "content", payload }))
                         dispatch(saveInitialContentValue(payload.editVersion.sections))
+                        if (response.content.editModeVersionData) dispatch(updateIsEditMode({ value: true }))
                     }
 
                     if (!response.content.editModeVersionData) {
@@ -187,9 +191,10 @@ const EditPage = () => {
                                         />
                                         <AllForOne
                                             language={language} screen={screen}
-                                            content={content.content} subPath={subPath}
-                                            deepPath={deepPath} setLanguage={setLanguage}
-                                            fullScreen={fullScreen} currentPath={currentPath}
+                                            content={content.content} 
+                                            subPath={subPath} deepPath={deepPath} 
+                                            setLanguage={setLanguage} fullScreen={fullScreen} 
+                                            currentPath={currentPath}
                                         />
 
                                         <div className={`border border-cyan-500 pt-0 
@@ -207,7 +212,7 @@ const EditPage = () => {
                                                 fullScreen &&
                                                 <AllForOne
                                                     language={language} screen={screen}
-                                                    content={content.content} contentIndex={content.index}
+                                                    content={content.content}
                                                     subPath={subPath} deepPath={deepPath}
                                                     setLanguage={setLanguage} fullScreen={fullScreen}
                                                     currentPath={currentPath}

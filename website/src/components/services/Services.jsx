@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import styles from "@/components/services/services.module.scss";
 import Arrow from "../../assets/icons/right-wrrow.svg";
 
@@ -11,19 +11,22 @@ import dynamic from 'next/dynamic';
 import localFont from "next/font/local";
 import Button from "@/common/Button";
 import Image from "next/image";
-// import { useTruncate } from '@/common/useTruncate';
+import { TruncateText, useTruncate } from '@/common/useTruncate';
 import patch from "../../contexts/svg/path.jsx";
 
 // const AnimatedText = dynamic(() => import('@/common/AnimatedText'), { ssr: false });
 import { useGlobalContext } from "../../contexts/GlobalContext";
 import { useRouter } from "next/router";
+import { Img_url } from "@/common/CreateContent";
 const ContactUsModal = dynamic(() => import('../header/ContactUsModal'), { ssr: false });
 
-const Services = () => {
+const Services = ({ content }) => {
   const router = useRouter();
 
-  const { language, content } = useGlobalContext();
-  const currentContent = content?.services;
+  const { language } = useGlobalContext();
+  const isLeftAlign = language === 'en';
+  const titleLan = isLeftAlign ? "titleEn" : "titleAr"
+  const currentContent = content
   const [isModal, setIsModal] = useState(false);
   const handleContactUSClose = () => {
     setIsModal(false);
@@ -31,21 +34,27 @@ const Services = () => {
   return (
     <>
       <section
-        className={` ${language === "en" && styles.leftAlign}   ${
-          styles.services_banner_wrap
-        }`}
+        className={` ${language === "en" && styles.leftAlign}   ${styles.services_banner_wrap
+          }`}
+        style={{
+          backgroundImage: `url(${Img_url + currentContent?.[1]?.content?.images?.[0]?.url})`,
+          backgroundRepeat: "no-repeat",
+          backgroundPosition: "center",
+          backgroundSize: "cover",
+          height: "100vh"
+        }}
       >
-        <div className="container" style={{ height :"100%", position :"relative"}} >
+        <div className="container" style={{ height: "100%", position: "relative" }} >
           <div className={styles.content}>
             {/* <AnimatedText text={currentContent?.banner?.title[language]} Wrapper="h1" repeatDelay={0.04} className={`${styles.title} ${BankGothic.className}`} /> */}
             <h1 className={`${styles.title} `}>
-              {currentContent?.banner?.title[language]}
+              {currentContent?.[1]?.content?.title[language]}
             </h1>
             <p className={`${styles.description} ${BankGothic.className}`}>
-              {currentContent?.banner?.description[language]}
+              {currentContent?.[1]?.content?.description[language]}
             </p>
             <Button className={styles.view_btn}
-            onClick={() => router.push('/project')}
+              onClick={() => router.push('/project')}
             >
               <Image
                 src={Arrow}
@@ -54,95 +63,47 @@ const Services = () => {
                 alt=""
                 className={styles.arrow_btn}
               />
-              &nbsp;{currentContent?.banner?.button?.text[language]}
+              &nbsp;{currentContent?.[1]?.content?.button?.[0]?.text[language]}
             </Button>
           </div>
         </div>
-      </section>
+      </section >
 
       <section
-        className={` ${language === "en" && styles.leftAlign}   ${
-          styles.services_card_wrap
-        }`}
-      >
-        <div className="container">
-          <div className={styles.service_card_group}>
-            {currentContent?.serviceCards.map((card, index) => (
-              <div className={styles.service_card} key={index}>
-                <div className={styles.card_body}>
-                  <h2 className={styles.title}>{card.title[language]}</h2>
-                  <p className={styles.subTitle}>{card.subtitle[language]}</p>
-
-                  {card.listTitle && (
-                    <>
-                      <h6 className={styles.des_title}>
-                        {card.listTitle[language]}
-                      </h6>
-                      <ul className={styles.list_wrap}>
-                        {card.listItems?.map((item, itemIndex) => (
-                          <li key={itemIndex} className={styles.list_item}>
-                            - {item[language]}
-                          </li>
-                        ))}
-                      </ul>
-                    </>
-                  )}
-
-                  {card.description && (
-                    <p className={styles.subTitle}>
-                      {card.description[language]}
-                    </p>
-                  )}
-                </div>
-                <Image
-                  src={card.image}
-                  alt=""
-                  className={styles.card_image}
-                  width={463}
-                  height={250}
-                />
-              </div>
-            ))}
-          </div>
-        </div>
+        dir={isLeftAlign ? 'ltr' : 'rtl'}
+        className={`${styles.service_section} ${styles.desktop}  ${isLeftAlign ? styles.align_left : styles.align_right}`}>
+        {currentContent?.['2']?.items?.map((service, idx) => {
+          return (
+            <article key={idx} className={`${styles.service_card}`}>
+              <img
+                src={(Img_url + service.image)}
+                alt="img"
+                className={`${styles.service_image}`}
+              />
+              <section className={`${styles.service_content}`}>
+                <h1 className={`${styles.service_title}`}>
+                  {TruncateText(service?.[titleLan], 23)}
+                </h1>
+                <p className={`${styles.service_description} bank-light`}>
+                  {service?.description?.[language]}
+                </p>
+                <button className={`${styles.service_button} ${!isLeftAlign ? styles.reverse : ""} bank-light`}>
+                  {currentContent?.['2']?.content?.button?.[1]?.text?.[language]}
+                  <img
+                    src="https://frequencyimage.s3.ap-south-1.amazonaws.com/61c0f0c2-6c90-42b2-a71e-27bc4c7446c2-mingcute_arrow-up-line.svg"
+                    alt=""
+                    className={`${styles.arrow_icon} ${isLeftAlign ? styles.rotated : ""}`}
+                  />
+                </button>
+              </section>
+            </article>
+          );
+        })}
       </section>
 
-      <section
-        className={` ${language === "en" && styles.leftAlign}   ${
-          styles.new_project_wrapper
-        }`}
-      >
-        <div className={`container ${styles.main_container}`}>
-          <div className={styles.Client_content}>
-            {/* <AnimatedText text={currentContent?.newProject?.title[language]} Wrapper="h2" repeatDelay={0.03} className={`${styles.title} ${BankGothic.className}`} /> */}
-            <h2 className={`${styles.title}`}>
-              {currentContent?.newProject?.title[language]}
-            </h2>
-            <p className={`${styles.description} ${BankGothic.className}`}>
-              {currentContent?.newProject?.description1[language].replace(
-                currentContent?.newProject?.highlightedText[language],
-                `"${currentContent?.newProject?.highlightedText[language]}"`
-              )}{" "}
-              <i className={language === "ar" && styles.arabicVersion}>
-                {patch()}
-              </i>
-            </p>
-            <p className={`${styles.description} ${BankGothic.className}`}>
-              {currentContent?.newProject?.description2[language]}
-            </p>
-            <Button
-              onClick={() => setIsModal(true)}
 
-              className={` ${language === "en" && styles.leftAlign}   ${
-                styles.view_btn
-              }`}
-            >
-              {currentContent?.newProject?.button?.text[language]}
-            </Button>
-          </div>
-        </div>
-      </section>
-      <ContactUsModal isModal={isModal} onClose={handleContactUSClose} />
+
+      {/* <ContactUsModal isModal={isModal} onClose={handleContactUSClose} /> */}
 
     </>
   );

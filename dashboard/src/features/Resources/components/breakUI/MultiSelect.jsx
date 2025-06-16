@@ -23,7 +23,7 @@ import { updateSelectedContentAndSaveDraft } from "../../../common/thunk/smsThun
 import ErrorText from "../../../../components/Typography/ErrorText";
 import xSign from "../../../../assets/x-close.png"
 
-const SortableItem = ({ option, removeOption, language, reference, titleLan,  }) => {
+const SortableItem = ({ option, removeOption, language, reference, titleLan, }) => {
   const { attributes, listeners, setNodeRef, transform, transition, isDragging } =
     useSortable({ id: option, data: { option } });
 
@@ -58,7 +58,7 @@ const SortableItem = ({ option, removeOption, language, reference, titleLan,  })
   );
 };
 
-const MultiSelect = ({ outOfEditing, heading, options, tabName, label, language, section, referenceOriginal = { dir: "", index: 0 }, currentPath, projectId, sectionIndex, listOptions, limitOptions = 0, errorClass }) => {
+const MultiSelect = ({ outOfEditing, heading, options, tabName, label, language, section, referenceOriginal = { dir: "", index: 0 }, currentPath, projectId, sectionIndex, listOptions, limitOptions = 0, maxLimit = 100, errorClass }) => {
   const titleLan = language === "en" ? "titleEn" : "titleAr"
   const [selectedOptions, setSelectedOptions] = useState([]);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -78,6 +78,7 @@ const MultiSelect = ({ outOfEditing, heading, options, tabName, label, language,
   };
 
   const handleSelect = (optionToAdd) => {
+    if (selectedOptions.length >= maxLimit) return setErrorMessage(`Can not select more than ${maxLimit} options`)
     const existedInList = selectedOptions.some(e => e.id === optionToAdd.id)
     if (existedInList) {
       return

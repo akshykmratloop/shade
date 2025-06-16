@@ -1,7 +1,39 @@
 import Head from "next/head";
 import SolutionPage from "@/components/solution/Solution";
+import createContent from "@/common/CreateContent";
+import { backendAPI } from "@/contexts/GlobalContext";
+import { useEffect, useState } from "react";
 
 export default function Solution() {
+  const [isLoading, setIsLoading] = useState(true);
+  const [content, setContent] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await fetch(`${backendAPI}solution`);
+        if (!res.ok) {
+          console.warn("API returned non-OK status:", res.status);
+          return;
+        }
+
+        const apiData = await res.json();
+        if (apiData && apiData.content) {
+          const generatedContent = createContent(apiData.content);
+          setContent(generatedContent.content);
+        } else {
+          console.warn("Empty content in API response.");
+        }
+      } catch (error) {
+        console.error("Failed to fetch data:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <>
       <Head>
@@ -10,7 +42,12 @@ export default function Solution() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <SolutionPage />
+
+      {isLoading ? (
+        <div>Loading...</div>
+      ) : (
+        <SolutionPage content={content} />
+      )}
     </>
   );
 }

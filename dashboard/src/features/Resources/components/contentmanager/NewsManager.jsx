@@ -112,7 +112,7 @@ const NewsManager = ({ language, content, currentPath, indexes }) => {
                 heading={"Trend News Section"}
                 tabName={"Select News"}
                 listOptions={newses}
-                options={content?.['2']?.items}
+                options={content?.['4']?.items}
                 sectionIndex={indexes?.['4']}
             />
 

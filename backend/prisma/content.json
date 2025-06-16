@@ -57,18 +57,20 @@
           "ar": "الأخبار"
         },
         "url": "/news"
+      }
+    ],
+    "otherButtons": {
+      "extraKey": {
+        "en": "More...",
+        "ar": "المزيد..."
       },
-      {
-        "order": 8,
-        "nav": {
-          "en": "Contact Us",
-          "ar": "اتصل بنا"
-        },
+      "contact": {
+        "en": "Contact Us",
+        "ar": "اتصل بنا",
         "url": "/contact"
       }
-    ]
+    }
   },
-
   "home": {
     "slug": "home",
     "heroSection": {
@@ -338,7 +340,6 @@
       ]
     }
   },
-
   "testimonials": [
     {
       "slug": "salah-attia-abdelzaher",
@@ -527,17 +528,18 @@
       }
     }
   ],
-
   "footer": {
     "slug": "footer",
     "companyInfo": {
-      "images": [{
-        "url": "logo",
-        "altText": {
-          "ar": "شعار شيد",
-          "en": "Shade Logo"
+      "images": [
+        {
+          "url": "logo",
+          "altText": {
+            "ar": "شعار شيد",
+            "en": "Shade Logo"
+          }
         }
-      }],
+      ],
       "address": {
         "ar": "شركة الظل المحدودة.\nص.ب. ص.ب 7027 الدمام 31462 المملكة العربية السعودية مبنى رقم 5222 الدمام 32414-6124.",
         "en": "Shade Corporation Ltd.\nP.O. Box 7027 Dammam 31462 Saudi Arabia Building No. 5222 Dammam 32414-6124."
@@ -729,7 +731,6 @@
       }
     }
   },
-
   "aboutUs": {
     "slug": "about-us",
     "introSection": {
@@ -799,7 +800,6 @@
       ]
     }
   },
-
   "solution": {
     "slug": "solution",
     "heroSection": {
@@ -886,7 +886,6 @@
       ]
     }
   },
-
   "services": {
     "slug": "service",
     "heroSection": {
@@ -943,7 +942,6 @@
       ]
     }
   },
-
   "secondLevelOFServices": [
     {
       "resourceTitle": {
@@ -1236,7 +1234,6 @@
       "childService": ["cranes-heavy-lifting-equipment"]
     }
   ],
-
   "thirdLevelOfServices": [
     {
       "resourceTitle": {
@@ -1264,7 +1261,7 @@
           }
         ]
       },
-      "ServicePointsGrid1": {
+      "ServicePointsGrid": {
         "title": {
           "ar": "أنواع التشطيبات المعمارية",
           "en": "Types of Architectural Finishes"
@@ -1283,17 +1280,7 @@
             "description": {
               "ar": "نقدم مجموعة متنوعة من الأرضيات مثل الرخام، والبلاط، والخشب لتناسب جميع أنواع المشاريع المعمارية.",
               "en": "We offer a variety of flooring options such as marble, tiles, and wood to suit all types of architectural projects."
-            },
-            "images": [
-              {
-                "order": 1,
-                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                "altText": {
-                  "en": "Service Image",
-                  "ar": "صورة الخدمة"
-                }
-              }
-            ]
+            }
           },
           {
             "order": 2,
@@ -1304,17 +1291,7 @@
             "description": {
               "ar": "تشطيب الجدران الداخلية باستخدام الدهانات، الورق الجدراني، أو الألواح الجبسية للحصول على مظهر عصري وأنيق.",
               "en": "Interior wall finishes using paints, wallpaper, or gypsum boards to achieve a modern and elegant look."
-            },
-            "images": [
-              {
-                "order": 1,
-                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                "altText": {
-                  "en": "Service Image",
-                  "ar": "صورة الخدمة"
-                }
-              }
-            ]
+            }
           },
           {
             "order": 3,
@@ -1325,17 +1302,7 @@
             "description": {
               "ar": "تشطيبات الأسطح الخارجية باستخدام الحجر الطبيعي أو الطوب أو التشطيبات المركبة لخلق مظهر قوي وجميل.",
               "en": "Exterior surface finishes using natural stone, brick, or composite finishes to create a strong and beautiful appearance."
-            },
-            "images": [
-              {
-                "order": 1,
-                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                "altText": {
-                  "en": "Service Image",
-                  "ar": "صورة الخدمة"
-                }
-              }
-            ]
+            }
           },
           {
             "order": 4,
@@ -1346,17 +1313,7 @@
             "description": {
               "ar": "نقدم تشطيبات الأسقف باستخدام الألواح الجبسية أو الأسقف المعلقة أو الأسقف الخشبية لتحقيق التصميم المطلوب.",
               "en": "We provide ceiling finishes using gypsum boards, suspended ceilings, or wooden ceilings to achieve the desired design."
-            },
-            "images": [
-              {
-                "order": 1,
-                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                "altText": {
-                  "en": "Service Image",
-                  "ar": "صورة الخدمة"
-                }
-              }
-            ]
+            }
           },
           {
             "order": 5,
@@ -1367,134 +1324,51 @@
             "description": {
               "ar": "تركيب أنظمة الإضاءة المبتكرة التي تتناغم مع التصميم المعماري وتضيف جوًا من الدفء والجمال.",
               "en": "Installation of innovative lighting systems that complement the architectural design and add a warm, aesthetic ambiance."
-            },
-            "images": [
-              {
-                "order": 1,
-                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                "altText": {
-                  "en": "Service Image",
-                  "ar": "صورة الخدمة"
-                }
-              }
-            ]
+            }
           }
         ]
       },
-      "ServicePointsGrid2": {
-        "title": {
-          "ar": "التشطيبات الخاصة",
-          "en": "Specialized Finishes"
-        },
-        "description": {
-          "ar": "نحن نقدم خدمات تشطيبات معمارية متخصصة تلبي احتياجات مشاريعك الفريدة.",
-          "en": "We offer specialized architectural finishes services that cater to the unique needs of your projects."
-        },
-        "points": [
+      "gallery": {
+        "images": [
           {
             "order": 1,
-            "title": {
-              "ar": "التشطيبات الزجاجية",
-              "en": "Glass Finishes"
-            },
-            "description": {
-              "ar": "استخدام الزجاج عالي الجودة في النوافذ والأبواب والشرفات لإضفاء مظهر عصري ومشرق.",
-              "en": "Use of high-quality glass in windows, doors, and balconies to give a modern and bright appearance."
-            },
-            "images": [
-              {
-                "order": 1,
-                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                "altText": {
-                  "en": "Service Image",
-                  "ar": "صورة الخدمة"
-                }
-              }
-            ]
+            "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
+            "altText": {
+              "en": "Service Image",
+              "ar": "صورة الخدمة"
+            }
           },
           {
             "order": 2,
-            "title": {
-              "ar": "الأسطح المعدنية",
-              "en": "Metal Finishes"
-            },
-            "description": {
-              "ar": "تقديم تشطيبات معدنية باستخدام الفولاذ المقاوم للصدأ أو الألومنيوم للحصول على مظهر حديث وعصري.",
-              "en": "Providing metal finishes using stainless steel or aluminum for a sleek, modern, and sophisticated look."
-            },
-            "images": [
-              {
-                "order": 1,
-                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                "altText": {
-                  "en": "Service Image",
-                  "ar": "صورة الخدمة"
-                }
-              }
-            ]
+            "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
+            "altText": {
+              "en": "Service Image",
+              "ar": "صورة الخدمة"
+            }
           },
           {
             "order": 3,
-            "title": {
-              "ar": "التشطيبات الخشبية",
-              "en": "Wooden Finishes"
-            },
-            "description": {
-              "ar": "استخدام التشطيبات الخشبية الطبيعية أو المعالجة لإضفاء لمسة دافئة وطبيعية على التصميم المعماري.",
-              "en": "Using natural or treated wooden finishes to add a warm and natural touch to the architectural design."
-            },
-            "images": [
-              {
-                "order": 1,
-                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                "altText": {
-                  "en": "Service Image",
-                  "ar": "صورة الخدمة"
-                }
-              }
-            ]
+            "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
+            "altText": {
+              "en": "Service Image",
+              "ar": "صورة الخدمة"
+            }
           },
           {
             "order": 4,
-            "title": {
-              "ar": "التشطيبات الحجرية",
-              "en": "Stone Finishes"
-            },
-            "description": {
-              "ar": "تشطيب الأسطح باستخدام الحجر الطبيعي أو الصناعي لإضفاء مظهر قوي وراقي للمباني.",
-              "en": "Finishing surfaces with natural or artificial stone to give buildings a strong, sophisticated look."
-            },
-            "images": [
-              {
-                "order": 1,
-                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                "altText": {
-                  "en": "Service Image",
-                  "ar": "صورة الخدمة"
-                }
-              }
-            ]
+            "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
+            "altText": {
+              "en": "Service Image",
+              "ar": "صورة الخدمة"
+            }
           },
           {
             "order": 5,
-            "title": {
-              "ar": "الأسطح الملونة والمزخرفة",
-              "en": "Colored and Decorative Finishes"
-            },
-            "description": {
-              "ar": "تقديم تشطيبات مزخرفة وملونة لتلبية المتطلبات الفنية والجمالية الخاصة بالمشروع.",
-              "en": "Offering decorative and colored finishes to meet the artistic and aesthetic requirements of the project."
-            },
-            "images": [
-              {
-                "order": 1,
-                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                "altText": {
-                  "en": "Service Image",
-                  "ar": "صورة الخدمة"
-                }
-              }
-            ]
+            "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
+            "altText": {
+              "en": "Service Image",
+              "ar": "صورة الخدمة"
+            }
           }
         ]
       }
@@ -1525,7 +1399,7 @@
           }
         ]
       },
-      "ServicePointsGrid1": {
+      "ServicePointsGrid": {
         "title": {
           "ar": "خدمات المنشآت الأساسية",
           "en": "Core Facility Services"
@@ -1544,17 +1418,7 @@
             "description": {
               "ar": "إدارة الصيانة تشمل توفير خدمات الصيانة الوقائية والتصحيحية لجميع أنظمة المنشأة.",
               "en": "Maintenance management includes providing preventive and corrective maintenance services for all facility systems."
-            },
-            "images": [
-              {
-                "order": 1,
-                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                "altText": {
-                  "en": "Service Image",
-                  "ar": "صورة الخدمة"
-                }
-              }
-            ]
+            }
           },
           {
             "order": 2,
@@ -1565,17 +1429,7 @@
             "description": {
               "ar": "نحن نقدم خدمات تنظيف شاملة لجميع المساحات، بما في ذلك تنظيف المكاتب، الحمامات، والأسطح المشتركة.",
               "en": "We provide comprehensive cleaning services for all spaces, including office areas, bathrooms, and common surfaces."
-            },
-            "images": [
-              {
-                "order": 1,
-                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                "altText": {
-                  "en": "Service Image",
-                  "ar": "صورة الخدمة"
-                }
-              }
-            ]
+            }
           },
           {
             "order": 3,
@@ -1586,17 +1440,7 @@
             "description": {
               "ar": "إدارة الأمن تشمل توفير الحراسة الأمنية، أنظمة المراقبة، وخدمات الاستجابة للطوارئ لضمان سلامة المنشأة.",
               "en": "Security management includes providing security guards, surveillance systems, and emergency response services to ensure facility safety."
-            },
-            "images": [
-              {
-                "order": 1,
-                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                "altText": {
-                  "en": "Service Image",
-                  "ar": "صورة الخدمة"
-                }
-              }
-            ]
+            }
           },
           {
             "order": 4,
@@ -1607,17 +1451,7 @@
             "description": {
               "ar": "إدارة الطاقة تركز على تحسين استخدام الطاقة وتقليل استهلاكها من خلال حلول مبتكرة ومستدامة.",
               "en": "Energy management focuses on optimizing energy use and reducing consumption through innovative and sustainable solutions."
-            },
-            "images": [
-              {
-                "order": 1,
-                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                "altText": {
-                  "en": "Service Image",
-                  "ar": "صورة الخدمة"
-                }
-              }
-            ]
+            }
           },
           {
             "order": 5,
@@ -1628,134 +1462,51 @@
             "description": {
               "ar": "إدارة أنظمة HVAC تشمل صيانة وتحديث أنظمة التدفئة، التهوية، وتكييف الهواء لضمان بيئة مريحة.",
               "en": "HVAC systems management includes maintenance and upgrading of heating, ventilation, and air conditioning systems to ensure a comfortable environment."
-            },
-            "images": [
-              {
-                "order": 1,
-                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                "altText": {
-                  "en": "Service Image",
-                  "ar": "صورة الخدمة"
-                }
-              }
-            ]
+            }
           }
         ]
       },
-      "ServicePointsGrid2": {
-        "title": {
-          "ar": "خدمات إضافية للمنشآت",
-          "en": "Additional Facility Services"
-        },
-        "description": {
-          "ar": "نقدم مجموعة من الخدمات الإضافية التي تساهم في تحسين أداء المنشأة وجعلها أكثر كفاءة.",
-          "en": "We provide a range of additional services that contribute to improving facility performance and enhancing efficiency."
-        },
-        "points": [
+      "gallery": {
+        "images": [
           {
             "order": 1,
-            "title": {
-              "ar": "إدارة المرافق التكنولوجية",
-              "en": "Technology Facilities Management"
-            },
-            "description": {
-              "ar": "إدارة المرافق التكنولوجية تشمل تقديم حلول تقنية متكاملة لتسهيل العمليات الإدارية والأنظمة التكنولوجية داخل المنشأة.",
-              "en": "Technology facilities management includes providing integrated technological solutions to streamline administrative processes and technological systems within the facility."
-            },
-            "images": [
-              {
-                "order": 1,
-                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                "altText": {
-                  "en": "Service Image",
-                  "ar": "صورة الخدمة"
-                }
-              }
-            ]
+            "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
+            "altText": {
+              "en": "Service Image",
+              "ar": "صورة الخدمة"
+            }
           },
           {
             "order": 2,
-            "title": {
-              "ar": "إدارة المساحات",
-              "en": "Space Management"
-            },
-            "description": {
-              "ar": "إدارة المساحات تضمن استغلال المساحات داخل المنشأة بكفاءة من خلال تخطيط وتنظيم المساحات بشكل أمثل.",
-              "en": "Space management ensures the efficient use of spaces within the facility through optimal planning and organization."
-            },
-            "images": [
-              {
-                "order": 1,
-                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                "altText": {
-                  "en": "Service Image",
-                  "ar": "صورة الخدمة"
-                }
-              }
-            ]
+            "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
+            "altText": {
+              "en": "Service Image",
+              "ar": "صورة الخدمة"
+            }
           },
           {
             "order": 3,
-            "title": {
-              "ar": "إدارة النفايات",
-              "en": "Waste Management"
-            },
-            "description": {
-              "ar": "إدارة النفايات تشمل جمع وفرز النفايات، إعادة التدوير، والتخلص من النفايات بشكل آمن وفعال.",
-              "en": "Waste management includes the collection, sorting, recycling, and disposal of waste in a safe and efficient manner."
-            },
-            "images": [
-              {
-                "order": 1,
-                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                "altText": {
-                  "en": "Service Image",
-                  "ar": "صورة الخدمة"
-                }
-              }
-            ]
+            "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
+            "altText": {
+              "en": "Service Image",
+              "ar": "صورة الخدمة"
+            }
           },
           {
             "order": 4,
-            "title": {
-              "ar": "إدارة المرافق الخضراء",
-              "en": "Green Facility Management"
-            },
-            "description": {
-              "ar": "نحن نقدم حلولًا لإدارة المنشآت بطريقة صديقة للبيئة من خلال تقليل تأثيرات المباني على البيئة.",
-              "en": "We offer solutions for managing facilities in an environmentally friendly way by reducing the environmental impact of buildings."
-            },
-            "images": [
-              {
-                "order": 1,
-                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                "altText": {
-                  "en": "Service Image",
-                  "ar": "صورة الخدمة"
-                }
-              }
-            ]
+            "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
+            "altText": {
+              "en": "Service Image",
+              "ar": "صورة الخدمة"
+            }
           },
           {
             "order": 5,
-            "title": {
-              "ar": "إدارة الأنظمة الكهربائية",
-              "en": "Electrical Systems Management"
-            },
-            "description": {
-              "ar": "إدارة الأنظمة الكهربائية تشمل صيانة وتركيب الأنظمة الكهربائية بشكل آمن وفعّال.",
-              "en": "Electrical systems management includes the maintenance and installation of electrical systems in a safe and efficient manner."
-            },
-            "images": [
-              {
-                "order": 1,
-                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                "altText": {
-                  "en": "Service Image",
-                  "ar": "صورة الخدمة"
-                }
-              }
-            ]
+            "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
+            "altText": {
+              "en": "Service Image",
+              "ar": "صورة الخدمة"
+            }
           }
         ]
       }
@@ -1786,7 +1537,7 @@
           }
         ]
       },
-      "ServicePointsGrid1": {
+      "ServicePointsGrid": {
         "title": {
           "ar": "خدمات صيانة البنية التحتية الأساسية",
           "en": "Core Infrastructure Maintenance Services"
@@ -1805,17 +1556,7 @@
             "description": {
               "ar": "تشمل صيانة الطرق والشوارع إصلاح الحفر، وصيانة الأسطح، وتحسين الإضاءة العامة.",
               "en": "Road and street maintenance includes pothole repairs, surface maintenance, and improving public lighting."
-            },
-            "images": [
-              {
-                "order": 1,
-                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                "altText": {
-                  "en": "Service Image",
-                  "ar": "صورة الخدمة"
-                }
-              }
-            ]
+            }
           },
           {
             "order": 2,
@@ -1826,17 +1567,7 @@
             "description": {
               "ar": "نقوم بصيانة شبكات المياه والصرف الصحي لضمان تدفق مستمر للمياه وخدمات الصرف الصحي.",
               "en": "We maintain water and sewerage networks to ensure continuous water flow and efficient sewage services."
-            },
-            "images": [
-              {
-                "order": 1,
-                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                "altText": {
-                  "en": "Service Image",
-                  "ar": "صورة الخدمة"
-                }
-              }
-            ]
+            }
           },
           {
             "order": 3,
@@ -1847,17 +1578,7 @@
             "description": {
               "ar": "تشمل صيانة الأنظمة الكهربائية فحص الأسلاك، اللوحات الكهربائية، وصيانة أنظمة الإضاءة.",
               "en": "Electrical systems maintenance includes inspecting wiring, electrical panels, and maintaining lighting systems."
-            },
-            "images": [
-              {
-                "order": 1,
-                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                "altText": {
-                  "en": "Service Image",
-                  "ar": "صورة الخدمة"
-                }
-              }
-            ]
+            }
           },
           {
             "order": 4,
@@ -1868,17 +1589,7 @@
             "description": {
               "ar": "نقوم بصيانة شبكات الاتصالات لضمان استمرارية وتوفير خدمة موثوقة.",
               "en": "We maintain telecommunication networks to ensure continuity and reliable service."
-            },
-            "images": [
-              {
-                "order": 1,
-                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                "altText": {
-                  "en": "Service Image",
-                  "ar": "صورة الخدمة"
-                }
-              }
-            ]
+            }
           },
           {
             "order": 5,
@@ -1889,134 +1600,51 @@
             "description": {
               "ar": "تتضمن صيانة المنشآت والمباني صيانة الأسطح، الفواصل، وأعمال التشطيبات لضمان دوام المنشأة.",
               "en": "Building and facility maintenance includes surface repairs, joints, and finishing works to ensure the longevity of the facility."
-            },
-            "images": [
-              {
-                "order": 1,
-                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                "altText": {
-                  "en": "Service Image",
-                  "ar": "صورة الخدمة"
-                }
-              }
-            ]
+            }
           }
         ]
       },
-      "ServicePointsGrid2": {
-        "title": {
-          "ar": "خدمات إضافية لصيانة البنية التحتية",
-          "en": "Additional Infrastructure Maintenance Services"
-        },
-        "description": {
-          "ar": "نقدم خدمات إضافية متنوعة لضمان تحسين وصيانة البنية التحتية بشكل مستمر.",
-          "en": "We offer a variety of additional services to ensure continuous improvement and maintenance of infrastructure."
-        },
-        "points": [
+      "gallery": {
+        "images": [
           {
             "order": 1,
-            "title": {
-              "ar": "إصلاح وصيانة الأسطح",
-              "en": "Surface Repair and Maintenance"
-            },
-            "description": {
-              "ar": "إصلاح وصيانة الأسطح تشمل معالجة التصدعات والشقوق، وإعادة تعبئة الأسطح المتضررة.",
-              "en": "Surface repair and maintenance includes addressing cracks and fissures, and resurfacing damaged areas."
-            },
-            "images": [
-              {
-                "order": 1,
-                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                "altText": {
-                  "en": "Service Image",
-                  "ar": "صورة الخدمة"
-                }
-              }
-            ]
+            "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
+            "altText": {
+              "en": "Service Image",
+              "ar": "صورة الخدمة"
+            }
           },
           {
             "order": 2,
-            "title": {
-              "ar": "إدارة المشاريع البنية التحتية",
-              "en": "Infrastructure Project Management"
-            },
-            "description": {
-              "ar": "إدارة المشاريع المتعلقة بالبنية التحتية تضمن تنسيق وتنفيذ المشاريع بكفاءة ووفقًا للمعايير المطلوبة.",
-              "en": "Infrastructure project management ensures the coordination and execution of projects efficiently and in accordance with required standards."
-            },
-            "images": [
-              {
-                "order": 1,
-                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                "altText": {
-                  "en": "Service Image",
-                  "ar": "صورة الخدمة"
-                }
-              }
-            ]
+            "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
+            "altText": {
+              "en": "Service Image",
+              "ar": "صورة الخدمة"
+            }
           },
           {
             "order": 3,
-            "title": {
-              "ar": "تركيب وصيانة أنظمة الري",
-              "en": "Irrigation System Installation and Maintenance"
-            },
-            "description": {
-              "ar": "نقوم بتركيب وصيانة أنظمة الري لضمان توصيل المياه بشكل مناسب للحدائق والمرافق.",
-              "en": "We install and maintain irrigation systems to ensure proper water distribution to gardens and facilities."
-            },
-            "images": [
-              {
-                "order": 1,
-                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                "altText": {
-                  "en": "Service Image",
-                  "ar": "صورة الخدمة"
-                }
-              }
-            ]
+            "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
+            "altText": {
+              "en": "Service Image",
+              "ar": "صورة الخدمة"
+            }
           },
           {
             "order": 4,
-            "title": {
-              "ar": "إصلاح وصيانة الأسطح الخرسانية",
-              "en": "Concrete Surface Repair and Maintenance"
-            },
-            "description": {
-              "ar": "إصلاح وصيانة الأسطح الخرسانية يشمل إزالة التآكل، وترميم الخرسانة المتصدعة أو المتهالكة.",
-              "en": "Concrete surface repair and maintenance includes removing wear and tear and restoring cracked or deteriorating concrete."
-            },
-            "images": [
-              {
-                "order": 1,
-                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                "altText": {
-                  "en": "Service Image",
-                  "ar": "صورة الخدمة"
-                }
-              }
-            ]
+            "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
+            "altText": {
+              "en": "Service Image",
+              "ar": "صورة الخدمة"
+            }
           },
           {
             "order": 5,
-            "title": {
-              "ar": "تحليل ومراقبة أداء البنية التحتية",
-              "en": "Infrastructure Performance Analysis and Monitoring"
-            },
-            "description": {
-              "ar": "نقوم بتحليل ومراقبة أداء البنية التحتية لضمان سلامتها وكفاءتها على المدى الطويل.",
-              "en": "We analyze and monitor the performance of infrastructure to ensure its safety and efficiency in the long term."
-            },
-            "images": [
-              {
-                "order": 1,
-                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                "altText": {
-                  "en": "Service Image",
-                  "ar": "صورة الخدمة"
-                }
-              }
-            ]
+            "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
+            "altText": {
+              "en": "Service Image",
+              "ar": "صورة الخدمة"
+            }
           }
         ]
       }
@@ -2047,7 +1675,7 @@
           }
         ]
       },
-      "ServicePointsGrid1": {
+      "ServicePointsGrid": {
         "title": {
           "ar": "خدمات التصنيع الهيكلي الأساسية",
           "en": "Core Structural Fabrication Services"
@@ -2066,17 +1694,7 @@
             "description": {
               "ar": "نقوم بتصنيع الهياكل الفولاذية للمباني والمنشآت الصناعية وفقًا لأعلى معايير الجودة.",
               "en": "We fabricate steel structures for buildings and industrial facilities according to the highest quality standards."
-            },
-            "images": [
-              {
-                "order": 1,
-                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                "altText": {
-                  "en": "Service Image",
-                  "ar": "صورة الخدمة"
-                }
-              }
-            ]
+            }
           },
           {
             "order": 2,
@@ -2087,17 +1705,7 @@
             "description": {
               "ar": "نقدم خدمات تصنيع الأسطح المعدنية التي تشمل الألواح المعدنية وأسطوانات التغطية المعدنية.",
               "en": "We offer metal surface fabrication services, including metal sheets and covering cylinders."
-            },
-            "images": [
-              {
-                "order": 1,
-                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                "altText": {
-                  "en": "Service Image",
-                  "ar": "صورة الخدمة"
-                }
-              }
-            ]
+            }
           },
           {
             "order": 3,
@@ -2108,17 +1716,7 @@
             "description": {
               "ar": "نقوم بتصنيع الهياكل الخرسانية المسلحة من خلال استخدام المواد الخرسانية ذات الجودة العالية.",
               "en": "We fabricate reinforced concrete structures using high-quality concrete materials."
-            },
-            "images": [
-              {
-                "order": 1,
-                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                "altText": {
-                  "en": "Service Image",
-                  "ar": "صورة الخدمة"
-                }
-              }
-            ]
+            }
           },
           {
             "order": 4,
@@ -2129,17 +1727,7 @@
             "description": {
               "ar": "نحن متخصصون في تصنيع الأنابيب والمواسير بأحجام وأطوال مختلفة لتلبية احتياجات مشاريع البناء.",
               "en": "We specialize in fabricating pipes and tubes of various sizes and lengths to meet the needs of construction projects."
-            },
-            "images": [
-              {
-                "order": 1,
-                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                "altText": {
-                  "en": "Service Image",
-                  "ar": "صورة الخدمة"
-                }
-              }
-            ]
+            }
           },
           {
             "order": 5,
@@ -2150,134 +1738,51 @@
             "description": {
               "ar": "نقوم بتصنيع الأنظمة المعدنية المجمعة والتي تشمل الهياكل الحديدية والهياكل الجاهزة للاستخدام.",
               "en": "We fabricate pre-assembled metal systems, including steel frames and ready-to-use structural systems."
-            },
-            "images": [
-              {
-                "order": 1,
-                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                "altText": {
-                  "en": "Service Image",
-                  "ar": "صورة الخدمة"
-                }
-              }
-            ]
+            }
           }
         ]
       },
-      "ServicePointsGrid2": {
-        "title": {
-          "ar": "خدمات إضافية للتصنيع الهيكلي",
-          "en": "Additional Structural Fabrication Services"
-        },
-        "description": {
-          "ar": "نحن نقدم خدمات إضافية متكاملة في مجال التصنيع الهيكلي لضمان إتمام المشاريع بكفاءة عالية.",
-          "en": "We offer additional integrated services in structural fabrication to ensure the efficient completion of projects."
-        },
-        "points": [
+      "gallery": {
+        "images": [
           {
             "order": 1,
-            "title": {
-              "ar": "تصنيع هياكل النقل",
-              "en": "Transport Structure Fabrication"
-            },
-            "description": {
-              "ar": "نحن نصمم ونصنع هياكل النقل المتخصصة بما في ذلك حاويات الشحن والهياكل الخاصة بالنقل.",
-              "en": "We design and fabricate specialized transport structures, including shipping containers and custom transport frames."
-            },
-            "images": [
-              {
-                "order": 1,
-                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                "altText": {
-                  "en": "Service Image",
-                  "ar": "صورة الخدمة"
-                }
-              }
-            ]
+            "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
+            "altText": {
+              "en": "Service Image",
+              "ar": "صورة الخدمة"
+            }
           },
           {
             "order": 2,
-            "title": {
-              "ar": "تصنيع الأسطح المعمارية",
-              "en": "Architectural Surface Fabrication"
-            },
-            "description": {
-              "ar": "نقوم بتصنيع الأسطح المعمارية مثل الأقواس، الأسطح المنحنية، والهياكل المعمارية الأخرى حسب الحاجة.",
-              "en": "We fabricate architectural surfaces such as arches, curved surfaces, and other architectural structures as required."
-            },
-            "images": [
-              {
-                "order": 1,
-                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                "altText": {
-                  "en": "Service Image",
-                  "ar": "صورة الخدمة"
-                }
-              }
-            ]
+            "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
+            "altText": {
+              "en": "Service Image",
+              "ar": "صورة الخدمة"
+            }
           },
           {
             "order": 3,
-            "title": {
-              "ar": "تصنيع هياكل المرافق الصناعية",
-              "en": "Industrial Facility Structure Fabrication"
-            },
-            "description": {
-              "ar": "نقدم خدمات تصنيع الهياكل المخصصة للمرافق الصناعية، بما في ذلك الهياكل للأبراج، والخزانات، والمرافق الصناعية الأخرى.",
-              "en": "We provide structural fabrication services for industrial facilities, including frames for towers, tanks, and other industrial infrastructure."
-            },
-            "images": [
-              {
-                "order": 1,
-                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                "altText": {
-                  "en": "Service Image",
-                  "ar": "صورة الخدمة"
-                }
-              }
-            ]
+            "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
+            "altText": {
+              "en": "Service Image",
+              "ar": "صورة الخدمة"
+            }
           },
           {
             "order": 4,
-            "title": {
-              "ar": "تصنيع الهياكل الكبيرة",
-              "en": "Large-Scale Structural Fabrication"
-            },
-            "description": {
-              "ar": "نقوم بتصنيع هياكل كبيرة للمشاريع الضخمة مثل المنشآت التجارية والمباني متعددة الطوابق.",
-              "en": "We fabricate large-scale structures for major projects such as commercial buildings and multi-story structures."
-            },
-            "images": [
-              {
-                "order": 1,
-                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                "altText": {
-                  "en": "Service Image",
-                  "ar": "صورة الخدمة"
-                }
-              }
-            ]
+            "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
+            "altText": {
+              "en": "Service Image",
+              "ar": "صورة الخدمة"
+            }
           },
           {
             "order": 5,
-            "title": {
-              "ar": "تصنيع الهياكل المقاومة للزلازل",
-              "en": "Seismic-Resistant Structural Fabrication"
-            },
-            "description": {
-              "ar": "نقدم حلولًا لتصنيع الهياكل المقاومة للزلازل والتي توفر الأمان والاستقرار في المناطق الزلزالية.",
-              "en": "We provide solutions for fabricating seismic-resistant structures that offer safety and stability in seismic areas."
-            },
-            "images": [
-              {
-                "order": 1,
-                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                "altText": {
-                  "en": "Service Image",
-                  "ar": "صورة الخدمة"
-                }
-              }
-            ]
+            "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
+            "altText": {
+              "en": "Service Image",
+              "ar": "صورة الخدمة"
+            }
           }
         ]
       }
@@ -2308,7 +1813,7 @@
           }
         ]
       },
-      "ServicePointsGrid1": {
+      "ServicePointsGrid": {
         "title": {
           "ar": "خدمات الرافعات والمعدات الثقيلة الأساسية",
           "en": "Core Cranes & Heavy Lifting Equipment Services"
@@ -2327,17 +1832,7 @@
             "description": {
               "ar": "نحن نوفر الرافعات البرجية لمشاريع البناء عالية الارتفاع والتي تتطلب الرفع لمسافات طويلة.",
               "en": "We provide tower cranes for high-rise construction projects that require long-distance lifting."
-            },
-            "images": [
-              {
-                "order": 1,
-                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                "altText": {
-                  "en": "Service Image",
-                  "ar": "صورة الخدمة"
-                }
-              }
-            ]
+            }
           },
           {
             "order": 2,
@@ -2348,17 +1843,7 @@
             "description": {
               "ar": "نقدم الرافعات الجسرية للمشاريع التي تتطلب رفع وتحريك المعدات الثقيلة داخل المنشآت المغلقة.",
               "en": "We offer bridge cranes for projects that require lifting and moving heavy equipment inside enclosed facilities."
-            },
-            "images": [
-              {
-                "order": 1,
-                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                "altText": {
-                  "en": "Service Image",
-                  "ar": "صورة الخدمة"
-                }
-              }
-            ]
+            }
           },
           {
             "order": 3,
@@ -2369,17 +1854,7 @@
             "description": {
               "ar": "نقدم الرافعات الزحافة التي توفر القدرة على التحرك على التضاريس الوعرة مع رفع الأحمال الثقيلة.",
               "en": "We provide crawler cranes that offer the ability to move on rough terrain while lifting heavy loads."
-            },
-            "images": [
-              {
-                "order": 1,
-                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                "altText": {
-                  "en": "Service Image",
-                  "ar": "صورة الخدمة"
-                }
-              }
-            ]
+            }
           },
           {
             "order": 4,
@@ -2390,17 +1865,7 @@
             "description": {
               "ar": "نقدم الرافعات المتنقلة التي تتميز بالقدرة على الانتقال بسرعة بين المواقع المختلفة، مع قدرة رفع عالية.",
               "en": "We provide mobile cranes that are highly mobile and capable of moving between different locations with high lifting capacity."
-            },
-            "images": [
-              {
-                "order": 1,
-                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                "altText": {
-                  "en": "Service Image",
-                  "ar": "صورة الخدمة"
-                }
-              }
-            ]
+            }
           },
           {
             "order": 5,
@@ -2411,140 +1876,56 @@
             "description": {
               "ar": "نحن نوفر الرافعات ذات الذراع الطويلة التي تسمح برفع الأحمال الثقيلة لمسافات بعيدة.",
               "en": "We provide long reach cranes that allow lifting heavy loads over long distances."
-            },
-            "images": [
-              {
-                "order": 1,
-                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                "altText": {
-                  "en": "Service Image",
-                  "ar": "صورة الخدمة"
-                }
-              }
-            ]
+            }
           }
         ]
       },
-      "ServicePointsGrid2": {
-        "title": {
-          "ar": "خدمات إضافية للرافعات والمعدات الثقيلة",
-          "en": "Additional Cranes & Heavy Lifting Equipment Services"
-        },
-        "description": {
-          "ar": "نقدم خدمات إضافية متكاملة للرافعات والمعدات الثقيلة لضمان تنفيذ المشاريع بشكل فعال.",
-          "en": "We offer additional integrated services for cranes and heavy lifting equipment to ensure the efficient execution of projects."
-        },
-        "points": [
+      "gallery": {
+        "images": [
           {
             "order": 1,
-            "title": {
-              "ar": "تركيب الرافعات",
-              "en": "Crane Installation"
-            },
-            "description": {
-              "ar": "نقوم بتركيب الرافعات المختلفة وتوفير دعم مستمر لضمان عملية رفع آمنة.",
-              "en": "We install various types of cranes and provide ongoing support to ensure safe lifting operations."
-            },
-            "images": [
-              {
-                "order": 1,
-                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                "altText": {
-                  "en": "Service Image",
-                  "ar": "صورة الخدمة"
-                }
-              }
-            ]
+            "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
+            "altText": {
+              "en": "Service Image",
+              "ar": "صورة الخدمة"
+            }
           },
           {
             "order": 2,
-            "title": {
-              "ar": "خدمات التفكيك والنقل",
-              "en": "Crane Dismantling & Transportation"
-            },
-            "description": {
-              "ar": "نقوم بتوفير خدمات التفكيك والنقل للرافعات والمعدات الثقيلة بين المواقع المختلفة.",
-              "en": "We provide crane dismantling and transportation services for moving cranes and heavy equipment between different locations."
-            },
-            "images": [
-              {
-                "order": 1,
-                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                "altText": {
-                  "en": "Service Image",
-                  "ar": "صورة الخدمة"
-                }
-              }
-            ]
+            "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
+            "altText": {
+              "en": "Service Image",
+              "ar": "صورة الخدمة"
+            }
           },
           {
             "order": 3,
-            "title": {
-              "ar": "الصيانة الدورية للرافعات",
-              "en": "Crane Maintenance & Inspection"
-            },
-            "description": {
-              "ar": "نقوم بصيانة وفحص الرافعات بشكل دوري لضمان استمرارية تشغيلها بكفاءة عالية.",
-              "en": "We provide regular maintenance and inspection services for cranes to ensure their continuous operation with high efficiency."
-            },
-            "images": [
-              {
-                "order": 1,
-                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                "altText": {
-                  "en": "Service Image",
-                  "ar": "صورة الخدمة"
-                }
-              }
-            ]
+            "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
+            "altText": {
+              "en": "Service Image",
+              "ar": "صورة الخدمة"
+            }
           },
           {
             "order": 4,
-            "title": {
-              "ar": "الرفع والتفريغ للمعدات الثقيلة",
-              "en": "Heavy Equipment Lifting & Unloading"
-            },
-            "description": {
-              "ar": "نقدم خدمات الرفع والتفريغ للمعدات الثقيلة باستخدام الرافعات المتخصصة.",
-              "en": "We provide heavy equipment lifting and unloading services using specialized cranes."
-            },
-            "images": [
-              {
-                "order": 1,
-                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                "altText": {
-                  "en": "Service Image",
-                  "ar": "صورة الخدمة"
-                }
-              }
-            ]
+            "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
+            "altText": {
+              "en": "Service Image",
+              "ar": "صورة الخدمة"
+            }
           },
           {
             "order": 5,
-            "title": {
-              "ar": "استشارات الرفع",
-              "en": "Lifting Consultation"
-            },
-            "description": {
-              "ar": "نقدم استشارات متخصصة لعمليات الرفع لضمان سلامة وفعالية العملية.",
-              "en": "We offer specialized consultation services for lifting operations to ensure safety and efficiency."
-            },
-            "images": [
-              {
-                "order": 1,
-                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                "altText": {
-                  "en": "Service Image",
-                  "ar": "صورة الخدمة"
-                }
-              }
-            ]
+            "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
+            "altText": {
+              "en": "Service Image",
+              "ar": "صورة الخدمة"
+            }
           }
         ]
       }
     }
   ],
-
   "market": {
     "slug": "market",
     "heroSection": {
@@ -2628,7 +2009,6 @@
       }
     }
   },
-
   "singleMarketItems": [
     {
       "resourceTitle": {
@@ -2665,72 +2045,71 @@
           "ar": "تعليم، ضيافة، سكني متعدد الاستخدامات، سكني، تجزئة، رعاية صحية، مكاتب، حكومي، مطارات، مواقف سيارات",
           "en": "Education, Hospitality, Multi-Use Residential, Residential, Retail, Health Care, Offices, Government, Airports, Parking"
         },
-        "marketSubItems": {
-          "title": {
-            "ar": "تفاصيل القطاعات",
-            "en": "Market Segments We Serve"
-          },
-          "description": {
-            "ar": "نقدم خدمات مخصصة لتلبية احتياجات السوق المختلفة ضمن قطاع المباني.",
-            "en": "We offer tailored services to meet the specific demands of various segments within the buildings market."
-          },
-          "points": [
-            {
-              "order": 1,
-              "title": { "ar": "التعليم", "en": "Education" },
-              "description": {
-                "ar": "نقوم ببناء وتجهيز المدارس والجامعات بمعايير عالمية لتوفير بيئة تعليمية فعالة.",
-                "en": "We construct and equip schools and universities to global standards for effective learning environments."
-              },
-              "images": [
-                {
-                  "order": 1,
-                  "url": "",
-                  "altText": {
-                    "en": " Image",
-                    "ar": "الرئيسية"
-                  }
-                }
-              ]
+        "points": [
+          {
+            "order": 1,
+            "title": {
+              "ar": "التعليم",
+              "en": "Education"
             },
-            {
-              "order": 2,
-              "title": { "ar": "الضيافة", "en": "Hospitality" },
-              "description": {
-                "ar": "إنشاء الفنادق والمنتجعات بتصاميم راقية وخدمات متكاملة لتجربة ضيافة متميزة.",
-                "en": "We develop hotels and resorts with elegant design and integrated services for an outstanding guest experience."
-              },
-              "images": [
-                {
-                  "order": 1,
-                  "url": "",
-                  "altText": {
-                    "en": " Image",
-                    "ar": "الرئيسية"
-                  }
-                }
-              ]
+            "description": {
+              "ar": "نقوم ببناء وتجهيز المدارس والجامعات بمعايير عالمية لتوفير بيئة تعليمية فعالة.",
+              "en": "We construct and equip schools and universities to global standards for effective learning environments."
             },
-            {
-              "order": 3,
-              "title": { "ar": "السكني", "en": "Residential" },
-              "description": {
-                "ar": "بناء مشاريع سكنية متنوعة من الفلل إلى المجمعات متعددة الاستخدامات.",
-                "en": "Development of a wide range of residential projects from villas to multi-use complexes."
-              },
-              "images": [
-                {
-                  "order": 1,
-                  "url": "",
-                  "altText": {
-                    "en": " Image",
-                    "ar": "الرئيسية"
-                  }
+            "images": [
+              {
+                "order": 1,
+                "url": "",
+                "altText": {
+                  "en": " Image",
+                  "ar": "الرئيسية"
                 }
-              ]
-            }
-          ]
-        }
+              }
+            ]
+          },
+          {
+            "order": 2,
+            "title": {
+              "ar": "الضيافة",
+              "en": "Hospitality"
+            },
+            "description": {
+              "ar": "إنشاء الفنادق والمنتجعات بتصاميم راقية وخدمات متكاملة لتجربة ضيافة متميزة.",
+              "en": "We develop hotels and resorts with elegant design and integrated services for an outstanding guest experience."
+            },
+            "images": [
+              {
+                "order": 1,
+                "url": "",
+                "altText": {
+                  "en": " Image",
+                  "ar": "الرئيسية"
+                }
+              }
+            ]
+          },
+          {
+            "order": 3,
+            "title": {
+              "ar": "السكني",
+              "en": "Residential"
+            },
+            "description": {
+              "ar": "بناء مشاريع سكنية متنوعة من الفلل إلى المجمعات متعددة الاستخدامات.",
+              "en": "Development of a wide range of residential projects from villas to multi-use complexes."
+            },
+            "images": [
+              {
+                "order": 1,
+                "url": "",
+                "altText": {
+                  "en": " Image",
+                  "ar": "الرئيسية"
+                }
+              }
+            ]
+          }
+        ]
       },
       "projectsGridSection": {
         "button": [
@@ -2753,7 +2132,10 @@
       },
       "slug": "industrial",
       "heroSection": {
-        "title": { "ar": "الصناعة", "en": "Industrial" },
+        "title": {
+          "ar": "الصناعة",
+          "en": "Industrial"
+        },
         "description": {
           "ar": "نقوم ببناء وتشغيل منشآت صناعية متقدمة تشمل المصانع ومرافق الطاقة والبتروكيماويات.",
           "en": "We construct and operate advanced industrial facilities, including manufacturing plants, energy infrastructure, and petrochemical units."
@@ -2778,61 +2160,60 @@
           "ar": "مصانع، مستودعات، منشآت بتروكيماوية، الطاقة، التجميع الصناعي، مراكز توزيع، مراكز البيانات",
           "en": "Factories, Warehouses, Petrochemical Facilities, Energy, Industrial Assembly, Distribution Centers, Data Centers"
         },
-        "marketSubItems": {
-          "title": {
-            "ar": "تفاصيل القطاعات",
-            "en": "Market Segments We Serve"
-          },
-          "description": {
-            "ar": "ننفذ مشاريع صناعية معقدة تتطلب دقة هندسية وتقنية عالية.",
-            "en": "We execute complex industrial projects requiring high engineering precision and technology."
-          },
-          "points": [
-            {
-              "order": 1,
-              "title": { "ar": "مصانع التصنيع", "en": "Manufacturing Plants" },
-              "description": {
-                "ar": "تطوير منشآت صناعية لإنتاج مواد متنوعة.",
-                "en": "Developing industrial plants for diverse material production."
-              },
-              "images": [
-                {
-                  "order": 1,
-                  "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                  "altText": {
-                    "en": "Manufacturing Plant Image",
-                    "ar": "صورة مصنع التصنيع"
-                  }
-                }
-              ]
+        "points": [
+          {
+            "order": 1,
+            "title": {
+              "ar": "مصانع التصنيع",
+              "en": "Manufacturing Plants"
             },
-            {
-              "order": 2,
-              "title": { "ar": "مرافق الطاقة", "en": "Energy Facilities" },
-              "description": {
-                "ar": "بناء وتشغيل محطات توليد الطاقة وأنظمة التوزيع.",
-                "en": "Building and operating power generation and distribution facilities."
-              },
-              "images": [
-                {
-                  "order": 1,
-                  "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                  "altText": {
-                    "en": "Energy Facility Image",
-                    "ar": "صورة مرفق الطاقة"
-                  }
+            "description": {
+              "ar": "تطوير منشآت صناعية لإنتاج مواد متنوعة.",
+              "en": "Developing industrial plants for diverse material production."
+            },
+            "images": [
+              {
+                "order": 1,
+                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
+                "altText": {
+                  "en": "Manufacturing Plant Image",
+                  "ar": "صورة مصنع التصنيع"
                 }
-              ]
-            }
-          ]
-        }
+              }
+            ]
+          },
+          {
+            "order": 2,
+            "title": {
+              "ar": "مرافق الطاقة",
+              "en": "Energy Facilities"
+            },
+            "description": {
+              "ar": "بناء وتشغيل محطات توليد الطاقة وأنظمة التوزيع.",
+              "en": "Building and operating power generation and distribution facilities."
+            },
+            "images": [
+              {
+                "order": 1,
+                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
+                "altText": {
+                  "en": "Energy Facility Image",
+                  "ar": "صورة مرفق الطاقة"
+                }
+              }
+            ]
+          }
+        ]
       },
       "projectsGridSection": {
         "button": [
           {
             "order": 1,
             "url": null,
-            "text": { "ar": "عرض المزيد", "en": "View More" },
+            "text": {
+              "ar": "عرض المزيد",
+              "en": "View More"
+            },
             "icon": null
           }
         ]
@@ -2845,7 +2226,10 @@
       },
       "slug": "infrastructure",
       "heroSection": {
-        "title": { "ar": "البنية التحتية", "en": "Infrastructure" },
+        "title": {
+          "ar": "البنية التحتية",
+          "en": "Infrastructure"
+        },
         "description": {
           "ar": "نقدم حلولًا متكاملة للبنية التحتية تشمل الطرق، الجسور، المياه، والكهرباء.",
           "en": "We deliver integrated infrastructure solutions including roads, bridges, water systems, and power grids."
@@ -2870,61 +2254,60 @@
           "ar": "طرق، جسور، أنظمة صرف صحي، خطوط كهرباء، أنفاق، شبكات اتصالات، محطات معالجة المياه",
           "en": "Roads, Bridges, Sewer Systems, Power Lines, Tunnels, Telecom Networks, Water Treatment Plants"
         },
-        "marketSubItems": {
-          "title": {
-            "ar": "تفاصيل القطاعات",
-            "en": "Market Segments We Serve"
-          },
-          "description": {
-            "ar": "حلول شاملة للبنية التحتية الحيوية التي تدعم التنمية الحضرية.",
-            "en": "Comprehensive infrastructure solutions supporting urban development."
-          },
-          "points": [
-            {
-              "order": 1,
-              "title": { "ar": "الطرق السريعة", "en": "Highways" },
-              "description": {
-                "ar": "بناء وتوسيع شبكات الطرق والممرات السريعة.",
-                "en": "Construction and expansion of highway and road networks."
-              },
-              "images": [
-                {
-                  "order": 1,
-                  "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                  "altText": {
-                    "en": "Highway Image",
-                    "ar": "صورة الطريق السريع"
-                  }
-                }
-              ]
+        "points": [
+          {
+            "order": 1,
+            "title": {
+              "ar": "الطرق السريعة",
+              "en": "Highways"
             },
-            {
-              "order": 2,
-              "title": { "ar": "محطات المياه", "en": "Water Plants" },
-              "description": {
-                "ar": "تصميم وبناء محطات المعالجة لضمان استدامة المياه.",
-                "en": "Design and construction of treatment plants for water sustainability."
-              },
-              "images": [
-                {
-                  "order": 1,
-                  "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                  "altText": {
-                    "en": "Water Plant Image",
-                    "ar": "صورة محطة المياه"
-                  }
+            "description": {
+              "ar": "بناء وتوسيع شبكات الطرق والممرات السريعة.",
+              "en": "Construction and expansion of highway and road networks."
+            },
+            "images": [
+              {
+                "order": 1,
+                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
+                "altText": {
+                  "en": "Highway Image",
+                  "ar": "صورة الطريق السريع"
                 }
-              ]
-            }
-          ]
-        }
+              }
+            ]
+          },
+          {
+            "order": 2,
+            "title": {
+              "ar": "محطات المياه",
+              "en": "Water Plants"
+            },
+            "description": {
+              "ar": "تصميم وبناء محطات المعالجة لضمان استدامة المياه.",
+              "en": "Design and construction of treatment plants for water sustainability."
+            },
+            "images": [
+              {
+                "order": 1,
+                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
+                "altText": {
+                  "en": "Water Plant Image",
+                  "ar": "صورة محطة المياه"
+                }
+              }
+            ]
+          }
+        ]
       },
       "projectsGridSection": {
         "button": [
           {
             "order": 1,
             "url": null,
-            "text": { "ar": "عرض المزيد", "en": "View More" },
+            "text": {
+              "ar": "عرض المزيد",
+              "en": "View More"
+            },
             "icon": null
           }
         ]
@@ -2937,7 +2320,10 @@
       },
       "slug": "repair-retrofit",
       "heroSection": {
-        "title": { "ar": "الإصلاح والتحديث", "en": "Repair & Retrofit" },
+        "title": {
+          "ar": "الإصلاح والتحديث",
+          "en": "Repair & Retrofit"
+        },
         "description": {
           "ar": "نقدم خدمات إصلاح وتحديث للمباني والبنية التحتية لضمان استدامة الأداء وتحديث المرافق القائمة.",
           "en": "We offer repair and retrofit services for buildings and infrastructure to ensure sustainable performance and upgrade existing facilities."
@@ -2962,71 +2348,66 @@
           "ar": "ترميم المباني، تحديث أنظمة الطاقة، تقوية الهياكل، تحسين المرافق، حلول كفاءة الطاقة، مقاومة الزلازل",
           "en": "Building Renovation, Energy System Upgrades, Structural Strengthening, Facility Improvements, Energy Efficiency Solutions, Seismic Retrofits"
         },
-        "marketSubItems": {
-          "title": {
-            "ar": "تفاصيل القطاعات",
-            "en": "Market Segments We Serve"
-          },
-          "description": {
-            "ar": "خدمات مستدامة لإعادة تأهيل وتجديد الهياكل الحالية.",
-            "en": "Sustainable services for the rehabilitation and renewal of existing structures."
-          },
-          "points": [
-            {
-              "order": 1,
-              "title": { "ar": "ترميم المباني", "en": "Building Restoration" },
-              "description": {
-                "ar": "إصلاح وترميم الهياكل القديمة وإعادتها إلى حالتها الأصلية.",
-                "en": "Repairing and restoring aged structures to their original condition."
-              },
-              "images": [
-                {
-                  "order": 1,
-                  "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                  "altText": {
-                    "en": "Building Restoration Image",
-                    "ar": "صورة ترميم المباني"
-                  }
-                }
-              ]
+        "points": [
+          {
+            "order": 1,
+            "title": {
+              "ar": "ترميم المباني",
+              "en": "Building Restoration"
             },
-            {
-              "order": 2,
-              "title": {
-                "ar": "التحديث الإنشائي",
-                "en": "Structural Upgrades"
-              },
-              "description": {
-                "ar": "تعزيز الهياكل لمواكبة المعايير الحديثة وزيادة المتانة.",
-                "en": "Enhancing structures to meet modern standards and increase durability."
-              },
-              "images": [
-                {
-                  "order": 1,
-                  "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
-                  "altText": {
-                    "en": "Structural Upgrades Image",
-                    "ar": "صورة التحديث الإنشائي"
-                  }
+            "description": {
+              "ar": "إصلاح وترميم الهياكل القديمة وإعادتها إلى حالتها الأصلية.",
+              "en": "Repairing and restoring aged structures to their original condition."
+            },
+            "images": [
+              {
+                "order": 1,
+                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
+                "altText": {
+                  "en": "Building Restoration Image",
+                  "ar": "صورة ترميم المباني"
                 }
-              ]
-            }
-          ]
-        }
+              }
+            ]
+          },
+          {
+            "order": 2,
+            "title": {
+              "ar": "التحديث الإنشائي",
+              "en": "Structural Upgrades"
+            },
+            "description": {
+              "ar": "تعزيز الهياكل لمواكبة المعايير الحديثة وزيادة المتانة.",
+              "en": "Enhancing structures to meet modern standards and increase durability."
+            },
+            "images": [
+              {
+                "order": 1,
+                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Frame+44+(1).png",
+                "altText": {
+                  "en": "Structural Upgrades Image",
+                  "ar": "صورة التحديث الإنشائي"
+                }
+              }
+            ]
+          }
+        ]
       },
       "projectsGridSection": {
         "button": [
           {
             "order": 1,
             "url": null,
-            "text": { "ar": "عرض المزيد", "en": "View More" },
+            "text": {
+              "ar": "عرض المزيد",
+              "en": "View More"
+            },
             "icon": null
           }
         ]
       }
     }
   ],
-
   "project": {
     "slug": "project",
     "bannerSection": {
@@ -3060,7 +2441,6 @@
         }
       ]
     },
-
     "multiSection": {
       "content": {
         "buttons": [
@@ -3110,7 +2490,6 @@
       ]
     }
   },
-
   "projectDetail": [
     {
       "filter": "ONGOING",
@@ -3322,6 +2701,16 @@
             },
             "icon": null
           }
+        ],
+        "images": [
+          {
+            "order": 1,
+            "url": "https://frequencyimage.s3.ap-south-1.amazonaws.com/851e35b5-9b3b-4d9f-91b4-9b60ef2a102c-Rectangle%2034624110.png",
+            "altText": {
+              "en": "Image 1",
+              "ar": "صورة شعار الصفحة الرئيسية"
+            }
+          }
         ]
       },
       "projectInfoCard": [
@@ -3470,6 +2859,16 @@
               "en": "Back"
             },
             "icon": null
+          }
+        ],
+        "images": [
+          {
+            "order": 1,
+            "url": "https://frequencyimage.s3.ap-south-1.amazonaws.com/851e35b5-9b3b-4d9f-91b4-9b60ef2a102c-Rectangle%2034624110.png",
+            "altText": {
+              "en": "Image 1",
+              "ar": "صورة شعار الصفحة الرئيسية"
+            }
           }
         ]
       },
@@ -3620,6 +3019,16 @@
             },
             "icon": null
           }
+        ],
+        "images": [
+          {
+            "order": 1,
+            "url": "https://frequencyimage.s3.ap-south-1.amazonaws.com/851e35b5-9b3b-4d9f-91b4-9b60ef2a102c-Rectangle%2034624110.png",
+            "altText": {
+              "en": "Image 1",
+              "ar": "صورة شعار الصفحة الرئيسية"
+            }
+          }
         ]
       },
       "projectInfoCard": [
@@ -3769,6 +3178,16 @@
             },
             "icon": null
           }
+        ],
+        "images": [
+          {
+            "order": 1,
+            "url": "https://frequencyimage.s3.ap-south-1.amazonaws.com/851e35b5-9b3b-4d9f-91b4-9b60ef2a102c-Rectangle%2034624110.png",
+            "altText": {
+              "en": "Image 1",
+              "ar": "صورة شعار الصفحة الرئيسية"
+            }
+          }
         ]
       },
       "projectInfoCard": [
@@ -3890,7 +3309,6 @@
       }
     }
   ],
-
   "newsBlogs": {
     "slug": "news-blogs",
     "heroSection": {
@@ -3981,7 +3399,6 @@
       ]
     }
   },
-
   "newsBlogsDetails": [
     {
       "resourceTitle": {
@@ -3998,7 +3415,7 @@
           "en": "Monday May 20",
           "ar": "20 مايو 2020"
         },
-        "image": [
+        "images": [
           {
             "order": 1,
             "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+2+(3).png",
@@ -4087,7 +3504,7 @@
           "en": "Monday May 20",
           "ar": "20 مايو 2020"
         },
-        "image": [
+        "images": [
           {
             "order": 1,
             "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+2+(3).png",
@@ -4176,7 +3593,7 @@
           "en": "Tuesday June 15",
           "ar": "15 يونيو 2021"
         },
-        "image": [
+        "images": [
           {
             "order": 1,
             "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+2+(3).png",
@@ -4265,7 +3682,7 @@
           "en": "Saturday July 10",
           "ar": "10 يوليو 2021"
         },
-        "image": [
+        "images": [
           {
             "order": 1,
             "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+2+(3).png",
@@ -4329,9 +3746,8 @@
       }
     }
   ],
-
   "safetyPage": {
-    "slug": "safety",
+    "slug": "safety_responsibility",
     "heroSection": {
       "title": {
         "en": "Safety: Our Responsibility",
@@ -4381,7 +3797,6 @@
       ]
     }
   },
-
   "safetyPolicies": [
     {
       "resourceTitle": {
@@ -4418,7 +3833,7 @@
           "ar": "السلامة قيمة متأصلة في ثقافتنا، وهي عنصر أساسي مثل التكلفة والجودة والجدول الزمني لعملائنا. نحن ملتزمون بالعمل بأمان وكفاءة ومع مراعاة البيئة. يتم إعطاء الأولوية الأولى للاعتبارات المتعلقة بالسلامة في جميع الأمور المتعلقة بالتصميم والطرق والمواد والمعدات والبناء وتشغيل جميع المشاريع التي نقوم بها.",
           "en": "Safety is a value ingrained in our culture, and it is an equal deliverable the same way that cost, quality, and schedule are to our clients. We are committed to working safely, efficiently, and with due regard for the environment. Safety considerations shall be given first priority over all others in matters of design, methods, materials, equipment, construction, and operations of all the projects we undertake."
         },
-        "safetyProcedures": {
+        "procedures": {
           "title": {
             "ar": "خطتنا للسلامة والصحة",
             "en": "Our Safety and Health Plan"
@@ -4430,7 +3845,10 @@
           "terms": [
             {
               "order": 1,
-              "title": { "ar": "هدفنا", "en": "Our Goal" },
+              "title": {
+                "ar": "هدفنا",
+                "en": "Our Goal"
+              },
               "description": {
                 "ar": "هدفنا في جميع المشاريع هو عدم وجود حوادث قابلة للتسجيل. تفرض شركتنا على جميع الموظفين التصرف وفقًا لدليل السلامة في جميع الأوقات وأن يكونوا دائمًا على دراية بهدفنا النهائي في أن نصبح شركة خالية من الحوادث.",
                 "en": "Zero recordable incidents is always our project goal. Our company mandates all employees to act as per the Safety Manual at all times and to be constantly mindful of our ultimate goal in becoming an accident-free company."
@@ -4470,7 +3888,10 @@
       },
       "slug": "quality-policy",
       "overviewSection": {
-        "title": { "ar": "سياسة الجودة", "en": "Quality Policy" },
+        "title": {
+          "ar": "سياسة الجودة",
+          "en": "Quality Policy"
+        },
         "description": {
           "ar": "في سعيها لبناء مستقبل أقوى، تلتزم شركة Shade بتطوير وإنشاء وتنفيذ وصيانة وتحسين فعالية نظام إدارة الجودة استنادًا إلى معيار ISO 9001 لتقديم خدمات الهندسة والمشتريات والبناء (EPC).",
           "en": "In its pursuit of “Building a Stronger Future”, Shade is committed to develop, establish, implement, maintain, and continually improve the effectiveness of the Quality Management System based on ISO 9001 standard to provide Engineering, Procurement, and Construction (EPC) services."
@@ -4495,7 +3916,7 @@
           "ar": "تفخر شركة Shade ببناء سمعة طيبة باستمرار مع شركائها في العمل وتزرع بقوة ثقافة الصحة والسلامة مع إظهار الاهتمام بالبيئة.",
           "en": "Shade takes pride in continuously building goodwill with its business partners and strongly cultivates a culture of health and safety while displaying care towards the environment."
         },
-        "qualityProcedures": {
+        "procedures": {
           "title": {
             "ar": "التزاماتنا",
             "en": "Our Commitments"
@@ -4507,7 +3928,10 @@
           "terms": [
             {
               "order": 1,
-              "title": { "ar": "تعزيز الكفاءة", "en": "Enhancing Efficiency" },
+              "title": {
+                "ar": "تعزيز الكفاءة",
+                "en": "Enhancing Efficiency"
+              },
               "description": {
                 "ar": "تعزيز كفاءتها من خلال الحفاظ على بيئة عمل صحية تشجع على النمو المهني وتعزز الأفكار الجديدة بين موظفيها.",
                 "en": "Enhance its efficiency by maintaining and promoting a healthy work environment that encourages professional growth and promotes new ideas among its employees."
@@ -4531,7 +3955,10 @@
           {
             "order": 1,
             "url": null,
-            "text": { "ar": "عرض المزيد", "en": "View More" },
+            "text": {
+              "ar": "عرض المزيد",
+              "en": "View More"
+            },
             "icon": null
           }
         ]
@@ -4544,7 +3971,10 @@
       },
       "slug": "environmental-policy",
       "overviewSection": {
-        "title": { "ar": "سياسة البيئة", "en": "Environmental Policy" },
+        "title": {
+          "ar": "سياسة البيئة",
+          "en": "Environmental Policy"
+        },
         "description": {
           "ar": "تلتزم شركة Shade بحماية البيئة من خلال تنفيذ ممارسات مستدامة وتقليل الأثر البيئي لعملياتها.",
           "en": "Shade is committed to protecting the environment by implementing sustainable practices and minimizing the environmental impact of its operations."
@@ -4569,7 +3999,7 @@
           "ar": "نحن ملتزمون بتقليل النفايات، والحفاظ على الموارد، وتعزيز الوعي البيئي بين موظفينا.",
           "en": "We are committed to reducing waste, conserving resources, and promoting environmental awareness among our employees."
         },
-        "environmentalProcedures": {
+        "procedures": {
           "title": {
             "ar": "إجراءاتنا البيئية",
             "en": "Our Environmental Procedures"
@@ -4581,7 +4011,10 @@
           "terms": [
             {
               "order": 1,
-              "title": { "ar": "الاستدامة", "en": "Sustainability" },
+              "title": {
+                "ar": "الاستدامة",
+                "en": "Sustainability"
+              },
               "description": {
                 "ar": "نحن نعمل على تعزيز الاستدامة في جميع جوانب عملياتنا.",
                 "en": "We strive to promote sustainability in all aspects of our operations."
@@ -4605,7 +4038,10 @@
           {
             "order": 1,
             "url": null,
-            "text": { "ar": "عرض المزيد", "en": "View More" },
+            "text": {
+              "ar": "عرض المزيد",
+              "en": "View More"
+            },
             "icon": null
           }
         ]
@@ -4618,7 +4054,10 @@
       },
       "slug": "training-policy",
       "overviewSection": {
-        "title": { "ar": "سياسة التدريب", "en": "Training Policy" },
+        "title": {
+          "ar": "سياسة التدريب",
+          "en": "Training Policy"
+        },
         "description": {
           "ar": "تلتزم شركة Shade بتوفير التدريب المستمر لموظفيها لضمان الكفاءة والامتثال لمعايير السلامة.",
           "en": "Shade is committed to providing continuous training to its employees to ensure competence and compliance with safety standards."
@@ -4643,7 +4082,7 @@
           "ar": "نحن نؤمن بأن التدريب المستمر هو مفتاح النجاح في تحقيق أهداف السلامة والجودة.",
           "en": "We believe that continuous training is key to achieving safety and quality objectives."
         },
-        "trainingProcedures": {
+        "procedures": {
           "title": {
             "ar": "إجراءات التدريب",
             "en": "Training Procedures"
@@ -4682,7 +4121,10 @@
           {
             "order": 1,
             "url": null,
-            "text": { "ar": "عرض المزيد", "en": "View More" },
+            "text": {
+              "ar": "عرض المزيد",
+              "en": "View More"
+            },
             "icon": null
           }
         ]
@@ -4695,7 +4137,10 @@
       },
       "slug": "innovation-policy",
       "overviewSection": {
-        "title": { "ar": "سياسة الابتكار", "en": "Innovation Policy" },
+        "title": {
+          "ar": "سياسة الابتكار",
+          "en": "Innovation Policy"
+        },
         "description": {
           "ar": "تلتزم شركة Shade بتعزيز الابتكار في جميع عملياتها لضمان التحسين المستمر.",
           "en": "Shade is committed to fostering innovation in all its operations to ensure continuous improvement."
@@ -4720,7 +4165,7 @@
           "ar": "نحن نؤمن بأن الابتكار هو مفتاح النجاح في السوق التنافسية.",
           "en": "We believe that innovation is key to success in a competitive market."
         },
-        "innovationProcedures": {
+        "procedures": {
           "title": {
             "ar": "إجراءات الابتكار",
             "en": "Innovation Procedures"
@@ -4732,7 +4177,10 @@
           "terms": [
             {
               "order": 1,
-              "title": { "ar": "التفكير الإبداعي", "en": "Creative Thinking" },
+              "title": {
+                "ar": "التفكير الإبداعي",
+                "en": "Creative Thinking"
+              },
               "description": {
                 "ar": "نحن نشجع التفكير الإبداعي بين موظفينا.",
                 "en": "We encourage creative thinking among our employees."
@@ -4756,7 +4204,10 @@
           {
             "order": 1,
             "url": null,
-            "text": { "ar": "عرض المزيد", "en": "View More" },
+            "text": {
+              "ar": "عرض المزيد",
+              "en": "View More"
+            },
             "icon": null
           }
         ]
@@ -4769,7 +4220,10 @@
       },
       "slug": "communication-policy",
       "overviewSection": {
-        "title": { "ar": "سياسة التواصل", "en": "Communication Policy" },
+        "title": {
+          "ar": "سياسة التواصل",
+          "en": "Communication Policy"
+        },
         "description": {
           "ar": "تلتزم شركة Shade بتعزيز التواصل الفعال لضمان الشفافية والوضوح في جميع عملياتها.",
           "en": "Shade is committed to promoting effective communication to ensure transparency and clarity in all its operations."
@@ -4794,7 +4248,7 @@
           "ar": "نحن نؤمن بأن التواصل الفعال هو أساس النجاح في جميع المشاريع.",
           "en": "We believe that effective communication is the foundation of success in all projects."
         },
-        "communicationProcedures": {
+        "procedures": {
           "title": {
             "ar": "إجراءات التواصل",
             "en": "Communication Procedures"
@@ -4806,7 +4260,10 @@
           "terms": [
             {
               "order": 1,
-              "title": { "ar": "الشفافية", "en": "Transparency" },
+              "title": {
+                "ar": "الشفافية",
+                "en": "Transparency"
+              },
               "description": {
                 "ar": "نحن نشجع الشفافية في جميع جوانب عملياتنا.",
                 "en": "We encourage transparency in all aspects of our operations."
@@ -4830,11 +4287,537 @@
           {
             "order": 1,
             "url": null,
-            "text": { "ar": "عرض المزيد", "en": "View More" },
+            "text": {
+              "ar": "عرض المزيد",
+              "en": "View More"
+            },
             "icon": null
           }
         ]
       }
     }
-  ]
+  ],
+  "history": {
+    "slug": "history",
+    "heroSection": {
+      "title": {
+        "en": "Trusted History",
+        "ar": "تاريخ موثوق"
+      },
+      "description": {
+        "en": "Experience the rich history of Shade Corporation — a legacy of innovation, resilience, and engineering excellence that shaped Saudi Arabia's EPC landscape",
+        "ar": "اختبر التاريخ العريق لشركة شيد — إرث من الابتكار والمرونة والتميّز الهندسي الذي شكّل مشهد المقاولات الهندسية والمشتريات والإنشاءات (EPC) في المملكة العربية السعودية."
+      },
+      "images": [
+        {
+          "order": 1,
+          "url": "",
+          "altText": {
+            "en": " Image",
+            "ar": "الرئيسية"
+          }
+        }
+      ]
+    },
+    "descriptionSection": {
+      "title": {
+        "en": "Where It All Began",
+        "ar": "حيث بدأ كل شيء"
+      },
+      "description": {
+        "en": "<p>Founded in 1992 by a group of committed professionals, Shade Corporation now has a strong workforce of over 2,000 employees across various locations. The company has consistently provided innovative solutions to deliver capital efficiency and project certainty. Over the years, Shade has expanded from General Contracting to offer services including Construction Management, Project Management, Design/Build, and Value Engineering. It plays a key role in the transportation, industrial, and building sectors. Shade has delivered EPC, PM, CM, VE, and Design/Build services to clients such as Aramco, Royal Commission, Ministry of Transportation, SABIC, Maaden, various municipalities, Saudi Bahraini Causeway Authority, Water Directorate, Saudi Electric Company, Saudi Naval Forces, and Qatar Petroleum.</p>",
+        "ar": "تأسست شركة شيد في عام 1992 على يد مجموعة من المتخصصين الملتزمين، وتضم اليوم أكثر من 2000 موظف في مواقع متعددة. تقدم الشركة باستمرار حلولاً مبتكرة لتحقيق الكفاءة الرأسمالية وضمان نجاح المشاريع. توسعت خدماتها لتشمل الإدارة العامة للمقاولات، إدارة المشاريع، الإدارة الإنشائية، التصميم والبناء، والهندسة القيمية. وتلعب دوراً رئيسياً في قطاعات النقل والصناعة والبناء، وقدمت خدماتها لعملاء مثل أرامكو، الهيئة الملكية، وزارة النقل، سابك، معادن، البلديات، هيئة جسر الملك فهد، مديرية المياه، الشركة السعودية للكهرباء، القوات البحرية السعودية، وقطر للبترول."
+      },
+      "images": [
+        {
+          "order": 1,
+          "url": "",
+          "altText": {
+            "en": "About Us Image",
+            "ar": "صورة عنا"
+          }
+        },
+        {
+          "order": 2,
+          "url": "",
+          "altText": {
+            "en": "About Us Image",
+            "ar": "صورة عنا"
+          }
+        },
+        {
+          "order": 3,
+          "url": "",
+          "altText": {
+            "en": "About Us Image",
+            "ar": "صورة عنا"
+          }
+        },
+        {
+          "order": 4,
+          "url": "",
+          "altText": {
+            "en": "About Us Image",
+            "ar": "صورة عنا"
+          }
+        }
+      ]
+    }
+  },
+  "visionMission": {
+    "slug": "vision",
+    "heroSection": {
+      "title": {
+        "en": "Vision / Mission",
+        "ar": "الرؤية والرسالة"
+      },
+      "description": {
+        "en": "At Shade Corporation, our vision is to be the leading provider of innovative engineering solutions in the region, while our mission is to deliver exceptional value to our clients through quality, safety, and sustainability.",
+        "ar": "في شركة شيد، رؤيتنا هي أن نكون المزود الرائد للحلول الهندسية المبتكرة في المنطقة، بينما مهمتنا هي تقديم قيمة استثنائية لعملائنا من خلال الجودة والسلامة والاستدامة."
+      },
+      "images": [
+        {
+          "order": 1,
+          "url": "",
+          "altText": {
+            "en": "Vision & Mission Image",
+            "ar": "صورة الرؤية والرسالة"
+          }
+        }
+      ]
+    },
+    "coreBeliefsSection": {
+      "title": {
+        "en": "Core Beliefs",
+        "ar": "رؤيتنا"
+      },
+      "description": {
+        "en": "Our values are at the heart of everything we do. A strong culture anchored in a clear set of values helps us become a market leader—and create an inspiring place to work.",
+        "ar": "قيمنا هي جوهر كل ما نقوم به. فثقافة قوية ترتكز على مجموعة واضحة من القيم تساعدنا على أن نكون روادًا في السوق — وتُسهم في خلق بيئة عمل مُلهمة."
+      },
+      "cards": [
+        {
+          "order": 1,
+          "title": {
+            "en": "values",
+            "ar": "قِيَمَة "
+          },
+          "description": {
+            "en": "Our core values define the character and shape the culture of our company. They serve as the foundation for how we act, make decisions and interact with our communities..",
+            "ar": "تُعَرِّف قِيَمُنا الأساسية طابع شركتنا وتشكل ثقافتها. وهي تُعدّ أساسًا لطريقة تصرفنا، واتخاذ قراراتنا، وتفاعلنا مع مجتمعاتنا."
+          },
+          "images": [
+            {
+              "order": 1,
+              "url": "",
+              "altText": {
+                "en": " Image",
+                "ar": "الرئيسية"
+              }
+            }
+          ]
+        },
+        {
+          "order": 2,
+          "title": {
+            "en": "Ethics",
+            "ar": "أخلاقيات"
+          },
+          "description": {
+            "en": "Our deep commitment to working with the highest ethical standards with each other, our clients, business partners, and communities.",
+            "ar": "التزامنا العميق بالعمل وفقًا لأعلى المعايير الأخلاقية مع بعضنا البعض ومع عملائنا وشركائنا التجاريين ومجتمعاتنا."
+          },
+          "images": [
+            {
+              "order": 1,
+              "url": "",
+              "altText": {
+                "en": " Image",
+                "ar": "الرئيسية"
+              }
+            }
+          ]
+        },
+        {
+          "order": 3,
+          "title": {
+            "en": "Diversity",
+            "ar": "تنوع"
+          },
+          "description": {
+            "en": "Our deep commitment to working with the highest ethical standards with each other, our clients, business partners, and communities.",
+            "ar": "استغلال قوة الاختلاف البشري وبناء مجتمع شامل ومتنوع."
+          },
+          "images": [
+            {
+              "order": 1,
+              "url": "",
+              "altText": {
+                "en": " Image",
+                "ar": "الرئيسية"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "visionSection": {
+      "cards": [
+        {
+          "order": 1,
+          "title": {
+            "en": "Our vision",
+            "ar": "رؤيتنا"
+          },
+          "description": {
+            "en": "We strive to be a leader in the EPC (Engineering, Procurement, Construction) industry with a steadfast commitment to “Building a Stronger Future.”",
+            "ar": "نحن نسعى جاهدين لنكون رائدين في صناعة EPC (الهندسة والمشتريات والبناء) مع التزام ثابت بـ بناء مستقبل أقوى."
+          }
+        },
+        {
+          "order": 2,
+          "title": {
+            "en": "Our mission",
+            "ar": "مهمتنا"
+          },
+          "description": {
+            "en": "We deliver projects on time and with excellence by leveraging advanced construction methods, cutting-edge technology, and seamless collaboration across diverse teams—upholding integrity, professionalism, safety, and quality at every step.",
+            "ar": "نحن نسلم المشاريع في الوقت المحدد وبتميز من خلال الاستفادة من أساليب البناء المتقدمة والتكنولوجيا المتطورة والتعاون السلس بين الفرق المتنوعة - مع الحفاظ على النزاهة والاحتراف والسلامة والجودة في كل خطوة."
+          }
+        },
+        {
+          "order": 3,
+          "title": {
+            "en": "Our culture",
+            "ar": "ثقافتنا"
+          },
+          "description": {
+            "en": "At Shade Corporation, we operate as one unified team—internally and with our clients—driven by shared energy, purpose, and the pursuit of extraordinary outcomes.",
+            "ar": "في شركة شيد، نعمل كفريق موحد - داخليًا ومع عملائنا - مدفوعين بالطاقة المشتركة والهدف والسعي لتحقيق نتائج استثنائية."
+          }
+        },
+        {
+          "order": 4,
+          "title": {
+            "en": "Safe Integrity",
+            "ar": "سلامة النزاهة"
+          },
+          "description": {
+            "en": "We prioritize safety, health, and security in everything we do. With unwavering integrity, we build trust through honest actions and take full responsibility for our commitments.",
+            "ar": "نحن نعطي الأولوية للسلامة والصحة والأمن في كل ما نقوم به. من خلال النزاهة الثابتة، نبني الثقة من خلال الأفعال الصادقة ونتحمل المسؤولية الكاملة عن التزاماتنا."
+          }
+        },
+        {
+          "order": 5,
+          "title": {
+            "en": "Community Impact",
+            "ar": "أثر المجتمع"
+          },
+          "description": {
+            "en": "We believe in giving back. Through partnerships and active involvement, we support and uplift the communities where we live and work, respecting human rights and driving meaningful change.",
+            "ar": "نحن نؤمن بالعطاء. من خلال الشراكات والمشاركة النشطة، ندعم ونرفع المجتمعات التي نعيش ونعمل فيها، مع احترام حقوق الإنسان ودفع التغيير ذي المعنى."
+          }
+        },
+        {
+          "order": 6,
+          "title": {
+            "en": "Quality Commitment",
+            "ar": "الالتزام بالجودة"
+          },
+          "description": {
+            "en": "We are committed to excellence, agility, and high performance. By holding ourselves to the highest standards of quality and accountability, we create lasting value for our clients and our people.",
+            "ar": "نحن ملتزمون بالتميز والمرونة والأداء العالي. من خلال التزامنا بأعلى معايير الجودة والمساءلة، نخلق قيمة دائمة لعملائنا وموظفينا."
+          }
+        }
+      ]
+    }
+  },
+  "hse": {
+    "slug": "hse",
+    "heroSection": {
+      "title": {
+        "en": "HS&E",
+        "ar": "الصحة والسلامة والبيئة"
+      },
+      "description": {
+        "en": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut lab",
+        "ar": "نحن ملتزمون بالتميز والمرونة والأداء العالي. من خلال التزامنا بأعلى معايير الجودة والمساءلة، نخلق قيمة دائمة لعملائنا وموظفينا"
+      },
+      "images": [
+        {
+          "order": 1,
+          "url": "",
+          "altText": {
+            "en": "HS&E banner Image",
+            "ar": "صورة لافتة الصحة والسلامة والبيئة"
+          }
+        }
+      ]
+    },
+    "hseSection": {
+      "cards": [
+        {
+          "order": 1,
+          "images": [
+            {
+              "order": 1,
+              "url": "",
+              "altText": {
+                "en": " Image",
+                "ar": "الرئيسية"
+              }
+            }
+          ],
+          "title": {
+            "en": "Health",
+            "ar": "صحة"
+          },
+          "description": {
+            "en": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+            "ar": "هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص العربي، حيث يمكنك أن تولد مثل هذا النص أو العديد من النصوص الأخرى إضافة إلى زيادة عدد الحروف التي يولدها التطبيق. إذا كنت تحتاج إلى عدد أكبر من الفقرات يتيح لك مولد النص العربي زيادة عدد الفقرات كما تريد، النص لن يبدو مقسماً ولا يحوي أخطاء لغوية، مولد النص العربي مفيد لمصممي المواقع على وجه الخصوص، حيث يحتاج العميل في كثير من الأحيان أن يطلع على صورة حقيقية لتصميم الموقع."
+          }
+        },
+        {
+          "order": 2,
+          "images": [
+            {
+              "order": 1,
+              "url": "",
+              "altText": {
+                "en": " Image",
+                "ar": "الرئيسية"
+              }
+            }
+          ],
+          "title": {
+            "en": "Safety",
+            "ar": "أمان"
+          },
+          "description": {
+            "en": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+            "ar": "هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص العربي، حيث يمكنك أن تولد مثل هذا النص أو العديد من النصوص الأخرى إضافة إلى زيادة عدد الحروف التي يولدها التطبيق. إذا كنت تحتاج إلى عدد أكبر من الفقرات يتيح لك مولد النص العربي زيادة عدد الفقرات كما تريد، النص لن يبدو مقسماً ولا يحوي أخطاء لغوية، مولد النص العربي مفيد لمصممي المواقع على وجه الخصوص، حيث يحتاج العميل في كثير من الأحيان أن يطلع على صورة حقيقية لتصميم الموقع."
+          }
+        },
+        {
+          "order": 3,
+          "images": [
+            {
+              "order": 1,
+              "url": "",
+              "altText": {
+                "en": " Image",
+                "ar": "الرئيسية"
+              }
+            }
+          ],
+          "title": {
+            "en": "Environment",
+            "ar": "بيئة"
+          },
+          "description": {
+            "en": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+            "ar": "هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص العربي، حيث يمكنك أن تولد مثل هذا النص أو العديد من النصوص الأخرى إضافة إلى زيادة عدد الحروف التي يولدها التطبيق. إذا كنت تحتاج إلى عدد أكبر من الفقرات يتيح لك مولد النص العربي زيادة عدد الفقرات كما تريد، النص لن يبدو مقسماً ولا يحوي أخطاء لغوية، مولد النص العربي مفيد لمصممي المواقع على وجه الخصوص، حيث يحتاج العميل في كثير من الأحيان أن يطلع على صورة حقيقية لتصميم الموقع."
+          }
+        }
+      ],
+      "images": [
+        {
+          "order": 1,
+          "url": "",
+          "altText": {
+            "en": "HS&E section Image",
+            "ar": "صورة قسم الصحة والسلامة والبيئة"
+          }
+        }
+      ],
+      "title": {
+        "en": "Quality, HSE, and Security is fundamental to our mission",
+        "ar": "الجودة والصحة والسلامة والأمن هي الأساس لمهمتنا"
+      },
+      "description": {
+        "en": "It is at the core of everything we do. We do not ever compromise on safety, health, security or environmental sustainability to achieve our financial, project, service and manufacturing objectives. HS&E is an integral part of our business, based on genuine care and concern for the people and the environment.The SHADE HS&E Management Systems is designed and implemented to protect its employees and sub-contractors from unacceptable HS&E risks. This system also safeguards the health, safety and environment of persons not employed by Shade, but could be impacted by the company’s activities.SHADE fully acknowledges its global responsibilities towards Environmental Pollution Prevention and is committed to honouring environmental management agreements to decrease pollution levels arising from the Company’s operations and products and reduce overall impact on the environment.",
+        "ar": "إنها جوهر كل ما نقوم به. لا نتهاون أبدًا في السلامة والصحة والأمن والاستدامة البيئية لتحقيق أهدافنا المالية ومشاريعنا وخدماتنا وتصنيعنا. الصحة والسلامة والبيئة جزء لا يتجزأ من أعمالنا، ويرتكز على رعاية حقيقية واهتمام بالناس والبيئة. صُممت أنظمة إدارة الصحة والسلامة والبيئة من SHADE ونُفذت لحماية موظفيها ومقاوليها من مخاطر الصحة والسلامة والبيئة غير المقبولة. كما يحمي هذا النظام صحة وسلامة وبيئة الأشخاص غير العاملين لدى SHADE، والذين قد يتأثرون بأنشطة الشركة. تُدرك SHADE تمامًا مسؤولياتها العالمية تجاه منع التلوث البيئي، وتلتزم باحترام اتفاقيات الإدارة البيئية لخفض مستويات التلوث الناتجة عن عمليات الشركة ومنتجاتها، وتقليل التأثير الإجمالي على البيئة."
+      },
+      "sectionPointers": [
+        {
+          "order": 1,
+          "text": {
+            "en": "Fostering a safe climate that protects the health, safety and security of our employees, contractors, suppliers, clients, visitors and of all those engaged or affected by our activities.",
+            "ar": "تعزيز مناخ آمن يحمي صحة وسلامة وأمن موظفينا ومقاولينا وموردينا وعملائنا وزوارنا وجميع المشاركين أو المتأثرين بأنشطتنا."
+          }
+        },
+        {
+          "order": 2,
+          "text": {
+            "en": "Compliance with HS&E legislations and constantly endeavor to higher standards than those stipulated in International and local laws.",
+            "ar": "الالتزام بتشريعات الصحة والسلامة والبيئة والسعي الدائم إلى معايير أعلى من تلك المنصوص عليها في القوانين الدولية والمحلية."
+          }
+        },
+        {
+          "order": 3,
+          "text": {
+            "en": "Make stringent efforts to reduce Health and Safety risks in order to achieve our goal of “Zero-Accident” at all our project sites",
+            "ar": "بذل جهود صارمة للحد من مخاطر الصحة والسلامة من أجل تحقيق هدفنا المتمثل في عدم وقوع أي حادث في جميع مواقع مشاريعنا"
+          }
+        },
+        {
+          "order": 4,
+          "text": {
+            "en": "Regularly monitor & audit its activities for compliance with local, and international HS&E Management Systems,",
+            "ar": "مراقبة أنشطتها ومراجعتها بانتظام للتأكد من الامتثال لأنظمة إدارة الصحة والسلامة والبيئة المحلية والدولية،"
+          }
+        },
+        {
+          "order": 5,
+          "text": {
+            "en": "Engage with select sub-contractors & suppliers who demonstrate a continual commitment in preventing pollution and are capable of accomplishing high levels of HSE control whilst carrying out their duties.",
+            "ar": "التعامل مع المقاولين الفرعيين والموردين المختارين الذين يظهرون التزامًا مستمرًا في منع التلوث والذين هم قادرون على تحقيق مستويات عالية من التحكم في الصحة والسلامة والبيئة أثناء أداء واجباتهم."
+          }
+        },
+        {
+          "order": 6,
+          "text": {
+            "en": "Conduct regular inspections and audits on sub-contractors and suppliers to monitor their HS&E activities.",
+            "ar": "إجراء عمليات تفتيش وتدقيق منتظمة على المقاولين من الباطن والموردين لمراقبة أنشطتهم في مجال الصحة والسلامة والبيئة."
+          }
+        },
+        {
+          "order": 7,
+          "text": {
+            "en": "Continual improvement will be measured through the reduction of accidents, risks and environments through clear performance indicators.",
+            "ar": "سيتم قياس التحسين المستمر من خلال الحد من الحوادث والمخاطر والبيئة من خلال مؤشرات أداء واضحة."
+          }
+        }
+      ]
+    }
+  },
+  "affiliates": {
+    "slug": "affiliates",
+    "heroSection": {
+      "title": {
+        "en": "Affiliates",
+        "ar": "الشركات التابعة"
+      },
+      "description": {
+        "en": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut lab",
+        "ar": "نحن ملتزمون بالتميز والمرونة والأداء العالي. من خلال التزامنا بأعلى معايير الجودة والمساءلة، نخلق قيمة دائمة لعملائنا وموظفينا"
+      },
+      "images": [
+        {
+          "order": 1,
+          "url": "",
+          "altText": {
+            "en": "Affiliates image",
+            "ar": "صورة الشركات التابعة"
+          }
+        }
+      ]
+    },
+    "affiliatesSection": {
+      "cards": [
+        {
+          "order": 1,
+          "images": [
+            {
+              "order": 1,
+              "url": "",
+              "altText": {
+                "en": "Affiliates image",
+                "ar": "صورة الشركات التابعة"
+              }
+            }
+          ]
+        },
+        {
+          "order": 2,
+          "images": [
+            {
+              "order": 1,
+              "url": "",
+              "altText": {
+                "en": "Affiliates image",
+                "ar": "صورة الشركات التابعة"
+              }
+            }
+          ]
+        },
+        {
+          "order": 3,
+          "images": [
+            {
+              "order": 1,
+              "url": "",
+              "altText": {
+                "en": "Affiliates image",
+                "ar": "صورة الشركات التابعة"
+              }
+            }
+          ]
+        },
+        {
+          "order": 4,
+          "images": [
+            {
+              "order": 1,
+              "url": "",
+              "altText": {
+                "en": "Affiliates image",
+                "ar": "صورة الشركات التابعة"
+              }
+            }
+          ]
+        },
+        {
+          "order": 5,
+          "images": [
+            {
+              "order": 1,
+              "url": "",
+              "altText": {
+                "en": "Affiliates image",
+                "ar": "صورة الشركات التابعة"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "organizationalChart": {
+    "slug": "organization",
+    "heroSection": {
+      "title": {
+        "en": "Organizational chart",
+        "ar": "المخطط التنظيمي"
+      },
+      "description": {
+        "en": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut lab",
+        "ar": "نحن ملتزمون بالتميز والمرونة والأداء العالي. من خلال التزامنا بأعلى معايير الجودة والمساءلة، نخلق قيمة دائمة لعملائنا وموظفينا"
+      },
+      "images": [
+        {
+          "order": 1,
+          "url": "",
+          "altText": {
+            "en": "Organization image",
+            "ar": "الصورة التنظيمية"
+          }
+        }
+      ]
+    },
+    "chartSection": {
+      "chart": {
+        "images": [
+          {
+            "order": 1,
+            "url": "",
+            "altText": {
+              "en": "chart image",
+              "ar": "صورة الرسم البياني"
+            }
+          }
+        ]
+      }
+    }
+  }
 }

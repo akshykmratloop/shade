@@ -2,6 +2,13 @@
 import { useEffect, useState } from "react";
 import PlusIcon from "@heroicons/react/24/outline/PlusIcon";
 import { toast, ToastContainer } from "react-toastify";
+
+// icons
+import { Switch } from "@headlessui/react";
+import XMarkIcon from "@heroicons/react/24/outline/XMarkIcon";
+import { FiEye } from "react-icons/fi";
+import { FiEdit } from "react-icons/fi";
+import { LuListFilter } from "react-icons/lu";
 // self modules
 import { fetchRoles, activateRole, deactivateRole } from "../../app/fetch";
 import AddRoleModal from "./AddRole";
@@ -9,17 +16,8 @@ import SearchBar from "../../components/Input/SearchBar";
 import TitleCard from "../../components/Cards/TitleCard";
 import RoleDetailsModal from "./ShowRole";
 import updateToasify from "../../app/toastify";
-// icons
-import { Switch } from "@headlessui/react";
-import XMarkIcon from "@heroicons/react/24/outline/XMarkIcon";
-import { FiEye } from "react-icons/fi";
-import { FiEdit } from "react-icons/fi";
-import { RxQuestionMarkCircled } from "react-icons/rx";
-import { LuListFilter } from "react-icons/lu";
-import { LuImport } from "react-icons/lu";
 import capitalizeWords from "../../app/capitalizeword";
 import Paginations from "../Component/Paginations";
-// import userIcon from "../../assets/user.png"
 
 const TopSideButtons = ({
   removeFilter,
@@ -30,6 +28,7 @@ const TopSideButtons = ({
   const [filterParam, setFilterParam] = useState("");
   const [searchText, setSearchText] = useState("");
   const statusFilters = ["ACTIVE", "INACTIVE"];
+
   const showFiltersAndApply = (status) => {
     applyFilter(status);
     setFilterParam(status);
@@ -37,14 +36,11 @@ const TopSideButtons = ({
   const removeAppliedFilter = () => {
     removeFilter();
     setFilterParam("");
-    setSearchText("");
+    // setSearchText("");
+    applyFilter("");
   };
   useEffect(() => {
-    if (searchText === "") {
-      removeAppliedFilter();
-    } else {
-      applySearch(searchText);
-    }
+    applySearch(searchText);
   }, [searchText]);
   return (
     <div className="inline-block float-right w-full flex items-center gap-3 border dark:border-neutral-600 rounded-lg p-1">
@@ -69,7 +65,10 @@ const TopSideButtons = ({
       <div className="dropdown dropdown-bottom dropdown-end">
         <label
           tabIndex={0}
-          className="capitalize border text-[14px] self-center border-stone-300 dark:border-neutral-500 rounded-lg h-[40px] w-[91px] flex items-center gap-1 font-[300] px-[14px] py-[10px]"
+          className={`capitalize border text-[14px] 
+            self-center border-stone-300 dark:border-neutral-500 
+            rounded-lg h-[40px] w-[91px] flex items-center 
+            gap-1 font-[300] px-[14px] py-[10px]`}
         >
           <LuListFilter className="w-5 " />
           Filter
@@ -81,7 +80,7 @@ const TopSideButtons = ({
           {statusFilters.map((status, key) => (
             <li key={key}>
               <a
-              className="dark:text-gray-300"
+                className="dark:text-gray-300"
                 onClick={() => showFiltersAndApply(status)}
                 style={{ textTransform: "capitalize" }}
               >
@@ -98,6 +97,7 @@ const TopSideButtons = ({
     </div>
   );
 };
+// ---------------------------------------------------------------------------------------------
 function Roles() {
   const [roles, setRoles] = useState([]);
   const [originalRoles, setOriginalRoles] = useState([]);
@@ -105,31 +105,31 @@ function Roles() {
   const [changesInRole, setChangesInRole] = useState(false);
   const [selectedRole, setSelectedRole] = useState(null);
   const [showDetailsModal, setShowDetailsModal] = useState(false);
-  const [enabled, setEnabled] = useState(false);
-  const [currentPage, setCurrentPage] = useState(1);
-  const rolesPerPage = 20;
+  const [searchValue, setSearchValue] = useState("");
+  const [debouncedValue, setDebouncedValue] = useState("");
+  const [filter, setFilter] = useState("")
 
-  console.log(roles)
+  const [currentPage, setCurrentPage] = useState(1);
+  // const rolesPerPage = 20;
 
   const removeFilter = () => {
     setRoles([...originalRoles]);
   };
 
-  console.log("Roles", roles);
-
   const applyFilter = (status) => {
-    const filteredRoles = originalRoles?.filter(
-      (role) => role?.status === status
-    );
-    setRoles(filteredRoles);
+    setFilter(status)
+    // const filteredRoles = originalRoles?.filter(
+    //   (role) => role?.status === status
+    // );
+    // setRoles(filteredRoles);
   };
-  const applySearch = (value) => {
-    const filteredRoles = originalRoles?.filter((role) =>
-      role?.name?.toLowerCase().includes(value.toLowerCase())
-    );
-    setCurrentPage(1);
-    setRoles(filteredRoles);
-  };
+
+  function handleSearchInput(value) {
+    if (value.length >= 3 || value.trim() === "") {
+      setSearchValue(value);
+    }
+  }
+
 
   const statusChange = async (role) => {
     let loadingToastId = toast.loading("Proceeding..."); // starting the loading in toaster
@@ -145,10 +145,10 @@ function Roles() {
           "success",
           2000
         ); // updating the toaster
-        // toast.dismiss(loadingToastId) // to deactivate to running taost
-        // setTimeout(() => {
-        //   loadingToastId = undefined
-        // }, 2000)
+        toast.dismiss(loadingToastId) // to deactivate to running taost
+        setTimeout(() => {
+          loadingToastId = undefined
+        }, 2000)
         setChangesInRole((prev) => !prev);
       } else {
         updateToasify(
@@ -157,10 +157,10 @@ function Roles() {
           "error",
           2000
         ); // updating the toaster
-        // setTimeout(() => {
-        //   loadingToastId = undefined
-        //   toast.dismiss(loadingToastId) // to deactivate to running taost
-        // }, 2000)
+        setTimeout(() => {
+          loadingToastId = undefined
+          toast.dismiss(loadingToastId) // to deactivate to running taost
+        }, 2000)
       }
     } catch (err) {
       console.log(err)
@@ -168,20 +168,38 @@ function Roles() {
     toast.dismiss(loadingToastId); // to deactivate to running taost
   };
 
+
   // Pagination logic
-  const indexOfLastUser = currentPage * rolesPerPage;
-  const indexOfFirstUser = indexOfLastUser - rolesPerPage;
-  const currentRoles = roles?.slice(indexOfFirstUser, indexOfLastUser);
-  const totalPages = Math.ceil(roles?.length / rolesPerPage);
+  const currentRoles = roles
+  const [totalPages, setTotalPages] = useState(0)
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedValue(searchValue);
+    }, 700); // debounce delay
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [searchValue]);
+
+  // useEffect(() => {
+  //   // applySearch(debouncedValue);
+  // }, [debouncedValue]);
 
   useEffect(() => {
     async function fetchRoleData() {
-      const response = await fetchRoles({ limit: 100 });
+      let query = { page: currentPage }
+
+      if (debouncedValue) query.search = debouncedValue
+      if (filter) query.status = filter
+      const response = await fetchRoles(query);
       setRoles(response?.roles?.roles ?? []);
       setOriginalRoles(response?.roles?.roles ?? []); // Store the original unfiltered data
+      setTotalPages(response?.roles?.pagination?.totalPages)
     }
     fetchRoleData();
-  }, [changesInRole]);
+  }, [changesInRole, filter, debouncedValue, currentPage]);
   return (
     <div className="relative min-h-full">
       <div className="absolute top-3 right-2 flex">
@@ -203,7 +221,7 @@ function Roles() {
         topMargin="mt-2"
         TopSideButtons={
           <TopSideButtons
-            applySearch={applySearch}
+            applySearch={handleSearchInput}
             applyFilter={applyFilter}
             removeFilter={removeFilter}
             openAddForm={() => setShowAddForm(true)}
@@ -228,7 +246,6 @@ function Roles() {
                   <th className="text-[#42526D] w-[133px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] !capitalize">
                     Permission
                   </th>
-                  {/* <th className="text-[#42526D] w-[164px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] text-center !capitalize">Sub Permission</th> */}
                   <th className="text-[#42526D] w-[211px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] !capitalize">
                     No. of Users Assigned
                   </th>
@@ -252,21 +269,14 @@ function Roles() {
                         <td
                           className={`font-poppins h-[65px] truncate font-normal text-[14px] leading-normal text-[#101828] p-[10px] pl-5 flex items-center`}
                         >
-                          {/* <img src={user.image ? user.image : userIcon} alt={user.name} className="rounded-[50%] w-[41px] h-[41px] mr-2" /> */}
                           <div className="flex flex-col">
                             <p className="dark:text-[white]">{role?.name}</p>
-                            {/* <p className="font-light text-[grey]">{user.email}</p> */}
                           </div>
                         </td>
 
                         <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]">
                           <span className="">{role?._count?.permissions ?? "N/A"}</span>
                         </td>
-                        {/* <td className="font-poppins font-light text-[12px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]">
-                          <span className="">
-                            {role?._count?.subPermissions || "3"}
-                          </span>
-                        </td> */}
                         <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]" style={{ whiteSpace: "wrap" }}>
                           <span className="">
                             {role?._count?.users ?? "N/A"}
@@ -364,8 +374,6 @@ function Roles() {
           role={selectedRole}
         />
       )}
-      {/* <AddRoleModal show={showAddForm} onClose={() => setShowAddForm(false)} updateRole={setChangesInRole} /> */}
-
       {/* Role Details Modal */}
       {showDetailsModal && (
         <RoleDetailsModal

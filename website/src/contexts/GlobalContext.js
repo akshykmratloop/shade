@@ -1,11 +1,29 @@
 import { createContext, useContext, useEffect, useState } from "react";
+import { fetchFooterData, fetchHeaderData } from "@/services/api";
 // import axios from "axios";
 import data from "./content.json";
 const GlobalContext = createContext();
+// import axios from "axios";
 
 export const GlobalContextProvider = ({ children }) => {
   const [language, setLanguage] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+
+  const [headerData, setHeaderData] = useState({});
+  const [footerData, setFooterData] = useState({});
+
+  useEffect(() => {
+    async function loadData() {
+      const [header, footer] = await Promise.all([
+        fetchHeaderData(),
+        fetchFooterData()
+      ]);
+      setHeaderData(header);
+      setFooterData(footer);
+    }
+
+    loadData();
+  }, []);
 
   useEffect(() => {
     // Check local storage only on the client side
@@ -28,29 +46,35 @@ export const GlobalContextProvider = ({ children }) => {
     });
   };
 
-  useEffect(() => {
-    // Fetch content from API on initial load
-    const fetchContent = async () => {
-      try {
-        // const response = await axios.get("/api/content");
-        // setContent(response.data);
-      } catch (error) {
-        console.error("Error fetching content:", error);
-      }
-    };
+  // useEffect(() => {
+  //   // Fetch content from API on initial load
+  //   const fetchContent = async (id) => {
+  //     try {
+  //       const response = await axios.get(
+  //         `http://localhost:3000/website/getContentForWebite/${id}`
+  //       );
+  //       // Adjust the URL as needed
+  //       setContent(response.data);
+  //       console.log("Content fetched successfully:", response.data.content);
+  //     } catch (error) {
+  //       console.error("Error fetching content:", error);
+  //     }
+  //   };
 
-    fetchContent();
-  }, []);
+  //   fetchContent("cmaw7xsgh00tdnt4val4aae3e");
+  // }, []);
 
   if (isLoading) {
     return null;
   }
 
   return (
-    <GlobalContext.Provider value={{ language, toggleLanguage, content }}>
+    <GlobalContext.Provider value={{ language, toggleLanguage, content, headerData, footerData  }}>
       {children}
     </GlobalContext.Provider>
   );
 };
 
 export const useGlobalContext = () => useContext(GlobalContext);
+
+export const backendAPI = "http://localhost:3000/website/getContentForWebsite/"

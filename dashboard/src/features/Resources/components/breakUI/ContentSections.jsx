@@ -3,7 +3,7 @@ import InputFile from "../../../../components/Input/InputFile";
 import InputText from "../../../../components/Input/InputText";
 import TextAreaInput from "../../../../components/Input/TextAreaInput";
 import { useDispatch, useSelector } from "react-redux";
-import { updateSpecificContent, updateServicesNumber, updateImages, updateAList, addImageArray, rmImageArray } from "../../../common/homeContentSlice";
+import { updateSpecificContent, updateServicesNumber, updateImages, updateAList, addImageArray, rmImageArray, addImagePointArray, rmImagePointArray, updateSubServiceDetailsPointsArray, updateAffiliatesCardsArray } from "../../../common/homeContentSlice";
 import InputFileForm from "../../../../components/Input/InputFileForm";
 import JoditEditor from "jodit-react";
 import { Jodit } from "jodit-react";
@@ -14,6 +14,18 @@ const skeleton = {
     },
     images: {
         url: "", altText: { en: "", ar: "" }
+    },
+    affiliates: {
+        images: [
+            {
+                url: "",
+                order: 1,
+                altText: {
+                    ar: "",
+                    en: ""
+                }
+            }
+        ]
     }
 }
 
@@ -51,33 +63,40 @@ const ContentSection = ({
 
 
     const addExtraFileInput = () => {
-        console.log("qwer")
-        dispatch(addImageArray({
-            src: skeleton[section],
-            sectionIndex,
-            section
-        }))
-        // if (section === "socialLinks") {
-        //     dispatch(addImageArray({
-        //         src: {
-        //             url: "", altText: { en: "", ar: "" }
-        //         },
-        //         sectionIndex,
-        //         section
-        //     }))
-        // } else {
-        //     dispatch(addImageArray({
-        //         src: {
-        //             url: "", icon: ""
-        //         },
-        //         sectionIndex,
-        //         section
-        //     }))
-        // }
+        if (section === "points") {
+            dispatch(addImagePointArray({
+                src: skeleton['images'],
+                sectionIndex,
+                section
+            }))
+        } else if (section === "affiliates") {
+            dispatch(updateAffiliatesCardsArray({
+                src: skeleton['affiliates'],
+                sectionIndex,
+                section: "cards",
+                operation: "add"
+            }))
+        } else {
+            dispatch(addImageArray({
+                src: skeleton[section],
+                sectionIndex,
+                section
+            }))
+        }
     };
 
     const removeExtraFileInput = (order) => {
-        dispatch(rmImageArray({ sectionIndex, order, section }))
+        if (section === "points") {
+            dispatch(rmImagePointArray({ sectionIndex, order, section }))
+        } else if (section === "affiliates") {
+            dispatch(updateAffiliatesCardsArray({
+                sectionIndex,
+                section: "cards",
+                order
+            }))
+        } else {
+            dispatch(rmImageArray({ sectionIndex, order, section }))
+        }
     };
 
     const updateFormValue = (updateType, value, path, buttonIndex) => {
@@ -94,6 +113,28 @@ const ContentSection = ({
                     sectionIndex
                 }));
             }
+        } else if (updateType === 'url') {
+            dispatch(updateSpecificContent({
+                section,
+                title: "link",
+                lan: "url",
+                value,
+                subSection,
+                index,
+                currentPath,
+                sectionIndex
+            }));
+        } else if (updateType === 'url/text') {
+            dispatch(updateSpecificContent({
+                section,
+                title: "link",
+                lan: "text",
+                value,
+                subSection,
+                index,
+                currentPath,
+                sectionIndex
+            }));
         } else {
             dispatch(updateSpecificContent({
                 section,
@@ -192,7 +233,10 @@ const ContentSection = ({
                 }
             },
             fontsize: {
-                list: Jodit.atom([8, 9, 10, 12, 14, 16, 18, 24, 30, 32, 34])
+                list: Jodit.atom([8, 9, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32, 34])
+            },
+            lineHeight: {
+                list: Jodit.atom(['1', '1.5', '2', '2.5', '2.7', '3', '3.25', '3.5', '4'])
             }
         },
 
@@ -298,8 +342,9 @@ const ContentSection = ({
                                         />
                                     )
                                 })}
-                                {allowExtraInput &&
-                                    <button
+                                {
+                                    (allowExtraInput && inputFiles?.length < 8) &&
+                                    < button
                                         className="mt-2 px-3 py-2 bg-blue-500 h-[95px] w-[95px] text-white rounded-lg translate-y-3 self-center text-xl"
                                         onClick={outOfEditing ? () => { } : addExtraFileInput}
                                     >
@@ -334,6 +379,7 @@ const ContentSection = ({
                                             order={file.order}
                                             url={file.url}
                                             textValue={file.value}
+                                            type={file.type}
                                         />
                                     </div>
                                 )
@@ -358,7 +404,7 @@ const ContentSection = ({
                         </div>
                 }
             </div>
-        </div>
+        </div >
     );
 };
 

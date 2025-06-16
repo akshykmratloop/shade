@@ -1,14 +1,34 @@
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
 import Resources from "./Resources";
 import EditPage from "./EditPage";
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useEffect, useRef } from "react";
 import SuspenseContent from "../../containers/SuspenseContent";
 import VersionTable from "./VersionTable";
 import RequestTable from "./RequestTable";
+import { useSelector } from "react-redux";
 
 
 const Resource = () => {
     const Page404 = lazy(() => import('../../pages/protected/404'))
+    const navigate = useNavigate()
+    const isManager = useSelector(state => state.user.isManager)
+    const isEditor = useSelector(state => state.user.isEditor)
+    const firstRender = useRef(true);
+
+
+
+    useEffect(() => { // Permission for Editor and Manager only
+        if (firstRender.current) {
+            firstRender.current = false;
+            return; // 👈 skip first render
+        }
+
+        if (!isManager && !isEditor) {
+            navigate('/app/welcome')
+            return () => { }
+        }
+
+    }, [isEditor, isManager])
     return (
         <Suspense fallback={<SuspenseContent />}>
             <Routes>

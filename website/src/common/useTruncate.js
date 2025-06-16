@@ -17,3 +17,25 @@ export const useTruncate = (text, maxLength) => {
 
   return truncatedText;
 };
+
+export function TruncateText(text, length = 50, locale = "en") {
+  if (!text || text.length <= length) return text;
+
+  // Use grapheme segmentation
+  const segmenter = new Intl.Segmenter(locale, { granularity: "word" });
+  const segments = Array.from(segmenter.segment(text), (s) => s.segment);
+
+  // Handle Arabic specifically by truncating full words
+  if (locale.startsWith("ar")) {
+    if (segments.length > length) {
+      return "\u202B" + segments.slice(0, length).join(" ") + "...\u202C";
+    }
+  } else {
+    // For English and other languages, truncate at character level
+    if (text.length > length) {
+      return text.slice(0, length) + "...";
+    }
+  }
+
+  return text;
+}
