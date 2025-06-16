@@ -62,7 +62,7 @@ const fontSizes = {
     },
     phone: {
         // home -- some of them are used in other pages due similarity
-        mainHeading: 150, mainPara: 48, mainButton: 50, markDownHead: 36, markDownPara: 15, markDownButton: 70,
+        mainHeading: 150, mainPara: 48, mainButton: 70, markDownHead: 36, markDownPara: 15, markDownButton: 70,
         serviceHeading: 36, services: 20, experienceCount: 40, experienceTitle: 12, experienceHeading: 60,
         experiencePara: 50, experienceButton: 18, subProjectTopButton: 16, subProjectHeadings: 80,
         subProjectParas: 16, subProjectBoxHeading: 20, subProjectBoxPara: 16, subProjectButtons: 18,
