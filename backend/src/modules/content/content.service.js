@@ -22,6 +22,11 @@ import {
   deleteAllResourceRelatedDataFromDb,
   fetchVersionsInfo,
   restoreLiveVersion,
+  getTotalRolesCounts,
+  getTotalUserCounts,
+  getTotalResourceRole,
+  getTotalAvailableRequests,
+  getTotalAvailableProjects,
 } from "../../repository/content.repository.js";
 
 const getResources = async (
@@ -326,6 +331,29 @@ const deleteAllContentData = async () => {
   return { message: "All content-related data deleted successfully", result };
 };
 
+
+
+const getDashboardInsight = async () => {
+  const totalResourcesCount = await getTotalRolesCounts();
+  const totalUsersCount = await getTotalUserCounts();
+  const totalResourceRoles = await getTotalResourceRole();
+  const totalAvailableRequests = await getTotalAvailableRequests();
+  const totalAvailableProjects = await getTotalAvailableProjects();
+
+  logger.info({
+    response: "All content-related dashboard insight fetched successfully",
+    result: {
+      totalResourcesCount,
+      totalUsersCount,
+      totalResourceRoles,
+      totalAvailableRequests,
+      totalAvailableProjects,
+    },
+  });
+
+  return { message: "All content-related dashboard insight fetched successfully", result };
+};
+
 export {
   getResources,
   getResourceInfo,
@@ -347,4 +375,5 @@ export {
   getVersionInfo,
   restoreVersion,
   deleteAllContentData,
+  getDashboardInsight
 };

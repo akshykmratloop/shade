@@ -5181,3 +5181,157 @@ async function copyResourceAssignmentsToVersion(tx, resourceId, resourceVersionI
     }
   }
 }
+
+
+
+// export const getTotalRolesCounts = async () => {
+//   const roles = await prismaClient.role.findMany({
+//     select: {
+//       id: true,
+//       name: true,
+//       userId: true,
+//       stage: true,
+//       user: true,
+//     },
+//     where: {
+//       status: "ACTIVE",
+//       name: {
+//         in: ["user", "manager"],
+//       },
+//     },
+//   });
+
+//   // const totalRolesCounts = roles.reduce((acc, role) =>
+//   //   acc + (role.user ? 1 : 0)
+//   //   , 0);
+//   // return totalRolesCounts;
+
+//   const totalRolesCounts = roles.filter(role => role.user).length;
+//   return totalRolesCounts;
+// }
+
+
+// // export const getTotalUserCounts = async () => {
+// //   const users = await prismaClient.user.findMany({
+// //     select: {
+// //       id: true,
+// //       name: true,
+// //       email: true,
+// //     },
+// //   });
+// //   return users.length;
+// // }
+
+// export const getTotalUserCounts = async () => {
+//   const totalUsers = await prismaClient.user.count();
+//   return totalUsers;
+// }
+
+
+// export const getTotalResourceRole = async () => {
+//   const resourceRoles = await prismaClient.resourceRole.findMany({
+//     select: {
+//       id: true,
+//       name: true,
+//       userId: true,
+//       resourceId: true,
+//       user: true, // include user if needed
+//     },
+//     where: {
+//       status: "ACTIVE",
+//     },
+//   },
+//     // {
+//     //   include: {
+//     //     user: true,
+//     //   },
+//     // },
+//   );
+
+//   return resourceRoles.length;
+// }
+
+
+// export const getTotalAvailableRequests = async () => {
+//   const availableRequests = await prismaClient.request.findMany({
+//     select: {
+//       id: true,
+//       name: true,
+//       status: true,
+//     },
+//     where: {
+//       status: {
+//         in: ["APPROVED", "PENDING", "REJECTED"],
+//       },
+//     },
+//   },
+//   );
+//   return availableRequests;
+// }
+
+
+// export const getTotalAvailableProjects = async () => {
+//   const availableProjects = await prismaClient.project.findMany({
+//     select: {
+//       id: true,
+//       name: true,
+//       status: true,
+//     },
+//     where: {
+//       status: {
+//         in: ["ONGOING", "COMPLETED"],
+//       },
+//     },
+//   },
+//   );
+//   return availableProjects;
+// }
+
+
+
+// 1. Get total count of roles where name is 'user' or 'manager' and status is 'ACTIVE'
+export const getTotalRolesCounts = async () => {
+  return await prismaClient.role.count({
+    where: {
+      status: "ACTIVE",
+      name: { in: ["user", "manager"] },
+    },
+  });
+};
+
+// 2. Get total user count
+export const getTotalUserCounts = async () => {
+  return await prismaClient.user.count();
+};
+
+// 3. Get total resource roles with status 'ACTIVE'
+export const getTotalResourceRole = async () => {
+  return await prismaClient.resourceRole.count({
+    where: {
+      status: "ACTIVE",
+    },
+  });
+};
+
+// 4. Get all requests with status APPROVED, PENDING, or REJECTED
+export const getTotalAvailableRequests = async () => {
+  return await prismaClient.request.findMany({
+    where: {
+      status: { in: ["APPROVED", "PENDING", "REJECTED"] },
+    },
+    select: {
+      id: true,
+      name: true,
+      status: true,
+    },
+  });
+};
+
+// 5. Get total projects with status ONGOING or COMPLETED
+export const getTotalAvailableProjects = async () => {
+  return await prismaClient.project.count({
+    where: {
+      status: { in: ["ONGOING", "COMPLETED"] },
+    },
+  });
+};
