@@ -5,7 +5,7 @@ import {
 import Arrow from "../../../../assets/icons/right-wrrow.svg";
 // import AboutUs from "../../../../assets/images/aboutus.png";
 // import background from "../../../../assets/images/Hero.png";
-import highlightsvg from "../../../../assets/highlight.svg"
+// import highlightsvg from "../../../../assets/highlight.svg"
 import {
     recentProjects,
     markets,
@@ -13,16 +13,16 @@ import {
     // testimonials,
 } from "../../../../assets/index";
 import { Swiper, SwiperSlide } from "swiper/react";
-import SwiperCore, {
+import {
     Pagination,
     Navigation,
     Autoplay,
     EffectCoverflow,
-} from "swiper"; // Changed import source
-import "swiper/swiper-bundle.min.css"; // Consolidated Swiper CSS import
-// import "swiper/css/navigation"; // Covered by swiper-bundle.min.css
-// import "swiper/css"; // Covered by swiper-bundle.min.css
-// import "swiper/css/pagination"; // Covered by swiper-bundle.min.css
+} from "swiper/modules";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import "swiper/css/effect-coverflow";
 
 // import blankImage from "../../../../assets/images/blankImage.webp";
 import { TruncateText } from "../../../../app/capitalizeword";
@@ -30,9 +30,6 @@ import dynamicSize, { generatefontSize } from "../../../../app/fontSizes";
 import { differentText } from "../../../../app/fontSizes";
 // import contentJSON from './content.json'
 import { Img_url } from "../../../../routes/backend";
-
-// Initialize Swiper modules globally
-SwiperCore.use([Pagination, Navigation, Autoplay, EffectCoverflow]);
 
 function defineDevice(screen) {
     if (screen > 900) {
@@ -50,7 +47,6 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
     const isComputer = screen > 900;
     const isTablet = screen < 900 && screen > 730;
     const isPhone = screen < 450;
-    const ImagesFromRedux = useSelector((state) => state?.homeContent?.present?.images)
     const fontLight = useSelector(state => state.fontStyle.light)
     // const platform = useSelector(state => state.platform.platform)
     const [swiperInstance, setSwiperInstance] = useState(null);
@@ -71,6 +67,11 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
 
     let projectChunks = chunkArray(
         content?.["5"]?.sections?.[activeRecentProjectSection]?.items || [],
+        projectsPerSlide
+    );
+
+    let liveProjectChunks = chunkArray(
+        liveContent?.["5"]?.sections?.[activeRecentProjectSection]?.items || [],
         projectsPerSlide
     );
     const ProjectSlider = { ...recentProjects, ...markets, ...safety };
@@ -118,7 +119,9 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
     return (
         <div className={`w-full relative ${textAlignment} bankgothic-medium-dt bg-[white]`} >
             {/* banner 1  */}
-            <section className="w-full relative">
+            <section className={`w-full relative
+                ${checkDifference(content?.["1"]?.content?.images?.[0]?.url, liveContent?.["1"]?.content?.images?.[0]?.url)}
+                `}>
                 <div
                     className={`w-full overflow-y-hidden min-h-[400px] block ${language === "en" ? "scale-x-100" : "scale-x-[-1]"
                         }`}
@@ -128,8 +131,9 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                         dir={isLeftAlign ? "ltr" : "rtl"}
                         src={`${Img_url}${content?.["1"]?.content?.images?.[0]?.url}`}
                         alt={content?.["1"]?.content?.images?.[0]?.url}
-                        className="w-full object-cover"
-                        style={{ objectPosition: "center", transform: "scaleX(-1)", height: isTablet ? "500px" : isPhone && "500px" }} />
+                        className={`w-full object-cover`}
+                        style={{ objectPosition: "center", transform: "scaleX(-1)", height: isTablet ? "500px" : isPhone && "500px" }}
+                    />
                 </div>
                 <div
                     className={`container mx-auto absolute ${isComputer ? "top-[20%]" : "top-16"}  left-0 right-0 px-4`}>
@@ -167,7 +171,9 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
             <section className={` ${isPhone ? "px-2 py-[60px]" : isTablet ? "px-[80px] py-[120px]" : "px-[150px] py-[120px]"} ${language === "en" ? "" : " direction-rtl"} items-start`}>
                 <div className={`relative container mx-auto flex ${isPhone ? "flex-col" : ""} ${isLeftAlign ? "" : "flex-row-reverse"} items-center`}>
                     {/* Image section */}
-                    <div className={`${isPhone ? "w-[90%]" : "w-[70%]"} h-[500px] overflow-hidden rounded-sm shadow-lg `}
+                    <div className={`${isPhone ? "w-[90%]" : "w-[70%]"} h-[500px] overflow-hidden rounded-sm shadow-lg 
+                                    ${checkDifference(content?.["2"]?.content?.images?.[0]?.url, liveContent?.["2"]?.content?.images?.[0]?.url)}
+                    `}
                         style={{ height: isComputer && dynamicSize(629, width), width: isComputer && dynamicSize(877, width) }}>
                         <img src={`${Img_url}${content?.["2"]?.content?.images?.[0]?.url}`} alt="about-us" className="w-full h-[500px] object-cover"
                             style={{ width: isComputer && dynamicSize(877, width), height: isComputer && '100%' }}
@@ -205,7 +211,8 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                         {content?.["3"]?.content?.title?.[language]}
                     </h2>
 
-                    <div className={`${isPhone ? "flex gap-4 flex-col" : "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 md:gap-12 sm:gap-6"}
+                    <div className={`
+                    ${isPhone ? "flex gap-4 flex-col" : "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 md:gap-12 sm:gap-6"}
                     ${checkDifference(content?.["3"]?.items, liveContent?.["3"]?.items)}
                     `}
                         style={{ columnGap: isComputer && dynamicSize(96, width), rowGap: isComputer && dynamicSize(48, width) }}>
@@ -232,7 +239,6 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                     <div className={`w-[100%]  flex-[4]`}
                     >
                         <div className={`relative 
-                        ${checkDifference()}
                         ${isTablet ?
                                 (!isLeftAlign ? "left-[-70px]" : "left-[15px]") :
                                 isComputer && fullScreen ? "left-[450px] scale-[1.7]" :
@@ -252,19 +258,25 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                                     >
                                         <div className="relative">
                                             <img
-                                                className={`absolute ${key % 2 === 1 ? "top-[-22px] right-[-32px]" : "left-[-36px] top-[-27px]"}`}
+                                                className={`absolute
+                                                    ${checkDifference(item?.icon, liveContent?.["4"]?.content?.cards?.[key]?.icon)}
+                                                    ${key % 2 === 1 ? "top-[-22px] right-[-32px]" : "left-[-36px] top-[-27px]"}`}
                                                 src={Img_url + item?.icon}
                                                 width={40}
                                                 height={key === 1 ? 47 : 60}
                                                 alt=""
                                             />
                                         </div>
-                                        <h3 className="text-[#292E3D] text-2xl font-semibold pl-2 font-sans"
+                                        <h3 className={`text-[#292E3D] text-2xl font-semibold pl-2 font-sans
+                                                        ${checkDifference(item?.count, liveContent?.["4"]?.content?.cards?.[key]?.count)}
+                                                    `}
                                             style={{
                                                 fontSize: isComputer && dynamicSize(40, width)
                                             }}
                                         >{item?.count}</h3>
-                                        <h5 className={`text-[#292E3D] text-xs font-light relative before:absolute ${isLeftAlign ? "before:left-[-10px]" : "before:right-[-10px]"} before:top-0 before:w-[3px] before:h-[18px] before:bg-[#F9995D]`}
+                                        <h5 className={`text-[#292E3D] text-xs font-light relative before:absolute 
+                                                    ${checkDifference(item?.title[language], liveContent?.["4"]?.content?.cards?.[key]?.title[language])}
+                                                    ${isLeftAlign ? "before:left-[-10px]" : "before:right-[-10px]"} before:top-0 before:w-[3px] before:h-[18px] before:bg-[#F9995D]`}
                                             style={{
                                                 fontSize: isComputer && dynamicSize(12, width)
                                             }}
@@ -276,7 +288,7 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                             })}
                         </div>
                     </div>
-                    <div className={`max-w-[450xp] ${isTablet ? !isLeftAlign ? "pr-[64px]" : "pl-[40px]" : "pl-[40px]"}  ${fullScreen ? "flex-[2]" : "flex-[3]"}`}
+                    <div className={`w-[550px] ${isTablet ? !isLeftAlign ? "pr-[64px]" : "pl-[40px]" : "pl-[40px]"}  ${fullScreen ? "flex-[2]" : "flex-[3]"}`}
                         style={{
                             // maxWidth: isComputer && dynamicSize(420, width)
                             // width: isComputer && dynamicSize(420, width),
@@ -333,19 +345,23 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
 
                     <div className={`flex ${isTablet ? isPhone ? "gap-[20px]" : "gap-[30px]" : "gap-[30px]"} ${isLeftAlign && !isComputer && "pr-20"}`}
                         style={{ gap: isComputer && dynamicSize(70, width), width: isComputer || fullScreen ? dynamicSize(1230, width) : "100%" }}>
-                        <div className={`leftDetails min-w-[150px] ${isTablet ? isPhone ? "w-[150px]" : "w-[240px]" : ""}`}
+                        <div className={`leftDetails min-w-[150px]
+                        ${isTablet ? isPhone ? "w-[150px]" : "w-[240px]" : ""}`}
                             style={{ width: isComputer || fullScreen ? dynamicSize(424, width) : "" }}>
                             {content?.["5"]?.sections?.map((section, index) => (
                                 <div
                                     key={index}
-                                    className={`relative `}
+                                    className={`relative
+                                        `}
                                 >
                                     <span className={activeRecentProjectSection === index
                                         ? 'font-bold leading-[36px] mb-[16px] cursor-pointer relative'
                                         : 'font-bold leading-[36px] mb-[16px] cursor-pointer'}
                                         onClick={() => setActiveRecentProjectSection(index)}
                                     >
-                                        <h2 className={`${activeRecentProjectSection === index ? 'text-[#292e3d]' : 'text-[#292e3d]'} text-md cursor-pointer`}
+                                        <h2 className={`my-[2px] ${activeRecentProjectSection === index ? 'text-[#292e3d]' : 'text-[#292e3d]'} text-md cursor-pointer
+                                        ${checkDifference(section?.content?.title?.[language], liveContent?.["5"]?.sections[index]?.content?.title?.[language])}
+                                        `}
                                             onClick={() => setActiveRecentProjectSection(index)}
                                             style={{ fontSize: isComputer && dynamicSize(32, width) }}
                                         >
@@ -353,9 +369,12 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                                         </h2>
                                     </span>
 
-                                    <p className={`${fontLight} ${activeRecentProjectSection === index
-                                        ? 'text-[#292e3d] text-xs leading-[25px] mb-[24px] opacity-100 transform translate-y-0 transition-opacity duration-300'
-                                        : 'text-[#292e3d] text-xs leading-[25px] mb-[24px] opacity-0 h-0 transform translate-y-[-20px] transition-opacity duration-300'
+                                    <p className={`${fontLight}
+                                        ${checkDifference(section?.content?.description?.[language], liveContent?.["5"]?.sections[index]?.content?.description?.[language])}
+                                    
+                                    ${activeRecentProjectSection === index
+                                            ? 'text-[#292e3d] text-xs leading-[25px] mb-[24px] opacity-100 transform translate-y-0 transition-opacity duration-300'
+                                            : 'text-[#292e3d] text-xs leading-[25px] mb-[24px] opacity-0 h-0 transform translate-y-[-20px] transition-opacity duration-300'
                                         }`}
                                         style={{ fontSize: isComputer && dynamicSize(16, width) }}
                                     >
@@ -365,14 +384,17 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                             ))}
                         </div>
 
-                        <div className={`${isPhone ? "w-[220px]" : isTablet ? "w-[500px]" : ""}`}
-                            style={{ width: isComputer || fullScreen ? dynamicSize(800, width) : "" }}
+                        <div className={`${isPhone ? "w-[220px]" : isTablet ? "w-[500px]" : ""} 
+                        `}
+                            style={{ width: (isComputer || fullScreen) ? dynamicSize(800, width) : (!isComputer && fullScreen) ? dynamicSize(1030, width) : "" }}
                         >
                             <Swiper
                                 key={language}
-                                // modules={[Pagination, Navigation]} // Removed modules prop
-                                className={`mySwiper pl-1`}
-                                style={{ width: '100%' }}
+                                modules={[Pagination, Navigation]}
+                                className={`mySwiper pl-1 mx-auto 
+                                    ${checkDifference(projectChunks.flat(), liveProjectChunks.flat(), "", "projects")}
+                                    `}
+                                style={{ width: "100%" }}
                                 navigation={{
                                     prevEl: prevRef.current,
                                     nextEl: nextRef.current,
@@ -388,9 +410,9 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                                 {projectChunks?.map((chunk, slideIndex) => {
                                     return (
                                         <SwiperSlide key={slideIndex}>
-                                            <div className={`${isPhone ? "flex flex-col" : `grid grid-cols-2 gap-[12px] auto-rows-auto ${isTablet ? "w-[350px]" : "w-[600px]"}`}`}
+                                            <div className={`${isPhone ? "flex flex-col" : `grid grid-cols-2 gap-[12px] auto-rows-auto ${isTablet ? "pl-1" : "w-[600px]"}`} `}
                                                 style={{
-                                                    width: isComputer ? dynamicSize(798, width) : isPhone ? `${(600 / 1180) * screen}px` : `${(750 / 1180) * screen}px`,
+                                                    width: isComputer ? dynamicSize(799, width) : isPhone ? `${(600 / 1180) * screen}px` : `${(750 / 1180) * screen}px`,
                                                     gap: isComputer ? "" : `${(40 / 1180) * screen}px`,
                                                     placeItems: ""
                                                 }}
@@ -402,13 +424,10 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                                                                 <img
                                                                     className={`w-full aspect-[1.4/1] object-cover object-center`}
                                                                     alt={project?.[language]}
-                                                                    src={ImagesFromRedux?.[project?.image] ? ImagesFromRedux?.[project?.image] : project?.image
-                                                                        ? ProjectSlider?.[project?.image]
-                                                                        : recentProjects.itLab}
+                                                                    src={Img_url + project?.image || recentProjects.itLab}
                                                                 />
                                                             </div>
                                                             <div className="p-[18px_12px_12px_12px] flex flex-col justify-center items-start gap-[16px] bg-[#00B9F2] flex-1">
-
                                                                 <h5
                                                                     title={project?.[titleLan]}
                                                                     className={`text-white text-[20px] font-semibold  h-[40px] ${!isComputer && "mb-2"}`}
@@ -421,7 +440,7 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                                                                     className="text-white text-[16px] font-light leading-[normal]"
                                                                     style={{ fontSize: isComputer && dynamicSize(16, width) }}
                                                                 >
-                                                                    {TruncateText(project?.[titleLan], (isTablet ? 16 : 25))}
+                                                                    {TruncateText(project?.location?.value?.[language] || project?.description?.[language], (isTablet ? 16 : 25))}
                                                                 </p>
                                                             </div>
                                                         </div>
@@ -440,8 +459,8 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                                 style={{ width: isComputer ? "" : isPhone ? "220px" : `${(400 / 1180) * screen}px` }}
                             // ${projectChunks?.length <= 1 ? 'hidden' : ''}
                             >
-                                <button ref={prevRef} className={`py-[12px] px-[20px] text-[#00B9F2] text-md font-medium border-[1px] border-[#00B9F2] rounded-[6px] flex gap-2 items-center ${isPhone ? "w-[120px]" : "min-w-[246px]"} justify-center  bg-white transition-all duration-200`}
-                                    style={{ fontSize: isComputer && dynamicSize(18, width) }}>
+                                <button ref={prevRef} className={`py-[12px] px-[20px] text-[#00B9F2] text-md font-medium border-[1px] border-[#00B9F2] rounded-[6px] flex gap-2 items-center ${isPhone ? "w-[120px]" : ""} justify-center  bg-white transition-all duration-200`}
+                                    style={{ fontSize: isComputer && dynamicSize(18, width), width: isComputer && dynamicSize(280, width) }}>
                                     <img
                                         src="https://frequencyimage.s3.ap-south-1.amazonaws.com/b2872383-e9d5-4dd7-ae00-8ae00cc4e87e-Vector%20%286%29.svg"
                                         width="18"
@@ -454,8 +473,8 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                                         currentContent?.["5"]?.buttons?.[1]?.text?.[language]
                                     }
                                 </button>
-                                <button ref={nextRef} className={`py-[12px] px-[20px] text-[#00B9F2] text-md font-medium border-[1px] border-[#00B9F2] rounded-[6px] flex gap-2 items-center ${isPhone ? "w-[120px]" : "min-w-[246px]"} justify-center bg-white transition-all duration-200`}
-                                    style={{ fontSize: isComputer && dynamicSize(18, width) }}>
+                                <button ref={nextRef} className={`py-[12px] px-[20px] text-[#00B9F2] text-md font-medium border-[1px] border-[#00B9F2] rounded-[6px] flex gap-2 items-center ${isPhone ? "w-[120px]" : "w-[280px]"} justify-center bg-white transition-all duration-200`}
+                                    style={{ fontSize: isComputer && dynamicSize(18, width), width: isComputer && dynamicSize(280, width) }}>
                                     {!isPhone &&
                                         currentContent?.["5"]?.buttons?.[2]?.text?.[language]
                                     }
@@ -480,16 +499,16 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                     width="143"
                     height="144"
                     alt="about-us"
-                    className="absolute top-0 left-0"
+                    className="absolute z-[0] top-0 left-0"
                 />
                 <img
                     src="https://frequencyimage.s3.ap-south-1.amazonaws.com/216c2752-9d74-4567-a5fc-b5df034eba6e-Group%2062%20%281%29.svg"
                     width="180"
                     height="181"
                     alt="about-us"
-                    className="absolute bottom-0 right-0"
+                    className="absolute z-[0] bottom-0 right-0"
                 />
-                <div className="container mx-auto">
+                <div className="container mx-auto z-[2] relative">
                     <div className="text-center mb-8 px-4">
                         <h2 className={`text-white text-3xl font-bold mb-4 
                         ${checkDifference(content?.["6"]?.content?.title?.[language], liveContent?.["6"]?.content?.title?.[language])}
@@ -513,23 +532,27 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                             style={{ gap: !isPhone ? (isTablet ? dynamicSize(264, width) : dynamicSize(194, width)) : dynamicSize(354, width) }}
                         >
                             {content?.["6"]?.content?.clientsImages?.map((client, key) => (
-                                <div
-                                    key={key}
-                                    className={`w-[120px] h-[120px] bg-white rounded-full flex items-center justify-center p-5
+                                <div className={`
                                         ${checkDifference(client.url, liveContent?.["6"]?.content?.clientsImages?.[key]?.url)}
+                                `}>
+
+                                    <div
+                                        key={key}
+                                        className={`w-[120px] h-[120px] bg-white rounded-full flex items-center justify-center p-5 py-6
                                         `}
-                                    style={{
-                                        width: isComputer && dynamicSize(200, width),
-                                        height: isComputer && dynamicSize(200, width)
-                                    }}
-                                >
-                                    <img
-                                        src={Img_url + client?.url}
-                                        width={key === 3 ? 100 : 66}
-                                        height={key === 3 ? 30 : 66}
-                                        alt="about-us"
-                                        className="object-contain"
-                                    />
+                                        style={{
+                                            width: isComputer && dynamicSize(200, width),
+                                            height: isComputer && dynamicSize(200, width)
+                                        }}
+                                    >
+                                        <img
+                                            src={Img_url + client?.url}
+                                            width={key === 3 ? 100 : 66}
+                                            height={key === 3 ? 30 : 66}
+                                            alt="about-us"
+                                            className="object-contain"
+                                        />
+                                    </div>
                                 </div>
                             ))}
                         </div>
@@ -567,7 +590,6 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                         }
                         {content?.["7"]?.items?.length > 1 &&
                             <Swiper
-                                // modules={[Navigation, Autoplay, EffectCoverflow]} // Removed modules prop
                                 grabCursor={true}
                                 centeredSlides={true}
                                 slidesPerView={isPhone ? 1 : 2}
@@ -698,13 +720,13 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                             {content?.['8']?.content?.title?.[language]}
                         </h2>
                         <div className="relative">
-                            <div className={`font-light text-black leading-7 mb-2 relative bg-transparent
+                            <div className={` text-black leading-7 mb-2 relative bg-transparent
                             ${checkDifference(content?.['8']?.content?.description?.[language], liveContent?.['8']?.content?.description?.[language])}
                             `}
                                 style={{ fontSize: isComputer && dynamicSize(16, width) }}
                                 dangerouslySetInnerHTML={{ __html: content?.['8']?.content?.description?.[language] }}
                             />
-                            <i
+                            {/* <i
                                 className={`absolute ${isLeftAlign ? isPhone ? "right-[130px] top-[55px]" : "right-[250px]" : "right-[152px]"} top-0  opacity-70 z-10 
                                 ${language === 'ar' ? 'right-48' : ''}`}
                                 style={{
@@ -715,7 +737,7 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                                     height: '100%',
                                     mixBlendMode: 'multiply',
                                 }}
-                            />
+                            /> */}
                         </div>
                         <button
                             className={`bg-[#00B9F2] text-xs text-white px-4 py-2 text-lg mt-11 mx-auto block rounded
