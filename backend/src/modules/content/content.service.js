@@ -29,6 +29,7 @@ import {
   getTotalResourceRole,
   getTotalAvailableRequests,
   getTotalAvailableProjects,
+  scheduleRequestToPublish,
 } from "../../repository/content.repository.js";
 
 const getResources = async (
@@ -271,8 +272,8 @@ const rejectRequest = async (requestId, userId, rejectReason) => {
   return { message: "Success", request };
 };
 
-const ScheduleRequest = async (requestId) => {
-  const request = await fetchRequestInfo(requestId);
+const scheduleRequest = async (requestId, userId, date) => {
+  const request = await scheduleRequestToPublish(requestId, userId, date);
   logger.info({
     response: "Request Scheduled successfully",
     // request: request,
@@ -391,7 +392,7 @@ export {
   getRequestInfo,
   approveRequest,
   rejectRequest,
-  ScheduleRequest,
+  scheduleRequest,
   PublishRequest,
   getVersionsList,
   getVersionInfo,

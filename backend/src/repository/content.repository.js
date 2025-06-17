@@ -4158,19 +4158,21 @@ export const fetchRequestInfo = async (requestId) => {
       },
     },
   });
-
+  
   if (!request) {
     throw new Error("Request not found");
   }
 
   // Determine simplified flow status
   let simplifiedFlowStatus = "PENDING"; // Default status
+  let scheduleAt;
 
   // If request is already published or scheduled, use that status
   if (request.status === "PUBLISHED") {
     simplifiedFlowStatus = "PUBLISHED";
   } else if (request.resourceVersion.versionStatus === "SCHEDULED") {
     simplifiedFlowStatus = "SCHEDULED";
+    scheduleAt =request.resourceVersion.scheduledAt;
   } else {
     // Check if any approval is rejected
     const hasRejection = request.approvals.some(
@@ -4193,6 +4195,7 @@ export const fetchRequestInfo = async (requestId) => {
     details: {
       resource: request.resourceVersion.resource.titleEn,
       resourceType: request.resourceVersion.resource.resourceType,
+      ...(scheduleAt ? { scheduleAt } : {}),
       resourceTag: request.resourceVersion.resource.resourceTag,
       slug: request.resourceVersion.resource.slug,
       status: request.status,
@@ -4599,6 +4602,96 @@ export const rejectRequestInPublication = async (
   });
 };
 
+export const scheduleRequestToPublish = async (requestId, userId, date) => {
+  const currentDate = new Date();
+  const scheduledDate = new Date(date);
+
+  if (scheduledDate < currentDate) {
+    throw new Error("Cannot schedule for a past date");
+  }
+  return await prismaClient.$transaction(async (tx) => {
+    // Find the specific approval log for this user
+    const approvalLog = await tx.requestApproval.findFirst({
+      where: {
+        requestId: requestId,
+        approverId: userId,
+        status: "PENDING", // Using the correct ApprovalStatus enum value
+        stage: null, // Publisher approvals have null stage
+        approverStatus: "ACTIVE", // Only active approvers can approve
+      },
+    });
+
+    if (!approvalLog) {
+      throw new Error(
+        "Approval log not found or user is not an active approver"
+      );
+    }
+
+    // Update the approval status
+    await tx.requestApproval.update({
+      where: { id: approvalLog.id },
+      data: {
+        status: "APPROVED",
+      },
+    });
+
+    // Get the request to find the resourceVersionId
+    const request = await tx.resourceVersioningRequest.findUnique({
+      where: { id: requestId },
+      select: {
+        resourceVersionId: true,
+        type: true,
+        resourceVersion: {
+          select: {
+            resourceId: true,
+          },
+        },
+      },
+    });
+
+    if (!request) {
+      throw new Error('Request not found');
+    }
+
+    // Update request status and flow status
+    await tx.resourceVersioningRequest.update({
+      where: { id: requestId },
+      data: {
+        status: "SCHEDULED",
+        flowStatus: "SCHEDULED",
+      },
+    });
+
+    // Update the resource version
+    await tx.resourceVersion.update({
+      where: { id: request.resourceVersionId },
+      data: {
+        versionStatus: 'SCHEDULED',
+        scheduledAt: date
+      }
+    });
+
+    // Update the resource to point to the scheduled version
+    await tx.resource.update({
+      where: { id: request.resourceVersion.resourceId },
+      data: {
+        scheduledVersionId: request.resourceVersionId,
+        newVersionEditModeId: null // Remove from edit mode
+      }
+    });
+
+    // Get the updated request to return
+    const updatedRequest = await tx.resourceVersioningRequest.findUnique({
+      where: { id: requestId },
+      include: {
+        approvals: true,
+      },
+    });
+
+    return updatedRequest;
+  });
+};
+
 export const fetchVersionsList = async (
   resourceId,
   search,
@@ -4769,6 +4862,12 @@ export const fetchVersionsInfo = async (versionId) => {
     throw new Error("Version not found");
   }
 
+  let scheduleAt
+
+  if(version.flowStatus === "SCHEDULED"){
+   scheduleAt = version.scheduleAt
+  }
+
   // Determine which role and verifier data to use based on version status
   const isDraftVersion = version.versionStatus === "DRAFT";
   const rolesToProcess = isDraftVersion
@@ -4852,6 +4951,8 @@ export const fetchVersionsInfo = async (versionId) => {
       type: request.type,
       status: request.status,
       flowStatus: request.flowStatus,
+      ...(scheduleAt ? { scheduleAt } : {}),
+
       submittedBy: request.sender,
       submittedAt: request.createdAt,
       referenceDoc: request.referenceDoc,
