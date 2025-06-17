@@ -120,8 +120,7 @@ function Requests() {
   const [originalRequests, setOriginalRequests] = useState([]);
   const [selectedRequest, setSelectedRequest] = useState(null);
   const [showDetailsModal, setShowDetailsModal] = useState(false);
-  // const [showPDF, setShowPDF] = useState(false);
-  const pdf = CustomContext();
+  const { pdf } = CustomContext();
   const { showPDF, setShowPDF } = pdf
   const [activeIndex, setActiveIndex] = useState(null);
   const [resourceId, setResourceId] = useState("");
@@ -634,8 +633,8 @@ function Requests() {
             setSelectedRequest(false);
             setShowDetailsModal(false);
           }}
-          // seePdf={() => { setShowPDF(true) }}
-          seePdf={() => { setShowPDF(true) }}
+        // seePdf={() => { setShowPDF(true) }}
+        // seePdf={() => { setShowPDF(true) }}
         />
       )}
 
@@ -643,6 +642,7 @@ function Requests() {
         showPDF
         && (
           <ShowPdf
+            open={showPDF}
             pdf={selectedRequest?.resourceVersion?.referenceDoc}
             onClose={() => {
               setShowPDF(false)

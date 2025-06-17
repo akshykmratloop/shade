@@ -2,18 +2,17 @@ import { Dialog } from '@headlessui/react'
 import { useEffect, useRef } from 'react'
 import { Img_url } from '../../routes/backend'
 
-const ShowPdf = ({ pdf, onClose }) => {
+const ShowPdf = ({ pdf, onClose, open }) => {
     return (
-        <Dialog open={true} onClose={onClose} className="relative z-50 font-poppins">
+        <Dialog open={open} onClose={onClose} className="relative z-50 font-poppins">
             <div className="fixed inset-0 bg-black/60" aria-hidden="true" />
             <div className="fixed inset-0 flex items-center justify-center p-4">
-                <Dialog.Panel className="w-[90vw] h-[90vh] bg-white border border-cyan-500 rounded-md shadow-lg overflow-hidden relative">
+                <Dialog.Panel className="w-[90vw] h-[90vh] bg-white rounded-md shadow-lg overflow-hidden relative">
                     {
                         !pdf ?
                             <p className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 border px-4 py-2 bg-white rounded text-gray-700">
                                 No PDF
                             </p>
-
                             :
                             <iframe
                                 src={`${Img_url + pdf}#toolbar=0&navpanes=0&scrollbar=0`}
@@ -24,7 +23,7 @@ const ShowPdf = ({ pdf, onClose }) => {
                     }
                     <button
                         onClick={onClose}
-                        className="absolute top-2 right-2 z-10 bg-white text-black px-2 py-1 rounded-full shadow-md hover:bg-gray-200"
+                        className="absolute top-2 right-5 z-10 bg-white text-black px-2 py-1 rounded-full shadow-md hover:bg-gray-200"
                     >
                         ✕
                     </button>

@@ -23,6 +23,7 @@ import { LuListFilter } from "react-icons/lu";
 import { PiInfoThin } from "react-icons/pi";
 import XMarkIcon from "@heroicons/react/24/outline/XMarkIcon";
 import ShowPdf from "../Requests/ShowPDF";
+import CustomContext from "../Context/CustomContext";
 // import { Switch } from "@headlessui/react";
 // import { FiEdit } from "react-icons/fi";
 
@@ -118,12 +119,13 @@ function RequestTable() {
     const [originalRequests, setOriginalRequests] = useState([]);
     const [selectedRequest, setSelectedRequest] = useState(null);
     const [showDetailsModal, setShowDetailsModal] = useState(false);
-    const [showPDF, setShowPDF] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
     const [activeIndex, setActiveIndex] = useState(null);
     // const [resourceId, setResourceId] = useState("")
     const [requestId, setRequestId] = useState("")
     const [toggle, setToggle] = useState(false);
+    const { pdf } = CustomContext();
+    const { showPDF, setShowPDF } = pdf
 
 
 
@@ -546,6 +548,18 @@ function RequestTable() {
                     }}
                 />
             )}
+
+            {
+                showPDF
+                && (
+                    <ShowPdf
+                        open={showPDF}
+                        pdf={selectedRequest?.resourceVersion?.referenceDoc}
+                        onClose={() => {
+                            setShowPDF(false)
+                        }}
+                    />
+                )}
             <ToastContainer />
         </div>
     );

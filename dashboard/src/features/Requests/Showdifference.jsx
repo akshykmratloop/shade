@@ -305,6 +305,7 @@ function ShowDifference({ show, onClose, request, resourceId, currentlyEditor, c
                         showPDF
                         && (
                             <ShowPdf
+                                open={showPDF}
                                 pdf={request?.resourceVersion?.referenceDoc}
                                 onClose={() => setShowPDF(false)}
                             />

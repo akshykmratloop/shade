@@ -164,7 +164,9 @@ const RequestDetails = () => {
             <div className={`w-max flex flex-col items-end gap-[2.5px]`}>
               <p className="text py-0 my-0">PDF File</p>
               <button
-              onClick={() => setShowPDF(true)}
+              onClick={() => {
+                console.log("qwerasdflkhakjdgsbfkj")
+                setShowPDF(true)}}
               className="text-[#145098] dark:text-sky-500 underline font-[300] py-0 my-0">
                 See Document
               </button>
