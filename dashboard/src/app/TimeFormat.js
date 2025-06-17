@@ -1,20 +1,18 @@
 function formatTimestamp(isoString, mode = "all") {
-  if (!isoString) return ""
+  if (!isoString) return "";
   const date = new Date(isoString);
-  if (isNaN(date.getTime())) return "Invalid-Date"; // Check for invalid date
-  const timeZone = "Asia/Dubai";
+  if (isNaN(date.getTime())) return "Invalid-Date";
 
   const pad = (num) => String(num).padStart(2, "0");
 
-  const year = date.toLocaleString("en-US", { year: "numeric", timeZone });
-  const month = pad(date.toLocaleString("en-US", { month: "2-digit", timeZone }));
-  const day = pad(date.toLocaleString("en-US", { day: "2-digit", timeZone }));
+  const year = date.toLocaleString("en-US", { year: "numeric" });
+  const month = pad(date.toLocaleString("en-US", { month: "2-digit" }));
+  const day = pad(date.toLocaleString("en-US", { day: "2-digit" }));
 
   const timeParts = date.toLocaleString("en-US", {
     hour: "2-digit",
     minute: "2-digit",
-    hour12: true,
-    timeZone
+    hour12: true
   }).split(" ");
 
   const [hourMinute, period] = timeParts;
@@ -22,7 +20,6 @@ function formatTimestamp(isoString, mode = "all") {
 
   switch (mode) {
     case "dateonly":
-      return `${day}-${month}-${year}`;
     case "dd-mm-yyyy":
       return `${day}-${month}-${year}`;
     case "all":
@@ -32,4 +29,3 @@ function formatTimestamp(isoString, mode = "all") {
 }
 
 export default formatTimestamp;
-

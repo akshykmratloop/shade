@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import { getRequestInfo } from "../../app/fetch";
 import { FiEye } from "react-icons/fi";
 import Comments from "./Comments"
+import CustomContext from "../Context/CustomContext";
 
 const data = [
   {
@@ -52,6 +53,8 @@ const RequestDetails = () => {
   const id = useSelector(state => state.rightDrawer.extraObject.id)
   const [requestData, setRequestData] = useState({})
   const [commentOn, setCommentOn] = useState({ 0: false })
+  const { pdf } = CustomContext();
+  const { setShowPDF } = pdf
 
   const verifiers = Object.entries(requestData?.["assignedUsers"]?.verifiers || [])
 
@@ -160,7 +163,9 @@ const RequestDetails = () => {
             <label>Reference Document</label>
             <div className={`w-max flex flex-col items-end gap-[2.5px]`}>
               <p className="text py-0 my-0">PDF File</p>
-              <button className="text-[#145098] dark:text-sky-500 underline font-[300] py-0 my-0">
+              <button
+              onClick={() => setShowPDF(true)}
+              className="text-[#145098] dark:text-sky-500 underline font-[300] py-0 my-0">
                 See Document
               </button>
             </div>
@@ -217,27 +222,7 @@ const RequestDetails = () => {
 
                     <td className="px-3 py-2 text-sm text-center">
                       <Comments comment={comment} />
-                      {/* <div className="flex items-center gap-1">
-
-                        {TruncateText(comment, 20) || "N/A"}
-                        {comment !== "No Comments" && (
-                          <div className=""
-                            onClick={() => setCommentOn(prev => ({ ...prev, i: !prev.i }))}
-                          >
-                            <FiEye />
-                            {
-                              commentOn &&
-                              <div className="absolute right-[110%] top-[50%] z-[70]">
-                                <div className="comment-bubble">
-                                  <div className="comment-bubble-arrow"></div>
-                                  <h3>Comments:</h3>
-                                  <p className={`${comment ? "text-stone-900 dark:text-stone-200" : "text-stone-300"}`}>{comment || "No comments"}</p>
-                                </div>
-                              </div>
-                            }
-                          </div>
-                        )}
-                      </div> */}
+                     
                     </td>
                   </tr>
                 );

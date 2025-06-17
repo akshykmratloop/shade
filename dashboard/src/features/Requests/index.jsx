@@ -23,6 +23,7 @@ import { LuListFilter } from "react-icons/lu";
 import { PiInfoThin } from "react-icons/pi";
 import XMarkIcon from "@heroicons/react/24/outline/XMarkIcon";
 import ShowPdf from "./ShowPDF";
+import CustomContext from "../Context/CustomContext";
 // import { Switch } from "@headlessui/react";
 // import { FiEdit } from "react-icons/fi";
 
@@ -119,7 +120,9 @@ function Requests() {
   const [originalRequests, setOriginalRequests] = useState([]);
   const [selectedRequest, setSelectedRequest] = useState(null);
   const [showDetailsModal, setShowDetailsModal] = useState(false);
-  const [showPDF, setShowPDF] = useState(false);
+  // const [showPDF, setShowPDF] = useState(false);
+  const pdf = CustomContext();
+  const { showPDF, setShowPDF } = pdf
   const [activeIndex, setActiveIndex] = useState(null);
   const [resourceId, setResourceId] = useState("");
   const [requestId, setRequestId] = useState("");
@@ -632,7 +635,7 @@ function Requests() {
             setShowDetailsModal(false);
           }}
           // seePdf={() => { setShowPDF(true) }}
-          seePdf={() => {}}
+          seePdf={() => { setShowPDF(true) }}
         />
       )}
 
@@ -640,14 +643,7 @@ function Requests() {
         showPDF
         && (
           <ShowPdf
-            currentlyEditor={!canSeeEditor}
-            currentlyVerifier={canSeePublisher}
-            currentlyPublisher={canSeeVerifier}
-            role={selectedRequest}
-            show={showDetailsModal}
-            resourceId={resourceId}
-            requestId={requestId}
-            // updateRoles={setChangesInRequest}
+            pdf={selectedRequest?.resourceVersion?.referenceDoc}
             onClose={() => {
               setShowPDF(false)
             }}

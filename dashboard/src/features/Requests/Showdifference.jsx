@@ -21,13 +21,13 @@ import createContent from "../Resources/defineContent";
 import Popups from "../Resources/components/breakUI/Popups";
 import { approveRequest, rejectedRequest } from "../../app/fetch";
 import { toast } from "react-toastify";
+import ShowPdf from "./ShowPDF";
 
 
 
-function ShowDifference({ show, onClose, request, resourceId, currentlyEditor, currentlyPublisher, requestId, refreshList, seePdf }) {
+function ShowDifference({ show, onClose, request, resourceId, currentlyEditor, currentlyPublisher, requestId, refreshList }) {
 
-    // console.log(request)
-    // const contentFromRedux = useSelector(state => state.homeContent.present)
+    const [showPDF, setShowPDF] = useState(false)
     const [liveVersion, setLiveVersion] = useState({})
     const [editVersion, setEditVersion] = useState({})
     const [language, setLanguage] = useState("en")
@@ -44,7 +44,6 @@ function ShowDifference({ show, onClose, request, resourceId, currentlyEditor, c
     const LiveContent = createContent(liveVersion, "difference", "home")
 
     const setUpRoute = (content) => {
-        console.log(content)
         let subRoute = ""
         let deepRoute = ""
         let route = ""
@@ -183,7 +182,7 @@ function ShowDifference({ show, onClose, request, resourceId, currentlyEditor, c
                                 <div className="flex gap-2">
                                     <div className="flex gap-3 text-[25px] items-center border-r px-2 border-r-2">
                                         <div ref={commentRef} className=" flex flex-col gap-1 items-center relative">
-                                            <div className="flex flex-col gap-1 items-center"
+                                            <div className="flex flex-col gap-1 items-center cursor-pointer"
                                                 onClick={() => setCommentOn(prev => !prev)}
                                             >
                                                 <LiaComment strokeWidth={.0001} />
@@ -193,7 +192,7 @@ function ShowDifference({ show, onClose, request, resourceId, currentlyEditor, c
                                             </div>
                                             {
                                                 commentOn &&
-                                                <div className="absolute right-[110%] top-[20%] z-[5]">
+                                                <div className="absolute right-[110%] top-[20%] z-[5] ">
                                                     <div className="comment-bubble">
                                                         <div className="comment-bubble-arrow"></div>
                                                         <h3>Comments:</h3>
@@ -202,11 +201,12 @@ function ShowDifference({ show, onClose, request, resourceId, currentlyEditor, c
                                                 </div>
                                             }
                                         </div>
-                                        <div className="flex flex-col gap-1 items-center translate-y-[1.5px]"
-                                        onClick={() => seePdf()}
+                                        <div className="flex flex-col gap-1 items-center translate-y-[1.5px] cursor-pointer"
+                                            onClick={() => { setShowPDF(true) }}
                                         >
                                             <IoDocumentOutline className="text-[23px]" width={10} />
-                                            <span className="text-[12px]">
+                                            <span className="text-[12px]"
+                                            >
                                                 Doc
                                             </span>
                                         </div>
@@ -301,6 +301,15 @@ function ShowDifference({ show, onClose, request, resourceId, currentlyEditor, c
                     <Popups display={PopupSubmit} setClose={() => setPopupSubmit(false)}
                         confirmationText={"Are you sure you want to Approve?"} confirmationFunction={async () => { approveRequestFunc(requestId) }}
                     />
+                    {
+                        showPDF
+                        && (
+                            <ShowPdf
+                                pdf={request?.resourceVersion?.referenceDoc}
+                                onClose={() => setShowPDF(false)}
+                            />
+                        )
+                    }
                 </Dialog.Panel>
             </div>
 
