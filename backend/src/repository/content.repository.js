@@ -5356,3 +5356,141 @@ export const activateResource = async (resourceId) => {
 
   return resource;
 };
+
+
+
+
+
+
+// DASHBOARD API
+
+// Get total count of roles where name is 'user' or 'manager' and status is 'ACTIVE'
+export const getTotalRolesCounts = async () => {
+  const totalRoles = await prismaClient.role.count({
+    where: {
+      name: {
+        not: "SUPER_ADMIN",
+        mode: "insensitive",
+      },
+    },
+  });
+
+  return totalRoles;
+};
+
+// Get total user count
+export const getTotalUserCounts = async () => {
+  const totalUser = await prismaClient.user.count({
+    where: {
+      name: {
+        not: "Super Admin",
+        mode: "insensitive",
+      },
+    },
+  });
+
+  return totalUser;
+};
+
+// Get total resource roles with status 'ACTIVE'
+export const getTotalResourceRole = async () => {
+
+  const roles = await prismaClient.role.findMany({
+    where: {
+      name: {
+        not: "SUPER_ADMIN", // Exclude SUPER_ADMIN
+        mode: "insensitive",
+      },
+    },
+    include: {
+      permissions: {
+        include: {
+          permission: {
+            select: {
+              name: true,
+            }
+          },
+        },
+      },
+      _count: {
+        select: {
+          users: true, // Count of users per role
+        },
+      },
+    },
+  });
+
+  const editorCount = roles
+    .filter(role => role.permissions.some(p => p.permission?.name === "EDIT"))
+    .reduce((sum, role) => sum + role._count.users, 0);
+
+  const verifierCount = roles
+    .filter(role => role.permissions.some(p => p.permission?.name === "VERIFY"))
+    .reduce((sum, role) => sum + role._count.users, 0);
+
+  const publisherCount = roles
+    .filter(role => role.permissions.some(p => p.permission?.name === "PUBLISH"))
+    .reduce((sum, role) => sum + role._count.users, 0);
+  return {
+    editor: editorCount,
+    verifier: verifierCount,
+    publisher: publisherCount,
+    totalResourceRole: editorCount + verifierCount + publisherCount,
+  };
+};
+
+// Get all requests with status APPROVED, PENDING, or REJECTED
+export const getTotalAvailableRequests = async () => {
+  const [pendingCount, scheduledCount, approvedCount, rejectedCount] = await Promise.all([
+    prismaClient.resourceVersioningRequest.count({ where: { flowStatus: "PENDING" } }),
+    prismaClient.resourceVersioningRequest.count({ where: { flowStatus: "SCHEDULED" } }),
+    prismaClient.resourceVersioningRequest.count({ where: { flowStatus: "PUBLISHED" } }),
+    prismaClient.resourceVersioningRequest.count({ where: { flowStatus: "REJECTED" } }),
+  ]);
+
+  return {
+    pending: pendingCount,
+    scheduled: scheduledCount,
+    approved: approvedCount,
+    rejected: rejectedCount,
+    totalRequests: pendingCount + approvedCount + rejectedCount,
+  };
+};
+
+// Get total projects with status ONGOING or COMPLETE
+export const getTotalAvailableProjects = async () => {
+
+  const projects = await prismaClient.resource.findMany({
+    where: {
+      resourceType: "SUB_PAGE",
+      resourceTag: "PROJECT",
+    },
+    include: {
+      filters: {
+        select: {
+          nameEn: true,
+          nameAr: true,
+        },
+      },
+    },
+  });
+
+  // filter the projects based on the nameEn for two ONGOING and COMPLETE
+  const ongoingProjects = projects.filter(project =>
+    project.filters.some(filter =>
+      filter.nameEn === "ONGOING"
+    )
+  ).length;
+
+  const completedProjects = projects.filter(project =>
+    project.filters.some(filter =>
+      filter.nameEn === "COMPLETE"
+    )
+  ).length;
+
+  return {
+    ongoing: ongoingProjects,
+    completed: completedProjects,
+    totalProjects: ongoingProjects + completedProjects,
+  };
+};

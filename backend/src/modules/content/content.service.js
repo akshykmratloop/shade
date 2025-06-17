@@ -24,6 +24,11 @@ import {
   restoreLiveVersion,
   deactivateResource,
   activateResource,
+  getTotalRolesCounts,
+  getTotalUserCounts,
+  getTotalResourceRole,
+  getTotalAvailableRequests,
+  getTotalAvailableProjects,
 } from "../../repository/content.repository.js";
 
 const getResources = async (
@@ -346,6 +351,31 @@ const activateResources = async (resourceId) => {
   return { message: "Resource activated successfully", result };
 };
 
+
+
+const getDashboardInsight = async () => {
+  const totalRoles = await getTotalRolesCounts();
+  const totalUsers = await getTotalUserCounts();
+  const totalResourceRoles = await getTotalResourceRole();
+  const totalAvailableRequests = await getTotalAvailableRequests();
+  const totalAvailableProjects = await getTotalAvailableProjects();
+
+  const result = {
+    totalRoles,
+    totalUsers,
+    totalResourceRoles,
+    totalAvailableRequests,
+    totalAvailableProjects,
+  };
+
+  logger.info({
+    response: "All content-related dashboard insight fetched successfully",
+    result: result,
+  });
+
+  return { message: "All content-related dashboard insight fetched successfully", result };
+};
+
 export {
   getResources,
   getResourceInfo,
@@ -369,4 +399,5 @@ export {
   deleteAllContentData,
   deactivateResources,
   activateResources,
+  getDashboardInsight
 };

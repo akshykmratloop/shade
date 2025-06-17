@@ -21,6 +21,7 @@ import {
   restoreVersion,
   deactivateResources,
   activateResources,
+  getDashboardInsight
 } from "./content.service.js";
 
 const GetResources = async (req, res) => {
@@ -208,6 +209,12 @@ const ActivateResources = async (req, res) => {
   res.status(200).json(response);
 };
 
+
+const GetDashboardInsight = async (_, res) => {
+  const response = await getDashboardInsight();
+  res.status(200).json(response);
+}
+
 export default {
   GetResources,
   GetResourceInfo,
@@ -229,4 +236,5 @@ export default {
   DeleteAllContentData,
   DeactivateResources,
   ActivateResources,
+  GetDashboardInsight,
 };
