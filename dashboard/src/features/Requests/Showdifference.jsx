@@ -24,7 +24,7 @@ import { toast } from "react-toastify";
 
 
 
-function ShowDifference({ show, onClose, request, resourceId, currentlyEditor, currentlyPublisher, requestId, refreshList }) {
+function ShowDifference({ show, onClose, request, resourceId, currentlyEditor, currentlyPublisher, requestId, refreshList, seePdf }) {
 
     // console.log(request)
     // const contentFromRedux = useSelector(state => state.homeContent.present)
@@ -169,8 +169,6 @@ function ShowDifference({ show, onClose, request, resourceId, currentlyEditor, c
         };
     }, [editVersion]);
 
-    // console.log((!currentlyEditor || request.flowStatus === "PENDING"))
-
     return (
         <Dialog open={show} onClose={onClose} className="relative z-40 font-poppins">
             <div className="fixed inset-0 bg-black/50" aria-hidden="true" />
@@ -178,7 +176,7 @@ function ShowDifference({ show, onClose, request, resourceId, currentlyEditor, c
                 <Dialog.Panel ref={divRef} className="w-[98vw]  h-[98vh] customscroller shadow-lg shadow-stone rounded-lg bg-[white] dark:bg-slate-800 p-6 px-0 relative">
                     <div className="flex justify-between items-center mb-4 px-6 ">
                         {/* <Dialog.Title className="text-lg font-[500]">Difference Preview</Dialog.Title> */}
-                        <div className="flex gap-5 justify-between w-[95%] ">
+                        <div className="flex gap-5 justify-between w-[95%]">
                             <LanguageSwitch w={'w-[20%]'} setLanguage={setLanguage} language={language} />
                             { // not for currentlyEditor
                                 (!currentlyEditor && request?.flowStatus === "PENDING") &&
@@ -204,7 +202,9 @@ function ShowDifference({ show, onClose, request, resourceId, currentlyEditor, c
                                                 </div>
                                             }
                                         </div>
-                                        <div className="flex flex-col gap-1 items-center translate-y-[1.5px]">
+                                        <div className="flex flex-col gap-1 items-center translate-y-[1.5px]"
+                                        onClick={() => seePdf()}
+                                        >
                                             <IoDocumentOutline className="text-[23px]" width={10} />
                                             <span className="text-[12px]">
                                                 Doc
