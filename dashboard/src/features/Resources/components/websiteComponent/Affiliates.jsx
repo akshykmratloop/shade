@@ -34,7 +34,7 @@ const AffiliatesPage = ({ language, screen, content, width, highlight, liveConte
                     padding: isComputer && `${getDynamicSize(100)} ${getDynamicSize(150)}`
                 }}
             >
-                <div className="absolute inset-0 pointer-events-none z-0 flex items-center justify-center overflow-hidden">
+                <div className="absolute inset-0 pointer-events-none z-0 flex items-center justify-end overflow-hidden">
                     <div
                         style={{ width: getDynamicSize(750), height: getDynamicSize(650) }}
                         className="rounded-full bg-white opacity-[.9] blur-[120px] mix-blend-screen"></div>

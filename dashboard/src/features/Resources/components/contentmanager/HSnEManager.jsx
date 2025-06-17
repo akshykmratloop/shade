@@ -30,23 +30,31 @@ const HSnEManager = ({ content, currentPath, language, indexes }) => {
                 sectionIndex={indexes?.['1']}
             />
 
-            <ContentSection
-                Heading={"Section 1"}
-                currentPath={currentPath}
-                inputs={[
-                    { input: "input", label: "Heading/title", updateType: "title", value: content?.['2']?.content?.procedures?.title?.[language] },
-                    { input: "textarea", label: "Description", updateType: "description", value: content?.['2']?.content?.procedures?.description?.[language] },
-                ]}
-                section={"procedures"}
-                language={language}
-                currentContent={content}
-                sectionIndex={indexes?.['2']}
-            />
+            {
+                content?.[2]?.content?.cards?.map?.((card, i) => {
+                    return (
+                        <ContentSection
+                            key={i}
+                            Heading={"Card " + (i + 1)}
+                            currentPath={currentPath}
+                            inputs={[
+                                { input: "input", label: "Heading/title", updateType: "title", value: card?.title?.[language] },
+                                { input: "textarea", label: "Description", updateType: "description", value: card?.description?.[language] },
+                            ]}
+                            inputFiles={[{ label: "Icon", id: "ServiceBanner", order: 1, url: card?.images?.[0]?.url }]}
+                            section={"procedures"}
+                            language={language}
+                            currentContent={content}
+                            sectionIndex={indexes?.['2']}
+                        />
+                    )
+                })
+            }
 
             <ContentSection
-                Heading={"Sub Heading"}
+                Heading={"Feature Image"}
                 currentPath={currentPath}
-                inputFiles={[{ label: "Backround Image", id: "ServiceBanner", order: 1, url: content?.['1']?.content?.images?.[0]?.url }]}
+                inputFiles={[{ label: "Backround Image", id: "ServiceBanner", order: 1, url: content?.['2']?.content?.images?.[0]?.url }]}
                 language={language}
                 currentContent={content}
                 sectionIndex={indexes?.['2']}
@@ -56,8 +64,8 @@ const HSnEManager = ({ content, currentPath, language, indexes }) => {
                 Heading={"Section 2"}
                 currentPath={currentPath}
                 inputs={[
-                    { input: "input", label: "Heading/title", updateType: "title", value: content?.['2']?.content?.procedures?.title?.[language] },
-                    { input: "richtext", label: "Description", updateType: "description", value: content?.['2']?.content?.procedures?.description?.[language] },
+                    { input: "input", label: "Heading/title", updateType: "title", value: content?.['2']?.content?.title?.[language] },
+                    // { input: "richtext", label: "Description", updateType: "description", value: content?.['2']?.content?.description?.[language] },
                 ]}
                 section={"procedures"}
                 language={language}
@@ -68,14 +76,20 @@ const HSnEManager = ({ content, currentPath, language, indexes }) => {
             <ContentSection
                 Heading={"Section 3"}
                 currentPath={currentPath}
-                inputs={[
-                    // { input: "input", label: "Heading/title", updateType: "title", value: content?.['2']?.content?.procedures?.title?.[language] },
-                    { input: "textarea", label: "Description", updateType: "description", value: content?.['2']?.content?.procedures?.description?.[language] },
-                    { input: "textarea", label: "Description", updateType: "description", value: content?.['2']?.content?.procedures?.description?.[language] },
-                    { input: "textarea", label: "Description", updateType: "description", value: content?.['2']?.content?.procedures?.description?.[language] },
-                    { input: "textarea", label: "Description", updateType: "description", value: content?.['2']?.content?.procedures?.description?.[language] },
-                    { input: "textarea", label: "Description", updateType: "description", value: content?.['2']?.content?.procedures?.description?.[language] },
-                ]}
+                inputs={
+                    content?.['2']?.content?.sectionPointers?.map((section, i) => {
+
+                        return { input: "textarea", label: "Description", updateType: "description", value: section?.text?.[language] }
+                    })
+                    //     [
+                    //     // { input: "input", label: "Heading/title", updateType: "title", value: content?.['2']?.content?.procedures?.title?.[language] },
+                    //     { input: "textarea", label: "Description", updateType: "description", value: content?.['2']?.content?.procedures?.description?.[language] },
+                    //     { input: "textarea", label: "Description", updateType: "description", value: content?.['2']?.content?.procedures?.description?.[language] },
+                    //     { input: "textarea", label: "Description", updateType: "description", value: content?.['2']?.content?.procedures?.description?.[language] },
+                    //     { input: "textarea", label: "Description", updateType: "description", value: content?.['2']?.content?.procedures?.description?.[language] },
+                    //     { input: "textarea", label: "Description", updateType: "description", value: content?.['2']?.content?.procedures?.description?.[language] },
+                    // ]
+                }
                 section={"procedures"}
                 language={language}
                 currentContent={content}

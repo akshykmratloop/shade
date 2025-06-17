@@ -25,6 +25,7 @@ const VisionNMission = ({ currentContent, screen, language, width, liveContent, 
     const isTablet = (screen < 900 && screen > 730) && !highlight;
     const isPhone = screen < 638 && !highlight;
     const isLeftAlign = language === 'en';
+
     const fontLight = useSelector(state => state.fontStyle.light)
 
     const checkDifference = highlight ? differentText?.checkDifference?.bind(differentText) : () => ""
@@ -32,7 +33,7 @@ const VisionNMission = ({ currentContent, screen, language, width, liveContent, 
 
     const titleLan = isLeftAlign ? "titleEn" : "titleAr";
 
-    const fontSize = generatefontSize(defineDevice(screen, fullScreen), dynamicSize, width)
+    const fontSize = generatefontSize(defineDevice(screen, highlight), dynamicSize, width)
     const getDynamicSize = (size) => dynamicSize(size, width)
 
     return (
@@ -55,7 +56,8 @@ const VisionNMission = ({ currentContent, screen, language, width, liveContent, 
                 <div className="container relative h-full flex items-center justify-center "
                 >
                     <div
-                        className={` ${isLeftAlign ? 'scale-x-[-1]' : ''} ${isPhone ? "w-full" : isTablet ? "" : ""} flex flex-col ${isPhone ? "items-start" : "items-start space-y-4"} `}>
+                        className={` ${isLeftAlign ? 'scale-x-[-1]' : ''} ${isPhone ? "w-full" : isTablet ? "" : ""} flex flex-col 
+                        ${isPhone ? "items-start" : "items-start space-y-4"} `}>
                         <h2
                             className={`text-[#292E3D] font-medium ${isPhone ? "text-[40px]" : isTablet ? "text-[45px]" : "text-[45px]"} tracking-[-3px] mb-4
                             ${checkDifference(currentContent?.['1']?.content?.title?.[language], liveContent?.['1']?.content?.title?.[language])}
@@ -81,7 +83,7 @@ const VisionNMission = ({ currentContent, screen, language, width, liveContent, 
             </section>
 
             <section
-                style={{ padding: `${getDynamicSize(80)} ${getDynamicSize(112)}` }}
+                style={{ padding: `${isComputer ? getDynamicSize(80) : isPhone ? getDynamicSize(150) : getDynamicSize(100)} ${getDynamicSize(112)}` }}
                 className={`flex gap-[30px]  ${isPhone ? "flex-col px-[30px]" : ""}`}>
                 <h2 className={`text-[32px]  flex-1 leading-[28px]
                                 ${checkDifference(currentContent?.['2']?.content?.title?.[language], liveContent?.['2']?.content?.title?.[language])}
