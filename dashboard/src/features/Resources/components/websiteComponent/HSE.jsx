@@ -1,12 +1,12 @@
 import { useSelector } from "react-redux";
 
 import { Img_url } from "../../../../routes/backend";
-import dynamicSize, { defineDevice, generatefontSize } from "../../../../app/fontSizes";
+import dynamicSize, { defineDevice, differentText, generatefontSize } from "../../../../app/fontSizes";
 import blueCheckIcon from "../../../../assets/bluecheckicon.svg"
 import { projectPageData } from "../../../../assets/index";
 
 
-const HSnE = ({ currentContent, screen, language, width }) => {
+const HSnE = ({ currentContent, screen, language, width, highlight, liveContent }) => {
     const isComputer = screen > 900;
     const isTablet = screen < 900 && screen > 730;
     const isPhone = screen < 638;
@@ -15,7 +15,10 @@ const HSnE = ({ currentContent, screen, language, width }) => {
 
     const titleLan = isLeftAlign ? "titleEn" : "titleAr";
 
-    const fontSize = generatefontSize(defineDevice(screen), dynamicSize, width)
+    const checkDifference = highlight ? differentText?.checkDifference?.bind(differentText) : () => ""
+
+
+    const fontSize = generatefontSize(defineDevice(screen, highlight), dynamicSize, width)
     const getDynamicSize = (size) => dynamicSize(size, width)
 
     return (
@@ -40,7 +43,9 @@ const HSnE = ({ currentContent, screen, language, width }) => {
                 >
                     <div
                         className={` ${isLeftAlign ? 'scale-x-[-1]' : ''} ${isPhone ? "w-full" : isTablet ? "" : ""} flex flex-col ${isPhone ? "items-start" : "items-start space-y-4"} `}>
-                        <h2 className={`text-[#292E3D] font-medium ${isPhone ? "text-[40px]" : isTablet ? "text-[45px]" : "text-[45px]"} tracking-[-3px] mb-4`}
+                        <h2 className={`text-[#292E3D] font-medium ${isPhone ? "text-[40px]" : isTablet ? "text-[45px]" : "text-[45px]"} tracking-[-3px] mb-4
+                                ${checkDifference(currentContent?.['1']?.content?.title?.[language], liveContent?.['1']?.content?.title?.[language])}
+                                `}
                             style={{
                                 fontSize: fontSize.mainHeading, lineHeight: fontSize.headingLeading,
                                 margin: `${getDynamicSize(16)} 0px`
@@ -50,28 +55,15 @@ const HSnE = ({ currentContent, screen, language, width }) => {
                         </h2>
                         <p
                             style={{ fontSize: fontSize.mainPara, lineHeight: fontSize.paraLeading }}
-                            className={`text-[#0E172FB2] text-[12px] leading-[26px] ${fontLight} word-spacing-5 ${isPhone ? "w-4/5" : isTablet ? "w-2/3" : "w-1/2"} `}>
+                            className={`text-[#0E172FB2] text-[12px] leading-[26px] ${fontLight} word-spacing-5 ${isPhone ? "w-4/5" : isTablet ? "w-2/3" : "w-1/2"} 
+                                ${checkDifference(currentContent?.['1']?.content?.description?.[language], liveContent?.['1']?.content?.description?.[language])}
+                            `}>
                             {currentContent?.['1']?.content?.description?.[language]}
                         </p>
                     </div>
                 </div>
             </section>
 
-            {/* <section
-                style={{ padding: `${getDynamicSize(80)} ${getDynamicSize(112)}` }}
-                className={`flex gap-[30px]  ${isPhone ? "flex-col px-[30px]" : ""}`}>
-                <h2 className='text-[32px]  flex-1 leading-[28px]'>
-                    {currentContent?.subBanner?.title?.[language] ||
-                        "Lorem ipsum dolor sit."
-                    }
-                </h2>
-                <div className='text-[9.5px] flex-1' dangerouslySetInnerHTML={{
-                    __html:
-                        currentContent?.subBanner?.description?.[language] ||
-                        "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Deleniti voluptatem pariatur corrupti error ut vero expedita inventore repudiandae nostrum assumenda!"
-                }} />
-
-            </section> */}
 
             <section className={`grid ${isPhone ? "grid-cols-1 p-10" : "grid-cols-2"} gap-x-20 gap-y-5 `}
                 style={{
@@ -83,11 +75,15 @@ const HSnE = ({ currentContent, screen, language, width }) => {
                     currentContent?.[2]?.content?.cards?.map((card, i) => {
 
                         return (
-                            <div className="relative pr-10 pb-5 flex gap-2">
+                            <div className="relative pr-10 pb-5 flex gap-2" key={i}>
                                 <div className=""><img src={Img_url + card?.images?.[0]?.url} alt="" className="w-[120px] h-[50px]" /></div>
                                 <div className="flex flex-col gap-2">
-                                    <h3 className={`text-[#292E3D]`} style={{ fontSize: fontSize.subProjectHeadings }}>{card?.title?.[language]}</h3>
-                                    <p className={`text-[10px] text-[#718096] ${fontLight}`} style={{ fontSize: fontSize.mainPara }}>
+                                    <h3 className={`text-[#292E3D]
+                                        ${checkDifference(card?.title?.[language], liveContent?.[2]?.content?.cards?.[i]?.title?.[language])}
+                                        `} style={{ fontSize: fontSize.subProjectHeadings }}>{card?.title?.[language]}</h3>
+                                    <p className={`text-[10px] text-[#718096] ${fontLight}
+                                        ${checkDifference(card?.description?.[language], liveContent?.[2]?.content?.cards?.[i]?.description?.[language])}
+                                    `} style={{ fontSize: fontSize.mainPara }}>
                                         {card?.description?.[language]}
                                     </p>
                                 </div>
@@ -95,8 +91,6 @@ const HSnE = ({ currentContent, screen, language, width }) => {
                         )
                     })
                 }
-
-
             </section>
 
             <div className="w-full"
@@ -105,8 +99,10 @@ const HSnE = ({ currentContent, screen, language, width }) => {
                 }}
             >
                 <img
-                    src={Img_url + currentContent?.[2].images?.[0]?.url} alt=""
-                    className={`w-full ${isPhone ? "aspect-[2/1.5]" : "aspect-[2.88/1]"} object-cover object-bottom`}
+                    src={Img_url + currentContent?.[2]?.content?.images?.[0]?.url} alt=""
+                    className={`w-full ${isPhone ? "aspect-[2/1.5]" : "aspect-[2.88/1]"} object-cover object-bottom
+                    ${checkDifference(currentContent?.[2]?.content?.images?.[0]?.url, liveContent?.[2]?.content?.images?.[0]?.url)}
+                    `}
                 />
             </div>
 
@@ -115,7 +111,9 @@ const HSnE = ({ currentContent, screen, language, width }) => {
                     padding: isComputer && `${getDynamicSize(100)} ${getDynamicSize(150)} ${getDynamicSize(50)}`
                 }}
             >
-                <h2 className="text-[18px]"
+                <h2 className={`text-[18px]
+                ${checkDifference(currentContent?.['2']?.content?.title?.[language], liveContent?.['2']?.content?.title?.[language])}
+                `}
                     style={{
                         lineHeight: fontSize.headingLeading,
                         fontSize: fontSize.aboutMainPara
@@ -125,11 +123,15 @@ const HSnE = ({ currentContent, screen, language, width }) => {
                         currentContent?.['2']?.content?.title?.[language]
                     }
                 </h2>
-                <p
+                <div
                     style={{ fontSize: fontSize.mainPara, lineHeight: fontSize.paraLeading }}
-                    className={`text-[#718096] text-[12px] ${fontLight}`}>
-                    {currentContent?.['2']?.content?.description?.[language]}
-                </p>
+                    className={`text-[#718096] text-[12px] ${fontLight}
+                        ${checkDifference(currentContent?.['2']?.content?.description?.[language], liveContent?.['2']?.content?.description?.[language])}
+                    `}
+                    dangerouslySetInnerHTML={{ __html: currentContent?.['2']?.content?.description?.[language] }}
+                >
+                    {/* {currentContent?.['2']?.content?.description?.[language]} */}
+                </div>
                 {/* {currentContent?.['2']?.content?.sectionPointers?.map((e, i) => {
                     return (
                         <p
@@ -154,7 +156,9 @@ const HSnE = ({ currentContent, screen, language, width }) => {
                             <div className="flex items-start" style={{ gap: isPhone ? "4px" : getDynamicSize(8) }}>
                                 <img src={blueCheckIcon} alt="" className="translate-y-[1px]"
                                     style={{ width: isPhone ? "" : getDynamicSize(20), height: isPhone ? "" : getDynamicSize(20) }} />
-                                <p className={`font-[300] text-[#718096] text-[10px] ${fontLight}`}
+                                <p className={`font-[300] text-[#718096] text-[10px] ${fontLight}
+                                        ${checkDifference(description?.text?.[language], liveContent?.[2]?.content?.sectionPointers?.[i]?.text?.[language])}
+                                        `}
                                     key={i}
                                     style={{
                                         fontSize: fontSize.mainPara

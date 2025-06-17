@@ -58,8 +58,8 @@ const SubServiceDetails = ({ serviceId, content, language, screen, deepPath, wid
                 style={{ padding: `${getDynamicSize(112)} ${getDynamicSize(130)} ${getDynamicSize(40)}` }}
             >
                 <article className={`flex flex-col gap-[34px] ${isPhone ? "" : ""}`}>
-                    <section className={`flex gap-[30px] ${isPhone ? "flex-col px-[30px]" : ""}`}>
-                        <h2 className={`text-[35px] ${isPhone ? "" : "w-1/2"}
+                    <section className={`flex gap-[30px] ${isPhone ? "flex-col px-[10px]" : ""}`}>
+                        <h2 className={`${isPhone ? "leading-[30px]" : "w-1/2"}
                         ${checkDifference(content?.[1]?.content?.title?.[language], liveContent?.[1]?.content?.title?.[language])}
                         `}
                             style={{ fontSize: fontSize.serviceHeading, lineHeight: isComputer && getDynamicSize(35) }}
@@ -79,8 +79,8 @@ const SubServiceDetails = ({ serviceId, content, language, screen, deepPath, wid
                         ${checkDifference(content?.[1]?.content?.images?.[0]?.url, content?.[1]?.content?.images?.[0]?.url)}
                         `} />
                     </div>
-                    <section className={`flex gap-[30px]  ${isPhone ? "flex-col px-[30px]" : ""}`}>
-                        <h2 className={`text-[32px]  flex-1 leading-[28px]
+                    <section className={`flex gap-[30px]  ${isPhone ? "flex-col px-[10px]" : ""}`}>
+                        <h2 className={`text-[32px]  flex-1 leading-[30px]
                         ${checkDifference(content?.[2]?.content?.title?.[language], liveContent?.[2]?.content?.title?.[language])}
                         `}
                             style={{ fontSize: fontSize.serviceHeading, lineHeight: isComputer && getDynamicSize(35) }}
@@ -97,10 +97,10 @@ const SubServiceDetails = ({ serviceId, content, language, screen, deepPath, wid
             {/* Services */}
             < section
                 style={{
-                    padding: `0px ${getDynamicSize(130)} ${getDynamicSize(40)}`,
+                    padding: (isComputer || isTablet) && `0px ${getDynamicSize(130)} ${getDynamicSize(40)}`,
                     gap: getDynamicSize(40)
                 }}
-                className={`py-[20px] grid ${isPhone ? "grid-cols-1" : "grid-cols-2 px-[75px]"} auto-rows-fr`}>
+                className={`py-16 px-10 grid ${isPhone ? "grid-cols-1" : "grid-cols-2 px-[75px]"} auto-rows-fr`}>
                 {
                     content?.[2]?.content?.points?.map((point, i) => {
 

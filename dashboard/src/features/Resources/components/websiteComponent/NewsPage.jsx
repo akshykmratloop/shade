@@ -169,12 +169,12 @@ const NewsBlogspage = ({ language, screen, content, highlight, liveContent, widt
                                         </div>
                                         <div className="flex items-center justify-between">
                                             <h6
-                                                style={{ fontSize: isComputer ? getDynamicSize(13) : isTablet ? getDynamicSize(20) : getDynamicSize(50) }}
+                                                style={{ fontSize: isComputer ? getDynamicSize(13) : isTablet ? getDynamicSize(24) : getDynamicSize(50) }}
                                                 className={`${fontLight} text-gray-600 text- ${isLeftAlign ? '' : 'scale-x-[-1] text-right'}`} dir={language == "ar" ? "rtl" : "ltr"}>
                                                 {card.date[language]}
                                             </h6>
                                             <button
-                                                style={{ fontSize: isComputer ? getDynamicSize(13) : isTablet ? getDynamicSize(20) : getDynamicSize(50) }}
+                                                style={{ fontSize: isComputer ? getDynamicSize(13) : isTablet ? getDynamicSize(24) : getDynamicSize(50) }}
                                                 dir={language == "ar" ? "rtl" : "ltr"}
                                                 // onClick={() => router.push(`blog/${card.id}`)}
                                                 className={`text-[10px] font-bold text-[#00B9F2] border-none bg-transparent cursor-pointer ${isLeftAlign ? '' : 'scale-x-[-1] text-right'}`}
