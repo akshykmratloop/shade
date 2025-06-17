@@ -22,6 +22,7 @@ import Popups from "../Resources/components/breakUI/Popups";
 import { approveRequest, rejectedRequest } from "../../app/fetch";
 import { toast } from "react-toastify";
 import ShowPdf from "./ShowPDF";
+import { CiCalendar } from "react-icons/ci";
 
 
 
@@ -216,12 +217,15 @@ function ShowDifference({ show, onClose, request, resourceId, currentlyEditor, c
                                             (<div className="flex gap-2">
                                                 { // for currentlyPublisher
                                                     currentlyPublisher &&
-                                                    <div className='flex items-center gap-1'>
-                                                        <span className={`text-[14px] font-lexend font-[400] dark:text-[#CBD5E1] text-[#202a38] select-none`}>
+                                                    <div className='flex items-center gap-1 px-3 bg-green-700 xl:h-[2.68rem] sm:h-[2rem] rounded-lg' onClick={() => setShowDateTime(true)}>
+                                                        <span className="text-white">
+                                                            <CiCalendar strokeWidth={10} />
+                                                        </span>
+                                                        <span className={`text-[14px] font-lexend font-[300] dark:text-[#CBD5E1] text-[white] select-none`}>
                                                             Publish Schedule
                                                         </span>
 
-                                                        <Switch
+                                                        {/* <Switch
                                                             checked={true}
                                                             onChange={() => setShowDateTime(true)}
                                                             className={`${true
@@ -235,18 +239,18 @@ function ShowDifference({ show, onClose, request, resourceId, currentlyEditor, c
                                                                     : "translate-x-0"
                                                                     } inline-block h-[17px] w-[17px] bg-white rounded-full shadow-2xl border border-gray-300 transition`}
                                                             />
-                                                        </Switch>
+                                                        </Switch> */}
                                                     </div>}
                                                 <div className="flex gap-2 px-2">
-                                                    <button onClick={() => { setOnRejectPopup(true) }} className='flex justify-center items-center gap-1 bg-[#FF0000] rounded-md xl:h-[2.68rem] sm:h-[2rem] xl:text-xs sm:text-[.6rem] xl:w-[5.58rem] w-[4rem] text-[white]'>
+                                                    <button onClick={() => { setOnRejectPopup(true) }} className='flex font-[500] justify-center items-center gap-1 bg-[#FF0000] rounded-md xl:h-[2.68rem] sm:h-[2rem] xl:text-xs sm:text-[.6rem] xl:w-[5.58rem] w-[4rem] text-[white]'>
                                                         <RxCross1 /> Reject
                                                     </button>
-                                                    <Button text={'Approve'} functioning={() => { setPopupSubmit(true) }} classes='bg-[#29469D] rounded-md xl:h-[2.68rem] sm:h-[2rem] xl:text-xs sm:text-[.6rem] xl:w-[5.58rem] w-[4rem] text-[white]' />
+                                                    <Button text={'Approve'} functioning={() => { setPopupSubmit(true) }} classes='bg-[#29469D] font-[500] rounded-md xl:h-[2.68rem] sm:h-[2rem] xl:text-xs sm:text-[.6rem] xl:w-[5.58rem] w-[4rem] text-[white]' />
                                                 </div>
                                             </div>) :
                                             (
                                                 <div className="flex gap-2 px-2">
-                                                    <Button text={'Publish'} functioning={() => { setPopupPublish(true) }} classes='bg-[#29469D] rounded-md xl:h-[2.68rem] sm:h-[2rem] xl:text-xs sm:text-[.6rem] xl:w-[5.58rem] w-[4rem] text-[white]' />
+                                                    <Button text={'Publish'} functioning={() => { setPopupPublish(true) }} classes='bg-[#29469D] font-[500] rounded-md xl:h-[2.68rem] sm:h-[2rem] xl:text-xs sm:text-[.6rem] xl:w-[5.58rem] w-[4rem] text-[white]' />
                                                 </div>
                                             )
                                     }
@@ -288,7 +292,7 @@ function ShowDifference({ show, onClose, request, resourceId, currentlyEditor, c
                     </div>
                     {
                         showDateTime &&
-                        <DateTime onClose={setShowDateTime} display={showDateTime} />
+                        <DateTime onClose={setShowDateTime} display={showDateTime} requestId={requestId} />
                     }
                     {
                         onRejectPopup &&

@@ -413,6 +413,16 @@ export async function publishContent(body) {
   );
 }
 
+export async function schedulePublish(param, body) {
+  return await makerequest(
+    `${api.route("scheduleRequest")}${param}`,
+    "POST",
+    JSON.stringify(body),
+    ContentType.json,
+    true
+  );
+}
+
 export async function generateRequest(body) {
   return await makerequest(
     `${api.route("generateRequest")}`,
