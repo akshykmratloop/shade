@@ -5,7 +5,7 @@ import {
 import Arrow from "../../../../assets/icons/right-wrrow.svg";
 // import AboutUs from "../../../../assets/images/aboutus.png";
 // import background from "../../../../assets/images/Hero.png";
-import highlightsvg from "../../../../assets/highlight.svg"
+// import highlightsvg from "../../../../assets/highlight.svg"
 import {
     recentProjects,
     markets,
@@ -19,9 +19,11 @@ import {
     Autoplay,
     EffectCoverflow,
 } from "swiper/modules";
-import "swiper/css/navigation";
 import "swiper/css";
+import "swiper/css/navigation";
 import "swiper/css/pagination";
+import "swiper/css/effect-coverflow";
+
 // import blankImage from "../../../../assets/images/blankImage.webp";
 import { TruncateText } from "../../../../app/capitalizeword";
 import dynamicSize, { generatefontSize } from "../../../../app/fontSizes";
@@ -114,6 +116,12 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
 
     const testimonialPrevRef = useRef(null);
     const testimonialNextRef = useRef(null);
+
+    // Add onSwiper callback
+    const handleSwiperInit = (swiper) => {
+        setSwiperInstance(swiper);
+    };
+
     return (
         <div className={`w-full relative ${textAlignment} bankgothic-medium-dt bg-[white]`} >
             {/* banner 1  */}
@@ -387,22 +395,30 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                             style={{ width: (isComputer || fullScreen) ? dynamicSize(800, width) : (!isComputer && fullScreen) ? dynamicSize(1030, width) : "" }}
                         >
                             <Swiper
-                                key={language}
-                                modules={[Pagination, Navigation]}
-                                className={`mySwiper pl-1 mx-auto 
-                                    ${checkDifference(projectChunks.flat(), liveProjectChunks.flat(), "", "projects")}
-                                    `}
-                                style={{ width: "100%" }}
+                                onSwiper={handleSwiperInit}
+                                modules={[Navigation, Autoplay, EffectCoverflow]}
+                                grabCursor={true}
+                                centeredSlides={true}
+                                slidesPerView={isPhone ? 1 : isTablet ? 2 : 3}
+                                spaceBetween={30}
+                                pagination={{
+                                    clickable: true,
+                                }}
                                 navigation={{
                                     prevEl: prevRef.current,
                                     nextEl: nextRef.current,
                                 }}
-                                onSwiper={(swiper) => {
-                                    setSwiperInstance(swiper);
-                                    swiper.params.navigation.prevEl = prevRef.current;
-                                    swiper.params.navigation.nextEl = nextRef.current;
-                                    swiper.navigation.init();
-                                    swiper.navigation.update();
+                                autoplay={{
+                                    delay: 2500,
+                                    disableOnInteraction: false,
+                                }}
+                                effect="coverflow"
+                                coverflowEffect={{
+                                    rotate: 50,
+                                    stretch: 0,
+                                    depth: 100,
+                                    modifier: 1,
+                                    slideShadows: true,
                                 }}
                             >
                                 {projectChunks?.map((chunk, slideIndex) => {
@@ -588,34 +604,30 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                         }
                         {content?.["7"]?.items?.length > 1 &&
                             <Swiper
+                                onSwiper={handleSwiperInit}
                                 modules={[Navigation, Autoplay, EffectCoverflow]}
                                 grabCursor={true}
                                 centeredSlides={true}
-                                slidesPerView={isPhone ? 1 : 2}
-                                loop={true}
-                                spaceBetween={10}
-                                effect="coverflow"
+                                slidesPerView={isPhone ? 1 : isTablet ? 2 : 3}
+                                spaceBetween={30}
+                                pagination={{
+                                    clickable: true,
+                                }}
                                 navigation={{
                                     prevEl: testimonialPrevRef.current,
                                     nextEl: testimonialNextRef.current,
                                 }}
-                                onSwiper={(swiper) => {
-                                    swiper.params.navigation.prevEl = testimonialPrevRef.current;
-                                    swiper.params.navigation.nextEl = testimonialNextRef.current;
-                                    swiper.navigation.init();
-                                    swiper.navigation.update();
+                                autoplay={{
+                                    delay: 2500,
+                                    disableOnInteraction: false,
                                 }}
+                                effect="coverflow"
                                 coverflowEffect={{
-                                    rotate: 0,
+                                    rotate: 50,
                                     stretch: 0,
-                                    depth: 250,
-                                    modifier: 2,
-                                    slideShadows: false,
-                                }}
-                                autoplay={{ delay: 2500 }}
-                                breakpoints={{
-                                    724: { slidesPerView: isPhone ? 1 : 1.5 },
-                                    500: { slidesPerView: 1 },
+                                    depth: 100,
+                                    modifier: 1,
+                                    slideShadows: true,
                                 }}
                             >
                                 {content?.["7"]?.items?.map(
@@ -627,7 +639,7 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
 
                                                 <div className="flex 1">
                                                     <img
-                                                        src={["7"]?.[testimonial?.liveModeVersionData?.image]}
+                                                        src={Img_url + testimonial?.liveModeVersionData?.image}
                                                         height={70}
                                                         width={70}
                                                         alt={testimonial?.name}

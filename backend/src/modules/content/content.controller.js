@@ -21,6 +21,8 @@ import {
   restoreVersion,
   deactivateResources,
   activateResources,
+  getDashboardInsight,
+  scheduleRequest
 } from "./content.service.js";
 
 const GetResources = async (req, res) => {
@@ -166,6 +168,15 @@ const RejectRequest = async (req, res) => {
   res.status(200).json(response);
 };
 
+
+const ScheduleRequest = async (req, res) =>{
+  const { requestId } = req.params;
+  const userId = req.user.id;
+  const { date } = req.body;
+  const response = await scheduleRequest(requestId, userId, date);
+  res.status(200).json(response);
+}
+
 const GetVersionsList = async (req, res) => {
   const { resourceId } = req.params;
   const { search, status, page, limit } = req.query;
@@ -208,6 +219,12 @@ const ActivateResources = async (req, res) => {
   res.status(200).json(response);
 };
 
+
+const GetDashboardInsight = async (_, res) => {
+  const response = await getDashboardInsight();
+  res.status(200).json(response);
+}
+
 export default {
   GetResources,
   GetResourceInfo,
@@ -223,10 +240,13 @@ export default {
   GetRequestInfo,
   ApproveRequest,
   RejectRequest,
+  ScheduleRequest,
+
   GetVersionsList,
   GetVersionInfo,
   RestoreVersion,
   DeleteAllContentData,
   DeactivateResources,
   ActivateResources,
+  GetDashboardInsight,
 };

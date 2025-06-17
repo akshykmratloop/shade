@@ -4158,19 +4158,21 @@ export const fetchRequestInfo = async (requestId) => {
       },
     },
   });
-
+  
   if (!request) {
     throw new Error("Request not found");
   }
 
   // Determine simplified flow status
   let simplifiedFlowStatus = "PENDING"; // Default status
+  let scheduleAt;
 
   // If request is already published or scheduled, use that status
   if (request.status === "PUBLISHED") {
     simplifiedFlowStatus = "PUBLISHED";
   } else if (request.resourceVersion.versionStatus === "SCHEDULED") {
     simplifiedFlowStatus = "SCHEDULED";
+    scheduleAt =request.resourceVersion.scheduledAt;
   } else {
     // Check if any approval is rejected
     const hasRejection = request.approvals.some(
@@ -4193,6 +4195,7 @@ export const fetchRequestInfo = async (requestId) => {
     details: {
       resource: request.resourceVersion.resource.titleEn,
       resourceType: request.resourceVersion.resource.resourceType,
+      ...(scheduleAt ? { scheduleAt } : {}),
       resourceTag: request.resourceVersion.resource.resourceTag,
       slug: request.resourceVersion.resource.slug,
       status: request.status,
@@ -4599,6 +4602,96 @@ export const rejectRequestInPublication = async (
   });
 };
 
+export const scheduleRequestToPublish = async (requestId, userId, date) => {
+  const currentDate = new Date();
+  const scheduledDate = new Date(date);
+
+  if (scheduledDate < currentDate) {
+    throw new Error("Cannot schedule for a past date");
+  }
+  return await prismaClient.$transaction(async (tx) => {
+    // Find the specific approval log for this user
+    const approvalLog = await tx.requestApproval.findFirst({
+      where: {
+        requestId: requestId,
+        approverId: userId,
+        status: "PENDING", // Using the correct ApprovalStatus enum value
+        stage: null, // Publisher approvals have null stage
+        approverStatus: "ACTIVE", // Only active approvers can approve
+      },
+    });
+
+    if (!approvalLog) {
+      throw new Error(
+        "Approval log not found or user is not an active approver"
+      );
+    }
+
+    // Update the approval status
+    await tx.requestApproval.update({
+      where: { id: approvalLog.id },
+      data: {
+        status: "APPROVED",
+      },
+    });
+
+    // Get the request to find the resourceVersionId
+    const request = await tx.resourceVersioningRequest.findUnique({
+      where: { id: requestId },
+      select: {
+        resourceVersionId: true,
+        type: true,
+        resourceVersion: {
+          select: {
+            resourceId: true,
+          },
+        },
+      },
+    });
+
+    if (!request) {
+      throw new Error('Request not found');
+    }
+
+    // Update request status and flow status
+    await tx.resourceVersioningRequest.update({
+      where: { id: requestId },
+      data: {
+        status: "SCHEDULED",
+        flowStatus: "SCHEDULED",
+      },
+    });
+
+    // Update the resource version
+    await tx.resourceVersion.update({
+      where: { id: request.resourceVersionId },
+      data: {
+        versionStatus: 'SCHEDULED',
+        scheduledAt: date
+      }
+    });
+
+    // Update the resource to point to the scheduled version
+    await tx.resource.update({
+      where: { id: request.resourceVersion.resourceId },
+      data: {
+        scheduledVersionId: request.resourceVersionId,
+        newVersionEditModeId: null // Remove from edit mode
+      }
+    });
+
+    // Get the updated request to return
+    const updatedRequest = await tx.resourceVersioningRequest.findUnique({
+      where: { id: requestId },
+      include: {
+        approvals: true,
+      },
+    });
+
+    return updatedRequest;
+  });
+};
+
 export const fetchVersionsList = async (
   resourceId,
   search,
@@ -4769,6 +4862,12 @@ export const fetchVersionsInfo = async (versionId) => {
     throw new Error("Version not found");
   }
 
+  let scheduleAt
+
+  if(version.flowStatus === "SCHEDULED"){
+   scheduleAt = version.scheduleAt
+  }
+
   // Determine which role and verifier data to use based on version status
   const isDraftVersion = version.versionStatus === "DRAFT";
   const rolesToProcess = isDraftVersion
@@ -4852,6 +4951,8 @@ export const fetchVersionsInfo = async (versionId) => {
       type: request.type,
       status: request.status,
       flowStatus: request.flowStatus,
+      ...(scheduleAt ? { scheduleAt } : {}),
+
       submittedBy: request.sender,
       submittedAt: request.createdAt,
       referenceDoc: request.referenceDoc,
@@ -5355,4 +5456,142 @@ export const activateResource = async (resourceId) => {
   });
 
   return resource;
+};
+
+
+
+
+
+
+// DASHBOARD API
+
+// Get total count of roles where name is 'user' or 'manager' and status is 'ACTIVE'
+export const getTotalRolesCounts = async () => {
+  const totalRoles = await prismaClient.role.count({
+    where: {
+      name: {
+        not: "SUPER_ADMIN",
+        mode: "insensitive",
+      },
+    },
+  });
+
+  return totalRoles;
+};
+
+// Get total user count
+export const getTotalUserCounts = async () => {
+  const totalUser = await prismaClient.user.count({
+    where: {
+      name: {
+        not: "Super Admin",
+        mode: "insensitive",
+      },
+    },
+  });
+
+  return totalUser;
+};
+
+// Get total resource roles with status 'ACTIVE'
+export const getTotalResourceRole = async () => {
+
+  const roles = await prismaClient.role.findMany({
+    where: {
+      name: {
+        not: "SUPER_ADMIN", // Exclude SUPER_ADMIN
+        mode: "insensitive",
+      },
+    },
+    include: {
+      permissions: {
+        include: {
+          permission: {
+            select: {
+              name: true,
+            }
+          },
+        },
+      },
+      _count: {
+        select: {
+          users: true, // Count of users per role
+        },
+      },
+    },
+  });
+
+  const editorCount = roles
+    .filter(role => role.permissions.some(p => p.permission?.name === "EDIT"))
+    .reduce((sum, role) => sum + role._count.users, 0);
+
+  const verifierCount = roles
+    .filter(role => role.permissions.some(p => p.permission?.name === "VERIFY"))
+    .reduce((sum, role) => sum + role._count.users, 0);
+
+  const publisherCount = roles
+    .filter(role => role.permissions.some(p => p.permission?.name === "PUBLISH"))
+    .reduce((sum, role) => sum + role._count.users, 0);
+  return {
+    editor: editorCount,
+    verifier: verifierCount,
+    publisher: publisherCount,
+    totalResourceRole: editorCount + verifierCount + publisherCount,
+  };
+};
+
+// Get all requests with status APPROVED, PENDING, or REJECTED
+export const getTotalAvailableRequests = async () => {
+  const [pendingCount, scheduledCount, approvedCount, rejectedCount] = await Promise.all([
+    prismaClient.resourceVersioningRequest.count({ where: { flowStatus: "PENDING" } }),
+    prismaClient.resourceVersioningRequest.count({ where: { flowStatus: "SCHEDULED" } }),
+    prismaClient.resourceVersioningRequest.count({ where: { flowStatus: "PUBLISHED" } }),
+    prismaClient.resourceVersioningRequest.count({ where: { flowStatus: "REJECTED" } }),
+  ]);
+
+  return {
+    pending: pendingCount,
+    scheduled: scheduledCount,
+    approved: approvedCount,
+    rejected: rejectedCount,
+    totalRequests: pendingCount + approvedCount + rejectedCount,
+  };
+};
+
+// Get total projects with status ONGOING or COMPLETE
+export const getTotalAvailableProjects = async () => {
+
+  const projects = await prismaClient.resource.findMany({
+    where: {
+      resourceType: "SUB_PAGE",
+      resourceTag: "PROJECT",
+    },
+    include: {
+      filters: {
+        select: {
+          nameEn: true,
+          nameAr: true,
+        },
+      },
+    },
+  });
+
+  // filter the projects based on the nameEn for two ONGOING and COMPLETE
+  const ongoingProjects = projects.filter(project =>
+    project.filters.some(filter =>
+      filter.nameEn === "ONGOING"
+    )
+  ).length;
+
+  const completedProjects = projects.filter(project =>
+    project.filters.some(filter =>
+      filter.nameEn === "COMPLETE"
+    )
+  ).length;
+
+  return {
+    ongoing: ongoingProjects,
+    completed: completedProjects,
+    totalProjects: ongoingProjects + completedProjects,
+  };
 };

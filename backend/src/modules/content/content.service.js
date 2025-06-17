@@ -24,6 +24,12 @@ import {
   restoreLiveVersion,
   deactivateResource,
   activateResource,
+  getTotalRolesCounts,
+  getTotalUserCounts,
+  getTotalResourceRole,
+  getTotalAvailableRequests,
+  getTotalAvailableProjects,
+  scheduleRequestToPublish,
 } from "../../repository/content.repository.js";
 
 const getResources = async (
@@ -266,8 +272,8 @@ const rejectRequest = async (requestId, userId, rejectReason) => {
   return { message: "Success", request };
 };
 
-const ScheduleRequest = async (requestId) => {
-  const request = await fetchRequestInfo(requestId);
+const scheduleRequest = async (requestId, userId, date) => {
+  const request = await scheduleRequestToPublish(requestId, userId, date);
   logger.info({
     response: "Request Scheduled successfully",
     // request: request,
@@ -346,6 +352,31 @@ const activateResources = async (resourceId) => {
   return { message: "Resource activated successfully", result };
 };
 
+
+
+const getDashboardInsight = async () => {
+  const totalRoles = await getTotalRolesCounts();
+  const totalUsers = await getTotalUserCounts();
+  const totalResourceRoles = await getTotalResourceRole();
+  const totalAvailableRequests = await getTotalAvailableRequests();
+  const totalAvailableProjects = await getTotalAvailableProjects();
+
+  const result = {
+    totalRoles,
+    totalUsers,
+    totalResourceRoles,
+    totalAvailableRequests,
+    totalAvailableProjects,
+  };
+
+  logger.info({
+    response: "All content-related dashboard insight fetched successfully",
+    result: result,
+  });
+
+  return { message: "All content-related dashboard insight fetched successfully", result };
+};
+
 export {
   getResources,
   getResourceInfo,
@@ -361,7 +392,7 @@ export {
   getRequestInfo,
   approveRequest,
   rejectRequest,
-  ScheduleRequest,
+  scheduleRequest,
   PublishRequest,
   getVersionsList,
   getVersionInfo,
@@ -369,4 +400,5 @@ export {
   deleteAllContentData,
   deactivateResources,
   activateResources,
+  getDashboardInsight
 };
