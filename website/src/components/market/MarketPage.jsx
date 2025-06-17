@@ -29,16 +29,19 @@ const ContactUsModal = dynamic(() => import("../header/ContactUsModal"), {
   ssr: false,
 });
 import { projectPageData } from "../../assets/index";
+import { Img_url } from "@/common/CreateContent";
 
-const MarketPage = () => {
+const MarketPage = ({ content }) => {
   const router = useRouter();
 
   const testimonialPrevRef = useRef(null);
   const testimonialNextRef = useRef(null);
   const [activeTab, setActiveTab] = useState("buildings");
-  const { language, content } = useGlobalContext();
-  const currentContent = content?.market;
+  const { language } = useGlobalContext();
+  const currentContent = content;
   const [isModal, setIsModal] = useState(false);
+  const isLeftAlign = language === "en";
+  const titleLan = isLeftAlign ? "titleEn" : "titleAr"
 
   const [filterMarketItems, setFilterMarketItems] = useState([]);
   const [visibleMarketItemsCount, setVisibleMarketItemCount] = useState(6);
@@ -51,8 +54,8 @@ const MarketPage = () => {
     setFilterMarketItems(
       currentContent?.tabSection?.marketItems
         ? currentContent?.tabSection?.marketItems.filter(
-            (item) => item?.type === activeTab
-          )
+          (item) => item?.type === activeTab
+        )
         : []
     );
     setVisibleMarketItemCount(6);
@@ -68,9 +71,12 @@ const MarketPage = () => {
   return (
     <>
       <section
-        className={` ${language === "en" && styles.leftAlign}   ${
-          styles.market_banner_wrap
-        }`}
+        className={` ${language === "en" && styles.leftAlign}   ${styles.market_banner_wrap
+          }`}
+
+        style={{
+          background: `url(${Img_url + currentContent?.[1]?.content?.images?.[0]?.url}) no-repeat center / cover`
+        }}
       >
         <div
           className="container"
@@ -79,10 +85,10 @@ const MarketPage = () => {
           <div className={styles.content}>
             {/* <AnimatedText text={currentContent?.banner?.title[language]} Wrapper="h1" repeatDelay={0.04} className={`${styles.title} ${BankGothic.className}`} /> */}
             <h1 className={`${styles.title} `}>
-              {currentContent?.banner?.title[language]}
+              {currentContent?.[1]?.content?.title?.[language]}
             </h1>
             <p className={`${styles.description} ${BankGothic.className}`}>
-              {currentContent?.banner?.description[language]}
+              {currentContent?.[1]?.content?.description?.[language]}
             </p>
             <Button
               className={styles.view_btn}
@@ -95,16 +101,104 @@ const MarketPage = () => {
                 alt=""
                 className={styles.arrow_btn}
               />
-              &nbsp;{currentContent?.banner?.button?.text[language]}
+              &nbsp;{currentContent?.[1]?.content?.button?.[0]?.text?.[language]}
             </Button>
           </div>
         </div>
-      </section>
+      </section >
 
+      {/* sub heading */}
+      < section
+        dir={isLeftAlign ? "ltr" : "rtl"}
+
+        className={`${styles.subHeading}`
+        }>
+        <h2
+          // style={{ fontSize: '60px' }}
+          className={`${styles.title}`}>
+          {currentContent?.['3']?.content?.introSection?.title?.[language]}
+        </h2>
+        <div
+          style={{ wordSpacing: '2px', lineHeight: '20px' }}
+          className={`${styles.description} bank-light`}
+          dangerouslySetInnerHTML={{ __html: currentContent?.['3']?.content?.introSection?.description?.[language] }}
+        />
+      </section >
+
+      {/* market cards */}
+      <div className={`${styles.subMarkets}`}
+        dir={isLeftAlign ? "ltr" : "rtl"}
+      >
+        {
+          currentContent?.['3']?.items?.map((e, i) => {
+            let odd = i % 2 !== 0
+            return (
+              <section
+                style={{
+                  height: '359px',
+                  flexDirection: odd ? "row-reverse" : ""
+                }}
+                className={`${styles.card}`} key={e.id}>
+                <div className={` ${styles.Imagediv}`}
+                // style={{ width: '463px', height: '100%' }}
+                >
+                  <img
+                    src="https://frequencyimage.s3.ap-south-1.amazonaws.com/851e35b5-9b3b-4d9f-91b4-9b60ef2a102c-Rectangle%2034624110.png"
+                    alt=""
+                    style={{
+                      width: '463px',
+                      height: '100%'
+                    }}
+                  />
+                </div>
+                <article
+                  dir={isLeftAlign ? "ltr" : "rtl"}
+                  className={`${styles.article}`}>
+                  <h3 className={`${styles.title}`}
+                    style={{
+                      fontSize: '32px',
+                    }}
+                  >{TruncateText(e?.[titleLan], 35)} </h3>
+                  <p className={`${styles.description} bank-light`}
+                    style={{
+                      fontSize: '16px',
+                      wordSpacing: '2px'
+                    }}>
+                    {TruncateText(e?.description?.[language], 350)}
+                  </p>
+                  <button
+                    className={`${styles.button} ${isLeftAlign ? "flex-row-reverse" : ""} bankgothic-medium-dt`}
+                    style={{
+                      fontSize: '16px',
+                      padding: '15px',
+                      flexDirection: "row-reverse",
+                    }}
+                  >
+                    <Image
+                      src={Arrow}
+                      alt="Arrow"
+                      style={{
+                        // fontSize: '16px',
+                        // padding: '15px',
+                        scale: isLeftAlign ? "-1" : "",
+                      }}
+                      className={` ${isLeftAlign ? 'scale-x-[-1]' : ''}  w-[11px] h-[11px]`}
+                    />
+                    <p>
+                      {currentContent?.["3"]?.content?.button?.[0]?.text?.[language]}
+                    </p>
+                  </button>
+                </article>
+              </section>
+            )
+          })
+        }
+      </div>
+
+      {/* quote */}
       <section
-        className={` ${language === "en" && styles.leftAlign}   ${
-          styles.market_cot_wrap
-        }`}
+        className={` ${language === "en" && styles.leftAlign}   ${styles.market_cot_wrap
+          }`}
       >
         <div className="container">
           <div className={styles.content}>
@@ -117,108 +211,26 @@ const MarketPage = () => {
                 className={styles.arrow_btn}
               />
               <p className={`${styles.description} ${BankGothic.className}`}>
-                {currentContent?.quote?.text[language]}
+                {currentContent?.[2]?.content?.text[language]}
               </p>
               <h5 className={`${styles.title} ${BankGothic.className}`}>
-                -{currentContent?.quote?.author[language]}
+                -{currentContent?.[2]?.content?.author[language]}
               </h5>
             </div>
           </div>
         </div>
       </section>
 
-      <section
-        className={` ${language === "en" && styles.leftAlign}   ${
-          styles.market_tab_container
-        }`}
-      >
-        <div className="container">
-          <div className={styles.tabContainer}>
-            {/* Tabs */}
-            <div className={styles.tabs}>
-              {currentContent?.tabSection?.tabs.map((tab, index) => (
-                <button
-                  key={index}
-                  className={`${styles.tabButton} ${
-                    activeTab === tab?.id ? styles.activeTab : ""
-                  }`}
-                  onClick={() => setActiveTab(tab?.id)}
-                >
-                  {tab.title[language]}
-                </button>
-              ))}
-            </div>
-
-            {/* Cards */}
-            <div className={styles.card_group}>
-              {filterMarketItems
-                ?.slice(0, visibleMarketItemsCount)
-                ?.map((item, index) => (
-                  <div className={styles.card} key={index}>
-                    <Image
-                      src={projectPageData[item.imgUrl]}
-                      width="339"
-                      height="190"
-                      alt={item.title[language]}
-                      className={styles.card_image}
-                    />
-                    <h5
-                      title={item?.title[language]}
-                      className={`${styles.title} ${BankGothic.className}`}
-                    >
-                      {TruncateText(item.title[language], 45)}
-                    </h5>
-                    <button
-                      onClick={() => router.push(`/market/${index + 1}`)}
-                      className={`${styles.button} ${BankGothic.className}`}
-                    >
-                      {currentContent?.tabSection?.button[0]?.text[language]}
-                      <Image
-                        className={` ${
-                          language === "en" && styles.leftAlign
-                        }   ${styles.icon}`}
-                        src="https://frequencyimage.s3.ap-south-1.amazonaws.com/61c0f0c2-6c90-42b2-a71e-27bc4c7446c2-mingcute_arrow-up-line.svg"
-                        width={22}
-                        height={22}
-                        alt="icon"
-                      />
-                    </button>
-                  </div>
-                ))}
-            </div>
-            {visibleMarketItemsCount < filterMarketItems.length && ( // Show button only if there are more projects
-              <div className={styles.button_wrap}>
-                <Button
-                  className={styles.view_more_btn}
-                  onClick={() =>
-                    setVisibleMarketItemCount(visibleMarketItemsCount + 6)
-                  } // Increase count by 4
-                >
-                  {currentContent?.tabSection?.button[1]?.text[language]}
-                  <Image
-                    src="https://loopwebsite.s3.ap-south-1.amazonaws.com/weui_arrow-outlined.svg"
-                    width={24}
-                    height={24}
-                    alt="icon"
-                  />
-                </Button>
-              </div>
-            )}
-          </div>
-        </div>
-      </section>
       {/* testomonials section  */}
-
       <section
-        className={` ${language !== "en" && styles.rightAlignment}   ${
-          styles.testimonial_wrapper
-        }`}
+        className={` ${language !== "en" && styles.rightAlignment}   ${styles.testimonial_wrapper
+          }`}
       >
         <div className={`container ${styles.main_container}`}>
           <div className={styles.testimonials_content}>
             {/* <AnimatedText text={currentContent?.testimonialSection?.title[language]} Wrapper="h2" repeatDelay={0.04} className={`${styles.title} ${BankGothic.className}`} /> */}
             <h2 className={`${styles.title}`}>
-              {currentContent?.testimonialSection?.title[language]}
+              {currentContent?.[4]?.content?.title[language]}
             </h2>
           </div>
 
@@ -256,45 +268,49 @@ const MarketPage = () => {
               }}
               rtl={true}
             >
-              {currentContent?.testimonialSection?.testimonials?.map(
+              {currentContent?.[4]?.items?.map(
                 (testimonial, index) => (
                   <SwiperSlide
                     key={index}
                     className={`${styles.swiperSlide} ${styles.testimonial_slide}`}
                   >
                     <div className={styles.testimonial_card}>
-                     
+                      <Image
+                        src={Img_url + testimonial?.liveModeVersionData?.sections?.[0]?.content.images?.[0]?.url}
+                        height={70}
+                        width={70}
+                        alt={testimonial?.name?.[language]}
+                        className={styles.testimonial_image}
+                      />
                       <div className={styles.testimonial_content}>
                         <h3 className={styles.name}>
-                          {testimonial.name[language]}
+                          {testimonial?.[titleLan]}
                         </h3>
                         <p className={styles.position}>
-                          {testimonial.position[language]}
+                          {testimonial?.liveModeVersionData?.sections?.[0]?.content?.position?.[language]}
                         </p>
                         <p className={styles.quote}>
-                          {testimonial.quote[language]}
+                          {testimonial?.liveModeVersionData?.sections?.[0]?.content?.quote?.[language]}
                         </p>
-                        <div className={styles.company_wrap}>
-                        <p className={styles.company}>
-                            {testimonial.company[language]}
-                          </p>
+                        <div className={styles.company_wrap}
+                          // dir={isLeftAlign ? "ltr" : "rtl"}
+                          style={{ flexDirection: isLeftAlign ? "row" : "row-reverse", justifyContent: isLeftAlign?"flex-start":"end" }}
+                        >
                           <Image
                             src="https://frequencyimage.s3.ap-south-1.amazonaws.com/a813959c-7b67-400b-a0b7-f806e63339e5-ph_building%20%281%29.svg"
                             height={18}
                             width={18}
-                            alt={testimonial.name[language]}
+                            alt={testimonial?.name?.[language]}
                             className={styles.company_icon}
                           />
-                        
+                          <p className={styles.company}>
+                            {testimonial?.liveModeVersionData?.sections?.[0]?.content.company?.[language]}
+                          </p>
+
+
                         </div>
                       </div>
-                      <Image
-                        src={testimonials?.[testimonial?.image]}
-                        height={70}
-                        width={70}
-                        alt={testimonial.name[language]}
-                        className={styles.testimonial_image}
-                      />
+
                     </div>
                   </SwiperSlide>
                 )
@@ -308,9 +324,8 @@ const MarketPage = () => {
                   width="22"
                   height="17"
                   alt=""
-                  className={`${styles.arrow_btn} ${
-                    language === "en" && styles.leftAlign
-                  }`}
+                  className={`${styles.arrow_btn} ${language === "en" && styles.leftAlign
+                    }`}
                 />
               </button>
               <button ref={testimonialNextRef} className={styles.custom_next}>
@@ -319,9 +334,8 @@ const MarketPage = () => {
                   width="22"
                   height="17"
                   alt=""
-                  className={`${styles.arrow_btn} ${
-                    language === "en" && styles.leftAlign
-                  }`}
+                  className={`${styles.arrow_btn} ${language === "en" && styles.leftAlign
+                    }`}
                 />
               </button>
             </div>
@@ -329,38 +343,6 @@ const MarketPage = () => {
         </div>
       </section>
 
-      <section
-        className={` ${language === "en" && styles.leftAlign}   ${
-          styles.about_new_project_wrapper
-        }`}
-      >
-        <div className={`container ${styles.main_container}`}>
-          <div className={styles.Client_content}>
-            {/* <AnimatedText text={currentContent?.newProject?.title[language]} Wrapper="h2" repeatDelay={0.03} className={`${styles.title} ${BankGothic.className}`} /> */}
-            <h2 className={`${styles.title}`}>
-              {currentContent?.newProject?.title[language]}
-            </h2>
-            <p className={`${styles.description} ${BankGothic.className}`}>
-              {currentContent?.newProject?.description1[language].replace(
-                currentContent?.newProject?.highlightedText[language],
-                `"${currentContent?.newProject?.highlightedText[language]}"`
-              )}
-              <i>{patch()}</i>
-            </p>
-            <p className={`${styles.description} ${BankGothic.className}`}>
-              {currentContent?.newProject?.description2[language]}
-            </p>
-            <Button
-              onClick={() => setIsModal(true)}
-              className={` ${language === "en" && styles.leftAlign}   ${
-                styles.view_btn
-              }`}
-            >
-              {currentContent?.newProject?.button?.text[language]}
-            </Button>
-          </div>
-        </div>
-      </section>
       <ContactUsModal isModal={isModal} onClose={handleContactUSClose} />
     </>
   );

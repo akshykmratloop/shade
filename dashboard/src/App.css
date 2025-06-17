@@ -591,3 +591,22 @@ div.importantList ul {
   border: 1px solid rgba(255, 255, 255, 0.2); /* optional subtle border */
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);  /* optional shadow */
 }
+
+
+/* -------------opera */
+.swiper {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box; /* Prevent extra width due to padding/borders */
+  overflow: hidden;
+}
+.swiper-slide {
+  box-sizing: border-box;
+}
+
+@supports (-o-object-fit: contain) {
+  .swiper {
+    width: 100vw; /* or set a fixed width like 1200px */
+    max-width: 100%;
+  }
+}

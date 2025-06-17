@@ -1,3 +1,4 @@
+import {send} from "process";
 import prismaClient from "../config/dbConfig.js";
 import { EncryptData } from "../helper/bcryptManager.js";
 import { sendEmail } from "../helper/sendEmail.js";
@@ -72,7 +73,7 @@ export const createUserHandler = async (
     `,
   };
 
-  // await sendEmail(emailPayload);
+  await sendEmail(emailPayload);
 
   return newUser;
 };
@@ -194,6 +195,68 @@ export const updateUser = async (id, name, password, phone, roles) => {
       permissions: role.role.permissions.map((perm) => perm.permission.name),
     })) || [];
 
+  await sendEmail({
+    to: updatedUser.email,
+    subject: "Your Account Details Updated",
+    text: `Hello ${updatedUser.name}, your account details have been updated successfully.`,
+    html: `
+      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #ddd; border-radius: 8px; background-color: #f9f9f9;">
+        <h2 style="text-align: center; color: #333;">Your Account Details Updated</h2>
+        <p style="font-size: 16px; color: #555;">Hello <strong>${updatedUser.name}</strong>,</p>
+        <p style="font-size: 16px; color: #555;">
+          Your account details have been updated successfully. If you made this change, please ignore this email. If not, please contact support.
+        </p>
+        <div style="text-align: center; margin-top: 20px;">
+          <a href="http://localhost:3001/login" style="display: inline-block; background-color: #007bff; color: #fff; padding: 12px 20px; font-size: 16px; text-decoration: none; border-radius: 5px;">Login Now</a>
+        </div>
+        <p style="font-size: 14px; color: #999; text-align: center; margin-top: 20px;">
+          If you didn't request this, please ignore this email.
+        </p>
+        <hr style="border: none; border-top: 1px solid #ddd;">
+        <p style="font-size: 14px; color: #999; text-align: center;">© 2025 Your Company. All rights reserved.</p>
+      </div>
+    `,
+  });
+
+  return {
+    ...updatedUser,
+    roles: roleAndPermission,
+  };
+};
+
+export const updateProfile = async (id, name, phone, image) => {
+  const updatedUser = await prismaClient.user.update({
+    where: {id},
+    data: {
+      name,
+      phone,
+      image,
+    },
+    include: {
+      roles: {
+        include: {
+          role: {
+            include: {
+              permissions: {
+                include: {
+                  permission: true,
+                },
+              },
+              roleType: true,
+            },
+          },
+        },
+      },
+    },
+  });
+  const roleAndPermission =
+    updatedUser.roles?.map((role) => ({
+      id: role.role.id,
+      role: role.role.name,
+      roleType: role.role.roleType.name,
+      status: role.role.status,
+      permissions: role.role.permissions.map((perm) => perm.permission.name),
+    })) || [];
   return {
     ...updatedUser,
     roles: roleAndPermission,
@@ -601,4 +664,13 @@ export const findAllLogs = async (search, status, pageNum, limitNum) => {
       limitNum,
     },
   };
+};
+
+export const updateProfileImage = async (userId, imageUrl) => {
+  const profileImage = await prismaClient.user.update({
+    where: {id: userId},
+    data: {image: imageUrl},
+  });
+
+  return profileImage;
 };

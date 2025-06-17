@@ -1,9 +1,27 @@
 // config/swaggerConfig.js
-import {join, dirname} from "path";
+import path, {join, dirname} from "path";
 import {fileURLToPath} from "url";
 import swaggerJSDoc from "swagger-jsdoc";
+import fs from "fs";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
+
+function loadDoc(name) {
+  // look in src/swaggerDocs instead of project root
+  const filePath = path.join(__dirname, "../swaggerDocs", name + ".json");
+  if (!fs.existsSync(filePath)) {
+    throw new Error(`Cannot find swagger doc: ${filePath}`);
+  }
+  return JSON.parse(fs.readFileSync(filePath, "utf8"));
+}
+
+const authDoc = loadDoc("auth");
+const permDoc = loadDoc("permissions");
+const roleDoc = loadDoc("roles");
+const userDoc = loadDoc("users");
+const notificationDoc = loadDoc("notifications");
+const contentDoc = loadDoc("content");
+const mediaDoc = loadDoc("media");
 
 const swaggerOptions = {
   definition: {
@@ -34,6 +52,15 @@ const swaggerOptions = {
         description: "Production server",
       },
     ],
+    paths: {
+      ...authDoc.paths,
+      ...permDoc.paths,
+      ...roleDoc.paths,
+      ...userDoc.paths,
+      ...notificationDoc.paths,
+      ...contentDoc.paths,
+      ...mediaDoc.paths,
+    },
     externalDocs: {
       description: "Full developer guide",
       url: "https://docs.shadecms.com",

@@ -3,8 +3,9 @@ import UserModule from "../modules/user/index.js";
 import RolesModule from "../modules/roles/index.js";
 import PermissionModule from "../modules/permissions/index.js";
 import NotificationModule from "../modules/notification/index.js";
-import ContentModule from '../modules/content/index.js';
-import MediaModule from '../modules/media/index.js';
+import ContentModule from "../modules/content/index.js";
+import MediaModule from "../modules/media/index.js";
+import WebsiteModule from "../modules/website/index.js";
 
 const modules = [
   AuthModule,
@@ -14,6 +15,7 @@ const modules = [
   NotificationModule,
   ContentModule,
   MediaModule,
+  WebsiteModule,
 ];
 
 const useModules = (app) => {

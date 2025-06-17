@@ -212,7 +212,7 @@ function VersionTable() {
     }, [resourceId, random]);
 
     useEffect(() => {
-        setCurrentResource(JSON.parse(localStorage.getItem("currentResource")))
+        setCurrentResource(JSON.parse(localStorage.getItem("currentResource")) || currentResource)
     }, [])
 
     return (

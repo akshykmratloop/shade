@@ -57,7 +57,7 @@ import news3 from "./images/news3.png";
 import news4 from "./images/news4.png";
 
 // projectPageData
-import itLabExcellence from "./images/itLabExcellence.png"; 
+import itLabExcellence from "./images/itLabExcellence.png";
 import nonMetallic from "./images/nonMetallic.jpg"
 import businessGate from "./images/businessGate.png"
 import constructionOfOME from "./images/constructionOfOME.jpg"
@@ -72,7 +72,7 @@ import developmentOfHo from "./images/developmentOfHo.jpg"
 import procedureAreaExpansion from "./images/procedureAreaExpansion.jpg"
 import replaceAndAutomate from "./images/replace&Automate.jpg"
 import aiKhobarTunnel from "./images/aiKhobarTunnel.jpg"
-import bridgeAndTunnelForHumair  from "./images/Bridge&TunnnelForHaramain.jpg"
+import bridgeAndTunnelForHumair from "./images/Bridge&TunnnelForHaramain.jpg"
 import crossroadBridgee from "./images/crossroadBridgee.jpg"
 import secondaryRaad from "./images/secondaryRaad.jpeg"
 import secondaryRoads from "./images/secondaryRoads.jpeg"
@@ -140,7 +140,7 @@ const aboutUsIcons = {
 
 
 const projectPageData = {
-itLabExcellence,
+  itLabExcellence,
   nonMetallic,
   businessGate,
   constructionOfOME,

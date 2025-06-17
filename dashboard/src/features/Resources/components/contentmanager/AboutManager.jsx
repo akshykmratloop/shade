@@ -115,7 +115,7 @@ const AboutManager = ({ content, currentPath, language, indexes, outOfEditing })
                     { input: "richtext", label: "Descriptions", updateType: "descriptions", maxLength: 400, value: content?.['2']?.content?.descriptions?.[language] },
                     { input: "input", label: "Button", updateType: "button", maxLength: 20, value: content?.['2']?.content?.button?.[0]?.text?.[language], index: 0 },
                 ]}
-                inputFiles={[{ label: "Video", id: "video", }]}
+                inputFiles={[{ label: "Video", id: "video", type: "VIDEO"}]}
                 section={"main"}
                 language={language}
                 currentContent={content}

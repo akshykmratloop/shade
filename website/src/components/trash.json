@@ -1,0 +1,99 @@
+{
+  "1": {
+    "sectionId": "cmbkijnk700i4ns2rqz586mtw",
+    "order": 1,
+    "version": 2,
+    "title": "overviewSection-safety-policy-ebd9",
+    "content": {
+      "title": {
+        "ar": "سياسة السلامة",
+        "en": "Safety Poli"
+      },
+      "images": [
+        {
+          "url": "",
+          "order": 1,
+          "altText": {
+            "ar": "صورة السلامة",
+            "en": "Safety Image"
+          }
+        }
+      ],
+      "description": {
+        "ar": "تعتبر السلامة أولوية قصوى لشركة Shade Corporation، حيث نلتزم بتوفير أقصى درجات السلامة لموظفينا وموردينا وعملائنا وجميع الأطراف المعنية. مع نهجنا الصارم تجاه الامتثال لمعايير الصحة والسلامة والبيئة، حققنا سجلًا مثاليًا منذ تأسيسنا، دون أي حوادث كبيرة تتعلق بالصحة أو السلامة أو البيئة.",
+        "en": "Shade Corporation's top priority is to provide utmost safety to its employees, suppliers, clients, and all stakeholders. With its zero-tolerance approach towards HSE compliance, Shade has an exemplary track record since its inception, with the absence of any major lost-time arising out of health, safety, or environmental accidents."
+      }
+    },
+    "sections": []
+  },
+  "2": {
+    "sectionId": "cmbkijnkm00ians2rwlwtdaq8",
+    "order": 2,
+    "version": 2,
+    "title": "commitmentSection-safety-policy-c7e6",
+    "content": {
+      "title": {
+        "ar": "التزامنا بالسلامة",
+        "en": "Our Commitment to Safety"
+      },
+      "procedures": {
+        "terms": [
+          {
+            "order": 1,
+            "title": {
+              "ar": "هدفنا",
+              "en": "Our Goal"
+            },
+            "images": [
+              {
+                "url": "",
+                "order": 1,
+                "altText": {
+                  "ar": "صورة الهدف",
+                  "en": "Goal Image"
+                }
+              }
+            ],
+            "description": {
+              "ar": "هدفنا في جميع المشاريع هو عدم وجود حوادث قابلة للتسجيل. تفرض شركتنا على جميع الموظفين التصرف وفقًا لدليل السلامة في جميع الأوقات وأن يكونوا دائمًا على دراية بهدفنا النهائي في أن نصبح شركة خالية من الحوادث.",
+              "en": "Zero recordable incidents is always our project goal. Our company mandates all employees to act as per the Safety Manual at all times and to be constantly mindful of our ultimate goal in becoming an accident-free company."
+            }
+          }
+        ],
+        "title": {
+          "ar": "خطتنا للسلامة والصحة",
+          "en": "Our Safety and Health Plan"
+        },
+        "description": {
+          "ar": "تتوافق خطتنا للسلامة والصحة كما هو موضح في إجراءات العمل الخاصة بالسلامة مع المعايير الدولية للسلامة والصحة، وهدفنا هو القضاء تمامًا على الحوادث من عملياتنا.",
+          "en": "Our Safety and Health Plan, as described in our safety work procedures, is in consonance with international safety and health standards, and our goal is to eliminate accidents totally from our operations."
+        }
+      },
+      "description": {
+        "ar": "السلامة قيمة متأصلة في ثقافتنا، وهي عنصر أساسي مثل التكلفة والجودة والجدول الزمني لعملائنا. نحن ملتزمون بالعمل بأمان وكفاءة ومع مراعاة البيئة. يتم إعطاء الأولوية الأولى للاعتبارات المتعلقة بالسلامة في جميع الأمور المتعلقة بالتصميم والطرق والمواد والمعدات والبناء وتشغيل جميع المشاريع التي نقوم بها.",
+        "en": "Safety is a value ingrained in our culture, and it is an equal deliverable the same way that cost, quality, and schedule are to our clients. We are committed to working safely, efficiently, and with due regard for the environment. Safety considerations shall be given first priority over all others in matters of design, methods, materials, equipment, construction, and operations of all the projects we undertake."
+      }
+    },
+    "sections": []
+  },
+  "3": {
+    "sectionId": "cmbkijnl100igns2r6630dzou",
+    "order": 3,
+    "version": 2,
+    "title": "additionalInfoSection-safety-policy-3798",
+    "content": {
+      "button": [
+        {
+          "url": null,
+          "icon": null,
+          "text": {
+            "ar": "عرض المزيد",
+            "en": "View More"
+          },
+          "order": 1
+        }
+      ]
+    },
+    "sections": []
+  }
+}

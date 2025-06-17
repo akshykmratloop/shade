@@ -1,12 +1,12 @@
 // libraries
 import { useState, useRef, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import JoditEditor from "jodit-react";
+import JoditEditor, { Jodit } from "jodit-react";
 // custom module
 import TextAreaInput from "../../../../components/Input/TextAreaInput";
 import InputFile from "../../../../components/Input/InputFile";
 import InputText from "../../../../components/Input/InputText";
-import { updateSpecificContent, updateServicesNumber, updateImages, updateTheProjectSummaryList, updateCardAndItemsArray } from "../../../common/homeContentSlice";
+import { updateSpecificContent, updateServicesNumber, updateImages, updateTheProjectSummaryList, updateCardAndItemsArray, updatePoliciesItems, updateSubServiceDetailsPointsArray } from "../../../common/homeContentSlice";
 import InputFileForm from "../../../../components/Input/InputFileForm";
 
 const DynamicContentSection = ({
@@ -19,20 +19,16 @@ const DynamicContentSection = ({
     section,
     language,
     subSection,
-    subSectionsProMax,
     index,
-    subSecIndex,
     allowRemoval = false, // New prop to allow extra input
     allowExtraInput = false, // New prop to allow extra input
     attachOne = false,
     projectId,
-    careerId,
-    careerIndex,
-    newsId,
     deepPath,
-    // type,
+    type,
     sectionIndex,
-    contentIndex
+    contentIndex,
+    outOfEditing
 }) => {
     const dispatch = useDispatch();
     const [extraFiles, setExtraFiles] = useState([]);
@@ -55,6 +51,19 @@ const DynamicContentSection = ({
 
 
     const removeSummary = (index) => {
+        if (section === "points" || section === "cards") {
+            return dispatch(updateSubServiceDetailsPointsArray({
+                sectionIndex,
+                index,
+                section
+            }))
+        }
+        if (section === 'procedures/terms') {
+            return dispatch(updatePoliciesItems({
+                sectionIndex,
+                index
+            }))
+        }
         if (deepPath) {
             dispatch(updateTheProjectSummaryList({
                 index,
@@ -65,33 +74,16 @@ const DynamicContentSection = ({
                 subContext: section,
                 deepPath
             }))
-        } else if (newsId) {
-            dispatch(updateTheProjectSummaryList({
-                index,
-                operation: 'remove',
-                newsIndex: projectId - 1,
-                context: currentPath
-            }))
-        } else if (projectId) {
-            dispatch(updateTheProjectSummaryList({
-                index,
-                projectId,
-                careerIndex,
-                operation: 'remove',
-                context: currentPath
-            }))
-        } else {
+        }  else {
             dispatch(updateCardAndItemsArray({
                 sectionIndex,
                 operation: 'remove',
                 index
-                // section,
-                // context: currentPath
             }))
         }
     }
 
-    const updateFormValue = ({ updateType, value, path }) => {
+    const updateFormValue = ({updateType, value}) => {
         if (updateType === 'count') {
             if (!isNaN(value)) {
                 let val = value?.slice(0, 7);
@@ -105,26 +97,24 @@ const DynamicContentSection = ({
                 value: value === "" ? "" : value,
                 subSection,
                 index,
-                subSectionsProMax,
-                subSecIndex,
                 currentPath,
                 projectId,
-                careerId,
                 deepPath,
-                type: "content[index]", 
+                type,
                 sectionIndex,
                 contentIndex,
-                path
+                // path,
+                buttonIndex: index
             }));
         }
     };
 
-    const updateFormValueRichText = (updateType, value) => {
+    const updateFormValueRichText = ( updateType, value ) => {
 
         if (updateType === 'count') {
             if (!isNaN(value)) {
                 let val = value?.slice(0, 7);
-                dispatch(updateServicesNumber({ section, title: updateType, value: val, subSection, index, currentPath, sectionIndex}));
+                dispatch(updateServicesNumber({ section, title: updateType, value: val, subSection, index, currentPath, sectionIndex }));
             }
         } else {
             dispatch(updateSpecificContent({
@@ -134,15 +124,12 @@ const DynamicContentSection = ({
                 value: value === "" ? "" : value,
                 subSection,
                 index,
-                subSectionsProMax,
-                subSecIndex,
                 currentPath,
                 projectId,
-                careerId,
                 deepPath,
                 type: "content[index]",
                 sectionIndex,
-                contentIndex
+                contentIndex,
             }));
         }
     };
@@ -150,14 +137,17 @@ const DynamicContentSection = ({
     const config = useMemo(() => ({
         buttons: [
             "bold", "italic", "underline", "strikethrough", "|",
-            "font", "fontsize", "lineHeight", "|",
-            "brush", "eraser", "image", "ul"
+            "font",
+            //  "fontsize",
+            "lineHeight", "|", "eraser", "image", "ul"
         ],
         buttonsXS: [
             "bold", "italic", "underline", "strikethrough", "|",
-            "font", "fontsize", "lineHeight", "|",
-            "brush", "eraser", "ul"
+            "font",
+            //  "fontsize",
+            "lineHeight", "|", "eraser", "ul"
         ],
+
         toolbarAdaptive: false,
         toolbarSticky: false,
         removeButtons: [
@@ -175,16 +165,37 @@ const DynamicContentSection = ({
         showButtonPanel: true,
         showTooltip: false,
 
-        // 👇 Disable the plus "+" hover icon
+        controls: {
+            font: {
+                list: {
+                    'Arial': 'Arial',
+                    'Verdana': 'Verdana',
+                    'Tahoma': 'Tahoma',
+                    // 'BankGothic-Regular': 'BankGothic-Regular',
+                    // 'BankGothic-Regular-db': 'BankGothic-Regular-db',
+                    // 'BankGothic-Russ-Medium': 'BankGothic-Russ-Medium',
+                    // 'BankGothic-Regular-MD-Bt': 'BankGothic-Regular-MD-Bt',
+                    'BankGothic-Medium-bt': 'BankGothic-Medium-bt',
+                    'BankGothic-Medium-lt': 'BankGothic-Medium-lt'
+                }
+            },
+            fontsize: {
+                list: Jodit.atom([8, 9, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32, 34])
+            },
+            lineHeight: {
+                list: Jodit.atom(['1', '1.5', '2', '2.5', '2.7', '3', '3.25', '3.5', '4'])
+            }
+        },
+
         disablePlugins: ['addNewLine']
-    }), []);
+    }), [outOfEditing]);
 
 
 
     return (
         <div className={`w-full relative ${Heading ? "mt-4" : subHeading ? "mt-2" : ""} flex flex-col gap-1 ${!isBorder ? "" : "border-b border-b-1 border-neutral-300"} ${attachOne ? "pb-0" : (Heading || subHeading) ? "pb-6" : ""}`}
             style={{ wordBreak: "break-word" }}>
-            {allowRemoval && <button
+            {(allowRemoval && !outOfEditing) && <button
                 className="absolute top-6 z-10 right-[-8px] bg-red-500 text-white px-[5px] rounded-full shadow"
                 onClick={() => { removeSummary(index) }}
             >
@@ -193,8 +204,6 @@ const DynamicContentSection = ({
             <h3 className={`font-semibold ${subHeading ? "text-[.9rem] mb-1" : Heading ? "text-[1.25rem] mb-4" : " mb-0"}`}>{Heading || subHeading}</h3>
             {inputs.length > 0 &&
                 inputs.map((input, i) => {
-
-
                     if (input.input === "textarea") {
                         return (
                             <TextAreaInput
@@ -208,11 +217,18 @@ const DynamicContentSection = ({
                                 language={language}
                                 id={input.updateType}
                                 maxLength={input.maxLength}
+                                outOfEditing={outOfEditing}
                             />
                         );
                     } else if (input.input === "richtext") {
                         return (
-                            <div dir={language === 'en' ? 'ltr' : 'rtl'} key={i}>
+                            <div dir={language === 'en' ? 'ltr' : 'rtl'} key={outOfEditing ? "readonly" : "editable"}
+                                style={{ cursor: "" }}
+                                className={`relative`}>
+                                {
+                                    outOfEditing &&
+                                    <div className="bg-stone-200/35 absolute z-10 top-0 left-0 h-full w-full rounded-md cursor-not-allowed"></div>
+                                }
                                 <JoditEditor
                                     ref={editor}
                                     value={input.value}
@@ -243,6 +259,7 @@ const DynamicContentSection = ({
                                 id={input.updateType}
                                 required={false}
                                 maxLength={input.maxLength}
+                                outOfEditing={outOfEditing}
                             />
                         );
                     }
@@ -280,14 +297,17 @@ const DynamicContentSection = ({
                         </div>
                         : <div className={`flex ${inputFiles.length > 1 ? "flex-wrap" : "flex-wrap"} gap-10 w-[80%]`}>
 
-                            {inputFiles.map((file, index) => (
+                            {inputFiles.map((file, ind) => (
                                 <InputFile
-                                    key={index}
+                                    key={ind}
                                     label={file.label}
                                     id={file.id}
                                     currentPath={currentPath}
-                                    fileIndex={index}
+                                    fileIndex={ind}
                                     section={section}
+                                    contentIndex={sectionIndex}
+                                    index={index}
+                                    order={file.order}
                                 />
                             ))}
                             {extraFiles.map((file, index) => (

@@ -37,6 +37,7 @@ export const statusCodes = {
     message: "Validation failed",
   },
   UNAUTHORIZED: { code: 401, message: "Unauthorized" },
+  UNAUTHORIZED_TOKEN: { code: 555, message: "Unauthorized" },
   PAYMENT_REQUIRED: { code: 402, message: "Payment Required" },
   FORBIDDEN: { code: 403, message: "Forbidden" },
   NOT_FOUND: { code: 404, message: "Not Found" },

@@ -14,7 +14,12 @@ const HomeManager = ({ language, currentPath, outOfEditing }) => {
     const [currentId, setCurrentId] = useState("")
     const [ServicesOptions, setServicesOptions] = useState([])
     const [ProjectOptions, setProjectOptions] = useState([])
+    const [MarketOptions, setMarketOptions] = useState([])
+    const [SafetyOptions, setSafetyOptions] = useState([])
+
     const [TestimonialsOptions, setTestimonialsOptions] = useState([])
+
+    const lists = [ProjectOptions, MarketOptions, SafetyOptions]
 
     const currentContent = useSelector((state) => state.homeContent.present)
     const { content, indexes } = createContent(currentContent, "edit")
@@ -22,56 +27,82 @@ const HomeManager = ({ language, currentPath, outOfEditing }) => {
     // fucntions
 
     useEffect(() => {
-        async function getOptionsforServices() {
-            const response = await getResources({ resourceType: "SUB_PAGE", resourceTag: "SERVICE", apiCallType: "INTERNAL" })
-            const response2 = await getResources({ resourceType: "SUB_PAGE", resourceTag: "PROJECT", apiCallType: "INTERNAL" })
-            const response3 = await getResources({ resourceType: "SUB_PAGE", resourceTag: "TESTIMONIAL", fetchType: "CONTENT", apiCallType: "INTERNAL" })
-            if (response.message === "Success") {
-                let options = response?.resources?.resources?.map((e, i) => ({
-                    id: e.id,
-                    order: i + 1,
-                    slug: e.slug,
-                    titleEn: e.titleEn,
-                    titleAr: e.titleAr,
-                    // icon: e.icon,
-                    // image: e.image
-                }))
-                setServicesOptions(options)
-            }
-            if (response2.message === "Success") {
-                let options = response2?.resources?.resources?.map((e, i) => ({
-                    id: e.id,
-                    order: i + 1,
-                    slug: e.slug,
-                    titleEn: e.titleEn,
-                    titleAr: e.titleAr,
-                    // icon: e.icon,
-                    // image: e.image
-                }))
-                setProjectOptions(options)
-            }
+        const RESOURCE_CONFIG = [
+            {
+                tag: "SERVICE",
+                setState: setServicesOptions,
+                getExtra: () => ({}),
+            },
+            {
+                tag: "PROJECT",
+                setState: setProjectOptions,
+                getExtra: (e) => ({
+                    location: e?.liveModeVersionData?.sections?.[1]?.content?.[0]?.value,
+                }),
+            },
+            {
+                tag: "MARKET",
+                setState: setMarketOptions,
+                getExtra: (e) => ({
+                    description: e?.liveModeVersionData?.sections?.[0]?.content?.description,
+                }),
+            },
+            {
+                tag: "SAFETY_RESPONSIBILITY",
+                setState: setSafetyOptions,
+                getExtra: (e) => ({
+                    description: e?.liveModeVersionData?.sections?.[0]?.content?.description,
+                }),
+            },
+            {
+                tag: "TESTIMONIAL",
+                setState: setTestimonialsOptions,
+                isOkCheck: true,
+                getExtra: (e) => ({
+                    liveModeVersionData: e.liveModeVersionData,
+                }),
+            },
+        ];
 
-            if (response3.ok) {
-                let options = response3?.resources?.resources?.map((e, i) => ({
-                    id: e.id,
-                    order: i + 1,
-                    slug: e.slug,
-                    titleEn: e.titleEn,
-                    titleAr: e.titleAr,
-                    // icon: e.icon,
-                    // image: e.image
-                    liveModeVersionData: e.liveModeVersionData
-                }))
-                setTestimonialsOptions(options)
+        async function getOptionsForServices() {
+            try {
+                const requests = RESOURCE_CONFIG.map(({ tag }) =>
+                    getResources({
+                        resourceType: "SUB_PAGE",
+                        resourceTag: tag,
+                        apiCallType: "INTERNAL",
+                        fetchType: ["PROJECT", "MARKET", "SAFETY_RESPONSIBILITY", "TESTIMONIAL"].includes(tag) ? "CONTENT" : undefined,
+                    })
+                );
+
+                const responses = await Promise.all(requests);
+
+                responses.forEach((response, index) => {
+                    const { setState, getExtra, isOkCheck } = RESOURCE_CONFIG[index];
+
+                    const valid = isOkCheck ? response?.ok : response?.message === "Success";
+                    if (valid && response?.resources?.resources) {
+                        const options = response.resources.resources.map((e, i) => ({
+                            id: e.id,
+                            order: i + 1,
+                            slug: e.slug,
+                            titleEn: e.titleEn,
+                            titleAr: e.titleAr,
+                            icon: e.icon,
+                            image: e.image,
+                            ...getExtra(e),
+                        }));
+                        setState(options);
+                    }
+                });
+            } catch (error) {
+                console.error("Failed to load resource options:", error);
             }
         }
 
-        getOptionsforServices()
-    }, [])
+        getOptionsForServices();
+    }, []);
 
-    // useEffect(() => {
-    //     return () => dispatch(updateMainContent({ currentPath: "content", payload: undefined }))
-    // }, [])
 
     return ( /// Component
         <div className="w-full">
@@ -206,10 +237,10 @@ const HomeManager = ({ language, currentPath, outOfEditing }) => {
                                         label={`Select ${names[index]}`}
                                         tabName={"Select Projects"}
                                         options={content?.['5']?.sections?.[index]?.items}
+                                        listOptions={lists[index]}
                                         referenceOriginal={{ dir: "recentproject", index }}
                                         currentContent={content}
                                         sectionIndex={indexes?.['5']}
-                                        listOptions={ProjectOptions}
                                         outOfEditing={outOfEditing}
                                     />
                                 </div>

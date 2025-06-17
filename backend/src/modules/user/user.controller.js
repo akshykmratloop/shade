@@ -3,6 +3,8 @@ import {
   activateUsers,
   createUser,
   deactivateUsers,
+  editProfile,
+  editProfileImage,
   editUserDetails,
   findUserByEmail,
   getAllRolesForUser,
@@ -41,6 +43,12 @@ const GetUserById = async (req, res) => {
   res.status(200).json(response);
 };
 
+const GetUserProfile = async (req, res) => {
+  const {id} = req.user;
+  const user = await getUserById(id);
+  res.status(200).json(user);
+};
+
 const GetAllUsersByRoleId = async (req, res) => {
   const {roleId} = req.params;
   console.log(roleId, "roleId");
@@ -58,6 +66,17 @@ const EditUserDetails = async (req, res) => {
   const io = req.app.locals.io;
   const socketIdOfUpdatedUser = getSocketId(id);
   io.to(socketIdOfUpdatedUser).emit("userUpdated", updatedUser);
+  res.status(201).json(updatedUser);
+};
+
+const EditProfile = async (req, res) => {
+  const {id} = req.user;
+  const {name, phone, image} = req.body;
+
+  const updatedUser = await editProfile(id, name, phone, image);
+  // const io = req.app.locals.io;
+  // const socketIdOfUpdatedUser = getSocketId(id);
+  // io.to(socketIdOfUpdatedUser).emit("userUpdated", updatedUser);
   res.status(201).json(updatedUser);
 };
 
@@ -87,14 +106,35 @@ const UserRoleType = async (req, res) => {
   res.status(200).json(result);
 };
 
+const EditProfileImage = async (req, res) => {
+  const {id} = req.user;
+  // const {image} = req.body;
+
+  // Because upload.array("image", 1) was used, mediaUploader set req.uploadedImages = [ {...} ]
+  if (!req.uploadedImages || req.uploadedImages.length === 0) {
+    return res.status(400).json({error: "No uploadedImages found"});
+  }
+
+  const {public_id: imageUrl} = req.uploadedImages[0];
+  if (!imageUrl) {
+    return res.status(400).json({error: "Cloudinary did not return a URL"});
+  }
+
+  const updatedUser = await editProfileImage(id, imageUrl);
+  res.status(201).json(updatedUser);
+};
+
 export default {
   CreateUserHandler,
   GetAllUsers,
   GetUserById,
   EditUserDetails,
+  EditProfile,
   ActivateUser,
   DeactivateUser,
   UserRoleType,
   GetRolesForUser,
   GetAllUsersByRoleId,
+  GetUserProfile,
+  EditProfileImage,
 };

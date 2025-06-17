@@ -19,6 +19,8 @@ import {
   deleteAllContentData,
   getVersionInfo,
   restoreVersion,
+  deactivateResources,
+  activateResources,
   getDashboardInsight
 } from "./content.service.js";
 
@@ -36,6 +38,7 @@ const GetResources = async (req, res) => {
     roleId,
     apiCallType,
     filterText,
+    parentId
   } = req.query;
   const pageNum = parseInt(page) || 1;
   const limitNum = parseInt(limit) || 100;
@@ -54,7 +57,8 @@ const GetResources = async (req, res) => {
     userId,
     roleId,
     apiCallType,
-    filterText
+    filterText,
+    parentId
   );
   res.status(200).json(response);
 };
@@ -123,7 +127,8 @@ const GenerateRequest = async (req, res) => {
 };
 
 const GetRequest = async (req, res) => {
-  const { roleId, permission, search, status, page, limit, resourceId } = req.query;
+  const { roleId, permission, search, status, page, limit, resourceId } =
+    req.query;
   const userId = req.user.id;
 
   const pageNum = parseInt(page) || 1;
@@ -192,6 +197,18 @@ const DeleteAllContentData = async (_, res) => {
   res.status(200).json(response);
 };
 
+const DeactivateResources = async (req, res) => {
+  const { resourceId } = req.params;
+  const response = await deactivateResources(resourceId);
+  res.status(200).json(response);
+};
+
+const ActivateResources = async (req, res) => {
+  const { resourceId } = req.params;
+  const response = await activateResources(resourceId);
+  res.status(200).json(response);
+};
+
 
 const GetDashboardInsight = async (_, res) => {
   const response = await getDashboardInsight();
@@ -217,5 +234,7 @@ export default {
   GetVersionInfo,
   RestoreVersion,
   DeleteAllContentData,
-  GetDashboardInsight
+  DeactivateResources,
+  ActivateResources,
+  GetDashboardInsight,
 };

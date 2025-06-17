@@ -9,6 +9,8 @@ import {
   findRoleTypeByUserId,
   fetchAllRolesForUser,
   fetchAllUsersByRoleId,
+  updateProfile,
+  updateProfileImage,
 } from "../../repository/user.repository.js";
 import {assert, assertEvery} from "../../errors/assertError.js";
 import {logger} from "../../config/logConfig.js";
@@ -39,6 +41,11 @@ const getUserById = async (id) => {
 
 const editUserDetails = async (id, name, password, phone, roles) => {
   let result = await updateUser(id, name, password, phone, roles);
+  return {message: "User updated Successfully", result}; // changed for message to show at frontend at apr 7 11:32
+};
+
+const editProfile = async (id, name, phone, image) => {
+  let result = await updateProfile(id, name, phone, image);
   return {message: "User updated Successfully", result}; // changed for message to show at frontend at apr 7 11:32
 };
 
@@ -78,15 +85,24 @@ const userRoleType = async (id) => {
   return {message: "RoleType fetched successfully", roleType}; // if everything goes fine
 };
 
+const editProfileImage = async (id, imageUrl) => {
+  const profileImage = await updateProfileImage(id, imageUrl);
+  assert(profileImage, "IMAGE_UPDATE_FAILED", "Profile image update failed");
+  // logger.info({response: `Profile image updated successfully`});
+  return {message: "Profile image updated successfully", profileImage};
+};
+
 export {
   createUser,
   findUserByEmail,
   getAllUsers,
   getUserById,
   editUserDetails,
+  editProfile,
   activateUsers,
   deactivateUsers,
   userRoleType,
   getAllRolesForUser,
   getAllUsersByRoleId,
+  editProfileImage,
 };
