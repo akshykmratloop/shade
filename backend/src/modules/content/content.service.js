@@ -22,6 +22,14 @@ import {
   deleteAllResourceRelatedDataFromDb,
   fetchVersionsInfo,
   restoreLiveVersion,
+  deactivateResource,
+  activateResource,
+  getTotalRolesCounts,
+  getTotalUserCounts,
+  getTotalResourceRole,
+  getTotalAvailableRequests,
+  getTotalAvailableProjects,
+  scheduleRequestToPublish,
 } from "../../repository/content.repository.js";
 
 const getResources = async (
@@ -37,7 +45,8 @@ const getResources = async (
   userId,
   roleId,
   apiCallType,
-  filterText
+  filterText,
+  parentId
 ) => {
   if (fetchType === "CONTENT") {
     const resources = await fetchAllResourcesWithContent(
@@ -52,7 +61,8 @@ const getResources = async (
       userId,
       roleId,
       apiCallType,
-      filterText
+      filterText,
+      parentId
     );
     logger.info({
       response: "Resources fetched successfully with content",
@@ -72,7 +82,8 @@ const getResources = async (
     userId,
     roleId,
     apiCallType,
-    filterText
+    filterText,
+    parentId
   );
   logger.info({
     response: "Resources fetched successfully without content",
@@ -188,7 +199,6 @@ const getRequest = async (
   pageNum,
   limitNum,
   resourceId
-
 ) => {
   const requests = await fetchRequests(
     userId,
@@ -216,9 +226,6 @@ const getRequestInfo = async (requestId) => {
   return { message: "Success", requestInfo };
 };
 
-
-
-
 const approveRequest = async (requestId, userId) => {
   // First, get the request to determine if it's a verification or publication request
   const requestInfo = await fetchRequestInfo(requestId);
@@ -240,7 +247,6 @@ const approveRequest = async (requestId, userId) => {
   return { message: "Success", request };
 };
 
-
 const rejectRequest = async (requestId, userId, rejectReason) => {
   // First, get the request to determine if it's a verification or publication request
   const requestInfo = await fetchRequestInfo(requestId);
@@ -252,7 +258,11 @@ const rejectRequest = async (requestId, userId, rejectReason) => {
     request = await rejectRequestInPublication(requestId, userId, rejectReason);
   } else {
     // This is a verification request, use rejectRequestInVerification
-    request = await rejectRequestInVerification(requestId, userId, rejectReason);
+    request = await rejectRequestInVerification(
+      requestId,
+      userId,
+      rejectReason
+    );
   }
 
   logger.info({
@@ -262,17 +272,14 @@ const rejectRequest = async (requestId, userId, rejectReason) => {
   return { message: "Success", request };
 };
 
-
-
-const ScheduleRequest = async (requestId) => {
-  const request = await fetchRequestInfo(requestId);
+const scheduleRequest = async (requestId, userId, date) => {
+  const request = await scheduleRequestToPublish(requestId, userId, date);
   logger.info({
     response: "Request Scheduled successfully",
     // request: request,
   });
   return { message: "Success", request };
 };
-
 
 const PublishRequest = async (requestId) => {
   const request = await fetchRequestInfo(requestId);
@@ -283,10 +290,14 @@ const PublishRequest = async (requestId) => {
   return { message: "Success", request };
 };
 
-
-
 const getVersionsList = async (resourceId, search, status, page, limit) => {
-  const content = await fetchVersionsList(resourceId, search, status, page, limit);
+  const content = await fetchVersionsList(
+    resourceId,
+    search,
+    status,
+    page,
+    limit
+  );
   logger.info({
     response: "Version history fetched successfully",
     // content: content,
@@ -303,7 +314,6 @@ const getVersionInfo = async (versionId) => {
   return { message: "Success", content };
 };
 
-
 const restoreVersion = async (versionId) => {
   const content = await restoreLiveVersion(versionId);
   logger.info({
@@ -313,10 +323,6 @@ const restoreVersion = async (versionId) => {
   return { message: "Success", content };
 };
 
-
-
-
-
 const deleteAllContentData = async () => {
   const result = await deleteAllResourceRelatedDataFromDb();
   logger.info({
@@ -324,6 +330,51 @@ const deleteAllContentData = async () => {
     result: result,
   });
   return { message: "All content-related data deleted successfully", result };
+};
+
+const deactivateResources = async (resourceId) => {
+  assert(resourceId, "NOT_FOUND", "ResourceId required");
+  const result = await deactivateResource(resourceId);
+  logger.info({
+    response: `Resource deactivated successfully`,
+    // result: result,
+  });
+  return { message: "Resource deactivated successfully", result };
+};
+
+const activateResources = async (resourceId) => {
+  assert(resourceId, "NOT_FOUND", "ResourceId required");
+  const result = await activateResource(resourceId);
+  logger.info({
+    response: `Resource activated successfully`,
+    // result: result,
+  });
+  return { message: "Resource activated successfully", result };
+};
+
+
+
+const getDashboardInsight = async () => {
+  const totalRoles = await getTotalRolesCounts();
+  const totalUsers = await getTotalUserCounts();
+  const totalResourceRoles = await getTotalResourceRole();
+  const totalAvailableRequests = await getTotalAvailableRequests();
+  const totalAvailableProjects = await getTotalAvailableProjects();
+
+  const result = {
+    totalRoles,
+    totalUsers,
+    totalResourceRoles,
+    totalAvailableRequests,
+    totalAvailableProjects,
+  };
+
+  logger.info({
+    response: "All content-related dashboard insight fetched successfully",
+    result: result,
+  });
+
+  return { message: "All content-related dashboard insight fetched successfully", result };
 };
 
 export {
@@ -341,10 +392,13 @@ export {
   getRequestInfo,
   approveRequest,
   rejectRequest,
-  ScheduleRequest,
+  scheduleRequest,
   PublishRequest,
   getVersionsList,
   getVersionInfo,
   restoreVersion,
   deleteAllContentData,
+  deactivateResources,
+  activateResources,
+  getDashboardInsight
 };

@@ -1,0 +1,6 @@
+// ... existing code ...
+
+// Add this with your other routes
+router.post('/schedule-version/:requestId', scheduleResourceVersion);
+
+// ... existing code ... 

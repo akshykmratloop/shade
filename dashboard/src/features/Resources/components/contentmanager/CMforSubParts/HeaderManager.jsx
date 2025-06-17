@@ -1,8 +1,28 @@
+import { useDispatch } from "react-redux";
 import FileUploader from "../../../../../components/Input/InputFileUploader"
 import ContentSection from "../../breakUI/ContentSections"
 import DynamicContentSection from "../../breakUI/DynamicContentSection"
+import { updateCardAndItemsArray } from "../../../../common/homeContentSlice";
 
 const HeaderManager = ({ language, currentContent, currentPath, indexes }) => {
+    const dispatch = useDispatch();
+
+    const addNav = () => {
+
+        dispatch(updateCardAndItemsArray({
+            sectionIndex: 0,
+            operation: 'add',
+            insert: {
+                nav: {
+                    ar: "",
+                    en: ""
+                },
+                url: "",
+            }
+        }))
+    }
+
+
     // let contents
     // if (currentContent) {
     //     contents = Object.keys(currentContent)
@@ -11,8 +31,24 @@ const HeaderManager = ({ language, currentContent, currentPath, indexes }) => {
         <div className="w-full">
             {/* reference doc */}
             <FileUploader id={"headerReference"} label={"Rerference doc"} fileName={"Upload your file..."} />
+
+            <ContentSection
+                currentPath={currentPath}
+                Heading={"Extra Keys"}
+                inputs={[
+                    { input: "input", label: "Button", updateType: "contact", maxLength: 10, value: currentContent?.['2']?.content?.contact?.[language] },
+                    { input: "input", label: "Extra Key", updateType: "extraKey", value: currentContent?.['2']?.content?.extraKey?.[language] },
+                ]}
+                section={"Extra Key"}
+                language={language}
+                currentContent={currentContent}
+                isBorder={false}
+                sectionIndex={indexes?.['2']}
+            />
+
             {currentContent?.['1']?.content?.map((section, i, a) => {
-                const lastIndex = i === a.length - 1
+                const moreThanFive = i > 4
+                const isContactButton = section.type === "contact"
                 return (
                     <div key={i}>
                         <DynamicContentSection
@@ -28,12 +64,16 @@ const HeaderManager = ({ language, currentContent, currentPath, indexes }) => {
                             isBorder={false}
                             attachOne={true}
                             contentIndex={i}
+                            index={i}
                             sectionIndex={indexes?.['1']}
+                            allowRemoval={moreThanFive && !isContactButton}
+                            type={"content[index]"}
                         />
-                    
+
                     </div>
                 )
             })}
+            <button className="text-blue-500 cursor-pointer mb-3" onClick={() => addNav()}>Add More Section...</button>
         </div>
     )
 }

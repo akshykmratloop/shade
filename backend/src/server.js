@@ -8,6 +8,7 @@ import {
   removeUserSocket,
   setUserSocket,
 } from "./helper/socketConnectionID.js";
+import {scheduleCronJobs} from "./helper/cronJobs.js";
 
 (async () => {
   const app = createApp();
@@ -15,6 +16,9 @@ import {
 
   // Initialize all modules
   useModules(app);
+
+  // Call your cron job scheduler
+  scheduleCronJobs();
 
   // Add middleware for errors and 404
   finishApp(app);

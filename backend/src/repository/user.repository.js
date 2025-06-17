@@ -1,6 +1,7 @@
+import {send} from "process";
 import prismaClient from "../config/dbConfig.js";
-import {EncryptData} from "../helper/bcryptManager.js";
-import {sendEmail} from "../helper/sendEmail.js";
+import { EncryptData } from "../helper/bcryptManager.js";
+import { sendEmail } from "../helper/sendEmail.js";
 import user from "../modules/user/index.js";
 
 /// USER QUERIES====================================================
@@ -13,7 +14,7 @@ export const createUserHandler = async (
   roles
 ) => {
   const existingUser = await prismaClient.user.findUnique({
-    where: {email},
+    where: { email },
   });
 
   if (existingUser) {
@@ -31,14 +32,14 @@ export const createUserHandler = async (
         create:
           roles?.map((roleId) => ({
             role: {
-              connect: {id: roleId},
+              connect: { id: roleId },
             },
           })) || [],
       },
     },
     include: {
       roles: {
-        include: {role: true},
+        include: { role: true },
       },
     },
   });
@@ -72,7 +73,7 @@ export const createUserHandler = async (
     `,
   };
 
-  // await sendEmail(emailPayload);
+  await sendEmail(emailPayload);
 
   return newUser;
 };
@@ -84,7 +85,7 @@ export const fetchAllUsers = async (
   phone = "",
   status = "",
   page = 1,
-  limit = 10
+  limit = 1
 ) => {
   const skip = (page - 1) * limit;
 
@@ -95,9 +96,9 @@ export const fetchAllUsers = async (
         contains: name,
         mode: "insensitive",
       },
-      email: email ? {contains: email, mode: "insensitive"} : undefined,
-      phone: phone ? {contains: phone} : undefined,
-      ...(status ? {status: status} : {}),
+      email: email ? { contains: email, mode: "insensitive" } : undefined,
+      phone: phone ? { contains: phone } : undefined,
+      ...(status ? { status: status } : {}),
     },
     include: {
       roles: {
@@ -115,7 +116,7 @@ export const fetchAllUsers = async (
         },
       },
     },
-    orderBy: {createdAt: "asc"},
+    orderBy: { createdAt: "asc" },
     skip,
     take: limit,
   });
@@ -127,9 +128,9 @@ export const fetchAllUsers = async (
         contains: name,
         mode: "insensitive",
       },
-      email: email ? {contains: email, mode: "insensitive"} : undefined,
-      phone: phone ? {contains: phone} : undefined,
-      ...(status ? {status: status} : {}),
+      email: email ? { contains: email, mode: "insensitive" } : undefined,
+      phone: phone ? { contains: phone } : undefined,
+      ...(status ? { status: status } : {}),
     },
   });
 
@@ -153,7 +154,7 @@ export const updateUser = async (id, name, password, phone, roles) => {
       deleteMany: {},
       create:
         roles?.map((roleId) => ({
-          role: {connect: {id: roleId}},
+          role: { connect: { id: roleId } },
         })) || [],
     },
   };
@@ -165,7 +166,7 @@ export const updateUser = async (id, name, password, phone, roles) => {
   }
 
   const updatedUser = await prismaClient.user.update({
-    where: {id},
+    where: { id },
     data: dataToUpdate,
     include: {
       roles: {
@@ -194,6 +195,68 @@ export const updateUser = async (id, name, password, phone, roles) => {
       permissions: role.role.permissions.map((perm) => perm.permission.name),
     })) || [];
 
+  await sendEmail({
+    to: updatedUser.email,
+    subject: "Your Account Details Updated",
+    text: `Hello ${updatedUser.name}, your account details have been updated successfully.`,
+    html: `
+      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #ddd; border-radius: 8px; background-color: #f9f9f9;">
+        <h2 style="text-align: center; color: #333;">Your Account Details Updated</h2>
+        <p style="font-size: 16px; color: #555;">Hello <strong>${updatedUser.name}</strong>,</p>
+        <p style="font-size: 16px; color: #555;">
+          Your account details have been updated successfully. If you made this change, please ignore this email. If not, please contact support.
+        </p>
+        <div style="text-align: center; margin-top: 20px;">
+          <a href="http://localhost:3001/login" style="display: inline-block; background-color: #007bff; color: #fff; padding: 12px 20px; font-size: 16px; text-decoration: none; border-radius: 5px;">Login Now</a>
+        </div>
+        <p style="font-size: 14px; color: #999; text-align: center; margin-top: 20px;">
+          If you didn't request this, please ignore this email.
+        </p>
+        <hr style="border: none; border-top: 1px solid #ddd;">
+        <p style="font-size: 14px; color: #999; text-align: center;">© 2025 Your Company. All rights reserved.</p>
+      </div>
+    `,
+  });
+
+  return {
+    ...updatedUser,
+    roles: roleAndPermission,
+  };
+};
+
+export const updateProfile = async (id, name, phone, image) => {
+  const updatedUser = await prismaClient.user.update({
+    where: {id},
+    data: {
+      name,
+      phone,
+      image,
+    },
+    include: {
+      roles: {
+        include: {
+          role: {
+            include: {
+              permissions: {
+                include: {
+                  permission: true,
+                },
+              },
+              roleType: true,
+            },
+          },
+        },
+      },
+    },
+  });
+  const roleAndPermission =
+    updatedUser.roles?.map((role) => ({
+      id: role.role.id,
+      role: role.role.name,
+      roleType: role.role.roleType.name,
+      status: role.role.status,
+      permissions: role.role.permissions.map((perm) => perm.permission.name),
+    })) || [];
   return {
     ...updatedUser,
     roles: roleAndPermission,
@@ -306,7 +369,7 @@ export const findUserByEmail = async (email) => {
 
 export const findUserById = async (id) => {
   const user = await prismaClient.user.findUnique({
-    where: {id},
+    where: { id },
     include: {
       roles: {
         include: {
@@ -362,8 +425,8 @@ export const findUserById = async (id) => {
 // Update user password
 export const updateUserPassword = async (userId, newPassword) => {
   return await prismaClient.user.update({
-    where: {id: userId},
-    data: {password: newPassword},
+    where: { id: userId },
+    data: { password: newPassword },
   });
 };
 
@@ -385,30 +448,30 @@ export const createOrUpdateOTP = async (
         otpOrigin,
       },
     },
-    create: {userId, deviceId, otpOrigin, otpCode, expiresAt},
-    update: {otpCode, expiresAt, isUsed: false},
+    create: { userId, deviceId, otpOrigin, otpCode, expiresAt },
+    update: { otpCode, expiresAt, isUsed: false },
   });
 };
 
 // find existing otp
 export const findOTP = async (userId, deviceId, otpOrigin) => {
   return await prismaClient.otp.findFirst({
-    where: {userId, deviceId, otpOrigin},
+    where: { userId, deviceId, otpOrigin },
   });
 };
 
 // mark otp as used
 export const markOTPUsed = async (otpId) => {
   return await prismaClient.otp.update({
-    where: {id: otpId},
-    data: {isUsed: true},
+    where: { id: otpId },
+    data: { isUsed: true },
   });
 };
 
 // delete otp
 export const deleteOTP = async (otpId) => {
   return await prismaClient.otp.delete({
-    where: {id: otpId},
+    where: { id: otpId },
   });
 };
 
@@ -417,7 +480,7 @@ export const deleteOTP = async (otpId) => {
 // Find OTP attempts
 export const findOtpAttempts = async (userId) => {
   return await prismaClient.rateLimit.findFirst({
-    where: {userId},
+    where: { userId },
   });
 };
 
@@ -426,9 +489,9 @@ export const createOrUpdateOtpAttempts = async (userId) => {
   const now = new Date();
 
   return await prismaClient.rateLimit.upsert({
-    where: {userId},
+    where: { userId },
     update: {
-      attempts: {increment: 1},
+      attempts: { increment: 1 },
       lastAttempt: now,
     },
     create: {
@@ -444,8 +507,8 @@ export const createOrUpdateOtpAttempts = async (userId) => {
 // Block a user temporarily
 export const blockUser = async (userId, blockUntil) => {
   return await prismaClient.rateLimit.update({
-    where: {userId},
-    data: {blockUntil},
+    where: { userId },
+    data: { blockUntil },
   });
 };
 
@@ -453,8 +516,8 @@ export const blockUser = async (userId, blockUntil) => {
 export const resetOtpAttempts = async () => {
   const now = new Date();
   await prismaClient.rateLimit.updateMany({
-    where: {blockUntil: {lte: now}},
-    data: {attempts: 0, failures: 0, blockUntil: null},
+    where: { blockUntil: { lte: now } },
+    data: { attempts: 0, failures: 0, blockUntil: null },
   });
 };
 
@@ -519,7 +582,7 @@ export const userDeactivation = async (id) => {
 
 export const findRoleTypeByUserId = async (id) => {
   const roleType = await prismaClient.user.findUnique({
-    where: {id},
+    where: { id },
     include: {
       roles: {
         include: {
@@ -551,7 +614,7 @@ export const fetchAllRolesForUser = async () => {
         },
       },
     },
-    orderBy: {created_at: "asc"},
+    orderBy: { created_at: "asc" },
   });
 
   return {
@@ -561,14 +624,14 @@ export const fetchAllRolesForUser = async () => {
 
 export const findAllLogs = async (search, status, pageNum, limitNum) => {
   const skip = (pageNum - 1) * limitNum;
-  
+
   // Define the where clause for both findMany and count
   const whereClause = {
     action_performed: {
       contains: search,
       mode: "insensitive",
     },
-    ...(status ? {outcome: status} : {}),
+    ...(status ? { outcome: status } : {}),
   };
 
   const [logs, totalLogs] = await Promise.all([
@@ -601,4 +664,13 @@ export const findAllLogs = async (search, status, pageNum, limitNum) => {
       limitNum,
     },
   };
+};
+
+export const updateProfileImage = async (userId, imageUrl) => {
+  const profileImage = await prismaClient.user.update({
+    where: {id: userId},
+    data: {image: imageUrl},
+  });
+
+  return profileImage;
 };

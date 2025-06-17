@@ -12,8 +12,12 @@ import auditLogger from "./helper/auditLogger.js";
 import {globalRateLimiter} from "./helper/rateLimiter.js";
 import swaggerSpec from "./config/swaggerConfig.js";
 import swaggerUi from "swagger-ui-express";
+import {fileURLToPath} from "url";
 export const createApp = () => {
   const app = express();
+
+  const __filename = fileURLToPath(import.meta.url);
+  const __dirname = path.dirname(__filename);
 
   // Middleware setup
   app.use(
@@ -48,6 +52,9 @@ export const createApp = () => {
 
   // swagger
   app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
+  // Multer for file uploads (if needed)
+  app.use("/uploads", express.static(path.join(__dirname, "uploads", "pdfs")));
 
   // console.log("swagger", swaggerSpec);
 

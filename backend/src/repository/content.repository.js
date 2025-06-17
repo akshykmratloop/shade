@@ -13,7 +13,8 @@ export const fetchResources = async (
   userId,
   roleId,
   apiCallType,
-  filterText
+  filterText,
+  parentId
 ) => {
   const skip = (page - 1) * limit;
 
@@ -478,6 +479,7 @@ export const fetchResources = async (
         },
       }
       : {}),
+    ...(parentId ? { parentId } : {}),
   };
 
   // Fetch resources with pagination
@@ -542,7 +544,8 @@ export const fetchAllResourcesWithContent = async (
   userId,
   roleId,
   apiCallType,
-  filterText
+  filterText,
+  parentId
 ) => {
   // First fetch the filtered resources based on permissions and roleId
   const filteredResources = await fetchResources(
@@ -557,7 +560,8 @@ export const fetchAllResourcesWithContent = async (
     userId,
     roleId,
     apiCallType,
-    filterText
+    filterText,
+    parentId
   );
 
   // If no resources found, return early
@@ -621,6 +625,8 @@ export const fetchAllResourcesWithContent = async (
       }),
     }))
   );
+
+
 
   return {
     resources: formattedResources,
@@ -833,13 +839,12 @@ export const assignUserToResource = async (
     const getPendingRequests = async (resourceId, versionId = null) => {
       return await prisma.resourceVersioningRequest.findMany({
         where: {
-          ...(versionId ? { resourceVersionId: versionId } : { resourceVersion: { resourceId } }),
-          OR: [
-            { status: "VERIFICATION_PENDING" },
-            { status: "PUBLISH_PENDING" }
-          ]
+          ...(versionId
+            ? { resourceVersionId: versionId }
+            : { resourceVersion: { resourceId } }),
+          OR: [{ status: "VERIFICATION_PENDING" }, { status: "PUBLISH_PENDING" }],
         },
-        select: { id: true }
+        select: { id: true },
       });
     };
 
@@ -852,8 +857,8 @@ export const assignUserToResource = async (
           requestId: { in: requestIds },
           approverId: userId,
           stage,
-          status: { not: "PENDING" } // Either APPROVED or REJECTED
-        }
+          status: { not: "PENDING" }, // Either APPROVED or REJECTED
+        },
       });
 
       return approvals.length > 0;
@@ -876,12 +881,14 @@ export const assignUserToResource = async (
       if (pendingRequests.length > 0) {
         const hasTakenAction = await hasUserTakenAction(
           activePublisher.userId,
-          pendingRequests.map(req => req.id),
+          pendingRequests.map((req) => req.id),
           null
         );
 
         if (hasTakenAction) {
-          throw new Error(`Cannot remove publisher - they've already acted on requests`);
+          throw new Error(
+            `Cannot remove publisher - they've already acted on requests`
+          );
         }
       }
     }
@@ -951,32 +958,33 @@ export const assignUserToResource = async (
         // If the user was a publisher, mark their approval logs as inactive
         if (activeInOtherRole.role === "PUBLISHER") {
           // Find all pending requests for this resource
-          const pendingRequests = await prisma.resourceVersioningRequest.findMany({
-            where: {
-              resourceVersion: {
-                resourceId: resourceId
+          const pendingRequests =
+            await prisma.resourceVersioningRequest.findMany({
+              where: {
+                resourceVersion: {
+                  resourceId: resourceId,
+                },
+                OR: [
+                  { status: "VERIFICATION_PENDING" },
+                  { status: "PUBLISH_PENDING" },
+                ],
               },
-              OR: [
-                { status: "VERIFICATION_PENDING" },
-                { status: "PUBLISH_PENDING" }
-              ]
-            },
-            select: {
-              id: true
-            }
-          });
+              select: {
+                id: true,
+              },
+            });
 
           // Mark all publisher approval logs as inactive
           if (pendingRequests.length > 0) {
             await prisma.requestApproval.updateMany({
               where: {
-                requestId: { in: pendingRequests.map(req => req.id) },
+                requestId: { in: pendingRequests.map((req) => req.id) },
                 approverId: userId,
                 stage: null, // Publisher approvals have null stage
               },
               data: {
-                approverStatus: "INACTIVE"
-              }
+                approverStatus: "INACTIVE",
+              },
             });
           }
         }
@@ -999,25 +1007,27 @@ export const assignUserToResource = async (
           if (pendingRequests.length > 0) {
             const hasTakenAction = await hasUserTakenAction(
               otherUserActive.userId,
-              pendingRequests.map(req => req.id),
+              pendingRequests.map((req) => req.id),
               null
             );
 
             // If the publisher has taken any action (approved or rejected), we can't reassign them
             if (hasTakenAction) {
-              throw new Error(`Cannot reassign publisher because they have already taken action on requests (approved or rejected). Only publishers who haven't taken any action can be reassigned.`);
+              throw new Error(
+                `Cannot reassign publisher because they have already taken action on requests (approved or rejected). Only publishers who haven't taken any action can be reassigned.`
+              );
             }
 
             // Mark all publisher approval logs as inactive
             await prisma.requestApproval.updateMany({
               where: {
-                requestId: { in: pendingRequests.map(req => req.id) },
+                requestId: { in: pendingRequests.map((req) => req.id) },
                 approverId: otherUserActive.userId,
                 stage: null, // Publisher approvals have null stage
               },
               data: {
-                approverStatus: "INACTIVE"
-              }
+                approverStatus: "INACTIVE",
+              },
             });
           }
         }
@@ -1041,34 +1051,36 @@ export const assignUserToResource = async (
             // Check for existing inactive approval logs for this user as publisher
             const inactiveApprovals = await prisma.requestApproval.findMany({
               where: {
-                requestId: { in: pendingRequests.map(req => req.id) },
+                requestId: { in: pendingRequests.map((req) => req.id) },
                 approverId: userId,
                 stage: null, // Publisher approvals have null stage
-                approverStatus: "INACTIVE"
-              }
+                approverStatus: "INACTIVE",
+              },
             });
 
             // Reactivate existing approval logs
             if (inactiveApprovals.length > 0) {
               await prisma.requestApproval.updateMany({
                 where: {
-                  id: { in: inactiveApprovals.map(approval => approval.id) }
+                  id: { in: inactiveApprovals.map((approval) => approval.id) },
                 },
                 data: {
-                  approverStatus: "ACTIVE"
-                }
+                  approverStatus: "ACTIVE",
+                },
               });
             } else {
               // Create new approval logs if none exist
               for (const request of pendingRequests) {
                 // Check if there's already an active approval for this request
-                const existingApproval = await prisma.requestApproval.findFirst({
-                  where: {
-                    requestId: request.id,
-                    stage: null, // Publisher approvals have null stage
-                    approverStatus: "ACTIVE"
+                const existingApproval = await prisma.requestApproval.findFirst(
+                  {
+                    where: {
+                      requestId: request.id,
+                      stage: null, // Publisher approvals have null stage
+                      approverStatus: "ACTIVE",
+                    },
                   }
-                });
+                );
 
                 // Only create if no active approval exists
                 if (!existingApproval) {
@@ -1077,8 +1089,8 @@ export const assignUserToResource = async (
                       stage: null,
                       comments: null,
                       requestId: request.id,
-                      approverId: userId
-                    }
+                      approverId: userId,
+                    },
                   });
                 }
               }
@@ -1107,8 +1119,8 @@ export const assignUserToResource = async (
               where: {
                 requestId: request.id,
                 stage: null, // Publisher approvals have null stage
-                approverStatus: "ACTIVE"
-              }
+                approverStatus: "ACTIVE",
+              },
             });
 
             // Only create if no active approval exists
@@ -1118,8 +1130,8 @@ export const assignUserToResource = async (
                   stage: null,
                   comments: null,
                   requestId: request.id,
-                  approverId: userId
-                }
+                  approverId: userId,
+                },
               });
             }
           }
@@ -1142,7 +1154,7 @@ export const assignUserToResource = async (
         if (currentPublisher) {
           publisherHasTakenAction = await hasUserTakenAction(
             currentPublisher.userId,
-            pendingRequests.map(req => req.id),
+            pendingRequests.map((req) => req.id),
             null // Publisher stage is null
           );
         }
@@ -1159,10 +1171,17 @@ export const assignUserToResource = async (
         // Check if there are any changes to verifiers
         const hasVerifierChanges =
           verifiersToDeactivate.length > 0 ||
-          verifiers.some(v => !currentActiveVerifiers.find(cv => cv.userId === v.id && cv.stage === v.stage));
+          verifiers.some(
+            (v) =>
+              !currentActiveVerifiers.find(
+                (cv) => cv.userId === v.id && cv.stage === v.stage
+              )
+          );
 
         if (hasVerifierChanges) {
-          throw new Error(`Cannot modify verifiers because the publisher has already taken action on pending requests. Verifier assignments cannot be changed once the publisher has approved or rejected a request.`);
+          throw new Error(
+            `Cannot modify verifiers because the publisher has already taken action on pending requests. Verifier assignments cannot be changed once the publisher has approved or rejected a request.`
+          );
         }
 
         // If no changes, skip verifier processing and continue to version assignments
@@ -1172,25 +1191,27 @@ export const assignUserToResource = async (
           if (pendingRequests.length > 0) {
             const hasTakenAction = await hasUserTakenAction(
               verifier.userId,
-              pendingRequests.map(req => req.id),
+              pendingRequests.map((req) => req.id),
               verifier.stage
             );
 
             // If the verifier has taken any action (approved or rejected), we can't remove them
             if (hasTakenAction) {
-              throw new Error(`Cannot remove verifier at stage ${verifier.stage} because they have already taken action on requests (approved or rejected). Only verifiers who haven't taken any action can be removed.`);
+              throw new Error(
+                `Cannot remove verifier at stage ${verifier.stage} because they have already taken action on requests (approved or rejected). Only verifiers who haven't taken any action can be removed.`
+              );
             }
 
             // Mark all verifier approval logs as inactive
             await prisma.requestApproval.updateMany({
               where: {
-                requestId: { in: pendingRequests.map(req => req.id) },
+                requestId: { in: pendingRequests.map((req) => req.id) },
                 approverId: verifier.userId,
                 stage: verifier.stage,
               },
               data: {
-                approverStatus: "INACTIVE"
-              }
+                approverStatus: "INACTIVE",
+              },
             });
           }
 
@@ -1208,13 +1229,16 @@ export const assignUserToResource = async (
                 where: {
                   requestId: request.id,
                   approverStatus: "ACTIVE",
-                  stage: { not: null } // Only verifier approvals (exclude publisher)
-                }
+                  stage: { not: null }, // Only verifier approvals (exclude publisher)
+                },
               });
 
               // Check if all remaining active verifier approvals are approved
-              const allVerifiersApproved = activeApprovals.length > 0 &&
-                activeApprovals.every(approval => approval.status === "APPROVED");
+              const allVerifiersApproved =
+                activeApprovals.length > 0 &&
+                activeApprovals.every(
+                  (approval) => approval.status === "APPROVED"
+                );
 
               // If all remaining verifiers have approved, transition to publish pending
               if (allVerifiersApproved) {
@@ -1224,22 +1248,23 @@ export const assignUserToResource = async (
                   data: {
                     status: "PUBLISH_PENDING",
                     type: "PUBLICATION",
-                    flowStatus: "PENDING"
-                  }
+                    flowStatus: "PENDING",
+                  },
                 });
 
                 // Update resource version status to PUBLISH_PENDING
-                const requestDetails = await prisma.resourceVersioningRequest.findUnique({
-                  where: { id: request.id },
-                  select: { resourceVersionId: true }
-                });
+                const requestDetails =
+                  await prisma.resourceVersioningRequest.findUnique({
+                    where: { id: request.id },
+                    select: { resourceVersionId: true },
+                  });
 
                 if (requestDetails) {
                   await prisma.resourceVersion.update({
                     where: { id: requestDetails.resourceVersionId },
                     data: {
-                      versionStatus: "PUBLISH_PENDING"
-                    }
+                      versionStatus: "PUBLISH_PENDING",
+                    },
                   });
                 }
               }
@@ -1289,13 +1314,13 @@ export const assignUserToResource = async (
               if (pendingRequests.length > 0) {
                 await prisma.requestApproval.updateMany({
                   where: {
-                    requestId: { in: pendingRequests.map(req => req.id) },
+                    requestId: { in: pendingRequests.map((req) => req.id) },
                     approverId: userId,
                     stage: null, // Publisher approvals have null stage
                   },
                   data: {
-                    approverStatus: "INACTIVE"
-                  }
+                    approverStatus: "INACTIVE",
+                  },
                 });
               }
             }
@@ -1315,13 +1340,15 @@ export const assignUserToResource = async (
             if (pendingRequests.length > 0) {
               const hasTakenAction = await hasUserTakenAction(
                 assignment.userId,
-                pendingRequests.map(req => req.id),
+                pendingRequests.map((req) => req.id),
                 assignment.stage
               );
 
               // If the verifier has taken any action (approved or rejected), we can't reassign them
               if (hasTakenAction) {
-                throw new Error(`Cannot reassign verifier at stage ${stage} because they have already taken action on requests (approved or rejected). Only verifiers who haven't taken any action can be reassigned.`);
+                throw new Error(
+                  `Cannot reassign verifier at stage ${stage} because they have already taken action on requests (approved or rejected). Only verifiers who haven't taken any action can be reassigned.`
+                );
               }
             }
 
@@ -1332,7 +1359,9 @@ export const assignUserToResource = async (
             });
 
             // Check if this was the last pending verifier and update request status if needed
-            const pendingRequestsForReassignment = await getPendingRequests(resourceId);
+            const pendingRequestsForReassignment = await getPendingRequests(
+              resourceId
+            );
             if (pendingRequestsForReassignment.length > 0) {
               for (const request of pendingRequestsForReassignment) {
                 // Get all active approvals for this request
@@ -1340,13 +1369,16 @@ export const assignUserToResource = async (
                   where: {
                     requestId: request.id,
                     approverStatus: "ACTIVE",
-                    stage: { not: null } // Only verifier approvals (exclude publisher)
-                  }
+                    stage: { not: null }, // Only verifier approvals (exclude publisher)
+                  },
                 });
 
                 // Check if all remaining active verifier approvals are approved
-                const allVerifiersApproved = activeApprovals.length > 0 &&
-                  activeApprovals.every(approval => approval.status === "APPROVED");
+                const allVerifiersApproved =
+                  activeApprovals.length > 0 &&
+                  activeApprovals.every(
+                    (approval) => approval.status === "APPROVED"
+                  );
 
                 // If all remaining verifiers have approved, transition to publish pending
                 if (allVerifiersApproved) {
@@ -1356,22 +1388,23 @@ export const assignUserToResource = async (
                     data: {
                       status: "PUBLISH_PENDING",
                       type: "PUBLICATION",
-                      flowStatus: "PENDING"
-                    }
+                      flowStatus: "PENDING",
+                    },
                   });
 
                   // Update resource version status to PUBLISH_PENDING
-                  const requestDetails = await prisma.resourceVersioningRequest.findUnique({
-                    where: { id: request.id },
-                    select: { resourceVersionId: true }
-                  });
+                  const requestDetails =
+                    await prisma.resourceVersioningRequest.findUnique({
+                      where: { id: request.id },
+                      select: { resourceVersionId: true },
+                    });
 
                   if (requestDetails) {
                     await prisma.resourceVersion.update({
                       where: { id: requestDetails.resourceVersionId },
                       data: {
-                        versionStatus: "PUBLISH_PENDING"
-                      }
+                        versionStatus: "PUBLISH_PENDING",
+                      },
                     });
                   }
                 }
@@ -1402,45 +1435,46 @@ export const assignUserToResource = async (
             });
 
             // Find all pending requests for this resource
-            const pendingRequests = await prisma.resourceVersioningRequest.findMany({
-              where: {
-                resourceVersion: {
-                  resourceId: resourceId
-                },
-                OR: [
-                  { status: "VERIFICATION_PENDING" },
-                  { status: "PUBLISH_PENDING" }
-                ]
-              },
-              include: {
-                resourceVersion: {
-                  select: {
-                    id: true,
-                    versionStatus: true
-                  }
-                },
-                approvals: {
-                  where: {
-                    approverStatus: "ACTIVE"
+            const pendingRequests =
+              await prisma.resourceVersioningRequest.findMany({
+                where: {
+                  resourceVersion: {
+                    resourceId: resourceId,
                   },
-                  select: {
-                    id: true,
-                    stage: true,
-                    status: true
-                  }
-                }
-              }
-            });
+                  OR: [
+                    { status: "VERIFICATION_PENDING" },
+                    { status: "PUBLISH_PENDING" },
+                  ],
+                },
+                include: {
+                  resourceVersion: {
+                    select: {
+                      id: true,
+                      versionStatus: true,
+                    },
+                  },
+                  approvals: {
+                    where: {
+                      approverStatus: "ACTIVE",
+                    },
+                    select: {
+                      id: true,
+                      stage: true,
+                      status: true,
+                    },
+                  },
+                },
+              });
 
             if (pendingRequests.length > 0) {
               // Check for existing inactive approval logs for this user as verifier
               const inactiveApprovals = await prisma.requestApproval.findMany({
                 where: {
-                  requestId: { in: pendingRequests.map(req => req.id) },
+                  requestId: { in: pendingRequests.map((req) => req.id) },
                   approverId: userId,
                   stage: stage,
-                  approverStatus: "INACTIVE"
-                }
+                  approverStatus: "INACTIVE",
+                },
               });
 
               // Process each request
@@ -1452,7 +1486,7 @@ export const assignUserToResource = async (
                 if (inactiveApprovals.length > 0) {
                   // Find the inactive approval for this specific request
                   const inactiveApproval = inactiveApprovals.find(
-                    approval => approval.requestId === request.id
+                    (approval) => approval.requestId === request.id
                   );
 
                   if (inactiveApproval) {
@@ -1461,8 +1495,8 @@ export const assignUserToResource = async (
                       where: { id: inactiveApproval.id },
                       data: {
                         approverStatus: "ACTIVE",
-                        status: "PENDING" // Reset to pending status
-                      }
+                        status: "PENDING", // Reset to pending status
+                      },
                     });
 
                     // If the request was in PUBLISH_PENDING status, change it back to VERIFICATION_PENDING
@@ -1473,28 +1507,29 @@ export const assignUserToResource = async (
                         data: {
                           status: "VERIFICATION_PENDING", // Change back to verification pending
                           type: "VERIFICATION", // Change type back to verification
-                          flowStatus: "PENDING" // Reset flow status
-                        }
+                          flowStatus: "PENDING", // Reset flow status
+                        },
                       });
 
                       // Update the resource version status
                       await prisma.resourceVersion.update({
                         where: { id: request.resourceVersion.id },
                         data: {
-                          versionStatus: "VERIFICATION_PENDING" // Change version status back to verification pending
-                        }
+                          versionStatus: "VERIFICATION_PENDING", // Change version status back to verification pending
+                        },
                       });
                     }
                   }
                 } else {
                   // Check if there's already an active approval for this request and stage
-                  const existingApproval = await prisma.requestApproval.findFirst({
-                    where: {
-                      requestId: request.id,
-                      stage: stage,
-                      approverStatus: "ACTIVE"
-                    }
-                  });
+                  const existingApproval =
+                    await prisma.requestApproval.findFirst({
+                      where: {
+                        requestId: request.id,
+                        stage: stage,
+                        approverStatus: "ACTIVE",
+                      },
+                    });
 
                   // Only create if no active approval exists
                   if (!existingApproval) {
@@ -1505,8 +1540,8 @@ export const assignUserToResource = async (
                         comments: null,
                         requestId: request.id,
                         approverId: userId,
-                        status: "PENDING"
-                      }
+                        status: "PENDING",
+                      },
                     });
 
                     // If the request was in PUBLISH_PENDING status, change it back to VERIFICATION_PENDING
@@ -1517,16 +1552,16 @@ export const assignUserToResource = async (
                         data: {
                           status: "VERIFICATION_PENDING", // Change back to verification pending
                           type: "VERIFICATION", // Change type back to verification
-                          flowStatus: "PENDING" // Reset flow status
-                        }
+                          flowStatus: "PENDING", // Reset flow status
+                        },
                       });
 
                       // Update the resource version status
                       await prisma.resourceVersion.update({
                         where: { id: request.resourceVersion.id },
                         data: {
-                          versionStatus: "VERIFICATION_PENDING" // Change version status back to verification pending
-                        }
+                          versionStatus: "VERIFICATION_PENDING", // Change version status back to verification pending
+                        },
                       });
                     }
                   }
@@ -1544,35 +1579,36 @@ export const assignUserToResource = async (
             });
 
             // Find all pending requests for this resource
-            const pendingRequests = await prisma.resourceVersioningRequest.findMany({
-              where: {
-                resourceVersion: {
-                  resourceId: resourceId
-                },
-                OR: [
-                  { status: "VERIFICATION_PENDING" },
-                  { status: "PUBLISH_PENDING" }
-                ]
-              },
-              include: {
-                resourceVersion: {
-                  select: {
-                    id: true,
-                    versionStatus: true
-                  }
-                },
-                approvals: {
-                  where: {
-                    approverStatus: "ACTIVE"
+            const pendingRequests =
+              await prisma.resourceVersioningRequest.findMany({
+                where: {
+                  resourceVersion: {
+                    resourceId: resourceId,
                   },
-                  select: {
-                    id: true,
-                    stage: true,
-                    status: true
-                  }
-                }
-              }
-            });
+                  OR: [
+                    { status: "VERIFICATION_PENDING" },
+                    { status: "PUBLISH_PENDING" },
+                  ],
+                },
+                include: {
+                  resourceVersion: {
+                    select: {
+                      id: true,
+                      versionStatus: true,
+                    },
+                  },
+                  approvals: {
+                    where: {
+                      approverStatus: "ACTIVE",
+                    },
+                    select: {
+                      id: true,
+                      stage: true,
+                      status: true,
+                    },
+                  },
+                },
+              });
 
             // Process each pending request
             for (const request of pendingRequests) {
@@ -1584,8 +1620,8 @@ export const assignUserToResource = async (
                 where: {
                   requestId: request.id,
                   stage: stage,
-                  approverStatus: "ACTIVE"
-                }
+                  approverStatus: "ACTIVE",
+                },
               });
 
               // Only create if no active approval exists
@@ -1597,8 +1633,8 @@ export const assignUserToResource = async (
                     comments: null,
                     requestId: request.id,
                     approverId: userId,
-                    status: "PENDING"
-                  }
+                    status: "PENDING",
+                  },
                 });
 
                 // If the request was in PUBLISH_PENDING status, change it back to VERIFICATION_PENDING
@@ -1609,16 +1645,16 @@ export const assignUserToResource = async (
                     data: {
                       status: "VERIFICATION_PENDING", // Change back to verification pending
                       type: "VERIFICATION", // Change type back to verification
-                      flowStatus: "PENDING" // Reset flow status
-                    }
+                      flowStatus: "PENDING", // Reset flow status
+                    },
                   });
 
                   // Update the resource version status
                   await prisma.resourceVersion.update({
                     where: { id: request.resourceVersion.id },
                     data: {
-                      versionStatus: "VERIFICATION_PENDING" // Change version status back to verification pending
-                    }
+                      versionStatus: "VERIFICATION_PENDING", // Change version status back to verification pending
+                    },
                   });
                 }
               }
@@ -1649,16 +1685,17 @@ export const assignUserToResource = async (
       const currentActiveResourceRoles = await prisma.resourceRole.findMany({
         where: {
           resourceId,
-          status: "ACTIVE"
-        }
+          status: "ACTIVE",
+        },
       });
 
-      const currentActiveResourceVerifiers = await prisma.resourceVerifier.findMany({
-        where: {
-          resourceId,
-          status: "ACTIVE"
-        }
-      });
+      const currentActiveResourceVerifiers =
+        await prisma.resourceVerifier.findMany({
+          where: {
+            resourceId,
+            status: "ACTIVE",
+          },
+        });
 
       // Synchronize roles: Make version roles match resource roles exactly
       for (const [role, userId] of Object.entries(roleMap)) {
@@ -1735,7 +1772,9 @@ export const assignUserToResource = async (
         // Deactivate all current version verifiers that don't match resource verifiers
         for (const versionVerifier of activeVersionVerifiers) {
           const matchingResourceVerifier = currentActiveResourceVerifiers.find(
-            (rv) => rv.userId === versionVerifier.userId && rv.stage === versionVerifier.stage
+            (rv) =>
+              rv.userId === versionVerifier.userId &&
+              rv.stage === versionVerifier.stage
           );
 
           if (!matchingResourceVerifier) {
@@ -1750,7 +1789,9 @@ export const assignUserToResource = async (
         // Add/activate version verifiers to match resource verifiers
         for (const resourceVerifier of currentActiveResourceVerifiers) {
           const existingVersionVerifier = activeVersionVerifiers.find(
-            (vv) => vv.userId === resourceVerifier.userId && vv.stage === resourceVerifier.stage
+            (vv) =>
+              vv.userId === resourceVerifier.userId &&
+              vv.stage === resourceVerifier.stage
           );
 
           if (existingVersionVerifier) {
@@ -1771,7 +1812,9 @@ export const assignUserToResource = async (
 
           // Deactivate any other stage assignments for this user
           const userOtherStages = activeVersionVerifiers.filter(
-            (vv) => vv.userId === resourceVerifier.userId && vv.stage !== resourceVerifier.stage
+            (vv) =>
+              vv.userId === resourceVerifier.userId &&
+              vv.stage !== resourceVerifier.stage
           );
           for (const userStage of userOtherStages) {
             await prisma.resourceVersionVerifier.update({
@@ -1782,7 +1825,10 @@ export const assignUserToResource = async (
 
           // Create or reactivate the correct verifier assignment
           const inactiveVersionVerifier = currentVersionVerifiers.find(
-            (vv) => vv.userId === resourceVerifier.userId && vv.stage === resourceVerifier.stage && vv.status !== "ACTIVE"
+            (vv) =>
+              vv.userId === resourceVerifier.userId &&
+              vv.stage === resourceVerifier.stage &&
+              vv.status !== "ACTIVE"
           );
 
           if (inactiveVersionVerifier) {
@@ -1834,7 +1880,6 @@ export const assignUserToResource = async (
   });
 };
 
-
 export const markAllAssignedUserInactive = async (resourceId) => {
   return await prismaClient.$transaction(async (prisma) => {
     // First, check if there are any versions in edit mode or with requests
@@ -1845,34 +1890,38 @@ export const markAllAssignedUserInactive = async (resourceId) => {
         versions: {
           where: {
             versionStatus: {
-              not: "PUBLISHED"
-            }
+              notIn: ["PUBLISHED", "LIVE"],
+            },
           },
           select: {
             id: true,
             versionStatus: true,
             requests: {
               select: {
-                id: true
-              }
-            }
-          }
-        }
-      }
+                id: true,
+              },
+            },
+          },
+        },
+      },
     });
 
     // Check if there's a version in edit mode
     if (resource.newVersionEditModeId) {
-      throw new Error("Cannot mark all users as inactive because there is a version in edit mode. All versions must be published before reassigning all users.");
+      throw new Error(
+        "Cannot mark all users as inactive because there is a version in edit mode. All versions must be published before reassigning all users."
+      );
     }
 
     // Check if there are any versions with requests (in any state)
-    const versionsWithRequests = resource.versions.filter(version =>
-      version.requests && version.requests.length > 0
+    const versionsWithRequests = resource.versions.filter(
+      (version) => version.requests && version.requests.length > 0
     );
 
     if (versionsWithRequests.length > 0) {
-      throw new Error("Cannot mark all users as inactive because there are versions with requests. All requests must be completed and published before reassigning all users.");
+      throw new Error(
+        "Cannot mark all users as inactive because there are versions with requests. All requests must be completed and published before reassigning all users."
+      );
     }
 
     // Get all active roles and verifiers before marking them inactive
@@ -1883,8 +1932,8 @@ export const markAllAssignedUserInactive = async (resourceId) => {
       },
       select: {
         userId: true,
-        role: true
-      }
+        role: true,
+      },
     });
 
     const activeVerifiers = await prisma.resourceVerifier.findMany({
@@ -1894,8 +1943,8 @@ export const markAllAssignedUserInactive = async (resourceId) => {
       },
       select: {
         userId: true,
-        stage: true
-      }
+        stage: true,
+      },
     });
 
     // 1. Mark all active roles as inactive
@@ -1924,25 +1973,22 @@ export const markAllAssignedUserInactive = async (resourceId) => {
     const pendingRequests = await prisma.resourceVersioningRequest.findMany({
       where: {
         resourceVersion: {
-          resourceId: resourceId
+          resourceId: resourceId,
         },
-        OR: [
-          { status: "VERIFICATION_PENDING" },
-          { status: "PUBLISH_PENDING" }
-        ]
+        OR: [{ status: "VERIFICATION_PENDING" }, { status: "PUBLISH_PENDING" }],
       },
       select: {
-        id: true
-      }
+        id: true,
+      },
     });
 
     if (pendingRequests.length > 0) {
-      const requestIds = pendingRequests.map(req => req.id);
+      const requestIds = pendingRequests.map((req) => req.id);
 
       // 4. Mark all publisher approval logs as inactive
       const publisherUserIds = activeRoles
-        .filter(role => role.role === "PUBLISHER")
-        .map(role => role.userId);
+        .filter((role) => role.role === "PUBLISHER")
+        .map((role) => role.userId);
 
       if (publisherUserIds.length > 0) {
         await prisma.requestApproval.updateMany({
@@ -1952,8 +1998,8 @@ export const markAllAssignedUserInactive = async (resourceId) => {
             stage: null, // Publisher approvals have null stage
           },
           data: {
-            approverStatus: "INACTIVE"
-          }
+            approverStatus: "INACTIVE",
+          },
         });
       }
 
@@ -1966,8 +2012,8 @@ export const markAllAssignedUserInactive = async (resourceId) => {
             stage: verifier.stage,
           },
           data: {
-            approverStatus: "INACTIVE"
-          }
+            approverStatus: "INACTIVE",
+          },
         });
       }
     }
@@ -1987,20 +2033,21 @@ export const markAllAssignedUserInactive = async (resourceId) => {
         },
         select: {
           userId: true,
-          role: true
-        }
+          role: true,
+        },
       });
 
-      const activeVersionVerifiers = await prisma.resourceVersionVerifier.findMany({
-        where: {
-          resourceVersionId: resourceWithVersion.newVersionEditModeId,
-          status: "ACTIVE",
-        },
-        select: {
-          userId: true,
-          stage: true
-        }
-      });
+      const activeVersionVerifiers =
+        await prisma.resourceVersionVerifier.findMany({
+          where: {
+            resourceVersionId: resourceWithVersion.newVersionEditModeId,
+            status: "ACTIVE",
+          },
+          select: {
+            userId: true,
+            stage: true,
+          },
+        });
 
       // Mark all active version roles as inactive
       await prisma.resourceVersionRole.updateMany({
@@ -2026,12 +2073,12 @@ export const markAllAssignedUserInactive = async (resourceId) => {
 
       // If there are pending requests, mark approval logs for version roles and verifiers as inactive
       if (pendingRequests.length > 0) {
-        const requestIds = pendingRequests.map(req => req.id);
+        const requestIds = pendingRequests.map((req) => req.id);
 
         // Mark all publisher approval logs as inactive for version roles
         const versionPublisherUserIds = activeVersionRoles
-          .filter(role => role.role === "PUBLISHER")
-          .map(role => role.userId);
+          .filter((role) => role.role === "PUBLISHER")
+          .map((role) => role.userId);
 
         if (versionPublisherUserIds.length > 0) {
           await prisma.requestApproval.updateMany({
@@ -2041,8 +2088,8 @@ export const markAllAssignedUserInactive = async (resourceId) => {
               stage: null, // Publisher approvals have null stage
             },
             data: {
-              approverStatus: "INACTIVE"
-            }
+              approverStatus: "INACTIVE",
+            },
           });
         }
 
@@ -2055,8 +2102,8 @@ export const markAllAssignedUserInactive = async (resourceId) => {
               stage: verifier.stage,
             },
             data: {
-              approverStatus: "INACTIVE"
-            }
+              approverStatus: "INACTIVE",
+            },
           });
         }
       }
@@ -2111,6 +2158,7 @@ export const fetchAssignedUsers = async (resourceId) => {
   });
 };
 
+////////////////fetchContent/////////////
 export const fetchContent = async (resourceId, isItemFullContent = true) => {
   // Fetch the resource with all necessary relations
   const resource = await prismaClient.resource.findUnique({
@@ -2183,32 +2231,34 @@ export const fetchContent = async (resourceId, isItemFullContent = true) => {
     const requests = await prismaClient.resourceVersioningRequest.findMany({
       where: {
         resourceVersion: {
-          resourceId: resourceId
-        }
+          resourceId: resourceId,
+        },
       },
       include: {
         approvals: {
           select: {
-            status: true
-          }
+            status: true,
+          },
         },
         resourceVersion: {
           select: {
-            versionStatus: true
-          }
-        }
-      }
+            versionStatus: true,
+          },
+        },
+      },
     });
 
     // Check if there's any active request in verification process with pending approvals
-    const hasActiveVerificationRequest = requests.some(request =>
-      // Check if the request is in verification process
-      (request.status === "VERIFICATION_PENDING" || request.status === "PUBLISH_PENDING") &&
-      // And has no rejections
-      !request.approvals.some(approval => approval.status === "REJECTED") &&
-      // And the version is not published or scheduled
-      request.resourceVersion.versionStatus !== "PUBLISHED" &&
-      request.resourceVersion.versionStatus !== "SCHEDULED"
+    const hasActiveVerificationRequest = requests.some(
+      (request) =>
+        // Check if the request is in verification process
+        (request.status === "VERIFICATION_PENDING" ||
+          request.status === "PUBLISH_PENDING") &&
+        // And has no rejections
+        !request.approvals.some((approval) => approval.status === "REJECTED") &&
+        // And the version is not published or scheduled
+        request.resourceVersion.versionStatus !== "PUBLISHED" &&
+        request.resourceVersion.versionStatus !== "SCHEDULED"
     );
 
     // Resource is NOT editable if there's an active verification request with no rejections
@@ -2228,13 +2278,16 @@ export const fetchContent = async (resourceId, isItemFullContent = true) => {
       relationType: resource.relationType,
     }),
   };
+  if (resource.parentId) result.parentId = resource.parentId
 
   // Process live version if it exists
   if (resource.liveVersion) {
     result.liveModeVersionData = await formatResourceVersionData(
       resource.liveVersion,
       isItemFullContent,
-      resource.slug
+      resource.slug,
+      resource.resourceType,
+      resource.resourceTag
     );
   }
 
@@ -2243,28 +2296,21 @@ export const fetchContent = async (resourceId, isItemFullContent = true) => {
     result.editModeVersionData = await formatResourceVersionData(
       resource.newVersionEditMode,
       isItemFullContent,
-      resource.slug
+      resource.slug,
+      resource.resourceType,
+      resource.resourceTag
     );
   }
 
   return result;
 };
 
-
-
-
-
-
-
-
-
-
-
-
-async function formatResourceVersionData(
+export async function formatResourceVersionData(
   resourceVersion,
   isItemFullContent,
-  resourceSlug
+  resourceSlug,
+  resourceType,
+  resourceTag
 ) {
   if (!resourceVersion) return null;
 
@@ -2374,12 +2420,11 @@ async function formatResourceVersionData(
         content: sectionVersion.content || {},
         sections: [], // Initialize sections array
       };
-
       // Add items if they exist
       if (
         isItemFullContent &&
         sectionVersion.items &&
-        sectionVersion.items.length > 0
+        (sectionVersion.items.length > 0)
       ) {
         formattedSection.items = await Promise.all(
           sectionVersion.items.map(async (item) => {
@@ -2397,6 +2442,17 @@ async function formatResourceVersionData(
               icon: itemContent.liveModeVersionData.icon,
               image: itemContent.liveModeVersionData.image,
             };
+
+            if (resourceSlug === "safety_responsibility") {
+              returningBody.descriptions = [
+                itemContent.liveModeVersionData.sections[0].content.description,
+                itemContent.liveModeVersionData.sections[1].content.description,
+                itemContent.liveModeVersionData.sections[1].content?.procedures
+                  ?.description,
+                itemContent.liveModeVersionData.sections[1].content?.procedures
+                  ?.terms?.[0]?.description,
+              ];
+            }
 
             if (
               (resourceSlug === "home" &&
@@ -2424,10 +2480,24 @@ async function formatResourceVersionData(
             }
 
             if (resourceSlug === "news-blogs") {
-              returningBody.description = itemContent.liveModeVersionData.sections[1].content[0].description; //
-              returningBody.date = itemContent.liveModeVersionData.sections[0].content.date; //
+              returningBody.description =
+                itemContent.liveModeVersionData.sections[1].content[0].description; //
+              returningBody.date =
+                itemContent.liveModeVersionData.sections[0].content.date; //
             }
 
+            if (resourceType === "SUB_PAGE" && resourceTag === "SERVICE") {
+              returningBody.description = itemContent?.liveModeVersionData?.sections?.[0]?.content?.description
+            }
+
+            if (resourceType === "SUB_PAGE" && resourceTag === "NEWS") {
+              returningBody.description = itemContent?.liveModeVersionData?.sections?.[1]?.content?.[0]?.description
+              returningBody.date = itemContent?.liveModeVersionData?.sections?.[0]?.content?.date
+            }
+
+            if (resourceType === "SUB_PAGE" && resourceTag === "PROJECT") {
+              returningBody.location = itemContent?.liveModeVersionData?.sections?.[1]?.content?.[0]?.value
+            }
             return { ...returningBody, order: item.order };
           })
         );
@@ -2557,31 +2627,35 @@ export const createOrUpdateVersion = async (contentData) => {
 
   if (resource && resource.newVersionEditMode) {
     // Check if there are any active requests for this resource version
-    const activeRequests = await prismaClient.resourceVersioningRequest.findMany({
-      where: {
-        resourceVersionId: resource.newVersionEditModeId,
-        OR: [
-          { status: "VERIFICATION_PENDING" },
-          { status: "PUBLISH_PENDING" }
-        ]
-      },
-      include: {
-        approvals: {
-          select: {
-            status: true
-          }
-        }
-      }
-    });
+    const activeRequests =
+      await prismaClient.resourceVersioningRequest.findMany({
+        where: {
+          resourceVersionId: resource.newVersionEditModeId,
+          OR: [{ status: "VERIFICATION_PENDING" }, { status: "PUBLISH_PENDING" }],
+        },
+        include: {
+          approvals: {
+            select: {
+              status: true,
+            },
+          },
+        },
+      });
 
     // Check if there's any active request in verification process with no rejections
-    const hasActiveVerificationRequest = activeRequests.some(request =>
-      !request.approvals.some(approval => approval.status === "REJECTED")
+    const hasActiveVerificationRequest = activeRequests.some(
+      (request) =>
+        !request.approvals.some((approval) => approval.status === "REJECTED")
     );
 
     // If there's an active verification request with no rejections, don't allow editing
-    if (hasActiveVerificationRequest && resource.newVersionEditMode.versionStatus !== "DRAFT") {
-      throw new Error("Cannot edit content that is under verification process. Wait for the verification to complete or for the request to be rejected.");
+    if (
+      hasActiveVerificationRequest &&
+      resource.newVersionEditMode.versionStatus !== "DRAFT"
+    ) {
+      throw new Error(
+        "Cannot edit content that is under verification process. Wait for the verification to complete or for the request to be rejected."
+      );
     }
   }
 
@@ -2845,11 +2919,22 @@ export const publishContent = async (contentData, userId) => {
   const result = await prismaClient.$transaction(async (tx) => {
     const versionNumber = resource._count.versions + 1;
 
+    // Mark all LIVE versions for this resource as PUBLISHED
+    await tx.resourceVersion.updateMany({
+      where: {
+        resourceId: resource.id,
+        versionStatus: "LIVE",
+      },
+      data: {
+        versionStatus: "PUBLISHED",
+      },
+    });
+
     const resourceVersion = await tx.resourceVersion.create({
       data: {
         resourceId: resource.id,
         versionNumber,
-        versionStatus: "PUBLISHED",
+        versionStatus: "LIVE",
         notes: comments,
         referenceDoc,
         content,
@@ -2964,46 +3049,50 @@ export const updateContentAndGenerateRequest = async (contentData) => {
   } = newVersionEditMode;
 
   // Check if there are any active requests for this resource
-  const existingRequests = await prismaClient.resourceVersioningRequest.findMany({
-    where: {
-      resourceVersion: {
-        resourceId: contentData.resourceId
+  const existingRequests =
+    await prismaClient.resourceVersioningRequest.findMany({
+      where: {
+        resourceVersion: {
+          resourceId: contentData.resourceId,
+        },
+        OR: [{ status: "VERIFICATION_PENDING" }, { status: "PUBLISH_PENDING" }],
       },
-      OR: [
-        { status: "VERIFICATION_PENDING" },
-        { status: "PUBLISH_PENDING" }
-      ]
-    },
-    include: {
-      approvals: {
-        select: {
-          id: true,
-          status: true,
-          stage: true,
-          approverId: true,
-          approverStatus: true
-        }
+      include: {
+        approvals: {
+          select: {
+            id: true,
+            status: true,
+            stage: true,
+            approverId: true,
+            approverStatus: true,
+          },
+        },
+        resourceVersion: {
+          select: {
+            id: true,
+            versionStatus: true,
+          },
+        },
       },
-      resourceVersion: {
-        select: {
-          id: true,
-          versionStatus: true
-        }
-      }
-    }
-  });
+    });
 
   // Check if there's any active request in verification process with no rejections
-  const hasActiveVerificationRequest = existingRequests.some(request =>
-    !request.approvals.some(approval => approval.status === "REJECTED") &&
-    request.resourceVersion.versionStatus !== "PUBLISHED" &&
-    request.resourceVersion.versionStatus !== "SCHEDULED"
+  const hasActiveVerificationRequest = existingRequests.some(
+    (request) =>
+      !request.approvals.some((approval) => approval.status === "REJECTED") &&
+      request.resourceVersion.versionStatus !== "PUBLISHED" &&
+      request.resourceVersion.versionStatus !== "SCHEDULED"
   );
 
   // If there's an active verification request with no rejections, don't allow editing
-  if (hasActiveVerificationRequest && resource.newVersionEditMode &&
-    resource.newVersionEditMode.versionStatus !== "DRAFT") {
-    throw new Error("Cannot submit content that is under verification process. Wait for the verification to complete or for the request to be rejected.");
+  if (
+    hasActiveVerificationRequest &&
+    resource.newVersionEditMode &&
+    resource.newVersionEditMode.versionStatus !== "DRAFT"
+  ) {
+    throw new Error(
+      "Cannot submit content that is under verification process. Wait for the verification to complete or for the request to be rejected."
+    );
   }
 
   // Start a transaction to ensure all operations succeed or fail together
@@ -3015,14 +3104,16 @@ export const updateContentAndGenerateRequest = async (contentData) => {
 
     // Check if there's an existing request for the current edit version
     if (resource.newVersionEditModeId) {
-      existingRequest = existingRequests.find(req =>
-        req.resourceVersion.id === resource.newVersionEditModeId
+      existingRequest = existingRequests.find(
+        (req) => req.resourceVersion.id === resource.newVersionEditModeId
       );
 
       // Check if this request has any rejected approvals
       if (existingRequest) {
         hasRejectedApprovals = existingRequest.approvals.some(
-          approval => approval.status === "REJECTED" && approval.approverStatus === "ACTIVE"
+          (approval) =>
+            approval.status === "REJECTED" &&
+            approval.approverStatus === "ACTIVE"
         );
       }
     }
@@ -3032,8 +3123,11 @@ export const updateContentAndGenerateRequest = async (contentData) => {
     const rejectedPublisher = [];
 
     if (existingRequest) {
-      existingRequest.approvals.forEach(approval => {
-        if (approval.status === "REJECTED" && approval.approverStatus === "ACTIVE") {
+      existingRequest.approvals.forEach((approval) => {
+        if (
+          approval.status === "REJECTED" &&
+          approval.approverStatus === "ACTIVE"
+        ) {
           if (approval.stage === null) {
             // Publisher rejection
             rejectedPublisher.push(approval.approverId);
@@ -3041,15 +3135,18 @@ export const updateContentAndGenerateRequest = async (contentData) => {
             // Verifier rejection
             rejectedStages.push({
               stage: approval.stage,
-              approverId: approval.approverId
+              approverId: approval.approverId,
             });
           }
         }
       });
     } else {
-      existingRequests.forEach(request => {
-        request.approvals.forEach(approval => {
-          if (approval.status === "REJECTED" && approval.approverStatus === "ACTIVE") {
+      existingRequests.forEach((request) => {
+        request.approvals.forEach((approval) => {
+          if (
+            approval.status === "REJECTED" &&
+            approval.approverStatus === "ACTIVE"
+          ) {
             if (approval.stage === null) {
               // Publisher rejection
               rejectedPublisher.push(approval.approverId);
@@ -3057,7 +3154,7 @@ export const updateContentAndGenerateRequest = async (contentData) => {
               // Verifier rejection
               rejectedStages.push({
                 stage: approval.stage,
-                approverId: approval.approverId
+                approverId: approval.approverId,
               });
             }
           }
@@ -3104,7 +3201,13 @@ export const updateContentAndGenerateRequest = async (contentData) => {
       });
 
       // Copy roles and verifiers from resource to the new resource version
-      await copyResourceAssignmentsToVersion(tx, resource.id, resourceVersion.id, resource.roles, resource.verifiers);
+      await copyResourceAssignmentsToVersion(
+        tx,
+        resource.id,
+        resourceVersion.id,
+        resource.roles,
+        resource.verifiers
+      );
     } else {
       // Edit version already exists, update it
       resourceVersion = await tx.resourceVersion.update({
@@ -3139,7 +3242,13 @@ export const updateContentAndGenerateRequest = async (contentData) => {
       });
 
       // Update roles and verifiers from resource to the existing resource version
-      await copyResourceAssignmentsToVersion(tx, resource.id, resourceVersion.id, resource.roles, resource.verifiers);
+      await copyResourceAssignmentsToVersion(
+        tx,
+        resource.id,
+        resourceVersion.id,
+        resource.roles,
+        resource.verifiers
+      );
     }
 
     let generatedRequest;
@@ -3159,7 +3268,10 @@ export const updateContentAndGenerateRequest = async (contentData) => {
 
       // Update all rejected approval logs to PENDING
       for (const approval of existingRequest.approvals) {
-        if (approval.status === "REJECTED" && approval.approverStatus === "ACTIVE") {
+        if (
+          approval.status === "REJECTED" &&
+          approval.approverStatus === "ACTIVE"
+        ) {
           await tx.requestApproval.update({
             where: { id: approval.id },
             data: {
@@ -3179,13 +3291,15 @@ export const updateContentAndGenerateRequest = async (contentData) => {
         },
       });
 
-      generateRequestApprovalsForPublisher = await tx.requestApproval.findFirst({
-        where: {
-          requestId: generatedRequest.id,
-          stage: null, // Publisher approval has null stage
-          approverStatus: "ACTIVE",
-        },
-      });
+      generateRequestApprovalsForPublisher = await tx.requestApproval.findFirst(
+        {
+          where: {
+            requestId: generatedRequest.id,
+            stage: null, // Publisher approval has null stage
+            approverStatus: "ACTIVE",
+          },
+        }
+      );
     } else {
       // GENERATE A NEW REQ AND APPROVAL LOGS
       generatedRequest = await tx.resourceVersioningRequest.create({
@@ -3214,30 +3328,34 @@ export const updateContentAndGenerateRequest = async (contentData) => {
           approverId: publisher.userId,
           // If publisher previously rejected, set status to PENDING
           // This allows them to re-verify the request
-          status: wasPublisherRejected ? "PENDING" : "PENDING"
+          status: wasPublisherRejected ? "PENDING" : "PENDING",
         },
       });
 
       // Create verifier approvals with appropriate status
-      await Promise.all(resource.verifiers.map(async (verifier) => {
-        // Check if this verifier previously rejected at this stage
-        const wasRejected = rejectedStages.some(
-          rejected => rejected.stage === verifier.stage && rejected.approverId === verifier.userId
-        );
+      await Promise.all(
+        resource.verifiers.map(async (verifier) => {
+          // Check if this verifier previously rejected at this stage
+          const wasRejected = rejectedStages.some(
+            (rejected) =>
+              rejected.stage === verifier.stage &&
+              rejected.approverId === verifier.userId
+          );
 
-        // Create approval with appropriate status
-        return await tx.requestApproval.create({
-          data: {
-            stage: verifier.stage,
-            comments: null,
-            requestId: generatedRequest.id,
-            approverId: verifier.userId,
-            // If verifier previously rejected, set status to PENDING
-            // This allows them to re-verify the request
-            status: wasRejected ? "PENDING" : "PENDING"
-          },
-        });
-      }));
+          // Create approval with appropriate status
+          return await tx.requestApproval.create({
+            data: {
+              stage: verifier.stage,
+              comments: null,
+              requestId: generatedRequest.id,
+              approverId: verifier.userId,
+              // If verifier previously rejected, set status to PENDING
+              // This allows them to re-verify the request
+              status: wasRejected ? "PENDING" : "PENDING",
+            },
+          });
+        })
+      );
 
       verifierApprovals = await tx.requestApproval.findMany({
         where: {
@@ -3261,17 +3379,20 @@ export const updateContentAndGenerateRequest = async (contentData) => {
   });
 
   return {
-    message: existingRequests.some(req =>
-      req.resourceVersion.id === resource.newVersionEditModeId &&
-      req.approvals.some(approval => approval.status === "REJECTED" && approval.approverStatus === "ACTIVE")
+    message: existingRequests.some(
+      (req) =>
+        req.resourceVersion.id === resource.newVersionEditModeId &&
+        req.approvals.some(
+          (approval) =>
+            approval.status === "REJECTED" &&
+            approval.approverStatus === "ACTIVE"
+        )
     )
       ? "Existing request updated successfully"
       : "Update request generated successfully",
     resource: result,
   };
 };
-
-
 
 export const fetchRequests = async (
   userId,
@@ -3314,10 +3435,9 @@ export const fetchRequests = async (
   const isSuperAdmin = user.isSuperUser;
   let isUserActive = true;
 
-
   // Base where clause
   const where = {
-    status: status || undefined, // Filter by status if provided
+    flowStatus: status || undefined, // Filter by status if provided  // -changedby -- Anukool -- at MAY29 -- from "status" to "flowStatus" for filter query from backend
     // We can also filter by flowStatus if needed in the future
   };
 
@@ -3330,7 +3450,7 @@ export const fetchRequests = async (
   if (resourceId) {
     where.resourceVersion = {
       ...where.resourceVersion,
-      resourceId: resourceId
+      resourceId: resourceId,
     };
   }
 
@@ -3516,9 +3636,9 @@ export const fetchRequests = async (
         // If resourceId is provided, we need to add it to the filter
         if (resourceId) {
           // Add resource ID filter to each OR condition
-          orConditions = orConditions.map(condition => ({
+          orConditions = orConditions.map((condition) => ({
             ...condition,
-            id: resourceId // This ensures each OR condition also checks for the specific resource ID
+            id: resourceId, // This ensures each OR condition also checks for the specific resource ID
           }));
         }
 
@@ -3564,18 +3684,22 @@ export const fetchRequests = async (
           isUserActive = false;
           return;
         }
-        const activeEditorResourceIds = activeEditorResources.map(r => r.resourceId);
+        const activeEditorResourceIds = activeEditorResources.map(
+          (r) => r.resourceId
+        );
         // Now build the OR conditions
         where.OR = [
           // Requests where user is the sender
           {
             senderId: userId,
             // If resourceId is provided, add it to the filter
-            ...(resourceId ? {
-              resourceVersion: {
-                resourceId: resourceId
+            ...(resourceId
+              ? {
+                resourceVersion: {
+                  resourceId: resourceId,
+                },
               }
-            } : {})
+              : {}),
           },
           // Requests for resources where user is CURRENTLY assigned as EDITOR with ACTIVE status
           {
@@ -3585,34 +3709,37 @@ export const fetchRequests = async (
               resource: {
                 ...where.resourceVersion?.resource,
                 id: { in: activeEditorResourceIds },
-                ...(resourceId ? { id: resourceId } : {}) // Add resourceId filter if provided
+                ...(resourceId ? { id: resourceId } : {}), // Add resourceId filter if provided
               },
             },
           },
         ];
       } else if (permission === "VERIFY") {
         // User with VERIFY permission sees requests where they are a VERIFIER
-        const activeVerifierResources = await prismaClient.resourceVerifier.findMany({
-          where: {
-            userId,
-            status: "ACTIVE",
-          },
-          select: {
-            resourceId: true,
-            stage: true, // Get the user's verification stage
-          },
-        });
+        const activeVerifierResources =
+          await prismaClient.resourceVerifier.findMany({
+            where: {
+              userId,
+              status: "ACTIVE",
+            },
+            select: {
+              resourceId: true,
+              stage: true, // Get the user's verification stage
+            },
+          });
 
         if (activeVerifierResources.length <= 0) {
           isUserActive = false;
           return;
         }
 
-        const activeVerifierResourceIds = activeVerifierResources.map(r => r.resourceId);
+        const activeVerifierResourceIds = activeVerifierResources.map(
+          (r) => r.resourceId
+        );
 
         // Get the user's verification stages for each resource
         const userVerificationStages = {};
-        activeVerifierResources.forEach(r => {
+        activeVerifierResources.forEach((r) => {
           userVerificationStages[r.resourceId] = r.stage;
         });
 
@@ -3623,7 +3750,7 @@ export const fetchRequests = async (
             ...where.resourceVersion?.resource,
             id: {
               in: activeVerifierResourceIds,
-              ...(resourceId ? resourceId : undefined) // Add resourceId filter if provided
+              ...(resourceId ? resourceId : undefined), // Add resourceId filter if provided
             },
             verifiers: {
               some: {
@@ -3638,30 +3765,33 @@ export const fetchRequests = async (
         where.approvals = {
           some: {
             approverId: userId,
-            approverStatus: "ACTIVE"
-          }
+            approverStatus: "ACTIVE",
+          },
         };
 
         // We'll filter the requests after fetching them based on the verification stage
         // This will be done in the final findMany call
       } else if (permission === "PUBLISH") {
         // User with PUBLISH permission sees publication requests where they are a PUBLISHER
-        const activePublisherResources = await prismaClient.resourceRole.findMany({
-          where: {
-            userId,
-            role: "PUBLISHER",
-            status: "ACTIVE",
-          },
-          select: {
-            resourceId: true,
-          },
-        });
+        const activePublisherResources =
+          await prismaClient.resourceRole.findMany({
+            where: {
+              userId,
+              role: "PUBLISHER",
+              status: "ACTIVE",
+            },
+            select: {
+              resourceId: true,
+            },
+          });
 
         if (activePublisherResources.length <= 0) {
           isUserActive = false;
           return;
         }
-        const activePublisherResourceIds = activePublisherResources.map(r => r.resourceId);
+        const activePublisherResourceIds = activePublisherResources.map(
+          (r) => r.resourceId
+        );
         where.type = "PUBLICATION"; // Only show publication requests
         where.resourceVersion = {
           ...where.resourceVersion,
@@ -3670,7 +3800,7 @@ export const fetchRequests = async (
             ...where.resourceVersion?.resource,
             id: {
               in: activePublisherResourceIds,
-              ...(resourceId ? resourceId : undefined) // Add resourceId filter if provided
+              ...(resourceId ? resourceId : undefined), // Add resourceId filter if provided
             },
             roles: {
               some: {
@@ -3687,8 +3817,8 @@ export const fetchRequests = async (
           some: {
             approverId: userId,
             approverStatus: "ACTIVE",
-            stage: null // Publisher approvals have null stage
-          }
+            stage: null, // Publisher approvals have null stage
+          },
         };
 
         // We'll filter the requests after fetching them to only show requests where all verifiers have approved
@@ -3800,7 +3930,7 @@ export const fetchRequests = async (
   });
 
   // Process requests in a single pass - filter and apply simplified flow status
-  const processedRequests = allRequests.map(request => {
+  const processedRequests = allRequests.map((request) => {
     // Determine simplified flow status
     let simplifiedFlowStatus = "PENDING"; // Default status
 
@@ -3811,8 +3941,9 @@ export const fetchRequests = async (
       simplifiedFlowStatus = "SCHEDULED";
     } else {
       // Check if any approval is rejected
-      const hasRejection = request.approvals.some(approval =>
-        approval.status === "REJECTED" && approval.approverStatus === "ACTIVE"
+      const hasRejection = request.approvals.some(
+        (approval) =>
+          approval.status === "REJECTED" && approval.approverStatus === "ACTIVE"
       );
 
       if (hasRejection) {
@@ -3826,38 +3957,40 @@ export const fetchRequests = async (
       ...request,
       flowStatus: simplifiedFlowStatus, // Override the original flowStatus
       simplifiedFlowStatus, // Also keep the simplified version for backward compatibility
-      shouldInclude: true // Default to include all requests
+      shouldInclude: true, // Default to include all requests
     };
   });
 
   // Apply role-based filtering
   if (permission === "VERIFY" && !isSuperAdmin) {
     // Get the user's verification stages for each resource
-    const activeVerifierResources = await prismaClient.resourceVerifier.findMany({
-      where: {
-        userId,
-        status: "ACTIVE",
-      },
-      select: {
-        resourceId: true,
-        stage: true,
-      },
-    });
+    const activeVerifierResources =
+      await prismaClient.resourceVerifier.findMany({
+        where: {
+          userId,
+          status: "ACTIVE",
+        },
+        select: {
+          resourceId: true,
+          stage: true,
+        },
+      });
 
     const userVerificationStages = {};
-    activeVerifierResources.forEach(r => {
+    activeVerifierResources.forEach((r) => {
       userVerificationStages[r.resourceId] = r.stage;
     });
 
     // Filter requests based on verification stage
-    processedRequests.forEach(request => {
+    processedRequests.forEach((request) => {
       const resourceId = request.resourceVersion.resource.id;
       const userStage = userVerificationStages[resourceId];
       const approvals = request.approvals || [];
 
       // Check if this user has already approved this request
-      const userHasApproved = approvals.some(approval =>
-        approval.approver.id === userId && approval.status === "APPROVED"
+      const userHasApproved = approvals.some(
+        (approval) =>
+          approval.approver.id === userId && approval.status === "APPROVED"
       );
 
       // If user has already approved, don't show the request anymore
@@ -3876,23 +4009,24 @@ export const fetchRequests = async (
 
       // For stage 1 verifiers, they should see new requests that have no approvals yet
       if (userStage === 1) {
-        request.shouldInclude = (highestApprovedStage === 0);
+        request.shouldInclude = highestApprovedStage === 0;
       }
       // For other stages, they should only see requests if the previous stage has been approved
       else if (userStage > 1) {
-        request.shouldInclude = (highestApprovedStage === userStage - 1);
+        request.shouldInclude = highestApprovedStage === userStage - 1;
       } else {
         request.shouldInclude = false;
       }
     });
   } else if (permission === "PUBLISH" && !isSuperAdmin) {
     // Filter requests for publishers - they should only see requests where all verifiers have approved
-    processedRequests.forEach(request => {
+    processedRequests.forEach((request) => {
       const approvals = request.approvals || [];
 
       // Check if this publisher has already approved this request
-      const userHasApproved = approvals.some(approval =>
-        approval.approver.id === userId && approval.status === "APPROVED"
+      const userHasApproved = approvals.some(
+        (approval) =>
+          approval.approver.id === userId && approval.status === "APPROVED"
       );
 
       // If publisher has already approved, don't show the request anymore
@@ -3902,7 +4036,8 @@ export const fetchRequests = async (
       }
 
       // Get all verifiers for this resource
-      const resourceVerifiers = request.resourceVersion.resource.verifiers || [];
+      const resourceVerifiers =
+        request.resourceVersion.resource.verifiers || [];
 
       // If there are no verifiers, publishers can see the request
       if (resourceVerifiers.length === 0) {
@@ -3911,13 +4046,16 @@ export const fetchRequests = async (
       }
 
       // Get all stages that need approval
-      const verifierStages = [...new Set(resourceVerifiers.map(v => v.stage))];
+      const verifierStages = [
+        ...new Set(resourceVerifiers.map((v) => v.stage)),
+      ];
 
       // Check if all stages have been approved
       for (const stage of verifierStages) {
         // Check if this stage has been approved
-        const stageApproved = approvals.some(approval =>
-          approval.stage === stage && approval.status === "APPROVED"
+        const stageApproved = approvals.some(
+          (approval) =>
+            approval.stage === stage && approval.status === "APPROVED"
         );
 
         // If any stage hasn't been approved, publisher shouldn't see the request
@@ -3933,7 +4071,9 @@ export const fetchRequests = async (
   }
 
   // Filter out requests that shouldn't be included
-  const filteredRequests = processedRequests.filter(request => request.shouldInclude);
+  const filteredRequests = processedRequests.filter(
+    (request) => request.shouldInclude
+  );
 
   // Apply pagination
   const totalCount = filteredRequests.length;
@@ -3949,7 +4089,6 @@ export const fetchRequests = async (
     },
   };
 };
-
 
 export const fetchRequestInfo = async (requestId) => {
   const request = await prismaClient.resourceVersioningRequest.findUnique({
@@ -4019,23 +4158,26 @@ export const fetchRequestInfo = async (requestId) => {
       },
     },
   });
-
+  
   if (!request) {
     throw new Error("Request not found");
   }
 
   // Determine simplified flow status
   let simplifiedFlowStatus = "PENDING"; // Default status
+  let scheduleAt;
 
   // If request is already published or scheduled, use that status
   if (request.status === "PUBLISHED") {
     simplifiedFlowStatus = "PUBLISHED";
   } else if (request.resourceVersion.versionStatus === "SCHEDULED") {
     simplifiedFlowStatus = "SCHEDULED";
+    scheduleAt =request.resourceVersion.scheduledAt;
   } else {
     // Check if any approval is rejected
-    const hasRejection = request.approvals.some(approval =>
-      approval.status === "REJECTED" && approval.approverStatus === "ACTIVE"
+    const hasRejection = request.approvals.some(
+      (approval) =>
+        approval.status === "REJECTED" && approval.approverStatus === "ACTIVE"
     );
 
     if (hasRejection) {
@@ -4053,6 +4195,7 @@ export const fetchRequestInfo = async (requestId) => {
     details: {
       resource: request.resourceVersion.resource.titleEn,
       resourceType: request.resourceVersion.resource.resourceType,
+      ...(scheduleAt ? { scheduleAt } : {}),
       resourceTag: request.resourceVersion.resource.resourceTag,
       slug: request.resourceVersion.resource.slug,
       status: request.status,
@@ -4069,14 +4212,11 @@ export const fetchRequestInfo = async (requestId) => {
             .filter((role) => role.role === "EDITOR")
             .map((role) => role.user.name)
             .join(", ") || "Not assigned",
-        verifiers: versionVerifiers.reduce(
-          (acc, verifier) => {
-            const level = `level ${verifier.stage}`;
-            if (!acc[level]) acc[level] = verifier.user.name;
-            return acc;
-          },
-          {}
-        ),
+        verifiers: versionVerifiers.reduce((acc, verifier) => {
+          const level = `level ${verifier.stage}`;
+          if (!acc[level]) acc[level] = verifier.user.name;
+          return acc;
+        }, {}),
         publisher:
           versionRoles
             .filter((role) => role.role === "PUBLISHER")
@@ -4129,20 +4269,19 @@ function getRoleForApprover(userId, resourceVersion) {
 
   // If not found in resource version, check the resource as fallback
   if (resourceVersion.resource) {
-    const resourceRole = resourceVersion.resource.roles.find((r) => r.userId === userId);
+    const resourceRole = resourceVersion.resource.roles.find(
+      (r) => r.userId === userId
+    );
     if (resourceRole) return resourceRole.role;
 
-    const resourceVerifier = resourceVersion.resource.verifiers.find((v) => v.userId === userId);
+    const resourceVerifier = resourceVersion.resource.verifiers.find(
+      (v) => v.userId === userId
+    );
     if (resourceVerifier) return `VERIFIER_LEVEL_${resourceVerifier.stage}`;
   }
 
   return "UNKNOWN";
 }
-
-
-
-
-
 
 export const approveRequestInVerification = async (requestId, userId) => {
   return await prismaClient.$transaction(async (tx) => {
@@ -4157,7 +4296,9 @@ export const approveRequestInVerification = async (requestId, userId) => {
     });
 
     if (!approvalLog) {
-      throw new Error("Approval log not found or user is not an active approver");
+      throw new Error(
+        "Approval log not found or user is not an active approver"
+      );
     }
 
     // Update the approval status
@@ -4174,7 +4315,7 @@ export const approveRequestInVerification = async (requestId, userId) => {
         requestId: requestId,
         status: "PENDING",
         stage: { not: null },
-        approverStatus: "ACTIVE"
+        approverStatus: "ACTIVE",
       },
     });
 
@@ -4193,7 +4334,7 @@ export const approveRequestInVerification = async (requestId, userId) => {
         data: {
           status: "PUBLISH_PENDING",
           type: "PUBLICATION",
-          flowStatus: "PENDING" // Reset flow status for the publication phase
+          flowStatus: "PENDING", // Reset flow status for the publication phase
         },
       });
 
@@ -4210,7 +4351,7 @@ export const approveRequestInVerification = async (requestId, userId) => {
       await tx.resourceVersioningRequest.update({
         where: { id: requestId },
         data: {
-          flowStatus: "PENDING" // Keep as PENDING instead of APPROVED
+          flowStatus: "PENDING", // Keep as PENDING instead of APPROVED
         },
       });
     }
@@ -4241,7 +4382,9 @@ export const approveRequestInPublication = async (requestId, userId) => {
     });
 
     if (!approvalLog) {
-      throw new Error("Approval log not found or user is not an active approver");
+      throw new Error(
+        "Approval log not found or user is not an active approver"
+      );
     }
 
     // Update the approval status
@@ -4260,9 +4403,9 @@ export const approveRequestInPublication = async (requestId, userId) => {
         type: true,
         resourceVersion: {
           select: {
-            resourceId: true
-          }
-        }
+            resourceId: true,
+          },
+        },
       },
     });
 
@@ -4271,10 +4414,9 @@ export const approveRequestInPublication = async (requestId, userId) => {
       where: { id: requestId },
       data: {
         status: "PUBLISHED", // Change to PUBLISHED
-        flowStatus: "PUBLISHED" // Use PUBLISHED instead of APPROVED for consistency
+        flowStatus: "PUBLISHED", // Use PUBLISHED instead of APPROVED for consistency
       },
     });
-
 
     // change the status of old live version into published
     const resource = await tx.resource.findUnique({
@@ -4284,8 +4426,18 @@ export const approveRequestInPublication = async (requestId, userId) => {
       },
     });
 
-    await tx.resourceVersion.update({
-      where: { id: resource.liveVersionId },
+    // await tx.resourceVersion.update({
+    //   where: {id: resource.liveVersionId},
+    //   data: {
+    //     versionStatus: "PUBLISHED",
+    //   },
+    // });
+
+    await tx.resourceVersion.updateMany({
+      where: {
+        resourceId: resource.id,
+        versionStatus: "LIVE",
+      },
       data: {
         versionStatus: "PUBLISHED",
       },
@@ -4299,15 +4451,13 @@ export const approveRequestInPublication = async (requestId, userId) => {
       },
     });
 
-
-
     // If this is a publication request, update the resource's liveVersionId
     if (request.type === "PUBLICATION") {
       await tx.resource.update({
         where: { id: request.resourceVersion.resourceId },
         data: {
           liveVersionId: request.resourceVersionId,
-          newVersionEditModeId: null
+          newVersionEditModeId: null,
         },
       });
 
@@ -4315,16 +4465,16 @@ export const approveRequestInPublication = async (requestId, userId) => {
       await tx.resourceRole.deleteMany({
         where: {
           resourceId: request.resourceVersion.resourceId,
-          status: "INACTIVE"
-        }
+          status: "INACTIVE",
+        },
       });
 
       // Also remove all inactive verifiers from the resource
       await tx.resourceVerifier.deleteMany({
         where: {
           resourceId: request.resourceVersion.resourceId,
-          status: "INACTIVE"
-        }
+          status: "INACTIVE",
+        },
       });
 
       // Note: We don't delete inactive roles/verifiers from the resource version
@@ -4343,12 +4493,6 @@ export const approveRequestInPublication = async (requestId, userId) => {
   });
 };
 
-
-
-
-
-
-
 export const rejectRequestInVerification = async (
   requestId,
   userId,
@@ -4356,7 +4500,6 @@ export const rejectRequestInVerification = async (
 ) => {
   console.log("rejectRequestInVerification", requestId, userId, rejectReason);
   return await prismaClient.$transaction(async (tx) => {
-
     // Find the specific approval log for this user first to verify it exists and is active
     const approvalLog = await tx.requestApproval.findFirst({
       where: {
@@ -4368,7 +4511,9 @@ export const rejectRequestInVerification = async (
     });
 
     if (!approvalLog) {
-      throw new Error("Approval log not found or user is not an active approver");
+      throw new Error(
+        "Approval log not found or user is not an active approver"
+      );
     }
 
     // Update the specific approval log we found
@@ -4419,7 +4564,9 @@ export const rejectRequestInPublication = async (
     });
 
     if (!approvalLog) {
-      throw new Error("Approval log not found or user is not an active approver");
+      throw new Error(
+        "Approval log not found or user is not an active approver"
+      );
     }
 
     // Update the specific approval log we found
@@ -4455,12 +4602,95 @@ export const rejectRequestInPublication = async (
   });
 };
 
+export const scheduleRequestToPublish = async (requestId, userId, date) => {
+  const currentDate = new Date();
+  const scheduledDate = new Date(date);
 
+  if (scheduledDate < currentDate) {
+    throw new Error("Cannot schedule for a past date");
+  }
+  return await prismaClient.$transaction(async (tx) => {
+    // Find the specific approval log for this user
+    const approvalLog = await tx.requestApproval.findFirst({
+      where: {
+        requestId: requestId,
+        approverId: userId,
+        status: "PENDING", // Using the correct ApprovalStatus enum value
+        stage: null, // Publisher approvals have null stage
+        approverStatus: "ACTIVE", // Only active approvers can approve
+      },
+    });
 
+    if (!approvalLog) {
+      throw new Error(
+        "Approval log not found or user is not an active approver"
+      );
+    }
 
+    // Update the approval status
+    await tx.requestApproval.update({
+      where: { id: approvalLog.id },
+      data: {
+        status: "APPROVED",
+      },
+    });
 
+    // Get the request to find the resourceVersionId
+    const request = await tx.resourceVersioningRequest.findUnique({
+      where: { id: requestId },
+      select: {
+        resourceVersionId: true,
+        type: true,
+        resourceVersion: {
+          select: {
+            resourceId: true,
+          },
+        },
+      },
+    });
 
+    if (!request) {
+      throw new Error('Request not found');
+    }
 
+    // Update request status and flow status
+    await tx.resourceVersioningRequest.update({
+      where: { id: requestId },
+      data: {
+        status: "SCHEDULED",
+        flowStatus: "SCHEDULED",
+      },
+    });
+
+    // Update the resource version
+    await tx.resourceVersion.update({
+      where: { id: request.resourceVersionId },
+      data: {
+        versionStatus: 'SCHEDULED',
+        scheduledAt: date
+      }
+    });
+
+    // Update the resource to point to the scheduled version
+    await tx.resource.update({
+      where: { id: request.resourceVersion.resourceId },
+      data: {
+        scheduledVersionId: request.resourceVersionId,
+        newVersionEditModeId: null // Remove from edit mode
+      }
+    });
+
+    // Get the updated request to return
+    const updatedRequest = await tx.resourceVersioningRequest.findUnique({
+      where: { id: requestId },
+      include: {
+        approvals: true,
+      },
+    });
+
+    return updatedRequest;
+  });
+};
 
 export const fetchVersionsList = async (
   resourceId,
@@ -4532,8 +4762,6 @@ export const fetchVersionsList = async (
   };
 };
 
-
-
 export const fetchVersionsInfo = async (versionId) => {
   // Get the specific version with comprehensive data
   const version = await prismaClient.resourceVersion.findUnique({
@@ -4567,10 +4795,7 @@ export const fetchVersionsInfo = async (versionId) => {
                 },
               },
             },
-            orderBy: [
-              { stage: "asc" },
-              { createdAt: "asc" },
-            ],
+            orderBy: [{ stage: "asc" }, { createdAt: "asc" }],
           },
         },
       },
@@ -4600,10 +4825,7 @@ export const fetchVersionsInfo = async (versionId) => {
             },
           },
         },
-        orderBy: [
-          { stage: "asc" },
-          { createdAt: "asc" },
-        ],
+        orderBy: [{ stage: "asc" }, { createdAt: "asc" }],
       },
       // All requests associated with this version
       requests: {
@@ -4626,17 +4848,13 @@ export const fetchVersionsInfo = async (versionId) => {
                 },
               },
             },
-            orderBy: [
-              { stage: "asc" },
-              { createdAt: "asc" },
-            ],
+            orderBy: [{ stage: "asc" }, { createdAt: "asc" }],
           },
         },
         orderBy: {
           createdAt: "desc",
         },
       },
-
     },
   });
 
@@ -4644,10 +4862,20 @@ export const fetchVersionsInfo = async (versionId) => {
     throw new Error("Version not found");
   }
 
+  let scheduleAt
+
+  if(version.flowStatus === "SCHEDULED"){
+   scheduleAt = version.scheduleAt
+  }
+
   // Determine which role and verifier data to use based on version status
   const isDraftVersion = version.versionStatus === "DRAFT";
-  const rolesToProcess = isDraftVersion ? version.resource.roles : version.roles;
-  const verifiersToProcess = isDraftVersion ? version.resource.verifiers : version.verifiers;
+  const rolesToProcess = isDraftVersion
+    ? version.resource.roles
+    : version.roles;
+  const verifiersToProcess = isDraftVersion
+    ? version.resource.verifiers
+    : version.verifiers;
 
   // Process the version to create comprehensive history
   // Group role history by role type
@@ -4723,6 +4951,8 @@ export const fetchVersionsInfo = async (versionId) => {
       type: request.type,
       status: request.status,
       flowStatus: request.flowStatus,
+      ...(scheduleAt ? { scheduleAt } : {}),
+
       submittedBy: request.sender,
       submittedAt: request.createdAt,
       referenceDoc: request.referenceDoc,
@@ -4782,23 +5012,16 @@ export const restoreLiveVersion = async (versionId) => {
       throw new Error("Version not found");
     }
 
-    // Get the current live version
-    const resource = await tx.resource.findUnique({
-      where: { id: version.resourceId },
-      select: {
-        liveVersionId: true,
+    // Mark all LIVE versions for this resource as PUBLISHED
+    await tx.resourceVersion.updateMany({
+      where: {
+        resourceId: version.resourceId,
+        versionStatus: "LIVE",
+      },
+      data: {
+        versionStatus: "PUBLISHED",
       },
     });
-
-    // If there is a current live version, mark it as PUBLISHED
-    if (resource.liveVersionId) {
-      await tx.resourceVersion.update({
-        where: { id: resource.liveVersionId },
-        data: {
-          versionStatus: "PUBLISHED",
-        },
-      });
-    }
 
     // Update the new version to LIVE
     await tx.resourceVersion.update({
@@ -4819,7 +5042,6 @@ export const restoreLiveVersion = async (versionId) => {
     return { message: "Success" };
   });
 };
-
 
 export const deleteAllResourceRelatedDataFromDb = async () => {
   try {
@@ -4996,14 +5218,16 @@ export const deleteAllResourceRelatedDataFromDb = async () => {
             seo: deletedSEO.count,
             // media: deletedMedia.count,
             filters: deletedFilters.count,
-            resources: deletedResources.count
-          }
+            resources: deletedResources.count,
+          },
         };
-      }, {
-      maxWait: 60000, // 60 seconds max wait time
-      timeout: 300000, // 5 minutes transaction timeout
-      isolationLevel: 'Serializable', // Highest isolation level for data consistency
-    });
+      },
+      {
+        maxWait: 60000, // 60 seconds max wait time
+        timeout: 300000, // 5 minutes transaction timeout
+        isolationLevel: "Serializable", // Highest isolation level for data consistency
+      }
+    );
   } catch (error) {
     console.error("Error deleting content data:", error);
     throw error;
@@ -5020,7 +5244,13 @@ export const deleteAllResourceRelatedDataFromDb = async () => {
 // - All data is specific to each resource version as every version maintains its own history
 
 // Helper function to copy resource assignments to resource version
-async function copyResourceAssignmentsToVersion(tx, resourceId, resourceVersionId, resourceRoles, resourceVerifiers) {
+async function copyResourceAssignmentsToVersion(
+  tx,
+  resourceId,
+  resourceVersionId,
+  resourceRoles,
+  resourceVerifiers
+) {
   // Get current version assignments
   const currentVersionRoles = await tx.resourceVersionRole.findMany({
     where: {
@@ -5034,14 +5264,18 @@ async function copyResourceAssignmentsToVersion(tx, resourceId, resourceVersionI
     },
   });
 
-  const activeVersionRoles = currentVersionRoles.filter(r => r.status === "ACTIVE");
-  const activeVersionVerifiers = currentVersionVerifiers.filter(v => v.status === "ACTIVE");
+  const activeVersionRoles = currentVersionRoles.filter(
+    (r) => r.status === "ACTIVE"
+  );
+  const activeVersionVerifiers = currentVersionVerifiers.filter(
+    (v) => v.status === "ACTIVE"
+  );
 
   // Copy roles from resource to version
   for (const resourceRole of resourceRoles) {
     // Check if this role already exists and is active in the version
     const existingVersionRole = activeVersionRoles.find(
-      vr => vr.role === resourceRole.role && vr.userId === resourceRole.userId
+      (vr) => vr.role === resourceRole.role && vr.userId === resourceRole.userId
     );
 
     if (existingVersionRole) {
@@ -5051,7 +5285,7 @@ async function copyResourceAssignmentsToVersion(tx, resourceId, resourceVersionI
 
     // Deactivate any existing role assignment for this role type
     const existingRoleAssignment = activeVersionRoles.find(
-      vr => vr.role === resourceRole.role
+      (vr) => vr.role === resourceRole.role
     );
     if (existingRoleAssignment) {
       await tx.resourceVersionRole.update({
@@ -5062,7 +5296,7 @@ async function copyResourceAssignmentsToVersion(tx, resourceId, resourceVersionI
 
     // Deactivate any other role assignments for this user
     const userOtherRoles = activeVersionRoles.filter(
-      vr => vr.userId === resourceRole.userId && vr.role !== resourceRole.role
+      (vr) => vr.userId === resourceRole.userId && vr.role !== resourceRole.role
     );
     for (const userRole of userOtherRoles) {
       await tx.resourceVersionRole.update({
@@ -5073,7 +5307,10 @@ async function copyResourceAssignmentsToVersion(tx, resourceId, resourceVersionI
 
     // Check if there's an inactive assignment we can reactivate
     const inactiveVersionRole = currentVersionRoles.find(
-      vr => vr.role === resourceRole.role && vr.userId === resourceRole.userId && vr.status !== "ACTIVE"
+      (vr) =>
+        vr.role === resourceRole.role &&
+        vr.userId === resourceRole.userId &&
+        vr.status !== "ACTIVE"
     );
 
     if (inactiveVersionRole) {
@@ -5098,7 +5335,7 @@ async function copyResourceAssignmentsToVersion(tx, resourceId, resourceVersionI
   // Deactivate version roles that don't exist in resource
   for (const versionRole of activeVersionRoles) {
     const matchingResourceRole = resourceRoles.find(
-      rr => rr.role === versionRole.role && rr.userId === versionRole.userId
+      (rr) => rr.role === versionRole.role && rr.userId === versionRole.userId
     );
 
     if (!matchingResourceRole) {
@@ -5113,7 +5350,9 @@ async function copyResourceAssignmentsToVersion(tx, resourceId, resourceVersionI
   for (const resourceVerifier of resourceVerifiers) {
     // Check if this verifier already exists and is active in the version
     const existingVersionVerifier = activeVersionVerifiers.find(
-      vv => vv.stage === resourceVerifier.stage && vv.userId === resourceVerifier.userId
+      (vv) =>
+        vv.stage === resourceVerifier.stage &&
+        vv.userId === resourceVerifier.userId
     );
 
     if (existingVersionVerifier) {
@@ -5123,7 +5362,7 @@ async function copyResourceAssignmentsToVersion(tx, resourceId, resourceVersionI
 
     // Deactivate any existing verifier assignment for this stage
     const existingStageVerifier = activeVersionVerifiers.find(
-      vv => vv.stage === resourceVerifier.stage
+      (vv) => vv.stage === resourceVerifier.stage
     );
     if (existingStageVerifier) {
       await tx.resourceVersionVerifier.update({
@@ -5134,7 +5373,9 @@ async function copyResourceAssignmentsToVersion(tx, resourceId, resourceVersionI
 
     // Deactivate any other stage assignments for this user
     const userOtherStages = activeVersionVerifiers.filter(
-      vv => vv.userId === resourceVerifier.userId && vv.stage !== resourceVerifier.stage
+      (vv) =>
+        vv.userId === resourceVerifier.userId &&
+        vv.stage !== resourceVerifier.stage
     );
     for (const userStage of userOtherStages) {
       await tx.resourceVersionVerifier.update({
@@ -5145,7 +5386,10 @@ async function copyResourceAssignmentsToVersion(tx, resourceId, resourceVersionI
 
     // Check if there's an inactive assignment we can reactivate
     const inactiveVersionVerifier = currentVersionVerifiers.find(
-      vv => vv.stage === resourceVerifier.stage && vv.userId === resourceVerifier.userId && vv.status !== "ACTIVE"
+      (vv) =>
+        vv.stage === resourceVerifier.stage &&
+        vv.userId === resourceVerifier.userId &&
+        vv.status !== "ACTIVE"
     );
 
     if (inactiveVersionVerifier) {
@@ -5170,7 +5414,9 @@ async function copyResourceAssignmentsToVersion(tx, resourceId, resourceVersionI
   // Deactivate version verifiers that don't exist in resource
   for (const versionVerifier of activeVersionVerifiers) {
     const matchingResourceVerifier = resourceVerifiers.find(
-      rv => rv.stage === versionVerifier.stage && rv.userId === versionVerifier.userId
+      (rv) =>
+        rv.stage === versionVerifier.stage &&
+        rv.userId === versionVerifier.userId
     );
 
     if (!matchingResourceVerifier) {
@@ -5181,3 +5427,171 @@ async function copyResourceAssignmentsToVersion(tx, resourceId, resourceVersionI
     }
   }
 }
+
+// Deactivate resource
+export const deactivateResource = async (resourceId) => {
+  const resource = await prismaClient.resource.update({
+    where: { id: resourceId },
+    data: {
+      status: "INACTIVE", // Set resource status to INACTIVE
+      // liveVersionId: null, // Clear live version reference
+      // newVersionEditModeId: null, // Clear new version edit mode reference
+      // scheduledVersionId: null, // Clear scheduled version reference
+    },
+  });
+
+  return resource;
+};
+
+// Activate resource
+export const activateResource = async (resourceId) => {
+  const resource = await prismaClient.resource.update({
+    where: { id: resourceId },
+    data: {
+      status: "ACTIVE", // Set resource status to INACTIVE
+      // liveVersionId: null, // Clear live version reference
+      // newVersionEditModeId: null, // Clear new version edit mode reference
+      // scheduledVersionId: null, // Clear scheduled version reference
+    },
+  });
+
+  return resource;
+};
+
+
+
+
+
+
+// DASHBOARD API
+
+// Get total count of roles where name is 'user' or 'manager' and status is 'ACTIVE'
+export const getTotalRolesCounts = async () => {
+  const totalRoles = await prismaClient.role.count({
+    where: {
+      name: {
+        not: "SUPER_ADMIN",
+        mode: "insensitive",
+      },
+    },
+  });
+
+  return totalRoles;
+};
+
+// Get total user count
+export const getTotalUserCounts = async () => {
+  const totalUser = await prismaClient.user.count({
+    where: {
+      name: {
+        not: "Super Admin",
+        mode: "insensitive",
+      },
+    },
+  });
+
+  return totalUser;
+};
+
+// Get total resource roles with status 'ACTIVE'
+export const getTotalResourceRole = async () => {
+
+  const roles = await prismaClient.role.findMany({
+    where: {
+      name: {
+        not: "SUPER_ADMIN", // Exclude SUPER_ADMIN
+        mode: "insensitive",
+      },
+    },
+    include: {
+      permissions: {
+        include: {
+          permission: {
+            select: {
+              name: true,
+            }
+          },
+        },
+      },
+      _count: {
+        select: {
+          users: true, // Count of users per role
+        },
+      },
+    },
+  });
+
+  const editorCount = roles
+    .filter(role => role.permissions.some(p => p.permission?.name === "EDIT"))
+    .reduce((sum, role) => sum + role._count.users, 0);
+
+  const verifierCount = roles
+    .filter(role => role.permissions.some(p => p.permission?.name === "VERIFY"))
+    .reduce((sum, role) => sum + role._count.users, 0);
+
+  const publisherCount = roles
+    .filter(role => role.permissions.some(p => p.permission?.name === "PUBLISH"))
+    .reduce((sum, role) => sum + role._count.users, 0);
+  return {
+    editor: editorCount,
+    verifier: verifierCount,
+    publisher: publisherCount,
+    totalResourceRole: editorCount + verifierCount + publisherCount,
+  };
+};
+
+// Get all requests with status APPROVED, PENDING, or REJECTED
+export const getTotalAvailableRequests = async () => {
+  const [pendingCount, scheduledCount, approvedCount, rejectedCount] = await Promise.all([
+    prismaClient.resourceVersioningRequest.count({ where: { flowStatus: "PENDING" } }),
+    prismaClient.resourceVersioningRequest.count({ where: { flowStatus: "SCHEDULED" } }),
+    prismaClient.resourceVersioningRequest.count({ where: { flowStatus: "PUBLISHED" } }),
+    prismaClient.resourceVersioningRequest.count({ where: { flowStatus: "REJECTED" } }),
+  ]);
+
+  return {
+    pending: pendingCount,
+    scheduled: scheduledCount,
+    approved: approvedCount,
+    rejected: rejectedCount,
+    totalRequests: pendingCount + approvedCount + rejectedCount,
+  };
+};
+
+// Get total projects with status ONGOING or COMPLETE
+export const getTotalAvailableProjects = async () => {
+
+  const projects = await prismaClient.resource.findMany({
+    where: {
+      resourceType: "SUB_PAGE",
+      resourceTag: "PROJECT",
+    },
+    include: {
+      filters: {
+        select: {
+          nameEn: true,
+          nameAr: true,
+        },
+      },
+    },
+  });
+
+  // filter the projects based on the nameEn for two ONGOING and COMPLETE
+  const ongoingProjects = projects.filter(project =>
+    project.filters.some(filter =>
+      filter.nameEn === "ONGOING"
+    )
+  ).length;
+
+  const completedProjects = projects.filter(project =>
+    project.filters.some(filter =>
+      filter.nameEn === "COMPLETE"
+    )
+  ).length;
+
+  return {
+    ongoing: ongoingProjects,
+    completed: completedProjects,
+    totalProjects: ongoingProjects + completedProjects,
+  };
+};

@@ -66,6 +66,9 @@ const api = {
   versionInfo: `${content}/getVersionInfo/`,
   restoreVersion: `${content}/restoreVersion/`,
 
+  // DASHBOARD INSIGHT
+  getDashboardInsight: `${content}/getDashboardInsight`, // API for dashboard insight
+
   // Media
   uploadMedia: `${media}/upload`,
   deleteMedia: `${media}/delete`,

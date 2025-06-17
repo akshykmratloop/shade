@@ -7,7 +7,7 @@ import capitalizeWords from "../../app/capitalizeword";
 import SkeletonLoader from "../../components/Loader/SkeletonLoader";
 
 function ShowLogs({ log, show, onClose }) {
-  console.log(JSON.stringify(log))
+  // console.log(JSON.stringify(log))
   const [fetchedRole, setFetchedRole] = useState({});
 
 

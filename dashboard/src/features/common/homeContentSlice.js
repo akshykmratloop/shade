@@ -4,15 +4,19 @@ const initialState = {
     past: [],
     present: {
         images: {},
-        loading: true
+        loading: true,
     },
-    future: []
+    future: [],
+    EditInitiated: false
 };
 
 const cmsSlice = createSlice({
     name: "CMS",
     initialState,
     reducers: {
+        updateIsEditMode: (state, action) => {
+            state.EditInitiated = action.payload.value
+        },
         submitings: (state, action) => { // post content
             state.past = []
             state.present = {}
@@ -32,9 +36,19 @@ const cmsSlice = createSlice({
             if (action.payload.type === "content[index]") {
                 if (action.payload.title === 'url') {
                     state.present.content.editVersion.sections[action.payload.sectionIndex].content[action.payload.contentIndex][action.payload.title] = action.payload.value
+                } else if (action.payload.section === "procedures/terms") {
+                    state.present.content.editVersion.sections[action.payload.sectionIndex].content.procedures.terms[action.payload.index][action.payload.title][action.payload.lan] = action.payload.value
                 } else {
+                    console.log(action.payload.contentIndex)
                     state.present.content.editVersion.sections[action.payload.sectionIndex].content[action.payload.contentIndex][action.payload.title][action.payload.lan] = action.payload.value
                 }
+            } else if (action.payload.subSection === "content/procedures") {
+                // console.log(action.payload.sectionIndex, action.payload.index, action.payload.title, action.payload.lan, action.payload.value)
+                state.present.content.editVersion.sections[action.payload.sectionIndex].content.cards[action.payload.buttonIndex][action.payload.title][action.payload.lan] = action.payload.value
+            } else if (action.payload.section === "points") {
+                state.present.content.editVersion.sections[action.payload.sectionIndex].content.points[action.payload.index][action.payload.title][action.payload.lan] = action.payload.value
+            } else if (action.payload.section === "procedures") {
+                state.present.content.editVersion.sections[action.payload.sectionIndex].content.procedures[action.payload.title][action.payload.lan] = action.payload.value
             } else if (action.payload.section === "Footer") {
                 state.present.content.editVersion.sections[action.payload.sectionIndex].content[action.payload.contentIndex][action.payload.title][action.payload.lan] = action.payload.value
             } else if (action.payload.section === "Footer/Links") {
@@ -48,7 +62,11 @@ const cmsSlice = createSlice({
             } else if (action.payload.subSection) {
                 state.present.content.editVersion.sections[action.payload.sectionIndex].content.introSection[action.payload.title][action.payload.lan] = action.payload.value
             } else {
-                state.present.content.editVersion.sections[action.payload.sectionIndex].content[action.payload.title][action.payload.lan] = action.payload.value
+                if (action.payload.title === "url") {
+                    state.present.content.editVersion.sections[action.payload.sectionIndex].content[action.payload.title] = action.payload.value
+                } else {
+                    state.present.content.editVersion.sections[action.payload.sectionIndex].content[action.payload.title][action.payload.lan] = action.payload.value
+                }
             }
 
             state.future = [];
@@ -60,17 +78,25 @@ const cmsSlice = createSlice({
         },
         updateImages: (state, action) => { // post content
             state.past.push(JSON.parse(JSON.stringify(state.present)));
-            if (action.payload.type === "refDoc") {
+            if (action.type.type === "VIDEO") {
+                state.present.content.editVersion.sections[action.payload.sectionIndex].content.video = action.payload.src
+            } else if (action.payload.subSection === "projectInforCard") {
+                state.present.content.editVersion.sections[action.payload.index].content[action.payload.cardIndex].icon = action.payload.src
+            } else if (action.payload.type === "refDoc") {
                 state.present.content.editVersion.referenceDoc = action.payload.src
             } else if (action.payload.section === "clientsImages") {
-                // console.log(action.payload.index, action.payload.cardIndex, action.payload.src)
                 state.present.content.editVersion.sections[action.payload.index].content.clientsImages[action.payload.cardIndex] = action.payload.src
             } else if (action.payload.directIcon) {
                 state.present.content.editVersion.sections[action.payload.index].content.cards[action.payload.cardIndex].icon = action.payload.src
             } else if (action.payload.section === "socialLinks") {
                 state.present.content.editVersion.sections[action.payload.sectionIndex].content[action.payload.section][action.payload.index][action.payload.title] = action.payload.src
+            } else if (action.payload.section === "points") {
+                state.present.content.editVersion.sections[action.payload.index].content.points[action.payload.cardIndex].images[action.payload.order - 1] = action.payload.src
+            } else if (action.payload.section === "affiliates") {
+                state.present.content.editVersion.sections[action.payload.index].content.cards[action.payload.order - 1].images[0] = action.payload.src
+            } else if (action.payload.section === "Chart") {
+                state.present.content.editVersion.sections[action.payload.index].content.chart.images[action.payload.order - 1] = action.payload.src
             } else {
-                console.log("asdfwqerqwefsfvxczvefmqwekrbhjvkweuiwqhnxip")
                 state.present.content.editVersion.sections[action.payload.index].content.images[action.payload.order - 1] = action.payload.src
             }
             state.future = [];
@@ -80,6 +106,12 @@ const cmsSlice = createSlice({
             let newArray = [...oldArray, { ...action.payload.src, order: oldArray.length + 1 }]
 
             state.present.content.editVersion.sections[action.payload.sectionIndex].content[action.payload.section] = newArray
+        },
+        addImagePointArray: (state, action) => { // post content
+            let oldArray = state.present.content.editVersion.sections[action.payload.sectionIndex].content.images
+            let newArray = [...oldArray, { ...action.payload.src, order: oldArray.length + 1 }]
+
+            state.present.content.editVersion.sections[action.payload.sectionIndex].content.images = newArray
         },
         rmImageArray: (state, action) => { // post content
 
@@ -91,6 +123,17 @@ const cmsSlice = createSlice({
             newArray = newArray.map((e, i) => ({ ...e, order: i + 1 }))
             console.log(newArray)
             state.present.content.editVersion.sections[action.payload.sectionIndex].content[action.payload.section] = newArray
+        },
+        rmImagePointArray: (state, action) => { // post content
+
+            let oldArray = state.present.content.editVersion.sections[action.payload.sectionIndex].content.images
+            let newArray = oldArray.filter(e => {
+                return e.order !== action.payload.order
+            })
+
+            newArray = newArray.map((e, i) => ({ ...e, order: i + 1 }))
+            console.log(newArray)
+            state.present.content.editVersion.sections[action.payload.sectionIndex].content.images = newArray
         },
         updateAList: (state, action) => { // post content
 
@@ -127,7 +170,6 @@ const cmsSlice = createSlice({
         updateCardAndItemsArray: (state, action) => { // post content
             state.past.push(JSON.parse(JSON.stringify(state.present)));
             let newArray = []
-            console.log(action.payload.sectionIndex)
             let oldArray = state.present.content?.editVersion?.sections?.[action.payload.sectionIndex].content
             if (action.payload.operation === 'add') {
                 newArray = [...oldArray, { ...action.payload.insert, order: oldArray.length }]
@@ -139,18 +181,52 @@ const cmsSlice = createSlice({
             state.present.content.editVersion.sections[action.payload.sectionIndex].content = newArray
             state.future = [];
         },
+        updateSubServiceDetailsPointsArray: (state, action) => { // post content
+            state.past.push(JSON.parse(JSON.stringify(state.present)));
+            let newArray = []
+            let oldArray = state.present.content?.editVersion?.sections?.[action.payload.sectionIndex].content[action.payload.section]
+            if (action.payload.operation === 'add') {
+                newArray = [...oldArray, { ...action.payload.insert, order: oldArray.length }]
+            } else {
+                newArray = state.present.content?.editVersion?.sections?.[action.payload.sectionIndex].content[action.payload.section].filter((e, i) => {
+                    return i !== action.payload.index
+                })
+            }
+            state.present.content.editVersion.sections[action.payload.sectionIndex].content[action.payload.section] = newArray
+            state.future = [];
+        },
+        updateAffiliatesCardsArray: (state, action) => { // post content
+            state.past.push(JSON.parse(JSON.stringify(state.present)));
+            let newArray = []
+            let oldArray = state.present.content?.editVersion?.sections?.[action.payload.sectionIndex].content[action.payload.section]
+            if (action.payload.operation === 'add') {
+                newArray = [...oldArray, { ...action.payload.src, order: oldArray.length + 1 }]
+            } else {
+                newArray = state.present.content?.editVersion?.sections?.[action.payload.sectionIndex].content[action.payload.section].filter((e, i) => {
+                    return e.order !== action.payload.order
+                })
+            }
+            state.present.content.editVersion.sections[action.payload.sectionIndex].content[action.payload.section] = newArray
+            state.future = [];
+        },
+        updatePoliciesItems: (state, action) => { // post content
+            state.past.push(JSON.parse(JSON.stringify(state.present)));
+            let newArray = []
+            let oldArray = state.present.content?.editVersion?.sections?.[action.payload.sectionIndex].content.procedures.terms
+            if (action.payload.operation === 'add') {
+                newArray = [...oldArray, { ...action.payload.insert, order: oldArray.length }]
+            } else {
+                newArray = state.present.content?.editVersion?.sections?.[action.payload.sectionIndex].content.procedures.terms.filter((e, i) => {
+                    return i !== action.payload.index
+                })
+            }
+            state.present.content.editVersion.sections[action.payload.sectionIndex].content.procedures.terms = newArray
+            state.future = [];
+        },
         updateSelectedContent: (state, action) => { // post content
             state.past.push(JSON.parse(JSON.stringify(state.present)));
-            // const selectedMap = new Map(
-            //     action.payload?.selected?.filter(e => e.display).map((item, index) => [item[action.payload.titleLan], index])
-            // );
-            let newOptions = action.payload.data
 
-            // newOptions.sort((a, b) => {
-            //     const indexA = selectedMap.get(a[action.payload.titleLan]) ?? Infinity;
-            //     const indexB = selectedMap.get(b[action.payload.titleLan]) ?? Infinity;
-            //     return indexA - indexB;
-            // });
+            let newOptions = action.payload.data
 
             switch (action.payload.origin) {
                 case "home": // in use
@@ -173,9 +249,13 @@ const cmsSlice = createSlice({
                     state.present.content.editVersion.sections[action.payload.sectionIndex].items = newOptions
                     break;
 
-                case "jobs":
-                    state.present[action.payload?.currentPath].jobListSection.jobs = newOptions;
+                case "subServices": // in use
+                    state.present.content.editVersion.sections[action.payload.sectionIndex].items = newOptions
                     break;
+
+                // case "jobs":
+                //     state.present[action.payload?.currentPath].jobListSection.jobs = newOptions;
+                //     break;
 
                 case "projectDetail":
                     state.present.projectDetail[action.payload.projectId - 1].moreProjects.projects = newOptions
@@ -183,10 +263,6 @@ const cmsSlice = createSlice({
 
                 case "serviceCards":
                     state.present[action.payload?.currentPath].serviceCards = newOptions;
-                    break;
-
-                case "subServices":
-                    state.present[action.payload?.currentPath][action.payload.projectId].subServices = newOptions
                     break;
 
                 default:
@@ -390,6 +466,7 @@ const cmsSlice = createSlice({
 });
 
 export const { // actions
+    updateIsEditMode,
     updateImages,
     removeImages,
     updateMainContent,
@@ -399,17 +476,22 @@ export const { // actions
     updateSelectedProject,
     updateMarketSelectedContent,
     updateCardAndItemsArray,
+    updatePoliciesItems,
     updateAllProjectlisting,
     selectMainNews,
     submitings,
     addImageArray,
+    addImagePointArray,
+    rmImagePointArray,
     rmImageArray,
     undo,
     redo,
     updateTheProjectSummaryList,
     updateSelectedSubService,
     updateAList,
-    updateComment
+    updateComment,
+    updateSubServiceDetailsPointsArray,
+    updateAffiliatesCardsArray
 } = cmsSlice.actions;
 
 export default cmsSlice.reducer; // reducer

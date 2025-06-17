@@ -58,6 +58,12 @@ const makerequest = async (
   let result;
   try {
     const response = await fetch(uri, options);
+
+    if (response.status === 555) {
+      clearSession();
+      return { error: "Critical session error. Please log in again.", ok: false };
+    }
+
     if (!response.ok) {
       const err = await response.json();
       throw err;
@@ -65,7 +71,6 @@ const makerequest = async (
     result = await response.json();
     result.ok = true;
   } catch (err) {
-    // console.error(err)
     if (err.name === "AbortError") {
       result = { error: "Request timed out" };
     } else {
@@ -181,22 +186,15 @@ export async function userLogs(query) {
   return await makerequest(url, "GET");
 }
 
-// fetch for roles
 export async function fetchRoles(query) {
-  if (!query || typeof query !== "object") {
+  if (!query || typeof query !== "object" || Object.keys(query).length === 0) {
     return await makerequest(api.route("fetchRoles"), "GET");
   }
 
-  const [key] = Object.keys(query);
-  const value = query[key];
+  const params = new URLSearchParams(query).toString();
+  const url = `${api.route("fetchRoles")}?${params}`;
 
-  return await makerequest(
-    `${api.route("fetchRoles")}?${key}=${value}`,
-    "GET",
-    JSON.stringify({}),
-    {},
-    true
-  );
+  return await makerequest(url, "GET");
 }
 
 export async function getRoleById(id) {
@@ -345,31 +343,32 @@ export async function getResources(query) {
 }
 
 export async function getResourceInfo(query) {
-  // console.log(query, "query");
-  console.log(query, "query");
   return await makerequest(api.route("getResourceInfo") + query, "GET");
 
-  //   return await makerequest(
-  //     `${api.route(
-  //       "getResourceInfo"
-  //     )}?${key1}=${value1}&${key2}=${value2}&${key3}=${value3}`,
-  //     "GET"
-  //   );
-  // }
 }
 
+// export async function getEligibleUsers(query) {
+//   if (!query || typeof query !== "object") {
+//     return await makerequest(api.route("getEligibleUsers"), "GET");
+//   }
+
+//   const [key] = Object.keys(query);
+//   const value = query[key];
+
+//   return await makerequest(
+//     `${api.route("getEligibleUsers")}?${key}=${value}`,
+//     "GET"
+//   );
+// }
 export async function getEligibleUsers(query) {
-  if (!query || typeof query !== "object") {
+  if (!query || typeof query !== "object" || Object.keys(query).length === 0) {
     return await makerequest(api.route("getEligibleUsers"), "GET");
   }
 
-  const [key] = Object.keys(query);
-  const value = query[key];
+  const params = new URLSearchParams(query).toString();
+  const url = `${api.route("getEligibleUsers")}?${params}`;
 
-  return await makerequest(
-    `${api.route("getEligibleUsers")}?${key}=${value}`,
-    "GET"
-  );
+  return await makerequest(url, "GET");
 }
 
 export async function assignUser(data) {
@@ -474,19 +473,14 @@ export async function rejectedRequest(param, body) {
     true
   );
 }
-// export async function getRequests(query) {
-//   if (!query || typeof query !== "object") {
-//     return await makerequest(api.route("getRequests"), "GET");
-//   }
 
-//   const [key] = Object.keys(query);
-//   const value = query[key];
 
-//   return await makerequest(
-//     `${api.route("getRequests")}?${key}=${value}`,
-//     "GET"
-//   );
-// }
+
+// DASHBOARD INSIGHT
+export async function dashboardInsight() {
+  return await makerequest(`${api.route("getDashboardInsight")}`, "GET");
+}
+
 
 export async function getRequests(query) {
   if (!query || typeof query !== "object" || Object.keys(query).length === 0) {
@@ -521,15 +515,26 @@ export async function deleteMedia(id) {
   }
 }
 
+// export async function fetchAllImages(query) {
+//   if (!query || typeof query !== "object") {
+//     return await makerequest(api.route("getMedia"), "GET");
+//   } else if (!query.resourceId) {
+//     throw new Error("No resource Id")
+//   }
+
+//   const [key] = Object.keys(query);
+//   const value = query[key];
+
+//   return await makerequest(`${api.route("getMedia")}?${key}=${value}`, "GET");
+// }
+
 export async function fetchAllImages(query) {
-  if (!query || typeof query !== "object") {
+  if (!query || typeof query !== "object" || Object.keys(query).length === 0) {
     return await makerequest(api.route("getMedia"), "GET");
-  } else if (!query.resourceId) {
-    throw new Error("No resource Id")
   }
 
-  const [key] = Object.keys(query);
-  const value = query[key];
+  const params = new URLSearchParams(query).toString();
+  const url = `${api.route("getMedia")}?${params}`;
 
-  return await makerequest(`${api.route("getMedia")}?${key}=${value}`, "GET");
+  return await makerequest(url, "GET");
 }
