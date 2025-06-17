@@ -5,11 +5,26 @@ import ContentSection from "../breakUI/ContentSections"
 // import MultiSelect from "../breakUI/MultiSelect"
 // import DynamicContentSection from "../breakUI/DynamicContentSection"
 import { useDispatch } from "react-redux"
-import { updateCardAndItemsArray, updatePoliciesItems } from "../../../common/homeContentSlice"
+import { updateAffiliatesCardsArray } from "../../../common/homeContentSlice"
+import DynamicContentSection from "../breakUI/DynamicContentSection"
 
 const HSnEManager = ({ content, currentPath, language, indexes }) => {
-    // const dispatch = useDispatch()
-
+    const dispatch = useDispatch()
+    const addExtraSummary = () => {
+        dispatch(updateAffiliatesCardsArray(
+            {
+                src: {
+                    text: {
+                        ar: "",
+                        en: ""
+                    }
+                },
+                section: "sectionPointers",
+                sectionIndex: indexes?.['2'],
+                operation: 'add'
+            }
+        ))
+    }
 
     return (
         <div>
@@ -77,20 +92,31 @@ const HSnEManager = ({ content, currentPath, language, indexes }) => {
                 sectionIndex={indexes?.['2']}
             />
 
-            <ContentSection
-                Heading={"Section 3"}
-                currentPath={currentPath}
-                inputs={
+            <div className="mt-4 border-b">
+                <h3 className={`font-semibold text-[1.25rem] mb-4`}>Multi Description</h3>
+                {
                     content?.['2']?.content?.sectionPointers?.map((section, i) => {
-
-                        return { input: "textarea", label: "Text" + (i + 1), updateType: "text", value: section?.text?.[language], index: i }
+                        return (
+                            <DynamicContentSection
+                                key={i}
+                                currentPath={currentPath}
+                                inputs={[{
+                                    input: "textarea", label: "Text " + (i + 1), updateType: "text", value: section?.text?.[language], index: i
+                                }]}
+                                index={i}
+                                isBorder={false}
+                                allowRemoval={true}
+                                section={"sectionPointers"}
+                                language={language}
+                                currentContent={content}
+                                sectionIndex={indexes?.['2']}
+                                order={section.order}
+                            />)
                     })
                 }
-                section={"sectionPointers"}
-                language={language}
-                currentContent={content}
-                sectionIndex={indexes?.['2']}
-            />
+                <button className="text-blue-500 cursor-pointer mb-3" onClick={() => addExtraSummary('whatWeDo')}>Add More Section...</button>
+            </div>
+
 
         </div>
     )

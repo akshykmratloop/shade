@@ -176,6 +176,7 @@ const cmsSlice = createSlice({
             if (action.payload.operation === 'add') {
                 newArray = [...oldArray, { ...action.payload.insert, order: oldArray.length }]
             } else {
+                console.log(action.payload.index, action.payload.order)
                 newArray = state.present.content?.editVersion?.sections?.[action.payload.sectionIndex].content.filter((e, i) => {
                     return i !== action.payload.index
                 })
