@@ -1,51 +1,105 @@
 {
-    "id": "news1",
-    "banner": {
-        "title": {
-            "en": "",
-            "ar": ""
-        },
-        "subTitle": {
-            "en": "",
-            "ar": ""
-        },
-        "bannerImage": "",
-        "button": {
-            "en": "",
-            "ar": ""
-        }
-    },
-    "newsPoints": [
-        {
-            "title": {
-                "en": "",
-                "ar": ""
+    "id": "",
+    "titleEn": "",
+    "titleAr": "",
+    "slug": "",
+    "isEditable": true,
+    "resourceType": "SUB_PAGE",
+    "resourceTag": "NEWS",
+    "relationType": "CHILD",
+    "parentId": "",
+    "editVersion": {
+        "id": "",
+        "versionNumber": 2,
+        "icon": null,
+        "image": null,
+        "comments": "",
+        "referenceDoc": null,
+        "updatedAt": "",
+        "status": "",
+        "sections": [
+            {
+                "sectionId": "",
+                "order": 1,
+                "version": 2,
+                "title": "",
+                "content": {
+                    "date": {
+                        "ar": "",
+                        "en": ""
+                    },
+                    "title": {
+                        "ar": "",
+                        "en": ""
+                    },
+                    "button": [
+                        {
+                            "url": null,
+                            "icon": null,
+                            "text": {
+                                "ar": "",
+                                "en": ""
+                            }
+                        }
+                    ],
+                    "images": [
+                        {
+                            "url": "",
+                            "order": 1,
+                            "altText": {
+                                "ar": "",
+                                "en": ""
+                            }
+                        }
+                    ]
+                },
+                "sections": []
             },
-            "content": {
-                "en": "",
-                "ar": ""
-            }
-        },
-        {
-            "title": {
-                "en": "",
-                "ar": ""
+            {
+                "sectionId": "",
+                "order": 2,
+                "version": 2,
+                "title": "",
+                "content": [
+                    {
+                        "order": 1,
+                        "title": {
+                            "ar": "",
+                            "en": ""
+                        },
+                        "description": {
+                            "ar": "",
+                            "en": ""
+                        }
+                    }
+                ],
+                "sections": []
             },
-            "content": {
-                "en": "",
-                "ar": ""
+            {
+                "sectionId": "",
+                "order": 3,
+                "version": 2,
+                "title": "",
+                "content": {
+                    "title": {
+                        "ar": "",
+                        "en": ""
+                    },
+                    "button": [
+                        {
+                            "url": null,
+                            "icon": null,
+                            "text": {
+                                "ar": "",
+                                "en": ""
+                            },
+                            "order": 1
+                        }
+                    ]
+                },
+                "sections": [],
+                "items": []
             }
-        },
-        {
-            "title": {
-                "en": "",
-                "ar": ""
-            },
-            "content": {
-                "en": "",
-                "ar": ""
-            }
-        }
-    ],
-    "latestNews": []
+        ]
+    }
 }

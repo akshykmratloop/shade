@@ -111,7 +111,7 @@ const NewsBlogDetailPage = ({ language, screen, content, width, highlight, liveC
                     </h2>
 
                     <div className={`grid ${isPhone ? "grid-cols-1" : isTablet ? "grid-cols-2" : "grid-cols-4"} gap-y-6 justify-center items-center auto-rows-fr
-                                    ${checkDifference(latestNewCards?.items, liveLatestNewCards.items)}
+                                    ${checkDifference(latestNewCards?.items, liveLatestNewCards?.items)}
                     `}
                         style={{
                             gap: isComputer ? getDynamicSize(20) : isTablet ? getDynamicSize(40) : getDynamicSize(80)

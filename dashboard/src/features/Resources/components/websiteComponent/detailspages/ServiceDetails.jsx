@@ -60,14 +60,14 @@ const ServiceDetails = ({ serviceId, content, language, screen, width, highlight
                         (content?.['2']?.items || [])?.map((subService, index) => {
                             return (
                                 <article key={index + "12i"} className={`border-b flex ${isPhone && "flex-col"} gap-4 pb-[12px]`}>
-                                    <article className={`w-full border`}
+                                    <article className={`w-full`}
                                         style={{
                                             minWidth: isComputer && getDynamicSize(300),
                                             padding: isComputer && `${getDynamicSize(8)}`,
                                         }}
                                     >
                                         <img
-                                            src={subService.image || projectPageData.developmentOfHo}
+                                            src={Img_url + subService.image}
                                             alt=""
                                             className={`${isTablet || isTablet ? "w-[50vw] aspect-[4/3]" : "w-full"}`}
                                             style={{

@@ -13,6 +13,9 @@ const ServiceDetailsManager = ({ serviceId, content, currentPath, language, inde
     const [subServiceItems, setServicesItemsOptions] = useState(null);
     const { slug, id } = useSelector(state => state?.homeContent?.present?.content) || { slug: "", id: "" };
 
+    const thumbIcon = useSelector(state => state.homeContent?.present?.content?.editVersion?.icon) || ""
+    const thumbImage = useSelector(state => state.homeContent?.present?.content?.editVersion?.image) || ""
+
     useEffect(() => {
         async function getOptionsforServices() {
             const response = await getResources({ resourceType: "SUB_PAGE", resourceTag: "SERVICE", apiCallType: "INTERNAL", fetchType: "CONTENT" })
@@ -57,6 +60,19 @@ const ServiceDetailsManager = ({ serviceId, content, currentPath, language, inde
         <div className={`w-[299px]`}>
             {/* file doc */}
             <FileUploader id={"ServiceDetailsIDReference" + serviceId} label={"Rerference doc"} fileName={"Upload your file..."} />
+
+            <ContentSection
+                currentPath={currentPath}
+                Heading={"Thumbnail"}
+                inputFiles={[
+                    { label: "Thumbnail Icon", id: "thumbIcon", order: 1, url: thumbIcon, name: "icon" },
+                    { label: "Thumbnail Image", id: "thumbImage", order: 1, url: thumbImage, name: "image" }
+                ]}
+                section={"thumbnail"}
+                language={language}
+                currentContent={content}
+            />
+
             {/** Hero Banner */}
             <ContentSection
                 currentPath={currentPath}

@@ -55,22 +55,6 @@ const SnR = ({ currentContent, screen, language, width, highlight, liveContent }
                             ${fontLight} word-spacing-5 ${isPhone ? "w-4/5" : isTablet ? "w-2/3" : "w-1/2"} `}>
                             {currentContent?.['1']?.content?.description?.[language]}
                         </p>
-                        <button
-                            className={`relative items-center flex ${isLeftAlign ? "" : "flex-row-reverse"} 
-                            ${checkDifference(currentContent?.['1']?.content?.button?.[0]?.text?.[language], liveContent?.['1']?.content?.button?.[0]?.text?.[language])}
-                            gap-1 text-[12px] font-medium px-[12px] py-[6px] px-[12px] bg-[#00b9f2] text-white rounded-md`}
-                            style={{ fontSize: fontSize.mainButton, lineHeight: fontSize.paraLeading }}
-                            onClick={() => { }}
-                        >
-                            {currentContent?.['1']?.content?.button?.[0]?.text?.[language]}
-                            <img
-                                src={Arrow}
-                                width="10"
-                                height="11"
-                                alt=""
-                                style={{ transform: isLeftAlign ? "rotate(180deg)" : "" }}
-                            />
-                        </button>
                     </div>
                 </div>
             </section>

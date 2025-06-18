@@ -288,10 +288,17 @@ function Resources() {
               <div className="w-full flex flex-col gap-[5px]">
                 <div
                   onClick={() => {
-                    localStorage.setItem("contextId", "null");
-                    navigate(
-                      `../edit/${(resourceTag).toLowerCase()}/new`
-                    )
+                    if (resourceType === "SUB_PAGE_ITEM") {
+                      localStorage.setItem("contextId", "null");
+                      navigate(
+                        `../edit/${(resourceTag).toLowerCase()}/new/new`
+                      )
+                    } else {
+                      localStorage.setItem("contextId", "null");
+                      navigate(
+                        `../edit/${(resourceTag).toLowerCase()}/new`
+                      )
+                    }
                   }}
                   className="border rounded-md bg-white flex-grow cursor-pointer flex flex-col items-center justify-center text-[50px] shadow-xl-custom border-[#29469c80]"
                 >

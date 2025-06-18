@@ -38,7 +38,7 @@ const EditPage = () => {
     const [fullScreen, setFullScreen] = useState(false)
     const [subRoutesList, setSubRouteList] = useState([])
     const [resourceTag, setResourcesTag] = useState("")
-    console.log(resourceTag)
+    const [resourceType, setResourceType] = useState("")
     const { isManager } = useSelector(state => state.user)
 
     const currentPath = location.pathname.split('/')[4]
@@ -80,6 +80,7 @@ const EditPage = () => {
         }
 
         setResourcesTag((localStorage.getItem("resourceTag")))
+        setResourceType((localStorage.getItem("resourceType")))
 
         const handleKeyDown = (e) => {
             if (e.key === 'Escape') {
@@ -132,7 +133,7 @@ const EditPage = () => {
             }
             context()
         } else {
-            dispatch(updateMainContent({ currentPath: "content", payload: structures[resourceTag] }))
+            dispatch(updateMainContent({ currentPath: "content", payload: resourceType === "SUB_PAGE_ITEM" ? structures["SUBSERVICE"] : structures[resourceTag] }))
         }
         setLoader(false)
 
