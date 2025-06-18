@@ -28,9 +28,9 @@ const ProjectPage = ({ language, screen, currentContent, highlight, liveContent 
     const fontSize = generatefontSize(defineDevice(screen), dynamicSize, width)
     const getDynamicSize = (size) => dynamicSize(size, width)
     const fontLight = useSelector(state => state.fontStyle.light)
+    const tabIndex = currentContent?.['2']?.sections.findIndex(e => e.order == activeTab)
 
     useEffect(() => {
-        const tabIndex = currentContent?.['2']?.sections.findIndex(e => e.order == activeTab)
         setFilteredProject(
             currentContent?.["2"]?.sections?.[tabIndex]?.items
         );
@@ -56,16 +56,6 @@ const ProjectPage = ({ language, screen, currentContent, highlight, liveContent 
         };
     }, []);
 
-    // useEffect(() => {
-    //     dispatch(updateMainContent({ currentPath: "projects", payload: content.projectsPage }));
-    // }, [])
-
-    // useEffect(() => {
-    //     if(currentContent){
-    //         dispatch(updateAllProjectlisting({data:currentContent?.projectsSection?.projects, action: "initial"}))
-    //     }
-    // }, [currentContent])
-
     return (
         <div className="h-full" ref={divRef}>
             <section className={`relative w-full bg-cover bg-center ${isLeftAlign ? 'scale-x-[-1]' : ''}  `}
@@ -83,25 +73,28 @@ const ProjectPage = ({ language, screen, currentContent, highlight, liveContent 
                     <div className={`flex flex-col ${isLeftAlign ? 'right-5 text-left items-start ' : 'left-5 text-right items-end'} ${isPhone ? "max-w-[70%]" : "max-w-[55%]"} w-full ${isLeftAlign ? 'scale-x-[-1]' : ''}`}>
                         <h1 dir={language === 'ar' ? "rtl" : "ltr"}
                             style={{ fontSize: fontSize.mainHeading, lineHeight: (isComputer || isTablet) && fontSize.headingLeading }}
-                            className={`text-[#292E3D] ${isPhone ? "text-3xl" : "text-[40px] leading-[77px] tracking-[-3.5px]"} font-medium  mb-4`}>
+                            className={`text-[#292E3D] ${isPhone ? "text-3xl" : "text-[40px] leading-[77px] tracking-[-3.5px]"} font-medium  mb-4
+                            ${checkDifference(currentContent?.["1"]?.content?.title?.[language], liveContent?.["1"]?.content?.title?.[language])}
+                            `}>
                             {currentContent?.["1"]?.content?.title?.[language]}
                         </h1>
                         <p
                             style={{ fontSize: fontSize.mainPara, width: isComputer ? getDynamicSize(674) : "", lineHeight: isComputer && getDynamicSize(28) }}
-                            className={`text-[#0E172FB3] ${isPhone ? "" : "leading-[28px]"} text-sm font-semibold font-[300] mb-6 word-spacing-5`}>
+                            className={`text-[#0E172FB3] ${isPhone ? "" : "leading-[28px]"} text-sm font-semibold font-[300] mb-6 word-spacing-5
+                            ${checkDifference(currentContent?.["1"]?.content?.description?.[language], liveContent?.["1"]?.content?.description?.[language])}
+                            `}>
                             {currentContent?.["1"]?.content?.description?.[language]}
                         </p>
                         <button
                             style={{ fontSize: fontSize.mainButton, padding: isComputer && getDynamicSize(10) }}
                             className={`relative px-[12px] py-[6px] text-xs font-medium bg-[#00B9F2] text-white rounded flex items-center justify-start gap-2 ${isLeftAlign ? "flex-row-reverse" : ""}`}
-                        // onClick={() => router.push("/services")}
                         >
                             <img
                                 src={Arrow}
                                 alt="Arrow"
                                 className={` ${isLeftAlign ? 'scale-x-[-1]' : ''} w-[11px] h-[11px]`}
                             />
-                            <p>
+                            <p className={`${checkDifference(currentContent?.["1"]?.content?.title?.[language], liveContent?.["1"]?.content?.title?.[language])}`}>
                                 {currentContent?.["1"]?.content?.button?.[0]?.text?.[language]}
                             </p>
                         </button>
@@ -146,7 +139,9 @@ const ProjectPage = ({ language, screen, currentContent, highlight, liveContent 
                                 gap: isComputer ? getDynamicSize(55) : "",
                                 // placeItems: "center"
                             }}
-                            className={`grid grid-cols-1  ${isTablet ? "lg:grid-cols-2 gap-6" : isPhone ? "grid-cols-1" : "lg:grid-cols-3 gap-8"} `}>
+                            className={`grid grid-cols-1  ${isTablet ? "lg:grid-cols-2 gap-6" : isPhone ? "grid-cols-1" : "lg:grid-cols-3 gap-8"} 
+                            ${checkDifference(currentContent?.["2"]?.sections?.[tabIndex]?.items, liveContent?.["2"]?.sections?.[tabIndex]?.items)}
+                            `}>
                             {filteredProject?.slice(0, visibleProjectsCount)?.map((item, index) => (
                                 <div
                                     style={{

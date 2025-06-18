@@ -10,6 +10,11 @@ import contentController from "./content.controller.js";
 
 const router = Router();
 
+router.post(
+  "/createResource",
+  tryCatchWrap(ContentController.CreateNewResource)
+);
+
 // const requiredPermissionsForContentManagement = ["ROLES_PERMISSION_MANAGEMENT"];
 
 // /**

@@ -212,3 +212,143 @@
     }
   }
 }
+
+@media (max-width: 1100px) {
+  .safety_banner_wrap {
+    height: auto;
+    .content {
+      top: 20%;
+      margin: 0 50px;
+      .title {
+        font-size: 56px;
+        width: auto;
+        line-height: 1.2;
+      }
+      .description {
+        font-size: 14px;
+        width: 100%;
+      }
+    }
+  }
+
+  .safety_card_wrap {
+    .safety_card_container {
+      display: flex;
+      flex-direction: column;
+      // align-items: center;
+      gap: 30px;
+
+      .safety_card {
+        flex-direction: column !important;
+        align-items: center;
+
+        .safety_card_image_wrap {
+          width: 100%;
+          max-width: 400px;
+          height: auto;
+        }
+        .card_title,
+        .card_description {
+          text-align: center;
+        }
+      }
+
+      .safety_card_details {
+        width: 100%;
+        max-width: 780px;
+        .title {
+          text-align: center;
+        }
+        .description_item {
+          // justify-content: center;
+        }
+      }
+    }
+  }
+
+  .safety_detail_wrap {
+    .safety_detail_container {
+      flex-direction: column;
+      gap: 20px;
+
+      .left,
+      .right {
+        width: 100%;
+      }
+      .left .title {
+        font-size: 42px;
+        text-align: center;
+      }
+      .right .safety_detail_card_wrap {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+
+        .safety_detail_card {
+          flex-direction: column;
+          gap: 15px;
+          text-align: center;
+
+          .safety_detail_number {
+            margin: 0 auto;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .safety_banner_wrap .content {
+    .title {
+      font-size: 42px;
+    }
+    .description {
+      font-size: 13px;
+    }
+  }
+
+  .safety_detail_wrap {
+    .safety_detail_container {
+      .left .title {
+        font-size: 36px;
+      }
+      .right .safety_detail_card_wrap .safety_detail_card {
+        gap: 10px;
+        .safety_detail_card_title {
+          font-size: 20px;
+        }
+        .safety_detail_card_para {
+          font-size: 14px;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 500px) {
+  .safety_banner_wrap .content {
+    top: 15%;
+    .title {
+      font-size: 32px;
+    }
+    .description {
+      font-size: 12px;
+    }
+  }
+
+  .safety_card_wrap {
+    padding: 60px 0;
+    .safety_card_container .safety_card {
+      padding: 15px;
+      gap: 15px;
+    }
+  }
+
+  .safety_detail_wrap {
+    padding: 60px 0;
+    .safety_detail_container .left .title {
+      font-size: 28px;
+    }
+  }
+}
