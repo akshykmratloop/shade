@@ -813,7 +813,7 @@
     display: block;
     position: relative;
 
-    >i {
+    > i {
       position: absolute;
       top: 0;
       right: 200;
@@ -865,7 +865,6 @@
         // flex-direction: row-reverse;
 
         .testimonial_content {
-
           .name,
           .position,
           .quote {
@@ -914,9 +913,11 @@
       left: 0;
       width: 142px; // Width of the gradient
       height: 100%;
-      background: linear-gradient(to right,
-          rgba(255, 255, 255, 1) 0%,
-          rgba(255, 255, 255, 0) 100%);
+      background: linear-gradient(
+        to right,
+        rgba(255, 255, 255, 1) 0%,
+        rgba(255, 255, 255, 0) 100%
+      );
       z-index: 2; // Make sure it is above the background but below the slides
     }
 
@@ -928,9 +929,11 @@
       right: 0;
       width: 142px; // Width of the gradient
       height: 100%;
-      background: linear-gradient(to left,
-          rgba(255, 255, 255, 1) 0%,
-          rgba(255, 255, 255, 0) 100%);
+      background: linear-gradient(
+        to left,
+        rgba(255, 255, 255, 1) 0%,
+        rgba(255, 255, 255, 0) 100%
+      );
       z-index: 1; // Make sure it is above the background but below the slides
     }
 
@@ -1054,7 +1057,6 @@
     }
   }
 }
-
 
 .wrapper {
   position: absolute;

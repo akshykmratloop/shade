@@ -98,7 +98,7 @@
 
 .affiliates_section_wrap {
   padding: 112px 0px;
-  background-color: aqua;
+  // background-color: aqua;
 
   .affiliates_section_wrap {
     padding: 4rem 2rem;
@@ -114,7 +114,7 @@
   .affiliate_card {
     text-align: center;
     transition: transform 0.3s ease;
-    border: 1px solid black;
+    // border: 1px solid black;
     height: 300px;
     &:hover {
       transform: translateY(-5px);
@@ -123,8 +123,8 @@
 
   .affiliate_image {
     width: 100%;
-    height: auto;
-    border-radius: 10px;
+    // height: auto;
+    // border-radius: 10px;
     object-fit: cover;
   }
 
@@ -132,5 +132,93 @@
     margin-top: 0.5rem;
     font-weight: bold;
     font-size: 1rem;
+  }
+}
+
+// Responsive Breakpoints
+@media (max-width: 800px) {
+  .affiliates_banner_wrap {
+    height: 500px;
+
+    .content {
+      // position: static;
+      padding: 40px 20px;
+      text-align: center;
+
+      .title {
+        font-size: 48px;
+        line-height: 56px;
+        width: 100%;
+        letter-spacing: -1px;
+      }
+
+      .description {
+        font-size: 14px;
+        line-height: 22px;
+        width: 100%;
+        margin: 20px 0;
+      }
+
+      .view_btn {
+        margin: 0 auto;
+        padding: 12px 24px 8px 48px;
+
+        .arrow_btn {
+          left: 16px;
+        }
+      }
+    }
+
+    .backgroundContainer .backgroundImage {
+      height: 500px;
+      object-fit: cover;
+    }
+  }
+
+  .affiliates_section_wrap {
+    padding: 4rem 1rem;
+
+    .affiliates_grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+}
+
+@media (max-width: 500px) {
+  .affiliates_banner_wrap {
+    height: 500px;
+    .content {
+      padding: 20px 12px;
+
+      .title {
+        font-size: 32px;
+        line-height: 40px;
+      }
+
+      .description {
+        font-size: 12px;
+        line-height: 18px;
+      }
+
+      .view_btn {
+        padding: 10px 20px 6px 40px;
+
+        .arrow_btn {
+          left: 12px;
+        }
+      }
+    }
+
+    .backgroundContainer .backgroundImage {
+      height: 500px;
+    }
+  }
+
+  .affiliates_section_wrap {
+    padding: 2rem 0.5rem;
+
+    .affiliates_grid {
+      grid-template-columns: 1fr;
+    }
   }
 }

@@ -146,7 +146,7 @@
     }
     .content {
       top: 30%;
-      padding: 0 70px;
+      padding: 0 60px;
       .title {
         font-size: 56px;
         line-height: 1.2;
@@ -190,7 +190,7 @@
 
 @media (max-width: 768px) {
   .history_banner_wrap .content {
-    top: 20%;
+    top: 35%;
     .title {
       font-size: 42px;
     }
@@ -219,10 +219,12 @@
 
 @media (max-width: 500px) {
   .history_banner_wrap .content {
-    top: 15%;
+    top: 25%;
+    padding: 0 30px;
     .title {
       font-size: 32px;
       letter-spacing: -1px;
+      width: 300px;
     }
     .description {
       font-size: 12px;
