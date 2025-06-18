@@ -123,7 +123,7 @@ function Header() {
     if (!userId) return;
     (async () => {
       const res = await getNotificationsbyId(userId);
-      const unread = res?.notifications?.filter((n) => !n.isRead)?.length;
+      const unread = res?.data?.total;
       dispatch(setNotificationCount(unread));
     })();
   }, [userId, dispatch]);
@@ -138,7 +138,9 @@ function Header() {
     const handleNew = async (payload) => {
       if (payload.userId !== userId) return;
       const res = await getNotificationsbyId(userId);
-      const unread = res.notifications?.filter((n) => !n.isRead)?.length;
+      const unread = res.notifications?.notifications?.filter(
+        (n) => !n.isRead
+      )?.length;
       dispatch(setNotificationCount(unread));
     };
 
@@ -149,7 +151,7 @@ function Header() {
 
       // let roles = response.result?.roles?.filter((e) => e.status === "ACTIVE");
 
-      const userObj = response.result
+      const userObj = response.result;
       // console.log("userObj", userObj);
 
       dispatch(updateUser({ data: userObj, type: "update" }));
@@ -243,8 +245,9 @@ function Header() {
               Role
             </div>
             <label
-              className={`flex items-center ${oneRoleOnly ? "justify-center" : "justify-between"
-                } cursor-pointer w-full bg-base-300 py-1 px-[6px] h-full rounded-md`}
+              className={`flex items-center ${
+                oneRoleOnly ? "justify-center" : "justify-between"
+              } cursor-pointer w-full bg-base-300 py-1 px-[6px] h-full rounded-md`}
               // style={{ justifyItems: oneRoleOnly ? "center" : ""}}
               onClick={() => {
                 setOpenList(!openList);
@@ -272,7 +275,10 @@ function Header() {
                 dark:shadow-md dark:shadow-stone-800 
                 absolute z-[30] p-2 shadow bg-base-100 
                 rounded-md flex flex-col gap-1"
-                style={{ display: openList ? "flex" : "none", whiteSpace: "pre" }}
+                style={{
+                  display: openList ? "flex" : "none",
+                  whiteSpace: "pre",
+                }}
               >
                 {user.roles?.map((e, i) => {
                   return (
