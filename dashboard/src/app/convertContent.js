@@ -47,6 +47,7 @@ function transformContentfunction(input) {
 
 export default function transformContent(rawData) {
     try {
+
         const transformed = transformContentfunction(rawData);
         console.log(`File successfully transformed`);
         return transformed
@@ -56,20 +57,26 @@ export default function transformContent(rawData) {
 }
 
 
-export function baseTransform(obj) {
+export function baseTransform(obj, filter) {
+    const object = JSON.parse(JSON.stringify(obj));
+
+    object.editVersion?.sections?.forEach((e, i) => {
+        object.editVersion.sections[i].sectionVersionTitle = object.titleEn + e.sectionVersionTitle
+    })
+
     return ({
-        titleEn: obj.titleEn,
-        titleAr: obj.titleAr,
-        slug: obj.slug,
-        resourceType: obj.resourceType,
-        resourceTag: obj.resourceTag,
-        relationType: obj.relationType,
-        parentId: obj.parentId,
-        filters: [],
-        icon: obj.editVersion.icon,
-        image: obj.editVersion.image,
-        referenceDoc: obj.editVersion.referenceDoc,
-        comments: obj.editVersion.comments,
-        sections: obj.editVersion.sections
+        titleEn: object.titleEn,
+        titleAr: object.titleAr,
+        slug: object.slug,
+        resourceType: object.resourceType,
+        resourceTag: object.resourceTag,
+        relationType: object.relationType,
+        parentId: object.parentId,
+        filters: [filter],
+        icon: object.editVersion.icon,
+        image: object.editVersion.image,
+        referenceDoc: object.editVersion.referenceDoc,
+        comments: object.editVersion.comments,
+        sections: object.editVersion.sections
     })
 }

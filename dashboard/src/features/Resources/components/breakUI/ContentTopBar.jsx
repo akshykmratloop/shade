@@ -10,8 +10,8 @@ import { redo, undo } from '../../../common/homeContentSlice';
 import { IoIosInformationCircleOutline } from "react-icons/io";
 import { saveInitialContentValue } from '../../../common/InitialContentSlice';
 import { submitings } from '../../../common/homeContentSlice';
-import transformContent from '../../../../app/convertContent';
-import { generateRequest, publishContent, updateContent } from '../../../../app/fetch';
+import transformContent, { baseTransform } from '../../../../app/convertContent';
+import { addResource, generateRequest, publishContent, updateContent } from '../../../../app/fetch';
 import Popups from './Popups';
 import formatTimestamp from '../../../../app/TimeFormat';
 import capitalizeWords from '../../../../app/capitalizeword';
@@ -126,13 +126,13 @@ export default function ContentTopBar({ setWidth, setFullScreen, outOfEditing, c
             })
         }
     }
-
+console.log(ReduxState.present.content)
     async function HandlepublishToLive() {
-        if (!isManager) return toast.error("You are not allowed to publish the content directly!", { autoClose: 600 })
-        const paylaod = transformContent(ReduxState.present.content)
-        console.log(JSON.stringify(paylaod))
+        console.log("publish")
+        // if (!isManager) return toast.error("You are not allowed to publish the content directly!", { autoClose: 600 })
+        // const payload = transformContent(ReduxState.present.content)
         // try {
-        //     const response = await publishContent(paylaod)
+        //     const response = await publishContent(payload)
         //     if (response.message === "Success") {
         //         dispatch(submitings())
         //         toast.success("Changes have been published", {
@@ -153,6 +153,35 @@ export default function ContentTopBar({ setWidth, setFullScreen, outOfEditing, c
         //         pauseOnHover: false, // Does not pause on hover
         //     })
         // }
+    }
+
+    async function PublishNewPage() {
+        if (!isManager) return toast.error("You are not allowed to publish the content directly!", { autoClose: 600 })
+        const payload = baseTransform(ReduxState.present.content)
+        // console.log("create")
+        console.log(payload)
+        try {
+            const response = await addResource(payload)
+            if (response.message === "Success") {
+                dispatch(submitings())
+                toast.success("New Page has been created", {
+                    style: { backgroundColor: "#187e3d", color: "white" },
+                    autoClose: 1000, // Closes after 1 second
+                    pauseOnHover: false, // Does not pause on hover
+                })
+                setTimeout(() => {
+                    navigate(-1)
+                }, 650)
+            } else {
+                throw new Error(response.message)
+            }
+        } catch (err) {
+            toast.error(err, {
+                style: { backgroundColor: "#187e3d", color: "white" },
+                autoClose: 1000, // Closes after 1 second
+                pauseOnHover: false, // Does not pause on hover
+            })
+        }
     }
 
     const handleDeviceChange = (device) => {
@@ -328,7 +357,7 @@ export default function ContentTopBar({ setWidth, setFullScreen, outOfEditing, c
             </div>
 
             <Popups display={PopUpPublish} setClose={() => setPopupPublish(false)}
-                confirmationText={"Are you sure you want to publish?"} confirmationFunction={HandlepublishToLive}
+                confirmationText={"Are you sure you want to publish?"} confirmationFunction={ReduxState?.present?.content?.id === "N" ? PublishNewPage : HandlepublishToLive}
             />
             <Popups display={PopupSubmit} setClose={() => setPopupSubmit(false)}
                 confirmationText={"Are you sure you want to submit?"} confirmationFunction={handleSubmit}
