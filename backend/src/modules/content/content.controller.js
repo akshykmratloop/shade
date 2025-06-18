@@ -24,38 +24,11 @@ import {
   activateResources,
   getDashboardInsight,
   scheduleRequest,
-  createNewResources,
   getVersionContent,
   addNewResource,
 } from "./content.service.js";
 
-const CreateNewResource = async (req, res) => {
-  const {
-    titleEn,
-    titleAr,
-    slug,
-    resourceType,
-    resourceTag,
-    relationType,
-    sections = [],
-    // filters = [],
-    childResources = [],
-  } = req.body;
 
-  const newResource = await createNewResources({
-    titleEn,
-    titleAr,
-    slug,
-    resourceType,
-    resourceTag,
-    relationType,
-    sections,
-    // filters,
-    childResources,
-  });
-
-  res.status(200).json(newResource);
-};
 
 const AddNewResource = async (req, res) => {
   const {
@@ -299,7 +272,6 @@ const GetVersionContent = async (req, res) => {
 };
 
 export default {
-  CreateNewResource,
   AddNewResource,
   GetResources,
   GetResourceInfo,

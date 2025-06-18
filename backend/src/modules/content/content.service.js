@@ -37,34 +37,6 @@ import {
 
 // Create New Resource ================================
 
-const createNewResources = async (
-  titleEn,
-  titleAr,
-  slug,
-  resourceType,
-  resourceTag,
-  relationType,
-  sections = [],
-  // filters = [],
-  childResources = []
-) => {
-  const newResource = await createResources(
-    titleEn,
-    titleAr,
-    slug,
-    resourceType,
-    resourceTag,
-    relationType,
-    sections,
-    // filters,
-    childResources
-  );
-
-  logger.info({
-    response: "Resource created successfully",
-  });
-  return {message: "Success", newResource};
-};
 
 const addNewResource = async (
   titleEn,
@@ -82,25 +54,23 @@ const addNewResource = async (
   sections
 ) => {
 
-  
+  // // Validate resource type
+  // if (resourceType !== "SUB_PAGE" && resourceType !== "SUB_PAGE_ITEM") {
+  //   throw new Error("Invalid resource type. Only SUB_PAGE and SUB_PAGE_ITEM are allowed");
+  // }
 
-  // Validate resource type
-  if (resourceType !== "SUB_PAGE" && resourceType !== "SUB_PAGE_ITEM") {
-    throw new Error("Invalid resource type. Only SUB_PAGE and SUB_PAGE_ITEM are allowed");
-  }
-
-  // Validate resource tag
-  const validResourceTags = [
-    "SERVICE",
-    "MARKET",
-    "PROJECT",
-    "TESTIMONIAL",
-    "NEWS",
-    "SAFETY_RESPONSIBILITY",
-  ];
-  if (!validResourceTags.includes(resourceTag)) {
-    throw new Error(`Invalid resource tag. Valid tags are: ${validResourceTags.join(", ")}`);
-  }
+  // // Validate resource tag
+  // const validResourceTags = [
+  //   "SERVICE",
+  //   "MARKET",
+  //   "PROJECT",
+  //   "TESTIMONIAL",
+  //   "NEWS",
+  //   "SAFETY_RESPONSIBILITY",
+  // ];
+  // if (!validResourceTags.includes(resourceTag)) {
+  //   throw new Error(`Invalid resource tag. Valid tags are: ${validResourceTags.join(", ")}`);
+  // }
 
   // Check if slug exists
   const existingResource = await checkSlugExists(slug);
@@ -492,7 +462,6 @@ const getVersionContent = async (versionId) => {
 };
 
 export {
-  createNewResources,
   getResources,
   getResourceInfo,
   getEligibleUser,
