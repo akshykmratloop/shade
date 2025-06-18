@@ -475,6 +475,13 @@ export async function rejectedRequest(param, body) {
 }
 
 
+
+// DASHBOARD INSIGHT
+export async function dashboardInsight() {
+  return await makerequest(`${api.route("getDashboardInsight")}`, "GET");
+}
+
+
 export async function getRequests(query) {
   if (!query || typeof query !== "object" || Object.keys(query).length === 0) {
     return await makerequest(api.route("getRequests"), "GET");

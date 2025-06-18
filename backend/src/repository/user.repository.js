@@ -1,7 +1,7 @@
 import {send} from "process";
 import prismaClient from "../config/dbConfig.js";
-import {EncryptData} from "../helper/bcryptManager.js";
-import {sendEmail} from "../helper/sendEmail.js";
+import { EncryptData } from "../helper/bcryptManager.js";
+import { sendEmail } from "../helper/sendEmail.js";
 import user from "../modules/user/index.js";
 
 /// USER QUERIES====================================================
@@ -14,7 +14,7 @@ export const createUserHandler = async (
   roles
 ) => {
   const existingUser = await prismaClient.user.findUnique({
-    where: {email},
+    where: { email },
   });
 
   if (existingUser) {
@@ -32,14 +32,14 @@ export const createUserHandler = async (
         create:
           roles?.map((roleId) => ({
             role: {
-              connect: {id: roleId},
+              connect: { id: roleId },
             },
           })) || [],
       },
     },
     include: {
       roles: {
-        include: {role: true},
+        include: { role: true },
       },
     },
   });
@@ -85,7 +85,7 @@ export const fetchAllUsers = async (
   phone = "",
   status = "",
   page = 1,
-  limit = 10
+  limit = 1
 ) => {
   const skip = (page - 1) * limit;
 
@@ -96,9 +96,9 @@ export const fetchAllUsers = async (
         contains: name,
         mode: "insensitive",
       },
-      email: email ? {contains: email, mode: "insensitive"} : undefined,
-      phone: phone ? {contains: phone} : undefined,
-      ...(status ? {status: status} : {}),
+      email: email ? { contains: email, mode: "insensitive" } : undefined,
+      phone: phone ? { contains: phone } : undefined,
+      ...(status ? { status: status } : {}),
     },
     include: {
       roles: {
@@ -116,7 +116,7 @@ export const fetchAllUsers = async (
         },
       },
     },
-    orderBy: {createdAt: "asc"},
+    orderBy: { createdAt: "asc" },
     skip,
     take: limit,
   });
@@ -128,9 +128,9 @@ export const fetchAllUsers = async (
         contains: name,
         mode: "insensitive",
       },
-      email: email ? {contains: email, mode: "insensitive"} : undefined,
-      phone: phone ? {contains: phone} : undefined,
-      ...(status ? {status: status} : {}),
+      email: email ? { contains: email, mode: "insensitive" } : undefined,
+      phone: phone ? { contains: phone } : undefined,
+      ...(status ? { status: status } : {}),
     },
   });
 
@@ -154,7 +154,7 @@ export const updateUser = async (id, name, password, phone, roles) => {
       deleteMany: {},
       create:
         roles?.map((roleId) => ({
-          role: {connect: {id: roleId}},
+          role: { connect: { id: roleId } },
         })) || [],
     },
   };
@@ -166,7 +166,7 @@ export const updateUser = async (id, name, password, phone, roles) => {
   }
 
   const updatedUser = await prismaClient.user.update({
-    where: {id},
+    where: { id },
     data: dataToUpdate,
     include: {
       roles: {
@@ -369,7 +369,7 @@ export const findUserByEmail = async (email) => {
 
 export const findUserById = async (id) => {
   const user = await prismaClient.user.findUnique({
-    where: {id},
+    where: { id },
     include: {
       roles: {
         include: {
@@ -425,8 +425,8 @@ export const findUserById = async (id) => {
 // Update user password
 export const updateUserPassword = async (userId, newPassword) => {
   return await prismaClient.user.update({
-    where: {id: userId},
-    data: {password: newPassword},
+    where: { id: userId },
+    data: { password: newPassword },
   });
 };
 
@@ -448,30 +448,30 @@ export const createOrUpdateOTP = async (
         otpOrigin,
       },
     },
-    create: {userId, deviceId, otpOrigin, otpCode, expiresAt},
-    update: {otpCode, expiresAt, isUsed: false},
+    create: { userId, deviceId, otpOrigin, otpCode, expiresAt },
+    update: { otpCode, expiresAt, isUsed: false },
   });
 };
 
 // find existing otp
 export const findOTP = async (userId, deviceId, otpOrigin) => {
   return await prismaClient.otp.findFirst({
-    where: {userId, deviceId, otpOrigin},
+    where: { userId, deviceId, otpOrigin },
   });
 };
 
 // mark otp as used
 export const markOTPUsed = async (otpId) => {
   return await prismaClient.otp.update({
-    where: {id: otpId},
-    data: {isUsed: true},
+    where: { id: otpId },
+    data: { isUsed: true },
   });
 };
 
 // delete otp
 export const deleteOTP = async (otpId) => {
   return await prismaClient.otp.delete({
-    where: {id: otpId},
+    where: { id: otpId },
   });
 };
 
@@ -480,7 +480,7 @@ export const deleteOTP = async (otpId) => {
 // Find OTP attempts
 export const findOtpAttempts = async (userId) => {
   return await prismaClient.rateLimit.findFirst({
-    where: {userId},
+    where: { userId },
   });
 };
 
@@ -489,9 +489,9 @@ export const createOrUpdateOtpAttempts = async (userId) => {
   const now = new Date();
 
   return await prismaClient.rateLimit.upsert({
-    where: {userId},
+    where: { userId },
     update: {
-      attempts: {increment: 1},
+      attempts: { increment: 1 },
       lastAttempt: now,
     },
     create: {
@@ -507,8 +507,8 @@ export const createOrUpdateOtpAttempts = async (userId) => {
 // Block a user temporarily
 export const blockUser = async (userId, blockUntil) => {
   return await prismaClient.rateLimit.update({
-    where: {userId},
-    data: {blockUntil},
+    where: { userId },
+    data: { blockUntil },
   });
 };
 
@@ -516,8 +516,8 @@ export const blockUser = async (userId, blockUntil) => {
 export const resetOtpAttempts = async () => {
   const now = new Date();
   await prismaClient.rateLimit.updateMany({
-    where: {blockUntil: {lte: now}},
-    data: {attempts: 0, failures: 0, blockUntil: null},
+    where: { blockUntil: { lte: now } },
+    data: { attempts: 0, failures: 0, blockUntil: null },
   });
 };
 
@@ -582,7 +582,7 @@ export const userDeactivation = async (id) => {
 
 export const findRoleTypeByUserId = async (id) => {
   const roleType = await prismaClient.user.findUnique({
-    where: {id},
+    where: { id },
     include: {
       roles: {
         include: {
@@ -614,7 +614,7 @@ export const fetchAllRolesForUser = async () => {
         },
       },
     },
-    orderBy: {created_at: "asc"},
+    orderBy: { created_at: "asc" },
   });
 
   return {
@@ -631,7 +631,7 @@ export const findAllLogs = async (search, status, pageNum, limitNum) => {
       contains: search,
       mode: "insensitive",
     },
-    ...(status ? {outcome: status} : {}),
+    ...(status ? { outcome: status } : {}),
   };
 
   const [logs, totalLogs] = await Promise.all([
