@@ -1,138 +1,39 @@
 {
-    "message": "",
-    "content": {
+    "id": "",
+    "titleEn": "",
+    "titleAr": "",
+    "slug": "",
+    "isEditable": true,
+    "resourceType": "SUB_PAGE",
+    "resourceTag": "PROJECT",
+    "relationType": "CHILD",
+    "parentId": "",
+    "editVersion": {
         "id": "",
-        "titleEn": "",
-        "titleAr": "",
-        "slug": "",
-        "isEditable": true,
-        "resourceType": "SUB_PAGE",
-        "resourceTag": "PROJECT",
-        "relationType": "CHILD",
-        "parentId": "",
-        "editVersion": {
-            "id": "",
-            "versionNumber": 0,
-            "icon": null,
-            "image": null,
-            "comments": "",
-            "referenceDoc": null,
-            "updatedAt": "",
-            "status": "",
-            "sections": [
-                {
-                    "sectionId": "",
-                    "order": 1,
-                    "version": 0,
-                    "title": "",
-                    "content": {
-                        "link": {
-                            "url": null,
-                            "text": ""
-                        },
-                        "title": {
-                            "ar": "",
-                            "en": ""
-                        },
-                        "button": [
-                            {
-                                "icon": null,
-                                "text": {
-                                    "ar": "",
-                                    "en": ""
-                                },
-                                "order": 1
-                            }
-                        ],
-                        "images": [
-                            {
-                                "url": "",
-                                "order": 1,
-                                "altText": {
-                                    "ar": "",
-                                    "en": ""
-                                }
-                            }
-                        ],
-                        "subtitle": {
-                            "ar": "",
-                            "en": ""
-                        }
+        "versionNumber": 0,
+        "icon": null,
+        "image": null,
+        "comments": "",
+        "referenceDoc": null,
+        "updatedAt": "",
+        "status": "",
+        "sections": [
+            {
+                "sectionId": "",
+                "order": 1,
+                "version": 0,
+                "title": "",
+                "content": {
+                    "link": {
+                        "url": null,
+                        "text": ""
                     },
-                    "sections": []
-                },
-                {
-                    "sectionId": "",
-                    "order": 2,
-                    "version": 0,
-                    "title": "",
-                    "content": [
-                        {
-                            "key": {
-                                "ar": "",
-                                "en": ""
-                            },
-                            "icon": "",
-                            "order": 1,
-                            "value": {
-                                "ar": "",
-                                "en": ""
-                            }
-                        }
-                    ],
-                    "sections": []
-                },
-                {
-                    "sectionId": "",
-                    "order": 3,
-                    "version": 0,
-                    "title": "",
-                    "content": [
-                        {
-                            "order": 1,
-                            "title": {
-                                "ar": "",
-                                "en": ""
-                            },
-                            "description": {
-                                "ar": "",
-                                "en": ""
-                            }
-                        }
-                    ],
-                    "sections": []
-                },
-                {
-                    "sectionId": "",
-                    "order": 4,
-                    "version": 0,
-                    "title": "",
-                    "content": {
-                        "images": [
-                            {
-                                "url": "",
-                                "order": 1,
-                                "altText": {
-                                    "ar": "",
-                                    "en": ""
-                                }
-                            }
-                        ]
+                    "title": {
+                        "ar": "",
+                        "en": ""
                     },
-                    "sections": []
-                },
-                {
-                    "sectionId": "",
-                    "order": 5,
-                    "version": 0,
-                    "title": "",
-                    "content": {
-                        "title": {
-                            "ar": "",
-                            "en": ""
-                        },
-                        "button": {
-                            "url": null,
+                    "button": [
+                        {
                             "icon": null,
                             "text": {
                                 "ar": "",
@@ -140,11 +41,107 @@
                             },
                             "order": 1
                         }
+                    ],
+                    "images": [
+                        {
+                            "url": "",
+                            "order": 1,
+                            "altText": {
+                                "ar": "",
+                                "en": ""
+                            }
+                        }
+                    ],
+                    "subtitle": {
+                        "ar": "",
+                        "en": ""
+                    }
+                },
+                "sections": []
+            },
+            {
+                "sectionId": "",
+                "order": 2,
+                "version": 0,
+                "title": "",
+                "content": [
+                    {
+                        "key": {
+                            "ar": "",
+                            "en": ""
+                        },
+                        "icon": "",
+                        "order": 1,
+                        "value": {
+                            "ar": "",
+                            "en": ""
+                        }
+                    }
+                ],
+                "sections": []
+            },
+            {
+                "sectionId": "",
+                "order": 3,
+                "version": 0,
+                "title": "",
+                "content": [
+                    {
+                        "order": 1,
+                        "title": {
+                            "ar": "",
+                            "en": ""
+                        },
+                        "description": {
+                            "ar": "",
+                            "en": ""
+                        }
+                    }
+                ],
+                "sections": []
+            },
+            {
+                "sectionId": "",
+                "order": 4,
+                "version": 0,
+                "title": "",
+                "content": {
+                    "images": [
+                        {
+                            "url": "",
+                            "order": 1,
+                            "altText": {
+                                "ar": "",
+                                "en": ""
+                            }
+                        }
+                    ]
+                },
+                "sections": []
+            },
+            {
+                "sectionId": "",
+                "order": 5,
+                "version": 0,
+                "title": "",
+                "content": {
+                    "title": {
+                        "ar": "",
+                        "en": ""
                     },
-                    "sections": [],
-                    "items": []
-                }
-            ]
-        }
+                    "button": {
+                        "url": null,
+                        "icon": null,
+                        "text": {
+                            "ar": "",
+                            "en": ""
+                        },
+                        "order": 1
+                    }
+                },
+                "sections": [],
+                "items": []
+            }
+        ]
     }
 }

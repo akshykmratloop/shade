@@ -1,0 +1,120 @@
+{
+    "id": "",
+    "titleEn": "",
+    "titleAr": "",
+    "slug": "",
+    "isEditable": true,
+    "resourceType": "",
+    "resourceTag": "",
+    "relationType": "",
+    "parentId": "",
+    "editVersion": {
+        "id": "",
+        "versionNumber": 1,
+        "icon": null,
+        "image": "",
+        "comments": "",
+        "referenceDoc": null,
+        "updatedAt": "",
+        "status": "",
+        "sections": [
+            {
+                "sectionId": "",
+                "order": 1,
+                "version": 1,
+                "title": "",
+                "content": {
+                    "title": {
+                        "ar": "",
+                        "en": ""
+                    },
+                    "images": [
+                        {
+                            "url": "",
+                            "order": 1,
+                            "altText": {
+                                "ar": "",
+                                "en": ""
+                            }
+                        }
+                    ],
+                    "description": {
+                        "ar": "",
+                        "en": ""
+                    }
+                },
+                "sections": []
+            },
+            {
+                "sectionId": "",
+                "order": 1,
+                "version": 1,
+                "title": "",
+                "content": {
+                    "title": {
+                        "ar": "",
+                        "en": ""
+                    },
+                    "procedures": {
+                        "terms": [
+                            {
+                                "order": 1,
+                                "title": {
+                                    "ar": "",
+                                    "en": ""
+                                },
+                                "images": [
+                                    {
+                                        "url": "",
+                                        "order": 1,
+                                        "altText": {
+                                            "ar": "",
+                                            "en": ""
+                                        }
+                                    }
+                                ],
+                                "description": {
+                                    "ar": "",
+                                    "en": ""
+                                }
+                            }
+                        ],
+                        "title": {
+                            "ar": "",
+                            "en": ""
+                        },
+                        "description": {
+                            "ar": "",
+                            "en": ""
+                        }
+                    },
+                    "description": {
+                        "ar": "",
+                        "en": ""
+                    }
+                },
+                "sections": []
+            },
+            {
+                "sectionId": "",
+                "order": 1,
+                "version": 1,
+                "title": "",
+                "content": {
+                    "button": [
+                        {
+                            "url": null,
+                            "icon": null,
+                            "text": {
+                                "ar": "",
+                                "en": ""
+                            },
+                            "order": 1
+                        }
+                    ]
+                },
+                "sections": []
+            }
+        ]
+    }
+}

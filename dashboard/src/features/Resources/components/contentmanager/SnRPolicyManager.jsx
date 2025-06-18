@@ -79,7 +79,7 @@ const SnRPoliciesManager = ({ content, currentPath, language, indexes }) => {
                 currentPath={currentPath}
                 Heading={"Thumbnail"}
                 inputFiles={[
-                    { label: "Thumbnail Icon", id: "thumbIcon", order: 1, url: thumbIcon, name: "icon" },
+                    // { label: "Thumbnail Icon", id: "thumbIcon", order: 1, url: thumbIcon, name: "icon" },
                     { label: "Thumbnail Image", id: "thumbImage", order: 1, url: thumbImage, name: "image" }
                 ]}
                 section={"thumbnail"}
