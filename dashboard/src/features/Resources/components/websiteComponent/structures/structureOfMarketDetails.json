@@ -20,9 +20,11 @@
         "sections": [
             {
                 "sectionId": "",
+                "SectionType": "HERO_BANNER",
+                "sectionVersionTitle": "MarketItem-heroSection",
                 "order": 1,
                 "version": 1,
-                "title": "",
+                "title": "heroSection",
                 "content": {
                     "title": {
                         "ar": "",
@@ -47,9 +49,11 @@
             },
             {
                 "sectionId": "",
+                "SectionType": "MARKDOWN_CONTENT",
+                "sectionVersionTitle": "MarketItem-marketBodySection",
                 "order": 2,
                 "version": 1,
-                "title": "",
+                "title": "marketBodySection",
                 "content": {
                     "title": {
                         "ar": "",
@@ -89,7 +93,9 @@
                 "sectionId": "",
                 "order": 3,
                 "version": 1,
-                "title": "",
+                "title": "projectsGridSection",
+                "SectionType": "EXTERNAL_ITEMS",
+                "sectionVersionTitle": "MarketItem-projectsGridSection",
                 "content": {
                     "button": [
                         {
