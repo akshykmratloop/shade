@@ -12,12 +12,9 @@ function InternalPage() {
   }, []);
 
   return (
-    <div className="hero h-[100%] bg-base-200">
-      <div className="hero-content">
-        <div className="max-w-md">
-          <TemplatePointers />
-          {/* <Link to="/app/dashboard"><button className="btn bg-base-100 btn-outline">Get Started</button></Link> */}
-        </div>
+    <div className=" bg-base-200">
+      <div className="container mx-auto px-4 py-8">
+        <TemplatePointers />
       </div>
     </div>
   );
