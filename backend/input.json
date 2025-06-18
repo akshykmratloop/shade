@@ -1,17 +1,22 @@
 {
-  "resourceId": "cmc0iea82008dra0mushkbdjt",
   "titleEn": "Psychiatric Facility",
   "titleAr": "المنشأة النفسية",
   "slug": "psychiatric-facility",
-  "newVersionEditMode": {
+  "resourceType": "MAIN_PAGE",
+  "resourceTag": "HOME",
+  "relationType": "PARENT",
+
+  "newVersion": {
     "comments": "Initial version created by system",
     "referenceDoc": null,
     "icon": null,
     "image": null,
     "sections": [
       {
-        "sectionId": "cmc0iea8h008hra0mrp6xay14",
-        "order": 1,
+        "SectionType": "HERO_BANNER",
+        "title": "HeroSection",
+        "sectionVersionTitle": "Home-heroSection",
+        "isGlobal": false,
         "content": {
           "link": {
             "url": null,
@@ -46,6 +51,7 @@
             "en": "Client: Ministry of Health"
           }
         },
+        "items": [],
         "sections": []
       },
       {
