@@ -21,6 +21,16 @@ const MarketDetailsManager = ({ language, content, indexes, currentPath, service
                         ar: "",
                         en: ""
                     },
+                    images: [
+                        {
+                            url: "",
+                            order: 1,
+                            altText: {
+                                ar: "",
+                                en: ""
+                            }
+                        }
+                    ],
                     description: {
                         ar: "",
                         en: ""

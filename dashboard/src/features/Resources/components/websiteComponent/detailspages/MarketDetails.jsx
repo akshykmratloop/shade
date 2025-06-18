@@ -26,8 +26,7 @@ const MarketDetails = ({ language, content, screen, width, highlight, liveConten
             <section
                 className={`relative w-full py-[100px] ${isPhone ? "px-8" : "px-10"} bg-cover bg-center ${isLeftAlign ? 'scale-x-[-1]' : ''}`}
                 style={{// image
-                    backgroundImage: `url("${
-                        Img_url + content?.['1']?.content?.images?.[0]?.url
+                    backgroundImage: `url("${Img_url + content?.['1']?.content?.images?.[0]?.url
                         // projectPageData.asphaltWork
                         }")`,
                     backgroundPosition: "bottom",
@@ -173,8 +172,8 @@ const MarketDetails = ({ language, content, screen, width, highlight, liveConten
                                         className="flex flex-col bg-white overflow-hidden shadow"
                                         style={{ width: isComputer ? getDynamicSize(437) : isTablet ? getDynamicSize(600) : "" }}
                                     >
-                                        <img src={
-                                            // Img_url+service.image 
+                                        <img src={service.image ?
+                                            Img_url + service.image :
                                             projectPageData.businessGate
                                         } alt="img"
                                             className="w-full object-cover"
