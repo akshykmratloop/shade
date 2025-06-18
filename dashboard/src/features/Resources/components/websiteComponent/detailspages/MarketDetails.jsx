@@ -27,8 +27,8 @@ const MarketDetails = ({ language, content, screen, width, highlight, liveConten
                 className={`relative w-full py-[100px] ${isPhone ? "px-8" : "px-10"} bg-cover bg-center ${isLeftAlign ? 'scale-x-[-1]' : ''}`}
                 style={{// image
                     backgroundImage: `url("${
-                        // Img_url + content?.['1']?.content?.images?.[0]?.url
-                        projectPageData.asphaltWork
+                        Img_url + content?.['1']?.content?.images?.[0]?.url
+                        // projectPageData.asphaltWork
                         }")`,
                     backgroundPosition: "bottom",
                     height: isComputer && getDynamicSize(600),

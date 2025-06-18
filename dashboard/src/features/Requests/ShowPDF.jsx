@@ -3,6 +3,8 @@ import { useEffect, useRef } from 'react'
 import { Img_url } from '../../routes/backend'
 
 const ShowPdf = ({ pdf, onClose, open }) => {
+
+    console.log(pdf)
     return (
         <Dialog open={open} onClose={onClose} className="relative z-50 font-poppins">
             <div className="fixed inset-0 bg-black/60" aria-hidden="true" />
@@ -11,7 +13,7 @@ const ShowPdf = ({ pdf, onClose, open }) => {
                     {
                         !pdf ?
                             <p className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 border px-4 py-2 bg-white rounded text-gray-700">
-                                No PDF
+                                No Document
                             </p>
                             :
                             <iframe

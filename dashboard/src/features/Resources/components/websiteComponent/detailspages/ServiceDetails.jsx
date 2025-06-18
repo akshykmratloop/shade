@@ -28,12 +28,12 @@ const ServiceDetails = ({ serviceId, content, language, screen, width, highlight
                     height: (isComputer || isTablet) && getDynamicSize(550)
                 }}
             >
-                <h1 className={`text-[41px] text-[#292E3D] ${(checkDifference(content?.["1"]?.content?.title[language], liveContent?.["1"]?.content?.title[language]))}`}
+                <h1 className={`text-[41px] text-[#292E3D] ${(checkDifference(content?.["1"]?.content?.title?.[language], liveContent?.["1"]?.content?.title?.[language]))}`}
                     style={{ fontSize: fontSize.mainHeading }}
                 >
                     {content?.['1']?.content?.title?.[language]}
                 </h1>
-                <p className={`text-[#0E172FB2] text-[10px] w-2/3 ${(checkDifference(content?.["1"]?.content?.description[language], liveContent?.["1"]?.content?.description[language]))}`}
+                <p className={`text-[#0E172FB2] text-[10px] w-2/3 ${(checkDifference(content?.["1"]?.content?.description?.[language], liveContent?.["1"]?.content?.description?.[language]))}`}
                     style={{ fontSize: fontSize.mainPara }}
                 >
                     {content?.['1']?.content?.description?.[language]}

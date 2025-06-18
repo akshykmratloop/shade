@@ -193,11 +193,11 @@ function ShowDifference({ show, onClose, request, resourceId, currentlyEditor, c
                                             </div>
                                             {
                                                 commentOn &&
-                                                <div className="absolute right-[110%] top-[20%] z-[5] ">
+                                                <div className="absolute right-[110%] min-w-[300%] top-[20%] z-[5] ">
                                                     <div className="comment-bubble">
                                                         <div className="comment-bubble-arrow"></div>
-                                                        <h3>Comments:</h3>
-                                                        <p className={`${editVersion.comments ? "text-stone-900 dark:text-stone-200" : "text-stone-300"}`}>{editVersion.comments || "No comments"}</p>
+                                                        <h3 className="underline">Comments:</h3>
+                                                        <p className={`${editVersion.comments ? "text-stone-700" : "text-red-300"}`}>{editVersion.comments || "No comments"}</p>
                                                     </div>
                                                 </div>
                                             }
@@ -219,7 +219,7 @@ function ShowDifference({ show, onClose, request, resourceId, currentlyEditor, c
                                                     currentlyPublisher &&
                                                     <div className='flex items-center gap-1 px-3 bg-green-700 xl:h-[2.68rem] sm:h-[2rem] rounded-lg' onClick={() => setShowDateTime(true)}>
                                                         <span className="text-white">
-                                                            <CiCalendar strokeWidth={10} />
+                                                            <CiCalendar />
                                                         </span>
                                                         <span className={`text-[14px] font-lexend font-[300] dark:text-[#CBD5E1] text-[white] select-none`}>
                                                             Publish Schedule

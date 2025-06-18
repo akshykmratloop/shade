@@ -532,7 +532,7 @@ function Requests() {
                               </span>
                             </button>
 
-                            {request.flowStatus !== "PUBLISHED" && (
+                            {(request.flowStatus !== "PUBLISHED" && request.flowStatus !== "SCHEDULED") && (
                               <button
                                 onClick={() => {
                                   setSelectedRequest(request);

@@ -8,12 +8,6 @@ import { Img_url } from "../../../../routes/backend";
 import dynamicSize, { defineDevice, differentText, generatefontSize } from "../../../../app/fontSizes";
 // import blueCheckIcon from "../../../../../assets/bluecheckicon.svg"
 
-// const bg1color = {
-//     0: "#EDFAFE",
-//     1: "#D8F6FF",
-//     2: "#C0F0FF"
-// }
-
 const bg2color = {
     0: "#84E2FE",
     1: "#06D5FF",

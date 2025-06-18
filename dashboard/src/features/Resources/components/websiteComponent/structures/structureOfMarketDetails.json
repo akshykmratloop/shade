@@ -4,9 +4,9 @@
     "titleAr": "",
     "slug": "",
     "isEditable": true,
-    "resourceType": "",
-    "resourceTag": "",
-    "relationType": "",
+    "resourceType": "SUB_PAGE",
+    "resourceTag": "MARKET",
+    "relationType": "CHILD",
     "parentId": "",
     "editVersion": {
         "id": "",
@@ -51,20 +51,39 @@
                 "version": 1,
                 "title": "",
                 "content": {
-                    "button": [
+                    "title": {
+                        "ar": "",
+                        "en": ""
+                    },
+                    "points": [
                         {
-                            "url": null,
-                            "icon": null,
-                            "text": {
+                            "order": 1,
+                            "title": {
                                 "ar": "",
                                 "en": ""
                             },
-                            "order": 1
+                            "images": [
+                                {
+                                    "url": "",
+                                    "order": 1,
+                                    "altText": {
+                                        "ar": "",
+                                        "en": ""
+                                    }
+                                }
+                            ],
+                            "description": {
+                                "ar": "",
+                                "en": ""
+                            }
                         }
-                    ]
+                    ],
+                    "description": {
+                        "ar": "",
+                        "en": ""
+                    }
                 },
-                "sections": [],
-                "items": []
+                "sections": []
             },
             {
                 "sectionId": "",
@@ -72,10 +91,6 @@
                 "version": 1,
                 "title": "",
                 "content": {
-                    "title": {
-                        "ar": "",
-                        "en": ""
-                    },
                     "button": [
                         {
                             "url": null,

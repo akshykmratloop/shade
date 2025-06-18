@@ -61,7 +61,7 @@ const RequestDetails = () => {
   const requestStageStyle = statusStyles[getStyle[requestData?.status]] || {}
 
 
-  console.log("requestDetails, ", id)
+  console.log("requestDetails, ", requestData)
   useEffect(() => {
     async function fetchRequestInfo() {
 
@@ -96,6 +96,15 @@ const RequestDetails = () => {
             {requestStageStyle.icon}
             {capitalizeWords(requestData?.status) || "N/A"}</p>
         </div>
+
+        {requestData.scheduleAt && (
+          <div className="flex py-[15px] justify-between border-b dark:border-stone-700">
+            <label>Publish date</label>
+            <p className={`${requestStageStyle.bg} ${requestStageStyle.text} inline-flex items-center px-3 py-1 rounded-full text-xs font-small`}>
+              {/* {requestStageStyle.icon} */}
+              {formatTimestamp(requestData?.scheduleAt) || "N/A"}</p>
+          </div>
+        )}
         <div className="flex flex-col py-[15px] pb-[2px] justify-between">
           <label>Assigned Users:</label>
           <div className="">
@@ -164,10 +173,11 @@ const RequestDetails = () => {
             <div className={`w-max flex flex-col items-end gap-[2.5px]`}>
               <p className="text py-0 my-0">PDF File</p>
               <button
-              onClick={() => {
-                console.log("qwerasdflkhakjdgsbfkj")
-                setShowPDF(true)}}
-              className="text-[#145098] dark:text-sky-500 underline font-[300] py-0 my-0">
+                onClick={() => {
+                  console.log("qwerasdflkhakjdgsbfkj")
+                  setShowPDF(true)
+                }}
+                className="text-[#145098] dark:text-sky-500 underline font-[300] py-0 my-0">
                 See Document
               </button>
             </div>
@@ -224,7 +234,7 @@ const RequestDetails = () => {
 
                     <td className="px-3 py-2 text-sm text-center">
                       <Comments comment={comment} />
-                     
+
                     </td>
                   </tr>
                 );

@@ -8,6 +8,7 @@ import { useEffect, useState } from "react"
 import MultiSelect from "../../breakUI/MultiSelect"
 
 const MarketDetailsManager = ({ language, content, indexes, currentPath, serviceId, deepPath, outOfEditing }) => {
+
     const dispatch = useDispatch()
     const [marketList, setMarketList] = useState([])
     const slug = useSelector(state => state.homeContent?.present?.content?.slug)
