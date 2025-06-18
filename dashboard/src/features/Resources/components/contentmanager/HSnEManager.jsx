@@ -5,11 +5,26 @@ import ContentSection from "../breakUI/ContentSections"
 // import MultiSelect from "../breakUI/MultiSelect"
 // import DynamicContentSection from "../breakUI/DynamicContentSection"
 import { useDispatch } from "react-redux"
-import { updateCardAndItemsArray, updatePoliciesItems } from "../../../common/homeContentSlice"
+import { updateAffiliatesCardsArray } from "../../../common/homeContentSlice"
+import DynamicContentSection from "../breakUI/DynamicContentSection"
 
 const HSnEManager = ({ content, currentPath, language, indexes }) => {
-    // const dispatch = useDispatch()
-
+    const dispatch = useDispatch()
+    const addExtraSummary = () => {
+        dispatch(updateAffiliatesCardsArray(
+            {
+                src: {
+                    text: {
+                        ar: "",
+                        en: ""
+                    }
+                },
+                section: "sectionPointers",
+                sectionIndex: indexes?.['2'],
+                operation: 'add'
+            }
+        ))
+    }
 
     return (
         <div>
@@ -30,23 +45,35 @@ const HSnEManager = ({ content, currentPath, language, indexes }) => {
                 sectionIndex={indexes?.['1']}
             />
 
-            <ContentSection
-                Heading={"Section 1"}
-                currentPath={currentPath}
-                inputs={[
-                    { input: "input", label: "Heading/title", updateType: "title", value: content?.['2']?.content?.procedures?.title?.[language] },
-                    { input: "textarea", label: "Description", updateType: "description", value: content?.['2']?.content?.procedures?.description?.[language] },
-                ]}
-                section={"procedures"}
-                language={language}
-                currentContent={content}
-                sectionIndex={indexes?.['2']}
-            />
+
+
+            {
+                content?.[2]?.content?.cards?.map?.((card, i) => {
+                    return (
+                        <ContentSection
+                            key={i}
+                            Heading={"Card " + (i + 1)}
+                            currentPath={currentPath}
+                            inputs={[
+                                { input: "input", label: "Heading/title", updateType: "title", value: card?.title?.[language] },
+                                { input: "textarea", label: "Description", updateType: "description", value: card?.description?.[language] },
+                            ]}
+                            inputFiles={[{ label: "Icon", id: "ServiceBanner", order: 1, url: card?.images?.[0]?.url }]}
+                            section={"cards"}
+                            subSection={"cards"}
+                            index={i}
+                            language={language}
+                            currentContent={content}
+                            sectionIndex={indexes?.['2']}
+                        />
+                    )
+                })
+            }
 
             <ContentSection
-                Heading={"Sub Heading"}
+                Heading={"Feature Image"}
                 currentPath={currentPath}
-                inputFiles={[{ label: "Backround Image", id: "ServiceBanner", order: 1, url: content?.['1']?.content?.images?.[0]?.url }]}
+                inputFiles={[{ label: "Feature Image", id: "ServiceBanner", order: 1, url: content?.['2']?.content?.images?.[0]?.url }]}
                 language={language}
                 currentContent={content}
                 sectionIndex={indexes?.['2']}
@@ -56,31 +83,40 @@ const HSnEManager = ({ content, currentPath, language, indexes }) => {
                 Heading={"Section 2"}
                 currentPath={currentPath}
                 inputs={[
-                    { input: "input", label: "Heading/title", updateType: "title", value: content?.['2']?.content?.procedures?.title?.[language] },
-                    { input: "richtext", label: "Description", updateType: "description", value: content?.['2']?.content?.procedures?.description?.[language] },
+                    { input: "input", label: "Heading/title", updateType: "title", value: content?.['2']?.content?.title?.[language] },
+                    { input: "richtext", label: "Description", updateType: "description", value: content?.['2']?.content?.description?.[language] },
                 ]}
-                section={"procedures"}
+                // section={"procedures"}
                 language={language}
                 currentContent={content}
                 sectionIndex={indexes?.['2']}
             />
 
-            <ContentSection
-                Heading={"Section 3"}
-                currentPath={currentPath}
-                inputs={[
-                    // { input: "input", label: "Heading/title", updateType: "title", value: content?.['2']?.content?.procedures?.title?.[language] },
-                    { input: "textarea", label: "Description", updateType: "description", value: content?.['2']?.content?.procedures?.description?.[language] },
-                    { input: "textarea", label: "Description", updateType: "description", value: content?.['2']?.content?.procedures?.description?.[language] },
-                    { input: "textarea", label: "Description", updateType: "description", value: content?.['2']?.content?.procedures?.description?.[language] },
-                    { input: "textarea", label: "Description", updateType: "description", value: content?.['2']?.content?.procedures?.description?.[language] },
-                    { input: "textarea", label: "Description", updateType: "description", value: content?.['2']?.content?.procedures?.description?.[language] },
-                ]}
-                section={"procedures"}
-                language={language}
-                currentContent={content}
-                sectionIndex={indexes?.['2']}
-            />
+            <div className="mt-4 border-b">
+                <h3 className={`font-semibold text-[1.25rem] mb-4`}>Multi Description</h3>
+                {
+                    content?.['2']?.content?.sectionPointers?.map((section, i) => {
+                        return (
+                            <DynamicContentSection
+                                key={i}
+                                currentPath={currentPath}
+                                inputs={[{
+                                    input: "textarea", label: "Text " + (i + 1), updateType: "text", value: section?.text?.[language], index: i
+                                }]}
+                                index={i}
+                                isBorder={false}
+                                allowRemoval={true}
+                                section={"sectionPointers"}
+                                language={language}
+                                currentContent={content}
+                                sectionIndex={indexes?.['2']}
+                                order={section.order}
+                            />)
+                    })
+                }
+                <button className="text-blue-500 cursor-pointer mb-3" onClick={() => addExtraSummary('whatWeDo')}>Add More Section...</button>
+            </div>
+
 
         </div>
     )

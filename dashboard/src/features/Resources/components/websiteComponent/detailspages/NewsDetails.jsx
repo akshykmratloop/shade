@@ -6,13 +6,12 @@ import { updateMainContent } from "../../../../common/homeContentSlice";
 import { useDispatch, useSelector } from "react-redux";
 import structureOfNewsDetails from '../structures/structureOFNewsDetails.json';
 import { Img_url } from "../../../../../routes/backend";
+import dynamicSize, { defineDevice, differentText, generatefontSize } from "../../../../../app/fontSizes";
 
-const NewsBlogDetailPage = ({ language, newsId, screen, content }) => {
+const NewsBlogDetailPage = ({ language, screen, content, width, highlight, liveContent }) => {
     const isComputer = screen > 1100;
     const isTablet = 1100 > screen && screen > 767;
     const isPhone = screen < 767;
-    const dispatch = useDispatch();
-    const ImagesFromRedux = useSelector(state => state.homeContent.present.images);
 
     const isLeftAlign = language === "en";
     const titleLan = isLeftAlign ? "titleEn" : "titleAr";
@@ -20,15 +19,31 @@ const NewsBlogDetailPage = ({ language, newsId, screen, content }) => {
     const banner = content?.[1]?.content;
     const newsPoints = content?.[2]?.content;
     const latestNewCards = content?.[3];
+    const LiveBanner = liveContent?.[1]?.content;
+    const liveNewsPoints = liveContent?.[2]?.content;
+    const liveLatestNewCards = liveContent?.[3];
+
+
+    const checkDifference = highlight ? differentText?.checkDifference?.bind(differentText) : () => ""
+
+    // Font and Size
+    const fontSize = generatefontSize(defineDevice(screen), dynamicSize, width)
+    const getDynamicSize = (size) => dynamicSize(size, width)
+    const fontLight = useSelector(state => state.fontStyle.light)
 
 
     return (
         <div className={`${isPhone ? "px-1" : `px-10`}`}>
             <section
-                className={`mt-[50px] mb-5 ${language === "ar" ? "text-right" : ""}`}
+                className={` mb-5 ${language === "ar" ? "text-right" : ""}`}
+                style={{ padding: `${getDynamicSize(50)} ${getDynamicSize(120)}` }}
             >
-                <div className="container">
-                    <div className={`relative pb-8 border-b border-[#E8E7E7] mb-8 ${isPhone ? "px-1" : "px-8"}`}>
+                <div className="container"
+                >
+                    <div className={`relative pb-8 border-b border-[#E8E7E7] mb-8 ${isPhone ? "px-1" : ""}`}
+                        style={{ padding: `0px ${getDynamicSize(20)} ${getDynamicSize(20)}` }}
+
+                    >
                         <img
                             src={Img_url + banner?.images?.[0]?.url || "https://loopwebsite.s3.ap-south-1.amazonaws.com/image+2+(3).png"}
                             alt=""
@@ -38,7 +53,7 @@ const NewsBlogDetailPage = ({ language, newsId, screen, content }) => {
 
                         <button
                             className={`absolute top-[50px] bg-white p-3 flex items-center gap-2 text-[16px] font-bold text-[rgba(14,23,47,0.7)] 
-                                ${language === "ar" ? `${isPhone ? "right-0" : "right-8"}` : `${isPhone ? "left-0" : "left-8"}`}`}
+                                ${language === "ar" ? `${isPhone ? "right-0" : "right-[0%]"}` : `${isPhone ? "left-0" : "left-[0%]"}`}`}
                         >
                             <img
                                 src="https://loopwebsite.s3.ap-south-1.amazonaws.com/bx_arrow-back.svg"
@@ -47,23 +62,39 @@ const NewsBlogDetailPage = ({ language, newsId, screen, content }) => {
                                 height={20}
                                 className={`${language === "ar" ? "scale-x-100" : "scale-x-[-1]"} `}
                             />
-                            {banner?.button?.[0]?.text?.[language] || "Bac"}
+                            {banner?.button?.[0]?.text?.[language]}
                         </button>
 
-                        <h2 className={`text-[28px] font-bold text-black mb-5 ${isPhone ? "px-6" : ""}`}>
+                        <h2 className={`text-[#292E3D] mb-5 ${isPhone ? "px-2" : ""}
+                        ${checkDifference(banner?.title?.[language], LiveBanner?.title?.[language])}
+                        `}
+                            style={{ fontSize: fontSize.serviceHeading }}
+                        >
                             {banner?.title[language] || "Heading"}
                         </h2>
-                        <p className={`text-[16px] font-light text-[#718096] ${isPhone ? "px-6" : ""}`}>
+                        <p className={`${fontLight} text-[#718096] ${isPhone ? "px-2" : ""}
+                        ${checkDifference(banner?.date?.[language], LiveBanner?.date?.[language])}
+                        `}
+                            style={{ fontSize: fontSize.mainPara }}
+                        >
                             {banner?.date?.[language] || "day Month date"}
                         </p>
                     </div>
 
                     {newsPoints?.map((item, index) => (
-                        <div key={index} className={`${isPhone ? "px-10" : ""} mb-12`}>
-                            <h2 className={`text-[20px] font-normal text-[#292E3D] mb-4`}>
+                        <div key={index} className={`${isPhone ? "px-" : ""} mb-12`}>
+                            <h2 className={`text-[20px] ${fontLight} text-[#292E3D] mb-4
+                                     ${checkDifference(item?.title?.[language], liveNewsPoints?.[index]?.title?.[language])}
+                            `}
+                                style={{ fontSize: fontSize.aboutMainPara }}
+                            >
                                 {item?.title?.[language] || "News Point"}
                             </h2>
-                            <div className={`text-[12px] font-light text-[rgba(0,26,88,0.51)] leading-6 mb-6`}
+                            <div
+                                style={{ fontSize: fontSize.mainPara }}
+                                className={` text-[rgba(0,26,88,0.51)] leading-6 mb-6
+                                ${checkDifference(item?.description?.[language], liveNewsPoints?.[index]?.description?.[language])}
+                                    `}
                                 dangerouslySetInnerHTML={{ __html: item?.description?.[language] || "News Point Description" }} />
                         </div>
                     ))}
@@ -71,49 +102,62 @@ const NewsBlogDetailPage = ({ language, newsId, screen, content }) => {
             </section>
 
 
-            <section className={`${language === "en" ? "text-left" : "text-right"} pb-[88px]`}>
+            <section className={`${language === "en" ? "text-left" : "text-right"} pb-[88px]`}
+                style={{ padding: `${getDynamicSize(50)} ${getDynamicSize(120)}` }}
+            >
                 <div className="container">
-                    <h2 className={`text-[28px] font-normal text-[rgba(14,23,47,0.7)] mb-6 ${isPhone ? "px-6" : ""}`}>
+                    <h2 className={`text-[28px] ${fontLight} text-[rgba(14,23,47,0.7)] mb-6 ${isPhone ? "px-6" : ""}`}>
                         {latestNewCards?.content?.title?.[language]}
                     </h2>
 
-                    <div className={`grid ${isPhone ? "grid-cols-1" : isTablet ? "grid-cols-2" : "grid-cols-3"} gap-y-6 justify-items-center`}>
+                    <div className={`grid ${isPhone ? "grid-cols-1" : isTablet ? "grid-cols-2" : "grid-cols-4"} gap-y-6 justify-center items-center auto-rows-fr
+                                    ${checkDifference(latestNewCards?.items, liveLatestNewCards?.items)}
+                    `}
+                        style={{
+                            gap: isComputer ? getDynamicSize(20) : isTablet ? getDynamicSize(40) : getDynamicSize(80)
+                        }}
+                    >
                         {latestNewCards?.items?.map((card, index) => {
                             return (
-                                <div
-                                    className="w-[240px] rounded border border-[#e2e2e2] bg-white shadow-[0_5px_4px_0_rgba(221,221,221,0.25)] overflow-hidden"
-                                    key={index}
-                                >
+                                <div key={index} className={`rounded-md flex flex-col border border-gray-300 bg-white shadow-md overflow-hidden h-full `}>
                                     <img
-                                        src={newsBlogs[card.image] || newsBlogs["news3"]}
+                                        src={card.image ? Img_url + card?.image : newsBlogs.news2}
                                         alt=""
-                                        className="w-full h-[154px] object-cover object-center"
+                                        className={`object-cover object-center w-full aspect-[1.8/1] ${isPhone ? "h-[200px]" : ""}`}
+                                    // width={180}
                                     />
-
-                                    <div className="flex flex-col items-start gap-4 p-4">
-                                        <h2
-                                            title={card?.[titleLan]}
-                                            className={`text-[16px] font-bold text-black h-[37px] mb-2 `}
-                                        >
-                                            {TruncateText(card?.[titleLan], 30)}
-                                        </h2>
-
-                                        <p
-                                            title={card.description?.[language]}
-                                            className={`text-[11px] font-light leading-4 text-[rgba(0,26,88,0.51)] h-[80px] mb-5 `}
-                                        >
-                                            {TruncateText(card.description?.[language], 130)}
-                                        </p>
-
-                                        <div className="flex justify-between items-center gap-5 w-full">
-                                            <h6 className={`text-[10px] font-light text-[#718096] `}>
-                                                {card.date?.[language]}
-                                            </h6>
-
-                                            <button
-                                                className={`text-[12px] font-bold text-[#00b9f2] bg-transparent border-none cursor-pointer `}
+                                    <div
+                                        style={{ padding: isComputer ? getDynamicSize(12) : isTablet ? getDynamicSize(20) : getDynamicSize(40) }}
+                                        className={`flex-auto flex flex-col justify-between `}>
+                                        <div>
+                                            <h2
+                                                title={card?.[titleLan]}
+                                                style={{ fontSize: fontSize.mainButton }}
+                                                className={`text-[16px] font-bold mb-2 text-[#292E3D] ${isLeftAlign ? '' : 'scale-x-[-1] text-right'}`}
                                             >
-                                                {latestNewCards?.content?.button?.[0]?.text?.[language]}
+                                                {TruncateText(card?.[titleLan], 25)}
+                                            </h2>
+                                            <p
+                                                style={{ fontSize: isComputer ? getDynamicSize(13) : isTablet ? getDynamicSize(20) : getDynamicSize(50) }}
+                                                title={card.description[language]}
+                                                className={`text-[13px] ${fontLight}  text-[#001A58]/50 leading-4 mb-5 ${isLeftAlign ? '' : 'scale-x-[-1] text-right'}`}
+                                            >
+                                                {TruncateText(card.description[language], 150)}
+                                            </p>
+                                        </div>
+                                        <div className="flex items-center justify-between">
+                                            <h6
+                                                style={{ fontSize: isComputer ? getDynamicSize(13) : isTablet ? getDynamicSize(24) : getDynamicSize(50) }}
+                                                className={`${fontLight} text-gray-600 text- ${isLeftAlign ? '' : 'scale-x-[-1] text-right'}`} dir={language == "ar" ? "rtl" : "ltr"}>
+                                                {card.date[language]}
+                                            </h6>
+                                            <button
+                                                style={{ fontSize: isComputer ? getDynamicSize(13) : isTablet ? getDynamicSize(24) : getDynamicSize(50) }}
+                                                dir={language == "ar" ? "rtl" : "ltr"}
+                                                // onClick={() => router.push(`blog/${card.id}`)}
+                                                className={`text-[10px] font-bold text-[#00B9F2] border-none bg-transparent cursor-pointer ${isLeftAlign ? '' : 'scale-x-[-1] text-right'}`}
+                                            >
+                                                {content?.['3']?.content.button?.[0]?.text?.[language]}
                                             </button>
                                         </div>
                                     </div>

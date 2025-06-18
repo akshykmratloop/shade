@@ -1,3 +1,5 @@
+import { cond } from "lodash"
+
 export default function dynamicSize(size, width) {
     return `${(width / 1532 * size).toFixed(0)}px`
 }
@@ -19,10 +21,10 @@ export const differentText = {
 }
 
 
-export function defineDevice(screen, fullScreen) {
-    if (screen > 900 || fullScreen) {
+export function defineDevice(screen, highlight) {
+    if (screen > 900 || highlight) {
         return "computer"
-    } else if (screen < 900 && screen > 550 && !fullScreen) {
+    } else if (screen < 900 && screen > 550 && !highlight) {
         return 'tablet'
     } else {
         return 'phone'
@@ -48,10 +50,10 @@ const fontSizes = {
     tablet: {
         // home -- some of them are used in other pages due similarity
         mainHeading: 70, mainPara: 26, mainButton: 30, markDownHead: 36, markDownPara: 15, markDownButton: 70,
-        serviceHeading: 36, services: 20, experienceCount: 40, experienceTitle: 12, experienceHeading: 60,
+        serviceHeading: 50, services: 20, experienceCount: 40, experienceTitle: 12, experienceHeading: 80,
         experiencePara: 16, experienceButton: 18, subProjectTopButton: 16, subProjectHeadings: 55,
-        subProjectParas: 16, subProjectBoxHeading: 20, subProjectBoxPara: 16, subProjectButtons: 18,
-        clientSection: 36, testimonialsHead: 36, testimonialsHeading: 20, testimonialsPosition: 12,
+        subProjectParas: 16, subProjectBoxHeading: 35, subProjectBoxPara: 16, subProjectButtons: 18,
+        clientSection: 36, testimonialsHead: 36, testimonialsHeading: 40, testimonialsPosition: 12,
         testimonialsQuote: 14, testimonialsCompany: 16, SnRSubHeading: 50, cardTitle: 50,
         // about
         aboutMainPara: 40, aboutPaddingX: 50,
@@ -63,10 +65,10 @@ const fontSizes = {
     phone: {
         // home -- some of them are used in other pages due similarity
         mainHeading: 150, mainPara: 48, mainButton: 70, markDownHead: 36, markDownPara: 15, markDownButton: 70,
-        serviceHeading: 36, services: 20, experienceCount: 40, experienceTitle: 12, experienceHeading: 60,
+        serviceHeading: 110, services: 20, experienceCount: 40, experienceTitle: 12, experienceHeading: 120,
         experiencePara: 50, experienceButton: 18, subProjectTopButton: 16, subProjectHeadings: 80,
-        subProjectParas: 16, subProjectBoxHeading: 20, subProjectBoxPara: 16, subProjectButtons: 18,
-        clientSection: 90, testimonialsHead: 36, testimonialsHeading: 20, testimonialsPosition: 12,
+        subProjectParas: 16, subProjectBoxHeading: 70, subProjectBoxPara: 16, subProjectButtons: 18,
+        clientSection: 90, testimonialsHead: 36, testimonialsHeading: 60, testimonialsPosition: 12,
         testimonialsQuote: 14, testimonialsCompany: 16, SnRSubHeading: 110, cardTitle: 100,
         // about
         aboutMainPara: 70, aboutPaddingX: 20,

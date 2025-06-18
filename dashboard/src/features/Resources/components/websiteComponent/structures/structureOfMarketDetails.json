@@ -1,11 +1,11 @@
 {
-    "id": "",
+    "id": "N",
     "titleEn": "",
     "titleAr": "",
     "slug": "",
     "isEditable": true,
-    "resourceType": "SUB_PAGE_ITEM",
-    "resourceTag": "SERVICE",
+    "resourceType": "SUB_PAGE",
+    "resourceTag": "MARKET",
     "relationType": "CHILD",
     "parentId": "",
     "editVersion": {
@@ -62,6 +62,16 @@
                                 "ar": "",
                                 "en": ""
                             },
+                            "images": [
+                                {
+                                    "url": "",
+                                    "order": 1,
+                                    "altText": {
+                                        "ar": "",
+                                        "en": ""
+                                    }
+                                }
+                            ],
                             "description": {
                                 "ar": "",
                                 "en": ""
@@ -81,18 +91,20 @@
                 "version": 1,
                 "title": "",
                 "content": {
-                    "images": [
+                    "button": [
                         {
-                            "url": "",
-                            "order": 1,
-                            "altText": {
+                            "url": null,
+                            "icon": null,
+                            "text": {
                                 "ar": "",
                                 "en": ""
-                            }
+                            },
+                            "order": 1
                         }
                     ]
                 },
-                "sections": []
+                "sections": [],
+                "items": []
             }
         ]
     }

@@ -13,6 +13,9 @@ const NewsDetailManager = ({ newsId, content, currentPath, language, indexes }) 
     const newsIndex = 0
     const slug = useSelector(state => state?.homeContent?.present?.content?.slug)
 
+    const thumbIcon = useSelector(state => state.homeContent?.present?.content?.editVersion?.icon) || ""
+    const thumbImage = useSelector(state => state.homeContent?.present?.content?.editVersion?.image) || ""
+
     const banner = content?.[1]?.content;
     const newsPoints = content?.[2]?.content;
     const latestNewCards = content?.[3];
@@ -66,6 +69,18 @@ const NewsDetailManager = ({ newsId, content, currentPath, language, indexes }) 
     return (
         <div>
             <FileUploader id={"NewsDetailsIDReference" + newsId} label={"Rerference doc"} fileName={"Upload your file..."} />
+
+            <ContentSection
+                currentPath={currentPath}
+                Heading={"Thumbnail"}
+                inputFiles={[
+                    { label: "Thumbnail Icon", id: "thumbIcon", order: 1, url: thumbIcon, name: "icon" },
+                    { label: "Thumbnail Image", id: "thumbImage", order: 1, url: thumbImage, name: "image" }
+                ]}
+                section={"thumbnail"}
+                language={language}
+                currentContent={content}
+            />
             {/** Hero Banner */}
             <ContentSection
                 currentPath={currentPath}
@@ -73,7 +88,7 @@ const NewsDetailManager = ({ newsId, content, currentPath, language, indexes }) 
                 inputs={[
                     { input: "input", label: "Heading/title", updateType: "title", value: banner?.title?.[language] },
                     { input: "input", label: "Description", updateType: "date", maxLength: 15, value: banner?.date?.[language] },
-                    { input: "input", label: "Button Text", updateType: "button", maxLength: 6, value: banner?.button?.[0]?.text?.[language] },
+                    { input: "input", label: "Button Text", updateType: "button", maxLength: 6, value: banner?.button?.[0]?.text?.[language], index: 0 },
                 ]}
                 inputFiles={[{ label: "Backround Image", id: "newsBanner/" + (newsId), order: 1, url: banner?.images?.[0]?.url }]}
                 section={"banner"}

@@ -22,6 +22,8 @@ import { FiEye } from "react-icons/fi";
 import { LuListFilter } from "react-icons/lu";
 import { PiInfoThin } from "react-icons/pi";
 import XMarkIcon from "@heroicons/react/24/outline/XMarkIcon";
+import ShowPdf from "../Requests/ShowPDF";
+import CustomContext from "../Context/CustomContext";
 // import { Switch } from "@headlessui/react";
 // import { FiEdit } from "react-icons/fi";
 
@@ -122,6 +124,8 @@ function RequestTable() {
     // const [resourceId, setResourceId] = useState("")
     const [requestId, setRequestId] = useState("")
     const [toggle, setToggle] = useState(false);
+    const { pdf } = CustomContext();
+    const { showPDF, setShowPDF } = pdf
 
 
 
@@ -387,18 +391,7 @@ function RequestTable() {
                                                     >
                                                         <span className="">
                                                             {verifiers.length > 0 ? (
-                                                                // <button
-                                                                //   onClick={() => {
-                                                                //     setSelectedRequest(request);
-                                                                //   }}
-                                                                // >
-                                                                //   <span className="flex items-center gap-1 rounded-md text-[#101828]">
-                                                                //     <FiEye
-                                                                //       className="w-5 h-6  text-[#3b4152] dark:text-stone-200"
-                                                                //       strokeWidth={1}
-                                                                //     />
-                                                                //   </span>
-                                                                // </button>
+
                                                                 <ShowVerifierTooltip
                                                                     content={
                                                                         <div>
@@ -462,31 +455,16 @@ function RequestTable() {
                                                         </span>
                                                     </td>
                                                 }
-                                                {/* <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]">
-                                                    <p
-                                                        className={`min-w-[85px] mx-auto before:content-['•'] before:text-2xl flex h-7 items-center justify-center gap-1 px-1 py-0 font-[500] 
-                              ${request.status === "Green"
-                                                                ? "text-green-600 bg-lime-200 before:text-green-600 px-1"
-                                                                : request.status === "Blue"
-                                                                    ? "text-blue-600 bg-sky-200 before:text-blue-600 "
-                                                                    : "text-red-600 bg-pink-200 before:text-red-600 "
-                                                            } 
-                                rounded-2xl`}
-                                                        style={{ textTransform: "capitalize" }}
-                                                    >
-                                                        <span className="">{capitalizeWords(request?.status)}</span>
-                                                    </p>
-                                                </td> */}
                                                 <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]">
                                                     <p
                                                         className={`min-w-[85px] mx-auto before:content-['•'] before:text-2xl flex h-7 items-center justify-center gap-1 px-1 py-0 font-[500] 
-                              ${request.status === "Green"
+                                                                ${request.status === "Green"
                                                                 ? "text-green-600 bg-lime-200 before:text-green-600 px-1"
                                                                 : request.status === "Blue"
                                                                     ? "text-blue-600 bg-sky-200 before:text-blue-600 "
                                                                     : "text-red-600 bg-pink-200 before:text-red-600 "
                                                             } 
-                                rounded-2xl`}
+                                                                 rounded-2xl`}
                                                         style={{ textTransform: "capitalize" }}
                                                     >
                                                         <span className="">{capitalizeWords(request?.flowStatus)}</span>
@@ -532,38 +510,6 @@ function RequestTable() {
                                                                 />
                                                             </span>
                                                         </button>
-
-                                                        {/* <button
-                              className=""
-                              onClick={() => {
-                                setSelectedRequest(request);
-                                setShowAddForm(true);
-                              }}
-                            >
-                              <FiEdit
-                                className="w-5 h-6 text-[#3b4152] dark:text-stone-200"
-                                strokeWidth={1}
-                              />
-                            </button> */}
-                                                        {/* <div className="flex items-center space-x-4 ">
-                              <Switch
-                                checked={request?.status === "ACTIVE"}
-                                onChange={() => {
-                                  statusChange(request);
-                                }}
-                                className={`${request?.status === "ACTIVE"
-                                  ? "bg-[#1DC9A0]"
-                                  : "bg-gray-300"
-                                  } relative inline-flex h-2 w-8 items-center rounded-full`}
-                              >
-                                <span
-                                  className={`${request?.status === "ACTIVE"
-                                    ? "translate-x-4"
-                                    : "translate-x-0"
-                                    } inline-block h-5 w-5 bg-white rounded-full shadow-2xl border border-gray-300 transition`}
-                                />
-                              </Switch>
-                            </div> */}
                                                     </div>
                                                 </td>
                                             </tr>
@@ -602,6 +548,18 @@ function RequestTable() {
                     }}
                 />
             )}
+
+            {
+                showPDF
+                && (
+                    <ShowPdf
+                        open={showPDF}
+                        pdf={selectedRequest?.resourceVersion?.referenceDoc}
+                        onClose={() => {
+                            setShowPDF(false)
+                        }}
+                    />
+                )}
             <ToastContainer />
         </div>
     );

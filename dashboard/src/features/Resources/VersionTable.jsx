@@ -22,6 +22,7 @@ import XMarkIcon from "@heroicons/react/24/outline/XMarkIcon";
 import { versionsList } from "../../app/fetch";
 import { Switch } from "@headlessui/react";
 import CustomContext from "../Context/CustomContext";
+import ShowPdf from "../Requests/ShowPDF";
 // import { Switch } from "@headlessui/react";
 // import { FiEdit } from "react-icons/fi";
 
@@ -135,6 +136,8 @@ function VersionTable() {
     const [currentPage, setCurrentPage] = useState(1);
     // const [random, setRandowm] = useState(Math.random())
     const { random } = CustomContext().random
+    const { pdf } = CustomContext()
+    const { showPDF, setShowPDF } = pdf
     console.log(random)
     // const [activeIndex, setActiveIndex] = useState(null);
 
@@ -363,6 +366,17 @@ function VersionTable() {
                         setCurrentPage={setCurrentPage}
                         totalPages={totalPages}
                     />
+
+                    {
+                        showPDF &&
+                        (<ShowPdf
+                            open={showPDF}
+                            pdf={selectedVersion?.referenceDoc}
+                            onClose={() => {
+                                setShowPDF(false)
+                            }}
+                        />)
+                    }
                 </div>
             </TitleCard>
             <ToastContainer />

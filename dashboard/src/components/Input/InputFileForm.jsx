@@ -6,7 +6,7 @@ import InputText from "./InputText";
 import { Img_url } from "../../routes/backend";
 import ImageSelector from "./ImageSelector";
 
-const InputFileNText = ({ label, baseClass, resourceId, sectionIndex, index, textValue, url, id, currentPath, section, fileIndex, isCloseButton, order }) => {
+const InputFileNText = ({ label, baseClass, resourceId, sectionIndex, index, textValue, url, id, currentPath, section, fileIndex, isCloseButton, order, name }) => {
   const dispatch = useDispatch();
   // const fileInputRef = useRef(null);
   const ImageFromRedux = useSelector(state => state.homeContent.present.images);

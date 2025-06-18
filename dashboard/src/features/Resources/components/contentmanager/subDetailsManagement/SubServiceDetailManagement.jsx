@@ -1,4 +1,4 @@
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import FileUploader from "../../../../../components/Input/InputFileUploader"
 import ContentSection from "../../breakUI/ContentSections"
 import DynamicContentSection from "../../breakUI/DynamicContentSection"
@@ -6,6 +6,10 @@ import { updateSubServiceDetailsPointsArray } from "../../../../common/homeConte
 
 const SubServiceDetailManager = ({ serviceId, content, currentPath, language, deepPath, indexes, outOfEditing }) => {
     const dispatch = useDispatch()
+
+
+    const thumbIcon = useSelector(state => state.homeContent?.present?.content?.editVersion?.icon) || ""
+    const thumbImage = useSelector(state => state.homeContent?.present?.content?.editVersion?.image) || ""
 
     const addExtraSummary = (subContext) => {
         dispatch(updateSubServiceDetailsPointsArray(
@@ -31,6 +35,30 @@ const SubServiceDetailManager = ({ serviceId, content, currentPath, language, de
         <div>
             {/* file doc */}
             <FileUploader id={"SubServiceDetailsIDReference" + serviceId + deepPath} label={"Rerference doc"} fileName={"Upload your file..."} />
+
+            <ContentSection
+                currentPath={currentPath}
+                Heading={"Thumbnail"}
+                inputFiles={[
+                    // { label: "Thumbnail Icon", id: "thumbIcon", order: 1, url: thumbIcon, name: "icon" },
+                    { label: "Thumbnail Image", id: "thumbImage", order: 1, url: thumbImage, name: "image" }
+                ]}
+                section={"thumbnail"}
+                language={language}
+                currentContent={content}
+            />
+
+            <ContentSection
+                currentPath={currentPath}
+                Heading={"Thumbnail"}
+                inputFiles={[
+                    { label: "Thumbnail Icon", id: "thumbIcon", order: 1, url: thumbIcon, name: "icon" },
+                    { label: "Thumbnail Image", id: "thumbImage", order: 1, url: thumbImage, name: "image" }
+                ]}
+                section={"thumbnail"}
+                language={language}
+                currentContent={content}
+            />
 
             {/** Hero Banner */}
             <ContentSection
@@ -109,7 +137,7 @@ const SubServiceDetailManager = ({ serviceId, content, currentPath, language, de
                     content?.[3]?.content?.images?.map((e, i) => {
                         return { label: "Image " + (i + 1), id: `subServiceChild/gallery/${i}`, order: i + 1, url: e.url }
                     })}
-                section={"points"}
+                section={"pointsp"}
                 language={language}
                 currentContent={content}
                 projectId={serviceId}

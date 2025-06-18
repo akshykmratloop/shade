@@ -59,6 +59,8 @@ const cmsSlice = createSlice({
                 state.present.content.editVersion.sections[action.payload.sectionIndex].sections[action.payload.index].content[action.payload.title][action.payload.lan] = action.payload.value
             } else if (action.payload.subSection === "cards") {
                 state.present.content.editVersion.sections[action.payload.sectionIndex].content.cards[action.payload.index][action.payload.title][action.payload.lan] = action.payload.value
+            } else if (action.payload.section === "sectionPointers") {
+                state.present.content.editVersion.sections[action.payload.sectionIndex].content.sectionPointers[action.payload.index][action.payload.title][action.payload.lan] = action.payload.value
             } else if (action.payload.subSection) {
                 state.present.content.editVersion.sections[action.payload.sectionIndex].content.introSection[action.payload.title][action.payload.lan] = action.payload.value
             } else {
@@ -84,6 +86,8 @@ const cmsSlice = createSlice({
                 state.present.content.editVersion.sections[action.payload.index].content[action.payload.cardIndex].icon = action.payload.src
             } else if (action.payload.type === "refDoc") {
                 state.present.content.editVersion.referenceDoc = action.payload.src
+            } else if (action.payload.section === "thumbnail") {
+                state.present.content.editVersion[action.payload.name] = action.payload.src
             } else if (action.payload.section === "clientsImages") {
                 state.present.content.editVersion.sections[action.payload.index].content.clientsImages[action.payload.cardIndex] = action.payload.src
             } else if (action.payload.directIcon) {
@@ -174,6 +178,7 @@ const cmsSlice = createSlice({
             if (action.payload.operation === 'add') {
                 newArray = [...oldArray, { ...action.payload.insert, order: oldArray.length }]
             } else {
+                console.log(action.payload.index, action.payload.order)
                 newArray = state.present.content?.editVersion?.sections?.[action.payload.sectionIndex].content.filter((e, i) => {
                     return i !== action.payload.index
                 })
@@ -186,7 +191,7 @@ const cmsSlice = createSlice({
             let newArray = []
             let oldArray = state.present.content?.editVersion?.sections?.[action.payload.sectionIndex].content[action.payload.section]
             if (action.payload.operation === 'add') {
-                newArray = [...oldArray, { ...action.payload.insert, order: oldArray.length }]
+                newArray = [...oldArray, { ...action.payload.insert, order: oldArray.length + 1 }]
             } else {
                 newArray = state.present.content?.editVersion?.sections?.[action.payload.sectionIndex].content[action.payload.section].filter((e, i) => {
                     return i !== action.payload.index

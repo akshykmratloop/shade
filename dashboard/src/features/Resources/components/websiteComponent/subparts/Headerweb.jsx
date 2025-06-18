@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import Logo from "../../../../../assets/brand-logo/logo.svg";
 import { Link } from "react-router-dom";
+import { differentText } from "../../../../../app/fontSizes";
 
-const Header = ({ language, screen, setLanguage, currentContent }) => {
+const Header = ({ language, screen, setLanguage, currentContent, highlight, liveContent }) => {
     const isComputer = screen > 1100;
     const isTablet = screen < 1100 && screen >= 640;
     const isPhone = screen < 640;
@@ -11,6 +12,8 @@ const Header = ({ language, screen, setLanguage, currentContent }) => {
     const [isOpenNavbar, setIsOpenNavbar] = useState(false);
     const [scrolled, setScrolled] = useState(false);
     const [isMoreModalOpen, setIsMoreModalOpen] = useState(false);
+
+    const checkDifference = highlight ? differentText?.checkDifference?.bind(differentText) : () => ""
 
     const changeLangugage = () => {
         setLanguage((prev) => (prev === "en" ? "ar" : "en"));
@@ -22,6 +25,10 @@ const Header = ({ language, screen, setLanguage, currentContent }) => {
     const navItems = currentContent?.["1"]?.content || [];
     const mainNavItems = navItems.slice(0, 6);
     const extraNavItems = navItems.slice(6);
+
+    const liveNavItems = liveContent?.["1"]?.content || [];
+    const liveMainNavItems = liveNavItems.slice(0, 6);
+    const liveExtraNavItems = liveNavItems.slice(6);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -65,11 +72,13 @@ const Header = ({ language, screen, setLanguage, currentContent }) => {
                         {/* Navigation */}
                         {isComputer && (
                             <ul className="flex items-center gap-6">
-                                {mainNavItems.map((item) => (
+                                {mainNavItems.map((item, ind) => (
                                     <li
                                         key={item.url}
                                         to={item.url}
-                                        className="text-[#001A5882] text-xs transition duration-200 hover:text-[#145098]"
+                                        className={`text-[#001A5882] text-xs transition duration-200 hover:text-[#145098]
+                                                ${checkDifference(item?.nav?.[language], liveMainNavItems?.[ind]?.nav?.[language])}
+                                            `}
                                     >
                                         {item?.nav?.[language]}
                                     </li>
@@ -79,7 +88,10 @@ const Header = ({ language, screen, setLanguage, currentContent }) => {
                                         onClick={() => setIsMoreModalOpen(true)}
                                         className="text-[#001A5882] text-xs transition duration-200 hover:text-[#145098]"
                                     >
-                                        {currentContent?.["2"]?.content?.extraKey?.[language]}
+                                        <p className={`
+                                            ${checkDifference(currentContent?.["2"]?.content?.extraKey?.[language], liveContent?.["2"]?.content?.extraKey?.[language])}`}>
+                                            {currentContent?.["2"]?.content?.extraKey?.[language]}
+                                        </p>
                                     </button>
                                 )}
                             </ul>
@@ -112,8 +124,10 @@ const Header = ({ language, screen, setLanguage, currentContent }) => {
                             {/* Contact Us Button – show only if not phone */}
                             {!isPhone && (
                                 <button
-                                    className="p-2 py-2 text-white text-sm bg-[#00b9f2] rounded-md shadow-md hover:bg-blue-700 transition-all"
-                                    // onClick={handleContactUS}
+                                    className={`p-2 py-2 text-white text-sm bg-[#00b9f2] rounded-md shadow-md hover:bg-blue-700 transition-all
+                                        ${checkDifference(currentContent?.["2"]?.content?.contact?.[language], liveContent?.["2"]?.content?.contact?.[language])}
+                                        `}
+                                // onClick={handleContactUS}
                                 >
                                     {currentContent?.["2"]?.content?.contact?.[language]}
                                 </button>
@@ -134,19 +148,23 @@ const Header = ({ language, screen, setLanguage, currentContent }) => {
                         <nav
                             className={`flex flex-col mt-4 space-y-2 px-6 ${!isLeftAlign ? "items-end" : "items-start"}`}
                         >
-                            {navItems.map((item) => (
+                            {navItems.map((item, ind) => (
                                 <li
                                     key={item.url}
                                     to={item.url}
-                                    className="text-[#001A5882] text-sm hover:text-[#145098] w-full"
+                                    className={`text-[#001A5882] text-sm hover:text-[#145098] w-full
+                                                ${checkDifference(item?.nav?.[language], liveNavItems?.[ind]?.nav?.[language])}
+                                        `}
                                 >
                                     {item?.nav?.[language]}
                                 </li>
                             ))}
                             {isPhone && (
                                 <button
-                                    className="p-2 text-white text-sm bg-[#00b9f2] rounded-md shadow-md hover:bg-blue-700 transition-all w-full text-center"
-                                    // onClick={handleContactUS}
+                                    className={`p-2 text-white text-sm bg-[#00b9f2] rounded-md shadow-md hover:bg-blue-700 transition-all w-full text-center
+                                        ${checkDifference(currentContent?.["2"]?.content?.contact?.[language], liveContent?.["2"]?.content?.contact?.[language])}
+                                        `}
+                                // onClick={handleContactUS}
                                 >
                                     {currentContent?.["2"]?.content?.contact?.[language]}
                                 </button>
@@ -158,11 +176,13 @@ const Header = ({ language, screen, setLanguage, currentContent }) => {
                     {isMoreModalOpen && (
                         <div ref={moreModalRef} className="absolute top-[70%] mt-2 left-[58%] w-[150px] bg-white rounded-lg shadow-lg p-4 z-50">
                             <ul className={`flex flex-col space-y-2 ${!isLeftAlign ? "items-end" : "items-start"}`}>
-                                {extraNavItems.map((item) => (
+                                {extraNavItems.map((item, ind) => (
                                     <li key={item.url}>
                                         <Link
                                             to={item.url}
-                                            className="text-[#001A5882] hover:text-[#145098]"
+                                            className={`text-[#001A5882] hover:text-[#145098]
+                                                        ${checkDifference(item?.nav?.[language], liveExtraNavItems?.[ind]?.nav?.[language])}
+                                                `}
                                             onClick={() => setIsMoreModalOpen(false)}
                                         >
                                             {item?.nav?.[language]}

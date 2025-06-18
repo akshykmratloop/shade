@@ -58,9 +58,12 @@ const RequestDetails = ({ close }) => {
     const id = useSelector(state => state.rightDrawer.extraObject.id)
     const [versionData, setVersionData] = useState({ resource: {}, version: {} })
     const { setRandom } = CustomContext().random
-
+    const { pdf } = CustomContext();
+    const { setShowPDF } = pdf
 
     const { resource, version } = versionData
+
+    console.log(versionData)
 
     const verifiers = Object.entries(version.verifierHistory || [])
 
@@ -69,7 +72,7 @@ const RequestDetails = ({ close }) => {
     const publishers = version.roleHistory?.PUBLISHER
 
 
-    const requestStageStyle = statusStyles[getStyle[versionData?.status]] || {}
+    const requestStageStyle = statusStyles[getStyle[version?.versionStatus]] || {}
 
     const handleRestoreVersionRequest = async (version) => {
         // validation
@@ -118,7 +121,7 @@ const RequestDetails = ({ close }) => {
 
                 <div className="flex py-[15px] justify-between border-b dark:border-[#8a8a8a]">
                     <label>Version Number</label>
-                    <p className={`${requestStageStyle.bg} ${requestStageStyle.text} inline-flex items-center px-3 py-1 rounded-full text-xs font-small`}>
+                    <p className={` inline-flex items-center px-3 py-1 rounded-full text-xs font-small`}>
                         {version?.versionNumber}
                     </p>
                 </div>
@@ -130,13 +133,24 @@ const RequestDetails = ({ close }) => {
                         >Restore this version</button>
                     </div>}
                 <div className="flex flex-col">
-                    <div className="flex py-[15px] justify-between border-b dark:border-[#8a8a8a]">
+                    <div className={`flex py-[15px] justify-between items-center border-b dark:border-[#8a8a8a]`}>
                         <label>Version Status</label>
-                        <div className={`w-max flex flex-col items-end gap-[2.5px]`}>
+                        <div className={`${requestStageStyle.bg} ${requestStageStyle.text} w-max flex items-center px-1 py-[2px] rounded-2xl gap-[2.5px]`}>
+                            {requestStageStyle.icon}
                             {capitalizeWords(version.versionStatus)}
                         </div>
                     </div>
                 </div>
+                {
+                    version.scheduledAt &&
+                    (<div className={`flex py-[15px] justify-between items-center border-b dark:border-[#8a8a8a]`}>
+                        <label>Publish date</label>
+                        <div className={`${requestStageStyle.bg} ${requestStageStyle.text} w-max flex items-center px-2 py-[2px] rounded-2xl gap-[2.5px]`}>
+                            {/* {requestStageStyle.icon} */}
+                            {formatTimestamp(version.scheduledAt)}
+                        </div>
+                    </div>)
+                }
                 <div className="flex flex-col py-[15px] pb-[2px] justify-between">
                     <label>Assigned Users:</label>
                     <div className={`flex items-center justify-between py-1`}>
@@ -256,7 +270,7 @@ const RequestDetails = ({ close }) => {
                         <label>Reference Document</label>
                         <div className={`w-max flex flex-col items-end gap-[2.5px]`}>
                             <p className="text py-0 my-0">PDF File</p>
-                            <button className="text-[#145098] dark:text-sky-500 underline font-[300] py-0 my-0">
+                            <button onClick={() => setShowPDF(true)} className="text-[#145098] dark:text-sky-500 underline font-[300] py-0 my-0">
                                 See Document
                             </button>
                         </div>
