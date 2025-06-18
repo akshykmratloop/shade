@@ -130,29 +130,29 @@ export default function ContentTopBar({ setWidth, setFullScreen, outOfEditing, c
     async function HandlepublishToLive() {
         if (!isManager) return toast.error("You are not allowed to publish the content directly!", { autoClose: 600 })
         const paylaod = transformContent(ReduxState.present.content)
-
-        try {
-            const response = await publishContent(paylaod)
-            if (response.message === "Success") {
-                dispatch(submitings())
-                toast.success("Changes have been published", {
-                    style: { backgroundColor: "#187e3d", color: "white" },
-                    autoClose: 1000, // Closes after 1 second
-                    pauseOnHover: false, // Does not pause on hover
-                })
-                setTimeout(() => {
-                    navigate(-1)
-                }, 650)
-            } else {
-                throw new Error(response.message)
-            }
-        } catch (err) {
-            toast.error(err, {
-                style: { backgroundColor: "#187e3d", color: "white" },
-                autoClose: 1000, // Closes after 1 second
-                pauseOnHover: false, // Does not pause on hover
-            })
-        }
+        console.log(JSON.stringify(paylaod))
+        // try {
+        //     const response = await publishContent(paylaod)
+        //     if (response.message === "Success") {
+        //         dispatch(submitings())
+        //         toast.success("Changes have been published", {
+        //             style: { backgroundColor: "#187e3d", color: "white" },
+        //             autoClose: 1000, // Closes after 1 second
+        //             pauseOnHover: false, // Does not pause on hover
+        //         })
+        //         setTimeout(() => {
+        //             navigate(-1)
+        //         }, 650)
+        //     } else {
+        //         throw new Error(response.message)
+        //     }
+        // } catch (err) {
+        //     toast.error(err, {
+        //         style: { backgroundColor: "#187e3d", color: "white" },
+        //         autoClose: 1000, // Closes after 1 second
+        //         pauseOnHover: false, // Does not pause on hover
+        //     })
+        // }
     }
 
     const handleDeviceChange = (device) => {

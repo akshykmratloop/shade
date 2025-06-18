@@ -151,7 +151,7 @@ const ProjectPage = ({ language, screen, currentContent, highlight, liveContent 
                                     }}
                                     className="bg-white p-4 rounded-md flex flex-col gap-2" key={index}>
                                     <img
-                                        src={item?.image ? Img_url + item?.url : projectPageData["nonMetallic"]}
+                                        src={item?.image ? Img_url + item?.image : projectPageData["nonMetallic"]}
                                         alt={item.title?.[language]}
                                         className="w-full h-[190px]"
                                         style={{

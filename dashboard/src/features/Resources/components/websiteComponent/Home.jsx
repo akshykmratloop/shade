@@ -226,7 +226,7 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                             return (
                                 <div key={key} className={`w-full h-44 flex items-center justify-center p-6 rounded-md transition-transform duration-300 hover:scale-105 cursor-pointer ${key % 2 !== 0 ? "bg-blue-900 text-[white]" : " bg-stone-200"} `}>
                                     <div className="flex flex-col items-center gap-4">
-                                        <img src={Img_url + card?.liveModeVersionData?.icon} width={40} height={40} alt="Icon" className="h-10 w-10" />
+                                        <img src={Img_url + card?.icon} width={40} height={40} alt="Icon" className="h-10 w-10" />
                                         <h5 className={`relative text-lg font-light text-center `}
                                             style={{ fontSize: isComputer && dynamicSize(20, width) }}>
                                             {card?.[titleLan]}

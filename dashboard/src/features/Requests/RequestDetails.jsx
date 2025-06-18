@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import { getRequestInfo } from "../../app/fetch";
 import { FiEye } from "react-icons/fi";
 import Comments from "./Comments"
+import CustomContext from "../Context/CustomContext";
 
 const data = [
   {
@@ -52,13 +53,15 @@ const RequestDetails = () => {
   const id = useSelector(state => state.rightDrawer.extraObject.id)
   const [requestData, setRequestData] = useState({})
   const [commentOn, setCommentOn] = useState({ 0: false })
+  const { pdf } = CustomContext();
+  const { setShowPDF } = pdf
 
   const verifiers = Object.entries(requestData?.["assignedUsers"]?.verifiers || [])
 
   const requestStageStyle = statusStyles[getStyle[requestData?.status]] || {}
 
 
-  console.log("requestDetails, ", id)
+  console.log("requestDetails, ", requestData)
   useEffect(() => {
     async function fetchRequestInfo() {
 
@@ -93,6 +96,15 @@ const RequestDetails = () => {
             {requestStageStyle.icon}
             {capitalizeWords(requestData?.status) || "N/A"}</p>
         </div>
+
+        {requestData.scheduleAt && (
+          <div className="flex py-[15px] justify-between border-b dark:border-stone-700">
+            <label>Publish date</label>
+            <p className={`${requestStageStyle.bg} ${requestStageStyle.text} inline-flex items-center px-3 py-1 rounded-full text-xs font-small`}>
+              {/* {requestStageStyle.icon} */}
+              {formatTimestamp(requestData?.scheduleAt) || "N/A"}</p>
+          </div>
+        )}
         <div className="flex flex-col py-[15px] pb-[2px] justify-between">
           <label>Assigned Users:</label>
           <div className="">
@@ -160,7 +172,12 @@ const RequestDetails = () => {
             <label>Reference Document</label>
             <div className={`w-max flex flex-col items-end gap-[2.5px]`}>
               <p className="text py-0 my-0">PDF File</p>
-              <button className="text-[#145098] dark:text-sky-500 underline font-[300] py-0 my-0">
+              <button
+                onClick={() => {
+                  console.log("qwerasdflkhakjdgsbfkj")
+                  setShowPDF(true)
+                }}
+                className="text-[#145098] dark:text-sky-500 underline font-[300] py-0 my-0">
                 See Document
               </button>
             </div>
@@ -217,27 +234,7 @@ const RequestDetails = () => {
 
                     <td className="px-3 py-2 text-sm text-center">
                       <Comments comment={comment} />
-                      {/* <div className="flex items-center gap-1">
 
-                        {TruncateText(comment, 20) || "N/A"}
-                        {comment !== "No Comments" && (
-                          <div className=""
-                            onClick={() => setCommentOn(prev => ({ ...prev, i: !prev.i }))}
-                          >
-                            <FiEye />
-                            {
-                              commentOn &&
-                              <div className="absolute right-[110%] top-[50%] z-[70]">
-                                <div className="comment-bubble">
-                                  <div className="comment-bubble-arrow"></div>
-                                  <h3>Comments:</h3>
-                                  <p className={`${comment ? "text-stone-900 dark:text-stone-200" : "text-stone-300"}`}>{comment || "No comments"}</p>
-                                </div>
-                              </div>
-                            }
-                          </div>
-                        )}
-                      </div> */}
                     </td>
                   </tr>
                 );

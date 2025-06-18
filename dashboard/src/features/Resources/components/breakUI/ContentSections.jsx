@@ -54,7 +54,7 @@ const ContentSection = ({
     ref,
     elementId,
     outOfEditing,
-    directIcon
+    directIcon,
 }) => {
     const dispatch = useDispatch();
     const ImagesFromRedux = useSelector((state) => state.homeContent.present.images)
@@ -63,7 +63,7 @@ const ContentSection = ({
 
 
     const addExtraFileInput = () => {
-        if (section === "points") {
+        if (section === "pointsp") {
             dispatch(addImagePointArray({
                 src: skeleton['images'],
                 sectionIndex,
@@ -86,7 +86,7 @@ const ContentSection = ({
     };
 
     const removeExtraFileInput = (order) => {
-        if (section === "points") {
+        if (section === "pointsp") {
             dispatch(rmImagePointArray({ sectionIndex, order, section }))
         } else if (section === "affiliates") {
             dispatch(updateAffiliatesCardsArray({
@@ -380,6 +380,7 @@ const ContentSection = ({
                                             url={file.url}
                                             textValue={file.value}
                                             type={file.type}
+                                            name={file.name}
                                         />
                                     </div>
                                 )

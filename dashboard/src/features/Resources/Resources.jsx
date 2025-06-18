@@ -7,13 +7,13 @@ import { ToastContainer } from "react-toastify";
 import { MoonLoader } from "react-spinners";
 
 // Icons
-import { AiOutlineInfoCircle } from "react-icons/ai";
-import { FiEdit } from "react-icons/fi";
-import { IoSettingsOutline } from "react-icons/io5";
-import { LuEye } from "react-icons/lu";
+// import { AiOutlineInfoCircle } from "react-icons/ai";
+// import { FiEdit } from "react-icons/fi";
+// import { IoSettingsOutline } from "react-icons/io5";
+// import { LuEye } from "react-icons/lu";
 // Image
 // Components, Assets & Utils
-import { pagesImages } from "./resourcedata";
+// import { pagesImages } from "./resourcedata";
 import ConfigBar from "./components/breakUI/ConfigBar";
 import PageDetails from "./components/breakUI/PageDetails";
 import Navbar from "../../containers/Navbar";
@@ -25,9 +25,9 @@ import { updateTag, updateType } from "../common/navbarSlice";
 import CloseModalButton from "../../components/Button/CloseButton";
 import createContent from "./defineContent";
 import FallBackLoader from "../../components/fallbackLoader/FallbackLoader";
-import VersionTable from "./VersionTable";
+// import VersionTable from "./VersionTable";
 import { setPlatform } from "../common/platformSlice";
-import { updateResourceId } from "../common/resourceSlice";
+// import { updateResourceId } from "../common/resourceSlice";
 import { updateMainContent } from "../common/homeContentSlice";
 import { ResourceCard } from "./ResourceCard";
 
@@ -58,6 +58,7 @@ function Resources() {
     SUB_PAGE: [],
     MAIN_PAGE: [],
   });
+
 
   // Redux State
   const divRef = useRef(null);
@@ -119,7 +120,7 @@ function Resources() {
 
   // Side Effects 
 
-
+  const conditionNewPage = resourceTag !== "FOOTER" && resourceTag !== "HEADER" && resourceTag !== "MAIN"
 
   useEffect(() => { // Running resources from localstroge
     const currentResource = localStorage.getItem("resourceType") || "MAIN_PAGE";
@@ -224,7 +225,6 @@ function Resources() {
         setIdOnStorage(page.id);
         const { resourceType, resourceTag, subPage, subOfSubPage, slug } = page;
         const parentId = page?.parentId
-        // console.log(relationType, resourceTag, subPage, subOfSubPage, slug)
         if (resourceType === "SUB_PAGE") {
           navigateToPage(resourceTag?.toLowerCase(), page.id);
         } else if (resourceType === "SUB_PAGE_ITEM") {
@@ -251,7 +251,6 @@ function Resources() {
         }
         setPreview(true)
         dispatch(setPlatform("RESOURCE"))
-        console.log("qwer")
       }
     ];
     return actions[i]();
@@ -265,7 +264,7 @@ function Resources() {
 
       <div
         className={`${resNotAvail || loading ? "" : "grid"} ${isNarrow ? "grid-cols-1" : "grid-cols-2"
-          } mt-4 lg:grid-cols-3 gap-10 w-full px-10`}
+          } mt-4 lg:grid-cols-3 gap-10 w-full px-10 auto-rows-fr`}
       >
         {loading ? (
           <div className="flex justify-center items-center h-[70vh] w-full">
@@ -277,31 +276,39 @@ function Resources() {
             <Page404 />
           </div>
         ) : (
-          resources?.[resourceType]?.map((page, index) => {
-            return (
-              <ResourceCard key={index} resource={page} ActionIcons={ActionIcons} />
-            )
-          })
-        )}
-
-        {/* Add More Card */}
-        {resources?.[resourceType]?.[0]?.subPage && (
-          <div className="w-full flex flex-col gap-[5px]">
-            <h3 className="font-poppins font-semibold">{`Add More ${capitalizeWords(
-              resourceType
-            )} Page`}</h3>
-            <div
-              onClick={() =>
-                navigate(
-                  `./edit/${resourceType}/${resources?.[resourceType].length + 1
-                  }`
-                )
-              }
-              className="border rounded-md bg-white aspect-[10/11] flex-grow cursor-pointer flex items-center justify-center text-[50px] shadow-xl-custom border-[#29469c80]"
-            >
-              <span className="text-[#1f2937]">+</span>
-            </div>
-          </div>
+          <>{
+            resources?.[resourceType]?.map((page, index) => {
+              return (
+                <ResourceCard key={index} resource={page} ActionIcons={ActionIcons} />
+              )
+            })}
+            {/* Add More Card */}
+            {
+              (conditionNewPage) &&
+              <div className="w-full flex flex-col gap-[5px]">
+                <div
+                  onClick={() => {
+                    if (resourceType === "SUB_PAGE_ITEM") {
+                      localStorage.setItem("contextId", "null");
+                      navigate(
+                        `../edit/${(resourceTag).toLowerCase()}/new/new`
+                      )
+                    } else {
+                      localStorage.setItem("contextId", "null");
+                      navigate(
+                        `../edit/${(resourceTag).toLowerCase()}/new`
+                      )
+                    }
+                  }}
+                  className="border rounded-md bg-white flex-grow cursor-pointer flex flex-col items-center justify-center text-[50px] shadow-xl-custom border-[#29469c80]"
+                >
+                  <div></div>
+                  <span className="text-[#1f2937]">+</span>
+                  <h3 className="font-poppins font-light text-sm">{`Create New ${resourceType === "SUB_PAGE_ITEM" ? "Service's Child" : capitalizeWords(resourceTag)} Page`}</h3>
+                </div>
+              </div>
+            }
+          </>
         )}
       </div>
 
@@ -323,9 +330,9 @@ function Resources() {
       )}
       {
         (preview && rawContent) && (
-          contentLoader ? 
-          <FallBackLoader />
-          :
+          contentLoader ?
+            <FallBackLoader />
+            :
             < div className="fixed top-0 left-0 z-[55] w-screen h-screen bg-stone-900/30 overflow-y-scroll customscroller">
               <Suspense fallback={<FallBackLoader />}>
                 <div className="">

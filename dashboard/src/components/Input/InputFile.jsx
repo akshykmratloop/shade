@@ -5,7 +5,7 @@ import { removeImages, updateImages } from "../../features/common/homeContentSli
 import ImageSelector from "./ImageSelector"; // Import here
 import { Img_url } from "../../routes/backend";
 
-const InputFile = ({ label, baseClass, id, currentPath, resourceId, contentIndex, index, subSection, section, outOfEditing, directIcon, order, url, disabled = false, type }) => {
+const InputFile = ({ label, baseClass, id, currentPath, resourceId, contentIndex, index, subSection, section, outOfEditing, directIcon, order, url, disabled = false, type, name }) => {
   const dispatch = useDispatch();
   // const ImageFromRedux = useSelector(state => state.homeContent.present.images);
   const [fileURL, setFileURL] = useState("");
@@ -26,16 +26,16 @@ const InputFile = ({ label, baseClass, id, currentPath, resourceId, contentIndex
       },
       order
     }
-    console.log(payloadData)
     dispatch(updateImages({
       section,
-      src: directIcon || subSection === "projectInforCard" || type === "VIDEO" ? url[0] : payloadData,
+      src: (directIcon || subSection === "projectInforCard" || type === "VIDEO"|| section === "thumbnail") ? url[0] : payloadData,
       currentPath,
       index: contentIndex,
       cardIndex: index,
       subSection,
       directIcon,
-      order
+      order,
+      name
     }));
     setIsSelectorOpen(false);
   };
@@ -63,7 +63,7 @@ const InputFile = ({ label, baseClass, id, currentPath, resourceId, contentIndex
             fileURL.includes(".mp4") || fileURL.includes("video") || type === "VIDEO" ? (
               <video src={fileURL} className="w-full h-full object-cover" controls />
             ) : (
-              <img src={(url && url.slice(0, 5) !== "https") ? `${Img_url}${(url)}` : ""} alt="Preview" className="w-full h-full object-cover" />
+              <img src={(url) ? `${Img_url}${(url)}` : ""} alt="Preview" className="w-full h-full object-cover" />
             )
           ) : (
             <div className="w-full h-full flex items-center justify-center text-gray-400 text-xs">

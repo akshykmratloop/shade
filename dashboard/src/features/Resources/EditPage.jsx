@@ -19,6 +19,7 @@ import FallBackLoader from "../../components/fallbackLoader/FallbackLoader";
 import { getContent } from "../../app/fetch";
 import { updateComment, updateIsEditMode, updateMainContent } from "../common/homeContentSlice";
 import { saveInitialContentValue } from "../common/InitialContentSlice";
+import { structures } from "./components/websiteComponent/structures/PageStructure";
 
 const Page404 = lazy(() => import('../../pages/protected/404'))
 const AllForOne = lazy(() => import("./components/AllForOne"));
@@ -36,13 +37,15 @@ const EditPage = () => {
 
     const [fullScreen, setFullScreen] = useState(false)
     const [subRoutesList, setSubRouteList] = useState([])
-
+    const [resourceTag, setResourcesTag] = useState("")
+    const [resourceType, setResourceType] = useState("")
     const { isManager } = useSelector(state => state.user)
 
     const currentPath = location.pathname.split('/')[4]
     const subPath = location.pathname.split('/')[5]
     const deepPath = location.pathname.split('/')[6]
 
+    const [currentId, setCurrentId] = useState("")
     const contentFromRedux = useSelector((state) => state.homeContent.present)
 
     const isEditable = contentFromRedux?.content?.isEditable
@@ -57,25 +60,27 @@ const EditPage = () => {
 
     const Routes = [
         "home", "solution", "about-us", "service", "market",
-        "projects", "project", "careers", "career", "news-blogs","news",,
+        "projects", "project", "careers", "career", "news-blogs", "news", ,
         "footer", "header", "testimonials", "testimonial",
-        "safety_responsibility", "history", "vision", "hse", "affiliates","organization"
+        "safety_responsibility", "history", "vision", "hse", "affiliates", "organization"
     ]
 
 
     useEffect(() => {
         dispatch(setSidebarState(true))
-        setSubRouteList(JSON.parse(localStorage.getItem("subRoutes")))
+        setSubRouteList(JSON.parse(localStorage.getItem("subRoutes")) || "")
     }, [])
 
-    const [currentId, setCurrentId] = useState("")
 
 
     useEffect(() => {
         const currentId = localStorage.getItem("contextId");
-        if (currentId) {
+        if (currentId && currentId !== "null") {
             setCurrentId(currentId)
         }
+
+        setResourcesTag((localStorage.getItem("resourceTag")))
+        setResourceType((localStorage.getItem("resourceType")))
 
         const handleKeyDown = (e) => {
             if (e.key === 'Escape') {
@@ -93,11 +98,12 @@ const EditPage = () => {
     }, [isManager, isEditable])
 
     useEffect(() => {
+        setLoader(true)
+        console.log(typeof currentId)
         if (currentId) {
             async function context() {
                 try {
                     const response = await getContent(currentId)
-                    setLoader(true)
                     if (response.message === "Success") {
                         const payload = {
                             id: response.content.id,
@@ -126,8 +132,12 @@ const EditPage = () => {
                 }
             }
             context()
+        } else {
+            dispatch(updateMainContent({ currentPath: "content", payload: resourceType === "SUB_PAGE_ITEM" ? structures["SUBSERVICE"] : structures[resourceTag] }))
         }
-    }, [currentId, isManager])
+        setLoader(false)
+
+    }, [currentId, isManager, resourceTag])
 
     return (
         <div>
@@ -191,9 +201,9 @@ const EditPage = () => {
                                         />
                                         <AllForOne
                                             language={language} screen={screen}
-                                            content={content.content} 
-                                            subPath={subPath} deepPath={deepPath} 
-                                            setLanguage={setLanguage} fullScreen={fullScreen} 
+                                            content={content.content}
+                                            subPath={subPath} deepPath={deepPath}
+                                            setLanguage={setLanguage} fullScreen={fullScreen}
                                             currentPath={currentPath}
                                         />
 

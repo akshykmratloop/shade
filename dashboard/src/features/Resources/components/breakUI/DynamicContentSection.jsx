@@ -6,7 +6,7 @@ import JoditEditor, { Jodit } from "jodit-react";
 import TextAreaInput from "../../../../components/Input/TextAreaInput";
 import InputFile from "../../../../components/Input/InputFile";
 import InputText from "../../../../components/Input/InputText";
-import { updateSpecificContent, updateServicesNumber, updateImages, updateTheProjectSummaryList, updateCardAndItemsArray, updatePoliciesItems, updateSubServiceDetailsPointsArray } from "../../../common/homeContentSlice";
+import { updateSpecificContent, updateServicesNumber, updateImages, updateTheProjectSummaryList, updateCardAndItemsArray, updatePoliciesItems, updateSubServiceDetailsPointsArray, updateAffiliatesCardsArray } from "../../../common/homeContentSlice";
 import InputFileForm from "../../../../components/Input/InputFileForm";
 
 const DynamicContentSection = ({
@@ -28,7 +28,8 @@ const DynamicContentSection = ({
     type,
     sectionIndex,
     contentIndex,
-    outOfEditing
+    outOfEditing,
+    order
 }) => {
     const dispatch = useDispatch();
     const [extraFiles, setExtraFiles] = useState([]);
@@ -49,8 +50,14 @@ const DynamicContentSection = ({
         setExtraFiles(extraFiles.filter(file => file.id !== id));
     };
 
-
-    const removeSummary = (index) => {
+    const removeSummary = (index, order) => {
+        if (section === "sectionPointers") {
+            return dispatch(updateAffiliatesCardsArray({
+                sectionIndex,
+                section,
+                order: order
+            }))
+        }
         if (section === "points" || section === "cards") {
             return dispatch(updateSubServiceDetailsPointsArray({
                 sectionIndex,
@@ -74,7 +81,7 @@ const DynamicContentSection = ({
                 subContext: section,
                 deepPath
             }))
-        }  else {
+        } else {
             dispatch(updateCardAndItemsArray({
                 sectionIndex,
                 operation: 'remove',
@@ -83,7 +90,7 @@ const DynamicContentSection = ({
         }
     }
 
-    const updateFormValue = ({updateType, value}) => {
+    const updateFormValue = ({ updateType, value }) => {
         if (updateType === 'count') {
             if (!isNaN(value)) {
                 let val = value?.slice(0, 7);
@@ -109,7 +116,7 @@ const DynamicContentSection = ({
         }
     };
 
-    const updateFormValueRichText = ( updateType, value ) => {
+    const updateFormValueRichText = (updateType, value) => {
 
         if (updateType === 'count') {
             if (!isNaN(value)) {
@@ -197,7 +204,7 @@ const DynamicContentSection = ({
             style={{ wordBreak: "break-word" }}>
             {(allowRemoval && !outOfEditing) && <button
                 className="absolute top-6 z-10 right-[-8px] bg-red-500 text-white px-[5px] rounded-full shadow"
-                onClick={() => { removeSummary(index) }}
+                onClick={() => { removeSummary(index, order) }}
             >
                 ✖
             </button>}

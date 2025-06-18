@@ -4,15 +4,15 @@
     "titleAr": "",
     "slug": "",
     "isEditable": true,
-    "resourceType": "SUB_PAGE_ITEM",
-    "resourceTag": "SERVICE",
-    "relationType": "CHILD",
+    "resourceType": "",
+    "resourceTag": "",
+    "relationType": "",
     "parentId": "",
     "editVersion": {
         "id": "",
         "versionNumber": 1,
         "icon": null,
-        "image": null,
+        "image": "",
         "comments": "",
         "referenceDoc": null,
         "updatedAt": "",
@@ -47,7 +47,7 @@
             },
             {
                 "sectionId": "",
-                "order": 2,
+                "order": 1,
                 "version": 1,
                 "title": "",
                 "content": {
@@ -55,19 +55,39 @@
                         "ar": "",
                         "en": ""
                     },
-                    "points": [
-                        {
-                            "order": 1,
-                            "title": {
-                                "ar": "",
-                                "en": ""
-                            },
-                            "description": {
-                                "ar": "",
-                                "en": ""
+                    "procedures": {
+                        "terms": [
+                            {
+                                "order": 1,
+                                "title": {
+                                    "ar": "",
+                                    "en": ""
+                                },
+                                "images": [
+                                    {
+                                        "url": "",
+                                        "order": 1,
+                                        "altText": {
+                                            "ar": "",
+                                            "en": ""
+                                        }
+                                    }
+                                ],
+                                "description": {
+                                    "ar": "",
+                                    "en": ""
+                                }
                             }
+                        ],
+                        "title": {
+                            "ar": "",
+                            "en": ""
+                        },
+                        "description": {
+                            "ar": "",
+                            "en": ""
                         }
-                    ],
+                    },
                     "description": {
                         "ar": "",
                         "en": ""
@@ -77,18 +97,19 @@
             },
             {
                 "sectionId": "",
-                "order": 3,
+                "order": 1,
                 "version": 1,
                 "title": "",
                 "content": {
-                    "images": [
+                    "button": [
                         {
-                            "url": "",
-                            "order": 1,
-                            "altText": {
+                            "url": null,
+                            "icon": null,
+                            "text": {
                                 "ar": "",
                                 "en": ""
-                            }
+                            },
+                            "order": 1
                         }
                     ]
                 },
