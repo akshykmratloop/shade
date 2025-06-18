@@ -5595,3 +5595,69 @@ export const getTotalAvailableProjects = async () => {
     totalProjects: ongoingProjects + completedProjects,
   };
 };
+
+export const RunAndPublishScheduledVersion = async () => {
+ // Get all resources with scheduled versions
+ const resourcesToBePublished = await prismaClient.resource.findMany({
+  where: {
+    scheduledVersionId: {
+      not: null
+    }
+  },
+  include: {
+    scheduledVersion: true
+  }
+});
+
+// Process each resource in a transaction
+for (const resource of resourcesToBePublished) {
+  await prismaClient.$transaction(async (tx) => {
+    const scheduledVersionId = resource.scheduledVersionId;
+    const resourceId = resource.id;
+
+    // Update request status to PUBLISHED
+    await tx.resourceVersioningRequest.updateMany({
+      where: {
+        resourceVersionId: scheduledVersionId,
+        status: "SCHEDULED"
+      },
+      data: {
+        status: "PUBLISHED",
+        flowStatus: "PUBLISHED"
+      }
+    });
+
+    // Update all LIVE versions to PUBLISHED
+    await tx.resourceVersion.updateMany({
+      where: {
+        resourceId: resourceId,
+        versionStatus: "LIVE"
+      },
+      data: {
+        versionStatus: "PUBLISHED"
+      }
+    });
+
+    // Update the scheduled version to LIVE
+    await tx.resourceVersion.update({
+      where: { id: scheduledVersionId },
+      data: {
+        versionStatus: "LIVE",
+        publishedAt: new Date()
+      }
+    });
+
+    // Update the resource
+    await tx.resource.update({
+      where: { id: resourceId },
+      data: {
+        liveVersionId: scheduledVersionId,
+        scheduledVersionId: null,
+        newVersionEditModeId: null
+      }
+    });
+  });
+}
+
+console.log(`Successfully published ${resourcesToBePublished.length} scheduled versions`)
+};
