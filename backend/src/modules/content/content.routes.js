@@ -15,6 +15,11 @@ router.post(
   tryCatchWrap(ContentController.CreateNewResource)
 );
 
+router.post(
+  "/addResource",
+  tryCatchWrap(ContentController.AddNewResource)
+);
+
 // const requiredPermissionsForContentManagement = ["ROLES_PERMISSION_MANAGEMENT"];
 
 router.get(
@@ -157,6 +162,12 @@ router.put(
 router.get(
   "/getDashboardInsight",
   tryCatchWrap(contentController.GetDashboardInsight)
+);
+
+router.get(
+  "/getVersionContent/:versionId",
+  //   checkPermission(requiredPermissionsForContentManagement),
+  tryCatchWrap(ContentController.GetVersionContent)
 );
 
 export default router;

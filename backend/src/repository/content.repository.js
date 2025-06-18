@@ -3,22 +3,26 @@ import {assert} from "../errors/assertError.js";
 import crypto from "crypto";
 
 // Create New Resources ===========================================
-export async function createResources({
+export async function createResources(
   titleEn,
   titleAr,
   slug,
   resourceType,
   resourceTag,
   relationType,
-  sections = [],
-  // filters = [],
-  childResources = [],
-}) {
-  // if (!titleEn || !slug || !resourceType) {
-  //   throw new Error(
-  //     "Missing required fields: titleEn, slug and resourceType are all required."
-  //   );
-  // }
+  parentId,
+  filters,
+  icon,
+  image,
+  referenceDoc,
+  comments,
+  sections
+) {
+  if (!titleEn || !slug || !resourceType) {
+    throw new Error(
+      "Missing required fields: titleEn, slug and resourceType are all required."
+    );
+  }
 
   return prismaClient.$transaction(async (tx) => {
     // 1) create the resource
@@ -32,6 +36,11 @@ export async function createResources({
         relationType,
         isAssigned: false,
         status: "ACTIVE",
+        ...(parentId && {
+          parent: {
+            connect: { id: parentId }
+          }
+        })
       },
     });
 
@@ -41,8 +50,11 @@ export async function createResources({
         resourceId: resource.id,
         versionNumber: 1,
         versionStatus: "LIVE",
-        notes: "Initial version created via API",
+        notes: comments || "",
         content: {},
+        icon,
+        Image: image, // Note: Schema uses capital 'I' in Image
+        referenceDoc
       },
     });
 
@@ -52,38 +64,42 @@ export async function createResources({
       data: {liveVersionId: version.id},
     });
 
-    // // 4) connect filters (make sure your Prisma model is actually named `Filter`, not `Filters`)
-    // for (const filterName of filters) {
-    //   const filter = await tx.filter.findUnique({where: {nameEn: filterName}});
-    //   if (filter) {
-    //     await tx.resource.update({
-    //       where: {id: resource.id},
-    //       data: {filters: {connect: {id: filter.id}}},
-    //     });
-    //   }
-    // }
+    // 4) connect filters by ID
+    if (filters && filters.length > 0) {
+      await tx.resource.update({
+        where: {id: resource.id},
+        data: {
+          filters: {
+            connect: filters.map(filterId => ({ id: filterId }))
+          }
+        },
+      });
+    }
 
-    // 5) connect child resources
-    for (const childSlug of childResources) {
-      const child = await tx.resource.findUnique({where: {slug: childSlug}});
-      if (child) {
-        await tx.resource.update({
-          where: {id: resource.id},
-          data: {children: {connect: {id: child.id}}},
-        });
+    // 5) process each section
+    if (sections && sections.length > 0) {
+      for (let i = 0; i < sections.length; i++) {
+        await processSection(
+          tx,
+          sections[i],
+          resource.id,
+          version.id,
+          slug,
+          i + 1
+        );
       }
     }
 
-    // 6) process each section
-    for (let i = 0; i < sections.length; i++) {
-      await processSection(
-        tx,
-        sections[i],
-        resource.id,
-        version.id,
-        slug,
-        i + 1
-      );
+    // 6) If this is a child resource, update the parent's children
+    if (parentId) {
+      await tx.resource.update({
+        where: { id: parentId },
+        data: {
+          children: {
+            connect: { id: resource.id }
+          }
+        }
+      });
     }
 
     return resource;
@@ -117,7 +133,7 @@ async function processSection(
     data: {
       title: uniqueTitle,
       sectionTypeId: sectionType.id,
-      isGlobal: sectionData.isGlobal || false,
+      isGlobal: false, // Default to false unless specified
     },
   });
 
@@ -144,17 +160,27 @@ async function processSection(
   });
 
   // Process items
-  if (sectionData.items) {
-    for (let j = 0; j < sectionData.items.length; j++) {
-      const item = sectionData.items[j];
-      if (["SUB_PAGE", "SUB_PAGE_ITEM"].includes(item.resourceType)) {
+  if (sectionData.items && sectionData.items.length > 0) {
+    for (const item of sectionData.items) {
+      // Check if the item has an id (for direct resource reference)
+      if (item.id) {
+        await tx.sectionVersionItem.create({
+          data: {
+            order: item.order || 1,
+            sectionVersionId: sectionVersion.id,
+            resourceId: item.id,
+          },
+        });
+      }
+      // For backward compatibility, also check for slug-based items
+      else if (item.slug && ["SUB_PAGE", "SUB_PAGE_ITEM"].includes(item.resourceType)) {
         const linkedResource = await tx.resource.findUnique({
           where: {slug: item.slug},
         });
         if (linkedResource) {
           await tx.sectionVersionItem.create({
             data: {
-              order: j + 1,
+              order: item.order || 1,
               sectionVersionId: sectionVersion.id,
               resourceId: linkedResource.id,
             },
@@ -165,7 +191,7 @@ async function processSection(
   }
 
   // Process child sections
-  if (sectionData.sections) {
+  if (sectionData.sections && sectionData.sections.length > 0) {
     for (let k = 0; k < sectionData.sections.length; k++) {
       await processSection(
         tx,
@@ -5843,4 +5869,73 @@ for (const resource of resourcesToBePublished) {
 }
 
 console.log(`Successfully published ${resourcesToBePublished.length} scheduled versions`)
+};
+
+export const fetchVersionContent = async (versionId) => {
+  // Fetch the version with all necessary relations
+  const version = await prismaClient.resourceVersion.findUnique({
+    where: {
+      id: versionId,
+    },
+    include: {
+      resource: {
+        select: {
+          id: true,
+          titleEn: true,
+          titleAr: true,
+          slug: true,
+          resourceType: true,
+          resourceTag: true,
+          relationType: true,
+          parentId: true,
+        },
+      },
+      sections: {
+        include: {
+          sectionVersion: true,
+        },
+        orderBy: {
+          order: "asc",
+        },
+      },
+    },
+  });
+
+  if (!version) {
+    return null;
+  }
+
+  // Format the version data
+  const result = {
+    id: version.resource.id,
+    titleEn: version.resource.titleEn,
+    titleAr: version.resource.titleAr,
+    slug: version.resource.slug,
+    resourceType: version.resource.resourceType,
+    resourceTag: version.resource.resourceTag,
+    relationType: version.resource.relationType,
+    isEditable: false, // Since this is a specific version, it's not editable
+  };
+
+  if (version.resource.parentId) {
+    result.parentId = version.resource.parentId;
+  }
+
+  // Format the version data
+  result.versionData = await formatResourceVersionData(
+    version,
+    true,
+    version.resource.slug,
+    version.resource.resourceType,
+    version.resource.resourceTag
+  );
+
+  return result;
+};
+
+export const checkSlugExists = async (slug) => {
+  return await prismaClient.resource.findUnique({
+    where: { slug },
+    select: { id: true }
+  });
 };

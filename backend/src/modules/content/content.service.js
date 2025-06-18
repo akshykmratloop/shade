@@ -31,6 +31,8 @@ import {
   getTotalAvailableProjects,
   scheduleRequestToPublish,
   createResources,
+  fetchVersionContent,
+  checkSlugExists
 } from "../../repository/content.repository.js";
 
 // Create New Resource ================================
@@ -60,6 +62,72 @@ const createNewResources = async (
 
   logger.info({
     response: "Resource created successfully",
+  });
+  return {message: "Success", newResource};
+};
+
+const addNewResource = async (
+  titleEn,
+  titleAr,
+  slug,
+  resourceType,
+  resourceTag,
+  relationType,
+  parentId,
+  filters,
+  icon,
+  image,
+  referenceDoc,
+  comments,
+  sections
+) => {
+
+  
+
+  // Validate resource type
+  if (resourceType !== "SUB_PAGE" && resourceType !== "SUB_PAGE_ITEM") {
+    throw new Error("Invalid resource type. Only SUB_PAGE and SUB_PAGE_ITEM are allowed");
+  }
+
+  // Validate resource tag
+  const validResourceTags = [
+    "SERVICE",
+    "MARKET",
+    "PROJECT",
+    "TESTIMONIAL",
+    "NEWS",
+    "SAFETY_RESPONSIBILITY",
+  ];
+  if (!validResourceTags.includes(resourceTag)) {
+    throw new Error(`Invalid resource tag. Valid tags are: ${validResourceTags.join(", ")}`);
+  }
+
+  // Check if slug exists
+  const existingResource = await checkSlugExists(slug);
+  if (existingResource) {
+    throw new Error("Resource with this slug already exists");
+  }
+
+
+  // Create the resource with all its related data
+  const newResource = await createResources(
+    titleEn,
+    titleAr,
+    slug,
+    resourceType,
+    resourceTag,
+    relationType,
+    parentId,
+    filters,
+    icon,
+    image,
+    referenceDoc,
+    comments,
+    sections
+  );
+
+  logger.info({
+    response: "New resource created successfully",
   });
   return {message: "Success", newResource};
 };
@@ -412,6 +480,17 @@ const getDashboardInsight = async () => {
   };
 };
 
+const getVersionContent = async (versionId) => {
+  const response = await fetchVersionContent(versionId);
+  if (!response) {
+    throw new Error("Version not found");
+  }
+  return {
+    message: "Version content fetched successfully",
+    data: response,
+  };
+};
+
 export {
   createNewResources,
   getResources,
@@ -437,4 +516,6 @@ export {
   deactivateResources,
   activateResources,
   getDashboardInsight,
+  getVersionContent,
+  addNewResource
 };
