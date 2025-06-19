@@ -11,8 +11,9 @@ const SnRPoliciesManager = ({ content, currentPath, language, indexes }) => {
     const [policiesList, setPoliciesList] = useState(null)
     const dispatch = useDispatch()
 
+    const context = useSelector(state => state.homeContent?.present?.content)
 
-    const thumbIcon = useSelector(state => state.homeContent?.present?.content?.editVersion?.icon) || ""
+    // const thumbIcon = useSelector(state => state.homeContent?.present?.content?.editVersion?.icon) || ""
     const thumbImage = useSelector(state => state.homeContent?.present?.content?.editVersion?.image) || ""
 
     const addExtraSummary = () => {
@@ -74,6 +75,21 @@ const SnRPoliciesManager = ({ content, currentPath, language, indexes }) => {
         <div>
             {/* reference doc */}
             <FileUploader id={"SnR-Polilcy-ID-Reference"} label={"Rerference doc"} fileName={"Upload your file..."} />
+
+            {context?.id === "N" &&
+                <ContentSection
+                    currentPath={currentPath}
+                    Heading={"Page - Details"}
+                    inputs={[
+                        { input: "input", label: "Title English", updateType: "titleEn", value: context?.titleEn },
+                        { input: "input", label: "Title Arabic", updateType: "titleAr", value: context?.titleAr, dir: "rtl" },
+                        { input: "input", label: "Slug", updateType: "slug", value: context?.slug },
+
+                    ]}
+                    section={"page-details"}
+                    language={language}
+                />
+            }
 
             <ContentSection
                 currentPath={currentPath}

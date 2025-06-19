@@ -60,7 +60,7 @@ export default function transformContent(rawData) {
 export function baseTransform(obj, filter) {
     const object = JSON.parse(JSON.stringify(obj));
 
-    if (obj.resourceTag === "SERVICE") {
+    if (obj.resourceTag === "SERVICE" || obj.resourceTag === "NEWS") {
         object.editVersion?.sections?.forEach((e, i) => {
             object.editVersion.sections[i].sectionVersionTitle = object.titleEn + e.sectionVersionTitle
         })

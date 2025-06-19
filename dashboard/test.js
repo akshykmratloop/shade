@@ -1,9 +1,15 @@
-let a = { a: "a", b: { c: "D" } }
-
-const c = (obj) => {
-    obj.b.c = "E"
-}
-
-c(a)
-
-console.log(a)
+[{
+    "title": "overviewSection",
+    "SectionType": "MARKDOWN_CONTENT",
+    "sectionVersionTitle": "-overviewSection",
+},
+{
+    "title": "commitmentSection",
+    "SectionType": "MARKDOWN_CONTENT",
+    "sectionVersionTitle": "-commitmentSection",
+},
+{
+    "title": "additionalInfoSection",
+    "SectionType": "EXTERNAL_ITEMS",
+    "sectionVersionTitle": "-additionalInfoSection",
+},]

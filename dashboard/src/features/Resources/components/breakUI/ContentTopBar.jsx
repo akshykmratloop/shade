@@ -128,7 +128,6 @@ export default function ContentTopBar({ setWidth, setFullScreen, outOfEditing, c
     }
 
     async function HandlepublishToLive() {
-        console.log("publish")
         if (!isManager) return toast.error("You are not allowed to publish the content directly!", { autoClose: 600 })
         const payload = transformContent(ReduxState.present.content)
         try {
@@ -158,7 +157,6 @@ export default function ContentTopBar({ setWidth, setFullScreen, outOfEditing, c
     async function PublishNewPage() {
         if (!isManager) return toast.error("You are not allowed to publish the content directly!", { autoClose: 600 })
         const payload = baseTransform(ReduxState.present.content)
-        // console.log("create")
         console.log(payload)
         try {
             const response = await addResource(payload)

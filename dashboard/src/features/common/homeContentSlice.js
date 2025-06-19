@@ -65,6 +65,8 @@ const cmsSlice = createSlice({
                 if (action.payload.title === "url") {
                     state.present.content.editVersion.sections[action.payload.sectionIndex].content[action.payload.title] = action.payload.value
                 } else {
+                    console.log(action.payload)
+                    console.log(JSON.parse(JSON.stringify(state.present.content.editVersion.sections[action.payload.sectionIndex].content)))
                     state.present.content.editVersion.sections[action.payload.sectionIndex].content[action.payload.title][action.payload.lan] = action.payload.value
                 }
             }
