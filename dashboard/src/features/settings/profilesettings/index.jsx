@@ -8,6 +8,8 @@ import formatTimestamp from "../../../app/TimeFormat"
 import capitalizeWords from "../../../app/capitalizeword"
 import DirectInputFile from "../../../components/Input/DirectInputFile";
 import { getUserById, updateProfile } from "../../../app/fetch";
+import { toast, ToastContainer } from "react-toastify";
+import { PulseLoader } from "react-spinners";
 // import moment from "moment"
 // import InputFile from "../../../components/Input/InputFile"
 // import TextAreaInput from '../../../components/Input/TextAreaInput'
@@ -19,14 +21,20 @@ import { getUserById, updateProfile } from "../../../app/fetch";
 function ProfileSettings() {
     const dispatch = useDispatch();
     const user = useSelector(state => state.user.user)
-    const [isDisable, setIsDisable] = useState(true)
+    const [isDisable, setIsDisable] = useState(false)
     const [fetchedData, setFetchedData] = useState({})
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(true)
     const [random, setRandom] = useState(0)
+
+    const override = {
+        display: "block",
+        margin: "0 auto",
+        borderColor: "red",
+    };
 
     // console.log(fetchedData)
 
-    const normalUserState = { name: user.name, phone: user.phone, image: user.image }
+    const normalUserState = { name: user.name, phone: user.phone }
     const [updateObj, setUpdateObj] = useState(normalUserState)
 
     const [openIndex, setOpenIndex] = useState(null);
@@ -42,13 +50,19 @@ function ProfileSettings() {
 
     // Call API to update profile settings changes
     const SubmitUpdatedProfile = async () => {
+        setLoading(true)
         try {
             const response = await updateProfile(updateObj);
             if (response.ok) {
                 setRandom(Math.random)
+                toast.success("Profile has been updated")
+            } else { 
+                toast.error("Failed to update.")
             }
         } catch (err) {
             console.log(err)
+        } finally {
+            setLoading(false)
         }
     }
 
@@ -93,7 +107,7 @@ function ProfileSettings() {
         <div className="relative">
             <TitleCard title="Profile Settings" topMargin="mt-1 flex flex-col">
                 <div className="absolute top-1 right-5 w-[145px]">
-                    <button className="bg-[#25439B] rounded-lg w-full h-full py-2 text-white border" onClick={handleEditFunctionalty}>
+                    <button className="bg-[#25439B] rounded-lg w-full h-full py-2 text-white" onClick={handleEditFunctionalty}>
                         {isDisable ? "Edit" : "Cancel"}
                     </button>
                 </div>
@@ -113,8 +127,13 @@ function ProfileSettings() {
 
                 {!isDisable ?
                     <div className="w-[145px] self-end">
-                        <button className="bg-[#25439B] rounded-lg w-full h-full py-2 text-white border" onClick={handleEditFunctionalty}>
-                            Update
+                        <button className="bg-[#25439B] rounded-lg w-full h-full py-2 text-white" onClick={SubmitUpdatedProfile}>
+                            {loading ? <PulseLoader color={"#ffffff"}
+                                loading={loading}
+                                cssOverride={override}
+                                size={10}
+                                aria-label="Loading Spinner"
+                                data-testid="loader" /> : "Update"}
                         </button>
                     </div>
                     :
@@ -168,7 +187,7 @@ function ProfileSettings() {
                                                     >
                                                         <td className="px-4 py-2 align-top dark:border dark:border-[#232d3d] w-1/3">
                                                             <div className="h-full">
-                                                                <span className="font-[500] relative  inline-flex items-center before:content-['•'] before:text-stone-800 dark:before:text-stone-200 before:mr-2">
+                                                                <span className="font-[500] relative inline-flex items-center before:content-['•'] before:text-stone-800 dark:before:text-stone-200 before:mr-2">
                                                                     {capitalizeWords(role?.role)}
                                                                 </span>
                                                             </div>
@@ -198,7 +217,7 @@ function ProfileSettings() {
                     </div>
                 }
             </TitleCard >
-            
+            <ToastContainer />
         </div>
     )
 }

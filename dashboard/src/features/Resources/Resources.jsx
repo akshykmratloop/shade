@@ -241,11 +241,12 @@ function Resources() {
         setCurrentResourceId(page.id)
         // setIdOnStorage(page.id);
         const { relationType, resourceTag, subPage, subOfSubPage, slug } = page;
-        if (relationType === "CHILD") {
-          let firstRoute = resourceTag?.toLowerCase() === "news" ? "news-blogs" : resourceTag?.toLowerCase()
+        const parentId = page?.parentId
+        if (resourceType === "SUB_PAGE") {
+          let firstRoute = resourceTag?.toLowerCase()
           settingRoute(firstRoute, page.id);
-        } else if (relationType !== "PARENT") {
-          settingRoute(resourceTag?.toLowerCase(), subPage, subOfSubPage);
+        } else if (resourceType === "SUB_PAGE_ITEM") {
+          settingRoute(resourceTag?.toLowerCase(), parentId, page.id);
         } else {
           settingRoute(slug?.toLowerCase());
         }

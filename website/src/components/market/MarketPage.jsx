@@ -32,6 +32,7 @@ import { projectPageData } from "../../assets/index";
 import { Img_url } from "@/common/CreateContent";
 
 const MarketPage = ({ content }) => {
+  console.log(content)
   const router = useRouter();
 
   const testimonialPrevRef = useRef(null);
@@ -62,7 +63,7 @@ const MarketPage = ({ content }) => {
   }, [activeTab, currentContent]); // Added currentContent as a dependency
 
   const TruncateText = (text, length) => {
-    if (text.length > (length || 50)) {
+    if (text?.length > (length || 50)) {
       return `${text.slice(0, length || 50)}...`;
     }
     return text;
@@ -294,7 +295,7 @@ const MarketPage = ({ content }) => {
                         </p>
                         <div className={styles.company_wrap}
                           // dir={isLeftAlign ? "ltr" : "rtl"}
-                          style={{ flexDirection: isLeftAlign ? "row" : "row-reverse", justifyContent: isLeftAlign?"flex-start":"end" }}
+                          style={{ flexDirection: isLeftAlign ? "row" : "row-reverse", justifyContent: isLeftAlign ? "flex-start" : "end" }}
                         >
                           <Image
                             src="https://frequencyimage.s3.ap-south-1.amazonaws.com/a813959c-7b67-400b-a0b7-f806e63339e5-ph_building%20%281%29.svg"

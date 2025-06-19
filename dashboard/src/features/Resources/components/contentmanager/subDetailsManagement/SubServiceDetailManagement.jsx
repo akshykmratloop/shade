@@ -65,10 +65,10 @@ const SubServiceDetailManager = ({ serviceId, content, currentPath, language, de
                     currentPath={currentPath}
                     Heading={"Page - Details"}
                     inputs={[
-                        { input: "input", label: "Title English", updateType: "titleEn", value: context?.titleEn },
+                        { input: "input", label: "Title English", updateType: "titleEn", value: context?.titleEn, dir: "ltr" },
                         { input: "input", label: "Title Arabic", updateType: "titleAr", value: context?.titleAr, dir: "rtl" },
-                        ...(context?.id === "N" ? { input: "input", label: "Slug", updateType: "slug", value: context?.slug } : []),
-                        ...(context?.id === "N" ? { input: "select", label: "Select Parent", updateType: "parentId", value: context?.parentId, option: serviceParents } : [])
+                        ...(context?.id === "N" ? [{ input: "input", label: "Slug", updateType: "slug", value: context?.slug } ]: []),
+                        ...(context?.id === "N" ? [{ input: "select", label: "Select Parent", updateType: "parentId", value: context?.parentId, option: serviceParents }] : [])
                     ]}
                     section={"page-details"}
                     language={language}
