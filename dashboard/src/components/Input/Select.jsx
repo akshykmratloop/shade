@@ -2,10 +2,23 @@ import React from "react";
 import { IoIosArrowDown } from "react-icons/io";
 import { toast } from "react-toastify";
 
-const Select = ({ options, selectClass, label, labelClass, baseClass, setterOnChange, index, value, height, width, field }) => {
+const Select = ({
+    options,
+    optionsClass,
+    selectClass,
+    label,
+    labelClass,
+    baseClass,
+    setterOnChange,
+    index,
+    value,
+    height,
+    width,
+    field,
+}) => {
     const handleSelectChange = (e) => {
         let value = e.target.value
-        if(value === "" ) return 
+        if (value === "") return
         for (let x of options) {
             if (x.id === value && x.status === "INACTIVE") {
                 // toast.error("Unable to select Inactive user")
@@ -32,8 +45,8 @@ const Select = ({ options, selectClass, label, labelClass, baseClass, setterOnCh
                     {options?.map((option, i) => {
                         // console.log(option)
                         return (
-                            <option value={option.id} key={option + i} className="text-stone-700">
-                                {option.name}
+                            <option value={option.id} key={option + i} className={`${optionsClass || "text-stone-700"} `}>
+                                {option?.name}
                             </option>
                         )
                     })}

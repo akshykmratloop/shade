@@ -50,7 +50,7 @@ export const ResourceCard = ({ resource = {}, ActionIcons }) => {
                             <DropdownMenuTrigger asChild>
                                 <button
                                     type="button"
-                                    className="h-8  rounded-md hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-ring"
+                                    className="h-8 w-8 flex items-center justify-center rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-ring"
                                 >
                                     <MoreVertical className="w-4 h-4" />
                                 </button>

@@ -55,6 +55,11 @@ const DateTime = ({ onClose, display, requestId }) => {
         try {
             const response = await schedulePublish(requestId, { date: isoTimestamp })
             console.log(response)
+            if (response.ok) {
+                closeModal()
+            } else {
+                
+            }
         } catch (err) {
             console.error(err)
         }

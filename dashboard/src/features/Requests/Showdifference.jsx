@@ -120,6 +120,8 @@ function ShowDifference({ show, onClose, request, resourceId, currentlyEditor, c
         };
     }, []);
 
+    console.log(liveVersion, editVersion)
+
 
     useEffect(() => {
         async function fetchContent() {
@@ -127,15 +129,15 @@ function ShowDifference({ show, onClose, request, resourceId, currentlyEditor, c
                 const response = await getContent(resourceId)
 
                 const payload = {
-                    id: response.content.id,
-                    titleEn: response.content.titleEn,
-                    titleAr: response.content.titleAr,
-                    slug: response.content.slug,
-                    resourceType: response.content.resourceType,
-                    resourceTag: response.content.resourceTag,
-                    relationType: response.content.relationType,
-                    comments: response.content.editModeVersionData.comments,
-                    referenceDoc: response.content.editModeVersionData.referenceDoc
+                    id: response.content?.id || "",
+                    titleEn: response.content?.titleEn || "",
+                    titleAr: response.content?.titleAr || "",
+                    slug: response.content?.slug || "",
+                    resourceType: response.content?.resourceType || "",
+                    resourceTag: response.content?.resourceTag || "",
+                    relationType: response.content?.relationType || "",
+                    comments: response.content?.editModeVersionData?.comments || "",
+                    referenceDoc: response.content?.editModeVersionData?.referenceDoc || ""
                 }
                 setLiveVersion({ ...payload, editVersion: response.content.liveModeVersionData })
                 setEditVersion({ ...payload, editVersion: response.content.editModeVersionData ?? response.content.liveModeVersionData })

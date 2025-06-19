@@ -57,7 +57,7 @@ const MarketDetails = ({ language, content, screen, width, highlight, liveConten
                         </h2>
                         <p
                             style={{ fontSize: fontSize.mainPara, lineHeight: fontSize.paraLeading }}
-                            className={`text-[#0E172FB2] text-[12px] leading-[26px] ${fontLight} word-spacing-5 ${isPhone ? "w-4/5" : isTablet ? "w-2/3" : "w-1/2"}
+                            className={`text-[#0E172FB2] text-[12px] leading-[26px] ${fontLight} word-spacing-5 ${isPhone ? "w-[90%]" : isTablet ? "w-2/3" : "w-1/2"}
                                     ${checkDifference(content?.['1']?.content?.description?.[language], liveContent?.['1']?.content?.description?.[language])}
                             `}>
                             {content?.['1']?.content?.description?.[language]}

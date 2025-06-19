@@ -4,6 +4,7 @@ import projectDetailsStructure from "./structureOfProjectDetails.json"
 import newsDetailsStructure from "./structureOFNewsDetails.json"
 import testimonials from "./structureOfTestimony.json"
 import subServiceDetailsStructure from "./structureOfSubServiceDetails.json"
+import snrPolicyStructure from "./structureOfSnRPolicy.json"
 
 export const structures = {
     SERVICE: serviceDetailsStructure,
@@ -11,5 +12,6 @@ export const structures = {
     PROJECT: projectDetailsStructure,
     NEWS: newsDetailsStructure,
     TESTIMONIAL: testimonials,
-    SUBSERVICE: subServiceDetailsStructure
+    SUBSERVICE: subServiceDetailsStructure,
+    SAFETY_RESPONSIBILITY: snrPolicyStructure
 }

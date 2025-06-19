@@ -1,5 +1,5 @@
 {
-    "id": "",
+    "id": "N",
     "titleEn": "",
     "titleAr": "",
     "slug": "",
@@ -22,7 +22,9 @@
                 "sectionId": "",
                 "order": 1,
                 "version": 2,
-                "title": "",
+                "title": "heroSection",
+                "SectionType": "NEWS_DETAIL",
+                "sectionVersionTitle": "-heroSection",
                 "content": {
                     "date": {
                         "ar": "",
@@ -59,7 +61,9 @@
                 "sectionId": "",
                 "order": 2,
                 "version": 2,
-                "title": "",
+                "title": "newsDetails",
+                "SectionType": "MARKDOWN_CONTENT",
+                "sectionVersionTitle": "-newsDetails",
                 "content": [
                     {
                         "order": 1,
@@ -79,7 +83,9 @@
                 "sectionId": "",
                 "order": 3,
                 "version": 2,
-                "title": "",
+                "title": "latestNewsSection",
+                "SectionType": "EXTERNAL_ITEMS",
+                "sectionVersionTitle": "-latestNewsSection",
                 "content": {
                     "title": {
                         "ar": "",

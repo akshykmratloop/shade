@@ -5,14 +5,14 @@
     "slug": "",
     "isEditable": true,
     "resourceType": "SUB_PAGE",
-    "resourceTag": "MARKET",
+    "resourceTag": "SAFETY_RESPONSIBILITY",
     "relationType": "CHILD",
     "parentId": "",
     "editVersion": {
         "id": "",
         "versionNumber": 1,
         "icon": null,
-        "image": null,
+        "image": "",
         "comments": "",
         "referenceDoc": null,
         "updatedAt": "",
@@ -20,11 +20,11 @@
         "sections": [
             {
                 "sectionId": "",
-                "SectionType": "HERO_BANNER",
-                "sectionVersionTitle": "MarketItem-heroSection",
                 "order": 1,
                 "version": 1,
-                "title": "heroSection",
+                "title": "overviewSection",
+                "SectionType": "MARKDOWN_CONTENT",
+                "sectionVersionTitle": "-overviewSection",
                 "content": {
                     "title": {
                         "ar": "",
@@ -49,39 +49,49 @@
             },
             {
                 "sectionId": "",
-                "SectionType": "MARKDOWN_CONTENT",
-                "sectionVersionTitle": "MarketItem-marketBodySection",
                 "order": 2,
                 "version": 1,
-                "title": "marketBodySection",
+                "title": "commitmentSection",
+                "SectionType": "MARKDOWN_CONTENT",
+                "sectionVersionTitle": "-commitmentSection",
                 "content": {
                     "title": {
                         "ar": "",
                         "en": ""
                     },
-                    "points": [
-                        {
-                            "order": 1,
-                            "title": {
-                                "ar": "",
-                                "en": ""
-                            },
-                            "images": [
-                                {
-                                    "url": "",
-                                    "order": 1,
-                                    "altText": {
-                                        "ar": "",
-                                        "en": ""
+                    "procedures": {
+                        "terms": [
+                            {
+                                "order": 1,
+                                "title": {
+                                    "ar": "",
+                                    "en": ""
+                                },
+                                "images": [
+                                    {
+                                        "url": "",
+                                        "order": 1,
+                                        "altText": {
+                                            "ar": "",
+                                            "en": ""
+                                        }
                                     }
+                                ],
+                                "description": {
+                                    "ar": "",
+                                    "en": ""
                                 }
-                            ],
-                            "description": {
-                                "ar": "",
-                                "en": ""
                             }
+                        ],
+                        "title": {
+                            "ar": "",
+                            "en": ""
+                        },
+                        "description": {
+                            "ar": "",
+                            "en": ""
                         }
-                    ],
+                    },
                     "description": {
                         "ar": "",
                         "en": ""
@@ -93,9 +103,9 @@
                 "sectionId": "",
                 "order": 3,
                 "version": 1,
-                "title": "projectsGridSection",
+                "title": "additionalInfoSection",
                 "SectionType": "EXTERNAL_ITEMS",
-                "sectionVersionTitle": "MarketItem-projectsGridSection",
+                "sectionVersionTitle": "-additionalInfoSection",
                 "content": {
                     "button": [
                         {
@@ -109,8 +119,7 @@
                         }
                     ]
                 },
-                "sections": [],
-                "items": []
+                "sections": []
             }
         ]
     }

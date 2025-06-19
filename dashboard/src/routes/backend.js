@@ -46,6 +46,7 @@ const api = {
 
   // Pages
   getResources: `${content}/getResources`, // Resources
+  addResource: `${content}/addResource`,
   getResourceInfo: `${content}/getResourceInfo/`,
   getEligibleUsers: `${content}/getEligibleUsers`,
   assignUser: `${content}/assignUser`,

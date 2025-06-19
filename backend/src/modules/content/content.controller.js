@@ -1,5 +1,6 @@
 // import {eventEmitter} from "../../helper/event.js";
 import {createNotification} from "../../repository/notification.repository.js";
+import prisma from "../../config/dbConfig.js";
 import {
   getResources,
   getResourceInfo,
@@ -24,6 +25,8 @@ import {
   getDashboardInsight,
   scheduleRequest,
   createNewResources,
+  getVersionContent,
+  addNewResource,
 } from "./content.service.js";
 
 const CreateNewResource = async (req, res) => {
@@ -50,6 +53,43 @@ const CreateNewResource = async (req, res) => {
     // filters,
     childResources,
   });
+
+  res.status(200).json(newResource);
+};
+
+const AddNewResource = async (req, res) => {
+  const {
+    titleEn,
+    titleAr,
+    slug,
+    resourceType,
+    resourceTag,
+    relationType,
+    parentId = null,
+    filters = [],
+    icon = null,
+    image = null,
+    referenceDoc = null,
+    comments,
+    sections = []
+  } = req.body;
+
+
+  const newResource = await addNewResource(
+    titleEn,
+    titleAr,
+    slug,
+    resourceType,
+    resourceTag,
+    relationType,
+    parentId,
+    filters,
+    icon,
+    image,
+    referenceDoc,
+    comments,
+    sections,
+  );
 
   res.status(200).json(newResource);
 };
@@ -252,8 +292,15 @@ const GetDashboardInsight = async (_, res) => {
   res.status(200).json(response);
 };
 
+const GetVersionContent = async (req, res) => {
+  const {versionId} = req.params;
+  const response = await getVersionContent(versionId);
+  res.status(200).json(response);
+};
+
 export default {
   CreateNewResource,
+  AddNewResource,
   GetResources,
   GetResourceInfo,
   GetEligibleUser,
@@ -269,7 +316,6 @@ export default {
   ApproveRequest,
   RejectRequest,
   ScheduleRequest,
-
   GetVersionsList,
   GetVersionInfo,
   RestoreVersion,
@@ -277,4 +323,5 @@ export default {
   DeactivateResources,
   ActivateResources,
   GetDashboardInsight,
+  GetVersionContent,
 };

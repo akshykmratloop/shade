@@ -1,218 +1,30 @@
-{
-  "titleEn": "Psychiatric Facility",
-  "titleAr": "المنشأة النفسية",
-  "slug": "psychiatric-facility",
-  "resourceType": "MAIN_PAGE",
-  "resourceTag": "HOME",
-  "relationType": "PARENT",
+ {
+  "titleEn": "English Title",
+  "titleAr": "Arabic Title",
+  "slug": "unique-slug",
+  "resourceType": "SUB_PAGE" | "SUB_PAGE_ITEM",
+  "resourceTag": "SERVICE" | "MARKET" | "PROJECT" | "TESTIMONIAL" | "NEWS" | "SAFETY_RESPONSIBILITY",
+  "relationType": "CHILD",
+  "parentId": "",
+  "filters": ["id of the filter"],
+  "icon": null,
+  "image": null,
+  "referenceDoc": null,
+  "comments": "Initial version created by system",
+  "sections": [
+    {
+      "title": "section-title",
+      "SectionType": "SECTION_TYPE",
+      "content": {
 
-  "newVersion": {
-    "comments": "Initial version created by system",
-    "referenceDoc": null,
-    "icon": null,
-    "image": null,
-    "sections": [
-      {
-        "SectionType": "HERO_BANNER",
-        "title": "HeroSection",
-        "sectionVersionTitle": "Home-heroSection",
-        "isGlobal": false,
-        "content": {
-          "link": {
-            "url": null,
-            "text": null
-          },
-          "title": {
-            "ar": "المنشأة النفسية",
-            "en": "Psychiatric Facility"
-          },
-          "button": [
-            {
-              "icon": null,
-              "text": {
-                "ar": "خلف",
-                "en": "Back"
-              },
-              "order": 1
-            }
-          ],
-          "images": [
-            {
-              "url": "https://frequencyimage.s3.ap-south-1.amazonaws.com/851e35b5-9b3b-4d9f-91b4-9b60ef2a102c-Rectangle%2034624110.png",
-              "order": 1,
-              "altText": {
-                "ar": "صورة شعار الصفحة الرئيسية",
-                "en": "Image 1"
-              }
-            }
-          ],
-          "subtitle": {
-            "ar": "العميل: وزارة الصحة",
-            "en": "Client: Ministry of Health"
-          }
+      },
+      "sectionVersionTitle": "section-version-title",
+      "items": [
+        {
+          "order": 1,
+          "id": "cmaw7xrbj00ftnt4v6myb3tc8"
         },
-        "items": [],
-        "sections": []
-      },
-      {
-        "sectionId": "cmc0iea8p008nra0msdkh32qn",
-        "order": 2,
-        "content": [
-          {
-            "key": {
-              "ar": "الموقع",
-              "en": "location"
-            },
-            "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/ion_location-sharp.svg",
-            "order": 1,
-            "value": {
-              "ar": "الرياض، المملكة العربية السعودية",
-              "en": "Riyadh, Saudi Arabia"
-            }
-          },
-          {
-            "key": {
-              "ar": "تاريخ البدء",
-              "en": "Start Date"
-            },
-            "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/solar_calendar-bold+(1).svg",
-            "order": 2,
-            "value": {
-              "ar": "يناير 2019",
-              "en": "January 2019"
-            }
-          },
-          {
-            "key": {
-              "ar": "تاريخ الانتهاء",
-              "en": "End Date"
-            },
-            "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/solar_calendar-bold.svg",
-            "order": 3,
-            "value": {
-              "ar": "ديسمبر 2021",
-              "en": "December 2021"
-            }
-          },
-          {
-            "key": {
-              "ar": "حالة",
-              "en": "status"
-            },
-            "icon": "https://loopwebsite.s3.ap-south-1.amazonaws.com/pajamas_status-neutral.svg",
-            "order": 4,
-            "value": {
-              "ar": "مكتمل",
-              "en": "Completed"
-            }
-          }
-        ],
-        "sections": []
-      },
-      {
-        "sectionId": "cmc0iea8w008tra0mxsmgx9sj",
-        "order": 3,
-        "content": [
-          {
-            "order": 1,
-            "title": {
-              "ar": "وصف المشروع",
-              "en": "Project Description"
-            },
-            "description": {
-              "ar": "إنشاء منشأة نفسية متكاملة بمساحة 25,000 متر مربع تحتوي على 200 سرير.",
-              "en": "Construction of a comprehensive psychiatric facility with 25,000 sqm area containing 200 beds."
-            }
-          },
-          {
-            "order": 2,
-            "title": {
-              "ar": "العمل يشمل",
-              "en": "Work Includes"
-            },
-            "description": {
-              "ar": "تشمل الأعمال الإنشائية للمبنى الرئيسي، المباني المساندة، مواقف السيارات، والمناطق الخضراء.",
-              "en": "Includes construction works for main building, support buildings, parking areas, and landscaping."
-            }
-          }
-        ],
-        "sections": []
-      },
-      {
-        "sectionId": "cmc0iea94008zra0mxcbp4g16",
-        "order": 4,
-        "content": {
-          "images": [
-            {
-              "alt": {
-                "ar": "صورة المعرض 1",
-                "en": "Gallery Image 1"
-              },
-              "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Rectangle+34624115+(1).png",
-              "order": 1
-            },
-            {
-              "alt": {
-                "ar": "صورة المعرض 2",
-                "en": "Gallery Image 2"
-              },
-              "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Rectangle+34624114+(1).png",
-              "order": 2
-            },
-            {
-              "alt": {
-                "ar": "صورة المعرض 3",
-                "en": "Gallery Image 3"
-              },
-              "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/Rectangle+34624113+(1).png",
-              "order": 3
-            }
-          ]
-        },
-        "sections": []
-      },
-      {
-        "sectionId": "cmc0iea9a0095ra0mjsgd7x1a",
-        "order": 5,
-        "content": {
-          "title": {
-            "ar": "المزيد من المشاريع",
-            "en": "More Projects"
-          },
-          "button": {
-            "url": null,
-            "icon": null,
-            "text": {
-              "ar": "عرض المزيد",
-              "en": "View More"
-            },
-            "order": 1
-          }
-        },
-        "items": [
-          {
-            "order": 1,
-            "id": "cmc0iea1q0045ra0mp6t9s4gb"
-          },
-          {
-            "order": 2,
-            "id": "cmc0iea3d0054ra0mp5bk7vj9"
-          },
-          {
-            "order": 3,
-            "id": "cmc0iea4s0065ra0mt1t4fw2a"
-          },
-          {
-            "order": 4,
-            "id": "cmc0iea6f0078ra0mrroot24y"
-          },
-          {
-            "order": 5,
-            "id": "cmc0iea82008dra0mushkbdjt"
-          }
-        ],
-        "sections": []
-      }
-    ]
-  }
+      ] 
+    }
+  ],
 }
