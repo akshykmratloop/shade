@@ -322,19 +322,19 @@ function RequestTable() {
                                     </th>
                                     {/* <th className="text-[#42526D] w-[164px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] text-center !capitalize">Sub Permission</th> */}
                                     {
-                                        canSeeEditor &&
+                                        // canSeeEditor &&
                                         <th className="text-[#42526D] w-[154px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] !capitalize text-center">
                                             Editor
                                         </th>}
 
                                     {
-                                        canSeeVerifier &&
+                                        // canSeeVerifier &&
                                         <th className="text-[#42526D] w-[221px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] text-center !capitalize">
                                             Verifier
                                         </th>
                                     }
                                     {
-                                        canSeePublisher &&
+                                        // canSeePublisher &&
                                         <th className="text-[#42526D] w-[221px] font-poppins font-medium text-[12px] leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white]  px-[24px] py-[13px] text-center !capitalize">
                                             Publisher
                                         </th>
@@ -491,25 +491,25 @@ function RequestTable() {
                                                                 />
                                                             </span>
                                                         </button>
-
-                                                        <button
-                                                            onClick={() => {
-                                                                setSelectedRequest(request);
-                                                                setShowDetailsModal(true);
-                                                                // openNotification();
-                                                                // setResourceId(request.resourceVersion.resourceId)
-                                                                setRequestId(request.id)
-                                                            }}
-                                                        >
-                                                            <span
-                                                                title={`Review${canSeeEditor ? " and update" : ""}`}
-                                                                className="flex items-center gap-1 rounded-md text-[#101828]">
-                                                                <FiEye
-                                                                    className="w-5 h-6  text-[#3b4152] dark:text-stone-200"
-                                                                    strokeWidth={1}
-                                                                />
-                                                            </span>
-                                                        </button>
+                                                        {(request.flowStatus !== "PUBLISHED" && request.flowStatus !== "SCHEDULED") &&
+                                                            <button
+                                                                onClick={() => {
+                                                                    setSelectedRequest(request);
+                                                                    setShowDetailsModal(true);
+                                                                    // openNotification();
+                                                                    // setResourceId(request.resourceVersion.resourceId)
+                                                                    setRequestId(request.id)
+                                                                }}
+                                                            >
+                                                                <span
+                                                                    title={`Review${canSeeEditor ? " and update" : ""}`}
+                                                                    className="flex items-center gap-1 rounded-md text-[#101828]">
+                                                                    <FiEye
+                                                                        className="w-5 h-6  text-[#3b4152] dark:text-stone-200"
+                                                                        strokeWidth={1}
+                                                                    />
+                                                                </span>
+                                                            </button>}
                                                     </div>
                                                 </td>
                                             </tr>

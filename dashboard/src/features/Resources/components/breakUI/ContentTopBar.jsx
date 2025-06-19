@@ -126,33 +126,33 @@ export default function ContentTopBar({ setWidth, setFullScreen, outOfEditing, c
             })
         }
     }
-console.log(ReduxState.present.content)
+    
     async function HandlepublishToLive() {
         console.log("publish")
-        // if (!isManager) return toast.error("You are not allowed to publish the content directly!", { autoClose: 600 })
-        // const payload = transformContent(ReduxState.present.content)
-        // try {
-        //     const response = await publishContent(payload)
-        //     if (response.message === "Success") {
-        //         dispatch(submitings())
-        //         toast.success("Changes have been published", {
-        //             style: { backgroundColor: "#187e3d", color: "white" },
-        //             autoClose: 1000, // Closes after 1 second
-        //             pauseOnHover: false, // Does not pause on hover
-        //         })
-        //         setTimeout(() => {
-        //             navigate(-1)
-        //         }, 650)
-        //     } else {
-        //         throw new Error(response.message)
-        //     }
-        // } catch (err) {
-        //     toast.error(err, {
-        //         style: { backgroundColor: "#187e3d", color: "white" },
-        //         autoClose: 1000, // Closes after 1 second
-        //         pauseOnHover: false, // Does not pause on hover
-        //     })
-        // }
+        if (!isManager) return toast.error("You are not allowed to publish the content directly!", { autoClose: 600 })
+        const payload = transformContent(ReduxState.present.content)
+        try {
+            const response = await publishContent(payload)
+            if (response.message === "Success") {
+                dispatch(submitings())
+                toast.success("Changes have been published", {
+                    style: { backgroundColor: "#187e3d", color: "white" },
+                    autoClose: 1000, // Closes after 1 second
+                    pauseOnHover: false, // Does not pause on hover
+                })
+                setTimeout(() => {
+                    navigate(-1)
+                }, 650)
+            } else {
+                throw new Error(response.message)
+            }
+        } catch (err) {
+            toast.error(err, {
+                style: { backgroundColor: "#187e3d", color: "white" },
+                autoClose: 1000, // Closes after 1 second
+                pauseOnHover: false, // Does not pause on hover
+            })
+        }
     }
 
     async function PublishNewPage() {

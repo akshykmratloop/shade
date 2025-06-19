@@ -1,145 +1,121 @@
 {
-    "message": "Success",
-    "content": {
-        "id": "cmbonw5pt00hcqp3ld866rdao",
-        "titleEn": "Fabrication",
-        "titleAr": "التصنيع",
-        "slug": "fabrication",
-        "isEditable": true,
-        "resourceType": "SUB_PAGE",
-        "resourceTag": "SERVICE",
-        "relationType": "CHILD",
-        "liveModeVersionData": {
-            "id": "cmbonw5pw00heqp3lgvok4fyh",
-            "versionNumber": 1,
-            "icon": null,
-            "image": null,
-            "comments": "Initial version created by system",
-            "referenceDoc": null,
-            "updatedAt": "2025-06-09T05:38:55.604Z",
-            "status": "LIVE",
-            "sections": [
+    "titleEn": "aaaaa",
+    "titleAr": "aaaa",
+    "slug": "aaaaaa",
+    "resourceType": "SUB_PAGE",
+    "resourceTag": "SERVICE",
+    "relationType": "CHILD",
+    "parentId": "",
+    "filters": [
+        null
+    ],
+    "icon": null,
+    "image": null,
+    "referenceDoc": null,
+    "comments": "",
+    "sections": [
+        {
+            "sectionId": "",
+            "title": "introSection",
+            "SectionType": "HERO_BANNER",
+            "sectionVersionTitle": "aaaaa-introSection",
+            "order": 1,
+            "version": 1,
+            "content": {
+                "title": {
+                    "ar": "",
+                    "en": "asdfadsf"
+                },
+                "images": [
+                    {
+                        "url": "file_1749815292882",
+                        "altText": {
+                            "en": "",
+                            "ar": ""
+                        },
+                        "order": 1
+                    }
+                ],
+                "description": {
+                    "ar": "",
+                    "en": "asdfadsfadsfadsf"
+                }
+            },
+            "sections": []
+        },
+        {
+            "sectionId": "",
+            "order": 2,
+            "version": 1,
+            "title": "childrenServices",
+            "SectionType": "EXTERNAL_ITEMS",
+            "sectionVersionTitle": "aaaaa-childrenServices",
+            "content": {
+                "button": [
+                    {
+                        "url": null,
+                        "icon": null,
+                        "text": {
+                            "ar": "",
+                            "en": ""
+                        },
+                        "order": 1
+                    }
+                ]
+            },
+            "sections": [],
+            "items": [
                 {
-                    "sectionId": "cmbonw5qj00hgqp3ldi2h6o7q",
+                    "id": "cmbultfay00dmqpchh8fkkwuf",
                     "order": 1,
-                    "version": 1,
-                    "title": "introSection-fabrication-3eb0",
-                    "content": {
-                        "title": {
-                            "ar": "التصنيع",
-                            "en": "Fabrication"
-                        },
-                        "images": [
-                            {
-                                "url": "https://loopwebsite.s3.ap-south-1.amazonaws.com/fabrication.png",
-                                "order": 1,
-                                "altText": {
-                                    "ar": "صورة التصنيع",
-                                    "en": "Fabrication Image"
-                                }
-                            }
-                        ],
-                        "description": {
-                            "ar": "نقدم خدمات تصنيع عالية الجودة باستخدام أحدث التقنيات لتلبية متطلبات المشاريع الصناعية والتجارية.",
-                            "en": "We offer high-quality fabrication services using advanced technologies to meet industrial and commercial project needs."
-                        }
-                    },
-                    "sections": []
+                    "slug": "infrastructure-maintenance",
+                    "titleEn": "Infrastructure Maintenance",
+                    "titleAr": "صيانة البنية التحتية",
+                    "description": {
+                        "ar": "نقدم خدمات صيانة شاملة للبنية التحتية لضمان استدامة وتطوير المشاريع العمرانية.",
+                        "en": "We offer comprehensive infrastructure maintenance services to ensure sustainability and development of urban projects."
+                    }
+                }
+            ]
+        },
+        {
+            "sectionId": "",
+            "order": 3,
+            "version": 1,
+            "title": "otherSecondLevelOFServices",
+            "SectionType": "EXTERNAL_ITEMS",
+            "sectionVersionTitle": "aaaaa-otherSecondLevelOFServices",
+            "content": {
+                "title": {
+                    "ar": "",
+                    "en": ""
                 },
+                "button": [
+                    {
+                        "url": null,
+                        "icon": null,
+                        "text": {
+                            "ar": "",
+                            "en": ""
+                        },
+                        "order": 1
+                    }
+                ]
+            },
+            "sections": [],
+            "items": [
                 {
-                    "sectionId": "cmbonw5qy00hmqp3ljxxmxhs3",
-                    "order": 2,
-                    "version": 1,
-                    "title": "childrenServices-fabrication-b337",
-                    "content": {
-                        "button": [
-                            {
-                                "url": null,
-                                "icon": null,
-                                "text": {
-                                    "ar": "عرض التفاصيل",
-                                    "en": "View Details"
-                                },
-                                "order": 1
-                            }
-                        ]
-                    },
-                    "sections": [],
-                    "items": [
-                        {
-                            "id": "cmbonw5fo00dxqp3ltasvoon9",
-                            "titleEn": "Structural Fabrication",
-                            "titleAr": "التصنيع الهيكلي",
-                            "slug": "structural-fabrication",
-                            "icon": null,
-                            "image": null,
-                            "order": 1
-                        }
-                    ]
-                },
-                {
-                    "sectionId": "cmbonw5ri00huqp3lnzc9u180",
-                    "order": 3,
-                    "version": 1,
-                    "title": "otherSecondLevelOFServices-fabrication-7eb5",
-                    "content": {
-                        "title": {
-                            "ar": "خدمات أخرى",
-                            "en": "Other Services"
-                        },
-                        "button": [
-                            {
-                                "url": null,
-                                "icon": null,
-                                "text": {
-                                    "ar": "عرض التفاصيل",
-                                    "en": "View Details"
-                                },
-                                "order": 1
-                            }
-                        ]
-                    },
-                    "sections": [],
-                    "items": [
-                        {
-                            "id": "cmbonw5iy00f3qp3lbj6yx4kk",
-                            "titleEn": "Construction Management",
-                            "titleAr": "إدارة البناء",
-                            "slug": "construction-management",
-                            "icon": null,
-                            "image": null,
-                            "order": 1
-                        },
-                        {
-                            "id": "cmbonw5l200fsqp3l6493t67a",
-                            "titleEn": "Project Services",
-                            "titleAr": "خدمات المشروع",
-                            "slug": "project-services",
-                            "icon": null,
-                            "image": null,
-                            "order": 2
-                        },
-                        {
-                            "id": "cmbonw5nc00gjqp3lsfdx7jpx",
-                            "titleEn": "Operation & Maintenance",
-                            "titleAr": "التشغيل والصيانة",
-                            "slug": "operation-maintenance",
-                            "icon": null,
-                            "image": null,
-                            "order": 3
-                        },
-                        {
-                            "id": "cmbonw5pt00hcqp3ld866rdao",
-                            "titleEn": "Fabrication",
-                            "titleAr": "التصنيع",
-                            "slug": "fabrication",
-                            "icon": null,
-                            "image": null,
-                            "order": 4
-                        }
-                    ]
+                    "id": "cmbultfet00ihqpchhn3baj7x",
+                    "order": 1,
+                    "slug": "equipment-rental",
+                    "titleEn": "Equipment Rental",
+                    "titleAr": "تأجير المعدات",
+                    "description": {
+                        "ar": "نوفر مجموعة واسعة من المعدات الحديثة للإيجار لدعم مختلف احتياجات المشاريع بكفاءة وفعالية.",
+                        "en": "We provide a wide range of modern equipment for rent to efficiently support various project needs."
+                    }
                 }
             ]
         }
-    }
+    ]
 }

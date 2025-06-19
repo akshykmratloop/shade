@@ -72,7 +72,7 @@ export function baseTransform(obj, filter) {
         resourceTag: object.resourceTag,
         relationType: object.relationType,
         parentId: object.parentId,
-        filters: [filter],
+        filters: filter ? [filter] : [],
         icon: object.editVersion.icon,
         image: object.editVersion.image,
         referenceDoc: object.editVersion.referenceDoc,
