@@ -1,4 +1,4 @@
-.org_banner_wrap {
+.serviceSubPage_banner_wrap {
   height: 715px;
   //   background: url("../../assets/images/Hero.png") no-repeat center / cover;
   width: 100%;
@@ -92,107 +92,6 @@
         transform: translateY(-50%);
         left: 32px;
       }
-    }
-  }
-}
-
-.chart_section_wrap {
-  padding: 112px 0;
-
-  .chartImage {
-    width: auto;
-    height: auto;
-  }
-}
-
-// Responsive Breakpoints
-@media (max-width: 800px) {
-  .org_banner_wrap {
-    height: auto;
-
-    .backgroundContainer {
-      height: 500px;
-      .backgroundImage {
-        height: 500px !important;
-      }
-    }
-
-    .content {
-      // position: static;
-      padding: 40px 20px;
-      // text-align: center;
-
-      .title {
-        font-size: 48px;
-        line-height: 56px;
-        width: 100%;
-        letter-spacing: -1px;
-      }
-
-      .description {
-        font-size: 14px;
-        line-height: 22px;
-        width: 100%;
-        margin: 20px auto;
-      }
-
-      .view_btn {
-        margin: 0 auto;
-        padding: 12px 24px 8px 48px;
-
-        .arrow_btn {
-          left: 16px;
-        }
-      }
-    }
-
-    .backgroundContainer .backgroundImage {
-      height: 50vh;
-    }
-  }
-
-  .chart_section_wrap {
-    padding: 4rem 1rem;
-
-    .chartImage {
-      width: 712px;
-      // height: auto;
-    }
-  }
-}
-
-@media (max-width: 500px) {
-  .org_banner_wrap .content {
-    padding: 20px 12px;
-
-    .title {
-      font-size: 32px;
-      line-height: 40px;
-    }
-
-    .description {
-      font-size: 12px;
-      line-height: 18px;
-    }
-
-    .view_btn {
-      padding: 10px 20px 6px 40px;
-
-      .arrow_btn {
-        left: 12px;
-      }
-    }
-  }
-
-  .backgroundContainer .backgroundImage {
-    height: 500px;
-  }
-
-  .chart_section_wrap {
-    padding: 2rem 0.5rem;
-
-    .chartImage {
-      width: 374px;
     }
   }
 }
