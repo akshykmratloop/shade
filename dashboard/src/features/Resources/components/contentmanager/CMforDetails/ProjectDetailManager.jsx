@@ -42,8 +42,8 @@ const ProjectDetailManager = ({ projectId, currentContent: content, currentPath,
 
     const introSection = content?.[1]?.content
     const urlSection = content?.[2]?.content;
-    const projectInforCard = content?.[2]?.content
-    const descriptionSection = content?.[3]?.content
+    const projectInforCard = content?.[2]?.content || []
+    const descriptionSection = content?.[3]?.content || []
     const gallerySection = content?.[4]?.content
     const moreProjects = content?.[5];
 
@@ -95,18 +95,20 @@ const ProjectDetailManager = ({ projectId, currentContent: content, currentPath,
             <FileUploader id={"ProjectIDReference" + projectId} label={"Rerference doc"} fileName={"Upload your file..."} />
 
             {context?.id === "N" &&
-                <ContentSection
-                    currentPath={currentPath}
-                    Heading={"Page - Details"}
-                    inputs={[
-                        { input: "input", label: "Title English", updateType: "titleEn", value: context?.titleEn },
-                        { input: "input", label: "Title Arabic", updateType: "titleAr", value: context?.titleAr, dir: "rtl" },
-                        { input: "input", label: "Slug", updateType: "slug", value: context?.slug },
+                <>
+                    <ContentSection
+                        currentPath={currentPath}
+                        Heading={"Page - Details"}
+                        inputs={[
+                            { input: "input", label: "Title English", updateType: "titleEn", value: context?.titleEn },
+                            { input: "input", label: "Title Arabic", updateType: "titleAr", value: context?.titleAr, dir: "rtl" },
+                            { input: "input", label: "Slug", updateType: "slug", value: context?.slug },
 
-                    ]}
-                    section={"page-details"}
-                    language={language}
-                />
+                        ]}
+                        section={"page-details"}
+                        language={language}
+                    />
+                </>
             }
 
             <ContentSection
@@ -219,7 +221,7 @@ const ProjectDetailManager = ({ projectId, currentContent: content, currentPath,
                 heading={"More Projects"}
                 tabName={"Select Project"}
                 listOptions={all}
-                options={moreProjects?.items.filter(e => e.slug !== slug) || []}
+                options={moreProjects?.items?.filter(e => e.slug !== slug) || []}
                 referenceOriginal={{ dir: "home", index: 0 }}
                 currentContent={content}
                 projectId={projectId}

@@ -31,8 +31,8 @@ const ProjectDetailPage = ({ content, language, projectId, screen, highlight, li
 
     const introSection = currentContent?.[1]?.content
     const urlSection = currentContent?.[2]?.content
-    const projectInforCard = currentContent?.[2]?.content
-    const descriptionSection = currentContent?.[3]?.content
+    const projectInforCard = currentContent?.[2]?.content || []
+    const descriptionSection = currentContent?.[3]?.content || []
     const gallerySection = currentContent?.[4]?.content
     const moreProjects = currentContent?.[5]
 

@@ -126,7 +126,7 @@ export default function ContentTopBar({ setWidth, setFullScreen, outOfEditing, c
             })
         }
     }
-    
+
     async function HandlepublishToLive() {
         console.log("publish")
         if (!isManager) return toast.error("You are not allowed to publish the content directly!", { autoClose: 600 })
@@ -356,11 +356,16 @@ export default function ContentTopBar({ setWidth, setFullScreen, outOfEditing, c
                 }
             </div>
 
-            <Popups display={PopUpPublish} setClose={() => setPopupPublish(false)}
-                confirmationText={"Are you sure you want to publish?"} confirmationFunction={ReduxState?.present?.content?.id === "N" ? PublishNewPage : HandlepublishToLive}
+            <Popups
+                display={PopUpPublish} setClose={() => setPopupPublish(false)}
+                confirmationText={`Are you sure you want to ${ReduxState?.present?.content?.id === "N" ? "create a new page" : "publish"}?`}
+                confirmationFunction={ReduxState?.present?.content?.id === "N" ? PublishNewPage : HandlepublishToLive}
             />
-            <Popups display={PopupSubmit} setClose={() => setPopupSubmit(false)}
-                confirmationText={"Are you sure you want to submit?"} confirmationFunction={handleSubmit}
+            <Popups
+                display={PopupSubmit}
+                setClose={() => setPopupSubmit(false)}
+                confirmationText={"Are you sure you want to submit?"}
+                confirmationFunction={handleSubmit}
             />
         </div>
     );

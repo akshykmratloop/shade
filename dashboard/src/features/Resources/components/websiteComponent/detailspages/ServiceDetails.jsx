@@ -23,7 +23,7 @@ const ServiceDetails = ({ serviceId, content, language, screen, width, highlight
             {/* banner */}
             <section className={`py-[120px] ${isPhone ? "px-2 h-[400px]" : "px-20"} flex flex-col justify-center object-cover items-start bg-cover bg-bottom `}
                 style={{
-                    backgroundImage: `linear-gradient(to bottom,#00000020 ,#fffffffb 100%), url(${Img_url + content?.['1']?.content?.images?.[0]?.url})`,
+                    backgroundImage: `linear-gradient(to left,#00000020 20%,#fffffffb 150%), url(${Img_url + content?.['1']?.content?.images?.[0]?.url})`,
                     padding: `${getDynamicSize(120)} ${getDynamicSize(150)}`,
                     height: (isComputer || isTablet) && getDynamicSize(550)
                 }}

@@ -1,5 +1,5 @@
 {
-    "id": "",
+    "id": "N",
     "titleEn": "",
     "titleAr": "",
     "slug": "",
@@ -19,10 +19,12 @@
         "status": "",
         "sections": [
             {
+                "title": "introSection",
+                "SectionType": "HERO_BANNER",
+                "sectionVersionTitle": "Project-introSection",
                 "sectionId": "",
                 "order": 1,
                 "version": 0,
-                "title": "",
                 "content": {
                     "link": {
                         "url": null,
@@ -60,10 +62,12 @@
                 "sections": []
             },
             {
+                "title": "projectInfoCard",
+                "SectionType": "MARKDOWN_CONTENT",
+                "sectionVersionTitle": "Project-projectInfoCard",
                 "sectionId": "",
                 "order": 2,
                 "version": 0,
-                "title": "",
                 "content": [
                     {
                         "key": {
@@ -76,15 +80,53 @@
                             "ar": "",
                             "en": ""
                         }
+                    },
+                    {
+                        "key": {
+                            "ar": "",
+                            "en": ""
+                        },
+                        "icon": "",
+                        "order": 2,
+                        "value": {
+                            "ar": "",
+                            "en": ""
+                        }
+                    },
+                    {
+                        "key": {
+                            "ar": "",
+                            "en": ""
+                        },
+                        "icon": "",
+                        "order": 3,
+                        "value": {
+                            "ar": "",
+                            "en": ""
+                        }
+                    },
+                    {
+                        "key": {
+                            "ar": "",
+                            "en": ""
+                        },
+                        "icon": "",
+                        "order": 4,
+                        "value": {
+                            "ar": "",
+                            "en": ""
+                        }
                     }
                 ],
                 "sections": []
             },
             {
+                "title": "projectDescriptionSection",
+                "SectionType": "MARKDOWN_CONTENT",
+                "sectionVersionTitle": "Project-projectDescriptionSection",
                 "sectionId": "",
                 "order": 3,
                 "version": 0,
-                "title": "",
                 "content": [
                     {
                         "order": 1,
@@ -101,10 +143,12 @@
                 "sections": []
             },
             {
+                "title": "gallerySection",
+                "SectionType": "GALLERY_GRID",
+                "sectionVersionTitle": "Project-gallerySection",
                 "sectionId": "",
                 "order": 4,
                 "version": 0,
-                "title": "",
                 "content": {
                     "images": [
                         {
@@ -120,10 +164,12 @@
                 "sections": []
             },
             {
+                "title": "moreProjects",
+                "SectionType": "EXTERNAL_ITEMS",
+                "sectionVersionTitle": "Project-moreProjects",
                 "sectionId": "",
                 "order": 5,
                 "version": 0,
-                "title": "",
                 "content": {
                     "title": {
                         "ar": "",
