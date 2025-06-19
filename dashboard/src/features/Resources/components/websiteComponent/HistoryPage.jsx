@@ -45,7 +45,7 @@ const History = ({ currentContent, screen, language, width, highlight, liveConte
                 <div className="container relative flex items-center justify-center"
                 >
                     <div
-                        className={` ${isLeftAlign ? 'scale-x-[-1]' : ''} ${isPhone ? "w-full" : isTablet ? "" : "w-full"}  flex flex-col 
+                        className={` ${isLeftAlign ? 'scale-x-[-1]' : ''} w-full  flex flex-col 
                         ${isPhone ? "items-start" : "items-start p-6 space-y-4"} `}
                         style={{
                             padding: (isTablet) && `${getDynamicSize(100)} ${getDynamicSize(110)}`

@@ -64,17 +64,17 @@ const ServiceDetailsManager = ({ serviceId, content, currentPath, language, inde
             <FileUploader id={"ServiceDetailsIDReference" + serviceId} label={"Rerference doc"} fileName={"Upload your file..."} />
 
             {
-            // context?.id === "N"
-            true
-             &&
+                // context?.id === "N"
+                // true
+                // &&
                 <ContentSection
                     currentPath={currentPath}
                     Heading={"Page - Details"}
                     inputs={[
-                        { input: "input", label: "Title English", updateType: "titleEn", value: context?.titleEn },
+                        { input: "input", label: "Title English", updateType: "titleEn", value: context?.titleEn, dir: "ltr" },
                         { input: "input", label: "Title Arabic", updateType: "titleAr", value: context?.titleAr, dir: "rtl" },
-                        { input: "input", label: "Slug", updateType: "slug", value: context?.slug },
-
+                        // { input: "input", label: "Slug", updateType: "slug", value: context?.slug },
+                        ...(context?.id === "N" ? [{ input: "input", label: "Slug", updateType: "slug", value: context?.slug }] : [])
                     ]}
                     section={"page-details"}
                     language={language}

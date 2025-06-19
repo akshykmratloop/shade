@@ -43,8 +43,8 @@ const MarketDetails = ({ language, content, screen, width, highlight, liveConten
                 {/* banner Text */}
                 <div className="container relative h-full flex items-center justify-end"
                 >
-                    <div
-                        className={` ${isLeftAlign ? 'scale-x-[-1]' : ''} ${isPhone ? "w-full" : isTablet ? "" : ""} flex flex-col ${isPhone ? "items-start" : " space-y-4"} `}>
+                    <div 
+                        className={` ${isLeftAlign ? 'scale-x-[-1]' : ''} w-full flex flex-col ${isPhone ? "items-start" : " space-y-4"} `}>
                         <h2 className={`text-[#292E3D] font-medium ${isPhone ? "text-[40px]" : isTablet ? "text-[45px]" : "text-[45px]"} tracking-[-3px] mb-4
                                     ${checkDifference(content?.['1']?.content?.title?.[language], liveContent?.['1']?.content?.title?.[language])}
                         `}
@@ -57,8 +57,10 @@ const MarketDetails = ({ language, content, screen, width, highlight, liveConten
                         </h2>
                         <p
                             style={{ fontSize: fontSize.mainPara, lineHeight: fontSize.paraLeading }}
-                            className={`text-[#0E172FB2] text-[12px] leading-[26px] ${fontLight} word-spacing-5 ${isPhone ? "w-[90%]" : isTablet ? "w-2/3" : "w-1/2"}
-                                    ${checkDifference(content?.['1']?.content?.description?.[language], liveContent?.['1']?.content?.description?.[language])}
+                            className={`text-[#0E172FB2] text-[12px] leading-[26px] 
+                                        ${fontLight} word-spacing-5 
+                                        ${isPhone ? "w-4/5" : isTablet ? "w-3/5" : "w-1/2"}
+                                        ${checkDifference(content?.['1']?.content?.description?.[language], liveContent?.['1']?.content?.description?.[language])}
                             `}>
                             {content?.['1']?.content?.description?.[language]}
                         </p>

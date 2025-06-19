@@ -41,7 +41,7 @@ const Organization = ({ language, screen, content, width, highlight, liveContent
                     <div
                         className={` 
                             ${isLeftAlign ? 'scale-x-[-1]' : ''} 
-                            ${isPhone ? "w-full" : isTablet ? "" : ""} flex flex-col 
+                            w-full flex flex-col 
                             ${isPhone ? "items-start" : "items-left space-y-4"} `}
                     >
                         <h2 className={`text-[#292E3D] font-medium ${isPhone ? "text-[40px]" : isTablet ? "text-[45px]" : "text-[45px]"} tracking-[-3px] mb-4
