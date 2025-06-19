@@ -57,13 +57,16 @@ const ServiceDetailsManager = ({ serviceId, content, currentPath, language, inde
         }
 
         getOptionsforServices()
-    }, [])
+    }, [id])
     return (
         <div className={`w-[299px]`}>
             {/* file doc */}
             <FileUploader id={"ServiceDetailsIDReference" + serviceId} label={"Rerference doc"} fileName={"Upload your file..."} />
 
-            {context?.id === "N" &&
+            {
+            // context?.id === "N"
+            true
+             &&
                 <ContentSection
                     currentPath={currentPath}
                     Heading={"Page - Details"}

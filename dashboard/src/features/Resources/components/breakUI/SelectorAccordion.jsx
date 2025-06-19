@@ -10,7 +10,6 @@ const SelectorAccordion = ({
   value = [],
   preAssignedVerifiers,
 }) => {
-  console.log(options)
   const [selector, setSelector] = useState([{ label: "Level 1", value: "" }]);
   const selectorRef = useRef(null);
   const prevSelectorRef = useRef(selector);
@@ -27,7 +26,6 @@ const SelectorAccordion = ({
     setSelector(prev => [...prev, { label: `Level ${prev.length + 1}`, value: "" }]);
   };
 
-  console.log(selector)
 
   const updateSelectorValue = (index, label, newValue) => {
     if (!newValue) return;

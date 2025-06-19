@@ -7,6 +7,7 @@ import { updateSpecificContent, updateServicesNumber, updateImages, updateAList,
 import InputFileForm from "../../../../components/Input/InputFileForm";
 import JoditEditor from "jodit-react";
 import { Jodit } from "jodit-react";
+import Select from "../../../../components/Input/Select"
 
 const skeleton = {
     socialLinks: {
@@ -271,6 +272,22 @@ const ContentSection = ({
                                 id={input.updateType}
                                 maxLength={input.maxLength}
                                 outOfEditing={outOfEditing}
+                            />
+                        );
+                    } else if (input.input === "select") {
+                        return (
+                            <Select
+                                key={i}
+                                label={input.label}
+                                options={input.option}
+                                labelClass="block sm:text-xs xl:text-sm text-[#6B7888]"
+                                width={"w-full"}
+                                baseClass={"outline-none border-none py-2"}
+                                selectClass={"outline-none border border-stone-300 dark:border-[#3f444f] dark:bg-[#2A303C] bg-white"}
+                                optionsClass={"dark:bg-[#242933]"}
+                                setterOnChange={(updateType, value) => updateFormValue(updateType, value, input.index)}
+                                field={input.updateType}
+                                // outOfEditing={outOfEditing}
                             />
                         );
                     } else if (input.input === "richtext") {
