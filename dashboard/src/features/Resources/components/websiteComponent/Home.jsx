@@ -291,7 +291,7 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                             })}
                         </div>
                     </div>
-                    <div className={`${isPhone ? "w-full" : "w-[550px]"} ${isTablet ? !isLeftAlign ? "pr-[64px]" : "pl-[40px]" : isTablet ? "pl-[40px]" : ""}  ${fullScreen ? "flex-[2]" : "flex-[1]"}`}
+                    <div className={`${isPhone ? "w-full" : "w-[550px]"} ${isTablet ? !isLeftAlign ? "pr-[64px]" : "pl-[40px]" : isTablet ? "pl-[40px]" : ""}  ${fullScreen ? "flex-[2]" : "flex-[3]"}`}
                         style={{
                             // maxWidth: isComputer && dynamicSize(420, width)
                             // width: isComputer && dynamicSize(420, width),

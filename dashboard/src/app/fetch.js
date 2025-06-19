@@ -290,6 +290,15 @@ export async function updateUser(data) {
   );
 }
 
+export async function updateProfile(data) {
+  return await makerequest(
+    api.route("updateProfile"),
+    "PUT",
+    JSON.stringify(data),
+    ContentType.json
+  );
+}
+
 export async function getUserById(id) {
   return await makerequest(api.route("getUserById") + id, "GET");
 }

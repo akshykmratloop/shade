@@ -7,7 +7,7 @@ import InputText from '../../../components/Input/InputText'
 import formatTimestamp from "../../../app/TimeFormat"
 import capitalizeWords from "../../../app/capitalizeword"
 import DirectInputFile from "../../../components/Input/DirectInputFile";
-import { getUserById } from "../../../app/fetch";
+import { getUserById, updateProfile } from "../../../app/fetch";
 // import moment from "moment"
 // import InputFile from "../../../components/Input/InputFile"
 // import TextAreaInput from '../../../components/Input/TextAreaInput'
@@ -22,8 +22,9 @@ function ProfileSettings() {
     const [isDisable, setIsDisable] = useState(true)
     const [fetchedData, setFetchedData] = useState({})
     const [loading, setLoading] = useState(false)
+    const [random, setRandom] = useState(0)
 
-    console.log(fetchedData)
+    // console.log(fetchedData)
 
     const normalUserState = { name: user.name, phone: user.phone, image: user.image }
     const [updateObj, setUpdateObj] = useState(normalUserState)
@@ -40,9 +41,16 @@ function ProfileSettings() {
     }
 
     // Call API to update profile settings changes
-    // const updateProfile = () => {
-    //     dispatch(showNotification({ message: "Profile Updated", status: 1 }))
-    // }
+    const SubmitUpdatedProfile = async () => {
+        try {
+            const response = await updateProfile(updateObj);
+            if (response.ok) {
+                setRandom(Math.random)
+            }
+        } catch (err) {
+            console.log(err)
+        }
+    }
 
     const updateFormValue = ({ updateType, value }) => {
         setUpdateObj(prev => {
@@ -79,7 +87,7 @@ function ProfileSettings() {
             }
         }
         getUser();
-    }, [user]);
+    }, [user, random]);
 
     return (
         <div className="relative">
@@ -190,6 +198,7 @@ function ProfileSettings() {
                     </div>
                 }
             </TitleCard >
+            
         </div>
     )
 }
