@@ -22,7 +22,6 @@ const BankGothic = localFont({
 const Footer = () => {
   const { language, content, footerData } = useGlobalContext();
   const currentContent = createContent(footerData.content).content;
-  console.log(currentContent)
   const [isModal, setIsModal] = useState(false);
 
   const handleContactUSClose = () => {
