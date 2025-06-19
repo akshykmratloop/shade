@@ -45,7 +45,7 @@ const SnRPolicies = ({ currentContent, screen, language, width, highlight, liveC
                 <div className="container relative h-full flex items-center justify-end"
                 >
                     <div
-                        className={` ${isLeftAlign ? 'scale-x-[-1]' : ''} ${isPhone ? "w-full" : isTablet ? "" : ""} flex flex-col ${isPhone ? "items-start" : " space-y-4"} `}>
+                        className={` ${isLeftAlign ? 'scale-x-[-1]' : ''} w-full flex flex-col ${isPhone ? "items-start" : " space-y-4"} `}>
                         <h2 className={`text-[#292E3D] font-medium ${isPhone ? "text-[40px]" : isTablet ? "text-[45px]" : "text-[45px]"} tracking-[-3px] mb-4
                             ${checkDifference(currentContent?.['1']?.content?.title?.[language], liveContent?.['1']?.content?.title?.[language])}
                         `}
