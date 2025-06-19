@@ -129,7 +129,7 @@ export const fetchContentForWebsite = async (
     result.liveModeVersionData = await formatResourceVersionData(
       resource.liveVersion,
       isItemFullContent,
-      resource.id,
+      resource.slug,
       resource.resourceType,
       resource.resourceTag
     );

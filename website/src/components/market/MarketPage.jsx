@@ -30,10 +30,12 @@ const ContactUsModal = dynamic(() => import("../header/ContactUsModal"), {
 });
 import { projectPageData } from "../../assets/index";
 import { Img_url } from "@/common/CreateContent";
+import Link from "next/link";
 
 const MarketPage = ({ content }) => {
   console.log(content)
   const router = useRouter();
+  const currentPath = router.asPath;
 
   const testimonialPrevRef = useRef(null);
   const testimonialNextRef = useRef(null);
@@ -144,7 +146,7 @@ const MarketPage = ({ content }) => {
                 // style={{ width: '463px', height: '100%' }}
                 >
                   <img
-                    src="https://frequencyimage.s3.ap-south-1.amazonaws.com/851e35b5-9b3b-4d9f-91b4-9b60ef2a102c-Rectangle%2034624110.png"
+                    src={Img_url + e.image}
                     alt=""
                     style={{
                       width: '463px',
@@ -160,14 +162,16 @@ const MarketPage = ({ content }) => {
                       fontSize: '32px',
                     }}
                   >{TruncateText(e?.[titleLan], 35)} </h3>
-                  <p className={`${styles.description} bank-light`}
+                  <div className={`${styles.description} bank-light`}
                     style={{
                       fontSize: '16px',
                       wordSpacing: '2px'
-                    }}>
-                    {TruncateText(e?.description?.[language], 350)}
-                  </p>
-                  <button
+                    }}
+                    dangerouslySetInnerHTML={{ __html: TruncateText(e?.description?.[language], 350) }}
+                  >
+                  </div>
+                  <Link
+                    href={`${currentPath}/${e.slug}`}
                     className={`${styles.button} ${isLeftAlign ? "flex-row-reverse" : ""} bankgothic-medium-dt`}
                     style={{
                       fontSize: '16px',
@@ -188,7 +192,7 @@ const MarketPage = ({ content }) => {
                     <p>
                       {currentContent?.["3"]?.content?.button?.[0]?.text?.[language]}
                     </p>
-                  </button>
+                  </Link>
                 </article>
               </section>
             )
