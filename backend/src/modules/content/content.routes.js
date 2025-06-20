@@ -165,4 +165,9 @@ router.get(
   tryCatchWrap(ContentController.GetVersionContent)
 );
 
+router.get(
+  "/getAllFilters",
+  tryCatchWrap(ContentController.GetAllFilters)
+);
+
 export default router;
