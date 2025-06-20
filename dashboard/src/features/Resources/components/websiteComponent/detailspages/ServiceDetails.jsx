@@ -76,7 +76,7 @@ const ServiceDetails = ({ serviceId, content, language, screen, width, highlight
                                             }}
                                         />
                                     </article>
-                                    <article className="flex flex-col items-start justify-between"
+                                    <article className="flex w-full flex-col items-start justify-between"
                                         style={{
                                             gap: fontSize.aboutCardPaddingX,
                                             padding: isTablet && `${getDynamicSize(20)} 0px`
