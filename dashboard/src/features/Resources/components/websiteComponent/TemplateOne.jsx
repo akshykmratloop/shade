@@ -2,6 +2,7 @@ import { useSelector } from "react-redux";
 import dynamicSize, { defineDevice, differentText, generatefontSize } from "../../../../app/fontSizes";
 import { Img_url } from "../../../../routes/backend";
 import { aboutUsIcons, projectPageData } from "../../../../assets";
+import { services } from "../../../../assets";
 
 
 const TemplateOne = ({ content, screen, language, width, highlight, liveContent }) => {
@@ -27,7 +28,10 @@ const TemplateOne = ({ content, screen, language, width, highlight, liveContent 
                             ${checkDifference(content?.['1']?.content?.images?.[0]?.url, liveContent?.['1']?.content?.images?.[0]?.url)}
                             flex items-center bg-cover bg-center ${isLeftAlign ? 'scale-x-[-1]' : ''}`}
                 style={{
-                    backgroundImage: `url("${Img_url + content?.['1']?.content?.images?.[0]?.url}")`,
+                    backgroundImage: `url("${
+                        // Img_url + content?.['1']?.content?.images?.[0]?.url
+                        services.contructionTowerImage
+                        }")`,
                     backgroundPosition: "bottom",
                     height: isComputer ? getDynamicSize(600) : "70vh",
                     padding: (isComputer) && `${getDynamicSize(100)} ${getDynamicSize(120)}`
@@ -71,19 +75,20 @@ const TemplateOne = ({ content, screen, language, width, highlight, liveContent 
                 </div>
             </section>
 
-            <section className=""
+            <section className="px-10 py-10"
                 style={{
-                    padding: (isComputer) && `${getDynamicSize(100)} ${getDynamicSize(120)}`
+                    padding: (isComputer || isTablet) && `${getDynamicSize(100)} ${getDynamicSize(120)}`
                 }}
             >
-                <div className={`grid ${(isComputer || isTablet) && "grid-cols-2"}`}
-                    style={{ gap: `${getDynamicSize(100)}` }}
+                <div className={`grid ${(isComputer || isTablet) && "grid-cols-2"} gap-10`}
+                    style={{ gap: (isComputer || isTablet) && `${getDynamicSize(80)} ${getDynamicSize(90)}` }}
                 >
                     {
                         tempArr?.map((e, i) => {
                             return (
                                 <div key={i}
-                                    className="flex flex-col gap-4"
+                                    className="flex flex-col gap-1"
+                                    style={{ gap: `${getDynamicSize(16)}` }}
                                 >
                                     <div className=" bg-[#00B9F212]"
                                         style={{ padding: `${getDynamicSize(58)}` }}
@@ -94,8 +99,8 @@ const TemplateOne = ({ content, screen, language, width, highlight, liveContent 
 
                                     </div>
                                     <div>
-                                        <h3
-                                            style={{ fontSize: fontSize.subProjectHeadings }}
+                                        <h3 className={`${isTablet && "mb-2"}`}
+                                            style={{ fontSize: fontSize.subProjectHeadings, lineHeight: isTablet && "30px" }}
                                         >Lorem, ipsum dolor.</h3>
                                         <p className={`${fontLight}`}
                                             style={{ fontSize: fontSize.mainPara }}
@@ -107,15 +112,16 @@ const TemplateOne = ({ content, screen, language, width, highlight, liveContent 
                     }
                 </div>
             </section>
+
             <section
                 style={{
-                    padding: (isComputer) && `${getDynamicSize(100)} ${getDynamicSize(120)}`
+                    padding: (isComputer || isTablet) && `${getDynamicSize(100)} ${getDynamicSize(120)}`
                 }}
                 className="bg-[#00B9F28C]"
             >
 
-                <div className={`grid ${(isComputer || isTablet) && "grid-cols-3"}`}
-                    style={{ gap: `${getDynamicSize(40)}` }}
+                <div className={`grid ${(isComputer) ? "grid-cols-3" : isTablet ? "grid-cols-2" : "grid-cols-1 p-10  gap-10"}`}
+                    style={{ gap: (isComputer || isTablet) && `${getDynamicSize(40)}` }}
                 >
                     {
                         tempArr?.concat(tempArr)?.map((e, i) => {
@@ -127,12 +133,12 @@ const TemplateOne = ({ content, screen, language, width, highlight, liveContent 
                                     }}
                                     key={i}
                                 >
-                                    <div className="flex"
-                                        style={{ gap: getDynamicSize(10) }}
+                                    <div className="flex gap-4"
+                                        style={{ gap: (isComputer || isTablet) && getDynamicSize(10) }}
                                     >
                                         <img src={aboutUsIcons.ourGoal} alt=""
-                                            style={{ width: getDynamicSize(46) }}
-                                            className="aspect-[1/1]"
+                                            style={{ width: (isComputer || isTablet) && getDynamicSize(46) }}
+                                            className="aspect-[1/1] w-[30px]"
                                         />
                                         <h3
                                             style={{ fontSize: fontSize.aboutMainPara }}
@@ -149,21 +155,22 @@ const TemplateOne = ({ content, screen, language, width, highlight, liveContent 
             </section>
 
             <section
+                className="p-10"
                 style={{
-                    padding: (isComputer) && `${getDynamicSize(80)} ${getDynamicSize(120)}`
+                    padding: (isComputer || isTablet) && `${getDynamicSize(80)} ${getDynamicSize(120)}`
                 }}
             >
                 <div
                     style={{
                         padding: (isComputer) && `${getDynamicSize(0)} ${getDynamicSize(60)}`,
-                        gap: `${getDynamicSize(40)}`
+                        gap: (isComputer || isTablet) && `${getDynamicSize(40)}`
                     }}
-                    className="flex flex-col"
+                    className="flex flex-col gap-6"
                 >
                     {
                         tempArr?.map((e, i) => {
                             return (
-                                <section className={`flex gap-[30px] border ${isPhone ? "flex-col" : ""}`} key={i}>
+                                <section className={`flex gap-[10px] border ${isPhone ? "flex-col p-1" : ""}`} key={i}>
                                     <h2 className={`text-[32px] flex-1 leading-[28px]
                                                     ${checkDifference(content?.[2]?.content?.title?.[language], liveContent?.[2]?.content?.title?.[language])}
                                                 `}
@@ -174,7 +181,7 @@ const TemplateOne = ({ content, screen, language, width, highlight, liveContent 
                                             "Project Description"
                                         }
                                     </h2>
-                                    <div className={`text-[9.5px] flex-1
+                                    <div className={`text-[9.5px] flex-1 ${fontLight}
                                                     ${checkDifference(content?.[2]?.content?.description?.[language], liveContent?.[2]?.content?.description?.[language])}
                                                     `}
                                         style={{ fontSize: fontSize.mainPara }}
