@@ -113,10 +113,10 @@ const TemplateTwo = ({ content, screen, language, width, highlight, liveContent 
 
             <section
                 style={{
-                    padding: (isComputer) && `${getDynamicSize(0)} ${getDynamicSize(150)}`
+                    padding: (isComputer || isTablet) && `${getDynamicSize(0)} ${getDynamicSize(150)}`
                 }}
             >
-                <div className="grid grid-cols-5"
+                <div className={`${isComputer ?"grid grid-cols-5":isTablet? "flex flex-wrap":""}`}
                     style={{
                         gap: (isComputer) && `${getDynamicSize(15)}`
                     }}
