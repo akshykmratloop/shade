@@ -48,6 +48,25 @@ const ProjectDetailManager = ({ projectId, currentContent: content, currentPath,
     const moreProjects = content?.[5];
 
     const [all, setAll] = useState([])
+    
+    useEffect(() => {
+        if (context?.id === "N") {
+            async function getOptionsforServices() {
+                const response = await getResources({ resourceType: "SUB_PAGE", resourceTag: "SERVICE", apiCallType: "INTERNAL" })
+
+                if (response.message === "Success") {
+                    let options = response?.resources?.resources?.map((e, i) => ({
+                        // slug: e.slug,
+                        id: e?.id,
+                        name: e?.titleEn
+                    }))
+                    setServiceParents(options)
+                }
+            }
+
+            getOptionsforServices()
+        }
+    }, [context?.id])
 
     useEffect(() => {
         async function getOptionsForServices() {

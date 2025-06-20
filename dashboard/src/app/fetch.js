@@ -451,6 +451,17 @@ export async function schedulePublish(param, body) {
   );
 }
 
+export async function getAllFilters(query){
+  if (!query || typeof query !== "object" || Object.keys(query).length === 0) {
+    return await makerequest(api.route("getAllFilters"), "GET");
+  }
+
+  const params = new URLSearchParams(query).toString();
+  const url = `${api.route("getAllFilters")}?${params}`;
+
+  return await makerequest(url, "GET");
+}
+
 export async function generateRequest(body) {
   return await makerequest(
     `${api.route("generateRequest")}`,
