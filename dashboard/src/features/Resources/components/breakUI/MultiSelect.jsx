@@ -89,7 +89,6 @@ const MultiSelect = ({ outOfEditing, heading, options, tabName, label, language,
     }
 
     setRandom(prev => prev + 1)
-    console.log('qwerjwkh')
   };
 
 
@@ -138,7 +137,6 @@ const MultiSelect = ({ outOfEditing, heading, options, tabName, label, language,
 
   useEffect(() => {
     if (Array.isArray(options) && random !== 1) {
-      console.log("lopp")
       dispatch(updateSelectedContentAndSaveDraft({
         origin: referenceOriginal.dir,
         index: referenceOriginal.index,

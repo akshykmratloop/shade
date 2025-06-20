@@ -333,7 +333,7 @@ export async function getNotificationsbyId(id, page = 1, search = "", filters = 
 
   const uri = api.route("getNotifications") + id + "?" + params.toString();
   // const uri = api.route("getNotifications") + id;
-  console.log(uri, "uri==============");
+  // console.log(uri, "uri==============");
   return await makerequest(uri, "GET");
 }
 

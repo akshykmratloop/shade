@@ -41,7 +41,6 @@ const ServiceDetailsManager = ({ serviceId, content, currentPath, language, inde
 
             if (response2.message === "Success") {
                 let options = response2?.resources?.resources?.map((e, i) => {
-                    console.log(e)
                     return ({
                         id: e.id,
                         order: i + 1,

@@ -27,6 +27,7 @@ import HSnE from "./websiteComponent/HSE";
 import MarketDetails from "./websiteComponent/detailspages/MarketDetails";
 import AffiliatesPage from "./websiteComponent/Affiliates";
 import Organization from "./websiteComponent/Organizational";
+import TemplateOne from "./websiteComponent/TemplateOne";
 
 // import { useDispatch, useSelector } from "react-redux";
 // import { useEffect, useRef, useState } from "react";
@@ -124,6 +125,9 @@ const AllForOne = ({
 
             case "organization":
                 return <Organization {...baseProps} content={content} />
+
+            case "temp-1":
+                return <TemplateOne {...baseProps} content={content} />
 
             default:
                 return null;
