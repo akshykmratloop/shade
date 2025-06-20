@@ -50,7 +50,7 @@ const VisionNMission = ({ currentContent, screen, language, width, liveContent, 
                 <div className="container relative h-full flex items-center justify-center "
                 >
                     <div
-                        className={` ${isLeftAlign ? 'scale-x-[-1]' : ''} ${isPhone ? "w-full" : isTablet ? "" : ""} flex flex-col 
+                        className={` ${isLeftAlign ? 'scale-x-[-1]' : ''} w-full flex flex-col 
                         ${isPhone ? "items-start" : "items-start space-y-4"} `}>
                         <h2
                             className={`text-[#292E3D] font-medium ${isPhone ? "text-[40px]" : isTablet ? "text-[45px]" : "text-[45px]"} tracking-[-3px] mb-4

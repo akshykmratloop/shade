@@ -99,7 +99,6 @@ const EditPage = () => {
 
     useEffect(() => {
         setLoader(true)
-        console.log(typeof currentId)
         if (currentId) {
             async function context() {
                 try {

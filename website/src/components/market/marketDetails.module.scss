@@ -1,0 +1,342 @@
+
+.bannerSection {
+  position: relative;
+  width: 100%;
+  padding: 100px 40px;
+  background-size: cover;
+  background-position: bottom;
+  background-repeat: no-repeat;
+
+  @media (min-width: 768px) {
+    padding: 100px 60px;
+  }
+
+  @media (min-width: 1024px) {
+    height: 600px;
+    padding: 100px 150px;
+  }
+}
+
+.leftAlign {
+  transform: scaleX(-1);
+}
+
+.bannerGradient {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  overflow: hidden;
+}
+
+.gradientCircle {
+  border-radius: 9999px;
+  background-color: white;
+  opacity: 0.9;
+  filter: blur(120px);
+  mix-blend-mode: screen;
+  width: 750px;
+  height: 650px;
+}
+
+.bannerContainer {
+  position: relative;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.bannerText {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+
+  @media (max-width: 767px) {
+    align-items: flex-start;
+  }
+
+  @media (min-width: 768px) {
+    gap: 1rem;
+  }
+}
+
+.textLeftAlign {
+  transform: scaleX(-1);
+}
+
+.heading {
+  color: #292E3D;
+  font-weight: 500;
+  letter-spacing: -3px;
+  margin: 16px 0;
+  font-size: 40px;
+  line-height: 1.1;
+
+  @media (min-width: 768px) {
+    font-size: 70px;
+  }
+}
+
+.description {
+  color: #0E172FB2;
+  font-size: 16px;
+  line-height: 26px;
+  font-weight: 300;
+  word-spacing: 5px;
+
+  @media (max-width: 767px) {
+    width: 80%;
+  }
+
+  @media (min-width: 768px) and (max-width: 1023px) {
+    width: 60%;
+  }
+
+  @media (min-width: 1024px) {
+    width: 50%;
+  }
+}
+
+
+.serviceSection {
+  position: relative;
+  width: 100%;
+  background-size: cover;
+  background-position: center;
+  padding: 40px; // default for mobile
+
+  @media (min-width: 768px) {
+    padding: 60px 120px;
+  }
+
+  @media (min-width: 1024px) {
+    padding: 60px 120px;
+  }
+
+  padding-bottom: 20px; // mimic pb-5 in mobile
+}
+
+.subSection {
+  display: flex;
+  gap: 30px;
+  flex-direction: column;
+
+  @media (min-width: 768px) {
+    flex-direction: row;
+  }
+}
+
+.subheading {
+  font-size: 40px;
+  line-height: 28px;
+  flex: 1;
+  font-weight: 500;
+
+  @media (min-width: 1024px) {
+    line-height: 35px;
+  }
+}
+
+.subdescription {
+  font-size: 16px;
+  flex: 1;
+
+  @media (min-width: 768px) {
+    font-size: 16px;
+  }
+}
+
+/* ================================
+   SERVICES GRID SECTION
+   ================================ */
+
+.servicesSection {
+  // direction: rtl;
+  padding: 80px 40px 64px; // py-[80px] pb-16
+
+  @media (min-width: 768px) {
+    padding: 80px 60px;
+  }
+
+  @media (min-width: 1024px) {
+    padding: 10px 120px;
+  }
+
+  &--leftAlign {
+    direction: ltr;
+  }
+}
+
+.servicesGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px 28px; // gap-y-10, gap-x-[28px]
+  grid-auto-rows: 1fr;
+  padding: 2rem 0px 5rem;
+
+  @media (min-width: 500px) and (max-width: 600px) {
+    padding: 0px 10vw;
+  }
+
+  @media (min-width: 600px) {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 50px 28px;
+  }
+
+  @media (min-width: 960px) {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px 28px;
+  }
+}
+
+.serviceCard {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background-color: white;
+  overflow: hidden;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+
+  &__image {
+    width: 100%;
+    aspect-ratio: 2.1 / 1;
+    object-fit: cover;
+  }
+
+  &__content {
+    background-color: #f8f8f8;
+    padding: 14px 18px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__title {
+    color: #292e3d;
+    font-size: 22px;
+    font-weight: 400;
+    margin-bottom: 8px;
+
+    @media (max-width: 767px) {
+      font-size: 18px;
+    }
+  }
+
+  &__description {
+    color: #292e3d;
+    font-size: 10px;
+    font-weight: 300;
+
+    @media (min-width: 768px) {
+      font-size: 12px;
+    }
+  }
+}
+
+/* ================================
+   OTHER MARKETS SECTION
+   ================================ */
+
+.otherMarketsSection {
+  padding: 60px 0;
+}
+
+.otherMarketsSection__title {
+  color: #292e3d;
+  font-weight: 400;
+  font-size: 22px;
+  margin: 0 76px;
+  padding: 10px 0;
+
+  @media (max-width: 767px) {
+    margin: 0 20px;
+    padding: 16px 0;
+  }
+}
+
+.scrollContainer {
+  overflow-x: auto;
+  padding: 20px;
+  padding-bottom: 60px;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.cardsRow {
+  display: flex;
+  gap: 28px;
+  width: fit-content;
+  padding-right: 38px;
+  align-items: stretch;
+  flex-wrap: nowrap;
+
+  @media (max-width: 767px) {
+    flex-direction: column;
+    padding: 0 38px;
+  }
+
+  &--leftAlign {
+    direction: ltr;
+  }
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  overflow: hidden;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+  width: 100%;
+
+  @media (min-width: 1024px) {
+    width: 437px;
+  }
+
+  @media (min-width: 768px) and (max-width: 1023px) {
+    width: 600px;
+  }
+
+  &__image {
+    width: 100%;
+    object-fit: cover;
+    height: auto;
+
+    @media (min-width: 1024px) {
+      height: 210px;
+    }
+
+    @media (min-width: 768px) and (max-width: 1023px) {
+      height: 400px;
+    }
+  }
+
+  &__content {
+    background-color: #f8f8f8;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 16px 25px;
+    gap: 25px;
+
+    @media (min-width: 1024px) {
+      gap: 10px;
+    }
+  }
+
+  &__title {
+    color: #292e3d;
+    font-size: 22px;
+    font-weight: 400;
+    line-height: 30px;
+  }
+}

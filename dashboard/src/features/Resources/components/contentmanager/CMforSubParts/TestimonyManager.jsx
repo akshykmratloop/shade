@@ -1,6 +1,6 @@
 import { useEffect } from "react"
 import { updateMainContent } from "../../../../common/homeContentSlice"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import ContentSection from "../../breakUI/ContentSections"
 import FileUploader from "../../../../../components/Input/InputFileUploader"
 import content from '../../websiteComponent/content.json'
@@ -8,15 +8,35 @@ import content from '../../websiteComponent/content.json'
 const TestimonyManager = ({ testimonyId, currentContent, currentPath, language, indexes }) => {
     const dispatch = useDispatch()
 
+    const context = useSelector(state => state.homeContent?.present?.content)
+
     const content = currentContent?.[1]?.content
 
     return (
         <div>
             <FileUploader id={"testimonyReference/" + testimonyId} label={"Rerference doc"} fileName={"Upload your file..."} />
+
+            {context?.id === "N" &&
+                <>
+                    <ContentSection
+                        currentPath={currentPath}
+                        Heading={"Page - Details"}
+                        inputs={[
+                            { input: "input", label: "Title English", updateType: "titleEn", value: context?.titleEn, dir: "ltr" },
+                            { input: "input", label: "Title Arabic", updateType: "titleAr", value: context?.titleAr, dir: "rtl" },
+                            // { input: "input", label: "Slug", updateType: "slug", value: context?.slug },
+                            ...(context?.id === "N" ? [{ input: "input", label: "Slug", updateType: "slug", value: context?.slug }] : []),
+                        ]}
+                        section={"page-details"}
+                        language={language}
+                    />
+                </>
+            }
+
             {/** Hero Banner */}
             <ContentSection
                 currentPath={currentPath}
-                Heading={"Testimony " + testimonyId}
+                Heading={"Testimony"}
                 inputs={[
                     { input: "input", label: "Name", updateType: "name", maxLength: 20, value: content?.name?.[language] },
                     { input: "input", label: "Position", updateType: "position", maxLength: 25, value: content?.position?.[language] },

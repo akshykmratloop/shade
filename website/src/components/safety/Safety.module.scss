@@ -156,6 +156,7 @@
     gap: 50px;
 
     .left {
+      width: 50%;
       .title {
         font-weight: 700;
         font-size: 50px;
@@ -173,6 +174,7 @@
       }
     }
     .right {
+      width: 50%;
       .safety_detail_card_wrap {
         .safety_detail_card {
           display: flex;
@@ -266,60 +268,65 @@
     }
   }
 
-  .safety_detail_wrap {
-    .safety_detail_container {
-      flex-direction: column;
-      gap: 20px;
+  // .safety_detail_wrap {
+  //   .safety_detail_container {
+  //     flex-direction: column;
+  //     gap: 20px;
 
-      .left,
-      .right {
-        width: 100%;
-      }
-      .left .title {
-        font-size: 42px;
-        text-align: center;
-      }
-      .right .safety_detail_card_wrap {
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
+  //     .left,
+  //     .right {
+  //       width: 100%;
+  //     }
+  //     .left .title {
+  //       font-size: 42px;
+  //       text-align: center;
+  //     }
+  //     .right .safety_detail_card_wrap {
+  //       display: flex;
+  //       flex-direction: column;
+  //       gap: 20px;
 
-        .safety_detail_card {
-          flex-direction: column;
-          gap: 15px;
-          text-align: center;
+  //       .safety_detail_card {
+  //         flex-direction: column;
+  //         gap: 15px;
+  //         text-align: center;
 
-          .safety_detail_number {
-            margin: 0 auto;
-          }
-        }
-      }
-    }
-  }
+  //         .safety_detail_number {
+  //           margin: 0 auto;
+  //         }
+  //       }
+  //     }
+  //   }
+  // }
 }
 
 @media (max-width: 768px) {
-  .safety_banner_wrap .content {
-    .title {
-      font-size: 42px;
+  .safety_banner_wrap {
+    .backgroundContainer {
+      height: 500px;
+      .backgroundImage {
+        height: 500px;
+      }
     }
-    .description {
-      font-size: 13px;
+    .content {
+      top: 30%;
+      margin: 0 5px;
+      .title {
+        font-size: 42px;
+      }
+      .description {
+        font-size: 13px;
+      }
     }
   }
 
   .safety_detail_wrap {
+    padding: 30px 0;
     .safety_detail_container {
-      .left .title {
-        font-size: 36px;
-      }
-      .right .safety_detail_card_wrap .safety_detail_card {
-        gap: 10px;
-        .safety_detail_card_title {
-          font-size: 20px;
-        }
-        .safety_detail_card_para {
-          font-size: 14px;
+      .left {
+        .title {
+          font-size: 35px;
+          margin-bottom: 20px;
         }
       }
     }
@@ -328,7 +335,7 @@
 
 @media (max-width: 500px) {
   .safety_banner_wrap .content {
-    top: 15%;
+    top: 25%;
     .title {
       font-size: 32px;
     }
@@ -347,8 +354,24 @@
 
   .safety_detail_wrap {
     padding: 60px 0;
-    .safety_detail_container .left .title {
-      font-size: 28px;
+    // text-align: left;
+    .safety_detail_container {
+      flex-direction: column;
+      .left {
+        width: auto;
+        .title {
+          text-align: left;
+          font-size: 28px;
+        }
+      }
+      .right {
+        width: auto;
+        .safety_detail_card_wrap {
+          .safety_detail_card {
+            // flex-direction: column;
+          }
+        }
+      }
     }
   }
 }

@@ -4,9 +4,9 @@
     "titleAr": "",
     "slug": "",
     "isEditable": true,
-    "resourceType": "",
-    "resourceTag": "",
-    "relationType": "",
+    "resourceType": "SUB_PAGE",
+    "resourceTag": "SERVICE",
+    "relationType": "CHILD",
     "parentId": "",
     "editVersion": {
         "id": "",
@@ -20,9 +20,11 @@
         "sections": [
             {
                 "sectionId": "",
+                "title": "introSection",
+                "SectionType": "HERO_BANNER",
+                "sectionVersionTitle": "-introSection",
                 "order": 1,
                 "version": 1,
-                "title": "",
                 "content": {
                     "title": {
                         "ar": "",
@@ -49,7 +51,9 @@
                 "sectionId": "",
                 "order": 2,
                 "version": 1,
-                "title": "",
+                "title": "childrenServices",
+                "SectionType": "EXTERNAL_ITEMS",
+                "sectionVersionTitle": "-childrenServices",
                 "content": {
                     "button": [
                         {
@@ -70,7 +74,9 @@
                 "sectionId": "",
                 "order": 3,
                 "version": 1,
-                "title": "",
+                "title": "otherSecondLevelOFServices",
+                "SectionType": "EXTERNAL_ITEMS",
+                "sectionVersionTitle": "-otherSecondLevelOFServices",
                 "content": {
                     "title": {
                         "ar": "",

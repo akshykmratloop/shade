@@ -2680,6 +2680,7 @@ export async function formatResourceVersionData(
               resourceSlug === "market" &&
               sectionOrderMap[sectionVersion.id] === 3
             ) {
+              console.log("lloook")
               returningBody.description =
                 itemContent.liveModeVersionData.sections[1].content.description; // including description in the item for market items
             }

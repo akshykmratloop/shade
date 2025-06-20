@@ -290,6 +290,15 @@ export async function updateUser(data) {
   );
 }
 
+export async function updateProfile(data) {
+  return await makerequest(
+    api.route("updateProfile"),
+    "PUT",
+    JSON.stringify(data),
+    ContentType.json
+  );
+}
+
 export async function getUserById(id) {
   return await makerequest(api.route("getUserById") + id, "GET");
 }
@@ -395,8 +404,21 @@ export async function removeAssignedUsers(param) {
   return await makerequest(`${api.route("removeAssignedUsers")}${param}`, "PATCH");
 }
 
+// Content
 export async function getContent(param) {
   return await makerequest(`${api.route("getContent")}/${param}`, "GET");
+}
+
+//addResource
+
+export async function addResource(body) {
+  return await makerequest(
+    `${api.route("addResource")}`,
+    "POST",
+    JSON.stringify(body),
+    ContentType.json,
+    true
+  );
 }
 
 export async function updateContent(data) {

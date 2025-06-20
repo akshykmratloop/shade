@@ -13,8 +13,11 @@ const MarketDetailsManager = ({ language, content, indexes, currentPath, service
     const [marketList, setMarketList] = useState([])
     const slug = useSelector(state => state.homeContent?.present?.content?.slug)
 
+    const context = useSelector(state => state.homeContent?.present?.content)
 
-    const thumbIcon = useSelector(state => state.homeContent?.present?.content?.editVersion?.icon) || ""
+
+
+    // const thumbIcon = useSelector(state => state.homeContent?.present?.content?.editVersion?.icon) || ""
     const thumbImage = useSelector(state => state.homeContent?.present?.content?.editVersion?.image) || ""
 
     const addExtraSummary = (subContext) => {
@@ -74,6 +77,23 @@ const MarketDetailsManager = ({ language, content, indexes, currentPath, service
         <div>
             {/* reference doc */}
             <FileUploader id={"Market-Details-ID-Reference"} label={"Rerference doc"} fileName={"Upload your file..."} />
+
+            {context?.id === "N" &&
+                <>
+                    <ContentSection
+                        currentPath={currentPath}
+                        Heading={"Page - Details"}
+                        inputs={[
+                            { input: "input", label: "Title English", updateType: "titleEn", value: context?.titleEn, dir: "ltr" },
+                            { input: "input", label: "Title Arabic", updateType: "titleAr", value: context?.titleAr, dir: "rtl" },
+                            // { input: "input", label: "Slug", updateType: "slug", value: context?.slug },
+                        ...(context?.id === "N" ? [{ input: "input", label: "Slug", updateType: "slug", value: context?.slug } ]: []),
+                        ]}
+                        section={"page-details"}
+                        language={language}
+                    />
+                </>
+            }
 
             <ContentSection
                 currentPath={currentPath}

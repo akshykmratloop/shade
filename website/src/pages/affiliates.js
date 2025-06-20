@@ -16,21 +16,21 @@ export default function Hse({apiData}) {
   const [isLoading, setIsLoading] = useState(true);
   const [content, setContent] = useState(null);
 
-  // useEffect(() => {
-  //   if (apiData && Object.keys(apiData).length > 0 && apiData.content) {
-  //     const generatedContent = createContent(apiData.content);
-  //     setContent(generatedContent.content);
-  //     setIsLoading(false);
-  //     console.log("content", generatedContent.content);
-  //   } else {
-  //     // keep loading forever or retry (optional)
-  //     console.warn("API response is empty. Keeping loader active...");
-  //   }
-  // }, [apiData]);
+  useEffect(() => {
+    if (apiData && Object.keys(apiData).length > 0 && apiData.content) {
+      const generatedContent = createContent(apiData.content);
+      setContent(generatedContent.content);
+      setIsLoading(false);
+      console.log("content", generatedContent.content);
+    } else {
+      // keep loading forever or retry (optional)
+      console.warn("API response is empty. Keeping loader active...");
+    }
+  }, [apiData]);
 
-  // if (isLoading) {
-  //   return <Loader />;
-  // }
+  if (isLoading) {
+    return <Loader />;
+  }
 
   return (
     <>
@@ -43,4 +43,22 @@ export default function Hse({apiData}) {
       <AffiliatesPage content={content} />
     </>
   );
+}
+
+export async function getServerSideProps() {
+  try {
+    const res = await fetch(`${backendAPI}affiliates`);
+
+    if (!res.ok) {
+      // If response failed (e.g., 404, 500), return empty object
+      return {props: {apiData: {}}};
+    }
+
+    const apiData = await res.json();
+
+    return {props: {apiData: apiData || {}}};
+  } catch (error) {
+    // If fetch throws an error (e.g., network failure), return empty object
+    return {props: {apiData: {}}};
+  }
 }

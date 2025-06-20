@@ -39,11 +39,9 @@ const cmsSlice = createSlice({
                 } else if (action.payload.section === "procedures/terms") {
                     state.present.content.editVersion.sections[action.payload.sectionIndex].content.procedures.terms[action.payload.index][action.payload.title][action.payload.lan] = action.payload.value
                 } else {
-                    console.log(action.payload.contentIndex)
                     state.present.content.editVersion.sections[action.payload.sectionIndex].content[action.payload.contentIndex][action.payload.title][action.payload.lan] = action.payload.value
                 }
             } else if (action.payload.subSection === "content/procedures") {
-                // console.log(action.payload.sectionIndex, action.payload.index, action.payload.title, action.payload.lan, action.payload.value)
                 state.present.content.editVersion.sections[action.payload.sectionIndex].content.cards[action.payload.buttonIndex][action.payload.title][action.payload.lan] = action.payload.value
             } else if (action.payload.section === "points") {
                 state.present.content.editVersion.sections[action.payload.sectionIndex].content.points[action.payload.index][action.payload.title][action.payload.lan] = action.payload.value
@@ -67,10 +65,17 @@ const cmsSlice = createSlice({
                 if (action.payload.title === "url") {
                     state.present.content.editVersion.sections[action.payload.sectionIndex].content[action.payload.title] = action.payload.value
                 } else {
+                    console.log(action.payload)
+                    console.log(JSON.parse(JSON.stringify(state.present.content.editVersion.sections[action.payload.sectionIndex].content)))
                     state.present.content.editVersion.sections[action.payload.sectionIndex].content[action.payload.title][action.payload.lan] = action.payload.value
                 }
             }
 
+            state.future = [];
+        },
+        updateBaseData: (state, action) => {
+            state.past.push(JSON.parse(JSON.stringify(state.present)));
+            state.present.content[action.payload.title] = action.payload.value
             state.future = [];
         },
         updateServicesNumber: (state, action) => { // post content
@@ -125,7 +130,6 @@ const cmsSlice = createSlice({
             })
 
             newArray = newArray.map((e, i) => ({ ...e, order: i + 1 }))
-            console.log(newArray)
             state.present.content.editVersion.sections[action.payload.sectionIndex].content[action.payload.section] = newArray
         },
         rmImagePointArray: (state, action) => { // post content
@@ -136,7 +140,6 @@ const cmsSlice = createSlice({
             })
 
             newArray = newArray.map((e, i) => ({ ...e, order: i + 1 }))
-            console.log(newArray)
             state.present.content.editVersion.sections[action.payload.sectionIndex].content.images = newArray
         },
         updateAList: (state, action) => { // post content
@@ -150,8 +153,6 @@ const cmsSlice = createSlice({
                     newArray.pop()
                 } else {
                     newArray = newArray.filter(e => {
-                        console.log(e.image[0] !== action.payload.data)
-                        console.log(e.image[0], action.payload.data)
                         return e.image[0] !== action.payload.data
                     })
                 }
@@ -178,7 +179,6 @@ const cmsSlice = createSlice({
             if (action.payload.operation === 'add') {
                 newArray = [...oldArray, { ...action.payload.insert, order: oldArray.length }]
             } else {
-                console.log(action.payload.index, action.payload.order)
                 newArray = state.present.content?.editVersion?.sections?.[action.payload.sectionIndex].content.filter((e, i) => {
                     return i !== action.payload.index
                 })
@@ -496,7 +496,8 @@ export const { // actions
     updateAList,
     updateComment,
     updateSubServiceDetailsPointsArray,
-    updateAffiliatesCardsArray
+    updateAffiliatesCardsArray,
+    updateBaseData
 } = cmsSlice.actions;
 
 export default cmsSlice.reducer; // reducer

@@ -1,12 +1,12 @@
 {
-    "id": "",
+    "id": "N",
     "titleEn": "",
     "titleAr": "",
     "slug": "",
     "isEditable": true,
-    "resourceType": "",
-    "resourceTag": "",
-    "relationType": "",
+    "resourceType": "SUB_PAGE",
+    "resourceTag": "SAFETY_RESPONSIBILITY",
+    "relationType": "CHILD",
     "parentId": "",
     "editVersion": {
         "id": "",
@@ -22,7 +22,9 @@
                 "sectionId": "",
                 "order": 1,
                 "version": 1,
-                "title": "",
+                "title": "overviewSection",
+                "SectionType": "MARKDOWN_CONTENT",
+                "sectionVersionTitle": "-overviewSection",
                 "content": {
                     "title": {
                         "ar": "",
@@ -47,9 +49,11 @@
             },
             {
                 "sectionId": "",
-                "order": 1,
+                "order": 2,
                 "version": 1,
-                "title": "",
+                "title": "commitmentSection",
+                "SectionType": "MARKDOWN_CONTENT",
+                "sectionVersionTitle": "-commitmentSection",
                 "content": {
                     "title": {
                         "ar": "",
@@ -97,9 +101,11 @@
             },
             {
                 "sectionId": "",
-                "order": 1,
+                "order": 3,
                 "version": 1,
-                "title": "",
+                "title": "additionalInfoSection",
+                "SectionType": "EXTERNAL_ITEMS",
+                "sectionVersionTitle": "-additionalInfoSection",
                 "content": {
                     "button": [
                         {

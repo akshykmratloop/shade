@@ -1,5 +1,5 @@
 {
-    "id": "",
+    "id": "N",
     "titleEn": "",
     "titleAr": "",
     "slug": "",
@@ -19,10 +19,12 @@
         "status": "",
         "sections": [
             {
+                "title": "heroSection",
+                "SectionType": "HERO_BANNER",
+                "sectionVersionTitle": "-heroSection",
                 "sectionId": "",
                 "order": 1,
                 "version": 1,
-                "title": "",
                 "content": {
                     "title": {
                         "ar": "",
@@ -49,7 +51,9 @@
                 "sectionId": "",
                 "order": 2,
                 "version": 1,
-                "title": "",
+                "title": "ServicePointsGrid",
+                "SectionType": "SERVICE_CHILDREN",
+                "sectionVersionTitle": "-ServicePointsGrid1",
                 "content": {
                     "title": {
                         "ar": "",
@@ -79,7 +83,9 @@
                 "sectionId": "",
                 "order": 3,
                 "version": 1,
-                "title": "",
+                "title": "gallery",
+                "SectionType": "SERVICE_CHILDREN",
+                "sectionVersionTitle": "-Gallery",
                 "content": {
                     "images": [
                         {

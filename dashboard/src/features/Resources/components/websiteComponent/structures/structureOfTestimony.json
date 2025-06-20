@@ -1,5 +1,5 @@
 {
-    "id": "",
+    "id": "N",
     "titleEn": "",
     "titleAr": "",
     "slug": "",
@@ -18,10 +18,12 @@
         "status": "",
         "sections": [
             {
+                "title": "testimonialBodySection",
+                "SectionType": "TESTIMONIAL",
+                "sectionVersionTitle": "Testimonial-testimonialBodySection",
                 "sectionId": "",
                 "order": 1,
                 "version": 1,
-                "title": "",
                 "content": {
                     "name": {
                         "ar": "",

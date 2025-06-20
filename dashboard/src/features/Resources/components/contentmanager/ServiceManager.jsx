@@ -9,7 +9,6 @@ const ServiceManager = ({ currentContent, currentPath, language, indexes }) => {
     const [subService, setServicesOptions] = useState(null)
 
 
-
     useEffect(() => {
         async function getOptionsforServices() {
             const response = await getResources({ resourceType: "SUB_PAGE", resourceTag: "SERVICE", apiCallType: "INTERNAL", fetchType: "CONTENT" })
@@ -36,8 +35,8 @@ const ServiceManager = ({ currentContent, currentPath, language, indexes }) => {
             {/* reference doc */}
             <FileUploader id={"ServiceIDReference"} label={"Rerference doc"} fileName={"Upload your file..."} />
             {/** Hero Banner */}
+          
 
-           
             <ContentSection
                 currentPath={currentPath}
                 Heading={"Banner"}
