@@ -1,6 +1,11 @@
 import prismaClient from "../config/dbConfig.js";
 import {assert} from "../errors/assertError.js";
 import crypto from "crypto";
+import { addEmailJob } from "../helper/emailJobQueue.js";
+import { resourceAssignmentPayload, resourceAccessRemovedPayload, notifyVerifierRequest, notifyEditorRejected, notifyVerifierResubmission, notifyNextApprover, notifyEditorPublished } from "../other/EmailPayload.js";
+
+const dashboardUrl = process.env.DASHBOARD_URL;
+const supportEmail = process.env.SUPPORT_EMAIL;
 
 // Create New Resources ===========================================
 export async function createResources(
@@ -1022,24 +1027,25 @@ export const assignUserToResource = async (
   verifiers,
   publisher
 ) => {
-  // 1. Fetch current resource state with all relationships
-  const currentResource = await prismaClient.resource.findUnique({
-    where: {id: resourceId},
-    include: {
-      roles: true,
-      verifiers: true,
-      newVersionEditMode: {
-        include: {
-          roles: true,
-          verifiers: true,
+  let emailJobs = [];
+  const updatedResource = await prismaClient.$transaction(async (prisma) => {
+    // 1. Fetch current resource state with all relationships
+    const currentResource = await prisma.resource.findUnique({
+      where: {id: resourceId},
+      include: {
+        roles: true,
+        verifiers: true,
+        newVersionEditMode: {
+          include: {
+            roles: true,
+            verifiers: true,
+          },
         },
       },
-    },
-  });
+    });
 
-  assert(currentResource, "NOT_FOUND", `Resource not found`);
+    assert(currentResource, "NOT_FOUND", `Resource not found`);
 
-  return await prismaClient.$transaction(async (prisma) => {
     // Helper function to get pending requests for a resource
     const getPendingRequests = async (resourceId, versionId = null) => {
       return await prisma.resourceVersioningRequest.findMany({
@@ -2056,7 +2062,7 @@ export const assignUserToResource = async (
     }
 
     // 6. Return updated resource with active assignments
-    return prisma.resource.update({
+    const updatedResource = await prisma.resource.update({
       where: {id: resourceId},
       data: {isAssigned: true},
       include: {
@@ -2082,11 +2088,47 @@ export const assignUserToResource = async (
         },
       },
     });
+    const resourceName = updatedResource.titleEn || updatedResource.titleAr || `Resource #${resourceId}`;
+    for (const role of updatedResource.roles) {
+      if (role.user && role.user.email) {
+        emailJobs.push({
+          type: 'assignment',
+          payload: {
+            name: role.user.name,
+            email: role.user.email,
+            role: role.role,
+            resourceName,
+          }
+        });
+      }
+    }
+    for (const verifier of updatedResource.verifiers) {
+      if (verifier.user && verifier.user.email) {
+        emailJobs.push({
+          type: 'assignment',
+          payload: {
+            name: verifier.user.name,
+            email: verifier.user.email,
+            role: `Verifier (Stage ${verifier.stage})`,
+            resourceName,
+          }
+        });
+      }
+    }
+    return updatedResource;
   });
+  // Use global email job queue
+  for (const job of emailJobs) {
+    if (job.type === 'assignment') {
+      addEmailJob(resourceAssignmentPayload({ name: job.payload.name, email: job.payload.email, role: job.payload.role, resourceName: job.payload.resourceName, dashboardUrl }));
+    }
+  }
+  return updatedResource;
 };
 
 export const markAllAssignedUserInactive = async (resourceId) => {
-  return await prismaClient.$transaction(async (prisma) => {
+  let emailJobs = [];
+  const result = await prismaClient.$transaction(async (prisma) => {
     // First, check if there are any versions in edit mode or with requests
     const resource = await prisma.resource.findUnique({
       where: {id: resourceId},
@@ -2320,11 +2362,51 @@ export const markAllAssignedUserInactive = async (resourceId) => {
       data: {isAssigned: false},
     });
 
+    // At the end, fetch resource info for email jobs
+    const resourceInfo = await prisma.resource.findUnique({
+      where: { id: resourceId },
+      select: { titleEn: true, titleAr: true },
+    });
+    const resourceName = resourceInfo?.titleEn || resourceInfo?.titleAr || `Resource #${resourceId}`;
+    // Collect email jobs for all previously assigned users
+    for (const role of activeRoles) {
+      const user = await prisma.user.findUnique({ where: { id: role.userId }, select: { name: true, email: true } });
+      if (user && user.email) {
+        emailJobs.push({
+          type: 'removal',
+          payload: {
+            name: user.name,
+            email: user.email,
+            resourceName,
+          }
+        });
+      }
+    }
+    for (const verifier of activeVerifiers) {
+      const user = await prisma.user.findUnique({ where: { id: verifier.userId }, select: { name: true, email: true } });
+      if (user && user.email) {
+        emailJobs.push({
+          type: 'removal',
+          payload: {
+            name: user.name,
+            email: user.email,
+            resourceName,
+          }
+        });
+      }
+    }
     return {
       success: true,
       message: `All active user assignments for resource ${resourceId} have been marked as inactive`,
     };
   });
+  // Use global email job queue
+  for (const job of emailJobs) {
+    if (job.type === 'removal') {
+      addEmailJob(resourceAccessRemovedPayload({ name: job.payload.name, email: job.payload.email, resourceName: job.payload.resourceName, supportEmail }));
+    }
+  }
+  return result;
 };
 
 export const fetchAssignedUsers = async (resourceId) => {
@@ -3588,6 +3670,40 @@ export const updateContentAndGenerateRequest = async (contentData) => {
     };
   });
 
+  // Notification logic (outside transaction)
+  const { resourceVersion, requests } = result;
+  const resourceName = result.titleEn || result.titleAr || `Resource #${contentData.resourceId}`;
+  // 1. If this is a new request, notify the active stage 1 verifier
+  if (requests && requests.approvals && requests.approvals.verifiers) {
+    const stage1 = requests.approvals.verifiers.find(v => v.stage === 1);
+    if (stage1 && stage1.status === 'PENDING') {
+      // Fetch user details for stage 1 verifier
+      const user = await prismaClient.user.findUnique({ where: { id: stage1.approverId }, select: { name: true, email: true, status: true } });
+      if (user && user.email && user.status === 'ACTIVE') {
+        addEmailJob(notifyVerifierRequest({ name: user.name, email: user.email, resourceName, dashboardUrl }));
+      }
+    }
+  }
+  // 2. If resubmitting after rejection, notify the rejected verifier(s)/publisher
+  if (requests && requests.approvals) {
+    // Verifiers
+    for (const v of requests.approvals.verifiers || []) {
+      if (v.status === 'PENDING' && v.comments) { // previously rejected, now pending
+        const user = await prismaClient.user.findUnique({ where: { id: v.approverId }, select: { name: true, email: true, status: true } });
+        if (user && user.email && user.status === 'ACTIVE') {
+          addEmailJob(notifyVerifierResubmission({ name: user.name, email: user.email, resourceName, dashboardUrl }));
+        }
+      }
+    }
+    // Publisher
+    const pub = requests.approvals.publisher;
+    if (pub && pub.status === 'PENDING' && pub.comments) {
+      const user = await prismaClient.user.findUnique({ where: { id: pub.approverId }, select: { name: true, email: true, status: true } });
+      if (user && user.email && user.status === 'ACTIVE') {
+        addEmailJob(notifyVerifierResubmission({ name: user.name, email: user.email, resourceName, dashboardUrl }));
+      }
+    }
+  }
   return {
     message: existingRequests.some(
       (req) =>
@@ -4574,6 +4690,14 @@ export const approveRequestInVerification = async (requestId, userId) => {
       },
     });
 
+    // Find next pending approval (verifier or publisher)
+    const nextApproval = request.approvals.find(a => a.status === 'PENDING' && a.approverStatus === 'ACTIVE');
+    if (nextApproval) {
+      const user = await prismaClient.user.findUnique({ where: { id: nextApproval.approverId }, select: { name: true, email: true, status: true } });
+      if (user && user.email && user.status === 'ACTIVE') {
+        addEmailJob(notifyNextApprover({ name: user.name, email: user.email, resourceName: '', stage: nextApproval.stage === null ? 'Publisher' : `Verifier (Stage ${nextApproval.stage})`, dashboardUrl }));
+      }
+    }
     return request;
   });
 };
@@ -4752,6 +4876,31 @@ export const rejectRequestInVerification = async (
       },
     });
 
+    // Find the editor (sender)
+    const reqInfo = await prismaClient.resourceVersioningRequest.findUnique({ where: { id: requestId }, select: { senderId: true, resourceVersion: { select: { resource: { select: { titleEn: true, titleAr: true } } } } } });
+    const editor = await prismaClient.user.findUnique({ where: { id: reqInfo.senderId }, select: { name: true, email: true, status: true } });
+    const rejector = await prismaClient.user.findUnique({ where: { id: userId }, select: { name: true } });
+    if (editor && editor.email && editor.status === 'ACTIVE') {
+      // Find the approval log for this user to get the stage
+      const approvalLog = await prismaClient.requestApproval.findFirst({
+        where: { requestId, approverId: userId }
+      });
+      let stageLabel = 'Verifier';
+      if (approvalLog && approvalLog.stage !== null && approvalLog.stage !== undefined) {
+        stageLabel = `Verifier (Stage ${approvalLog.stage})`;
+      } else {
+        stageLabel = 'Verifier';
+      }
+      addEmailJob(notifyEditorRejected({
+        name: editor.name,
+        email: editor.email,
+        resourceName: reqInfo.resourceVersion.resource.titleEn || reqInfo.resourceVersion.resource.titleAr,
+        rejectedBy: rejector.name,
+        stage: stageLabel,
+        reason: rejectReason,
+        dashboardUrl
+      }));
+    }
     return request;
   });
 };
@@ -4808,6 +4957,21 @@ export const rejectRequestInPublication = async (
       },
     });
 
+    // Find the editor (sender)
+    const reqInfo = await prismaClient.resourceVersioningRequest.findUnique({ where: { id: requestId }, select: { senderId: true, resourceVersion: { select: { resource: { select: { titleEn: true, titleAr: true } } } } } });
+    const editor = await prismaClient.user.findUnique({ where: { id: reqInfo.senderId }, select: { name: true, email: true, status: true } });
+    const rejector = await prismaClient.user.findUnique({ where: { id: userId }, select: { name: true } });
+    if (editor && editor.email && editor.status === 'ACTIVE') {
+      addEmailJob(notifyEditorRejected({
+        name: editor.name,
+        email: editor.email,
+        resourceName: reqInfo.resourceVersion.resource.titleEn || reqInfo.resourceVersion.resource.titleAr,
+        rejectedBy: rejector.name,
+        stage: 'Publisher',
+        reason: rejectReason,
+        dashboardUrl
+      }));
+    }
     return updatedRequest;
   });
 };
@@ -4898,6 +5062,18 @@ export const scheduleRequestToPublish = async (requestId, userId, date) => {
       },
     });
 
+    // Find the editor (sender)
+    const reqInfo = await prismaClient.resourceVersioningRequest.findUnique({ where: { id: requestId }, select: { senderId: true, resourceVersion: { select: { resource: { select: { titleEn: true, titleAr: true } } } } } });
+    const editor = await prismaClient.user.findUnique({ where: { id: reqInfo.senderId }, select: { name: true, email: true, status: true } });
+    if (editor && editor.email && editor.status === 'ACTIVE') {
+      addEmailJob(notifyEditorPublished({
+        name: editor.name,
+        email: editor.email,
+        resourceName: reqInfo.resourceVersion.resource.titleEn || reqInfo.resourceVersion.resource.titleAr,
+        scheduledAt: date,
+        dashboardUrl
+      }));
+    }
     return updatedRequest;
   });
 };
