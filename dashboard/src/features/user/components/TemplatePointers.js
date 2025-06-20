@@ -17,7 +17,7 @@ const features = [
   { name: 'Audit Logger', icon: '📋' },
   { name: 'Email Info', icon: '✉️' },
   { name: 'Dark/Light Theme', icon: '🌗' },
-  { name: 'Actions', icon: '⚡' },
+  // { name: 'Actions', icon: '⚡' },
   { name: 'Edit History', icon: '📝' },
 ];
 
@@ -32,8 +32,8 @@ function TemplatePointers() {
 
   return (
     <div
-      className="w-full  flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-900 dark:to-gray-800 rounded-xl px-2 py-4"
-      style={{ minHeight: '100vh', overflow: 'hidden' }}
+      className=" flex items-center justify-center rounded-xl px-2 py-2 h-[560px]"
+      style={{ overflow: 'hidden' }}
     >
       <div className="flex flex-col md:flex-row items-center justify-center w-full max-w-6xl gap-8 md:gap-16">
         {/* Description Left */}

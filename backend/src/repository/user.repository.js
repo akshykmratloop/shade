@@ -1,9 +1,18 @@
 import {send} from "process";
 import prismaClient from "../config/dbConfig.js";
 import { EncryptData } from "../helper/bcryptManager.js";
-import { sendEmail } from "../helper/sendEmail.js";
+import { addEmailJob } from "../helper/emailJobQueue.js";
 import user from "../modules/user/index.js";
-import { userAccountCreationPayload, userAccountUpdatePayload } from "../other/EmailPayload.js";
+import {
+  userAccountCreationPayload,
+  userAccountDeactivatedPayload,
+  userAccountActivatedPayload,
+  resourceAssignmentPayload,
+  resourceAccessRemovedPayload
+} from "../other/EmailPayload.js";
+
+const dashboardUrl = process.env.DASHBOARD_URL;
+const supportEmail = process.env.SUPPORT_EMAIL;
 
 /// USER QUERIES====================================================
 // Create User
@@ -46,8 +55,7 @@ export const createUserHandler = async (
   });
 
   // Use dynamic payload
-  const emailPayload = userAccountCreationPayload({ name, email, password });
-  await sendEmail(emailPayload);
+  addEmailJob(userAccountCreationPayload({ name, email, password, dashboardUrl }));
 
   return newUser;
 };
@@ -170,8 +178,8 @@ export const updateUser = async (id, name, password, phone, roles) => {
     })) || [];
 
   // Use dynamic payload
-  const emailPayload = userAccountUpdatePayload({ name: updatedUser.name, email: updatedUser.email });
-  await sendEmail(emailPayload);
+  // const emailPayload = userAccountUpdatePayload({ name: updatedUser.name, email: updatedUser.email });
+  // addEmailJob(emailPayload);
 
   return {
     ...updatedUser,
@@ -510,6 +518,18 @@ export const resetUserOtpAttempts = async () => {
 };
 
 export const userActivation = async (id) => {
+  // Fetch user first to check current status
+  const userBefore = await prismaClient.user.findUnique({
+    where: { id },
+  });
+
+  if (!userBefore) return null;
+
+  // Only proceed if user is not already active
+  if (userBefore.status === "ACTIVE") {
+    return userBefore;
+  }
+
   const user = await prismaClient.user.update({
     where: {
       id: id,
@@ -519,10 +539,25 @@ export const userActivation = async (id) => {
     },
   });
 
+  // Send activation email
+  addEmailJob(userAccountActivatedPayload({ name: user.name, email: user.email, dashboardUrl }));
+
   return user;
 };
 
 export const userDeactivation = async (id) => {
+  // Fetch user first to check current status
+  const userBefore = await prismaClient.user.findUnique({
+    where: { id },
+  });
+
+  if (!userBefore) return null;
+
+  // Only proceed if user is not already inactive
+  if (userBefore.status === "INACTIVE") {
+    return userBefore;
+  }
+
   const user = await prismaClient.user.update({
     where: {
       id: id,
@@ -531,6 +566,9 @@ export const userDeactivation = async (id) => {
       status: "INACTIVE",
     },
   });
+
+  // Send deactivation email
+  addEmailJob(userAccountDeactivatedPayload({ name: user.name, email: user.email, supportEmail }));
 
   return user;
 };
