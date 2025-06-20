@@ -156,7 +156,7 @@ export default function ContentTopBar({ setWidth, setFullScreen, outOfEditing, c
 
     async function PublishNewPage() {
         if (!isManager) return toast.error("You are not allowed to publish the content directly!", { autoClose: 600 })
-        const payload = baseTransform(ReduxState.present.content)
+        const payload = baseTransform(ReduxState.present.content, ReduxState.filters)
         console.log(payload)
         try {
             const response = await addResource(payload)

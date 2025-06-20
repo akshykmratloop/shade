@@ -68,7 +68,7 @@ const api = {
   versionInfo: `${content}/getVersionInfo/`,
   restoreVersion: `${content}/restoreVersion/`,
   scheduleRequest: `${content}/scheduleRequest/`,
-  getFilter: `${content}/getAllFilters`,
+  getAllFilters: `${content}/getAllFilters`,
 
   // DASHBOARD INSIGHT
   getDashboardInsight: `${content}/getDashboardInsight`, // API for dashboard insight

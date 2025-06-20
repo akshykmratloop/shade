@@ -7,7 +7,8 @@ const initialState = {
         loading: true,
     },
     future: [],
-    EditInitiated: false
+    EditInitiated: false,
+    filters: ""
 };
 
 const cmsSlice = createSlice({
@@ -30,6 +31,8 @@ const cmsSlice = createSlice({
             state.present.content = action.payload.payload;
             state.present.loading = false
             state.future = [];
+        }, updateFilterStatus: (state, action) => {
+            state.filters = action.payload.value
         },
         updateSpecificContent: (state, action) => { // post content
             state.past.push(JSON.parse(JSON.stringify(state.present)));
@@ -497,7 +500,8 @@ export const { // actions
     updateComment,
     updateSubServiceDetailsPointsArray,
     updateAffiliatesCardsArray,
-    updateBaseData
+    updateBaseData,
+    updateFilterStatus
 } = cmsSlice.actions;
 
 export default cmsSlice.reducer; // reducer

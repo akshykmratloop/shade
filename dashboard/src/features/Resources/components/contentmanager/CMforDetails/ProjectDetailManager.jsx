@@ -3,13 +3,14 @@ import FileUploader from "../../../../../components/Input/InputFileUploader"
 import ContentSection from "../../breakUI/ContentSections"
 import DynamicContentSection from "../../breakUI/DynamicContentSection"
 import MultiSelect from "../../breakUI/MultiSelect"
-import { updateMainContent, updateTheProjectSummaryList } from "../../../../common/homeContentSlice"
+import { updateCardAndItemsArray } from "../../../../common/homeContentSlice"
 import { useEffect, useState } from "react"
 // import content from "../../websiteComponent/content.json"
-import { getResources } from "../../../../../app/fetch"
+import { getResources, getAllFilters } from "../../../../../app/fetch"
 
 
 const ProjectDetailManager = ({ projectId, currentContent: content, currentPath, language, indexes }) => {
+    const [filters, setFilters] = useState([])
     const dispatch = useDispatch()
     const slug = useSelector(state => state?.homeContent?.present?.content?.slug)
 
@@ -20,7 +21,7 @@ const ProjectDetailManager = ({ projectId, currentContent: content, currentPath,
 
 
     const addExtraSummary = () => {
-        dispatch(updateTheProjectSummaryList(
+        dispatch(updateCardAndItemsArray(
             {
                 insert: {
                     title: {
@@ -48,19 +49,19 @@ const ProjectDetailManager = ({ projectId, currentContent: content, currentPath,
     const moreProjects = content?.[5];
 
     const [all, setAll] = useState([])
-    
+
     useEffect(() => {
         if (context?.id === "N") {
             async function getOptionsforServices() {
-                const response = await getResources({ resourceType: "SUB_PAGE", resourceTag: "SERVICE", apiCallType: "INTERNAL" })
+                const response = await getAllFilters()
 
                 if (response.message === "Success") {
-                    let options = response?.resources?.resources?.map((e, i) => ({
-                        // slug: e.slug,
-                        id: e?.id,
-                        name: e?.titleEn
-                    }))
-                    setServiceParents(options)
+                    let options = response?.filters?.map((e, i) => {
+                        if (e.nameEn === "ONGOING" || e.nameEn === "COMPLETE") {
+                            return e
+                        }
+                    }).filter(Boolean)
+                    setFilters(options)
                 }
             }
 
@@ -118,11 +119,12 @@ const ProjectDetailManager = ({ projectId, currentContent: content, currentPath,
                     <ContentSection
                         currentPath={currentPath}
                         Heading={"Page - Details"}
-                        inputs={[
+                        inputs={[ //filters
                             { input: "input", label: "Title English", updateType: "titleEn", value: context?.titleEn, dir: "ltr" },
                             { input: "input", label: "Title Arabic", updateType: "titleAr", value: context?.titleAr, dir: "rtl" },
                             // { input: "input", label: "Slug", updateType: "slug", value: context?.slug },
-                        ...(context?.id === "N" ? [{ input: "input", label: "Slug", updateType: "slug", value: context?.slug } ]: []),
+                            ...(context?.id === "N" ? [{ input: "input", label: "Slug", updateType: "slug", value: context?.slug }] : []),
+                            ...(context?.id === "N" ? [{ input: "select", label: "Status", updateType: "filter", option: filters }] : [])
                         ]}
                         section={"page-details"}
                         language={language}

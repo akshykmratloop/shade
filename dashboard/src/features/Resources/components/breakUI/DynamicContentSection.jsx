@@ -72,15 +72,15 @@ const DynamicContentSection = ({
             }))
         }
         if (deepPath) {
-            dispatch(updateTheProjectSummaryList({
-                index,
-                operation: 'remove',
-                // newsIndex: projectId - 1,
-                context: currentPath,
-                serviceId: projectId,
-                subContext: section,
-                deepPath
-            }))
+            // dispatch(updateTheProjectSummaryList({
+            //     index,
+            //     operation: 'remove',
+            //     // newsIndex: projectId - 1,
+            //     context: currentPath,
+            //     serviceId: projectId,
+            //     subContext: section,
+            //     deepPath
+            // }))
         } else {
             dispatch(updateCardAndItemsArray({
                 sectionIndex,

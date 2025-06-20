@@ -58,6 +58,7 @@ export default function transformContent(rawData) {
 
 
 export function baseTransform(obj, filter) {
+    console.log(filter)
     const object = JSON.parse(JSON.stringify(obj));
 
     if (obj.resourceTag === "SERVICE" || obj.resourceTag === "NEWS") {
