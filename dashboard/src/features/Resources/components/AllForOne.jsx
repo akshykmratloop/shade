@@ -28,6 +28,7 @@ import MarketDetails from "./websiteComponent/detailspages/MarketDetails";
 import AffiliatesPage from "./websiteComponent/Affiliates";
 import Organization from "./websiteComponent/Organizational";
 import TemplateOne from "./websiteComponent/TemplateOne";
+import TemplateTwo from "./websiteComponent/TemplateTwo";
 
 // import { useDispatch, useSelector } from "react-redux";
 // import { useEffect, useRef, useState } from "react";
@@ -128,6 +129,9 @@ const AllForOne = ({
 
             case "temp-1":
                 return <TemplateOne {...baseProps} content={content} />
+
+            case "temp-2":
+                return <TemplateTwo {...baseProps} content={content} />
 
             default:
                 return null;
