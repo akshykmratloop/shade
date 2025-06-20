@@ -5,7 +5,6 @@ import { lazy } from "react";
 // import AllForOne from "./components/AllForOne"
 import { ToastContainer } from "react-toastify";
 import { MoonLoader } from "react-spinners";
-
 // Icons
 // import { AiOutlineInfoCircle } from "react-icons/ai";
 // import { FiEdit } from "react-icons/fi";
@@ -30,6 +29,7 @@ import { setPlatform } from "../common/platformSlice";
 // import { updateResourceId } from "../common/resourceSlice";
 import { updateMainContent } from "../common/homeContentSlice";
 import { ResourceCard } from "./ResourceCard";
+import NewProjectDialog from "./NewProjectDialog";
 
 const AllForOne = lazy(() => import("./components/AllForOne"));
 const Page404 = lazy(() => import("../../pages/protected/404"));
@@ -58,6 +58,7 @@ function Resources() {
     SUB_PAGE: [],
     MAIN_PAGE: [],
   });
+  const [openCreateProjectDialog, setOpenCreateProjectDialog] = useState(false)
 
 
   // Redux State
@@ -120,7 +121,7 @@ function Resources() {
 
   // Side Effects 
 
-  const conditionNewPage = resourceTag !== "FOOTER" && resourceTag !== "HEADER" && resourceTag !== "MAIN"
+  const conditionNewPage = resourceTag !== "FOOTER" && resourceTag !== "HEADER"
 
   useEffect(() => { // Running resources from localstroge
     const currentResource = localStorage.getItem("resourceType") || "MAIN_PAGE";
@@ -289,7 +290,9 @@ function Resources() {
               <div className="w-full flex flex-col gap-[5px]">
                 <div
                   onClick={() => {
-                    if (resourceType === "SUB_PAGE_ITEM") {
+                    if (resourceType === "MAIN_PAGE") {
+                      return setOpenCreateProjectDialog(true)
+                    } else if (resourceType === "SUB_PAGE_ITEM") {
                       localStorage.setItem("contextId", "null");
                       navigate(
                         `../edit/${(resourceTag).toLowerCase()}/new/new`
@@ -353,6 +356,11 @@ function Resources() {
                 />
               </Suspense>
             </div>)
+      }
+
+      {
+        openCreateProjectDialog &&
+        <NewProjectDialog display={openCreateProjectDialog} close={() => setOpenCreateProjectDialog(false)} />
       }
       <ToastContainer />
     </div >

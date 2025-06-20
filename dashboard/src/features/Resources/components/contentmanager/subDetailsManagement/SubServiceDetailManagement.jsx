@@ -52,7 +52,7 @@ const SubServiceDetailManager = ({ serviceId, content, currentPath, language, de
 
             getOptionsforServices()
         }
-    }, [])
+    }, [context?.id])
 
     return (
         <div>
