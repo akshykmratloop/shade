@@ -3,6 +3,7 @@ import prismaClient from "../config/dbConfig.js";
 import { EncryptData } from "../helper/bcryptManager.js";
 import { sendEmail } from "../helper/sendEmail.js";
 import user from "../modules/user/index.js";
+import { userAccountCreationPayload, userAccountUpdatePayload } from "../other/EmailPayload.js";
 
 /// USER QUERIES====================================================
 // Create User
@@ -43,36 +44,9 @@ export const createUserHandler = async (
       },
     },
   });
-  const emailPayload = {
-    to: email,
-    subject: "Your Account Details",
-    text: `Hello ${name}, your account has been created successfully. Username: ${email}, Password: ${password}. Please change your password after logging in.`,
-    html: `
-      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #ddd; border-radius: 8px; background-color: #f9f9f9;">
-        <h2 style="text-align: center; color: #333;">Welcome to Our Platform! 🎉</h2>
-        <p style="font-size: 16px; color: #555;">Hello <strong>${name}</strong>,</p>
-        <p style="font-size: 16px; color: #555;">
-          Your account has been successfully created. Here are your login details:
-        </p>
-        <div style="background-color: #fff; padding: 15px; border-radius: 6px; box-shadow: 0px 0px 10px rgba(0,0,0,0.1);">
-          <p style="font-size: 16px; margin: 0;"><strong>Username:</strong> ${email}</p>
-          <p style="font-size: 16px; margin: 0;"><strong>Password:</strong> ${password}</p>
-        </div>
-        <p style="font-size: 16px; color: #555; margin-top: 20px;">
-          Please change your password after logging in for security purposes.
-        </p>
-        <div style="text-align: center; margin-top: 20px;">
-          <a href="http://localhost:3001/login" style="display: inline-block; background-color: #007bff; color: #fff; padding: 12px 20px; font-size: 16px; text-decoration: none; border-radius: 5px;">Login Now</a>
-        </div>
-        <p style="font-size: 14px; color: #999; text-align: center; margin-top: 20px;">
-          If you didn't request this, please ignore this email.
-        </p>
-        <hr style="border: none; border-top: 1px solid #ddd;">
-        <p style="font-size: 14px; color: #999; text-align: center;">© 2025 Your Company. All rights reserved.</p>
-      </div>
-    `,
-  };
 
+  // Use dynamic payload
+  const emailPayload = userAccountCreationPayload({ name, email, password });
   await sendEmail(emailPayload);
 
   return newUser;
@@ -195,28 +169,9 @@ export const updateUser = async (id, name, password, phone, roles) => {
       permissions: role.role.permissions.map((perm) => perm.permission.name),
     })) || [];
 
-  await sendEmail({
-    to: updatedUser.email,
-    subject: "Your Account Details Updated",
-    text: `Hello ${updatedUser.name}, your account details have been updated successfully.`,
-    html: `
-      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #ddd; border-radius: 8px; background-color: #f9f9f9;">
-        <h2 style="text-align: center; color: #333;">Your Account Details Updated</h2>
-        <p style="font-size: 16px; color: #555;">Hello <strong>${updatedUser.name}</strong>,</p>
-        <p style="font-size: 16px; color: #555;">
-          Your account details have been updated successfully. If you made this change, please ignore this email. If not, please contact support.
-        </p>
-        <div style="text-align: center; margin-top: 20px;">
-          <a href="http://localhost:3001/login" style="display: inline-block; background-color: #007bff; color: #fff; padding: 12px 20px; font-size: 16px; text-decoration: none; border-radius: 5px;">Login Now</a>
-        </div>
-        <p style="font-size: 14px; color: #999; text-align: center; margin-top: 20px;">
-          If you didn't request this, please ignore this email.
-        </p>
-        <hr style="border: none; border-top: 1px solid #ddd;">
-        <p style="font-size: 14px; color: #999; text-align: center;">© 2025 Your Company. All rights reserved.</p>
-      </div>
-    `,
-  });
+  // Use dynamic payload
+  const emailPayload = userAccountUpdatePayload({ name: updatedUser.name, email: updatedUser.email });
+  await sendEmail(emailPayload);
 
   return {
     ...updatedUser,

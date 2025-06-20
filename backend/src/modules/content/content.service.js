@@ -32,7 +32,8 @@ import {
   scheduleRequestToPublish,
   createResources,
   fetchVersionContent,
-  checkSlugExists
+  checkSlugExists,
+  fetchAllFilters
 } from "../../repository/content.repository.js";
 
 // Create New Resource ================================
@@ -461,6 +462,11 @@ const getVersionContent = async (versionId) => {
   };
 };
 
+const getAllFilters = async (resourceId) => {
+  const filters = await fetchAllFilters(resourceId);
+  return { message: "Success", filters };
+};
+
 export {
   getResources,
   getResourceInfo,
@@ -486,5 +492,6 @@ export {
   activateResources,
   getDashboardInsight,
   getVersionContent,
-  addNewResource
+  addNewResource,
+  getAllFilters
 };

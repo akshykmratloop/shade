@@ -5940,3 +5940,38 @@ export const checkSlugExists = async (slug) => {
     select: { id: true }
   });
 };
+
+export const fetchAllFilters = async (resourceId = null) => {
+  if (resourceId) {
+    // Get filters associated with the given resourceId
+    const resource = await prismaClient.resource.findUnique({
+      where: { id: resourceId },
+      select: {
+        filters: {
+          select: {
+            id: true,
+            nameEn: true,
+            nameAr: true,
+          },
+          orderBy: { nameEn: 'asc' },
+        },
+      },
+    });
+    return resource ? resource.filters : [];
+  } else {
+    // Return all filters
+    return await prismaClient.filters.findMany({
+      select: {
+        id: true,
+        nameEn: true,
+        nameAr: true,
+      },
+      orderBy: { nameEn: 'asc' },
+    });
+  }
+};
+
+
+
+
+

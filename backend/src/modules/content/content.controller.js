@@ -26,6 +26,7 @@ import {
   scheduleRequest,
   getVersionContent,
   addNewResource,
+  getAllFilters,
 } from "./content.service.js";
 
 
@@ -271,6 +272,12 @@ const GetVersionContent = async (req, res) => {
   res.status(200).json(response);
 };
 
+const GetAllFilters = async (req, res) => {
+  const { resourceId } = req.query;
+  const response = await getAllFilters(resourceId);
+  res.status(200).json(response);
+};
+
 export default {
   AddNewResource,
   GetResources,
@@ -296,4 +303,5 @@ export default {
   ActivateResources,
   GetDashboardInsight,
   GetVersionContent,
+  GetAllFilters,
 };
