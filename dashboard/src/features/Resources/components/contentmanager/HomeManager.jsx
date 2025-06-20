@@ -25,7 +25,6 @@ const HomeManager = ({ language, currentPath, outOfEditing }) => {
     const { content, indexes } = createContent(currentContent, "edit")
     const dispatch = useDispatch()
     // fucntions
-    console.log(ServicesOptions)
 
     useEffect(() => {
         const RESOURCE_CONFIG = [
