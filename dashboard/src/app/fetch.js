@@ -322,13 +322,19 @@ export async function deactivateUser(id) {
 }
 
 // fetch for Notifications
-export async function getNotificationsbyId(id) {
-  return await makerequest(
-    api.route("getNotifications") + id,
-    "GET",
-    JSON.stringify(id),
-    ContentType.json
-  );
+export async function getNotificationsbyId(id, page = 1, search = "", filters = {}) {
+  // Build query string
+  const params = new URLSearchParams({
+    page: page.toString(),
+    // limit: limit.toString(),
+    search: search || "",
+    // You can add more filter params if needed
+  });
+
+  const uri = api.route("getNotifications") + id + "?" + params.toString();
+  // const uri = api.route("getNotifications") + id;
+  console.log(uri, "uri==============");
+  return await makerequest(uri, "GET");
 }
 
 export async function markAllNotificationAsRead(id) {

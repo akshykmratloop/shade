@@ -9,7 +9,7 @@ export const findRoles = async (searchTerm = "", status = "", page, limit) => {
         contains: searchTerm,
         mode: "insensitive",
       },
-      ...(status ? {status: status} : {}),
+      ...(status ? { status: status } : {}),
     },
     include: {
       _count: {
@@ -32,7 +32,7 @@ export const findRoles = async (searchTerm = "", status = "", page, limit) => {
       //   },
       // },
     },
-    orderBy: {created_at: "asc"},
+    orderBy: { created_at: "asc" },
     skip,
     take: limit,
   });
@@ -44,7 +44,7 @@ export const findRoles = async (searchTerm = "", status = "", page, limit) => {
         contains: searchTerm,
         mode: "insensitive",
       },
-      ...(status ? {status: status} : {}),
+      ...(status ? { status: status } : {}),
     },
   });
 
@@ -98,6 +98,15 @@ export const findRoleType = async () => {
 };
 
 export const createNewRoles = async (name, roleTypeId, permissionsArray) => {
+
+  // Check for duplicate role name
+  const existingRole = await prismaClient.role.findUnique({
+    where: { name },
+  });
+  if (existingRole) {
+    throw new Error("A role with this name already exists.");
+  }
+
   const roles = await prismaClient.role.create({
     data: {
       name,
@@ -114,13 +123,13 @@ export const createNewRoles = async (name, roleTypeId, permissionsArray) => {
 
   if (!roles) return false; // for handling the assert through false
 
-  return {roles};
+  return { roles };
 };
 
 export const updateRoleById = async (id, name, roleTypeId, permissions) => {
   console.log(id, name, roleTypeId, permissions, 'rolessss');
   const role = await prismaClient.role.update({
-    where: {id},
+    where: { id },
     data: {
       name: name,
       roleTypeId,
@@ -133,7 +142,7 @@ export const updateRoleById = async (id, name, roleTypeId, permissions) => {
     },
   });
   if (!role) return false; // for handling the assert through false
-  return {role};
+  return { role };
 };
 
 export const roleActivation = async (id) => {

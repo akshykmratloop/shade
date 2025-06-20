@@ -1,5 +1,5 @@
-import {logger} from "../../config/index.js";
-import {assert, assertEvery} from "../../errors/assertError.js";
+import { logger } from "../../config/index.js";
+import { assert, assertEvery } from "../../errors/assertError.js";
 
 import {
   findAllNotification,
@@ -7,12 +7,12 @@ import {
   markNotificationAsRead,
 } from "../../repository/notification.repository.js";
 
-const getAllNotification = async (id) => {
-  const notifications = await findAllNotification(id);
+const getAllNotification = async (id, page, limit, search) => {
+  const notifications = await findAllNotification(id, page, limit, search);
   // if response is empty the throw error with assert
   assert(notifications, "FETCHING_FAILED", "something went wrong");
   //log information
-  logger.info({response: "Fetched successfully"});
+  logger.info({ response: "Fetched successfully" });
   return {
     message: "notification fetched successfully",
     notifications,
@@ -25,7 +25,7 @@ const markNotification = async (id) => {
   // if response is empty the throw error with assert
   assert(mark, "MARK_FAILED", "something went wrong");
   //log information
-  logger.info({response: "Fetched successfully"});
+  logger.info({ response: "Fetched successfully" });
   return {
     message: "notification read successfully",
     mark,
@@ -38,7 +38,7 @@ const markAllNotification = async (id) => {
   // if response is empty the throw error with assert
   assert(markAll, "MARK_FAILED", "something went wrong");
   //log information
-  logger.info({response: "Fetched successfully"});
+  logger.info({ response: "Fetched successfully" });
   return {
     message: "all notifications read successfully",
     markAll,
@@ -46,4 +46,4 @@ const markAllNotification = async (id) => {
   }; // if everything goes fine
 };
 
-export {getAllNotification, markNotification, markAllNotification};
+export { getAllNotification, markNotification, markAllNotification };

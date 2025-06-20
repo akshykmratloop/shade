@@ -11,11 +11,6 @@ import contentController from "./content.controller.js";
 const router = Router();
 
 router.post(
-  "/createResource",
-  tryCatchWrap(ContentController.CreateNewResource)
-);
-
-router.post(
   "/addResource",
   tryCatchWrap(ContentController.AddNewResource)
 );
