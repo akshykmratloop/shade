@@ -118,20 +118,20 @@ const TemplateTwo = ({ content, screen, language, width, highlight, liveContent 
             >
                 <div className={`${isComputer ?"grid grid-cols-5":isTablet? "flex flex-wrap":""}`}
                     style={{
-                        gap: (isComputer) && `${getDynamicSize(15)}`
+                        gap: (isComputer  || isTablet) && `${getDynamicSize(15)}`
                     }}
                 >
                     {tempArr?.map((e, i) => {
                         const colors = i % 5
                         return (
-                            <div className={`${fontLight}`} style={{
+                            <div className={`${fontLight} flex-[1_1_300px] ${(isPhone || isTablet) && "p-4"}`} style={{
                                 backgroundColor: indexStyle[colors].bg,
                                 color: indexStyle[colors].text,
                                 padding: (isComputer) && `${getDynamicSize(15)}`,
                                 fontSize: fontSize.mainPara
                             }}>
                                 <p
-                                    className="mb-10"
+                                    className={`mb-10`}
                                     style={{
                                         marginBottom: (isComputer) && `${getDynamicSize(85)}`,
                                     }}
