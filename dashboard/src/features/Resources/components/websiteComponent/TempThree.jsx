@@ -229,8 +229,10 @@ const TemplateThree = ({ content, screen, language, width, highlight, liveConten
                             {
                                 tempArr?.map((e, i) => {
                                     return (
-                                        <div className="border aspect-[1/.91]">
+                                        <div className="border aspect-[1/.91] flex justify-center items-center">
+                                            <p style={{fontSize: fontSize.mainPara}}>
                                             Lorem, ipsum.
+                                            </p>
                                         </div>
                                     )
                                 })
