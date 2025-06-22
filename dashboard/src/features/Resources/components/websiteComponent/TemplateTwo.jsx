@@ -147,8 +147,8 @@ const TemplateTwo = ({ content, screen, language, width, highlight, liveContent 
             <section
                 className={`bg-[#00B9F20A]`}
                 style={{
-                    padding: (isComputer) && `${getDynamicSize(100)} ${getDynamicSize(150)}`,
-                    margin: (isComputer) && `${getDynamicSize(100)} ${getDynamicSize(0)}`
+                    padding: (isComputer || isTablet) && `${getDynamicSize(100)} ${getDynamicSize(150)}`,
+                    margin: (isComputer || isTablet) && `${getDynamicSize(100)} ${getDynamicSize(0)}`
                 }}
             >
                 <div className="flex flex-col"
