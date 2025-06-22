@@ -24,7 +24,7 @@ const MarketDetailsPage = () => {
   const isLeftAlign = language === "en";
   const titleLan = isLeftAlign ? "titleEn" : "titleAr";
   const [content, setContent] = useState({})
-  console.log(content)
+  
   useEffect(() => {
     const fetchContent = async () => {
       try {

@@ -29,6 +29,8 @@ import AffiliatesPage from "./websiteComponent/Affiliates";
 import Organization from "./websiteComponent/Organizational";
 import TemplateOne from "./websiteComponent/TemplateOne";
 import TemplateTwo from "./websiteComponent/TemplateTwo";
+import TemplateThree from "./websiteComponent/TempThree";
+import TemplateFour from "./websiteComponent/TemplateFour";
 
 // import { useDispatch, useSelector } from "react-redux";
 // import { useEffect, useRef, useState } from "react";
@@ -132,6 +134,12 @@ const AllForOne = ({
 
             case "temp-2":
                 return <TemplateTwo {...baseProps} content={content} />
+
+            case "temp-3":
+                return <TemplateThree {...baseProps} content={content} />
+
+            case "temp-4":
+                return <TemplateFour {...baseProps} content={content} />
 
             default:
                 return null;
