@@ -1,5 +1,9 @@
 import createContent from "@/common/CreateContent";
-import ServiceSubPages from "@/components/services/ServiceSubPages";
+import Loader from "@/common/Loader";
+import NewTemplate from "@/components/template/NewTemplate";
+import NewTemplate2 from "@/components/template/NewTemplate2";
+import NewTemplate3 from "@/components/template/NewTemplate3";
+import NewTemplate4 from "@/components/template/NewTemplate4";
 import {backendAPI} from "@/contexts/GlobalContext";
 import Head from "next/head";
 import {useEffect, useState} from "react";
@@ -30,7 +34,7 @@ import {useEffect, useState} from "react";
 //     };
 // }
 
-export default function ServicesSubpages({apiData}) {
+export default function Template({apiData}) {
   console.log("Safety Details API Data:", apiData);
 
   const [isLoading, setIsLoading] = useState(true);
@@ -51,9 +55,9 @@ export default function ServicesSubpages({apiData}) {
     }
   }, [apiData]);
 
-  // if (isLoading) {
-  //   return <Loader />;
-  // }
+  if (isLoading) {
+    return <Loader />;
+  }
 
   return (
     <>
@@ -63,30 +67,55 @@ export default function ServicesSubpages({apiData}) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <ServiceSubPages content={content} />
+      {/* <NewTemplate content={content} /> */}
+      {/* <NewTemplate2 content={content} /> */}
+      <NewTemplate3 content={content} />
+      {/* <NewTemplate4 content={content} /> */}
     </>
   );
 }
 
+// export async function getServerSideProps({params}) {
+//   const {slug} = params;
+//   console.log("Fetching data for slug:", slug);
+//   console.log("helloooooooo");
+
+//   try {
+//     const res = await fetch(`${backendAPI}${slug}`);
+
+//     if (!res.ok) {
+//       // If response failed (e.g., 404, 500), return empty object
+//       return {props: {apiData: {}}};
+//     }
+//     const apiData = await res.json();
+
+//     console.log("API Data:", apiData);
+
+//     return {props: {apiData: apiData || {}}};
+//   } catch (error) {
+//     // If fetch throws an error (e.g., network failure), return empty object
+//     return {props: {apiData: {}}};
+//   }
+// }
+
 export async function getServerSideProps({params}) {
   const {slug} = params;
-  console.log("Fetching data for slug:", params);
-  console.log("helloooooooo");
 
-  try {
-    const res = await fetch(`${backendAPI}${slug}`);
+  console.log("Simulating fetch for slug:", slug);
 
-    if (!res.ok) {
-      // If response failed (e.g., 404, 500), return empty object
-      return {props: {apiData: {}}};
-    }
-    const apiData = await res.json();
+  // ✅ Replace this with your actual expected API structure
+  const mockApiData = {
+    slug: slug,
+    title: `Mock Title for ${slug}`,
+    content: {
+      header: `Welcome to ${slug}`,
+      description: `This is a mock description for the ${slug} service.`,
+    },
+  };
 
-    console.log("API Data:", apiData);
-
-    return {props: {apiData: apiData || {}}};
-  } catch (error) {
-    // If fetch throws an error (e.g., network failure), return empty object
-    return {props: {apiData: {}}};
-  }
+  return {
+    props: {
+      apiData: mockApiData,
+    },
+  };
 }

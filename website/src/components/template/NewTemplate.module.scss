@@ -1,0 +1,285 @@
+.template_banner_wrap {
+  height: auto;
+  //   background: url("../../assets/images/Hero.png") no-repeat center / cover;
+  width: 100%;
+  position: relative;
+  // padding: 0px 150px;
+
+  &.leftAlign {
+    .content {
+      .view_btn {
+        padding: 10px 35px 10px 10px !important;
+
+        .arrow_btn {
+          position: absolute;
+          top: 30% !important;
+          left: 170px !important;
+          // transform: scaleX(-1) !important;
+        }
+      }
+    }
+  }
+
+  .backgroundContainer {
+    width: 100%;
+    height: 100vh;
+    display: block;
+
+    &.leftAlign {
+      transform: scaleX(-1);
+    }
+
+    .backgroundImage {
+      width: 100%;
+      height: 100vh;
+    }
+  }
+
+  .content {
+    position: absolute;
+    top: 30%;
+    padding: 0px 150px;
+
+    .title {
+      color: var(--black);
+      font-size: 70px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 77px;
+      /* 110% */
+      letter-spacing: -3.5px;
+      margin-bottom: 16px;
+      text-wrap: auto;
+      width: 635px;
+      //   text-align: right;
+    }
+
+    .description {
+      color: var(--para-light);
+      // font-size: 14px;
+      // font-style: normal;
+      // font-weight: 700;
+      // line-height: 14.5px;
+      // margin-bottom: 24px;
+      // width: 44%;
+      //   text-align: right;
+      //   margin-left: auto;
+      font-size: 16px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 26px;
+      margin-bottom: 26px;
+      width: 50%;
+      word-spacing: 5px;
+      display: block;
+    }
+  }
+}
+
+.template_first_section {
+  padding: 80px 0;
+
+  .template_first_section_card_wrapper {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 94px;
+
+    .template_first_section_card {
+      max-width: 560px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      .template_first_section_card_image {
+        // width: 100%;
+        // height: 100%;
+        padding: 55px;
+        border: 1px solid gray;
+        background: #00b9f212;
+
+        img {
+          max-width: 450px;
+          height: 375px;
+          border: 1px solid gray;
+        }
+      }
+
+      .template_first_section_card_heading {
+        // font-family: BankGothic Md BT;
+        font-weight: 400;
+        font-size: 32.98px;
+        line-height: 100%;
+        letter-spacing: 0%;
+        color: #292e3d;
+      }
+
+      .template_first_section_card_desc {
+        // font-family: Bank Gothic Light;
+        font-weight: 300;
+        font-size: 16.49px;
+        line-height: 22.67px;
+        letter-spacing: 0%;
+        color: #292e3d;
+      }
+    }
+  }
+}
+
+.template_second_section {
+  padding: 80px 0;
+  background: #00b9f28c;
+
+  .template_second_section_card_wrapper {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+
+    .template_second_section_card {
+      max-width: 380px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      background: #ffffff;
+      padding: 16px;
+
+      .template_second_section_card_header {
+        display: flex;
+        gap: 15px;
+        align-items: center;
+
+        .template_second_section_card_heading {
+          // font-family: BankGothic Md BT;
+          font-weight: 400;
+          font-size: 23.62px;
+          line-height: 100%;
+          letter-spacing: 0%;
+        }
+      }
+
+      .template_second_section_card_desc {
+        // font-family: Bank Gothic Light;
+        font-weight: 300;
+        font-size: 16px;
+        line-height: 22px;
+        letter-spacing: 0%;
+        color: #718096;
+      }
+    }
+  }
+}
+
+.template_third_section {
+  padding: 80px 0;
+
+  .template_third_section_card_wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    width: 1000px;
+    justify-content: center;
+    margin: auto;
+
+    .template_third_section_card {
+      display: flex;
+      justify-content: space-between;
+      // gap: 40px;
+      padding: 30px 20px;
+      border: 1px solid #eeeeee;
+      .template_third_section_card_heading {
+        // width: 277px;
+        font-weight: 700;
+        font-size: 24px;
+        line-height: 20px;
+        letter-spacing: 0%;
+        vertical-align: middle;
+      }
+
+      .template_third_section_card_desc {
+        width: 600px;
+      }
+    }
+  }
+}
+
+/* ----------------------------
+   Responsive Breakpoints Below
+----------------------------- */
+@media screen and (max-width: 800px) {
+  .template_banner_wrap .content {
+    padding: 0 60px;
+
+    .title {
+      font-size: 50px;
+      width: 100%;
+    }
+
+    .description {
+      font-size: 14px;
+      width: 80%;
+    }
+  }
+
+  .template_first_section .template_first_section_card_wrapper {
+    grid-template-columns: repeat(1, 1fr);
+    // margin: auto;
+    gap: 16px;
+    .template_first_section_card {
+      margin: auto;
+    }
+  }
+
+  .template_second_section .template_second_section_card_wrapper {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  .template_third_section .template_third_section_card_wrapper {
+    width: 90%;
+  }
+
+  .template_third_section .template_third_section_card {
+    flex-direction: column;
+    gap: 20px;
+
+    .template_third_section_card_desc {
+      width: auto;
+    }
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .template_banner_wrap .content {
+    padding: 0 30px;
+
+    .title {
+      font-size: 36px;
+      line-height: 48px;
+      letter-spacing: -1px;
+      width: 100%;
+    }
+
+    .description {
+      font-size: 13px;
+      line-height: 22px;
+      width: 100%;
+    }
+  }
+
+  .template_first_section .template_first_section_card_wrapper {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .template_second_section .template_second_section_card_wrapper {
+    grid-template-columns: 1fr;
+  }
+
+  .template_third_section .template_third_section_card {
+    flex-direction: column;
+    padding: 20px 15px;
+  }
+
+  .template_third_section .template_third_section_card_wrapper {
+    width: auto;
+    padding: 0 15px;
+  }
+}

@@ -1,0 +1,113 @@
+.template3_banner_section {
+  padding: 190px 100px 80px 100px;
+
+  .template3_banner_wrapper {
+    display: flex;
+    align-items: center;
+    gap: 50px;
+
+    .template3_banner_header {
+      max-width: 503px;
+
+      .template3_banner_heading {
+        font-weight: 700;
+        font-size: 70px;
+        line-height: 77px;
+        letter-spacing: -5%;
+        margin-bottom: 16px;
+        color: #292e3d;
+      }
+
+      .template3_banner_para {
+        font-weight: 500;
+        font-size: 14px;
+        line-height: 100%;
+        letter-spacing: 0%;
+        margin-bottom: 16px;
+        color: #0e172fb2;
+      }
+      button {
+        background: #00b9f2;
+        border: none;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 18px;
+        letter-spacing: 2%;
+        text-align: center;
+        vertical-align: middle;
+        padding: 16px;
+        border-radius: 5px;
+        color: aliceblue;
+      }
+    }
+    .template3_banner_image {
+      width: 680px;
+      height: 300px;
+      border: 1px solid grey;
+    }
+  }
+}
+
+.template3_first_section {
+  padding: 80px 0;
+  background: #00b9f20a;
+
+  .template3_first_section_content_wrapper {
+    .template3_first_section_content {
+      display: flex;
+      justify-content: space-between;
+
+      .template3_first_section_content_heading {
+        width: 503px;
+        font-weight: 500;
+        font-size: 60px;
+        line-height: 67px;
+        letter-spacing: -5%;
+        vertical-align: middle;
+        color: #292e3d;
+      }
+
+      .template3_first_section_content_para {
+        width: 530px;
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 100%;
+        letter-spacing: 0%;
+        color: #0e172fb2;
+      }
+    }
+  }
+}
+
+.template3_second_section {
+  padding: 80px 0;
+
+  .template3_second_section_card_wrapper {
+    display: flex;
+    gap: 20px;
+
+    .template3_second_section_card {
+      width: 437px;
+      height: 361px;
+
+      img {
+        width: 437px;
+        height: 200px;
+      }
+
+      .template3_second_section_card_heading {
+        font-weight: 400;
+        font-size: 26.39px;
+        line-height: 100%;
+        letter-spacing: 0%;
+      }
+
+      .template3_second_section_card_desc {
+        font-weight: 300;
+        font-size: 13.19px;
+        line-height: 18.14px;
+        letter-spacing: 0%;
+      }
+    }
+  }
+}

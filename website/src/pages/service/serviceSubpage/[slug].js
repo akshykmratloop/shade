@@ -1,4 +1,5 @@
 import createContent from "@/common/CreateContent";
+import ServiceSubpageDetails from "@/components/services/ServiceSubpageDetails";
 import ServiceSubPages from "@/components/services/ServiceSubPages";
 import {backendAPI} from "@/contexts/GlobalContext";
 import Head from "next/head";
@@ -63,7 +64,7 @@ export default function ServicesSubpages({apiData}) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <ServiceSubPages content={content} />
+      <ServiceSubpageDetails content={content} />
     </>
   );
 }
