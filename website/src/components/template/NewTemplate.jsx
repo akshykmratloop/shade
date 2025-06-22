@@ -2,7 +2,7 @@ import {useGlobalContext} from "@/contexts/GlobalContext";
 import localFont from "next/font/local";
 import styles from "@/components/template/NewTemplate.module.scss";
 import React from "react";
-import banner from "@/assets/images/hero.png";
+import banner from "@/assets/images/Hero.png";
 import templateImg from "@/assets/images/templateImage.png";
 import templateIcon from "../../assets/icons/templateIcon.svg";
 
@@ -154,18 +154,18 @@ const NewTemplate = ({content}) => {
         </div>
       </section>
 
-      <section className={styles.template_first_section}>
+      <section className={`${styles.template_first_section}`}>
         <div className="container">
-          <div className={styles.template_first_section_card_wrapper}>
+          <div className={`${styles.template_first_section_card_wrapper}`}>
             {firstSection.map((item) => (
-              <div key={item.id} className={styles.template_first_section_card}>
-                <div className={styles.template_first_section_card_image}>
+              <div key={item.id} className={`${styles.template_first_section_card}`}>
+                <div className={`${styles.template_first_section_card_image}`}>
                   <img src={item.img.src} alt="image" />
                 </div>
-                <h2 className={styles.template_first_section_card_heading}>
+                <h2 className={`${styles.template_first_section_card_heading}`}>
                   {item.title}
                 </h2>
-                <p className={styles.template_first_section_card_desc}>
+                <p className={`${styles.template_first_section_card_desc} bank-light`}>
                   {item.description}
                 </p>
               </div>
@@ -188,7 +188,7 @@ const NewTemplate = ({content}) => {
                     {item.title}
                   </h2>
                 </div>
-                <p className={styles.template_second_section_card_desc}>
+                <p className={`${styles.template_second_section_card_desc} bank-light`}>
                   {item.description}
                 </p>
               </div>
@@ -206,7 +206,7 @@ const NewTemplate = ({content}) => {
                   {item.title}
                 </h2>
 
-                <p className={styles.template_third_section_card_desc}>
+                <p className={`${styles.template_third_section_card_desc} bank-light`}>
                   {item.description}
                 </p>
               </div>

@@ -2,7 +2,7 @@ import {useGlobalContext} from "@/contexts/GlobalContext";
 import localFont from "next/font/local";
 import styles from "@/components/template/NewTemplate2.module.scss";
 import React from "react";
-import banner from "@/assets/images/hero.png";
+import banner from "@/assets/images/Hero.png";
 import templateImg from "@/assets/images/swccWaterSupply.jpg";
 import templateIcon from "../../assets/icons/templateIcon.svg";
 import checkIcon from "@/assets/icons/check.svg";
@@ -280,7 +280,7 @@ const NewTemplate2 = ({content}) => {
                 Shade Corporation boasts a continually growing portfolio of
                 satisfied clients, both global and local, who have derived
                 tremendous benefits from their engagement with us. Our solutions
-                are sought after by companies of all sizes – large, mid-sized,
+                are sought after by companies of all sizes — large, mid-sized,
                 an
               </p>
             </div>

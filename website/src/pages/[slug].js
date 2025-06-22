@@ -69,7 +69,7 @@ export default function Template({apiData}) {
       </Head>
       {/* <NewTemplate content={content} /> */}
       {/* <NewTemplate2 content={content} /> */}
-      <NewTemplate3 content={content} />
+      {/* <NewTemplate3 content={content} /> */}
       {/* <NewTemplate4 content={content} /> */}
     </>
   );

@@ -77,11 +77,11 @@ const TemplateOne = ({ content, screen, language, width, highlight, liveContent 
 
             <section className="px-10 py-10"
                 style={{
-                    padding: (isComputer || isTablet) && `${getDynamicSize(100)} ${getDynamicSize(120)}`
+                    padding: (isComputer) ? `${getDynamicSize(100)} ${getDynamicSize(120)}` : `${getDynamicSize(100)} ${getDynamicSize(170)}`
                 }}
             >
-                <div className={`grid ${(isComputer || isTablet) && "grid-cols-2"} gap-10`}
-                    style={{ gap: (isComputer || isTablet) && `${getDynamicSize(80)} ${getDynamicSize(90)}` }}
+                <div className={`grid ${(isComputer) && "grid-cols-2"} gap-10`}
+                    style={{ gap: (isComputer) ? `${getDynamicSize(80)} ${getDynamicSize(90)}` : `${getDynamicSize(150)}` }}
                 >
                     {
                         tempArr?.map((e, i) => {
@@ -91,7 +91,7 @@ const TemplateOne = ({ content, screen, language, width, highlight, liveContent 
                                     style={{ gap: `${getDynamicSize(16)}` }}
                                 >
                                     <div className=" bg-[#00B9F212]"
-                                        style={{ padding: `${getDynamicSize(58)}` }}
+                                        style={{ padding: isComputer ? `${getDynamicSize(58)}` : `${getDynamicSize(120)}` }}
                                     >
                                         <img src={projectPageData.asphaltWork}
                                             className="w-full"
@@ -128,7 +128,7 @@ const TemplateOne = ({ content, screen, language, width, highlight, liveContent 
                             return (
                                 <div className="bg-white flex flex-col"
                                     style={{
-                                        padding: `${getDynamicSize(16)}`,
+                                        padding: isComputer ? `${getDynamicSize(16)}` : getDynamicSize(32),
                                         gap: getDynamicSize(16)
                                     }}
                                     key={i}
@@ -137,14 +137,15 @@ const TemplateOne = ({ content, screen, language, width, highlight, liveContent 
                                         style={{ gap: (isComputer || isTablet) && getDynamicSize(10) }}
                                     >
                                         <img src={aboutUsIcons.ourGoal} alt=""
-                                            style={{ width: (isComputer || isTablet) && getDynamicSize(46) }}
-                                            className="aspect-[1/1] w-[30px]"
+                                            style={{ width: (isComputer) && getDynamicSize(46) }}
+                                            className={`aspect-[1/1] w-[46px]`}
                                         />
                                         <h3
+                                            className=""
                                             style={{ fontSize: fontSize.aboutMainPara }}
                                         >Education</h3>
                                     </div>
-                                    <p className={`${fontLight}`}
+                                    <p className={`${fontLight} text-[#718096]`}
                                         style={{ fontSize: fontSize.mainPara }}
                                     >It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using  content</p>
                                 </div>
@@ -165,13 +166,19 @@ const TemplateOne = ({ content, screen, language, width, highlight, liveContent 
                         padding: (isComputer) && `${getDynamicSize(0)} ${getDynamicSize(60)}`,
                         gap: (isComputer || isTablet) && `${getDynamicSize(40)}`
                     }}
-                    className="flex flex-col gap-6"
+                    className={`flex flex-col gap-6 `}
                 >
                     {
                         tempArr?.map((e, i) => {
                             return (
-                                <section className={`flex gap-[10px] border ${isPhone ? "flex-col p-1" : ""}`} key={i}>
-                                    <h2 className={`text-[32px] flex-1 leading-[28px]
+                                <section
+                                    className={`
+                                        flex  border 
+                                        ${isPhone ? "flex-col p-1" : ""} 
+                                        ${isTablet ? "px-[20px] py-[30px] gap-[20px]" : "gap-[10px]"}`}
+                                    key={i}
+                                >
+                                    <h2 className={`text-[32px] ${isTablet && "flex-[1_1_167px]"} leading-[28px] font-[700]
                                                     ${checkDifference(content?.[2]?.content?.title?.[language], liveContent?.[2]?.content?.title?.[language])}
                                                 `}
                                         style={{ fontSize: fontSize.serviceHeading, lineHeight: isComputer && getDynamicSize(35) }}
@@ -181,7 +188,7 @@ const TemplateOne = ({ content, screen, language, width, highlight, liveContent 
                                             "Project Description"
                                         }
                                     </h2>
-                                    <div className={`text-[9.5px] flex-1 ${fontLight}
+                                    <div className={`text-[9.5px] ${isTablet && "flex-[0_1_363px]"} ${fontLight}
                                                     ${checkDifference(content?.[2]?.content?.description?.[language], liveContent?.[2]?.content?.description?.[language])}
                                                     `}
                                         style={{ fontSize: fontSize.mainPara }}

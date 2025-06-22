@@ -1,21 +1,27 @@
 import CloseModalButton from "../../components/Button/CloseButton"
 import NA_Image from "../../assets/na.svg"
 import { useState } from "react"
+import { useNavigate } from "react-router-dom"
 
 
 const NewProjectDialog = ({ close, display }) => {
+    const navigate = useNavigate()
     const [selectedTemp, setSelectedTemp] = useState(-1)
 
     const templates = [
-        { name: "Template 1", image: "" },
-        { name: "Template 2", image: "" },
-        { name: "Template 3", image: "" },
-        { name: "Template 4", image: "" }
+        { name: "Template 1", image: "", route: "temp-1" },
+        { name: "Template 2", image: "", route: "temp-2" },
+        { name: "Template 3", image: "", route: "temp-3" },
+        { name: "Template 4", image: "", route: "temp-4" }
     ]
 
     function selectTemplate(index) {
         if (selectedTemp === index) setSelectedTemp(-1)
         else setSelectedTemp(index)
+    }
+
+    function onSelectTemplate() {
+        navigate(`./edit/${templates[selectTemplate].route}`)
     }
 
     return (
@@ -46,7 +52,7 @@ const NewProjectDialog = ({ close, display }) => {
                         </div>
                         <div className="flex gap-2 self-end font-[500]">
                             <button className="py-3 border rounded-lg px-3" onClick={close}>Cancel</button>
-                            <button className="py-3 rounded-lg bg-gradient-to-r from-blue-500/40 via-purple-500/ to-pink-500/60 p-3 text-white "
+                            <button className="py-3 rounded-lg bg-gradient-to-r from-blue-500/100 via-purple-500/ to-pink-500/70 p-3 text-white "
                                 onClick={() => { }}>Create Page</button>
                         </div>
                     </div>

@@ -2,7 +2,7 @@ import {useGlobalContext} from "@/contexts/GlobalContext";
 import localFont from "next/font/local";
 import styles from "@/components/template/NewTemplate3.module.scss";
 import React from "react";
-import banner from "@/assets/images/hero.png";
+import banner from "@/assets/images/Hero.png";
 import templateImg from "@/assets/images/templateImage.png";
 import templateIcon from "../../assets/icons/templateIcon.svg";
 import {sync} from "framer-motion";

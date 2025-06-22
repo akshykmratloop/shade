@@ -30,6 +30,7 @@ import { setPlatform } from "../common/platformSlice";
 import { updateMainContent } from "../common/homeContentSlice";
 import { ResourceCard } from "./ResourceCard";
 import NewProjectDialog from "./NewProjectDialog";
+import ToastPlacer, { runToast } from "../Component/ToastPlacer";
 
 const AllForOne = lazy(() => import("./components/AllForOne"));
 const Page404 = lazy(() => import("../../pages/protected/404"));
@@ -59,7 +60,7 @@ function Resources() {
     MAIN_PAGE: [],
   });
   const [openCreateProjectDialog, setOpenCreateProjectDialog] = useState(false)
-
+  runToast("LOAD", "message")
 
   // Redux State
   const divRef = useRef(null);
@@ -362,7 +363,8 @@ function Resources() {
         openCreateProjectDialog &&
         <NewProjectDialog display={openCreateProjectDialog} close={() => setOpenCreateProjectDialog(false)} />
       }
-      <ToastContainer />
+      {/* <ToastContainer /> */}
+      <ToastPlacer />
     </div >
   );
 }

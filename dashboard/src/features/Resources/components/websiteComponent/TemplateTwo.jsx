@@ -83,9 +83,11 @@ const TemplateTwo = ({ content, screen, language, width, highlight, liveContent 
                 </div>
             </section>
 
-            <section style={{
-                padding: (isComputer || isTablet) && `${getDynamicSize(100)} ${getDynamicSize(150)}`
-            }}>
+            <section
+                className="px-10 py-10"
+                style={{
+                    padding: (isComputer || isTablet) && `${getDynamicSize(100)} ${getDynamicSize(150)}`
+                }}>
 
                 <section className={`flex gap-[10px] ${isPhone ? "flex-col p-1" : ""}`}>
                     <h2 className={`text-[32px] flex-1 leading-[28px]
@@ -112,13 +114,15 @@ const TemplateTwo = ({ content, screen, language, width, highlight, liveContent 
             </section>
 
             <section
+                className="px-10"
+
                 style={{
                     padding: (isComputer || isTablet) && `${getDynamicSize(0)} ${getDynamicSize(150)}`
                 }}
             >
-                <div className={`${isComputer ?"grid grid-cols-5":isTablet? "flex flex-wrap":""}`}
+                <div className={`${isComputer ? "grid grid-cols-5" : isTablet ? "flex flex-wrap" : "space-y-5"}`}
                     style={{
-                        gap: (isComputer  || isTablet) && `${getDynamicSize(15)}`
+                        gap: (isComputer || isTablet) && `${getDynamicSize(15)}`
                     }}
                 >
                     {tempArr?.map((e, i) => {
@@ -145,27 +149,28 @@ const TemplateTwo = ({ content, screen, language, width, highlight, liveContent 
             </section>
 
             <section
-                className={`bg-[#00B9F20A]`}
+
+                className={`bg-[#00B9F20A] py-10 pt-16 px-10`}
                 style={{
                     padding: (isComputer || isTablet) && `${getDynamicSize(100)} ${getDynamicSize(150)}`,
                     margin: (isComputer || isTablet) && `${getDynamicSize(100)} ${getDynamicSize(0)}`
                 }}
             >
                 <div className="flex flex-col"
-                    style={{ gap: (isComputer) && getDynamicSize(100) }}
+                    style={{ gap: (isComputer) ? getDynamicSize(100) : getDynamicSize(150) }}
                 >
                     {
                         tempArr.slice(0, 3).map((e, i) => {
                             let odd = i % 2 !== 0
                             return (
                                 <article
-                                    className={`flex border items-center justify-between relative ${isPhone ? "flex-col" : !odd && "flex-row-reverse"}`}
-                                    style={{ gap: getDynamicSize(70) }}
+                                    className={`flex items-center justify-between relative ${(isPhone || isTablet) ? "flex-col" : !odd && "flex-row-reverse"}`}
+                                    style={{ gap: isComputer ? getDynamicSize(70) : getDynamicSize(10) }}
                                     key={i}
                                 >
                                     <div className={`${!isPhone && ''} `}
                                         style={{
-                                            width: isPhone ? '100%' : isTablet ? "300px" : getDynamicSize(512),
+                                            width: isPhone ? '100%' : isTablet ? "100%" : getDynamicSize(512),
                                         }}
                                     >
                                         <img
@@ -174,9 +179,9 @@ const TemplateTwo = ({ content, screen, language, width, highlight, liveContent 
                                             }
                                             alt=""
                                             style={{
-                                                width: isPhone ? '100%' : isTablet ? "300px" : getDynamicSize(512),
+                                                width: isPhone ? '100%' : isTablet ? "100%" : getDynamicSize(512),
                                             }}
-                                            className="object-cover aspect-[1/1]"
+                                            className={`object-cover ${isComputer ? "aspect-[1/1]" : "aspect-[2/1]"}`}
                                         />
                                     </div>
 
@@ -185,8 +190,8 @@ const TemplateTwo = ({ content, screen, language, width, highlight, liveContent 
                                         style={{
                                             flex: `1 1 ${getDynamicSize(600)}`
                                         }}
-                                        className={`flex flex-col flex-[3_1_600px] gap-[13px] items-start justify-center text-[#292E3D]  
-                                        ${isPhone ? "py-4 px-[18px]" : "py-4 px-[38px]"}`}>
+                                        className={`flex flex-col flex-[3_1_600px] gap-[13px] items-start justify-center text-[#292E3D] 
+                                        ${isPhone ? "py-4 px-[2px]" : "py-4 px-[38px]"}`}>
                                         <h3 className="font-[400] text-[21px]"
                                             style={{
                                                 fontSize: fontSize.aboutMainPara
@@ -205,8 +210,8 @@ const TemplateTwo = ({ content, screen, language, width, highlight, liveContent 
                                                             padding: `${getDynamicSize(10)} 0px`
                                                         }}
                                                     >
-                                                        <img src={blueCheckIcon} alt="" className="translate-y-[1px]"
-                                                            style={{ width: isPhone ? "" : getDynamicSize(20), height: isPhone ? "" : getDynamicSize(20) }} />
+                                                        <img src={blueCheckIcon} alt="" className={`${isTablet ? "translate-y-[4px]" : "translate-y-[1px]"}`}
+                                                            style={{ width: isPhone ? "" : isTablet ? getDynamicSize(30) : getDynamicSize(20), height: isPhone ? "" : isTablet ? getDynamicSize(30) : getDynamicSize(20) }} />
                                                         <p className={`font-[300] text-[10px] ${fontLight}`}
                                                             key={i}
                                                             style={{
@@ -228,12 +233,13 @@ const TemplateTwo = ({ content, screen, language, width, highlight, liveContent 
             </section>
 
             <section
+                className={`${isPhone ? "px-10 py-20" : "px-20"}`}
                 style={{
                     padding: (isComputer) && `${getDynamicSize(0)} ${getDynamicSize(150)} ${getDynamicSize(100)}`,
                 }}
             >
                 <div
-                    className="flex"
+                    className={`flex ${(isTablet || isPhone) && "flex-col"}`}
                     style={{ gap: (isComputer) && getDynamicSize(60) }}
                 >
                     <div className="flex flex-col p-1"
@@ -251,7 +257,7 @@ const TemplateTwo = ({ content, screen, language, width, highlight, liveContent 
                         >Shade Corporation boasts a continually growing portfolio of satisfied clients, both global and local, who have derived tremendous benefits from their engagement with us. Our solutions are sought after by companies of all sizes – large, mid-sized, an</p>
                     </div>
 
-                    <div className="flex"
+                    <div className={`flex gap-4 ${isPhone && "flex-col"}`}
                         style={{
                             gap: (isComputer) && getDynamicSize(10),
                             flex: `1 1 ${getDynamicSize(870)}`
@@ -261,7 +267,7 @@ const TemplateTwo = ({ content, screen, language, width, highlight, liveContent 
                             tempArr.slice(0, 3).map((e, i) => {
                                 return (
                                     <div>
-                                        <img src={projectPageData.developmentOfHo} alt="" className="w-full object-cover aspect-[1/1.8]" />
+                                        <img src={projectPageData.developmentOfHo} alt="" className={`w-full object-cover ${isPhone ? "" : "aspect-[1/1.8]"}`} />
                                     </div>
                                 )
                             })
