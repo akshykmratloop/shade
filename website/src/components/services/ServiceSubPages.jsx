@@ -103,8 +103,53 @@ const ServiceSubPages = ({content}) => {
                   height={190}
                 />
                 <div className={styles.services_card_content}>
-                  <h2>{item.titleEn}</h2>
-                  <p></p>
+                  <h2 className={styles.services_card_content_heading}>
+                    {item.titleEn}
+                  </h2>
+                  <p className={styles.services_card_content_para}>
+                    {item.description?.[language]}
+                  </p>
+                  <button className={styles.services_card_content_button}>
+                    {
+                      currentContent?.["2"]?.content?.button?.[0]?.text?.[
+                        language
+                      ]
+                    }{" "}
+                    &#8594;
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className={styles.other_service_section}>
+        <div className="container">
+          <h2 className={styles.other_service_heading}>Other Service</h2>
+          <div className={styles.other_service_wrapper}>
+            {currentContent?.["3"]?.items?.map((item, idx) => (
+              <div key={idx} className={styles.other_service_card}>
+                <img
+                  src={Img_url + item.image}
+                  alt=""
+                  width={435}
+                  height={206}
+                />
+                <div className={styles.other_service_card_details}>
+                  <h2 className={styles.other_service_card_heading}>
+                    {item.titleEn}
+                  </h2>
+                  <p className={styles.other_service_card_para}>
+                    {item.description?.[language]}
+                  </p>
+                  <button className={styles.other_service_card_button}>
+                    {
+                      currentContent?.["3"]?.content?.button?.[0]?.text?.[
+                        language
+                      ]
+                    }
+                  </button>{" "}
                 </div>
               </div>
             ))}

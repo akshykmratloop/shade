@@ -63,7 +63,7 @@ const EditPage = () => {
         "projects", "project", "careers", "career", "news-blogs",
         "news", "footer", "header", "testimonials", "testimonial",
         "safety_responsibility", "history", "vision", "hse",
-        "affiliates", "organization", "temp-1", "temp-2"
+        "affiliates", "organization", "temp-1", "temp-2", "temp-3", "temp-4"
     ]
 
 
@@ -100,7 +100,9 @@ const EditPage = () => {
 
     useEffect(() => {
         setLoader(true)
-        if (currentId) {
+        if(currentId.slice(0,4) === "TEMP"){
+        dispatch(updateMainContent({ currentPath: "content", payload: structures[currentId] }))
+        } else if (currentId) {
             async function context() {
                 try {
                     const response = await getContent(currentId)

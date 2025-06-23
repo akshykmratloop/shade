@@ -45,11 +45,11 @@ const Select = ({
                     onChange={handleSelectChange}
                     value={value} // <-- Ensure value is controlled
                 >
-                    <option value="" className="" disabled selected dir={language === "en" ? "ltr" : "rtl"}> {language === "ar" ? "اختر" : "Select"} </option>
+                    <option value="" className="" disabled selected dir={language === "ar" ? "rtl" : "ltr"}> {language === "ar" ? "اختر" : "Select"} </option>
                     {options?.map((option, i) => {
                         // console.log(option)
                         return (
-                            <option dir={language === "en" ? "ltr" : "rtl"} value={option?.id} key={option + i} className={`${optionsClass || "text-stone-700"} `}>
+                            <option dir={language === "ar" ? "rtl" : "ltr"} value={option?.id} key={option + i} className={`${optionsClass || "text-stone-700"} `}>
                                 {option?.[nameLan] || option?.name}
                             </option>
                         )

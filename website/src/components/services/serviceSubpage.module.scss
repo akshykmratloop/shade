@@ -95,3 +95,117 @@
     }
   }
 }
+
+.services_card_wrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(590px, 1fr));
+  gap: 35px;
+
+  .services_card {
+    display: flex;
+    gap: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #dfdfdf;
+    width: 590px;
+    .services_card_content {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: flex-start;
+      .services_card_content_heading {
+        // font-family: BankGothic Md BT;
+        font-weight: 500;
+        font-size: 25px;
+        line-height: 100%;
+        letter-spacing: 0%;
+        margin-bottom: 5px;
+        color: #292e3d;
+      }
+      .services_card_content_para {
+        // font-family: Bank Gothic Light;
+        font-weight: 200;
+        font-size: 16px;
+        line-height: 22px;
+        letter-spacing: 0%;
+        color: #292e3d;
+
+        // margin-bottom: auto;
+      }
+      .services_card_content_button {
+        // font-family: BankGothic;
+        font-weight: 700;
+        font-size: 16px;
+        line-height: 100%;
+        letter-spacing: 0%;
+        color: #00b9f2;
+        border: none;
+        background: none;
+        margin-top: auto;
+      }
+    }
+  }
+}
+
+.other_service_section {
+  padding: 70px 0;
+  .other_service_heading {
+    // font-family: BankGothic Md BT;
+    font-weight: 400;
+    font-size: 32.98px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    margin-bottom: 30px;
+  }
+  .other_service_wrapper {
+    display: flex;
+    gap: 30px;
+    overflow-y: auto;
+
+    .other_service_card {
+      display: flex;
+      flex-direction: column;
+      flex: 1 1 0;
+
+      .other_service_card_details {
+        background: #f8f8f8;
+        padding: 25px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: flex-start;
+        width: 435px;
+        flex: 1 1 auto;
+        .other_service_card_heading {
+          // font-family: BankGothic Md BT;
+          font-weight: 400;
+          font-size: 26.39px;
+          line-height: 100%;
+          letter-spacing: 0%;
+          color: #292e3d;
+          margin-bottom: 10px;
+          // background-color: #00b9f2;
+        }
+        .other_service_card_para {
+          // font-family: Bank Gothic Light;
+          font-weight: 300;
+          font-size: 13.19px;
+          line-height: 18.14px;
+          letter-spacing: 0%;
+          color: #292e3d;
+          margin-bottom: 10px;
+        }
+        .other_service_card_button {
+          // font-family: BankGothic;
+          font-weight: 700;
+          font-size: 16px;
+          line-height: 100%;
+          letter-spacing: 0%;
+          color: #00b9f2;
+          border: none;
+          background: none;
+          margin-top: auto;
+        }
+      }
+    }
+  }
+}

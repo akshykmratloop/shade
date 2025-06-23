@@ -30,6 +30,7 @@ import { setPlatform } from "../common/platformSlice";
 import { updateMainContent } from "../common/homeContentSlice";
 import { ResourceCard } from "./ResourceCard";
 import NewProjectDialog from "./NewProjectDialog";
+import ToastPlacer, { runToast } from "../Component/ToastPlacer";
 
 const AllForOne = lazy(() => import("./components/AllForOne"));
 const Page404 = lazy(() => import("../../pages/protected/404"));
@@ -60,7 +61,6 @@ function Resources() {
   });
   const [openCreateProjectDialog, setOpenCreateProjectDialog] = useState(false)
 
-
   // Redux State
   const divRef = useRef(null);
   // const isSidebarOpen = useSelector(state => state.sidebar.isCollapsed)
@@ -69,7 +69,7 @@ function Resources() {
   const { showVersions } = useSelector(state => state.versions)
   const userObj = useSelector(state => state.user)
 
-  const { isManager, isEditor, activeRole } = userObj
+  const { isManager, isEditor, activeRole, isSingleManager } = userObj
   const activeRoleId = activeRole?.id
   const superUser = userObj.user?.isSuperUser
 
@@ -121,7 +121,7 @@ function Resources() {
 
   // Side Effects 
 
-  const conditionNewPage = resourceTag !== "FOOTER" && resourceTag !== "HEADER"
+  const conditionNewPage = resourceTag !== "FOOTER" && resourceTag !== "HEADER" && isManager && !isSingleManager
 
   useEffect(() => { // Running resources from localstroge
     const currentResource = localStorage.getItem("resourceType") || "MAIN_PAGE";
@@ -215,6 +215,7 @@ function Resources() {
   // }
 
   const ActionIcons = ((page, i) => {
+    const tempRoute = { "TEMPLATE_ONE": "temp-1", "TEMPLATE_TWO": "temp-2", "TEMPLATE_THREE": "temp-3", "TEMPLATE_FOUR": "temp-4" }
     const actions = [
       () => {
         setPageDetailsOn(true);
@@ -226,7 +227,9 @@ function Resources() {
         setIdOnStorage(page.id);
         const { resourceType, resourceTag, subPage, subOfSubPage, slug } = page;
         const parentId = page?.parentId
-        if (resourceType === "SUB_PAGE") {
+        if (resourceTag.slice(0, 5) === "TEMPL") {
+          navigateToPage(tempRoute[resourceTag])
+        } else if (resourceType === "SUB_PAGE") {
           navigateToPage(resourceTag?.toLowerCase(), page.id);
         } else if (resourceType === "SUB_PAGE_ITEM") {
           navigateToPage(resourceTag?.toLowerCase(), parentId, page.id);
@@ -360,9 +363,10 @@ function Resources() {
 
       {
         openCreateProjectDialog &&
-        <NewProjectDialog display={openCreateProjectDialog} close={() => setOpenCreateProjectDialog(false)} />
+        <NewProjectDialog display={openCreateProjectDialog} resources={resources?.[resourceType]} close={() => setOpenCreateProjectDialog(false)} />
       }
-      <ToastContainer />
+      {/* <ToastContainer /> */}
+      <ToastPlacer />
     </div >
   );
 }

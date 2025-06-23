@@ -1,21 +1,38 @@
 import CloseModalButton from "../../components/Button/CloseButton"
 import NA_Image from "../../assets/na.svg"
 import { useState } from "react"
+import { useNavigate } from "react-router-dom"
+import { structures } from "./components/websiteComponent/structures/PageStructure"
+import { useDispatch } from "react-redux"
+import { updateMainContent } from "../common/homeContentSlice"
 
 
-const NewProjectDialog = ({ close, display }) => {
+const NewProjectDialog = ({ close, display, resources }) => {
+    const usedTemp = new Set(resources.map(e => {
+        if (e.resourceTag?.slice(0, 5) === "TEMPL")
+            return e.resourceTag
+    }).filter(Boolean))
+    console.log(usedTemp)
+    const navigate = useNavigate()
     const [selectedTemp, setSelectedTemp] = useState(-1)
+    const dispatch = useDispatch()
 
     const templates = [
-        { name: "Template 1", image: "" },
-        { name: "Template 2", image: "" },
-        { name: "Template 3", image: "" },
-        { name: "Template 4", image: "" }
+        { name: "Template 1", image: "", route: "temp-1", resourceTag: "TEMPLATE_ONE" },
+        { name: "Template 2", image: "", route: "temp-2", resourceTag: "TEMPLATE_TWO" },
+        { name: "Template 3", image: "", route: "temp-3", resourceTag: "TEMPLATE_THREE" },
+        { name: "Template 4", image: "", route: "temp-4", resourceTag: "TEMPLATE_FOUR" }
     ]
 
     function selectTemplate(index) {
         if (selectedTemp === index) setSelectedTemp(-1)
         else setSelectedTemp(index)
+    }
+
+    function onSelectTemplate() {
+        navigate(`../edit/${templates[selectedTemp]?.route}`)
+        localStorage.setItem("contextId", templates[selectedTemp]?.resourceTag)
+        dispatch(updateMainContent({ currentPath: "content", payload: structures[templates[selectedTemp]?.resourceTag] }))
     }
 
     return (
@@ -30,7 +47,7 @@ const NewProjectDialog = ({ close, display }) => {
                         <div className="grid grid-cols-2 gap-[30px_60px] px-10 auto-rows-1fr h-fit" >
                             {
                                 templates.map((e, i) => {
-
+                                    if(usedTemp.has(e.resourceTag)) return null
                                     return (
                                         <div className={`rounded-md border border-2  ${selectedTemp == i && "border-blue-500"} p-2 flex flex-col gap-1`} key={i}
                                             onClick={() => selectTemplate(i)}
@@ -46,8 +63,8 @@ const NewProjectDialog = ({ close, display }) => {
                         </div>
                         <div className="flex gap-2 self-end font-[500]">
                             <button className="py-3 border rounded-lg px-3" onClick={close}>Cancel</button>
-                            <button className="py-3 rounded-lg bg-gradient-to-r from-blue-500/40 via-purple-500/ to-pink-500/60 p-3 text-white "
-                                onClick={() => { }}>Create Page</button>
+                            <button className="py-3 rounded-lg bg-gradient-to-r from-blue-500/100 via-purple-500/ to-pink-500/70 p-3 text-white "
+                                onClick={() => { onSelectTemplate() }}>Create Page</button>
                         </div>
                     </div>
                 </div>

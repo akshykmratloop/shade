@@ -28,9 +28,8 @@ const TemplateOne = ({ content, screen, language, width, highlight, liveContent 
                             ${checkDifference(content?.['1']?.content?.images?.[0]?.url, liveContent?.['1']?.content?.images?.[0]?.url)}
                             flex items-center bg-cover bg-center ${isLeftAlign ? 'scale-x-[-1]' : ''}`}
                 style={{
-                    backgroundImage: `url("${
-                        // Img_url + content?.['1']?.content?.images?.[0]?.url
-                        services.contructionTowerImage
+                    backgroundImage: `url("${Img_url + content?.['1']?.content?.images?.[0]?.url
+                        // services.contructionTowerImage
                         }")`,
                     backgroundPosition: "bottom",
                     height: isComputer ? getDynamicSize(600) : "70vh",
@@ -77,23 +76,30 @@ const TemplateOne = ({ content, screen, language, width, highlight, liveContent 
 
             <section className="px-10 py-10"
                 style={{
-                    padding: (isComputer || isTablet) && `${getDynamicSize(100)} ${getDynamicSize(120)}`
+                    padding: (isComputer) ? `${getDynamicSize(100)} ${getDynamicSize(120)}` : `${getDynamicSize(100)} ${getDynamicSize(170)}`
                 }}
             >
-                <div className={`grid ${(isComputer || isTablet) && "grid-cols-2"} gap-10`}
-                    style={{ gap: (isComputer || isTablet) && `${getDynamicSize(80)} ${getDynamicSize(90)}` }}
+                <div className={`grid ${(isComputer) && "grid-cols-2"} gap-10`}
+                    style={{ gap: (isComputer) ? `${getDynamicSize(80)} ${getDynamicSize(90)}` : `${getDynamicSize(150)}` }}
                 >
                     {
-                        tempArr?.map((e, i) => {
+                        content?.[2]?.content?.cards?.map((e, i) => {
                             return (
                                 <div key={i}
                                     className="flex flex-col gap-1"
                                     style={{ gap: `${getDynamicSize(16)}` }}
                                 >
                                     <div className=" bg-[#00B9F212]"
-                                        style={{ padding: `${getDynamicSize(58)}` }}
+                                        style={{
+                                            padding: isComputer ? `${getDynamicSize(58)}` : `${getDynamicSize(120)}`,
+                                            minHeight: isComputer && getDynamicSize(477)
+                                        }}
                                     >
-                                        <img src={projectPageData.asphaltWork}
+                                        <img
+                                            src={
+                                                // projectPageData.asphaltWork
+                                                Img_url + e.images?.[0]?.url
+                                            }
                                             className="w-full"
                                             alt="" />
 
@@ -101,10 +107,12 @@ const TemplateOne = ({ content, screen, language, width, highlight, liveContent 
                                     <div>
                                         <h3 className={`${isTablet && "mb-2"}`}
                                             style={{ fontSize: fontSize.subProjectHeadings, lineHeight: isTablet && "30px" }}
-                                        >Lorem, ipsum dolor.</h3>
+                                        >{e?.title?.[language] || "Lorem, ipsum dolor."}</h3>
                                         <p className={`${fontLight}`}
                                             style={{ fontSize: fontSize.mainPara }}
-                                        >We capitalize on our years of experience in the construction industry to clients by also maintaining their facilities and infrastructure.</p>
+                                        >
+                                            {e?.description?.[language] || "We capitalize on our years of experience in the construction industry to clients by also maintaining their facilities and infrastructure."}
+                                        </p>
                                     </div>
                                 </div>
                             )
@@ -124,11 +132,11 @@ const TemplateOne = ({ content, screen, language, width, highlight, liveContent 
                     style={{ gap: (isComputer || isTablet) && `${getDynamicSize(40)}` }}
                 >
                     {
-                        tempArr?.concat(tempArr)?.map((e, i) => {
+                        content?.[3]?.content?.cards?.map((e, i) => {
                             return (
                                 <div className="bg-white flex flex-col"
                                     style={{
-                                        padding: `${getDynamicSize(16)}`,
+                                        padding: isComputer ? `${getDynamicSize(16)}` : getDynamicSize(32),
                                         gap: getDynamicSize(16)
                                     }}
                                     key={i}
@@ -136,17 +144,29 @@ const TemplateOne = ({ content, screen, language, width, highlight, liveContent 
                                     <div className="flex gap-4"
                                         style={{ gap: (isComputer || isTablet) && getDynamicSize(10) }}
                                     >
-                                        <img src={aboutUsIcons.ourGoal} alt=""
-                                            style={{ width: (isComputer || isTablet) && getDynamicSize(46) }}
-                                            className="aspect-[1/1] w-[30px]"
+                                        <img
+                                            src={
+                                                // aboutUsIcons.ourGoal
+                                                Img_url + e?.images?.[0]?.url
+                                            }
+                                            alt=""
+                                            style={{ width: (isComputer) && getDynamicSize(46) }}
+                                            className={`aspect-[1/1] w-[46px]`}
                                         />
                                         <h3
+                                            className=""
                                             style={{ fontSize: fontSize.aboutMainPara }}
-                                        >Education</h3>
+                                        >
+                                            {e?.title?.[language] || "LOREM"}
+                                        </h3>
                                     </div>
-                                    <p className={`${fontLight}`}
+                                    <p className={`${fontLight} text-[#718096]`}
                                         style={{ fontSize: fontSize.mainPara }}
-                                    >It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using  content</p>
+                                    >
+                                        {e?.description?.[language] ||
+                                            "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using  content"
+                                        }
+                                    </p>
                                 </div>
                             )
                         })
@@ -165,29 +185,48 @@ const TemplateOne = ({ content, screen, language, width, highlight, liveContent 
                         padding: (isComputer) && `${getDynamicSize(0)} ${getDynamicSize(60)}`,
                         gap: (isComputer || isTablet) && `${getDynamicSize(40)}`
                     }}
-                    className="flex flex-col gap-6"
+                    className={`flex flex-col gap-6 `}
                 >
                     {
-                        tempArr?.map((e, i) => {
+                        content?.[4]?.content?.cards?.map((e, i) => {
                             return (
-                                <section className={`flex gap-[10px] border ${isPhone ? "flex-col p-1" : ""}`} key={i}>
-                                    <h2 className={`text-[32px] flex-1 leading-[28px]
+                                <section
+                                    className={`
+                                        flex border 
+                                        ${isPhone ? "flex-col p-1E" : ""} 
+                                        ${isTablet ? "px-[20px] py-[30px] gap-[20px]" : "gap-[10px]"}
+                                        ${isComputer && "justify-"}`}
+                                    key={i}
+                                    style={{
+                                        padding: (isComputer) && getDynamicSize(20),
+                                        gap:  (isComputer) && getDynamicSize(20),
+                                    }}
+                                >
+                                    <h2 className={`text-[32px] ${isTablet && "flex-[1_1_167px]"} leading-[28px] font-[700]
                                                     ${checkDifference(content?.[2]?.content?.title?.[language], liveContent?.[2]?.content?.title?.[language])}
                                                 `}
-                                        style={{ fontSize: fontSize.serviceHeading, lineHeight: isComputer && getDynamicSize(35) }}
+                                        style={{
+                                            fontSize: fontSize.serviceHeading,
+                                            lineHeight: isComputer && getDynamicSize(35),
+                                            width: isComputer && getDynamicSize(300)
+                                        }}
                                     >
                                         {
-                                            content?.[2]?.content?.title?.[language] ||
+                                            e.title?.[language] ||
                                             "Project Description"
                                         }
                                     </h2>
-                                    <div className={`text-[9.5px] flex-1 ${fontLight}
+                                    <div className={`text-[9.5px] ${isTablet && "flex-[0_1_363px]"} ${fontLight}
                                                     ${checkDifference(content?.[2]?.content?.description?.[language], liveContent?.[2]?.content?.description?.[language])}
                                                     `}
-                                        style={{ fontSize: fontSize.mainPara }}
+                                        style={{
+                                            fontSize: fontSize.mainPara,
+                                            minwidth: isComputer && getDynamicSize(600),
+                                            maxWidth: isComputer && getDynamicSize(750)
+                                        }}
                                         dangerouslySetInnerHTML={{
                                             __html:
-                                                content?.[2]?.content?.description?.[language] ||
+                                                e?.description?.[language] ||
                                                 "The scope of work for the project is to demolish, procure and Construct an IT Lab in Al-Midra Tower located in Dhahran."
                                         }}
                                     />
