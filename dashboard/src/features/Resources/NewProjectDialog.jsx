@@ -8,11 +8,11 @@ import { updateMainContent } from "../common/homeContentSlice"
 
 
 const NewProjectDialog = ({ close, display, resources }) => {
-    const usedTemp = new Set(resources.map(e => {
+    const usedTemp = new Set(resources.map(e => { /// create a set of used Template
         if (e.resourceTag?.slice(0, 5) === "TEMPL")
             return e.resourceTag
     }).filter(Boolean))
-    console.log(usedTemp)
+
     const navigate = useNavigate()
     const [selectedTemp, setSelectedTemp] = useState(-1)
     const dispatch = useDispatch()
