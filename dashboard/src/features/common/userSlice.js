@@ -1,5 +1,5 @@
-import {createSlice} from "@reduxjs/toolkit";
-import {checkUser} from "../../app/checkUser";
+import { createSlice } from "@reduxjs/toolkit";
+import { checkUser } from "../../app/checkUser";
 
 const initialActiveRole = {
   role: "",
@@ -32,16 +32,17 @@ const initialState = {
   isVerifier: false,
   isPublisher: false,
   activeRole: initialActiveRole,
+  isSingleManager: false,
 };
 const user = createSlice({
-    name: "user",
-    initialState,
-    reducers: {
-        // update user reducer, (the user who is logging in)
-        updateUser: (state, action) => {
-            
-            const roles = action.payload?.data?.roles?.filter((e) => e.status === "ACTIVE")
-            state.user = { ...action.payload.data, roles };
+  name: "user",
+  initialState,
+  reducers: {
+    // update user reducer, (the user who is logging in)
+    updateUser: (state, action) => {
+
+      const roles = action.payload?.data?.roles?.filter((e) => e.status === "ACTIVE")
+      state.user = { ...action.payload.data, roles };
 
       state.isManager = action.payload.data?.roles?.[0]?.permissions?.some(
         (e) =>
@@ -50,8 +51,9 @@ const user = createSlice({
           e.slice(0, 4) !== "ROLE" &&
           e.slice(0, 4) !== "AUDI"
       );
+      state.isSingleManager = action.payload.data?.roles?.[0]?.permissions?.some((e) => e.slice(0, 5) === "SINGLE")
 
-      const {isEditor, isPublisher, isVerifier} = checkUser(
+      const { isEditor, isPublisher, isVerifier } = checkUser(
         roles?.[0]?.permissions
       );
 
@@ -77,7 +79,7 @@ const user = createSlice({
 
       state.activeRole = roleObj?.[0] || initialActiveRole;
 
-      const {isEditor, isPublisher, isVerifier} = checkUser(
+      const { isEditor, isPublisher, isVerifier } = checkUser(
         roleObj?.[0]?.permissions
       );
 
@@ -92,10 +94,13 @@ const user = createSlice({
           e.slice(0, 4) !== "ROLE" &&
           e.slice(0, 4) !== "AUDI"
       );
+
+      state.isSingleManager = roleObj?.[0]?.permissions?.some((e) => e.slice(0, 6) === "SINGLE")
+
     },
   },
 });
 
-export const {updateUser, updateActiveRole} = user.actions;
+export const { updateUser, updateActiveRole } = user.actions;
 
 export default user.reducer;

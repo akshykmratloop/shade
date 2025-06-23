@@ -69,7 +69,7 @@ function Resources() {
   const { showVersions } = useSelector(state => state.versions)
   const userObj = useSelector(state => state.user)
 
-  const { isManager, isEditor, activeRole } = userObj
+  const { isManager, isEditor, activeRole, isSingleManager } = userObj
   const activeRoleId = activeRole?.id
   const superUser = userObj.user?.isSuperUser
 
@@ -121,7 +121,7 @@ function Resources() {
 
   // Side Effects 
 
-  const conditionNewPage = resourceTag !== "FOOTER" && resourceTag !== "HEADER"
+  const conditionNewPage = resourceTag !== "FOOTER" && resourceTag !== "HEADER" && isManager && !isSingleManager
 
   useEffect(() => { // Running resources from localstroge
     const currentResource = localStorage.getItem("resourceType") || "MAIN_PAGE";
