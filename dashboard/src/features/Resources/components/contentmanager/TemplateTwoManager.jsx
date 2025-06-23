@@ -2,7 +2,7 @@
 import FileUploader from "../../../../components/Input/InputFileUploader"
 import ContentSection from "../breakUI/ContentSections"
 import { useDispatch, useSelector } from "react-redux"
-import { updateSubServiceDetailsPointsArray } from "../../../common/homeContentSlice"
+import { updateNumberOfDescription, updateSubServiceDetailsPointsArray } from "../../../common/homeContentSlice"
 import DynamicContentSection from "../breakUI/DynamicContentSection";
 
 
@@ -70,14 +70,14 @@ const TemplateTwoManager = ({ content, currentPath, language, indexes }) => {
         ))
     }
 
-    const addExtraSummary = (sectionIndex, structure, index) => {
-        dispatch(updateSubServiceDetailsPointsArray(
+    const addExtraSummary = (sectionIndex, structure, cardIndex) => {
+        dispatch(updateNumberOfDescription(
             {
                 insert: skeletons[structure],
                 section: "cards",
                 sectionIndex,
                 operation: 'add',
-                index
+                cardIndex
             }
         ))
     }
@@ -169,12 +169,12 @@ const TemplateTwoManager = ({ content, currentPath, language, indexes }) => {
                                 <DynamicContentSection
                                     key={i}
                                     currentPath={currentPath}
-                                    subHeading={`Grid ${(i + 1)}`}
+                                    Heading={`Grid ${(i + 1)}`}
                                     inputs={[
                                         { input: "input", label: "Heading/title", updateType: "title", value: section?.title?.[language] },
                                         ...(section?.description?.map((d, idx) => {
                                             return (
-                                                { input: "textarea", label: "Description", updateType: "description", value: d?.[language], index: idx }
+                                                { input: "textarea/dynamic", label: "Description", updateType: "description", value: d?.[language], index: idx }
                                             )
                                         }))
                                     ]}
@@ -190,12 +190,18 @@ const TemplateTwoManager = ({ content, currentPath, language, indexes }) => {
                                     contentIndex={i}
                                     order={section.order}
                                 />
-                                <button
-                                    className="text-blue-500 cursor-pointer my-3 pt-3"
-                                    onClick={() => addExtraSummary(indexes?.['4'], "4/2", i)}
-                                >
-                                    Add More Description...
-                                </button>
+                                {
+                                    (section?.description.length < 6) &&
+                                    <button
+                                        className="text-blue-500 cursor-pointer mb-6"
+                                        onClick={() => {
+                                            addExtraSummary(indexes?.['4'], "4/2", i)
+                                        }}
+                                    >
+                                        Add Description...
+                                    </button>
+
+                                }
                             </>
                         )
                     })
@@ -203,10 +209,10 @@ const TemplateTwoManager = ({ content, currentPath, language, indexes }) => {
 
 
                 <button
-                    className="text-blue-500 cursor-pointer my-3 pt-3"
+                    className="block text-blue-500 cursor-pointer my-3 pt-3"
                     onClick={() => addExtraSection(indexes?.['4'], 4)}
                 >
-                    Add More Section...
+                    Add Section...
                 </button>
             </div>
 

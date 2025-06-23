@@ -207,6 +207,20 @@ const cmsSlice = createSlice({
             }
             state.present.content.editVersion.sections[action.payload.sectionIndex].content[action.payload.section] = newArray
             state.future = [];
+        }, 
+        updateNumberOfDescription: (state, action) => { // post content
+            state.past.push(JSON.parse(JSON.stringify(state.present)));
+            let newArray = []
+            let oldArray = state.present.content?.editVersion?.sections?.[action.payload.sectionIndex].content.cards[action.payload.cardIndex].description
+            if (action.payload.operation === 'add') {
+                newArray = [...oldArray, { ...action.payload.insert, order: oldArray.length + 1 }]
+            } else {
+                newArray = state.present.content?.editVersion?.sections?.[action.payload.sectionIndex].content.cards[action.payload.cardIndex].description.filter((e, i) => {
+                    return i !== action.payload.index
+                })
+            }
+            state.present.content.editVersion.sections[action.payload.sectionIndex].content.cards[action.payload.cardIndex].description = newArray
+            state.future = [];
         },
         updateAffiliatesCardsArray: (state, action) => { // post content
             state.past.push(JSON.parse(JSON.stringify(state.present)));
@@ -506,7 +520,8 @@ export const { // actions
     updateSubServiceDetailsPointsArray,
     updateAffiliatesCardsArray,
     updateBaseData,
-    updateFilterStatus
+    updateFilterStatus,
+    updateNumberOfDescription
 } = cmsSlice.actions;
 
 export default cmsSlice.reducer; // reducer

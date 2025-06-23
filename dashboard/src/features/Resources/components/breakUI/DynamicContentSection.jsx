@@ -6,7 +6,7 @@ import JoditEditor, { Jodit } from "jodit-react";
 import TextAreaInput from "../../../../components/Input/TextAreaInput";
 import InputFile from "../../../../components/Input/InputFile";
 import InputText from "../../../../components/Input/InputText";
-import { updateSpecificContent, updateServicesNumber, updateImages, updateTheProjectSummaryList, updateCardAndItemsArray, updatePoliciesItems, updateSubServiceDetailsPointsArray, updateAffiliatesCardsArray } from "../../../common/homeContentSlice";
+import { updateSpecificContent, updateServicesNumber, updateImages, updateTheProjectSummaryList, updateCardAndItemsArray, updatePoliciesItems, updateSubServiceDetailsPointsArray, updateAffiliatesCardsArray, updateNumberOfDescription } from "../../../common/homeContentSlice";
 import InputFileForm from "../../../../components/Input/InputFileForm";
 
 const DynamicContentSection = ({
@@ -70,17 +70,6 @@ const DynamicContentSection = ({
                 sectionIndex,
                 index
             }))
-        }
-        if (deepPath) {
-            // dispatch(updateTheProjectSummaryList({
-            //     index,
-            //     operation: 'remove',
-            //     // newsIndex: projectId - 1,
-            //     context: currentPath,
-            //     serviceId: projectId,
-            //     subContext: section,
-            //     deepPath
-            // }))
         } else {
             dispatch(updateCardAndItemsArray({
                 sectionIndex,
@@ -89,6 +78,17 @@ const DynamicContentSection = ({
             }))
         }
     }
+
+    const removeDescription = (index, order) => {
+        dispatch(updateNumberOfDescription(
+            {
+                index,
+                sectionIndex,
+                cardIndex: contentIndex
+            }
+        ))
+    }
+
 
     const updateFormValue = ({ updateType, value, dIn }) => {
         if (updateType === 'count') {
@@ -212,7 +212,33 @@ const DynamicContentSection = ({
             <h3 className={`font-semibold ${subHeading ? "text-[.9rem] mb-1" : Heading ? "text-[1.25rem] mb-4" : " mb-0"}`}>{Heading || subHeading}</h3>
             {inputs.length > 0 &&
                 inputs.map((input, i) => {
-                    if (input.input === "textarea") {
+                    if (input.input === "textarea/dynamic") {
+                        return (
+                            <div className="relative">
+                                {
+                                    <button
+                                        className="absolute top-6 z-10 right-[-8px] bg-red-600 text-white px-[5px] text-sm rounded-full shadow"
+                                        onClick={() => { removeDescription(input.index) }}
+                                    >
+                                        x
+                                    </button>
+                                }
+                                <TextAreaInput
+                                    key={i}
+                                    labelTitle={input.label}
+                                    labelStyle="block sm:text-xs xl:text-sm"
+                                    updateFormValue={({ updateType, value }) => updateFormValue({ updateType, value, dIn: input.index })}
+                                    updateType={input.updateType}
+                                    section={section}
+                                    defaultValue={input.value || ""}
+                                    language={language}
+                                    id={input.updateType}
+                                    maxLength={input.maxLength}
+                                    outOfEditing={outOfEditing}
+                                />
+                            </div>
+                        );
+                    } else if (input.input === "textarea") {
                         return (
                             <TextAreaInput
                                 key={i}

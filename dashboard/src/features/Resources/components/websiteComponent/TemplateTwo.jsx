@@ -201,8 +201,8 @@ const TemplateTwo = ({ content, screen, language, width, highlight, liveContent 
 
                                         {
                                             (
-                                                e.description
-                                                // tempArr
+                                                e.description ||
+                                                tempArr
                                             )?.map((description, i) => {
                                                 return (
                                                     <div className="flex items-start"
