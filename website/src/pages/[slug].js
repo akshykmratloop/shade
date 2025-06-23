@@ -67,8 +67,8 @@ export default function Template({apiData}) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      {/* <NewTemplate content={content} /> */}
-      <NewTemplate2 content={content} />
+      <NewTemplate content={content} />
+      {/* <NewTemplate2 content={content} /> */}
       {/* <NewTemplate3 content={content} /> */}
       {/* <NewTemplate4 content={content} /> */}
     </>

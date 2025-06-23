@@ -116,76 +116,78 @@
                 "title": "cardsSection",
                 "SectionType": "MULTI_SECTION",
                 "sectionVersionTitle": "-cardsSection",
-                "content": [
-                    {
-                        "title": {
-                            "ar": "",
-                            "en": ""
-                        },
-                        "description": [
-                            {
+                "content": {
+                    "cards": [
+                        {
+                            "title": {
                                 "ar": "",
                                 "en": ""
                             },
-                            {
-                                "ar": "",
-                                "en": ""
-                            },
-                            {
-                                "ar": "",
-                                "en": ""
-                            },
-                            {
-                                "ar": "",
-                                "en": ""
-                            }
-                        ],
-                        "images": [
-                            {
-                                "url": "",
-                                "order": 1,
-                                "altText": {
+                            "description": [
+                                {
+                                    "ar": "",
+                                    "en": ""
+                                },
+                                {
+                                    "ar": "",
+                                    "en": ""
+                                },
+                                {
+                                    "ar": "",
+                                    "en": ""
+                                },
+                                {
                                     "ar": "",
                                     "en": ""
                                 }
-                            }
-                        ]
-                    },
-                    {
-                        "title": {
-                            "ar": "",
-                            "en": ""
+                            ],
+                            "images": [
+                                {
+                                    "url": "",
+                                    "order": 1,
+                                    "altText": {
+                                        "ar": "",
+                                        "en": ""
+                                    }
+                                }
+                            ]
                         },
-                        "description": [
-                            {
+                        {
+                            "title": {
                                 "ar": "",
                                 "en": ""
                             },
-                            {
-                                "ar": "",
-                                "en": ""
-                            },
-                            {
-                                "ar": "",
-                                "en": ""
-                            },
-                            {
-                                "ar": "",
-                                "en": ""
-                            }
-                        ],
-                        "images": [
-                            {
-                                "url": "",
-                                "order": 1,
-                                "altText": {
+                            "description": [
+                                {
+                                    "ar": "",
+                                    "en": ""
+                                },
+                                {
+                                    "ar": "",
+                                    "en": ""
+                                },
+                                {
+                                    "ar": "",
+                                    "en": ""
+                                },
+                                {
                                     "ar": "",
                                     "en": ""
                                 }
-                            }
-                        ]
-                    }
-                ],
+                            ],
+                            "images": [
+                                {
+                                    "url": "",
+                                    "order": 1,
+                                    "altText": {
+                                        "ar": "",
+                                        "en": ""
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                },
                 "sections": []
             },
             {

@@ -90,7 +90,7 @@ const DynamicContentSection = ({
         }
     }
 
-    const updateFormValue = ({ updateType, value }) => {
+    const updateFormValue = ({ updateType, value, dIn }) => {
         if (updateType === 'count') {
             if (!isNaN(value)) {
                 let val = value?.slice(0, 7);
@@ -110,6 +110,7 @@ const DynamicContentSection = ({
                 type,
                 sectionIndex,
                 contentIndex,
+                dIn,
                 // path,
                 buttonIndex: index
             }));
@@ -217,7 +218,7 @@ const DynamicContentSection = ({
                                 key={i}
                                 labelTitle={input.label}
                                 labelStyle="block sm:text-xs xl:text-sm"
-                                updateFormValue={updateFormValue}
+                                updateFormValue={({ updateType, value }) => updateFormValue({ updateType, value, dIn: input.index })}
                                 updateType={input.updateType}
                                 section={section}
                                 defaultValue={input.value || ""}
