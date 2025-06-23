@@ -215,6 +215,7 @@ function Resources() {
   // }
 
   const ActionIcons = ((page, i) => {
+    const tempRoute = { "TEMPLATE_ONE": "temp-1", "TEMPLATE_TWO": "temp-2", "TEMPLATE_THREE": "temp-3", "TEMPLATE_FOUR": "temp-4" }
     const actions = [
       () => {
         setPageDetailsOn(true);
@@ -226,7 +227,9 @@ function Resources() {
         setIdOnStorage(page.id);
         const { resourceType, resourceTag, subPage, subOfSubPage, slug } = page;
         const parentId = page?.parentId
-        if (resourceType === "SUB_PAGE") {
+        if (resourceTag.slice(0, 5) === "TEMPL") {
+          navigateToPage(tempRoute[resourceTag])
+        } else if (resourceType === "SUB_PAGE") {
           navigateToPage(resourceTag?.toLowerCase(), page.id);
         } else if (resourceType === "SUB_PAGE_ITEM") {
           navigateToPage(resourceTag?.toLowerCase(), parentId, page.id);
@@ -360,7 +363,7 @@ function Resources() {
 
       {
         openCreateProjectDialog &&
-        <NewProjectDialog display={openCreateProjectDialog} close={() => setOpenCreateProjectDialog(false)} />
+        <NewProjectDialog display={openCreateProjectDialog} resources={resources?.[resourceType]} close={() => setOpenCreateProjectDialog(false)} />
       }
       {/* <ToastContainer /> */}
       <ToastPlacer />

@@ -7,7 +7,12 @@ import { useDispatch } from "react-redux"
 import { updateMainContent } from "../common/homeContentSlice"
 
 
-const NewProjectDialog = ({ close, display }) => {
+const NewProjectDialog = ({ close, display, resources }) => {
+    const usedTemp = new Set(resources.map(e => {
+        if (e.resourceTag?.slice(0, 5) === "TEMPL")
+            return e.resourceTag
+    }).filter(Boolean))
+    console.log(usedTemp)
     const navigate = useNavigate()
     const [selectedTemp, setSelectedTemp] = useState(-1)
     const dispatch = useDispatch()
@@ -42,7 +47,7 @@ const NewProjectDialog = ({ close, display }) => {
                         <div className="grid grid-cols-2 gap-[30px_60px] px-10 auto-rows-1fr h-fit" >
                             {
                                 templates.map((e, i) => {
-
+                                    if(usedTemp.has(e.resourceTag)) return null
                                     return (
                                         <div className={`rounded-md border border-2  ${selectedTemp == i && "border-blue-500"} p-2 flex flex-col gap-1`} key={i}
                                             onClick={() => selectTemplate(i)}

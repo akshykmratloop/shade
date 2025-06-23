@@ -160,38 +160,40 @@
         "title": "additionalInfoSection",
         "SectionType": "MULTI_SECTION",
         "sectionVersionTitle": "-additionalInfoSection",
-        "content": [
-          {
-            "title": {
-              "ar": "",
-              "en": ""
+        "content": {
+          "cards": [
+            {
+              "title": {
+                "ar": "",
+                "en": ""
+              },
+              "description": {
+                "ar": "",
+                "en": ""
+              }
             },
-            "description": {
-              "ar": "",
-              "en": ""
-            }
-          },
-          {
-            "title": {
-              "ar": "",
-              "en": ""
+            {
+              "title": {
+                "ar": "",
+                "en": ""
+              },
+              "description": {
+                "ar": "",
+                "en": ""
+              }
             },
-            "description": {
-              "ar": "",
-              "en": ""
+            {
+              "title": {
+                "ar": "",
+                "en": ""
+              },
+              "description": {
+                "ar": "",
+                "en": ""
+              }
             }
-          },
-          {
-            "title": {
-              "ar": "",
-              "en": ""
-            },
-            "description": {
-              "ar": "",
-              "en": ""
-            }
-          }
-        ],
+          ]
+        },
         "sections": []
       }
     ]

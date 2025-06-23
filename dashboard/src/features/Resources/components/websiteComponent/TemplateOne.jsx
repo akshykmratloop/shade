@@ -188,12 +188,12 @@ const TemplateOne = ({ content, screen, language, width, highlight, liveContent 
                     className={`flex flex-col gap-6 `}
                 >
                     {
-                        content?.[4]?.content?.map((e, i) => {
+                        content?.[4]?.content?.cards?.map((e, i) => {
                             return (
                                 <section
                                     className={`
                                         flex border 
-                                        ${isPhone ? "flex-col p-1" : ""} 
+                                        ${isPhone ? "flex-col p-1E" : ""} 
                                         ${isTablet ? "px-[20px] py-[30px] gap-[20px]" : "gap-[10px]"}
                                         ${isComputer && "justify-"}`}
                                     key={i}

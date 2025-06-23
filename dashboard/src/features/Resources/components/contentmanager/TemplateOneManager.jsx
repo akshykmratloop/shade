@@ -1,26 +1,75 @@
-import { useEffect, useState } from "react"
-import { getResources } from "../../../../app/fetch"
+// import { useEffect, useState } from "react"
 import FileUploader from "../../../../components/Input/InputFileUploader"
 import ContentSection from "../breakUI/ContentSections"
-// import MultiSelect from "../breakUI/MultiSelect"
-// import DynamicContentSection from "../breakUI/DynamicContentSection"
-import { useDispatch } from "react-redux"
-import { updateAffiliatesCardsArray } from "../../../common/homeContentSlice"
-import DynamicContentSection from "../breakUI/DynamicContentSection"
+import { useDispatch, useSelector } from "react-redux"
+import { updateSubServiceDetailsPointsArray } from "../../../common/homeContentSlice"
+import DynamicContentSection from "../breakUI/DynamicContentSection";
+
+
+const skeletons = {
+    2: {
+        "title": {
+            "ar": "",
+            "en": ""
+        },
+        "description": {
+            "ar": "",
+            "en": ""
+        },
+        "images": [
+            {
+                "url": "",
+                "order": 1,
+                "altText": {
+                    "ar": "",
+                    "en": ""
+                }
+            }
+        ]
+    },
+    3: {
+        "title": {
+            "ar": "",
+            "en": ""
+        },
+        "description": {
+            "ar": "",
+            "en": ""
+        },
+        "images": [
+            {
+                "url": "",
+                "order": 1,
+                "altText": {
+                    "ar": "",
+                    "en": ""
+                }
+            }
+        ]
+    },
+    4: {
+        "title": {
+            "ar": "",
+            "en": ""
+        },
+        "description": {
+            "ar": "",
+            "en": ""
+        }
+    }
+}
 
 const TemplateOneManager = ({ content, currentPath, language, indexes }) => {
     const dispatch = useDispatch()
 
-    const addExtraSummary = (sectionIndex) => {
-        dispatch(updateAffiliatesCardsArray(
+    const context = useSelector(state => state.homeContent?.present?.content) || {}
+
+
+    const addExtraSummary = (sectionIndex, structure) => {
+        dispatch(updateSubServiceDetailsPointsArray(
             {
-                src: {
-                    text: {
-                        ar: "",
-                        en: ""
-                    }
-                },
-                section: "sectionPointers",
+                insert: skeletons[structure],
+                section: "cards",
                 sectionIndex,
                 operation: 'add'
             }
@@ -31,6 +80,22 @@ const TemplateOneManager = ({ content, currentPath, language, indexes }) => {
         <div>
             {/* reference doc */}
             <FileUploader id={"Temp-One-ID-Reference"} label={"Rerference doc"} fileName={"Upload your file..."} />
+
+            {
+                context?.id === "N" &&
+                <ContentSection
+                    currentPath={currentPath}
+                    Heading={"Page - Details"}
+                    inputs={[
+                        { input: "input", label: "Title English", updateType: "titleEn", value: context?.titleEn, dir: "ltr" },
+                        { input: "input", label: "Title Arabic", updateType: "titleAr", value: context?.titleAr, dir: "rtl" },
+                        ...(context?.id === "N" ? [{ input: "input", label: "Slug", updateType: "slug", value: context?.slug }] : []),
+                    ]}
+                    section={"page-details"}
+                    language={language}
+                />
+            }
+
             {/** Hero Banner */}
             <ContentSection
                 currentPath={currentPath}
@@ -55,6 +120,7 @@ const TemplateOneManager = ({ content, currentPath, language, indexes }) => {
                             <DynamicContentSection
                                 key={i}
                                 currentPath={currentPath}
+                                subHeading={`Grid ${(i + 1)}`}
                                 inputs={[
                                     { input: "input", label: "Heading/title", updateType: "title", value: section?.title?.[language] },
                                     { input: "textarea", label: "Description", updateType: "description", value: section?.description?.[language] },
@@ -76,7 +142,7 @@ const TemplateOneManager = ({ content, currentPath, language, indexes }) => {
                 }
                 <button
                     className="text-blue-500 cursor-pointer my-3 pt-3"
-                    onClick={() => addExtraSummary(indexes?.['2'])}
+                    onClick={() => addExtraSummary(indexes?.['2'], 2)}
                 >
                     Add More Section...
                 </button>
@@ -90,11 +156,12 @@ const TemplateOneManager = ({ content, currentPath, language, indexes }) => {
                             <DynamicContentSection
                                 key={i}
                                 currentPath={currentPath}
+                                subHeading={`Cards ${(i + 1)}`}
                                 inputs={[
                                     { input: "input", label: "Heading/title", updateType: "title", value: section?.title?.[language] },
                                     { input: "textarea", label: "Description", updateType: "description", value: section?.description?.[language] },
                                 ]}
-                                inputFiles={[{ label: "Icon", id: "ServiceBanner", order: 1, url: section?.images?.[0]?.url }]}
+                                inputFiles={[{ label: "Icon", id: `cards${i}`, order: 1, url: section?.images?.[0]?.url }]}
                                 index={i}
                                 isBorder={false}
                                 allowRemoval={true}
@@ -109,8 +176,8 @@ const TemplateOneManager = ({ content, currentPath, language, indexes }) => {
                     })
                 }
                 <button
-                    className="text-blue-500 cursor-pointer mb-3"
-                    onClick={() => addExtraSummary(indexes?.['3'])}
+                    className="text-blue-500 cursor-pointer my-3 pt-3"
+                    onClick={() => addExtraSummary(indexes?.['3'], 3)}
                 >
                     Add More Section...
                 </button>
@@ -121,19 +188,21 @@ const TemplateOneManager = ({ content, currentPath, language, indexes }) => {
                     Multi Description
                 </h3>
                 {
-                    content?.['4']?.content?.map((section, i) => {
+                    content?.['4']?.content?.cards?.map((section, i) => {
                         return (
                             <DynamicContentSection
                                 key={i}
+                                subHeading={`Description ${(i + 1)}`}
                                 currentPath={currentPath}
                                 inputs={[
-                                    { input: "input", label: "Title", updateType: "title", value: section?.text?.[language]},
-                                    { input: "textarea", label: "Description", updateType: "description", value: section?.text?.[language]}
+                                    { input: "input", label: "Title", updateType: "title", value: section?.text?.[language] },
+                                    { input: "textarea", label: "Description", updateType: "description", value: section?.text?.[language] }
                                 ]}
                                 index={i}
                                 isBorder={false}
                                 allowRemoval={true}
-                                section={"Footer"}
+                                section={"cards"}
+                                subSection={"cards"}
                                 language={language}
                                 currentContent={content}
                                 sectionIndex={indexes?.['4']}
@@ -144,8 +213,8 @@ const TemplateOneManager = ({ content, currentPath, language, indexes }) => {
                     })
                 }
                 <button
-                    className="text-blue-500 cursor-pointer mb-3"
-                    onClick={() => addExtraSummary(indexes?.['4'])}
+                    className="text-blue-500 cursor-pointer my-3 pt-3"
+                    onClick={() => addExtraSummary(indexes?.['4'], 4)}
                 >
                     Add More Section...
                 </button>
