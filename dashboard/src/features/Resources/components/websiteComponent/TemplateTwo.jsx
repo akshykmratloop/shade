@@ -128,12 +128,13 @@ const TemplateTwo = ({ content, screen, language, width, highlight, liveContent 
                     {content?.['3']?.content?.cards?.map((e, i) => {
                         const colors = i % 5
                         return (
-                            <div className={`${fontLight} flex-[1_1_300px] ${(isPhone || isTablet) && "p-4"}`} style={{
-                                backgroundColor: indexStyle[colors].bg,
-                                color: indexStyle[colors].text,
-                                padding: (isComputer) && `${getDynamicSize(15)}`,
-                                fontSize: fontSize.mainPara
-                            }}>
+                            <div key={i}
+                                className={`${fontLight} flex-[1_1_300px] ${(isPhone || isTablet) && "p-4"}`} style={{
+                                    backgroundColor: indexStyle[colors].bg,
+                                    color: indexStyle[colors].text,
+                                    padding: (isComputer) && `${getDynamicSize(15)}`,
+                                    fontSize: fontSize.mainPara
+                                }}>
                                 <p
                                     className={`mb-10`}
                                     style={{
@@ -149,7 +150,6 @@ const TemplateTwo = ({ content, screen, language, width, highlight, liveContent 
             </section>
 
             <section
-
                 className={`bg-[#00B9F20A] py-10 pt-16 px-10`}
                 style={{
                     padding: (isComputer || isTablet) && `${getDynamicSize(100)} ${getDynamicSize(150)}`,
@@ -160,7 +160,7 @@ const TemplateTwo = ({ content, screen, language, width, highlight, liveContent 
                     style={{ gap: (isComputer) ? getDynamicSize(100) : getDynamicSize(150) }}
                 >
                     {
-                        tempArr.slice(0, 3).map((e, i) => {
+                        content?.['4']?.content?.cards?.map((e, i) => {
                             let odd = i % 2 !== 0
                             return (
                                 <article
@@ -175,7 +175,9 @@ const TemplateTwo = ({ content, screen, language, width, highlight, liveContent 
                                     >
                                         <img
                                             src={
-                                                projectPageData.aiKhobarTunnel
+                                                e?.images?.[0]?.url ?
+                                                    Img_url + e?.images?.[0]?.url :
+                                                    projectPageData.aiKhobarTunnel
                                             }
                                             alt=""
                                             style={{
@@ -188,19 +190,20 @@ const TemplateTwo = ({ content, screen, language, width, highlight, liveContent 
                                     <div
                                         dir={isLeftAlign ? "ltr" : "rtl"}
                                         style={{
-                                            flex: `1 1 ${getDynamicSize(600)}`
+                                            flex: `1 1 ${getDynamicSize(600)}`,
+                                            gap: (isComputer) && getDynamicSize(10)
                                         }}
-                                        className={`flex flex-col flex-[3_1_600px] gap-[13px] items-start justify-center text-[#292E3D] 
+                                        className={`flex flex-col flex-[3_1_600px] gap-[6px] items-start justify-center text-[#292E3D] 
                                         ${isPhone ? "py-4 px-[2px]" : "py-4 px-[38px]"}`}>
                                         <h3 className="font-[400] text-[21px]"
                                             style={{
                                                 fontSize: fontSize.aboutMainPara
                                             }}
-                                        >{TruncateText(e?.[titleLan], 35)} </h3>
+                                        >{TruncateText(e?.title?.[language], 35) || "LOREM IPSUM"} </h3>
 
                                         {
                                             (
-                                                // e.descriptions
+                                                e.description ||
                                                 tempArr
                                             )?.map((description, i) => {
                                                 return (
@@ -209,6 +212,7 @@ const TemplateTwo = ({ content, screen, language, width, highlight, liveContent 
                                                             gap: isPhone ? "4px" : getDynamicSize(8),
                                                             padding: `${getDynamicSize(10)} 0px`
                                                         }}
+                                                        key={i}
                                                     >
                                                         <img src={blueCheckIcon} alt="" className={`${isTablet ? "translate-y-[4px]" : "translate-y-[1px]"}`}
                                                             style={{ width: isPhone ? "" : isTablet ? getDynamicSize(30) : getDynamicSize(20), height: isPhone ? "" : isTablet ? getDynamicSize(30) : getDynamicSize(20) }} />
@@ -217,8 +221,8 @@ const TemplateTwo = ({ content, screen, language, width, highlight, liveContent 
                                                             style={{
                                                                 fontSize: fontSize.mainPara
                                                             }}>
-                                                            {/* {TruncateText(description?.[language], 120)} */}
-                                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae, modi?
+                                                            {TruncateText(description?.[language], 120) || "Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae, modi?"}
+                                                            {/*  */}
                                                         </p>
                                                     </div>
                                                 )
@@ -250,24 +254,38 @@ const TemplateTwo = ({ content, screen, language, width, highlight, liveContent 
                     >
                         <h3
                             style={{ fontSize: fontSize.subProjectHeadings }}
-                        >Lorem Ispum</h3>
+                        >{
+                                content?.['5']?.content?.title?.[language] ||
+                                "Lorem Ispum"}</h3>
                         <p
                             className={`${fontLight}`}
                             style={{ fontSize: fontSize.mainPara }}
-                        >Shade Corporation boasts a continually growing portfolio of satisfied clients, both global and local, who have derived tremendous benefits from their engagement with us. Our solutions are sought after by companies of all sizes – large, mid-sized, an</p>
+                        >
+                            {
+                                content?.['5']?.content?.description?.[language] ||
+                                "Shade Corporation boasts a continually growing portfolio of satisfied clients, both global and local, who have derived tremendous benefits from their engagement with us. Our solutions are sought after by companies of all sizes – large, mid-sized, an"
+                            }
+                        </p>
                     </div>
 
-                    <div className={`flex gap-4 ${isPhone && "flex-col"}`}
+                    <div className={`flex gap-4 ${isPhone && "flex-col"} ${isTablet && "grid grid-cols-3"}`}
                         style={{
                             gap: (isComputer) && getDynamicSize(10),
-                            flex: `1 1 ${getDynamicSize(870)}`
+                            flex: `1 1 ${getDynamicSize(870)}`,
+                            width: (isComputer) && getDynamicSize(870)
                         }}
                     >
                         {
-                            tempArr.slice(0, 3).map((e, i) => {
+                            content?.['5']?.content?.images?.map((e, i) => {
                                 return (
-                                    <div>
-                                        <img src={projectPageData.developmentOfHo} alt="" className={`w-full object-cover ${isPhone ? "" : "aspect-[1/1.8]"}`} />
+                                    <div key={i}
+                                        style={{
+                                            width: (isComputer) && getDynamicSize(283)
+                                        }}
+                                    >
+                                        <img src={
+                                            Img_url + e.url
+                                        } alt="" className={`w-full object-cover ${isPhone ? "" : "aspect-[1/1.8]"}`} />
                                     </div>
                                 )
                             })
