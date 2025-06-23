@@ -175,7 +175,9 @@ const TemplateTwo = ({ content, screen, language, width, highlight, liveContent 
                                     >
                                         <img
                                             src={
-                                                projectPageData.aiKhobarTunnel
+                                                e?.images?.[0]?.url ?
+                                                    Img_url + e?.images?.[0]?.url :
+                                                    projectPageData.aiKhobarTunnel
                                             }
                                             alt=""
                                             style={{
@@ -252,24 +254,38 @@ const TemplateTwo = ({ content, screen, language, width, highlight, liveContent 
                     >
                         <h3
                             style={{ fontSize: fontSize.subProjectHeadings }}
-                        >Lorem Ispum</h3>
+                        >{
+                                content?.['5']?.content?.title?.[language] ||
+                                "Lorem Ispum"}</h3>
                         <p
                             className={`${fontLight}`}
                             style={{ fontSize: fontSize.mainPara }}
-                        >Shade Corporation boasts a continually growing portfolio of satisfied clients, both global and local, who have derived tremendous benefits from their engagement with us. Our solutions are sought after by companies of all sizes – large, mid-sized, an</p>
+                        >
+                            {
+                                content?.['5']?.content?.description?.[language] ||
+                                "Shade Corporation boasts a continually growing portfolio of satisfied clients, both global and local, who have derived tremendous benefits from their engagement with us. Our solutions are sought after by companies of all sizes – large, mid-sized, an"
+                            }
+                        </p>
                     </div>
 
-                    <div className={`flex gap-4 ${isPhone && "flex-col"}`}
+                    <div className={`flex gap-4 ${isPhone && "flex-col"} ${isTablet && "grid grid-cols-3"}`}
                         style={{
                             gap: (isComputer) && getDynamicSize(10),
-                            flex: `1 1 ${getDynamicSize(870)}`
+                            flex: `1 1 ${getDynamicSize(870)}`,
+                            width: (isComputer) && getDynamicSize(870)
                         }}
                     >
                         {
-                            tempArr.slice(0, 3).map((e, i) => {
+                            content?.['5']?.content?.images?.map((e, i) => {
                                 return (
-                                    <div key={i}>
-                                        <img src={projectPageData.developmentOfHo} alt="" className={`w-full object-cover ${isPhone ? "" : "aspect-[1/1.8]"}`} />
+                                    <div key={i}
+                                        style={{
+                                            width: (isComputer) && getDynamicSize(283)
+                                        }}
+                                    >
+                                        <img src={
+                                            Img_url + e.url
+                                        } alt="" className={`w-full object-cover ${isPhone ? "" : "aspect-[1/1.8]"}`} />
                                     </div>
                                 )
                             })

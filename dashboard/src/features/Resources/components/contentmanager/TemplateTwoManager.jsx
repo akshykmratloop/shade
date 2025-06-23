@@ -220,8 +220,8 @@ const TemplateTwoManager = ({ content, currentPath, language, indexes }) => {
                 currentPath={currentPath}
                 Heading={"Mark Down"}
                 inputs={[
-                    { input: "input", label: "Heading/title", updateType: "title", value: content?.['1']?.content?.title?.[language] },
-                    { input: "textarea", label: "Description", updateType: "description", value: content?.['1']?.content?.description?.[language] },
+                    { input: "input", label: "Heading/title", updateType: "title", value: content?.['5']?.content?.title?.[language] },
+                    { input: "textarea", label: "Description", updateType: "description", value: content?.['5']?.content?.description?.[language] },
                 ]}
                 inputFiles={
                     content?.[5]?.content?.images?.map((e) => {
@@ -230,7 +230,7 @@ const TemplateTwoManager = ({ content, currentPath, language, indexes }) => {
                             label: "Images",
                             id: `markDown-${e.order}`,
                             order: e.order,
-                            url: content?.['1']?.content?.images?.[0]?.url
+                            url: e?.url
                         }
                     })
                 }
