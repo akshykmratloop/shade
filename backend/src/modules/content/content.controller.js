@@ -28,6 +28,7 @@ import {
   addNewResource,
   getAllFilters,
 } from "./content.service.js";
+import { handleEntityCreationNotification } from "../../helper/notificationHelper.js";
 
 
 
@@ -134,7 +135,55 @@ const AssignUser = async (req, res) => {
     verifiers,
     publisher
   );
-
+  // Notification: resource assignment (for each role assigned)
+  const io = req.app.locals.io;
+  const resource = response.assignedUsers;
+  if (manager) {
+    await handleEntityCreationNotification({
+      io,
+      userId: req.user?.id,
+      entity: "resource",
+      newValue: resource,
+      actionType: "ASSIGN",
+      resource,
+      actionDetails: { assignmentRole: "MANAGER", assignmentRoleUserId: manager },
+    });
+  }
+  if (editor) {
+    await handleEntityCreationNotification({
+      io,
+      userId: req.user?.id,
+      entity: "resource",
+      newValue: resource,
+      actionType: "ASSIGN",
+      resource,
+      actionDetails: { assignmentRole: "EDITOR", assignmentRoleUserId: editor },
+    });
+  }
+  if (publisher) {
+    await handleEntityCreationNotification({
+      io,
+      userId: req.user?.id,
+      entity: "resource",
+      newValue: resource,
+      actionType: "ASSIGN",
+      resource,
+      actionDetails: { assignmentRole: "PUBLISHER", assignmentRoleUserId: publisher },
+    });
+  }
+  if (Array.isArray(verifiers)) {
+    for (const v of verifiers) {
+      await handleEntityCreationNotification({
+        io,
+        userId: req.user?.id,
+        entity: "resource",
+        newValue: resource,
+        actionType: "ASSIGN",
+        resource,
+        actionDetails: { assignmentRole: `VERIFIER_STAGE_${v.stage}`, assignmentRoleUserId: v.id },
+      });
+    }
+  }
   res.status(200).json(response);
 };
 
@@ -200,6 +249,20 @@ const ApproveRequest = async (req, res) => {
   const {requestId} = req.params;
   const userId = req.user.id;
   const response = await approveRequest(requestId, userId);
+  // Notification: resource approve
+  const io = req.app.locals.io;
+  const resource = response.request?.resource || response.request?.resourceVersion?.resource;
+  if (resource) {
+    await handleEntityCreationNotification({
+      io,
+      userId,
+      entity: "resource",
+      newValue: resource,
+      actionType: "APPROVE",
+      resource,
+      actionDetails: { requestType: "approve" },
+    });
+  }
   res.status(200).json(response);
 };
 
@@ -208,6 +271,20 @@ const RejectRequest = async (req, res) => {
   const userId = req.user.id;
   const {rejectReason} = req.body;
   const response = await rejectRequest(requestId, userId, rejectReason);
+  // Notification: resource reject
+  const io = req.app.locals.io;
+  const resource = response.request?.resource || response.request?.resourceVersion?.resource;
+  if (resource) {
+    await handleEntityCreationNotification({
+      io,
+      userId,
+      entity: "resource",
+      newValue: resource,
+      actionType: "REJECT",
+      resource,
+      actionDetails: { requestType: "reject" },
+    });
+  }
   res.status(200).json(response);
 };
 
@@ -216,6 +293,20 @@ const ScheduleRequest = async (req, res) => {
   const userId = req.user.id;
   const {date} = req.body;
   const response = await scheduleRequest(requestId, userId, date);
+  // Notification: resource schedule
+  const io = req.app.locals.io;
+  const resource = response.request?.resource || response.request?.resourceVersion?.resource;
+  if (resource) {
+    await handleEntityCreationNotification({
+      io,
+      userId,
+      entity: "resource",
+      newValue: resource,
+      actionType: "SCHEDULE",
+      resource,
+      actionDetails: { requestType: "schedule" },
+    });
+  }
   res.status(200).json(response);
 };
 

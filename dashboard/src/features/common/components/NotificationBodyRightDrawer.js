@@ -8,7 +8,7 @@ import { useDispatch } from "react-redux";
 import Paginations from "../../Component/Paginations";
 import { useRef } from "react";
 
-function NotificationBodyRightDrawer({ notifications = [], loading, onPageChange, onSearch, currentPage, totalPages, searchText }) {
+function NotificationBodyRightDrawer({ notifications = [], loading, onPageChange, onSearch, currentPage, totalPages, searchText, clearNotifications }) {
   // const [notifications, setNotifications] = useState([]);
   // const [loading, setLoading] = useState(true);
   // const dispatch = useDispatch();
@@ -66,7 +66,9 @@ function NotificationBodyRightDrawer({ notifications = [], loading, onPageChange
 
 
   function formatNotificationDate(isoString) {
+    if (!isoString) return '';
     const date = new Date(isoString);
+    if (isNaN(date.getTime())) return 'Invalid date';
     const now = new Date();
 
     const isToday =
@@ -179,7 +181,12 @@ function NotificationBodyRightDrawer({ notifications = [], loading, onPageChange
           </div>
         ))}
       </div>
-
+     { notifications?.length > 0 && <p
+                onClick={() => clearNotifications()}
+                className="ml-auto py-2 text-sm cursor-pointer text-red-500 active:text-green-600"
+              >
+                Clear All
+              </p>}
       {/* PAGINATION AT BOTTOM */}
       <div className="mt-auto">
         {totalPages > 1 && (

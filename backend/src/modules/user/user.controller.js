@@ -13,12 +13,23 @@ import {
   getUserById,
   userRoleType,
 } from "./user.service.js";
+import { handleEntityCreationNotification } from "../../helper/notificationHelper.js";
 
 const CreateUserHandler = async (req, res) => {
   const {name, email, password, phone, roles} = req.body;
   const user = await createUser(name, email, password, phone, roles);
   res.locals.entityId = user.user.id;
   res.status(201).json(user);
+  // Notification: user created
+  const io = req.app.locals.io;
+  await handleEntityCreationNotification({
+    io,
+    userId: req.user?.id || user.user.id, // fallback to created user if no actor
+    entity: "user",
+    newValue: user.user,
+    actionType: "CREATE",
+    targetUserId: user.user.id,
+  });
   // console.log(user.user.id, "entityId_reslocals");
 };
 
@@ -64,6 +75,15 @@ const EditUserDetails = async (req, res) => {
 
   const updatedUser = await editUserDetails(id, name, password, phone, roles);
   const io = req.app.locals.io;
+  // Notification: user updated
+  await handleEntityCreationNotification({
+    io,
+    userId: req.user?.id,
+    entity: "user",
+    newValue: updatedUser.result,
+    actionType: "UPDATE",
+    targetUserId: id,
+  });
   const socketIdOfUpdatedUser = getSocketId(id);
   io.to(socketIdOfUpdatedUser).emit("userUpdated", updatedUser);
   res.status(201).json(updatedUser);

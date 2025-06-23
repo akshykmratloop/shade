@@ -3,210 +3,152 @@ import {createNotification} from "../repository/notification.repository.js";
 
 export const handleEntityCreationNotification = async ({
   io,
-  userId,
+  userId, // performer (actor)
   entity,
   newValue,
   actionType,
+  targetUserId = null, // for user update/assignment
+  resource = null, // for resource actions
+  actionDetails = {}, // e.g., { assignmentRole, actionType, requestType, etc. }
 }) => {
   try {
-    // Fetch the user who performed the action
     const creator = await prismaClient.user.findUnique({
-      where: {id: userId},
-      include: {roles: {select: {roleId: true}}},
+      where: { id: userId },
+      include: { roles: { select: { roleId: true } } },
     });
-
     if (!creator) {
       console.warn("creator not found: ", userId);
       return;
     }
-
-    // Build base message
-    // const subject =
-    //   newValue.name || newValue.email || newValue.title || newValue.id;
-    // const verb = actionType === "CREATE" ? "created" : "updated";
-    // const message = `A ${entity} '${subject}' has been ${verb}`;
-    const subject =
-      newValue.name || newValue.email || newValue.title || newValue.id;
-    const verb = actionType === "CREATE" ? "created" : "updated";
-
-    // New: give a friendly actor label
-    const actorLabel = creator.isSuperUser
-      ? "Super Admin"
-      : `User '${creator.name}'`;
-
-    // New: meaningful message
-    const message = `${actorLabel} ${verb} the ${entity} '${subject}'`;
-    const eventName = `${entity}_${verb}`;
-
-    // Determine recipients
-    const recipientsMap = new Map();
-
-    // Special handling for role updates
-    if (entity === "role" && verb === "updated") {
-      // Users with ROLE_MANAGEMENT_PERMISSION
-      const roleMgmtPerm = await prismaClient.permission.findUnique({
-        where: {name: "ROLES_PERMISSION_MANAGEMENT"},
-      });
+    const subject = newValue?.name || newValue?.email || newValue?.title || newValue?.id;
+    const verb = actionType === "CREATE" ? "created" : actionType === "UPDATE" ? "updated" : actionType?.toLowerCase();
+    const actorLabel = creator.isSuperUser ? "Super Admin" : `User '${creator.name}'`;
+    let eventName = `${entity}_${verb}`;
+    // --- Build recipient list with context ---
+    let recipients = [];
+    // Always include all super admins (with context)
+    const superAdmins = await prismaClient.user.findMany({ where: { isSuperUser: true } });
+    superAdmins.forEach((u) => recipients.push({ user: u, context: "superadmin" }));
+    if (entity === "role") {
+      // Only users with ROLE_MANAGEMENT permission
+      const roleMgmtPerm = await prismaClient.permission.findUnique({ where: { name: "ROLES_PERMISSION_MANAGEMENT" } });
       if (roleMgmtPerm) {
         const permUsers = await prismaClient.user.findMany({
           where: {
             roles: {
               some: {
                 role: {
-                  permissions: {some: {permissionId: roleMgmtPerm.id}},
+                  permissions: { some: { permissionId: roleMgmtPerm.id } },
                 },
               },
             },
           },
         });
-        permUsers.forEach((u) => recipientsMap.set(u.id, u));
-        console.log("permUsers", permUsers);
+        permUsers.forEach((u) => recipients.push({ user: u, context: "rolemanager" }));
       }
-
-      // Users assigned to the specific role being updated
-      if (newValue.id) {
-        const roleUsers = await prismaClient.user.findMany({
-          where: {
-            roles: {some: {roleId: newValue.id}},
-          },
-        });
-        roleUsers.forEach((u) => recipientsMap.set(u.id, u));
-        console.log("roleUsers", roleUsers);
-      }
-    } else if (entity === "user" && verb === "updated") {
-      // Users with USER_MANAGEMENT_PERMISSION
-      const userMgmtPerm = await prismaClient.permission.findUnique({
-        where: {name: "USER_MANAGEMENT"},
-      });
+    } else if (entity === "user") {
+      // Only users with USER_MANAGEMENT permission
+      const userMgmtPerm = await prismaClient.permission.findUnique({ where: { name: "USER_MANAGEMENT" } });
       if (userMgmtPerm) {
         const permUsers = await prismaClient.user.findMany({
           where: {
             roles: {
               some: {
                 role: {
-                  permissions: {some: {permissionId: userMgmtPerm.id}},
+                  permissions: { some: { permissionId: userMgmtPerm.id } },
                 },
               },
             },
           },
         });
-        permUsers.forEach((u) => recipientsMap.set(u.id, u));
-        console.log("permUsers", permUsers);
+        permUsers.forEach((u) => recipients.push({ user: u, context: "usermanager" }));
       }
-
-      // Users assigned to the specific user being updated
-      if (newValue.id) {
-        const userRoles = await prismaClient.userRole.findMany({
-          where: {userId: newValue.id},
-          select: {roleId: true},
-        });
-        const roleIds = userRoles.map((r) => r.roleId);
-
-        const roleUsers = await prismaClient.user.findMany({
-          where: {
-            roles: {some: {roleId: {in: roleIds}}},
-          },
-        });
-        roleUsers.forEach((u) => recipientsMap.set(u.id, u));
-        console.log("roleUsers", roleUsers);
+      // The target user (if updated)
+      if (targetUserId && targetUserId !== userId) {
+        const targetUser = await prismaClient.user.findUnique({ where: { id: targetUserId } });
+        if (targetUser) recipients.push({ user: targetUser, context: "targetuser" });
       }
-    } else if (entity === "role" && verb === "created") {
-      // Users with ROLE_MANAGEMENT_PERMISSION
-      const roleMgmtPerm = await prismaClient.permission.findUnique({
-        where: {name: "ROLES_PERMISSION_MANAGEMENT"},
-      });
-      console.log("roleMgmtPerm", roleMgmtPerm);
-
-      if (roleMgmtPerm) {
+    } else if (entity === "resource") {
+      // Content module: management permissions (excluding role/user/logs management)
+      // Define allowed management permissions for content
+      const contentManagementPermissions = [
+        "PAGE_MANAGEMENT", "MARKET_MANAGEMENT", "SERVICE_MANAGEMENT", "PROJECT_MANAGEMENT", "NEWS_MANAGEMENT", "SAFETY_MANAGEMENT", "CAREER_MANAGEMENT", "TESTIMONIAL_MANAGEMENT", "FOOTER_MANAGEMENT", "HEADER_MANAGEMENT", "AFFILIATE_MANAGEMENT", "HSE_MANAGEMENT", "ORGANIZATIONAL_CHART_MANAGEMENT"
+      ];
+      // Get all users with any of these permissions
+      const contentPerms = await prismaClient.permission.findMany({ where: { name: { in: contentManagementPermissions } } });
+      const contentPermIds = contentPerms.map((p) => p.id);
+      if (contentPermIds.length) {
         const permUsers = await prismaClient.user.findMany({
           where: {
             roles: {
               some: {
                 role: {
-                  permissions: {some: {permissionId: roleMgmtPerm.id}},
+                  permissions: { some: { permissionId: { in: contentPermIds } } },
                 },
               },
             },
           },
         });
-        permUsers.forEach((u) => recipientsMap.set(u.id, u));
-        console.log("permUsers", permUsers);
+        permUsers.forEach((u) => recipients.push({ user: u, context: "contentmanager" }));
       }
-    } else if (entity === "user" && verb === "created") {
-      // Users with USER_MANAGEMENT_PERMISSION
-      const userMgmtPerm = await prismaClient.permission.findUnique({
-        where: {name: "USER_MANAGEMENT"},
+      // Add users associated with the resource (editor, manager, verifier, publisher)
+      if (resource?.id) {
+        const resourceRoles = await prismaClient.resourceRole.findMany({
+          where: { resourceId: resource.id, status: "ACTIVE" },
+          include: { user: true },
       });
-
-      console.log("userMgmtPerm", userMgmtPerm);
-      if (userMgmtPerm) {
-        const permUsers = await prismaClient.user.findMany({
-          where: {
-            roles: {
-              some: {
-                role: {
-                  permissions: {some: {permissionId: userMgmtPerm.id}},
-                },
-              },
-            },
-          },
+        resourceRoles.forEach((r) => recipients.push({ user: r.user, context: r.role.toLowerCase() }));
+        const verifiers = await prismaClient.resourceVerifier.findMany({
+          where: { resourceId: resource.id, status: "ACTIVE" },
+          include: { user: true },
         });
-        permUsers.forEach((u) => recipientsMap.set(u.id, u));
-        console.log("permUsers", permUsers);
-      }
-    } else {
-      // Default notification logic
-      if (creator.isSuperUser) {
-        // If the actor is a super admin, notify only themselves
-        recipientsMap.set(creator.id, creator);
-      } else {
-        // Always include super admins
-        const superAdmins = await prismaClient.user.findMany({
-          where: {isSuperUser: true},
-        });
-        superAdmins.forEach((u) => recipientsMap.set(u.id, u));
-
-        // Include users sharing any permission with creator
-        const creatorPermissions = await prismaClient.rolePermission.findMany({
-          where: {roleId: {in: creator.roles.map((r) => r.roleId)}},
-          select: {permissionId: true},
-        });
-        const permissionIds = creatorPermissions.map((p) => p.permissionId);
-
-        if (permissionIds.length) {
-          const permissionUsers = await prismaClient.user.findMany({
-            where: {
-              id: {not: creator.id},
-              roles: {
-                some: {
-                  role: {
-                    permissions: {some: {permissionId: {in: permissionIds}}},
-                  },
-                },
-              },
-            },
-          });
-          permissionUsers.forEach((u) => recipientsMap.set(u.id, u));
-        }
+        verifiers.forEach((v) => recipients.push({ user: v.user, context: `verifier_stage_${v.stage}` }));
       }
     }
-
-    // console.log(
-    //   "================================================================",
-    //   `Emitting event: ${eventName} with message: ${message}`,
-    //   recipientsMap,
-    //   "recipients"
-    // );
-
-    // Emit and store notifications
-    for (const recipient of recipientsMap.values()) {
-      if (recipient.id === creator.id) continue;
-
-      io.emit(eventName, {
-        userId: recipient.id,
-        message,
+    // Remove duplicates (by user id)
+    const uniqueRecipients = new Map();
+    recipients.forEach(({ user, context }) => {
+      if (user && user.id && user.id !== userId) {
+        if (!uniqueRecipients.has(user.id)) uniqueRecipients.set(user.id, { user, contexts: [context] });
+        else uniqueRecipients.get(user.id).contexts.push(context);
+      }
+    });
+    // --- Send custom message to each recipient ---
+    for (const { user, contexts } of uniqueRecipients.values()) {
+      let customMessage = "";
+      // Super admin always gets a generic message
+      if (user.isSuperUser) {
+        customMessage = `${actorLabel} ${verb} the ${entity} '${subject}'`;
+      } else if (entity === "role" && contexts.includes("rolemanager")) {
+        customMessage = `${actorLabel} ${verb} a role '${subject}'`;
+      } else if (entity === "user") {
+        if (contexts.includes("targetuser")) {
+          customMessage = `${actorLabel} has updated your profile.`;
+        } else if (contexts.includes("usermanager")) {
+          customMessage = `${actorLabel} ${verb} the user '${subject}'`;
+        }
+      } else if (entity === "resource") {
+        if (contexts.includes("manager")) {
+          customMessage = `${actorLabel} ${verb} a resource you manage: '${resource?.titleEn || resource?.titleAr || resource?.id}'`;
+        } else if (contexts.includes("editor")) {
+          customMessage = `${actorLabel} ${verb} a resource you edit: '${resource?.titleEn || resource?.titleAr || resource?.id}'`;
+        } else if (contexts.some((c) => c.startsWith("verifier_stage_"))) {
+          customMessage = `${actorLabel} ${verb} a resource you verify: '${resource?.titleEn || resource?.titleAr || resource?.id}'`;
+        } else if (contexts.includes("publisher")) {
+          customMessage = `${actorLabel} ${verb} a resource you publish: '${resource?.titleEn || resource?.titleAr || resource?.id}'`;
+        } else if (contexts.includes("contentmanager")) {
+          customMessage = `${actorLabel} ${verb} a resource in your management area: '${resource?.titleEn || resource?.titleAr || resource?.id}'`;
+        }
+      }
+      // Fallback
+      if (!customMessage) {
+        customMessage = `${actorLabel} ${verb} the ${entity} '${subject}'`;
+      }
+      io.to(user.id).emit(eventName, {
+        userId: user.id,
+        message: customMessage,
       });
-      await createNotification({userId: recipient.id, message});
+      await createNotification({ userId: user.id, message: customMessage });
     }
   } catch (error) {
     console.error("Error in handleEntityCreationNotification:", error);
