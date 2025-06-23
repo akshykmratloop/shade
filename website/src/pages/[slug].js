@@ -8,6 +8,13 @@ import {backendAPI} from "@/contexts/GlobalContext";
 import Head from "next/head";
 import {useEffect, useState} from "react";
 
+const TEMPLATE_COMPONENTS = {
+  TEMPLATE_ONE: NewTemplate,
+  TEMPLATE_TWO: NewTemplate2,
+  TEMPLATE_THREE: NewTemplate3,
+  TEMPLATE_FOUR: NewTemplate4,
+};
+
 // export async function getStaticPaths() {
 //     const paths = industry.map(detail => ({
 //         params: { id: detail.id }
@@ -39,12 +46,18 @@ export default function Template({apiData}) {
 
   const [isLoading, setIsLoading] = useState(true);
   const [content, setContent] = useState(null);
+  const [TemplateComponent, setTemplateComponent] = useState(null);
 
   useEffect(() => {
     if (apiData && Object.keys(apiData).length > 0 && apiData.content) {
       const generatedContent = createContent(apiData.content);
       setContent(generatedContent.content);
       setIsLoading(false);
+
+      const tag = apiData.content.resourceTag;
+      const Component = TEMPLATE_COMPONENTS[tag] || NewTemplate;
+      setTemplateComponent(() => Component);
+
       console.log(
         "Content generated successfully:",
         JSON.stringify(generatedContent.content, null, 2)
@@ -55,7 +68,7 @@ export default function Template({apiData}) {
     }
   }, [apiData]);
 
-  if (isLoading) {
+  if (isLoading || !TemplateComponent) {
     return <Loader />;
   }
 
@@ -67,55 +80,55 @@ export default function Template({apiData}) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      {/* <NewTemplate content={content} /> */}
-      <NewTemplate2 content={content} />
+      <TemplateComponent content={content} />
+      {/* <NewTemplate2 content={content} /> */}
       {/* <NewTemplate3 content={content} /> */}
-      <NewTemplate4 content={content} />
+      {/* <NewTemplate4 content={content} /> */}
     </>
   );
 }
 
-// export async function getServerSideProps({params}) {
-//   const {slug} = params;
-//   console.log("Fetching data for slug:", slug);
-//   console.log("helloooooooo");
-
-//   try {
-//     const res = await fetch(`${backendAPI}${slug}`);
-
-//     if (!res.ok) {
-//       // If response failed (e.g., 404, 500), return empty object
-//       return {props: {apiData: {}}};
-//     }
-//     const apiData = await res.json();
-
-//     console.log("API Data:", apiData);
-
-//     return {props: {apiData: apiData || {}}};
-//   } catch (error) {
-//     // If fetch throws an error (e.g., network failure), return empty object
-//     return {props: {apiData: {}}};
-//   }
-// }
-
 export async function getServerSideProps({params}) {
   const {slug} = params;
+  console.log("Fetching data for slug:", slug);
+  console.log("helloooooooo");
 
-  console.log("Simulating fetch for slug:", slug);
+  try {
+    const res = await fetch(`${backendAPI}${slug}`);
 
-  // ✅ Replace this with your actual expected API structure
-  const mockApiData = {
-    slug: slug,
-    title: `Mock Title for ${slug}`,
-    content: {
-      header: `Welcome to ${slug}`,
-      description: `This is a mock description for the ${slug} service.`,
-    },
-  };
+    if (!res.ok) {
+      // If response failed (e.g., 404, 500), return empty object
+      return {props: {apiData: {}}};
+    }
+    const apiData = await res.json();
 
-  return {
-    props: {
-      apiData: mockApiData,
-    },
-  };
+    console.log("API Data:", apiData);
+
+    return {props: {apiData: apiData || {}}};
+  } catch (error) {
+    // If fetch throws an error (e.g., network failure), return empty object
+    return {props: {apiData: {}}};
+  }
 }
+
+// export async function getServerSideProps({params}) {
+//   const {slug} = params;
+
+//   console.log("Simulating fetch for slug:", slug);
+
+//   // ✅ Replace this with your actual expected API structure
+//   const mockApiData = {
+//     slug: slug,
+//     title: `Mock Title for ${slug}`,
+//     content: {
+//       header: `Welcome to ${slug}`,
+//       description: `This is a mock description for the ${slug} service.`,
+//     },
+//   };
+
+//   return {
+//     props: {
+//       apiData: mockApiData,
+//     },
+//   };
+// }
