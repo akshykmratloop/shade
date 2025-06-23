@@ -5,7 +5,6 @@ import React from "react";
 import banner from "@/assets/images/Hero.png";
 import templateImg from "@/assets/images/templateImage.png";
 import templateIcon from "../../assets/icons/templateIcon.svg";
-import {sync} from "framer-motion";
 
 const secondSection = [
   {
@@ -40,71 +39,20 @@ const secondSection = [
   },
 ];
 
-// const secondSection = [
-//   {
-//     id: 1,
-//     icon: templateIcon || "",
-//     title: "Education",
-//     description:
-//       "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using  content",
-//   },
-//   {
-//     id: 2,
-//     icon: templateIcon || "",
-//     title: "Education",
-//     description:
-//       "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using  content",
-//   },
-//   {
-//     id: 3,
-//     icon: templateIcon || "",
-//     title: "Education",
-//     description:
-//       "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using  content",
-//   },
-//   {
-//     id: 4,
-//     icon: templateIcon || "",
-//     title: "Education",
-//     description:
-//       "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using  content",
-//   },
-//   {
-//     id: 5,
-//     icon: templateIcon || "",
-//     title: "Education",
-//     description:
-//       "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using  content",
-//   },
-//   {
-//     id: 6,
-//     icon: templateIcon || "",
-//     title: "Education",
-//     description:
-//       "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using  content",
-//   },
-// ];
+const thirdSection = {
+  id: 1,
+  title: "Project services",
+  description:
+    " Our company has been the leading provided construction services to clients throughout the Dubai since 1992.",
 
-// const thirdSection = [
-//   {
-//     id: 1,
-//     title: "Project Description",
-//     description:
-//       "The scope of work for the project is to demolish, procure and Construct an IT Lab in Al-Midra Tower located in Dhahran.",
-//   },
-//   {
-//     id: 2,
-//     title: "Project Description",
-//     description:
-//       "The scope of work for the project is to demolish, procure and Construct an IT Lab in Al-Midra Tower located in Dhahran.",
-//   },
-//   {
-//     id: 3,
-//     title: "Project Description",
-//     description:
-//       "The scope of work for the project is to demolish, procure and Construct an IT Lab in Al-Midra Tower located in Dhahran.",
-//   },
-// ];
+  img: banner,
+  cards: [
+    {id: 1, title: "Faculty Services"},
+    {id: 2, title: "Road Services"},
+    {id: 3, title: "Tunnel Services"},
+    {id: 4, title: "Plants Services"},
+  ],
+};
 
 // Font files can be colocated inside of `app`
 const BankGothic = localFont({
@@ -169,6 +117,17 @@ const NewTemplate3 = ({content}) => {
       <section className={styles.template3_second_section}>
         <div className="container">
           <div className={styles.template3_second_section_card_wrapper}>
+            <div className={styles.template3_second_section_card_header}>
+              <h2>Lorem ipsum</h2>
+              <p>
+                It is a long established fact that a reader will be distracted
+                by the readable content of a page when looking at its layout.
+                The point of using Lorem Ipsum is that dffvdfvf dfj dsiwns vdjjs
+                sssiiijee It is a long established fact that a reader will be
+                distracted by the readable content of a page when fgdgdg It is a
+                long established fact that a reader will a reader will
+              </p>
+            </div>
             {secondSection.map((item) => (
               <div
                 key={item.id}
@@ -187,30 +146,35 @@ const NewTemplate3 = ({content}) => {
         </div>
       </section>
 
-      {/*  <section className={styles.template_second_section}>
+      <section className={styles.template3_third_section}>
         <div className="container">
-          <div className={styles.template_second_section_card_wrapper}>
-            {secondSection.map((item) => (
-              <div
-                key={item.id}
-                className={styles.template_second_section_card}
-              >
-                <div className={styles.template_second_section_card_header}>
-                  <img src={item.icon.src} alt="icon" />
-                  <h2 className={styles.template_second_section_card_heading}>
-                    {item.title}
-                  </h2>
-                </div>
-                <p className={styles.template_second_section_card_desc}>
-                  {item.description}
-                </p>
+          <div className={styles.template3_third_section_wrapper}>
+            <div className={styles.template3_third_section_image_container}>
+              <img src={templateImg.src} alt="sec3_image" />
+            </div>
+            <div className={styles.template3_third_section_content}>
+              <h2 className={styles.template3_third_section_content_heading}>
+                {thirdSection.title}
+              </h2>
+              <p className={styles.template3_third_section_content_para}>
+                {thirdSection.description}
+              </p>
+              <div className={styles.template3_third_section_card_wrapper}>
+                {thirdSection.cards.map((card) => (
+                  <div
+                    key={card.id}
+                    className={styles.template3_third_section_card}
+                  >
+                    <h3>{card.title}</h3>
+                  </div>
+                ))}
               </div>
-            ))}
+            </div>
           </div>
         </div>
       </section>
 
-      <section className={styles.template_third_section}>
+      {/*   <section className={styles.template_third_section}>
         <div className="container">
           <div className={styles.template_third_section_card_wrapper}>
             {thirdSection.map((item) => (

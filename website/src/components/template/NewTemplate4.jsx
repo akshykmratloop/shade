@@ -1,109 +1,46 @@
 import {useGlobalContext} from "@/contexts/GlobalContext";
 import localFont from "next/font/local";
-import styles from "@/components/template/NewTemplate.module.scss";
+import styles from "@/components/template/NewTemplate4.module.scss";
 import React from "react";
 import banner from "@/assets/images/Hero.png";
 import templateImg from "@/assets/images/templateImage.png";
 import templateIcon from "../../assets/icons/templateIcon.svg";
 
-// const firstSection = [
-//   {
-//     id: 1,
-//     img: templateImg,
-//     title: "project services",
-//     description:
-//       "We capitalize on our years of experience in the construction industry to clients by also maintaining their facilities and infrastructure.",
-//   },
-//   {
-//     id: 2,
-//     img: templateImg,
-//     title: "project services",
-//     description:
-//       "We capitalize on our years of experience in the construction industry to clients by also maintaining their facilities and infrastructure.",
-//   },
-//   {
-//     id: 3,
-
-//     img: templateImg,
-//     title: "project services",
-//     description:
-//       "We capitalize on our years of experience in the construction industry to clients by also maintaining their facilities and infrastructure.",
-//   },
-//   {
-//     id: 4,
-
-//     img: templateImg,
-//     title: "project services",
-//     description:
-//       "We capitalize on our years of experience in the construction industry to clients by also maintaining their facilities and infrastructure.",
-//   },
-// ];
-
-// const secondSection = [
-//   {
-//     id: 1,
-//     icon: templateIcon || "",
-//     title: "Education",
-//     description:
-//       "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using  content",
-//   },
-//   {
-//     id: 2,
-//     icon: templateIcon || "",
-//     title: "Education",
-//     description:
-//       "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using  content",
-//   },
-//   {
-//     id: 3,
-//     icon: templateIcon || "",
-//     title: "Education",
-//     description:
-//       "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using  content",
-//   },
-//   {
-//     id: 4,
-//     icon: templateIcon || "",
-//     title: "Education",
-//     description:
-//       "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using  content",
-//   },
-//   {
-//     id: 5,
-//     icon: templateIcon || "",
-//     title: "Education",
-//     description:
-//       "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using  content",
-//   },
-//   {
-//     id: 6,
-//     icon: templateIcon || "",
-//     title: "Education",
-//     description:
-//       "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using  content",
-//   },
-// ];
-
-// const thirdSection = [
-//   {
-//     id: 1,
-//     title: "Project Description",
-//     description:
-//       "The scope of work for the project is to demolish, procure and Construct an IT Lab in Al-Midra Tower located in Dhahran.",
-//   },
-//   {
-//     id: 2,
-//     title: "Project Description",
-//     description:
-//       "The scope of work for the project is to demolish, procure and Construct an IT Lab in Al-Midra Tower located in Dhahran.",
-//   },
-//   {
-//     id: 3,
-//     title: "Project Description",
-//     description:
-//       "The scope of work for the project is to demolish, procure and Construct an IT Lab in Al-Midra Tower located in Dhahran.",
-//   },
-// ];
+const firstSection = {
+  id: 1,
+  title: "Lorem ipsum",
+  description:
+    "Discover the exceptional excellence of Shade Corporation, the premier Engineering, Procurement, and Construction powerhouse in Saudi Arabia. Discover the exceptional excellence of Shade Corporation, the premier Engineering, Procurement, and Construction powerhouse in Saudi Arabia.",
+  imgs: [
+    {id: 1, img: templateImg},
+    {id: 2, img: templateImg},
+    {id: 3, img: templateImg},
+    // {id: 4, img: templateImg},
+  ],
+};
+const thirdSection = [
+  {
+    id: 1,
+    icon: templateIcon || "",
+    title: "Lorem ipsum",
+    description:
+      "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that dffvdfvf dfj dsiwns vdjjs sssiiijee It is a long established fact that a reader will be distracted by the readable content of a page when fgdgdg It is a long established fact that a reader will a reader will",
+  },
+  {
+    id: 2,
+    icon: templateIcon || "",
+    title: "Lorem ipsum",
+    description:
+      "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that dffvdfvf dfj dsiwns vdjjs sssiiijee It is a long established fact that a reader will be distracted by the readable content of a page when fgdgdg It is a long established fact that a reader will a reader will",
+  },
+  {
+    id: 3,
+    icon: templateIcon || "",
+    title: "Lorem ipsum",
+    description:
+      "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that dffvdfvf dfj dsiwns vdjjs sssiiijee It is a long established fact that a reader will be distracted by the readable content of a page when fgdgdg It is a long established fact that a reader will a reader will alksj akj fkajsfkl alskf jlkajsf lakjsf alksjf klajsf lasjflka sjflka sfklaj sklfja lskjfal skfjklajfekljflkejflk je flkej lfkjef jeklfj elfjelkjalkejflkaejf aelkjfalekfjlakefjlkaejf aklfj alejf aklefj laejf klajf klaejfa fjalkejflakefjla ekjl akj",
+  },
+];
 
 // Font files can be colocated inside of `app`
 const BankGothic = localFont({
@@ -122,7 +59,7 @@ const NewTemplate2 = ({content}) => {
   const currentContent = content;
   return (
     <div>
-      <section className={`${styles.template_banner_wrap} `}>
+      <section className={`${styles.template4_banner_wrap} `}>
         <span
           className={`${language === "en" && styles.leftAlign} ${
             styles.backgroundContainer
@@ -154,41 +91,96 @@ const NewTemplate2 = ({content}) => {
         </div>
       </section>
 
-      {/* <section className={styles.template_first_section}>
+      <section className={styles.template4_first_section}>
         <div className="container">
-          <div className={styles.template_first_section_card_wrapper}>
-            {firstSection.map((item) => (
-              <div key={item.id} className={styles.template_first_section_card}>
-                <div className={styles.template_first_section_card_image}>
-                  <img src={item.img.src} alt="image" />
+          <div className={styles.template4_first_section_image_grid_wrapper}>
+            {firstSection.imgs.map((item, idx) => {
+              const posClass =
+                idx === 0
+                  ? styles.large
+                  : idx === 1
+                  ? styles.top
+                  : idx === 2
+                  ? styles.bottom
+                  : "";
+              return (
+                <div
+                  key={item.id}
+                  className={`${styles.template4_first_section_image_grid} ${posClass}`}
+                >
+                  <div className={styles.template4_first_section_image}>
+                    <img src={item.img.src} alt="image" />
+                  </div>
                 </div>
-                <h2 className={styles.template_first_section_card_heading}>
-                  {item.title}
-                </h2>
-                <p className={styles.template_first_section_card_desc}>
-                  {item.description}
-                </p>
-              </div>
-            ))}
+              );
+            })}
+          </div>
+
+          <div className={styles.template4_first_section_content}>
+            <h2 className={styles.template4_first_section_card_heading}>
+              {firstSection.title}
+            </h2>
+            <p className={styles.template4_first_section_card_desc}>
+              {firstSection.description}
+            </p>
           </div>
         </div>
       </section>
 
-      <section className={styles.template_second_section}>
+      <section className={styles.template4_second_section}>
         <div className="container">
-          <div className={styles.template_second_section_card_wrapper}>
-            {secondSection.map((item) => (
+          <div className={styles.template4_second_section_content}>
+            <h2 className={styles.template4_second_section_content_heading}>
+              Lorem, ipsum.
+            </h2>
+            <p className={styles.template4_second_section_content_para}>
+              It is a long established fact that a reader will be distracted by
+              the readable content of a page when looking at its layout. The
+              point of using Lorem Ipsum is that dffvdfvf dfj dsiwns vdjjs
+              sssiiijee It is a long established fact that a reader will be
+              distracted by the readable content of a page when fgdgdg It is a
+              long established fact that a reader will be distracted by the
+              readable content of a page when looking at its layout. The point
+              of using Lorem Ipsum is that dffvdfvf dfj dsiwns vdjjs sssiiijee
+              It is a long established fact that a reader will be distracted by
+              the readable content of a page when fgdgdg It is a long
+              established fact that a reader will be distracted by the readable
+              content of a page when looking at its layout. The point of using
+              Lorem Ipsum is that dffvdfvf dfj dsiwns vdjjs sssiiijee It is a
+              long established fact that a reader will be distracted by the
+              readable content of a page when fgdgdg
+            </p>
+            <p className={styles.template4_second_section_content_para}>
+              It is a long established fact that a reader will be distracted by
+              the readable content of a page when looking at its layout. The
+              point of using Lorem Ipsum is that dffvdfvf dfj dsiwns vdjjs
+              sssiiijee It is a long established fact that a reader will be
+              distracted by the readable content of a page when fgdgdg It is a
+              long established fact that a reader will be distracted by the
+              readable content of a page when looking at its layout. The point
+              of using Lorem Ipsum is that dffvdfvf dfj dsiwns vdjjs sssiiijee
+              It is a long established fact that a reader will be distracted by
+              the readable content of a
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section className={styles.template4_third_section}>
+        <div className="container">
+          <div className={styles.template4_third_section_card_wrapper}>
+            {thirdSection.map((item) => (
               <div
                 key={item.id}
-                className={styles.template_second_section_card}
+                className={styles.template4_third_section_card}
               >
-                <div className={styles.template_second_section_card_header}>
+                <div className={styles.template4_third_section_card_header}>
                   <img src={item.icon.src} alt="icon" />
-                  <h2 className={styles.template_second_section_card_heading}>
+                  <h2 className={styles.template4_third_section_card_heading}>
                     {item.title}
                   </h2>
                 </div>
-                <p className={styles.template_second_section_card_desc}>
+                <p className={styles.template4_third_section_card_desc}>
                   {item.description}
                 </p>
               </div>
@@ -196,24 +188,6 @@ const NewTemplate2 = ({content}) => {
           </div>
         </div>
       </section>
-
-      <section className={styles.template_third_section}>
-        <div className="container">
-          <div className={styles.template_third_section_card_wrapper}>
-            {thirdSection.map((item) => (
-              <div key={item.id} className={styles.template_third_section_card}>
-                <h2 className={styles.template_third_section_card_heading}>
-                  {item.title}
-                </h2>
-
-                <p className={styles.template_third_section_card_desc}>
-                  {item.description}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section> */}
     </div>
   );
 };
