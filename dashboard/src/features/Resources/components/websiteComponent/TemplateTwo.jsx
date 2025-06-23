@@ -37,8 +37,8 @@ const TemplateTwo = ({ content, screen, language, width, highlight, liveContent 
                             flex items-center bg-cover bg-center ${isLeftAlign ? 'scale-x-[-1]' : ''}`}
                 style={{
                     backgroundImage: `url("${
-                        // Img_url + content?.['1']?.content?.images?.[0]?.url
-                        services.contructionTowerImage
+                        // services.contructionTowerImage
+                        Img_url + content?.['1']?.content?.images?.[0]?.url
                         }")`,
                     backgroundPosition: "bottom",
                     height: isComputer ? getDynamicSize(600) : "70vh",
@@ -125,7 +125,7 @@ const TemplateTwo = ({ content, screen, language, width, highlight, liveContent 
                         gap: (isComputer || isTablet) && `${getDynamicSize(15)}`
                     }}
                 >
-                    {tempArr?.map((e, i) => {
+                    {content?.['3']?.content?.cards?.map((e, i) => {
                         const colors = i % 5
                         return (
                             <div className={`${fontLight} flex-[1_1_300px] ${(isPhone || isTablet) && "p-4"}`} style={{
@@ -140,7 +140,7 @@ const TemplateTwo = ({ content, screen, language, width, highlight, liveContent 
                                         marginBottom: (isComputer) && `${getDynamicSize(85)}`,
                                     }}
                                 >
-                                    It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using  content
+                                    {e.description?.[language] || "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using  content"}
                                 </p>
                             </div>
                         )

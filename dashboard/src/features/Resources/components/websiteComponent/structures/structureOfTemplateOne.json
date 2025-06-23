@@ -54,28 +54,50 @@
         "title": "cardsSection",
         "SectionType": "MULTI_SECTION",
         "sectionVersionTitle": "-cardsSection",
-        "content": [
-          {
-            "title": {
-              "ar": "",
-              "en": ""
-            },
-            "description": {
-              "ar": "",
-              "en": ""
-            },
-            "images": [
-              {
-                "url": "",
-                "order": 1,
-                "altText": {
-                  "ar": "",
-                  "en": ""
+        "content": {
+          "cards": [
+            {
+              "title": {
+                "ar": "",
+                "en": ""
+              },
+              "description": {
+                "ar": "",
+                "en": ""
+              },
+              "images": [
+                {
+                  "url": "",
+                  "order": 1,
+                  "altText": {
+                    "ar": "",
+                    "en": ""
+                  }
                 }
-              }
-            ]
-          }
-        ],
+              ]
+            },
+            {
+              "title": {
+                "ar": "",
+                "en": ""
+              },
+              "description": {
+                "ar": "",
+                "en": ""
+              },
+              "images": [
+                {
+                  "url": "",
+                  "order": 1,
+                  "altText": {
+                    "ar": "",
+                    "en": ""
+                  }
+                }
+              ]
+            }
+          ]
+        },
         "sections": []
       },
       {
@@ -85,28 +107,50 @@
         "title": "additionalInfoSection",
         "SectionType": "MULTI_SECTION",
         "sectionVersionTitle": "-additionalInfoSection",
-        "content": [
-          {
-            "title": {
-              "ar": "",
-              "en": ""
-            },
-            "description": {
-              "ar": "",
-              "en": ""
-            },
-            "images": [
-              {
-                "url": "",
-                "order": 1,
-                "altText": {
-                  "ar": "",
-                  "en": ""
+        "content": {
+          "cards": [
+            {
+              "title": {
+                "ar": "",
+                "en": ""
+              },
+              "description": {
+                "ar": "",
+                "en": ""
+              },
+              "images": [
+                {
+                  "url": "",
+                  "order": 1,
+                  "altText": {
+                    "ar": "",
+                    "en": ""
+                  }
                 }
-              }
-            ]
-          }
-        ],
+              ]
+            },
+            {
+              "title": {
+                "ar": "",
+                "en": ""
+              },
+              "description": {
+                "ar": "",
+                "en": ""
+              },
+              "images": [
+                {
+                  "url": "",
+                  "order": 1,
+                  "altText": {
+                    "ar": "",
+                    "en": ""
+                  }
+                }
+              ]
+            }
+          ]
+        },
         "sections": []
       },
       {
@@ -116,38 +160,40 @@
         "title": "additionalInfoSection",
         "SectionType": "MULTI_SECTION",
         "sectionVersionTitle": "-additionalInfoSection",
-        "content": [
-          {
-            "title": {
-              "ar": "",
-              "en": ""
+        "content": {
+          "cards": [
+            {
+              "title": {
+                "ar": "",
+                "en": ""
+              },
+              "description": {
+                "ar": "",
+                "en": ""
+              }
             },
-            "description": {
-              "ar": "",
-              "en": ""
-            }
-          },
-          {
-            "title": {
-              "ar": "",
-              "en": ""
+            {
+              "title": {
+                "ar": "",
+                "en": ""
+              },
+              "description": {
+                "ar": "",
+                "en": ""
+              }
             },
-            "description": {
-              "ar": "",
-              "en": ""
+            {
+              "title": {
+                "ar": "",
+                "en": ""
+              },
+              "description": {
+                "ar": "",
+                "en": ""
+              }
             }
-          },
-          {
-            "title": {
-              "ar": "",
-              "en": ""
-            },
-            "description": {
-              "ar": "",
-              "en": ""
-            }
-          }
-        ],
+          ]
+        },
         "sections": []
       }
     ]

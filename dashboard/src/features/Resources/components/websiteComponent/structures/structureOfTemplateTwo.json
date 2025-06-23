@@ -73,38 +73,40 @@
                 "title": "additionalInfoSection",
                 "SectionType": "MARKDOWN_CONTENT",
                 "sectionVersionTitle": "-additionalInfoSection",
-                "content": [
-                    {
-                        "description": {
-                            "ar": "",
-                            "en": ""
+                "content": {
+                    "cards": [
+                        {
+                            "description": {
+                                "ar": "",
+                                "en": ""
+                            }
+                        },
+                        {
+                            "description": {
+                                "ar": "",
+                                "en": ""
+                            }
+                        },
+                        {
+                            "description": {
+                                "ar": "",
+                                "en": ""
+                            }
+                        },
+                        {
+                            "description": {
+                                "ar": "",
+                                "en": ""
+                            }
+                        },
+                        {
+                            "description": {
+                                "ar": "",
+                                "en": ""
+                            }
                         }
-                    },
-                    {
-                        "description": {
-                            "ar": "",
-                            "en": ""
-                        }
-                    },
-                    {
-                        "description": {
-                            "ar": "",
-                            "en": ""
-                        }
-                    },
-                    {
-                        "description": {
-                            "ar": "",
-                            "en": ""
-                        }
-                    },
-                    {
-                        "description": {
-                            "ar": "",
-                            "en": ""
-                        }
-                    }
-                ],
+                    ]
+                },
                 "sections": []
             },
             {
@@ -193,44 +195,42 @@
                 "title": "cardsSection",
                 "SectionType": "MARKDOWN_CONTENT",
                 "sectionVersionTitle": "-cardsSection",
-                "content": [
-                    {
-                        "title": {
-                            "ar": "",
-                            "en": ""
-                        },
-                        "description": {
-                            "ar": "",
-                            "en": ""
-                        },
-                        "images": [
-                            {
-                                "url": "",
-                                "order": 1,
-                                "altText": {
-                                    "ar": "",
-                                    "en": ""
-                                }
-                            },
-                            {
-                                "url": "",
-                                "order": 1,
-                                "altText": {
-                                    "ar": "",
-                                    "en": ""
-                                }
-                            },
-                            {
-                                "url": "",
-                                "order": 1,
-                                "altText": {
-                                    "ar": "",
-                                    "en": ""
-                                }
+                "content": {
+                    "title": {
+                        "ar": "",
+                        "en": ""
+                    },
+                    "description": {
+                        "ar": "",
+                        "en": ""
+                    },
+                    "images": [
+                        {
+                            "url": "",
+                            "order": 1,
+                            "altText": {
+                                "ar": "",
+                                "en": ""
                             }
-                        ]
-                    }
-                ],
+                        },
+                        {
+                            "url": "",
+                            "order": 1,
+                            "altText": {
+                                "ar": "",
+                                "en": ""
+                            }
+                        },
+                        {
+                            "url": "",
+                            "order": 1,
+                            "altText": {
+                                "ar": "",
+                                "en": ""
+                            }
+                        }
+                    ]
+                },
                 "sections": []
             }
         ]

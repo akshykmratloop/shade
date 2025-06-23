@@ -68,8 +68,6 @@ const cmsSlice = createSlice({
                 if (action.payload.title === "url") {
                     state.present.content.editVersion.sections[action.payload.sectionIndex].content[action.payload.title] = action.payload.value
                 } else {
-                    console.log(action.payload)
-                    console.log(JSON.parse(JSON.stringify(state.present.content.editVersion.sections[action.payload.sectionIndex].content)))
                     state.present.content.editVersion.sections[action.payload.sectionIndex].content[action.payload.title][action.payload.lan] = action.payload.value
                 }
             }
@@ -89,7 +87,7 @@ const cmsSlice = createSlice({
         updateImages: (state, action) => { // post content
             state.past.push(JSON.parse(JSON.stringify(state.present)));
             if (action.type.type === "VIDEO") {
-                state.present.content.editVersion.sections[action.payload.sectionIndex].content.video = action.payload.src
+                state.present.content.editVersion.sections[action.payload.index].content.video = action.payload.src
             } else if (action.payload.subSection === "projectInforCard") {
                 state.present.content.editVersion.sections[action.payload.index].content[action.payload.cardIndex].icon = action.payload.src
             } else if (action.payload.type === "refDoc") {
@@ -106,6 +104,8 @@ const cmsSlice = createSlice({
                 state.present.content.editVersion.sections[action.payload.index].content.points[action.payload.cardIndex].images[action.payload.order - 1] = action.payload.src
             } else if (action.payload.section === "affiliates") {
                 state.present.content.editVersion.sections[action.payload.index].content.cards[action.payload.order - 1].images[0] = action.payload.src
+            } else if(action.payload.section === "cards"){
+                state.present.content.editVersion.sections[action.payload.index].content.cards[action.payload.cardIndex].images[0] = action.payload.src
             } else if (action.payload.section === "Chart") {
                 state.present.content.editVersion.sections[action.payload.index].content.chart.images[action.payload.order - 1] = action.payload.src
             } else {
