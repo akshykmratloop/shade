@@ -174,7 +174,7 @@ const MarketPage = ({ language, screen, currentContent, highlight, liveContent }
                                     style={{ width: isPhone ? '100%' : isTablet ? "300px" : getDynamicSize(463), height: isPhone ? '50%' : isTablet ? "40vh" : '100%' }}
                                 >
                                     <img
-                                        src="https://frequencyimage.s3.ap-south-1.amazonaws.com/851e35b5-9b3b-4d9f-91b4-9b60ef2a102c-Rectangle%2034624110.png"
+                                        src={`${Img_url + e.image}`}
                                         alt=""
                                         style={{
                                             width: isPhone ? '100%' : isTablet ? "300px" : getDynamicSize(463),
@@ -190,12 +190,14 @@ const MarketPage = ({ language, screen, currentContent, highlight, liveContent }
                                             fontSize: fontSize.subProjectHeadings
                                         }}
                                     >{TruncateText(e?.[titleLan], 35)} </h3>
-                                    <p className={`${fontLight} text-[10px]`}
+                                    <div className={`${fontLight} text-[10px]`}
                                         style={{
                                             fontSize: fontSize.mainPara
-                                        }}>
-                                        {TruncateText(e.description?.[language], 350)}
-                                    </p>
+                                        }}
+                                        dangerouslySetInnerHTML={{ __html: TruncateText(e.description?.[language], 350) }}
+                                    >
+                                        {/* {TruncateText(e.description?.[language], 350)} */}
+                                    </div>
                                     <button
                                         className={`relative py-[6px] px-[12px] text-xs font-medium bg-[#00B9F2] text-white rounded flex items-center justify-start gap-2 ${isLeftAlign ? "flex-row-reverse" : ""}`}
                                         style={{

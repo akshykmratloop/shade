@@ -20,6 +20,8 @@ const AffiliatesPage = ({content}) => {
 
   const currentContent = content;
 
+  console.log(currentContent, "currentContent");
+
   return (
     <>
       <section className={`${styles.affiliates_banner_wrap} `}>
@@ -56,31 +58,24 @@ const AffiliatesPage = ({content}) => {
       <section className={styles.affiliates_section_wrap}>
         <div className="container">
           <div className={styles.affiliates_grid}>
-            {/* {currentContent?.["2"]?.content?.images?.map((img, idx) => (
-            <div key={idx} className={styles.affiliate_card}>
-              <img
-                src={Img_url + img?.url}
-                alt={`affiliate-${idx}`}
-                className={styles.affiliate_image}
-              />
-              {img?.title?.[language] && (
-                <p className={styles.affiliate_title}>
-                  {img?.title?.[language]}
-                </p>
-              )}
-              <p>hello image</p>
-            </div>
-          ))} */}
-            <div className={styles.affiliate_card}>
-              <img
-                src=""
-                alt={`affiliate`}
-                className={styles.affiliate_image}
-              />
-
-              <p>hello image</p>
-            </div>
-            <div className={styles.affiliate_card}>
+            {currentContent?.["2"]?.content?.cards?.map((img, idx) => (
+              <div key={idx} className={styles.affiliate_card}>
+                <img
+                  src={Img_url + img?.images[0]?.url}
+                  alt={`affiliate-${idx}`}
+                  className={styles.affiliate_image}
+                  width={"100%"}
+                  height={"100%"}
+                />
+                {img?.title?.[language] && (
+                  <p className={styles.affiliate_title}>
+                    {img?.title?.[language]}
+                  </p>
+                )}
+                {/* <p>hello image</p> */}
+              </div>
+            ))}
+            {/* <div className={styles.affiliate_card}>
               <img
                 src=""
                 alt={`affiliate`}
@@ -116,6 +111,15 @@ const AffiliatesPage = ({content}) => {
 
               <p>hello image</p>
             </div>
+            <div className={styles.affiliate_card}>
+              <img
+                src=""
+                alt={`affiliate`}
+                className={styles.affiliate_image}
+              />
+
+              <p>hello image</p>
+            </div> */}
           </div>
         </div>
       </section>

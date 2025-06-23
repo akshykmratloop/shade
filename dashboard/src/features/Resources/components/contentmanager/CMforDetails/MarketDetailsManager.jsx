@@ -8,9 +8,17 @@ import { useEffect, useState } from "react"
 import MultiSelect from "../../breakUI/MultiSelect"
 
 const MarketDetailsManager = ({ language, content, indexes, currentPath, serviceId, deepPath, outOfEditing }) => {
+
     const dispatch = useDispatch()
     const [marketList, setMarketList] = useState([])
     const slug = useSelector(state => state.homeContent?.present?.content?.slug)
+
+    const context = useSelector(state => state.homeContent?.present?.content)
+
+
+
+    // const thumbIcon = useSelector(state => state.homeContent?.present?.content?.editVersion?.icon) || ""
+    const thumbImage = useSelector(state => state.homeContent?.present?.content?.editVersion?.image) || ""
 
     const addExtraSummary = (subContext) => {
         dispatch(updateSubServiceDetailsPointsArray(
@@ -20,6 +28,16 @@ const MarketDetailsManager = ({ language, content, indexes, currentPath, service
                         ar: "",
                         en: ""
                     },
+                    images: [
+                        {
+                            url: "",
+                            order: 1,
+                            altText: {
+                                ar: "",
+                                en: ""
+                            }
+                        }
+                    ],
                     description: {
                         ar: "",
                         en: ""
@@ -59,6 +77,35 @@ const MarketDetailsManager = ({ language, content, indexes, currentPath, service
         <div>
             {/* reference doc */}
             <FileUploader id={"Market-Details-ID-Reference"} label={"Rerference doc"} fileName={"Upload your file..."} />
+
+            {context?.id === "N" &&
+                <>
+                    <ContentSection
+                        currentPath={currentPath}
+                        Heading={"Page - Details"}
+                        inputs={[
+                            { input: "input", label: "Title English", updateType: "titleEn", value: context?.titleEn, dir: "ltr" },
+                            { input: "input", label: "Title Arabic", updateType: "titleAr", value: context?.titleAr, dir: "rtl" },
+                            // { input: "input", label: "Slug", updateType: "slug", value: context?.slug },
+                        ...(context?.id === "N" ? [{ input: "input", label: "Slug", updateType: "slug", value: context?.slug } ]: []),
+                        ]}
+                        section={"page-details"}
+                        language={language}
+                    />
+                </>
+            }
+
+            <ContentSection
+                currentPath={currentPath}
+                Heading={"Thumbnail"}
+                inputFiles={[
+                    // { label: "Thumbnail Icon", id: "thumbIcon", order: 1, url: thumbIcon, name: "icon" },
+                    { label: "Thumbnail Image", id: "thumbImage", order: 1, url: thumbImage, name: "image" }
+                ]}
+                section={"thumbnail"}
+                language={language}
+                currentContent={content}
+            />
 
             {/** Hero Banner */}
             <ContentSection

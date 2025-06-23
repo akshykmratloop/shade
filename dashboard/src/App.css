@@ -50,7 +50,7 @@
   font-family: "BankGothic-Medium-bt";
 }
 
-.bank-light{
+.bank-light {
   font-family: "BankGothic-Medium-lt";
 }
 
@@ -210,7 +210,11 @@ nav.customscroller::-webkit-scrollbar-thumb {
 }
 
 .shadow-xl-custom {
-  box-shadow: 0px 10px 20px -5px #00000080;
+  transition: all .1s linear;
+}
+
+.shadow-xl-custom:hover {
+  box-shadow: 1px 2px 2px #00000039;
 }
 
 .capitalize {
@@ -413,7 +417,7 @@ div.importantList ul {
   outline: none;
   box-shadow: 0px 1px 5px #00000050;
   font-size: 14px !important;
-
+  /* background-color: #00000080; */
 }
 
 .react-datepicker__input-container input:focus {
@@ -525,6 +529,7 @@ div.importantList ul {
   outline: none;
   border: none;
   box-shadow: 0px 1px 5px #00000050;
+  /* background-color: #00000080; */
 }
 
 .time-input[type="text"]:focus {
@@ -581,15 +586,20 @@ div.importantList ul {
 
 /* --------------------------------------------------------- */
 .glass-effect {
-  background: rgba(36, 41, 51, 0.285); /* semi-transparent background */
+  background: rgba(36, 41, 51, 0.285);
+  /* semi-transparent background */
   border-radius: 10px;
   color: white;
 
-  backdrop-filter: blur(90px);         /* main blur effect */
-  -webkit-backdrop-filter: blur(10px); /* Safari support */
+  backdrop-filter: blur(90px);
+  /* main blur effect */
+  -webkit-backdrop-filter: blur(10px);
+  /* Safari support */
 
-  border: 1px solid rgba(255, 255, 255, 0.2); /* optional subtle border */
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);  /* optional shadow */
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  /* optional subtle border */
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  /* optional shadow */
 }
 
 
@@ -597,16 +607,19 @@ div.importantList ul {
 .swiper {
   width: 100%;
   max-width: 100%;
-  box-sizing: border-box; /* Prevent extra width due to padding/borders */
+  box-sizing: border-box;
+  /* Prevent extra width due to padding/borders */
   overflow: hidden;
 }
+
 .swiper-slide {
   box-sizing: border-box;
 }
 
 @supports (-o-object-fit: contain) {
   .swiper {
-    width: 100vw; /* or set a fixed width like 1200px */
+    width: 100vw;
+    /* or set a fixed width like 1200px */
     max-width: 100%;
   }
 }

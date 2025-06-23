@@ -1,27 +1,29 @@
 // libraries
-import {useEffect, useState, memo, useCallback} from "react";
-import {ToastContainer} from "react-toastify";
-import {useDispatch, useSelector} from "react-redux";
-import {useNavigate} from "react-router-dom";
+import { useEffect, useState, memo, useCallback } from "react";
+import { ToastContainer } from "react-toastify";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 // self modules and component
 import ShowDifference from "./Showdifference";
 import ShowVerifierTooltip from "./ShowVerifierTooltip";
 import Paginations from "../Component/Paginations";
-import {getRequests} from "../../app/fetch";
+import { getRequests } from "../../app/fetch";
 import SearchBar from "../../components/Input/SearchBar";
 import TitleCard from "../../components/Cards/TitleCard";
-import capitalizeWords, {TruncateText} from "../../app/capitalizeword";
+import capitalizeWords, { TruncateText } from "../../app/capitalizeword";
 import formatTimestamp from "../../app/TimeFormat";
-import {openRightDrawer} from "../../features/common/rightDrawerSlice";
-import {RIGHT_DRAWER_TYPES} from "../../utils/globalConstantUtil";
+import { openRightDrawer } from "../../features/common/rightDrawerSlice";
+import { RIGHT_DRAWER_TYPES } from "../../utils/globalConstantUtil";
 import ToggleSwitch from "../../components/Toggle/Toggle";
 
 // icons
-import {FiEdit, FiEye} from "react-icons/fi";
-import {LuListFilter} from "react-icons/lu";
-import {PiInfoThin} from "react-icons/pi";
+import { FiEdit, FiEye } from "react-icons/fi";
+import { LuListFilter } from "react-icons/lu";
+import { PiInfoThin } from "react-icons/pi";
 import XMarkIcon from "@heroicons/react/24/outline/XMarkIcon";
+import ShowPdf from "./ShowPDF";
+import CustomContext from "../Context/CustomContext";
 // import { Switch } from "@headlessui/react";
 // import { FiEdit } from "react-icons/fi";
 
@@ -89,7 +91,7 @@ const TopSideButtons = memo(
                 <a
                   className="dark:text-gray-300"
                   onClick={() => showFiltersAndApply(status)}
-                  style={{textTransform: "capitalize"}}
+                  style={{ textTransform: "capitalize" }}
                 >
                   {capitalizeWords(status)}
                 </a>
@@ -118,6 +120,8 @@ function Requests() {
   const [originalRequests, setOriginalRequests] = useState([]);
   const [selectedRequest, setSelectedRequest] = useState(null);
   const [showDetailsModal, setShowDetailsModal] = useState(false);
+  const { pdf } = CustomContext();
+  const { showPDF, setShowPDF } = pdf
   const [activeIndex, setActiveIndex] = useState(null);
   const [resourceId, setResourceId] = useState("");
   const [requestId, setRequestId] = useState("");
@@ -134,7 +138,7 @@ function Requests() {
   // redux state
   const userObj = useSelector((state) => state.user);
 
-  const {isManager, isEditor, isPublisher, isVerifier, activeRole} = userObj;
+  const { isManager, isEditor, isPublisher, isVerifier, activeRole } = userObj;
   const roleId = activeRole?.id;
 
   // variables for conditioned renderings
@@ -175,8 +179,8 @@ function Requests() {
       const route = third
         ? `/app/resources/edit/${first}/${second}/${third}`
         : second
-        ? `/app/resources/edit/${first}/${second}`
-        : `/app/resources/edit/${first}`;
+          ? `/app/resources/edit/${first}/${second}`
+          : `/app/resources/edit/${first}`;
 
       return route;
     },
@@ -240,7 +244,7 @@ function Requests() {
       openRightDrawer({
         header: "Details",
         bodyType: RIGHT_DRAWER_TYPES.RESOURCE_DETAILS,
-        extraObject: {id},
+        extraObject: { id },
       })
     );
   };
@@ -265,7 +269,7 @@ function Requests() {
     if (activeRole?.id) {
       async function fetchRequestsData() {
         try {
-          const payload = {roleId: roleId ?? "", page: currentPage};
+          const payload = { roleId: roleId ?? "", page: currentPage };
 
           if (RoleTypeIsUser)
             payload.permission = permission || activeRole?.permissions[0] || "";
@@ -331,14 +335,14 @@ function Requests() {
         <div className="min-h-[30rem] flex flex-col justify-between">
           <div className=" w-full border dark:border-stone-600 rounded-2xl">
             <table className="table text-center min-w-full dark:text-[white]">
-              <thead className="" style={{borderRadius: ""}}>
+              <thead className="" style={{ borderRadius: "" }}>
                 <tr
                   className="!capitalize"
-                  style={{textTransform: "capitalize"}}
+                  style={{ textTransform: "capitalize" }}
                 >
                   <th
                     className="font-medium text-[12px] text-left font-poppins leading-normal bg-[#FAFBFB] dark:bg-slate-700 dark:text-[white] text-[#42526D] px-[24px] py-[13px] !capitalize"
-                    style={{position: "static", width: "363px"}}
+                    style={{ position: "static", width: "363px" }}
                   >
                     Resource
                   </th>
@@ -388,7 +392,7 @@ function Requests() {
                       <tr
                         key={index}
                         className="font-light "
-                        style={{height: "65px"}}
+                        style={{ height: "65px" }}
                       >
                         <td
                           className={`font-poppins h-[65px] truncate font-normal text-[14px] leading-normal text-[#101828] py-[10px] pl-5 flex items-center`}
@@ -403,7 +407,7 @@ function Requests() {
                           // canSeeEditor &&
                           <td
                             className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]"
-                            style={{whiteSpace: ""}}
+                            style={{ whiteSpace: "" }}
                           >
                             <span className="" title={request?.sender.name}>
                               {TruncateText(request?.sender.name, 12) || "N/A"}
@@ -414,22 +418,11 @@ function Requests() {
                           // canSeeVerifier &&
                           <td
                             className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]"
-                            style={{whiteSpace: ""}}
+                            style={{ whiteSpace: "" }}
                           >
                             <span className="">
                               {verifiers.length > 0 ? (
-                                // <button
-                                //   onClick={() => {
-                                //     setSelectedRequest(request);
-                                //   }}
-                                // >
-                                //   <span className="flex items-center gap-1 rounded-md text-[#101828]">
-                                //     <FiEye
-                                //       className="w-5 h-6  text-[#3b4152] dark:text-stone-200"
-                                //       strokeWidth={1}
-                                //     />
-                                //   </span>
-                                // </button>
+
                                 <ShowVerifierTooltip
                                   content={
                                     <div>
@@ -468,25 +461,6 @@ function Requests() {
                                           })}
                                         </tbody>
                                       </table>
-
-                                      {/* <div className="flex justify-around  font-semibold mb-1">
-                                        <p>Stage</p>
-                                        <p>Name</p>
-                                        </div>
-                                        <ul className="list-disc">
-                                        {request?.verifier.map((v) => (
-                                          <div key={v.stage}>
-                                          <div className="flex justify-around ">
-                                          <div className="w-full font-semibold">
-                                          {v.stage}
-                                          </div>
-                                          <div className="w-full">
-                                          {v.name}
-                                          </div>
-                                          </div>
-                                          </div>
-                                          ))}
-                                          </ul> */}
                                     </div>
                                   }
                                   setOnView={() => setActiveIndex(-1)}
@@ -509,7 +483,7 @@ function Requests() {
                         }
                         <td
                           className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]"
-                          style={{whiteSpace: ""}}
+                          style={{ whiteSpace: "" }}
                         >
                           <span className="" title={publisher?.approver?.name}>
                             {TruncateText(publisher?.approver?.name, 12) ||
@@ -520,16 +494,15 @@ function Requests() {
                         <td className="font-poppins font-light text-[14px] leading-normal text-[#101828] px-[26px] py-[10px] dark:text-[white]">
                           <p
                             className={`min-w-[85px] mx-auto before:content-['•'] before:text-2xl flex h-7 items-center justify-center gap-1 px-1 py-0 font-[500] 
-                              ${
-                                request.flowStatus === "SCHEDULED" ||
+                              ${request.flowStatus === "SCHEDULED" ||
                                 request.flowStatus === "PUBLISHED"
-                                  ? "text-green-600 bg-lime-200 before:text-green-600 px-1"
-                                  : request.flowStatus === "PENDING"
+                                ? "text-green-600 bg-lime-200 before:text-green-600 px-1"
+                                : request.flowStatus === "PENDING"
                                   ? "text-blue-600 bg-sky-200 before:text-blue-600 "
                                   : "text-red-600 bg-pink-200 before:text-red-600 "
                               } 
                                 rounded-2xl`}
-                            style={{textTransform: "capitalize"}}
+                            style={{ textTransform: "capitalize" }}
                           >
                             <span className="">
                               {capitalizeWords(request?.flowStatus)}
@@ -559,7 +532,7 @@ function Requests() {
                               </span>
                             </button>
 
-                            {request.flowStatus !== "PUBLISHED" && (
+                            {(request.flowStatus !== "PUBLISHED" && request.flowStatus !== "SCHEDULED") && (
                               <button
                                 onClick={() => {
                                   setSelectedRequest(request);
@@ -572,9 +545,8 @@ function Requests() {
                                 }}
                               >
                                 <span
-                                  title={`Review${
-                                    canSeeEditor ? " and update" : ""
-                                  }`}
+                                  title={`Review${canSeeEditor ? " and update" : ""
+                                    }`}
                                   className="flex items-center gap-1 rounded-md text-[#101828]"
                                 >
                                   <FiEye
@@ -613,9 +585,8 @@ function Requests() {
                                   }}
                                 >
                                   <span
-                                    title={`Review${
-                                      canSeeEditor ? " and update" : ""
-                                    }`}
+                                    title={`Review${canSeeEditor ? " and update" : ""
+                                      }`}
                                     className="flex items-center gap-1 rounded-md text-[#101828]"
                                   >
                                     <FiEdit
@@ -662,8 +633,22 @@ function Requests() {
             setSelectedRequest(false);
             setShowDetailsModal(false);
           }}
+        // seePdf={() => { setShowPDF(true) }}
+        // seePdf={() => { setShowPDF(true) }}
         />
       )}
+
+      {
+        showPDF
+        && (
+          <ShowPdf
+            open={showPDF}
+            pdf={selectedRequest?.resourceVersion?.referenceDoc}
+            onClose={() => {
+              setShowPDF(false)
+            }}
+          />
+        )}
       <ToastContainer />
     </div>
   );

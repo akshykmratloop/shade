@@ -1,0 +1,117 @@
+{
+    "id": "N",
+    "titleEn": "",
+    "titleAr": "",
+    "slug": "",
+    "isEditable": true,
+    "resourceType": "SUB_PAGE",
+    "resourceTag": "MARKET",
+    "relationType": "CHILD",
+    "parentId": "",
+    "editVersion": {
+        "id": "",
+        "versionNumber": 1,
+        "icon": null,
+        "image": null,
+        "comments": "",
+        "referenceDoc": null,
+        "updatedAt": "",
+        "status": "",
+        "sections": [
+            {
+                "sectionId": "",
+                "SectionType": "HERO_BANNER",
+                "sectionVersionTitle": "MarketItem-heroSection",
+                "order": 1,
+                "version": 1,
+                "title": "heroSection",
+                "content": {
+                    "title": {
+                        "ar": "",
+                        "en": ""
+                    },
+                    "images": [
+                        {
+                            "url": "",
+                            "order": 1,
+                            "altText": {
+                                "ar": "",
+                                "en": ""
+                            }
+                        }
+                    ],
+                    "description": {
+                        "ar": "",
+                        "en": ""
+                    }
+                },
+                "sections": []
+            },
+            {
+                "sectionId": "",
+                "SectionType": "MARKDOWN_CONTENT",
+                "sectionVersionTitle": "MarketItem-marketBodySection",
+                "order": 2,
+                "version": 1,
+                "title": "marketBodySection",
+                "content": {
+                    "title": {
+                        "ar": "",
+                        "en": ""
+                    },
+                    "points": [
+                        {
+                            "order": 1,
+                            "title": {
+                                "ar": "",
+                                "en": ""
+                            },
+                            "images": [
+                                {
+                                    "url": "",
+                                    "order": 1,
+                                    "altText": {
+                                        "ar": "",
+                                        "en": ""
+                                    }
+                                }
+                            ],
+                            "description": {
+                                "ar": "",
+                                "en": ""
+                            }
+                        }
+                    ],
+                    "description": {
+                        "ar": "",
+                        "en": ""
+                    }
+                },
+                "sections": []
+            },
+            {
+                "sectionId": "",
+                "order": 3,
+                "version": 1,
+                "title": "projectsGridSection",
+                "SectionType": "EXTERNAL_ITEMS",
+                "sectionVersionTitle": "MarketItem-projectsGridSection",
+                "content": {
+                    "button": [
+                        {
+                            "url": null,
+                            "icon": null,
+                            "text": {
+                                "ar": "",
+                                "en": ""
+                            },
+                            "order": 1
+                        }
+                    ]
+                },
+                "sections": [],
+                "items": []
+            }
+        ]
+    }
+}

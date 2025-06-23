@@ -14,24 +14,43 @@ import socket from "../Socket/socket.js";
 import RequestDetails from "../features/Requests/RequestDetails.jsx";
 import VersionDetails from "../features/Resources/VersionDetails.jsx";
 import { ToastContainer } from "react-toastify";
+import { useRef } from "react";
 
 function RightSidebar() {
   const [notificationData, setNotificationData] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+  const [searchText, setSearchText] = useState("");
+
   const { isOpen, bodyType, extraObject, header } = useSelector(
     (state) => state.rightDrawer
   );
   const dispatch = useDispatch();
 
   const userId = extraObject?.id;
+  const lastFetchedParams = useRef({ page: 0, search: "" });
 
+  const fetchNotifications = async (id, page, search = "") => {
+    if (
+      lastFetchedParams.current.page === page &&
+      lastFetchedParams.current.search === search
+    ) {
+      return;
+    }
 
+    lastFetchedParams.current = { page, search };
 
-  const fetchNotifications = async (id) => {
     setLoading(true);
     try {
-      const result = await getNotificationsbyId(id);
-      setNotificationData(result?.notifications || []);
+      const result = await getNotificationsbyId(id, page, search);
+
+      // Update pagination metadata from API response
+      if (result?.data) {
+        setCurrentPage(result?.data?.page);
+        setTotalPages(result?.data?.totalPages);
+        setNotificationData(result?.data?.notifications || []);
+      }
     } catch (error) {
       console.error("Error fetching notifications", error);
     } finally {
@@ -48,12 +67,9 @@ function RightSidebar() {
 
   useEffect(() => {
     if (userId && bodyType === RIGHT_DRAWER_TYPES.NOTIFICATION) {
-      setLoading(true);
-      getNotificationsbyId(userId)
-        .then((res) => setNotificationData(res?.notifications || []))
-        .finally(() => setLoading(false));
+      fetchNotifications(userId, currentPage, searchText);
     }
-  }, [userId, bodyType]);
+  }, [userId, bodyType, currentPage, searchText, fetchNotifications]);
 
   useEffect(() => {
     if (!userId) return;
@@ -62,12 +78,10 @@ function RightSidebar() {
       if (payload.userId !== userId) return; // only for this user
 
       // Option A: simply re‑fetch from server
-      getNotificationsbyId(userId).then((res) => {
-        setNotificationData(res?.notifications || []);
+      fetchNotifications(userId, currentPage, searchText).then((res) => {
+        setNotificationData(res?.data?.notifications || []);
         dispatch(
-          setNotificationCount(
-            res?.notifications?.filter((n) => !n.isRead).length
-          )
+          setNotificationCount(setNotificationCount((prev) => prev + 1))
         );
       });
     };
@@ -76,7 +90,7 @@ function RightSidebar() {
     // socket.on("user_created", handleNewNotification);
     socket.on("user_updated", handleNewNotification);
     socket.on("user_created", handleNewNotification);
-    socket.on("user_updated", handleNewNotification)
+    socket.on("user_updated", handleNewNotification);
     // …listen for any other events you emit
 
     return () => {
@@ -84,10 +98,16 @@ function RightSidebar() {
       socket.off("user_updated", handleNewNotification);
 
       socket.off("user_created", handleNewNotification);
-      socket.off("user_updated", handleNewNotification)
-
+      socket.off("user_updated", handleNewNotification);
     };
-  }, [userId, dispatch]);
+  }, [
+    userId,
+    dispatch,
+    notificationData,
+    currentPage,
+    searchText,
+    fetchNotifications,
+  ]);
 
   // =========================================================================
 
@@ -113,7 +133,7 @@ function RightSidebar() {
     try {
       setLoading(true);
       await markAllNotificationAsRead(id);
-      fetchNotifications(id); // refetch after marking read
+      fetchNotifications(id, currentPage, searchText); // refetch after marking read
       dispatch(setNotificationCount(0));
     } catch (err) {
       console.error("Error marking all as read", err);
@@ -127,6 +147,15 @@ function RightSidebar() {
     // await handleMarkAllAsRead(extraObject.id)
   };
 
+  const handlePageChange = (newPage) => {
+    setCurrentPage(newPage);
+  };
+
+  const handleSearch = (searchValue) => {
+    setSearchText(searchValue);
+    setCurrentPage(1); // Reset to page 1 when searching
+  };
+
   return (
     <div
       className={
@@ -137,10 +166,12 @@ function RightSidebar() {
       }
     >
       <section
-        className={`${bodyType === RIGHT_DRAWER_TYPES.RESOURCE_DETAILS || bodyType === RIGHT_DRAWER_TYPES.VERSION_DETAILS
-          ? "w-[34rem]"
-          : "w-80 md:w-96"
-          }
+        className={`${
+          bodyType === RIGHT_DRAWER_TYPES.RESOURCE_DETAILS ||
+          bodyType === RIGHT_DRAWER_TYPES.VERSION_DETAILS
+            ? "w-[34rem]"
+            : "w-80 md:w-96"
+        }
           right-0 absolute bg-base-100 h-full shadow-xl delay-400 duration-500 ease-in-out transition-all transform 
           ${isOpen ? "translate-x-0" : "translate-x-full"}
           `}
@@ -180,12 +211,22 @@ function RightSidebar() {
               {
                 {
                   [RIGHT_DRAWER_TYPES.NOTIFICATION]: (
+                    // <NotificationBodyRightDrawer
+                    //   // id={extraObject?.id}
+                    //   // {...extraObject}
+                    //   closeRightDrawer={close}
+                    //   notifications={notificationData}
+                    //   loading={loading}
+                    // />
                     <NotificationBodyRightDrawer
-                      // id={extraObject?.id}
-                      // {...extraObject}
                       closeRightDrawer={close}
                       notifications={notificationData}
                       loading={loading}
+                      onPageChange={handlePageChange}
+                      onSearch={handleSearch}
+                      currentPage={currentPage}
+                      totalPages={totalPages}
+                      searchText={searchText}
                     />
                   ),
                   [RIGHT_DRAWER_TYPES.CALENDAR_EVENTS]: (

@@ -1,5 +1,5 @@
-import React from "react";
-// import styles from "./ProjectDetail.module.scss";
+import React, { useEffect, useState } from "react";
+import style from "./marketDetails.module.scss";
 import Link from "next/link";
 import Image from "next/image";
 import localFont from "next/font/local";
@@ -12,42 +12,140 @@ const BankGothic = localFont({
   src: "../../../public/font/BankGothicLtBTLight.ttf",
   display: "swap",
 });
-import { useGlobalContext } from "../../contexts/GlobalContext";
+import { backendAPI, useGlobalContext } from "../../contexts/GlobalContext";
+import createContent, { Img_url } from "@/common/CreateContent";
+import { TruncateText } from "@/common/useTruncate";
 
 const MarketDetailsPage = () => {
   const router = useRouter();
   const { marketId } = router.query;
-  const { language, content } = useGlobalContext();
-  const currentContent = content?.projectDetail?.filter(
-    (item) => item?.id == marketId
-  )[0];
+  const { language } = useGlobalContext();
 
-//   if (!currentContent) { // of project not found 
-//     return <NotFound />;
-//   }
-//   const { introSection, descriptionSection, gallerySection, moreProjects } =
-//     currentContent;
+  const isLeftAlign = language === "en";
+  const titleLan = isLeftAlign ? "titleEn" : "titleAr";
+  const [content, setContent] = useState({})
+  console.log(content)
+  useEffect(() => {
+    const fetchContent = async () => {
+      try {
+        const res = await fetch(`${backendAPI}${marketId}`); // note => the market is slug, since the backend require slug to get content in this scenario
 
-  // const TruncateText = (text, length) => useTruncate(text, length || 200);
+        if (!res.ok) {
+          // If response failed (e.g., 404, 500), return empty object
+          return {};
+        }
 
+        const apiData = await res.json();
+        const cookedData = createContent(apiData.content)
 
-//   const TruncateText = (text, length) => {
-//     if (text.length > (length || 50)) {
-//       return `${text.slice(0, length || 50)}...`;
-//     }
-//     return text;
-//   };
+        return setContent(cookedData.content);
+      } catch (error) {
+        // If fetch throws an error (e.g., network failure), return empty object
+        return { props: { apiData: {} } };
+      }
+    }
+    fetchContent()
+  }, [marketId])
 
   return (
-    <>
-      <div style={{height : "700px", width : "100%",
-        display : "flex",
-        justifyContent : "center",
-        alignItems : "center",
-      }}>
-        <h1>{language === "en" ? "This page is under development and will be updated soon..." : "هذه الصفحة قيد التطوير وسوف يتم تحديثها قريبا..."}</h1>
-      </div>
-    </>
+    <div style={{
+      width: "100%",
+    }}>
+      <section
+        className={`${style.bannerSection} ${isLeftAlign ? style.leftAlign : ""}`}
+        style={{
+          backgroundImage: `url("${Img_url + content?.['1']?.content?.images?.[0]?.url}")`,
+        }}
+      >
+        {/* Banner Gradient */}
+        <div className={style.bannerGradient}>
+          <div className={style.gradientCircle}></div>
+        </div>
+
+        {/* Banner Text */}
+        <div className={style.bannerContainer}>
+          <div className={`${isLeftAlign ? style.textLeftAlign : ""} ${style.bannerText}`}>
+            <h2 className={style.heading}>
+              {content?.['1']?.content?.title?.[language]}
+            </h2>
+            <p className={style.description}>
+              {content?.['1']?.content?.description?.[language]}
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section className={style.serviceSection}>
+        {/* Sub heading text */}
+        <section className={style.subSection}>
+          <h2 className={style.subheading}>
+            {content?.[2]?.content?.title?.[language]}
+          </h2>
+          <div
+            className={`${style.subdescription} bank-light`}
+            dangerouslySetInnerHTML={{ __html: content?.[2]?.content?.description?.[language] }}
+          />
+        </section>
+      </section>
+
+      <section
+        dir={isLeftAlign ? 'ltr' : 'rtl'}
+        className={style.servicesSection}
+      >
+        <div className={style.servicesGrid}>
+          {content?.['2']?.content?.points?.map((service, idx) => {
+            return (
+              <article key={idx} className={style.serviceCard}>
+                <img
+                  src={service.images?.[0]?.url ? Img_url + service.images?.[0]?.url : projectPageData.swccWaterSupply}
+                  alt="img"
+                  className={style.serviceCard__image}
+                />
+                <section className={style.serviceCard__content}>
+                  <h1 className={style.serviceCard__title}>
+                    {TruncateText(service?.title?.[language], 23)}
+                  </h1>
+                  <p className={`${style.serviceCard__description} bank-light`}>
+                    {service?.description?.[language]}
+                  </p>
+                </section>
+              </article>
+            );
+          })}
+        </div>
+      </section>
+
+
+      <section className={style.otherMarketsSection}>
+        <h3 className={style.otherMarketsSection__title}>Other Markets</h3>
+
+        <section className={style.scrollContainer}>
+          <section
+            dir={isLeftAlign ? 'ltr' : 'rtl'}
+            className={`${style.cardsRow} ${isLeftAlign ? style['cardsRow--leftAlign'] : ''}`}
+          >
+            {(content?.['3']?.items || [])?.map((service, idx) => {
+              if (service.slug === marketId) return null;
+              return (
+                <article key={idx} className={style.card}>
+                  <img
+                    src={service.image ? Img_url + service.image : projectPageData.businessGate}
+                    alt="img"
+                    className={style.card__image}
+                  />
+                  <section className={style.card__content}>
+                    <h1 className={style.card__title}>
+                      {TruncateText(service?.[titleLan], 20)}
+                    </h1>
+                  </section>
+                </article>
+              );
+            })}
+          </section>
+        </section>
+      </section>
+
+    </div>
   );
 };
 

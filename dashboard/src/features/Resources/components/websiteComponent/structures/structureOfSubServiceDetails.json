@@ -1,35 +1,105 @@
 {
-    "banner": {
-        "title": {
-            "en": "",
-            "ar": ""
-        },
-        "description": {
-            "en": "",
-            "ar": ""
-        },
-        "image": ""
-    },
-    "subBanner": {
-        "title": {
-            "en": "",
-            "ar": ""
-        },
-        "description": {
-            "en": "",
-            "ar": ""
-        }
-    },
-    "descriptions": [
-        {
-            "title": {
-                "en": "",
-                "ar": ""
+    "id": "N",
+    "titleEn": "",
+    "titleAr": "",
+    "slug": "",
+    "isEditable": true,
+    "resourceType": "SUB_PAGE_ITEM",
+    "resourceTag": "SERVICE",
+    "relationType": "CHILD",
+    "parentId": "",
+    "editVersion": {
+        "id": "",
+        "versionNumber": 1,
+        "icon": null,
+        "image": null,
+        "comments": "",
+        "referenceDoc": null,
+        "updatedAt": "",
+        "status": "",
+        "sections": [
+            {
+                "title": "heroSection",
+                "SectionType": "HERO_BANNER",
+                "sectionVersionTitle": "-heroSection",
+                "sectionId": "",
+                "order": 1,
+                "version": 1,
+                "content": {
+                    "title": {
+                        "ar": "",
+                        "en": ""
+                    },
+                    "images": [
+                        {
+                            "url": "",
+                            "order": 1,
+                            "altText": {
+                                "ar": "",
+                                "en": ""
+                            }
+                        }
+                    ],
+                    "description": {
+                        "ar": "",
+                        "en": ""
+                    }
+                },
+                "sections": []
             },
-            "description": {
-                "en": "",
-                "ar": ""
+            {
+                "sectionId": "",
+                "order": 2,
+                "version": 1,
+                "title": "ServicePointsGrid",
+                "SectionType": "SERVICE_CHILDREN",
+                "sectionVersionTitle": "-ServicePointsGrid1",
+                "content": {
+                    "title": {
+                        "ar": "",
+                        "en": ""
+                    },
+                    "points": [
+                        {
+                            "order": 1,
+                            "title": {
+                                "ar": "",
+                                "en": ""
+                            },
+                            "description": {
+                                "ar": "",
+                                "en": ""
+                            }
+                        }
+                    ],
+                    "description": {
+                        "ar": "",
+                        "en": ""
+                    }
+                },
+                "sections": []
+            },
+            {
+                "sectionId": "",
+                "order": 3,
+                "version": 1,
+                "title": "gallery",
+                "SectionType": "SERVICE_CHILDREN",
+                "sectionVersionTitle": "-Gallery",
+                "content": {
+                    "images": [
+                        {
+                            "url": "",
+                            "order": 1,
+                            "altText": {
+                                "ar": "",
+                                "en": ""
+                            }
+                        }
+                    ]
+                },
+                "sections": []
             }
-        }
-    ]
+        ]
+    }
 }

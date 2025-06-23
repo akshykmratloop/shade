@@ -67,19 +67,14 @@ const HistoryPage = ({content}) => {
   return (
     <>
       {/* banner */}
-      <section
-        className={`${styles.history_banner_wrap} ${
-          language === "en" && styles.leftAlign
-        }`}
-      >
+      <section className={`${styles.history_banner_wrap} `}>
         <span
           className={`${language === "en" && styles.leftAlign} ${
             styles.backgroundContainer
           }`}
         >
           <img
-            style={{objectPosition: "bottom"}}
-            // src={historyBanner.src}
+            style={{objectPosition: "bottom", objectFit: "cover"}}
             src={
               currentContent?.["1"]?.content?.images?.[0]?.url
                 ? Img_url + currentContent?.["1"]?.content?.images?.[0]?.url
@@ -88,24 +83,17 @@ const HistoryPage = ({content}) => {
             alt="about-us"
             className={styles.backgroundImage}
             width={0}
-            // fill
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            height={0}
+            height={450}
           />
         </span>
-        <div className="container">
-          <div className={styles.content}>
-            {/* <AnimatedText text="بناء مستقبل أقوى" Wrapper="h1" repeatDelay={0.04} className={`${styles.title} ${BankGothic.className}`} /> */}
-
-            <h1 className={`${styles.title}`}>
-              {/* {currentContent?.homeBanner?.title[language]} */}
-              {currentContent?.["1"]?.content?.title?.[language]}
-            </h1>
-            <p className={`${styles.description} ${BankGothic.className}`}>
-              {/* {currentContent?.homeBanner?.description[language]} */}
-              {currentContent?.["1"]?.content?.description?.[language]}
-            </p>
-          </div>
+        <div className={styles.content}>
+          <h1 className={`${styles.title}`}>
+            {currentContent?.["1"]?.content?.title?.[language]}
+          </h1>
+          <p className={`${styles.description} ${BankGothic.className}`}>
+            {currentContent?.["1"]?.content?.description?.[language]}
+          </p>
         </div>
       </section>
 
@@ -115,9 +103,11 @@ const HistoryPage = ({content}) => {
         }`}
       >
         <div className="container">
-          <h1 className={styles.title}>
-            {currentContent?.["2"]?.content?.title?.[language]}
-          </h1>
+          <div>
+            <h1 className={styles.title}>
+              {currentContent?.["2"]?.content?.title?.[language]}
+            </h1>
+          </div>
           <div
             className={styles.description}
             dangerouslySetInnerHTML={{

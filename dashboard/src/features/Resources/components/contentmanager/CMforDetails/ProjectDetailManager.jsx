@@ -5,13 +5,20 @@ import DynamicContentSection from "../../breakUI/DynamicContentSection"
 import MultiSelect from "../../breakUI/MultiSelect"
 import { updateMainContent, updateTheProjectSummaryList } from "../../../../common/homeContentSlice"
 import { useEffect, useState } from "react"
-import content from "../../websiteComponent/content.json"
+// import content from "../../websiteComponent/content.json"
 import { getResources } from "../../../../../app/fetch"
 
 
-const ProjectDetailManager = ({ projectId, currentContent, currentPath, language, indexes }) => {
+const ProjectDetailManager = ({ projectId, currentContent: content, currentPath, language, indexes }) => {
     const dispatch = useDispatch()
     const slug = useSelector(state => state?.homeContent?.present?.content?.slug)
+
+    // const thumbIcon = useSelector(state => state.homeContent?.present?.content?.editVersion?.icon) || ""
+    const thumbImage = useSelector(state => state.homeContent?.present?.content?.editVersion?.image) || ""
+
+    const context = useSelector(state => state.homeContent?.present?.content)
+
+
     const addExtraSummary = () => {
         dispatch(updateTheProjectSummaryList(
             {
@@ -33,12 +40,12 @@ const ProjectDetailManager = ({ projectId, currentContent, currentPath, language
     }
 
 
-    const introSection = currentContent?.[1]?.content
-    const urlSection = currentContent?.[2]?.content;
-    const projectInforCard = currentContent?.[2]?.content
-    const descriptionSection = currentContent?.[3]?.content
-    const gallerySection = currentContent?.[4]?.content
-    const moreProjects = currentContent?.[5];
+    const introSection = content?.[1]?.content
+    const urlSection = content?.[2]?.content;
+    const projectInforCard = content?.[2]?.content || []
+    const descriptionSection = content?.[3]?.content || []
+    const gallerySection = content?.[4]?.content
+    const moreProjects = content?.[5];
 
     const [all, setAll] = useState([])
 
@@ -86,6 +93,35 @@ const ProjectDetailManager = ({ projectId, currentContent, currentPath, language
         <div className="w-full">
             {/* reference doc */}
             <FileUploader id={"ProjectIDReference" + projectId} label={"Rerference doc"} fileName={"Upload your file..."} />
+
+            {context?.id === "N" &&
+                <>
+                    <ContentSection
+                        currentPath={currentPath}
+                        Heading={"Page - Details"}
+                        inputs={[
+                            { input: "input", label: "Title English", updateType: "titleEn", value: context?.titleEn, dir: "ltr" },
+                            { input: "input", label: "Title Arabic", updateType: "titleAr", value: context?.titleAr, dir: "rtl" },
+                            // { input: "input", label: "Slug", updateType: "slug", value: context?.slug },
+                        ...(context?.id === "N" ? [{ input: "input", label: "Slug", updateType: "slug", value: context?.slug } ]: []),
+                        ]}
+                        section={"page-details"}
+                        language={language}
+                    />
+                </>
+            }
+
+            <ContentSection
+                currentPath={currentPath}
+                Heading={"Thumbnail"}
+                inputFiles={[
+                    // { label: "Thumbnail Icon", id: "thumbIcon", order: 1, url: thumbIcon, name: "icon" },
+                    { label: "Thumbnail Image", id: "thumbImage", order: 1, url: thumbImage, name: "image" }
+                ]}
+                section={"thumbnail"}
+                language={language}
+                currentContent={content}
+            />
             {/** Hero Banner */}
             <ContentSection
                 currentPath={currentPath}
@@ -100,7 +136,7 @@ const ProjectDetailManager = ({ projectId, currentContent, currentPath, language
                 inputFiles={[{ label: "Cover Image", id: "ProjectBanner/" + (projectId), url: introSection?.images?.[0]?.url, order: 1 }]}
                 section={"introSection"}
                 language={language}
-                currentContent={currentContent}
+                currentContent={content}
                 projectId={projectId}
                 sectionIndex={indexes?.['1']}
             />
@@ -123,7 +159,7 @@ const ProjectDetailManager = ({ projectId, currentContent, currentPath, language
                                 index={index}
                                 contentIndex={index}
                                 language={language}
-                                currentContent={currentContent}
+                                currentContent={content}
                                 projectId={projectId}
                                 isBorder={lastIndex}
                                 sectionIndex={indexes?.['2']}
@@ -149,7 +185,7 @@ const ProjectDetailManager = ({ projectId, currentContent, currentPath, language
                                 section={"descriptionSection"}
                                 index={index}
                                 language={language}
-                                currentContent={currentContent}
+                                currentContent={content}
                                 projectId={projectId}
                                 isBorder={false}
                                 sectionIndex={indexes?.['3']}
@@ -171,7 +207,7 @@ const ProjectDetailManager = ({ projectId, currentContent, currentPath, language
                     })}
                 section={"images"}
                 language={language}
-                currentContent={currentContent}
+                currentContent={content}
                 projectId={projectId}
                 allowExtraInput={true}
                 sectionIndex={indexes?.['4']}
@@ -185,9 +221,9 @@ const ProjectDetailManager = ({ projectId, currentContent, currentPath, language
                 heading={"More Projects"}
                 tabName={"Select Project"}
                 listOptions={all}
-                options={moreProjects?.items.filter(e => e.slug !== slug) || []}
+                options={moreProjects?.items?.filter(e => e.slug !== slug) || []}
                 referenceOriginal={{ dir: "home", index: 0 }}
-                currentContent={currentContent}
+                currentContent={content}
                 projectId={projectId}
                 sectionIndex={indexes?.['5']}
                 maxLimit={6}

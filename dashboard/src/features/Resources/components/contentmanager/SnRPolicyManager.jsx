@@ -4,12 +4,17 @@ import FileUploader from "../../../../components/Input/InputFileUploader"
 import ContentSection from "../breakUI/ContentSections"
 // import MultiSelect from "../breakUI/MultiSelect"
 import DynamicContentSection from "../breakUI/DynamicContentSection"
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { updateCardAndItemsArray, updatePoliciesItems } from "../../../common/homeContentSlice"
 
 const SnRPoliciesManager = ({ content, currentPath, language, indexes }) => {
     const [policiesList, setPoliciesList] = useState(null)
     const dispatch = useDispatch()
+
+    const context = useSelector(state => state.homeContent?.present?.content)
+
+    // const thumbIcon = useSelector(state => state.homeContent?.present?.content?.editVersion?.icon) || ""
+    const thumbImage = useSelector(state => state.homeContent?.present?.content?.editVersion?.image) || ""
 
     const addExtraSummary = () => {
         dispatch(updatePoliciesItems(
@@ -70,6 +75,33 @@ const SnRPoliciesManager = ({ content, currentPath, language, indexes }) => {
         <div>
             {/* reference doc */}
             <FileUploader id={"SnR-Polilcy-ID-Reference"} label={"Rerference doc"} fileName={"Upload your file..."} />
+
+            {context?.id === "N" &&
+                <ContentSection
+                    currentPath={currentPath}
+                    Heading={"Page - Details"}
+                    inputs={[
+                        { input: "input", label: "Title English", updateType: "titleEn", value: context?.titleEn },
+                        { input: "input", label: "Title Arabic", updateType: "titleAr", value: context?.titleAr, dir: "rtl" },
+                        { input: "input", label: "Slug", updateType: "slug", value: context?.slug },
+
+                    ]}
+                    section={"page-details"}
+                    language={language}
+                />
+            }
+
+            <ContentSection
+                currentPath={currentPath}
+                Heading={"Thumbnail"}
+                inputFiles={[
+                    // { label: "Thumbnail Icon", id: "thumbIcon", order: 1, url: thumbIcon, name: "icon" },
+                    { label: "Thumbnail Image", id: "thumbImage", order: 1, url: thumbImage, name: "image" }
+                ]}
+                section={"thumbnail"}
+                language={language}
+                currentContent={content}
+            />
             {/** Hero Banner */}
             <ContentSection
                 currentPath={currentPath}

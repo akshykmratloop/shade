@@ -1,19 +1,59 @@
 {
-    "name": {
-        "en": "",
-        "ar": ""
-    },
-    "position": {
-        "en": "",
-        "ar": ""
-    },
-    "quote": {
-        "en": "",
-        "ar": ""
-    },
-    "company": {
-        "en": "",
-        "ar": ""
-    },
-    "image": ""
+    "id": "N",
+    "titleEn": "",
+    "titleAr": "",
+    "slug": "",
+    "isEditable": true,
+    "resourceType": "SUB_PAGE",
+    "resourceTag": "TESTIMONIAL",
+    "relationType": "CHILD",
+    "editVersion": {
+        "id": "",
+        "versionNumber": 1,
+        "icon": null,
+        "image": null,
+        "comments": "",
+        "referenceDoc": null,
+        "updatedAt": "",
+        "status": "",
+        "sections": [
+            {
+                "title": "testimonialBodySection",
+                "SectionType": "TESTIMONIAL",
+                "sectionVersionTitle": "Testimonial-testimonialBodySection",
+                "sectionId": "",
+                "order": 1,
+                "version": 1,
+                "content": {
+                    "name": {
+                        "ar": "",
+                        "en": ""
+                    },
+                    "quote": {
+                        "ar": "",
+                        "en": ""
+                    },
+                    "images": [
+                        {
+                            "url": "",
+                            "order": 1,
+                            "altText": {
+                                "ar": "",
+                                "en": ""
+                            }
+                        }
+                    ],
+                    "company": {
+                        "ar": "",
+                        "en": ""
+                    },
+                    "position": {
+                        "ar": "",
+                        "en": ""
+                    }
+                },
+                "sections": []
+            }
+        ]
+    }
 }

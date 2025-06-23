@@ -3,11 +3,11 @@ import { getResources } from "../../../../app/fetch"
 import FileUploader from "../../../../components/Input/InputFileUploader"
 import ContentSection from "../breakUI/ContentSections"
 import MultiSelect from "../breakUI/MultiSelect"
+import { useSelector } from "react-redux"
 
 const ServiceManager = ({ currentContent, currentPath, language, indexes }) => {
     const [subService, setServicesOptions] = useState(null)
 
-    console.log(subService)
 
     useEffect(() => {
         async function getOptionsforServices() {
@@ -35,6 +35,8 @@ const ServiceManager = ({ currentContent, currentPath, language, indexes }) => {
             {/* reference doc */}
             <FileUploader id={"ServiceIDReference"} label={"Rerference doc"} fileName={"Upload your file..."} />
             {/** Hero Banner */}
+          
+
             <ContentSection
                 currentPath={currentPath}
                 Heading={"Banner"}

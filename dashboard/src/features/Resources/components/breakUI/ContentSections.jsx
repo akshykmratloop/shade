@@ -3,10 +3,11 @@ import InputFile from "../../../../components/Input/InputFile";
 import InputText from "../../../../components/Input/InputText";
 import TextAreaInput from "../../../../components/Input/TextAreaInput";
 import { useDispatch, useSelector } from "react-redux";
-import { updateSpecificContent, updateServicesNumber, updateImages, updateAList, addImageArray, rmImageArray, addImagePointArray, rmImagePointArray, updateSubServiceDetailsPointsArray, updateAffiliatesCardsArray } from "../../../common/homeContentSlice";
+import { updateSpecificContent, updateServicesNumber, updateImages, updateAList, addImageArray, rmImageArray, addImagePointArray, rmImagePointArray, updateSubServiceDetailsPointsArray, updateAffiliatesCardsArray, updateBaseData } from "../../../common/homeContentSlice";
 import InputFileForm from "../../../../components/Input/InputFileForm";
 import JoditEditor from "jodit-react";
 import { Jodit } from "jodit-react";
+import Select from "../../../../components/Input/Select"
 
 const skeleton = {
     socialLinks: {
@@ -54,7 +55,7 @@ const ContentSection = ({
     ref,
     elementId,
     outOfEditing,
-    directIcon
+    directIcon,
 }) => {
     const dispatch = useDispatch();
     const ImagesFromRedux = useSelector((state) => state.homeContent.present.images)
@@ -63,7 +64,7 @@ const ContentSection = ({
 
 
     const addExtraFileInput = () => {
-        if (section === "points") {
+        if (section === "pointsp") {
             dispatch(addImagePointArray({
                 src: skeleton['images'],
                 sectionIndex,
@@ -86,7 +87,7 @@ const ContentSection = ({
     };
 
     const removeExtraFileInput = (order) => {
-        if (section === "points") {
+        if (section === "pointsp") {
             dispatch(rmImagePointArray({ sectionIndex, order, section }))
         } else if (section === "affiliates") {
             dispatch(updateAffiliatesCardsArray({
@@ -100,7 +101,12 @@ const ContentSection = ({
     };
 
     const updateFormValue = (updateType, value, path, buttonIndex) => {
-        if (updateType === 'count') {
+        if (section === "page-details") {
+            dispatch(updateBaseData({
+                title: updateType,
+                value: value
+            }))
+        } else if (updateType === 'count') {
             if (!isNaN(value)) {
                 let val = value?.slice(0, 7);
                 dispatch(updateServicesNumber({
@@ -268,6 +274,22 @@ const ContentSection = ({
                                 outOfEditing={outOfEditing}
                             />
                         );
+                    } else if (input.input === "select") {
+                        return (
+                            <Select
+                                key={i}
+                                label={input.label}
+                                options={input.option}
+                                labelClass="block sm:text-xs xl:text-sm text-[#6B7888]"
+                                width={"w-full"}
+                                baseClass={"outline-none border-none py-2"}
+                                selectClass={"outline-none border border-stone-300 dark:border-[#3f444f] dark:bg-[#2A303C] bg-white"}
+                                optionsClass={"dark:bg-[#242933]"}
+                                setterOnChange={(updateType, value) => updateFormValue(updateType, value, input.index)}
+                                field={input.updateType}
+                                // outOfEditing={outOfEditing}
+                            />
+                        );
                     } else if (input.input === "richtext") {
                         return (
                             <div dir={language === 'en' ? 'ltr' : 'rtl'} key={outOfEditing ? "readonly" : "editable"}
@@ -309,6 +331,7 @@ const ContentSection = ({
                                 required={false}
                                 maxLength={input.maxLength}
                                 outOfEditing={outOfEditing}
+                                dir={input.dir}
                             />
                         );
                     }
@@ -380,6 +403,7 @@ const ContentSection = ({
                                             url={file.url}
                                             textValue={file.value}
                                             type={file.type}
+                                            name={file.name}
                                         />
                                     </div>
                                 )

@@ -203,3 +203,140 @@
     }
   }
 }
+
+// Responsive Breakpoints
+@media (max-width: 800px) {
+  .vision_mission_banner_wrap {
+    height: 500px;
+
+    .content {
+      // position: static;
+      padding: 40px 20px;
+      text-align: center;
+
+      .title {
+        font-size: 48px;
+        line-height: 56px;
+        width: 100%;
+        letter-spacing: -1px;
+      }
+
+      .description {
+        font-size: 14px;
+        line-height: 22px;
+        width: 100%;
+        margin: 20px auto;
+      }
+
+      .view_btn {
+        margin: 0 auto;
+        padding: 12px 24px 8px 48px;
+
+        .arrow_btn {
+          left: 16px;
+        }
+      }
+    }
+
+    .backgroundContainer .backgroundImage {
+      height: 500px;
+    }
+  }
+
+  .vision_mission_wrap {
+    padding: 4rem 1rem;
+
+    .vision_mission_section_head {
+      flex-direction: row;
+      align-items: center;
+      text-align: left;
+      // gap: 40px;
+
+      .vision_mission_section_head_title {
+        font-weight: 500;
+        font-size: 50px;
+        line-height: normal;
+        color: #292e3d;
+      }
+
+      .vision_mission_section_head_description {
+        width: 50%;
+        margin-top: 1rem;
+      }
+    }
+
+    .vision_mission_core_card_wrap {
+      justify-content: center;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .visions_section_wrap {
+      display: grid;
+      // flex-direction: column;
+      // align-items: center;
+      grid-template-columns: 1fr 1fr;
+
+      .visions_section_card {
+        flex: 1 1 100%;
+      }
+    }
+  }
+}
+
+@media (max-width: 500px) {
+  .vision_mission_banner_wrap .content {
+    padding: 20px 12px;
+
+    .title {
+      font-size: 32px;
+      line-height: 40px;
+    }
+
+    .description {
+      font-size: 12px;
+      line-height: 18px;
+    }
+
+    .view_btn {
+      padding: 10px 20px 6px 40px;
+
+      .arrow_btn {
+        left: 12px;
+      }
+    }
+  }
+
+  .vision_mission_wrap {
+    padding: 2rem 0.5rem;
+
+    .vision_mission_section_head {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+
+      .vision_mission_section_head_title {
+        font-size: 36px;
+      }
+
+      .vision_mission_section_head_description {
+        width: 100%;
+        font-size: 14px;
+      }
+    }
+
+    .vision_mission_core_card_wrap {
+      grid-template-columns: 1fr;
+      .vision_mission_core_card {
+        padding: 15px;
+      }
+    }
+
+    .visions_section_wrap {
+      grid-template-columns: 1fr;
+      .visions_section_card {
+        flex: 1 1 100%;
+      }
+    }
+  }
+}

@@ -2,8 +2,9 @@ import { useState, useRef, useEffect } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import CloseModalButton from "../../components/Button/CloseButton";
+import { schedulePublish } from "../../app/fetch";
 
-const DateTime = ({ onClose, display }) => {
+const DateTime = ({ onClose, display, requestId }) => {
     const [date, setDate] = useState("");
     const [time, setTime] = useState(""); // Empty for placeholder
     const [hour, setHour] = useState("");
@@ -31,6 +32,40 @@ const DateTime = ({ onClose, display }) => {
         setTime(newTime);
         setShowTimePopup(false);
     };
+
+    const SubmitDate = async () => {
+        if (!date || hour === "" || minute === "") {
+            console.error("Date, hour, or minute not selected.");
+            return;
+        }
+
+        // Clone the selected date
+        const finalDate = new Date(date);
+
+        // Set selected time (hour, minute, zero seconds & ms)
+        finalDate.setHours(Number(hour));
+        finalDate.setMinutes(Number(minute));
+        finalDate.setSeconds(0);
+        finalDate.setMilliseconds(0);
+
+        // Convert to ISO 8601 UTC format
+        const isoTimestamp = finalDate.toISOString();
+
+        // Now you can use this ISO string as needed
+        try {
+            const response = await schedulePublish(requestId, { date: isoTimestamp })
+            console.log(response)
+            if (response.ok) {
+                closeModal()
+            } else {
+                
+            }
+        } catch (err) {
+            console.error(err)
+        }
+    };
+
+
 
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -75,7 +110,7 @@ const DateTime = ({ onClose, display }) => {
             style={{ display: display ? "block" : "none" }}
         >
             <div
-                className="w-[45%] absolute z-[55] top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/4  bg-white p-10 shadow-2xl rounded-md"
+                className="w-[45%] dark:bg-[#1e293b] absolute z-[55] top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/4  bg-white p-10 shadow-2xl rounded-md"
                 ref={modalRef}
             >
                 <h2 className="font-[500] text-[18px]">Publish Schedule</h2>
@@ -91,7 +126,10 @@ const DateTime = ({ onClose, display }) => {
                                 onChange={(d) => setDate(d)}
                                 dateFormat="dd-MM-yyyy"
                                 placeholderText="Select a date"
-                                className="w-full h-[5vh] px-3 py-2 border border-gray-400 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                className="w-full h-[5vh] px-3 py-2 border border-gray-400 rounded-md 
+                                            focus:outline-none focus:ring-2 focus:ring-blue-500
+                                            bg-white text-black dark:bg-[#1e293b] dark:text-white
+                                            dark:border-gray-600"
                             />
                         </div>
 
@@ -104,7 +142,11 @@ const DateTime = ({ onClose, display }) => {
                                 onFocus={handleTimeClick}
                                 readOnly
                                 placeholder="Select a time"
-                                className="w-full h-[5vh] px-3 py-2 text-xs border border-gray-400 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 time-input"
+                                className="w-full h-[5vh] px-3 py-2 text-xs border 
+                                            border-gray-400 rounded-md focus:outline-none 
+                                            focus:ring-2 focus:ring-blue-500 time-input 
+                                            text-black dark:bg-[#1e293b] dark:text-white 
+                                            dark:border-gray-600"
                             />
 
                             {showTimePopup && (
@@ -156,7 +198,7 @@ const DateTime = ({ onClose, display }) => {
 
                     <div className="flex gap-2 justify-end text-sm">
                         <button onClick={() => closeModal()} className="bg-red-600 align-center font-[300] py-2 rounded-[4px] text-[white] w-[150px]">Cancel</button>
-                        <button className="bg-[#29469D] align-center font-[300] py-2 rounded-[4px] text-[white] w-[150px]">Save</button>
+                        <button onClick={() => SubmitDate()} className="bg-[#29469D] align-center font-[300] py-2 rounded-[4px] text-[white] w-[150px]">Save</button>
                     </div>
                 </div>
             </div>

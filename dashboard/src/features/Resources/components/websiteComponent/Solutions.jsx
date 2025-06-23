@@ -58,14 +58,17 @@ const SolutionPage = ({ currentContent, language, screen, width, highlight, live
                         </p>
                         <button
                             className={`relative  py-[6px] px-[12px] flex gap-2 items-center text-xs text-[white] font-medium 
-                        ${checkDifference(currentContent?.["1"]?.content?.button?.[0]?.text?.[language], liveContent?.["1"]?.content?.button?.[0]?.text?.[language])}
                                 ${isLeftAlign ? "" : "ml-auto"} bg-[#00B9F2] rounded-[4px] border-none cursor-pointer`}
                             style={{
                                 fontSize: fontSize.mainButton,
                                 padding: `${getDynamicSize(12)} ${getDynamicSize(16)}`
                             }}
                         >
-                            {currentContent?.["1"]?.content?.button?.[0]?.text?.[language]}
+                            <p className={`
+                                        ${checkDifference(currentContent?.["1"]?.content?.button?.[0]?.text?.[language], liveContent?.["1"]?.content?.button?.[0]?.text?.[language])}
+                                `}>
+                                {currentContent?.["1"]?.content?.button?.[0]?.text?.[language]}
+                            </p>
                             <img
                                 src={arrow}
                                 width={11}

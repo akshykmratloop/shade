@@ -1,8 +1,18 @@
 import {send} from "process";
 import prismaClient from "../config/dbConfig.js";
 import { EncryptData } from "../helper/bcryptManager.js";
-import { sendEmail } from "../helper/sendEmail.js";
+import { addEmailJob } from "../helper/emailJobQueue.js";
 import user from "../modules/user/index.js";
+import {
+  userAccountCreationPayload,
+  userAccountDeactivatedPayload,
+  userAccountActivatedPayload,
+  resourceAssignmentPayload,
+  resourceAccessRemovedPayload
+} from "../other/EmailPayload.js";
+
+const dashboardUrl = process.env.DASHBOARD_URL;
+const supportEmail = process.env.SUPPORT_EMAIL;
 
 /// USER QUERIES====================================================
 // Create User
@@ -43,37 +53,9 @@ export const createUserHandler = async (
       },
     },
   });
-  const emailPayload = {
-    to: email,
-    subject: "Your Account Details",
-    text: `Hello ${name}, your account has been created successfully. Username: ${email}, Password: ${password}. Please change your password after logging in.`,
-    html: `
-      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #ddd; border-radius: 8px; background-color: #f9f9f9;">
-        <h2 style="text-align: center; color: #333;">Welcome to Our Platform! 🎉</h2>
-        <p style="font-size: 16px; color: #555;">Hello <strong>${name}</strong>,</p>
-        <p style="font-size: 16px; color: #555;">
-          Your account has been successfully created. Here are your login details:
-        </p>
-        <div style="background-color: #fff; padding: 15px; border-radius: 6px; box-shadow: 0px 0px 10px rgba(0,0,0,0.1);">
-          <p style="font-size: 16px; margin: 0;"><strong>Username:</strong> ${email}</p>
-          <p style="font-size: 16px; margin: 0;"><strong>Password:</strong> ${password}</p>
-        </div>
-        <p style="font-size: 16px; color: #555; margin-top: 20px;">
-          Please change your password after logging in for security purposes.
-        </p>
-        <div style="text-align: center; margin-top: 20px;">
-          <a href="http://localhost:3001/login" style="display: inline-block; background-color: #007bff; color: #fff; padding: 12px 20px; font-size: 16px; text-decoration: none; border-radius: 5px;">Login Now</a>
-        </div>
-        <p style="font-size: 14px; color: #999; text-align: center; margin-top: 20px;">
-          If you didn't request this, please ignore this email.
-        </p>
-        <hr style="border: none; border-top: 1px solid #ddd;">
-        <p style="font-size: 14px; color: #999; text-align: center;">© 2025 Your Company. All rights reserved.</p>
-      </div>
-    `,
-  };
 
-  await sendEmail(emailPayload);
+  // Use dynamic payload
+  addEmailJob(userAccountCreationPayload({ name, email, password, dashboardUrl }));
 
   return newUser;
 };
@@ -195,28 +177,9 @@ export const updateUser = async (id, name, password, phone, roles) => {
       permissions: role.role.permissions.map((perm) => perm.permission.name),
     })) || [];
 
-  await sendEmail({
-    to: updatedUser.email,
-    subject: "Your Account Details Updated",
-    text: `Hello ${updatedUser.name}, your account details have been updated successfully.`,
-    html: `
-      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #ddd; border-radius: 8px; background-color: #f9f9f9;">
-        <h2 style="text-align: center; color: #333;">Your Account Details Updated</h2>
-        <p style="font-size: 16px; color: #555;">Hello <strong>${updatedUser.name}</strong>,</p>
-        <p style="font-size: 16px; color: #555;">
-          Your account details have been updated successfully. If you made this change, please ignore this email. If not, please contact support.
-        </p>
-        <div style="text-align: center; margin-top: 20px;">
-          <a href="http://localhost:3001/login" style="display: inline-block; background-color: #007bff; color: #fff; padding: 12px 20px; font-size: 16px; text-decoration: none; border-radius: 5px;">Login Now</a>
-        </div>
-        <p style="font-size: 14px; color: #999; text-align: center; margin-top: 20px;">
-          If you didn't request this, please ignore this email.
-        </p>
-        <hr style="border: none; border-top: 1px solid #ddd;">
-        <p style="font-size: 14px; color: #999; text-align: center;">© 2025 Your Company. All rights reserved.</p>
-      </div>
-    `,
-  });
+  // Use dynamic payload
+  // const emailPayload = userAccountUpdatePayload({ name: updatedUser.name, email: updatedUser.email });
+  // addEmailJob(emailPayload);
 
   return {
     ...updatedUser,
@@ -555,6 +518,18 @@ export const resetUserOtpAttempts = async () => {
 };
 
 export const userActivation = async (id) => {
+  // Fetch user first to check current status
+  const userBefore = await prismaClient.user.findUnique({
+    where: { id },
+  });
+
+  if (!userBefore) return null;
+
+  // Only proceed if user is not already active
+  if (userBefore.status === "ACTIVE") {
+    return userBefore;
+  }
+
   const user = await prismaClient.user.update({
     where: {
       id: id,
@@ -564,10 +539,25 @@ export const userActivation = async (id) => {
     },
   });
 
+  // Send activation email
+  addEmailJob(userAccountActivatedPayload({ name: user.name, email: user.email, dashboardUrl }));
+
   return user;
 };
 
 export const userDeactivation = async (id) => {
+  // Fetch user first to check current status
+  const userBefore = await prismaClient.user.findUnique({
+    where: { id },
+  });
+
+  if (!userBefore) return null;
+
+  // Only proceed if user is not already inactive
+  if (userBefore.status === "INACTIVE") {
+    return userBefore;
+  }
+
   const user = await prismaClient.user.update({
     where: {
       id: id,
@@ -576,6 +566,9 @@ export const userDeactivation = async (id) => {
       status: "INACTIVE",
     },
   });
+
+  // Send deactivation email
+  addEmailJob(userAccountDeactivatedPayload({ name: user.name, email: user.email, supportEmail }));
 
   return user;
 };

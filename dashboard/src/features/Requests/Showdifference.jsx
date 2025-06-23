@@ -21,13 +21,14 @@ import createContent from "../Resources/defineContent";
 import Popups from "../Resources/components/breakUI/Popups";
 import { approveRequest, rejectedRequest } from "../../app/fetch";
 import { toast } from "react-toastify";
+import ShowPdf from "./ShowPDF";
+import { CiCalendar } from "react-icons/ci";
 
 
 
 function ShowDifference({ show, onClose, request, resourceId, currentlyEditor, currentlyPublisher, requestId, refreshList }) {
 
-    // console.log(request)
-    // const contentFromRedux = useSelector(state => state.homeContent.present)
+    const [showPDF, setShowPDF] = useState(false)
     const [liveVersion, setLiveVersion] = useState({})
     const [editVersion, setEditVersion] = useState({})
     const [language, setLanguage] = useState("en")
@@ -44,7 +45,6 @@ function ShowDifference({ show, onClose, request, resourceId, currentlyEditor, c
     const LiveContent = createContent(liveVersion, "difference", "home")
 
     const setUpRoute = (content) => {
-        console.log(content)
         let subRoute = ""
         let deepRoute = ""
         let route = ""
@@ -120,6 +120,8 @@ function ShowDifference({ show, onClose, request, resourceId, currentlyEditor, c
         };
     }, []);
 
+    console.log(liveVersion, editVersion)
+
 
     useEffect(() => {
         async function fetchContent() {
@@ -127,15 +129,15 @@ function ShowDifference({ show, onClose, request, resourceId, currentlyEditor, c
                 const response = await getContent(resourceId)
 
                 const payload = {
-                    id: response.content.id,
-                    titleEn: response.content.titleEn,
-                    titleAr: response.content.titleAr,
-                    slug: response.content.slug,
-                    resourceType: response.content.resourceType,
-                    resourceTag: response.content.resourceTag,
-                    relationType: response.content.relationType,
-                    comments: response.content.editModeVersionData.comments,
-                    referenceDoc: response.content.editModeVersionData.referenceDoc
+                    id: response.content?.id || "",
+                    titleEn: response.content?.titleEn || "",
+                    titleAr: response.content?.titleAr || "",
+                    slug: response.content?.slug || "",
+                    resourceType: response.content?.resourceType || "",
+                    resourceTag: response.content?.resourceTag || "",
+                    relationType: response.content?.relationType || "",
+                    comments: response.content?.editModeVersionData?.comments || "",
+                    referenceDoc: response.content?.editModeVersionData?.referenceDoc || ""
                 }
                 setLiveVersion({ ...payload, editVersion: response.content.liveModeVersionData })
                 setEditVersion({ ...payload, editVersion: response.content.editModeVersionData ?? response.content.liveModeVersionData })
@@ -169,8 +171,6 @@ function ShowDifference({ show, onClose, request, resourceId, currentlyEditor, c
         };
     }, [editVersion]);
 
-    // console.log((!currentlyEditor || request.flowStatus === "PENDING"))
-
     return (
         <Dialog open={show} onClose={onClose} className="relative z-40 font-poppins">
             <div className="fixed inset-0 bg-black/50" aria-hidden="true" />
@@ -178,14 +178,14 @@ function ShowDifference({ show, onClose, request, resourceId, currentlyEditor, c
                 <Dialog.Panel ref={divRef} className="w-[98vw]  h-[98vh] customscroller shadow-lg shadow-stone rounded-lg bg-[white] dark:bg-slate-800 p-6 px-0 relative">
                     <div className="flex justify-between items-center mb-4 px-6 ">
                         {/* <Dialog.Title className="text-lg font-[500]">Difference Preview</Dialog.Title> */}
-                        <div className="flex gap-5 justify-between w-[95%] ">
+                        <div className="flex gap-5 justify-between w-[95%]">
                             <LanguageSwitch w={'w-[20%]'} setLanguage={setLanguage} language={language} />
                             { // not for currentlyEditor
                                 (!currentlyEditor && request?.flowStatus === "PENDING") &&
                                 <div className="flex gap-2">
                                     <div className="flex gap-3 text-[25px] items-center border-r px-2 border-r-2">
                                         <div ref={commentRef} className=" flex flex-col gap-1 items-center relative">
-                                            <div className="flex flex-col gap-1 items-center"
+                                            <div className="flex flex-col gap-1 items-center cursor-pointer"
                                                 onClick={() => setCommentOn(prev => !prev)}
                                             >
                                                 <LiaComment strokeWidth={.0001} />
@@ -195,18 +195,21 @@ function ShowDifference({ show, onClose, request, resourceId, currentlyEditor, c
                                             </div>
                                             {
                                                 commentOn &&
-                                                <div className="absolute right-[110%] top-[20%] z-[5]">
+                                                <div className="absolute right-[110%] min-w-[300%] top-[20%] z-[5] ">
                                                     <div className="comment-bubble">
                                                         <div className="comment-bubble-arrow"></div>
-                                                        <h3>Comments:</h3>
-                                                        <p className={`${editVersion.comments ? "text-stone-900 dark:text-stone-200" : "text-stone-300"}`}>{editVersion.comments || "No comments"}</p>
+                                                        <h3 className="underline">Comments:</h3>
+                                                        <p className={`${editVersion.comments ? "text-stone-700" : "text-red-300"}`}>{editVersion.comments || "No comments"}</p>
                                                     </div>
                                                 </div>
                                             }
                                         </div>
-                                        <div className="flex flex-col gap-1 items-center translate-y-[1.5px]">
+                                        <div className="flex flex-col gap-1 items-center translate-y-[1.5px] cursor-pointer"
+                                            onClick={() => { setShowPDF(true) }}
+                                        >
                                             <IoDocumentOutline className="text-[23px]" width={10} />
-                                            <span className="text-[12px]">
+                                            <span className="text-[12px]"
+                                            >
                                                 Doc
                                             </span>
                                         </div>
@@ -216,12 +219,15 @@ function ShowDifference({ show, onClose, request, resourceId, currentlyEditor, c
                                             (<div className="flex gap-2">
                                                 { // for currentlyPublisher
                                                     currentlyPublisher &&
-                                                    <div className='flex items-center gap-1'>
-                                                        <span className={`text-[14px] font-lexend font-[400] dark:text-[#CBD5E1] text-[#202a38] select-none`}>
+                                                    <div className='flex items-center gap-1 px-3 bg-green-700 xl:h-[2.68rem] sm:h-[2rem] rounded-lg' onClick={() => setShowDateTime(true)}>
+                                                        <span className="text-white">
+                                                            <CiCalendar />
+                                                        </span>
+                                                        <span className={`text-[14px] font-lexend font-[300] dark:text-[#CBD5E1] text-[white] select-none`}>
                                                             Publish Schedule
                                                         </span>
 
-                                                        <Switch
+                                                        {/* <Switch
                                                             checked={true}
                                                             onChange={() => setShowDateTime(true)}
                                                             className={`${true
@@ -235,18 +241,18 @@ function ShowDifference({ show, onClose, request, resourceId, currentlyEditor, c
                                                                     : "translate-x-0"
                                                                     } inline-block h-[17px] w-[17px] bg-white rounded-full shadow-2xl border border-gray-300 transition`}
                                                             />
-                                                        </Switch>
+                                                        </Switch> */}
                                                     </div>}
                                                 <div className="flex gap-2 px-2">
-                                                    <button onClick={() => { setOnRejectPopup(true) }} className='flex justify-center items-center gap-1 bg-[#FF0000] rounded-md xl:h-[2.68rem] sm:h-[2rem] xl:text-xs sm:text-[.6rem] xl:w-[5.58rem] w-[4rem] text-[white]'>
+                                                    <button onClick={() => { setOnRejectPopup(true) }} className='flex font-[500] justify-center items-center gap-1 bg-[#FF0000] rounded-md xl:h-[2.68rem] sm:h-[2rem] xl:text-xs sm:text-[.6rem] xl:w-[5.58rem] w-[4rem] text-[white]'>
                                                         <RxCross1 /> Reject
                                                     </button>
-                                                    <Button text={'Approve'} functioning={() => { setPopupSubmit(true) }} classes='bg-[#29469D] rounded-md xl:h-[2.68rem] sm:h-[2rem] xl:text-xs sm:text-[.6rem] xl:w-[5.58rem] w-[4rem] text-[white]' />
+                                                    <Button text={'Approve'} functioning={() => { setPopupSubmit(true) }} classes='bg-[#29469D] font-[500] rounded-md xl:h-[2.68rem] sm:h-[2rem] xl:text-xs sm:text-[.6rem] xl:w-[5.58rem] w-[4rem] text-[white]' />
                                                 </div>
                                             </div>) :
                                             (
                                                 <div className="flex gap-2 px-2">
-                                                    <Button text={'Publish'} functioning={() => { setPopupPublish(true) }} classes='bg-[#29469D] rounded-md xl:h-[2.68rem] sm:h-[2rem] xl:text-xs sm:text-[.6rem] xl:w-[5.58rem] w-[4rem] text-[white]' />
+                                                    <Button text={'Publish'} functioning={() => { setPopupPublish(true) }} classes='bg-[#29469D] font-[500] rounded-md xl:h-[2.68rem] sm:h-[2rem] xl:text-xs sm:text-[.6rem] xl:w-[5.58rem] w-[4rem] text-[white]' />
                                                 </div>
                                             )
                                     }
@@ -288,7 +294,7 @@ function ShowDifference({ show, onClose, request, resourceId, currentlyEditor, c
                     </div>
                     {
                         showDateTime &&
-                        <DateTime onClose={setShowDateTime} display={showDateTime} />
+                        <DateTime onClose={setShowDateTime} display={showDateTime} requestId={requestId} />
                     }
                     {
                         onRejectPopup &&
@@ -301,6 +307,16 @@ function ShowDifference({ show, onClose, request, resourceId, currentlyEditor, c
                     <Popups display={PopupSubmit} setClose={() => setPopupSubmit(false)}
                         confirmationText={"Are you sure you want to Approve?"} confirmationFunction={async () => { approveRequestFunc(requestId) }}
                     />
+                    {
+                        showPDF
+                        && (
+                            <ShowPdf
+                                open={showPDF}
+                                pdf={request?.resourceVersion?.referenceDoc}
+                                onClose={() => setShowPDF(false)}
+                            />
+                        )
+                    }
                 </Dialog.Panel>
             </div>
 

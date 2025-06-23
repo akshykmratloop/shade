@@ -1,11 +1,6 @@
 import { useEffect, useRef, useState } from "react";
-import {
-    useSelector,
-} from "react-redux";
+import { useSelector } from "react-redux";
 import Arrow from "../../../../assets/icons/right-wrrow.svg";
-// import AboutUs from "../../../../assets/images/aboutus.png";
-// import background from "../../../../assets/images/Hero.png";
-// import highlightsvg from "../../../../assets/highlight.svg"
 import {
     recentProjects,
     markets,
@@ -129,9 +124,9 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                 ${checkDifference(content?.["1"]?.content?.images?.[0]?.url, liveContent?.["1"]?.content?.images?.[0]?.url)}
                 `}>
                 <div
-                    className={`w-full overflow-y-hidden min-h-[400px] block ${language === "en" ? "scale-x-100" : "scale-x-[-1]"
+                    className={`w-full ${isPhone && "h-fit border"}  min-h-fit block ${language === "en" ? "scale-x-100" : "scale-x-[-1]"
                         }`}
-                    style={{ height: dynamicSize(715, width) }}
+                    style={{ height: (isComputer || isTablet) && dynamicSize(715, width) }}
                 >
                     <img
                         dir={isLeftAlign ? "ltr" : "rtl"}
@@ -226,7 +221,7 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                             return (
                                 <div key={key} className={`w-full h-44 flex items-center justify-center p-6 rounded-md transition-transform duration-300 hover:scale-105 cursor-pointer ${key % 2 !== 0 ? "bg-blue-900 text-[white]" : " bg-stone-200"} `}>
                                     <div className="flex flex-col items-center gap-4">
-                                        <img src={Img_url + card?.liveModeVersionData?.icon} width={40} height={40} alt="Icon" className="h-10 w-10" />
+                                        <img src={Img_url + card?.icon} width={40} height={40} alt="Icon" className="h-10 w-10" />
                                         <h5 className={`relative text-lg font-light text-center `}
                                             style={{ fontSize: isComputer && dynamicSize(20, width) }}>
                                             {card?.[titleLan]}
@@ -239,7 +234,9 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                 </div>
             </section >
             {/* experience section 4 */}
-            < section className={`py-[115px] overflow-hidden ${isComputer ? fullScreen ? "px-20 pt-40 pb-60" : "px-20 pb-60" : !isLeftAlign ? "px-8" : "px-10"}`} dir={isLeftAlign ? 'ltr' : "rtl"} >
+            <section
+                className={`py-[115px] overflow-hidden ${isComputer ? fullScreen ? "px-20 pt-40 pb-60" : "px-20 pb-60" : !isLeftAlign ? "px-8" : "px-10"}`}
+                dir={isLeftAlign ? 'ltr' : "rtl"} >
                 <div
                     className={`container mx-auto flex ${isPhone ? "flex-col gap-[350px]" : "gap-10"} `}>
                     <div className={`w-[100%]  flex-[4]`}
@@ -294,13 +291,14 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                             })}
                         </div>
                     </div>
-                    <div className={`w-[550px] ${isTablet ? !isLeftAlign ? "pr-[64px]" : "pl-[40px]" : "pl-[40px]"}  ${fullScreen ? "flex-[2]" : "flex-[3]"}`}
+                    <div className={`${isPhone ? "w-full" : "w-[550px]"} ${isTablet ? !isLeftAlign ? "pr-[64px]" : "pl-[40px]" : isTablet ? "pl-[40px]" : ""}  ${fullScreen ? "flex-[2]" : "flex-[3]"}`}
                         style={{
                             // maxWidth: isComputer && dynamicSize(420, width)
                             // width: isComputer && dynamicSize(420, width),
                         }}
                     >
-                        <h2 className={`text-[#00B9F2] text-4xl font-bold leading-[50px] mb-6 ${checkDifference(content?.['4']?.content?.title?.[language]), liveContent?.['4']?.content?.title?.[language]}`}
+                        <h2 className={`text-[#00B9F2] text-4xl font-bold leading-[50px] mb-6 
+                        ${checkDifference(content?.['4']?.content?.title?.[language]), liveContent?.['4']?.content?.title?.[language]}`}
                             style={{
                                 fontSize: isComputer && dynamicSize(60, width),
                                 lineHeight: isComputer && dynamicSize(70, width)
@@ -395,30 +393,22 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                             style={{ width: (isComputer || fullScreen) ? dynamicSize(800, width) : (!isComputer && fullScreen) ? dynamicSize(1030, width) : "" }}
                         >
                             <Swiper
-                                onSwiper={handleSwiperInit}
-                                modules={[Navigation, Autoplay, EffectCoverflow]}
-                                grabCursor={true}
-                                centeredSlides={true}
-                                slidesPerView={isPhone ? 1 : isTablet ? 2 : 3}
-                                spaceBetween={30}
-                                pagination={{
-                                    clickable: true,
-                                }}
+                                key={language} //More actions
+                                modules={[Pagination, Navigation]}
+                                className={`mySwiper pl-1 mx-auto 
+                                    ${checkDifference(projectChunks.flat(), liveProjectChunks.flat(), "", "projects")}
+                                    `}
+                                style={{ width: "100%" }}
                                 navigation={{
                                     prevEl: prevRef.current,
                                     nextEl: nextRef.current,
                                 }}
-                                autoplay={{
-                                    delay: 2500,
-                                    disableOnInteraction: false,
-                                }}
-                                effect="coverflow"
-                                coverflowEffect={{
-                                    rotate: 50,
-                                    stretch: 0,
-                                    depth: 100,
-                                    modifier: 1,
-                                    slideShadows: true,
+                                onSwiper={(swiper) => {
+                                    setSwiperInstance(swiper);
+                                    swiper.params.navigation.prevEl = prevRef.current;
+                                    swiper.params.navigation.nextEl = nextRef.current;
+                                    swiper.navigation.init();
+                                    swiper.navigation.update();
                                 }}
                             >
                                 {projectChunks?.map((chunk, slideIndex) => {
@@ -604,30 +594,34 @@ const HomePage = ({ language, screen, fullScreen, highlight, content, currentCon
                         }
                         {content?.["7"]?.items?.length > 1 &&
                             <Swiper
-                                onSwiper={handleSwiperInit}
-                                modules={[Navigation, Autoplay, EffectCoverflow]}
+                                modules={[Navigation, Autoplay, EffectCoverflow]}More actions
                                 grabCursor={true}
                                 centeredSlides={true}
-                                slidesPerView={isPhone ? 1 : isTablet ? 2 : 3}
-                                spaceBetween={30}
-                                pagination={{
-                                    clickable: true,
-                                }}
+                                slidesPerView={isPhone ? 1 : 2}
+                                loop={true}
+                                spaceBetween={10}
+                                effect="coverflow"
                                 navigation={{
                                     prevEl: testimonialPrevRef.current,
                                     nextEl: testimonialNextRef.current,
                                 }}
-                                autoplay={{
-                                    delay: 2500,
-                                    disableOnInteraction: false,
+                                onSwiper={(swiper) => {
+                                    swiper.params.navigation.prevEl = testimonialPrevRef.current;
+                                    swiper.params.navigation.nextEl = testimonialNextRef.current;
+                                    swiper.navigation.init();
+                                    swiper.navigation.update();
                                 }}
-                                effect="coverflow"
                                 coverflowEffect={{
-                                    rotate: 50,
+                                    rotate: 0,
                                     stretch: 0,
-                                    depth: 100,
-                                    modifier: 1,
-                                    slideShadows: true,
+                                    depth: 250,
+                                    modifier: 2,
+                                    slideShadows: false,
+                                }}
+                                autoplay={{ delay: 2500 }}
+                                breakpoints={{
+                                    724: { slidesPerView: isPhone ? 1 : 1.5 },
+                                    500: { slidesPerView: 1 },
                                 }}
                             >
                                 {content?.["7"]?.items?.map(

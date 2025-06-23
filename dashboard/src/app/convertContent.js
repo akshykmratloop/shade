@@ -47,6 +47,7 @@ function transformContentfunction(input) {
 
 export default function transformContent(rawData) {
     try {
+
         const transformed = transformContentfunction(rawData);
         console.log(`File successfully transformed`);
         return transformed
@@ -55,89 +56,29 @@ export default function transformContent(rawData) {
     }
 }
 
-// processFile();
 
+export function baseTransform(obj, filter) {
+    const object = JSON.parse(JSON.stringify(obj));
 
+    if (obj.resourceTag === "SERVICE" || obj.resourceTag === "NEWS") {
+        object.editVersion?.sections?.forEach((e, i) => {
+            object.editVersion.sections[i].sectionVersionTitle = object.titleEn + e.sectionVersionTitle
+        })
+    }
 
-// export default function transformContent(input) {
-//     if (!input || !input.editVersion) return null;
-
-//     const { editVersion } = input;
-
-//     // Transform sections
-//     const transformedSections = editVersion.sections.map(section => {
-//         const baseSection = {
-//             sectionId: section.sectionId,
-//             order: section.order,
-//             content: section.content
-//         };
-
-//         // Handle different section types
-//         switch (section.order) {
-//             case 3:
-//                 return {
-//                     ...baseSection,
-//                     items: section.items ? section.items.map(item => ({
-//                         resourceType: "SUB_PAGE",
-//                         order: item.order,
-//                         id: item.id
-//                     })) : []
-//                 };
-
-//             case 5:
-//                 // Handle nested sections in PROJECT_GRID
-//                 if (section.sections) {
-//                     return {
-//                         ...baseSection,
-//                         content: section.content,
-//                         sections: section.sections.map(subSection => ({
-//                             sectionId: subSection.sectionId,
-//                             order: subSection.order,
-//                             content: subSection.content,
-//                             items: subSection.items ? subSection.items.map(item => ({
-//                                 resourceType: "SUB_PAGE",
-//                                 order: item.order,
-//                                 id: item.id
-//                             })) : []
-//                         }))
-//                     };
-//                 }
-//                 return baseSection;
-
-//             case 7:
-//                 return {
-//                     ...baseSection,
-//                     items: section.items ? section.items.map(item => ({
-//                         resourceType: "SUB_PAGE",
-//                         order: item.order,
-//                         id: item.id
-//                     })) : []
-//                 };
-
-//             default:
-//                 return baseSection;
-//         }
-//     });
-
-//     // Create the transformed content
-//     const transformedContent = {
-//         resourceId: input.id,
-//         titleEn: input.titleEn,
-//         titleAr: input.titleAr,
-//         slug: input.slug,
-//         resourceType: input.resourceType,
-//         resourceTag: input.resourceTag,
-//         relationType: input.relationType,
-//         newVersionEditMode: {
-//             versionStatus: "",
-//             comments: "",
-//             referenceDoc: "",
-//             content: editVersion.content,
-//             icon: editVersion.icon,
-//             image: editVersion.image,
-//             sections: transformedSections
-//         }
-//     };
-
-//     return transformedContent;
-// }
+    return ({
+        titleEn: object.titleEn,
+        titleAr: object.titleAr,
+        slug: object.slug,
+        resourceType: object.resourceType,
+        resourceTag: object.resourceTag,
+        relationType: object.relationType,
+        parentId: object.parentId,
+        filters: filter ? [filter] : [],
+        icon: object.editVersion.icon,
+        image: object.editVersion.image,
+        referenceDoc: object.editVersion.referenceDoc,
+        comments: object.editVersion.comments,
+        sections: object.editVersion.sections
+    })
+}

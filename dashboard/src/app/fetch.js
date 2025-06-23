@@ -290,6 +290,15 @@ export async function updateUser(data) {
   );
 }
 
+export async function updateProfile(data) {
+  return await makerequest(
+    api.route("updateProfile"),
+    "PUT",
+    JSON.stringify(data),
+    ContentType.json
+  );
+}
+
 export async function getUserById(id) {
   return await makerequest(api.route("getUserById") + id, "GET");
 }
@@ -313,13 +322,19 @@ export async function deactivateUser(id) {
 }
 
 // fetch for Notifications
-export async function getNotificationsbyId(id) {
-  return await makerequest(
-    api.route("getNotifications") + id,
-    "GET",
-    JSON.stringify(id),
-    ContentType.json
-  );
+export async function getNotificationsbyId(id, page = 1, search = "", filters = {}) {
+  // Build query string
+  const params = new URLSearchParams({
+    page: page.toString(),
+    // limit: limit.toString(),
+    search: search || "",
+    // You can add more filter params if needed
+  });
+
+  const uri = api.route("getNotifications") + id + "?" + params.toString();
+  // const uri = api.route("getNotifications") + id;
+  console.log(uri, "uri==============");
+  return await makerequest(uri, "GET");
 }
 
 export async function markAllNotificationAsRead(id) {
@@ -389,8 +404,21 @@ export async function removeAssignedUsers(param) {
   return await makerequest(`${api.route("removeAssignedUsers")}${param}`, "PATCH");
 }
 
+// Content
 export async function getContent(param) {
   return await makerequest(`${api.route("getContent")}/${param}`, "GET");
+}
+
+//addResource
+
+export async function addResource(body) {
+  return await makerequest(
+    `${api.route("addResource")}`,
+    "POST",
+    JSON.stringify(body),
+    ContentType.json,
+    true
+  );
 }
 
 export async function updateContent(data) {
@@ -406,6 +434,16 @@ export async function updateContent(data) {
 export async function publishContent(body) {
   return await makerequest(
     `${api.route("publishContent")}`,
+    "POST",
+    JSON.stringify(body),
+    ContentType.json,
+    true
+  );
+}
+
+export async function schedulePublish(param, body) {
+  return await makerequest(
+    `${api.route("scheduleRequest")}${param}`,
     "POST",
     JSON.stringify(body),
     ContentType.json,

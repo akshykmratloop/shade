@@ -40,12 +40,14 @@ const api = {
   updateUser: `${user}/updateUser/`,
   activateUser: `${user}/activate`,
   deactivateUser: `${user}/deactivate`,
+  updateProfile: `${user}/updateProfile`,
 
   getNotifications: `${notification}/`, // API for notifications
   markAllNotificationAsRead: `${notification}/read-all/`, // API for marking notification as read
 
   // Pages
   getResources: `${content}/getResources`, // Resources
+  addResource: `${content}/addResource`,
   getResourceInfo: `${content}/getResourceInfo/`,
   getEligibleUsers: `${content}/getEligibleUsers`,
   assignUser: `${content}/assignUser`,
@@ -65,6 +67,7 @@ const api = {
   versionsList: `${content}/getVersionsList/`, // versions query
   versionInfo: `${content}/getVersionInfo/`,
   restoreVersion: `${content}/restoreVersion/`,
+  scheduleRequest: `${content}/scheduleRequest/`,
 
   // DASHBOARD INSIGHT
   getDashboardInsight: `${content}/getDashboardInsight`, // API for dashboard insight

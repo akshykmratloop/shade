@@ -21,19 +21,19 @@ const ServiceDetails = ({ serviceId, content, language, screen, width, highlight
     return (
         <div dir={isLeftAlign ? "ltr" : "rtl"} className="w-full">
             {/* banner */}
-            <section className={`py-[120px] ${isPhone ? "px-2" : "px-20"} flex flex-col justify-center object-cover text-center flex flex-col items-center bg-cover bg-bottom `}
+            <section className={`py-[120px] ${isPhone ? "px-2 h-[400px]" : "px-20"} flex flex-col justify-center object-cover items-start bg-cover bg-bottom `}
                 style={{
-                    backgroundImage: `linear-gradient(to bottom,#00000020 ,#fffffffb 100%), url(${Img_url + content?.['1']?.content?.images?.[0]?.url})`,
-                    padding: `${getDynamicSize(120)} ${getDynamicSize(80)}`,
-                    height: getDynamicSize(550)
+                    backgroundImage: `linear-gradient(to left,#00000020 20%,#fffffffb 150%), url(${Img_url + content?.['1']?.content?.images?.[0]?.url})`,
+                    padding: `${getDynamicSize(120)} ${getDynamicSize(150)}`,
+                    height: (isComputer || isTablet) && getDynamicSize(550)
                 }}
             >
-                <h1 className={`text-[41px] text-[#292E3D] ${(checkDifference(content?.["1"]?.content?.title[language], liveContent?.["1"]?.content?.title[language]))}`}
+                <h1 className={`text-[41px] text-[#292E3D] ${(checkDifference(content?.["1"]?.content?.title?.[language], liveContent?.["1"]?.content?.title?.[language]))}`}
                     style={{ fontSize: fontSize.mainHeading }}
                 >
                     {content?.['1']?.content?.title?.[language]}
                 </h1>
-                <p className={`text-[#0E172FB2] text-[10px] w-2/3 ${(checkDifference(content?.["1"]?.content?.description[language], liveContent?.["1"]?.content?.description[language]))}`}
+                <p className={`text-[#0E172FB2] text-[10px] w-2/3 ${(checkDifference(content?.["1"]?.content?.description?.[language], liveContent?.["1"]?.content?.description?.[language]))}`}
                     style={{ fontSize: fontSize.mainPara }}
                 >
                     {content?.['1']?.content?.description?.[language]}
@@ -43,7 +43,7 @@ const ServiceDetails = ({ serviceId, content, language, screen, width, highlight
             {/* Sub services */}
             <section
                 style={{
-                    padding: `${getDynamicSize(50)} ${getDynamicSize(112)}`,
+                    padding: `${getDynamicSize(50)} ${getDynamicSize(140)}`,
                 }}
             >
                 <section
@@ -59,17 +59,17 @@ const ServiceDetails = ({ serviceId, content, language, screen, width, highlight
                     {
                         (content?.['2']?.items || [])?.map((subService, index) => {
                             return (
-                                <article key={index + "12i"} className={`border-b flex gap-4 pb-[12px]`}>
-                                    <article className={``}
+                                <article key={index + "12i"} className={`border-b flex ${isPhone && "flex-col"} gap-4 pb-[12px]`}>
+                                    <article className={`w-full`}
                                         style={{
                                             minWidth: isComputer && getDynamicSize(300),
                                             padding: isComputer && `${getDynamicSize(8)}`,
                                         }}
                                     >
                                         <img
-                                            src={subService.image || projectPageData.developmentOfHo}
+                                            src={Img_url + subService.image}
                                             alt=""
-                                            className={`${isTablet || isTablet ? "w-[50vw] aspect-[4/3]" : "w-[196px] h-[135px]"}`}
+                                            className={`${isTablet || isTablet ? "w-[50vw] aspect-[4/3]" : "w-full"}`}
                                             style={{
                                                 width: isComputer && getDynamicSize(300),
                                                 height: isComputer && getDynamicSize(191)
@@ -83,10 +83,11 @@ const ServiceDetails = ({ serviceId, content, language, screen, width, highlight
                                         }}
                                     >
                                         <h3
-                                            className={``}
+                                            className={`${isPhone && "leading-[25px]"}`}
                                             style={{
                                                 fontSize: fontSize.aboutMainPara,
-                                                lineHeight: getDynamicSize(30)
+                                                // lineHeight: fontSize.headingLeading,
+                                                lineHeight: isComputer && getDynamicSize(30)
                                             }}
                                             title={subService?.[titleLan]}
                                         >{TruncateText(subService?.[titleLan], 40)}</h3>
@@ -131,23 +132,23 @@ const ServiceDetails = ({ serviceId, content, language, screen, width, highlight
                     className={`text-[#292E3D] font-[400] ${isPhone ? "mx-5" : ""} py-[20px]`}
                     style={{
                         fontSize: fontSize.aboutMainPara,
-                        margin: `0px ${getDynamicSize(76)}`,
+                        margin: `0px ${getDynamicSize(130)}`,
                         padding: `${getDynamicSize(20)}`
                     }}
                 >
                     Other Services
                 </h3>
-                <section className={`overflow-x-scroll rm-scroll py-5 pt-2
+                <section className={`overflow-x-scroll rm-scroll ${isPhone && "py-10"} pt-2
                     ${(checkDifference(content?.['3']?.items, liveContent?.['3']?.items))}
                 `}
                     style={{
-                        padding: `${getDynamicSize(20)}`,
-                        paddingBottom: `${getDynamicSize(60)}`,
+                        padding: (isComputer || isTablet) && `${getDynamicSize(20)} ${getDynamicSize(60)}`,
+                        paddingBottom: (isComputer || isTablet) && `${getDynamicSize(60)}`,
                     }}
                 >
                     <section
                         dir={isLeftAlign ? 'ltr' : 'rtl'}
-                        className={`flex gap-7 ${isPhone ? "px-[38px]" : ""} pr-[38px] w-fit items-stretch`}
+                        className={`flex gap-7 ${isPhone ? "px-[38px] " : ""} pr-[38px] w-fit items-stretch`}
                         style={{
                             padding: isComputer ? `0px ${getDynamicSize(76)}` : isTablet ? `0px ${getDynamicSize(76)}` : "",
                             width: "fit-content"
@@ -160,11 +161,11 @@ const ServiceDetails = ({ serviceId, content, language, screen, width, highlight
                                     <article
                                         key={idx}
                                         className="flex flex-col bg-white overflow-hidden shadow"
-                                        style={{ width: isComputer ? getDynamicSize(437) : isTablet ? getDynamicSize(600) : "" }}
+                                        style={{ width: isComputer ? getDynamicSize(437) : isTablet ? getDynamicSize(600) : getDynamicSize(1000) }}
                                     >
                                         <img src={service.image} alt="img"
                                             className="w-full object-cover"
-                                            style={{ height: isComputer ? getDynamicSize(210) : isTablet ? getDynamicSize(400) : "" }}
+                                            style={{ height: isComputer ? getDynamicSize(210) : isTablet ? getDynamicSize(400) : getDynamicSize(437) }}
                                         />
                                         <section className="bg-[#F8F8F8] flex flex-col justify-between flex-1"
                                             style={{
@@ -173,7 +174,7 @@ const ServiceDetails = ({ serviceId, content, language, screen, width, highlight
                                             }}
                                         >
                                             <h1 className="text-[#292E3D] text-[22px] font-[400]"
-                                                style={{ fontSize: fontSize.aboutMainPara, lineHeight: getDynamicSize(30) }}
+                                                style={{ fontSize: fontSize.aboutMainPara, lineHeight: (isComputer || isTablet) && getDynamicSize(30) }}
                                             >
                                                 {TruncateText(service?.[titleLan], isTablet ? 18 : 20)}
                                             </h1>

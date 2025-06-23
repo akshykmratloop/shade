@@ -4,6 +4,7 @@ import {
   // sendNotifications,
 } from "../repository/user.repository.js";
 import {deleteNotification} from "../repository/notification.repository.js";
+import { RunAndPublishScheduledVersion } from "../repository/content.repository.js";
 
 // Global cron scheduler function
 const scheduleCronJobs = () => {
@@ -19,6 +20,10 @@ const scheduleCronJobs = () => {
     await resetUserOtpAttempts();
     console.log("Checked for OTP attempt resets.");
   });
+  
+  cron.schedule("*/30 * * * *", async ()=>{
+    await RunAndPublishScheduledVersion()
+  })
 
   // Example: Send notifications every day at midnight
   // cron.schedule("0 0 * * *", async () => {

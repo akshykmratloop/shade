@@ -1,9 +1,9 @@
 import exp from "constants";
 import prismaClient from "../config/dbConfig.js";
 
-import {findRoleTypeByUserId} from "./user.repository.js";
+import { findRoleTypeByUserId } from "./user.repository.js";
 
-export const createNotification = async ({userId, message}) => {
+export const createNotification = async ({ userId, message }) => {
   const userrole = await findRoleTypeByUserId(userId);
 
   const notification = await prismaClient.notification.create({
@@ -17,17 +17,58 @@ export const createNotification = async ({userId, message}) => {
   return notification;
 };
 
-export const findAllNotification = async (userId) => {
-  const notification = await prismaClient.notification.findMany({
-    where: {
-      userId,
-    },
-    orderBy: {
-      createdAt: "desc",
-    },
-  });
+export const findAllNotification = async (
+  userId,
+  page = 1,
+  limit = 10,
+  search = "",
+  filters = {}
+) => {
+  const skip = (page - 1) * limit;
 
-  return notification;
+  const where = {
+    userId,
+    ...(search && {
+      OR: [
+        { message: { contains: search, mode: "insensitive" } },
+        { role: { contains: search, mode: "insensitive" } }
+      ]
+    }),
+    ...filters
+  }
+
+  const [notifications, total] = await Promise.all([
+    prismaClient.notification.findMany({
+      where,
+      skip,
+      take: limit,
+      orderBy: {
+        createdAt: "desc",
+      },
+    }),
+    prismaClient.notification.count({ where })
+  ]);
+
+  return {
+    notifications,
+    total,
+    page,
+    limit,
+    totalPages: Math.ceil(total / limit)
+  };
+
+
+  // PREVIOUS CODE
+  // const notification = await prismaClient.notification.findMany({
+  //   where: {
+  //     userId,
+  //   },
+  //   orderBy: {
+  //     createdAt: "desc",
+  //   },
+  // });
+
+  // return notification;
 };
 
 export const markNotificationAsRead = async (notificationId) => {

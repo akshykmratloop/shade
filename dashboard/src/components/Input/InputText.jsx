@@ -27,7 +27,8 @@ function InputText({
   errorClass,
   disabled = false,
   maxLength,
-  outOfEditing
+  outOfEditing,
+  dir
 }) {
   const [showPassword, setShowPassword] = useState(false);
   const [value, setValue] = useState(defaultValue || "");
@@ -131,7 +132,7 @@ function InputText({
         ) : (
           // **Regular Input (Text, Password, etc.)**
           <input
-            dir={language === "ar" ? updateType === "url" ? "ltr" : "rtl" : "ltr"}
+            dir={dir || (language === "ar" ? updateType === "url" ? "ltr" : "rtl" : "ltr")}
             type={showPassword && type === "password" ? "text" : type || "text"}
             name={name}
             value={value || ""}

@@ -1,0 +1,126 @@
+{
+    "id": "N",
+    "titleEn": "",
+    "titleAr": "",
+    "slug": "",
+    "isEditable": true,
+    "resourceType": "SUB_PAGE",
+    "resourceTag": "SAFETY_RESPONSIBILITY",
+    "relationType": "CHILD",
+    "parentId": "",
+    "editVersion": {
+        "id": "",
+        "versionNumber": 1,
+        "icon": null,
+        "image": "",
+        "comments": "",
+        "referenceDoc": null,
+        "updatedAt": "",
+        "status": "",
+        "sections": [
+            {
+                "sectionId": "",
+                "order": 1,
+                "version": 1,
+                "title": "overviewSection",
+                "SectionType": "MARKDOWN_CONTENT",
+                "sectionVersionTitle": "-overviewSection",
+                "content": {
+                    "title": {
+                        "ar": "",
+                        "en": ""
+                    },
+                    "images": [
+                        {
+                            "url": "",
+                            "order": 1,
+                            "altText": {
+                                "ar": "",
+                                "en": ""
+                            }
+                        }
+                    ],
+                    "description": {
+                        "ar": "",
+                        "en": ""
+                    }
+                },
+                "sections": []
+            },
+            {
+                "sectionId": "",
+                "order": 2,
+                "version": 1,
+                "title": "commitmentSection",
+                "SectionType": "MARKDOWN_CONTENT",
+                "sectionVersionTitle": "-commitmentSection",
+                "content": {
+                    "title": {
+                        "ar": "",
+                        "en": ""
+                    },
+                    "procedures": {
+                        "terms": [
+                            {
+                                "order": 1,
+                                "title": {
+                                    "ar": "",
+                                    "en": ""
+                                },
+                                "images": [
+                                    {
+                                        "url": "",
+                                        "order": 1,
+                                        "altText": {
+                                            "ar": "",
+                                            "en": ""
+                                        }
+                                    }
+                                ],
+                                "description": {
+                                    "ar": "",
+                                    "en": ""
+                                }
+                            }
+                        ],
+                        "title": {
+                            "ar": "",
+                            "en": ""
+                        },
+                        "description": {
+                            "ar": "",
+                            "en": ""
+                        }
+                    },
+                    "description": {
+                        "ar": "",
+                        "en": ""
+                    }
+                },
+                "sections": []
+            },
+            {
+                "sectionId": "",
+                "order": 3,
+                "version": 1,
+                "title": "additionalInfoSection",
+                "SectionType": "EXTERNAL_ITEMS",
+                "sectionVersionTitle": "-additionalInfoSection",
+                "content": {
+                    "button": [
+                        {
+                            "url": null,
+                            "icon": null,
+                            "text": {
+                                "ar": "",
+                                "en": ""
+                            },
+                            "order": 1
+                        }
+                    ]
+                },
+                "sections": []
+            }
+        ]
+    }
+}
