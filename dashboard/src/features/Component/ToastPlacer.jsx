@@ -21,13 +21,15 @@ const ToastPlacer = () => {
             if (type === "LOAD") {
                 setTimeout(() => setToastUp(false), 10000); // optional auto-close
             } else {
-                // setTimeout(() => setToastUp(false), 2000); // optional auto-close
+                setTimeout(() => setToastUp(false), 2000); // optional auto-close
             }
         };
     }, []);
 
     return (
-        <div className="fixed top-4 right-4 z-[60]">
+        <div className="fixed top-4 right-4"
+        style={{zIndex: "60"}}
+        >
             {toastUp && <ToasterUI type={type} message={message} />}
         </div>
     );

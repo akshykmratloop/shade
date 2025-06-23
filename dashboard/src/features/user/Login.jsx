@@ -15,6 +15,7 @@ import { validatePasswordMessage } from "./components/PasswordValidation";
 import getFingerPrint from "../../app/deviceId";
 import socket from "../../Socket/socket";
 import { CodeSquare } from "lucide-react";
+import ToastPlacer, { runToast } from "../Component/ToastPlacer";
 
 function Login() {
   const dispatch = useDispatch();
@@ -86,11 +87,11 @@ function Login() {
         setLoading(false);
         return;
       }
-
-      loadingToastId = toast.loading("loging in", {
-        autoClose: 2000,
-        style: { backgroundColor: "#3B82F6", color: "#fff" },
-      }); // starting the loading in toaster
+      runToast("LOAD", "Loging in...")
+      // loadingToastId = toast.loading("loging in", {
+      //   autoClose: 2000,
+      //   style: { backgroundColor: "#3B82F6", color: "#fff" },
+      // }); // starting the loading in toaster
       payload = {
         // payload for login
         email: formObj.email,
@@ -100,7 +101,8 @@ function Login() {
     }
 
     if (response.token) {
-      updateToasify(loadingToastId, "Login successful! 🎉", "success", 2000); // updating the toaster
+      runToast("SUCCESS", "Login Successful! 🎉")
+      // updateToasify(loadingToastId, "Login successful! ", "success", 2000); // updating the toaster
       dispatch(updateUser({ data: response.user, type: "login" }));
       localStorage.setItem("user", JSON.stringify(response.user));
       localStorage.setItem("token", response.token);
@@ -110,18 +112,21 @@ function Login() {
         navigate("/app/welcome");
       }, 1000);
     } else if (response.otp) {
-      updateToasify(loadingToastId, "OTP has been sent", "success", 800);
+      runToast("SUCCESS", "OTP has been sent")
+      // updateToasify(loadingToastId, "OTP has been sent", "success", 800);
       localStorage.setItem(formObj.otpOrigin, JSON.stringify(formObj));
       setTimeout(() => {
         setOtpSent(true);
       }, 1000);
     } else {
-      updateToasify(
-        loadingToastId,
-        `Request unsuccessful! ${response.message}`,
-        "error",
-        2000
-      ); // updating the toaster
+      runToast("ERROR", `Request unsuccessful! ${response.message}`)
+
+      // updateToasify(
+      //   loadingToastId,
+      //   `Request unsuccessful! ${response.message}`,
+      //   "error",
+      //   2000
+      // ); // updating the toaster
     }
     setLoading(false);
   };
@@ -238,7 +243,8 @@ function Login() {
           )}
         </div>
       </div>
-      <ToastContainer />
+      {/* <ToastContainer /> */}
+      <ToastPlacer />
     </div>
   );
 }

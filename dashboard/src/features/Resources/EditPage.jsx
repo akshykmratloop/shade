@@ -100,7 +100,9 @@ const EditPage = () => {
 
     useEffect(() => {
         setLoader(true)
-        if (currentId) {
+        if(currentId.slice(0,4) === "TEMP"){
+        dispatch(updateMainContent({ currentPath: "content", payload: structures[currentId] }))
+        } else if (currentId) {
             async function context() {
                 try {
                     const response = await getContent(currentId)

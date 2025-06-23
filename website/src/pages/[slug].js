@@ -68,7 +68,7 @@ export default function Template({apiData}) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       {/* <NewTemplate content={content} /> */}
-      {/* <NewTemplate2 content={content} /> */}
+      <NewTemplate2 content={content} />
       {/* <NewTemplate3 content={content} /> */}
       {/* <NewTemplate4 content={content} /> */}
     </>

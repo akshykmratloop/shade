@@ -10,6 +10,7 @@ import DirectInputFile from "../../../components/Input/DirectInputFile";
 import { getUserById, updateProfile } from "../../../app/fetch";
 import { toast, ToastContainer } from "react-toastify";
 import { PulseLoader } from "react-spinners";
+import ToastPlacer from "../../Component/ToastPlacer";
 // import moment from "moment"
 // import InputFile from "../../../components/Input/InputFile"
 // import TextAreaInput from '../../../components/Input/TextAreaInput'
@@ -217,7 +218,8 @@ function ProfileSettings() {
                     </div>
                 }
             </TitleCard >
-            <ToastContainer />
+            {/* <ToastContainer /> */}
+            <ToastPlacer />
         </div>
     )
 }

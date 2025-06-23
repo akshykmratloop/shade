@@ -13,6 +13,9 @@ import CloseModalButton from "../../components/Button/CloseButton";
 import capitalizeWords from "../../app/capitalizeword";
 import { useDispatch, useSelector } from "react-redux";
 import { switchDebounce } from "../common/debounceSlice";
+import ToastPlacer, { runToast } from "../Component/ToastPlacer";
+import { PulseLoader } from "react-spinners";
+
 
 const AddUserModal = ({ show, onClose, updateUsers, user }) => {
   const [errorMessageName, setErrorMessageName] = useState("");
@@ -53,7 +56,7 @@ const AddUserModal = ({ show, onClose, updateUsers, user }) => {
     setErrorMessagePassword("");
   };
 
-  const handleFormSubmit = async (e) => {
+  const handleFormSubmit = async (e) => { /////////////////////////////////submission
     e.preventDefault();
     if (debouncingState) return;
 
@@ -61,7 +64,6 @@ const AddUserModal = ({ show, onClose, updateUsers, user }) => {
       name: setErrorMessageName,
       email: setErrorMessageEmail,
       phone: setErrorMessagePhone,
-      // roles: setErrorMessageRoles,
     });
 
     const validEmail = checkRegex(userData.email, setErrorMessageEmail); // checks if email is under valid format
@@ -74,14 +76,10 @@ const AddUserModal = ({ show, onClose, updateUsers, user }) => {
     if (!validation) return;
     if (validEmail) return;
 
-    let loadingToastId = null;
 
     try {
       dispatch(switchDebounce(true));
-      // loadingToastId = toast.loading("Processing request...", {
-      // autoClose: 2000,
-      // });
-
+      runToast("LOAD", "Processing request...")
       let response;
       if (user) {
         const payload = {
@@ -96,34 +94,26 @@ const AddUserModal = ({ show, onClose, updateUsers, user }) => {
       }
 
       if (response?.ok) {
-        // updateToastify(
-        //   loadingToastId,
-        //   `User Created successful! 🎉`,
-        //   "success",
-        //   1000
-        // );
+        runToast("SUCCESS", `${capitalizeWords(response.message)}!`)
       } else {
-        // updateToastify(
-        //   loadingToastId,
-        //   `Request failed. ${response?.message
-        //     ? response.message
-        //     : "Something went wrong please try again later"
-        //   }`,
-        //   "error",
-        //   2000
-        // );
+        runToast("ERROR", `Request failed. ${response?.message
+          ? response.message
+          : "Something went wrong please try again later"
+          }`)
       }
     } catch (err) {
       console.log(err?.message);
     } finally {
-      onClose();
-      updateUsers((prev) => !prev);
-      dispatch(switchDebounce(false));
+      setTimeout(() => {
+        onClose();
+        updateUsers((prev) => !prev);
+        dispatch(switchDebounce(false));
+      }, 1000)
+
     }
-    // toast.dismiss(loadingToastId);
   };
 
-  const onCloseModal = () => {
+  const onCloseModal = () => { //////////////////closing the modal
     clearErrorMessage();
     setUserData(initialUserState);
     onClose();
@@ -193,7 +183,9 @@ const AddUserModal = ({ show, onClose, updateUsers, user }) => {
   if (!show) return null;
 
   return (
-    <div className="modal modal-open">
+    <div className="modal modal-open"
+      style={{ zIndex: "50" }}
+    >
       <div
         ref={modalRef}
         className="p-[24px] relative flex flex-col justify-between gap-6 w-[600px] bg-white dark:bg-gray-800 rounded-md min-h-[500px] mx-h-[90vh] overflow-y-scroll rm-scroll"
@@ -334,12 +326,14 @@ const AddUserModal = ({ show, onClose, updateUsers, user }) => {
             onClick={handleFormSubmit}
             type="submit"
             className="rounded-md h-[2.5rem] w-[8rem] px-4 flex-[1] text-sm bg-[#25439B] text-white"
+            disabled={debouncingState}
           >
-            Save
+            {debouncingState ? <span className=""><PulseLoader size={5} color="#fff" /></span> : "Save"}
           </button>
         </div>
       </div>
       {/* <ToastContainer /> */}
+      {/* <ToastPlacer /> */}
     </div>
   );
 };

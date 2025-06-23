@@ -60,7 +60,6 @@ function Resources() {
     MAIN_PAGE: [],
   });
   const [openCreateProjectDialog, setOpenCreateProjectDialog] = useState(false)
-  runToast("LOAD", "message")
 
   // Redux State
   const divRef = useRef(null);
