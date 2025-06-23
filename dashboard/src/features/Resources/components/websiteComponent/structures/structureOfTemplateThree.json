@@ -84,28 +84,38 @@
                 "title": "cardsSection",
                 "SectionType": "MULTI_SECTION",
                 "sectionVersionTitle": "-cardsSection",
-                "content": [
-                    {
-                        "title": {
-                            "ar": "",
-                            "en": ""
-                        },
-                        "description": {
-                            "ar": "",
-                            "en": ""
-                        },
-                        "images": [
-                            {
-                                "url": "",
-                                "order": 1,
-                                "altText": {
-                                    "ar": "",
-                                    "en": ""
+                "content": {
+                    "title": {
+                        "en": "",
+                        "ar": ""
+                    },
+                    "description": {
+                        "en": "",
+                        "ar": ""
+                    },
+                    "cards": [
+                        {
+                            "title": {
+                                "ar": "",
+                                "en": ""
+                            },
+                            "description": {
+                                "ar": "",
+                                "en": ""
+                            },
+                            "images": [
+                                {
+                                    "url": "",
+                                    "order": 1,
+                                    "altText": {
+                                        "ar": "",
+                                        "en": ""
+                                    }
                                 }
-                            }
-                        ]
-                    }
-                ],
+                            ]
+                        }
+                    ]
+                },
                 "sections": []
             },
             {

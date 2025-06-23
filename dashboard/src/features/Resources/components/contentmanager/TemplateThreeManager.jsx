@@ -8,34 +8,14 @@ import DynamicContentSection from "../breakUI/DynamicContentSection";
 
 const skeletons = {
     3: {
-        "description": {
-            "ar": "",
-            "en": ""
-        }
-    },
-    4: {
         "title": {
             "ar": "",
             "en": ""
         },
-        "description": [
-            {
-                "ar": "",
-                "en": ""
-            },
-            {
-                "ar": "",
-                "en": ""
-            },
-            {
-                "ar": "",
-                "en": ""
-            },
-            {
-                "ar": "",
-                "en": ""
-            }
-        ],
+        "description": {
+            "ar": "",
+            "en": ""
+        },
         "images": [
             {
                 "url": "",
@@ -47,28 +27,16 @@ const skeletons = {
             }
         ]
     },
-    "4/2": {
+    "4": {
         "ar": "",
         "en": ""
     }
 }
 
-const TemplateTwoManager = ({ content, currentPath, language, indexes }) => {
+const TemplateThreeManager = ({ content, currentPath, language, indexes }) => {
     const dispatch = useDispatch()
 
     const context = useSelector(state => state.homeContent?.present?.content) || {}
-
-
-    const addExtraSection = (sectionIndex, structure) => {
-        dispatch(updateSubServiceDetailsPointsArray(
-            {
-                insert: skeletons[structure],
-                section: "cards",
-                sectionIndex,
-                operation: 'add'
-            }
-        ))
-    }
 
     const addExtraSummary = (sectionIndex, structure, cardIndex) => {
         dispatch(updateNumberOfDescription(
@@ -85,7 +53,7 @@ const TemplateTwoManager = ({ content, currentPath, language, indexes }) => {
     return (
         <div>
             {/* reference doc */}
-            <FileUploader id={"Temp-One-ID-Reference"} label={"Rerference doc"} fileName={"Upload your file..."} />
+            <FileUploader id={"Temp-Two-ID-Reference"} label={"Rerference doc"} fileName={"Upload your file..."} />
 
             {
                 context?.id === "N" &&
@@ -108,9 +76,10 @@ const TemplateTwoManager = ({ content, currentPath, language, indexes }) => {
                 Heading={"Banner"}
                 inputs={[
                     { input: "input", label: "Heading/title", updateType: "title", value: content?.['1']?.content?.title?.[language] },
-                    { input: "textarea", label: "Description", updateType: "description", value: content?.['1']?.content?.description?.[language] },
+                    { input: "textarea", label: "Description", updateType: "description", maxLength: 400, value: content?.['1']?.content?.description?.[language] },
+                    { input: "input", label: "Button Text", updateType: "button", maxLength: 20, value: content?.["1"]?.content?.button?.[0]?.text?.[language], index: 0 }
                 ]}
-                inputFiles={[{ label: "Backround Image", id: "Temp2Banner", order: 1, url: content?.['1']?.content?.images?.[0]?.url }]}
+                inputFiles={[{ label: "Backround Image", id: "ServiceBanner", order: 1, url: content?.['1']?.content?.images?.[0]?.url }]}
                 section={"banner"}
                 language={language}
                 currentContent={content}
@@ -122,7 +91,7 @@ const TemplateTwoManager = ({ content, currentPath, language, indexes }) => {
                 Heading={"Sub Heading"}
                 inputs={[
                     { input: "input", label: "Heading/title", updateType: "title", value: content?.['2']?.content?.title?.[language] },
-                    { input: "textarea", label: "Description", updateType: "description", value: content?.['2']?.content?.description?.[language] },
+                    { input: "textarea", label: "Description", updateType: "description", maxLength: 400, value: content?.['2']?.content?.description?.[language] },
                 ]}
                 section={"banner"}
                 language={language}
@@ -130,9 +99,22 @@ const TemplateTwoManager = ({ content, currentPath, language, indexes }) => {
                 sectionIndex={indexes?.['2']}
             />
 
+            <ContentSection
+                currentPath={currentPath}
+                Heading={"Cards"}
+                inputs={[
+                    { input: "input", label: "Heading/title", updateType: "title", value: content?.['3']?.content?.title?.[language] },
+                    { input: "textarea", label: "Description", updateType: "description", maxLength: 200, value: content?.['3']?.content?.description?.[language] },
+                ]}
+                section={"banner"}
+                language={language}
+                currentContent={content}
+                sectionIndex={indexes?.['3']}
+            />
+
 
             <div className="mt-4 border-b pb-3">
-                <h3 className={`font-semibold text-[1.25rem] mb-4`}>Descriptions</h3>
+                <h3 className={`font-semibold text-[1.25rem] mb-4`}>Cards</h3>
                 {
                     content?.[3]?.content?.cards?.map?.((section, i) => {
                         return (
@@ -141,9 +123,10 @@ const TemplateTwoManager = ({ content, currentPath, language, indexes }) => {
                                 currentPath={currentPath}
                                 subHeading={`Card ${(i + 1)}`}
                                 inputs={[
-                                    { input: "textarea", label: "Description", updateType: "description", value: section?.description?.[language] },
+                                    { input: "input", label: "Heading/title", updateType: "title", value: section?.title?.[language] },
+                                    { input: "textarea", label: "Description", updateType: "description", maxLength: 150, value: section?.description?.[language] },
                                 ]}
-                                // inputFiles={[{ label: "Image", id: `grid${i}`, order: 1, url: section?.images?.[0]?.url }]}
+                                inputFiles={[{ label: "Image", id: `grid${i}`, order: 1, url: section?.images?.[0]?.url }]}
                                 index={i}
                                 isBorder={false}
                                 section={"cards"}
@@ -153,68 +136,19 @@ const TemplateTwoManager = ({ content, currentPath, language, indexes }) => {
                                 sectionIndex={indexes?.['3']}
                                 contentIndex={i}
                                 order={section.order}
-                            // allowRemoval={true}
+                                allowRemoval={true}
                             />
                         )
                     })
                 }
-            </div>
-
-            <div className="mt-4 border-b pb-3">
-                <h3 className={`font-semibold text-[1.25rem] mb-4`}>Multi Grid</h3>
-                {
-                    content?.[4]?.content?.cards?.map?.((section, i) => {
-                        return (
-                            <>
-                                <DynamicContentSection
-                                    key={i}
-                                    currentPath={currentPath}
-                                    Heading={`Grid ${(i + 1)}`}
-                                    inputs={[
-                                        { input: "input", label: "Heading/title", updateType: "title", value: section?.title?.[language] },
-                                        ...(section?.description?.map((d, idx) => {
-                                            return (
-                                                { input: "textarea/dynamic", label: "Description", updateType: "description", value: d?.[language], index: idx }
-                                            )
-                                        }))
-                                    ]}
-                                    inputFiles={[{ label: "Image", id: `cards${i}`, order: 1, url: section?.images?.[0]?.url }]}
-                                    index={i}
-                                    isBorder={false}
-                                    allowRemoval={true}
-                                    section={"cards"}
-                                    subSection={"cards"}
-                                    language={language}
-                                    currentContent={content}
-                                    sectionIndex={indexes?.['4']}
-                                    contentIndex={i}
-                                    order={section.order}
-                                />
-                                {
-                                    (section?.description.length < 6) &&
-                                    <button
-                                        className="text-blue-500 cursor-pointer mb-6"
-                                        onClick={() => {
-                                            addExtraSummary(indexes?.['4'], "4/2", i)
-                                        }}
-                                    >
-                                        Add Description...
-                                    </button>
-
-                                }
-                            </>
-                        )
-                    })
-                }
-
-
                 <button
-                    className="block text-blue-500 cursor-pointer my-3 pt-3"
-                    onClick={() => addExtraSection(indexes?.['4'], 4)}
+                    className="block text-blue-500 cursor-pointer my-3"
+                    onClick={() => addExtraSummary(indexes?.['3'], 3)}
                 >
                     Add Section...
                 </button>
             </div>
+
 
             <ContentSection
                 currentPath={currentPath}
@@ -244,4 +178,4 @@ const TemplateTwoManager = ({ content, currentPath, language, indexes }) => {
     )
 }
 
-export default TemplateTwoManager
+export default TemplateThreeManager
