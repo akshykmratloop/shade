@@ -314,6 +314,7 @@ const DynamicContentSection = ({
                                     section={section}
                                     contentIndex={sectionIndex}
                                     index={index}
+                                    url={file.url}
                                     order={file.order}
                                 />
                             ))}

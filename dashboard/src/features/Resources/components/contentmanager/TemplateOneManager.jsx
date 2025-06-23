@@ -8,9 +8,10 @@ import { useDispatch } from "react-redux"
 import { updateAffiliatesCardsArray } from "../../../common/homeContentSlice"
 import DynamicContentSection from "../breakUI/DynamicContentSection"
 
-const TemplateOne = ({ content, currentPath, language, indexes }) => {
+const TemplateOneManager = ({ content, currentPath, language, indexes }) => {
     const dispatch = useDispatch()
-    const addExtraSummary = () => {
+
+    const addExtraSummary = (sectionIndex) => {
         dispatch(updateAffiliatesCardsArray(
             {
                 src: {
@@ -20,7 +21,7 @@ const TemplateOne = ({ content, currentPath, language, indexes }) => {
                     }
                 },
                 section: "sectionPointers",
-                sectionIndex: indexes?.['2'],
+                sectionIndex,
                 operation: 'add'
             }
         ))
@@ -46,77 +47,79 @@ const TemplateOne = ({ content, currentPath, language, indexes }) => {
             />
 
 
+            <div className="mt-4 border-b pb-3">
+                <h3 className={`font-semibold text-[1.25rem] mb-4`}>Multi Grid Section</h3>
+                {
+                    content?.[2]?.content?.cards?.map?.((section, i) => {
+                        return (
+                            <DynamicContentSection
+                                key={i}
+                                currentPath={currentPath}
+                                inputs={[
+                                    { input: "input", label: "Heading/title", updateType: "title", value: section?.title?.[language] },
+                                    { input: "textarea", label: "Description", updateType: "description", value: section?.description?.[language] },
+                                ]}
+                                inputFiles={[{ label: "Image", id: `grid${i}`, order: 1, url: section?.images?.[0]?.url }]}
+                                index={i}
+                                isBorder={false}
+                                allowRemoval={true}
+                                section={"cards"}
+                                subSection={"cards"}
+                                language={language}
+                                currentContent={content}
+                                sectionIndex={indexes?.['2']}
+                                contentIndex={i}
+                                order={section.order}
+                            />
+                        )
+                    })
+                }
+                <button
+                    className="text-blue-500 cursor-pointer my-3 pt-3"
+                    onClick={() => addExtraSummary(indexes?.['2'])}
+                >
+                    Add More Section...
+                </button>
+            </div>
 
-            {
-                content?.[2]?.content?.map?.((card, i) => {
-                    return (
-                        <ContentSection
-                            key={i}
-                            Heading={"Card " + (i + 1)}
-                            currentPath={currentPath}
-                            inputs={[
-                                { input: "input", label: "Heading/title", updateType: "title", value: card?.title?.[language] },
-                                { input: "textarea", label: "Description", updateType: "description", value: card?.description?.[language] },
-                            ]}
-                            inputFiles={[{ label: "Icon", id: "ServiceBanner", order: 1, url: card?.images?.[0]?.url }]}
-                            section={"cards"}
-                            subSection={"cards"}
-                            index={i}
-                            language={language}
-                            currentContent={content}
-                            sectionIndex={indexes?.['2']}
-                        />
-                    )
-                })
-            }
+            <div className="mt-4 border-b pb-3">
+                <h3 className={`font-semibold text-[1.25rem] mb-4`}>Multi Cards</h3>
+                {
+                    content?.[3]?.content?.cards?.map?.((section, i) => {
+                        return (
+                            <DynamicContentSection
+                                key={i}
+                                currentPath={currentPath}
+                                inputs={[
+                                    { input: "input", label: "Heading/title", updateType: "title", value: section?.title?.[language] },
+                                    { input: "textarea", label: "Description", updateType: "description", value: section?.description?.[language] },
+                                ]}
+                                inputFiles={[{ label: "Icon", id: "ServiceBanner", order: 1, url: section?.images?.[0]?.url }]}
+                                index={i}
+                                isBorder={false}
+                                allowRemoval={true}
+                                section={"cards"}
+                                subSection={"cards"}
+                                language={language}
+                                currentContent={content}
+                                sectionIndex={indexes?.['3']}
+                                order={section.order}
+                            />
+                        )
+                    })
+                }
+                <button
+                    className="text-blue-500 cursor-pointer mb-3"
+                    onClick={() => addExtraSummary(indexes?.['3'])}
+                >
+                    Add More Section...
+                </button>
+            </div>
 
-            {
-                content?.[3]?.content?.map?.((card, i) => {
-                    return (
-                        <ContentSection
-                            key={i}
-                            Heading={"Card " + (i + 1)}
-                            currentPath={currentPath}
-                            inputs={[
-                                { input: "input", label: "Heading/title", updateType: "title", value: card?.title?.[language] },
-                                { input: "textarea", label: "Description", updateType: "description", value: card?.description?.[language] },
-                            ]}
-                            inputFiles={[{ label: "Icon", id: "ServiceBanner", order: 1, url: card?.images?.[0]?.url }]}
-                            section={"cards"}
-                            subSection={"cards"}
-                            index={i}
-                            language={language}
-                            currentContent={content}
-                            sectionIndex={indexes?.['3']}
-                        />
-                    )
-                })
-            }
-
-            <ContentSection
-                Heading={"Feature Image"}
-                currentPath={currentPath}
-                inputFiles={[{ label: "Feature Image", id: "ServiceBanner", order: 1, url: content?.['2']?.content?.images?.[0]?.url }]}
-                language={language}
-                currentContent={content}
-                sectionIndex={indexes?.['2']}
-            />
-
-            <ContentSection
-                Heading={"Section 2"}
-                currentPath={currentPath}
-                inputs={[
-                    { input: "input", label: "Heading/title", updateType: "title", value: content?.['2']?.content?.title?.[language] },
-                    { input: "richtext", label: "Description", updateType: "description", value: content?.['2']?.content?.description?.[language] },
-                ]}
-                // section={"procedures"}
-                language={language}
-                currentContent={content}
-                sectionIndex={indexes?.['2']}
-            />
-
-            <div className="mt-4 border-b">
-                <h3 className={`font-semibold text-[1.25rem] mb-4`}>Multi Description</h3>
+            <div className="mt-4 border-b pb-3">
+                <h3 className={`font-semibold text-[1.25rem] mb-4`}>
+                    Multi Description
+                </h3>
                 {
                     content?.['4']?.content?.map((section, i) => {
                         return (
@@ -124,21 +127,28 @@ const TemplateOne = ({ content, currentPath, language, indexes }) => {
                                 key={i}
                                 currentPath={currentPath}
                                 inputs={[
-                                    { input: "textarea", label: "Text " + (i + 1), updateType: "text", value: section?.text?.[language], index: i },
-                                    { input: "textarea", label: "Text " + (i + 1), updateType: "text", value: section?.text?.[language], index: i }
+                                    { input: "input", label: "Title", updateType: "title", value: section?.text?.[language]},
+                                    { input: "textarea", label: "Description", updateType: "description", value: section?.text?.[language]}
                                 ]}
                                 index={i}
                                 isBorder={false}
                                 allowRemoval={true}
-                                section={"sectionPointers"}
+                                section={"Footer"}
                                 language={language}
                                 currentContent={content}
-                                sectionIndex={indexes?.['2']}
+                                sectionIndex={indexes?.['4']}
+                                contentIndex={i}
                                 order={section.order}
-                            />)
+                            />
+                        )
                     })
                 }
-                <button className="text-blue-500 cursor-pointer mb-3" onClick={() => addExtraSummary('whatWeDo')}>Add More Section...</button>
+                <button
+                    className="text-blue-500 cursor-pointer mb-3"
+                    onClick={() => addExtraSummary(indexes?.['4'])}
+                >
+                    Add More Section...
+                </button>
             </div>
 
 
@@ -146,4 +156,4 @@ const TemplateOne = ({ content, currentPath, language, indexes }) => {
     )
 }
 
-export default TemplateOne
+export default TemplateOneManager
