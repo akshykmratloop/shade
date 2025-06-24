@@ -35,7 +35,7 @@ const skeletons = {
     }
 }
 
-const TemplateThreeManager = ({ content, currentPath, language, indexes }) => {
+const TemplateThreeManager = ({ content, currentPath, language, indexes, outOfEditing }) => {
     const dispatch = useDispatch()
 
     const context = useSelector(state => state.homeContent?.present?.content) || {}
@@ -69,6 +69,8 @@ const TemplateThreeManager = ({ content, currentPath, language, indexes }) => {
                     ]}
                     section={"page-details"}
                     language={language}
+                    outOfEditing={outOfEditing}
+
                 />
             }
 
@@ -86,6 +88,8 @@ const TemplateThreeManager = ({ content, currentPath, language, indexes }) => {
                 language={language}
                 currentContent={content}
                 sectionIndex={indexes?.['1']}
+                outOfEditing={outOfEditing}
+
             />
 
             <ContentSection
@@ -99,6 +103,8 @@ const TemplateThreeManager = ({ content, currentPath, language, indexes }) => {
                 language={language}
                 currentContent={content}
                 sectionIndex={indexes?.['2']}
+                outOfEditing={outOfEditing}
+
             />
 
             <ContentSection
@@ -112,6 +118,8 @@ const TemplateThreeManager = ({ content, currentPath, language, indexes }) => {
                 language={language}
                 currentContent={content}
                 sectionIndex={indexes?.['3']}
+                outOfEditing={outOfEditing}
+
             />
 
 
@@ -139,6 +147,8 @@ const TemplateThreeManager = ({ content, currentPath, language, indexes }) => {
                                 contentIndex={i}
                                 order={section.order}
                                 allowRemoval={true}
+                                outOfEditing={outOfEditing}
+
                             />
                         )
                     })
@@ -172,6 +182,8 @@ const TemplateThreeManager = ({ content, currentPath, language, indexes }) => {
                 language={language}
                 currentContent={content}
                 sectionIndex={indexes?.['4']}
+                outOfEditing={outOfEditing}
+
             />
             <div className="mt-4 border-b pb-3">
                 {/* <h3 className={`font-semibold text-[1.25rem] mb-4`}>Cards</h3> */}
@@ -195,6 +207,8 @@ const TemplateThreeManager = ({ content, currentPath, language, indexes }) => {
                                 contentIndex={i}
                                 order={section.order}
                                 allowRemoval={true}
+                                outOfEditing={outOfEditing}
+
                             />
                         )
                     })

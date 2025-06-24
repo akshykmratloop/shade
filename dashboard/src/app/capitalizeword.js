@@ -18,6 +18,7 @@ export const useTruncate = (text, maxLength) => {
 };
 
 export default function capitalizeWords(str) {
+  if(typeof(str) !== "string") return str
   return str
     ?.toLowerCase() // Convert the whole string to lowercase
     ?.replace(/_/g, " ") // Replace underscores with spaces

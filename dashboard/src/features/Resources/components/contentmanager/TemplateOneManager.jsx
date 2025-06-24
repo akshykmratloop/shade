@@ -59,7 +59,7 @@ const skeletons = {
     }
 }
 
-const TemplateOneManager = ({ content, currentPath, language, indexes }) => {
+const TemplateOneManager = ({ content, currentPath, language, indexes, outOfEditing }) => {
     const dispatch = useDispatch()
 
     const context = useSelector(state => state.homeContent?.present?.content) || {}
@@ -93,6 +93,7 @@ const TemplateOneManager = ({ content, currentPath, language, indexes }) => {
                     ]}
                     section={"page-details"}
                     language={language}
+                    outOfEditing={outOfEditing}
                 />
             }
 
@@ -109,6 +110,8 @@ const TemplateOneManager = ({ content, currentPath, language, indexes }) => {
                 language={language}
                 currentContent={content}
                 sectionIndex={indexes?.['1']}
+                outOfEditing={outOfEditing}
+
             />
 
 
@@ -136,6 +139,8 @@ const TemplateOneManager = ({ content, currentPath, language, indexes }) => {
                                 sectionIndex={indexes?.['2']}
                                 contentIndex={i}
                                 order={section.order}
+                                outOfEditing={outOfEditing}
+
                             />
                         )
                     })
@@ -171,16 +176,21 @@ const TemplateOneManager = ({ content, currentPath, language, indexes }) => {
                                 currentContent={content}
                                 sectionIndex={indexes?.['3']}
                                 order={section.order}
+                                outOfEditing={outOfEditing}
+
                             />
                         )
                     })
                 }
-                <button
+               {
+               !outOfEditing &&
+               <button
                     className="text-blue-500 cursor-pointer my-3 pt-3"
                     onClick={() => addExtraSummary(indexes?.['3'], 3)}
+                    disabled={outOfEditing}
                 >
                     Add More Section...
-                </button>
+                </button>}
             </div>
 
             <div className="mt-4 border-b pb-3">
@@ -195,8 +205,8 @@ const TemplateOneManager = ({ content, currentPath, language, indexes }) => {
                                 subHeading={`Description ${(i + 1)}`}
                                 currentPath={currentPath}
                                 inputs={[
-                                    { input: "input", label: "Title", updateType: "title", value: section?.text?.[language] },
-                                    { input: "textarea", label: "Description", updateType: "description", value: section?.text?.[language] }
+                                    { input: "input", label: "Title", updateType: "title", value: section?.title?.[language] },
+                                    { input: "textarea", label: "Description", updateType: "description", value: section?.description?.[language] }
                                 ]}
                                 index={i}
                                 isBorder={false}
@@ -208,16 +218,19 @@ const TemplateOneManager = ({ content, currentPath, language, indexes }) => {
                                 sectionIndex={indexes?.['4']}
                                 contentIndex={i}
                                 order={section.order}
+                                outOfEditing={outOfEditing}
                             />
                         )
                     })
                 }
-                <button
+               {
+               !outOfEditing &&
+               <button
                     className="text-blue-500 cursor-pointer my-3 pt-3"
                     onClick={() => addExtraSummary(indexes?.['4'], 4)}
                 >
                     Add More Section...
-                </button>
+                </button>}
             </div>
 
 

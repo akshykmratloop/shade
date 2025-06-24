@@ -29,7 +29,7 @@ const skeletons = {
     }
 }
 
-const TemplateFourManager = ({ content, currentPath, language, indexes }) => {
+const TemplateFourManager = ({ content, currentPath, language, indexes, outOfEditing }) => {
     const dispatch = useDispatch()
 
     const context = useSelector(state => state.homeContent?.present?.content) || {}
@@ -63,6 +63,7 @@ const TemplateFourManager = ({ content, currentPath, language, indexes }) => {
                     ]}
                     section={"page-details"}
                     language={language}
+
                 />
             }
 
@@ -79,6 +80,8 @@ const TemplateFourManager = ({ content, currentPath, language, indexes }) => {
                 language={language}
                 currentContent={content}
                 sectionIndex={indexes?.['1']}
+                outOfEditing={outOfEditing}
+
             />
 
             <ContentSection
@@ -98,19 +101,23 @@ const TemplateFourManager = ({ content, currentPath, language, indexes }) => {
                 language={language}
                 currentContent={content}
                 sectionIndex={indexes?.['2']}
+                outOfEditing={outOfEditing}
+
             />
 
             <ContentSection
                 currentPath={currentPath}
                 Heading={"Sub Heading"}
                 inputs={[
-                    { input: "input", label: "Heading/title", updateType: "title", value: content?.['2']?.content?.title?.[language] },
-                    { input: "textarea", label: "Description", updateType: "description", maxLength: 400, value: content?.['2']?.content?.description?.[language] },
+                    { input: "input", label: "Heading/title", updateType: "title", value: content?.['3']?.content?.title?.[language] },
+                    { input: "textarea", label: "Description", updateType: "description", maxLength: 400, value: content?.['3']?.content?.description?.[language] },
                 ]}
                 section={"banner"}
                 language={language}
                 currentContent={content}
                 sectionIndex={indexes?.['3']}
+                outOfEditing={outOfEditing}
+
             />
 
 
@@ -118,14 +125,16 @@ const TemplateFourManager = ({ content, currentPath, language, indexes }) => {
                 currentPath={currentPath}
                 Heading={"Mark Down"}
                 inputs={[
-                    { input: "input", label: "Heading/title", updateType: "title", value: content?.['5']?.content?.title?.[language] },
-                    { input: "richtext", label: "Description", updateType: "description", value: content?.['5']?.content?.description?.[language] },
+                    { input: "input", label: "Heading/title", updateType: "title", value: content?.['4']?.content?.title?.[language] },
+                    { input: "richtext", label: "Description", updateType: "description", value: content?.['4']?.content?.description?.[language] },
                 ]}
                 section={"MarkDown"}
                 isBorder={false}
                 language={language}
                 currentContent={content}
                 sectionIndex={indexes?.['4']}
+                outOfEditing={outOfEditing}
+
             />
 
             <div className="mt-4 border-b pb-3">
@@ -152,18 +161,21 @@ const TemplateFourManager = ({ content, currentPath, language, indexes }) => {
                                 contentIndex={i}
                                 order={section.order}
                                 allowRemoval={true}
+                                outOfEditing={outOfEditing}
+
                             />
                         )
                     })
                 }
                 {
-                    (content?.[5]?.content?.cards?.length < 6) &&
-                    < button
-                        className="block text-blue-500 cursor-pointer my-3"
-                        onClick={() => addExtraSummary(indexes?.['5'], 5)}
-                    >
-                        Add Card...
-                    </button>
+                    (content?.[5]?.content?.cards?.length < 6) && (
+                        !outOfEditing &&
+                        <button
+                            className="block text-blue-500 cursor-pointer my-3"
+                            onClick={() => addExtraSummary(indexes?.['5'], 5)}
+                        >
+                            Add Card...
+                        </button>)
                 }
             </div>
 

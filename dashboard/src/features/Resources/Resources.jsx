@@ -201,12 +201,6 @@ function Resources() {
     return () => document.removeEventListener("keydown", handleKeyDown)
   }, [])
 
-  /// Components ///
-  // if (showVersions) {
-  //   return (
-  //     <VersionTable />
-  //   )
-  // }
 
   const ActionIcons = ((page, i) => {
     const tempRoute = { "TEMPLATE_ONE": "temp-1", "TEMPLATE_TWO": "temp-2", "TEMPLATE_THREE": "temp-3", "TEMPLATE_FOUR": "temp-4" }
@@ -238,7 +232,9 @@ function Resources() {
         // setIdOnStorage(page.id);
         const { relationType, resourceTag, subPage, subOfSubPage, slug } = page;
         const parentId = page?.parentId
-        if (resourceType === "SUB_PAGE") {
+        if (resourceTag.slice(0, 5) === "TEMPL") {
+          settingRoute(tempRoute[resourceTag])
+        } else if (resourceType === "SUB_PAGE") {
           let firstRoute = resourceTag?.toLowerCase()
           settingRoute(firstRoute, page.id);
         } else if (resourceType === "SUB_PAGE_ITEM") {

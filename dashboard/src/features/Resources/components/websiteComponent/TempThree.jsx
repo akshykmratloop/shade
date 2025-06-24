@@ -6,10 +6,10 @@ import { services } from "../../../../assets";
 import { TruncateText } from "../../../../app/capitalizeword";
 
 
-const TemplateThree = ({ content, screen, language, width, highlight, liveContent }) => {
-    const isComputer = screen > 900;
-    const isTablet = screen < 900 && screen > 730;
-    const isPhone = screen < 738;
+const TemplateThree = ({ content, screen, language, width, highlight, liveContent, purpose }) => {
+    const isComputer = screen > 900 || highlight;
+    const isTablet = (screen < 900 && screen > 730) && !highlight;
+    const isPhone = screen < 738 && !highlight;
     const isLeftAlign = language === 'en';
 
     const titleLan = isLeftAlign ? "titleEn" : "titleAr";
@@ -20,7 +20,7 @@ const TemplateThree = ({ content, screen, language, width, highlight, liveConten
 
     const tempArr = [1, 2, 3, 4]
 
-    const checkDifference = highlight ? differentText?.checkDifference?.bind(differentText) : () => "";
+    const checkDifference = (!purpose && highlight) ? differentText?.checkDifference?.bind(differentText) : () => "";
 
     return (
         <div>
@@ -49,11 +49,17 @@ const TemplateThree = ({ content, screen, language, width, highlight, liveConten
                                 letterSpacing: (isComputer) && getDynamicSize(-5),
                                 lineHeight: (isComputer) && getDynamicSize(50)
                             }}
+                            className={`
+                                ${checkDifference(content?.[1]?.content?.title?.[language], liveContent?.[1]?.content?.title?.[language])}
+                                `}
                         >
                             {content?.[1]?.content?.title?.[language] || "LOREM IPSUM"}
                         </h2>
                         <p
                             style={{ fontSize: fontSize.testimonialsQuote }}
+                            className={`
+                                ${checkDifference(content?.[1]?.content?.description?.[language], liveContent?.[1]?.content?.description?.[language])}
+                                `}
                         >
                             {content?.[1]?.content?.description?.[language] ||
                                 `Discover the exceptional excellence of Shade Corporation, the premier Engineering, Procurement, and Construction powerhouse in Saudi Arabia.
@@ -61,10 +67,15 @@ const TemplateThree = ({ content, screen, language, width, highlight, liveConten
                             Discover the exceptional excellence of Shade Corporation, the premier Engineering, Procurement, and Construction powerhouse in Saudi Arabia.`
                             }
                         </p>
-                        <button className="p-4 bg-[#00B9F2] text-white rounded-[6px]"
+                        <button className={`p-4 bg-[#00B9F2] text-white rounded-[6px]
+                        `}
                             style={{ fontSize: fontSize.mainPara }}
                         >
-                            {content?.[1]?.content?.button?.[0]?.text?.[language] || "Lorem Ipsum"}
+                            <p className={`
+                                ${checkDifference(content?.[1]?.content?.button?.[0]?.text?.[language], liveContent?.[1]?.content?.button?.[0]?.text?.[language])}
+                                `}>
+                                {content?.[1]?.content?.button?.[0]?.text?.[language] || "Lorem Ipsum"}
+                            </p>
                         </button>
                     </div>
                     <div className="border"
@@ -79,7 +90,9 @@ const TemplateThree = ({ content, screen, language, width, highlight, liveConten
                                 projectPageData.asphaltWork
                                 }`} alt=""
                             // style={{ width: (isComputer) && getDynamicSize(685) }}
-                            className="w-full h-full aspect-[2/1.3]"
+                            className={`w-full h-full aspect-[2/1.3]
+                                ${checkDifference(content?.[1]?.content?.images?.[0]?.url, liveContent?.[1]?.content?.images?.[0]?.url)}
+                                `}
                         />
                     </div>
                 </div>
@@ -136,7 +149,9 @@ const TemplateThree = ({ content, screen, language, width, highlight, liveConten
                 >
                     <section
                         dir={isLeftAlign ? 'ltr' : 'rtl'}
-                        className={`flex gap-7 ${isPhone ? "px-[38px] " : ""} pr-[38px] w-fit items-stretch text-`}
+                        className={`flex gap-7 ${isPhone ? "px-[38px] " : ""} pr-[38px] w-fit items-stretch text-
+                        ${checkDifference(content?.['3']?.content?.cards, liveContent?.['3']?.content?.cards)}
+                        `}
                         style={{
                             padding: isComputer ? `0px ${getDynamicSize(76)}` : isTablet ? `0px ${getDynamicSize(76)}` : "",
                             width: "fit-content"
@@ -148,13 +163,19 @@ const TemplateThree = ({ content, screen, language, width, highlight, liveConten
                                 padding: (isComputer) && getDynamicSize(20)
                             }}
                         >
-                            <h3 style={{ fontSize: fontSize.aboutMainPara }}>
+                            <h3 style={{ fontSize: fontSize.aboutMainPara }}
+                                className={`
+                                ${checkDifference(content?.['3']?.content?.title?.[language], liveContent?.['3']?.content?.title?.[language])}
+                                `}
+                            >
                                 {
                                     content?.['3']?.content?.title?.[language] ||
                                     "Lorem Ipsum"
                                 }
                             </h3>
-                            <p className={`${fontLight}`}
+                            <p className={`${fontLight}
+                                ${checkDifference(content?.['3']?.content?.description?.[language], liveContent?.['3']?.content?.description?.[language])}
+                            `}
                                 style={{ fontSize: fontSize.mainPara }}
                             >
                                 {
@@ -165,10 +186,8 @@ const TemplateThree = ({ content, screen, language, width, highlight, liveConten
                         </article>
                         {
                             (content?.['3']?.content?.cards ||
-                                // tempArr ||
                                 []
                             )?.map((service, idx) => {
-                                // if (service.slug === slug) return null
                                 return (
                                     <article
                                         key={idx}
@@ -178,7 +197,9 @@ const TemplateThree = ({ content, screen, language, width, highlight, liveConten
                                         <img src={Img_url +
                                             service.images?.[0]?.url
                                         } alt="img"
-                                            className="w-full object-cover rounded-[6px]"
+                                            className={`w-full object-cover rounded-[6px]
+                                                ${checkDifference(service.images?.[0]?.url, liveContent?.['3']?.content?.cards?.[idx]?.images?.[0]?.url)}
+                                                `}
                                             style={{ height: isComputer ? getDynamicSize(210) : isTablet ? getDynamicSize(400) : getDynamicSize(437) }}
                                         />
                                         <section className="bg-[#F8F8F8] flex flex-col j flex-1"
@@ -187,14 +208,18 @@ const TemplateThree = ({ content, screen, language, width, highlight, liveConten
                                                 gap: isComputer ? getDynamicSize(10) : getDynamicSize(25)
                                             }}
                                         >
-                                            <h1 className="text-[#292E3D] text-[22px] font-[400]"
+                                            <h1 className={`text-[#292E3D] text-[22px] font-[400]
+                                                ${checkDifference(service?.title?.[language], liveContent?.['3']?.content?.cards?.[idx]?.title?.[language])}
+                                            `}
                                                 style={{ fontSize: fontSize.aboutMainPara, lineHeight: (isComputer || isTablet) && getDynamicSize(30) }}
                                                 title={service?.title?.[language]}
                                             >
                                                 {TruncateText(service?.title?.[language], isTablet ? 18 : 25) ||
                                                     "Project Services"}
                                             </h1>
-                                            <p className={`text-[#292E3D] text-[10px] mb-2 ${fontLight}`}
+                                            <p className={`text-[#292E3D] text-[10px] mb-2 ${fontLight}
+                                                ${checkDifference(service?.description?.[language], liveContent?.['3']?.content?.cards?.[idx]?.description?.[language])}
+                                            `}
                                                 style={{ fontSize: fontSize.mainPara }}
                                             >
                                                 {service?.description?.[language] ||
@@ -224,7 +249,9 @@ const TemplateThree = ({ content, screen, language, width, highlight, liveConten
                             Img_url +
                             content?.[4]?.content?.images?.[0]?.url :
                             projectPageData.itLabExcellence
-                        } className={`w-full ${isComputer ? "aspect-[1/1.1]" : "aspect-[2/1]"}`} alt="" />
+                        } className={`w-full ${isComputer ? "aspect-[1/1.1]" : "aspect-[2/1]"}
+                        ${checkDifference(content?.[4]?.content?.images?.[0]?.url, liveContent?.[4]?.content?.images?.[0]?.url)}
+                        `} alt="" />
                     </div>
                     <div className="flex flex-col"
                         style={{
@@ -236,13 +263,16 @@ const TemplateThree = ({ content, screen, language, width, highlight, liveConten
                             style={{
                                 fontSize: fontSize.aboutMainPara
                             }}
+                            className={`${checkDifference(content?.[4]?.content?.title?.[language], liveContent?.[4]?.content?.title?.[language])}`}
                         >
                             {
                                 content?.[4]?.content?.title?.[language] ||
                                 "Project Services"
                             }
                         </h3>
-                        <p className={`${fontLight}`}
+                        <p className={`${fontLight}
+                                        ${checkDifference(content?.[4]?.content?.title?.[language], liveContent?.[4]?.content?.title?.[language])}
+                                    `}
                             style={{
                                 fontSize: fontSize.mainPara
                             }}
@@ -252,7 +282,10 @@ const TemplateThree = ({ content, screen, language, width, highlight, liveConten
                                 "Our company has been the leading provided construction services to clients throughout the Dubai since 1992."
                             }
                         </p>
-                        <div className={`grid ${isComputer ? "grid-cols-3" : isTablet ? "grid-cols-2 gap-2" : "grid-cols-1 gap-2"} ${!isComputer && "mt-2"}`}
+                        <div
+                            className={`grid ${isComputer ? "grid-cols-3" : isTablet ? "grid-cols-2 gap-2" : "grid-cols-1 gap-2"} ${!isComputer && "mt-2"}
+                                        ${checkDifference(content?.[4]?.content?.cards, liveContent?.[4]?.content?.cards)}
+                                        `}
                             style={{
                                 gap: (isComputer) && getDynamicSize(23)
                             }}
@@ -265,8 +298,10 @@ const TemplateThree = ({ content, screen, language, width, highlight, liveConten
                                             className="border aspect-[1/.91] flex justify-center items-center p-4 text-center"
                                             style={{ padding: isComputer && getDynamicSize(16) }}
                                         >
-                                            <p style={{ fontSize: fontSize.aboutMainPara }} className="font-[400]"
-                                            
+                                            <p style={{ fontSize: fontSize.aboutMainPara }} className={`font-[400]
+                                            ${checkDifference(e.title?.[language], content?.[4]?.content?.card?.[i]?.title?.[language])}
+                                            `}
+
                                             >
                                                 {e.title?.[language] ||
                                                     "Lorem, Ipsum!"
