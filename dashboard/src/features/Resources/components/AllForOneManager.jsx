@@ -29,6 +29,7 @@ import OrganizationManager from "./contentmanager/OrganizationManager";
 import TemplateOneManager from "./contentmanager/TemplateOneManager";
 import TemplateTwoManager from "./contentmanager/TemplateTwoManager";
 import TemplateThreeManager from "./contentmanager/TemplateThreeManager";
+import TemplateFourManager from "./contentmanager/TemplateFourManager";
 
 
 const AllForOneManager = ({ currentPath, language, subPath, deepPath, content, contentIndex, outOfEditing }) => {
@@ -138,6 +139,10 @@ const AllForOneManager = ({ currentPath, language, subPath, deepPath, content, c
 
         case "temp-3":
             manager = <TemplateThreeManager outOfEditing={outOfEditing} language={language} content={content} indexes={contentIndex} currentPath={currentPath} />
+            break;
+
+        case "temp-4":
+            manager = <TemplateFourManager outOfEditing={outOfEditing} language={language} content={content} indexes={contentIndex} currentPath={currentPath} />
             break;
 
         default:

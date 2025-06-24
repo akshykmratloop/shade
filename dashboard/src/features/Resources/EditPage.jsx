@@ -162,7 +162,7 @@ const EditPage = () => {
                                         className={`pt-8 bg-[#fafaff] 
                                     dark:bg-[#242933] p-8 lg:w-[23rem] 
                                     sm:w-[30vw] min-w-23rem flex 
-                                    flex-col gap-4 items-center 
+                                    flex-col gap-4 
                                     overflow-y-scroll customscroller
                                      rounded-lg
                                     `}
