@@ -33,7 +33,7 @@ const TemplateFour = ({ content, screen, language, width, highlight, liveContent
                         services.contructionTowerImage
                         }")`,
                     backgroundPosition: "bottom",
-                    height: isComputer ? getDynamicSize(600) : "70vh",
+                    height: isComputer ? getDynamicSize(740) : "70vh",
                     padding: (isComputer) && `${getDynamicSize(100)} ${getDynamicSize(150)}`
                 }}
             >

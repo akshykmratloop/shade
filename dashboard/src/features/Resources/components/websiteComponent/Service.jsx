@@ -12,8 +12,8 @@ import { useSelector } from "react-redux";
 
 const Services = ({ currentContent, screen, language, width, highlight, liveContent, purpose }) => {
     const isComputer = screen > 900 || highlight;
-    const isTablet = (screen < 900 && screen > 730) || !highlight;
-    const isPhone = screen < 738 || !highlight;
+    const isTablet = (screen < 900 && screen > 730) && !highlight;
+    const isPhone = screen < 738 && !highlight;
     const isLeftAlign = language === 'en';
 
     const titleLan = isLeftAlign ? "titleEn" : "titleAr"

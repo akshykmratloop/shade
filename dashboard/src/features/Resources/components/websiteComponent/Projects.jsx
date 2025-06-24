@@ -10,8 +10,8 @@ import dynamicSize, { defineDevice, differentText, generatefontSize } from "../.
 
 const ProjectPage = ({ language, screen, currentContent, highlight, liveContent, purpose }) => {
     const isComputer = screen > 900 || highlight;
-    const isTablet = (screen < 900 && screen > 730) || !highlight;
-    const isPhone = screen < 738 || !highlight;
+    const isTablet = (screen < 900 && screen > 730) && !highlight;
+    const isPhone = screen < 738 && !highlight;
     const isLeftAlign = language === "en"
     const dispatch = useDispatch()
     const [activeTab, setActiveTab] = useState("1");
@@ -57,20 +57,25 @@ const ProjectPage = ({ language, screen, currentContent, highlight, liveContent,
     }, []);
 
     return (
-        <div className="h-full" ref={divRef}>
-            <section className={`relative w-full bg-cover bg-center ${isLeftAlign ? 'scale-x-[-1]' : ''}  `}
+        <div className="h-full" ref={divRef} dir={isLeftAlign? "ltr":"rtl"}>
+            <section className={`relative w-full bg-cover bg-center   `}
                 style={{
                     height: isComputer ? getDynamicSize(715) : "500px",
                     padding: isTablet ? `${getDynamicSize(180)} 0px` : "",
                     backgroundImage: currentContent?.['1']?.content?.images?.[0]?.url ? `url(${Img_url + currentContent?.['1']?.content?.images?.[0]?.url})` :
                         "url('https://frequencyimage.s3.ap-south-1.amazonaws.com/a4a2a992-c11e-448b-bdfe-54b14574958d-Hero%20%281%29%20%281%29.png')"
                 }}>
+                <div className="absolute inset-0 pointer-events-none z-[0] flex items-center justify-start overflow-hidden">
+                    <div
+                        style={{ width: (isTablet || isPhone) ? "60%" : getDynamicSize(850), height: (isTablet || isPhone) ? "60%" : getDynamicSize(650) }}
+                        className="rounded-full bg-white opacity-[.9] blur-[120px] mix-blend-screen"></div>
+                </div>
                 <div
                     style={{
                         padding: isComputer && `0px ${getDynamicSize(150)}`,
                     }}
-                    className={`container h-full relative ${isPhone ? "px-10" : "px-20"} flex items-center ${isLeftAlign ? "justify-end" : "justify-end"}   `}>
-                    <div className={`flex flex-col ${isLeftAlign ? 'right-5 text-left items-start ' : 'left-5 text-right items-end'} ${isPhone ? "max-w-[70%]" : "max-w-[55%]"} w-full ${isLeftAlign ? 'scale-x-[-1]' : ''}`}>
+                    className={`container h-full relative ${isPhone ? "px-10" : "px-20"} flex items-center`}>
+                    <div className={`flex flex-col items-start ${isLeftAlign ? 'right-5' : 'left-5'} ${isPhone ? "max-w-[70%]" : "max-w-[55%]"} w-full`}>
                         <h1 dir={language === 'ar' ? "rtl" : "ltr"}
                             style={{ fontSize: fontSize.mainHeading, lineHeight: (isComputer || isTablet) && fontSize.headingLeading }}
                             className={`text-[#292E3D] ${isPhone ? "text-3xl" : "text-[40px] leading-[77px] tracking-[-3.5px]"} font-medium  mb-4

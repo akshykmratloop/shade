@@ -22,8 +22,8 @@ const MarketPage = ({ language, screen, currentContent, highlight, liveContent, 
     const testimonialPrevRef = useRef(null);
     const testimonialNextRef = useRef(null);
     const isComputer = screen > 900 || highlight;
-    const isTablet = (screen < 900 && screen > 730) || !highlight;
-    const isPhone = screen < 738 || !highlight;
+    const isTablet = (screen < 900 && screen > 730) && !highlight;
+    const isPhone = screen < 500 && !highlight;
     const [activeTab, setActiveTab] = useState("buildings");
     const isLeftAlign = language === 'en'
     const [filterMarketItems, setFilterMarketItems] = useState([]);
@@ -39,6 +39,8 @@ const MarketPage = ({ language, screen, currentContent, highlight, liveContent, 
 
     const fontSize = generatefontSize(defineDevice(screen), dynamicSize, width)
     const fontLight = useSelector(state => state.fontStyle.light)
+
+    const slidesPerView = isPhone ? 1 : 1.5;
 
 
     useEffect(() => {
@@ -69,20 +71,25 @@ const MarketPage = ({ language, screen, currentContent, highlight, liveContent, 
             }
         };
     }, []);
-
+    const [swiperInstance, setSwiperInstance] = useState(null);
 
     return (
-        <div ref={divRef} className={``}>
+        <div ref={divRef} className={``} dir={isLeftAlign ? "ltr" : "rtl"}>
             {/* hero banner  */}
-            <section className={`relative h-[487px] w-full bg-cover bg-center ${isLeftAlign ? 'scale-x-[-1]' : ''} ${isPhone ? "px-10" : "px-30"} `}
+            <section className={`relative h-[487px] w-full bg-cover bg-center  ${isPhone ? "px-10" : "px-30"} `}
                 style={{
-                    padding: `0px ${isTablet ? '80px' : getDynamicSize(150)}`,
+                    padding: isComputer ? `0px ${getDynamicSize(150)}` : isTablet ? "100px" : "",
                     height: getDynamicSize(726),
                     backgroundImage: currentContent?.['1']?.content?.images?.[0]?.url ? `url(${Img_url + currentContent?.['1']?.content?.images?.[0]?.url})` :
                         "url('https://frequencyimage.s3.ap-south-1.amazonaws.com/b9961a33-e840-4982-bd19-a7dcc52fdd95-Hero.jpg')"
                 }}>
-                <div className={`container h-full relative  flex items-center ${isLeftAlign ? "justify-end" : "justify-end"}   `}>
-                    <div className={`flex flex-col ${isLeftAlign ? 'right-5 text-left items-start ' : 'left-5 text-right items-end'} ${isPhone ? "max-w-[70%]" : "max-w-[55%]"} w-full ${isLeftAlign ? 'scale-x-[-1]' : ''}`}>
+                <div className="absolute inset-0 pointer-events-none z-[0] flex items-center justify-start overflow-hidden">
+                    <div
+                        style={{ width: (isTablet || isPhone) ? "60%" : getDynamicSize(850), height: (isTablet || isPhone) ? "60%" : getDynamicSize(650) }}
+                        className="rounded-full bg-white opacity-[.9] blur-[120px] mix-blend-screen"></div>
+                </div>
+                <div className={`container h-full relative  flex items-center `}>
+                    <div className={`flex flex-col ${isPhone ? "max-w-[85%]" : "max-w-[55%]"} w-full items-start`}>
                         <h1
                             style={{ fontSize: isPhone ? "40px" : fontSize.mainHeading, lineHeight: fontSize.headingLeading }}
                             className={`text-[#292E3D] ${isPhone ? "text-3xl" : "text-[50px] leading-[77px] tracking-[-3.5px]"} font-medium  mb-4
@@ -129,7 +136,8 @@ const MarketPage = ({ language, screen, currentContent, highlight, liveContent, 
                 dir={isLeftAlign ? "ltr" : "rtl"}
                 style={{
                     gap: getDynamicSize(30),
-                    padding: `0px ${getDynamicSize(150)}`,
+                    padding: isComputer ? `0px ${getDynamicSize(150)}` : isTablet ? "100px" : "",
+
                     margin: `${getDynamicSize(70)} 0px`
                 }}
                 className={`flex gap-[30px] ${isPhone ? "flex-col px-[30px]" : ""} ${isPhone ? "px-10" : "px-20"} my-[33px]`}
@@ -293,10 +301,11 @@ const MarketPage = ({ language, screen, currentContent, highlight, liveContent, 
                         }
                         {currentContent?.["4"]?.items?.length > 1 &&
                             <Swiper
+                            key={language}
                                 modules={[Navigation, Autoplay, EffectCoverflow]}
                                 grabCursor={true}
                                 centeredSlides={true}
-                                slidesPerView={isPhone ? 1 : 2}
+                                slidesPerView={slidesPerView}
                                 loop={true}
                                 spaceBetween={10}
                                 effect="coverflow"
@@ -309,6 +318,7 @@ const MarketPage = ({ language, screen, currentContent, highlight, liveContent, 
                                     swiper.params.navigation.nextEl = testimonialNextRef.current;
                                     swiper.navigation.init();
                                     swiper.navigation.update();
+                                    setSwiperInstance(swiper)
                                 }}
                                 coverflowEffect={{
                                     rotate: 0,
@@ -318,18 +328,19 @@ const MarketPage = ({ language, screen, currentContent, highlight, liveContent, 
                                     slideShadows: false,
                                 }}
                                 autoplay={{ delay: 2500 }}
-                                breakpoints={{
-                                    724: { slidesPerView: isPhone ? 1 : 1.5 },
-                                    500: { slidesPerView: 1 },
-                                }}
+                                // breakpoints={{
+                                //     724: { slidesPerView: isPhone ? 1 : 1.5 },
+                                //     500: { slidesPerView: 1 },
+                                // }}
                                 className={`${checkDifference(currentContent?.["4"]?.items, liveContent?.["4"]?.items)}`}
+                                dir={isLeftAlign ? "ltr" : "rtl"}
                             >
                                 {currentContent?.["4"]?.items?.map(
                                     (testimonial, index) => (
                                         <SwiperSlide key={index}
                                             dir={isLeftAlign ? "ltr" : "rtl"}
                                         >
-                                            <div className={`border bg-white p-3 rounded-xl flex justify-center  shadow-md`}>
+                                            <div className={`border bg-white p-3 rounded-xl flex justify-center shadow-md`}>
 
                                                 <div className="flex 1">
                                                     <img
@@ -381,19 +392,7 @@ const MarketPage = ({ language, screen, currentContent, highlight, liveContent, 
                         }
 
 
-                        <div className={`flex justify-center items-center gap-7 mt-5 ${!isLeftAlign && "flex-row-reverse"}`}>
-                            <button
-                                ref={testimonialPrevRef}
-                                className="w-[42px] h-[42px] rounded-full border border-[#00B9F2] flex justify-center items-center cursor-pointer"
-                            >
-                                <img
-                                    src="https://frequencyimage.s3.ap-south-1.amazonaws.com/b2872383-e9d5-4dd7-ae00-8ae00cc4e87e-Vector%20%286%29.svg"
-                                    width="22"
-                                    height="17"
-                                    alt=""
-                                    className={`${isLeftAlign && 'scale-x-[-1]'}`}
-                                />
-                            </button>
+                        <div className={`flex justify-center items-center gap-7 mt-5 ${!isLeftAlign && "flex-row-reverse"}`} dir={isLeftAlign ? "ltr" : "rtl"}>
                             <button
                                 ref={testimonialNextRef}
                                 className="w-[42px] h-[42px] rounded-full border border-[#00B9F2] flex justify-center items-center cursor-pointer"
@@ -403,9 +402,22 @@ const MarketPage = ({ language, screen, currentContent, highlight, liveContent, 
                                     width="22"
                                     height="17"
                                     alt=""
-                                    className={`${isLeftAlign && 'scale-x-[-1]'}`}
+                                    className={``}
                                 />
                             </button>
+                            <button
+                                ref={testimonialPrevRef}
+                                className="w-[42px] h-[42px] rounded-full border border-[#00B9F2] flex justify-center items-center cursor-pointer"
+                            >
+                                <img
+                                    src="https://frequencyimage.s3.ap-south-1.amazonaws.com/b2872383-e9d5-4dd7-ae00-8ae00cc4e87e-Vector%20%286%29.svg"
+                                    width="22"
+                                    height="17"
+                                    alt=""
+                                    className={``}
+                                />
+                            </button>
+
                         </div>
                     </div>
                 </div>

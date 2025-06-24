@@ -132,7 +132,7 @@ const NewTemplate2 = ({ content }) => {
             <h2 className={styles.template4_first_section_card_heading}>
               {currentContent?.["3"]?.content?.title[language]}
             </h2>
-            <p className={styles.template4_first_section_card_desc}>
+            <p className={`${styles.template4_first_section_card_desc} bank-light`}>
               {currentContent?.["3"]?.content?.description[language]}
             </p>
           </div>
