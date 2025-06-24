@@ -12,4 +12,9 @@ router.put(
   tryCatchWrap(notificationController.MarkAllNotification)
 ); // mark all notification as read
 
+router.delete(
+  "/clear-all/:id",
+  tryCatchWrap(notificationController.ClearAllNotification)
+)
+
 export default router;

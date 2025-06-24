@@ -5,8 +5,8 @@ const features = [
   { name: 'Dashboard Insight', icon: '📊' },
   { name: 'User Management', icon: '👥' },
   { name: 'Role/Permission', icon: '🔑' },
-  { name: 'Resource Mgmt', icon: '📦' },
-  { name: 'Content Mgmt', icon: '🗂️' },
+  // { name: 'Resource Management', icon: '📦' },
+  { name: 'Content Management', icon: '🗂️' },
   { name: 'Content Editor', icon: '✏️' },
   { name: 'Verification Flow', icon: '✅' },
   { name: 'Logs', icon: '📝' },
@@ -27,8 +27,8 @@ function TemplatePointers() {
   const isMobile = typeof window !== 'undefined' && window.innerWidth < 640;
   const orbitRadius = isMobile ? 110 : 180;
   const coreSize = isMobile ? 90 : 130;
-  const featureSize = isMobile ? 60 : 90;
-  const textSize = isMobile ? 9 : 12;
+  const featureSize = isMobile ? 60 : 100;
+  const textSize = isMobile ? 7 : 10;
 
   return (
     <div
@@ -81,11 +81,11 @@ function TemplatePointers() {
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: [1, 1.08, 1], opacity: 1, rotate: 360 }}
               transition={{ duration: 6, repeat: Infinity, ease: "linear" }}
-              className="absolute left-1/2 top-1/2 z-20 shadow-xl"
+              className="absolute left-1/2 top-1/2 z-20 "
               style={{ transform: 'translate(-50%, -50%)', width: coreSize, height: coreSize }}
             >
               <div className="bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center w-full h-full">
-                <div className="bg-white dark:bg-gray-800 rounded-full flex items-center justify-center" style={{ width: coreSize * 0.7, height: coreSize * 0.7 }}>
+                <div className="bg-white  rounded-full flex items-center justify-center" style={{ width: coreSize * 0.7, height: coreSize * 0.7 }}>
                   <span className="text-3xl">⚡</span>
                 </div>
               </div>

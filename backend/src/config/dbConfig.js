@@ -4,7 +4,8 @@ import AppError from "../errors/AppError.js";
 const isProduction = process.env.MODE === "production";
 
 const prismaClient = new PrismaClient({
-  log: isProduction ? ["warn", "error"] : ["query", "info", "warn", "error"],
+  // log: isProduction ? ["warn", "error"] : ["query", "info", "warn", "error"],
+  // log: isProduction ? ["warn", "error"] : ["query", "info", "warn", "error"],
 }).$extends({
   query: {
     $allModels: {

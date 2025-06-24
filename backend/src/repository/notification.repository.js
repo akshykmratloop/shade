@@ -118,3 +118,11 @@ export const deleteNotification = async () => {
 
   return deletedNotifications;
 };
+
+export const deleteAllNotificationBy = async (id) =>{
+  const deletedNotifications =await prismaClient.notification.deleteMany({
+    where: {userId : id},
+  });
+
+  return deletedNotifications;
+}

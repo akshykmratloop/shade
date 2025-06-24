@@ -2,6 +2,7 @@ import { logger } from "../../config/index.js";
 import { assert, assertEvery } from "../../errors/assertError.js";
 
 import {
+  deleteAllNotificationBy,
   findAllNotification,
   markAllNotificationAsRead,
   markNotificationAsRead,
@@ -46,4 +47,12 @@ const markAllNotification = async (id) => {
   }; // if everything goes fine
 };
 
-export { getAllNotification, markNotification, markAllNotification };
+const clearAllNotification = async (id) =>{
+const clearedNotifications = await deleteAllNotificationBy(id);
+logger.info({clearAllNotification: "Notifications deleted successfully"})
+return {
+  message : "All notifications deleted successfully"
+}
+}
+
+export { getAllNotification, markNotification, markAllNotification, clearAllNotification };

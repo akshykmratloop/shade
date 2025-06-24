@@ -16,18 +16,15 @@ import {
 const Login = async (req, res) => {
   const {email, password} = req.body;
   const response = await login(email, password);
-  res.locals.entityId = response.user.id;
-  res.locals.action_performed = response.message;
+  //Create and save the audit log 
   await prismaClient.auditLog.create({
     data: {
       actionType: "LOGIN",
       action_performed: response.message,
-      // entity: "User",
       entity: req.baseUrl.split("/").pop(),
-      // entityId: 55585, // Capturing user ID
-      entityId: response.user.id, // Capturing user ID
+      entityId: response.user.id,
       oldValue: null,
-      newValue: {user: response.user.id, email: response.user.email},
+      newValue: null,
       ipAddress: req.ip,
       browserInfo: req.headers["user-agent"],
       outcome: "Success",
@@ -85,9 +82,6 @@ const UpdatePassword = async (req, res) => {
     new_password,
     repeat_password
   );
-  console.log("clearring"); // hit this
-  clearCookie(res, "forgotPassToken");
-  console.log("clearring1"); // did not hit
   res.status(200).json(response);
 };
 

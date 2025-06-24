@@ -16,7 +16,7 @@ const scheduleCronJobs = () => {
   // Day of the Month: 1 – 31
   // Month: 1 – 12
   // Day of the week: 0 – 7 (0 and 7 both represent Sunday)
-  cron.schedule("* * 24 * *", async () => {
+  cron.schedule("0 0 * * *", async () => {
     await resetUserOtpAttempts();
     console.log("Checked for OTP attempt resets.");
   });
