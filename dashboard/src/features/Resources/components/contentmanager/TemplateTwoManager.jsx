@@ -53,7 +53,7 @@ const skeletons = {
     }
 }
 
-const TemplateTwoManager = ({ content, currentPath, language, indexes }) => {
+const TemplateTwoManager = ({ content, currentPath, language, indexes, outOfEditing }) => {
     const dispatch = useDispatch()
 
     const context = useSelector(state => state.homeContent?.present?.content) || {}
@@ -99,6 +99,8 @@ const TemplateTwoManager = ({ content, currentPath, language, indexes }) => {
                     ]}
                     section={"page-details"}
                     language={language}
+                    outOfEditing={outOfEditing}
+
                 />
             }
 
@@ -115,6 +117,8 @@ const TemplateTwoManager = ({ content, currentPath, language, indexes }) => {
                 language={language}
                 currentContent={content}
                 sectionIndex={indexes?.['1']}
+                outOfEditing={outOfEditing}
+
             />
 
             <ContentSection
@@ -128,6 +132,8 @@ const TemplateTwoManager = ({ content, currentPath, language, indexes }) => {
                 language={language}
                 currentContent={content}
                 sectionIndex={indexes?.['2']}
+                outOfEditing={outOfEditing}
+
             />
 
 
@@ -153,6 +159,8 @@ const TemplateTwoManager = ({ content, currentPath, language, indexes }) => {
                                 sectionIndex={indexes?.['3']}
                                 contentIndex={i}
                                 order={section.order}
+                                outOfEditing={outOfEditing}
+
                             // allowRemoval={true}
                             />
                         )
@@ -189,6 +197,8 @@ const TemplateTwoManager = ({ content, currentPath, language, indexes }) => {
                                     sectionIndex={indexes?.['4']}
                                     contentIndex={i}
                                     order={section.order}
+                                    outOfEditing={outOfEditing}
+
                                 />
                                 {
                                     (section?.description?.length < 6) &&
@@ -238,6 +248,8 @@ const TemplateTwoManager = ({ content, currentPath, language, indexes }) => {
                 language={language}
                 currentContent={content}
                 sectionIndex={indexes?.['5']}
+                outOfEditing={outOfEditing}
+
             />
 
         </div>

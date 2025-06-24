@@ -343,6 +343,7 @@ const DynamicContentSection = ({
                                     index={index}
                                     url={file.url}
                                     order={file.order}
+                                    outOfEditing={outOfEditing}
                                 />
                             ))}
                             {extraFiles.map((file, index) => (
@@ -359,6 +360,7 @@ const DynamicContentSection = ({
                                         currentPath={currentPath}
                                         section={section}
                                         fileIndex={index}
+                                        outOfEditing={outOfEditing}
                                     />
                                 </div>
                             ))}
