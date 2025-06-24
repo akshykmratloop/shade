@@ -117,12 +117,13 @@ const NewTemplate2 = ({content}) => {
                   key={item.id || idx}
                   className={`${styles.template4_first_section_image_grid} ${posClass}`}
                 >
-                  <div className={styles.template4_first_section_image}>
-                    <img
-                      src={item.url ? Img_url + item.url : ""}
-                      alt={item.altText?.[language] || "image"}
-                    />
-                  </div>
+                  {/* <div > */}
+                  <img
+                    className={styles.template4_first_section_image}
+                    src={item.url ? Img_url + item.url : ""}
+                    alt={item.altText?.[language] || "image"}
+                  />
+                  {/* </div> */}
                 </div>
               );
             })}
