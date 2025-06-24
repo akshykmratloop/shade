@@ -83,7 +83,6 @@ const MultiSelect = ({ outOfEditing, heading, options, tabName, label, language,
     if (existedInList) {
       return
     } else {
-      console.log('qwerjwkh')
       setSelectedOptions(prev => {
         return [...prev, { ...optionToAdd }]
       })
@@ -138,7 +137,6 @@ const MultiSelect = ({ outOfEditing, heading, options, tabName, label, language,
 
   useEffect(() => {
     if (Array.isArray(options) && random !== 1) {
-
       dispatch(updateSelectedContentAndSaveDraft({
         origin: referenceOriginal.dir,
         index: referenceOriginal.index,

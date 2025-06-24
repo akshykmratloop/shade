@@ -44,6 +44,7 @@ const api = {
 
   getNotifications: `${notification}/`, // API for notifications
   markAllNotificationAsRead: `${notification}/read-all/`, // API for marking notification as read
+  clearAll :`${notification}/clear-all/`,
 
   // Pages
   getResources: `${content}/getResources`, // Resources
@@ -68,6 +69,7 @@ const api = {
   versionInfo: `${content}/getVersionInfo/`,
   restoreVersion: `${content}/restoreVersion/`,
   scheduleRequest: `${content}/scheduleRequest/`,
+  getAllFilters: `${content}/getAllFilters`,
 
   // DASHBOARD INSIGHT
   getDashboardInsight: `${content}/getDashboardInsight`, // API for dashboard insight

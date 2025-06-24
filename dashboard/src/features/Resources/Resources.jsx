@@ -1,35 +1,26 @@
-import React, { useEffect, useRef, useState, useCallback, Suspense } from "react";
+// library
+import { useEffect, useRef, useState, useCallback, Suspense } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { lazy } from "react";
-// import AllForOne from "./components/AllForOne"
-import { ToastContainer } from "react-toastify";
 import { MoonLoader } from "react-spinners";
-
-// Icons
-// import { AiOutlineInfoCircle } from "react-icons/ai";
-// import { FiEdit } from "react-icons/fi";
-// import { IoSettingsOutline } from "react-icons/io5";
-// import { LuEye } from "react-icons/lu";
-// Image
-// Components, Assets & Utils
-// import { pagesImages } from "./resourcedata";
+// redux actions
+import { updateTag, updateType } from "../common/navbarSlice";
+import { setPlatform } from "../common/platformSlice";
+import { updateMainContent } from "../common/homeContentSlice";
+// modules
+import { getContent, getResources } from "../../app/fetch";
+import capitalizeWords, { TruncateText } from "../../app/capitalizeword";
 import ConfigBar from "./components/breakUI/ConfigBar";
 import PageDetails from "./components/breakUI/PageDetails";
 import Navbar from "../../containers/Navbar";
-import capitalizeWords, { TruncateText } from "../../app/capitalizeword";
 import content from "./components/websiteComponent/content.json";
-import { getContent, getResources } from "../../app/fetch";
-import { updateTag, updateType } from "../common/navbarSlice";
-// import resourcesContent from "./resourcedata";
 import CloseModalButton from "../../components/Button/CloseButton";
 import createContent from "./defineContent";
 import FallBackLoader from "../../components/fallbackLoader/FallbackLoader";
-// import VersionTable from "./VersionTable";
-import { setPlatform } from "../common/platformSlice";
-// import { updateResourceId } from "../common/resourceSlice";
-import { updateMainContent } from "../common/homeContentSlice";
 import { ResourceCard } from "./ResourceCard";
+import NewProjectDialog from "./NewProjectDialog";
+import ToastPlacer, { runToast } from "../Component/ToastPlacer";
 
 const AllForOne = lazy(() => import("./components/AllForOne"));
 const Page404 = lazy(() => import("../../pages/protected/404"));
@@ -58,7 +49,7 @@ function Resources() {
     SUB_PAGE: [],
     MAIN_PAGE: [],
   });
-
+  const [openCreateProjectDialog, setOpenCreateProjectDialog] = useState(false)
 
   // Redux State
   const divRef = useRef(null);
@@ -68,7 +59,7 @@ function Resources() {
   const { showVersions } = useSelector(state => state.versions)
   const userObj = useSelector(state => state.user)
 
-  const { isManager, isEditor, activeRole } = userObj
+  const { isManager, isEditor, activeRole, isSingleManager } = userObj
   const activeRoleId = activeRole?.id
   const superUser = userObj.user?.isSuperUser
 
@@ -120,7 +111,11 @@ function Resources() {
 
   // Side Effects 
 
-  const conditionNewPage = resourceTag !== "FOOTER" && resourceTag !== "HEADER" && resourceTag !== "MAIN"
+  const conditionNewPage = resourceTag !== "FOOTER" && resourceTag !== "HEADER" && isManager && !isSingleManager
+  const conditionTwoNewPage = resources?.[resourceType]?.map(e => { /// create a set of used Template
+    if (e.resourceTag?.slice(0, 5) === "TEMPL")
+      return e.resourceTag
+  }).filter(Boolean).length < 4
 
   useEffect(() => { // Running resources from localstroge
     const currentResource = localStorage.getItem("resourceType") || "MAIN_PAGE";
@@ -206,26 +201,21 @@ function Resources() {
     return () => document.removeEventListener("keydown", handleKeyDown)
   }, [])
 
-  /// Components ///
-  // if (showVersions) {
-  //   return (
-  //     <VersionTable />
-  //   )
-  // }
 
   const ActionIcons = ((page, i) => {
+    const tempRoute = { "TEMPLATE_ONE": "temp-1", "TEMPLATE_TWO": "temp-2", "TEMPLATE_THREE": "temp-3", "TEMPLATE_FOUR": "temp-4" }
     const actions = [
       () => {
         setPageDetailsOn(true);
         setConfigBarData(page);
       },
       () => {
-        // dispatch(updateResourceId({ id: page.id, name: page.titleEn }))
-
         setIdOnStorage(page.id);
         const { resourceType, resourceTag, subPage, subOfSubPage, slug } = page;
         const parentId = page?.parentId
-        if (resourceType === "SUB_PAGE") {
+        if (resourceTag.slice(0, 5) === "TEMPL") {
+          navigateToPage(tempRoute[resourceTag])
+        } else if (resourceType === "SUB_PAGE") {
           navigateToPage(resourceTag?.toLowerCase(), page.id);
         } else if (resourceType === "SUB_PAGE_ITEM") {
           navigateToPage(resourceTag?.toLowerCase(), parentId, page.id);
@@ -242,7 +232,9 @@ function Resources() {
         // setIdOnStorage(page.id);
         const { relationType, resourceTag, subPage, subOfSubPage, slug } = page;
         const parentId = page?.parentId
-        if (resourceType === "SUB_PAGE") {
+        if (resourceTag.slice(0, 5) === "TEMPL") {
+          settingRoute(tempRoute[resourceTag])
+        } else if (resourceType === "SUB_PAGE") {
           let firstRoute = resourceTag?.toLowerCase()
           settingRoute(firstRoute, page.id);
         } else if (resourceType === "SUB_PAGE_ITEM") {
@@ -285,11 +277,13 @@ function Resources() {
             })}
             {/* Add More Card */}
             {
-              (conditionNewPage) &&
+              (conditionNewPage && conditionTwoNewPage) &&
               <div className="w-full flex flex-col gap-[5px]">
                 <div
                   onClick={() => {
-                    if (resourceType === "SUB_PAGE_ITEM") {
+                    if (resourceType === "MAIN_PAGE") {
+                      return setOpenCreateProjectDialog(true)
+                    } else if (resourceType === "SUB_PAGE_ITEM") {
                       localStorage.setItem("contextId", "null");
                       navigate(
                         `../edit/${(resourceTag).toLowerCase()}/new/new`
@@ -354,7 +348,13 @@ function Resources() {
               </Suspense>
             </div>)
       }
-      <ToastContainer />
+
+      {
+        openCreateProjectDialog &&
+        <NewProjectDialog display={openCreateProjectDialog} resources={resources?.[resourceType]} close={() => setOpenCreateProjectDialog(false)} />
+      }
+      {/* <ToastContainer /> */}
+      <ToastPlacer />
     </div >
   );
 }

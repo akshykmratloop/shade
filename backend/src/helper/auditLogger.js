@@ -1,6 +1,154 @@
 import prismaClient from "../config/dbConfig.js";
+import { fetchContent } from "../repository/content.repository.js";
 // import {createNotification} from "../repository/notification.repository.js";
 import {handleEntityCreationNotification} from "./notificationHelper.js";
+import transformContentForAudit from "./transformContentForAudit.js";
+
+// --- Action Type/Performed Resolver ---
+function resolveAction(req, method, entity) {
+  const customActions = [
+    {
+      match: (req) => req.baseUrl.includes("content") && req.path === "/updateContent",
+      actionType: "DRAFT",
+      action_performed: "Content saved (draft)"
+    },
+    {
+      match: (req) => (req.baseUrl.includes("content") || req.baseUrl.includes("resource")) && req.path.includes("assignUser"),
+      actionType: "ASSIGN",
+      action_performed: "User assigned to resource"
+    },
+    {
+      match: (req) => (req.baseUrl.includes("content") || req.baseUrl.includes("resource")) && req.path.includes("removeAssignedUser"),
+      actionType: "REMOVE",
+      action_performed: "Remove user"
+    },
+    // Add more custom actions here as needed
+  ];
+  for (const ca of customActions) {
+    if (ca.match(req)) return { actionType: ca.actionType, action_performed: ca.action_performed };
+  }
+  switch (method) {
+    case "POST": return { actionType: "CREATE", action_performed: entity === "auth" ? `${entity} logged in` : `${entity} created` };
+    case "PUT":
+    case "PATCH": return { actionType: "UPDATE", action_performed: `${entity} updated` };
+    case "DELETE": return { actionType: "DELETE", action_performed: `${entity} deleted` };
+    default: return { actionType: "ACCESS", action_performed: `${entity} accessed` };
+  }
+}
+
+// --- Entity Audit Value Handlers ---
+async function getResourceAssignments(resourceId) {
+  const resource = await prismaClient.resource.findUnique({
+    where: { id: resourceId },
+    select: {
+      titleEn: true,
+      liveVersion: { select: { versionNumber: true } },
+      newVersionEditMode: { select: { versionNumber: true } },
+      roles: {
+        select: {
+          role: true,
+          status: true,
+          user: { select: { name: true } },
+        },
+      },
+      verifiers: {
+        select: {
+          stage: true,
+          status: true,
+          user: { select: { name: true } },
+        },
+      },
+    },
+  });
+  if (!resource) {
+    return {
+      resource: null,
+      liveVersionNumber: null,
+      editVersionNumber: null,
+      roles: [
+        { role: "MANAGER", users: [] },
+        { role: "EDITOR", users: [] },
+        { role: "PUBLISHER", users: [] },
+        { role: "VERIFIER", users: [] },
+      ],
+    };
+  }
+  const roleMap = { MANAGER: [], EDITOR: [], PUBLISHER: [] };
+  for (const r of resource.roles) {
+    if (!roleMap[r.role]) roleMap[r.role] = [];
+    roleMap[r.role].push({ name: r.user?.name, status: r.status });
+  }
+  const verifiers = resource.verifiers.map(v => ({ name: v.user?.name, stage: v.stage, status: v.status }));
+  return {
+    resource: resource.titleEn,
+    liveVersionNumber: resource.liveVersion?.versionNumber || null,
+    editVersionNumber: resource.newVersionEditMode?.versionNumber || null,
+    roles: [
+      { role: "MANAGER", users: roleMap.MANAGER },
+      { role: "EDITOR", users: roleMap.EDITOR },
+      { role: "PUBLISHER", users: roleMap.PUBLISHER },
+      { role: "VERIFIER", users: verifiers },
+    ],
+  };
+}
+
+const entityAuditHandlers = {
+  role: async (id) => {
+    const roleRecord = await prismaClient.role.findUnique({
+      where: { id },
+      include: {
+        permissions: {
+          include: {
+            permission: {
+              select: { name: true },
+            },
+          },
+        },
+      },
+    });
+    if (!roleRecord) return null;
+    return {
+      name: roleRecord.name,
+      permissions: roleRecord.permissions.map((p) => p.permission.name),
+      status: roleRecord.status,
+    };
+  },
+  user: async (id) => {
+    const userRecord = await prismaClient.user.findUnique({
+      where: { id },
+      include: {
+        roles: {
+          include: {
+            role: {
+              include: {
+                permissions: {
+                  include: {
+                    permission: {
+                      select: { name: true },
+                    },
+                  },
+                },
+                roleType: true,
+              },
+            },
+          },
+        },
+      },
+    });
+    if (!userRecord) return null;
+    return {
+      name: userRecord.name,
+      status: userRecord.status,
+      roles: userRecord.roles.map((r) => ({
+        name: r.role.name,
+        permissions: r.role.permissions.map((p) => p.permission.name),
+      })),
+    };
+  },
+  resource: getResourceAssignments,
+  content: getResourceAssignments, // alias for content module
+  // Add more entities as needed
+};
 
 // Middleware to log user actions in the database
 const auditLogger = async (req, res, next) => {
@@ -9,47 +157,41 @@ const auditLogger = async (req, res, next) => {
   let entity = endPoint === "content" ? "resource" : endPoint;
   let entityId =
     req.params.id ||
+    req.params.resourceId ||
     req.body.id ||
     req.body.resourceId ||
     res?.user?.id ||
     null;
-  // console.log("starttt", res, "ress");
   const ipAddress = req.ip;
   const browserInfo = req.headers["user-agent"];
 
   let oldValue = null;
   let newValue = null;
 
-  let actionType;
-  let action_performed;
-  switch (method) {
-    case "POST":
-      actionType = "CREATE";
-      action_performed =
-        entity === "auth" ? `${entityId} logged in` : `${entity} created`;
-      break;
-    case "PUT":
-    case "PATCH":
-      actionType = "UPDATE";
-      action_performed = `${entity} updated`;
-      break;
-    case "DELETE":
-      actionType = "DELETE";
-      action_performed = `${entityId} Deleted`;
-      break;
-    default:
-      actionType = "ACCESS";
-  }
+  // Centralized actionType/action_performed
+  const { actionType, action_performed } = resolveAction(req, method, entity);
 
-  // Capture old record for UPDATE/DELETE actions
-  if (["UPDATE", "DELETE"].includes(actionType) && entityId) {
-    const oldRecord = await prismaClient[entity]?.findUnique({
-      where: {id: entityId},
-    });
+  // Handler for fetching audit values
+  const fetchAuditValue = entityAuditHandlers[entity] || (async (id) => await prismaClient[entity]?.findUnique({ where: { id } }));
 
-    if (oldRecord) {
-      oldValue = oldRecord;
+  // Special DRAFT (updateContent) case
+  if (actionType === "DRAFT" && entity === "resource" && entityId) {
+    // Fetch resource with liveVersion and newVersionEditMode
+    const resource = await fetchContent(entityId)
+
+    // Old value: edit version if exists, else live version
+    let oldVersion = resource?.editModeVersionData || resource?.liveModeVersionData;
+    if (oldVersion) {
+      oldValue = await transformContentForAudit({
+        ...resource,
+        newVersionEditMode: oldVersion,
+      });
     }
+    // New value: transform incoming payload
+      const { resourceId, ...bodyWithoutResourceId } = req.body;
+      newValue = await transformContentForAudit(bodyWithoutResourceId);
+  } else if (["UPDATE", "DELETE", "ASSIGN", "REMOVE"].includes(actionType) && entityId) {
+    oldValue = await fetchAuditValue(entityId);
   }
 
   res.on("finish", async () => {
@@ -61,21 +203,24 @@ const auditLogger = async (req, res, next) => {
         res.locals.createdEntity?.id ||
         res._getData?.()?.id ||
         req.body?.id ||
+        req.params.id ||
+        req.params.resourceId ||
+        req.body.id ||
+        req.body.resourceId ||
+        res?.user?.id ||
         null;
-
-      // console.log("Resolved entityId:", entityId);
     }
 
     // Fetch the latest data from the DB after update
     if (res.statusCode >= 400) {
-      // console.log("Update failed, newValue remains unchanged.");
-      newValue = req.body; // Since the update didn't go through, no change happened
-    } else if (["CREATE", "UPDATE"].includes(actionType) && entityId) {
-      // Fetch latest data from the database only if the update was successful
-      newValue = await prismaClient[entity]?.findUnique({
-        where: {id: entityId},
-      });
+      newValue = req.body
+    } else if (actionType === "DRAFT" && entity === "resource" && entityId) {
+      // Already set above
+    } else if (["CREATE", "UPDATE", "ASSIGN", "REMOVE"].includes(actionType) && entityId) {
+      newValue = await fetchAuditValue(entityId);
     }
+
+    console.log(newValue,entityId,"newValue-----------------------")
 
     try {
       await prismaClient.auditLog.create({
@@ -85,7 +230,7 @@ const auditLogger = async (req, res, next) => {
           entity,
           entityId,
           oldValue: oldValue ? oldValue : null,
-          newValue: newValue ? newValue : null, // Fetch new value from DB
+          newValue: newValue ? newValue : null,
           ipAddress,
           browserInfo,
           outcome:
@@ -120,97 +265,3 @@ const auditLogger = async (req, res, next) => {
 };
 
 export default auditLogger;
-
-// import prismaClient from "../config/dbConfig.js";
-
-// // This middleware will capture the action and store it in the database
-// export const auditLogger = async (req, res, next) => {
-//   const {user} = req; // Assuming user info is attached to the request (e.g. via authentication)
-//   const actionType = req.method; // GET, POST, PUT, DELETE
-//   const entity = req.baseUrl.split("/").pop(); // Extract the entity name from the route
-//   let entityId = req.params.id; // Extract from params if needed
-//   const ipAddress = req.ip;
-//   const browserInfo = req.headers["user-agent"]; // Browser info (optional)
-//   // Capture old and new values only if needed (for example on UPDATE or DELETE)
-//   let oldValue = null;
-//   let newValue = req.body;
-
-//   // Example of capturing changes for a PUT or DELETE request (for resource modification)
-//   if (
-//     actionType === "POST" ||
-//     actionType === "PUT" ||
-//     actionType === "DELETE"
-//   ) {
-//     const entityData = req.body; // Assuming the new data is in the request body (POST or PUT)
-//     newValue = JSON.stringify(entityData);
-
-//     // Capture the response after next() to check if entityId is available
-//     res.on("finish", async () => {
-//       // For POST requests, attempt to retrieve the new entity's ID from res.locals
-//       if (actionType === "POST" && !entityId) {
-//         entityId = res.locals.entityId || null;
-//       }
-//     });
-
-//     if (actionType === "PUT" && entityId) {
-//       const oldRecord = await prismaClient[entity]?.findUnique({
-//         where: {id: entityId},
-//       });
-//       if (oldRecord) {
-//         // Log the whole record if you want to see all old values
-//         oldValue = JSON.stringify(oldRecord);
-
-//         // Optionally compute a diff for only changed fields:
-//         const diff = {};
-//         Object.keys(req.body).forEach((key) => {
-//           if (oldRecord[key] !== req.body[key]) {
-//             diff[key] = {old: oldRecord[key], new: req.body[key]};
-//           }
-//         });
-//         if (Object.keys(diff).length > 0) {
-//           newValue = JSON.stringify(
-//             Object.fromEntries(
-//               Object.entries(diff).map(([key, change]) => [key, change.new])
-//             )
-//           );
-//           // You could log the diff in addition to the full record if needed
-//         } else {
-//           // If no diff is found, but you're still updating, you may want to log the entire request
-//           newValue = JSON.stringify(req.body);
-//         }
-//       }
-//     }
-
-//     if (actionType === "DELETE") {
-//       const entityBeforeDeletion = await prismaClient[entity]?.findUnique({
-//         where: {id: entityId},
-//       });
-//       oldValue = JSON.stringify(entityBeforeDeletion);
-//     }
-//   }
-
-//   // Now, we can store this log in the database after the action
-//   const log = await prismaClient.auditLog.create({
-//     data: {
-//       actionType,
-//       action_performed: `User ${entityId} performed ${actionType} on ${entity}`, // You can modify this based on the action
-//       entity,
-//       entityId,
-//       oldValue: oldValue ? oldValue : null,
-//       newValue: newValue ? newValue : null,
-//       ipAddress,
-//       browserInfo,
-//       outcome: "Success", // You can modify this based on the result of the action
-//       timestamp: new Date(),
-//       user: {
-//         create: {userId: user.id}, // Use the correct field name as defined in your schema
-//       },
-//     },
-//   });
-
-//   // Proceed to the next middleware or handler
-//   next();
-//   console.log(res, "res");
-// };
-
-// export default auditLogger;

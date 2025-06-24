@@ -15,6 +15,7 @@ const Select = ({
     height,
     width,
     field,
+    language
 }) => {
     const handleSelectChange = (e) => {
         let value = e.target.value
@@ -32,6 +33,9 @@ const Select = ({
         }
     };
 
+    const nameLan = language === "en" ? "nameEn" : "nameAr"
+    const titleLan = language === "en" ? "titleEn" : "titleAr"
+
     return (
         <div className={`${baseClass} text-sm relative`}>
             {label && <label className={labelClass}>{label}</label>}
@@ -41,12 +45,12 @@ const Select = ({
                     onChange={handleSelectChange}
                     value={value} // <-- Ensure value is controlled
                 >
-                    <option value="" className=""> Select </option>
+                    <option value="" className="" disabled selected dir={language === "ar" ? "rtl" : "ltr"}> {language === "ar" ? "اختر" : "Select"} </option>
                     {options?.map((option, i) => {
                         // console.log(option)
                         return (
-                            <option value={option.id} key={option + i} className={`${optionsClass || "text-stone-700"} `}>
-                                {option?.name}
+                            <option dir={language === "ar" ? "rtl" : "ltr"} value={option?.id} key={option + i} className={`${optionsClass || "text-stone-700"} `}>
+                                {option?.[nameLan] || option?.name}
                             </option>
                         )
                     })}

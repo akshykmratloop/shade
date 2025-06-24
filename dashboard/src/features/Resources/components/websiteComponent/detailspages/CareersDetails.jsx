@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { updateMainContent } from "../../../../common/homeContentSlice";
 import content from '../content.json'
-import structureOfCareerDetails from "../structures/structureOFCareerDetails.json";
+// import structureOfCareerDetails from "../structures/structureOFCareerDetails.json";
 
 // import styles from "@/components/career/career_detail.module.scss";
 // import Image from "next/image";
@@ -43,13 +43,13 @@ const CareerDetailPage = ({ contentOn, language, careerId, screen }) => {
     //   };
 
 
-    useEffect(() => {
-        if (!currentContent?.[careerId]) {
-            dispatch(updateMainContent({ currentPath: "careerDetails", payload: [...content.careerDetails, { ...structureOfCareerDetails, id: 4 }] }))
-        } else {
-            dispatch(updateMainContent({ currentPath: "careerDetails", payload: content.careerDetails }))
-        }
-    }, [])
+    // useEffect(() => {
+    //     if (!currentContent?.[careerId]) {
+    //         dispatch(updateMainContent({ currentPath: "careerDetails", payload: [...content.careerDetails, { ...structureOfCareerDetails, id: 4 }] }))
+    //     } else {
+    //         dispatch(updateMainContent({ currentPath: "careerDetails", payload: content.careerDetails }))
+    //     }
+    // }, [])
 
     return (
         <div className={`${isPhone ? "px-1": "px-10"}`} dir={isLeftAlign ? "ltr" : "rtl"}>

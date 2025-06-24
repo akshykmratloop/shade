@@ -22,7 +22,6 @@ const History = ({ currentContent, screen, language, width, highlight, liveConte
 
     const checkDifference = highlight ? differentText?.checkDifference?.bind(differentText) : () => ""
 
-
     return (
         <div className="" dir={isLeftAlign ? "ltr" : "rtl"}>
             <section

@@ -48,7 +48,7 @@ const ServiceDetailsManager = ({ serviceId, content, currentPath, language, inde
                         titleEn: e.titleEn,
                         titleAr: e.titleAr,
                         // icon: e.icon,
-                        image: e?.liveModeVersionData?.sections?.image,
+                        image: e?.liveModeVersionData?.image,
                         description: e?.liveModeVersionData?.sections?.[0]?.content.description
                     })
                 })
@@ -119,7 +119,7 @@ const ServiceDetailsManager = ({ serviceId, content, currentPath, language, inde
                 referenceOriginal={{ dir: "subServices" }}
                 currentPath={currentPath}
                 listOptions={subServiceItems}
-                options={content?.[2]?.items}
+                options={content?.[2]?.items || []}
                 sectionIndex={indexes?.['2']}
                 outOfEditing={outOfEditing}
 
@@ -133,7 +133,7 @@ const ServiceDetailsManager = ({ serviceId, content, currentPath, language, inde
                 referenceOriginal={{ dir: "subServices" }}
                 currentPath={currentPath}
                 listOptions={subService}
-                options={content?.[3]?.items?.filter(e => e.slug !== slug)}
+                options={content?.[3]?.items?.filter(e => e.slug !== slug) || []}
                 sectionIndex={indexes?.['3']}
                 outOfEditing={outOfEditing}
 

@@ -558,6 +558,19 @@ div.importantList ul {
   animation: initiateleft .05s forwards 1 linear;
 }
 
+.animate-rotate {
+  animation: rotation .5s linear infinite;
+}
+
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to{
+    transform: rotate(360deg);
+  }
+}
+
 @keyframes initiateleft {
   from {
     transform: translateX(100px);

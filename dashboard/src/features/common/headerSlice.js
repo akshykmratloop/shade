@@ -29,6 +29,9 @@ export const headerSlice = createSlice({
     setNotificationCount: (state, action) => {
       let count = (state.noOfNotifications = action.payload);
     },
+    incrementNotificationCount: (state) => {
+      state.noOfNotifications += 1;
+    },
   },
 });
 
@@ -38,6 +41,7 @@ export const {
   showNotification,
   markNotificationAsRead,
   setNotificationCount,
+  incrementNotificationCount,
 } = headerSlice.actions;
 
 export default headerSlice.reducer;

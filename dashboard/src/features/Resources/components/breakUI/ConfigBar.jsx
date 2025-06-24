@@ -126,11 +126,11 @@ const ConfigBar = ({ display, setOn, data, resourceId, reRender }) => {
         reRender(Math.random())
         updateToasify(loadingToastId, "Users has been removed successfully!", "success", 700)
       } else {
-        updateToasify(loadingToastId, "Failed to remove all Users. Try again later", "failure", 700)
+        updateToasify(loadingToastId, `${response.message}`, "failure", 700)
       }
     } catch (err) {
       console.log(err)
-      updateToasify(loadingToastId, "Failed to remove all Users. Try again later", "failure", 700)
+      updateToasify(loadingToastId, `${err.message}`, 700)
     } finally {
       // toast.dismiss(loadingToastId)
       dispatch(switchDebounce(false))

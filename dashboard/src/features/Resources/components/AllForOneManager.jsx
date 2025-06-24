@@ -26,6 +26,10 @@ import HSnEManager from "./contentmanager/HSnEManager";
 import MarketDetailsManager from "./contentmanager/CMforDetails/MarketDetailsManager";
 import AffiliatesManager from "./contentmanager/AffiliatesManager";
 import OrganizationManager from "./contentmanager/OrganizationManager";
+import TemplateOneManager from "./contentmanager/TemplateOneManager";
+import TemplateTwoManager from "./contentmanager/TemplateTwoManager";
+import TemplateThreeManager from "./contentmanager/TemplateThreeManager";
+import TemplateFourManager from "./contentmanager/TemplateFourManager";
 
 
 const AllForOneManager = ({ currentPath, language, subPath, deepPath, content, contentIndex, outOfEditing }) => {
@@ -123,6 +127,22 @@ const AllForOneManager = ({ currentPath, language, subPath, deepPath, content, c
 
         case "hse":
             manager = <HSnEManager outOfEditing={outOfEditing} language={language} content={content} indexes={contentIndex} currentPath={currentPath} />
+            break;
+
+        case "temp-1":
+            manager = <TemplateOneManager outOfEditing={outOfEditing} language={language} content={content} indexes={contentIndex} currentPath={currentPath} />
+            break;
+
+        case "temp-2":
+            manager = <TemplateTwoManager outOfEditing={outOfEditing} language={language} content={content} indexes={contentIndex} currentPath={currentPath} />
+            break;
+
+        case "temp-3":
+            manager = <TemplateThreeManager outOfEditing={outOfEditing} language={language} content={content} indexes={contentIndex} currentPath={currentPath} />
+            break;
+
+        case "temp-4":
+            manager = <TemplateFourManager outOfEditing={outOfEditing} language={language} content={content} indexes={contentIndex} currentPath={currentPath} />
             break;
 
         default:

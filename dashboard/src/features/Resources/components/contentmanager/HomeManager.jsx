@@ -71,7 +71,7 @@ const HomeManager = ({ language, currentPath, outOfEditing }) => {
                         resourceType: "SUB_PAGE",
                         resourceTag: tag,
                         apiCallType: "INTERNAL",
-                        fetchType: ["PROJECT", "MARKET", "SAFETY_RESPONSIBILITY", "TESTIMONIAL"].includes(tag) ? "CONTENT" : undefined,
+                        fetchType: ["PROJECT", "MARKET", "SAFETY_RESPONSIBILITY", "TESTIMONIAL", "SERVICE"].includes(tag) ? "CONTENT" : undefined,
                     })
                 );
 
@@ -82,16 +82,18 @@ const HomeManager = ({ language, currentPath, outOfEditing }) => {
 
                     const valid = isOkCheck ? response?.ok : response?.message === "Success";
                     if (valid && response?.resources?.resources) {
-                        const options = response.resources.resources.map((e, i) => ({
-                            id: e.id,
-                            order: i + 1,
-                            slug: e.slug,
-                            titleEn: e.titleEn,
-                            titleAr: e.titleAr,
-                            icon: e.icon,
-                            image: e.image,
-                            ...getExtra(e),
-                        }));
+                        const options = response.resources.resources.map((e, i) => {
+                            return ({
+                                id: e.id,
+                                order: i + 1,
+                                slug: e.slug,
+                                titleEn: e.titleEn,
+                                titleAr: e.titleAr,
+                                icon: e.resourceTag === "SERVICE" ? e.liveModeVersionData?.icon : e.icon,
+                                image:e.resourceTag === "SERVICE" ? e.liveModeVersionData?.imageF: e.image,
+                                ...getExtra(e),
+                            })
+                        });
                         setState(options);
                     }
                 });

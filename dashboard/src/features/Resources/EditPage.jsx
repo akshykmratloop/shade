@@ -60,9 +60,10 @@ const EditPage = () => {
 
     const Routes = [
         "home", "solution", "about-us", "service", "market",
-        "projects", "project", "careers", "career", "news-blogs", "news", ,
-        "footer", "header", "testimonials", "testimonial",
-        "safety_responsibility", "history", "vision", "hse", "affiliates", "organization"
+        "projects", "project", "careers", "career", "news-blogs",
+        "news", "footer", "header", "testimonials", "testimonial",
+        "safety_responsibility", "history", "vision", "hse",
+        "affiliates", "organization", "temp-1", "temp-2", "temp-3", "temp-4"
     ]
 
 
@@ -99,7 +100,9 @@ const EditPage = () => {
 
     useEffect(() => {
         setLoader(true)
-        if (currentId) {
+        if(currentId.slice(0,4) === "TEMP"){
+        dispatch(updateMainContent({ currentPath: "content", payload: structures[currentId] }))
+        } else if (currentId) {
             async function context() {
                 try {
                     const response = await getContent(currentId)
@@ -159,7 +162,7 @@ const EditPage = () => {
                                         className={`pt-8 bg-[#fafaff] 
                                     dark:bg-[#242933] p-8 lg:w-[23rem] 
                                     sm:w-[30vw] min-w-23rem flex 
-                                    flex-col gap-4 items-center 
+                                    flex-col gap-4 
                                     overflow-y-scroll customscroller
                                      rounded-lg
                                     `}

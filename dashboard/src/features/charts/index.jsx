@@ -19,6 +19,7 @@ import capitalizeWords, { TruncateText } from "../../app/capitalizeword";
 import { getAllusers } from "../../app/fetch";
 import userIcon from "../../assets/user.png";
 import Paginations from "../Component/Paginations";
+import ToastPlacer, { runToast } from "../Component/ToastPlacer";
 
 
 const TopSideButtons = ({ removeFilter, applyFilter, applySearch }) => {
@@ -42,7 +43,7 @@ const TopSideButtons = ({ removeFilter, applyFilter, applySearch }) => {
 
   useEffect(() => {
     // reflection on ui as per the state changes
-      applySearch(searchText);
+    applySearch(searchText);
   }, [searchText]);
 
   return (
@@ -167,26 +168,29 @@ function Users() {
 
 
   const statusChange = async (user) => {
-    const loadingToastId = toast.loading("Processing...");
+    // const loadingToastId = toast.loading("Processing...");
+    runToast("LOAD", "Processing...")
     let response =
       user.status === "ACTIVE"
         ? await deactivateUser({ id: user.id })
         : await activateUser({ id: user.id });
     if (response.ok) {
-      updateToastify(
-        loadingToastId,
-        `Request successful. ${response.message}`,
-        "success",
-        1000
-      );
+      runToast("SUCCESS", `Request successful. ${response.message}`)
+      // updateToastify(
+      //   loadingToastId,
+      //   `Request successful. ${response.message}`,
+      //   "success",
+      //   1000
+      // );
       setChangesInUser((prev) => !prev);
     } else {
-      updateToastify(
-        loadingToastId,
-        `Request failed. ${response.message}`,
-        "error",
-        2000
-      );
+      runToast("ERROR", `Request failed. ${response.message}`)
+      // updateToastify(
+      //   loadingToastId,
+      //   `Request failed. ${response.message}`,
+      //   "error",
+      //   2000
+      // );
     }
     // toast.dismiss(loadingToastId); // to deactivate to running taost
   };
@@ -430,7 +434,8 @@ function Users() {
           }}
         />
       )}
-      <ToastContainer />
+      {/* <ToastContainer /> */}
+      <ToastPlacer />
     </div>
   );
 }

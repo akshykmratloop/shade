@@ -3,7 +3,7 @@ import InputFile from "../../../../components/Input/InputFile";
 import InputText from "../../../../components/Input/InputText";
 import TextAreaInput from "../../../../components/Input/TextAreaInput";
 import { useDispatch, useSelector } from "react-redux";
-import { updateSpecificContent, updateServicesNumber, updateImages, updateAList, addImageArray, rmImageArray, addImagePointArray, rmImagePointArray, updateSubServiceDetailsPointsArray, updateAffiliatesCardsArray, updateBaseData } from "../../../common/homeContentSlice";
+import { updateSpecificContent, updateServicesNumber, updateImages, updateAList, addImageArray, rmImageArray, addImagePointArray, rmImagePointArray, updateSubServiceDetailsPointsArray, updateAffiliatesCardsArray, updateBaseData, updateFilterStatus } from "../../../common/homeContentSlice";
 import InputFileForm from "../../../../components/Input/InputFileForm";
 import JoditEditor from "jodit-react";
 import { Jodit } from "jodit-react";
@@ -102,10 +102,16 @@ const ContentSection = ({
 
     const updateFormValue = (updateType, value, path, buttonIndex) => {
         if (section === "page-details") {
-            dispatch(updateBaseData({
-                title: updateType,
-                value: value
-            }))
+            if (updateType === "filter") {
+                dispatch(updateFilterStatus({
+                    value: value
+                }))
+            } else {
+                dispatch(updateBaseData({
+                    title: updateType,
+                    value: value
+                }))
+            }
         } else if (updateType === 'count') {
             if (!isNaN(value)) {
                 let val = value?.slice(0, 7);
@@ -287,7 +293,8 @@ const ContentSection = ({
                                 optionsClass={"dark:bg-[#242933]"}
                                 setterOnChange={(updateType, value) => updateFormValue(updateType, value, input.index)}
                                 field={input.updateType}
-                                // outOfEditing={outOfEditing}
+                                language={language}
+                            // outOfEditing={outOfEditing}
                             />
                         );
                     } else if (input.input === "richtext") {

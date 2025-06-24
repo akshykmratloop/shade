@@ -1,0 +1,240 @@
+{
+    "id": "N",
+    "titleEn": "",
+    "titleAr": "",
+    "slug": "",
+    "isEditable": true,
+    "resourceType": "MAIN_PAGE",
+    "resourceTag": "TEMPLATE_TWO",
+    "relationType": "PARENT",
+    "parentId": "",
+    "editVersion": {
+        "id": "",
+        "versionNumber": 1,
+        "icon": null,
+        "image": "",
+        "comments": "",
+        "referenceDoc": null,
+        "updatedAt": "",
+        "status": "",
+        "sections": [
+            {
+                "sectionId": "",
+                "order": 1,
+                "version": 1,
+                "title": "Banner",
+                "SectionType": "HERO_BANNER",
+                "sectionVersionTitle": "-overviewSection",
+                "content": {
+                    "title": {
+                        "ar": "",
+                        "en": ""
+                    },
+                    "images": [
+                        {
+                            "url": "",
+                            "order": 1,
+                            "altText": {
+                                "ar": "",
+                                "en": ""
+                            }
+                        }
+                    ],
+                    "description": {
+                        "ar": "",
+                        "en": ""
+                    }
+                },
+                "sections": []
+            },
+            {
+                "sectionId": "",
+                "order": 2,
+                "version": 1,
+                "title": "cardsSection",
+                "SectionType": "MARKDOWN_CONTENT",
+                "sectionVersionTitle": "-cardsSection",
+                "content": {
+                    "title": {
+                        "ar": "",
+                        "en": ""
+                    },
+                    "description": {
+                        "ar": "",
+                        "en": ""
+                    }
+                },
+                "sections": []
+            },
+            {
+                "sectionId": "",
+                "order": 3,
+                "version": 1,
+                "title": "additionalInfoSection",
+                "SectionType": "MARKDOWN_CONTENT",
+                "sectionVersionTitle": "-additionalInfoSection",
+                "content": {
+                    "cards": [
+                        {
+                            "description": {
+                                "ar": "",
+                                "en": ""
+                            }
+                        },
+                        {
+                            "description": {
+                                "ar": "",
+                                "en": ""
+                            }
+                        },
+                        {
+                            "description": {
+                                "ar": "",
+                                "en": ""
+                            }
+                        },
+                        {
+                            "description": {
+                                "ar": "",
+                                "en": ""
+                            }
+                        },
+                        {
+                            "description": {
+                                "ar": "",
+                                "en": ""
+                            }
+                        }
+                    ]
+                },
+                "sections": []
+            },
+            {
+                "sectionId": "",
+                "order": 4,
+                "version": 1,
+                "title": "cardsSection",
+                "SectionType": "MULTI_SECTION",
+                "sectionVersionTitle": "-cardsSection",
+                "content": {
+                    "cards": [
+                        {
+                            "title": {
+                                "ar": "",
+                                "en": ""
+                            },
+                            "description": [
+                                {
+                                    "ar": "",
+                                    "en": ""
+                                },
+                                {
+                                    "ar": "",
+                                    "en": ""
+                                },
+                                {
+                                    "ar": "",
+                                    "en": ""
+                                },
+                                {
+                                    "ar": "",
+                                    "en": ""
+                                }
+                            ],
+                            "images": [
+                                {
+                                    "url": "",
+                                    "order": 1,
+                                    "altText": {
+                                        "ar": "",
+                                        "en": ""
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            "title": {
+                                "ar": "",
+                                "en": ""
+                            },
+                            "description": [
+                                {
+                                    "ar": "",
+                                    "en": ""
+                                },
+                                {
+                                    "ar": "",
+                                    "en": ""
+                                },
+                                {
+                                    "ar": "",
+                                    "en": ""
+                                },
+                                {
+                                    "ar": "",
+                                    "en": ""
+                                }
+                            ],
+                            "images": [
+                                {
+                                    "url": "",
+                                    "order": 1,
+                                    "altText": {
+                                        "ar": "",
+                                        "en": ""
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                },
+                "sections": []
+            },
+            {
+                "sectionId": "",
+                "order": 5,
+                "version": 1,
+                "title": "cardsSection",
+                "SectionType": "MARKDOWN_CONTENT",
+                "sectionVersionTitle": "-cardsSection",
+                "content": {
+                    "title": {
+                        "ar": "",
+                        "en": ""
+                    },
+                    "description": {
+                        "ar": "",
+                        "en": ""
+                    },
+                    "images": [
+                        {
+                            "url": "",
+                            "order": 1,
+                            "altText": {
+                                "ar": "",
+                                "en": ""
+                            }
+                        },
+                        {
+                            "url": "",
+                            "order": 2,
+                            "altText": {
+                                "ar": "",
+                                "en": ""
+                            }
+                        },
+                        {
+                            "url": "",
+                            "order": 3,
+                            "altText": {
+                                "ar": "",
+                                "en": ""
+                            }
+                        }
+                    ]
+                },
+                "sections": []
+            }
+        ]
+    }
+}

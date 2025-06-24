@@ -6,20 +6,29 @@ import {
   editProfile,
   editProfileImage,
   editUserDetails,
-  findUserByEmail,
   getAllRolesForUser,
   getAllUsers,
   getAllUsersByRoleId,
   getUserById,
   userRoleType,
 } from "./user.service.js";
+import { handleEntityCreationNotification } from "../../helper/notificationHelper.js";
 
 const CreateUserHandler = async (req, res) => {
   const {name, email, password, phone, roles} = req.body;
   const user = await createUser(name, email, password, phone, roles);
   res.locals.entityId = user.user.id;
   res.status(201).json(user);
-  // console.log(user.user.id, "entityId_reslocals");
+  // Notification: user created
+  const io = req.app.locals.io;
+  await handleEntityCreationNotification({
+    io,
+    userId: req.user?.id || user.user.id, // fallback to created user if no actor
+    entity: "user",
+    newValue: user.user,
+    actionType: "CREATE",
+    targetUserId: user.user.id,
+  });
 };
 
 const GetAllUsers = async (req, res) => {
@@ -51,19 +60,24 @@ const GetUserProfile = async (req, res) => {
 
 const GetAllUsersByRoleId = async (req, res) => {
   const {roleId} = req.params;
-  console.log(roleId, "roleId");
-
   const allUser = await getAllUsersByRoleId(roleId);
-
   res.status(201).json(allUser);
 };
 
 const EditUserDetails = async (req, res) => {
   const {id} = req.params;
   const {name, password, phone, roles} = req.body;
-
   const updatedUser = await editUserDetails(id, name, password, phone, roles);
   const io = req.app.locals.io;
+  // Notification: user updated
+  await handleEntityCreationNotification({
+    io,
+    userId: req.user?.id,
+    entity: "user",
+    newValue: updatedUser.result,
+    actionType: "UPDATE",
+    targetUserId: id,
+  });
   const socketIdOfUpdatedUser = getSocketId(id);
   io.to(socketIdOfUpdatedUser).emit("userUpdated", updatedUser);
   res.status(201).json(updatedUser);
@@ -72,11 +86,7 @@ const EditUserDetails = async (req, res) => {
 const EditProfile = async (req, res) => {
   const {id} = req.user;
   const {name, phone, image} = req.body;
-
   const updatedUser = await editProfile(id, name, phone, image);
-  // const io = req.app.locals.io;
-  // const socketIdOfUpdatedUser = getSocketId(id);
-  // io.to(socketIdOfUpdatedUser).emit("userUpdated", updatedUser);
   res.status(201).json(updatedUser);
 };
 
@@ -108,18 +118,13 @@ const UserRoleType = async (req, res) => {
 
 const EditProfileImage = async (req, res) => {
   const {id} = req.user;
-  // const {image} = req.body;
-
-  // Because upload.array("image", 1) was used, mediaUploader set req.uploadedImages = [ {...} ]
   if (!req.uploadedImages || req.uploadedImages.length === 0) {
     return res.status(400).json({error: "No uploadedImages found"});
   }
-
   const {public_id: imageUrl} = req.uploadedImages[0];
   if (!imageUrl) {
     return res.status(400).json({error: "Cloudinary did not return a URL"});
   }
-
   const updatedUser = await editProfileImage(id, imageUrl);
   res.status(201).json(updatedUser);
 };

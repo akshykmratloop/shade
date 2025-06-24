@@ -70,7 +70,7 @@ export default function ServicesSubpages({apiData}) {
 
 export async function getServerSideProps({params}) {
   const {slug} = params;
-  console.log("Fetching data for slug:", slug);
+  console.log("Fetching data for slug:", params);
   console.log("helloooooooo");
 
   try {

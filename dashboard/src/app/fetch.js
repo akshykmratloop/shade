@@ -333,8 +333,13 @@ export async function getNotificationsbyId(id, page = 1, search = "", filters = 
 
   const uri = api.route("getNotifications") + id + "?" + params.toString();
   // const uri = api.route("getNotifications") + id;
-  console.log(uri, "uri==============");
+  // console.log(uri, "uri==============");
   return await makerequest(uri, "GET");
+}
+
+export async function deleteNotifications(id) {
+  const uri = api.route("clearAll") + id;
+  return await makerequest(uri, "DELETE");
 }
 
 export async function markAllNotificationAsRead(id) {
@@ -449,6 +454,17 @@ export async function schedulePublish(param, body) {
     ContentType.json,
     true
   );
+}
+
+export async function getAllFilters(query){
+  if (!query || typeof query !== "object" || Object.keys(query).length === 0) {
+    return await makerequest(api.route("getAllFilters"), "GET");
+  }
+
+  const params = new URLSearchParams(query).toString();
+  const url = `${api.route("getAllFilters")}?${params}`;
+
+  return await makerequest(url, "GET");
 }
 
 export async function generateRequest(body) {

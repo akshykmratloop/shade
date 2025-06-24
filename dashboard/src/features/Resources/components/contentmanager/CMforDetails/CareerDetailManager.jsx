@@ -11,23 +11,23 @@ const CareerDetailManager = ({ careerId, currentContent, currentPath, language }
     const careerIndex = currentContent?.findIndex(e => e.id == careerId)
 
     const addExtraSummary = () => {
-        dispatch(updateTheProjectSummaryList(
-            {
-                insert: {
-                    title: {
-                        ar: "",
-                        en: ""
-                    },
-                    content: {
-                        ar: "",
-                        en: ""
-                    }
-                },
-                careerIndex,
-                context: "careerDetails",
-                operation: 'add'
-            }
-        ))
+        // dispatch(updateCardAndItemsArray(
+        //     {
+        //         insert: {
+        //             title: {
+        //                 ar: "",
+        //                 en: ""
+        //             },
+        //             content: {
+        //                 ar: "",
+        //                 en: ""
+        //             }
+        //         },
+        //         careerIndex,
+        //         context: "careerDetails",
+        //         operation: 'add'
+        //     }
+        // ))
     }
 
     useEffect(() => {

@@ -77,7 +77,6 @@ const SnR = ({ currentContent, screen, language, width, highlight, liveContent }
                     {
                         currentContent?.['2']?.items?.map((e, i) => {
                             let odd = i % 2 !== 0
-                            console.log(e)
                             return (
                                 <article
                                     style={{
