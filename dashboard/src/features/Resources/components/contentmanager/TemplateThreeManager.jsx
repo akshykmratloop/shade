@@ -7,26 +7,6 @@ import DynamicContentSection from "../breakUI/DynamicContentSection";
 
 
 const skeletons = {
-    2: {
-        "title": {
-            "ar": "",
-            "en": ""
-        },
-        "description": {
-            "ar": "",
-            "en": ""
-        },
-        "images": [
-            {
-                "url": "",
-                "order": 1,
-                "altText": {
-                    "ar": "",
-                    "en": ""
-                }
-            }
-        ]
-    },
     3: {
         "title": {
             "ar": "",
@@ -47,31 +27,27 @@ const skeletons = {
             }
         ]
     },
-    4: {
+    "4": {
         "title": {
-            "ar": "",
-            "en": ""
-        },
-        "description": {
             "ar": "",
             "en": ""
         }
     }
 }
 
-const TemplateOneManager = ({ content, currentPath, language, indexes, outOfEditing }) => {
+const TemplateThreeManager = ({ content, currentPath, language, indexes, outOfEditing }) => {
     const dispatch = useDispatch()
 
     const context = useSelector(state => state.homeContent?.present?.content) || {}
 
-
-    const addExtraSummary = (sectionIndex, structure) => {
+    const addExtraSummary = (sectionIndex, structure, cardIndex) => {
         dispatch(updateSubServiceDetailsPointsArray(
             {
                 insert: skeletons[structure],
                 section: "cards",
                 sectionIndex,
-                operation: 'add'
+                operation: 'add',
+                cardIndex
             }
         ))
     }
@@ -79,7 +55,7 @@ const TemplateOneManager = ({ content, currentPath, language, indexes, outOfEdit
     return (
         <div>
             {/* reference doc */}
-            <FileUploader id={"Temp-One-ID-Reference"} label={"Rerference doc"} fileName={"Upload your file..."} />
+            <FileUploader id={"Temp-Two-ID-Reference"} label={"Rerference doc"} fileName={"Upload your file..."} />
 
             {
                 context?.id === "N" &&
@@ -94,6 +70,7 @@ const TemplateOneManager = ({ content, currentPath, language, indexes, outOfEdit
                     section={"page-details"}
                     language={language}
                     outOfEditing={outOfEditing}
+
                 />
             }
 
@@ -103,7 +80,8 @@ const TemplateOneManager = ({ content, currentPath, language, indexes, outOfEdit
                 Heading={"Banner"}
                 inputs={[
                     { input: "input", label: "Heading/title", updateType: "title", value: content?.['1']?.content?.title?.[language] },
-                    { input: "textarea", label: "Description", updateType: "description", value: content?.['1']?.content?.description?.[language] },
+                    { input: "textarea", label: "Description", updateType: "description", maxLength: 400, value: content?.['1']?.content?.description?.[language] },
+                    { input: "input", label: "Button Text", updateType: "button", maxLength: 20, value: content?.["1"]?.content?.button?.[0]?.text?.[language], index: 0 }
                 ]}
                 inputFiles={[{ label: "Backround Image", id: "ServiceBanner", order: 1, url: content?.['1']?.content?.images?.[0]?.url }]}
                 section={"banner"}
@@ -114,31 +92,61 @@ const TemplateOneManager = ({ content, currentPath, language, indexes, outOfEdit
 
             />
 
+            <ContentSection
+                currentPath={currentPath}
+                Heading={"Sub Heading"}
+                inputs={[
+                    { input: "input", label: "Heading/title", updateType: "title", value: content?.['2']?.content?.title?.[language] },
+                    { input: "textarea", label: "Description", updateType: "description", maxLength: 400, value: content?.['2']?.content?.description?.[language] },
+                ]}
+                section={"banner"}
+                language={language}
+                currentContent={content}
+                sectionIndex={indexes?.['2']}
+                outOfEditing={outOfEditing}
+
+            />
+
+            <ContentSection
+                currentPath={currentPath}
+                Heading={"Cards"}
+                inputs={[
+                    { input: "input", label: "Heading/title", updateType: "title", value: content?.['3']?.content?.title?.[language] },
+                    { input: "textarea", label: "Description", updateType: "description", maxLength: 200, value: content?.['3']?.content?.description?.[language] },
+                ]}
+                section={"banner"}
+                language={language}
+                currentContent={content}
+                sectionIndex={indexes?.['3']}
+                outOfEditing={outOfEditing}
+
+            />
+
 
             <div className="mt-4 border-b pb-3">
-                <h3 className={`font-semibold text-[1.25rem] mb-4`}>Multi Grid Section</h3>
+                <h3 className={`font-semibold text-[1.25rem] mb-4`}>Cards</h3>
                 {
-                    content?.[2]?.content?.cards?.map?.((section, i) => {
+                    content?.[3]?.content?.cards?.map?.((section, i) => {
                         return (
                             <DynamicContentSection
                                 key={i}
                                 currentPath={currentPath}
-                                subHeading={`Grid ${(i + 1)}`}
+                                subHeading={`Card ${(i + 1)}`}
                                 inputs={[
                                     { input: "input", label: "Heading/title", updateType: "title", value: section?.title?.[language] },
-                                    { input: "textarea", label: "Description", updateType: "description", value: section?.description?.[language] },
+                                    { input: "textarea", label: "Description", updateType: "description", maxLength: 150, value: section?.description?.[language] },
                                 ]}
                                 inputFiles={[{ label: "Image", id: `grid${i}`, order: 1, url: section?.images?.[0]?.url }]}
                                 index={i}
                                 isBorder={false}
-                                allowRemoval={true}
                                 section={"cards"}
                                 subSection={"cards"}
                                 language={language}
                                 currentContent={content}
-                                sectionIndex={indexes?.['2']}
+                                sectionIndex={indexes?.['3']}
                                 contentIndex={i}
                                 order={section.order}
+                                allowRemoval={true}
                                 outOfEditing={outOfEditing}
 
                             />
@@ -146,71 +154,51 @@ const TemplateOneManager = ({ content, currentPath, language, indexes, outOfEdit
                     })
                 }
                 <button
-                    className="text-blue-500 cursor-pointer my-3 pt-3"
-                    onClick={() => addExtraSummary(indexes?.['2'], 2)}
+                    className="block text-blue-500 cursor-pointer my-3"
+                    onClick={() => addExtraSummary(indexes?.['3'], 3)}
                 >
-                    Add More Section...
+                    Add Section...
                 </button>
             </div>
 
-            <div className="mt-4 border-b pb-3">
-                <h3 className={`font-semibold text-[1.25rem] mb-4`}>Multi Cards</h3>
-                {
-                    content?.[3]?.content?.cards?.map?.((section, i) => {
-                        return (
-                            <DynamicContentSection
-                                key={i}
-                                currentPath={currentPath}
-                                subHeading={`Cards ${(i + 1)}`}
-                                inputs={[
-                                    { input: "input", label: "Heading/title", updateType: "title", value: section?.title?.[language] },
-                                    { input: "textarea", label: "Description", updateType: "description", value: section?.description?.[language] },
-                                ]}
-                                inputFiles={[{ label: "Icon", id: `cards${i}`, order: 1, url: section?.images?.[0]?.url }]}
-                                index={i}
-                                isBorder={false}
-                                allowRemoval={true}
-                                section={"cards"}
-                                subSection={"cards"}
-                                language={language}
-                                currentContent={content}
-                                sectionIndex={indexes?.['3']}
-                                order={section.order}
-                                outOfEditing={outOfEditing}
 
-                            />
-                        )
-                    })
+            <ContentSection
+                currentPath={currentPath}
+                Heading={"Mark Down"}
+                inputs={[
+                    { input: "input", label: "Heading/title", updateType: "title", value: content?.['5']?.content?.title?.[language] },
+                    { input: "textarea", label: "Description", updateType: "description", value: content?.['5']?.content?.description?.[language] },
+                ]}
+                inputFiles={
+                    [{
+                        label: "Image",
+                        id: `markDown-1`,
+                        order: 1,
+                        url: content?.['4']?.content?.images?.[0]?.url
+                    }]
                 }
-               {
-               !outOfEditing &&
-               <button
-                    className="text-blue-500 cursor-pointer my-3 pt-3"
-                    onClick={() => addExtraSummary(indexes?.['3'], 3)}
-                    disabled={outOfEditing}
-                >
-                    Add More Section...
-                </button>}
-            </div>
+                section={"MarkDown"}
+                isBorder={false}
+                language={language}
+                currentContent={content}
+                sectionIndex={indexes?.['4']}
+                outOfEditing={outOfEditing}
 
+            />
             <div className="mt-4 border-b pb-3">
-                <h3 className={`font-semibold text-[1.25rem] mb-4`}>
-                    Multi Description
-                </h3>
+                {/* <h3 className={`font-semibold text-[1.25rem] mb-4`}>Cards</h3> */}
                 {
-                    content?.['4']?.content?.cards?.map((section, i) => {
+                    content?.[4]?.content?.cards?.map?.((section, i) => {
                         return (
                             <DynamicContentSection
                                 key={i}
-                                subHeading={`Description ${(i + 1)}`}
                                 currentPath={currentPath}
+                                // subHeading={`Card ${(i + 1)}`}
                                 inputs={[
-                                    { input: "input", label: "Title", updateType: "title", value: section?.title?.[language] },
-                                    { input: "textarea", label: "Description", updateType: "description", value: section?.description?.[language] }
+                                    { input: "input", label: `card ${(i + 1)}`, updateType: "title", value: section?.title?.[language] },
                                 ]}
                                 index={i}
                                 isBorder={false}
-                                allowRemoval={true}
                                 section={"cards"}
                                 subSection={"cards"}
                                 language={language}
@@ -218,24 +206,25 @@ const TemplateOneManager = ({ content, currentPath, language, indexes, outOfEdit
                                 sectionIndex={indexes?.['4']}
                                 contentIndex={i}
                                 order={section.order}
+                                allowRemoval={true}
                                 outOfEditing={outOfEditing}
+
                             />
                         )
                     })
                 }
-               {
-               !outOfEditing &&
-               <button
-                    className="text-blue-500 cursor-pointer my-3 pt-3"
-                    onClick={() => addExtraSummary(indexes?.['4'], 4)}
-                >
-                    Add More Section...
-                </button>}
+                {
+                    (content?.[4]?.content?.cards?.length < 6) &&
+                    < button
+                        className="block text-blue-500 cursor-pointer my-3"
+                        onClick={() => addExtraSummary(indexes?.['4'], 4)}
+                    >
+                        Add Card...
+                    </button>}
             </div>
 
-
-        </div>
+        </div >
     )
 }
 
-export default TemplateOneManager
+export default TemplateThreeManager

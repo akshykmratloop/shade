@@ -8,11 +8,13 @@ import { useEffect, useRef, useState } from "react";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "./components/breakUI/DropDownMenu";
 import { pagesImages } from "./resourcedata";
 import { useSelector } from "react-redux";
-import { TruncateText } from "../../app/capitalizeword";
+import capitalizeWords, { TruncateText } from "../../app/capitalizeword";
 
 export const ResourceCard = ({ resource = {}, ActionIcons }) => {
     const isEditor = useSelector(state => state.user.isEditor)
+    const isSingleManager = useSelector(state => state.user.isSingleManager)
 
+    console.log(resource)
     return (
         <div className="bg-white rounded-lg shadow-sm border hover:shadow-md transition-shadow overflow-hidden">
             {/* Thumbnail */}
@@ -26,20 +28,26 @@ export const ResourceCard = ({ resource = {}, ActionIcons }) => {
                     className={`w-full h-full object-cover ${pagesImages[resource.slug] && "object-top brightness-[0.9]"}`}
                 />
                 <div className="absolute top-3 right-3 flex flex-col items-end gap-2">
-                    <div className="bg-[#f1f5f9] text-black/70 text-sm px-2 py-1 rounded-2xl">
-                        {resource.isPublished ? "Published" : "Draft"}
-                    </div>
-                    <div className="bg-[#f1f5f9] text-black/70 text-sm px-2 py-1 rounded-2xl">
-                        {resource.isAssigned ? "Assigned" : "Not Assigned"}
-                    </div>
+                    {
+                        (isEditor || isSingleManager) &&
+                        <div className="bg-[#f1f5f9] text-black/70 text-sm px-2 py-1 rounded-2xl">
+                            {resource.isPublished ? "Published" : resource.newVersionEditMode ? capitalizeWords(resource.newVersionEditMode.versionStatus || "") : "Under Editing"}
+                        </div>
+                    }
+                    {
+                        !isEditor &&
+                        <div className="bg-[#f1f5f9] text-black/70 text-sm px-2 py-1 rounded-2xl">
+                            {resource.isAssigned ? "Assigned" : "Not Assigned"}
+                        </div>
+                    }
                 </div>
             </div>
             {/* Content */}
             <div className="p-4 flex flex-col border  justify-between">
                 <div className="flex items-start justify-between mb-3">
                     <div>
-                        <h3 className="font-semibold text-gray-900 mb-1" 
-                        title={resource.titleEn}>{TruncateText(resource.titleEn, 25)}</h3>
+                        <h3 className="font-semibold text-gray-900 mb-1"
+                            title={resource.titleEn}>{TruncateText(resource.titleEn, 25)}</h3>
                         <div className="flex items-center text-sm text-gray-500">
                             {/* <Globe className="w-4 h-4 mr-1" /> */}
                             <span>{resource.status}</span>

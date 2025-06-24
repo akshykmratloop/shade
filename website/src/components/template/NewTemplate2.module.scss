@@ -138,6 +138,7 @@
       display: flex;
       gap: 100px;
       align-items: center;
+      justify-content: space-between;
       padding: 65px 0;
 
       .card_layout_left {
@@ -172,7 +173,7 @@
       }
 
       .template2_second_section_card_image {
-        width: 512px;
+        // width: 512px;
 
         img {
           width: 452px;
@@ -210,6 +211,7 @@
     }
     .template2_third_section_content_images {
       display: flex;
+      justify-content: space-between;
       object-fit: contain;
       gap: 10px;
 
@@ -245,6 +247,7 @@
     }
   }
   .template2_first_section {
+    padding: 60px 0;
     .template2_first_section_header {
       flex-direction: column;
       margin-bottom: 60px;
@@ -262,10 +265,14 @@
     }
   }
   .template2_second_section {
+    padding: 60px 0;
     .template2_second_section_card_wrapper {
+      gap: 20px;
       .template2_second_section_card {
-        flex-direction: column !important;
+        flex-direction: column;
         gap: 20px;
+        padding: 0;
+
         .template2_second_section_card_image {
           width: 100%;
           img {
@@ -274,15 +281,27 @@
           }
         }
       }
+      .card_layout_left {
+        flex-direction: column-reverse;
+      }
+
+      .card_layout_right {
+        flex-direction: column;
+      }
     }
   }
   .template2_third_section {
+    padding: 60px 0;
     .template2_third_section_content_wrapper {
       flex-direction: column;
       gap: 30px;
       .template2_third_section_content_images {
-        flex-wrap: wrap;
-        justify-content: center;
+        // flex-wrap: wrap;
+        // justify-content: center;
+        img {
+          width: 239px;
+          height: 420px;
+        }
       }
     }
   }
@@ -310,7 +329,7 @@
     }
   }
   .template2_first_section {
-    padding: 50px 0;
+    padding: 40px 0;
     .template2_first_section_header {
       .template2_first_section_heading {
         font-size: 30px;
@@ -334,10 +353,10 @@
     }
   }
   .template2_second_section {
-    padding: 50px 0;
+    padding: 40px 0;
     .template2_second_section_card_wrapper {
       .template2_second_section_card {
-        padding: 30px 0;
+        padding: 0;
         .template2_second_section_card_content {
           .template2_second_section_card_heading {
             font-size: 20px;
@@ -352,9 +371,10 @@
     }
   }
   .template2_third_section {
-    padding: 50px 0;
+    padding: 40px 0;
     .template2_third_section_content_wrapper {
       .template2_third_section_content_images {
+        flex-direction: column;
         img {
           width: 100%;
           height: auto;

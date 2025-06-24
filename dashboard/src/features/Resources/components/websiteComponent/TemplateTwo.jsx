@@ -5,16 +5,16 @@ import { Img_url } from "../../../../routes/backend";
 import { TruncateText } from "../../../../app/capitalizeword";
 import blueCheckIcon from "../../../../assets/bluecheckicon.svg"
 
-const TemplateTwo = ({ content, screen, language, width, highlight, liveContent }) => {
-    const isComputer = screen > 900;
-    const isTablet = screen < 900 && screen > 730;
-    const isPhone = screen < 738;
+const TemplateTwo = ({ content, screen, language, width, highlight, liveContent, purpose }) => {
+    const isComputer = screen > 900 || highlight;
+    const isTablet = screen < 900 && screen > 730 && !highlight;
+    const isPhone = screen < 738 && !highlight;
     const isLeftAlign = language === 'en';
 
     const titleLan = isLeftAlign ? "titleEn" : "titleAr";
     const fontLight = useSelector(state => state.fontStyle.light)
 
-    const fontSize = generatefontSize(defineDevice(screen), dynamicSize, width)
+    const fontSize = generatefontSize(defineDevice(screen, highlight), dynamicSize, width)
     const getDynamicSize = (size) => dynamicSize(size, width)
 
     const indexStyle = [
@@ -27,18 +27,18 @@ const TemplateTwo = ({ content, screen, language, width, highlight, liveContent 
 
     const tempArr = [1, 2, 3, 4, 5]
 
-    const checkDifference = highlight ? differentText?.checkDifference?.bind(differentText) : () => ""
+    const checkDifference = (!purpose && highlight) ? differentText?.checkDifference?.bind(differentText) : () => ""
 
     return (
         <div>
             <section
                 className={`relative w-full ${isPhone ? "px-8" : ""}
-                            ${checkDifference(content?.['1']?.content?.images?.[0]?.url, liveContent?.['1']?.content?.images?.[0]?.url)}
+                            ${checkDifference(content?.['1']?.content?.images?.[0]?.url, liveContent?.['1']?.content?.images?.[0]?.url, "image")}
                             flex items-center bg-cover bg-center ${isLeftAlign ? 'scale-x-[-1]' : ''}`}
                 style={{
                     backgroundImage: `url("${
-                        // Img_url + content?.['1']?.content?.images?.[0]?.url
-                        services.contructionTowerImage
+                        // services.contructionTowerImage
+                        Img_url + content?.['1']?.content?.images?.[0]?.url
                         }")`,
                     backgroundPosition: "bottom",
                     height: isComputer ? getDynamicSize(600) : "70vh",
@@ -125,22 +125,25 @@ const TemplateTwo = ({ content, screen, language, width, highlight, liveContent 
                         gap: (isComputer || isTablet) && `${getDynamicSize(15)}`
                     }}
                 >
-                    {tempArr?.map((e, i) => {
+                    {content?.['3']?.content?.cards?.map((e, i) => {
                         const colors = i % 5
                         return (
-                            <div className={`${fontLight} flex-[1_1_300px] ${(isPhone || isTablet) && "p-4"}`} style={{
-                                backgroundColor: indexStyle[colors].bg,
-                                color: indexStyle[colors].text,
-                                padding: (isComputer) && `${getDynamicSize(15)}`,
-                                fontSize: fontSize.mainPara
-                            }}>
+                            <div key={i}
+                                className={`${fontLight} flex-[1_1_300px] ${(isPhone || isTablet) && "p-4"}`} style={{
+                                    backgroundColor: indexStyle[colors].bg,
+                                    color: indexStyle[colors].text,
+                                    padding: (isComputer) && `${getDynamicSize(15)}`,
+                                    fontSize: fontSize.mainPara
+                                }}>
                                 <p
-                                    className={`mb-10`}
+                                    className={`mb-10
+                                        ${checkDifference(e.description?.[language], liveContent?.['3']?.content?.cards?.[i]?.description?.[language])}
+                                        `}
                                     style={{
                                         marginBottom: (isComputer) && `${getDynamicSize(85)}`,
                                     }}
                                 >
-                                    It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using  content
+                                    {e.description?.[language] || "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using  content"}
                                 </p>
                             </div>
                         )
@@ -149,18 +152,19 @@ const TemplateTwo = ({ content, screen, language, width, highlight, liveContent 
             </section>
 
             <section
-
                 className={`bg-[#00B9F20A] py-10 pt-16 px-10`}
                 style={{
                     padding: (isComputer || isTablet) && `${getDynamicSize(100)} ${getDynamicSize(150)}`,
                     margin: (isComputer || isTablet) && `${getDynamicSize(100)} ${getDynamicSize(0)}`
                 }}
             >
-                <div className="flex flex-col"
+                <div className={`flex flex-col
+                ${checkDifference(String(content?.['4']?.content?.cards.length), String(liveContent?.['4']?.content?.cards.length))}
+                `}
                     style={{ gap: (isComputer) ? getDynamicSize(100) : getDynamicSize(150) }}
                 >
                     {
-                        tempArr.slice(0, 3).map((e, i) => {
+                        content?.['4']?.content?.cards?.map((e, i) => {
                             let odd = i % 2 !== 0
                             return (
                                 <article
@@ -175,55 +179,71 @@ const TemplateTwo = ({ content, screen, language, width, highlight, liveContent 
                                     >
                                         <img
                                             src={
-                                                projectPageData.aiKhobarTunnel
+                                                e?.images?.[0]?.url ?
+                                                    Img_url + e?.images?.[0]?.url :
+                                                    projectPageData.aiKhobarTunnel
                                             }
                                             alt=""
                                             style={{
                                                 width: isPhone ? '100%' : isTablet ? "100%" : getDynamicSize(512),
                                             }}
-                                            className={`object-cover ${isComputer ? "aspect-[1/1]" : "aspect-[2/1]"}`}
+                                            className={`object-cover ${isComputer ? "aspect-[1/1]" : "aspect-[2/1]"}
+                                                ${checkDifference(e?.images?.[0]?.url, liveContent?.['4']?.content?.cards?.[i]?.images?.[0]?.url, "image")}
+                                            `}
                                         />
                                     </div>
 
                                     <div
                                         dir={isLeftAlign ? "ltr" : "rtl"}
                                         style={{
-                                            flex: `1 1 ${getDynamicSize(600)}`
+                                            flex: `1 1 ${getDynamicSize(600)}`,
+                                            gap: (isComputer) && getDynamicSize(10)
                                         }}
-                                        className={`flex flex-col flex-[3_1_600px] gap-[13px] items-start justify-center text-[#292E3D] 
+                                        className={`flex flex-col flex-[3_1_600px] gap-[6px] items-start justify-center text-[#292E3D] 
                                         ${isPhone ? "py-4 px-[2px]" : "py-4 px-[38px]"}`}>
-                                        <h3 className="font-[400] text-[21px]"
+                                        <h3 className={`font-[400] text-[21px]
+                                                ${checkDifference(e?.title?.[language], liveContent?.['4']?.content?.cards?.[i]?.title?.[language])}
+                                        `}
                                             style={{
                                                 fontSize: fontSize.aboutMainPara
                                             }}
-                                        >{TruncateText(e?.[titleLan], 35)} </h3>
-
-                                        {
-                                            (
-                                                // e.descriptions
-                                                tempArr
-                                            )?.map((description, i) => {
-                                                return (
-                                                    <div className="flex items-start"
-                                                        style={{
-                                                            gap: isPhone ? "4px" : getDynamicSize(8),
-                                                            padding: `${getDynamicSize(10)} 0px`
-                                                        }}
-                                                    >
-                                                        <img src={blueCheckIcon} alt="" className={`${isTablet ? "translate-y-[4px]" : "translate-y-[1px]"}`}
-                                                            style={{ width: isPhone ? "" : isTablet ? getDynamicSize(30) : getDynamicSize(20), height: isPhone ? "" : isTablet ? getDynamicSize(30) : getDynamicSize(20) }} />
-                                                        <p className={`font-[300] text-[10px] ${fontLight}`}
-                                                            key={i}
+                                        >{TruncateText(e?.title?.[language], 35) || "LOREM IPSUM"} </h3>
+                                        <div
+                                            className={`
+                                                ${checkDifference(e?.description?.length, liveContent?.['4']?.content?.cards?.[i]?.description?.length)}
+                                            `}
+                                        >
+                                            {
+                                                (
+                                                    e?.description ||
+                                                    tempArr
+                                                )?.map((description, idx) => {
+                                                    return (
+                                                        <div className={`flex items-start
+                                                            `}
                                                             style={{
-                                                                fontSize: fontSize.mainPara
-                                                            }}>
-                                                            {/* {TruncateText(description?.[language], 120)} */}
-                                                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae, modi?
-                                                        </p>
-                                                    </div>
-                                                )
-                                            })
-                                        }
+                                                                gap: isPhone ? "4px" : getDynamicSize(8),
+                                                                padding: `${getDynamicSize(10)} 0px`
+                                                            }}
+                                                            key={idx}
+                                                        >
+                                                            <img src={blueCheckIcon} alt="" className={`${isTablet ? "translate-y-[4px]" : "translate-y-[1px]"}`}
+                                                                style={{ width: isPhone ? "" : isTablet ? getDynamicSize(30) : getDynamicSize(20), height: isPhone ? "" : isTablet ? getDynamicSize(30) : getDynamicSize(20) }} />
+                                                            <p className={`font-[300] text-[10px] ${fontLight}
+                                                                ${checkDifference(description?.[language], liveContent?.['4']?.content?.cards?.[i]?.description?.[idx]?.[language])}
+                                                            `}
+                                                                key={idx}
+                                                                style={{
+                                                                    fontSize: fontSize.mainPara
+                                                                }}>
+                                                                {TruncateText(description?.[language], 120) || "Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae, modi?"}
+                                                                {/*  */}
+                                                            </p>
+                                                        </div>
+                                                    )
+                                                })
+                                            }
+                                        </div>
                                     </div>
                                 </article>
                             )
@@ -250,24 +270,45 @@ const TemplateTwo = ({ content, screen, language, width, highlight, liveContent 
                     >
                         <h3
                             style={{ fontSize: fontSize.subProjectHeadings }}
-                        >Lorem Ispum</h3>
+                            className={`
+                                ${checkDifference(content?.['5']?.content?.title?.[language], liveContent?.['5']?.content?.title?.[language])}
+                                `}
+                        >{
+                                content?.['5']?.content?.title?.[language] ||
+                                "Lorem Ispum"}</h3>
                         <p
-                            className={`${fontLight}`}
+                            className={`${fontLight}
+                                ${checkDifference(content?.['5']?.content?.description?.[language], liveContent?.['5']?.content?.description?.[language])}
+                            `}
                             style={{ fontSize: fontSize.mainPara }}
-                        >Shade Corporation boasts a continually growing portfolio of satisfied clients, both global and local, who have derived tremendous benefits from their engagement with us. Our solutions are sought after by companies of all sizes – large, mid-sized, an</p>
+                        >
+                            {
+                                content?.['5']?.content?.description?.[language] ||
+                                "Shade Corporation boasts a continually growing portfolio of satisfied clients, both global and local, who have derived tremendous benefits from their engagement with us. Our solutions are sought after by companies of all sizes – large, mid-sized, an"
+                            }
+                        </p>
                     </div>
 
-                    <div className={`flex gap-4 ${isPhone && "flex-col"}`}
+                    <div className={`flex gap-4  ${(isTablet || isPhone) && "grid grid-cols-3"}`}
                         style={{
                             gap: (isComputer) && getDynamicSize(10),
-                            flex: `1 1 ${getDynamicSize(870)}`
+                            flex: `1 1 ${getDynamicSize(870)}`,
+                            width: (isComputer) && getDynamicSize(870)
                         }}
                     >
                         {
-                            tempArr.slice(0, 3).map((e, i) => {
+                            content?.['5']?.content?.images?.map((e, i) => {
                                 return (
-                                    <div>
-                                        <img src={projectPageData.developmentOfHo} alt="" className={`w-full object-cover ${isPhone ? "" : "aspect-[1/1.8]"}`} />
+                                    <div key={i}
+                                        style={{
+                                            width: (isComputer) && getDynamicSize(283)
+                                        }}
+                                    >
+                                        <img src={
+                                            Img_url + e.url
+                                        } alt="" className={`w-full object-cover aspect-[1/1.8]
+                                        ${checkDifference(e.url, liveContent?.['5']?.content?.images?.[i]?.url, "image")}
+                                        `} />
                                     </div>
                                 )
                             })

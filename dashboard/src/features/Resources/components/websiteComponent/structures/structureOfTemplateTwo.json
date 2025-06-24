@@ -73,38 +73,40 @@
                 "title": "additionalInfoSection",
                 "SectionType": "MARKDOWN_CONTENT",
                 "sectionVersionTitle": "-additionalInfoSection",
-                "content": [
-                    {
-                        "description": {
-                            "ar": "",
-                            "en": ""
+                "content": {
+                    "cards": [
+                        {
+                            "description": {
+                                "ar": "",
+                                "en": ""
+                            }
+                        },
+                        {
+                            "description": {
+                                "ar": "",
+                                "en": ""
+                            }
+                        },
+                        {
+                            "description": {
+                                "ar": "",
+                                "en": ""
+                            }
+                        },
+                        {
+                            "description": {
+                                "ar": "",
+                                "en": ""
+                            }
+                        },
+                        {
+                            "description": {
+                                "ar": "",
+                                "en": ""
+                            }
                         }
-                    },
-                    {
-                        "description": {
-                            "ar": "",
-                            "en": ""
-                        }
-                    },
-                    {
-                        "description": {
-                            "ar": "",
-                            "en": ""
-                        }
-                    },
-                    {
-                        "description": {
-                            "ar": "",
-                            "en": ""
-                        }
-                    },
-                    {
-                        "description": {
-                            "ar": "",
-                            "en": ""
-                        }
-                    }
-                ],
+                    ]
+                },
                 "sections": []
             },
             {
@@ -114,76 +116,78 @@
                 "title": "cardsSection",
                 "SectionType": "MULTI_SECTION",
                 "sectionVersionTitle": "-cardsSection",
-                "content": [
-                    {
-                        "title": {
-                            "ar": "",
-                            "en": ""
-                        },
-                        "description": [
-                            {
+                "content": {
+                    "cards": [
+                        {
+                            "title": {
                                 "ar": "",
                                 "en": ""
                             },
-                            {
-                                "ar": "",
-                                "en": ""
-                            },
-                            {
-                                "ar": "",
-                                "en": ""
-                            },
-                            {
-                                "ar": "",
-                                "en": ""
-                            }
-                        ],
-                        "images": [
-                            {
-                                "url": "",
-                                "order": 1,
-                                "altText": {
+                            "description": [
+                                {
+                                    "ar": "",
+                                    "en": ""
+                                },
+                                {
+                                    "ar": "",
+                                    "en": ""
+                                },
+                                {
+                                    "ar": "",
+                                    "en": ""
+                                },
+                                {
                                     "ar": "",
                                     "en": ""
                                 }
-                            }
-                        ]
-                    },
-                    {
-                        "title": {
-                            "ar": "",
-                            "en": ""
+                            ],
+                            "images": [
+                                {
+                                    "url": "",
+                                    "order": 1,
+                                    "altText": {
+                                        "ar": "",
+                                        "en": ""
+                                    }
+                                }
+                            ]
                         },
-                        "description": [
-                            {
+                        {
+                            "title": {
                                 "ar": "",
                                 "en": ""
                             },
-                            {
-                                "ar": "",
-                                "en": ""
-                            },
-                            {
-                                "ar": "",
-                                "en": ""
-                            },
-                            {
-                                "ar": "",
-                                "en": ""
-                            }
-                        ],
-                        "images": [
-                            {
-                                "url": "",
-                                "order": 1,
-                                "altText": {
+                            "description": [
+                                {
+                                    "ar": "",
+                                    "en": ""
+                                },
+                                {
+                                    "ar": "",
+                                    "en": ""
+                                },
+                                {
+                                    "ar": "",
+                                    "en": ""
+                                },
+                                {
                                     "ar": "",
                                     "en": ""
                                 }
-                            }
-                        ]
-                    }
-                ],
+                            ],
+                            "images": [
+                                {
+                                    "url": "",
+                                    "order": 1,
+                                    "altText": {
+                                        "ar": "",
+                                        "en": ""
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                },
                 "sections": []
             },
             {
@@ -193,44 +197,42 @@
                 "title": "cardsSection",
                 "SectionType": "MARKDOWN_CONTENT",
                 "sectionVersionTitle": "-cardsSection",
-                "content": [
-                    {
-                        "title": {
-                            "ar": "",
-                            "en": ""
-                        },
-                        "description": {
-                            "ar": "",
-                            "en": ""
-                        },
-                        "images": [
-                            {
-                                "url": "",
-                                "order": 1,
-                                "altText": {
-                                    "ar": "",
-                                    "en": ""
-                                }
-                            },
-                            {
-                                "url": "",
-                                "order": 1,
-                                "altText": {
-                                    "ar": "",
-                                    "en": ""
-                                }
-                            },
-                            {
-                                "url": "",
-                                "order": 1,
-                                "altText": {
-                                    "ar": "",
-                                    "en": ""
-                                }
+                "content": {
+                    "title": {
+                        "ar": "",
+                        "en": ""
+                    },
+                    "description": {
+                        "ar": "",
+                        "en": ""
+                    },
+                    "images": [
+                        {
+                            "url": "",
+                            "order": 1,
+                            "altText": {
+                                "ar": "",
+                                "en": ""
                             }
-                        ]
-                    }
-                ],
+                        },
+                        {
+                            "url": "",
+                            "order": 2,
+                            "altText": {
+                                "ar": "",
+                                "en": ""
+                            }
+                        },
+                        {
+                            "url": "",
+                            "order": 3,
+                            "altText": {
+                                "ar": "",
+                                "en": ""
+                            }
+                        }
+                    ]
+                },
                 "sections": []
             }
         ]

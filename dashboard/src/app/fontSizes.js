@@ -5,7 +5,8 @@ export default function dynamicSize(size, width) {
 }
 
 export const differentText = {
-    highlight1: "border-green-600 border",
+    highlight1: "outline-green-600 outline outline-[.5px]",
+    image: "outline-red-400 outline outline-2",
 
     checkDifference: function (arg1, arg2, highlight, from) {
 

@@ -5,6 +5,7 @@ import React from "react";
 import banner from "@/assets/images/Hero.png";
 import templateImg from "@/assets/images/templateImage.png";
 import templateIcon from "../../assets/icons/templateIcon.svg";
+import {Img_url} from "@/common/CreateContent";
 
 const firstSection = [
   {
@@ -120,6 +121,8 @@ const NewTemplate = ({content}) => {
   const titleLan = isLeftAlign ? "titleEn" : "titleAr";
 
   const currentContent = content;
+
+  console.log("NewTemplate content:", currentContent);
   return (
     <div>
       <section className={`${styles.template_banner_wrap} `}>
@@ -130,12 +133,12 @@ const NewTemplate = ({content}) => {
         >
           <img
             style={{objectPosition: "bottom", objectFit: "cover"}}
-            // src={
-            //   currentContent?.["1"]?.content?.images?.[0]?.url
-            //     ? Img_url + currentContent?.["1"]?.content?.images?.[0]?.url
-            //     : ""
-            // }
-            src={banner.src}
+            src={
+              currentContent?.["1"]?.content?.images?.[0]?.url
+                ? Img_url + currentContent?.["1"]?.content?.images?.[0]?.url
+                : ""
+            }
+            // src={banner.src}
             alt="about-us"
             className={styles.backgroundImage}
             width={0}
@@ -157,16 +160,28 @@ const NewTemplate = ({content}) => {
       <section className={`${styles.template_first_section}`}>
         <div className="container">
           <div className={`${styles.template_first_section_card_wrapper}`}>
-            {firstSection.map((item) => (
-              <div key={item.id} className={`${styles.template_first_section_card}`}>
+            {currentContent?.["2"]?.content?.cards.map((item, idx) => (
+              <div
+                key={item.id || idx}
+                className={`${styles.template_first_section_card}`}
+              >
                 <div className={`${styles.template_first_section_card_image}`}>
-                  <img src={item.img.src} alt="image" />
+                  <img
+                    src={
+                      item.images?.[0]?.url
+                        ? Img_url + item.images?.[0]?.url
+                        : ""
+                    }
+                    alt="image"
+                  />
                 </div>
                 <h2 className={`${styles.template_first_section_card_heading}`}>
-                  {item.title}
+                  {item.title[language]}
                 </h2>
-                <p className={`${styles.template_first_section_card_desc} bank-light`}>
-                  {item.description}
+                <p
+                  className={`${styles.template_first_section_card_desc} bank-light`}
+                >
+                  {item.description[language]}
                 </p>
               </div>
             ))}
@@ -177,19 +192,28 @@ const NewTemplate = ({content}) => {
       <section className={styles.template_second_section}>
         <div className="container">
           <div className={styles.template_second_section_card_wrapper}>
-            {secondSection.map((item) => (
+            {currentContent?.["3"]?.content?.cards.map((item) => (
               <div
                 key={item.id}
                 className={styles.template_second_section_card}
               >
                 <div className={styles.template_second_section_card_header}>
-                  <img src={item.icon.src} alt="icon" />
+                  <img
+                    src={
+                      item.images?.[0]?.url
+                        ? Img_url + item.images?.[0]?.url
+                        : ""
+                    }
+                    alt="icon"
+                  />
                   <h2 className={styles.template_second_section_card_heading}>
-                    {item.title}
+                    {item.title[language]}
                   </h2>
                 </div>
-                <p className={`${styles.template_second_section_card_desc} bank-light`}>
-                  {item.description}
+                <p
+                  className={`${styles.template_second_section_card_desc} bank-light`}
+                >
+                  {item.description[language]}
                 </p>
               </div>
             ))}
@@ -200,14 +224,16 @@ const NewTemplate = ({content}) => {
       <section className={styles.template_third_section}>
         <div className="container">
           <div className={styles.template_third_section_card_wrapper}>
-            {thirdSection.map((item) => (
+            {currentContent?.["4"]?.content?.cards.map((item) => (
               <div key={item.id} className={styles.template_third_section_card}>
                 <h2 className={styles.template_third_section_card_heading}>
-                  {item.title}
+                  {item.title[language]}
                 </h2>
 
-                <p className={`${styles.template_third_section_card_desc} bank-light`}>
-                  {item.description}
+                <p
+                  className={`${styles.template_third_section_card_desc} bank-light`}
+                >
+                  {item.description[language]}
                 </p>
               </div>
             ))}
