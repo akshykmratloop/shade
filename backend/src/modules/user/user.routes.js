@@ -37,15 +37,12 @@ router.get(
 
 router.get(
   "/getUserProfile",
-  // checkPermission(requiredPermissionsForUser),
-  auditLogger,
   tryCatchWrap(UserController.GetUserProfile)
 );
 
 router.get(
   "/:id",
   checkPermission(requiredPermissionsForUser),
-  auditLogger,
   tryCatchWrap(UserController.GetUserById)
 );
 
@@ -59,7 +56,6 @@ router.put(
 
 router.put(
   "/updateProfile",
-  // checkPermission(requiredPermissionsForUser),
   validate(updateUserSchema),
   auditLogger,
   tryCatchWrap(UserController.EditProfile)
@@ -67,9 +63,6 @@ router.put(
 
 router.put(
   "/updateProfileImage",
-  // checkPermission(requiredPermissionsForUser),
-  // validate(updateUserSchema),
-  // auditLogger,
   upload.array("image", 1), // Assuming the image is sent as a form-data field named 'image'
   mediaUploader,
   tryCatchWrap(UserController.EditProfileImage)
@@ -91,7 +84,6 @@ router.put(
 
 router.get(
   "/userRoleType/:id",
-  auditLogger,
   tryCatchWrap(UserController.UserRoleType)
 );
 

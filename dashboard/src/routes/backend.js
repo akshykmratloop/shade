@@ -44,6 +44,7 @@ const api = {
 
   getNotifications: `${notification}/`, // API for notifications
   markAllNotificationAsRead: `${notification}/read-all/`, // API for marking notification as read
+  clearAll :`${notification}/clear-all/`,
 
   // Pages
   getResources: `${content}/getResources`, // Resources

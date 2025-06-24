@@ -1,6 +1,5 @@
 import {Router} from "express";
 import ContentController from "./content.controller.js";
-import {authenticateUser} from "../../helper/authMiddleware.js";
 import validator from "../../validation/validator.js";
 // import {ContentSchema} from "../../validation/contentSchema.js";
 import tryCatchWrap from "../../errors/tryCatchWrap.js";
@@ -12,6 +11,7 @@ const router = Router();
 
 router.post(
   "/addResource",
+  // auditLogger,
   tryCatchWrap(ContentController.AddNewResource)
 );
 
@@ -43,7 +43,6 @@ router.get(
 
 router.post(
   "/assignUser",
-  //   checkPermission(requiredPermissionsForContentManagement),
   auditLogger,
   tryCatchWrap(ContentController.AssignUser)
 );
@@ -51,7 +50,7 @@ router.post(
 router.patch(
   "/removeAssignedUser/:resourceId",
   //   checkPermission(requiredPermissionsForContentManagement),
-  // auditLogger,
+  auditLogger,
   tryCatchWrap(ContentController.RemoveAssignedUser)
 );
 
@@ -63,6 +62,8 @@ router.get(
 
 router.put(
   "/updateContent",
+  auditLogger,
+
   //   checkPermission(requiredPermissionsForContentManagement),
 
   tryCatchWrap(ContentController.UpdateContent)

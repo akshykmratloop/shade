@@ -8,19 +8,17 @@ import {
 import { RIGHT_DRAWER_TYPES } from "../utils/globalConstantUtil";
 import CalendarEventsBodyRightDrawer from "../features/calendar/CalendarEventsBodyRightDrawer";
 import { useCallback, useEffect, useState } from "react";
-import { getNotificationsbyId, markAllNotificationAsRead } from "../app/fetch";
-import { setNotificationCount } from "../features/common/headerSlice";
+import { deleteNotifications, getNotificationsbyId, markAllNotificationAsRead } from "../app/fetch";
+import { setNotificationCount, incrementNotificationCount } from "../features/common/headerSlice";
 import socket from "../Socket/socket.js";
 import RequestDetails from "../features/Requests/RequestDetails.jsx";
 import VersionDetails from "../features/Resources/VersionDetails.jsx";
 import { ToastContainer } from "react-toastify";
 import { useRef } from "react";
+import { toast } from "react-toastify";
 
-function RightSidebar() {
-  const [notificationData, setNotificationData] = useState([]);
+function RightSidebar({ notificationData = [], notificationMeta = { totalPages: 1, page: 1 }, notificationCount = 0, setNotificationData, setNotificationMeta, setNotificationCountLocal }) {
   const [loading, setLoading] = useState(false);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
   const [searchText, setSearchText] = useState("");
 
   const { isOpen, bodyType, extraObject, header } = useSelector(
@@ -44,12 +42,12 @@ function RightSidebar() {
     setLoading(true);
     try {
       const result = await getNotificationsbyId(id, page, search);
-
-      // Update pagination metadata from API response
       if (result?.data) {
-        setCurrentPage(result?.data?.page);
-        setTotalPages(result?.data?.totalPages);
-        setNotificationData(result?.data?.notifications || []);
+        setNotificationData(result.data.notifications);
+        setNotificationMeta({
+          totalPages: result.data.totalPages,
+          page: result.data.page,
+        });
       }
     } catch (error) {
       console.error("Error fetching notifications", error);
@@ -58,82 +56,11 @@ function RightSidebar() {
     }
   };
 
-  // =========================================================================
-
-  useEffect(() => {
-    if (!userId) return;
-    socket.emit("join", userId);
-  }, [userId]);
-
-  useEffect(() => {
-    if (userId && bodyType === RIGHT_DRAWER_TYPES.NOTIFICATION) {
-      fetchNotifications(userId, currentPage, searchText);
-    }
-  }, [userId, bodyType, currentPage, searchText, fetchNotifications]);
-
-  useEffect(() => {
-    if (!userId) return;
-
-    const handleNewNotification = (payload) => {
-      if (payload.userId !== userId) return; // only for this user
-
-      // Option A: simply re‑fetch from server
-      fetchNotifications(userId, currentPage, searchText).then((res) => {
-        setNotificationData(res?.data?.notifications || []);
-        dispatch(
-          setNotificationCount(setNotificationCount((prev) => prev + 1))
-        );
-      });
-    };
-
-    socket.on("role_created", handleNewNotification);
-    // socket.on("user_created", handleNewNotification);
-    socket.on("user_updated", handleNewNotification);
-    socket.on("user_created", handleNewNotification);
-    socket.on("user_updated", handleNewNotification);
-    // …listen for any other events you emit
-
-    return () => {
-      socket.off("role_created", handleNewNotification);
-      socket.off("user_updated", handleNewNotification);
-
-      socket.off("user_created", handleNewNotification);
-      socket.off("user_updated", handleNewNotification);
-    };
-  }, [
-    userId,
-    dispatch,
-    notificationData,
-    currentPage,
-    searchText,
-    fetchNotifications,
-  ]);
-
-  // =========================================================================
-
-  // Fetch notifications
-  // useEffect(() => {
-  //   if (extraObject?.id && bodyType === RIGHT_DRAWER_TYPES.NOTIFICATION) {
-  //     fetchNotifications(extraObject.id);
-  //   }
-  // }, [extraObject?.id, bodyType]);
-
-  // useEffect(() => {
-  //   if (userId) {
-  //     setLoading(true);
-  //     getNotificationsbyId(userId)
-  //       .then((res) => {
-  //         setNotificationData(res?.notifications || []);
-  //       })
-  //       .finally(() => setLoading(false));
-  //   }
-  // }, [userId]);
-
   const handleMarkAllAsRead = async (id) => {
     try {
       setLoading(true);
       await markAllNotificationAsRead(id);
-      fetchNotifications(id, currentPage, searchText); // refetch after marking read
+      fetchNotifications(id, notificationMeta.page, searchText); // refetch after marking read
       dispatch(setNotificationCount(0));
     } catch (err) {
       console.error("Error marking all as read", err);
@@ -144,16 +71,35 @@ function RightSidebar() {
 
   const close = async (e) => {
     dispatch(closeRightDrawer(e));
-    // await handleMarkAllAsRead(extraObject.id)
   };
 
   const handlePageChange = (newPage) => {
-    setCurrentPage(newPage);
+    fetchNotifications(userId, newPage, searchText);
   };
 
   const handleSearch = (searchValue) => {
     setSearchText(searchValue);
-    setCurrentPage(1); // Reset to page 1 when searching
+    fetchNotifications(userId, 1, searchValue);
+  };
+
+  const clearNotifications = async () => {
+    if (!userId) {
+      console.error("User ID is missing");
+      return;
+    }
+    try {
+      await deleteNotifications(userId);
+      if (setNotificationData) setNotificationData([]);
+      if (setNotificationCountLocal) setNotificationCountLocal(0);
+      setNotificationMeta({
+        totalPages: 1,
+        page: 1,
+      });
+      dispatch(setNotificationCount(0));
+    } catch (e) {
+      console.error("Error while deleting notifications:", e);
+      // Optionally show error to user
+    }
   };
 
   return (
@@ -187,14 +133,7 @@ function RightSidebar() {
             </button>
             <span className="ml-2 font-bold text-l">{header}</span>
 
-            {/* <p
-              onClick={() => handleMarkAllAsRead(extraObject.id)}
-              className="ml-auto text-sm cursor-pointer"
-            >
-              Mark all as read
-            </p> */}
-
-            {bodyType === RIGHT_DRAWER_TYPES.NOTIFICATION && (
+            {bodyType === RIGHT_DRAWER_TYPES.NOTIFICATION && notificationData?.length > 0 &&  (
               <p
                 onClick={() => handleMarkAllAsRead(extraObject.id)}
                 className="ml-auto text-sm cursor-pointer"
@@ -211,22 +150,15 @@ function RightSidebar() {
               {
                 {
                   [RIGHT_DRAWER_TYPES.NOTIFICATION]: (
-                    // <NotificationBodyRightDrawer
-                    //   // id={extraObject?.id}
-                    //   // {...extraObject}
-                    //   closeRightDrawer={close}
-                    //   notifications={notificationData}
-                    //   loading={loading}
-                    // />
                     <NotificationBodyRightDrawer
-                      closeRightDrawer={close}
                       notifications={notificationData}
                       loading={loading}
                       onPageChange={handlePageChange}
                       onSearch={handleSearch}
-                      currentPage={currentPage}
-                      totalPages={totalPages}
+                      currentPage={notificationMeta.page}
+                      totalPages={notificationMeta.totalPages}
                       searchText={searchText}
+                      clearNotifications={clearNotifications}
                     />
                   ),
                   [RIGHT_DRAWER_TYPES.CALENDAR_EVENTS]: (
@@ -236,17 +168,9 @@ function RightSidebar() {
                     />
                   ),
                   [RIGHT_DRAWER_TYPES.RESOURCE_DETAILS]: (
-                    // <CalendarEventsBodyRightDrawer
-                    //   {...extraObject}
-                    //   closeRightDrawer={close}
-                    // />
                     <RequestDetails />
                   ),
                   [RIGHT_DRAWER_TYPES.VERSION_DETAILS]: (
-                    // <CalendarEventsBodyRightDrawer
-                    //   {...extraObject}
-                    //   closeRightDrawer={close}
-                    // />
                     <VersionDetails close={close} />
                   ),
 

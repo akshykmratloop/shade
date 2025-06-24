@@ -11,6 +11,7 @@ import {
   deactivateRoles,
   updateRole,
 } from "./roles.service.js";
+import { handleEntityCreationNotification } from "../../helper/notificationHelper.js";
 
 const GetRoles = async (req, res) => {
   // const searchTerm = req.query.search || "";
@@ -38,19 +39,31 @@ const CreateRole = async (req, res) => {
   const result = await createRole(name, roleTypeId, permissions);
   res.locals.entityId = result.newRole.roles.id;
   res.status(201).json(result);
+  // Notification: role created
+  const io = req.app.locals.io;
+  await handleEntityCreationNotification({
+    io,
+    userId: req.user?.id,
+    entity: "role",
+    newValue: result.newRole.roles,
+    actionType: "CREATE",
+  });
 };
 
-// const UpdateRole = async (req, res) => {
-//   const {id} = req.body;
-//   delete req.body.id;
-//   const result = await updateRole(id, req.body);
-//   res.status(202).json(result);
-// };
+
 const UpdateRole = async (req, res) => {
   const {id} = req.params;
   const {name, roleTypeId, permissions} = req.body;
   const result = await updateRole(id, name, roleTypeId, permissions);
   const io = req.app.locals.io; // Get socket.io instance
+  // Notification: role updated
+  await handleEntityCreationNotification({
+    io,
+    userId: req.user?.id,
+    entity: "role",
+    newValue: result.role,
+    actionType: "UPDATE",
+  });
   const users = await fetchAllUsersByRoleId(id);
   users.forEach((el) => {
     const socketIdOfUpdatedUser = getSocketId(el.id);

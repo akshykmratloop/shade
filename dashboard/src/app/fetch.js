@@ -337,6 +337,11 @@ export async function getNotificationsbyId(id, page = 1, search = "", filters = 
   return await makerequest(uri, "GET");
 }
 
+export async function deleteNotifications(id) {
+  const uri = api.route("clearAll") + id;
+  return await makerequest(uri, "DELETE");
+}
+
 export async function markAllNotificationAsRead(id) {
   return await makerequest(
     api.route("markAllNotificationAsRead") + id,

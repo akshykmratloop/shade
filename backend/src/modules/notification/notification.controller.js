@@ -1,4 +1,5 @@
 import {
+  clearAllNotification,
   getAllNotification,
   markAllNotification,
   markNotification,
@@ -41,4 +42,12 @@ const MarkAllNotification = async (req, res) => {
   res.status(200).json(mark);
 };
 
-export default { GetAllNotification, MarkNotification, MarkAllNotification };
+
+const ClearAllNotification = async (req, res) => {
+  const { id } = req.params;
+  const result = await clearAllNotification(id);
+  res.status(200).json(result);
+};
+
+
+export default { GetAllNotification, MarkNotification, MarkAllNotification, ClearAllNotification };

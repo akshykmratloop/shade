@@ -2,9 +2,7 @@ import {createServer} from "http";
 import {createApp, finishApp} from "./app.js";
 import {useModules} from "./config/index.js";
 import {Server} from "socket.io";
-import cors from "cors";
 import {
-  getMap,
   removeUserSocket,
   setUserSocket,
 } from "./helper/socketConnectionID.js";

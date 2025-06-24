@@ -6,7 +6,6 @@ import {
   createNewRoles,
   roleActivation,
   roleDeactivation,
-  // updateRoleinDB,
   findRoleType,
   updateRoleById,
 } from "../../repository/role.repository.js";
@@ -66,15 +65,7 @@ const deactivateRoles = async (id) => {
   return {message: "Role deactivated successfully", ok: true}; // if everything goes fine
 };
 
-// const updateRole = async (id, updateObject) => {
-//   const role = await updateRoleinDB(id, updateObject);
 
-//   assert(role, "ROLE_INVALID", "Role not found");
-
-//   logger.info({response: `role ${id} is inactive now`});
-
-//   return {message: "Role updated successfully", role, ok: true};
-// };
 
 const updateRole = async (id, roleName, roleTypeId, permissions) => {
   const role = await updateRoleById(id, roleName, roleTypeId, permissions);
