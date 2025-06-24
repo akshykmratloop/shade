@@ -104,8 +104,8 @@ const TemplateFourManager = ({ content, currentPath, language, indexes }) => {
                 currentPath={currentPath}
                 Heading={"Sub Heading"}
                 inputs={[
-                    { input: "input", label: "Heading/title", updateType: "title", value: content?.['2']?.content?.title?.[language] },
-                    { input: "textarea", label: "Description", updateType: "description", maxLength: 400, value: content?.['2']?.content?.description?.[language] },
+                    { input: "input", label: "Heading/title", updateType: "title", value: content?.['3']?.content?.title?.[language] },
+                    { input: "textarea", label: "Description", updateType: "description", maxLength: 400, value: content?.['3']?.content?.description?.[language] },
                 ]}
                 section={"banner"}
                 language={language}
@@ -118,8 +118,8 @@ const TemplateFourManager = ({ content, currentPath, language, indexes }) => {
                 currentPath={currentPath}
                 Heading={"Mark Down"}
                 inputs={[
-                    { input: "input", label: "Heading/title", updateType: "title", value: content?.['5']?.content?.title?.[language] },
-                    { input: "richtext", label: "Description", updateType: "description", value: content?.['5']?.content?.description?.[language] },
+                    { input: "input", label: "Heading/title", updateType: "title", value: content?.['4']?.content?.title?.[language] },
+                    { input: "richtext", label: "Description", updateType: "description", value: content?.['4']?.content?.description?.[language] },
                 ]}
                 section={"MarkDown"}
                 isBorder={false}

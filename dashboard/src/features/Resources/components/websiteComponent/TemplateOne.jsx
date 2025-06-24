@@ -5,7 +5,7 @@ import { aboutUsIcons, projectPageData } from "../../../../assets";
 import { services } from "../../../../assets";
 
 
-const TemplateOne = ({ content, screen, language, width, highlight, liveContent }) => {
+const TemplateOne = ({ content, screen, language, width, highlight, liveContent, purpose }) => {
     const isComputer = screen > 900;
     const isTablet = screen < 900 && screen > 730;
     const isPhone = screen < 738;
@@ -14,12 +14,12 @@ const TemplateOne = ({ content, screen, language, width, highlight, liveContent 
     // const titleLan = isLeftAlign ? "titleEn" : "titleAr";
     const fontLight = useSelector(state => state.fontStyle.light)
 
-    const fontSize = generatefontSize(defineDevice(screen), dynamicSize, width)
+    const fontSize = generatefontSize(defineDevice(screen, highlight), dynamicSize, width)
     const getDynamicSize = (size) => dynamicSize(size, width)
 
     const tempArr = [1, 2, 3, 4]
 
-    const checkDifference = highlight ? differentText?.checkDifference?.bind(differentText) : () => ""
+    const checkDifference = (purpose ? false : highlight) ? differentText?.checkDifference?.bind(differentText) : () => ""
 
     return (
         <div>
@@ -79,7 +79,9 @@ const TemplateOne = ({ content, screen, language, width, highlight, liveContent 
                     padding: (isComputer) ? `${getDynamicSize(100)} ${getDynamicSize(120)}` : `${getDynamicSize(100)} ${getDynamicSize(170)}`
                 }}
             >
-                <div className={`grid ${(isComputer) && "grid-cols-2"} gap-10`}
+                <div className={`grid ${(isComputer) && "grid-cols-2"} gap-10
+                                ${checkDifference(content?.[2]?.content?.cards, liveContent?.[2]?.content?.cards)}
+                            `}
                     style={{ gap: (isComputer) ? `${getDynamicSize(80)} ${getDynamicSize(90)}` : `${getDynamicSize(150)}` }}
                 >
                     {
@@ -199,7 +201,7 @@ const TemplateOne = ({ content, screen, language, width, highlight, liveContent 
                                     key={i}
                                     style={{
                                         padding: (isComputer) && getDynamicSize(20),
-                                        gap:  (isComputer) && getDynamicSize(20),
+                                        gap: (isComputer) && getDynamicSize(20),
                                     }}
                                 >
                                     <h2 className={`text-[32px] ${isTablet && "flex-[1_1_167px]"} leading-[28px] font-[700]

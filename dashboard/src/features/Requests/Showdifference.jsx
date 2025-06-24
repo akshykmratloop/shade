@@ -45,12 +45,14 @@ function ShowDifference({ show, onClose, request, resourceId, currentlyEditor, c
     const LiveContent = createContent(liveVersion, "difference", "home")
 
     const setUpRoute = (content) => {
+        const tempRoute = { "TEMPLATE_ONE": "temp-1", "TEMPLATE_TWO": "temp-2", "TEMPLATE_THREE": "temp-3", "TEMPLATE_FOUR": "temp-4" }
         let subRoute = ""
         let deepRoute = ""
         let route = ""
 
+
+
         const isSubPage = content.resourceType === "SUB_PAGE";
-        // const isMainPage = content.resourceType === "MAIN_PAGE";
         const isSubChild = content.resourceType === "SUB_PAGE_ITEM";
         if (isSubChild) {
             route = content.resourceTag.toLowerCase();
@@ -60,7 +62,11 @@ function ShowDifference({ show, onClose, request, resourceId, currentlyEditor, c
             route = content.resourceTag.toLowerCase();
             subRoute = content.id;
         } else {
-            route = content.slug;
+            if (content?.resourceTag?.slice(0, 5) === "TEMPL") {
+                route = tempRoute[content.resourceTag]
+            } else {
+                route = content.slug;
+            }
         }
         return { subRoute, deepRoute, route }
     }
@@ -278,6 +284,8 @@ function ShowDifference({ show, onClose, request, resourceId, currentlyEditor, c
                                 screen={width / 2.02}
                                 content={LiveContent.content} fullScreen={true}
                                 hideScroll={true}
+                                showDifference={true}
+                                purpose="live"
                             />
                         </div>
                         <div className="flex h-fit">

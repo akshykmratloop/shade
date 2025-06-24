@@ -38,7 +38,8 @@ import TemplateFour from "./websiteComponent/TemplateFour";
 
 const AllForOne = ({
     language, screen, content, setLanguage, fullScreen,
-    currentPath, subPath, deepPath, showDifference = false, live, hideScroll
+    currentPath, subPath, deepPath, showDifference = false, live, hideScroll,
+    purpose
 }) => {
     // console.log(currentPath, subPath, deepPath)
     const isComputer = screen > 1100;
@@ -62,7 +63,7 @@ const AllForOne = ({
         };
     }, []);
 
-    const baseProps = { width, language, screen, highlight: showDifference, liveContent: live, fullScreen };
+    const baseProps = { width, language, screen, highlight: showDifference, liveContent: live, fullScreen, purpose };
 
     const renderPage = () => {
         switch (currentPath) {
