@@ -35,7 +35,8 @@ const ProjectDetailManager = ({ projectId, currentContent: content, currentPath,
                 },
                 projectId,
                 context: "projectDetail",
-                operation: 'add'
+                operation: 'add',
+                sectionIndex: indexes?.["3"]
             }
         ))
     }
@@ -212,11 +213,12 @@ const ProjectDetailManager = ({ projectId, currentContent: content, currentPath,
                                 sectionIndex={indexes?.['3']}
                                 contentIndex={index}
                                 type={"content[index]"}
+                                allowRemoval
                             />
                         )
                     })
                 }
-                <button className="text-blue-500 cursor-pointer mb-3" onClick={addExtraSummary}>Add More Section...</button>
+                <button className="text-blue-500 cursor-pointer mb-3" onClick={addExtraSummary}>Add Section...</button>
             </div>
 
             <ContentSection

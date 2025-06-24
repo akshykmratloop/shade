@@ -30,19 +30,26 @@ const SnR = ({ currentContent, screen, language, width, highlight, liveContent }
             <section
                 className={`relative w-full py-[100px] ${isPhone ? "px-8" : "px-10"} bg-cover bg-center ${isLeftAlign ? 'scale-x-[-1]' : ''}`}
                 style={{
-                    backgroundImage: `linear-gradient(to right,#00000020 30%,#fffffffb 100%) ,url("${Img_url + currentContent?.['1']?.content?.images?.[0]?.url}")`,
+                    backgroundImage: `url("${Img_url + currentContent?.['1']?.content?.images?.[0]?.url}")`,
                     backgroundPosition: "bottom",
                     height: isComputer && getDynamicSize(740),
                     padding: isComputer && `${getDynamicSize(100)} ${getDynamicSize(120)}`
                 }}
             >
+                <div className="absolute inset-0 pointer-events-none z-0 flex items-center justify-end overflow-hidden">
+                    <div
+                        style={{ width: isComputer? getDynamicSize(1050):"70%", height: isComputer? getDynamicSize(650):"100%" }}
+                        className={`rounded-full bg-white  ${isPhone? "blur-[60px] opacity-[.75]":"blur-[120px] opacity-[.9]"} mix-blend-screen`}></div>
+                </div>
                 <div className="container relative h-full flex items-center justify-end">
-                    <div className={`${isLeftAlign ? 'scale-x-[-1] text-left' : 'text-right'} ${isPhone ? "w-4/5" : isTablet ? "w-2/3" : ""} space-y-4 p-6 flex flex-col ${isLeftAlign ? "items-start" : "items-end"}`}>
+                    <div className={`${isLeftAlign ? 'scale-x-[-1] text-left' : 'text-right'} 
+                                        ${isPhone ? "w-full" : isTablet ? "w-2/3" : ""} space-y-4 p-6 flex flex-col 
+                                    ${isLeftAlign ? "items-start" : "items-end"}`}>
                         <h2 className={`text-[#292E3D] font-medium ${isPhone ? "text-[40px]" : isTablet ? "text-[45px]" : "text-[45px]"} tracking-[-3px] mb-4
-                        ${checkDifference(currentContent?.['1']?.content?.title?.[language], liveContent?.['1']?.content?.title?.[language])}
-                        `}
+                                            ${checkDifference(currentContent?.['1']?.content?.title?.[language], liveContent?.['1']?.content?.title?.[language])}
+                                        `}
                             style={{
-                                fontSize: fontSize.mainHeading, lineHeight: fontSize.headingLeading,
+                                fontSize: fontSize.mainHeading, lineHeight: isComputer? fontSize.headingLeading:"40px",
                                 margin: `${getDynamicSize(16)} 0px`
                             }}
                         >

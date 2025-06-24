@@ -46,7 +46,7 @@ const fontSizes = {
         aboutVideoW: 639, aboutVideoH: 457, // video size but not applied to the video
         aboutCardPaddingY: 40, aboutCardPaddingX: 10,
         // other sizes
-        headingLeading: 40, paraLeading: 22
+        headingLeading: 50, paraLeading: 22
     },
     tablet: {
         // home -- some of them are used in other pages due similarity
