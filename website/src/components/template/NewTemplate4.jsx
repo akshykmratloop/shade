@@ -5,6 +5,7 @@ import React from "react";
 import banner from "@/assets/images/Hero.png";
 import templateImg from "@/assets/images/templateImage.png";
 import templateIcon from "../../assets/icons/templateIcon.svg";
+import {Img_url} from "@/common/CreateContent";
 
 const firstSection = {
   id: 1,
@@ -57,6 +58,8 @@ const NewTemplate2 = ({content}) => {
   const titleLan = isLeftAlign ? "titleEn" : "titleAr";
 
   const currentContent = content;
+
+  console.log("NewTemplate4 content:", currentContent);
   return (
     <div>
       <section className={`${styles.template4_banner_wrap} `}>
@@ -67,12 +70,12 @@ const NewTemplate2 = ({content}) => {
         >
           <img
             style={{objectPosition: "bottom", objectFit: "cover"}}
-            // src={
-            //   currentContent?.["1"]?.content?.images?.[0]?.url
-            //     ? Img_url + currentContent?.["1"]?.content?.images?.[0]?.url
-            //     : ""
-            // }
-            src={banner.src}
+            src={
+              currentContent?.["1"]?.content?.images?.[0]?.url
+                ? Img_url + currentContent?.["1"]?.content?.images?.[0]?.url
+                : ""
+            }
+            // src={banner.src}
             alt="about-us"
             className={styles.backgroundImage}
             width={0}
@@ -82,11 +85,10 @@ const NewTemplate2 = ({content}) => {
         </span>
         <div className={styles.content}>
           <h1 className={`${styles.title}`}>
-            {currentContent?.["1"]?.content?.title?.[language] || "Lorem ipsum"}
+            {currentContent?.["1"]?.content?.title?.[language]}
           </h1>
           <p className={`${styles.description} ${BankGothic.className}`}>
-            {currentContent?.["1"]?.content?.description?.[language] ||
-              "Discover the exceptional excellence of Shade Corporation, the premier Engineering, Procurement, and Construction powerhouse in Saudi Arabia"}
+            {currentContent?.["1"]?.content?.description?.[language]}
           </p>
         </div>
       </section>
@@ -94,22 +96,32 @@ const NewTemplate2 = ({content}) => {
       <section className={styles.template4_first_section}>
         <div className="container">
           <div className={styles.template4_first_section_image_grid_wrapper}>
-            {firstSection.imgs.map((item, idx) => {
-              const posClass =
-                idx === 0
-                  ? styles.large
-                  : idx === 1
-                  ? styles.top
-                  : idx === 2
-                  ? styles.bottom
-                  : "";
+            {currentContent?.["2"]?.content?.images.map((item, idx) => {
+              let posClass = "";
+              switch (idx) {
+                case 0:
+                  posClass = styles.large;
+                  break;
+                case 1:
+                  posClass = styles.top;
+                  break;
+                case 2:
+                  posClass = styles.bottom;
+                  break;
+                default:
+                  posClass = "";
+              }
+
               return (
                 <div
-                  key={item.id}
+                  key={item.id || idx}
                   className={`${styles.template4_first_section_image_grid} ${posClass}`}
                 >
                   <div className={styles.template4_first_section_image}>
-                    <img src={item.img.src} alt="image" />
+                    <img
+                      src={item.url ? Img_url + item.url : ""}
+                      alt={item.altText?.[language] || "image"}
+                    />
                   </div>
                 </div>
               );
@@ -118,10 +130,10 @@ const NewTemplate2 = ({content}) => {
 
           <div className={styles.template4_first_section_content}>
             <h2 className={styles.template4_first_section_card_heading}>
-              {firstSection.title}
+              {currentContent?.["3"]?.content?.title[language]}
             </h2>
             <p className={styles.template4_first_section_card_desc}>
-              {firstSection.description}
+              {currentContent?.["3"]?.content?.description[language]}
             </p>
           </div>
         </div>
@@ -131,26 +143,12 @@ const NewTemplate2 = ({content}) => {
         <div className="container">
           <div className={styles.template4_second_section_content}>
             <h2 className={styles.template4_second_section_content_heading}>
-              Lorem, ipsum.
+              {currentContent?.["4"]?.content?.title[language]}
             </h2>
             <p className={styles.template4_second_section_content_para}>
-              It is a long established fact that a reader will be distracted by
-              the readable content of a page when looking at its layout. The
-              point of using Lorem Ipsum is that dffvdfvf dfj dsiwns vdjjs
-              sssiiijee It is a long established fact that a reader will be
-              distracted by the readable content of a page when fgdgdg It is a
-              long established fact that a reader will be distracted by the
-              readable content of a page when looking at its layout. The point
-              of using Lorem Ipsum is that dffvdfvf dfj dsiwns vdjjs sssiiijee
-              It is a long established fact that a reader will be distracted by
-              the readable content of a page when fgdgdg It is a long
-              established fact that a reader will be distracted by the readable
-              content of a page when looking at its layout. The point of using
-              Lorem Ipsum is that dffvdfvf dfj dsiwns vdjjs sssiiijee It is a
-              long established fact that a reader will be distracted by the
-              readable content of a page when fgdgdg
+              {currentContent?.["4"]?.content?.description[language]}
             </p>
-            <p className={styles.template4_second_section_content_para}>
+            {/* <p className={styles.template4_second_section_content_para}>
               It is a long established fact that a reader will be distracted by
               the readable content of a page when looking at its layout. The
               point of using Lorem Ipsum is that dffvdfvf dfj dsiwns vdjjs
@@ -161,7 +159,7 @@ const NewTemplate2 = ({content}) => {
               of using Lorem Ipsum is that dffvdfvf dfj dsiwns vdjjs sssiiijee
               It is a long established fact that a reader will be distracted by
               the readable content of a
-            </p>
+            </p> */}
           </div>
         </div>
       </section>
@@ -169,19 +167,19 @@ const NewTemplate2 = ({content}) => {
       <section className={styles.template4_third_section}>
         <div className="container">
           <div className={styles.template4_third_section_card_wrapper}>
-            {thirdSection.map((item) => (
+            {currentContent?.["5"]?.content?.cards.map((item, idx) => (
               <div
-                key={item.id}
+                key={item.id || idx}
                 className={styles.template4_third_section_card}
               >
                 <div className={styles.template4_third_section_card_header}>
-                  <img src={item.icon.src} alt="icon" />
+                  <img src={Img_url + item.images[0].url} alt="icon" />
                   <h2 className={styles.template4_third_section_card_heading}>
-                    {item.title}
+                    {item.title[language]}
                   </h2>
                 </div>
                 <p className={styles.template4_third_section_card_desc}>
-                  {item.description}
+                  {item.description[language]}
                 </p>
               </div>
             ))}

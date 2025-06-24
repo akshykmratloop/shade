@@ -298,17 +298,15 @@ const NewTemplate2 = ({content}) => {
               </p>
             </div>
 
-            {currentContent?.["5"]?.content?.images.map((image, idx) => (
-              <div
-                key={idx}
-                className={styles.template2_third_section_content_images}
-              >
+            <div className={styles.template2_third_section_content_images}>
+              {currentContent?.["5"]?.content?.images.map((image, idx) => (
                 <img
+                  key={idx}
                   src={image?.url ? Img_url + image.url : ""}
                   alt={image?.altText?.[language] || "image"}
                 />
-              </div>
-            ))}
+              ))}
+            </div>
             {/* <div className={styles.template2_third_section_content_images}>
               <img src={templateImg.src} alt="" />
               <img src={templateImg.src} alt="" />

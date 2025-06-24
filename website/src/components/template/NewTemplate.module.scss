@@ -273,8 +273,6 @@
     width: 90vw;
     margin: 0px auto;
     // border: 1px solid black;
-
-    
   }
 
   .template_first_section_card {
@@ -293,7 +291,6 @@
     // place-items: center;
     align-items: center;
     justify-content: center;
-    
   }
 
   .template_second_section .template_second_section_card_wrapper {
@@ -308,5 +305,14 @@
   .template_third_section .template_third_section_card_wrapper {
     width: auto;
     padding: 0 15px;
+
+    .template_third_section_card {
+      flex-direction: column;
+      gap: 10px;
+
+      .template_third_section_card_desc {
+        width: 100%;
+      }
+    }
   }
 }
