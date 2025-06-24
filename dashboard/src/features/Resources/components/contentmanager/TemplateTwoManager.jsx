@@ -191,7 +191,7 @@ const TemplateTwoManager = ({ content, currentPath, language, indexes }) => {
                                     order={section.order}
                                 />
                                 {
-                                    (section?.description.length < 6) &&
+                                    (section?.description?.length < 6) &&
                                     <button
                                         className="text-blue-500 cursor-pointer mb-6"
                                         onClick={() => {

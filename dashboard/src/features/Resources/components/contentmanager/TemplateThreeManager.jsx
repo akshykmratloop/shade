@@ -2,7 +2,7 @@
 import FileUploader from "../../../../components/Input/InputFileUploader"
 import ContentSection from "../breakUI/ContentSections"
 import { useDispatch, useSelector } from "react-redux"
-import { updateNumberOfDescription, updateSubServiceDetailsPointsArray } from "../../../common/homeContentSlice"
+import { updateSubServiceDetailsPointsArray } from "../../../common/homeContentSlice"
 import DynamicContentSection from "../breakUI/DynamicContentSection";
 
 
@@ -28,8 +28,10 @@ const skeletons = {
         ]
     },
     "4": {
-        "ar": "",
-        "en": ""
+        "title": {
+            "ar": "",
+            "en": ""
+        }
     }
 }
 
@@ -39,7 +41,7 @@ const TemplateThreeManager = ({ content, currentPath, language, indexes }) => {
     const context = useSelector(state => state.homeContent?.present?.content) || {}
 
     const addExtraSummary = (sectionIndex, structure, cardIndex) => {
-        dispatch(updateNumberOfDescription(
+        dispatch(updateSubServiceDetailsPointsArray(
             {
                 insert: skeletons[structure],
                 section: "cards",
@@ -158,23 +160,56 @@ const TemplateThreeManager = ({ content, currentPath, language, indexes }) => {
                     { input: "textarea", label: "Description", updateType: "description", value: content?.['5']?.content?.description?.[language] },
                 ]}
                 inputFiles={
-                    content?.[5]?.content?.images?.map((e) => {
-
-                        return {
-                            label: "Images",
-                            id: `markDown-${e.order}`,
-                            order: e.order,
-                            url: e?.url
-                        }
-                    })
+                    [{
+                        label: "Image",
+                        id: `markDown-1`,
+                        order: 1,
+                        url: content?.['4']?.content?.images?.[0]?.url
+                    }]
                 }
-                section={"banner"}
+                section={"MarkDown"}
+                isBorder={false}
                 language={language}
                 currentContent={content}
-                sectionIndex={indexes?.['5']}
+                sectionIndex={indexes?.['4']}
             />
+            <div className="mt-4 border-b pb-3">
+                {/* <h3 className={`font-semibold text-[1.25rem] mb-4`}>Cards</h3> */}
+                {
+                    content?.[4]?.content?.cards?.map?.((section, i) => {
+                        return (
+                            <DynamicContentSection
+                                key={i}
+                                currentPath={currentPath}
+                                // subHeading={`Card ${(i + 1)}`}
+                                inputs={[
+                                    { input: "input", label: `card ${(i + 1)}`, updateType: "title", value: section?.title?.[language] },
+                                ]}
+                                index={i}
+                                isBorder={false}
+                                section={"cards"}
+                                subSection={"cards"}
+                                language={language}
+                                currentContent={content}
+                                sectionIndex={indexes?.['4']}
+                                contentIndex={i}
+                                order={section.order}
+                                allowRemoval={true}
+                            />
+                        )
+                    })
+                }
+                {
+                    (content?.[4]?.content?.cards?.length < 6) &&
+                    < button
+                        className="block text-blue-500 cursor-pointer my-3"
+                        onClick={() => addExtraSummary(indexes?.['4'], 4)}
+                    >
+                        Add Card...
+                    </button>}
+            </div>
 
-        </div>
+        </div >
     )
 }
 

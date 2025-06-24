@@ -31,7 +31,7 @@ const TemplateThree = ({ content, screen, language, width, highlight, liveConten
                     height: getDynamicSize(750)
                 }}
             >
-                <div className="flex"
+                <div className="flex justify-between w-full"
                     style={{
                         gap: (isComputer) && getDynamicSize(50),
                     }}
@@ -79,7 +79,7 @@ const TemplateThree = ({ content, screen, language, width, highlight, liveConten
                                 projectPageData.asphaltWork
                                 }`} alt=""
                             // style={{ width: (isComputer) && getDynamicSize(685) }}
-                            className="w-full h-full"
+                            className="w-full h-full aspect-[2/1.3]"
                         />
                     </div>
                 </div>
@@ -175,11 +175,13 @@ const TemplateThree = ({ content, screen, language, width, highlight, liveConten
                                         className="flex flex-col bg-white overflow-hidden shadow rounded-[6px]"
                                         style={{ width: isComputer ? getDynamicSize(437) : isTablet ? getDynamicSize(600) : getDynamicSize(1000) }}
                                     >
-                                        <img src={service.image} alt="img"
+                                        <img src={Img_url +
+                                            service.images?.[0]?.url
+                                        } alt="img"
                                             className="w-full object-cover rounded-[6px]"
                                             style={{ height: isComputer ? getDynamicSize(210) : isTablet ? getDynamicSize(400) : getDynamicSize(437) }}
                                         />
-                                        <section className="bg-[#F8F8F8] flex flex-col justify-between flex-1"
+                                        <section className="bg-[#F8F8F8] flex flex-col j flex-1"
                                             style={{
                                                 padding: `${getDynamicSize(16)} ${getDynamicSize(25)}`,
                                                 gap: isComputer ? getDynamicSize(10) : getDynamicSize(25)
@@ -189,7 +191,7 @@ const TemplateThree = ({ content, screen, language, width, highlight, liveConten
                                                 style={{ fontSize: fontSize.aboutMainPara, lineHeight: (isComputer || isTablet) && getDynamicSize(30) }}
                                                 title={service?.title?.[language]}
                                             >
-                                                {TruncateText(service?.title?.[language], isTablet ? 18 : 21) ||
+                                                {TruncateText(service?.title?.[language], isTablet ? 18 : 25) ||
                                                     "Project Services"}
                                             </h1>
                                             <p className={`text-[#292E3D] text-[10px] mb-2 ${fontLight}`}
@@ -212,13 +214,17 @@ const TemplateThree = ({ content, screen, language, width, highlight, liveConten
                     // height: getDynamicSize(750)
                 }}
             >
-                <div className="flex"
+                <div className={`flex ${!isComputer && "flex-col"}`}
                     style={{ gap: `${getDynamicSize(30)}` }}
                 >
                     <div className="border h-fit"
                         style={{ flex: `1 1 ${getDynamicSize(510)}` }}
                     >
-                        <img src={projectPageData.itLabExcellence} className="w-full aspect-[1/1.1]" alt="" />
+                        <img src={content?.[4]?.content?.images?.[0]?.url ?
+                            Img_url +
+                            content?.[4]?.content?.images?.[0]?.url :
+                            projectPageData.itLabExcellence
+                        } className={`w-full ${isComputer ? "aspect-[1/1.1]" : "aspect-[2/1]"}`} alt="" />
                     </div>
                     <div className="flex flex-col"
                         style={{
@@ -231,26 +237,40 @@ const TemplateThree = ({ content, screen, language, width, highlight, liveConten
                                 fontSize: fontSize.aboutMainPara
                             }}
                         >
-                            Project Services
+                            {
+                                content?.[4]?.content?.title?.[language] ||
+                                "Project Services"
+                            }
                         </h3>
                         <p className={`${fontLight}`}
                             style={{
                                 fontSize: fontSize.mainPara
                             }}
                         >
-                            Our company has been the leading provided construction services to clients throughout the Dubai since 1992.
+                            {
+                                content?.[4]?.content?.description?.[language] ||
+                                "Our company has been the leading provided construction services to clients throughout the Dubai since 1992."
+                            }
                         </p>
-                        <div className="grid grid-cols-3"
+                        <div className={`grid ${isComputer ? "grid-cols-3" : isTablet ? "grid-cols-2 gap-2" : "grid-cols-1 gap-2"} ${!isComputer && "mt-2"}`}
                             style={{
                                 gap: (isComputer) && getDynamicSize(23)
                             }}
                         >
                             {
-                                tempArr?.map((e, i) => {
+                                content?.[4]?.content?.cards?.map((e, i) => {
                                     return (
-                                        <div key={i} className="border aspect-[1/.91] flex justify-center items-center">
-                                            <p style={{ fontSize: fontSize.mainPara }}>
-                                                Lorem, ipsum.
+                                        <div
+                                            key={i}
+                                            className="border aspect-[1/.91] flex justify-center items-center p-4 text-center"
+                                            style={{ padding: isComputer && getDynamicSize(16) }}
+                                        >
+                                            <p style={{ fontSize: fontSize.aboutMainPara }} className="font-[400]"
+                                            
+                                            >
+                                                {e.title?.[language] ||
+                                                    "Lorem, Ipsum!"
+                                                }
                                             </p>
                                         </div>
                                     )
