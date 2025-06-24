@@ -227,9 +227,10 @@ export default function ContentTopBar({ setWidth, setFullScreen, outOfEditing, c
 
 
     useEffect(() => { // Checking ig there has been any changes in the initial and running content
-        const hasChanged = !isEqual(ReduxState.present?.content?.editVersion?.sections, savedInitialState)
+        console.log(ReduxState.present?.content, savedInitialState)
+        const hasChanged = !isEqual(ReduxState.present?.content, savedInitialState)
         setIsChanged(hasChanged)
-    }, [ReduxState.present?.content?.editVersion])
+    }, [ReduxState.present?.content])
 
     return (
         <div className='flex rounded-lg justify-between gap-2 items-center xl:px-[2.36rem] xl:py-[1.2rem] sm:px-[.8rem] sm:py-[.5rem] lg:px-[.8rem] bg-[#fafaff] dark:bg-[#242933]'>

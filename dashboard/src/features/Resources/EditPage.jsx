@@ -119,7 +119,7 @@ const EditPage = () => {
                             editVersion: isManager ? response.content.liveModeVersionData : response.content.editModeVersionData ?? response.content.liveModeVersionData
                         }
                         dispatch(updateMainContent({ currentPath: "content", payload }))
-                        dispatch(saveInitialContentValue(payload.editVersion.sections))
+                        dispatch(saveInitialContentValue(payload))
                         if (response.content.editModeVersionData) dispatch(updateIsEditMode({ value: true }))
                     }
 
