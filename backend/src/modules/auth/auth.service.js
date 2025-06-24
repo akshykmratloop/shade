@@ -18,7 +18,6 @@ import {
 } from "../../repository/user.repository.js";
 import {generateRandomOTP} from "../../helper/generateOtp.js";
 
-import {timeStamp} from "console";
 
 // MAIN SERVICE FUNCTIONS
 const login = async (email, password) => {

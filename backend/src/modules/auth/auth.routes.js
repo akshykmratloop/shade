@@ -10,27 +10,23 @@ import {
   updatePasswordSchema,
 } from "../../validation/authSchema.js";
 import tryCatchWrap from "../../errors/tryCatchWrap.js";
-import {generateOtpRateLimiter} from "../../helper/rateLimiter.js";
-import auditLogger from "../../helper/auditLogger.js";
+import { resendOtpRateLimiter, generateOtpRateLimiter} from "../../helper/rateLimiter.js";
+import { checkPermission } from "../../helper/roleBasedAccess.js";
 
 const router = Router();
+
+const requiredPermissionsLog = ["AUDIT_LOGS_MANAGEMENT"];
 
 router.post(
   "/login",
   validator(loginSchema),
-  // auditLogger,
   tryCatchWrap(AuthController.Login)
 );
 
 // takes email and generates otp
 router.post(
   "/mfa/login",
-  async (req, res, next) => {
-    const {generateOtpRateLimiter} = await import(
-      "../../helper/rateLimiter.js"
-    );
-    return generateOtpRateLimiter(req, res, next);
-  },
+  generateOtpRateLimiter,
   validator(generateOtpSchema),
   tryCatchWrap(AuthController.MFALogin)
 );
@@ -53,12 +49,7 @@ router.post(
 router.post(
   // forgot pass
   "/forgotPassword",
-  async (req, res, next) => {
-    const {generateOtpRateLimiter} = await import(
-      "../../helper/rateLimiter.js"
-    );
-    return generateOtpRateLimiter(req, res, next);
-  },
+  generateOtpRateLimiter,
   validator(generateOtpSchema),
   tryCatchWrap(AuthController.ForgotPassword)
 );
@@ -77,27 +68,24 @@ router.post(
 
 router.post(
   "/resetPass",
-  // authentica/teUser,
+  authenticateUser,
   validator(resetPassSchema),
   tryCatchWrap(AuthController.ResetPass)
 );
 
 router.post(
-  // forgot pass
   "/resendOtp",
-  // resendOtpRateLimiter, // Rate limiter for OTP requests
-  // validator(generateOtpSchema),
+  resendOtpRateLimiter, // Rate limiter for OTP requests
+  validator(generateOtpSchema),
   tryCatchWrap(AuthController.ResendOTP)
 );
 
 router.get(
-  // forgot pass
   "/logs",
-  // resendOtpRateLimiter, // Rate limiter for OTP requests
-  // validator(generateOtpSchema),
+  authenticateUser,
+  checkPermission(requiredPermissionsLog),
   tryCatchWrap(AuthController.GetAllLogs)
 );
 
 export default router;
 
-// router.get('/protected', authenticateUser, protectedRoute);

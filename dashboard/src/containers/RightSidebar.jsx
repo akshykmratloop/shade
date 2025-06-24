@@ -17,10 +17,8 @@ import { ToastContainer } from "react-toastify";
 import { useRef } from "react";
 import { toast } from "react-toastify";
 
-function RightSidebar({ notificationData = [], notificationCount = 0, setNotificationData, setNotificationCountLocal }) {
+function RightSidebar({ notificationData = [], notificationMeta = { totalPages: 1, page: 1 }, notificationCount = 0, setNotificationData, setNotificationMeta, setNotificationCountLocal }) {
   const [loading, setLoading] = useState(false);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
   const [searchText, setSearchText] = useState("");
 
   const { isOpen, bodyType, extraObject, header } = useSelector(
@@ -44,12 +42,12 @@ function RightSidebar({ notificationData = [], notificationCount = 0, setNotific
     setLoading(true);
     try {
       const result = await getNotificationsbyId(id, page, search);
-
-      // Update pagination metadata from API response
       if (result?.data) {
-        setCurrentPage(result?.data?.page);
-        setTotalPages(result?.data?.totalPages);
-        // notificationData is now passed as a prop
+        setNotificationData(result.data.notifications);
+        setNotificationMeta({
+          totalPages: result.data.totalPages,
+          page: result.data.page,
+        });
       }
     } catch (error) {
       console.error("Error fetching notifications", error);
@@ -62,7 +60,7 @@ function RightSidebar({ notificationData = [], notificationCount = 0, setNotific
     try {
       setLoading(true);
       await markAllNotificationAsRead(id);
-      fetchNotifications(id, currentPage, searchText); // refetch after marking read
+      fetchNotifications(id, notificationMeta.page, searchText); // refetch after marking read
       dispatch(setNotificationCount(0));
     } catch (err) {
       console.error("Error marking all as read", err);
@@ -76,12 +74,12 @@ function RightSidebar({ notificationData = [], notificationCount = 0, setNotific
   };
 
   const handlePageChange = (newPage) => {
-    setCurrentPage(newPage);
+    fetchNotifications(userId, newPage, searchText);
   };
 
   const handleSearch = (searchValue) => {
     setSearchText(searchValue);
-    setCurrentPage(1); // Reset to page 1 when searching
+    fetchNotifications(userId, 1, searchValue);
   };
 
   const clearNotifications = async () => {
@@ -93,8 +91,10 @@ function RightSidebar({ notificationData = [], notificationCount = 0, setNotific
       await deleteNotifications(userId);
       if (setNotificationData) setNotificationData([]);
       if (setNotificationCountLocal) setNotificationCountLocal(0);
-      setTotalPages(1);
-      setCurrentPage(1);
+      setNotificationMeta({
+        totalPages: 1,
+        page: 1,
+      });
       dispatch(setNotificationCount(0));
     } catch (e) {
       console.error("Error while deleting notifications:", e);
@@ -155,8 +155,8 @@ function RightSidebar({ notificationData = [], notificationCount = 0, setNotific
                       loading={loading}
                       onPageChange={handlePageChange}
                       onSearch={handleSearch}
-                      currentPage={currentPage}
-                      totalPages={totalPages}
+                      currentPage={notificationMeta.page}
+                      totalPages={notificationMeta.totalPages}
                       searchText={searchText}
                       clearNotifications={clearNotifications}
                     />

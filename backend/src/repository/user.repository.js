@@ -1,14 +1,10 @@
-import {send} from "process";
 import prismaClient from "../config/dbConfig.js";
 import { EncryptData } from "../helper/bcryptManager.js";
 import { addEmailJob } from "../helper/emailJobQueue.js";
-import user from "../modules/user/index.js";
 import {
   userAccountCreationPayload,
   userAccountDeactivatedPayload,
   userAccountActivatedPayload,
-  resourceAssignmentPayload,
-  resourceAccessRemovedPayload
 } from "../other/EmailPayload.js";
 
 const dashboardUrl = process.env.DASHBOARD_URL;

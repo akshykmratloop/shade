@@ -6,7 +6,6 @@ import {
   editProfile,
   editProfileImage,
   editUserDetails,
-  findUserByEmail,
   getAllRolesForUser,
   getAllUsers,
   getAllUsersByRoleId,
@@ -30,7 +29,6 @@ const CreateUserHandler = async (req, res) => {
     actionType: "CREATE",
     targetUserId: user.user.id,
   });
-  // console.log(user.user.id, "entityId_reslocals");
 };
 
 const GetAllUsers = async (req, res) => {
@@ -62,17 +60,13 @@ const GetUserProfile = async (req, res) => {
 
 const GetAllUsersByRoleId = async (req, res) => {
   const {roleId} = req.params;
-  console.log(roleId, "roleId");
-
   const allUser = await getAllUsersByRoleId(roleId);
-
   res.status(201).json(allUser);
 };
 
 const EditUserDetails = async (req, res) => {
   const {id} = req.params;
   const {name, password, phone, roles} = req.body;
-
   const updatedUser = await editUserDetails(id, name, password, phone, roles);
   const io = req.app.locals.io;
   // Notification: user updated
@@ -92,11 +86,7 @@ const EditUserDetails = async (req, res) => {
 const EditProfile = async (req, res) => {
   const {id} = req.user;
   const {name, phone, image} = req.body;
-
   const updatedUser = await editProfile(id, name, phone, image);
-  // const io = req.app.locals.io;
-  // const socketIdOfUpdatedUser = getSocketId(id);
-  // io.to(socketIdOfUpdatedUser).emit("userUpdated", updatedUser);
   res.status(201).json(updatedUser);
 };
 
@@ -128,18 +118,13 @@ const UserRoleType = async (req, res) => {
 
 const EditProfileImage = async (req, res) => {
   const {id} = req.user;
-  // const {image} = req.body;
-
-  // Because upload.array("image", 1) was used, mediaUploader set req.uploadedImages = [ {...} ]
   if (!req.uploadedImages || req.uploadedImages.length === 0) {
     return res.status(400).json({error: "No uploadedImages found"});
   }
-
   const {public_id: imageUrl} = req.uploadedImages[0];
   if (!imageUrl) {
     return res.status(400).json({error: "Cloudinary did not return a URL"});
   }
-
   const updatedUser = await editProfileImage(id, imageUrl);
   res.status(201).json(updatedUser);
 };

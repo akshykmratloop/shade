@@ -13,13 +13,11 @@ const requiredPermissionsForRole = ["ROLES_PERMISSION_MANAGEMENT"];
 
 router.get(
   "/roles",
-  checkPermission(requiredPermissionsForRole),
   tryCatchWrap(RolesController.GetRoles)
 );
 
 router.get(
   "/roleType",
-  checkPermission(requiredPermissionsForRole),
   tryCatchWrap(RolesController.GetRoleType)
 );
 

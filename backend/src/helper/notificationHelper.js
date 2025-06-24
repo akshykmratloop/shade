@@ -128,6 +128,7 @@ export const handleEntityCreationNotification = async ({
           customMessage = `${actorLabel} ${verb} the user '${subject}'`;
         }
       } else if (entity === "resource") {
+        // Assignment/flow roles take priority over contentmanager
         if (contexts.includes("manager")) {
           customMessage = `${actorLabel} ${verb} a resource you manage: '${resource?.titleEn || resource?.titleAr || resource?.id}'`;
         } else if (contexts.includes("editor")) {
@@ -136,7 +137,8 @@ export const handleEntityCreationNotification = async ({
           customMessage = `${actorLabel} ${verb} a resource you verify: '${resource?.titleEn || resource?.titleAr || resource?.id}'`;
         } else if (contexts.includes("publisher")) {
           customMessage = `${actorLabel} ${verb} a resource you publish: '${resource?.titleEn || resource?.titleAr || resource?.id}'`;
-        } else if (contexts.includes("contentmanager")) {
+        } else if (contexts.includes("contentmanager") && actionType !== "ASSIGN" && !(contexts.includes("manager") || contexts.includes("editor") || contexts.some((c) => c.startsWith("verifier_stage_")) || contexts.includes("publisher"))) {
+          // Only send contentmanager if not assigned as manager/editor/verifier/publisher and not for ASSIGN
           customMessage = `${actorLabel} ${verb} a resource in your management area: '${resource?.titleEn || resource?.titleAr || resource?.id}'`;
         }
       }

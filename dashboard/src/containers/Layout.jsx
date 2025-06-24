@@ -22,6 +22,7 @@ function Layout() {
 
   // Global notification state
   const [notificationData, setNotificationData] = useState([])
+  const [notificationMeta, setNotificationMeta] = useState({ totalPages: 1, page: 1 })
   const [notificationCount, setNotificationCountLocal] = useState(0)
 
   useEffect(() => {
@@ -86,6 +87,10 @@ function Layout() {
         const result = await getNotificationsbyId(extraObject.id, 1, "");
         if (result?.data?.notifications) {
           setNotificationData(result.data.notifications);
+          setNotificationMeta({
+            totalPages: result.data.totalPages,
+            page: result.data.page,
+          });
         }
       }
     };
@@ -103,8 +108,10 @@ function Layout() {
       { /* Right drawer - containing secondary content like notifications list etc.. */}
       <RightSidebar 
         notificationData={notificationData} 
+        notificationMeta={notificationMeta}
         notificationCount={notificationCount} 
         setNotificationData={setNotificationData}
+        setNotificationMeta={setNotificationMeta}
         setNotificationCountLocal={setNotificationCountLocal}
       />
 

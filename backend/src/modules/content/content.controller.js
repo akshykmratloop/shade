@@ -49,8 +49,7 @@ const AddNewResource = async (req, res) => {
     sections = []
   } = req.body;
 
-
-  const newResource = await addNewResource(
+  const newResourceResult = await addNewResource(
     titleEn,
     titleAr,
     slug,
@@ -65,8 +64,21 @@ const AddNewResource = async (req, res) => {
     comments,
     sections,
   );
-
-  res.status(200).json(newResource);
+  // Fetch the full resource with all fields for notification
+  const createdResource = await prisma.resource.findUnique({
+    where: { slug },
+  });
+  // Send notification
+  const io = req.app.locals.io;
+  await handleEntityCreationNotification({
+    io,
+    userId: req.user?.id,
+    entity: "resource",
+    newValue: createdResource,
+    actionType: "CREATE",
+    resource: createdResource,
+  });
+  res.status(200).json(newResourceResult);
 };
 
 const GetResources = async (req, res) => {
@@ -135,55 +147,28 @@ const AssignUser = async (req, res) => {
     verifiers,
     publisher
   );
-  // Notification: resource assignment (for each role assigned)
+  // Notification: resource assignment (call only once after all assignments)
   const io = req.app.locals.io;
-  const resource = response.assignedUsers;
-  if (manager) {
-    await handleEntityCreationNotification({
-      io,
-      userId: req.user?.id,
-      entity: "resource",
-      newValue: resource,
-      actionType: "ASSIGN",
-      resource,
-      actionDetails: { assignmentRole: "MANAGER", assignmentRoleUserId: manager },
-    });
+  // Fetch the updated resource with all roles and verifiers
+  const updatedResource = await prisma.resource.findUnique({
+    where: { id: resourceId },
+    include: {
+      roles: { where: { status: "ACTIVE" }, include: { user: true } },
+      verifiers: { where: { status: "ACTIVE" }, include: { user: true } },
+    },
+  });
+  if (!updatedResource) {
+    return res.status(404).json({ message: "Resource not found for assignment" });
   }
-  if (editor) {
-    await handleEntityCreationNotification({
-      io,
-      userId: req.user?.id,
-      entity: "resource",
-      newValue: resource,
-      actionType: "ASSIGN",
-      resource,
-      actionDetails: { assignmentRole: "EDITOR", assignmentRoleUserId: editor },
-    });
-  }
-  if (publisher) {
-    await handleEntityCreationNotification({
-      io,
-      userId: req.user?.id,
-      entity: "resource",
-      newValue: resource,
-      actionType: "ASSIGN",
-      resource,
-      actionDetails: { assignmentRole: "PUBLISHER", assignmentRoleUserId: publisher },
-    });
-  }
-  if (Array.isArray(verifiers)) {
-    for (const v of verifiers) {
-      await handleEntityCreationNotification({
-        io,
-        userId: req.user?.id,
-        entity: "resource",
-        newValue: resource,
-        actionType: "ASSIGN",
-        resource,
-        actionDetails: { assignmentRole: `VERIFIER_STAGE_${v.stage}`, assignmentRoleUserId: v.id },
-      });
-    }
-  }
+  await handleEntityCreationNotification({
+    io,
+    userId: req.user?.id,
+    entity: "resource",
+    newValue: updatedResource,
+    actionType: "ASSIGN",
+    resource: updatedResource,
+    actionDetails: { assignmentRole: "ALL" },
+  });
   res.status(200).json(response);
 };
 
