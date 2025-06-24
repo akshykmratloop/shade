@@ -138,6 +138,7 @@
       display: flex;
       gap: 100px;
       align-items: center;
+      justify-content: space-between;
       padding: 65px 0;
 
       .card_layout_left {
@@ -172,7 +173,7 @@
       }
 
       .template2_second_section_card_image {
-        width: 512px;
+        // width: 512px;
 
         img {
           width: 452px;

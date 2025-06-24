@@ -6,6 +6,7 @@ import banner from "@/assets/images/Hero.png";
 import templateImg from "@/assets/images/swccWaterSupply.jpg";
 import templateIcon from "../../assets/icons/templateIcon.svg";
 import checkIcon from "@/assets/icons/check.svg";
+import {Img_url} from "@/common/CreateContent";
 
 const firstSection = {
   id: 1,
@@ -114,6 +115,8 @@ const NewTemplate2 = ({content}) => {
   const titleLan = isLeftAlign ? "titleEn" : "titleAr";
 
   const currentContent = content;
+
+  console.log("NewTemplate2 content:", currentContent);
   return (
     <div>
       <section className={`${styles.template2_banner_wrap} `}>
@@ -124,12 +127,12 @@ const NewTemplate2 = ({content}) => {
         >
           <img
             style={{objectPosition: "bottom", objectFit: "cover"}}
-            // src={
-            //   currentContent?.["1"]?.content?.images?.[0]?.url
-            //     ? Img_url + currentContent?.["1"]?.content?.images?.[0]?.url
-            //     : ""
-            // }
-            src={banner.src}
+            src={
+              currentContent?.["1"]?.content?.images?.[0]?.url
+                ? Img_url + currentContent?.["1"]?.content?.images?.[0]?.url
+                : ""
+            }
+            // src={banner.src}
             alt="about-us"
             className={styles.backgroundImage}
             width={0}
@@ -152,20 +155,20 @@ const NewTemplate2 = ({content}) => {
         <div className="container">
           <div className={styles.template2_first_section_header}>
             <h2 className={styles.template2_first_section_heading}>
-              {firstSection.title}
+              {currentContent?.["2"]?.content?.title[language]}
             </h2>
             <p className={styles.template2_first_section_desc}>
-              {firstSection.description}
+              {currentContent?.["2"]?.content?.description[language]}
             </p>
           </div>
           <div className={styles.template2_first_section_card_wrapper}>
-            {firstSection.cards.map((card) => (
+            {currentContent?.["3"]?.content?.cards.map((card) => (
               <div
                 key={card.id}
                 className={styles.template2_first_section_card}
               >
                 <p className={styles.template2_first_section_card_para}>
-                  {card.paragraph}
+                  {card.description[language]}
                 </p>
               </div>
             ))}
@@ -176,7 +179,7 @@ const NewTemplate2 = ({content}) => {
       <section className={styles.template2_second_section}>
         <div className="container">
           <div className={styles.template2_second_section_card_wrapper}>
-            {secondSection.map((item, index) => {
+            {currentContent?.["4"]?.content?.cards.map((item, index) => {
               const isEven = index % 2 === 0;
               return (
                 <div
@@ -196,9 +199,9 @@ const NewTemplate2 = ({content}) => {
                             styles.template2_second_section_card_heading
                           }
                         >
-                          {item.title}
+                          {item.title[language]}
                         </h2>
-                        {item.pointers.map((point, idx) => (
+                        {item.description.map((desc, idx) => (
                           <div
                             key={idx}
                             className={
@@ -211,7 +214,7 @@ const NewTemplate2 = ({content}) => {
                                 styles.template2_second_section_card_points
                               }
                             >
-                              {point}
+                              {desc[language]}
                             </p>
                           </div>
                         ))}
@@ -220,7 +223,14 @@ const NewTemplate2 = ({content}) => {
                       <div
                         className={styles.template2_second_section_card_image}
                       >
-                        <img src={item.image.src} alt="" />
+                        <img
+                          src={
+                            item.images?.[0]?.url
+                              ? Img_url + item.images?.[0]?.url
+                              : ""
+                          }
+                          alt=""
+                        />
                       </div>
                     </>
                   ) : (
@@ -229,7 +239,14 @@ const NewTemplate2 = ({content}) => {
                       <div
                         className={styles.template2_second_section_card_image}
                       >
-                        <img src={item.image.src} alt="" />
+                        <img
+                          src={
+                            item.images?.[0]?.url
+                              ? Img_url + item.images?.[0]?.url
+                              : ""
+                          }
+                          alt=""
+                        />
                       </div>
                       {/* Content Second */}
                       <div
@@ -240,9 +257,9 @@ const NewTemplate2 = ({content}) => {
                             styles.template2_second_section_card_heading
                           }
                         >
-                          {item.title}
+                          {item.title[language]}
                         </h2>
-                        {item.pointers.map((point, idx) => (
+                        {item.description.map((desc, idx) => (
                           <div
                             key={idx}
                             className={
@@ -255,7 +272,7 @@ const NewTemplate2 = ({content}) => {
                                 styles.template2_second_section_card_points
                               }
                             >
-                              {point}
+                              {desc[language]}
                             </p>
                           </div>
                         ))}
@@ -274,21 +291,29 @@ const NewTemplate2 = ({content}) => {
           <div className={styles.template2_third_section_content_wrapper}>
             <div className={styles.template2_third_section_content}>
               <h2 className={styles.template2_third_section_content_heading}>
-                Lorem, ipsum.
+                {currentContent?.["5"]?.content?.title[language]}
               </h2>
               <p className={styles.template2_third_section_content_para}>
-                Shade Corporation boasts a continually growing portfolio of
-                satisfied clients, both global and local, who have derived
-                tremendous benefits from their engagement with us. Our solutions
-                are sought after by companies of all sizes — large, mid-sized,
-                an
+                {currentContent?.["5"]?.content?.description[language]}
               </p>
             </div>
-            <div className={styles.template2_third_section_content_images}>
+
+            {currentContent?.["5"]?.content?.images.map((image, idx) => (
+              <div
+                key={idx}
+                className={styles.template2_third_section_content_images}
+              >
+                <img
+                  src={image?.url ? Img_url + image.url : ""}
+                  alt={image?.altText?.[language] || "image"}
+                />
+              </div>
+            ))}
+            {/* <div className={styles.template2_third_section_content_images}>
               <img src={templateImg.src} alt="" />
               <img src={templateImg.src} alt="" />
               <img src={templateImg.src} alt="" />
-            </div>
+            </div> */}
           </div>
         </div>
       </section>
