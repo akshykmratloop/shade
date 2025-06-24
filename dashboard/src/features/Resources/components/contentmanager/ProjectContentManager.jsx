@@ -1,12 +1,9 @@
 import { useDispatch } from "react-redux"
 import ContentSection from "../breakUI/ContentSections"
 import MultiSelectPro from "../breakUI/MultiSelectPro"
-// import { updateAllProjectlisting } from "../../../common/homeContentSlice"
 import FileUploader from "../../../../components/Input/InputFileUploader"
 import { useEffect, useState } from "react";
-// import MultiSelect from "../breakUI/MultiSelect";
 import { updateMainContent } from "../../../common/homeContentSlice";
-// import content from "../websiteComponent/content.json"
 import { getResources } from "../../../../app/fetch"
 
 
@@ -72,7 +69,7 @@ const ProjectManager = ({ currentPath, currentContent, language, indexes }) => {
                 currentPath={currentPath}
                 Heading={"Banner"}
                 inputs={[
-                    { input: "input", label: "Heading/title", updateType: "title", value: currentContent?.['1']?.content?.title?.[language] },
+                    { input: "input", label: "Heading", updateType: "title", value: currentContent?.['1']?.content?.title?.[language] },
                     { input: "textarea", label: "Description", updateType: "description", maxLength: 300, value: currentContent?.['1']?.content?.description?.[language] },
                     { input: "input", label: "Button Text", updateType: "button", value: currentContent?.['1']?.content?.button?.[0]?.text?.[language], index: 0 }
                 ]}

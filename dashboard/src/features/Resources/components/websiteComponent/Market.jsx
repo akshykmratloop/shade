@@ -18,12 +18,12 @@ import { TruncateText } from "../../../../app/capitalizeword";
 import { Img_url } from "../../../../routes/backend";
 import dynamicSize, { defineDevice, differentText, generatefontSize } from "../../../../app/fontSizes";
 
-const MarketPage = ({ language, screen, currentContent, highlight, liveContent }) => {
+const MarketPage = ({ language, screen, currentContent, highlight, liveContent, purpose }) => {
     const testimonialPrevRef = useRef(null);
     const testimonialNextRef = useRef(null);
-    const isComputer = screen > 1100
-    const isPhone = screen < 760
-    const isTablet = screen > 761 && screen < 1100
+    const isComputer = screen > 900 || highlight;
+    const isTablet = (screen < 900 && screen > 730) || !highlight;
+    const isPhone = screen < 738 || !highlight;
     const [activeTab, setActiveTab] = useState("buildings");
     const isLeftAlign = language === 'en'
     const [filterMarketItems, setFilterMarketItems] = useState([]);
@@ -34,7 +34,7 @@ const MarketPage = ({ language, screen, currentContent, highlight, liveContent }
         if (isComputer) { return dynamicSize(size, width) }
     }
     const titleLan = isLeftAlign ? 'titleEn' : "titleAr"
-    const checkDifference = highlight ? differentText?.checkDifference?.bind(differentText) : () => ""
+    const checkDifference = (!purpose && highlight) ? differentText?.checkDifference?.bind(differentText) : () => ""
 
 
     const fontSize = generatefontSize(defineDevice(screen), dynamicSize, width)

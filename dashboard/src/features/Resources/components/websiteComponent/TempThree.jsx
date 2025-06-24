@@ -23,7 +23,7 @@ const TemplateThree = ({ content, screen, language, width, highlight, liveConten
     const checkDifference = (!purpose && highlight) ? differentText?.checkDifference?.bind(differentText) : () => "";
 
     return (
-        <div>
+        <div dir={isLeftAlign ? "ltr" : "rtl"}>
             <section
                 className="flex items-center"
                 style={{

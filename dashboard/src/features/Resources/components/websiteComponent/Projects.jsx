@@ -8,10 +8,10 @@ import { Img_url } from "../../../../routes/backend";
 import dynamicSize, { defineDevice, differentText, generatefontSize } from "../../../../app/fontSizes";
 
 
-const ProjectPage = ({ language, screen, currentContent, highlight, liveContent }) => {
-    const isPhone = screen < 760
-    const isTablet = screen > 761 && screen < 1100
-    const isComputer = screen > 1100
+const ProjectPage = ({ language, screen, currentContent, highlight, liveContent, purpose }) => {
+    const isComputer = screen > 900 || highlight;
+    const isTablet = (screen < 900 && screen > 730) || !highlight;
+    const isPhone = screen < 738 || !highlight;
     const isLeftAlign = language === "en"
     const dispatch = useDispatch()
     const [activeTab, setActiveTab] = useState("1");
@@ -22,7 +22,7 @@ const ProjectPage = ({ language, screen, currentContent, highlight, liveContent 
 
     const titleLan = isLeftAlign ? "titleEn" : "titleAr";
 
-    const checkDifference = highlight ? differentText?.checkDifference?.bind(differentText) : () => ""
+    const checkDifference = (!purpose && highlight) ? differentText?.checkDifference?.bind(differentText) : () => ""
 
 
     const fontSize = generatefontSize(defineDevice(screen), dynamicSize, width)

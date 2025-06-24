@@ -12,7 +12,7 @@ const AffiliatesManager = ({ language, content, indexes, currentPath, outOfEditi
                 currentPath={currentPath}
                 Heading={"Banner"}
                 inputs={[
-                    { input: "input", label: "Heading/title", updateType: "title", value: content?.['1']?.content?.title?.[language] },
+                    { input: "input", label: "Heading", updateType: "title", value: content?.['1']?.content?.title?.[language] },
                     { input: "textarea", label: "Description", updateType: "description", value: content?.['1']?.content?.description?.[language] },
                 ]}
                 inputFiles={[{ label: "Backround Image", id: "affiliatesBanner", order: 1, url: content?.['1']?.content?.images?.[0]?.url }]}

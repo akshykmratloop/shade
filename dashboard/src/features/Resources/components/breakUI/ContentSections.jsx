@@ -339,6 +339,7 @@ const ContentSection = ({
                                 maxLength={input.maxLength}
                                 outOfEditing={outOfEditing}
                                 dir={input.dir}
+                                disabled={input.disable}
                             />
                         );
                     }

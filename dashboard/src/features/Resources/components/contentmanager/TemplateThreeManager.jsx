@@ -55,17 +55,17 @@ const TemplateThreeManager = ({ content, currentPath, language, indexes, outOfEd
     return (
         <div>
             {/* reference doc */}
-            <FileUploader id={"Temp-Two-ID-Reference"} label={"Rerference doc"} fileName={"Upload your file..."} />
+            <FileUploader id={"Temp-Three-ID-Reference"} label={"Rerference doc"} fileName={"Upload your file..."} />
 
             {
-                context?.id === "N" &&
+                // context?.id === "N" &&
                 <ContentSection
                     currentPath={currentPath}
                     Heading={"Page - Details"}
                     inputs={[
                         { input: "input", label: "Title English", updateType: "titleEn", value: context?.titleEn, dir: "ltr" },
                         { input: "input", label: "Title Arabic", updateType: "titleAr", value: context?.titleAr, dir: "rtl" },
-                        ...(context?.id === "N" ? [{ input: "input", label: "Slug", updateType: "slug", value: context?.slug }] : []),
+                        ...([{ input: "input", label: "Slug", updateType: "slug", value: context?.slug, disable: context?.id === "N" ? false : true, dir:"ltr" }]),
                     ]}
                     section={"page-details"}
                     language={language}
@@ -79,7 +79,7 @@ const TemplateThreeManager = ({ content, currentPath, language, indexes, outOfEd
                 currentPath={currentPath}
                 Heading={"Banner"}
                 inputs={[
-                    { input: "input", label: "Heading/title", updateType: "title", value: content?.['1']?.content?.title?.[language] },
+                    { input: "input", label: "Heading", updateType: "title", value: content?.['1']?.content?.title?.[language] },
                     { input: "textarea", label: "Description", updateType: "description", maxLength: 400, value: content?.['1']?.content?.description?.[language] },
                     { input: "input", label: "Button Text", updateType: "button", maxLength: 20, value: content?.["1"]?.content?.button?.[0]?.text?.[language], index: 0 }
                 ]}
@@ -96,7 +96,7 @@ const TemplateThreeManager = ({ content, currentPath, language, indexes, outOfEd
                 currentPath={currentPath}
                 Heading={"Sub Heading"}
                 inputs={[
-                    { input: "input", label: "Heading/title", updateType: "title", value: content?.['2']?.content?.title?.[language] },
+                    { input: "input", label: "Title", updateType: "title", value: content?.['2']?.content?.title?.[language] },
                     { input: "textarea", label: "Description", updateType: "description", maxLength: 400, value: content?.['2']?.content?.description?.[language] },
                 ]}
                 section={"banner"}
@@ -111,7 +111,7 @@ const TemplateThreeManager = ({ content, currentPath, language, indexes, outOfEd
                 currentPath={currentPath}
                 Heading={"Cards"}
                 inputs={[
-                    { input: "input", label: "Heading/title", updateType: "title", value: content?.['3']?.content?.title?.[language] },
+                    { input: "input", label: "Title", updateType: "title", value: content?.['3']?.content?.title?.[language] },
                     { input: "textarea", label: "Description", updateType: "description", maxLength: 200, value: content?.['3']?.content?.description?.[language] },
                 ]}
                 section={"banner"}
@@ -133,7 +133,7 @@ const TemplateThreeManager = ({ content, currentPath, language, indexes, outOfEd
                                 currentPath={currentPath}
                                 subHeading={`Card ${(i + 1)}`}
                                 inputs={[
-                                    { input: "input", label: "Heading/title", updateType: "title", value: section?.title?.[language] },
+                                    { input: "input", label: "Title", updateType: "title", value: section?.title?.[language] },
                                     { input: "textarea", label: "Description", updateType: "description", maxLength: 150, value: section?.description?.[language] },
                                 ]}
                                 inputFiles={[{ label: "Image", id: `grid${i}`, order: 1, url: section?.images?.[0]?.url }]}
@@ -166,7 +166,7 @@ const TemplateThreeManager = ({ content, currentPath, language, indexes, outOfEd
                 currentPath={currentPath}
                 Heading={"Mark Down"}
                 inputs={[
-                    { input: "input", label: "Heading/title", updateType: "title", value: content?.['5']?.content?.title?.[language] },
+                    { input: "input", label: "Title", updateType: "title", value: content?.['5']?.content?.title?.[language] },
                     { input: "textarea", label: "Description", updateType: "description", value: content?.['5']?.content?.description?.[language] },
                 ]}
                 inputFiles={
@@ -193,9 +193,8 @@ const TemplateThreeManager = ({ content, currentPath, language, indexes, outOfEd
                             <DynamicContentSection
                                 key={i}
                                 currentPath={currentPath}
-                                // subHeading={`Card ${(i + 1)}`}
                                 inputs={[
-                                    { input: "input", label: `card ${(i + 1)}`, updateType: "title", value: section?.title?.[language] },
+                                    { input: "input", label: `Card ${(i + 1)}`, updateType: "title", value: section?.title?.[language] },
                                 ]}
                                 index={i}
                                 isBorder={false}

@@ -10,14 +10,14 @@ import { useSelector } from "react-redux";
 // import { updateMainContent } from "../../../common/homeContentSlice";
 
 
-const Services = ({ currentContent, screen, language, width, highlight, liveContent }) => {
-    const isComputer = screen > 900;
-    const isTablet = screen < 900 && screen > 730;
-    const isPhone = screen < 738;
+const Services = ({ currentContent, screen, language, width, highlight, liveContent, purpose }) => {
+    const isComputer = screen > 900 || highlight;
+    const isTablet = (screen < 900 && screen > 730) || !highlight;
+    const isPhone = screen < 738 || !highlight;
     const isLeftAlign = language === 'en';
 
     const titleLan = isLeftAlign ? "titleEn" : "titleAr"
-    const checkDifference = highlight ? differentText?.checkDifference?.bind(differentText) : () => ""
+    const checkDifference = (!purpose && highlight) ? differentText?.checkDifference?.bind(differentText) : () => ""
 
 
     const fontSize = generatefontSize(defineDevice(screen), dynamicSize, width)
