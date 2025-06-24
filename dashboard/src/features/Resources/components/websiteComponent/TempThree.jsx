@@ -31,7 +31,7 @@ const TemplateThree = ({ content, screen, language, width, highlight, liveConten
                     height: getDynamicSize(750)
                 }}
             >
-                <div className="flex"
+                <div className="flex justify-between w-full"
                     style={{
                         gap: (isComputer) && getDynamicSize(50),
                     }}
@@ -55,7 +55,7 @@ const TemplateThree = ({ content, screen, language, width, highlight, liveConten
                         <p
                             style={{ fontSize: fontSize.testimonialsQuote }}
                         >
-                            {content?.[1]?.content?.title?.[language] ||
+                            {content?.[1]?.content?.description?.[language] ||
                                 `Discover the exceptional excellence of Shade Corporation, the premier Engineering, Procurement, and Construction powerhouse in Saudi Arabia.
                         
                             Discover the exceptional excellence of Shade Corporation, the premier Engineering, Procurement, and Construction powerhouse in Saudi Arabia.`
@@ -74,9 +74,12 @@ const TemplateThree = ({ content, screen, language, width, highlight, liveConten
                         }}
                     >
                         <img
-                            src={`${projectPageData.asphaltWork}`} alt=""
+                            src={`${content?.[1]?.content?.images?.[0]?.url ?
+                                Img_url + content?.[1]?.content?.images?.[0]?.url :
+                                projectPageData.asphaltWork
+                                }`} alt=""
                             // style={{ width: (isComputer) && getDynamicSize(685) }}
-                            className="aspect-[2.1/1] w-full"
+                            className="w-full h-full aspect-[2/1.3]"
                         />
                     </div>
                 </div>
@@ -87,13 +90,18 @@ const TemplateThree = ({ content, screen, language, width, highlight, liveConten
                 style={{
                     padding: (isComputer || isTablet) && `${getDynamicSize(100)} ${getDynamicSize(150)}`
                 }
-                }>
-
+                }
+            >
                 <section className={`flex gap-[10px] ${isPhone ? "flex-col p-1" : ""}`}>
                     <h2 className={`text-[32px] flex-1 leading-[28px]
-                                                    ${checkDifference(content?.[2]?.content?.title?.[language], liveContent?.[2]?.content?.title?.[language])}
-                                                    `}
-                        style={{ fontSize: fontSize.experienceHeading, lineHeight: isComputer && getDynamicSize(40) }}
+                                        ${checkDifference(content?.[2]?.content?.title?.[language], liveContent?.[2]?.content?.title?.[language])}
+                                    `}
+                        style={{
+                            fontSize: fontSize.experienceHeading,
+                            lineHeight: isComputer && getDynamicSize(40),
+                            width: (isComputer) && getDynamicSize(505),
+                            flex: `1 1 auto`
+                        }}
                     >
                         {
                             content?.[2]?.content?.title?.[language] ||
@@ -103,7 +111,11 @@ const TemplateThree = ({ content, screen, language, width, highlight, liveConten
                     <div className={`text-[9.5px] flex-1 ${fontLight}
                                     ${checkDifference(content?.[2]?.content?.description?.[language], liveContent?.[2]?.content?.description?.[language])}
                                     `}
-                        style={{ fontSize: fontSize.mainPara }}
+                        style={{
+                            width: (isComputer) && getDynamicSize(600),
+                            fontSize: fontSize.mainPara,
+                            flex: `1 1 auto`
+                        }}
                         dangerouslySetInnerHTML={{
                             __html:
                                 content?.[2]?.content?.description?.[language] ||
@@ -137,17 +149,23 @@ const TemplateThree = ({ content, screen, language, width, highlight, liveConten
                             }}
                         >
                             <h3 style={{ fontSize: fontSize.aboutMainPara }}>
-                                Lorem, ipsum.
+                                {
+                                    content?.['3']?.content?.title?.[language] ||
+                                    "Lorem Ipsum"
+                                }
                             </h3>
                             <p className={`${fontLight}`}
                                 style={{ fontSize: fontSize.mainPara }}
                             >
-                                It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that dffvdfvf dfj dsiwns vdjjs sssiiijee It is a long established fact that a reader will be distracted by the readable content of a page when fgdgdg It is a long established fact that a reader will a reader will
+                                {
+                                    content?.['3']?.content?.description?.[language] ||
+                                    "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that dffvdfvf dfj dsiwns vdjjs sssiiijee It is a long established fact that a reader will be distracted by the readable content of a page when fgdgdg It is a long established fact that a reader will a reader will"
+                                }
                             </p>
                         </article>
                         {
-                            (content?.['3']?.items ||
-                                tempArr ||
+                            (content?.['3']?.content?.cards ||
+                                // tempArr ||
                                 []
                             )?.map((service, idx) => {
                                 // if (service.slug === slug) return null
@@ -157,11 +175,13 @@ const TemplateThree = ({ content, screen, language, width, highlight, liveConten
                                         className="flex flex-col bg-white overflow-hidden shadow rounded-[6px]"
                                         style={{ width: isComputer ? getDynamicSize(437) : isTablet ? getDynamicSize(600) : getDynamicSize(1000) }}
                                     >
-                                        <img src={service.image} alt="img"
+                                        <img src={Img_url +
+                                            service.images?.[0]?.url
+                                        } alt="img"
                                             className="w-full object-cover rounded-[6px]"
                                             style={{ height: isComputer ? getDynamicSize(210) : isTablet ? getDynamicSize(400) : getDynamicSize(437) }}
                                         />
-                                        <section className="bg-[#F8F8F8] flex flex-col justify-between flex-1"
+                                        <section className="bg-[#F8F8F8] flex flex-col j flex-1"
                                             style={{
                                                 padding: `${getDynamicSize(16)} ${getDynamicSize(25)}`,
                                                 gap: isComputer ? getDynamicSize(10) : getDynamicSize(25)
@@ -169,8 +189,9 @@ const TemplateThree = ({ content, screen, language, width, highlight, liveConten
                                         >
                                             <h1 className="text-[#292E3D] text-[22px] font-[400]"
                                                 style={{ fontSize: fontSize.aboutMainPara, lineHeight: (isComputer || isTablet) && getDynamicSize(30) }}
+                                                title={service?.title?.[language]}
                                             >
-                                                {TruncateText(service?.[titleLan], isTablet ? 18 : 20) ||
+                                                {TruncateText(service?.title?.[language], isTablet ? 18 : 25) ||
                                                     "Project Services"}
                                             </h1>
                                             <p className={`text-[#292E3D] text-[10px] mb-2 ${fontLight}`}
@@ -193,13 +214,17 @@ const TemplateThree = ({ content, screen, language, width, highlight, liveConten
                     // height: getDynamicSize(750)
                 }}
             >
-                <div className="flex"
+                <div className={`flex ${!isComputer && "flex-col"}`}
                     style={{ gap: `${getDynamicSize(30)}` }}
                 >
                     <div className="border h-fit"
                         style={{ flex: `1 1 ${getDynamicSize(510)}` }}
                     >
-                        <img src={projectPageData.itLabExcellence} className="w-full aspect-[1/1.1]" alt="" />
+                        <img src={content?.[4]?.content?.images?.[0]?.url ?
+                            Img_url +
+                            content?.[4]?.content?.images?.[0]?.url :
+                            projectPageData.itLabExcellence
+                        } className={`w-full ${isComputer ? "aspect-[1/1.1]" : "aspect-[2/1]"}`} alt="" />
                     </div>
                     <div className="flex flex-col"
                         style={{
@@ -212,26 +237,40 @@ const TemplateThree = ({ content, screen, language, width, highlight, liveConten
                                 fontSize: fontSize.aboutMainPara
                             }}
                         >
-                            Project Services
+                            {
+                                content?.[4]?.content?.title?.[language] ||
+                                "Project Services"
+                            }
                         </h3>
                         <p className={`${fontLight}`}
                             style={{
                                 fontSize: fontSize.mainPara
                             }}
                         >
-                            Our company has been the leading provided construction services to clients throughout the Dubai since 1992.
+                            {
+                                content?.[4]?.content?.description?.[language] ||
+                                "Our company has been the leading provided construction services to clients throughout the Dubai since 1992."
+                            }
                         </p>
-                        <div className="grid grid-cols-3"
+                        <div className={`grid ${isComputer ? "grid-cols-3" : isTablet ? "grid-cols-2 gap-2" : "grid-cols-1 gap-2"} ${!isComputer && "mt-2"}`}
                             style={{
                                 gap: (isComputer) && getDynamicSize(23)
                             }}
                         >
                             {
-                                tempArr?.map((e, i) => {
+                                content?.[4]?.content?.cards?.map((e, i) => {
                                     return (
-                                        <div className="border aspect-[1/.91] flex justify-center items-center">
-                                            <p style={{fontSize: fontSize.mainPara}}>
-                                            Lorem, ipsum.
+                                        <div
+                                            key={i}
+                                            className="border aspect-[1/.91] flex justify-center items-center p-4 text-center"
+                                            style={{ padding: isComputer && getDynamicSize(16) }}
+                                        >
+                                            <p style={{ fontSize: fontSize.aboutMainPara }} className="font-[400]"
+                                            
+                                            >
+                                                {e.title?.[language] ||
+                                                    "Lorem, Ipsum!"
+                                                }
                                             </p>
                                         </div>
                                     )

@@ -110,7 +110,7 @@ const TemplateTwoManager = ({ content, currentPath, language, indexes }) => {
                     { input: "input", label: "Heading/title", updateType: "title", value: content?.['1']?.content?.title?.[language] },
                     { input: "textarea", label: "Description", updateType: "description", value: content?.['1']?.content?.description?.[language] },
                 ]}
-                inputFiles={[{ label: "Backround Image", id: "ServiceBanner", order: 1, url: content?.['1']?.content?.images?.[0]?.url }]}
+                inputFiles={[{ label: "Backround Image", id: "Temp2Banner", order: 1, url: content?.['1']?.content?.images?.[0]?.url }]}
                 section={"banner"}
                 language={language}
                 currentContent={content}
@@ -178,7 +178,7 @@ const TemplateTwoManager = ({ content, currentPath, language, indexes }) => {
                                             )
                                         }))
                                     ]}
-                                    inputFiles={[{ label: "Icon", id: `cards${i}`, order: 1, url: section?.images?.[0]?.url }]}
+                                    inputFiles={[{ label: "Image", id: `cards${i}`, order: 1, url: section?.images?.[0]?.url }]}
                                     index={i}
                                     isBorder={false}
                                     allowRemoval={true}
@@ -191,7 +191,7 @@ const TemplateTwoManager = ({ content, currentPath, language, indexes }) => {
                                     order={section.order}
                                 />
                                 {
-                                    (section?.description.length < 6) &&
+                                    (section?.description?.length < 6) &&
                                     <button
                                         className="text-blue-500 cursor-pointer mb-6"
                                         onClick={() => {

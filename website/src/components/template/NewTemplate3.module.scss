@@ -4,6 +4,7 @@
   .template3_banner_wrapper {
     display: flex;
     align-items: center;
+    justify-content: space-between;
     gap: 50px;
 
     .template3_banner_header {
@@ -43,7 +44,14 @@
     .template3_banner_image {
       width: 680px;
       height: 300px;
-      border: 1px solid grey;
+      // border: 1px solid grey;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        // border-radius: 6px;
+      }
     }
   }
 }
