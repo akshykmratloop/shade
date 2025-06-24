@@ -33,7 +33,7 @@ const TemplateTwo = ({ content, screen, language, width, highlight, liveContent,
         <div>
             <section
                 className={`relative w-full ${isPhone ? "px-8" : ""}
-                            ${checkDifference(content?.['1']?.content?.images?.[0]?.url, liveContent?.['1']?.content?.images?.[0]?.url)}
+                            ${checkDifference(content?.['1']?.content?.images?.[0]?.url, liveContent?.['1']?.content?.images?.[0]?.url, "image")}
                             flex items-center bg-cover bg-center ${isLeftAlign ? 'scale-x-[-1]' : ''}`}
                 style={{
                     backgroundImage: `url("${
@@ -270,11 +270,16 @@ const TemplateTwo = ({ content, screen, language, width, highlight, liveContent,
                     >
                         <h3
                             style={{ fontSize: fontSize.subProjectHeadings }}
+                            className={`
+                                ${checkDifference(content?.['5']?.content?.title?.[language], liveContent?.['5']?.content?.title?.[language])}
+                                `}
                         >{
                                 content?.['5']?.content?.title?.[language] ||
                                 "Lorem Ispum"}</h3>
                         <p
-                            className={`${fontLight}`}
+                            className={`${fontLight}
+                                ${checkDifference(content?.['5']?.content?.description?.[language], liveContent?.['5']?.content?.description?.[language])}
+                            `}
                             style={{ fontSize: fontSize.mainPara }}
                         >
                             {
@@ -301,7 +306,9 @@ const TemplateTwo = ({ content, screen, language, width, highlight, liveContent,
                                     >
                                         <img src={
                                             Img_url + e.url
-                                        } alt="" className={`w-full object-cover aspect-[1/1.8]`} />
+                                        } alt="" className={`w-full object-cover aspect-[1/1.8]
+                                        ${checkDifference(e.url, liveContent?.['5']?.content?.images?.[i]?.url, "image")}
+                                        `} />
                                     </div>
                                 )
                             })
