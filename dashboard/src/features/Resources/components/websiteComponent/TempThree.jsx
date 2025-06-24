@@ -8,8 +8,8 @@ import { TruncateText } from "../../../../app/capitalizeword";
 
 const TemplateThree = ({ content, screen, language, width, highlight, liveContent, purpose }) => {
     const isComputer = screen > 900 || highlight;
-    const isTablet = (screen < 900 && screen > 730) || !highlight;
-    const isPhone = screen < 738 || !highlight;
+    const isTablet = (screen < 900 && screen > 730) && !highlight;
+    const isPhone = screen < 738 && !highlight;
     const isLeftAlign = language === 'en';
 
     const titleLan = isLeftAlign ? "titleEn" : "titleAr";
@@ -20,7 +20,7 @@ const TemplateThree = ({ content, screen, language, width, highlight, liveConten
 
     const tempArr = [1, 2, 3, 4]
 
-    const checkDifference = (purpose ? false : highlight) ? differentText?.checkDifference?.bind(differentText) : () => "";
+    const checkDifference = (!purpose && highlight) ? differentText?.checkDifference?.bind(differentText) : () => "";
 
     return (
         <div>
