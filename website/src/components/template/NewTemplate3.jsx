@@ -176,24 +176,6 @@ const NewTemplate3 = ({content}) => {
           </div>
         </div>
       </section>
-
-      {/*   <section className={styles.template_third_section}>
-        <div className="container">
-          <div className={styles.template_third_section_card_wrapper}>
-            {thirdSection.map((item) => (
-              <div key={item.id} className={styles.template_third_section_card}>
-                <h2 className={styles.template_third_section_card_heading}>
-                  {item.title}
-                </h2>
-
-                <p className={styles.template_third_section_card_desc}>
-                  {item.description}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section> */}
     </div>
   );
 };

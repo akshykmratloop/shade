@@ -3,7 +3,7 @@
 
   .template3_banner_wrapper {
     display: flex;
-    align-items: center;
+    // align-items: fle;
     justify-content: space-between;
     gap: 50px;
 
@@ -246,6 +246,7 @@
   }
 
   .template3_first_section {
+    padding: 60px 0;
     .template3_first_section_content_wrapper {
       .template3_first_section_content {
         flex-direction: column;
@@ -260,6 +261,8 @@
   }
 
   .template3_third_section {
+    padding: 60px 0;
+
     .template3_third_section_wrapper {
       flex-direction: column;
 
@@ -279,7 +282,7 @@
 
 @media (max-width: 500px) {
   .template3_banner_section {
-    padding: 100px 20px 40px 20px;
+    padding: 100px 0px 40px 0px;
     .template3_banner_wrapper {
       .template3_banner_header {
         .template3_banner_heading {
@@ -293,23 +296,58 @@
     }
   }
 
+  .template3_first_section {
+    padding: 40px 0;
+
+    .template3_first_section_content_wrapper {
+      .template3_first_section_content {
+        flex-direction: column;
+        align-items: flex-start;
+
+        .template3_first_section_content_heading {
+          font-size: 40px;
+          line-height: normal;
+          margin-bottom: 20px;
+        }
+        .template3_first_section_content_para {
+          width: 100%;
+        }
+      }
+    }
+  }
+
   .template3_second_section {
+    padding: 40px 0;
+
     .template3_second_section_card_wrapper {
       flex-direction: column;
       align-items: center;
-      .template3_second_section_card,
+      .template3_second_section_card {
+        width: 100%;
+        img {
+          width: 100%;
+          // margin-bottom: 20px;
+        }
+      }
       .template3_second_section_card_header {
         width: 100%;
         height: auto;
+        margin-bottom: 0px;
       }
     }
   }
 
   .template3_third_section {
+    padding: 40px 0;
+
     .template3_third_section_wrapper {
       .template3_third_section_card_wrapper {
         display: grid;
-        grid-template-columns: repeat(1, 1fr);
+        grid-template-columns: repeat(1, 1fr) !important;
+
+        .template3_third_section_card {
+          width: 100% !important;
+        }
       }
     }
   }
