@@ -8,6 +8,7 @@ import { updateUser } from "../../common/userSlice";
 import { toast } from "react-toastify";
 import { resendOTP } from "../../../app/fetch";
 import updateToasify from "../../../app/toastify";
+import { runToast } from "../../Component/ToastPlacer";
 
 const OTP_TIMEOUT_SECONDS = 60; // timeout for resending the otp
 
@@ -86,16 +87,21 @@ const OTPpage = ({ formObj, request, stateUpdater, otpSent }) => {
 
         const response = await request(payload);
         if (formObj.otpOrigin === "MFA_Login" || payload.otpOrigin === "MFA_Login") {
-            dispatch(updateUser({ data: response.user, type: "login" }));
-            localStorage.setItem("user", JSON.stringify(response.user))
-            localStorage.setItem("token", response.token);
-            localStorage.removeItem(formObj.otpOrigin)
-            document.cookie = `authToken=${response.token}; path=/; Secure`
-            toast.success("Login Successful!");
-            setTimeout(() => {
-                navigate("/app/welcome");
-            }, 1000);
-            return
+            if (response.ok) {
+                dispatch(updateUser({ data: response.user, type: "login" }));
+                localStorage.setItem("user", JSON.stringify(response.user))
+                localStorage.setItem("token", response.token);
+                localStorage.removeItem(formObj.otpOrigin)
+                document.cookie = `authToken=${response.token}; path=/; Secure`
+                toast.success("Login Successful!");
+                runToast("SUCCESS", "Login Successful!");
+                setTimeout(() => {
+                    navigate("/app/welcome");
+                }, 1000);
+                return
+            } else {
+                runToast("ERROR", `${response.message}`);
+            }
         } else if (formObj.otpOrigin === "forgot_Pass" || payload.otpOrigin === "forgot_Pass") {
             toast.success("Verification complete!");
             setTimeout(() => {
