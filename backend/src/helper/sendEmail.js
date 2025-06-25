@@ -1,5 +1,5 @@
-import { emailTransporter } from "../config/index.js";
-import { logger } from "../config/index.js";
+import {emailTransporter} from "../config/index.js";
+import {logger} from "../config/index.js";
 // Function to send an email
 const sendEmail = async (emailPayload) => {
   // const info = await emailTransporter.sendMail({
@@ -14,4 +14,4 @@ const sendEmail = async (emailPayload) => {
   return true;
 };
 
-export { sendEmail };
+export {sendEmail};
