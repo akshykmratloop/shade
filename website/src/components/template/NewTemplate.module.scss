@@ -82,7 +82,7 @@
         font-weight: 600;
         line-height: 26px;
         margin-bottom: 26px;
-        width: 50%;
+        // width: 50%;
         word-spacing: 5px;
         display: block;
       }
@@ -221,17 +221,21 @@
    Responsive Breakpoints Below
 ----------------------------- */
 @media screen and (max-width: 800px) {
-  .template_banner_wrap .content {
-    padding: 0 60px;
+  .template_banner_wrap .content_gradient {
+    padding: 0px;
+    .content {
+      top: 20%;
+      padding: 0 60px;
 
-    .title {
-      font-size: 50px;
-      width: 100%;
-    }
+      .title {
+        font-size: 50px;
+        width: 100%;
+      }
 
-    .description {
-      font-size: 14px;
-      width: 80%;
+      .description {
+        font-size: 14px;
+        width: 80%;
+      }
     }
   }
 
@@ -266,20 +270,24 @@
 }
 
 @media screen and (max-width: 500px) {
-  .template_banner_wrap .content {
-    padding: 0 30px;
+  .template_banner_wrap .content_gradient {
+    .content {
+      padding: 0px 30px !important;
+      // padding: 0 30px;
+      top: 20%;
 
-    .title {
-      font-size: 36px;
-      line-height: 48px;
-      letter-spacing: -1px;
-      width: 100%;
-    }
+      .title {
+        font-size: 36px;
+        line-height: 48px;
+        letter-spacing: -1px;
+        width: 100%;
+      }
 
-    .description {
-      font-size: 13px;
-      line-height: 22px;
-      width: 100%;
+      .description {
+        font-size: 13px;
+        line-height: 22px;
+        width: 100%;
+      }
     }
   }
 
