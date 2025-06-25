@@ -52,7 +52,6 @@ function Login() {
 
     let payload;
     let response;
-    let loadingToastId;
     if (loginWithOtp) {
       // proceeding with login with otp
       if (validEmail) {
@@ -65,10 +64,9 @@ function Login() {
         otpOrigin: formObj.otpOrigin,
         deviceId: formObj.deviceId,
       };
-      loadingToastId = toast.loading("requesting OTP!", {
-        autoClose: 2000,
-        style: { backgroundColor: "#3B82F6", color: "#fff" },
-      }); // starting the loading in toaster
+      runToast("LOAD", "Sending OTP...")
+
+      // starting the loading in toaster
       response = await mfaLogin(payload);
       console.log(response);
     } else {
@@ -88,10 +86,8 @@ function Login() {
         return;
       }
       runToast("LOAD", "Loging in...")
-      // loadingToastId = toast.loading("loging in", {
-      //   autoClose: 2000,
-      //   style: { backgroundColor: "#3B82F6", color: "#fff" },
-      // }); // starting the loading in toaster
+
+      // starting the loading in toaster
       payload = {
         // payload for login
         email: formObj.email,
@@ -102,7 +98,7 @@ function Login() {
 
     if (response.token) {
       runToast("SUCCESS", "Login Successful! 🎉")
-      // updateToasify(loadingToastId, "Login successful! ", "success", 2000); // updating the toaster
+
       dispatch(updateUser({ data: response.user, type: "login" }));
       localStorage.setItem("user", JSON.stringify(response.user));
       localStorage.setItem("token", response.token);
@@ -113,22 +109,16 @@ function Login() {
       }, 1000);
     } else if (response.otp) {
       runToast("SUCCESS", "OTP has been sent")
-      // updateToasify(loadingToastId, "OTP has been sent", "success", 800);
+
       localStorage.setItem(formObj.otpOrigin, JSON.stringify(formObj));
       setTimeout(() => {
         setOtpSent(true);
+        setLoading(false);
       }, 1000);
     } else {
       runToast("ERROR", `Request unsuccessful! ${response.message}`)
-
-      // updateToasify(
-      //   loadingToastId,
-      //   `Request unsuccessful! ${response.message}`,
-      //   "error",
-      //   2000
-      // ); // updating the toaster
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   const updateFormValue = ({ updateType, value }) => {
@@ -224,6 +214,7 @@ function Login() {
                 <Button
                   text={loginWithOtp ? "Generate OTP" : "Login"}
                   type="submit"
+                  disabled={loading}
                   classes={
                     `rounded-md text-[.8rem] w-[22rem] h-[2.3rem] btn-primary dark:bg-primary bg-stone-700 hover:bg-stone-700 border-none` +
                     (loading ? " loading" : "")

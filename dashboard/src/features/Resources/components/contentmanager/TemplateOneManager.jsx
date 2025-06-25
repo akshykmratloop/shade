@@ -89,7 +89,7 @@ const TemplateOneManager = ({ content, currentPath, language, indexes, outOfEdit
                     inputs={[
                         { input: "input", label: "Title English", updateType: "titleEn", value: context?.titleEn, dir: "ltr" },
                         { input: "input", label: "Title Arabic", updateType: "titleAr", value: context?.titleAr, dir: "rtl" },
-                        ...(  [{ input: "input", label: "Slug", updateType: "slug", value: context?.slug, disable: context?.id === "N" ? false : true, dir:"ltr" }]),
+                        ...([{ input: "input", label: "Slug", updateType: "slug", value: context?.slug, disable: context?.id === "N" ? false : true, dir: "ltr" }]),
                     ]}
                     section={"page-details"}
                     language={language}
@@ -103,7 +103,7 @@ const TemplateOneManager = ({ content, currentPath, language, indexes, outOfEdit
                 Heading={"Banner"}
                 inputs={[
                     { input: "input", label: "Heading", updateType: "title", value: content?.['1']?.content?.title?.[language] },
-                    { input: "textarea", label: "Description", updateType: "description", value: content?.['1']?.content?.description?.[language] },
+                    { input: "textarea", label: "Description", updateType: "description", maxLength: 350, value: content?.['1']?.content?.description?.[language] },
                 ]}
                 inputFiles={[{ label: "Backround Image", id: "Temp1Banner", order: 1, url: content?.['1']?.content?.images?.[0]?.url }]}
                 section={"banner"}
@@ -126,7 +126,7 @@ const TemplateOneManager = ({ content, currentPath, language, indexes, outOfEdit
                                 subHeading={`Grid ${(i + 1)}`}
                                 inputs={[
                                     { input: "input", label: "Title", updateType: "title", value: section?.title?.[language] },
-                                    { input: "textarea", label: "Description", updateType: "description", value: section?.description?.[language] },
+                                    { input: "textarea", label: "Description", maxLength: 500, updateType: "description", value: section?.description?.[language] },
                                 ]}
                                 inputFiles={[{ label: "Image", id: `grid${i}`, order: 1, url: section?.images?.[0]?.url }]}
                                 index={i}

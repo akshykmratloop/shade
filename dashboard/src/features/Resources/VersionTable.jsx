@@ -1,5 +1,5 @@
 // libraries
-import { useEffect, useState, memo } from "react";
+import { useEffect, useState, memo, Suspense } from "react";
 import { ToastContainer } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -19,10 +19,16 @@ import { FiEye } from "react-icons/fi";
 import { LuListFilter } from "react-icons/lu";
 import { PiInfoThin } from "react-icons/pi";
 import XMarkIcon from "@heroicons/react/24/outline/XMarkIcon";
-import { versionsList } from "../../app/fetch";
+import { getContent, getVersionContent, versionsList } from "../../app/fetch";
 import { Switch } from "@headlessui/react";
 import CustomContext from "../Context/CustomContext";
 import ShowPdf from "../Requests/ShowPDF";
+import FallBackLoader from "../../components/fallbackLoader/FallbackLoader";
+import AllForOne from "./components/AllForOne";
+import CloseModalButton from "../../components/Button/CloseButton";
+import createContent from "./defineContent";
+import { updateMainContent } from "../common/homeContentSlice";
+import { setPlatform } from "../common/platformSlice";
 // import { Switch } from "@headlessui/react";
 // import { FiEdit } from "react-icons/fi";
 
@@ -134,11 +140,18 @@ function VersionTable() {
     const [selectedVersion, setSelectedVersion] = useState(null);
     const [showDetailsModal, setShowDetailsModal] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
+    const [contentLoader, setContentLoader] = useState(false)
+    const [preview, setPreview] = useState(false)
+    const [rawContent, setRawContent] = useState(null)
+    const [language, setLanguage] = useState('en');
+    const [path, setPath] = useState("")
+    const [subPath, setSubPath] = useState("")
+    const [deepPath, setDeepPath] = useState("")
+    const [currentResourceId, setCurrentResourceId] = useState("")
     // const [random, setRandowm] = useState(Math.random())
     const { random } = CustomContext().random
     const { pdf } = CustomContext()
     const { showPDF, setShowPDF } = pdf
-    console.log(random)
     // const [activeIndex, setActiveIndex] = useState(null);
 
     // redux state
@@ -188,6 +201,29 @@ function VersionTable() {
         );
     };
 
+    const setRoute = (data) => {
+        const tempRoute = { "TEMPLATE_ONE": "temp-1", "TEMPLATE_TWO": "temp-2", "TEMPLATE_THREE": "temp-3", "TEMPLATE_FOUR": "temp-4" }
+
+        // setIdOnStorage(page.id);
+        const { relationType, resourceTag, resourceType, subPage, subOfSubPage, slug } = data;
+        const parentId = data?.parentId
+        if (resourceTag.slice(0, 5) === "TEMPL") {
+            setPath(tempRoute[resourceTag])
+        } else if (resourceType === "SUB_PAGE") {
+            let firstRoute = resourceTag?.toLowerCase()
+            setPath(firstRoute)
+            setSubPath(data.id)
+        } else if (resourceType === "SUB_PAGE_ITEM") {
+            setPath(resourceTag?.toLowerCase())
+            setSubPath(parentId)
+            setDeepPath(data.id)
+        } else {
+            setPath(slug)
+        }
+        // setPreview(true)
+        // dispatch(setPlatform("RESOURCE"))
+    }
+
     // Pagination logic
     const versionsPerPage = 20;
     const indexOfLastUser = currentPage * versionsPerPage;
@@ -217,6 +253,40 @@ function VersionTable() {
     useEffect(() => {
         setCurrentResource(JSON.parse(localStorage.getItem("currentResource")) || currentResource)
     }, [])
+
+    useEffect(() => { // Fetch Resource's Content from server
+        if (currentResourceId) {
+            async function fetchResourceContent() {
+                setContentLoader(true)
+                try {
+                    const response = await getVersionContent(currentResourceId)
+                    // console.log(response)
+                    if (response.ok) {
+                        const payload = {
+                            id: response.data.id,
+                            titleEn: response.data.titleEn,
+                            titleAr: response.data.titleAr,
+                            slug: response.data.slug,
+                            resourceType: response.data.resourceType,
+                            resourceTag: response.data.resourceTag,
+                            relationType: response.data.relationType,
+                            editVersion: response.data.versionData
+                        }
+                        dispatch(updateMainContent({ currentPath: "content", payload }));
+                        setRawContent(createContent(payload));
+                        setRoute(payload)
+                        // if(res)
+                    }
+                } catch (err) {
+                    console.error(err)
+                } finally {
+                    setContentLoader(false)
+                }
+            }
+            fetchResourceContent()
+        }
+    }, [currentResourceId, preview])
+
 
     return (
         <div className="relative min-h-full">
@@ -332,8 +402,11 @@ function VersionTable() {
 
                                                         <button
                                                             onClick={() => {
+                                                                console.log(version)
                                                                 setSelectedVersion(version);
-                                                                setShowDetailsModal(true);
+                                                                setCurrentResourceId(version.id)
+                                                                // setShowDetailsModal(true);
+                                                                setPreview(true)
                                                             }}
                                                         >
                                                             <span
@@ -379,6 +452,34 @@ function VersionTable() {
                     }
                 </div>
             </TitleCard>
+
+            {
+                (preview && rawContent)
+                // true
+                && (
+                    contentLoader ?
+                        <FallBackLoader />
+                        :
+                        <div className="fixed top-0 left-0 z-[55] w-screen h-screen bg-stone-900/30 overflow-y-scroll customscroller">
+                            <Suspense fallback={<FallBackLoader />}>
+                                <div className="">
+                                    <CloseModalButton onClickClose={() => { setPreview(false); setRawContent(null) }} className={"fixed top-4 right-8 z-[56]"} />
+                                </div>
+
+                                <AllForOne
+                                    language={language}
+                                    screen={1532}
+                                    content={rawContent?.content}
+                                    // contentIndex={content?.index}
+                                    subPath={subPath}
+                                    deepPath={deepPath}
+                                    setLanguage={setLanguage}
+                                    fullScreen={true}
+                                    currentPath={path}
+                                />
+                            </Suspense>
+                        </div>)
+            }
             <ToastContainer />
         </div>
     );
