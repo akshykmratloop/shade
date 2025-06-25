@@ -56,6 +56,7 @@ const api = {
   getAssignedUsers: `${content}/getAssignedUsers`,
 
   getContent: `${content}/getContent`, // Content of Resources
+  getVersionContent: `${content}/getVersionContent`,
   updateContent: `${content}/updateContent`,
   publishContent: `${content}/directPublishContent`,
 

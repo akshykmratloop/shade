@@ -29,21 +29,28 @@ const NewsBlogspage = ({ language, screen, content, highlight, liveContent, widt
     const fontLight = useSelector(state => state.fontStyle.light)
 
     return (
-        <div>
+        <div dir={isLeftAlign? "ltr":"rtl"}>
             {/**Banner Section */}
-            <section className={`relative px-5 w-full bg-cover bg-center ${isLeftAlign ? 'scale-x-[-1]' : ''}  `}
+            <section className={`relative px-5 w-full bg-cover bg-center  `}
                 style={{
                     height: isComputer ? getDynamicSize(715) : "500px",
-                    // backgroundImage: banner.images?.[0]?.url?.slice(0, 5) === "https" ? "url('https://loopwebsite.s3.ap-south-1.amazonaws.com/Hero+(2).png')" : `url(${Img_url + banner.images?.[0]?.url})`
-                    backgroundImage: `linear-gradient(to right,#00000020 30%,#fffffffb 100%) ,url("${Img_url + content?.['1']?.content?.images?.[0]?.url}")`,
+                    backgroundImage: `url("${Img_url + content?.['1']?.content?.images?.[0]?.url}")`,
                 }}>
+                <div className="absolute inset-0 pointer-events-none z-[0] flex items-center justify-start overflow-hidden">
+                    <div
+                        style={{ width: (isTablet || isPhone) ? "60%" : getDynamicSize(850), height: (isTablet || isPhone) ? "60%" : getDynamicSize(650) }}
+                        className="rounded-full bg-white opacity-[.9] blur-[120px] mix-blend-screen"></div>
+                </div>
                 <div
-                    className={`${isTablet && "py-[200px]"} container h-full relative ${isPhone ? "px-10" : ""} flex items-center ${isLeftAlign ? "justify-end" : "justify-end"}`}
+                    className={`${isTablet && "py-[200px]"} container h-full relative ${isPhone ? "px-10" : ""} flex items-center`}
                     style={{
                         padding: (isComputer || isTablet) && `0px ${getDynamicSize(150)}`,
                     }}
                 >
-                    <div className={`flex flex-col ${isLeftAlign ? 'right-5 text-left items-start ' : 'left-5 text-right items-end'} ${isPhone ? "max-w-[90%]" : isTablet ? "max-w-[70%]" : "max-w-[50%]"} w-full ${isLeftAlign ? 'scale-x-[-1]' : ''}`}>
+                    <div
+                        className={`flex flex-col ${isLeftAlign ? 'right-5 ' : 'left-5'} 
+                                    ${isPhone ? "max-w-[90%]" : isTablet ? "max-w-[70%]" : "max-w-[50%]"} w-full`}
+                    >
                         <h1 className={`text-[#292E3D] ${isPhone ? "text-3xl" : "text-[50px] leading-[77px] tracking-[-3.5px]"} font-medium  mb-4
                         ${checkDifference(banner?.title?.[language], liveBanner?.title?.[language])}
                         `}
@@ -167,7 +174,7 @@ const NewsBlogspage = ({ language, screen, content, highlight, liveContent, widt
                                                 {TruncateText(card.description[language], 150)}
                                             </p>
                                         </div>
-                                        <div className="flex items-center justify-between">
+                                        <div className={`flex ${isLeftAlign? "flex-row":"flex-row-reverse"} items-center justify-between`} dir={isLeftAlign? "ltr":"rtl"}>
                                             <h6
                                                 style={{ fontSize: isComputer ? getDynamicSize(13) : isTablet ? getDynamicSize(24) : getDynamicSize(50) }}
                                                 className={`${fontLight} text-gray-600 text- ${isLeftAlign ? '' : 'scale-x-[-1] text-right'}`} dir={language == "ar" ? "rtl" : "ltr"}>

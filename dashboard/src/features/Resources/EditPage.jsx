@@ -17,7 +17,7 @@ import AllForOneManager from "./components/AllForOneManager";
 import createContent from "./defineContent";
 import FallBackLoader from "../../components/fallbackLoader/FallbackLoader";
 import { getContent } from "../../app/fetch";
-import { updateComment, updateIsEditMode, updateMainContent } from "../common/homeContentSlice";
+import { submitings, updateComment, updateIsEditMode, updateMainContent } from "../common/homeContentSlice";
 import { saveInitialContentValue } from "../common/InitialContentSlice";
 import { structures } from "./components/websiteComponent/structures/PageStructure";
 
@@ -100,8 +100,8 @@ const EditPage = () => {
 
     useEffect(() => {
         setLoader(true)
-        if(currentId.slice(0,4) === "TEMP"){
-        dispatch(updateMainContent({ currentPath: "content", payload: structures[currentId] }))
+        if (currentId.slice(0, 4) === "TEMP") {
+            dispatch(updateMainContent({ currentPath: "content", payload: structures[currentId] }))
         } else if (currentId) {
             async function context() {
                 try {
@@ -119,7 +119,7 @@ const EditPage = () => {
                             editVersion: isManager ? response.content.liveModeVersionData : response.content.editModeVersionData ?? response.content.liveModeVersionData
                         }
                         dispatch(updateMainContent({ currentPath: "content", payload }))
-                        dispatch(saveInitialContentValue(payload.editVersion.sections))
+                        dispatch(saveInitialContentValue(payload))
                         if (response.content.editModeVersionData) dispatch(updateIsEditMode({ value: true }))
                     }
 
@@ -138,6 +138,12 @@ const EditPage = () => {
             dispatch(updateMainContent({ currentPath: "content", payload: resourceType === "SUB_PAGE_ITEM" ? structures["SUBSERVICE"] : structures[resourceTag] }))
         }
         setLoader(false)
+
+        return () => {
+            dispatch(updateMainContent({ currentPath: "content", payload: undefined }));
+            dispatch(submitings({ currentPath: "content", payload: undefined }))
+        }
+
 
     }, [currentId, isManager, resourceTag])
 

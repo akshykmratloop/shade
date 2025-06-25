@@ -14,7 +14,6 @@ export const ResourceCard = ({ resource = {}, ActionIcons }) => {
     const isEditor = useSelector(state => state.user.isEditor)
     const isSingleManager = useSelector(state => state.user.isSingleManager)
 
-    console.log(resource)
     return (
         <div className="bg-white rounded-lg shadow-sm border hover:shadow-md transition-shadow overflow-hidden">
             {/* Thumbnail */}

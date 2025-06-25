@@ -85,22 +85,21 @@ const TemplateTwoManager = ({ content, currentPath, language, indexes, outOfEdit
     return (
         <div>
             {/* reference doc */}
-            <FileUploader id={"Temp-One-ID-Reference"} label={"Rerference doc"} fileName={"Upload your file..."} />
+            <FileUploader id={"Temp-Two-ID-Reference"} label={"Rerference doc"} fileName={"Upload your file..."} />
 
             {
-                context?.id === "N" &&
+                // context?.id === "N" &&
                 <ContentSection
                     currentPath={currentPath}
                     Heading={"Page - Details"}
                     inputs={[
                         { input: "input", label: "Title English", updateType: "titleEn", value: context?.titleEn, dir: "ltr" },
                         { input: "input", label: "Title Arabic", updateType: "titleAr", value: context?.titleAr, dir: "rtl" },
-                        ...(context?.id === "N" ? [{ input: "input", label: "Slug", updateType: "slug", value: context?.slug }] : []),
+                        ...([{ input: "input", label: "Slug", updateType: "slug", value: context?.slug, disable: context?.id === "N" ? false : true, dir:"ltr" }]),
                     ]}
                     section={"page-details"}
                     language={language}
                     outOfEditing={outOfEditing}
-
                 />
             }
 
@@ -109,7 +108,7 @@ const TemplateTwoManager = ({ content, currentPath, language, indexes, outOfEdit
                 currentPath={currentPath}
                 Heading={"Banner"}
                 inputs={[
-                    { input: "input", label: "Heading/title", updateType: "title", value: content?.['1']?.content?.title?.[language] },
+                    { input: "input", label: "Heading", updateType: "title", value: content?.['1']?.content?.title?.[language] },
                     { input: "textarea", label: "Description", updateType: "description", value: content?.['1']?.content?.description?.[language] },
                 ]}
                 inputFiles={[{ label: "Backround Image", id: "Temp2Banner", order: 1, url: content?.['1']?.content?.images?.[0]?.url }]}
@@ -125,7 +124,7 @@ const TemplateTwoManager = ({ content, currentPath, language, indexes, outOfEdit
                 currentPath={currentPath}
                 Heading={"Sub Heading"}
                 inputs={[
-                    { input: "input", label: "Heading/title", updateType: "title", value: content?.['2']?.content?.title?.[language] },
+                    { input: "input", label: "Title", updateType: "title", value: content?.['2']?.content?.title?.[language] },
                     { input: "textarea", label: "Description", updateType: "description", value: content?.['2']?.content?.description?.[language] },
                 ]}
                 section={"banner"}
@@ -149,7 +148,6 @@ const TemplateTwoManager = ({ content, currentPath, language, indexes, outOfEdit
                                 inputs={[
                                     { input: "textarea", label: "Description", updateType: "description", value: section?.description?.[language] },
                                 ]}
-                                // inputFiles={[{ label: "Image", id: `grid${i}`, order: 1, url: section?.images?.[0]?.url }]}
                                 index={i}
                                 isBorder={false}
                                 section={"cards"}
@@ -160,8 +158,6 @@ const TemplateTwoManager = ({ content, currentPath, language, indexes, outOfEdit
                                 contentIndex={i}
                                 order={section.order}
                                 outOfEditing={outOfEditing}
-
-                            // allowRemoval={true}
                             />
                         )
                     })
@@ -179,7 +175,7 @@ const TemplateTwoManager = ({ content, currentPath, language, indexes, outOfEdit
                                     currentPath={currentPath}
                                     Heading={`Grid ${(i + 1)}`}
                                     inputs={[
-                                        { input: "input", label: "Heading/title", updateType: "title", value: section?.title?.[language] },
+                                        { input: "input", label: "Title", updateType: "title", value: section?.title?.[language] },
                                         ...(section?.description?.map((d, idx) => {
                                             return (
                                                 { input: "textarea/dynamic", label: "Description", updateType: "description", value: d?.[language], index: idx }
@@ -230,7 +226,7 @@ const TemplateTwoManager = ({ content, currentPath, language, indexes, outOfEdit
                 currentPath={currentPath}
                 Heading={"Mark Down"}
                 inputs={[
-                    { input: "input", label: "Heading/title", updateType: "title", value: content?.['5']?.content?.title?.[language] },
+                    { input: "input", label: "Title", updateType: "title", value: content?.['5']?.content?.title?.[language] },
                     { input: "textarea", label: "Description", updateType: "description", value: content?.['5']?.content?.description?.[language] },
                 ]}
                 inputFiles={

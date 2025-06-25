@@ -3,19 +3,12 @@ import FileUploader from "../../../../components/Input/InputFileUploader"
 import ContentSection from "../breakUI/ContentSections"
 import MultiSelect from "../breakUI/MultiSelect"
 import MultiSelectSM from "../breakUI/MultiSelectSM"
-
-// import { updateMainContent } from "../../../common/homeContentSlice";
-// import content from "../websiteComponent/content.json"
-import { useDispatch } from "react-redux";
+// import { useDispatch } from "react-redux";
 import { getResources } from "../../../../app/fetch";
 
 const NewsManager = ({ language, content, currentPath, indexes }) => {
     const [newses, setNewses] = useState([])
-    // const dispatch = useDispatch()
 
-    // useEffect(() => {
-    //     dispatch(updateMainContent({ currentPath: "home", payload: (content?.newsBlogs) }))
-    // }, [])
 
     useEffect(() => {
         async function getOptionsforServices() {
@@ -48,7 +41,7 @@ const NewsManager = ({ language, content, currentPath, indexes }) => {
                 currentPath={currentPath}
                 Heading={"News Hero Banner"}
                 inputs={[
-                    { input: "input", label: "Heading/title", updateType: "title", value: content?.['1']?.content?.title?.[language] },
+                    { input: "input", label: "Heading", updateType: "title", value: content?.['1']?.content?.title?.[language] },
                     { input: "textarea", label: "Description", updateType: "description", maxLength: 300, value: content?.['1']?.content?.description?.[language] },
                     // { input: "input", label: "Button Text", updateType: "button" }
                 ]}
@@ -77,7 +70,7 @@ const NewsManager = ({ language, content, currentPath, indexes }) => {
                 currentPath={currentPath}
                 Heading={"News and Blog Lists"}
                 inputs={[
-                    { input: "input", label: "Heading/title", updateType: "heading", value: content?.['3']?.content?.heading?.[language] },
+                    { input: "input", label: "Title", updateType: "heading", value: content?.['3']?.content?.heading?.[language] },
                 ]}
                 section={"latestNewCards"}
                 language={language}

@@ -36,7 +36,7 @@ const SolutionManager = ({ currentPath, language, currentContent, indexes }) => 
                 currentPath={currentPath}
                 Heading={"Solution Banner"}
                 inputs={[
-                    { input: "input", label: "Heading/title", updateType: "title", value: currentContent?.["1"]?.content?.title?.[language] },
+                    { input: "input", label: "Heading", updateType: "title", value: currentContent?.["1"]?.content?.title?.[language] },
                     { input: "textarea", label: "Description", updateType: "description", maxLength: 300, value: currentContent?.["1"]?.content?.description?.[language] },
                     { input: "input", label: "Button Text", updateType: "button", maxLength: 20, value: currentContent?.["1"]?.content?.button?.[0]?.text?.[language], index: 0 }
                 ]}

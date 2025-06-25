@@ -414,6 +414,10 @@ export async function getContent(param) {
   return await makerequest(`${api.route("getContent")}/${param}`, "GET");
 }
 
+export async function getVersionContent(param) {
+  return await makerequest(`${api.route("getVersionContent")}/${param}`, "GET");
+}
+
 //addResource
 
 export async function addResource(body) {

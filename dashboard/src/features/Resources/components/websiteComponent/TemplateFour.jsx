@@ -22,22 +22,22 @@ const TemplateFour = ({ content, screen, language, width, highlight, liveContent
     const checkDifference = (purpose ? "" : highlight) ? differentText?.checkDifference?.bind(differentText) : () => "";
 
     return (
-        <div>
+        <div dir={isLeftAlign ? "ltr" : "rtl"}>
             <section
                 className={`relative w-full ${isPhone ? "px-8" : ""}
                             ${checkDifference(content?.['1']?.content?.images?.[0]?.url, liveContent?.['1']?.content?.images?.[0]?.url)}
-                            flex items-center bg-cover bg-center ${isLeftAlign ? 'scale-x-[-1]' : ''}`}
+                            flex items-center bg-cover bg-center ${isLeftAlign ? '' : ''}`}
                 style={{
                     backgroundImage: `url("${content?.['1']?.content?.images?.[0]?.url ?
                         Img_url + content?.['1']?.content?.images?.[0]?.url :
                         services.contructionTowerImage
                         }")`,
                     backgroundPosition: "bottom",
-                    height: isComputer ? getDynamicSize(600) : "70vh",
+                    height: isComputer ? getDynamicSize(740) : "70vh",
                     padding: (isComputer) && `${getDynamicSize(100)} ${getDynamicSize(150)}`
                 }}
             >
-                <div className="absolute inset-0 pointer-events-none z-0 flex items-center justify-end overflow-hidden">
+                <div className="absolute inset-0 pointer-events-none z-0 flex items-center justify-start overflow-hidden">
                     <div
                         style={{ width: getDynamicSize(750), height: getDynamicSize(650) }}
                         className="rounded-full bg-white opacity-[.9] blur-[120px] mix-blend-screen"></div>
@@ -45,7 +45,7 @@ const TemplateFour = ({ content, screen, language, width, highlight, liveContent
 
                 <div className="container relative flex items-center justify-center">
                     <div
-                        className={` ${isLeftAlign ? 'scale-x-[-1]' : ''} w-full  flex flex-col 
+                        className={` ${isLeftAlign ? '' : ''} w-full  flex flex-col 
                                     ${isPhone ? "items-start" : "items-start p-6 space-y-4"} `}
                         style={{
                             padding: (isTablet) && `${getDynamicSize(100)} ${getDynamicSize(0)}`

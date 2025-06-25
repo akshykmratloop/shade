@@ -91,7 +91,6 @@ export default function Template({apiData}) {
 export async function getServerSideProps({params}) {
   const {slug} = params;
   console.log("Fetching data for slug:", slug);
-  console.log("helloooooooo");
 
   try {
     const res = await fetch(`${backendAPI}${slug}`);

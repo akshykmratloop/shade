@@ -27,11 +27,10 @@ const cmsSlice = createSlice({
             state.present.content.editVersion.comments = action.payload.value
         },
         updateMainContent: (state, action) => { // post content
-            state.past.push(JSON.parse(JSON.stringify(state.present)));
             state.present.content = action.payload.payload;
             state.present.loading = false
-            state.future = [];
-        }, updateFilterStatus: (state, action) => {
+        },
+        updateFilterStatus: (state, action) => {
             state.filters = action.payload.value
         },
         updateSpecificContent: (state, action) => { // post content
@@ -207,7 +206,7 @@ const cmsSlice = createSlice({
             }
             state.present.content.editVersion.sections[action.payload.sectionIndex].content[action.payload.section] = newArray
             state.future = [];
-        }, 
+        },
         updateNumberOfDescription: (state, action) => { // post content
             state.past.push(JSON.parse(JSON.stringify(state.present)));
             let newArray = []

@@ -46,7 +46,7 @@ const fontSizes = {
         aboutVideoW: 639, aboutVideoH: 457, // video size but not applied to the video
         aboutCardPaddingY: 40, aboutCardPaddingX: 10,
         // other sizes
-        headingLeading: 40, paraLeading: 22
+        headingLeading: 50, paraLeading: 22
     },
     tablet: {
         // home -- some of them are used in other pages due similarity
@@ -55,7 +55,7 @@ const fontSizes = {
         experiencePara: 16, experienceButton: 18, subProjectTopButton: 16, subProjectHeadings: 55,
         subProjectParas: 16, subProjectBoxHeading: 35, subProjectBoxPara: 16, subProjectButtons: 18,
         clientSection: 36, testimonialsHead: 36, testimonialsHeading: 40, testimonialsPosition: 12,
-        testimonialsQuote: 14, testimonialsCompany: 16, SnRSubHeading: 50, cardTitle: 50,
+        testimonialsQuote: 29, testimonialsCompany: 16, SnRSubHeading: 50, cardTitle: 50,
         // about
         aboutMainPara: 45, aboutPaddingX: 50,
         aboutVideoW: 639, aboutVideoH: 457, // video size but not applied to the video
@@ -70,7 +70,7 @@ const fontSizes = {
         experiencePara: 50, experienceButton: 18, subProjectTopButton: 16, subProjectHeadings: 80,
         subProjectParas: 16, subProjectBoxHeading: 70, subProjectBoxPara: 16, subProjectButtons: 18,
         clientSection: 90, testimonialsHead: 36, testimonialsHeading: 60, testimonialsPosition: 12,
-        testimonialsQuote: 14, testimonialsCompany: 16, SnRSubHeading: 110, cardTitle: 100,
+        testimonialsQuote: 60, testimonialsCompany: 16, SnRSubHeading: 110, cardTitle: 100,
         // about
         aboutMainPara: 70, aboutPaddingX: 20,
         aboutVideoW: 639, aboutVideoH: 457, // video size but not applied to the video

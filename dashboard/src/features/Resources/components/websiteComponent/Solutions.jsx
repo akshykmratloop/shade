@@ -19,13 +19,10 @@ const SolutionPage = ({ currentContent, language, screen, width, highlight, live
     const isLeftAlign = language === 'en'
     const checkDifference = highlight ? differentText?.checkDifference?.bind(differentText) : () => ""
 
-
     // Font and Size
     const fontSize = generatefontSize(defineDevice(screen), dynamicSize, width)
     const getDynamicSize = (size) => dynamicSize(size, width)
     const fontLight = useSelector(state => state.fontStyle.light)
-
-
 
     return (
         <div className=" bankgothic-medium-dt pb-8" dir={language === 'en' ? 'ltr' : "rtl"}>
@@ -33,15 +30,20 @@ const SolutionPage = ({ currentContent, language, screen, width, highlight, live
             <section
                 className={`relative py-[8rem] w-full border bg-cover bg-center 
                         ${checkDifference(currentContent?.['1']?.content?.images?.[0]?.url, liveContent?.['1']?.content?.images?.[0]?.url)}
-                    ${isLeftAlign ? 'scale-x-[-1]' : ''} px-12 ${isPhone ? "h-[500px]" : ""}`}
+                    ${isLeftAlign ? '' : ''} px-12 ${isPhone ? "h-[500px]" : ""}`}
                 style={{
                     backgroundImage: `url(${Img_url + currentContent?.['1']?.content?.images?.[0]?.url})`,
                     height: (isComputer || isTablet) && getDynamicSize(720),
                     padding: `0px ${getDynamicSize(150)}`
                 }}
             >
+                 <div className="absolute inset-0 pointer-events-none z-[0] flex items-center justify-start overflow-hidden">
+                        <div
+                            style={{ width: getDynamicSize(950), height: getDynamicSize(650) }}
+                            className="rounded-full bg-white opacity-[.9] blur-[120px] mix-blend-screen"></div>
+                    </div>
                 <div className="container h-full relative flex items-center justify-center">
-                    <div className={`text-${isLeftAlign ? 'left' : 'right'} w-full transform ${isLeftAlign ? 'scale-x-[-1]' : ''}`}>
+                    <div className={` w-full transform ${isLeftAlign ? '' : ''}`}>
                         <h1 className={`text-[#292E3D] text-[40px] font-medium leading-[77px] tracking-[-3.5px] mb-4
                         ${checkDifference(currentContent?.["1"]?.content?.title?.[language], liveContent?.["1"]?.content?.title?.[language])}
                         `}
